@@ -1,0 +1,5 @@
+# Test requirements for ./test/
+# Uses standard library: unittest, json, os, tempfile
+# For Python 3.3+: unittest.mock (used in test_replace_in_file_tool.py)
+# For running tests
+pytest>=7.0.0

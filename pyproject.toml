@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uag"
+version = "0.2.16"
+description = "A powerful tool execution agent"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [
+  { name = "User", email = "ukawa.hirofumi@nttdata-sbc.co.jp" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "mdformat>=0.7.0",
+    "openai>=1.0.0",
+    "anthropic>=0.40.0",
+    "google-genai>=0.8.0",
+    "pdfplumber>=0.9.0",
+    "python-pptx>=0.6.21",
+    "requests>=2.28.0",
+    "python-dotenv>=1.0.0",
+    "tqdm>=4.65.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.0.0",
+    "exstruct",
+    "pyyaml",
+    "pyside6",
+    "beautifulsoup4>=4.11.0",
+    "httpx>=0.25.0",
+    "certifi",
+    "numpy",
+    "pyOpenSSL",
+    "playwright",
+    "holidays>=0.89",
+    "pyreadline3>=3.4.1; sys_platform == 'win32'",
+    "pyautogui; sys_platform == 'win32' or sys_platform == 'darwin' or sys_platform == 'linux'",
+    "pygetwindow; sys_platform == 'win32'",
+    "ruff>=0.0.0",
+    "black>=24.0.0",
+    "mypy>=1.0.0",
+    "pylint>=3.0.0",
+]
+
+
+[project.scripts]
+
+uag = "uagent.cli:main"
+uagg = "uagent.gui:main"
+uagw = "uagent.web:main"
+
+[project.optional-dependencies]
+web = [
+  "fastapi",
+  "uvicorn",
+  "jinja2",
+  "python-multipart",
+  "websockets",
+]
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["uagent", "uagent.*"]
+exclude = ["uagent.mcp*", "test*", "tests*"]
+
+[tool.setuptools.package-data]
+uagent = ["tools/**/*", "prompts/**/*", "static/**/*", "templates/**/*", "docs/**/*", "README.md", "QUICKSTART.md"]
+
+[tool.ruff]
+# Ruff settings
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+# Keep this conservative to avoid large semantic changes.
+# We explicitly ignore E501 because this repo contains many long Japanese strings
+# (SYSTEM_PROMPT, tool specs) that are not worth wrapping.
+select = [
+  "E",  # pycodestyle errors
+  "F",  # pyflakes
+]
+ignore = [
+  "E501", # line too long
+]
+
+fixable = ["ALL"]
+unfixable = []
