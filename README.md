@@ -41,6 +41,8 @@ python -m uagent
 
 #### workdir（作業ディレクトリ）指定
 
+通常は指定の必要はありません。
+
 - CLI: `uag -C ./work`
 - GUI: `uag gui -C ./work`（または `python -m uagent.gui -C ./work`）
 - Web: `UAGENT_WORKDIR=./work uag web`（Web は環境変数で指定）
@@ -119,3 +121,4 @@ python -m uagent
 
 Playwright Inspector を使って、手動操作の流れ（URL遷移/DOM/スクリーンショット/イベントログ）を保存できます。
 詳細は **`src/uagent/docs/WEBINSPECTER.md`** を参照してください。
+
