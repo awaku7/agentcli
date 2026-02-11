@@ -12,12 +12,20 @@ uag は、ローカルPC上で **コマンド実行**・**ファイル操作**�
 
 配布された whl を pip でインストールする手順は **`QUICKSTART.md`** を参照してください。
 
+- 配布先: GitHub の **Releases** ページ（Assets の `.whl`）
 - whl 例: `uag-<VERSION>-py3-none-any.whl`
 - インストール例:
 
 ```bash
-python -m pip install uag-<VERSION>-py3-none-any.whl
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install ./uag-<VERSION>-py3-none-any.whl
 ```
+
+補足:
+- `uag` は **Python 3.11+** が必要です。
+- リポジトリを開発用途で使う場合は、`python -m pip install -e .`（Web UIも使うなら `python -m pip install -e ".[web]"`）を推奨します。
 
 ---
 
