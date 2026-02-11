@@ -114,24 +114,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         return "Error: require_nonempty=true のため、削除後に空になる操作は禁止です"
 
     config["mcp_servers"] = servers
-
     text = json.dumps(config, ensure_ascii=False, indent=2)
     try:
-        try:
-            from .create_file_tool import run_tool as create_file
-        except ImportError:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(text)
-
-            r_name = removed.get("name") if isinstance(removed, dict) else None
-            return (
-                f"OK: removed index={removed_idx} name={r_name!r} "
-                "(Note: create_file_tool import failed, direct write used)"
-            )
-
-        create_file(
-            {"filename": path, "content": text, "encoding": "utf-8", "overwrite": True}
-        )
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
     except Exception as e:
         return f"ERROR: 書き込みに失敗しました: {type(e).__name__}: {e}"
 

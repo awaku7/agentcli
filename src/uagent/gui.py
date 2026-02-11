@@ -49,31 +49,23 @@ IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 LOG_FILE = "gui_worker_session.log"
 
 
-
 class RedirectToLog:
     def __init__(self, path: str, original_stream):
         self.path = path
         self.original_stream = original_stream
 
     def write(self, data: str):
-        # Write to file (append)
+        # Write to file only (append). Do not mirror to console.
         try:
             with open(self.path, "a", encoding="utf-8") as f:
                 f.write(data)
         except Exception:
             pass
-        # Write to original stream (console)
-        try:
-            self.original_stream.write(data)
-            self.original_stream.flush()
-        except Exception:
-            pass
 
     def flush(self):
-        try:
-            self.original_stream.flush()
-        except Exception:
-            pass
+        # Nothing to flush for the file-only stream.
+        pass
+
 
 @dataclass
 class GuiConfig:
@@ -483,7 +475,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
                 if display_text:
                     self._output.moveCursor(QtGui.QTextCursor.End)
-                    self._output.insertHtml(self._linkify_html(display_text))
+                    self._output.insertPlainText(display_text)
                     self._output.ensureCursorVisible()
 
             # human_ask 状態の同期
@@ -697,14 +689,14 @@ def main():
     except Exception:
         pass
 
-    print(get_welcome_message())
     ensure_mcp_config_template()
     # Redirect stdout/stderr to LOG_FILE
-    with open(LOG_FILE, "w", encoding="utf-8") as f:
+    with open(LOG_FILE, "w", encoding="utf-8"):
         pass  # clear log file
     sys.stdout = RedirectToLog(LOG_FILE, sys.stdout)
     sys.stderr = RedirectToLog(LOG_FILE, sys.stderr)
 
+    print(get_welcome_message())
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
