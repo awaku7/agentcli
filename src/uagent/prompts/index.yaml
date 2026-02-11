@@ -1,0 +1,173 @@
+# Prompt catalog index (v1)
+#
+# - id: unique id
+# - domain: e.g. system_dev
+# - task: e.g. requirements
+# - title: human-readable title
+# - file: relative path under this prompts/ directory
+# - placeholders: list of placeholder variable names expected in the template
+#
+- id: system_dev.requirements.v1
+  domain: system_dev
+  task: requirements
+  title: 要件定義（ヒアリング〜要件化）プロンプト
+  file: templates/system_dev.requirements.md
+  placeholders:
+    - background
+    - goals
+    - scope_in
+    - scope_out
+    - stakeholders
+    - users
+    - as_is
+    - to_be
+    - constraints
+    - non_functional
+    - data
+    - integrations
+    - security_privacy
+    - acceptance_criteria
+    - risks
+    - open_questions
+
+- id: system_dev.basic_design.v1
+  domain: system_dev
+  task: basic_design
+  title: 基本設計（アーキ/方式設計）プロンプト
+  file: templates/system_dev.basic_design.md
+  placeholders:
+    - requirements_summary
+    - constraints
+    - architecture_style
+    - tech_stack
+    - system_context
+    - nfr
+    - data_overview
+    - integrations
+    - availability
+    - security
+    - operations
+    - decisions
+    - open_questions
+
+- id: system_dev.detail_design.v1
+  domain: system_dev
+  task: detail_design
+  title: 詳細設計（API/DB/画面/処理）プロンプト
+  file: templates/system_dev.detail_design.md
+  placeholders:
+    - basic_design_summary
+    - modules
+    - api_list
+    - data_model
+    - screen_list
+    - business_rules
+    - error_handling
+    - logging_monitoring
+    - performance
+    - security
+    - test_points
+    - open_questions
+
+- id: system_dev.implementation.v1
+  domain: system_dev
+  task: implementation
+  title: 実装支援（方針/タスク分解/コーディング注意）プロンプト
+  file: templates/system_dev.implementation.md
+  placeholders:
+    - repo_structure
+    - coding_standard
+    - target_language
+    - framework
+    - key_requirements
+    - interfaces
+    - edge_cases
+    - performance
+    - security
+    - test_strategy
+
+- id: system_dev.code_review.v1
+  domain: system_dev
+  task: code_review
+  title: コードレビュー（品質/保守性/セキュリティ）プロンプト
+  file: templates/system_dev.code_review.md
+  placeholders:
+    - language
+    - framework
+    - diff_or_files
+    - requirements
+    - architecture_notes
+    - constraints
+    - security_focus
+    - performance_focus
+    - style_guide
+
+- id: system_dev.test_design.v1
+  domain: system_dev
+  task: test_design
+  title: テスト設計（観点/ケース/自動化）プロンプト
+  file: templates/system_dev.test_design.md
+  placeholders:
+    - requirements
+    - system_overview
+    - risk_areas
+    - environments
+    - data
+    - integrations
+    - non_functional
+    - acceptance_criteria
+
+- id: system_dev.incident_analysis.v1
+  domain: system_dev
+  task: incident_analysis
+  title: 障害調査・原因分析（再発防止）プロンプト
+  file: templates/system_dev.incident_analysis.md
+  placeholders:
+    - incident_summary
+    - timeline
+    - impact
+    - detection
+    - systems
+    - logs_metrics
+    - recent_changes
+    - hypotheses
+    - constraints
+
+- id: system_dev.ops_runbook.v1
+  domain: system_dev
+  task: ops_runbook
+  title: 運用手順書（Runbook）作成プロンプト
+  file: templates/system_dev.ops_runbook.md
+  placeholders:
+    - system_overview
+    - environments
+    - routine_ops
+    - monitoring
+    - alerts
+    - deployment
+    - backup_restore
+    - incident_response
+    - access_control
+
+- id: system_dev.security_review.v1
+  domain: system_dev
+  task: security_review
+  title: セキュリティレビュー（脅威/対策/残リスク）プロンプト
+  file: templates/system_dev.security_review.md
+  placeholders:
+    - system_overview
+    - architecture
+    - data_classification
+    - authn_authz
+    - threat_model
+    - dependencies
+    - compliance
+    - constraints
+    - security_controls
+
+- id: system_dev.interview
+  domain: system_dev
+  task: intake
+  title: プログラム開発ヒアリング（質問テンプレ）
+  file: templates/system_dev.interview.md
+  placeholders: []

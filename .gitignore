@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Tool-specific caches
+.scheck_tmp/
+.tmp_patch/
+logs/
+*.org
+*.org*
+.env
+src/scheck/README.md
+*~
