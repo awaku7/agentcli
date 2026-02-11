@@ -58,10 +58,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     default_name = (
         str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
     )
-    default_url = (
-        str(args.get("default_url", "")).strip()
-        or ""
-    )
+    default_url = str(args.get("default_url", "")).strip() or ""
     default_transport = (
         str(args.get("default_transport", "streamable-http")).strip()
         or "streamable-http"
@@ -79,25 +76,11 @@ def run_tool(args: Dict[str, Any]) -> str:
             }
         ]
     }
-
     # 新規作成のみ（overwrite=False）
     try:
         content = json.dumps(data, ensure_ascii=False, indent=2)
-        try:
-            from .create_file_tool import run_tool as create_file
-        except ImportError:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(content)
-            return f"OK: created template: {path!r} (Note: create_file_tool import failed, direct write used)"
-
-        create_file(
-            {
-                "filename": path,
-                "content": content,
-                "encoding": "utf-8",
-                "overwrite": False,
-            }
-        )
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
     except Exception as e:
         return f"ERROR: 雛形作成に失敗しました: {type(e).__name__}: {e}"
 

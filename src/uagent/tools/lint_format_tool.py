@@ -271,9 +271,15 @@ def run_tool(args: Dict[str, Any]) -> str:
             # NOTE: mdformat operates on Markdown files. User requested "all" extensions;
             # we therefore apply mdformat to whatever targets are passed.
             if mode == "check":
-                cmd_parts = ["python", "-m", "mdformat", "--check"] + safe_targets + sanitized_extra
+                cmd_parts = (
+                    ["python", "-m", "mdformat", "--check"]
+                    + safe_targets
+                    + sanitized_extra
+                )
             else:
-                cmd_parts = ["python", "-m", "mdformat"] + safe_targets + sanitized_extra
+                cmd_parts = (
+                    ["python", "-m", "mdformat"] + safe_targets + sanitized_extra
+                )
         else:
             results.append({"tool": tool, "ok": False, "error": "unsupported tool"})
             overall_ok = False

@@ -54,7 +54,6 @@ TOOL_SPEC: Dict[str, Any] = {
             "- preview=true の場合は変更せずにプレビューを返します。"
             "- preview=false の場合はバックアップ(.org/.orgN)作成後に書き込みます。"
             "- safety: pattern/replacement に生の改行(\\n/\\r)が含まれる場合、ポリシーにより自動キャンセルされることがあります（human_askなし）。"
-
         ),
         "parameters": {
             "type": "object",
@@ -277,13 +276,25 @@ def run_tool(args: Dict[str, Any]) -> str:
     # - regex_replacement_backslash_policy: allow|reject
     # - strict_for_py: when True and target is .py, force both policies to 'reject'
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-    regex_repl_bs_policy = str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
-    strict_for_py = bool(args.get("strict_for_py", False))
-
+    regex_repl_bs_policy = (
+        str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
+    )
     if raw_newline_policy not in ("allow", "reject"):
-        return json.dumps({"ok": False, "error": f"invalid raw_newline_policy: {raw_newline_policy!r}"}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"invalid raw_newline_policy: {raw_newline_policy!r}",
+            },
+            ensure_ascii=False,
+        )
     if regex_repl_bs_policy not in ("allow", "reject"):
-        return json.dumps({"ok": False, "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}"}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}",
+            },
+            ensure_ascii=False,
+        )
 
     # If strict_for_py is enabled, enforce reject policies for .py targets.
     ext = os.path.splitext(path)[1].lower() if path else ""
@@ -292,13 +303,15 @@ def run_tool(args: Dict[str, Any]) -> str:
         regex_repl_bs_policy = "reject"
 
     # 1) Raw newline check (reject => cancel with a machine-readable error for the LLM).
-    if raw_newline_policy == "reject" and (_has_raw_newline(pattern) or _has_raw_newline(replacement)):
+    if raw_newline_policy == "reject" and (
+        _has_raw_newline(pattern) or _has_raw_newline(replacement)
+    ):
         return json.dumps(
             {
                 "ok": False,
                 "error": (
                     "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\n/\r). "
-                    "Do not send literal newlines. Encode them as \"\\n\" in the JSON string "
+                    'Do not send literal newlines. Encode them as "\\n" in the JSON string '
                     "(i.e. write \\n as \\\n), or use python_exec to edit the file safely."
                 ),
             },
@@ -329,7 +342,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     if not path:
-        return json.dumps({"ok": False, "error": "path is required"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "path is required"}, ensure_ascii=False
+        )
 
     if is_path_dangerous(path):
         return json.dumps(
