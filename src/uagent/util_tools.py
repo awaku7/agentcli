@@ -278,21 +278,19 @@ def handle_command(
                     return True
 
                 items = []
-                for p2 in matches:
+                for p in matches:
                     try:
-                        p_exp = os.path.expandvars(os.path.expanduser(p2))
+                        p_exp = os.path.expandvars(os.path.expanduser(p))
                         p_abs = os.path.abspath(p_exp)
                         is_dir = os.path.isdir(p_abs)
                         size = os.path.getsize(p_abs) if os.path.isfile(p_abs) else 0
                     except Exception:
-                        p_abs = os.path.abspath(p2)
+                        p_abs = os.path.abspath(p)
                         is_dir = os.path.isdir(p_abs)
                         size = 0
 
                     base = os.path.basename(p_abs.rstrip(os.sep)) or p_abs
-                    items.append(
-                        (0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size)
-                    )
+                    items.append((0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size))
 
                 items.sort(key=lambda x: (x[0], x[1]))
 
@@ -313,13 +311,13 @@ def handle_command(
 
             entries = []
             for name in os.listdir(target_abs):
-                p3 = os.path.join(target_abs, name)
+                p = os.path.join(target_abs, name)
                 try:
-                    st = os.stat(p3)
-                    is_dir = os.path.isdir(p3)
+                    st = os.stat(p)
+                    is_dir = os.path.isdir(p)
                     size = st.st_size
                 except Exception:
-                    is_dir = os.path.isdir(p3)
+                    is_dir = os.path.isdir(p)
                     size = 0
 
                 entries.append((0 if is_dir else 1, name.lower(), name, is_dir, size))
@@ -335,6 +333,7 @@ def handle_command(
         except Exception as e:
             print(f"[ls error] {type(e).__name__}: {e}")
         return True
+
 
     if cmd in ("logs", "list"):
         show_all = False

@@ -90,11 +90,7 @@ def _internal_pager(text: str) -> None:
     import sys
     import shutil
 
-    debug_pager = os.environ.get("UAGENT_DEBUG_PAGER", "").lower() in (
-        "1",
-        "true",
-        "yes",
-    )
+    debug_pager = os.environ.get("UAGENT_DEBUG_PAGER", "").lower() in ("1", "true", "yes")
 
     if debug_pager:
         try:
@@ -156,7 +152,7 @@ def _internal_pager(text: str) -> None:
             break
 
         try:
-            input("-- More -- (Enter: next) ")
+            ans = input("-- More -- (Enter: next) ")
         except EOFError:
             if debug_pager:
                 try:
@@ -170,16 +166,13 @@ def _internal_pager(text: str) -> None:
         except KeyboardInterrupt:
             if debug_pager:
                 try:
-                    sys.stderr.write(
-                        "[pager] input: KeyboardInterrupt -> stop paging\n"
-                    )
+                    sys.stderr.write("[pager] input: KeyboardInterrupt -> stop paging\n")
                     sys.stderr.flush()
                 except Exception:
                     pass
             sys.stdout.write("\n")
             sys.stdout.flush()
             break
-
 
 def print_welcome(*, use_pager: bool = True) -> None:
     """Print welcome message.

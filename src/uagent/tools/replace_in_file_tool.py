@@ -344,6 +344,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     # 2) Regex replacement backslash check (Python re.sub replacement parsing is fragile).
+    # 2) Regex replacement backslash check (Python re.sub replacement parsing is fragile).
     if mode == "regex" and regex_repl_bs_policy == "reject" and ("\\" in replacement):
         # Allow only safe group references in re.sub replacement: \1-\9 and \g<...>
         # Reject other backslash escapes (e.g. \w, \s, \n) that commonly break replacement parsing.
