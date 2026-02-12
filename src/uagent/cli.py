@@ -215,7 +215,7 @@ def _uagent_setup_readline_completion() -> None:
     # Enable TAB completion when running interactively
     if not readline:
         return
-    if not (sys.stdin.isatty() and sys.stdout.isatty()):
+    if not sys.stdin.isatty():
         return
 
     try:
