@@ -100,19 +100,19 @@ def print_status_line() -> None:
 
     if IS_GUI:
         # GUIの場合は、ANSIエスケープを使わず、かつ行頭復帰も行わない単純なログ形式にする。
-        sys.stderr.write(f"[STATE] {state}{label_part}\\n")
+        sys.stderr.write(f"[STATE] {state}{label_part}\n")
         sys.stderr.flush()
         return
 
     # 色分け（BUSY=黄色, IDLE=緑）
     if busy:
-        color = "\\x1b[33m"  # yellow
+        color = "\x1b[33m"  # yellow
     else:
-        color = "\\x1b[32m"  # green
+        color = "\x1b[32m"  # green
 
-    # \\r\\x1b[2K で行頭に戻り行をクリア。末尾に \\n を入れることで、
+    # \r\x1b[2K で行頭に戻り行をクリア。末尾に \n を入れることで、
     # 複数行出力の際に前のステータスを上書きしつつ新しい行へ進む。
-    sys.stderr.write(f"\\r\\x1b[2K{color}[STATE] {state}{label_part}\\x1b[0m\\n")
+    sys.stderr.write(f"\r\x1b[2K{color}[STATE] {state}{label_part}\x1b[0m\n")
     sys.stderr.flush()
 
 
@@ -192,7 +192,7 @@ def truncate_output(label: str, text: str, limit: int = MAX_TOOL_OUTPUT_CHARS) -
     if len(text) <= limit:
         return text
     omitted = len(text) - limit
-    return text[:limit] + f"\\n[{label} truncated: {omitted} chars omitted]"
+    return text[:limit] + f"\n[{label} truncated: {omitted} chars omitted]"
 
 
 def _mask_message(obj: Any) -> Any:
@@ -236,7 +236,7 @@ def log_message(message: Dict[str, Any]) -> None:
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
         with open(LOG_FILE, "a", encoding="utf-8") as f:
-            f.write(json.dumps(masked_msg, ensure_ascii=False) + "\\n")
+            f.write(json.dumps(masked_msg, ensure_ascii=False) + "\n")
     except Exception:
         # ログで失敗しても黙って無視
         pass
@@ -613,7 +613,9 @@ def sanitize_messages_for_tools(messages: List[Dict[str, Any]]) -> List[Dict[str
                 cleaned.append(m)
             else:
                 # 親のない tool → API ではエラーになるので捨てる
-                pass
+                print(
+                    file=sys.stderr,
+                )
 
         else:
             # system / user / 通常 assistant はそのまま
@@ -776,11 +778,11 @@ def compress_history_with_llm(
     # --- 要約用の別コンテキスト ---
     summary_system_prompt = (
         "あなたは対話ログの要約エージェントです。以下のユーザーとアシスタントの過去の対話ログを、"
-        "後続の対話に必要な情報を失わない範囲でコンパクトに日本語で要約してください。\\n"
-        "・重要な前提条件、設定、方針、決定事項は残す\\n"
-        "・コードのバージョンやファイルパスなど、後から参照しそうなものは必要に応じて残す\\n"
-        "・挨拶や雑談など、今後のタスクに不要な部分は省略する\\n"
-        "・出力は「このセッションの過去ログ要約」として、そのまま system メッセージに入れられる形にする\\n"
+        "後続の対話に必要な情報を失わない範囲でコンパクトに日本語で要約してください。\n"
+        "・重要な前提条件、設定、方針、決定事項は残す\n"
+        "・コードのバージョンやファイルパスなど、後から参照しそうなものは必要に応じて残す\n"
+        "・挨拶や雑談など、今後のタスクに不要な部分は省略する\n"
+        "・出力は「このセッションの過去ログ要約」として、そのまま system メッセージに入れられる形にする\n"
     )
 
     summary_messages = [
@@ -828,7 +830,7 @@ def compress_history_with_llm(
         summary_content = resp.choices[0].message.content or ""
     summary_msg = {
         "role": "system",
-        "content": "これまでの対話ログの要約:\\n" + summary_content,
+        "content": "これまでの対話ログの要約:\n" + summary_content,
     }
 
     # 新しい messages を構成
@@ -855,8 +857,8 @@ def print_help() -> None:
         "  :help                 このヘルプを表示",
         '  (複数行入力中) """retry  入力を最初からやり直す',
         "  :logs / :list         ログファイル一覧を表示",
-        "  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd C:\\\\path / :cd /）",
-        "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\\\path）",
+        "  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd C:\\path / :cd /）",
+        "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）",
         "  :load <idx|path>      過去ログを読み込んで会話を再開（idx は :logs で表示される番号）",
         "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）",
         "  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, 既定=20）",
@@ -870,7 +872,7 @@ def print_help() -> None:
         "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。",
         f"  - 複数行入力モードの終了は行全体が {MULTI_INPUT_SENTINEL} の行です。",
     ]
-    print("\\n".join(lines))
+    print("\n".join(lines))
 
 # ==============================
 # SYSTEM_PROMPT
@@ -913,4 +915,4 @@ def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
         name = func.get("name", "(unknown)")
         sp = func.get("system_prompt") or func.get("description") or ""
         lines.append(f"- {name}: {sp}")
-    return "\\n".join(lines)
+    return "\n".join(lines)

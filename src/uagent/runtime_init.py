@@ -35,9 +35,7 @@ class WorkdirDecision:
     chosen_expanded: str
 
 
-def decide_workdir(
-    *, cli_workdir: Optional[str] = None, env_workdir: Optional[str] = None
-) -> WorkdirDecision:
+def decide_workdir(*, cli_workdir: Optional[str] = None, env_workdir: Optional[str] = None) -> WorkdirDecision:
     """Decide workdir path without side-effects.
 
     Resolution order (same as CLI):
@@ -60,13 +58,9 @@ def decide_workdir(
 
     # Safety check only (no mkdir/chdir here)
     if os.path.exists(chosen_expanded) and not os.path.isdir(chosen_expanded):
-        raise NotADirectoryError(
-            f"指定された workdir がファイルです: {chosen_expanded}"
-        )
+        raise NotADirectoryError(f"指定された workdir がファイルです: {chosen_expanded}")
 
-    return WorkdirDecision(
-        chosen=chosen, chosen_source=chosen_source, chosen_expanded=chosen_expanded
-    )
+    return WorkdirDecision(chosen=chosen, chosen_source=chosen_source, chosen_expanded=chosen_expanded)
 
 
 def apply_workdir(decision: WorkdirDecision) -> None:
@@ -106,9 +100,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_AZURE_BASE_URL', '(not set)'))}"
         )
-        lines.append(
-            f"[INFO] api_version = {os.environ.get('UAGENT_AZURE_API_VERSION', '(not set)')}"
-        )
+        lines.append(f"[INFO] api_version = {os.environ.get('UAGENT_AZURE_API_VERSION', '(not set)')}")
     elif provider == "openai":
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_OPENAI_BASE_URL', 'https://api.openai.com/v1'))}"
@@ -205,8 +197,8 @@ def append_long_memory_system_messages(
         if shared_system_msg:
             # Compatible prefix
             try:
-                shared_system_msg["content"] = "【共有長期記憶（共有メモ）】\n" + (
-                    shared_system_msg.get("content") or ""
+                shared_system_msg["content"] = (
+                    "【共有長期記憶（共有メモ）】\n" + (shared_system_msg.get("content") or "")
                 )
             except Exception:
                 pass

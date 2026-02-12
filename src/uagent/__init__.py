@@ -15,7 +15,7 @@ def __getattr__(name: str):
 
     try:
         # Prefer installed distribution metadata
-        from importlib.metadata import version
+        from importlib.metadata import PackageNotFoundError, version
 
         return version("uag")
     except Exception:
@@ -24,3 +24,4 @@ def __getattr__(name: str):
 
 
 __all__ = ["__version__"]
+
