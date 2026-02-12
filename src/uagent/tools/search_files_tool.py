@@ -2,7 +2,7 @@
 import os
 import re
 import fnmatch
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional, Tuple
 
 # ツール実行中は Busy 表示にしたいので ON
 BUSY_LABEL = True
@@ -62,14 +62,14 @@ TOOL_SPEC: Dict[str, Any] = {
 
 # 検索から除外するディレクトリ
 IGNORE_DIRS = {
-    ".git",
-    "__pycache__",
-    ".venv",
-    "venv",
-    "node_modules",
-    ".idea",
-    ".vscode",
-    "coverage",
+    '.git',
+    '__pycache__',
+    '.venv',
+    'venv',
+    'node_modules',
+    '.idea',
+    '.vscode',
+    'coverage',
 }
 
 # 検索対象外にする拡張子（バイナリや巨大ファイルなど）

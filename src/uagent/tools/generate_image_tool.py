@@ -191,15 +191,11 @@ def _run_openai_images(
         if provider == "nvidia":
             api_key = (os.environ.get("UAGENT_NVIDIA_API_KEY") or "").strip()
             base_url = (
-                (
-                    os.environ.get(
-                        "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
-                    )
-                    or ""
+                os.environ.get(
+                    "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
                 )
-                .strip()
-                .rstrip("/")
-            )
+                or ""
+            ).strip().rstrip("/")
             if not api_key:
                 raise RuntimeError(
                     "NVIDIA用の環境変数 UAGENT_NVIDIA_API_KEY が不足しています"
@@ -207,15 +203,9 @@ def _run_openai_images(
         else:
             api_key = (os.environ.get("UAGENT_OPENAI_API_KEY") or "").strip()
             base_url = (
-                (
-                    os.environ.get(
-                        "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
-                    )
-                    or ""
-                )
-                .strip()
-                .rstrip("/")
-            )
+                os.environ.get("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
+                or ""
+            ).strip().rstrip("/")
             if not api_key:
                 raise RuntimeError(
                     "OpenAI用の環境変数 UAGENT_OPENAI_API_KEY が不足しています"
@@ -279,16 +269,14 @@ def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
                 img = getattr(gi, "image", None)
                 if img is None:
                     continue
-
+                
                 # SDK v1.62+ では image_bytes (bytes) に格納される
                 raw_bytes = getattr(img, "image_bytes", None)
                 if raw_bytes:
                     b64 = base64.b64encode(raw_bytes).decode("utf-8")
                 else:
                     # 旧SDK互換
-                    b64 = getattr(img, "bytes_base64_encoded", None) or getattr(
-                        img, "data", None
-                    )
+                    b64 = getattr(img, "bytes_base64_encoded", None) or getattr(img, "data", None)
 
                 if b64:
                     b64_list.append(str(b64))

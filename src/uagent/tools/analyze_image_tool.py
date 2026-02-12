@@ -216,22 +216,16 @@ def _run_openai_compatible(image_bytes: bytes, mime_type: str, prompt: str) -> s
                 "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
             )
     except SystemExit:
-        missing = (
-            "UAGENT_NVIDIA_API_KEY" if provider == "nvidia" else "UAGENT_OPENAI_API_KEY"
-        )
+        missing = "UAGENT_NVIDIA_API_KEY" if provider == "nvidia" else "UAGENT_OPENAI_API_KEY"
         return f"[analyze_image error] 環境変数 {missing} が設定されていません。"
     except Exception as e:
-        return (
-            f"[analyze_image error] APIキー取得に失敗しました: {type(e).__name__}: {e}"
-        )
+        return f"[analyze_image error] APIキー取得に失敗しました: {type(e).__name__}: {e}"
 
     # 画像解析専用のモデル指定があれば優先
     if provider == "nvidia":
         model = os.environ.get("UAGENT_NVIDIA_IM_DEPNAME")
         if not model:
-            model = os.environ.get(
-                "UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"
-            )
+            model = os.environ.get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
     else:
         model = os.environ.get("UAGENT_OPENAI_IM_DEPNAME")
         if not model:
