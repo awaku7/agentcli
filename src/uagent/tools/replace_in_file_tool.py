@@ -37,24 +37,41 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "replace_in_file",
         "description": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。"
-            "内部で改行コードを正規化するため、改行を含む検索・置換も安全に行えます。"
-            " mode=regex の pattern は Python の re 正規表現です。\\x などのバックスラッシュ系列は不正だと re.error になります（例: \\xNN が必要）。"
-            " preview=true の場合は変更せずにプレビューを返します。"
-            " preview=false の場合はバックアップ作成後に書き込みます。"
-            " safety: preview=false で pattern/replacement に生の改行(\n/\r)が含まれる場合は human_ask で確認します（デフォルト中止）。"
+            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
+            "内部で改行コードを正規化するため、改行を含む検索・置換も扱えます。\n"
+            "\n"
+            "重要（必読）:\n"
+            "- まず preview=true でヒット箇所を確認し、問題なければ preview=false で適用してください。\n"
+            "- pattern/replacement に『生の改行（実改行文字）』を入れると、Python 等のソースコードを壊す事故につながります。\n"
+            "  改行は必ず \\n として表現してください（JSONでは \\\n）。\n"
+            "- mode=regex の pattern は Python の re 正規表現です（単なる文字列検索ではありません）。\n"
+            "  例: \\x は不正です。\\xNN（例: \\x00, \\x1b）の形で指定してください。\n"
+            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先してください。\n"
         ),
         "system_prompt": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。"
-            "- 改行コードは自動的に正規化されるため、検索パターンには \\n を使用してください。"
-            "- mode=regex の pattern は Python の正規表現(re)として解釈されます。単なる文字列検索ではありません。"
-            "  - 例えば \\x は不正です。\\xNN (例: \\x00, \\x1b) の形でなければ re.error(bad escape \\x) になります。"
-            "  - バックスラッシュを『文字として』検索したいだけなら mode=literal を優先してください。"
-            "- JSON ではバックスラッシュをエスケープしてください（例: \\n は \\\\n、\\S は \\\\S、\\x00 は \\\\x00、バックスラッシュそのものは \\\\\\）。"
-            "- preview=true の場合は変更せずにプレビューを返します。"
-            "- preview=false の場合はバックアップ(.org/.orgN)作成後に書き込みます。"
-            "- safety: pattern/replacement に生の改行(\\n/\\r)が含まれる場合、ポリシーにより自動キャンセルされることがあります（human_askなし）。"
-
+            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
+            "\n"
+            "手順（推奨）:\n"
+            "1) read_file で対象箇所を確認\n"
+            "2) replace_in_file を preview=true で実行し、ヒット箇所と差分プレビューを確認\n"
+            "3) 狙い通りなら preview=false で適用（バックアップ .org/.orgN が作成される）\n"
+            "4) .py を編集した場合は python -m py_compile で構文チェック\n"
+            "\n"
+            "改行の指定（最重要）:\n"
+            "- pattern/replacement に『生の改行（実改行文字）』を入れないこと。\n"
+            "  - OK: aaa\\nbbb（JSONでは aaa\\\\nbbb）\n"
+            "  - NG: aaa<改行>bbb（混入すると Python の文字列リテラルが壊れて SyntaxError になり得る）\n"
+            "\n"
+            "mode=regex の注意:\n"
+            "- pattern は Python の正規表現(re)として解釈される（単なる文字列検索ではない）\n"
+            "- \\x は不正（re.error）。\\xNN（例: \\x00）の形式で書く\n"
+            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
+            "\n"
+            "Windows パス例の注意（.py 編集時に特に重要）:\n"
+            "- Python の \"...\" 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n"
+            "\n"
+            "safety:\n"
+            "- preview=false で危険パス/大量マッチ等の条件に該当する場合、確認や自動キャンセルが入ることがある\n"
         ),
         "parameters": {
             "type": "object",
@@ -71,7 +88,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "pattern": {
                     "type": "string",
-                    "description": "検索パターン。改行は \n として記述してください。",
+                    "description": "検索パターン。改行は \\n として記述してください。",
                 },
                 "replacement": {
                     "type": "string",

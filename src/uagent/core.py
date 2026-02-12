@@ -852,25 +852,27 @@ def print_help() -> None:
     """
     :help コマンドの内容
     """
-    print(
-        "利用可能なコマンド:\n"
-        "  :help                 このヘルプを表示\n"
-        '  (複数行入力中) """retry  入力を最初からやり直す\n'
-        "  :logs / :list         ログファイル一覧を表示\n"
-        "  :load <idx|path>      過去ログを読み込んで会話を再開（idx は :logs で表示される番号）\n"
-        "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）\n"
-        "  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, 既定=20）\n"
-        "  :mem-list             長期記憶メモの一覧を表示\n"
-        "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）\n"
-        "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）\n"
-        "  :shared-mem-del <i>   指定 index の共有長期記憶メモを削除\n"
-        "  :exit / :quit         終了\n"
-        "\n"
-        "ヒント:\n"
-        "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。\n"
-        f"  - 複数行入力モードの終了は行全体が {MULTI_INPUT_SENTINEL} の行です。\n"
-    )
-
+    lines = [
+        "利用可能なコマンド:",
+        "  :help                 このヘルプを表示",
+        '  (複数行入力中) """retry  入力を最初からやり直す',
+        "  :logs / :list         ログファイル一覧を表示",
+        "  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd C:\\path / :cd /）",
+        "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）",
+        "  :load <idx|path>      過去ログを読み込んで会話を再開（idx は :logs で表示される番号）",
+        "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）",
+        "  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, 既定=20）",
+        "  :mem-list             長期記憶メモの一覧を表示",
+        "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）",
+        "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）",
+        "  :shared-mem-del <i>   指定 index の共有長期記憶メモを削除",
+        "  :exit / :quit         終了",
+        "",
+        "ヒント:",
+        "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。",
+        f"  - 複数行入力モードの終了は行全体が {MULTI_INPUT_SENTINEL} の行です。",
+    ]
+    print("\n".join(lines))
 
 # ==============================
 # SYSTEM_PROMPT
