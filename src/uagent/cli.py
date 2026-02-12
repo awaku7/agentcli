@@ -104,6 +104,135 @@ UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 
 
+# ------------------------------
+# Readline TAB completion (interactive TTY only)
+# - Only for :cd and :ls arguments
+# - Other inputs keep current behavior
+
+def _uagent_has_glob_meta(s: str) -> bool:
+    return any(ch in s for ch in ("*", "?", "["))
+
+
+def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
+    # Split ':cmd arg...' into (cmd, arg, arg_start_index_in_buf)
+    # Notes:
+    # - intentionally simple; no quoting support
+    if not buf.startswith(":"):
+        return "", "", len(buf)
+
+    s = buf[1:]
+    m = re.match(r"^(\S+)(\s+)?(.*)$", s)
+    if not m:
+        return "", "", len(buf)
+
+    cmd = (m.group(1) or "").strip()
+    ws = m.group(2) or ""
+    rest = m.group(3) or ""
+
+    if not ws:
+        return cmd, "", len(buf)
+
+    arg_start = 1 + len(cmd) + len(ws)
+    return cmd, rest, arg_start
+
+
+def _uagent_path_candidates(prefix: str) -> list[str]:
+    # Return completion candidates for a filesystem path prefix.
+    # - expands ~ and envvars in the directory part for scanning
+    # - returns candidates in the form that replaces the current token
+
+    expanded = os.path.expandvars(os.path.expanduser(prefix))
+
+    last_sep = max(expanded.rfind("/"), expanded.rfind("\\"))
+
+    if last_sep >= 0:
+        scan_dir = expanded[: last_sep + 1]
+        base = expanded[last_sep + 1 :]
+        out_prefix_raw = prefix[: last_sep + 1]
+    else:
+        scan_dir = ""
+        base = expanded
+        out_prefix_raw = ""
+
+    scan_dir_fs = scan_dir or "."
+
+    try:
+        names = os.listdir(scan_dir_fs)
+    except Exception:
+        return []
+
+    cands: list[str] = []
+    for name in names:
+        if not name.lower().startswith(base.lower()):
+            continue
+
+        full = os.path.join(scan_dir_fs, name)
+        suffix = os.sep if os.path.isdir(full) else ""
+
+        if last_sep >= 0 and last_sep < len(prefix):
+            typed_sep = prefix[last_sep]
+        else:
+            typed_sep = os.sep
+
+        if suffix:
+            suffix = typed_sep
+
+        cands.append(out_prefix_raw + name + suffix)
+
+    cands.sort(key=lambda x: x.lower())
+    return cands
+
+
+def _uagent_rl_completer(text_part: str, state: int):
+    # readline completer for ':cd' / ':ls' (first arg only)
+    try:
+        if not readline:
+            return None
+
+        buf = readline.get_line_buffer() or ""
+        cmd, arg, _arg_start = _uagent_split_cmd_arg(buf)
+
+        if cmd not in ("cd", "ls"):
+            return None
+
+        # Only complete the first argument; if spaces already present in arg, stop.
+        if " " in arg or "	" in arg:
+            return None
+
+        # For :ls, if arg already contains glob meta, do not complete (avoid odd mixes)
+        if cmd == "ls" and _uagent_has_glob_meta(arg):
+            return None
+
+        cands = _uagent_path_candidates(arg)
+        if state < len(cands):
+            return cands[state]
+        return None
+    except Exception:
+        return None
+
+
+def _uagent_setup_readline_completion() -> None:
+    # Enable TAB completion when running interactively
+    if not readline:
+        return
+    if not (sys.stdin.isatty() and sys.stdout.isatty()):
+        return
+
+    try:
+        readline.parse_and_bind("tab: complete")
+
+        # Do not treat ':' as delimiter, otherwise ':cd' gets broken into tokens.
+        if hasattr(readline, "set_completer_delims"):
+            delims = readline.get_completer_delims()
+            if ":" in delims:
+                readline.set_completer_delims(delims.replace(":", ""))
+
+        readline.set_completer(_uagent_rl_completer)
+    except Exception:
+        pass
+
+
+
 def _flush_stdin_input_buffer() -> None:
     """Best-effort flush of *pending* user keystrokes before a prompt.
 
