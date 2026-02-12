@@ -5,6 +5,7 @@ import re
 import subprocess
 import sys
 import base64
+import glob
 import mimetypes
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -236,6 +237,103 @@ def handle_command(
 
     if cmd in ("help", "h", "?"):
         core.print_help()
+        return True
+
+    if cmd in ("cd",):
+        a = (arg or "").strip()
+        if not a:
+            print(":cd <path> の形式で指定してください。")
+            return True
+
+        try:
+            expanded = os.path.expandvars(os.path.expanduser(a))
+            target = os.path.abspath(expanded)
+
+            if not os.path.isdir(target):
+                print(f"[cd] ディレクトリが存在しません: {a} -> {target}")
+                return True
+
+            os.chdir(target)
+            print(f"[cd] workdir = {os.getcwd()}")
+        except Exception as e:
+            print(f"[cd error] {type(e).__name__}: {e}")
+        return True
+
+    if cmd in ("ls",):
+        a = (arg or "").strip()
+        target = a or "."
+
+        try:
+            expanded = os.path.expandvars(os.path.expanduser(target))
+
+            # Wildcard(glob) support:
+            # - If target contains glob meta (* ? [..]) -> list matched paths (files/dirs)
+            # - Otherwise, treat as directory and list its entries (previous behavior)
+            has_glob = any(ch in expanded for ch in ("*", "?", "["))
+
+            if has_glob:
+                matches = glob.glob(expanded)
+                if not matches:
+                    print(f"[ls] マッチするパスがありません: {target} -> {expanded}")
+                    return True
+
+                items = []
+                for p2 in matches:
+                    try:
+                        p_exp = os.path.expandvars(os.path.expanduser(p2))
+                        p_abs = os.path.abspath(p_exp)
+                        is_dir = os.path.isdir(p_abs)
+                        size = os.path.getsize(p_abs) if os.path.isfile(p_abs) else 0
+                    except Exception:
+                        p_abs = os.path.abspath(p2)
+                        is_dir = os.path.isdir(p_abs)
+                        size = 0
+
+                    base = os.path.basename(p_abs.rstrip(os.sep)) or p_abs
+                    items.append(
+                        (0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size)
+                    )
+
+                items.sort(key=lambda x: (x[0], x[1]))
+
+                print(f"[ls] {expanded}")
+                for _, _, name, p_abs, is_dir, size in items:
+                    if is_dir:
+                        print(f"  [D] {name} -> {p_abs}")
+                    else:
+                        print(f"  [F] {name} ({size} bytes) -> {p_abs}")
+                return True
+
+            # Directory listing mode (no glob)
+            target_abs = os.path.abspath(expanded)
+
+            if not os.path.isdir(target_abs):
+                print(f"[ls] ディレクトリが存在しません: {target} -> {target_abs}")
+                return True
+
+            entries = []
+            for name in os.listdir(target_abs):
+                p3 = os.path.join(target_abs, name)
+                try:
+                    st = os.stat(p3)
+                    is_dir = os.path.isdir(p3)
+                    size = st.st_size
+                except Exception:
+                    is_dir = os.path.isdir(p3)
+                    size = 0
+
+                entries.append((0 if is_dir else 1, name.lower(), name, is_dir, size))
+
+            entries.sort(key=lambda x: (x[0], x[1]))
+
+            print(f"[ls] {target_abs}")
+            for _, _, name, is_dir, size in entries:
+                if is_dir:
+                    print(f"  [D] {name}")
+                else:
+                    print(f"  [F] {name} ({size} bytes)")
+        except Exception as e:
+            print(f"[ls error] {type(e).__name__}: {e}")
         return True
 
     if cmd in ("logs", "list"):
