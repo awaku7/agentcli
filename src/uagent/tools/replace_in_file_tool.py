@@ -37,23 +37,41 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "replace_in_file",
         "description": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。"
-            "内部で改行コードを正規化するため、改行を含む検索・置換も安全に行えます。"
-            " mode=regex の pattern は Python の re 正規表現です。\\x などのバックスラッシュ系列は不正だと re.error になります（例: \\xNN が必要）。"
-            " preview=true の場合は変更せずにプレビューを返します。"
-            " preview=false の場合はバックアップ作成後に書き込みます。"
-            " safety: preview=false で pattern/replacement に生の改行(\n/\r)が含まれる場合は human_ask で確認します（デフォルト中止）。"
+            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
+            "内部で改行コードを正規化するため、改行を含む検索・置換も扱えます。\n"
+            "\n"
+            "重要（必読）:\n"
+            "- まず preview=true でヒット箇所を確認し、問題なければ preview=false で適用してください。\n"
+            "- pattern/replacement に『生の改行（実改行文字）』を入れると、Python 等のソースコードを壊す事故につながります。\n"
+            "  改行は必ず \\n として表現してください（JSONでは \\\n）。\n"
+            "- mode=regex の pattern は Python の re 正規表現です（単なる文字列検索ではありません）。\n"
+            "  例: \\x は不正です。\\xNN（例: \\x00, \\x1b）の形で指定してください。\n"
+            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先してください。\n"
         ),
         "system_prompt": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。"
-            "- 改行コードは自動的に正規化されるため、検索パターンには \\n を使用してください。"
-            "- mode=regex の pattern は Python の正規表現(re)として解釈されます。単なる文字列検索ではありません。"
-            "  - 例えば \\x は不正です。\\xNN (例: \\x00, \\x1b) の形でなければ re.error(bad escape \\x) になります。"
-            "  - バックスラッシュを『文字として』検索したいだけなら mode=literal を優先してください。"
-            "- JSON ではバックスラッシュをエスケープしてください（例: \\n は \\\\n、\\S は \\\\S、\\x00 は \\\\x00、バックスラッシュそのものは \\\\\\）。"
-            "- preview=true の場合は変更せずにプレビューを返します。"
-            "- preview=false の場合はバックアップ(.org/.orgN)作成後に書き込みます。"
-            "- safety: pattern/replacement に生の改行(\\n/\\r)が含まれる場合、ポリシーにより自動キャンセルされることがあります（human_askなし）。"
+            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
+            "\n"
+            "手順（推奨）:\n"
+            "1) read_file で対象箇所を確認\n"
+            "2) replace_in_file を preview=true で実行し、ヒット箇所と差分プレビューを確認\n"
+            "3) 狙い通りなら preview=false で適用（バックアップ .org/.orgN が作成される）\n"
+            "4) .py を編集した場合は python -m py_compile で構文チェック\n"
+            "\n"
+            "改行の指定（最重要）:\n"
+            "- pattern/replacement に『生の改行（実改行文字）』を入れないこと。\n"
+            "  - OK: aaa\\nbbb（JSONでは aaa\\\\nbbb）\n"
+            "  - NG: aaa<改行>bbb（混入すると Python の文字列リテラルが壊れて SyntaxError になり得る）\n"
+            "\n"
+            "mode=regex の注意:\n"
+            "- pattern は Python の正規表現(re)として解釈される（単なる文字列検索ではない）\n"
+            "- \\x は不正（re.error）。\\xNN（例: \\x00）の形式で書く\n"
+            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
+            "\n"
+            "Windows パス例の注意（.py 編集時に特に重要）:\n"
+            "- Python の \"...\" 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n"
+            "\n"
+            "safety:\n"
+            "- preview=false で危険パス/大量マッチ等の条件に該当する場合、確認や自動キャンセルが入ることがある\n"
         ),
         "parameters": {
             "type": "object",
@@ -70,7 +88,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "pattern": {
                     "type": "string",
-                    "description": "検索パターン。改行は \n として記述してください。",
+                    "description": "検索パターン。改行は \\n として記述してください。",
                 },
                 "replacement": {
                     "type": "string",
@@ -242,9 +260,23 @@ def run_tool(args: Dict[str, Any]) -> str:
     def _has_raw_newline(s: str) -> bool:
         return ("\n" in s) or ("\r" in s)
 
+
+    def _escape_for_tool_arg(s: str) -> str:
+        # Normalize CRLF/CR to LF, then escape LF as two chars \\n so callers can resend safely.
+        s = s.replace("\r\n", "\n").replace("\r", "\n")
+        return s.replace("\n", r"\\n")
     max_bytes = (
         getattr(cb, "read_file_max_bytes", 1_000_000) if cb is not None else 1_000_000
     )
+
+    def _validate_re_sub_replacement(repl: str) -> str | None:
+        # Validate Python re.sub replacement template; return error message if invalid, else None.
+        try:
+            # Use an empty pattern; compile_template will still parse replacement and raise on bad escapes.
+            re.compile("").sub(repl, "")
+            return None
+        except re.error as e:
+            return str(e)
 
     path = str(args.get("path") or "")
     mode = str(args.get("mode") or "literal")
@@ -276,61 +308,64 @@ def run_tool(args: Dict[str, Any]) -> str:
     # - regex_replacement_backslash_policy: allow|reject
     # - strict_for_py: when True and target is .py, force both policies to 'reject'
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-    regex_repl_bs_policy = (
-        str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
-    )
+    regex_repl_bs_policy = str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
+    strict_for_py = bool(args.get("strict_for_py", False))
+
     if raw_newline_policy not in ("allow", "reject"):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"invalid raw_newline_policy: {raw_newline_policy!r}",
-            },
-            ensure_ascii=False,
-        )
+        return json.dumps({"ok": False, "error": f"invalid raw_newline_policy: {raw_newline_policy!r}"}, ensure_ascii=False)
     if regex_repl_bs_policy not in ("allow", "reject"):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}",
-            },
-            ensure_ascii=False,
-        )
+        return json.dumps({"ok": False, "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}"}, ensure_ascii=False)
 
     # If strict_for_py is enabled, enforce reject policies for .py targets.
     ext = os.path.splitext(path)[1].lower() if path else ""
     if ext == ".py":
         raw_newline_policy = "reject"
-        regex_repl_bs_policy = "reject"
+        # Keep regex_replacement_backslash_policy as provided by caller; do not force reject for .py.
 
     # 1) Raw newline check (reject => cancel with a machine-readable error for the LLM).
-    if raw_newline_policy == "reject" and (
-        _has_raw_newline(pattern) or _has_raw_newline(replacement)
-    ):
+    if raw_newline_policy == "reject" and (_has_raw_newline(pattern) or _has_raw_newline(replacement)):
         return json.dumps(
             {
                 "ok": False,
                 "error": (
                     "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\n/\r). "
-                    'Do not send literal newlines. Encode them as "\\n" in the JSON string '
+                    "Do not send literal newlines. Encode them as \"\\n\" in the JSON string "
                     "(i.e. write \\n as \\\n), or use python_exec to edit the file safely."
                 ),
+                "suggested_args": {
+                    **args,
+                    "pattern": _escape_for_tool_arg(pattern),
+                    "replacement": _escape_for_tool_arg(replacement),
+                    "raw_newline_policy": "allow",
+                },
+                "suggested_call": "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes).",
             },
             ensure_ascii=False,
         )
 
     # 2) Regex replacement backslash check (Python re.sub replacement parsing is fragile).
     if mode == "regex" and regex_repl_bs_policy == "reject" and ("\\" in replacement):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": (
-                    "REJECT_REGEX_REPLACEMENT_BACKSLASH: mode=regex replacement contains backslash (\\). "
-                    "This often breaks Python re.sub replacement parsing (e.g. bad escape \\w/\\s). "
-                    "Prefer mode=literal, or avoid backslashes in the replacement, or use python_exec."
-                ),
-            },
-            ensure_ascii=False,
-        )
+        # Allow only safe group references in re.sub replacement: \1-\9 and \g<...>
+        # Reject other backslash escapes (e.g. \w, \s, \n) that commonly break replacement parsing.
+        _allowed = bool(re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement))
+        if not _allowed:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": (
+                        "REJECT_REGEX_REPLACEMENT_BACKSLASH: mode=regex replacement contains backslash (\\). "
+                        "Only group references are allowed when regex_replacement_backslash_policy=reject: "
+                        "\\1-\\9 and \\g<...>. Other escapes like \\w/\\s/\\n are rejected. "
+                        "If you need them, set regex_replacement_backslash_policy=allow or use python_exec."
+                    ),
+                    "suggested_args": {
+                        **args,
+                        "regex_replacement_backslash_policy": "allow",
+                    },
+                    "suggested_call": "If you really intend backslash escapes beyond group refs, re-run with suggested_args.",
+                },
+                ensure_ascii=False,
+            )
 
     context_lines = int(args.get("context_lines", 2))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
@@ -342,9 +377,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     if not path:
-        return json.dumps(
-            {"ok": False, "error": "path is required"}, ensure_ascii=False
-        )
+        return json.dumps({"ok": False, "error": "path is required"}, ensure_ascii=False)
 
     if is_path_dangerous(path):
         return json.dumps(
@@ -402,6 +435,20 @@ def run_tool(args: Dict[str, Any]) -> str:
                     ensure_ascii=False,
                 )
 
+            _repl_err = _validate_re_sub_replacement(replacement)
+            if _repl_err is not None:
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": f"invalid regex replacement template: {_repl_err}",
+                        "suggested_args": {
+                            **args,
+                            "mode": "literal",
+                        },
+                        "suggested_call": "Python re.sub rejected the replacement template. Consider mode=literal, or escape backslashes properly.",
+                    },
+                    ensure_ascii=False,
+                )
             if count_int is None:
                 replaced, match_count = cre.subn(replacement, original)
             else:
