@@ -67,7 +67,7 @@ async def _call_mcp_stdio(
     command: str, args: List[str], env: Dict[str, str], name: str, argv: Dict[str, Any]
 ) -> str:
     server_params = StdioServerParameters(
-        command=command, args=args, env={**os.environ, **env} if env else None
+        command=command, args=args, env={**os.environ, **(env or {})}
     )
     try:
         async with stdio_client(server_params) as (read, write):
