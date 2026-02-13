@@ -454,8 +454,8 @@ def stdin_loop() -> None:
                             if not core.human_ask_active:
                                 break
                         time.sleep(0.01)
-
-                    print("[REPLY] ありがとうございます。")
+                    # NOTE: Do not print acknowledgement here. It can interleave with subsequent human_ask prompts
+                    # and confuse the user when multiple human_ask calls happen back-to-back.
                     should_wait_completion = True
             else:
                 # 複数行モード中でも c / cancel 単独行なら中断として扱う
