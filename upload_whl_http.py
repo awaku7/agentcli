@@ -6,8 +6,8 @@ It uploads *.whl as a *generic file* (NOT a PyPI package), so it will not appear
 as a "PyPI" package in GitLab.
 
 Usage:
-  python upload_whl_http.py path/to/package.whl [--release-tag <tag>] [--create-release]
-  python upload_whl_http.py --latest [dist_dir] [--release-tag <tag>] [--create-release]
+  python upload_whl_http.py path/to/package.whl [--project-id <id>] [--release-tag <tag>] [--create-release]
+  python upload_whl_http.py --latest [dist_dir] [--project-id <id>] [--release-tag <tag>] [--create-release]
 
 Required environment variables:
   GITLAB_HOST        Examples (all accepted):
@@ -127,19 +127,22 @@ def _detect_version_from_wheel(filename: str) -> str:
     return version
 
 
-def _get_generic_base_url() -> str:
+def _get_generic_base_url(project_id: str | None = None) -> str:
     base_override = os.environ.get("GITLAB_GENERIC_REPO_BASE")
     if base_override:
         return base_override.strip().rstrip("/")
 
     gitlab_host_raw = _require_env("GITLAB_HOST")
-    project_id = _require_env("GITLAB_PROJECT_ID")
+
+    pid = (project_id or "").strip() if project_id is not None else ""
+    if not pid:
+        pid = _require_env("GITLAB_PROJECT_ID")
 
     base = _normalize_gitlab_base(gitlab_host_raw)
-    return _join_url(base, f"api/v4/projects/{project_id}/packages/generic")
+    return _join_url(base, f"api/v4/projects/{pid}/packages/generic")
 
 
-def _build_generic_wheel_url(whl_path: Path) -> str:
+def _build_generic_wheel_url(whl_path: Path, project_id: str | None = None) -> str:
     pkg_name = os.environ.get("GITLAB_GENERIC_PACKAGE_NAME", "scheck").strip()
     if not pkg_name:
         raise SystemExit("GITLAB_GENERIC_PACKAGE_NAME is empty")
@@ -150,7 +153,7 @@ def _build_generic_wheel_url(whl_path: Path) -> str:
     if not version:
         version = _detect_version_from_wheel(whl_path.name)
 
-    base = _get_generic_base_url()
+    base = _get_generic_base_url(project_id=project_id)
     return _join_url(base, f"{pkg_name}/{version}/{whl_path.name}")
 
 
@@ -260,6 +263,7 @@ def _parse_args(argv: list[str]) -> dict:
         "whl": None,
         "latest": False,
         "dist_dir": None,
+        "project_id": None,
         "release_tag": None,
         "create_release": False,
     }
@@ -274,6 +278,11 @@ def _parse_args(argv: list[str]) -> dict:
                 i += 2
             else:
                 i += 1
+        elif a == "--project-id":
+            if i + 1 >= len(argv):
+                raise SystemExit("--project-id requires a value")
+            out["project_id"] = argv[i + 1]
+            i += 2
         elif a == "--release-tag":
             if i + 1 >= len(argv):
                 raise SystemExit("--release-tag requires a value")
@@ -317,10 +326,10 @@ def main(argv: list[str]) -> int:
     if whl_path.suffix.lower() != ".whl":
         raise SystemExit(f"Not a .whl file: {whl_path}")
 
-    project_id = _require_env("GITLAB_PROJECT_ID")
+    project_id = (args.get("project_id") or "").strip() or _require_env("GITLAB_PROJECT_ID")
     token = _require_env("GITLAB_TOKEN")
 
-    wheel_url = _build_generic_wheel_url(whl_path)
+    wheel_url = _build_generic_wheel_url(whl_path, project_id=project_id)
 
     print("Upload URL:")
     print(wheel_url)
