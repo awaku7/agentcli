@@ -95,7 +95,7 @@ async def _mcp_tools_list_stdio(
     command: str, args: List[str], env: Dict[str, str]
 ) -> Dict[str, Any]:
     server_params = StdioServerParameters(
-        command=command, args=args, env={**os.environ, **env} if env else None
+        command=command, args=args, env={**os.environ, **(env or {})}
     )
     async with stdio_client(server_params) as (read, write):
         result = await _get_tools_from_session(read, write)
