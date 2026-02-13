@@ -536,13 +536,13 @@ def stdin_loop() -> None:
 
 
 def _handle_docs_cli() -> None:
-    """Handle `scheck docs` subcommand.
+    """Handle `uag docs` subcommand.
 
     Spec (mode A):
-      - `scheck docs` => list
-      - `scheck docs <name>` => show content
-      - `scheck docs --path <name>` => print filesystem path
-      - `scheck docs --open <name>` => open with OS default app
+      - `uag docs` => list
+      - `uag docs <name>` => show content
+      - `uag docs --path <name>` => print filesystem path
+      - `uag docs --open <name>` => open with OS default app
 
     Docs are bundled under `scheck/docs/` and resolved via importlib.resources.
     """

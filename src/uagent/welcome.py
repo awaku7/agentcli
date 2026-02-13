@@ -62,7 +62,7 @@ def get_welcome_message():
 - コマンド: ':help' でシステムコマンド（ログ管理、履歴圧縮等）を確認できます。
 - 終了: ':exit' または ':quit' でセッションを終了します。
 - 画像: GUIではドラッグ＆ドロップ、CUIではファイルパス入力で画像解析が可能です。
-- ドキュメント: `scheck docs` で同梱ドキュメント一覧、`scheck docs webinspect` で Web Inspector の説明を表示（`--path/--open` も利用可）。
+- ドキュメント: `uag docs` で同梱ドキュメント一覧、`uag docs webinspect` で Web Inspector の説明を表示（`--path/--open` も利用可）。
 
 [活用例]
 - 「このフォルダにあるソースコードを解析して、README.mdを作成して」
