@@ -20,7 +20,7 @@ Required environment variables:
 
 Optional environment variables:
   GITLAB_GENERIC_PACKAGE_NAME
-                     Default: "scheck"
+                     Default: "uag"
                      Generic package name path segment.
   GITLAB_GENERIC_VERSION
                      If set, overrides auto-detected version.
@@ -143,7 +143,7 @@ def _get_generic_base_url(project_id: str | None = None) -> str:
 
 
 def _build_generic_wheel_url(whl_path: Path, project_id: str | None = None) -> str:
-    pkg_name = os.environ.get("GITLAB_GENERIC_PACKAGE_NAME", "scheck").strip()
+    pkg_name = os.environ.get("GITLAB_GENERIC_PACKAGE_NAME", "uag").strip()
     if not pkg_name:
         raise SystemExit("GITLAB_GENERIC_PACKAGE_NAME is empty")
 
