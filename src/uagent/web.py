@@ -36,7 +36,7 @@ except ImportError:
 ANSI_ESCAPE = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
 # --- FastAPI Setup ---
-app = FastAPI(title="scheck Web")
+app = FastAPI(title="uag Web")
 
 BASE_DIR = os.path.dirname(__file__)
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
