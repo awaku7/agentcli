@@ -361,7 +361,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
-        self.setWindowTitle("scheck GUI (Extreme Stability)")
+        self.setWindowTitle("uag GUI (Extreme Stability)")
         self.resize(1100, 850)
         self._attached_images = []
         self._history = []
