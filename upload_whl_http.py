@@ -6,8 +6,8 @@ It uploads *.whl as a *generic file* (NOT a PyPI package), so it will not appear
 as a "PyPI" package in GitLab.
 
 Usage:
-  python upload_whl_http.py path/to/package.whl [--project-id <id>] [--release-tag <tag>] [--create-release]
-  python upload_whl_http.py --latest [dist_dir] [--project-id <id>] [--release-tag <tag>] [--create-release]
+  python upload_whl_http.py path/to/package.whl [--project-id <id>] [--release-tag <tag>] [--create-release] [--release-ref <ref>]
+  python upload_whl_http.py --latest [dist_dir] [--project-id <id>] [--release-tag <tag>] [--create-release] [--release-ref <ref>]
 
 Required environment variables:
   GITLAB_HOST        Examples (all accepted):
@@ -233,7 +233,7 @@ def _add_release_asset_link(
     )
 
 
-def _create_release(project_id: str, token: str, tag: str) -> None:
+def _create_release(project_id: str, token: str, tag: str, ref: str) -> None:
     api_base = _get_api_base()
     url = _join_url(api_base, f"projects/{project_id}/releases")
 
@@ -245,6 +245,7 @@ def _create_release(project_id: str, token: str, tag: str) -> None:
         token,
         {
             "tag_name": tag,
+            "ref": ref,
             "name": tag,
             "description": DEFAULT_RELEASE_DESCRIPTION,
         },
@@ -266,6 +267,7 @@ def _parse_args(argv: list[str]) -> dict:
         "project_id": None,
         "release_tag": None,
         "create_release": False,
+        "release_ref": "main",
     }
 
     i = 1
@@ -291,6 +293,11 @@ def _parse_args(argv: list[str]) -> dict:
         elif a == "--create-release":
             out["create_release"] = True
             i += 1
+        elif a == "--release-ref":
+            if i + 1 >= len(argv):
+                raise SystemExit("--release-ref requires a value")
+            out["release_ref"] = argv[i + 1]
+            i += 2
         elif a.startswith("--"):
             raise SystemExit(f"Unknown argument: {a}")
         else:
@@ -340,7 +347,8 @@ def main(argv: list[str]) -> int:
     release_tag = args["release_tag"]
     if release_tag:
         if args.get("create_release"):
-            _create_release(project_id, token, release_tag)
+            release_ref = (args.get("release_ref") or "").strip() or "main"
+            _create_release(project_id, token, release_tag, release_ref)
         _add_release_asset_link(project_id, token, release_tag, whl_path.name, wheel_url)
         print("Release link added.")
 
