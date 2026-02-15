@@ -1,8 +1,21 @@
-# QUICKSTART（uag）
+# QUICKSTART（uag / Windows）
 
-このドキュメントは、配布された `uag` の whl ファイル（`uag-<VERSION>-py3-none-any.whl`）を **pipでインストールして、CLI（`uag`）を使い始める** ための手順です。
+このドキュメントは、配布された `uag` の whl（`uag-<VERSION>-py3-none-any.whl`）を **pip でインストールし、CLI（`uag`）で最小構成で動作確認する** ための手順です。
 
 対象OS: Windows
+
+---
+
+## 0. ドキュメント参照（`uag docs`）
+
+インストール後、同梱ドキュメントは `uag docs` で参照できます。
+
+```bat
+uag docs
+uag docs webinspect
+uag docs develop
+uag docs --open webinspect
+```
 
 ---
 
@@ -21,10 +34,9 @@
 
 ---
 
-## 3. 仮想環境の作成
+## 3. 仮想環境の作成（推奨）
 
 作業フォルダ直下で実行します。
-仮想環境は作らなくても良いですが、依存関係の衝突を避けるため推奨します。
 
 ```bat
 python -m venv .venv
@@ -40,8 +52,6 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ---
 
 ## 4. whl を pip でインストール
-
-### 4.1 インストール
 
 まず作業フォルダ内の whl 名を確認します。
 
@@ -61,7 +71,9 @@ python -m pip install .\uag-<VERSION>-py3-none-any.whl
 python -m pip install .\uag-*.whl
 ```
 
-### 4.2 インストール確認
+---
+
+## 5. インストール確認
 
 ```bat
 uag --help
@@ -77,11 +89,11 @@ python -m uagent --help
 
 ---
 
-## 5. Git のインストール（git操作をさせたい場合）
+## 6. 必要なら Git をインストール（git 操作をさせたい場合）
 
-`uag` の起動自体に必要です
+`uag` の起動自体には不要ですが、`git_ops` や `git` コマンド実行をさせたい場合に必要です。
 
-### 5.1 Git for Windows
+### 6.1 Git for Windows
 
 1. https://git-scm.com/download/win からインストーラを取得
 2. インストール後、**新しいターミナル**を開いて確認
@@ -90,7 +102,7 @@ python -m uagent --help
 git --version
 ```
 
-### 5.2 winget が使える場合
+### 6.2 winget が使える場合
 
 ```bat
 winget install --id Git.Git -e
@@ -98,9 +110,9 @@ winget install --id Git.Git -e
 
 ---
 
-## 6. 起動方法（CLI: uag）
+## 7. 起動と最小設定（CLI）
 
-### 6.1 起動
+### 7.1 起動
 
 ```bat
 uag
@@ -112,117 +124,38 @@ uag
 python -m uagent
 ```
 
----
+終了:
 
-## 7. 最低限必要な環境変数（必須のみ）
+- `:exit`
 
-このツール（`uag`）を **LLM と接続して通常利用する場合**、実装上「未設定だと起動後に `sys.exit(1)` で終了する」必須の環境変数があります。
+### 7.2 最小の環境変数（必須）
 
-根拠（実装）:
-- `src/uagent/util_providers.py`
-  - `detect_provider()` が `UAGENT_PROVIDER` を参照し、未設定なら終了します。
-  - `make_client()` が各プロバイダの API キー等を `core.get_env(...)` / `core.get_env_url(...)` で取得し、未設定なら終了します。
-- `src/uagent/core.py`
-  - `get_env(name)` / `get_env_url(name, default=None)` が、未設定時にエラーメッセージを出して終了します。
+`uag` は LLM プロバイダ設定が無いと終了します。
 
----
+- 必須: `UAGENT_PROVIDER`
+- 必須: 選択した `UAGENT_PROVIDER` に対応する API キー（例: `UAGENT_OPENAI_API_KEY`）
 
-### 7.1 必須: `UAGENT_PROVIDER`
-
-- `UAGENT_PROVIDER` は利用する LLM プロバイダを指定します。
-- 未設定の場合、`src/uagent/util_providers.py:detect_provider()` により起動後に終了します。
-
-許容値（`detect_provider()` の実装でチェック）:
-
-- `azure`
-- `openai`
-- `openrouter`
-- `gemini`
-- `grok`
-- `claude`
-- `nvidia`
-
----
-
-### 7.2 必須: 選択した `UAGENT_PROVIDER` に応じた API キー等
-
-以下は `src/uagent/util_providers.py:make_client()` が必須として要求する環境変数です（未設定なら `core.get_env*` 経由で終了します）。
-
-#### `UAGENT_PROVIDER=openai` の場合（OpenAI / OpenAI互換）
-
-- 必須: `UAGENT_OPENAI_API_KEY`
-
-#### `UAGENT_PROVIDER=azure` の場合（Azure OpenAI）
-
-- 必須: `UAGENT_AZURE_BASE_URL`
-- 必須: `UAGENT_AZURE_API_KEY`
-- 必須: `UAGENT_AZURE_API_VERSION`
-
-#### `UAGENT_PROVIDER=openrouter` の場合（OpenRouter / OpenAI互換）
-
-- 必須: `UAGENT_OPENROUTER_API_KEY`
-
-#### `UAGENT_PROVIDER=grok` の場合（xAI Grok / OpenAI互換）
-
-- 必須: `UAGENT_GROK_API_KEY`
-
-#### `UAGENT_PROVIDER=nvidia` の場合（NVIDIA / OpenAI互換）
-
-- 必須: `UAGENT_NVIDIA_API_KEY`
-
-#### `UAGENT_PROVIDER=gemini` の場合（Google Gemini / google-genai）
-
-- 必須: `UAGENT_GEMINI_API_KEY`
-
-#### `UAGENT_PROVIDER=claude` の場合（Anthropic Claude）
-
-- 必須: `UAGENT_CLAUDE_API_KEY`
-
----
-
-### 7.3 設定例（cmd / PowerShell）
-
-#### cmd（このターミナルだけに設定）
-
-例: OpenAI
+最小例（OpenAI）:
 
 ```bat
 set UAGENT_PROVIDER=openai
 set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
+uag
 ```
 
-例: Azure OpenAI
+プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
-```bat
-set UAGENT_PROVIDER=azure
-set UAGENT_AZURE_BASE_URL=YOUR_AZURE_ENDPOINT
-set UAGENT_AZURE_API_KEY=YOUR_AZURE_API_KEY
-set UAGENT_AZURE_API_VERSION=YOUR_API_VERSION
-```
-
-#### PowerShell（このターミナルだけに設定）
-
-例: OpenAI
-
-```powershell
-$env:UAGENT_PROVIDER = "openai"
-$env:UAGENT_OPENAI_API_KEY = "YOUR_API_KEY"
-```
-
-例: Azure OpenAI
-
-```powershell
-$env:UAGENT_PROVIDER = "azure"
-$env:UAGENT_AZURE_BASE_URL = "YOUR_AZURE_ENDPOINT"
-$env:UAGENT_AZURE_API_KEY = "YOUR_AZURE_API_KEY"
-$env:UAGENT_AZURE_API_VERSION = "YOUR_API_VERSION"
-```
+- `README.md`（Provider の説明）
+- `AGENTS.md`（環境変数の一覧）
 
 ---
 
-## 8. 使い方（最低限）
+## 8. 動作確認（まず試す指示例）
 
-`uag` は対話型のローカルAIエージェントです。起動後、プロンプトに指示を書きます。
+補足:
+- この環境では「`:load 0`」で直前のやりとり（会話）を復活できます。
+
+起動後、プロンプトに指示を書きます。
 
 例:
 
@@ -230,11 +163,11 @@ $env:UAGENT_AZURE_API_VERSION = "YOUR_API_VERSION"
   - 「このフォルダを解析して。重要なファイル、構成、実行方法を教えて」
 - 特定ファイルを読ませる
   - 「`README.md` を読んで要点を整理して」
-- コード解析
-  - 「`src/uagent/cli.py` の処理フローと注意点を説明して」
-
-終了:
-
-- `:exit`（実装側でコマンドとして扱われます）
 
 ---
+
+## 9. 次に読む
+
+- `README.md`（全体像 / Provider / Web Inspector など）
+- `AGENTS.md`（ツール一覧 / 環境変数 / MCP 最短例）
+- `uag docs develop` / `uag docs webinspect`
