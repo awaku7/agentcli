@@ -45,7 +45,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "default": None,
                 },
             },
-            "required": ["filename"],
+            "anyOf": [{"required": ["filename"]}, {"required": ["path"]}],
         },
     },
 }
@@ -120,20 +120,21 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         # テキストモードで開き、行ごとに処理（CRLFを自動処理）
         lines = []
+        total_bytes = 0
         with open(
             filename, "r", encoding=encoding, errors="replace", newline=None
         ) as f:
+            i = 0
+
             for i, line in enumerate(f, 1):
                 if i < start_line:
                     continue
                 lines.append(line)
+                total_bytes += len(line.encode(encoding, errors="replace"))
                 if max_lines is not None and len(lines) >= max_lines:
                     break
                 # 安全のためのバイト制限
-                if (
-                    sum(len(ln.encode(encoding, errors="replace")) for ln in lines)
-                    > max_bytes
-                ):
+                if total_bytes > max_bytes:
                     lines.append(
                         f"\n[read_file truncated: byte limit {max_bytes} reached]"
                     )
