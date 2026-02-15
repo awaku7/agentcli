@@ -44,8 +44,19 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
                     "default": None,
                 },
+                "head_lines": {
+                    "type": ["integer", "null"],
+                    "description": "先頭から読む行数。tail_lines と同時指定不可。",
+                    "default": None,
+                },
+                "tail_lines": {
+                    "type": ["integer", "null"],
+                    "description": "末尾から読む行数。head_lines と同時指定不可。",
+                    "default": None,
+                },
             },
-            "anyOf": [{"required": ["filename"]}, {"required": ["path"]}],
+            "required": ["filename"],
+            "additionalProperties": False,
         },
     },
 }
@@ -63,9 +74,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     tail_lines = args.get("tail_lines")
 
     if head_lines is not None and tail_lines is not None:
-        return (
-            "[read_file error] head_lines and tail_lines cannot be specified together"
-        )
+        return "[read_file error] head_lines and tail_lines cannot be specified together"
 
     if head_lines is not None:
         head_lines = int(head_lines)
@@ -86,11 +95,11 @@ def run_tool(args: Dict[str, Any]) -> str:
                         encoding = "cp932"
         except Exception:
             encoding = "utf-8"  # fallback
+
         # 総行数をカウント
-        with open(
-            filename, "r", encoding=encoding, errors="replace", newline=None
-        ) as f:
+        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
             total_lines = sum(1 for _ in f)
+
         if total_lines < tail_lines:
             start_line = 1
             max_lines = total_lines
@@ -121,11 +130,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         # テキストモードで開き、行ごとに処理（CRLFを自動処理）
         lines = []
         total_bytes = 0
-        with open(
-            filename, "r", encoding=encoding, errors="replace", newline=None
-        ) as f:
+        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
             i = 0
-
             for i, line in enumerate(f, 1):
                 if i < start_line:
                     continue
@@ -135,9 +141,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     break
                 # 安全のためのバイト制限
                 if total_bytes > max_bytes:
-                    lines.append(
-                        f"\n[read_file truncated: byte limit {max_bytes} reached]"
-                    )
+                    lines.append(f"\n[read_file truncated: byte limit {max_bytes} reached]")
                     break
 
         if not lines and start_line > 1:
@@ -147,9 +151,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         if sync_file and os.path.isfile(filename):
             # カレントディレクトリをルートとして更新を試みる
             try:
-                threading.Thread(
-                    target=sync_file, args=(filename, os.getcwd()), daemon=True
-                ).start()
+                threading.Thread(target=sync_file, args=(filename, os.getcwd()), daemon=True).start()
             except Exception:
                 pass
 
