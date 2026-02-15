@@ -35,7 +35,6 @@ import subprocess
 from typing import Any, Dict, Optional
 
 from .context import get_callbacks
-import shlex
 import sys
 
 BUSY_LABEL = True
@@ -115,18 +114,17 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     command = str(args.get("command", "") or "")
 
-
     # Normalize python invocation on Windows for stable quoting/timeout behavior in tests.
 
     # If command starts with 'python -c', replace it with sys.executable.
 
-    if os.name == 'nt':
+    if os.name == "nt":
 
         s = command.lstrip()
 
-        if s.lower().startswith('python -c '):
+        if s.lower().startswith("python -c "):
 
-            command = sys.executable + s[len('python'):]
+            command = sys.executable + s[len("python") :]
     cwd_raw = args.get("cwd", None)
 
     # --- security guard ---

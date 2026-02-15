@@ -213,6 +213,7 @@ def get_mcp_servers_json_path() -> Path:
     p_old = get_legacy_state_dir() / "mcps" / "mcp_servers.json"
     return p_old
 
+
 def get_history_file_path() -> Path:
     """Return CLI history file path.
 
@@ -228,6 +229,7 @@ def get_history_file_path() -> Path:
     if env:
         return _expand(env)
     return Path.home() / ".scheck_history"
+
 
 def get_legacy_state_dir() -> Path:
     """Return legacy state directory (read-only fallback).
@@ -252,4 +254,3 @@ def get_compat_state_dirs() -> list[Path]:
     if sd == ld:
         return [sd]
     return [sd, ld]
-

@@ -1,4 +1,5 @@
 import getpass
+import re
 import importlib
 import json
 import os
@@ -110,6 +111,7 @@ INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 # Readline TAB completion (interactive TTY only)
 # - Only for :cd and :ls arguments
 # - Other inputs keep current behavior
+
 
 def _uagent_has_glob_meta(s: str) -> bool:
     return any(ch in s for ch in ("*", "?", "["))
@@ -232,7 +234,6 @@ def _uagent_setup_readline_completion() -> None:
         readline.set_completer(_uagent_rl_completer)
     except Exception:
         pass
-
 
 
 def _flush_stdin_input_buffer() -> None:

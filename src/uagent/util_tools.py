@@ -290,7 +290,9 @@ def handle_command(
                         size = 0
 
                     base = os.path.basename(p_abs.rstrip(os.sep)) or p_abs
-                    items.append((0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size))
+                    items.append(
+                        (0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size)
+                    )
 
                 items.sort(key=lambda x: (x[0], x[1]))
 
@@ -333,7 +335,6 @@ def handle_command(
         except Exception as e:
             print(f"[ls error] {type(e).__name__}: {e}")
         return True
-
 
     if cmd in ("logs", "list"):
         show_all = False

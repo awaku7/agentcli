@@ -1,7 +1,6 @@
 import os
 import unittest
 import json
-import os
 import shutil
 from unittest.mock import patch, MagicMock
 from uagent.tools.replace_in_file_tool import run_tool
@@ -67,7 +66,9 @@ class TestReplaceInFileTool(unittest.TestCase):
 
     def test_regex_replace(self):
         """regex モードのテスト"""
-        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch(
+            "uagent.tools.replace_in_file_tool._human_confirm", return_value=True
+        ):
             args = {
                 "path": self.test_rel_path,
                 "mode": "regex",
@@ -275,7 +276,9 @@ class TestReplaceInFileTool(unittest.TestCase):
             any(x in err for x in ["unterminated", "invalid", "patternerror"])
         )
 
-    def test_regex_replacement_with_newline_escapes_can_break_python_string_literal(self):
+    def test_regex_replacement_with_newline_escapes_can_break_python_string_literal(
+        self,
+    ):
         """regex置換で replacement に改行を入れると、.py内の通常文字列が壊れ得ることを再現"""
         py_rel = os.path.join("test", "tmp_replace_test", "broken_regex.py")
         py_abs = os.path.join(self.test_dir, "broken_regex.py")
@@ -285,7 +288,9 @@ class TestReplaceInFileTool(unittest.TestCase):
             f.write('s = "HELLO"\\n')
 
         # regex で HELLO を改行を含む文字列に置換（実改行が入って構文が壊れる）
-        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch(
+            "uagent.tools.replace_in_file_tool._human_confirm", return_value=True
+        ):
             args = {
                 "path": py_rel,
                 "mode": "regex",
@@ -319,7 +324,9 @@ class TestReplaceInFileTool(unittest.TestCase):
         # ここが事故点: replacement に実改行が混入している想定
         bad_replacement = "A\nA"  # 実改行を含む
 
-        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch(
+            "uagent.tools.replace_in_file_tool._human_confirm", return_value=True
+        ):
             args = {
                 "path": py_rel,
                 "mode": "literal",

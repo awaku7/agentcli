@@ -49,19 +49,17 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     command = str(args.get("command", "") or "")
 
-
-
     # Normalize python invocation on Windows for stable quoting/timeout behavior in tests.
 
     # If command starts with 'python -c', replace it with sys.executable.
 
-    if os.name == 'nt':
+    if os.name == "nt":
 
         s = command.lstrip()
 
-        if s.lower().startswith('python -c '):
+        if s.lower().startswith("python -c "):
 
-            command = sys.executable + s[len('python'):]
+            command = sys.executable + s[len("python") :]
     # --- security guard ---
     if decide_cmd_exec is not None:
         decision = decide_cmd_exec(command)

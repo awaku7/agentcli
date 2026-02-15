@@ -20,7 +20,9 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json")
+            p_new = os.path.join(
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
+            )
             if os.path.exists(p_new):
                 return p_new
             return os.path.join(
@@ -74,10 +76,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     default_name = (
         str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
     )
-    default_url = (
-        str(args.get("default_url", "")).strip()
-        or ""
-    )
+    default_url = str(args.get("default_url", "")).strip() or ""
     default_transport = (
         str(args.get("default_transport", "streamable-http")).strip()
         or "streamable-http"
