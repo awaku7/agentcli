@@ -19,6 +19,7 @@ import difflib
 import json
 import os
 import re
+import sys
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
 
@@ -153,7 +154,8 @@ class PreviewHit:
 
 
 def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, Any, str]:
-    """ファイルを読み込み、(コンテンツ, 検出された改行コード) を返す。"""
+    """ファイルを読み込み、(コンテンツ, 検出された改行コード, 実際に使ったエンコーディング) を返す。"""
+
     size = os.path.getsize(path)
     if size > max_bytes:
         raise ValueError(f"file too large: {size} > {max_bytes} bytes")
@@ -166,12 +168,24 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
     try:
         return try_read(encoding, "strict")
     except (UnicodeDecodeError, LookupError):
-        # fallback: utf-8 with replacement
         return try_read("utf-8", "replace")
+
+
+def _unified_diff(path: str, original: str, replaced: str) -> str:
+    """Return unified diff string ("" if no changes)."""
+
+    if original == replaced:
+        return ""
+
+    a = original.splitlines(True)
+    b = replaced.splitlines(True)
+    diff = difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}")
+    return "".join(diff)
 
 
 def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> None:
     """元の改行コードを尊重してファイルを書き出す。"""
+
     # メモリ上の改行コードを一度 \n に統一（混在防止）
     text = text.replace("\r\n", "\n").replace("\r", "\n")
 
@@ -188,13 +202,7 @@ def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> Non
 def _build_preview(
     original: str, replaced: str, context_lines: int, max_hits: int = 100
 ) -> List[PreviewHit]:
-    """difflib を使って、より正確な変更箇所（PreviewHit）のリストを生成する。
-
-    NOTE:
-    - splitlines() は末尾改行の有無などを落とすことがあるため、keepends=True で行末を保持して解析する。
-    - difflib の比較は行末の改行コード差異に敏感なため、比較用には行末の "\n" のみを除去した
-      正規化行を使いつつ、表示用には原文の行をなるべく維持する。
-    """
+    """difflib を使って変更箇所（PreviewHit）のリストを生成する。"""
 
     orig_lines_raw = original.splitlines(keepends=True)
     new_lines_raw = replaced.splitlines(keepends=True)
@@ -219,7 +227,7 @@ def _build_preview(
         before = orig_lines[start:i1]
         after = orig_lines[i2:end]
 
-        # 変更前後の内容を格納（複数行の場合は連結）
+        # 変更前後の内容（複数行の場合は連結）
         line_before = "\n".join(orig_lines[i1:i2])
         line_after = "\n".join(new_lines[j1:j2])
 
@@ -233,6 +241,7 @@ def _build_preview(
                     after_lines=after,
                 )
             )
+
     return hits
 
 
@@ -254,25 +263,19 @@ def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
 
     # Safety: prevent accidental raw-newline injections.
-    # Tool API expects patterns/replacements to use literal "\\n" for newlines.
-    # If the caller passes real newlines (e.g. copy-paste), this can corrupt code
-    # (notably Python string literals) in preview=false mode.
     def _has_raw_newline(s: str) -> bool:
         return ("\n" in s) or ("\r" in s)
 
-
     def _escape_for_tool_arg(s: str) -> str:
-        # Normalize CRLF/CR to LF, then escape LF as two chars \\n so callers can resend safely.
         s = s.replace("\r\n", "\n").replace("\r", "\n")
         return s.replace("\n", r"\\n")
+
     max_bytes = (
         getattr(cb, "read_file_max_bytes", 1_000_000) if cb is not None else 1_000_000
     )
 
     def _validate_re_sub_replacement(repl: str) -> str | None:
-        # Validate Python re.sub replacement template; return error message if invalid, else None.
         try:
-            # Use an empty pattern; compile_template will still parse replacement and raise on bad escapes.
             re.compile("").sub(repl, "")
             return None
         except re.error as e:
@@ -284,8 +287,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     pattern = "" if pattern_raw is None else str(pattern_raw)
     replacement_raw = args.get("replacement", None)
     replacement = "" if replacement_raw is None else str(replacement_raw)
+
     count = args.get("count", None)
-    count_int = None
+    count_int: int | None = None
     if count is not None:
         try:
             count_int = int(count)
@@ -299,38 +303,49 @@ def run_tool(args: Dict[str, Any]) -> str:
                 {"ok": False, "error": f"count must be >= 0 or null: {count_int}"},
                 ensure_ascii=False,
             )
+
     preview = bool(args.get("preview", True))
 
-    # Safety policies (no human_ask): auto-reject dangerous inputs so the LLM doesn't corrupt files.
-    #
-    # Policy controls (caller-provided):
-    # - raw_newline_policy: allow|reject
-    # - regex_replacement_backslash_policy: allow|reject
-    # - strict_for_py: when True and target is .py, force both policies to 'reject'
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-    regex_repl_bs_policy = str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
+    regex_repl_bs_policy = str(
+        args.get("regex_replacement_backslash_policy") or "allow"
+    ).strip().lower()
     strict_for_py = bool(args.get("strict_for_py", False))
 
     if raw_newline_policy not in ("allow", "reject"):
-        return json.dumps({"ok": False, "error": f"invalid raw_newline_policy: {raw_newline_policy!r}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": f"invalid raw_newline_policy: {raw_newline_policy!r}"},
+            ensure_ascii=False,
+        )
     if regex_repl_bs_policy not in ("allow", "reject"):
-        return json.dumps({"ok": False, "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}"}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}",
+            },
+            ensure_ascii=False,
+        )
 
-    # If strict_for_py is enabled, enforce reject policies for .py targets.
     ext = os.path.splitext(path)[1].lower() if path else ""
+
+    # .py は生改行混入で構文破壊を起こし得るため、常に reject する
     if ext == ".py":
         raw_newline_policy = "reject"
-        # Keep regex_replacement_backslash_policy as provided by caller; do not force reject for .py.
 
-    # 1) Raw newline check (reject => cancel with a machine-readable error for the LLM).
-    if raw_newline_policy == "reject" and (_has_raw_newline(pattern) or _has_raw_newline(replacement)):
+    # strict_for_py が有効なら追加で regex replacement のバックスラッシュも reject
+    if strict_for_py and ext == ".py":
+        regex_repl_bs_policy = "reject"
+
+    if raw_newline_policy == "reject" and (
+        _has_raw_newline(pattern) or _has_raw_newline(replacement)
+    ):
         return json.dumps(
             {
                 "ok": False,
                 "error": (
-                    "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\n/\r). "
-                    "Do not send literal newlines. Encode them as \"\\n\" in the JSON string "
-                    "(i.e. write \\n as \\\n), or use python_exec to edit the file safely."
+                    "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\\n/\\r). "
+                    "Do not send literal newlines. Encode them as \\\"\\n\\\" in the JSON string "
+                    "(i.e. write \\n as \\\\n), or use python_exec to edit the file safely."
                 ),
                 "suggested_args": {
                     **args,
@@ -343,12 +358,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
-    # 2) Regex replacement backslash check (Python re.sub replacement parsing is fragile).
-    # 2) Regex replacement backslash check (Python re.sub replacement parsing is fragile).
     if mode == "regex" and regex_repl_bs_policy == "reject" and ("\\" in replacement):
-        # Allow only safe group references in re.sub replacement: \1-\9 and \g<...>
-        # Reject other backslash escapes (e.g. \w, \s, \n) that commonly break replacement parsing.
-        _allowed = bool(re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement))
+        _allowed = bool(
+            re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement)
+        )
         if not _allowed:
             return json.dumps(
                 {
@@ -359,10 +372,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                         "\\1-\\9 and \\g<...>. Other escapes like \\w/\\s/\\n are rejected. "
                         "If you need them, set regex_replacement_backslash_policy=allow or use python_exec."
                     ),
-                    "suggested_args": {
-                        **args,
-                        "regex_replacement_backslash_policy": "allow",
-                    },
+                    "suggested_args": {**args, "regex_replacement_backslash_policy": "allow"},
                     "suggested_call": "If you really intend backslash escapes beyond group refs, re-run with suggested_args.",
                 },
                 ensure_ascii=False,
@@ -371,11 +381,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     context_lines = int(args.get("context_lines", 2))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
+
     if pattern == "":
-        return json.dumps(
-            {"ok": False, "error": "pattern must be non-empty"},
-            ensure_ascii=False,
-        )
+        return json.dumps({"ok": False, "error": "pattern must be non-empty"}, ensure_ascii=False)
 
     if not path:
         return json.dumps({"ok": False, "error": "path is required"}, ensure_ascii=False)
@@ -389,14 +397,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         safe_path = ensure_within_workdir(path)
     except Exception as e:
-        return json.dumps(
-            {"ok": False, "error": f"path not allowed: {e}"}, ensure_ascii=False
-        )
+        return json.dumps({"ok": False, "error": f"path not allowed: {e}"}, ensure_ascii=False)
 
     if not os.path.exists(safe_path) or not os.path.isfile(safe_path):
-        return json.dumps(
-            {"ok": False, "error": f"file not found: {safe_path}"}, ensure_ascii=False
-        )
+        return json.dumps({"ok": False, "error": f"file not found: {safe_path}"}, ensure_ascii=False)
 
     if BUSY_LABEL:
         try:
@@ -420,12 +424,12 @@ def run_tool(args: Dict[str, Any]) -> str:
         match_count = 0
 
         if mode == "literal":
-            if count_int is None:
-                match_count = original.count(pattern)
-                replaced = original.replace(pattern, replacement)
-            else:
-                match_count = original.count(pattern)
-                replaced = original.replace(pattern, replacement, count_int)
+            match_count = original.count(pattern)
+            replaced = (
+                original.replace(pattern, replacement)
+                if count_int is None
+                else original.replace(pattern, replacement, count_int)
+            )
 
         else:
             try:
@@ -442,18 +446,18 @@ def run_tool(args: Dict[str, Any]) -> str:
                     {
                         "ok": False,
                         "error": f"invalid regex replacement template: {_repl_err}",
-                        "suggested_args": {
-                            **args,
-                            "mode": "literal",
-                        },
+                        "suggested_args": {**args, "mode": "literal"},
                         "suggested_call": "Python re.sub rejected the replacement template. Consider mode=literal, or escape backslashes properly.",
                     },
                     ensure_ascii=False,
                 )
+
             if count_int is None:
                 replaced, match_count = cre.subn(replacement, original)
             else:
                 replaced, match_count = cre.subn(replacement, original, count=count_int)
+
+        changed = replaced != original
 
         if preview:
             hits = _build_preview(original, replaced, context_lines=context_lines)
@@ -463,8 +467,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "path": safe_path,
                     "mode": mode,
                     "match_count": match_count,
-                    "changed": replaced != original,
+                    "changed": changed,
                     "preview": True,
+                    "diff": _unified_diff(safe_path, original, replaced),
+                    "summary": f"Preview: {match_count} matches found",
                     "hits": [h.__dict__ for h in hits],
                     "detected_newline": detected_newline,
                     "encoding": detected_encoding,
@@ -477,9 +483,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 f"{safe_path} に {match_count} 件マッチしました。\n適用しますか？ (y/N)"
             )
             if not ok:
-                return json.dumps(
-                    {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
-                )
+                return json.dumps({"ok": False, "error": "cancelled by user"}, ensure_ascii=False)
 
         backup = make_backup_before_overwrite(safe_path)
         _write_text_robust(
@@ -489,14 +493,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             newline=detected_newline,
         )
 
-        # Minimal diff
-        diff = "".join(
-            difflib.unified_diff(
-                original.splitlines(True),
-                replaced.splitlines(True),
-                fromfile=f"a/{safe_path}",
-                tofile=f"b/{safe_path}",
-            )
+        diff = _unified_diff(safe_path, original, replaced)
+
+        summary = (
+            "Successfully no change (0 matches)"
+            if match_count == 0
+            else f"Applied: {match_count} matches"
         )
 
         return json.dumps(
@@ -505,14 +507,26 @@ def run_tool(args: Dict[str, Any]) -> str:
                 "path": safe_path,
                 "mode": mode,
                 "match_count": match_count,
-                "changed": replaced != original,
+                "changed": changed,
                 "preview": False,
+                "summary": summary,
                 "diff": diff,
                 "backup": backup,
                 "written": True,
                 "new_size": os.path.getsize(safe_path),
                 "detected_newline": detected_newline,
                 "encoding": detected_encoding,
+            },
+            ensure_ascii=False,
+        )
+
+    except Exception as e:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"{type(e).__name__}: {e}",
+                "diff": "",
+                "summary": "Error",
             },
             ensure_ascii=False,
         )
