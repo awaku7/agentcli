@@ -7,7 +7,7 @@ sys.path.insert(
 import unittest
 import json
 import platform
-from tools.get_os_tool import run_tool
+from uagent.tools.get_os_tool import run_tool
 
 
 class TestGetOsTool(unittest.TestCase):

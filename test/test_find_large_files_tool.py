@@ -9,7 +9,7 @@ import json
 import os
 import shutil
 import tempfile
-from tools.find_large_files_tool import run_tool
+from uagent.tools.find_large_files_tool import run_tool
 
 
 class TestFindLargeFilesTool(unittest.TestCase):

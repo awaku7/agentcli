@@ -9,7 +9,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.semantic_search_files_tool import run_tool
+from uagent.tools.semantic_search_files_tool import run_tool
 
 
 class TestSemanticSearchFilesTool(unittest.TestCase):
@@ -37,10 +37,10 @@ class TestSemanticSearchFilesTool(unittest.TestCase):
         # but since we mock, it shouldn't be an issue.
 
     @patch(
-        "tools.semantic_search_files_tool._is_embedding_api_reachable",
+        "uagent.tools.semantic_search_files_tool._is_embedding_api_reachable",
         return_value=True,
     )
-    @patch("tools.semantic_search_files_tool._get_embedding")
+    @patch("uagent.tools.semantic_search_files_tool._get_embedding")
     def test_run_tool_success(self, mock_get_embedding, mock_reachable):
         # Mock embedding response: a simple vector
         mock_get_embedding.return_value = [0.1] * 768

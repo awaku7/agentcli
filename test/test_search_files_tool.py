@@ -8,7 +8,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.search_files_tool import run_tool
+from uagent.tools.search_files_tool import run_tool
 
 
 class TestSearchFilesTool(unittest.TestCase):

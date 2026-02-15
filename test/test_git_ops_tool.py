@@ -6,7 +6,7 @@ sys.path.insert(
 )
 import unittest
 from unittest.mock import patch, MagicMock
-from tools.git_ops_tool import run_tool
+from uagent.tools.git_ops_tool import run_tool
 
 
 class TestGitOpsTool(unittest.TestCase):

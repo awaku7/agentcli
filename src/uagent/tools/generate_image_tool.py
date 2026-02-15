@@ -319,9 +319,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     n = int(args.get("n") or 1)
     n = max(1, min(4, n))
 
-    default_output_dir = os.path.join(
-        os.path.expanduser("~"), ".scheck", "outputs", "image_generations"
-    )
+    from uagent.utils.paths import get_image_generations_dir
+
+    default_output_dir = str(get_image_generations_dir())
     output_dir = str(args.get("output_dir") or default_output_dir)
     file_prefix = str(args.get("file_prefix") or "img")
 

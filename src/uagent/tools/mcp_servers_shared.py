@@ -10,28 +10,24 @@ def get_default_mcp_config_path() -> str:
     MCP サーバー設定ファイルのデフォルトパスを返します。
     優先順位:
     1. 環境変数 UAGENT_MCP_CONFIG
-    2. ~/.scheck/mcps/mcp_servers.json
+    2. <state>/mcps/mcp_servers.json (既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json)
     """
-    # 1. 環境変数
-    env_path = os.environ.get("UAGENT_MCP_CONFIG")
-    if env_path:
-        return os.path.abspath(os.path.expanduser(env_path))
+    from uagent.utils.paths import get_mcp_servers_json_path
 
-    # 2. 標準の場所: ~/.scheck/mcps/mcp_servers.json
-    # core.py の BASE_LOG_DIR 構成に合わせる
-    base_dir = os.path.abspath(os.path.join(os.path.expanduser("~"), ".scheck", "mcps"))
-    return os.path.join(base_dir, "mcp_servers.json")
+    return str(get_mcp_servers_json_path())
 
 
 def ensure_mcp_config_template() -> str:
     """
-    標準の場所 (~/.scheck/mcps/mcp_servers.json) が存在しない場合のみ、
+    標準の場所 (<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json) が存在しない場合のみ、
     デフォルトの雛形を作成します。
     作成した（または既に存在していた）パスを返します。
     """
-    path = os.path.abspath(
-        os.path.join(os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json")
-    )
+    # NOTE: テンプレートは『標準の場所』にのみ作成する（従来挙動維持）。
+    # env(UAGENT_MCP_CONFIG) 指定先へ勝手に書き込まない。
+    from uagent.utils.paths import get_mcps_dir
+
+    path = str(get_mcps_dir() / "mcp_servers.json")
 
     if os.path.exists(path):
         return path

@@ -12,7 +12,7 @@ pip/wheel には post-install フックが無いので、起動時（scheck / sc
   - 失敗した場合は標準出力へテキスト表示にフォールバック
 
 実装:
-- フラグ: ~/.scheck/first_run_readme_shown.json
+- フラグ: <state>/first_run_readme_shown.json（既定: ~/.uag/first_run_readme_shown.json。旧: ~/.scheck/first_run_readme_shown.json を読み取り参照）
   - JSON: {"shown_versions": ["0.2.8", ...]}
 - README の取得: importlib.resources (wheel/zip 環境でも動作)
   - package-data により scheck/README.md が同梱されている前提
@@ -27,14 +27,30 @@ import os
 import sys
 from typing import Optional
 
-_FLAG_DIRNAME = ".scheck"
 _FLAG_FILENAME = "first_run_readme_shown.json"
 _QUICKSTART_FLAG_FILENAME = "first_run_quickstart_shown.json"
 
 
+def _get_flag_paths() -> list[str]:
+    """Return flag file paths in priority order (new -> legacy).
+
+    This keeps backward compatibility when switching state dir from
+    ~/.scheck to ~/.uag without migrating files.
+    """
+
+    from uagent.utils.paths import get_state_dir, get_legacy_state_dir
+
+    p_new = str(get_state_dir() / _FLAG_FILENAME)
+    p_old = str(get_legacy_state_dir() / _FLAG_FILENAME)
+    if p_new == p_old:
+        return [p_new]
+    return [p_new, p_old]
+
+
 def _get_flag_path() -> str:
-    home = os.path.expanduser("~")
-    return os.path.join(home, _FLAG_DIRNAME, _FLAG_FILENAME)
+    from uagent.utils.paths import get_state_dir
+
+    return str(get_state_dir() / _FLAG_FILENAME)
 
 
 def _get_installed_version() -> str:
@@ -49,16 +65,18 @@ def _get_installed_version() -> str:
 
 def _already_shown(*, current_version: str) -> bool:
     try:
-        p = _get_flag_path()
-        if not os.path.exists(p):
-            return False
+        for p in _get_flag_paths():
+            if not os.path.exists(p):
+                continue
 
-        import json
+            import json
 
-        with open(p, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        shown = data.get("shown_versions") or []
-        return str(current_version) in set(map(str, shown))
+            with open(p, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            shown = data.get("shown_versions") or []
+            if str(current_version) in set(map(str, shown)):
+                return True
+        return False
     except Exception:
         return False
 
@@ -189,23 +207,38 @@ def maybe_print_readme_on_first_run(
 # --- QUICKSTART.md (first run) ---
 
 
+def _get_quickstart_flag_paths() -> list[str]:
+    """Return quickstart flag paths in priority order (new -> legacy)."""
+
+    from uagent.utils.paths import get_state_dir, get_legacy_state_dir
+
+    p_new = str(get_state_dir() / _QUICKSTART_FLAG_FILENAME)
+    p_old = str(get_legacy_state_dir() / _QUICKSTART_FLAG_FILENAME)
+    if p_new == p_old:
+        return [p_new]
+    return [p_new, p_old]
+
+
 def _get_quickstart_flag_path() -> str:
-    home = os.path.expanduser("~")
-    return os.path.join(home, _FLAG_DIRNAME, _QUICKSTART_FLAG_FILENAME)
+    from uagent.utils.paths import get_state_dir
+
+    return str(get_state_dir() / _QUICKSTART_FLAG_FILENAME)
 
 
 def _already_shown_quickstart(*, current_version: str) -> bool:
     try:
-        p = _get_quickstart_flag_path()
-        if not os.path.exists(p):
-            return False
+        for p in _get_quickstart_flag_paths():
+            if not os.path.exists(p):
+                continue
 
-        import json
+            import json
 
-        with open(p, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        shown = data.get("shown_versions") or []
-        return str(current_version) in set(map(str, shown))
+            with open(p, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            shown = data.get("shown_versions") or []
+            if str(current_version) in set(map(str, shown)):
+                return True
+        return False
     except Exception:
         return False
 

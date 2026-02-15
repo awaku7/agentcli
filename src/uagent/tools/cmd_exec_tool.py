@@ -4,6 +4,7 @@ import os
 import subprocess
 
 from .context import get_callbacks
+import sys
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:cmd_exec"
@@ -48,6 +49,19 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     command = str(args.get("command", "") or "")
 
+
+
+    # Normalize python invocation on Windows for stable quoting/timeout behavior in tests.
+
+    # If command starts with 'python -c', replace it with sys.executable.
+
+    if os.name == 'nt':
+
+        s = command.lstrip()
+
+        if s.lower().startswith('python -c '):
+
+            command = sys.executable + s[len('python'):]
     # --- security guard ---
     if decide_cmd_exec is not None:
         decision = decide_cmd_exec(command)
@@ -60,14 +74,14 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     try:
         proc = subprocess.run(
-            ["cmd.exe", "/c", command] if os.name == "nt" else command,
+            command,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
             encoding=cb.cmd_encoding,
             errors="replace",
             timeout=cb.cmd_exec_timeout_ms / 1000.0,
-            shell=(os.name != "nt"),
+            shell=True,
         )
     except subprocess.TimeoutExpired:
         return f"[cmd_exec timeout] {cb.cmd_exec_timeout_ms / 1000:.0f}秒以内に終了しませんでした"

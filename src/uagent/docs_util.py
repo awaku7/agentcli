@@ -112,7 +112,9 @@ def get_doc_path(name: str) -> Path:
 
         with as_file(ref) as tmp_path:
             # Copy to a persistent temp location for opening
-            tmp_dir = Path(os.path.expanduser("~")) / ".scheck" / "docs_cache"
+            from uagent.utils.paths import get_docs_cache_dir
+
+            tmp_dir = get_docs_cache_dir()
             tmp_dir.mkdir(parents=True, exist_ok=True)
             dst = tmp_dir / d.filename
             dst.write_text(tmp_path.read_text(encoding="utf-8"), encoding="utf-8")

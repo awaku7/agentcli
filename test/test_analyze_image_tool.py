@@ -9,7 +9,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.analyze_image_tool import run_tool
+from uagent.tools.analyze_image_tool import run_tool
 
 
 class TestAnalyzeImageTool(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestAnalyzeImageTool(unittest.TestCase):
         if os.path.exists(self.test_dir):
             shutil.rmtree(self.test_dir)
 
-    @patch("tools.analyze_image_tool._run_gemini")
+    @patch("uagent.tools.analyze_image_tool._run_gemini")
     @patch(
         "os.environ.get",
         side_effect=lambda k, d=None: "gemini" if k == "UAGENT_PROVIDER" else d,

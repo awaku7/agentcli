@@ -6,7 +6,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.date_calc_tool import run_tool
+from uagent.tools.date_calc_tool import run_tool
 
 
 class TestDateCalcTool(unittest.TestCase):

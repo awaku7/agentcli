@@ -53,6 +53,8 @@ from . import runtime_init as _runtime_init
 
 from .checks import check_git_installation
 
+from uagent.utils.paths import get_history_file_path
+
 from .util_tools import (
     extract_image_paths,
     image_file_to_data_url,
@@ -71,7 +73,7 @@ _init_tools_callbacks(core)
 
 
 # Readline history setup
-_HISTORY_FILE = os.path.join(os.path.expanduser("~"), ".scheck_history")
+_HISTORY_FILE = str(get_history_file_path())
 
 if readline:
     try:

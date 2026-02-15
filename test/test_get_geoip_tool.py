@@ -7,11 +7,11 @@ sys.path.insert(
 import unittest
 import json
 from unittest.mock import patch
-from tools.get_geoip_tool import run_tool
+from uagent.tools.get_geoip_tool import run_tool
 
 
 class TestGetGeoipTool(unittest.TestCase):
-    @patch("tools.get_geoip_tool.fetch_url_run")
+    @patch("uagent.tools.get_geoip_tool.fetch_url_run")
     def test_get_geoip_text(self, mock_fetch):
         """テキスト形式での正常系テスト"""
         mock_fetch.return_value = (
@@ -34,7 +34,7 @@ class TestGetGeoipTool(unittest.TestCase):
         self.assertIn("都市: Tokyo", result)
         self.assertIn("国: JP", result)
 
-    @patch("tools.get_geoip_tool.fetch_url_run")
+    @patch("uagent.tools.get_geoip_tool.fetch_url_run")
     def test_get_geoip_json(self, mock_fetch):
         """JSON形式での正常系テスト"""
         mock_fetch.return_value = (
@@ -49,7 +49,7 @@ class TestGetGeoipTool(unittest.TestCase):
         self.assertEqual(result["city"], "Mountain View")
         self.assertEqual(result["country"], "US")
 
-    @patch("tools.get_geoip_tool.fetch_url_run")
+    @patch("uagent.tools.get_geoip_tool.fetch_url_run")
     def test_get_geoip_fetch_error(self, mock_fetch):
         """fetch_url がエラーを返した場合"""
         mock_fetch.return_value = "[fetch_url error] Failed to connect"
@@ -58,7 +58,7 @@ class TestGetGeoipTool(unittest.TestCase):
         self.assertIn("[get_geoip error]", result)
         self.assertIn("解析できませんでした", result)
 
-    @patch("tools.get_geoip_tool.fetch_url_run")
+    @patch("uagent.tools.get_geoip_tool.fetch_url_run")
     def test_get_geoip_invalid_json(self, mock_fetch):
         """ipinfo が不正な JSON を返した場合"""
         mock_fetch.return_value = "Not a JSON"

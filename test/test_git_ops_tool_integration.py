@@ -10,7 +10,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.git_ops_tool import run_tool  # noqa: E402
+from uagent.tools.git_ops_tool import run_tool  # noqa: E402
 
 
 def _git_available() -> bool:

@@ -10,7 +10,7 @@ import os
 import shutil
 import tempfile
 import hashlib
-from tools.file_hash_tool import run_tool
+from uagent.tools.file_hash_tool import run_tool
 
 
 class TestFileHashTool(unittest.TestCase):

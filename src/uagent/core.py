@@ -46,9 +46,10 @@ except Exception:
 
 # セッションIDとログ・メモリファイルパス
 SESSION_ID = time.strftime("%Y%m%d_%H%M%S")
+from uagent.utils.paths import get_log_dir
+
 BASE_LOG_DIR = os.path.abspath(
-    os.environ.get("UAGENT_LOG_DIR")
-    or os.path.join(os.path.expanduser("~"), ".scheck", "logs")
+    os.environ.get("UAGENT_LOG_DIR") or str(get_log_dir())
 )
 LOG_FILE = os.environ.get("UAGENT_LOG_FILE") or os.path.join(
     BASE_LOG_DIR, f"scheck_log_{SESSION_ID}.jsonl"

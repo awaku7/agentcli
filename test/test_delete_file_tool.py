@@ -8,7 +8,7 @@ import unittest
 import os
 import shutil
 from unittest.mock import patch
-from tools.delete_file_tool import run_tool
+from uagent.tools.delete_file_tool import run_tool
 
 
 class TestDeleteFileTool(unittest.TestCase):
@@ -63,7 +63,7 @@ class TestDeleteFileTool(unittest.TestCase):
         os.makedirs(dir_path)
 
         # ディレクトリ削除は常に確認なので、確認をOKにする
-        with patch("tools.safe_file_ops._human_confirm", return_value=True):
+        with patch("uagent.tools.safe_file_ops._human_confirm", return_value=True):
             args = {"filename": "test/tmp_delete_test/sub_dir"}
             result = run_tool(args)
 
@@ -77,7 +77,7 @@ class TestDeleteFileTool(unittest.TestCase):
         存在しないパスの場合、削除前の存在チェックで終了するため PermissionError にはならない。
         （存在する危険パスを指定した場合にのみ確認が発生し、拒否すれば PermissionError になる）
         """
-        with patch("tools.safe_file_ops._human_confirm", return_value=False):
+        with patch("uagent.tools.safe_file_ops._human_confirm", return_value=False):
             args = {"filename": "../important_system_file.txt"}
             result = run_tool(args)
 

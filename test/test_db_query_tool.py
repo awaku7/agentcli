@@ -11,7 +11,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.db_query_tool import run_tool
+from uagent.tools.db_query_tool import run_tool
 
 
 class TestDbQueryTool(unittest.TestCase):

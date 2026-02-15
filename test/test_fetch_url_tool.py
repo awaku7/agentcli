@@ -8,13 +8,13 @@ import unittest
 from unittest.mock import patch, MagicMock
 from urllib.error import HTTPError, URLError
 import ssl
-from tools.fetch_url_tool import run_tool
+from uagent.tools.fetch_url_tool import run_tool
 
 
 class TestFetchUrlTool(unittest.TestCase):
     def test_fetch_url_success(self):
         """正常なレスポンス取得のテスト"""
-        with patch("tools.fetch_url_tool.urlopen") as mock_urlopen:
+        with patch("uagent.tools.fetch_url_tool.urlopen") as mock_urlopen:
             mock_resp = MagicMock()
             mock_resp.read.return_value = b"Hello from web"
             mock_resp.getcode.return_value = 200
@@ -31,7 +31,7 @@ class TestFetchUrlTool(unittest.TestCase):
 
     def test_fetch_url_http_error(self):
         """HTTPエラー(404等)のテスト"""
-        with patch("tools.fetch_url_tool.urlopen") as mock_urlopen:
+        with patch("uagent.tools.fetch_url_tool.urlopen") as mock_urlopen:
             # HTTPError(url, code, msg, hdrs, fp)
             mock_urlopen.side_effect = HTTPError(
                 "http://ex.com", 404, "Not Found", {}, None
@@ -44,7 +44,7 @@ class TestFetchUrlTool(unittest.TestCase):
 
     def test_fetch_url_ssl_error_fallback(self):
         """SSL証明書エラー時のフォールバックテスト"""
-        with patch("tools.fetch_url_tool.urlopen") as mock_urlopen:
+        with patch("uagent.tools.fetch_url_tool.urlopen") as mock_urlopen:
             # 1回目は SSL 証明書エラー
             err = URLError(ssl.SSLCertVerificationError("cert failed"))
 
@@ -66,8 +66,8 @@ class TestFetchUrlTool(unittest.TestCase):
 
     def test_fetch_url_truncation(self):
         """巨大レスポンスの切り詰めテスト"""
-        with patch("tools.fetch_url_tool.urlopen") as mock_urlopen:
-            with patch("tools.fetch_url_tool.get_callbacks") as mock_get_cb:
+        with patch("uagent.tools.fetch_url_tool.urlopen") as mock_urlopen:
+            with patch("uagent.tools.fetch_url_tool.get_callbacks") as mock_get_cb:
                 mock_cb = MagicMock()
                 mock_cb.url_fetch_max_bytes = 10
                 mock_cb.url_fetch_timeout_ms = 1000

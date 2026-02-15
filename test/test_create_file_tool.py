@@ -8,7 +8,7 @@ import unittest
 import os
 import shutil
 from unittest.mock import patch
-from tools.create_file_tool import run_tool
+from uagent.tools.create_file_tool import run_tool
 
 
 class TestCreateFileTool(unittest.TestCase):
@@ -80,7 +80,7 @@ class TestCreateFileTool(unittest.TestCase):
     def test_dangerous_path_rejection(self):
         """ワークディレクトリ外への作成拒否テスト（人間確認をシミュレート）"""
         # safe_file_ops._human_confirm を mock して False (キャンセル) を返す
-        with patch("tools.safe_file_ops._human_confirm", return_value=False):
+        with patch("uagent.tools.safe_file_ops._human_confirm", return_value=False):
             args = {"filename": "../outside_create.txt", "content": "Secret"}
             result = run_tool(args)
             self.assertIn("PermissionError", result)
