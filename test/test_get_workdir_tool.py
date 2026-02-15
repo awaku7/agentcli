@@ -5,7 +5,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 import unittest
-from tools.get_workdir_tool import run_tool
+from uagent.tools.get_workdir_tool import run_tool
 
 
 class TestGetWorkdirTool(unittest.TestCase):

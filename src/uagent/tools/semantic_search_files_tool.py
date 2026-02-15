@@ -119,14 +119,10 @@ def _emit_embedding_disabled_reason() -> None:
 
 
 def _get_db_path(root_dir: str) -> str:
-    """ユーザーホームの .scheck/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す"""
-    home = os.path.expanduser("~")
-    # 環境変数があれば優先
-    base_dir = os.environ.get("UAGENT_CACHE_DIR") or os.environ.get("UAGENT_LOG_DIR")
-    if base_dir:
-        dbs_dir = os.path.join(os.path.dirname(base_dir), "dbs")
-    else:
-        dbs_dir = os.path.join(home, ".scheck", "dbs")
+    """<state>/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。"""
+    from uagent.utils.paths import get_dbs_dir
+
+    dbs_dir = str(get_dbs_dir())
 
     os.makedirs(dbs_dir, exist_ok=True)
 
@@ -313,10 +309,12 @@ def semantic_search_files(
         except Exception:
             target_files.extend(glob.glob(os.path.join(root_abs, p)))
 
+    from uagent.utils.scan_filters import is_ignored_path
+
     target_files = [
         f
         for f in sorted(list(set(target_files)))
-        if ".scheck" not in f and os.path.isfile(f)
+        if (not is_ignored_path(f)) and os.path.isfile(f)
     ]
 
     # 削除チェック

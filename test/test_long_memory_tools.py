@@ -8,8 +8,8 @@ import unittest
 import json
 import shutil
 import tempfile
-from tools.add_long_memory_tool import run_tool as run_add
-from tools.get_long_memory_tool import run_tool as run_get
+from uagent.tools.add_long_memory_tool import run_tool as run_add
+from uagent.tools.get_long_memory_tool import run_tool as run_get
 
 
 class TestLongMemoryTools(unittest.TestCase):

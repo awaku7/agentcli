@@ -28,10 +28,9 @@ DEFAULT_MAX_SHARED_MEMORY_BYTES = 200_000
 
 
 def _get_base_log_dir() -> str:
-    return os.path.abspath(
-        os.environ.get("UAGENT_LOG_DIR")
-        or os.path.join(os.path.expanduser("~"), ".scheck", "logs")
-    )
+    from uagent.utils.paths import get_log_dir
+
+    return str(get_log_dir())
 
 
 def _get_shared_memory_file() -> str:

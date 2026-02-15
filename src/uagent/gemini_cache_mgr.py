@@ -11,19 +11,10 @@ except ImportError:
 # キャッシュメタデータの保存先を決定
 # 優先順位:
 # 1. 環境変数 UAGENT_CACHE_DIR
-# 2. 環境変数 UAGENT_LOG_DIR (設定されている場合)
-# 3. デフォルト: ~/.scheck
-_env_cache = os.environ.get("UAGENT_CACHE_DIR")
-_env_log = os.environ.get("UAGENT_LOG_DIR")
+# 2. デフォルト: <state>/cache (既定: ~/.uag（旧: ~/.scheck）/cache; uagent.utils.paths.get_cache_dir() により決定)
+from uagent.utils.paths import get_cache_dir
 
-if _env_cache:
-    CACHE_META_DIR = _env_cache
-elif _env_log:
-    # ログディレクトリが指定されている場合は同じ場所を使う
-    CACHE_META_DIR = _env_log
-else:
-    # デフォルトは ~/.scheck/cache
-    CACHE_META_DIR = os.path.join(os.path.expanduser("~"), ".scheck", "cache")
+CACHE_META_DIR = str(get_cache_dir())
 
 CACHE_META_FILE = os.path.join(CACHE_META_DIR, "gemini_cache_meta.json")
 

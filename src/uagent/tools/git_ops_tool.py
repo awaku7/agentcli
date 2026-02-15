@@ -182,13 +182,13 @@ def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> 
     """非オプション引数（ファイルパスなど）が workdir 配下のみかを検証（ディレクトリトラバーサル防止）。
 
     allow_outside_workdir=True の場合は workdir 外も許可するが、scheck が管理する安全な
-    一時領域（~/.scheck/tmp/patch）配下のみ許可する。
+    一時領域（<state>/tmp/patch。既定: ~/.uag/tmp/patch（旧: ~/.scheck/tmp/patch））配下のみ許可する。
     """
 
     workdir = os.getcwd()
-    scheck_patch_tmp = os.path.abspath(
-        os.path.join(os.path.expanduser("~"), ".scheck", "tmp", "patch")
-    )
+    from uagent.utils.paths import get_tmp_patch_dir
+
+    scheck_patch_tmp = str(get_tmp_patch_dir())
 
     for a in args:
         if a.startswith("-"):
@@ -392,7 +392,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ),
                 allow_danger=allow_danger,
             )
-            # patch file is a non-option arg -> validate. allow_outside_workdir allows only ~/.scheck/tmp/patch
+            # patch file is a non-option arg -> validate. allow_outside_workdir allows only <state>/tmp/patch (default: ~/.uag/tmp/patch; legacy: ~/.scheck/tmp/patch)
             _validate_paths(cmd_args, allow_outside_workdir=True)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
