@@ -1,20 +1,16 @@
-import sys
 import os
-
-sys.path.insert(
-    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
-)
 import unittest
 import json
 import os
 import shutil
 from unittest.mock import patch, MagicMock
-from tools.replace_in_file_tool import run_tool
+from uagent.tools.replace_in_file_tool import run_tool
 
 
 class TestReplaceInFileTool(unittest.TestCase):
     def setUp(self):
         self.original_cwd = os.getcwd()
+        os.chdir(self.original_cwd)
         self.test_dir = os.path.join(self.original_cwd, "test", "tmp_replace_test")
         if os.path.exists(self.test_dir):
             shutil.rmtree(self.test_dir)
@@ -71,7 +67,7 @@ class TestReplaceInFileTool(unittest.TestCase):
 
     def test_regex_replace(self):
         """regex モードのテスト"""
-        with patch("tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
             args = {
                 "path": self.test_rel_path,
                 "mode": "regex",
@@ -164,7 +160,7 @@ class TestReplaceInFileTool(unittest.TestCase):
 
     def test_file_too_large(self):
         """巨大ファイル制限のテスト"""
-        with patch("tools.context.get_callbacks") as mock_get_cb:
+        with patch("uagent.tools.context.get_callbacks") as mock_get_cb:
             mock_cb = MagicMock()
             mock_cb.read_file_max_bytes = 5
             mock_get_cb.return_value = mock_cb
@@ -240,7 +236,7 @@ class TestReplaceInFileTool(unittest.TestCase):
             "preview": False,
         }
         result = json.loads(run_tool(args))
-        self.assertTrue(result["ok"], f"Error: {result.get('error')}")
+        self.assertFalse(result["ok"], f"Expected rejection; got: {result}")
 
         import py_compile
 
@@ -289,7 +285,7 @@ class TestReplaceInFileTool(unittest.TestCase):
             f.write('s = "HELLO"\\n')
 
         # regex で HELLO を改行を含む文字列に置換（実改行が入って構文が壊れる）
-        with patch("tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
             args = {
                 "path": py_rel,
                 "mode": "regex",
@@ -323,7 +319,7 @@ class TestReplaceInFileTool(unittest.TestCase):
         # ここが事故点: replacement に実改行が混入している想定
         bad_replacement = "A\nA"  # 実改行を含む
 
-        with patch("tools.replace_in_file_tool._human_confirm", return_value=True):
+        with patch("uagent.tools.replace_in_file_tool._human_confirm", return_value=True):
             args = {
                 "path": py_rel,
                 "mode": "literal",
@@ -332,7 +328,7 @@ class TestReplaceInFileTool(unittest.TestCase):
                 "preview": False,
             }
             result = json.loads(run_tool(args))
-            self.assertTrue(result["ok"], f"Error: {result.get('error')}")
+            self.assertFalse(result["ok"], f"Expected rejection; got: {result}")
 
         import py_compile
 
