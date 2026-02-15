@@ -9,7 +9,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.rename_path_tool import run_tool
+from uagent.tools.rename_path_tool import run_tool
 
 
 class TestRenamePathTool(unittest.TestCase):

@@ -351,7 +351,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
-    tmp_dir = os.path.join(os.path.expanduser("~"), ".scheck", "tmp", "patch")
+    from uagent.utils.paths import get_tmp_patch_dir
+
+    tmp_dir = str(get_tmp_patch_dir())
     try:
         os.makedirs(tmp_dir, exist_ok=True)
     except Exception as e:

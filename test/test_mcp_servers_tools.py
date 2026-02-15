@@ -9,16 +9,16 @@ import json
 import shutil
 import tempfile
 from unittest.mock import patch
-from tools.mcp_servers_add_tool import run_tool as run_add
-from tools.mcp_servers_list_tool import run_tool as run_list
-from tools.mcp_servers_remove_tool import run_tool as run_remove
+from uagent.tools.mcp_servers_add_tool import run_tool as run_add
+from uagent.tools.mcp_servers_list_tool import run_tool as run_list
+from uagent.tools.mcp_servers_remove_tool import run_tool as run_remove
 
 
 class TestMcpServersTools(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.mkdtemp()
         self.config_path = os.path.join(self.test_dir, "mcp_servers.json")
-        self.patcher = patch("tools.safe_file_ops._is_trigger_path", return_value=False)
+        self.patcher = patch("uagent.tools.safe_file_ops._is_trigger_path", return_value=False)
         self.patcher.start()
 
     def tearDown(self):

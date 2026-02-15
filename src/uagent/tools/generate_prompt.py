@@ -123,7 +123,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         timestamp=timestamp,
     )
 
-    files_dir = Path.home() / ".scheck" / "files"
+    from uagent.utils.paths import get_files_dir
+
+    files_dir = get_files_dir()
     try:
         files_dir.mkdir(parents=True, exist_ok=True)
     except Exception as e:

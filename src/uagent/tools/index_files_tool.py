@@ -78,7 +78,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     except Exception as e:
         return f"エラー: パターンの解析に失敗しました: {e}"
 
-    target_files = [f for f in files if os.path.isfile(f) and ".scheck" not in f]
+    from uagent.utils.scan_filters import is_ignored_path
+
+    target_files = [f for f in files if os.path.isfile(f) and (not is_ignored_path(f))]
 
     if not target_files:
         return f"パターン '{pattern}' に一致するファイルが見つかりませんでした。"

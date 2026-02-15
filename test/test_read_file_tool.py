@@ -7,7 +7,7 @@ sys.path.insert(
 import unittest
 import os
 import shutil
-from tools.read_file_tool import run_tool
+from uagent.tools.read_file_tool import run_tool
 
 
 class TestReadFileTool(unittest.TestCase):

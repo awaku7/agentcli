@@ -7,11 +7,11 @@ sys.path.insert(
 import unittest
 import json
 from unittest.mock import patch
-from tools.lint_format_tool import run_tool
+from uagent.tools.lint_format_tool import run_tool
 
 
 class TestLintFormatTool(unittest.TestCase):
-    @patch("tools.lint_format_tool._cmd_exec_json")
+    @patch("uagent.tools.lint_format_tool._cmd_exec_json")
     def test_lint_format_check(self, mock_exec):
         """検査モード(check)のテスト"""
         # mock version check for ruff
@@ -29,8 +29,8 @@ class TestLintFormatTool(unittest.TestCase):
         self.assertEqual(result["results"][0]["tool"], "ruff")
         self.assertIn("ruff check", result["results"][0]["command"])
 
-    @patch("tools.lint_format_tool._human_confirm")
-    @patch("tools.lint_format_tool._cmd_exec_json")
+    @patch("uagent.tools.lint_format_tool._human_confirm")
+    @patch("uagent.tools.lint_format_tool._cmd_exec_json")
     def test_lint_format_fix_success(self, mock_exec, mock_confirm):
         """修正モード(fix)でユーザー同意ありのテスト"""
         mock_confirm.return_value = True
@@ -45,7 +45,7 @@ class TestLintFormatTool(unittest.TestCase):
         self.assertIn("black", result["results"][0]["command"])
         self.assertNotIn("--check", result["results"][0]["command"])
 
-    @patch("tools.lint_format_tool._human_confirm")
+    @patch("uagent.tools.lint_format_tool._human_confirm")
     def test_lint_format_fix_cancel(self, mock_confirm):
         """修正モード(fix)でユーザーキャンセルした場合"""
         mock_confirm.return_value = False
@@ -63,8 +63,8 @@ class TestLintFormatTool(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertIn("metacharacters", result["error"])
 
-    @patch("tools.lint_format_tool._tool_exists_py")
-    @patch("tools.lint_format_tool._cmd_exec_json")
+    @patch("uagent.tools.lint_format_tool._tool_exists_py")
+    @patch("uagent.tools.lint_format_tool._cmd_exec_json")
     def test_auto_select_tools(self, mock_exec, mock_exists):
         """ツール未指定時の自動選択"""
         # ruff と black が存在すると仮定

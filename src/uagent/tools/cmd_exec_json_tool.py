@@ -35,6 +35,8 @@ import subprocess
 from typing import Any, Dict, Optional
 
 from .context import get_callbacks
+import shlex
+import sys
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:cmd_exec_json"
@@ -112,6 +114,19 @@ def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
 
     command = str(args.get("command", "") or "")
+
+
+    # Normalize python invocation on Windows for stable quoting/timeout behavior in tests.
+
+    # If command starts with 'python -c', replace it with sys.executable.
+
+    if os.name == 'nt':
+
+        s = command.lstrip()
+
+        if s.lower().startswith('python -c '):
+
+            command = sys.executable + s[len('python'):]
     cwd_raw = args.get("cwd", None)
 
     # --- security guard ---
@@ -145,10 +160,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 {"ok": False, "error": f"cwd not allowed: {type(e).__name__}: {e}"},
                 ensure_ascii=False,
             )
-
     try:
         proc = subprocess.run(
-            ["cmd.exe", "/c", command] if os.name == "nt" else command,
+            command,
             cwd=run_cwd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -156,7 +170,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             encoding=cb.cmd_encoding,
             errors="replace",
             timeout=cb.cmd_exec_timeout_ms / 1000.0,
-            shell=(os.name != "nt"),
+            shell=True,
         )
     except subprocess.TimeoutExpired:
         return json.dumps(

@@ -15,7 +15,7 @@ Supported file types (minimum viable, all at once):
 
 Design goals:
 - Keep existing semantic_search_files tool behavior unchanged.
-- Store graph tables in the same per-root SQLite DB under ~/.scheck/dbs (or UAGENT_CACHE_DIR/UAGENT_LOG_DIR).
+- Store graph tables in the same per-root SQLite DB under <state>/dbs (default: ~/.uag (legacy: ~/.scheck)/dbs; overridable via env; resolved by uagent.utils.paths.get_dbs_dir()).
 - Be robust: if optional dependencies for PDF/PPTX/XLSX are missing, index what we can and report.
 
 """
@@ -940,10 +940,12 @@ def graph_rag_search(
         except Exception:
             target_files.extend(glob.glob(os.path.join(root_abs, p)))
 
+    from uagent.utils.scan_filters import is_ignored_path
+
     target_files = [
         f
         for f in sorted(set(target_files))
-        if os.path.isfile(f) and (".scheck" not in f)
+        if os.path.isfile(f) and (not is_ignored_path(f))
     ]
 
     # Remove deleted files from DB (reuse logic, but keep graph tables consistent via FK cascade)
