@@ -12,6 +12,8 @@ from typing import Any, Dict, List, Optional, Set
 # 設定
 # ==============================
 
+from uagent.utils.paths import get_log_dir
+
 PYTHON_EXEC_TIMEOUT_MS = 2000_000
 CMD_EXEC_TIMEOUT_MS = 2000_000
 MAX_TOOL_OUTPUT_CHARS = 400_000
@@ -46,11 +48,8 @@ except Exception:
 
 # セッションIDとログ・メモリファイルパス
 SESSION_ID = time.strftime("%Y%m%d_%H%M%S")
-from uagent.utils.paths import get_log_dir
 
-BASE_LOG_DIR = os.path.abspath(
-    os.environ.get("UAGENT_LOG_DIR") or str(get_log_dir())
-)
+BASE_LOG_DIR = os.path.abspath(os.environ.get("UAGENT_LOG_DIR") or str(get_log_dir()))
 LOG_FILE = os.environ.get("UAGENT_LOG_FILE") or os.path.join(
     BASE_LOG_DIR, f"scheck_log_{SESSION_ID}.jsonl"
 )
@@ -874,6 +873,7 @@ def print_help() -> None:
         f"  - 複数行入力モードの終了は行全体が {MULTI_INPUT_SENTINEL} の行です。",
     ]
     print("\n".join(lines))
+
 
 # ==============================
 # SYSTEM_PROMPT

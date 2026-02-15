@@ -333,7 +333,9 @@ def main(argv: list[str]) -> int:
     if whl_path.suffix.lower() != ".whl":
         raise SystemExit(f"Not a .whl file: {whl_path}")
 
-    project_id = (args.get("project_id") or "").strip() or _require_env("GITLAB_PROJECT_ID")
+    project_id = (args.get("project_id") or "").strip() or _require_env(
+        "GITLAB_PROJECT_ID"
+    )
     token = _require_env("GITLAB_TOKEN")
 
     wheel_url = _build_generic_wheel_url(whl_path, project_id=project_id)
@@ -349,7 +351,9 @@ def main(argv: list[str]) -> int:
         if args.get("create_release"):
             release_ref = (args.get("release_ref") or "").strip() or "main"
             _create_release(project_id, token, release_tag, release_ref)
-        _add_release_asset_link(project_id, token, release_tag, whl_path.name, wheel_url)
+        _add_release_asset_link(
+            project_id, token, release_tag, whl_path.name, wheel_url
+        )
         print("Release link added.")
 
     return 0

@@ -102,7 +102,9 @@ def _json_loads(b: bytes) -> Any:
     return json.loads(b.decode("utf-8", errors="strict"))
 
 
-def _request_json(method: str, url: str, token: str, payload: dict | None = None) -> Any:
+def _request_json(
+    method: str, url: str, token: str, payload: dict | None = None
+) -> Any:
     data = None
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
@@ -135,7 +137,13 @@ def _request_json(method: str, url: str, token: str, payload: dict | None = None
         raise SystemExit(f"GitHub API request failed: {method} {url}\n{e}".strip())
 
 
-def _request_raw(method: str, url: str, token: str, data: bytes | None = None, content_type: str | None = None) -> bytes:
+def _request_raw(
+    method: str,
+    url: str,
+    token: str,
+    data: bytes | None = None,
+    content_type: str | None = None,
+) -> bytes:
     req = Request(url=url, data=data, method=method)
     req.add_header("Authorization", f"Bearer {token}")
     req.add_header("Accept", "application/vnd.github+json")
@@ -165,12 +173,16 @@ def _request_raw(method: str, url: str, token: str, data: bytes | None = None, c
 def _parse_repo(repo: str) -> tuple[str, str]:
     repo = repo.strip()
     if not repo or "/" not in repo:
-        raise SystemExit("GITHUB_REPO must be in form 'owner/repo' (e.g. awaku7/agentcli)")
+        raise SystemExit(
+            "GITHUB_REPO must be in form 'owner/repo' (e.g. awaku7/agentcli)"
+        )
     owner, name = repo.split("/", 1)
     owner = owner.strip()
     name = name.strip()
     if not owner or not name:
-        raise SystemExit("GITHUB_REPO must be in form 'owner/repo' (e.g. awaku7/agentcli)")
+        raise SystemExit(
+            "GITHUB_REPO must be in form 'owner/repo' (e.g. awaku7/agentcli)"
+        )
     return owner, name
 
 
@@ -188,7 +200,9 @@ def _get_branch_head_sha(owner: str, repo: str, token: str, branch: str) -> str:
     return j["object"]["sha"]
 
 
-def _ensure_tag_ref(owner: str, repo: str, token: str, tag: str, target_sha: str) -> None:
+def _ensure_tag_ref(
+    owner: str, repo: str, token: str, tag: str, target_sha: str
+) -> None:
     ref = f"refs/tags/{tag}"
 
     # Check if tag ref exists
@@ -217,7 +231,9 @@ def _get_release_by_tag(owner: str, repo: str, token: str, tag: str) -> dict:
     return _request_json("GET", url, token)
 
 
-def _create_release(owner: str, repo: str, token: str, tag: str, name: str, body: str) -> dict:
+def _create_release(
+    owner: str, repo: str, token: str, tag: str, name: str, body: str
+) -> dict:
     url = f"{GITHUB_API}/repos/{owner}/{repo}/releases"
     payload = {
         "tag_name": tag,
@@ -231,7 +247,9 @@ def _create_release(owner: str, repo: str, token: str, tag: str, name: str, body
     return _request_json("POST", url, token, payload)
 
 
-def _ensure_release(owner: str, repo: str, token: str, tag: str, create_release: bool) -> dict:
+def _ensure_release(
+    owner: str, repo: str, token: str, tag: str, create_release: bool
+) -> dict:
     try:
         rel = _get_release_by_tag(owner, repo, token, tag)
         print(f"Release already exists for tag: {tag} (id={rel.get('id')})")
@@ -254,7 +272,9 @@ def _delete_asset(owner: str, repo: str, token: str, asset_id: int) -> None:
     _request_raw("DELETE", url, token)
 
 
-def _upload_release_asset(owner: str, repo: str, token: str, release: dict, file_path: Path) -> None:
+def _upload_release_asset(
+    owner: str, repo: str, token: str, release: dict, file_path: Path
+) -> None:
     upload_url = release.get("upload_url")
     if not upload_url:
         raise SystemExit("Release response missing upload_url")

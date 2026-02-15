@@ -18,7 +18,9 @@ class TestMcpServersTools(unittest.TestCase):
     def setUp(self):
         self.test_dir = tempfile.mkdtemp()
         self.config_path = os.path.join(self.test_dir, "mcp_servers.json")
-        self.patcher = patch("uagent.tools.safe_file_ops._is_trigger_path", return_value=False)
+        self.patcher = patch(
+            "uagent.tools.safe_file_ops._is_trigger_path", return_value=False
+        )
         self.patcher.start()
 
     def tearDown(self):

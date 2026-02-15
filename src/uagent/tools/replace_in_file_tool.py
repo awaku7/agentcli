@@ -19,7 +19,6 @@ import difflib
 import json
 import os
 import re
-import sys
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
 
@@ -69,7 +68,7 @@ TOOL_SPEC: Dict[str, Any] = {
             "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
             "\n"
             "Windows パス例の注意（.py 編集時に特に重要）:\n"
-            "- Python の \"...\" 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n"
+            '- Python の "..." 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n'
             "\n"
             "safety:\n"
             "- preview=false で危険パス/大量マッチ等の条件に該当する場合、確認や自動キャンセルが入ることがある\n"
@@ -307,14 +306,17 @@ def run_tool(args: Dict[str, Any]) -> str:
     preview = bool(args.get("preview", True))
 
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-    regex_repl_bs_policy = str(
-        args.get("regex_replacement_backslash_policy") or "allow"
-    ).strip().lower()
+    regex_repl_bs_policy = (
+        str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
+    )
     strict_for_py = bool(args.get("strict_for_py", False))
 
     if raw_newline_policy not in ("allow", "reject"):
         return json.dumps(
-            {"ok": False, "error": f"invalid raw_newline_policy: {raw_newline_policy!r}"},
+            {
+                "ok": False,
+                "error": f"invalid raw_newline_policy: {raw_newline_policy!r}",
+            },
             ensure_ascii=False,
         )
     if regex_repl_bs_policy not in ("allow", "reject"):
@@ -344,7 +346,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 "ok": False,
                 "error": (
                     "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\\n/\\r). "
-                    "Do not send literal newlines. Encode them as \\\"\\n\\\" in the JSON string "
+                    'Do not send literal newlines. Encode them as \\"\\n\\" in the JSON string '
                     "(i.e. write \\n as \\\\n), or use python_exec to edit the file safely."
                 ),
                 "suggested_args": {
@@ -359,9 +361,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     if mode == "regex" and regex_repl_bs_policy == "reject" and ("\\" in replacement):
-        _allowed = bool(
-            re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement)
-        )
+        _allowed = bool(re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement))
         if not _allowed:
             return json.dumps(
                 {
@@ -372,7 +372,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                         "\\1-\\9 and \\g<...>. Other escapes like \\w/\\s/\\n are rejected. "
                         "If you need them, set regex_replacement_backslash_policy=allow or use python_exec."
                     ),
-                    "suggested_args": {**args, "regex_replacement_backslash_policy": "allow"},
+                    "suggested_args": {
+                        **args,
+                        "regex_replacement_backslash_policy": "allow",
+                    },
                     "suggested_call": "If you really intend backslash escapes beyond group refs, re-run with suggested_args.",
                 },
                 ensure_ascii=False,
@@ -383,10 +386,14 @@ def run_tool(args: Dict[str, Any]) -> str:
     encoding = str(args.get("encoding") or "utf-8")
 
     if pattern == "":
-        return json.dumps({"ok": False, "error": "pattern must be non-empty"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "pattern must be non-empty"}, ensure_ascii=False
+        )
 
     if not path:
-        return json.dumps({"ok": False, "error": "path is required"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "path is required"}, ensure_ascii=False
+        )
 
     if is_path_dangerous(path):
         return json.dumps(
@@ -397,10 +404,14 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         safe_path = ensure_within_workdir(path)
     except Exception as e:
-        return json.dumps({"ok": False, "error": f"path not allowed: {e}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": f"path not allowed: {e}"}, ensure_ascii=False
+        )
 
     if not os.path.exists(safe_path) or not os.path.isfile(safe_path):
-        return json.dumps({"ok": False, "error": f"file not found: {safe_path}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": f"file not found: {safe_path}"}, ensure_ascii=False
+        )
 
     if BUSY_LABEL:
         try:
@@ -483,7 +494,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 f"{safe_path} に {match_count} 件マッチしました。\n適用しますか？ (y/N)"
             )
             if not ok:
-                return json.dumps({"ok": False, "error": "cancelled by user"}, ensure_ascii=False)
+                return json.dumps(
+                    {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
+                )
 
         backup = make_backup_before_overwrite(safe_path)
         _write_text_robust(

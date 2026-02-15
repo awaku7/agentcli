@@ -19,7 +19,6 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
 
-
 _DEFAULT_IGNORED_DIRNAMES = (
     ".scheck",
     ".uag",
@@ -57,7 +56,9 @@ def path_has_dirname(path: str, dirname: str) -> bool:
     return False
 
 
-def is_ignored_path(path: str, ignored_dirnames: Iterable[str] = _DEFAULT_IGNORED_DIRNAMES) -> bool:
+def is_ignored_path(
+    path: str, ignored_dirnames: Iterable[str] = _DEFAULT_IGNORED_DIRNAMES
+) -> bool:
     """Return True if path should be ignored during scanning/indexing."""
 
     for d in ignored_dirnames:
