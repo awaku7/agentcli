@@ -66,6 +66,10 @@ TOOL_SPEC: Dict[str, Any] = {
             "- pattern は Python の正規表現(re)として解釈される（単なる文字列検索ではない）\n"
             "- \\x は不正（re.error）。\\xNN（例: \\x00）の形式で書く\n"
             "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
+            "- replacement の \\1, \\2 ... はグループ参照。pattern にグループが無いとエラーになる\n"
+            "- replacement の \\n は改行ではなく \\ と n の2文字。\n"
+            "  regex_replacement_backslash_policy=reject の場合、グループ参照(\\1-\\9 / \\g<...>)以外の \\ は拒否される\n"
+            "- .py では安全のため pattern/replacement の実改行は常に拒否される。改行を入れる編集は python_exec を使う\n"
             "\n"
             "Windows パス例の注意（.py 編集時に特に重要）:\n"
             '- Python の "..." 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n'
@@ -273,9 +277,14 @@ def run_tool(args: Dict[str, Any]) -> str:
         getattr(cb, "read_file_max_bytes", 1_000_000) if cb is not None else 1_000_000
     )
 
-    def _validate_re_sub_replacement(repl: str) -> str | None:
+    def _validate_re_sub_replacement(cre: re.Pattern[str], repl: str) -> str | None:
+        """Validate regex replacement template against the compiled regex.
+
+        This catches invalid backrefs like \1 when pattern has no groups, etc.
+        """
+
         try:
-            re.compile("").sub(repl, "")
+            cre.sub(repl, "")
             return None
         except re.error as e:
             return str(e)
@@ -349,13 +358,26 @@ def run_tool(args: Dict[str, Any]) -> str:
                     'Do not send literal newlines. Encode them as \\"\\n\\" in the JSON string '
                     "(i.e. write \\n as \\\\n), or use python_exec to edit the file safely."
                 ),
-                "suggested_args": {
-                    **args,
-                    "pattern": _escape_for_tool_arg(pattern),
-                    "replacement": _escape_for_tool_arg(replacement),
-                    "raw_newline_policy": "allow",
-                },
-                "suggested_call": "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes).",
+                "suggested_args": (
+                    {
+                        **args,
+                        "pattern": _escape_for_tool_arg(pattern),
+                        "replacement": _escape_for_tool_arg(replacement),
+                    }
+                    if ext == ".py"
+                    else {
+                        **args,
+                        "pattern": _escape_for_tool_arg(pattern),
+                        "replacement": _escape_for_tool_arg(replacement),
+                        "raw_newline_policy": "allow",
+                    }
+                ),
+                "suggested_call": (
+                    "For .py files, replace_in_file rejects literal newlines to avoid breaking syntax. "
+                    "Use python_exec to edit the file safely."
+                    if ext == ".py"
+                    else "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes)."
+                ),
             },
             ensure_ascii=False,
         )
@@ -381,8 +403,35 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
 
-    context_lines = int(args.get("context_lines", 2))
-    confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
+    try:
+        context_lines = int(args.get("context_lines", 2))
+    except Exception as e:
+        return json.dumps(
+            {"ok": False, "error": f"context_lines must be int: {e}"},
+            ensure_ascii=False,
+        )
+    if context_lines < 0:
+        return json.dumps(
+            {"ok": False, "error": f"context_lines must be >= 0: {context_lines}"},
+            ensure_ascii=False,
+        )
+
+    try:
+        confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
+    except Exception as e:
+        return json.dumps(
+            {"ok": False, "error": f"confirm_if_matches_over must be int: {e}"},
+            ensure_ascii=False,
+        )
+    if confirm_if_matches_over < 0:
+        return json.dumps(
+            {
+                "ok": False,
+                "error": f"confirm_if_matches_over must be >= 0: {confirm_if_matches_over}",
+            },
+            ensure_ascii=False,
+        )
+
     encoding = str(args.get("encoding") or "utf-8")
 
     if pattern == "":
@@ -415,8 +464,9 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if BUSY_LABEL:
         try:
-            if cb is not None and getattr(cb, "set_status", None):
-                cb.set_status(True, STATUS_LABEL)
+            set_status = getattr(cb, "set_status", None) if cb is not None else None
+            if set_status is not None:
+                set_status(True, STATUS_LABEL)
         except Exception:
             pass
 
@@ -451,7 +501,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     ensure_ascii=False,
                 )
 
-            _repl_err = _validate_re_sub_replacement(replacement)
+            _repl_err = _validate_re_sub_replacement(cre, replacement)
             if _repl_err is not None:
                 return json.dumps(
                     {
@@ -469,6 +519,32 @@ def run_tool(args: Dict[str, Any]) -> str:
                 replaced, match_count = cre.subn(replacement, original, count=count_int)
 
         changed = replaced != original
+
+        # no-op when nothing changes (avoid needless backup/write)
+        if not changed:
+            summary = (
+                "Successfully no change (0 matches)"
+                if match_count == 0
+                else "Successfully no change"
+            )
+            return json.dumps(
+                {
+                    "ok": True,
+                    "path": safe_path,
+                    "mode": mode,
+                    "match_count": match_count,
+                    "changed": False,
+                    "preview": False,
+                    "summary": summary,
+                    "diff": "",
+                    "backup": None,
+                    "written": False,
+                    "new_size": os.path.getsize(safe_path),
+                    "detected_newline": detected_newline,
+                    "encoding": detected_encoding,
+                },
+                ensure_ascii=False,
+            )
 
         if preview:
             hits = _build_preview(original, replaced, context_lines=context_lines)
@@ -537,6 +613,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
+                "path": safe_path if "safe_path" in locals() else path,
+                "mode": mode,
+                "preview": preview,
                 "error": f"{type(e).__name__}: {e}",
                 "diff": "",
                 "summary": "Error",
@@ -547,7 +626,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     finally:
         if BUSY_LABEL:
             try:
-                if cb is not None and getattr(cb, "set_status", None):
-                    cb.set_status(False, "IDLE")
+                set_status = getattr(cb, "set_status", None) if cb is not None else None
+                if set_status is not None:
+                    set_status(False, "IDLE")
             except Exception:
                 pass
