@@ -17,9 +17,9 @@ def get_mcp_servers_summary():
         path = get_default_mcp_config_path()
     except (ImportError, ValueError):
         # パッケージ外からの実行やインポート失敗時のフォールバック
-        path = os.path.abspath(
-            os.path.join(os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json")
-        )
+        from uagent.tools.mcp_servers_shared import get_default_mcp_config_path
+
+        path = get_default_mcp_config_path()
 
     if not os.path.exists(path):
         return "[MCP サーバー]\n- 設定ファイルが見つかりません。"
@@ -90,7 +90,11 @@ def _internal_pager(text: str) -> None:
     import sys
     import shutil
 
-    debug_pager = os.environ.get("UAGENT_DEBUG_PAGER", "").lower() in ("1", "true", "yes")
+    debug_pager = os.environ.get("UAGENT_DEBUG_PAGER", "").lower() in (
+        "1",
+        "true",
+        "yes",
+    )
 
     if debug_pager:
         try:
@@ -152,7 +156,7 @@ def _internal_pager(text: str) -> None:
             break
 
         try:
-            ans = input("-- More -- (Enter: next) ")
+            input("-- More -- (Enter: next) ")
         except EOFError:
             if debug_pager:
                 try:
@@ -166,13 +170,16 @@ def _internal_pager(text: str) -> None:
         except KeyboardInterrupt:
             if debug_pager:
                 try:
-                    sys.stderr.write("[pager] input: KeyboardInterrupt -> stop paging\n")
+                    sys.stderr.write(
+                        "[pager] input: KeyboardInterrupt -> stop paging\n"
+                    )
                     sys.stderr.flush()
                 except Exception:
                     pass
             sys.stdout.write("\n")
             sys.stdout.flush()
             break
+
 
 def print_welcome(*, use_pager: bool = True) -> None:
     """Print welcome message.

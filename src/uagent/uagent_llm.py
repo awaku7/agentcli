@@ -308,16 +308,26 @@ def run_llm_rounds(
                                     print_delta_fn=(
                                         None
                                         if bool(getattr(core, "_is_web", False))
-                                        else (lambda s: (print(s, end="", flush=True) if s else None))
+                                        else (
+                                            lambda s: (
+                                                print(s, end="", flush=True)
+                                                if s
+                                                else None
+                                            )
+                                        )
                                     ),
                                     core=core,
                                 )
                                 # ensure newline after streaming output
-                                if assistant_text and not bool(getattr(core, "_is_web", False)):
+                                if assistant_text and not bool(
+                                    getattr(core, "_is_web", False)
+                                ):
                                     print("")
                             else:
                                 resp = client.responses.create(**resp_kwargs)
-                                assistant_text, tool_calls_list = parse_responses_response(resp)
+                                assistant_text, tool_calls_list = (
+                                    parse_responses_response(resp)
+                                )
                         else:
                             req_tools = (
                                 tools.get_tool_specs()

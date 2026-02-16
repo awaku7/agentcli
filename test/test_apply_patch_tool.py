@@ -11,7 +11,7 @@ import shutil
 import subprocess
 import stat
 from unittest.mock import patch
-from tools.apply_patch_tool import run_tool
+from uagent.tools.apply_patch_tool import run_tool
 
 
 def remove_readonly(func, path, excinfo):
@@ -67,7 +67,7 @@ class TestApplyPatchTool(unittest.TestCase):
         self.assertTrue(result_dict["ok"], f"Error: {result_dict.get('error')}")
 
     def test_apply_success(self):
-        with patch("tools.apply_patch_tool._human_confirm", return_value=True):
+        with patch("uagent.tools.apply_patch_tool._human_confirm", return_value=True):
             args = {"patch_text": self.valid_patch, "dry_run": False}
             result = run_tool(args)
             result_dict = json.loads(result)
@@ -132,7 +132,7 @@ class TestApplyPatchTool(unittest.TestCase):
         )
 
         with patch(
-            "tools.apply_patch_tool._human_confirm", return_value=False
+            "uagent.tools.apply_patch_tool._human_confirm", return_value=False
         ) as mock_confirm:
             args = {
                 "patch_text": large_patch,

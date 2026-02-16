@@ -46,7 +46,7 @@ pip install -e .
 主な環境変数:
 
 - **プロバイダ設定**
-  - `UAGENT_PROVIDER`: `azure` / `openai` / `gemini` / `grok` / `claude` / `nvidia`
+  - `UAGENT_PROVIDER`: `azure` / `openai` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
   - モデル名（例: `UAGENT_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_GEMINI_VISION_MODEL` 等）
 
@@ -62,6 +62,11 @@ pip install -e .
   - `UAGENT_EMBEDDING_API_URL`: `semantic_search_files` / `index_files` / `graph_rag_search` で使用する Embedding API の URL。
   - `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: `1`/`true` の場合（既定=`1`）、起動時に Embedding API が到達不能だと `semantic_search_files` をロードしません。`0` を指定すると到達不能でもツールを表示したままにできます。
   - `UAGENT_EMBEDDING_API_HEALTHCHECK_PATH`: ヘルスチェックパス（既定 `/v1/models`）。
+
+  よくある状況:
+  - 「`semantic_search_files` / `index_files` がツール一覧に出てこない」
+    - Embedding API が到達不能で、起動時にツール登録自体が抑止されている可能性があります。
+    - 到達不能でも“ツールだけは見せたい”場合は `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0` を設定してください（ただし実行時は失敗します）。
 
 - **パス・ログ**
   - `UAGENT_WORKDIR`: 作業ディレクトリ。
@@ -108,9 +113,51 @@ python -m uagent.web
 
 ---
 
+## ドキュメント（`uag docs`）
+
+wheel（whl）でインストールした環境でも、同梱ドキュメントを `uag docs` で参照できます。
+
+```bash
+uag docs
+uag docs webinspect
+uag docs develop
+uag docs --path webinspect
+uag docs --open webinspect
+```
+
+---
+
 ## 利用できるツール（現状）
 
 ツールは `src/uagent/tools/` 配下のプラグインとして実装され、起動時に自動ロードされます。
+
+### MCP（Model Context Protocol）を使う最短例
+
+1) サーバ定義ファイルの雛形を作成（未作成の場合）
+
+```bash
+uag mcp_servers_init_template
+```
+
+2) サーバを追加（例: streamable-http）
+
+```bash
+uag mcp_servers_add
+```
+
+3) サーバ上の tools 一覧を取得
+
+```bash
+uag mcp_tools_list
+```
+
+4) 任意の MCP tool を実行（汎用ラッパ）
+
+```bash
+uag handle_mcp_v2
+```
+
+※上記は「まずツールの存在確認（mcp_tools_list）→ 実行（handle_mcp_v2）」の流れを意図しています。
 
 代表的なツール:
 

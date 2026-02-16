@@ -9,7 +9,25 @@ try:
 except ImportError:
 
     def get_default_mcp_config_path():
-        return "mcp_servers.json"
+        import os
+
+        env_path = os.environ.get("UAGENT_MCP_CONFIG")
+        if env_path:
+            return os.path.abspath(os.path.expanduser(env_path))
+
+        try:
+            from uagent.utils.paths import get_mcp_servers_json_path
+
+            return str(get_mcp_servers_json_path())
+        except Exception:
+            p_new = os.path.join(
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
+            )
+            if os.path.exists(p_new):
+                return p_new
+            return os.path.join(
+                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
+            )
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -25,7 +43,7 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "作成するパス。省略時は標準の場所（~/.scheck/mcps/mcp_servers.json 等）に作成します。",
+                    "description": "作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。",
                 },
                 "default_name": {
                     "type": "string",
@@ -58,10 +76,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     default_name = (
         str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
     )
-    default_url = (
-        str(args.get("default_url", "")).strip()
-        or ""
-    )
+    default_url = str(args.get("default_url", "")).strip() or ""
     default_transport = (
         str(args.get("default_transport", "streamable-http")).strip()
         or "streamable-http"
