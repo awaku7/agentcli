@@ -368,7 +368,12 @@ def run_tool(args: Dict[str, Any]) -> str:
                         "raw_newline_policy": "allow",
                     }
                 ),
-                "suggested_call": "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes).",
+                "suggested_call": (
+                    "For .py files, replace_in_file rejects literal newlines to avoid breaking syntax. "
+                    "Use python_exec to edit the file safely."
+                    if ext == ".py"
+                    else "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes)."
+                ),
             },
             ensure_ascii=False,
         )
