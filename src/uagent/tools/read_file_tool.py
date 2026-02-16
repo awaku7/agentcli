@@ -1,16 +1,21 @@
-# tools/read_file.py
-from typing import Any, Dict
+from __future__ import annotations
+
+# /src/uagent/tools/read_file_tool.py
 import os
 import threading
+from typing import Any, Callable, Dict, Optional, cast
 
 from .context import get_callbacks
 
 # セマンティック検索DB更新用のインポート
 try:
-    from .semantic_search_files_tool import sync_file
+    from .semantic_search_files_tool import sync_file as _sync_file
 except ImportError:
-    sync_file = None
+    _sync_file = None  # type: ignore[assignment]
 
+sync_file: Optional[Callable[[str, str], Any]] = cast(
+    Optional[Callable[[str, str], Any]], _sync_file
+)
 BUSY_LABEL = True
 STATUS_LABEL = "tool:read_file"
 
@@ -55,7 +60,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "default": None,
                 },
             },
-            "required": ["filename"],
+            "required": [],
             "additionalProperties": False,
         },
     },
@@ -73,8 +78,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     head_lines = args.get("head_lines")
     tail_lines = args.get("tail_lines")
 
+    max_lines: int | None
+
     if head_lines is not None and tail_lines is not None:
-        return "[read_file error] head_lines and tail_lines cannot be specified together"
+        return (
+            "[read_file error] head_lines and tail_lines cannot be specified together"
+        )
 
     if head_lines is not None:
         head_lines = int(head_lines)
@@ -97,7 +106,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             encoding = "utf-8"  # fallback
 
         # 総行数をカウント
-        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
+        with open(
+            filename, "r", encoding=encoding, errors="replace", newline=None
+        ) as f:
             total_lines = sum(1 for _ in f)
 
         if total_lines < tail_lines:
@@ -108,9 +119,11 @@ def run_tool(args: Dict[str, Any]) -> str:
             max_lines = tail_lines
     else:
         start_line = max(1, int(args.get("start_line", 1)))
-        max_lines = args.get("max_lines")
-        if max_lines is not None:
-            max_lines = int(max_lines)
+        raw_max_lines = args.get("max_lines")
+        if raw_max_lines is None:
+            max_lines = None
+        else:
+            max_lines = int(raw_max_lines)
 
     max_bytes = cb.read_file_max_bytes
 
@@ -130,7 +143,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         # テキストモードで開き、行ごとに処理（CRLFを自動処理）
         lines = []
         total_bytes = 0
-        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
+        with open(
+            filename, "r", encoding=encoding, errors="replace", newline=None
+        ) as f:
             i = 0
             for i, line in enumerate(f, 1):
                 if i < start_line:
@@ -141,17 +156,21 @@ def run_tool(args: Dict[str, Any]) -> str:
                     break
                 # 安全のためのバイト制限
                 if total_bytes > max_bytes:
-                    lines.append(f"\n[read_file truncated: byte limit {max_bytes} reached]")
+                    lines.append(
+                        f"\n[read_file truncated: byte limit {max_bytes} reached]"
+                    )
                     break
 
         if not lines and start_line > 1:
             return f"(file has only {i} lines, start_line {start_line} is out of range)"
 
         # 読み込み成功時、バックグラウンドでベクトルDBを更新
-        if sync_file and os.path.isfile(filename):
+        if sync_file is not None and os.path.isfile(filename):
             # カレントディレクトリをルートとして更新を試みる
             try:
-                threading.Thread(target=sync_file, args=(filename, os.getcwd()), daemon=True).start()
+                threading.Thread(
+                    target=sync_file, args=(filename, os.getcwd()), daemon=True
+                ).start()
             except Exception:
                 pass
 
