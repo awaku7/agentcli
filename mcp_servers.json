@@ -9,11 +9,7 @@
       "name": "mlit-dpf-stdio",
       "url": "stdio://python ../mlit-dpf-mcp/src/server.py",
       "transport": "stdio"
-    },
-    {
-      "name": "sbc-intra-stdio",
-      "url": "stdio://python C:\\KAIHATSU\\mcp-sbc-intra\\sbc_server.py",
-      "transport": "stdio"
     }
   ]
+
 }

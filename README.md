@@ -8,6 +8,20 @@ uag は、ローカルPC上で **コマンド実行**・**ファイル操作**�
 
 ---
 
+## ドキュメント（`uag docs`）
+
+wheel（whl）でインストールした環境でも、同梱ドキュメントを `uag docs` で参照できます。
+
+```bash
+uag docs
+uag docs webinspect
+uag docs develop
+uag docs --path webinspect
+uag docs --open webinspect
+```
+
+---
+
 ## インストール（配布版: whl）
 
 配布された whl を pip でインストールする手順は **`QUICKSTART.md`** を参照してください。
@@ -120,5 +134,12 @@ python -m uagent
 ## Web Inspector（playwright_inspector）
 
 Playwright Inspector を使って、手動操作の流れ（URL遷移/DOM/スクリーンショット/イベントログ）を保存できます。
-詳細は **`src/uagent/docs/WEBINSPECTER.md`** を参照してください。
+
+前提:
+- `playwright` がインストールされていること
+- ブラウザのセットアップが済んでいること（例: `python -m playwright install`）
+
+ドキュメント:
+- `src/uagent/docs/WEBINSPECTER.md`
+- `uag docs webinspect`（wheel環境でも参照可能）
 

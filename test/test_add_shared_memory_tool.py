@@ -10,7 +10,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src/scheck"))
 )
 
-from tools.add_shared_memory_tool import run_tool
+from uagent.tools.add_shared_memory_tool import run_tool
 
 
 class TestAddSharedMemoryTool(unittest.TestCase):
@@ -21,8 +21,8 @@ class TestAddSharedMemoryTool(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.test_dir)
 
-    @patch("tools.shared_memory.is_enabled", return_value=True)
-    @patch("tools.shared_memory.append_shared_memory")
+    @patch("uagent.tools.shared_memory.is_enabled", return_value=True)
+    @patch("uagent.tools.shared_memory.append_shared_memory")
     def test_run_tool_success(self, mock_append, mock_enabled):
         args = {"note": "This is a shared note."}
         result = run_tool(args)
@@ -30,7 +30,7 @@ class TestAddSharedMemoryTool(unittest.TestCase):
         self.assertIn("note=This is a shared note.", result)
         mock_append.assert_called_once_with("This is a shared note.")
 
-    @patch("tools.shared_memory.is_enabled", return_value=False)
+    @patch("uagent.tools.shared_memory.is_enabled", return_value=False)
     def test_run_tool_disabled(self, mock_enabled):
         args = {"note": "Some note"}
         result = run_tool(args)

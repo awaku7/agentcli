@@ -15,7 +15,7 @@
 
 - **CUI**: `src/uagent/cli.py`（実行時は `uag` / `python -m uagent`）
 - **GUI**: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
-- **Web**: `src/uagent/web.py`（実行時は `uvgw` / `python -m uagent.web`）
+- **Web**: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
 
 ※ ルート直下の `uag.py`, `scheckgui.py`（旧GUIラッパ）, `scheckweb.py`（旧Webラッパ） は、パッケージングされていない環境でも手軽に実行できるようにするためのラッパースクリプトです。
 
@@ -58,7 +58,7 @@ Windows 環境では、外部コマンド（特に `git diff` など）の出力
 
 ### 2.1 実行の流れ
 
-1. `uag` / `uagg` / `uvgw` が起動。
+1. `uag` / `uagg` / `uagw` が起動。
 2. 起動時初期化（主に `runtime_init.py` / `util_tools.py`）
    - workdir の決定・作成・chdir（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
    - 起動時INFO（provider/base_url/api_version/Responses等）の banner 生成（文字列）

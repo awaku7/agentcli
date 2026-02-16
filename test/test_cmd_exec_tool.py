@@ -7,7 +7,7 @@ sys.path.insert(
 import unittest
 import os
 from unittest.mock import patch, MagicMock
-from tools.cmd_exec_tool import run_tool
+from uagent.tools.cmd_exec_tool import run_tool
 
 
 class TestCmdExecTool(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestCmdExecTool(unittest.TestCase):
     def test_timeout_handling(self):
         """タイムアウトのテスト"""
         # callbacksをモックしてタイムアウト時間を短く設定
-        with patch("tools.cmd_exec_tool.get_callbacks") as mock_get_cb:
+        with patch("uagent.tools.cmd_exec_tool.get_callbacks") as mock_get_cb:
             mock_cb = MagicMock()
             mock_cb.cmd_exec_timeout_ms = 100  # 0.1秒
             mock_cb.cmd_encoding = "utf-8"
@@ -44,7 +44,7 @@ class TestCmdExecTool(unittest.TestCase):
     def test_security_block(self):
         """危険なコマンドのブロックテスト"""
         # decide_cmd_exec をモックしてブロックをシミュレート
-        with patch("tools.cmd_exec_tool.decide_cmd_exec") as mock_decide:
+        with patch("uagent.tools.cmd_exec_tool.decide_cmd_exec") as mock_decide:
             mock_decision = MagicMock()
             mock_decision.allowed = False
             mock_decision.reason = "Dangerous command detected"

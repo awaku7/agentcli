@@ -49,7 +49,6 @@ IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 LOG_FILE = "gui_worker_session.log"
 
 
-
 class RedirectToLog:
     def __init__(self, path: str, original_stream):
         self.path = path
@@ -74,6 +73,7 @@ class RedirectToLog:
             self.original_stream.flush()
         except Exception:
             pass
+
 
 @dataclass
 class GuiConfig:
@@ -700,11 +700,10 @@ def main():
     print(get_welcome_message())
     ensure_mcp_config_template()
     # Redirect stdout/stderr to LOG_FILE
-    with open(LOG_FILE, "w", encoding="utf-8") as f:
+    with open(LOG_FILE, "w", encoding="utf-8"):
         pass  # clear log file
     sys.stdout = RedirectToLog(LOG_FILE, sys.stdout)
     sys.stderr = RedirectToLog(LOG_FILE, sys.stderr)
-
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(

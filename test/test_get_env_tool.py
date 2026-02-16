@@ -6,7 +6,7 @@ sys.path.insert(
 )
 import unittest
 from unittest.mock import patch, MagicMock
-from tools.get_env_tool import run_tool
+from uagent.tools.get_env_tool import run_tool
 
 
 class TestGetEnvTool(unittest.TestCase):
@@ -53,7 +53,7 @@ class TestGetEnvTool(unittest.TestCase):
 
     def test_callback_usage(self):
         """コールバックが優先的に使用されるか"""
-        with patch("tools.get_env_tool.get_callbacks") as mock_get_cb:
+        with patch("uagent.tools.get_env_tool.get_callbacks") as mock_get_cb:
             mock_cb = MagicMock()
             mock_cb.get_env.return_value = "CallbackValue"
             mock_get_cb.return_value = mock_cb

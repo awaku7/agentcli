@@ -1,4 +1,5 @@
 import getpass
+import re
 import importlib
 import json
 import os
@@ -53,6 +54,8 @@ from . import runtime_init as _runtime_init
 
 from .checks import check_git_installation
 
+from uagent.utils.paths import get_history_file_path
+
 from .util_tools import (
     extract_image_paths,
     image_file_to_data_url,
@@ -71,7 +74,7 @@ _init_tools_callbacks(core)
 
 
 # Readline history setup
-_HISTORY_FILE = os.path.join(os.path.expanduser("~"), ".scheck_history")
+_HISTORY_FILE = str(get_history_file_path())
 
 if readline:
     try:
@@ -108,6 +111,7 @@ INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 # Readline TAB completion (interactive TTY only)
 # - Only for :cd and :ls arguments
 # - Other inputs keep current behavior
+
 
 def _uagent_has_glob_meta(s: str) -> bool:
     return any(ch in s for ch in ("*", "?", "["))
@@ -230,7 +234,6 @@ def _uagent_setup_readline_completion() -> None:
         readline.set_completer(_uagent_rl_completer)
     except Exception:
         pass
-
 
 
 def _flush_stdin_input_buffer() -> None:

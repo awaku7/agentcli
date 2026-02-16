@@ -6,7 +6,7 @@ sys.path.insert(
 )
 import unittest
 import datetime
-from tools.get_current_time_tool import run_tool
+from uagent.tools.get_current_time_tool import run_tool
 
 
 class TestGetCurrentTimeTool(unittest.TestCase):

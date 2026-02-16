@@ -9,7 +9,7 @@ import json
 import os
 import shutil
 from unittest.mock import patch, MagicMock
-from tools.cmd_exec_json_tool import run_tool
+from uagent.tools.cmd_exec_json_tool import run_tool
 
 
 class TestCmdExecJsonTool(unittest.TestCase):
@@ -61,7 +61,7 @@ class TestCmdExecJsonTool(unittest.TestCase):
 
     def test_timeout_json(self):
         """JSON形式でのタイムアウト判定"""
-        with patch("tools.cmd_exec_json_tool.get_callbacks") as mock_get_cb:
+        with patch("uagent.tools.cmd_exec_json_tool.get_callbacks") as mock_get_cb:
             mock_cb = MagicMock()
             mock_cb.cmd_exec_timeout_ms = 100
             mock_cb.cmd_encoding = "utf-8"

@@ -34,8 +34,7 @@ python -m unittest test_replace_in_file_tool -v
 
 ## 要件
 
-- Python 3.7 以上
-- 追加パッケージ不要（標準ライブラリを使用）
+- Python 3.11 以上（プロジェクト本体に合わせる場合）
 
 ## 注意
 

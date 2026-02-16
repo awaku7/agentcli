@@ -7,7 +7,7 @@ sys.path.insert(
 import unittest
 import json
 from unittest.mock import patch
-from tools.list_windows_titles_tool import run_tool
+from uagent.tools.list_windows_titles_tool import run_tool
 
 
 class TestListWindowsTitlesTool(unittest.TestCase):
