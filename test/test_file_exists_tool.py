@@ -8,7 +8,7 @@ import unittest
 import os
 import shutil
 import tempfile
-from tools.file_exists_tool import run_tool
+from uagent.tools.file_exists_tool import run_tool
 
 
 class TestFileExistsTool(unittest.TestCase):
