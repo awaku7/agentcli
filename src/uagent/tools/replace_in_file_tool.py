@@ -66,6 +66,10 @@ TOOL_SPEC: Dict[str, Any] = {
             "- pattern は Python の正規表現(re)として解釈される（単なる文字列検索ではない）\n"
             "- \\x は不正（re.error）。\\xNN（例: \\x00）の形式で書く\n"
             "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
+            "- replacement の \\1, \\2 ... はグループ参照。pattern にグループが無いとエラーになる\n"
+            "- replacement の \\n は改行ではなく \\ と n の2文字。\n"
+            "  regex_replacement_backslash_policy=reject の場合、グループ参照(\\1-\\9 / \\g<...>)以外の \\ は拒否される\n"
+            "- .py では安全のため pattern/replacement の実改行は常に拒否される。改行を入れる編集は python_exec を使う\n"
             "\n"
             "Windows パス例の注意（.py 編集時に特に重要）:\n"
             '- Python の "..." 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n'
