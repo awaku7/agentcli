@@ -7,6 +7,10 @@ from typing import Any, Callable, Dict, Optional, cast
 
 from .context import get_callbacks
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 # セマンティック検索DB更新用のインポート
 try:
     from .semantic_search_files_tool import sync_file as _sync_file
@@ -24,39 +28,61 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "read_file",
-        "description": "ファイル内容を読み取ります（最大 20000000 バイトまで）。開始行や行数を指定した部分的な読み取りも可能です。",
-        "system_prompt": """ファイル内容を読み取ります。
-- 大きなファイルは start_line や max_lines を使用して部分的に読み取ることが推奨されます。
-- 改行コードは自動的に正規化されます。""",
+        "description": _(
+            "tool.description",
+            default="Read file contents (up to 20000000 bytes). Partial reading is possible by specifying start_line and max_lines.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "filename": {
                     "type": "string",
-                    "description": "読み取るファイルのパス。",
+                    "description": _(
+                        "param.filename.description",
+                        default="Path of the file to read.",
+                    ),
                 },
                 "path": {
                     "type": "string",
-                    "description": "(互換) 読み取るファイルのパス。filename の別名として受け付けます。",
+                    "description": _(
+                        "param.path.description",
+                        default="(Compatibility) Alias of filename.",
+                    ),
                 },
                 "start_line": {
                     "type": "integer",
-                    "description": "読み取りを開始する行番号（1始まり）。デフォルトは 1。",
+                    "description": _(
+                        "param.start_line.description",
+                        default="Line number to start reading from (1-based). Default is 1.",
+                    ),
                     "default": 1,
                 },
                 "max_lines": {
                     "type": ["integer", "null"],
-                    "description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
+                    "description": _(
+                        "param.max_lines.description",
+                        default="Maximum number of lines to read. If null, read to EOF.",
+                    ),
                     "default": None,
                 },
                 "head_lines": {
                     "type": ["integer", "null"],
-                    "description": "先頭から読む行数。tail_lines と同時指定不可。",
+                    "description": _(
+                        "param.head_lines.description",
+                        default="Number of lines to read from the beginning. Cannot be used with tail_lines.",
+                    ),
                     "default": None,
                 },
                 "tail_lines": {
                     "type": ["integer", "null"],
-                    "description": "末尾から読む行数。head_lines と同時指定不可。",
+                    "description": _(
+                        "param.tail_lines.description",
+                        default="Number of lines to read from the end. Cannot be used with head_lines.",
+                    ),
                     "default": None,
                 },
             },
