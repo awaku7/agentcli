@@ -1,6 +1,8 @@
 # scheck_core.py
 import os
 import sys
+
+from .i18n import _
 import json
 import time
 import glob
@@ -165,7 +167,7 @@ def get_prompt() -> str:
 def get_env(name: str) -> str:
     value = os.environ.get(name)
     if not value:
-        print(f"環境変数 {name} が設定されていません", file=sys.stderr)
+        print(_("Environment variable %(name)s is not set.") % {"name": name}, file=sys.stderr)
         sys.exit(1)
     return value
 
@@ -181,7 +183,7 @@ def get_env_url(name: str, default: Optional[str] = None) -> str:
     if not val:
         if default is not None:
             return normalize_url(default)
-        print(f"環境変数 {name} が設定されていません", file=sys.stderr)
+        print(_("Environment variable %(name)s is not set.") % {"name": name}, file=sys.stderr)
         sys.exit(1)
     return normalize_url(val)
 
@@ -426,7 +428,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
 
     files = find_log_files(exclude_current=True)
     if not files:
-        print("ログファイルがありません。")
+        print(_("No log files found."))
         return []
 
     if show_all or limit <= 0:
@@ -446,8 +448,8 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             return "(unknown time)"
 
-    print(f"logs: showing {len(view)}/{len(files)} (dir={BASE_LOG_DIR})")
-    print("ログファイル一覧:")
+    print(_("logs: showing %(shown)d/%(total)d (dir=%(dir)s)") % {"shown": len(view), "total": len(files), "dir": BASE_LOG_DIR})
+    print(_("Log files:"))
 
     for idx, path in enumerate(view):
         try:
@@ -498,7 +500,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         topic_list = sorted(topics)
         # 話題は全部出すと長すぎて差が見えにくいので短縮
         if not topic_list:
-            topic_text = "(不明)"
+            topic_text = _("(unknown)")
         else:
             shown = topic_list[:3]
             more = len(topic_list) - len(shown)

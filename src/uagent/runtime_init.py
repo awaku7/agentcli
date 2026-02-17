@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
+from .i18n import _
 from typing import Any, Dict, List, Optional
 
 
@@ -61,7 +62,7 @@ def decide_workdir(
     # Safety check only (no mkdir/chdir here)
     if os.path.exists(chosen_expanded) and not os.path.isdir(chosen_expanded):
         raise NotADirectoryError(
-            f"指定された workdir がファイルです: {chosen_expanded}"
+            _("Specified workdir path is a file: %(path)s") % {"path": chosen_expanded}
         )
 
     return WorkdirDecision(
@@ -160,7 +161,7 @@ def append_long_memory_system_messages(
     Side effects:
       - Appends 0..N system messages to `messages` (in-place).
       - When shared memory is appended, prefixes its content with:
-          "【共有長期記憶（共有メモ）】\n"
+          _("【Shared long-term memory (shared memo)】\n")
         (caller-visible behavior kept compatible with CLI/GUI).
 
     Returns:
@@ -205,7 +206,7 @@ def append_long_memory_system_messages(
         if shared_system_msg:
             # Compatible prefix
             try:
-                shared_system_msg["content"] = "【共有長期記憶（共有メモ）】\n" + (
+                shared_system_msg["content"] = _("【Shared long-term memory (shared memo)】\n") + (
                     shared_system_msg.get("content") or ""
                 )
             except Exception:

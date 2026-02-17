@@ -18,6 +18,8 @@ os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 from PySide6 import QtCore, QtGui, QtWidgets
 
+from .i18n import _
+
 from . import core as core
 from . import tools
 from .welcome import get_welcome_message
@@ -181,7 +183,7 @@ class ScheckWorker(QtCore.QObject):
             from .tools import long_memory as personal_long_memory
             from .tools import shared_memory
 
-            print("[INFO] 長期記憶を読み込みました。")
+            print("[INFO] " + _("Loaded long-term memory."))
 
             try:
                 before_len = len(self.messages)
@@ -195,14 +197,14 @@ class ScheckWorker(QtCore.QObject):
 
                 # 互換: 共有メモが有効な場合のみ INFO を出す
                 if flags.get("shared_enabled"):
-                    print("[INFO] 共有長期記憶を読み込みました。")
+                    print("[INFO] " + _("Loaded shared long-term memory."))
 
                 # 互換: 追加された system message をすべて log に残す
                 for m in self.messages[before_len:]:
                     core.log_message(m)
 
             except Exception as e:
-                print(f"[WARN] 共有長期記憶の読み込み中に例外が発生しました: {e}")
+                print("[WARN] " + _("Exception occurred while loading shared long-term memory: %(err)s") % {"err": e})
 
             while not self._stop.is_set():
                 try:
@@ -258,7 +260,7 @@ class ScheckWorker(QtCore.QObject):
                                         parts.append(
                                             {
                                                 "type": "text",
-                                                "text": f"[WARN] 画像添付に失敗しました: {p} ({type(e).__name__}: {e})",
+                                                "text": "[WARN] " + (_("Failed to attach image: %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e}),
                                             }
                                         )
 

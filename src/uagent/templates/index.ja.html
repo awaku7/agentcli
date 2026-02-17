@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scheck Web Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .chat-container { height: calc(100vh - 160px); }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+        .role-user { background-color: #f3f4f6; align-self: flex-end; }
+        .role-assistant { background-color: #dcf8c6; align-self: flex-start; }
+        .role-system { display: none; } /* システムメッセージは非表示 */
+        .role-tool { background-color: #fff9c4; font-size: 0.85rem; border-left: 4px solid #fbc02d; margin: 5px 0; }
+        .status-busy { color: #f59e0b; font-weight: bold; }
+        .status-idle { color: #10b981; font-weight: bold; }
+        .blink { animation: blink 1s steps(2, start) infinite; }
+        @keyframes blink { to { visibility: hidden; } }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="max-w-5xl mx-auto p-4 flex flex-col h-screen">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4 bg-white p-4 rounded shadow">
+            <h1 class="text-xl font-bold text-gray-800">scheck Web</h1>
+            <div id="status-area">
+                Status: <span id="status-text-header" class="status-idle">IDLE</span>
+                <div id="busy-indicator" class="hidden text-xs font-mono text-red-600 blink">TOOL RUNNING</div>
+                <div id="workdir-text-header" class="text-xs text-gray-500 font-mono"></div>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-box" class="chat-container overflow-y-auto bg-white p-4 rounded shadow mb-4 flex flex-col gap-4">
+            <!-- Messages appear here -->
+        </div>
+
+        <!-- Human Ask Overlay -->
+        <div id="human-ask-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full">
+                <h2 class="text-lg font-bold mb-2">確認が必要です</h2>
+                <div id="human-ask-message" class="mb-4 text-gray-700 whitespace-pre-wrap"></div>
+                <input type="text" id="human-ask-input" class="w-full p-2 border rounded mb-4 focus:ring-2 focus:ring-blue-500" placeholder="回答を入力...">
+                <div class="flex justify-end gap-2">
+                    <button onclick="submitHumanAsk()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送信</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Status Area -->
+        <div class="bg-gray-800 text-white p-2 rounded shadow mb-4 flex justify-between items-center px-4 h-10">
+            <span class="text-sm font-mono">Current Status:</span>
+            <span id="status-text-footer" class="text-sm font-bold status-idle">IDLE</span>
+        </div>
+
+        <!-- Input Area -->
+        <div class="flex gap-2">
+            <textarea id="user-input" rows="2" class="flex-grow p-2 border rounded shadow focus:ring-2 focus:ring-blue-500" placeholder="メッセージを入力... (Ctrl+Enterで送信)"></textarea>
+            <button id="send-btn" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 font-bold">送信</button>
+        </div>
+    </div>
+
+    <script>
+        let ws;
+        let WEB_VERBOSE = false;
+        let currentHumanAskIsPassword = false;
+
+        // Streaming assistant bubble state
+        let streamAssistant = { id: null, div: null, pre: null, active: false };
+        const chatBox = document.getElementById('chat-box');
+        const statusTextHeader = document.getElementById('status-text-header');
+        const busyIndicator = document.getElementById('busy-indicator');
+        const workdirTextHeader = document.getElementById('workdir-text-header');
+        const statusTextFooter = document.getElementById('status-text-footer');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const humanAskContainer = document.getElementById('human-ask-container');
+        const humanAskMessage = document.getElementById('human-ask-message');
+        const humanAskInput = document.getElementById('human-ask-input');
+
+        function connect() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'init') {
+                    WEB_VERBOSE = !!data.web_verbose;
+                    data.messages.forEach(addMessage);
+                    updateStatus(data.status);
+                } else if (data.type === 'message') {
+                    addMessage(data.message);
+                } else if (data.type === 'status') {
+                    updateStatus(data.status);
+                } else if (data.type === 'human_ask') {
+                    showHumanAsk(data.message, data.is_password);
+                } else if (data.type === 'log') {
+                    // Server-side logs are noisy; render only when WEB_VERBOSE is on.
+                    if (WEB_VERBOSE) {
+                        addMessage({ role: 'tool', content: data.content });
+                    }
+                } else if (data.type === 'assistant_stream_start') {
+                    startAssistantStream(data.id);
+                } else if (data.type === 'assistant_stream_delta') {
+                    appendAssistantStream(data.id, data.delta);
+                } else if (data.type === 'assistant_stream_end') {
+                    endAssistantStream(data.id);
+                }
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket connection closed. Retrying...');
+                setTimeout(connect, 2000);
+            };
+        }
+
+        function startAssistantStream(id) {
+            // Ensure only one streaming bubble exists
+            if (streamAssistant.active && streamAssistant.div) {
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass('assistant')}`;
+            const pre = document.createElement('pre');
+            pre.className = 'mt-1';
+            pre.textContent = '';
+
+            div.innerHTML = `<strong>ASSISTANT:</strong> `;
+            div.appendChild(pre);
+
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            streamAssistant = { id: id || null, div, pre, active: true };
+        }
+
+        function appendAssistantStream(id, delta) {
+            if (!delta) return;
+            if (!streamAssistant.active) {
+                startAssistantStream(id);
+            }
+            // If id is provided, keep it
+            if (id && !streamAssistant.id) streamAssistant.id = id;
+
+            streamAssistant.pre.innerHTML = linkifyHtml(escapeHtml((streamAssistant.pre.textContent || '') + delta));
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function endAssistantStream(id) {
+            if (!streamAssistant.active) return;
+            // Ignore mismatched ids if any
+            streamAssistant.active = false;
+            streamAssistant.id = null;
+            // Keep the bubble as final text (mode A)
+        }
+
+        function addMessage(msg) {
+            if (msg.role === 'system') return;
+
+            // Suppress empty assistant messages (avoid noisy "ASSISTANT:" only entries)
+            const c = (msg.content || '').trim();
+            if (msg.role === 'assistant' && !c) return;
+
+            // Hide tool messages by default (show only when UAGENT_WEB_VERBOSE=1)
+            if (!WEB_VERBOSE && msg.role === 'tool') return;
+
+            // human_ask tool call/result is handled by overlay
+            if (msg.role === 'tool' && msg.name === 'human_ask') return;
+
+            const div = document.createElement('div');
+            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msg.role)}`;
+            
+            let content = `<strong>${msg.role.toUpperCase()}:</strong> `;
+            if (msg.name) content += `<span class="text-xs font-mono">[${msg.name}]</span> `;
+            content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content))}</pre>`;
+            
+            if (WEB_VERBOSE && msg.tool_calls) {
+                msg.tool_calls.forEach(tc => {
+                    content += `<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ${tc.function.name}</div>`;
+                });
+            }
+            
+            div.innerHTML = content;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function getRoleClass(role) {
+            switch(role) {
+                case 'user': return 'role-user shadow-sm';
+                case 'assistant': return 'role-assistant shadow-sm';
+                case 'tool': return 'role-tool';
+                default: return '';
+            }
+        }
+
+        function updateStatus(status) {
+            const label = status.label;
+            const isBusy = status.busy;
+
+            statusTextHeader.textContent = label;
+            statusTextHeader.className = isBusy ? 'status-busy' : 'status-idle';
+            
+            statusTextFooter.textContent = label;
+            statusTextFooter.className = isBusy ? 'status-busy' : 'status-idle';
+
+            if (isBusy) {
+                busyIndicator.classList.remove('hidden');
+            } else {
+                busyIndicator.classList.add('hidden');
+            }
+
+            const w = status.workdir || '';
+            workdirTextHeader.textContent = w ? `workdir: ${w}` : '';
+
+            userInput.disabled = isBusy;
+            sendBtn.disabled = isBusy;
+        }
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text || sendBtn.disabled) return;
+            ws.send(JSON.stringify({ type: 'user_input', text: text }));
+
+            userInput.value = '';
+        }
+
+        function showHumanAsk(message, isPassword) {
+            humanAskMessage.textContent = message;
+            currentHumanAskIsPassword = !!isPassword;
+            humanAskInput.type = isPassword ? 'password' : 'text';
+            humanAskInput.value = '';
+            humanAskContainer.classList.remove('hidden');
+            humanAskInput.focus();
+        }
+
+        function submitHumanAsk() {
+            const text = humanAskInput.value;
+            ws.send(JSON.stringify({ type: 'human_ask_response', text: text, is_password: currentHumanAskIsPassword }));
+            humanAskContainer.classList.add('hidden');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        function linkifyHtml(escapedHtml) {
+            // escapedHtml is already HTML-escaped; safe to inject as innerHTML
+            const urlRe = /\b(https?:\/\/[^\s<>\"']+|www\.[^\s<>\"']+)/gi;
+            return escapedHtml.replace(urlRe, (m) => {
+                const href = m.startsWith('www.') ? ('https://' + m) : m;
+                return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline break-all">${m}</a>`;
+            });
+        }
+
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        sendBtn.onclick = sendMessage;
+        
+        humanAskInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                submitHumanAsk();
+            }
+        });
+
+        connect();
+    </script>
+</body>
+</html>
