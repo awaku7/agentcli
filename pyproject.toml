@@ -68,7 +68,7 @@ include = ["uagent", "uagent.*"]
 exclude = ["uagent.mcp*", "test*", "tests*"]
 
 [tool.setuptools.package-data]
-uagent = ["tools/**/*", "prompts/**/*", "static/**/*", "templates/**/*", "docs/**/*", "README.md", "QUICKSTART.md"]
+uagent = ["tools/**/*", "prompts/**/*", "static/**/*", "templates/**/*", "docs/**/*", "README.md", "README.ja.md", "QUICKSTART.md", "QUICKSTART.ja.md"]
 
 [tool.ruff]
 # Ruff settings

@@ -3,6 +3,7 @@ recursive-include src/uagent/tools *
 recursive-include src/uagent/prompts *
 recursive-include src/uagent/static *
 recursive-include src/uagent/templates *
+recursive-include src/uagent/docs *
 
 # Exclude local test code from sdist
 prune test
