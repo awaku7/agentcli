@@ -95,3 +95,14 @@ git 作業（今回ここまでで push まで行う手順）
 補足
 - i18n_helper.py はツール import 時の失敗を避ける設計（辞書が壊れても空 dict で続行）。
 - json のロードは lru_cache でキャッシュしている。
+
+---
+
+ドキュメント整合性（README/QUICKSTART 以外の状況）
+- README/QUICKSTART は README.ja.md / QUICKSTART.ja.md を正として README.md / QUICKSTART.md を追従させる方針で更新した。
+- 一方で、現時点で以下は英日ペアとして未整備。
+  - AGENTS.md: ファイル名は英語だが本文は日本語。AGENTS.ja.md は存在しない。
+    - 対応案: 現在の日本語本文を AGENTS.ja.md に退避し、AGENTS.md を英訳して英語版にする（README/QUICKSTART の命名規約に揃える）。
+  - src/uagent/docs/DEVELOP.md: 英語のみ（日本語版なし）。
+  - src/uagent/docs/WEBINSPECTER.md: 英語のみ（日本語版なし）。
+- 以降のドキュメント整備は、命名規約（*.ja.md を日本語、*.md を英語）で統一するか、別規約にするかを先に決めること。
