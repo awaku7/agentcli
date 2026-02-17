@@ -1,0 +1,22 @@
+{
+  "en": {
+    "tool.description": "Read file contents (up to 20000000 bytes). Partial reading is possible by specifying start_line and max_lines.",
+    "tool.system_prompt": "Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically.",
+    "param.filename.description": "Path of the file to read.",
+    "param.path.description": "(Compatibility) Alias of filename.",
+    "param.start_line.description": "Line number to start reading from (1-based). Default is 1.",
+    "param.max_lines.description": "Maximum number of lines to read. If null, read to EOF.",
+    "param.head_lines.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
+    "param.tail_lines.description": "Number of lines to read from the end. Cannot be used with head_lines."
+  },
+  "ja": {
+    "tool.description": "ファイル内容を読み取ります（最大 20000000 バイトまで）。開始行や行数を指定した部分的な読み取りも可能です。",
+    "tool.system_prompt": "ファイル内容を読み取ります。\n- 大きなファイルは start_line や max_lines を使用して部分的に読み取ることが推奨されます。\n- 改行コードは自動的に正規化されます。",
+    "param.filename.description": "読み取るファイルのパス。",
+    "param.path.description": "(互換) 読み取るファイルのパス。filename の別名として受け付けます。",
+    "param.start_line.description": "読み取りを開始する行番号（1始まり）。デフォルトは 1。",
+    "param.max_lines.description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
+    "param.head_lines.description": "先頭から読む行数。tail_lines と同時指定不可。",
+    "param.tail_lines.description": "末尾から読む行数。head_lines と同時指定不可。"
+  }
+}
