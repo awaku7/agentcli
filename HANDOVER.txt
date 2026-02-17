@@ -1,0 +1,97 @@
+HANDOVER (tools i18n JSON辞書方式 / 途中まで)
+
+概要
+- ./src/uagent/tools 配下の「各ツールが TOOL_SPEC を持つプラグイン群」を、ツール単位の JSON 辞書で i18n できるようにする土台を追加した。
+- ロケールは UAGENT_LOCALE を参照し、<tool>.py と同名の <tool>.json を同フォルダに置く方式（A案: read_file_tool.py -> read_file_tool.json）。
+- ベース言語は英語(en)として扱い、キー未定義時は en -> default(コード埋め込み) の順でフォールバック。
+
+今回入れたもの（変更点）
+1) 新規: ./src/uagent/tools/i18n_helper.py
+- 役割:
+  - UAGENT_LOCALE を読み、言語タグを正規化（例: ja_JP/en-US -> ja/en）
+  - ツールモジュールの __file__ から同名 json を探索（<tool>.py -> <tool>.json）
+  - JSON を読み込み、requested locale -> en -> default の順で文字列を返す translator 関数 _() を提供
+- 主要API:
+  - make_tool_translator(__file__) -> _(key, default=...) を返す
+- JSON形式:
+  {
+    "en": {"tool.description": "...", ...},
+    "ja": {"tool.description": "...", ...}
+  }
+
+2) 変更: ./src/uagent/tools/read_file_tool.py
+- TOOL_SPEC 内の以下を i18n 化（_() 経由）
+  - function.description
+  - function.system_prompt
+  - parameters.properties.*.description
+- 追加した import:
+  - from .i18n_helper import make_tool_translator
+  - _ = make_tool_translator(__file__)
+- 注意:
+  - system_prompt default は必ず \n エスケープを使う（生改行の通常文字列は py_compile で SyntaxError になる）
+
+3) 新規: ./src/uagent/tools/read_file_tool.json
+- en/ja の翻訳辞書を追加。
+- これにより UAGENT_LOCALE=ja/en で TOOL_SPEC 表示文言が切り替わる。
+
+4) pyproject.toml
+- 現状「modified」になっているが、今回の作業で意図して変更したか未確認。
+- commit 前に diff を確認し、不要なら元に戻すこと。
+  - package-data で tools/**/* を含めているため、read_file_tool.json は wheel に同梱される想定。
+
+ローカル動作確認
+- read_file_tool.py は python -m py_compile で構文チェック済み（通過）。
+
+残タスク（次にやること）
+A. i18n 対象範囲の確定
+- 最低限の翻訳対象（TOOL_SPEC 内）:
+  - function.description
+  - function.system_prompt
+  - parameters.properties.<param>.description
+- 追加で翻訳対象にするなら:
+  - run_tool 内のユーザー向けエラーメッセージ（現在は日英混在の箇所がある）
+
+B. 残り 50+ ツールへ横展開
+- ./src/uagent/tools 配下で TOOL_SPEC を持つファイルは多数（search_files で 55件ヒット）。
+- 各ツールに以下を追加:
+  - from .i18n_helper import make_tool_translator
+  - _ = make_tool_translator(__file__)
+- TOOL_SPEC の文言を _() に差し替え。
+- 各ツールに同名の .json（例: zip_ops_tool.json）を追加。
+
+C. 「ベース言語=英語」方針の運用を決める
+- 既存 TOOL_SPEC の多くが日本語なので、default（コード埋め込み）を英語へ移行する作業が必要。
+- 移行手順案:
+  1) まず全ツールで i18n 配線だけ通す（default は現状の日本語のまま）
+  2) 次に en を埋め、default も英語へ置換（品質レビュー前提）
+
+D. JSON の品質管理
+- キー命名規約を固定（tool.description / tool.system_prompt / param.<name>.description）。
+- 欠落キーの検出スクリプトを用意する（例: すべての TOOL_SPEC を走査して json にキーがあるか検証）。
+
+E. 追加テスト
+- UAGENT_LOCALE を切り替えた状態で tool spec の一覧表示がどう出るか（CLI/GUI/WEB）を確認。
+
+git 作業（今回ここまでで push まで行う手順）
+1) 変更確認
+- git status で以下が出ている:
+  - modified: pyproject.toml
+  - modified: src/uagent/tools/read_file_tool.py
+  - untracked: src/uagent/tools/i18n_helper.py
+  - untracked: src/uagent/tools/read_file_tool.json
+
+2) pyproject.toml の差分確認
+- 意図した変更でなければ revert する。
+
+3) add/commit
+- git add src/uagent/tools/i18n_helper.py src/uagent/tools/read_file_tool.py src/uagent/tools/read_file_tool.json HANDOVER.txt
+- pyproject.toml は内容を見て判断
+- commit message 例:
+  - "tools: add per-tool JSON i18n scaffolding and migrate read_file_tool"
+
+4) push
+- origin/main へ push（権限/認証は利用環境に従う）。
+
+補足
+- i18n_helper.py はツール import 時の失敗を避ける設計（辞書が壊れても空 dict で続行）。
+- json のロードは lru_cache でキャッシュしている。
