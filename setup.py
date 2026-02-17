@@ -26,6 +26,20 @@ class build_py(_build_py):
                 src_readme.read_text(encoding="utf-8"), encoding="utf-8"
             )
 
+
+        src_readme_ja = root / "README.ja.md"
+        dst_readme_ja = root / "src" / "uagent" / "README.ja.md"
+
+        src_quickstart_ja = root / "QUICKSTART.ja.md"
+        dst_quickstart_ja = root / "src" / "uagent" / "QUICKSTART.ja.md"
+
+        if src_readme_ja.exists():
+            dst_readme_ja.parent.mkdir(parents=True, exist_ok=True)
+            dst_readme_ja.write_text(src_readme_ja.read_text(encoding="utf-8"), encoding="utf-8")
+
+        if src_quickstart_ja.exists():
+            dst_quickstart_ja.parent.mkdir(parents=True, exist_ok=True)
+            dst_quickstart_ja.write_text(src_quickstart_ja.read_text(encoding="utf-8"), encoding="utf-8")
         if src_quickstart.exists():
             dst_quickstart.parent.mkdir(parents=True, exist_ok=True)
             dst_quickstart.write_text(
