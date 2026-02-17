@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+from .i18n import _
 
 try:
     from . import __version__
@@ -22,23 +23,23 @@ def get_mcp_servers_summary():
         path = get_default_mcp_config_path()
 
     if not os.path.exists(path):
-        return "[MCP サーバー]\n- 設定ファイルが見つかりません。"
+        return _("[MCP Servers]\n- Config file not found.")
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         servers = data.get("mcp_servers", [])
         if not servers:
-            return "[MCP サーバー]\n- 登録されているサーバーはありません。"
+            return _("[MCP Servers]\n- No servers registered.")
 
-        lines = ["[MCP サーバー]"]
+        lines = [_(["[MCP Servers]"][0])]
         for s in servers:
             name = s.get("name", "unknown")
             transport = s.get("transport", "stdio")
             lines.append(f"- {name} ({transport})")
         return "\n".join(lines)
     except Exception as e:
-        return f"[MCP サーバー]\n- 情報の取得に失敗しました: {e}"
+        return _("[MCP Servers]\n- Failed to get info: %(err)s") % {"err": e}
 
 
 def get_welcome_ascii():
@@ -55,22 +56,25 @@ def get_welcome_ascii():
 def get_welcome_message():
     ascii_art = get_welcome_ascii()
     mcp_summary = get_mcp_servers_summary()
-    usage = f"v{__version__}\n" + """
-[クイックガイド]
-- 対話: メッセージを入力して送信（GUIでは Ctrl+Enter も可）。
-- 複数行: 'f' 1文字のみの行を入力すると複数行モードに移行します（終了は \"\"\"end）。
-- コマンド: ':help' でシステムコマンド（ログ管理、履歴圧縮等）を確認できます。
-- 終了: ':exit' または ':quit' でセッションを終了します。
-- 画像: GUIではドラッグ＆ドロップ、CUIではファイルパス入力で画像解析が可能です。
-- ドキュメント: `uag docs` で同梱ドキュメント一覧、`uag docs webinspect` で Web Inspector の説明を表示（`--path/--open` も利用可）。
+    usage_lines = [
+        f"v{__version__}",
+        _("[Quick Guide]"),
+        _("- Chat: type a message and send (GUI: Ctrl+Enter is also available)."),
+        _("- Multiline: enter a line that is just 'f' to enter multiline mode (end with \"\"\"end)."),
+        _("- Commands: type ':help' to see system commands (log management, history compression, etc.)."),
+        _("- Exit: ':exit' or ':quit' ends the session."),
+        _("- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."),
+        _("- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."),
+        "",
+        _("[Examples]"),
+        _("- \"Analyze the source code in this folder and create a README.md.\""),
+        _("- \"Take a screenshot of the current desktop and describe the visible window contents.\""),
+        _("- \"Create a monthly summary report from this Excel file.\""),
+        _("- \"Read this PDF and list three key points.\""),
+        _("- \"Search the latest news and summarize a specific topic.\""),
+    ]
+    usage = "\n".join(usage_lines) + "\n"
 
-[活用例]
-- 「このフォルダにあるソースコードを解析して、README.mdを作成して」
-- 「現在のデスクトップを撮影して、開いているウィンドウの内容を説明して」
-- 「このExcelファイルのデータから、月別の集計レポートを作って」
-- 「このPDFを読んで、重要なポイントを3つ箇条書きで教えて」
-- 「最新のニュースを検索して、特定のトピックについて要約して」
-"""
     return ascii_art + usage + "\n" + mcp_summary
 
 
