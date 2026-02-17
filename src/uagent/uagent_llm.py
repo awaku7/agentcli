@@ -1,6 +1,7 @@
 import json
 import os
 import time
+from .i18n import _
 import traceback
 from typing import Any, Dict, List
 from urllib.error import URLError
@@ -105,9 +106,7 @@ def run_llm_rounds(
         while True:
             round_count += 1
             if round_count > max_tool_rounds:
-                print(
-                    f"[WARN] ツール使用ラウンドが {max_tool_rounds} 回を超えたため打ち切ります。"
-                )
+                print(_("[WARN] Tool rounds exceeded %(max)d; aborting.") % {"max": max_tool_rounds})
                 break
 
             if provider == "gemini":
@@ -185,7 +184,7 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print("[Gemini エラー] 応答生成中にエラーが発生しました。")
+                        print(_("[Gemini Error] An error occurred while generating a response."))
                         print(repr(e))
                         return
 
@@ -248,7 +247,7 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print("[Claude エラー] 応答生成中にエラーが発生しました。")
+                        print(_("[Claude Error] An error occurred while generating a response."))
                         print(repr(e))
                         return
 
