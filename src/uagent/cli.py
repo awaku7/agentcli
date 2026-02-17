@@ -4,6 +4,8 @@ import importlib
 import json
 import os
 import sys
+
+from .i18n import _
 import threading
 import time
 import atexit
@@ -409,7 +411,7 @@ def stdin_loop() -> None:
                     continue
 
             # Ctrl+C で即座に終了シーケンスに入るように変更
-            print("\n[INFO] Ctrl+C を受信しました。終了処理を開始します...")
+            print("\n[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
             core.event_queue.put({"kind": "command", "text": ":exit"})
             break
         except Exception as e:
@@ -718,7 +720,7 @@ def main() -> None:
 
         messages = build_initial_messages(core=core)
 
-        print("[INFO] 長期記憶を読み込みました。")
+        print("[INFO] " + _("Loaded long-term memory."))
 
         try:
             before_len = len(messages)
@@ -732,7 +734,7 @@ def main() -> None:
 
             # 互換: 共有メモが有効な場合のみ INFO を出す
             if flags.get("shared_enabled"):
-                print("[INFO] 共有長期記憶を読み込みました。")
+                print("[INFO] " + _("Loaded shared long-term memory."))
 
             # 互換: 追加された system message をすべて log に残す
             for m in messages[before_len:]:

@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Iterable, List, Optional, Tuple
 
 
+from .i18n import _
+
 @dataclass(frozen=True)
 class DocItem:
     """A bundled documentation item."""
@@ -21,12 +23,12 @@ _DOCS: List[DocItem] = [
     DocItem(
         name="webinspect",
         filename="WEBINSPECTER.md",
-        description="Web Inspector（playwright_inspector）の説明",
+        description=_("Web Inspector (playwright_inspector) guide"),
     ),
     DocItem(
         name="develop",
         filename="DEVELOP.md",
-        description="開発者向け情報",
+        description=_("Developer information"),
     ),
 ]
 
@@ -71,7 +73,7 @@ def resolve_doc(name: str) -> DocItem:
     for d in _DOCS:
         if d.name == key:
             return d
-    raise KeyError(f"unknown doc name: {name!r}")
+    raise KeyError(_("unknown doc name: %(name)r") % {"name": name})
 
 
 def _read_via_resources(filename: str) -> str:
@@ -92,7 +94,7 @@ def read_doc_text(name: str) -> str:
     # Fallback to filesystem
     p, _ = _package_doc_path(d.filename)
     if p is None:
-        raise FileNotFoundError(f"doc file not found: {d.filename}")
+        raise FileNotFoundError(_("doc file not found: %(filename)s") % {"filename": d.filename})
     return p.read_text(encoding="utf-8")
 
 
@@ -120,7 +122,7 @@ def get_doc_path(name: str) -> Path:
             dst.write_text(tmp_path.read_text(encoding="utf-8"), encoding="utf-8")
             return dst
     except Exception as e:
-        raise FileNotFoundError(f"doc path resolution failed: {d.filename}: {e}")
+        raise FileNotFoundError(_("doc path resolution failed: %(filename)s: %(err)s") % {"filename": d.filename, "err": e})
 
 
 def open_path_with_os(path: Path) -> None:
@@ -142,13 +144,13 @@ def open_path_with_os(path: Path) -> None:
 
 
 def format_docs_list(items: Iterable[DocItem]) -> str:
-    lines = ["[docs] 利用可能なドキュメント:"]
+    lines = [_("[docs] Available documents:")]
     for d in items:
         lines.append(f"- {d.name}: {d.description} ({d.filename})")
     lines.append("")
-    lines.append("使い方:")
-    lines.append("  uag docs                 # 一覧")
-    lines.append("  uag docs <name>          # 内容表示")
-    lines.append("  uag docs --path <name>   # パス表示")
-    lines.append("  uag docs --open <name>   # OS既定で開く")
+    lines.append(_("Usage:"))
+    lines.append(_("  uag docs                 # list"))
+    lines.append(_("  uag docs <name>          # show"))
+    lines.append(_("  uag docs --path <name>   # show path"))
+    lines.append(_("  uag docs --open <name>   # open with OS"))
     return "\n".join(lines)

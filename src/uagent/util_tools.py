@@ -4,6 +4,8 @@ import os
 import re
 import subprocess
 import sys
+
+from .i18n import _ as i18n_
 import base64
 import glob
 import mimetypes
@@ -166,7 +168,7 @@ def try_open_images_from_text(text: str) -> None:
             opened_any = True
 
     if opened_any:
-        print("[INFO] 画像ファイルを既定アプリで開きました。", file=sys.stderr)
+        print("[INFO] " + i18n_("Opened image file with the default app."), file=sys.stderr)
 
 
 def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
@@ -226,6 +228,7 @@ def handle_command(
 
     戻り値: False を返すとメインループ終了(:exit / :quit)
     """
+    tr = getattr(core, "tr", i18n_)
 
     line = line.lstrip(":").strip()
     if not line:
@@ -242,7 +245,7 @@ def handle_command(
     if cmd in ("cd",):
         a = (arg or "").strip()
         if not a:
-            print(":cd <path> の形式で指定してください。")
+            print(tr(":cd <path>"))
             return True
 
         try:
@@ -250,7 +253,7 @@ def handle_command(
             target = os.path.abspath(expanded)
 
             if not os.path.isdir(target):
-                print(f"[cd] ディレクトリが存在しません: {a} -> {target}")
+                print(tr("[cd] Directory does not exist: %(src)s -> %(dst)s") % {"src": a, "dst": target})
                 return True
 
             os.chdir(target)
@@ -274,7 +277,7 @@ def handle_command(
             if has_glob:
                 matches = glob.glob(expanded)
                 if not matches:
-                    print(f"[ls] マッチするパスがありません: {target} -> {expanded}")
+                    print(tr("[ls] No matching paths: %(src)s -> %(expanded)s") % {"src": target, "expanded": expanded})
                     return True
 
                 items = []
@@ -308,7 +311,7 @@ def handle_command(
             target_abs = os.path.abspath(expanded)
 
             if not os.path.isdir(target_abs):
-                print(f"[ls] ディレクトリが存在しません: {target} -> {target_abs}")
+                print(tr("[ls] Directory does not exist: %(src)s -> %(dst)s") % {"src": target, "dst": target_abs})
                 return True
 
             entries = []
@@ -349,9 +352,7 @@ def handle_command(
                 try:
                     limit = int(a)
                 except Exception:
-                    print(
-                        f"[logs] 引数が不正です: {a!r}（all / --all / -a / 数字 を指定してください）"
-                    )
+                    print(tr("[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)") % {"arg": a})
                     return True
 
         core.list_logs(limit=limit, show_all=show_all)
@@ -371,15 +372,13 @@ def handle_command(
             try:
                 threshold = int(a)
             except Exception:
-                print(
-                    f"[clean] 引数が不正です: {a!r}（数字=閾値 を指定してください。既定は {threshold}）"
-                )
+                print(tr("[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)") % {"arg": a, "default": threshold})
                 return True
 
         try:
             log_files = core.find_log_files(exclude_current=False)
         except Exception as e:
-            print(f"[clean error] ログ一覧取得に失敗しました: {type(e).__name__}: {e}")
+            print(tr("[clean error] Failed to get log list: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
             return True
 
         targets: List[str] = []
@@ -397,16 +396,13 @@ def handle_command(
                 if non_system_count <= threshold:
                     targets.append(p)
             except Exception as e:
-                print(f"[clean warn] スキップ（解析失敗）: {p} ({type(e).__name__}: {e})")
+                print(tr("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e})
 
         if not targets:
-            print(
-                f"[clean] 削除対象ログはありません（閾値={threshold}）。\n"
-                f"対象ログdir: {getattr(core, 'BASE_LOG_DIR', '(unknown)')}"
-            )
+            print(tr("[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s") % {"threshold": threshold, "dir": getattr(core, "BASE_LOG_DIR", "(unknown)")})
             return True
 
-        print(f"[clean] 会話ログ削除対象（<= {threshold} 件）: {len(targets)} 件")
+        print(tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d") % {"threshold": threshold, "n": len(targets)})
         for p in targets:
             c = counts.get(p, -1)
             print(f" - ({c} msgs) {p}")
@@ -415,20 +411,27 @@ def handle_command(
             from uagent.tools.human_ask_tool import run_tool as human_ask
 
             msg = (
-                ":clean は会話ログファイル（scheck_log_*.jsonl）を実ファイル削除します。\n"
-                f"対象ログdir: {getattr(core, 'BASE_LOG_DIR', '(unknown)')}\n"
-                f"判定: system を除いた user/assistant/tool の総数が {threshold} 件以下\n"
-                f"削除件数: {len(targets)}\n\n"
-                "実行してよければ y、キャンセルなら c と入力してください。"
+                i18n_(
+                    ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+                    "Log dir: %(dir)s\n"
+                    "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+                    "Targets: %(n)d\n\n"
+                    "Proceed? Enter y to run, or c to cancel."
+                )
+                % {
+                    "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+                    "threshold": threshold,
+                    "n": len(targets),
+                }
             )
             res_json = human_ask({"message": msg})
             res = json.loads(res_json)
             user_reply = (res.get("user_reply") or "").strip().lower()
             if user_reply not in ("y", "yes"):
-                print("[clean] キャンセルしました。")
+                print(tr("[clean] Cancelled."))
                 return True
         except Exception as e:
-            print(f"[clean error] 確認に失敗しました: {type(e).__name__}: {e}")
+            print(tr("[clean error] Confirmation failed: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
             return True
 
         deleted = 0
@@ -439,14 +442,14 @@ def handle_command(
                 deleted += 1
             except Exception as e:
                 failed += 1
-                print(f"[clean warn] 削除失敗: {p} ({type(e).__name__}: {e})")
+                print(tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e})
 
-        print(f"[clean] 削除完了: deleted={deleted}, failed={failed}")
+        print(tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d") % {"deleted": deleted, "failed": failed})
         return True
 
     if cmd == "load":
         if not arg:
-            print(":load <index|path> の形式で指定してください。")
+            print(tr(":load <index|path>"))
             return True
 
         files = core.find_log_files(exclude_current=True)
@@ -455,7 +458,7 @@ def handle_command(
         if arg.isdigit():
             idx = int(arg)
             if idx < 0 or idx >= len(files):
-                print(f"指定された index {idx} はログ一覧の範囲外です。")
+                print(tr("Specified index %(idx)d is out of range.") % {"idx": idx})
                 return True
             target_path = files[idx]
         else:
@@ -464,7 +467,7 @@ def handle_command(
         try:
             new_messages = core.load_conversation_from_log(target_path)
         except FileNotFoundError:
-            print(f"ログファイルが見つかりません: {target_path}")
+            print(tr("Log file not found: %(path)s") % {"path": target_path})
             return True
         except Exception as e:
             print(f"[load error] {type(e).__name__}: {e}")
@@ -488,8 +491,8 @@ def handle_command(
         except Exception:
             pass
 
-        print(f"ログを読み込みました: {target_path}")
-        print(f"会話履歴メッセージ数: {len(messages_ref)}")
+        print(tr("Loaded log: %(path)s") % {"path": target_path})
+        print(tr("Conversation message count: %(n)d") % {"n": len(messages_ref)})
         # --- Optional: prepend loaded log contents into CURRENT session log file ---
         # User request: When :load is used, keep a trace in the current log by inserting
         # the loaded conversation at the beginning of the current session log file.
@@ -500,11 +503,13 @@ def handle_command(
             cur_log = getattr(core, "LOG_FILE", None)
             if isinstance(cur_log, str) and cur_log:
                 msg2 = (
-                    ":load により、現在セッションのログファイルを上書きして\n"
-                    "ロードしたログ内容を先頭へ挿入します（バックアップ無し）。\n\n"
-                    f"現在ログ: {cur_log}\n"
-                    f"ロード元: {target_path}\n\n"
-                    "実行してよければ y、キャンセルなら c と入力してください。"
+                    i18n_(
+                        ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
+                        "Current log: %(cur_log)s\n"
+                        "Source log: %(src_log)s\n\n"
+                        "Proceed? Enter y to run, or c to cancel."
+                    )
+                    % {"cur_log": cur_log, "src_log": target_path}
                 )
                 res_json2 = human_ask({"message": msg2})
                 res2 = json.loads(res_json2)
@@ -516,10 +521,7 @@ def handle_command(
                         with open(target_path, encoding="utf-8") as f:
                             loaded_lines = f.read().splitlines(True)  # keepends
                     except Exception as e:
-                        print(
-                            f"[load warn] ロード元ログの読み取りに失敗: {type(e).__name__}: {e}",
-                            file=sys.stderr,
-                        )
+                        print(tr("[load warn] Failed to read source log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
                         loaded_lines = []
 
                     # Read current log lines (may not exist yet)
@@ -529,10 +531,7 @@ def handle_command(
                             with open(cur_log, encoding="utf-8") as f:
                                 cur_lines = f.read().splitlines(True)
                     except Exception as e:
-                        print(
-                            f"[load warn] 現在ログの読み取りに失敗: {type(e).__name__}: {e}",
-                            file=sys.stderr,
-                        )
+                        print(tr("[load warn] Failed to read current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
                         cur_lines = []
 
                     # Build marker line (JSONL entry)
@@ -551,16 +550,13 @@ def handle_command(
                                 f.write(ln)
                             for ln in cur_lines:
                                 f.write(ln)
-                        print(f"[load] 現在ログへ先頭挿入しました: {cur_log}")
+                        print(tr("[load] Prepended to current log: %(path)s") % {"path": cur_log})
                     except Exception as e:
-                        print(
-                            f"[load warn] 現在ログの書き換えに失敗: {type(e).__name__}: {e}",
-                            file=sys.stderr,
-                        )
+                        print(tr("[load warn] Failed to rewrite current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
                 else:
-                    print("[load] 現在ログへの先頭挿入はキャンセルしました。")
+                    print(tr("[load] Prepend to current log was cancelled."))
         except Exception as e:
-            print(f"[load warn] 現在ログへの先頭挿入処理でエラー: {type(e).__name__}: {e}", file=sys.stderr)
+            print(tr("[load warn] Error during prepend to current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
 
         return True
 
@@ -571,7 +567,7 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    f"[shrink error] 数値に変換できません: {arg!r} → 既定 {keep_last} 件を維持します。"
+                    i18n_("[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d") % {"arg": arg, "keep": keep_last}
                 )
         new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
         messages_ref.clear()
@@ -585,7 +581,7 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    f"[shrink_llm error] 数値に変換できません: {arg!r} → 既定 {keep_last} 件を維持します。"
+                    i18n_("[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d") % {"arg": arg, "keep": keep_last}
                 )
         new_messages = core.compress_history_with_llm(
             client=client,
@@ -600,10 +596,10 @@ def handle_command(
     if cmd == "mem-list":
         records = personal_long_memory.load_long_memory_records()
         if not records:
-            print("長期記憶は登録されていません。")
+            print(tr("No long-term memory entries."))
             return True
 
-        print("長期記憶一覧:")
+        print(tr("Long-term memory entries:"))
         for idx, rec in enumerate(records):
             ts = rec.get("ts")
             if isinstance(ts, (int, float)):
@@ -618,34 +614,34 @@ def handle_command(
 
     if cmd == "mem-del":
         if not arg:
-            print(":mem-del <index> の形式で指定してください。")
+            print(tr(":mem-del <index>"))
             return True
         try:
             idx = int(arg)
         except Exception:
-            print(f"[mem-del error] index を整数に変換できません: {arg!r}")
+            print(tr("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
             return True
         if personal_long_memory.delete_long_memory_entry(idx):
-            print(f"長期記憶[{idx}] を削除しました。")
+            print(tr("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
         else:
-            print(f"[mem-del] index={idx} の削除に失敗しました。")
+            print(tr("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
         return True
 
     if cmd == "shared-mem-list":
         if not shared_memory.is_enabled():
             print(
-                "共有長期記憶は有効化されていません（UAGENT_SHARED_MEMORY_FILE 未設定）。"
+                i18n_("Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set).")
             )
             return True
 
         records = shared_memory.load_shared_memory_records()
         if not records:
-            print("共有長期記憶は登録されていません。")
+            print(tr("No shared long-term memory entries."))
             return True
 
         import time as _time
 
-        print("共有長期記憶一覧:")
+        print(tr("Shared long-term memory entries:"))
         for idx, rec in enumerate(records):
             ts = rec.get("ts")
             if isinstance(ts, (int, float)):
@@ -658,48 +654,48 @@ def handle_command(
 
     if cmd == "shared-mem-del":
         if not arg:
-            print(":shared-mem-del <index> の形式で指定してください。")
+            print(tr(":shared-mem-del <index>"))
             return True
 
         if not shared_memory.is_enabled():
             print(
-                "共有長期記憶は有効化されていません（UAGENT_SHARED_MEMORY_FILE 未設定）。"
+                i18n_("Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set).")
             )
             return True
 
         try:
             idx = int(arg)
         except Exception:
-            print(f"[shared-mem-del error] index を整数に変換できません: {arg!r}")
+            print(tr("[shared-mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
             return True
 
         records = shared_memory.load_shared_memory_records()
         if idx < 0 or idx >= len(records):
-            print(f"[shared-mem-del] index={idx} の削除に失敗しました。")
+            print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
             return True
 
         try:
             records.pop(idx)
             path = shared_memory.get_shared_memory_file()
             if not path:
-                print(f"[shared-mem-del] index={idx} の削除に失敗しました。")
+                print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
                 return True
             os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, "w", encoding="utf-8") as f:
                 for rec in records:
                     f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         except Exception as e:
-            print(f"[shared-mem-del error] {type(e).__name__}: {e}")
+            print(tr("[shared-mem-del error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
             return True
 
-        print(f"共有長期記憶[{idx}] を削除しました。")
+        print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
         return True
 
     if cmd in ("exit", "quit"):
-        print("終了します。")
+        print(tr("Exiting."))
         return False
 
-    print(f"未知のコマンドです: :{cmd}")
+    print(tr("Unknown command: :%(cmd)s") % {"cmd": cmd})
     return True
 
 
