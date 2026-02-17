@@ -356,26 +356,69 @@ def handle_command(
 
         core.list_logs(limit=limit, show_all=show_all)
         return True
+
     if cmd == "clean":
-        # Dangerous operation: delete files.
-        root_dir = arg.strip() or "."
-        targets = iter_backup_files(root_dir)
+        # Dangerous operation: delete conversation log files with <= N non-system messages.
+        # Target: core.BASE_LOG_DIR / scheck_log_*.jsonl
+        # Count: user/assistant/tool messages only (exclude system), consistent with core.load_conversation_from_log
+        # Usage:
+        #   :clean            -> threshold=10
+        #   :clean 10         -> threshold=10
 
-        if not targets:
-            print(f"[clean] 対象がありません: root={root_dir}")
-            return True
-
-        print(f"[clean] バックアップ削除対象: {len(targets)} 件")
-        for p in targets:
-            print(f" - {p}")
+        threshold = 10
+        a = (arg or "").strip()
+        if a:
+            try:
+                threshold = int(a)
+            except Exception:
+                print(
+                    f"[clean] 引数が不正です: {a!r}（数字=閾値 を指定してください。既定は {threshold}）"
+                )
+                return True
 
         try:
-            from tools.human_ask_tool import run_tool as human_ask
+            log_files = core.find_log_files(exclude_current=False)
+        except Exception as e:
+            print(f"[clean error] ログ一覧取得に失敗しました: {type(e).__name__}: {e}")
+            return True
+
+        targets: List[str] = []
+        counts: Dict[str, int] = {}
+
+        for p in log_files:
+            try:
+                # load_conversation_from_log:
+                # - drops system messages from the log
+                # - then inserts one system message at head
+                # So len(msgs)-1 == non-system message count.
+                msgs = core.load_conversation_from_log(p)
+                non_system_count = max(0, len(msgs) - 1)
+                counts[p] = non_system_count
+                if non_system_count <= threshold:
+                    targets.append(p)
+            except Exception as e:
+                print(f"[clean warn] スキップ（解析失敗）: {p} ({type(e).__name__}: {e})")
+
+        if not targets:
+            print(
+                f"[clean] 削除対象ログはありません（閾値={threshold}）。\n"
+                f"対象ログdir: {getattr(core, 'BASE_LOG_DIR', '(unknown)')}"
+            )
+            return True
+
+        print(f"[clean] 会話ログ削除対象（<= {threshold} 件）: {len(targets)} 件")
+        for p in targets:
+            c = counts.get(p, -1)
+            print(f" - ({c} msgs) {p}")
+
+        try:
+            from uagent.tools.human_ask_tool import run_tool as human_ask
 
             msg = (
-                ":clean はバックアップファイル（.org / .orgN）を実ファイル削除します。\n"
-                f"対象ルート: {root_dir}\n"
-                f"件数: {len(targets)}\n\n"
+                ":clean は会話ログファイル（scheck_log_*.jsonl）を実ファイル削除します。\n"
+                f"対象ログdir: {getattr(core, 'BASE_LOG_DIR', '(unknown)')}\n"
+                f"判定: system を除いた user/assistant/tool の総数が {threshold} 件以下\n"
+                f"削除件数: {len(targets)}\n\n"
                 "実行してよければ y、キャンセルなら c と入力してください。"
             )
             res_json = human_ask({"message": msg})
@@ -447,6 +490,78 @@ def handle_command(
 
         print(f"ログを読み込みました: {target_path}")
         print(f"会話履歴メッセージ数: {len(messages_ref)}")
+        # --- Optional: prepend loaded log contents into CURRENT session log file ---
+        # User request: When :load is used, keep a trace in the current log by inserting
+        # the loaded conversation at the beginning of the current session log file.
+        # NOTE: This rewrites core.LOG_FILE (no backup, per user request). Dangerous.
+        try:
+            from uagent.tools.human_ask_tool import run_tool as human_ask
+
+            cur_log = getattr(core, "LOG_FILE", None)
+            if isinstance(cur_log, str) and cur_log:
+                msg2 = (
+                    ":load により、現在セッションのログファイルを上書きして\n"
+                    "ロードしたログ内容を先頭へ挿入します（バックアップ無し）。\n\n"
+                    f"現在ログ: {cur_log}\n"
+                    f"ロード元: {target_path}\n\n"
+                    "実行してよければ y、キャンセルなら c と入力してください。"
+                )
+                res_json2 = human_ask({"message": msg2})
+                res2 = json.loads(res_json2)
+                user_reply2 = (res2.get("user_reply") or "").strip().lower()
+                if user_reply2 in ("y", "yes"):
+                    # Read loaded raw log lines
+                    loaded_lines: list[str] = []
+                    try:
+                        with open(target_path, encoding="utf-8") as f:
+                            loaded_lines = f.read().splitlines(True)  # keepends
+                    except Exception as e:
+                        print(
+                            f"[load warn] ロード元ログの読み取りに失敗: {type(e).__name__}: {e}",
+                            file=sys.stderr,
+                        )
+                        loaded_lines = []
+
+                    # Read current log lines (may not exist yet)
+                    cur_lines: list[str] = []
+                    try:
+                        if os.path.exists(cur_log):
+                            with open(cur_log, encoding="utf-8") as f:
+                                cur_lines = f.read().splitlines(True)
+                    except Exception as e:
+                        print(
+                            f"[load warn] 現在ログの読み取りに失敗: {type(e).__name__}: {e}",
+                            file=sys.stderr,
+                        )
+                        cur_lines = []
+
+                    # Build marker line (JSONL entry)
+                    marker = {
+                        "role": "system",
+                        "content": f"[LOG] :load prepend source={os.path.abspath(target_path)}",
+                    }
+                    marker_line = json.dumps(marker, ensure_ascii=False) + "\n"
+
+                    # Write new file: marker + loaded + old
+                    try:
+                        os.makedirs(os.path.dirname(cur_log) or ".", exist_ok=True)
+                        with open(cur_log, "w", encoding="utf-8") as f:
+                            f.write(marker_line)
+                            for ln in loaded_lines:
+                                f.write(ln)
+                            for ln in cur_lines:
+                                f.write(ln)
+                        print(f"[load] 現在ログへ先頭挿入しました: {cur_log}")
+                    except Exception as e:
+                        print(
+                            f"[load warn] 現在ログの書き換えに失敗: {type(e).__name__}: {e}",
+                            file=sys.stderr,
+                        )
+                else:
+                    print("[load] 現在ログへの先頭挿入はキャンセルしました。")
+        except Exception as e:
+            print(f"[load warn] 現在ログへの先頭挿入処理でエラー: {type(e).__name__}: {e}", file=sys.stderr)
+
         return True
 
     if cmd == "shrink":
