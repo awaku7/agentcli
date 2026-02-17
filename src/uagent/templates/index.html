@@ -80,7 +80,13 @@
 
         function connect() {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+            const url = new URL(window.location.href);
+            // room id: /room/<id> (preferred) or ?room=<id>
+            const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
+            const queryRoom = url.searchParams.get('room');
+            const room = pathRoom || queryRoom;
+            const qs = room ? `?room=${encodeURIComponent(room)}` : '';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws${qs}`);
 
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
