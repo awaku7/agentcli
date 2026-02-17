@@ -23,6 +23,8 @@ from . import util_tools as tools_util
 from . import tools
 from .welcome import get_welcome_message
 from . import runtime_init as _runtime_init
+from .i18n import _
+from .i18n import detect_lang
 
 try:
     from .tools.mcp_servers_shared import ensure_mcp_config_template
@@ -442,7 +444,7 @@ def run_agent_worker(user_input: str):
             from .tools import long_memory as personal_long_memory
             from .tools import shared_memory
 
-            print("[INFO] 長期記憶を読み込みました。")
+            print("[INFO] " + _("Loaded long-term memory."))
             try:
                 before_len = len(web_manager.history)
                 flags = _runtime_init.append_long_memory_system_messages(
@@ -455,14 +457,14 @@ def run_agent_worker(user_input: str):
 
                 # 互換: 共有メモが有効な場合のみ INFO を出す
                 if flags.get("shared_enabled"):
-                    print("[INFO] 共有長期記憶を読み込みました。")
+                    print("[INFO] " + _("Loaded shared long-term memory."))
 
                 # 互換: 追加された system message をすべて log に残す
                 for m in web_manager.history[before_len:]:
                     core.log_message(m)
 
             except Exception as e:
-                print(f"[WARN] 共有長期記憶の読み込み中に例外が発生しました: {e}")
+                print("[WARN] " + _("Exception occurred while loading shared long-term memory: %(err)s") % {"err": e})
 
         web_manager.history.append(user_msg)
 
@@ -526,7 +528,9 @@ def run_agent_worker(user_input: str):
 # --- Routes ---
 @app.get("/")
 async def get(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    lang = detect_lang()
+    tpl = "index.ja.html" if lang == "ja" else "index.en.html"
+    return templates.TemplateResponse(tpl, {"request": request})
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -595,7 +599,7 @@ def init_web():
     try:
         _filtered: List[str] = []
         for _ln in str(_welcome).splitlines():
-            if "複数行" in _ln:
+            if ("複数行" in _ln) or ("Multiline" in _ln):
                 continue
             _filtered.append(_ln)
         _welcome = "\n".join(_filtered)
@@ -652,7 +656,7 @@ def main():
         # NOTE: web mode currently streams stdout to UI; keep behavior compatible.
         print(banner, end="")
     except Exception as e:
-        print(f"[FATAL] workdir の設定に失敗しました: {e}", file=sys.stderr)
+        print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
         sys.exit(1)
 
     init_web()

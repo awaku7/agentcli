@@ -2,6 +2,8 @@ import os
 import sys
 from typing import Any, Tuple
 
+from .i18n import _
+
 # OpenAI / Azure OpenAI
 try:
     from openai import AzureOpenAI, OpenAI
@@ -26,12 +28,12 @@ def detect_provider() -> str:
     """UAGENT_PROVIDER から利用プロバイダを判定する。設定されていない場合は終了する。"""
     p = os.environ.get("UAGENT_PROVIDER")
     if not p:
-        print("環境変数 UAGENT_PROVIDER が設定されていません", file=sys.stderr)
+        print(_("Environment variable UAGENT_PROVIDER is not set."), file=sys.stderr)
         sys.exit(1)
 
     p = p.lower()
     if p not in ("azure", "openai", "openrouter", "gemini", "grok", "claude", "nvidia"):
-        print(f"未知のプロバイダです: {p}", file=sys.stderr)
+        print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
     return p
 

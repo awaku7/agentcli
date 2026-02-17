@@ -1,0 +1,436 @@
+# uag Japanese translations
+#
+# Notes:
+# - msgid is English (project policy)
+# - Keep named placeholders like %(name)s intact
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: uag\n"
+"POT-Creation-Date: 2026-02-17 00:00+0000\n"
+"PO-Revision-Date: 2026-02-17 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/uagent/checks.py
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Gitがインストールされていません。"
+
+#: src/uagent/checks.py
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "Gitをインストールしてください。公式サイトからダウンロード: https://git-scm.com/download/win"
+
+#: src/uagent/checks.py
+msgid "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo yum install git (CentOS/RHEL)"
+msgstr "Gitをインストールしてください。例: sudo apt install git (Ubuntu/Debian) または sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py
+msgid "Please install Git. If using Homebrew: brew install git, or install Xcode Command Line Tools: xcode-select --install"
+msgstr "Gitをインストールしてください。Homebrewの場合: brew install git, またはXcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "Gitをインストールしてください。https://git-scm.com/ を参照"
+
+#: src/uagent/core.py
+msgid "Environment variable %(name)s is not set."
+msgstr "環境変数 %(name)s が設定されていません"
+
+#: src/uagent/util_providers.py
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "環境変数 UAGENT_PROVIDER が設定されていません"
+
+#: src/uagent/util_providers.py
+msgid "Unknown provider: %(provider)s"
+msgstr "未知のプロバイダです: %(provider)s"
+
+#: src/uagent/util_providers.py
+msgid "[FATAL] google-genai package is not installed."
+msgstr "[FATAL] google-genai パッケージがインストールされていません"
+
+#: src/uagent/util_providers.py
+msgid "[FATAL] anthropic package is not installed."
+msgstr "[FATAL] anthropic パッケージがインストールされていません"
+
+
+msgid "No log files found."
+msgstr "ログファイルがありません。"
+
+
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+
+
+msgid "Log files:"
+msgstr "ログファイル一覧:"
+
+
+msgid "(unknown)"
+msgstr "(不明)"
+
+
+msgid "Opened image file with the default app."
+msgstr "画像ファイルを既定アプリで開きました。"
+
+
+msgid ":cd <path>"
+msgstr ":cd <path> の形式で指定してください。"
+
+
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] ディレクトリが存在しません: %(src)s -> %(dst)s"
+
+
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] マッチするパスがありません: %(src)s -> %(expanded)s"
+
+
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] ディレクトリが存在しません: %(src)s -> %(dst)s"
+
+
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] 引数が不正です: %(arg)r（all / --all / -a / 数字 を指定してください）"
+
+
+msgid "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
+msgstr "[clean] 引数が不正です: %(arg)r（数字=閾値 を指定してください。既定は %(default)d）"
+
+
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean error] ログ一覧取得に失敗しました: %(etype)s: %(err)s"
+
+
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] スキップ（解析失敗）: %(path)s (%(etype)s: %(err)s)"
+
+
+msgid "[clean] Cancelled."
+msgstr "[clean] キャンセルしました。"
+
+
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] 削除失敗: %(path)s (%(etype)s: %(err)s)"
+
+
+msgid "[clean] No logs to delete (threshold=%(threshold)d).
+Log dir: %(dir)s"
+msgstr "[clean] 削除対象ログはありません（閾値=%(threshold)d）。
+対象ログdir: %(dir)s"
+
+
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] 会話ログ削除対象（<= %(threshold)d 件）: %(n)d 件"
+
+
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr "[clean] 削除完了: deleted=%(deleted)d, failed=%(failed)d"
+
+
+msgid ":load <index|path>"
+msgstr ":load <index|path> の形式で指定してください。"
+
+
+msgid "Specified index %(idx)d is out of range."
+msgstr "指定された index %(idx)d はログ一覧の範囲外です。"
+
+
+msgid "Log file not found: %(path)s"
+msgstr "ログファイルが見つかりません: %(path)s"
+
+
+msgid "Loaded log: %(path)s"
+msgstr "ログを読み込みました: %(path)s"
+
+
+msgid "Conversation message count: %(n)d"
+msgstr "会話履歴メッセージ数: %(n)d"
+
+
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean error] 確認に失敗しました: %(etype)s: %(err)s"
+
+
+msgid ":load will overwrite the current session log file and prepend the loaded log (no backup).
+
+Current log: %(cur_log)s
+Source log: %(src_log)s
+
+Proceed? Enter y to run, or c to cancel."
+msgstr ":load により、現在セッションのログファイルを上書きして
+ロードしたログ内容を先頭へ挿入します（バックアップ無し）。
+
+現在ログ: %(cur_log)s
+ロード元: %(src_log)s
+
+実行してよければ y、キャンセルなら c と入力してください。"
+
+
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] 現在ログへ先頭挿入しました: %(path)s"
+
+
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] 現在ログへの先頭挿入はキャンセルしました。"
+
+
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load warn] ロード元ログの読み取りに失敗: %(etype)s: %(err)s"
+
+
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load warn] 現在ログの読み取りに失敗: %(etype)s: %(err)s"
+
+
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[load warn] 現在ログの書き換えに失敗: %(etype)s: %(err)s"
+
+
+msgid "[load warn] Error during prepend to current log: %(etype)s: %(err)s"
+msgstr "[load warn] 現在ログへの先頭挿入処理でエラー: %(etype)s: %(err)s"
+
+
+msgid "[MCP Servers]
+- Config file not found."
+msgstr "[MCP サーバー]
+- 設定ファイルが見つかりません。"
+
+
+msgid "[MCP Servers]
+- No servers registered."
+msgstr "[MCP サーバー]
+- 登録されているサーバーはありません。"
+
+
+msgid "[MCP Servers]"
+msgstr "[MCP サーバー]"
+
+
+msgid "[MCP Servers]
+- Failed to get info: %(err)s"
+msgstr "[MCP サーバー]
+- 情報の取得に失敗しました: %(err)s"
+
+
+msgid "[Quick Guide]
+- Chat: type a message and send (GUI: Ctrl+Enter is also available).
+- Multiline: enter a line that is just 'f' to enter multiline mode (end with \"\"\"end).
+- Commands: type ':help' to see system commands (log management, history compression, etc.).
+- Exit: ':exit' or ':quit' ends the session.
+- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis.
+- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available).
+
+"
+msgstr "[クイックガイド]
+- 対話: メッセージを入力して送信（GUIでは Ctrl+Enter も可）。
+- 複数行: 'f' 1文字のみの行を入力すると複数行モードに移行します（終了は \"\"\"end）。
+- コマンド: ':help' でシステムコマンド（ログ管理、履歴圧縮等）を確認できます。
+- 終了: ':exit' または ':quit' でセッションを終了します。
+- 画像: GUIではドラッグ＆ドロップ、CUIではファイルパス入力で画像解析が可能です。
+- ドキュメント: `uag docs` で同梱ドキュメント一覧、`uag docs webinspect` で Web Inspector の説明を表示（`--path/--open` も利用可）。
+
+"
+
+
+msgid "[Examples]
+- \"Analyze the source code in this folder and create a README.md.\"
+- \"Take a screenshot of the current desktop and describe the visible window contents.\"
+- \"Create a monthly summary report from this Excel file.\"
+- \"Read this PDF and list three key points.\"
+- \"Search the latest news and summarize a specific topic.\"
+"
+msgstr "[活用例]
+- 「このフォルダにあるソースコードを解析して、README.mdを作成して」
+- 「現在のデスクトップを撮影して、開いているウィンドウの内容を説明して」
+- 「このExcelファイルのデータから、月別の集計レポートを作って」
+- 「このPDFを読んで、重要なポイントを3つ箇条書きで教えて」
+- 「最新のニュースを検索して、特定のトピックについて要約して」
+"
+
+
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+
+
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector（playwright_inspector）の説明"
+
+
+msgid "Developer information"
+msgstr "開発者向け情報"
+
+
+msgid "unknown doc name: %(name)r"
+msgstr "unknown doc name: %(name)r"
+
+
+msgid "doc file not found: %(filename)s"
+msgstr "doc file not found: %(filename)s"
+
+
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "doc path resolution failed: %(filename)s: %(err)s"
+
+
+msgid "[docs] Available documents:"
+msgstr "[docs] 利用可能なドキュメント:"
+
+
+msgid "Usage:"
+msgstr "使い方:"
+
+
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # 一覧"
+
+
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # 内容表示"
+
+
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # パス表示"
+
+
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # OS既定で開く"
+
+
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "指定された workdir がファイルです: %(path)s"
+
+
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【共有長期記憶（共有メモ）】\n"
+
+
+msgid "Loaded long-term memory."
+msgstr "長期記憶を読み込みました。"
+
+
+msgid "Loaded shared long-term memory."
+msgstr "共有長期記憶を読み込みました。"
+
+
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "共有長期記憶の読み込み中に例外が発生しました: %(err)s"
+
+
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "画像添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
+
+
+msgid "[FATAL] Environment variable UAGENT_PROVIDER is not set.\nCheck the environment variables used to start the web server."
+msgstr "[FATAL] 環境変数 UAGENT_PROVIDER が設定されていません。\nWebサーバ起動時の環境変数を確認してください。"
+
+
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] workdir の設定に失敗しました: %(err)s"
+
+
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] ツール使用ラウンドが %(max)d 回を超えたため打ち切ります。"
+
+
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
+
+
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
+
+
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C を受信しました。終了処理を開始します..."
+
+
+msgid "[Quick Guide]
+- Chat: type a message and send (GUI: Ctrl+Enter is also available).
+- Multiline: enter a line that is just 'f' to enter multiline mode (end with """end).
+- Commands: type ':help' to see system commands (log management, history compression, etc.).
+- Exit: ':exit' or ':quit' ends the session.
+- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis.
+- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available).
+
+"
+msgstr "[クイックガイド]
+- Chat: メッセージを入力して送信します（GUI: Ctrl+Enterでも送信できます）。
+- Multiline: 1行だけ 'f' を入力すると複数行モードになります（終了は """end）。
+- Commands: ':help' でシステムコマンドを表示します（ログ管理、履歴圧縮など）。
+- Exit: ':exit' または ':quit' で終了します。
+- Images: GUIはドラッグ&ドロップ対応。CUIは画像解析のためにファイルパスを入力できます。
+- Docs: `uag docs` で同梱ドキュメント一覧、`uag docs webinspect` でWeb Inspectorヘルプ（`--path/--open`も可）。
+
+"
+
+
+msgid "[Examples]
+- "Analyze the source code in this folder and create a README.md."
+- "Take a screenshot of the current desktop and describe the visible window contents."
+- "Create a monthly summary report from this Excel file."
+- "Read this PDF and list three key points."
+- "Search the latest news and summarize a specific topic."
+"
+msgstr "[例]
+- "このフォルダのソースコードを解析して README.md を作成して。"
+- "今のデスクトップのスクリーンショットを撮って、見えているウィンドウ内容を説明して。"
+- "このExcelファイルから月次サマリレポートを作って。"
+- "このPDFを読んで、重要ポイントを3つ挙げて。"
+- "最新ニュースを検索して、特定トピックを要約して。"
+"
+
+
+msgid "[Quick Guide]"
+msgstr "[クイックガイド]"
+
+
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 対話: メッセージを入力して送信（GUIでは Ctrl+Enter も可）。"
+
+
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode (end with """end)."
+msgstr "- 複数行: 'f' 1文字のみの行で複数行モード（終了は """end）。"
+
+
+msgid "- Commands: type ':help' to see system commands (log management, history compression, etc.)."
+msgstr "- コマンド: ':help' でシステムコマンド（ログ管理、履歴圧縮等）を確認できます。"
+
+
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- 終了: ':exit' または ':quit' でセッションを終了します。"
+
+
+msgid "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
+msgstr "- 画像: GUIはドラッグ＆ドロップ、CUIはファイルパス入力で画像解析が可能です。"
+
+
+msgid "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."
+msgstr "- ドキュメント: `uag docs` で同梱ドキュメント一覧、`uag docs webinspect` で Web Inspector の説明（`--path/--open` も利用可）。"
+
+
+msgid "[Examples]"
+msgstr "[活用例]"
+
+
+msgid "- "Analyze the source code in this folder and create a README.md.""
+msgstr "- 「このフォルダにあるソースコードを解析して、README.mdを作成して」"
+
+
+msgid "- "Take a screenshot of the current desktop and describe the visible window contents.""
+msgstr "- 「現在のデスクトップを撮影して、開いているウィンドウの内容を説明して」"
+
+
+msgid "- "Create a monthly summary report from this Excel file.""
+msgstr "- 「このExcelファイルのデータから、月別の集計レポートを作って」"
+
+
+msgid "- "Read this PDF and list three key points.""
+msgstr "- 「このPDFを読んで、重要なポイントを3つ箇条書きで教えて」"
+
+
+msgid "- "Search the latest news and summarize a specific topic.""
+msgstr "- 「最新のニュースを検索して、特定のトピックについて要約して」"
