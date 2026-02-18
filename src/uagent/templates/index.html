@@ -173,7 +173,8 @@
             const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
             const queryRoom = url.searchParams.get('room');
             const room = pathRoom || queryRoom;
-            const qs = room ? `?room=${encodeURIComponent(room)}` : '';
+            const lang = detectLang();
+            const qs = room ? `?room=${encodeURIComponent(room)}&lang=${encodeURIComponent(lang)}` : '';
             ws = new WebSocket(`${protocol}//${window.location.host}/ws${qs}`);
 
             ws.onmessage = (event) => {
