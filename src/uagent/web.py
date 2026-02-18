@@ -548,12 +548,18 @@ async def get_room(request: Request, room_id: str):
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = websocket.query_params.get("room")
+    ws_lang = (websocket.query_params.get("lang") or '').lower().strip()
+    if ws_lang not in ('ja', 'en'):
+        ws_lang = 'en'
     if not room_id:
         # require explicit room for safety
         await websocket.close(code=1008)
         return
-
     room = web_manager.get_room(room_id)
+    try:
+        room.lang = ws_lang
+    except Exception:
+        pass
     await room.connect(websocket)
     room.loop = asyncio.get_event_loop()
 
