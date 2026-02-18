@@ -1,4 +1,3 @@
-# tools/run_tests_tool.py
 """run_tests_tool
 
 テストを実行するためのラッパーツール。
@@ -15,6 +14,12 @@
 - 内部では cmd_exec_json_tool を利用し、returncode/stdout/stderr を扱う。
 - stdout/stderr は callbacks.truncate_output があれば適用する。
 - cwd 指定は cmd_exec_json の cwd 引数を使う（cd && は使わない）。
+
+追加機能:
+- pythonpath: 追加の PYTHONPATH を設定してテストを実行する。
+  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>
+  - POSIX : PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>
+
 """
 
 from __future__ import annotations
@@ -62,6 +67,11 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": ["string", "null"],
                     "default": None,
                     "description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+                },
+                "pythonpath": {
+                    "type": ["string", "null"],
+                    "default": None,
+                    "description": "追加のPYTHONPATH（例: 'src'）。指定した場合、テスト実行時にPYTHONPATHへ先頭追加します。Windowsは cmd の set を使って適用します。",
                 },
                 "report": {
                     "type": "string",
@@ -136,11 +146,31 @@ def _cmd_exec_json(
         )
 
 
+def _apply_pythonpath_prefix(cmd_str: str, pythonpath: Optional[str]) -> str:
+    if not pythonpath:
+        return cmd_str
+
+    pp = str(pythonpath)
+
+    # Very small guard: reject shell metacharacters in pythonpath
+    err = _reject_if_meta(pp)
+    if err:
+        # Keep behavior consistent with other validation paths
+        raise ValueError(err)
+
+    if os.name == "nt":
+        return f"set PYTHONPATH={pp};%PYTHONPATH% && {cmd_str}"
+
+    # POSIX style
+    return f"PYTHONPATH={pp}:$PYTHONPATH {cmd_str}"
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     framework = str(args.get("framework") or "auto")
     target = args.get("target", None)
     extra_args = args.get("extra_args", []) or []
     cwd = args.get("cwd", None)
+    pythonpath = args.get("pythonpath", None)
     report = str(args.get("report") or "json")
 
     if framework not in ("auto", "pytest", "unittest", "npm"):
@@ -220,6 +250,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         return x
 
     cmd_str = " ".join(q(p) for p in cmd_parts)
+
+    try:
+        cmd_str = _apply_pythonpath_prefix(cmd_str, pythonpath)
+    except Exception as e:
+        return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
 
     stdout, stderr, code, err_tag = _cmd_exec_json(cmd_str, cwd=run_cwd)
 

@@ -85,6 +85,13 @@ status_label = ""  # "LLM" や "tool:cmd_exec" など
 def print_status_line() -> None:
     """
     現在の busy / label 状態を 1 行で描画する。
+
+    方針:
+    - デフォルトは ANSI 色を有効（可能な環境では色付きで表示）
+    - 色を無効化したい場合は NO_COLOR または UAGENT_NO_COLOR を設定する
+    - GUI モード、または stderr が TTY でない場合は色なし
+    - Windows で TERM 未設定でも色を出す（TERM に依存しない）
+    - Windows の一部コンソールでプロンプトが崩れることがあるため、\r\x1b[2K は使わない
     """
     global status_busy, status_label
 
@@ -97,27 +104,25 @@ def print_status_line() -> None:
         busy = status_busy
         label = status_label
 
-    state = "BUSY" if busy else "IDLE"
-    label_part = f" [{label}]" if label else ""
+    state = 'BUSY' if busy else 'IDLE'
+    label_part = f' [{label}]' if label else ''
 
-    is_cmd_like = os.name == "nt" and (os.environ.get("TERM", "").lower() in ("", "dumb"))
+    # Color/ANSI control
+    # Default: enable ANSI colors unless explicitly disabled.
+    no_color = bool(os.environ.get('NO_COLOR') or os.environ.get('UAGENT_NO_COLOR'))
+    stderr_is_tty = bool(getattr(sys.stderr, 'isatty', lambda: False)())
 
-    if IS_GUI or is_cmd_like:
-        # GUIやcmd.exe系では、ANSIエスケープや行頭復帰を避けて単純なログ形式にする。
-        # cmd.exe では \r + ANSI で行クリアした直後に input() のプロンプトが描画されないことがある。
-        sys.stderr.write(f"[STATE] {state}{label_part}\n")
+    if IS_GUI or no_color or (not stderr_is_tty):
+        # Fallback: no ANSI
+        sys.stderr.write(f'[STATE] {state}{label_part}\n')
         sys.stderr.flush()
         return
 
     # 色分け（BUSY=黄色, IDLE=緑）
-    if busy:
-        color = "\x1b[33m"  # yellow
-    else:
-        color = "\x1b[32m"  # green
+    color = '\x1b[33m' if busy else '\x1b[32m'
 
-    # \r\x1b[2K で行頭に戻り行をクリア。末尾に \n を入れることで、
-    # 複数行出力の際に前のステータスを上書きしつつ新しい行へ進む。
-    sys.stderr.write(f"\r\x1b[2K{color}[STATE] {state}{label_part}\x1b[0m\n")
+    # NOTE: Keep output simple: one colored line.
+    sys.stderr.write(f"{color}[STATE] {state}{label_part}\x1b[0m\n")
     sys.stderr.flush()
 
 
