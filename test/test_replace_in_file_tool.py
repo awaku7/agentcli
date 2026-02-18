@@ -258,7 +258,7 @@ class TestReplaceInFileTool(unittest.TestCase):
         self.assertFalse(result["changed"])
         self.assertEqual(result["match_count"], 0)
         self.assertEqual(result["diff"], "")
-        self.assertIn("0 matches found", result["summary"])
+        self.assertIn("Successfully no change (0 matches)", result["summary"])
 
     def test_invalid_regex_pattern(self):
         """不正な正規表現パターンのエラーハンドリングテスト"""
