@@ -395,7 +395,13 @@ def stdin_loop() -> None:
 
                 # Windows(pyreadline)等で色コードを含むとプロンプトが二重表示される場合があるため、
                 # 色付けを行わずシンプルなプロンプトを使用する。
-                line = input(prompt)
+                # NOTE(cmd.exe): input(prompt) のプロンプト描画がスクロール後に欠落することがあるため、cmdっぽい環境では自前で描画する。
+                if os.name == "nt" and (os.environ.get("TERM", "").lower() in ("", "dumb")):
+                    sys.stdout.write(prompt)
+                    sys.stdout.flush()
+                    line = input()
+                else:
+                    line = input(prompt)
         except EOFError:
             break
         except KeyboardInterrupt:
