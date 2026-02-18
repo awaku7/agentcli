@@ -163,6 +163,25 @@
         }
 
         function addMessage(msg) {
+            // De-dup optimistic USER echo (avoid showing the same USER twice when server broadcasts it back)
+            try {
+                if (msg && msg.role === 'user') {
+                    const last = chatBox.lastElementChild;
+                    const now = Date.now();
+                    if (last && last.dataset) {
+                        const lr = last.dataset.role || '';
+                        const lc = last.dataset.content || '';
+                        const lopt = last.dataset.optimistic || '';
+                        const lts = parseInt(last.dataset.ts || '0', 10) || 0;
+                        if (lr === 'user' && lopt === '1' && lc === (msg.content || '') && lts && (now - lts) < 2000) {
+                            return;
+                        }
+                    }
+                }
+            } catch (e) {
+                // ignore
+            }
+
             if (msg.role === 'system') return;
 
             // Suppress empty assistant messages (avoid noisy "ASSISTANT:" only entries)
@@ -189,6 +208,16 @@
             }
             
             div.innerHTML = content;
+
+            // Store metadata for simple de-dup
+            try {
+                div.dataset.role = (msg && msg.role) ? String(msg.role) : '';
+                div.dataset.content = (msg && (msg.content !== undefined)) ? String(msg.content) : '';
+                div.dataset.ts = String((msg && msg._ts) ? msg._ts : Date.now());
+                div.dataset.optimistic = (msg && msg._optimistic) ? '1' : '0';
+            } catch (e) {
+                // ignore
+            }
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -228,8 +257,16 @@
         function sendMessage() {
             const text = userInput.value.trim();
             if (!text || sendBtn.disabled) return;
-            ws.send(JSON.stringify({ type: 'user_input', text: text }));
 
+            // Optimistic UI: show USER immediately in this tab.
+            // Other browsers/tabs will still see the USER message via server broadcast.
+            try {
+                addMessage({ role: 'user', content: text, _optimistic: true, _ts: Date.now() });
+            } catch (e) {
+                // ignore
+            }
+
+            ws.send(JSON.stringify({ type: 'user_input', text: text }));
             userInput.value = '';
         }
 
