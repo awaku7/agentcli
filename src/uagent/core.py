@@ -100,8 +100,11 @@ def print_status_line() -> None:
     state = "BUSY" if busy else "IDLE"
     label_part = f" [{label}]" if label else ""
 
-    if IS_GUI:
-        # GUIの場合は、ANSIエスケープを使わず、かつ行頭復帰も行わない単純なログ形式にする。
+    is_cmd_like = os.name == "nt" and (os.environ.get("TERM", "").lower() in ("", "dumb"))
+
+    if IS_GUI or is_cmd_like:
+        # GUIやcmd.exe系では、ANSIエスケープや行頭復帰を避けて単純なログ形式にする。
+        # cmd.exe では \r + ANSI で行クリアした直後に input() のプロンプトが描画されないことがある。
         sys.stderr.write(f"[STATE] {state}{label_part}\n")
         sys.stderr.flush()
         return
