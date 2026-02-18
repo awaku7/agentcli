@@ -25,6 +25,36 @@ from functools import lru_cache
 
 from pathlib import Path
 
+import threading
+
+# Thread-local language override (used by Web per-room locale)
+_thread_lang = threading.local()
+
+def set_thread_lang(lang: str | None) -> None:
+    """Set thread-local language override.
+
+    - Use 'ja' or 'en'.
+    - Pass None or '' to clear override.
+    """
+    try:
+        if not lang:
+            if hasattr(_thread_lang, 'lang'):
+                delattr(_thread_lang, 'lang')
+            return
+        setattr(_thread_lang, 'lang', str(lang).strip().lower())
+    except Exception:
+        pass
+
+def get_thread_lang() -> str | None:
+    """Get thread-local language override (or None)."""
+    try:
+        v = getattr(_thread_lang, 'lang', None)
+        if isinstance(v, str) and v.strip():
+            return v.strip().lower()
+    except Exception:
+        pass
+    return None
+
 
 def _find_localedir_candidates() -> list[str]:
     """Return candidate locale directories.
@@ -114,6 +144,12 @@ def detect_lang() -> str:
     Returns:
       'ja' or 'en' (current policy).
     """
+
+    # Thread-local override (web per-room)
+    tl = get_thread_lang()
+    if tl:
+        return _normalize_lang_tag(tl)
+
 
     # 1) explicit override
     v = (os.environ.get("UAGENT_LANG") or "").strip()
