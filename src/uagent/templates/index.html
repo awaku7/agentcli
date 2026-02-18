@@ -96,6 +96,7 @@
         };
 
         function detectLang() {
+            // Priority: explicit URL param
             try {
                 const url = new URL(window.location.href);
                 const q = (url.searchParams.get('lang') || '').toLowerCase();
@@ -103,8 +104,27 @@
             } catch (e) {
                 // ignore
             }
-            const nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-            if (nav.startsWith('ja')) return 'ja';
+
+            // Next: navigator.languages (more reliable than navigator.language in some setups)
+            try {
+                const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [];
+                for (const l of langs) {
+                    const s = String(l || '').toLowerCase();
+                    if (s.startsWith('ja')) return 'ja';
+                    if (s.startsWith('en')) return 'en';
+                }
+            } catch (e) {
+                // ignore
+            }
+
+            // Next: navigator.language
+            try {
+                const nav = String(navigator.language || navigator.userLanguage || 'en').toLowerCase();
+                if (nav.startsWith('ja')) return 'ja';
+            } catch (e) {
+                // ignore
+            }
+
             return 'en';
         }
 
