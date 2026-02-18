@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>uag Web Interface</title>
+    <title>UAGENT WEB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .chat-container { height: calc(100vh - 160px); }
@@ -22,7 +22,7 @@
     <div class="max-w-5xl mx-auto p-4 flex flex-col h-screen">
         <!-- Header -->
         <div class="flex justify-between items-center mb-4 bg-white p-4 rounded shadow">
-            <h1 class="text-xl font-bold text-gray-800">uag Web</h1>
+            <h1 id="app-title" class="text-xl font-bold text-gray-800">UAGENT WEB</h1>
             <div id="status-area">
                 Status: <span id="status-text-header" class="status-idle">IDLE</span>
                 <div id="busy-indicator" class="hidden text-xs font-mono text-red-600 blink">TOOL RUNNING</div>
@@ -38,18 +38,18 @@
         <!-- Human Ask Overlay -->
         <div id="human-ask-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full">
-                <h2 class="text-lg font-bold mb-2">確認が必要です</h2>
+                <h2 id="human-ask-title" class="text-lg font-bold mb-2">確認が必要です</h2>
                 <div id="human-ask-message" class="mb-4 text-gray-700 whitespace-pre-wrap"></div>
                 <input type="text" id="human-ask-input" class="w-full p-2 border rounded mb-4 focus:ring-2 focus:ring-blue-500" placeholder="回答を入力...">
                 <div class="flex justify-end gap-2">
-                    <button onclick="submitHumanAsk()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送信</button>
+                    <button id="human-ask-submit-btn" onclick="submitHumanAsk()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送信</button>
                 </div>
             </div>
         </div>
 
         <!-- Footer Status Area -->
         <div class="bg-gray-800 text-white p-2 rounded shadow mb-4 flex justify-between items-center px-4 h-10">
-            <span class="text-sm font-mono">Current Status:</span>
+            <span id="footer-status-label" class="text-sm font-mono">Current Status:</span>
             <span id="status-text-footer" class="text-sm font-bold status-idle">IDLE</span>
         </div>
 
@@ -64,6 +64,74 @@
         let ws;
         let WEB_VERBOSE = false;
         let currentHumanAskIsPassword = false;
+
+        // --- i18n (single HTML) ---
+        const I18N = {
+            ja: {
+                title: 'UAGENT WEB',
+                appTitle: 'UAGENT WEB',
+                humanAskTitle: '確認が必要です',
+                humanAskPlaceholder: '回答を入力...',
+                humanAskSubmit: '送信',
+                footerStatusLabel: '現在の状態:',
+                inputPlaceholder: 'メッセージを入力... (Ctrl+Enterで送信)',
+                send: '送信',
+                statusPrefix: 'Status:',
+                toolRunning: 'TOOL RUNNING',
+                currentStatusPrefix: 'Current Status:'
+            },
+            en: {
+                title: 'UAGENT WEB',
+                appTitle: 'UAGENT WEB',
+                humanAskTitle: 'Input required',
+                humanAskPlaceholder: 'Type your reply...',
+                humanAskSubmit: 'Send',
+                footerStatusLabel: 'Current Status:',
+                inputPlaceholder: 'Type a message... (Ctrl+Enter to send)',
+                send: 'Send',
+                statusPrefix: 'Status:',
+                toolRunning: 'TOOL RUNNING',
+                currentStatusPrefix: 'Current Status:'
+            }
+        };
+
+        function detectLang() {
+            try {
+                const url = new URL(window.location.href);
+                const q = (url.searchParams.get('lang') || '').toLowerCase();
+                if (q === 'ja' || q === 'en') return q;
+            } catch (e) {
+                // ignore
+            }
+            const nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+            if (nav.startsWith('ja')) return 'ja';
+            return 'en';
+        }
+
+        function applyI18n(lang) {
+            const t = I18N[lang] || I18N.en;
+            try { document.documentElement.lang = lang; } catch (e) {}
+            try { document.title = t.title; } catch (e) {}
+
+            const appTitle = document.getElementById('app-title');
+            if (appTitle) appTitle.textContent = t.appTitle;
+
+            const humanAskTitle = document.getElementById('human-ask-title');
+            if (humanAskTitle) humanAskTitle.textContent = t.humanAskTitle;
+
+            const humanAskSubmitBtn = document.getElementById('human-ask-submit-btn');
+            if (humanAskSubmitBtn) humanAskSubmitBtn.textContent = t.humanAskSubmit;
+
+            const footerStatusLabel = document.getElementById('footer-status-label');
+            if (footerStatusLabel) footerStatusLabel.textContent = t.footerStatusLabel;
+
+            if (humanAskInput) humanAskInput.placeholder = t.humanAskPlaceholder;
+            if (userInput) userInput.placeholder = t.inputPlaceholder;
+            if (sendBtn) sendBtn.textContent = t.send;
+        }
+
+        const UI_LANG = detectLang();
+
 
         // Streaming assistant bubble state
         let streamAssistant = { id: null, div: null, pre: null, active: false };
@@ -315,6 +383,7 @@
             }
         });
 
+        applyI18n(UI_LANG);
         connect();
     </script>
 </body>
