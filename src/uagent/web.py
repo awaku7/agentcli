@@ -478,10 +478,8 @@ async def get_root():
 async def get_room(request: Request, room_id: str):
     # ensure room exists
     web_manager.get_room(room_id)
-
-    lang = detect_lang()
-    tpl = "index.ja.html" if lang == "ja" else "index.en.html"
-    return templates.TemplateResponse(tpl, {"request": request})
+    # Single unified template; client-side handles i18n via ?lang=ja|en (or browser language fallback)
+    return templates.TemplateResponse('index.html', {'request': request})
 
 
 @app.websocket("/ws")
