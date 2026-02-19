@@ -21,71 +21,72 @@ import zipfile
 from typing import Any, Dict, List
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
+from .i18n_helper import make_tool_translator
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:zip_ops"
+
+
+t = make_tool_translator(__file__)
+
+# Translator usage: t(key, default=...)
+
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "zip_ops",
-        "description": "ZIPファイルの作成/展開/一覧を行います（Zip Slip/Zip Bomb 対策あり）。",
-        "system_prompt": (
-            "ZIPファイルの作成/展開/一覧を行います（Zip Slip/Zip Bomb 対策あり）。"
-            "重要: extract 時は Zip Slip（../ や絶対パス、ドライブレター等）を拒否します。"
-            "重要: extract 時の overwrite=True は既存ファイルを上書きする可能性があるため human_ask で確認します。"
-            "重要: Zip bomb 対策として、最大ファイル数(max_files)・最大展開総量(max_total_uncompressed_bytes)を超える場合は拒否します。"
-            "重要: workdir 外のパスは拒否します（safe_file_ops_extras に準拠）。"
-        ),
+        "description": t("tool.description", default="Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections)."),
+        "system_prompt": t("tool.system_prompt", default="Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_file_ops_extras)."),
         "parameters": {
             "type": "object",
             "properties": {
                 "action": {
                     "type": "string",
                     "enum": ["create", "extract", "list"],
-                    "description": "操作種別",
+                    "description": t("param.action.description", default="Operation type."),
                 },
                 "zip_path": {
                     "type": "string",
-                    "description": "zipファイルのパス",
+                    "description": t("param.zip_path.description", default="Path to the zip file."),
                 },
                 "sources": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": "create時の入力（ファイル/ディレクトリ）",
+                    "description": t("param.sources.description", default="Inputs for create (files/directories)."),
                 },
                 "dest_dir": {
                     "type": "string",
                     "default": ".",
-                    "description": "extract時の展開先ディレクトリ",
+                    "description": t("param.dest_dir.description", default="Destination directory for extract."),
                 },
                 "exclude_globs": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": "create時の除外（簡易: ベース名一致）",
+                    "description": t("param.exclude_globs.description", default="Exclusions for create (simple: basename match)."),
                 },
                 "overwrite": {
                     "type": "boolean",
                     "default": False,
-                    "description": "extract時、既存ファイルを上書きするか（要確認）",
+                    "description": t("param.overwrite.description", default="Whether to overwrite existing files on extract (requires confirmation)."),
                 },
                 "max_files": {
                     "type": "integer",
                     "default": 5000,
-                    "description": "extract時の最大ファイル数（Zip bomb対策）",
+                    "description": t("param.max_files.description", default="Maximum number of files allowed on extract (zip bomb protection)."),
                 },
                 "max_total_uncompressed_bytes": {
                     "type": "integer",
                     "default": 500_000_000,
-                    "description": "extract時の最大展開総量(bytes)（Zip bomb対策、既定:500MB）",
+                    "description": t("param.max_total_uncompressed_bytes.description", default="Maximum total uncompressed bytes allowed on extract (zip bomb protection)."),
                 },
                 "dry_run": {
                     "type": "boolean",
                     "default": False,
-                    "description": "extract時、展開せずに検査のみ行う",
+                    "description": t("param.dry_run.description", default="For extract: validate only without extracting."),
                 },
             },
             "required": ["action", "zip_path"],
@@ -148,17 +149,17 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if action not in ("create", "extract", "list"):
         return json.dumps(
-            {"ok": False, "error": f"invalid action: {action}"}, ensure_ascii=False
+            {"ok": False, "error": t("error.invalid_action", default="invalid action: {action}").format(action=action)}, ensure_ascii=False
         )
 
     if not zip_path:
         return json.dumps(
-            {"ok": False, "error": "zip_path is required"}, ensure_ascii=False
+            {"ok": False, "error": t("error.zip_path_required", default="zip_path is required")}, ensure_ascii=False
         )
 
     if is_path_dangerous(zip_path):
         return json.dumps(
-            {"ok": False, "error": f"dangerous zip_path rejected: {zip_path}"},
+            {"ok": False, "error": t("error.dangerous_zip_path_rejected", default="dangerous zip_path rejected: {zip_path}").format(zip_path=zip_path)},
             ensure_ascii=False,
         )
 
@@ -166,13 +167,13 @@ def run_tool(args: Dict[str, Any]) -> str:
         safe_zip_path = ensure_within_workdir(zip_path)
     except Exception as e:
         return json.dumps(
-            {"ok": False, "error": f"zip_path not allowed: {e}"}, ensure_ascii=False
+            {"ok": False, "error": t("error.zip_path_not_allowed", default="zip_path not allowed: {error}").format(error=e)}, ensure_ascii=False
         )
 
     if action == "list":
         if not os.path.exists(safe_zip_path):
             return json.dumps(
-                {"ok": False, "error": f"zip not found: {safe_zip_path}"},
+                {"ok": False, "error": t("error.zip_not_found", default="zip not found: {zip_path}").format(zip_path=safe_zip_path)},
                 ensure_ascii=False,
             )
         try:
@@ -197,14 +198,14 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except Exception as e:
             return json.dumps(
-                {"ok": False, "error": f"zip list failed: {type(e).__name__}: {e}"},
+                {"ok": False, "error": t("error.zip_list_failed", default="zip list failed: {etype}: {error}").format(etype=type(e).__name__, error=e)},
                 ensure_ascii=False,
             )
 
     if action == "create":
         if not sources:
             return json.dumps(
-                {"ok": False, "error": "sources is required for create"},
+                {"ok": False, "error": t("error.sources_required_for_create", default="sources is required for create")},
                 ensure_ascii=False,
             )
 
@@ -213,14 +214,14 @@ def run_tool(args: Dict[str, Any]) -> str:
             s = str(s)
             if is_path_dangerous(s):
                 return json.dumps(
-                    {"ok": False, "error": f"dangerous source rejected: {s}"},
+                    {"ok": False, "error": t("error.dangerous_source_rejected", default="dangerous source rejected: {source}").format(source=s)},
                     ensure_ascii=False,
                 )
             try:
                 safe_sources.append(ensure_within_workdir(s))
             except Exception as e:
                 return json.dumps(
-                    {"ok": False, "error": f"source not allowed: {e}"},
+                    {"ok": False, "error": t("error.source_not_allowed", default="source not allowed: {error}").format(error=e)},
                     ensure_ascii=False,
                 )
 
@@ -263,20 +264,20 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except Exception as e:
             return json.dumps(
-                {"ok": False, "error": f"zip create failed: {type(e).__name__}: {e}"},
+                {"ok": False, "error": t("error.zip_create_failed", default="zip create failed: {etype}: {error}").format(etype=type(e).__name__, error=e)},
                 ensure_ascii=False,
             )
 
     # extract
     if not os.path.exists(safe_zip_path):
         return json.dumps(
-            {"ok": False, "error": f"zip not found: {safe_zip_path}"},
+            {"ok": False, "error": t("error.zip_not_found", default="zip not found: {zip_path}").format(zip_path=safe_zip_path)},
             ensure_ascii=False,
         )
 
     if is_path_dangerous(dest_dir):
         return json.dumps(
-            {"ok": False, "error": f"dangerous dest_dir rejected: {dest_dir}"},
+            {"ok": False, "error": t("error.dangerous_dest_dir_rejected", default="dangerous dest_dir rejected: {dest_dir}").format(dest_dir=dest_dir)},
             ensure_ascii=False,
         )
 
@@ -284,7 +285,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         safe_dest = ensure_within_workdir(dest_dir)
     except Exception as e:
         return json.dumps(
-            {"ok": False, "error": f"dest_dir not allowed: {e}"}, ensure_ascii=False
+            {"ok": False, "error": t("error.dest_dir_not_allowed", default="dest_dir not allowed: {error}").format(error=e)}, ensure_ascii=False
         )
 
     try:
@@ -295,7 +296,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": f"too many files in zip: {len(infos)} > max_files({max_files})",
+                        "error": t("error.too_many_files_in_zip", default="too many files in zip: {count} > max_files({max_files})").format(count=len(infos), max_files=max_files),
                     },
                     ensure_ascii=False,
                 )
@@ -306,8 +307,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     {
                         "ok": False,
                         "error": (
-                            f"zip too large to extract: total_uncompressed={total_uncompressed} "
-                            f"> max_total_uncompressed_bytes({max_total_uncompressed_bytes})"
+                            t("error.zip_too_large_to_extract", default="zip too large to extract: total_uncompressed={total_uncompressed} > max_total_uncompressed_bytes({max_total_uncompressed_bytes})").format(total_uncompressed=total_uncompressed, max_total_uncompressed_bytes=max_total_uncompressed_bytes)
                         ),
                     },
                     ensure_ascii=False,
@@ -320,23 +320,17 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": "dangerous zip entries rejected",
+                        "error": t("error.dangerous_zip_entries_rejected", default="dangerous zip entries rejected"),
                         "entries": dangerous,
                     },
                     ensure_ascii=False,
                 )
 
             if overwrite:
-                msg = (
-                    "zip_ops(extract) は既存ファイルを上書きする可能性があります。\n"
-                    f"zip: {safe_zip_path}\n"
-                    f"dest: {safe_dest}\n"
-                    f"entries: {len(infos)}\n\n"
-                    "実行してよければ y、キャンセルなら c を入力してください。"
-                )
+                msg = t("confirm.extract_overwrite", default="zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel.").format(zip_path=safe_zip_path, dest_dir=safe_dest, entries=len(infos))
                 if not _human_confirm(msg):
                     return json.dumps(
-                        {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
+                        {"ok": False, "error": t("error.cancelled_by_user", default="cancelled by user")}, ensure_ascii=False
                     )
 
             if dry_run:
@@ -381,6 +375,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
     except Exception as e:
         return json.dumps(
-            {"ok": False, "error": f"zip extract failed: {type(e).__name__}: {e}"},
+            {"ok": False, "error": t("error.zip_extract_failed", default="zip extract failed: {etype}: {error}").format(etype=type(e).__name__, error=e)},
             ensure_ascii=False,
         )
