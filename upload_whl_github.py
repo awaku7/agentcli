@@ -18,6 +18,12 @@ Usage:
   python upload_whl_github.py path/to/package.whl --tag <tag> [--create-tag] [--target <sha>] [--create-release]
   python upload_whl_github.py --latest [dist_dir] --tag <tag> [--create-tag] [--target <sha>] [--create-release]
 
+Release notes behavior
+- By default, when creating a Release, the script generates the Release body from commit history
+  between the *previous tag* and this tag (via GitHub REST API compare endpoint).
+- You can override the body by passing --release-body.
+- You can pin the base tag by passing --base-tag.
+
 Required environment variables:
   GITHUB_REPO    GitHub repository in the form "owner/repo". Example: awaku7/agentcli
   GITHUB_TOKEN   GitHub token with appropriate permissions.
@@ -52,14 +58,13 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 GITHUB_API = "https://api.github.com"
 GITHUB_UPLOADS = "https://uploads.github.com"
-DEFAULT_RELEASE_BODY = "Automated release created by upload_whl_github.py"
 
 
 def _require_env(name: str) -> str:
@@ -247,8 +252,134 @@ def _create_release(
     return _request_json("POST", url, token, payload)
 
 
+def _list_tags(owner: str, repo: str, token: str, per_page: int = 100) -> list[dict]:
+    # GitHub returns tags sorted by commit date/recency (implementation-defined but generally recent first)
+    # We keep it simple: first page only.
+    url = f"{GITHUB_API}/repos/{owner}/{repo}/tags?per_page={per_page}"
+    j = _request_json("GET", url, token)
+    if not isinstance(j, list):
+        raise SystemExit("Unexpected API response for tags list")
+    return j
+
+
+def _find_previous_tag(
+    owner: str, repo: str, token: str, current_tag: str
+) -> Optional[str]:
+    tags = _list_tags(owner, repo, token, per_page=100)
+    names: list[str] = []
+    for t in tags:
+        n = t.get("name")
+        if isinstance(n, str) and n:
+            names.append(n)
+
+    if current_tag not in names:
+        # If current tag is not in the first page, we cannot reliably find previous.
+        return None
+
+    idx = names.index(current_tag)
+    if idx + 1 >= len(names):
+        return None
+    return names[idx + 1]
+
+
+def _compare_commits(
+    owner: str, repo: str, token: str, base: str, head: str
+) -> dict:
+    # Compare two commits/refs.
+    # Docs: GET /repos/{owner}/{repo}/compare/{base}...{head}
+    url = f"{GITHUB_API}/repos/{owner}/{repo}/compare/{quote(base, safe='')}...{quote(head, safe='')}"
+    return _request_json("GET", url, token)
+
+
+def _build_release_body_from_compare(
+    compare: dict,
+    *,
+    base: str,
+    head: str,
+    max_commits: int,
+) -> str:
+    commits = compare.get("commits")
+    html_url = compare.get("html_url")
+
+    lines: list[str] = []
+    lines.append("## Changes")
+    lines.append("")
+
+    if isinstance(html_url, str) and html_url:
+        lines.append(f"Compare: {html_url}")
+        lines.append("")
+
+    if not isinstance(commits, list) or not commits:
+        lines.append(f"(No commits found between {base} and {head}.)")
+        return "\n".join(lines).strip() + "\n"
+
+    # API returns commits in chronological order (oldest -> newest).
+    count = 0
+    for c in commits:
+        if count >= max_commits:
+            remaining = len(commits) - max_commits
+            if remaining > 0:
+                lines.append(f"- ... and {remaining} more commits")
+            break
+
+        sha = str(c.get("sha") or "")
+        sha7 = sha[:7] if sha else ""
+
+        msg = ""
+        cm = c.get("commit")
+        if isinstance(cm, dict):
+            m = cm.get("message")
+            if isinstance(m, str):
+                msg = m.splitlines()[0].strip()
+
+        author = ""
+        a = c.get("author")
+        if isinstance(a, dict):
+            login = a.get("login")
+            if isinstance(login, str) and login:
+                author = login
+
+        item = f"- {sha7} {msg}".rstrip()
+        if author:
+            item += f" (@{author})"
+
+        lines.append(item)
+        count += 1
+
+    return "\n".join(lines).strip() + "\n"
+
+
+def _generate_release_body(
+    owner: str,
+    repo: str,
+    token: str,
+    *,
+    tag: str,
+    base_tag: Optional[str],
+    max_commits: int,
+) -> str:
+    base = base_tag
+    if not base:
+        base = _find_previous_tag(owner, repo, token, tag)
+
+    if not base:
+        # Fallback: cannot find previous tag
+        return f"## Release {tag}\n\n(Previous tag not found; no commit list generated.)\n"
+
+    compare = _compare_commits(owner, repo, token, base=base, head=tag)
+    return _build_release_body_from_compare(compare, base=base, head=tag, max_commits=max_commits)
+
+
 def _ensure_release(
-    owner: str, repo: str, token: str, tag: str, create_release: bool
+    owner: str,
+    repo: str,
+    token: str,
+    *,
+    tag: str,
+    create_release: bool,
+    release_body: Optional[str],
+    base_tag: Optional[str],
+    max_commits: int,
 ) -> dict:
     try:
         rel = _get_release_by_tag(owner, repo, token, tag)
@@ -263,7 +394,19 @@ def _ensure_release(
                 f"Release for tag '{tag}' not found. Create it first, or pass --create-release.\n"
                 f"(API: GET /releases/tags/{tag})"
             )
-        return _create_release(owner, repo, token, tag, tag, DEFAULT_RELEASE_BODY)
+
+        body = release_body
+        if body is None:
+            body = _generate_release_body(
+                owner,
+                repo,
+                token,
+                tag=tag,
+                base_tag=base_tag,
+                max_commits=max_commits,
+            )
+
+        return _create_release(owner, repo, token, tag, tag, body)
 
 
 def _delete_asset(owner: str, repo: str, token: str, asset_id: int) -> None:
@@ -320,6 +463,9 @@ def _parse_args(argv: list[str]) -> dict:
         "target": None,
         "create_release": False,
         "release_name": None,
+        "release_body": None,
+        "base_tag": None,
+        "max_commits": 200,
     }
 
     i = 1
@@ -353,6 +499,24 @@ def _parse_args(argv: list[str]) -> dict:
                 raise SystemExit("--release-name requires a value")
             out["release_name"] = argv[i + 1]
             i += 2
+        elif a == "--release-body":
+            if i + 1 >= len(argv):
+                raise SystemExit("--release-body requires a value")
+            out["release_body"] = argv[i + 1]
+            i += 2
+        elif a == "--base-tag":
+            if i + 1 >= len(argv):
+                raise SystemExit("--base-tag requires a value")
+            out["base_tag"] = argv[i + 1]
+            i += 2
+        elif a == "--max-commits":
+            if i + 1 >= len(argv):
+                raise SystemExit("--max-commits requires a value")
+            try:
+                out["max_commits"] = int(argv[i + 1])
+            except ValueError:
+                raise SystemExit("--max-commits must be an integer")
+            i += 2
         elif a.startswith("--"):
             raise SystemExit(f"Unknown argument: {a}")
         else:
@@ -369,6 +533,9 @@ def _parse_args(argv: list[str]) -> dict:
 
     if not out.get("tag"):
         raise SystemExit("--tag is required")
+
+    if out["max_commits"] <= 0:
+        raise SystemExit("--max-commits must be > 0")
 
     return out
 
@@ -409,7 +576,16 @@ def main(argv: list[str]) -> int:
         _ensure_tag_ref(owner, repo, token, tag, target_sha)
 
     # Ensure release exists (by tag)
-    release = _ensure_release(owner, repo, token, tag, bool(args.get("create_release")))
+    release = _ensure_release(
+        owner,
+        repo,
+        token,
+        tag=tag,
+        create_release=bool(args.get("create_release")),
+        release_body=args.get("release_body"),
+        base_tag=args.get("base_tag"),
+        max_commits=int(args.get("max_commits") or 200),
+    )
 
     # Upload asset
     _upload_release_asset(owner, repo, token, release, whl_path)
