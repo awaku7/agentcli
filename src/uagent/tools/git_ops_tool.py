@@ -185,8 +185,10 @@ def _validate_no_shell_metacharacters(args: List[str]) -> None:
 def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> None:
     """非オプション引数（ファイルパスなど）が workdir 配下のみかを検証（ディレクトリトラバーサル防止）。
 
-    allow_outside_workdir=True の場合は workdir 外も許可するが、scheck が管理する安全な
-    一時領域（<state>/tmp/patch。既定: ~/.uag/tmp/patch（旧: ~/.scheck/tmp/patch））配下のみ許可する。
+    注意:
+    - オプション終端の `--` はパスではないため、この関数では無視します。
+    - allow_outside_workdir=True の場合は workdir 外も許可するが、scheck が管理する安全な
+      一時領域（<state>/tmp/patch。既定: ~/.uag/tmp/patch（旧: ~/.scheck/tmp/patch））配下のみ許可する。
     """
 
     workdir = os.getcwd()
@@ -195,8 +197,10 @@ def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> 
     scheck_patch_tmp = str(get_tmp_patch_dir())
 
     for a in args:
-        if a.startswith("-"):
+        # option / terminator
+        if a == "--" or a.startswith("-"):
             continue
+
         abs_path = os.path.abspath(a)
 
         # normal policy: workdir only
@@ -227,13 +231,17 @@ def _ensure_allowed_flags(
     deny_exact: Tuple[str, ...] = (),
     deny_prefixes: Tuple[str, ...] = (),
 ) -> None:
-    """許可リスト方式のフラグ検証。
+    """フラグ検証（安全第一）。
 
-    - 引数のうち "-" 始まりのものをオプション扱いとして検証
-    - allowed_prefixes に含まれるもののみ許可
-      - prefix 判定なので "-n" は "-n10" なども許可
-    - dangerous_prefixes は allow_danger=false の場合に拒否
-    - deny_exact/deny_prefixes は常に拒否
+    目的:
+    - 引数のうち "-" 始まりのものをオプション扱いとして検証します。
+
+    方針（B-1）:
+    - `--xxx`（長オプション）は原則許可（= Git の細かなオプション指定を妨げない）
+    - `--`（オプション終端）は常に許可
+    - `-c`（設定上書き）は許可
+    - ただし deny/dangerous のチェックは優先して適用します
+    - 短オプション（`-x`）は、従来どおり allowed_prefixes による許可リスト方式を維持します
 
     注意:
     - 非オプション引数（ブランチ名、パス、リビジョンなど）はこの関数では検証しません。
@@ -245,7 +253,16 @@ def _ensure_allowed_flags(
         if not a.startswith("-"):
             continue
 
-        opt = a.split("=", 1)[0]  # -n=10 -> -n
+        opt = a.split("=", 1)[0]  # --foo=bar -> --foo
+
+        # always allow terminator
+        if opt == "--":
+            continue
+
+        # always allow git config override
+        # (NOTE: the value is typically in the next argument, e.g. ['-c','key=value',...])
+        if opt == "-c":
+            continue
 
         if opt in deny_exact:
             _reject(f"禁止オプションが含まれています: {opt}")
@@ -259,6 +276,11 @@ def _ensure_allowed_flags(
                 if not allow_danger:
                     _reject(f"危険オプションは allow_danger=true が必要です: {opt}")
 
+        # B-1: allow all long options by default
+        if opt.startswith("--"):
+            continue
+
+        # short options: still whitelist
         ok = False
         for ap in allowed_prefixes:
             if opt == ap or opt.startswith(ap):
