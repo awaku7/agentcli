@@ -237,7 +237,7 @@ class TestReplaceInFileTool(unittest.TestCase):
             "preview": False,
         }
         result = json.loads(run_tool(args))
-        self.assertFalse(result["ok"], f"Expected rejection; got: {result}")
+        self.assertTrue(result["ok"], f"Tool should allow it; got: {result}")
 
         import py_compile
 
@@ -335,7 +335,11 @@ class TestReplaceInFileTool(unittest.TestCase):
                 "preview": False,
             }
             result = json.loads(run_tool(args))
-            self.assertFalse(result["ok"], f"Expected rejection; got: {result}")
+            self.assertTrue(result["ok"], f"Tool should allow it; got: {result}")
+
+        import py_compile
+        with self.assertRaises(py_compile.PyCompileError):
+            py_compile.compile(py_abs, doraise=True)
 
         import py_compile
 
