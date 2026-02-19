@@ -31,6 +31,10 @@ import os
 import subprocess
 from typing import Any, Dict, List, Tuple
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 BUSY_LABEL = True
 STATUS_LABEL = "tool:git_ops"
 
@@ -38,13 +42,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "git_ops",
-        "description": "Gitコマンドを実行してバージョン管理操作を行います（安全第一の制限あり）。",
-        "system_prompt": (
-            "このツールは次の目的で使われます: Gitコマンドを実行してバージョン管理操作を行います。\n"
-            "\n"
-            "重要: args はシェルのメタ文字を含められません。安全のため、次のような文字/並びを含む引数は拒否されます: ; && || | > < `\n"
-            "特に git commit -m のメッセージに ; を含めると拒否されます。区切りには , や : を使ってください。\n"
-            "例: NG: Fix X; do Y / OK: Fix X, then do Y\n"
+        "description": _(
+            "tool.description",
+            default="Run Git commands with safety-first restrictions.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool is used to run Git commands.\n"
+                "\n"
+                "Important: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: ; && || | > < `\n"
+                "In particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\n"
+                "Examples: NG: Fix X; do Y / OK: Fix X, then do Y\n"
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -74,16 +84,25 @@ TOOL_SPEC: Dict[str, Any] = {
                         "restore",
                         "apply",
                     ],
-                    "description": "実行するGitサブコマンド（安全第一の制限あり）。",
+                    "description": _(
+                        "param.command.description",
+                        default="Git subcommand to run (safety-first restrictions apply).",
+                    ),
                 },
                 "args": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "コマンドに渡す引数のリスト。",
+                    "description": _(
+                        "param.args.description",
+                        default="List of arguments passed to the Git command.",
+                    ),
                 },
                 "allow_danger": {
                     "type": "boolean",
-                    "description": "危険な操作を許可するか（既定 false）。例: push --force, reset --hard 等。",
+                    "description": _(
+                        "param.allow_danger.description",
+                        default="Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+                    ),
                     "default": False,
                 },
             },
@@ -152,16 +171,24 @@ def run_git_command(args: List[str], timeout_sec: int = 30) -> str:
             output += f"\n[stderr]\n{decoded_stderr}"
 
         if result.returncode != 0:
-            return f"[git_ops error] command failed (code={result.returncode}):\n{output.strip()}"
+            return _(
+                "error.command_failed",
+                default="[git_ops error] command failed (code={code}):\n{output}",
+            ).format(code=result.returncode, output=output.strip())
 
         return output.strip()
 
     except FileNotFoundError:
-        return "[git_ops error] git コマンドが見つかりません。Gitがインストールされているか確認してください。"
+        return _(
+            "error.git_not_found",
+            default="[git_ops error] git command not found. Please ensure Git is installed.",
+        )
     except subprocess.TimeoutExpired:
-        return "[git_ops error] コマンドがタイムアウトしました。"
+        return _("error.timeout", default="[git_ops error] command timed out.")
     except Exception as e:
-        return f"[git_ops error] 予期せぬエラー: {e}"
+        return _(
+            "error.unexpected", default="[git_ops error] unexpected error: {error}"
+        ).format(error=e)
 
 
 def _contains_any(args: List[str], needles: List[str]) -> bool:
@@ -179,7 +206,12 @@ def _validate_no_shell_metacharacters(args: List[str]) -> None:
     for a in args:
         for b in bad:
             if b in a:
-                raise GitArgsError(f"危険なメタ文字を含む引数は拒否します: {a}")
+                raise GitArgsError(
+                    _(
+                        "error.meta_char",
+                        default="Dangerous metacharacter is not allowed in args: {arg}",
+                    ).format(arg=a)
+                )
 
 
 def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> None:
@@ -215,7 +247,12 @@ def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> 
             ):
                 continue
 
-        raise GitArgsError(f"許可されていないパスです（workdir 外）: {a}")
+        raise GitArgsError(
+            _(
+                "error.path_outside_workdir",
+                default="Disallowed path (outside workdir): {path}",
+            ).format(path=a)
+        )
 
 
 def _reject(reason: str) -> None:
@@ -265,16 +302,30 @@ def _ensure_allowed_flags(
             continue
 
         if opt in deny_exact:
-            _reject(f"禁止オプションが含まれています: {opt}")
+            _reject(
+                _(
+                    "error.option_denied", default="Disallowed option is present: {opt}"
+                ).format(opt=opt)
+            )
 
         for p in deny_prefixes:
             if opt == p or opt.startswith(p):
-                _reject(f"禁止オプションが含まれています: {opt}")
+                _reject(
+                    _(
+                        "error.option_denied",
+                        default="Disallowed option is present: {opt}",
+                    ).format(opt=opt)
+                )
 
         for p in dangerous_prefixes:
             if opt == p or opt.startswith(p):
                 if not allow_danger:
-                    _reject(f"危険オプションは allow_danger=true が必要です: {opt}")
+                    _reject(
+                        _(
+                            "error.option_danger_requires_allow_danger",
+                            default="Dangerous option requires allow_danger=true: {opt}",
+                        ).format(opt=opt)
+                    )
 
         # B-1: allow all long options by default
         if opt.startswith("--"):
@@ -288,7 +339,12 @@ def _ensure_allowed_flags(
                 break
 
         if not ok:
-            _reject(f"未許可のオプションが含まれています: {opt}")
+            _reject(
+                _(
+                    "error.option_not_allowed",
+                    default="Unallowed option is present: {opt}",
+                ).format(opt=opt)
+            )
 
 
 def _parse_allow_danger(tool_args: Dict[str, Any]) -> bool:
@@ -325,7 +381,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         "reset",
         "restore",
     ):
-        return f"[git_ops error] 未サポートまたは無効なコマンドです: {command}"
+        return _(
+            "error.invalid_command",
+            default="[git_ops error] unsupported or invalid command: {command}",
+        ).format(command=command)
 
     # --------------------
     # status
@@ -430,8 +489,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     # --------------------
     if command == "add":
         if not cmd_args:
-            return (
-                "[git_ops error] git add には対象ファイルの指定が必要です（'.' も可）。"
+            return _(
+                "error.add_requires_path",
+                default="[git_ops error] git add requires a target path ('.' is allowed).",
             )
 
         try:
@@ -466,7 +526,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             for a in cmd_args
         )
         if not has_message:
-            return "[git_ops error] コミットメッセージが必要です。args に ['-m', 'message'] を含めてください。"
+            return _(
+                "error.commit_requires_message",
+                default="[git_ops error] Commit message is required. Include ['-m','message'] in args.",
+            )
 
         try:
             _ensure_allowed_flags(
@@ -589,7 +652,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     if command == "remote":
         sub = cmd_args[0] if cmd_args else ""
         if sub in ("add", "remove", "set-url", "rename") and not allow_danger:
-            return "[git_ops error] remote の変更操作は allow_danger=true が必要です。"
+            return _(
+                "error.remote_change_requires_allow_danger",
+                default="[git_ops error] Changing remotes requires allow_danger=true.",
+            )
 
         try:
             _ensure_allowed_flags(
@@ -719,11 +785,17 @@ def run_tool(args: Dict[str, Any]) -> str:
     if command == "rebase":
         # rebase は危険度高。allow_danger=true の時のみ許可。
         if not allow_danger:
-            return "[git_ops error] rebase は危険な操作のため allow_danger=true が必要です。"
+            return _(
+                "error.rebase_requires_allow_danger",
+                default="[git_ops error] rebase is dangerous and requires allow_danger=true.",
+            )
 
         # 特に危険（事故率が高い）なので禁止
         if _contains_any(cmd_args, ["--onto"]):
-            return "[git_ops error] rebase --onto は事故率が高いため禁止します。"
+            return _(
+                "error.rebase_onto_forbidden",
+                default="[git_ops error] rebase --onto is forbidden because it is error-prone.",
+            )
 
         try:
             _ensure_allowed_flags(
@@ -801,4 +873,4 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         return run_git_command(["restore"] + cmd_args)
 
-    return "[git_ops error] 不明な内部エラー"
+    return _("error.internal_unknown", default="[git_ops error] unknown internal error")
