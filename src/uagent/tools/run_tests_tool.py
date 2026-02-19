@@ -30,19 +30,23 @@ import re
 from typing import Any, Dict, List, Optional, Tuple
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
+from .i18n_helper import make_tool_translator
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:run_tests"
+
+
+t = make_tool_translator(__file__)
+
+# Translator usage: t(key, default=...)
+
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "run_tests",
-        "description": (
-            "テストを実行します。framework=auto で pytest/unittest/npm を簡易検出します。"
-            " extra_args は配列で受け取り、危険なシェルメタ文字を含むものは拒否します。"
-        ),
+        "description": t("tool.description", default="Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args."),
         "parameters": {
             "type": "object",
             "properties": {
@@ -50,34 +54,34 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "enum": ["auto", "pytest", "unittest", "npm"],
                     "default": "auto",
-                    "description": "テストフレームワーク種別",
+                    "description": t("param.framework.description", default="Test framework type."),
                 },
                 "target": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": "対象（pytestのパス、unittestの開始ディレクトリ、npm script等）。nullなら既定。",
+                    "description": t("param.target.description", default="Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used."),
                 },
                 "extra_args": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": "追加引数（配列）。危険なメタ文字を含む場合は拒否します。",
+                    "description": t("param.extra_args.description", default="Additional arguments (array). Rejected if shell metacharacters are present."),
                 },
                 "cwd": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+                    "description": t("param.cwd.description", default="Working directory to run in (must be within workdir). If null, current directory."),
                 },
                 "pythonpath": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": "追加のPYTHONPATH（例: 'src'）。指定した場合、テスト実行時にPYTHONPATHへ先頭追加します。Windowsは cmd の set を使って適用します。",
+                    "description": t("param.pythonpath.description", default="Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed for the test command."),
                 },
                 "report": {
                     "type": "string",
                     "enum": ["text", "json"],
                     "default": "json",
-                    "description": "出力形式",
+                    "description": t("param.report.description", default="Output format."),
                 },
             },
         },
@@ -90,7 +94,7 @@ _META_RE = re.compile(r"(&&|\|\||\||>>|>|<)")
 
 def _reject_if_meta(s: str) -> Optional[str]:
     if _META_RE.search(s or ""):
-        return f"shell metacharacters are not allowed in arguments: {s!r}"
+        return t("error.shell_metacharacters_not_allowed", default="shell metacharacters are not allowed in arguments: {arg}").format(arg=repr(s))
     return None
 
 
@@ -175,13 +179,13 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if framework not in ("auto", "pytest", "unittest", "npm"):
         return json.dumps(
-            {"ok": False, "error": f"invalid framework: {framework}"},
+            {"ok": False, "error": t("error.invalid_framework", default="invalid framework: {framework}").format(framework=framework)},
             ensure_ascii=False,
         )
 
     if report not in ("text", "json"):
         return json.dumps(
-            {"ok": False, "error": f"invalid report: {report}"}, ensure_ascii=False
+            {"ok": False, "error": t("error.invalid_report", default="invalid report: {report}").format(report=report)}, ensure_ascii=False
         )
 
     sanitized_args: List[str] = []
@@ -196,14 +200,14 @@ def run_tool(args: Dict[str, Any]) -> str:
     if cwd is not None:
         if is_path_dangerous(str(cwd)):
             return json.dumps(
-                {"ok": False, "error": f"dangerous cwd rejected: {cwd}"},
+                {"ok": False, "error": t("error.dangerous_cwd_rejected", default="dangerous cwd rejected: {cwd}").format(cwd=cwd)},
                 ensure_ascii=False,
             )
         try:
             run_cwd = ensure_within_workdir(str(cwd))
         except Exception as e:
             return json.dumps(
-                {"ok": False, "error": f"cwd not allowed: {e}"}, ensure_ascii=False
+                {"ok": False, "error": t("error.cwd_not_allowed", default="cwd not allowed: {error}").format(error=e)}, ensure_ascii=False
             )
 
     detected = None
@@ -211,7 +215,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         detected = _detect_framework()
         if detected == "auto":
             return json.dumps(
-                {"ok": False, "error": "framework auto-detect failed"},
+                {"ok": False, "error": t("error.framework_auto_detect_failed", default="framework auto-detect failed")},
                 ensure_ascii=False,
             )
         framework = detected
@@ -236,7 +240,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         cmd_parts.extend(sanitized_args)
     else:
         return json.dumps(
-            {"ok": False, "error": f"unsupported framework: {framework}"},
+            {"ok": False, "error": t("error.unsupported_framework", default="unsupported framework: {framework}").format(framework=framework)},
             ensure_ascii=False,
         )
 

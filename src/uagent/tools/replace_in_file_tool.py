@@ -129,17 +129,6 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": "pattern/replacement に生改行(\n/\r)が含まれる場合の扱い。allow=許可 / reject=自動キャンセル（human_askなし）",
                     "default": "allow",
                 },
-                "regex_replacement_backslash_policy": {
-                    "type": "string",
-                    "enum": ["allow", "reject"],
-                    "description": "mode=regex の replacement にバックスラッシュ(\\)が含まれる場合の扱い。allow=許可 / reject=自動キャンセル（human_askなし）",
-                    "default": "allow",
-                },
-                "strict_for_py": {
-                    "type": "boolean",
-                    "description": "対象ファイルが .py のときだけ安全ルールを強制する（raw_newline_policy/replacement_backslash_policy を reject として扱う）。",
-                    "default": False,
-                },
             },
             "required": ["path", "pattern", "replacement"],
         },
@@ -315,24 +304,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     preview = bool(args.get("preview", True))
 
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-    regex_repl_bs_policy = (
-        str(args.get("regex_replacement_backslash_policy") or "allow").strip().lower()
-    )
-    strict_for_py = bool(args.get("strict_for_py", False))
 
     if raw_newline_policy not in ("allow", "reject"):
         return json.dumps(
             {
                 "ok": False,
                 "error": f"invalid raw_newline_policy: {raw_newline_policy!r}",
-            },
-            ensure_ascii=False,
-        )
-    if regex_repl_bs_policy not in ("allow", "reject"):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"invalid regex_replacement_backslash_policy: {regex_repl_bs_policy!r}",
             },
             ensure_ascii=False,
         )
@@ -360,66 +337,6 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     # NOTE: .py does NOT force raw_newline_policy="reject".
     # Backups are created before writing; use preview first if you are unsure.
-
-    # strict_for_py が有効なら追加で regex replacement のバックスラッシュも reject
-    if strict_for_py and ext == ".py":
-        regex_repl_bs_policy = "reject"
-
-    if raw_newline_policy == "reject" and (
-        _has_raw_newline(pattern) or _has_raw_newline(replacement)
-    ):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": (
-                    "REJECT_RAW_NEWLINE: pattern/replacement contains a raw newline (\\n/\\r). "
-                    'Do not send literal newlines. Encode them as \\"\\n\\" in the JSON string '
-                    "(i.e. write \\n as \\\\n), or use python_exec to edit the file safely."
-                ),
-                "suggested_args": (
-                    {
-                        **args,
-                        "pattern": _escape_for_tool_arg(pattern),
-                        "replacement": _escape_for_tool_arg(replacement),
-                    }
-                    if ext == ".py"
-                    else {
-                        **args,
-                        "pattern": _escape_for_tool_arg(pattern),
-                        "replacement": _escape_for_tool_arg(replacement),
-                        "raw_newline_policy": "allow",
-                    }
-                ),
-                "suggested_call": (
-                    "For .py files, replace_in_file rejects literal newlines to avoid breaking syntax. "
-                    "Use python_exec to edit the file safely."
-                    if ext == ".py"
-                    else "Call replace_in_file again with suggested_args (pattern/replacement use \\n escapes)."
-                ),
-            },
-            ensure_ascii=False,
-        )
-
-    if mode == "regex" and regex_repl_bs_policy == "reject" and ("\\" in replacement):
-        _allowed = bool(re.fullmatch(r"(?:[^\\]|\\[1-9]|\\g<[^>]+>)*\Z", replacement))
-        if not _allowed:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": (
-                        "REJECT_REGEX_REPLACEMENT_BACKSLASH: mode=regex replacement contains backslash (\\). "
-                        "Only group references are allowed when regex_replacement_backslash_policy=reject: "
-                        "\\1-\\9 and \\g<...>. Other escapes like \\w/\\s/\\n are rejected. "
-                        "If you need them, set regex_replacement_backslash_policy=allow or use python_exec."
-                    ),
-                    "suggested_args": {
-                        **args,
-                        "regex_replacement_backslash_policy": "allow",
-                    },
-                    "suggested_call": "If you really intend backslash escapes beyond group refs, re-run with suggested_args.",
-                },
-                ensure_ascii=False,
-            )
 
     try:
         context_lines = int(args.get("context_lines", 2))

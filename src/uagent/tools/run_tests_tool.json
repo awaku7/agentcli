@@ -1,0 +1,36 @@
+{
+  "en": {
+    "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
+    "tool.system_prompt": "Run tests in a standardized way and return structured results. framework=auto detects pytest/unittest/npm. extra_args is an array; any argument containing shell metacharacters (&&, |, >, <, etc.) is rejected. cwd must be within workdir.",
+    "param.framework.description": "Test framework type.",
+    "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
+    "param.extra_args.description": "Additional arguments (array). Rejected if shell metacharacters are present.",
+    "param.cwd.description": "Working directory to run in (must be within workdir). If null, current directory.",
+    "param.pythonpath.description": "Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed for the test command.",
+    "param.report.description": "Output format.",
+    "error.invalid_framework": "invalid framework: {framework}",
+    "error.invalid_report": "invalid report: {report}",
+    "error.shell_metacharacters_not_allowed": "shell metacharacters are not allowed in arguments: {arg}",
+    "error.dangerous_cwd_rejected": "dangerous cwd rejected: {cwd}",
+    "error.cwd_not_allowed": "cwd not allowed: {error}",
+    "error.framework_auto_detect_failed": "framework auto-detect failed",
+    "error.unsupported_framework": "unsupported framework: {framework}"
+  },
+  "ja": {
+    "tool.description": "テストを実行します。framework=auto で pytest/unittest/npm を簡易検出します。 extra_args は配列で受け取り、危険なシェルメタ文字を含むものは拒否します。",
+    "tool.system_prompt": "テストを定型的に実行し、結果を構造化して返します。framework=auto で pytest/unittest/npm を簡易検出します。extra_args は配列で受け取り、シェルメタ文字（&&, |, >, < 等）を含む引数は拒否します。cwd は workdir 配下のみ許可します。",
+    "param.framework.description": "テストフレームワーク種別。",
+    "param.target.description": "対象（pytestのパス、unittestの開始ディレクトリ、npm script等）。nullなら既定。",
+    "param.extra_args.description": "追加引数（配列）。危険なメタ文字を含む場合は拒否します。",
+    "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+    "param.pythonpath.description": "追加のPYTHONPATH（例: 'src'）。指定した場合、テスト実行時にPYTHONPATHへ先頭追加します。",
+    "param.report.description": "出力形式。",
+    "error.invalid_framework": "invalid framework: {framework}",
+    "error.invalid_report": "invalid report: {report}",
+    "error.shell_metacharacters_not_allowed": "shell metacharacters are not allowed in arguments: {arg}",
+    "error.dangerous_cwd_rejected": "dangerous cwd rejected: {cwd}",
+    "error.cwd_not_allowed": "cwd not allowed: {error}",
+    "error.framework_auto_detect_failed": "framework auto-detect failed",
+    "error.unsupported_framework": "unsupported framework: {framework}"
+  }
+}

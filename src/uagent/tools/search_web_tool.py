@@ -24,6 +24,8 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 
+from .i18n_helper import make_tool_translator
+
 # Configure module-level logger
 logger = logging.getLogger(__name__)
 if not logger.handlers:
@@ -199,7 +201,7 @@ def _duckduckgo_search(
                 continue
             break
 
-    raise RuntimeError(f"DuckDuckGo request failed after retries: {last_exc}")
+    raise RuntimeError(t("error.duckduckgo_failed_after_retries", default="DuckDuckGo request failed after retries: {error}").format(error=last_exc))
 
 
 def search_web(
@@ -215,22 +217,24 @@ def search_web(
 BUSY_LABEL = True
 STATUS_LABEL = "tool:search_web"
 
+t = make_tool_translator(__file__)
+
+# Translator usage: t(key, default=...)
+
+
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "search_web",
-        "description": "DuckDuckGoのHTMLインターフェースを使ってウェブ検索を行い、タイトル・リンク・スニペットを返します。",
-        "system_prompt": (
-            "このツールはDuckDuckGoのHTML検索を行い、検索結果のタイトル・リンク・スニペットを取得します。"
-            "結果が0件の場合は、サイト側のレート制限やブロックの可能性があります。"
-        ),
+        "description": t("tool.description", default="Search the web via DuckDuckGo HTML interface and return title/link/snippet."),
+        "system_prompt": t("tool.system_prompt", default="This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request."),
         "parameters": {
             "type": "object",
             "properties": {
-                "query": {"type": "string", "description": "検索クエリ文字列"},
+                "query": {"type": "string", "description": t("param.query.description", default="Search query string.")},
                 "max_results": {
                     "type": "integer",
-                    "description": "返す最大結果数（デフォルト: 5）",
+                    "description": t("param.max_results.description", default="Maximum number of results to return (default: 5)."),
                 },
             },
             "required": ["query"],
@@ -248,13 +252,11 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     try:
         if not isinstance(args, dict):
-            return json.dumps({"error": "args must be a dict"}, ensure_ascii=False)
+            return json.dumps({"error": t("error.args_must_be_dict", default="args must be a dict")}, ensure_ascii=False)
 
         q = args.get("query") or args.get("q")
         if not q:
-            return json.dumps(
-                {"error": "missing 'query' parameter"}, ensure_ascii=False
-            )
+            return json.dumps({"error": t("error.missing_query_parameter", default="missing 'query' parameter")}, ensure_ascii=False)
 
         n_raw = args.get("max_results", args.get("n", DEFAULT_MAX_RESULTS))
         n: int
@@ -272,8 +274,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps({"results": results}, ensure_ascii=False)
 
     except Exception as e:
-        logger.exception("run_tool error")
-        return json.dumps({"error": str(e)}, ensure_ascii=False)
+        logger.exception(t("error.run_tool_error", default="run_tool error: {error}").format(error=""))
+        return json.dumps({"error": t("error.run_tool_error", default="run_tool error: {error}").format(error=str(e))}, ensure_ascii=False)
 
 
 def main() -> None:
