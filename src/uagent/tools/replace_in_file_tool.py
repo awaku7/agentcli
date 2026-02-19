@@ -339,9 +339,27 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     ext = os.path.splitext(path)[1].lower() if path else ""
 
-    # .py は生改行混入で構文破壊を起こし得るため、常に reject する
-    if ext == ".py":
-        raw_newline_policy = "reject"
+    def _normalize_arg_newlines(s: str) -> str:
+        """Normalize caller-provided newlines.
+
+        - Normalize CRLF/LF/CR to LF.
+        - Expand literal \"\\n\" sequences (two characters) into an actual LF.
+
+        This makes callers robust against JSON escaping differences.
+        """
+
+        s = s.replace("\r\n", "\n").replace("\r", "\n")
+        return s.replace(r"\\n", "\n")
+
+    # Normalize pattern/replacement early so matching/replacement works regardless of CRLF/LF/CR
+    # and regardless of whether the caller used literal newlines or \\n escapes.
+    pattern = _normalize_arg_newlines(pattern)
+    replacement = _normalize_arg_newlines(replacement)
+
+
+
+    # NOTE: .py does NOT force raw_newline_policy="reject".
+    # Backups are created before writing; use preview first if you are unsure.
 
     # strict_for_py が有効なら追加で regex replacement のバックスラッシュも reject
     if strict_for_py and ext == ".py":
