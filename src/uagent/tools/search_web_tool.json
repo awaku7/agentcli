@@ -1,0 +1,22 @@
+{
+  "en": {
+    "tool.description": "Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
+    "tool.system_prompt": "This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
+    "param.query.description": "Search query string.",
+    "param.max_results.description": "Maximum number of results to return (default: 5).",
+    "error.args_must_be_dict": "args must be a dict",
+    "error.missing_query_parameter": "missing 'query' parameter",
+    "error.run_tool_error": "run_tool error: {error}",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo request failed after retries: {error}"
+  },
+  "ja": {
+    "tool.description": "DuckDuckGoのHTMLインターフェースを使ってウェブ検索を行い、タイトル・リンク・スニペットを返します。",
+    "tool.system_prompt": "このツールはDuckDuckGoのHTML検索を行い、検索結果のタイトル・リンク・スニペットを取得します。結果が0件の場合は、サイト側のレート制限やブロックの可能性があります。",
+    "param.query.description": "検索クエリ文字列。",
+    "param.max_results.description": "返す最大結果数（デフォルト: 5）。",
+    "error.args_must_be_dict": "args must be a dict",
+    "error.missing_query_parameter": "missing 'query' parameter",
+    "error.run_tool_error": "run_tool error: {error}",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo request failed after retries: {error}"
+  }
+}
