@@ -38,3 +38,5 @@ ruff>=0.0.0
 black>=24.0.0
 mypy>=1.0.0
 pylint>=3.0.0
+pytest>=7.0.0
+libcst>=1.0.0
