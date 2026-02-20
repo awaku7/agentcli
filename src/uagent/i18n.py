@@ -36,19 +36,22 @@ def set_thread_lang(lang: str | None) -> None:
     - Use 'ja' or 'en'.
     - Pass None or '' to clear override.
     """
+
     try:
         if not lang:
-            if hasattr(_thread_lang, 'lang'):
-                delattr(_thread_lang, 'lang')
+            if hasattr(_thread_lang, "lang"):
+                delattr(_thread_lang, "lang")
             return
-        setattr(_thread_lang, 'lang', str(lang).strip().lower())
+        setattr(_thread_lang, "lang", str(lang).strip().lower())
     except Exception:
         pass
 
+
 def get_thread_lang() -> str | None:
     """Get thread-local language override (or None)."""
+
     try:
-        v = getattr(_thread_lang, 'lang', None)
+        v = getattr(_thread_lang, "lang", None)
         if isinstance(v, str) and v.strip():
             return v.strip().lower()
     except Exception:
@@ -149,7 +152,6 @@ def detect_lang() -> str:
     tl = get_thread_lang()
     if tl:
         return _normalize_lang_tag(tl)
-
 
     # 1) explicit override
     v = (os.environ.get("UAGENT_LANG") or "").strip()
