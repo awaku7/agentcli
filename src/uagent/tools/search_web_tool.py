@@ -201,7 +201,12 @@ def _duckduckgo_search(
                 continue
             break
 
-    raise RuntimeError(t("error.duckduckgo_failed_after_retries", default="DuckDuckGo request failed after retries: {error}").format(error=last_exc))
+    raise RuntimeError(
+        t(
+            "error.duckduckgo_failed_after_retries",
+            default="DuckDuckGo request failed after retries: {error}",
+        ).format(error=last_exc)
+    )
 
 
 def search_web(
@@ -226,15 +231,29 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "search_web",
-        "description": t("tool.description", default="Search the web via DuckDuckGo HTML interface and return title/link/snippet."),
-        "system_prompt": t("tool.system_prompt", default="This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request."),
+        "description": t(
+            "tool.description",
+            default="Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
+        ),
+        "system_prompt": t(
+            "tool.system_prompt",
+            default="This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
-                "query": {"type": "string", "description": t("param.query.description", default="Search query string.")},
+                "query": {
+                    "type": "string",
+                    "description": t(
+                        "param.query.description", default="Search query string."
+                    ),
+                },
                 "max_results": {
                     "type": "integer",
-                    "description": t("param.max_results.description", default="Maximum number of results to return (default: 5)."),
+                    "description": t(
+                        "param.max_results.description",
+                        default="Maximum number of results to return (default: 5).",
+                    ),
                 },
             },
             "required": ["query"],
@@ -252,11 +271,22 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     try:
         if not isinstance(args, dict):
-            return json.dumps({"error": t("error.args_must_be_dict", default="args must be a dict")}, ensure_ascii=False)
+            return json.dumps(
+                {"error": t("error.args_must_be_dict", default="args must be a dict")},
+                ensure_ascii=False,
+            )
 
         q = args.get("query") or args.get("q")
         if not q:
-            return json.dumps({"error": t("error.missing_query_parameter", default="missing 'query' parameter")}, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "error": t(
+                        "error.missing_query_parameter",
+                        default="missing 'query' parameter",
+                    )
+                },
+                ensure_ascii=False,
+            )
 
         n_raw = args.get("max_results", args.get("n", DEFAULT_MAX_RESULTS))
         n: int
@@ -274,8 +304,19 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps({"results": results}, ensure_ascii=False)
 
     except Exception as e:
-        logger.exception(t("error.run_tool_error", default="run_tool error: {error}").format(error=""))
-        return json.dumps({"error": t("error.run_tool_error", default="run_tool error: {error}").format(error=str(e))}, ensure_ascii=False)
+        logger.exception(
+            t("error.run_tool_error", default="run_tool error: {error}").format(
+                error=""
+            )
+        )
+        return json.dumps(
+            {
+                "error": t(
+                    "error.run_tool_error", default="run_tool error: {error}"
+                ).format(error=str(e))
+            },
+            ensure_ascii=False,
+        )
 
 
 def main() -> None:
