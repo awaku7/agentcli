@@ -475,7 +475,7 @@ def stdin_loop() -> None:
                     continue
 
             # Ctrl+C で即座に終了シーケンスに入るように変更
-            print("\n[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
+            print("\n[INFO] Received Ctrl+C. Starting shutdown...")
             core.event_queue.put({"kind": "command", "text": ":exit"})
             break
         except Exception as e:

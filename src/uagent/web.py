@@ -50,7 +50,7 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
-        self.lang: str = 'en'
+        self.lang: str = "en"
 
         self.active_connections: List[WebSocket] = []
         self.messages: List[Dict[str, Any]] = []  # UI display
@@ -72,72 +72,71 @@ class WebRoom:
         self.loop: Optional[asyncio.AbstractEventLoop] = None
 
     async def connect(self, websocket: WebSocket):
-        set_thread_lang(getattr(self, 'lang', 'en'))
+        set_thread_lang(getattr(self, "lang", "en"))
         try:
-                    await websocket.accept()
-                    self.active_connections.append(websocket)
+            await websocket.accept()
+            self.active_connections.append(websocket)
 
+            msgs = self.messages
+            if self.history:
+                try:
+                    msgs = []
+                    for m in self.history:
+                        msgs.append(
+                            {
+                                "role": m.get("role"),
+                                "content": m.get("content", ""),
+                                "name": m.get("name"),
+                                "tool_calls": m.get("tool_calls"),
+                                "timestamp": datetime.now().isoformat(),
+                            }
+                        )
+                except Exception:
                     msgs = self.messages
-                    if self.history:
-                        try:
-                            msgs = []
-                            for m in self.history:
-                                msgs.append(
-                                    {
-                                        "role": m.get("role"),
-                                        "content": m.get("content", ""),
-                                        "name": m.get("name"),
-                                        "tool_calls": m.get("tool_calls"),
-                                        "timestamp": datetime.now().isoformat(),
-                                    }
-                                )
-                        except Exception:
-                            msgs = self.messages
 
-                    _v = (os.environ.get("UAGENT_WEB_VERBOSE") or "").strip().lower()
-                    web_verbose = _v in ("1", "true", "yes", "on")
+            _v = (os.environ.get("UAGENT_WEB_VERBOSE") or "").strip().lower()
+            web_verbose = _v in ("1", "true", "yes", "on")
 
-                    # Per-room startup/welcome message (shown once per room)
-                    # Show it in the chat pane as an assistant message.
-                    if not getattr(self, "welcome_shown", False):
-                        try:
-                            banner = _runtime_init.build_startup_banner(
-                                core=core,
-                                workdir=os.getcwd(),
-                                workdir_source="(server)",
-                            )
-                        except Exception:
-                            banner = ""
-
-                        try:
-                            welcome_text = get_welcome_message()
-                        except Exception:
-                            welcome_text = ""
-
-                        welcome_msg = (welcome_text or "")
-                        if banner:
-                            welcome_msg = welcome_msg + "\n" + banner
-
-                        if welcome_msg.strip():
-                            self.add_message({"role": "assistant", "content": welcome_msg})
-
-                        try:
-                            setattr(self, "welcome_shown", True)
-                        except Exception:
-                            pass
-
-                    await websocket.send_json(
-                        {
-                            "type": "init",
-                            "messages": msgs,
-                            "status": self.status,
-                            "web_verbose": web_verbose,
-                            "room_id": self.room_id,
-                        }
+            # Per-room startup/welcome message (shown once per room)
+            # Show it in the chat pane as an assistant message.
+            if not getattr(self, "welcome_shown", False):
+                try:
+                    banner = _runtime_init.build_startup_banner(
+                        core=core,
+                        workdir=os.getcwd(),
+                        workdir_source="(server)",
                     )
+                except Exception:
+                    banner = ""
+
+                try:
+                    welcome_text = get_welcome_message()
+                except Exception:
+                    welcome_text = ""
+
+                welcome_msg = welcome_text or ""
+                if banner:
+                    welcome_msg = welcome_msg + "\n" + banner
+
+                if welcome_msg.strip():
+                    self.add_message({"role": "assistant", "content": welcome_msg})
+
+                try:
+                    setattr(self, "welcome_shown", True)
+                except Exception:
+                    pass
+
+            await websocket.send_json(
+                {
+                    "type": "init",
+                    "messages": msgs,
+                    "status": self.status,
+                    "web_verbose": web_verbose,
+                    "room_id": self.room_id,
+                }
+            )
         finally:
             set_thread_lang(None)
-
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
@@ -241,27 +240,28 @@ def _web_console_log_enabled() -> bool:
     v = (os.environ.get("UAGENT_WEB_CONSOLE_LOG") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
 
+
 def _lang_from_accept_language(v: str | None) -> str:
     """Parse Accept-Language and return 'ja' or 'en'.
 
     Web policy (B): browser language is authoritative.
     """
     if not v:
-        return 'en'
+        return "en"
     s = str(v)
     # Simple parse: split by comma, take primary tags, keep order
     parts: list[str] = []
-    for item in s.split(','):
+    for item in s.split(","):
         item = item.strip()
         if not item:
             continue
-        tag = item.split(';', 1)[0].strip().lower()
+        tag = item.split(";", 1)[0].strip().lower()
         if tag:
             parts.append(tag)
     for tag in parts:
-        if tag.startswith('ja'):
-            return 'ja'
-    return 'en'
+        if tag.startswith("ja"):
+            return "ja"
+    return "en"
 
 
 class WebStdout:
@@ -292,7 +292,8 @@ class WebStdout:
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}), room.loop
+                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.loop,
                     )
 
     def flush(self):
@@ -312,7 +313,8 @@ class WebStdout:
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}), room.loop
+                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.loop,
                     )
                 self.buffer = ""
 
@@ -339,7 +341,8 @@ class WebStderr(WebStdout):
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}), room.loop
+                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.loop,
                     )
 
     def flush(self):
@@ -360,7 +363,7 @@ sys.stderr = WebStderr()
 def run_agent_worker(room: WebRoom, user_input: str):
     # Ensure logs go to this room (thread-local)
     _thread_ctx.room = room
-    set_thread_lang(getattr(room, 'lang', 'en'))
+    set_thread_lang(getattr(room, "lang", "en"))
 
     # Serialize per-room runs to avoid history/tool collisions
     if not room.worker_lock.acquire(blocking=False):
@@ -411,7 +414,9 @@ def run_agent_worker(room: WebRoom, user_input: str):
 
     def _stream_end() -> None:
         if stream_state.get("active"):
-            _web_stream_send({"type": "assistant_stream_end", "id": stream_state.get("id")})
+            _web_stream_send(
+                {"type": "assistant_stream_end", "id": stream_state.get("id")}
+            )
         stream_state["active"] = False
 
     # Patch core.log_message during this worker run so streaming deltas can go to WebSocket.
@@ -481,7 +486,9 @@ def run_agent_worker(room: WebRoom, user_input: str):
             except Exception as e:
                 print(
                     "[WARN] "
-                    + _("Exception occurred while loading shared long-term memory: %(err)s")
+                    + _(
+                        "Exception occurred while loading shared long-term memory: %(err)s"
+                    )
                     % {"err": e}
                 )
 
@@ -507,7 +514,10 @@ def run_agent_worker(room: WebRoom, user_input: str):
             tb = ""
 
         msg = "[FATAL] Web worker error.\n" + err
-        if isinstance(e, SystemExit) and not (os.environ.get("UAGENT_PROVIDER") or "").strip():
+        if (
+            isinstance(e, SystemExit)
+            and not (os.environ.get("UAGENT_PROVIDER") or "").strip()
+        ):
             msg = "[FATAL] 環境変数 UAGENT_PROVIDER が設定されていません。\nWebサーバ起動時の環境変数を確認してください。"
         if tb and tb != "NoneType: None\n":
             msg = msg + "\n\n" + tb
@@ -542,15 +552,15 @@ async def get_room(request: Request, room_id: str):
     # ensure room exists
     web_manager.get_room(room_id)
     # Single unified template; client-side handles i18n via ?lang=ja|en (or browser language fallback)
-    return templates.TemplateResponse('index.html', {'request': request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = websocket.query_params.get("room")
-    ws_lang = (websocket.query_params.get("lang") or '').lower().strip()
-    if ws_lang not in ('ja', 'en'):
-        ws_lang = 'en'
+    ws_lang = (websocket.query_params.get("lang") or "").lower().strip()
+    if ws_lang not in ("ja", "en"):
+        ws_lang = "en"
     if not room_id:
         # require explicit room for safety
         await websocket.close(code=1008)
@@ -583,7 +593,9 @@ async def websocket_endpoint(websocket: WebSocket):
                     display = "[SECRET]" if is_pw else room.human_ask_result
                     if room.loop:
                         asyncio.run_coroutine_threadsafe(
-                            room.broadcast({"type": "log", "content": f"[REPLY] > {display}"}),
+                            room.broadcast(
+                                {"type": "log", "content": f"[REPLY] > {display}"}
+                            ),
                             room.loop,
                         )
                 except Exception:
@@ -644,7 +656,9 @@ def main():
     ensure_mcp_config_template()
 
     try:
-        decision = _runtime_init.decide_workdir(env_workdir=os.environ.get("UAGENT_WORKDIR"))
+        decision = _runtime_init.decide_workdir(
+            env_workdir=os.environ.get("UAGENT_WORKDIR")
+        )
         _runtime_init.apply_workdir(decision)
         banner = _runtime_init.build_startup_banner(
             core=core,
