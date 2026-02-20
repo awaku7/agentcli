@@ -204,7 +204,13 @@ class ScheckWorker(QtCore.QObject):
                     core.log_message(m)
 
             except Exception as e:
-                print("[WARN] " + _("Exception occurred while loading shared long-term memory: %(err)s") % {"err": e})
+                print(
+                    "[WARN] "
+                    + _(
+                        "Exception occurred while loading shared long-term memory: %(err)s"
+                    )
+                    % {"err": e}
+                )
 
             while not self._stop.is_set():
                 try:
@@ -260,7 +266,17 @@ class ScheckWorker(QtCore.QObject):
                                         parts.append(
                                             {
                                                 "type": "text",
-                                                "text": "[WARN] " + (_("Failed to attach image: %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e}),
+                                                "text": "[WARN] "
+                                                + (
+                                                    _(
+                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+                                                    )
+                                                    % {
+                                                        "path": p,
+                                                        "etype": type(e).__name__,
+                                                        "err": e,
+                                                    }
+                                                ),
                                             }
                                         )
 

@@ -60,18 +60,28 @@ def get_welcome_message():
         f"v{__version__}",
         _("[Quick Guide]"),
         _("- Chat: type a message and send (GUI: Ctrl+Enter is also available)."),
-        _("- Multiline: enter a line that is just 'f' to enter multiline mode (end with \"\"\"end)."),
-        _("- Commands: type ':help' to see system commands (log management, history compression, etc.)."),
+        _(
+            '- Multiline: enter a line that is just \'f\' to enter multiline mode (end with """end).'
+        ),
+        _(
+            "- Commands: type ':help' to see system commands (log management, history compression, etc.)."
+        ),
         _("- Exit: ':exit' or ':quit' ends the session."),
-        _("- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."),
-        _("- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."),
+        _(
+            "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
+        ),
+        _(
+            "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."
+        ),
         "",
         _("[Examples]"),
-        _("- \"Analyze the source code in this folder and create a README.md.\""),
-        _("- \"Take a screenshot of the current desktop and describe the visible window contents.\""),
-        _("- \"Create a monthly summary report from this Excel file.\""),
-        _("- \"Read this PDF and list three key points.\""),
-        _("- \"Search the latest news and summarize a specific topic.\""),
+        _('- "Analyze the source code in this folder and create a README.md."'),
+        _(
+            '- "Take a screenshot of the current desktop and describe the visible window contents."'
+        ),
+        _('- "Create a monthly summary report from this Excel file."'),
+        _('- "Read this PDF and list three key points."'),
+        _('- "Search the latest news and summarize a specific topic."'),
     ]
     usage = "\n".join(usage_lines) + "\n"
 

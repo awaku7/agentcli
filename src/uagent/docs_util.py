@@ -10,6 +10,7 @@ from typing import Iterable, List, Optional, Tuple
 
 from .i18n import _, detect_lang
 
+
 @dataclass(frozen=True)
 class DocItem:
     """A bundled documentation item."""
@@ -43,8 +44,6 @@ _DOCS: List[DocItem] = [
 ]
 
 
-
-
 def _lang_suffix() -> str:
     # Current policy: ja -> ".ja", else ""
     try:
@@ -66,10 +65,12 @@ def _with_lang_variant(filename: str) -> str:
 def _resource_exists(filename: str) -> bool:
     try:
         import importlib.resources as r
+
         ref = r.files("uagent").joinpath("docs", filename)
         # Try to materialize path; if fails, fall back to read attempt
         try:
             from pathlib import Path as _P
+
             p = _P(str(ref))
             return p.exists()
         except Exception:
@@ -103,6 +104,8 @@ def _choose_doc_filename(filename: str) -> str:
     if _resource_exists(cand) or _filesystem_exists(cand):
         return cand
     return filename
+
+
 def _package_doc_path(filename: str) -> Tuple[Optional[Path], str]:
     """Return (path, mode).
 
@@ -165,7 +168,9 @@ def read_doc_text(name: str) -> str:
     # Fallback to filesystem
     p, _ = _package_doc_path(fn)
     if p is None:
-        raise FileNotFoundError(_("doc file not found: %(filename)s") % {"filename": fn})
+        raise FileNotFoundError(
+            _("doc file not found: %(filename)s") % {"filename": fn}
+        )
     return p.read_text(encoding="utf-8")
 
 
@@ -194,7 +199,10 @@ def get_doc_path(name: str) -> Path:
             dst.write_text(tmp_path.read_text(encoding="utf-8"), encoding="utf-8")
             return dst
     except Exception as e:
-        raise FileNotFoundError(_("doc path resolution failed: %(filename)s: %(err)s") % {"filename": fn, "err": e})
+        raise FileNotFoundError(
+            _("doc path resolution failed: %(filename)s: %(err)s")
+            % {"filename": fn, "err": e}
+        )
 
 
 def open_path_with_os(path: Path) -> None:

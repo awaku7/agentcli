@@ -95,3 +95,13 @@ ignore = [
 
 fixable = ["ALL"]
 unfixable = []
+
+[tool.mypy]
+# Policy: reduce noise first (Project decision: 2b)
+python_version = "3.11"
+ignore_missing_imports = true
+no_implicit_optional = false
+check_untyped_defs = false
+warn_unused_ignores = false
+show_error_codes = true
+pretty = true

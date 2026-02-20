@@ -44,7 +44,7 @@ class TestGitOpsTool(unittest.TestCase):
         """git add に引数が必要なことのテスト"""
         args = {"command": "add", "args": []}
         result = run_tool(args)
-        self.assertIn("対象ファイルの指定が必要です", result)
+        self.assertIn("git add requires a target path", result)
         mock_run.assert_not_called()
 
     @patch("subprocess.run")
@@ -52,7 +52,7 @@ class TestGitOpsTool(unittest.TestCase):
         """git commit にメッセージが必要なことのテスト"""
         args = {"command": "commit", "args": ["--amend"]}
         result = run_tool(args)
-        self.assertIn("コミットメッセージが必要です", result)
+        self.assertIn("Commit message is required", result)
         mock_run.assert_not_called()
 
     @patch("subprocess.run")
@@ -75,7 +75,7 @@ class TestGitOpsTool(unittest.TestCase):
 
         args = {"command": "status"}
         result = run_tool(args)
-        self.assertIn("git コマンドが見つかりません", result)
+        self.assertIn("git command not found", result)
 
 
 if __name__ == "__main__":
