@@ -22,6 +22,7 @@ import gettext
 import locale
 import os
 from functools import lru_cache
+from typing import Optional
 
 from pathlib import Path
 
@@ -43,19 +44,19 @@ def _find_localedir_candidates() -> list[str]:
     cands: list[str] = []
 
     # 1) Adjacent to this file (normal package layout)
-    cands.append(str(Path(__file__).resolve().parent / 'locales'))
+    cands.append(str(Path(__file__).resolve().parent / "locales"))
 
     # 2) Repo-style: .../src/uagent/i18n.py -> .../src/uagent/locales
     try:
         here = Path(__file__).resolve()
-        repo_style = here.parent / 'locales'
+        repo_style = here.parent / "locales"
         cands.append(str(repo_style))
     except Exception:
         pass
 
     # 3) CWD-style: ./src/uagent/locales
     try:
-        cands.append(str(Path.cwd().resolve() / 'src' / 'uagent' / 'locales'))
+        cands.append(str(Path.cwd().resolve() / "src" / "uagent" / "locales"))
     except Exception:
         pass
 
@@ -68,8 +69,6 @@ def _find_localedir_candidates() -> list[str]:
         seen.add(x)
         out.append(x)
     return out
-
-from typing import Optional
 
 
 DOMAIN = "uag"
