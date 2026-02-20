@@ -83,6 +83,15 @@ TOOL_SPEC: Dict[str, Any] = {
                         "reset",
                         "restore",
                         "apply",
+                        "cherry-pick",
+                        "clone",
+                        "init",
+                        "blame",
+                        "reflog",
+                        "grep",
+                        "ls-files",
+                        "ls-tree",
+                        "cat-file",
                     ],
                     "description": _(
                         "param.command.description",
@@ -380,6 +389,15 @@ def run_tool(args: Dict[str, Any]) -> str:
         "stash",
         "reset",
         "restore",
+        "cherry-pick",
+        "clone",
+        "init",
+        "blame",
+        "reflog",
+        "grep",
+        "ls-files",
+        "ls-tree",
+        "cat-file",
     ):
         return _(
             "error.invalid_command",
@@ -815,6 +833,36 @@ def run_tool(args: Dict[str, Any]) -> str:
         return run_git_command(["rebase"] + cmd_args, timeout_sec=300)
 
     # --------------------
+    # cherry-pick
+    # --------------------
+    if command == "cherry-pick":
+        # cherry-pick はコンフリクトで停止し得る。対話を避けつつ、基本の再開/中断を許可する。
+        # allow_danger は基本不要（ただし -m/--mainline は履歴を書き換える事故要因になりやすいので allow_danger 必須にする）
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "--continue",
+                    "--abort",
+                    "--skip",
+                    "-n",
+                    "--no-commit",
+                    "-x",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+                dangerous_prefixes=(
+                    "-m",
+                    "--mainline",
+                ),
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        # NOTE: cmd_args のうち rev(コミット/範囲) はパスではないため _validate_paths は行わない。
+        return run_git_command(["cherry-pick"] + cmd_args, timeout_sec=300)
+
+    # --------------------
     # stash
     # --------------------
     if command == "stash":
@@ -872,5 +920,199 @@ def run_tool(args: Dict[str, Any]) -> str:
             return f"[git_ops error] {e}"
 
         return run_git_command(["restore"] + cmd_args)
+
+    # --------------------
+    # clone
+    # --------------------
+    if command == "clone":
+        # clone は外部から内容を取得し、作業ディレクトリに書き込みます。
+        # 安全のため、出力先は workdir 配下の相対パス（または省略）に限定します。
+        # clone 先パスの検証の都合上、オプション終端 "--" を推奨します。
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "--depth",
+                    "--branch",
+                    "--single-branch",
+                    "--no-tags",
+                    "--recurse-submodules",
+                    "--shallow-submodules",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        # clone は [<repo>] [<dir>] 形式。dir が指定されている場合のみパス検証する。
+        # （repo URL をパス扱いしない）
+        nonopts = [a for a in cmd_args if a != "--" and not a.startswith("-")]
+        if len(nonopts) >= 2:
+            # 最後の non-option を dir とみなす
+            _validate_paths([nonopts[-1]])
+
+        return run_git_command(["clone"] + cmd_args, timeout_sec=300)
+
+    # --------------------
+    # init
+    # --------------------
+    if command == "init":
+        # init は作業ディレクトリ配下で初期化する用途が多い。
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=("--bare", "--initial-branch", "-b", "--"),
+                allow_danger=allow_danger,
+                dangerous_prefixes=("--bare",),
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        # init の非オプション引数（ディレクトリ）は workdir 配下のみ許可
+        _validate_paths(cmd_args)
+        return run_git_command(["init"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # blame
+    # --------------------
+    if command == "blame":
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "-L",
+                    "--line-porcelain",
+                    "--porcelain",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+            _validate_paths(cmd_args)
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        return run_git_command(["blame"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # reflog
+    # --------------------
+    if command == "reflog":
+        # reflog は読み取り系だが、expire 等の破壊操作があるため deny。
+        if _contains_any(cmd_args, ["expire", "delete"]):
+            return _(
+                "error.option_denied",
+                default="Disallowed option is present: {opt}",
+            ).format(opt=cmd_args[0] if cmd_args else "reflog")
+
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "show",
+                    "--date",
+                    "--format",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        # デフォルトは show
+        if not cmd_args:
+            cmd_args = ["show"]
+        return run_git_command(["reflog"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # grep
+    # --------------------
+    if command == "grep":
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "-n",
+                    "--line-number",
+                    "-i",
+                    "--ignore-case",
+                    "-F",
+                    "--fixed-strings",
+                    "-E",
+                    "--extended-regexp",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+            _validate_paths(cmd_args)
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        return run_git_command(["grep"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # ls-files
+    # --------------------
+    if command == "ls-files":
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "--cached",
+                    "--modified",
+                    "--others",
+                    "--ignored",
+                    "--exclude-standard",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+            _validate_paths(cmd_args)
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        return run_git_command(["ls-files"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # ls-tree
+    # --------------------
+    if command == "ls-tree":
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "-r",
+                    "--recursive",
+                    "-t",
+                    "--tree",
+                    "--name-only",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        return run_git_command(["ls-tree"] + cmd_args, timeout_sec=60)
+
+    # --------------------
+    # cat-file
+    # --------------------
+    if command == "cat-file":
+        try:
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "-t",
+                    "-s",
+                    "-p",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+            )
+        except GitArgsError as e:
+            return f"[git_ops error] {e}"
+
+        return run_git_command(["cat-file"] + cmd_args, timeout_sec=60)
 
     return _("error.internal_unknown", default="[git_ops error] unknown internal error")
