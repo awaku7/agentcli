@@ -106,7 +106,10 @@ def run_llm_rounds(
         while True:
             round_count += 1
             if round_count > max_tool_rounds:
-                print(_("[WARN] Tool rounds exceeded %(max)d; aborting.") % {"max": max_tool_rounds})
+                print(
+                    _("[WARN] Tool rounds exceeded %(max)d; aborting.")
+                    % {"max": max_tool_rounds}
+                )
                 break
 
             if provider == "gemini":
@@ -184,7 +187,11 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print(_("[Gemini Error] An error occurred while generating a response."))
+                        print(
+                            _(
+                                "[Gemini Error] An error occurred while generating a response."
+                            )
+                        )
                         print(repr(e))
                         return
 
@@ -247,7 +254,11 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print(_("[Claude Error] An error occurred while generating a response."))
+                        print(
+                            _(
+                                "[Claude Error] An error occurred while generating a response."
+                            )
+                        )
                         print(repr(e))
                         return
 

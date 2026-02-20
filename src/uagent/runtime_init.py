@@ -206,9 +206,9 @@ def append_long_memory_system_messages(
         if shared_system_msg:
             # Compatible prefix
             try:
-                shared_system_msg["content"] = _("【Shared long-term memory (shared memo)】\n") + (
-                    shared_system_msg.get("content") or ""
-                )
+                shared_system_msg["content"] = _(
+                    "【Shared long-term memory (shared memo)】\n"
+                ) + (shared_system_msg.get("content") or "")
             except Exception:
                 pass
 

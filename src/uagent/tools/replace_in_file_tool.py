@@ -333,8 +333,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     pattern = _normalize_arg_newlines(pattern)
     replacement = _normalize_arg_newlines(replacement)
 
-
-
     # NOTE: .py does NOT force raw_newline_policy="reject".
     # Backups are created before writing; use preview first if you are unsure.
 

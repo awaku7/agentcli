@@ -106,23 +106,23 @@ def print_status_line() -> None:
         busy = status_busy
         label = status_label
 
-    state = 'BUSY' if busy else 'IDLE'
-    label_part = f' [{label}]' if label else ''
+    state = "BUSY" if busy else "IDLE"
+    label_part = f" [{label}]" if label else ""
 
     # Color/ANSI control
     # Default: enable ANSI colors unless explicitly disabled.
-    no_color = bool(os.environ.get('NO_COLOR') or os.environ.get('UAGENT_NO_COLOR'))
-    stderr_is_tty = bool(getattr(sys.stderr, 'isatty', lambda: False)())
+    no_color = bool(os.environ.get("NO_COLOR") or os.environ.get("UAGENT_NO_COLOR"))
+    stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
     if IS_GUI or no_color or (not stderr_is_tty):
         # Fallback: no ANSI
         with print_lock:
-            sys.stderr.write(f'[STATE] {state}{label_part}\n')
+            sys.stderr.write(f"[STATE] {state}{label_part}\n")
             sys.stderr.flush()
         return
 
     # 色分け（BUSY=黄色, IDLE=緑）
-    color = '\x1b[33m' if busy else '\x1b[32m'
+    color = "\x1b[33m" if busy else "\x1b[32m"
 
     # NOTE: Keep output simple: one colored line.
     with print_lock:
@@ -179,7 +179,10 @@ def get_prompt() -> str:
 def get_env(name: str) -> str:
     value = os.environ.get(name)
     if not value:
-        print(_("Environment variable %(name)s is not set.") % {"name": name}, file=sys.stderr)
+        print(
+            _("Environment variable %(name)s is not set.") % {"name": name},
+            file=sys.stderr,
+        )
         sys.exit(1)
     return value
 
@@ -195,7 +198,10 @@ def get_env_url(name: str, default: Optional[str] = None) -> str:
     if not val:
         if default is not None:
             return normalize_url(default)
-        print(_("Environment variable %(name)s is not set.") % {"name": name}, file=sys.stderr)
+        print(
+            _("Environment variable %(name)s is not set.") % {"name": name},
+            file=sys.stderr,
+        )
         sys.exit(1)
     return normalize_url(val)
 
@@ -460,7 +466,10 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             return "(unknown time)"
 
-    print(_("logs: showing %(shown)d/%(total)d (dir=%(dir)s)") % {"shown": len(view), "total": len(files), "dir": BASE_LOG_DIR})
+    print(
+        _("logs: showing %(shown)d/%(total)d (dir=%(dir)s)")
+        % {"shown": len(view), "total": len(files), "dir": BASE_LOG_DIR}
+    )
     print(_("Log files:"))
 
     for idx, path in enumerate(view):
@@ -569,7 +578,9 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
 
         turns = total_user_count + total_assistant_count
 
-        first_user_text = _shorten(first_user, 60) if first_user else "(no user message)"
+        first_user_text = (
+            _shorten(first_user, 60) if first_user else "(no user message)"
+        )
         last_user_text = _shorten(last_user, 80) if last_user else "(no user message)"
 
         # path も末尾だけ出す（同一話題でも区別しやすい）
@@ -578,7 +589,9 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             tail = "(unknown file)"
 
-        print(f"[{idx}] {mtime_text} | {turns} msgs | {tail} | first: {first_user_text} | last: {last_user_text}")
+        print(
+            f"[{idx}] {mtime_text} | {turns} msgs | {tail} | first: {first_user_text} | last: {last_user_text}"
+        )
 
     return files
 
@@ -981,4 +994,3 @@ def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
         sp = func.get("system_prompt") or func.get("description") or ""
         lines.append(f"- {name}: {sp}")
     return "\n".join(lines)
-
