@@ -78,6 +78,8 @@ MULTI_INPUT_SENTINEL = '"""end'
 
 # プロンプト用ステータス
 status_lock = threading.RLock()
+# 出力競合（stdinプロンプトとstatus/ログ出力の押し流し）を減らすための共有ロック
+print_lock = threading.RLock()
 status_busy = False  # LLM やツールが処理中なら True
 status_label = ""  # "LLM" や "tool:cmd_exec" など
 
@@ -114,16 +116,18 @@ def print_status_line() -> None:
 
     if IS_GUI or no_color or (not stderr_is_tty):
         # Fallback: no ANSI
-        sys.stderr.write(f'[STATE] {state}{label_part}\n')
-        sys.stderr.flush()
+        with print_lock:
+            sys.stderr.write(f'[STATE] {state}{label_part}\n')
+            sys.stderr.flush()
         return
 
     # 色分け（BUSY=黄色, IDLE=緑）
     color = '\x1b[33m' if busy else '\x1b[32m'
 
     # NOTE: Keep output simple: one colored line.
-    sys.stderr.write(f"{color}[STATE] {state}{label_part}\x1b[0m\n")
-    sys.stderr.flush()
+    with print_lock:
+        sys.stderr.write(f"{color}[STATE] {state}{label_part}\x1b[0m\n")
+        sys.stderr.flush()
 
 
 def set_status(busy: bool, label: str = "") -> None:
@@ -465,9 +469,8 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
             mtime_text = _fmt_ts(mtime)
         except Exception:
             mtime_text = "(mtime unknown)"
-
-        # 先頭の 200 行ぶんだけざっくり読む
-        raw_lines: List[str] = []
+        # 先頭側は最初の user を取るために最大 200 行読む
+        head_lines: List[str] = []
         try:
             with open(path, encoding="utf-8") as f:
                 for i, line in enumerate(f):
@@ -475,48 +478,99 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
                         break
                     line = line.strip()
                     if line:
-                        raw_lines.append(line)
+                        head_lines.append(line)
         except Exception:
-            raw_lines = []
+            head_lines = []
 
-        user_count = 0
-        assistant_count = 0
-        topics: Set[str] = set()
+        # 末尾側は「本当の last user」を取るために、末尾から最大 N バイトだけ読む
+        # （巨大ログでも遅くしないための上限。ユーザー指定: 16MB）
+        tail_max_bytes = 16 * 1024 * 1024
+        tail_text = ""
+        try:
+            size = os.path.getsize(path)
+            start = max(0, size - tail_max_bytes)
+            with open(path, "rb") as bf:
+                bf.seek(start)
+                data = bf.read()
+
+            # 行途中から始まる可能性があるので、先頭の不完全な1行は捨てる
+            try:
+                tail_text = data.decode("utf-8", errors="replace")
+            except Exception:
+                tail_text = ""
+
+            if start > 0:
+                nl = tail_text.find("\\n")
+                if nl >= 0:
+                    tail_text = tail_text[nl + 1 :]
+        except Exception:
+            tail_text = ""
+
+        tail_lines: List[str] = []
+        if tail_text:
+            for ln in tail_text.splitlines():
+                ln = (ln or "").strip()
+                if ln:
+                    tail_lines.append(ln)
+        # 正確な件数（user/assistant）は全行を走査してカウントする
+        total_user_count = 0
+        total_assistant_count = 0
+        try:
+            with open(path, encoding="utf-8") as f_all:
+                for ln in f_all:
+                    ln = (ln or "").strip()
+                    if not ln:
+                        continue
+                    try:
+                        obj = json.loads(ln)
+                    except Exception:
+                        continue
+                    role = obj.get("role")
+                    if role == "user":
+                        total_user_count += 1
+                    elif role == "assistant":
+                        total_assistant_count += 1
+        except Exception:
+            # 読めない場合は 0 扱い（表示が落ちるよりマシ）
+            total_user_count = 0
+            total_assistant_count = 0
+
+        # first user は先頭側（軽量）から取得
         first_user: str = ""
-
-        for line in raw_lines:
+        for line in head_lines:
             try:
                 obj = json.loads(line)
             except Exception:
                 continue
 
-            role = obj.get("role")
+            if obj.get("role") != "user":
+                continue
+
             content = str(obj.get("content") or "").strip()
+            if content:
+                first_user = content
+                break
 
-            if role == "user":
-                user_count += 1
-                if not first_user and content:
-                    first_user = content
-            elif role == "assistant":
-                assistant_count += 1
+        # last user は末尾側から取得（本当の最後）
+        last_user: str = ""
+        for line in reversed(tail_lines):
+            try:
+                obj = json.loads(line)
+            except Exception:
+                continue
 
-            if ENABLE_LOG_TOPIC_GUESS and content:
-                topics.update(guess_topics_from_content(content))
+            if obj.get("role") != "user":
+                continue
 
-        turns = user_count + assistant_count
+            content = str(obj.get("content") or "").strip()
+            if content:
+                last_user = content
+                break
 
-        topic_list = sorted(topics)
-        # 話題は全部出すと長すぎて差が見えにくいので短縮
-        if not topic_list:
-            topic_text = _("(unknown)")
-        else:
-            shown = topic_list[:3]
-            more = len(topic_list) - len(shown)
-            topic_text = ", ".join(shown) + (f" (+{more})" if more > 0 else "")
+        turns = total_user_count + total_assistant_count
 
-        first_user_text = (
-            _shorten(first_user, 60) if first_user else "(no user message)"
-        )
+        first_user_text = _shorten(first_user, 60) if first_user else "(no user message)"
+        last_user_text = _shorten(last_user, 80) if last_user else "(no user message)"
 
         # path も末尾だけ出す（同一話題でも区別しやすい）
         try:
@@ -524,9 +578,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             tail = "(unknown file)"
 
-        print(
-            f"[{idx}] {mtime_text} | {turns} msgs | {tail} | {first_user_text} | topics: {topic_text}"
-        )
+        print(f"[{idx}] {mtime_text} | {turns} msgs | {tail} | first: {first_user_text} | last: {last_user_text}")
 
     return files
 
@@ -929,3 +981,4 @@ def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
         sp = func.get("system_prompt") or func.get("description") or ""
         lines.append(f"- {name}: {sp}")
     return "\n".join(lines)
+
