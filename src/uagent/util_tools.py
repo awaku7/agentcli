@@ -168,7 +168,10 @@ def try_open_images_from_text(text: str) -> None:
             opened_any = True
 
     if opened_any:
-        print("[INFO] " + i18n_("Opened image file with the default app."), file=sys.stderr)
+        print(
+            "[INFO] " + i18n_("Opened image file with the default app."),
+            file=sys.stderr,
+        )
 
 
 def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
@@ -253,7 +256,10 @@ def handle_command(
             target = os.path.abspath(expanded)
 
             if not os.path.isdir(target):
-                print(tr("[cd] Directory does not exist: %(src)s -> %(dst)s") % {"src": a, "dst": target})
+                print(
+                    tr("[cd] Directory does not exist: %(src)s -> %(dst)s")
+                    % {"src": a, "dst": target}
+                )
                 return True
 
             os.chdir(target)
@@ -277,7 +283,10 @@ def handle_command(
             if has_glob:
                 matches = glob.glob(expanded)
                 if not matches:
-                    print(tr("[ls] No matching paths: %(src)s -> %(expanded)s") % {"src": target, "expanded": expanded})
+                    print(
+                        tr("[ls] No matching paths: %(src)s -> %(expanded)s")
+                        % {"src": target, "expanded": expanded}
+                    )
                     return True
 
                 items = []
@@ -311,7 +320,10 @@ def handle_command(
             target_abs = os.path.abspath(expanded)
 
             if not os.path.isdir(target_abs):
-                print(tr("[ls] Directory does not exist: %(src)s -> %(dst)s") % {"src": target, "dst": target_abs})
+                print(
+                    tr("[ls] Directory does not exist: %(src)s -> %(dst)s")
+                    % {"src": target, "dst": target_abs}
+                )
                 return True
 
             entries = []
@@ -352,7 +364,12 @@ def handle_command(
                 try:
                     limit = int(a)
                 except Exception:
-                    print(tr("[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)") % {"arg": a})
+                    print(
+                        tr(
+                            "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+                        )
+                        % {"arg": a}
+                    )
                     return True
 
         core.list_logs(limit=limit, show_all=show_all)
@@ -372,13 +389,21 @@ def handle_command(
             try:
                 threshold = int(a)
             except Exception:
-                print(tr("[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)") % {"arg": a, "default": threshold})
+                print(
+                    tr(
+                        "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
+                    )
+                    % {"arg": a, "default": threshold}
+                )
                 return True
 
         try:
             log_files = core.find_log_files(exclude_current=False)
         except Exception as e:
-            print(tr("[clean error] Failed to get log list: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+            print(
+                tr("[clean error] Failed to get log list: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
             return True
 
         targets: List[str] = []
@@ -396,13 +421,29 @@ def handle_command(
                 if non_system_count <= threshold:
                     targets.append(p)
             except Exception as e:
-                print(tr("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e})
+                print(
+                    tr(
+                        "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+                    )
+                    % {"path": p, "etype": type(e).__name__, "err": e}
+                )
 
         if not targets:
-            print(tr("[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s") % {"threshold": threshold, "dir": getattr(core, "BASE_LOG_DIR", "(unknown)")})
+            print(
+                tr(
+                    "[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s"
+                )
+                % {
+                    "threshold": threshold,
+                    "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+                }
+            )
             return True
 
-        print(tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d") % {"threshold": threshold, "n": len(targets)})
+        print(
+            tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d")
+            % {"threshold": threshold, "n": len(targets)}
+        )
         for p in targets:
             c = counts.get(p, -1)
             print(f" - ({c} msgs) {p}")
@@ -410,20 +451,17 @@ def handle_command(
         try:
             from uagent.tools.human_ask_tool import run_tool as human_ask
 
-            msg = (
-                i18n_(
-                    ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-                    "Log dir: %(dir)s\n"
-                    "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-                    "Targets: %(n)d\n\n"
-                    "Proceed? Enter y to run, or c to cancel."
-                )
-                % {
-                    "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
-                    "threshold": threshold,
-                    "n": len(targets),
-                }
-            )
+            msg = i18n_(
+                ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+                "Log dir: %(dir)s\n"
+                "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+                "Targets: %(n)d\n\n"
+                "Proceed? Enter y to run, or c to cancel."
+            ) % {
+                "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+                "threshold": threshold,
+                "n": len(targets),
+            }
             res_json = human_ask({"message": msg})
             res = json.loads(res_json)
             user_reply = (res.get("user_reply") or "").strip().lower()
@@ -431,7 +469,10 @@ def handle_command(
                 print(tr("[clean] Cancelled."))
                 return True
         except Exception as e:
-            print(tr("[clean error] Confirmation failed: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+            print(
+                tr("[clean error] Confirmation failed: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
             return True
 
         deleted = 0
@@ -442,9 +483,15 @@ def handle_command(
                 deleted += 1
             except Exception as e:
                 failed += 1
-                print(tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)") % {"path": p, "etype": type(e).__name__, "err": e})
+                print(
+                    tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
+                    % {"path": p, "etype": type(e).__name__, "err": e}
+                )
 
-        print(tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d") % {"deleted": deleted, "failed": failed})
+        print(
+            tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
+            % {"deleted": deleted, "failed": failed}
+        )
         return True
 
     if cmd == "load":
@@ -502,15 +549,12 @@ def handle_command(
 
             cur_log = getattr(core, "LOG_FILE", None)
             if isinstance(cur_log, str) and cur_log:
-                msg2 = (
-                    i18n_(
-                        ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
-                        "Current log: %(cur_log)s\n"
-                        "Source log: %(src_log)s\n\n"
-                        "Proceed? Enter y to run, or c to cancel."
-                    )
-                    % {"cur_log": cur_log, "src_log": target_path}
-                )
+                msg2 = i18n_(
+                    ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
+                    "Current log: %(cur_log)s\n"
+                    "Source log: %(src_log)s\n\n"
+                    "Proceed? Enter y to run, or c to cancel."
+                ) % {"cur_log": cur_log, "src_log": target_path}
                 res_json2 = human_ask({"message": msg2})
                 res2 = json.loads(res_json2)
                 user_reply2 = (res2.get("user_reply") or "").strip().lower()
@@ -521,7 +565,13 @@ def handle_command(
                         with open(target_path, encoding="utf-8") as f:
                             loaded_lines = f.read().splitlines(True)  # keepends
                     except Exception as e:
-                        print(tr("[load warn] Failed to read source log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
+                        print(
+                            tr(
+                                "[load warn] Failed to read source log: %(etype)s: %(err)s"
+                            )
+                            % {"etype": type(e).__name__, "err": e},
+                            file=sys.stderr,
+                        )
                         loaded_lines = []
 
                     # Read current log lines (may not exist yet)
@@ -531,7 +581,13 @@ def handle_command(
                             with open(cur_log, encoding="utf-8") as f:
                                 cur_lines = f.read().splitlines(True)
                     except Exception as e:
-                        print(tr("[load warn] Failed to read current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
+                        print(
+                            tr(
+                                "[load warn] Failed to read current log: %(etype)s: %(err)s"
+                            )
+                            % {"etype": type(e).__name__, "err": e},
+                            file=sys.stderr,
+                        )
                         cur_lines = []
 
                     # Build marker line (JSONL entry)
@@ -550,13 +606,28 @@ def handle_command(
                                 f.write(ln)
                             for ln in cur_lines:
                                 f.write(ln)
-                        print(tr("[load] Prepended to current log: %(path)s") % {"path": cur_log})
+                        print(
+                            tr("[load] Prepended to current log: %(path)s")
+                            % {"path": cur_log}
+                        )
                     except Exception as e:
-                        print(tr("[load warn] Failed to rewrite current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
+                        print(
+                            tr(
+                                "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+                            )
+                            % {"etype": type(e).__name__, "err": e},
+                            file=sys.stderr,
+                        )
                 else:
                     print(tr("[load] Prepend to current log was cancelled."))
         except Exception as e:
-            print(tr("[load warn] Error during prepend to current log: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}, file=sys.stderr)
+            print(
+                tr(
+                    "[load warn] Error during prepend to current log: %(etype)s: %(err)s"
+                )
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
 
         return True
 
@@ -567,7 +638,10 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    i18n_("[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d") % {"arg": arg, "keep": keep_last}
+                    i18n_(
+                        "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    )
+                    % {"arg": arg, "keep": keep_last}
                 )
         new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
         messages_ref.clear()
@@ -581,7 +655,10 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    i18n_("[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d") % {"arg": arg, "keep": keep_last}
+                    i18n_(
+                        "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    )
+                    % {"arg": arg, "keep": keep_last}
                 )
         new_messages = core.compress_history_with_llm(
             client=client,
@@ -619,7 +696,10 @@ def handle_command(
         try:
             idx = int(arg)
         except Exception:
-            print(tr("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
+            print(
+                tr("[mem-del error] Failed to parse index as int: %(arg)r")
+                % {"arg": arg}
+            )
             return True
         if personal_long_memory.delete_long_memory_entry(idx):
             print(tr("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
@@ -630,7 +710,9 @@ def handle_command(
     if cmd == "shared-mem-list":
         if not shared_memory.is_enabled():
             print(
-                i18n_("Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set).")
+                i18n_(
+                    "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+                )
             )
             return True
 
@@ -659,14 +741,19 @@ def handle_command(
 
         if not shared_memory.is_enabled():
             print(
-                i18n_("Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set).")
+                i18n_(
+                    "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+                )
             )
             return True
 
         try:
             idx = int(arg)
         except Exception:
-            print(tr("[shared-mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg})
+            print(
+                tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
+                % {"arg": arg}
+            )
             return True
 
         records = shared_memory.load_shared_memory_records()
@@ -678,14 +765,20 @@ def handle_command(
             records.pop(idx)
             path = shared_memory.get_shared_memory_file()
             if not path:
-                print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+                print(
+                    tr("[shared-mem-del] Failed to delete index=%(idx)d.")
+                    % {"idx": idx}
+                )
                 return True
             os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, "w", encoding="utf-8") as f:
                 for rec in records:
                     f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         except Exception as e:
-            print(tr("[shared-mem-del error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+            print(
+                tr("[shared-mem-del error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
             return True
 
         print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
