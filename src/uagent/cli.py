@@ -393,15 +393,73 @@ def stdin_loop() -> None:
                 if is_reply:
                     _flush_stdin_input_buffer()
 
+                # NOTE: LLM/Tools 応答開始と stdin_loop が競合すると、BUSY中にも関わらず
+                # プロンプトだけが表示されることがある。描画直前にもう一度 BUSY 状態を確認して
+                # BUSY なら描画せずに待機する。
+                if not is_reply:
+                    with core.status_lock:
+                        if core.status_busy:
+                            time.sleep(0.1)
+                            continue
+
                 # Windows(pyreadline)等で色コードを含むとプロンプトが二重表示される場合があるため、
                 # 色付けを行わずシンプルなプロンプトを使用する。
-                # NOTE(cmd.exe): input(prompt) のプロンプト描画がスクロール後に欠落することがあるため、cmdっぽい環境では自前で描画する。
-                if os.name == "nt" and (os.environ.get("TERM", "").lower() in ("", "dumb")):
-                    sys.stdout.write(prompt)
+                # NOTE: input(prompt) のプロンプト描画が環境によって欠落することがあるため、
+                # 常に「自前で描画 → input()」に統一する。
+                # ステータスの色表示は core 側が stderr に出すため、この変更で色は失われない。
+                try:
+                    sys.stderr.flush()
+                except Exception:
+                    pass
+                try:
                     sys.stdout.flush()
-                    line = input()
-                else:
-                    line = input(prompt)
+                except Exception:
+                    pass
+
+                # NOTE: 画面下部でプロンプトが見えなくなる/他出力に押し流される事があるため、
+                # プロンプトは stderr(tty) を優先して描画する。
+                # さらに core.print_status_line() 等の出力と競合すると押し流されるため、
+                # core.print_lock で直列化する。
+                out = None
+                try:
+                    if getattr(sys.stderr, "isatty", lambda: False)():
+                        out = sys.stderr
+                    else:
+                        out = sys.stdout
+                except Exception:
+                    out = sys.stdout
+
+                try:
+                    sys.stderr.flush()
+                except Exception:
+                    pass
+                try:
+                    sys.stdout.flush()
+                except Exception:
+                    pass
+
+                # 応答直後の出力競合を避けるため、短い安定化待ち
+                time.sleep(0.05)
+
+                try:
+                    lock = getattr(core, "print_lock", None)
+                    if lock is None:
+                        lock = threading.RLock()
+
+                    with lock:
+                        if out:
+                            out.write(prompt)
+                            out.flush()
+                        else:
+                            print(prompt, end="", flush=True)
+                except Exception:
+                    # 最終フォールバック
+                    try:
+                        print(prompt, end="", flush=True)
+                    except Exception:
+                        pass
+
+                line = input()
         except EOFError:
             break
         except KeyboardInterrupt:
