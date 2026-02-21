@@ -1,8 +1,14 @@
+from __future__ import annotations
+
 # tools/human_ask_tool.py
 from typing import Any, Dict
 import json
 import queue
 from .context import get_callbacks
+
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 BUSY_LABEL = False  # human_ask は Busy を解除する（tools/__init__.py 側で特別扱い）
 

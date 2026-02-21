@@ -36,16 +36,16 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:run_tests"
 
 
-t = make_tool_translator(__file__)
+_ = make_tool_translator(__file__)
 
-# Translator usage: t(key, default=...)
+# Translator usage: _(key, default=...)
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "run_tests",
-        "description": t(
+        "description": _(
             "tool.description",
             default="Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
         ),
@@ -56,14 +56,14 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "enum": ["auto", "pytest", "unittest", "npm"],
                     "default": "auto",
-                    "description": t(
+                    "description": _(
                         "param.framework.description", default="Test framework type."
                     ),
                 },
                 "target": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": t(
+                    "description": _(
                         "param.target.description",
                         default="Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
                     ),
@@ -72,7 +72,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": t(
+                    "description": _(
                         "param.extra_args.description",
                         default="Additional arguments (array). Rejected if shell metacharacters are present.",
                     ),
@@ -80,7 +80,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "cwd": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": t(
+                    "description": _(
                         "param.cwd.description",
                         default="Working directory to run in (must be within workdir). If null, current directory.",
                     ),
@@ -88,7 +88,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "pythonpath": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": t(
+                    "description": _(
                         "param.pythonpath.description",
                         default="Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed for the test command.",
                     ),
@@ -97,7 +97,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "enum": ["text", "json"],
                     "default": "json",
-                    "description": t(
+                    "description": _(
                         "param.report.description", default="Output format."
                     ),
                 },
@@ -112,7 +112,7 @@ _META_RE = re.compile(r"(&&|\|\||\||>>|>|<)")
 
 def _reject_if_meta(s: str) -> Optional[str]:
     if _META_RE.search(s or ""):
-        return t(
+        return _(
             "error.shell_metacharacters_not_allowed",
             default="shell metacharacters are not allowed in arguments: {arg}",
         ).format(arg=repr(s))
@@ -202,7 +202,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": t(
+                "error": _(
                     "error.invalid_framework", default="invalid framework: {framework}"
                 ).format(framework=framework),
             },
@@ -213,7 +213,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": t(
+                "error": _(
                     "error.invalid_report", default="invalid report: {report}"
                 ).format(report=report),
             },
@@ -234,7 +234,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": t(
+                    "error": _(
                         "error.dangerous_cwd_rejected",
                         default="dangerous cwd rejected: {cwd}",
                     ).format(cwd=cwd),
@@ -247,7 +247,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": t(
+                    "error": _(
                         "error.cwd_not_allowed", default="cwd not allowed: {error}"
                     ).format(error=e),
                 },
@@ -261,7 +261,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": t(
+                    "error": _(
                         "error.framework_auto_detect_failed",
                         default="framework auto-detect failed",
                     ),
@@ -292,7 +292,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": t(
+                "error": _(
                     "error.unsupported_framework",
                     default="unsupported framework: {framework}",
                 ).format(framework=framework),
