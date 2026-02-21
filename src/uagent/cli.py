@@ -372,8 +372,9 @@ def stdin_loop() -> None:
                     if core.status_busy:
                         time.sleep(0.1)
                         continue
-
-            prompt = getattr(core, "get_prompt", lambda: "User> ")()
+            # Prompt is resolved *only when we are ready to actually read input*.
+            # If we compute it while BUSY and then loop/sleep, it can become stale
+            # (e.g. show a normal prompt while a human_ask is actually active).
 
             if is_password:
                 # When replying to a prompt (human_ask password), flush any pending
@@ -447,6 +448,7 @@ def stdin_loop() -> None:
                         lock = threading.RLock()
 
                     with lock:
+                        prompt = getattr(core, "get_prompt", lambda: "User> ")()
                         if out:
                             out.write(prompt)
                             out.flush()
