@@ -11,6 +11,33 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+
+def _is_probably_utf8_head(head: bytes) -> bool:
+    """Heuristically detect whether bytes are UTF-8 text.
+
+    Notes:
+    - We only read a fixed-size head chunk (e.g. 8192 bytes).
+    - UTF-8 is variable-length, so the chunk can end mid-character.
+      In that case, strict decoding fails with 'unexpected end of data'.
+    - To avoid false negatives, we retry decoding after trimming up to 3 bytes
+      from the end (UTF-8 max sequence length is 4 bytes).
+    """
+
+    b = head or b""
+    for cut in range(0, 4):
+        try:
+            (b if cut == 0 else b[:-cut]).decode("utf-8")
+            return True
+        except UnicodeDecodeError as e:
+            # If the decode fails only because the chunk ended mid-character,
+            # trimming will likely fix it in the next iteration.
+            last = str(e).lower()
+            if "unexpected end of data" in last:
+                continue
+            return False
+    return False
+
+
 # セマンティック検索DB更新用のインポート
 try:
     from .semantic_search_files_tool import sync_file as _sync_file
@@ -121,10 +148,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             with open(filename, "rb") as f:
                 head = f.read(8192)
-                try:
-                    head.decode("utf-8")
+                if _is_probably_utf8_head(head):
                     encoding = "utf-8"
-                except UnicodeDecodeError:
+                else:
                     encoding = cb.cmd_encoding
                     if encoding.lower() == "utf-8":
                         encoding = "cp932"
@@ -157,10 +183,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         # まずはバイナリで一部読み込み、エンコーディングを判定
         with open(filename, "rb") as f:
             head = f.read(8192)
-            try:
-                head.decode("utf-8")
+            if _is_probably_utf8_head(head):
                 encoding = "utf-8"
-            except UnicodeDecodeError:
+            else:
                 # cb.cmd_encoding が 'utf-8' の場合、日本語Windowsなら 'cp932' を試す
                 encoding = cb.cmd_encoding
                 if encoding.lower() == "utf-8":
