@@ -202,7 +202,7 @@ def _duckduckgo_search(
             break
 
     raise RuntimeError(
-        t(
+        _(
             "error.duckduckgo_failed_after_retries",
             default="DuckDuckGo request failed after retries: {error}",
         ).format(error=last_exc)
@@ -222,20 +222,20 @@ def search_web(
 BUSY_LABEL = True
 STATUS_LABEL = "tool:search_web"
 
-t = make_tool_translator(__file__)
+_ = make_tool_translator(__file__)
 
-# Translator usage: t(key, default=...)
+# Translator usage: _(key, default=...)
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "search_web",
-        "description": t(
+        "description": _(
             "tool.description",
             default="Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
         ),
-        "system_prompt": t(
+        "system_prompt": _(
             "tool.system_prompt",
             default="This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
         ),
@@ -244,13 +244,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "query": {
                     "type": "string",
-                    "description": t(
+                    "description": _(
                         "param.query.description", default="Search query string."
                     ),
                 },
                 "max_results": {
                     "type": "integer",
-                    "description": t(
+                    "description": _(
                         "param.max_results.description",
                         default="Maximum number of results to return (default: 5).",
                     ),
@@ -272,7 +272,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         if not isinstance(args, dict):
             return json.dumps(
-                {"error": t("error.args_must_be_dict", default="args must be a dict")},
+                {"error": _("error.args_must_be_dict", default="args must be a dict")},
                 ensure_ascii=False,
             )
 
@@ -280,7 +280,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         if not q:
             return json.dumps(
                 {
-                    "error": t(
+                    "error": _(
                         "error.missing_query_parameter",
                         default="missing 'query' parameter",
                     )
@@ -305,13 +305,13 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     except Exception as e:
         logger.exception(
-            t("error.run_tool_error", default="run_tool error: {error}").format(
+            _("error.run_tool_error", default="run_tool error: {error}").format(
                 error=""
             )
         )
         return json.dumps(
             {
-                "error": t(
+                "error": _(
                     "error.run_tool_error", default="run_tool error: {error}"
                 ).format(error=str(e))
             },
