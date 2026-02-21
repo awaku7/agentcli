@@ -17,8 +17,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "human_ask",
         "x_scheck": {"emit_tool_trace": False},
-        "description": "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",
-        "system_prompt": """このツールは次の目的で使われます: モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。
+        "description": _("tool.description", default="モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。"),
+        "system_prompt": _("tool.system_prompt", default="""このツールは次の目的で使われます: モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。
 
 重要: このツールは 1回の呼び出しで 1つの回答テキストしか受け取れません。入力を複数フィールドに分割したり、フィールドごとにマスク有無を切り替える機能はありません。
 
@@ -39,17 +39,17 @@ TOOL_SPEC: Dict[str, Any] = {
 
 キャンセル方法:
 - キャンセルしたい場合は 1 行で「c」または「cancel」と入力してください。
-""",
+"""),
         "parameters": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string",
-                    "description": "人間に依頼したい内容を、日本語で丁寧にそのまま表示できる形で書く。",
+                    "description": _("param.message.description", default="人間に依頼したい内容を、日本語で丁寧にそのまま表示できる形で書く。"),
                 },
                 "is_password": {
                     "type": "boolean",
-                    "description": "true の場合、入力文字を非表示（マスク）にします。パスワードやトークンの入力に使用してください。",
+                    "description": _("param.is_password.description", default="true の場合、入力文字を非表示（マスク）にします。パスワードやトークンの入力に使用してください。"),
                     "default": False,
                 },
             },
