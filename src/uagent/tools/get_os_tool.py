@@ -1,3 +1,6 @@
+from .i18n_helper import make_tool_translator
+_ = make_tool_translator(__file__)
+
 import platform
 from typing import Dict, Any
 
