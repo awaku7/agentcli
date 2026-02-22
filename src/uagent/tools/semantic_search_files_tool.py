@@ -1,3 +1,6 @@
+from .i18n_helper import make_tool_translator
+_ = make_tool_translator(__file__)
+
 import os
 import json
 import sqlite3
@@ -394,20 +397,20 @@ else:
         "type": "function",
         "function": {
             "name": "semantic_search_files",
-            "description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding APIを使用してファイル内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やファイル更新時はインデックス作成処理が走ります。",
+            "description": _("tool.description", default = "ローカルfileに対して意味検索（ベクトル検索）をperforms。Embedding APIを使用してfile内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やfile更新時はインデックス作成処理が走ります。"),
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "query": {"type": "string", "description": "検索キーワード。"},
+                    "query": {"type": "string", "description": _("param.query.description", default = "検索キーワード。")},
                     "root_path": {
                         "type": "string",
-                        "description": "検索対象ディレクトリ。",
+                        "description": _("param.root_path.description", default = "検索対象directory。"),
                     },
                     "file_pattern": {
                         "type": "string",
-                        "description": "対象拡張子（カンマ区切り）。",
+                        "description": _("param.file_pattern.description", default = "対象拡張子（カンマ区切り）。"),
                     },
-                    "top_k": {"type": "integer", "description": "件数。"},
+                    "top_k": {"type": "integer", "description": _("param.top_k.description", default = "件数。")},
                 },
                 "required": ["query"],
             },

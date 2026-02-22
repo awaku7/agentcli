@@ -1,4 +1,7 @@
 # tools/analyze_image_tool.py
+from .i18n_helper import make_tool_translator
+_ = make_tool_translator(__file__)
+
 import base64
 import mimetypes
 import os

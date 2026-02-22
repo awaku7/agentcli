@@ -1,3 +1,6 @@
+from .i18n_helper import make_tool_translator
+_ = make_tool_translator(__file__)
+
 import pandas as pd
 import json
 import os

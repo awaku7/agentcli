@@ -1,3 +1,6 @@
+from .i18n_helper import make_tool_translator
+_ = make_tool_translator(__file__)
+
 from typing import Dict, Any
 
 # ツールのメタ情報を定義 (tools/__init__.py が読み込む)

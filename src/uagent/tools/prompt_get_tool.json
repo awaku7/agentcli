@@ -1,0 +1,22 @@
+{
+  "en": {
+    "param.domain.description": "ドメイン（例: system_dev）",
+    "param.task.description": "タスク（例: requirements, code_review など）",
+    "param.id.description": "テンプレIDを直接指定する場合（domain/taskより優先）",
+    "param.language.description": "言語（将来拡張用）。現状は ja のみを想定",
+    "param.format.description": "出力形式",
+    "param.strict.description": "true の場合、未指定プレースホルダがあるとエラーにする",
+    "param.include_template.description": "true の場合、template本文も返す（通常は不要）",
+    "param.list_only.description": "true の場合、該当テンプレのメタ情報のみ一覧で返す"
+  },
+  "ja": {
+    "param.domain.description": "ドメイン（例: system_dev）",
+    "param.task.description": "タスク（例: requirements, code_review など）",
+    "param.id.description": "テンプレIDを直接指定する場合（domain/taskより優先）",
+    "param.language.description": "言語（将来拡張用）。現状は ja のみを想定",
+    "param.format.description": "出力形式",
+    "param.strict.description": "true の場合、未指定プレースホルダがあるとエラーにする",
+    "param.include_template.description": "true の場合、template本文も返す（通常は不要）",
+    "param.list_only.description": "true の場合、該当テンプレのメタ情報のみ一覧で返す"
+  }
+}

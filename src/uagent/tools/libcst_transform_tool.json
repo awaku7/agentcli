@@ -1,0 +1,24 @@
+{
+  "en": {
+    "tool.description": "libcst transforms Python code by analyzing (analyze) or transforming (transform).\n- analyze: Extract imports / classes / functions, etc.\n- transform: Apply rule-based bulk transforms (rename_symbol/replace_call/rename_import, etc.)\n\nSafety:\n- Reject paths outside workdir\n- Create .org/.orgN backup before overwrite when changes occur\n",
+    "tool.system_prompt": "libcst-based Python code analyze/transform tool.\n\nBasic input:\n- Specify files/directories in paths (directories are scanned recursively)\n- Narrow targets using include_glob/exclude_globs (default include_glob=**/*.py)\n\nmode=analyze:\n- Extract import / top-level class/function names and return JSON.\n\nmode=transform:\n- Specify an array of rules in operations.\n- If a file is changed, create .org/.orgN backup immediately before overwrite.\n\noperations examples:\n1) rename_symbol: old_name -> new_name (replace Name nodes)\n   {\"op\":\"rename_symbol\",\"old\":\"foo\",\"new\":\"bar\"}\n2) replace_call: old_func(...) -> new_func(...)\n   {\"op\":\"replace_call\",\"old\":\"old_func\",\"new\":\"new_func\"}\n3) rename_import: from X import old -> from X import new (module is optional)\n   {\"op\":\"rename_import\",\"module\":\"pkg.mod\",\"old\":\"Old\",\"new\":\"New\"}\n",
+    "param.mode.description": "Execution mode: analyze=analyze / transform=transform",
+    "param.paths.description": "Array of target files/directories (must be under workdir).",
+    "param.include_glob.description": "Include glob when scanning directories (e.g. **/*.py).",
+    "param.exclude_globs.description": "Array of exclude globs (e.g. **/.venv/**, **/__pycache__/**).",
+    "param.max_files.description": "Maximum number of files to scan (runaway protection).",
+    "param.max_bytes.description": "Maximum file size (bytes).",
+    "param.operations.description": "Transform rules array for mode=transform.\n\nSupported ops:\n- rename_symbol: replace identifier (requires old/new)\n  - include_attributes=true also targets obj.old\n- replace_call: replace function call name (requires old/new)\n  - receiver targets only receiver.old(...)\n  - if receiver is omitted, targets old(...) and *.old(...)\n- rename_import: from X import old -> from X import new (module is optional)\n"
+  },
+  "ja": {
+    "tool.description": "libcst を用いて Python コードを解析(analyze) または変換(transform)します。\n- analyze: import/class/function 等の抽出\n- transform: ルールベースの一括変換（rename_symbol/replace_call/rename_import など）\n\n安全設計:\n- workdir 外のパスは拒否\n- 変更時は上書き直前に .org/.orgN バックアップを作成\n",
+    "tool.system_prompt": "libcst による Python コード解析・変換ツールです。\n\n入力の基本:\n- paths にファイル/ディレクトリを指定（ディレクトリは再帰走査）\n- include_glob/exclude_globs で対象を絞り込み（既定 include_glob=**/*.py）\n\nmode=analyze:\n- import / top-level class/function 名等を抽出し JSON で返します。\n\nmode=transform:\n- operations に変換ルールの配列を指定します。\n- 変更が発生したファイルは上書き直前に .org/.orgN バックアップを作成して即時書き換えます。\n\noperations 例:\n1) rename_symbol: old_name -> new_name（Name ノードを置換）\n  {\"op\":\"rename_symbol\",\"old\":\"foo\",\"new\":\"bar\"}\n2) replace_call: old_func(...) -> new_func(...)\n  {\"op\":\"replace_call\",\"old\":\"old_func\",\"new\":\"new_func\"}\n3) rename_import: from X import old -> from X import new（module 指定は任意）\n  {\"op\":\"rename_import\",\"module\":\"pkg.mod\",\"old\":\"Old\",\"new\":\"New\"}\n",
+    "param.mode.description": "実行モード: analyze=解析 / transform=変換",
+    "param.paths.description": "対象ファイル/ディレクトリの配列（workdir 配下のみ）。",
+    "param.include_glob.description": "ディレクトリ走査時の include glob（例: **/*.py）。",
+    "param.exclude_globs.description": "除外 glob の配列（例: **/.venv/**, **/__pycache__/**）。",
+    "param.max_files.description": "走査する最大ファイル数（暴走防止）。",
+    "param.max_bytes.description": "1ファイルの最大サイズ（bytes）。",
+    "param.operations.description": "mode=transform のときの変換ルール配列。\n\nサポートする op:\n- rename_symbol: old/new を指定して識別子を置換\n  - include_attributes=true で obj.old の old も対象\n- replace_call: old/new を指定して関数呼び出し名を置換\n  - receiver を指定すると receiver.old(...) のみ対象\n  - receiver 未指定だと old(...) と *.old(...) を対象\n- rename_import: from X import old -> from X import new（module 指定は任意）\n"
+  }
+}

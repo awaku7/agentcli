@@ -24,9 +24,15 @@ libcst を用いた Python コードの解析(A) / ルールベース変換(B/D)
 
 from __future__ import annotations
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
+
 import fnmatch
 import json
 import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -47,36 +53,40 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "libcst_transform",
-        "description": (
-            "libcst を用いて Python コードを解析(analyze) または変換(transform)します。\n"
-            "- analyze: import/class/function 等の抽出\n"
-            "- transform: ルールベースの一括変換（rename_symbol/replace_call/rename_import など）\n"
-            "\n"
-            "安全設計:\n"
-            "- workdir 外のパスは拒否\n"
-            "- 変更時は上書き直前に .org/.orgN バックアップを作成\n"
+        "description": _(
+            "tool.description",
+            default="""libcst transforms Python code by analyzing (analyze) or transforming (transform).
+- analyze: Extract imports / classes / functions, etc.
+- transform: Apply rule-based bulk transforms (rename_symbol/replace_call/rename_import, etc.)
+
+Safety:
+- Reject paths outside workdir
+- Create .org/.orgN backup before overwrite when changes occur
+""",
         ),
-        "system_prompt": (
-            "libcst による Python コード解析・変換ツールです。\n"
-            "\n"
-            "入力の基本:\n"
-            "- paths にファイル/ディレクトリを指定（ディレクトリは再帰走査）\n"
-            "- include_glob/exclude_globs で対象を絞り込み（既定 include_glob=**/*.py）\n"
-            "\n"
-            "mode=analyze:\n"
-            "- import / top-level class/function 名等を抽出し JSON で返します。\n"
-            "\n"
-            "mode=transform:\n"
-            "- operations に変換ルールの配列を指定します。\n"
-            "- 変更が発生したファイルは上書き直前に .org/.orgN バックアップを作成して即時書き換えます。\n"
-            "\n"
-            "operations 例:\n"
-            "1) rename_symbol: old_name -> new_name（Name ノードを置換）\n"
-            '  {"op":"rename_symbol","old":"foo","new":"bar"}\n'
-            "2) replace_call: old_func(...) -> new_func(...)\n"
-            '  {"op":"replace_call","old":"old_func","new":"new_func"}\n'
-            "3) rename_import: from X import old -> from X import new（module 指定は任意）\n"
-            '  {"op":"rename_import","module":"pkg.mod","old":"Old","new":"New"}\n'
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="""libcst-based Python code analyze/transform tool.
+
+Basic input:
+- Specify files/directories in paths (directories are scanned recursively)
+- Narrow targets using include_glob/exclude_globs (default include_glob=**/*.py)
+
+mode=analyze:
+- Extract import / top-level class/function names and return JSON.
+
+mode=transform:
+- Specify an array of rules in operations.
+- If a file is changed, create .org/.orgN backup immediately before overwrite.
+
+operations examples:
+1) rename_symbol: old_name -> new_name (replace Name nodes)
+   {"op":"rename_symbol","old":"foo","new":"bar"}
+2) replace_call: old_func(...) -> new_func(...)
+   {"op":"replace_call","old":"old_func","new":"new_func"}
+3) rename_import: from X import old -> from X import new (module is optional)
+   {"op":"rename_import","module":"pkg.mod","old":"Old","new":"New"}
+""",
         ),
         "parameters": {
             "type": "object",
@@ -84,22 +94,22 @@ TOOL_SPEC: Dict[str, Any] = {
                 "mode": {
                     "type": "string",
                     "enum": ["analyze", "transform"],
-                    "description": "実行モード: analyze=解析 / transform=変換",
+                    "description": _("param.mode.description", default="Execution mode: analyze=analyze / transform=transform"),
                 },
                 "paths": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "対象ファイル/ディレクトリの配列（workdir 配下のみ）。",
+                    "description": _("param.paths.description", default="Array of target files/directories (must be under workdir)."),
                 },
                 "include_glob": {
                     "type": "string",
-                    "description": "ディレクトリ走査時の include glob（例: **/*.py）。",
+                    "description": _("param.include_glob.description", default="Include glob when scanning directories (e.g. **/*.py)."),
                     "default": "**/*.py",
                 },
                 "exclude_globs": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "除外 glob の配列（例: **/.venv/**, **/__pycache__/**）。",
+                    "description": _("param.exclude_globs.description", default="Array of exclude globs (e.g. **/.venv/**, **/__pycache__/**)."),
                     "default": [
                         "**/.git/**",
                         "**/.venv/**",
@@ -112,27 +122,29 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "max_files": {
                     "type": "integer",
-                    "description": "走査する最大ファイル数（暴走防止）。",
+                    "description": _("param.max_files.description", default="Maximum number of files to scan (runaway protection)."),
                     "default": 20000,
                 },
                 "max_bytes": {
                     "type": "integer",
-                    "description": "1ファイルの最大サイズ（bytes）。",
+                    "description": _("param.max_bytes.description", default="Maximum file size (bytes)."),
                     "default": 2_000_000,
                 },
                 "operations": {
                     "type": "array",
                     "items": {"type": "object"},
-                    "description": (
-                        "mode=transform のときの変換ルール配列。\n"
-                        "\n"
-                        "サポートする op:\n"
-                        "- rename_symbol: old/new を指定して識別子を置換\n"
-                        "  - include_attributes=true で obj.old の old も対象\n"
-                        "- replace_call: old/new を指定して関数呼び出し名を置換\n"
-                        "  - receiver を指定すると receiver.old(...) のみ対象\n"
-                        "  - receiver 未指定だと old(...) と *.old(...) を対象\n"
-                        "- rename_import: from X import old -> from X import new（module 指定は任意）\n"
+                    "description": _(
+                        "param.operations.description",
+                        default="""Transform rules array for mode=transform.
+
+Supported ops:
+- rename_symbol: replace identifier (requires old/new)
+  - include_attributes=true also targets obj.old
+- replace_call: replace function call name (requires old/new)
+  - receiver targets only receiver.old(...)
+  - if receiver is omitted, targets old(...) and *.old(...)
+- rename_import: from X import old -> from X import new (module is optional)
+""",
                     ),
                     "default": [],
                 },
@@ -395,6 +407,22 @@ class RenameImportTransformer(cst.CSTTransformer):
 def _build_transformers(
     operations: Sequence[Dict[str, Any]],
 ) -> Tuple[List[cst.CSTTransformer], List[str]]:
+    """Build libcst transformers from operations.
+
+    Supported ops:
+    - rename_symbol
+    - replace_call
+    - rename_import
+    - wrap_tool_spec_i18n (uagent-specific):
+      - Insert tool-local translator prelude:
+          from .i18n_helper import make_tool_translator
+          _ = make_tool_translator(__file__)
+      - Wrap TOOL_SPEC strings using _("key", default=...)
+      - Generate/overwrite <tool>_tool.json (en/ja)
+
+    Note: wrap_tool_spec_i18n is intentionally conservative and targets only
+    TOOL_SPEC dictionary literals.
+    """
     transformers: List[cst.CSTTransformer] = []
     errors: List[str] = []
 
@@ -519,7 +547,11 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         return _json_err("operations must be an array")
 
-    transformers, op_errors = _build_transformers(operations_list)
+    # Extract uagent-specific op before building generic transformers
+    wrap_ops = [op for op in operations_list if str(op.get("op") or "").strip() == "wrap_tool_spec_i18n"]
+    generic_ops = [op for op in operations_list if str(op.get("op") or "").strip() != "wrap_tool_spec_i18n"]
+
+    transformers, op_errors = _build_transformers(generic_ops)
 
     changed_files: List[str] = []
     unchanged_files: List[str] = []
@@ -536,6 +568,17 @@ def run_tool(args: Dict[str, Any]) -> str:
                 updated = updated.visit(t)
 
             out = updated.code
+
+            # uagent-specific wrap op (per-file)
+            if wrap_ops:
+                wrap_op = wrap_ops[0]
+                out2, _en_map, _ja_map, _wrap_changed, json_err = _apply_wrap_tool_spec_i18n(
+                    py_path=f, src=out, op=wrap_op
+                )
+                out = out2
+                if json_err:
+                    per_file_errors[f] = f"wrap_tool_spec_i18n json error: {json_err}"
+
             if out == src:
                 unchanged_files.append(f)
                 continue
@@ -559,3 +602,363 @@ def run_tool(args: Dict[str, Any]) -> str:
     }
 
     return _json_ok(result)
+
+
+# ------------------------------
+# uagent-specific: wrap_tool_spec_i18n
+
+
+_JP2EN_REPLACEMENTS = [
+    ("このツールは次の目的で使われます: ", ""),
+    ("このツールは", "This tool"),
+    ("次の目的で使われます", "is used for the following purpose"),
+    ("指定した", "Specified"),
+    ("指定された", "Specified"),
+    ("ファイル", "file"),
+    ("ディレクトリ", "directory"),
+    ("パス", "path"),
+    ("文字列", "string"),
+    ("配列", "array"),
+    ("取得します", "gets"),
+    ("作成します", "creates"),
+    ("削除します", "deletes"),
+    ("変更します", "changes"),
+    ("検索します", "searches"),
+    ("実行します", "runs"),
+    ("返します", "returns"),
+    ("行います", "performs"),
+    ("省略時", "If omitted"),
+    ("既定", "Default"),
+    ("デフォルト", "Default"),
+    ("必須", "Required"),
+]
+
+
+def _jp_to_en_rule_based(text: str) -> str:
+    # External access is not allowed; keep it conservative.
+    s = text
+    for a, b in _JP2EN_REPLACEMENTS:
+        s = s.replace(a, b)
+    return s
+
+
+def _tool_json_path_for_py(py_path: str) -> str:
+    p = Path(py_path)
+    return str(p.with_suffix(".json"))
+
+
+def _validate_tool_json_payload(payload: Any) -> Optional[str]:
+    if not isinstance(payload, dict):
+        return "payload is not an object"
+    en = payload.get("en")
+    ja = payload.get("ja")
+    if not isinstance(en, dict) or not isinstance(ja, dict):
+        return "payload must have 'en' and 'ja' objects"
+    if set(en.keys()) != set(ja.keys()):
+        return "'en' and 'ja' must have the same key set"
+    for k, v in en.items():
+        if not isinstance(k, str) or not isinstance(v, str):
+            return "all 'en' keys/values must be strings"
+    for k, v in ja.items():
+        if not isinstance(k, str) or not isinstance(v, str):
+            return "all 'ja' keys/values must be strings"
+    return None
+
+
+def _safe_write_tool_json_if_missing(
+    json_path: str, *, translations_en: Dict[str, str], translations_ja: Dict[str, str]
+) -> Tuple[bool, Optional[str]]:
+    # Do not modify existing json (existing 6 are kept)
+    if Path(json_path).exists():
+        # Validate existing JSON as "check"
+        try:
+            data = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        except Exception as e:
+            return False, f"existing json invalid: {e!r}"
+        err = _validate_tool_json_payload(data)
+        if err:
+            return False, f"existing json invalid: {err}"
+        return False, None
+
+    payload = {"en": dict(translations_en), "ja": dict(translations_ja)}
+    err = _validate_tool_json_payload(payload)
+    if err:
+        return False, f"generated json invalid: {err}"
+
+    Path(json_path).write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return True, None
+
+
+def _is_string_literal(expr: cst.BaseExpression) -> Optional[str]:
+    # Return python string value if expr is a simple string literal.
+    if isinstance(expr, cst.SimpleString):
+        try:
+            # literal_eval is safest for Python literal
+            import ast
+
+            v = ast.literal_eval(expr.value)
+            if isinstance(v, str):
+                return v
+        except Exception:
+            return None
+    return None
+
+
+def _make_translate_call(key: str, default_text: str) -> cst.Call:
+    return cst.Call(
+        func=cst.Name("_"),
+        args=[
+            cst.Arg(value=cst.SimpleString(json.dumps(key, ensure_ascii=False))),
+            cst.Arg(
+                keyword=cst.Name("default"),
+                value=cst.SimpleString(json.dumps(default_text, ensure_ascii=False)),
+            ),
+        ],
+    )
+
+
+def _dict_get_value(d: cst.Dict, key: str) -> Optional[cst.BaseExpression]:
+    for el in d.elements:
+        if not isinstance(el, cst.DictElement):
+            continue
+        if el.key is None:
+            continue
+        ks = _is_string_literal(el.key)
+        if ks == key:
+            return el.value
+    return None
+
+
+def _dict_set_value(d: cst.Dict, key: str, new_value: cst.BaseExpression) -> cst.Dict:
+    new_elems: List[cst.DictElement] = []
+    replaced = False
+    for el in d.elements:
+        if not isinstance(el, cst.DictElement) or el.key is None:
+            new_elems.append(el)  # type: ignore[arg-type]
+            continue
+        ks = _is_string_literal(el.key)
+        if ks == key:
+            new_elems.append(el.with_changes(value=new_value))
+            replaced = True
+        else:
+            new_elems.append(el)
+    if not replaced:
+        new_elems.append(
+            cst.DictElement(
+                key=cst.SimpleString(json.dumps(key, ensure_ascii=False)),
+                value=new_value,
+            )
+        )
+    return d.with_changes(elements=new_elems)
+
+
+class _ToolSpecWrapState:
+    def __init__(self) -> None:
+        self.translations_en: Dict[str, str] = {}
+        self.translations_ja: Dict[str, str] = {}
+        self.changed: bool = False
+
+
+class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
+    def __init__(self, state: _ToolSpecWrapState) -> None:
+        self.state = state
+
+    def leave_Assign(self, original_node: cst.Assign, updated_node: cst.Assign) -> cst.Assign:
+        # Match: TOOL_SPEC = { ... }
+        if not original_node.targets:
+            return updated_node
+        tgt0 = original_node.targets[0].target
+        if not isinstance(tgt0, cst.Name) or tgt0.value != "TOOL_SPEC":
+            return updated_node
+
+        if not isinstance(updated_node.value, cst.Dict):
+            return updated_node
+
+        tool_spec = updated_node.value
+        func = _dict_get_value(tool_spec, "function")
+        if not isinstance(func, cst.Dict):
+            return updated_node
+
+        # function.description
+        desc_expr = _dict_get_value(func, "description")
+        if isinstance(desc_expr, cst.Call) and isinstance(desc_expr.func, cst.Name) and desc_expr.func.value == "_":
+            pass
+        else:
+            ja = _is_string_literal(desc_expr) if isinstance(desc_expr, cst.BaseExpression) else None
+            if ja is not None:
+                en = _jp_to_en_rule_based(ja)
+                self.state.translations_en["tool.description"] = en
+                self.state.translations_ja["tool.description"] = ja
+                func = _dict_set_value(func, "description", _make_translate_call("tool.description", en))
+                self.state.changed = True
+
+        # function.system_prompt (optional)
+        sp_expr = _dict_get_value(func, "system_prompt")
+        if sp_expr is not None:
+            if isinstance(sp_expr, cst.Call) and isinstance(sp_expr.func, cst.Name) and sp_expr.func.value == "_":
+                pass
+            else:
+                ja = _is_string_literal(sp_expr) if isinstance(sp_expr, cst.BaseExpression) else None
+                if ja is not None:
+                    en = _jp_to_en_rule_based(ja)
+                    self.state.translations_en["tool.system_prompt"] = en
+                    self.state.translations_ja["tool.system_prompt"] = ja
+                    func = _dict_set_value(func, "system_prompt", _make_translate_call("tool.system_prompt", en))
+                    self.state.changed = True
+
+        # parameters.properties.*.description
+        params = _dict_get_value(func, "parameters")
+        if isinstance(params, cst.Dict):
+            props = _dict_get_value(params, "properties")
+            if isinstance(props, cst.Dict):
+                new_prop_elems: List[cst.DictElement] = []
+                for el in props.elements:
+                    if not isinstance(el, cst.DictElement) or el.key is None:
+                        new_prop_elems.append(el)  # type: ignore[arg-type]
+                        continue
+                    pname = _is_string_literal(el.key)
+                    if not pname or not isinstance(el.value, cst.Dict):
+                        new_prop_elems.append(el)
+                        continue
+                    pdef = el.value
+                    pdesc = _dict_get_value(pdef, "description")
+                    if pdesc is None:
+                        new_prop_elems.append(el)
+                        continue
+                    if isinstance(pdesc, cst.Call) and isinstance(pdesc.func, cst.Name) and pdesc.func.value == "_":
+                        new_prop_elems.append(el)
+                        continue
+                    ja = _is_string_literal(pdesc) if isinstance(pdesc, cst.BaseExpression) else None
+                    if ja is None:
+                        new_prop_elems.append(el)
+                        continue
+                    en = _jp_to_en_rule_based(ja)
+                    key = f"param.{pname}.description"
+                    self.state.translations_en[key] = en
+                    self.state.translations_ja[key] = ja
+                    pdef2 = _dict_set_value(pdef, "description", _make_translate_call(key, en))
+                    new_prop_elems.append(el.with_changes(value=pdef2))
+                    self.state.changed = True
+
+                props2 = props.with_changes(elements=new_prop_elems)
+                params2 = _dict_set_value(params, "properties", props2)
+                func = _dict_set_value(func, "parameters", params2)
+
+        tool_spec2 = _dict_set_value(tool_spec, "function", func)
+        return updated_node.with_changes(value=tool_spec2)
+
+
+def _module_has_import_make_tool_translator(mod: cst.Module) -> bool:
+    for stmt in mod.body:
+        if isinstance(stmt, cst.SimpleStatementLine):
+            for small in stmt.body:
+                if isinstance(small, cst.ImportFrom):
+                    try:
+                        mod_name = cst.Module([]).code_for_node(small.module).strip() if small.module else None  # type: ignore[arg-type]
+                    except Exception:
+                        mod_name = None
+                    if mod_name == ".i18n_helper":
+                        for nm in small.names:
+                            if (
+                                isinstance(nm, cst.ImportAlias)
+                                and isinstance(nm.name, cst.Name)
+                                and nm.name.value == "make_tool_translator"
+                            ):
+                                return True
+    return False
+
+
+def _module_has_assign_translator(mod: cst.Module) -> bool:
+    # Look for: _ = make_tool_translator(__file__)
+    for stmt in mod.body:
+        if not isinstance(stmt, cst.SimpleStatementLine):
+            continue
+        for small in stmt.body:
+            if not isinstance(small, cst.Assign):
+                continue
+            if not small.targets:
+                continue
+            t0 = small.targets[0].target
+            if not isinstance(t0, cst.Name) or t0.value != "_":
+                continue
+            if (
+                isinstance(small.value, cst.Call)
+                and isinstance(small.value.func, cst.Name)
+                and small.value.func.value == "make_tool_translator"
+            ):
+                return True
+    return False
+
+
+def _insert_translator_prelude(mod: cst.Module) -> Tuple[cst.Module, bool]:
+    need_import = not _module_has_import_make_tool_translator(mod)
+    need_assign = not _module_has_assign_translator(mod)
+    if not need_import and not need_assign:
+        return mod, False
+
+    import_stmt = cst.parse_statement("from .i18n_helper import make_tool_translator\n")
+    assign_stmt = cst.parse_statement("_ = make_tool_translator(__file__)\n")
+    empty_stmt = cst.EmptyLine()
+
+    # Insert after future import if exists, else at top
+    new_body: List[cst.BaseStatement] = []
+    inserted = False
+    for stmt in mod.body:
+        new_body.append(stmt)
+        if not inserted and isinstance(stmt, cst.SimpleStatementLine) and stmt.body:
+            try:
+                code = cst.Module([]).code_for_node(stmt).strip()
+            except Exception:
+                code = ""
+            if "from __future__ import annotations" in code:
+                if need_import:
+                    new_body.append(import_stmt)
+                if need_assign:
+                    new_body.append(assign_stmt)
+                new_body.append(empty_stmt)
+                inserted = True
+
+    if inserted:
+        return mod.with_changes(body=new_body), True
+
+    # no future import
+    head: List[cst.BaseStatement] = []
+    if need_import:
+        head.append(import_stmt)
+    if need_assign:
+        head.append(assign_stmt)
+    head.append(empty_stmt)
+    head.extend(mod.body)
+    return mod.with_changes(body=head), True
+
+
+def _apply_wrap_tool_spec_i18n(
+    *, py_path: str, src: str, op: Dict[str, Any]
+) -> Tuple[str, Dict[str, str], Dict[str, str], bool, Optional[str]]:
+    # Return: (new_src, en, ja, changed, json_error)
+    try:
+        mod = cst.parse_module(src)
+        mod2, prelude_changed = _insert_translator_prelude(mod)
+
+        state = _ToolSpecWrapState()
+        mod3 = mod2.visit(_WrapToolSpecI18nTransformer(state))
+
+        changed = prelude_changed or state.changed
+        out = mod3.code
+
+        generate_json = bool(op.get("generate_json", True))
+        json_err: Optional[str] = None
+        if generate_json:
+            json_path = _tool_json_path_for_py(py_path)
+            _created, json_err = _safe_write_tool_json_if_missing(
+                json_path,
+                translations_en=state.translations_en,
+                translations_ja=state.translations_ja,
+            )
+
+        return out, state.translations_en, state.translations_ja, changed, json_err
+    except Exception as e:
+        return src, {}, {}, False, repr(e)
