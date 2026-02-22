@@ -1,0 +1,16 @@
+{
+  "en": {
+    "tool.description": "ローカルfileに対して意味検索（ベクトル検索）をperforms。Embedding APIを使用してfile内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やfile更新時はインデックス作成処理が走ります。",
+    "param.query.description": "検索キーワード。",
+    "param.root_path.description": "検索対象directory。",
+    "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
+    "param.top_k.description": "件数。"
+  },
+  "ja": {
+    "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding APIを使用してファイル内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やファイル更新時はインデックス作成処理が走ります。",
+    "param.query.description": "検索キーワード。",
+    "param.root_path.description": "検索対象ディレクトリ。",
+    "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
+    "param.top_k.description": "件数。"
+  }
+}
