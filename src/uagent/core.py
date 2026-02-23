@@ -11,7 +11,7 @@ import threading
 from typing import Any, Dict, List, Optional, Set
 
 # ==============================
-# 設定
+# Configuration
 # ==============================
 
 from uagent.utils.paths import get_log_dir
@@ -23,22 +23,22 @@ READ_FILE_MAX_BYTES = 20_000_000
 URL_FETCH_TIMEOUT_MS = 50_000_000
 URL_FETCH_MAX_BYTES = 50_000_000
 
-# Windows では cp932、それ以外では UTF-8
+# On Windows default is often cp932; otherwise use UTF-8.
 CMD_ENCODING = os.environ.get("UAGENT_CMD_ENCODING") or "utf-8"
 
-# Windows コンソールでエスケープシーケンスを有効化（可能なら）
+# Enable escape sequences on Windows console if possible.
 if os.name == "nt":
     try:
         os.system("")
     except Exception:
         pass
 
-# --- 文字化け対策: 標準出力/標準エラーの UTF-8 化（可能な範囲で） ---
+# --- Encoding workaround: prefer UTF-8 for stdout/stderr when possible ---
 #
-# tools のロードログや SYSTEM_PROMPT 等の日本語が cp932 コンソールで化けることがあるため、
-# 可能なら stdout/stderr を UTF-8 に寄せる。
-# - Python 3.7+ の TextIOWrapper.reconfigure を優先
-# - 失敗しても無視（環境依存）
+# Japanese text (e.g. tool load logs, SYSTEM_PROMPT) may get garbled on cp932 consoles.
+# Try to force stdout/stderr to UTF-8 when possible.
+# - Prefer TextIOWrapper.reconfigure (Python 3.7+)
+# - Ignore failures (environment-dependent)
 try:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -48,7 +48,7 @@ except Exception:
     pass
 
 
-# セッションIDとログ・メモリファイルパス
+# Session ID and log/memory file paths
 SESSION_ID = time.strftime("%Y%m%d_%H%M%S")
 
 BASE_LOG_DIR = os.path.abspath(os.environ.get("UAGENT_LOG_DIR") or str(get_log_dir()))
@@ -56,16 +56,16 @@ LOG_FILE = os.environ.get("UAGENT_LOG_FILE") or os.path.join(
     BASE_LOG_DIR, f"scheck_log_{SESSION_ID}.jsonl"
 )
 
-# ログのトピック推定を行うかどうか（0なら無効）
+# Whether to guess log topics (disabled if set to 0)
 ENABLE_LOG_TOPIC_GUESS = os.environ.get("UAGENT_LOG_TOPICS", "1") != "0"
 
-# イベントキュー（通常入力・タイマー入力をひとまとめ）
+# Event queue (normal input and timer input share this queue)
 event_queue: "queue.Queue[Dict[str, Any]]" = queue.Queue()
 
-# GUIモードかどうか（環境変数または gui.py 側で設定される）
+# GUI mode flag (set by env var or gui.py)
 IS_GUI = os.environ.get("UAGENT_GUI_MODE") == "1"
 
-# human_ask 用の状態（stdin_loop と human_ask ツールで共有）
+# State for human_ask (shared between stdin_loop and the human_ask tool)
 human_ask_lock = threading.RLock()
 human_ask_active = False
 human_ask_queue = None  # type: ignore[assignment]
@@ -73,15 +73,15 @@ human_ask_lines: List[str] = []
 human_ask_is_password = False
 human_ask_multiline_active = False
 
-# 通常ユーザー入力・human_ask の複数行モードの終端トークン
+# Sentinel token for multiline input (both normal input and human_ask multiline mode)
 MULTI_INPUT_SENTINEL = '"""end'
 
-# プロンプト用ステータス
+# Prompt/status
 status_lock = threading.RLock()
-# 出力競合（stdinプロンプトとstatus/ログ出力の押し流し）を減らすための共有ロック
+# Shared lock to reduce output races (stdin prompt vs status/log output).
 print_lock = threading.RLock()
-status_busy = False  # LLM やツールが処理中なら True
-status_label = ""  # "LLM" や "tool:cmd_exec" など
+status_busy = False  # True while LLM/tools are processing
+status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 
 
 def print_status_line() -> None:
@@ -851,13 +851,11 @@ def compress_history_with_llm(
     convo_text = "\\n\\n".join(lines)
 
     # --- 要約用の別コンテキスト ---
-    summary_system_prompt = (
-        "あなたは対話ログの要約エージェントです。以下のユーザーとアシスタントの過去の対話ログを、"
-        "後続の対話に必要な情報を失わない範囲でコンパクトに日本語で要約してください。\n"
-        "・重要な前提条件、設定、方針、決定事項は残す\n"
-        "・コードのバージョンやファイルパスなど、後から参照しそうなものは必要に応じて残す\n"
-        "・挨拶や雑談など、今後のタスクに不要な部分は省略する\n"
-        "・出力は「このセッションの過去ログ要約」として、そのまま system メッセージに入れられる形にする\n"
+    summary_system_prompt = _(
+        """- Summarize the conversation log so far in English.
+- Keep the summary concise but include key decisions, constraints, and pending items.
+- Output should be directly usable as a system message titled 'Summary of the conversation so far'.
+"""
     )
 
     summary_messages = [
@@ -888,7 +886,9 @@ def compress_history_with_llm(
             )
     except Exception as e:
         print(
-            f"[WARN] 履歴圧縮用 LLM 呼び出しでエラーが発生しました: {e!r}",
+            "[WARN] "
+            + _("Error while calling LLM for history compression: %(err)r")
+            % {"err": e},
             file=sys.stderr,
         )
         return messages
@@ -905,15 +905,17 @@ def compress_history_with_llm(
         summary_content = resp.choices[0].message.content or ""
     summary_msg = {
         "role": "system",
-        "content": "これまでの対話ログの要約:\n" + summary_content,
+        "content": _("Summary of the conversation so far:\n") + summary_content,
     }
 
     # 新しい messages を構成
     new_messages = system_msgs + [summary_msg] + tail_part
 
     print(
-        f"[INFO] LLM で会話履歴を要約しました: "
-        f"old_part={len(old_part)} 件 → 要約 1 件 + tail_part={len(tail_part)} 件",
+        _(
+            "[INFO] Conversation history was summarized by the LLM: "
+            "old_part={old_n} -> 1 summary + tail_part={tail_n}"
+        ).format(old_n=len(old_part), tail_n=len(tail_part)),
         file=sys.stderr,
     )
 
@@ -924,30 +926,43 @@ def compress_history_with_llm(
 
 
 def print_help() -> None:
-    """
-    :help コマンドの内容
-    """
+    """Print help for the :help command."""
     lines = [
-        "利用可能なコマンド:",
-        "  :help                 このヘルプを表示",
-        '  (複数行入力中) """retry  入力を最初からやり直す',
-        "  :logs / :list         ログファイル一覧を表示",
-        "  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd C:\\path / :cd /）",
-        "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）",
-        "  :load <idx|path>      過去ログを読み込み（会話履歴を上書き）",
-        "                       ※実行後に確認が出て、y を選ぶと現在セッションのログファイル先頭へロード元ログ内容を挿入します（バックアップ無しで上書き）",
-        "  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた user/assistant/tool が N 件以下のログファイルを削除, 既定=10）",
-        "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）",
-        "  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, 既定=20）",
-        "  :mem-list             長期記憶メモの一覧を表示",
-        "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）",
-        "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）",
-        "  :shared-mem-del <i>   指定 index の共有長期記憶メモを削除",
-        "  :exit / :quit         終了",
+        _("Available commands:"),
+        _("  :help                 Show this help"),
+        _("  (in multiline input) \"\"\"retry  Restart input from the beginning"),
+        _("  :logs / :list         Show log file list"),
+        _(
+            "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+        ),
+        _(
+            "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+        ),
+        _("  :load <idx|path>      Load a past log (overwrites current conversation history)"),
+        _(
+            "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
+        ),
+        _(
+            "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
+        ),
+        _(
+            "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
+        ),
+        _(
+            "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
+        ),
+        _("  :mem-list             List long-term memory notes"),
+        _("  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"),
+        _(
+            "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+        ),
+        _("  :shared-mem-del <i>   Delete a shared long-term memory note by index"),
+        _("  :exit / :quit         Exit"),
         "",
-        "ヒント:",
-        "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。",
-        f"  - 複数行入力モードの終了は行全体が {MULTI_INPUT_SENTINEL} の行です。",
+        _("Hints:"),
+        _("  - Enter a line that is just 'f' to enter multiline input mode."),
+        _("  - To end multiline input mode, enter a line that is exactly %(sentinel)s.")
+        % {"sentinel": MULTI_INPUT_SENTINEL},
     ]
     print("\n".join(lines))
 
@@ -955,38 +970,43 @@ def print_help() -> None:
 # ==============================
 # SYSTEM_PROMPT
 # ==============================
-SYSTEM_PROMPT = """
-## 命題
-- あなたはローカル環境で動作する有能な「万能ツール実行エージェント」で、ユーザーマシン上で実際にコマンド実行やファイル操作ができます。
-- 危険な操作はユーザーに確認を取ってから行う事。
-- ご機嫌とりは行わない事。絵文字は出さない事。
-- あなたは詳細な情報を提供するアシスタントであり、決して要約をしてはいけません。
-- ファイルを作成する際はdiffや要約の結果を使わず完全な形で出力するようにしてください。
+SYSTEM_PROMPT_MSGID = """
+## Mission
+- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.
+- Ask the user for confirmation before performing any dangerous operation.
+- Do not flatter the user. Do not use emojis.
+- Do not summarize. Keep information concise.
+- When creating files, output the complete final content (do not output diffs or partial summaries).
 
-## 守るべき事
-- 必ず用意されたツールを利用し最新の情報を精査してください。
-- 発想を最大限に発現させる事。ただし不確かな情報は出さないようにしてください。
-- ツールを参照し、最適なツールを選択してください。
+## Rules
+- Always use the provided tools and verify the latest information.
+- Be creative, but do not output uncertain information.
+- Consult available tools and choose the most appropriate one.
+- When executing tools, delegate as little decision-making as possible to the user.
 
-## 補足
-- すべてのユーザー発話はこのスクリプトの標準入力経由で行われます。
-- ツール固有の用途・引数・制約・運用上の詳細は、./tools 以下の各ツールの system_prompt で提供されます。ツール利用に関する追加のルールは各ツール側の説明を優先してください。
-- ユーザーへの追加情報や確認を期待する場合は human_ask ツールを利用してください。
-- 相対的な日付表現を扱う際は get_current_time ツールを1回呼び出して現在時刻を参照してください。
-- 長期記憶（add_long_memory など）にはパスワードやトークン等の秘匿情報を保存しないでください。
-- Pythonファイルを作成した場合は python -m py_compile を利用して構文チェックしてください。
-- 専門家としての知識が必要な場合はprompt_get ツールを参照し、それを利用してください。
-- 未知のプロジェクトや大規模なディレクトリを扱う際は、まず `index_files` で全体をインデックスし、`semantic_search_files` を併用してコードの全体像を把握してください。
-- 天気関係はhttps://wttr.inを採用してください。
+## Notes
+- All user messages come via this script's standard input.
+- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
+- If you need additional information or confirmation from the user, use the human_ask tool.
+- When handling relative date expressions, call get_current_time to reference the current time.
+- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
+- If you create Python files, run `python -m py_compile` to validate syntax.
+- If expert-level knowledge is required, use prompt_get and follow it.
 """
+
+# System prompt used by the agent. This is translated via gettext; if translations are missing,
+# the msgid (English) is used as-is.
+SYSTEM_PROMPT = _(SYSTEM_PROMPT_MSGID)
+
 
 
 def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
     lines: List[str] = []
-    lines.append("【利用可能なツール一覧】")
+    lines.append(_("[Available Tools]"))
     lines.append(
-        "以下は、このセッションで現在ロードされているツールです。"
-        "タスクに応じて適切なツールを選んでください。"
+        _(
+            "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."
+        )
     )
     for spec in tool_specs:
         func = spec.get("function", {})
