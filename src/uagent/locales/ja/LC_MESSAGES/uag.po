@@ -16,6 +16,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/uagent/core.py
+msgid """
+## Mission
+- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.
+- Ask the user for confirmation before performing any dangerous operation.
+- Do not flatter the user. Do not use emojis.
+- Do not summarize. Keep information concise.
+- When creating files, output the complete final content (do not output diffs or partial summaries).
+
+## Rules
+- Always use the provided tools and verify the latest information.
+- Be creative, but do not output uncertain information.
+- Consult available tools and choose the most appropriate one.
+- When executing tools, delegate as little decision-making as possible to the user.
+
+## Notes
+- All user messages come via this script's standard input.
+- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
+- If you need additional information or confirmation from the user, use the human_ask tool.
+- When handling relative date expressions, call get_current_time to reference the current time.
+- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
+- If you create Python files, run `python -m py_compile` to validate syntax.
+- If expert-level knowledge is required, use prompt_get and follow it.
+"""
+msgstr """
+## 命題
+- あなたはローカル環境で動作する有能な「万能ツール実行エージェント」で、ユーザーマシン上で実際にコマンド実行やファイル操作ができます。
+- 危険な操作はユーザーに確認を取ってから行う事。
+- ご機嫌とりは行わない事。絵文字は出さない事。
+- あなたは、決して要約をしてはいけませんが、情報は簡潔に提示する事。
+- ファイルを作成する際はdiffや要約の結果を使わず完全な形で出力するようにしてください。
+
+## 守るべき事
+- 必ず用意されたツールを利用し最新の情報を精査してください。
+- 発想を最大限に発現させる事。ただし不確かな情報は出さないようにしてください。
+- ツールを参照し、最適なツールを選択してください。
+- ツールを実行する際、ユーザーに可能な限り判断を委ねない事。
+
+## 補足
+- すべてのユーザー発話はこのスクリプトの標準入力経由で行われます。
+- ツール固有の用途・引数・制約・運用上の詳細は各ツール側の説明を優先してください。
+- ユーザーへの追加情報や確認を期待する場合は human_ask ツールを利用してください。
+- 相対的な日付表現を扱う際は get_current_time ツールを呼び出し現在時刻を参照してください。
+- 長期記憶（add_long_memory など）にはパスワードやトークン等の秘匿情報を保存しないでください。
+- Pythonファイルを作成した場合は python -m py_compile を利用して構文チェックしてください。
+- 専門家としての知識が必要な場合はprompt_get ツールを参照し、それを利用してください。
+"""
+
 #: src/uagent/checks.py
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Gitがインストールされていません。"
@@ -55,6 +103,62 @@ msgstr "[FATAL] google-genai パッケージがインストールされていま
 #: src/uagent/util_providers.py
 msgid "[FATAL] anthropic package is not installed."
 msgstr "[FATAL] anthropic パッケージがインストールされていません"
+
+#: src/uagent/web.py
+msgid "Another task is already running in this room. Please retry after it completes."
+msgstr "このルームでは別の処理が実行中です。完了してから再送してください。"
+
+#: src/uagent/web.py
+msgid "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
+msgstr "環境変数 UAGENT_PROVIDER が設定されていません。\nWebサーバ起動時の環境変数を確認してください。"
+
+#: src/uagent/gui.py
+msgid "LLM provider = %(provider)s"
+msgstr "LLM provider = %(provider)s"
+
+#: src/uagent/cli.py src/uagent/gui.py src/uagent/web.py
+msgid "model(deployment) = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
+
+#: src/uagent/cli.py src/uagent/gui.py
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter fallback models enabled"
+
+#: src/uagent/gui.py
+msgid "Enter password..."
+msgstr "パスワードを入力..."
+
+#: src/uagent/gui.py
+msgid "Enter response for human_ask..."
+msgstr "human_ask への回答を入力..."
+
+#: src/uagent/gui.py
+msgid "Enter a message..."
+msgstr "メッセージを入力..."
+
+#: src/uagent/uagent_llm.py
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429 Retry limit (%(max_retries)s) reached."
+
+#: src/uagent/uagent_llm.py
+msgid "Connection error"
+msgstr "接続エラー"
+
+#: src/uagent/uagent_llm.py
+msgid "Unexpected exception."
+msgstr "予期しない例外"
+
+#: src/uagent/uagent_llm.py
+msgid "Error while parsing response: %(err)s"
+msgstr "レスポンス解析中にエラー: %(err)s"
+
+#: src/uagent/util_tools.py
+msgid "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the current directory."
+msgstr "動作ディレクトリを指定します。指定しない場合は UAGENT_WORKDIR 環境変数、またはカレントディレクトリを使用します。"
+
+#: src/uagent/util_tools.py
+msgid "Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
+msgstr "非対話モード。標準入力ループを起動せず、起動時ファイルを処理したら終了します。"
 
 
 msgid "No log files found."
@@ -250,6 +354,83 @@ msgstr "[活用例]
 - 「このPDFを読んで、重要なポイントを3つ箇条書きで教えて」
 - 「最新のニュースを検索して、特定のトピックについて要約して」
 "
+
+#: src/uagent/core.py
+msgid "Available commands:"
+msgstr "利用可能なコマンド:"
+
+#: src/uagent/core.py
+msgid "  :help                 Show this help"
+msgstr "  :help                 このヘルプを表示"
+
+#: src/uagent/core.py
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (複数行入力中) \"\"\"retry  入力を最初からやり直す"
+
+#: src/uagent/core.py
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         ログファイル一覧を表示"
+
+#: src/uagent/core.py
+msgid "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+msgstr "  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd C:\\path / :cd /）"
+
+#: src/uagent/core.py
+msgid "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）"
+
+#: src/uagent/core.py
+msgid "  :load <idx|path>      Load a past log (overwrites current conversation history)"
+msgstr "  :load <idx|path>      過去ログを読み込み（会話履歴を上書き）"
+
+#: src/uagent/core.py
+msgid "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
+msgstr "                       ※実行後に確認が出て、y を選ぶと現在セッションのログファイル先頭へロード元ログ内容を挿入します（バックアップ無しで上書き）"
+
+#: src/uagent/core.py
+msgid "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr "  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた user/assistant/tool が N 件以下のログファイルを削除, 既定=10）"
+
+#: src/uagent/core.py
+msgid "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）"
+
+#: src/uagent/core.py
+msgid "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
+msgstr "  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, 既定=20）"
+
+#: src/uagent/core.py
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             長期記憶メモの一覧を表示"
+
+#: src/uagent/core.py
+msgid "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
+msgstr "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）"
+
+#: src/uagent/core.py
+msgid "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）"
+
+#: src/uagent/core.py
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr "  :shared-mem-del <i>   指定 index の共有長期記憶メモを削除"
+
+#: src/uagent/core.py
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         終了"
+
+#: src/uagent/core.py
+msgid "Hints:"
+msgstr "ヒント:"
+
+#: src/uagent/core.py
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。"
+
+#: src/uagent/core.py
+msgid "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "  - 複数行入力モードの終了は行全体が %(sentinel)s の行です。"
+
 
 
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
