@@ -463,7 +463,11 @@ def stdin_loop() -> None:
                     except Exception:
                         pass
 
-                line = input()
+                # Read input without using input(), to avoid stdout/stderr prompt interleaving issues
+                # (input() may implicitly write to stdout depending on environment).
+                line = sys.stdin.readline()
+                if line == "":
+                    raise EOFError
         except EOFError:
             break
         except KeyboardInterrupt:
