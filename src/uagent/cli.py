@@ -6,6 +6,8 @@ import os
 import sys
 
 from .i18n import _
+
+
 import threading
 import time
 import atexit
@@ -281,7 +283,7 @@ def _flush_stdin_input_buffer() -> None:
 
         fd = sys.stdin.fileno()
         while True:
-            r, _, _ = select.select([fd], [], [], 0)
+            r, _w, _x = select.select([fd], [], [], 0)
             if not r:
                 break
             try:
@@ -527,7 +529,7 @@ def stdin_loop() -> None:
                     # human_ask_tool 側が finally で human_ask_active を False に戻す前に
                     # 次の input() に入ると、余計に [REPLY] > が表示されることがある。
                     # 短時間だけ完了を待ってからプロンプトへ戻す。
-                    for _ in range(50):  # up to ~0.5s
+                    for _i in range(50):  # up to ~0.5s
                         with core.human_ask_lock:
                             if not core.human_ask_active:
                                 break
