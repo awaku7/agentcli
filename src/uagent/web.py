@@ -286,7 +286,7 @@ class WebStdout:
                 clean_line = ANSI_ESCAPE.sub("", line)
 
                 # Suppress CLI-only multiline input mode guidance in Web UI
-                if "複数行" in clean_line:
+                if "multiline" in (clean_line or "").lower():
                     continue
 
                 room = getattr(_thread_ctx, "room", None)
@@ -303,7 +303,7 @@ class WebStdout:
                 try:
                     filtered_lines: List[str] = []
                     for ln in clean_line.splitlines():
-                        if "複数行" in ln:
+                        if "multiline" in (ln or "").lower():
                             continue
                         filtered_lines.append(ln)
                     clean_line = "\n".join(filtered_lines)
@@ -335,7 +335,7 @@ class WebStderr(WebStdout):
             while "\n" in self.buffer:
                 line, self.buffer = self.buffer.split("\n", 1)
                 clean_line = ANSI_ESCAPE.sub("", line)
-                if "複数行" in clean_line:
+                if "multiline" in (clean_line or "").lower():
                     continue
 
                 room = getattr(_thread_ctx, "room", None)
@@ -370,7 +370,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
         room.add_message(
             {
                 "role": "assistant",
-                "content": "[WARN] このルームでは別の処理が実行中です。完了してから再送してください。",
+                "content": "[WARN] " + _("Another task is already running in this room. Please retry after it completes."),
             }
         )
         return
@@ -446,14 +446,17 @@ def run_agent_worker(room: WebRoom, user_input: str):
             room.add_message(
                 {
                     "role": "assistant",
-                    "content": "[FATAL] 環境変数 UAGENT_PROVIDER が設定されていません。\nWebサーバ起動時の環境変数を確認してください。",
+                    "content": "[FATAL] "
+                    + _(
+                        "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
+                    ),
                 }
             )
             return
 
         provider_name, client, depname = providers.make_client(core)
 
-        print(f"[INFO] model(deployment) = {depname}")
+        print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
 
         user_msg = {"role": "user", "content": user_input}
         core.log_message(user_msg)
@@ -518,7 +521,9 @@ def run_agent_worker(room: WebRoom, user_input: str):
             isinstance(e, SystemExit)
             and not (os.environ.get("UAGENT_PROVIDER") or "").strip()
         ):
-            msg = "[FATAL] 環境変数 UAGENT_PROVIDER が設定されていません。\nWebサーバ起動時の環境変数を確認してください。"
+            msg = "[FATAL] " + _(
+                "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
+            )
         if tb and tb != "NoneType: None\n":
             msg = msg + "\n\n" + tb
 

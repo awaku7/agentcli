@@ -163,8 +163,8 @@ class ScheckWorker(QtCore.QObject):
 
             # Provider/client/model は util_make_client 側で一貫して決める。
             self._provider, self._client, self._depname = util_make_client(core)
-            print(f"[INFO] LLM provider = {self._provider}")
-            print(f"[INFO] model(deployment) = {self._depname}")
+            print("[INFO] " + _("LLM provider = %(provider)s") % {"provider": self._provider})
+            print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": self._depname})
             if (
                 self._provider == "openrouter"
                 and (self._depname or "").strip() == "openrouter/auto"
@@ -173,7 +173,7 @@ class ScheckWorker(QtCore.QObject):
                     os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
                 ).strip()
                 if raw_fb:
-                    print("[INFO] open router fallback models enabled")
+                    print("[INFO] " + _("OpenRouter fallback models enabled."))
             # NOTE(Mode A): base_url/api_version and Responses/ChatCompletions mode
             # are already shown by runtime_init.build_startup_banner() in gui.main().
 
@@ -379,7 +379,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
-        self.setWindowTitle("uag GUI (Extreme Stability)")
+        self.setWindowTitle(_("uag GUI (Extreme Stability)"))
         self.resize(1100, 850)
         self._attached_images = []
         self._history = []
@@ -425,7 +425,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._pw_input.returnPressed.connect(self._on_send)
         input_row.addWidget(self._pw_input, 1)
 
-        self._btn = QtWidgets.QPushButton("Send")
+        self._btn = QtWidgets.QPushButton(_("Send"))
         self._btn.setFixedWidth(80)
         self._btn.clicked.connect(self._on_send)
         input_row.addWidget(self._btn)
@@ -494,7 +494,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     if s.startswith("[STATE]"):
                         continue
                     # Suppress CLI-only multiline guidance in GUI
-                    if "複数行" in line:
+                    if "multiline" in (line or "").lower():
                         continue
                     display_lines.append(line)
                 display_text = "".join(display_lines)
@@ -521,14 +521,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
             if active:
                 msg = (
-                    "パスワードを入力..."
-                    if is_password
-                    else "human_ask への回答を入力..."
+                    _("Enter password...") if is_password else _("Enter response for human_ask...")
                 )
                 self._input.setPlaceholderText(msg)
                 self._pw_input.setPlaceholderText(msg)
             else:
-                self._input.setPlaceholderText("メッセージを入力...")
+                self._input.setPlaceholderText(_("Enter a message..."))
 
             # workdir display update (follow os.chdir())
             try:

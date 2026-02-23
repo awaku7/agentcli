@@ -124,7 +124,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_GEMINI_API_KEY")
         if genai is None:
             print(
-                "[FATAL] google-genai パッケージがインストールされていません",
+                "[FATAL] " + _("google-genai package is not installed."),
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -135,7 +135,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_CLAUDE_API_KEY")
         if Anthropic is None:
             print(
-                "[FATAL] anthropic パッケージがインストールされていません",
+                "[FATAL] " + _("anthropic package is not installed."),
                 file=sys.stderr,
             )
             sys.exit(1)

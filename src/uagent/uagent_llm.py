@@ -163,7 +163,9 @@ def run_llm_rounds(
                             attempt_429 += 1
                             if attempt_429 > max_retries_429:
                                 print(
-                                    f"[Gemini エラー] 429 Retry limit ({max_retries_429}) reached."
+                                    "[Gemini Error] "
+                                    + _("429 retry limit (%(max_retries)s) reached.")
+                                    % {"max_retries": max_retries_429}
                                 )
                                 print(repr(e))
                                 return
@@ -230,7 +232,9 @@ def run_llm_rounds(
                             attempt_429 += 1
                             if attempt_429 > max_retries_429:
                                 print(
-                                    f"[Claude エラー] 429 Retry limit ({max_retries_429}) reached."
+                                    "[Claude Error] "
+                                    + _("429 retry limit (%(max_retries)s) reached.")
+                                    % {"max_retries": max_retries_429}
                                 )
                                 print(repr(e))
                                 return
@@ -383,24 +387,26 @@ def run_llm_rounds(
                         if BadRequestError is not None and isinstance(
                             e, BadRequestError
                         ):
-                            print("[Azure/OpenAI エラー] 400 BadRequest")
+                            print("[Azure/OpenAI Error] " + _("400 BadRequest"))
                             print(f"Error code: 400 - {e}")
                             return
                         if APIConnectionError is not None and isinstance(
                             e, APIConnectionError
                         ):
-                            print("[Azure/OpenAI エラー] 接続エラー")
+                            print("[Azure/OpenAI Error] " + _("Connection error"))
                             print(repr(e))
                             return
                         if isinstance(e, URLError):
-                            print("[ネットワークエラー]")
+                            print("[Network Error]")
                             print(repr(e))
                             return
                         if _is_rate_limit_error(e):
                             attempt_429 += 1
                             if attempt_429 > max_retries_429:
                                 print(
-                                    f"[Azure/OpenAI エラー] 429 Retry limit ({max_retries_429}) reached."
+                                    "[Azure/OpenAI Error] "
+                                    + _("429 retry limit (%(max_retries)s) reached.")
+                                    % {"max_retries": max_retries_429}
                                 )
                                 print(repr(e))
                                 return
@@ -424,7 +430,7 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print("[LLM エラー] 予期しない例外")
+                        print("[LLM Error] " + _("Unexpected exception."))
                         print(repr(e))
                         return
 
@@ -452,7 +458,7 @@ def run_llm_rounds(
                         assistant_text = msg.content or ""
 
                 except Exception as e:
-                    print(f"[ERROR] レスポンス解析中にエラー: {e}")
+                    print("[ERROR] " + _("Error while parsing response: %(err)s") % {"err": e})
                     traceback.print_exc()
                     return
 

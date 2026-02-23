@@ -293,7 +293,7 @@ def _flush_stdin_input_buffer() -> None:
 
 
 def _getpass_fallback(prompt: str) -> str:
-    """getpass.getpass がエコーバックを抑制できない環境（isatty=Falseなど）向けのフォールバック"""
+    """Fallback for environments where getpass.getpass cannot disable echo back (e.g. isatty=False)."""
     if os.name == "nt":
         import msvcrt
 
@@ -343,7 +343,7 @@ def _getpass_fallback(prompt: str) -> str:
         except Exception:
             # 最終的なフォールバック
             if out:
-                out.write("\n[WARN] getch() fallback to input()\n")
+                out.write("\n[WARN] " + _("getch() fallback to input()") + "\n")
                 out.flush()
             print(prompt, end="", flush=True)
             return input()
@@ -469,7 +469,10 @@ def stdin_loop() -> None:
             with core.human_ask_lock:
                 if core.human_ask_active:
                     print(
-                        "\n[INFO] 入力を中断しました（human_ask への回答として送信します）。"
+                        "\n[INFO] "
+                        + _(
+                            "Input cancelled (will be sent as a reply to human_ask)."
+                        )
                     )
                     # 空文字または cancel を投げてツール側を復帰させる
                     if core.human_ask_queue:
@@ -477,13 +480,15 @@ def stdin_loop() -> None:
                     continue
 
             # Ctrl+C で即座に終了シーケンスに入るように変更
-            print("\n[INFO] Received Ctrl+C. Starting shutdown...")
+            print("\n[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
             core.event_queue.put({"kind": "command", "text": ":exit"})
             break
         except Exception as e:
             # スレッドの突然死を防ぐための広域キャッチ
             print(
-                f"\n[ERROR] stdin_loop で予期せぬエラーが発生しました: {e}",
+                "\n[ERROR] "
+                + _("Unexpected error in stdin_loop: %(err)s")
+                % {"err": e},
                 file=sys.stderr,
             )
             time.sleep(1)
@@ -508,8 +513,10 @@ def stdin_loop() -> None:
                         core.human_ask_multiline_active = True
                         core.human_ask_lines.clear()
                     print(
-                        "（複数行入力モード: 本文を複数行で入力し、\n"
-                        f'  やり直す場合は """retry、最後に {core.MULTI_INPUT_SENTINEL} の行で終了）'
+                        _(
+                            "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+                        )
+                        % {"sentinel": core.MULTI_INPUT_SENTINEL}
                     )
                 else:
                     core.set_status(True, "replying")
@@ -537,13 +544,14 @@ def stdin_loop() -> None:
                         core.human_ask_multiline_active = False
                         if core.human_ask_queue:
                             core.human_ask_queue.put(line)
-                    print("[REPLY] 中断します。")
+                    print("[REPLY] " + _("Cancelled."))
                     should_wait_completion = True
                 elif line == '"""retry':
                     with core.human_ask_lock:
                         core.human_ask_lines.clear()
                     print(
-                        "[REPLY] これまでの入力を破棄しました。最初から入力してください。"
+                        "[REPLY] "
+                        + _("Discarded previous input. Please start over.")
                     )
                     continue
                 elif line == core.MULTI_INPUT_SENTINEL:
@@ -554,7 +562,7 @@ def stdin_loop() -> None:
                         core.human_ask_multiline_active = False
                         if core.human_ask_queue:
                             core.human_ask_queue.put(reply_text)
-                    print("[REPLY] 複数行の回答を受け取りました。")
+                    print("[REPLY] " + _("Received multiline reply."))
                     should_wait_completion = True
                 else:
                     with core.human_ask_lock:
@@ -576,8 +584,10 @@ def stdin_loop() -> None:
                 user_multiline_active = True
                 user_lines.clear()
                 print(
-                    "（複数行入力モード: 本文を複数行で入力し、\n"
-                    f'  やり直す場合は """retry、最後に {core.MULTI_INPUT_SENTINEL} の行で終了）'
+                    _(
+                        "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+                    )
+                    % {"sentinel": core.MULTI_INPUT_SENTINEL}
                 )
                 continue
 
@@ -589,7 +599,7 @@ def stdin_loop() -> None:
         else:
             if line == '"""retry':
                 user_lines.clear()
-                print("[INFO] これまでの入力を破棄しました。最初から入力してください。")
+                print("[INFO] " + _("Discarded previous input. Please start over."))
                 continue
 
             if line == core.MULTI_INPUT_SENTINEL:
@@ -695,7 +705,7 @@ def main() -> None:
             # NOTE: only for merging into startup capture; actual display is via pager.
             print(banner, end="")
         except Exception as e:
-            print(f"[FATAL] workdir の設定に失敗しました: {e}", file=sys.stderr)
+            print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
             sys.exit(1)
 
         # docs サブコマンドは welcome 表示や LLM 初期化より先に処理する
@@ -743,14 +753,14 @@ def main() -> None:
         else:
             depname = os.environ.get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
 
-        print(f"model(deployment) = {depname}")
+        print(_("model(deployment) = %(depname)s") % {"depname": depname})
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
             raw_fb = (
                 os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
             ).strip()
             if raw_fb:
-                print("[INFO] open router fallback models enabled")
+                print("[INFO] " + _("OpenRouter fallback models enabled."))
 
         # LLM API selection (Responses API vs Chat Completions)
         # NOTE: Actual calls are made in scheck_llm.run_llm_rounds().
@@ -762,23 +772,22 @@ def main() -> None:
         # Responses API is currently supported only on Azure OpenAI (and potentially OpenAI beta).
         # Grok, Gemini, Claude, etc. do not support it.
         if use_responses_api and provider not in ("azure", "openai"):
-            print(
-                f"[WARN] UAGENT_RESPONSES=1 is set, but provider '{provider}' does not support Responses API. Falling back to ChatCompletions."
-            )
+            print("[WARN] " + _("UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions.") % {"provider": provider})
             use_responses_api = False
             # Ensure scheck_llm sees the disabled state
             os.environ["UAGENT_RESPONSES"] = "0"
 
         if use_responses_api:
-            print("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+            print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
         else:
             print(
-                "[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+                "[INFO] "
+                + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
             )
 
         try:
             cwd = os.getcwd()
-            print(f"[INFO] current workdir = {cwd}")
+            print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
         except Exception:
             pass
 
@@ -807,7 +816,7 @@ def main() -> None:
                 core.log_message(m)
 
         except Exception as e:
-            print(f"[WARN] 共有長期記憶の読み込み中に例外が発生しました: {e}")
+            print("[WARN] " + _("Exception occurred while loading shared long-term memory: %(err)s") % {"err": e})
 
     # Flush startup logs via pager, then continue with normal stdout/stderr.
     _flush_startup_pager_and_continue()
@@ -825,9 +834,7 @@ def main() -> None:
                 with open(file_path, "r", encoding="latin-1") as f:
                     file_text = f.read()
             except Exception as e:
-                print(
-                    f"[WARN] 起動時ファイルの読み込みに失敗しました: {file_path} ({e})"
-                )
+                print("[WARN] " + _("Failed to read startup file: %(path)s (%(err)s)") % {"path": file_path, "err": e})
                 file_text = ""
 
         if file_text and file_text.strip():
@@ -837,7 +844,9 @@ def main() -> None:
 
             initial_file_msg = {
                 "role": "user",
-                "content": f"起動時に渡されたファイル: {file_path}\n\n{file_text}",
+                "content": (_("Startup file provided: %(path)s") % {"path": file_path})
+                + "\n\n"
+                + file_text,
             }
             messages.append(initial_file_msg)
             core.log_message(initial_file_msg)
@@ -858,7 +867,8 @@ def main() -> None:
     if UAGENT_NON_INTERACTIVE:
         core.set_status(False, "")
         print(
-            "[INFO] --non-interactive が指定されたため、標準入力待ちを行わず終了します。"
+            "[INFO] "
+            + _("--non-interactive was specified; exiting without waiting for stdin.")
         )
         return
 
@@ -916,11 +926,15 @@ def main() -> None:
 
                         if ok_paths:
                             msg = (
-                                "画像ファイルパスが入力に含まれています。\n"
-                                "これらの画像を LLM（外部API）へ送信して解析しますか？\n\n"
+                                _(
+                                    "Image file paths were found in your input.\n"
+                                    "Do you want to send these images to the LLM (external API) for analysis?\n\n"
+                                )
                                 + "\n".join(infos)
                                 + "\n\n"
-                                "送信する場合は y、送信しない場合は n（または c/cancel）を入力してください。"
+                                + _(
+                                    "Reply with y to send, or n (or c/cancel) to skip sending."
+                                )
                             )
                             try:
                                 core.set_status(False, "")
@@ -931,9 +945,7 @@ def main() -> None:
                                 ans = (res.get("user_reply") or "").strip().lower()
                             except Exception as e:
                                 ans = "n"
-                                print(
-                                    f"[WARN] 画像送信確認に失敗したため送信しません: {type(e).__name__}: {e}"
-                                )
+                                print("[WARN] " + _("Image send confirmation failed; will not send images: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
                             if ans in ("y", "yes"):
                                 parts: List[Dict[str, Any]] = [
@@ -954,7 +966,8 @@ def main() -> None:
                                         parts.append(
                                             {
                                                 "type": "text",
-                                                "text": f"[WARN] 画像添付に失敗しました: {abspath} ({type(e).__name__}: {e})",
+                                                "text": "[WARN] "
+                                                + (_("Failed to attach image: %(path)s (%(etype)s: %(err)s)") % {"path": abspath, "etype": type(e).__name__, "err": e}),
                                             }
                                         )
                                 user_msg = {"role": "user", "content": parts}
@@ -982,7 +995,7 @@ def main() -> None:
                 )
                 continue
 
-            print(f"[WARN] 未知のイベント kind={kind!r}: {ev!r}")
+            print("[WARN] " + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev})
     finally:
         # プログラム終了時にキャッシュをクリア
         if provider == "gemini" and client:
@@ -995,7 +1008,7 @@ def main() -> None:
                 pass
 
         core.set_status(False, "")
-        print("scheck.py を終了しました。")
+        print(_("Exited uag."))
 
 
 if __name__ == "__main__":

@@ -180,12 +180,16 @@ def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
         "--workdir",
         "-C",
         dest="workdir",
-        help="動作ディレクトリを指定します。指定しない場合は UAGENT_WORKDIR 環境変数、またはカレントディレクトリを使用します。",
+        help=i18n_(
+            "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the current directory."
+        ),
     )
     parser.add_argument(
         "--non-interactive",
         action="store_true",
-        help="非対話モード。標準入力ループを起動せず、起動時ファイルを処理したら終了します。",
+        help=i18n_(
+            "Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
+        ),
     )
     args, unknown = parser.parse_known_args()
     return vars(args), unknown
@@ -851,9 +855,11 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
     max_chars = 4000
 
     header = (
-        "ここに記載された箇条書きは、このユーザに関する長期記憶（永続メモ）の抜粋です。"
-        "これらをユーザの背景情報として参考にしてください。"
-        "ただし、会話の中で新たに与えられた情報の方を常に優先し、古い情報と矛盾する場合は最新の情報を採用してください。\n\n"
+        _(
+            "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). "
+            "Use them as background information about the user. "
+            "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"
+        )
     )
 
     body_lines: List[str] = []
@@ -880,7 +886,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
                 candidate = header + "\n".join(body_lines)
                 if len(candidate) > max_chars:
                     body_lines.append(
-                        "...（長期記憶が長いため途中までを含めています）..."
+                        "...(truncated: long-term memory is too long)..."
                     )
                     break
         else:
@@ -895,7 +901,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
         if len(content) > max_chars:
             content = (
                 content[:max_chars]
-                + "\n...（長期記憶が長いため途中までを含めています）..."
+                + "\n...(truncated: long-term memory is too long)..."
             )
 
     return {"role": "system", "content": content}
