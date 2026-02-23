@@ -615,3 +615,75 @@ msgstr "- 「このPDFを読んで、重要なポイントを3つ箇条書きで
 
 msgid "- "Search the latest news and summarize a specific topic.""
 msgstr "- 「最新のニュースを検索して、特定のトピックについて要約して」"
+
+#: src/uagent/cli.py
+msgid "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr "（複数行入力モード：本文を複数行で入力してください。やり直すには \"\"\"retry と入力します。終了するには %(sentinel)s だけの行を入力してください）"
+
+#: src/uagent/cli.py
+msgid "Discarded previous input. Please start over."
+msgstr "前回の入力を破棄しました。最初から入力してください。"
+
+#: src/uagent/cli.py
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive が指定されたため、標準入力を待たずに終了します。"
+
+#: src/uagent/cli.py
+msgid "Cancelled."
+msgstr "キャンセルしました。"
+
+#: src/uagent/cli.py
+msgid "Exited uag."
+msgstr "uag を終了しました。"
+
+#: src/uagent/cli.py
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "起動時ファイルの読み込みに失敗しました: %(path)s (%(err)s)"
+
+#: src/uagent/cli.py
+msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "画像送信確認に失敗したため、画像は送信しません: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "入力をキャンセルしました（human_ask への返信として送信されます）。"
+
+#: src/uagent/cli.py
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API モード = ChatCompletions（UAGENT_RESPONSES は無効）"
+
+#: src/uagent/cli.py
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API モード = Responses（UAGENT_RESPONSES は有効）"
+
+#: src/uagent/cli.py
+msgid "Received multiline reply."
+msgstr "複数行の返信を受け取りました。"
+
+#: src/uagent/cli.py
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "送信する場合は y、送信しない場合は n（または c/cancel）で返信してください。"
+
+#: src/uagent/cli.py
+msgid "Startup file provided: %(path)s"
+msgstr "起動時ファイルが指定されました: %(path)s"
+
+#: src/uagent/cli.py
+msgid "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
+msgstr "UAGENT_RESPONSES=1 が設定されていますが、provider '%(provider)s' は Responses API をサポートしていません。ChatCompletions にフォールバックします。"
+
+#: src/uagent/cli.py
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "stdin_loop で予期しないエラーが発生しました: %(err)s"
+
+#: src/uagent/cli.py
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "不明なイベント kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py
+msgid "current workdir = %(cwd)s"
+msgstr "現在の workdir = %(cwd)s"
+
+#: src/uagent/cli.py
+msgid "getch() fallback to input()"
+msgstr "getch() を input() にフォールバックします"
