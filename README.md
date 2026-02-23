@@ -81,7 +81,8 @@ See `env.sample.*` for provider/key configuration examples.
 
 ## Release Notes
 
-- Fixed an issue where `[REPLY] >` could appear twice in CLI confirmation prompts.
+- Added Agent Skills support (SKILL.md format): skills_list / skills_load / skills_validate / skills_read_file.
+  - Default skill roots: UAGENT_SKILLS_DIRS (split by OS path separator), fallback: ./skills
 
 ---
 

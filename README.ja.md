@@ -116,7 +116,8 @@ python -m uagent
 
 ## 更新情報
 
-- CUIの確認入力（confirm）で、稀に `[REPLY] >` が二重に表示される問題を修正しました。
+- Agent Skills 対応（SKILL.md 形式）を追加: skills_list / skills_load / skills_validate / skills_read_file
+  - 既定の探索ルート: UAGENT_SKILLS_DIRS（OSのパス区切りで分割）、未設定時は ./skills
 
 ---
 
