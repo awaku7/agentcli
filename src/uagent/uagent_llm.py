@@ -384,16 +384,27 @@ def run_llm_rounds(
                             resp = client.chat.completions.create(**chat_kwargs)
                         break
                     except Exception as e:
-                        if BadRequestError is not None and isinstance(
-                            e, BadRequestError
-                        ):
-                            print("[Azure/OpenAI Error] " + _("400 BadRequest"))
+                        # NOTE: i18n function _ is a global import, but some exception paths
+                        # previously triggered UnboundLocalError: '_' due to local-scope issues.
+                        # Use a safe fallback translator to avoid crashing while reporting errors.
+                        try:
+                            _t = _
+                        except Exception:
+                            _t = lambda s: s
+
+                        # Context-window overflow (OpenAI Responses streaming can raise APIError)
+                        # We handle it explicitly to avoid the generic error path.
+                        if "context window" in str(e).lower() or "exceeds the context" in str(e).lower():
+                            print("[Azure/OpenAI Error] " + _t("Input exceeds the context window."))
+                            print(repr(e))
+                            return
+
+                        if BadRequestError is not None and isinstance(e, BadRequestError):
+                            print("[Azure/OpenAI Error] " + _t("400 BadRequest"))
                             print(f"Error code: 400 - {e}")
                             return
-                        if APIConnectionError is not None and isinstance(
-                            e, APIConnectionError
-                        ):
-                            print("[Azure/OpenAI Error] " + _("Connection error"))
+                        if APIConnectionError is not None and isinstance(e, APIConnectionError):
+                            print("[Azure/OpenAI Error] " + _t("Connection error"))
                             print(repr(e))
                             return
                         if isinstance(e, URLError):
@@ -405,7 +416,7 @@ def run_llm_rounds(
                             if attempt_429 > max_retries_429:
                                 print(
                                     "[Azure/OpenAI Error] "
-                                    + _("429 retry limit (%(max_retries)s) reached.")
+                                    + _t("429 retry limit (%(max_retries)s) reached.")
                                     % {"max_retries": max_retries_429}
                                 )
                                 print(repr(e))
@@ -430,7 +441,7 @@ def run_llm_rounds(
                             )
                             time.sleep(wait_s)
                             continue
-                        print("[LLM Error] " + _("Unexpected exception."))
+                        print("[LLM Error] " + _t("Unexpected exception."))
                         print(repr(e))
                         return
 
