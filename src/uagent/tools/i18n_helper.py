@@ -21,15 +21,24 @@ def _normalize_locale(locale: Optional[str]) -> str:
         return "en"
     s = s.replace("-", "_")
     base = s.split("_")[0].lower()
+
+    # Common aliases
+    if base in ("us",):
+        base = "en"
+    if base in ("jp",):
+        base = "ja"
+
     return base or "en"
 
 
 def get_locale() -> str:
-    """Return active locale based on UAGENT_LOCALE.
+    """Return active locale based on UAGENT_LANG.
 
-    This project requirement is to rely on UAGENT_LOCALE.
+    Note:
+      - UAGENT_LOCALE is deprecated (ignored).
+      - Common aliases are normalized (e.g., 'us' -> 'en', 'jp' -> 'ja').
     """
-    return _normalize_locale(os.environ.get("UAGENT_LOCALE"))
+    return _normalize_locale(os.environ.get("UAGENT_LANG"))
 
 
 @lru_cache(maxsize=256)
