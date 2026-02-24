@@ -63,18 +63,10 @@ class RedirectToLog:
                 f.write(data)
         except Exception:
             pass
-        # Write to original stream (console)
-        try:
-            self.original_stream.write(data)
-            self.original_stream.flush()
-        except Exception:
-            pass
 
     def flush(self):
-        try:
-            self.original_stream.flush()
-        except Exception:
-            pass
+        # Some code calls sys.stdout/stderr.flush(); keep it as a no-op for safety.
+        return
 
 
 @dataclass
@@ -344,6 +336,41 @@ class ScheckWorker(QtCore.QObject):
 
 class MainWindow(QtWidgets.QMainWindow):
 
+    def _set_welcome_text(self) -> None:
+        try:
+            msg = get_welcome_message()
+        except Exception:
+            msg = ""
+        if not msg:
+            return
+        # Insert as preformatted text so ASCII art keeps alignment.
+        html = (
+            '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre;">'
+            + self._escape_html(msg)
+            + "</div><hr>"
+        )
+        try:
+            self._output.moveCursor(QtGui.QTextCursor.End)
+            self._output.insertHtml(html)
+            self._output.ensureCursorVisible()
+        except Exception:
+            pass
+
+    def _show_welcome_dialog(self) -> None:
+        try:
+            msg = get_welcome_message()
+        except Exception:
+            msg = ""
+        dlg = QtWidgets.QMessageBox(self)
+        dlg.setWindowTitle(_("Welcome / Quick Guide"))
+        dlg.setIcon(QtWidgets.QMessageBox.Information)
+        # Use plain text to keep ASCII art.
+        dlg.setText(msg or "")
+        dlg.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        dlg.exec()
+
+
+
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
 
     @staticmethod
@@ -439,6 +466,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().addPermanentWidget(self._workdir_label)
         self._last_workdir = ""
 
+        # Provider/model display (best-effort; will be updated as logs arrive)
+        self._provider_model_label = QtWidgets.QLabel("")
+        self.statusBar().addPermanentWidget(self._provider_model_label)
+        self._provider_model_text = ""
+
         # Log Monitor Timer
         self._monitor_timer = QtCore.QTimer(self)
         self._monitor_timer.timeout.connect(self._update_ui_from_log)
@@ -451,6 +483,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self._worker.sig_finished.connect(self._thread.quit)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
+
+        # Welcome (same text as CLI)
+        self._set_welcome_text()
+
+        # Menu
+        try:
+            help_menu = self.menuBar().addMenu(_("Help"))
+            act = help_menu.addAction(_("Welcome / Quick Guide"))
+            act.triggered.connect(self._show_welcome_dialog)
+        except Exception:
+            pass
 
         # Shortcuts
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
@@ -473,6 +516,35 @@ class MainWindow(QtWidgets.QMainWindow):
             if new_data:
                 clean_text = self._ansi_re.sub("", new_data)
 
+                # --- Normalize terminal-like streaming output ---
+                # Some tools/providers output progress using carriage returns (\r).
+                # If we append raw deltas to QTextBrowser, it can look like duplicated characters.
+                # Here we emulate minimal terminal semantics:
+                # - '\r' resets the current line (overwrite)
+                # - '\n' finalizes the current line
+                # - other control chars are dropped (except '\n' and '\t')
+                if not hasattr(self, "_tty_partial_line"):
+                    self._tty_partial_line = ""  # type: ignore[attr-defined]
+
+                def _normalize_stream_chunk(chunk: str) -> str:
+                    out_parts: List[str] = []
+                    cur = self._tty_partial_line  # type: ignore[attr-defined]
+                    for ch in chunk:
+                        if ch == "\r":
+                            cur = ""
+                            continue
+                        if ch == "\n":
+                            out_parts.append(cur + "\n")
+                            cur = ""
+                            continue
+                        oc = ord(ch)
+                        if ch == "\t" or oc >= 0x20:
+                            cur += ch
+                    self._tty_partial_line = cur  # type: ignore[attr-defined]
+                    return "".join(out_parts)
+
+                clean_text = _normalize_stream_chunk(clean_text)
+
                 # 状態情報を抽出
                 states = re.findall(r"\[STATE\]\s+(\w+)(?:\s+\[(.*?)\])?", clean_text)
                 if states:
@@ -480,6 +552,33 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._status_label.setText(
                         f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else "")
                     )
+
+                # provider/model info (best-effort)
+                try:
+                    mprov = re.findall(
+                        r"^\[INFO\]\s+LLM provider\s*=\s*(.+)$",
+                        clean_text,
+                        flags=re.MULTILINE,
+                    )
+                    mdep = re.findall(
+                        r"^\[INFO\]\s+model\(deployment\)\s*=\s*(.+)$",
+                        clean_text,
+                        flags=re.MULTILINE,
+                    )
+                    if mprov:
+                        self._provider_model_text = f"provider={mprov[-1].strip()}"
+                    if mdep:
+                        ptxt = getattr(self, "_provider_model_text", "")
+                        mtxt = f"model={mdep[-1].strip()}"
+                        self._provider_model_text = (
+                            (ptxt + " " + mtxt).strip() if ptxt else mtxt
+                        )
+                    if getattr(self, "_provider_model_text", ""):
+                        self._provider_model_label.setText(
+                            " " + self._provider_model_text
+                        )
+                except Exception:
+                    pass
 
                 # 画像パス抽出
                 paths = extract_image_paths(clean_text)
