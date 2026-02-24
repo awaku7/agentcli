@@ -7,8 +7,8 @@
 - 生成後、自動的に画像を開く（環境変数 UAGENT_IMAGE_OPEN=0 で無効化可能）。
 
 対応:
-- UAGENT_PROVIDER=azure / openai / gemini
-- 画像用デプロイ名(またはモデル名)は環境変数 UAGENT_IMAGE_DEPNAME
+- provider: UAGENT_IMG_GENERATE_PROVIDER（fallback: UAGENT_PROVIDER）
+- model/deployment: UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME
 
 注意:
 - 画像生成APIはプロバイダ/SDKの対応状況・契約・リージョンに依存します。
@@ -75,8 +75,56 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def _get_provider() -> str:
-    # nvidia は OpenAI互換として扱う（images.generate が使える場合）
-    return (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
+    """Select provider for image generation.
+
+    Priority:
+      1) UAGENT_IMG_GENERATE_PROVIDER
+      2) UAGENT_PROVIDER
+
+    Allowed: azure/openai/gemini/nvidia
+    """
+
+    p = (
+        (
+            os.environ.get("UAGENT_IMG_GENERATE_PROVIDER")
+            or os.environ.get("UAGENT_PROVIDER")
+            or "azure"
+        )
+        .strip()
+        .lower()
+    )
+    if p not in ("azure", "openai", "gemini", "nvidia"):
+        raise RuntimeError(
+            f"invalid provider for image generation: {p!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)"
+        )
+    return p
+
+
+def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
+    for k in keys:
+        v = (os.environ.get(k) or "").strip()
+        if v:
+            return v
+    if required:
+        raise RuntimeError(f"required env var is missing (tried: {', '.join(keys)})")
+    return default
+
+
+def _img_env(
+    provider: str, mode: str, name: str, *, required: bool, default: str = ""
+) -> str:
+    """Resolve image env vars.
+
+    Order (no *_IMG_* middle layer):
+      1) UAGENT_<PROVIDER>_IMG_<MODE>_<NAME>
+      2) UAGENT_<PROVIDER>_<NAME>
+    """
+
+    p = provider.strip().upper()
+    m = mode.strip().upper()
+    n = name.strip().upper()
+    keys = [f"UAGENT_{p}_IMG_{m}_{n}", f"UAGENT_{p}_{n}"]
+    return _env_first(keys, required=required, default=default)
 
 
 def _ssl_verify_enabled() -> bool:
@@ -99,12 +147,8 @@ def _urlopen_kwargs() -> Dict[str, Any]:
 
 
 def _get_image_depname(cb_get_env, provider: str) -> str:
-    # ユーザ要望: UAGENT_IMAGE_DEPNAME
-    # （Azureの場合はデプロイ名、OpenAI/Geminiの場合はモデル名として扱う）
-    v = (os.environ.get("UAGENT_IMAGE_DEPNAME") or "").strip()
-    if not v:
-        raise RuntimeError("環境変数 UAGENT_IMAGE_DEPNAME が未設定です")
-    return v
+    # Provider-specific model/deployment name
+    return _img_env(provider, "generate", "depname", required=True)
 
 
 def _ensure_dir(p: str) -> str:
@@ -176,13 +220,9 @@ def _run_openai_images(
         raise RuntimeError("httpx の初期化に失敗しました: " + repr(e))
 
     if provider == "azure":
-        base_url = (os.environ.get("UAGENT_AZURE_BASE_URL") or "").strip().rstrip("/")
-        api_key = (os.environ.get("UAGENT_AZURE_API_KEY") or "").strip()
-        api_version = (os.environ.get("UAGENT_AZURE_API_VERSION") or "").strip()
-        if not base_url or not api_key or not api_version:
-            raise RuntimeError(
-                "Azure用の環境変数(UAGENT_AZURE_BASE_URL/UAGENT_AZURE_API_KEY/UAGENT_AZURE_API_VERSION)が不足しています"
-            )
+        base_url = _img_env("azure", "generate", "base_url", required=True).rstrip("/")
+        api_key = _img_env("azure", "generate", "api_key", required=True)
+        api_version = _img_env("azure", "generate", "api_version", required=True)
 
         client = AzureOpenAI(
             azure_endpoint=base_url,
@@ -193,37 +233,23 @@ def _run_openai_images(
     else:
         # OpenAI互換 (openai / nvidia)
         if provider == "nvidia":
-            api_key = (os.environ.get("UAGENT_NVIDIA_API_KEY") or "").strip()
-            base_url = (
-                (
-                    os.environ.get(
-                        "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
-                    )
-                    or ""
-                )
-                .strip()
-                .rstrip("/")
-            )
-            if not api_key:
-                raise RuntimeError(
-                    "NVIDIA用の環境変数 UAGENT_NVIDIA_API_KEY が不足しています"
-                )
+            api_key = _img_env("nvidia", "generate", "api_key", required=True)
+            base_url = _img_env(
+                "nvidia",
+                "generate",
+                "base_url",
+                required=False,
+                default="https://integrate.api.nvidia.com/v1",
+            ).rstrip("/")
         else:
-            api_key = (os.environ.get("UAGENT_OPENAI_API_KEY") or "").strip()
-            base_url = (
-                (
-                    os.environ.get(
-                        "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
-                    )
-                    or ""
-                )
-                .strip()
-                .rstrip("/")
-            )
-            if not api_key:
-                raise RuntimeError(
-                    "OpenAI用の環境変数 UAGENT_OPENAI_API_KEY が不足しています"
-                )
+            api_key = _img_env("openai", "generate", "api_key", required=True)
+            base_url = _img_env(
+                "openai",
+                "generate",
+                "base_url",
+                required=False,
+                default="https://api.openai.com/v1",
+            ).rstrip("/")
 
         client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
 
@@ -268,9 +294,7 @@ def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
             + repr(e)
         )
 
-    api_key = (os.environ.get("UAGENT_GEMINI_API_KEY") or "").strip()
-    if not api_key:
-        raise RuntimeError("環境変数 UAGENT_GEMINI_API_KEY が不足しています")
+    api_key = _img_env("gemini", "generate", "api_key", required=True)
 
     client = genai.Client(api_key=api_key)
 
@@ -348,7 +372,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     except Exception:
         return (
             "[generate_image] 画像モデル(デプロイ名)が未設定です。\n"
-            "環境変数 UAGENT_IMAGE_DEPNAME を設定してください。"
+            "環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。"
         )
 
     try:
