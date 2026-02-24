@@ -121,6 +121,14 @@ Model / deployment name (provider-specific):
 - `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME` (required)
   - Examples: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`
 
+Provider-specific credentials / endpoints:
+- `UAGENT_<PROVIDER>_IMG_GENERATE_API_KEY` (required)
+- `UAGENT_<PROVIDER>_IMG_GENERATE_BASE_URL` (optional for most providers; default may apply)
+- Azure only: `UAGENT_AZURE_IMG_GENERATE_API_VERSION` (required)
+
+Fallback behavior:
+- If a `*_IMG_GENERATE_*` env var is not set, the tool also tries the main provider env (e.g. `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL`).
+
 Notes:
 - Depending on the provider SDK/API, supported sizes/features may differ.
 
