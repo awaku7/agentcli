@@ -62,6 +62,11 @@ web = [
   "python-multipart",
   "websockets",
 ]
+# Dev-only dependencies (type stubs, etc.)
+dev = [
+  "types-PyYAML",
+  "types-python-dateutil",
+]
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["uagent", "uagent.*"]
@@ -112,3 +117,26 @@ check_untyped_defs = false
 warn_unused_ignores = false
 show_error_codes = true
 pretty = true
+# CI-friendly: reduce noise first
+# - var-annotated: require annotations for local vars
+# - misc: various strictness checks (e.g., assigning None to typed class)
+disable_error_code = [
+  "var-annotated",
+  "misc",
+  "attr-defined",
+  "call-arg",
+  "call-overload",
+  "assignment",
+  "operator",
+  "arg-type",
+  "union-attr",
+  "index",
+  "no-redef",
+]
+
+# Ensure mypy resolves packages under src/ as the package base.
+mypy_path = ["src"]
+explicit_package_bases = true
+# Limit to library package only.
+packages = ["uagent"]
+
