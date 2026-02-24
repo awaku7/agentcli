@@ -65,15 +65,16 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
 
                     iu = item.get("image_url")
                     if isinstance(iu, dict) and iu.get("url"):
+                        # Azure/OpenAI Responses expects image_url to be a string.
                         out.append(
                             {
                                 "type": "input_image",
-                                "image_url": {"url": _as_str(iu.get("url"))},
+                                "image_url": _as_str(iu.get("url")),
                             }
                         )
                         continue
                     if isinstance(iu, str) and iu:
-                        out.append({"type": "input_image", "image_url": {"url": iu}})
+                        out.append({"type": "input_image", "image_url": iu})
                         continue
 
                     out.append(
