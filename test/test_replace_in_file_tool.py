@@ -338,6 +338,7 @@ class TestReplaceInFileTool(unittest.TestCase):
             self.assertTrue(result["ok"], f"Tool should allow it; got: {result}")
 
         import py_compile
+
         with self.assertRaises(py_compile.PyCompileError):
             py_compile.compile(py_abs, doraise=True)
 

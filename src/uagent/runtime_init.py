@@ -176,7 +176,6 @@ def append_long_memory_system_messages(
     """
 
     # NOTE: `core` is currently unused; kept for compatibility.
-    core_unused = core
 
     result = {
         "personal_appended": False,

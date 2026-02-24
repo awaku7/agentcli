@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 from .i18n_helper import make_tool_translator
+
 _ = make_tool_translator(__file__)
 
 
@@ -37,11 +38,16 @@ TOOL_SPEC = {
             "properties": {
                 "domain": {
                     "type": "string",
-                    "description": _("param.domain.description", default = "ドメイン（例: system_dev）"),
+                    "description": _(
+                        "param.domain.description", default="ドメイン（例: system_dev）"
+                    ),
                 },
                 "task": {
                     "type": "string",
-                    "description": _("param.task.description", default = "タスク（例: requirements, code_review など）"),
+                    "description": _(
+                        "param.task.description",
+                        default="タスク（例: requirements, code_review など）",
+                    ),
                 },
                 "context": {
                     "type": "object",
@@ -52,32 +58,47 @@ TOOL_SPEC = {
                 },
                 "id": {
                     "type": "string",
-                    "description": _("param.id.description", default = "テンプレIDを直接指定する場合（domain/taskより優先）"),
+                    "description": _(
+                        "param.id.description",
+                        default="テンプレIDを直接指定する場合（domain/taskより優先）",
+                    ),
                 },
                 "language": {
                     "type": "string",
-                    "description": _("param.language.description", default = "言語（将来拡張用）。現状は ja のみを想定"),
+                    "description": _(
+                        "param.language.description",
+                        default="言語（将来拡張用）。現状は ja のみを想定",
+                    ),
                     "default": "ja",
                 },
                 "format": {
                     "type": "string",
                     "enum": ["markdown", "json"],
-                    "description": _("param.format.description", default = "出力形式"),
+                    "description": _("param.format.description", default="出力形式"),
                     "default": "markdown",
                 },
                 "strict": {
                     "type": "boolean",
-                    "description": _("param.strict.description", default = "true の場合、未指定プレースホルダがあるとエラーにする"),
+                    "description": _(
+                        "param.strict.description",
+                        default="true の場合、未指定プレースホルダがあるとエラーにする",
+                    ),
                     "default": False,
                 },
                 "include_template": {
                     "type": "boolean",
-                    "description": _("param.include_template.description", default = "true の場合、template本文も返す（通常は不要）"),
+                    "description": _(
+                        "param.include_template.description",
+                        default="true の場合、template本文も返す（通常は不要）",
+                    ),
                     "default": False,
                 },
                 "list_only": {
                     "type": "boolean",
-                    "description": _("param.list_only.description", default = "true の場合、該当テンプレのメタ情報のみ一覧で返す"),
+                    "description": _(
+                        "param.list_only.description",
+                        default="true の場合、該当テンプレのメタ情報のみ一覧で返す",
+                    ),
                     "default": False,
                 },
             },

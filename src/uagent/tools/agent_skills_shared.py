@@ -96,9 +96,7 @@ def _read_text_file(path: str, max_bytes: int) -> str:
     with open(path, "rb") as f:
         data = f.read(max_bytes + 1)
     if len(data) > max_bytes:
-        raise ValueError(
-            f"File too large to read safely: {path} (>{max_bytes} bytes)"
-        )
+        raise ValueError(f"File too large to read safely: {path} (>{max_bytes} bytes)")
 
     # Try utf-8 first; if it fails, fallback to 'utf-8' with replacement.
     try:
