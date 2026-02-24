@@ -123,6 +123,26 @@ python -m uagent
 
 ---
 
+## 翻訳（TO_LLM / FROM_LLM、任意）
+
+既定では uag は **翻訳しません**。
+
+翻訳を有効化するには、以下を設定します:
+- `UAGENT_TRANSLATE_PROVIDER`: 翻訳プロバイダ（OpenAI互換の文字列。例: `openai` / `azure` / `openrouter` / `nvidia` / `grok`）
+- `UAGENT_TRANSLATE_TO_LLM`: LLMに送る前に **翻訳する先** の言語タグ（例: `en`）
+- `UAGENT_TRANSLATE_FROM_LLM`: LLM出力を表示する前に **翻訳する先** の言語タグ（例: `ja`）
+
+OpenAI互換翻訳の追加設定:
+- `UAGENT_TRANSLATE_DEPNAME`: 翻訳用モデル名（翻訳を有効化する場合は必須）
+- `UAGENT_TRANSLATE_API_KEY`: 任意（未設定時はメインプロバイダのキーを流用）
+- `UAGENT_TRANSLATE_BASE_URL`: 任意（未設定時はメインプロバイダの Base URL を流用）
+
+補足:
+- 翻訳は **1回ごと（ステートレス）** に行います。
+- 翻訳が有効な場合、部分出力の不整合を避けるためストリーミングは **強制的にOFF** になります（`UAGENT_STREAMING` より優先）。
+
+---
+
 ## 画像生成・解析（Image Generation / Analysis）
 
 ### 画像生成（`generate_image`）
