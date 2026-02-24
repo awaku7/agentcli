@@ -31,6 +31,7 @@ Excel構造抽出ライブラリ exstruct を使って、Excelファイル(.xlsx
 
 from __future__ import annotations
 from .i18n_helper import make_tool_translator
+
 _ = make_tool_translator(__file__)
 
 

@@ -31,6 +31,7 @@ import threading
 # Thread-local language override (used by Web per-room locale)
 _thread_lang = threading.local()
 
+
 def set_thread_lang(lang: str | None) -> None:
     """Set thread-local language override.
 

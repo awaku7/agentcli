@@ -155,8 +155,14 @@ class ScheckWorker(QtCore.QObject):
 
             # Provider/client/model は util_make_client 側で一貫して決める。
             self._provider, self._client, self._depname = util_make_client(core)
-            print("[INFO] " + _("LLM provider = %(provider)s") % {"provider": self._provider})
-            print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": self._depname})
+            print(
+                "[INFO] "
+                + _("LLM provider = %(provider)s") % {"provider": self._provider}
+            )
+            print(
+                "[INFO] "
+                + _("model(deployment) = %(depname)s") % {"depname": self._depname}
+            )
             if (
                 self._provider == "openrouter"
                 and (self._depname or "").strip() == "openrouter/auto"
@@ -368,8 +374,6 @@ class MainWindow(QtWidgets.QMainWindow):
         dlg.setText(msg or "")
         dlg.setStandardButtons(QtWidgets.QMessageBox.Ok)
         dlg.exec()
-
-
 
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
 
@@ -620,7 +624,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
             if active:
                 msg = (
-                    _("Enter password...") if is_password else _("Enter response for human_ask...")
+                    _("Enter password...")
+                    if is_password
+                    else _("Enter response for human_ask...")
                 )
                 self._input.setPlaceholderText(msg)
                 self._pw_input.setPlaceholderText(msg)
