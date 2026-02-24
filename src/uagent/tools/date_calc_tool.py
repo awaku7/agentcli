@@ -1,5 +1,6 @@
 # src/scheck/tools/date_calc_tool.py
 from .i18n_helper import make_tool_translator
+
 _ = make_tool_translator(__file__)
 
 from typing import Any, Dict, Optional

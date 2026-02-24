@@ -476,9 +476,7 @@ def stdin_loop() -> None:
                 if core.human_ask_active:
                     print(
                         "\n[INFO] "
-                        + _(
-                            "Input cancelled (will be sent as a reply to human_ask)."
-                        )
+                        + _("Input cancelled (will be sent as a reply to human_ask).")
                     )
                     # 空文字または cancel を投げてツール側を復帰させる
                     if core.human_ask_queue:
@@ -493,8 +491,7 @@ def stdin_loop() -> None:
             # スレッドの突然死を防ぐための広域キャッチ
             print(
                 "\n[ERROR] "
-                + _("Unexpected error in stdin_loop: %(err)s")
-                % {"err": e},
+                + _("Unexpected error in stdin_loop: %(err)s") % {"err": e},
                 file=sys.stderr,
             )
             time.sleep(1)
@@ -520,7 +517,7 @@ def stdin_loop() -> None:
                         core.human_ask_lines.clear()
                     print(
                         _(
-                            "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+                            '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
                         )
                         % {"sentinel": core.MULTI_INPUT_SENTINEL}
                     )
@@ -556,8 +553,7 @@ def stdin_loop() -> None:
                     with core.human_ask_lock:
                         core.human_ask_lines.clear()
                     print(
-                        "[REPLY] "
-                        + _("Discarded previous input. Please start over.")
+                        "[REPLY] " + _("Discarded previous input. Please start over.")
                     )
                     continue
                 elif line == core.MULTI_INPUT_SENTINEL:
@@ -591,7 +587,7 @@ def stdin_loop() -> None:
                 user_lines.clear()
                 print(
                     _(
-                        "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+                        '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
                     )
                     % {"sentinel": core.MULTI_INPUT_SENTINEL}
                 )
@@ -711,7 +707,10 @@ def main() -> None:
             # NOTE: only for merging into startup capture; actual display is via pager.
             print(banner, end="")
         except Exception as e:
-            print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
+            print(
+                _("[FATAL] Failed to set workdir: %(err)s") % {"err": e},
+                file=sys.stderr,
+            )
             sys.exit(1)
 
         # docs サブコマンドは welcome 表示や LLM 初期化より先に処理する
@@ -778,13 +777,21 @@ def main() -> None:
         # Responses API is currently supported only on Azure OpenAI (and potentially OpenAI beta).
         # Grok, Gemini, Claude, etc. do not support it.
         if use_responses_api and provider not in ("azure", "openai"):
-            print("[WARN] " + _("UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions.") % {"provider": provider})
+            print(
+                "[WARN] "
+                + _(
+                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
+                )
+                % {"provider": provider}
+            )
             use_responses_api = False
             # Ensure scheck_llm sees the disabled state
             os.environ["UAGENT_RESPONSES"] = "0"
 
         if use_responses_api:
-            print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
+            print(
+                "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+            )
         else:
             print(
                 "[INFO] "
@@ -822,7 +829,11 @@ def main() -> None:
                 core.log_message(m)
 
         except Exception as e:
-            print("[WARN] " + _("Exception occurred while loading shared long-term memory: %(err)s") % {"err": e})
+            print(
+                "[WARN] "
+                + _("Exception occurred while loading shared long-term memory: %(err)s")
+                % {"err": e}
+            )
 
     # Flush startup logs via pager, then continue with normal stdout/stderr.
     _flush_startup_pager_and_continue()
@@ -840,7 +851,11 @@ def main() -> None:
                 with open(file_path, "r", encoding="latin-1") as f:
                     file_text = f.read()
             except Exception as e:
-                print("[WARN] " + _("Failed to read startup file: %(path)s (%(err)s)") % {"path": file_path, "err": e})
+                print(
+                    "[WARN] "
+                    + _("Failed to read startup file: %(path)s (%(err)s)")
+                    % {"path": file_path, "err": e}
+                )
                 file_text = ""
 
         if file_text and file_text.strip():
@@ -951,7 +966,13 @@ def main() -> None:
                                 ans = (res.get("user_reply") or "").strip().lower()
                             except Exception as e:
                                 ans = "n"
-                                print("[WARN] " + _("Image send confirmation failed; will not send images: %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+                                print(
+                                    "[WARN] "
+                                    + _(
+                                        "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+                                    )
+                                    % {"etype": type(e).__name__, "err": e}
+                                )
 
                             if ans in ("y", "yes"):
                                 parts: List[Dict[str, Any]] = [
@@ -973,7 +994,16 @@ def main() -> None:
                                             {
                                                 "type": "text",
                                                 "text": "[WARN] "
-                                                + (_("Failed to attach image: %(path)s (%(etype)s: %(err)s)") % {"path": abspath, "etype": type(e).__name__, "err": e}),
+                                                + (
+                                                    _(
+                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+                                                    )
+                                                    % {
+                                                        "path": abspath,
+                                                        "etype": type(e).__name__,
+                                                        "err": e,
+                                                    }
+                                                ),
                                             }
                                         )
                                 user_msg = {"role": "user", "content": parts}
@@ -1001,7 +1031,10 @@ def main() -> None:
                 )
                 continue
 
-            print("[WARN] " + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev})
+            print(
+                "[WARN] "
+                + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev}
+            )
     finally:
         # プログラム終了時にキャッシュをクリア
         if provider == "gemini" and client:

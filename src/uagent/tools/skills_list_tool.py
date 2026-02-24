@@ -27,7 +27,6 @@ _ = make_tool_translator(__file__)
 from .agent_skills_shared import (  # noqa: E402
     get_default_skill_roots,
     load_skill_frontmatter_only,
-    safe_resolve_skill_relative_path,
     skill_md_path,
     validate_skill_frontmatter,
 )
