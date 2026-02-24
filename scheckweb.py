@@ -1,7 +1,7 @@
 import sys
 import os
 
-from src.uagent.checks import check_git_installation
+from uagent.checks import check_git_installation
 
 check_git_installation()
 
