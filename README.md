@@ -88,6 +88,29 @@ See `env.sample.*` for provider/key configuration examples.
 
 ---
 
+## Image Generation / Analysis
+
+### Image Generation (`generate_image`)
+
+- `UAGENT_IMAGE_DEPNAME`: Model or deployment name (e.g., `dall-e-3`).
+- `UAGENT_IMAGE_OPEN`: Whether to automatically open the image after generation.
+  - `1`: Open (default)
+  - `0`: Do not open
+
+### Image Analysis (`analyze_image`)
+
+By default, the `analyze_image` tool uses the provider specified in `UAGENT_PROVIDER`. You can override this using specific environment variables.
+
+- `UAGENT_RESPONSES=1`: If enabled, the `analyze_image` tool is hidden, and the agent uses multimodal capabilities of the main LLM directly (if supported).
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: Override the provider for image analysis.
+- `UAGENT_IMG_ANALYSIS_DEPNAME`: Override the model name for image analysis.
+- `UAGENT_IMG_ANALYSIS_API_KEY`: Override the API key.
+- `UAGENT_IMG_ANALYSIS_BASE_URL`: Override the Base URL.
+
+Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
+
+---
+
 ## Release Notes
 
 - Added Agent Skills support (SKILL.md format): skills_list / skills_load / skills_validate / skills_read_file.

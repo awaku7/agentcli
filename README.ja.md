@@ -123,6 +123,34 @@ python -m uagent
 
 ---
 
+## 画像生成・解析（Image Generation / Analysis）
+
+### 画像生成（`generate_image`）
+
+- `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成用のプロバイダを個別に指定します（未指定時は `UAGENT_PROVIDER` を使用）。
+- `UAGENT_IMG_GENERATE_DEPNAME`: 生成用のモデル名またはデプロイ名（例: `dall-e-3`）。
+- `UAGENT_IMAGE_OPEN`: 生成後に画像を自動で開くかどうか。
+  - `1`: 開く（既定）
+  - `0`: 開かない
+
+プロバイダ別の指定例: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`。
+
+### 画像解析（`analyze_image`）
+
+既定では、`analyze_image` ツールは `UAGENT_PROVIDER` で指定されたプロバイダを使用しますが、専用の環境変数で上書き可能です。
+
+- `UAGENT_RESPONSES=1`: 有効にすると `analyze_image` ツールが非表示になり、代わりに LLM 本体のマルチモーダル機能を使って直接画像を扱います（モデルが対応している場合）。
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: 画像解析用のプロバイダを個別に指定します。
+- `UAGENT_IMG_ANALYSIS_DEPNAME`: 画像解析用のモデル名を指定します。
+- `UAGENT_IMG_ANALYSIS_API_KEY`: 画像解析用の API キーを指定します。
+- `UAGENT_IMG_ANALYSIS_BASE_URL`: 画像解析用のベース URL を指定します。
+
+プロバイダ別の指定例: `UAGENT_OPENAI_IMG_ANALYSIS_DEPNAME`, `UAGENT_AZURE_IMG_ANALYSIS_DEPNAME`。
+
+`analyze_image` で利用可能なプロバイダ: `openai`, `azure`, `gemini`, `nvidia`。
+
+---
+
 ## 更新情報
 
 - Agent Skills 対応（SKILL.md 形式）を追加: skills_list / skills_load / skills_validate / skills_read_file

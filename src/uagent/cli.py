@@ -985,8 +985,9 @@ def main() -> None:
                                         )
                                         parts.append(
                                             {
-                                                "type": "image_url",
-                                                "image_url": {"url": data_url},
+                                                # Responses API expects input_image with image_url as a string.
+                                                "type": "input_image",
+                                                "image_url": data_url,
                                             }
                                         )
                                     except Exception as e:
