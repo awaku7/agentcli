@@ -185,14 +185,47 @@ def _extract_retry_after(e: Exception) -> Any:
         v = headers.get(str(key).lower())
         if v is None:
             continue
+
+        # Some gateways (including Azure) may return:
+        # - seconds until reset (e.g., "10", "10s")
+        # - unix epoch seconds (e.g., "1730000000")
+        # - RFC3339 timestamp (e.g., "2026-02-24T10:00:00Z")
         try:
-            s = str(v).strip()
-            # '10s' のような suffix 付きもあり得る
+            s0 = str(v).strip()
+            s = s0
             if s.endswith("s"):
                 s = s[:-1].strip()
+
+            # Try numeric first.
             fv = float(s)
             if fv >= 0:
+                # Heuristic: very large values are likely unix epoch seconds.
+                # (seconds-until-reset is typically small.)
+                if fv >= 1_000_000_000:
+                    try:
+                        import time
+
+                        now = time.time()
+                        return max(0.0, fv - now)
+                    except Exception:
+                        return fv
                 return fv
+        except Exception:
+            pass
+
+        # Try RFC3339 timestamp.
+        try:
+            import datetime
+            import time
+
+            s = s0
+            if s.endswith("Z"):
+                s = s[:-1] + "+00:00"
+            dt = datetime.datetime.fromisoformat(s)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=datetime.timezone.utc)
+            reset_ts = dt.timestamp()
+            return max(0.0, reset_ts - time.time())
         except Exception:
             continue
 
