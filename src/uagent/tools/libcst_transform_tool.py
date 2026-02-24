@@ -32,7 +32,6 @@ _ = make_tool_translator(__file__)
 import fnmatch
 import json
 import os
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -94,22 +93,34 @@ operations examples:
                 "mode": {
                     "type": "string",
                     "enum": ["analyze", "transform"],
-                    "description": _("param.mode.description", default="Execution mode: analyze=analyze / transform=transform"),
+                    "description": _(
+                        "param.mode.description",
+                        default="Execution mode: analyze=analyze / transform=transform",
+                    ),
                 },
                 "paths": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": _("param.paths.description", default="Array of target files/directories (must be under workdir)."),
+                    "description": _(
+                        "param.paths.description",
+                        default="Array of target files/directories (must be under workdir).",
+                    ),
                 },
                 "include_glob": {
                     "type": "string",
-                    "description": _("param.include_glob.description", default="Include glob when scanning directories (e.g. **/*.py)."),
+                    "description": _(
+                        "param.include_glob.description",
+                        default="Include glob when scanning directories (e.g. **/*.py).",
+                    ),
                     "default": "**/*.py",
                 },
                 "exclude_globs": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": _("param.exclude_globs.description", default="Array of exclude globs (e.g. **/.venv/**, **/__pycache__/**)."),
+                    "description": _(
+                        "param.exclude_globs.description",
+                        default="Array of exclude globs (e.g. **/.venv/**, **/__pycache__/**).",
+                    ),
                     "default": [
                         "**/.git/**",
                         "**/.venv/**",
@@ -122,12 +133,18 @@ operations examples:
                 },
                 "max_files": {
                     "type": "integer",
-                    "description": _("param.max_files.description", default="Maximum number of files to scan (runaway protection)."),
+                    "description": _(
+                        "param.max_files.description",
+                        default="Maximum number of files to scan (runaway protection).",
+                    ),
                     "default": 20000,
                 },
                 "max_bytes": {
                     "type": "integer",
-                    "description": _("param.max_bytes.description", default="Maximum file size (bytes)."),
+                    "description": _(
+                        "param.max_bytes.description",
+                        default="Maximum file size (bytes).",
+                    ),
                     "default": 2_000_000,
                 },
                 "operations": {
@@ -548,8 +565,16 @@ def run_tool(args: Dict[str, Any]) -> str:
         return _json_err("operations must be an array")
 
     # Extract uagent-specific op before building generic transformers
-    wrap_ops = [op for op in operations_list if str(op.get("op") or "").strip() == "wrap_tool_spec_i18n"]
-    generic_ops = [op for op in operations_list if str(op.get("op") or "").strip() != "wrap_tool_spec_i18n"]
+    wrap_ops = [
+        op
+        for op in operations_list
+        if str(op.get("op") or "").strip() == "wrap_tool_spec_i18n"
+    ]
+    generic_ops = [
+        op
+        for op in operations_list
+        if str(op.get("op") or "").strip() != "wrap_tool_spec_i18n"
+    ]
 
     transformers, op_errors = _build_transformers(generic_ops)
 
@@ -572,8 +597,8 @@ def run_tool(args: Dict[str, Any]) -> str:
             # uagent-specific wrap op (per-file)
             if wrap_ops:
                 wrap_op = wrap_ops[0]
-                out2, _en_map, _ja_map, _wrap_changed, json_err = _apply_wrap_tool_spec_i18n(
-                    py_path=f, src=out, op=wrap_op
+                out2, _en_map, _ja_map, _wrap_changed, json_err = (
+                    _apply_wrap_tool_spec_i18n(py_path=f, src=out, op=wrap_op)
                 )
                 out = out2
                 if json_err:
@@ -766,7 +791,9 @@ class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
     def __init__(self, state: _ToolSpecWrapState) -> None:
         self.state = state
 
-    def leave_Assign(self, original_node: cst.Assign, updated_node: cst.Assign) -> cst.Assign:
+    def leave_Assign(
+        self, original_node: cst.Assign, updated_node: cst.Assign
+    ) -> cst.Assign:
         # Match: TOOL_SPEC = { ... }
         if not original_node.targets:
             return updated_node
@@ -784,29 +811,51 @@ class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
 
         # function.description
         desc_expr = _dict_get_value(func, "description")
-        if isinstance(desc_expr, cst.Call) and isinstance(desc_expr.func, cst.Name) and desc_expr.func.value == "_":
+        if (
+            isinstance(desc_expr, cst.Call)
+            and isinstance(desc_expr.func, cst.Name)
+            and desc_expr.func.value == "_"
+        ):
             pass
         else:
-            ja = _is_string_literal(desc_expr) if isinstance(desc_expr, cst.BaseExpression) else None
+            ja = (
+                _is_string_literal(desc_expr)
+                if isinstance(desc_expr, cst.BaseExpression)
+                else None
+            )
             if ja is not None:
                 en = _jp_to_en_rule_based(ja)
                 self.state.translations_en["tool.description"] = en
                 self.state.translations_ja["tool.description"] = ja
-                func = _dict_set_value(func, "description", _make_translate_call("tool.description", en))
+                func = _dict_set_value(
+                    func, "description", _make_translate_call("tool.description", en)
+                )
                 self.state.changed = True
 
         # function.system_prompt (optional)
         sp_expr = _dict_get_value(func, "system_prompt")
         if sp_expr is not None:
-            if isinstance(sp_expr, cst.Call) and isinstance(sp_expr.func, cst.Name) and sp_expr.func.value == "_":
+            if (
+                isinstance(sp_expr, cst.Call)
+                and isinstance(sp_expr.func, cst.Name)
+                and sp_expr.func.value == "_"
+            ):
                 pass
             else:
-                ja = _is_string_literal(sp_expr) if isinstance(sp_expr, cst.BaseExpression) else None
+                ja = (
+                    _is_string_literal(sp_expr)
+                    if isinstance(sp_expr, cst.BaseExpression)
+                    else None
+                )
                 if ja is not None:
                     en = _jp_to_en_rule_based(ja)
                     self.state.translations_en["tool.system_prompt"] = en
                     self.state.translations_ja["tool.system_prompt"] = ja
-                    func = _dict_set_value(func, "system_prompt", _make_translate_call("tool.system_prompt", en))
+                    func = _dict_set_value(
+                        func,
+                        "system_prompt",
+                        _make_translate_call("tool.system_prompt", en),
+                    )
                     self.state.changed = True
 
         # parameters.properties.*.description
@@ -828,10 +877,18 @@ class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
                     if pdesc is None:
                         new_prop_elems.append(el)
                         continue
-                    if isinstance(pdesc, cst.Call) and isinstance(pdesc.func, cst.Name) and pdesc.func.value == "_":
+                    if (
+                        isinstance(pdesc, cst.Call)
+                        and isinstance(pdesc.func, cst.Name)
+                        and pdesc.func.value == "_"
+                    ):
                         new_prop_elems.append(el)
                         continue
-                    ja = _is_string_literal(pdesc) if isinstance(pdesc, cst.BaseExpression) else None
+                    ja = (
+                        _is_string_literal(pdesc)
+                        if isinstance(pdesc, cst.BaseExpression)
+                        else None
+                    )
                     if ja is None:
                         new_prop_elems.append(el)
                         continue
@@ -839,7 +896,9 @@ class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
                     key = f"param.{pname}.description"
                     self.state.translations_en[key] = en
                     self.state.translations_ja[key] = ja
-                    pdef2 = _dict_set_value(pdef, "description", _make_translate_call(key, en))
+                    pdef2 = _dict_set_value(
+                        pdef, "description", _make_translate_call(key, en)
+                    )
                     new_prop_elems.append(el.with_changes(value=pdef2))
                     self.state.changed = True
 

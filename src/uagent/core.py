@@ -851,12 +851,10 @@ def compress_history_with_llm(
     convo_text = "\\n\\n".join(lines)
 
     # --- 要約用の別コンテキスト ---
-    summary_system_prompt = _(
-        """- Summarize the conversation log so far in English.
+    summary_system_prompt = _("""- Summarize the conversation log so far in English.
 - Keep the summary concise but include key decisions, constraints, and pending items.
 - Output should be directly usable as a system message titled 'Summary of the conversation so far'.
-"""
-    )
+""")
 
     summary_messages = [
         {"role": "system", "content": summary_system_prompt},
@@ -930,7 +928,7 @@ def print_help() -> None:
     lines = [
         _("Available commands:"),
         _("  :help                 Show this help"),
-        _("  (in multiline input) \"\"\"retry  Restart input from the beginning"),
+        _('  (in multiline input) """retry  Restart input from the beginning'),
         _("  :logs / :list         Show log file list"),
         _(
             "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
@@ -938,7 +936,9 @@ def print_help() -> None:
         _(
             "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
         ),
-        _("  :load <idx|path>      Load a past log (overwrites current conversation history)"),
+        _(
+            "  :load <idx|path>      Load a past log (overwrites current conversation history)"
+        ),
         _(
             "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
         ),
@@ -952,7 +952,9 @@ def print_help() -> None:
             "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
         _("  :mem-list             List long-term memory notes"),
-        _("  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"),
+        _(
+            "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
+        ),
         _(
             "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),
@@ -997,7 +999,6 @@ SYSTEM_PROMPT_MSGID = """
 # System prompt used by the agent. This is translated via gettext; if translations are missing,
 # the msgid (English) is used as-is.
 SYSTEM_PROMPT = _(SYSTEM_PROMPT_MSGID)
-
 
 
 def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:

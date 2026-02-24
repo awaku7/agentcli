@@ -83,4 +83,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     content = _read_text_file(resolved, max_bytes=max_bytes)
-    return json.dumps({"ok": True, "path": resolved, "content": content}, ensure_ascii=False, indent=2)
+    return json.dumps(
+        {"ok": True, "path": resolved, "content": content}, ensure_ascii=False, indent=2
+    )

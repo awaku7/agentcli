@@ -854,12 +854,10 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
 
     max_chars = 4000
 
-    header = (
-        i18n_(
-            "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). "
-            "Use them as background information about the user. "
-            "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"
-        )
+    header = i18n_(
+        "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). "
+        "Use them as background information about the user. "
+        "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"
     )
 
     body_lines: List[str] = []
@@ -885,9 +883,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
                 body_lines.append(f"- {text}")
                 candidate = header + "\n".join(body_lines)
                 if len(candidate) > max_chars:
-                    body_lines.append(
-                        "...(truncated: long-term memory is too long)..."
-                    )
+                    body_lines.append("...(truncated: long-term memory is too long)...")
                     break
         else:
             text = str(long_mem_raw).strip()
