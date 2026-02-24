@@ -155,6 +155,14 @@ OpenAI互換翻訳の追加設定:
 
 プロバイダ別の指定例: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`。
 
+プロバイダ別の認証/エンドポイント:
+- `UAGENT_<PROVIDER>_IMG_GENERATE_API_KEY`（必須）
+- `UAGENT_<PROVIDER>_IMG_GENERATE_BASE_URL`（多くのプロバイダで任意。既定値がある場合あり）
+- Azureのみ: `UAGENT_AZURE_IMG_GENERATE_API_VERSION`（必須）
+
+フォールバック:
+- `*_IMG_GENERATE_*` が未設定の場合、メインプロバイダ側の環境変数（例: `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL`）も参照します。
+
 ### 画像解析（`analyze_image`）
 
 既定では、`analyze_image` ツールは `UAGENT_PROVIDER` で指定されたプロバイダを使用しますが、専用の環境変数で上書き可能です。
