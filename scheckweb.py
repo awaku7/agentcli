@@ -1,12 +1,12 @@
 import sys
 import os
 
+# src ディレクトリをパスに追加してパッケージとして認識可能にする
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
+
 from uagent.checks import check_git_installation
 
 check_git_installation()
-
-# src ディレクトリをパスに追加してパッケージとして認識可能にする
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 try:
     from uagent.web import main
