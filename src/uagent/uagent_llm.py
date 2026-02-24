@@ -2,6 +2,7 @@ import json
 import os
 import time
 from .i18n import _
+from .translate import load_translate_config, translate_text
 import traceback
 from typing import Any, Dict, List
 from urllib.error import URLError
@@ -112,6 +113,11 @@ def run_llm_rounds(
                 )
                 break
 
+            # Optional translation layer (off by default).
+            # We keep the original `messages` history unchanged and create a translated
+            # copy only for the LLM call.
+            tr_cfg = load_translate_config()
+
             if provider == "gemini":
                 if gemini_cache_name:
                     # キャッシュには System プロンプトが含まれているため、それ以外(User, Assistant, Tool等)を送る。
@@ -121,6 +127,36 @@ def run_llm_rounds(
                     call_messages = messages
             else:
                 call_messages = core.sanitize_messages_for_tools(messages)
+
+            # Translate call_messages copy for LLM (if enabled).
+            translated_call_messages = call_messages
+            if tr_cfg is not None:
+                try:
+                    translated_call_messages = []
+                    for m in call_messages:
+                        role = m.get("role")
+                        if role in ("system", "user", "assistant"):
+                            content = m.get("content")
+                            if isinstance(content, str) and content.strip():
+                                # Determine src lang for UI side; if thread-local is set,
+                                # translate.py will also auto-skip when target is English and
+                                # text already looks English.
+                                src_lang = ""
+                                out, diag = translate_text(
+                                    content,
+                                    direction="to_llm",
+                                    src_lang=src_lang,
+                                    cfg=tr_cfg,
+                                )
+                                nm = dict(m)
+                                nm["content"] = out
+                                translated_call_messages.append(nm)
+                                continue
+                        translated_call_messages.append(m)
+                except Exception:
+                    pass
+
+            call_messages = translated_call_messages
 
             tool_calls_list: List[Dict[str, Any]] = []
             assistant_text: str = ""
@@ -136,8 +172,12 @@ def run_llm_rounds(
                 if v == "":
                     return bool(default)
                 return v in ("1", "true", "yes", "on")
-
             stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
+
+            # If translation is enabled, disable streaming to avoid mismatched partial outputs.
+            # (We translate per-call, not per-delta.)
+            if tr_cfg is not None and ((tr_cfg.to_llm or "").strip() or (tr_cfg.from_llm or "").strip()):
+                stream_responses = False
 
             send_tools_this_round = True
             max_retries_429 = int(os.environ.get("UAGENT_429_MAX_RETRIES", "20"))
@@ -196,6 +236,24 @@ def run_llm_rounds(
                         )
                         print(repr(e))
                         return
+                # Translate assistant output (if enabled; avoid responses+streaming double output)
+                if (
+                    tr_cfg is not None
+                    and isinstance(assistant_text, str)
+                    and assistant_text.strip()
+                    and not (use_responses_api and stream_responses)
+                ):
+                    out, diag = translate_text(
+                        assistant_text,
+                        direction="from_llm",
+                        src_lang="",
+                        cfg=tr_cfg,
+                    )
+                    if diag:
+                        # Non-fatal: keep original output and show diagnostics.
+                        print(f"[Translate Error] {diag}")
+                    else:
+                        assistant_text = out
 
                 assistant_msg: Dict[str, Any] = {
                     "role": "assistant",
@@ -265,6 +323,24 @@ def run_llm_rounds(
                         )
                         print(repr(e))
                         return
+                # Translate assistant output (if enabled; avoid responses+streaming double output)
+                if (
+                    tr_cfg is not None
+                    and isinstance(assistant_text, str)
+                    and assistant_text.strip()
+                    and not (use_responses_api and stream_responses)
+                ):
+                    out, diag = translate_text(
+                        assistant_text,
+                        direction="from_llm",
+                        src_lang="",
+                        cfg=tr_cfg,
+                    )
+                    if diag:
+                        # Non-fatal: keep original output and show diagnostics.
+                        print(f"[Translate Error] {diag}")
+                    else:
+                        assistant_text = out
 
                 assistant_msg = {
                     "role": "assistant",
