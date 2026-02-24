@@ -71,20 +71,43 @@ class SkillDoc:
 def get_default_skill_roots(cwd: Optional[str] = None) -> List[str]:
     """Return default skill root directories.
 
-    Policy (as requested by user):
-    - Use env var UAGENT_SKILLS_DIRS split by os.pathsep
-    - If not set, fallback to ./skills (relative to cwd)
+    Policy:
+    - Search roots in this order:
+      1) env var UAGENT_SKILLS_DIRS split by os.pathsep (if set)
+      2) ~/skills
+      3) ./skills (relative to cwd if provided, else os.getcwd())
 
     The returned list may contain non-existing paths; callers may filter.
     """
 
     env = os.environ.get("UAGENT_SKILLS_DIRS")
+    parts: List[str] = []
     if env:
         parts = [p.strip() for p in env.split(os.pathsep) if p.strip()]
-        return parts
 
     base = cwd or os.getcwd()
-    return [os.path.join(base, "skills")]
+
+    # Always search:
+    # - UAGENT_SKILLS_DIRS (if set)
+    # - ~/skills
+    # - ./skills (relative to cwd)
+    roots = parts + [
+        os.path.join(os.path.expanduser("~"), "skills"),
+        os.path.join(base, "skills"),
+    ]
+
+    # De-duplicate while preserving order.
+    # Normalize by realpath + normcase (Windows-safe).
+    seen: set[str] = set()
+    out: List[str] = []
+    for p in roots:
+        key = os.path.normcase(os.path.realpath(os.path.normpath(p)))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(p)
+
+    return out
 
 
 # ------------------------------
