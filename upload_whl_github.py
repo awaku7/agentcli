@@ -282,9 +282,7 @@ def _find_previous_tag(
     return names[idx + 1]
 
 
-def _compare_commits(
-    owner: str, repo: str, token: str, base: str, head: str
-) -> dict:
+def _compare_commits(owner: str, repo: str, token: str, base: str, head: str) -> dict:
     # Compare two commits/refs.
     # Docs: GET /repos/{owner}/{repo}/compare/{base}...{head}
     url = f"{GITHUB_API}/repos/{owner}/{repo}/compare/{quote(base, safe='')}...{quote(head, safe='')}"
@@ -364,10 +362,14 @@ def _generate_release_body(
 
     if not base:
         # Fallback: cannot find previous tag
-        return f"## Release {tag}\n\n(Previous tag not found; no commit list generated.)\n"
+        return (
+            f"## Release {tag}\n\n(Previous tag not found; no commit list generated.)\n"
+        )
 
     compare = _compare_commits(owner, repo, token, base=base, head=tag)
-    return _build_release_body_from_compare(compare, base=base, head=tag, max_commits=max_commits)
+    return _build_release_body_from_compare(
+        compare, base=base, head=tag, max_commits=max_commits
+    )
 
 
 def _ensure_release(
