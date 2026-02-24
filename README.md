@@ -88,6 +88,26 @@ See `env.sample.*` for provider/key configuration examples.
 
 ---
 
+## Optional Translation (TO_LLM / FROM_LLM)
+
+By default, uag does **not** translate.
+
+Enable translation by setting:
+- `UAGENT_TRANSLATE_PROVIDER`: translation provider (OpenAI-compatible string, e.g. `openai` / `azure` / `openrouter` / `nvidia` / `grok`).
+- `UAGENT_TRANSLATE_TO_LLM`: language tag to translate **into** before sending to the LLM (e.g. `en`).
+- `UAGENT_TRANSLATE_FROM_LLM`: language tag to translate **into** for displaying LLM outputs (e.g. `ja`).
+
+OpenAI-compatible translation settings:
+- `UAGENT_TRANSLATE_DEPNAME`: model name for translation (required when translation is enabled).
+- `UAGENT_TRANSLATE_API_KEY`: optional (falls back to the main provider key).
+- `UAGENT_TRANSLATE_BASE_URL`: optional (falls back to the main provider base URL).
+
+Notes:
+- Translation is done **per call** (stateless).
+- When translation is enabled, streaming is forced **off** to avoid mismatched partial outputs.
+
+---
+
 ## Image Generation / Analysis
 
 ### Image Generation (`generate_image`)
