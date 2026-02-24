@@ -370,7 +370,10 @@ def run_agent_worker(room: WebRoom, user_input: str):
         room.add_message(
             {
                 "role": "assistant",
-                "content": "[WARN] " + _("Another task is already running in this room. Please retry after it completes."),
+                "content": "[WARN] "
+                + _(
+                    "Another task is already running in this room. Please retry after it completes."
+                ),
             }
         )
         return

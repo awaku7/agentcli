@@ -27,20 +27,20 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:zip_ops"
 
 
-_ = make_tool_translator(__file__)
+_t = make_tool_translator(__file__)
 
-# Translator usage: _(key, default=...)
+# Translator usage: _t(key, default=...)
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "zip_ops",
-        "description": _(
+        "description": _t(
             "tool.description",
             default="Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
         ),
-        "system_prompt": _(
+        "system_prompt": _t(
             "tool.system_prompt",
             default="Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_file_ops_extras).",
         ),
@@ -50,13 +50,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "action": {
                     "type": "string",
                     "enum": ["create", "extract", "list"],
-                    "description": _(
+                    "description": _t(
                         "param.action.description", default="Operation type."
                     ),
                 },
                 "zip_path": {
                     "type": "string",
-                    "description": _(
+                    "description": _t(
                         "param.zip_path.description", default="Path to the zip file."
                     ),
                 },
@@ -64,7 +64,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": _(
+                    "description": _t(
                         "param.sources.description",
                         default="Inputs for create (files/directories).",
                     ),
@@ -72,7 +72,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "dest_dir": {
                     "type": "string",
                     "default": ".",
-                    "description": _(
+                    "description": _t(
                         "param.dest_dir.description",
                         default="Destination directory for extract.",
                     ),
@@ -81,7 +81,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": _(
+                    "description": _t(
                         "param.exclude_globs.description",
                         default="Exclusions for create (simple: basename match).",
                     ),
@@ -89,7 +89,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "overwrite": {
                     "type": "boolean",
                     "default": False,
-                    "description": _(
+                    "description": _t(
                         "param.overwrite.description",
                         default="Whether to overwrite existing files on extract (requires confirmation).",
                     ),
@@ -97,7 +97,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "max_files": {
                     "type": "integer",
                     "default": 5000,
-                    "description": _(
+                    "description": _t(
                         "param.max_files.description",
                         default="Maximum number of files allowed on extract (zip bomb protection).",
                     ),
@@ -105,7 +105,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "max_total_uncompressed_bytes": {
                     "type": "integer",
                     "default": 500_000_000,
-                    "description": _(
+                    "description": _t(
                         "param.max_total_uncompressed_bytes.description",
                         default="Maximum total uncompressed bytes allowed on extract (zip bomb protection).",
                     ),
@@ -113,7 +113,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "dry_run": {
                     "type": "boolean",
                     "default": False,
-                    "description": _(
+                    "description": _t(
                         "param.dry_run.description",
                         default="For extract: validate only without extracting.",
                     ),
@@ -178,10 +178,15 @@ def run_tool(args: Dict[str, Any]) -> str:
     dry_run = bool(args.get("dry_run", False))
 
     if action not in ("create", "extract", "list"):
+
+        def _t(msgid: str, **kwargs):
+            # Fallback: return msgid itself (English) if translator is unavailable.
+            return msgid
+
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.invalid_action", default="invalid action: {action}"
                 ).format(action=action),
             },
@@ -192,7 +197,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _("error.zip_path_required", default="zip_path is required"),
+                "error": _t("error.zip_path_required", default="zip_path is required"),
             },
             ensure_ascii=False,
         )
@@ -201,7 +206,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.dangerous_zip_path_rejected",
                     default="dangerous zip_path rejected: {zip_path}",
                 ).format(zip_path=zip_path),
@@ -215,7 +220,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.zip_path_not_allowed",
                     default="zip_path not allowed: {error}",
                 ).format(error=e),
@@ -228,7 +233,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
+                    "error": _t(
                         "error.zip_not_found", default="zip not found: {zip_path}"
                     ).format(zip_path=safe_zip_path),
                 },
@@ -258,7 +263,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
+                    "error": _t(
                         "error.zip_list_failed",
                         default="zip list failed: {etype}: {error}",
                     ).format(etype=type(e).__name__, error=e),
@@ -271,7 +276,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
+                    "error": _t(
                         "error.sources_required_for_create",
                         default="sources is required for create",
                     ),
@@ -286,7 +291,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": _(
+                        "error": _t(
                             "error.dangerous_source_rejected",
                             default="dangerous source rejected: {source}",
                         ).format(source=s),
@@ -299,7 +304,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": _(
+                        "error": _t(
                             "error.source_not_allowed",
                             default="source not allowed: {error}",
                         ).format(error=e),
@@ -348,7 +353,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
+                    "error": _t(
                         "error.zip_create_failed",
                         default="zip create failed: {etype}: {error}",
                     ).format(etype=type(e).__name__, error=e),
@@ -361,7 +366,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.zip_not_found", default="zip not found: {zip_path}"
                 ).format(zip_path=safe_zip_path),
             },
@@ -372,7 +377,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.dangerous_dest_dir_rejected",
                     default="dangerous dest_dir rejected: {dest_dir}",
                 ).format(dest_dir=dest_dir),
@@ -386,7 +391,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.dest_dir_not_allowed",
                     default="dest_dir not allowed: {error}",
                 ).format(error=e),
@@ -402,7 +407,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": _(
+                        "error": _t(
                             "error.too_many_files_in_zip",
                             default="too many files in zip: {count} > max_files({max_files})",
                         ).format(count=len(infos), max_files=max_files),
@@ -416,7 +421,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     {
                         "ok": False,
                         "error": (
-                            _(
+                            _t(
                                 "error.zip_too_large_to_extract",
                                 default="zip too large to extract: total_uncompressed={total_uncompressed} > max_total_uncompressed_bytes({max_total_uncompressed_bytes})",
                             ).format(
@@ -435,7 +440,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 return json.dumps(
                     {
                         "ok": False,
-                        "error": _(
+                        "error": _t(
                             "error.dangerous_zip_entries_rejected",
                             default="dangerous zip entries rejected",
                         ),
@@ -445,7 +450,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 )
 
             if overwrite:
-                msg = _(
+                msg = _t(
                     "confirm.extract_overwrite",
                     default="zip_ops(extract) may overwrite existing files.\nzip: {zip_path}\ndest: {dest_dir}\nentries: {entries}\n\nEnter y to proceed, or c to cancel.",
                 ).format(zip_path=safe_zip_path, dest_dir=safe_dest, entries=len(infos))
@@ -453,7 +458,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     return json.dumps(
                         {
                             "ok": False,
-                            "error": _(
+                            "error": _t(
                                 "error.cancelled_by_user", default="cancelled by user"
                             ),
                         },
@@ -504,7 +509,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": _(
+                "error": _t(
                     "error.zip_extract_failed",
                     default="zip extract failed: {etype}: {error}",
                 ).format(etype=type(e).__name__, error=e),

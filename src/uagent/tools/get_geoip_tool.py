@@ -1,6 +1,7 @@
 # tools/get_geoip_tool.py
 from __future__ import annotations
 from .i18n_helper import make_tool_translator
+
 _ = make_tool_translator(__file__)
 
 

@@ -93,6 +93,13 @@ ignore = [
   "E501", # line too long
 ]
 
+# E402 (imports not at top) is intentionally allowed in tool modules because
+# they initialize the i18n translator at module import time.
+
+[tool.ruff.lint.per-file-ignores]
+"src/uagent/tools/*.py" = ["E402"]
+"src/uagent/tools/**/*.py" = ["E402"]
+
 fixable = ["ALL"]
 unfixable = []
 
