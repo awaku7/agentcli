@@ -112,10 +112,17 @@ Notes:
 
 ### Image Generation (`generate_image`)
 
-- `UAGENT_IMAGE_DEPNAME`: Model or deployment name (e.g., `dall-e-3`).
+- `UAGENT_IMG_GENERATE_PROVIDER`: Override the provider for image generation (fallback: `UAGENT_PROVIDER`).
 - `UAGENT_IMAGE_OPEN`: Whether to automatically open the image after generation.
   - `1`: Open (default)
   - `0`: Do not open
+
+Model / deployment name (provider-specific):
+- `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME` (required)
+  - Examples: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`
+
+Notes:
+- Depending on the provider SDK/API, supported sizes/features may differ.
 
 ### Image Analysis (`analyze_image`)
 
@@ -123,9 +130,11 @@ By default, the `analyze_image` tool uses the provider specified in `UAGENT_PROV
 
 - `UAGENT_RESPONSES=1`: If enabled, the `analyze_image` tool is hidden, and the agent uses multimodal capabilities of the main LLM directly (if supported).
 - `UAGENT_IMG_ANALYSIS_PROVIDER`: Override the provider for image analysis.
-- `UAGENT_IMG_ANALYSIS_DEPNAME`: Override the model name for image analysis.
-- `UAGENT_IMG_ANALYSIS_API_KEY`: Override the API key.
-- `UAGENT_IMG_ANALYSIS_BASE_URL`: Override the Base URL.
+
+Provider-specific overrides:
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_DEPNAME`
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_API_KEY`
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_BASE_URL`
 
 Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
 
