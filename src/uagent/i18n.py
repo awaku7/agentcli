@@ -219,8 +219,7 @@ def _get_translation(lang: str) -> gettext.NullTranslations:
 
 def _(msgid: str) -> str:
     """Translate msgid (user-facing string)."""
-
-    lang = detect_lang()
+    lang = get_thread_lang() or detect_lang()
     tr = _get_translation(lang)
     try:
         return tr.gettext(msgid)
