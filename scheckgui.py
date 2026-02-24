@@ -2,7 +2,7 @@ import sys
 import os
 import time
 
-from src.uagent.checks import check_git_installation
+from uagent.checks import check_git_installation
 
 check_git_installation()
 
