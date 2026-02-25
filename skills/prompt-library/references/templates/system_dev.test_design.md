@@ -4,7 +4,6 @@
 
 ---
 
-（必要時のみ参照）: ./prompts/templates/_shared_prompt_get_reference.md
 
 ---
 
