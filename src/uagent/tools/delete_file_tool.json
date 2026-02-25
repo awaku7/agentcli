@@ -3,6 +3,6 @@
   "param.filename.description": "",
   "param.missing_ok.description": "",
   "param.path.description": "",
-  "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.system_prompttool.system_promptThis tool performs the operation described by the tool name 'delete_file'.parameterstypeobjectpropertiesfilenametypestringdescriptionparam.filename.descriptionPath to the file to delete.pathtypestringdescriptionparam.path.description(Compatibility) Alias of filename.missing_oktypebooleandefaultdescriptionparam.missing_ok.descriptionIf true, do not error when the path does not exist.requiredmessageuser_replycancelled",
+  "tool.description": "",
   "tool.system_prompt": ""
 }

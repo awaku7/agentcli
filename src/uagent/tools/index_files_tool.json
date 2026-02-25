@@ -1,6 +1,0 @@
-{
-  "param.pattern.description": "対象とするファイル名、ディレクトリ名、またはglobパターン（例: 'src/**/*.py', '*.md'）。",
-  "param.recursive.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
-  "param.root_path.description": "検索・インデックスの起点となるディレクトリ。デフォルトはカレントディレクトリ。",
-  "tool.description": "指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。"
-}

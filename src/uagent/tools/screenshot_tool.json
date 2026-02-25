@@ -1,8 +1,8 @@
 {
-  "param.close_window.description": "撮影後にそのウィンドウを閉じるかどうか。window_title指定時のみ有効。デフォルトはFalse。",
-  "param.delay.description": "撮影前の待機時間（秒）。デフォルトは1秒（ウィンドウ切り替え用）。",
-  "param.file_path.description": "保存先のファイルパス（.png推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。",
-  "param.window_title.description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。",
-  "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
-  "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"
+  "param.close_window.description": "",
+  "param.delay.description": "",
+  "param.file_path.description": "",
+  "param.window_title.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

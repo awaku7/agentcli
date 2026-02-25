@@ -1,6 +1,6 @@
 {
-  "param.index.description": "削除対象のインデックス（mcp_servers[n]）。name と同時指定時は index を優先します。",
-  "param.name.description": "削除対象のサーバー名（mcp_servers[].name）",
-  "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
-  "param.require_nonempty.description": "true の場合、削除後に空になる操作を禁止します（既定: false）"
+  "param.index.description": "",
+  "param.name.description": "",
+  "param.path.description": "",
+  "param.require_nonempty.description": ""
 }
