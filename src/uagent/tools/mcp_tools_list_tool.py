@@ -61,11 +61,11 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "server_name": {
                     "type": "string",
-                    "description": "設定ファイル内のサーバー名（name）で指定する場合に使用します。",
+                    "description": _("param.server_name.description", default="設定ファイル内のサーバー名（name）で指定する場合に使用します。"),
                 },
                 "pretty": {
                     "type": "boolean",
-                    "description": "true の場合は JSON を見やすく整形して返す（既定: true）",
+                    "description": _("param.pretty.description", default="true の場合は JSON を見やすく整形して返す（既定: true）"),
                     "default": True,
                 },
             },

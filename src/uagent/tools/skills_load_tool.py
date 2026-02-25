@@ -25,13 +25,13 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_load",
-        "description": "Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。",
+        "description": _("tool.description", default="Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": "スキルディレクトリ（直下に SKILL.md が必要）",
+                    "description": _("param.skill_dir.description", default="スキルディレクトリ（直下に SKILL.md が必要）"),
                 }
             },
             "required": ["skill_dir"],

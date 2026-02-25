@@ -24,21 +24,15 @@ TOOL_SPEC: Dict[str, Any] = {
             "- ユーザーの場所（都市/地域/国など）が必要な質問に答えるときは、必ずこの get_geoip ツールを使って推定位置を取得してください。\n"
             "- ただし、ユーザーが場所を明示している場合はそれを優先し、get_geoip は不要です"
         ),
-        "system_prompt": """このツールは次の目的で使われます: 出力形式。'text' か 'json'。既定は 'text'。
-- 現在のユーザーの場所がわからない場合に利用します
-""",
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 出力形式。'text' か 'json'。既定は 'text'。\n- 現在のユーザーの場所がわからない場合に利用します"),
         "parameters": {
             "type": "object",
             "properties": {
                 "format": {
                     "type": "string",
-                    "description": "出力形式。'text' か 'json'。既定は 'text'。",
+                    "description": _("param.format.description", default="出力形式。'text' か 'json'。既定は 'text'。"),
                     "enum": ["text", "json"],
-                },
-                "require_consent": {
-                    "type": "boolean",
-                    "description": "true の場合、外部サービスへアクセスする前に同意が必要です。既定は true。",
-                },
+                }
             },
             "required": [],
         },
@@ -50,9 +44,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     out_format = (args.get("format") or "text").strip().lower()
     if out_format not in ("text", "json"):
         return "[get_geoip error] format は 'text' または 'json' を指定してください"
-
-    # 同意処理は廃止（UAGENT_GEOIP_CONSENT を含む環境変数参照は行わない）
-    # require_consent パラメータは互換のために受け付けるが無視する。
+    # Note: Consent handling has been removed. The deprecated 'require_consent'
+    # parameter is not supported and is intentionally absent from the schema.
 
     # ipinfo の JSON を取得
     raw = fetch_url_run({"url": "https://ipinfo.io/json"})

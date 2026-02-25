@@ -14,26 +14,26 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_env",
-        "description": "指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
-        "system_prompt": """このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。""",
+        "description": _("tool.description", default="指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "読み取る環境変数名。",
+                    "description": _("param.name.description", default="読み取る環境変数名。"),
                 },
                 "missing_ok": {
                     "type": "boolean",
-                    "description": "true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。",
+                    "description": _("param.missing_ok.description", default="true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。"),
                 },
                 "mask": {
                     "type": "boolean",
-                    "description": "true の場合、値をマスクします（例: 秘密情報）。既定は true。",
+                    "description": _("param.mask.description", default="true の場合、値をマスクします（例: 秘密情報）。既定は true。"),
                 },
                 "unmasked_chars": {
                     "type": "integer",
-                    "description": "マスク時、先頭と末尾に残す文字数。既定は 2。",
+                    "description": _("param.unmasked_chars.description", default="マスク時、先頭と末尾に残す文字数。既定は 2。"),
                 },
             },
             "required": ["name"],

@@ -1,4 +1,4 @@
 {
-  "en": {},
-  "ja": {}
+  "tool.description": "Get the current working directory.",
+  "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。"
 }

@@ -1,14 +1,6 @@
 {
-  "en": {
-    "tool.description": "Execute an SQL query against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
-    "tool.system_prompt": "Use this tool to run a read-only SQL query against an SQLite database file. Only SELECT and PRAGMA statements are allowed.",
-    "param.db_path.description": "Path to the SQLite database file.",
-    "param.sql.description": "SQL to execute (must start with SELECT or PRAGMA)."
-  },
-  "ja": {
-    "tool.description": "SQLiteデータベースに対してSQLクエリを実行し、結果を取得します。データの読み取り（SELECT）およびスキーマ確認（PRAGMA）のみ対応しています。",
-    "tool.system_prompt": "このツールは次の目的で使われます: SQLiteデータベースに対してSQLクエリを実行し、結果を取得します。データの読み取り（SELECT）およびスキーマ確認（PRAGMA）のみ対応しています。",
-    "param.db_path.description": "SQLiteデータベースファイルのパス。",
-    "param.sql.description": "実行するSQL文（SELECT または PRAGMA で始まること）。"
-  }
+  "param.db_path.description": "",
+  "param.sql.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

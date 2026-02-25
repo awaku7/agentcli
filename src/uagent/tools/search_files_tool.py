@@ -1,4 +1,7 @@
 # tools/search_files_tool.py
+
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -8,7 +11,7 @@ import re
 import fnmatch
 from typing import Any, Dict, List
 
-# ツール実行中は Busy 表示にしたいので ON
+# Mark as busy while running
 BUSY_LABEL = True
 STATUS_LABEL = "tool:search_files"
 
@@ -16,55 +19,101 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "search_files",
-        "description": "ディレクトリ内のファイルを検索します。ファイル名パターン(glob)での検索に加え、ファイル内容の正規表現検索(Grep)も可能です。",
-        "system_prompt": """このツールは次の目的で使われます: ディレクトリ内のファイルを検索します。ファイル名パターン(glob)での検索に加え、ファイル内容の正規表現検索(Grep)も可能です。""",
+        "description": _(
+            "tool.description",
+            default="Search files under a directory by name pattern (glob) and/or by content (regex).",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "Search for files under a directory. You can filter by filename pattern (glob) and optionally "
+                "grep file contents using a regular expression.\n\n"
+                "Notes:\n"
+                "- content_pattern is treated as a Python regular expression.\n"
+                "- If content_pattern is empty, only filename matching is performed.\n"
+                "- For performance and safety, binary-like files can be excluded from content searching."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "root_path": {
                     "type": "string",
-                    "description": "検索を開始するディレクトリパス（省略時はカレントディレクトリ）。",
+                    "description": _(
+                        "param.root_path.description",
+                        default="Root directory to start searching from (default: current directory).",
+                    ),
                 },
                 "name_pattern": {
                     "type": "string",
-                    "description": "ファイル名のパターン（glob形式、例: '*.py', 'test_*'）。省略時は全ファイルを対象にします。",
+                    "description": _(
+                        "param.name_pattern.description",
+                        default=(
+                            "Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered."
+                        ),
+                    ),
                 },
                 "content_pattern": {
                     "type": "string",
-                    "description": "ファイル内で検索したい文字列の正規表現パターン。指定した場合、マッチする行を含むファイルのみを返します。",
+                    "description": _(
+                        "param.content_pattern.description",
+                        default=(
+                            "Regular expression to search within files. If provided, only files containing at least one "
+                            "matching line are returned."
+                        ),
+                    ),
                 },
                 "case_sensitive": {
                     "type": "boolean",
-                    "description": "大文字小文字を区別するかどうか（デフォルト: False）。",
+                    "description": _(
+                        "param.case_sensitive.description",
+                        default="Whether the content search is case-sensitive (default: false).",
+                    ),
                 },
                 "max_results": {
                     "type": "integer",
-                    "description": "検索結果の最大件数（デフォルト: 50）。これを超えると検索を打ち切ります。",
+                    "description": _(
+                        "param.max_results.description",
+                        default="Maximum number of matched files to return (default: 50).",
+                    ),
                 },
                 "exclude_binary": {
                     "type": "boolean",
-                    "description": "content_pattern 指定時、バイナリと推定されるファイルを検索対象から除外します（デフォルト: True）。",
+                    "description": _(
+                        "param.exclude_binary.description",
+                        default=(
+                            "When content_pattern is set, exclude files that appear to be binary (default: true)."
+                        ),
+                    ),
                     "default": True,
                 },
                 "binary_sniff_bytes": {
                     "type": "integer",
-                    "description": "バイナリ判定のために先頭から読み込むバイト数（デフォルト: 8192）。",
+                    "description": _(
+                        "param.binary_sniff_bytes.description",
+                        default="Number of leading bytes used to detect binary-like files (default: 8192).",
+                    ),
                     "default": 8192,
                 },
                 "fast_read_threshold_bytes": {
                     "type": "integer",
-                    "description": "このサイズ未満のファイルは全文 read() して高速に検索します（デフォルト: 8000000=約8MB）。これ以上は行単位でストリーミング検索します。",
+                    "description": _(
+                        "param.fast_read_threshold_bytes.description",
+                        default=(
+                            "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). "
+                            "Larger files are scanned line-by-line."
+                        ),
+                    ),
                     "default": 8000000,
                 },
             },
-            # root_path は必須ではないが、明示的な引数なしでも動くようにしておく
             "required": [],
         },
     },
 }
 
 
-# 検索から除外するディレクトリ
+# Directories to exclude from walking
 IGNORE_DIRS = {
     ".git",
     "__pycache__",
@@ -76,7 +125,7 @@ IGNORE_DIRS = {
     "coverage",
 }
 
-# 検索対象外にする拡張子（バイナリや巨大ファイルなど）
+# File extensions to exclude (typically binary or large assets)
 IGNORE_EXTS = {
     ".pyc",
     ".pyd",
@@ -97,22 +146,16 @@ IGNORE_EXTS = {
 
 
 def _looks_binary(head: bytes) -> bool:
-    """バイナリっぽいかを軽量に推定する。
-
-    方針:
-    - NUL(\x00) が含まれたらほぼバイナリ。
-    - それ以外でも、制御文字の比率が高い場合はバイナリ扱い。
-
-    NOTE: 完璧な判定は不可能だが、「バイナリは見たくない」用途の除外としては十分。
-    """
+    """Heuristically determine whether a file is likely binary."""
 
     if not head:
         return False
 
+    # NUL almost certainly indicates binary
     if b"\x00" in head:
         return True
 
-    # 許容する制御文字: \t, \n, \r
+    # Allow a small set of common control characters: \t, \n, \r
     bad = 0
     for b in head:
         if b in (9, 10, 13):
@@ -120,7 +163,7 @@ def _looks_binary(head: bytes) -> bool:
         if 0 <= b < 32:
             bad += 1
 
-    # 先頭チャンクの 10% 以上が制御文字ならバイナリ寄りと判定
+    # If 10%+ of the sample are control chars, treat as binary-ish.
     return (bad / len(head)) > 0.10
 
 
@@ -129,11 +172,7 @@ def _grep_text_full_read(
     regex: re.Pattern[str],
     max_hits_per_file: int,
 ) -> List[str]:
-    """小〜中サイズファイル向け: 全文 read() して高速に grep。
-
-    - まず全文に対して regex.search() でヒット有無を確認
-    - ヒットした場合のみ splitlines() して行番号を抽出
-    """
+    """For small/medium files: read the entire file and grep quickly."""
 
     with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
         text = f.read()
@@ -157,7 +196,7 @@ def _grep_text_streaming(
     regex: re.Pattern[str],
     max_hits_per_file: int,
 ) -> List[str]:
-    """巨大ファイル向け: 行単位でストリーミング grep（メモリ安全）。"""
+    """For large files: stream line-by-line to keep memory usage bounded."""
 
     matched_lines: List[str] = []
     line_num = 0
@@ -174,9 +213,8 @@ def _grep_text_streaming(
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """
-    ファイル検索を実行する
-    """
+    """Run file search."""
+
     root_path = args.get("root_path") or "."
     name_pattern = args.get("name_pattern") or "*"
     content_pattern = args.get("content_pattern", "")
@@ -186,23 +224,23 @@ def run_tool(args: Dict[str, Any]) -> str:
     binary_sniff_bytes = int(args.get("binary_sniff_bytes", 8192))
     fast_read_threshold_bytes = int(args.get("fast_read_threshold_bytes", 8_000_000))
 
-    # max_results の正規化
+    # Normalize max_results
     try:
         max_results = int(max_results)
     except Exception:
         max_results = 50
 
     if not os.path.exists(root_path):
-        return f"[search_files error] ディレクトリが存在しません: {root_path}"
+        return f"[search_files error] Directory does not exist: {root_path}"
 
-    # コンテンツ検索用の正規表現コンパイル
+    # Compile content regex if provided
     regex = None
     if content_pattern:
         flags = 0 if case_sensitive else re.IGNORECASE
         try:
             regex = re.compile(content_pattern, flags)
         except re.error as e:
-            return f"[search_files error] 正規表現のコンパイルに失敗しました: {e}"
+            return f"[search_files error] Failed to compile regex: {e}"
 
     results = []
     count = 0
@@ -216,75 +254,67 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
     for dirpath, dirnames, filenames in os.walk(root_path):
-        # 除外ディレクトリのフィルタリング
-        # os.walk の dirnames を書き換えることで再帰を抑制できる
+        # Filter excluded directories by mutating dirnames in-place.
         dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS]
 
         for fname in filenames:
-            if count >= max_results:
-                truncated = True
-                break
-
-            # 拡張子チェック
-            _, ext = os.path.splitext(fname)
-            if ext.lower() in IGNORE_EXTS:
+            if os.path.splitext(fname)[1].lower() in IGNORE_EXTS:
                 continue
 
-            # ファイル名マッチング
-            # fnmatch はデフォルトで case-insensitive (Windows) かもしれないが、
-            # 明示的にコントロールしたい場合もある。ここではシンプルに fnmatch を使う。
             if not fnmatch.fnmatch(fname, name_pattern):
                 continue
 
             full_path = os.path.join(dirpath, fname)
 
-            # コンテンツ検索 (Grep)
-            if regex:
+            # Content filtering
+            matched_lines: List[str] = []
+            if regex is not None:
                 try:
-                    # バイナリ判定（grep時のみ）
-                    if exclude_binary:
-                        with open(full_path, "rb") as bf:
-                            head = bf.read(binary_sniff_bytes)
-                        if _looks_binary(head):
-                            continue
+                    with open(full_path, "rb") as bf:
+                        head = bf.read(binary_sniff_bytes)
+                    if exclude_binary and _looks_binary(head):
+                        continue
 
-                    max_hits_per_file = 5
-                    try:
-                        size = os.path.getsize(full_path)
-                    except Exception:
-                        size = None
-
-                    if size is not None and size < fast_read_threshold_bytes:
-                        matched_lines = _grep_text_full_read(
-                            full_path, regex=regex, max_hits_per_file=max_hits_per_file
-                        )
+                    # Choose strategy based on file size
+                    size = os.path.getsize(full_path)
+                    if size < fast_read_threshold_bytes:
+                        matched_lines = _grep_text_full_read(full_path, regex, max_hits_per_file=5)
                     else:
-                        matched_lines = _grep_text_streaming(
-                            full_path, regex=regex, max_hits_per_file=max_hits_per_file
-                        )
+                        matched_lines = _grep_text_streaming(full_path, regex, max_hits_per_file=5)
 
-                    if matched_lines:
-                        results.append(f"File: {full_path}")
-                        for m in matched_lines:
-                            results.append(f"  {m}")
-                        count += 1
-
-                except Exception:
-                    # 読み込みエラーはスキップ
+                    if not matched_lines:
+                        continue
+                except Exception as e:
+                    # Skip unreadable files
                     continue
+
+            rel = os.path.relpath(full_path, root_path)
+            if matched_lines:
+                results.append({"file": rel, "matches": matched_lines})
             else:
-                # ファイル名検索のみ
-                results.append(f"File: {full_path}")
-                count += 1
+                results.append({"file": rel})
+
+            count += 1
+            if count >= max_results:
+                truncated = True
+                break
 
         if truncated:
             break
 
     if not results:
-        return "[search_files] 条件に一致するファイルは見つかりませんでした。"
+        return "[search_files] No files matched the criteria."
 
-    header = f"[search_files] Found {count} results:\n"
+    # Human-readable output (kept for compatibility with existing consumers)
+    out_lines: List[str] = []
     if truncated:
-        header += f"(Results truncated to {max_results})\n"
+        out_lines.append(f"[search_files] Found {len(results)} results (truncated to {max_results})")
+    else:
+        out_lines.append(f"[search_files] Found {len(results)} results")
 
-    return header + "\n".join(results)
+    for r in results[:max_results]:
+        out_lines.append(f"File: {r['file']}")
+        for m in r.get("matches", [])[:10]:
+            out_lines.append(f"  {m}")
+
+    return "\n".join(out_lines)

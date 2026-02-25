@@ -29,19 +29,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "削除対象のサーバー名（mcp_servers[].name）",
+                    "description": _("param.name.description", default="削除対象のサーバー名（mcp_servers[].name）"),
                 },
                 "index": {
                     "type": "integer",
-                    "description": "削除対象のインデックス（mcp_servers[n]）。name と同時指定時は index を優先します。",
+                    "description": _("param.index.description", default="削除対象のインデックス（mcp_servers[n]）。name と同時指定時は index を優先します。"),
                 },
                 "path": {
                     "type": "string",
-                    "description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
                 },
                 "require_nonempty": {
                     "type": "boolean",
-                    "description": "true の場合、削除後に空になる操作を禁止します（既定: false）",
+                    "description": _("param.require_nonempty.description", default="true の場合、削除後に空になる操作を禁止します（既定: false）"),
                     "default": False,
                 },
             },

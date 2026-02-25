@@ -1,0 +1,6 @@
+{
+  "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
+  "param.recursive.description": "再帰的に探索するか（既定:true）",
+  "param.root_dir.description": "スキル探索ルート。空/未指定なら UAGENT_SKILLS_DIRS (os.pathsep区切り) を使用し、未設定時は ./skills を使用します。",
+  "tool.description": "仕様検証で warnings を失敗扱いにするか（既定:false）"
+}

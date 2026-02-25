@@ -31,16 +31,16 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
                 },
                 "fail_on_warning": {
                     "type": "boolean",
-                    "description": "true の場合、警告が1件でもあれば overall=FAIL を返します（既定: false）",
+                    "description": _("param.fail_on_warning.description", default="true の場合、警告が1件でもあれば overall=FAIL を返します（既定: false）"),
                     "default": False,
                 },
                 "pretty": {
                     "type": "boolean",
-                    "description": "true の場合は JSON を整形して返します（既定: true）",
+                    "description": _("param.pretty.description", default="true の場合は JSON を整形して返します（既定: true）"),
                     "default": True,
                 },
             },

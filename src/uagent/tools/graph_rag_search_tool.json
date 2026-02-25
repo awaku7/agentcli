@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.file_pattern.description": "対象パターン（カンマ区切り glob）",
+  "param.query.description": "検索クエリ（必須）",
+  "param.root_path.description": "検索対象ディレクトリ",
+  "param.top_k_graph.description": "グラフ探索で回収する件数",
+  "param.top_k_vector.description": "ベクトル検索の上位件数",
+  "tool.description": "チャンクのオーバーラップ"
 }

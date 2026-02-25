@@ -17,7 +17,7 @@ TOOL_SPEC: Dict[str, Any] = {
             "- 共有メモリが無効な場合やファイルが存在しない場合は、その旨を示す文字列を返します。\n"
             "- 出力サイズは内部で上限バイト数までに自動トリミングされます。"
         ),
-        "system_prompt": """このツールは TOOL_SPEC に記載された機能を実行します。""",
+        "system_prompt": _("tool.system_prompt", default="This tool executes the functionality described in TOOL_SPEC."),
         "parameters": {
             "type": "object",
             "properties": {},

@@ -37,27 +37,27 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_list",
-        "description": "Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します。",
+        "description": _("tool.description", default="Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "root_dir": {
                     "type": "string",
-                    "description": "スキル探索ルート。空/未指定なら UAGENT_SKILLS_DIRS (os.pathsep区切り) を使用し、未設定時は ./skills を使用します。",
+                    "description": _("param.root_dir.description", default="スキル探索ルート。空/未指定なら UAGENT_SKILLS_DIRS (os.pathsep区切り) を使用し、未設定時は ./skills を使用します。"),
                 },
                 "recursive": {
                     "type": "boolean",
-                    "description": "再帰的に探索するか（既定:true）",
+                    "description": _("param.recursive.description", default="再帰的に探索するか（既定:true）"),
                     "default": True,
                 },
                 "include_invalid": {
                     "type": "boolean",
-                    "description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
+                    "description": _("param.include_invalid.description", default="SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。"),
                     "default": True,
                 },
                 "strict": {
                     "type": "boolean",
-                    "description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
+                    "description": _("tool.description", default="仕様検証で warnings を失敗扱いにするか（既定:false）"),
                     "default": False,
                 },
             },

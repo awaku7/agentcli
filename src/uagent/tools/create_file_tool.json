@@ -1,20 +1,9 @@
 {
-  "en": {
-    "tool.description": "Create a text file (by default, do not overwrite if it already exists). If overwrite=true overwrites an existing file, a backup with the same name (<filename>.org / <filename>.org1 / ...) is created immediately before overwriting.",
-    "tool.system_prompt": "Use this tool to create a text file at a given path. By default it will not overwrite an existing file; if overwrite=true, it will overwrite and create a backup file immediately beforehand.",
-    "param.filename.description": "Path of the file to create.",
-    "param.path.description": "(Compatibility) Alias of filename.",
-    "param.content.description": "Text content to write to the file.",
-    "param.encoding.description": "Text encoding (e.g., 'utf-8', 'cp932'). Defaults to 'utf-8'.",
-    "param.overwrite.description": "Whether to overwrite if the file already exists. Default is false."
-  },
-  "ja": {
-    "tool.description": "テキストファイルを作成します（既定では既存ファイルがある場合は上書きしません）。既存ファイルを overwrite=true で上書きする場合、上書き直前に同名のバックアップ（<filename>.org / <filename>.org1 / <filename>.org2 ...）を作成します。",
-    "tool.system_prompt": "このツールは次の目的で使われます: テキストファイルを作成します（既定では既存ファイルがある場合は上書きしません）。既存ファイルを overwrite=true で上書きする場合、上書き直前に同名のバックアップ（<filename>.org / <filename>.org1 / <filename>.org2 ...）を作成します。",
-    "param.filename.description": "作成するファイルのパス。",
-    "param.path.description": "(互換) 作成するファイルのパス。filename の別名として受け付けます。",
-    "param.content.description": "ファイルに書き込むテキスト内容。",
-    "param.encoding.description": "テキストのエンコーディング。例: 'utf-8', 'cp932'。省略時は 'utf-8'。",
-    "param.overwrite.description": "ファイルが既に存在する場合に上書きするかどうか。省略時は false（上書きしない）。true の場合は既存ファイルを上書きする。"
-  }
+  "param.content.description": "",
+  "param.encoding.description": "",
+  "param.filename.description": "",
+  "param.overwrite.description": "",
+  "param.path.description": "",
+  "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting.system_prompttool.system_promptCreate a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing.parameterstypeobjectpropertiesfilenametypestringdescriptionparam.filename.descriptionPath of the file to create.pathtypestringdescriptionparam.path.description(Compatibility) Alias of filename.contenttypestringdescriptionparam.content.descriptionText content to write.encodingtypestringdescriptionparam.encoding.descriptionText encoding (e.g., 'utf-8', 'cp932'). Default: 'utf-8'.overwritetypebooleandescriptionparam.overwrite.descriptionWhether to overwrite if the file already exists (default: false).requiredcontent.org{path}.org{i}filenamepathcontent",
+  "tool.system_prompt": ""
 }

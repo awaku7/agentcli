@@ -1,4 +1,9 @@
 {
-  "en": {},
-  "ja": {}
+  "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+  "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
+  "param.mode.description": "check=検査のみ / fix=自動修正",
+  "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
+  "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

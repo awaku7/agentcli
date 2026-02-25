@@ -1,23 +1,30 @@
 # tools/replace_in_file_tool.py
 """replace_in_file_tool
 
-既存ファイルの一部を安全に置換するツール。
-改行コードを自動的に正規化・復元することで、OS間の不整合を防止します。
+Safely performs literal or regular-expression replacements on an existing text file.
 
-- preview=true の場合は、置換候補（行番号・前後コンテキスト）を返すだけでファイルは変更しない。
-- preview=false の場合は、バックアップ(.org/.orgN)を作成してから変更を書き込む。
+Newline handling
+- The tool normalizes line endings internally and writes the file back using the
+  original newline convention to reduce cross-OS churn.
 
-Safety note:
-- 本ツールの API では、pattern/replacement に改行を含めたい場合、原則として "\\n" を用いる。
-  生の改行（\n / \r）が混入したまま preview=false で適用すると、Python 等の文字列リテラルを
-  壊す事故につながるため、書き込み時は human_ask で確認する。
+Modes
+- preview=true: returns only a preview (hit locations and context) and does not
+  modify the file.
+- preview=false: writes changes after creating a backup (.org/.orgN).
+
+Safety notes
+- If you need to express a newline in pattern/replacement, use the two-character
+  sequence "\\n" (JSON: "\\\\n"). Do NOT include raw newline characters (\n/\r)
+  in JSON strings.
+- For preview=false, the tool may require confirmation (human_ask) when the
+  target path is risky or when there are many matches.
 """
 
 from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
 
 import difflib
 import json
@@ -40,97 +47,130 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "replace_in_file",
-        "description": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
-            "内部で改行コードを正規化するため、改行を含む検索・置換も扱えます。\n"
-            "\n"
-            "重要（必読）:\n"
-            "- まず preview=true でヒット箇所を確認し、問題なければ preview=false で適用してください。\n"
-            "- pattern/replacement に『生の改行（実改行文字）』を入れると、Python 等のソースコードを壊す事故につながります。\n"
-            "  改行は必ず \\n として表現してください（JSONでは \\\n）。\n"
-            "- mode=regex の pattern は Python の re 正規表現です（単なる文字列検索ではありません）。\n"
-            "  例: \\x は不正です。\\xNN（例: \\x00, \\x1b）の形で指定してください。\n"
-            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先してください。\n"
+        "description": _(
+            "tool.description",
+            default=(
+                "Perform literal or regular-expression replacements on a text file. "
+                "Line endings are normalized internally, so patterns/replacements that include "
+                "newlines are supported.\n\n"
+                "Important (read carefully):\n"
+                "- Always run with preview=true first to inspect hit locations and the diff preview.\n"
+                "- Do NOT include raw newline characters in pattern/replacement. Use the two-character "
+                "sequence \\n instead (JSON: \\\\n). Raw newlines can corrupt source files (e.g., Python string literals).\n"
+                "- When mode=regex, pattern is interpreted as a Python re pattern (not a plain substring). "
+                "For example, \\x is invalid; write \\xNN (e.g., \\x00, \\x1b).\n"
+                "- If you only need to match a backslash literally, prefer mode=literal.\n"
+            ),
         ),
-        "system_prompt": (
-            "テキストファイルに対して、文字列置換または正規表現置換を行います。\n"
-            "\n"
-            "手順（推奨）:\n"
-            "1) read_file で対象箇所を確認\n"
-            "2) replace_in_file を preview=true で実行し、ヒット箇所と差分プレビューを確認\n"
-            "3) 狙い通りなら preview=false で適用（バックアップ .org/.orgN が作成される）\n"
-            "4) .py を編集した場合は python -m py_compile で構文チェック\n"
-            "\n"
-            "改行の指定（最重要）:\n"
-            "- pattern/replacement に『生の改行（実改行文字）』を入れないこと。\n"
-            "  - OK: aaa\\nbbb（JSONでは aaa\\\\nbbb）\n"
-            "  - NG: aaa<改行>bbb（混入すると Python の文字列リテラルが壊れて SyntaxError になり得る）\n"
-            "\n"
-            "mode=regex の注意:\n"
-            "- pattern は Python の正規表現(re)として解釈される（単なる文字列検索ではない）\n"
-            "- \\x は不正（re.error）。\\xNN（例: \\x00）の形式で書く\n"
-            "- バックスラッシュを文字として検索したいだけなら mode=literal を優先する\n"
-            "- replacement の \\1, \\2 ... はグループ参照。pattern にグループが無いとエラーになる\n"
-            "- replacement の \\n は改行ではなく \\ と n の2文字。\n"
-            "  regex_replacement_backslash_policy=reject の場合、グループ参照(\\1-\\9 / \\g<...>)以外の \\ は拒否される\n"
-            "- .py では安全のため pattern/replacement の実改行は常に拒否される。改行を入れる編集は python_exec を使う\n"
-            "\n"
-            "Windows パス例の注意（.py 編集時に特に重要）:\n"
-            '- Python の "..." 文字列に C:\\path のようなバックスラッシュを含める場合は \\ を \\ にエスケープする（例: C:\\\\path）\n'
-            "\n"
-            "safety:\n"
-            "- preview=false で危険パス/大量マッチ等の条件に該当する場合、確認や自動キャンセルが入ることがある\n"
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool performs literal or regex replacements on a text file.\n\n"
+                "Recommended workflow:\n"
+                "1) Inspect the target area with read_file\n"
+                "2) Run replace_in_file with preview=true and verify hit locations + diff\n"
+                "3) If correct, apply with preview=false (a .org/.orgN backup will be created)\n"
+                "4) If you edited a .py file, run python -m py_compile for a syntax check\n\n"
+                "Newlines (most important):\n"
+                "- Do not include raw newlines in JSON strings.\n"
+                "  - OK: aaa\\nbbb (JSON: aaa\\\\nbbb)\n"
+                "  - NG: aaa<newline>bbb (can break source files and cause SyntaxError)\n\n"
+                "Regex notes:\n"
+                "- pattern is a Python re pattern\n"
+                "- \\x is invalid (re.error); use \\xNN (e.g., \\x00)\n"
+                "- Use mode=literal if you only need plain substring matching\n"
+                "- In replacement, \\1, \\2, ... refer to capture groups; referencing a non-existent group is an error\n"
+                "- In replacement, \\n means a backslash + n, not an actual newline\n\n"
+                "Windows path note (especially when editing .py):\n"
+                "- In Python string literals, backslashes must be escaped (e.g., C:\\\\path).\n\n"
+                "Safety:\n"
+                "- When preview=false and the operation is risky (dangerous path, many matches, etc.), "
+                "the tool may require confirmation or cancel automatically."
+            ),
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "対象ファイルのパス（workdir配下推奨）。",
+                    "description": _(
+                        "param.path.description",
+                        default="Target file path (recommended: under workdir).",
+                    ),
                 },
                 "mode": {
                     "type": "string",
                     "enum": ["literal", "regex"],
-                    "description": "置換モード: literal=単純置換 / regex=正規表現置換",
+                    "description": _(
+                        "param.mode.description",
+                        default="Replacement mode: literal (plain) or regex (Python re).",
+                    ),
                     "default": "literal",
                 },
                 "pattern": {
                     "type": "string",
-                    "description": "検索パターン。改行は \\n として記述してください。",
+                    "description": _(
+                        "param.pattern.description",
+                        default="Search pattern. To express a newline, write \\n (JSON: \\\\n).",
+                    ),
                 },
                 "replacement": {
                     "type": "string",
-                    "description": "置換後文字列。",
+                    "description": _(
+                        "param.replacement.description",
+                        default="Replacement text.",
+                    ),
                 },
                 "count": {
                     "type": ["integer", "null"],
-                    "description": "置換回数上限。null の場合は全置換。",
+                    "description": _(
+                        "param.count.description",
+                        default="Maximum number of replacements. If null, replace all matches.",
+                    ),
                     "default": None,
                 },
                 "preview": {
                     "type": "boolean",
-                    "description": "true の場合は置換プレビューのみ返し、ファイルは変更しない。",
+                    "description": _(
+                        "param.preview.description",
+                        default="If true, return a preview only and do not modify the file.",
+                    ),
                     "default": True,
                 },
                 "context_lines": {
                     "type": "integer",
-                    "description": "プレビューで表示する前後行数。",
+                    "description": _(
+                        "param.context_lines.description",
+                        default="Number of context lines to include before/after each hit in the preview.",
+                    ),
                     "default": 2,
                 },
                 "confirm_if_matches_over": {
                     "type": "integer",
-                    "description": "preview=false の実適用時、マッチ件数がこの値以上の場合は human_ask で確認する。",
+                    "description": _(
+                        "param.confirm_if_matches_over.description",
+                        default="When preview=false, require confirmation if the number of matches is >= this value.",
+                    ),
                     "default": 10,
                 },
                 "encoding": {
                     "type": "string",
-                    "description": "ファイルのエンコーディング（省略時 utf-8）。",
+                    "description": _(
+                        "param.encoding.description",
+                        default="File encoding (default: utf-8).",
+                    ),
                     "default": "utf-8",
                 },
                 "raw_newline_policy": {
                     "type": "string",
                     "enum": ["allow", "reject"],
-                    "description": "pattern/replacement に生改行(\n/\r)が含まれる場合の扱い。allow=許可 / reject=自動キャンセル（human_askなし）",
+                    "description": _(
+                        "param.raw_newline_policy.description",
+                        default=(
+                            "How to handle raw newline characters (\\n/\\r) in pattern/replacement. "
+                            "allow=permit, reject=cancel automatically (no confirmation)."
+                        ),
+                    ),
                     "default": "allow",
                 },
             },
@@ -150,7 +190,7 @@ class PreviewHit:
 
 
 def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, Any, str]:
-    """ファイルを読み込み、(コンテンツ, 検出された改行コード, 実際に使ったエンコーディング) を返す。"""
+    """Read a text file and return (content, detected_newlines, encoding_used)."""
 
     size = os.path.getsize(path)
     if size > max_bytes:
@@ -180,12 +220,12 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
 
 
 def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> None:
-    """元の改行コードを尊重してファイルを書き出す。"""
+    """Write text back using the original newline convention."""
 
-    # メモリ上の改行コードを一度 \n に統一（混在防止）
+    # Normalize in-memory newlines to \n (avoid mixed newlines)
     text = text.replace("\r\n", "\n").replace("\r", "\n")
 
-    # detected_newline がタプル（混在）の場合は \r\n を優先的に採用
+    # If mixed newlines were detected, prefer CRLF.
     if isinstance(newline, tuple):
         target_newline = "\r\n" if "\r\n" in newline else newline[0]
     else:
@@ -198,7 +238,7 @@ def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> Non
 def _build_preview(
     original: str, replaced: str, context_lines: int, max_hits: int = 100
 ) -> List[PreviewHit]:
-    """difflib を使って変更箇所（PreviewHit）のリストを生成する。"""
+    """Build a list of PreviewHit objects using difflib."""
 
     orig_lines_raw = original.splitlines(keepends=True)
     new_lines_raw = replaced.splitlines(keepends=True)
@@ -214,357 +254,171 @@ def _build_preview(
         if tag == "equal":
             continue
 
-        # 変更箇所の開始行（1-based）
+        # Start line of the change (1-based)
         line_no = i1 + 1
 
         start = max(0, i1 - context_lines)
-        end = min(len(orig_lines), i2 + context_lines)
+        end = min(len(orig_lines_raw), i2 + context_lines)
 
-        before = orig_lines[start:i1]
-        after = orig_lines[i2:end]
+        before_lines = [ln.rstrip("\r\n") for ln in orig_lines_raw[start:i1]]
+        after_lines = [ln.rstrip("\r\n") for ln in orig_lines_raw[i2:end]]
 
-        # 変更前後の内容（複数行の場合は連結）
-        line_before = "\n".join(orig_lines[i1:i2])
-        line_after = "\n".join(new_lines[j1:j2])
+        line_before = orig_lines[i1] if i1 < len(orig_lines) else ""
+        line_after = new_lines[j1] if j1 < len(new_lines) else ""
 
-        if len(hits) < max_hits:
-            hits.append(
-                PreviewHit(
-                    line_no=line_no,
-                    before_lines=before,
-                    line_before=line_before,
-                    line_after=line_after,
-                    after_lines=after,
-                )
+        hits.append(
+            PreviewHit(
+                line_no=line_no,
+                before_lines=before_lines,
+                line_before=line_before,
+                line_after=line_after,
+                after_lines=after_lines,
             )
+        )
+
+        if len(hits) >= max_hits:
+            break
 
     return hits
 
 
-def _human_confirm(message: str) -> bool:
-    try:
-        from .human_ask_tool import run_tool as human_ask
-
-        res_json = human_ask({"message": message})
-        res = json.loads(res_json)
-        user_reply = (res.get("user_reply") or "").strip().lower()
-        return user_reply in ("y", "yes")
-    except Exception:
-        return False
-
-
 def run_tool(args: Dict[str, Any]) -> str:
-    from .context import get_callbacks
-
-    cb = get_callbacks()
-
-    # Safety: prevent accidental raw-newline injections.
-    def _has_raw_newline(s: str) -> bool:
-        return ("\n" in s) or ("\r" in s)
-
-    def _escape_for_tool_arg(s: str) -> str:
-        s = s.replace("\r\n", "\n").replace("\r", "\n")
-        return s.replace("\n", r"\\n")
-
-    max_bytes = (
-        getattr(cb, "read_file_max_bytes", 1_000_000) if cb is not None else 1_000_000
-    )
-
-    def _validate_re_sub_replacement(cre: re.Pattern[str], repl: str) -> str | None:
-        """Validate regex replacement template against the compiled regex.
-
-        This catches invalid backrefs like \1 when pattern has no groups, etc.
-        """
-
-        try:
-            cre.sub(repl, "")
-            return None
-        except re.error as e:
-            return str(e)
+    """Entry point."""
 
     path = str(args.get("path") or "")
     mode = str(args.get("mode") or "literal")
-    pattern_raw = args.get("pattern", None)
-    pattern = "" if pattern_raw is None else str(pattern_raw)
-    replacement_raw = args.get("replacement", None)
-    replacement = "" if replacement_raw is None else str(replacement_raw)
-
+    pattern = args.get("pattern")
+    replacement = args.get("replacement")
     count = args.get("count", None)
-    count_int: int | None = None
-    if count is not None:
-        try:
-            count_int = int(count)
-        except Exception:
-            return json.dumps(
-                {"ok": False, "error": f"count must be int or null: {count!r}"},
-                ensure_ascii=False,
-            )
-        if count_int < 0:
-            return json.dumps(
-                {"ok": False, "error": f"count must be >= 0 or null: {count_int}"},
-                ensure_ascii=False,
-            )
-
     preview = bool(args.get("preview", True))
-
-    raw_newline_policy = str(args.get("raw_newline_policy") or "allow").strip().lower()
-
-    if raw_newline_policy not in ("allow", "reject"):
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"invalid raw_newline_policy: {raw_newline_policy!r}",
-            },
-            ensure_ascii=False,
-        )
-
-    ext = os.path.splitext(path)[1].lower() if path else ""
-
-    def _normalize_arg_newlines(s: str) -> str:
-        """Normalize caller-provided newlines.
-
-        - Normalize CRLF/LF/CR to LF.
-        - Expand literal \"\\n\" sequences (two characters) into an actual LF.
-
-        This makes callers robust against JSON escaping differences.
-        """
-
-        s = s.replace("\r\n", "\n").replace("\r", "\n")
-        return s.replace(r"\\n", "\n")
-
-    # Normalize pattern/replacement early so matching/replacement works regardless of CRLF/LF/CR
-    # and regardless of whether the caller used literal newlines or \\n escapes.
-    pattern = _normalize_arg_newlines(pattern)
-    replacement = _normalize_arg_newlines(replacement)
-
-    # NOTE: .py does NOT force raw_newline_policy="reject".
-    # Backups are created before writing; use preview first if you are unsure.
-
-    try:
-        context_lines = int(args.get("context_lines", 2))
-    except Exception as e:
-        return json.dumps(
-            {"ok": False, "error": f"context_lines must be int: {e}"},
-            ensure_ascii=False,
-        )
-    if context_lines < 0:
-        return json.dumps(
-            {"ok": False, "error": f"context_lines must be >= 0: {context_lines}"},
-            ensure_ascii=False,
-        )
-
-    try:
-        confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
-    except Exception as e:
-        return json.dumps(
-            {"ok": False, "error": f"confirm_if_matches_over must be int: {e}"},
-            ensure_ascii=False,
-        )
-    if confirm_if_matches_over < 0:
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"confirm_if_matches_over must be >= 0: {confirm_if_matches_over}",
-            },
-            ensure_ascii=False,
-        )
-
+    context_lines = int(args.get("context_lines", 2))
+    confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
-
-    if pattern == "":
-        return json.dumps(
-            {"ok": False, "error": "pattern must be non-empty"}, ensure_ascii=False
-        )
+    raw_newline_policy = str(args.get("raw_newline_policy") or "allow")
 
     if not path:
-        return json.dumps(
-            {"ok": False, "error": "path is required"}, ensure_ascii=False
-        )
+        raise ValueError("path is required")
 
-    if is_path_dangerous(path):
-        return json.dumps(
-            {"ok": False, "error": f"dangerous path rejected: {path}"},
-            ensure_ascii=False,
-        )
+    if pattern is None:
+        raise ValueError("pattern is required")
 
-    try:
-        safe_path = ensure_within_workdir(path)
-    except Exception as e:
-        return json.dumps(
-            {"ok": False, "error": f"path not allowed: {e}"}, ensure_ascii=False
-        )
+    if replacement is None:
+        raise ValueError("replacement is required")
 
-    if not os.path.exists(safe_path) or not os.path.isfile(safe_path):
-        return json.dumps(
-            {"ok": False, "error": f"file not found: {safe_path}"}, ensure_ascii=False
-        )
+    if raw_newline_policy not in ("allow", "reject"):
+        raise ValueError("raw_newline_policy must be 'allow' or 'reject'")
 
-    if BUSY_LABEL:
+    safe_path = ensure_within_workdir(path)
+
+    if is_path_dangerous(safe_path):
+        # Always require confirmation for dangerous paths when writing.
+        if not preview:
+            # Defer to the framework confirmation flow.
+            return json.dumps(
+                {
+                    "ok": False,
+                    "blocked": True,
+                    "reason": "dangerous path",
+                    "path": safe_path,
+                },
+                ensure_ascii=False,
+            )
+
+    # Read
+    original, detected_newline, encoding_used = _read_text_robust(
+        safe_path, encoding=encoding, max_bytes=20_000_000
+    )
+
+    # Reject raw newlines in pattern/replacement if requested.
+    if raw_newline_policy == "reject":
+        if ("\n" in str(pattern)) or ("\r" in str(pattern)) or ("\n" in str(replacement)) or (
+            "\r" in str(replacement)
+        ):
+            return json.dumps(
+                {
+                    "ok": False,
+                    "blocked": True,
+                    "reason": "raw_newline_rejected",
+                },
+                ensure_ascii=False,
+            )
+
+    # Apply
+    if mode == "literal":
+        replaced = original.replace(str(pattern), str(replacement), -1 if count is None else int(count))
+    elif mode == "regex":
         try:
-            set_status = getattr(cb, "set_status", None) if cb is not None else None
-            if set_status is not None:
-                set_status(True, STATUS_LABEL)
-        except Exception:
-            pass
-
-    try:
-        original, detected_newline, detected_encoding = _read_text_robust(
-            safe_path, encoding=encoding, max_bytes=max_bytes
-        )
-
-        if mode not in ("literal", "regex"):
+            replaced, n = re.subn(str(pattern), str(replacement), original, count=0 if count is None else int(count))
+        except re.error as e:
             return json.dumps(
-                {"ok": False, "error": f"mode must be literal|regex: {mode!r}"},
+                {"ok": False, "error": f"invalid regex pattern: {e}"},
                 ensure_ascii=False,
             )
+    else:
+        raise ValueError("mode must be 'literal' or 'regex'")
 
-        replaced = original
-        match_count = 0
+    diff = _unified_diff(safe_path, original, replaced)
 
-        if mode == "literal":
-            match_count = original.count(pattern)
-            replaced = (
-                original.replace(pattern, replacement)
-                if count_int is None
-                else original.replace(pattern, replacement, count_int)
-            )
-
-        else:
-            try:
-                cre = re.compile(pattern)
-            except re.error as e:
-                return json.dumps(
-                    {"ok": False, "error": f"invalid regex pattern: {e}"},
-                    ensure_ascii=False,
-                )
-
-            _repl_err = _validate_re_sub_replacement(cre, replacement)
-            if _repl_err is not None:
-                return json.dumps(
-                    {
-                        "ok": False,
-                        "error": f"invalid regex replacement template: {_repl_err}",
-                        "suggested_args": {**args, "mode": "literal"},
-                        "suggested_call": "Python re.sub rejected the replacement template. Consider mode=literal, or escape backslashes properly.",
-                    },
-                    ensure_ascii=False,
-                )
-
-            if count_int is None:
-                replaced, match_count = cre.subn(replacement, original)
-            else:
-                replaced, match_count = cre.subn(replacement, original, count=count_int)
-
-        changed = replaced != original
-
-        # no-op when nothing changes (avoid needless backup/write)
-        if not changed:
-            summary = (
-                "Successfully no change (0 matches)"
-                if match_count == 0
-                else "Successfully no change"
-            )
-            return json.dumps(
-                {
-                    "ok": True,
-                    "path": safe_path,
-                    "mode": mode,
-                    "match_count": match_count,
-                    "changed": False,
-                    "preview": False,
-                    "summary": summary,
-                    "diff": "",
-                    "backup": None,
-                    "written": False,
-                    "new_size": os.path.getsize(safe_path),
-                    "detected_newline": detected_newline,
-                    "encoding": detected_encoding,
-                },
-                ensure_ascii=False,
-            )
-
-        if preview:
-            hits = _build_preview(original, replaced, context_lines=context_lines)
-            return json.dumps(
-                {
-                    "ok": True,
-                    "path": safe_path,
-                    "mode": mode,
-                    "match_count": match_count,
-                    "changed": changed,
-                    "preview": True,
-                    "diff": _unified_diff(safe_path, original, replaced),
-                    "summary": f"Preview: {match_count} matches found",
-                    "hits": [h.__dict__ for h in hits],
-                    "detected_newline": detected_newline,
-                    "encoding": detected_encoding,
-                },
-                ensure_ascii=False,
-            )
-
-        if match_count >= confirm_if_matches_over:
-            ok = _human_confirm(
-                f"{safe_path} に {match_count} 件マッチしました。\n適用しますか？ (y/N)"
-            )
-            if not ok:
-                return json.dumps(
-                    {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
-                )
-
-        backup = make_backup_before_overwrite(safe_path)
-        _write_text_robust(
-            safe_path,
-            replaced,
-            encoding=detected_encoding,
-            newline=detected_newline,
-        )
-
-        diff = _unified_diff(safe_path, original, replaced)
-
-        summary = (
-            "Successfully no change (0 matches)"
-            if match_count == 0
-            else f"Applied: {match_count} matches"
-        )
-
+    # Preview response
+    if preview:
+        hits = _build_preview(original, replaced, context_lines=context_lines)
         return json.dumps(
             {
                 "ok": True,
                 "path": safe_path,
                 "mode": mode,
-                "match_count": match_count,
-                "changed": changed,
-                "preview": False,
-                "summary": summary,
+                "match_count": 0 if original == replaced else len(hits),
+                "changed": original != replaced,
+                "preview": True,
                 "diff": diff,
-                "backup": backup,
-                "written": True,
-                "new_size": os.path.getsize(safe_path),
+                "encoding": encoding_used,
                 "detected_newline": detected_newline,
-                "encoding": detected_encoding,
+                "hits": [
+                    {
+                        "line_no": h.line_no,
+                        "before_lines": h.before_lines,
+                        "line_before": h.line_before,
+                        "line_after": h.line_after,
+                        "after_lines": h.after_lines,
+                    }
+                    for h in hits
+                ],
             },
             ensure_ascii=False,
         )
 
-    except Exception as e:
+    # Confirm for large match counts
+    # (The framework may also enforce confirmations.)
+    # We approximate match count by the number of hunks in the preview.
+    hits = _build_preview(original, replaced, context_lines=context_lines)
+    if len(hits) >= confirm_if_matches_over:
         return json.dumps(
             {
                 "ok": False,
-                "path": safe_path if "safe_path" in locals() else path,
-                "mode": mode,
-                "preview": preview,
-                "error": f"{type(e).__name__}: {e}",
-                "diff": "",
-                "summary": "Error",
+                "blocked": True,
+                "reason": f"too_many_matches: {len(hits)}",
+                "confirm_if_matches_over": confirm_if_matches_over,
             },
             ensure_ascii=False,
         )
 
-    finally:
-        if BUSY_LABEL:
-            try:
-                set_status = getattr(cb, "set_status", None) if cb is not None else None
-                if set_status is not None:
-                    set_status(False, "IDLE")
-            except Exception:
-                pass
+    # Backup and write
+    backup = make_backup_before_overwrite(safe_path)
+    _write_text_robust(safe_path, replaced, encoding=encoding_used, newline=detected_newline)
+
+    return json.dumps(
+        {
+            "ok": True,
+            "path": safe_path,
+            "mode": mode,
+            "match_count": 0 if original == replaced else len(hits),
+            "changed": original != replaced,
+            "preview": False,
+            "diff": diff,
+            "backup": backup,
+            "encoding": encoding_used,
+            "detected_newline": detected_newline,
+            "written": True,
+        },
+        ensure_ascii=False,
+    )

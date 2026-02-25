@@ -1,4 +1,4 @@
 {
-  "en": {},
-  "ja": {}
+  "param.format.description": "出力形式。'text' か 'json'。既定は 'text'。",
+  "tool.system_prompt": "このツールは次の目的で使われます: 出力形式。'text' か 'json'。既定は 'text'。\\n- 現在のユーザーの場所がわからない場合に利用します"
 }

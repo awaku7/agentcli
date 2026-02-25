@@ -13,38 +13,38 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "date_calc",
-        "description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。",
+        "description": _("tool.description", default="指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "base_date": {
                     "type": "string",
-                    "description": "基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。",
+                    "description": _("param.base_date.description", default="基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。"),
                 },
                 "years": {
                     "type": "integer",
-                    "description": "加算する年数（減算は負の数）。",
+                    "description": _("param.years.description", default="加算する年数（減算は負の数）。"),
                 },
                 "months": {
                     "type": "integer",
-                    "description": "加算する月数（減算は負の数）。",
+                    "description": _("param.months.description", default="加算する月数（減算は負の数）。"),
                 },
                 "weeks": {
                     "type": "integer",
-                    "description": "加算する週数（減算は負の数）。",
+                    "description": _("param.weeks.description", default="加算する週数（減算は負の数）。"),
                 },
                 "days": {
                     "type": "integer",
-                    "description": "加算する日数（減算は負の数）。",
+                    "description": _("tool.description", default="加算する日数（減算は負の数）。"),
                 },
                 "country": {
                     "type": "string",
-                    "description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+                    "description": _("tool.description", default="祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。"),
                     "default": "JP",
                 },
                 "check_holiday": {
                     "type": "boolean",
-                    "description": "祝日・休日かどうかを判定するかどうか（既定: true）",
+                    "description": _("tool.description", default="祝日・休日かどうかを判定するかどうか（既定: true）"),
                     "default": True,
                 },
             },
