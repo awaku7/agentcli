@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.all.description": "",
+  "param.class.description": "",
+  "param.pid.description": "",
+  "tool.description": "Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include window class name).system_prompttool.system_promptThis tool enumerates top-level window titles on Windows and returns structured JSON. It is Windows-only.parameterstypeobjectpropertiesalltypebooleandescriptionparam.all.descriptionInclude non-visible windowspidtypebooleandescriptionparam.pid.descriptionInclude PID in outputclasstypebooleandescriptionparam.class.descriptionInclude window class name in outputrequiredList top-level windows on Windows.\n\n    args:\n      - all: bool (include non-visible windows)\n      - pid: bool (include PID)\n      - class: bool (include window class name)\n\n    Returns JSON string:\n      {: [{: int, : str, : bool, : str (opt), : int (opt)}], : int}\n    win32errorThis tool runs on Windows (win32) only.all",
+  "tool.system_prompt": ""
 }

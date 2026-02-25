@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.base_date.description": "基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。",
+  "param.months.description": "加算する月数（減算は負の数）。",
+  "param.weeks.description": "加算する週数（減算は負の数）。",
+  "param.years.description": "加算する年数（減算は負の数）。",
+  "tool.description": "祝日・休日かどうかを判定するかどうか（既定: true）"
 }

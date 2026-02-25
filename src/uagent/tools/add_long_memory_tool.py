@@ -14,10 +14,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "add_long_memory",
-        "description": "ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。",
-        "system_prompt": """このツールは次の目的で使われます: ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。
-- パスワードや API キー等の秘匿情報を長期記憶や共有メモに保存しないでください。
-""",
+        "description": _("tool.description", default="ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。"),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。\n- パスワードや API キー等の秘匿情報を長期記憶や共有メモに保存しないでください。"),
         "parameters": {
             "type": "object",
             "properties": {

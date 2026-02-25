@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.mask.description": "true の場合、値をマスクします（例: 秘密情報）。既定は true。",
+  "param.missing_ok.description": "true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。",
+  "param.name.description": "読み取る環境変数名。",
+  "param.unmasked_chars.description": "マスク時、先頭と末尾に残す文字数。既定は 2。",
+  "tool.description": "指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
+  "tool.system_prompt": "このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"
 }

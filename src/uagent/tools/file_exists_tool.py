@@ -14,14 +14,14 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_exists",
-        "description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
-        "system_prompt": """このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。""",
+        "description": _("tool.description", default="指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。"),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "存在確認したいファイルまたはディレクトリのパス（~ も使用可）。",
+                    "description": _("param.path.description", default="存在確認したいファイルまたはディレクトリのパス（~ も使用可）。"),
                 }
             },
             "required": ["path"],
