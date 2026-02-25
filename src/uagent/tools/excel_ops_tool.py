@@ -1,38 +1,69 @@
+# tools/excel_ops_tool.py
+from __future__ import annotations
+
+import json
+import os
+from typing import Any, Dict, List, Optional
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-import pandas as pd
-import json
-import os
-from pathlib import Path
-from typing import Any, Dict
+BUSY_LABEL = True
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "excel_ops",
-        "description": "Excelファイル(.xlsx)の読み書きおよびシート名取得を行います。write で既存ファイルに書き込む場合、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / <file_path>.org2 ...）を作成します。",
-        "system_prompt": """このツールは次の目的で使われます: Excelファイル(.xlsx)の読み書きおよびシート名取得を行います。write で既存ファイルに書き込む場合、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / <file_path>.org2 ...）を作成します。""",
+        "description": _(
+            "tool.description",
+            default=(
+                "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, "
+                "a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing."
+            ),
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool performs the operation described by the tool name 'excel_ops'.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "action": {
                     "type": "string",
                     "enum": ["read", "write", "get_sheet_names"],
-                    "description": "実行する操作。\n- 'read': 指定シートを読み込みJSONで返す。\n- 'write': JSONデータを指定シートに書き込む（ファイルがない場合は新規作成）。\n- 'get_sheet_names': シート名一覧を取得する。",
+                    "description": _(
+                        "param.action.description",
+                        default=(
+                            "Operation to perform.\n"
+                            "- 'read': read the specified sheet and return JSON.\n"
+                            "- 'write': write JSON data to the specified sheet (create file if missing).\n"
+                            "- 'get_sheet_names': get a list of sheet names."
+                        ),
+                    ),
                 },
                 "file_path": {
                     "type": "string",
-                    "description": "Excelファイルの絶対パス。",
+                    "description": _(
+                        "param.file_path.description",
+                        default="Absolute path to the Excel file.",
+                    ),
                 },
                 "sheet_name": {
                     "type": "string",
-                    "description": "対象のシート名（read/write時）。指定がない場合、readは先頭シート、writeは 'Sheet1' となる。",
+                    "description": _(
+                        "param.sheet_name.description",
+                        default=(
+                            "Target sheet name (for read/write). If omitted, read uses the first sheet and write uses 'Sheet1'."
+                        ),
+                    ),
                 },
                 "data": {
                     "type": "string",
-                    "description": '書き込むデータ（JSON文字列）。リスト形式の辞書 `[{"col1": "val1"}, ...]` を推奨。',
+                    "description": _(
+                        "param.data.description",
+                        default="Data to write (JSON string).",
+                    ),
                 },
             },
             "required": ["action", "file_path"],
@@ -41,135 +72,94 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _next_backup_name(filename: str) -> str:
-    base = filename + ".org"
+def _backup_path(path: str) -> str:
+    base = path + ".org"
     if not os.path.exists(base):
         return base
-
     i = 1
     while True:
-        cand = f"{base}{i}"
+        cand = f"{path}.org{i}"
         if not os.path.exists(cand):
             return cand
         i += 1
 
 
-def _make_backup_if_needed(file_path: str) -> str | None:
-    """Create a backup for an existing file.
-
-    - Only when the target exists.
-    - Backup name: <file_path>.org / .org1 / ... (no overwrite)
-    - Copy bytes as-is.
-
-    Returns backup path if created, otherwise None.
-    """
-    if not os.path.exists(file_path):
-        return None
-
-    backup_path = _next_backup_name(file_path)
-    Path(backup_path).parent.mkdir(parents=True, exist_ok=True)
-    with open(file_path, "rb") as rf, open(backup_path, "wb") as wf:
-        wf.write(rf.read())
-    return backup_path
-
-
 def run_tool(args: Dict[str, Any]) -> str:
-    """
-    Excel操作ツール
-    """
     action = args.get("action")
-    file_path = args.get("file_path", "").strip()
+    file_path = str(args.get("file_path", "") or "").strip()
     sheet_name = args.get("sheet_name")
     data_str = args.get("data")
 
+    if action not in ("read", "write", "get_sheet_names"):
+        raise ValueError("Invalid action")
+
     if not file_path:
-        return "[excel_ops error] file_path is required."
+        raise ValueError("file_path is required")
 
-    MAX_RETRIES = 5
+    # Lazy import openpyxl to keep tool import light.
+    import openpyxl
 
-    for attempt in range(MAX_RETRIES):
+    if action == "get_sheet_names":
+        wb = openpyxl.load_workbook(file_path)
         try:
-            if action == "get_sheet_names":
-                if not os.path.exists(file_path):
-                    return f"[excel_ops error] File not found: {file_path}"
+            return json.dumps(wb.sheetnames, ensure_ascii=False)
+        finally:
+            wb.close()
 
-                xl = pd.ExcelFile(file_path)
-                return json.dumps({"sheet_names": xl.sheet_names}, ensure_ascii=False)
+    if action == "read":
+        wb = openpyxl.load_workbook(file_path, data_only=True)
+        try:
+            target = sheet_name or wb.sheetnames[0]
+            ws = wb[target]
+            # Return as list of rows (list of values)
+            rows: List[List[Any]] = []
+            for row in ws.iter_rows(values_only=True):
+                rows.append(list(row))
+            return json.dumps(rows, ensure_ascii=False)
+        finally:
+            wb.close()
 
-            elif action == "read":
-                if not os.path.exists(file_path):
-                    return f"[excel_ops error] File not found: {file_path}"
+    # write
+    if os.path.exists(file_path):
+        backup = _backup_path(file_path)
+        with open(file_path, "rb") as fsrc, open(backup, "wb") as fdst:
+            fdst.write(fsrc.read())
 
-                target_sheet = sheet_name if sheet_name else 0
-                df = pd.read_excel(file_path, sheet_name=target_sheet)
+    if os.path.exists(file_path):
+        wb = openpyxl.load_workbook(file_path)
+    else:
+        wb = openpyxl.Workbook()
 
-                data_list = df.fillna("").to_dict(orient="records")
-                return json.dumps(data_list, ensure_ascii=False, default=str)
+    try:
+        target = sheet_name or "Sheet1"
+        if target in wb.sheetnames:
+            ws = wb[target]
+            # clear
+            ws.delete_rows(1, ws.max_row)
+        else:
+            ws = wb.create_sheet(title=target)
 
-            elif action == "write":
-                if not data_str:
-                    return "[excel_ops error] 'data' is required for write action."
+        if data_str is None:
+            data_str = "[]"
+        data = json.loads(str(data_str))
 
-                try:
-                    data = json.loads(data_str)
-                except json.JSONDecodeError:
-                    return "[excel_ops error] 'data' must be a valid JSON string."
-
-                if not isinstance(data, list):
-                    return "[excel_ops error] 'data' must be a list of dictionaries."
-
-                df = pd.DataFrame(data)
-                target_sheet = sheet_name if sheet_name else "Sheet1"
-
-                backup_path = None
-                try:
-                    backup_path = _make_backup_if_needed(file_path)
-                except Exception as e:
-                    return f"[excel_ops error] バックアップ作成に失敗しました: {type(e).__name__}: {e}"
-
-                if os.path.exists(file_path):
-                    with pd.ExcelWriter(
-                        file_path,
-                        engine="openpyxl",
-                        mode="a",
-                        if_sheet_exists="replace",
-                    ) as writer:
-                        df.to_excel(writer, sheet_name=target_sheet, index=False)
+        if isinstance(data, list) and data and isinstance(data[0], dict):
+            # write header
+            keys = list(data[0].keys())
+            ws.append(keys)
+            for obj in data:
+                ws.append([obj.get(k) for k in keys])
+        elif isinstance(data, list):
+            for row in data:
+                if isinstance(row, list):
+                    ws.append(row)
                 else:
-                    with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
-                        df.to_excel(writer, sheet_name=target_sheet, index=False)
+                    ws.append([row])
+        else:
+            ws.append([data])
 
-                msg = f"[excel_ops] Successfully wrote {len(df)} rows to {file_path} (Sheet: {target_sheet})"
-                if backup_path:
-                    msg += f" / バックアップ作成: {backup_path}"
-                return msg
-
-            else:
-                return f"[excel_ops error] Unknown action: {action}"
-
-        except PermissionError:
-            # File is locked. Ask user to retry.
-            try:
-                from .human_ask_tool import run_tool as human_ask
-
-                msg = (
-                    f"Excelファイル ({file_path}) がロックされています（開かれている可能性があります）。\n"
-                    "ファイルを閉じてから 'y' を入力してリトライしてください。\n"
-                    "（'n' でキャンセル）"
-                )
-                res_json = human_ask({"message": msg})
-                res = json.loads(res_json)
-                user_reply = res.get("user_reply", "").strip().lower()
-
-                if user_reply == "y":
-                    continue  # Retry
-                else:
-                    return "[excel_ops error] Operation cancelled by user after PermissionError."
-
-            except Exception as e_inner:
-                return f"[excel_ops error] PermissionError occurred and failed to ask user: {e_inner}"
-
-        except Exception as e:
-            return f"[excel_ops error] {str(e)}"
-
-    return f"[excel_ops error] Operation failed after {MAX_RETRIES} retries."
+        os.makedirs(os.path.dirname(file_path) or ".", exist_ok=True)
+        wb.save(file_path)
+        return file_path
+    finally:
+        wb.close()

@@ -1,73 +1,78 @@
+# tools/change_workdir_tool.py
+from __future__ import annotations
+
+import os
+from typing import Any, Dict
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Dict, Any
+BUSY_LABEL = True
 
-# ツールのメタ情報を定義 (tools/__init__.py が読み込む)
 TOOL_SPEC: Dict[str, Any] = {
-    "type": "function",  # ★ OpenAI / Azure に渡すときに必須
+    "type": "function",
     "function": {
         "name": "change_workdir",
-        "description": "現在の作業ディレクトリをユーザー確認の後変更します。",
-        "system_prompt": """このツールは次の目的で使われます: 現在の作業ディレクトリをユーザー確認の後変更します。""",
+        "description": _(
+            "tool.description",
+            default="Change the current working directory after user confirmation.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool performs the operation described by the tool name 'change_workdir'.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "new_dir": {
                     "type": "string",
-                    "description": "変更先の新しいディレクトリパス。必須。",
+                    "description": _(
+                        "param.new_dir.description",
+                        default="The new directory path to switch to. Required.",
+                    ),
                 },
                 "confirm": {
                     "type": "boolean",
-                    "description": "ユーザー確認を行うかどうか。デフォルトは True。",
                     "default": True,
+                    "description": _(
+                        "param.confirm.description",
+                        default="Whether to ask for user confirmation. Default is True.",
+                    ),
                 },
             },
             "required": ["new_dir"],
-            "additionalProperties": False,
         },
     },
-    # このツールはユーザーに直接見せるコンテンツを生成しない、というメタ情報（任意）
-    "is_agent_content": False,
 }
-
-# Busy 状態にするかどうか (このツールは高速なので False に設定)
-BUSY_LABEL = False
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """
-    LLM からのツール呼び出しを受け、現在の作業ディレクトリを変更します。
-    """
-    import os
-    import json
+    new_dir = str(args.get("new_dir") or "").strip()
+    confirm = bool(args.get("confirm", True))
 
-    new_dir = args.get("new_dir")
-    confirm = args.get("confirm", True)
+    if not new_dir:
+        raise ValueError("new_dir is required")
+
+    # Resolve ~ etc.
+    expanded = os.path.expanduser(new_dir)
+    expanded = os.path.abspath(expanded)
 
     if confirm:
-        from .human_ask_tool import run_tool as human_ask_run
+        from .human_ask_tool import run_tool as human_ask
 
-        message = f"作業ディレクトリを '{new_dir}' に変更しますか？ (yes/no)"
-        response = human_ask_run({"message": message})
-        payload = json.loads(response)
-        user_reply = payload.get("user_reply", "").strip().lower()
-        cancelled = payload.get("cancelled", False)
-        if cancelled or user_reply not in ["yes", "y", "はい"]:
-            return "変更をキャンセルしました。"
+        msg = _(
+            "confirm.change_workdir",
+            default="Change workdir to: {path}?\nEnter y to proceed, or c to cancel.",
+        ).format(path=expanded)
+        res_json = human_ask({"message": msg})
+        import json
 
-    os.chdir(new_dir)
-    return f"作業ディレクトリを '{new_dir}' に変更しました。"
+        payload = json.loads(res_json)
+        user_reply = (payload.get("user_reply", "") or "").strip().lower()
+        cancelled = bool(payload.get("cancelled", False))
+        if cancelled or user_reply not in ("y", "yes"):
+            return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
-
-# 直接実行した場合の動作 (テスト用、ツールチェインからは呼ばれない)
-if __name__ == "__main__":
-    import sys
-
-    if len(sys.argv) > 1:
-        new_dir = sys.argv[1]
-        confirm = len(sys.argv) > 2 and sys.argv[2].lower() == "true"
-        print(run_tool({"new_dir": new_dir, "confirm": confirm}))
-    else:
-        print("Usage: python change_workdir.py <new_dir> [confirm]")
+    os.chdir(expanded)
+    return os.getcwd()

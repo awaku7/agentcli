@@ -1,4 +1,14 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "As a last resort, execute a command and return JSON. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.system_prompt": "This is a LAST RESORT tool. It executes an OS command and returns a JSON object containing stdout, stderr, and the process return code. Use it only if no safer, more specific tool is available.",
+    "param.command.description": "Command string passed to cmd.exe /c (Windows) or the shell (Unix).",
+    "param.cwd.description": "Working directory (only relative paths under workdir are allowed). If null, uses current."
+  },
+  "ja": {
+    "tool.description": "【最終手段】コマンドを実行し、JSON で返します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
+    "tool.system_prompt": "このツールは【最終手段】です。\n他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
+    "param.command.description": "cmd.exe /c に渡すコマンド文字列（Windows）またはシェルに渡すコマンド（Unix）。",
+    "param.cwd.description": "実行ディレクトリ（workdir配下の相対パスのみ許可）。null なら現在。"
+  }
 }
