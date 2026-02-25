@@ -33,7 +33,7 @@
   - `src/uagent/util_tools.py` (ツール共通処理: tools callbacks/コマンド処理/初期メッセージ構築など)
   - `src/uagent/runtime_init.py` (起動時初期化の共通化: workdir決定・banner生成・長期記憶挿入)
 - **Tools**: `src/uagent/tools/` (プラグイン群)
-- **Prompts**: `src/uagent/prompts/` (YAML定義 + テンプレート)
+- **Prompt templates**: `skills/prompt-library/`（テンプレ集。Agent Skills として参照）
 
 ---
 
