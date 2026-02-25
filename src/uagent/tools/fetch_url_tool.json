@@ -1,4 +1,12 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
+    "tool.system_prompt": "Use this tool to perform an HTTP GET request to a given URL and return the beginning of the response body as text. This is intended for quickly inspecting remote HTML/JSON without fully downloading large responses.",
+    "param.url.description": "URL to access (http:// or https://)."
+  },
+  "ja": {
+    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンスの先頭部分をテキストとして返します。HTML や JSON の内容を取得・解析したいときに使います。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定した URL に HTTP GET でアクセスし、レスポンスの先頭部分をテキストとして返します。HTML や JSON の内容を取得・解析したいときに使います。",
+    "param.url.description": "アクセスする URL（http:// または https://）。"
+  }
 }
