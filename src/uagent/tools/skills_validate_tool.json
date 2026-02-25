@@ -1,5 +1,5 @@
 {
-  "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）",
-  "param.strict.description": "warnings も失敗扱いにするか（既定:false）",
-  "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。"
+  "param.skill_dir.description": "",
+  "param.strict.description": "",
+  "tool.description": ""
 }

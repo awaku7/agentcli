@@ -1,8 +1,8 @@
 {
-  "param.dst.description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",
-  "param.mkdirs.description": "true の場合、dst の親ディレクトリを作成してから実行します。",
-  "param.overwrite.description": "true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。",
-  "param.src.description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
-  "tool.description": "Rename (move) a file or directory.",
-  "tool.system_prompt": "このツールはファイル/ディレクトリの rename/move を行います。\\n\\n安全注記:\\n- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。\\n- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。"
+  "param.dst.description": "",
+  "param.mkdirs.description": "",
+  "param.overwrite.description": "",
+  "param.src.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

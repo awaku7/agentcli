@@ -165,6 +165,14 @@ Supported ops:
                     ),
                     "default": [],
                 },
+                "preview": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.preview.description",
+                        default="If true, return diff preview without writing files (dry-run mode).",
+                    ),
+                    "default": False,
+                },
             },
             "required": ["mode", "paths"],
         },
@@ -177,11 +185,38 @@ def _json_ok(payload: Dict[str, Any]) -> str:
     return json.dumps(payload, ensure_ascii=False)
 
 
-def _json_err(message: str, *, details: Any = None) -> str:
+def _json_err(
+    message: str,
+    *,
+    details: Any = None,
+    file: Optional[str] = None,
+    line: Optional[int] = None,
+    column: Optional[int] = None,
+) -> str:
     obj: Dict[str, Any] = {"ok": False, "error": message}
     if details is not None:
         obj["details"] = details
+    if file is not None:
+        obj["file"] = file
+    if line is not None:
+        obj["line"] = line
+    if column is not None:
+        obj["column"] = column
     return json.dumps(obj, ensure_ascii=False)
+
+
+def _extract_error_location(exc: Exception) -> Tuple[Optional[int], Optional[int]]:
+    """Extract line and column from libcst ParserSyntaxError if available."""
+    line: Optional[int] = None
+    column: Optional[int] = None
+    
+    # libcst ParserSyntaxError has editor_line and editor_column
+    if hasattr(exc, "editor_line"):
+        line = getattr(exc, "editor_line", None)
+    if hasattr(exc, "editor_column"):
+        column = getattr(exc, "editor_column", None)
+    
+    return line, column
 
 
 def _matches_any_glob(path_posix: str, globs: Sequence[str]) -> bool:
@@ -282,13 +317,20 @@ class AnalyzeResult:
 
 
 class _TopLevelAnalyzer(cst.CSTVisitor):
+    """Analyze Python code to extract top-level imports, functions, and classes.
+    
+    Uses depth tracking to only collect definitions at module level (depth=0).
+    Nested functions, methods, and nested classes are excluded.
+    """
+    
     def __init__(self) -> None:
         self.imports: List[str] = []
         self.functions: List[str] = []
         self.classes: List[str] = []
+        self._depth: int = 0  # Track nesting depth
 
     def visit_Import(self, node: cst.Import) -> Optional[bool]:
-        # Render as code for readability
+        # Imports are always top-level, no depth check needed
         try:
             self.imports.append(cst.Module([]).code_for_node(node).strip())
         except Exception:
@@ -296,6 +338,7 @@ class _TopLevelAnalyzer(cst.CSTVisitor):
         return True
 
     def visit_ImportFrom(self, node: cst.ImportFrom) -> Optional[bool]:
+        # Imports are always top-level, no depth check needed
         try:
             self.imports.append(cst.Module([]).code_for_node(node).strip())
         except Exception:
@@ -303,25 +346,38 @@ class _TopLevelAnalyzer(cst.CSTVisitor):
         return True
 
     def visit_FunctionDef(self, node: cst.FunctionDef) -> Optional[bool]:
-        # only top-level: parent is Module body; libcst visitor doesn't provide parent,
-        # so we approximate by checking indentation via node.leading_lines (not reliable).
-        # Instead, we gather all and caller can filter if needed.
-        self.functions.append(node.name.value)
+        # Only collect top-level functions (depth=0)
+        if self._depth == 0:
+            self.functions.append(node.name.value)
+        self._depth += 1
         return True
 
+    def leave_FunctionDef(self, node: cst.FunctionDef) -> None:
+        self._depth -= 1
+
     def visit_ClassDef(self, node: cst.ClassDef) -> Optional[bool]:
-        self.classes.append(node.name.value)
+        # Only collect top-level classes (depth=0)
+        if self._depth == 0:
+            self.classes.append(node.name.value)
+        self._depth += 1
         return True
+
+    def leave_ClassDef(self, node: cst.ClassDef) -> None:
+        self._depth -= 1
 
 
 class RenameSymbolTransformer(cst.CSTTransformer):
+    """Transformer to rename symbol identifiers with change tracking."""
+    
     def __init__(self, old: str, new: str, *, include_attributes: bool = False) -> None:
         self.old = old
         self.new = new
         self.include_attributes = include_attributes
+        self.change_count: int = 0  # Track number of changes
 
     def leave_Name(self, original_node: cst.Name, updated_node: cst.Name) -> cst.Name:
         if original_node.value == self.old:
+            self.change_count += 1
             return updated_node.with_changes(value=self.new)
         return updated_node
 
@@ -336,15 +392,19 @@ class RenameSymbolTransformer(cst.CSTTransformer):
             isinstance(original_node.attr, cst.Name)
             and original_node.attr.value == self.old
         ):
+            self.change_count += 1
             return updated_node.with_changes(attr=cst.Name(self.new))
         return updated_node
 
 
 class ReplaceCallTransformer(cst.CSTTransformer):
+    """Transformer to replace function call names with change tracking."""
+    
     def __init__(self, old: str, new: str, *, receiver: Optional[str] = None) -> None:
         self.old = old
         self.new = new
         self.receiver = receiver
+        self.change_count: int = 0  # Track number of changes
 
     def leave_Call(self, original_node: cst.Call, updated_node: cst.Call) -> cst.Call:
         # Replace calls:
@@ -358,6 +418,7 @@ class ReplaceCallTransformer(cst.CSTTransformer):
             and original_node.func.value == self.old
         ):
             if self.receiver is None:
+                self.change_count += 1
                 return updated_node.with_changes(func=cst.Name(self.new))
             return updated_node
 
@@ -366,6 +427,7 @@ class ReplaceCallTransformer(cst.CSTTransformer):
             attr = original_node.func
             if isinstance(attr.attr, cst.Name) and attr.attr.value == self.old:
                 if self.receiver is None:
+                    self.change_count += 1
                     return updated_node.with_changes(
                         func=updated_node.func.with_changes(attr=cst.Name(self.new))
                     )
@@ -375,6 +437,7 @@ class ReplaceCallTransformer(cst.CSTTransformer):
                     isinstance(attr.value, cst.Name)
                     and attr.value.value == self.receiver
                 ):
+                    self.change_count += 1
                     return updated_node.with_changes(
                         func=updated_node.func.with_changes(attr=cst.Name(self.new))
                     )
@@ -383,10 +446,13 @@ class ReplaceCallTransformer(cst.CSTTransformer):
 
 
 class RenameImportTransformer(cst.CSTTransformer):
+    """Transformer to rename import names with change tracking."""
+    
     def __init__(self, module: Optional[str], old: str, new: str) -> None:
         self.module = module
         self.old = old
         self.new = new
+        self.change_count: int = 0  # Track number of changes
 
     def leave_ImportFrom(
         self, original_node: cst.ImportFrom, updated_node: cst.ImportFrom
@@ -405,18 +471,19 @@ class RenameImportTransformer(cst.CSTTransformer):
             return updated_node
 
         new_names: List[cst.ImportAlias] = []
-        changed = False
+        changes_in_node = 0
         for alias in names:
             if not isinstance(alias, cst.ImportAlias):
                 new_names.append(alias)
                 continue
             if isinstance(alias.name, cst.Name) and alias.name.value == self.old:
                 new_names.append(alias.with_changes(name=cst.Name(self.new)))
-                changed = True
+                changes_in_node += 1
             else:
                 new_names.append(alias)
 
-        if changed:
+        if changes_in_node > 0:
+            self.change_count += changes_in_node
             return updated_node.with_changes(names=new_names)
         return updated_node
 
@@ -490,6 +557,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     exclude_globs = args.get("exclude_globs", None)
     max_files = int(args.get("max_files", 20000))
     max_bytes = int(args.get("max_bytes", 2_000_000))
+    preview = bool(args.get("preview", False))
 
     if mode not in ("analyze", "transform"):
         return _json_err(f"invalid mode: {mode!r}")
@@ -525,7 +593,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if mode == "analyze":
         analyze_out: Dict[str, Any] = {}
-        errors: Dict[str, str] = {}
+        errors: Dict[str, Dict[str, Any]] = {}
 
         for f in files:
             try:
@@ -539,7 +607,13 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "classes": sorted(set(v.classes)),
                 }
             except Exception as e:
-                errors[f] = repr(e)
+                line, column = _extract_error_location(e)
+                error_info: Dict[str, Any] = {"message": repr(e)}
+                if line is not None:
+                    error_info["line"] = line
+                if column is not None:
+                    error_info["column"] = column
+                errors[f] = error_info
 
         result["analyze"] = {
             "files": analyze_out,
@@ -581,7 +655,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     changed_files: List[str] = []
     unchanged_files: List[str] = []
     backups: Dict[str, str] = {}
-    per_file_errors: Dict[str, str] = {}
+    per_file_errors: Dict[str, Dict[str, Any]] = {}
+    previews: Dict[str, Dict[str, Any]] = {}  # for preview mode
 
     for f in files:
         try:
@@ -602,20 +677,37 @@ def run_tool(args: Dict[str, Any]) -> str:
                 )
                 out = out2
                 if json_err:
-                    per_file_errors[f] = f"wrap_tool_spec_i18n json error: {json_err}"
+                    per_file_errors[f] = {
+                        "message": f"wrap_tool_spec_i18n json error: {json_err}"
+                    }
 
             if out == src:
                 unchanged_files.append(f)
                 continue
 
-            # backup then overwrite (same policy as replace_in_file_tool)
-            backup_path = make_backup_before_overwrite(f)
-            backups[f] = backup_path
+            if preview:
+                # dry-run: return diff instead of writing
+                previews[f] = {
+                    "original": src,
+                    "modified": out,
+                    "lines_added": len(out.splitlines()) - len(src.splitlines()),
+                }
+                changed_files.append(f)
+            else:
+                # backup then overwrite (same policy as replace_in_file_tool)
+                backup_path = make_backup_before_overwrite(f)
+                backups[f] = backup_path
 
-            _write_text(f, out)
-            changed_files.append(f)
+                _write_text(f, out)
+                changed_files.append(f)
         except Exception as e:
-            per_file_errors[f] = repr(e)
+            line, column = _extract_error_location(e)
+            error_info: Dict[str, Any] = {"message": repr(e)}
+            if line is not None:
+                error_info["line"] = line
+            if column is not None:
+                error_info["column"] = column
+            per_file_errors[f] = error_info
 
     result["transform"] = {
         "operations": operations,
@@ -624,7 +716,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         "unchanged_files": unchanged_files,
         "backups": backups,
         "errors": per_file_errors,
+        "preview": preview,
     }
+    if preview and previews:
+        result["transform"]["previews"] = previews
 
     return _json_ok(result)
 

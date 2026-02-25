@@ -1,3 +1,3 @@
 {
-  "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
+  "tool.system_prompt": ""
 }

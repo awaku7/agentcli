@@ -1,9 +1,10 @@
 # tools/get_geoip_tool.py
+
 from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
 
 import json
 from typing import Any, Dict
@@ -17,20 +18,31 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_geoip",
-        "description": (
-            "グローバルIPに基づいて現在位置をざっくり推定できます。"
-            "VPN/プロキシ利用時は推定が外れることがあります。\n\n"
-            "【利用方針】\n"
-            "- ユーザーの場所（都市/地域/国など）が必要な質問に答えるときは、必ずこの get_geoip ツールを使って推定位置を取得してください。\n"
-            "- ただし、ユーザーが場所を明示している場合はそれを優先し、get_geoip は不要です"
+        "description": _(
+            "tool.description",
+            default=(
+                "Estimate the user's rough location based on their public IP address. "
+                "The result may be inaccurate when using VPN/proxies/mobile networks.\n\n"
+                "Policy:\n"
+                "- Use this tool when you need the user's approximate location (city/region/country) and the user has not provided it.\n"
+                "- If the user already provided their location, prefer that and do not call get_geoip."
+            ),
         ),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 出力形式。'text' か 'json'。既定は 'text'。\n- 現在のユーザーの場所がわからない場合に利用します"),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "format": {
                     "type": "string",
-                    "description": _("param.format.description", default="出力形式。'text' か 'json'。既定は 'text'。"),
+                    "description": _(
+                        "param.format.description",
+                        default="Output format: 'text' or 'json' (default: 'text').",
+                    ),
                     "enum": ["text", "json"],
                 }
             },
@@ -41,16 +53,16 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    out_format = (args.get("format") or "text").strip().lower()
+    out_format = str((args or {}).get("format") or "text").strip().lower()
     if out_format not in ("text", "json"):
-        return "[get_geoip error] format は 'text' または 'json' を指定してください"
+        return "[get_geoip error] format must be 'text' or 'json'"
+
     # Note: Consent handling has been removed. The deprecated 'require_consent'
     # parameter is not supported and is intentionally absent from the schema.
 
-    # ipinfo の JSON を取得
     raw = fetch_url_run({"url": "https://ipinfo.io/json"})
 
-    # fetch_url のメタ行を除去して JSON 部分を抽出
+    # Strip fetch_url metadata line(s) and extract JSON payload.
     idx = raw.find("\n{")
     json_text = raw[idx + 1 :] if idx >= 0 else raw
 
@@ -58,13 +70,12 @@ def run_tool(args: Dict[str, Any]) -> str:
         data = json.loads(json_text)
     except Exception as e:
         return (
-            "[get_geoip error] ipinfo.io の応答を JSON として解析できませんでした: "
+            "[get_geoip error] failed to parse ipinfo.io response as JSON: "
             + repr(e)
             + "\n\n"
             + raw
         )
 
-    # 最低限のフィールドを整形
     result = {
         "ip": data.get("ip"),
         "city": data.get("city"),
@@ -80,14 +91,14 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(result, ensure_ascii=False, indent=2)
 
     lines = [
-        "[get_geoip] ipinfo.io によるIPベース位置推定（ざっくり）",
+        "[get_geoip] IP-based location estimate (via ipinfo.io)",
         f"IP: {result.get('ip')}",
-        f"国: {result.get('country')}",
-        f"地域: {result.get('region')}",
-        f"都市: {result.get('city')}",
-        f"座標(推定): {result.get('loc')}",
-        f"タイムゾーン: {result.get('timezone')}",
-        f"回線組織: {result.get('org')}",
-        "※VPN/プロキシ/モバイル回線では外れることがあります",
+        f"Country: {result.get('country')}",
+        f"Region: {result.get('region')}",
+        f"City: {result.get('city')}",
+        f"Coordinates (approx): {result.get('loc')}",
+        f"Timezone: {result.get('timezone')}",
+        f"Org: {result.get('org')}",
+        "Note: Results may be inaccurate when using VPN/proxies/mobile networks.",
     ]
     return "\n".join(lines)

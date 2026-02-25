@@ -3,6 +3,6 @@
   "param.data.description": "",
   "param.file_path.description": "",
   "param.sheet_name.description": "",
-  "tool.description": "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing.system_prompttool.system_promptThis tool performs the operation described by the tool name 'excel_ops'.parameterstypeobjectpropertiesactiontypestringenumreadwriteget_sheet_namesdescriptionparam.action.descriptionOperation to perform.\\n- 'read': read the specified sheet and return JSON.\\n- 'write': write JSON data to the specified sheet (create file if missing).\\n- 'get_sheet_names': get a list of sheet names.file_pathtypestringdescriptionparam.file_path.descriptionAbsolute path to the Excel file.sheet_nametypestringdescriptionparam.sheet_name.descriptionTarget sheet name (for read/write). If omitted, read uses the first sheet and write uses 'Sheet1'.datatypestringdescriptionparam.data.descriptionData to write (JSON string).requiredactionfile_path.org{path}.org{i}actionfile_pathsheet_namedatareadwriteget_sheet_namesInvalid actionfile_path is requiredget_sheet_namesread",
+  "tool.description": "",
   "tool.system_prompt": ""
 }

@@ -1,5 +1,5 @@
 {
-  "param.create_if_missing.description": "true の場合、ファイルが無いときは空の雛形を作ってから処理します（既定: true）",
-  "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
-  "param.server_name.description": "デフォルトに設定したいサーバー名（mcp_servers[].name）"
+  "param.create_if_missing.description": "",
+  "param.path.description": "",
+  "param.server_name.description": ""
 }

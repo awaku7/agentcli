@@ -1,4 +1,4 @@
 {
-  "tool.description": "Get the current OS type (e.g., Windows, Linux, Darwin).",
-  "tool.system_prompt": "このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。"
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

@@ -1,7 +1,7 @@
 {
-  "param.group_by_ext.description": "拡張子別集計も返す",
-  "param.min_bytes.description": "このサイズ以上のみ対象（既定: 10MB）",
-  "param.root.description": "探索ルート（workdir配下のみ許可）",
-  "param.top_n.description": "上位N件",
-  "tool.description": "走査する最大ファイル数（暴走防止）"
+  "param.group_by_ext.description": "",
+  "param.min_bytes.description": "",
+  "param.root.description": "",
+  "param.top_n.description": "",
+  "tool.description": ""
 }

@@ -1,3 +1,5 @@
 {
-  "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
+  "param.note.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

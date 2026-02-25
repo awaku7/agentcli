@@ -1,6 +1,6 @@
 {
-  "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
-  "param.tool_name.description": "実行するツール名。",
-  "param.url.description": "MCPサーバーのエンドポイントURL (http://... または stdio://command...)",
-  "tool.description": "修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。"
+  "param.server_name.description": "",
+  "param.tool_name.description": "",
+  "param.url.description": "",
+  "tool.description": ""
 }

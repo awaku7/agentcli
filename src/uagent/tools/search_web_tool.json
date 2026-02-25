@@ -1,12 +1,12 @@
 {
-  "error.args_must_be_dict": "args must be a dict",
+  "error.args_must_be_dict": "",
   "error.duckduckgo_failed_after_retries": "",
   "error.missing_query_parameter": "",
-  "error.run_tool_error": "run_tool error: {error}",
+  "error.run_tool_error": "",
   "param.max_results.description": "",
   "param.n.description": "",
   "param.q.description": "",
-  "param.query.description": "Search query string.",
+  "param.query.description": "",
   "tool.description": "",
   "tool.system_prompt": ""
 }

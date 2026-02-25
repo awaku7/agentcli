@@ -1,7 +1,7 @@
 {
-  "param.n.description": "生成枚数（現状は1推奨）",
-  "param.output_dir.description": "保存先ディレクトリ（相対/絶対）。省略時は outputs/image_generations",
-  "param.prompt.description": "生成したい画像の指示（プロンプト）",
-  "param.size.description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
-  "tool.description": "保存ファイル名の接頭辞（省略可）"
+  "param.n.description": "",
+  "param.output_dir.description": "",
+  "param.prompt.description": "",
+  "param.size.description": "",
+  "tool.description": ""
 }
