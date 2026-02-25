@@ -1,4 +1,5 @@
 # tools/cmd_exec_json_tool.py
+
 from __future__ import annotations
 
 import json
@@ -19,13 +20,15 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "As a last resort, execute a command and return JSON. Use only when no other appropriate tool (e.g., MCP) is available."
+                "As a last resort, execute a shell command and return a JSON result. "
+                "Use only when no safer or more specific tool is available (e.g., an MCP integration)."
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
+                "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. "
+                "Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
             ),
         ),
         "parameters": {
@@ -35,16 +38,15 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.command.description",
-                        default=(
-                            "Command string passed to cmd.exe /c (Windows) or the shell (Unix)."
-                        ),
+                        default="Command string passed to cmd.exe /c (Windows) or sh -lc (Unix-like).",
                     ),
                 },
                 "cwd": {
+                    "type": ["string", "null"],
                     "description": _(
                         "param.cwd.description",
                         default=(
-                            "Working directory (only relative paths under workdir are allowed). If null, uses current."
+                            "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory."
                         ),
                     ),
                 },

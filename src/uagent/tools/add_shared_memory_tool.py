@@ -19,7 +19,7 @@ TOOL_SPEC: Dict[str, Any] = {
             "- 共有メモリ機能が未設定の場合は、その旨をメッセージで返します。\n"
             "- パスワード・APIキーなどの秘匿情報は絶対に保存しないでください。"
         ),
-        "system_prompt": """このツールは TOOL_SPEC に記載された機能を実行します。""",
+        "system_prompt": _("tool.system_prompt", default="This tool executes the functionality described in TOOL_SPEC."),
         "parameters": {
             "type": "object",
             "properties": {

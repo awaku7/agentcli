@@ -57,19 +57,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "handle_mcp_v2",
-        "description": "修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。",
+        "description": _("tool.description", default="修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "server_name": {
                     "type": "string",
-                    "description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
+                    "description": _("param.server_name.description", default="mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。"),
                 },
                 "url": {
                     "type": "string",
-                    "description": "MCPサーバーのエンドポイントURL (http://... または stdio://command...)",
+                    "description": _("param.url.description", default="MCPサーバーのエンドポイントURL (http://... または stdio://command...)"),
                 },
-                "tool_name": {"type": "string", "description": "実行するツール名。"},
+                "tool_name": {"type": "string", "description": _("param.tool_name.description", default="実行するツール名。")},
                 "tool_arguments": {
                     "type": "object",
                     "description": 'ツールに渡す引数の辞書。例: {"handle": "you.bsky.social", "password": "xxxx"}',

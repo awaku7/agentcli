@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.message.description": "完了時に表示するメッセージ。",
+  "param.on_timeout_prompt.description": "満了時にLLMへ自動入力する内容。",
+  "param.seconds.description": "タイマーの秒数。",
+  "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
+  "tool.system_prompt": "このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。"
 }

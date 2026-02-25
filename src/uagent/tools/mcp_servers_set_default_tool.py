@@ -29,15 +29,15 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "server_name": {
                     "type": "string",
-                    "description": "デフォルトに設定したいサーバー名（mcp_servers[].name）",
+                    "description": _("param.server_name.description", default="デフォルトに設定したいサーバー名（mcp_servers[].name）"),
                 },
                 "path": {
                     "type": "string",
-                    "description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
                 },
                 "create_if_missing": {
                     "type": "boolean",
-                    "description": "true の場合、ファイルが無いときは空の雛形を作ってから処理します（既定: true）",
+                    "description": _("param.create_if_missing.description", default="true の場合、ファイルが無いときは空の雛形を作ってから処理します（既定: true）"),
                     "default": True,
                 },
             },

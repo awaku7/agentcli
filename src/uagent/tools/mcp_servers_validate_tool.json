@@ -1,4 +1,5 @@
 {
-  "en": {},
-  "ja": {}
+  "param.fail_on_warning.description": "true の場合、警告が1件でもあれば overall=FAIL を返します（既定: false）",
+  "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+  "param.pretty.description": "true の場合は JSON を整形して返します（既定: true）"
 }

@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.algo.description": "ハッシュアルゴリズム",
+  "param.chunk_size.description": "読み取りチャンクサイズ(bytes)",
+  "param.paths.description": "対象ファイルパス配列",
+  "param.return.description": "出力形式",
+  "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。"
 }

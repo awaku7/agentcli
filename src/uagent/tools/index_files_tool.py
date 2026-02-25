@@ -35,22 +35,22 @@ else:
         "type": "function",
         "function": {
             "name": "index_files",
-            "description": "指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。",
+            "description": _("tool.description", default="指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。"),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "pattern": {
                         "type": "string",
-                        "description": "対象とするファイル名、ディレクトリ名、またはglobパターン（例: 'src/**/*.py', '*.md'）。",
+                        "description": _("param.pattern.description", default="対象とするファイル名、ディレクトリ名、またはglobパターン（例: 'src/**/*.py', '*.md'）。"),
                     },
                     "root_path": {
                         "type": "string",
-                        "description": "検索・インデックスの起点となるディレクトリ。デフォルトはカレントディレクトリ。",
+                        "description": _("param.root_path.description", default="検索・インデックスの起点となるディレクトリ。デフォルトはカレントディレクトリ。"),
                         "default": ".",
                     },
                     "recursive": {
                         "type": "boolean",
-                        "description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
+                        "description": _("param.recursive.description", default="パターンに '**' を含む場合に再帰的に探索するかどうか。"),
                         "default": True,
                     },
                 },
