@@ -168,7 +168,7 @@ uag handle_mcp_v2
 - **情報取得・計算**: `file_exists`, `file_hash`, `find_large_files`, `get_geoip`, `get_current_time`, `get_os`, `get_env`, `list_windows_titles`, `search_web`, `fetch_url`, `playwright_inspector`, `calculator`, `date_calc`
 - **データ/ドキュメント**: `read_pptx_pdf`, `excel_ops`, `exstruct`, `db_query`
 - **画像**: `screenshot`, `analyze_image`(※UAGENT_RESPONSES 有効時は非ロード), `generate_image`
-- **開発支援**: `git_ops`, `run_tests`, `lint_format`, `prompt_get`, `generate_prompt`, `system_reload`
+- **開発支援**: `git_ops`, `run_tests`, `lint_format`, `generate_prompt`, `system_reload`
 - **付帯**: `human_ask`, `set_timer`, `add_long_memory`, `get_long_memory`, `add_shared_memory`, `get_shared_memory`, `spawn_process`, `change_workdir`, `index_files`, `semantic_search_files`, `graph_rag_search`
 
 ---
