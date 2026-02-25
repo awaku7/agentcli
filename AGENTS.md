@@ -164,7 +164,7 @@ uag handle_mcp_v2
 - **最優先 (MCP)**: `handle_mcp_v2`, `mcp_tools_list`
 - **MCP管理**: `mcp_servers_list`, `mcp_servers_add`, `mcp_servers_remove`, `mcp_servers_validate`, `mcp_servers_set_default`, `mcp_servers_init_template`
 - **最終手段 (直接実行)**: `cmd_exec`, `pwsh_exec`, `cmd_exec_json`, `python_exec`
-- **ファイル操作**: `read_file`, `create_file`, `delete_file`, `rename_path`, `replace_in_file`, `apply_patch`, `search_files`, `zip_ops`
+- **ファイル操作**: `read_file`, `create_file`, `delete_file`, `rename_path`, `replace_in_file`, `search_files`, `zip_ops`
 - **情報取得・計算**: `file_exists`, `file_hash`, `find_large_files`, `get_geoip`, `get_current_time`, `get_os`, `get_env`, `list_windows_titles`, `search_web`, `fetch_url`, `playwright_inspector`, `calculator`, `date_calc`
 - **データ/ドキュメント**: `read_pptx_pdf`, `excel_ops`, `exstruct`, `db_query`
 - **画像**: `screenshot`, `analyze_image`(※UAGENT_RESPONSES 有効時は非ロード), `generate_image`
