@@ -6,9 +6,9 @@ Target OS: Windows
 
 ---
 
-## 6. Install Git if needed (when you want git operations)
+## 6. Install Git (required)
 
-Not required to run `uag` itself, but required if you want to use `git_ops` or let the agent run `git` commands.
+`uag` checks that Git is installed at startup. Install Git beforehand.
 
 ### 6.1 Git for Windows
 
