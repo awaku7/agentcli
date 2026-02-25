@@ -5,7 +5,7 @@
 ## 動作環境
 
 - Python 3.11 以上（`pyproject.toml` の `requires-python` 準拠）
-- Git（バージョン管理および一部ツールで必須）
+- Git（バージョン管理および一部ツールで**必須**）
   - Windows: [公式サイト](https://git-scm.com/download/win) からダウンロード
   - macOS: Homebrew (`brew install git`) または Xcode Command Line Tools (`xcode-select --install`)
   - Linux: `sudo apt install git` (Ubuntu/Debian) または `sudo yum install git` (CentOS/RHEL)
@@ -17,7 +17,7 @@
 - **GUI**: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
 - **Web**: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
 
-※ ルート直下の `uag.py`, `scheckgui.py`（旧GUIラッパ）, `scheckweb.py`（旧Webラッパ） は、パッケージングされていない環境でも手軽に実行できるようにするためのラッパースクリプトです。
+※ ルート直下の `scheck.py`, `scheckgui.py`（旧GUIラッパ）, `scheckweb.py`（旧Webラッパ） は、パッケージングされていない環境でも手軽に実行できるようにするためのラッパースクリプトです。
 
 ### 主要コンポーネント
 
