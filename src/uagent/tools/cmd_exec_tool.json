@@ -1,4 +1,12 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.system_prompt": "This is a LAST RESORT tool. It executes an OS command and returns its output. Use it only if no safer, more specific tool is available.",
+    "param.command.description": "Command string passed to cmd.exe /c (Windows) or the shell (Unix)."
+  },
+  "ja": {
+    "tool.description": "【最終手段】Windows のコマンドを実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
+    "tool.system_prompt": "このツールは【最終手段】です。\n他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
+    "param.command.description": "cmd.exe /c に渡すコマンド文字列（Windows）またはシェルに渡すコマンド（Unix）。"
+  }
 }

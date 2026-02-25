@@ -1,4 +1,14 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "Load an image file and have an AI vision model describe its contents. Useful for analyzing screenshots or reading charts/tables.",
+    "tool.system_prompt": "Use this tool to analyze a given image and return a textual description of what is shown. The caller should provide an image file path and may optionally provide a specific question or instruction about what to extract from the image.",
+    "param.image_path.description": "Path to the image file to analyze.",
+    "param.prompt.description": "What you want to know about the image (e.g., 'Read the error message in this image', 'Describe the UI layout'). If omitted, it defaults to 'Please describe this image in detail'."
+  },
+  "ja": {
+    "tool.description": "画像ファイルを読み込み、その内容をAI（Vision）に説明させます。スクリーンショットの解析や図表の読み取りに使用します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 画像ファイルを読み込み、その内容をAIに説明させます。スクリーンショットの解析や図表の読み取りに使用します。",
+    "param.image_path.description": "解析する画像ファイルのパス。",
+    "param.prompt.description": "画像について何を知りたいか（例: 'この画像のエラーメッセージを読み取って', 'UIの配置を説明して'）。省略時は 'この画像を詳細に説明してください' になります。"
+  }
 }

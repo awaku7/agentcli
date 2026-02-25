@@ -1,109 +1,103 @@
+# tools/delete_file_tool.py
 from __future__ import annotations
+
+import json
+import os
+import shutil
+from typing import Any, Dict
+
 from .i18n_helper import make_tool_translator
+from .safe_file_ops_extras import ensure_within_workdir
 
 _ = make_tool_translator(__file__)
 
-
-import os
-import sys
-from typing import Any, Callable, Dict
-
 BUSY_LABEL = True
-STATUS_LABEL = "tool:delete_file"
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "delete_file",
-        "description": "指定されたパスのファイルまたはディレクトリを削除します（ディレクトリは再帰削除）。危険操作のため確認が入る場合があります。",
-        "system_prompt": """このツールは次の目的で使われます: 削除するファイルのパス。""",
+        "description": _(
+            "tool.description",
+            default=(
+                "Delete the specified file or directory (directories are deleted recursively). "
+                "Because this is dangerous, confirmation may be required."
+            ),
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool performs the operation described by the tool name 'delete_file'.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "filename": {
                     "type": "string",
-                    "description": "削除するファイルのパス。",
+                    "description": _(
+                        "param.filename.description",
+                        default="Path to the file to delete.",
+                    ),
                 },
                 "path": {
                     "type": "string",
-                    "description": "(互換) 削除するファイルのパス。filename の別名として受け付けます。",
+                    "description": _(
+                        "param.path.description",
+                        default="(Compatibility) Alias of filename.",
+                    ),
                 },
                 "missing_ok": {
                     "type": "boolean",
-                    "description": (
-                        "ファイルが存在しない場合の扱い。"
-                        "省略時は false（エラーにする）。true の場合はエラーにせず成功扱いとする。"
+                    "default": False,
+                    "description": _(
+                        "param.missing_ok.description",
+                        default="If true, do not error when the path does not exist.",
                     ),
                 },
             },
-            # filename/path のどちらかは必須だが、互換のためここでは必須指定しない。
             "required": [],
         },
     },
 }
 
 
-SafeDeleteFile = Callable[[str, bool], None]
+def _human_confirm(message: str) -> bool:
+    try:
+        from .human_ask_tool import run_tool as human_ask
 
-# 旧互換のため safe_delete_file を import しているが、
-# 本ツールはファイル/ディレクトリ両対応の safe_delete_path を使用する。
-try:
-    from .safe_file_ops import safe_delete_path
-except Exception:
-    safe_delete_path = None  # type: ignore
+        res_json = human_ask({"message": message})
+        payload = json.loads(res_json)
+        user_reply = (payload.get("user_reply") or "").strip().lower()
+        cancelled = bool(payload.get("cancelled", False))
+        return (not cancelled) and user_reply in ("y", "yes")
+    except Exception:
+        return False
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """指定されたパスのファイル/ディレクトリを 1 つ削除する。
-
-    - filename / path のどちらかで指定
-    - missing_ok が True なら、存在しなくても成功扱い
-    - ディレクトリの場合は再帰削除(shutil.rmtree)
-    - ディレクトリ削除は危険操作のため、常に確認が入る（safe_delete_path 経由）
-    """
-
-    raw_filename = args.get("filename") or args.get("path") or ""
-    if not raw_filename:
-        return "[delete_file error] filename/path が指定されていません"
-
+    raw_filename = str(args.get("filename") or args.get("path") or "").strip()
     missing_ok = bool(args.get("missing_ok", False))
 
-    # パスを正規化
-    filename = os.path.expanduser(str(raw_filename))
+    if not raw_filename:
+        raise ValueError("filename/path is required")
 
-    # ★ デバッグ用ログ（stderr なので LLM の返答は汚れない）
-    try:
-        sys.stderr.write(
-            f"[delete_file] filename={filename!r}, missing_ok={missing_ok}\n"
-        )
-        sys.stderr.flush()
-    except Exception:
-        pass
+    safe_path = ensure_within_workdir(raw_filename)
 
-    try:
-        # 存在チェック（missing_ok は safe_delete_path 側でも扱うが、
-        # ツールのメッセージ互換のためここで分岐する）
-        if not os.path.exists(filename):
-            if missing_ok:
-                return (
-                    f"[delete_file] パス {filename} は存在しませんでしたが、"
-                    "missing_ok=true のため何もせず成功とみなします。"
-                )
-            return f"[delete_file error] パス {filename} は存在しません。"
+    if not os.path.exists(safe_path):
+        if missing_ok:
+            return json.dumps({"ok": True, "deleted": False, "path": safe_path})
+        raise FileNotFoundError(safe_path)
 
-        # 削除前に種別判定（削除後は判定できないため）
-        is_dir = os.path.isdir(filename)
+    # Confirm dangerous operation.
+    msg = _(
+        "confirm.delete_path",
+        default="Delete path: {path}?\nEnter y to proceed, or c to cancel.",
+    ).format(path=safe_path)
+    if not _human_confirm(msg):
+        return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
-        if safe_delete_path is None:
-            return "[delete_file error] safe_delete_path が利用できません"
+    if os.path.isdir(safe_path):
+        shutil.rmtree(safe_path)
+    else:
+        os.remove(safe_path)
 
-        safe_delete_path(filename, missing_ok=missing_ok)
-
-        if is_dir:
-            return f"[delete_file] ディレクトリ {filename} を削除しました。"
-        return f"[delete_file] ファイル {filename} を削除しました。"
-
-    except PermissionError as e:
-        return f"[delete_file error] PermissionError: {e}"
-    except Exception as e:
-        return f"[delete_file error] {type(e).__name__}: {e}"
+    return json.dumps({"ok": True, "deleted": True, "path": safe_path}, ensure_ascii=False)

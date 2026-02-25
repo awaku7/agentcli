@@ -1,4 +1,10 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.g., 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
+    "tool.system_prompt": "This tool provides reference information so the LLM can perform time calculations accurately.\n- ISO 8601 format (with offset)\n- Weekday (English)\n- UTC time\n- Numeric components (year, month, day, hour, minute, second)\nUse these to convert ambiguous user requests (e.g., 'next Monday') into a concrete date/time.\n"
+  },
+  "ja": {
+    "tool.description": "現在時刻と詳細な日付情報（タイムゾーン、曜日、UTC時刻を含む）を返します。相対的な日付表現（「今日」「明日」「今週末」「来月の第3火曜日」など）を解決する際に、現在が何曜日で、どのようなオフセットを持っているかを正確に把握するために使用してください。",
+    "tool.system_prompt": "このツールは、LLMが時間計算を正確に行うための基準情報を提供します。\n- ISO 8601形式（オフセット付き）\n- 曜日（英語）\n- UTC時刻\n- 各要素（年、月、日、時、分、秒）の数値\nこれらを用いて、ユーザーの「来週の月曜日」といった曖昧な指定を具体的な日付に変換してください。\n"
+  }
 }

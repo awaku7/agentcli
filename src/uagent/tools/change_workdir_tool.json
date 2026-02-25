@@ -1,4 +1,16 @@
 {
-  "en": {},
-  "ja": {}
+  "en": {
+    "tool.description": "Change the current working directory after user confirmation.",
+    "tool.system_prompt": "Use this tool to change the agent's current working directory. If confirm=true, the tool will ask the user to approve the directory change before applying it.",
+    "param.new_dir.description": "The new directory path to switch to. Required.",
+    "param.confirm.description": "Whether to ask for user confirmation. Default is True.",
+    "confirm.change_workdir": "Change workdir to: {path}?\nEnter y to proceed, or c to cancel."
+  },
+  "ja": {
+    "tool.description": "現在の作業ディレクトリをユーザー確認の後変更します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリをユーザー確認の後変更します。",
+    "param.new_dir.description": "変更先の新しいディレクトリパス。必須。",
+    "param.confirm.description": "ユーザー確認を行うかどうか。デフォルトは True。",
+    "confirm.change_workdir": "作業ディレクトリを次へ変更します: {path}?\n続行するには y、キャンセルするには c を入力してください。"
+  }
 }
