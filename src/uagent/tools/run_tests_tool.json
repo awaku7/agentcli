@@ -1,16 +1,16 @@
 {
-  "error.cwd_not_allowed": "cwd not allowed: {error}",
+  "error.cwd_not_allowed": "",
   "error.dangerous_cwd_rejected": "",
   "error.framework_auto_detect_failed": "",
-  "error.invalid_framework": "invalid framework: {framework}",
-  "error.invalid_report": "invalid report: {report}",
+  "error.invalid_framework": "",
+  "error.invalid_report": "",
   "error.shell_metacharacters_not_allowed": "",
   "error.unsupported_framework": "",
   "param.cwd.description": "",
   "param.extra_args.description": "",
-  "param.framework.description": "Test framework type.",
+  "param.framework.description": "",
   "param.pythonpath.description": "",
-  "param.report.description": "Output format.",
+  "param.report.description": "",
   "param.target.description": "",
   "tool.description": ""
 }

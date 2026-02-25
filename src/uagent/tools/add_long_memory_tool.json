@@ -1,4 +1,5 @@
 {
-  "tool.description": "ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。",
-  "tool.system_prompt": "このツールは次の目的で使われます: ユーザーや環境について、今後の対話でも役立ちそうな長期記憶メモを1件保存します。\\n- パスワードや API キー等の秘匿情報を長期記憶や共有メモに保存しないでください。"
+  "param.note.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

@@ -1,7 +1,0 @@
-{
-  "param.file_pattern.description": "",
-  "param.query.description": "検索キーワード。",
-  "param.root_path.description": "検索対象directory。",
-  "param.top_k.description": "件数。",
-  "tool.description": ""
-}

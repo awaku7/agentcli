@@ -1,6 +1,6 @@
 {
-  "param.command.description": "PowerShell command string passed to -Command.",
-  "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-  "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
-  "tool.system_prompt": "このツールは【最終手段】です。\\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\\n\\nセキュリティ注記:\\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。"
+  "param.command.description": "",
+  "param.shell.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

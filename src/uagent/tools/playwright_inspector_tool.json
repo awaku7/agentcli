@@ -1,4 +1,4 @@
 {
-  "param.prefix.description": "保存するファイル名の接頭辞（デフォルト: debug_capture）",
-  "param.url.description": "最初に開くURL（デフォルト: about:blank）"
+  "param.prefix.description": "",
+  "param.url.description": ""
 }
