@@ -993,7 +993,7 @@ SYSTEM_PROMPT_MSGID = """
 - When handling relative date expressions, call get_current_time to reference the current time.
 - Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
 - If you create Python files, run `python -m py_compile` to validate syntax.
-- If expert-level knowledge is required, use prompt_get and follow it.
+- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.
 """
 
 # System prompt used by the agent. This is translated via gettext; if translations are missing,
