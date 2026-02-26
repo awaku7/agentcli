@@ -1,0 +1,9 @@
+{
+  "ja": {
+    "log.load_fail.internal": "[tools] 内部プラグイン {mod_name} のロード失敗: {err}",
+    "log.load_ok.external": "[tools] 外部ツールをロードしました: {entry_name}",
+    "log.load_fail.external": "[tools] 外部プラグイン {entry_path} のロード失敗: {err}",
+    "log.loaded_tools": "[tools] ロードされたツール: {names}",
+    "log.no_valid_tools": "[tools] 有効なツールが見つかりませんでした。"
+  }
+}

@@ -1,15 +1,21 @@
 {
-  "en": {
+  "ja": {
+    "doc.is_reachable": "起動時疎通確認。\n\n- 失敗しても例外は投げず False を返す\n- 起動遅延を避けるためタイムアウト短め\n- /v1/models が使えない実装もあり得るため / のGETもフォールバック",
+    "err.disabled": "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n",
+    "doc.db_path": "<state>/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
+    "doc.sync_file": "単一ファイルのインデックスを同期（新規または更新があれば）",
+    "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
+    "err.vec_fail": "エラー: クエリのベクトル化に失敗しました。",
+    "out.not_found": "関連するドキュメントは見つかりませんでした。",
+    "out.query": "検索クエリ: {query}",
+    "out.target_dir": "対象ディレクトリ: {root_path}",
+    "out.hits": "ヒット件数: {count}\n",
+    "out.result_item": "[{rank}] スコア: {score:.4f} | ファイル: {rel_path}",
+    "out.result_content": "内容: {snippet}\n",
+    "err.query_required": "エラー: query は必須です。",
     "tool.description": "ローカルfileに対して意味検索（ベクトル検索）をperforms。Embedding APIを使用してfile内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やfile更新時はインデックス作成処理が走ります。",
     "param.query.description": "検索キーワード。",
     "param.root_path.description": "検索対象directory。",
-    "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
-    "param.top_k.description": "件数。"
-  },
-  "ja": {
-    "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding APIを使用してファイル内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やファイル更新時はインデックス作成処理が走ります。",
-    "param.query.description": "検索キーワード。",
-    "param.root_path.description": "検索対象ディレクトリ。",
     "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
     "param.top_k.description": "件数。"
   }

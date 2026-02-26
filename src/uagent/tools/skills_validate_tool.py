@@ -1,10 +1,5 @@
 # tools/skills_validate_tool.py
-"""skills_validate_tool
-
-Validate a skill directory according to Agent Skills specification.
-https://agentskills.io/specification
-
-"""
+"""skills_validate_tool implementation for Agent Skills."""
 
 from __future__ import annotations
 
@@ -16,7 +11,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from .agent_skills_shared import (  # noqa: E402
+from .agent_skills_shared import (
     load_skill_frontmatter_only,
     skill_md_path,
     validate_skill_frontmatter,
@@ -28,17 +23,26 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_validate",
-        "description": _("tool.description", default="Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。"),
+        "description": _(
+            "tool.description",
+            default="Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": _("param.skill_dir.description", default="スキルディレクトリ（直下に SKILL.md が必要）"),
+                    "description": _(
+                        "param.skill_dir.description",
+                        default="The skill directory (must contain SKILL.md).",
+                    ),
                 },
                 "strict": {
                     "type": "boolean",
-                    "description": _("param.strict.description", default="warnings も失敗扱いにするか（既定:false）"),
+                    "description": _(
+                        "param.strict.description",
+                        default="Whether to treat validation warnings as errors (default: false).",
+                    ),
                     "default": False,
                 },
             },

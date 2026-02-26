@@ -14,26 +14,44 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_env",
-        "description": _("tool.description", default="指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"),
+        "description": _(
+            "tool.description",
+            default="Gets the value of a specified environment variable and returns it. Optionally masks the value.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": _("param.name.description", default="読み取る環境変数名。"),
+                    "description": _(
+                        "param.name.description",
+                        default="The name of the environment variable to read.",
+                    ),
                 },
                 "missing_ok": {
                     "type": "boolean",
-                    "description": _("param.missing_ok.description", default="true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。"),
+                    "description": _(
+                        "param.missing_ok.description",
+                        default="If true, returns '(not set)' instead of an error if the variable is missing. Default is false.",
+                    ),
                 },
                 "mask": {
                     "type": "boolean",
-                    "description": _("param.mask.description", default="true の場合、値をマスクします（例: 秘密情報）。既定は true。"),
+                    "description": _(
+                        "param.mask.description",
+                        default="If true, masks the value (e.g., for secrets). Default is true.",
+                    ),
                 },
                 "unmasked_chars": {
                     "type": "integer",
-                    "description": _("param.unmasked_chars.description", default="マスク時、先頭と末尾に残す文字数。既定は 2。"),
+                    "description": _(
+                        "param.unmasked_chars.description",
+                        default="Number of characters to keep visible at the start and end when masking. Default is 2.",
+                    ),
                 },
             },
             "required": ["name"],
@@ -58,8 +76,8 @@ def _mask_value(val: str, keep: int = 2) -> str:
 
 def run_tool(args: Dict[str, Any]) -> str:
     # NOTE:
-    # - ツール呼び出しの概要は tools/__init__.py 側で一律にトレース出力します。
-    # - 個別ツールでのデバッグ print は二重出力になるため、原則置かない方針です。
+    # - Tool call traces are handled centrally in tools/__init__.py.
+    # - Avoid extra debug prints here to prevent duplicate output.
 
     cb = get_callbacks()
 

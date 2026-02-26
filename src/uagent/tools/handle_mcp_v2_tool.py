@@ -44,7 +44,7 @@ from .context import get_callbacks
 
 
 def mask_values(data: Any) -> Any:
-    """辞書やリスト内の値を '*' に置き換える（構造は維持）"""
+    """Replace values in a dictionary or list with '*' (preserving structure)."""
     if isinstance(data, dict):
         return {k: mask_values(v) for k, v in data.items()}
     elif isinstance(data, list):
@@ -57,22 +57,39 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "handle_mcp_v2",
-        "description": _("tool.description", default="修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。"),
+        "description": _(
+            "tool.description",
+            default="Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "server_name": {
                     "type": "string",
-                    "description": _("param.server_name.description", default="mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。"),
+                    "description": _(
+                        "param.server_name.description",
+                        default="Server name defined in mcp_servers.json. If specified, it takes priority over url.",
+                    ),
                 },
                 "url": {
                     "type": "string",
-                    "description": _("param.url.description", default="MCPサーバーのエンドポイントURL (http://... または stdio://command...)"),
+                    "description": _(
+                        "param.url.description",
+                        default="MCP server endpoint URL (http://... or stdio://command...).",
+                    ),
                 },
-                "tool_name": {"type": "string", "description": _("param.tool_name.description", default="実行するツール名。")},
+                "tool_name": {
+                    "type": "string",
+                    "description": _(
+                        "param.tool_name.description", default="The name of the tool to execute."
+                    ),
+                },
                 "tool_arguments": {
                     "type": "object",
-                    "description": 'ツールに渡す引数の辞書。例: {"handle": "you.bsky.social", "password": "xxxx"}',
+                    "description": _(
+                        "param.tool_arguments.description",
+                        default='A dictionary of arguments to pass to the tool. Example: {"handle": "you.bsky.social", "password": "xxxx"}',
+                    ),
                 },
             },
             "required": ["tool_name"],
@@ -147,7 +164,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     cmd_args = []
     cmd_env = {}
 
-    # 設定ファイルから解決
     config_path = get_default_mcp_config_path()
     if server_name:
         if config_path and os.path.exists(config_path):
@@ -169,12 +185,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             except Exception as e:
                 return f"Error loading MCP config: {e}"
 
-    # URLフォールバック
     if not url and not command:
         if server_name:
-            pass  # エラー済み
+            pass
         else:
-            # デフォルトURL
             return (
                 "MCP server is not configured. Please add a server via mcp_servers_add (or create a config via mcp_servers_init_template) "
                 "and then specify server_name/url. (No operation performed)"
@@ -186,7 +200,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 _call_mcp_stdio(command, cmd_args, cmd_env, name, argv)
             )
         elif url.startswith("stdio://"):
-            # 簡易パース (後方互換)
             parts = url[8:].strip().split()
             if not parts:
                 return "Error: Invalid stdio url"

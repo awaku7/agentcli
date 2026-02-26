@@ -3,41 +3,60 @@ import os
 import subprocess
 from typing import Any, Dict
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 TOOL_SPEC: Dict[str, Any] = {
     "function": {
-        "description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the "
-        "same request.",
+        "description": _(
+            "tool.description",
+            default=(
+                "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request."
+            ),
+        ),
         "name": "spawn_process",
         "parameters": {
             "properties": {
-                "command": {"description": "Command line to execute.", "type": "string"}
+                "command": {
+                    "description": _(
+                        "param.command.description",
+                        default="Command line to execute.",
+                    ),
+                    "type": "string",
+                }
             },
             "required": ["command"],
             "type": "object",
         },
-        "system_prompt": "This tool performs the operation described by the tool name 'spawn_process'. Use it "
-        "when that action is needed.",
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool performs the operation described by the tool name 'spawn_process'. Use it when that action is needed."
+            ),
+        ),
     },
     "type": "function",
 }
 
 
 def _validate_command(raw: str) -> str | None:
-    """
-    コマンドのざっくりバリデーション。
-    問題があればエラーメッセージ文字列を返し、正常なら None。
+    """Rough validation for the command string.
+
+    Returns:
+      - error message (str) if invalid
+      - None if valid
     """
     if not raw:
-        return "[spawn_process error] command が空です"
+        return "[spawn_process error] command is empty"
 
     if os.name == "nt":
         lower = raw.strip().lower()
-        # 'start' または 'start ""' だけは実行対象がないので NG
+        # 'start' or 'start ""' alone has no target
         if lower == "start" or lower == 'start ""':
             return (
-                "[spawn_process error] Windows の start コマンドに "
-                "URL や実行ファイルのパスが指定されていません。\n"
-                '例: start "" https://www.google.com のように指定してください。'
+                "[spawn_process error] Windows 'start' command has no URL or executable path.\n"
+                "Example: start \"\" https://www.google.com"
             )
 
     return None
@@ -50,10 +69,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     if err is not None:
         return err
 
-    # ここから実行
+    # Execute
     try:
         if os.name == "nt":
-            # そのまま cmd.exe /c に渡す
+            # pass through to cmd.exe /c
             cmdline = f"cmd.exe /c {raw}"
             subprocess.Popen(
                 cmdline,
@@ -70,11 +89,14 @@ def run_tool(args: Dict[str, Any]) -> str:
                 stderr=subprocess.DEVNULL,
             )
 
-        return f"[spawn_process] 次のコマンドでプロセス起動を試みました:\n{cmdline}"
-    except Exception as e:
-        # 失敗しても「どう実行しようとしたか」を必ず返す
         return (
-            "[spawn_process error] コマンド実行時に例外が発生しました。\n"
+            "[spawn_process] Tried to start a process with the following command:\n"
+            f"{cmdline}"
+        )
+    except Exception as e:
+        # return command line for debugging
+        return (
+            "[spawn_process error] Exception occurred while executing the command.\n"
             f"command={raw!r}\n"
             f"error={type(e).__name__}: {e}"
         )

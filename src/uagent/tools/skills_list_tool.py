@@ -1,18 +1,5 @@
 # tools/skills_list_tool.py
-"""skills_list_tool
-
-Agent Skills spec:
-https://agentskills.io/specification
-
-This tool lists available skills by scanning a root directory for skill folders
-that contain SKILL.md, and reading YAML frontmatter only (progressive disclosure).
-
-Default roots policy:
-- If root_dir is provided (non-empty), use it.
-- Otherwise, use env var UAGENT_SKILLS_DIRS split by os.pathsep
-- If env var is not set, fallback to ./skills
-
-"""
+"""skills_list_tool implementation for scanning Agent Skills."""
 
 from __future__ import annotations
 
@@ -24,7 +11,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from .agent_skills_shared import (  # noqa: E402
+from .agent_skills_shared import (
     get_default_skill_roots,
     load_skill_frontmatter_only,
     skill_md_path,
@@ -37,27 +24,42 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_list",
-        "description": _("tool.description", default="Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します。"),
+        "description": _(
+            "tool.description",
+            default="Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "root_dir": {
                     "type": "string",
-                    "description": _("param.root_dir.description", default="スキル探索ルート。空/未指定なら UAGENT_SKILLS_DIRS (os.pathsep区切り) を使用し、未設定時は ./skills を使用します。"),
+                    "description": _(
+                        "param.root_dir.description",
+                        default="Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.pathsep delimited) or ./skills by default.",
+                    ),
                 },
                 "recursive": {
                     "type": "boolean",
-                    "description": _("param.recursive.description", default="再帰的に探索するか（既定:true）"),
+                    "description": _(
+                        "param.recursive.description",
+                        default="Whether to search recursively (default: true).",
+                    ),
                     "default": True,
                 },
                 "include_invalid": {
                     "type": "boolean",
-                    "description": _("param.include_invalid.description", default="SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。"),
+                    "description": _(
+                        "param.include_invalid.description",
+                        default="Whether to include skills that failed parsing or validation (default: true).",
+                    ),
                     "default": True,
                 },
                 "strict": {
                     "type": "boolean",
-                    "description": _("tool.description", default="仕様検証で warnings を失敗扱いにするか（既定:false）"),
+                    "description": _(
+                        "param.strict.description",
+                        default="Whether to treat validation warnings as errors (default: false).",
+                    ),
                     "default": False,
                 },
             },
@@ -68,8 +70,6 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> List[str]:
-    """Return directories that contain SKILL.md under root_dir."""
-
     out: List[str] = []
     root_dir = os.path.abspath(root_dir)
 
@@ -78,7 +78,6 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> List[str]:
 
     if recursive:
         for dirpath, dirnames, filenames in os.walk(root_dir):
-            # Skip typical heavy dirs if someone points to a big tree.
             base = os.path.basename(dirpath)
             if base in (".git", "node_modules", "__pycache__", ".venv", "venv"):
                 dirnames[:] = []
@@ -150,7 +149,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             if item["ok"] or include_invalid:
                 results.append(item)
 
-    # Deterministic order
     results.sort(key=lambda x: (x.get("name") or "", x.get("path") or ""))
 
     return json.dumps(results, ensure_ascii=False, indent=2)

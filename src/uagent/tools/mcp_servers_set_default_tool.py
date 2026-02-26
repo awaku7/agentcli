@@ -20,24 +20,33 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers_set_default",
-        "description": (
-            "mcp_servers.json のデフォルト接続先（mcp_servers[0]）を切り替えます。"
-            "server_name に一致する要素を先頭へ移動します。"
+        "description": _(
+            "tool.description",
+            default="Changes the default MCP server (mcp_servers[0]) in mcp_servers.json by moving the specified server to the top of the list.",
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "server_name": {
                     "type": "string",
-                    "description": _("param.server_name.description", default="デフォルトに設定したいサーバー名（mcp_servers[].name）"),
+                    "description": _(
+                        "param.server_name.description",
+                        default="The name of the server to set as default (mcp_servers[].name).",
+                    ),
                 },
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
+                    "description": _(
+                        "param.path.description",
+                        default="Path to the server list JSON. Defaults to the standard location if omitted.",
+                    ),
                 },
                 "create_if_missing": {
                     "type": "boolean",
-                    "description": _("param.create_if_missing.description", default="true の場合、ファイルが無いときは空の雛形を作ってから処理します（既定: true）"),
+                    "description": _(
+                        "param.create_if_missing.description",
+                        default="If true, create a template file if the config is missing. Default is true.",
+                    ),
                     "default": True,
                 },
             },
@@ -55,23 +64,23 @@ def _load_config(
     if not os.path.exists(path):
         if create_if_missing:
             return {"mcp_servers": []}, [
-                f"WARNING: {path!r} が存在しないため、新規作成対象として扱います"
+                _("warn.not_exists_new", default="WARNING: {path!r} does not exist; treating as target for new creation.").format(path=path)
             ]
-        return {"mcp_servers": []}, [f"ERROR: {path!r} が存在しません"]
+        return {"mcp_servers": []}, [_("err.not_exists", default="ERROR: {path!r} does not exist").format(path=path)]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            return {"mcp_servers": []}, ["ERROR: ルートが dict ではありません"]
+            return {"mcp_servers": []}, [_("err.root_not_dict", default="ERROR: root is not a dictionary")]
         if "mcp_servers" not in data:
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
-            return {"mcp_servers": []}, ["ERROR: 'mcp_servers' が list ではありません"]
+            return {"mcp_servers": []}, [_("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list")]
         return data, warnings
     except Exception as e:
         return {"mcp_servers": []}, [
-            f"ERROR: {path!r} の読み込みに失敗しました: {type(e).__name__}: {e}"
+            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(path=path, err=e)
         ]
 
 
@@ -94,7 +103,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     servers = config.get("mcp_servers", [])
     if not servers:
         return "\n".join(
-            msgs + ["ERROR: mcp_servers が空のため、default を切り替えできません"]
+            msgs + [_("err.empty", default="ERROR: mcp_servers is empty, cannot change default.")]
         )
 
     idx = None
@@ -105,17 +114,16 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if idx is None:
         return "\n".join(
-            msgs + [f"ERROR: server_name={server_name!r} が見つかりません"]
+            msgs + [_("err.name_not_found", default="ERROR: server_name={name!r} not found.").format(name=server_name)]
         )
 
     if idx == 0:
-        return "\n".join(msgs + [f"OK: 既に default です: {server_name!r}"])
+        return "\n".join(msgs + [_("out.already_default", default="OK: Already set as default: {name!r}").format(name=server_name)])
 
     item = servers.pop(idx)
     servers.insert(0, item)
     config["mcp_servers"] = servers
 
-    # 書き戻し（create_file を使い、.org バックアップを自動作成する）
     text = json.dumps(config, ensure_ascii=False, indent=2)
     try:
         try:
@@ -123,18 +131,18 @@ def run_tool(args: Dict[str, Any]) -> str:
         except ImportError:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(text)
-            return f"OK: default を切り替えました: {server_name!r} (Note: create_file_tool import failed, direct write used)"
+            return _("out.ok", default="OK: Changed default: {name!r}").format(name=server_name) + " (Note: create_file_tool import failed, direct write used)"
 
         create_file(
             {"filename": path, "content": text, "encoding": "utf-8", "overwrite": True}
         )
     except Exception as e:
-        return f"ERROR: 書き込みに失敗しました: {type(e).__name__}: {e}"
+        return _("err.write_fail", default="ERROR: Failed to write file: {err}").format(err=e)
 
     return "\n".join(
         msgs
         + [
-            f"OK: default を切り替えました: {server_name!r}",
+            _("out.ok", default="OK: Changed default: {name!r}").format(name=server_name),
             f"default url: {servers[0].get('url')!r}",
         ]
     )

@@ -11,11 +11,14 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_shared_memory",
-        "description": (
-            "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。\n"
-            "- 通常は JSONL 形式（1行1レコード）のテキストを返します。\n"
-            "- 共有メモリが無効な場合やファイルが存在しない場合は、その旨を示す文字列を返します。\n"
-            "- 出力サイズは内部で上限バイト数までに自動トリミングされます。"
+        "description": _(
+            "tool.description",
+            default=(
+                "Retrieves raw long-term memory (shared memory) data shared across users.\n"
+                "- Usually returns text in JSONL format (one record per line).\n"
+                "- If shared memory is disabled or the file is missing, returns a descriptive message.\n"
+                "- Output size is automatically trimmed to the internal maximum byte limit."
+            ),
         ),
         "system_prompt": _("tool.system_prompt", default="This tool executes the functionality described in TOOL_SPEC."),
         "parameters": {
@@ -27,12 +30,11 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-# こちらも IO は軽いので Busy ラベルは付与しない
 # BUSY_LABEL = True
 # STATUS_LABEL = "tool:get_shared_memory"
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """tools/__init__.py から呼ばれるエントリポイント。get_shared_memory 用の実装。"""
-    # shared_memory 側で無効/未作成などのメッセージも含めて返す
+    """Entry point called from tools/__init__.py. Implementation for get_shared_memory."""
+    # shared_memory.py handles messages for disabled/missing states
     return shared_memory.load_shared_memory_raw()

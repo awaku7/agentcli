@@ -38,30 +38,42 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers_init_template",
-        "description": (
-            "mcp_servers.json が存在しない場合に、雛形ファイルを作成します。"
-            "存在する場合はエラーを返します（上書きはしません）。"
+        "description": _(
+            "tool.description",
+            default="Creates a template file if mcp_servers.json does not exist. Returns an error if it already exists (does not overwrite).",
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。"),
+                    "description": _(
+                        "param.path.description",
+                        default="The path to create. Defaults to the standard location (~/.uag/mcps/mcp_servers.json) if omitted.",
+                    ),
                 },
                 "default_name": {
                     "type": "string",
-                    "description": _("param.default_name.description", default="デフォルトのサーバー名。既定: bluesky-local"),
+                    "description": _(
+                        "param.default_name.description",
+                        default="Default server name. Default is 'bluesky-local'.",
+                    ),
                     "default": "bluesky-local",
                 },
                 "default_url": {
                     "type": "string",
-                    "description": _("param.default_url.description", default="デフォルトの URL。既定: REPLACE_ME (set your MCP server URL)"),
+                    "description": _(
+                        "param.default_url.description",
+                        default="Default URL. Default is 'REPLACE_ME (set your MCP server URL)'.",
+                    ),
                     "default": "",
                 },
                 "default_transport": {
                     "type": "string",
-                    "description": _("tool.description", default="デフォルトの transport（参考情報）。既定: streamable-http"),
+                    "description": _(
+                        "param.default_transport.description",
+                        default="Default transport (informational). Default is 'streamable-http'.",
+                    ),
                     "default": "streamable-http",
                 },
             },
@@ -87,7 +99,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
     if os.path.exists(path):
-        return f"Error: {path!r} は既に存在します（このツールは上書きしません）"
+        return _("err.exists", default="Error: {path!r} already exists (this tool will not overwrite).").format(path=path)
 
     data: Dict[str, Any] = {
         "mcp_servers": [
@@ -99,7 +111,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         ]
     }
 
-    # 新規作成のみ（overwrite=False）
     try:
         content = json.dumps(data, ensure_ascii=False, indent=2)
         try:
@@ -107,7 +118,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         except ImportError:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(content)
-            return f"OK: created template: {path!r} (Note: create_file_tool import failed, direct write used)"
+            return _("out.ok", default="OK: created template: {path!r} (default name={name!r})").format(path=path, name=default_name)
 
         create_file(
             {
@@ -118,6 +129,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             }
         )
     except Exception as e:
-        return f"ERROR: 雛形作成に失敗しました: {type(e).__name__}: {e}"
+        return _("err.fail", default="ERROR: Failed to create template: {err}").format(err=e)
 
-    return f"OK: created template: {path!r} (default name={default_name!r})"
+    return _("out.ok", default="OK: created template: {path!r} (default name={name!r})").format(path=path, name=default_name)

@@ -10,10 +10,8 @@ import hashlib
 import requests
 from typing import List, Dict, Any
 
-# numpy は標準ではない可能性があるため、ベクトル計算は自前実装またはインポート試行
 try:
     import numpy as np
-
     HAS_NUMPY = True
 except ImportError:
     HAS_NUMPY = False
@@ -21,46 +19,16 @@ except ImportError:
 EMBEDDING_API_URL = ""
 EMBEDDING_MODEL = "embeddinggemma:latest"
 
-# 起動時（import時）に Embedding API が見えない場合はツールをロード対象から除外する。
-# tools/__init__.py のローダは TOOL_SPEC が dict でない場合に登録しない（analyze_image_tool.py と同じ方式）。
-#
-# 挙動は環境変数で制御可能:
-# - UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=1/true/yes : 疎通失敗時に無効化する
-# - UAGENT_EMBEDDING_API_URL : Embedding API URL 上書き
-# - UAGENT_EMBEDDING_API_HEALTHCHECK_PATH : ヘルスチェックパス（既定 /v1/models）
-#
-# NOTE: 既定では無効化する（UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE 未設定時は "1" 扱い）。
-#       起動直後のネットワーク未確立等で困る場合は、UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 を指定して
-#       ツール表示だけ維持し、後から疎通が回復したタイミングで利用できるようにしてください。
-
-# 接続先の上書き（後方互換のため、既存定数を上書きする）
 EMBEDDING_API_URL = os.environ.get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_URL
 
 _DISABLE_IF_UNREACHABLE = (
     os.environ.get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
-).strip().lower() in (
-    "1",
-    "true",
-    "yes",
-)
-_HEALTHCHECK_PATH = os.environ.get(
-    "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models"
-)
+).strip().lower() in ("1", "true", "yes")
+_HEALTHCHECK_PATH = os.environ.get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models")
 
 
 def _is_embedding_api_reachable() -> bool:
-    """起動時疎通確認。
-
-    - 失敗しても例外は投げず False を返す
-    - 起動遅延を避けるためタイムアウト短め
-    - /v1/models が使えない実装もあり得るため / のGETもフォールバック
-
-    NOTE:
-    - disable 条件でツールを非表示にする場合でも、原因が分かるように stderr に1回だけ出す。
-    """
-
     base = EMBEDDING_API_URL
-    # 例: http://host/v1/embeddings -> http://host
     if "/v1/" in base:
         base_root = base.split("/v1/", 1)[0]
     else:
@@ -70,7 +38,6 @@ def _is_embedding_api_reachable() -> bool:
 
     try:
         r = requests.get(hc_url, timeout=3)
-        # 401/403/404 でも「到達できている」のでOK（=ネットワーク的に見えている）
         if 200 <= r.status_code < 500:
             return True
     except Exception:
@@ -87,9 +54,7 @@ def _is_embedding_api_reachable() -> bool:
 
 
 def _emit_embedding_disabled_reason() -> None:
-    """Embedding API が到達不能でツールを無効化する場合に、理由を1回だけ表示する。"""
     try:
-        # Avoid duplicate logs on reload.
         if getattr(_emit_embedding_disabled_reason, "_done", False):
             return
         setattr(_emit_embedding_disabled_reason, "_done", True)
@@ -101,36 +66,29 @@ def _emit_embedding_disabled_reason() -> None:
             base_root = base.rstrip("/")
 
         hc_url = base_root.rstrip("/") + _HEALTHCHECK_PATH
-        msg = (
-            "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n"
-            f"[tools] EMBEDDING_API_URL={EMBEDDING_API_URL}\n"
-            f"[tools] healthcheck={hc_url}\n"
-            "[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
-        )
+        msg = _(
+            "err.disabled",
+            default=(
+                "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n"
+                "[tools] EMBEDDING_API_URL={url}\n"
+                "[tools] healthcheck={hc_url}\n"
+                "[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
+            ),
+        ).format(url=EMBEDDING_API_URL, hc_url=hc_url)
         try:
             import sys
-
             sys.stderr.write(msg)
             sys.stderr.flush()
         except Exception:
-            # fallback
             print(msg, flush=True)
     except Exception:
         return
 
 
-# NOTE: EMBEDDING_MODEL は上で再定義済み
-
-
 def _get_db_path(root_dir: str) -> str:
-    """<state>/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。"""
     from uagent.utils.paths import get_dbs_dir
-
     dbs_dir = str(get_dbs_dir())
-
     os.makedirs(dbs_dir, exist_ok=True)
-
-    # root_dir の絶対パスからハッシュを生成して識別
     root_abs = os.path.abspath(root_dir)
     root_hash = hashlib.sha256(root_abs.encode("utf-8")).hexdigest()[:12]
     return os.path.join(dbs_dir, f"vectors_{root_hash}.db")
@@ -162,7 +120,6 @@ def _init_db(db_path: str):
 
 
 def _get_embedding(text: str) -> List[float]:
-    """APIを叩いてEmbeddingを取得"""
     payload = {"model": EMBEDDING_MODEL, "input": text}
     try:
         resp = requests.post(
@@ -175,7 +132,6 @@ def _get_embedding(text: str) -> List[float]:
         data = resp.json()
         return data["data"][0]["embedding"]
     except Exception:
-        # print(f"[WARN] Embedding取得失敗: {e}")
         return []
 
 
@@ -213,12 +169,10 @@ def _chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[st
 
 
 def sync_file(fpath: str, root_dir: str = "."):
-    """単一ファイルのインデックスを同期（新規または更新があれば）"""
     fpath_abs = os.path.abspath(fpath)
     if not os.path.isfile(fpath_abs):
         return
 
-    # ルートディレクトリの解決（指定がなければファイルの親）
     root_abs = os.path.abspath(root_dir)
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
@@ -232,7 +186,6 @@ def sync_file(fpath: str, root_dir: str = "."):
 
         cur.execute("SELECT id, mtime FROM files WHERE path=?", (fpath_abs,))
         row = cur.fetchone()
-        # print(f"DEBUG sync_file: row {row}, mtime {mtime}")
 
         needs_update = False
         file_id = None
@@ -242,12 +195,10 @@ def sync_file(fpath: str, root_dir: str = "."):
                 file_id = row[0]
         else:
             needs_update = True
-        # print(f"DEBUG sync_file: needs_update {needs_update}")
 
         if needs_update:
             with open(fpath_abs, "r", encoding="utf-8", errors="ignore") as f:
                 content = f.read()
-            #            print(f"DEBUG sync_file: content len {len(content)} for {fpath_abs}")
 
             if file_id:
                 cur.execute("DELETE FROM vectors WHERE file_id=?", (file_id,))
@@ -261,18 +212,11 @@ def sync_file(fpath: str, root_dir: str = "."):
                     (fpath_abs, mtime, size),
                 )
                 file_id = cur.lastrowid
-            # print(f"DEBUG sync_file: file_id {file_id}")
 
             chunks = _chunk_text(content)
-            #            print(f"DEBUG sync_file: chunks {len(chunks)}")
             for i, chunk in enumerate(chunks):
                 vec = _get_embedding(chunk)
-                embedding_json = (
-                    json.dumps(vec) if vec else None
-                )  # Allow NULL if no embedding
-                #                print(
-                #                    f"DEBUG sync_file: chunk {i} len {len(chunk)}, vec len {len(vec)}"
-                #                )
+                embedding_json = json.dumps(vec) if vec else None
                 cur.execute(
                     "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
                     (file_id, i, chunk, embedding_json),
@@ -280,7 +224,6 @@ def sync_file(fpath: str, root_dir: str = "."):
 
             conn.commit()
     except Exception:
-
         pass
     finally:
         conn.close()
@@ -296,12 +239,11 @@ def semantic_search_files(
 
     root_abs = os.path.abspath(root_path)
     if not os.path.isdir(root_abs):
-        return f"エラー: ディレクトリが見つかりません: {root_path}"
+        return _("err.dir_not_found", default="Error: Directory not found: {root_path}").format(root_path=root_path)
 
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
 
-    # 全体同期（既存ロジック）
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     patterns = [p.strip() for p in file_pattern.split(",")]
@@ -321,7 +263,6 @@ def semantic_search_files(
         if (not is_ignored_path(f)) and os.path.isfile(f)
     ]
 
-    # 削除チェック
     cur.execute("SELECT id, path FROM files")
     db_files = {row[1]: row[0] for row in cur.fetchall()}
     removed = set(db_files.keys()) - set(os.path.abspath(f) for f in target_files)
@@ -332,14 +273,12 @@ def semantic_search_files(
     conn.commit()
     conn.close()
 
-    # 個別に同期
     for f in target_files:
         sync_file(f, root_abs)
 
-    # 検索
     query_vec = _get_embedding(query)
     if not query_vec:
-        return "エラー: クエリのベクトル化に失敗しました。"
+        return _("err.vec_fail", default="Error: Failed to vectorize the query.")
 
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
@@ -360,19 +299,23 @@ def semantic_search_files(
     conn.close()
 
     if not top_results:
-        return "関連するドキュメントは見つかりませんでした。"
+        return _("out.not_found", default="No relevant documents were found.")
 
     output = [
-        f"検索クエリ: {query}",
-        f"対象ディレクトリ: {root_path}",
-        f"ヒット件数: {len(top_results)}\n",
+        _("out.query", default="Search Query: {query}").format(query=query),
+        _("out.target_dir", default="Target Directory: {root_path}").format(root_path=root_path),
+        _("out.hits", default="Hits: {count}\n").format(count=len(top_results)),
     ]
     for rank, res in enumerate(top_results, 1):
         fpath = id_to_path.get(res["file_id"], "unknown")
         rel_path = os.path.relpath(fpath, root_abs)
         snippet = res["text"].replace("\n", " ")[:200] + "..."
-        output.append(f"[{rank}] スコア: {res['score']:.4f} | ファイル: {rel_path}")
-        output.append(f"内容: {snippet}\n")
+        output.append(
+            _("out.result_item", default="[{rank}] Score: {score:.4f} | File: {rel_path}").format(
+                rank=rank, score=res["score"], rel_path=rel_path
+            )
+        )
+        output.append(_("out.result_content", default="Content: {snippet}\n").format(snippet=snippet))
 
     return "\n".join(output)
 
@@ -380,7 +323,7 @@ def semantic_search_files(
 def run_tool(args: Dict[str, Any]) -> str:
     query = args.get("query")
     if not query:
-        return "エラー: query は必須です。"
+        return _("err.query_required", default="Error: query is required.")
     return semantic_search_files(
         query,
         args.get("root_path", "."),
@@ -389,7 +332,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-# 疎通失敗時はツール登録しない（analyze_image_tool.py と同じ方式）
 if _DISABLE_IF_UNREACHABLE and not _is_embedding_api_reachable():
     _emit_embedding_disabled_reason()
     TOOL_SPEC = None  # type: ignore[assignment]
@@ -400,7 +342,7 @@ else:
             "name": "semantic_search_files",
             "description": _(
                 "tool.description",
-                default="ローカルfileに対して意味検索（ベクトル検索）をperforms。Embedding APIを使用してfile内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やfile更新時はインデックス作成処理が走ります。",
+                default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
             ),
             "parameters": {
                 "type": "object",
@@ -408,25 +350,25 @@ else:
                     "query": {
                         "type": "string",
                         "description": _(
-                            "param.query.description", default="検索キーワード。"
+                            "param.query.description", default="Search query keyword."
                         ),
                     },
                     "root_path": {
                         "type": "string",
                         "description": _(
-                            "param.root_path.description", default="検索対象directory。"
+                            "param.root_path.description", default="Search target directory."
                         ),
                     },
                     "file_pattern": {
                         "type": "string",
                         "description": _(
                             "param.file_pattern.description",
-                            default="対象拡張子（カンマ区切り）。",
+                            default="Target extensions (comma-separated).",
                         ),
                     },
                     "top_k": {
                         "type": "integer",
-                        "description": _("param.top_k.description", default="件数。"),
+                        "description": _("param.top_k.description", default="Number of results."),
                     },
                 },
                 "required": ["query"],

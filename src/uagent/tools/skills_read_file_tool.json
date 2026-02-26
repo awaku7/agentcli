@@ -1,0 +1,8 @@
+{
+  "ja": {
+    "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
+    "param.skill_dir.description": "スキルディレクトリ",
+    "param.relative_path.description": "スキルルートからの相対パス（例: references/REFERENCE.md）",
+    "param.max_bytes.description": "読み込み上限バイト数（既定: 5000000）"
+  }
+}

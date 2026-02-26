@@ -1,27 +1,10 @@
 # tools/safe_file_ops_extras.py
-"""safe_file_ops_extras
+"""Safe file operation utilities.
 
-既存 tools.safe_file_ops の設計に合わせ、追加ツールが使いやすい公開APIを提供する。
-
-背景:
-- safe_file_ops.py は safe_create_file/safe_delete_file/safe_rename_path 等の「実行」を提供している。
-- 追加ツール（replace_in_file 等）は、
-  - 危険パス判定
-  - workdir 配下への制限
-  - 上書き前バックアップ(.org/.orgN)
-  などの「ユーティリティ」が必要。
-
-このファイルは safe_file_ops.py を壊さずに機能追加するための補助モジュール。
-（既存モジュールに直接追記してもよいが、変更範囲を限定するため分離）
-
-提供関数:
+Provides a public API for common safety tasks:
 - is_path_dangerous(path) -> bool
-- ensure_within_workdir(path) -> str  (絶対パス化して返す)
-- make_backup_before_overwrite(path) -> str  (.org/.orgN を作成して返す)
-
-注意:
-- workdir は os.getcwd() の実体（resolve）を基準とする。
-- ensure_within_workdir は workdir 外なら例外を投げる。
+- ensure_within_workdir(path) -> str (returns absolute path)
+- make_backup_before_overwrite(path) -> str (creates .org/.orgN)
 """
 
 from __future__ import annotations
@@ -47,14 +30,12 @@ def _is_under(root: str, target: str) -> bool:
 
 
 def is_path_dangerous(p: str) -> bool:
-    """危険パス判定。
+    """Determine if a path is dangerous.
 
-    true となる条件:
-    - '..' を含む（簡易）
-    - 絶対パス
-    - workdir(cwd) 配下ではない（resolve後）
-
-    safe_file_ops の trigger 条件と同等。
+    Returns True if:
+    - Path contains '..'
+    - Path is absolute
+    - Path is outside the workdir (CWD) after resolution
     """
     if not p:
         return True
@@ -78,7 +59,7 @@ def is_path_dangerous(p: str) -> bool:
 
 
 def ensure_within_workdir(p: str) -> str:
-    """p を resolve し、workdir 配下であることを保証して絶対パスを返す。"""
+    """Resolve p and ensure it is within the workdir. Returns the absolute path."""
     if not p:
         raise ValueError("path is empty")
 
@@ -104,11 +85,7 @@ def _next_backup_name(filename: str) -> str:
 
 
 def make_backup_before_overwrite(filename: str) -> str:
-    """filename のバックアップ(.org/.orgN)を作成して、そのパスを返す。
-
-    - filename が存在しない場合は例外
-    - バイトコピーで保存
-    """
+    """Create a backup (.org/.orgN) of filename and return its path."""
     if not os.path.exists(filename):
         raise FileNotFoundError(f"file not found: {filename}")
 
