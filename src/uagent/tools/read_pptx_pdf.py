@@ -11,7 +11,6 @@ mapping them to a common JSON schema.
 import collections
 import collections.abc
 import json
-import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 

@@ -412,7 +412,9 @@ def run_llm_rounds(
                                     core=core,
                                 )
                                 # ensure newline after streaming output
-                                if assistant_text and not bool(getattr(core, "_is_web", False)):
+                                if assistant_text and not bool(
+                                    getattr(core, "_is_web", False)
+                                ):
                                     print("")
                             else:
                                 resp = client.responses.create(**resp_kwargs)
@@ -479,16 +481,21 @@ def run_llm_rounds(
                             or "exceeds the context" in str(e).lower()
                         ):
                             print(
-                                "[Azure/OpenAI Error] " + _t("Input exceeds the context window.")
+                                "[Azure/OpenAI Error] "
+                                + _t("Input exceeds the context window.")
                             )
                             print(repr(e))
                             return
 
-                        if BadRequestError is not None and isinstance(e, BadRequestError):
+                        if BadRequestError is not None and isinstance(
+                            e, BadRequestError
+                        ):
                             print("[Azure/OpenAI Error] " + _t("400 BadRequest"))
                             print(f"Error code: 400 - {e}")
                             return
-                        if APIConnectionError is not None and isinstance(e, APIConnectionError):
+                        if APIConnectionError is not None and isinstance(
+                            e, APIConnectionError
+                        ):
                             print("[Azure/OpenAI Error] " + _t("Connection error"))
                             print(repr(e))
                             return
@@ -593,7 +600,9 @@ def run_llm_rounds(
                 try:
                     parsed_args = json.loads(arg_str)
                     if not isinstance(parsed_args, dict):
-                        raise ValueError("arguments は JSON object である必要があります。")
+                        raise ValueError(
+                            "arguments は JSON object である必要があります。"
+                        )
                 except Exception as e:
                     tb = traceback.format_exc()
                     tool_result = (

@@ -302,11 +302,15 @@ if __name__ == "__main__":
         argv = [sys.executable, temp_script, json.dumps(payload, ensure_ascii=False)]
         result = subprocess.run(argv, capture_output=True, text=True)
         if result.returncode != 0:
-            return _("err.child_failed", default="[playwright_inspector error] Child process failed:\n{stderr}").format(stderr=result.stderr or "")
+            return _(
+                "err.child_failed",
+                default="[playwright_inspector error] Child process failed:\n{stderr}",
+            ).format(stderr=result.stderr or "")
 
-        return _("out.ok", default="Capture complete: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ created.\n{stdout}").format(
-            prefix=prefix, stdout=result.stdout or ""
-        )
+        return _(
+            "out.ok",
+            default="Capture complete: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ created.\n{stdout}",
+        ).format(prefix=prefix, stdout=result.stdout or "")
     except Exception as e:
         return f"[playwright_inspector error] {type(e).__name__}: {e}"
     finally:

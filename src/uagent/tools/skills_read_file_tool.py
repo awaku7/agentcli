@@ -32,7 +32,9 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": _("param.skill_dir.description", default="The skill directory."),
+                    "description": _(
+                        "param.skill_dir.description", default="The skill directory."
+                    ),
                 },
                 "relative_path": {
                     "type": "string",

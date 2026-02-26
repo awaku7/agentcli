@@ -12,6 +12,7 @@ from typing import List, Dict, Any
 
 try:
     import numpy as np
+
     HAS_NUMPY = True
 except ImportError:
     HAS_NUMPY = False
@@ -24,7 +25,9 @@ EMBEDDING_API_URL = os.environ.get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_
 _DISABLE_IF_UNREACHABLE = (
     os.environ.get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
 ).strip().lower() in ("1", "true", "yes")
-_HEALTHCHECK_PATH = os.environ.get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models")
+_HEALTHCHECK_PATH = os.environ.get(
+    "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models"
+)
 
 
 def _is_embedding_api_reachable() -> bool:
@@ -77,6 +80,7 @@ def _emit_embedding_disabled_reason() -> None:
         ).format(url=EMBEDDING_API_URL, hc_url=hc_url)
         try:
             import sys
+
             sys.stderr.write(msg)
             sys.stderr.flush()
         except Exception:
@@ -87,6 +91,7 @@ def _emit_embedding_disabled_reason() -> None:
 
 def _get_db_path(root_dir: str) -> str:
     from uagent.utils.paths import get_dbs_dir
+
     dbs_dir = str(get_dbs_dir())
     os.makedirs(dbs_dir, exist_ok=True)
     root_abs = os.path.abspath(root_dir)
@@ -239,7 +244,9 @@ def semantic_search_files(
 
     root_abs = os.path.abspath(root_path)
     if not os.path.isdir(root_abs):
-        return _("err.dir_not_found", default="Error: Directory not found: {root_path}").format(root_path=root_path)
+        return _(
+            "err.dir_not_found", default="Error: Directory not found: {root_path}"
+        ).format(root_path=root_path)
 
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
@@ -303,7 +310,9 @@ def semantic_search_files(
 
     output = [
         _("out.query", default="Search Query: {query}").format(query=query),
-        _("out.target_dir", default="Target Directory: {root_path}").format(root_path=root_path),
+        _("out.target_dir", default="Target Directory: {root_path}").format(
+            root_path=root_path
+        ),
         _("out.hits", default="Hits: {count}\n").format(count=len(top_results)),
     ]
     for rank, res in enumerate(top_results, 1):
@@ -311,11 +320,16 @@ def semantic_search_files(
         rel_path = os.path.relpath(fpath, root_abs)
         snippet = res["text"].replace("\n", " ")[:200] + "..."
         output.append(
-            _("out.result_item", default="[{rank}] Score: {score:.4f} | File: {rel_path}").format(
-                rank=rank, score=res["score"], rel_path=rel_path
+            _(
+                "out.result_item",
+                default="[{rank}] Score: {score:.4f} | File: {rel_path}",
+            ).format(rank=rank, score=res["score"], rel_path=rel_path)
+        )
+        output.append(
+            _("out.result_content", default="Content: {snippet}\n").format(
+                snippet=snippet
             )
         )
-        output.append(_("out.result_content", default="Content: {snippet}\n").format(snippet=snippet))
 
     return "\n".join(output)
 
@@ -356,7 +370,8 @@ else:
                     "root_path": {
                         "type": "string",
                         "description": _(
-                            "param.root_path.description", default="Search target directory."
+                            "param.root_path.description",
+                            default="Search target directory.",
                         ),
                     },
                     "file_pattern": {
@@ -368,7 +383,9 @@ else:
                     },
                     "top_k": {
                         "type": "integer",
-                        "description": _("param.top_k.description", default="Number of results."),
+                        "description": _(
+                            "param.top_k.description", default="Number of results."
+                        ),
                     },
                 },
                 "required": ["query"],

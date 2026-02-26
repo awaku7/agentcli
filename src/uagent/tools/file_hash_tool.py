@@ -33,7 +33,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "file_hash",
         "description": _(
-            "tool.description", default="Calculates the hash (sha256/sha1/md5) of files."
+            "tool.description",
+            default="Calculates the hash (sha256/sha1/md5) of files.",
         ),
         "parameters": {
             "type": "object",
@@ -42,20 +43,24 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "description": _(
-                        "param.paths.description", default="An array of target file paths."
+                        "param.paths.description",
+                        default="An array of target file paths.",
                     ),
                 },
                 "algo": {
                     "type": "string",
                     "enum": ["sha256", "sha1", "md5"],
                     "default": "sha256",
-                    "description": _("param.algo.description", default="Hash algorithm."),
+                    "description": _(
+                        "param.algo.description", default="Hash algorithm."
+                    ),
                 },
                 "chunk_size": {
                     "type": "integer",
                     "default": 1048576,
                     "description": _(
-                        "param.chunk_size.description", default="Read chunk size in bytes."
+                        "param.chunk_size.description",
+                        default="Read chunk size in bytes.",
                     ),
                 },
                 "return": {
