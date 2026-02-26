@@ -1,0 +1,8 @@
+{
+  "ja": {
+    "tool.description": "指定した単一ファイルを解析し、解析結果に基づいたプロンプトを生成して files/ 以下に一意のファイルとして保存します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定した単一ファイルを解析し、解析結果に基づいたプロンプトを生成して files/ 以下に一意のファイルとして保存します。",
+    "param.path.description": "解析対象のファイルパス（必須）",
+    "param.template.description": "（任意）プロンプトのテンプレート。プレースホルダ: {path},{lines},{size},{mtime},{excerpt},{timestamp} を使用できます。"
+  }
+}
