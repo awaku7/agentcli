@@ -1,5 +1,6 @@
 # tools/file_exists.py
 from .i18n_helper import make_tool_translator
+from .arg_util import get_path
 
 _ = make_tool_translator(__file__)
 
@@ -40,14 +41,13 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    path = (args.get("path") or "").strip()
-    if not path:
+    expanded = get_path(args, "path", "")
+    if not expanded:
         return _("err.path_empty", default="[file_exists error] path is empty")
 
-    expanded = os.path.expanduser(path)
     try:
         if not os.path.exists(expanded):
-            return f"[file_exists]\npath={path} (expanded={expanded})\nexists=False"
+            return f"[file_exists]\npath={expanded}\nexists=False"
 
         is_dir = os.path.isdir(expanded)
         st = os.stat(expanded)
@@ -56,7 +56,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         return (
             "[file_exists]\n"
-            f"path={path} (expanded={expanded})\n"
+            f"path={expanded}\n"
             "exists=True\n"
             f"is_dir={is_dir}\n"
             f"size={size_str}\n"

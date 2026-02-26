@@ -7,6 +7,7 @@ from typing import Any, Callable, Dict, Optional, cast
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
+from .arg_util import get_str, get_int, get_path
 
 _ = make_tool_translator(__file__)
 
@@ -19,8 +20,6 @@ def _is_probably_utf8_head(head: bytes) -> bool:
             (b if cut == 0 else b[:-cut]).decode("utf-8")
             return True
         except UnicodeDecodeError as e:
-            # If the decode fails only because the chunk ended mid-character,
-            # trimming will likely fix it in the next iteration.
             last = str(e).lower()
             if "unexpected end of data" in last:
                 continue
@@ -112,10 +111,9 @@ TOOL_SPEC: Dict[str, Any] = {
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
 
-    filename = args.get("filename") or args.get("path") or ""
+    filename = get_path(args, "filename", get_path(args, "path", ""))
     if not filename:
         return _("err.filename_missing", default="[read_file error] filename/path is not specified")
-    filename = os.path.expanduser(str(filename))
 
     head_lines = args.get("head_lines")
     tail_lines = args.get("tail_lines")
@@ -156,7 +154,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             start_line = total_lines - tail_lines + 1
             max_lines = tail_lines
     else:
-        start_line = max(1, int(args.get("start_line", 1)))
+        start_line = max(1, get_int(args, "start_line", 1))
         raw_max_lines = args.get("max_lines")
         if raw_max_lines is None:
             max_lines = None
