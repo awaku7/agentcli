@@ -9,7 +9,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-
+import difflib
 import fnmatch
 import json
 import os
@@ -19,7 +19,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import libcst as cst
 
-from .safe_file_ops_extras import (
+from .safe_file_ops import (
     ensure_within_workdir,
     is_path_dangerous,
     make_backup_before_overwrite,
@@ -140,8 +140,11 @@ Supported ops:
   - include_attributes=true also targets obj.old
 - replace_call: replace function call name (requires old/new)
   - receiver targets only receiver.old(...)
+  - receiver supports dotted expression (e.g. self.obj, pkg.obj)
   - if receiver is omitted, targets old(...) and *.old(...)
-- rename_import: from X import old -> from X import new (module is optional)
+- rename_import:
+  - from X import old -> from X import new (module is optional)
+  - import old -> import new
 """,
                     ),
                     "default": [],
@@ -241,10 +244,9 @@ def _iter_py_files(
                 if not child.is_file():
                     continue
                 rel = child.relative_to(p).as_posix()
-                rel_posix = rel
-                if _matches_any_glob(rel_posix, exclude_globs):
+                if _matches_any_glob(rel, exclude_globs):
                     continue
-                if fnmatch.fnmatch(rel_posix, include_glob):
+                if fnmatch.fnmatch(rel, include_glob):
                     files.append(str(child))
         else:
             errors.append(f"path not found: {r}")
@@ -267,11 +269,43 @@ def _read_text(path: str, *, max_bytes: int) -> str:
     try:
         return Path(path).read_text(encoding="utf-8")
     except UnicodeDecodeError:
+        # Fallback: try system default
         return Path(path).read_text(encoding=None)
 
 
 def _write_text(path: str, text: str) -> None:
     Path(path).write_text(text, encoding="utf-8", newline="\n")
+
+
+def _node_to_code(node: cst.CSTNode) -> str:
+    return cst.Module([]).code_for_node(node).strip()
+
+
+def _expr_to_dotted_name(expr: cst.BaseExpression) -> Optional[str]:
+    if isinstance(expr, cst.Name):
+        return expr.value
+    if isinstance(expr, cst.Attribute):
+        left = _expr_to_dotted_name(expr.value)
+        if left is None:
+            return None
+        if not isinstance(expr.attr, cst.Name):
+            return None
+        return f"{left}.{expr.attr.value}"
+    return None
+
+
+def _unified_diff(a: str, b: str, *, fromfile: str, tofile: str) -> str:
+    a_lines = a.splitlines(keepends=True)
+    b_lines = b.splitlines(keepends=True)
+    return "".join(
+        difflib.unified_diff(
+            a_lines,
+            b_lines,
+            fromfile=fromfile,
+            tofile=tofile,
+            lineterm="",
+        )
+    )
 
 
 @dataclass
@@ -290,14 +324,14 @@ class _TopLevelAnalyzer(cst.CSTVisitor):
 
     def visit_Import(self, node: cst.Import) -> Optional[bool]:
         try:
-            self.imports.append(cst.Module([]).code_for_node(node).strip())
+            self.imports.append(_node_to_code(node))
         except Exception:
             self.imports.append("import <unrenderable>")
         return True
 
     def visit_ImportFrom(self, node: cst.ImportFrom) -> Optional[bool]:
         try:
-            self.imports.append(cst.Module([]).code_for_node(node).strip())
+            self.imports.append(_node_to_code(node))
         except Exception:
             self.imports.append("from <unrenderable> import <unrenderable>")
         return True
@@ -309,6 +343,15 @@ class _TopLevelAnalyzer(cst.CSTVisitor):
         return True
 
     def leave_FunctionDef(self, node: cst.FunctionDef) -> None:
+        self._depth -= 1
+
+    def visit_AsyncFunctionDef(self, node: cst.AsyncFunctionDef) -> Optional[bool]:
+        if self._depth == 0:
+            self.functions.append(node.name.value)
+        self._depth += 1
+        return True
+
+    def leave_AsyncFunctionDef(self, node: cst.AsyncFunctionDef) -> None:
         self._depth -= 1
 
     def visit_ClassDef(self, node: cst.ClassDef) -> Optional[bool]:
@@ -349,13 +392,22 @@ class RenameSymbolTransformer(cst.CSTTransformer):
 
 
 class ReplaceCallTransformer(cst.CSTTransformer):
-    def __init__(self, old: str, new: str, *, receiver: Optional[str] = None) -> None:
+    def __init__(
+        self, old: str, new: str, *, receiver: Optional[str] = None
+    ) -> None:
         self.old = old
         self.new = new
         self.receiver = receiver
         self.change_count: int = 0
 
+    def _receiver_matches(self, value_expr: cst.BaseExpression) -> bool:
+        if self.receiver is None:
+            return True
+        dotted = _expr_to_dotted_name(value_expr)
+        return dotted == self.receiver
+
     def leave_Call(self, original_node: cst.Call, updated_node: cst.Call) -> cst.Call:
+        # old(...)
         if (
             isinstance(original_node.func, cst.Name)
             and original_node.func.value == self.old
@@ -364,18 +416,12 @@ class ReplaceCallTransformer(cst.CSTTransformer):
                 self.change_count += 1
                 return updated_node.with_changes(func=cst.Name(self.new))
             return updated_node
+
+        # receiver.old(...)
         if isinstance(original_node.func, cst.Attribute):
             attr = original_node.func
             if isinstance(attr.attr, cst.Name) and attr.attr.value == self.old:
-                if self.receiver is None:
-                    self.change_count += 1
-                    return updated_node.with_changes(
-                        func=updated_node.func.with_changes(attr=cst.Name(self.new))
-                    )
-                if (
-                    isinstance(attr.value, cst.Name)
-                    and attr.value.value == self.receiver
-                ):
+                if self._receiver_matches(attr.value):
                     self.change_count += 1
                     return updated_node.with_changes(
                         func=updated_node.func.with_changes(attr=cst.Name(self.new))
@@ -390,16 +436,20 @@ class RenameImportTransformer(cst.CSTTransformer):
         self.new = new
         self.change_count: int = 0
 
+    def _module_matches(self, original_node: cst.ImportFrom) -> bool:
+        if self.module is None:
+            return True
+        try:
+            mod_code = _node_to_code(original_node.module)  # type: ignore[arg-type]
+        except Exception:
+            mod_code = None
+        return mod_code == self.module
+
     def leave_ImportFrom(
         self, original_node: cst.ImportFrom, updated_node: cst.ImportFrom
     ) -> cst.ImportFrom:
-        if self.module is not None:
-            try:
-                mod_code = cst.Module([]).code_for_node(original_node.module).strip()  # type: ignore[arg-type]
-            except Exception:
-                mod_code = None
-            if mod_code != self.module:
-                return updated_node
+        if not self._module_matches(original_node):
+            return updated_node
         names = updated_node.names
         if not isinstance(names, (list, tuple)):
             return updated_node
@@ -419,11 +469,37 @@ class RenameImportTransformer(cst.CSTTransformer):
             return updated_node.with_changes(names=new_names)
         return updated_node
 
+    def leave_Import(
+        self, original_node: cst.Import, updated_node: cst.Import
+    ) -> cst.Import:
+        # `import a.b as c` is not renamed by design (ambiguous). Only handle `import Old`.
+        new_names: List[cst.ImportAlias] = []
+        changes_in_node = 0
+        for alias in updated_node.names:
+            if not isinstance(alias, cst.ImportAlias):
+                new_names.append(alias)
+                continue
+            if isinstance(alias.name, cst.Name) and alias.name.value == self.old:
+                new_names.append(alias.with_changes(name=cst.Name(self.new)))
+                changes_in_node += 1
+            else:
+                new_names.append(alias)
+        if changes_in_node > 0:
+            self.change_count += changes_in_node
+            return updated_node.with_changes(names=new_names)
+        return updated_node
+
+
+@dataclass
+class _OpTransformer:
+    op: Dict[str, Any]
+    transformer: cst.CSTTransformer
+
 
 def _build_transformers(
     operations: Sequence[Dict[str, Any]],
-) -> Tuple[List[cst.CSTTransformer], List[str]]:
-    transformers: List[cst.CSTTransformer] = []
+) -> Tuple[List[_OpTransformer], List[str]]:
+    transformers: List[_OpTransformer] = []
     errors: List[str] = []
 
     for op in operations:
@@ -439,7 +515,12 @@ def _build_transformers(
                 errors.append(f"rename_symbol requires old/new: {op!r}")
                 continue
             transformers.append(
-                RenameSymbolTransformer(old, new, include_attributes=include_attributes)
+                _OpTransformer(
+                    op=op,
+                    transformer=RenameSymbolTransformer(
+                        old, new, include_attributes=include_attributes
+                    ),
+                )
             )
         elif name == "replace_call":
             old = str(op.get("old") or "")
@@ -449,7 +530,12 @@ def _build_transformers(
             if not old or not new:
                 errors.append(f"replace_call requires old/new: {op!r}")
                 continue
-            transformers.append(ReplaceCallTransformer(old, new, receiver=receiver))
+            transformers.append(
+                _OpTransformer(
+                    op=op,
+                    transformer=ReplaceCallTransformer(old, new, receiver=receiver),
+                )
+            )
         elif name == "rename_import":
             module_raw = op.get("module", None)
             module = None if module_raw in (None, "") else str(module_raw)
@@ -458,10 +544,37 @@ def _build_transformers(
             if not old or not new:
                 errors.append(f"rename_import requires old/new: {op!r}")
                 continue
-            transformers.append(RenameImportTransformer(module, old, new))
+            transformers.append(
+                _OpTransformer(
+                    op=op,
+                    transformer=RenameImportTransformer(module, old, new),
+                )
+            )
         else:
             errors.append(f"unknown op: {name!r}")
     return transformers, errors
+
+
+def _validate_operations(operations: Any) -> Tuple[List[Dict[str, Any]], List[str]]:
+    if operations is None:
+        return [], []
+    if not isinstance(operations, list):
+        return [], ["operations must be an array"]
+    op_errors: List[str] = []
+    ops: List[Dict[str, Any]] = []
+    for i, op in enumerate(operations):
+        if not isinstance(op, dict):
+            op_errors.append(f"operations[{i}] must be an object: {op!r}")
+            continue
+        if not str(op.get("op") or "").strip():
+            op_errors.append(f"operations[{i}] missing 'op': {op!r}")
+            continue
+        ops.append(op)
+    return ops, op_errors
+
+
+def _transformer_change_count(t: cst.CSTTransformer) -> Optional[int]:
+    return getattr(t, "change_count", None)
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -478,7 +591,11 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not isinstance(paths, list) or not paths:
         return _json_err("paths must be a non-empty array")
     if exclude_globs is None:
-        exclude_globs_list: List[str] = list(TOOL_SPEC["function"]["parameters"]["properties"]["exclude_globs"]["default"])  # type: ignore[index]
+        exclude_globs_list: List[str] = list(
+            TOOL_SPEC["function"]["parameters"]["properties"]["exclude_globs"][
+                "default"
+            ]
+        )
     elif isinstance(exclude_globs, list):
         exclude_globs_list = [str(x) for x in exclude_globs]
     else:
@@ -527,65 +644,50 @@ def run_tool(args: Dict[str, Any]) -> str:
         result["analyze"] = {"files": analyze_out, "errors": errors}
         return _json_ok(result)
 
-    operations = args.get("operations", [])
-    if operations is None:
-        operations_list: List[Dict[str, Any]] = []
-    elif isinstance(operations, list):
-        operations_list = [op for op in operations if isinstance(op, dict)]
-        non_dicts = [op for op in operations if not isinstance(op, dict)]
-        if non_dicts:
-            result.setdefault("transform", {})
-            result["transform"].setdefault("op_errors", [])
-            result["transform"]["op_errors"].append(
-                f"operations contains non-object entries: {non_dicts!r}"
-            )
-    else:
-        return _json_err("operations must be an array")
+    operations_list, op_validation_errors = _validate_operations(args.get("operations"))
+    transformers, op_errors = _build_transformers(operations_list)
+    op_errors_all = op_validation_errors + op_errors
 
-    wrap_ops = [
-        op
-        for op in operations_list
-        if str(op.get("op") or "").strip() == "wrap_tool_spec_i18n"
-    ]
-    generic_ops = [
-        op
-        for op in operations_list
-        if str(op.get("op") or "").strip() != "wrap_tool_spec_i18n"
-    ]
-
-    transformers, op_errors = _build_transformers(generic_ops)
     changed_files: List[str] = []
     unchanged_files: List[str] = []
     backups: Dict[str, str] = {}
     per_file_errors: Dict[str, Dict[str, Any]] = {}
     previews: Dict[str, Dict[str, Any]] = {}
 
+    op_stats: List[Dict[str, Any]] = []
+    for ot in transformers:
+        op_stats.append({"op": ot.op, "change_count": 0})
+
     for f in files:
         try:
             src = _read_text(f, max_bytes=max_bytes)
             mod = cst.parse_module(src)
             updated = mod
-            for t in transformers:
-                updated = updated.visit(t)
+
+            # Reset per-file
+            per_file_counts: List[int] = []
+            for ot in transformers:
+                before = _transformer_change_count(ot.transformer) or 0
+                updated = updated.visit(ot.transformer)
+                after = _transformer_change_count(ot.transformer) or 0
+                per_file_counts.append(after - before)
+
             out = updated.code
-            if wrap_ops:
-                wrap_op = wrap_ops[0]
-                out2, _en_map, _ja_map, _wrap_changed, json_err = (
-                    _apply_wrap_tool_spec_i18n(py_path=f, src=out, op=wrap_op)
-                )
-                out = out2
-                if json_err:
-                    per_file_errors[f] = {
-                        "message": f"wrap_tool_spec_i18n json error: {json_err}"
-                    }
             if out == src:
                 unchanged_files.append(f)
                 continue
+
             if preview:
+                diff_text = _unified_diff(
+                    src,
+                    out,
+                    fromfile=f"{f} (original)",
+                    tofile=f"{f} (modified)",
+                )
                 previews[f] = {
-                    "original": src,
-                    "modified": out,
+                    "diff": diff_text,
                     "lines_added": len(out.splitlines()) - len(src.splitlines()),
+                    "op_change_counts": per_file_counts,
                 }
                 changed_files.append(f)
             else:
@@ -593,6 +695,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                 backups[f] = backup_path
                 _write_text(f, out)
                 changed_files.append(f)
+
+            for i, delta in enumerate(per_file_counts):
+                op_stats[i]["change_count"] += delta
+
         except Exception as e:
             line, column = _extract_error_location(e)
             error_info: Dict[str, Any] = {"message": repr(e)}
@@ -603,8 +709,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             per_file_errors[f] = error_info
 
     result["transform"] = {
-        "operations": operations,
-        "op_errors": op_errors,
+        "operations": args.get("operations", []),
+        "op_errors": op_errors_all,
+        "op_stats": op_stats,
         "changed_files": changed_files,
         "unchanged_files": unchanged_files,
         "backups": backups,
@@ -614,349 +721,3 @@ def run_tool(args: Dict[str, Any]) -> str:
     if preview and previews:
         result["transform"]["previews"] = previews
     return _json_ok(result)
-
-
-# ------------------------------
-# uagent-specific: wrap_tool_spec_i18n
-
-_JP2EN_REPLACEMENTS = [
-    (_("repl.jp_used", default="This tool is used for the following purpose: "), ""),
-    (_("repl.this_tool_is", default="This tool"), "This tool"),
-    (_("repl.used_purpose", default="is used for the following purpose"), "is used for the following purpose"),
-    (_("repl.specified_v1", default="Specified"), "Specified"),
-    (_("repl.specified_v2", default="Specified"), "Specified"),
-    (_("repl.file", default="file"), "file"),
-    (_("repl.directory", default="directory"), "directory"),
-    (_("repl.path", default="path"), "path"),
-    (_("repl.string", default="string"), "string"),
-    (_("repl.array", default="array"), "array"),
-    (_("repl.gets", default="gets"), "gets"),
-    (_("repl.creates", default="creates"), "creates"),
-    (_("repl.deletes", default="deletes"), "deletes"),
-    (_("repl.changes", default="changes"), "changes"),
-    (_("repl.searches", default="searches"), "searches"),
-    (_("repl.runs", default="runs"), "runs"),
-    (_("repl.returns", default="returns"), "returns"),
-    (_("repl.performs", default="performs"), "performs"),
-    (_("repl.if_omitted", default="If omitted"), "If omitted"),
-    (_("repl.default_v1", default="Default"), "Default"),
-    (_("repl.default_v2", default="Default"), "Default"),
-    (_("repl.required", default="Required"), "Required"),
-]
-
-
-def _jp_to_en_rule_based(text: str) -> str:
-    s = text
-    for a, b in _JP2EN_REPLACEMENTS:
-        s = s.replace(a, b)
-    return s
-
-
-def _tool_json_path_for_py(py_path: str) -> str:
-    p = Path(py_path)
-    return str(p.with_suffix(".json"))
-
-
-def _validate_tool_json_payload(payload: Any) -> Optional[str]:
-    if not isinstance(payload, dict):
-        return "payload is not an object"
-    en = payload.get("en")
-    ja = payload.get("ja")
-    if not isinstance(en, dict) or not isinstance(ja, dict):
-        return "payload must have 'en' and 'ja' objects"
-    if set(en.keys()) != set(ja.keys()):
-        return "'en' and 'ja' must have the same key set"
-    for k, v in en.items():
-        if not isinstance(k, str) or not isinstance(v, str):
-            return "all 'en' keys/values must be strings"
-    for k, v in ja.items():
-        if not isinstance(k, str) or not isinstance(v, str):
-            return "all 'ja' keys/values must be strings"
-    return None
-
-
-def _safe_write_tool_json_if_missing(
-    json_path: str, *, translations_en: Dict[str, str], translations_ja: Dict[str, str]
-) -> Tuple[bool, Optional[str]]:
-    if Path(json_path).exists():
-        try:
-            data = json.loads(Path(json_path).read_text(encoding="utf-8"))
-        except Exception as e:
-            return False, f"existing json invalid: {e!r}"
-        err = _validate_tool_json_payload(data)
-        if err:
-            return False, f"existing json invalid: {err}"
-        return False, None
-    payload = {"en": dict(translations_en), "ja": dict(translations_ja)}
-    err = _validate_tool_json_payload(payload)
-    if err:
-        return False, f"generated json invalid: {err}"
-    Path(json_path).write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    return True, None
-
-
-def _is_string_literal(expr: cst.BaseExpression) -> Optional[str]:
-    if isinstance(expr, cst.SimpleString):
-        try:
-            import ast
-            v = ast.literal_eval(expr.value)
-            if isinstance(v, str):
-                return v
-        except Exception:
-            return None
-    return None
-
-
-def _make_translate_call(key: str, default_text: str) -> cst.Call:
-    return cst.Call(
-        func=cst.Name("_"),
-        args=[
-            cst.Arg(value=cst.SimpleString(json.dumps(key, ensure_ascii=False))),
-            cst.Arg(
-                keyword=cst.Name("default"),
-                value=cst.SimpleString(json.dumps(default_text, ensure_ascii=False)),
-            ),
-        ],
-    )
-
-
-def _dict_get_value(d: cst.Dict, key: str) -> Optional[cst.BaseExpression]:
-    for el in d.elements:
-        if not isinstance(el, cst.DictElement):
-            continue
-        if el.key is None:
-            continue
-        ks = _is_string_literal(el.key)
-        if ks == key:
-            return el.value
-    return None
-
-
-def _dict_set_value(d: cst.Dict, key: str, new_value: cst.BaseExpression) -> cst.Dict:
-    new_elems: List[cst.DictElement] = []
-    replaced = False
-    for el in d.elements:
-        if not isinstance(el, cst.DictElement) or el.key is None:
-            new_elems.append(el)  # type: ignore[arg-type]
-            continue
-        ks = _is_string_literal(el.key)
-        if ks == key:
-            new_elems.append(el.with_changes(value=new_value))
-            replaced = True
-        else:
-            new_elems.append(el)
-    if not replaced:
-        new_elems.append(
-            cst.DictElement(
-                key=cst.SimpleString(json.dumps(key, ensure_ascii=False)),
-                value=new_value,
-            )
-        )
-    return d.with_changes(elements=new_elems)
-
-
-class _ToolSpecWrapState:
-    def __init__(self) -> None:
-        self.translations_en: Dict[str, str] = {}
-        self.translations_ja: Dict[str, str] = {}
-        self.changed: bool = False
-
-
-class _WrapToolSpecI18nTransformer(cst.CSTTransformer):
-    def __init__(self, state: _ToolSpecWrapState) -> None:
-        self.state = state
-
-    def leave_Assign(
-        self, original_node: cst.Assign, updated_node: cst.Assign
-    ) -> cst.Assign:
-        if not original_node.targets:
-            return updated_node
-        tgt0 = original_node.targets[0].target
-        if not isinstance(tgt0, cst.Name) or tgt0.value != "TOOL_SPEC":
-            return updated_node
-        if not isinstance(updated_node.value, cst.Dict):
-            return updated_node
-        tool_spec = updated_node.value
-        func = _dict_get_value(tool_spec, "function")
-        if not isinstance(func, cst.Dict):
-            return updated_node
-        desc_expr = _dict_get_value(func, "description")
-        if (
-            isinstance(desc_expr, cst.Call)
-            and isinstance(desc_expr.func, cst.Name)
-            and desc_expr.func.value == "_"
-        ):
-            pass
-        else:
-            ja = _is_string_literal(desc_expr) if isinstance(desc_expr, cst.BaseExpression) else None
-            if ja is not None:
-                en = _jp_to_en_rule_based(ja)
-                self.state.translations_en["tool.description"] = en
-                self.state.translations_ja["tool.description"] = ja
-                func = _dict_set_value(
-                    func, "description", _make_translate_call("tool.description", en)
-                )
-                self.state.changed = True
-        sp_expr = _dict_get_value(func, "system_prompt")
-        if sp_expr is not None:
-            if (
-                isinstance(sp_expr, cst.Call)
-                and isinstance(sp_expr.func, cst.Name)
-                and sp_expr.func.value == "_"
-            ):
-                pass
-            else:
-                ja = _is_string_literal(sp_expr) if isinstance(sp_expr, cst.BaseExpression) else None
-                if ja is not None:
-                    en = _jp_to_en_rule_based(ja)
-                    self.state.translations_en["tool.system_prompt"] = en
-                    self.state.translations_ja["tool.system_prompt"] = ja
-                    func = _dict_set_value(
-                        func, system_prompt, _make_translate_call("tool.system_prompt", en)
-                    )
-                    self.state.changed = True
-        params = _dict_get_value(func, "parameters")
-        if isinstance(params, cst.Dict):
-            props = _dict_get_value(params, "properties")
-            if isinstance(props, cst.Dict):
-                new_prop_elems: List[cst.DictElement] = []
-                for el in props.elements:
-                    if not isinstance(el, cst.DictElement) or el.key is None:
-                        new_prop_elems.append(el)  # type: ignore[arg-type]
-                        continue
-                    pname = _is_string_literal(el.key)
-                    if not pname or not isinstance(el.value, cst.Dict):
-                        new_prop_elems.append(el)
-                        continue
-                    pdef = el.value
-                    pdesc = _dict_get_value(pdef, "description")
-                    if pdesc is None:
-                        new_prop_elems.append(el)
-                        continue
-                    if (
-                        isinstance(pdesc, cst.Call)
-                        and isinstance(pdesc.func, cst.Name)
-                        and pdesc.func.value == "_"
-                    ):
-                        new_prop_elems.append(el)
-                        continue
-                    ja = _is_string_literal(pdesc) if isinstance(pdesc, cst.BaseExpression) else None
-                    if ja is None:
-                        new_prop_elems.append(el)
-                        continue
-                    en = _jp_to_en_rule_based(ja)
-                    key = f"param.{pname}.description"
-                    self.state.translations_en[key] = en
-                    self.state.translations_ja[key] = ja
-                    pdef2 = _dict_set_value(pdef, "description", _make_translate_call(key, en))
-                    new_prop_elems.append(el.with_changes(value=pdef2))
-                    self.state.changed = True
-                props2 = props.with_changes(elements=new_prop_elems)
-                params2 = _dict_set_value(params, "properties", props2)
-                func = _dict_set_value(func, "parameters", params2)
-        tool_spec2 = _dict_set_value(tool_spec, "function", func)
-        return updated_node.with_changes(value=tool_spec2)
-
-
-def _module_has_import_make_tool_translator(mod: cst.Module) -> bool:
-    for stmt in mod.body:
-        if isinstance(stmt, cst.SimpleStatementLine):
-            for small in stmt.body:
-                if isinstance(small, cst.ImportFrom):
-                    try:
-                        mod_name = cst.Module([]).code_for_node(small.module).strip() if small.module else None  # type: ignore[arg-type]
-                    except Exception:
-                        mod_name = None
-                    if mod_name == ".i18n_helper":
-                        for nm in small.names:
-                            if (
-                                isinstance(nm, cst.ImportAlias)
-                                and isinstance(nm.name, cst.Name)
-                                and nm.name.value == "make_tool_translator"
-                            ):
-                                return True
-    return False
-
-
-def _module_has_assign_translator(mod: cst.Module) -> bool:
-    for stmt in mod.body:
-        if not isinstance(stmt, cst.SimpleStatementLine):
-            continue
-        for small in stmt.body:
-            if not isinstance(small, cst.Assign):
-                continue
-            if not small.targets:
-                continue
-            t0 = small.targets[0].target
-            if not isinstance(t0, cst.Name) or t0.value != "_":
-                continue
-            if (
-                isinstance(small.value, cst.Call)
-                and isinstance(small.value.func, cst.Name)
-                and small.value.func.value == "make_tool_translator"
-            ):
-                return True
-    return False
-
-
-def _insert_translator_prelude(mod: cst.Module) -> Tuple[cst.Module, bool]:
-    need_import = not _module_has_import_make_tool_translator(mod)
-    need_assign = not _module_has_assign_translator(mod)
-    if not need_import and not need_assign:
-        return mod, False
-    import_stmt = cst.parse_statement("from .i18n_helper import make_tool_translator\n")
-    assign_stmt = cst.parse_statement("_ = make_tool_translator(__file__)\n")
-    empty_stmt = cst.EmptyLine()
-    new_body: List[cst.BaseStatement] = []
-    inserted = False
-    for stmt in mod.body:
-        new_body.append(stmt)
-        if not inserted and isinstance(stmt, cst.SimpleStatementLine) and stmt.body:
-            try:
-                code = cst.Module([]).code_for_node(stmt).strip()
-            except Exception:
-                code = ""
-            if "from __future__ import annotations" in code:
-                if need_import:
-                    new_body.append(import_stmt)
-                if need_assign:
-                    new_body.append(assign_stmt)
-                new_body.append(empty_stmt)
-                inserted = True
-    if inserted:
-        return mod.with_changes(body=new_body), True
-    head: List[cst.BaseStatement] = []
-    if need_import:
-        head.append(import_stmt)
-    if need_assign:
-        head.append(assign_stmt)
-    head.append(empty_stmt)
-    head.extend(mod.body)
-    return mod.with_changes(body=head), True
-
-
-def _apply_wrap_tool_spec_i18n(
-    *, py_path: str, src: str, op: Dict[str, Any]
-) -> Tuple[str, Dict[str, str], Dict[str, str], bool, Optional[str]]:
-    try:
-        mod = cst.parse_module(src)
-        mod2, prelude_changed = _insert_translator_prelude(mod)
-        state = _ToolSpecWrapState()
-        mod3 = mod2.visit(_WrapToolSpecI18nTransformer(state))
-        changed = prelude_changed or state.changed
-        out = mod3.code
-        generate_json = bool(op.get("generate_json", True))
-        json_err: Optional[str] = None
-        if generate_json:
-            json_path = _tool_json_path_for_py(py_path)
-            _created, json_err = _safe_write_tool_json_if_missing(
-                json_path,
-                translations_en=state.translations_en,
-                translations_ja=state.translations_ja,
-            )
-        return out, state.translations_en, state.translations_ja, changed, json_err
-    except Exception as e:
-        return src, {}, {}, False, repr(e)
