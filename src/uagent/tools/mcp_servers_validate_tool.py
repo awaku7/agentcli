@@ -64,7 +64,11 @@ def _load_config(path: str) -> Tuple[Dict[str, Any], List[str], List[str]]:
     warnings: List[str] = []
 
     if not os.path.exists(path):
-        errors.append(_("err.not_exists", default="ERROR: {path!r} does not exist").format(path=path))
+        errors.append(
+            _("err.not_exists", default="ERROR: {path!r} does not exist").format(
+                path=path
+            )
+        )
         return {"mcp_servers": []}, warnings, errors
 
     try:
@@ -72,7 +76,9 @@ def _load_config(path: str) -> Tuple[Dict[str, Any], List[str], List[str]]:
             data = json.load(f)
     except Exception as e:
         errors.append(
-            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(path=path, err=e)
+            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(
+                path=path, err=e
+            )
         )
         return {"mcp_servers": []}, warnings, errors
 
@@ -82,10 +88,14 @@ def _load_config(path: str) -> Tuple[Dict[str, Any], List[str], List[str]]:
 
     servers = data.get("mcp_servers")
     if servers is None:
-        warnings.append(_("warn.no_mcp_servers", default="WARNING: 'mcp_servers' key is missing"))
+        warnings.append(
+            _("warn.no_mcp_servers", default="WARNING: 'mcp_servers' key is missing")
+        )
         servers = []
     if not isinstance(servers, list):
-        errors.append(_("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list"))
+        errors.append(
+            _("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list")
+        )
         servers = []
 
     data["mcp_servers"] = servers
@@ -110,19 +120,34 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     for idx, s in enumerate(servers):
         if not isinstance(s, dict):
-            errors.append(_("err.item_not_dict", default="ERROR: mcp_servers[{idx}] is not a dictionary").format(idx=idx))
+            errors.append(
+                _(
+                    "err.item_not_dict",
+                    default="ERROR: mcp_servers[{idx}] is not a dictionary",
+                ).format(idx=idx)
+            )
             continue
 
         name = s.get("name")
         url = s.get("url")
 
         if not isinstance(name, str) or not name.strip():
-            errors.append(_("err.name_missing", default="ERROR: mcp_servers[{idx}].name is missing or empty").format(idx=idx))
+            errors.append(
+                _(
+                    "err.name_missing",
+                    default="ERROR: mcp_servers[{idx}].name is missing or empty",
+                ).format(idx=idx)
+            )
         else:
             seen_names[name] = seen_names.get(name, 0) + 1
 
         if not isinstance(url, str) or not url.strip():
-            errors.append(_("err.url_missing", default="ERROR: mcp_servers[{idx}].url is missing or empty").format(idx=idx))
+            errors.append(
+                _(
+                    "err.url_missing",
+                    default="ERROR: mcp_servers[{idx}].url is missing or empty",
+                ).format(idx=idx)
+            )
         else:
             if not url.rstrip().endswith("/mcp"):
                 warnings.append(
@@ -134,7 +159,12 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     for n, c in seen_names.items():
         if c > 1:
-            errors.append(_("err.name_duplicate", default="ERROR: name={name!r} is duplicated ({count} times)").format(name=n, count=c))
+            errors.append(
+                _(
+                    "err.name_duplicate",
+                    default="ERROR: name={name!r} is duplicated ({count} times)",
+                ).format(name=n, count=c)
+            )
 
     overall = "OK"
     if errors:

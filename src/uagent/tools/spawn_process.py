@@ -56,7 +56,7 @@ def _validate_command(raw: str) -> str | None:
         if lower == "start" or lower == 'start ""':
             return (
                 "[spawn_process error] Windows 'start' command has no URL or executable path.\n"
-                "Example: start \"\" https://www.google.com"
+                'Example: start "" https://www.google.com'
             )
 
     return None

@@ -190,7 +190,10 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         time.sleep(poll_interval_sec)
 
     try:
-        print("\n" + _("ui.confirm.title", default="=== Human confirmation request ==="), flush=True)
+        print(
+            "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
+            flush=True,
+        )
         print(message, flush=True)
         print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
         print(

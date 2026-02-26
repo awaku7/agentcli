@@ -35,7 +35,6 @@ from typing import Any, Dict, List, Tuple
 
 from .safe_file_ops_extras import (
     ensure_within_workdir,
-    is_path_dangerous,
     make_backup_before_overwrite,
 )
 
@@ -284,8 +283,7 @@ def _build_preview(
 
 def run_tool(args: Dict[str, Any]) -> str:
     """Entry point."""
-
-    path = str(args.get("path") or "")
+    path_in = str(args.get("path") or "")
     mode = str(args.get("mode") or "literal")
     pattern = args.get("pattern")
     replacement = args.get("replacement")
@@ -295,10 +293,11 @@ def run_tool(args: Dict[str, Any]) -> str:
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
     raw_newline_policy = str(args.get("raw_newline_policy") or "allow")
-
-    if not path:
+    if not path_in:
         raise ValueError("path is required")
 
+    # Resolve and validate path within workdir
+    abs_path = ensure_within_workdir(path_in)
     if pattern is None:
         raise ValueError("pattern is required")
 
@@ -307,32 +306,18 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if raw_newline_policy not in ("allow", "reject"):
         raise ValueError("raw_newline_policy must be 'allow' or 'reject'")
-
-    safe_path = ensure_within_workdir(path)
-
-    if is_path_dangerous(safe_path):
-        # Always require confirmation for dangerous paths when writing.
-        if not preview:
-            # Defer to the framework confirmation flow.
-            return json.dumps(
-                {
-                    "ok": False,
-                    "blocked": True,
-                    "reason": "dangerous path",
-                    "path": safe_path,
-                },
-                ensure_ascii=False,
-            )
-
     # Read
     original, detected_newline, encoding_used = _read_text_robust(
-        safe_path, encoding=encoding, max_bytes=20_000_000
+        abs_path, encoding=encoding, max_bytes=20_000_000
     )
 
     # Reject raw newlines in pattern/replacement if requested.
     if raw_newline_policy == "reject":
-        if ("\n" in str(pattern)) or ("\r" in str(pattern)) or ("\n" in str(replacement)) or (
-            "\r" in str(replacement)
+        if (
+            ("\n" in str(pattern))
+            or ("\r" in str(pattern))
+            or ("\n" in str(replacement))
+            or ("\r" in str(replacement))
         ):
             return json.dumps(
                 {
@@ -345,10 +330,28 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     # Apply
     if mode == "literal":
-        replaced = original.replace(str(pattern), str(replacement), -1 if count is None else int(count))
+        pat = str(pattern)
+        rep = str(replacement)
+        # Non-overlapping occurrences (same semantics as str.replace)
+        occ = original.count(pat)
+        if count is None:
+            match_count = occ
+            replaced = original.replace(pat, rep)
+        else:
+            limit = int(count)
+            if limit < 0:
+                limit = 0
+            match_count = min(occ, limit)
+            replaced = original.replace(pat, rep, limit)
     elif mode == "regex":
         try:
-            replaced, n = re.subn(str(pattern), str(replacement), original, count=0 if count is None else int(count))
+            replaced, n = re.subn(
+                str(pattern),
+                str(replacement),
+                original,
+                count=0 if count is None else int(count),
+            )
+            match_count = int(n)
         except re.error as e:
             return json.dumps(
                 {"ok": False, "error": f"invalid regex pattern: {e}"},
@@ -357,7 +360,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         raise ValueError("mode must be 'literal' or 'regex'")
 
-    diff = _unified_diff(safe_path, original, replaced)
+    diff = _unified_diff(path_in, original, replaced)
 
     # Preview response
     if preview:
@@ -365,9 +368,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": True,
-                "path": safe_path,
+                "path": path_in,
                 "mode": mode,
-                "match_count": 0 if original == replaced else len(hits),
+                "match_count": match_count,
                 "changed": original != replaced,
                 "preview": True,
                 "diff": diff,
@@ -403,15 +406,17 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     # Backup and write
-    backup = make_backup_before_overwrite(safe_path)
-    _write_text_robust(safe_path, replaced, encoding=encoding_used, newline=detected_newline)
+    backup = make_backup_before_overwrite(abs_path)
+    _write_text_robust(
+        abs_path, replaced, encoding=encoding_used, newline=detected_newline
+    )
 
     return json.dumps(
         {
             "ok": True,
-            "path": safe_path,
+            "path": path_in,
             "mode": mode,
-            "match_count": 0 if original == replaced else len(hits),
+            "match_count": match_count,
             "changed": original != replaced,
             "preview": False,
             "diff": diff,

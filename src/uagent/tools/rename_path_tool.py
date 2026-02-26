@@ -21,7 +21,9 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "rename_path",
-        "description": _("tool.description", default="Rename (move) a file or directory."),
+        "description": _(
+            "tool.description", default="Rename (move) a file or directory."
+        ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(

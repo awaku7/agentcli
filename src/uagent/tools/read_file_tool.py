@@ -7,7 +7,7 @@ from typing import Any, Callable, Dict, Optional, cast
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
-from .arg_util import get_str, get_int, get_path
+from .arg_util import get_int, get_path
 
 _ = make_tool_translator(__file__)
 
@@ -113,7 +113,10 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     filename = get_path(args, "filename", get_path(args, "path", ""))
     if not filename:
-        return _("err.filename_missing", default="[read_file error] filename/path is not specified")
+        return _(
+            "err.filename_missing",
+            default="[read_file error] filename/path is not specified",
+        )
 
     head_lines = args.get("head_lines")
     tail_lines = args.get("tail_lines")
@@ -144,7 +147,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         except Exception:
             encoding = "utf-8"
 
-        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
+        with open(
+            filename, "r", encoding=encoding, errors="replace", newline=None
+        ) as f:
             total_lines = sum(1 for _ in f)
 
         if total_lines < tail_lines:
@@ -175,7 +180,9 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         lines = []
         total_bytes = 0
-        with open(filename, "r", encoding=encoding, errors="replace", newline=None) as f:
+        with open(
+            filename, "r", encoding=encoding, errors="replace", newline=None
+        ) as f:
             i = 0
             for i, line in enumerate(f, 1):
                 if i < start_line:
@@ -186,9 +193,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                     break
                 if total_bytes > max_bytes:
                     lines.append(
-                        _("msg.truncated", default="\n[read_file truncated: byte limit {max_bytes} reached]").format(
-                            max_bytes=max_bytes
-                        )
+                        _(
+                            "msg.truncated",
+                            default="\n[read_file truncated: byte limit {max_bytes} reached]",
+                        ).format(max_bytes=max_bytes)
                     )
                     break
 

@@ -102,7 +102,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "How to reply:\n"
                     "  - Type your answer and press Enter\n"
                     "  - Type 'f' to enter multi-line mode\n"
-                    "  - In multi-line mode: '\"\"\"retry' clears, '\"\"\"end' sends\n"
+                    '  - In multi-line mode: \'"""retry\' clears, \'"""end\' sends\n'
                     "  - Type 'c' or 'cancel' to cancel\n"
                 ),
             ),
@@ -185,7 +185,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             t = "" if text is None else str(text)
             # normalize CRLF/CR to LF for stable handling
             t = t.replace("\r\n", "\n").replace("\r", "\n")
-            marker = "\"\"\"end"
+            marker = '"""end'
             while True:
                 t2 = t.rstrip("\n")
                 if t2.endswith("\n" + marker):

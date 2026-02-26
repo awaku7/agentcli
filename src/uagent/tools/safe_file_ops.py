@@ -287,7 +287,9 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
         if missing_ok:
             return
         raise FileNotFoundError(
-            _("err.path_not_found", default="Path does not exist: {path}").format(path=path)
+            _("err.path_not_found", default="Path does not exist: {path}").format(
+                path=path
+            )
         )
 
     if p.is_dir():
@@ -326,16 +328,23 @@ def safe_rename_path(
 
     if _is_trigger_path(src) and src_resolved not in _allowed_paths:
         need_confirm = True
-        reasons.append(_("reason.src_trigger", default="src matches risky path conditions"))
+        reasons.append(
+            _("reason.src_trigger", default="src matches risky path conditions")
+        )
     if _is_trigger_path(dst) and dst_resolved not in _allowed_paths:
         need_confirm = True
-        reasons.append(_("reason.dst_trigger", default="dst matches risky path conditions"))
+        reasons.append(
+            _("reason.dst_trigger", default="dst matches risky path conditions")
+        )
 
     dst_exists = Path(dst).exists()
     if dst_exists and overwrite:
         need_confirm = True
         reasons.append(
-            _("reason.overwrite_delete", default="overwrite=True will delete existing dst and replace it")
+            _(
+                "reason.overwrite_delete",
+                default="overwrite=True will delete existing dst and replace it",
+            )
         )
     elif dst_exists and not overwrite:
         raise FileExistsError(
@@ -409,7 +418,8 @@ def safe_generate_prompt(path: str, template: Optional[str] = None) -> str:
     if template:
         content = template.format(
             path=path,
-            lines=excerpt.count("\n") + (1 if excerpt and not excerpt.endswith("\n") else 0),
+            lines=excerpt.count("\n")
+            + (1 if excerpt and not excerpt.endswith("\n") else 0),
             size=Path(path).stat().st_size,
             mtime=Path(path).stat().st_mtime,
             excerpt=excerpt,
