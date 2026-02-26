@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.dst.description": "",
+  "param.mkdirs.description": "",
+  "param.overwrite.description": "",
+  "param.src.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

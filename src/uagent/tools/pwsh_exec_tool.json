@@ -1,4 +1,6 @@
 {
-  "en": {},
-  "ja": {}
+  "param.command.description": "",
+  "param.shell.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

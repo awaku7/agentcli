@@ -15,19 +15,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "set_timer",
-        "description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
-        "system_prompt": """このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。""",
+        "description": _("tool.description", default="指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。"),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。"),
         "parameters": {
             "type": "object",
             "properties": {
-                "seconds": {"type": "integer", "description": "タイマーの秒数。"},
+                "seconds": {"type": "integer", "description": _("param.seconds.description", default="タイマーの秒数。")},
                 "message": {
                     "type": "string",
-                    "description": "完了時に表示するメッセージ。",
+                    "description": _("param.message.description", default="完了時に表示するメッセージ。"),
                 },
                 "on_timeout_prompt": {
                     "type": "string",
-                    "description": "満了時にLLMへ自動入力する内容。",
+                    "description": _("param.on_timeout_prompt.description", default="満了時にLLMへ自動入力する内容。"),
                     "nullable": True,
                 },
             },

@@ -36,32 +36,27 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "rename_path",
-        "description": "ファイルまたはディレクトリの名前変更（移動）を行います。",
-        "system_prompt": """このツールはファイル/ディレクトリの rename/move を行います。
-
-安全注記:
-- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。
-- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。
-""",
+        "description": _("tool.description", default="Rename (move) a file or directory."),
+        "system_prompt": _("tool.system_prompt", default="このツールはファイル/ディレクトリの rename/move を行います。\n\n安全注記:\n- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。\n- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "src": {
                     "type": "string",
-                    "description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
+                    "description": _("param.src.description", default="元のパス（ファイル/ディレクトリ）。相対パス推奨。"),
                 },
                 "dst": {
                     "type": "string",
-                    "description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",
+                    "description": _("param.dst.description", default="移動先パス（ファイル/ディレクトリ）。相対パス推奨。"),
                 },
                 "overwrite": {
                     "type": "boolean",
-                    "description": "true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。",
+                    "description": _("param.overwrite.description", default="true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。"),
                     "default": False,
                 },
                 "mkdirs": {
                     "type": "boolean",
-                    "description": "true の場合、dst の親ディレクトリを作成してから実行します。",
+                    "description": _("param.mkdirs.description", default="true の場合、dst の親ディレクトリを作成してから実行します。"),
                     "default": False,
                 },
             },

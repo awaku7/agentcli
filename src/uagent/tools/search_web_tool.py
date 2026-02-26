@@ -255,6 +255,20 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Maximum number of results to return (default: 5).",
                     ),
                 },
+                "q": {
+                    "type": "string",
+                    "description": _(
+                        "param.q.description",
+                        default="Alias of 'query' (for backward compatibility).",
+                    ),
+                },
+                "n": {
+                    "type": "integer",
+                    "description": _(
+                        "param.n.description",
+                        default="Alias of 'max_results' (for backward compatibility).",
+                    ),
+                }
             },
             "required": ["query"],
         },
