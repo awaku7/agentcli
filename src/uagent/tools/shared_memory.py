@@ -89,7 +89,8 @@ def load_shared_memory_raw(max_bytes: Optional[int] = None) -> str:
     if len(data) > max_bytes:
         data = data[:max_bytes]
         truncated_note = _(
-            "msg.truncated", default="\n[shared_memory truncated: limited to {max_bytes} bytes]"
+            "msg.truncated",
+            default="\n[shared_memory truncated: limited to {max_bytes} bytes]",
         ).format(max_bytes=max_bytes)
 
     text = data.decode("utf-8", errors="replace")

@@ -66,22 +66,33 @@ TOOL_SPEC: Dict[str, Any] = {
 def _load_config(path: str) -> Tuple[Dict[str, Any], List[str]]:
     if not os.path.exists(path):
         return {"mcp_servers": []}, [
-            _("err.not_exists", default="ERROR: {path!r} does not exist").format(path=path)
+            _("err.not_exists", default="ERROR: {path!r} does not exist").format(
+                path=path
+            )
         ]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            return {"mcp_servers": []}, [_("err.root_not_dict", default="ERROR: root is not a dictionary")]
+            return {"mcp_servers": []}, [
+                _("err.root_not_dict", default="ERROR: root is not a dictionary")
+            ]
         if "mcp_servers" not in data:
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
-            return {"mcp_servers": []}, [_("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list")]
+            return {"mcp_servers": []}, [
+                _(
+                    "err.mcp_servers_not_list",
+                    default="ERROR: 'mcp_servers' is not a list",
+                )
+            ]
         return data, []
     except Exception as e:
         return {"mcp_servers": []}, [
-            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(path=path, err=e)
+            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(
+                path=path, err=e
+            )
         ]
 
 
@@ -96,7 +107,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     require_nonempty = bool(args.get("require_nonempty", False))
 
     if index is None and (not isinstance(name, str) or not name.strip()):
-        return _("err.name_or_index_required", default="Error: Please specify either name or index.")
+        return _(
+            "err.name_or_index_required",
+            default="Error: Please specify either name or index.",
+        )
 
     config, msgs = _load_config(path)
     if any(m.startswith("ERROR:") for m in msgs):
@@ -115,7 +129,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         except Exception:
             return _("err.index_not_int", default="Error: index must be an integer.")
         if idx < 0 or idx >= len(servers):
-            return _("err.index_out_of_range", default="Error: index out of range: {idx}").format(idx=idx)
+            return _(
+                "err.index_out_of_range", default="Error: index out of range: {idx}"
+            ).format(idx=idx)
         removed = servers.pop(idx)
         removed_idx = idx
     else:
@@ -126,10 +142,15 @@ def run_tool(args: Dict[str, Any]) -> str:
                 removed_idx = i
                 break
         if removed is None:
-            return _("err.name_not_found", default="Error: name={name!r} not found.").format(name=target)
+            return _(
+                "err.name_not_found", default="Error: name={name!r} not found."
+            ).format(name=target)
 
     if require_nonempty and not servers:
-        return _("err.require_nonempty", default="Error: require_nonempty=true, so removing the last item is not allowed.")
+        return _(
+            "err.require_nonempty",
+            default="Error: require_nonempty=true, so removing the last item is not allowed.",
+        )
 
     config["mcp_servers"] = servers
 
@@ -143,15 +164,19 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             r_name = removed.get("name") if isinstance(removed, dict) else None
             return (
-                _("out.ok", default="OK: removed index={idx} name={name!r}").format(idx=removed_idx, name=r_name) +
-                " (Note: create_file_tool import failed, direct write used)"
+                _("out.ok", default="OK: removed index={idx} name={name!r}").format(
+                    idx=removed_idx, name=r_name
+                )
+                + " (Note: create_file_tool import failed, direct write used)"
             )
 
         create_file(
             {"filename": path, "content": text, "encoding": "utf-8", "overwrite": True}
         )
     except Exception as e:
-        return _("err.write_fail", default="ERROR: Failed to write file: {err}").format(err=e)
+        return _("err.write_fail", default="ERROR: Failed to write file: {err}").format(
+            err=e
+        )
 
     default_info = "<none>"
     if servers:
@@ -161,7 +186,9 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     return "\n".join(
         [
-            _("out.ok", default="OK: removed index={idx} name={name!r}").format(idx=removed_idx, name=r_name),
+            _("out.ok", default="OK: removed index={idx} name={name!r}").format(
+                idx=removed_idx, name=r_name
+            ),
             f"default: {default_info}",
             f"count: {len(servers)}",
         ]

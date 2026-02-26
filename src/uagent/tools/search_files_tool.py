@@ -278,13 +278,17 @@ def run_tool(args: Dict[str, Any]) -> str:
                     # Choose strategy based on file size
                     size = os.path.getsize(full_path)
                     if size < fast_read_threshold_bytes:
-                        matched_lines = _grep_text_full_read(full_path, regex, max_hits_per_file=5)
+                        matched_lines = _grep_text_full_read(
+                            full_path, regex, max_hits_per_file=5
+                        )
                     else:
-                        matched_lines = _grep_text_streaming(full_path, regex, max_hits_per_file=5)
+                        matched_lines = _grep_text_streaming(
+                            full_path, regex, max_hits_per_file=5
+                        )
 
                     if not matched_lines:
                         continue
-                except Exception as e:
+                except Exception:
                     # Skip unreadable files
                     continue
 
@@ -308,7 +312,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     # Human-readable output (kept for compatibility with existing consumers)
     out_lines: List[str] = []
     if truncated:
-        out_lines.append(f"[search_files] Found {len(results)} results (truncated to {max_results})")
+        out_lines.append(
+            f"[search_files] Found {len(results)} results (truncated to {max_results})"
+        )
     else:
         out_lines.append(f"[search_files] Found {len(results)} results")
 

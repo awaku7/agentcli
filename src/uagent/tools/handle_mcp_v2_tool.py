@@ -81,7 +81,8 @@ TOOL_SPEC: Dict[str, Any] = {
                 "tool_name": {
                     "type": "string",
                     "description": _(
-                        "param.tool_name.description", default="The name of the tool to execute."
+                        "param.tool_name.description",
+                        default="The name of the tool to execute.",
                     ),
                 },
                 "tool_arguments": {

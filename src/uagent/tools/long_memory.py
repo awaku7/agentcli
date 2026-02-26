@@ -62,7 +62,8 @@ def load_long_memory_raw() -> str:
     if len(data) > max_bytes:
         data = data[:max_bytes]
         truncated_note = _(
-            "msg.truncated", default="\n[long_memory truncated: limited to {max_bytes} chars]"
+            "msg.truncated",
+            default="\n[long_memory truncated: limited to {max_bytes} chars]",
         ).format(max_bytes=max_bytes)
 
     return data + truncated_note

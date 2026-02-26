@@ -392,9 +392,7 @@ class RenameSymbolTransformer(cst.CSTTransformer):
 
 
 class ReplaceCallTransformer(cst.CSTTransformer):
-    def __init__(
-        self, old: str, new: str, *, receiver: Optional[str] = None
-    ) -> None:
+    def __init__(self, old: str, new: str, *, receiver: Optional[str] = None) -> None:
         self.old = old
         self.new = new
         self.receiver = receiver

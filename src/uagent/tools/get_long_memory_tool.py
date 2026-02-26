@@ -13,7 +13,9 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_long_memory",
-        "description": _("tool.description", default="Get all saved long-term memory notes (JSONL)."),
+        "description": _(
+            "tool.description", default="Get all saved long-term memory notes (JSONL)."
+        ),
         "system_prompt": _(
             "tool.system_prompt",
             default="This tool is used for the following purpose: retrieve all saved long-term memory notes (in JSONL format).",

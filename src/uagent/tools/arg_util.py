@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Dict, List, Optional, TypeVar
 
 T = TypeVar("T")
 
@@ -41,7 +41,9 @@ def get_bool(args: Dict[str, Any], key: str, default: bool = False) -> bool:
     return s in ("true", "1", "t", "y", "yes")
 
 
-def get_list(args: Dict[str, Any], key: str, default: Optional[List[Any]] = None) -> List[Any]:
+def get_list(
+    args: Dict[str, Any], key: str, default: Optional[List[Any]] = None
+) -> List[Any]:
     """Get a list argument safely."""
     val = args.get(key)
     if val is None:

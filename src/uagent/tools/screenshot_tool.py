@@ -70,7 +70,10 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     if pyautogui is None:
-        return _("err.pyautogui_missing", default="[screenshot error] pyautogui module is not installed.")
+        return _(
+            "err.pyautogui_missing",
+            default="[screenshot error] pyautogui module is not installed.",
+        )
 
     window_title = args.get("window_title")
     if window_title and pygetwindow is None:
@@ -95,7 +98,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         if window_title:
             windows = pygetwindow.getWindowsWithTitle(window_title)
             if not windows:
-                return _("err.window_not_found", default="[screenshot error] No window found matching title: '{title}'").format(title=window_title)
+                return _(
+                    "err.window_not_found",
+                    default="[screenshot error] No window found matching title: '{title}'",
+                ).format(title=window_title)
 
             target_win = windows[0]
 
@@ -122,16 +128,27 @@ def run_tool(args: Dict[str, Any]) -> str:
         # Notify user (beep)
         print("\a", end="", flush=True)
 
-        msg = _("out.ok", default="[screenshot] Successfully saved to {path}").format(path=file_path)
+        msg = _("out.ok", default="[screenshot] Successfully saved to {path}").format(
+            path=file_path
+        )
 
         if window_title and target_win and close_window:
             try:
                 target_win.close()
-                msg = _("out.ok_closed", default="[screenshot] Successfully saved to {path} and closed the window.").format(path=file_path)
+                msg = _(
+                    "out.ok_closed",
+                    default="[screenshot] Successfully saved to {path} and closed the window.",
+                ).format(path=file_path)
             except Exception as e:
-                msg = _("err.close_fail", default="[screenshot] Successfully saved to {path} but failed to close window: {err}").format(path=file_path, err=e)
+                msg = _(
+                    "err.close_fail",
+                    default="[screenshot] Successfully saved to {path} but failed to close window: {err}",
+                ).format(path=file_path, err=e)
 
         return msg
 
     except Exception as e:
-        return _("err.capture_fail", default="[screenshot error] Failed to capture screenshot: {err}").format(err=e)
+        return _(
+            "err.capture_fail",
+            default="[screenshot error] Failed to capture screenshot: {err}",
+        ).format(err=e)

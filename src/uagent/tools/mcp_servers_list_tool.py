@@ -80,29 +80,42 @@ def _load_config(path: str) -> Tuple[Dict[str, Any], List[str]]:
 
     if not os.path.exists(path):
         return {"mcp_servers": []}, [
-            _("warn.not_exists", default="WARNING: {path!r} does not exist (treating as empty list).").format(path=path)
+            _(
+                "warn.not_exists",
+                default="WARNING: {path!r} does not exist (treating as empty list).",
+            ).format(path=path)
         ]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            warnings.append(_("warn.root_not_dict", default="WARNING: root is not a dictionary."))
+            warnings.append(
+                _("warn.root_not_dict", default="WARNING: root is not a dictionary.")
+            )
             return {"mcp_servers": []}, warnings
         if "mcp_servers" not in data:
             warnings.append(
-                _("warn.no_mcp_servers", default="WARNING: 'mcp_servers' key is missing (treating as empty list).")
+                _(
+                    "warn.no_mcp_servers",
+                    default="WARNING: 'mcp_servers' key is missing (treating as empty list).",
+                )
             )
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
             warnings.append(
-                _("warn.mcp_servers_not_list", default="WARNING: 'mcp_servers' is not a list (treating as empty list).")
+                _(
+                    "warn.mcp_servers_not_list",
+                    default="WARNING: 'mcp_servers' is not a list (treating as empty list).",
+                )
             )
             data["mcp_servers"] = []
         return data, warnings
     except Exception as e:
         return {"mcp_servers": []}, [
-            _("warn.load_fail", default="WARNING: Failed to load {path!r}: {err}").format(path=path, err=e)
+            _(
+                "warn.load_fail", default="WARNING: Failed to load {path!r}: {err}"
+            ).format(path=path, err=e)
         ]
 
 
@@ -112,19 +125,34 @@ def _validate_servers(servers: List[Any]) -> List[str]:
     seen_names: Dict[str, int] = {}
     for idx, s in enumerate(servers):
         if not isinstance(s, dict):
-            warnings.append(_("warn.item_not_dict", default="WARNING: mcp_servers[{idx}] is not a dictionary.").format(idx=idx))
+            warnings.append(
+                _(
+                    "warn.item_not_dict",
+                    default="WARNING: mcp_servers[{idx}] is not a dictionary.",
+                ).format(idx=idx)
+            )
             continue
 
         name = s.get("name")
         url = s.get("url")
 
         if not isinstance(name, str) or not name.strip():
-            warnings.append(_("warn.name_missing", default="WARNING: mcp_servers[{idx}].name is missing or empty.").format(idx=idx))
+            warnings.append(
+                _(
+                    "warn.name_missing",
+                    default="WARNING: mcp_servers[{idx}].name is missing or empty.",
+                ).format(idx=idx)
+            )
         else:
             seen_names[name] = seen_names.get(name, 0) + 1
 
         if not isinstance(url, str) or not url.strip():
-            warnings.append(_("warn.url_missing", default="WARNING: mcp_servers[{idx}].url is missing or empty.").format(idx=idx))
+            warnings.append(
+                _(
+                    "warn.url_missing",
+                    default="WARNING: mcp_servers[{idx}].url is missing or empty.",
+                ).format(idx=idx)
+            )
         else:
             if not url.rstrip().endswith("/mcp"):
                 warnings.append(
@@ -136,7 +164,12 @@ def _validate_servers(servers: List[Any]) -> List[str]:
 
     for n, c in seen_names.items():
         if c > 1:
-            warnings.append(_("warn.name_duplicate", default="WARNING: name={name!r} is duplicated ({count} times).").format(name=n, count=c))
+            warnings.append(
+                _(
+                    "warn.name_duplicate",
+                    default="WARNING: name={name!r} is duplicated ({count} times).",
+                ).format(name=n, count=c)
+            )
 
     return warnings
 

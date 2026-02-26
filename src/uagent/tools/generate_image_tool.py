@@ -208,7 +208,9 @@ def _run_openai_images(
         from openai import AzureOpenAI, OpenAI
     except Exception as e:
         raise RuntimeError(
-            _("err.openai_import", default="Failed to import openai package: {err}").format(err=repr(e))
+            _(
+                "err.openai_import", default="Failed to import openai package: {err}"
+            ).format(err=repr(e))
         )
 
     http_client = None
@@ -218,7 +220,9 @@ def _run_openai_images(
         http_client = httpx.Client(verify=_ssl_verify_enabled())
     except Exception as e:
         raise RuntimeError(
-            _("err.httpx_init", default="Failed to initialize httpx: {err}").format(err=repr(e))
+            _("err.httpx_init", default="Failed to initialize httpx: {err}").format(
+                err=repr(e)
+            )
         )
 
     if provider == "azure":
@@ -277,7 +281,10 @@ def _run_openai_images(
 
     if not b64_list and not url_list:
         raise RuntimeError(
-            _("err.empty_data", default="Image data was empty (resp.data is empty or b64_json/url is missing)")
+            _(
+                "err.empty_data",
+                default="Image data was empty (resp.data is empty or b64_json/url is missing)",
+            )
         )
 
     return {"b64_list": b64_list, "url_list": url_list}
@@ -381,7 +388,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         outdir = _ensure_dir(output_dir)
     except Exception as e:
-        return _("err.mkdir_fail", default="[generate_image] Failed to create output_dir: {err}").format(err=e)
+        return _(
+            "err.mkdir_fail",
+            default="[generate_image] Failed to create output_dir: {err}",
+        ).format(err=e)
 
     ts = time.strftime("%Y%m%d_%H%M%S")
 
@@ -417,9 +427,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             b64_list = _run_gemini_images(image_model=image_model, prompt=prompt)
             saved = _save_many(outdir, file_prefix, ts, b64_list)
         else:
-            return _("err.unsupported_provider", default="[generate_image] Unsupported provider={provider!r}").format(
-                provider=provider
-            )
+            return _(
+                "err.unsupported_provider",
+                default="[generate_image] Unsupported provider={provider!r}",
+            ).format(provider=provider)
 
     except Exception as e:
         return _(

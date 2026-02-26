@@ -29,13 +29,15 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json")
+            p_new = os.path.join(
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
+            )
             if os.path.exists(p_new):
                 return p_new
-            return os.path.join(os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json")
+            return os.path.join(
+                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
+            )
 
-
-from .context import get_callbacks
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -124,7 +126,9 @@ async def _mcp_tools_list_http(url: str) -> Dict[str, Any]:
         return result
 
 
-async def _mcp_tools_list_stdio(command: str, args: List[str], env: Dict[str, str]) -> Dict[str, Any]:
+async def _mcp_tools_list_stdio(
+    command: str, args: List[str], env: Dict[str, str]
+) -> Dict[str, Any]:
     server_params = StdioServerParameters(
         command=command, args=args, env={**os.environ, **(env or {})}
     )
@@ -142,14 +146,20 @@ def run_tool(args: Dict[str, Any]) -> str:
     server_name = args.get("server_name")
     pretty = bool(args.get("pretty", True))
 
-    cb = get_callbacks()
-
     # Resolve url from config if needed
     if (not url) and server_name:
         try:
             from .mcp_servers_list_tool import run_tool as list_servers
 
-            raw = list_servers({"path": None, "pretty": False, "validate": False, "default_only": False, "raw": True})
+            raw = list_servers(
+                {
+                    "path": None,
+                    "pretty": False,
+                    "validate": False,
+                    "default_only": False,
+                    "raw": True,
+                }
+            )
             # list_servers returns json text or text; try parse
             obj = json.loads(raw) if raw.strip().startswith("{") else None
             if obj and isinstance(obj, dict):

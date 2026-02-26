@@ -54,7 +54,9 @@ TOOL_SPEC: Dict[str, Any] = {
                 "top_n": {
                     "type": "integer",
                     "default": 30,
-                    "description": _("param.top_n.description", default="Top N results."),
+                    "description": _(
+                        "param.top_n.description", default="Top N results."
+                    ),
                 },
                 "min_bytes": {
                     "type": "integer",

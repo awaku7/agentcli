@@ -1,10 +1,8 @@
 """Tests for libcst_transform_tool."""
 
 import json
-import os
 import tempfile
 from pathlib import Path
-from typing import Any, Dict
 from unittest.mock import patch
 
 import pytest
@@ -278,8 +276,7 @@ class TestRunToolAnalyze:
     def test_analyze_single_file(self, temp_dir):
         """Test analyzing a single Python file."""
         test_file = temp_dir / "test.py"
-        test_file.write_text(
-            """
+        test_file.write_text("""
 import os
 from typing import List
 
@@ -289,15 +286,15 @@ def foo():
 class Bar:
     def method(self):
         pass
-""".lstrip()
-        )
+""".lstrip())
 
         with patch(
             "uagent.tools.libcst_transform_tool.ensure_within_workdir",
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool({"mode": "analyze", "paths": [str(test_file)]})
 
@@ -325,10 +322,15 @@ class Bar:
             side_effect=mock_ensure_within_workdir,
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
-                    {"mode": "analyze", "paths": [str(temp_dir)], "include_glob": "*.py"}
+                    {
+                        "mode": "analyze",
+                        "paths": [str(temp_dir)],
+                        "include_glob": "*.py",
+                    }
                 )
         parsed = json.loads(result)
 
@@ -345,7 +347,8 @@ class Bar:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool({"mode": "analyze", "paths": [str(test_file)]})
         parsed = json.loads(result)
@@ -370,7 +373,8 @@ class Bar:
             side_effect=mock_ensure_within_workdir,
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
                     {
@@ -405,7 +409,8 @@ class TestRunToolTransform:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 with patch(
                     "uagent.tools.libcst_transform_tool.make_backup_before_overwrite",
@@ -440,7 +445,8 @@ class TestRunToolTransform:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
                     {
@@ -476,7 +482,8 @@ class TestRunToolTransform:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 with patch(
                     "uagent.tools.libcst_transform_tool.make_backup_before_overwrite",
@@ -507,7 +514,8 @@ class TestRunToolTransform:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
                     {
@@ -534,7 +542,8 @@ class TestRunToolTransform:
             return_value=str(test_file),
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
                     {
@@ -623,7 +632,8 @@ class TestSafety:
             side_effect=mock_ensure_within_workdir,
         ):
             with patch(
-                "uagent.tools.libcst_transform_tool.is_path_dangerous", return_value=False
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
             ):
                 result = run_tool(
                     {
@@ -635,9 +645,10 @@ class TestSafety:
                 )
         parsed = json.loads(result)
 
-        assert "max_files exceeded" in str(parsed["walk_errors"]) or parsed[
-            "files_total"
-        ] <= 2
+        assert (
+            "max_files exceeded" in str(parsed["walk_errors"])
+            or parsed["files_total"] <= 2
+        )
 
 
 if __name__ == "__main__":

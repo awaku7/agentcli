@@ -6,9 +6,7 @@ import json
 from typing import Any, Dict, Optional
 
 
-def make_response(
-    ok: bool, message: str, data: Optional[Dict[str, Any]] = None
-) -> str:
+def make_response(ok: bool, message: str, data: Optional[Dict[str, Any]] = None) -> str:
     """Create a standardized JSON response string.
 
     Format:
