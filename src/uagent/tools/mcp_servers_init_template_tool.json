@@ -7,6 +7,7 @@
     "param.default_transport.description": "デフォルトの transport（参考情報）。既定: streamable-http",
     "err.exists": "Error: {path!r} は既に存在します（このツールは上書きしません）",
     "err.fail": "ERROR: 雛形作成に失敗しました: {err}",
-    "out.ok": "OK: created template: {path!r} (default name={name!r})"
+    "out.ok": "OK: created template: {path!r} (default name={name!r})",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }
