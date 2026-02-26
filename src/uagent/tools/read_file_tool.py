@@ -19,6 +19,8 @@ def _is_probably_utf8_head(head: bytes) -> bool:
             (b if cut == 0 else b[:-cut]).decode("utf-8")
             return True
         except UnicodeDecodeError as e:
+            # If the decode fails only because the chunk ended mid-character,
+            # trimming will likely fix it in the next iteration.
             last = str(e).lower()
             if "unexpected end of data" in last:
                 continue
@@ -44,7 +46,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "read_file",
         "description": _(
             "tool.description",
-            default="Read file contents (up to 20,000,000 bytes). Partial reading is possible by specifying start_line and max_lines.",
+            default="Read file contents (up to 1,000,000 bytes). Partial reading is possible by specifying start_line and max_lines.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

@@ -30,7 +30,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "git_ops",
         "description": _(
             "tool.description",
-            default="Run Git commands with safety-first restrictions.",
+            default="Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
