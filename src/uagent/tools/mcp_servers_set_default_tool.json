@@ -13,6 +13,7 @@
     "err.name_not_found": "ERROR: server_name={name!r} が見つかりません",
     "out.already_default": "OK: 既に default です: {name!r}",
     "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
-    "out.ok": "OK: default を切り替えました: {name!r}"
+    "out.ok": "OK: default を切り替えました: {name!r}",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

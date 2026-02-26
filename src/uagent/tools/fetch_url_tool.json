@@ -1,5 +1,9 @@
 {
   "param.url.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'."
+  }
 }

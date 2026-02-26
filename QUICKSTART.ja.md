@@ -145,8 +145,8 @@ uag
 
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
-- `README.md`（Provider の説明）
-- `AGENTS.md`（環境変数の一覧）
+- [`README.md`](README.md)（Provider の説明）
+- [`AGENTS.md`](AGENTS.md)（環境変数の一覧）
 
 ---
 
@@ -162,12 +162,12 @@ uag
 - フォルダ構造を調べる
   - 「このフォルダを解析して。重要なファイル、構成、実行方法を教えて」
 - 特定ファイルを読ませる
-  - 「`README.md` を読んで要点を整理して」
+  - 「[`README.md`](README.md) を読んで要点を整理して」
 
 ---
 
 ## 9. 次に読む
 
-- `README.md`（全体像 / Provider / Web Inspector など）
-- `AGENTS.md`（ツール一覧 / 環境変数 / MCP 最短例）
+- [`README.md`](README.md)（全体像 / Provider / Web Inspector など）
+- [`AGENTS.md`](AGENTS.md)（ツール一覧 / 環境変数 / MCP 最短例）
 - `uag docs develop` / `uag docs webinspect`
