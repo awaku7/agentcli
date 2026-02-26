@@ -157,11 +157,11 @@ Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
 
 ## For Developers
 
-For developer-focused information, see `src/uagent/docs/DEVELOP.md`.
+For developer-focused information, see [`src/uagent/docs/DEVELOP.md`](src/uagent/docs/DEVELOP.md).
 
 Additional docs:
-- `src/uagent/docs/RUNTIME_INIT.md` (startup initialization: workdir/banner/long-term memory)
-- `src/uagent/docs/WEB_UI_LOGGING.md` (Web UI logging/message paths)
+- [`src/uagent/docs/RUNTIME_INIT.md`](src/uagent/docs/RUNTIME_INIT.md) (startup initialization: workdir/banner/long-term memory)
+- [`src/uagent/docs/WEB_UI_LOGGING.md`](src/uagent/docs/WEB_UI_LOGGING.md) (Web UI logging/message paths)
 
 ---
 
@@ -174,7 +174,7 @@ Prerequisites:
 - Browser setup is done (e.g. `python -m playwright install`)
 
 Docs:
-- `src/uagent/docs/WEBINSPECTER.md`
+- [`src/uagent/docs/WEBINSPECTER.md`](src/uagent/docs/WEBINSPECTER.md)
 - `uag docs webinspect` (available even in wheel environments)
 
 ---
@@ -195,7 +195,7 @@ uag docs --open webinspect
 
 ## Install (distribution: wheel)
 
-See **`QUICKSTART.md`** for the Windows-oriented installation steps using a distributed `.whl`.
+See **[`QUICKSTART.md`](QUICKSTART.md)** for the Windows-oriented installation steps using a distributed `.whl`.
 
 - Distribution: GitHub **Releases** page (Assets: `.whl`)
 - Wheel example: `uag-<VERSION>-py3-none-any.whl`
