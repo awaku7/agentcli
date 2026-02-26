@@ -1,5 +1,4 @@
-"""DuckDuckGo HTML interface wrapper for simple web search.
-"""
+"""DuckDuckGo HTML interface wrapper for simple web search."""
 
 from __future__ import annotations
 
@@ -152,7 +151,9 @@ def _duckduckgo_search(
                 logger.info("Found %d results", len(results))
                 return results
 
-            logger.warning("Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1)
+            logger.warning(
+                "Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1
+            )
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
@@ -273,10 +274,16 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     except Exception as e:
         logger.exception(
-            _("error.run_tool_error", default="run_tool error: {error}").format(error="")
+            _("error.run_tool_error", default="run_tool error: {error}").format(
+                error=""
+            )
         )
         return json.dumps(
-            {"error": _("error.run_tool_error", default="run_tool error: {error}").format(error=str(e))},
+            {
+                "error": _(
+                    "error.run_tool_error", default="run_tool error: {error}"
+                ).format(error=str(e))
+            },
             ensure_ascii=False,
         )
 
@@ -306,5 +313,6 @@ def main() -> None:
 if __name__ == "__main__":
     if not _ssl_verify_setting():
         import urllib3
+
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     main()

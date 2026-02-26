@@ -175,9 +175,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             timeout=cb.cmd_exec_timeout_ms / 1000.0,
         )
     except subprocess.TimeoutExpired:
-        return _("err.timeout", default="[pwsh_exec timeout] did not finish within {seconds} seconds").format(
-            seconds=cb.cmd_exec_timeout_ms / 1000.0
-        )
+        return _(
+            "err.timeout",
+            default="[pwsh_exec timeout] did not finish within {seconds} seconds",
+        ).format(seconds=cb.cmd_exec_timeout_ms / 1000.0)
     except Exception as e:
         return f"[pwsh_exec error] {type(e).__name__}: {e}"
 

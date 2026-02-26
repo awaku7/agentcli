@@ -100,4 +100,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         os.remove(safe_path)
 
-    return json.dumps({"ok": True, "deleted": True, "path": safe_path}, ensure_ascii=False)
+    return json.dumps(
+        {"ok": True, "deleted": True, "path": safe_path}, ensure_ascii=False
+    )

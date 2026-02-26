@@ -850,7 +850,9 @@ def graph_rag_search(
 ) -> str:
     root_abs = os.path.abspath(root_path)
     if not os.path.isdir(root_abs):
-        return _("err.dir_not_found", default="Error: Directory not found: {root_path}").format(root_path=root_path)
+        return _(
+            "err.dir_not_found", default="Error: Directory not found: {root_path}"
+        ).format(root_path=root_path)
 
     db_path = vec_tool._get_db_path(root_abs)
     vec_tool._init_db(db_path)
@@ -920,12 +922,17 @@ def graph_rag_search(
 
     out: List[str] = []
     out.append(_("out.query", default="Search Query: {query}").format(query=query))
-    out.append(_("out.target_dir", default="Target Directory: {root_path}").format(root_path=root_path))
+    out.append(
+        _("out.target_dir", default="Target Directory: {root_path}").format(
+            root_path=root_path
+        )
+    )
     out.append(_("out.db", default="DB: {db_path}").format(db_path=db_path))
     out.append(
-        _("out.hits_summary", default="vector_hits: {v} / graph_hits: {g} / merged: {m}").format(
-            v=len(vec_hits), g=len(graph_hits), m=len(merged)
-        )
+        _(
+            "out.hits_summary",
+            default="vector_hits: {v} / graph_hits: {g} / merged: {m}",
+        ).format(v=len(vec_hits), g=len(graph_hits), m=len(merged))
     )
 
     if all_warnings:
@@ -936,7 +943,12 @@ def graph_rag_search(
                 continue
             s.add(w)
             uniq_w.append(w)
-        out.append(_("warn.indexing_title", default="\n[WARN] Indexing warnings (de-duplicated, top 50):"))
+        out.append(
+            _(
+                "warn.indexing_title",
+                default="\n[WARN] Indexing warnings (de-duplicated, top 50):",
+            )
+        )
         for w in uniq_w[:50]:
             out.append(f"- {w}")
 
@@ -951,7 +963,11 @@ def graph_rag_search(
         out.append(
             f"[{rank}] source={h.source} score={h.score:.4f} file={rel_path} (vector_id={h.vector_id})"
         )
-        out.append(_("out.result_content", default="Content: {snippet}\n").format(snippet=snippet))
+        out.append(
+            _("out.result_content", default="Content: {snippet}\n").format(
+                snippet=snippet
+            )
+        )
 
     if not merged:
         out.append(_("out.no_docs", default="No relevant documents found."))
@@ -994,8 +1010,19 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "query": {"type": "string", "description": _("param.query.description", default="Search query (required).")},
-                "root_path": {"type": "string", "description": _("param.root_path.description", default="Target directory for search.")},
+                "query": {
+                    "type": "string",
+                    "description": _(
+                        "param.query.description", default="Search query (required)."
+                    ),
+                },
+                "root_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.root_path.description",
+                        default="Target directory for search.",
+                    ),
+                },
                 "file_pattern": {
                     "type": "string",
                     "description": _(
@@ -1017,11 +1044,24 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Number of results to retrieve via graph traversal.",
                     ),
                 },
-                "hops": {"type": "integer", "description": _("param.hops.description", default="Number of hops for graph traversal.")},
-                "chunk_size": {"type": "integer", "description": _("param.chunk_size.description", default="Chunk size.")},
+                "hops": {
+                    "type": "integer",
+                    "description": _(
+                        "param.hops.description",
+                        default="Number of hops for graph traversal.",
+                    ),
+                },
+                "chunk_size": {
+                    "type": "integer",
+                    "description": _(
+                        "param.chunk_size.description", default="Chunk size."
+                    ),
+                },
                 "overlap": {
                     "type": "integer",
-                    "description": _("param.overlap.description", default="Chunk overlap."),
+                    "description": _(
+                        "param.overlap.description", default="Chunk overlap."
+                    ),
                 },
             },
             "required": ["query"],

@@ -20,7 +20,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- Output size is automatically trimmed to the internal maximum byte limit."
             ),
         ),
-        "system_prompt": _("tool.system_prompt", default="This tool executes the functionality described in TOOL_SPEC."),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool executes the functionality described in TOOL_SPEC.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {},

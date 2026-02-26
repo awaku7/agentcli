@@ -99,7 +99,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
     if os.path.exists(path):
-        return _("err.exists", default="Error: {path!r} already exists (this tool will not overwrite).").format(path=path)
+        return _(
+            "err.exists",
+            default="Error: {path!r} already exists (this tool will not overwrite).",
+        ).format(path=path)
 
     data: Dict[str, Any] = {
         "mcp_servers": [
@@ -118,7 +121,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         except ImportError:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(content)
-            return _("out.ok", default="OK: created template: {path!r} (default name={name!r})").format(path=path, name=default_name)
+            return _(
+                "out.ok",
+                default="OK: created template: {path!r} (default name={name!r})",
+            ).format(path=path, name=default_name)
 
         create_file(
             {
@@ -129,6 +135,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             }
         )
     except Exception as e:
-        return _("err.fail", default="ERROR: Failed to create template: {err}").format(err=e)
+        return _("err.fail", default="ERROR: Failed to create template: {err}").format(
+            err=e
+        )
 
-    return _("out.ok", default="OK: created template: {path!r} (default name={name!r})").format(path=path, name=default_name)
+    return _(
+        "out.ok", default="OK: created template: {path!r} (default name={name!r})"
+    ).format(path=path, name=default_name)

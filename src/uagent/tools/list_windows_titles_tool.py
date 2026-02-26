@@ -74,7 +74,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     """
 
     if sys.platform != "win32":
-        return json.dumps({"error": "This tool runs on Windows (win32) only."}, ensure_ascii=False)
+        return json.dumps(
+            {"error": "This tool runs on Windows (win32) only."}, ensure_ascii=False
+        )
 
     include_all = bool(args.get("all", False))
     include_pid = bool(args.get("pid", False))

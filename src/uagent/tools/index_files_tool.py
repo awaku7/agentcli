@@ -122,7 +122,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         _("out.success", default="Success: {count}").format(count=success_count),
     ]
     if error_count > 0:
-        result.append(_("out.fail", default="Failed: {count}").format(count=error_count))
+        result.append(
+            _("out.fail", default="Failed: {count}").format(count=error_count)
+        )
 
     result.append(
         _(
