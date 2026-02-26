@@ -1,5 +1,6 @@
 # src/scheck/tools/calculator_tool.py
 from .i18n_helper import make_tool_translator
+from .arg_util import get_str
 
 _ = make_tool_translator(__file__)
 
@@ -34,7 +35,7 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
-    expression = args.get("expression", "")
+    expression = get_str(args, "expression", "")
     if not expression:
         return "[calculator]\nError: No expression provided."
 
