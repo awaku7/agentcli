@@ -1,0 +1,9 @@
+{
+  "ja": {
+    "confirm.risky_command": "危険度が高い可能性のあるコマンドが検出されました。\ncommand: {command}\n実行してよければ y、キャンセルなら c と入力してください。",
+    "confirm.shell_metachar": "コマンド連結/リダイレクト等が含まれます。\ncommand: {command}\n実行してよければ y、キャンセルなら c と入力してください。",
+    "ui.confirm.title": "=== 人への依頼 (confirm) ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "回答方法: y=実行 / c=キャンセル / その他=拒否\n"
+  }
+}
