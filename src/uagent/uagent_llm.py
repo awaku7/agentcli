@@ -172,11 +172,14 @@ def run_llm_rounds(
                 if v == "":
                     return bool(default)
                 return v in ("1", "true", "yes", "on")
+
             stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 
             # If translation is enabled, disable streaming to avoid mismatched partial outputs.
             # (We translate per-call, not per-delta.)
-            if tr_cfg is not None and ((tr_cfg.to_llm or "").strip() or (tr_cfg.from_llm or "").strip()):
+            if tr_cfg is not None and (
+                (tr_cfg.to_llm or "").strip() or (tr_cfg.from_llm or "").strip()
+            ):
                 stream_responses = False
 
             send_tools_this_round = True
@@ -209,7 +212,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(
@@ -296,7 +299,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(
@@ -510,7 +513,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(

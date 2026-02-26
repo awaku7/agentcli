@@ -1,7 +1,14 @@
 {
-  "param.message.description": "",
-  "param.on_timeout_prompt.description": "",
-  "param.seconds.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
+    "param.seconds.description": "タイマーの秒数。",
+    "param.message.description": "完了時に表示するメッセージ。",
+    "param.on_timeout_prompt.description": "満了時にLLMへ自動入力する内容。",
+    "err.seconds_invalid": "[set_timer error] seconds が整数として解釈できません: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds は 0 以上で指定してください: {val}",
+    "msg.default_timer_done": "タイマー終了",
+    "err.queue_uninitialized": "[set_timer error] event_queue コールバックが初期化されていません。",
+    "out.ok": "[set_timer] {seconds}秒でタイマーセット: {message} (on_timeout_prompt={prompt})"
+  }
 }

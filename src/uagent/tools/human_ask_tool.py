@@ -4,13 +4,13 @@ from __future__ import annotations
 from typing import Any, Dict
 import json
 import queue
-from .context import get_callbacks
 
+from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-BUSY_LABEL = False  # human_ask は Busy を解除する（tools/__init__.py 側で特別扱い）
+BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init__.py)
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -19,32 +19,30 @@ TOOL_SPEC: Dict[str, Any] = {
         "x_scheck": {"emit_tool_trace": False},
         "description": _(
             "tool.description",
-            default="モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",
+            default=(
+                "A tool to ask the human user for an input/decision that the model cannot complete by itself. "
+                "Security note: when requesting secrets (passwords/tokens), set is_password=True and ask for exactly one item per call."
+            ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
-            default="""このツールは次の目的で使われます: モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。
-
-重要: このツールは 1回の呼び出しで 1つの回答テキストしか受け取れません。入力を複数フィールドに分割したり、フィールドごとにマスク有無を切り替える機能はありません。
-
-【最重要: セキュリティ】
-- 秘匿情報（パスワード、APIキー、トークン、秘密鍵、セッションCookie等）を入力させる場合は、必ず is_password=True を指定してください。
-- is_password=True で取得した回答（user_reply）は、以後のあなたの返答（Assistant message）の中で**絶対に復唱しないでください**。
-  - 悪い例: 「パスワード『password123』を受け取りました。ログインします」
-  - 良い例: 「パスワードを受け取りました。ログイン処理を開始します」
-- パスワード等の秘匿情報を長期記憶や共有メモに保存しないでください。
-
-このツールの動作指針:
-- 追加のユーザー入力が必要な場合は必ず human_ask ツールを使用してください。
-- is_password=True の呼び出しでは、秘匿情報 1項目のみを尋ねてください。
-- ユーザー名 + パスワード等が必要な場合は、必ず human_ask を2回以上に分けてください。
-- 1回の human_ask で複数項目の入力を同時に要求してはいけません。
-- 相対日付（今日／今年など）を扱う場合は get_current_time を呼んで現在時刻を参照してください。
-- ファイルやコード出力は原文全体を省略せずに出力すること（ユーザー指示がない場合）。
-
-キャンセル方法:
-- キャンセルしたい場合は 1 行で「c」または「cancel」と入力してください。
-""",
+            default=(
+                "This tool is used for the following purpose: ask the human user for an input/decision that the model cannot complete by itself and receive a single reply text.\n\n"
+                "Important: This tool can receive only one reply text per call. Do not split input into multiple fields.\n\n"
+                "SECURITY (MOST IMPORTANT):\n"
+                "- When requesting secrets (passwords, API keys, tokens, private keys, session cookies, etc.), you MUST set is_password=True.\n"
+                "- Never repeat a secret obtained with is_password=True in any later assistant messages.\n"
+                "- Do not store secrets in long-term memory or shared memory.\n\n"
+                "Operational guidelines:\n"
+                "- If additional user input is needed, always use the human_ask tool.\n"
+                "- With is_password=True, ask for only one secret item.\n"
+                "- If both username and password are required, call human_ask multiple times.\n"
+                "- Do not request multiple items in a single call.\n"
+                "- For relative date expressions (today/this year/etc.), call get_current_time.\n"
+                "- When outputting files or code, do not omit the full original content unless the user explicitly requests it.\n\n"
+                "Cancellation:\n"
+                "- To cancel, reply with a single line: 'c' or 'cancel'.\n"
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -53,14 +51,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.message.description",
-                        default="人間に依頼したい内容を、日本語で丁寧にそのまま表示できる形で書く。",
+                        default="Message to show to the human user.",
                     ),
                 },
                 "is_password": {
                     "type": "boolean",
                     "description": _(
                         "param.is_password.description",
-                        default="true の場合、入力文字を非表示（マスク）にします。パスワードやトークンの入力に使用してください。",
+                        default=(
+                            "If true, hide input characters (mask). Use this when requesting passwords or tokens."
+                        ),
                     ),
                     "default": False,
                 },
@@ -72,59 +72,88 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """human_ask は stdin から直接読むのではなく、
-    scheck.py 側の stdin_loop スレッドに処理を任せて
-    共有状態（callbacks）経由で結果を受け取る。
+    """human_ask does not read from stdin directly.
+
+    It delegates handling to the host's stdin_loop thread (in scheck.py) and receives the
+    result via the shared callbacks.
     """
 
     cb = get_callbacks()
 
-    message = (
-        args.get("message")
-        or "（LLMからの依頼内容が空です。必要な操作や判断をここに日本語で書いてください。）"
+    message = args.get("message") or _(
+        "msg.empty_request",
+        default=(
+            "(The request message from the model is empty. Please describe the required action/decision here.)"
+        ),
     )
 
     is_password = bool(args.get("is_password", False))
 
-    if True:
-        print("=== 人への依頼 (human_ask) ===", flush=True)
-        print(message, flush=True)
-        print("=== /human_ask ===", flush=True)
-        # GUI の場合は回答方法の説明を表示しない（GUI で操作可能）
-        if not cb.is_gui:
-            print(
-                "回答方法:\n"
-                "  - そのまま入力して Enter で送信\n"
-                "  - 'f' 入力で複数行モードへ\n"
-                '  - 複数行モード中: \'"""retry\' でクリア、\'"""end\' で送信\n'
-                "  - 'c' または 'cancel' で中断\n",
-                flush=True,
-            )
+    print(_("ui.title", default="=== Human request (human_ask) ==="), flush=True)
+    print(message, flush=True)
+    print(_("ui.footer", default="=== /human_ask ==="), flush=True)
+
+    # For GUI, do not print extra how-to text (GUI has its own controls).
+    if not cb.is_gui:
+        print(
+            _(
+                "ui.howto",
+                default=(
+                    "How to reply:\n"
+                    "  - Type your answer and press Enter\n"
+                    "  - Type 'f' to enter multi-line mode\n"
+                    '  - In multi-line mode: \'"""retry\' clears, \'"""end\' sends\n'
+                    "  - Type 'c' or 'cancel' to cancel\n"
+                ),
+            ),
+            flush=True,
+        )
 
     if cb.human_ask_lock is None:
-        return "[human_ask error] human_ask_lock コールバックが初期化されていません。"
+        return _(
+            "err.lock_uninitialized",
+            default="[human_ask error] human_ask_lock callback is not initialized.",
+        )
 
     if cb.human_ask_active_ref is None or cb.human_ask_set_active is None:
-        return "[human_ask error] human_ask_active コールバックが初期化されていません。"
+        return _(
+            "err.active_uninitialized",
+            default="[human_ask error] human_ask_active callbacks are not initialized.",
+        )
 
     if cb.human_ask_set_queue is None:
-        return "[human_ask error] human_ask_queue コールバックが初期化されていません。"
+        return _(
+            "err.queue_uninitialized",
+            default="[human_ask error] human_ask_queue callback is not initialized.",
+        )
 
     if cb.human_ask_lines_ref is None:
-        return "[human_ask error] human_ask_lines コールバックが初期時されていません。"
+        return _(
+            "err.lines_uninitialized",
+            default="[human_ask error] human_ask_lines callback is not initialized.",
+        )
 
     if cb.human_ask_set_multiline_active is None:
-        return "[human_ask error] human_ask_multiline_active コールバックが初期化されていません。"
+        return _(
+            "err.multiline_uninitialized",
+            default="[human_ask error] human_ask_multiline_active callback is not initialized.",
+        )
 
     if cb.human_ask_set_password is None:
-        return "[human_ask error] human_ask_set_password コールバックが初期化されていません。"
+        return _(
+            "err.password_uninitialized",
+            default="[human_ask error] human_ask_set_password callback is not initialized.",
+        )
 
-    # この human_ask 呼び出し専用のキュー
+    # Queue dedicated to this human_ask call
     local_q: "queue.Queue[str]" = queue.Queue()
 
     with cb.human_ask_lock:
         if cb.human_ask_active_ref():
-            return "[human_ask error] すでに別の human_ask が実行中です。"
+            return _(
+                "err.already_active",
+                default="[human_ask error] Another human_ask is already active.",
+            )
 
         cb.human_ask_set_active(True)
         cb.human_ask_set_password(is_password)
@@ -139,14 +168,14 @@ def run_tool(args: Dict[str, Any]) -> str:
         cb.human_ask_set_multiline_active(False)
 
     try:
-        # 全ての状態をセットし終わった後に Busy を解除することで、stdin_loop が
-        # 確実に is_password=True を検知してからプロンプトを表示できるようにする。
+        # After all state is set, clear Busy so the frontend can show input.
         if cb.set_status:
             cb.set_status(False, "")
-        # stdin_loop/GUI が human_ask 用の入力を local_q に投げる
+
+        # stdin_loop/GUI sends the user input to local_q
         user_reply = local_q.get() or ""
 
-        def _split_keep_lines(s: str) -> list:
+        def _split_keep_lines(s: str) -> list[str]:
             # normalize CRLF/CR to LF
             s2 = str(s).replace("\r\n", "\n").replace("\r", "\n")
             return s2.split("\n")
@@ -171,21 +200,21 @@ def run_tool(args: Dict[str, Any]) -> str:
             return t
 
         def _ensure_gui_sentinel(text: str) -> str:
-            """GUI からの返答は multi_input_sentinel 行で必ず終わるようにする。"""
+            """Ensure GUI replies always end with multi_input_sentinel line."""
             t = str(text or "")
-            # キャンセルは sentinel を付けず、そのまま扱う
+            # For cancel, do not append sentinel
             if t.strip().lower() in ("c", "cancel"):
                 return t
             lines0 = _split_keep_lines(t)
-            # 既に sentinel 行が含まれていればそのまま（途中出現も許容）
+            # If sentinel line is already present, keep as-is.
             if any((ln.strip() == cb.multi_input_sentinel) for ln in lines0):
                 return t
-            # 空入力も含めて sentinel で確定できるようにする
+            # Allow confirmation with sentinel even for empty input
             if t.endswith("\n") or t == "":
                 return t + cb.multi_input_sentinel + "\n"
             return t + "\n" + cb.multi_input_sentinel + "\n"
 
-        # GUI の場合は sentinel 付きに正規化
+        # For GUI, normalize with sentinel
         if cb.is_gui:
             user_reply = _ensure_gui_sentinel(user_reply)
 
@@ -195,25 +224,16 @@ def run_tool(args: Dict[str, Any]) -> str:
         reply_lines = _split_keep_lines(user_reply) if user_reply else []
 
         # ---------------------------------------------------------
-        # 内部状態 (core.human_ask_lines) の同期
+        # Sync internal state (core.human_ask_lines)
         # ---------------------------------------------------------
-        # stdin_loop が既に入力を処理して local_q に投げた後の場合、
-        # ここで再度解析すると誤判定の恐れがあるため、同期のみを行う。
-        if cb.is_gui:
-            # GUI の場合: 全行を積む
-            cb.human_ask_set_multiline_active(True)
-            lines.clear()
-            for line in reply_lines:
-                lines.append(line)
-        else:
-            # CUI の場合: 既に stdin_loop で処理済みの文字列が来ている
-            # lines に全内容を同期する（履歴保存等のため）
-            lines.clear()
-            for line in reply_lines:
-                lines.append(line)
+        lines.clear()
+        for line in reply_lines:
+            lines.append(line)
+        cb.human_ask_set_multiline_active(True)
 
         if not user_reply:
-            user_reply = "(no user reply)"
+            user_reply = _("msg.no_user_reply", default="(no user reply)")
+
         # normalize cancel
         ur = user_reply.strip().lower()
         cancelled = ur in ("c", "cancel")
@@ -226,8 +246,8 @@ def run_tool(args: Dict[str, Any]) -> str:
             "display_reply": display_reply,
             "cancelled": cancelled,
         }
-        # モデルには user_reply を渡すが、ログ等で display_reply を見るように促す
         return json.dumps(payload, ensure_ascii=False)
+
     finally:
         with cb.human_ask_lock:
             cb.human_ask_set_active(False)

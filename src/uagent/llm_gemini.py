@@ -387,20 +387,27 @@ def gemini_chat_with_tools(
         ]
 
     cfg_kwargs: Dict[str, Any] = {}
+
+    # NOTE:
+    # cached_content を使う場合でも tools / system_instruction を併用しないと、
+    # tool call / tool response の整合性が壊れて 400 INVALID_ARGUMENT
+    # (function response turn comes immediately after a function call turn)
+    # を誘発することがある。
+    # そのため cached_content の有無に関わらず、指定があれば併用する。
     if cached_content:
         cfg_kwargs["cached_content"] = cached_content
-    else:
-        if tools_list:
-            cfg_kwargs["tools"] = tools_list
-            try:
-                cfg_kwargs["automatic_function_calling"] = (
-                    gemini_types.AutomaticFunctionCallingConfig(disable=True)
-                )
-            except Exception:
-                pass
 
-        if system_instruction:
-            cfg_kwargs["system_instruction"] = system_instruction
+    if tools_list:
+        cfg_kwargs["tools"] = tools_list
+        try:
+            cfg_kwargs["automatic_function_calling"] = (
+                gemini_types.AutomaticFunctionCallingConfig(disable=True)
+            )
+        except Exception:
+            pass
+
+    if system_instruction:
+        cfg_kwargs["system_instruction"] = system_instruction
 
     config_obj = (
         gemini_types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None

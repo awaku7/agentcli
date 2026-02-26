@@ -10,7 +10,6 @@ from typing import Any, Dict
 
 from . import shared_memory
 
-
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {

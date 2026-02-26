@@ -160,6 +160,7 @@ def _human_confirm(message: str) -> bool:
 
 
 def run_tool(args: Dict[str, Any]) -> str:
+    _ = make_tool_translator(__file__)
     action = str(args.get("action") or "")
     zip_path = str(args.get("zip_path") or "")
     sources = args.get("sources", []) or []

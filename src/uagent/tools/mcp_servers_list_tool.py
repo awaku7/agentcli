@@ -22,39 +22,49 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers_list",
-        "description": (
-            "mcp_servers.json の MCP サーバー定義を一覧表示します。"
-            "mcp_tools_list(url省略) が参照する接続先候補を可視化するためのツールです。"
+        "description": _(
+            "tool.description",
+            default="Lists the MCP server definitions in mcp_servers.json. This tool helps visualize possible targets referenced by mcp_tools_list (when url is omitted).",
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
+                    "description": _(
+                        "param.path.description",
+                        default="Path to the server list JSON. Defaults to the standard location if omitted.",
+                    ),
                 },
                 "pretty": {
                     "type": "boolean",
-                    "description": _("param.pretty.description", default="true の場合は JSON を整形して返します（既定: true）"),
+                    "description": _(
+                        "param.pretty.description",
+                        default="If true, return pretty-printed JSON. Default is true.",
+                    ),
                     "default": True,
                 },
                 "validate": {
                     "type": "boolean",
-                    "description": (
-                        "true の場合は簡易バリデーション（必須キー/型/name重複/空URL等）を行い、"
-                        "警告を表示します（既定: true）"
+                    "description": _(
+                        "param.validate.description",
+                        default="If true, perform basic validation (required keys, types, duplicate names, empty URLs, etc.) and show warnings. Default is true.",
                     ),
                     "default": True,
                 },
                 "default_only": {
                     "type": "boolean",
-                    "description": _("tool.description", default="true の場合はデフォルト（mcp_servers[0]）のみ返します（既定: false）"),
+                    "description": _(
+                        "param.default_only.description",
+                        default="If true, return only the default server (mcp_servers[0]). Default is false.",
+                    ),
                     "default": False,
                 },
                 "raw": {
                     "type": "boolean",
-                    "description": (
-                        "true の場合は人間向けの整形テキストを付けず、JSON 文字列のみ返します（既定: false）"
+                    "description": _(
+                        "param.raw.description",
+                        default="If true, return only the JSON string without human-readable formatting. Default is false.",
                     ),
                     "default": False,
                 },
@@ -70,29 +80,42 @@ def _load_config(path: str) -> Tuple[Dict[str, Any], List[str]]:
 
     if not os.path.exists(path):
         return {"mcp_servers": []}, [
-            f"WARNING: {path!r} が存在しません（空リストとして扱います）"
+            _(
+                "warn.not_exists",
+                default="WARNING: {path!r} does not exist (treating as empty list).",
+            ).format(path=path)
         ]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            warnings.append("WARNING: ルートが dict ではありません")
+            warnings.append(
+                _("warn.root_not_dict", default="WARNING: root is not a dictionary.")
+            )
             return {"mcp_servers": []}, warnings
         if "mcp_servers" not in data:
             warnings.append(
-                "WARNING: 'mcp_servers' キーがありません（空リストとして扱います）"
+                _(
+                    "warn.no_mcp_servers",
+                    default="WARNING: 'mcp_servers' key is missing (treating as empty list).",
+                )
             )
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
             warnings.append(
-                "WARNING: 'mcp_servers' が list ではありません（空リストとして扱います）"
+                _(
+                    "warn.mcp_servers_not_list",
+                    default="WARNING: 'mcp_servers' is not a list (treating as empty list).",
+                )
             )
             data["mcp_servers"] = []
         return data, warnings
     except Exception as e:
         return {"mcp_servers": []}, [
-            f"WARNING: {path!r} の読み込みに失敗しました: {type(e).__name__}: {e}"
+            _(
+                "warn.load_fail", default="WARNING: Failed to load {path!r}: {err}"
+            ).format(path=path, err=e)
         ]
 
 
@@ -102,29 +125,51 @@ def _validate_servers(servers: List[Any]) -> List[str]:
     seen_names: Dict[str, int] = {}
     for idx, s in enumerate(servers):
         if not isinstance(s, dict):
-            warnings.append(f"WARNING: mcp_servers[{idx}] が dict ではありません")
+            warnings.append(
+                _(
+                    "warn.item_not_dict",
+                    default="WARNING: mcp_servers[{idx}] is not a dictionary.",
+                ).format(idx=idx)
+            )
             continue
 
         name = s.get("name")
         url = s.get("url")
 
         if not isinstance(name, str) or not name.strip():
-            warnings.append(f"WARNING: mcp_servers[{idx}].name が未設定/空です")
+            warnings.append(
+                _(
+                    "warn.name_missing",
+                    default="WARNING: mcp_servers[{idx}].name is missing or empty.",
+                ).format(idx=idx)
+            )
         else:
             seen_names[name] = seen_names.get(name, 0) + 1
 
         if not isinstance(url, str) or not url.strip():
-            warnings.append(f"WARNING: mcp_servers[{idx}].url が未設定/空です")
+            warnings.append(
+                _(
+                    "warn.url_missing",
+                    default="WARNING: mcp_servers[{idx}].url is missing or empty.",
+                ).format(idx=idx)
+            )
         else:
             if not url.rstrip().endswith("/mcp"):
                 warnings.append(
-                    f"WARNING: mcp_servers[{idx}].url={url!r} は '/mcp' で終わっていません。"
-                    "（handle_mcp_v2 / mcp_tools_list は自動補完しますが、明示推奨です）"
+                    _(
+                        "warn.url_no_mcp",
+                        default="WARNING: mcp_servers[{idx}].url={url!r} does not end with '/mcp'. (handle_mcp_v2 / mcp_tools_list will auto-append, but explicit suffix is recommended)",
+                    ).format(idx=idx, url=url)
                 )
 
     for n, c in seen_names.items():
         if c > 1:
-            warnings.append(f"WARNING: name={n!r} が重複しています（{c}件）")
+            warnings.append(
+                _(
+                    "warn.name_duplicate",
+                    default="WARNING: name={name!r} is duplicated ({count} times).",
+                ).format(name=n, count=c)
+            )
 
     return warnings
 
@@ -150,7 +195,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     if validate:
         warnings.extend(_validate_servers(servers))
 
-    # 表示対象
     view_servers = servers[:1] if default_only else servers
 
     out_obj: Dict[str, Any] = {

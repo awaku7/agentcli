@@ -1,123 +1,68 @@
-"""
+"""Safe wrappers and utilities for local file operations.
 
-safe_file_ops.py
+This module provides safety checks (user confirmation) for operations that can be risky,
+including creating files, deleting files/directories, renaming/moving paths, and generating
+a prompt file from a target file.
 
+Policy (B: Medium):
+- Always ask for user confirmation when an obviously risky operation is detected:
+  - outside workdir
+  - absolute paths
+  - path traversal (..)
+- Otherwise, proceed as usual.
 
+Confirmation UI:
+- Prefer the same mechanism as human_ask (shared queue consumed by stdin_loop).
+- If another human_ask is active, wait for a while and then start confirmation.
+- If callbacks are unavailable, fall back to input().
 
-ローカルでのファイル書き込み／削除／リネーム(移動)／プロンプト生成に対する安全ラッパー。
-
-
-
-方針(B: 中):
-
-- 露骨に危険な操作（workdir 外、絶対パス、パス traversal など）を検出したら必ずユーザー確認。
-
-- それ以外は従来どおり実行。
-
-
-
-確認UI:
-
-- 原則として human_ask と同等の仕組み（stdin_loop が拾う共有キュー）で確認する。
-
-- 他の human_ask がアクティブな場合は一定時間待機してから確認を開始する。
-
-- コールバックが利用できない場合のみ input() にフォールバック。
-
-
-
-キャンセル:
-
-- 'c' または 'cancel' でキャンセル。
-
+Cancel:
+- 'c' or 'cancel' means cancel.
 """
 
 from __future__ import annotations
 
-
 import hashlib
-
 import os
-
 import shutil
-
 import time
-
 from pathlib import Path
-
 from typing import Optional
 
-
 from .context import get_callbacks
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 _allowed_paths: set[str] = set()
 
 
-def _resolve_path(p: str) -> str:
+# --- Internal Helpers ---
 
+
+def _resolve_path(p: str) -> str:
     return str(Path(p).expanduser().resolve())
 
 
 def _workdir_root() -> str:
-
     return str(Path(os.getcwd()).resolve())
 
 
 def _is_under(root: str, target: str) -> bool:
-
     try:
-
         Path(target).relative_to(Path(root))
-
         return True
-
     except Exception:
-
         return False
 
 
 def _is_trigger_path(p: str) -> bool:
-    """トリガー条件(B: 中):
-
-    - パスに ".." が含まれる
-
-    - 絶対パス
-
-    - workdir(cwd) 配下ではない
-
-    """
-
-    try:
-
-        path_obj = Path(p)
-
-    except Exception:
-
-        return True
-
-    if ".." in str(p).replace("\\", "/"):
-
-        return True
-
-    if path_obj.is_absolute():
-
-        return True
-
-    resolved = _resolve_path(p)
-
-    if not _is_under(_workdir_root(), resolved):
-
-        return True
-
-    return False
+    """Internal trigger check."""
+    return is_path_dangerous(p)
 
 
 def _human_confirm(message: str) -> bool:
-
     cb = get_callbacks()
-
-    # If callbacks are not available, fallback.
-
     if (
         cb.human_ask_lock is None
         or cb.human_ask_active_ref is None
@@ -127,229 +72,237 @@ def _human_confirm(message: str) -> bool:
         or cb.human_ask_lines_ref is None
         or cb.human_ask_set_multiline_active is None
     ):
-
         try:
-
             resp = input(message + "\n[y/c/N]: ")
-
         except Exception:
-
             return False
-
         r = resp.strip().lower()
-
         return r == "y"
 
     import queue as _queue
 
     local_q: "_queue.Queue[str]" = _queue.Queue()
-
-    # Wait until no other human_ask is active.
-
-    # This avoids rejecting confirmations during nested workflows.
-
     wait_timeout_sec = 30.0
-
     poll_interval_sec = 0.1
-
     start = time.time()
 
     while True:
-
         with cb.human_ask_lock:
-
             busy = cb.human_ask_active_ref()
-
             if not busy:
-
                 cb.human_ask_set_active(True)
-
                 cb.human_ask_set_queue(local_q)
-
                 lines = cb.human_ask_lines_ref()
-
                 try:
-
                     lines.clear()
-
                 except Exception:
-
                     pass
-
                 cb.human_ask_set_multiline_active(False)
-
                 break
-
         if time.time() - start > wait_timeout_sec:
-
             return False
-
         time.sleep(poll_interval_sec)
 
     try:
-
-        print("\n=== 人への依頼 (confirm) ===", flush=True)
-
+        print(
+            "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
+            flush=True,
+        )
         print(message, flush=True)
-
-        print("=== /confirm ===\n", flush=True)
-
-        print("回答方法: y=実行 / c=キャンセル / その他=拒否\n", flush=True)
-
+        print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
+        print(
+            _(
+                "ui.confirm.howto",
+                default="How to reply: y=proceed / c=cancel / other=deny\n",
+            ),
+            flush=True,
+        )
         user_reply = local_q.get()
 
     finally:
-
         with cb.human_ask_lock:
-
             cb.human_ask_set_active(False)
-
             cb.human_ask_set_queue(None)
-
             cb.human_ask_set_multiline_active(False)
 
     ur = (user_reply or "").strip().lower()
-
     return ur == "y"
 
 
 def _ask_user_confirm(path: str, operation: str) -> bool:
-
-    msg = (
-        "この操作は危険な可能性があるため確認します。\n"
-        f"操作: {operation}\n"
-        f"パス: {path}\n"
-        "実行してよければ y、キャンセルなら c と入力してください。"
-    )
-
+    msg = _(
+        "confirm.risky_op",
+        default=(
+            "This operation might be dangerous, so confirmation is required.\n"
+            "operation: {operation}\n"
+            "path: {path}\n"
+            "Reply with y to proceed, or c to cancel."
+        ),
+    ).format(operation=operation, path=path)
     return _human_confirm(msg)
 
 
 def _ask_user_confirm_rename(src: str, dst: str, details: str) -> bool:
-
-    msg = (
-        "rename/move は実ファイルを移動します（上書きや削除を伴う場合があります）。\n"
-        f"src: {src}\n"
-        f"dst: {dst}\n"
-        f"details: {details}\n\n"
-        "実行してよければ y、キャンセルなら c と入力してください。"
-    )
-
+    msg = _(
+        "confirm.rename",
+        default=(
+            "rename/move will move real files (it may overwrite or delete existing files).\n"
+            "src: {src}\n"
+            "dst: {dst}\n"
+            "details: {details}\n\n"
+            "Reply with y to proceed, or c to cancel."
+        ),
+    ).format(src=src, dst=dst, details=details)
     return _human_confirm(msg)
 
 
 def _ensure_parent_dir_exists(path: str) -> None:
-
     parent = Path(path).parent
-
     if not parent.exists():
-
         parent.mkdir(parents=True, exist_ok=True)
+
+
+# --- Public Utilities ---
+
+
+def is_path_dangerous(p: str) -> bool:
+    """Determine if a path is dangerous (e.g. outside workdir or contains '..')."""
+    if not p:
+        return True
+    try:
+        path_obj = Path(p)
+    except Exception:
+        return True
+    if ".." in str(p).replace("\\", "/"):
+        return True
+    if path_obj.is_absolute():
+        return True
+    resolved = _resolve_path(p)
+    if not _is_under(_workdir_root(), resolved):
+        return True
+    return False
+
+
+def ensure_within_workdir(p: str) -> str:
+    """Resolve p and ensure it is within the workdir. Returns the absolute path."""
+    if not p:
+        raise ValueError("path is empty")
+    resolved = _resolve_path(p)
+    root = _workdir_root()
+    if not _is_under(root, resolved):
+        raise PermissionError(f"path is outside workdir: root={root} path={resolved}")
+    return resolved
+
+
+def make_backup_before_overwrite(filename: str) -> str:
+    """Create a backup (.org/.orgN) of filename and return its path."""
+    if not os.path.exists(filename):
+        raise FileNotFoundError(f"file not found: {filename}")
+
+    base = filename + ".org"
+    if not os.path.exists(base):
+        backup_path = base
+    else:
+        i = 1
+        while True:
+            cand = f"{base}{i}"
+            if not os.path.exists(cand):
+                backup_path = cand
+                break
+            i += 1
+
+    Path(backup_path).parent.mkdir(parents=True, exist_ok=True)
+    with open(filename, "rb") as rf, open(backup_path, "wb") as wf:
+        wf.write(rf.read())
+    return backup_path
+
+
+# --- Public Safe Operations ---
 
 
 def safe_create_file(
     filename: str, content: str, encoding: str = "utf-8", overwrite: bool = False
 ) -> None:
-
     resolved = _resolve_path(filename)
-
     if _is_trigger_path(filename) and resolved not in _allowed_paths:
-
         ok = _ask_user_confirm(filename, "create")
-
         if not ok:
-
             raise PermissionError(
-                f"ユーザーが許可しなかったため作成を中止しました: {filename}"
+                _(
+                    "err.create_cancel",
+                    default="Creation cancelled because the user did not allow it: {filename}",
+                ).format(filename=filename)
             )
-
         _allowed_paths.add(resolved)
 
     p = Path(filename)
-
     if p.exists() and not overwrite:
-
         raise FileExistsError(
-            f"ファイルが既に存在します（overwrite=False）: {filename}"
+            _(
+                "err.exists_overwrite_false",
+                default="File already exists (overwrite=False): {filename}",
+            ).format(filename=filename)
         )
-
     _ensure_parent_dir_exists(filename)
-
     with open(filename, "w", encoding=encoding) as f:
-
         f.write(content)
 
 
 def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
-
     resolved = _resolve_path(filename)
-
     if _is_trigger_path(filename) and resolved not in _allowed_paths:
-
         ok = _ask_user_confirm(filename, "delete")
-
         if not ok:
-
             raise PermissionError(
-                f"ユーザーが許可しなかったため、削除を中止しました: {filename}"
+                _(
+                    "err.delete_cancel",
+                    default="Deletion cancelled because the user did not allow it: {filename}",
+                ).format(filename=filename)
             )
-
         _allowed_paths.add(resolved)
-
     try:
-
         os.remove(filename)
-
     except FileNotFoundError:
-
         if missing_ok:
-
             return
-
         raise
 
 
 def safe_delete_path(path: str, missing_ok: bool = False) -> None:
-    """パスを安全に削除する。
-
-    - ファイル: os.remove
-    - ディレクトリ: shutil.rmtree
-
-    安全方針:
-    - trigger path 条件（絶対パス/..含む/workdir外 等）に該当する場合はユーザー確認。
-    - ディレクトリ削除は危険操作なので、常にユーザー確認。
-    """
-
+    """Delete a path safely."""
     resolved = _resolve_path(path)
-
-    # まず trigger path 判定による確認
     if _is_trigger_path(path) and resolved not in _allowed_paths:
         ok = _ask_user_confirm(path, "delete")
         if not ok:
             raise PermissionError(
-                f"ユーザーが許可しなかったため、削除を中止しました: {path}"
+                _(
+                    "err.delete_path_cancel",
+                    default="Deletion cancelled because the user did not allow it: {path}",
+                ).format(path=path)
             )
         _allowed_paths.add(resolved)
 
     p = Path(path)
-
-    # 存在しない
     if not p.exists():
         if missing_ok:
             return
-        raise FileNotFoundError(f"path が存在しません: {path}")
+        raise FileNotFoundError(
+            _("err.path_not_found", default="Path does not exist: {path}").format(
+                path=path
+            )
+        )
 
-    # ディレクトリは常に確認（trigger判定とは別）
     if p.is_dir():
         ok = _ask_user_confirm(path, "delete_dir")
         if not ok:
             raise PermissionError(
-                f"ユーザーが許可しなかったため、ディレクトリ削除を中止しました: {path}"
+                _(
+                    "err.delete_dir_cancel",
+                    default="Directory deletion cancelled because the user did not allow it: {path}",
+                ).format(path=path)
             )
         shutil.rmtree(path)
         return
-
-    # ファイル
     os.remove(path)
 
 
@@ -359,165 +312,110 @@ def safe_rename_path(
     overwrite: bool = False,
     mkdirs: bool = False,
 ) -> None:
-    """ファイル/ディレクトリの rename/move を安全確認つきで行う。
-
-
-
-    - src/dst はファイル/ディレクトリ両対応
-
-    - overwrite=True の場合、dst が存在していれば削除して置換（削除を伴う）
-
-    - mkdirs=True の場合、dst 親ディレクトリを作成
-
-
-
-    安全確認:
-
-    - src/dst いずれかが trigger path の場合は確認
-
-    - overwrite=True の場合は確認（削除を伴うため）
-
-    """
-
+    """Safely rename/move a file or directory with confirmations."""
     if not src or not dst:
-
-        raise ValueError("src/dst は必須です")
-
+        raise ValueError(_("err.src_dst_required", default="src and dst are required"))
     src_p = Path(src)
-
     if not src_p.exists():
-
-        raise FileNotFoundError(f"src が存在しません: {src}")
+        raise FileNotFoundError(
+            _("err.src_not_found", default="src does not exist: {src}").format(src=src)
+        )
 
     src_resolved = _resolve_path(src)
-
     dst_resolved = _resolve_path(dst)
-
     need_confirm = False
-
-    reasons = []
+    reasons: list[str] = []
 
     if _is_trigger_path(src) and src_resolved not in _allowed_paths:
-
         need_confirm = True
-
-        reasons.append("src が危険パス条件に該当")
-
+        reasons.append(
+            _("reason.src_trigger", default="src matches risky path conditions")
+        )
     if _is_trigger_path(dst) and dst_resolved not in _allowed_paths:
-
         need_confirm = True
-
-        reasons.append("dst が危険パス条件に該当")
+        reasons.append(
+            _("reason.dst_trigger", default="dst matches risky path conditions")
+        )
 
     dst_exists = Path(dst).exists()
-
     if dst_exists and overwrite:
-
         need_confirm = True
-
-        reasons.append("overwrite=True で既存 dst を削除して置換")
-
+        reasons.append(
+            _(
+                "reason.overwrite_delete",
+                default="overwrite=True will delete existing dst and replace it",
+            )
+        )
     elif dst_exists and not overwrite:
-
-        raise FileExistsError(f"dst が既に存在します（overwrite=False）: {dst}")
-
-    if mkdirs:
-
-        parent = Path(dst).parent
-
-        if parent and not parent.exists():
-
-            # mkdirs は原則安全側ではあるが、dst が trigger の場合は上で確認対象になる。
-
-            pass
+        raise FileExistsError(
+            _(
+                "err.dst_exists_overwrite_false",
+                default="dst already exists (overwrite=False): {dst}",
+            ).format(dst=dst)
+        )
 
     if need_confirm:
-
         detail = ", ".join(reasons) if reasons else "(no detail)"
-
         ok = _ask_user_confirm_rename(src, dst, detail)
-
         if not ok:
-
             raise PermissionError(
-                f"ユーザーが許可しなかったため rename/move を中止しました: {src} -> {dst}"
+                _(
+                    "err.rename_cancel",
+                    default="rename/move cancelled because the user did not allow it: {src} -> {dst}",
+                ).format(src=src, dst=dst)
             )
-
         _allowed_paths.add(src_resolved)
-
         _allowed_paths.add(dst_resolved)
 
     if mkdirs:
-
         _ensure_parent_dir_exists(dst)
 
-    # overwrite の場合は dst を削除してから move
-
     if dst_exists and overwrite:
-
         d = Path(dst)
-
         if d.is_dir():
-
             shutil.rmtree(dst)
-
         else:
-
             os.remove(dst)
-
-    # rename/move 本体
-
     os.replace(src, dst)
 
 
 def safe_generate_prompt(path: str, template: Optional[str] = None) -> str:
-
     if not Path(path).exists():
-
-        raise FileNotFoundError(f"解析対象ファイルが見つかりません: {path}")
+        raise FileNotFoundError(
+            _(
+                "err.prompt_target_not_found",
+                default="Target file for prompt generation was not found: {path}",
+            ).format(path=path)
+        )
 
     resolved = _resolve_path(path)
-
     if _is_trigger_path(path) and resolved not in _allowed_paths:
-
         ok = _ask_user_confirm(path, "generate_prompt (read)")
-
         if not ok:
-
             raise PermissionError(
-                f"ユーザーが許可しなかったためプロンプト生成を中止しました: {path}"
+                _(
+                    "err.prompt_cancel",
+                    default="Prompt generation cancelled because the user did not allow it: {path}",
+                ).format(path=path)
             )
-
         _allowed_paths.add(resolved)
 
-    excerpt_lines = []
-
+    excerpt_lines: list[str] = []
     with open(path, "r", encoding="utf-8", errors="ignore") as f:
-
-        for _ in range(20):
-
+        for _i in range(20):
             line = f.readline()
-
             if not line:
-
                 break
-
             excerpt_lines.append(line)
 
     excerpt = "".join(excerpt_lines)
-
     timestamp = int(time.time())
-
     digest = hashlib.sha1((resolved + str(timestamp)).encode("utf-8")).hexdigest()[:10]
-
     out_dir = Path("files")
-
     out_dir.mkdir(parents=True, exist_ok=True)
-
     out_path = out_dir / f"generated_prompt_{digest}.txt"
 
     if template:
-
         content = template.format(
             path=path,
             lines=excerpt.count("\n")
@@ -527,18 +425,13 @@ def safe_generate_prompt(path: str, template: Optional[str] = None) -> str:
             excerpt=excerpt,
             timestamp=timestamp,
         )
-
     else:
-
         content = f"# Generated prompt for {path}\n# excerpt:\n{excerpt}\n"
 
     with open(out_path, "w", encoding="utf-8") as outf:
-
         outf.write(content)
-
     return str(out_path)
 
 
 def clear_session_allowlist() -> None:
-
     _allowed_paths.clear()
