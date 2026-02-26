@@ -7,6 +7,7 @@
     "ui.resume_prompt": "操作後、Inspectorの Resume (▷) を押してください。",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "err.child_failed": "[playwright_inspector error] 子プロセスが失敗しました:\n{stderr}",
-    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}"
+    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

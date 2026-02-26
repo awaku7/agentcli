@@ -16,6 +16,7 @@
     "err.name_not_found": "Error: name={name!r} が見つかりません",
     "err.require_nonempty": "Error: require_nonempty=true のため、削除後に空になる操作は禁止です",
     "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
-    "out.ok": "OK: removed index={idx} name={name!r}"
+    "out.ok": "OK: removed index={idx} name={name!r}",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }
