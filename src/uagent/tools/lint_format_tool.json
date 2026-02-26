@@ -1,4 +1,9 @@
 {
-  "en": {},
-  "ja": {}
+  "param.cwd.description": "",
+  "param.extra_args.description": "",
+  "param.mode.description": "",
+  "param.targets.description": "",
+  "param.tools.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

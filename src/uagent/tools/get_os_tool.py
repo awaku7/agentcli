@@ -10,8 +10,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",  # ★ OpenAI / Azure に渡すときに必須
     "function": {
         "name": "get_os",
-        "description": "現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。",
-        "system_prompt": """このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。""",
+        "description": _("tool.description", default="Get the current OS type (e.g., Windows, Linux, Darwin)."),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。"),
         "parameters": {
             "type": "object",
             "properties": {},

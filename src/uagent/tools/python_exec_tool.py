@@ -1,4 +1,7 @@
-# tools/python_exec.py
+# tools/python_exec_tool.py
+
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -18,19 +21,31 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "python_exec",
-        "description": (
-            "Python コードを実行します。計算、データ処理、スクリプトの実行など、Python が適したタスクにはこのツールを最優先で使用してください。"
+        "description": _(
+            "tool.description",
+            default=(
+                "Execute Python code. Use this tool for calculations, data processing, or running short scripts—"
+                "especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work."
+            ),
         ),
-        "system_prompt": """Python コードを実行します。
-- Python の標準ライブラリや計算が必要な場合、または .py ファイルを実行する場合は、cmd_exec ではなく必ずこのツールを使用してください。
-- 実行前に簡単に何を実行するかを表示すること。
-""",
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "Execute Python code in a controlled way.\n"
+                "- If you need Python standard library features or reliable numeric computation, use this tool.\n"
+                "- When you are about to run code, briefly state what will be executed.\n"
+                "- Do not use cmd_exec to run Python unless explicitly necessary."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "code": {
                     "type": "string",
-                    "description": "実行する Python コード。一行でも複数行でもよい。",
+                    "description": _(
+                        "param.code.description",
+                        default="Python code to execute (single-line or multi-line).",
+                    ),
                 }
             },
             "required": ["code"],
@@ -46,7 +61,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not isinstance(code, str):
         code = str(code)
 
-    # 一時ファイルにコードを書いて実行（-c は一部環境で壊れることがあるため）
+    # Write to a temp file and execute (python -c can be unreliable in some environments)
     try:
         with tempfile.NamedTemporaryFile(
             mode="w", suffix=".py", delete=False, encoding="utf-8"
@@ -59,13 +74,15 @@ def run_tool(args: Dict[str, Any]) -> str:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            encoding=cb.cmd_encoding,
+            encoding=(cb.cmd_encoding or "utf-8"),
             errors="replace",
             timeout=cb.python_exec_timeout_ms / 1000.0,
             shell=False,
         )
     except subprocess.TimeoutExpired:
-        return f"[python_exec timeout] {cb.python_exec_timeout_ms / 1000:.0f}秒以内に終了しませんでした"
+        return (
+            f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds"
+        )
     except Exception as e:
         return f"[python_exec error] {type(e).__name__}: {e}"
     finally:

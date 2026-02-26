@@ -22,26 +22,26 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "screenshot",
-        "description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
-        "system_prompt": """このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。""",
+        "description": _("tool.description", default="デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": "保存先のファイルパス（.png推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。",
+                    "description": _("param.file_path.description", default="保存先のファイルパス（.png推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。"),
                 },
                 "window_title": {
                     "type": "string",
-                    "description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。",
+                    "description": _("param.window_title.description", default="撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。"),
                 },
                 "delay": {
                     "type": "integer",
-                    "description": "撮影前の待機時間（秒）。デフォルトは1秒（ウィンドウ切り替え用）。",
+                    "description": _("param.delay.description", default="撮影前の待機時間（秒）。デフォルトは1秒（ウィンドウ切り替え用）。"),
                 },
                 "close_window": {
                     "type": "boolean",
-                    "description": "撮影後にそのウィンドウを閉じるかどうか。window_title指定時のみ有効。デフォルトはFalse。",
+                    "description": _("param.close_window.description", default="撮影後にそのウィンドウを閉じるかどうか。window_title指定時のみ有効。デフォルトはFalse。"),
                 },
             },
             "required": [],

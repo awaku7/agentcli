@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.close_window.description": "",
+  "param.delay.description": "",
+  "param.file_path.description": "",
+  "param.window_title.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

@@ -1,4 +1,12 @@
 {
-  "en": {},
-  "ja": {}
+  "param.binary_sniff_bytes.description": "",
+  "param.case_sensitive.description": "",
+  "param.content_pattern.description": "",
+  "param.exclude_binary.description": "",
+  "param.fast_read_threshold_bytes.description": "",
+  "param.max_results.description": "",
+  "param.name_pattern.description": "",
+  "param.root_path.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

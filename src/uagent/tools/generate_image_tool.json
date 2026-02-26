@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.n.description": "",
+  "param.output_dir.description": "",
+  "param.prompt.description": "",
+  "param.size.description": "",
+  "tool.description": ""
 }

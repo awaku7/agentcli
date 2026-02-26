@@ -36,40 +36,40 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "find_large_files",
-        "description": "指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。",
+        "description": _("tool.description", default="指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "root": {
                     "type": "string",
                     "default": ".",
-                    "description": "探索ルート（workdir配下のみ許可）",
+                    "description": _("param.root.description", default="探索ルート（workdir配下のみ許可）"),
                 },
                 "top_n": {
                     "type": "integer",
                     "default": 30,
-                    "description": "上位N件",
+                    "description": _("param.top_n.description", default="上位N件"),
                 },
                 "min_bytes": {
                     "type": "integer",
                     "default": 10_000_000,
-                    "description": "このサイズ以上のみ対象（既定: 10MB）",
+                    "description": _("param.min_bytes.description", default="このサイズ以上のみ対象（既定: 10MB）"),
                 },
                 "group_by_ext": {
                     "type": "boolean",
                     "default": True,
-                    "description": "拡張子別集計も返す",
+                    "description": _("param.group_by_ext.description", default="拡張子別集計も返す"),
                 },
                 "exclude_dirs": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [".git", "node_modules", "__pycache__", ".venv", "venv"],
-                    "description": "除外ディレクトリ名（ディレクトリ名一致）",
+                    "description": _("tool.description", default="除外ディレクトリ名（ディレクトリ名一致）"),
                 },
                 "max_files": {
                     "type": "integer",
                     "default": 200000,
-                    "description": "走査する最大ファイル数（暴走防止）",
+                    "description": _("tool.description", default="走査する最大ファイル数（暴走防止）"),
                 },
             },
         },

@@ -31,11 +31,11 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
                 },
                 "pretty": {
                     "type": "boolean",
-                    "description": "true の場合は JSON を整形して返します（既定: true）",
+                    "description": _("param.pretty.description", default="true の場合は JSON を整形して返します（既定: true）"),
                     "default": True,
                 },
                 "validate": {
@@ -48,7 +48,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "default_only": {
                     "type": "boolean",
-                    "description": "true の場合はデフォルト（mcp_servers[0]）のみ返します（既定: false）",
+                    "description": _("tool.description", default="true の場合はデフォルト（mcp_servers[0]）のみ返します（既定: false）"),
                     "default": False,
                 },
                 "raw": {
