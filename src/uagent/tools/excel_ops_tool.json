@@ -4,5 +4,9 @@
   "param.file_path.description": "",
   "param.sheet_name.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing.",
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'."
+  }
 }
