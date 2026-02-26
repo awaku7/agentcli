@@ -8,6 +8,7 @@
     "param.days.description": "加算する日数（減算は負の数）。",
     "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
     "param.check_holiday.description": "祝日・休日かどうかを判定するかどうか（既定: true）",
-    "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。"
+    "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

@@ -13,5 +13,9 @@
   "param.sheets_dir.description": "",
   "param.table_score_threshold.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'."
+  }
 }

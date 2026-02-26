@@ -27,5 +27,9 @@
   "param.sources.description": "",
   "param.zip_path.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
+    "tool.system_prompt": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_file_ops_extras)."
+  }
 }

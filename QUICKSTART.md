@@ -62,8 +62,8 @@ uag
 
 For provider-specific details (required environment variables, base URL, model settings, etc.), see:
 
-- `README.md` (Provider section)
-- `AGENTS.md` (list of environment variables)
+- [`README.md`](README.md) (Provider section)
+- [`AGENTS.md`](AGENTS.md) (list of environment variables)
 
 ---
 
@@ -79,14 +79,14 @@ Examples:
 - Explore the folder structure
   - "Analyze this folder and tell me important files, structure, and how to run it."
 - Read a specific file
-  - "Read `README.md` and summarize the key points."
+  - "Read [`README.md`](README.md) and summarize the key points."
 
 ---
 
 ## 9. Next to read
 
-- `README.md` (overview / Provider / Web Inspector, etc.)
-- `AGENTS.md` (tools list / environment variables / MCP shortest example)
+- [`README.md`](README.md) (overview / Provider / Web Inspector, etc.)
+- [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
 - `uag docs develop` / `uag docs webinspect`
 
 ---

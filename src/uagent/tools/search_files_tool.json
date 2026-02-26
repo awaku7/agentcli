@@ -8,5 +8,9 @@
   "param.name_pattern.description": "",
   "param.root_path.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
+    "tool.system_prompt": "Search for files under a directory. You can filter by filename pattern (glob) and optionally grep file contents using a regular expression.\n\nNotes:\n- content_pattern is treated as a Python regular expression.\n- If content_pattern is empty, only filename matching is performed.\n- For performance and safety, binary-like files can be excluded from content searching."
+  }
 }
