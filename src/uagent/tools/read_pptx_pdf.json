@@ -1,0 +1,9 @@
+{
+  "ja": {
+    "tool.description": "PDF / PPTX / その共通JSONスキーマを読み込み、ページ単位のテキストを返します。path に .pdf / .pptx / .json を指定できます。PDF/PPTX の場合は、このファイル内の抽出ロジックで共通JSONスキーマに変換します。",
+    "tool.system_prompt": "【重要】PDF/PPTX/JSON を読み込み、ページ単位のテキストを返すツールです。\n入力: path, page_index, max_chars\n出力: ページテキスト（全ページ or 指定ページ）\n\n",
+    "param.path.description": "PDF / PPTX / JSON ファイルのパス",
+    "param.page_index.description": "1始まりのページ番号（PDFのページ or PPTXのスライド番号）。省略時は全ページを連結して返します。",
+    "param.max_chars.description": "返却テキストの最大文字数。省略時は 8000 文字で切り詰めます。"
+  }
+}

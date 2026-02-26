@@ -20,28 +20,40 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers_remove",
-        "description": (
-            "mcp_servers.json から MCP サーバー定義を削除します。"
-            "name 指定で削除するか、index 指定で削除できます（どちらか必須）。"
+        "description": _(
+            "tool.description",
+            default="Removes an MCP server definition from mcp_servers.json. You can specify by name or index (one is required).",
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": _("param.name.description", default="削除対象のサーバー名（mcp_servers[].name）"),
+                    "description": _(
+                        "param.name.description",
+                        default="The name of the server to remove (mcp_servers[].name).",
+                    ),
                 },
                 "index": {
                     "type": "integer",
-                    "description": _("param.index.description", default="削除対象のインデックス（mcp_servers[n]）。name と同時指定時は index を優先します。"),
+                    "description": _(
+                        "param.index.description",
+                        default="The index of the server to remove (mcp_servers[n]). If specified with name, index takes priority.",
+                    ),
                 },
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="サーバーリスト JSON のパス。省略時は標準の場所を参照します。"),
+                    "description": _(
+                        "param.path.description",
+                        default="Path to the server list JSON. Defaults to the standard location if omitted.",
+                    ),
                 },
                 "require_nonempty": {
                     "type": "boolean",
-                    "description": _("param.require_nonempty.description", default="true の場合、削除後に空になる操作を禁止します（既定: false）"),
+                    "description": _(
+                        "param.require_nonempty.description",
+                        default="If true, prevent the operation if it would leave the list empty. Default is false.",
+                    ),
                     "default": False,
                 },
             },
@@ -53,21 +65,23 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def _load_config(path: str) -> Tuple[Dict[str, Any], List[str]]:
     if not os.path.exists(path):
-        return {"mcp_servers": []}, [f"ERROR: {path!r} が存在しません"]
+        return {"mcp_servers": []}, [
+            _("err.not_exists", default="ERROR: {path!r} does not exist").format(path=path)
+        ]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            return {"mcp_servers": []}, ["ERROR: ルートが dict ではありません"]
+            return {"mcp_servers": []}, [_("err.root_not_dict", default="ERROR: root is not a dictionary")]
         if "mcp_servers" not in data:
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
-            return {"mcp_servers": []}, ["ERROR: 'mcp_servers' が list ではありません"]
+            return {"mcp_servers": []}, [_("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list")]
         return data, []
     except Exception as e:
         return {"mcp_servers": []}, [
-            f"ERROR: {path!r} の読み込みに失敗しました: {type(e).__name__}: {e}"
+            _("err.load_fail", default="ERROR: Failed to load {path!r}: {err}").format(path=path, err=e)
         ]
 
 
@@ -82,7 +96,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     require_nonempty = bool(args.get("require_nonempty", False))
 
     if index is None and (not isinstance(name, str) or not name.strip()):
-        return "Error: name または index のどちらかを指定してください。"
+        return _("err.name_or_index_required", default="Error: Please specify either name or index.")
 
     config, msgs = _load_config(path)
     if any(m.startswith("ERROR:") for m in msgs):
@@ -90,7 +104,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     servers = config.get("mcp_servers", [])
     if not servers:
-        return "ERROR: mcp_servers が空です"
+        return _("err.empty", default="ERROR: mcp_servers is empty")
 
     removed = None
     removed_idx = None
@@ -99,9 +113,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             idx = int(index)
         except Exception:
-            return "Error: index は整数で指定してください"
+            return _("err.index_not_int", default="Error: index must be an integer.")
         if idx < 0 or idx >= len(servers):
-            return f"Error: index out of range: {idx}"
+            return _("err.index_out_of_range", default="Error: index out of range: {idx}").format(idx=idx)
         removed = servers.pop(idx)
         removed_idx = idx
     else:
@@ -112,10 +126,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                 removed_idx = i
                 break
         if removed is None:
-            return f"Error: name={target!r} が見つかりません"
+            return _("err.name_not_found", default="Error: name={name!r} not found.").format(name=target)
 
     if require_nonempty and not servers:
-        return "Error: require_nonempty=true のため、削除後に空になる操作は禁止です"
+        return _("err.require_nonempty", default="Error: require_nonempty=true, so removing the last item is not allowed.")
 
     config["mcp_servers"] = servers
 
@@ -129,15 +143,15 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             r_name = removed.get("name") if isinstance(removed, dict) else None
             return (
-                f"OK: removed index={removed_idx} name={r_name!r} "
-                "(Note: create_file_tool import failed, direct write used)"
+                _("out.ok", default="OK: removed index={idx} name={name!r}").format(idx=removed_idx, name=r_name) +
+                " (Note: create_file_tool import failed, direct write used)"
             )
 
         create_file(
             {"filename": path, "content": text, "encoding": "utf-8", "overwrite": True}
         )
     except Exception as e:
-        return f"ERROR: 書き込みに失敗しました: {type(e).__name__}: {e}"
+        return _("err.write_fail", default="ERROR: Failed to write file: {err}").format(err=e)
 
     default_info = "<none>"
     if servers:
@@ -147,7 +161,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     return "\n".join(
         [
-            f"OK: removed index={removed_idx} name={r_name!r}",
+            _("out.ok", default="OK: removed index={idx} name={name!r}").format(idx=removed_idx, name=r_name),
             f"default: {default_info}",
             f"count: {len(servers)}",
         ]

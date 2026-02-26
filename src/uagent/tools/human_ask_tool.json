@@ -1,6 +1,22 @@
 {
-  "param.is_password.description": "",
-  "param.message.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",
+    "tool.system_prompt": "このツールは次の目的で使われます: モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。\n\n重要: このツールは 1回の呼び出しで 1つの回答テキストしか受け取れません。入力を複数フィールドに分割したり、フィールドごとにマスク有無を切り替える機能はありません。\n\n【最重要: セキュリティ】\n- 秘匿情報（パスワード、APIキー、トークン、秘密鍵、セッションCookie等）を入力させる場合は、必ず is_password=True を指定してください。\n- is_password=True で取得した回答（user_reply）は、以後のあなたの返答（Assistant message）の中で**絶対に復唱しないでください**。\n  - 悪い例: 「パスワード『password123』を受け取りました。ログインします」\n  - 良い例: 「パスワードを受け取りました。ログイン処理を開始します」\n- パスワード等の秘匿情報を長期記憶や共有メモに保存しないでください。\n\nこのツールの動作指針:\n- 追加のユーザー入力が必要な場合は必ず human_ask ツールを使用してください。\n- is_password=True の呼び出しでは、秘匿情報 1項目のみを尋ねてください。\n- ユーザー名 + パスワード等が必要な場合は、必ず human_ask を2回以上に分けてください。\n- 1回の human_ask で複数項目の入力を同時に要求してはいけません。\n- 相対日付（今日／今年など）を扱う場合は get_current_time を呼んで現在時刻を参照してください。\n- ファイルやコード出力は原文全体を省略せずに出力すること（ユーザー指示がない場合）。\n\nキャンセル方法:\n- キャンセルしたい場合は 1 行で「c」または「cancel」と入力してください。\n",
+    "param.message.description": "人間に依頼したい内容を、日本語で丁寧にそのまま表示できる形で書く。",
+    "param.is_password.description": "true の場合、入力文字を非表示（マスク）にします。パスワードやトークンの入力に使用してください。",
+    "doc.run_tool": "human_ask は stdin から直接読むのではなく、\nscheck.py 側の stdin_loop スレッドに処理を任せて\n共有状態（callbacks）経由で結果を受け取る。\n",
+    "msg.empty_request": "（LLMからの依頼内容が空です。必要な操作や判断をここに日本語で書いてください。）",
+    "ui.title": "=== 人への依頼 (human_ask) ===",
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "回答方法:\n  - そのまま入力して Enter で送信\n  - 'f' 入力で複数行モードへ\n  - 複数行モード中: '\"\"\"retry' でクリア、'\"\"\"end' で送信\n  - 'c' または 'cancel' で中断\n",
+    "err.lock_uninitialized": "[human_ask error] human_ask_lock コールバックが初期化されていません。",
+    "err.active_uninitialized": "[human_ask error] human_ask_active コールバックが初期化されていません。",
+    "err.queue_uninitialized": "[human_ask error] human_ask_queue コールバックが初期化されていません。",
+    "err.lines_uninitialized": "[human_ask error] human_ask_lines コールバックが初期時されていません。",
+    "err.multiline_uninitialized": "[human_ask error] human_ask_multiline_active コールバックが初期化されていません。",
+    "err.password_uninitialized": "[human_ask error] human_ask_set_password コールバックが初期化されていません。",
+    "err.already_active": "[human_ask error] すでに別の human_ask が実行中です。",
+    "doc.ensure_gui_sentinel": "GUI からの返答は multi_input_sentinel 行で必ず終わるようにする。",
+    "msg.no_user_reply": "(no user reply)"
+  }
 }

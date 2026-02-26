@@ -11,13 +11,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "calculator",
-        "description": _("tool.description", default="数式を計算して結果を返します。LLMが苦手な複雑な計算や精度の必要な計算に使用してください。"),
+        "description": _(
+            "tool.description",
+            default="Calculates a mathematical expression and returns the result. Use this for complex calculations or when precision is required.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "expression": {
                     "type": "string",
-                    "description": _("param.expression.description", default="計算したい数式（例: '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。Pythonのmathモジュールの関数が使用可能です。"),
+                    "description": _(
+                        "param.expression.description",
+                        default="The mathematical expression to evaluate (e.g., '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Functions from Python's math module are available.",
+                    ),
                 }
             },
             "required": ["expression"],

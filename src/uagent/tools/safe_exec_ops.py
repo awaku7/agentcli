@@ -1,6 +1,4 @@
-"""safe_exec_ops.py
-
-Security guard helpers for command execution.
+"""Security guard helpers for command execution.
 
 Policy (B: medium):
 - Block obviously destructive commands.
@@ -25,6 +23,9 @@ from dataclasses import dataclass
 from typing import Optional
 
 from .context import get_callbacks
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 
 @dataclass(frozen=True)
@@ -83,13 +84,6 @@ _CONFIRM_PATTERNS = [
     r"\bbitsadmin\b",
 ]
 
-# _META_CONFIRM = [
-#    r"&&",
-#    r"\|\|",
-#    r"\|",
-#    r">>",
-#    r">",
-# ]
 _META_CONFIRM = [
     r"\|\|",
     r"\|",
@@ -110,28 +104,36 @@ def decide_cmd_exec(command: str) -> ExecDecision:
 
     for pat in _CONFIRM_PATTERNS:
         if re.search(pat, cmd_norm):
+            msg = _(
+                "confirm.risky_command",
+                default=(
+                    "A potentially high-risk command pattern was detected.\n"
+                    "command: {command}\n"
+                    "Reply with y to proceed, or c to cancel."
+                ),
+            ).format(command=command)
             return ExecDecision(
                 True,
                 f"risky pattern (confirm): {pat}",
                 require_confirm=True,
-                confirm_message=(
-                    "危険度が高い可能性のあるコマンドが検出されました。\n"
-                    f"command: {command}\n"
-                    "実行してよければ y、キャンセルなら c と入力してください。"
-                ),
+                confirm_message=msg,
             )
 
     for token_pat in _META_CONFIRM:
         if re.search(token_pat, command):
+            msg = _(
+                "confirm.shell_metachar",
+                default=(
+                    "Shell chaining/redirection operators were detected.\n"
+                    "command: {command}\n"
+                    "Reply with y to proceed, or c to cancel."
+                ),
+            ).format(command=command)
             return ExecDecision(
                 True,
                 f"shell metachar (confirm): {token_pat}",
                 require_confirm=True,
-                confirm_message=(
-                    "コマンド連結/リダイレクト等が含まれます。\n"
-                    f"command: {command}\n"
-                    "実行してよければ y、キャンセルなら c と入力してください。"
-                ),
+                confirm_message=msg,
             )
 
     return ExecDecision(True, "allowed")
@@ -188,10 +190,16 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         time.sleep(poll_interval_sec)
 
     try:
-        print("\n=== 人への依頼 (confirm) ===", flush=True)
+        print("\n" + _("ui.confirm.title", default="=== Human confirmation request ==="), flush=True)
         print(message, flush=True)
-        print("=== /confirm ===\n", flush=True)
-        print("回答方法: y=実行 / c=キャンセル / その他=拒否\n", flush=True)
+        print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
+        print(
+            _(
+                "ui.confirm.howto",
+                default="How to reply: y=proceed / c=cancel / other=deny\n",
+            ),
+            flush=True,
+        )
 
         user_reply = local_q.get()
     finally:

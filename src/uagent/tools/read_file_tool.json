@@ -1,10 +1,16 @@
 {
-  "param.filename.description": "",
-  "param.head_lines.description": "",
-  "param.max_lines.description": "",
-  "param.path.description": "",
-  "param.start_line.description": "",
-  "param.tail_lines.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "Read file contents (up to 20000000 bytes). Partial reading is possible by specifying start_line and max_lines.",
+    "tool.system_prompt": "Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically.",
+    "param.filename.description": "Path of the file to read.",
+    "param.path.description": "(Compatibility) Alias of filename.",
+    "param.start_line.description": "Line number to start reading from (1-based). Default is 1.",
+    "param.max_lines.description": "Maximum number of lines to read. If null, read to EOF.",
+    "param.head_lines.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
+    "param.tail_lines.description": "Number of lines to read from the end. Cannot be used with head_lines.",
+    "err.filename_missing": "[read_file error] filename/path が指定されていません",
+    "err.dual_lines": "[read_file error] head_lines and tail_lines cannot be specified together",
+    "msg.truncated": "\n[read_file truncated: byte limit {max_bytes} reached]",
+    "err.out_of_range": "(file has only {count} lines, start_line {start_line} is out of range)"
+  }
 }

@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import json
 import os
+import locale
 from functools import lru_cache
 from typing import Any, Dict, Optional
 
 
-def _normalize_locale(locale: Optional[str]) -> str:
+def _normalize_locale(loc_str: Optional[str]) -> str:
     """Normalize locale strings.
 
     Examples:
@@ -14,12 +15,14 @@ def _normalize_locale(locale: Optional[str]) -> str:
       - 'en-US' -> 'en'
       - None / '' -> 'en'
     """
-    if not locale:
+    if not loc_str:
         return "en"
-    s = str(locale).strip()
+    s = str(loc_str).strip()
     if not s:
         return "en"
     s = s.replace("-", "_")
+    # Drop encoding and modifiers
+    s = s.split(".")[0].split("@")[0]
     base = s.split("_")[0].lower()
 
     # Common aliases
@@ -28,17 +31,52 @@ def _normalize_locale(locale: Optional[str]) -> str:
     if base in ("jp",):
         base = "ja"
 
+    if base.startswith("ja"):
+        return "ja"
     return base or "en"
 
 
 def get_locale() -> str:
-    """Return active locale based on UAGENT_LANG.
+    """Return active locale based on environment or OS settings.
 
-    Note:
-      - UAGENT_LOCALE is deprecated (ignored).
-      - Common aliases are normalized (e.g., 'us' -> 'en', 'jp' -> 'ja').
+    Priority:
+      1) UAGENT_LANG (explicit override)
+      2) LC_ALL / LANG (standard env vars)
+      3) OS default locale (via locale module)
     """
-    return _normalize_locale(os.environ.get("UAGENT_LANG"))
+
+    # 1) explicit override
+    v = (os.environ.get("UAGENT_LANG") or "").strip()
+    if v:
+        return _normalize_locale(v)
+
+    # 2) common env vars
+    for k in ("LC_ALL", "LANG"):
+        vv = (os.environ.get(k) or "").strip()
+        if vv:
+            return _normalize_locale(vv)
+
+    # 3) OS locale
+    try:
+        loc, _enc = locale.getlocale()
+        if loc:
+            return _normalize_locale(loc)
+    except Exception:
+        pass
+
+    try:
+        # getdefaultlocale is deprecated but serves as a fallback
+        loc2 = None
+        try:
+            loc2, _enc2 = locale.getdefaultlocale()  # type: ignore[attr-defined]
+        except Exception:
+            loc2 = None
+        if loc2:
+            return _normalize_locale(loc2)
+    except Exception:
+        pass
+
+    return "en"
 
 
 @lru_cache(maxsize=256)
@@ -71,8 +109,8 @@ def make_tool_translator(tool_py_file: str):
 
     Rules:
     - JSON file is alongside the tool module: <tool>.py -> <tool>.json
-    - Locale from UAGENT_LOCALE (normalized to base language like 'en', 'ja')
-    - Fallback order: requested-locale -> en -> default
+    - Locale is detected from environment or OS (normalized to 'en', 'ja', etc.)
+    - Fallback order: detected-locale -> en -> default
 
     Usage:
       _ = make_tool_translator(__file__)
@@ -84,11 +122,11 @@ def make_tool_translator(tool_py_file: str):
     json_path = os.path.join(tool_dir, f"{base}.json")
 
     def _(key: str, *, default: str) -> str:
-        locale = get_locale()
+        loc = get_locale()
         data = _load_tool_dict(json_path)
 
         # 1) requested locale
-        loc_map = data.get(locale)
+        loc_map = data.get(loc)
         if isinstance(loc_map, dict):
             v = loc_map.get(key)
             if isinstance(v, str) and v:

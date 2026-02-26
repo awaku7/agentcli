@@ -5,13 +5,16 @@ _ = make_tool_translator(__file__)
 import platform
 from typing import Dict, Any
 
-# ツールのメタ情報を定義 (tools/__init__.py が読み込む)
+# Tool metadata definition (loaded by tools/__init__.py)
 TOOL_SPEC: Dict[str, Any] = {
-    "type": "function",  # ★ OpenAI / Azure に渡すときに必須
+    "type": "function",  # Mandatory for OpenAI / Azure
     "function": {
         "name": "get_os",
         "description": _("tool.description", default="Get the current OS type (e.g., Windows, Linux, Darwin)."),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。"),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool is used for the following purpose: get the type of the operating system currently in use (e.g., Windows, Linux, Darwin).",
+        ),
         "parameters": {
             "type": "object",
             "properties": {},
@@ -19,25 +22,21 @@ TOOL_SPEC: Dict[str, Any] = {
             "additionalProperties": False,
         },
     },
-    # このツールはユーザーに直接見せるコンテンツを生成しない、というメタ情報（任意）
+    # Metadata indicating this tool does not generate content shown directly to users (optional)
     "is_agent_content": False,
 }
 
 
-# Busy 状態にするかどうか (このツールは高速なので False に設定)
+# Whether to show a Busy status (False because this tool is fast)
 BUSY_LABEL = False
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """
-    LLM からのツール呼び出しを受け、OS名を取得して JSON 文字列として返します。
-    例: {"os_name": "Windows"}
-    """
+    """Get the OS name and return it as a JSON string."""
     os_name = platform.system()
-    # 必要なら今後フィールドを足せるように JSON 形式で返す
     return f'{{"os_name": "{os_name}"}}'
 
 
-# 直接実行した場合の動作 (テスト用、ツールチェインからは呼ばれない)
+# Entry point for direct execution (for testing, not called from the toolchain)
 if __name__ == "__main__":
     print(run_tool({}))

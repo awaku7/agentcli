@@ -1,0 +1,6 @@
+{
+  "ja": {
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  }
+}

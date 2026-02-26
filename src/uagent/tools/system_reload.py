@@ -1,11 +1,20 @@
 from typing import Any, Dict
+
 from . import reload_plugins
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
     "function": {
         "name": "system_reload",
-        "description": "システムをリロードし、tools/ 以下のすべてのツールの最新コード（.pyファイル）をメモリ上に反映させます。コード修正後に実行してください。",
+        "description": _(
+            "tool.description",
+            default=(
+                "Reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
+            ),
+        ),
         "parameters": {"type": "object", "properties": {}, "required": []},
     },
 }
