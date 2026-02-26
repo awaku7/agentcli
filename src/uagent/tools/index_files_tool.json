@@ -1,0 +1,19 @@
+{
+  "ja": {
+    "tool.description": "指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。",
+    "param.pattern.description": "対象とするファイル名、ディレクトリ名、またはglobパターン（例: 'src/**/*.py', '*.md'）。",
+    "param.root_path.description": "検索・インデックスの起点となるディレクトリ。デフォルトはカレントディレクトリ。",
+    "param.recursive.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
+    "err.vec_unavailable": "エラー: セマンティック検索モジュール (semantic_search_files_tool) が利用できないため、インデックスを作成できません。",
+    "err.pattern_required": "エラー: pattern が指定されていません。",
+    "err.root_not_dir": "エラー: root_path がディレクトリではありません: {root_path}",
+    "err.glob_fail": "エラー: パターンの解析に失敗しました: {err}",
+    "out.not_found": "パターン '{pattern}' に一致するファイルが見つかりませんでした。",
+    "out.completed": "インデックス処理が完了しました。",
+    "out.pattern": "対象パターン: {pattern}",
+    "out.root": "ルートディレクトリ: {root_abs}",
+    "out.success": "成功: {count} 件",
+    "out.fail": "失敗: {count} 件",
+    "out.footer": "\nこれで `semantic_search_files` を使用してこれらのファイルを検索できるようになりました。"
+  }
+}
