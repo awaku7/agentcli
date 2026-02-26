@@ -10,5 +10,9 @@
   "param.raw_newline_policy.description": "",
   "param.replacement.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "Perform literal or regular-expression replacements on a text file. Line endings are normalized internally, so patterns/replacements that include newlines are supported.\n\nImportant (read carefully):\n- Always run with preview=true first to inspect hit locations and the diff preview.\n- Do NOT include raw newline characters in pattern/replacement. Use the two-character sequence \\n instead (JSON: \\\\n). Raw newlines can corrupt source files (e.g., Python string literals).\n- When mode=regex, pattern is interpreted as a Python re pattern (not a plain substring). For example, \\x is invalid; write \\xNN (e.g., \\x00, \\x1b).\n- If you only need to match a backslash literally, prefer mode=literal.",
+    "tool.system_prompt": "This tool performs literal or regex replacements on a text file.\n\nRecommended workflow:\n1) Inspect the target area with read_file\n2) Run replace_in_file with preview=true and verify hit locations + diff\n3) If correct, apply with preview=false (a .org/.orgN backup will be created)\n4) If you edited a .py file, run python -m py_compile for a syntax check\n\nNewlines (most important):\n- Do not include raw newlines in JSON strings.\n  - OK: aaa\\nbbb (JSON: aaa\\\\nbbb)\n  - NG: aaa<newline>bbb (can break source files and cause SyntaxError)\n\nRegex notes:\n- pattern is a Python re pattern\n- \\x is invalid (re.error); use \\xNN (e.g., \\x00)\n- Use mode=literal if you only need plain substring matching\n- In replacement, \\1, \\2, ... refer to capture groups; referencing a non-existent group is an error\n- In replacement, \\n means a backslash + n, not an actual newline\n\nWindows path note (especially when editing .py):\n- In Python string literals, backslashes must be escaped (e.g., C:\\\\path).\n\nSafety:\n- When preview=false and the operation is risky (dangerous path, many matches, etc.), the tool may require confirmation or cancel automatically."
+  }
 }

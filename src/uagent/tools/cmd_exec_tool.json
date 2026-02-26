@@ -1,5 +1,9 @@
 {
   "param.command.description": "",
   "tool.description": "",
-  "tool.system_prompt": ""
+  "tool.system_prompt": "",
+  "ja": {
+    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
+  }
 }
