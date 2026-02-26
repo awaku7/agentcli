@@ -172,11 +172,14 @@ def run_llm_rounds(
                 if v == "":
                     return bool(default)
                 return v in ("1", "true", "yes", "on")
+
             stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 
             # If translation is enabled, disable streaming to avoid mismatched partial outputs.
             # (We translate per-call, not per-delta.)
-            if tr_cfg is not None and ((tr_cfg.to_llm or "").strip() or (tr_cfg.from_llm or "").strip()):
+            if tr_cfg is not None and (
+                (tr_cfg.to_llm or "").strip() or (tr_cfg.from_llm or "").strip()
+            ):
                 stream_responses = False
 
             send_tools_this_round = True
@@ -209,7 +212,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(
@@ -296,7 +299,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(
@@ -409,9 +412,7 @@ def run_llm_rounds(
                                     core=core,
                                 )
                                 # ensure newline after streaming output
-                                if assistant_text and not bool(
-                                    getattr(core, "_is_web", False)
-                                ):
+                                if assistant_text and not bool(getattr(core, "_is_web", False)):
                                     print("")
                             else:
                                 resp = client.responses.create(**resp_kwargs)
@@ -478,21 +479,16 @@ def run_llm_rounds(
                             or "exceeds the context" in str(e).lower()
                         ):
                             print(
-                                "[Azure/OpenAI Error] "
-                                + _t("Input exceeds the context window.")
+                                "[Azure/OpenAI Error] " + _t("Input exceeds the context window.")
                             )
                             print(repr(e))
                             return
 
-                        if BadRequestError is not None and isinstance(
-                            e, BadRequestError
-                        ):
+                        if BadRequestError is not None and isinstance(e, BadRequestError):
                             print("[Azure/OpenAI Error] " + _t("400 BadRequest"))
                             print(f"Error code: 400 - {e}")
                             return
-                        if APIConnectionError is not None and isinstance(
-                            e, APIConnectionError
-                        ):
+                        if APIConnectionError is not None and isinstance(e, APIConnectionError):
                             print("[Azure/OpenAI Error] " + _t("Connection error"))
                             print(repr(e))
                             return
@@ -510,7 +506,7 @@ def run_llm_rounds(
                                 )
                                 print(repr(e))
                                 return
-                            _, new_client, _ = make_client_fn(core)
+                            _unused, new_client, _unused2 = make_client_fn(core)
                             client = new_client
                             ra = _extract_retry_after(e)
                             wait_s = _compute_retry_wait_seconds(
@@ -597,9 +593,7 @@ def run_llm_rounds(
                 try:
                     parsed_args = json.loads(arg_str)
                     if not isinstance(parsed_args, dict):
-                        raise ValueError(
-                            "arguments は JSON object である必要があります。"
-                        )
+                        raise ValueError("arguments は JSON object である必要があります。")
                 except Exception as e:
                     tb = traceback.format_exc()
                     tool_result = (
