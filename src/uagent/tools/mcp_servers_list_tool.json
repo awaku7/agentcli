@@ -1,5 +1,20 @@
 {
-  "param.path.description": "",
-  "param.pretty.description": "",
-  "tool.description": ""
+  "ja": {
+    "tool.description": "mcp_servers.json の MCP サーバー定義を一覧表示します。mcp_tools_list(url省略) が参照する接続先候補を可視化するためのツールです。",
+    "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+    "param.pretty.description": "true の場合は JSON を整形して返します（既定: true）",
+    "param.validate.description": "true の場合は簡易バリデーション（必須キー/型/name重複/空URL等）を行い、警告を表示します（既定: true）",
+    "param.default_only.description": "true の場合はデフォルト（mcp_servers[0]）のみ返します（既定: false）",
+    "param.raw.description": "true の場合は人間向けの整形テキストを付けず、JSON 文字列のみ返します（既定: false）",
+    "warn.not_exists": "WARNING: {path!r} が存在しません（空リストとして扱います）",
+    "warn.root_not_dict": "WARNING: ルートが dict ではありません",
+    "warn.no_mcp_servers": "WARNING: 'mcp_servers' キーがありません（空リストとして扱います）",
+    "warn.mcp_servers_not_list": "WARNING: 'mcp_servers' が list ではありません（空リストとして扱います）",
+    "warn.load_fail": "WARNING: {path!r} の読み込みに失敗しました: {err}",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] が dict ではありません",
+    "warn.name_missing": "WARNING: mcp_servers[{idx}].name が未設定/空です",
+    "warn.url_missing": "WARNING: mcp_servers[{idx}].url が未設定/空です",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} は '/mcp' で終わっていません。（handle_mcp_v2 / mcp_tools_list は自動補完しますが、明示推奨です）",
+    "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count}件）"
+  }
 }

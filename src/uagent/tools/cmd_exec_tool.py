@@ -62,6 +62,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     err = p.stderr
 
     if p.returncode != 0:
-        return f"[cmd_exec]\n(returncode={p.returncode})\nSTDOUT:\n{out}\nSTDERR:\n{err}"
+        return (
+            f"[cmd_exec]\n(returncode={p.returncode})\nSTDOUT:\n{out}\nSTDERR:\n{err}"
+        )
 
     return f"[cmd_exec]\n{out}"

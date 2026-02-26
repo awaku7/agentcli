@@ -1,22 +1,7 @@
 # -*- coding: utf-8 -*-
 """tools/rename_path_tool.py
 
-rename_path ツール
-
-目的:
-- ファイル/ディレクトリの rename / move を行う。
-
-安全方針:
-- workdir 外・絶対パス・.. を含む等の危険パス条件に該当する場合はユーザー確認。
-- overwrite=True（既存 dst を削除して置換）の場合はユーザー確認。
-
-実装:
-- 実体の操作は tools.safe_file_ops.safe_rename_path() に委譲する。
-- 既存 dst を削除する場合、ファイルは os.remove、ディレクトリは shutil.rmtree。
-
-注意:
-- このツールは create_file/delete_file と同様に「実ファイル変更」を行うため、
-  LLM から呼ばれる場合でも安全確認が入る設計。
+Implementation of the rename_path tool.
 """
 
 from __future__ import annotations
@@ -36,27 +21,49 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "rename_path",
-        "description": _("tool.description", default="Rename (move) a file or directory."),
-        "system_prompt": _("tool.system_prompt", default="このツールはファイル/ディレクトリの rename/move を行います。\n\n安全注記:\n- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。\n- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。"),
+        "description": _(
+            "tool.description", default="Rename (move) a file or directory."
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool renames or moves a file or directory.\n\n"
+                "Safety Notes:\n"
+                "- Confirmation is required for absolute paths, paths containing '..', or operations outside the workdir.\n"
+                "- overwrite=true requires confirmation as it involves deletion of the destination."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "src": {
                     "type": "string",
-                    "description": _("param.src.description", default="元のパス（ファイル/ディレクトリ）。相対パス推奨。"),
+                    "description": _(
+                        "param.src.description",
+                        default="The source path (file or directory). Relative path is recommended.",
+                    ),
                 },
                 "dst": {
                     "type": "string",
-                    "description": _("param.dst.description", default="移動先パス（ファイル/ディレクトリ）。相対パス推奨。"),
+                    "description": _(
+                        "param.dst.description",
+                        default="The destination path (file or directory). Relative path is recommended.",
+                    ),
                 },
                 "overwrite": {
                     "type": "boolean",
-                    "description": _("param.overwrite.description", default="true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。"),
+                    "description": _(
+                        "param.overwrite.description",
+                        default="If true, delete and replace the destination if it already exists (requires confirmation).",
+                    ),
                     "default": False,
                 },
                 "mkdirs": {
                     "type": "boolean",
-                    "description": _("param.mkdirs.description", default="true の場合、dst の親ディレクトリを作成してから実行します。"),
+                    "description": _(
+                        "param.mkdirs.description",
+                        default="If true, create the parent directory of the destination before execution.",
+                    ),
                     "default": False,
                 },
             },

@@ -1,8 +1,23 @@
 {
-  "param.file_pattern.description": "",
-  "param.query.description": "",
-  "param.root_path.description": "",
-  "param.top_k_graph.description": "",
-  "param.top_k_vector.description": "",
-  "tool.description": ""
+  "ja": {
+    "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
+    "out.query": "検索クエリ: {query}",
+    "out.target_dir": "対象ディレクトリ: {root_path}",
+    "out.db": "DB: {db_path}",
+    "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / merged: {m}",
+    "warn.indexing_title": "\n[WARN] インデクシング警告（重複除去、先頭50件）:",
+    "out.results_title": "\n[Results]",
+    "out.result_content": "内容: {snippet}\n",
+    "out.no_docs": "関連するドキュメントは見つかりませんでした。",
+    "err.query_required": "エラー: query は必須です。",
+    "tool.description": "GraphRAG(グラフ+ベクトル)でローカルファイルを検索します。対象: py/md/txt/pdf/pptx/xlsx。SQLiteに軽量ナレッジグラフ(entities/relations)を構築し、グラフ探索(hops)で関連チャンクを回収して、ベクトル検索結果と併せて返します。",
+    "param.query.description": "検索クエリ（必須）",
+    "param.root_path.description": "検索対象ディレクトリ",
+    "param.file_pattern.description": "対象パターン（カンマ区切り glob）",
+    "param.top_k_vector.description": "ベクトル検索の上位件数",
+    "param.top_k_graph.description": "グラフ探索で回収する件数",
+    "param.hops.description": "グラフ探索のホップ数",
+    "param.chunk_size.description": "チャンクサイズ",
+    "param.overlap.description": "チャンクのオーバーラップ"
+  }
 }

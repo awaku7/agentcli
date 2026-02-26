@@ -1,10 +1,16 @@
 {
-  "param.filename.description": "",
-  "param.head_lines.description": "",
-  "param.max_lines.description": "",
-  "param.path.description": "",
-  "param.start_line.description": "",
-  "param.tail_lines.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です。",
+    "tool.system_prompt": "ファイルの内容を読み取ります。\n- 大きいファイルの場合は start_line/max_lines による部分的な読み取りを推奨します。\n- 改行コードは自動的に正規化されます。",
+    "param.filename.description": "読み取るファイルのパス。",
+    "param.path.description": "（互換性用）filename の別名。",
+    "param.start_line.description": "読み取りを開始する行番号（1始まり）。デフォルトは 1 です。",
+    "param.max_lines.description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
+    "param.head_lines.description": "先頭から読み取る行数。tail_lines と同時に指定することはできません。",
+    "param.tail_lines.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。",
+    "err.filename_missing": "[read_file error] filename/path が指定されていません",
+    "err.dual_lines": "[read_file error] head_lines と tail_lines は同時に指定できません",
+    "msg.truncated": "\n[read_file truncated: バイト制限 {max_bytes} に達しました]",
+    "err.out_of_range": "(ファイルは {count} 行しかありません。start_line {start_line} は範囲外です)"
+  }
 }

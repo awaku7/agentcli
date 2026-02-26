@@ -1,14 +1,14 @@
 # tools/file_hash_tool.py
 """file_hash_tool
 
-ファイルのハッシュ（sha256等）を計算するツール。
+A tool that calculates the hash (e.g., sha256) of a file.
 
-安全:
-- 読み取りのみ。
-- workdir 外のパスや危険なパスは拒否する（safe_file_ops_extras に準拠）。
+Safety:
+- Read-only.
+- Rejects paths outside the workdir or dangerous paths (compliant with safe_file_ops_extras).
 
-出力:
-- JSON（paths -> hash）
+Output:
+- JSON (paths -> hash)
 """
 
 from __future__ import annotations
@@ -32,31 +32,44 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_hash",
-        "description": _("tool.description", default="ファイルのハッシュ（sha256/sha1/md5）を計算します。"),
+        "description": _(
+            "tool.description",
+            default="Calculates the hash (sha256/sha1/md5) of files.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "paths": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": _("param.paths.description", default="対象ファイルパス配列"),
+                    "description": _(
+                        "param.paths.description",
+                        default="An array of target file paths.",
+                    ),
                 },
                 "algo": {
                     "type": "string",
                     "enum": ["sha256", "sha1", "md5"],
                     "default": "sha256",
-                    "description": _("param.algo.description", default="ハッシュアルゴリズム"),
+                    "description": _(
+                        "param.algo.description", default="Hash algorithm."
+                    ),
                 },
                 "chunk_size": {
                     "type": "integer",
                     "default": 1048576,
-                    "description": _("param.chunk_size.description", default="読み取りチャンクサイズ(bytes)"),
+                    "description": _(
+                        "param.chunk_size.description",
+                        default="Read chunk size in bytes.",
+                    ),
                 },
                 "return": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
-                    "description": _("param.return.description", default="出力形式"),
+                    "description": _(
+                        "param.return.description", default="Output format."
+                    ),
                 },
             },
             "required": ["paths"],

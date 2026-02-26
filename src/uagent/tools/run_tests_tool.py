@@ -1,25 +1,14 @@
 """run_tests_tool
 
-テストを実行するためのラッパーツール。
+Wrapper tool for running tests.
 
-目的:
-- cmd_exec/pwsh_exec を直接呼ぶよりも、テスト実行を定型化し、結果を構造化して返す。
-- framework=auto で pytest / unittest / npm を簡易検出する。
+Purpose:
+- Standardize test execution and return structured results.
+- Auto-detect pytest / unittest / npm when framework=auto.
 
-安全方針:
-- テスト実行は基本的に危険操作ではないため human_ask は行わない。
-- ただしコマンド注入的な入力（&&, |, > 等）を含む extra_args は拒否する。
-
-実装:
-- 内部では cmd_exec_json_tool を利用し、returncode/stdout/stderr を扱う。
-- stdout/stderr は callbacks.truncate_output があれば適用する。
-- cwd 指定は cmd_exec_json の cwd 引数を使う（cd && は使わない）。
-
-追加機能:
-- pythonpath: 追加の PYTHONPATH を設定してテストを実行する。
-  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>
-  - POSIX : PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>
-
+Safety:
+- Tests are generally non-hazardous.
+- Extra arguments are rejected if they contain shell metacharacters.
 """
 
 from __future__ import annotations
@@ -37,8 +26,6 @@ STATUS_LABEL = "tool:run_tests"
 
 
 _ = make_tool_translator(__file__)
-
-# Translator usage: _(key, default=...)
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -176,17 +163,13 @@ def _apply_pythonpath_prefix(cmd_str: str, pythonpath: Optional[str]) -> str:
         return cmd_str
 
     pp = str(pythonpath)
-
-    # Very small guard: reject shell metacharacters in pythonpath
     err = _reject_if_meta(pp)
     if err:
-        # Keep behavior consistent with other validation paths
         raise ValueError(err)
 
     if os.name == "nt":
         return f"set PYTHONPATH={pp};%PYTHONPATH% && {cmd_str}"
 
-    # POSIX style
     return f"PYTHONPATH={pp}:$PYTHONPATH {cmd_str}"
 
 

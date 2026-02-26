@@ -22,10 +22,14 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json")
+            p_new = os.path.join(
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
+            )
             if os.path.exists(p_new):
                 return p_new
-            return os.path.join(os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json")
+            return os.path.join(
+                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
+            )
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -141,10 +145,14 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _load_config(path: str, create_if_missing: bool) -> Tuple[Dict[str, Any], List[str]]:
+def _load_config(
+    path: str, create_if_missing: bool
+) -> Tuple[Dict[str, Any], List[str]]:
     if not os.path.exists(path):
         if create_if_missing:
-            return {"mcp_servers": []}, [f"WARNING: {path!r} does not exist; creating a new file"]
+            return {"mcp_servers": []}, [
+                f"WARNING: {path!r} does not exist; creating a new file"
+            ]
         return {"mcp_servers": []}, [f"ERROR: {path!r} does not exist"]
 
     try:
@@ -158,7 +166,9 @@ def _load_config(path: str, create_if_missing: bool) -> Tuple[Dict[str, Any], Li
             return {"mcp_servers": []}, ["ERROR: 'mcp_servers' is not a list"]
         return data, []
     except Exception as e:
-        return {"mcp_servers": []}, [f"ERROR: failed to load JSON: {type(e).__name__}: {e}"]
+        return {"mcp_servers": []}, [
+            f"ERROR: failed to load JSON: {type(e).__name__}: {e}"
+        ]
 
 
 def _save_config(path: str, data: Dict[str, Any]) -> None:
@@ -182,7 +192,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     create_if_missing = bool(args.get("create_if_missing", True))
 
     if not name:
-        return json.dumps({"ok": False, "error": "name is required"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "name is required"}, ensure_ascii=False
+        )
 
     config_path = str(path or get_default_mcp_config_path())
 
@@ -196,9 +208,13 @@ def run_tool(args: Dict[str, Any]) -> str:
         env = {}
 
     if not isinstance(arg_list, list):
-        return json.dumps({"ok": False, "error": "args must be an array"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "args must be an array"}, ensure_ascii=False
+        )
     if not isinstance(env, dict):
-        return json.dumps({"ok": False, "error": "env must be an object"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": "env must be an object"}, ensure_ascii=False
+        )
 
     # Find existing
     idx = None

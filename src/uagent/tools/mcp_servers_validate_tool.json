@@ -1,5 +1,18 @@
 {
-  "param.fail_on_warning.description": "",
-  "param.path.description": "",
-  "param.pretty.description": ""
+  "ja": {
+    "tool.description": "mcp_servers.json の内容を検証し、警告/エラーを返します。（必須キー/型/name重複/空URL/'/mcp'末尾 など）",
+    "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+    "param.fail_on_warning.description": "true の場合、警告が1件でもあれば overall=FAIL を返します（既定: false）",
+    "param.pretty.description": "true の場合は JSON を整形して返します（既定: true）",
+    "err.not_exists": "ERROR: {path!r} が存在しません",
+    "err.load_fail": "ERROR: {path!r} の読み込みに失敗しました: {err}",
+    "err.root_not_dict": "ERROR: ルートが dict ではありません",
+    "warn.no_mcp_servers": "WARNING: 'mcp_servers' キーがありません",
+    "err.mcp_servers_not_list": "ERROR: 'mcp_servers' が list ではありません",
+    "err.item_not_dict": "ERROR: mcp_servers[{idx}] が dict ではありません",
+    "err.name_missing": "ERROR: mcp_servers[{idx}].name が未設定/空です",
+    "err.url_missing": "ERROR: mcp_servers[{idx}].url が未設定/空です",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} は '/mcp' で終わっていません。（handle_mcp_v2 / mcp_tools_list は自動補完しますが、明示推奨です）",
+    "err.name_duplicate": "ERROR: name={name!r} が重複しています（{count}件）"
+  }
 }

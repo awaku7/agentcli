@@ -1,5 +1,6 @@
 # tools/file_exists.py
 from .i18n_helper import make_tool_translator
+from .arg_util import get_path
 
 _ = make_tool_translator(__file__)
 
@@ -14,14 +15,23 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_exists",
-        "description": _("tool.description", default="指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。"),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。"),
+        "description": _(
+            "tool.description",
+            default="Checks if a file or directory exists at the specified path and returns type, size, and modification time if it does.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool is used for the following purpose: check if a file or directory exists at the specified path and return type, size, and modification time if it does.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="存在確認したいファイルまたはディレクトリのパス（~ も使用可）。"),
+                    "description": _(
+                        "param.path.description",
+                        default="Path of the file or directory to check for existence (supports ~).",
+                    ),
                 }
             },
             "required": ["path"],
@@ -31,15 +41,13 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    path = (args.get("path") or "").strip()
-    if not path:
-        return "[file_exists error] path が空です"
+    expanded = get_path(args, "path", "")
+    if not expanded:
+        return _("err.path_empty", default="[file_exists error] path is empty")
 
-    expanded = os.path.expanduser(path)
-    # print(expanded)
     try:
         if not os.path.exists(expanded):
-            return f"[file_exists]\npath={path} (expanded={expanded})\nexists=False"
+            return f"[file_exists]\npath={expanded}\nexists=False"
 
         is_dir = os.path.isdir(expanded)
         st = os.stat(expanded)
@@ -48,7 +56,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         return (
             "[file_exists]\n"
-            f"path={path} (expanded={expanded})\n"
+            f"path={expanded}\n"
             "exists=True\n"
             f"is_dir={is_dir}\n"
             f"size={size_str}\n"

@@ -1,14 +1,11 @@
-# tools/context.py
 """tools.context
 
-ツール実装からホスト（scheck_core / scheck.py）への依存を薄くするための
-「コールバック注入式」コンテキスト。
+A "callback-injection" context to reduce dependency from tool implementations to the host (scheck_core / scheck.py).
 
-- tools/__init__.py は scheck_core を import しない。
-- 代わりにホスト側（scheck.py）が起動時に init_callbacks(...) を呼び、
-  必要な関数や共有状態へのアクセサを注入する。
+- tools/__init__.py does not import scheck_core.
+- Instead, the host (scheck.py) calls init_callbacks(...) at startup to inject necessary functions and accessors for shared state.
 
-このモジュールは tools/ 配下の各ツールが参照する共通窓口。
+This module acts as a common gateway for all tools under the tools/ directory.
 """
 
 from __future__ import annotations
@@ -19,17 +16,17 @@ from typing import Any, Callable, Optional
 
 @dataclass
 class ToolCallbacks:
-    # Busy/Idle 表示
+    # Busy/Idle status updates
     set_status: Optional[Callable[[bool, str], None]] = None
 
-    # 環境変数取得（必須扱い）
+    # Environment variable access
     get_env: Optional[Callable[[str], str]] = None
     get_env_url: Optional[Callable[[str, Optional[str]], str]] = None
 
-    # 出力トリミング
+    # Output truncation
     truncate_output: Optional[Callable[[str, str, int], str]] = None
 
-    # human_ask の共有状態（stdin_loop と同期するため）
+    # Shared state for human_ask (synchronized with stdin_loop)
     human_ask_lock: Any = None
     human_ask_active_ref: Optional[Callable[[], bool]] = None
     human_ask_set_active: Optional[Callable[[bool], None]] = None
@@ -41,13 +38,13 @@ class ToolCallbacks:
     human_ask_set_password: Optional[Callable[[bool], None]] = None
     multi_input_sentinel: str = '"""end'
 
-    # タイマー等のイベント注入
+    # Event injection (e.g., timers)
     event_queue: Any = None
 
-    # 表示環境
+    # Display environment
     is_gui: bool = False
 
-    # 設定値
+    # Settings
     cmd_encoding: str = "utf-8"
     cmd_exec_timeout_ms: int = 60_000
     python_exec_timeout_ms: int = 60_000

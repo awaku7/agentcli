@@ -15,16 +15,12 @@ STATUS_LABEL = "tool:pwsh_exec"
 
 
 def _probe_powershell_versions() -> Dict[str, str]:
-    """Return detected PowerShell versions as strings.
-
-    Keys may include 'pwsh' (PowerShell 7+) and/or 'powershell' (Windows PowerShell).
-    """
+    """Return detected PowerShell versions as strings."""
 
     def probe(exe: str) -> str:
         if not shutil.which(exe):
             return ""
         try:
-            # Use UTF-8 to avoid mojibake in version string.
             cmd = [
                 exe,
                 "-NoLogo",
@@ -81,19 +77,38 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "pwsh_exec",
-        "description": _("tool.description", default="【最終手段】PowerShell を実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。")
+        "description": _(
+            "tool.description",
+            default="[Last resort] Execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
+        )
         + _DESC_SUFFIX,
-        "system_prompt": _("tool.system_prompt", default="このツールは【最終手段】です。\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\n\nセキュリティ注記:\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。"),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool is a LAST RESORT.\n"
+                "1. First check handle_mcp / mcp_tools_list for alternative means.\n"
+                "2. Only if no other way exists, use this tool to execute PowerShell.\n"
+                "3. Do not use this for Python execution. Use python_exec instead.\n\n"
+                "Security Note:\n"
+                "- Dangerous patterns like download-exec (IWR/IRM/curl/wget etc.) or Base64 (-Enc) will be confirmed or blocked."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "command": {
                     "type": "string",
-                    "description": _("param.command.description", default="PowerShell command string passed to -Command."),
+                    "description": _(
+                        "param.command.description",
+                        default="PowerShell command string passed to -Command.",
+                    ),
                 },
                 "shell": {
                     "type": "string",
-                    "description": _("param.shell.description", default="PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select."),
+                    "description": _(
+                        "param.shell.description",
+                        default="PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
+                    ),
                     "enum": ["pwsh", "powershell"],
                 },
             },
@@ -108,20 +123,15 @@ def _choose_shell(requested: str = "") -> str:
     if requested in ("pwsh", "powershell"):
         return requested
 
-    # Default selection policy:
-    # - Prefer pwsh if available
-    # - Fallback to Windows PowerShell on Windows
     if shutil.which("pwsh"):
         return "pwsh"
     if os.name == "nt" and shutil.which("powershell"):
         return "powershell"
-    # Last resort: return 'pwsh' (will error later with a clear message)
     return "pwsh"
 
 
-# Guard helper (reuse cmd_exec guard; it already contains PS-specific patterns)
 try:
-    from .safe_exec_ops import decide_cmd_exec, confirm_if_needed
+    from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
 except Exception:
     decide_cmd_exec = None  # type: ignore[assignment]
     confirm_if_needed = None  # type: ignore[assignment]
@@ -139,20 +149,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not shutil.which(shell):
         return f"[pwsh_exec error] PowerShell executable not found: {shell}"
 
-    # --- Force UTF-8 in the PowerShell session to avoid mojibake ---
-    # Notes:
-    # - This affects only the spawned PowerShell process.
-    # - We set both Console.OutputEncoding and $OutputEncoding.
-    # - The tool itself decodes stdout/stderr using cb.cmd_encoding (default: utf-8).
-    # - When users run under Windows PowerShell 5.1 with legacy code pages, this often fixes
-    #   JSON / Japanese output corruption.
     ps_prefix = (
         "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; "
         "$OutputEncoding=[System.Text.Encoding]::UTF8; "
     )
     command = ps_prefix + command
 
-    # --- security guard ---
     if decide_cmd_exec is not None:
         decision = decide_cmd_exec(command)
         if not decision.allowed:
@@ -173,7 +175,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             timeout=cb.cmd_exec_timeout_ms / 1000.0,
         )
     except subprocess.TimeoutExpired:
-        return f"[pwsh_exec timeout] {cb.cmd_exec_timeout_ms / 1000:.0f}秒以内に終了しませんでした"
+        return _(
+            "err.timeout",
+            default="[pwsh_exec timeout] did not finish within {seconds} seconds",
+        ).format(seconds=cb.cmd_exec_timeout_ms / 1000.0)
     except Exception as e:
         return f"[pwsh_exec error] {type(e).__name__}: {e}"
 

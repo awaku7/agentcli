@@ -13,38 +13,62 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "date_calc",
-        "description": _("tool.description", default="指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。"),
+        "description": _(
+            "tool.description",
+            default="Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "base_date": {
                     "type": "string",
-                    "description": _("param.base_date.description", default="基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。"),
+                    "description": _(
+                        "param.base_date.description",
+                        default="The base date (ISO 8601 format 'YYYY-MM-DD'. Defaults to today if omitted).",
+                    ),
                 },
                 "years": {
                     "type": "integer",
-                    "description": _("param.years.description", default="加算する年数（減算は負の数）。"),
+                    "description": _(
+                        "param.years.description",
+                        default="Years to add (negative for subtraction).",
+                    ),
                 },
                 "months": {
                     "type": "integer",
-                    "description": _("param.months.description", default="加算する月数（減算は負の数）。"),
+                    "description": _(
+                        "param.months.description",
+                        default="Months to add (negative for subtraction).",
+                    ),
                 },
                 "weeks": {
                     "type": "integer",
-                    "description": _("param.weeks.description", default="加算する週数（減算は負の数）。"),
+                    "description": _(
+                        "param.weeks.description",
+                        default="Weeks to add (negative for subtraction).",
+                    ),
                 },
                 "days": {
                     "type": "integer",
-                    "description": _("tool.description", default="加算する日数（減算は負の数）。"),
+                    "description": _(
+                        "param.days.description",
+                        default="Days to add (negative for subtraction).",
+                    ),
                 },
                 "country": {
                     "type": "string",
-                    "description": _("tool.description", default="祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。"),
+                    "description": _(
+                        "param.country.description",
+                        default="Country code for holiday determination (ISO 3166-1 alpha-2, e.g., 'JP', 'US', 'GB', 'FR'). Default is 'JP'.",
+                    ),
                     "default": "JP",
                 },
                 "check_holiday": {
                     "type": "boolean",
-                    "description": _("tool.description", default="祝日・休日かどうかを判定するかどうか（既定: true）"),
+                    "description": _(
+                        "param.check_holiday.description",
+                        default="Whether to check if the result is a holiday or weekend (default: true).",
+                    ),
                     "default": True,
                 },
             },
@@ -55,9 +79,8 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def get_holiday_info(dt: datetime.datetime, country_code: str) -> Optional[str]:
-    """holidaysライブラリを使用して指定された国の祝日名を取得します。"""
+    """Get the holiday name for the specified country using the holidays library."""
     try:
-        # 言語設定は日本以外はデフォルト（英語等）になる可能性がある
         if country_code.upper() == "JP":
             hols = holidays.Japan(language="ja")
         else:
@@ -65,10 +88,10 @@ def get_holiday_info(dt: datetime.datetime, country_code: str) -> Optional[str]:
     except Exception:
         return f"Error: Country code '{country_code}' not supported."
 
-    # 祝日の判定
+    # Holiday check
     holiday_name = hols.get(dt)
 
-    # 週末の判定
+    # Weekend check
     weekend_name = None
     if dt.weekday() == 5:
         weekend_name = "Saturday"

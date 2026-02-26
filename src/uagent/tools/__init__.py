@@ -10,15 +10,18 @@ from pkgutil import iter_modules
 from typing import Any, Dict, List, Callable
 
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
+from .i18n_helper import make_tool_translator
 
-# LLM に渡すための生のツール定義一覧
+_ = make_tool_translator(__file__)
+
+# Raw tool specs passed to the LLM
 TOOL_SPECS: List[Dict[str, Any]] = []
 
-# 実行用ランナー
+# Runners
 _RUNNERS: Dict[str, Callable[[Dict[str, Any]], str]] = {}
 
-# Busy 状態ラベルを立てるツール
-#  key: tool_name, value: status_label (例: "tool:cmd_exec")
+# Tools that set Busy status labels
+# key: tool_name, value: status_label (e.g. "tool:cmd_exec")
 _BUSY_LABEL_TOOLS: Dict[str, str] = {}
 
 
@@ -44,7 +47,7 @@ _SECRET_KEY_PATTERNS = [
         r"session",
         r"sas",
         r"signature",
-        r"user[_-]?reply",  # human_ask の生回答
+        r"user[_-]?reply",  # raw answer for human_ask
     )
 ]
 
@@ -65,7 +68,7 @@ def _mask_value(v: Any) -> Any:
 
 
 def _mask_args(args: Any) -> Any:
-    """引数を再帰的に走査し、機密情報をマスクする。"""
+    """Recursively walk arguments and mask secret values."""
     if isinstance(args, dict):
         out: Dict[str, Any] = {}
         for k, v in args.items():
@@ -84,12 +87,15 @@ def _mask_args(args: Any) -> Any:
 
 
 def _emit_tool_trace(name: str, args: Dict[str, Any]) -> None:
-    """ツール実行前に『何をするか』を1行で標準出力へ出す。"""
+    """Print a one-line tool trace before execution."""
     try:
         masked = _mask_args(args or {})
         try:
             arg_str = json.dumps(
-                masked, ensure_ascii=False, separators=(",", ":"), sort_keys=True
+                masked,
+                ensure_ascii=False,
+                separators=(",", ":"),
+                sort_keys=True,
             )
         except Exception:
             arg_str = str(masked)
@@ -106,7 +112,7 @@ def _emit_tool_trace(name: str, args: Dict[str, Any]) -> None:
 
 
 def init_callbacks(callbacks: ToolCallbacks) -> None:
-    """ホスト側からコールバック群を注入する。"""
+    """Inject callback functions from the host."""
     _init_callbacks(callbacks)
 
 
@@ -117,12 +123,12 @@ def _safe_set_status(busy: bool, label: str = "") -> None:
     try:
         cb(busy, label)
     except Exception:
-        # UI 表示に失敗してもツール実行自体は継続
+        # Tool execution should continue even if UI updates fail.
         return
 
 
 def _register_tool_module(mod: Any, mod_name: str) -> bool:
-    """モジュールをツールとして登録する。"""
+    """Register a module as a tool."""
     spec = getattr(mod, "TOOL_SPEC", None)
     runner = getattr(mod, "run_tool", None)
 
@@ -134,7 +140,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if not tool_name:
         return False
 
-    # 既存の同名ツールがあれば削除して上書き
+    # If an existing tool with the same name exists, remove it first.
     for i, existing in enumerate(TOOL_SPECS):
         if existing.get("function", {}).get("name") == tool_name:
             TOOL_SPECS.pop(i)
@@ -143,7 +149,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     TOOL_SPECS.append(spec)
     _RUNNERS[tool_name] = runner
 
-    # Busy ラベル設定
+    # Busy label setting
     busy_flag = getattr(mod, "BUSY_LABEL", False)
     if busy_flag:
         status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
@@ -152,15 +158,12 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
 
 def _load_plugins() -> None:
-    """
-    tools/ 以下のプラグインモジュールを走査して、
-    TOOL_SPECS / _RUNNERS / _BUSY_LABEL_TOOLS を構築する。
-    """
+    """Discover and load tool plugin modules under tools/."""
     TOOL_SPECS.clear()
     _RUNNERS.clear()
     _BUSY_LABEL_TOOLS.clear()
 
-    # 1. 内部ツールのロード
+    # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
     for m in iter_modules([pkg_dir]):
         if m.name.startswith("_") or m.name == "context":
@@ -175,11 +178,14 @@ def _load_plugins() -> None:
             _register_tool_module(mod, mod_name)
         except Exception as e:
             print(
-                f"[tools] 内部プラグイン {mod_name} のロード失敗: {e!r}",
+                _(
+                    "log.load_fail.internal",
+                    default=f"[tools] Failed to load internal plugin {mod_name}: {e!r}",
+                ).format(mod_name=mod_name, err=repr(e)),
                 file=sys.stderr,
             )
 
-    # 2. 外部ツールのロード (UAGENT_EXTERNAL_TOOLS_DIR)
+    # 2. Load external tools (UAGENT_EXTERNAL_TOOLS_DIR)
     ext_dir = os.environ.get("UAGENT_EXTERNAL_TOOLS_DIR")
     if ext_dir and os.path.isdir(ext_dir):
         for entry in os.scandir(ext_dir):
@@ -197,43 +203,59 @@ def _load_plugins() -> None:
                         spec.loader.exec_module(mod)
                         if _register_tool_module(mod, mod_name):
                             print(
-                                f"[tools] 外部ツールをロードしました: {entry.name}",
+                                _(
+                                    "log.load_ok.external",
+                                    default=f"[tools] Loaded external tool: {entry.name}",
+                                ).format(entry_name=entry.name),
                                 file=sys.stderr,
                             )
                 except Exception as e:
                     print(
-                        f"[tools] 外部プラグイン {entry.path} のロード失敗: {e!r}",
+                        _(
+                            "log.load_fail.external",
+                            default=f"[tools] Failed to load external plugin {entry.path}: {e!r}",
+                        ).format(entry_path=entry.path, err=repr(e)),
                         file=sys.stderr,
                     )
 
     if TOOL_SPECS:
         names = [s["function"]["name"] for s in TOOL_SPECS]
-        print(f"[tools] ロードされたツール: {', '.join(names)}", file=sys.stderr)
+        print(
+            _(
+                "log.loaded_tools",
+                default=f"[tools] Loaded tools: {', '.join(names)}",
+            ).format(names=", ".join(names)),
+            file=sys.stderr,
+        )
     else:
-        print("[tools] 有効なツールが見つかりませんでした。", file=sys.stderr)
+        print(
+            _(
+                "log.no_valid_tools",
+                default="[tools] No valid tools were found.",
+            ),
+            file=sys.stderr,
+        )
 
 
 def get_tool_specs() -> List[Dict[str, Any]]:
-    """LLM 用のツール定義一覧を取得する。"""
-    # OpenAI/Azure API スキーマに準拠するため、独自拡張フィールド(system_prompt等)を除去する。
+    """Return tool specs for the LLM."""
+    # To comply with OpenAI/Azure API schema, remove custom extended fields (e.g., system_prompt).
     #
-    # 重要:
-    # - Chat Completions / Responses のどちらも "tools" はトップレベルに "name" を持たない。
-    #   正式な形は: {"type":"function","function":{"name":..., ...}}
-    # - しかし一部SDK/プロキシ/互換層で "tools[i].name" を要求するケースがある。
-    #   （今回の 400: Missing required parameter: 'tools[0].name' がそれ）
-    #   その場合でも壊れないよう、冗長だがトップレベルに name を付与しておく。
+    # Note:
+    # - Both Chat Completions and Responses expect tools without a top-level "name".
+    #   The canonical form is: {"type":"function","function":{"name":..., ...}}
+    # - However, some SDKs/proxies/compat layers require tools[i].name.
+    #   To be robust, mirror the function name to the top-level "name" as well.
+
     clean_specs: List[Dict[str, Any]] = []
     for spec in TOOL_SPECS:
-        # 浅いコピーでトップレベルを複製
         spec_copy = spec.copy()
         if "function" in spec_copy and isinstance(spec_copy["function"], dict):
-            # function 辞書も複製して編集
             func_copy = spec_copy["function"].copy()
             func_copy.pop("system_prompt", None)
             spec_copy["function"] = func_copy
 
-            # --- compatibility: mirror name to top-level ---
+            # compatibility: mirror name to top-level
             fn_name = func_copy.get("name")
             if fn_name and not spec_copy.get("name"):
                 spec_copy["name"] = fn_name
@@ -243,19 +265,19 @@ def get_tool_specs() -> List[Dict[str, Any]]:
 
 
 def reload_plugins() -> None:
-    """将来の拡張用: ツールプラグイン群を再ロードする。"""
+    """Reload tool plugins (reserved for future extensions)."""
     _load_plugins()
 
 
 def run_tool(name: str, args: Dict[str, Any]) -> str:
-    """ChatCompletion からの tool_call を実際に実行するエントリポイント。"""
+    """Entry point for executing a tool_call."""
     runner = _RUNNERS.get(name)
     if runner is None:
         return f"[tool error] unknown tool: {name}"
 
     # ---- trace (pre) ----
-    # TOOL_SPEC 側の拡張フラグで [TOOL] ログを抑制できるようにする。
-    # 既定: 抑制しない（従来互換）
+    # Allow suppressing [TOOL] trace via TOOL_SPEC's extended flags.
+    # Default: emit.
     try:
         spec = next(
             (s for s in TOOL_SPECS if s.get("function", {}).get("name") == name),
@@ -269,33 +291,31 @@ def run_tool(name: str, args: Dict[str, Any]) -> str:
         if emit_trace:
             _emit_tool_trace(name, args)
     except Exception:
-        # ここでの例外はツール実行を妨げない
+        # Exceptions here must not prevent tool execution.
         _emit_tool_trace(name, args)
 
-    # human_ask 中は Busy を解除（入力待ちになるため）。
-    # ただし、実行後は LLM に復帰させないと GUI 側が IDLE のままに見える。
+    # During human_ask, Busy should be turned off (it will wait for input).
+    # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.
     if name == "human_ask":
-        # human_ask は内部で active 状態を立ててから Busy を解除する必要があるため、
-        # ここでは自動で解除せず、runner 側の実装に任せる。
+        # human_ask needs to set active state before clearing Busy,
+        # so we delegate status handling to the runner implementation.
         try:
             return runner(args)
         finally:
-            # human_ask 完了後は LLM に戻す（GUI が IDLE 固定に見えるのを防ぐ）
             _safe_set_status(True, "LLM")
 
-    # Busy ラベル付きツール
+    # Busy-labeled tools
     status_label = _BUSY_LABEL_TOOLS.get(name)
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
             return runner(args)
         finally:
-            # ツール呼び出しが終わったら、LLM 処理中に戻す
             _safe_set_status(True, "LLM")
 
-    # それ以外はステータスをいじらずそのまま
+    # Otherwise do not touch status
     return runner(args)
 
 
-# モジュール import 時に一度だけ読み込む
+# Load once on module import
 _load_plugins()

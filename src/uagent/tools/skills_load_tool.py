@@ -1,12 +1,5 @@
 # tools/skills_load_tool.py
-"""skills_load_tool
-
-Load full SKILL.md (frontmatter + markdown body).
-
-Agent Skills spec:
-https://agentskills.io/specification
-
-"""
+"""skills_load_tool implementation for Agent Skills."""
 
 from __future__ import annotations
 
@@ -17,7 +10,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from .agent_skills_shared import load_skill_doc  # noqa: E402
+from .agent_skills_shared import load_skill_doc
 
 STATUS_LABEL = "tool:skills_load"
 
@@ -25,13 +18,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_load",
-        "description": _("tool.description", default="Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。"),
+        "description": _(
+            "tool.description",
+            default="Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": _("param.skill_dir.description", default="スキルディレクトリ（直下に SKILL.md が必要）"),
+                    "description": _(
+                        "param.skill_dir.description",
+                        default="The skill directory (must contain SKILL.md).",
+                    ),
                 }
             },
             "required": ["skill_dir"],

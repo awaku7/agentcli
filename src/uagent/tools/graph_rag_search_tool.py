@@ -2,22 +2,6 @@
 """graph_rag_search_tool
 
 GraphRAG (Graph + Vector hybrid retrieval) for local files.
-
-This tool builds/uses:
-- Vector index (reuse semantic_search_files_tool's DB layout)
-- Lightweight knowledge graph stored in the same SQLite DB
-
-Supported file types (minimum viable, all at once):
-- .py : AST-based entities/relations (defines/imports/calls (limited))
-- .md/.txt : rule-based entity extraction + co-occurrence relations
-- .pdf/.pptx : text extraction via read_pptx_pdf tool implementation
-- .xlsx : structured extraction via exstruct (if available), fallback to simple read error message
-
-Design goals:
-- Keep existing semantic_search_files tool behavior unchanged.
-- Store graph tables in the same per-root SQLite DB under <state>/dbs (default: ~/.uag (legacy: ~/.scheck)/dbs; overridable via env; resolved by uagent.utils.paths.get_dbs_dir()).
-- Be robust: if optional dependencies for PDF/PPTX/XLSX are missing, index what we can and report.
-
 """
 
 from __future__ import annotations
@@ -134,59 +118,44 @@ def _extract_pdf_pptx_text(path: str) -> Tuple[str, List[Tuple[int, str]], List[
     """Return (all_text, pages[(page_index, text)], warnings)."""
 
     warnings: List[str] = []
-
-    # Import implementation module and use its internal extractors if available.
-    # read_pptx_pdf tool provides run_tool() that returns a string; we prefer page-wise extraction.
     try:
         from . import read_pptx_pdf as rpp
     except Exception as e:  # pragma: no cover
-        return "", [], [f"read_pptx_pdf のimportに失敗: {e}"]
+        return "", [], [f"Failed to import read_pptx_pdf: {e}"]
 
-    # The implementation module contains private extraction functions, but API stability is not guaranteed.
-    # We fallback to run_tool (all pages concatenated) if we cannot access internals.
-    pages: List[Tuple[int, str]] = []
-
-    # Try to call run_tool page by page.
-    # This is slower but robust and avoids relying on private functions.
-    # We use a larger max_chars per page chunking later.
-
-    # Determine page/slide count is not exposed. We'll call without page_index first (all pages), but that loses page boundaries.
-    # So we attempt to detect boundaries by requesting the common JSON schema via .json path is not possible here.
-    # Practical compromise: call without page_index and treat as one "document".
     try:
         text_all = rpp.run_tool({"path": path, "page_index": 0, "max_chars": 2000000})
-        # run_tool expects required path; page_index 0 will likely be treated as "all pages" by wrapper.
         if not isinstance(text_all, str):
             text_all = str(text_all)
         text_all = text_all.strip()
         if not text_all:
-            warnings.append("PDF/PPTX からテキストが抽出できませんでした（空）。")
+            warnings.append("Could not extract text from PDF/PPTX (empty).")
         # No page boundaries available -> one pseudo page
         pages = [(1, text_all)] if text_all else []
         return text_all, pages, warnings
     except Exception as e:
-        return "", [], [f"read_pptx_pdf の実行に失敗: {e}"]
+        return "", [], [f"Failed to execute read_pptx_pdf: {e}"]
 
 
 def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]]:
     """Return (all_text, sheets[(sheet_name,text)], warnings)."""
 
     warnings: List[str] = []
-
-    # Prefer exstruct (structure aware)
     try:
         from . import exstruct_tool
 
-        # exstruct_tool has internal _import_exstruct; use run_tool via TOOL interface is not present.
-        # We'll call its public functions by using its main entrypoint: it does not expose run_tool;
-        # so we call as a tool-like function by importing exstruct_tool and using _import_exstruct.
-        # To keep robustness, we fallback if import fails.
-        _ = exstruct_tool.TOOL_SPEC  # ensure module loaded
+        _ = exstruct_tool.TOOL_SPEC
+        (
+            DestinationOptions,
+            ExStructEngine,
+            FilterOptions,
+            FormatOptions,
+            OutputOptions,
+            StructOptions,
+            export_print_areas_as,
+            set_table_detection_params,
+        ) = exstruct_tool._import_exstruct()  # type: ignore[attr-defined]
 
-        # Use its helper to import exstruct runtime.
-        DestinationOptions, ExStructEngine, FilterOptions, FormatOptions, OutputOptions, StructOptions, export_print_areas_as, set_table_detection_params = exstruct_tool._import_exstruct()  # type: ignore[attr-defined]
-
-        # Minimal options
         engine = ExStructEngine(
             options=StructOptions(),
             output=OutputOptions(
@@ -195,16 +164,12 @@ def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]
             ),
         )
         wb = engine.extract(str(path))
-        # Export to JSON string
         exported = wb.export(format="json", pretty=False)
-        # Convert to a compact text for embedding
         data = json.loads(exported)
         sheets: List[Tuple[str, str]] = []
-        # Heuristic: include sheet name and detected tables/cells
         for sheet_name, sh in (data.get("sheets", {}) or {}).items():
             name = sheet_name
             parts: List[str] = [f"[SHEET] {name}"]
-            # tables
             for tbl in sh.get("tables", []) or []:
                 title = tbl.get("title")
                 if title:
@@ -215,11 +180,9 @@ def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]
                 rows = tbl.get("rows") or []
                 for r in rows[:200]:
                     parts.append("[ROW] " + " | ".join(str(x) for x in r))
-            # fallback to cells if present
             rows = sh.get("rows", [])
             if isinstance(rows, list):
                 for row in rows[:500]:
-
                     v = row.get("value")
                     if v is None:
                         continue
@@ -230,13 +193,12 @@ def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]
 
         all_text = "\n\n".join(t for _, t in sheets).strip()
         if not all_text:
-            warnings.append("exstructで抽出したテキストが空でした。")
+            warnings.append("Extracted text from exstruct was empty.")
         return all_text, sheets, warnings
 
     except Exception as e:
-        warnings.append(f"exstruct による抽出に失敗: {e}")
+        warnings.append(f"Failed to extract using exstruct: {e}")
 
-    # Fallback: do not try pandas/openpyxl here to avoid additional deps
     return "", [], warnings
 
 
@@ -260,12 +222,7 @@ def _ensure_vector_index_for_text(
     chunk_size: int = 800,
     overlap: int = 150,
 ) -> List[int]:
-    """Insert vectors rows for the given (text) and return inserted vector ids.
-
-    Assumes vectors for this file_id were already deleted/cleared by caller when reindexing.
-
-    NOTE: If embedding API is not available, we still insert chunks without vectors (for graph-only search).
-    """
+    """Insert vectors rows for the given (text) and return inserted vector ids."""
 
     chunks = _chunk_text(text, chunk_size=chunk_size, overlap=overlap)
     if not chunks:
@@ -277,7 +234,7 @@ def _ensure_vector_index_for_text(
     inserted_ids: List[int] = []
     for idx, chunk in enumerate(chunks):
         vec = vec_tool._get_embedding(chunk)
-        embedding_json = json.dumps(vec) if vec else None  # Allow NULL if no embedding
+        embedding_json = json.dumps(vec) if vec else None
 
         cur.execute(
             "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
@@ -313,25 +270,16 @@ def _norm(s: str) -> str:
 
 def _extract_entities_from_text(text: str) -> List[Tuple[str, str]]:
     """Return list of (name,type)."""
-
     found: List[Tuple[str, str]] = []
-
-    # Qualified names (module.func)
     for m in _QUALNAME_RE.finditer(text or ""):
         found.append((m.group(0), "qualname"))
-
     for m in _CAMEL_RE.finditer(text or ""):
         found.append((m.group(0), "term"))
-
     for m in _WORD_RE.finditer(text or ""):
         tok = m.group(0)
-        # exclude overly common python keywords? keep minimal
         found.append((tok, "term"))
-
     for m in _FILE_RE.finditer(text or ""):
         found.append((m.group(0), "file"))
-
-    # de-dup preserving order
     seen = set()
     out: List[Tuple[str, str]] = []
     for name, typ in found:
@@ -406,7 +354,6 @@ class _CallVisitor(ast.NodeVisitor):
         self.calls: List[str] = []
 
     def visit_Call(self, node: ast.Call) -> Any:
-        # very limited: capture Name() and Attribute() chains as strings
         name = None
         if isinstance(node.func, ast.Name):
             name = node.func.id
@@ -472,14 +419,12 @@ def _extract_py_entities_relations(
             cl = (node.name, "class")
             entities.append(cl)
             relations.append((module_ent, "defines", cl))
-            # methods
             for sub in node.body:
                 if isinstance(sub, ast.FunctionDef):
                     m = (f"{node.name}.{sub.name}", "method")
                     entities.append(m)
                     relations.append((cl, "defines", m))
 
-    # de-dup entities
     seen = set()
     ent_out: List[Tuple[str, str]] = []
     for e in entities:
@@ -504,13 +449,9 @@ def _sync_file_all_types(
     chunk_size: int,
     overlap: int,
 ) -> List[str]:
-    """Sync one file into vectors + graph.
-
-    Returns warnings list.
-    """
+    """Sync one file into vectors + graph."""
 
     warnings: List[str] = []
-
     fpath_abs = os.path.abspath(fpath)
     if not os.path.isfile(fpath_abs):
         return [f"not a file: {fpath}"]
@@ -552,10 +493,7 @@ def _sync_file_all_types(
             file_id = int(cur.lastrowid)
 
         conn.commit()
-
         ext = Path(fpath_abs).suffix.lower()
-
-        # Insert vectors depending on file type
         inserted_vector_ids: List[int] = []
 
         if ext in (".md", ".txt", ".py"):
@@ -573,10 +511,8 @@ def _sync_file_all_types(
                 overlap=overlap,
             )
 
-            # Graph extraction
             if ext == ".py" and content:
                 ents, rels = _extract_py_entities_relations(fpath_abs, content)
-                # Attach module-level entities to first chunk as evidence (best effort)
                 evidence_vector_id = (
                     inserted_vector_ids[0] if inserted_vector_ids else None
                 )
@@ -596,7 +532,6 @@ def _sync_file_all_types(
             text_all, pages, w = _extract_pdf_pptx_text(fpath_abs)
             warnings.extend(w)
             if pages:
-                # store each page as separate "document" text; chunking handles size
                 for page_index, ptext in pages:
                     inserted_vector_ids.extend(
                         _ensure_vector_index_for_text(
@@ -619,7 +554,6 @@ def _sync_file_all_types(
                     overlap=overlap,
                 )
 
-            # Graph: entity extraction from chunks (mentions + co-occurrence)
             for vid in inserted_vector_ids:
                 cur.execute("SELECT text_content FROM vectors WHERE id=?", (vid,))
                 r = cur.fetchone()
@@ -628,7 +562,6 @@ def _sync_file_all_types(
                 ents = _extract_entities_from_text(str(r[0]))
                 _link_chunk_entities(db_path, vid, ents, cur=cur)
 
-            # Co-occurrence relations per chunk
             conn2 = sqlite3.connect(db_path)
             c2 = conn2.cursor()
             for vid in inserted_vector_ids:
@@ -637,7 +570,6 @@ def _sync_file_all_types(
                     (vid,),
                 )
                 eids = [int(x[0]) for x in (c2.fetchall() or [])]
-                # add related_to edges for first N pairs
                 for i in range(min(len(eids), 30)):
                     for j in range(i + 1, min(len(eids), 30)):
                         _add_relation(c2, eids[i], "related_to", eids[j], vid, 0.3)
@@ -670,7 +602,6 @@ def _sync_file_all_types(
                     overlap=overlap,
                 )
 
-            # Graph: entities from chunks + co-occurrence
             for vid in inserted_vector_ids:
                 cur.execute("SELECT text_content FROM vectors WHERE id=?", (vid,))
                 r = cur.fetchone()
@@ -694,10 +625,8 @@ def _sync_file_all_types(
             conn2.close()
 
         else:
-            # unsupported: do nothing
             warnings.append(f"unsupported extension: {ext}")
 
-        # Mark graph build
         cur.execute(
             "INSERT OR REPLACE INTO graph_files (file_id, graph_mtime, graph_version) VALUES (?, ?, ?)",
             (file_id, mtime, 1),
@@ -715,7 +644,7 @@ def _sync_file_all_types(
 
 @dataclass
 class _ChunkHit:
-    source: str  # 'vector' or 'graph'
+    source: str
     score: float
     file_id: int
     vector_id: int
@@ -766,7 +695,6 @@ def _extract_query_entities(query: str) -> List[str]:
         ents.append(m.group(0))
     for m in _FILE_RE.finditer(query or ""):
         ents.append(m.group(0))
-    # de-dup
     out: List[str] = []
     seen = set()
     for e in ents:
@@ -789,11 +717,9 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
     seed_ids: List[int] = []
     for t in tokens:
         n = _norm(t)
-        # exact match
         cur.execute("SELECT id FROM entities WHERE norm_name=? LIMIT 5", (n,))
         for (eid,) in cur.fetchall() or []:
             seed_ids.append(int(eid))
-        # partial match (contains)
         cur.execute(
             "SELECT id FROM entities WHERE norm_name LIKE ? LIMIT 5", (f"%{n}%",)
         )
@@ -801,7 +727,6 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
             seed_ids.append(int(eid))
 
     conn.close()
-    # de-dup
     out: List[int] = []
     seen = set()
     for x in seed_ids:
@@ -865,7 +790,6 @@ def _graph_retrieve(
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
-    # Get chunks mentioning visited entities
     if not visited:
         conn.close()
         return [], {"seed_entity_ids": [], "visited_entity_ids": [], "edges": []}
@@ -889,14 +813,12 @@ def _graph_retrieve(
         if not r:
             continue
         fid, text = int(r[0]), str(r[1])
-        # Simple graph score: prioritize seeds and shorter hop implicitly not captured; use constant.
         hits.append(
             _ChunkHit(source="graph", score=1.0, file_id=fid, vector_id=vid, text=text)
         )
 
     conn.close()
 
-    # Dedup and limit
     uniq: Dict[int, _ChunkHit] = {}
     for h in hits:
         if h.vector_id not in uniq:
@@ -928,13 +850,14 @@ def graph_rag_search(
 ) -> str:
     root_abs = os.path.abspath(root_path)
     if not os.path.isdir(root_abs):
-        return f"エラー: ディレクトリが見つかりません: {root_path}"
+        return _(
+            "err.dir_not_found", default="Error: Directory not found: {root_path}"
+        ).format(root_path=root_path)
 
     db_path = vec_tool._get_db_path(root_abs)
     vec_tool._init_db(db_path)
     _init_graph_tables(db_path)
 
-    # Build target file list
     patterns = [p.strip() for p in (file_pattern or "").split(",") if p.strip()]
     target_files: List[str] = []
     for p in patterns:
@@ -952,7 +875,6 @@ def graph_rag_search(
         if os.path.isfile(f) and (not is_ignored_path(f))
     ]
 
-    # Remove deleted files from DB (reuse logic, but keep graph tables consistent via FK cascade)
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     cur.execute("SELECT id, path FROM files")
@@ -962,14 +884,12 @@ def graph_rag_search(
         fid = db_files[p]
         cur.execute("DELETE FROM vectors WHERE file_id=?", (fid,))
         cur.execute("DELETE FROM files WHERE id=?", (fid,))
-        # graph tables will cascade via vectors/files
     conn.commit()
     conn.close()
 
-    # Sync all
     all_warnings: List[str] = []
     synced_count = 0
-    for f in target_files:  # Sync all
+    for f in target_files:
         all_warnings.extend(
             _sync_file_all_types(
                 fpath=f,
@@ -981,18 +901,15 @@ def graph_rag_search(
         )
         synced_count += 1
 
-    # Retrieve
     vec_hits = _vector_retrieve(db_path, query, top_k=top_k_vector)
     graph_hits, trace = _graph_retrieve(db_path, query, hops=hops, top_k=top_k_graph)
 
-    # Map file ids to rel paths
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     cur.execute("SELECT id, path FROM files")
     id_to_path = {int(r[0]): str(r[1]) for r in (cur.fetchall() or [])}
     conn.close()
 
-    # Merge, prefer higher score but keep source
     merged: List[_ChunkHit] = []
     seen_vid = set()
     for h in vec_hits + graph_hits:
@@ -1001,19 +918,24 @@ def graph_rag_search(
         seen_vid.add(h.vector_id)
         merged.append(h)
 
-    # Sort: vector first by score desc, then graph
     merged.sort(key=lambda x: (0 if x.source == "vector" else 1, -x.score))
 
     out: List[str] = []
-    out.append(f"検索クエリ: {query}")
-    out.append(f"対象ディレクトリ: {root_path}")
-    out.append(f"DB: {db_path}")
+    out.append(_("out.query", default="Search Query: {query}").format(query=query))
     out.append(
-        f"vector_hits: {len(vec_hits)} / graph_hits: {len(graph_hits)} / merged: {len(merged)}"
+        _("out.target_dir", default="Target Directory: {root_path}").format(
+            root_path=root_path
+        )
+    )
+    out.append(_("out.db", default="DB: {db_path}").format(db_path=db_path))
+    out.append(
+        _(
+            "out.hits_summary",
+            default="vector_hits: {v} / graph_hits: {g} / merged: {m}",
+        ).format(v=len(vec_hits), g=len(graph_hits), m=len(merged))
     )
 
     if all_warnings:
-        # show unique warnings (cap)
         uniq_w = []
         s = set()
         for w in all_warnings:
@@ -1021,14 +943,19 @@ def graph_rag_search(
                 continue
             s.add(w)
             uniq_w.append(w)
-        out.append("\n[WARN] インデクシング警告（重複除去、先頭50件）:")
+        out.append(
+            _(
+                "warn.indexing_title",
+                default="\n[WARN] Indexing warnings (de-duplicated, top 50):",
+            )
+        )
         for w in uniq_w[:50]:
             out.append(f"- {w}")
 
-    out.append("\n[Graph trace] (idsのみ、簡易)")
+    out.append("\n[Graph trace] (ids only, summary)")
     out.append(json.dumps(trace, ensure_ascii=False, indent=2)[:4000])
 
-    out.append("\n[Results]")
+    out.append(_("out.results_title", default="\n[Results]"))
     for rank, h in enumerate(merged, 1):
         fpath = id_to_path.get(h.file_id, "unknown")
         rel_path = os.path.relpath(fpath, root_abs) if fpath != "unknown" else "unknown"
@@ -1036,10 +963,14 @@ def graph_rag_search(
         out.append(
             f"[{rank}] source={h.source} score={h.score:.4f} file={rel_path} (vector_id={h.vector_id})"
         )
-        out.append(f"内容: {snippet}\n")
+        out.append(
+            _("out.result_content", default="Content: {snippet}\n").format(
+                snippet=snippet
+            )
+        )
 
     if not merged:
-        out.append("関連するドキュメントは見つかりませんでした。")
+        out.append(_("out.no_docs", default="No relevant documents found."))
 
     return "\n".join(out)
 
@@ -1047,7 +978,7 @@ def graph_rag_search(
 def run_tool(args: Dict[str, Any]) -> str:
     query = args.get("query")
     if not query:
-        return "エラー: query は必須です。"
+        return _("err.query_required", default="Error: query is required.")
 
     return graph_rag_search(
         query=str(query),
@@ -1067,34 +998,70 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "graph_rag_search",
-        "description": (
-            "GraphRAG(グラフ+ベクトル)でローカルファイルを検索します。"
-            "対象: py/md/txt/pdf/pptx/xlsx。"
-            "SQLiteに軽量ナレッジグラフ(entities/relations)を構築し、"
-            "グラフ探索(hops)で関連チャンクを回収して、ベクトル検索結果と併せて返します。"
+        "description": _(
+            "tool.description",
+            default=(
+                "Search local files using GraphRAG (Graph + Vector hybrid). "
+                "Supported: py/md/txt/pdf/pptx/xlsx. "
+                "Builds a lightweight knowledge graph (entities/relations) in SQLite, "
+                "retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
+            ),
         ),
         "parameters": {
             "type": "object",
             "properties": {
-                "query": {"type": "string", "description": _("param.query.description", default="検索クエリ（必須）")},
-                "root_path": {"type": "string", "description": _("param.root_path.description", default="検索対象ディレクトリ")},
+                "query": {
+                    "type": "string",
+                    "description": _(
+                        "param.query.description", default="Search query (required)."
+                    ),
+                },
+                "root_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.root_path.description",
+                        default="Target directory for search.",
+                    ),
+                },
                 "file_pattern": {
                     "type": "string",
-                    "description": _("param.file_pattern.description", default="対象パターン（カンマ区切り glob）"),
+                    "description": _(
+                        "param.file_pattern.description",
+                        default="Target pattern (comma-separated glob).",
+                    ),
                 },
                 "top_k_vector": {
                     "type": "integer",
-                    "description": _("param.top_k_vector.description", default="ベクトル検索の上位件数"),
+                    "description": _(
+                        "param.top_k_vector.description",
+                        default="Number of top results from vector search.",
+                    ),
                 },
                 "top_k_graph": {
                     "type": "integer",
-                    "description": _("param.top_k_graph.description", default="グラフ探索で回収する件数"),
+                    "description": _(
+                        "param.top_k_graph.description",
+                        default="Number of results to retrieve via graph traversal.",
+                    ),
                 },
-                "hops": {"type": "integer", "description": _("tool.description", default="グラフ探索のホップ数")},
-                "chunk_size": {"type": "integer", "description": _("tool.description", default="チャンクサイズ")},
+                "hops": {
+                    "type": "integer",
+                    "description": _(
+                        "param.hops.description",
+                        default="Number of hops for graph traversal.",
+                    ),
+                },
+                "chunk_size": {
+                    "type": "integer",
+                    "description": _(
+                        "param.chunk_size.description", default="Chunk size."
+                    ),
+                },
                 "overlap": {
                     "type": "integer",
-                    "description": _("tool.description", default="チャンクのオーバーラップ"),
+                    "description": _(
+                        "param.overlap.description", default="Chunk overlap."
+                    ),
                 },
             },
             "required": ["query"],
