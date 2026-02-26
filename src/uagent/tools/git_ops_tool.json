@@ -1,6 +1,6 @@
 {
   "ja": {
-    "tool.description": "Run Git commands with safety-first restrictions.",
+    "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",
     "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: ; && || | > < `\nIn particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\nExamples: NG: Fix X; do Y / OK: Fix X, then do Y\n",
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "param.args.description": "List of arguments passed to the Git command.",
