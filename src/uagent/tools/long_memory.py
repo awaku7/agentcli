@@ -1,18 +1,5 @@
 # tools/long_memory.py
-"""Long-term memory utilities.
-
-This module was extracted from scheck_core.py so that the core can stay lean.
-It is intentionally placed under tools/ so both:
-- tool implementations (tools/*_tool.py)
-- the main CLI runner (scheck.py)
-can import and reuse the same logic.
-
-The storage location is controlled by env vars:
-- UAGENT_LOG_DIR
-- UAGENT_MEMORY_FILE (optional)
-
-Secret values must not be stored.
-"""
+"""Long-term memory utilities."""
 
 from __future__ import annotations
 
@@ -20,6 +7,10 @@ import json
 import os
 import time
 from typing import Any, Dict, List
+
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 
 def _get_base_log_dir() -> str:
@@ -37,7 +28,6 @@ def get_memory_file_path() -> str:
 
 
 def get_max_memory_bytes() -> int:
-    # limit passed to LLM / displayed
     return 200_000
 
 
@@ -64,14 +54,16 @@ def load_long_memory_raw() -> str:
         with open(memory_file, encoding="utf-8") as f:
             data = f.read(max_bytes + 1)
     except FileNotFoundError:
-        return "(no long-term memory yet)"
+        return _("msg.no_memory", default="(no long-term memory yet)")
     except Exception as e:
         return f"[long_memory error] {type(e).__name__}: {e}"
 
     truncated_note = ""
     if len(data) > max_bytes:
         data = data[:max_bytes]
-        truncated_note = f"\n[long_memory truncated: limited to {max_bytes} chars]"
+        truncated_note = _(
+            "msg.truncated", default="\n[long_memory truncated: limited to {max_bytes} chars]"
+        ).format(max_bytes=max_bytes)
 
     return data + truncated_note
 
@@ -95,7 +87,6 @@ def load_long_memory_records() -> List[Dict[str, Any]]:
     except FileNotFoundError:
         pass
     except Exception:
-        # printing is left to caller (CLI)
         pass
     return records
 

@@ -1,5 +1,8 @@
 {
-  "param.path.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
+    "param.path.description": "存在確認したいファイルまたはディレクトリのパス（~ も使用可）。",
+    "err.path_empty": "[file_exists error] path が空です"
+  }
 }

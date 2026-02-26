@@ -1,7 +1,21 @@
 {
-  "param.n.description": "",
-  "param.output_dir.description": "",
-  "param.prompt.description": "",
-  "param.size.description": "",
-  "tool.description": ""
+  "ja": {
+    "tool.description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
+    "param.prompt.description": "生成したい画像の指示（プロンプト）",
+    "param.size.description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
+    "param.n.description": "生成枚数（現状は1推奨）",
+    "param.output_dir.description": "保存先ディレクトリ（相対/絶対）。省略時は outputs/image_generations",
+    "param.file_prefix.description": "保存ファイル名の接頭辞（省略可）",
+    "err.openai_import": "openai パッケージの import に失敗しました: {err}",
+    "err.httpx_init": "httpx の初期化に失敗しました: {err}",
+    "err.empty_data": "画像データが空でした（resp.data が空、または b64_json/url が無い）",
+    "err.gemini_import": "google-genai の import に失敗しました（pip install google-genai）: {err}",
+    "err.gemini_fail": "Geminiで画像生成結果を取得できませんでした。モデルが画像生成に対応していないか、SDKの戻り形式が想定外です。",
+    "err.prompt_empty": "[generate_image] prompt が空です",
+    "err.depname_missing": "[generate_image] 画像モデル(デプロイ名)が未設定です。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。",
+    "err.mkdir_fail": "[generate_image] output_dir 作成に失敗しました: {err}",
+    "err.unsupported_provider": "[generate_image] 未対応 provider={provider!r}",
+    "err.gen_fail": "[generate_image] 画像生成に失敗しました。\nprovider={provider} model={model} size={size} n={n}\n{err}",
+    "err.no_saved": "[generate_image] 画像データが空でした"
+  }
 }

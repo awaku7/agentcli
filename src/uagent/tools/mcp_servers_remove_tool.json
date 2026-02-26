@@ -1,6 +1,21 @@
 {
-  "param.index.description": "",
-  "param.name.description": "",
-  "param.path.description": "",
-  "param.require_nonempty.description": ""
+  "ja": {
+    "tool.description": "mcp_servers.json から MCP サーバー定義を削除します。name 指定で削除するか、index 指定で削除できます（どちらか必須）。",
+    "param.name.description": "削除対象のサーバー名（mcp_servers[].name）",
+    "param.index.description": "削除対象のインデックス（mcp_servers[n]）。name と同時指定時は index を優先します。",
+    "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+    "param.require_nonempty.description": "true の場合、削除後に空になる操作を禁止します（既定: false）",
+    "err.not_exists": "ERROR: {path!r} が存在しません",
+    "err.root_not_dict": "ERROR: ルートが dict ではありません",
+    "err.mcp_servers_not_list": "ERROR: 'mcp_servers' が list ではありません",
+    "err.load_fail": "ERROR: {path!r} の読み込みに失敗しました: {err}",
+    "err.empty": "ERROR: mcp_servers が空です",
+    "err.name_or_index_required": "Error: name または index のどちらかを指定してください。",
+    "err.index_not_int": "Error: index は整数で指定してください",
+    "err.index_out_of_range": "Error: index out of range: {idx}",
+    "err.name_not_found": "Error: name={name!r} が見つかりません",
+    "err.require_nonempty": "Error: require_nonempty=true のため、削除後に空になる操作は禁止です",
+    "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
+    "out.ok": "OK: removed index={idx} name={name!r}"
+  }
 }

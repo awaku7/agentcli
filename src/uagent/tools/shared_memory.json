@@ -1,0 +1,12 @@
+{
+  "ja": {
+    "msg.no_shared_memory": "(no shared memory yet)",
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]",
+    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
+    "doc.module": "shared_memory.py\n\n共有長期記憶（複数ユーザーで共有するメモ）を扱うユーティリティ。\n\n目的:\n- scheck_core.py から共有メモリ機能を分離し、tools 側で完結できるようにする。\n- add_shared_memory_tool / get_shared_memory_tool などから直接利用する。\n\n仕様:\n- UAGENT_SHARED_MEMORY_FILE が設定されている場合のみ有効。\n- ファイル形式は JSONL（1行1レコード）: {\"ts\": <epoch seconds>, \"note\": <str>}\n- 出力トリミングは「文字数」ではなく「バイト数」上限で制御。\n\n注意:\n- ここでは core の Busy 表示などには触れない。",
+    "doc.get_file": "共有メモリファイルの絶対パス。無効時は空文字。",
+    "doc.append": "共有長期記憶ファイルに1件追記。無効時は何もしない。",
+    "doc.load_raw": "共有長期記憶(JSONL)の生データを返す。\n\n- 無効時: その旨のメッセージを返す\n- 未作成: (no shared memory yet)\n- 長い場合: max_bytes を超えない範囲に切り詰め、末尾に注記を付ける",
+    "doc.load_records": "共有長期記憶(JSONL)を list[dict] として読み込む。壊れた行はスキップ。"
+  }
+}

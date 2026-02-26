@@ -1,17 +1,17 @@
 # tools/lint_format_tool.py
 """lint_format_tool
 
-静的解析・フォーマッタを実行するためのラッパーツール。
+Wrapper tool for running static analysis and formatters.
 
-- Python系: ruff / black / mypy を優先
-- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）
+- Python: Prioritizes ruff / black / mypy
+- JavaScript: Does not execute npx aggressively for safety (avoids unintended downloads)
 
-安全:
-- mode=fix はファイル変更を伴うため human_ask で確認する。
-- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。
+Safety:
+- mode=fix modifies files, so it requires human_ask confirmation.
+- Arguments are received as an array and rejected if they contain dangerous shell metacharacters.
 
-実装:
-- cmd_exec_json_tool を利用する。
+Implementation:
+- Utilizes cmd_exec_json_tool.
 """
 
 from __future__ import annotations
@@ -49,30 +49,45 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": _("param.tools.description", default="実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。"),
+                    "description": _(
+                        "param.tools.description",
+                        default="An array of tool names to run. If empty, tools are auto-selected (ruff, black, mypy in that order).",
+                    ),
                 },
                 "mode": {
                     "type": "string",
                     "enum": ["check", "fix"],
                     "default": "check",
-                    "description": _("param.mode.description", default="check=検査のみ / fix=自動修正"),
+                    "description": _(
+                        "param.mode.description",
+                        default="Execution mode: check=check only / fix=auto-fix",
+                    ),
                 },
                 "targets": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": ["."],
-                    "description": _("param.targets.description", default="対象パス配列（workdir配下のみ許可）。"),
+                    "description": _(
+                        "param.targets.description",
+                        default="An array of target paths (must be under workdir).",
+                    ),
                 },
                 "extra_args": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": _("param.extra_args.description", default="追加引数（配列）。危険なメタ文字は拒否します。"),
+                    "description": _(
+                        "param.extra_args.description",
+                        default="Additional arguments (array). Dangerous metacharacters are rejected.",
+                    ),
                 },
                 "cwd": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": _("param.cwd.description", default="実行ディレクトリ（workdir配下のみ許可）。nullなら現在。"),
+                    "description": _(
+                        "param.cwd.description",
+                        default="Working directory (must be under workdir). Defaults to current directory if null.",
+                    ),
                 },
             },
         },
@@ -224,12 +239,19 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     if mode == "fix":
-        msg = (
-            "lint_format(mode=fix) はファイルを書き換える可能性があります。\n"
-            f"tools: {', '.join(selected)}\n"
-            f"targets: {', '.join(safe_targets)}\n"
-            f"cwd: {run_cwd}\n\n"
-            "実行してよければ y、キャンセルなら c を入力してください。"
+        msg = _(
+            "confirm.msg",
+            default=(
+                "lint_format(mode=fix) might overwrite files.\n"
+                "tools: {tools}\n"
+                "targets: {targets}\n"
+                "cwd: {cwd}\n\n"
+                "Reply with y to proceed, or c to cancel."
+            ),
+        ).format(
+            tools=", ".join(selected),
+            targets=", ".join(safe_targets),
+            cwd=run_cwd,
         )
         if not _human_confirm(msg):
             return json.dumps(
@@ -272,8 +294,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         elif tool == "mypy":
             cmd_parts = ["python", "-m", "mypy"] + safe_targets + sanitized_extra
         elif tool == "mdformat":
-            # NOTE: mdformat operates on Markdown files. User requested "all" extensions;
-            # we therefore apply mdformat to whatever targets are passed.
             if mode == "check":
                 cmd_parts = (
                     ["python", "-m", "mdformat", "--check"]

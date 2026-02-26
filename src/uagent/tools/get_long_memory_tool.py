@@ -14,7 +14,10 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "get_long_memory",
         "description": _("tool.description", default="Get all saved long-term memory notes (JSONL)."),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 保存されている長期記憶メモ（JSONL形式）をまとめて取得します。"),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool is used for the following purpose: retrieve all saved long-term memory notes (in JSONL format).",
+        ),
         "parameters": {
             "type": "object",
             "properties": {},
@@ -25,5 +28,5 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """長期記憶の全体（JSONLテキスト）を取得するツール。"""
+    """Retrieve the entire long-term memory as JSONL text."""
     return long_memory.load_long_memory_raw()
