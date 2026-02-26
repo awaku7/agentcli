@@ -28,17 +28,17 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_validate",
-        "description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",
+        "description": _("tool.description", default="Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": "スキルディレクトリ（直下に SKILL.md が必要）",
+                    "description": _("param.skill_dir.description", default="スキルディレクトリ（直下に SKILL.md が必要）"),
                 },
                 "strict": {
                     "type": "boolean",
-                    "description": "warnings も失敗扱いにするか（既定:false）",
+                    "description": _("param.strict.description", default="warnings も失敗扱いにするか（既定:false）"),
                     "default": False,
                 },
             },

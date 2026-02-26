@@ -38,33 +38,33 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "generate_image",
-        "description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
+        "description": _("tool.description", default="テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "prompt": {
                     "type": "string",
-                    "description": "生成したい画像の指示（プロンプト）",
+                    "description": _("param.prompt.description", default="生成したい画像の指示（プロンプト）"),
                 },
                 "size": {
                     "type": "string",
-                    "description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
+                    "description": _("param.size.description", default="画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024"),
                     "default": "1024x1024",
                 },
                 "n": {
                     "type": "integer",
-                    "description": "生成枚数（現状は1推奨）",
+                    "description": _("param.n.description", default="生成枚数（現状は1推奨）"),
                     "default": 1,
                     "minimum": 1,
                     "maximum": 4,
                 },
                 "output_dir": {
                     "type": "string",
-                    "description": "保存先ディレクトリ（相対/絶対）。省略時は outputs/image_generations",
+                    "description": _("param.output_dir.description", default="保存先ディレクトリ（相対/絶対）。省略時は outputs/image_generations"),
                 },
                 "file_prefix": {
                     "type": "string",
-                    "description": "保存ファイル名の接頭辞（省略可）",
+                    "description": _("tool.description", default="保存ファイル名の接頭辞（省略可）"),
                     "default": "img",
                 },
             },

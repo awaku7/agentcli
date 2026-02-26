@@ -1,4 +1,14 @@
 {
-  "en": {},
-  "ja": {}
+  "param.confirm_if_matches_over.description": "",
+  "param.context_lines.description": "",
+  "param.count.description": "",
+  "param.encoding.description": "",
+  "param.mode.description": "",
+  "param.path.description": "",
+  "param.pattern.description": "",
+  "param.preview.description": "",
+  "param.raw_newline_policy.description": "",
+  "param.replacement.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

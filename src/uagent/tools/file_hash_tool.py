@@ -32,31 +32,31 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_hash",
-        "description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
+        "description": _("tool.description", default="ファイルのハッシュ（sha256/sha1/md5）を計算します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "paths": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "対象ファイルパス配列",
+                    "description": _("param.paths.description", default="対象ファイルパス配列"),
                 },
                 "algo": {
                     "type": "string",
                     "enum": ["sha256", "sha1", "md5"],
                     "default": "sha256",
-                    "description": "ハッシュアルゴリズム",
+                    "description": _("param.algo.description", default="ハッシュアルゴリズム"),
                 },
                 "chunk_size": {
                     "type": "integer",
                     "default": 1048576,
-                    "description": "読み取りチャンクサイズ(bytes)",
+                    "description": _("param.chunk_size.description", default="読み取りチャンクサイズ(bytes)"),
                 },
                 "return": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
-                    "description": "出力形式",
+                    "description": _("param.return.description", default="出力形式"),
                 },
             },
             "required": ["paths"],

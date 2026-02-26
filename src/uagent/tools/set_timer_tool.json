@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.message.description": "",
+  "param.on_timeout_prompt.description": "",
+  "param.seconds.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

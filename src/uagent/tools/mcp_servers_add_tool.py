@@ -1,8 +1,8 @@
 from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
 
 import json
 import os
@@ -13,8 +13,6 @@ try:
 except ImportError:
 
     def get_default_mcp_config_path():
-        import os
-
         env_path = os.environ.get("UAGENT_MCP_CONFIG")
         if env_path:
             return os.path.abspath(os.path.expanduser(env_path))
@@ -24,71 +22,116 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(
-                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
-            )
+            p_new = os.path.join(os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json")
             if os.path.exists(p_new):
                 return p_new
-            return os.path.join(
-                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
-            )
+            return os.path.join(os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json")
 
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers_add",
-        "description": (
-            "mcp_servers.json に MCP サーバー定義を追加（または上書き更新）します。"
-            "既存 name がある場合は replace=true のときのみ上書きします。"
-            "HTTP(SSE)接続の場合は url を、標準入出力(stdio)接続の場合は command と args を指定してください。"
+        "description": _(
+            "tool.description",
+            default=(
+                "Add a server definition to mcp_servers.json (or update an existing one). "
+                "If the same name already exists, it is only overwritten when replace=true. "
+                "For HTTP(SSE) connections, provide url. For stdio connections, provide command and args."
+            ),
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "Add or update an MCP server entry in mcp_servers.json.\n"
+                "- Be careful when overwriting existing entries (replace=true).\n"
+                "- For HTTP(SSE): set url.\n"
+                "- For stdio: set command and args.\n"
+                "- Do not store secrets (tokens, passwords) in this file unless the user explicitly requests it."
+            ),
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "サーバー名（mcp_servers[].name）",
+                    "description": _(
+                        "param.name.description",
+                        default="Server name (mcp_servers[].name).",
+                    ),
                 },
                 "url": {
                     "type": "string",
-                    "description": "MCP エンドポイント URL（例: REPLACE_ME (set your MCP server URL)）。stdio時は省略。",
+                    "description": _(
+                        "param.url.description",
+                        default=(
+                            "MCP endpoint URL (e.g., REPLACE_ME (set your MCP server URL)). "
+                            "Omit for stdio connections."
+                        ),
+                    ),
                 },
                 "command": {
                     "type": "string",
-                    "description": "実行するコマンド（例: npx, python, docker）。stdio接続用。",
+                    "description": _(
+                        "param.command.description",
+                        default="Command to execute for stdio connections (e.g., npx, python, docker).",
+                    ),
                 },
                 "args": {
                     "type": "array",
                     "items": {"type": "string"},
-                    "description": "コマンド引数のリスト。stdio接続用。",
+                    "description": _(
+                        "param.args.description",
+                        default="Command arguments for stdio connections.",
+                    ),
                 },
                 "env": {
                     "type": "object",
-                    "description": "環境変数（辞書）。stdio接続用。",
+                    "description": _(
+                        "param.env.description",
+                        default="Environment variables (mapping) for stdio connections.",
+                    ),
                 },
                 "transport": {
                     "type": "string",
-                    "description": "transport（参考情報）。streamable-http または stdio。",
+                    "description": _(
+                        "param.transport.description",
+                        default="Transport (informational). One of streamable-http or stdio.",
+                    ),
                     "default": "streamable-http",
                 },
                 "path": {
                     "type": "string",
-                    "description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
+                    "description": _(
+                        "param.path.description",
+                        default="Path to the server list JSON file. If omitted, uses the default location.",
+                    ),
                 },
                 "set_default": {
                     "type": "boolean",
-                    "description": "true の場合、追加/更新後にそのサーバーをデフォルト（先頭）にします（既定: false）",
+                    "description": _(
+                        "param.set_default.description",
+                        default=(
+                            "If true, make this server the default entry (move to index 0) after adding/updating. "
+                            "Default: false."
+                        ),
+                    ),
                     "default": False,
                 },
                 "replace": {
                     "type": "boolean",
-                    "description": "true の場合、同名が存在するときに上書き更新します（既定: false）",
+                    "description": _(
+                        "param.replace.description",
+                        default="If true, overwrite an existing entry with the same name. Default: false.",
+                    ),
                     "default": False,
                 },
                 "create_if_missing": {
                     "type": "boolean",
-                    "description": "true の場合、ファイルが無いときは新規作成します（既定: true）",
+                    "description": _(
+                        "param.create_if_missing.description",
+                        default="If true, create the file if it does not exist. Default: true.",
+                    ),
                     "default": True,
                 },
             },
@@ -98,132 +141,114 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _load_config(
-    path: str, create_if_missing: bool
-) -> Tuple[Dict[str, Any], List[str]]:
+def _load_config(path: str, create_if_missing: bool) -> Tuple[Dict[str, Any], List[str]]:
     if not os.path.exists(path):
         if create_if_missing:
-            return {"mcp_servers": []}, [
-                f"WARNING: {path!r} が存在しないため新規作成します"
-            ]
-        return {"mcp_servers": []}, [f"ERROR: {path!r} が存在しません"]
+            return {"mcp_servers": []}, [f"WARNING: {path!r} does not exist; creating a new file"]
+        return {"mcp_servers": []}, [f"ERROR: {path!r} does not exist"]
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         if not isinstance(data, dict):
-            return {"mcp_servers": []}, ["ERROR: ルートが dict ではありません"]
+            return {"mcp_servers": []}, ["ERROR: root is not a JSON object"]
         if "mcp_servers" not in data:
             data["mcp_servers"] = []
         if not isinstance(data.get("mcp_servers"), list):
-            return {"mcp_servers": []}, ["ERROR: 'mcp_servers' が list ではありません"]
+            return {"mcp_servers": []}, ["ERROR: 'mcp_servers' is not a list"]
         return data, []
     except Exception as e:
-        return {"mcp_servers": []}, [
-            f"ERROR: {path!r} の読み込みに失敗しました: {type(e).__name__}: {e}"
-        ]
+        return {"mcp_servers": []}, [f"ERROR: failed to load JSON: {type(e).__name__}: {e}"]
+
+
+def _save_config(path: str, data: Dict[str, Any]) -> None:
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    name = str(args.get("name", "")).strip()
-    url = str(args.get("url", "")).strip()
-    command = str(args.get("command", "")).strip()
-    cmd_args = args.get("args") or []
-    env = args.get("env") or {}
-
-    transport_arg = str(args.get("transport", "")).strip()
+    name = str(args.get("name") or "").strip()
+    url = args.get("url")
+    command = args.get("command")
+    arg_list = args.get("args")
+    env = args.get("env")
+    transport = str(args.get("transport") or "streamable-http")
 
     path = args.get("path")
-    if not path:
-        path = get_default_mcp_config_path()
-    else:
-        path = str(path)
     set_default = bool(args.get("set_default", False))
     replace = bool(args.get("replace", False))
     create_if_missing = bool(args.get("create_if_missing", True))
 
     if not name:
-        return "Error: name is required."
+        return json.dumps({"ok": False, "error": "name is required"}, ensure_ascii=False)
 
-    if not url and not command:
-        return "Error: url or command is required."
+    config_path = str(path or get_default_mcp_config_path())
 
-    config, msgs = _load_config(path, create_if_missing)
-    if any(m.startswith("ERROR:") for m in msgs):
-        return "\n".join(msgs)
+    data, msgs = _load_config(config_path, create_if_missing=create_if_missing)
+    servers = data.get("mcp_servers") or []
 
-    servers = config.get("mcp_servers", [])
+    # Normalize args/env
+    if arg_list is None:
+        arg_list = []
+    if env is None:
+        env = {}
 
-    existing_idx = None
+    if not isinstance(arg_list, list):
+        return json.dumps({"ok": False, "error": "args must be an array"}, ensure_ascii=False)
+    if not isinstance(env, dict):
+        return json.dumps({"ok": False, "error": "env must be an object"}, ensure_ascii=False)
+
+    # Find existing
+    idx = None
     for i, s in enumerate(servers):
         if isinstance(s, dict) and s.get("name") == name:
-            existing_idx = i
+            idx = i
             break
 
-    item = {"name": name}
+    new_entry: Dict[str, Any] = {
+        "name": name,
+        "transport": transport,
+    }
     if url:
-        item["url"] = url
-        item["transport"] = transport_arg or "streamable-http"
-    else:
-        item["command"] = command
-        item["args"] = cmd_args
-        if env:
-            item["env"] = env
-        item["transport"] = transport_arg or "stdio"
+        new_entry["url"] = str(url)
+    if command:
+        new_entry["command"] = str(command)
+    if arg_list:
+        new_entry["args"] = [str(x) for x in arg_list]
+    if env:
+        # stringify keys/values defensively
+        new_entry["env"] = {str(k): str(v) for k, v in env.items()}
 
-    if existing_idx is None:
-        if set_default:
-            servers.insert(0, item)
-        else:
-            servers.append(item)
-        action = "added"
+    if idx is None:
+        servers.append(new_entry)
+        idx = len(servers) - 1
     else:
         if not replace:
-            return "\n".join(
-                msgs
-                + [f"ERROR: name={name!r} は既に存在します（replace=true で上書き）"]
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": f"server {name!r} already exists (set replace=true to overwrite)",
+                    "path": config_path,
+                },
+                ensure_ascii=False,
             )
+        servers[idx] = new_entry
 
-        # 上書き
-        if set_default:
-            # 既存を削除して先頭に
-            servers.pop(existing_idx)
-            servers.insert(0, item)
-        else:
-            servers[existing_idx] = item
-        action = "replaced"
+    if set_default and idx != 0:
+        servers.insert(0, servers.pop(idx))
 
-    config["mcp_servers"] = servers
+    data["mcp_servers"] = servers
 
-    # 書き戻し
-    text = json.dumps(config, ensure_ascii=False, indent=2)
-    try:
-        try:
-            from .create_file_tool import run_tool as create_file
-        except ImportError:
-            with open(path, "w", encoding="utf-8") as f:
-                f.write(text)
-            return f"OK: {action}: name={name!r} (Note: create_file_tool import failed, direct write used)"
+    _save_config(config_path, data)
 
-        create_file(
-            {"filename": path, "content": text, "encoding": "utf-8", "overwrite": True}
-        )
-    except Exception as e:
-        return f"ERROR: 書き込みに失敗しました: {type(e).__name__}: {e}"
-
-    default_info = "<none>"
-    if servers:
-        s0 = servers[0]
-        if s0.get("url"):
-            default_info = f"name={s0.get('name')!r} url={s0.get('url')!r}"
-        else:
-            default_info = f"name={s0.get('name')!r} command={s0.get('command')!r}"
-
-    return "\n".join(
-        msgs
-        + [
-            f"OK: {action}: name={name!r}",
-            f"default: {default_info}",
-            f"count: {len(servers)}",
-        ]
+    return json.dumps(
+        {
+            "ok": True,
+            "path": config_path,
+            "count": len(servers),
+            "warnings": [m for m in msgs if m.startswith("WARNING")],
+        },
+        ensure_ascii=False,
     )

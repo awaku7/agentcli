@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.pretty.description": "",
+  "param.server_name.description": "",
+  "param.url.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

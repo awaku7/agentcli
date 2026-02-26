@@ -34,13 +34,13 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "lint_format",
-        "description": (
-            "静的解析/フォーマッタ（ruff/black/mypy等）を実行します。"
-            " mode=fix はファイル変更を伴うため確認が入ります。"
+        "description": _(
+            "tool.description",
+            default="Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
         ),
-        "system_prompt": (
-            "静的解析/フォーマッタ（ruff/black/mypy等）を実行します。"
-            " mode=fix はファイル変更を伴うため確認が入ります。"
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask.",
         ),
         "parameters": {
             "type": "object",
@@ -49,30 +49,30 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
+                    "description": _("param.tools.description", default="実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。"),
                 },
                 "mode": {
                     "type": "string",
                     "enum": ["check", "fix"],
                     "default": "check",
-                    "description": "check=検査のみ / fix=自動修正",
+                    "description": _("param.mode.description", default="check=検査のみ / fix=自動修正"),
                 },
                 "targets": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": ["."],
-                    "description": "対象パス配列（workdir配下のみ許可）。",
+                    "description": _("param.targets.description", default="対象パス配列（workdir配下のみ許可）。"),
                 },
                 "extra_args": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
-                    "description": "追加引数（配列）。危険なメタ文字は拒否します。",
+                    "description": _("param.extra_args.description", default="追加引数（配列）。危険なメタ文字は拒否します。"),
                 },
                 "cwd": {
                     "type": ["string", "null"],
                     "default": None,
-                    "description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+                    "description": _("param.cwd.description", default="実行ディレクトリ（workdir配下のみ許可）。nullなら現在。"),
                 },
             },
         },
