@@ -2,119 +2,123 @@
 
 このドキュメントは **uag（ローカル ツール実行エージェント）** の開発者向けメモです。
 
-## 動作環境
+- エントリポイント:
+  - **CUI**: `python -m uagent`（コマンド: `uag`）
+  - **GUI**: `python -m uagent.gui`（コマンド: `uagg`）
+  - **Web**: `python -m uagent.web`（コマンド: `uagw`）
+
+______________________________________________________________________
+
+## 0. 動作環境
 
 - Python 3.11 以上（`pyproject.toml` の `requires-python` 準拠）
-- Git（バージョン管理および一部ツールで**必須**）
-  - Windows: [公式サイト](https://git-scm.com/download/win) からダウンロード
-  - macOS: Homebrew (`brew install git`) または Xcode Command Line Tools (`xcode-select --install`)
-  - Linux: `sudo apt install git` (Ubuntu/Debian) または `sudo yum install git` (CentOS/RHEL)
+- Git（バージョン管理および一部ツールで必須）
 - Windows / macOS / Linux
 
-### エントリポイント
+______________________________________________________________________
 
-- **CUI**: `src/uagent/cli.py`（実行時は `uag` / `python -m uagent`）
-- **GUI**: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
-- **Web**: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
+## 1. 主要コンポーネント / 関連ファイル
 
-※ ルート直下の `scheck.py`, `scheckgui.py`（旧GUIラッパ）, `scheckweb.py`（旧Webラッパ） は、パッケージングされていない環境でも手軽に実行できるようにするためのラッパースクリプトです。
+- **Core**: `src/uagent/core.py`
+  - 会話履歴、ログ、Busy状態（ステータス）、UI連携、（圧縮/要約などの）周辺機能
+- **CLI**: `src/uagent/cli.py`
+  - 標準入力ループ、`:cd`/`:ls` 等のコマンド、起動時処理（Mode A では `main()` 内で workdir 初期化）
+- **LLM Logic**: `src/uagent/uagent_llm.py`
+  - 対話ラウンド実行、tool call の実行、429等のリトライ制御
+- **Providers**: `src/uagent/util_providers.py`
+  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Grok/OpenRouter/NVIDIA 等）
+- **Utilities**: `src/uagent/util_tools.py`
+  - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
+- **Startup init**: `src/uagent/runtime_init.py`
+  - workdir 決定/適用、起動バナー生成、長期記憶挿入等
+- **Tools**: `src/uagent/tools/`
+  - ツールプラグイン群（`TOOL_SPEC` + `run_tool`）
 
-### 主要コンポーネント
+関連ドキュメント:
 
-- **Core**: `src/uagent/core.py` (会話履歴、ログ、ステータス、Summarization)
-- **LLM Logic**: `src/uagent/uagent_llm.py` (対話ループ、ツール実行制御、リトライ制御)
-- **Providers**:
-  - `src/uagent/llm_openai_responses.py` (OpenAI/Azure Responses API 対応)
-  - `src/uagent/llm_gemini.py` (Google Gemini API / `google-genai` 対応)
-  - `src/uagent/llm_claude.py` (Anthropic Claude API 対応)
-  - `src/uagent/llm_errors.py` (エラーハンドリング、Rate Limit リトライ計算)
-- **Utilities**:
-  - `src/uagent/util_providers.py` (クライアント生成)
-  - `src/uagent/util_tools.py` (ツール共通処理: tools callbacks/コマンド処理/初期メッセージ構築など)
-  - `src/uagent/runtime_init.py` (起動時初期化の共通化: workdir決定・banner生成・長期記憶挿入)
-- **Tools**: `src/uagent/tools/` (プラグイン群)
-- **Prompt templates**: `skills/prompt-library/`（テンプレ集。Agent Skills として参照）
+- ツール作成方法: `src/uagent/docs/DEVELOP_TOOL.md`
 
----
+______________________________________________________________________
 
-## 1. 文字コード（Windows）
-
-### 1.1 背景
-
-Windows 環境では、外部コマンド（特に `git diff` など）の出力が UTF-8 を含むことがあり、cp932 固定で `subprocess.run(..., text=True, encoding="cp932")` を行うと、Python の `_readerthread` 側で `UnicodeDecodeError` が発生します。
-
-### 1.2 現行方針
-
-`src/uagent/core.py` の `CMD_ENCODING` は以下の方針です。
-
-- 既定: `utf-8`
-- 上書き: 環境変数 `UAGENT_CMD_ENCODING`
-
-開発・運用環境が cp932 前提の場合は、環境変数で明示的に戻してください。
-
----
-
-## 2. 全体アーキテクチャ
-
-### 2.1 実行の流れ
+## 2. 全体アーキテクチャ（実行の流れ）
 
 1. `uag` / `uagg` / `uagw` が起動。
-2. 起動時初期化（主に `runtime_init.py` / `util_tools.py`）
-   - workdir の決定・作成・chdir（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
-   - 起動時INFO（provider/base_url/api_version/Responses等）の banner 生成（文字列）
-   - tools callbacks の注入（`util_tools.init_tools_callbacks`）
-   - `util.py` は互換層（外部互換のための再export）であり、内部処理は原則 `util_tools/util_providers/uagent_llm/runtime_init` を直接参照する。
-3. `src/uagent/tools/`（および `UAGENT_EXTERNAL_TOOLS_DIR`）からツールを動的ロード。
-4. 設定された LLM プロバイダ（Azure/OpenAI/Gemini/Grok/Claude）のクライアントを初期化。
-5. ユーザー入力待ちループ（CUI/GUI/Web）。
-6. LLM との対話ラウンド実行（`uagent_llm.run_llm_rounds`）。
-   - Tool Calls があれば実行し、結果を履歴に追加して再帰。
-   - 429 Rate Limit 発生時は Exponential Backoff でリトライ。
-7. 最終回答を出力。
+1. 起動時初期化（主に `runtime_init.py`）
+   - workdir の決定（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
+   - 必要ならディレクトリ作成し `chdir`
+   - 起動バナー文字列を生成して表示
+1. ツールをロード（`src/uagent/tools/__init__.py`）
+   - 内部ツール: `src/uagent/tools/*.py` を探索して登録
+   - 外部ツール: `UAGENT_EXTERNAL_TOOLS_DIR` の `*.py` をロード（任意）
+1. プロバイダのクライアントを生成（`util_providers.make_client`）
+1. UI（CLI/GUI/Web）が入力を受け取りイベントとしてキューへ積む
+1. `uagent_llm.run_llm_rounds()` が対話ラウンドを実行
+   - tool call があれば実行し、結果を履歴へ追加して再帰
+   - 429 Rate Limit 等の backoff は `llm_errors.py` に実装
 
-### 2.2 LLM プロバイダの実装差異
+______________________________________________________________________
 
-- **OpenAI / Azure**:
-  - Chat Completions と Responses API (`UAGENT_RESPONSES=1`) をサポート。
-  - Responses モードでは `llm_openai_responses.py` でメッセージ構造変換を行う。
-  - Azure のエンドポイント指定は `UAGENT_AZURE_BASE_URL` を使用（`azure_endpoint` 引数へ渡される）。
-- **Gemini**:
-  - `google-genai` ライブラリを使用。
-  - `llm_gemini.py` で JSON Schema を Gemini 用の型定義へ変換 (`_sanitize_gemini_parameters`)。
-  - コンテキストキャッシュ (`GeminiCacheManager`) をサポート。システムプロンプトやツール定義をキャッシュして高速化・コスト削減を図る。
-- **Claude**:
-  - `anthropic` ライブラリを使用。
-  - `llm_claude.py` で OpenAI 互換の messages を Anthropic 形式（System分離、User/Assistant交互制限など）へ変換。
-  - System Prompt キャッシュ (`cache_control`) を部分的にサポート。
+## 3. Tools システム（仕組みの概要）
 
-### 2.3 起動時挙動の補足（workdir / banner / 長期記憶）
+### 3.1 ツールの発見と登録
 
-#### workdir の決定ルール
+ツールは `src/uagent/tools/` 配下のプラグインモジュールです。
+
+登録条件:
+
+- `TOOL_SPEC: dict` を持つ（OpenAI function schema 互換のメタデータ）
+- `run_tool(args: dict) -> str` を持つ（実行関数）
+
+ロード処理:
+
+- `src/uagent/tools/__init__.py` が import 時に `_load_plugins()` を実行
+- 内部ツールは `pkgutil.iter_modules()` で列挙して import/reload される
+- `UAGENT_EXTERNAL_TOOLS_DIR` が指定されていれば、そこから `*.py` を追加ロードする
+
+### 3.2 callbacks 注入（host → tools）
+
+ツールからホスト（core）の機能を使うために、callbacks を注入します。
+
+- `util_tools.init_tools_callbacks(core)` → `tools.init_callbacks(cb)`
+
+特に `human_ask` は、stdin_loop/GUI 等と同期するために callbacks を使って状態共有します。
+
+### 3.3 LLM に渡す tool specs
+
+- `tools.get_tool_specs()` は、LLMへ送信するツール定義を返す
+- 互換性のため、関数名を top-level `name` にミラーする場合がある
+- `function.system_prompt` のような拡張フィールドは LLM送信時に削除される
+
+### 3.4 Tool trace（実行ログ）
+
+通常はツール実行前に stdout に 1行のトレースを出します。
+
+- 例: `[TOOL] 2025-... name=<tool> args=<masked-json>`
+- 秘匿っぽい key はマスクされます
+
+ツール側で `x_scheck.emit_tool_trace=false` を指定すると抑制できます。
+`human_ask` は、ユーザー入力の生値がログに出ないよう抑制しています。
+
+______________________________________________________________________
+
+## 4. 起動時挙動（workdir / banner / 長期記憶）
+
+### 4.1 workdir の決定ルール
+
 workdir は次の優先順位で決定されます。
 
 1. CLI引数: `--workdir` / `-C`
-2. 環境変数: `UAGENT_WORKDIR`
-3. 自動: カレントディレクトリ（`./` の絶対パス）
+1. 環境変数: `UAGENT_WORKDIR`
+1. 自動: カレントディレクトリ
 
-補足:
-- CLI/Web は `main()` 内で workdir を作成・`chdir` します（モジュール import 時に `chdir` しません）。
-- GUI は `main()` 内で同様に workdir を作成・`chdir` します。
+### 4.2 起動バナー
 
-GUI の例:
-- `uag gui -C ./work`
+起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。
 
-#### 起動時INFO（banner）
-起動時INFO（workdir/provider/base_url/api_version/Responses等）は `runtime_init.build_startup_banner()` が文字列として生成します。
-表示経路はUIごとに異なりますが、生成内容は統一されています。
+- `runtime_init.build_startup_banner()`
 
-#### 長期記憶/共有メモ
-長期記憶（個人）および共有メモ（共有長期記憶）は、可能な場合 system message として履歴に挿入されます。
-共有メモは content の先頭に `【共有長期記憶（共有メモ）】` を付与します。
+### 4.3 長期記憶/共有メモ
 
-#### GUI/WEB のログ表示について（複数行案内の抑制）
-GUI/WEB では CLI専用の操作案内（例: 「複数行」）が表示に混ざらないよう、UI表示側で該当行をフィルタします。
-クイックガイド自体は表示しますが、「複数行」を含む案内行は抑制されます。
+長期記憶（個人）と共有メモ（共有長期記憶）は、可能な場合 system message として履歴に挿入されます。
 
-#### NVIDIA の base_url について
-`UAGENT_NVIDIA_BASE_URL` の既定値は `https://integrate.api.nvidia.com/v1` です。
-環境変数で上書きする場合も、原則 `/v1` を指定してください。
+______________________________________________________________________
