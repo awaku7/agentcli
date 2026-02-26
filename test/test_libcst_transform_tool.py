@@ -1,29 +1,28 @@
 """Tests for libcst_transform_tool."""
 
 import json
-import os
 import tempfile
 from pathlib import Path
-from typing import Any, Dict
 from unittest.mock import patch
 
 import pytest
 
 # Import the tool
 import sys
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from uagent.tools.libcst_transform_tool import (
     TOOL_SPEC,
+    RenameImportTransformer,
+    RenameSymbolTransformer,
+    ReplaceCallTransformer,
     _build_transformers,
     _extract_error_location,
     _json_err,
     _json_ok,
     _matches_any_glob,
     run_tool,
-    RenameSymbolTransformer,
-    ReplaceCallTransformer,
-    RenameImportTransformer,
 )
 
 
@@ -61,12 +60,7 @@ class TestJsonHelpers:
 
     def test_json_err_with_location(self):
         """Test _json_err with file, line, column parameters."""
-        result = _json_err(
-            "Syntax error",
-            file="test.py",
-            line=10,
-            column=5
-        )
+        result = _json_err("Syntax error", file="test.py", line=10, column=5)
         parsed = json.loads(result)
         assert parsed["ok"] is False
         assert parsed["error"] == "Syntax error"
@@ -81,7 +75,7 @@ class TestExtractErrorLocation:
     def test_extract_from_libcst_error(self):
         """Test extracting location from libcst ParserSyntaxError."""
         import libcst as cst
-        
+
         code = "def foo():\n    x = \n"
         try:
             cst.parse_module(code)
@@ -128,7 +122,7 @@ class TestBuildTransformers:
         ops = [{"op": "rename_symbol", "old": "foo", "new": "bar"}]
         transformers, errors = _build_transformers(ops)
         assert len(transformers) == 1
-        assert isinstance(transformers[0], RenameSymbolTransformer)
+        assert isinstance(transformers[0].transformer, RenameSymbolTransformer)
         assert len(errors) == 0
 
     def test_build_replace_call(self):
@@ -136,7 +130,7 @@ class TestBuildTransformers:
         ops = [{"op": "replace_call", "old": "old_func", "new": "new_func"}]
         transformers, errors = _build_transformers(ops)
         assert len(transformers) == 1
-        assert isinstance(transformers[0], ReplaceCallTransformer)
+        assert isinstance(transformers[0].transformer, ReplaceCallTransformer)
         assert len(errors) == 0
 
     def test_build_rename_import(self):
@@ -144,7 +138,7 @@ class TestBuildTransformers:
         ops = [{"op": "rename_import", "old": "OldClass", "new": "NewClass"}]
         transformers, errors = _build_transformers(ops)
         assert len(transformers) == 1
-        assert isinstance(transformers[0], RenameImportTransformer)
+        assert isinstance(transformers[0].transformer, RenameImportTransformer)
         assert len(errors) == 0
 
     def test_build_missing_required_params(self):
@@ -178,7 +172,7 @@ class TestRenameSymbolTransformer:
     def test_rename_simple_name(self):
         """Test renaming a simple name."""
         import libcst as cst
-        
+
         code = "foo = 1\nbar = foo + 1"
         module = cst.parse_module(code)
         transformer = RenameSymbolTransformer("foo", "baz")
@@ -189,21 +183,19 @@ class TestRenameSymbolTransformer:
     def test_rename_standalone_only(self):
         """Test that only standalone names are renamed (not attributes)."""
         import libcst as cst
-        
-        # When include_attributes=False, only Name nodes are renamed
-        # Attribute access like obj.foo should NOT be changed
+
         code = "foo = 1\nobj.foo = 2"
         module = cst.parse_module(code)
         transformer = RenameSymbolTransformer("foo", "baz", include_attributes=False)
         new_module = module.visit(transformer)
-        
+
         # 'foo = 1' should become 'baz = 1' (standalone name)
         assert "baz = 1" in new_module.code
 
     def test_rename_with_attributes_true(self):
         """Test that attribute access is renamed when include_attributes=True."""
         import libcst as cst
-        
+
         code = "obj.foo = 1\nbar = obj.foo"
         module = cst.parse_module(code)
         transformer = RenameSymbolTransformer("foo", "baz", include_attributes=True)
@@ -217,7 +209,7 @@ class TestReplaceCallTransformer:
     def test_replace_simple_call(self):
         """Test replacing a simple function call."""
         import libcst as cst
-        
+
         code = "result = old_func(a, b)"
         module = cst.parse_module(code)
         transformer = ReplaceCallTransformer("old_func", "new_func")
@@ -227,7 +219,7 @@ class TestReplaceCallTransformer:
     def test_replace_method_call(self):
         """Test replacing a method call."""
         import libcst as cst
-        
+
         code = "result = obj.old_method(a, b)"
         module = cst.parse_module(code)
         transformer = ReplaceCallTransformer("old_method", "new_method")
@@ -237,7 +229,7 @@ class TestReplaceCallTransformer:
     def test_replace_with_receiver_filter(self):
         """Test replacing only calls with specific receiver."""
         import libcst as cst
-        
+
         code = "result = obj1.old_func(a)\nresult2 = obj2.old_func(b)"
         module = cst.parse_module(code)
         transformer = ReplaceCallTransformer("old_func", "new_func", receiver="obj1")
@@ -252,7 +244,7 @@ class TestRenameImportTransformer:
     def test_rename_import_without_module(self):
         """Test renaming an import without module filter."""
         import libcst as cst
-        
+
         code = "from module import OldClass"
         module = cst.parse_module(code)
         transformer = RenameImportTransformer(None, "OldClass", "NewClass")
@@ -262,7 +254,7 @@ class TestRenameImportTransformer:
     def test_rename_import_with_module(self):
         """Test renaming an import with module filter."""
         import libcst as cst
-        
+
         code = "from target_module import OldClass\nfrom other_module import OldClass"
         module = cst.parse_module(code)
         transformer = RenameImportTransformer("target_module", "OldClass", "NewClass")
@@ -284,7 +276,7 @@ class TestRunToolAnalyze:
     def test_analyze_single_file(self, temp_dir):
         """Test analyzing a single Python file."""
         test_file = temp_dir / "test.py"
-        test_file.write_text('''
+        test_file.write_text("""
 import os
 from typing import List
 
@@ -294,22 +286,24 @@ def foo():
 class Bar:
     def method(self):
         pass
-''')
-        
-        # Mock ensure_within_workdir to allow temp directory
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "analyze",
-                    "paths": [str(test_file)]
-                })
-        
+""".lstrip())
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool({"mode": "analyze", "paths": [str(test_file)]})
+
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert parsed["mode"] == "analyze"
         assert str(test_file) in parsed["analyze"]["files"]
-        
+
         file_info = parsed["analyze"]["files"][str(test_file)]
         assert "import os" in file_info["imports"]
         assert "foo" in file_info["functions"]
@@ -319,61 +313,79 @@ class Bar:
         """Test analyzing a directory."""
         (temp_dir / "file1.py").write_text("def func1(): pass")
         (temp_dir / "file2.py").write_text("def func2(): pass")
-        
+
         def mock_ensure_within_workdir(path):
             return str(path)
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', side_effect=mock_ensure_within_workdir):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "analyze",
-                    "paths": [str(temp_dir)],
-                    "include_glob": "*.py"  # Use simple glob for fnmatch
-                })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            side_effect=mock_ensure_within_workdir,
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "analyze",
+                        "paths": [str(temp_dir)],
+                        "include_glob": "*.py",
+                    }
+                )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert parsed["files_total"] == 2
 
     def test_analyze_syntax_error(self, temp_dir):
         """Test analyzing a file with syntax errors."""
         test_file = temp_dir / "broken.py"
-        test_file.write_text("def foo(\n")  # Invalid syntax
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "analyze",
-                    "paths": [str(test_file)]
-                })
+        test_file.write_text("def foo(\n")
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool({"mode": "analyze", "paths": [str(test_file)]})
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert str(test_file) in parsed["analyze"]["errors"]
-        
+
         error_info = parsed["analyze"]["errors"][str(test_file)]
         assert "message" in error_info
-        # Should have line number from libcst
         assert "line" in error_info
 
     def test_analyze_exclude_patterns(self, temp_dir):
         """Test that exclude patterns work."""
         (temp_dir / "include.py").write_text("def func(): pass")
         (temp_dir / "exclude.py").write_text("def excluded(): pass")
-        
+
         def mock_ensure_within_workdir(path):
             return str(path)
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', side_effect=mock_ensure_within_workdir):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "analyze",
-                    "paths": [str(temp_dir)],
-                    "include_glob": "*.py",
-                    "exclude_globs": ["exclude.py"]
-                })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            side_effect=mock_ensure_within_workdir,
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "analyze",
+                        "paths": [str(temp_dir)],
+                        "include_glob": "*.py",
+                        "exclude_globs": ["exclude.py"],
+                    }
+                )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert parsed["files_total"] == 1
 
@@ -391,21 +403,33 @@ class TestRunToolTransform:
         """Test renaming a symbol."""
         test_file = temp_dir / "test.py"
         test_file.write_text("foo = 1\nbar = foo + 1")
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                with patch('uagent.tools.libcst_transform_tool.make_backup_before_overwrite', return_value=str(test_file) + ".org"):
-                    result = run_tool({
-                        "mode": "transform",
-                        "paths": [str(test_file)],
-                        "operations": [{"op": "rename_symbol", "old": "foo", "new": "baz"}]
-                    })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                with patch(
+                    "uagent.tools.libcst_transform_tool.make_backup_before_overwrite",
+                    return_value=str(test_file) + ".org",
+                ):
+                    result = run_tool(
+                        {
+                            "mode": "transform",
+                            "paths": [str(test_file)],
+                            "operations": [
+                                {"op": "rename_symbol", "old": "foo", "new": "baz"}
+                            ],
+                        }
+                    )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert str(test_file) in parsed["transform"]["changed_files"]
-        
-        # Check file content
+
         content = test_file.read_text()
         assert "baz = 1" in content
         assert "bar = baz + 1" in content
@@ -415,66 +439,95 @@ class TestRunToolTransform:
         test_file = temp_dir / "test.py"
         original_content = "foo = 1"
         test_file.write_text(original_content)
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "transform",
-                    "paths": [str(test_file)],
-                    "operations": [{"op": "rename_symbol", "old": "foo", "new": "bar"}],
-                    "preview": True
-                })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "transform",
+                        "paths": [str(test_file)],
+                        "operations": [
+                            {"op": "rename_symbol", "old": "foo", "new": "bar"}
+                        ],
+                        "preview": True,
+                    }
+                )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert parsed["transform"]["preview"] is True
         assert str(test_file) in parsed["transform"]["changed_files"]
-        
-        # File should NOT be modified
+
         assert test_file.read_text() == original_content
-        
-        # Preview should contain the diff
+
         assert "previews" in parsed["transform"]
         preview = parsed["transform"]["previews"][str(test_file)]
-        assert "original" in preview
-        assert "modified" in preview
-        assert "bar = 1" in preview["modified"]
+        assert "diff" in preview
+        assert "bar = 1" in preview["diff"]
 
     def test_transform_creates_backup(self, temp_dir):
         """Test that transform creates backup files."""
         test_file = temp_dir / "test.py"
         test_file.write_text("foo = 1")
         backup_path = str(test_file) + ".org"
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                with patch('uagent.tools.libcst_transform_tool.make_backup_before_overwrite', return_value=backup_path) as mock_backup:
-                    result = run_tool({
-                        "mode": "transform",
-                        "paths": [str(test_file)],
-                        "operations": [{"op": "rename_symbol", "old": "foo", "new": "bar"}]
-                    })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                with patch(
+                    "uagent.tools.libcst_transform_tool.make_backup_before_overwrite",
+                    return_value=backup_path,
+                ) as mock_backup:
+                    result = run_tool(
+                        {
+                            "mode": "transform",
+                            "paths": [str(test_file)],
+                            "operations": [
+                                {"op": "rename_symbol", "old": "foo", "new": "bar"}
+                            ],
+                        }
+                    )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert "backups" in parsed["transform"]
-        # Backup function should have been called
         mock_backup.assert_called_once()
 
     def test_transform_unchanged_file(self, temp_dir):
         """Test that unchanged files are not modified."""
         test_file = temp_dir / "test.py"
-        test_file.write_text("x = 1")  # No 'foo' to rename
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "transform",
-                    "paths": [str(test_file)],
-                    "operations": [{"op": "rename_symbol", "old": "foo", "new": "bar"}]
-                })
+        test_file.write_text("x = 1")
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "transform",
+                        "paths": [str(test_file)],
+                        "operations": [
+                            {"op": "rename_symbol", "old": "foo", "new": "bar"}
+                        ],
+                    }
+                )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert str(test_file) in parsed["transform"]["unchanged_files"]
         assert str(test_file) not in parsed["transform"]["changed_files"]
@@ -483,16 +536,24 @@ class TestRunToolTransform:
         """Test handling of invalid operations."""
         test_file = temp_dir / "test.py"
         test_file.write_text("x = 1")
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', return_value=str(test_file)):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "transform",
-                    "paths": [str(test_file)],
-                    "operations": [{"op": "rename_symbol"}]  # Missing old/new
-                })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            return_value=str(test_file),
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "transform",
+                        "paths": [str(test_file)],
+                        "operations": [{"op": "rename_symbol"}],
+                    }
+                )
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert len(parsed["transform"]["op_errors"]) > 0
 
@@ -511,7 +572,7 @@ class TestToolSpec:
     def test_tool_spec_parameters(self):
         """Test that TOOL_SPEC has all expected parameters."""
         props = TOOL_SPEC["function"]["parameters"]["properties"]
-        
+
         assert "mode" in props
         assert "paths" in props
         assert "include_glob" in props
@@ -538,23 +599,17 @@ class TestSafety:
 
     def test_reject_path_outside_workdir(self):
         """Test that paths outside workdir are rejected."""
-        result = run_tool({
-            "mode": "analyze",
-            "paths": ["/etc/passwd"]  # Outside workdir
-        })
+        result = run_tool({"mode": "analyze", "paths": ["/etc/passwd"]})
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert len(parsed["walk_errors"]) > 0
 
     def test_dangerous_path_rejected(self):
         """Test that dangerous paths are rejected."""
-        result = run_tool({
-            "mode": "analyze",
-            "paths": ["../../../etc/passwd"]
-        })
+        result = run_tool({"mode": "analyze", "paths": ["../../../etc/passwd"]})
         parsed = json.loads(result)
-        
+
         assert parsed["ok"] is True
         assert len(parsed["walk_errors"]) > 0
 
@@ -566,25 +621,34 @@ class TestSafety:
 
     def test_max_files_limit(self, temp_dir):
         """Test that max_files limit is enforced."""
-        # Create more than max_files files
         for i in range(5):
             (temp_dir / f"file{i}.py").write_text("x = 1")
-        
+
         def mock_ensure_within_workdir(path):
             return str(path)
-        
-        with patch('uagent.tools.libcst_transform_tool.ensure_within_workdir', side_effect=mock_ensure_within_workdir):
-            with patch('uagent.tools.libcst_transform_tool.is_path_dangerous', return_value=False):
-                result = run_tool({
-                    "mode": "analyze",
-                    "paths": [str(temp_dir)],
-                    "include_glob": "*.py",
-                    "max_files": 2
-                })
+
+        with patch(
+            "uagent.tools.libcst_transform_tool.ensure_within_workdir",
+            side_effect=mock_ensure_within_workdir,
+        ):
+            with patch(
+                "uagent.tools.libcst_transform_tool.is_path_dangerous",
+                return_value=False,
+            ):
+                result = run_tool(
+                    {
+                        "mode": "analyze",
+                        "paths": [str(temp_dir)],
+                        "include_glob": "*.py",
+                        "max_files": 2,
+                    }
+                )
         parsed = json.loads(result)
-        
-        # Should have walked errors due to max_files
-        assert "max_files exceeded" in str(parsed["walk_errors"]) or parsed["files_total"] <= 2
+
+        assert (
+            "max_files exceeded" in str(parsed["walk_errors"])
+            or parsed["files_total"] <= 2
+        )
 
 
 if __name__ == "__main__":

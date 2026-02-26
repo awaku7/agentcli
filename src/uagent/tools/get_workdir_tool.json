@@ -1,4 +1,5 @@
 {
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。"
+  }
 }

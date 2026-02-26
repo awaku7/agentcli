@@ -1,7 +1,11 @@
 {
-  "param.group_by_ext.description": "",
-  "param.min_bytes.description": "",
-  "param.root.description": "",
-  "param.top_n.description": "",
-  "tool.description": ""
+  "ja": {
+    "tool.description": "指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。",
+    "param.root.description": "探索ルート（workdir配下のみ許可）",
+    "param.top_n.description": "上位N件",
+    "param.min_bytes.description": "このサイズ以上のみ対象（既定: 10MB）",
+    "param.group_by_ext.description": "拡張子別集計も返す",
+    "param.exclude_dirs.description": "除外ディレクトリ名（ディレクトリ名一致）",
+    "param.max_files.description": "走査する最大ファイル数（暴走防止）"
+  }
 }

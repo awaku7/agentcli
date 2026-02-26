@@ -1,7 +1,13 @@
 {
-  "param.base_date.description": "",
-  "param.months.description": "",
-  "param.weeks.description": "",
-  "param.years.description": "",
-  "tool.description": ""
+  "ja": {
+    "tool.description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。",
+    "param.base_date.description": "基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。",
+    "param.years.description": "加算する年数（減算は負の数）。",
+    "param.months.description": "加算する月数（減算は負の数）。",
+    "param.weeks.description": "加算する週数（減算は負の数）。",
+    "param.days.description": "加算する日数（減算は負の数）。",
+    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.check_holiday.description": "祝日・休日かどうかを判定するかどうか（既定: true）",
+    "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。"
+  }
 }

@@ -35,7 +35,6 @@ import re
 from dataclasses import dataclass
 from typing import Any, Optional, Tuple
 
-
 _LANG_RE = re.compile(r"^[a-zA-Z]{2,3}([_-][a-zA-Z0-9]{2,8})*$")
 
 
@@ -81,8 +80,16 @@ def load_translate_config() -> Optional[TranslateConfig]:
     from_llm = _norm_lang(os.environ.get("UAGENT_TRANSLATE_FROM_LLM") or "")
 
     depname = (os.environ.get("UAGENT_TRANSLATE_DEPNAME") or "").strip()
-    api_key = (os.environ.get("UAGENT_TRANSLATE_API_KEY") or os.environ.get("UAGENT_API_KEY") or "").strip()
-    base_url = (os.environ.get("UAGENT_TRANSLATE_BASE_URL") or os.environ.get("UAGENT_BASE_URL") or "").strip()
+    api_key = (
+        os.environ.get("UAGENT_TRANSLATE_API_KEY")
+        or os.environ.get("UAGENT_API_KEY")
+        or ""
+    ).strip()
+    base_url = (
+        os.environ.get("UAGENT_TRANSLATE_BASE_URL")
+        or os.environ.get("UAGENT_BASE_URL")
+        or ""
+    ).strip()
 
     return TranslateConfig(
         provider=provider,
@@ -94,7 +101,9 @@ def load_translate_config() -> Optional[TranslateConfig]:
     )
 
 
-def _translate_openai_compat(text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig) -> Tuple[str, str]:
+def _translate_openai_compat(
+    text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
+) -> Tuple[str, str]:
     if not cfg.depname:
         return text, "UAGENT_TRANSLATE_DEPNAME is not set (skip translation)."
 
@@ -196,6 +205,11 @@ def translate_text(
     # Provider string is "UAGENT_PROVIDER compatible".
     # Currently, we only implement OpenAI-compatible HTTP providers.
     if cfg.provider in ("openai", "azure", "openrouter", "openai_compat"):
-        return _translate_openai_compat(text, src_lang=src_lang, dst_lang=dst_lang, cfg=cfg)
+        return _translate_openai_compat(
+            text, src_lang=src_lang, dst_lang=dst_lang, cfg=cfg
+        )
 
-    return text, f"translate provider not implemented: {cfg.provider!r} (set to 'argos' or an OpenAI-compatible provider)"
+    return (
+        text,
+        f"translate provider not implemented: {cfg.provider!r} (set to 'argos' or an OpenAI-compatible provider)",
+    )

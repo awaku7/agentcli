@@ -1,14 +1,5 @@
 # tools/skills_read_file_tool.py
-"""skills_read_file_tool
-
-Read a referenced file under a skill directory (progressive disclosure).
-
-Security:
-- Reject absolute paths
-- Reject '..'
-- Ensure resolved path stays under skill_dir
-
-"""
+"""skills_read_file_tool implementation for Agent Skills."""
 
 from __future__ import annotations
 
@@ -20,7 +11,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from .agent_skills_shared import (  # noqa: E402
+from .agent_skills_shared import (
     DEFAULT_MAX_READ_FILE_BYTES,
     _read_text_file,
     safe_resolve_skill_relative_path,
@@ -32,21 +23,32 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_read_file",
-        "description": _("tool.description", default="Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。"),
+        "description": _(
+            "tool.description",
+            default="Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": _("param.skill_dir.description", default="スキルディレクトリ"),
+                    "description": _(
+                        "param.skill_dir.description", default="The skill directory."
+                    ),
                 },
                 "relative_path": {
                     "type": "string",
-                    "description": _("param.relative_path.description", default="スキルルートからの相対パス（例: references/REFERENCE.md）"),
+                    "description": _(
+                        "param.relative_path.description",
+                        default="The relative path from the skill root (e.g., references/REFERENCE.md).",
+                    ),
                 },
                 "max_bytes": {
                     "type": "integer",
-                    "description": _("param.max_bytes.description", default="読み込み上限バイト数（既定: 5000000）"),
+                    "description": _(
+                        "param.max_bytes.description",
+                        default="Maximum number of bytes to read (default: 5,000,000).",
+                    ),
                     "default": DEFAULT_MAX_READ_FILE_BYTES,
                 },
             },
