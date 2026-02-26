@@ -18,6 +18,7 @@
     "param.top_k_graph.description": "グラフ探索で回収する件数",
     "param.hops.description": "グラフ探索のホップ数",
     "param.chunk_size.description": "チャンクサイズ",
-    "param.overlap.description": "チャンクのオーバーラップ"
+    "param.overlap.description": "チャンクのオーバーラップ",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

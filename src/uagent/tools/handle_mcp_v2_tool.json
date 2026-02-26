@@ -5,6 +5,7 @@
     "param.url.description": "MCPサーバーのエンドポイントURL (http://... または stdio://command...)",
     "param.tool_name.description": "実行するツール名。",
     "param.tool_arguments.description": "ツールに渡す引数の辞書。例: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
-    "doc.mask_values": "辞書やリスト内の値を '*' に置き換える（構造は維持）"
+    "doc.mask_values": "辞書やリスト内の値を '*' に置き換える（構造は維持）",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }
