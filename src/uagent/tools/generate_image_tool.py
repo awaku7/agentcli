@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 """generate_image tool
 
-目的:
-- テキストプロンプトから画像を生成し、PNGファイルとして保存してパスを返す。
-- 生成後、自動的に画像を開く（環境変数 UAGENT_IMAGE_OPEN=0 で無効化可能）。
+Purpose:
+- Generate an image from a text prompt, save it as a PNG file, and return the path.
+- Automatically open the image after generation (can be disabled via environment variable UAGENT_IMAGE_OPEN=0).
 
-対応:
-- provider: UAGENT_IMG_GENERATE_PROVIDER（fallback: UAGENT_PROVIDER）
+Supported:
+- provider: UAGENT_IMG_GENERATE_PROVIDER (fallback: UAGENT_PROVIDER)
 - model/deployment: UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME
 
-注意:
-- 画像生成APIはプロバイダ/SDKの対応状況・契約・リージョンに依存します。
-  エラーになった場合は、モデル/権限/レスポンス形式の差を確認してください。
+Note:
+- Image generation APIs depend on provider/SDK support, subscription, and region.
+  In case of error, check differences in model/permissions/response format.
 """
 
 from __future__ import annotations
@@ -38,33 +38,51 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "generate_image",
-        "description": _("tool.description", default="テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。"),
+        "description": _(
+            "tool.description",
+            default="Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0).",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "prompt": {
                     "type": "string",
-                    "description": _("param.prompt.description", default="生成したい画像の指示（プロンプト）"),
+                    "description": _(
+                        "param.prompt.description",
+                        default="Instructions (prompt) for the image you want to generate.",
+                    ),
                 },
                 "size": {
                     "type": "string",
-                    "description": _("param.size.description", default="画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024"),
+                    "description": _(
+                        "param.size.description",
+                        default="Image size. E.g., 1024x1024 / 1024x1536 / 1536x1024",
+                    ),
                     "default": "1024x1024",
                 },
                 "n": {
                     "type": "integer",
-                    "description": _("param.n.description", default="生成枚数（現状は1推奨）"),
+                    "description": _(
+                        "param.n.description",
+                        default="Number of images to generate (currently 1 is recommended).",
+                    ),
                     "default": 1,
                     "minimum": 1,
                     "maximum": 4,
                 },
                 "output_dir": {
                     "type": "string",
-                    "description": _("param.output_dir.description", default="保存先ディレクトリ（相対/絶対）。省略時は outputs/image_generations"),
+                    "description": _(
+                        "param.output_dir.description",
+                        default="Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
+                    ),
                 },
                 "file_prefix": {
                     "type": "string",
-                    "description": _("tool.description", default="保存ファイル名の接頭辞（省略可）"),
+                    "description": _(
+                        "param.file_prefix.description",
+                        default="Prefix for the saved filename (optional).",
+                    ),
                     "default": "img",
                 },
             },
@@ -75,15 +93,7 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def _get_provider() -> str:
-    """Select provider for image generation.
-
-    Priority:
-      1) UAGENT_IMG_GENERATE_PROVIDER
-      2) UAGENT_PROVIDER
-
-    Allowed: azure/openai/gemini/nvidia
-    """
-
+    """Select provider for image generation."""
     p = (
         (
             os.environ.get("UAGENT_IMG_GENERATE_PROVIDER")
@@ -113,13 +123,7 @@ def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
 def _img_env(
     provider: str, mode: str, name: str, *, required: bool, default: str = ""
 ) -> str:
-    """Resolve image env vars.
-
-    Order (no *_IMG_* middle layer):
-      1) UAGENT_<PROVIDER>_IMG_<MODE>_<NAME>
-      2) UAGENT_<PROVIDER>_<NAME>
-    """
-
+    """Resolve image env vars."""
     p = provider.strip().upper()
     m = mode.strip().upper()
     n = name.strip().upper()
@@ -128,18 +132,13 @@ def _img_env(
 
 
 def _ssl_verify_enabled() -> bool:
-    """既定は検証なし。
-
-    UAGENT_SSL_VERIFY=1/true/yes/on の場合のみ検証を有効化。
-    """
-
+    """Default: no verification. Enable only if UAGENT_SSL_VERIFY=1/true/yes/on."""
     v = (os.environ.get("UAGENT_SSL_VERIFY") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
 
 
 def _urlopen_kwargs() -> Dict[str, Any]:
-    """urllib 用の追加引数を生成。検証無効のときは unverified context を渡す。"""
-
+    """Generate extra args for urllib. Return unverified context if verification is disabled."""
     if _ssl_verify_enabled():
         return {}
     ctx = ssl._create_unverified_context()
@@ -147,7 +146,6 @@ def _urlopen_kwargs() -> Dict[str, Any]:
 
 
 def _get_image_depname(cb_get_env, provider: str) -> str:
-    # Provider-specific model/deployment name
     return _img_env(provider, "generate", "depname", required=True)
 
 
@@ -191,11 +189,11 @@ def _download_to_png(url: str, out_path: str) -> None:
 
 
 def _open_image(file_path: str) -> None:
-    """OS標準のビューアーで画像を開く。"""
+    """Open an image using the OS's default viewer."""
     try:
         if os.name == "nt":  # Windows
             os.startfile(file_path)
-        elif os.uname().sysname == "Darwin":  # macOS
+        elif hasattr(os, "uname") and os.uname().sysname == "Darwin":  # macOS
             subprocess.run(["open", file_path], check=False)
         else:  # Linux
             subprocess.run(["xdg-open", file_path], check=False)
@@ -209,7 +207,9 @@ def _run_openai_images(
     try:
         from openai import AzureOpenAI, OpenAI
     except Exception as e:
-        raise RuntimeError("openai パッケージの import に失敗しました: " + repr(e))
+        raise RuntimeError(
+            _("err.openai_import", default="Failed to import openai package: {err}").format(err=repr(e))
+        )
 
     http_client = None
     try:
@@ -217,7 +217,9 @@ def _run_openai_images(
 
         http_client = httpx.Client(verify=_ssl_verify_enabled())
     except Exception as e:
-        raise RuntimeError("httpx の初期化に失敗しました: " + repr(e))
+        raise RuntimeError(
+            _("err.httpx_init", default="Failed to initialize httpx: {err}").format(err=repr(e))
+        )
 
     if provider == "azure":
         base_url = _img_env("azure", "generate", "base_url", required=True).rstrip("/")
@@ -231,7 +233,7 @@ def _run_openai_images(
             http_client=http_client,
         )
     else:
-        # OpenAI互換 (openai / nvidia)
+        # OpenAI-compatible (openai / nvidia)
         if provider == "nvidia":
             api_key = _img_env("nvidia", "generate", "api_key", required=True)
             base_url = _img_env(
@@ -275,30 +277,28 @@ def _run_openai_images(
 
     if not b64_list and not url_list:
         raise RuntimeError(
-            "画像データが空でした（resp.data が空、または b64_json/url が無い）"
+            _("err.empty_data", default="Image data was empty (resp.data is empty or b64_json/url is missing)")
         )
 
     return {"b64_list": b64_list, "url_list": url_list}
 
 
 def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
-    """Gemini 画像生成。
-
-    google-genai SDK はバージョン差分が大きいので、複数の戻り形式をサポートする。
-    """
+    """Gemini image generation."""
     try:
         from google import genai  # type: ignore
     except Exception as e:
         raise RuntimeError(
-            "google-genai の import に失敗しました（pip install google-genai）: "
-            + repr(e)
+            _(
+                "err.gemini_import",
+                default="Failed to import google-genai (pip install google-genai): {err}",
+            ).format(err=repr(e))
         )
 
     api_key = _img_env("gemini", "generate", "api_key", required=True)
-
     client = genai.Client(api_key=api_key)
 
-    # try 1: client.models.generate_images (Imagen 3/4 等)
+    # try 1: client.models.generate_images (Imagen 3/4, etc.)
     if hasattr(client, "models") and hasattr(client.models, "generate_images"):
         try:
             resp = client.models.generate_images(model=image_model, prompt=prompt)
@@ -308,12 +308,12 @@ def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
                 if img is None:
                     continue
 
-                # SDK v1.62+ では image_bytes (bytes) に格納される
+                # SDK v1.62+ uses image_bytes (bytes)
                 raw_bytes = getattr(img, "image_bytes", None)
                 if raw_bytes:
                     b64 = base64.b64encode(raw_bytes).decode("utf-8")
                 else:
-                    # 旧SDK互換
+                    # Legacy SDK support
                     b64 = getattr(img, "bytes_base64_encoded", None) or getattr(
                         img, "data", None
                     )
@@ -325,7 +325,7 @@ def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
         except Exception:
             pass
 
-    # try 2: client.models.generate_content (Multimodal モデル等)
+    # try 2: client.models.generate_content (Multimodal models, etc.)
     if hasattr(client, "models") and hasattr(client.models, "generate_content"):
         resp = client.models.generate_content(model=image_model, contents=prompt)
         b64_list2: List[str] = []
@@ -344,7 +344,10 @@ def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
             return b64_list2
 
     raise RuntimeError(
-        "Geminiで画像生成結果を取得できませんでした。モデルが画像生成に対応していないか、SDKの戻り形式が想定外です。"
+        _(
+            "err.gemini_fail",
+            default="Failed to get image generation results from Gemini. The model might not support image generation, or the SDK response format is unexpected.",
+        )
     )
 
 
@@ -353,7 +356,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     prompt = str(args.get("prompt") or "").strip()
     if not prompt:
-        return "[generate_image] prompt が空です"
+        return _("err.prompt_empty", default="[generate_image] prompt is empty")
 
     size = str(args.get("size") or "1024x1024")
     n = int(args.get("n") or 1)
@@ -370,15 +373,15 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         image_model = _get_image_depname(cb.get_env, provider)
     except Exception:
-        return (
-            "[generate_image] 画像モデル(デプロイ名)が未設定です。\n"
-            "環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。"
+        return _(
+            "err.depname_missing",
+            default="[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
         )
 
     try:
         outdir = _ensure_dir(output_dir)
     except Exception as e:
-        return f"[generate_image] output_dir 作成に失敗しました: {e}"
+        return _("err.mkdir_fail", default="[generate_image] Failed to create output_dir: {err}").format(err=e)
 
     ts = time.strftime("%Y%m%d_%H%M%S")
 
@@ -414,18 +417,20 @@ def run_tool(args: Dict[str, Any]) -> str:
             b64_list = _run_gemini_images(image_model=image_model, prompt=prompt)
             saved = _save_many(outdir, file_prefix, ts, b64_list)
         else:
-            return f"[generate_image] 未対応 provider={provider!r}"
+            return _("err.unsupported_provider", default="[generate_image] Unsupported provider={provider!r}").format(
+                provider=provider
+            )
 
     except Exception as e:
-        return (
-            "[generate_image] 画像生成に失敗しました。\n"
-            f"provider={provider} model={image_model} size={size} n={n}\n" + repr(e)
-        )
+        return _(
+            "err.gen_fail",
+            default="[generate_image] Image generation failed.\nprovider={provider} model={model} size={size} n={n}\n{err}",
+        ).format(provider=provider, model=image_model, size=size, n=n, err=repr(e))
 
     if not saved:
-        return "[generate_image] 画像データが空でした"
+        return _("err.no_saved", default="[generate_image] Image data was empty")
 
-    # 生成後、デフォルトで開く。環境変数 UAGENT_IMAGE_OPEN=0/false 等で無効化可能。
+    # Open by default. Disable via UAGENT_IMAGE_OPEN=0/false, etc.
     env_val = (os.environ.get("UAGENT_IMAGE_OPEN") or "").strip().lower()
     should_open = env_val not in ("0", "false", "no", "off")
 

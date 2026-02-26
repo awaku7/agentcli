@@ -1,27 +1,13 @@
-"""scheck tool: git_ops
+"""Safe wrappers for Git operations.
 
-安全第一で Git の主要操作を提供します。
+Operational guidelines:
+- Avoid interactive operations (PAGER/EDITOR disabled).
+- Dangerous operations (force, destructive resets) are blocked unless allow_danger=true is specified.
+- Arguments are whitelisted and checked for shell metacharacters.
 
-このツールは「日常操作をできるだけ tool 経由で完結させる」ことを目的にしています。
-一方で、Git は破壊的操作や外部への書き込み（push）を簡単に実行できるため、
-以下の方針で厳しめに制限します。
-
-設計方針（重要）
-- 対話を伴う操作を避ける
-  - PAGER/EDITOR を無効化
-  - commit/merge は --no-edit を付与（できる限り）
-  - 資格情報入力を避けるため GIT_TERMINAL_PROMPT=0
-- 危険操作はデフォルト禁止
-  - 例: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 等
-- それでも必要な場合のみ allow_danger=true を明示して実行可能にする
-  - ただし「事故率が高い/取り返しがつきにくい」ものは allow_danger でも禁止する
-- 引数は「許可リスト」方式
-  - すべてのオプション（-x / --xxx）を網羅許可せず、用途に応じて明示許可
-  - 明らかなメタ文字（; && || | > < `）を含む引数は拒否
-
-注意
-- このツールは git の全機能を無制限に提供するものではありません。
-- 設計上、安全性を優先して「できない」操作があります。
+Notes:
+- Not all Git features are available.
+- Security and stability are prioritized over completeness.
 """
 
 from __future__ import annotations
@@ -122,25 +108,20 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 class GitArgsError(ValueError):
-    """引数検証で弾いたときの例外"""
+    """Exception for invalid arguments."""
 
 
 def _env_for_git() -> Dict[str, str]:
-    """git 実行用の環境変数を整える（対話/ページャ/エディタ抑止）。"""
-
+    """Prepare environment variables for git execution."""
     base = os.environ.copy()
     base.update(
         {
-            # pager 無効化
             "GIT_PAGER": "cat",
             "PAGER": "cat",
-            # editor 無効化（commit --amend 等で editor が起動しないように）
             "GIT_EDITOR": ":",
             "EDITOR": ":",
-            # WindowsでもUTF-8出力を優先させたい
             "LANG": "C.UTF-8",
             "LC_ALL": "C.UTF-8",
-            # 資格情報入力などのプロンプト抑止（ブロック回避）
             "GIT_TERMINAL_PROMPT": "0",
         }
     )
@@ -154,12 +135,11 @@ def _decode_bytes(b: bytes) -> str:
             return b.decode(enc)
         except UnicodeDecodeError:
             continue
-    return b.decode("utf-8", errors="replace")  # 最終fallback
+    return b.decode("utf-8", errors="replace")
 
 
 def run_git_command(args: List[str], timeout_sec: int = 30) -> str:
-    """実際に git コマンドを実行するヘルパー。"""
-
+    """Helper to run the actual git command."""
     try:
         result = subprocess.run(
             ["git"] + args,
@@ -209,8 +189,6 @@ def _contains_any(args: List[str], needles: List[str]) -> bool:
 
 
 def _validate_no_shell_metacharacters(args: List[str]) -> None:
-    """list 引数で subprocess を呼ぶので原則安全だが、明らかな危険文字列を拒否。"""
-
     bad = [";", "&&", "||", "|", ">", "<", "`"]
     for a in args:
         for b in bad:
@@ -224,32 +202,21 @@ def _validate_no_shell_metacharacters(args: List[str]) -> None:
 
 
 def _validate_paths(args: List[str], *, allow_outside_workdir: bool = False) -> None:
-    """非オプション引数（ファイルパスなど）が workdir 配下のみかを検証（ディレクトリトラバーサル防止）。
-
-    注意:
-    - オプション終端の `--` はパスではないため、この関数では無視します。
-    - allow_outside_workdir=True の場合は workdir 外も許可するが、scheck が管理する安全な
-      一時領域（<state>/tmp/patch。既定: ~/.uag/tmp/patch（旧: ~/.scheck/tmp/patch））配下のみ許可する。
-    """
-
+    """Validate that non-option arguments are within workdir."""
     workdir = os.getcwd()
     from uagent.utils.paths import get_tmp_patch_dir
 
     scheck_patch_tmp = str(get_tmp_patch_dir())
 
     for a in args:
-        # option / terminator
         if a == "--" or a.startswith("-"):
             continue
 
         abs_path = os.path.abspath(a)
-
-        # normal policy: workdir only
         if abs_path.startswith(workdir + os.sep) or abs_path == workdir:
             continue
 
         if allow_outside_workdir:
-            # allow only scheck-managed tmp patch directory
             if (
                 abs_path.startswith(scheck_patch_tmp + os.sep)
                 or abs_path == scheck_patch_tmp
@@ -277,37 +244,15 @@ def _ensure_allowed_flags(
     deny_exact: Tuple[str, ...] = (),
     deny_prefixes: Tuple[str, ...] = (),
 ) -> None:
-    """フラグ検証（安全第一）。
-
-    目的:
-    - 引数のうち "-" 始まりのものをオプション扱いとして検証します。
-
-    方針（B-1）:
-    - `--xxx`（長オプション）は原則許可（= Git の細かなオプション指定を妨げない）
-    - `--`（オプション終端）は常に許可
-    - `-c`（設定上書き）は許可
-    - ただし deny/dangerous のチェックは優先して適用します
-    - 短オプション（`-x`）は、従来どおり allowed_prefixes による許可リスト方式を維持します
-
-    注意:
-    - 非オプション引数（ブランチ名、パス、リビジョンなど）はこの関数では検証しません。
-    """
-
+    """Validate flags for security."""
     _validate_no_shell_metacharacters(args)
 
     for a in args:
         if not a.startswith("-"):
             continue
 
-        opt = a.split("=", 1)[0]  # --foo=bar -> --foo
-
-        # always allow terminator
-        if opt == "--":
-            continue
-
-        # always allow git config override
-        # (NOTE: the value is typically in the next argument, e.g. ['-c','key=value',...])
-        if opt == "-c":
+        opt = a.split("=", 1)[0]
+        if opt == "--" or opt == "-c":
             continue
 
         if opt in deny_exact:
@@ -336,11 +281,9 @@ def _ensure_allowed_flags(
                         ).format(opt=opt)
                     )
 
-        # B-1: allow all long options by default
         if opt.startswith("--"):
             continue
 
-        # short options: still whitelist
         ok = False
         for ap in allowed_prefixes:
             if opt == ap or opt.startswith(ap):
@@ -361,8 +304,7 @@ def _parse_allow_danger(tool_args: Dict[str, Any]) -> bool:
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """Git操作ツール（安全第一）。"""
-
+    """Git operation tool with safety restrictions."""
     command = args.get("command", "")
     cmd_args: List[str] = args.get("args", [])
     allow_danger = _parse_allow_danger(args)
@@ -425,7 +367,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["status"] + cmd_args)
 
     # --------------------
@@ -450,7 +391,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["diff"] + cmd_args)
 
     # --------------------
@@ -473,7 +413,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         if not any(a.startswith("-n") or a.startswith("--max-count") for a in cmd_args):
             cmd_args = ["-n", "10"] + cmd_args
         return run_git_command(["log"] + cmd_args)
@@ -495,11 +434,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ),
                 allow_danger=allow_danger,
             )
-            # patch file is a non-option arg -> validate. allow_outside_workdir allows only <state>/tmp/patch (default: ~/.uag/tmp/patch; legacy: ~/.scheck/tmp/patch)
             _validate_paths(cmd_args, allow_outside_workdir=True)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["apply"] + cmd_args)
 
     # --------------------
@@ -511,7 +448,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 "error.add_requires_path",
                 default="[git_ops error] git add requires a target path ('.' is allowed).",
             )
-
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -529,7 +465,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["add"] + cmd_args)
 
     # --------------------
@@ -548,7 +483,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 "error.commit_requires_message",
                 default="[git_ops error] Commit message is required. Include ['-m','message'] in args.",
             )
-
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -566,7 +500,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         final_args = ["commit"] + cmd_args
         if "--no-edit" not in final_args:
             final_args.append("--no-edit")
@@ -592,8 +525,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
-        # デフォルトは最新コミットの要約
         return run_git_command(["show"] + (cmd_args if cmd_args else ["--stat"]))
 
     # --------------------
@@ -613,7 +544,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["rev-parse"] + cmd_args)
 
     # --------------------
@@ -638,7 +568,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["branch"] + cmd_args)
 
     # --------------------
@@ -661,7 +590,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command([command] + cmd_args)
 
     # --------------------
@@ -674,7 +602,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 "error.remote_change_requires_allow_danger",
                 default="[git_ops error] Changing remotes requires allow_danger=true.",
             )
-
         try:
             _ensure_allowed_flags(
                 cmd_args[1:] if cmd_args else [],
@@ -683,7 +610,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["remote"] + cmd_args)
 
     # --------------------
@@ -698,15 +624,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["fetch"] + cmd_args, timeout_sec=60)
 
     # --------------------
     # pull
     # --------------------
     if command == "pull":
-        # pull は merge/rebase を伴うので事故率が高い。
-        # デフォルトで --ff-only を付与。
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -720,7 +643,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         final = ["pull"] + cmd_args
         if "--ff-only" not in final and "--rebase" not in final:
             final.append("--ff-only")
@@ -730,7 +652,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     # push
     # --------------------
     if command == "push":
-        # push は外部書き込み。force 系は allow_danger が必要。
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -748,14 +669,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["push"] + cmd_args, timeout_sec=120)
 
     # --------------------
     # tag
     # --------------------
     if command == "tag":
-        # タグ削除は allow_danger 必須
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -775,7 +694,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["tag"] + cmd_args)
 
     # --------------------
@@ -791,7 +709,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         final = ["merge"] + cmd_args
         if "--no-edit" not in final:
             final.append("--no-edit")
@@ -801,20 +718,16 @@ def run_tool(args: Dict[str, Any]) -> str:
     # rebase
     # --------------------
     if command == "rebase":
-        # rebase は危険度高。allow_danger=true の時のみ許可。
         if not allow_danger:
             return _(
                 "error.rebase_requires_allow_danger",
                 default="[git_ops error] rebase is dangerous and requires allow_danger=true.",
             )
-
-        # 特に危険（事故率が高い）なので禁止
         if _contains_any(cmd_args, ["--onto"]):
             return _(
                 "error.rebase_onto_forbidden",
                 default="[git_ops error] rebase --onto is forbidden because it is error-prone.",
             )
-
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -829,15 +742,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["rebase"] + cmd_args, timeout_sec=300)
 
     # --------------------
     # cherry-pick
     # --------------------
     if command == "cherry-pick":
-        # cherry-pick はコンフリクトで停止し得る。対話を避けつつ、基本の再開/中断を許可する。
-        # allow_danger は基本不要（ただし -m/--mainline は履歴を書き換える事故要因になりやすいので allow_danger 必須にする）
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -858,8 +768,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
-        # NOTE: cmd_args のうち rev(コミット/範囲) はパスではないため _validate_paths は行わない。
         return run_git_command(["cherry-pick"] + cmd_args, timeout_sec=300)
 
     # --------------------
@@ -883,7 +791,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["stash"] + cmd_args, timeout_sec=120)
 
     # --------------------
@@ -900,14 +807,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["reset"] + cmd_args)
 
     # --------------------
     # restore
     # --------------------
     if command == "restore":
-        # --source は事故りやすいので allow_danger 必須
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -918,16 +823,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["restore"] + cmd_args)
 
     # --------------------
     # clone
     # --------------------
     if command == "clone":
-        # clone は外部から内容を取得し、作業ディレクトリに書き込みます。
-        # 安全のため、出力先は workdir 配下の相対パス（または省略）に限定します。
-        # clone 先パスの検証の都合上、オプション終端 "--" を推奨します。
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -944,21 +845,15 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
-        # clone は [<repo>] [<dir>] 形式。dir が指定されている場合のみパス検証する。
-        # （repo URL をパス扱いしない）
         nonopts = [a for a in cmd_args if a != "--" and not a.startswith("-")]
         if len(nonopts) >= 2:
-            # 最後の non-option を dir とみなす
             _validate_paths([nonopts[-1]])
-
         return run_git_command(["clone"] + cmd_args, timeout_sec=300)
 
     # --------------------
     # init
     # --------------------
     if command == "init":
-        # init は作業ディレクトリ配下で初期化する用途が多い。
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -968,8 +863,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
-        # init の非オプション引数（ディレクトリ）は workdir 配下のみ許可
         _validate_paths(cmd_args)
         return run_git_command(["init"] + cmd_args, timeout_sec=60)
 
@@ -991,20 +884,17 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["blame"] + cmd_args, timeout_sec=60)
 
     # --------------------
     # reflog
     # --------------------
     if command == "reflog":
-        # reflog は読み取り系だが、expire 等の破壊操作があるため deny。
         if _contains_any(cmd_args, ["expire", "delete"]):
             return _(
                 "error.option_denied",
                 default="Disallowed option is present: {opt}",
             ).format(opt=cmd_args[0] if cmd_args else "reflog")
-
         try:
             _ensure_allowed_flags(
                 cmd_args,
@@ -1018,8 +908,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
-        # デフォルトは show
         if not cmd_args:
             cmd_args = ["show"]
         return run_git_command(["reflog"] + cmd_args, timeout_sec=60)
@@ -1047,7 +935,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["grep"] + cmd_args, timeout_sec=60)
 
     # --------------------
@@ -1070,7 +957,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             _validate_paths(cmd_args)
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["ls-files"] + cmd_args, timeout_sec=60)
 
     # --------------------
@@ -1092,7 +978,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["ls-tree"] + cmd_args, timeout_sec=60)
 
     # --------------------
@@ -1112,7 +997,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         except GitArgsError as e:
             return f"[git_ops error] {e}"
-
         return run_git_command(["cat-file"] + cmd_args, timeout_sec=60)
 
     return _("error.internal_unknown", default="[git_ops error] unknown internal error")

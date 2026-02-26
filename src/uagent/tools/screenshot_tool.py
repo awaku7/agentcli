@@ -22,26 +22,44 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "screenshot",
-        "description": _("tool.description", default="デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"),
-        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"),
+        "description": _(
+            "tool.description",
+            default="Captures a screenshot of the entire desktop or a specific window.",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="This tool is used for the following purpose: capture a screenshot of the desktop or a specified window.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "file_path": {
                     "type": "string",
-                    "description": _("param.file_path.description", default="保存先のファイルパス（.png推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。"),
+                    "description": _(
+                        "param.file_path.description",
+                        default="Path for the saved file (recommended: .png). Defaults to current directory with a timestamp if omitted.",
+                    ),
                 },
                 "window_title": {
                     "type": "string",
-                    "description": _("param.window_title.description", default="撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。"),
+                    "description": _(
+                        "param.window_title.description",
+                        default="Target window title (partial match). If specified, the window is activated and only that region is captured.",
+                    ),
                 },
                 "delay": {
                     "type": "integer",
-                    "description": _("param.delay.description", default="撮影前の待機時間（秒）。デフォルトは1秒（ウィンドウ切り替え用）。"),
+                    "description": _(
+                        "param.delay.description",
+                        default="Wait time before capture in seconds. Default is 1 second.",
+                    ),
                 },
                 "close_window": {
                     "type": "boolean",
-                    "description": _("param.close_window.description", default="撮影後にそのウィンドウを閉じるかどうか。window_title指定時のみ有効。デフォルトはFalse。"),
+                    "description": _(
+                        "param.close_window.description",
+                        default="Whether to close the window after capture. Only effective if window_title is specified. Default is False.",
+                    ),
                 },
             },
             "required": [],
@@ -52,11 +70,14 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     if pyautogui is None:
-        return "[screenshot error] pyautogui module is not installed."
+        return _("err.pyautogui_missing", default="[screenshot error] pyautogui module is not installed.")
 
     window_title = args.get("window_title")
     if window_title and pygetwindow is None:
-        return "[screenshot error] pygetwindow module is not installed (required for window targeting)."
+        return _(
+            "err.pygetwindow_missing",
+            default="[screenshot error] pygetwindow module is not installed (required for window targeting).",
+        )
 
     file_path = args.get("file_path", "").strip()
     delay = args.get("delay", 1)
@@ -71,11 +92,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         region = None
         target_win = None
 
-        # ウィンドウ指定がある場合
         if window_title:
             windows = pygetwindow.getWindowsWithTitle(window_title)
             if not windows:
-                return f"[screenshot error] No window found matching title: '{window_title}'"
+                return _("err.window_not_found", default="[screenshot error] No window found matching title: '{title}'").format(title=window_title)
 
             target_win = windows[0]
 
@@ -97,23 +117,21 @@ def run_tool(args: Dict[str, Any]) -> str:
         else:
             time.sleep(delay)
 
-        # 撮影
         pyautogui.screenshot(file_path, region=region)
 
-        # ユーザー通知
+        # Notify user (beep)
         print("\a", end="", flush=True)
 
-        msg = f"[screenshot] Successfully saved to {file_path}"
+        msg = _("out.ok", default="[screenshot] Successfully saved to {path}").format(path=file_path)
 
-        # 閉じる処理
         if window_title and target_win and close_window:
             try:
                 target_win.close()
-                msg += " and closed the window."
+                msg = _("out.ok_closed", default="[screenshot] Successfully saved to {path} and closed the window.").format(path=file_path)
             except Exception as e:
-                msg += f" but failed to close window: {e}"
+                msg = _("err.close_fail", default="[screenshot] Successfully saved to {path} but failed to close window: {err}").format(path=file_path, err=e)
 
         return msg
 
     except Exception as e:
-        return f"[screenshot error] Failed to capture screenshot: {e}"
+        return _("err.capture_fail", default="[screenshot error] Failed to capture screenshot: {err}").format(err=e)

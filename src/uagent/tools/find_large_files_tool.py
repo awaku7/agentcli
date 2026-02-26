@@ -1,18 +1,18 @@
 # tools/find_large_files_tool.py
 """find_large_files_tool
 
-ディレクトリ配下の大きいファイルを探すツール。
+A tool for finding large files in a directory.
 
-目的:
-- workdir の肥大化原因の特定
-- 生成物やログの整理
+Purpose:
+- Identify the causes of workdir bloat
+- Organize products and logs
 
-安全:
-- 読み取り（stat）のみ。
-- workdir 外の root や危険パスは拒否（safe_file_ops_extras に準拠）。
+Safety:
+- Read-only (stat only).
+- Rejects roots or dangerous paths outside of workdir (compliant with safe_file_ops_extras).
 
-注意:
-- 走査は重くなる可能性があるので、top_n / min_bytes / exclude_dirs で制御する。
+Note:
+- Scanning can be heavy, so control it with top_n / min_bytes / exclude_dirs.
 """
 
 from __future__ import annotations
@@ -36,40 +36,58 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "find_large_files",
-        "description": _("tool.description", default="指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。"),
+        "description": _(
+            "tool.description",
+            default="Searches for large files under the specified directory and returns the top N results along with statistics by extension.",
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "root": {
                     "type": "string",
                     "default": ".",
-                    "description": _("param.root.description", default="探索ルート（workdir配下のみ許可）"),
+                    "description": _(
+                        "param.root.description",
+                        default="Root directory for search (only paths under workdir are allowed).",
+                    ),
                 },
                 "top_n": {
                     "type": "integer",
                     "default": 30,
-                    "description": _("param.top_n.description", default="上位N件"),
+                    "description": _("param.top_n.description", default="Top N results."),
                 },
                 "min_bytes": {
                     "type": "integer",
                     "default": 10_000_000,
-                    "description": _("param.min_bytes.description", default="このサイズ以上のみ対象（既定: 10MB）"),
+                    "description": _(
+                        "param.min_bytes.description",
+                        default="Only target files larger than this size (default: 10MB).",
+                    ),
                 },
                 "group_by_ext": {
                     "type": "boolean",
                     "default": True,
-                    "description": _("param.group_by_ext.description", default="拡張子別集計も返す"),
+                    "description": _(
+                        "param.group_by_ext.description",
+                        default="Whether to return statistics grouped by extension.",
+                    ),
                 },
                 "exclude_dirs": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [".git", "node_modules", "__pycache__", ".venv", "venv"],
-                    "description": _("tool.description", default="除外ディレクトリ名（ディレクトリ名一致）"),
+                    "description": _(
+                        "param.exclude_dirs.description",
+                        default="Directory names to exclude (matching base name).",
+                    ),
                 },
                 "max_files": {
                     "type": "integer",
                     "default": 200000,
-                    "description": _("tool.description", default="走査する最大ファイル数（暴走防止）"),
+                    "description": _(
+                        "param.max_files.description",
+                        default="Maximum number of files to scan (runaway protection).",
+                    ),
                 },
             },
         },

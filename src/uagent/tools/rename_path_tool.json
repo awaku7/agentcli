@@ -1,8 +1,11 @@
 {
-  "param.dst.description": "",
-  "param.mkdirs.description": "",
-  "param.overwrite.description": "",
-  "param.src.description": "",
-  "tool.description": "",
-  "tool.system_prompt": ""
+  "ja": {
+    "tool.description": "Rename (move) a file or directory.",
+    "tool.system_prompt": "このツールはファイル/ディレクトリの rename/move を行います。\n\n安全注記:\n- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。\n- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。",
+    "param.src.description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
+    "param.dst.description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",
+    "param.overwrite.description": "true の場合、dst が既に存在していれば削除して置換します（確認が入ります）。",
+    "param.mkdirs.description": "true の場合、dst の親ディレクトリを作成してから実行します。",
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path ツール\n\n目的:\n- ファイル/ディレクトリの rename / move を行う。\n\n安全方針:\n- workdir 外・絶対パス・.. を含む等の危険パス条件に該当する場合はユーザー確認。\n- overwrite=True（既存 dst を削除して置換）の場合はユーザー確認。\n\n実装:\n- 実体の操作は tools.safe_file_ops.safe_rename_path() に委譲する。\n- 既存 dst を削除する場合、ファイルは os.remove、ディレクトリは shutil.rmtree。\n\n注意:\n- このツールは create_file/delete_file と同様に「実ファイル変更」を行うため、\n  LLM から呼ばれる場合でも安全確認が入る設計。"
+  }
 }

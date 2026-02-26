@@ -6,11 +6,11 @@ import json
 
 
 def get_default_mcp_config_path() -> str:
-    """
-    MCP サーバー設定ファイルのデフォルトパスを返します。
-    優先順位:
-    1. 環境変数 UAGENT_MCP_CONFIG
-    2. <state>/mcps/mcp_servers.json (既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json)
+    """Return the default path to the MCP server configuration file.
+
+    Priority:
+    1. Environment variable UAGENT_MCP_CONFIG
+    2. <state>/mcps/mcp_servers.json (Default: ~/.uag/mcps/mcp_servers.json)
     """
     from uagent.utils.paths import get_mcp_servers_json_path
 
@@ -18,13 +18,10 @@ def get_default_mcp_config_path() -> str:
 
 
 def ensure_mcp_config_template() -> str:
+    """Create a default template file only if the standard configuration file does not exist.
+
+    Returns the path to the created (or already existing) file.
     """
-    標準の場所 (<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json) が存在しない場合のみ、
-    デフォルトの雛形を作成します。
-    作成した（または既に存在していた）パスを返します。
-    """
-    # NOTE: テンプレートは『標準の場所』にのみ作成する（従来挙動維持）。
-    # env(UAGENT_MCP_CONFIG) 指定先へ勝手に書き込まない。
     from uagent.utils.paths import get_mcps_dir
 
     path = str(get_mcps_dir() / "mcp_servers.json")

@@ -1,10 +1,11 @@
 # tools/read_pptx_pdf.py
 # -*- coding: utf-8 -*-
 
-# ==============================
-# Python 3.11+ 互換レイヤー
-# （古いライブラリが collections.Sequence 等を使っていても落ちないようにする）
-# ==============================
+"""Safe reading of PDF and PPTX files.
+
+This module provides compatibility layers and extractors for PDF and PPTX files,
+mapping them to a common JSON schema.
+"""
 
 # --- imports at top ---
 import collections
@@ -19,7 +20,11 @@ import logging
 import unicodedata
 from collections import Counter
 
-# 外部ライブラリは無い可能性もあるので、ImportError は握りつぶして後でチェック
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
+# Optional external libraries
 try:
     import pdfplumber
 except ImportError:
@@ -32,21 +37,18 @@ except ImportError:
     Presentation = None  # type: ignore[assignment]
     MSO_SHAPE_TYPE = None  # type: ignore[assignment]
 
-# 互換レイヤー: collections と collections.abc の互換性補完
+# Compatibility layer: complement collections and collections.abc
 for name in ("Mapping", "MutableMapping", "Sequence"):
     if not hasattr(collections, name) and hasattr(collections.abc, name):
         setattr(collections, name, getattr(collections.abc, name))
 
-# PDF 関連のログは抑制
-logging.getLogger("pdfminer").setLevel(logging.ERROR)  # PDFのWARNINGを抑制
+# Suppress PDF related logs
+logging.getLogger("pdfminer").setLevel(logging.ERROR)
 
-# ツール実行中は Busy 表示にしたいので ON
 BUSY_LABEL = True
 STATUS_LABEL = "tool:read_pptx_pdf"
 
-# 返す文字列の最大長
 DEFAULT_MAX_CHARS = 8000
-
 JSON_SCHEMA_VERSION = "1.1"
 
 
@@ -54,34 +56,48 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "read_pptx_pdf",
-        "description": (
-            "PDF / PPTX / その共通JSONスキーマを読み込み、ページ単位のテキストを返します。"
-            "path に .pdf / .pptx / .json を指定できます。"
-            "PDF/PPTX の場合は、このファイル内の抽出ロジックで共通JSONスキーマに変換します。"
+        "description": _(
+            "tool.description",
+            default=(
+                "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. "
+                "You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema."
+            ),
         ),
-        "system_prompt": (
-            "【重要】PDF/PPTX/JSON を読み込み、ページ単位のテキストを返すツールです。\n"
-            "入力: path, page_index, max_chars\n"
-            "出力: ページテキスト（全ページ or 指定ページ）\n\n"
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text.\n"
+                "Input: path, page_index, max_chars\n"
+                "Output: page text (all pages or specified page)\n\n"
+            ),
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "PDF / PPTX / JSON ファイルのパス",
+                    "description": _(
+                        "param.path.description",
+                        default="Path to a PDF / PPTX / JSON file.",
+                    ),
                 },
                 "page_index": {
                     "type": "integer",
-                    "description": (
-                        "1始まりのページ番号（PDFのページ or PPTXのスライド番号）。"
-                        "省略時は全ページを連結して返します。"
+                    "description": _(
+                        "param.page_index.description",
+                        default=(
+                            "1-based page number (PDF page or PPTX slide index). "
+                            "If omitted, returns concatenated text for all pages."
+                        ),
                     ),
                 },
                 "max_chars": {
                     "type": "integer",
-                    "description": (
-                        "返却テキストの最大文字数。省略時は 8000 文字で切り詰めます。"
+                    "description": _(
+                        "param.max_chars.description",
+                        default=(
+                            "Maximum number of characters to return. If omitted, truncates at 8000 characters."
+                        ),
                     ),
                 },
             },
@@ -92,22 +108,18 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 # ==============================
-# ユーティリティ（文字列・フォント・スタイル）
+# Utilities
 # ==============================
 
 
 def normalize_text(s: str) -> str:
-    """
-    PDF / PPTX から取得したテキストを正規化する。
-    - BOM やゼロ幅スペースなどの不可視文字を除去
-    - Unicode 正規化（NFKC）を実施
-    """
+    """Normalize text extracted from PDF / PPTX."""
     if not s:
         return ""
-    # よく紛れ込む不可視文字を削除
+    # Remove invisible characters
     for ch in ("\ufeff", "\u200b", "\u200c", "\u200d"):
         s = s.replace(ch, "")
-    # 全角/半角のゆれなどを整理
+    # NFKC normalization
     s = unicodedata.normalize("NFKC", s)
     return s
 
@@ -115,11 +127,7 @@ def normalize_text(s: str) -> str:
 def infer_style_from_fontnames(
     fontnames: List[Optional[str]],
 ) -> Optional[Dict[str, Optional[bool]]]:
-    """
-    フォント名のリストから太字/斜体をざっくり推定する。
-    - "Bold", "Black", "Heavy" などを含めば bold
-    - "Italic", "Oblique", "It" などを含めば italic
-    """
+    """Roughly estimate bold/italic styles from font names."""
     names = [fn.lower() for fn in fontnames if fn]
     if not names:
         return None
@@ -141,9 +149,7 @@ def infer_style_from_fontnames(
 def summarize_font_from_words(
     words: List[Dict[str, Any]],
 ) -> Optional[Dict[str, Optional[Any]]]:
-    """
-    pdfplumber の word dict 群から代表的なフォント名・サイズを決める。
-    """
+    """Determine representative font name and size from pdfplumber word dicts."""
     if not words:
         return None
 
@@ -178,9 +184,7 @@ def summarize_font_from_words(
 def estimate_pdf_alignment(
     left: float, right: float, page_width: float
 ) -> Optional[str]:
-    """
-    段落の bbox とページ幅から、ざっくりと left / center / right を推定。
-    """
+    """Roughly estimate alignment (left / center / right) from bounding box."""
     if page_width <= 0:
         return None
 
@@ -193,7 +197,6 @@ def estimate_pdf_alignment(
     margin_left = left
     margin_right = page_width - right
 
-    # 右揃えらしさを少し強めに判定
     if margin_right < margin_left * 0.5:
         return "right"
 
@@ -201,26 +204,19 @@ def estimate_pdf_alignment(
 
 
 # ==============================
-# PDF → blocks（段落推定付き）
+# PDF -> blocks
 # ==============================
 
 
 def build_pdf_blocks(
     words_raw: List[Dict[str, Any]], page_width: float
 ) -> List[Dict[str, Any]]:
-    """
-    pdfplumber.extract_words() の結果から段落ブロックを構築する。
-    - 行間と x 座標から段落を推定
-    - 段落ごとに行間情報（平均行高・行間）を推定
-    - 段落ごとに揃え (left/center/right) を推定
-    - 段落ごとにフォント・太字/斜体を推定
-    """
+    """Build paragraph blocks from pdfplumber.extract_words() results."""
 
-    # まずテキスト正規化＆不要な word を削る
     norm_words: List[Dict[str, Any]] = []
     for w in words_raw:
-        t = normalize_text(w.get("text", ""))
-        if not t:
+        t = normalize_text(str(w.get("text", "")))
+        if not t.strip():
             continue
         w2 = dict(w)
         w2["text"] = t
@@ -229,796 +225,298 @@ def build_pdf_blocks(
     if not norm_words:
         return []
 
-    # 一応 top, x0 でソート（pdfplumber はだいたいそうなっているが念のため）
-    norm_words.sort(key=lambda w: (w.get("top", 0.0), w.get("x0", 0.0)))
+    norm_words.sort(key=lambda x: (x.get("top", 0), x.get("x0", 0)))
 
-    heights = [
-        (float(w["bottom"]) - float(w["top"]))
-        for w in norm_words
-        if "bottom" in w and "top" in w
-    ]
-    avg_height = sum(heights) / len(heights) if heights else 10.0
+    lines: List[List[Dict[str, Any]]] = []
+    current: List[Dict[str, Any]] = []
+    current_top: Optional[float] = None
 
-    # しきい値（経験的）
-    line_gap_threshold = avg_height * 0.7
-    paragraph_gap_threshold = avg_height * 1.8
-    indent_threshold = avg_height * 0.8
+    def _same_line(a: float, b: float) -> bool:
+        return abs(a - b) <= 2.0
 
-    blocks: List[Dict[str, Any]] = []
-
-    current_words: List[Dict[str, Any]] = []
-    current_lines: List[Dict[str, float]] = []  # {"top":..., "bottom":...}
-    current_line_top: Optional[float] = None
-    current_line_bottom: Optional[float] = None
-    current_indent_x0: Optional[float] = None
-
-    def finalize_block() -> None:
-        nonlocal current_words, current_lines, current_line_top, current_line_bottom, current_indent_x0
-
-        if not current_words:
-            return
-
-        # 最終行を追加
-        lines = list(current_lines)
-        if current_line_top is not None and current_line_bottom is not None:
-            lines.append({"top": current_line_top, "bottom": current_line_bottom})
-
-        # bbox
-        xs0 = [float(w["x0"]) for w in current_words]
-        xs1 = [float(w["x1"]) for w in current_words]
-        ys0 = [float(w["top"]) for w in current_words]
-        ys1 = [float(w["bottom"]) for w in current_words]
-
-        left = min(xs0)
-        right = max(xs1)
-        top = min(ys0)
-        bottom = max(ys1)
-
-        # 段落テキスト
-        text = " ".join(w["text"] for w in current_words)
-
-        # 行間情報
-        line_spacing: Optional[Dict[str, float]] = None
-        if len(lines) >= 2:
-            heights_local = [ln["bottom"] - ln["top"] for ln in lines]
-            gaps = [
-                lines[i + 1]["top"] - lines[i]["bottom"] for i in range(len(lines) - 1)
-            ]
-            avg_h = sum(heights_local) / len(heights_local) if heights_local else 0.0
-            avg_gap = sum(gaps) / len(gaps) if gaps else 0.0
-            line_spacing = {
-                "avg_line_height": float(avg_h),
-                "avg_line_gap": float(avg_gap),
-            }
-
-        # 段落フォント／スタイル
-        font = summarize_font_from_words(current_words)
-        style = infer_style_from_fontnames([w.get("fontname") for w in current_words])
-
-        # 揃え推定
-        align = estimate_pdf_alignment(left, right, page_width)
-
-        # 箇条書きっぽいか（先頭文字で簡易判定）
-        stripped = text.lstrip()
-        bullet: Optional[bool] = None
-        if stripped:
-            bullet = stripped[0] in ("-", "・", "●", "○", "■", "□", "◆", "•", "※")
-
-        paragraph = {
-            "text": text,
-            "font": font,
-            "style": style,
-            "align": align,
-            "line_spacing": line_spacing,
-            "bullet": bullet,
-            "runs": [],  # PDF では run 単位情報までは取っていない
-        }
-
-        block = {
-            "text": text,
-            "bbox": [float(left), float(top), float(right), float(bottom)],
-            "font": font,
-            "style": style,
-            "paragraphs": [paragraph],
-        }
-        blocks.append(block)
-
-        # リセット
-        current_words = []
-        current_lines = []
-        current_line_top = None
-        current_line_bottom = None
-        current_indent_x0 = None
-
-    # メインループ
     for w in norm_words:
-        x0 = float(w["x0"])
-        top = float(w["top"])
-        bottom = float(w["bottom"])
-
-        if not current_words:
-            # 新しい段落開始
-            current_words = [w]
-            current_line_top = top
-            current_line_bottom = bottom
-            current_indent_x0 = x0
-            current_lines = []
+        top = float(w.get("top", 0.0) or 0.0)
+        if current_top is None:
+            current_top = top
+            current = [w]
             continue
 
-        # 直前行との関係
-        assert current_line_bottom is not None
-        vertical_gap = top - current_line_bottom
-        same_indent = (
-            current_indent_x0 is not None
-            and abs(x0 - current_indent_x0) <= indent_threshold
+        if _same_line(top, current_top):
+            current.append(w)
+        else:
+            lines.append(current)
+            current = [w]
+            current_top = top
+
+    if current:
+        lines.append(current)
+
+    line_objs: List[Dict[str, Any]] = []
+    for ln in lines:
+        ln.sort(key=lambda x: float(x.get("x0", 0.0) or 0.0))
+        text = " ".join([str(w.get("text", "")) for w in ln]).strip()
+        if not text:
+            continue
+        left = float(min([w.get("x0", 0.0) or 0.0 for w in ln]))
+        right = float(max([w.get("x1", 0.0) or 0.0 for w in ln]))
+        top = float(min([w.get("top", 0.0) or 0.0 for w in ln]))
+        bottom = float(max([w.get("bottom", 0.0) or 0.0 for w in ln]))
+        line_objs.append(
+            {
+                "text": text,
+                "bbox": [left, top, right, bottom],
+                "words": ln,
+            }
         )
 
-        new_paragraph = False
-        # 行間が明らかに広い → 段落区切り
-        if vertical_gap > paragraph_gap_threshold:
-            new_paragraph = True
-        # インデントが変わり、かつ少し間が空く → 段落の可能性
-        elif (not same_indent) and vertical_gap > line_gap_threshold:
-            new_paragraph = True
+    if not line_objs:
+        return []
 
-        if new_paragraph:
-            finalize_block()
-            # 新しい段落スタート
-            current_words = [w]
-            current_line_top = top
-            current_line_bottom = bottom
-            current_indent_x0 = x0
-            current_lines = []
+    blocks: List[Dict[str, Any]] = []
+    cur_block: List[Dict[str, Any]] = [line_objs[0]]
+
+    def _gap(a: Dict[str, Any], b: Dict[str, Any]) -> float:
+        return float(b["bbox"][1]) - float(a["bbox"][3])
+
+    for prev, nxt in zip(line_objs, line_objs[1:]):
+        g = _gap(prev, nxt)
+        if g > 8.0:
+            blocks.append({"lines": cur_block})
+            cur_block = [nxt]
+        else:
+            cur_block.append(nxt)
+
+    if cur_block:
+        blocks.append({"lines": cur_block})
+
+    for b in blocks:
+        b_lines = b.get("lines") or []
+        if not b_lines:
             continue
 
-        # 同一段落内
-        # 行をまたいだかどうか
-        if vertical_gap > line_gap_threshold:
-            # これまでの行を記録
-            if current_line_top is not None and current_line_bottom is not None:
-                current_lines.append(
-                    {"top": current_line_top, "bottom": current_line_bottom}
-                )
-            # 新しい行
-            current_line_top = top
-            current_line_bottom = bottom
-        else:
-            # 同じ行（行の bbox を拡張）
-            if current_line_top is not None:
-                current_line_top = min(current_line_top, top)
-            else:
-                current_line_top = top
-            if current_line_bottom is not None:
-                current_line_bottom = max(current_line_bottom, bottom)
-            else:
-                current_line_bottom = bottom
+        left = min([float(ln["bbox"][0]) for ln in b_lines])
+        right = max([float(ln["bbox"][2]) for ln in b_lines])
+        top = min([float(ln["bbox"][1]) for ln in b_lines])
+        bottom = max([float(ln["bbox"][3]) for ln in b_lines])
+        b["bbox"] = [left, top, right, bottom]
+        b["align"] = estimate_pdf_alignment(left, right, page_width)
 
-        current_words.append(w)
+        words_all: List[Dict[str, Any]] = []
+        for ln in b_lines:
+            words_all.extend(list(ln.get("words") or []))
+        b["font"] = summarize_font_from_words(words_all)
 
-    # 最後の段落
-    finalize_block()
+        fontnames = [w.get("fontname") for w in words_all]
+        b["style"] = infer_style_from_fontnames(fontnames)
+
+        b["text"] = "\n".join([str(ln.get("text", "")) for ln in b_lines]).strip()
 
     return blocks
 
 
 # ==============================
-# PDF → 共通JSON
+# JSON schema helpers
 # ==============================
 
 
-def pdf_to_pages_json(pdf_path: str) -> Dict[str, Any]:
+def _ensure_common_schema(doc: Dict[str, Any]) -> Dict[str, Any]:
+    """Ensure minimal common schema fields exist."""
+    if "schema_version" not in doc:
+        doc["schema_version"] = JSON_SCHEMA_VERSION
+    if "pages" not in doc or not isinstance(doc["pages"], list):
+        doc["pages"] = []
+    return doc
+
+
+def _wrap_page_texts(pages: List[str]) -> Dict[str, Any]:
+    return _ensure_common_schema(
+        {
+            "schema_version": JSON_SCHEMA_VERSION,
+            "pages": [{"index": i + 1, "text": t} for i, t in enumerate(pages)],
+        }
+    )
+
+
+# ==============================
+# Extractors
+# ==============================
+
+
+def _extract_pdf_pages(pdf_path: str) -> Tuple[List[str], List[str]]:
+    warnings: List[str] = []
+
     if pdfplumber is None:
-        raise RuntimeError(
-            "pdfplumber がインストールされていません。pip install pdfplumber を実行してください。"
-        )
+        warnings.append("pdfplumber is not available")
+        return [], warnings
 
-    pdf_file = Path(pdf_path)
-
-    result: Dict[str, Any] = {
-        "schema_version": JSON_SCHEMA_VERSION,
-        "file": pdf_file.name,
-        "type": "pdf",
-        "meta": {},
-        "masters": [],  # PDFにはマスター概念がないので空リスト
-        "layouts": [],
-        "pages": [],
-    }
-
-    with pdfplumber.open(pdf_file) as pdf:  # type: ignore[call-arg]
-        page_count = len(pdf.pages)
-        result["meta"]["page_count"] = page_count
-
-        if page_count > 0:
-            result["meta"]["width"] = float(pdf.pages[0].width)
-            result["meta"]["height"] = float(pdf.pages[0].height)
-
-        for idx, page in enumerate(pdf.pages):
-            index = idx + 1
-
-            # word 単位情報（フォント付き）
-            words = page.extract_words(
-                keep_blank_chars=False,
-                use_text_flow=True,
-                extra_attrs=["fontname", "size"],
-            )
-
-            blocks = build_pdf_blocks(words, page_width=float(page.width))
-
-            if blocks:
-                text = "\n\n".join(b["text"] for b in blocks)
-            else:
-                # fallback
-                text = normalize_text(page.extract_text() or "")
-
-            # テーブル（bbox推定付き）
-            tables_json: List[Dict[str, Any]] = []
-            try:
-                tables = page.find_tables()
-                if tables:
-                    for t in tables:
-                        cells = t.extract()
-                        # セル文字列も正規化
-                        cells_norm = [
-                            [normalize_text(c or "") for c in row] if row else []
-                            for row in cells
-                        ]
-                        bbox = t.bbox  # (x0, top, x1, bottom)
-                        tables_json.append(
-                            {
-                                "bbox": [float(b) for b in bbox] if bbox else None,
-                                "cells": cells_norm,
-                                # PDF では cell フォント情報は未対応（pdfplumber 単体では bbox が取れないため）
-                                "cell_fonts": None,
-                                "cell_styles": None,
-                            }
-                        )
-                else:
-                    # fallback: extract_tables() だけ（bboxは取れない）
-                    raw_tables = page.extract_tables()
-                    for tbl in raw_tables:
-                        cells_norm = [
-                            [normalize_text(c or "") for c in row] if row else []
-                            for row in tbl
-                        ]
-                        tables_json.append(
-                            {
-                                "bbox": None,
-                                "cells": cells_norm,
-                                "cell_fonts": None,
-                                "cell_styles": None,
-                            }
-                        )
-            except Exception as e:
-                tables_json.append({"error": str(e)})
-
-            # 画像のbboxだけ
-            images_json: List[Dict[str, Any]] = []
-            try:
-                for img in page.images:
-                    images_json.append(
-                        {
-                            "bbox": [
-                                float(img["x0"]),
-                                float(img["top"]),
-                                float(img["x1"]),
-                                float(img["bottom"]),
-                            ],
-                            "name": img.get("name"),
-                            "width": float(img["width"]),
-                            "height": float(img["height"]),
-                        }
-                    )
-            except Exception as e:
-                images_json.append({"error": str(e)})
-
-            page_info = {
-                "index": index,
-                "label": str(index),
-                "width": float(page.width),
-                "height": float(page.height),
-                "text": text,
-                "blocks": blocks,
-                "tables": tables_json,
-                "images": images_json,
-                "source": {
-                    "page_number": index,
-                },
-            }
-
-            result["pages"].append(page_info)
-
-    return result
-
-
-# ==============================
-# PPTX 側のヘルパ
-# ==============================
-
-
-def _extract_paragraphs_from_shape(shape) -> List[Dict[str, Any]]:
-    """
-    PPTX のテキスト付き shape から段落＋run 情報を抽出する。
-    """
-    if not getattr(shape, "has_text_frame", False):
-        return []
-
-    paragraphs_json: List[Dict[str, Any]] = []
-
+    pages_text: List[str] = []
     try:
-        text_frame = shape.text_frame
-    except Exception:
-        return []
-
-    for p in text_frame.paragraphs:
-        # 段落テキスト＆ run 情報
-        runs_json: List[Dict[str, Any]] = []
-        run_fontnames: List[str] = []
-        run_sizes: List[float] = []
-
-        for run in p.runs:
-            t = normalize_text(run.text or "")
-            if not t:
-                continue
-
-            f = run.font
-            run_font: Optional[Dict[str, Any]] = {}
-            if f is not None:
-                if f.name:
-                    run_font["name"] = f.name
-                    run_fontnames.append(f.name)
-                if f.size:
-                    try:
-                        run_font["size"] = float(f.size.pt)
-                        run_sizes.append(float(f.size.pt))
-                    except Exception:
-                        pass
-            if not run_font:
-                run_font = None
-
-            run_style: Optional[Dict[str, Any]] = {}
-            if f is not None:
-                if f.bold is not None:
-                    run_style["bold"] = bool(f.bold)
-                if f.italic is not None:
-                    run_style["italic"] = bool(f.italic)
-            if not run_style:
-                run_style = None
-
-            runs_json.append(
-                {
-                    "text": t,
-                    "font": run_font,
-                    "style": run_style,
-                }
-            )
-
-        para_text = normalize_text("".join(r["text"] for r in runs_json))
-        if not para_text:
-            continue
-
-        # 段落代表フォント
-        font_name = None
-        font_size = None
-        if run_fontnames:
-            font_name = Counter(run_fontnames).most_common(1)[0][0]
-        if run_sizes:
-            font_size = Counter(run_sizes).most_common(1)[0][0]
-        para_font = None
-        if font_name is not None or font_size is not None:
-            para_font = {"name": font_name, "size": font_size}
-
-        para_style = infer_style_from_fontnames(run_fontnames)
-
-        # 揃え
-        align = None
-        try:
-            if p.alignment is not None:
-                # e.g. PP_ALIGN.LEFT → "left"
-                align = str(p.alignment).split(".")[-1].lower()
-        except Exception:
-            pass
-
-        # 行間情報（line_spacing / space_before / space_after）
-        line_spacing_info: Dict[str, float] = {}
-        try:
-            if p.line_spacing is not None:
-                if hasattr(p.line_spacing, "pt"):
-                    line_spacing_info["line_spacing_pt"] = float(p.line_spacing.pt)
-                else:
-                    line_spacing_info["line_spacing"] = float(p.line_spacing)
-        except Exception:
-            pass
-        try:
-            if p.space_before is not None and hasattr(p.space_before, "pt"):
-                line_spacing_info["space_before_pt"] = float(p.space_before.pt)
-        except Exception:
-            pass
-        try:
-            if p.space_after is not None and hasattr(p.space_after, "pt"):
-                line_spacing_info["space_after_pt"] = float(p.space_after.pt)
-        except Exception:
-            pass
-        if not line_spacing_info:
-            line_spacing: Optional[Dict[str, float]] = None
-        else:
-            line_spacing = line_spacing_info
-
-        # 箇条書きっぽいか（テキストの先頭文字で判定）
-        bullet: Optional[bool] = None
-        stripped = para_text.lstrip()
-        if stripped:
-            bullet = stripped[0] in ("-", "・", "●", "○", "■", "□", "◆", "•", "※")
-
-        paragraphs_json.append(
-            {
-                "text": para_text,
-                "font": para_font,
-                "style": para_style,
-                "align": align,
-                "line_spacing": line_spacing,
-                "bullet": bullet,
-                "runs": runs_json,
-            }
-        )
-
-    return paragraphs_json
-
-
-def _summarize_cell_font(
-    cell,
-) -> Tuple[Optional[Dict[str, Any]], Optional[Dict[str, Any]]]:
-    """
-    PPTX の table cell から代表フォント＆スタイル（太字/斜体）を抽出。
-    """
-    try:
-        tf = cell.text_frame
-    except Exception:
-        return None, None
-
-    if tf is None:
-        return None, None
-
-    fontnames: List[str] = []
-    sizes: List[float] = []
-
-    for p in tf.paragraphs:
-        for run in p.runs:
-            f = run.font
-            if f is None:
-                continue
-            if f.name:
-                fontnames.append(f.name)
-            if f.size:
+        with pdfplumber.open(pdf_path) as pdf:
+            for page in pdf.pages:
                 try:
-                    sizes.append(float(f.size.pt))
+                    words = page.extract_words(
+                        use_text_flow=True,
+                        keep_blank_chars=False,
+                        extra_attrs=["fontname", "size"],
+                    )
+                except Exception:
+                    words = []
+
+                try:
+                    blocks = build_pdf_blocks(words, page.width)
+                    txt = "\n\n".join(
+                        [b.get("text", "") for b in blocks if b.get("text")]
+                    )
+                    txt = normalize_text(txt)
+                    if not txt.strip():
+                        txt = normalize_text(page.extract_text() or "")
+                except Exception:
+                    txt = normalize_text(page.extract_text() or "")
+
+                pages_text.append(txt)
+    except Exception as e:
+        warnings.append(f"pdfplumber failed: {type(e).__name__}: {e}")
+        return [], warnings
+
+    return pages_text, warnings
+
+
+def _extract_pptx_pages(pptx_path: str) -> Tuple[List[str], List[str]]:
+    warnings: List[str] = []
+
+    if Presentation is None:
+        warnings.append("python-pptx is not available")
+        return [], warnings
+
+    pages_text: List[str] = []
+    try:
+        pres = Presentation(pptx_path)
+        for slide in pres.slides:
+            parts: List[str] = []
+            for shape in slide.shapes:
+                try:
+                    if (
+                        MSO_SHAPE_TYPE is not None
+                        and shape.shape_type == MSO_SHAPE_TYPE.GROUP
+                    ):
+                        continue
                 except Exception:
                     pass
 
-    if not fontnames and not sizes:
-        return None, None
+                txt = ""
+                try:
+                    if (
+                        getattr(shape, "has_text_frame", False)
+                        and shape.text_frame is not None
+                    ):
+                        txt = shape.text_frame.text or ""
+                except Exception:
+                    txt = ""
 
-    font_name = Counter(fontnames).most_common(1)[0][0] if fontnames else None
-    font_size = Counter(sizes).most_common(1)[0][0] if sizes else None
+                txt = normalize_text(txt)
+                if txt.strip():
+                    parts.append(txt)
 
-    font = {"name": font_name, "size": font_size}
-    style = infer_style_from_fontnames(fontnames)
+            pages_text.append("\n".join(parts).strip())
+    except Exception as e:
+        warnings.append(f"python-pptx failed: {type(e).__name__}: {e}")
+        return [], warnings
 
-    return font, style
-
-
-# ==============================
-# PPTX → 共通JSON
-# ==============================
-
-
-def pptx_to_pages_json(pptx_path: str) -> Dict[str, Any]:
-    if Presentation is None:
-        raise RuntimeError(
-            "python-pptx がインストールされていません。pip install python-pptx を実行してください。"
-        )
-
-    prs = Presentation(pptx_path)
-    pptx_file = Path(pptx_path)
-
-    result: Dict[str, Any] = {
-        "schema_version": JSON_SCHEMA_VERSION,
-        "file": pptx_file.name,
-        "type": "pptx",
-        "meta": {
-            "slide_count": len(prs.slides),
-            "width": int(prs.slide_width),
-            "height": int(prs.slide_height),
-        },
-        "masters": [],
-        "layouts": [],
-        "pages": [],
-    }
-
-    # --- Master 情報 ---
-    for m in prs.slide_masters:
-        master_texts: List[str] = []
-        for shape in m.shapes:
-            if hasattr(shape, "text"):
-                t = normalize_text(shape.text or "")
-                if t:
-                    master_texts.append(t)
-
-        result["masters"].append(
-            {
-                "name": m.name,
-                "slide_layout_count": len(m.slide_layouts),
-                "text": master_texts,
-            }
-        )
-
-    # --- Layout 情報 ---
-    for layout in prs.slide_layouts:
-        layout_texts: List[str] = []
-        for shape in layout.shapes:
-            if hasattr(shape, "text"):
-                t = normalize_text(shape.text or "")
-                if t:
-                    layout_texts.append(t)
-
-        result["layouts"].append(
-            {
-                "name": layout.name,
-                "text": layout_texts,
-            }
-        )
-
-    # --- Slides → pages ---
-    for idx, slide in enumerate(prs.slides):
-        index = idx + 1
-
-        blocks: List[Dict[str, Any]] = []
-        tables_json: List[Dict[str, Any]] = []
-        images_json: List[Dict[str, Any]] = []
-
-        for shape in slide.shapes:
-            # テキストブロック
-            if getattr(shape, "has_text_frame", False):
-                paragraphs = _extract_paragraphs_from_shape(shape)
-                if paragraphs:
-                    block_text = "\n".join(p["text"] for p in paragraphs)
-                    # 代表フォント・スタイルは 1 段落目から
-                    block_font = paragraphs[0].get("font")
-                    block_style = paragraphs[0].get("style")
-
-                    blocks.append(
-                        {
-                            "text": block_text,
-                            "bbox": [
-                                int(shape.left),
-                                int(shape.top),
-                                int(shape.left + shape.width),
-                                int(shape.top + shape.height),
-                            ],
-                            "font": block_font,
-                            "style": block_style,
-                            "paragraphs": paragraphs,
-                        }
-                    )
-
-            # テーブル
-            if getattr(shape, "has_table", False):
-                cells_text: List[List[str]] = []
-                cell_fonts: List[List[Optional[Dict[str, Any]]]] = []
-                cell_styles: List[List[Optional[Dict[str, Any]]]] = []
-
-                for row in shape.table.rows:
-                    row_texts: List[str] = []
-                    row_fonts: List[Optional[Dict[str, Any]]] = []
-                    row_styles: List[Optional[Dict[str, Any]]] = []
-                    for cell in row.cells:
-                        cell_text = normalize_text(cell.text or "")
-                        row_texts.append(cell_text)
-
-                        font, style = _summarize_cell_font(cell)
-                        row_fonts.append(font)
-                        row_styles.append(style)
-
-                    cells_text.append(row_texts)
-                    cell_fonts.append(row_fonts)
-                    cell_styles.append(row_styles)
-
-                tables_json.append(
-                    {
-                        "bbox": [
-                            int(shape.left),
-                            int(shape.top),
-                            int(shape.left + shape.width),
-                            int(shape.top + shape.height),
-                        ],
-                        "cells": cells_text,
-                        "cell_fonts": cell_fonts,
-                        "cell_styles": cell_styles,
-                    }
-                )
-
-            # 画像
-            if (
-                MSO_SHAPE_TYPE is not None
-                and shape.shape_type == MSO_SHAPE_TYPE.PICTURE
-            ):
-                images_json.append(
-                    {
-                        "bbox": [
-                            int(shape.left),
-                            int(shape.top),
-                            int(shape.left + shape.width),
-                            int(shape.top + shape.height),
-                        ],
-                        "name": getattr(shape, "name", None),
-                        "width": int(shape.width),
-                        "height": int(shape.height),
-                    }
-                )
-
-        # スライド全体のテキストは blocks の text を結合
-        full_text = "\n".join(b["text"] for b in blocks)
-
-        page_info = {
-            "index": index,
-            "label": str(index),
-            "width": int(prs.slide_width),
-            "height": int(prs.slide_height),
-            "text": full_text,
-            "blocks": blocks,
-            "tables": tables_json,
-            "images": images_json,
-            "source": {
-                "slide_number": index,
-                "layout": slide.slide_layout.name,
-            },
-        }
-
-        result["pages"].append(page_info)
-
-    return result
+    return pages_text, warnings
 
 
 # ==============================
-# 統一エントリポイント（ツール内部用）
+# Main
 # ==============================
 
 
-def _document_to_json(path: str) -> Dict[str, Any]:
-    suffix = Path(path).suffix.lower()
-    if suffix == ".pdf":
-        return pdf_to_pages_json(path)
-    elif suffix == ".pptx":
-        return pptx_to_pages_json(path)
-    elif suffix == ".json":
-        return _load_json(path)
-    else:
-        raise ValueError("Unsupported file type: expected .pdf, .pptx, or .json")
+def _read_common_json(path: str) -> Tuple[Dict[str, Any], List[str]]:
+    warnings: List[str] = []
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            return _ensure_common_schema({}), ["JSON root is not an object"]
+        return _ensure_common_schema(data), warnings
+    except Exception as e:
+        return _ensure_common_schema({}), [
+            f"Failed to read JSON: {type(e).__name__}: {e}"
+        ]
 
 
-def _load_json(path: str) -> Dict[str, Any]:
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-# ==============================
-# JSON → テキスト抽出
-# ==============================
-
-
-def _extract_page_text(page: Dict[str, Any]) -> str:
-    """
-    1ページ分のテキストを共通スキーマから抽出する。
-    - page["text"] があればそれを優先
-    - なければ blocks[].text を連結
-    """
-    text = (page.get("text") or "").strip()
-    if text:
-        return text
-
-    blocks: List[Dict[str, Any]] = page.get("blocks") or []
-    parts: List[str] = []
-    for blk in blocks:
-        t = (blk.get("text") or "").strip()
-        if t:
-            parts.append(t)
-    return "\n".join(parts)
-
-
-def _build_all_pages_text(data: Dict[str, Any]) -> str:
-    """
-    全ページ分のテキストを:
-      [Page 1]
-      ...
-      [Page 2]
-      ...
-    のように連結した文字列にする。
-    """
-    pages: List[Dict[str, Any]] = data.get("pages") or []
-    if not pages:
-        return "[read_pptx_pdf] JSON に pages がありません。"
-
-    parts: List[str] = []
-    for page in pages:
-        idx: Optional[int] = page.get("index")
-        label: Optional[str] = page.get("label")
-        header = f"[Page {idx if idx is not None else label}]"
-        body = _extract_page_text(page)
-        if not body:
+def _get_pages_text(doc: Dict[str, Any]) -> List[str]:
+    pages = doc.get("pages")
+    if not isinstance(pages, list):
+        return []
+    out: List[str] = []
+    for p in pages:
+        if not isinstance(p, dict):
             continue
-        parts.append(header)
-        parts.append(body)
-
-    if not parts:
-        return "[read_pptx_pdf] 抽出できるテキストがありません。"
-
-    return "\n".join(parts)
-
-
-def _build_single_page_text(data: Dict[str, Any], page_index: int) -> str:
-    """
-    指定ページ（1始まり / index or label）だけを文字列にする。
-    """
-    pages: List[Dict[str, Any]] = data.get("pages") or []
-    if not pages:
-        return "[read_pptx_pdf] JSON に pages がありません。"
-
-    target: Optional[Dict[str, Any]] = None
-    for page in pages:
-        idx = page.get("index")
-        label = page.get("label")
-        if idx == page_index or str(label) == str(page_index):
-            target = page
-            break
-
-    if target is None:
-        return f"[read_pptx_pdf] 指定ページが見つかりません: {page_index}"
-
-    header = f"[Page {page_index}]"
-    body = _extract_page_text(target)
-    if not body:
-        return header + "\n(テキストが見つかりませんでした)"
-    return header + "\n" + body
-
-
-# ==============================
-# ツールエントリポイント
-# ==============================
+        t = p.get("text")
+        out.append(normalize_text(str(t or "")))
+    return out
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """
-    tools/__init__.py から呼ばれるエントリポイント。
-    args には LLM から渡された JSON 引数が入る。
-    """
-    path = args.get("path")
-    if not path:
-        return "[read_pptx_pdf] 'path' 引数が指定されていません。"
-
-    max_chars = args.get("max_chars") or DEFAULT_MAX_CHARS
-    try:
-        max_chars_int = int(max_chars)
-    except Exception:
-        max_chars_int = DEFAULT_MAX_CHARS
-
-    if not os.path.exists(path):
-        return f"[read_pptx_pdf] ファイルが見つかりません: {path}"
-
-    try:
-        data = _document_to_json(path)
-    except Exception as e:
-        return f"[read_pptx_pdf] 文書の読み込み/抽出に失敗しました: {e!r}"
-
+    path = (args.get("path") or "").strip()
     page_index = args.get("page_index")
+    max_chars = args.get("max_chars")
+
+    if not path:
+        return "[read_pptx_pdf error] path is required"
+
+    try:
+        if max_chars is None:
+            max_chars_i = DEFAULT_MAX_CHARS
+        else:
+            max_chars_i = int(max_chars)
+            if max_chars_i <= 0:
+                max_chars_i = DEFAULT_MAX_CHARS
+    except Exception:
+        max_chars_i = DEFAULT_MAX_CHARS
+
+    p = Path(path)
+    if not p.exists() or not p.is_file():
+        return f"[read_pptx_pdf error] file not found: {path}"
+
+    suffix = p.suffix.lower()
+    warnings: List[str] = []
+
+    if suffix == ".json":
+        doc, warnings = _read_common_json(path)
+        pages_text = _get_pages_text(doc)
+    elif suffix == ".pdf":
+        pages_text, warnings = _extract_pdf_pages(path)
+        doc = _wrap_page_texts(pages_text)
+    elif suffix == ".pptx":
+        pages_text, warnings = _extract_pptx_pages(path)
+        doc = _wrap_page_texts(pages_text)
+    else:
+        return f"[read_pptx_pdf error] unsupported file extension: {suffix}"
+
+    pages_text = _get_pages_text(doc)
+
     if page_index is not None:
         try:
-            page_index_int = int(page_index)
+            idx = int(page_index)
         except Exception:
-            return "[read_pptx_pdf] page_index は整数で指定してください。"
-        text = _build_single_page_text(data, page_index_int)
+            return "[read_pptx_pdf error] page_index must be an integer"
+
+        if idx <= 0 or idx > len(pages_text):
+            return f"[read_pptx_pdf error] page_index out of range: {idx}"
+
+        out = pages_text[idx - 1]
     else:
-        text = _build_all_pages_text(data)
+        out = "\n\n".join([t for t in pages_text if t])
 
-    if len(text) > max_chars_int:
-        text = text[:max_chars_int] + "\n…(truncated)…"
+    if not out.strip():
+        warnings.append("No text could be extracted")
 
-    return text
+    out = out[:max_chars_i]
+
+    if warnings:
+        warn_text = "\n".join([f"[read_pptx_pdf warn] {w}" for w in warnings])
+        if out:
+            return warn_text + "\n" + out
+        return warn_text
+
+    return out
