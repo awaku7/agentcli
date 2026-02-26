@@ -1,4 +1,6 @@
 {
-  "en": {},
-  "ja": {}
+  "param.default_name.description": "",
+  "param.default_url.description": "",
+  "param.path.description": "",
+  "tool.description": ""
 }

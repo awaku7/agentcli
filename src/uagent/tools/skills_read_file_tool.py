@@ -32,21 +32,21 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_read_file",
-        "description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
+        "description": _("tool.description", default="Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "skill_dir": {
                     "type": "string",
-                    "description": "スキルディレクトリ",
+                    "description": _("param.skill_dir.description", default="スキルディレクトリ"),
                 },
                 "relative_path": {
                     "type": "string",
-                    "description": "スキルルートからの相対パス（例: references/REFERENCE.md）",
+                    "description": _("param.relative_path.description", default="スキルルートからの相対パス（例: references/REFERENCE.md）"),
                 },
                 "max_bytes": {
                     "type": "integer",
-                    "description": "読み込み上限バイト数（既定: 5000000）",
+                    "description": _("param.max_bytes.description", default="読み込み上限バイト数（既定: 5000000）"),
                     "default": DEFAULT_MAX_READ_FILE_BYTES,
                 },
             },

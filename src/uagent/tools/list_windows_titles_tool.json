@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.all.description": "",
+  "param.class.description": "",
+  "param.pid.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

@@ -13,8 +13,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_long_memory",
-        "description": "保存されている長期記憶メモ（JSONL形式）をまとめて取得します。",
-        "system_prompt": """このツールは次の目的で使われます: 保存されている長期記憶メモ（JSONL形式）をまとめて取得します。""",
+        "description": _("tool.description", default="Get all saved long-term memory notes (JSONL)."),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 保存されている長期記憶メモ（JSONL形式）をまとめて取得します。"),
         "parameters": {
             "type": "object",
             "properties": {},

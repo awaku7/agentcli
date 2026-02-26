@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.mask.description": "",
+  "param.missing_ok.description": "",
+  "param.name.description": "",
+  "param.unmasked_chars.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

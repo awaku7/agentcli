@@ -1,18 +1,8 @@
 {
-  "en": {
-    "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
-    "tool.system_prompt": "Use this tool to delete a file or directory at the specified path. Deleting a directory is recursive. Because deletion is destructive, the tool may ask the user for confirmation.",
-    "param.filename.description": "Path to the file or directory to delete.",
-    "param.path.description": "(Compatibility) Alias of filename.",
-    "param.missing_ok.description": "If true, do not error when the path does not exist.",
-    "confirm.delete_path": "Delete path: {path}?\nEnter y to proceed, or c to cancel."
-  },
-  "ja": {
-    "tool.description": "指定されたパスのファイルまたはディレクトリを削除します（ディレクトリは再帰削除）。危険操作のため確認が入る場合があります。",
-    "tool.system_prompt": "このツールは次の目的で使われます: 削除するファイルのパス。",
-    "param.filename.description": "削除するファイルのパス。",
-    "param.path.description": "(互換) 削除するファイルのパス。filename の別名として受け付けます。",
-    "param.missing_ok.description": "ファイルが存在しない場合の扱い。省略時は false（エラーにする）。true の場合はエラーにせず成功扱いとする。",
-    "confirm.delete_path": "パスを削除します: {path}?\n続行するには y、キャンセルするには c を入力してください。"
-  }
+  "confirm.delete_path": "",
+  "param.filename.description": "",
+  "param.missing_ok.description": "",
+  "param.path.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

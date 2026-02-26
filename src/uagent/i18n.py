@@ -148,11 +148,6 @@ def detect_lang() -> str:
       'ja' or 'en' (current policy).
     """
 
-    # Thread-local override (web per-room)
-    tl = get_thread_lang()
-    if tl:
-        return _normalize_lang_tag(tl)
-
     # 1) explicit override
     v = (os.environ.get("UAGENT_LANG") or "").strip()
     if v:

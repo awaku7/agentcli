@@ -81,26 +81,19 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "pwsh_exec",
-        "description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。"
+        "description": _("tool.description", default="【最終手段】PowerShell を実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。")
         + _DESC_SUFFIX,
-        "system_prompt": """このツールは【最終手段】です。
-1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。
-2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。
-3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。
-
-セキュリティ注記:
-- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。
-""",
+        "system_prompt": _("tool.system_prompt", default="このツールは【最終手段】です。\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\n\nセキュリティ注記:\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。"),
         "parameters": {
             "type": "object",
             "properties": {
                 "command": {
                     "type": "string",
-                    "description": "PowerShell command string passed to -Command.",
+                    "description": _("param.command.description", default="PowerShell command string passed to -Command."),
                 },
                 "shell": {
                     "type": "string",
-                    "description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
+                    "description": _("param.shell.description", default="PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select."),
                     "enum": ["pwsh", "powershell"],
                 },
             },

@@ -28,11 +28,11 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "url": {
                     "type": "string",
-                    "description": "最初に開くURL（デフォルト: about:blank）",
+                    "description": _("param.url.description", default="最初に開くURL（デフォルト: about:blank）"),
                 },
                 "prefix": {
                     "type": "string",
-                    "description": "保存するファイル名の接頭辞（デフォルト: debug_capture）",
+                    "description": _("param.prefix.description", default="保存するファイル名の接頭辞（デフォルト: debug_capture）"),
                 },
             },
         },

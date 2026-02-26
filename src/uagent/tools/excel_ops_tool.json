@@ -1,18 +1,8 @@
 {
-  "en": {
-    "tool.description": "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing.",
-    "tool.system_prompt": "This tool reads/writes Excel (.xlsx) files and can list sheet names. When writing to an existing file, it creates a backup with the same name (<file_path>.org / <file_path>.org1 / ...) immediately before writing.",
-    "param.action.description": "Operation to perform.\n- 'read': read the specified sheet and return JSON.\n- 'write': write JSON data to the specified sheet (create file if missing).\n- 'get_sheet_names': get a list of sheet names.",
-    "param.file_path.description": "Absolute path to the Excel file.",
-    "param.sheet_name.description": "Target sheet name (for read/write). If omitted, read uses the first sheet and write uses 'Sheet1'.",
-    "param.data.description": "Data to write (JSON string)."
-  },
-  "ja": {
-    "tool.description": "Excelファイル(.xlsx)の読み書きおよびシート名取得を行います。write で既存ファイルに書き込む場合、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / <file_path>.org2 ...）を作成します。",
-    "tool.system_prompt": "このツールは次の目的で使われます: Excelファイル(.xlsx)の読み書きおよびシート名取得を行います。write で既存ファイルに書き込む場合、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / <file_path>.org2 ...）を作成します。",
-    "param.action.description": "実行する操作。\n- 'read': 指定シートを読み込みJSONで返す。\n- 'write': JSONデータを指定シートに書き込む（ファイルがない場合は新規作成）。\n- 'get_sheet_names': シート名一覧を取得する。",
-    "param.file_path.description": "Excelファイルの絶対パス。",
-    "param.sheet_name.description": "対象のシート名（read/write時）。指定がない場合、readは先頭シート、writeは 'Sheet1' となる。",
-    "param.data.description": "書き込むデータ（JSON文字列）。"
-  }
+  "param.action.description": "",
+  "param.data.description": "",
+  "param.file_path.description": "",
+  "param.sheet_name.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

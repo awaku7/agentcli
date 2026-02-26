@@ -1076,25 +1076,25 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "query": {"type": "string", "description": "検索クエリ（必須）"},
-                "root_path": {"type": "string", "description": "検索対象ディレクトリ"},
+                "query": {"type": "string", "description": _("param.query.description", default="検索クエリ（必須）")},
+                "root_path": {"type": "string", "description": _("param.root_path.description", default="検索対象ディレクトリ")},
                 "file_pattern": {
                     "type": "string",
-                    "description": "対象パターン（カンマ区切り glob）",
+                    "description": _("param.file_pattern.description", default="対象パターン（カンマ区切り glob）"),
                 },
                 "top_k_vector": {
                     "type": "integer",
-                    "description": "ベクトル検索の上位件数",
+                    "description": _("param.top_k_vector.description", default="ベクトル検索の上位件数"),
                 },
                 "top_k_graph": {
                     "type": "integer",
-                    "description": "グラフ探索で回収する件数",
+                    "description": _("param.top_k_graph.description", default="グラフ探索で回収する件数"),
                 },
-                "hops": {"type": "integer", "description": "グラフ探索のホップ数"},
-                "chunk_size": {"type": "integer", "description": "チャンクサイズ"},
+                "hops": {"type": "integer", "description": _("tool.description", default="グラフ探索のホップ数")},
+                "chunk_size": {"type": "integer", "description": _("tool.description", default="チャンクサイズ")},
                 "overlap": {
                     "type": "integer",
-                    "description": "チャンクのオーバーラップ",
+                    "description": _("tool.description", default="チャンクのオーバーラップ"),
                 },
             },
             "required": ["query"],

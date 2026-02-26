@@ -47,21 +47,21 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "path": {
                     "type": "string",
-                    "description": "作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。",
+                    "description": _("param.path.description", default="作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。"),
                 },
                 "default_name": {
                     "type": "string",
-                    "description": "デフォルトのサーバー名。既定: bluesky-local",
+                    "description": _("param.default_name.description", default="デフォルトのサーバー名。既定: bluesky-local"),
                     "default": "bluesky-local",
                 },
                 "default_url": {
                     "type": "string",
-                    "description": "デフォルトの URL。既定: REPLACE_ME (set your MCP server URL)",
+                    "description": _("param.default_url.description", default="デフォルトの URL。既定: REPLACE_ME (set your MCP server URL)"),
                     "default": "",
                 },
                 "default_transport": {
                     "type": "string",
-                    "description": "デフォルトの transport（参考情報）。既定: streamable-http",
+                    "description": _("tool.description", default="デフォルトの transport（参考情報）。既定: streamable-http"),
                     "default": "streamable-http",
                 },
             },

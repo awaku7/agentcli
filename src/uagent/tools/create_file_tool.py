@@ -1,4 +1,5 @@
 # tools/create_file_tool.py
+
 from __future__ import annotations
 
 import os
@@ -18,14 +19,17 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Create a text file (by default, do not overwrite if it already exists). "
-                "If overwrite=true overwrites an existing file, a backup with the same name "
-                "(<filename>.org / <filename>.org1 / ...) is created immediately before overwriting."
+                "Create a text file. By default, the tool will not overwrite an existing file. "
+                "If overwrite=true is specified and the destination already exists, the tool creates a backup "
+                "(<filename>.org / <filename>.org1 / ...) immediately before overwriting."
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'create_file'.",
+            default=(
+                "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. "
+                "If overwrite=true, a backup is created before writing."
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -48,21 +52,21 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.content.description",
-                        default="Text content to write to the file.",
+                        default="Text content to write.",
                     ),
                 },
                 "encoding": {
                     "type": "string",
                     "description": _(
                         "param.encoding.description",
-                        default="Text encoding (e.g., 'utf-8', 'cp932'). Defaults to 'utf-8'.",
+                        default="Text encoding (e.g., 'utf-8', 'cp932'). Default: 'utf-8'.",
                     ),
                 },
                 "overwrite": {
                     "type": "boolean",
                     "description": _(
                         "param.overwrite.description",
-                        default="Whether to overwrite if the file already exists. Default is false.",
+                        default="Whether to overwrite if the file already exists (default: false).",
                     ),
                 },
             },

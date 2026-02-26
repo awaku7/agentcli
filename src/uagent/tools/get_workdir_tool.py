@@ -9,8 +9,8 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",  # ★ OpenAI / Azure に渡すときに必須
     "function": {
         "name": "get_workdir",
-        "description": "現在の作業ディレクトリを取得します。",
-        "system_prompt": """このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。""",
+        "description": _("tool.description", default="Get the current working directory."),
+        "system_prompt": _("tool.system_prompt", default="このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。"),
         "parameters": {
             "type": "object",
             "properties": {},

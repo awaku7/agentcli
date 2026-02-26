@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.base_date.description": "",
+  "param.months.description": "",
+  "param.weeks.description": "",
+  "param.years.description": "",
+  "tool.description": ""
 }

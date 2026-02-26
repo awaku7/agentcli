@@ -1,4 +1,5 @@
 {
-  "en": {},
-  "ja": {}
+  "param.fail_on_warning.description": "",
+  "param.path.description": "",
+  "param.pretty.description": ""
 }

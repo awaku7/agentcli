@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.algo.description": "",
+  "param.chunk_size.description": "",
+  "param.paths.description": "",
+  "param.return.description": "",
+  "tool.description": ""
 }

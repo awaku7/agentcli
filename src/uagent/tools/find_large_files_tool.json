@@ -1,4 +1,7 @@
 {
-  "en": {},
-  "ja": {}
+  "param.group_by_ext.description": "",
+  "param.min_bytes.description": "",
+  "param.root.description": "",
+  "param.top_n.description": "",
+  "tool.description": ""
 }

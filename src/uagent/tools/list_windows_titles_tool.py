@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict
 import sys
 import json
 
@@ -10,27 +12,43 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "list_windows_titles",
-        "description": "Enumerate top-level window titles on Windows and return structured JSON.\n"
-        "Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include window class name).",
-        "system_prompt": """このツールは次の目的で使われます: Enumerate top-level window titles on Windows and return structured JSON.\n
-
-このツールの system_prompt です。ツールは説明に従って動作します。
-- 追加のユーザー入力が必要な場合は必ず human_ask ツールを使用してください。
-- 相対日付（今日／今年など）を扱う場合は get_current_time を呼んで現在時刻を参照してください。
-- パスワードや API キー等の秘匿情報を長期記憶や共有メモに保存しないでください。
-- ファイルやコード出力は原文全体を省略せずに出力すること（ユーザー指示がない場合）。
-""",
+        "description": _(
+            "tool.description",
+            default=(
+                "Enumerate top-level window titles on Windows and return structured JSON. "
+                "Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include window class name)."
+            ),
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool enumerates top-level window titles on Windows and returns structured JSON. "
+                "It is Windows-only."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
                 "all": {
                     "type": "boolean",
-                    "description": "Include non-visible windows",
+                    "description": _(
+                        "param.all.description",
+                        default="Include non-visible windows",
+                    ),
                 },
-                "pid": {"type": "boolean", "description": "Include PID in output"},
+                "pid": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.pid.description",
+                        default="Include PID in output",
+                    ),
+                },
                 "class": {
                     "type": "boolean",
-                    "description": "Include window class name in output",
+                    "description": _(
+                        "param.class.description",
+                        default="Include window class name in output",
+                    ),
                 },
             },
             "required": [],
@@ -44,18 +62,19 @@ BUSY_LABEL = False
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """
+    """List top-level windows on Windows.
+
     args:
       - all: bool (include non-visible windows)
       - pid: bool (include PID)
       - class: bool (include window class name)
 
-    Returns a JSON string: {"windows": [ {"hwnd": int, "title": str, "class": str (opt), "pid": int (opt), "visible": bool }, ... ], "count": int}
+    Returns JSON string:
+      {"windows": [{"hwnd": int, "title": str, "visible": bool, "class": str (opt), "pid": int (opt)}], "count": int}
     """
+
     if sys.platform != "win32":
-        return json.dumps(
-            {"error": "This tool runs on Windows (win32) only."}, ensure_ascii=False
-        )
+        return json.dumps({"error": "This tool runs on Windows (win32) only."}, ensure_ascii=False)
 
     include_all = bool(args.get("all", False))
     include_pid = bool(args.get("pid", False))
@@ -90,59 +109,40 @@ def run_tool(args: Dict[str, Any]) -> str:
     GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.DWORD)]
     GetWindowThreadProcessId.restype = wintypes.DWORD
 
-    windows_raw: List[Tuple[int, str, str, bool]] = []  # hwnd, title, class, visible
+    windows = []
 
     @EnumWindowsProc
-    def _cb(hwnd, lParam):
+    def enum_proc(hwnd, lParam):
         try:
             visible = bool(IsWindowVisible(hwnd))
-            if not include_all and not visible:
+            if (not include_all) and (not visible):
                 return True
 
             length = GetWindowTextLengthW(hwnd)
-            if length <= 0:
-                return True
+            title = ""
+            if length > 0:
+                buf = ctypes.create_unicode_buffer(length + 1)
+                GetWindowTextW(hwnd, buf, length + 1)
+                title = buf.value
 
-            buf = ctypes.create_unicode_buffer(length + 1)
-            GetWindowTextW(hwnd, buf, length + 1)
-            title = buf.value
-            if not title or title.strip() == "":
-                return True
+            info = {"hwnd": int(hwnd), "title": title, "visible": visible}
 
-            # class name
-            cls_buf = ctypes.create_unicode_buffer(256)
-            cname_len = GetClassNameW(hwnd, cls_buf, 256)
-            class_name = cls_buf.value if cname_len > 0 else ""
+            if include_class:
+                buf = ctypes.create_unicode_buffer(256)
+                GetClassNameW(hwnd, buf, 256)
+                info["class"] = buf.value
 
-            windows_raw.append((int(hwnd), title, class_name, visible))
+            if include_pid:
+                pid = wintypes.DWORD(0)
+                GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+                info["pid"] = int(pid.value)
+
+            windows.append(info)
         except Exception:
-            # ignore windows that error out
+            # keep enumerating
             pass
         return True
 
-    try:
-        user32.EnumWindows(_cb, 0)
-    except Exception as e:
-        return json.dumps({"error": f"EnumWindows failed: {e}"}, ensure_ascii=False)
+    user32.EnumWindows(enum_proc, 0)
 
-    def get_pid_of_hwnd(hwnd: int) -> Optional[int]:
-        pid = wintypes.DWORD()
-        try:
-            GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-            if pid.value == 0:
-                return None
-            return int(pid.value)
-        except Exception:
-            return None
-
-    windows_out: List[Dict[str, Any]] = []
-    for hwnd, title, class_name, visible in windows_raw:
-        entry: Dict[str, Any] = {"hwnd": hwnd, "title": title, "visible": visible}
-        if include_class:
-            entry["class"] = class_name
-        if include_pid:
-            entry["pid"] = get_pid_of_hwnd(hwnd)
-        windows_out.append(entry)
-
-    result = {"windows": windows_out, "count": len(windows_out)}
-    return json.dumps(result, ensure_ascii=False)
+    return json.dumps({"windows": windows, "count": len(windows)}, ensure_ascii=False)

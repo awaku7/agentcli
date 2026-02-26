@@ -1,4 +1,14 @@
 {
-  "en": {},
-  "ja": {}
+  "param.args.description": "",
+  "param.command.description": "",
+  "param.create_if_missing.description": "",
+  "param.env.description": "",
+  "param.name.description": "",
+  "param.path.description": "",
+  "param.replace.description": "",
+  "param.set_default.description": "",
+  "param.transport.description": "",
+  "param.url.description": "",
+  "tool.description": "",
+  "tool.system_prompt": ""
 }

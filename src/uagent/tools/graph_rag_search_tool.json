@@ -1,4 +1,8 @@
 {
-  "en": {},
-  "ja": {}
+  "param.file_pattern.description": "",
+  "param.query.description": "",
+  "param.root_path.description": "",
+  "param.top_k_graph.description": "",
+  "param.top_k_vector.description": "",
+  "tool.description": ""
 }

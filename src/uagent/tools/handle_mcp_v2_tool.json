@@ -1,4 +1,6 @@
 {
-  "en": {},
-  "ja": {}
+  "param.server_name.description": "",
+  "param.tool_name.description": "",
+  "param.url.description": "",
+  "tool.description": ""
 }
