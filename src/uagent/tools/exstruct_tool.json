@@ -1,21 +1,20 @@
 {
-  "param.action.description": "",
-  "param.auto_page_breaks_dir.description": "",
-  "param.density_min.description": "",
-  "param.file_path.description": "",
-  "param.format.description": "",
-  "param.include_cell_links.description": "",
-  "param.include_shapes.description": "",
-  "param.mode.description": "",
-  "param.output_path.description": "",
-  "param.pretty.description": "",
-  "param.print_areas_dir.description": "",
-  "param.sheets_dir.description": "",
-  "param.table_score_threshold.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.action.description": "",
+    "param.auto_page_breaks_dir.description": "",
+    "param.density_min.description": "",
+    "param.file_path.description": "",
+    "param.format.description": "",
+    "param.include_cell_links.description": "",
+    "param.include_shapes.description": "",
+    "param.mode.description": "",
+    "param.output_path.description": "",
+    "param.pretty.description": "",
+    "param.print_areas_dir.description": "",
+    "param.sheets_dir.description": "",
+    "param.table_score_threshold.description": "",
     "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'."
-  }
+  },
+  "ja": {}
 }

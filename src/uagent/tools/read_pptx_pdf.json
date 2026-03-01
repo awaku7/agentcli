@@ -1,4 +1,5 @@
 {
+  "en": {},
   "ja": {
     "tool.description": "PDF / PPTX / その共通JSONスキーマを読み込み、ページ単位のテキストを返します。path に .pdf / .pptx / .json を指定できます。PDF/PPTX の場合は、このファイル内の抽出ロジックで共通JSONスキーマに変換します。",
     "tool.system_prompt": "【重要】PDF/PPTX/JSON を読み込み、ページ単位のテキストを返すツールです。\n入力: path, page_index, max_chars\n出力: ページテキスト（全ページ or 指定ページ）\n\n",

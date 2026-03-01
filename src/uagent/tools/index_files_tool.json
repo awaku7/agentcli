@@ -1,4 +1,7 @@
 {
+  "en": {
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "tool.description": "指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。",
     "param.pattern.description": "対象とするファイル名、ディレクトリ名、またはglobパターン（例: 'src/**/*.py', '*.md'）。",
@@ -14,7 +17,6 @@
     "out.root": "ルートディレクトリ: {root_abs}",
     "out.success": "成功: {count} 件",
     "out.fail": "失敗: {count} 件",
-    "out.footer": "\nこれで `semantic_search_files` を使用してこれらのファイルを検索できるようになりました。",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "out.footer": "\nこれで `semantic_search_files` を使用してこれらのファイルを検索できるようになりました。"
   }
 }

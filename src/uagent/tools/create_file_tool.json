@@ -1,13 +1,22 @@
 {
-  "param.content.description": "",
-  "param.encoding.description": "",
-  "param.filename.description": "",
-  "param.overwrite.description": "",
-  "param.path.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
+  "en": {
+    "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting. Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
+    "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing. Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
+
+    "param.filename.description": "Path of the file to create.",
+    "param.path.description": "(Compatibility) Alias of filename.",
+    "param.content.description": "Text content to write.",
+    "param.encoding.description": "Text encoding (e.g., 'utf-8', 'cp932'). Default: 'utf-8'.",
+    "param.overwrite.description": "Whether to overwrite if the file already exists (default: false)."
+  },
   "ja": {
-    "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting.",
-    "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing."
+    "tool.description": "テキストファイルを作成します。既定では既存ファイルを上書きしません。overwrite=true が指定され、かつ作成先に既存ファイルがある場合は、上書き直前にバックアップ（<filename>.org / <filename>.org1 / ...）を作成します。ヒント: CSV/TSV を Microsoft Excel で直接開いて文字化けさせたくない場合は encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。",
+    "tool.system_prompt": "workdir 配下にテキストファイルを作成します。既存ファイルがある場合、overwrite=false ではエラーになります。overwrite=true の場合は、書き込み前にバックアップを作成します。ヒント: CSV/TSV を Microsoft Excel で直接開く用途なら encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。",
+
+    "param.filename.description": "作成するファイルのパス。",
+    "param.path.description": "（互換性用）filename の別名。",
+    "param.content.description": "書き込むテキスト内容。",
+    "param.encoding.description": "テキストエンコーディング（例: 'utf-8', 'cp932'）。既定: 'utf-8'。",
+    "param.overwrite.description": "既存ファイルがある場合に上書きするか（既定: false）。"
   }
 }
