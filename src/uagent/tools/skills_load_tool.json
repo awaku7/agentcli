@@ -1,7 +1,9 @@
 {
+  "en": {
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "tool.description": "Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。",
-    "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）"
   }
 }

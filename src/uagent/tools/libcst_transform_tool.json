@@ -1,5 +1,5 @@
 {
-  "ja": {
+  "en": {
     "tool.description": "libcst transforms Python code by analyzing (analyze) or transforming (transform).\n- analyze: Extract imports / classes / functions, etc.\n- transform: Apply rule-based bulk transforms (rename_symbol/replace_call/rename_import, etc.)\n\nSafety:\n- Reject paths outside workdir\n- Create .org/.orgN backup before overwrite when changes occur\n",
     "tool.system_prompt": "libcst-based Python code analyze/transform tool.\n\nBasic input:\n- Specify files/directories in paths (directories are scanned recursively)\n- Narrow targets using include_glob/exclude_globs (default include_glob=**/*.py)\n\nmode=analyze:\n- Extract import / top-level class/function names and return JSON.\n\nmode=transform:\n- Specify an array of rules in operations.\n- If a file is changed, create .org/.orgN backup immediately before overwrite.\n\noperations examples:\n1) rename_symbol: old_name -> new_name (replace Name nodes) \n   {\"op\":\"rename_symbol\",\"old\":\"foo\",\"new\":\"bar\"}\n2) replace_call: old_func(...) -> new_func(...)\n   {\"op\":\"replace_call\",\"old\":\"old_func\",\"new\":\"new_func\"}\n3) rename_import: from X import old -> from X import new (module is optional)\n   {\"op\":\"rename_import\",\"module\":\"pkg.mod\",\"old\":\"Old\",\"new\":\"New\"}\n",
     "param.mode.description": "Execution mode: analyze=analyze / transform=transform",
@@ -9,7 +9,9 @@
     "param.max_files.description": "Maximum number of files to scan (runaway protection).",
     "param.max_bytes.description": "Maximum file size (bytes).",
     "param.operations.description": "Transform rules array for mode=transform.\n\nSupported ops:\n- rename_symbol: replace identifier (requires old/new)\n  - include_attributes=true also targets obj.old\n- replace_call: replace function call name (requires old/new)\n  - receiver targets only receiver.old(...)\n  - if receiver is omitted, targets old(...) and *.old(...)\n- rename_import: from X import old -> from X import new (module is optional)\n",
-    "param.preview.description": "If true, return diff preview without writing files (dry-run mode).",
+    "param.preview.description": "If true, return diff preview without writing files (dry-run mode)."
+  },
+  "ja": {
     "repl.jp_used": "このツールは次の目的で使われます: ",
     "repl.this_tool_is": "このツールは",
     "repl.used_purpose": "次の目的で使われます",
