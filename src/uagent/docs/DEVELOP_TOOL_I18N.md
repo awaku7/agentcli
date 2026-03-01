@@ -167,10 +167,14 @@ JSON例:
 
 ## 注意点・落とし穴
 
-### 文字コード（UTF-8）
+### 文字コード（UTF-8 / UTF-8 BOM）
 
-- 翻訳JSONは **UTF-8** で保存してください。
+- 翻訳JSONは **UTF-8（BOMなし推奨）** で保存してください。
 - ツールの Python ソースも **UTF-8** を前提とします。
+
+補足（CSV/TSV等の生成ファイル）:
+- CSV/TSVを **Excelで直接開かせたい** 場合は `encoding='utf-8-sig'`（UTF-8 with BOM）を検討してください。
+- 機械処理・相互運用性重視なら `encoding='utf-8'`（BOMなし）を推奨します。
 
 ### system_prompt の長文化
 
