@@ -1,4 +1,7 @@
 {
+  "en": {
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "tool.description": "mcp_servers.json の MCP サーバー定義を一覧表示します。mcp_tools_list(url省略) が参照する接続先候補を可視化するためのツールです。",
     "param.path.description": "サーバーリスト JSON のパス。省略時は標準の場所を参照します。",
@@ -15,7 +18,6 @@
     "warn.name_missing": "WARNING: mcp_servers[{idx}].name が未設定/空です",
     "warn.url_missing": "WARNING: mcp_servers[{idx}].url が未設定/空です",
     "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} は '/mcp' で終わっていません。（handle_mcp_v2 / mcp_tools_list は自動補完しますが、明示推奨です）",
-    "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count}件）",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count}件）"
   }
 }

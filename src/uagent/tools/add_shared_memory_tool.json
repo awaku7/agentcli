@@ -1,9 +1,8 @@
 {
-  "param.note.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.note.description": "",
     "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is disabled. Never store secrets such as passwords or API keys.",
     "tool.system_prompt": "Append exactly one note to the shared memory store.\nIf shared memory is disabled (UAGENT_SHARED_MEMORY_FILE not set), return a message explaining how to enable it.\nDo not store secrets (passwords/tokens/API keys)."
-  }
+  },
+  "ja": {}
 }
