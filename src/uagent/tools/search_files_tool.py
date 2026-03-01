@@ -6,10 +6,10 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+import fnmatch
 import os
 import re
-import fnmatch
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 # Mark as busy while running
 BUSY_LABEL = True
@@ -167,6 +167,42 @@ def _looks_binary(head: bytes) -> bool:
     return (bad / len(head)) > 0.10
 
 
+_ANY_NL_RE_FRAGMENT = r"(?:\r\n|\n|\r)"
+_NL_MARKER = "__UAGENT_NL__"
+
+
+def _normalize_newline_tokens_in_pattern(content_pattern: str) -> str:
+    """Normalize user-supplied content_pattern so that newline tokens match any newline.
+
+    Supports BOTH:
+    - Pasted real newlines in the pattern (actual '\n' or '\r')
+    - JSON/CLI style escaped sequences (literal backslash tokens): "\\n", "\\r", "\\r\\n"
+
+    Implementation:
+    - First replace literal backslash tokens (\\r\\n / \\r / \\n) with a plain marker.
+    - Then replace actual newline characters (\r\n / \r / \n) with the marker.
+    - Finally expand the marker once into a stable regex fragment.
+    """
+
+    cp = content_pattern
+
+    # 1) Literal backslash tokens (NOTE: patterns must be r"\\n" etc.)
+    cp = cp.replace(r"\\r\\n", _NL_MARKER)
+    cp = cp.replace(r"\\r", _NL_MARKER)
+    cp = cp.replace(r"\\n", _NL_MARKER)
+
+    # 2) Actual newlines (pasted text)
+    cp = cp.replace("\r\n", _NL_MARKER)
+    cp = cp.replace("\r", _NL_MARKER)
+    cp = cp.replace("\n", _NL_MARKER)
+
+    # 3) Expand marker once
+    if _NL_MARKER in cp:
+        cp = cp.replace(_NL_MARKER, _ANY_NL_RE_FRAGMENT)
+
+    return cp
+
+
 def _grep_text_full_read(
     full_path: str,
     regex: re.Pattern[str],
@@ -177,16 +213,24 @@ def _grep_text_full_read(
     with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
         text = f.read()
 
-    if not regex.search(text):
+    m0 = regex.search(text)
+    if not m0:
         return []
 
     matched_lines: List[str] = []
     for i, line in enumerate(text.splitlines(), start=1):
         if regex.search(line):
-            matched_lines.append(f"L{i}: {line.strip()[:200]}")
+            matched_lines.append(_("match.line", default="L{line}: {text}").format(line=i, text=line.strip()[:200]))
             if len(matched_lines) >= max_hits_per_file:
-                matched_lines.append("... (more matches in file)")
+                matched_lines.append(_("match.more", default="... (more matches in file)"))
                 break
+
+    # If the match spans lines, line-by-line hits will be empty.
+    if not matched_lines:
+        s = max(0, m0.start() - 80)
+        e = min(len(text), m0.end() + 80)
+        excerpt = text[s:e].replace("\n", "\\n").replace("\r", "\\r")
+        matched_lines.append(_("match.excerpt", default="MATCH: {text}").format(text=excerpt[:200]))
 
     return matched_lines
 
@@ -196,7 +240,10 @@ def _grep_text_streaming(
     regex: re.Pattern[str],
     max_hits_per_file: int,
 ) -> List[str]:
-    """For large files: stream line-by-line to keep memory usage bounded."""
+    """For large files: stream line-by-line to keep memory usage bounded.
+
+    Note: streaming mode cannot reliably provide an excerpt for cross-line matches.
+    """
 
     matched_lines: List[str] = []
     line_num = 0
@@ -204,9 +251,13 @@ def _grep_text_streaming(
         for line in f:
             line_num += 1
             if regex.search(line):
-                matched_lines.append(f"L{line_num}: {line.strip()[:200]}")
+                matched_lines.append(
+                    _("match.line", default="L{line}: {text}").format(
+                        line=line_num, text=line.strip()[:200]
+                    )
+                )
                 if len(matched_lines) >= max_hits_per_file:
-                    matched_lines.append("... (more matches in file)")
+                    matched_lines.append(_("match.more", default="... (more matches in file)"))
                     break
 
     return matched_lines
@@ -231,16 +282,22 @@ def run_tool(args: Dict[str, Any]) -> str:
         max_results = 50
 
     if not os.path.exists(root_path):
-        return f"[search_files error] Directory does not exist: {root_path}"
+        return _("err.dir_not_exist", default="[search_files error] Directory does not exist: {path}").format(path=root_path)
 
     # Compile content regex if provided
-    regex = None
+    regex: Optional[re.Pattern[str]] = None
+    compiled_pattern_for_log = content_pattern
+
     if content_pattern:
         flags = 0 if case_sensitive else re.IGNORECASE
+
+        normalized_pattern = _normalize_newline_tokens_in_pattern(content_pattern)
+        compiled_pattern_for_log = normalized_pattern
+
         try:
-            regex = re.compile(content_pattern, flags)
+            regex = re.compile(normalized_pattern, flags)
         except re.error as e:
-            return f"[search_files error] Failed to compile regex: {e}"
+            return _("err.regex_compile", default="[search_files error] Failed to compile regex: {error}").format(error=str(e))
 
     results = []
     count = 0
@@ -249,7 +306,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     import sys
 
     print(
-        f"[search_files] root='{root_path}', name='{name_pattern}', grep='{content_pattern}'",
+        f"[search_files] root='{root_path}', name='{name_pattern}', grep='{compiled_pattern_for_log}'",
         file=sys.stderr,
     )
 
@@ -307,19 +364,23 @@ def run_tool(args: Dict[str, Any]) -> str:
             break
 
     if not results:
-        return "[search_files] No files matched the criteria."
+        return _("out.no_match", default="[search_files] No files matched the criteria.")
 
     # Human-readable output (kept for compatibility with existing consumers)
     out_lines: List[str] = []
     if truncated:
         out_lines.append(
-            f"[search_files] Found {len(results)} results (truncated to {max_results})"
+            _("out.found_truncated", default="[search_files] Found {n} results (truncated to {max_results})").format(
+                n=len(results), max_results=max_results
+            )
         )
     else:
-        out_lines.append(f"[search_files] Found {len(results)} results")
+        out_lines.append(
+            _("out.found", default="[search_files] Found {n} results").format(n=len(results))
+        )
 
     for r in results[:max_results]:
-        out_lines.append(f"File: {r['file']}")
+        out_lines.append(_("out.file", default="File: {file}").format(file=r["file"]))
         for m in r.get("matches", [])[:10]:
             out_lines.append(f"  {m}")
 
