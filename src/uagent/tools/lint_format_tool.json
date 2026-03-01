@@ -1,7 +1,9 @@
 {
-  "ja": {
+  "en": {
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
-    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask.",
+    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
+  },
+  "ja": {
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "param.mode.description": "check=検査のみ / fix=自動修正",
     "param.targets.description": "対象パス配列（workdir配下のみ許可）。",

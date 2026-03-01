@@ -1,4 +1,9 @@
 {
+  "en": {
+    "err.index_out_of_range": "Error: index out of range: {idx}",
+    "out.ok": "OK: removed index={idx} name={name!r}",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "tool.description": "mcp_servers.json から MCP サーバー定義を削除します。name 指定で削除するか、index 指定で削除できます（どちらか必須）。",
     "param.name.description": "削除対象のサーバー名（mcp_servers[].name）",
@@ -12,11 +17,8 @@
     "err.empty": "ERROR: mcp_servers が空です",
     "err.name_or_index_required": "Error: name または index のどちらかを指定してください。",
     "err.index_not_int": "Error: index は整数で指定してください",
-    "err.index_out_of_range": "Error: index out of range: {idx}",
     "err.name_not_found": "Error: name={name!r} が見つかりません",
     "err.require_nonempty": "Error: require_nonempty=true のため、削除後に空になる操作は禁止です",
-    "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
-    "out.ok": "OK: removed index={idx} name={name!r}",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "err.write_fail": "ERROR: 書き込みに失敗しました: {err}"
   }
 }
