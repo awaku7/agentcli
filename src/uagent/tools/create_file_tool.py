@@ -21,14 +21,20 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Create a text file. By default, the tool will not overwrite an existing file. "
                 "If overwrite=true is specified and the destination already exists, the tool creates a backup "
-                "(<filename>.org / <filename>.org1 / ...) immediately before overwriting."
+                "(<filename>.org / <filename>.org1 / ...) immediately before overwriting. "
+                "Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). "
+                "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
+                "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
                 "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. "
-                "If overwrite=true, a backup is created before writing."
+                "If overwrite=true, a backup is created before writing. "
+                "Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). "
+                "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
+                "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
             ),
         ),
         "parameters": {

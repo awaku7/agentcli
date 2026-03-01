@@ -1,10 +1,9 @@
 {
-  "param.image_path.description": "",
-  "param.prompt.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.image_path.description": "",
+    "param.prompt.description": "",
     "tool.description": "Load an image file and have AI (Vision) describe its contents. Useful for analyzing screenshots or reading charts/tables.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'analyze_image'."
-  }
+  },
+  "ja": {}
 }

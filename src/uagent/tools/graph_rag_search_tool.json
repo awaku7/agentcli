@@ -1,12 +1,15 @@
 {
+  "en": {
+    "out.db": "DB: {db_path}",
+    "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / merged: {m}",
+    "out.results_title": "\n[Results]",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
     "out.query": "検索クエリ: {query}",
     "out.target_dir": "対象ディレクトリ: {root_path}",
-    "out.db": "DB: {db_path}",
-    "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / merged: {m}",
     "warn.indexing_title": "\n[WARN] インデクシング警告（重複除去、先頭50件）:",
-    "out.results_title": "\n[Results]",
     "out.result_content": "内容: {snippet}\n",
     "out.no_docs": "関連するドキュメントは見つかりませんでした。",
     "err.query_required": "エラー: query は必須です。",
@@ -18,7 +21,6 @@
     "param.top_k_graph.description": "グラフ探索で回収する件数",
     "param.hops.description": "グラフ探索のホップ数",
     "param.chunk_size.description": "チャンクサイズ",
-    "param.overlap.description": "チャンクのオーバーラップ",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "param.overlap.description": "チャンクのオーバーラップ"
   }
 }

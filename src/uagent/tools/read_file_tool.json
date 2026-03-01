@@ -1,4 +1,5 @@
 {
+  "en": {},
   "ja": {
     "tool.description": "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です。",
     "tool.system_prompt": "ファイルの内容を読み取ります。\n- 大きいファイルの場合は start_line/max_lines による部分的な読み取りを推奨します。\n- 改行コードは自動的に正規化されます。",

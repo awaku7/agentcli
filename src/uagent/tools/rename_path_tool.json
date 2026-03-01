@@ -1,6 +1,8 @@
 {
+  "en": {
+    "tool.description": "Rename (move) a file or directory."
+  },
   "ja": {
-    "tool.description": "Rename (move) a file or directory.",
     "tool.system_prompt": "このツールはファイル/ディレクトリの rename/move を行います。\n\n安全注記:\n- 絶対パス、.. を含むパス、workdir 外への操作等は確認が入ります。\n- overwrite=true（既存 dst を削除して置換）は削除を伴うため確認が入ります。",
     "param.src.description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
     "param.dst.description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",

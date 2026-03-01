@@ -1,10 +1,9 @@
 {
-  "param.command.description": "",
-  "param.cwd.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.command.description": "",
+    "param.cwd.description": "",
     "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
     "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
-  }
+  },
+  "ja": {}
 }

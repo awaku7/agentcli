@@ -1,18 +1,17 @@
 {
-  "param.args.description": "",
-  "param.command.description": "",
-  "param.create_if_missing.description": "",
-  "param.env.description": "",
-  "param.name.description": "",
-  "param.path.description": "",
-  "param.replace.description": "",
-  "param.set_default.description": "",
-  "param.transport.description": "",
-  "param.url.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.args.description": "",
+    "param.command.description": "",
+    "param.create_if_missing.description": "",
+    "param.env.description": "",
+    "param.name.description": "",
+    "param.path.description": "",
+    "param.replace.description": "",
+    "param.set_default.description": "",
+    "param.transport.description": "",
+    "param.url.description": "",
     "tool.description": "Add a server definition to mcp_servers.json (or update an existing one). If the same name already exists, it is only overwritten when replace=true. For HTTP(SSE) connections, provide url. For stdio connections, provide command and args.",
     "tool.system_prompt": "Add or update an MCP server entry in mcp_servers.json.\n- Be careful when overwriting existing entries (replace=true).\n- For HTTP(SSE): set url.\n- For stdio: set command and args.\n- Do not store secrets (tokens, passwords) in this file unless the user explicitly requests it."
-  }
+  },
+  "ja": {}
 }

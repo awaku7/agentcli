@@ -1,4 +1,5 @@
 {
+  "en": {},
   "ja": {
     "log.load_fail.internal": "[tools] 内部プラグイン {mod_name} のロード失敗: {err}",
     "log.load_ok.external": "[tools] 外部ツールをロードしました: {entry_name}",

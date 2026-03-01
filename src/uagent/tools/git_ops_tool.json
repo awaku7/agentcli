@@ -1,6 +1,5 @@
 {
-  "ja": {
-    "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",
+  "en": {
     "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: ; && || | > < `\nIn particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\nExamples: NG: Fix X; do Y / OK: Fix X, then do Y\n",
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "param.args.description": "List of arguments passed to the Git command.",
@@ -20,7 +19,10 @@
     "error.remote_change_requires_allow_danger": "[git_ops error] Changing remotes requires allow_danger=true.",
     "error.rebase_requires_allow_danger": "[git_ops error] rebase is dangerous and requires allow_danger=true.",
     "error.rebase_onto_forbidden": "[git_ops error] rebase --onto is forbidden because it is error-prone.",
-    "error.internal_unknown": "[git_ops error] unknown internal error",
+    "error.internal_unknown": "[git_ops error] unknown internal error"
+  },
+  "ja": {
+    "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",
     "doc.module": "scheck tool: git_ops\n\n安全第一で Git の主要操作を提供します。\n\nこのツールは「日常操作をできるだけ tool 経由で完結させる」ことを目的にしています。\n一方で、Git は破壊的操作や外部への書き込み（push）を簡単に実行できるため、\n以下の方針で厳しめに制限します。\n\n設計方針（重要）\n- 対話を伴う操作を避ける\n  - PAGER/EDITOR を無効化\n  - commit/merge は --no-edit を付与（できる限り）\n  - 資格情報入力を避けるため GIT_TERMINAL_PROMPT=0\n- 危険操作はデフォルト禁止\n  - 例: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 等\n- それでも必要な場合のみ allow_danger=true を明示して実行可能にする\n  - ただし「事故率が高い/取り返しがつきにくい」ものは allow_danger でも禁止する\n- 引数は「許可リスト」方式\n  - すべてのオプション（-x / --xxx）を網羅許可せず、用途に応じて明示許可\n  - 明らかなメタ文字（; && || | > < `）を含む引数は拒否\n\n注意\n- このツールは git の全機能を無制限に提供するものではありません。\n- 設計上、安全性を優先して「できない」操作があります。",
     "doc.run_tool": "Git操作ツール（安全第一）。"
   }
