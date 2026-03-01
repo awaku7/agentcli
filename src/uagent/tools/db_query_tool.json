@@ -1,10 +1,9 @@
 {
-  "param.db_path.description": "",
-  "param.sql.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.db_path.description": "",
+    "param.sql.description": "",
     "tool.description": "Execute an SQL query against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
-  }
+  },
+  "ja": {}
 }

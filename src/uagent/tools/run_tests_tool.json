@@ -1,5 +1,5 @@
 {
-  "ja": {
+  "en": {
     "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
     "param.framework.description": "Test framework type.",
     "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
@@ -14,7 +14,9 @@
     "error.cwd_not_allowed": "cwd not allowed: {error}",
     "error.framework_auto_detect_failed": "framework auto-detect failed",
     "error.unsupported_framework": "unsupported framework: {framework}",
-    "doc.module": "run_tests_tool\n\nテストを実行するためのラッパーツール。\n\n目的:\n- cmd_exec/pwsh_exec を直接呼ぶよりも、テスト実行を定型化し、結果を構造化して返す。\n- framework=auto で pytest / unittest / npm を簡易検出する。\n\n安全方針:\n- テスト実行は基本的に危険操作ではないため human_ask は行わない。\n- ただしコマンド注入的な入力（&&, |, > 等）を含む extra_args は拒否する。\n\n実装:\n- 内部では cmd_exec_json_tool を利用し、returncode/stdout/stderr を扱う。\n- stdout/stderr は callbacks.truncate_output があれば適用する。\n- cwd 指定は cmd_exec_json の cwd 引数を使う（cd && は使わない）。\n\n追加機能:\n- pythonpath: 追加の PYTHONPATH を設定してテストを実行する。\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX : PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "ja": {
+    "doc.module": "run_tests_tool\n\nテストを実行するためのラッパーツール。\n\n目的:\n- cmd_exec/pwsh_exec を直接呼ぶよりも、テスト実行を定型化し、結果を構造化して返す。\n- framework=auto で pytest / unittest / npm を簡易検出する。\n\n安全方針:\n- テスト実行は基本的に危険操作ではないため human_ask は行わない。\n- ただしコマンド注入的な入力（&&, |, > 等）を含む extra_args は拒否する。\n\n実装:\n- 内部では cmd_exec_json_tool を利用し、returncode/stdout/stderr を扱う。\n- stdout/stderr は callbacks.truncate_output があれば適用する。\n- cwd 指定は cmd_exec_json の cwd 引数を使う（cd && は使わない）。\n\n追加機能:\n- pythonpath: 追加の PYTHONPATH を設定してテストを実行する。\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX : PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>"
   }
 }

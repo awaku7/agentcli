@@ -1,5 +1,5 @@
 {
-  "ja": {
+  "en": {
     "tool.description": "Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
     "tool.system_prompt": "This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
     "param.query.description": "Search query string.",
@@ -10,5 +10,6 @@
     "error.args_must_be_dict": "args must be a dict",
     "error.missing_query_parameter": "missing 'query' parameter",
     "error.run_tool_error": "run_tool error: {error}"
-  }
+  },
+  "ja": {}
 }

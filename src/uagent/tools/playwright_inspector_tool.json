@@ -1,13 +1,15 @@
 {
+  "en": {
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
   "ja": {
     "tool.description": "Playwright Inspectorを起動してブラウザ操作をキャプチャします。指定したURLを開き、ユーザーがResumeボタンを押した後のページ状態をHTMLと画像で保存します。また、メインフレームのURL遷移ごとにDOM/スクリーンショットを連番保存し、遷移/ネットワーク/console等のイベントをJSONLで保存します。",
     "param.url.description": "最初に開くURL（デフォルト: about:blank）",
     "param.prefix.description": "保存するファイル名の接頭辞（デフォルト: debug_capture）",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---",
     "ui.resume_prompt": "操作後、Inspectorの Resume (▷) を押してください。",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "err.child_failed": "[playwright_inspector error] 子プロセスが失敗しました:\n{stderr}",
-    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}"
   }
 }

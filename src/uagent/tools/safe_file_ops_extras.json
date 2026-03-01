@@ -1,4 +1,5 @@
 {
+  "en": {},
   "ja": {
     "doc.module": "safe_file_ops_extras\n\n既存 tools.safe_file_ops の設計に合わせ、追加ツールが使いやすい公開APIを提供する。\n\n背景:\n- safe_file_ops.py は safe_create_file/safe_delete_file/safe_rename_path 等の「実行」を提供している。\n- 追加ツール（replace_in_file 等）は、\n  - 危険パス判定\n  - workdir 配下への制限\n  - 上書き前バックアップ(.org/.orgN)\n  などの「ユーティリティ」が必要。\n\nこのファイルは safe_file_ops.py を壊さずに機能追加するための補助モジュール。\n（既存モジュールに直接追記してもよいが、変更範囲を限定するため分離）\n\n提供関数:\n- is_path_dangerous(path) -> bool\n- ensure_within_workdir(path) -> str  (絶対パス化して返す)\n- make_backup_before_overwrite(path) -> str  (.org/.orgN を作成して返す)\n\n注意:\n- workdir は os.getcwd() の実体（resolve）を基準とする。\n- ensure_within_workdir は workdir 外なら例外を投げる。",
     "doc.is_path_dangerous": "危険パス判定。\n\ntrue となる条件:\n- '..' を含む（簡易）\n- 絶対パス\n- workdir(cwd) 配下ではない（resolve後）\n\nsafe_file_ops の trigger 条件と同等。"

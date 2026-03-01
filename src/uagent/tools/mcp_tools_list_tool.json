@@ -1,11 +1,10 @@
 {
-  "param.pretty.description": "",
-  "param.server_name.description": "",
-  "param.url.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "param.pretty.description": "",
+    "param.server_name.description": "",
+    "param.url.description": "",
     "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers.",
     "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its tools. Prefer using configured servers in mcp_servers.json when possible."
-  }
+  },
+  "ja": {}
 }

@@ -1,12 +1,11 @@
 {
-  "confirm.delete_path": "",
-  "param.filename.description": "",
-  "param.missing_ok.description": "",
-  "param.path.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
+    "confirm.delete_path": "",
+    "param.filename.description": "",
+    "param.missing_ok.description": "",
+    "param.path.description": "",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'delete_file'."
-  }
+  },
+  "ja": {}
 }
