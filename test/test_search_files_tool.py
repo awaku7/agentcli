@@ -111,6 +111,47 @@ class TestSearchFilesTool(unittest.TestCase):
         self.assertIn("big.txt", res_full)
         self.assertIn("LINE1999", res_full)
 
+    def test_newline_matching_crlf_lf_cr_and_patterns(self):
+        # Prepare LF / CRLF / CR files
+        lf_path = os.path.join(self.test_dir, "lf.txt")
+        crlf_path = os.path.join(self.test_dir, "crlf.txt")
+        cr_path = os.path.join(self.test_dir, "cr.txt")
+
+        # LF
+        with open(lf_path, "w", encoding="utf-8", newline="\n") as f:
+            f.write("ABCDEFG\nHIJ\n")
+
+        # CRLF
+        with open(crlf_path, "w", encoding="utf-8", newline="\r\n") as f:
+            f.write("ABCDEFG\nHIJ\n")
+
+        # Classic Mac CR (write bytes to preserve \r)
+        with open(cr_path, "wb") as f:
+            f.write(b"ABCDEFG\rHIJ\r")
+
+        patterns = [
+            r"ABCDEFG\\r\\nHIJ",
+            r"ABCDEFG\\nHIJ",
+            r"ABCDEFG\\rHIJ",
+            "ABCDEFG\nHIJ",
+            "ABCDEFG\rHIJ",
+        ]
+
+        for pat in patterns:
+            args = {
+                "root_path": self.test_dir,
+                "name_pattern": "*.txt",
+                "content_pattern": pat,
+                "case_sensitive": True,
+                "max_results": 50,
+            }
+            result = run_tool(args)
+            self.assertIn("lf.txt", result)
+            self.assertIn("crlf.txt", result)
+            self.assertIn("cr.txt", result)
+            # Cross-line match should be represented at least as MATCH excerpt
+            self.assertIn("MATCH:", result)
+
 
 if __name__ == "__main__":
     unittest.main()
