@@ -1,16 +1,52 @@
 {
-  "param.binary_sniff_bytes.description": "",
-  "param.case_sensitive.description": "",
-  "param.content_pattern.description": "",
-  "param.exclude_binary.description": "",
-  "param.fast_read_threshold_bytes.description": "",
-  "param.max_results.description": "",
-  "param.name_pattern.description": "",
-  "param.root_path.description": "",
-  "tool.description": "",
-  "tool.system_prompt": "",
-  "ja": {
+  "en": {
     "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
-    "tool.system_prompt": "Search for files under a directory. You can filter by filename pattern (glob) and optionally grep file contents using a regular expression.\n\nNotes:\n- content_pattern is treated as a Python regular expression.\n- If content_pattern is empty, only filename matching is performed.\n- For performance and safety, binary-like files can be excluded from content searching."
+    "tool.system_prompt": "Search for files under a directory. You can filter by filename pattern (glob) and optionally grep file contents using a regular expression.\n\nNotes:\n- content_pattern is treated as a Python regular expression.\n- If content_pattern is empty, only filename matching is performed.\n- For performance and safety, binary-like files can be excluded from content searching.",
+
+    "param.root_path.description": "Root directory to start searching from (default: current directory).",
+    "param.name_pattern.description": "Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered.",
+    "param.content_pattern.description": "Regular expression to search within files. If provided, only files containing at least one matching line are returned.",
+    "param.case_sensitive.description": "Whether the content search is case-sensitive (default: false).",
+    "param.max_results.description": "Maximum number of matched files to return (default: 50).",
+    "param.exclude_binary.description": "When content_pattern is set, exclude files that appear to be binary (default: true).",
+    "param.binary_sniff_bytes.description": "Number of leading bytes used to detect binary-like files (default: 8192).",
+    "param.fast_read_threshold_bytes.description": "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are scanned line-by-line.",
+
+    "err.dir_not_exist": "[search_files error] Directory does not exist: {path}",
+    "err.regex_compile": "[search_files error] Failed to compile regex: {error}",
+
+    "out.no_match": "[search_files] No files matched the criteria.",
+    "out.found": "[search_files] Found {n} results",
+    "out.found_truncated": "[search_files] Found {n} results (truncated to {max_results})",
+    "out.file": "File: {file}",
+
+    "match.line": "L{line}: {text}",
+    "match.more": "... (more matches in file)",
+    "match.excerpt": "MATCH: {text}"
+  },
+  "ja": {
+    "tool.description": "ディレクトリ配下のファイルを、ファイル名（glob）および内容（正規表現）で検索します。",
+    "tool.system_prompt": "ディレクトリ配下のファイルを検索します。ファイル名（glob）で絞り込み、必要に応じてファイル内容を正規表現で検索できます。\n\n注意:\n- content_pattern は Python の正規表現として扱われます。\n- content_pattern が空の場合、ファイル名の一致のみを行います。\n- 性能と安全性のため、バイナリと思われるファイルは内容検索から除外できます。",
+
+    "param.root_path.description": "検索を開始するルートディレクトリ（既定: カレントディレクトリ）。",
+    "param.name_pattern.description": "ファイル名のglobパターン（例: '*.py', 'test_*'）。省略時は全ファイル対象。",
+    "param.content_pattern.description": "ファイル内容を検索する正規表現。指定した場合、1行でも一致したファイルのみ返します。",
+    "param.case_sensitive.description": "内容検索を大文字小文字を区別して行うか（既定: false）。",
+    "param.max_results.description": "返す最大件数（既定: 50）。",
+    "param.exclude_binary.description": "content_pattern 指定時、バイナリと思われるファイルを除外するか（既定: true）。",
+    "param.binary_sniff_bytes.description": "バイナリ判定に使う先頭バイト数（既定: 8192）。",
+    "param.fast_read_threshold_bytes.description": "このサイズ未満は全読みにして高速化（既定: 8000000 ≈ 8MB）。以上は行単位で走査します。",
+
+    "err.dir_not_exist": "[search_files エラー] ディレクトリが存在しません: {path}",
+    "err.regex_compile": "[search_files エラー] 正規表現のコンパイルに失敗しました: {error}",
+
+    "out.no_match": "[search_files] 条件に一致するファイルはありませんでした。",
+    "out.found": "[search_files] {n} 件見つかりました",
+    "out.found_truncated": "[search_files] {n} 件見つかりました（{max_results} 件で打ち切り）",
+    "out.file": "File: {file}",
+
+    "match.line": "L{line}: {text}",
+    "match.more": "...（同一ファイル内に他の一致があります）",
+    "match.excerpt": "MATCH: {text}"
   }
 }
