@@ -213,8 +213,8 @@ class TestReplaceInFileTool(unittest.TestCase):
         self.assertTrue(result["changed"])
         self.assertIn("+Line A", result["diff"])
         self.assertIn("-This is a test file", result["diff"])
-        self.assertEqual(len(result["hits"]), 1)
-        self.assertIn("Line A\nLine B", result["hits"][0]["line_after"])
+        self.assertEqual(len(result["match_hits"]), 1)
+        self.assertEqual(result["match_hits"][0]["match_text"], "This is a test file")
 
     def test_python_string_literal_newline_injection_breaks_syntax(self):
         """Pythonコード中の通常文字列リテラルに実改行が混入すると構文が壊れる（置換で起こり得る）ことを再現する。
