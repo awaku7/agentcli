@@ -14,16 +14,40 @@ Modes
 
 Safety notes
 - If you need to express a newline in pattern/replacement, use the two-character
-  sequence "\\n" (JSON: "\\\\n"). This tool will expand it to a real newline in literal mode.
+  sequence "\\n" (JSON: "\\\\n"). This tool will expand it to a real newline.
   Do NOT include raw newline characters (\n/\r) in JSON strings.
-- For preview=false, the tool may require confirmation (human_ask) when the
-  target path is risky or when there are many matches.
+- For preview=false, the tool may require confirmation when there are many
+  matches (confirm_if_matches_over).
 """
 
 from __future__ import annotations
 
+from .i18n_helper import make_tool_translator
 
-def _make_summary(*, preview: bool, match_count: int | None = None, blocked: bool = False, reason: str | None = None, error: str | None = None) -> str:
+_ = make_tool_translator(__file__)
+
+import difflib
+import json
+import os
+import re
+from dataclasses import dataclass
+from typing import Any, Dict, List, Tuple
+
+from . import context
+from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
+
+BUSY_LABEL = True
+STATUS_LABEL = "tool:replace_in_file"
+
+
+def _make_summary(
+    *,
+    preview: bool,
+    match_count: int | None = None,
+    blocked: bool = False,
+    reason: str | None = None,
+    error: str | None = None,
+) -> str:
     """Build a stable human-readable summary.
 
     Notes:
@@ -44,28 +68,6 @@ def _make_summary(*, preview: bool, match_count: int | None = None, blocked: boo
         return f"Preview: {mc} matches found" if mc else "Successfully no change (0 matches)"
 
     return "Successfully no change (0 matches)" if mc == 0 else f"{mc} match(es)"
-
-
-
-from .i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
-
-import difflib
-import json
-import os
-import re
-from dataclasses import dataclass
-from typing import Any, Dict, List, Tuple
-
-from .safe_file_ops_extras import (
-    ensure_within_workdir,
-    make_backup_before_overwrite,
-)
-from . import context
-
-BUSY_LABEL = True
-STATUS_LABEL = "tool:replace_in_file"
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -105,12 +107,12 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- \\x is invalid (re.error); use \\xNN (e.g., \\x00)\n"
                 "- Use mode=literal if you only need plain substring matching\n"
                 "- In replacement, \\1, \\2, ... refer to capture groups; referencing a non-existent group is an error\n"
-                "- In literal mode, the tool will expand \\n/\\r to real newlines.\n- In regex mode, replacement uses Python re semantics (\\1, \\2, ... for capture groups).\n\n"
+                "- In both modes, the tool expands newline tokens \\r\\n/\\r/\\n to real newlines and normalizes to LF for matching.\n"
+                "- In regex mode, replacement uses Python re semantics (\\1, \\2, ... for capture groups).\n\n"
                 "Windows path note (especially when editing .py):\n"
                 "- In Python string literals, backslashes must be escaped (e.g., C:\\\\path).\n\n"
                 "Safety:\n"
-                "- When preview=false and the operation is risky (dangerous path, many matches, etc.), "
-                "the tool may require confirmation or cancel automatically."
+                "- When preview=false and match_count >= confirm_if_matches_over, this tool will block."
             ),
         ),
         "parameters": {
@@ -174,7 +176,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.confirm_if_matches_over.description",
-                        default="When preview=false, require confirmation if the number of matches is >= this value.",
+                        default="When preview=false, block if the number of matches is >= this value.",
                     ),
                     "default": 10,
                 },
@@ -191,15 +193,6 @@ TOOL_SPEC: Dict[str, Any] = {
         },
     },
 }
-
-
-@dataclass
-class PreviewHit:
-    line_no: int
-    before_lines: List[str]
-    line_before: str
-    line_after: str
-    after_lines: List[str]
 
 
 def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, Any, str]:
@@ -248,47 +241,132 @@ def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> Non
         f.write(text)
 
 
-def _build_preview(
-    original: str, replaced: str, context_lines: int, max_hits: int = 100
-) -> List[PreviewHit]:
-    """Build a list of PreviewHit objects using difflib."""
+def _expand_newline_tokens_to_lf(s: str) -> str:
+    """Expand user-provided newline tokens and normalize to LF.
 
-    orig_lines_raw = original.splitlines(keepends=True)
-    new_lines_raw = replaced.splitlines(keepends=True)
+    Supports BOTH:
+    - JSON/CLI escaped sequences (literal backslash tokens): "\\n", "\\r", "\\r\\n"
+    - Pasted real newlines (actual '\n' or '\r')
 
-    # For matching: normalize line-endings by stripping trailing \r?\n.
-    orig_lines = [ln.rstrip("\r\n") for ln in orig_lines_raw]
-    new_lines = [ln.rstrip("\r\n") for ln in new_lines_raw]
+    Output is normalized to LF ("\n").
+    """
 
-    matcher = difflib.SequenceMatcher(None, orig_lines, new_lines)
-    hits: List[PreviewHit] = []
+    lf = chr(10)
+    cr = chr(13)
+    crlf = cr + lf
 
-    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-        if tag == "equal":
-            continue
+    # 1) Literal backslash tokens
+    s = s.replace(r"\\r\\n", crlf).replace(r"\\r", cr).replace(r"\\n", lf)
 
-        # Start line of the change (1-based)
-        line_no = i1 + 1
+    # 2) Actual newlines
+    s = s.replace(crlf, lf).replace(cr, lf)
 
-        start = max(0, i1 - context_lines)
-        end = min(len(orig_lines_raw), i2 + context_lines)
+    return s
 
-        before_lines = [ln.rstrip("\r\n") for ln in orig_lines_raw[start:i1]]
-        after_lines = [ln.rstrip("\r\n") for ln in orig_lines_raw[i2:end]]
 
-        line_before = orig_lines[i1] if i1 < len(orig_lines) else ""
-        line_after = new_lines[j1] if j1 < len(new_lines) else ""
+@dataclass
+class MatchHit:
+    line_no: int
+    col: int
+    match_text: str
+    before: str
+    after: str
 
-        hits.append(
-            PreviewHit(
-                line_no=line_no,
-                before_lines=before_lines,
-                line_before=line_before,
-                line_after=line_after,
-                after_lines=after_lines,
-            )
-        )
 
+def _idx_to_line_col(line_starts: List[int], idx: int) -> Tuple[int, int]:
+    """Map absolute idx to (1-based line_no, 0-based col)."""
+
+    line_no = 1
+    col = idx
+    for i, off in enumerate(line_starts):
+        if off <= idx:
+            line_no = i + 1
+            col = idx - off
+        else:
+            break
+    return line_no, col
+
+
+def _build_match_hits_literal(text: str, pat: str, max_hits: int = 100) -> List[MatchHit]:
+    """Build match-based hits for literal mode.
+
+    - Returns line/column (1-based line, 0-based column) and same-line context.
+    - Does not try to interpret regex metacharacters.
+
+    Notes:
+    - Normalize CRLF/CR/LF to LF for stable index -> (line,col) mapping.
+    - Preview is best-effort; we prioritize stability over exact preservation of original newlines.
+    """
+
+    if not pat:
+        return []
+
+    norm = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    line_starts: List[int] = [0]
+    for m in re.finditer("\n", norm):
+        line_starts.append(m.end())
+
+    lines = norm.splitlines(keepends=False)
+
+    hits: List[MatchHit] = []
+    start = 0
+    while True:
+        idx = norm.find(pat, start)
+        if idx < 0:
+            break
+
+        line_no, col = _idx_to_line_col(line_starts, idx)
+
+        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
+        before = line[:col]
+        after = line[col + len(pat) :]
+        mtxt = pat if len(pat) <= 200 else pat[:200] + "..."
+
+        hits.append(MatchHit(line_no=line_no, col=col, match_text=mtxt, before=before, after=after))
+        if len(hits) >= max_hits:
+            break
+
+        start = idx + len(pat)  # non-overlapping
+
+    return hits
+
+
+def _build_match_hits_regex(text: str, pattern: str, max_hits: int = 100) -> List[MatchHit]:
+    """Build match-based hits for regex mode using re.finditer.
+
+    Notes:
+    - Normalize CRLF/CR/LF to LF for stable index -> (line,col) mapping.
+    - Preview is best-effort; we prioritize stability over exact preservation of original newlines.
+    """
+
+    try:
+        rx = re.compile(pattern)
+    except re.error:
+        return []
+
+    norm = text.replace("\r\n", "\n").replace("\r", "\n")
+
+    line_starts: List[int] = [0]
+    for m in re.finditer("\n", norm):
+        line_starts.append(m.end())
+
+    lines = norm.splitlines(keepends=False)
+
+    hits: List[MatchHit] = []
+    for m in rx.finditer(norm):
+        idx = m.start()
+        line_no, col = _idx_to_line_col(line_starts, idx)
+
+        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
+        before = line[:col]
+        after = line[col + max(0, m.end() - m.start()) :]
+
+        mtxt = m.group(0)
+        if len(mtxt) > 200:
+            mtxt = mtxt[:200] + "..."
+
+        hits.append(MatchHit(line_no=line_no, col=col, match_text=mtxt, before=before, after=after))
         if len(hits) >= max_hits:
             break
 
@@ -297,6 +375,7 @@ def _build_preview(
 
 def _run_tool_impl(args: Dict[str, Any]) -> str:
     """Implementation (may raise)."""
+
     path_in = str(args.get("path") or "")
     mode = str(args.get("mode") or "literal")
     pattern = args.get("pattern")
@@ -306,17 +385,17 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
     context_lines = int(args.get("context_lines", 2))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
+
     if not path_in:
         raise ValueError("path is required")
 
-    # Resolve and validate path within workdir
     abs_path = ensure_within_workdir(path_in)
+
     if pattern is None:
         raise ValueError("pattern is required")
-
     if replacement is None:
         raise ValueError("replacement is required")
-    # Read
+
     callbacks = context.get_callbacks()
     max_bytes = getattr(callbacks, "read_file_max_bytes", 20_000_000)
 
@@ -326,14 +405,9 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
 
     # Apply
     if mode == "literal":
-        pat = str(pattern)
-        rep = str(replacement)
+        pat = _expand_newline_tokens_to_lf(str(pattern))
+        rep = _expand_newline_tokens_to_lf(str(replacement))
 
-        # Expand two-character escape sequences ("\n", "\r") to real newlines.
-        # This matches the tool documentation and avoids needing raw newlines in JSON.
-        pat = pat.replace("\r", chr(13)).replace("\n", chr(10))
-        rep = rep.replace("\r", chr(13)).replace("\n", chr(10))
-        # Non-overlapping occurrences (same semantics as str.replace)
         occ = original.count(pat)
         if count is None:
             match_count = occ
@@ -344,6 +418,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
                 limit = 0
             match_count = min(occ, limit)
             replaced = original.replace(pat, rep, limit)
+
     elif mode == "regex":
         try:
             replaced, n = re.subn(
@@ -354,14 +429,31 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
             )
             match_count = int(n)
         except re.error as e:
-            return json.dumps(
-                {"ok": False, "error": f"invalid regex pattern: {e}"},
-                ensure_ascii=False,
-            )
+            return json.dumps({"ok": False, "error": f"invalid regex: {e}"}, ensure_ascii=False)
+
     else:
         raise ValueError("mode must be 'literal' or 'regex'")
 
     diff = _unified_diff(path_in, original, replaced)
+
+    # No-op: avoid touching the file (mtime churn) and avoid creating a backup.
+    if original == replaced:
+        return json.dumps(
+            {
+                "ok": True,
+                "path": path_in,
+                "mode": mode,
+                "match_count": match_count,
+                "changed": False,
+                "preview": False,
+                "diff": diff,
+                "encoding": encoding_used,
+                "detected_newline": detected_newline,
+                "written": False,
+                "summary": _make_summary(preview=False, match_count=match_count),
+            },
+            ensure_ascii=False,
+        )
 
     # Preview response
     if preview:
@@ -376,7 +468,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
                 "path": path_in,
                 "mode": mode,
                 "match_count": match_count,
-                "changed": original != replaced,
+                "changed": True,
                 "preview": True,
                 "diff": diff,
                 "summary": _make_summary(preview=True, match_count=match_count),
@@ -397,7 +489,6 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         )
 
     # Confirm for large match counts
-    # (The framework may also enforce confirmations.)
     if match_count >= confirm_if_matches_over:
         return json.dumps(
             {
@@ -405,16 +496,18 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
                 "blocked": True,
                 "reason": f"too_many_matches: {match_count}",
                 "confirm_if_matches_over": confirm_if_matches_over,
-                "summary": _make_summary(preview=False, match_count=match_count, blocked=True, reason=f"too_many_matches: {match_count}"),
+                "summary": _make_summary(
+                    preview=False,
+                    match_count=match_count,
+                    blocked=True,
+                    reason=f"too_many_matches: {match_count}",
+                ),
             },
             ensure_ascii=False,
         )
 
-    # Backup and write
     backup = make_backup_before_overwrite(abs_path)
-    _write_text_robust(
-        abs_path, replaced, encoding=encoding_used, newline=detected_newline
-    )
+    _write_text_robust(abs_path, replaced, encoding=encoding_used, newline=detected_newline)
 
     return json.dumps(
         {
@@ -422,7 +515,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
             "path": path_in,
             "mode": mode,
             "match_count": match_count,
-            "changed": original != replaced,
+            "changed": True,
             "preview": False,
             "diff": diff,
             "backup": backup,
@@ -434,136 +527,6 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         ensure_ascii=False,
     )
 
-def _human_confirm(message: str) -> bool:
-    """Compatibility stub for tests.
-
-    The current tool implementation does not require interactive confirmation
-    during unit tests; this function exists so tests can patch it.
-    """
-
-    return True
-
-
-# --- Match-hit preview (match-based, not diff-hunks) ---
-
-@dataclass
-class MatchHit:
-    line_no: int
-    col: int
-    match_text: str
-    before: str
-    after: str
-
-
-def _build_match_hits_literal(text: str, pat: str, max_hits: int = 100) -> List[MatchHit]:
-    """Build match-based hits for literal mode.
-
-    - Returns line/column (1-based line, 0-based column) and same-line context.
-    - Does not try to interpret regex metacharacters.
-    """
-
-    if not pat:
-        return []
-
-    lines = text.splitlines(keepends=False)
-    # Precompute absolute offsets for each line start.
-    offsets: List[int] = []
-    pos = 0
-    for ln in lines:
-        offsets.append(pos)
-        pos += len(ln) + 1  # +1 assumes LF; good enough for position mapping (approx)
-
-    hits: List[MatchHit] = []
-    start = 0
-    while True:
-        idx = text.find(pat, start)
-        if idx < 0:
-            break
-
-        # Map absolute idx -> line/col
-        line_no = 1
-        col = idx
-        for i, off in enumerate(offsets):
-            if off <= idx:
-                line_no = i + 1
-                col = idx - off
-            else:
-                break
-
-        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
-        before = line[:col]
-        after = line[col + len(pat) :]
-        mtxt = pat if len(pat) <= 200 else pat[:200] + "..."
-
-        hits.append(
-            MatchHit(
-                line_no=line_no,
-                col=col,
-                match_text=mtxt,
-                before=before,
-                after=after,
-            )
-        )
-
-        if len(hits) >= max_hits:
-            break
-
-        # Non-overlapping
-        start = idx + len(pat)
-
-    return hits
-
-
-def _build_match_hits_regex(text: str, pattern: str, max_hits: int = 100) -> List[MatchHit]:
-    """Build match-based hits for regex mode using re.finditer."""
-
-    try:
-        rx = re.compile(pattern)
-    except re.error:
-        return []
-
-    lines = text.splitlines(keepends=False)
-    offsets: List[int] = []
-    pos = 0
-    for ln in lines:
-        offsets.append(pos)
-        pos += len(ln) + 1
-
-    hits: List[MatchHit] = []
-    for m in rx.finditer(text):
-        idx = m.start()
-
-        line_no = 1
-        col = idx
-        for i, off in enumerate(offsets):
-            if off <= idx:
-                line_no = i + 1
-                col = idx - off
-            else:
-                break
-
-        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
-        before = line[:col]
-        after = line[col + max(0, m.end() - m.start()) :]
-
-        mtxt = m.group(0)
-        if len(mtxt) > 200:
-            mtxt = mtxt[:200] + "..."
-
-        hits.append(
-            MatchHit(
-                line_no=line_no,
-                col=col,
-                match_text=mtxt,
-                before=before,
-                after=after,
-            )
-        )
-        if len(hits) >= max_hits:
-            break
-
-    return hits
-
 
 def run_tool(args: Dict[str, Any]) -> str:
     """Entry point (never raises; returns JSON)."""
@@ -574,13 +537,17 @@ def run_tool(args: Dict[str, Any]) -> str:
         et = e.__class__.__name__
         msg = str(e)
 
-        # Normalize common errors to stable messages expected by tests.
         if isinstance(e, FileNotFoundError):
             msg = f"file not found: {msg}"
         elif isinstance(e, PermissionError):
             msg = f"dangerous path: {msg}"
 
         return json.dumps(
-            {"ok": False, "error": msg, "error_type": et, "summary": _make_summary(preview=False, error=msg)},
+            {
+                "ok": False,
+                "error": msg,
+                "error_type": et,
+                "summary": _make_summary(preview=False, error=msg),
+            },
             ensure_ascii=False,
         )
