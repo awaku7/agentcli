@@ -11,21 +11,78 @@ def _compute_retry_wait_seconds(
     base: float = 2.0,
     cap: float = 120.0,
 ) -> float:
-    """429 等のリトライ待機秒を決める。"""
+    """429 等のリトライ待機秒を決める。
 
+    優先順位:
+    1) Retry-After / x-ms-retry-after-ms などが取れればそれ
+    2) Azure の x-ratelimit-reset-requests / x-ratelimit-reset-tokens を解釈できればそれ
+    3) 指数バックオフ + jitter
+
+    注意: reset 系は「秒数」か「UNIX時刻(秒)」のどちらかで返ることがあるため、
+    両方を試し、妥当な待機秒(0..cap)に丸める。
+    """
+
+    def _parse_retry_after(v: Any) -> float | None:
+        try:
+            if v is None:
+                return None
+            if isinstance(v, (int, float)):
+                fv = float(v)
+                return fv if fv >= 0 else None
+            if isinstance(v, str):
+                fv = float(v.strip())
+                return fv if fv >= 0 else None
+        except Exception:
+            return None
+        return None
+
+    # 1) plain Retry-After like value
+    ra = _parse_retry_after(retry_after_header)
+    if ra is not None:
+        return min(ra, cap)
+
+    # 2) Azure reset headers (may come as dict)
     try:
-        if retry_after_header is not None:
-            if isinstance(retry_after_header, (int, float)):
-                v = float(retry_after_header)
-                if v >= 0:
-                    return min(v, cap)
-            if isinstance(retry_after_header, str):
-                v = float(retry_after_header.strip())
-                if v >= 0:
-                    return min(v, cap)
+        if isinstance(retry_after_header, dict):
+            # keys might already be normalized to lower-case
+            reset_candidates: list[Any] = []
+            for k in (
+                "x-ratelimit-reset-requests",
+                "x-ratelimit-reset-tokens",
+                "ratelimit-reset",
+                "x-ratelimit-reset",
+            ):
+                if k in retry_after_header:
+                    reset_candidates.append(retry_after_header.get(k))
+
+            # take the maximum (most conservative) among provided resets
+            waits: list[float] = []
+            for raw in reset_candidates:
+                fv = _parse_retry_after(raw)
+                if fv is None:
+                    continue
+
+                # Heuristic: if it's a large number, treat as epoch seconds.
+                # If it's small, treat as delta seconds.
+                if fv > 10_000:  # epoch-ish
+                    import time
+
+                    delta = fv - time.time()
+                    if delta >= 0:
+                        waits.append(delta)
+                else:
+                    waits.append(fv)
+
+            if waits:
+                # small jitter to avoid thundering herd
+                w = max(waits)
+                w = min(cap, w)
+                w += random.uniform(0.0, min(1.0, w * 0.05))
+                return min(cap, w)
     except Exception:
         pass
 
+    # 3) exponential backoff
     exp = min(cap, base * (2 ** max(0, attempt - 1)))
     jitter = random.uniform(0.0, min(1.0, exp * 0.1))
     return min(cap, exp + jitter)
