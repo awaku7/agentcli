@@ -1,5 +1,3 @@
-# tools/cmd_exec_json_tool.py
-
 from __future__ import annotations
 
 import json
@@ -59,11 +57,21 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
     if os.name == "nt":
-        cmd = ["cmd.exe", "/c", command]
+        # Force UTF-8 on cmd.exe
+        # NOTE: Some commands may behave differently under code page 65001.
+        cmd = ["cmd.exe", "/d", "/c", f"chcp 65001 >nul & {command}"]
+        p = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            cwd=cwd,
+        )
     else:
         cmd = ["sh", "-lc", command]
+        p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
 
-    p = subprocess.run(cmd, capture_output=True, text=True, cwd=cwd)
     return {
         "ok": p.returncode == 0,
         "returncode": p.returncode,
