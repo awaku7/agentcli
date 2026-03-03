@@ -278,15 +278,6 @@ def run_llm_rounds(
                                 base=retry_base,
                                 cap=retry_cap,
                             )
-                            _log_rate_limit_debug(
-                                provider=provider,
-                                model=depname,
-                                attempt=attempt_429,
-                                max_retries=max_retries_429,
-                                exception=e,
-                                wait_seconds=wait_s,
-                                retry_after=ra,
-                            )
                             time.sleep(wait_s)
                             continue
                         print(
@@ -364,15 +355,6 @@ def run_llm_rounds(
                                 retry_after_header=ra,
                                 base=retry_base,
                                 cap=retry_cap,
-                            )
-                            _log_rate_limit_debug(
-                                provider=provider,
-                                model=depname,
-                                attempt=attempt_429,
-                                max_retries=max_retries_429,
-                                exception=e,
-                                wait_seconds=wait_s,
-                                retry_after=ra,
                             )
                             time.sleep(wait_s)
                             continue
@@ -578,15 +560,6 @@ def run_llm_rounds(
                                 retry_after_header=ra,
                                 base=retry_base,
                                 cap=retry_cap,
-                            )
-                            _log_rate_limit_debug(
-                                provider=provider,
-                                model=depname,
-                                attempt=attempt_429,
-                                max_retries=max_retries_429,
-                                exception=e,
-                                wait_seconds=wait_s,
-                                retry_after=ra,
                             )
                             time.sleep(wait_s)
                             continue
