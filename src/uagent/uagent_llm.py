@@ -106,6 +106,61 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
+            if provider not in ("gemini", "claude"):
+                # Auto shrink_llm (optional)
+                shrink_cnt_raw = (os.environ.get("UAGENT_SHRINK_CNT", "") or "").strip()
+                try:
+                    shrink_cnt = int(shrink_cnt_raw) if shrink_cnt_raw != "" else 100
+                except Exception:
+                    shrink_cnt = 100
+
+                if shrink_cnt > 0:
+                    # Count non-system messages (same rule as core.shrink_messages)
+                    others_count = 0
+                    hit_non_system = False
+                    for m in messages:
+                        if m.get("role") == "system" and not hit_non_system:
+                            continue
+                        hit_non_system = True
+                        others_count += 1
+
+                    if others_count >= shrink_cnt:
+                        keep_last_raw = (
+                            os.environ.get("UAGENT_SHRINK_KEEP_LAST", "") or ""
+                        ).strip()
+                        try:
+                            keep_last = int(keep_last_raw) if keep_last_raw != "" else 20
+                        except Exception:
+                            keep_last = 20
+
+                        try:
+                            new_messages = core.compress_history_with_llm(
+                                client=client,
+                                depname=depname,
+                                messages=messages,
+                                keep_last=keep_last,
+                            )
+                            messages.clear()
+                            messages.extend(new_messages)
+
+                            # Persist into current session log
+                            try:
+                                core.rewrite_current_log_from_messages(messages)
+                            except Exception:
+                                pass
+
+                            print(
+                                (
+                                    "[INFO] Auto shrink_llm triggered: "
+                                    f"others={others_count} >= cnt={shrink_cnt} "
+                                    f"keep_last={keep_last}"
+                                )
+                            )
+                        except Exception as e:
+                            print(
+                                "[WARN] Auto shrink_llm failed: "
+                                f"{type(e).__name__}: {e}"
+                            )
             if round_count > max_tool_rounds:
                 print(
                     _("[WARN] Tool rounds exceeded %(max)d; aborting.")
