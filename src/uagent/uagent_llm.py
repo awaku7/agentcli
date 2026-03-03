@@ -106,7 +106,7 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
-            if provider not in ("gemini", "claude"):
+            if True:
                 # Auto shrink_llm (optional)
                 shrink_cnt_raw = (os.environ.get("UAGENT_SHRINK_CNT", "") or "").strip()
                 try:
@@ -136,6 +136,15 @@ def run_llm_rounds(
                             keep_last = 20
 
                         try:
+                            # If Gemini cache is enabled, clear it on auto shrink_llm
+                            # to avoid mismatched cached system instructions.
+                            if provider == "gemini":
+                                try:
+                                    cache_mgr.clear_cache(client)
+                                except Exception:
+                                    pass
+                                gemini_cache_name = None
+
                             new_messages = core.compress_history_with_llm(
                                 client=client,
                                 depname=depname,
