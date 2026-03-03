@@ -840,6 +840,17 @@ def compress_history_with_llm(
     別の LLM コンテキストを立ち上げて、古い user/assistant を要約し、
     1 つの system メッセージに圧縮する。
     """
+    # If Gemini cache is enabled, clear it before summarization.
+    # Summarization changes the system-message content, so cached system instructions
+    # can become stale/mismatched.
+    try:
+        from .gemini_cache_mgr import GeminiCacheManager
+
+        mgr = GeminiCacheManager(depname)
+        mgr.clear_cache(client)
+    except Exception:
+        pass
+
     # system とそれ以外を分離
     system_msgs: List[Dict[str, Any]] = []
     others: List[Dict[str, Any]] = []
