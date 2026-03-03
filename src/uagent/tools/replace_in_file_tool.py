@@ -65,7 +65,11 @@ def _make_summary(
         return f"Blocked: {mc}"
 
     if preview:
-        return f"Preview: {mc} matches found" if mc else "Successfully no change (0 matches)"
+        return (
+            f"Preview: {mc} matches found"
+            if mc
+            else "Successfully no change (0 matches)"
+        )
 
     return "Successfully no change (0 matches)" if mc == 0 else f"{mc} match(es)"
 
@@ -287,7 +291,9 @@ def _idx_to_line_col(line_starts: List[int], idx: int) -> Tuple[int, int]:
     return line_no, col
 
 
-def _build_match_hits_literal(text: str, pat: str, max_hits: int = 100) -> List[MatchHit]:
+def _build_match_hits_literal(
+    text: str, pat: str, max_hits: int = 100
+) -> List[MatchHit]:
     """Build match-based hits for literal mode.
 
     - Returns line/column (1-based line, 0-based column) and same-line context.
@@ -323,7 +329,11 @@ def _build_match_hits_literal(text: str, pat: str, max_hits: int = 100) -> List[
         after = line[col + len(pat) :]
         mtxt = pat if len(pat) <= 200 else pat[:200] + "..."
 
-        hits.append(MatchHit(line_no=line_no, col=col, match_text=mtxt, before=before, after=after))
+        hits.append(
+            MatchHit(
+                line_no=line_no, col=col, match_text=mtxt, before=before, after=after
+            )
+        )
         if len(hits) >= max_hits:
             break
 
@@ -332,7 +342,9 @@ def _build_match_hits_literal(text: str, pat: str, max_hits: int = 100) -> List[
     return hits
 
 
-def _build_match_hits_regex(text: str, pattern: str, max_hits: int = 100) -> List[MatchHit]:
+def _build_match_hits_regex(
+    text: str, pattern: str, max_hits: int = 100
+) -> List[MatchHit]:
     """Build match-based hits for regex mode using re.finditer.
 
     Notes:
@@ -366,7 +378,11 @@ def _build_match_hits_regex(text: str, pattern: str, max_hits: int = 100) -> Lis
         if len(mtxt) > 200:
             mtxt = mtxt[:200] + "..."
 
-        hits.append(MatchHit(line_no=line_no, col=col, match_text=mtxt, before=before, after=after))
+        hits.append(
+            MatchHit(
+                line_no=line_no, col=col, match_text=mtxt, before=before, after=after
+            )
+        )
         if len(hits) >= max_hits:
             break
 
@@ -382,7 +398,6 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
     replacement = args.get("replacement")
     count = args.get("count", None)
     preview = bool(args.get("preview", True))
-    context_lines = int(args.get("context_lines", 2))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
 
@@ -429,7 +444,9 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
             )
             match_count = int(n)
         except re.error as e:
-            return json.dumps({"ok": False, "error": f"invalid regex: {e}"}, ensure_ascii=False)
+            return json.dumps(
+                {"ok": False, "error": f"invalid regex: {e}"}, ensure_ascii=False
+            )
 
     else:
         raise ValueError("mode must be 'literal' or 'regex'")
@@ -507,7 +524,9 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         )
 
     backup = make_backup_before_overwrite(abs_path)
-    _write_text_robust(abs_path, replaced, encoding=encoding_used, newline=detected_newline)
+    _write_text_robust(
+        abs_path, replaced, encoding=encoding_used, newline=detected_newline
+    )
 
     return json.dumps(
         {
