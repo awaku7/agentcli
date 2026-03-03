@@ -76,6 +76,24 @@ python -m uagent
 
 ---
 
+## 履歴圧縮（手動 / 自動）
+
+手動コマンド:
+- `:shrink [keep_last]`（既定 `keep_last=40`）: system 以外（user/assistant/tool）を末尾 N 件だけ残して削除します。
+- `:shrink_llm [keep_last]`（既定 `keep_last=20`）: 古い履歴を LLM で要約して system メッセージ 1 件に圧縮し、末尾 N 件を残します。
+
+自動圧縮（OpenAI互換プロバイダのみ。Gemini/Claude では無効）:
+- `UAGENT_SHRINK_CNT`（既定: `100`）
+  - system を除いたメッセージ（user/assistant/tool）の件数がこの値に達すると、自動で `:shrink_llm` 相当を実行します。
+  - `0` を設定すると無効化します。
+- `UAGENT_SHRINK_KEEP_LAST`（既定: `20`）: 自動要約後に末尾へ残す件数。
+
+ログ書き戻し:
+- 圧縮（手動/自動）が動いたとき、現在セッションのログ（`UAGENT_LOG_FILE` / `core.LOG_FILE`）を圧縮後の内容で書き戻します。
+- その際、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）を作成します。
+
+---
+
 ## Provider（OpenAI互換の扱い）
 
 `uag` は複数のLLMプロバイダを切り替えて利用できます。
@@ -123,11 +141,75 @@ python -m uagent
 
 ---
 
+## 翻訳（TO_LLM / FROM_LLM、任意）
+
+既定では uag は **翻訳しません**。
+
+翻訳を有効化するには、以下を設定します:
+- `UAGENT_TRANSLATE_PROVIDER`: 翻訳プロバイダ（OpenAI互換の文字列。例: `openai` / `azure` / `openrouter` / `nvidia` / `grok`）
+- `UAGENT_TRANSLATE_TO_LLM`: LLMに送る前に **翻訳する先** の言語タグ（例: `en`）
+- `UAGENT_TRANSLATE_FROM_LLM`: LLM出力を表示する前に **翻訳する先** の言語タグ（例: `ja`）
+
+OpenAI互換翻訳の追加設定:
+- `UAGENT_TRANSLATE_DEPNAME`: 翻訳用モデル名（翻訳を有効化する場合は必須）
+- `UAGENT_TRANSLATE_API_KEY`: 任意（未設定時はメインプロバイダのキーを流用）
+- `UAGENT_TRANSLATE_BASE_URL`: 任意（未設定時はメインプロバイダの Base URL を流用）
+
+補足:
+- 翻訳は **1回ごと（ステートレス）** に行います。
+- 翻訳が有効な場合、部分出力の不整合を避けるためストリーミングは **強制的にOFF** になります（`UAGENT_STREAMING` より優先）。
+
+---
+
+## 画像生成・解析（Image Generation / Analysis）
+
+### 画像生成（`generate_image`）
+
+- `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成用のプロバイダを個別に指定します（未指定時は `UAGENT_PROVIDER` を使用）。
+- `UAGENT_IMG_GENERATE_DEPNAME`: 生成用のモデル名またはデプロイ名（例: `dall-e-3`）。
+- `UAGENT_IMAGE_OPEN`: 生成後に画像を自動で開くかどうか。
+  - `1`: 開く（既定）
+  - `0`: 開かない
+
+プロバイダ別の指定例: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`。
+
+プロバイダ別の認証/エンドポイント:
+- `UAGENT_<PROVIDER>_IMG_GENERATE_API_KEY`（必須）
+- `UAGENT_<PROVIDER>_IMG_GENERATE_BASE_URL`（多くのプロバイダで任意。既定値がある場合あり）
+- Azureのみ: `UAGENT_AZURE_IMG_GENERATE_API_VERSION`（必須）
+
+フォールバック:
+- `*_IMG_GENERATE_*` が未設定の場合、メインプロバイダ側の環境変数（例: `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL`）も参照します。
+
+### 画像解析（`analyze_image`）
+
+既定では、`analyze_image` ツールは `UAGENT_PROVIDER` で指定されたプロバイダを使用しますが、専用の環境変数で上書き可能です。
+
+- `UAGENT_RESPONSES=1`: 有効にすると `analyze_image` ツールが非表示になり、代わりに LLM 本体のマルチモーダル機能を使って直接画像を扱います（モデルが対応している場合）。
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: 画像解析用のプロバイダを個別に指定します。
+- `UAGENT_IMG_ANALYSIS_DEPNAME`: 画像解析用のモデル名を指定します。
+- `UAGENT_IMG_ANALYSIS_API_KEY`: 画像解析用の API キーを指定します。
+- `UAGENT_IMG_ANALYSIS_BASE_URL`: 画像解析用のベース URL を指定します。
+
+プロバイダ別の指定例: `UAGENT_OPENAI_IMG_ANALYSIS_DEPNAME`, `UAGENT_AZURE_IMG_ANALYSIS_DEPNAME`。
+
+`analyze_image` で利用可能なプロバイダ: `openai`, `azure`, `gemini`, `nvidia`。
+
+---
+
 ## 更新情報
 
-- Agent Skills 対応（SKILL.md 形式）を追加: skills_list / skills_load / skills_validate / skills_read_file
-  - 既定の探索ルート: UAGENT_SKILLS_DIRS（OSのパス区切りで分割）、未設定時は ./skills
+- OpenAI互換プロバイダ向けに **自動 shrink_llm** を追加しました。
+  - `UAGENT_SHRINK_CNT`（既定: `100`）: system を除いたメッセージ（user/assistant/tool）の件数がこの値に達すると、自動で `:shrink_llm` 相当を実行します。
+  - `UAGENT_SHRINK_CNT=0`: 自動圧縮を無効化します。
+  - `UAGENT_SHRINK_KEEP_LAST`（既定: `20`）: 要約後に末尾へ残す件数です。
+  - `UAGENT_PROVIDER=gemini` / `UAGENT_PROVIDER=claude` の場合、自動圧縮は無効です。
+- 圧縮（手動 `:shrink` / `:shrink_llm` または自動）実行時に、現在セッションのログを圧縮後の履歴で書き戻します。
+  - ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）を作成します。
 
+---
+
+## 開発者向け
 ---
 
 ## 開発者向け
