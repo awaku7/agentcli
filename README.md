@@ -41,6 +41,25 @@ Exit:
 
 ---
 
+## History compression (manual / auto)
+
+Manual commands:
+- `:shrink [keep_last]` (default `keep_last=40`): keep the last N non-system messages and drop the rest.
+- `:shrink_llm [keep_last]` (default `keep_last=20`): summarize older history into one system message and keep the last N non-system messages.
+
+Optional auto shrink (OpenAI-compatible providers only; disabled for Gemini/Claude):
+- `UAGENT_SHRINK_CNT` (default: `100`)
+  - When the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
+  - Set `0` to disable.
+- `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after auto summarization.
+
+Log rewrite behavior:
+- When shrink runs, the current session log (`UAGENT_LOG_FILE` / `core.LOG_FILE`) is rewritten to match the compressed in-memory history.
+- A one-generation backup is created under `<log_dir>/.backup/`.
+
+
+---
+
 ## Provider (OpenAI-compatible handling)
 
 `uag` supports multiple LLM providers.
@@ -150,8 +169,14 @@ Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
 
 ## Release Notes
 
-- Added Agent Skills support (SKILL.md format): skills_list / skills_load / skills_validate / skills_read_file.
-  - Default skill roots: UAGENT_SKILLS_DIRS (split by OS path separator), fallback: ./skills
+- Added optional **auto shrink_llm** (for OpenAI-compatible providers only).
+  - `UAGENT_SHRINK_CNT` (default: `100`): when the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
+  - `UAGENT_SHRINK_CNT=0`: disable auto shrink.
+  - `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after summarization.
+  - Auto shrink is disabled for `UAGENT_PROVIDER=gemini` and `UAGENT_PROVIDER=claude`.
+- When shrink runs (manual `:shrink` / `:shrink_llm` or auto), the current session log is rewritten to match the compressed in-memory history.
+  - A one-generation backup is created under `<log_dir>/.backup/`.
+
 
 ---
 

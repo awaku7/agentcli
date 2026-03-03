@@ -76,6 +76,24 @@ python -m uagent
 
 ---
 
+## 履歴圧縮（手動 / 自動）
+
+手動コマンド:
+- `:shrink [keep_last]`（既定 `keep_last=40`）: system 以外（user/assistant/tool）を末尾 N 件だけ残して削除します。
+- `:shrink_llm [keep_last]`（既定 `keep_last=20`）: 古い履歴を LLM で要約して system メッセージ 1 件に圧縮し、末尾 N 件を残します。
+
+自動圧縮（OpenAI互換プロバイダのみ。Gemini/Claude では無効）:
+- `UAGENT_SHRINK_CNT`（既定: `100`）
+  - system を除いたメッセージ（user/assistant/tool）の件数がこの値に達すると、自動で `:shrink_llm` 相当を実行します。
+  - `0` を設定すると無効化します。
+- `UAGENT_SHRINK_KEEP_LAST`（既定: `20`）: 自動要約後に末尾へ残す件数。
+
+ログ書き戻し:
+- 圧縮（手動/自動）が動いたとき、現在セッションのログ（`UAGENT_LOG_FILE` / `core.LOG_FILE`）を圧縮後の内容で書き戻します。
+- その際、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）を作成します。
+
+---
+
 ## Provider（OpenAI互換の扱い）
 
 `uag` は複数のLLMプロバイダを切り替えて利用できます。
@@ -181,9 +199,17 @@ OpenAI互換翻訳の追加設定:
 
 ## 更新情報
 
-- Agent Skills 対応（SKILL.md 形式）を追加: skills_list / skills_load / skills_validate / skills_read_file
-  - 既定の探索ルート: UAGENT_SKILLS_DIRS（OSのパス区切りで分割）、未設定時は ./skills
+- OpenAI互換プロバイダ向けに **自動 shrink_llm** を追加しました。
+  - `UAGENT_SHRINK_CNT`（既定: `100`）: system を除いたメッセージ（user/assistant/tool）の件数がこの値に達すると、自動で `:shrink_llm` 相当を実行します。
+  - `UAGENT_SHRINK_CNT=0`: 自動圧縮を無効化します。
+  - `UAGENT_SHRINK_KEEP_LAST`（既定: `20`）: 要約後に末尾へ残す件数です。
+  - `UAGENT_PROVIDER=gemini` / `UAGENT_PROVIDER=claude` の場合、自動圧縮は無効です。
+- 圧縮（手動 `:shrink` / `:shrink_llm` または自動）実行時に、現在セッションのログを圧縮後の履歴で書き戻します。
+  - ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）を作成します。
 
+---
+
+## 開発者向け
 ---
 
 ## 開発者向け
