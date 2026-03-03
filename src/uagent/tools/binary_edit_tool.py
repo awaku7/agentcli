@@ -6,9 +6,8 @@ import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Literal, Optional, Tuple
+from typing import Any, Dict, List, Literal, Tuple
 
-from .context import get_callbacks
 from .human_ask_tool import run_tool as human_ask
 from .i18n_helper import make_tool_translator
 
@@ -310,7 +309,6 @@ def _parse_patch_json(patch_json: str) -> List[Dict[str, Any]]:
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    cb = get_callbacks()
 
     path_s = str(args.get("path") or "").strip()
     if not path_s:
@@ -349,7 +347,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         if not repl and repl != b"":
             raise SystemExit("[binary_edit] replace_hex is required")
         occurrence = int(args.get("occurrence", 1))
-        results.append(_op_replace(data, search=search, repl=repl, occurrence=occurrence))
+        results.append(
+            _op_replace(data, search=search, repl=repl, occurrence=occurrence)
+        )
 
     elif mode == "splice":
         if "offset" not in args:
@@ -365,9 +365,13 @@ def run_tool(args: Dict[str, Any]) -> str:
             results.append(_op_splice_insert(data, offset=offset, ins=ins))
         else:
             if "delete_len" not in args:
-                raise SystemExit("[binary_edit] delete_len is required for splice delete")
+                raise SystemExit(
+                    "[binary_edit] delete_len is required for splice delete"
+                )
             delete_len = int(args.get("delete_len"))
-            results.append(_op_splice_delete(data, offset=offset, delete_len=delete_len))
+            results.append(
+                _op_splice_delete(data, offset=offset, delete_len=delete_len)
+            )
 
     elif mode == "apply_patch":
         patch_json = str(args.get("patch_json") or "")
@@ -391,12 +395,16 @@ def run_tool(args: Dict[str, Any]) -> str:
             elif op_type == "delete":
                 offset = int(op.get("offset"))
                 delete_len = int(op.get("delete_len"))
-                results.append(_op_splice_delete(data, offset=offset, delete_len=delete_len))
+                results.append(
+                    _op_splice_delete(data, offset=offset, delete_len=delete_len)
+                )
             elif op_type == "replace":
                 search = _hex_to_bytes(str(op.get("search_hex") or ""))
                 repl = _hex_to_bytes(str(op.get("replace_hex") or ""))
                 occurrence = int(op.get("occurrence", 1))
-                results.append(_op_replace(data, search=search, repl=repl, occurrence=occurrence))
+                results.append(
+                    _op_replace(data, search=search, repl=repl, occurrence=occurrence)
+                )
             else:
                 raise SystemExit(f"[binary_edit] unknown patch op: {op_type}")
 
@@ -407,7 +415,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not dry_run:
         # Stronger wording for resize operations
         resized = after_size != before_size
-        ops_summary = "\n".join([f"- {r.op}: {r.detail}" for r in results]) or "(no ops)"
+        ops_summary = (
+            "\n".join([f"- {r.op}: {r.detail}" for r in results]) or "(no ops)"
+        )
         msg = (
             "[binary_edit] This tool will modify a local file.\n\n"
             f"Path: {os.path.abspath(str(p))}\n"
@@ -419,9 +429,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             f"{ops_summary}\n\n"
         )
         if resized:
-            msg += (
-                "WARNING: This operation changes file size (insert/delete). This may corrupt executable/binary formats.\n"
-            )
+            msg += "WARNING: This operation changes file size (insert/delete). This may corrupt executable/binary formats.\n"
         msg += "Proceed? Reply with y to write, or n/cancel to abort."
         _confirm_or_cancel(msg)
 

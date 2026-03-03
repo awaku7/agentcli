@@ -220,9 +220,15 @@ def _grep_text_full_read(
     matched_lines: List[str] = []
     for i, line in enumerate(text.splitlines(), start=1):
         if regex.search(line):
-            matched_lines.append(_("match.line", default="L{line}: {text}").format(line=i, text=line.strip()[:200]))
+            matched_lines.append(
+                _("match.line", default="L{line}: {text}").format(
+                    line=i, text=line.strip()[:200]
+                )
+            )
             if len(matched_lines) >= max_hits_per_file:
-                matched_lines.append(_("match.more", default="... (more matches in file)"))
+                matched_lines.append(
+                    _("match.more", default="... (more matches in file)")
+                )
                 break
 
     # If the match spans lines, line-by-line hits will be empty.
@@ -230,7 +236,9 @@ def _grep_text_full_read(
         s = max(0, m0.start() - 80)
         e = min(len(text), m0.end() + 80)
         excerpt = text[s:e].replace("\n", "\\n").replace("\r", "\\r")
-        matched_lines.append(_("match.excerpt", default="MATCH: {text}").format(text=excerpt[:200]))
+        matched_lines.append(
+            _("match.excerpt", default="MATCH: {text}").format(text=excerpt[:200])
+        )
 
     return matched_lines
 
@@ -257,7 +265,9 @@ def _grep_text_streaming(
                     )
                 )
                 if len(matched_lines) >= max_hits_per_file:
-                    matched_lines.append(_("match.more", default="... (more matches in file)"))
+                    matched_lines.append(
+                        _("match.more", default="... (more matches in file)")
+                    )
                     break
 
     return matched_lines
@@ -282,7 +292,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         max_results = 50
 
     if not os.path.exists(root_path):
-        return _("err.dir_not_exist", default="[search_files error] Directory does not exist: {path}").format(path=root_path)
+        return _(
+            "err.dir_not_exist",
+            default="[search_files error] Directory does not exist: {path}",
+        ).format(path=root_path)
 
     # Compile content regex if provided
     regex: Optional[re.Pattern[str]] = None
@@ -297,7 +310,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             regex = re.compile(normalized_pattern, flags)
         except re.error as e:
-            return _("err.regex_compile", default="[search_files error] Failed to compile regex: {error}").format(error=str(e))
+            return _(
+                "err.regex_compile",
+                default="[search_files error] Failed to compile regex: {error}",
+            ).format(error=str(e))
 
     results = []
     count = 0
@@ -364,19 +380,24 @@ def run_tool(args: Dict[str, Any]) -> str:
             break
 
     if not results:
-        return _("out.no_match", default="[search_files] No files matched the criteria.")
+        return _(
+            "out.no_match", default="[search_files] No files matched the criteria."
+        )
 
     # Human-readable output (kept for compatibility with existing consumers)
     out_lines: List[str] = []
     if truncated:
         out_lines.append(
-            _("out.found_truncated", default="[search_files] Found {n} results (truncated to {max_results})").format(
-                n=len(results), max_results=max_results
-            )
+            _(
+                "out.found_truncated",
+                default="[search_files] Found {n} results (truncated to {max_results})",
+            ).format(n=len(results), max_results=max_results)
         )
     else:
         out_lines.append(
-            _("out.found", default="[search_files] Found {n} results").format(n=len(results))
+            _("out.found", default="[search_files] Found {n} results").format(
+                n=len(results)
+            )
         )
 
     for r in results[:max_results]:
