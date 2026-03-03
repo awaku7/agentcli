@@ -650,6 +650,16 @@ def handle_command(
         new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
         messages_ref.clear()
         messages_ref.extend(new_messages)
+
+        # Persist shrink result into current session log file (with backup)
+        try:
+            core.rewrite_current_log_from_messages(messages_ref)
+        except Exception as e:
+            print(
+                i18n_("[shrink warn] Failed to rewrite current log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
         return True
 
     if cmd == "shrink_llm":
@@ -672,6 +682,18 @@ def handle_command(
         )
         messages_ref.clear()
         messages_ref.extend(new_messages)
+
+        # Persist shrink_llm result into current session log file (with backup)
+        try:
+            core.rewrite_current_log_from_messages(messages_ref)
+        except Exception as e:
+            print(
+                i18n_(
+                    "[shrink_llm warn] Failed to rewrite current log: %(etype)s: %(err)s"
+                )
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
         return True
 
     if cmd == "mem-list":
