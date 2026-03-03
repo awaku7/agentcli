@@ -375,8 +375,52 @@ def handle_command(
                         % {"arg": a}
                     )
                     return True
-
         core.list_logs(limit=limit, show_all=show_all)
+        return True
+
+    if cmd in ("skills",):
+        try:
+            from uagent.tools.skills_list_tool import run_tool as skills_list_tool
+
+            res_json = skills_list_tool(
+                {
+                    "root_dir": "",
+                    "recursive": True,
+                    "include_invalid": True,
+                    "strict": False,
+                }
+            )
+            res = json.loads(res_json)
+
+            # skills_list_tool returns either:
+            # - list[dict] (legacy)
+            # - {"status":..., "skills": [..]} (wrapped)
+            if isinstance(res, list):
+                items = res
+            elif isinstance(res, dict):
+                items = res.get("skills")
+            else:
+                items = None
+
+            if not isinstance(items, list):
+                items = []
+
+            if not items:
+                print(tr("[skills] No skills found."))
+                return True
+
+            print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
+            for it in items:
+                if not isinstance(it, dict):
+                    continue
+                name = it.get("name") or "(unknown)"
+                desc = it.get("description") or ""
+                skill_md = it.get("skill_md") or ""
+                print(f"- {name}: {desc}")
+                if skill_md:
+                    print(f"    {skill_md}")
+        except Exception as e:
+            print(f"[skills error] {type(e).__name__}: {e}")
         return True
 
     if cmd == "clean":

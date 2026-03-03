@@ -41,6 +41,25 @@ Exit:
 
 ---
 
+## History compression (manual / auto)
+
+Manual commands:
+- `:shrink [keep_last]` (default `keep_last=40`): keep the last N non-system messages and drop the rest.
+- `:shrink_llm [keep_last]` (default `keep_last=20`): summarize older history into one system message and keep the last N non-system messages.
+
+Optional auto shrink (OpenAI-compatible providers only; disabled for Gemini/Claude):
+- `UAGENT_SHRINK_CNT` (default: `100`)
+  - When the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
+  - Set `0` to disable.
+- `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after auto summarization.
+
+Log rewrite behavior:
+- When shrink runs, the current session log (`UAGENT_LOG_FILE` / `core.LOG_FILE`) is rewritten to match the compressed in-memory history.
+- A one-generation backup is created under `<log_dir>/.backup/`.
+
+
+---
+
 ## Provider (OpenAI-compatible handling)
 
 `uag` supports multiple LLM providers.
@@ -88,20 +107,86 @@ See `env.sample.*` for provider/key configuration examples.
 
 ---
 
+## Optional Translation (TO_LLM / FROM_LLM)
+
+By default, uag does **not** translate.
+
+Enable translation by setting:
+- `UAGENT_TRANSLATE_PROVIDER`: translation provider (OpenAI-compatible string, e.g. `openai` / `azure` / `openrouter` / `nvidia` / `grok`).
+- `UAGENT_TRANSLATE_TO_LLM`: language tag to translate **into** before sending to the LLM (e.g. `en`).
+- `UAGENT_TRANSLATE_FROM_LLM`: language tag to translate **into** for displaying LLM outputs (e.g. `ja`).
+
+OpenAI-compatible translation settings:
+- `UAGENT_TRANSLATE_DEPNAME`: model name for translation (required when translation is enabled).
+- `UAGENT_TRANSLATE_API_KEY`: optional (falls back to the main provider key).
+- `UAGENT_TRANSLATE_BASE_URL`: optional (falls back to the main provider base URL).
+
+Notes:
+- Translation is done **per call** (stateless).
+- When translation is enabled, streaming is forced **off** to avoid mismatched partial outputs.
+
+---
+
+## Image Generation / Analysis
+
+### Image Generation (`generate_image`)
+
+- `UAGENT_IMG_GENERATE_PROVIDER`: Override the provider for image generation (fallback: `UAGENT_PROVIDER`).
+- `UAGENT_IMAGE_OPEN`: Whether to automatically open the image after generation.
+  - `1`: Open (default)
+  - `0`: Do not open
+
+Model / deployment name (provider-specific):
+- `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME` (required)
+  - Examples: `UAGENT_OPENAI_IMG_GENERATE_DEPNAME`, `UAGENT_AZURE_IMG_GENERATE_DEPNAME`
+
+Provider-specific credentials / endpoints:
+- `UAGENT_<PROVIDER>_IMG_GENERATE_API_KEY` (required)
+- `UAGENT_<PROVIDER>_IMG_GENERATE_BASE_URL` (optional for most providers; default may apply)
+- Azure only: `UAGENT_AZURE_IMG_GENERATE_API_VERSION` (required)
+
+Fallback behavior:
+- If a `*_IMG_GENERATE_*` env var is not set, the tool also tries the main provider env (e.g. `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL`).
+
+Notes:
+- Depending on the provider SDK/API, supported sizes/features may differ.
+
+### Image Analysis (`analyze_image`)
+
+By default, the `analyze_image` tool uses the provider specified in `UAGENT_PROVIDER`. You can override this using specific environment variables.
+
+- `UAGENT_RESPONSES=1`: If enabled, the `analyze_image` tool is hidden, and the agent uses multimodal capabilities of the main LLM directly (if supported).
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: Override the provider for image analysis.
+
+Provider-specific overrides:
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_DEPNAME`
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_API_KEY`
+- `UAGENT_<PROVIDER>_IMG_ANALYSIS_BASE_URL`
+
+Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
+
+---
+
 ## Release Notes
 
-- Added Agent Skills support (SKILL.md format): skills_list / skills_load / skills_validate / skills_read_file.
-  - Default skill roots: UAGENT_SKILLS_DIRS (split by OS path separator), fallback: ./skills
+- Added optional **auto shrink_llm** (for OpenAI-compatible providers only).
+  - `UAGENT_SHRINK_CNT` (default: `100`): when the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
+  - `UAGENT_SHRINK_CNT=0`: disable auto shrink.
+  - `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after summarization.
+  - Auto shrink is disabled for `UAGENT_PROVIDER=gemini` and `UAGENT_PROVIDER=claude`.
+- When shrink runs (manual `:shrink` / `:shrink_llm` or auto), the current session log is rewritten to match the compressed in-memory history.
+  - A one-generation backup is created under `<log_dir>/.backup/`.
+
 
 ---
 
 ## For Developers
 
-For developer-focused information, see `src/uagent/docs/DEVELOP.md`.
+For developer-focused information, see [`src/uagent/docs/DEVELOP.md`](src/uagent/docs/DEVELOP.md).
 
 Additional docs:
-- `src/uagent/docs/RUNTIME_INIT.md` (startup initialization: workdir/banner/long-term memory)
-- `src/uagent/docs/WEB_UI_LOGGING.md` (Web UI logging/message paths)
+- [`src/uagent/docs/RUNTIME_INIT.md`](src/uagent/docs/RUNTIME_INIT.md) (startup initialization: workdir/banner/long-term memory)
+- [`src/uagent/docs/WEB_UI_LOGGING.md`](src/uagent/docs/WEB_UI_LOGGING.md) (Web UI logging/message paths)
 
 ---
 
@@ -114,7 +199,7 @@ Prerequisites:
 - Browser setup is done (e.g. `python -m playwright install`)
 
 Docs:
-- `src/uagent/docs/WEBINSPECTER.md`
+- [`src/uagent/docs/WEBINSPECTER.md`](src/uagent/docs/WEBINSPECTER.md)
 - `uag docs webinspect` (available even in wheel environments)
 
 ---
@@ -135,7 +220,7 @@ uag docs --open webinspect
 
 ## Install (distribution: wheel)
 
-See **`QUICKSTART.md`** for the Windows-oriented installation steps using a distributed `.whl`.
+See **[`QUICKSTART.md`](QUICKSTART.md)** for the Windows-oriented installation steps using a distributed `.whl`.
 
 - Distribution: GitHub **Releases** page (Assets: `.whl`)
 - Wheel example: `uag-<VERSION>-py3-none-any.whl`
