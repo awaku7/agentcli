@@ -789,7 +789,7 @@ def load_conversation_from_log(
     system_msg = {"role": "system", "content": system_prompt}
     messages.insert(0, system_msg)
 
-    return messages
+    return list(messages)
 
 
 def shrink_messages(
@@ -817,7 +817,7 @@ def shrink_messages(
             f"[INFO] 圧縮対象メッセージ数が {len(others)} 件なので、そのままにしました。",
             file=sys.stderr,
         )
-        return messages
+        return list(messages)
 
     trimmed_others = others[-keep_last:]
     print(
@@ -854,7 +854,7 @@ def compress_history_with_llm(
 
     if not others:
         print("[INFO] 圧縮対象メッセージがありません。", file=sys.stderr)
-        return messages
+        return list(messages)
 
     if len(others) <= keep_last:
         print(
@@ -862,7 +862,7 @@ def compress_history_with_llm(
             f"others={len(others)}, keep_last={keep_last}",
             file=sys.stderr,
         )
-        return messages
+        return list(messages)
 
     # 要約対象（old_part）と末尾に残す部分（tail_part）に分割
     old_part = others[:-keep_last]
@@ -891,7 +891,7 @@ def compress_history_with_llm(
 
     if not lines:
         print("[INFO] 要約対象の user/assistant/tool がありません。", file=sys.stderr)
-        return messages
+        return list(messages)
 
     convo_text = "\\n\\n".join(lines)
 
@@ -934,7 +934,7 @@ def compress_history_with_llm(
             % {"err": e},
             file=sys.stderr,
         )
-        return messages
+        return list(messages)
 
     if use_responses_api:
         summary_content = ""
