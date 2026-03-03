@@ -129,7 +129,9 @@ def run_llm_rounds(
                             os.environ.get("UAGENT_SHRINK_KEEP_LAST", "") or ""
                         ).strip()
                         try:
-                            keep_last = int(keep_last_raw) if keep_last_raw != "" else 20
+                            keep_last = (
+                                int(keep_last_raw) if keep_last_raw != "" else 20
+                            )
                         except Exception:
                             keep_last = 20
 

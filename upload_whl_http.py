@@ -251,7 +251,13 @@ def _request_json(
         data = json.dumps(payload).encode("utf-8")
 
     try:
-        raw = _request_raw(method, url, token, data=data, content_type=("application/json" if data is not None else None))
+        raw = _request_raw(
+            method,
+            url,
+            token,
+            data=data,
+            content_type=("application/json" if data is not None else None),
+        )
         if not raw:
             return None
         return json.loads(raw.decode("utf-8", errors="strict"))
@@ -264,7 +270,10 @@ def _request_json(
 
 def _get_release(project_id: str, token: str, tag: str) -> Optional[dict]:
     api_base = _get_api_base()
-    url = _join_url(api_base, f"projects/{quote(project_id, safe='')}/releases/{quote(tag, safe='')}")
+    url = _join_url(
+        api_base,
+        f"projects/{quote(project_id, safe='')}/releases/{quote(tag, safe='')}",
+    )
     j = _request_json("GET", url, token, allow_404=True)
     if j is None:
         return None
@@ -405,9 +414,9 @@ def _add_release_asset_link(
         raise SystemExit(f"Release not found for tag '{tag}'.")
 
     if overwrite:
-        for l in _extract_links_from_release(rel):
-            if str(l.get("name") or "") == link_name:
-                lid = l.get("id")
+        for link in _extract_links_from_release(rel):
+            if str(link.get("name") or "") == link_name:
+                lid = link.get("id")
                 if isinstance(lid, int):
                     _delete_release_asset_link(project_id, token, tag, lid)
 
@@ -423,7 +432,9 @@ def _add_release_asset_link(
     print(f"  url : {link_url}")
 
     # GitLab accepts x-www-form-urlencoded
-    payload = urlencode({"name": link_name, "url": link_url, "link_type": "other"}, doseq=True).encode("utf-8")
+    payload = urlencode(
+        {"name": link_name, "url": link_url, "link_type": "other"}, doseq=True
+    ).encode("utf-8")
     req = Request(url=url, data=payload, method="POST")
     req.add_header("Private-Token", token)
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
@@ -449,7 +460,9 @@ def _add_release_asset_link(
         raise SystemExit(f"Request failed: {e}\nURL: {url}")
 
 
-def _list_repository_tags(project_id: str, token: str, per_page: int = 100) -> list[dict]:
+def _list_repository_tags(
+    project_id: str, token: str, per_page: int = 100
+) -> list[dict]:
     api_base = _get_api_base()
     url = _join_url(
         api_base,
@@ -491,7 +504,9 @@ def _compare(project_id: str, token: str, base: str, head: str) -> dict:
     return j
 
 
-def _build_description_from_compare(compare: dict, *, base: str, head: str, max_commits: int) -> str:
+def _build_description_from_compare(
+    compare: dict, *, base: str, head: str, max_commits: int
+) -> str:
     commits = compare.get("commits")
     lines: list[str] = []
     lines.append("## Changes")
@@ -544,10 +559,14 @@ def _generate_description(
         base = _find_previous_tag(project_id, token, tag)
 
     if not base:
-        return f"## Release {tag}\n\n(Previous tag not found; no commit list generated.)\n"
+        return (
+            f"## Release {tag}\n\n(Previous tag not found; no commit list generated.)\n"
+        )
 
     cmp = _compare(project_id, token, base=base, head=tag)
-    return _build_description_from_compare(cmp, base=base, head=tag, max_commits=max_commits)
+    return _build_description_from_compare(
+        cmp, base=base, head=tag, max_commits=max_commits
+    )
 
 
 def _parse_args(argv: list[str]) -> dict:
