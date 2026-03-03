@@ -60,6 +60,20 @@ set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
 uag
 ```
 
+### 7.3 (Optional) Auto shrink_llm
+
+If you frequently hit context limits, you can enable automatic summarization.
+
+- `UAGENT_SHRINK_CNT` (default: `100`)
+  - When the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
+  - Set `0` to disable.
+- `UAGENT_SHRINK_KEEP_LAST` (default: `20`)
+  - How many recent non-system messages to keep after summarization.
+
+Notes:
+- Auto shrink is **disabled** when `UAGENT_PROVIDER=gemini` or `UAGENT_PROVIDER=claude`.
+- When shrink runs (manual or auto), the current session log is rewritten to match the compressed history, and a one-generation backup is created under `<log_dir>/.backup/`.
+
 For provider-specific details (required environment variables, base URL, model settings, etc.), see:
 
 - [`README.md`](README.md) (Provider section)

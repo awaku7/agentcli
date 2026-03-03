@@ -143,6 +143,20 @@ set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
 uag
 ```
 
+### 7.3（任意）自動 shrink_llm
+
+コンテキスト上限に頻繁に達する場合は、自動要約を有効化できます。
+
+- `UAGENT_SHRINK_CNT`（既定: `100`）
+  - system を除いたメッセージ（user/assistant/tool）の件数がこの値に達すると、自動で `:shrink_llm` 相当を実行します。
+  - `0` を設定すると無効化します。
+- `UAGENT_SHRINK_KEEP_LAST`（既定: `20`）
+  - 要約後に末尾へ残す件数です。
+
+注意:
+- 自動圧縮は `UAGENT_PROVIDER=gemini` または `UAGENT_PROVIDER=claude` の場合は **無効** です。
+- 圧縮（手動/自動）が動いたとき、現在セッションのログは圧縮後の履歴で書き戻され、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）が作成されます。
+
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
 - [`README.md`](README.md)（Provider の説明）

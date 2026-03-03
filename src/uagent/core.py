@@ -262,8 +262,53 @@ def log_message(message: Dict[str, Any]) -> None:
         pass
 
 
+def rewrite_current_log_from_messages(messages: List[Dict[str, Any]]) -> str:
+    """Rewrite current session log file (core.LOG_FILE) from in-memory messages.
+
+    - Create one-generation backup into <log_dir>/.backup/<basename>.org
+    - Write into a temp file and atomically replace
+    - Mask secrets (human_ask password input etc.)
+
+    Returns: path to rewritten log file.
+    """
+
+    log_path = LOG_FILE
+    log_dir = os.path.dirname(log_path) or "."
+
+    # Ensure backup dir
+    backup_dir = os.path.join(log_dir, ".backup")
+    os.makedirs(backup_dir, exist_ok=True)
+
+    backup_path = os.path.join(backup_dir, os.path.basename(log_path) + ".org")
+
+    # Backup existing log if present
+    try:
+        if os.path.exists(log_path):
+            # Copy bytes to preserve exact original (including any non-utf8 artifacts)
+            with open(log_path, "rb") as rf, open(backup_path, "wb") as wf:
+                wf.write(rf.read())
+    except Exception:
+        # Backup failure should not abort rewrite; still attempt to rewrite
+        pass
+
+    tmp_path = log_path + ".tmp"
+
+    # Write new JSONL
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        for m in messages:
+            try:
+                masked = _mask_message(m)
+                f.write(json.dumps(masked, ensure_ascii=False) + "\n")
+            except Exception:
+                # Skip broken messages
+                continue
+
+    os.replace(tmp_path, log_path)
+    return log_path
+
+
 # ==============================
-# ログファイル検出／トピック推定
+# ログファイル検出／トピック推定／トピック推定
 # ==============================
 
 
