@@ -713,6 +713,24 @@ def main() -> None:
             )
             sys.exit(1)
 
+        # Fail-fast env validation (aggregate missing vars)
+        try:
+            _runtime_init.validate_or_exit_startup_env(context="cli")
+        except SystemExit as _e:
+            # Ensure captured startup logs are shown before exit.
+            # Do NOT rely on pager here: some environments may suppress it.
+            try:
+                combined = _startup_capture_out.getvalue() + _startup_capture_err.getvalue()
+                if combined:
+                    sys.__stderr__.write(combined)
+                    try:
+                        sys.__stderr__.flush()
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+            raise
+
         # docs サブコマンドは welcome 表示や LLM 初期化より先に処理する
 
         print_welcome()
