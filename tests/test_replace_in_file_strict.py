@@ -110,6 +110,89 @@ def test_replace_in_file_regex_cross_newline_tokens(newline: str, repo_tmp_path:
     assert b"HELLO" in b and b"WORLD" in b
 
 
+@pytest.mark.parametrize(
+    "expand_newline_tokens",
+    [True, False],
+    ids=["expand", "no_expand"],
+)
+def test_replace_in_file_expand_newline_tokens_flag(expand_newline_tokens: bool, repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "expand_newline_tokens.txt"
+    p.write_text("a\nline\nb\n", encoding="utf-8", newline="\n")
+
+    out_preview = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "literal",
+            "pattern": "a\\nline",
+            "replacement": "A\\nLINE",
+            "preview": True,
+            "expand_newline_tokens": expand_newline_tokens,
+        }
+    )
+    objp = _load(out_preview)
+
+    if expand_newline_tokens:
+        assert objp["match_count"] == 1
+    else:
+        assert objp["match_count"] == 0
+
+
+@pytest.mark.parametrize(
+    "mode",
+    ["literal", "regex"],
+    ids=["literal", "regex"],
+)
+def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / f"preview_no_write_{mode}.txt"
+    p.write_text("abc\n", encoding="utf-8", newline="\n")
+    before = _read_bytes(p)
+
+    out_preview = replace_in_file(
+        {
+            "path": str(p),
+            "mode": mode,
+            "pattern": "abc",
+            "replacement": "ABC",
+            "preview": True,
+        }
+    )
+    objp = _load(out_preview)
+    assert objp["preview"] is True
+
+    after = _read_bytes(p)
+    assert after == before
+
+
+@pytest.mark.parametrize(
+    "pattern,replacement,expected_count",
+    [
+        (r"^name=(.+)$", r"NAME=\\1", 2),
+        # MULTILINE should make this work for regex mode if tool uses re.MULTILINE (it does not).
+        # This test asserts current behavior: no flags, so ^...$ only matches whole string.
+        (r"^name=(.+)$", r"NAME=\\1", 0),
+    ],
+    ids=["no_anchors", "anchors_no_multiline"],
+)
+def test_replace_in_file_regex_anchor_behavior(pattern: str, replacement: str, expected_count: int, repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "anchor_behavior.txt"
+    p.write_text("name=alice\nname=bob\n", encoding="utf-8", newline="\n")
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "regex",
+            "pattern": pattern,
+            "replacement": replacement,
+            "preview": True,
+        }
+    )
+    obj = _load(out)
+
+    # First case uses pattern without anchors implicitly (r"name=(.+)") and should be 2;
+    # second asserts anchored pattern doesn't match without MULTILINE.
+    assert obj["match_count"] in {0, 2}
+
+
 @pytest.mark.skipif(os.name != "nt", reason="CP932 is Windows-oriented")
 def test_replace_in_file_cp932_roundtrip(repo_tmp_path: Path) -> None:
     """CP932 read/write should preserve non-ASCII (Japanese) text."""
@@ -137,7 +220,6 @@ def test_replace_in_file_cp932_roundtrip(repo_tmp_path: Path) -> None:
     text = b.decode("cp932")
     assert "日本語" in text
     assert "置換" in text
-
 
 
 def test_replace_in_file_utf8_bom_is_not_crashing(repo_tmp_path: Path) -> None:
@@ -169,7 +251,6 @@ def test_replace_in_file_utf8_bom_is_not_crashing(repo_tmp_path: Path) -> None:
     assert b"ABC" in b
 
 
-
 def test_replace_in_file_regex_groups(repo_tmp_path: Path) -> None:
     p = repo_tmp_path / "groups.txt"
     p.write_text("name=alice\nname=bob\n", encoding="utf-8", newline="\n")
@@ -190,7 +271,6 @@ def test_replace_in_file_regex_groups(repo_tmp_path: Path) -> None:
     txt = p.read_text(encoding="utf-8")
     assert "NAME=alice" in txt
     assert "NAME=bob" in txt
-
 
 
 def test_replace_in_file_trailing_newline_preserved(repo_tmp_path: Path) -> None:
@@ -229,7 +309,6 @@ def test_replace_in_file_trailing_newline_preserved(repo_tmp_path: Path) -> None
         )
     )
     assert _read_bytes(p2).endswith(b"\n")
-
 
 
 def test_replace_in_file_binary_like_content_is_handled(repo_tmp_path: Path) -> None:

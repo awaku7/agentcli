@@ -421,8 +421,8 @@ def run_tool(args: Dict[str, Any]) -> str:
                 out_lines.append(f"  {m}")
 
         return "\n".join(out_lines)
-
     except Exception as e:
         return _json_err(
-            f"[search_files error] {type(e).__name__}: {e}", exception=type(e).__name__
+            f"[search_files error] {type(e).__name__}: {e}",
+            exception=type(e).__name__,
         )
