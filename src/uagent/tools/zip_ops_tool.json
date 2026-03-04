@@ -30,5 +30,35 @@
     "tool.description": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
     "tool.system_prompt": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_file_ops_extras)."
   },
-  "ja": {}
+  "ja": {
+    "confirm.extract_overwrite": "（日本語）",
+    "error.cancelled_by_user": "（日本語）",
+    "error.dangerous_dest_dir_rejected": "（日本語）",
+    "error.dangerous_source_rejected": "（日本語）",
+    "error.dangerous_zip_entries_rejected": "（日本語）",
+    "error.dangerous_zip_path_rejected": "（日本語）",
+    "error.dest_dir_not_allowed": "（日本語）",
+    "error.invalid_action": "（日本語）",
+    "error.source_not_allowed": "（日本語）",
+    "error.sources_required_for_create": "（日本語）",
+    "error.too_many_files_in_zip": "（日本語）",
+    "error.zip_create_failed": "（日本語）",
+    "error.zip_extract_failed": "（日本語）",
+    "error.zip_list_failed": "（日本語）",
+    "error.zip_not_found": "（日本語）",
+    "error.zip_path_not_allowed": "（日本語）",
+    "error.zip_path_required": "（日本語）",
+    "error.zip_too_large_to_extract": "（日本語）",
+    "param.action.description": "（日本語）",
+    "param.dest_dir.description": "（日本語）",
+    "param.dry_run.description": "（日本語）",
+    "param.exclude_globs.description": "（日本語）",
+    "param.max_files.description": "（日本語）",
+    "param.max_total_uncompressed_bytes.description": "（日本語）",
+    "param.overwrite.description": "（日本語）",
+    "param.sources.description": "（日本語）",
+    "param.zip_path.description": "（日本語）",
+    "tool.description": "（日本語）作成します/extract/list ZIP ファイルs (with Zip Slip/Zip Bomb protections).",
+    "tool.system_prompt": "（日本語）作成します/extract/list ZIP ファイルs (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing ファイルs and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_ファイルs and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_ファイル_ops_extras)."
+  }
 }

@@ -25,6 +25,7 @@
     "err.dst_exists_overwrite_false": "dst が既に存在します（overwrite=False）: {dst}",
     "err.rename_cancel": "ユーザーが許可しなかったため rename/move を中止しました: {src} -> {dst}",
     "err.prompt_target_not_found": "解析対象ファイルが見つかりません: {path}",
-    "err.prompt_cancel": "ユーザーが許可しなかったためプロンプト生成を中止しました: {path}"
+    "err.prompt_cancel": "ユーザーが許可しなかったためプロンプト生成を中止しました: {path}",
+    "ui.confirm.footer": "（日本語）=== /confirm ===\n"
   }
 }

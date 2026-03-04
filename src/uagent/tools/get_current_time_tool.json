@@ -3,5 +3,8 @@
     "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.g., 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
     "tool.system_prompt": "This tool provides reference information so the LLM can perform time calculations accurately.\n- ISO 8601 format (with offset)\n- Weekday (English)\n- UTC time\n- Numeric components (year, month, day, hour, minute, second)\nUse these to convert ambiguous user requests (e.g., 'next Monday') into a concrete date/time."
   },
-  "ja": {}
+  "ja": {
+    "tool.description": "（日本語）返します the current time and detailed date/time in形式ion (timezone, weekday, UTC time). Use this to resolve relative date expressions (例:, 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
+    "tool.system_prompt": "（日本語）This ツール provides reference in形式ion so the LLM can perform time calculations accurately.\n- ISO 8601 形式 (with offset)\n- Weekday (English)\n- UTC time\n- Numeric components (year, month, day, hour, minute, second)\nUse these to convert ambiguous user requests (例:, 'next Monday') into a concrete date/time."
+  }
 }
