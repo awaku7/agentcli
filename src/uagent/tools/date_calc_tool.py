@@ -1,13 +1,24 @@
-# src/scheck/tools/date_calc_tool.py
+# src/uagent/tools/date_calc_tool.py
+from __future__ import annotations
+
+import datetime
+import json
+from typing import Any, Dict, Optional
+
+import holidays
+from dateutil.relativedelta import relativedelta
+
+from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict, Optional
-import datetime
-from dateutil.relativedelta import relativedelta
-import holidays
-from .context import get_callbacks
+
+def _json_err(message: str, **extra: Any) -> str:
+    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj.update(extra)
+    return json.dumps(obj, ensure_ascii=False)
+
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -100,9 +111,9 @@ def get_holiday_info(dt: datetime.datetime, country_code: str) -> Optional[str]:
 
     if holiday_name and weekend_name:
         return f"Holiday ({holiday_name}) and {weekend_name}"
-    elif holiday_name:
+    if holiday_name:
         return f"Holiday ({holiday_name})"
-    elif weekend_name:
+    if weekend_name:
         return weekend_name
     return None
 
@@ -115,31 +126,35 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     try:
         if base_date_str:
-            if len(base_date_str) == 10:
-                base_date = datetime.datetime.strptime(base_date_str, "%Y-%m-%d")
+            if len(str(base_date_str)) == 10:
+                base_date = datetime.datetime.strptime(str(base_date_str), "%Y-%m-%d")
             else:
-                base_date = datetime.datetime.fromisoformat(base_date_str)
+                base_date = datetime.datetime.fromisoformat(str(base_date_str))
         else:
             base_date = datetime.datetime.now()
     except Exception as e:
-        return f"[date_calc]\nError parsing base_date: {e}"
+        msg = f"[date_calc]\nError parsing base_date: {e}"
+        return _json_err(msg)
 
-    delta = relativedelta(
-        years=args.get("years", 0),
-        months=args.get("months", 0),
-        weeks=args.get("weeks", 0),
-        days=args.get("days", 0),
-    )
+    try:
+        delta = relativedelta(
+            years=args.get("years", 0),
+            months=args.get("months", 0),
+            weeks=args.get("weeks", 0),
+            days=args.get("days", 0),
+        )
+    except Exception as e:
+        return _json_err(f"[date_calc] invalid delta: {e}")
 
     result_date = base_date + delta
 
-    holiday_info = get_holiday_info(result_date, country) if check_h else None
+    holiday_info = get_holiday_info(result_date, str(country)) if check_h else None
     info_suffix = f" ({holiday_info})" if holiday_info else ""
 
     res = [
         f"Base Date:   {base_date.strftime('%Y-%m-%d %H:%M:%S')}",
         f"Operation:   years={args.get('years', 0)}, months={args.get('months', 0)}, weeks={args.get('weeks', 0)}, days={args.get('days', 0)}",
-        f"Country:     {country.upper()}",
+        f"Country:     {str(country).upper()}",
         f"Result Date: {result_date.strftime('%Y-%m-%d %H:%M:%S')}{info_suffix}",
         f"ISO8601:     {result_date.isoformat()}",
         f"Weekday:     {result_date.strftime('%A')}",

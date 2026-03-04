@@ -1,15 +1,22 @@
 from __future__ import annotations
 
 # /src/uagent/tools/read_file_tool.py
+import json
 import os
 import threading
 from typing import Any, Callable, Dict, Optional, cast
 
+from .arg_util import get_int, get_path
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
-from .arg_util import get_int, get_path
 
 _ = make_tool_translator(__file__)
+
+
+def _json_err(message: str, **extra: Any) -> str:
+    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj.update(extra)
+    return json.dumps(obj, ensure_ascii=False)
 
 
 def _is_probably_utf8_head(head: bytes) -> bool:
@@ -113,10 +120,11 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     filename = get_path(args, "filename", get_path(args, "path", ""))
     if not filename:
-        return _(
+        msg = _(
             "err.filename_missing",
             default="[read_file error] filename/path is not specified",
         )
+        return _json_err(msg)
 
     head_lines = args.get("head_lines")
     tail_lines = args.get("tail_lines")
@@ -124,51 +132,52 @@ def run_tool(args: Dict[str, Any]) -> str:
     max_lines: int | None
 
     if head_lines is not None and tail_lines is not None:
-        return _(
+        msg = _(
             "err.dual_lines",
             default="[read_file error] head_lines and tail_lines cannot be specified together",
         )
-
-    if head_lines is not None:
-        head_lines = int(head_lines)
-        start_line = 1
-        max_lines = head_lines
-    elif tail_lines is not None:
-        tail_lines = int(tail_lines)
-        try:
-            with open(filename, "rb") as f:
-                head = f.read(8192)
-                if _is_probably_utf8_head(head):
-                    encoding = "utf-8"
-                else:
-                    encoding = cb.cmd_encoding
-                    if encoding.lower() == "utf-8":
-                        encoding = "cp932"
-        except Exception:
-            encoding = "utf-8"
-
-        with open(
-            filename, "r", encoding=encoding, errors="replace", newline=None
-        ) as f:
-            total_lines = sum(1 for _ in f)
-
-        if total_lines < tail_lines:
-            start_line = 1
-            max_lines = total_lines
-        else:
-            start_line = total_lines - tail_lines + 1
-            max_lines = tail_lines
-    else:
-        start_line = max(1, get_int(args, "start_line", 1))
-        raw_max_lines = args.get("max_lines")
-        if raw_max_lines is None:
-            max_lines = None
-        else:
-            max_lines = int(raw_max_lines)
-
-    max_bytes = cb.read_file_max_bytes
+        return _json_err(msg)
 
     try:
+        if head_lines is not None:
+            head_lines = int(head_lines)
+            start_line = 1
+            max_lines = head_lines
+        elif tail_lines is not None:
+            tail_lines = int(tail_lines)
+            try:
+                with open(filename, "rb") as f:
+                    head = f.read(8192)
+                    if _is_probably_utf8_head(head):
+                        encoding = "utf-8"
+                    else:
+                        encoding = cb.cmd_encoding
+                        if encoding.lower() == "utf-8":
+                            encoding = "cp932"
+            except Exception:
+                encoding = "utf-8"
+
+            with open(
+                filename, "r", encoding=encoding, errors="replace", newline=None
+            ) as f:
+                total_lines = sum(1 for _ in f)
+
+            if total_lines < tail_lines:
+                start_line = 1
+                max_lines = total_lines
+            else:
+                start_line = total_lines - tail_lines + 1
+                max_lines = tail_lines
+        else:
+            start_line = max(1, get_int(args, "start_line", 1))
+            raw_max_lines = args.get("max_lines")
+            if raw_max_lines is None:
+                max_lines = None
+            else:
+                max_lines = int(raw_max_lines)
+
+        max_bytes = cb.read_file_max_bytes
+
         with open(filename, "rb") as f:
             head = f.read(8192)
             if _is_probably_utf8_head(head):
@@ -178,7 +187,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 if encoding.lower() == "utf-8":
                     encoding = "cp932"
 
-        lines = []
+        lines: list[str] = []
         total_bytes = 0
         with open(
             filename, "r", encoding=encoding, errors="replace", newline=None
@@ -201,10 +210,11 @@ def run_tool(args: Dict[str, Any]) -> str:
                     break
 
         if not lines and start_line > 1:
-            return _(
+            msg = _(
                 "err.out_of_range",
                 default="(file has only {count} lines, start_line {start_line} is out of range)",
             ).format(count=i, start_line=start_line)
+            return _json_err(msg, count=i, start_line=start_line)
 
         if sync_file is not None and os.path.isfile(filename):
             try:
@@ -215,5 +225,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 pass
 
         return "".join(lines)
+
     except Exception as e:
-        return f"[read_file error] {type(e).__name__}: {e}"
+        msg = f"[read_file error] {type(e).__name__}: {e}"
+        return _json_err(msg, exception=type(e).__name__)

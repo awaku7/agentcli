@@ -16,20 +16,25 @@ Note:
 """
 
 from __future__ import annotations
-from .i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
-
 
 import json
 import os
 from collections import defaultdict
 from typing import Any, Dict, List, Tuple, TypedDict
 
+from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
+
+_ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:find_large_files"
+
+
+def _json_err(message: str, **extra: Any) -> str:
+    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj.update(extra)
+    return json.dumps(obj, ensure_ascii=False)
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -109,31 +114,29 @@ class _ExtOut(TypedDict):
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    root = str(args.get("root") or ".")
-    top_n = int(args.get("top_n") or 30)
-    min_bytes = int(args.get("min_bytes") or 10_000_000)
-    group_by_ext = bool(args.get("group_by_ext", True))
-    exclude_dirs = args.get("exclude_dirs", []) or []
-    max_files = int(args.get("max_files") or 200000)
+    try:
+        root = str(args.get("root") or ".")
+        top_n = int(args.get("top_n") or 30)
+        min_bytes = int(args.get("min_bytes") or 10_000_000)
+        group_by_ext = bool(args.get("group_by_ext", True))
+        exclude_dirs = args.get("exclude_dirs", []) or []
+        max_files = int(args.get("max_files") or 200000)
+    except Exception as e:
+        return _json_err(
+            f"[find_large_files error] invalid arguments: {e}",
+            exception=type(e).__name__,
+        )
 
     if is_path_dangerous(root):
-        return json.dumps(
-            {"ok": False, "error": f"dangerous root rejected: {root}"},
-            ensure_ascii=False,
-        )
+        return _json_err(f"dangerous root rejected: {root}")
 
     try:
         safe_root = ensure_within_workdir(root)
     except Exception as e:
-        return json.dumps(
-            {"ok": False, "error": f"root not allowed: {e}"}, ensure_ascii=False
-        )
+        return _json_err(f"root not allowed: {e}")
 
     if not os.path.isdir(safe_root):
-        return json.dumps(
-            {"ok": False, "error": f"root is not a directory: {safe_root}"},
-            ensure_ascii=False,
-        )
+        return _json_err(f"root is not a directory: {safe_root}")
 
     exclude_set = set(str(x) for x in exclude_dirs)
 
@@ -152,15 +155,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         for fn in filenames:
             scanned_files += 1
             if scanned_files > max_files:
-                return json.dumps(
-                    {
-                        "ok": False,
-                        "error": f"max_files exceeded: {max_files}",
-                        "safe_root": safe_root,
-                        "scanned_files": scanned_files,
-                        "skipped_dirs": skipped_dirs,
-                    },
-                    ensure_ascii=False,
+                return _json_err(
+                    f"max_files exceeded: {max_files}",
+                    safe_root=safe_root,
+                    scanned_files=scanned_files,
+                    skipped_dirs=skipped_dirs,
                 )
 
             p = os.path.join(dirpath, fn)
