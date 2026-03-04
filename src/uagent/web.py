@@ -674,6 +674,9 @@ def main():
             workdir_source=decision.chosen_source,
         )
         print(banner, end="")
+        # Fail-fast env validation (aggregate missing vars)
+        _runtime_init.validate_or_exit_startup_env(context="web")
+
     except Exception as e:
         print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
         sys.exit(1)
