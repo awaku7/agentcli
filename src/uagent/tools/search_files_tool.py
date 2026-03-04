@@ -2,18 +2,26 @@
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
-
 import fnmatch
+import json
 import os
 import re
 from typing import Any, Dict, List, Optional
 
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
 # Mark as busy while running
 BUSY_LABEL = True
 STATUS_LABEL = "tool:search_files"
+
+
+def _json_err(message: str, **extra: Any) -> str:
+    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj.update(extra)
+    return json.dumps(obj, ensure_ascii=False)
+
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -276,133 +284,145 @@ def _grep_text_streaming(
 def run_tool(args: Dict[str, Any]) -> str:
     """Run file search."""
 
-    root_path = args.get("root_path") or "."
-    name_pattern = args.get("name_pattern") or "*"
-    content_pattern = args.get("content_pattern", "")
-    case_sensitive = args.get("case_sensitive", False)
-    max_results = args.get("max_results", 50)
-    exclude_binary = bool(args.get("exclude_binary", True))
-    binary_sniff_bytes = int(args.get("binary_sniff_bytes", 8192))
-    fast_read_threshold_bytes = int(args.get("fast_read_threshold_bytes", 8_000_000))
-
-    # Normalize max_results
     try:
-        max_results = int(max_results)
-    except Exception:
-        max_results = 50
+        root_path = args.get("root_path") or "."
+        name_pattern = args.get("name_pattern") or "*"
+        content_pattern = args.get("content_pattern", "")
+        case_sensitive = args.get("case_sensitive", False)
+        max_results = args.get("max_results", 50)
+        exclude_binary = bool(args.get("exclude_binary", True))
+        binary_sniff_bytes = int(args.get("binary_sniff_bytes", 8192))
+        fast_read_threshold_bytes = int(
+            args.get("fast_read_threshold_bytes", 8_000_000)
+        )
 
-    if not os.path.exists(root_path):
-        return _(
-            "err.dir_not_exist",
-            default="[search_files error] Directory does not exist: {path}",
-        ).format(path=root_path)
-
-    # Compile content regex if provided
-    regex: Optional[re.Pattern[str]] = None
-    compiled_pattern_for_log = content_pattern
-
-    if content_pattern:
-        flags = 0 if case_sensitive else re.IGNORECASE
-
-        normalized_pattern = _normalize_newline_tokens_in_pattern(content_pattern)
-        compiled_pattern_for_log = normalized_pattern
-
+        # Normalize max_results
         try:
-            regex = re.compile(normalized_pattern, flags)
-        except re.error as e:
-            return _(
-                "err.regex_compile",
-                default="[search_files error] Failed to compile regex: {error}",
-            ).format(error=str(e))
+            max_results = int(max_results)
+        except Exception:
+            max_results = 50
 
-    results = []
-    count = 0
-    truncated = False
+        if not os.path.exists(root_path):
+            msg = _(
+                "err.dir_not_exist",
+                default="[search_files error] Directory does not exist: {path}",
+            ).format(path=root_path)
+            return _json_err(msg, root_path=root_path)
 
-    import sys
+        # Compile content regex if provided
+        regex: Optional[re.Pattern[str]] = None
+        compiled_pattern_for_log = content_pattern
 
-    print(
-        f"[search_files] root='{root_path}', name='{name_pattern}', grep='{compiled_pattern_for_log}'",
-        file=sys.stderr,
-    )
+        if content_pattern:
+            flags = 0 if case_sensitive else re.IGNORECASE
 
-    for dirpath, dirnames, filenames in os.walk(root_path):
-        # Filter excluded directories by mutating dirnames in-place.
-        dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS]
+            normalized_pattern = _normalize_newline_tokens_in_pattern(content_pattern)
+            compiled_pattern_for_log = normalized_pattern
 
-        for fname in filenames:
-            if os.path.splitext(fname)[1].lower() in IGNORE_EXTS:
-                continue
+            try:
+                regex = re.compile(normalized_pattern, flags)
+            except re.error as e:
+                msg = _(
+                    "err.regex_compile",
+                    default="[search_files error] Failed to compile regex: {error}",
+                ).format(error=str(e))
+                return _json_err(msg)
 
-            if not fnmatch.fnmatch(fname, name_pattern):
-                continue
+        results = []
+        count = 0
+        truncated = False
 
-            full_path = os.path.join(dirpath, fname)
+        import sys
 
-            # Content filtering
-            matched_lines: List[str] = []
-            if regex is not None:
-                try:
-                    with open(full_path, "rb") as bf:
-                        head = bf.read(binary_sniff_bytes)
-                    if exclude_binary and _looks_binary(head):
-                        continue
+        print(
+            f"[search_files] root='{root_path}', name='{name_pattern}', grep='{compiled_pattern_for_log}'",
+            file=sys.stderr,
+        )
 
-                    # Choose strategy based on file size
-                    size = os.path.getsize(full_path)
-                    if size < fast_read_threshold_bytes:
-                        matched_lines = _grep_text_full_read(
-                            full_path, regex, max_hits_per_file=5
-                        )
-                    else:
-                        matched_lines = _grep_text_streaming(
-                            full_path, regex, max_hits_per_file=5
-                        )
+        for dirpath, dirnames, filenames in os.walk(root_path):
+            # Filter excluded directories by mutating dirnames in-place.
+            dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS]
 
-                    if not matched_lines:
-                        continue
-                except Exception:
-                    # Skip unreadable files
+            for fname in filenames:
+                if os.path.splitext(fname)[1].lower() in IGNORE_EXTS:
                     continue
 
-            rel = os.path.relpath(full_path, root_path)
-            if matched_lines:
-                results.append({"file": rel, "matches": matched_lines})
-            else:
-                results.append({"file": rel})
+                if not fnmatch.fnmatch(fname, name_pattern):
+                    continue
 
-            count += 1
-            if count >= max_results:
-                truncated = True
+                full_path = os.path.join(dirpath, fname)
+
+                # Content filtering
+                matched_lines: List[str] = []
+                if regex is not None:
+                    try:
+                        with open(full_path, "rb") as bf:
+                            head = bf.read(binary_sniff_bytes)
+                        if exclude_binary and _looks_binary(head):
+                            continue
+
+                        # Choose strategy based on file size
+                        size = os.path.getsize(full_path)
+                        if size < fast_read_threshold_bytes:
+                            matched_lines = _grep_text_full_read(
+                                full_path, regex, max_hits_per_file=5
+                            )
+                        else:
+                            matched_lines = _grep_text_streaming(
+                                full_path, regex, max_hits_per_file=5
+                            )
+
+                        if not matched_lines:
+                            continue
+                    except Exception:
+                        # Skip unreadable files
+                        continue
+
+                rel = os.path.relpath(full_path, root_path)
+                if matched_lines:
+                    results.append({"file": rel, "matches": matched_lines})
+                else:
+                    results.append({"file": rel})
+
+                count += 1
+                if count >= max_results:
+                    truncated = True
+                    break
+
+            if truncated:
                 break
 
-        if truncated:
-            break
-
-    if not results:
-        return _(
-            "out.no_match", default="[search_files] No files matched the criteria."
-        )
-
-    # Human-readable output (kept for compatibility with existing consumers)
-    out_lines: List[str] = []
-    if truncated:
-        out_lines.append(
-            _(
-                "out.found_truncated",
-                default="[search_files] Found {n} results (truncated to {max_results})",
-            ).format(n=len(results), max_results=max_results)
-        )
-    else:
-        out_lines.append(
-            _("out.found", default="[search_files] Found {n} results").format(
-                n=len(results)
+        if not results:
+            return _(
+                "out.no_match", default="[search_files] No files matched the criteria."
             )
+
+        # Human-readable output (kept for compatibility with existing consumers)
+        out_lines: List[str] = []
+        if truncated:
+            out_lines.append(
+                _(
+                    "out.found_truncated",
+                    default="[search_files] Found {n} results (truncated to {max_results})",
+                ).format(n=len(results), max_results=max_results)
+            )
+        else:
+            out_lines.append(
+                _("out.found", default="[search_files] Found {n} results").format(
+                    n=len(results)
+                )
+            )
+
+        for r in results[:max_results]:
+            out_lines.append(
+                _("out.file", default="File: {file}").format(file=r["file"])
+            )
+            for m in r.get("matches", [])[:10]:
+                out_lines.append(f"  {m}")
+
+        return "\n".join(out_lines)
+
+    except Exception as e:
+        return _json_err(
+            f"[search_files error] {type(e).__name__}: {e}", exception=type(e).__name__
         )
-
-    for r in results[:max_results]:
-        out_lines.append(_("out.file", default="File: {file}").format(file=r["file"]))
-        for m in r.get("matches", [])[:10]:
-            out_lines.append(f"  {m}")
-
-    return "\n".join(out_lines)
