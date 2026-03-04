@@ -47,9 +47,8 @@ TOOL_SPEC: Dict[str, Any] = {
                 "This tool is used to run Git commands.\n"
                 "\n"
                 "Important: args must not include shell metacharacters. For safety, any argument containing the "
-                "following characters/sequences will be rejected: ; && || | > < `\n"
-                "In particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\n"
-                "Examples: NG: Fix X; do Y / OK: Fix X, then do Y\n"
+                "following characters/sequences will be rejected: && || | > < `\n"
+                "For git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
                 "\n"
                 "Return value: This tool always returns JSON with ok/returncode/stdout/stderr."
             ),
@@ -209,8 +208,33 @@ def run_git_command(args: List[str], timeout_sec: int = 30) -> Dict[str, Any]:
         }
 
 
+def _sanitize_commit_message_args(args: List[str]) -> List[str]:
+    """Replace ';' with ',' only inside commit message values.
+
+    We keep rejecting shell metacharacters in general, but allow ';' in
+    `git commit -m <msg>` by sanitizing it. This is a convenience feature
+    for users who use ';' as a separator in commit messages.
+    """
+    out: List[str] = []
+    i = 0
+    while i < len(args):
+        a = args[i]
+        if a == "-m" and i + 1 < len(args):
+            out.append(a)
+            out.append(args[i + 1].replace(";", ","))
+            i += 2
+            continue
+        if a.startswith("--message="):
+            out.append("--message=" + a[len("--message=") :].replace(";", ","))
+            i += 1
+            continue
+        out.append(a)
+        i += 1
+    return out
+
+
 def _validate_no_shell_metacharacters(args: List[str]) -> None:
-    bad = [";", "&&", "||", "|", ">", "<", "`"]
+    bad = ["&&", "||", "|", ">", "<", "`"]
     for a in args:
         for b in bad:
             if b in a:
@@ -248,9 +272,9 @@ def _ensure_allowed_flags(
 
         if opt in deny_exact:
             _reject(
-                _(
-                    "error.option_denied", default="Disallowed option is present: {opt}"
-                ).format(opt=opt)
+                _("error.option_denied", default="Disallowed option is present: {opt}").format(
+                    opt=opt
+                )
             )
 
         for p in deny_prefixes:
@@ -408,9 +432,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ),
                 allow_danger=allow_danger,
             )
-            if not any(
-                a.startswith("-n") or a.startswith("--max-count") for a in cmd_args
-            ):
+            if not any(a.startswith("-n") or a.startswith("--max-count") for a in cmd_args):
                 cmd_args = ["-n", "10"] + cmd_args
             payload = run_git_command(["log"] + cmd_args)
             return json.dumps(payload, ensure_ascii=False)
@@ -420,6 +442,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         # --------------------
         # For remaining commands, keep flag restrictions conservative but not overly strict.
         # (Existing behavior was already a large allowlist; we keep that approach.)
+        # Allow ';' inside commit message values by sanitizing it, but keep rejecting
+        # other shell metacharacters everywhere.
+        if command == "commit":
+            cmd_args = _sanitize_commit_message_args(cmd_args)
+
         _validate_no_shell_metacharacters(cmd_args)
 
         payload = run_git_command([command] + cmd_args)

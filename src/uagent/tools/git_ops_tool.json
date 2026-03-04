@@ -1,6 +1,11 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: ; && || | > < `\nIn particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\nExamples: NG: Fix X; do Y / OK: Fix X, then do Y\n",
+    "tool.system_prompt": "This tool is used to run Git commands.
+
+Important: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `
+For git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).
+",
+
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "param.args.description": "List of arguments passed to the Git command.",
     "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
