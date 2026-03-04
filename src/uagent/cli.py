@@ -720,7 +720,9 @@ def main() -> None:
             # Ensure captured startup logs are shown before exit.
             # Do NOT rely on pager here: some environments may suppress it.
             try:
-                combined = _startup_capture_out.getvalue() + _startup_capture_err.getvalue()
+                combined = (
+                    _startup_capture_out.getvalue() + _startup_capture_err.getvalue()
+                )
                 if combined:
                     sys.__stderr__.write(combined)
                     try:
