@@ -5,12 +5,11 @@ from __future__ import annotations
 
 import argparse
 import os
-import re
 import sys
 import threading
 from dataclasses import dataclass
 from queue import Empty as QueueEmpty
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 # DPI警告とクラッシュ防止
 os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false"
@@ -22,14 +21,10 @@ from .i18n import _
 
 from . import core as core
 from . import tools
-from .welcome import get_welcome_message
 from . import runtime_init as _runtime_init
 
 from .util_tools import (
-    extract_image_paths,
-    image_file_to_data_url,
     build_long_memory_system_message,
-    append_result_to_outfile,
     handle_command,
     build_initial_messages,
 )

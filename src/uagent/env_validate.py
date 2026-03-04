@@ -73,7 +73,11 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
 
         # Candidate requirements for each provider (displayed only when provider is missing).
         missing += _require(
-            ["UAGENT_AZURE_BASE_URL", "UAGENT_AZURE_API_KEY", "UAGENT_AZURE_API_VERSION"],
+            [
+                "UAGENT_AZURE_BASE_URL",
+                "UAGENT_AZURE_API_KEY",
+                "UAGENT_AZURE_API_VERSION",
+            ],
             reason="(azure) Required when using Azure OpenAI.",
         )
         missing += _require(
@@ -142,7 +146,9 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                 "Python package 'google-genai' is not installed. Provider=gemini requires it."
             )
     elif provider == "claude":
-        missing += _require(["UAGENT_CLAUDE_API_KEY"], reason="Anthropic (Claude) API key.")
+        missing += _require(
+            ["UAGENT_CLAUDE_API_KEY"], reason="Anthropic (Claude) API key."
+        )
         try:
             from anthropic import Anthropic as _Anthropic  # noqa: F401
         except Exception:
@@ -178,8 +184,14 @@ def format_missing_env_message(
 
     lines.append("")
     lines.append("How to fix:")
-    lines.append("- Set the variables above in your environment before starting the program.")
-    lines.append("- You can set them via your OS environment settings, a .env file, your shell startup scripts,")
-    lines.append("  or your process manager / service configuration (CI secrets, systemd, Docker, etc.).")
+    lines.append(
+        "- Set the variables above in your environment before starting the program."
+    )
+    lines.append(
+        "- You can set them via your OS environment settings, a .env file, your shell startup scripts,"
+    )
+    lines.append(
+        "  or your process manager / service configuration (CI secrets, systemd, Docker, etc.)."
+    )
 
     return "\n".join(lines) + "\n"
