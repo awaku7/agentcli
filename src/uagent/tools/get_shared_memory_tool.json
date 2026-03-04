@@ -4,6 +4,7 @@
   },
   "ja": {
     "tool.description": "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。\n- 通常は JSONL 形式（1行1レコード）のテキストを返します。\n- 共有メモリが無効な場合やファイルが存在しない場合は、その旨を示す文字列を返します。\n- 出力サイズは内部で上限バイト数までに自動トリミングされます。",
-    "doc.run_tool": "tools/__init__.py から呼ばれるエントリポイント。get_shared_memory 用の実装。"
+    "doc.run_tool": "tools/__init__.py から呼ばれるエントリポイント。get_shared_memory 用の実装。",
+    "tool.system_prompt": "（日本語）This ツール executes the functionality described in TOOL_SPEC."
   }
 }
