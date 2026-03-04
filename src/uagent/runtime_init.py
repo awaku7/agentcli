@@ -15,6 +15,7 @@ Key functions:
 - decide_workdir(...): compute chosen workdir and perform safety checks.
 - apply_workdir(...): actually create/chdir.
 - build_startup_banner(...): build human-readable startup info lines.
+- validate_or_exit_startup_env(...): fail-fast env var validation (prints + exits).
 
 Security:
 - Never include secrets (API keys) in banner.
@@ -24,9 +25,12 @@ Security:
 from __future__ import annotations
 
 import os
+import sys
 from dataclasses import dataclass
-from .i18n import _
 from typing import Any, Dict, List, Optional
+
+from .env_validate import format_missing_env_message, validate_startup_env
+from .i18n import _
 
 
 @dataclass(frozen=True)
@@ -75,6 +79,38 @@ def apply_workdir(decision: WorkdirDecision) -> None:
 
     os.makedirs(decision.chosen_expanded, exist_ok=True)
     os.chdir(decision.chosen_expanded)
+
+
+def validate_or_exit_startup_env(*, context: str) -> None:
+    """Validate required env vars at startup; print all missing items then exit.
+
+    Rationale:
+      util_providers.detect_provider/make_client currently exit with the first
+      problem they hit. This helper aggregates missing env vars and shows a
+      single actionable message.
+
+    Notes:
+      - Never prints secret values.
+      - Exits with code 2 when missing is detected.
+    """
+
+    provider, missing, warnings = validate_startup_env()
+
+    if missing:
+        msg = format_missing_env_message(
+            missing=missing, warnings=warnings, context=context
+        )
+        sys.__stderr__.write(msg)
+        try:
+            sys.__stderr__.flush()
+        except Exception:
+            pass
+        sys.exit(2)
+
+    # Warnings are non-fatal; show them once at startup.
+    if warnings:
+        for w in warnings:
+            print(f"[WARN] {w}", file=sys.stderr)
 
 
 def _normalize_url(core: Any, url: str) -> str:

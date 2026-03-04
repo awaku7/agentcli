@@ -848,6 +848,9 @@ def main():
     )
     print(banner, end="")
 
+    # Fail-fast env validation (aggregate missing vars)
+    _runtime_init.validate_or_exit_startup_env(context="gui")
+
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
     model = ""
 
