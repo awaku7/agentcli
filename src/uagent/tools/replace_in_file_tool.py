@@ -127,13 +127,12 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.expand_newline_tokens.description",
                         default=(
-                            "If true (default), expands newline tokens (\r\n/\r/\n) into real newlines for matching/replacement. "
+                            "If true (default), expands newline tokens (\\r\\n/\\r/\\n) into real newlines for matching/replacement. "
                             "If false, treats them as literal characters (e.g., the two characters \\ and n)."
                         ),
                     ),
                     "default": True,
                 },
->>>>>>> eb0e5e2 (style: ruff/black)
                 "path": {
                     "type": "string",
                     "description": _(
@@ -260,9 +259,13 @@ def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> Non
 def _expand_newline_tokens_to_lf(s: str) -> str:
     """Expand user-provided newline tokens and normalize to LF.
 
-    Supports BOTH:
-    - JSON/CLI escaped sequences (literal backslash tokens): "\\n", "\\r", "\\r\\n"
-    - Pasted real newlines (actual '\n' or '\r')
+    Supports BOTH token styles:
+    - Single-backslash tokens as used by JSON-decoded strings / typical tool callers:
+      "\\n", "\\r", "\\r\\n"
+    - Double-backslash tokens (if callers escaped backslashes twice):
+      "\\\\n", "\\\\r", "\\\\r\\\\n"
+
+    Also supports pasted real newlines (actual '\n' or '\r').
 
     Output is normalized to LF ("\n").
     """
@@ -271,13 +274,22 @@ def _expand_newline_tokens_to_lf(s: str) -> str:
     cr = chr(13)
     crlf = cr + lf
 
-    # 1) Literal backslash tokens
+    # 1) Expand literal backslash tokens (single backslash)
+    s = s.replace("\\r\\n", crlf).replace("\\r", cr).replace("\\n", lf)
+
+    # 2) Expand double-escaped tokens (two backslashes in the string)
     s = s.replace(r"\\r\\n", crlf).replace(r"\\r", cr).replace(r"\\n", lf)
 
-    # 2) Actual newlines
+    # 3) Normalize any actual newlines
     s = s.replace(crlf, lf).replace(cr, lf)
 
     return s
+
+
+def _normalize_text_to_lf(s: str) -> str:
+    """Normalize any newlines in a text to LF."""
+
+    return s.replace("\r\n", "\n").replace("\r", "\n")
 
 
 @dataclass
@@ -435,26 +447,42 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         pat = _expand_newline_tokens_to_lf(str(pattern))
         rep = _expand_newline_tokens_to_lf(str(replacement))
 
-        occ = original.count(pat)
+        # Normalize file content to LF for stable cross-OS matching.
+        original_norm = _normalize_text_to_lf(original)
+
+        occ = original_norm.count(pat)
         if count is None:
             match_count = occ
-            replaced = original.replace(pat, rep)
+            replaced_norm = original_norm.replace(pat, rep)
         else:
             limit = int(count)
             if limit < 0:
                 limit = 0
             match_count = min(occ, limit)
-            replaced = original.replace(pat, rep, limit)
+            replaced_norm = original_norm.replace(pat, rep, limit)
+
+        replaced = replaced_norm
 
     elif mode == "regex":
         try:
-            replaced, n = re.subn(
-                str(pattern),
-                str(replacement),
-                original,
+            pat_raw = str(pattern)
+            rep_raw = str(replacement)
+            if expand_newline_tokens:
+                pat_raw = _expand_newline_tokens_to_lf(pat_raw)
+                rep_raw = _expand_newline_tokens_to_lf(rep_raw)
+
+            # Normalize file content to LF for stable cross-OS matching.
+            original_norm = _normalize_text_to_lf(original)
+
+            replaced_norm, n = re.subn(
+                pat_raw,
+                rep_raw,
+                original_norm,
                 count=0 if count is None else int(count),
             )
             match_count = int(n)
+
+            replaced = replaced_norm
         except re.error as e:
             return json.dumps(
                 {"ok": False, "error": f"invalid regex: {e}"}, ensure_ascii=False
@@ -466,7 +494,8 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
     diff = _unified_diff(path_in, original, replaced)
 
     # No-op: avoid touching the file (mtime churn) and avoid creating a backup.
-    if original == replaced:
+    # Note: compare against normalized original so CRLF->LF normalization alone does not count as a change.
+    if _normalize_text_to_lf(original) == replaced:
         return json.dumps(
             {
                 "ok": True,
@@ -536,9 +565,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         )
 
     backup = make_backup_before_overwrite(abs_path)
-    _write_text_robust(
-        abs_path, replaced, encoding=encoding_used, newline=detected_newline
-    )
+    _write_text_robust(abs_path, replaced, encoding=encoding_used, newline=detected_newline)
 
     return json.dumps(
         {
