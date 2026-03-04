@@ -1,11 +1,6 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used to run Git commands.
-
-Important: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `
-For git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).
-",
-
+    "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n",
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "param.args.description": "List of arguments passed to the Git command.",
     "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
@@ -28,27 +23,27 @@ For git commit messages, ';' is automatically replaced with ',' (only inside -m/
   },
   "ja": {
     "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",
-    "doc.module": "scheck tool: git_ops\n\n安全第一で Git の主要操作を提供します。\n\nこのツールは「日常操作をできるだけ tool 経由で完結させる」ことを目的にしています。\n一方で、Git は破壊的操作や外部への書き込み（push）を簡単に実行できるため、\n以下の方針で厳しめに制限します。\n\n設計方針（重要）\n- 対話を伴う操作を避ける\n  - PAGER/EDITOR を無効化\n  - commit/merge は --no-edit を付与（できる限り）\n  - 資格情報入力を避けるため GIT_TERMINAL_PROMPT=0\n- 危険操作はデフォルト禁止\n  - 例: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 等\n- それでも必要な場合のみ allow_danger=true を明示して実行可能にする\n  - ただし「事故率が高い/取り返しがつきにくい」ものは allow_danger でも禁止する\n- 引数は「許可リスト」方式\n  - すべてのオプション（-x / --xxx）を網羅許可せず、用途に応じて明示許可\n  - 明らかなメタ文字（; && || | > < `）を含む引数は拒否\n\n注意\n- このツールは git の全機能を無制限に提供するものではありません。\n- 設計上、安全性を優先して「できない」操作があります。",
+    "doc.module": "scheck tool: git_ops\n\n安全第一で Git の主要操作を提供します。\n\nこのツールは「日常操作をできるだけ tool 経由で完結させる」ことを目的にしています。\n一方で、Git は破壊的操作や外部への書き込み（push）を簡単に実行できるため、\n以下の方針で厳しめに制限します。\n\n設計方針（重要）\n- 対話を伴う操作を避ける\n  - PAGER/EDITOR を無効化\n  - commit/merge は --no-edit を付与（できる限り）\n  - 資格情報入力を避けるため GIT_TERMINAL_PROMPT=0\n- 危険操作はデフォルト禁止\n  - 例: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 等\n- それでも必要な場合のみ allow_danger=true を明示して実行可能にする\n  - ただし「事故率が高い/取り返しがつきにくい」ものは allow_danger でも禁止する\n- 引数は「許可リスト」方式\n  - すべてのオプション（-x / --xxx）を網羅許可せず、用途に応じて明示許可\n  - 明らかなメタ文字（&& || | > < `）を含む引数は拒否\n\n注意\n- このツールは git の全機能を無制限に提供するものではありません。\n- 設計上、安全性を優先して「できない」操作があります。",
     "doc.run_tool": "Git操作ツール（安全第一）。",
-    "tool.system_prompt": "（日本語）This ツール is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: ; && || | > < `\nIn particular, a git commit -m message containing ';' will be rejected. Use ',' or ':' as separators instead.\nExamples: NG: Fix X; do Y / OK: Fix X, then do Y\n",
-    "param.command.description": "（日本語）Git subcommand to run (safety-first restrictions apply).",
-    "param.args.description": "（日本語）List of arguments passed to the Git command.",
-    "param.allow_danger.description": "（日本語）〜するかどうか allow dangerous 操作s (既定 false). Example: push --force, reset --hard.",
-    "error.command_failed": "（日本語）[git_ops error] command failed (code={code}):\n{output}",
-    "error.git_not_found": "（日本語）[git_ops error] git command not found. Please ensure Git is installed.",
-    "error.timeout": "（日本語）[git_ops error] command timed out.",
-    "error.unexpected": "（日本語）[git_ops error] unexpected error: {error}",
-    "error.meta_char": "（日本語）Dangerous metacharacter is not allowed in args: {arg}",
-    "error.path_outside_workdir": "（日本語）Disallowed path (outside workdir): {path}",
-    "error.option_denied": "（日本語）Disallowed option is present: {opt}",
-    "error.option_danger_requires_allow_danger": "（日本語）Dangerous option requires allow_danger=true: {opt}",
-    "error.option_not_allowed": "（日本語）Unallowed option is present: {opt}",
-    "error.invalid_command": "（日本語）[git_ops error] unsupported or invalid command: {command}",
-    "error.add_requires_path": "（日本語）[git_ops error] git add requires a target path ('.' is allowed).",
-    "error.commit_requires_message": "（日本語）[git_ops error] Commit message is required. Include ['-m','message'] in args.",
-    "error.remote_change_requires_allow_danger": "（日本語）[git_ops error] Changing remotes requires allow_danger=true.",
-    "error.rebase_requires_allow_danger": "（日本語）[git_ops error] rebase is dangerous and requires allow_danger=true.",
-    "error.rebase_onto_forbidden": "（日本語）[git_ops error] rebase --onto is forbidden because it is error-prone.",
-    "error.internal_unknown": "（日本語）[git_ops error] unknown internal error"
+    "tool.system_prompt": "Gitコマンドを実行します（安全のための制限あり）。\n\n重要: args にシェルのメタ文字を含めないでください。安全のため、次の文字/シーケンスを含む引数は拒否されます: && || | > < `\ngit commit のメッセージ内の ';' は ',' に自動置換されます（-m/--message の値の中のみ）。\n",
+    "param.command.description": "実行する Git サブコマンド（安全のため制限あり）。",
+    "param.args.description": "Git コマンドに渡す引数のリスト。",
+    "param.allow_danger.description": "危険な操作を許可するか（既定: false）。例: push --force, reset --hard",
+    "error.command_failed": "[git_ops error] command failed (code={code}):\n{output}",
+    "error.git_not_found": "[git_ops error] git command not found. Please ensure Git is installed.",
+    "error.timeout": "[git_ops error] command timed out.",
+    "error.unexpected": "[git_ops error] unexpected error: {error}",
+    "error.meta_char": "Dangerous metacharacter is not allowed in args: {arg}",
+    "error.path_outside_workdir": "Disallowed path (outside workdir): {path}",
+    "error.option_denied": "Disallowed option is present: {opt}",
+    "error.option_danger_requires_allow_danger": "Dangerous option requires allow_danger=true: {opt}",
+    "error.option_not_allowed": "Unallowed option is present: {opt}",
+    "error.invalid_command": "[git_ops error] unsupported or invalid command: {command}",
+    "error.add_requires_path": "[git_ops error] git add requires a target path ('.' is allowed).",
+    "error.commit_requires_message": "[git_ops error] Commit message is required. Include ['-m','message'] in args.",
+    "error.remote_change_requires_allow_danger": "[git_ops error] Changing remotes requires allow_danger=true.",
+    "error.rebase_requires_allow_danger": "[git_ops error] rebase is dangerous and requires allow_danger=true.",
+    "error.rebase_onto_forbidden": "[git_ops error] rebase --onto is forbidden because it is error-prone.",
+    "error.internal_unknown": "[git_ops error] unknown internal error"
   }
 }
