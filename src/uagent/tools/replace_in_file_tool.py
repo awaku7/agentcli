@@ -422,6 +422,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
     replacement = args.get("replacement")
     count = args.get("count", None)
     preview = bool(args.get("preview", True))
+    expand_newline_tokens = bool(args.get("expand_newline_tokens", True))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
 
@@ -444,8 +445,12 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
 
     # Apply
     if mode == "literal":
-        pat = _expand_newline_tokens_to_lf(str(pattern))
-        rep = _expand_newline_tokens_to_lf(str(replacement))
+        if expand_newline_tokens:
+            pat = _expand_newline_tokens_to_lf(str(pattern))
+            rep = _expand_newline_tokens_to_lf(str(replacement))
+        else:
+            pat = str(pattern)
+            rep = str(replacement)
 
         # Normalize file content to LF for stable cross-OS matching.
         original_norm = _normalize_text_to_lf(original)
