@@ -30,9 +30,7 @@ def _import_run_tool(tool_module_basename: str):
             raise AttributeError(f"{modname} has no callable run_tool")
         except Exception as e:  # noqa: BLE001
             last_exc = e
-    raise ImportError(
-        f"Could not import run_tool for {tool_module_basename}: {last_exc!r}"
-    )
+    raise ImportError(f"Could not import run_tool for {tool_module_basename}: {last_exc!r}")
 
 
 def _loads(s: str) -> dict:
@@ -96,6 +94,108 @@ def test_search_files_errors_on_invalid_regex(repo_tmp_path: Path) -> None:
 def test_replace_in_file_missing_required_keys() -> None:
     replace_in_file = _import_run_tool("replace_in_file")
     out = replace_in_file({"search": "a", "replace": "b"})
+    _assert_err_json(out)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {},
+        {"path": "x"},
+        {"path": "x", "mode": "literal"},
+        {"path": "x", "pattern": "a"},
+        {"path": "x", "replacement": "b"},
+        {"path": "x", "mode": "literal", "pattern": "a"},
+        {"path": "x", "mode": "literal", "replacement": "b"},
+    ],
+    ids=[
+        "empty",
+        "only_path",
+        "missing_pattern_replacement",
+        "missing_mode_replacement",
+        "missing_mode_pattern",
+        "missing_replacement",
+        "missing_pattern",
+    ],
+)
+def test_replace_in_file_rejects_incomplete_inputs(payload: dict) -> None:
+    """replace_in_file should reject missing required keys (schema-level or tool-level)."""
+
+    replace_in_file = _import_run_tool("replace_in_file")
+    out = replace_in_file(payload)
+    _assert_err_json(out)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "confirm_if_matches_over": "nope",
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "preview": "true",
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "count": "1",
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "expand_newline_tokens": "yes",
+        },
+    ],
+    ids=[
+        "confirm_if_matches_over_not_int",
+        "preview_not_bool",
+        "count_not_int",
+        "expand_newline_tokens_not_bool",
+    ],
+)
+def test_replace_in_file_rejects_wrong_types(payload: dict) -> None:
+    replace_in_file = _import_run_tool("replace_in_file")
+    out = replace_in_file(payload)
+    _assert_err_json(out)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "path": "x",
+            "mode": "nope",
+            "pattern": "a",
+            "replacement": "b",
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "encoding": "this-encoding-does-not-exist",
+        },
+    ],
+    ids=[
+        "invalid_mode",
+        "invalid_encoding",
+    ],
+)
+def test_replace_in_file_rejects_invalid_values(payload: dict) -> None:
+    replace_in_file = _import_run_tool("replace_in_file")
+    out = replace_in_file(payload)
     _assert_err_json(out)
 
 
