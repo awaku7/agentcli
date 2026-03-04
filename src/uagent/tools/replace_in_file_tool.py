@@ -523,7 +523,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
         if mode == "literal":
             match_hits = _build_match_hits_literal(original, pat)
         else:
-            match_hits = _build_match_hits_regex(original, str(pattern))
+            match_hits = _build_match_hits_regex(original, pat_raw)
 
         return json.dumps(
             {
