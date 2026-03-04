@@ -1,6 +1,5 @@
 import os
 import sys
-import threading
 import time
 from typing import Any, Tuple
 
@@ -130,7 +129,6 @@ def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float |
     return None
 
 
-
 def make_client(core: Any) -> Tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
@@ -160,6 +158,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
 
         http_client = None
         if httpx is not None:
+
             def _hook(resp: Any) -> None:
                 try:
                     status = getattr(resp, "status_code", None)
