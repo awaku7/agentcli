@@ -16,5 +16,21 @@
     "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'."
   },
-  "ja": {}
+  "ja": {
+    "param.action.description": "（日本語）",
+    "param.auto_page_breaks_dir.description": "（日本語）",
+    "param.density_min.description": "（日本語）",
+    "param.file_path.description": "（日本語）",
+    "param.format.description": "（日本語）",
+    "param.include_cell_links.description": "（日本語）",
+    "param.include_shapes.description": "（日本語）",
+    "param.mode.description": "（日本語）",
+    "param.output_path.description": "（日本語）",
+    "param.pretty.description": "（日本語）",
+    "param.print_areas_dir.description": "（日本語）",
+    "param.sheets_dir.description": "（日本語）",
+    "param.table_score_threshold.description": "（日本語）",
+    "tool.description": "（日本語）Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. If export_ファイル.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
+    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'exstruct'."
+  }
 }

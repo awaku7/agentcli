@@ -10,6 +10,9 @@
     "param.prefix.description": "保存するファイル名の接頭辞（デフォルト: debug_capture）",
     "ui.resume_prompt": "操作後、Inspectorの Resume (▷) を押してください。",
     "err.child_failed": "[playwright_inspector error] 子プロセスが失敗しました:\n{stderr}",
-    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}"
+    "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ を作成しました。\n{stdout}",
+    "ui.started": "（日本語）--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.captured": "（日本語）--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }

@@ -4,5 +4,9 @@
     "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
     "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
   },
-  "ja": {}
+  "ja": {
+    "param.command.description": "（日本語）",
+    "tool.description": "（日本語）As a last resort, execute a Windows command. Use only when no other appropriate ツール (例:, MCP) is available.",
+    "tool.system_prompt": "（日本語）This ツール is a LAST RESORT. Use only if no other appropriate ツール is available."
+  }
 }

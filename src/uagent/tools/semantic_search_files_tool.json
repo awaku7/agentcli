@@ -20,6 +20,8 @@
     "param.query.description": "検索キーワード。",
     "param.root_path.description": "検索対象directory。",
     "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
-    "param.top_k.description": "件数。"
+    "param.top_k.description": "件数。",
+    "err.disabled": "（日本語）[ツールs] semantic_search_ファイルs is disabled: Embedding API is unreachable.\n[ツールs] EMBEDDING_API_URL={url}\n[ツールs] healthcheck={hc_url}\n[ツールs] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the ツール visible.\n",
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }

@@ -7,5 +7,12 @@
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'delete_file'."
   },
-  "ja": {}
+  "ja": {
+    "confirm.delete_path": "（日本語）",
+    "param.filename.description": "（日本語）",
+    "param.missing_ok.description": "（日本語）",
+    "param.path.description": "（日本語）",
+    "tool.description": "（日本語）削除します the specified ファイル or ディレクトリ (ディレクトリ are deleted recursively). Because this is dangerous, confirmation may be required.",
+    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'delete_ファイル'."
+  }
 }
