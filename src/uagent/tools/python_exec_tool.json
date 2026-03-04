@@ -4,5 +4,9 @@
     "tool.description": "Execute Python code. Use this tool for calculations, data processing, or running short scripts—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
     "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
   },
-  "ja": {}
+  "ja": {
+    "param.code.description": "（日本語）",
+    "tool.description": "（日本語）実行します Python code. Use this ツール for calculations, data processing, or running short scripts—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
+    "tool.system_prompt": "（日本語）実行します Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this ツール.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
+  }
 }

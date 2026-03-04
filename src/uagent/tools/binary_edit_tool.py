@@ -41,55 +41,55 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "path": {"type": "string", "description": "Target file path."},
+                "path": {"type": "string", "description": _("param.path.description", default="Target file path.")},
                 "mode": {
                     "type": "string",
                     "enum": ["write", "replace", "splice", "apply_patch"],
-                    "description": "Edit mode.",
+                    "description": _("param.mode.description", default="Edit mode."),
                 },
                 "dry_run": {
                     "type": "boolean",
                     "default": False,
-                    "description": "If true, do not modify the file; only report what would change.",
+                    "description": _("param.dry_run.description", default="If true, do not modify the file; only report what would change."),
                 },
                 "max_bytes": {
                     "type": "integer",
                     "default": 200000000,
-                    "description": "Reject files larger than this size (bytes).",
+                    "description": _("param.max_bytes.description", default="Reject files larger than this size (bytes)."),
                 },
                 "offset": {
                     "type": "integer",
-                    "description": "Byte offset (0-based). Required for write/splice.",
+                    "description": _("param.offset.description", default="Byte offset (0-based). Required for write/splice."),
                 },
                 "data_hex": {
                     "type": "string",
-                    "description": "Hex string of bytes to write/insert (e.g. 'DEADBEEF' or 'DE AD BE EF').",
+                    "description": _("param.data_hex.description", default="Hex string of bytes to write/insert (e.g. 'DEADBEEF' or 'DE AD BE EF')."),
                 },
                 "search_hex": {
                     "type": "string",
-                    "description": "Hex string to search for (replace mode).",
+                    "description": _("param.search_hex.description", default="Hex string to search for (replace mode)."),
                 },
                 "replace_hex": {
                     "type": "string",
-                    "description": "Hex string to replace with (replace mode). Must be same length as search_hex unless allow_resize=true (not supported).",
+                    "description": _("param.replace_hex.description", default="Hex string to replace with (replace mode). Must be same length as search_hex unless allow_resize=true (not supported)."),
                 },
                 "occurrence": {
                     "type": "integer",
                     "default": 1,
-                    "description": "Which occurrence to replace (1-based). 0 means replace all occurrences (still requires same length).",
+                    "description": _("param.occurrence.description", default="Which occurrence to replace (1-based). 0 means replace all occurrences (still requires same length)."),
                 },
                 "splice_op": {
                     "type": "string",
                     "enum": ["insert", "delete"],
-                    "description": "Splice operation (splice mode).",
+                    "description": _("param.splice_op.description", default="Splice operation (splice mode)."),
                 },
                 "delete_len": {
                     "type": "integer",
-                    "description": "Number of bytes to delete (splice delete).",
+                    "description": _("param.delete_len.description", default="Number of bytes to delete (splice delete)."),
                 },
                 "patch_json": {
                     "type": "string",
-                    "description": "JSON string patch (apply_patch mode).",
+                    "description": _("param.patch_json.description", default="JSON string patch (apply_patch mode)."),
                 },
             },
             "required": ["path", "mode"],
