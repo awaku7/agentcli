@@ -122,6 +122,18 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
+                "expand_newline_tokens": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.expand_newline_tokens.description",
+                        default=(
+                            "If true (default), expands newline tokens (\r\n/\r/\n) into real newlines for matching/replacement. "
+                            "If false, treats them as literal characters (e.g., the two characters \\ and n)."
+                        ),
+                    ),
+                    "default": True,
+                },
+>>>>>>> eb0e5e2 (style: ruff/black)
                 "path": {
                     "type": "string",
                     "description": _(
