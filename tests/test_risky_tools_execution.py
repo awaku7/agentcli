@@ -30,17 +30,9 @@ def test_get_geoip_smoke() -> None:
 
 def test_fetch_url_smoke() -> None:
     out = fetch_url({"url": "https://example.com"})
-    payload = _loads(out)
-
-    if payload.get("ok") is True:
-        body = payload.get("body", "")
-        assert isinstance(body, str)
-        assert "example" in body.lower()
-        return
-
-    # Failure is acceptable (e.g., SSL/cert issues)
-    assert payload.get("ok") is False
-    assert payload.get("error")
+    # fetch_url は HTML 文字列を返す実装のため、JSON としては扱わない
+    assert isinstance(out, str)
+    assert "Example Domain" in out
 
 
 def test_search_web_smoke() -> None:
