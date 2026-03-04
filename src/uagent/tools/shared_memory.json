@@ -9,6 +9,9 @@
     "doc.get_file": "共有メモリファイルの絶対パス。無効時は空文字。",
     "doc.append": "共有長期記憶ファイルに1件追記。無効時は何もしない。",
     "doc.load_raw": "共有長期記憶(JSONL)の生データを返す。\n\n- 無効時: その旨のメッセージを返す\n- 未作成: (no shared memory yet)\n- 長い場合: max_bytes を超えない範囲に切り詰め、末尾に注記を付ける",
-    "doc.load_records": "共有長期記憶(JSONL)を list[dict] として読み込む。壊れた行はスキップ。"
+    "doc.load_records": "共有長期記憶(JSONL)を list[dict] として読み込む。壊れた行はスキップ。",
+    "msg.no_shared_memory": "（日本語）(no shared memory yet)",
+    "msg.truncated": "（日本語）\n[shared_memory truncated: limited to {max_bytes} bytes]",
+    "msg.disabled": "（日本語）(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)"
   }
 }
