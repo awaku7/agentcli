@@ -12,7 +12,6 @@ from .llm_errors import (
     _compute_retry_wait_seconds,
     _extract_retry_after,
     _is_rate_limit_error,
-    _log_rate_limit_debug,
 )
 from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters
 from .llm_claude import claude_chat_with_tools
