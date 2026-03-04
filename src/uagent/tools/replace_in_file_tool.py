@@ -122,6 +122,17 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
+                "expand_newline_tokens": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.expand_newline_tokens.description",
+                        default=(
+                            "If true (default), expands newline tokens (\r\n/\r/\n) into real newlines for matching/replacement. "
+                            "If false, treats them as literal characters (e.g., the two characters \\ and n)."
+                        ),
+                    ),
+                    "default": true,
+                },
                 "path": {
                     "type": "string",
                     "description": _(
@@ -398,6 +409,7 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
     replacement = args.get("replacement")
     count = args.get("count", None)
     preview = bool(args.get("preview", True))
+    expand_newline_tokens = bool(args.get("expand_newline_tokens", True))
     confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
     encoding = str(args.get("encoding") or "utf-8")
 
@@ -420,8 +432,12 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
 
     # Apply
     if mode == "literal":
-        pat = _expand_newline_tokens_to_lf(str(pattern))
-        rep = _expand_newline_tokens_to_lf(str(replacement))
+        if expand_newline_tokens:
+            pat = _expand_newline_tokens_to_lf(str(pattern))
+            rep = _expand_newline_tokens_to_lf(str(replacement))
+        else:
+            pat = str(pattern)
+            rep = str(replacement)
 
         occ = original.count(pat)
         if count is None:
@@ -436,9 +452,15 @@ def _run_tool_impl(args: Dict[str, Any]) -> str:
 
     elif mode == "regex":
         try:
+            pat_raw = str(pattern)
+            rep_raw = str(replacement)
+            if expand_newline_tokens:
+                pat_raw = _expand_newline_tokens_to_lf(pat_raw)
+                rep_raw = _expand_newline_tokens_to_lf(rep_raw)
+
             replaced, n = re.subn(
-                str(pattern),
-                str(replacement),
+                pat_raw,
+                rep_raw,
                 original,
                 count=0 if count is None else int(count),
             )
