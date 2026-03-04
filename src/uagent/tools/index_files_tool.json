@@ -18,6 +18,6 @@
     "out.success": "成功: {count} 件",
     "out.fail": "失敗: {count} 件",
     "out.footer": "\nこれで `semantic_search_files` を使用してこれらのファイルを検索できるようになりました。",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }
