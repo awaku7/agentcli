@@ -21,6 +21,10 @@
     "param.top_k_graph.description": "グラフ探索で回収する件数",
     "param.hops.description": "グラフ探索のホップ数",
     "param.chunk_size.description": "チャンクサイズ",
-    "param.overlap.description": "チャンクのオーバーラップ"
+    "param.overlap.description": "チャンクのオーバーラップ",
+    "out.db": "（日本語）DB: {db_path}",
+    "out.hits_summary": "（日本語）vector_hits: {v} / graph_hits: {g} / merged: {m}",
+    "out.results_title": "（日本語）\n[Results]",
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }
