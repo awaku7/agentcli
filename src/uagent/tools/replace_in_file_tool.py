@@ -131,7 +131,7 @@ TOOL_SPEC: Dict[str, Any] = {
                             "If false, treats them as literal characters (e.g., the two characters \\ and n)."
                         ),
                     ),
-                    "default": true,
+                    "default": True,
                 },
                 "path": {
                     "type": "string",
