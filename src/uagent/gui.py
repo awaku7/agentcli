@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""scheckgui.py - File-Buffered Extreme Stability Version"""
+"""gui.py - File-Buffered Extreme Stability Version"""
 
 from __future__ import annotations
 
@@ -48,25 +48,6 @@ except ImportError:
 
 THUMB_SIZE_PX = 96
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
-LOG_FILE = "gui_worker_session.log"
-
-
-class RedirectToLog:
-    def __init__(self, path: str, original_stream):
-        self.path = path
-        self.original_stream = original_stream
-
-    def write(self, data: str):
-        # Write to file (append)
-        try:
-            with open(self.path, "a", encoding="utf-8") as f:
-                f.write(data)
-        except Exception:
-            pass
-
-    def flush(self):
-        # Some code calls sys.stdout/stderr.flush(); keep it as a no-op for safety.
-        return
 
 
 @dataclass
@@ -115,7 +96,7 @@ class ScheckWorker(QtCore.QObject):
         self._depname = ""
 
     def _init_callbacks(self):
-        # GUIへの通知は行わず、coreの状態のみ更新（ログファイルに書かれる）
+        # GUIへの通知は行わず、coreの状態のみ更新
         cb = ToolCallbacks(
             set_status=core.set_status,
             get_env=core.get_env,
@@ -147,10 +128,8 @@ class ScheckWorker(QtCore.QObject):
 
     @QtCore.Slot()
     def run(self):
-        """メインループ。出力は既にグローバルにファイルへリダイレクトされている。"""
+        """メインループ。出力は標準の stdout/stderr に出す。"""
         try:
-            # 既にグローバルでリダイレクトされているが、個別のスレッドでも
-            # sys.stdout / sys.stderr を明示的に参照して処理を継続する
             self._init_callbacks()
 
             # Provider/client/model は util_make_client 側で一貫して決める。
@@ -172,8 +151,6 @@ class ScheckWorker(QtCore.QObject):
                 ).strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
-            # NOTE(Mode A): base_url/api_version and Responses/ChatCompletions mode
-            # are already shown by runtime_init.build_startup_banner() in gui.main().
 
             self.messages = build_initial_messages(core=core)
 
@@ -218,121 +195,20 @@ class ScheckWorker(QtCore.QObject):
                     if kind == "command":
                         handle_command(
                             ev.get("text", ""),
-                            self.messages,
-                            self._client,
-                            self._depname,
                             core=core,
+                            tools=tools,
+                            messages=self.messages,
+                            run_llm_rounds_fn=util_run_llm_rounds,
+                            client=self._client,
+                            depname=self._depname,
                         )
-                    elif kind in ("user", "timer", "gui_user"):
-                        text = ev.get("text", "")
 
-                        if kind == "gui_user":
-                            use_responses_api = os.environ.get(
-                                "UAGENT_RESPONSES", ""
-                            ).lower() in (
-                                "1",
-                                "true",
-                            )
-                            prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
-                            allow_multimodal = use_responses_api and prov in (
-                                "azure",
-                                "openai",
-                            )
+                    elif kind == "exit":
+                        break
 
-                            if allow_multimodal:
-                                # Build a multimodal user message (text + image_url(data URL)).
-                                # Safety: enforce max 10MB per image.
-                                parts: List[Dict[str, Any]] = [
-                                    {"type": "text", "text": text.strip()}
-                                ]
-
-                                for p in ev.get("images", []):
-                                    if not os.path.isfile(p):
-                                        continue
-                                    try:
-                                        data_url = image_file_to_data_url(
-                                            p, max_bytes=10_000_000
-                                        )
-                                        parts.append(
-                                            {
-                                                "type": "image_url",
-                                                "image_url": {"url": data_url},
-                                            }
-                                        )
-                                    except Exception as e:
-                                        # If an image can't be embedded, fall back to text note.
-                                        parts.append(
-                                            {
-                                                "type": "text",
-                                                "text": "[WARN] "
-                                                + (
-                                                    _(
-                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                                                    )
-                                                    % {
-                                                        "path": p,
-                                                        "etype": type(e).__name__,
-                                                        "err": e,
-                                                    }
-                                                ),
-                                            }
-                                        )
-
-                                m = {"role": "user", "content": parts}
-                                self.messages.append(m)
-                                core.log_message(m)
-
-                                util_run_llm_rounds(
-                                    self._provider,
-                                    self._client,
-                                    self._depname,
-                                    self.messages,
-                                    core=core,
-                                    make_client_fn=util_make_client,
-                                    append_result_to_outfile_fn=append_result_to_outfile,
-                                    try_open_images_from_text_fn=lambda _: None,
-                                )
-                                continue
-
-                            # Fallback: previous behavior (analyze_image tool -> text injection)
-                            for p in ev.get("images", []):
-                                if os.path.isfile(p):
-                                    core.set_status(True, "analyze_image")
-                                    res = self.tools.run_tool(
-                                        "analyze_image", {"image_path": p}
-                                    )
-                                    text += f"\n[Attached Image] {p}\n{res}"
-
-                        if text.strip():
-                            m = {"role": "user", "content": text.strip()}
-                            self.messages.append(m)
-                            core.log_message(m)
-                            util_run_llm_rounds(
-                                self._provider,
-                                self._client,
-                                self._depname,
-                                self.messages,
-                                core=core,
-                                make_client_fn=util_make_client,
-                                append_result_to_outfile_fn=append_result_to_outfile,
-                                try_open_images_from_text_fn=lambda _: None,
-                            )
                 except QueueEmpty:
                     continue
-                except Exception:
-                    try:
-                        # 既にリダイレクト下にあるため、ここでの print_exc は log_stream に行くが、
-                        # 念のためファイルに直接書く。
-                        with open(
-                            LOG_FILE, "a", encoding="utf-8", buffering=1
-                        ) as log_f:
-                            log_f.write("[ERROR] Worker exception:\n")
-                            import traceback
 
-                            traceback.print_exc(file=log_f)
-                    except Exception:
-                        pass
-                    continue
         finally:
             self.sig_finished.emit()
 
@@ -341,524 +217,106 @@ class ScheckWorker(QtCore.QObject):
 
 
 class MainWindow(QtWidgets.QMainWindow):
-
-    def _set_welcome_text(self) -> None:
-        try:
-            msg = get_welcome_message()
-        except Exception:
-            msg = ""
-        if not msg:
-            return
-        # Insert as preformatted text so ASCII art keeps alignment.
-        html = (
-            '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre;">'
-            + self._escape_html(msg)
-            + "</div><hr>"
-        )
-        try:
-            self._output.moveCursor(QtGui.QTextCursor.End)
-            self._output.insertHtml(html)
-            self._output.ensureCursorVisible()
-        except Exception:
-            pass
-
-    def _show_welcome_dialog(self) -> None:
-        try:
-            msg = get_welcome_message()
-        except Exception:
-            msg = ""
-        dlg = QtWidgets.QMessageBox(self)
-        dlg.setWindowTitle(_("Welcome / Quick Guide"))
-        dlg.setIcon(QtWidgets.QMessageBox.Information)
-        # Use plain text to keep ASCII art.
-        dlg.setText(msg or "")
-        dlg.setStandardButtons(QtWidgets.QMessageBox.Ok)
-        dlg.exec()
-
-    _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
-
-    @staticmethod
-    def _escape_html(text: str) -> str:
-        return (
-            text.replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
-            .replace('"', "&quot;")
-            .replace("'", "&#39;")
-        )
-
-    @classmethod
-    def _linkify_html(cls, text: str) -> str:
-        """Convert plain text to safe HTML with clickable links.
-
-        - Escapes HTML first.
-        - Replaces URLs with <a href=...>.
-        - Preserves newlines (using <br>).
-        """
-
-        escaped = cls._escape_html(text or "")
-
-        def _repl(m: re.Match) -> str:
-            raw = m.group(0)
-            href = raw
-            if raw.lower().startswith("www."):
-                href = "https://" + raw
-            return f'<a href="{href}" style="color:#2563eb; text-decoration: underline;">{raw}</a>'
-
-        linked = cls._URL_RE.sub(_repl, escaped)
-        return linked.replace("\n", "<br>")
-
     def __init__(self, cfg: GuiConfig):
         super().__init__()
-        self.setWindowTitle(_("uag GUI (Extreme Stability)"))
-        self.resize(1100, 850)
-        self._attached_images = []
-        self._history = []
-        self._hist_idx = -1
-        self._log_pos = 0
-        self._known_image_paths = set()
-        self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
+        self.cfg = cfg
 
-        # UI Layout
+        self.setWindowTitle("uagent")
+
+        # Layout
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
         layout = QtWidgets.QVBoxLayout(central)
 
-        self._output = QtWidgets.QTextBrowser()
-        self._output.setReadOnly(True)
-        self._output.setOpenExternalLinks(True)
-        self._output.setOpenLinks(True)
-        self._output.setFont(
-            QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
-        )
-        layout.addWidget(self._output, 1)
+        self.history = QtWidgets.QTextBrowser()
+        self.history.setOpenExternalLinks(True)
+        layout.addWidget(self.history)
 
-        self._thumbs = QtWidgets.QListWidget()
-        self._thumbs.setViewMode(QtWidgets.QListView.IconMode)
-        self._thumbs.setFixedHeight(140)
-        self._thumbs.setIconSize(QtCore.QSize(THUMB_SIZE_PX, THUMB_SIZE_PX))
-        self._thumbs.itemDoubleClicked.connect(
-            lambda it: self._open_image(it.toolTip())
-        )
-        layout.addWidget(self._thumbs)
+        self.input = DropInput()
+        layout.addWidget(self.input)
 
-        input_row = QtWidgets.QHBoxLayout()
-        self._input = DropInput()
-        self._input.setFixedHeight(100)
-        self._input.installEventFilter(self)
-        self._input.sig_files_dropped.connect(self._on_files_dropped)
-        input_row.addWidget(self._input, 1)
+        bottom = QtWidgets.QHBoxLayout()
+        layout.addLayout(bottom)
 
-        self._pw_input = QtWidgets.QLineEdit()
-        self._pw_input.setEchoMode(QtWidgets.QLineEdit.Password)
-        self._pw_input.setFixedHeight(100)
-        self._pw_input.setVisible(False)
-        self._pw_input.returnPressed.connect(self._on_send)
-        input_row.addWidget(self._pw_input, 1)
+        self.btn_send = QtWidgets.QPushButton(_("Send"))
+        self.btn_stop = QtWidgets.QPushButton(_("Stop"))
+        bottom.addWidget(self.btn_send)
+        bottom.addWidget(self.btn_stop)
 
-        self._btn = QtWidgets.QPushButton(_("Send"))
-        self._btn.setFixedWidth(80)
-        self._btn.clicked.connect(self._on_send)
-        input_row.addWidget(self._btn)
-        layout.addLayout(input_row)
+        self.btn_send.clicked.connect(self.on_send)
+        self.btn_stop.clicked.connect(self.on_stop)
+        self.input.sig_files_dropped.connect(self.on_files_dropped)
 
-        self._status_label = QtWidgets.QLabel(" [STATE] IDLE")
-        self.statusBar().addPermanentWidget(self._status_label)
+        # Worker thread
+        self.thread = QtCore.QThread()
+        self.worker = ScheckWorker(cfg)
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.sig_finished.connect(self.thread.quit)
+        self.worker.sig_finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
 
-        # workdir display (updated periodically to follow os.chdir())
-        self._workdir_label = QtWidgets.QLabel("")
-        self.statusBar().addPermanentWidget(self._workdir_label)
-        self._last_workdir = ""
+        # Start
+        self.thread.start()
 
-        # Provider/model display (best-effort; will be updated as logs arrive)
-        self._provider_model_label = QtWidgets.QLabel("")
-        self.statusBar().addPermanentWidget(self._provider_model_label)
-        self._provider_model_text = ""
-
-        # Log Monitor Timer
-        self._monitor_timer = QtCore.QTimer(self)
-        self._monitor_timer.timeout.connect(self._update_ui_from_log)
-        self._monitor_timer.start(200)
-
-        # Worker Thread
-        self._thread = QtCore.QThread()
-        self._worker = ScheckWorker(cfg)
-        self._worker.moveToThread(self._thread)
-        self._worker.sig_finished.connect(self._thread.quit)
-        self._thread.started.connect(self._worker.run)
-        self._thread.start()
-
-        # Welcome (same text as CLI)
-        self._set_welcome_text()
-
-        # Menu
+    def closeEvent(self, e):
         try:
-            help_menu = self.menuBar().addMenu(_("Help"))
-            act = help_menu.addAction(_("Welcome / Quick Guide"))
-            act.triggered.connect(self._show_welcome_dialog)
-        except Exception:
-            pass
+            self.worker.stop()
+        finally:
+            return super().closeEvent(e)
 
-        # Shortcuts
-        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
-            self._on_send
-        )
-        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(
-            self._on_send
-        )
+    def _append_history(self, text: str):
+        # minimal, robust
+        self.history.append(text)
 
-    def _update_ui_from_log(self):
-        if not os.path.exists(LOG_FILE):
+    def on_files_dropped(self, paths: List[str]):
+        # Show dropped files in input
+        self.input.appendPlainText("\n".join(paths))
+
+    def on_send(self):
+        text = (self.input.toPlainText() or "").strip()
+        if not text:
             return
+        # enqueue command
+        core.event_queue.put({"kind": "command", "text": text})
+        self._append_history(f"<b>You:</b> {QtGui.QGuiApplication.escape(text)}")
+        self.input.clear()
 
-        try:
-            with open(LOG_FILE, "r", encoding="utf-8", errors="replace") as f:
-                f.seek(self._log_pos)
-                new_data = f.read()
-                self._log_pos = f.tell()
-
-            if new_data:
-                clean_text = self._ansi_re.sub("", new_data)
-
-                # --- Normalize terminal-like streaming output ---
-                # Some tools/providers output progress using carriage returns (\r).
-                # If we append raw deltas to QTextBrowser, it can look like duplicated characters.
-                # Here we emulate minimal terminal semantics:
-                # - '\r' resets the current line (overwrite)
-                # - '\n' finalizes the current line
-                # - other control chars are dropped (except '\n' and '\t')
-                if not hasattr(self, "_tty_partial_line"):
-                    self._tty_partial_line = ""  # type: ignore[attr-defined]
-
-                def _normalize_stream_chunk(chunk: str) -> str:
-                    out_parts: List[str] = []
-                    cur = self._tty_partial_line  # type: ignore[attr-defined]
-                    for ch in chunk:
-                        if ch == "\r":
-                            cur = ""
-                            continue
-                        if ch == "\n":
-                            out_parts.append(cur + "\n")
-                            cur = ""
-                            continue
-                        oc = ord(ch)
-                        if ch == "\t" or oc >= 0x20:
-                            cur += ch
-                    self._tty_partial_line = cur  # type: ignore[attr-defined]
-                    return "".join(out_parts)
-
-                clean_text = _normalize_stream_chunk(clean_text)
-
-                # 状態情報を抽出
-                states = re.findall(r"\[STATE\]\s+(\w+)(?:\s+\[(.*?)\])?", clean_text)
-                if states:
-                    last_st, last_lb = states[-1]
-                    self._status_label.setText(
-                        f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else "")
-                    )
-
-                # provider/model info (best-effort)
-                try:
-                    mprov = re.findall(
-                        r"^\[INFO\]\s+LLM provider\s*=\s*(.+)$",
-                        clean_text,
-                        flags=re.MULTILINE,
-                    )
-                    mdep = re.findall(
-                        r"^\[INFO\]\s+model\(deployment\)\s*=\s*(.+)$",
-                        clean_text,
-                        flags=re.MULTILINE,
-                    )
-                    if mprov:
-                        self._provider_model_text = f"provider={mprov[-1].strip()}"
-                    if mdep:
-                        ptxt = getattr(self, "_provider_model_text", "")
-                        mtxt = f"model={mdep[-1].strip()}"
-                        self._provider_model_text = (
-                            (ptxt + " " + mtxt).strip() if ptxt else mtxt
-                        )
-                    if getattr(self, "_provider_model_text", ""):
-                        self._provider_model_label.setText(
-                            " " + self._provider_model_text
-                        )
-                except Exception:
-                    pass
-
-                # 画像パス抽出
-                paths = extract_image_paths(clean_text)
-                for p in paths:
-                    if p and os.path.exists(p):
-                        self._add_thumb(p, "GEN")
-
-                # [STATE] 行などをフィルタリングして表示用テキストを作成
-                display_lines = []
-                for line in clean_text.splitlines(keepends=True):
-                    s = line.strip()
-                    if s.startswith("[STATE]"):
-                        continue
-                    # Suppress CLI-only multiline guidance in GUI
-                    if "multiline" in (line or "").lower():
-                        continue
-                    display_lines.append(line)
-                display_text = "".join(display_lines)
-
-                if display_text:
-                    self._output.moveCursor(QtGui.QTextCursor.End)
-                    self._output.insertHtml(self._linkify_html(display_text))
-                    self._output.ensureCursorVisible()
-
-            # human_ask 状態の同期
-            with core.human_ask_lock:
-                active = core.human_ask_active
-                is_password = core.human_ask_is_password
-
-            # パスワードモードなら QLineEdit を表示、それ以外は QPlainTextEdit を表示
-            is_pw_mode = bool(active and is_password)
-            if is_pw_mode != self._pw_input.isVisible():
-                self._pw_input.setVisible(is_pw_mode)
-                self._input.setVisible(not is_pw_mode)
-                if is_pw_mode:
-                    self._pw_input.setFocus()
-                else:
-                    self._input.setFocus()
-
-            if active:
-                msg = (
-                    _("Enter password...")
-                    if is_password
-                    else _("Enter response for human_ask...")
-                )
-                self._input.setPlaceholderText(msg)
-                self._pw_input.setPlaceholderText(msg)
-            else:
-                self._input.setPlaceholderText(_("Enter a message..."))
-
-            # workdir display update (follow os.chdir())
-            try:
-                cwd = os.getcwd()
-                if cwd != self._last_workdir:
-                    self._last_workdir = cwd
-                    self._workdir_label.setText(f" workdir: {cwd}")
-            except Exception:
-                pass
-
-        except Exception:
-            pass
-
-    def _on_files_dropped(self, ps):
-        for p in ps:
-            if os.path.splitext(p)[1].lower() in IMAGE_EXTS:
-                self._attached_images.append(p)
-                self._add_thumb(p, "ATT")
-
-    def _add_thumb(self, path, prefix):
-        if path in self._known_image_paths:
-            return
-        self._known_image_paths.add(path)
-
-        def _load():
-            try:
-                if not os.path.exists(path):
-                    self._known_image_paths.discard(path)
-                    return
-                reader = QtGui.QImageReader(path)
-                if not reader.canRead():
-                    return
-                img = reader.read()
-                if not img.isNull():
-                    pix = QtGui.QPixmap.fromImage(
-                        img.scaled(
-                            THUMB_SIZE_PX,
-                            THUMB_SIZE_PX,
-                            QtCore.Qt.KeepAspectRatio,
-                            QtCore.Qt.SmoothTransformation,
-                        )
-                    )
-                    it = QtWidgets.QListWidgetItem(
-                        QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}"
-                    )
-                    it.setToolTip(path)
-                    self._thumbs.addItem(it)
-            except Exception:
-                pass
-
-        QtCore.QTimer.singleShot(1000, _load)
-
-    def _open_image(self, p):
-        try:
-            if sys.platform == "win32":
-                os.startfile(p)
-            elif sys.platform == "darwin":
-                import subprocess
-
-                subprocess.Popen(["open", p])
-            else:
-                import subprocess
-
-                subprocess.Popen(["xdg-open", p])
-        except Exception:
-            pass
-
-    def _on_send(self):
-        with core.human_ask_lock:
-            active, q, is_password = (
-                core.human_ask_active,
-                core.human_ask_queue,
-                core.human_ask_is_password,
-            )
-
-        # パスワード要求中なのに通常の入力欄で送信しようとした場合、安全のため入力を移し替えて中断する
-        if active and is_password and not self._pw_input.isVisible():
-            text = self._input.toPlainText()
-            self._input.clear()
-            self._pw_input.setText(text)
-            self._pw_input.setVisible(True)
-            self._input.setVisible(False)
-            self._pw_input.setFocus()
-            return
-
-        if self._pw_input.isVisible():
-            text = self._pw_input.text()
-            self._pw_input.clear()
-        else:
-            text = self._input.toPlainText()
-            self._input.clear()
-
-        if not text.strip() and not self._attached_images:
-            return
-
-        if active and q:
-            # human_ask への回答時
-            is_pw = bool(is_password)
-            try:
-                # 画面上のログ(履歴)に表示されるテキスト
-                display_log = "[SECRET]" if is_pw else text
-                print(f"[REPLY] > {display_log}")
-            except Exception:
-                pass
-
-            s = core.MULTI_INPUT_SENTINEL
-            # 内部キュー(LLM)には生のテキストを渡すが、画面表示には使われない
-            # センチネル自体の改行は維持
-            q.put(text + ("\n" + s + "\n" if s not in text else ""))
-        else:
-            try:
-                print(f"[USER] {text.strip()}")
-            except Exception:
-                pass
-
-            core.event_queue.put(
-                {
-                    "kind": "gui_user",
-                    "text": text,
-                    "images": list(self._attached_images),
-                }
-            )
-            self._history.append(HistoryEntry(text, list(self._attached_images)))
-
-        self._attached_images.clear()
-        self._thumbs.clear()
-        self._hist_idx = -1
-
-    def eventFilter(self, obj, event):
-        if obj is self._input and event.type() == QtCore.QEvent.KeyPress:
-            if event.modifiers() & QtCore.Qt.ShiftModifier:
-                if event.key() == QtCore.Qt.Key_Up and self._history:
-                    self._hist_idx = (
-                        (self._hist_idx - 1)
-                        if self._hist_idx != -1
-                        else (len(self._history) - 1)
-                    )
-                    self._restore_history()
-                    return True
-                elif event.key() == QtCore.Qt.Key_Down and self._hist_idx != -1:
-                    self._hist_idx = (
-                        (self._hist_idx + 1)
-                        if self._hist_idx < len(self._history) - 1
-                        else -1
-                    )
-                    self._restore_history()
-                    return True
-        return super().eventFilter(obj, event)
-
-    def _restore_history(self):
-        self._thumbs.clear()
-        if self._hist_idx == -1:
-            self._input.clear()
-            self._attached_images = []
-        else:
-            ent = self._history[self._hist_idx]
-            self._input.setPlainText(ent.text)
-            self._attached_images = list(ent.images)
-            for p in ent.images:
-                self._add_thumb(p, "ATT")
-
-    def closeEvent(self, event):
-        self._worker.stop()
-        self._thread.quit()
-        self._thread.wait(2000)
-        if os.path.exists(LOG_FILE):
-            try:
-                os.remove(LOG_FILE)
-            except Exception:
-                pass
-        super().closeEvent(event)
+    def on_stop(self):
+        core.event_queue.put({"kind": "exit"})
 
 
-def main():
-    # 初回だけ README / QUICKSTART を表示（pip/wheel には post-install フックが無いので起動時に表示する）
-    try:
-        from .readme_util import (
-            maybe_print_quickstart_on_first_run,
-            maybe_print_readme_on_first_run,
-        )
+def _parse_args(argv: List[str]) -> GuiConfig:
+    p = argparse.ArgumentParser()
+    p.add_argument("--provider", default="", help="override provider")
+    p.add_argument("--model", default="", help="override model")
+    p.add_argument("--file", default=None, help="initial file")
+    ns = p.parse_args(argv)
+    return GuiConfig(provider=ns.provider, model=ns.model, initial_file=ns.file)
 
-        maybe_print_readme_on_first_run(open_with_os=True)
-        maybe_print_quickstart_on_first_run(open_with_os=True)
-    except Exception:
-        pass
 
-    print(get_welcome_message())
+def main(argv: Optional[List[str]] = None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+
     ensure_mcp_config_template()
-    # Redirect stdout/stderr to LOG_FILE
-    with open(LOG_FILE, "w", encoding="utf-8"):
-        pass  # clear log file
-    sys.stdout = RedirectToLog(LOG_FILE, sys.stdout)
-    sys.stderr = RedirectToLog(LOG_FILE, sys.stderr)
 
-    parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument(
-        "--workdir",
-        "-C",
-        dest="workdir",
-        help="動作ディレクトリを指定します。指定しない場合は UAGENT_WORKDIR 環境変数、またはカレントディレクトリを使用します。",
-    )
-    args, unknown = parser.parse_known_args()
+    # Resolve workdir / init
+    _runtime_init.init_workdir(core)
 
-    # Workdir init (unified)
-    decision = _runtime_init.decide_workdir(
-        cli_workdir=getattr(args, "workdir", None),
-        env_workdir=os.environ.get("UAGENT_WORKDIR"),
-    )
-    _runtime_init.apply_workdir(decision)
-    banner = _runtime_init.build_startup_banner(
-        core=core,
-        workdir=decision.chosen_expanded,
-        workdir_source=decision.chosen_source,
-    )
-    print(banner, end="")
-
-    # Fail-fast env validation (aggregate missing vars)
+    # Startup env validation (aggregated)
     _runtime_init.validate_or_exit_startup_env(context="gui")
 
-    prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
-    model = ""
+    banner = _runtime_init.build_startup_banner(core)
+    print(banner)
 
-    app = QtWidgets.QApplication(sys.argv)
-    win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
-    win.show()
-    sys.exit(app.exec())
+    cfg = _parse_args(argv)
+
+    app = QtWidgets.QApplication([])
+    w = MainWindow(cfg)
+    w.resize(960, 720)
+    w.show()
+    return app.exec()
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
