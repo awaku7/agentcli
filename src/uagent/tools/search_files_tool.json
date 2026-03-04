@@ -36,9 +36,9 @@
     "out.no_match": "[search_files] 条件に一致するファイルはありませんでした。",
     "out.found": "[search_files] {n} 件見つかりました",
     "out.found_truncated": "[search_files] {n} 件見つかりました（{max_results} 件で打ち切り）",
-    "out.file": "File: {ファイル}",
-    "match.line": "（日本語）L{line}: {text}",
+    "out.file": "ファイル: {file}",
+    "match.line": "L{line}: {text}",
     "match.more": "...（同一ファイル内に他の一致があります）",
-    "match.excerpt": "（日本語）MATCH: {text}"
+    "match.excerpt": "MATCH: {text}"
   }
 }
