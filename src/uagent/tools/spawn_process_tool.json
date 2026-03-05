@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request.",
+    "tool.system_prompt": "Use this tool to start an external process asynchronously. Avoid repeated spawns for the same request.",
+    "param.command.description": "Command line to execute."
+  },
+  "ja": {
+    "tool.description": "外部GUIやブラウザ等のプロセスを非同期に起動します。同一要求での連続起動は避けてください。",
+    "tool.system_prompt": "外部プロセスを非同期に起動するためのツールです。同一要求での連続起動は避けてください。",
+    "param.command.description": "実行するコマンドライン。"
+  }
+}
