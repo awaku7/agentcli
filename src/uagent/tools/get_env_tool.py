@@ -92,7 +92,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         unmasked_chars = 2
 
     if not name:
-        return "[get_env error] 'name' is required"
+        return _("err.name_required", default="[get_env error] 'name' is required")
 
     try:
         # Prefer host-provided getter (it may enforce policies)
