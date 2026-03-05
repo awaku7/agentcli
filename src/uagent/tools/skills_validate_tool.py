@@ -54,13 +54,13 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     if not isinstance(args, dict):
-        return "[tool error] invalid args"
+        return _("err.invalid_args", default="[tool error] invalid args")
 
     skill_dir = args.get("skill_dir")
     strict = bool(args.get("strict", False))
 
     if not isinstance(skill_dir, str) or not skill_dir.strip():
-        return "[tool error] skill_dir must be a non-empty string"
+        return _("err.skill_dir_required", default="[tool error] skill_dir must be a non-empty string")
 
     skill_dir = skill_dir.strip()
     skill_md = skill_md_path(skill_dir)

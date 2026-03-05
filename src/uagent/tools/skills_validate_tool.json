@@ -1,11 +1,15 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "err.invalid_args": "[tool error] invalid args",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string"
   },
   "ja": {
     "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",
+    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。",
     "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）",
     "param.strict.description": "warnings も失敗扱いにするか（既定:false）",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "err.invalid_args": "[ツールエラー] 引数が不正です",
+    "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります"
   }
 }
