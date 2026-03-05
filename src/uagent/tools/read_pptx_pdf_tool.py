@@ -461,7 +461,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     max_chars = args.get("max_chars")
 
     if not path:
-        return "[read_pptx_pdf error] path is required"
+        return _("err.path_required", default="[read_pptx_pdf error] path is required")
 
     try:
         if max_chars is None:
@@ -498,7 +498,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             idx = int(page_index)
         except Exception:
-            return "[read_pptx_pdf error] page_index must be an integer"
+            return _("err.page_index_int", default="[read_pptx_pdf error] page_index must be an integer")
 
         if idx <= 0 or idx > len(pages_text):
             return f"[read_pptx_pdf error] page_index out of range: {idx}"
