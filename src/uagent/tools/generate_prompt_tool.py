@@ -99,7 +99,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     template = args.get("template") or DEFAULT_TEMPLATE
 
     if not path:
-        return "[generate_prompt error] path is required"
+        return _("err.path_required", default="[generate_prompt error] path is required")
 
     p = Path(path)
     if not p.exists() or not p.is_file():
