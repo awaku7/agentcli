@@ -186,18 +186,18 @@ def is_path_dangerous(p: str) -> bool:
 def ensure_within_workdir(p: str) -> str:
     """Resolve p and ensure it is within the workdir. Returns the absolute path."""
     if not p:
-        raise ValueError("path is empty")
+        raise ValueError(_("err.path_empty", default="path is empty"))
     resolved = _resolve_path(p)
     root = _workdir_root()
     if not _is_under(root, resolved):
-        raise PermissionError(f"path is outside workdir: root={root} path={resolved}")
+        raise PermissionError(_("err.outside_workdir", default="path is outside workdir: root={root} path={path}").format(root=root, path=resolved))
     return resolved
 
 
 def make_backup_before_overwrite(filename: str) -> str:
     """Create a backup (.org/.orgN) of filename and return its path."""
     if not os.path.exists(filename):
-        raise FileNotFoundError(f"file not found: {filename}")
+        raise FileNotFoundError(_("err.file_not_found", default="file not found: {filename}").format(filename=filename))
 
     base = filename + ".org"
     if not os.path.exists(base):
