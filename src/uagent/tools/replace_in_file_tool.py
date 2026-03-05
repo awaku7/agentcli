@@ -84,39 +84,31 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Perform literal or regular-expression replacements on a text file. "
                 "Line endings are normalized internally, so patterns/replacements that include "
                 "newlines are supported.\n\n"
-                "Important (read carefully):\n"
-                "- Always run with preview=true first to inspect hit locations and the diff preview.\n"
-                "- Do NOT include raw newline characters in pattern/replacement. Use the two-character "
-                "sequence \\n instead (JSON: \\\\n). Raw newlines can corrupt source files (e.g., Python string literals).\n"
-                "- When mode=regex, pattern is interpreted as a Python re pattern (not a plain substring). "
-                "For example, \\x is invalid; write \\xNN (e.g., \\x00, \\x1b).\n"
-                "- If you only need to match a backslash literally, prefer mode=literal.\n"
+                "ABSOLUTE RULES (must follow):\n"
+                "1) ALWAYS run replace_in_file with preview=true first (never skip).\n"
+                "2) NEVER include raw newlines in JSON strings. Use \\n (JSON: \\\\n).\n"
+                "3) Use mode=literal unless you truly need regex.\n\n"
+                "Regex quick notes (only if mode=regex):\n"
+                "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
+                "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
+                "- replacement \\1, \\2... refer to capture groups\n"
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "This tool performs literal or regex replacements on a text file.\n\n"
-                "Recommended workflow:\n"
-                "1) Inspect the target area with read_file\n"
-                "2) Run replace_in_file with preview=true and verify hit locations + diff\n"
-                "3) If correct, apply with preview=false (a .org/.orgN backup will be created)\n"
-                "4) If you edited a .py file, run python -m py_compile for a syntax check\n\n"
-                "Newlines (most important):\n"
-                "- Do not include raw newlines in JSON strings.\n"
-                "  - OK: aaa\\nbbb (JSON: aaa\\\\nbbb)\n"
-                "  - NG: aaa<newline>bbb (can break source files and cause SyntaxError)\n\n"
-                "Regex notes:\n"
-                "- pattern is a Python re pattern\n"
-                "- \\x is invalid (re.error); use \\xNN (e.g., \\x00)\n"
-                "- Use mode=literal if you only need plain substring matching\n"
-                "- In replacement, \\1, \\2, ... refer to capture groups; referencing a non-existent group is an error\n"
-                "- In both modes, the tool expands newline tokens \\r\\n/\\r/\\n to real newlines and normalizes to LF for matching.\n"
-                "- In regex mode, replacement uses Python re semantics (\\1, \\2, ... for capture groups).\n\n"
-                "Windows path note (especially when editing .py):\n"
-                "- In Python string literals, backslashes must be escaped (e.g., C:\\\\path).\n\n"
-                "Safety:\n"
-                "- When preview=false and match_count >= confirm_if_matches_over, this tool will block."
+                "ABSOLUTE RULES (must follow):\n"
+                "1) ALWAYS run replace_in_file with preview=true first (never skip).\n"
+                "2) NEVER include raw newlines in JSON strings. Use \\n (JSON: \\\\n).\n"
+                "3) Use mode=literal unless you truly need regex.\n\n"
+                "Workflow:\n"
+                "1) read_file to inspect\n"
+                "2) replace_in_file preview=true and verify hit locations + diff\n"
+                "3) replace_in_file preview=false to apply (backup .org/.orgN)\n\n"
+                "Regex quick notes (only if mode=regex):\n"
+                "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
+                "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
+                "- replacement \\1, \\2... refer to capture groups\n"
             ),
         ),
         "parameters": {
@@ -153,7 +145,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.pattern.description",
-                        default="Search pattern. To express a newline, write \\n (JSON: \\\\n).",
+                        default="Search pattern. To express a newline, write \\n (JSON: \\\n).",
                     ),
                 },
                 "replacement": {
@@ -229,7 +221,7 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
 
 
 def _unified_diff(path: str, original: str, replaced: str) -> str:
-    """Return unified diff string ("" if no changes)."""
+    """Return unified diff string ("""""" if no changes)."""
 
     if original == replaced:
         return ""
@@ -259,358 +251,261 @@ def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> Non
 def _expand_newline_tokens_to_lf(s: str) -> str:
     """Expand user-provided newline tokens and normalize to LF.
 
-    Supports BOTH token styles:
-    - Single-backslash tokens as used by JSON-decoded strings / typical tool callers:
-      "\\n", "\\r", "\\r\\n"
-    - Double-backslash tokens (if callers escaped backslashes twice):
-      "\\\\n", "\\\\r", "\\\\r\\\\n"
-
-    Also supports pasted real newlines (actual '\n' or '\r').
-
-    Output is normalized to LF ("\n").
+    - \r\n / \r / \n (literal tokens) are converted into actual newlines.
+    - Result uses LF (\n) only.
     """
 
-    lf = chr(10)
-    cr = chr(13)
-    crlf = cr + lf
+    # Convert user tokens into real newlines.
+    s = s.replace("\\r\\n", "\n").replace("\\r", "\n").replace("\\n", "\n")
 
-    # 1) Expand literal backslash tokens (single backslash)
-    s = s.replace("\\r\\n", crlf).replace("\\r", cr).replace("\\n", lf)
-
-    # 2) Expand double-escaped tokens (two backslashes in the string)
-    s = s.replace(r"\\r\\n", crlf).replace(r"\\r", cr).replace(r"\\n", lf)
-
-    # 3) Normalize any actual newlines
-    s = s.replace(crlf, lf).replace(cr, lf)
-
+    # Normalize any actual CRLF/CR that may have been present.
+    s = s.replace("\r\n", "\n").replace("\r", "\n")
     return s
 
 
-def _normalize_text_to_lf(s: str) -> str:
-    """Normalize any newlines in a text to LF."""
-
-    return s.replace("\r\n", "\n").replace("\r", "\n")
-
-
 @dataclass
-class MatchHit:
-    line_no: int
-    col: int
-    match_text: str
-    before: str
-    after: str
+class _Hit:
+    start: int
+    end: int
 
 
-def _idx_to_line_col(line_starts: List[int], idx: int) -> Tuple[int, int]:
+def _map_idx_to_line_col(text: str, idx: int) -> Tuple[int, int]:
     """Map absolute idx to (1-based line_no, 0-based col)."""
 
-    line_no = 1
-    col = idx
-    for i, off in enumerate(line_starts):
-        if off <= idx:
-            line_no = i + 1
-            col = idx - off
-        else:
-            break
+    if idx < 0:
+        idx = 0
+    if idx > len(text):
+        idx = len(text)
+
+    # Count newlines before idx.
+    line_no = text.count("\n", 0, idx) + 1
+    last_nl = text.rfind("\n", 0, idx)
+    col = idx if last_nl < 0 else idx - last_nl - 1
     return line_no, col
 
 
-def _build_match_hits_literal(
-    text: str, pat: str, max_hits: int = 100
-) -> List[MatchHit]:
-    """Build match-based hits for literal mode.
+def _extract_same_line_context(text: str, start: int, end: int) -> Tuple[str, str, str]:
+    """Extract (before, match, after) on the same line for a hit."""
 
-    - Returns line/column (1-based line, 0-based column) and same-line context.
-    - Does not try to interpret regex metacharacters.
+    # Find line boundaries
+    line_start = text.rfind("\n", 0, start)
+    line_start = 0 if line_start < 0 else line_start + 1
+    line_end = text.find("\n", end)
+    line_end = len(text) if line_end < 0 else line_end
 
-    Notes:
-    - Normalize CRLF/CR/LF to LF for stable index -> (line,col) mapping.
-    - Preview is best-effort; we prioritize stability over exact preservation of original newlines.
-    """
+    before = text[line_start:start]
+    match = text[start:end]
+    after = text[end:line_end]
+    return before, match, after
 
-    if not pat:
-        return []
 
-    norm = text.replace("\r\n", "\n").replace("\r", "\n")
+def _find_hits_literal(haystack: str, needle: str) -> List[_Hit]:
+    hits: List[_Hit] = []
+    if needle == "":
+        return hits
 
-    line_starts: List[int] = [0]
-    for m in re.finditer("\n", norm):
-        line_starts.append(m.end())
-
-    lines = norm.splitlines(keepends=False)
-
-    hits: List[MatchHit] = []
     start = 0
     while True:
-        idx = norm.find(pat, start)
-        if idx < 0:
+        pos = haystack.find(needle, start)
+        if pos < 0:
             break
-
-        line_no, col = _idx_to_line_col(line_starts, idx)
-
-        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
-        before = line[:col]
-        after = line[col + len(pat) :]
-        mtxt = pat if len(pat) <= 200 else pat[:200] + "..."
-
-        hits.append(
-            MatchHit(
-                line_no=line_no, col=col, match_text=mtxt, before=before, after=after
-            )
-        )
-        if len(hits) >= max_hits:
-            break
-
-        start = idx + len(pat)  # non-overlapping
-
+        hits.append(_Hit(pos, pos + len(needle)))
+        start = pos + len(needle)
     return hits
 
 
-def _build_match_hits_regex(
-    text: str, pattern: str, max_hits: int = 100
-) -> List[MatchHit]:
-    """Build match-based hits for regex mode using re.finditer.
-
-    Notes:
-    - Normalize CRLF/CR/LF to LF for stable index -> (line,col) mapping.
-    - Preview is best-effort; we prioritize stability over exact preservation of original newlines.
-    """
-
-    try:
-        rx = re.compile(pattern)
-    except re.error:
-        return []
-
-    norm = text.replace("\r\n", "\n").replace("\r", "\n")
-
-    line_starts: List[int] = [0]
-    for m in re.finditer("\n", norm):
-        line_starts.append(m.end())
-
-    lines = norm.splitlines(keepends=False)
-
-    hits: List[MatchHit] = []
-    for m in rx.finditer(norm):
-        idx = m.start()
-        line_no, col = _idx_to_line_col(line_starts, idx)
-
-        line = lines[line_no - 1] if 0 <= line_no - 1 < len(lines) else ""
-        before = line[:col]
-        after = line[col + max(0, m.end() - m.start()) :]
-
-        mtxt = m.group(0)
-        if len(mtxt) > 200:
-            mtxt = mtxt[:200] + "..."
-
-        hits.append(
-            MatchHit(
-                line_no=line_no, col=col, match_text=mtxt, before=before, after=after
-            )
-        )
-        if len(hits) >= max_hits:
-            break
-
+def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
+    hits: List[_Hit] = []
+    for m in pattern.finditer(haystack):
+        hits.append(_Hit(m.start(), m.end()))
     return hits
 
 
-def _run_tool_impl(args: Dict[str, Any]) -> str:
-    """Implementation (may raise)."""
+def _apply_replacements_literal(text: str, pattern: str, replacement: str, count: int | None) -> Tuple[str, int]:
+    if count is None:
+        return text.replace(pattern, replacement), text.count(pattern) if pattern else 0
 
-    path_in = str(args.get("path") or "")
-    mode = str(args.get("mode") or "literal")
-    pattern = args.get("pattern")
-    replacement = args.get("replacement")
-    count = args.get("count", None)
-    preview = bool(args.get("preview", True))
-    expand_newline_tokens = bool(args.get("expand_newline_tokens", True))
-    confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
-    encoding = str(args.get("encoding") or "utf-8")
-
-    if not path_in:
-        raise ValueError("path is required")
-
-    abs_path = ensure_within_workdir(path_in)
-
-    if pattern is None:
-        raise ValueError("pattern is required")
-    if replacement is None:
-        raise ValueError("replacement is required")
-
-    callbacks = context.get_callbacks()
-    max_bytes = getattr(callbacks, "read_file_max_bytes", 20_000_000)
-
-    original, detected_newline, encoding_used = _read_text_robust(
-        abs_path, encoding=encoding, max_bytes=int(max_bytes)
-    )
-
-    # Apply
-    if mode == "literal":
-        if expand_newline_tokens:
-            pat = _expand_newline_tokens_to_lf(str(pattern))
-            rep = _expand_newline_tokens_to_lf(str(replacement))
-        else:
-            pat = str(pattern)
-            rep = str(replacement)
-
-        # Normalize file content to LF for stable cross-OS matching.
-        original_norm = _normalize_text_to_lf(original)
-
-        occ = original_norm.count(pat)
-        if count is None:
-            match_count = occ
-            replaced_norm = original_norm.replace(pat, rep)
-        else:
-            limit = int(count)
-            if limit < 0:
-                limit = 0
-            match_count = min(occ, limit)
-            replaced_norm = original_norm.replace(pat, rep, limit)
-
-        replaced = replaced_norm
-
-    elif mode == "regex":
-        try:
-            pat_raw = str(pattern)
-            rep_raw = str(replacement)
-            if expand_newline_tokens:
-                pat_raw = _expand_newline_tokens_to_lf(pat_raw)
-                rep_raw = _expand_newline_tokens_to_lf(rep_raw)
-
-            # Normalize file content to LF for stable cross-OS matching.
-            original_norm = _normalize_text_to_lf(original)
-
-            replaced_norm, n = re.subn(
-                pat_raw,
-                rep_raw,
-                original_norm,
-                count=0 if count is None else int(count),
-            )
-            match_count = int(n)
-
-            replaced = replaced_norm
-        except re.error as e:
-            return json.dumps(
-                {"ok": False, "error": f"invalid regex: {e}"}, ensure_ascii=False
-            )
-
-    else:
-        raise ValueError("mode must be 'literal' or 'regex'")
-
-    diff = _unified_diff(path_in, original, replaced)
-
-    # No-op: avoid touching the file (mtime churn) and avoid creating a backup.
-    # Note: compare against normalized original so CRLF->LF normalization alone does not count as a change.
-    if _normalize_text_to_lf(original) == replaced:
-        return json.dumps(
-            {
-                "ok": True,
-                "path": path_in,
-                "mode": mode,
-                "match_count": match_count,
-                "changed": False,
-                "preview": False,
-                "diff": diff,
-                "encoding": encoding_used,
-                "detected_newline": detected_newline,
-                "written": False,
-                "summary": _make_summary(preview=False, match_count=match_count),
-            },
-            ensure_ascii=False,
-        )
-
-    # Preview response
-    if preview:
-        if mode == "literal":
-            match_hits = _build_match_hits_literal(original, pat)
-        else:
-            match_hits = _build_match_hits_regex(original, pat_raw)
-
-        return json.dumps(
-            {
-                "ok": True,
-                "path": path_in,
-                "mode": mode,
-                "match_count": match_count,
-                "changed": True,
-                "preview": True,
-                "diff": diff,
-                "summary": _make_summary(preview=True, match_count=match_count),
-                "encoding": encoding_used,
-                "detected_newline": detected_newline,
-                "match_hits": [
-                    {
-                        "line_no": h.line_no,
-                        "col": h.col,
-                        "match_text": h.match_text,
-                        "before": h.before,
-                        "after": h.after,
-                    }
-                    for h in match_hits
-                ],
-            },
-            ensure_ascii=False,
-        )
-
-    # Confirm for large match counts
-    if match_count >= confirm_if_matches_over:
-        return json.dumps(
-            {
-                "ok": False,
-                "blocked": True,
-                "reason": f"too_many_matches: {match_count}",
-                "confirm_if_matches_over": confirm_if_matches_over,
-                "summary": _make_summary(
-                    preview=False,
-                    match_count=match_count,
-                    blocked=True,
-                    reason=f"too_many_matches: {match_count}",
-                ),
-            },
-            ensure_ascii=False,
-        )
-
-    backup = make_backup_before_overwrite(abs_path)
-    _write_text_robust(abs_path, replaced, encoding=encoding_used, newline=detected_newline)
-
-    return json.dumps(
-        {
-            "ok": True,
-            "path": path_in,
-            "mode": mode,
-            "match_count": match_count,
-            "changed": True,
-            "preview": False,
-            "diff": diff,
-            "backup": backup,
-            "encoding": encoding_used,
-            "detected_newline": detected_newline,
-            "written": True,
-            "summary": _make_summary(preview=False, match_count=match_count),
-        },
-        ensure_ascii=False,
-    )
+    # Manual limited replace
+    out = text
+    n = 0
+    start = 0
+    while n < count:
+        pos = out.find(pattern, start)
+        if pos < 0:
+            break
+        out = out[:pos] + replacement + out[pos + len(pattern) :]
+        start = pos + len(replacement)
+        n += 1
+    return out, n
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    """Entry point (never raises; returns JSON)."""
+    cb = context.get_callbacks()
 
     try:
-        return _run_tool_impl(args)
+        path = str(args.get("path") or "")
+        mode = str(args.get("mode") or "literal")
+        pattern = str(args.get("pattern") or "")
+        replacement = str(args.get("replacement") or "")
+        preview = bool(args.get("preview", True))
+        context_lines = int(args.get("context_lines", 2))
+        confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
+        count = args.get("count")
+        encoding = str(args.get("encoding") or "utf-8")
+        expand_newline_tokens = bool(args.get("expand_newline_tokens", True))
+
+        if not path:
+            return json.dumps(
+                {"ok": False, "error": "[replace_in_file error] path is not specified"},
+                ensure_ascii=False,
+            )
+
+        # Safety: ensure path within workdir
+        ensure_within_workdir(path)
+
+        # Normalize/expand newline tokens for matching/replacement
+        if expand_newline_tokens:
+            pattern2 = _expand_newline_tokens_to_lf(pattern)
+            replacement2 = _expand_newline_tokens_to_lf(replacement)
+        else:
+            pattern2 = pattern
+            replacement2 = replacement
+
+        max_bytes = cb.read_file_max_bytes
+        original, detected_newline, encoding_used = _read_text_robust(path, encoding, max_bytes)
+
+        # Normalize original in-memory
+        original_norm = original.replace("\r\n", "\n").replace("\r", "\n")
+
+        match_count: int
+        replaced: str
+        match_hits: List[Dict[str, Any]] = []
+
+        if mode == "regex":
+            try:
+                rx = re.compile(pattern2)
+            except re.error as e:
+                return json.dumps(
+                    {"ok": False, "error": f"[replace_in_file error] re.error: {e}"},
+                    ensure_ascii=False,
+                )
+
+            # Count matches
+            hits = _find_hits_regex(original_norm, rx)
+            match_count = len(hits)
+
+            # Apply replacement (Python re semantics)
+            try:
+                if count is None:
+                    replaced = rx.sub(replacement2, original_norm)
+                else:
+                    replaced = rx.sub(replacement2, original_norm, count=int(count))
+            except re.error as e:
+                return json.dumps(
+                    {
+                        "ok": False,
+                        "error": f"[replace_in_file error] re.error during replacement: {e}",
+                    },
+                    ensure_ascii=False,
+                )
+
+            # Preview hit locations (same-line context)
+            for h in hits[:50]:
+                line_no, col = _map_idx_to_line_col(original_norm, h.start)
+                before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
+                match_hits.append(
+                    {
+                        "line_no": line_no,
+                        "col": col,
+                        "match_text": match,
+                        "before": before[-200:],
+                        "after": after[:200],
+                    }
+                )
+
+        else:
+            # literal
+            hits = _find_hits_literal(original_norm, pattern2)
+            match_count = len(hits)
+
+            replaced, _repl_count = _apply_replacements_literal(
+                original_norm, pattern2, replacement2, None if count is None else int(count)
+            )
+
+            for h in hits[:50]:
+                line_no, col = _map_idx_to_line_col(original_norm, h.start)
+                before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
+                match_hits.append(
+                    {
+                        "line_no": line_no,
+                        "col": col,
+                        "match_text": match,
+                        "before": before[-200:],
+                        "after": after[:200],
+                    }
+                )
+
+        changed = replaced != original_norm
+        diff = _unified_diff(path, original_norm, replaced)
+
+        # Block when applying too many matches
+        if not preview and match_count >= confirm_if_matches_over:
+            return json.dumps(
+                {
+                    "ok": True,
+                    "path": path,
+                    "mode": mode,
+                    "match_count": match_count,
+                    "changed": False,
+                    "preview": preview,
+                    "diff": diff,
+                    "encoding": encoding_used,
+                    "detected_newline": "\n" if detected_newline is None else detected_newline,
+                    "written": False,
+                    "summary": _make_summary(
+                        preview=preview,
+                        match_count=match_count,
+                        blocked=True,
+                        reason=f"match_count {match_count} >= confirm_if_matches_over {confirm_if_matches_over}",
+                    ),
+                    "match_hits": match_hits,
+                },
+                ensure_ascii=False,
+            )
+
+        written = False
+        backup_path: str | None = None
+        if not preview and changed:
+            backup_path = make_backup_before_overwrite(path)
+            _write_text_robust(path, replaced, encoding_used, detected_newline)
+            written = True
+
+        result: Dict[str, Any] = {
+            "ok": True,
+            "path": path,
+            "mode": mode,
+            "match_count": match_count,
+            "changed": changed,
+            "preview": preview,
+            "diff": diff,
+            "encoding": encoding_used,
+            "detected_newline": "\n" if detected_newline is None else detected_newline,
+            "written": written,
+            "summary": _make_summary(preview=preview, match_count=match_count),
+        }
+        if backup_path is not None:
+            result["backup"] = backup_path
+        if match_hits:
+            result["match_hits"] = match_hits
+
+        return json.dumps(result, ensure_ascii=False)
+
     except Exception as e:
-        et = e.__class__.__name__
-        msg = str(e)
-
-        if isinstance(e, FileNotFoundError):
-            msg = f"file not found: {msg}"
-        elif isinstance(e, PermissionError):
-            msg = f"dangerous path: {msg}"
-
         return json.dumps(
             {
                 "ok": False,
-                "error": msg,
-                "error_type": et,
-                "summary": _make_summary(preview=False, error=msg),
+                "error": f"[replace_in_file error] {type(e).__name__}: {e}",
+                "exception": type(e).__name__,
             },
             ensure_ascii=False,
         )
