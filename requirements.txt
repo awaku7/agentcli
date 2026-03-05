@@ -40,3 +40,11 @@ mypy>=1.0.0
 pylint>=3.0.0
 pytest>=7.0.0
 libcst>=1.0.0
+mcp
+fastapi
+uvicorn
+jinja2
+python-multipart
+websockets
+types-PyYAML
+types-python-dateutil
