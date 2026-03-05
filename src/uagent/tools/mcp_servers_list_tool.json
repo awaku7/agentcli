@@ -19,6 +19,6 @@
     "warn.url_missing": "WARNING: mcp_servers[{idx}].url が未設定/空です",
     "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} は '/mcp' で終わっていません。（handle_mcp_v2 / mcp_tools_list は自動補完しますが、明示推奨です）",
     "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count}件）",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
   }
 }

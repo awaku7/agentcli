@@ -5,6 +5,6 @@
   "ja": {
     "tool.description": "数式を計算して結果を返します。LLMが苦手な複雑な計算や精度の必要な計算に使用してください。",
     "param.expression.description": "計算したい数式（例: '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。Pythonのmathモジュールの関数が使用可能です。",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
   }
 }

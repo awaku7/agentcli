@@ -4,7 +4,7 @@
     "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
   },
   "ja": {
-    "msg.no_memory": "（日本語）(no long-term memory yet)",
-    "msg.truncated": "（日本語）\n[long_memory truncated: limited to {max_bytes} chars]"
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
   }
 }

@@ -7,6 +7,6 @@
     "confirm.shell_metachar": "コマンド連結/リダイレクト等が含まれます。\ncommand: {command}\n実行してよければ y、キャンセルなら c と入力してください。",
     "ui.confirm.title": "=== 人への依頼 (confirm) ===",
     "ui.confirm.howto": "回答方法: y=実行 / c=キャンセル / その他=拒否\n",
-    "ui.confirm.footer": "（日本語）=== /confirm ===\n"
+    "ui.confirm.footer": "=== /confirm ===\n"
   }
 }

@@ -6,9 +6,9 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'analyze_image'."
   },
   "ja": {
-    "param.image_path.description": "（日本語）",
-    "param.prompt.description": "（日本語）",
-    "tool.description": "（日本語）Load an image ファイル and have AI (Vision) describe its contents. Useful for analyzing screenshots or reading charts/tables.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'analyze_image'."
+    "param.image_path.description": "解析したい画像ファイルのパス。",
+    "param.prompt.description": "画像について知りたいこと（例: 「この画像のエラーメッセージを読んで」）。省略した場合は「画像を詳しく説明して」が既定です。",
+    "tool.description": "画像ファイルを読み込み、AI（Vision）で内容を説明します。スクリーンショットの解析や、図表/表の読み取りに使えます。",
+    "tool.system_prompt": "このツールは、ツール名 'analyze_image' が示す操作を実行します。"
   }
 }

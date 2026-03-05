@@ -8,11 +8,11 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'."
   },
   "ja": {
-    "param.action.description": "（日本語）",
-    "param.data.description": "（日本語）",
-    "param.file_path.description": "（日本語）",
-    "param.sheet_name.description": "（日本語）",
-    "tool.description": "（日本語）Read/write an Excel (.xlsx) ファイル and get sheet names. When writing to an existing ファイル, a backup with the same name (<ファイル_path>.org / <ファイル_path>.org1 / ...) is created immediately before writing.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'excel_ops'."
+    "param.action.description": "実行する操作（read=読み取り / write=書き込み / get_sheet_names=シート名一覧）。",
+    "param.data.description": "書き込み時のデータ（JSON 文字列）。",
+    "param.file_path.description": "対象の Excel ファイル（.xlsx）のパス。",
+    "param.sheet_name.description": "対象シート名（read/write）。省略時、read は先頭シート、write は 'Sheet1' を使用します。",
+    "tool.description": "Excel（.xlsx）を読み書きし、シート名一覧も取得できます。既存ファイルへ書き込む場合、直前にバックアップ（<file_path>.org / <file_path>.org1 / ...）を作成します。",
+    "tool.system_prompt": "このツールは、ツール名 'excel_ops' が示す操作を実行します。"
   }
 }

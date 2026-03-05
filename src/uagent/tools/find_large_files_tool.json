@@ -10,6 +10,6 @@
     "param.group_by_ext.description": "拡張子別集計も返す",
     "param.exclude_dirs.description": "除外ディレクトリ名（ディレクトリ名一致）",
     "param.max_files.description": "走査する最大ファイル数（暴走防止）",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
   }
 }
