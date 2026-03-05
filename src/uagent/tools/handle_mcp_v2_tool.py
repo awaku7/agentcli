@@ -155,7 +155,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     argv = args.get("tool_arguments", {})
 
     if not name:
-        return "Error: tool_name is required."
+        return _("err.tool_name_required", default="Error: tool_name is required.")
 
     masked_argv = mask_values(argv)
     print(f"\n[MCP Call] Tool: {name}", file=sys.stderr)
@@ -203,7 +203,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         elif url.startswith("stdio://"):
             parts = url[8:].strip().split()
             if not parts:
-                return "Error: Invalid stdio url"
+                return _("err.stdio_url_invalid", default="Error: Invalid stdio url")
             result_text = asyncio.run(
                 _call_mcp_stdio(parts[0], parts[1:], {}, name, argv)
             )

@@ -48,16 +48,13 @@ def _validate_command(raw: str) -> str | None:
       - None if valid
     """
     if not raw:
-        return "[spawn_process error] command is empty"
+        return _("err.command_empty", default="[spawn_process error] command is empty")
 
     if os.name == "nt":
         lower = raw.strip().lower()
         # 'start' or 'start ""' alone has no target
         if lower == "start" or lower == 'start ""':
-            return (
-                "[spawn_process error] Windows 'start' command has no URL or executable path.\n"
-                'Example: start "" https://www.google.com'
-            )
+            return _("err.windows_start_missing_target", default="[spawn_process error] Windows 'start' command has no URL or executable path.\\nExample: start \"\" https://www.google.com")
 
     return None
 

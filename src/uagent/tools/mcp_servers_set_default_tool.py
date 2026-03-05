@@ -110,7 +110,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     create_if_missing = bool(args.get("create_if_missing", True))
 
     if not server_name:
-        return "Error: server_name is required."
+        return _("err.server_name_required", default="Error: server_name is required.")
 
     config, msgs = _load_config(path, create_if_missing)
     if any(m.startswith("ERROR:") for m in msgs):
