@@ -26,7 +26,10 @@ TOOL_SPEC: Dict[str, Any] = {
         ),
         "system_prompt": _(
             "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'delete_file'.",
+            default=(
+                "Delete the specified path only after confirming with the user if it is a potentially "
+                "destructive operation."
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -53,6 +56,22 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="If true, do not error when the path does not exist.",
                     ),
                 },
+                "dry_run": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.dry_run.description",
+                        default="If true, only list matched paths and do not delete anything.",
+                    ),
+                },
+                "allow_dir": {
+                    "type": "boolean",
+                    "default": True,
+                    "description": _(
+                        "param.allow_dir.description",
+                        default="If true, allow deleting directories matched by glob.",
+                    ),
+                },
             },
             "required": [],
         },
@@ -73,33 +92,112 @@ def _human_confirm(message: str) -> bool:
         return False
 
 
+def _has_glob_meta(s: str) -> bool:
+    # Spec: treat as glob only when meta characters are present.
+    return any(ch in s for ch in ("*", "?", "["))
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     raw_filename = str(args.get("filename") or args.get("path") or "").strip()
     missing_ok = bool(args.get("missing_ok", False))
+    dry_run = bool(args.get("dry_run", True))
+    allow_dir = bool(args.get("allow_dir", True))
 
     if not raw_filename:
         raise ValueError("filename/path is required")
 
-    safe_path = ensure_within_workdir(raw_filename)
+    # --- Non-glob path (backward compatible) ---
+    if not _has_glob_meta(raw_filename):
+        safe_path = ensure_within_workdir(raw_filename)
 
-    if not os.path.exists(safe_path):
+        if not os.path.exists(safe_path):
+            if missing_ok:
+                return json.dumps({"ok": True, "deleted": False, "path": safe_path})
+            raise FileNotFoundError(safe_path)
+
+        msg = _(
+            "confirm.delete_path",
+            default="Delete path: {path}?\nEnter y to proceed, or c to cancel.",
+        ).format(path=safe_path)
+        if not _human_confirm(msg):
+            return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
+
+        if os.path.isdir(safe_path):
+            shutil.rmtree(safe_path)
+        else:
+            os.remove(safe_path)
+
+        return json.dumps(
+            {"ok": True, "deleted": True, "path": safe_path}, ensure_ascii=False
+        )
+
+    # --- Glob path ---
+    import glob
+
+    pat_norm = raw_filename.replace("\\", "/")
+
+    if "/" in pat_norm:
+        base_dir = pat_norm.rsplit("/", 1)[0] or "."
+    else:
+        base_dir = "."
+
+    safe_base_dir = ensure_within_workdir(base_dir)
+
+    # Make pattern relative to base_dir, then join with safe_base_dir.
+    if base_dir in (".", ""):
+        sub_pat = pat_norm
+    else:
+        sub_pat = pat_norm[len(base_dir) + 1 :]
+
+    search_pat = os.path.join(safe_base_dir, sub_pat)
+    matches = sorted(set(glob.glob(search_pat, recursive=True)))
+
+    filtered: list[str] = []
+    for m in matches:
+        try:
+            rel = os.path.relpath(m, os.getcwd())
+            safe_m = ensure_within_workdir(rel)
+        except Exception:
+            continue
+        if os.path.isdir(safe_m) and not allow_dir:
+            continue
+        filtered.append(safe_m)
+
+    if not filtered:
         if missing_ok:
-            return json.dumps({"ok": True, "deleted": False, "path": safe_path})
-        raise FileNotFoundError(safe_path)
+            return json.dumps(
+                {"ok": True, "deleted": False, "matches": [], "count": 0},
+                ensure_ascii=False,
+            )
+        raise FileNotFoundError(f"No paths matched: {raw_filename}")
 
-    # Confirm dangerous operation.
+    if dry_run:
+        return json.dumps(
+            {"ok": True, "dry_run": True, "matches": filtered, "count": len(filtered)},
+            ensure_ascii=False,
+        )
+
+    preview_list = "\n".join(filtered)
     msg = _(
-        "confirm.delete_path",
-        default="Delete path: {path}?\nEnter y to proceed, or c to cancel.",
-    ).format(path=safe_path)
+        "confirm.delete_paths_bulk",
+        default=(
+            "Delete {count} paths matched by glob?\n\n{paths}\n\n"
+            "Enter y to proceed, or c to cancel."
+        ),
+    ).format(count=len(filtered), paths=preview_list)
+
     if not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
-    if os.path.isdir(safe_path):
-        shutil.rmtree(safe_path)
-    else:
-        os.remove(safe_path)
+    deleted: list[str] = []
+    for p in filtered:
+        if os.path.isdir(p):
+            shutil.rmtree(p)
+        else:
+            os.remove(p)
+        deleted.append(p)
 
     return json.dumps(
-        {"ok": True, "deleted": True, "path": safe_path}, ensure_ascii=False
+        {"ok": True, "deleted": True, "matches": deleted, "count": len(deleted)},
+        ensure_ascii=False,
     )
