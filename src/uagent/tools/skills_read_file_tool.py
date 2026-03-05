@@ -60,18 +60,18 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     if not isinstance(args, dict):
-        return "[tool error] invalid args"
+        return _("err.invalid_args", default="[tool error] invalid args")
 
     skill_dir = args.get("skill_dir")
     relative_path = args.get("relative_path")
     max_bytes = args.get("max_bytes", DEFAULT_MAX_READ_FILE_BYTES)
 
     if not isinstance(skill_dir, str) or not skill_dir.strip():
-        return "[tool error] skill_dir must be a non-empty string"
+        return _("err.skill_dir_required", default="[tool error] skill_dir must be a non-empty string")
     if not isinstance(relative_path, str) or not relative_path.strip():
-        return "[tool error] relative_path must be a non-empty string"
+        return _("err.relative_path_required", default="[tool error] relative_path must be a non-empty string")
     if not isinstance(max_bytes, int) or max_bytes <= 0:
-        return "[tool error] max_bytes must be a positive integer"
+        return _("err.max_bytes_positive", default="[tool error] max_bytes must be a positive integer")
 
     skill_dir = skill_dir.strip()
     relative_path = relative_path.strip()

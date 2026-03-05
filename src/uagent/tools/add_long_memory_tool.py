@@ -52,7 +52,7 @@ TOOL_SPEC: Dict[str, Any] = {
 def run_tool(args: Dict[str, Any]) -> str:
     note = (args.get("note") or "").strip()
     if not note:
-        return "[add_long_memory error] note is empty"
+        return _("err.note_empty", default="[add_long_memory error] note is empty")
 
     long_memory.append_long_memory(note)
     return "[add_long_memory] saved"
