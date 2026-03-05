@@ -1,0 +1,74 @@
+{
+  "en": {
+    "err.file_too_large": "File too large to read safely: {path} (>{max_bytes} bytes)",
+    "err.skill_md_not_found": "{filename} not found: {path}",
+
+    "err.frontmatter_missing_start": "Missing YAML frontmatter delimiter '---' at start",
+    "err.frontmatter_missing_end": "Missing YAML frontmatter closing delimiter '---'",
+    "err.frontmatter_parse_failed": "Failed to parse YAML frontmatter: {err}",
+    "err.frontmatter_not_mapping": "Frontmatter must be a YAML mapping (object)",
+
+    "err.fm_name_required": "frontmatter.name is required and must be a non-empty string",
+    "err.fm_name_too_long": "frontmatter.name must be <= {max_len} characters",
+    "err.fm_name_re": "frontmatter.name must match ^[a-z0-9-]{1,64}$ (lowercase letters, digits, hyphen)",
+    "err.fm_name_edge_hyphen": "frontmatter.name must not start or end with '-'",
+    "err.fm_name_double_hyphen": "frontmatter.name must not contain consecutive hyphens '--'",
+    "err.fm_name_dir_mismatch": "frontmatter.name must match parent directory name: dir='{dir}', name='{name}'",
+
+    "err.fm_desc_required": "frontmatter.description is required and must be a non-empty string",
+    "err.fm_desc_too_long": "frontmatter.description must be <= {max_len} characters",
+
+    "err.fm_license_type": "frontmatter.license must be a string if provided",
+    "err.fm_compat_type": "frontmatter.compatibility must be a string if provided",
+    "err.fm_compat_empty": "frontmatter.compatibility must be non-empty if provided",
+    "err.fm_compat_too_long": "frontmatter.compatibility must be <= {max_len} characters",
+
+    "err.fm_meta_type": "frontmatter.metadata must be a mapping (object) if provided",
+    "err.fm_meta_key_type": "frontmatter.metadata keys must be strings",
+    "err.fm_meta_val_type": "frontmatter.metadata values must be strings",
+
+    "err.fm_allowed_tools_type": "frontmatter.allowed-tools must be a string if provided",
+
+    "err.relpath_required": "relative_path must be a non-empty string",
+    "err.abs_path_not_allowed": "absolute paths are not allowed",
+    "err.dotdot_not_allowed": "'..' is not allowed in relative_path",
+    "err.relpath_points_to_root": "relative_path must point to a file, not the skill root",
+    "err.path_traversal": "path traversal detected: resolved path escapes skill_dir"
+  },
+  "ja": {
+    "err.file_too_large": "安全に読み取れるサイズを超えています: {path} (>{max_bytes} bytes)",
+    "err.skill_md_not_found": "{filename} が見つかりません: {path}",
+
+    "err.frontmatter_missing_start": "YAMLフロントマター開始区切り '---' がありません",
+    "err.frontmatter_missing_end": "YAMLフロントマター終了区切り '---' がありません",
+    "err.frontmatter_parse_failed": "YAMLフロントマターの解析に失敗しました: {err}",
+    "err.frontmatter_not_mapping": "フロントマターはYAMLのマッピング(object)である必要があります",
+
+    "err.fm_name_required": "frontmatter.name は必須で、空でない文字列である必要があります",
+    "err.fm_name_too_long": "frontmatter.name は {max_len} 文字以内である必要があります",
+    "err.fm_name_re": "frontmatter.name は ^[a-z0-9-]{1,64}$ に一致する必要があります",
+    "err.fm_name_edge_hyphen": "frontmatter.name の先頭/末尾に '-' は使えません",
+    "err.fm_name_double_hyphen": "frontmatter.name に連続する '--' は使えません",
+    "err.fm_name_dir_mismatch": "frontmatter.name は親ディレクトリ名と一致する必要があります: dir='{dir}', name='{name}'",
+
+    "err.fm_desc_required": "frontmatter.description は必須で、空でない文字列である必要があります",
+    "err.fm_desc_too_long": "frontmatter.description は {max_len} 文字以内である必要があります",
+
+    "err.fm_license_type": "frontmatter.license は指定する場合、文字列である必要があります",
+    "err.fm_compat_type": "frontmatter.compatibility は指定する場合、文字列である必要があります",
+    "err.fm_compat_empty": "frontmatter.compatibility は指定する場合、空ではいけません",
+    "err.fm_compat_too_long": "frontmatter.compatibility は {max_len} 文字以内である必要があります",
+
+    "err.fm_meta_type": "frontmatter.metadata は指定する場合、マッピング(object)である必要があります",
+    "err.fm_meta_key_type": "frontmatter.metadata のキーは文字列である必要があります",
+    "err.fm_meta_val_type": "frontmatter.metadata の値は文字列である必要があります",
+
+    "err.fm_allowed_tools_type": "frontmatter.allowed-tools は指定する場合、文字列である必要があります",
+
+    "err.relpath_required": "relative_path は必須で、空でない文字列である必要があります",
+    "err.abs_path_not_allowed": "絶対パスは許可されません",
+    "err.dotdot_not_allowed": "relative_path に '..' は使えません",
+    "err.relpath_points_to_root": "relative_path はスキルのルートではなくファイルを指す必要があります",
+    "err.path_traversal": "パストラバーサルを検出しました（skill_dir 外を指しています）"
+  }
+}

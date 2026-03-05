@@ -56,7 +56,7 @@ def load_long_memory_raw() -> str:
     except FileNotFoundError:
         return _("msg.no_memory", default="(no long-term memory yet)")
     except Exception as e:
-        return f"[long_memory error] {type(e).__name__}: {e}"
+        return _("err.load", default="[long_memory error] {err_type}: {err}").format(err_type=type(e).__name__, err=str(e))
 
     truncated_note = ""
     if len(data) > max_bytes:

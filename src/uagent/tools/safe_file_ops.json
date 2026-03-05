@@ -1,31 +1,52 @@
 {
   "en": {
-    "ui.confirm.footer": "=== /confirm ===\n"
+    "confirm.risky_op": "This operation might be dangerous, so confirmation is required.\noperation: {operation}\npath: {path}\nReply with y to proceed, or c to cancel.",
+    "confirm.rename": "rename/move will move real files (it may overwrite or delete existing files).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReply with y to proceed, or c to cancel.",
+
+    "ui.confirm.title": "=== Human confirmation request ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+
+    "err.create_cancel": "Creation cancelled because the user did not allow it: {filename}",
+    "err.exists_overwrite_false": "File already exists (overwrite=False): {filename}",
+    "err.delete_cancel": "Deletion cancelled because the user did not allow it: {filename}",
+    "err.delete_path_cancel": "Deletion cancelled because the user did not allow it: {path}",
+    "err.path_not_found": "Path does not exist: {path}",
+    "err.delete_dir_cancel": "Directory deletion cancelled because the user did not allow it: {path}",
+    "err.src_dst_required": "src and dst are required",
+    "err.src_not_found": "src does not exist: {src}",
+    "err.dst_exists_overwrite_false": "dst already exists (overwrite=False): {dst}",
+    "err.rename_cancel": "rename/move cancelled because the user did not allow it: {src} -> {dst}",
+    "err.prompt_target_not_found": "Target file for prompt generation was not found: {path}",
+    "err.prompt_cancel": "Prompt generation cancelled because the user did not allow it: {path}",
+
+    "reason.src_trigger": "src matches risky path conditions",
+    "reason.dst_trigger": "dst matches risky path conditions",
+    "reason.overwrite_delete": "overwrite=True will delete existing dst and replace it"
   },
   "ja": {
-    "doc.module": "\n\n\nsafe_file_ops.py\n\n\n\n\nローカルでのファイル書き込み／削除／リネーム(移動)／プロンプト生成に対する安全ラッパー。\n\n\n\n\n方針(B: 中):\n\n- 露骨に危険な操作（workdir 外、絶対パス、パス traversal など）を検出したら必ずユーザー確認。\n\n- それ以外は従来どおり実行。\n\n\n\n\n確認UI:\n\n- 原則として human_ask と同等の仕組み（stdin_loop が拾う共有キュー）で確認する。\n\n- 他の human_ask がアクティブな場合は一定時間待機してから確認を開始する。\n\n- コールバックが利用できない場合のみ input() にフォールバック。\n\n\n\n\nキャンセル:\n\n- 'c' または 'cancel' でキャンセル。\n\n",
-    "doc.is_trigger_path": "トリガー条件(B: Medium):\n\n- Path contains '..'\n- Absolute path\n- Not under workdir (cwd)\n",
-    "ui.confirm.title": "=== 人への依頼 (confirm) ===",
-    "ui.confirm.howto": "回答方法: y=実行 / c=キャンセル / その他=拒否\n",
-    "confirm.risky_op": "この操作は危険な可能性があるため確認します。\n操作: {operation}\nパス: {path}\n実行してよければ y、キャンセルなら c と入力してください。",
-    "confirm.rename": "rename/move は実ファイルを移動します（上書きや削除を伴う場合があります）。\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\n実行してよければ y、キャンセルなら c と入力してください。",
-    "err.create_cancel": "ユーザーが許可しなかったため作成を中止しました: {filename}",
-    "err.exists_overwrite_false": "ファイルが既に存在します（overwrite=False）: {filename}",
-    "err.delete_cancel": "ユーザーが許可しなかったため、削除を中止しました: {filename}",
-    "doc.safe_delete_path": "パスを安全に削除する。\n\n- ファイル: os.remove\n- ディレクトリ: shutil.rmtree\n\n安全方針:\n- trigger path 条件（絶対パス/..含む/workdir外 等）に該当する場合はユーザー確認。\n- ディレクトリ削除は危険操作なので、常にユーザー確認。\n",
-    "err.delete_path_cancel": "ユーザーが許可しなかったため、削除を中止しました: {path}",
-    "err.path_not_found": "path が存在しません: {path}",
-    "err.delete_dir_cancel": "ユーザーが許可しなかったため、ディレクトリ削除を中止しました: {path}",
-    "doc.safe_rename_path": "ファイル/ディレクトリの rename/move を安全確認つきで行う。\n\n- src/dst はファイル/ディレクトリ両対応\n- overwrite=True の場合、dst が存在していれば削除して置換（削除を伴う）\n- mkdirs=True の場合、dst 親ディレクトリを作成\n\n安全確認:\n- src/dst いずれかが trigger path の場合は確認\n- overwrite=True の場合は確認（削除を伴うため）\n",
-    "err.src_dst_required": "src/dst は必須です",
+    "confirm.risky_op": "危険な可能性があるため確認が必要です。\noperation: {operation}\npath: {path}\n続行する場合は y、取消は c を入力してください。",
+    "confirm.rename": "rename/move は実ファイルを移動します（上書きや既存の削除が発生する場合があります）。\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\n続行する場合は y、取消は c を入力してください。",
+
+    "ui.confirm.title": "=== 確認 ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
+
+    "err.create_cancel": "ユーザーが許可しなかったため作成を取り消しました: {filename}",
+    "err.exists_overwrite_false": "ファイルが既に存在します (overwrite=False): {filename}",
+    "err.delete_cancel": "ユーザーが許可しなかったため削除を取り消しました: {filename}",
+    "err.delete_path_cancel": "ユーザーが許可しなかったため削除を取り消しました: {path}",
+    "err.path_not_found": "パスが存在しません: {path}",
+    "err.delete_dir_cancel": "ユーザーが許可しなかったためディレクトリ削除を取り消しました: {path}",
+    "err.src_dst_required": "src と dst が必要です",
     "err.src_not_found": "src が存在しません: {src}",
-    "reason.src_trigger": "src が危険パス条件に該当",
-    "reason.dst_trigger": "dst が危険パス条件に該当",
-    "reason.overwrite_delete": "overwrite=True で既存 dst を削除して置換",
-    "err.dst_exists_overwrite_false": "dst が既に存在します（overwrite=False）: {dst}",
-    "err.rename_cancel": "ユーザーが許可しなかったため rename/move を中止しました: {src} -> {dst}",
-    "err.prompt_target_not_found": "解析対象ファイルが見つかりません: {path}",
-    "err.prompt_cancel": "ユーザーが許可しなかったためプロンプト生成を中止しました: {path}",
-    "ui.confirm.footer": "=== /confirm ===\n"
+    "err.dst_exists_overwrite_false": "dst は既に存在します (overwrite=False): {dst}",
+    "err.rename_cancel": "ユーザーが許可しなかったため rename/move を取り消しました: {src} -> {dst}",
+    "err.prompt_target_not_found": "プロンプト生成対象ファイルが見つかりません: {path}",
+    "err.prompt_cancel": "ユーザーが許可しなかったためプロンプト生成を取り消しました: {path}",
+
+    "reason.src_trigger": "src が危険パス条件に該当します",
+    "reason.dst_trigger": "dst が危険パス条件に該当します",
+    "reason.overwrite_delete": "overwrite=True により既存 dst を削除して置き換えます"
   }
 }
