@@ -1,12 +1,32 @@
 {
   "en": {
-    "ui.confirm.footer": "=== /confirm ===\n"
+    "confirm.risky_command": "A potentially high-risk command pattern was detected.\ncommand: {command}\nReply with y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell chaining/redirection operators were detected.\ncommand: {command}\nReply with y to proceed, or c to cancel.",
+
+    "ui.confirm.title": "=== Human confirmation request ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_timeout": "confirmation timeout",
+    "err.confirm_failed": "confirmation failed",
+
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected"
   },
   "ja": {
-    "confirm.risky_command": "危険度が高い可能性のあるコマンドが検出されました。\ncommand: {command}\n実行してよければ y、キャンセルなら c と入力してください。",
-    "confirm.shell_metachar": "コマンド連結/リダイレクト等が含まれます。\ncommand: {command}\n実行してよければ y、キャンセルなら c と入力してください。",
-    "ui.confirm.title": "=== 人への依頼 (confirm) ===",
-    "ui.confirm.howto": "回答方法: y=実行 / c=キャンセル / その他=拒否\n",
-    "ui.confirm.footer": "（日本語）=== /confirm ===\n"
+    "confirm.risky_command": "高リスクの可能性があるコマンドパターンを検出しました。\ncommand: {command}\n続行する場合は y、取消は c を入力してください。",
+    "confirm.shell_metachar": "シェルの連結/リダイレクト演算子を検出しました。\ncommand: {command}\n続行する場合は y、取消は c を入力してください。",
+
+    "ui.confirm.title": "=== 確認 ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
+
+    "err.callbacks_unavailable": "human_ask のコールバックが利用できません",
+    "err.confirm_timeout": "確認がタイムアウトしました",
+    "err.confirm_failed": "確認に失敗しました",
+
+    "err.blocked_cancelled": "ユーザーが取り消しました",
+    "err.blocked_rejected": "ユーザーが拒否しました"
   }
 }
