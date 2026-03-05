@@ -95,12 +95,12 @@ _META_CONFIRM = [
 def decide_cmd_exec(command: str) -> ExecDecision:
     cmd_norm = _normalize_cmd(command)
     if not cmd_norm:
-        return ExecDecision(False, "empty command")
+        return ExecDecision(False, _("err.empty_command", default="empty command"))
 
     block_list = _WIN_BLOCK if _is_windows() else _POSIX_BLOCK
     for pat in block_list:
         if re.search(pat, cmd_norm):
-            return ExecDecision(False, f"blocked by rule: {pat}")
+            return ExecDecision(False, _("err.blocked_by_rule", default="blocked by rule: {pattern}").format(pattern=pat))
 
     for pat in _CONFIRM_PATTERNS:
         if re.search(pat, cmd_norm):
@@ -136,7 +136,7 @@ def decide_cmd_exec(command: str) -> ExecDecision:
                 confirm_message=msg,
             )
 
-    return ExecDecision(True, "allowed")
+    return ExecDecision(True, _("msg.allowed", default="allowed"))
 
 
 def _human_ask_confirm(message: str) -> Optional[str]:
@@ -158,7 +158,7 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         or cb.human_ask_lines_ref is None
         or cb.human_ask_set_multiline_active is None
     ):
-        return "[confirm error] human_ask callbacks not available"
+        return _("err.callbacks_unavailable", default="human_ask callbacks not available")
 
     import queue as _queue
 
@@ -186,7 +186,7 @@ def _human_ask_confirm(message: str) -> Optional[str]:
                 break
 
         if time.time() - start > wait_timeout_sec:
-            return "[blocked] confirmation timeout"
+            return _("err.confirm_timeout", default="confirmation timeout")
         time.sleep(poll_interval_sec)
 
     try:
@@ -215,8 +215,8 @@ def _human_ask_confirm(message: str) -> Optional[str]:
     if ur == "y":
         return None
     if ur in ("c", "cancel"):
-        return "[blocked] user cancelled"
-    return "[blocked] user rejected"
+        return _("err.blocked_cancelled", default="user cancelled")
+    return _("err.blocked_rejected", default="user rejected")
 
 
 def confirm_if_needed(decision: ExecDecision) -> Optional[str]:
@@ -230,17 +230,18 @@ def confirm_if_needed(decision: ExecDecision) -> Optional[str]:
         return None
 
     # If human_ask isn't available, fallback to input()
-    if "callbacks not available" in err:
+    if err == _("err.callbacks_unavailable", default="human_ask callbacks not available"):
+
         try:
-            resp = input(decision.confirm_message + " [y/c/N]: ")
+            resp = input(decision.confirm_message + _("ui.fallback_prompt", default=" [y/c/N]: "))
         except Exception:
-            return "[blocked] confirmation failed"
+            return _("err.confirm_failed", default="confirmation failed")
 
         r = resp.strip().lower()
         if r == "y":
             return None
         if r in ("c", "cancel"):
-            return "[blocked] user cancelled"
-        return "[blocked] user rejected"
+            return _("err.blocked_cancelled", default="user cancelled")
+        return _("err.blocked_rejected", default="user rejected")
 
     return err
