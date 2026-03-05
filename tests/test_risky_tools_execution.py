@@ -29,10 +29,40 @@ def test_get_geoip_smoke() -> None:
 
 
 def test_fetch_url_smoke() -> None:
-    out = fetch_url({"url": "https://example.com"})
-    # fetch_url は HTML 文字列を返す実装のため、JSON としては扱わない
-    assert isinstance(out, str)
-    assert "Example Domain" in out
+    # Use a local HTTP server so the test does not depend on external network/SSL/proxy.
+    import http.server
+    import socket
+    import threading
+
+    body = b"<html><body>OK</body></html>"
+
+    class Handler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, format, *args):
+            # silence server logs in test output
+            return
+
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        host, port = s.getsockname()
+
+    httpd = http.server.HTTPServer(("127.0.0.1", port), Handler)
+    t = threading.Thread(target=httpd.serve_forever, daemon=True)
+    t.start()
+    try:
+        out = fetch_url({"url": f"http://127.0.0.1:{port}/"})
+        assert isinstance(out, str)
+        assert "OK" in out
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+
 
 
 def test_search_web_smoke() -> None:
