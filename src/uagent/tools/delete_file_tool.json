@@ -3,14 +3,20 @@
     "param.filename.description": "Path to the file to delete.",
     "param.path.description": "(Compatibility) Alias of filename.",
     "param.missing_ok.description": "If true, do not error when the path does not exist.",
+    "param.dry_run.description": "If true, only list matched paths and do not delete anything.",
+    "param.allow_dir.description": "If true, allow deleting directories matched by glob.",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
-    "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation."
+    "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation.",
+    "confirm.delete_paths_bulk": "Delete {count} paths matched by glob?\\n\\n{paths}\\n\\nEnter y to proceed, or c to cancel."
   },
   "ja": {
     "param.filename.description": "削除するファイル/ディレクトリのパスです。",
     "param.path.description": "（互換性のための別名）filename と同じ意味です。",
     "param.missing_ok.description": "true の場合、パスが存在しなくてもエラーにしません。",
+    "param.dry_run.description": "true の場合、glob に一致した削除候補を一覧表示するだけで、削除は実行しません。",
+    "param.allow_dir.description": "true の場合、glob に一致したディレクトリも削除対象に含めます。",
     "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除）。危険な操作のため、確認が必要になる場合があります。",
-    "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。"
+    "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。",
+    "confirm.delete_paths_bulk": "glob に一致した {count} 件のパスを削除しますか？\\n\\n{paths}\\n\\n続行する場合は y、キャンセルする場合は c を入力してください。"
   }
 }
