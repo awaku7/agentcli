@@ -1,0 +1,16 @@
+{
+  "en": {
+    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
+    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
+    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
+    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters."
+  },
+  "ja": {
+    "tool.description": "PDF/PPTX（または共通JSONスキーマ）を読み取り、ページ単位の抽出テキストを返します。PDF/PPTX の場合は共通JSONスキーマに変換して処理します。",
+    "tool.system_prompt": "重要: PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。",
+    "param.path.description": "PDF / PPTX / JSON ファイルのパス。",
+    "param.page_index.description": "1始まりのページ番号（PDFページ / PPTXスライド番号）。省略時は全ページを連結して返します。",
+    "param.max_chars.description": "返却する最大文字数。省略時は 8000 文字で切り詰めます。"
+  }
+}
