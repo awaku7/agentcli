@@ -1,10 +1,12 @@
 {
   "en": {
     "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]",
+    "err.load": "[long_memory error] {err_type}: {err}"
   },
   "ja": {
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "msg.no_memory": "(長期記憶はまだありません)",
+    "msg.truncated": "\n[long_memory: {max_bytes} 文字で切り詰めました]",
+    "err.load": "[long_memory エラー] {err_type}: {err}"
   }
 }
