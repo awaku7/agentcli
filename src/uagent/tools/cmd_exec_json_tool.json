@@ -1,14 +1,14 @@
 {
   "en": {
-    "param.command.description": "",
-    "param.cwd.description": "",
-    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
-    "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
+    "param.command.description": "Command string passed to cmd.exe /c (Windows) or sh -lc (Unix-like).",
+    "param.cwd.description": "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory.",
+    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available.",
+    "tool.system_prompt": "Execute the command in a safe manner and return structured JSON output."
   },
   "ja": {
-    "param.command.description": "（日本語）",
-    "param.cwd.description": "（日本語）",
-    "tool.description": "（日本語）As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific ツール is available (例:, an MCP integration).",
-    "tool.system_prompt": "（日本語）This ツール is a LAST RESORT. Use it only if no other appropriate ツール is available. Be conservative with commands and avoid destructive 操作s unless explicitly confirmed by the user."
+    "param.command.description": "実行するコマンド文字列です（Windows は cmd.exe /c、Unix系は sh -lc に渡されます）。",
+    "param.cwd.description": "実行時の作業ディレクトリです。workdir 配下の相対パスのみ許可されます。null の場合は現在のディレクトリです。",
+    "tool.description": "（最終手段として）シェルコマンドを実行し、結果を JSON で返します。より安全/専用のツールがある場合はそちらを優先してください。",
+    "tool.system_prompt": "コマンドを安全に実行し、結果を構造化した JSON として返してください。"
   }
 }

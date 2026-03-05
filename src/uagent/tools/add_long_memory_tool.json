@@ -1,12 +1,12 @@
 {
   "en": {
-    "param.note.description": "",
+    "param.note.description": "Write exactly one concise note that should be reusable in future conversations.",
     "tool.description": "Save a single long-term memory note about the user/environment that may be useful in future conversations.",
-    "tool.system_prompt": "Save one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
+    "tool.system_prompt": "Save exactly one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
   },
   "ja": {
-    "param.note.description": "（日本語）",
-    "tool.description": "（日本語）保存します a single long-term memory note about the user/environment that may be useful in future conversations.",
-    "tool.system_prompt": "（日本語）保存します one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
+    "param.note.description": "今後の会話で再利用できるようなメモを、簡潔に1件だけ書いてください。",
+    "tool.description": "ユーザーや環境に関する長期メモを1件保存します（後の会話で参照できる情報）。",
+    "tool.system_prompt": "長期メモを1件だけ保存してください。\nパスワード、APIキー、トークン等の秘匿情報は保存しないでください。"
   }
 }

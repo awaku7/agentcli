@@ -1,18 +1,16 @@
 {
   "en": {
-    "confirm.delete_path": "",
-    "param.filename.description": "",
-    "param.missing_ok.description": "",
-    "param.path.description": "",
+    "param.filename.description": "Path to the file to delete.",
+    "param.path.description": "(Compatibility) Alias of filename.",
+    "param.missing_ok.description": "If true, do not error when the path does not exist.",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
-    "tool.system_prompt": "This tool performs the operation described by the tool name 'delete_file'."
+    "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation."
   },
   "ja": {
-    "confirm.delete_path": "（日本語）",
-    "param.filename.description": "（日本語）",
-    "param.missing_ok.description": "（日本語）",
-    "param.path.description": "（日本語）",
-    "tool.description": "（日本語）削除します the specified ファイル or ディレクトリ (ディレクトリ are deleted recursively). Because this is dangerous, confirmation may be required.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'delete_ファイル'."
+    "param.filename.description": "削除するファイル/ディレクトリのパスです。",
+    "param.path.description": "（互換性のための別名）filename と同じ意味です。",
+    "param.missing_ok.description": "true の場合、パスが存在しなくてもエラーにしません。",
+    "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除）。危険な操作のため、確認が必要になる場合があります。",
+    "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。"
   }
 }
