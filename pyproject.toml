@@ -39,12 +39,23 @@ dependencies = [
     "playwright",
     "holidays>=0.89",
     "pyreadline3>=3.4.1; sys_platform == 'win32'",
-    "pyautogui; sys_platform == 'win32' or sys_platform == 'darwin' or sys_platform == 'linux'",
+    "pyautogui",
     "pygetwindow; sys_platform == 'win32'",
     "ruff>=0.0.0",
     "black>=24.0.0",
     "mypy>=1.0.0",
     "pylint>=3.0.0",
+    "types-requests",
+    "pytest>=7.0.0",
+    "libcst>=1.0.0",
+    "mcp",
+    "fastapi",
+    "uvicorn",
+    "jinja2",
+    "python-multipart",
+    "websockets",
+    "types-PyYAML",
+    "types-python-dateutil",
 ]
 
 
@@ -53,20 +64,6 @@ dependencies = [
 uag = "uagent.cli:main"
 uagg = "uagent.gui:main"
 uagw = "uagent.web:main"
-
-[project.optional-dependencies]
-web = [
-  "fastapi",
-  "uvicorn",
-  "jinja2",
-  "python-multipart",
-  "websockets",
-]
-# Dev-only dependencies (type stubs, etc.)
-dev = [
-  "types-PyYAML",
-  "types-python-dateutil",
-]
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["uagent", "uagent.*"]
