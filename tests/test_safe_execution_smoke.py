@@ -219,7 +219,7 @@ def test_python_exec() -> None:
 
 
 def test_generate_prompt(repo_tmp_path: Path) -> None:
-    from uagent.tools.generate_prompt import run_tool
+    from uagent.tools.generate_prompt_tool import run_tool
 
     p = repo_tmp_path / "a.txt"
     p.write_text("hello\nworld\n", encoding="utf-8")
