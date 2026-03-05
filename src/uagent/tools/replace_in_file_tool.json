@@ -24,7 +24,7 @@
     "param.context_lines.description": "プレビューで表示する、前後のコンテキスト行数です。",
     "param.confirm_if_matches_over.description": "preview=false のとき、マッチ件数がこの値以上なら処理をブロックします。",
     "param.encoding.description": "ファイルのエンコーディング（既定: utf-8）。",
-    "tool.description": "既存のテキストファイルに対して、リテラル置換または正規表現置換を安全に実行します。改行コードは内部で正規化されるため、パターン/置換文字列に改行を含む置換も扱えます。\n\n重要（必ずお読みください）:\n- まず preview=true で実行し、ヒット位置と diff プレビューを確認してください。\n- 改行: 生の改行も使用できますが、事故防止のため \\n（JSON: \\\\n）を使うことを推奨します（例: Python文字列リテラルの破損）。\n- mode=regex の場合、pattern は Python の re パターンです（単なる部分一致ではありません）。例: \\x は不正なので \\xNN（例: \\x00, \\x1b）と書いてください。\n- バックスラッシュそのものを探したいだけなら mode=literal を推奨します。",
-    "tool.system_prompt": "ファイルに対して安全に置換を行ってください。\n\n手順:\n1) read_file で対象箇所を確認\n2) replace_in_file を preview=true で実行し、ヒット位置と diff を確認\n3) 正しければ preview=false で適用（.org/.orgN のバックアップが作成されます）\n\n注意:\n- JSON 文字列に生の改行を含めず、改行は \\n（JSON: \\\\n）で表現してください。\n- regex モードでは replacement は Python の re 置換セマンティクスに従います（\\1, \\2, ...）。\n- literal モードでは \\n/\\r トークンを実改行へ展開します。"
+    "tool.description": "既存のテキストファイルに対して、リテラル置換または正規表現置換を安全に実行します。改行コードは内部で正規化されるため、パターン/置換文字列に改行を含む置換も扱えます。\n\n絶対ルール（必須）:\n1) まず preview=true で実行し、ヒット位置と diff を確認してください（必ず）。\n2) JSON 文字列に生の改行を入れないでください。改行は \n（JSON: \\n）で表現してください。\n3) 単純な部分一致なら mode=literal を使ってください（regex は必要なときだけ）。\n\n補足（regex のとき）:\n- pattern は Python の re パターンです（.,*,?,[],(),^,$ などは特別扱い）。\n- \x は不正なので \xNN（例: \x00, \x1b）と書いてください。\n- replacement の \1, \2... はキャプチャ参照です。",
+    "tool.system_prompt": "ファイルに対して安全に置換を行ってください。\n\n絶対ルール（必須）:\n1) まず preview=true で実行し、ヒット位置と diff を確認してください（必ず）。\n2) JSON 文字列に生の改行を入れないでください。改行は \n（JSON: \\n）で表現してください。\n3) 単純な部分一致なら mode=literal を使ってください（regex は必要なときだけ）。\n\n推奨手順:\n1) read_file で対象箇所を確認\n2) replace_in_file を preview=true で実行し、ヒット位置と diff を確認\n3) 正しければ preview=false で適用（.org/.orgN のバックアップが作成されます）\n\n補足:\n- regex モードでは replacement は Python の re 置換セマンティクスに従います（\1, \2, ...）。\n- literal モードでは \n/\r トークンを実改行へ展開します。"
   }
 }
