@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from uagent.tools.read_pptx_pdf import run_tool as read_pptx_pdf
+from uagent.tools.read_pptx_pdf_tool import run_tool as read_pptx_pdf
 
 
 @pytest.mark.parametrize("kind", ["pdf", "pptx"])
