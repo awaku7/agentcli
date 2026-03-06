@@ -5,8 +5,8 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'."
   },
   "ja": {
-    "param.url.description": "アクセスする URL（http:// または https://）。",
-    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストとして返します。HTML や JSON の内容確認に使えます。",
-    "tool.system_prompt": "このツールは、ツール名 'fetch_url' が示す操作を実行します。"
+    "param.url.description": "（日本語）",
+    "tool.description": "（日本語）Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
+    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'fetch_url'."
   }
 }

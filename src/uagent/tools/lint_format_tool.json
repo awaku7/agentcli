@@ -11,7 +11,7 @@
     "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
     "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
     "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。\n\n実装:\n- cmd_exec_json_tool を利用する。",
-    "tool.description": "実行します static analysis/形式ters (例:, ruff/black/mypy). モード=fix modifies ファイルs and requires confirmation.",
-    "tool.system_prompt": "実行します static analysis/形式ters. If additional user confirmation is required (例:, モード=fix), use human_ask."
+    "tool.description": "（日本語）実行します static analysis/形式ters (例:, ruff/black/mypy). モード=fix modifies ファイルs and requires confirmation.",
+    "tool.system_prompt": "（日本語）実行します static analysis/形式ters. If additional user confirmation is required (例:, モード=fix), use human_ask."
   }
 }
