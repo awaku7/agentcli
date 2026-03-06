@@ -174,9 +174,7 @@ def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) 
 @pytest.mark.parametrize(
     "pattern,replacement,expected_count",
     [
-        (r"^name=(.+)$", r"NAME=\\1", 2),
-        # MULTILINE should make this work for regex mode if tool uses re.MULTILINE (it does not).
-        # This test asserts current behavior: no flags, so ^...$ only matches whole string.
+        (r"name=(.+)", r"NAME=\\1", 2),
         (r"^name=(.+)$", r"NAME=\\1", 0),
     ],
     ids=["no_anchors", "anchors_no_multiline"],
@@ -198,9 +196,7 @@ def test_replace_in_file_regex_anchor_behavior(
     )
     obj = _load(out)
 
-    # First case uses pattern without anchors implicitly (r"name=(.+)") and should be 2;
-    # second asserts anchored pattern doesn't match without MULTILINE.
-    assert obj["match_count"] in {0, 2}
+    assert obj["match_count"] == expected_count
 
 
 @pytest.mark.skipif(os.name != "nt", reason="CP932 is Windows-oriented")

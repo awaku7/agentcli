@@ -5,10 +5,8 @@
     "param.mode.description": "Replacement mode: literal (plain substring) or regex (Python re).",
     "param.pattern.description": "Search pattern. To express a newline, write \\n (JSON: \\\\n).",
     "param.replacement.description": "Replacement text.",
-    "param.count.description": "Maximum number of replacements. If null, replace all matches.",
     "param.preview.description": "If true, return a preview only and do not modify the file.",
-    "param.context_lines.description": "Number of context lines to include before/after each hit in the preview.",
-    "param.confirm_if_matches_over.description": "When preview=false, block the operation if the number of matches is greater than or equal to this value.",
+    "param.confirm_if_matches_over.description": "When preview=false, block the operation if the number of matches is greater than this value.",
     "param.encoding.description": "File encoding (default: utf-8).",
     "tool.description": "Safely perform literal or regular-expression replacements on an existing text file. Line endings are normalized internally, so patterns/replacements that include newlines are supported.\n\nImportant (read carefully):\n- Run with preview=true first to inspect hit locations and the diff preview.\n- Newlines: raw newlines are allowed, but using the two-character sequence \\n (JSON: \\\\n) is recommended to avoid accidental source breakage (e.g., Python string literals).\n- When mode=regex, pattern is interpreted as a Python re pattern (not a plain substring). For example, \\x is invalid; write \\xNN (e.g., \\x00, \\x1b).\n- If you only need to match a backslash literally, prefer mode=literal.",
     "tool.system_prompt": "Perform a safe text replacement on a file.\n\nWorkflow:\n1) Inspect with read_file\n2) Run replace_in_file with preview=true and verify hit locations + diff\n3) If correct, apply with preview=false (a .org/.orgN backup will be created)\n\nNotes:\n- Do not embed raw newlines in JSON strings; express newlines as \\n (JSON: \\\\n).\n- In regex mode, replacement follows Python re semantics (\\1, \\2, ... for capture groups).\n- In literal mode, the tool expands \\n/\\r tokens into real newlines."
@@ -19,10 +17,8 @@
     "param.mode.description": "置換モード（literal=文字列置換 / regex=正規表現）。",
     "param.pattern.description": "検索パターン。改行は \\n（JSON: \\\\n）で指定します。",
     "param.replacement.description": "置換後の文字列です。",
-    "param.count.description": "置換回数の上限です。null の場合は全マッチを置換します。",
     "param.preview.description": "true の場合はプレビューのみ返し、ファイルは変更しません。",
-    "param.context_lines.description": "プレビューで表示する、前後のコンテキスト行数です。",
-    "param.confirm_if_matches_over.description": "preview=false のとき、マッチ件数がこの値以上なら処理をブロックします。",
+    "param.confirm_if_matches_over.description": "preview=false のとき、マッチ件数がこの値を超えるなら処理をブロックします。",
     "param.encoding.description": "ファイルのエンコーディング（既定: utf-8）。",
     "tool.description": "既存のテキストファイルに対して、リテラル置換または正規表現置換を安全に実行します。改行コードは内部で正規化されるため、パターン/置換文字列に改行を含む置換も扱えます。\n\n絶対ルール（必須）:\n1) まず preview=true で実行し、ヒット位置と diff を確認してください（必ず）。\n2) JSON 文字列に生の改行を入れないでください。改行は \\n（JSON: \\\\n）で表現してください。\n3) 単純な部分一致なら mode=literal を使ってください（regex は必要なときだけ）。\n\n補足（regex のとき）:\n- pattern は Python の re パターンです（.,*,?,[],(),^,$ などは特別扱い）。\n- \\x は不正なので \\xNN（例: \\x00, \\x1b）と書いてください。\n- replacement の \\1, \\2... はキャプチャ参照です。",
     "tool.system_prompt": "ファイルに対して安全に置換を行ってください。\n\n絶対ルール（必須）:\n1) まず preview=true で実行し、ヒット位置と diff を確認してください（必ず）。\n2) JSON 文字列に生の改行を入れないでください。改行は \\n（JSON: \\\\n）で表現してください。\n3) 単純な部分一致なら mode=literal を使ってください（regex は必要なときだけ）。\n\n推奨手順:\n1) read_file で対象箇所を確認\n2) replace_in_file を preview=true で実行し、ヒット位置と diff を確認\n3) 正しければ preview=false で適用（.org/.orgN のバックアップが作成されます）\n\n補足:\n- regex モードでは replacement は Python の re 置換セマンティクスに従います（\\1, \\2, ...）。\n- literal モードでは \\n/\\r トークンを実改行へ展開します。"
