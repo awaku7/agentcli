@@ -7,7 +7,7 @@ from datetime import datetime
 import importlib.util
 from importlib import import_module, reload
 from pkgutil import iter_modules
-from typing import Any, Dict, List, Callable
+from typing import Any, Dict, List, Callable, Optional
 
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
 from .i18n_helper import make_tool_translator
@@ -262,6 +262,96 @@ def get_tool_specs() -> List[Dict[str, Any]]:
 
         clean_specs.append(spec_copy)
     return clean_specs
+
+
+def get_tool_catalog(
+    *,
+    query: str,
+    max_results: int = 12,
+    tool_specs: Optional[List[Dict[str, Any]]] = None,
+) -> List[Dict[str, Any]]:
+    """Return a lightweight searchable catalog of tools."""
+    q = (query or "").strip().lower()
+    try:
+        limit = int(max_results)
+    except Exception:
+        limit = 12
+    if limit <= 0:
+        limit = 12
+
+    specs = get_tool_specs() if tool_specs is None else tool_specs
+    rows: List[Dict[str, Any]] = []
+
+    for spec in specs or []:
+        if not isinstance(spec, dict):
+            continue
+        fn = spec.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+
+        name = str(fn.get("name") or "").strip()
+        if not name:
+            continue
+
+        description = str(fn.get("description") or "").strip()
+        parameters = fn.get("parameters") or {}
+        properties = parameters.get("properties") or {}
+        required = parameters.get("required") or []
+
+        param_names: List[str] = []
+        if isinstance(properties, dict):
+            param_names = [str(k) for k in properties.keys()]
+
+        haystack_parts = [name, description] + param_names
+        haystack = " ".join([p for p in haystack_parts if p]).lower()
+
+        score = 0
+        if q:
+            tokens = [tok for tok in re.split(r"\s+", q) if tok]
+            for tok in tokens:
+                if tok == name.lower():
+                    score += 100
+                elif tok in name.lower():
+                    score += 40
+                if tok in description.lower():
+                    score += 15
+                for pn in param_names:
+                    pnl = pn.lower()
+                    if tok == pnl:
+                        score += 20
+                    elif tok in pnl:
+                        score += 8
+            if q in haystack:
+                score += 25
+        else:
+            score = 1
+
+        if score <= 0 and q:
+            continue
+
+        rows.append(
+            {
+                "name": name,
+                "description": description,
+                "required": [str(x) for x in required] if isinstance(required, list) else [],
+                "parameters": param_names,
+                "score": score,
+            }
+        )
+
+    rows.sort(key=lambda x: (-int(x.get("score", 0)), str(x.get("name", ""))))
+
+    out: List[Dict[str, Any]] = []
+    for row in rows[:limit]:
+        out.append(
+            {
+                "name": row["name"],
+                "description": row["description"],
+                "required": row["required"],
+                "parameters": row["parameters"],
+            }
+        )
+    return out
 
 
 def reload_plugins() -> None:

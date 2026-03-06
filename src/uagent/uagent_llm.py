@@ -4,7 +4,7 @@ import time
 from .i18n import _
 from .translate import load_translate_config, translate_text
 import traceback
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from urllib.error import URLError
 
 from . import tools
@@ -31,6 +31,96 @@ try:
 except Exception:
     BadRequestError = None
     APIConnectionError = None
+
+
+def _is_gpt54_tool_search_target(
+    *,
+    provider: str,
+    depname: str,
+    use_responses_api: bool,
+) -> bool:
+    if not use_responses_api:
+        return False
+    model = (depname or "").strip().lower()
+    marker = "gpt-5."
+    idx = model.find(marker)
+    if idx < 0:
+        return False
+    tail = model[idx + len(marker) :]
+    digits = []
+    for ch in tail:
+        if ch.isdigit():
+            digits.append(ch)
+        else:
+            break
+    if not digits:
+        return False
+    try:
+        minor = int("".join(digits))
+    except Exception:
+        return False
+    return minor >= 4
+
+
+def _select_tool_specs_for_gpt54(
+    call_messages: List[Dict[str, Any]],
+) -> Optional[List[Dict[str, Any]]]:
+    specs = tools.get_tool_specs() or []
+    if not specs:
+        return []
+
+    latest_user_text = ""
+    for m in reversed(call_messages):
+        if m.get("role") == "user":
+            content = m.get("content")
+            if isinstance(content, str):
+                latest_user_text = content
+                break
+            if isinstance(content, list):
+                parts: List[str] = []
+                for item in content:
+                    if isinstance(item, dict) and item.get("type") in (
+                        "text",
+                        "input_text",
+                        "output_text",
+                    ):
+                        txt = item.get("text")
+                        if isinstance(txt, str) and txt.strip():
+                            parts.append(txt)
+                if parts:
+                    latest_user_text = "\n".join(parts)
+                    break
+
+    selected = tools.get_tool_catalog(query=latest_user_text, max_results=8)
+    selected_names = {
+        str(row.get("name") or "").strip() for row in selected if isinstance(row, dict)
+    }
+    selected_names.discard("")
+
+    if not selected_names:
+        selected_names.update(
+            {
+                "read_file",
+                "search_files",
+                "get_workdir",
+            }
+        )
+
+    selected_names.add("tool_catalog")
+    selected_names.add("human_ask")
+
+    narrowed: List[Dict[str, Any]] = []
+    for spec in specs:
+        if not isinstance(spec, dict):
+            continue
+        fn = spec.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+        name = str(fn.get("name") or "").strip()
+        if name in selected_names:
+            narrowed.append(spec)
+
+    return narrowed
 
 
 def run_llm_rounds(
@@ -416,11 +506,23 @@ def run_llm_rounds(
                 while True:
                     try:
                         if use_responses_api:
+                            use_gpt54_tool_search = _is_gpt54_tool_search_target(
+                                provider=provider,
+                                depname=depname,
+                                use_responses_api=use_responses_api,
+                            )
+                            responses_tool_specs = (
+                                _select_tool_specs_for_gpt54(call_messages)
+                                if use_gpt54_tool_search
+                                else None
+                            )
+
                             instructions_str, input_msgs, req_tools = (
                                 build_responses_request(
                                     call_messages,
                                     send_tools_this_round=send_tools_this_round,
                                     provider=provider,
+                                    tool_specs=responses_tool_specs,
                                 )
                             )
 
@@ -430,7 +532,7 @@ def run_llm_rounds(
                             }
                             if instructions_str is not None:
                                 resp_kwargs["instructions"] = instructions_str
-                            if send_tools_this_round and req_tools is not None:
+                            if send_tools_this_round and req_tools:
                                 resp_kwargs["tools"] = req_tools
                                 resp_kwargs["tool_choice"] = "auto"
 
