@@ -34,15 +34,15 @@
     "repl.default_v1": "既定",
     "repl.default_v2": "デフォルト",
     "repl.required": "必須",
-    "tool.description": "（日本語）libcst transforms Python code by analyzing (analyze) or transforming (transform).\n- analyze: Extract imports / classes / functions, etc.\n- transform: Apply rule-based bulk transforms (rename_symbol/replace_call/rename_import, etc.)\n\nSafety:\n- Reject paths outside workdir\n- 作成します .org/.orgN backup before overwrite when changes occur\n",
-    "tool.system_prompt": "（日本語）libcst-based Python code analyze/transform ツール.\n\nBasic input:\n- Specify ファイルs/ディレクトリ in paths (ディレクトリ are scanned recursively)\n- Narrow targets using include_glob/exclude_globs (既定 include_glob=**/*.py)\n\nモード=analyze:\n- Extract import / top-level class/function names and return JSON.\n\nモード=transform:\n- Specify an array of rules in 操作s.\n- If a ファイル is changed, create .org/.orgN backup immediately before overwrite.\n\n操作s examples:\n1) rename_symbol: old_name -> new_name (replace Name nodes) \n   {\"op\":\"rename_symbol\",\"old\":\"foo\",\"new\":\"bar\"}\n2) replace_call: old_func(...) -> new_func(...)\n   {\"op\":\"replace_call\",\"old\":\"old_func\",\"new\":\"new_func\"}\n3) rename_import: from X import old -> from X import new (module is optional)\n   {\"op\":\"rename_import\",\"module\":\"pkg.mod\",\"old\":\"Old\",\"new\":\"New\"}\n",
-    "param.mode.description": "（日本語）Execution モード: analyze=analyze / transform=transform",
-    "param.paths.description": "（日本語）Array of target ファイルs/ディレクトリ (must be under workdir).",
-    "param.include_glob.description": "（日本語）Include glob when scanning ディレクトリ (例: **/*.py).",
-    "param.exclude_globs.description": "（日本語）Array of exclude globs (例: **/.venv/**, **/__pycache__/**).",
-    "param.max_files.description": "（日本語）Maximum number of ファイルs to scan (runaway protection).",
-    "param.max_bytes.description": "（日本語）Maximum ファイル size (bytes).",
-    "param.operations.description": "（日本語）Transform rules array for モード=transform.\n\nSupported ops:\n- rename_symbol: replace identifier (requires old/new)\n  - include_attributes=true also targets obj.old\n- replace_call: replace function call name (requires old/new)\n  - receiver targets only receiver.old(...)\n  - if receiver is omitted, targets old(...) and *.old(...)\n- rename_import: from X import old -> from X import new (module is optional)\n",
-    "param.preview.description": "（日本語）true の場合, return diff preview without writing ファイルs (dry-run モード)."
+    "tool.description": "libcst transforms Python code by analyzing (analyze) or transforming (transform).\n- analyze: Extract imports / classes / functions, etc.\n- transform: Apply rule-based bulk transforms (rename_symbol/replace_call/rename_import, etc.)\n\nSafety:\n- Reject paths outside workdir\n- 作成します .org/.orgN backup before overwrite when changes occur\n",
+    "tool.system_prompt": "libcst-based Python code analyze/transform ツール.\n\nBasic input:\n- Specify ファイルs/ディレクトリ in paths (ディレクトリ are scanned recursively)\n- Narrow targets using include_glob/exclude_globs (既定 include_glob=**/*.py)\n\nモード=analyze:\n- Extract import / top-level class/function names and return JSON.\n\nモード=transform:\n- Specify an array of rules in 操作s.\n- If a ファイル is changed, create .org/.orgN backup immediately before overwrite.\n\n操作s examples:\n1) rename_symbol: old_name -> new_name (replace Name nodes) \n   {\"op\":\"rename_symbol\",\"old\":\"foo\",\"new\":\"bar\"}\n2) replace_call: old_func(...) -> new_func(...)\n   {\"op\":\"replace_call\",\"old\":\"old_func\",\"new\":\"new_func\"}\n3) rename_import: from X import old -> from X import new (module is optional)\n   {\"op\":\"rename_import\",\"module\":\"pkg.mod\",\"old\":\"Old\",\"new\":\"New\"}\n",
+    "param.mode.description": "Execution モード: analyze=analyze / transform=transform",
+    "param.paths.description": "Array of target ファイルs/ディレクトリ (must be under workdir).",
+    "param.include_glob.description": "Include glob when scanning ディレクトリ (例: **/*.py).",
+    "param.exclude_globs.description": "Array of exclude globs (例: **/.venv/**, **/__pycache__/**).",
+    "param.max_files.description": "Maximum number of ファイルs to scan (runaway protection).",
+    "param.max_bytes.description": "Maximum ファイル size (bytes).",
+    "param.operations.description": "Transform rules array for モード=transform.\n\nSupported ops:\n- rename_symbol: replace identifier (requires old/new)\n  - include_attributes=true also targets obj.old\n- replace_call: replace function call name (requires old/new)\n  - receiver targets only receiver.old(...)\n  - if receiver is omitted, targets old(...) and *.old(...)\n- rename_import: from X import old -> from X import new (module is optional)\n",
+    "param.preview.description": "true の場合, return diff preview without writing ファイルs (dry-run モード)."
   }
 }

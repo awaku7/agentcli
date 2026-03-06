@@ -144,7 +144,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     shell = _choose_shell(args.get("shell", ""))
 
     if not command:
-        return _("err.command_required", default="[pwsh_exec error] 'command' is required")
+        return _(
+            "err.command_required", default="[pwsh_exec error] 'command' is required"
+        )
 
     if not shutil.which(shell):
         return f"[pwsh_exec error] PowerShell executable not found: {shell}"

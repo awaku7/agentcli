@@ -52,7 +52,9 @@ def test_delete_file_glob_missing_ok_when_no_matches(repo_tmp_path: Path) -> Non
     assert res["matches"] == []
 
 
-def test_delete_file_single_path_deletes_file(monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path) -> None:
+def test_delete_file_single_path_deletes_file(
+    monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path
+) -> None:
     # Arrange
     target = repo_tmp_path / "x.txt"
     target.write_text("hi", encoding="utf-8")

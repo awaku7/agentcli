@@ -75,7 +75,12 @@ def _safe_or_skip_reason(tool_name: str) -> str | None:
         return "Provider/API dependent"
 
     # Memory tools depend on env configuration (may write files). Keep as skip.
-    if tool_name in {"add_long_memory", "get_long_memory", "add_shared_memory", "get_shared_memory"}:
+    if tool_name in {
+        "add_long_memory",
+        "get_long_memory",
+        "add_shared_memory",
+        "get_shared_memory",
+    }:
         return "Environment-dependent persistence"
 
     # Heavy/format-dependent tools: treat as skip for now.
@@ -83,7 +88,12 @@ def _safe_or_skip_reason(tool_name: str) -> str | None:
         return "Requires binary fixtures / office formats"
 
     # Skills tools are safe-ish but depend on skills dir content; skip by default.
-    if tool_name in {"skills_list", "skills_load", "skills_read_file", "skills_validate"}:
+    if tool_name in {
+        "skills_list",
+        "skills_load",
+        "skills_read_file",
+        "skills_validate",
+    }:
         return "Depends on skills directory content"
 
     # rename_path can be safe but still modifies filesystem; skip under conservative policy.
@@ -97,7 +107,9 @@ def _safe_or_skip_reason(tool_name: str) -> str | None:
     return None
 
 
-@pytest.mark.parametrize("modname", [_module_name_from_path(p) for p in _iter_tool_module_paths()])
+@pytest.mark.parametrize(
+    "modname", [_module_name_from_path(p) for p in _iter_tool_module_paths()]
+)
 def test_all_tool_specs_are_covered_by_exec_or_explicit_skip(modname: str) -> None:
     mod = importlib.import_module(modname)
     spec = getattr(mod, "TOOL_SPEC", None)
