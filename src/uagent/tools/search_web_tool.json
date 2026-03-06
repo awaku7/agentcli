@@ -12,15 +12,15 @@
     "error.run_tool_error": "run_tool error: {error}"
   },
   "ja": {
-    "tool.description": "Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
-    "tool.system_prompt": "This ツール performs a DuckDuckGo HTML search and 返します title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
-    "param.query.description": "Search query string.",
-    "param.max_results.description": "Maximum number of results to return (既定: 5).",
-    "param.q.description": "〜の別名 'query' (for backward compatibility).",
-    "param.n.description": "〜の別名 'max_results' (for backward compatibility).",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo request failed after retries: {error}",
-    "error.args_must_be_dict": "args must be a dict",
-    "error.missing_query_parameter": "missing 'query' parameter",
-    "error.run_tool_error": "run_ツール error: {error}"
+    "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
+    "tool.system_prompt": "このツールは DuckDuckGo の HTML 検索を実行し、title/link/snippet を返します。結果が空の場合は、サイト側でレート制限またはブロックされている可能性があります。",
+    "param.query.description": "検索クエリ文字列。",
+    "param.max_results.description": "返す最大件数（既定: 5）。",
+    "param.q.description": "'query' の別名（後方互換性のため）。",
+    "param.n.description": "'max_results' の別名（後方互換性のため）。",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo へのリクエストがリトライ後も失敗しました: {error}",
+    "error.args_must_be_dict": "args は dict である必要があります",
+    "error.missing_query_parameter": "'query' パラメータがありません",
+    "error.run_tool_error": "run_tool 実行エラー: {error}"
   }
 }

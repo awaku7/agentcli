@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from . import get_tool_catalog
 from .i18n_helper import make_tool_translator
