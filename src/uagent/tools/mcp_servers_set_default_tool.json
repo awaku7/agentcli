@@ -17,6 +17,6 @@
     "out.already_default": "OK: 既に default です: {name!r}",
     "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
     "out.ok": "OK: default を切り替えました: {name!r}",
-    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }

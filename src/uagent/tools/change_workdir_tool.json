@@ -1,14 +1,16 @@
 {
   "en": {
-    "param.new_dir.description": "The new directory path to switch to. Required.",
-    "param.confirm.description": "Whether to ask for user confirmation. Default is True.",
+    "confirm.change_workdir": "",
+    "param.confirm.description": "",
+    "param.new_dir.description": "",
     "tool.description": "Change the current working directory after user confirmation.",
-    "tool.system_prompt": "Change the working directory only after confirming with the user."
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'change_workdir'."
   },
   "ja": {
-    "param.new_dir.description": "切り替え先の作業ディレクトリのパスです（必須）。",
-    "param.confirm.description": "切り替え前にユーザー確認を行うかどうかです（既定: true）。",
-    "tool.description": "ユーザー確認のうえで、現在の作業ディレクトリを切り替えます。",
-    "tool.system_prompt": "作業ディレクトリを変更する前に、必ずユーザーへ確認してください。"
+    "confirm.change_workdir": "（日本語）",
+    "param.confirm.description": "（日本語）",
+    "param.new_dir.description": "（日本語）",
+    "tool.description": "（日本語）Change the current working ディレクトリ after user confirmation.",
+    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'change_workdir'."
   }
 }

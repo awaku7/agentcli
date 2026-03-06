@@ -1,12 +1,12 @@
 {
   "en": {
-    "param.note.description": "The note text to share. Use this for project-wide assumptions/policies that should be reused across sessions.",
+    "param.note.description": "",
     "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is disabled. Never store secrets such as passwords or API keys.",
     "tool.system_prompt": "Append exactly one note to the shared memory store.\nIf shared memory is disabled (UAGENT_SHARED_MEMORY_FILE not set), return a message explaining how to enable it.\nDo not store secrets (passwords/tokens/API keys)."
   },
   "ja": {
-    "param.note.description": "共有メモリに追加するメモ本文です。プロジェクト共通の前提や運用ルールなど、セッションをまたいで参照したい内容に使います。",
-    "tool.description": "共有の長期メモリ（複数ユーザー/セッションで共有）へメモを1件追加します。共有メモリが未設定の場合は、無効である旨を返します。秘匿情報は保存しないでください。",
-    "tool.system_prompt": "共有メモリにメモを1件だけ追加してください。\n共有メモリが無効（UAGENT_SHARED_MEMORY_FILE 未設定）の場合は、有効化方法を案内するメッセージを返してください。\nパスワード/トークン/APIキー等の秘匿情報は保存しないでください。"
+    "param.note.description": "（日本語）",
+    "tool.description": "（日本語）Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the ツール reports that it is disabled. Never store secrets such as passwords or API keys.",
+    "tool.system_prompt": "（日本語）Append exactly one note to the shared memory store.\nIf shared memory is disabled (UAGENT_SHARED_MEMORY_FILE not set), return a message explaining how to enable it.\nDo not store secrets (passwords/tokens/API keys)."
   }
 }

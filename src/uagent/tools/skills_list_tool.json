@@ -8,6 +8,6 @@
     "param.recursive.description": "再帰的に探索するか（既定:true）",
     "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
     "param.strict.description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
-    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }
