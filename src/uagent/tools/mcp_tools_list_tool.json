@@ -1,16 +1,16 @@
 {
   "en": {
-    "param.pretty.description": "",
-    "param.server_name.description": "",
-    "param.url.description": "",
+    "param.pretty.description": "Whether to pretty-print JSON output.",
+    "param.server_name.description": "Server name from the config file.",
+    "param.url.description": "MCP server endpoint URL.",
     "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers.",
     "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its tools. Prefer using configured servers in mcp_servers.json when possible."
   },
   "ja": {
-    "param.pretty.description": "",
-    "param.server_name.description": "",
-    "param.url.description": "",
-    "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available ツールs. Before performing any API/system integration, use this ツール to discover what MCP ツールs are available. Supports HTTP-based and stdio-based MCP servers.",
-    "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its ツールs. Prefer using configured servers in mcp_servers.json when possible."
+    "param.pretty.description": "JSON 出力を整形するかどうか。",
+    "param.server_name.description": "設定ファイル内のサーバー名。",
+    "param.url.description": "MCP サーバーのエンドポイント URL。",
+    "tool.description": "[最優先] MCP（Model Context Protocol）サーバーに接続し、利用可能なツール一覧を返します。API やシステム連携を行う前に、このツールで使える MCP ツールを確認してください。HTTP ベースと stdio ベースの MCP サーバーに対応します。",
+    "tool.system_prompt": "MCP サーバー（HTTP または stdio）に接続し、利用可能なツール一覧を返します。可能であれば mcp_servers.json に設定済みのサーバーを優先してください。"
   }
 }
