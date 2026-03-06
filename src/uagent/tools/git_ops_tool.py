@@ -272,9 +272,9 @@ def _ensure_allowed_flags(
 
         if opt in deny_exact:
             _reject(
-                _("error.option_denied", default="Disallowed option is present: {opt}").format(
-                    opt=opt
-                )
+                _(
+                    "error.option_denied", default="Disallowed option is present: {opt}"
+                ).format(opt=opt)
             )
 
         for p in deny_prefixes:
@@ -432,7 +432,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ),
                 allow_danger=allow_danger,
             )
-            if not any(a.startswith("-n") or a.startswith("--max-count") for a in cmd_args):
+            if not any(
+                a.startswith("-n") or a.startswith("--max-count") for a in cmd_args
+            ):
                 cmd_args = ["-n", "10"] + cmd_args
             payload = run_git_command(["log"] + cmd_args)
             return json.dumps(payload, ensure_ascii=False)

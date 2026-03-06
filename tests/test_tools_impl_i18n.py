@@ -29,13 +29,19 @@ USER_FACING_RETURN_RE = re.compile(
 def _is_docstring(node: ast.AST, parent: ast.AST) -> bool:
     if not isinstance(node, ast.Expr):
         return False
-    if not isinstance(node.value, ast.Constant) or not isinstance(node.value.value, str):
+    if not isinstance(node.value, ast.Constant) or not isinstance(
+        node.value.value, str
+    ):
         return False
     # Module docstring
     if isinstance(parent, ast.Module) and parent.body and parent.body[0] is node:
         return True
     # Function/Class docstring
-    if isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and parent.body and parent.body[0] is node:
+    if (
+        isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+        and parent.body
+        and parent.body[0] is node
+    ):
         return True
     return False
 
@@ -67,7 +73,9 @@ def _collect_violations(path: pathlib.Path) -> list[tuple[int, str]]:
             if isinstance(v, ast.Constant) and isinstance(v.value, str):
                 s = v.value.strip()
                 if USER_FACING_RETURN_RE.search(s):
-                    violations.append((node.lineno, f"return message literal: {v.value!r}"))
+                    violations.append(
+                        (node.lineno, f"return message literal: {v.value!r}")
+                    )
 
     return violations
 

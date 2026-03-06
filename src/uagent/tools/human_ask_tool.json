@@ -20,7 +20,7 @@
     "err.password_uninitialized": "[human_ask error] human_ask_set_password コールバックが初期化されていません。",
     "err.already_active": "[human_ask error] すでに別の human_ask が実行中です。",
     "doc.ensure_gui_sentinel": "GUI からの返答は multi_input_sentinel 行で必ず終わるようにする。",
-    "ui.footer": "（日本語）=== /human_ask ===",
-    "msg.no_user_reply": "（日本語）(no user reply)"
+    "ui.footer": "=== /human_ask ===",
+    "msg.no_user_reply": "(no user reply)"
   }
 }

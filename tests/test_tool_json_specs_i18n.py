@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 
 
@@ -60,11 +59,31 @@ def test_all_tool_json_specs_have_i18n_and_differ() -> None:
         # Require en != ja for pairs we know
         pairs = []
         if "function.description.en" in major and "function.description.ja" in major:
-            pairs.append(("function.description", major["function.description.en"], major["function.description.ja"]))
-        if "function.system_prompt.en" in major and "function.system_prompt.ja" in major:
-            pairs.append(("function.system_prompt", major["function.system_prompt.en"], major["function.system_prompt.ja"]))
+            pairs.append(
+                (
+                    "function.description",
+                    major["function.description.en"],
+                    major["function.description.ja"],
+                )
+            )
+        if (
+            "function.system_prompt.en" in major
+            and "function.system_prompt.ja" in major
+        ):
+            pairs.append(
+                (
+                    "function.system_prompt",
+                    major["function.system_prompt.en"],
+                    major["function.system_prompt.ja"],
+                )
+            )
 
-        for pname in (spec.get("function") or {}).get("parameters", {}).get("properties", {}).keys():
+        for pname in (
+            (spec.get("function") or {})
+            .get("parameters", {})
+            .get("properties", {})
+            .keys()
+        ):
             en_k = f"param.{pname}.description.en"
             ja_k = f"param.{pname}.description.ja"
             if en_k in major and ja_k in major:
