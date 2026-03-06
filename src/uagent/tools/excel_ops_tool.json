@@ -1,18 +1,18 @@
 {
   "en": {
-    "param.action.description": "",
-    "param.data.description": "",
-    "param.file_path.description": "",
-    "param.sheet_name.description": "",
+    "param.action.description": "Operation to perform.",
+    "param.data.description": "JSON data to write.",
+    "param.file_path.description": "Absolute path to the Excel file.",
+    "param.sheet_name.description": "Target sheet name.",
     "tool.description": "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'."
   },
   "ja": {
-    "param.action.description": "",
-    "param.data.description": "",
-    "param.file_path.description": "",
-    "param.sheet_name.description": "",
-    "tool.description": "Read/write an Excel (.xlsx) ファイル and get sheet names. When writing to an existing ファイル, a backup with the same name (<ファイル_path>.org / <ファイル_path>.org1 / ...) is created immediately before writing.",
-    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'excel_ops'."
+    "param.action.description": "実行する操作。",
+    "param.data.description": "書き込む JSON データ。",
+    "param.file_path.description": "Excel ファイルの絶対パス。",
+    "param.sheet_name.description": "対象シート名。",
+    "tool.description": "Excel（.xlsx）ファイルの読み書きとシート名取得を行います。既存ファイルへ書き込む場合は、直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / ...）を作成します。",
+    "tool.system_prompt": "ツール名 'excel_ops' で示される処理を実行します。"
   }
 }

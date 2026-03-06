@@ -1,16 +1,16 @@
 {
   "en": {
-    "confirm.change_workdir": "",
-    "param.confirm.description": "",
-    "param.new_dir.description": "",
+    "confirm.change_workdir": "Change the current working directory to: {new_dir}\n\nProceed? Enter y to continue, c to cancel.",
+    "param.confirm.description": "Whether to ask for user confirmation.",
+    "param.new_dir.description": "The new directory path to switch to.",
     "tool.description": "Change the current working directory after user confirmation.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'change_workdir'."
   },
   "ja": {
-    "confirm.change_workdir": "",
-    "param.confirm.description": "",
-    "param.new_dir.description": "",
-    "tool.description": "Change the current working ディレクトリ after user confirmation.",
-    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'change_workdir'."
+    "confirm.change_workdir": "現在の作業ディレクトリを次に変更します: {new_dir}\n\n続行する場合は y、キャンセルする場合は c を入力してください。",
+    "param.confirm.description": "ユーザー確認を求めるかどうか。",
+    "param.new_dir.description": "切り替え先のディレクトリパス。",
+    "tool.description": "ユーザー確認の後、現在の作業ディレクトリを変更します。",
+    "tool.system_prompt": "ツール名 'change_workdir' で示される処理を実行します。"
   }
 }
