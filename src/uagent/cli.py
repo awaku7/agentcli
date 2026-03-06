@@ -440,6 +440,14 @@ def stdin_loop() -> None:
                 time.sleep(0.05)
 
                 try:
+                    if not is_reply:
+                        with core.human_ask_lock:
+                            if core.human_ask_active:
+                                continue
+                        if getattr(core, "status_busy", False):
+                            time.sleep(0.05)
+                            continue
+
                     lock = getattr(core, "print_lock", None)
                     if lock is None:
                         lock = threading.RLock()
