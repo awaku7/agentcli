@@ -7,10 +7,10 @@
     "tool.system_prompt": "This tool enumerates top-level window titles on Windows and returns structured JSON. It is Windows-only."
   },
   "ja": {
-    "param.all.description": "（日本語）",
-    "param.class.description": "（日本語）",
-    "param.pid.description": "（日本語）",
-    "tool.description": "（日本語）Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include window class name).",
-    "tool.system_prompt": "（日本語）This ツール enumerates top-level window titles on Windows and 返します structured JSON. It is Windows-only."
+    "param.all.description": "",
+    "param.class.description": "",
+    "param.pid.description": "",
+    "tool.description": "Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include window class name).",
+    "tool.system_prompt": "This ツール enumerates top-level window titles on Windows and 返します structured JSON. It is Windows-only."
   }
 }

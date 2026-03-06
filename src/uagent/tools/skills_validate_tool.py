@@ -60,7 +60,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     strict = bool(args.get("strict", False))
 
     if not isinstance(skill_dir, str) or not skill_dir.strip():
-        return _("err.skill_dir_required", default="[tool error] skill_dir must be a non-empty string")
+        return _(
+            "err.skill_dir_required",
+            default="[tool error] skill_dir must be a non-empty string",
+        )
 
     skill_dir = skill_dir.strip()
     skill_md = skill_md_path(skill_dir)

@@ -55,7 +55,10 @@ TOOL_SPEC: Dict[str, Any] = {
 def run_tool(args: Dict[str, Any]) -> str:
     out_format = str((args or {}).get("format") or "text").strip().lower()
     if out_format not in ("text", "json"):
-        return _("err.format_invalid", default="[get_geoip error] format must be 'text' or 'json'")
+        return _(
+            "err.format_invalid",
+            default="[get_geoip error] format must be 'text' or 'json'",
+        )
 
     # Note: Consent handling has been removed. The deprecated 'require_consent'
     # parameter is not supported and is intentionally absent from the schema.

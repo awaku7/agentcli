@@ -7,10 +7,10 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'change_workdir'."
   },
   "ja": {
-    "confirm.change_workdir": "（日本語）",
-    "param.confirm.description": "（日本語）",
-    "param.new_dir.description": "（日本語）",
-    "tool.description": "（日本語）Change the current working ディレクトリ after user confirmation.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'change_workdir'."
+    "confirm.change_workdir": "",
+    "param.confirm.description": "",
+    "param.new_dir.description": "",
+    "tool.description": "Change the current working ディレクトリ after user confirmation.",
+    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'change_workdir'."
   }
 }

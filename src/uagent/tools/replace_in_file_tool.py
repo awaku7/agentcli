@@ -221,7 +221,7 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
 
 
 def _unified_diff(path: str, original: str, replaced: str) -> str:
-    """Return unified diff string ("""""" if no changes)."""
+    """Return unified diff string (""" """ if no changes)."""
 
     if original == replaced:
         return ""
@@ -321,7 +321,9 @@ def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
     return hits
 
 
-def _apply_replacements_literal(text: str, pattern: str, replacement: str, count: int | None) -> Tuple[str, int]:
+def _apply_replacements_literal(
+    text: str, pattern: str, replacement: str, count: int | None
+) -> Tuple[str, int]:
     if count is None:
         return text.replace(pattern, replacement), text.count(pattern) if pattern else 0
 
@@ -348,7 +350,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         pattern = str(args.get("pattern") or "")
         replacement = str(args.get("replacement") or "")
         preview = bool(args.get("preview", True))
-        context_lines = int(args.get("context_lines", 2))
+        # context_lines is intentionally accepted for API compatibility
+        # (not used by the tool implementation)
+        # context_lines = int(args.get("context_lines", 2))
         confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
         count = args.get("count")
         encoding = str(args.get("encoding") or "utf-8")
@@ -372,7 +376,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             replacement2 = replacement
 
         max_bytes = cb.read_file_max_bytes
-        original, detected_newline, encoding_used = _read_text_robust(path, encoding, max_bytes)
+        original, detected_newline, encoding_used = _read_text_robust(
+            path, encoding, max_bytes
+        )
 
         # Normalize original in-memory
         original_norm = original.replace("\r\n", "\n").replace("\r", "\n")
@@ -412,7 +418,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             # Preview hit locations (same-line context)
             for h in hits[:50]:
                 line_no, col = _map_idx_to_line_col(original_norm, h.start)
-                before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
+                before, match, after = _extract_same_line_context(
+                    original_norm, h.start, h.end
+                )
                 match_hits.append(
                     {
                         "line_no": line_no,
@@ -429,12 +437,17 @@ def run_tool(args: Dict[str, Any]) -> str:
             match_count = len(hits)
 
             replaced, _repl_count = _apply_replacements_literal(
-                original_norm, pattern2, replacement2, None if count is None else int(count)
+                original_norm,
+                pattern2,
+                replacement2,
+                None if count is None else int(count),
             )
 
             for h in hits[:50]:
                 line_no, col = _map_idx_to_line_col(original_norm, h.start)
-                before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
+                before, match, after = _extract_same_line_context(
+                    original_norm, h.start, h.end
+                )
                 match_hits.append(
                     {
                         "line_no": line_no,
@@ -460,7 +473,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "preview": preview,
                     "diff": diff,
                     "encoding": encoding_used,
-                    "detected_newline": "\n" if detected_newline is None else detected_newline,
+                    "detected_newline": (
+                        "\n" if detected_newline is None else detected_newline
+                    ),
                     "written": False,
                     "summary": _make_summary(
                         preview=preview,

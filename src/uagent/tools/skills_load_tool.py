@@ -45,7 +45,10 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     skill_dir = args.get("skill_dir")
     if not isinstance(skill_dir, str) or not skill_dir.strip():
-        return _("err.skill_dir_required", default="[tool error] skill_dir must be a non-empty string")
+        return _(
+            "err.skill_dir_required",
+            default="[tool error] skill_dir must be a non-empty string",
+        )
 
     doc = load_skill_doc(skill_dir.strip())
     out = {

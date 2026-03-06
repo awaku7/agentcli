@@ -83,7 +83,9 @@ def load_shared_memory_raw(max_bytes: Optional[int] = None) -> str:
     except FileNotFoundError:
         return _("msg.no_shared_memory", default="(no shared memory yet)")
     except Exception as e:
-        return _("err.load", default="[shared_memory error] {err_type}: {err}").format(err_type=type(e).__name__, err=str(e))
+        return _("err.load", default="[shared_memory error] {err_type}: {err}").format(
+            err_type=type(e).__name__, err=str(e)
+        )
 
     truncated_note = ""
     if len(data) > max_bytes:

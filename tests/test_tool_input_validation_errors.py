@@ -30,7 +30,9 @@ def _import_run_tool(tool_module_basename: str):
             raise AttributeError(f"{modname} has no callable run_tool")
         except Exception as e:  # noqa: BLE001
             last_exc = e
-    raise ImportError(f"Could not import run_tool for {tool_module_basename}: {last_exc!r}")
+    raise ImportError(
+        f"Could not import run_tool for {tool_module_basename}: {last_exc!r}"
+    )
 
 
 def _loads(s: str) -> dict:

@@ -8,11 +8,11 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'."
   },
   "ja": {
-    "param.action.description": "（日本語）",
-    "param.data.description": "（日本語）",
-    "param.file_path.description": "（日本語）",
-    "param.sheet_name.description": "（日本語）",
-    "tool.description": "（日本語）Read/write an Excel (.xlsx) ファイル and get sheet names. When writing to an existing ファイル, a backup with the same name (<ファイル_path>.org / <ファイル_path>.org1 / ...) is created immediately before writing.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'excel_ops'."
+    "param.action.description": "",
+    "param.data.description": "",
+    "param.file_path.description": "",
+    "param.sheet_name.description": "",
+    "tool.description": "Read/write an Excel (.xlsx) ファイル and get sheet names. When writing to an existing ファイル, a backup with the same name (<ファイル_path>.org / <ファイル_path>.org1 / ...) is created immediately before writing.",
+    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'excel_ops'."
   }
 }
