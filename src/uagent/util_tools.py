@@ -880,7 +880,6 @@ def load_agents_md() -> str:
 
 
 def _use_gpt54_lightweight_tools_prompt() -> bool:
-    provider = (os.environ.get("UAGENT_PROVIDER", "") or "").strip().lower()
     depname = (
         os.environ.get("UAGENT_AZURE_DEPLOYMENT")
         or os.environ.get("UAGENT_OPENAI_MODEL")
