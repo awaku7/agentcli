@@ -881,19 +881,25 @@ def load_agents_md() -> str:
 
 def _use_gpt54_lightweight_tools_prompt() -> bool:
     depname = (
-        os.environ.get("UAGENT_AZURE_DEPLOYMENT")
-        or os.environ.get("UAGENT_OPENAI_MODEL")
-        or os.environ.get("UAGENT_MODEL")
-        or ""
-    ).strip().lower()
-    use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        (
+            os.environ.get("UAGENT_AZURE_DEPLOYMENT")
+            or os.environ.get("UAGENT_OPENAI_MODEL")
+            or os.environ.get("UAGENT_MODEL")
+            or ""
+        )
+        .strip()
+        .lower()
+    )
+    use_responses_api = (
+        os.environ.get("UAGENT_RESPONSES", "") or ""
+    ).strip().lower() in (
         "1",
         "true",
     )
 
     if not use_responses_api:
         return False
-    model = ((depname or "").strip().lower())
+    model = (depname or "").strip().lower()
     marker = "gpt-5."
     idx = model.find(marker)
     if idx < 0:
