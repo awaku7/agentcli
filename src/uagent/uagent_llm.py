@@ -39,6 +39,8 @@ def _is_gpt54_tool_search_target(
     depname: str,
     use_responses_api: bool,
 ) -> bool:
+    return False
+'''
     if not use_responses_api:
         return False
     model = (depname or "").strip().lower()
@@ -60,7 +62,7 @@ def _is_gpt54_tool_search_target(
     except Exception:
         return False
     return minor >= 4
-
+'''
 
 def _select_tool_specs_for_gpt54(
     call_messages: List[Dict[str, Any]],
@@ -148,6 +150,10 @@ def run_llm_rounds(
     core.set_status(True, "LLM")
 
     tool_result_cache: Dict[str, str] = {}
+    use_tool_result_cache = (
+        os.environ.get("UAGENT_TOOL_RESULT_CACHE", "0").strip().lower()
+        not in ("0", "false", "no", "off")
+    )
     reuse_only_rounds = 0
 
     from .gemini_cache_mgr import GeminiCacheManager
@@ -770,7 +776,11 @@ def run_llm_rounds(
                         sort_keys=True,
                     )
 
-                    cached = tool_result_cache.get(tool_cache_key)
+                    cached = (
+                        tool_result_cache.get(tool_cache_key)
+                        if use_tool_result_cache
+                        else None
+                    )
                     if cached is not None:
                         tool_result = (
                             "[INFO] 同一内容のツール呼び出しのため、前回の結果を再利用します。\n"
