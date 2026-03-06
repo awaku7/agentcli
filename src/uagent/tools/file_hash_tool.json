@@ -8,6 +8,6 @@
     "param.algo.description": "ハッシュアルゴリズム",
     "param.chunk_size.description": "読み取りチャンクサイズ(bytes)",
     "param.return.description": "出力形式",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
   }
 }
