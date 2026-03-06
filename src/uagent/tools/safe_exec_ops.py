@@ -100,7 +100,12 @@ def decide_cmd_exec(command: str) -> ExecDecision:
     block_list = _WIN_BLOCK if _is_windows() else _POSIX_BLOCK
     for pat in block_list:
         if re.search(pat, cmd_norm):
-            return ExecDecision(False, _("err.blocked_by_rule", default="blocked by rule: {pattern}").format(pattern=pat))
+            return ExecDecision(
+                False,
+                _("err.blocked_by_rule", default="blocked by rule: {pattern}").format(
+                    pattern=pat
+                ),
+            )
 
     for pat in _CONFIRM_PATTERNS:
         if re.search(pat, cmd_norm):
@@ -158,7 +163,9 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         or cb.human_ask_lines_ref is None
         or cb.human_ask_set_multiline_active is None
     ):
-        return _("err.callbacks_unavailable", default="human_ask callbacks not available")
+        return _(
+            "err.callbacks_unavailable", default="human_ask callbacks not available"
+        )
 
     import queue as _queue
 
@@ -230,10 +237,14 @@ def confirm_if_needed(decision: ExecDecision) -> Optional[str]:
         return None
 
     # If human_ask isn't available, fallback to input()
-    if err == _("err.callbacks_unavailable", default="human_ask callbacks not available"):
+    if err == _(
+        "err.callbacks_unavailable", default="human_ask callbacks not available"
+    ):
 
         try:
-            resp = input(decision.confirm_message + _("ui.fallback_prompt", default=" [y/c/N]: "))
+            resp = input(
+                decision.confirm_message + _("ui.fallback_prompt", default=" [y/c/N]: ")
+            )
         except Exception:
             return _("err.confirm_failed", default="confirmation failed")
 

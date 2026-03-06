@@ -71,7 +71,9 @@ def _extract_major_strings(tool_spec: dict) -> dict[str, str]:
     return out
 
 
-@pytest.mark.parametrize("tool_module_basename", sorted(set(_iter_tool_modules_with_json())))
+@pytest.mark.parametrize(
+    "tool_module_basename", sorted(set(_iter_tool_modules_with_json()))
+)
 def test_tool_spec_all_major_strings_differ_between_en_and_ja(
     monkeypatch: pytest.MonkeyPatch, tool_module_basename: str
 ) -> None:
@@ -110,7 +112,11 @@ def test_tool_spec_all_major_strings_differ_between_en_and_ja(
     en = _load_major_strings_for("en")
     ja = _load_major_strings_for("ja")
 
-    assert set(en.keys()) == set(ja.keys()), (tool_module_basename, en.keys(), ja.keys())
+    assert set(en.keys()) == set(ja.keys()), (
+        tool_module_basename,
+        en.keys(),
+        ja.keys(),
+    )
 
     same_keys = [k for k in sorted(en.keys()) if en[k] == ja[k]]
     assert not same_keys, (

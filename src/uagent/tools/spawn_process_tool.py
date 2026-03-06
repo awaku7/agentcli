@@ -54,7 +54,10 @@ def _validate_command(raw: str) -> str | None:
         lower = raw.strip().lower()
         # 'start' or 'start ""' alone has no target
         if lower == "start" or lower == 'start ""':
-            return _("err.windows_start_missing_target", default="[spawn_process error] Windows 'start' command has no URL or executable path.\\nExample: start \"\" https://www.google.com")
+            return _(
+                "err.windows_start_missing_target",
+                default="[spawn_process error] Windows 'start' command has no URL or executable path.\\nExample: start \"\" https://www.google.com",
+            )
 
     return None
 

@@ -5,7 +5,6 @@ from pathlib import Path
 
 import pytest
 
-
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 
 # Utilities that are infrastructure/internal and are allowed to contain string literals
@@ -24,7 +23,11 @@ EXCLUDE_FILES = {
 def _is_non_tool_module(path: Path) -> bool:
     # utilities: anything under tools/ that isn't a tool entry module
     # (tools are standardized as *_tool.py)
-    return path.suffix == ".py" and not path.name.endswith("_tool.py") and path.name not in EXCLUDE_FILES
+    return (
+        path.suffix == ".py"
+        and not path.name.endswith("_tool.py")
+        and path.name not in EXCLUDE_FILES
+    )
 
 
 def _iter_docstring_ranges(tree: ast.AST) -> list[tuple[int, int]]:
@@ -100,7 +103,14 @@ def _is_print_or_logging_call(node: ast.Call) -> bool:
 
     # logger.info(...), logging.warning(...), etc.
     if isinstance(node.func, ast.Attribute):
-        if node.func.attr in {"debug", "info", "warning", "error", "exception", "critical"}:
+        if node.func.attr in {
+            "debug",
+            "info",
+            "warning",
+            "error",
+            "exception",
+            "critical",
+        }:
             return True
 
     return False
@@ -186,7 +196,9 @@ def test_tools_utilities_no_non_ascii_outside_docstrings() -> None:
         if _has_non_ascii_outside_docstrings(p):
             offenders.append(p.name)
 
-    assert offenders == [], "Non-ASCII characters found outside docstrings in: " + ", ".join(offenders)
+    assert (
+        offenders == []
+    ), "Non-ASCII characters found outside docstrings in: " + ", ".join(offenders)
 
 
 def test_tools_utilities_no_user_facing_string_literals() -> None:
@@ -203,4 +215,6 @@ def test_tools_utilities_no_user_facing_string_literals() -> None:
         if hits:
             offenders.append(p.name + "\n  " + "\n  ".join(hits))
 
-    assert offenders == [], "User-facing string literals found in utilities:\n" + "\n\n".join(offenders)
+    assert (
+        offenders == []
+    ), "User-facing string literals found in utilities:\n" + "\n\n".join(offenders)

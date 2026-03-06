@@ -20,8 +20,8 @@
     "err.name_not_found": "Error: name={name!r} が見つかりません",
     "err.require_nonempty": "Error: require_nonempty=true のため、削除後に空になる操作は禁止です",
     "err.write_fail": "ERROR: 書き込みに失敗しました: {err}",
-    "err.index_out_of_range": "（日本語）Error: index out of range: {idx}",
-    "out.ok": "（日本語）OK: removed index={idx} name={name!r}",
-    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
+    "err.index_out_of_range": "Error: index out of range: {idx}",
+    "out.ok": "OK: removed index={idx} name={name!r}",
+    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
   }
 }
