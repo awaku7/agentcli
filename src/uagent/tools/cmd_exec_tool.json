@@ -1,12 +1,12 @@
 {
   "en": {
-    "param.command.description": "",
+    "param.command.description": "Command string to execute.",
     "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
     "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
   },
   "ja": {
-    "param.command.description": "",
-    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate ツール (例:, MCP) is available.",
-    "tool.system_prompt": "This ツール is a LAST RESORT. Use only if no other appropriate ツール is available."
+    "param.command.description": "実行するコマンド文字列。",
+    "tool.description": "最終手段として Windows コマンドを実行します。他に適切なツールがない場合にのみ使用してください。",
+    "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。"
   }
 }
