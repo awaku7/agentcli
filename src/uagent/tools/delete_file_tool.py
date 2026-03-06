@@ -99,9 +99,20 @@ def _has_glob_meta(s: str) -> bool:
 
 def run_tool(args: Dict[str, Any]) -> str:
     raw_filename = str(args.get("filename") or args.get("path") or "").strip()
-    missing_ok = bool(args.get("missing_ok", False))
-    dry_run = bool(args.get("dry_run", True))
-    allow_dir = bool(args.get("allow_dir", True))
+    missing_ok_raw = args.get("missing_ok", False)
+    dry_run_raw = args.get("dry_run", True)
+    allow_dir_raw = args.get("allow_dir", True)
+
+    if not isinstance(missing_ok_raw, bool):
+        raise ValueError("missing_ok must be a boolean")
+    if not isinstance(dry_run_raw, bool):
+        raise ValueError("dry_run must be a boolean")
+    if not isinstance(allow_dir_raw, bool):
+        raise ValueError("allow_dir must be a boolean")
+
+    missing_ok = missing_ok_raw
+    dry_run = dry_run_raw
+    allow_dir = allow_dir_raw
 
     if not raw_filename:
         raise ValueError("filename/path is required")

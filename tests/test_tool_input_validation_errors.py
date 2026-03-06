@@ -293,6 +293,77 @@ def test_date_calc_rejects_invalid_date() -> None:
     _assert_err_json(out)
 
 
+def test_create_file_rejects_nonbool_overwrite(repo_tmp_path: Path) -> None:
+    create_file = _import_run_tool("create_file")
+    with pytest.raises(ValueError, match="overwrite must be a boolean"):
+        create_file(
+            {
+                "filename": str(repo_tmp_path / "x.txt"),
+                "content": "abc",
+                "overwrite": "false",
+            }
+        )
+
+
+def test_delete_file_rejects_nonbool_flags(repo_tmp_path: Path) -> None:
+    delete_file = _import_run_tool("delete_file")
+    with pytest.raises(ValueError, match="missing_ok must be a boolean"):
+        delete_file(
+            {
+                "filename": str(repo_tmp_path / "*.txt"),
+                "missing_ok": "false",
+                "dry_run": True,
+                "allow_dir": True,
+            }
+        )
+
+    with pytest.raises(ValueError, match="dry_run must be a boolean"):
+        delete_file(
+            {
+                "filename": str(repo_tmp_path / "*.txt"),
+                "missing_ok": False,
+                "dry_run": "false",
+                "allow_dir": True,
+            }
+        )
+
+    with pytest.raises(ValueError, match="allow_dir must be a boolean"):
+        delete_file(
+            {
+                "filename": str(repo_tmp_path / "*.txt"),
+                "missing_ok": False,
+                "dry_run": True,
+                "allow_dir": "false",
+            }
+        )
+
+
+def test_rename_path_rejects_nonbool_flags(repo_tmp_path: Path) -> None:
+    rename_path = _import_run_tool("rename_path")
+    src = repo_tmp_path / "src.txt"
+    src.write_text("x", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="overwrite must be a boolean"):
+        rename_path(
+            {
+                "src": str(src),
+                "dst": str(repo_tmp_path / "dst.txt"),
+                "overwrite": "false",
+                "mkdirs": False,
+            }
+        )
+
+    with pytest.raises(ValueError, match="mkdirs must be a boolean"):
+        rename_path(
+            {
+                "src": str(src),
+                "dst": str(repo_tmp_path / "dst2.txt"),
+                "overwrite": False,
+                "mkdirs": "false",
+            }
+        )
+
+
 @pytest.mark.skip(reason="Dangerous tool; kept non-executed by policy")
 def test_binary_edit_missing_required_args() -> None:
     binary_edit = _import_run_tool("binary_edit")
