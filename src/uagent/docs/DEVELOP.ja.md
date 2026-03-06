@@ -89,7 +89,19 @@ ______________________________________________________________________
 - 互換性のため、関数名を top-level `name` にミラーする場合がある
 - `function.system_prompt` のような拡張フィールドは LLM送信時に削除される
 
-### 3.4 Tool trace（実行ログ）
+### 3.4 GPT-5.4+ Responses での tool narrowing
+
+GPT-5 系の `5.4` 以上で Responses API が有効な場合、uag はより軽いツール露出経路を使います。
+
+- 対象判定は `uagent_llm._is_gpt54_tool_search_target(...)`
+- 軽量 tools prompt の選択は `util_tools.py`
+- 候補 tool specs の絞り込みは `uagent_llm._select_tool_specs_for_gpt54(...)`
+- `tool_catalog` が、完全なツール定義を渡す前の軽量な探索面を提供
+- catalog のヒットがない場合も、安全な最小フォールバック集合を維持
+
+これにより、非対象モデルの既存挙動を維持したまま、GPT-5.4+ Responses リクエストのペイロードを削減します。
+
+### 3.5 Tool trace（実行ログ）
 
 通常はツール実行前に stdout に 1行のトレースを出します。
 
@@ -122,3 +134,20 @@ workdir は次の優先順位で決定されます。
 長期記憶（個人）と共有メモ（共有長期記憶）は、可能な場合 system message として履歴に挿入されます。
 
 ______________________________________________________________________
+
+## 5. MCP server ツール補足
+
+MCP 関連ツールには次があります。
+
+- `mcp_servers_init_template`
+- `mcp_servers_add`
+- `mcp_servers_list`
+- `mcp_servers_validate`
+- `mcp_servers_set_default`
+- `mcp_servers_remove`
+- `mcp_tools_list`
+- `handle_mcp_v2`
+
+最近の smoke test では、template 作成と add/list/validate/set_default/remove の基本フローをカバーしています。
+
+`mcp_servers_validate_tool.py` は、callback ベースの truncate が使えない場合でも、そのまま結果文字列を返せるよう安全化されています。
