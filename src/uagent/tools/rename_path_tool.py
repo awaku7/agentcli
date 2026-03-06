@@ -77,8 +77,16 @@ def run_tool(args: Dict[str, Any]) -> str:
     src = str(args.get("src") or "").strip()
     dst = str(args.get("dst") or "").strip()
 
-    overwrite = bool(args.get("overwrite", False))
-    mkdirs = bool(args.get("mkdirs", False))
+    overwrite_raw = args.get("overwrite", False)
+    mkdirs_raw = args.get("mkdirs", False)
+
+    if not isinstance(overwrite_raw, bool):
+        raise ValueError("overwrite must be a boolean")
+    if not isinstance(mkdirs_raw, bool):
+        raise ValueError("mkdirs must be a boolean")
+
+    overwrite = overwrite_raw
+    mkdirs = mkdirs_raw
 
     try:
         safe_rename_path(src=src, dst=dst, overwrite=overwrite, mkdirs=mkdirs)
