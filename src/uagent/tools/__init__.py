@@ -333,7 +333,9 @@ def get_tool_catalog(
             {
                 "name": name,
                 "description": description,
-                "required": [str(x) for x in required] if isinstance(required, list) else [],
+                "required": (
+                    [str(x) for x in required] if isinstance(required, list) else []
+                ),
                 "parameters": param_names,
                 "score": score,
             }
