@@ -155,14 +155,6 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Replacement text.",
                     ),
                 },
-                "count": {
-                    "type": ["integer", "null"],
-                    "description": _(
-                        "param.count.description",
-                        default="Maximum number of replacements. If null, replace all matches.",
-                    ),
-                    "default": None,
-                },
                 "preview": {
                     "type": "boolean",
                     "description": _(
@@ -171,19 +163,11 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                     "default": True,
                 },
-                "context_lines": {
-                    "type": "integer",
-                    "description": _(
-                        "param.context_lines.description",
-                        default="Number of context lines to include before/after each hit in the preview.",
-                    ),
-                    "default": 2,
-                },
                 "confirm_if_matches_over": {
                     "type": "integer",
                     "description": _(
                         "param.confirm_if_matches_over.description",
-                        default="When preview=false, block if the number of matches is >= this value.",
+                        default="When preview=false, block if the number of matches is greater than this value.",
                     ),
                     "default": 10,
                 },
@@ -221,7 +205,7 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
 
 
 def _unified_diff(path: str, original: str, replaced: str) -> str:
-    """Return unified diff string (""" """ if no changes)."""
+    """Return unified diff string, or an empty string if no changes."""
 
     if original == replaced:
         return ""
@@ -322,23 +306,10 @@ def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
 
 
 def _apply_replacements_literal(
-    text: str, pattern: str, replacement: str, count: int | None
+    text: str, pattern: str, replacement: str
 ) -> Tuple[str, int]:
-    if count is None:
-        return text.replace(pattern, replacement), text.count(pattern) if pattern else 0
-
-    # Manual limited replace
-    out = text
-    n = 0
-    start = 0
-    while n < count:
-        pos = out.find(pattern, start)
-        if pos < 0:
-            break
-        out = out[:pos] + replacement + out[pos + len(pattern) :]
-        start = pos + len(replacement)
-        n += 1
-    return out, n
+    replaced = text.replace(pattern, replacement)
+    return replaced, text.count(pattern) if pattern else 0
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -349,18 +320,68 @@ def run_tool(args: Dict[str, Any]) -> str:
         mode = str(args.get("mode") or "literal")
         pattern = str(args.get("pattern") or "")
         replacement = str(args.get("replacement") or "")
-        preview = bool(args.get("preview", True))
-        # context_lines is intentionally accepted for API compatibility
-        # (not used by the tool implementation)
-        # context_lines = int(args.get("context_lines", 2))
-        confirm_if_matches_over = int(args.get("confirm_if_matches_over", 10))
-        count = args.get("count")
+        preview_raw = args.get("preview", True)
+        confirm_if_matches_over = args.get("confirm_if_matches_over", 10)
         encoding = str(args.get("encoding") or "utf-8")
-        expand_newline_tokens = bool(args.get("expand_newline_tokens", True))
+        expand_newline_tokens_raw = args.get("expand_newline_tokens", True)
 
         if not path:
             return json.dumps(
                 {"ok": False, "error": "[replace_in_file error] path is not specified"},
+                ensure_ascii=False,
+            )
+
+        if pattern == "":
+            return json.dumps(
+                {"ok": False, "error": "[replace_in_file error] pattern must not be empty"},
+                ensure_ascii=False,
+            )
+
+        if mode not in {"literal", "regex"}:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.invalid_mode",
+                        default=f"[replace_in_file error] invalid mode: {mode}",
+                    ).format(mode=mode),
+                },
+                ensure_ascii=False,
+            )
+
+        if not isinstance(preview_raw, bool):
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.preview_not_bool",
+                        default="[replace_in_file error] preview must be a boolean",
+                    ),
+                },
+                ensure_ascii=False,
+            )
+        preview = preview_raw
+
+        if not isinstance(expand_newline_tokens_raw, bool):
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.expand_newline_tokens_not_bool",
+                        default="[replace_in_file error] expand_newline_tokens must be a boolean",
+                    ),
+                },
+                ensure_ascii=False,
+            )
+        expand_newline_tokens = expand_newline_tokens_raw
+
+        try:
+            confirm_if_matches_over = int(confirm_if_matches_over)
+            if confirm_if_matches_over < 1:
+                raise ValueError("confirm_if_matches_over must be >= 1")
+        except (TypeError, ValueError) as e:
+            return json.dumps(
+                {"ok": False, "error": f"[replace_in_file error] invalid numeric argument: {e}"},
                 ensure_ascii=False,
             )
 
@@ -384,6 +405,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         original_norm = original.replace("\r\n", "\n").replace("\r", "\n")
 
         match_count: int
+        replaced_count: int
         replaced: str
         match_hits: List[Dict[str, Any]] = []
 
@@ -402,10 +424,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             # Apply replacement (Python re semantics)
             try:
-                if count is None:
-                    replaced = rx.sub(replacement2, original_norm)
-                else:
-                    replaced = rx.sub(replacement2, original_norm, count=int(count))
+                replaced, replaced_count = rx.subn(replacement2, original_norm)
             except re.error as e:
                 return json.dumps(
                     {
@@ -436,11 +455,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             hits = _find_hits_literal(original_norm, pattern2)
             match_count = len(hits)
 
-            replaced, _repl_count = _apply_replacements_literal(
+            replaced, replaced_count = _apply_replacements_literal(
                 original_norm,
                 pattern2,
                 replacement2,
-                None if count is None else int(count),
             )
 
             for h in hits[:50]:
@@ -462,13 +480,14 @@ def run_tool(args: Dict[str, Any]) -> str:
         diff = _unified_diff(path, original_norm, replaced)
 
         # Block when applying too many matches
-        if not preview and match_count >= confirm_if_matches_over:
+        if not preview and match_count > confirm_if_matches_over:
             return json.dumps(
                 {
                     "ok": True,
                     "path": path,
                     "mode": mode,
                     "match_count": match_count,
+                    "replaced_count": replaced_count,
                     "changed": False,
                     "preview": preview,
                     "diff": diff,
@@ -481,7 +500,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                         preview=preview,
                         match_count=match_count,
                         blocked=True,
-                        reason=f"match_count {match_count} >= confirm_if_matches_over {confirm_if_matches_over}",
+                        reason=f"match_count {match_count} > confirm_if_matches_over {confirm_if_matches_over}",
                     ),
                     "match_hits": match_hits,
                 },
@@ -500,6 +519,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             "path": path,
             "mode": mode,
             "match_count": match_count,
+            "replaced_count": replaced_count,
             "changed": changed,
             "preview": preview,
             "diff": diff,
