@@ -879,6 +879,54 @@ def load_agents_md() -> str:
         return ""
 
 
+def _use_gpt54_lightweight_tools_prompt() -> bool:
+    provider = (os.environ.get("UAGENT_PROVIDER", "") or "").strip().lower()
+    depname = (
+        os.environ.get("UAGENT_AZURE_DEPLOYMENT")
+        or os.environ.get("UAGENT_OPENAI_MODEL")
+        or os.environ.get("UAGENT_MODEL")
+        or ""
+    ).strip().lower()
+    use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        "1",
+        "true",
+    )
+
+    if not use_responses_api:
+        return False
+    model = ((depname or "").strip().lower())
+    marker = "gpt-5."
+    idx = model.find(marker)
+    if idx < 0:
+        return False
+    tail = model[idx + len(marker) :]
+    digits = []
+    for ch in tail:
+        if ch.isdigit():
+            digits.append(ch)
+        else:
+            break
+    if not digits:
+        return False
+    try:
+        minor = int("".join(digits))
+    except Exception:
+        return False
+    return minor >= 4
+
+
+def build_lightweight_tools_system_prompt() -> str:
+    return "\n".join(
+        [
+            "[Available Tools]",
+            "A large set of tools may be available in this environment.",
+            "Do not assume that every tool definition is already loaded in the current request.",
+            "When tool use is needed, first reason about the category of tool required and use only the minimum relevant tool surface.",
+            "If tool details are unavailable, avoid inventing parameters or functions.",
+        ]
+    )
+
+
 def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
     messages: List[Dict[str, Any]] = []
 
@@ -886,8 +934,11 @@ def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
     messages.append(system_msg)
     core.log_message(system_msg)
 
-    tool_specs = tools.get_tool_specs()
-    tools_prompt = core.build_tools_system_prompt(tool_specs)
+    if _use_gpt54_lightweight_tools_prompt():
+        tools_prompt = build_lightweight_tools_system_prompt()
+    else:
+        tool_specs = tools.get_tool_specs()
+        tools_prompt = core.build_tools_system_prompt(tool_specs)
     tools_system_msg = {"role": "system", "content": tools_prompt}
 
     messages.append(tools_system_msg)
@@ -901,8 +952,11 @@ def insert_tools_system_message(
     *,
     core: Any,
 ) -> List[Dict[str, Any]]:
-    tool_specs = tools.get_tool_specs()
-    tools_prompt = core.build_tools_system_prompt(tool_specs)
+    if _use_gpt54_lightweight_tools_prompt():
+        tools_prompt = build_lightweight_tools_system_prompt()
+    else:
+        tool_specs = tools.get_tool_specs()
+        tools_prompt = core.build_tools_system_prompt(tool_specs)
     tools_system_msg = {"role": "system", "content": tools_prompt}
 
     if messages and messages[0].get("role") == "system":

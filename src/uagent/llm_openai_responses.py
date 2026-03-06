@@ -112,6 +112,7 @@ def build_responses_request(
     *,
     send_tools_this_round: bool,
     provider: str = "openai",  # kept for compatibility with caller
+    tool_specs: Optional[List[Dict[str, Any]]] = None,
 ) -> Tuple[Optional[str], List[Dict[str, Any]], Optional[List[Dict[str, Any]]]]:
     """Build payload for OpenAI/Azure Responses API.
 
@@ -241,8 +242,9 @@ def build_responses_request(
     #   the risk that tool-call arguments are emitted/transported in unexpected shapes.
     req_tools: Optional[List[Dict[str, Any]]] = None
     if send_tools_this_round:
+        raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
         flat_tools: List[Dict[str, Any]] = []
-        for t in tools.get_tool_specs() or []:
+        for t in raw_specs or []:
             if not isinstance(t, dict):
                 continue
             fn = t.get("function") or {}
