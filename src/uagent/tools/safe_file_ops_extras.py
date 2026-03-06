@@ -38,7 +38,6 @@ def is_path_dangerous(p: str) -> bool:
 
     Returns True if:
     - Path contains '..'
-    - Path is absolute
     - Path is outside the workdir (CWD) after resolution
     """
     if not p:
@@ -50,9 +49,6 @@ def is_path_dangerous(p: str) -> bool:
         return True
 
     if ".." in str(p).replace("\\", "/"):
-        return True
-
-    if path_obj.is_absolute():
         return True
 
     resolved = _resolve_path(p)

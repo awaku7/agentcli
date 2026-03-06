@@ -150,20 +150,12 @@ def test_replace_in_file_rejects_incomplete_inputs(payload: dict) -> None:
             "mode": "literal",
             "pattern": "a",
             "replacement": "b",
-            "count": "1",
-        },
-        {
-            "path": "x",
-            "mode": "literal",
-            "pattern": "a",
-            "replacement": "b",
             "expand_newline_tokens": "yes",
         },
     ],
     ids=[
         "confirm_if_matches_over_not_int",
         "preview_not_bool",
-        "count_not_int",
         "expand_newline_tokens_not_bool",
     ],
 )
@@ -196,6 +188,42 @@ def test_replace_in_file_rejects_wrong_types(payload: dict) -> None:
     ],
 )
 def test_replace_in_file_rejects_invalid_values(payload: dict) -> None:
+    replace_in_file = _import_run_tool("replace_in_file")
+    out = replace_in_file(payload)
+    _assert_err_json(out)
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "",
+            "replacement": "b",
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "confirm_if_matches_over": 0,
+        },
+        {
+            "path": "x",
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "confirm_if_matches_over": -1,
+        },
+    ],
+    ids=[
+        "empty_pattern",
+        "confirm_if_matches_over_zero",
+        "confirm_if_matches_over_negative",
+    ],
+)
+def test_replace_in_file_rejects_invalid_constraints(payload: dict) -> None:
     replace_in_file = _import_run_tool("replace_in_file")
     out = replace_in_file(payload)
     _assert_err_json(out)
