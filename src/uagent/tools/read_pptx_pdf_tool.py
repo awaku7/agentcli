@@ -498,7 +498,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             idx = int(page_index)
         except Exception:
-            return _("err.page_index_int", default="[read_pptx_pdf error] page_index must be an integer")
+            return _(
+                "err.page_index_int",
+                default="[read_pptx_pdf error] page_index must be an integer",
+            )
 
         if idx <= 0 or idx > len(pages_text):
             return f"[read_pptx_pdf error] page_index out of range: {idx}"

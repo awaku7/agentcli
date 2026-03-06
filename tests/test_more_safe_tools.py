@@ -98,5 +98,4 @@ def test_search_files_name_only(repo_tmp_path: Path) -> None:
     )
     assert isinstance(out, str)
     # 現状の search_files ツールは Windows 環境で KeyError を返しうるため、ここでは失敗を許容する
-    assert ("b.txt" in out) or ("\"ok\": false" in out)
-
+    assert ("b.txt" in out) or ('"ok": false' in out)

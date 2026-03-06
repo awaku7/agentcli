@@ -7,10 +7,10 @@
     "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its tools. Prefer using configured servers in mcp_servers.json when possible."
   },
   "ja": {
-    "param.pretty.description": "（日本語）",
-    "param.server_name.description": "（日本語）",
-    "param.url.description": "（日本語）",
-    "tool.description": "（日本語）[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available ツールs. Before performing any API/system integration, use this ツール to discover what MCP ツールs are available. Supports HTTP-based and stdio-based MCP servers.",
-    "tool.system_prompt": "（日本語）Connect to an MCP server (HTTP or stdio) and list its ツールs. Prefer using configured servers in mcp_servers.json when possible."
+    "param.pretty.description": "",
+    "param.server_name.description": "",
+    "param.url.description": "",
+    "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available ツールs. Before performing any API/system integration, use this ツール to discover what MCP ツールs are available. Supports HTTP-based and stdio-based MCP servers.",
+    "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its ツールs. Prefer using configured servers in mcp_servers.json when possible."
   }
 }

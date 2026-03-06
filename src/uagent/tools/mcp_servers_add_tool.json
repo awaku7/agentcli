@@ -14,17 +14,17 @@
     "tool.system_prompt": "Add or update an MCP server entry in mcp_servers.json.\n- Be careful when overwriting existing entries (replace=true).\n- For HTTP(SSE): set url.\n- For stdio: set command and args.\n- Do not store secrets (tokens, passwords) in this file unless the user explicitly requests it."
   },
   "ja": {
-    "param.args.description": "（日本語）",
-    "param.command.description": "（日本語）",
-    "param.create_if_missing.description": "（日本語）",
-    "param.env.description": "（日本語）",
-    "param.name.description": "（日本語）",
-    "param.path.description": "（日本語）",
-    "param.replace.description": "（日本語）",
-    "param.set_default.description": "（日本語）",
-    "param.transport.description": "（日本語）",
-    "param.url.description": "（日本語）",
-    "tool.description": "（日本語）Add a server definition to mcp_servers.json (or update an existing one). If the same name already exists, it is only overwritten when replace=true. For HTTP(SSE) connections, provide url. For stdio connections, provide command and args.",
-    "tool.system_prompt": "（日本語）Add or update an MCP server entry in mcp_servers.json.\n- Be careful when overwriting existing entries (replace=true).\n- For HTTP(SSE): set url.\n- For stdio: set command and args.\n- Do not store secrets (tokens, passwords) in this ファイル unless the user explicitly requests it."
+    "param.args.description": "",
+    "param.command.description": "",
+    "param.create_if_missing.description": "",
+    "param.env.description": "",
+    "param.name.description": "",
+    "param.path.description": "",
+    "param.replace.description": "",
+    "param.set_default.description": "",
+    "param.transport.description": "",
+    "param.url.description": "",
+    "tool.description": "Add a server definition to mcp_servers.json (or update an existing one). If the same name already exists, it is only overwritten when replace=true. For HTTP(SSE) connections, provide url. For stdio connections, provide command and args.",
+    "tool.system_prompt": "Add or update an MCP server entry in mcp_servers.json.\n- Be careful when overwriting existing entries (replace=true).\n- For HTTP(SSE): set url.\n- For stdio: set command and args.\n- Do not store secrets (tokens, passwords) in this ファイル unless the user explicitly requests it."
   }
 }

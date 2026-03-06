@@ -6,9 +6,9 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
   },
   "ja": {
-    "param.db_path.description": "（日本語）",
-    "param.sql.description": "（日本語）",
-    "tool.description": "（日本語）実行します an SQL query against an SQLite database and return the result. Only read-only 操作s (SELECT) and schema inspection (PRAGMA) are supported.",
-    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'db_query'."
+    "param.db_path.description": "",
+    "param.sql.description": "",
+    "tool.description": "実行します an SQL query against an SQLite database and return the result. Only read-only 操作s (SELECT) and schema inspection (PRAGMA) are supported.",
+    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'db_query'."
   }
 }

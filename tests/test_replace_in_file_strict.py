@@ -30,10 +30,13 @@ def _read_bytes(path: Path) -> bytes:
     ["\n", "\r\n"],
     ids=["LF", "CRLF"],
 )
-def test_replace_in_file_literal_cross_newline_tokens(newline: str, repo_tmp_path: Path) -> None:
+def test_replace_in_file_literal_cross_newline_tokens(
+    newline: str, repo_tmp_path: Path
+) -> None:
     """Regardless of file newline convention, \n token should match/replace."""
 
-    p = repo_tmp_path / f"literal_{'crlf' if newline == '\\r\\n' else 'lf'}.txt"
+    suffix = "crlf" if newline == "\r\n" else "lf"
+    p = repo_tmp_path / f"literal_{suffix}.txt"
     # File content uses the specified newline convention.
     _write_bytes(p, f"aaa{newline}bbb{newline}ccc{newline}".encode("utf-8"))
 
@@ -75,10 +78,13 @@ def test_replace_in_file_literal_cross_newline_tokens(newline: str, repo_tmp_pat
     ["\n", "\r\n"],
     ids=["LF", "CRLF"],
 )
-def test_replace_in_file_regex_cross_newline_tokens(newline: str, repo_tmp_path: Path) -> None:
+def test_replace_in_file_regex_cross_newline_tokens(
+    newline: str, repo_tmp_path: Path
+) -> None:
     """Regex pattern containing \n token should match across line boundaries."""
 
-    p = repo_tmp_path / f"regex_{'crlf' if newline == '\\r\\n' else 'lf'}.txt"
+    suffix = "crlf" if newline == "\r\n" else "lf"
+    p = repo_tmp_path / f"regex_{suffix}.txt"
     _write_bytes(p, f"hello{newline}world{newline}".encode("utf-8"))
 
     out_preview = replace_in_file(
@@ -115,7 +121,9 @@ def test_replace_in_file_regex_cross_newline_tokens(newline: str, repo_tmp_path:
     [True, False],
     ids=["expand", "no_expand"],
 )
-def test_replace_in_file_expand_newline_tokens_flag(expand_newline_tokens: bool, repo_tmp_path: Path) -> None:
+def test_replace_in_file_expand_newline_tokens_flag(
+    expand_newline_tokens: bool, repo_tmp_path: Path
+) -> None:
     p = repo_tmp_path / "expand_newline_tokens.txt"
     p.write_text("a\nline\nb\n", encoding="utf-8", newline="\n")
 
@@ -173,7 +181,9 @@ def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) 
     ],
     ids=["no_anchors", "anchors_no_multiline"],
 )
-def test_replace_in_file_regex_anchor_behavior(pattern: str, replacement: str, expected_count: int, repo_tmp_path: Path) -> None:
+def test_replace_in_file_regex_anchor_behavior(
+    pattern: str, replacement: str, expected_count: int, repo_tmp_path: Path
+) -> None:
     p = repo_tmp_path / "anchor_behavior.txt"
     p.write_text("name=alice\nname=bob\n", encoding="utf-8", newline="\n")
 
