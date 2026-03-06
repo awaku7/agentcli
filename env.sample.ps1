@@ -15,7 +15,7 @@
 # ==============================
 # Provider 選択
 # ==============================
-# azure / openai / openrouter / gemini / grok / claude
+# azure / openai / openrouter / gemini / grok / claude / nvidia
 $env:UAGENT_PROVIDER = 'openai'
 
 # ==============================
@@ -27,7 +27,11 @@ $env:UAGENT_PROVIDER = 'openai'
 $env:UAGENT_OPENAI_API_KEY = '<your-openai-api-key>'
 
 # chat 用モデル名（互換サービスの場合も「モデル名」または「デプロイ名」をここに）
+# Responses + GPT-5.4+ の軽量 tool narrowing を使いたい場合の例: gpt-5.4
 $env:UAGENT_DEPNAME = 'gpt-4o'
+
+# 任意: OpenAI/Azure Responses API を使う場合
+# $env:UAGENT_RESPONSES = '1'
 
 # ==============================
 # OpenRouter (UAGENT_PROVIDER=openrouter)
@@ -38,6 +42,8 @@ $env:UAGENT_DEPNAME = 'gpt-4o'
 $env:UAGENT_OPENROUTER_API_KEY = '<your-openrouter-api-key>'
 # $env:UAGENT_OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1'
 # $env:UAGENT_OPENROUTER_DEPNAME = 'gpt-4o'
+# Responses + GPT-5.4+ の例:
+# $env:UAGENT_OPENROUTER_DEPNAME = 'openai/gpt-5.4'
 #
 # OpenRouter モデルフォールバック（OpenRouter独自拡張）
 # - 有効化条件: UAGENT_OPENROUTER_DEPNAME='openrouter/auto'
@@ -52,6 +58,9 @@ $env:UAGENT_OPENROUTER_API_KEY = '<your-openrouter-api-key>'
 # $env:UAGENT_AZURE_API_KEY     = '<your-azure-api-key>'
 # $env:UAGENT_AZURE_API_VERSION = '2024-05-01-preview'
 # $env:UAGENT_DEPNAME           = 'gpt-4o'
+# Responses + GPT-5.4+ の軽量 tool narrowing を使う例:
+# $env:UAGENT_DEPNAME           = 'gpt-5.4'
+# $env:UAGENT_RESPONSES         = '1'
 
 # ==============================
 # Google Gemini (UAGENT_PROVIDER=gemini)
@@ -72,6 +81,13 @@ $env:UAGENT_OPENROUTER_API_KEY = '<your-openrouter-api-key>'
 # $env:UAGENT_DEPNAME        = 'claude-3-5-sonnet-20241022'
 
 # ==============================
+# NVIDIA (UAGENT_PROVIDER=nvidia)
+# ==============================
+# $env:UAGENT_NVIDIA_API_KEY  = '<your-nvidia-api-key>'
+# $env:UAGENT_NVIDIA_BASE_URL = 'https://integrate.api.nvidia.com/v1'
+# $env:UAGENT_DEPNAME         = 'meta/llama-3.1-70b-instruct'
+
+# ==============================
 # 任意: 起動時workdir
 # ==============================
 # $env:UAGENT_WORKDIR = '.'
@@ -82,5 +98,7 @@ $env:UAGENT_OPENROUTER_API_KEY = '<your-openrouter-api-key>'
 # 生成後に自動で画像を開くかどうか (1:有効(既定), 0:無効)
 # $env:UAGENT_IMAGE_OPEN = '1'
 
-# 画像生成用モデル/デプロイ名 (Azure/OpenAI/Gemini用)
-# $env:UAGENT_IMAGE_DEPNAME = 'dall-e-3'
+# 画像生成用モデル/デプロイ名 (プロバイダ別)
+# 例:
+# $env:UAGENT_OPENAI_IMG_GENERATE_DEPNAME = 'gpt-image-1'
+# $env:UAGENT_AZURE_IMG_GENERATE_DEPNAME  = 'dall-e-3'
