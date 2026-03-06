@@ -25,7 +25,7 @@ uag is an interactive local agent that can execute commands, manipulate files, a
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
-- GPT-5.4+ Responses optimization: lightweight tool prompt, `tool_catalog`, and narrowed tool exposure per request
+- GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
 
 ---
 
@@ -199,7 +199,7 @@ Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
   - `UAGENT_SHRINK_CNT=0`: disable auto shrink.
   - `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after summarization.
   - Auto shrink is disabled for `UAGENT_PROVIDER=gemini` and `UAGENT_PROVIDER=claude`.
-- Added GPT-5.4+ Responses tool narrowing with `tool_catalog` and a lightweight tool prompt.
+- Added GPT-5.4+ Responses tool narrowing with `tool_catalog` and a lightweight tools prompt.
 - Added smoke tests for MCP server management tools.
 - When shrink runs (manual `:shrink` / `:shrink_llm` or auto), the current session log is rewritten to match the compressed in-memory history.
   - A one-generation backup is created under `<log_dir>/.backup/`.
