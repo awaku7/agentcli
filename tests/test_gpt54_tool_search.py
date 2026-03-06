@@ -109,7 +109,9 @@ class _RunToolPatch:
             if name in result_by_name:
                 value = result_by_name[name]
                 return value(args) if callable(value) else value
-            return json.dumps({"ok": True, "name": name, "args": args}, ensure_ascii=False)
+            return json.dumps(
+                {"ok": True, "name": name, "args": args}, ensure_ascii=False
+            )
 
         tools.run_tool = _fake_run_tool
         return self
@@ -171,7 +173,9 @@ def _restore_streaming_env(old_env: str | None) -> None:
         os.environ["UAGENT_STREAMING"] = old_env
 
 
-def _response_with_function_call(name: str, arguments: dict, *, call_id: str = "call_1"):
+def _response_with_function_call(
+    name: str, arguments: dict, *, call_id: str = "call_1"
+):
     return SimpleNamespace(
         output=[
             SimpleNamespace(
@@ -294,7 +298,9 @@ def test_select_tool_specs_for_gpt54_keeps_catalog_and_human_ask() -> None:
     assert "human_ask" in names
 
 
-def test_select_tool_specs_for_gpt54_zero_hit_fallback_still_keeps_catalog_and_human_ask() -> None:
+def test_select_tool_specs_for_gpt54_zero_hit_fallback_still_keeps_catalog_and_human_ask() -> (
+    None
+):
     with _CatalogPatch([]):
         selected = _select_tool_specs_for_gpt54(
             [{"role": "user", "content": "totally ambiguous request"}]
@@ -343,7 +349,9 @@ def test_run_llm_rounds_gpt54_responses_uses_narrowed_tools() -> None:
         _restore_responses_env(old_env)
 
     assert client.responses.calls
-    tool_names = [tool.get("name") for tool in client.responses.calls[0].get("tools", [])]
+    tool_names = [
+        tool.get("name") for tool in client.responses.calls[0].get("tools", [])
+    ]
     assert "read_file" in tool_names
     assert "tool_catalog" in tool_names
     assert "human_ask" in tool_names
@@ -397,39 +405,42 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
     messages = [{"role": "user", "content": "read file"}]
 
     try:
-        with _CatalogPatch(
-            [
-                {
-                    "name": "read_file",
-                    "description": "read a file",
-                    "required": ["path"],
-                    "parameters": ["path", "start_line", "max_lines"],
-                }
-            ]
-        ), _RunToolPatch(
-            {
-                "tool_catalog": json.dumps(
+        with (
+            _CatalogPatch(
+                [
                     {
-                        "ok": True,
-                        "query": "read file",
-                        "count": 1,
-                        "tools": [
-                            {
-                                "name": "read_file",
-                                "description": "read a file",
-                                "required": ["path"],
-                                "parameters": ["path", "start_line", "max_lines"],
-                            }
-                        ],
-                    },
-                    ensure_ascii=False,
-                ),
-                "read_file": json.dumps(
-                    {"ok": True, "path": "README.md", "content": "sample"},
-                    ensure_ascii=False,
-                ),
-            }
-        ) as run_patch:
+                        "name": "read_file",
+                        "description": "read a file",
+                        "required": ["path"],
+                        "parameters": ["path", "start_line", "max_lines"],
+                    }
+                ]
+            ),
+            _RunToolPatch(
+                {
+                    "tool_catalog": json.dumps(
+                        {
+                            "ok": True,
+                            "query": "read file",
+                            "count": 1,
+                            "tools": [
+                                {
+                                    "name": "read_file",
+                                    "description": "read a file",
+                                    "required": ["path"],
+                                    "parameters": ["path", "start_line", "max_lines"],
+                                }
+                            ],
+                        },
+                        ensure_ascii=False,
+                    ),
+                    "read_file": json.dumps(
+                        {"ok": True, "path": "README.md", "content": "sample"},
+                        ensure_ascii=False,
+                    ),
+                }
+            ) as run_patch,
+        ):
             run_llm_rounds(
                 "openai",
                 client,
@@ -446,8 +457,12 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
 
     assert len(client.responses.calls) == 3
 
-    first_tool_names = [tool.get("name") for tool in client.responses.calls[0].get("tools", [])]
-    second_tool_names = [tool.get("name") for tool in client.responses.calls[1].get("tools", [])]
+    first_tool_names = [
+        tool.get("name") for tool in client.responses.calls[0].get("tools", [])
+    ]
+    second_tool_names = [
+        tool.get("name") for tool in client.responses.calls[1].get("tools", [])
+    ]
 
     assert "tool_catalog" in first_tool_names
     assert "read_file" in first_tool_names
@@ -496,38 +511,42 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
     messages = [{"role": "user", "content": "read file"}]
 
     try:
-        with _ToolSpecsPatch(constrained_specs), _CatalogPatch(
-            [
-                {
-                    "name": "read_file",
-                    "description": "read a file",
-                    "required": ["path"],
-                    "parameters": ["path", "start_line", "max_lines"],
-                }
-            ]
-        ), _RunToolPatch(
-            {
-                "tool_catalog": json.dumps(
+        with (
+            _ToolSpecsPatch(constrained_specs),
+            _CatalogPatch(
+                [
                     {
-                        "ok": True,
-                        "query": "read file",
-                        "count": 1,
-                        "tools": [
-                            {
-                                "name": "read_file",
-                                "description": "read a file",
-                                "required": ["path"],
-                                "parameters": ["path", "start_line", "max_lines"],
-                            }
-                        ],
-                    },
-                    ensure_ascii=False,
-                ),
-                "read_file": json.dumps(
-                    {"ok": True, "path": "README.md", "content": "sample"},
-                    ensure_ascii=False,
-                ),
-            }
+                        "name": "read_file",
+                        "description": "read a file",
+                        "required": ["path"],
+                        "parameters": ["path", "start_line", "max_lines"],
+                    }
+                ]
+            ),
+            _RunToolPatch(
+                {
+                    "tool_catalog": json.dumps(
+                        {
+                            "ok": True,
+                            "query": "read file",
+                            "count": 1,
+                            "tools": [
+                                {
+                                    "name": "read_file",
+                                    "description": "read a file",
+                                    "required": ["path"],
+                                    "parameters": ["path", "start_line", "max_lines"],
+                                }
+                            ],
+                        },
+                        ensure_ascii=False,
+                    ),
+                    "read_file": json.dumps(
+                        {"ok": True, "path": "README.md", "content": "sample"},
+                        ensure_ascii=False,
+                    ),
+                }
+            ),
         ):
             run_llm_rounds(
                 "openai",
@@ -545,8 +564,12 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
 
     assert len(client.responses.calls) == 3
 
-    first_tool_names = [tool.get("name") for tool in client.responses.calls[0].get("tools", [])]
-    second_tool_names = [tool.get("name") for tool in client.responses.calls[1].get("tools", [])]
+    first_tool_names = [
+        tool.get("name") for tool in client.responses.calls[0].get("tools", [])
+    ]
+    second_tool_names = [
+        tool.get("name") for tool in client.responses.calls[1].get("tools", [])
+    ]
 
     assert set(first_tool_names) == {
         "tool_catalog",
@@ -564,7 +587,9 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
     assert "get_workdir" not in second_tool_names
 
 
-def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_safe_subset() -> None:
+def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_safe_subset() -> (
+    None
+):
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     constrained_specs = [
@@ -590,19 +615,23 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
     messages = [{"role": "user", "content": "ambiguous request"}]
 
     try:
-        with _ToolSpecsPatch(constrained_specs), _CatalogPatch([]), _RunToolPatch(
-            {
-                "tool_catalog": json.dumps(
-                    {
-                        "ok": True,
-                        "query": "ambiguous request",
-                        "count": 0,
-                        "tools": [],
-                    },
-                    ensure_ascii=False,
-                )
-            }
-        ) as run_patch:
+        with (
+            _ToolSpecsPatch(constrained_specs),
+            _CatalogPatch([]),
+            _RunToolPatch(
+                {
+                    "tool_catalog": json.dumps(
+                        {
+                            "ok": True,
+                            "query": "ambiguous request",
+                            "count": 0,
+                            "tools": [],
+                        },
+                        ensure_ascii=False,
+                    )
+                }
+            ) as run_patch,
+        ):
             run_llm_rounds(
                 "openai",
                 client,
@@ -619,8 +648,12 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
 
     assert len(client.responses.calls) == 2
 
-    first_tool_names = [tool.get("name") for tool in client.responses.calls[0].get("tools", [])]
-    second_tool_names = [tool.get("name") for tool in client.responses.calls[1].get("tools", [])]
+    first_tool_names = [
+        tool.get("name") for tool in client.responses.calls[0].get("tools", [])
+    ]
+    second_tool_names = [
+        tool.get("name") for tool in client.responses.calls[1].get("tools", [])
+    ]
 
     assert set(first_tool_names) == {
         "tool_catalog",
