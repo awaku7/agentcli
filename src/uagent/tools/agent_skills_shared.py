@@ -30,7 +30,6 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import re
-import re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -125,7 +124,12 @@ def _read_text_file(path: str, max_bytes: int) -> str:
     with open(path, "rb") as f:
         data = f.read(max_bytes + 1)
     if len(data) > max_bytes:
-        raise ValueError(_("err.file_too_large", default="File too large to read safely: {path} (>{max_bytes} bytes)").format(path=path, max_bytes=max_bytes))
+        raise ValueError(
+            _(
+                "err.file_too_large",
+                default="File too large to read safely: {path} (>{max_bytes} bytes)",
+            ).format(path=path, max_bytes=max_bytes)
+        )
 
     # Try utf-8 first; if it fails, fallback to 'utf-8' with replacement.
     try:
@@ -141,7 +145,11 @@ def skill_md_path(skill_dir: str) -> str:
 def read_skill_md(skill_dir: str, max_bytes: int = DEFAULT_MAX_SKILL_MD_BYTES) -> str:
     path = skill_md_path(skill_dir)
     if not os.path.isfile(path):
-        raise FileNotFoundError(_("err.skill_md_not_found", default="{filename} not found: {path}").format(filename=SKILL_MD_FILENAME, path=path))
+        raise FileNotFoundError(
+            _("err.skill_md_not_found", default="{filename} not found: {path}").format(
+                filename=SKILL_MD_FILENAME, path=path
+            )
+        )
     return _read_text_file(path, max_bytes=max_bytes)
 
 
@@ -170,7 +178,12 @@ def split_frontmatter(text: str) -> Tuple[str, str]:
         i += 1
 
     if i >= len(lines) or lines[i].strip() != _FRONTMATTER_DELIM:
-        raise ValueError(_("err.frontmatter_missing_start", default="Missing YAML frontmatter delimiter '---' at start"))
+        raise ValueError(
+            _(
+                "err.frontmatter_missing_start",
+                default="Missing YAML frontmatter delimiter '---' at start",
+            )
+        )
 
     # Find closing delimiter
     start = i + 1
@@ -181,7 +194,12 @@ def split_frontmatter(text: str) -> Tuple[str, str]:
             break
 
     if end is None:
-        raise ValueError(_("err.frontmatter_missing_end", default="Missing YAML frontmatter closing delimiter '---'"))
+        raise ValueError(
+            _(
+                "err.frontmatter_missing_end",
+                default="Missing YAML frontmatter closing delimiter '---'",
+            )
+        )
 
     fm = "\n".join(lines[start:end]) + "\n"
     body = "\n".join(lines[end + 1 :])
@@ -195,10 +213,20 @@ def parse_frontmatter_yaml(frontmatter_yaml: str) -> Dict[str, Any]:
     try:
         data = yaml.safe_load(frontmatter_yaml) or {}
     except Exception as e:
-        raise ValueError(_("err.frontmatter_parse_failed", default="Failed to parse YAML frontmatter: {err}").format(err=repr(e)))
+        raise ValueError(
+            _(
+                "err.frontmatter_parse_failed",
+                default="Failed to parse YAML frontmatter: {err}",
+            ).format(err=repr(e))
+        )
 
     if not isinstance(data, dict):
-        raise ValueError(_("err.frontmatter_not_mapping", default="Frontmatter must be a YAML mapping (object)"))
+        raise ValueError(
+            _(
+                "err.frontmatter_not_mapping",
+                default="Frontmatter must be a YAML mapping (object)",
+            )
+        )
 
     return data
 
@@ -242,67 +270,147 @@ def validate_skill_frontmatter(
     # name
     name = frontmatter.get("name")
     if not isinstance(name, str) or not name.strip():
-        errors.append(_("err.fm_name_required", default="frontmatter.name is required and must be a non-empty string"))
+        errors.append(
+            _(
+                "err.fm_name_required",
+                default="frontmatter.name is required and must be a non-empty string",
+            )
+        )
     else:
         name = name.strip()
         if len(name) > NAME_MAX_LEN:
-            errors.append(_("err.fm_name_too_long", default="frontmatter.name must be <= {max_len} characters").format(max_len=NAME_MAX_LEN))
+            errors.append(
+                _(
+                    "err.fm_name_too_long",
+                    default="frontmatter.name must be <= {max_len} characters",
+                ).format(max_len=NAME_MAX_LEN)
+            )
         if not _NAME_RE.match(name):
-            errors.append(_("err.fm_name_re", default="frontmatter.name must match ^[a-z0-9-]{1,64}$ (lowercase letters, digits, hyphen)"))
+            errors.append(
+                _(
+                    "err.fm_name_re",
+                    default="frontmatter.name must match ^[a-z0-9-]{1,64}$ (lowercase letters, digits, hyphen)",
+                )
+            )
         if name.startswith("-") or name.endswith("-"):
-            errors.append(_("err.fm_name_edge_hyphen", default="frontmatter.name must not start or end with '-'"))
+            errors.append(
+                _(
+                    "err.fm_name_edge_hyphen",
+                    default="frontmatter.name must not start or end with '-'",
+                )
+            )
         if "--" in name:
-            errors.append(_("err.fm_name_double_hyphen", default="frontmatter.name must not contain consecutive hyphens '--'"))
+            errors.append(
+                _(
+                    "err.fm_name_double_hyphen",
+                    default="frontmatter.name must not contain consecutive hyphens '--'",
+                )
+            )
 
         # directory name match
         base = _skill_dir_basename(skill_dir)
         if base != name:
-            errors.append(_("err.fm_name_dir_mismatch", default="frontmatter.name must match parent directory name: dir='{dir}', name='{name}'").format(dir=base, name=name))
+            errors.append(
+                _(
+                    "err.fm_name_dir_mismatch",
+                    default="frontmatter.name must match parent directory name: dir='{dir}', name='{name}'",
+                ).format(dir=base, name=name)
+            )
 
     # description
     desc = frontmatter.get("description")
     if not isinstance(desc, str) or not desc.strip():
-        errors.append(_("err.fm_desc_required", default="frontmatter.description is required and must be a non-empty string"))
+        errors.append(
+            _(
+                "err.fm_desc_required",
+                default="frontmatter.description is required and must be a non-empty string",
+            )
+        )
     else:
         desc = desc.strip()
         if len(desc) > DESCRIPTION_MAX_LEN:
-            errors.append(_("err.fm_desc_too_long", default="frontmatter.description must be <= {max_len} characters").format(max_len=DESCRIPTION_MAX_LEN))
+            errors.append(
+                _(
+                    "err.fm_desc_too_long",
+                    default="frontmatter.description must be <= {max_len} characters",
+                ).format(max_len=DESCRIPTION_MAX_LEN)
+            )
 
     # license (optional)
     lic = frontmatter.get("license")
     if lic is not None and not isinstance(lic, str):
-        errors.append(_("err.fm_license_type", default="frontmatter.license must be a string if provided"))
+        errors.append(
+            _(
+                "err.fm_license_type",
+                default="frontmatter.license must be a string if provided",
+            )
+        )
 
     # compatibility (optional)
     comp = frontmatter.get("compatibility")
     if comp is not None:
         if not isinstance(comp, str):
-            errors.append(_("err.fm_compat_type", default="frontmatter.compatibility must be a string if provided"))
+            errors.append(
+                _(
+                    "err.fm_compat_type",
+                    default="frontmatter.compatibility must be a string if provided",
+                )
+            )
         else:
             comp_s = comp.strip()
             if not comp_s:
-                errors.append(_("err.fm_compat_empty", default="frontmatter.compatibility must be non-empty if provided"))
+                errors.append(
+                    _(
+                        "err.fm_compat_empty",
+                        default="frontmatter.compatibility must be non-empty if provided",
+                    )
+                )
             if len(comp_s) > COMPATIBILITY_MAX_LEN:
-                errors.append(_("err.fm_compat_too_long", default="frontmatter.compatibility must be <= {max_len} characters").format(max_len=COMPATIBILITY_MAX_LEN))
+                errors.append(
+                    _(
+                        "err.fm_compat_too_long",
+                        default="frontmatter.compatibility must be <= {max_len} characters",
+                    ).format(max_len=COMPATIBILITY_MAX_LEN)
+                )
 
     # metadata (optional)
     meta = frontmatter.get("metadata")
     if meta is not None:
         if not isinstance(meta, dict):
-            errors.append(_("err.fm_meta_type", default="frontmatter.metadata must be a mapping (object) if provided"))
+            errors.append(
+                _(
+                    "err.fm_meta_type",
+                    default="frontmatter.metadata must be a mapping (object) if provided",
+                )
+            )
         else:
             for k, v in meta.items():
                 if not isinstance(k, str):
-                    errors.append(_("err.fm_meta_key_type", default="frontmatter.metadata keys must be strings"))
+                    errors.append(
+                        _(
+                            "err.fm_meta_key_type",
+                            default="frontmatter.metadata keys must be strings",
+                        )
+                    )
                     break
                 if not isinstance(v, str):
-                    errors.append(_("err.fm_meta_val_type", default="frontmatter.metadata values must be strings"))
+                    errors.append(
+                        _(
+                            "err.fm_meta_val_type",
+                            default="frontmatter.metadata values must be strings",
+                        )
+                    )
                     break
 
     # allowed-tools (optional)
     allowed = frontmatter.get("allowed-tools")
     if allowed is not None and not isinstance(allowed, str):
-        errors.append(_("err.fm_allowed_tools_type", default="frontmatter.allowed-tools must be a string if provided"))
+        errors.append(
+            _(
+                "err.fm_allowed_tools_type",
+                default="frontmatter.allowed-tools must be a string if provided",
+            )
+        )
 
     ok = len(errors) == 0 and (not strict or len(warnings) == 0)
     return ok, errors, warnings
@@ -324,17 +432,26 @@ def safe_resolve_skill_relative_path(skill_dir: str, relative_path: str) -> str:
     """
 
     if not isinstance(relative_path, str) or not relative_path:
-        raise ValueError(_("err.relpath_required", default="relative_path must be a non-empty string"))
+        raise ValueError(
+            _(
+                "err.relpath_required",
+                default="relative_path must be a non-empty string",
+            )
+        )
 
     # Normalize separators, but keep relative semantics
     rp = relative_path.replace("\\", "/")
 
     if os.path.isabs(rp):
-        raise ValueError(_("err.abs_path_not_allowed", default="absolute paths are not allowed"))
+        raise ValueError(
+            _("err.abs_path_not_allowed", default="absolute paths are not allowed")
+        )
 
     parts = [p for p in rp.split("/") if p not in ("", ".")]
     if any(p == ".." for p in parts):
-        raise ValueError(_("err.dotdot_not_allowed", default="'..' is not allowed in relative_path"))
+        raise ValueError(
+            _("err.dotdot_not_allowed", default="'..' is not allowed in relative_path")
+        )
 
     # Join and realpath
     skill_real = os.path.realpath(skill_dir)
@@ -345,9 +462,19 @@ def safe_resolve_skill_relative_path(skill_dir: str, relative_path: str) -> str:
     target_cmp = os.path.normcase(target)
     if target_cmp == skill_cmp:
         # points to dir itself
-        raise ValueError(_("err.relpath_points_to_root", default="relative_path must point to a file, not the skill root"))
+        raise ValueError(
+            _(
+                "err.relpath_points_to_root",
+                default="relative_path must point to a file, not the skill root",
+            )
+        )
 
     if not target_cmp.startswith(skill_cmp + os.sep):
-        raise ValueError(_("err.path_traversal", default="path traversal detected: resolved path escapes skill_dir"))
+        raise ValueError(
+            _(
+                "err.path_traversal",
+                default="path traversal detected: resolved path escapes skill_dir",
+            )
+        )
 
     return target
