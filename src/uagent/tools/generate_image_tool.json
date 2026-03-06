@@ -20,6 +20,6 @@
     "err.unsupported_provider": "[generate_image] 未対応 provider={provider!r}",
     "err.gen_fail": "[generate_image] 画像生成に失敗しました。\nprovider={provider} model={model} size={size} n={n}\n{err}",
     "err.no_saved": "[generate_image] 画像データが空でした",
-    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "（日本語）This ツール is used for the following purpose: (see ツール description)."
   }
 }

@@ -1,14 +1,13 @@
 {
   "en": {
     "param.command.description": "PowerShell command string passed to -Command.",
-    "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-    "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool is available.",
-    "tool.system_prompt": "Run PowerShell only when necessary and avoid dangerous operations unless explicitly requested by the user."
+    "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select."
   },
   "ja": {
-    "param.command.description": "-Command に渡す PowerShell コマンド文字列です。",
-    "param.shell.description": "使用する PowerShell 実行ファイルです（pwsh=PowerShell 7+ / powershell=Windows PowerShell）。省略時は自動選択します。",
-    "tool.description": "（最終手段として）PowerShell を実行します。他に適切なツールが利用できない場合にのみ使用してください。",
-    "tool.system_prompt": "必要性がある場合にのみ PowerShell を実行してください。ユーザーの明確な指示がない限り、危険な操作は避けてください。"
+    "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP等）が利用できない場合にのみ使用してください。",
+    "tool.system_prompt": "このツールは【最終手段】です。\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\n\nセキュリティ注記:\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。",
+    "err.timeout": "[pwsh_exec timeout] {seconds}秒以内に終了しませんでした",
+    "param.command.description": "（日本語）PowerShell command string passed to -Command.",
+    "param.shell.description": "（日本語）PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). 省略時, auto-select."
   }
 }

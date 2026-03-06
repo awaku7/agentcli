@@ -17,20 +17,20 @@
     "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'."
   },
   "ja": {
-    "param.action.description": "実行する操作。extract=抽出して返す / export_file=ファイルに保存。",
-    "param.auto_page_breaks_dir.description": "自動改ページ領域の出力先ディレクトリ（COM のみ）。",
-    "param.density_min.description": "表の密度しきい値。",
-    "param.file_path.description": "入力 Excel ファイルのパス（絶対パス推奨）。",
-    "param.format.description": "出力形式（json/yaml）。",
-    "param.include_cell_links.description": "セルのハイパーリンクを出力に含めるかどうか（既定は mode の挙動に従います）。",
-    "param.include_shapes.description": "図形（shape）を出力に含めるかどうか。既定は false。",
-    "param.mode.description": "抽出モード（light/standard/verbose）。既定は standard。",
-    "param.output_path.description": "export_file の保存先パス。既に存在する場合、保存直前にバックアップ（.org/.orgN）を作成します。",
-    "param.pretty.description": "整形出力（pretty print）するかどうか。既定は false。",
-    "param.print_areas_dir.description": "印刷範囲ごとの出力先ディレクトリ。",
-    "param.sheets_dir.description": "シートごとの出力先ディレクトリ。",
-    "param.table_score_threshold.description": "表検出のしきい値。",
-    "tool.description": "Excel（.xlsx）から構造化データを抽出し、JSON/YAML として返す/保存します。export_file の output_path が既に存在する場合は、保存直前にバックアップ（<output_path>.org / <output_path>.org1 / ...）を作成します。",
-    "tool.system_prompt": "このツールは、ツール名 'exstruct' が示す操作を実行します。"
+    "param.action.description": "（日本語）",
+    "param.auto_page_breaks_dir.description": "（日本語）",
+    "param.density_min.description": "（日本語）",
+    "param.file_path.description": "（日本語）",
+    "param.format.description": "（日本語）",
+    "param.include_cell_links.description": "（日本語）",
+    "param.include_shapes.description": "（日本語）",
+    "param.mode.description": "（日本語）",
+    "param.output_path.description": "（日本語）",
+    "param.pretty.description": "（日本語）",
+    "param.print_areas_dir.description": "（日本語）",
+    "param.sheets_dir.description": "（日本語）",
+    "param.table_score_threshold.description": "（日本語）",
+    "tool.description": "（日本語）Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. If export_ファイル.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
+    "tool.system_prompt": "（日本語）This ツール performs the 操作 described by the ツール name 'exstruct'."
   }
 }

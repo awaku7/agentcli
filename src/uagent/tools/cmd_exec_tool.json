@@ -5,8 +5,8 @@
     "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
   },
   "ja": {
-    "param.command.description": "実行するコマンド文字列（Windows: cmd.exe /c に渡します）。",
-    "tool.description": "【最終手段】Windows コマンドを実行します。他に適切なツール（例: MCP）が利用できない場合にのみ使用してください。",
-    "tool.system_prompt": "このツールは【最終手段】です。他に適切なツールが無い場合にのみ使用してください。"
+    "param.command.description": "（日本語）",
+    "tool.description": "（日本語）As a last resort, execute a Windows command. Use only when no other appropriate ツール (例:, MCP) is available.",
+    "tool.system_prompt": "（日本語）This ツール is a LAST RESORT. Use only if no other appropriate ツール is available."
   }
 }
