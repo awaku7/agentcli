@@ -1,14 +1,14 @@
 {
   "en": {
-    "param.image_path.description": "",
-    "param.prompt.description": "",
+    "param.image_path.description": "Path to the image file to analyze.",
+    "param.prompt.description": "What you want to know about the image.",
     "tool.description": "Load an image file and have AI (Vision) describe its contents. Useful for analyzing screenshots or reading charts/tables.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'analyze_image'."
   },
   "ja": {
-    "param.image_path.description": "",
-    "param.prompt.description": "",
-    "tool.description": "Load an image ファイル and have AI (Vision) describe its contents. Useful for analyzing screenshots or reading charts/tables.",
-    "tool.system_prompt": "This ツール performs the 操作 described by the ツール name 'analyze_image'."
+    "param.image_path.description": "解析する画像ファイルのパス。",
+    "param.prompt.description": "画像について知りたい内容。",
+    "tool.description": "画像ファイルを読み込み、AI（Vision）で内容を説明します。スクリーンショットの解析やグラフ・表の読み取りに便利です。",
+    "tool.system_prompt": "ツール名 'analyze_image' で示される処理を実行します。"
   }
 }

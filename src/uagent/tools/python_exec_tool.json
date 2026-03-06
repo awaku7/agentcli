@@ -1,12 +1,12 @@
 {
   "en": {
-    "param.code.description": "",
+    "param.code.description": "Python code to execute.",
     "tool.description": "Execute Python code. Use this tool for calculations, data processing, or running short scripts—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
     "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
   },
   "ja": {
-    "param.code.description": "",
-    "tool.description": "実行します Python code. Use this ツール for calculations, data processing, or running short scripts—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
-    "tool.system_prompt": "実行します Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this ツール.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
+    "param.code.description": "実行する Python コード。",
+    "tool.description": "Python コードを実行します。計算、データ処理、短いスクリプトの実行など、特に正確さが重要な場合に使ってください。Python 作業では cmd_exec/cmd_exec_json よりこちらを優先してください。",
+    "tool.system_prompt": "制御された方法で Python コードを実行します。\n- Python 標準ライブラリ機能や信頼できる数値計算が必要なら、このツールを使ってください。\n- コードを実行する前に、何を実行するかを簡潔に述べてください。\n- 明示的に必要な場合を除き、Python 実行に cmd_exec を使わないでください。"
   }
 }
