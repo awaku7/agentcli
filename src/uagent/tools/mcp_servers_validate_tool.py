@@ -180,8 +180,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         "errors": errors,
     }
 
-    return cb.truncate_output(
-        "mcp_servers_validate",
-        json.dumps(out, ensure_ascii=False, indent=2 if pretty else None),
-        limit=200_000,
-    )
+    text = json.dumps(out, ensure_ascii=False, indent=2 if pretty else None)
+    trunc = getattr(cb, "truncate_output", None)
+    if callable(trunc):
+        return trunc("mcp_servers_validate", text, limit=200_000)
+    return text
