@@ -1,14 +1,14 @@
 {
   "en": {
-    "param.command.description": "",
-    "param.cwd.description": "",
+    "param.command.description": "Command string to execute.",
+    "param.cwd.description": "Working directory for the command.",
     "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
     "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
   },
   "ja": {
-    "param.command.description": "",
-    "param.cwd.description": "",
-    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific ツール is available (例:, an MCP integration).",
-    "tool.system_prompt": "This ツール is a LAST RESORT. Use it only if no other appropriate ツール is available. Be conservative with commands and avoid destructive 操作s unless explicitly confirmed by the user."
+    "param.command.description": "実行するコマンド文字列。",
+    "param.cwd.description": "コマンドの作業ディレクトリ。",
+    "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
+    "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。コマンドは慎重に扱い、ユーザーが明示的に確認した場合を除いて破壊的な操作は避けてください。"
   }
 }
