@@ -6,6 +6,8 @@ import subprocess
 from typing import Any, Dict, Optional
 
 from .i18n_helper import make_tool_translator
+from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
+from .safe_file_ops_extras import ensure_within_workdir
 
 _ = make_tool_translator(__file__)
 
@@ -82,8 +84,28 @@ def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
 
 def run_tool(args: Dict[str, Any]) -> str:
     command = str(args.get("command", "") or "")
+    if not command:
+        raise ValueError("command is required")
+
+    decision = decide_cmd_exec(command)
+    if not decision.allowed:
+        return json.dumps(
+            {"ok": False, "error": decision.reason}, ensure_ascii=False
+        )
+
+    confirm_err = confirm_if_needed(decision)
+    if confirm_err is not None:
+        return json.dumps(
+            {"ok": False, "error": confirm_err}, ensure_ascii=False
+        )
+
     cwd_raw = args.get("cwd", None)
-    cwd = None if cwd_raw is None else str(cwd_raw)
+    if cwd_raw is None:
+        cwd = None
+    elif not isinstance(cwd_raw, str):
+        raise ValueError("cwd must be a string or null")
+    else:
+        cwd = ensure_within_workdir(cwd_raw)
 
     out = _run(command, cwd)
     return json.dumps(out, ensure_ascii=False)

@@ -5,6 +5,10 @@ Provides a public API for common safety tasks:
 - is_path_dangerous(path) -> bool
 - ensure_within_workdir(path) -> str (returns absolute path)
 - make_backup_before_overwrite(path) -> str (creates .org/.orgN)
+
+Notes:
+- ensure_within_workdir returns an absolute path (by design).
+- Absolute input paths are allowed *only if* they resolve under the current workdir.
 """
 
 from __future__ import annotations
@@ -39,12 +43,16 @@ def is_path_dangerous(p: str) -> bool:
     Returns True if:
     - Path contains '..'
     - Path is outside the workdir (CWD) after resolution
+
+    Notes:
+    - Absolute paths are not inherently dangerous; they are considered dangerous only
+      when they resolve outside the workdir.
     """
     if not p:
         return True
 
     try:
-        path_obj = Path(p)
+        Path(p)
     except Exception:
         return True
 
