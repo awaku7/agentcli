@@ -98,8 +98,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     raw_filename = str(args.get("filename") or args.get("path") or "").strip()
     content = str(args.get("content", ""))
     encoding = str(args.get("encoding", "utf-8") or "utf-8")
-    overwrite_raw = args.get("overwrite", None)
-    overwrite = bool(overwrite_raw) if overwrite_raw is not None else False
+    overwrite_raw = args.get("overwrite", False)
+    if not isinstance(overwrite_raw, bool):
+        raise ValueError("overwrite must be a boolean")
+    overwrite = overwrite_raw
 
     if not raw_filename:
         raise ValueError("filename/path is required")
