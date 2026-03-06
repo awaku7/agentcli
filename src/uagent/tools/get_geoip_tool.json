@@ -1,12 +1,12 @@
 {
   "en": {
-    "param.format.description": "Output format: 'text' or 'json' (default: 'text').",
+    "param.format.description": "",
     "tool.description": "Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.\n\nPolicy:\n- Use this tool when you need the user's approximate location (city/region/country) and the user has not provided it.\n- If the user already provided their location, prefer that and do not call get_geoip.",
     "tool.system_prompt": "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
   },
   "ja": {
-    "param.format.description": "出力形式です（text または json。既定は text）。",
-    "tool.description": "公開IPアドレスから、おおまかな位置情報（国/地域/都市）を推定します。VPN/プロキシ/モバイル回線では不正確になる場合があります。\n\n利用方針:\n- ユーザーが位置情報を提示しておらず、概算の地域（都市/地域/国）が必要な場合にのみ使用します。\n- ユーザーが既に位置情報を提示している場合は、それを優先し、本ツールは呼び出しません。",
-    "tool.system_prompt": "外部サービス（ipinfo.io）からIPベースの位置情報を取得し、必要最低限に整形して返してください。"
+    "param.format.description": "（日本語）",
+    "tool.description": "（日本語）Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.\n\nPolicy:\n- Use this ツール when you need the user's approximate location (city/region/country) and the user has not provided it.\n- If the user already provided their location, prefer that and do not call get_geoip.",
+    "tool.system_prompt": "（日本語）Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
   }
 }
