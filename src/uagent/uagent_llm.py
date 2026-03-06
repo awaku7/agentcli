@@ -700,19 +700,68 @@ def run_llm_rounds(
                     else:
                         choice = resp.choices[0]
                         msg = choice.message
-                        if msg.tool_calls:
-                            for tc in msg.tool_calls:
-                                tool_calls_list.append(
-                                    {
-                                        "id": tc.id,
-                                        "type": "function",
-                                        "function": {
-                                            "name": tc.function.name,
-                                            "arguments": tc.function.arguments,
-                                        },
-                                    }
-                                )
-                        assistant_text = msg.content or ""
+
+                        raw_tool_calls = getattr(msg, "tool_calls", None) or []
+                        for tc in raw_tool_calls:
+                            tc_id = getattr(tc, "id", None)
+                            fn_obj = getattr(tc, "function", None)
+
+                            if fn_obj is None and isinstance(tc, dict):
+                                tc_id = tc.get("id")
+                                fn_obj = tc.get("function") or {}
+
+                            fn_name = getattr(fn_obj, "name", None)
+                            fn_args = getattr(fn_obj, "arguments", None)
+
+                            if isinstance(fn_obj, dict):
+                                fn_name = fn_obj.get("name")
+                                fn_args = fn_obj.get("arguments")
+
+                            if not isinstance(fn_name, str) or not fn_name:
+                                continue
+
+                            if isinstance(fn_args, dict):
+                                fn_args = json.dumps(fn_args, ensure_ascii=False)
+                            elif fn_args is None:
+                                fn_args = "{}"
+                            elif not isinstance(fn_args, str):
+                                fn_args = str(fn_args)
+
+                            tool_calls_list.append(
+                                {
+                                    "id": tc_id or "",
+                                    "type": "function",
+                                    "function": {
+                                        "name": fn_name,
+                                        "arguments": fn_args,
+                                    },
+                                }
+                            )
+
+                        raw_content = getattr(msg, "content", "")
+                        if isinstance(raw_content, str):
+                            assistant_text = raw_content
+                        elif raw_content is None:
+                            assistant_text = ""
+                        elif isinstance(raw_content, list):
+                            parts = []
+                            for item in raw_content:
+                                if isinstance(item, str):
+                                    parts.append(item)
+                                elif isinstance(item, dict):
+                                    if isinstance(item.get("text"), str):
+                                        parts.append(item["text"])
+                                    elif isinstance(item.get("content"), str):
+                                        parts.append(item["content"])
+                                    elif isinstance(item.get("value"), str):
+                                        parts.append(item["value"])
+                                else:
+                                    txt = getattr(item, "text", None)
+                                    if isinstance(txt, str):
+                                        parts.append(txt)
+                            assistant_text = "".join(parts)
+                        else:
+                            assistant_text = str(raw_content)
 
                 except Exception as e:
                     print(
@@ -731,6 +780,17 @@ def run_llm_rounds(
 
                 messages.append(assistant_msg)
                 core.log_message(assistant_msg)
+
+                if (
+                    not use_responses_api
+                    and not tool_calls_list
+                    and not (assistant_text or "").strip()
+                ):
+                    empty_no_tool_rounds += 1
+                    if empty_no_tool_rounds <= 2:
+                        continue
+                else:
+                    empty_no_tool_rounds = 0
 
                 if not tool_calls_list:
                     if assistant_text:

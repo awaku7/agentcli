@@ -369,11 +369,9 @@ def stdin_loop() -> None:
                 is_password = is_reply and core.human_ask_is_password
 
             # 回答待ちでない場合のみ、BUSYチェックを行う
-            if not is_reply:
-                with core.status_lock:
-                    if core.status_busy:
-                        time.sleep(0.1)
-                        continue
+            # ただし BUSY 中でも既に表示済みプロンプトに対するユーザー入力は受け付ける。
+            # ここで待機してしまうと、LLM/ツール実行中に表示済みだったプロンプトへ入力された
+            # 1 行が読み取られないまま残り、次の入力イベントが必要になることがある。
             # Prompt is resolved *only when we are ready to actually read input*.
             # If we compute it while BUSY and then loop/sleep, it can become stale
             # (e.g. show a normal prompt while a human_ask is actually active).
@@ -397,13 +395,10 @@ def stdin_loop() -> None:
                     _flush_stdin_input_buffer()
 
                 # NOTE: LLM/Tools 応答開始と stdin_loop が競合すると、BUSY中にも関わらず
-                # プロンプトだけが表示されることがある。描画直前にもう一度 BUSY 状態を確認して
-                # BUSY なら描画せずに待機する。
-                if not is_reply:
-                    with core.status_lock:
-                        if core.status_busy:
-                            time.sleep(0.1)
-                            continue
+                # プロンプトだけが表示されることがある。
+                # ただし、ここで BUSY を理由に readline() 自体を止めると、既に表示済み
+                # プロンプトに対して入力された 1 行が読み取られないまま残り、次の入力が
+                # 必要になることがあるため、描画直前ではブロックしない。
 
                 # Windows(pyreadline)等で色コードを含むとプロンプトが二重表示される場合があるため、
                 # 色付けを行わずシンプルなプロンプトを使用する。
@@ -465,9 +460,57 @@ def stdin_loop() -> None:
 
                 # Read input without using input(), to avoid stdout/stderr prompt interleaving issues
                 # (input() may implicitly write to stdout depending on environment).
-                line = sys.stdin.readline()
-                if line == "":
-                    raise EOFError
+                # For normal prompts, avoid an indefinite blocking readline() so that
+                # a newly-started human_ask can switch the prompt promptly.
+                if is_reply:
+                    line = sys.stdin.readline()
+                    if line == "":
+                        raise EOFError
+                else:
+                    line = None
+                    if os.name == "nt":
+                        try:
+                            import msvcrt  # type: ignore
+
+                            while True:
+                                with core.human_ask_lock:
+                                    if core.human_ask_active:
+                                        break
+                                if msvcrt.kbhit():
+                                    line = sys.stdin.readline()
+                                    if line == "":
+                                        raise EOFError
+                                    break
+                                time.sleep(0.05)
+                        except EOFError:
+                            raise
+                        except Exception:
+                            line = sys.stdin.readline()
+                            if line == "":
+                                raise EOFError
+                    else:
+                        try:
+                            import select
+
+                            while True:
+                                with core.human_ask_lock:
+                                    if core.human_ask_active:
+                                        break
+                                r, _w, _x = select.select([sys.stdin], [], [], 0.05)
+                                if r:
+                                    line = sys.stdin.readline()
+                                    if line == "":
+                                        raise EOFError
+                                    break
+                        except EOFError:
+                            raise
+                        except Exception:
+                            line = sys.stdin.readline()
+                            if line == "":
+                                raise EOFError
+
+                    if line is None:
+                        continue
         except EOFError:
             break
         except KeyboardInterrupt:
