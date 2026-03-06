@@ -17,6 +17,18 @@ uag is an interactive local agent that can execute commands, manipulate files, a
 
 ---
 
+## Why uag
+
+- Local-first tool execution with a wide practical tool surface
+- Multiple UI entry points: CLI, GUI, and Web
+- OpenAI-compatible, Azure, OpenRouter, Gemini, Claude, Grok, and NVIDIA support
+- Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
+- MCP support for discovering and calling external tool servers
+- Safer operations through confirmation, path restrictions, masking, and smoke tests
+- GPT-5.4+ Responses optimization: lightweight tool prompt, `tool_catalog`, and narrowed tool exposure per request
+
+---
+
 ## Minimal Usage
 
 ### Start
@@ -41,6 +53,20 @@ Exit:
 
 ---
 
+## Tool discovery for GPT-5.4+ Responses
+
+When Responses API is enabled and the selected model is `gpt-5.4` or later within the GPT-5 line, uag uses a lighter tool-loading path.
+
+- Full tool definitions are not sent up front on every request
+- A lightweight tools prompt is used instead of enumerating the whole tool surface
+- `tool_catalog` can be used to discover relevant tools first
+- The actual tool specs passed to the model are narrowed based on the user request
+- A safe fallback subset is kept when catalog hits are empty
+
+This reduces prompt/tool payload size while preserving the existing full-tool behavior for other models.
+
+---
+
 ## History compression (manual / auto)
 
 Manual commands:
@@ -56,7 +82,6 @@ Optional auto shrink (OpenAI-compatible providers only; disabled for Gemini/Clau
 Log rewrite behavior:
 - When shrink runs, the current session log (`UAGENT_LOG_FILE` / `core.LOG_FILE`) is rewritten to match the compressed in-memory history.
 - A one-generation backup is created under `<log_dir>/.backup/`.
-
 
 ---
 
@@ -174,9 +199,10 @@ Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
   - `UAGENT_SHRINK_CNT=0`: disable auto shrink.
   - `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after summarization.
   - Auto shrink is disabled for `UAGENT_PROVIDER=gemini` and `UAGENT_PROVIDER=claude`.
+- Added GPT-5.4+ Responses tool narrowing with `tool_catalog` and a lightweight tool prompt.
+- Added smoke tests for MCP server management tools.
 - When shrink runs (manual `:shrink` / `:shrink_llm` or auto), the current session log is rewritten to match the compressed in-memory history.
   - A one-generation backup is created under `<log_dir>/.backup/`.
-
 
 ---
 
@@ -236,6 +262,6 @@ python -m pip install ./uag-<VERSION>-py3-none-any.whl
 
 Notes:
 - `uag` requires **Python 3.11+**.
-- For development use, `python -m pip install -e .` (or `python -m pip install -e \".[web]\"` if you use the Web UI).
+- For development use, `python -m pip install -e .` (or `python -m pip install -e ".[web]"` if you use the Web UI).
 
 ---
