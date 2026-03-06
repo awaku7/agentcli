@@ -6,6 +6,7 @@ import subprocess
 from typing import Any, Dict
 
 from .i18n_helper import make_tool_translator
+from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
 
 _ = make_tool_translator(__file__)
 
@@ -50,6 +51,14 @@ def run_tool(args: Dict[str, Any]) -> str:
     command = str(args.get("command", "") or "")
     if not command:
         raise ValueError("command is required")
+
+    decision = decide_cmd_exec(command)
+    if not decision.allowed:
+        return f"[cmd_exec blocked] {decision.reason}"
+
+    confirm_err = confirm_if_needed(decision)
+    if confirm_err is not None:
+        return f"[cmd_exec blocked] {confirm_err}"
 
     # Keep behavior close to legacy: use cmd.exe on Windows.
     if os.name == "nt":
