@@ -106,7 +106,15 @@ def _select_tool_specs_for_gpt54(
             }
         )
 
-    selected_names.add("tool_catalog")
+    last_tool_name = None
+    for m in reversed(call_messages):
+        if m.get("role") == "tool":
+            last_tool_name = str(m.get("name") or "").strip()
+            break
+
+    if not selected_names and last_tool_name != "tool_catalog":
+        selected_names.add("tool_catalog")
+
     selected_names.add("human_ask")
 
     narrowed: List[Dict[str, Any]] = []
