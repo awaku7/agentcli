@@ -37,7 +37,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
     expression = get_str(args, "expression", "")
     if not expression:
-        return _("err.expression_missing", default="[calculator]\\nError: No expression provided.")
+        return _(
+            "err.expression_missing",
+            default="[calculator]\\nError: No expression provided.",
+        )
 
     # mathモジュールの関数と定数を公開
     allowed_names = {k: v for k, v in math.__dict__.items() if not k.startswith("__")}
