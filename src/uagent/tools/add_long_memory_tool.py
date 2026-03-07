@@ -32,6 +32,7 @@ TOOL_SPEC: Dict[str, Any] = {
         ),
         "parameters": {
             "type": "object",
+            "additionalProperties": False,
             "properties": {
                 "note": {
                     "type": "string",
