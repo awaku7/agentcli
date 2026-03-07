@@ -39,85 +39,101 @@ def _is_gpt54_tool_search_target(
     depname: str,
     use_responses_api: bool,
 ) -> bool:
-    return False
-'''
+    """Return True when we should use the GPT-5.4 two-stage tool narrowing.
+
+    Tests expect this to trigger for:
+    - openai/azure: gpt-5.4*, gpt-5.5, gpt-5.10..., etc.
+    - openrouter: openai/gpt-5.4*, openai/gpt-5.10-pro, etc.
+
+    Only applies when using the Responses API.
+    """
+
     if not use_responses_api:
         return False
+
     model = (depname or "").strip().lower()
+
     marker = "gpt-5."
     idx = model.find(marker)
     if idx < 0:
         return False
+
     tail = model[idx + len(marker) :]
-    digits = []
+    digits: List[str] = []
     for ch in tail:
         if ch.isdigit():
             digits.append(ch)
         else:
             break
+
     if not digits:
         return False
+
     try:
         minor = int("".join(digits))
     except Exception:
         return False
+
     return minor >= 4
-'''
+
 
 def _select_tool_specs_for_gpt54(
     call_messages: List[Dict[str, Any]],
 ) -> Optional[List[Dict[str, Any]]]:
+    """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
+
+    Invariants (per tests):
+    - Always include tool_catalog and human_ask.
+    - If tool_catalog has hits: include only those hit tools (+ tool_catalog + human_ask).
+    - If tool_catalog has zero hits: include a safe fallback subset
+      (read_file/search_files/get_workdir) (+ tool_catalog + human_ask).
+
+    This function is stateless: it does not depend on previous tool calls.
+    """
+
     specs = tools.get_tool_specs() or []
     if not specs:
         return []
 
+    # latest user text
     latest_user_text = ""
     for m in reversed(call_messages):
-        if m.get("role") == "user":
-            content = m.get("content")
-            if isinstance(content, str):
-                latest_user_text = content
-                break
-            if isinstance(content, list):
-                parts: List[str] = []
-                for item in content:
-                    if isinstance(item, dict) and item.get("type") in (
-                        "text",
-                        "input_text",
-                        "output_text",
-                    ):
-                        txt = item.get("text")
-                        if isinstance(txt, str) and txt.strip():
-                            parts.append(txt)
-                if parts:
-                    latest_user_text = "\n".join(parts)
-                    break
-
-    selected = tools.get_tool_catalog(query=latest_user_text, max_results=8)
-    selected_names = {
-        str(row.get("name") or "").strip() for row in selected if isinstance(row, dict)
-    }
-    selected_names.discard("")
-
-    if not selected_names:
-        selected_names.update(
-            {
-                "read_file",
-                "search_files",
-                "get_workdir",
-            }
-        )
-
-    last_tool_name = None
-    for m in reversed(call_messages):
-        if m.get("role") == "tool":
-            last_tool_name = str(m.get("name") or "").strip()
+        if m.get("role") != "user":
+            continue
+        content = m.get("content")
+        if isinstance(content, str):
+            latest_user_text = content
             break
+        if isinstance(content, list):
+            parts: List[str] = []
+            for item in content:
+                if isinstance(item, dict) and item.get("type") in (
+                    "text",
+                    "input_text",
+                    "output_text",
+                ):
+                    txt = item.get("text")
+                    if isinstance(txt, str) and txt.strip():
+                        parts.append(txt)
+            if parts:
+                latest_user_text = "\n".join(parts)
+                break
 
-    if not selected_names and last_tool_name != "tool_catalog":
-        selected_names.add("tool_catalog")
+    rows = tools.get_tool_catalog(query=latest_user_text, max_results=8)
+    hit_names = {
+        str(row.get("name") or "").strip()
+        for row in (rows or [])
+        if isinstance(row, dict)
+    }
+    hit_names.discard("")
 
-    selected_names.add("human_ask")
+    # Always keep these
+    selected_names = {"tool_catalog", "human_ask"}
+
+    if hit_names:
+        selected_names.update(hit_names)
+    else:
+        selected_names.update({"read_file", "search_files", "get_workdir"})
 
     narrowed: List[Dict[str, Any]] = []
     for spec in specs:
@@ -147,13 +163,14 @@ def run_llm_rounds(
     max_tool_rounds = 200
     round_count = 0
 
+    empty_no_tool_rounds = 0
+
     core.set_status(True, "LLM")
 
     tool_result_cache: Dict[str, str] = {}
-    use_tool_result_cache = (
-        os.environ.get("UAGENT_TOOL_RESULT_CACHE", "0").strip().lower()
-        not in ("0", "false", "no", "off")
-    )
+    use_tool_result_cache = os.environ.get(
+        "UAGENT_TOOL_RESULT_CACHE", "0"
+    ).strip().lower() not in ("0", "false", "no", "off")
     reuse_only_rounds = 0
 
     from .gemini_cache_mgr import GeminiCacheManager
@@ -599,21 +616,24 @@ def run_llm_rounds(
                                 chat_kwargs["tools"] = req_tools
                                 chat_kwargs["tool_choice"] = "auto"
 
-
                             # OpenRouter/Azure-proxy compatibility: some stacks validate tools[i].parameters
                             # at the top-level (older/alternate schema), so mirror function.parameters.
                             if provider == "openrouter":
                                 try:
                                     _new_tools = []
-                                    for _t in (chat_kwargs.get("tools") or []):
+                                    for _t in chat_kwargs.get("tools") or []:
                                         if (
                                             isinstance(_t, dict)
                                             and "parameters" not in _t
                                             and isinstance(_t.get("function"), dict)
-                                            and isinstance(_t["function"].get("parameters"), dict)
+                                            and isinstance(
+                                                _t["function"].get("parameters"), dict
+                                            )
                                         ):
                                             _t2 = _t.copy()
-                                            _t2["parameters"] = _t["function"]["parameters"]
+                                            _t2["parameters"] = _t["function"][
+                                                "parameters"
+                                            ]
                                             _new_tools.append(_t2)
                                         else:
                                             _new_tools.append(_t)
@@ -623,30 +643,56 @@ def run_llm_rounds(
                                 # Rename schema key to 'ops' for provider compatibility; runtime accepts both.
                                 try:
                                     _fixed_tools = []
-                                    for _t in (chat_kwargs.get("tools") or []):
-                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                    for _t in chat_kwargs.get("tools") or []:
+                                        if not (
+                                            isinstance(_t, dict)
+                                            and isinstance(_t.get("function"), dict)
+                                        ):
                                             _fixed_tools.append(_t)
                                             continue
 
                                         _t2 = _t.copy()
                                         _fn = _t2.get("function") or {}
-                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+                                        _fn2 = (
+                                            _fn.copy() if isinstance(_fn, dict) else _fn
+                                        )
 
-                                        if isinstance(_fn2, dict) and _fn2.get("name") == "libcst_transform":
+                                        if (
+                                            isinstance(_fn2, dict)
+                                            and _fn2.get("name") == "libcst_transform"
+                                        ):
                                             _params = _fn2.get("parameters")
-                                            if isinstance(_params, dict) and _params.get("type") == "object":
+                                            if (
+                                                isinstance(_params, dict)
+                                                and _params.get("type") == "object"
+                                            ):
                                                 _props = _params.get("properties")
-                                                if isinstance(_props, dict) and "operations" in _props and "ops" not in _props:
+                                                if (
+                                                    isinstance(_props, dict)
+                                                    and "operations" in _props
+                                                    and "ops" not in _props
+                                                ):
                                                     _params2 = _params.copy()
                                                     _props2 = _props.copy()
-                                                    _props2["ops"] = _props2.pop("operations")
+                                                    _props2["ops"] = _props2.pop(
+                                                        "operations"
+                                                    )
                                                     _params2["properties"] = _props2
                                                     _req = _params2.get("required")
                                                     if isinstance(_req, list):
-                                                        _params2["required"] = ["ops" if x == "operations" else x for x in _req]
+                                                        _params2["required"] = [
+                                                            (
+                                                                "ops"
+                                                                if x == "operations"
+                                                                else x
+                                                            )
+                                                            for x in _req
+                                                        ]
                                                     _fn2["parameters"] = _params2
                                                     _t2["function"] = _fn2
-                                                    if isinstance(_t2.get("parameters"), dict):
+                                                    if isinstance(
+                                                        _t2.get("parameters"), dict
+                                                    ):
                                                         _t2["parameters"] = _params2
 
                                         _fixed_tools.append(_t2)
@@ -654,25 +700,38 @@ def run_llm_rounds(
                                 except Exception:
                                     pass
 
-
                                 # OpenRouter/Azure-proxy odd validator: handle_mcp_v2 rejects tool_arguments as required.
                                 # To avoid Azure/OpenAI proxy schema rejection, drop tool_arguments from schema surface.
                                 try:
                                     _fixed_tools = []
-                                    for _t in (chat_kwargs.get("tools") or []):
-                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                    for _t in chat_kwargs.get("tools") or []:
+                                        if not (
+                                            isinstance(_t, dict)
+                                            and isinstance(_t.get("function"), dict)
+                                        ):
                                             _fixed_tools.append(_t)
                                             continue
 
                                         _t2 = _t.copy()
                                         _fn = _t2.get("function") or {}
-                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+                                        _fn2 = (
+                                            _fn.copy() if isinstance(_fn, dict) else _fn
+                                        )
 
-                                        if isinstance(_fn2, dict) and _fn2.get("name") == "handle_mcp_v2":
+                                        if (
+                                            isinstance(_fn2, dict)
+                                            and _fn2.get("name") == "handle_mcp_v2"
+                                        ):
                                             _params = _fn2.get("parameters")
-                                            if isinstance(_params, dict) and _params.get("type") == "object":
+                                            if (
+                                                isinstance(_params, dict)
+                                                and _params.get("type") == "object"
+                                            ):
                                                 _props = _params.get("properties")
-                                                if isinstance(_props, dict) and "tool_arguments" in _props:
+                                                if (
+                                                    isinstance(_props, dict)
+                                                    and "tool_arguments" in _props
+                                                ):
                                                     _params2 = _params.copy()
                                                     _props2 = _props.copy()
                                                     _props2.pop("tool_arguments", None)
@@ -680,7 +739,9 @@ def run_llm_rounds(
                                                     # keep required as-is here; it will be re-normalized below.
                                                     _fn2["parameters"] = _params2
                                                     _t2["function"] = _fn2
-                                                    if isinstance(_t2.get("parameters"), dict):
+                                                    if isinstance(
+                                                        _t2.get("parameters"), dict
+                                                    ):
                                                         _t2["parameters"] = _params2
 
                                         _fixed_tools.append(_t2)
@@ -688,30 +749,45 @@ def run_llm_rounds(
                                 except Exception:
                                     pass
 
-
                                 # OpenRouter/Azure-proxy strict schema: required must include all property keys.
                                 # Some providers reject schemas where required is missing or incomplete.
                                 try:
                                     _fixed_tools = []
-                                    for _t in (chat_kwargs.get("tools") or []):
-                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                    for _t in chat_kwargs.get("tools") or []:
+                                        if not (
+                                            isinstance(_t, dict)
+                                            and isinstance(_t.get("function"), dict)
+                                        ):
                                             _fixed_tools.append(_t)
                                             continue
 
                                         _t2 = _t.copy()
                                         _fn = _t2.get("function") or {}
-                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
-                                        _params = _fn2.get("parameters") if isinstance(_fn2, dict) else None
+                                        _fn2 = (
+                                            _fn.copy() if isinstance(_fn, dict) else _fn
+                                        )
+                                        _params = (
+                                            _fn2.get("parameters")
+                                            if isinstance(_fn2, dict)
+                                            else None
+                                        )
 
-                                        if isinstance(_params, dict) and _params.get("type") == "object":
+                                        if (
+                                            isinstance(_params, dict)
+                                            and _params.get("type") == "object"
+                                        ):
                                             _props = _params.get("properties")
                                             if isinstance(_props, dict) and _props:
 
                                                 _params2 = _params.copy()
-                                                _params2["required"] = list(_props.keys())
+                                                _params2["required"] = list(
+                                                    _props.keys()
+                                                )
                                                 _fn2["parameters"] = _params2
                                                 _t2["function"] = _fn2
-                                                if isinstance(_t2.get("parameters"), dict):
+                                                if isinstance(
+                                                    _t2.get("parameters"), dict
+                                                ):
                                                     _t2["parameters"] = _params2
 
                                         _fixed_tools.append(_t2)
@@ -719,13 +795,10 @@ def run_llm_rounds(
                                 except Exception:
                                     pass
 
-
-
-
-
                                 # OpenRouter/Azure-proxy strict schema: recursively enforce additionalProperties:false
                                 # for all object schemas (including nested objects/arrays/combinators).
                                 try:
+
                                     def _fix_schema(_s: Any) -> Any:
                                         if not isinstance(_s, dict):
                                             return _s
@@ -743,13 +816,17 @@ def run_llm_rounds(
                                                 for _k, _v in _props.items():
                                                     _v2 = _fix_schema(_v)
                                                     _new_props[_k] = _v2
-                                                    _changed = _changed or (_v2 is not _v)
+                                                    _changed = _changed or (
+                                                        _v2 is not _v
+                                                    )
                                                 if _changed:
                                                     _s = _s.copy()
                                                     _s["properties"] = _new_props
 
                                         # arrays
-                                        if _t == "array" and isinstance(_s.get("items"), (dict, list)):
+                                        if _t == "array" and isinstance(
+                                            _s.get("items"), (dict, list)
+                                        ):
                                             _items = _s.get("items")
                                             if isinstance(_items, dict):
                                                 _it2 = _fix_schema(_items)
@@ -762,7 +839,9 @@ def run_llm_rounds(
                                                 for _it in _items:
                                                     _it2 = _fix_schema(_it)
                                                     _new_items.append(_it2)
-                                                    _changed = _changed or (_it2 is not _it)
+                                                    _changed = _changed or (
+                                                        _it2 is not _it
+                                                    )
                                                 if _changed:
                                                     _s = _s.copy()
                                                     _s["items"] = _new_items
@@ -776,7 +855,9 @@ def run_llm_rounds(
                                                 for _it in _cv:
                                                     _it2 = _fix_schema(_it)
                                                     _new_cv.append(_it2)
-                                                    _changed = _changed or (_it2 is not _it)
+                                                    _changed = _changed or (
+                                                        _it2 is not _it
+                                                    )
                                                 if _changed:
                                                     _s = _s.copy()
                                                     _s[_ck] = _new_cv
@@ -784,20 +865,31 @@ def run_llm_rounds(
                                         return _s
 
                                     _tools2 = []
-                                    for _t in (chat_kwargs.get("tools") or []):
-                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                    for _t in chat_kwargs.get("tools") or []:
+                                        if not (
+                                            isinstance(_t, dict)
+                                            and isinstance(_t.get("function"), dict)
+                                        ):
                                             _tools2.append(_t)
                                             continue
                                         _t2 = _t.copy()
-                                        _fn = (_t2.get("function") or {})
-                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
-                                        _params = _fn2.get("parameters") if isinstance(_fn2, dict) else None
+                                        _fn = _t2.get("function") or {}
+                                        _fn2 = (
+                                            _fn.copy() if isinstance(_fn, dict) else _fn
+                                        )
+                                        _params = (
+                                            _fn2.get("parameters")
+                                            if isinstance(_fn2, dict)
+                                            else None
+                                        )
                                         if isinstance(_params, dict):
                                             _params2 = _fix_schema(_params)
                                             if _params2 is not _params:
                                                 _fn2["parameters"] = _params2
                                                 _t2["function"] = _fn2
-                                                if isinstance(_t2.get("parameters"), dict):
+                                                if isinstance(
+                                                    _t2.get("parameters"), dict
+                                                ):
                                                     _t2["parameters"] = _params2
                                         _tools2.append(_t2)
                                     chat_kwargs["tools"] = _tools2
@@ -830,13 +922,28 @@ def run_llm_rounds(
                             if os.environ.get("UAGENT_DEBUG_TOOLS") == "1":
                                 try:
                                     import json as _json
-                                    _tools = (chat_kwargs.get("tools") or [])
+
+                                    _tools = chat_kwargs.get("tools") or []
                                     print("[debug] tools_count=", len(_tools))
                                     for _i in (0, 32):
                                         if 0 <= _i < len(_tools):
                                             _ti = _tools[_i]
-                                            print(f"[debug] chat_kwargs.tools[{_i}].keys=", sorted(_ti.keys()) if isinstance(_ti, dict) else None)
-                                            print(f"[debug] chat_kwargs.tools[{_i}]=", _json.dumps(_ti, ensure_ascii=False) if _ti is not None else None)
+                                            print(
+                                                f"[debug] chat_kwargs.tools[{_i}].keys=",
+                                                (
+                                                    sorted(_ti.keys())
+                                                    if isinstance(_ti, dict)
+                                                    else None
+                                                ),
+                                            )
+                                            print(
+                                                f"[debug] chat_kwargs.tools[{_i}]=",
+                                                (
+                                                    _json.dumps(_ti, ensure_ascii=False)
+                                                    if _ti is not None
+                                                    else None
+                                                ),
+                                            )
                                 except Exception as _e:
                                     print("[debug] tools dump failed:", repr(_e))
 
