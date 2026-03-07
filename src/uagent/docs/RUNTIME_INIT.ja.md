@@ -1,9 +1,9 @@
 # RUNTIME_INIT（起動時初期化の共通化）
 
-このドキュメントは `src/uagent/runtime_init.py` の目的と仕様をまとめます。  
+このドキュメントは `src/uagent/runtime_init.py` の目的と仕様をまとめます。\
 （Mode A: 互換優先。UIごとの差分を最小化しつつ重複を排除する）
 
----
+______________________________________________________________________
 
 ## 1. 目的
 
@@ -19,7 +19,7 @@
 - `runtime_init.py` 自体は **原則 print しない**（文字列を返し、UIが表示経路を決める）
 - UIの互換性を壊さないため、既存の表示文言を保ちつつ共通化する
 
----
+______________________________________________________________________
 
 ## 2. workdir の決定（decide_workdir）
 
@@ -28,8 +28,8 @@
 workdir は次の優先順位で決定します。
 
 1. CLI引数: `--workdir` / `-C`
-2. 環境変数: `UAGENT_WORKDIR`
-3. 自動: カレントディレクトリ（`./` の絶対パス）
+1. 環境変数: `UAGENT_WORKDIR`
+1. 自動: カレントディレクトリ（`./` の絶対パス）
 
 ### 2.2 安全チェック
 
@@ -45,7 +45,7 @@ workdir は次の優先順位で決定します。
 - `chosen_source`: `"CLI"` / `"ENV(UAGENT_WORKDIR)"` / `"auto"`
 - `chosen_expanded`: expanduser 済みの実パス
 
----
+______________________________________________________________________
 
 ## 3. workdir の適用（apply_workdir）
 
@@ -53,9 +53,10 @@ workdir は次の優先順位で決定します。
 - `os.chdir(...)` によりカレントディレクトリを移動します
 
 API:
+
 - `apply_workdir(decision: WorkdirDecision) -> None`
 
----
+______________________________________________________________________
 
 ## 4. 起動時INFO（banner）
 
@@ -72,13 +73,15 @@ API:
   - `[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)`
 
 API:
+
 - `build_startup_banner(core, workdir: str, workdir_source: str) -> str`
 
 注意:
+
 - 機密情報（APIキー等）は出力しません
 - base_url は `core.normalize_url()` が存在する場合はそれを使い、なければ簡易正規化します
 
----
+______________________________________________________________________
 
 ## 5. 長期記憶/共有メモの挿入（append_long_memory_system_messages）
 
@@ -106,10 +109,11 @@ CLI/GUI/Web で重複していた「長期記憶/共有メモの読み込み→s
 - `shared_appended`: 共有メモが messages に追加された
 
 注意:
+
 - この関数は print しません（UI側が従来のINFO/WARNを出す）
 - 例外は原則 caller 側で捕捉し、従来通り `[WARN]` を出す想定
 
----
+______________________________________________________________________
 
 ## 6. UIごとの適用位置（参考）
 
