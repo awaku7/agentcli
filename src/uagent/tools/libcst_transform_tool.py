@@ -644,7 +644,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         result["analyze"] = {"files": analyze_out, "errors": errors}
         return _json_ok(result)
 
-    _ops_arg = args.get("ops") if (isinstance(args, dict) and ("ops" in args)) else args.get("operations")
+    _ops_arg = (
+        args.get("ops")
+        if (isinstance(args, dict) and ("ops" in args))
+        else args.get("operations")
+    )
     operations_list, op_validation_errors = _validate_operations(_ops_arg)
     transformers, op_errors = _build_transformers(operations_list)
     op_errors_all = op_validation_errors + op_errors

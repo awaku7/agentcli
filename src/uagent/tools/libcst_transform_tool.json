@@ -43,6 +43,7 @@
     "param.max_files.description": "Maximum number of ファイルs to scan (runaway protection).",
     "param.max_bytes.description": "Maximum ファイル size (bytes).",
     "param.operations.description": "Transform rules array for モード=transform.\n\nSupported ops:\n- rename_symbol: replace identifier (requires old/new)\n  - include_attributes=true also targets obj.old\n- replace_call: replace function call name (requires old/new)\n  - receiver targets only receiver.old(...)\n  - if receiver is omitted, targets old(...) and *.old(...)\n- rename_import: from X import old -> from X import new (module is optional)\n",
-    "param.preview.description": "true の場合, return diff preview without writing ファイルs (dry-run モード)."
+    "param.preview.description": "true の場合, return diff preview without writing ファイルs (dry-run モード).",
+    "param.ops.description": "mode=transform 用の変換ルール配列です。\n\n対応 op:\n- rename_symbol: 識別子を置換（old/new 必須）\n  - include_attributes=true で obj.old も対象\n- replace_call: 関数呼び出し名を置換（old/new 必須）\n  - receiver 指定時は receiver.old(...) のみ\n  - receiver 省略時は old(...) と *.old(...)\n- rename_import: import をリネーム（module は任意）\n"
   }
 }
