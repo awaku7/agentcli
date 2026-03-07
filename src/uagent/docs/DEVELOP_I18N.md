@@ -4,7 +4,6 @@ This document describes i18n (internationalization) conventions for the **host a
 
 > Note: i18n for **tools** (under `src/uagent/tools/`) is handled differently (per-tool translators). This file intentionally focuses on the host side.
 
-
 ## Goals / Policy
 
 - **Default language is English**.
@@ -13,7 +12,6 @@ This document describes i18n (internationalization) conventions for the **host a
   - If a translation is missing, the program must keep working and show the English msgid.
 - Prefer translating **user-facing output**.
 - Comments/docstrings should be in **English when reasonable**.
-
 
 ## Architecture Overview
 
@@ -35,7 +33,6 @@ from .i18n import _
 
 `_()` returns a translated string via gettext, and falls back to msgid if missing.
 
-
 ## What is “host-side” (this document’s scope)
 
 - `src/uagent/core.py`
@@ -43,7 +40,6 @@ from .i18n import _
 - `src/uagent/gui.py`
 - `src/uagent/web.py`
 - Other non-tool helper modules that directly emit user-facing messages.
-
 
 ## Conventions
 
@@ -93,7 +89,6 @@ print("[WARN] " + _("Failed to read startup file: %(path)s (%(err)s)") % {...})
 - Multi-line strings can be translated as one msgid.
 - Ensure the msgid is exactly the same in code and in `.po`.
 
-
 ## SYSTEM_PROMPT handling
 
 `SYSTEM_PROMPT` is treated as a translatable host-side string.
@@ -110,7 +105,6 @@ SYSTEM_PROMPT = _(SYSTEM_PROMPT_MSGID)
 - The msgid is the English prompt.
 - Japanese translation is stored in `uag.po`.
 
-
 ## Translation workflow (host-side)
 
 ### 1) Add/modify msgids in code
@@ -125,12 +119,14 @@ Add entries to:
 - `src/uagent/locales/ja/LC_MESSAGES/uag.po`
 
 Notes:
+
 - Keep placeholders like `%(name)s` unchanged.
 - Keep triple-quoted msgids exactly the same (including newlines).
 
 ### 3) Compile to `.mo`
 
 Important:
+
 - Do not edit `*.mo` by hand. Always edit `*.po` and regenerate `*.mo`.
 
 This repository provides a small, dependency-free compiler:
@@ -140,10 +136,12 @@ python scripts/compile_locales.py
 ```
 
 What it does:
+
 - Recursively finds `*.po` under `src/uagent/locales/`
 - Compiles each `.po` to a sibling `.mo`
 
 Notes / limitations:
+
 - `.po` files must be UTF-8.
 - This script implements only a small subset of `msgfmt`:
   - `msgid` / `msgstr` only
@@ -156,7 +154,6 @@ Notes / limitations:
 python -m compileall -q src/uagent
 ```
 
-
 ## Checklist (host-side)
 
 When changing host-side messages:
@@ -167,7 +164,6 @@ When changing host-side messages:
 - [ ] `uag.po` updated (ja)
 - [ ] `.mo` regenerated
 - [ ] `python -m compileall -q src/uagent` passes
-
 
 ## Out of Scope
 
