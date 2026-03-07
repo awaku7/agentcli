@@ -42,7 +42,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["image_path"],
+            "required": ["image_path", "prompt"],
         },
     },
 }
