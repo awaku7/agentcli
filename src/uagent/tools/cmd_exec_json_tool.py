@@ -89,15 +89,11 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     decision = decide_cmd_exec(command)
     if not decision.allowed:
-        return json.dumps(
-            {"ok": False, "error": decision.reason}, ensure_ascii=False
-        )
+        return json.dumps({"ok": False, "error": decision.reason}, ensure_ascii=False)
 
     confirm_err = confirm_if_needed(decision)
     if confirm_err is not None:
-        return json.dumps(
-            {"ok": False, "error": confirm_err}, ensure_ascii=False
-        )
+        return json.dumps({"ok": False, "error": confirm_err}, ensure_ascii=False)
 
     cwd_raw = args.get("cwd", None)
     if cwd_raw is None:
