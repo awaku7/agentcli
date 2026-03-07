@@ -599,6 +599,211 @@ def run_llm_rounds(
                                 chat_kwargs["tools"] = req_tools
                                 chat_kwargs["tool_choice"] = "auto"
 
+
+                            # OpenRouter/Azure-proxy compatibility: some stacks validate tools[i].parameters
+                            # at the top-level (older/alternate schema), so mirror function.parameters.
+                            if provider == "openrouter":
+                                try:
+                                    _new_tools = []
+                                    for _t in (chat_kwargs.get("tools") or []):
+                                        if (
+                                            isinstance(_t, dict)
+                                            and "parameters" not in _t
+                                            and isinstance(_t.get("function"), dict)
+                                            and isinstance(_t["function"].get("parameters"), dict)
+                                        ):
+                                            _t2 = _t.copy()
+                                            _t2["parameters"] = _t["function"]["parameters"]
+                                            _new_tools.append(_t2)
+                                        else:
+                                            _new_tools.append(_t)
+                                    chat_kwargs["tools"] = _new_tools
+                                except Exception:
+                                    pass
+                                # Rename schema key to 'ops' for provider compatibility; runtime accepts both.
+                                try:
+                                    _fixed_tools = []
+                                    for _t in (chat_kwargs.get("tools") or []):
+                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                            _fixed_tools.append(_t)
+                                            continue
+
+                                        _t2 = _t.copy()
+                                        _fn = _t2.get("function") or {}
+                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+
+                                        if isinstance(_fn2, dict) and _fn2.get("name") == "libcst_transform":
+                                            _params = _fn2.get("parameters")
+                                            if isinstance(_params, dict) and _params.get("type") == "object":
+                                                _props = _params.get("properties")
+                                                if isinstance(_props, dict) and "operations" in _props and "ops" not in _props:
+                                                    _params2 = _params.copy()
+                                                    _props2 = _props.copy()
+                                                    _props2["ops"] = _props2.pop("operations")
+                                                    _params2["properties"] = _props2
+                                                    _req = _params2.get("required")
+                                                    if isinstance(_req, list):
+                                                        _params2["required"] = ["ops" if x == "operations" else x for x in _req]
+                                                    _fn2["parameters"] = _params2
+                                                    _t2["function"] = _fn2
+                                                    if isinstance(_t2.get("parameters"), dict):
+                                                        _t2["parameters"] = _params2
+
+                                        _fixed_tools.append(_t2)
+                                    chat_kwargs["tools"] = _fixed_tools
+                                except Exception:
+                                    pass
+
+
+                                # OpenRouter/Azure-proxy odd validator: handle_mcp_v2 rejects tool_arguments as required.
+                                # To avoid Azure/OpenAI proxy schema rejection, drop tool_arguments from schema surface.
+                                try:
+                                    _fixed_tools = []
+                                    for _t in (chat_kwargs.get("tools") or []):
+                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                            _fixed_tools.append(_t)
+                                            continue
+
+                                        _t2 = _t.copy()
+                                        _fn = _t2.get("function") or {}
+                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+
+                                        if isinstance(_fn2, dict) and _fn2.get("name") == "handle_mcp_v2":
+                                            _params = _fn2.get("parameters")
+                                            if isinstance(_params, dict) and _params.get("type") == "object":
+                                                _props = _params.get("properties")
+                                                if isinstance(_props, dict) and "tool_arguments" in _props:
+                                                    _params2 = _params.copy()
+                                                    _props2 = _props.copy()
+                                                    _props2.pop("tool_arguments", None)
+                                                    _params2["properties"] = _props2
+                                                    # keep required as-is here; it will be re-normalized below.
+                                                    _fn2["parameters"] = _params2
+                                                    _t2["function"] = _fn2
+                                                    if isinstance(_t2.get("parameters"), dict):
+                                                        _t2["parameters"] = _params2
+
+                                        _fixed_tools.append(_t2)
+                                    chat_kwargs["tools"] = _fixed_tools
+                                except Exception:
+                                    pass
+
+
+                                # OpenRouter/Azure-proxy strict schema: required must include all property keys.
+                                # Some providers reject schemas where required is missing or incomplete.
+                                try:
+                                    _fixed_tools = []
+                                    for _t in (chat_kwargs.get("tools") or []):
+                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                            _fixed_tools.append(_t)
+                                            continue
+
+                                        _t2 = _t.copy()
+                                        _fn = _t2.get("function") or {}
+                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+                                        _params = _fn2.get("parameters") if isinstance(_fn2, dict) else None
+
+                                        if isinstance(_params, dict) and _params.get("type") == "object":
+                                            _props = _params.get("properties")
+                                            if isinstance(_props, dict) and _props:
+
+                                                _params2 = _params.copy()
+                                                _params2["required"] = list(_props.keys())
+                                                _fn2["parameters"] = _params2
+                                                _t2["function"] = _fn2
+                                                if isinstance(_t2.get("parameters"), dict):
+                                                    _t2["parameters"] = _params2
+
+                                        _fixed_tools.append(_t2)
+                                    chat_kwargs["tools"] = _fixed_tools
+                                except Exception:
+                                    pass
+
+
+
+
+
+                                # OpenRouter/Azure-proxy strict schema: recursively enforce additionalProperties:false
+                                # for all object schemas (including nested objects/arrays/combinators).
+                                try:
+                                    def _fix_schema(_s: Any) -> Any:
+                                        if not isinstance(_s, dict):
+                                            return _s
+
+                                        _t = _s.get("type")
+                                        if _t == "object":
+                                            if "additionalProperties" not in _s:
+                                                _s = _s.copy()
+                                                _s["additionalProperties"] = False
+
+                                            _props = _s.get("properties")
+                                            if isinstance(_props, dict):
+                                                _new_props = {}
+                                                _changed = False
+                                                for _k, _v in _props.items():
+                                                    _v2 = _fix_schema(_v)
+                                                    _new_props[_k] = _v2
+                                                    _changed = _changed or (_v2 is not _v)
+                                                if _changed:
+                                                    _s = _s.copy()
+                                                    _s["properties"] = _new_props
+
+                                        # arrays
+                                        if _t == "array" and isinstance(_s.get("items"), (dict, list)):
+                                            _items = _s.get("items")
+                                            if isinstance(_items, dict):
+                                                _it2 = _fix_schema(_items)
+                                                if _it2 is not _items:
+                                                    _s = _s.copy()
+                                                    _s["items"] = _it2
+                                            elif isinstance(_items, list):
+                                                _new_items = []
+                                                _changed = False
+                                                for _it in _items:
+                                                    _it2 = _fix_schema(_it)
+                                                    _new_items.append(_it2)
+                                                    _changed = _changed or (_it2 is not _it)
+                                                if _changed:
+                                                    _s = _s.copy()
+                                                    _s["items"] = _new_items
+
+                                        # combinators
+                                        for _ck in ("anyOf", "oneOf", "allOf"):
+                                            _cv = _s.get(_ck)
+                                            if isinstance(_cv, list) and _cv:
+                                                _new_cv = []
+                                                _changed = False
+                                                for _it in _cv:
+                                                    _it2 = _fix_schema(_it)
+                                                    _new_cv.append(_it2)
+                                                    _changed = _changed or (_it2 is not _it)
+                                                if _changed:
+                                                    _s = _s.copy()
+                                                    _s[_ck] = _new_cv
+
+                                        return _s
+
+                                    _tools2 = []
+                                    for _t in (chat_kwargs.get("tools") or []):
+                                        if not (isinstance(_t, dict) and isinstance(_t.get("function"), dict)):
+                                            _tools2.append(_t)
+                                            continue
+                                        _t2 = _t.copy()
+                                        _fn = (_t2.get("function") or {})
+                                        _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+                                        _params = _fn2.get("parameters") if isinstance(_fn2, dict) else None
+                                        if isinstance(_params, dict):
+                                            _params2 = _fix_schema(_params)
+                                            if _params2 is not _params:
+                                                _fn2["parameters"] = _params2
+                                                _t2["function"] = _fn2
+                                                if isinstance(_t2.get("parameters"), dict):
+                                                    _t2["parameters"] = _params2
+                                        _tools2.append(_t2)
+                                    chat_kwargs["tools"] = _tools2
+                                except Exception:
+                                    pass
+
                             # OpenRouter-specific fallback models support (does not affect other providers)
                             # Enabled only when:
                             # - provider == "openrouter"
@@ -622,6 +827,18 @@ def run_llm_rounds(
                                     ]
                                     if fb_models:
                                         chat_kwargs["models"] = fb_models
+                            if os.environ.get("UAGENT_DEBUG_TOOLS") == "1":
+                                try:
+                                    import json as _json
+                                    _tools = (chat_kwargs.get("tools") or [])
+                                    print("[debug] tools_count=", len(_tools))
+                                    for _i in (0, 32):
+                                        if 0 <= _i < len(_tools):
+                                            _ti = _tools[_i]
+                                            print(f"[debug] chat_kwargs.tools[{_i}].keys=", sorted(_ti.keys()) if isinstance(_ti, dict) else None)
+                                            print(f"[debug] chat_kwargs.tools[{_i}]=", _json.dumps(_ti, ensure_ascii=False) if _ti is not None else None)
+                                except Exception as _e:
+                                    print("[debug] tools dump failed:", repr(_e))
 
                             resp = client.chat.completions.create(**chat_kwargs)
                         break
