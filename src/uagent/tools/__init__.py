@@ -255,6 +255,15 @@ def get_tool_specs() -> List[Dict[str, Any]]:
             func_copy.pop("system_prompt", None)
             spec_copy["function"] = func_copy
 
+            # Ensure OpenAI/OpenRouter strict schema compatibility:
+            # Many proxies require parameters.additionalProperties to be explicitly set.
+            params = func_copy.get("parameters")
+            if isinstance(params, dict) and params.get("type") == "object":
+                if "additionalProperties" not in params:
+                    params = params.copy()
+                    params["additionalProperties"] = False
+                    func_copy["parameters"] = params
+
             # compatibility: mirror name to top-level
             fn_name = func_copy.get("name")
             if fn_name and not spec_copy.get("name"):
