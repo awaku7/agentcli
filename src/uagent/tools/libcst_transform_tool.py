@@ -56,10 +56,10 @@ mode=analyze:
 - Extract import / top-level class/function names and return JSON.
 
 mode=transform:
-- Specify an array of rules in operations.
+- Specify an array of rules in ops.
 - If a file is changed, create .org/.orgN backup immediately before overwrite.
 
-operations examples:
+ops examples:
 1) rename_symbol: old_name -> new_name (replace Name nodes)
    {"op":"rename_symbol","old":"foo","new":"bar"}
 2) replace_call: old_func(...) -> new_func(...)
@@ -128,12 +128,14 @@ operations examples:
                     ),
                     "default": 2_000_000,
                 },
-                "operations": {
+                "ops": {
                     "type": "array",
                     "items": {"type": "object"},
                     "description": _(
-                        "param.operations.description",
+                        "param.ops.description",
                         default="""Transform rules array for mode=transform.
+
+Note: use 'ops' (not 'operations') due to provider schema restrictions.
 
 Supported ops:
 - rename_symbol: replace identifier (requires old/new)
@@ -642,7 +644,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         result["analyze"] = {"files": analyze_out, "errors": errors}
         return _json_ok(result)
 
-    operations_list, op_validation_errors = _validate_operations(args.get("operations"))
+    _ops_arg = args.get("ops") if (isinstance(args, dict) and ("ops" in args)) else args.get("operations")
+    operations_list, op_validation_errors = _validate_operations(_ops_arg)
     transformers, op_errors = _build_transformers(operations_list)
     op_errors_all = op_validation_errors + op_errors
 
