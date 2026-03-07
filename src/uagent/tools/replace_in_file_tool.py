@@ -84,11 +84,11 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Perform literal or regular-expression replacements on a text file. "
                 "Line endings are normalized internally, so patterns/replacements that include "
                 "newlines are supported.\n\n"
-                "ABSOLUTE RULES (must follow):\n"
-                "1) ALWAYS run replace_in_file with preview=true first (never skip).\n"
-                "2) NEVER include raw newlines in JSON strings. Use \\n (JSON: \\\\n).\n"
-                "3) Use mode=literal unless you truly need regex.\n\n"
-                "Regex quick notes (only if mode=regex):\n"
+                "Guidelines:\n"
+                "- Recommended: Run with preview=true first to verify hit locations and diff.\n"
+                "- Never include raw newlines in JSON strings; use \\n (JSON: \\\n).\n"
+                "- Use mode=literal unless regex is necessary.\n\n"
+                "Regex notes (mode=regex):\n"
                 "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
                 "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
                 "- replacement \\1, \\2... refer to capture groups\n"
@@ -97,15 +97,11 @@ TOOL_SPEC: Dict[str, Any] = {
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "ABSOLUTE RULES (must follow):\n"
-                "1) ALWAYS run replace_in_file with preview=true first (never skip).\n"
-                "2) NEVER include raw newlines in JSON strings. Use \\n (JSON: \\\\n).\n"
-                "3) Use mode=literal unless you truly need regex.\n\n"
-                "Workflow:\n"
-                "1) read_file to inspect\n"
-                "2) replace_in_file preview=true and verify hit locations + diff\n"
-                "3) replace_in_file preview=false to apply (backup .org/.orgN)\n\n"
-                "Regex quick notes (only if mode=regex):\n"
+                "Guidelines:\n"
+                "- Recommended: Run with preview=true first to verify hit locations and diff.\n"
+                "- Never include raw newlines in JSON strings; use \\n (JSON: \\\n).\n"
+                "- Use mode=literal unless regex is necessary.\n\n"
+                "Regex notes (mode=regex):\n"
                 "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
                 "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
                 "- replacement \\1, \\2... refer to capture groups\n"
@@ -333,7 +329,10 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         if pattern == "":
             return json.dumps(
-                {"ok": False, "error": "[replace_in_file error] pattern must not be empty"},
+                {
+                    "ok": False,
+                    "error": "[replace_in_file error] pattern must not be empty",
+                },
                 ensure_ascii=False,
             )
 
@@ -381,7 +380,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                 raise ValueError("confirm_if_matches_over must be >= 1")
         except (TypeError, ValueError) as e:
             return json.dumps(
-                {"ok": False, "error": f"[replace_in_file error] invalid numeric argument: {e}"},
+                {
+                    "ok": False,
+                    "error": f"[replace_in_file error] invalid numeric argument: {e}",
+                },
                 ensure_ascii=False,
             )
 
