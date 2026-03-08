@@ -58,6 +58,15 @@ REM set UAGENT_RESPONSES=1
 
 
 
+
+
+REM ==============================
+REM Optional: Responses API knobs (OpenAI-compatible)
+REM ==============================
+REM - UAGENT_REASONING: low|medium|high (off/empty/unset => do not send)
+REM - UAGENT_VERBOSITY: low|medium|high (off/empty/unset => do not send)
+REM set UAGENT_REASONING=medium
+REM set UAGENT_VERBOSITY=medium
 REM ==============================
 
 REM OpenRouter (UAGENT_PROVIDER=openrouter)

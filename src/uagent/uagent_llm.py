@@ -561,6 +561,21 @@ def run_llm_rounds(
                                 "model": depname,
                                 "input": input_msgs,
                             }
+
+                            # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
+                            # - UAGENT_REASONING: low|medium|high|off (unset/off => do not send)
+                            # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
+                            _reasoning = (os.environ.get("UAGENT_REASONING") or "").strip().lower()
+                            if _reasoning in ("low", "medium", "high"):
+                                resp_kwargs["reasoning"] = {"effort": _reasoning}
+
+                            _verbosity = (os.environ.get("UAGENT_VERBOSITY") or "").strip().lower()
+                            if _verbosity in ("low", "medium", "high"):
+                                _text_cfg = resp_kwargs.get("text")
+                                if not isinstance(_text_cfg, dict):
+                                    _text_cfg = {}
+                                _text_cfg["verbosity"] = _verbosity
+                                resp_kwargs["text"] = _text_cfg
                             if instructions_str is not None:
                                 resp_kwargs["instructions"] = instructions_str
                             if send_tools_this_round and req_tools:
