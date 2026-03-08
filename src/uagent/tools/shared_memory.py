@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+from ..env_utils import env_get
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -23,7 +24,7 @@ def _get_base_log_dir() -> str:
 
 
 def _get_shared_memory_file() -> str:
-    env = os.environ.get("UAGENT_SHARED_MEMORY_FILE")
+    env = env_get("UAGENT_SHARED_MEMORY_FILE")
     if env:
         return str(Path(env).expanduser().resolve())
     return os.path.join(_get_base_log_dir(), "scheck_shared_memory.jsonl")
@@ -39,7 +40,7 @@ def get_shared_memory_file() -> str:
 
 
 def get_max_bytes() -> int:
-    env = os.environ.get("UAGENT_MAX_SHARED_MEMORY_BYTES")
+    env = env_get("UAGENT_MAX_SHARED_MEMORY_BYTES")
     if env:
         try:
             v = int(env)

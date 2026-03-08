@@ -31,6 +31,8 @@ Notes:
 from __future__ import annotations
 
 import os
+
+from .env_utils import env_get
 import re
 from dataclasses import dataclass
 from typing import Any, Optional, Tuple
@@ -72,22 +74,22 @@ class TranslateConfig:
 
 
 def load_translate_config() -> Optional[TranslateConfig]:
-    provider = (os.environ.get("UAGENT_TRANSLATE_PROVIDER") or "").strip().lower()
+    provider = (env_get("UAGENT_TRANSLATE_PROVIDER") or "").strip().lower()
     if not provider:
         return None
 
-    to_llm = _norm_lang(os.environ.get("UAGENT_TRANSLATE_TO_LLM") or "")
-    from_llm = _norm_lang(os.environ.get("UAGENT_TRANSLATE_FROM_LLM") or "")
+    to_llm = _norm_lang(env_get("UAGENT_TRANSLATE_TO_LLM") or "")
+    from_llm = _norm_lang(env_get("UAGENT_TRANSLATE_FROM_LLM") or "")
 
-    depname = (os.environ.get("UAGENT_TRANSLATE_DEPNAME") or "").strip()
+    depname = (env_get("UAGENT_TRANSLATE_DEPNAME") or "").strip()
     api_key = (
-        os.environ.get("UAGENT_TRANSLATE_API_KEY")
-        or os.environ.get("UAGENT_API_KEY")
+        env_get("UAGENT_TRANSLATE_API_KEY")
+        or env_get("UAGENT_API_KEY")
         or ""
     ).strip()
     base_url = (
-        os.environ.get("UAGENT_TRANSLATE_BASE_URL")
-        or os.environ.get("UAGENT_BASE_URL")
+        env_get("UAGENT_TRANSLATE_BASE_URL")
+        or env_get("UAGENT_BASE_URL")
         or ""
     ).strip()
 

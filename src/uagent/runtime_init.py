@@ -26,6 +26,8 @@ from __future__ import annotations
 
 import os
 import sys
+
+from .env_utils import env_get
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
@@ -136,34 +138,34 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
 
     lines.append(f"[INFO] workdir = {workdir} (source: {workdir_source})")
 
-    provider = (os.environ.get("UAGENT_PROVIDER", "(unknown)") or "(unknown)").lower()
+    provider = (env_get("UAGENT_PROVIDER", "(unknown)") or "(unknown)").lower()
     lines.append(f"[INFO] provider = {provider}")
 
     if provider == "azure":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_AZURE_BASE_URL', '(not set)'))}"
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_AZURE_BASE_URL', '(not set)'))}"
         )
         lines.append(
-            f"[INFO] api_version = {os.environ.get('UAGENT_AZURE_API_VERSION', '(not set)')}"
+            f"[INFO] api_version = {env_get('UAGENT_AZURE_API_VERSION', '(not set)')}"
         )
     elif provider == "openai":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_OPENAI_BASE_URL', 'https://api.openai.com/v1'))}"
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OPENAI_BASE_URL', 'https://api.openai.com/v1'))}"
         )
     elif provider == "nvidia":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}"
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}"
         )
     elif provider == "openrouter":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'))}"
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'))}"
         )
     elif provider == "grok":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, os.environ.get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}"
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}"
         )
 
-    if (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in ("1", "true"):
+    if (env_get("UAGENT_RESPONSES", "") or "").lower() in ("1", "true"):
         lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
 
     return "\n".join(lines) + "\n"

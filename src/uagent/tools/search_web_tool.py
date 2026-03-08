@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+from ..env_utils import env_get
 import random
 import time
 from typing import Any, Dict, List, Optional
@@ -34,7 +35,7 @@ DEFAULT_PROXIES: Optional[Dict[str, str]] = None
 
 
 def _ssl_verify_setting() -> bool:
-    v = os.environ.get("DDG_SSL_VERIFY", "").strip().lower()
+    v = env_get("DDG_SSL_VERIFY", "").strip().lower()
     if v in ("0", "false", "no", "off"):
         return False
     return True

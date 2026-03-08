@@ -1,5 +1,6 @@
 import json
 import os
+from .env_utils import env_get
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -334,7 +335,7 @@ def parse_responses_stream(
       - At end, return the full assistant_text and ChatCompletions-like tool_calls_list.
     """
 
-    debug_env = (os.environ.get("UAGENT_STREAMING_DEBUG", "") or "").strip().lower()
+    debug_env = (env_get("UAGENT_STREAMING_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
 
     debug_fp = None

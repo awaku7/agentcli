@@ -18,6 +18,8 @@ Language policy:
 from __future__ import annotations
 
 import os
+
+from .env_utils import env_get
 from dataclasses import dataclass
 from typing import List, Sequence, Tuple
 
@@ -29,7 +31,7 @@ class MissingEnv:
 
 
 def _get(name: str) -> str:
-    return (os.environ.get(name) or "").strip()
+    return env_get(name) or ""
 
 
 def _require(names: Sequence[str], reason: str) -> List[MissingEnv]:
