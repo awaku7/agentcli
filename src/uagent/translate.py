@@ -30,7 +30,6 @@ Notes:
 
 from __future__ import annotations
 
-import os
 
 from .env_utils import env_get
 import re
@@ -83,14 +82,10 @@ def load_translate_config() -> Optional[TranslateConfig]:
 
     depname = (env_get("UAGENT_TRANSLATE_DEPNAME") or "").strip()
     api_key = (
-        env_get("UAGENT_TRANSLATE_API_KEY")
-        or env_get("UAGENT_API_KEY")
-        or ""
+        env_get("UAGENT_TRANSLATE_API_KEY") or env_get("UAGENT_API_KEY") or ""
     ).strip()
     base_url = (
-        env_get("UAGENT_TRANSLATE_BASE_URL")
-        or env_get("UAGENT_BASE_URL")
-        or ""
+        env_get("UAGENT_TRANSLATE_BASE_URL") or env_get("UAGENT_BASE_URL") or ""
     ).strip()
 
     return TranslateConfig(

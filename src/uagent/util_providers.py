@@ -1,4 +1,3 @@
-import os
 import sys
 import time
 from typing import Any, Tuple
@@ -56,13 +55,23 @@ def get_model_name() -> str:
     if provider == "openrouter":
         return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "grok":
-        return env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning") or "grok-4-1-fast-reasoning"
+        return (
+            env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
+            or "grok-4-1-fast-reasoning"
+        )
     if provider == "gemini":
-        return env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash") or "gemini-1.5-flash"
+        return (
+            env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash") or "gemini-1.5-flash"
+        )
     if provider == "claude":
-        return env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5") or "claude-sonnet-4.5"
+        return (
+            env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5") or "claude-sonnet-4.5"
+        )
     if provider == "nvidia":
-        return env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b") or "nvidia/nemotron-3-nano-30b-a3b"
+        return (
+            env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
+            or "nvidia/nemotron-3-nano-30b-a3b"
+        )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
 
