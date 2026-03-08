@@ -822,9 +822,7 @@ def main() -> None:
         elif provider == "claude":
             depname = env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5")
         elif provider == "nvidia":
-            depname = env_get(
-                "UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"
-            )
+            depname = env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
         elif provider == "openrouter":
             depname = env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2")
         else:
@@ -833,9 +831,7 @@ def main() -> None:
         print(_("model(deployment) = %(depname)s") % {"depname": depname})
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
-            raw_fb = (
-                env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
-            ).strip()
+            raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
             if raw_fb:
                 print("[INFO] " + _("OpenRouter fallback models enabled."))
 
