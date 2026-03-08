@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+from .env_utils import env_get
 import re
 import subprocess
 import sys
@@ -882,16 +883,16 @@ def load_agents_md() -> str:
 def _use_gpt54_lightweight_tools_prompt() -> bool:
     depname = (
         (
-            os.environ.get("UAGENT_AZURE_DEPLOYMENT")
-            or os.environ.get("UAGENT_OPENAI_MODEL")
-            or os.environ.get("UAGENT_MODEL")
+            env_get("UAGENT_AZURE_DEPLOYMENT")
+            or env_get("UAGENT_OPENAI_MODEL")
+            or env_get("UAGENT_MODEL")
             or ""
         )
         .strip()
         .lower()
     )
     use_responses_api = (
-        os.environ.get("UAGENT_RESPONSES", "") or ""
+        env_get("UAGENT_RESPONSES", "") or ""
     ).strip().lower() in (
         "1",
         "true",
@@ -1030,7 +1031,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
 
 def append_result_to_outfile(text: str) -> None:
     """UAGENT_OUTFILE が指定されていれば、アシスタント最終出力を追記する。"""
-    out_path = os.environ.get("UAGENT_OUTFILE")
+    out_path = env_get("UAGENT_OUTFILE")
     if not out_path:
         return
 

@@ -21,6 +21,8 @@ from __future__ import annotations
 import gettext
 import locale
 import os
+
+from .env_utils import env_get
 from functools import lru_cache
 from typing import Optional
 
@@ -149,13 +151,13 @@ def detect_lang() -> str:
     """
 
     # 1) explicit override
-    v = (os.environ.get("UAGENT_LANG") or "").strip()
+    v = (env_get("UAGENT_LANG") or "").strip()
     if v:
         return _normalize_lang_tag(v)
 
     # 2) common env vars
     for k in ("LC_ALL", "LANG"):
-        vv = (os.environ.get(k) or "").strip()
+        vv = (env_get(k) or "").strip()
         if vv:
             return _normalize_lang_tag(vv)
 
