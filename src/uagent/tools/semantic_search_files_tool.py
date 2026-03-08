@@ -26,9 +26,7 @@ EMBEDDING_API_URL = env_get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_URL
 _DISABLE_IF_UNREACHABLE = (
     env_get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
 ).strip().lower() in ("1", "true", "yes")
-_HEALTHCHECK_PATH = env_get(
-    "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models"
-)
+_HEALTHCHECK_PATH = env_get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models")
 
 
 def _is_embedding_api_reachable() -> bool:
