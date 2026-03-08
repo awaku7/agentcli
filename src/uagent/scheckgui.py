@@ -32,6 +32,10 @@ from .util_tools import (
     append_result_to_outfile,
     handle_command,
     build_initial_messages,
+    get_reasoning_mode,
+    get_verbosity_mode,
+    apply_reasoning_arg,
+    apply_verbosity_arg,
 )
 
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
@@ -404,6 +408,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._input.setFixedHeight(100)
         self._input.installEventFilter(self)
         self._input.sig_files_dropped.connect(self._on_files_dropped)
+        self._output.sig_files_dropped.connect(self._on_files_dropped)
         input_row.addWidget(self._input, 1)
 
         self._pw_input = QtWidgets.QLineEdit()
@@ -430,9 +435,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().addPermanentWidget(self._provider_model_label)
         self._provider_model_text = ""
 
+        self._mode_label = QtWidgets.QLabel("")
+        self.statusBar().addPermanentWidget(self._mode_label)
+        self._mode_text = ""
+
         self._monitor_timer = QtCore.QTimer(self)
         self._monitor_timer.timeout.connect(self._update_ui_from_log)
         self._monitor_timer.start(200)
+
+        # initial mode label
+        self._update_mode_label()
 
         self._thread = QtCore.QThread()
         self._worker = ScheckWorker(cfg)
@@ -453,6 +465,72 @@ class MainWindow(QtWidgets.QMainWindow):
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(self._on_send)
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(self._on_send)
 
+        # Mode menu
+        try:
+            mode_menu = self.menuBar().addMenu(_("Mode"))
+
+            act_r_cycle = mode_menu.addAction(_("Reasoning: cycle (:r)"))
+            act_r_cycle.triggered.connect(lambda: self._set_reasoning(""))
+
+            act_r_off = mode_menu.addAction(_("Reasoning: off"))
+            act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
+            act_r_low = mode_menu.addAction(_("Reasoning: low"))
+            act_r_low.triggered.connect(lambda: self._set_reasoning("1"))
+            act_r_mid = mode_menu.addAction(_("Reasoning: medium"))
+            act_r_mid.triggered.connect(lambda: self._set_reasoning("2"))
+            act_r_high = mode_menu.addAction(_("Reasoning: high"))
+            act_r_high.triggered.connect(lambda: self._set_reasoning("3"))
+
+            mode_menu.addSeparator()
+
+            act_v_cycle = mode_menu.addAction(_("Verbosity: cycle (:v)"))
+            act_v_cycle.triggered.connect(lambda: self._set_verbosity(""))
+
+            act_v_off = mode_menu.addAction(_("Verbosity: off"))
+            act_v_off.triggered.connect(lambda: self._set_verbosity("0"))
+            act_v_low = mode_menu.addAction(_("Verbosity: low"))
+            act_v_low.triggered.connect(lambda: self._set_verbosity("1"))
+            act_v_mid = mode_menu.addAction(_("Verbosity: medium"))
+            act_v_mid.triggered.connect(lambda: self._set_verbosity("2"))
+            act_v_high = mode_menu.addAction(_("Verbosity: high"))
+            act_v_high.triggered.connect(lambda: self._set_verbosity("3"))
+
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(lambda: self._set_reasoning(""))
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(lambda: self._set_verbosity(""))
+        except Exception:
+            pass
+
+    def _update_mode_label(self) -> None:
+        try:
+            r = get_reasoning_mode()
+            v = get_verbosity_mode()
+            txt = f"reasoning={r} verbosity={v}"
+        except Exception:
+            txt = ""
+
+        if txt and txt != getattr(self, "_mode_text", ""):
+            self._mode_text = txt
+            try:
+                self._mode_label.setText(" " + txt)
+            except Exception:
+                pass
+
+    def _set_reasoning(self, arg: str) -> None:
+        try:
+            new_mode = apply_reasoning_arg(arg)
+            print(f"[mode] reasoning={new_mode}")
+        except Exception:
+            print(":r [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)")
+        self._update_mode_label()
+
+    def _set_verbosity(self, arg: str) -> None:
+        try:
+            new_mode = apply_verbosity_arg(arg)
+            print(f"[mode] verbosity={new_mode}")
+        except Exception:
+            print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)")
+        self._update_mode_label()
+
     def _update_ui_from_log(self):
         if not os.path.exists(LOG_FILE):
             return
@@ -465,6 +543,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
             if new_data:
                 clean_text = self._ansi_re.sub("", new_data)
+
+                # keep mode label updated even when status doesn't change
+                self._update_mode_label()
 
                 if not hasattr(self, "_tty_partial_line"):
                     self._tty_partial_line = ""  # type: ignore[attr-defined]
@@ -657,7 +738,10 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-            core.event_queue.put({"kind": "gui_user", "text": text, "images": list(self._attached_images)})
+            if text.strip().startswith(":") and not self._attached_images:
+                core.event_queue.put({"kind": "command", "text": text.strip()})
+            else:
+                core.event_queue.put({"kind": "gui_user", "text": text, "images": list(self._attached_images)})
             self._history.append(HistoryEntry(text, list(self._attached_images)))
 
         self._attached_images.clear()
