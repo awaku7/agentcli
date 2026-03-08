@@ -23,6 +23,7 @@ _ = make_tool_translator(__file__)
 
 import base64
 import os
+from ..env_utils import env_get
 import ssl
 import subprocess
 import time
@@ -96,8 +97,8 @@ def _get_provider() -> str:
     """Select provider for image generation."""
     p = (
         (
-            os.environ.get("UAGENT_IMG_GENERATE_PROVIDER")
-            or os.environ.get("UAGENT_PROVIDER")
+            env_get("UAGENT_IMG_GENERATE_PROVIDER")
+            or env_get("UAGENT_PROVIDER")
             or "azure"
         )
         .strip()
@@ -112,7 +113,7 @@ def _get_provider() -> str:
 
 def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
     for k in keys:
-        v = (os.environ.get(k) or "").strip()
+        v = (env_get(k) or "").strip()
         if v:
             return v
     if required:
@@ -133,7 +134,7 @@ def _img_env(
 
 def _ssl_verify_enabled() -> bool:
     """Default: no verification. Enable only if UAGENT_SSL_VERIFY=1/true/yes/on."""
-    v = (os.environ.get("UAGENT_SSL_VERIFY") or "").strip().lower()
+    v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
 
 
@@ -442,7 +443,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return _("err.no_saved", default="[generate_image] Image data was empty")
 
     # Open by default. Disable via UAGENT_IMAGE_OPEN=0/false, etc.
-    env_val = (os.environ.get("UAGENT_IMAGE_OPEN") or "").strip().lower()
+    env_val = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
     should_open = env_val not in ("0", "false", "no", "off")
 
     if should_open:

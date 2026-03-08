@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+from .env_utils import env_get
 import sys
 import threading
 from dataclasses import dataclass
@@ -142,7 +143,7 @@ class ScheckWorker(QtCore.QObject):
                 and (self._depname or "").strip() == "openrouter/auto"
             ):
                 raw_fb = (
-                    os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
+                    env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
                 ).strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))

@@ -3,6 +3,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import os
+from ..env_utils import env_get
 import json
 import sqlite3
 import math
@@ -20,12 +21,12 @@ except ImportError:
 EMBEDDING_API_URL = ""
 EMBEDDING_MODEL = "embeddinggemma:latest"
 
-EMBEDDING_API_URL = os.environ.get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_URL
+EMBEDDING_API_URL = env_get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_URL
 
 _DISABLE_IF_UNREACHABLE = (
-    os.environ.get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
+    env_get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
 ).strip().lower() in ("1", "true", "yes")
-_HEALTHCHECK_PATH = os.environ.get(
+_HEALTHCHECK_PATH = env_get(
     "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models"
 )
 

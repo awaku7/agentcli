@@ -28,6 +28,7 @@ uagent/scheck が使用する状態ディレクトリ（ログ、キャッシュ
 from __future__ import annotations
 
 import os
+from ..env_utils import env_get
 from pathlib import Path
 
 # 既定の状態ディレクトリ名（将来ここを ".uag" に変更して移行できる）
@@ -53,7 +54,7 @@ def get_state_dir() -> Path:
     Override: UAGENT_STATE_DIR
     """
 
-    env = os.environ.get("UAGENT_STATE_DIR")
+    env = env_get("UAGENT_STATE_DIR")
     if env:
         return _expand(env)
     return Path.home() / _DEFAULT_STATE_DIRNAME
@@ -66,7 +67,7 @@ def get_log_dir() -> Path:
     Override: UAGENT_LOG_DIR
     """
 
-    env = os.environ.get("UAGENT_LOG_DIR")
+    env = env_get("UAGENT_LOG_DIR")
     if env:
         return _expand(env)
     return get_state_dir() / "logs"
@@ -84,7 +85,7 @@ def get_cache_dir() -> Path:
       互換が必要なら、呼び出し側で明示的に UAGENT_CACHE_DIR を設定する。
     """
 
-    env = os.environ.get("UAGENT_CACHE_DIR")
+    env = env_get("UAGENT_CACHE_DIR")
     if env:
         return _expand(env)
     return get_state_dir() / "cache"
@@ -105,18 +106,18 @@ def get_dbs_dir() -> Path:
       behavior here to avoid breaking existing deployments.
     """
 
-    env = os.environ.get("UAGENT_DB_DIR")
+    env = env_get("UAGENT_DB_DIR")
     if env:
         return _expand(env)
 
-    env_cache = os.environ.get("UAGENT_CACHE_DIR")
+    env_cache = env_get("UAGENT_CACHE_DIR")
     if env_cache:
         try:
             return _expand(env_cache).parent / "dbs"
         except Exception:
             pass
 
-    env_log = os.environ.get("UAGENT_LOG_DIR")
+    env_log = env_get("UAGENT_LOG_DIR")
     if env_log:
         try:
             return _expand(env_log).parent / "dbs"
@@ -133,7 +134,7 @@ def get_tmp_dir() -> Path:
     Override: UAGENT_TMP_DIR
     """
 
-    env = os.environ.get("UAGENT_TMP_DIR")
+    env = env_get("UAGENT_TMP_DIR")
     if env:
         return _expand(env)
     return get_state_dir() / "tmp"
@@ -159,7 +160,7 @@ def get_outputs_dir() -> Path:
     Override: UAGENT_OUTPUTS_DIR
     """
 
-    env = os.environ.get("UAGENT_OUTPUTS_DIR")
+    env = env_get("UAGENT_OUTPUTS_DIR")
     if env:
         return _expand(env)
     return get_state_dir() / "outputs"
@@ -200,7 +201,7 @@ def get_mcp_servers_json_path() -> Path:
       - if missing, fallback to legacy ~/.scheck/mcps/mcp_servers.json
     """
 
-    env = os.environ.get("UAGENT_MCP_CONFIG")
+    env = env_get("UAGENT_MCP_CONFIG")
     if env:
         return _expand(env)
 
@@ -225,7 +226,7 @@ def get_history_file_path() -> Path:
       - UAGENT_HISTORY_FILE
     """
 
-    env = os.environ.get("UAGENT_HISTORY_FILE")
+    env = env_get("UAGENT_HISTORY_FILE")
     if env:
         return _expand(env)
     return Path.home() / ".scheck_history"
@@ -240,7 +241,7 @@ def get_legacy_state_dir() -> Path:
     NOTE: This does not perform any migration/rename.
     """
 
-    env = os.environ.get("UAGENT_LEGACY_STATE_DIR")
+    env = env_get("UAGENT_LEGACY_STATE_DIR")
     if env:
         return _expand(env)
     return Path.home() / ".scheck"
