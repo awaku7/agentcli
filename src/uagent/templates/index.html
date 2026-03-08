@@ -27,6 +27,23 @@
                 Status: <span id="status-text-header" class="status-idle">IDLE</span>
                 <div id="busy-indicator" class="hidden text-xs font-mono text-red-600 blink">TOOL RUNNING</div>
                 <div id="workdir-text-header" class="text-xs text-gray-500 font-mono"></div>
+                <div id="modes-area" class="text-xs text-gray-500 font-mono flex items-center gap-2 mt-1">
+                    <span id="modes-text"></span>
+                    <span class="ml-2">R:</span>
+                    <select id="reasoning-select" class="border rounded px-1 py-0.5 text-gray-800">
+                        <option value="0">off</option>
+                        <option value="1">low</option>
+                        <option value="2">medium</option>
+                        <option value="3">high</option>
+                    </select>
+                    <span>V:</span>
+                    <select id="verbosity-select" class="border rounded px-1 py-0.5 text-gray-800">
+                        <option value="0">off</option>
+                        <option value="1">low</option>
+                        <option value="2">medium</option>
+                        <option value="3">high</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -166,6 +183,11 @@
         const humanAskMessage = document.getElementById('human-ask-message');
         const humanAskInput = document.getElementById('human-ask-input');
 
+        const modesText = document.getElementById('modes-text');
+        const reasoningSelect = document.getElementById('reasoning-select');
+        const verbositySelect = document.getElementById('verbosity-select');
+        let CURRENT_MODES = { reasoning: 'off', verbosity: 'off' };
+
         function connect() {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             const url = new URL(window.location.href);
@@ -184,6 +206,9 @@
                     WEB_VERBOSE = !!data.web_verbose;
                     data.messages.forEach(addMessage);
                     updateStatus(data.status);
+                    if (data.modes) updateModes(data.modes);
+                } else if (data.type === 'modes') {
+                    if (data.modes) updateModes(data.modes);
                 } else if (data.type === 'message') {
                     addMessage(data.message);
                 } else if (data.type === 'status') {
@@ -320,6 +345,50 @@
             }
         }
 
+        function modeToSelectValue(mode) {
+            const m = String(mode || '').toLowerCase();
+            if (m === '0' || m === 'off' || m === 'none' || m === '') return '0';
+            if (m === '1' || m === 'low') return '1';
+            if (m === '2' || m === 'medium' || m === 'mid') return '2';
+            if (m === '3' || m === 'high') return '3';
+            return '0';
+        }
+
+        function selectValueToLabel(v) {
+            switch (String(v)) {
+                case '1': return 'low';
+                case '2': return 'medium';
+                case '3': return 'high';
+                default: return 'off';
+            }
+        }
+
+        function updateModes(modes) {
+            try {
+                const r = (modes && modes.reasoning !== undefined) ? String(modes.reasoning) : 'off';
+                const v = (modes && modes.verbosity !== undefined) ? String(modes.verbosity) : 'off';
+                CURRENT_MODES = { reasoning: r, verbosity: v };
+
+                if (modesText) modesText.textContent = `reasoning=${r} verbosity=${v}`;
+
+                if (reasoningSelect) reasoningSelect.value = modeToSelectValue(r);
+                if (verbositySelect) verbositySelect.value = modeToSelectValue(v);
+            } catch (e) {
+                // ignore
+            }
+        }
+
+        function sendSetModes() {
+            try {
+                if (!ws || ws.readyState !== WebSocket.OPEN) return;
+                const r = reasoningSelect ? reasoningSelect.value : null;
+                const v = verbositySelect ? verbositySelect.value : null;
+                ws.send(JSON.stringify({ type: 'set_modes', reasoning: r, verbosity: v }));
+            } catch (e) {
+                // ignore
+            }
+        }
+
         function updateStatus(status) {
             const label = status.label;
             const isBusy = status.busy;
@@ -397,6 +466,13 @@
         });
 
         sendBtn.onclick = sendMessage;
+
+        try {
+            if (reasoningSelect) reasoningSelect.onchange = sendSetModes;
+            if (verbositySelect) verbositySelect.onchange = sendSetModes;
+        } catch (e) {
+            // ignore
+        }
         
         humanAskInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
