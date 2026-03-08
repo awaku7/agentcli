@@ -8,6 +8,7 @@ import json
 import asyncio
 import sys
 import os
+from ..env_utils import env_get
 from typing import Any, Dict, List
 
 from mcp import ClientSession
@@ -21,7 +22,7 @@ except ImportError:
     def get_default_mcp_config_path():
         import os
 
-        env_path = os.environ.get("UAGENT_MCP_CONFIG")
+        env_path = env_get("UAGENT_MCP_CONFIG")
         if env_path:
             return os.path.abspath(os.path.expanduser(env_path))
 

@@ -24,6 +24,7 @@ The tools implemented on top of this module live in:
 from __future__ import annotations
 
 import os
+from ..env_utils import env_get
 
 from .i18n_helper import make_tool_translator
 
@@ -85,7 +86,7 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> List[str]:
     The returned list may contain non-existing paths; callers may filter.
     """
 
-    env = os.environ.get("UAGENT_SKILLS_DIRS")
+    env = env_get("UAGENT_SKILLS_DIRS")
     parts: List[str] = []
     if env:
         parts = [p.strip() for p in env.split(os.pathsep) if p.strip()]

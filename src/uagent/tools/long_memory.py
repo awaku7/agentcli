@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+from ..env_utils import env_get
 import time
 from typing import Any, Dict, List
 
@@ -22,7 +23,7 @@ def _get_base_log_dir() -> str:
 def get_memory_file_path() -> str:
     """Return the resolved path to the personal long-memory JSONL file."""
     base_log_dir = _get_base_log_dir()
-    return os.environ.get("UAGENT_MEMORY_FILE") or os.path.join(
+    return env_get("UAGENT_MEMORY_FILE") or os.path.join(
         base_log_dir, "scheck_memory.jsonl"
     )
 
