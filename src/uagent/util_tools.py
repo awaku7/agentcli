@@ -224,6 +224,90 @@ def iter_backup_files(root_dir: str) -> List[str]:
     return results
 
 
+# ==============================
+# Reasoning / Verbosity modes
+# ==============================
+
+_MODE_LEVELS = ["off", "low", "medium", "high"]
+
+
+def get_reasoning_mode() -> str:
+    v = (env_get("UAGENT_REASONING") or "").strip().lower()
+    return v if v in ("low", "medium", "high") else "off"
+
+
+def get_verbosity_mode() -> str:
+    v = (env_get("UAGENT_VERBOSITY") or "").strip().lower()
+    return v if v in ("low", "medium", "high") else "off"
+
+
+def _normalize_level_arg(arg: str) -> str | None:
+    a = (arg or "").strip().lower()
+    if not a:
+        return None
+    if a in ("0", "off", "none", "no", "false", "disable", "disabled"):
+        return "off"
+    if a in ("1", "low"):
+        return "low"
+    if a in ("2", "mid", "middle", "medium"):
+        return "medium"
+    if a in ("3", "high"):
+        return "high"
+    return None
+
+
+def _cycle_level(cur: str) -> str:
+    c = (cur or "off").strip().lower()
+    if c not in _MODE_LEVELS:
+        c = "off"
+    idx = _MODE_LEVELS.index(c)
+    return _MODE_LEVELS[(idx + 1) % len(_MODE_LEVELS)]
+
+
+def set_reasoning_mode(level: str) -> str:
+    lv = (level or "off").strip().lower()
+    if lv not in _MODE_LEVELS:
+        lv = "off"
+    if lv == "off":
+        os.environ.pop("UAGENT_REASONING", None)
+    else:
+        os.environ["UAGENT_REASONING"] = lv
+    return get_reasoning_mode()
+
+
+def set_verbosity_mode(level: str) -> str:
+    lv = (level or "off").strip().lower()
+    if lv not in _MODE_LEVELS:
+        lv = "off"
+    if lv == "off":
+        os.environ.pop("UAGENT_VERBOSITY", None)
+    else:
+        os.environ["UAGENT_VERBOSITY"] = lv
+    return get_verbosity_mode()
+
+
+def apply_reasoning_arg(arg: str) -> str:
+    cur = get_reasoning_mode()
+    lv = _normalize_level_arg(arg)
+    if lv is None and (arg or "").strip():
+        # invalid (non-empty)
+        raise ValueError("invalid reasoning")
+    if lv is None:
+        lv = _cycle_level(cur)
+    return set_reasoning_mode(lv)
+
+
+def apply_verbosity_arg(arg: str) -> str:
+    cur = get_verbosity_mode()
+    lv = _normalize_level_arg(arg)
+    if lv is None and (arg or "").strip():
+        raise ValueError("invalid verbosity")
+    if lv is None:
+        lv = _cycle_level(cur)
+    return set_verbosity_mode(lv)
+
+
+
 def handle_command(
     line: str,
     messages_ref: List[Dict[str, Any]],
@@ -248,6 +332,24 @@ def handle_command(
 
     if cmd in ("help", "h", "?"):
         core.print_help()
+        return True
+
+    if cmd in ("r", "reasoning"):
+        try:
+            new_mode = apply_reasoning_arg(arg)
+        except Exception:
+            print(tr(":r [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"))
+            return True
+        print(f"[mode] reasoning={new_mode}")
+        return True
+
+    if cmd in ("v", "verbosity"):
+        try:
+            new_mode = apply_verbosity_arg(arg)
+        except Exception:
+            print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"))
+            return True
+        print(f"[mode] verbosity={new_mode}")
         return True
 
     if cmd in ("cd",):
