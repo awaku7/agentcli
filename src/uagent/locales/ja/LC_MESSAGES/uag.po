@@ -259,19 +259,21 @@ msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
 msgstr "[clean error] 確認に失敗しました: %(etype)s: %(err)s"
 
 
-msgid ":load will overwrite the current session log file and prepend the loaded log (no backup).
-
-Current log: %(cur_log)s
-Source log: %(src_log)s
-
-Proceed? Enter y to run, or c to cancel."
-msgstr ":load により、現在セッションのログファイルを上書きして
-ロードしたログ内容を先頭へ挿入します（バックアップ無し）。
-
-現在ログ: %(cur_log)s
-ロード元: %(src_log)s
-
-実行してよければ y、キャンセルなら c と入力してください。"
+msgid ""
+":load will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+":load により、現在セッションのログファイルを上書きして\n"
+"ロードしたログ内容を先頭へ挿入します（バックアップ無し）。\n"
+"\n"
+"現在ログ: %(cur_log)s\n"
+"ロード元: %(src_log)s\n"
+"\n"
+"実行してよければ y、キャンセルなら c と入力してください。"
 
 
 msgid "[load] Prepended to current log: %(path)s"
