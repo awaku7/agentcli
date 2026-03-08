@@ -1,7 +1,6 @@
 # tools/analyze_image_tool.py
 from __future__ import annotations
 
-import os
 from ..env_utils import env_get
 from typing import Any, Dict, List
 
