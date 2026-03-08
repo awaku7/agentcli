@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from .env_utils import env_get
 import re
 import sys
 import threading
@@ -94,7 +95,7 @@ class WebRoom:
                 except Exception:
                     msgs = self.messages
 
-            _v = (os.environ.get("UAGENT_WEB_VERBOSE") or "").strip().lower()
+            _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
             web_verbose = _v in ("1", "true", "yes", "on")
 
             # Per-room startup/welcome message (shown once per room)
@@ -237,7 +238,7 @@ def web_set_status(busy: bool, label: str = ""):
 
 
 def _web_console_log_enabled() -> bool:
-    v = (os.environ.get("UAGENT_WEB_CONSOLE_LOG") or "").strip().lower()
+    v = (env_get("UAGENT_WEB_CONSOLE_LOG") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
 
 
@@ -445,7 +446,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
         pass
 
     try:
-        if not (os.environ.get("UAGENT_PROVIDER") or "").strip():
+        if not (env_get("UAGENT_PROVIDER") or "").strip():
             room.add_message(
                 {
                     "role": "assistant",
@@ -522,7 +523,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
         msg = "[FATAL] Web worker error.\n" + err
         if (
             isinstance(e, SystemExit)
-            and not (os.environ.get("UAGENT_PROVIDER") or "").strip()
+            and not (env_get("UAGENT_PROVIDER") or "").strip()
         ):
             msg = "[FATAL] " + _(
                 "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
@@ -665,7 +666,7 @@ def main():
 
     try:
         decision = _runtime_init.decide_workdir(
-            env_workdir=os.environ.get("UAGENT_WORKDIR")
+            env_workdir=env_get("UAGENT_WORKDIR")
         )
         _runtime_init.apply_workdir(decision)
         banner = _runtime_init.build_startup_banner(

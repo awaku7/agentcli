@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from ..env_utils import env_get
 import locale
 from functools import lru_cache
 from typing import Any, Dict, Optional
@@ -46,13 +47,13 @@ def get_locale() -> str:
     """
 
     # 1) explicit override
-    v = (os.environ.get("UAGENT_LANG") or "").strip()
+    v = (env_get("UAGENT_LANG") or "").strip()
     if v:
         return _normalize_locale(v)
 
     # 2) common env vars
     for k in ("LC_ALL", "LANG"):
-        vv = (os.environ.get(k) or "").strip()
+        vv = (env_get(k) or "").strip()
         if vv:
             return _normalize_locale(vv)
 

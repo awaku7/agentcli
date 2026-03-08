@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from ..env_utils import env_get
 from typing import Any, Dict, List
 
 from .i18n_helper import make_tool_translator
@@ -50,7 +51,7 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
     for k in keys:
-        v = (os.environ.get(k) or "").strip()
+        v = (env_get(k) or "").strip()
         if v:
             return v
     if required:
@@ -65,7 +66,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         prompt = str(prompt)
 
     # If using Responses API wrapper, route to internal runtime.
-    if (os.environ.get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+    if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
         "1",
         "true",
     ):
