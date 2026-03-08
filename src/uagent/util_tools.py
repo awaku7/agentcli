@@ -891,9 +891,7 @@ def _use_gpt54_lightweight_tools_prompt() -> bool:
         .strip()
         .lower()
     )
-    use_responses_api = (
-        env_get("UAGENT_RESPONSES", "") or ""
-    ).strip().lower() in (
+    use_responses_api = (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
         "1",
         "true",
     )
