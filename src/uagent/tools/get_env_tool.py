@@ -4,7 +4,6 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 from typing import Any, Dict
-import os
 from ..env_utils import env_get
 
 from .context import get_callbacks

@@ -521,10 +521,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
             tb = ""
 
         msg = "[FATAL] Web worker error.\n" + err
-        if (
-            isinstance(e, SystemExit)
-            and not (env_get("UAGENT_PROVIDER") or "").strip()
-        ):
+        if isinstance(e, SystemExit) and not (env_get("UAGENT_PROVIDER") or "").strip():
             msg = "[FATAL] " + _(
                 "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
             )
@@ -665,9 +662,7 @@ def main():
     ensure_mcp_config_template()
 
     try:
-        decision = _runtime_init.decide_workdir(
-            env_workdir=env_get("UAGENT_WORKDIR")
-        )
+        decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
         banner = _runtime_init.build_startup_banner(
             core=core,

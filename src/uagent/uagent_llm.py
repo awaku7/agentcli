@@ -1,5 +1,4 @@
 import json
-import os
 from .env_utils import env_get
 import time
 from .i18n import _
@@ -185,9 +184,10 @@ def run_llm_rounds(
         and use_cache_env not in ("0", "false", "no")
         and gemini_types
     ):
-        clear_on_start = env_get(
-            "UAGENT_GEMINI_CACHE_CLEAR_ON_START", "1"
-        ).lower() in ("1", "true")
+        clear_on_start = env_get("UAGENT_GEMINI_CACHE_CLEAR_ON_START", "1").lower() in (
+            "1",
+            "true",
+        )
         if clear_on_start:
             try:
                 cache_mgr.clear_cache(client)
@@ -347,9 +347,7 @@ def run_llm_rounds(
 
             tool_calls_list: List[Dict[str, Any]] = []
             assistant_text: str = ""
-            use_responses_api = (
-                env_get("UAGENT_RESPONSES", "") or ""
-            ).lower() in (
+            use_responses_api = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
                 "1",
                 "true",
             )
@@ -566,11 +564,15 @@ def run_llm_rounds(
                             # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                             # - UAGENT_REASONING: low|medium|high|off (unset/off => do not send)
                             # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
-                            _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
+                            _reasoning = (
+                                (env_get("UAGENT_REASONING") or "").strip().lower()
+                            )
                             if _reasoning in ("low", "medium", "high"):
                                 resp_kwargs["reasoning"] = {"effort": _reasoning}
 
-                            _verbosity = (env_get("UAGENT_VERBOSITY") or "").strip().lower()
+                            _verbosity = (
+                                (env_get("UAGENT_VERBOSITY") or "").strip().lower()
+                            )
                             if _verbosity in ("low", "medium", "high"):
                                 _text_cfg = resp_kwargs.get("text")
                                 if not isinstance(_text_cfg, dict):
@@ -922,9 +924,7 @@ def run_llm_rounds(
                                 and (depname or "").strip() == "openrouter/auto"
                             ):
                                 raw_fb = (
-                                    env_get(
-                                        "UAGENT_OPENROUTER_FALLBACK_MODELS", ""
-                                    )
+                                    env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "")
                                     or ""
                                 ).strip()
                                 if raw_fb:
