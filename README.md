@@ -85,6 +85,19 @@ Log rewrite behavior:
 
 ---
 
+## Optional Responses API knobs (reasoning / verbosity)
+
+When using the **Responses API** (`UAGENT_RESPONSES=1`) with OpenAI-compatible providers, you can optionally control reasoning effort and output verbosity.
+
+- `UAGENT_REASONING`:
+  - `low|medium|high`: send `reasoning={"effort":...}`
+  - `off` / unset / empty: do not send `reasoning`
+- `UAGENT_VERBOSITY`:
+  - `low|medium|high`: send `text={"verbosity":...}`
+  - `off` / unset / empty: do not send `text.verbosity`
+
+---
+
 ## Provider (OpenAI-compatible handling)
 
 `uag` supports multiple LLM providers.
