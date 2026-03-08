@@ -10,6 +10,7 @@ except Exception:
 
 
 from .i18n import _
+from .env_utils import env_get
 
 # OpenAI / Azure OpenAI
 try:
@@ -33,7 +34,7 @@ except ImportError:
 
 def detect_provider() -> str:
     """UAGENT_PROVIDER から利用プロバイダを判定する。設定されていない場合は終了する。"""
-    p = os.environ.get("UAGENT_PROVIDER")
+    p = env_get("UAGENT_PROVIDER")
     if not p:
         print(_("Environment variable UAGENT_PROVIDER is not set."), file=sys.stderr)
         sys.exit(1)
@@ -49,20 +50,20 @@ def get_model_name() -> str:
     """利用プロバイダに応じてモデル名を取得する（scheck.py の main ロジックに準拠）"""
     provider = detect_provider()
     if provider == "azure":
-        return os.environ.get("UAGENT_AZURE_DEPNAME", "gpt-5.2")
+        return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "openai":
-        return os.environ.get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
+        return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "openrouter":
-        return os.environ.get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2")
+        return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "grok":
-        return os.environ.get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
+        return env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning") or "grok-4-1-fast-reasoning"
     if provider == "gemini":
-        return os.environ.get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash")
+        return env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash") or "gemini-1.5-flash"
     if provider == "claude":
-        return os.environ.get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5")
+        return env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5") or "claude-sonnet-4.5"
     if provider == "nvidia":
-        return os.environ.get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
-    return os.environ.get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
+        return env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b") or "nvidia/nemotron-3-nano-30b-a3b"
+    return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
 
 def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float | None:

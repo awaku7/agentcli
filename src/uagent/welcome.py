@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+from .env_utils import env_get
 from .i18n import _
 
 try:
@@ -104,7 +105,7 @@ def _internal_pager(text: str) -> None:
     import sys
     import shutil
 
-    debug_pager = os.environ.get("UAGENT_DEBUG_PAGER", "").lower() in (
+    debug_pager = env_get("UAGENT_DEBUG_PAGER", "").lower() in (
         "1",
         "true",
         "yes",
@@ -131,7 +132,7 @@ def _internal_pager(text: str) -> None:
         return
 
     # Allow users to disable paging explicitly.
-    if os.environ.get("UAGENT_NOPAGER") in ("1", "true", "TRUE", "yes", "YES"):
+    if env_get("UAGENT_NOPAGER") in ("1", "true", "TRUE", "yes", "YES"):
         if debug_pager:
             try:
                 sys.stderr.write("[pager] disabled by UAGENT_NOPAGER -> plain print\n")

@@ -2,6 +2,7 @@
 import os
 import sys
 
+from .env_utils import env_get, strip_outer_quotes
 from .i18n import _
 import json
 import time
@@ -24,7 +25,7 @@ URL_FETCH_TIMEOUT_MS = 50_000_000
 URL_FETCH_MAX_BYTES = 50_000_000
 
 # On Windows default is often cp932; otherwise use UTF-8.
-CMD_ENCODING = os.environ.get("UAGENT_CMD_ENCODING") or "utf-8"
+CMD_ENCODING = env_get("UAGENT_CMD_ENCODING") or "utf-8"
 
 # Enable escape sequences on Windows console if possible.
 if os.name == "nt":
@@ -51,19 +52,19 @@ except Exception:
 # Session ID and log/memory file paths
 SESSION_ID = time.strftime("%Y%m%d_%H%M%S")
 
-BASE_LOG_DIR = os.path.abspath(os.environ.get("UAGENT_LOG_DIR") or str(get_log_dir()))
-LOG_FILE = os.environ.get("UAGENT_LOG_FILE") or os.path.join(
+BASE_LOG_DIR = os.path.abspath(env_get("UAGENT_LOG_DIR") or str(get_log_dir()))
+LOG_FILE = env_get("UAGENT_LOG_FILE") or os.path.join(
     BASE_LOG_DIR, f"scheck_log_{SESSION_ID}.jsonl"
 )
 
 # Whether to guess log topics (disabled if set to 0)
-ENABLE_LOG_TOPIC_GUESS = os.environ.get("UAGENT_LOG_TOPICS", "1") != "0"
+ENABLE_LOG_TOPIC_GUESS = env_get("UAGENT_LOG_TOPICS", "1") != "0"
 
 # Event queue (normal input and timer input share this queue)
 event_queue: "queue.Queue[Dict[str, Any]]" = queue.Queue()
 
 # GUI mode flag (set by env var or gui.py)
-IS_GUI = os.environ.get("UAGENT_GUI_MODE") == "1"
+IS_GUI = env_get("UAGENT_GUI_MODE") == "1"
 
 # State for human_ask (shared between stdin_loop and the human_ask tool)
 human_ask_lock = threading.RLock()
@@ -111,7 +112,7 @@ def print_status_line() -> None:
 
     # Color/ANSI control
     # Default: enable ANSI colors unless explicitly disabled.
-    no_color = bool(os.environ.get("NO_COLOR") or os.environ.get("UAGENT_NO_COLOR"))
+    no_color = bool(env_get("NO_COLOR") or env_get("UAGENT_NO_COLOR"))
     stderr_is_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
 
     if IS_GUI or no_color or (not stderr_is_tty):
@@ -177,7 +178,7 @@ def get_prompt() -> str:
 
 
 def get_env(name: str) -> str:
-    value = os.environ.get(name)
+    value = env_get(name)
     if not value:
         print(
             _("Environment variable %(name)s is not set.") % {"name": name},
@@ -190,11 +191,13 @@ def get_env(name: str) -> str:
 def normalize_url(url: str) -> str:
     if not url:
         return ""
-    return url.strip().rstrip("/")
+    # Also accept quoted env values: "https://..." or 'https://...'
+    url2 = strip_outer_quotes(str(url))
+    return url2.strip().rstrip("/")
 
 
 def get_env_url(name: str, default: Optional[str] = None) -> str:
-    val = os.environ.get(name, default)
+    val = env_get(name, default)
     if not val:
         if default is not None:
             return normalize_url(default)
@@ -917,7 +920,7 @@ def compress_history_with_llm(
         {"role": "user", "content": convo_text},
     ]
 
-    use_responses_api = os.environ.get("UAGENT_RESPONSES", "").lower() in ("1", "true")
+    use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
 
     try:
         if use_responses_api:

@@ -3,6 +3,7 @@ import re
 import importlib
 import json
 import os
+from .env_utils import env_get
 import sys
 
 from .i18n import _
@@ -99,7 +100,7 @@ if readline:
 
 _startup_args, _startup_unknown = _parse_startup_args()
 _cli_workdir = _startup_args.get("workdir")
-_env_workdir = os.environ.get("UAGENT_WORKDIR")
+_env_workdir = env_get("UAGENT_WORKDIR")
 
 UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 
@@ -811,36 +812,36 @@ def main() -> None:
         provider, client, depname = providers.make_client(core)
 
         if provider == "azure":
-            depname = os.environ.get("UAGENT_AZURE_DEPNAME", "gpt-5.2")
+            depname = env_get("UAGENT_AZURE_DEPNAME", "gpt-5.2")
         elif provider == "openai":
-            depname = os.environ.get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
+            depname = env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
         elif provider == "grok":
-            depname = os.environ.get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
+            depname = env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
         elif provider == "gemini":
-            depname = os.environ.get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash")
+            depname = env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash")
         elif provider == "claude":
-            depname = os.environ.get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5")
+            depname = env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5")
         elif provider == "nvidia":
-            depname = os.environ.get(
+            depname = env_get(
                 "UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"
             )
         elif provider == "openrouter":
-            depname = os.environ.get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2")
+            depname = env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2")
         else:
-            depname = os.environ.get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
+            depname = env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
 
         print(_("model(deployment) = %(depname)s") % {"depname": depname})
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
             raw_fb = (
-                os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
+                env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
             ).strip()
             if raw_fb:
                 print("[INFO] " + _("OpenRouter fallback models enabled."))
 
         # LLM API selection (Responses API vs Chat Completions)
         # NOTE: Actual calls are made in scheck_llm.run_llm_rounds().
-        use_responses_api = os.environ.get("UAGENT_RESPONSES", "").lower() in (
+        use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in (
             "1",
             "true",
         )
@@ -988,11 +989,11 @@ def main() -> None:
 
                 # If Responses API is enabled (Azure/OpenAI) and the user message contains local image paths,
                 # ask for explicit permission before embedding images as data URLs.
-                use_responses_api = os.environ.get("UAGENT_RESPONSES", "").lower() in (
+                use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in (
                     "1",
                     "true",
                 )
-                prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
+                prov = (env_get("UAGENT_PROVIDER") or "").lower()
                 allow_multimodal = use_responses_api and prov in ("azure", "openai")
 
                 user_msg: Dict[str, Any]

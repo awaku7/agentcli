@@ -5,6 +5,7 @@ _ = make_tool_translator(__file__)
 
 from typing import Any, Dict
 import os
+from ..env_utils import env_get
 
 from .context import get_callbacks
 
@@ -109,7 +110,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return f"{name}={out_val}"
 
         # Fallback: direct os.environ
-        val2 = os.environ.get(name)
+        val2 = env_get(name)
         if val2 is None:
             if missing_ok:
                 return f"{name}=(not set)"
