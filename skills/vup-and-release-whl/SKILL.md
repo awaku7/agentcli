@@ -58,6 +58,9 @@ git status
 git diff -- pyproject.toml
 ```
 
+## 2.1)
+- workdir以下のバックアップファイル*.orgNを全部削除します。
+
 ## 3) commit
 
 ```bash
