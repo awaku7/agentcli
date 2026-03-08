@@ -132,6 +132,10 @@ class WebRoom:
                     "type": "init",
                     "messages": msgs,
                     "status": self.status,
+                    "modes": {
+                        "reasoning": tools_util.get_reasoning_mode(),
+                        "verbosity": tools_util.get_verbosity_mode(),
+                    },
                     "web_verbose": web_verbose,
                     "room_id": self.room_id,
                 }
@@ -189,6 +193,21 @@ class WebManager:
         self.original_log_message = None
         self.original_set_status = None
 
+    def broadcast_all(self, data: Dict[str, Any]) -> None:
+        # Best-effort broadcast to all active rooms
+        try:
+            with self.rooms_lock:
+                rooms = list(self.rooms.values())
+        except Exception:
+            rooms = []
+
+        for room in rooms:
+            try:
+                if room.loop:
+                    asyncio.run_coroutine_threadsafe(room.broadcast(data), room.loop)
+            except Exception:
+                pass
+
     def get_room(self, room_id: str) -> WebRoom:
         with self.rooms_lock:
             if room_id not in self.rooms:
@@ -197,6 +216,53 @@ class WebManager:
 
 
 web_manager = WebManager()
+
+
+def _broadcast_modes_all() -> None:
+    try:
+        web_manager.broadcast_all(
+            {
+                "type": "modes",
+                "modes": {
+                    "reasoning": tools_util.get_reasoning_mode(),
+                    "verbosity": tools_util.get_verbosity_mode(),
+                },
+            }
+        )
+    except Exception:
+        pass
+
+
+def _handle_mode_command(text: str) -> bool:
+    t = (text or "").strip()
+    if not t.startswith(":"):
+        return False
+
+    body = t.lstrip(":").strip()
+    if not body:
+        return False
+
+    parts = body.split(maxsplit=1)
+    cmd = parts[0].strip().lower()
+    arg = parts[1] if len(parts) > 1 else ""
+
+    if cmd in ("r", "reasoning"):
+        try:
+            tools_util.apply_reasoning_arg(arg)
+            _broadcast_modes_all()
+        except Exception:
+            pass
+        return True
+
+    if cmd in ("v", "verbosity"):
+        try:
+            tools_util.apply_verbosity_arg(arg)
+            _broadcast_modes_all()
+        except Exception:
+            pass
+        return True
+
+    return False
 
 
 def web_human_ask(room: WebRoom, args: Dict[str, Any]) -> str:
@@ -586,9 +652,30 @@ async def websocket_endpoint(websocket: WebSocket):
 
             if payload.get("type") == "user_input":
                 user_text = payload.get("text")
+                if _handle_mode_command(str(user_text or "")):
+                    continue
                 threading.Thread(
                     target=run_agent_worker, args=(room, user_text), daemon=True
                 ).start()
+
+            elif payload.get("type") == "command":
+                cmd_text = payload.get("text")
+                _handle_mode_command(str(cmd_text or ""))
+
+            elif payload.get("type") == "set_modes":
+                r = payload.get("reasoning")
+                v = payload.get("verbosity")
+                try:
+                    if r is not None:
+                        tools_util.apply_reasoning_arg(str(r))
+                except Exception:
+                    pass
+                try:
+                    if v is not None:
+                        tools_util.apply_verbosity_arg(str(v))
+                except Exception:
+                    pass
+                _broadcast_modes_all()
 
             elif payload.get("type") == "human_ask_response":
                 room.human_ask_result = payload.get("text", "")
