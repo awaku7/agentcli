@@ -1,5 +1,6 @@
 # tools/__init__.py
 import os
+from ..env_utils import env_get
 import sys
 import json
 import re
@@ -186,7 +187,7 @@ def _load_plugins() -> None:
             )
 
     # 2. Load external tools (UAGENT_EXTERNAL_TOOLS_DIR)
-    ext_dir = os.environ.get("UAGENT_EXTERNAL_TOOLS_DIR")
+    ext_dir = env_get("UAGENT_EXTERNAL_TOOLS_DIR")
     if ext_dir and os.path.isdir(ext_dir):
         for entry in os.scandir(ext_dir):
             if (

@@ -1,5 +1,6 @@
 import json
 import os
+from .env_utils import env_get
 import hashlib
 from typing import Any, Dict, List, Optional
 
@@ -88,7 +89,7 @@ class GeminiCacheManager:
 
         # 小さいファイルはキャッシュ更新のコストに見合わないため除外
         # デフォルト 32KB (約32,768バイト) 以上のみキャッシュ対象とする
-        min_size = int(os.environ.get("UAGENT_GEMINI_CACHE_MIN_FILE_SIZE", "32768"))
+        min_size = int(env_get("UAGENT_GEMINI_CACHE_MIN_FILE_SIZE", "32768"))
         if os.path.getsize(path) < min_size:
             return
 

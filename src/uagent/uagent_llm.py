@@ -1,5 +1,6 @@
 import json
 import os
+from .env_utils import env_get
 import time
 from .i18n import _
 from .translate import load_translate_config, translate_text
@@ -168,7 +169,7 @@ def run_llm_rounds(
     core.set_status(True, "LLM")
 
     tool_result_cache: Dict[str, str] = {}
-    use_tool_result_cache = os.environ.get(
+    use_tool_result_cache = env_get(
         "UAGENT_TOOL_RESULT_CACHE", "0"
     ).strip().lower() not in ("0", "false", "no", "off")
     reuse_only_rounds = 0
@@ -178,13 +179,13 @@ def run_llm_rounds(
     cache_mgr = GeminiCacheManager(depname)
     gemini_cache_name = None
 
-    use_cache_env = os.environ.get("UAGENT_GEMINI_CACHE", "1").lower()
+    use_cache_env = env_get("UAGENT_GEMINI_CACHE", "1").lower()
     if (
         provider == "gemini"
         and use_cache_env not in ("0", "false", "no")
         and gemini_types
     ):
-        clear_on_start = os.environ.get(
+        clear_on_start = env_get(
             "UAGENT_GEMINI_CACHE_CLEAR_ON_START", "1"
         ).lower() in ("1", "true")
         if clear_on_start:
@@ -228,7 +229,7 @@ def run_llm_rounds(
             round_count += 1
             if True:
                 # Auto shrink_llm (optional)
-                shrink_cnt_raw = (os.environ.get("UAGENT_SHRINK_CNT", "") or "").strip()
+                shrink_cnt_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
                 try:
                     shrink_cnt = int(shrink_cnt_raw) if shrink_cnt_raw != "" else 100
                 except Exception:
@@ -246,7 +247,7 @@ def run_llm_rounds(
 
                     if others_count >= shrink_cnt:
                         keep_last_raw = (
-                            os.environ.get("UAGENT_SHRINK_KEEP_LAST", "") or ""
+                            env_get("UAGENT_SHRINK_KEEP_LAST", "") or ""
                         ).strip()
                         try:
                             keep_last = (
@@ -347,14 +348,14 @@ def run_llm_rounds(
             tool_calls_list: List[Dict[str, Any]] = []
             assistant_text: str = ""
             use_responses_api = (
-                os.environ.get("UAGENT_RESPONSES", "") or ""
+                env_get("UAGENT_RESPONSES", "") or ""
             ).lower() in (
                 "1",
                 "true",
             )
 
             def _env_default_true(name: str, default: bool = True) -> bool:
-                v = (os.environ.get(name, "") or "").strip().lower()
+                v = (env_get(name, "") or "").strip().lower()
                 if v == "":
                     return bool(default)
                 return v in ("1", "true", "yes", "on")
@@ -369,9 +370,9 @@ def run_llm_rounds(
                 stream_responses = False
 
             send_tools_this_round = True
-            max_retries_429 = int(os.environ.get("UAGENT_429_MAX_RETRIES", "20"))
-            retry_base = float(os.environ.get("UAGENT_429_BACKOFF_BASE", "2"))
-            retry_cap = float(os.environ.get("UAGENT_429_BACKOFF_CAP", "65"))
+            max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
+            retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
+            retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "65"))
 
             if provider == "gemini":
                 attempt_429 = 0
@@ -565,11 +566,11 @@ def run_llm_rounds(
                             # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                             # - UAGENT_REASONING: low|medium|high|off (unset/off => do not send)
                             # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
-                            _reasoning = (os.environ.get("UAGENT_REASONING") or "").strip().lower()
+                            _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
                             if _reasoning in ("low", "medium", "high"):
                                 resp_kwargs["reasoning"] = {"effort": _reasoning}
 
-                            _verbosity = (os.environ.get("UAGENT_VERBOSITY") or "").strip().lower()
+                            _verbosity = (env_get("UAGENT_VERBOSITY") or "").strip().lower()
                             if _verbosity in ("low", "medium", "high"):
                                 _text_cfg = resp_kwargs.get("text")
                                 if not isinstance(_text_cfg, dict):
@@ -921,7 +922,7 @@ def run_llm_rounds(
                                 and (depname or "").strip() == "openrouter/auto"
                             ):
                                 raw_fb = (
-                                    os.environ.get(
+                                    env_get(
                                         "UAGENT_OPENROUTER_FALLBACK_MODELS", ""
                                     )
                                     or ""
@@ -934,7 +935,7 @@ def run_llm_rounds(
                                     ]
                                     if fb_models:
                                         chat_kwargs["models"] = fb_models
-                            if os.environ.get("UAGENT_DEBUG_TOOLS") == "1":
+                            if env_get("UAGENT_DEBUG_TOOLS") == "1":
                                 try:
                                     import json as _json
 
