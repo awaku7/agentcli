@@ -130,7 +130,32 @@ ops examples:
                 },
                 "ops": {
                     "type": "array",
-                    "items": {"type": "object"},
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "op": {
+                                "type": "string",
+                                "enum": ["rename_symbol", "replace_call", "rename_import"],
+                                "description": "Operation type",
+                            },
+                            "old": {"type": "string", "description": "Old name"},
+                            "new": {"type": "string", "description": "New name"},
+                            "module": {
+                                "type": "string",
+                                "description": "Module path for rename_import (optional)",
+                            },
+                            "receiver": {
+                                "type": "string",
+                                "description": "Receiver expression for replace_call (optional)",
+                            },
+                            "include_attributes": {
+                                "type": "boolean",
+                                "description": "Also rename attributes (optional)",
+                                "default": false,
+                            },
+                        },
+                    },
                     "description": _(
                         "param.ops.description",
                         default="""Transform rules array for mode=transform.
