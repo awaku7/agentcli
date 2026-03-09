@@ -376,11 +376,7 @@ def handle_command(
         try:
             new_mode = apply_reasoning_arg(arg)
         except Exception:
-            print(
-                tr(
-                    ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-                )
-            )
+            print(tr(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"))
             return True
         print(f"[mode] reasoning={new_mode}")
         return True
@@ -1025,13 +1021,11 @@ def load_agents_md() -> str:
 
 
 def _use_gpt54_lightweight_tools_prompt() -> bool:
-    # Keep this in sync with provider/model resolution used by CLI/runtime.
-    # Use canonical *_DEPNAME envs only.
     depname = (
         (
-            env_get("UAGENT_AZURE_DEPNAME")
-            or env_get("UAGENT_OPENAI_DEPNAME")
-            or env_get("UAGENT_OPENROUTER_DEPNAME")
+            env_get("UAGENT_AZURE_DEPLOYMENT")
+            or env_get("UAGENT_OPENAI_MODEL")
+            or env_get("UAGENT_MODEL")
             or ""
         )
         .strip()
