@@ -180,34 +180,6 @@ class ScheckWorker(QtCore.QObject):
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
-            # LLM API selection (Responses API vs Chat Completions)
-            # NOTE: Responses API is supported only for Azure/OpenAI providers.
-            use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
-                "1",
-                "true",
-            )
-            if use_responses_api and self._provider not in ("azure", "openai"):
-                print(
-                    "[WARN] "
-                    + _(
-                        "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
-                    )
-                    % {"provider": self._provider}
-                )
-                os.environ["UAGENT_RESPONSES"] = "0"
-                use_responses_api = False
-
-            if use_responses_api:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-                )
-            else:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-                )
-
             self.messages = build_initial_messages(core=core)
 
             # Long-term memory
@@ -497,13 +469,11 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             mode_menu = self.menuBar().addMenu(_("Mode"))
 
+            act_r_cycle = mode_menu.addAction(_("Reasoning: cycle (:r)"))
+            act_r_cycle.triggered.connect(lambda: self._set_reasoning(""))
+
             act_r_off = mode_menu.addAction(_("Reasoning: off"))
             act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
-
-            act_r_auto = mode_menu.addAction(_("Reasoning: auto"))
-            act_r_auto.triggered.connect(lambda: self._set_reasoning("auto"))
-            act_r_min = mode_menu.addAction(_("Reasoning: minimal"))
-            act_r_min.triggered.connect(lambda: self._set_reasoning("minimal"))
             act_r_low = mode_menu.addAction(_("Reasoning: low"))
             act_r_low.triggered.connect(lambda: self._set_reasoning("1"))
             act_r_mid = mode_menu.addAction(_("Reasoning: medium"))
@@ -511,10 +481,10 @@ class MainWindow(QtWidgets.QMainWindow):
             act_r_high = mode_menu.addAction(_("Reasoning: high"))
             act_r_high.triggered.connect(lambda: self._set_reasoning("3"))
 
-            act_r_xhigh = mode_menu.addAction(_("Reasoning: xhigh"))
-            act_r_xhigh.triggered.connect(lambda: self._set_reasoning("xhigh"))
-
             mode_menu.addSeparator()
+
+            act_v_cycle = mode_menu.addAction(_("Verbosity: cycle (:v)"))
+            act_v_cycle.triggered.connect(lambda: self._set_verbosity(""))
 
             act_v_off = mode_menu.addAction(_("Verbosity: off"))
             act_v_off.triggered.connect(lambda: self._set_verbosity("0"))
@@ -525,8 +495,8 @@ class MainWindow(QtWidgets.QMainWindow):
             act_v_high = mode_menu.addAction(_("Verbosity: high"))
             act_v_high.triggered.connect(lambda: self._set_verbosity("3"))
 
-            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(lambda: self._set_reasoning("auto"))
-            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(lambda: self._set_verbosity("2"))
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(lambda: self._set_reasoning(""))
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(lambda: self._set_verbosity(""))
         except Exception:
             pass
 
@@ -550,7 +520,7 @@ class MainWindow(QtWidgets.QMainWindow):
             new_mode = apply_reasoning_arg(arg)
             print(f"[mode] reasoning={new_mode}")
         except Exception:
-            print(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
+            print(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh; no arg=cycle)")
         self._update_mode_label()
 
     def _set_verbosity(self, arg: str) -> None:
