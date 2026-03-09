@@ -228,45 +228,81 @@ def iter_backup_files(root_dir: str) -> List[str]:
 # Reasoning / Verbosity modes
 # ==============================
 
-_MODE_LEVELS = ["off", "low", "medium", "high"]
+_REASONING_LEVELS = ["off", "auto", "minimal", "low", "medium", "high", "xhigh"]
+_VERBOSITY_LEVELS = ["off", "low", "medium", "high"]
 
 
 def get_reasoning_mode() -> str:
     v = (env_get("UAGENT_REASONING") or "").strip().lower()
-    return v if v in ("low", "medium", "high") else "off"
+    return v if v in _REASONING_LEVELS and v != "off" else "off"
 
 
 def get_verbosity_mode() -> str:
     v = (env_get("UAGENT_VERBOSITY") or "").strip().lower()
-    return v if v in ("low", "medium", "high") else "off"
+    return v if v in _VERBOSITY_LEVELS and v != "off" else "off"
 
 
-def _normalize_level_arg(arg: str) -> str | None:
+def _normalize_off_arg(a: str) -> str | None:
+    if a in ("0", "off", "none", "no", "false", "disable", "disabled"):
+        return "off"
+    return None
+
+
+def _normalize_reasoning_level_arg(arg: str) -> str | None:
     a = (arg or "").strip().lower()
     if not a:
         return None
-    if a in ("0", "off", "none", "no", "false", "disable", "disabled"):
-        return "off"
+
+    off = _normalize_off_arg(a)
+    if off is not None:
+        return off
+
+    if a in ("auto", "a"):
+        return "auto"
+    if a in ("minimal", "min"):
+        return "minimal"
     if a in ("1", "low"):
         return "low"
     if a in ("2", "mid", "middle", "medium"):
         return "medium"
     if a in ("3", "high"):
         return "high"
+    if a in ("xhigh", "xh", "x-high"):
+        return "xhigh"
+
     return None
 
 
-def _cycle_level(cur: str) -> str:
+def _normalize_verbosity_level_arg(arg: str) -> str | None:
+    a = (arg or "").strip().lower()
+    if not a:
+        return None
+
+    off = _normalize_off_arg(a)
+    if off is not None:
+        return off
+
+    if a in ("1", "low"):
+        return "low"
+    if a in ("2", "mid", "middle", "medium"):
+        return "medium"
+    if a in ("3", "high"):
+        return "high"
+
+    return None
+
+
+def _cycle_level(cur: str, levels: list[str]) -> str:
     c = (cur or "off").strip().lower()
-    if c not in _MODE_LEVELS:
+    if c not in levels:
         c = "off"
-    idx = _MODE_LEVELS.index(c)
-    return _MODE_LEVELS[(idx + 1) % len(_MODE_LEVELS)]
+    idx = levels.index(c)
+    return levels[(idx + 1) % len(levels)]
 
 
 def set_reasoning_mode(level: str) -> str:
     lv = (level or "off").strip().lower()
-    if lv not in _MODE_LEVELS:
+    if lv not in _REASONING_LEVELS:
         lv = "off"
     if lv == "off":
         os.environ.pop("UAGENT_REASONING", None)
@@ -277,7 +313,7 @@ def set_reasoning_mode(level: str) -> str:
 
 def set_verbosity_mode(level: str) -> str:
     lv = (level or "off").strip().lower()
-    if lv not in _MODE_LEVELS:
+    if lv not in _VERBOSITY_LEVELS:
         lv = "off"
     if lv == "off":
         os.environ.pop("UAGENT_VERBOSITY", None)
@@ -288,24 +324,23 @@ def set_verbosity_mode(level: str) -> str:
 
 def apply_reasoning_arg(arg: str) -> str:
     cur = get_reasoning_mode()
-    lv = _normalize_level_arg(arg)
+    lv = _normalize_reasoning_level_arg(arg)
     if lv is None and (arg or "").strip():
         # invalid (non-empty)
         raise ValueError("invalid reasoning")
     if lv is None:
-        lv = _cycle_level(cur)
+        lv = _cycle_level(cur, _REASONING_LEVELS)
     return set_reasoning_mode(lv)
 
 
 def apply_verbosity_arg(arg: str) -> str:
     cur = get_verbosity_mode()
-    lv = _normalize_level_arg(arg)
+    lv = _normalize_verbosity_level_arg(arg)
     if lv is None and (arg or "").strip():
         raise ValueError("invalid verbosity")
     if lv is None:
-        lv = _cycle_level(cur)
+        lv = _cycle_level(cur, _VERBOSITY_LEVELS)
     return set_verbosity_mode(lv)
-
 
 
 def handle_command(
@@ -338,7 +373,7 @@ def handle_command(
         try:
             new_mode = apply_reasoning_arg(arg)
         except Exception:
-            print(tr(":r [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"))
+            print(tr(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh; no arg=cycle)"))
             return True
         print(f"[mode] reasoning={new_mode}")
         return True
