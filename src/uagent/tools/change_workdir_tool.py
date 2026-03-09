@@ -64,7 +64,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         msg = _(
             "confirm.change_workdir",
             default="Change workdir to: {path}?\nEnter y to proceed, or c to cancel.",
-        ).format(path=expanded)
+        ).format(path=expanded, new_dir=expanded)
         res_json = human_ask({"message": msg})
         import json
 
