@@ -132,9 +132,7 @@ uag
 
 ### 7.3（任意）Responses API 設定 (reasoning / verbosity)
 
-Azure/OpenAI で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
-
-他プロバイダで `UAGENT_RESPONSES=1` を指定した場合、実行時に ChatCompletions へフォールバックします。
+OpenAI互換プロバイダで **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
 
 例:
 
@@ -161,6 +159,7 @@ set UAGENT_VERBOSITY=medium
   - 要約後に末尾へ残す件数です。
 
 注意:
+- 自動圧縮は `UAGENT_PROVIDER=gemini` または `UAGENT_PROVIDER=claude` の場合は **無効** です。
 - 圧縮（手動/自動）が動いたとき、現在セッションのログは圧縮後の履歴で書き戻され、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）が作成されます。
 
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
