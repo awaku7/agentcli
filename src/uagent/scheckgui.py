@@ -522,7 +522,7 @@ class MainWindow(QtWidgets.QMainWindow):
             new_mode = apply_reasoning_arg(arg)
             print(f"[mode] reasoning={new_mode}")
         except Exception:
-            print(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh; no arg=cycle)")
+            print(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
         self._update_mode_label()
 
     def _set_verbosity(self, arg: str) -> None:
