@@ -132,15 +132,11 @@ ops examples:
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "additionalProperties": False,
+                        "additionalProperties": false,
                         "properties": {
                             "op": {
                                 "type": "string",
-                                "enum": [
-                                    "rename_symbol",
-                                    "replace_call",
-                                    "rename_import",
-                                ],
+                                "enum": ["rename_symbol", "replace_call", "rename_import"],
                                 "description": "Operation type",
                             },
                             "old": {"type": "string", "description": "Old name"},
@@ -156,7 +152,7 @@ ops examples:
                             "include_attributes": {
                                 "type": "boolean",
                                 "description": "Also rename attributes (optional)",
-                                "default": False,
+                                "default": false,
                             },
                         },
                     },
