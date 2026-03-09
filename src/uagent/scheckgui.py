@@ -180,6 +180,34 @@ class ScheckWorker(QtCore.QObject):
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
+            # LLM API selection (Responses API vs Chat Completions)
+            # NOTE: Responses API is supported only for Azure/OpenAI providers.
+            use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
+                "1",
+                "true",
+            )
+            if use_responses_api and self._provider not in ("azure", "openai"):
+                print(
+                    "[WARN] "
+                    + _(
+                        "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
+                    )
+                    % {"provider": self._provider}
+                )
+                os.environ["UAGENT_RESPONSES"] = "0"
+                use_responses_api = False
+
+            if use_responses_api:
+                print(
+                    "[INFO] "
+                    + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+                )
+            else:
+                print(
+                    "[INFO] "
+                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
+                )
+
             self.messages = build_initial_messages(core=core)
 
             # Long-term memory
