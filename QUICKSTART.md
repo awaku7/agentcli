@@ -132,9 +132,7 @@ uag
 
 ### 7.3 (Optional) Responses API knobs (reasoning / verbosity)
 
-If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI, you can optionally control reasoning effort and output verbosity.
-
-If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
+If you use the **Responses API** (`UAGENT_RESPONSES=1`) with OpenAI-compatible providers, you can optionally control reasoning effort and output verbosity.
 
 Example:
 
