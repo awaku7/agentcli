@@ -6,11 +6,19 @@ Target OS: Windows
 
 ---
 
-## 6. Install Git (required)
+## 1. Prerequisites
+
+- Python **3.11+** (`requires-python = ">=3.11"` in `pyproject.toml`)
+- (Recommended) Use a virtual environment (venv)
+- After installation, start with `uag` (or `python -m uagent` if `uag` is not found)
+
+---
+
+## 2. Install Git (required)
 
 `uag` checks that Git is installed at startup. Install Git beforehand.
 
-### 6.1 Git for Windows
+### 2.1 Git for Windows
 
 1. Download the installer from https://git-scm.com/download/win
 2. After installation, open a **new terminal** and verify:
@@ -19,10 +27,72 @@ Target OS: Windows
 git --version
 ```
 
-### 6.2 If winget is available
+### 2.2 If winget is available
 
 ```bat
 winget install --id Git.Git -e
+```
+
+---
+
+## 3. Prepare a working folder
+
+- Place the distributed `uag-<VERSION>-py3-none-any.whl` into a working folder
+- Run the commands below in that folder
+
+---
+
+## 4. Create a virtual environment (recommended)
+
+Run in the working folder:
+
+```bat
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+(If you use PowerShell, you may need to update the execution policy and then re-run `activate`.)
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+---
+
+## 5. Install the wheel with pip
+
+Check the wheel file name:
+
+```bat
+dir *.whl
+```
+
+Install specifying the file name:
+
+```bat
+python -m pip install .\uag-<VERSION>-py3-none-any.whl
+```
+
+(If there is only one wheel file, this is also fine.)
+
+```bat
+python -m pip install .\uag-*.whl
+```
+
+---
+
+## 6. Verify installation
+
+```bat
+uag --help
+where uag
+python -c "import uagent; print(getattr(uagent, '__version__', 'ok'))"
+```
+
+If `where uag` does not find the command, you can start with:
+
+```bat
+python -m uagent --help
 ```
 
 ---
@@ -123,7 +193,7 @@ Examples:
 
 ---
 
-## 0. Documentation (`uag docs`)
+## 10. Documentation (`uag docs`)
 
 After installation, bundled documents are available via `uag docs`.
 
@@ -133,75 +203,3 @@ uag docs webinspect
 uag docs develop
 uag docs --open webinspect
 ```
-
----
-
-## 1. Prerequisites
-
-- Python **3.11+** (`requires-python = ">=3.11"` in `pyproject.toml`)
-- (Recommended) Use a virtual environment (venv)
-- After installation, start with `uag` (or `python -m uagent` if `uag` is not found)
-
----
-
-## 2. Prepare a working folder
-
-- Place the distributed `uag-<VERSION>-py3-none-any.whl` into a working folder
-- Run the commands below in that folder
-
----
-
-## 3. Create a virtual environment (recommended)
-
-Run in the working folder:
-
-```bat
-python -m venv .venv
-.\\.venv\\Scripts\\activate
-```
-
-(If you use PowerShell, you may need to update the execution policy and then re-run `activate`.)
-
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-```
-
----
-
-## 4. Install the wheel with pip
-
-Check the wheel file name:
-
-```bat
-dir *.whl
-```
-
-Install specifying the file name:
-
-```bat
-python -m pip install .\\uag-<VERSION>-py3-none-any.whl
-```
-
-(If there is only one wheel file, this is also fine.)
-
-```bat
-python -m pip install .\\uag-*.whl
-```
-
----
-
-## 5. Verify installation
-
-```bat
-uag --help
-where uag
-python -c \"import uagent; print(getattr(uagent, '__version__', 'ok'))\" 
-```
-
-If `where uag` does not find the command, you can start with:
-
-```bat
-python -m uagent --help
-```
-
----
