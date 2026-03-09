@@ -1018,7 +1018,7 @@ def print_help() -> None:
             "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),
         _("  :shared-mem-del <i>   Delete a shared long-term memory note by index"),
-        _("  :r [0|1|2|3]          Set reasoning mode (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"),
+        _("  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh; no arg=cycle)"),
         _("  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"),
         _("  :exit / :quit         Exit"),
         "",
