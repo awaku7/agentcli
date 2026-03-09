@@ -165,8 +165,22 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}"
         )
 
-    if (env_get("UAGENT_RESPONSES", "") or "").lower() in ("1", "true"):
+    _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in ("1", "true")
+    _responses_supported = provider in ("azure", "openai")
+    if _use_responses_flag and _responses_supported:
         lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+    else:
+        # If the env flag is set but provider does not support it, show the effective mode.
+        if _use_responses_flag and not _responses_supported:
+            lines.append(
+                "[WARN] "
+                + (
+                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. "
+                    "Effective mode = ChatCompletions."
+                )
+                % {"provider": provider}
+            )
+        lines.append("[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
 
     return "\n".join(lines) + "\n"
 
