@@ -6,19 +6,6 @@
 
 ---
 
-## 0. ドキュメント参照（`uag docs`）
-
-インストール後、同梱ドキュメントは `uag docs` で参照できます。
-
-```bat
-uag docs
-uag docs webinspect
-uag docs develop
-uag docs --open webinspect
-```
-
----
-
 ## 1. 前提
 
 - Python **3.11以上**（`pyproject.toml` の `requires-python = ">=3.11"`）
@@ -27,14 +14,35 @@ uag docs --open webinspect
 
 ---
 
-## 2. 作業フォルダの準備
+## 2. Git をインストール（必須）
+
+`uag` は起動時に Git のインストールをチェックします。事前に Git をインストールしてください。
+
+### 2.1 Git for Windows
+
+1. https://git-scm.com/download/win からインストーラを取得
+2. インストール後、**新しいターミナル**を開いて確認
+
+```bat
+git --version
+```
+
+### 2.2 winget が使える場合
+
+```bat
+winget install --id Git.Git -e
+```
+
+---
+
+## 3. 作業フォルダの準備
 
 - 配布された `uag-<VERSION>-py3-none-any.whl` を作業フォルダに置きます
 - 以降のコマンドは、その作業フォルダで実行します
 
 ---
 
-## 3. 仮想環境の作成（推奨）
+## 4. 仮想環境の作成（推奨）
 
 作業フォルダ直下で実行します。
 
@@ -51,7 +59,7 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ---
 
-## 4. whl を pip でインストール
+## 5. whl を pip でインストール
 
 まず作業フォルダ内の whl 名を確認します。
 
@@ -73,7 +81,7 @@ python -m pip install .\uag-*.whl
 
 ---
 
-## 5. インストール確認
+## 6. インストール確認
 
 ```bat
 uag --help
@@ -85,27 +93,6 @@ python -c "import uagent; print(getattr(uagent, '__version__', 'ok'))"
 
 ```bat
 python -m uagent --help
-```
-
----
-
-## 6. Git をインストール（必須）
-
-`uag` は起動時に Git のインストールをチェックします。事前に Git をインストールしてください。
-
-### 6.1 Git for Windows
-
-1. https://git-scm.com/download/win からインストーラを取得
-2. インストール後、**新しいターミナル**を開いて確認
-
-```bat
-git --version
-```
-
-### 6.2 winget が使える場合
-
-```bat
-winget install --id Git.Git -e
 ```
 
 ---
@@ -143,7 +130,25 @@ set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
 uag
 ```
 
-### 7.3（任意）自動 shrink_llm
+### 7.3（任意）Responses API 設定 (reasoning / verbosity)
+
+OpenAI互換プロバイダで **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+
+例:
+
+```bat
+set UAGENT_RESPONSES=1
+set UAGENT_REASONING=auto
+set UAGENT_VERBOSITY=medium
+```
+
+セッション内コマンド (CLI/GUI/Web):
+- `:r [0|1|2|3|auto|minimal|xhigh]` (引数なしで現在の設定表示)
+- `:v [0|1|2|3]` (引数なしでサイクル切り替え)
+
+詳細は [`README.ja.md`](README.ja.md) の「Responses API」セクションを参照してください。
+
+### 7.4（任意）自動 shrink_llm
 
 コンテキスト上限に頻繁に達する場合は、自動要約を有効化できます。
 
@@ -159,7 +164,7 @@ uag
 
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
-- [`README.md`](README.md)（Provider の説明）
+- [`README.ja.md`](README.ja.md)（Provider の説明）
 - [`AGENTS.md`](AGENTS.md)（環境変数の一覧）
 
 ---
@@ -176,12 +181,25 @@ uag
 - フォルダ構造を調べる
   - 「このフォルダを解析して。重要なファイル、構成、実行方法を教えて」
 - 特定ファイルを読ませる
-  - 「[`README.md`](README.md) を読んで要点を整理して」
+  - 「[`README.ja.md`](README.ja.md) を読んで要点を整理して」
 
 ---
 
 ## 9. 次に読む
 
-- [`README.md`](README.md)（全体像 / Provider / Web Inspector など）
-- [`AGENTS.md`](AGENTS.md)（ツール一覧 / 環境変数 / MCP 最短例）
+- [`README.ja.md`](README.ja.md)（全体像 / Provider / Web Inspector など）
+- [`AGENTS.md`](AGENTS.md)（ツール一覧 /環境変数 / MCP 最短例）
 - `uag docs develop` / `uag docs webinspect`
+
+---
+
+## 10. ドキュメント参照（`uag docs`）
+
+インストール後、同梱ドキュメントは `uag docs` で参照できます。
+
+```bat
+uag docs
+uag docs webinspect
+uag docs develop
+uag docs --open webinspect
+```
