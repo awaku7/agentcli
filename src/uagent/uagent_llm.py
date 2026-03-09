@@ -1,4 +1,5 @@
 import json
+import re
 from .env_utils import env_get
 import time
 from .i18n import _
@@ -147,6 +148,118 @@ def _select_tool_specs_for_gpt54(
             narrowed.append(spec)
 
     return narrowed
+
+
+# Auto reasoning (Responses API only)
+_AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
+
+
+def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
+    for m in reversed(call_messages or []):
+        if m.get("role") != "user":
+            continue
+        c = m.get("content")
+        if isinstance(c, str):
+            return c
+        if isinstance(c, list):
+            parts: List[str] = []
+            for item in c:
+                if isinstance(item, dict):
+                    t = item.get("type")
+                    if t in ("text", "input_text", "output_text"):
+                        txt = item.get("text")
+                        if isinstance(txt, str) and txt.strip():
+                            parts.append(txt)
+            if parts:
+                return "\n".join(parts)
+    return ""
+
+
+def _is_thinking_task(user_text: str) -> bool:
+    t = (user_text or "").strip().lower()
+    if not t:
+        return False
+
+    keywords = (
+        "why",
+        "explain",
+        "analyze",
+        "analysis",
+        "compare",
+        "design",
+        "plan",
+        "strategy",
+        "debug",
+        "refactor",
+        "optimize",
+        "architecture",
+        "tradeoff",
+        "pros",
+        "cons",
+        "root cause",
+        "原因",
+        "調査",
+        "分析",
+        "設計",
+        "比較",
+        "方針",
+        "戦略",
+        "最適化",
+        "デバッグ",
+        "実装",
+        "修正",
+        "改善",
+    )
+    if any(k in t for k in keywords):
+        return True
+
+    return len(t) >= 200
+
+
+def _choose_auto_effort(user_text: str) -> str:
+    n = len((user_text or "").strip())
+    if n >= 900:
+        return "high"
+    if n >= 450:
+        return "medium"
+    if n >= 120:
+        return "low"
+    return "minimal"
+
+
+def _bump_effort(effort: str | None) -> str | None:
+    if effort not in _AUTO_EFFORT_LADDER:
+        return "minimal"
+    idx = _AUTO_EFFORT_LADDER.index(effort)
+    if idx >= len(_AUTO_EFFORT_LADDER) - 1:
+        return None
+    return _AUTO_EFFORT_LADDER[idx + 1]
+
+
+def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
+    a = (assistant_text or "").strip()
+    if not a:
+        return True
+
+    al = a.lower()
+
+    # "can't / don't know" patterns
+    if re.search(
+        r"(i can't|i cannot|cannot|unable to|don't know|do not know|can't help|cannot help)",
+        al,
+    ):
+        return True
+    if re.search(r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)", a):
+        return True
+
+    # format/requirements: JSON requested
+    ut = (user_text or "").lower()
+    if "json" in ut:
+        s = a.lstrip()
+        if not (s.startswith("{") or s.startswith("[") or "```json" in s.lower()):
+            return True
+
+    return False
 
 
 def run_llm_rounds(
@@ -367,6 +480,18 @@ def run_llm_rounds(
             ):
                 stream_responses = False
 
+
+            # If using Responses API and reasoning=auto, disable streaming so we can retry once
+            # (and avoid mixed partial outputs that cannot be "taken back").
+            if use_responses_api and stream_responses:
+                _r0 = (env_get("UAGENT_REASONING") or "").strip().lower()
+                if _r0 == "auto":
+                    stream_responses = False
+                    try:
+                        core.set_status(True, "LLM:auto")
+                    except Exception:
+                        pass
+
             send_tools_this_round = True
             max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
             retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
@@ -562,13 +687,25 @@ def run_llm_rounds(
                             }
 
                             # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
-                            # - UAGENT_REASONING: low|medium|high|off (unset/off => do not send)
+                            # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
                             # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
-                            _reasoning = (
-                                (env_get("UAGENT_REASONING") or "").strip().lower()
-                            )
-                            if _reasoning in ("low", "medium", "high"):
-                                resp_kwargs["reasoning"] = {"effort": _reasoning}
+                            _reasoning = ((env_get("UAGENT_REASONING") or "").strip().lower())
+                            _auto_user_text = ""
+                            _effort_used = None
+
+                            if _reasoning in ("minimal", "low", "medium", "high", "xhigh"):
+                                _effort_used = _reasoning
+                            elif _reasoning == "auto":
+                                _auto_user_text = _extract_latest_user_text(call_messages)
+                                if _is_thinking_task(_auto_user_text):
+                                    _effort_used = _choose_auto_effort(_auto_user_text)
+
+                            if _effort_used in ("minimal", "low", "medium", "high", "xhigh"):
+                                resp_kwargs["reasoning"] = {"effort": _effort_used}
+                                try:
+                                    core.set_status(True, f"LLM:{_effort_used}")
+                                except Exception:
+                                    pass
 
                             _verbosity = (
                                 (env_get("UAGENT_VERBOSITY") or "").strip().lower()
@@ -616,9 +753,24 @@ def run_llm_rounds(
                                     print("")
                             else:
                                 resp = client.responses.create(**resp_kwargs)
-                                assistant_text, tool_calls_list = (
-                                    parse_responses_response(resp)
-                                )
+                                assistant_text, tool_calls_list = parse_responses_response(resp)
+
+                                # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
+                                if (
+                                    _reasoning == "auto"
+                                    and _effort_used in ("minimal", "low", "medium", "high", "xhigh")
+                                    and not tool_calls_list
+                                    and _auto_low_quality(_auto_user_text, assistant_text)
+                                ):
+                                    _next_effort = _bump_effort(_effort_used)
+                                    if _next_effort in ("minimal", "low", "medium", "high", "xhigh"):
+                                        resp_kwargs["reasoning"] = {"effort": _next_effort}
+                                        try:
+                                            core.set_status(True, f"LLM:{_next_effort}")
+                                        except Exception:
+                                            pass
+                                        resp2 = client.responses.create(**resp_kwargs)
+                                        assistant_text, tool_calls_list = parse_responses_response(resp2)
                         else:
                             req_tools = (
                                 tools.get_tool_specs()
