@@ -31,17 +31,20 @@
                     <span id="modes-text"></span>
                     <span class="ml-2">R:</span>
                     <select id="reasoning-select" class="border rounded px-1 py-0.5 text-gray-800">
-                        <option value="0">off</option>
-                        <option value="1">low</option>
-                        <option value="2">medium</option>
-                        <option value="3">high</option>
+                        <option value="off">off</option>
+                        <option value="auto">auto</option>
+                        <option value="minimal">minimal</option>
+                        <option value="low">low</option>
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
+                        <option value="xhigh">xhigh</option>
                     </select>
                     <span>V:</span>
                     <select id="verbosity-select" class="border rounded px-1 py-0.5 text-gray-800">
-                        <option value="0">off</option>
-                        <option value="1">low</option>
-                        <option value="2">medium</option>
-                        <option value="3">high</option>
+                        <option value="off">off</option>
+                        <option value="low">low</option>
+                        <option value="medium">medium</option>
+                        <option value="high">high</option>
                     </select>
                 </div>
             </div>
@@ -347,20 +350,22 @@
 
         function modeToSelectValue(mode) {
             const m = String(mode || '').toLowerCase();
-            if (m === '0' || m === 'off' || m === 'none' || m === '') return '0';
-            if (m === '1' || m === 'low') return '1';
-            if (m === '2' || m === 'medium' || m === 'mid') return '2';
-            if (m === '3' || m === 'high') return '3';
-            return '0';
+            if (['off','auto','minimal','low','medium','high','xhigh'].includes(m)) return m;
+            if (m === '0' || m === 'none' || m === '') return 'off';
+            if (m === '1') return 'low';
+            if (m === '2') return 'medium';
+            if (m === '3') return 'high';
+            return 'off';
         }
 
         function selectValueToLabel(v) {
-            switch (String(v)) {
-                case '1': return 'low';
-                case '2': return 'medium';
-                case '3': return 'high';
-                default: return 'off';
-            }
+            const m = String(v || '').toLowerCase();
+            if (['off','auto','minimal','low','medium','high','xhigh'].includes(m)) return m;
+            if (m === '0') return 'off';
+            if (m === '1') return 'low';
+            if (m === '2') return 'medium';
+            if (m === '3') return 'high';
+            return 'off';
         }
 
         function updateModes(modes) {
