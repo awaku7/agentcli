@@ -508,6 +508,7 @@ def run_llm_rounds(
                                 depname,
                                 call_messages,
                                 cached_content=gemini_cache_name,
+                                core=core,
                             )
                         )
                         break
@@ -703,7 +704,10 @@ def run_llm_rounds(
                             if _effort_used in ("minimal", "low", "medium", "high", "xhigh"):
                                 resp_kwargs["reasoning"] = {"effort": _effort_used}
                                 try:
-                                    core.set_status(True, f"LLM:{_effort_used}")
+                                    if _reasoning == "auto":
+                                        core.set_status(True, f"LLM:auto->{_effort_used}")
+                                    else:
+                                        core.set_status(True, f"LLM:{_effort_used}")
                                 except Exception:
                                     pass
 
@@ -766,7 +770,7 @@ def run_llm_rounds(
                                     if _next_effort in ("minimal", "low", "medium", "high", "xhigh"):
                                         resp_kwargs["reasoning"] = {"effort": _next_effort}
                                         try:
-                                            core.set_status(True, f"LLM:{_next_effort}")
+                                            core.set_status(True, f"LLM:auto->{_next_effort}")
                                         except Exception:
                                             pass
                                         resp2 = client.responses.create(**resp_kwargs)
