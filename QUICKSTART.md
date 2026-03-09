@@ -60,7 +60,25 @@ set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
 uag
 ```
 
-### 7.3 (Optional) Auto shrink_llm
+### 7.3 (Optional) Responses API knobs (reasoning / verbosity)
+
+If you use the **Responses API** (`UAGENT_RESPONSES=1`) with OpenAI-compatible providers, you can optionally control reasoning effort and output verbosity.
+
+Example:
+
+```bat
+set UAGENT_RESPONSES=1
+set UAGENT_REASONING=auto
+set UAGENT_VERBOSITY=medium
+```
+
+In-session commands (CLI/GUI/Web):
+- `:r [0|1|2|3|auto|minimal|xhigh]` (no arg: keep current)
+- `:v [0|1|2|3]` (no arg: cycle)
+
+For details, see the "Optional Responses API knobs (reasoning / verbosity)" section in [`README.md`](README.md).
+
+### 7.4 (Optional) Auto shrink_llm
 
 If you frequently hit context limits, you can enable automatic summarization.
 
