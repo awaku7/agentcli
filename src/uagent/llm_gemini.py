@@ -1,6 +1,8 @@
 import json
 from typing import Any, Dict, List, Tuple
 
+from .env_utils import env_get
+
 from . import tools
 
 # Google Gemini (google-genai)
@@ -190,11 +192,216 @@ def _sanitize_gemini_parameters(params: Any) -> Any:
     return out
 
 
+# -----------------------------
+# Reasoning / Verbosity (Gemini)
+# -----------------------------
+
+_GEMINI_THINKING_LEVELS = {"minimal", "low", "medium", "high"}
+_GEMINI_VERBOSITY_LEVELS = {"low", "medium", "high"}
+
+
+def _normalize_reasoning_env(value: str | None) -> str:
+    v = (value or "off").strip().lower()
+    m = {
+        "0": "off",
+        "1": "low",
+        "2": "medium",
+        "3": "high",
+        "unset": "off",
+        "none": "off",
+    }
+    v = m.get(v, v)
+    if v in {"off", "auto", "minimal", "low", "medium", "high", "xhigh"}:
+        return v
+    return "off"
+
+
+def _normalize_verbosity_env(value: str | None) -> str:
+    v = (value or "off").strip().lower()
+    m = {
+        "0": "off",
+        "1": "low",
+        "2": "medium",
+        "3": "high",
+        "unset": "off",
+        "none": "off",
+    }
+    v = m.get(v, v)
+    if v in {"off", "low", "medium", "high"}:
+        return v
+    return "off"
+
+
+def _extract_latest_user_text(messages: List[Dict[str, Any]]) -> str:
+    for m in reversed(messages or []):
+        if not isinstance(m, dict):
+            continue
+        if m.get("role") != "user":
+            continue
+        c = m.get("content")
+        if isinstance(c, str) and c.strip():
+            return c
+    return ""
+
+
+def _choose_auto_thinking_level(user_text: str) -> str:
+    t = (user_text or "").strip()
+    n = len(t)
+
+    # Light heuristics (keep local; avoid importing uagent_llm to prevent circular deps).
+    tl = t.lower()
+    keywords = (
+        "why",
+        "explain",
+        "analyze",
+        "analysis",
+        "compare",
+        "design",
+        "plan",
+        "strategy",
+        "debug",
+        "refactor",
+        "optimize",
+        "architecture",
+        "tradeoff",
+        "pros",
+        "cons",
+        "root cause",
+        "原因",
+        "調査",
+        "分析",
+        "設計",
+        "比較",
+        "方針",
+        "戦略",
+        "最適化",
+        "デバッグ",
+        "実装",
+        "修正",
+        "改善",
+    )
+
+    if any(k in tl for k in keywords):
+        # If explicitly asking for analysis/design/debug, start from at least 'low'.
+        if n >= 900:
+            return "high"
+        if n >= 450:
+            return "medium"
+        return "low"
+
+    if n >= 900:
+        return "medium"
+    if n >= 450:
+        return "low"
+    return "minimal"
+
+
+def _model_uses_thinking_budget(model_name: str) -> bool:
+    mn = (model_name or "").lower()
+    return "2.5" in mn
+
+
+def _build_thinking_config(
+    *,
+    gemini_types: Any,
+    model_name: str,
+    reasoning_mode: str,
+    user_text_for_auto: str,
+) -> Any:
+    """Map UAGENT_REASONING -> google-genai ThinkingConfig.
+
+    Model family:
+    - Gemini 2.5: use thinking_budget
+    - Gemini 3.x: use thinking_level
+
+    Policy:
+    - off/unset: for 2.5 => thinking_budget=0 (disable). for others => return None.
+    - auto: choose MINIMAL/LOW/MEDIUM/HIGH
+    - xhigh: round to HIGH
+    - include_thoughts: always False (we don't want chain-of-thought in outputs)
+    """
+    rm = (reasoning_mode or "").strip().lower()
+    use_budget = _model_uses_thinking_budget(model_name)
+
+    if not rm or rm == "off":
+        # Gemini 2.5: explicitly disable thinking with thinking_budget=0.
+        if use_budget:
+            return gemini_types.ThinkingConfig(
+                thinking_budget=0,
+                include_thoughts=False,
+            )
+        return None
+
+    if rm == "auto":
+        rm = _choose_auto_thinking_level(user_text_for_auto)
+
+    if rm == "xhigh":
+        rm = "high"
+
+    if use_budget:
+        # NOTE: budget values are conservative defaults.
+        budget_map = {
+            "minimal": 128,
+            "low": 512,
+            "medium": 2048,
+            "high": 4096,
+        }
+        budget = budget_map.get(rm)
+        if budget is None:
+            return None
+        return gemini_types.ThinkingConfig(
+            thinking_budget=budget,
+            include_thoughts=False,
+        )
+
+    if rm not in _GEMINI_THINKING_LEVELS:
+        return None
+
+    # Gemini 3+: thinking_level
+    return gemini_types.ThinkingConfig(
+        thinking_level=rm,
+        include_thoughts=False,
+    )
+
+
+def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
+    vm = (verbosity_mode or "").strip().lower()
+    if not vm or vm == "off":
+        return None
+
+    # Conservative defaults; users can still override output style in prompts.
+    if vm == "low":
+        return 800
+    if vm == "medium":
+        return 1600
+    if vm == "high":
+        return 3200
+
+    return None
+
+
+def _verbosity_to_instruction(verbosity_mode: str) -> str | None:
+    vm = (verbosity_mode or "").strip().lower()
+    if not vm or vm == "off":
+        return None
+
+    if vm == "low":
+        return "Verbosity=low: be concise; avoid extra explanation unless asked."
+    if vm == "medium":
+        return "Verbosity=medium: normal level of detail; include key steps."
+    if vm == "high":
+        return "Verbosity=high: be detailed; explain reasoning at a high level; include important edge cases."
+
+    return None
+
+
+
 def gemini_chat_with_tools(
     client: Any,
     model_name: str,
     messages: List[Dict[str, Any]],
     cached_content: str = None,
+    core: Any = None,
 ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
@@ -244,6 +451,10 @@ def gemini_chat_with_tools(
 
     system_instruction_parts: List[str] = []
     contents: List[gemini_types.Content] = []
+
+    # Defaults to avoid NameError if early errors occur before we compute them.
+    thinking_cfg = None
+    max_output_tokens = None
 
     def _try_content_from_dump(d: Any) -> Any:
         if not isinstance(d, dict):
@@ -376,6 +587,47 @@ def gemini_chat_with_tools(
         if content:
             _append("user", gemini_types.Part(text=f"{role}:\n{content}"))
 
+    # Apply reasoning/verbosity controls from env.
+    reasoning_mode = _normalize_reasoning_env(env_get("UAGENT_REASONING"))
+    verbosity_mode = _normalize_verbosity_env(env_get("UAGENT_VERBOSITY"))
+
+    verbosity_instr = _verbosity_to_instruction(verbosity_mode)
+    if verbosity_instr:
+        if cached_content:
+            # NOTE: GenerateContent requests using cached_content cannot set system_instruction.
+            # Send the style hint as a leading user message instead.
+            contents.insert(
+                0,
+                gemini_types.Content(
+                    role="user",
+                    parts=[gemini_types.Part(text=verbosity_instr)],
+                ),
+            )
+        else:
+            system_instruction_parts.append(verbosity_instr)
+
+    # Resolve and display the effective reasoning level when reasoning=auto.
+    _auto_user_text = _extract_latest_user_text(messages)
+    if core is not None:
+        try:
+            if reasoning_mode == "auto":
+                _eff = _choose_auto_thinking_level(_auto_user_text)
+                core.set_status(True, f"LLM:auto->{_eff}")
+            elif reasoning_mode in ("minimal", "low", "medium", "high", "xhigh"):
+                _eff = "high" if reasoning_mode == "xhigh" else reasoning_mode
+                core.set_status(True, f"LLM:{_eff}")
+        except Exception:
+            pass
+
+    thinking_cfg = _build_thinking_config(
+        gemini_types=gemini_types,
+        model_name=model_name,
+        reasoning_mode=reasoning_mode,
+        user_text_for_auto=_auto_user_text,
+    )
+
+    max_output_tokens = _verbosity_to_max_output_tokens(verbosity_mode)
+
     system_instruction = (
         "\n\n".join(system_instruction_parts) if system_instruction_parts else None
     )
@@ -389,25 +641,27 @@ def gemini_chat_with_tools(
     cfg_kwargs: Dict[str, Any] = {}
 
     # NOTE:
-    # cached_content を使う場合でも tools / system_instruction を併用しないと、
-    # tool call / tool response の整合性が壊れて 400 INVALID_ARGUMENT
-    # (function response turn comes immediately after a function call turn)
-    # を誘発することがある。
-    # そのため cached_content の有無に関わらず、指定があれば併用する。
+    # When using cached_content, Gemini forbids setting system_instruction/tools/tool_config
+    # on the GenerateContent request. Those must be part of the CachedContent.
     if cached_content:
         cfg_kwargs["cached_content"] = cached_content
+    else:
+        if tools_list:
+            cfg_kwargs["tools"] = tools_list
+            try:
+                cfg_kwargs["automatic_function_calling"] = (
+                    gemini_types.AutomaticFunctionCallingConfig(disable=True)
+                )
+            except Exception:
+                pass
+        if system_instruction:
+            cfg_kwargs["system_instruction"] = system_instruction
 
-    if tools_list:
-        cfg_kwargs["tools"] = tools_list
-        try:
-            cfg_kwargs["automatic_function_calling"] = (
-                gemini_types.AutomaticFunctionCallingConfig(disable=True)
-            )
-        except Exception:
-            pass
+    if thinking_cfg is not None:
+        cfg_kwargs["thinking_config"] = thinking_cfg
 
-    if system_instruction:
-        cfg_kwargs["system_instruction"] = system_instruction
+    if max_output_tokens is not None:
+        cfg_kwargs["max_output_tokens"] = max_output_tokens
 
     config_obj = (
         gemini_types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None

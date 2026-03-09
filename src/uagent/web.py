@@ -526,6 +526,34 @@ def run_agent_worker(room: WebRoom, user_input: str):
 
         provider_name, client, depname = providers.make_client(core)
 
+        # LLM API selection (Responses API vs Chat Completions)
+        # NOTE: Responses API is supported only for Azure/OpenAI providers.
+        use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
+            "1",
+            "true",
+        )
+        if use_responses_api and provider_name not in ("azure", "openai"):
+            print(
+                "[WARN] "
+                + _(
+                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
+                )
+                % {"provider": provider_name}
+            )
+            os.environ["UAGENT_RESPONSES"] = "0"
+            use_responses_api = False
+
+        if use_responses_api:
+            print(
+                "[INFO] "
+                + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+            )
+        else:
+            print(
+                "[INFO] "
+                + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
+            )
+
         print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
 
         user_msg = {"role": "user", "content": user_input}
