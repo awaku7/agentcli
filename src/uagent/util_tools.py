@@ -328,11 +328,8 @@ def apply_reasoning_arg(arg: str) -> str:
     if lv is None and (arg or "").strip():
         # invalid (non-empty)
         raise ValueError("invalid reasoning")
-
-    # If no arg is given, keep current mode (do not cycle).
     if lv is None:
-        return cur
-
+        lv = _cycle_level(cur, _REASONING_LEVELS)
     return set_reasoning_mode(lv)
 
 
@@ -376,7 +373,7 @@ def handle_command(
         try:
             new_mode = apply_reasoning_arg(arg)
         except Exception:
-            print(tr(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"))
+            print(tr(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh; no arg=cycle)"))
             return True
         print(f"[mode] reasoning={new_mode}")
         return True
