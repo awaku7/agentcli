@@ -92,6 +92,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "env": {
                     "type": "object",
+                    "additionalProperties": False,
                     "description": _(
                         "param.env.description",
                         default="Environment variables (mapping) for stdio connections.",
