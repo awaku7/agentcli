@@ -130,15 +130,13 @@ def decide_cmd_exec(
         for token_pat in _META_CONFIRM:
             if re.search(token_pat, command):
                 msg = _(
-                    "confirm.shell_metachar",
-                    default=(
-                        "Shell chaining/redirection operators were detected.\
-"
-                        "command: {command}\
-"
-                        "Reply with y to proceed, or c to cancel."
-                    ),
-                ).format(command=command)
+                "confirm.shell_metachar",
+                default=(
+                    "Shell chaining/redirection operators were detected.\n"
+                    "command: {command}\n"
+                    "Reply with y to proceed, or c to cancel."
+                ),
+            ).format(command=command)
             return ExecDecision(
                 True,
                 f"shell metachar (confirm): {token_pat}",
