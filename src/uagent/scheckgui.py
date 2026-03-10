@@ -170,19 +170,29 @@ class ScheckWorker(QtCore.QObject):
 
             # Provider/client/model are decided by util_make_client.
             self._provider, self._client, self._depname = util_make_client(core)
-            print("[INFO] " + _("LLM provider = %(provider)s") % {"provider": self._provider})
-            print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": self._depname})
+            print(
+                "[INFO] "
+                + _("LLM provider = %(provider)s") % {"provider": self._provider}
+            )
+            print(
+                "[INFO] "
+                + _("model(deployment) = %(depname)s") % {"depname": self._depname}
+            )
             if (
                 self._provider == "openrouter"
                 and (self._depname or "").strip() == "openrouter/auto"
             ):
-                raw_fb = (os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
+                raw_fb = (
+                    os.environ.get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
+                ).strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
             # LLM API selection (Responses API vs Chat Completions)
             # NOTE: Responses API is supported only for Azure/OpenAI providers.
-            use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
+            use_responses_api = (
+                os.environ.get("UAGENT_RESPONSES", "") or ""
+            ).lower() in (
                 "1",
                 "true",
             )
@@ -235,7 +245,9 @@ class ScheckWorker(QtCore.QObject):
             except Exception as e:
                 print(
                     "[WARN] "
-                    + _("Exception occurred while loading shared long-term memory: %(err)s")
+                    + _(
+                        "Exception occurred while loading shared long-term memory: %(err)s"
+                    )
                     % {"err": e}
                 )
 
@@ -256,12 +268,17 @@ class ScheckWorker(QtCore.QObject):
                         text = ev.get("text", "")
 
                         if kind == "gui_user":
-                            use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
+                            use_responses_api = (
+                                os.environ.get("UAGENT_RESPONSES", "") or ""
+                            ).lower() in (
                                 "1",
                                 "true",
                             )
                             prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
-                            allow_multimodal = use_responses_api and prov in ("azure", "openai")
+                            allow_multimodal = use_responses_api and prov in (
+                                "azure",
+                                "openai",
+                            )
 
                             if allow_multimodal:
                                 parts: List[Dict[str, Any]] = [
@@ -272,16 +289,29 @@ class ScheckWorker(QtCore.QObject):
                                     if not os.path.isfile(p):
                                         continue
                                     try:
-                                        data_url = image_file_to_data_url(p, max_bytes=10_000_000)
-                                        parts.append({"type": "image_url", "image_url": {"url": data_url}})
+                                        data_url = image_file_to_data_url(
+                                            p, max_bytes=10_000_000
+                                        )
+                                        parts.append(
+                                            {
+                                                "type": "image_url",
+                                                "image_url": {"url": data_url},
+                                            }
+                                        )
                                     except Exception as e:
                                         parts.append(
                                             {
                                                 "type": "text",
                                                 "text": "[WARN] "
                                                 + (
-                                                    _("Failed to attach image: %(path)s (%(etype)s: %(err)s)")
-                                                    % {"path": p, "etype": type(e).__name__, "err": e}
+                                                    _(
+                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+                                                    )
+                                                    % {
+                                                        "path": p,
+                                                        "etype": type(e).__name__,
+                                                        "err": e,
+                                                    }
                                                 ),
                                             }
                                         )
@@ -306,7 +336,9 @@ class ScheckWorker(QtCore.QObject):
                             for p in ev.get("images", []):
                                 if os.path.isfile(p):
                                     core.set_status(True, "analyze_image")
-                                    res = self.tools.run_tool("analyze_image", {"image_path": p})
+                                    res = self.tools.run_tool(
+                                        "analyze_image", {"image_path": p}
+                                    )
                                     text += f"\n[Attached Image] {p}\n{res}"
 
                         if text.strip():
@@ -328,7 +360,9 @@ class ScheckWorker(QtCore.QObject):
                     continue
                 except Exception:
                     try:
-                        with open(LOG_FILE, "a", encoding="utf-8", buffering=1) as log_f:
+                        with open(
+                            LOG_FILE, "a", encoding="utf-8", buffering=1
+                        ) as log_f:
                             log_f.write("[ERROR] Worker exception:\n")
                             import traceback
 
@@ -421,14 +455,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self._output.setReadOnly(True)
         self._output.setOpenExternalLinks(True)
         self._output.setOpenLinks(True)
-        self._output.setFont(QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont))
+        self._output.setFont(
+            QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+        )
         layout.addWidget(self._output, 1)
 
         self._thumbs = QtWidgets.QListWidget()
         self._thumbs.setViewMode(QtWidgets.QListView.IconMode)
         self._thumbs.setFixedHeight(140)
         self._thumbs.setIconSize(QtCore.QSize(THUMB_SIZE_PX, THUMB_SIZE_PX))
-        self._thumbs.itemDoubleClicked.connect(lambda it: self._open_image(it.toolTip()))
+        self._thumbs.itemDoubleClicked.connect(
+            lambda it: self._open_image(it.toolTip())
+        )
         layout.addWidget(self._thumbs)
 
         input_row = QtWidgets.QHBoxLayout()
@@ -490,8 +528,12 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
-        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(self._on_send)
-        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(self._on_send)
+        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
+            self._on_send
+        )
+        QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(
+            self._on_send
+        )
 
         # Mode menu
         try:
@@ -525,8 +567,12 @@ class MainWindow(QtWidgets.QMainWindow):
             act_v_high = mode_menu.addAction(_("Verbosity: high"))
             act_v_high.triggered.connect(lambda: self._set_verbosity("3"))
 
-            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(lambda: self._set_reasoning("auto"))
-            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(lambda: self._set_verbosity("2"))
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+R"), self).activated.connect(
+                lambda: self._set_reasoning("auto")
+            )
+            QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(
+                lambda: self._set_verbosity("2")
+            )
         except Exception:
             pass
 
@@ -550,7 +596,9 @@ class MainWindow(QtWidgets.QMainWindow):
             new_mode = apply_reasoning_arg(arg)
             print(f"[mode] reasoning={new_mode}")
         except Exception:
-            print(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
+            print(
+                ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+            )
         self._update_mode_label()
 
     def _set_verbosity(self, arg: str) -> None:
@@ -602,7 +650,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 states = re.findall(r"\[STATE\]\s+(\w+)(?:\s+\[(.*?)\])?", clean_text)
                 if states:
                     last_st, last_lb = states[-1]
-                    self._status_label.setText(f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else ""))
+                    self._status_label.setText(
+                        f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else "")
+                    )
 
                 try:
                     mprov = re.findall(
@@ -620,9 +670,13 @@ class MainWindow(QtWidgets.QMainWindow):
                     if mdep:
                         ptxt = getattr(self, "_provider_model_text", "")
                         mtxt = f"model={mdep[-1].strip()}"
-                        self._provider_model_text = ((ptxt + " " + mtxt).strip() if ptxt else mtxt)
+                        self._provider_model_text = (
+                            (ptxt + " " + mtxt).strip() if ptxt else mtxt
+                        )
                     if getattr(self, "_provider_model_text", ""):
-                        self._provider_model_label.setText(" " + self._provider_model_text)
+                        self._provider_model_label.setText(
+                            " " + self._provider_model_text
+                        )
                 except Exception:
                     pass
 
@@ -660,7 +714,11 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._input.setFocus()
 
             if active:
-                msg = _("Enter password...") if is_password else _("Enter response for human_ask...")
+                msg = (
+                    _("Enter password...")
+                    if is_password
+                    else _("Enter response for human_ask...")
+                )
                 self._input.setPlaceholderText(msg)
                 self._pw_input.setPlaceholderText(msg)
             else:
@@ -706,7 +764,9 @@ class MainWindow(QtWidgets.QMainWindow):
                             QtCore.Qt.SmoothTransformation,
                         )
                     )
-                    it = QtWidgets.QListWidgetItem(QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}")
+                    it = QtWidgets.QListWidgetItem(
+                        QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}"
+                    )
                     it.setToolTip(path)
                     self._thumbs.addItem(it)
             except Exception:
@@ -731,7 +791,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _on_send(self):
         with core.human_ask_lock:
-            active, q, is_password = (core.human_ask_active, core.human_ask_queue, core.human_ask_is_password)
+            active, q, is_password = (
+                core.human_ask_active,
+                core.human_ask_queue,
+                core.human_ask_is_password,
+            )
 
         if active and is_password and not self._pw_input.isVisible():
             text = self._input.toPlainText()
@@ -771,7 +835,13 @@ class MainWindow(QtWidgets.QMainWindow):
             if text.strip().startswith(":") and not self._attached_images:
                 core.event_queue.put({"kind": "command", "text": text.strip()})
             else:
-                core.event_queue.put({"kind": "gui_user", "text": text, "images": list(self._attached_images)})
+                core.event_queue.put(
+                    {
+                        "kind": "gui_user",
+                        "text": text,
+                        "images": list(self._attached_images),
+                    }
+                )
             self._history.append(HistoryEntry(text, list(self._attached_images)))
 
         self._attached_images.clear()
@@ -782,11 +852,19 @@ class MainWindow(QtWidgets.QMainWindow):
         if obj is self._input and event.type() == QtCore.QEvent.KeyPress:
             if event.modifiers() & QtCore.Qt.ShiftModifier:
                 if event.key() == QtCore.Qt.Key_Up and self._history:
-                    self._hist_idx = (self._hist_idx - 1) if self._hist_idx != -1 else (len(self._history) - 1)
+                    self._hist_idx = (
+                        (self._hist_idx - 1)
+                        if self._hist_idx != -1
+                        else (len(self._history) - 1)
+                    )
                     self._restore_history()
                     return True
                 elif event.key() == QtCore.Qt.Key_Down and self._hist_idx != -1:
-                    self._hist_idx = (self._hist_idx + 1) if self._hist_idx < len(self._history) - 1 else -1
+                    self._hist_idx = (
+                        (self._hist_idx + 1)
+                        if self._hist_idx < len(self._history) - 1
+                        else -1
+                    )
                     self._restore_history()
                     return True
         return super().eventFilter(obj, event)
@@ -817,7 +895,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
 def main():
     try:
-        from .readme_util import maybe_print_quickstart_on_first_run, maybe_print_readme_on_first_run
+        from .readme_util import (
+            maybe_print_quickstart_on_first_run,
+            maybe_print_readme_on_first_run,
+        )
 
         maybe_print_readme_on_first_run(open_with_os=True)
         maybe_print_quickstart_on_first_run(open_with_os=True)
@@ -841,12 +922,19 @@ def main():
     )
     args, unknown = parser.parse_known_args()
 
-    decision = _runtime_init.decide_workdir(cli_workdir=getattr(args, "workdir", None), env_workdir=os.environ.get("UAGENT_WORKDIR"))
+    decision = _runtime_init.decide_workdir(
+        cli_workdir=getattr(args, "workdir", None),
+        env_workdir=os.environ.get("UAGENT_WORKDIR"),
+    )
     _runtime_init.apply_workdir(decision)
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
 
-    banner = _runtime_init.build_startup_banner(core=core, workdir=decision.chosen_expanded, workdir_source=decision.chosen_source)
+    banner = _runtime_init.build_startup_banner(
+        core=core,
+        workdir=decision.chosen_expanded,
+        workdir_source=decision.chosen_source,
+    )
     print(banner, end="")
 
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
