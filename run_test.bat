@@ -3,55 +3,61 @@ setlocal enabledelayedexpansion
 chcp 65001 >nul
 
 echo ========================================
-echo Running SBC Agent CLI Tests
+echo Running Agent CLI Checks and Tests
 echo ========================================
 
-:: カレントディレクトリをバッチファイルの場所に移動
+:: Move to this batch file directory
 cd /d "%~dp0"
 
-:: 環境変数ファイルがあれば読み込む
+:: Load env file if present
 if exist env.bat (
     echo [INFO] Loading env.bat...
     call env.bat
 )
 
-:: src ディレクトリを PYTHONPATH に追加
+:: Add src to PYTHONPATH
 set "PYTHONPATH=%CD%\src;%PYTHONPATH%"
 
 :: --- 1. Static Analysis (Optional) ---
 
 :: Lint (Ruff)
 where ruff >nul 2>nul
-if %errorlevel% equ 0 (
+if !errorlevel! equ 0 (
     echo.
     echo [INFO] Running ruff checks...
-    ruff check src test
+    ruff check src tests
     if !errorlevel! neq 0 (
-        echo [WARN] Linting issues found.
+        echo [WARN] Ruff found issues.
     )
-)
-
-:: Type Check (Mypy)
-where mypy >nul 2>nul
-if %errorlevel% equ 0 (
-    echo.
-    echo [INFO] Running mypy type checks...
-    mypy src
-    if !errorlevel! neq 0 (
-        echo [WARN] Type check issues found.
-    )
-)
-
-:: --- 2. Run Unit Tests ---
-echo.
-echo [INFO] Starting Tests...
-
-:: 引数がない場合は自動検出、ある場合は引数をそのまま渡す
-if "%~1"=="" (
-    python -m unittest discover -v -s test -p "test_*.py"
 ) else (
-    echo [INFO] Running specific tests: %*
-    python -m unittest %*
+    echo.
+    echo [INFO] ruff not found. Skipping ruff checks.
+)
+
+:: Format check (Black)
+where black >nul 2>nul
+if !errorlevel! equ 0 (
+    echo.
+    echo [INFO] Running black --check...
+    black --check src tests
+    if !errorlevel! neq 0 (
+        echo [WARN] Black formatting issues found.
+    )
+) else (
+    echo.
+    echo [INFO] black not found. Skipping format check.
+)
+
+:: --- 2. Run Tests (pytest) ---
+echo.
+echo [INFO] Starting pytest...
+
+:: No args: run all tests under tests/
+if "%~1"=="" (
+    python -m pytest -q tests
+) else (
+    echo [INFO] Running pytest with args: %*
+    python -m pytest %*
 )
 
 set TEST_EXIT=%errorlevel%
@@ -62,7 +68,7 @@ if %TEST_EXIT% neq 0 (
     color 0c
 ) else (
     echo.
-    echo [SUCCESS] All tests passed successfully.
+    echo [SUCCESS] All tests passed.
     color 0a
 )
 
