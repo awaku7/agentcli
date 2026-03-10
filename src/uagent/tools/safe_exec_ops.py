@@ -92,7 +92,9 @@ _META_CONFIRM = [
 ]
 
 
-def decide_cmd_exec(command: str) -> ExecDecision:
+def decide_cmd_exec(
+    command: str, *, require_confirm_for_shell_metachar: bool = True
+) -> ExecDecision:
     cmd_norm = _normalize_cmd(command)
     if not cmd_norm:
         return ExecDecision(False, _("err.empty_command", default="empty command"))
@@ -124,9 +126,10 @@ def decide_cmd_exec(command: str) -> ExecDecision:
                 confirm_message=msg,
             )
 
-    for token_pat in _META_CONFIRM:
-        if re.search(token_pat, command):
-            msg = _(
+    if require_confirm_for_shell_metachar:
+        for token_pat in _META_CONFIRM:
+            if re.search(token_pat, command):
+                msg = _(
                 "confirm.shell_metachar",
                 default=(
                     "Shell chaining/redirection operators were detected.\n"
