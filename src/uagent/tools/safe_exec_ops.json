@@ -1,7 +1,7 @@
 {
   "en": {
-    "confirm.risky_command": "A potentially high-risk command pattern was detected.\ncommand: {command}\nReply with y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell chaining/redirection operators were detected.\ncommand: {command}\nReply with y to proceed, or c to cancel.",
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
 
     "ui.confirm.title": "=== Human confirmation request ===",
     "ui.confirm.footer": "=== /confirm ===\n",
@@ -15,8 +15,8 @@
     "err.blocked_rejected": "user rejected"
   },
   "ja": {
-    "confirm.risky_command": "高リスクの可能性があるコマンドパターンを検出しました。\ncommand: {command}\n続行する場合は y、取消は c を入力してください。",
-    "confirm.shell_metachar": "シェルの連結/リダイレクト演算子を検出しました。\ncommand: {command}\n続行する場合は y、取消は c を入力してください。",
+    "confirm.risky_command": "危険な可能性があるコマンド内容を検出しました。\ncommand: {command}\n続行する場合は y、取消する場合は c を入力してください。",
+    "confirm.shell_metachar": "シェル演算子（パイプ/リダイレクト/連結）を検出しました。\ncommand: {command}\n続行する場合は y、取消する場合は c を入力してください。",
 
     "ui.confirm.title": "=== 確認 ===",
     "ui.confirm.footer": "=== /confirm ===\n",
