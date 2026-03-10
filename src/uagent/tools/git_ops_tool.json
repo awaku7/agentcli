@@ -19,7 +19,8 @@
     "error.remote_change_requires_allow_danger": "[git_ops error] Changing remotes requires allow_danger=true.",
     "error.rebase_requires_allow_danger": "[git_ops error] rebase is dangerous and requires allow_danger=true.",
     "error.rebase_onto_forbidden": "[git_ops error] rebase --onto is forbidden because it is error-prone.",
-    "error.internal_unknown": "[git_ops error] unknown internal error"
+    "error.internal_unknown": "[git_ops error] unknown internal error",
+    "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security."
   },
   "ja": {
     "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",

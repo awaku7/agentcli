@@ -1,7 +1,9 @@
 {
   "en": {
     "ui.footer": "=== /human_ask ===",
-    "msg.no_user_reply": "(no user reply)"
+    "msg.no_user_reply": "(no user reply)",
+    "tool.description": "A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens), set is_password=True and ask for exactly one item per call.",
+    "tool.system_prompt": "This tool is used for the following purpose: ask the human user for an input/decision that the model cannot complete by itself and receive a single reply text.\n\nImportant: This tool can receive only one reply text per call. Do not split input into multiple fields.\n\nSECURITY (MOST IMPORTANT):\n- When requesting secrets (passwords, API keys, tokens, private keys, session cookies, etc.), you MUST set is_password=True.\n- Never repeat a secret obtained with is_password=True in any later assistant messages.\n- Do not store secrets in long-term memory or shared memory.\n\nOperational guidelines:\n- If additional user input is needed, always use the human_ask tool.\n- With is_password=True, ask for only one secret item.\n- If both username and password are required, call human_ask multiple times.\n- Do not request multiple items in a single call.\n- For relative date expressions (today/this year/etc.), call get_current_time.\n- When outputting files or code, do not omit the full original content unless the user explicitly requests it.\n\nCancellation:\n- To cancel, reply with a single line: 'c' or 'cancel'.\n"
   },
   "ja": {
     "tool.description": "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",

@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
+    "tool.system_prompt": "This tool is used for the following purpose: capture a screenshot of the desktop or a specified window."
+  },
   "ja": {
     "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
     "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",

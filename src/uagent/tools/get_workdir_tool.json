@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Get the current working directory.",
+    "tool.system_prompt": "This tool is used for the following purpose: get the current working directory."
+  },
   "ja": {
     "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。",
     "tool.description": "現在の 作業ディレクトリ.。"

@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Checks if a file or directory exists at the specified path and returns type, size, and modification time if it does.",
+    "tool.system_prompt": "This tool is used for the following purpose: check if a file or directory exists at the specified path and return type, size, and modification time if it does."
+  },
   "ja": {
     "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
     "tool.system_prompt": "このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",

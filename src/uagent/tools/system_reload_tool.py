@@ -15,6 +15,12 @@ TOOL_SPEC = {
                 "Reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
             ),
         ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "This tool is used for the following purpose: reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
+            ),
+        ),
         "parameters": {"type": "object", "properties": {}, "required": []},
     },
 }

@@ -2,7 +2,8 @@
   "en": {
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string"
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings."
   },
   "ja": {
     "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",

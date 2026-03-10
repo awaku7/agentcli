@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Calculates a mathematical expression and returns the result. Use this for complex calculations or when precision is required."
   },
   "ja": {
     "tool.description": "数式を計算して結果を返します。LLMが苦手な複雑な計算や精度の必要な計算に使用してください。",
