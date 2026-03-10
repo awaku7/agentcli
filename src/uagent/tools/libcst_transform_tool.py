@@ -132,7 +132,7 @@ ops examples:
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "additionalProperties": false,
+                        "additionalProperties": False,
                         "properties": {
                             "op": {
                                 "type": "string",
@@ -152,7 +152,7 @@ ops examples:
                             "include_attributes": {
                                 "type": "boolean",
                                 "description": "Also rename attributes (optional)",
-                                "default": false,
+                                "default": False,
                             },
                         },
                     },
