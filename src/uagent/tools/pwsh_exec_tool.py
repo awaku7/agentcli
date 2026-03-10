@@ -158,7 +158,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     command = ps_prefix + command
 
     if decide_cmd_exec is not None:
-        decision = decide_cmd_exec(command)
+        decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=False)
         if not decision.allowed:
             return f"[pwsh_exec blocked] {decision.reason}"
         if decision.require_confirm and confirm_if_needed is not None:

@@ -52,7 +52,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not command:
         raise ValueError("command is required")
 
-    decision = decide_cmd_exec(command)
+    decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=False)
     if not decision.allowed:
         return f"[cmd_exec blocked] {decision.reason}"
 
