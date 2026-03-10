@@ -1,8 +1,0 @@
-{
-  "en": {},
-  "ja": {
-    "tool.description": "外部GUIやブラウザ等のプロセスを非同期に起動します。同じ要求での連続起動は避けてください。",
-    "tool.system_prompt": "このツールは 'spawn_process' の名の通り、プロセス起動を行います。必要なときにのみ使用してください。",
-    "param.command.description": "実行するコマンドライン"
-  }
-}
