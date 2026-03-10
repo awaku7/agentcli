@@ -154,11 +154,17 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             if provider == "azure":
                 _base = core.get_env_url("UAGENT_AZURE_BASE_URL")
             elif provider == "openai":
-                _base = core.get_env_url("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
+                _base = core.get_env_url(
+                    "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
+                )
             elif provider == "openrouter":
-                _base = core.get_env_url("UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
+                _base = core.get_env_url(
+                    "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
+                )
             elif provider == "nvidia":
-                _base = core.get_env_url("UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1")
+                _base = core.get_env_url(
+                    "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
+                )
             elif provider == "grok":
                 _base = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
         except Exception:
