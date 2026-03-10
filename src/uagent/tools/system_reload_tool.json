@@ -1,8 +1,10 @@
 {
   "en": {
-    "tool.description": "Reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
+    "tool.description": "Reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code.",
+    "tool.system_prompt": "This tool is used for the following purpose: reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
   },
   "ja": {
-    "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。"
+    "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。"
   }
 }
