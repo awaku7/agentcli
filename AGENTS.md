@@ -35,7 +35,7 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-依存の全体像は `pyproject.toml` を参照してください。Web UI を利用する場合は `pip install -e ".[web]"` を推奨します。
+依存の全体像は `pyproject.toml` を参照してください。CUI/GUI/Web いずれも `pip install -e .` で利用できます。
 
 ---
 
@@ -48,7 +48,7 @@ pip install -e .
 - **プロバイダ設定**
   - `UAGENT_PROVIDER`: `azure` / `openai` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
-  - モデル名（例: `UAGENT_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_GEMINI_VISION_MODEL` 等）
+  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
 
 - **API モード設定**
   - `UAGENT_RESPONSES`: `1`/`true` で OpenAI/Azure の Responses API を使用。
