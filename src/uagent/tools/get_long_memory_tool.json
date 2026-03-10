@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Get all saved long-term memory notes (JSONL).",
+    "tool.system_prompt": "This tool is used for the following purpose: retrieve all saved long-term memory notes (in JSONL format)."
+  },
   "ja": {
     "tool.system_prompt": "このツールは次の目的で使われます: 保存されている長期記憶メモ（JSONL形式）をまとめて取得します。",
     "doc.run_tool": "長期記憶の全体（JSONLテキスト）を取得するツール。",

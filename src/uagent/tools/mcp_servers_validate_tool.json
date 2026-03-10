@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Validates the content of mcp_servers.json and returns warnings or errors (required keys, types, duplicate names, empty URLs, etc.)."
   },
   "ja": {
     "tool.description": "mcp_servers.json の内容を検証し、警告/エラーを返します。（必須キー/型/name重複/空URL/'/mcp'末尾 など）",

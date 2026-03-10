@@ -2,7 +2,8 @@
   "en": {
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string"
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body."
   },
   "ja": {
     "tool.description": "Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。",

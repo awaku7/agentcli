@@ -3,7 +3,8 @@
     "out.db": "DB: {db_path}",
     "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / merged: {m}",
     "out.results_title": "\n[Results]",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Search local files using GraphRAG (Graph + Vector hybrid). Supported: py/md/txt/pdf/pptx/xlsx. Builds a lightweight knowledge graph (entities/relations) in SQLite, retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
   },
   "ja": {
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",

@@ -1,7 +1,8 @@
 {
   "en": {
     "out.ok": "OK: created template: {path!r} (default name={name!r})",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Creates a template file if mcp_servers.json does not exist. Returns an error if it already exists (does not overwrite)."
   },
   "ja": {
     "tool.description": "mcp_servers.json が存在しない場合に、雛形ファイルを作成します。存在する場合はエラーを返します（上書きはしません）。",

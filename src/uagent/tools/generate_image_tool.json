@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0)."
   },
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",

@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
+    "tool.system_prompt": "This tool is used for the following purpose: display a message after a specified number of seconds and optionally input an automatic message to the LLM."
+  },
   "ja": {
     "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
     "tool.system_prompt": "このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",

@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing for search without reading file contents immediately."
   },
   "ja": {
     "tool.description": "指定されたファイルやディレクトリ（globパターン）をベクトルDBにインデックスし、意味検索（semantic_search_files）を可能にします。ファイルの中身を読み取らずに検索準備だけを行いたい場合に便利です。",
