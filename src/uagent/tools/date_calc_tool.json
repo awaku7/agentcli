@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library."
   },
   "ja": {
     "tool.description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。",
