@@ -545,8 +545,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
 
         if use_responses_api:
             print(
-                "[INFO] "
-                + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+                "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
             )
         else:
             print(

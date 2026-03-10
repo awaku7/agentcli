@@ -376,7 +376,11 @@ def handle_command(
         try:
             new_mode = apply_reasoning_arg(arg)
         except Exception:
-            print(tr(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"))
+            print(
+                tr(
+                    ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+                )
+            )
             return True
         print(f"[mode] reasoning={new_mode}")
         return True
