@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Lists the MCP server definitions in mcp_servers.json. This tool helps visualize possible targets referenced by mcp_tools_list (when url is omitted)."
   },
   "ja": {
     "tool.description": "mcp_servers.json の MCP サーバー定義を一覧表示します。mcp_tools_list(url省略) が参照する接続先候補を可視化するためのツールです。",
