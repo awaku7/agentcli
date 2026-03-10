@@ -1,5 +1,8 @@
 {
-  "en": {},
+  "en": {
+    "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
+    "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
+  },
   "ja": {
     "tool.description": "指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
     "tool.system_prompt": "このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",

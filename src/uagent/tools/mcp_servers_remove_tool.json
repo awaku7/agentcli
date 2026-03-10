@@ -2,7 +2,8 @@
   "en": {
     "err.index_out_of_range": "Error: index out of range: {idx}",
     "out.ok": "OK: removed index={idx} name={name!r}",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Removes an MCP server definition from mcp_servers.json. You can specify by name or index (one is required)."
   },
   "ja": {
     "tool.description": "mcp_servers.json から MCP サーバー定義を削除します。name 指定で削除するか、index 指定で削除できます（どちらか必須）。",
