@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Changes the default MCP server (mcp_servers[0]) in mcp_servers.json by moving the specified server to the top of the list."
   },
   "ja": {
     "tool.description": "mcp_servers.json のデフォルト接続先（mcp_servers[0]）を切り替えます。server_name に一致する要素を先頭へ移動します。",
