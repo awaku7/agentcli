@@ -132,8 +132,10 @@ def decide_cmd_exec(
                 msg = _(
                     "confirm.shell_metachar",
                     default=(
-                        "Shell chaining/redirection operators were detected.\n"
-                        "command: {command}\n"
+                        "Shell chaining/redirection operators were detected.
+"
+                        "command: {command}
+"
                         "Reply with y to proceed, or c to cancel."
                     ),
                 ).format(command=command)
