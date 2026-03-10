@@ -1,6 +1,7 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
+    "tool.description": "Calculates the hash (sha256/sha1/md5) of files."
   },
   "ja": {
     "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
