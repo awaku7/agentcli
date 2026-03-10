@@ -21,7 +21,7 @@ uag is an interactive local agent that can execute commands, manipulate files, a
 
 - Local-first tool execution with a wide practical tool surface
 - Multiple UI entry points: CLI, GUI, and Web
-- OpenAI-compatible, Azure, OpenRouter, Gemini, Claude, Grok, and NVIDIA support
+- Multiple providers: Azure OpenAI / OpenAI-compatible, OpenRouter, Gemini, Claude, Grok, NVIDIA
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
@@ -51,6 +51,19 @@ Exit:
 
 - `:exit`
 
+### Tips (conversation continuity)
+
+- `:logs`  
+  Show available session logs.
+- `:logs 20`  
+  Show up to 20 logs.
+- `:logs --all`  
+  Show all logs.
+- `:load 0`  
+  Load the latest session log and continue the conversation.
+- `:load <index>`  
+  Load a specific session by index from `:logs`.
+
 ---
 
 ## Tool discovery for GPT-5.4+ Responses
@@ -73,7 +86,7 @@ Manual commands:
 - `:shrink [keep_last]` (default `keep_last=40`): keep the last N non-system messages and drop the rest.
 - `:shrink_llm [keep_last]` (default `keep_last=20`): summarize older history into one system message and keep the last N non-system messages.
 
-Optional auto shrink (OpenAI-compatible providers only; disabled for Gemini/Claude):
+Optional auto shrink (all providers):
 - `UAGENT_SHRINK_CNT` (default: `100`)
   - When the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
   - Set `0` to disable.
@@ -87,7 +100,9 @@ Log rewrite behavior:
 
 ## Optional Responses API knobs (reasoning / verbosity)
 
-When using the **Responses API** (`UAGENT_RESPONSES=1`) with OpenAI-compatible providers, you can optionally control reasoning effort and output verbosity.
+When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI, you can optionally control reasoning effort and output verbosity.
+
+If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
 
 - `UAGENT_REASONING`:
   - `auto`: automatically choose `reasoning.effort` per request (Responses API only; streaming is forced off; may retry once on low-quality output)
@@ -212,11 +227,10 @@ Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
 
 ## Release Notes
 
-- Added optional **auto shrink_llm** (for OpenAI-compatible providers only).
+- Added optional **auto shrink_llm** (all providers).
   - `UAGENT_SHRINK_CNT` (default: `100`): when the number of non-system messages (user/assistant/tool) reaches this count, uag automatically runs the equivalent of `:shrink_llm`.
   - `UAGENT_SHRINK_CNT=0`: disable auto shrink.
   - `UAGENT_SHRINK_KEEP_LAST` (default: `20`): how many recent non-system messages to keep after summarization.
-  - Auto shrink is disabled for `UAGENT_PROVIDER=gemini` and `UAGENT_PROVIDER=claude`.
 - Added GPT-5.4+ Responses tool narrowing with `tool_catalog` and a lightweight tools prompt.
 - Added smoke tests for MCP server management tools.
 - When shrink runs (manual `:shrink` / `:shrink_llm` or auto), the current session log is rewritten to match the compressed in-memory history.
@@ -280,6 +294,6 @@ python -m pip install ./uag-<VERSION>-py3-none-any.whl
 
 Notes:
 - `uag` requires **Python 3.11+**.
-- For development use, `python -m pip install -e .` (or `python -m pip install -e ".[web]"` if you use the Web UI).
+- For development use, `python -m pip install -e .`.
 
 ---
