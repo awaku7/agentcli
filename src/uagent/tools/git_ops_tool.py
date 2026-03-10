@@ -449,6 +449,18 @@ def run_tool(args: Dict[str, Any]) -> str:
         if command == "commit":
             cmd_args = _sanitize_commit_message_args(cmd_args)
 
+        # Explicit danger-gating for push force options.
+        if command == "push" and not allow_danger:
+            for a in cmd_args:
+                opt = a.split("=", 1)[0]
+                if opt in ("--force", "-f", "--force-with-lease"):
+                    _reject(
+                        _(
+                            "error.option_danger_requires_allow_danger",
+                            default="Dangerous option requires allow_danger=true: {opt}",
+                        ).format(opt=opt)
+                    )
+
         _validate_no_shell_metacharacters(cmd_args)
 
         payload = run_git_command([command] + cmd_args)
