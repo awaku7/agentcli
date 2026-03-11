@@ -249,7 +249,10 @@ def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
         al,
     ):
         return True
-    if re.search(r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)", a):
+    if re.search(
+        r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)",
+        a,
+    ):
         return True
 
     # format/requirements: JSON requested
@@ -480,7 +483,6 @@ def run_llm_rounds(
             ):
                 stream_responses = False
 
-
             # If using Responses API and reasoning=auto, disable streaming so we can retry once
             # (and avoid mixed partial outputs that cannot be "taken back").
             if use_responses_api and stream_responses:
@@ -508,6 +510,7 @@ def run_llm_rounds(
                                 depname,
                                 call_messages,
                                 cached_content=gemini_cache_name,
+                                core=core,
                             )
                         )
                         break
@@ -689,21 +692,42 @@ def run_llm_rounds(
                             # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                             # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
                             # - UAGENT_VERBOSITY: low|medium|high|off (unset/off => do not send)
-                            _reasoning = ((env_get("UAGENT_REASONING") or "").strip().lower())
+                            _reasoning = (
+                                (env_get("UAGENT_REASONING") or "").strip().lower()
+                            )
                             _auto_user_text = ""
                             _effort_used = None
 
-                            if _reasoning in ("minimal", "low", "medium", "high", "xhigh"):
+                            if _reasoning in (
+                                "minimal",
+                                "low",
+                                "medium",
+                                "high",
+                                "xhigh",
+                            ):
                                 _effort_used = _reasoning
                             elif _reasoning == "auto":
-                                _auto_user_text = _extract_latest_user_text(call_messages)
+                                _auto_user_text = _extract_latest_user_text(
+                                    call_messages
+                                )
                                 if _is_thinking_task(_auto_user_text):
                                     _effort_used = _choose_auto_effort(_auto_user_text)
 
-                            if _effort_used in ("minimal", "low", "medium", "high", "xhigh"):
+                            if _effort_used in (
+                                "minimal",
+                                "low",
+                                "medium",
+                                "high",
+                                "xhigh",
+                            ):
                                 resp_kwargs["reasoning"] = {"effort": _effort_used}
                                 try:
-                                    core.set_status(True, f"LLM:{_effort_used}")
+                                    if _reasoning == "auto":
+                                        core.set_status(
+                                            True, f"LLM:auto->{_effort_used}"
+                                        )
+                                    else:
+                                        core.set_status(True, f"LLM:{_effort_used}")
                                 except Exception:
                                     pass
 
@@ -753,24 +777,41 @@ def run_llm_rounds(
                                     print("")
                             else:
                                 resp = client.responses.create(**resp_kwargs)
-                                assistant_text, tool_calls_list = parse_responses_response(resp)
+                                assistant_text, tool_calls_list = (
+                                    parse_responses_response(resp)
+                                )
 
                                 # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
                                 if (
                                     _reasoning == "auto"
-                                    and _effort_used in ("minimal", "low", "medium", "high", "xhigh")
+                                    and _effort_used
+                                    in ("minimal", "low", "medium", "high", "xhigh")
                                     and not tool_calls_list
-                                    and _auto_low_quality(_auto_user_text, assistant_text)
+                                    and _auto_low_quality(
+                                        _auto_user_text, assistant_text
+                                    )
                                 ):
                                     _next_effort = _bump_effort(_effort_used)
-                                    if _next_effort in ("minimal", "low", "medium", "high", "xhigh"):
-                                        resp_kwargs["reasoning"] = {"effort": _next_effort}
+                                    if _next_effort in (
+                                        "minimal",
+                                        "low",
+                                        "medium",
+                                        "high",
+                                        "xhigh",
+                                    ):
+                                        resp_kwargs["reasoning"] = {
+                                            "effort": _next_effort
+                                        }
                                         try:
-                                            core.set_status(True, f"LLM:{_next_effort}")
+                                            core.set_status(
+                                                True, f"LLM:auto->{_next_effort}"
+                                            )
                                         except Exception:
                                             pass
                                         resp2 = client.responses.create(**resp_kwargs)
-                                        assistant_text, tool_calls_list = parse_responses_response(resp2)
+                                        assistant_text, tool_calls_list = (
+                                            parse_responses_response(resp2)
+                                        )
                         else:
                             req_tools = (
                                 tools.get_tool_specs()
@@ -785,6 +826,34 @@ def run_llm_rounds(
                             if send_tools_this_round and req_tools is not None:
                                 chat_kwargs["tools"] = req_tools
                                 chat_kwargs["tool_choice"] = "auto"
+
+                            # OpenRouter provider routing (optional)
+                            # NOTE: openai-python ChatCompletions does NOT accept unknown top-level kwargs.
+                            # Route options must be sent via extra_body.
+                            # - default: do nothing (OpenRouter decides routing)
+                            # - if UAGENT_OPENROUTER_PROVIDER_IGNORE is set, send extra_body.provider.ignore
+                            if provider == "openrouter":
+                                try:
+                                    _raw_ignore = (
+                                        env_get("UAGENT_OPENROUTER_PROVIDER_IGNORE", "")
+                                        or ""
+                                    ).strip()
+                                    if _raw_ignore:
+                                        _ignores = [
+                                            s.strip()
+                                            for s in _raw_ignore.split(",")
+                                            if s.strip()
+                                        ]
+                                        if _ignores:
+                                            _eb = chat_kwargs.get("extra_body")
+                                            if not isinstance(_eb, dict):
+                                                _eb = {}
+                                            _eb["provider"] = {"ignore": _ignores}
+                                            chat_kwargs["extra_body"] = _eb
+                                            # Ensure we don't send unsupported top-level 'provider'
+                                            chat_kwargs.pop("provider", None)
+                                except Exception:
+                                    pass
 
                             # OpenRouter/Azure-proxy compatibility: some stacks validate tools[i].parameters
                             # at the top-level (older/alternate schema), so mirror function.parameters.
@@ -810,7 +879,7 @@ def run_llm_rounds(
                                     chat_kwargs["tools"] = _new_tools
                                 except Exception:
                                     pass
-                                # Rename schema key to 'ops' for provider compatibility; runtime accepts both.
+                                # Rename schema key to 'operations' for Azure/OpenAI-proxy compatibility; runtime accepts both.
                                 try:
                                     _fixed_tools = []
                                     for _t in chat_kwargs.get("tools") or []:
@@ -839,21 +908,21 @@ def run_llm_rounds(
                                                 _props = _params.get("properties")
                                                 if (
                                                     isinstance(_props, dict)
-                                                    and "operations" in _props
-                                                    and "ops" not in _props
+                                                    and "ops" in _props
+                                                    and "operations" not in _props
                                                 ):
                                                     _params2 = _params.copy()
                                                     _props2 = _props.copy()
-                                                    _props2["ops"] = _props2.pop(
-                                                        "operations"
+                                                    _props2["operations"] = _props2.pop(
+                                                        "ops"
                                                     )
                                                     _params2["properties"] = _props2
                                                     _req = _params2.get("required")
                                                     if isinstance(_req, list):
                                                         _params2["required"] = [
                                                             (
-                                                                "ops"
-                                                                if x == "operations"
+                                                                "operations"
+                                                                if x == "ops"
                                                                 else x
                                                             )
                                                             for x in _req
@@ -919,6 +988,92 @@ def run_llm_rounds(
                                 except Exception:
                                     pass
 
+                                # OpenRouter/OpenAI-proxy strict schema: mcp_servers_add.env is a free-form mapping.
+
+                                # Some validators effectively disallow object properties without fixed 'properties', causing the
+
+                                # property to be dropped and then failing because 'required' still includes 'env'.
+
+                                # To avoid request rejection, hide 'env' from the tool schema surface for openrouter.
+
+                                try:
+
+                                    _fixed_tools = []
+
+                                    for _t in chat_kwargs.get("tools") or []:
+
+                                        if not (
+                                            isinstance(_t, dict)
+                                            and isinstance(_t.get("function"), dict)
+                                        ):
+
+                                            _fixed_tools.append(_t)
+
+                                            continue
+
+                                        _t2 = _t.copy()
+
+                                        _fn = _t2.get("function") or {}
+
+                                        _fn2 = (
+                                            _fn.copy() if isinstance(_fn, dict) else _fn
+                                        )
+
+                                        if (
+                                            isinstance(_fn2, dict)
+                                            and _fn2.get("name") == "mcp_servers_add"
+                                        ):
+
+                                            _params = _fn2.get("parameters")
+
+                                            if (
+                                                isinstance(_params, dict)
+                                                and _params.get("type") == "object"
+                                            ):
+
+                                                _props = _params.get("properties")
+
+                                                if (
+                                                    isinstance(_props, dict)
+                                                    and "env" in _props
+                                                ):
+
+                                                    _params2 = _params.copy()
+
+                                                    _props2 = _props.copy()
+
+                                                    _props2.pop("env", None)
+
+                                                    _params2["properties"] = _props2
+
+                                                    _req = _params2.get("required")
+
+                                                    if isinstance(_req, list):
+
+                                                        _params2["required"] = [
+                                                            x
+                                                            for x in _req
+                                                            if x != "env"
+                                                        ]
+
+                                                    _fn2["parameters"] = _params2
+
+                                                    _t2["function"] = _fn2
+
+                                                    if isinstance(
+                                                        _t2.get("parameters"), dict
+                                                    ):
+
+                                                        _t2["parameters"] = _params2
+
+                                        _fixed_tools.append(_t2)
+
+                                    chat_kwargs["tools"] = _fixed_tools
+
+                                except Exception:
+
+                                    pass
+
                                 # OpenRouter/Azure-proxy strict schema: required must include all property keys.
                                 # Some providers reject schemas where required is missing or incomplete.
                                 try:
@@ -975,12 +1130,15 @@ def run_llm_rounds(
 
                                         _t = _s.get("type")
                                         if _t == "object":
-                                            if "additionalProperties" not in _s:
-                                                _s = _s.copy()
-                                                _s["additionalProperties"] = False
-
                                             _props = _s.get("properties")
                                             if isinstance(_props, dict):
+                                                # Only enforce additionalProperties:false on objects that declare properties.
+                                                # Some strict validators reject object schemas with additionalProperties:false
+                                                # but without properties.
+                                                if "additionalProperties" not in _s:
+                                                    _s = _s.copy()
+                                                    _s["additionalProperties"] = False
+
                                                 _new_props = {}
                                                 _changed = False
                                                 for _k, _v in _props.items():
@@ -1065,6 +1223,51 @@ def run_llm_rounds(
                                     chat_kwargs["tools"] = _tools2
                                 except Exception:
                                     pass
+
+                            # Final OpenRouter/Azure-proxy compatibility sync:
+                            # - ensure tools[i].parameters always mirrors function.parameters
+                            # - ensure required matches properties keys (no extra required keys)
+                            try:
+                                _fixed_tools = []
+                                for _t in chat_kwargs.get("tools") or []:
+                                    if not (
+                                        isinstance(_t, dict)
+                                        and isinstance(_t.get("function"), dict)
+                                    ):
+                                        _fixed_tools.append(_t)
+                                        continue
+
+                                    _t2 = _t.copy()
+                                    _fn = _t2.get("function") or {}
+                                    _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
+                                    _params = (
+                                        _fn2.get("parameters")
+                                        if isinstance(_fn2, dict)
+                                        else None
+                                    )
+
+                                    if isinstance(_params, dict):
+                                        # Always mirror to top-level parameters (some stacks validate only this)
+                                        _t2["parameters"] = _params
+
+                                        # Strict validator: required must be an array containing every property key,
+                                        # and must not contain keys not present in properties.
+                                        if _params.get("type") == "object":
+                                            _props = _params.get("properties")
+                                            if isinstance(_props, dict):
+                                                _params2 = _params.copy()
+                                                _params2["required"] = list(
+                                                    _props.keys()
+                                                )
+                                                _fn2["parameters"] = _params2
+                                                _t2["function"] = _fn2
+                                                _t2["parameters"] = _params2
+
+                                    _fixed_tools.append(_t2)
+
+                                chat_kwargs["tools"] = _fixed_tools
+                            except Exception:
+                                pass
 
                             # OpenRouter-specific fallback models support (does not affect other providers)
                             # Enabled only when:

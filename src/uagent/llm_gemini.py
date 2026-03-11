@@ -395,7 +395,6 @@ def _verbosity_to_instruction(verbosity_mode: str) -> str | None:
     return None
 
 
-
 def gemini_chat_with_tools(
     client: Any,
     model_name: str,
