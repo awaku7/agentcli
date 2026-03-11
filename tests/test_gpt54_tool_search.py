@@ -173,6 +173,22 @@ def _restore_streaming_env(old_env: str | None) -> None:
         os.environ["UAGENT_STREAMING"] = old_env
 
 
+def _set_gpt54_tool_search_env(value: str | None):
+    old_env = os.environ.get("UAGENT_ENABLE_GPT54_TOOL_SEARCH")
+    if value is None:
+        os.environ.pop("UAGENT_ENABLE_GPT54_TOOL_SEARCH", None)
+    else:
+        os.environ["UAGENT_ENABLE_GPT54_TOOL_SEARCH"] = value
+    return old_env
+
+
+def _restore_gpt54_tool_search_env(old_env: str | None) -> None:
+    if old_env is None:
+        os.environ.pop("UAGENT_ENABLE_GPT54_TOOL_SEARCH", None)
+    else:
+        os.environ["UAGENT_ENABLE_GPT54_TOOL_SEARCH"] = old_env
+
+
 def _response_with_function_call(
     name: str, arguments: dict, *, call_id: str = "call_1"
 ):
@@ -211,39 +227,52 @@ def _tool_spec(name: str) -> dict:
 
 
 def test_is_gpt54_tool_search_target() -> None:
-    assert _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5.4", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="azure", depname="gpt-5.4-mini", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5.4-codex", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5.5", use_responses_api=True
-    )
-    assert _is_gpt54_tool_search_target(
-        provider="openrouter", depname="openai/gpt-5.10-pro", use_responses_api=True
-    )
-    assert not _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5.3", use_responses_api=True
-    )
-    assert not _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-4.1", use_responses_api=True
-    )
-    assert not _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5", use_responses_api=True
-    )
-    assert not _is_gpt54_tool_search_target(
-        provider="openai", depname="gpt-5.4", use_responses_api=False
-    )
+    old_gate_env = _set_gpt54_tool_search_env(None)
+    try:
+        # default: disabled
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4", use_responses_api=True
+        )
+    finally:
+        _restore_gpt54_tool_search_env(old_gate_env)
+
+    old_gate_env = _set_gpt54_tool_search_env("1")
+    try:
+        assert _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="azure", depname="gpt-5.4-mini", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4-codex", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.5", use_responses_api=True
+        )
+        assert _is_gpt54_tool_search_target(
+            provider="openrouter", depname="openai/gpt-5.10-pro", use_responses_api=True
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.3", use_responses_api=True
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-4.1", use_responses_api=True
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5", use_responses_api=True
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4", use_responses_api=False
+        )
+    finally:
+        _restore_gpt54_tool_search_env(old_gate_env)
 
 
 def test_build_responses_request_uses_explicit_tool_specs() -> None:
@@ -319,6 +348,7 @@ def test_select_tool_specs_for_gpt54_zero_hit_fallback_still_keeps_catalog_and_h
 
 
 def test_run_llm_rounds_gpt54_responses_uses_narrowed_tools() -> None:
+    old_gate_env = _set_gpt54_tool_search_env("1")
     old_env = _set_responses_env("1")
     client = _DummyFullClient()
     core = _DummyCore()
@@ -347,6 +377,7 @@ def test_run_llm_rounds_gpt54_responses_uses_narrowed_tools() -> None:
             )
     finally:
         _restore_responses_env(old_env)
+        _restore_gpt54_tool_search_env(old_gate_env)
 
     assert client.responses.calls
     tool_names = [
@@ -358,6 +389,7 @@ def test_run_llm_rounds_gpt54_responses_uses_narrowed_tools() -> None:
 
 
 def test_run_llm_rounds_non_gpt54_responses_keeps_full_tool_surface() -> None:
+    old_gate_env = _set_gpt54_tool_search_env(None)
     old_env = _set_responses_env("1")
     client = _DummyFullClient()
     core = _DummyCore()
@@ -376,6 +408,7 @@ def test_run_llm_rounds_non_gpt54_responses_keeps_full_tool_surface() -> None:
         )
     finally:
         _restore_responses_env(old_env)
+        _restore_gpt54_tool_search_env(old_gate_env)
 
     assert client.responses.calls
     full_count = len(tools.get_tool_specs())
@@ -384,6 +417,7 @@ def test_run_llm_rounds_non_gpt54_responses_keeps_full_tool_surface() -> None:
 
 
 def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
+    old_gate_env = _set_gpt54_tool_search_env("1")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     client = _DummyFullClient(
@@ -454,6 +488,7 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
     finally:
         _restore_streaming_env(old_streaming_env)
         _restore_responses_env(old_responses_env)
+        _restore_gpt54_tool_search_env(old_gate_env)
 
     assert len(client.responses.calls) == 3
 
@@ -481,6 +516,7 @@ def test_run_llm_rounds_gpt54_two_stage_tool_flow() -> None:
 
 
 def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
+    old_gate_env = _set_gpt54_tool_search_env("1")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     constrained_specs = [
@@ -561,6 +597,7 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
     finally:
         _restore_streaming_env(old_streaming_env)
         _restore_responses_env(old_responses_env)
+        _restore_gpt54_tool_search_env(old_gate_env)
 
     assert len(client.responses.calls) == 3
 
@@ -590,6 +627,7 @@ def test_run_llm_rounds_gpt54_two_stage_second_round_is_re_narrowed() -> None:
 def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_safe_subset() -> (
     None
 ):
+    old_gate_env = _set_gpt54_tool_search_env("1")
     old_responses_env = _set_responses_env("1")
     old_streaming_env = _set_streaming_env("0")
     constrained_specs = [
@@ -645,6 +683,7 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
     finally:
         _restore_streaming_env(old_streaming_env)
         _restore_responses_env(old_responses_env)
+        _restore_gpt54_tool_search_env(old_gate_env)
 
     assert len(client.responses.calls) == 2
 
