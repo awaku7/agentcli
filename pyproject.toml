@@ -39,6 +39,7 @@ dependencies = [
     "playwright",
     "holidays>=0.89",
     "pyreadline3>=3.4.1; sys_platform == 'win32'",
+    "pywin32>=306; sys_platform == 'win32'",
     "pyautogui",
     "pygetwindow; sys_platform == 'win32'",
     "ruff>=0.0.0",
