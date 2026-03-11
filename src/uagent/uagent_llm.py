@@ -40,14 +40,17 @@ def _is_gpt54_tool_search_target(
     depname: str,
     use_responses_api: bool,
 ) -> bool:
-    """Return True when we should use the GPT-5.4 two-stage tool narrowing.
+    """Return True when GPT-5.4 tool narrowing is explicitly enabled.
 
-    Tests expect this to trigger for:
-    - openai/azure: gpt-5.4*, gpt-5.5, gpt-5.10..., etc.
-    - openrouter: openai/gpt-5.4*, openai/gpt-5.10-pro, etc.
+    Guarded by env:
+    - UAGENT_ENABLE_GPT54_TOOL_SEARCH=1|true|yes|on
 
     Only applies when using the Responses API.
     """
+
+    enabled = (env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or "").strip().lower()
+    if enabled not in ("1", "true", "yes", "on"):
+        return False
 
     if not use_responses_api:
         return False
