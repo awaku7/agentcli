@@ -661,6 +661,8 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
         "read_file",
         "search_files",
         "get_workdir",
+        "delete_file",
+        "rename_path",
     }
     assert set(second_tool_names) == {
         "tool_catalog",
@@ -668,9 +670,9 @@ def test_run_llm_rounds_gpt54_two_stage_zero_hit_fallback_second_round_keeps_saf
         "read_file",
         "search_files",
         "get_workdir",
+        "delete_file",
+        "rename_path",
     }
-    assert "delete_file" not in second_tool_names
-    assert "rename_path" not in second_tool_names
 
     executed_names = [c["name"] for c in run_patch.calls]
     assert executed_names == ["tool_catalog"]
