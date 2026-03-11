@@ -10,6 +10,11 @@ from importlib import import_module, reload
 from pkgutil import iter_modules
 from typing import Any, Dict, List, Callable, Optional
 
+try:
+    from janome.tokenizer import Tokenizer as JanomeTokenizer
+except Exception:  # pragma: no cover
+    JanomeTokenizer = None
+
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
 from .i18n_helper import make_tool_translator
 
@@ -274,6 +279,60 @@ def get_tool_specs() -> List[Dict[str, Any]]:
     return clean_specs
 
 
+_CATALOG_JA_EN_KEYWORDS: Dict[str, List[str]] = {
+    "skill": ["skill", "skills", "スキル", "skill.md"],
+    "weather": ["weather", "天気", "気象"],
+}
+
+
+def _expand_catalog_token(token: str) -> List[str]:
+    t = (token or "").strip().lower()
+    if not t:
+        return []
+
+    out = {t}
+
+    if t.endswith("s") and len(t) > 3:
+        out.add(t[:-1])
+    else:
+        out.add(t + "s")
+
+    for _, vals in _CATALOG_JA_EN_KEYWORDS.items():
+        if t in vals:
+            out.update(vals)
+
+    return [x for x in out if x]
+
+
+def _tokenize_catalog_query(query: str) -> List[str]:
+    q = (query or "").strip().lower()
+    if not q:
+        return []
+
+    base_tokens = [tok for tok in re.split(r"\s+", q) if tok]
+    tokens: List[str] = []
+
+    if JanomeTokenizer is not None:
+        try:
+            jt = JanomeTokenizer()
+            janome_tokens = [t.surface.strip().lower() for t in jt.tokenize(q)]
+            tokens.extend([t for t in janome_tokens if t])
+        except Exception:
+            pass
+
+    tokens.extend(base_tokens)
+    tokens.append(q)
+
+    expanded: List[str] = []
+    seen = set()
+    for tok in tokens:
+        for e in _expand_catalog_token(tok):
+            if e not in seen:
+                seen.add(e)
+                expanded.append(e)
+
+    return expanded
+
 def get_tool_catalog(
     *,
     query: str,
@@ -317,7 +376,7 @@ def get_tool_catalog(
 
         score = 0
         if q:
-            tokens = [tok for tok in re.split(r"\s+", q) if tok]
+            tokens = _tokenize_catalog_query(q)
             for tok in tokens:
                 if tok == name.lower():
                     score += 100
