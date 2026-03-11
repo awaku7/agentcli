@@ -20,8 +20,12 @@ from __future__ import annotations
 import json
 import locale
 import os
+import re
 import subprocess
 from typing import Any, Dict, List, Tuple
+
+
+_NEG_COUNT_RE = re.compile(r"^-\d+$")
 
 from .i18n_helper import make_tool_translator
 
@@ -66,6 +70,7 @@ TOOL_SPEC: Dict[str, Any] = {
                         "commit",
                         "show",
                         "rev-parse",
+                        "rev-list",
                         "branch",
                         "switch",
                         "checkout",
@@ -258,6 +263,7 @@ def _ensure_allowed_flags(
     dangerous_prefixes: Tuple[str, ...] = (),
     deny_exact: Tuple[str, ...] = (),
     deny_prefixes: Tuple[str, ...] = (),
+    allow_negative_count: bool = False,
 ) -> None:
     """Validate flags for security."""
     _validate_no_shell_metacharacters(args)
@@ -268,6 +274,9 @@ def _ensure_allowed_flags(
 
         opt = a.split("=", 1)[0]
         if opt == "--" or opt == "-c":
+            continue
+
+        if allow_negative_count and _NEG_COUNT_RE.match(opt):
             continue
 
         if opt in deny_exact:
@@ -340,6 +349,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         "commit",
         "show",
         "rev-parse",
+        "rev-list",
         "branch",
         "switch",
         "checkout",
@@ -431,12 +441,30 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "--",
                 ),
                 allow_danger=allow_danger,
+                allow_negative_count=True,
             )
             if not any(
                 a.startswith("-n") or a.startswith("--max-count") for a in cmd_args
             ):
                 cmd_args = ["-n", "10"] + cmd_args
             payload = run_git_command(["log"] + cmd_args)
+            return json.dumps(payload, ensure_ascii=False)
+
+        # --------------------
+        # rev-list
+        # --------------------
+        if command == "rev-list":
+            _ensure_allowed_flags(
+                cmd_args,
+                allowed_prefixes=(
+                    "-n",
+                    "--max-count",
+                    "--",
+                ),
+                allow_danger=allow_danger,
+                allow_negative_count=True,
+            )
+            payload = run_git_command(["rev-list"] + cmd_args)
             return json.dumps(payload, ensure_ascii=False)
 
         # --------------------
