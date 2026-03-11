@@ -179,7 +179,7 @@ def get_docs_cache_dir() -> Path:
 
 
 def get_files_dir() -> Path:
-    """Return files directory (used by generate_prompt tool)."""
+    """Return files directory."""
 
     return get_state_dir() / "files"
 

@@ -97,7 +97,12 @@ def _backup_path(path: str) -> str:
 def run_tool(args: Dict[str, Any]) -> str:
     raw_filename = str(args.get("filename") or args.get("path") or "").strip()
     content = str(args.get("content", ""))
-    encoding = str(args.get("encoding", "utf-8") or "utf-8")
+    encoding_raw = args.get("encoding")
+    if encoding_raw is None or str(encoding_raw).strip() == "":
+        ext = os.path.splitext(raw_filename)[1].lower()
+        encoding = "utf-8-sig" if ext in (".csv", ".tsv") else "utf-8"
+    else:
+        encoding = str(encoding_raw)
     overwrite_raw = args.get("overwrite", False)
     if not isinstance(overwrite_raw, bool):
         raise ValueError("overwrite must be a boolean")
