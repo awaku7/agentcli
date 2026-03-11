@@ -29,6 +29,7 @@ pyside6
 
 # Windows / OS Specific
 pyreadline3>=3.4.1; platform_system == "Windows"
+pywin32>=306; platform_system == "Windows"
 pyautogui; platform_system == "Windows" or platform_system == "Darwin" or platform_system == "Linux"
 pygetwindow; platform_system == "Windows"
 
