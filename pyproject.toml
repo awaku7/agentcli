@@ -53,6 +53,7 @@ dependencies = [
     "fastapi",
     "uvicorn",
     "jinja2",
+    "janome>=0.5.0",
     "python-multipart",
     "websockets",
     "types-PyYAML",

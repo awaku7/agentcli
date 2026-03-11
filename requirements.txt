@@ -47,5 +47,6 @@ uvicorn
 jinja2
 python-multipart
 websockets
+janome>=0.5.0
 types-PyYAML
 types-python-dateutil

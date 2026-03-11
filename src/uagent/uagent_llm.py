@@ -83,11 +83,10 @@ def _select_tool_specs_for_gpt54(
 ) -> Optional[List[Dict[str, Any]]]:
     """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
 
-    Invariants (per tests):
-    - Always include tool_catalog and human_ask.
-    - If tool_catalog has hits: include only those hit tools (+ tool_catalog + human_ask).
-    - If tool_catalog has zero hits: include a safe fallback subset
-      (read_file/search_files/get_workdir) (+ tool_catalog + human_ask).
+    Policy:
+    - Always include tool_catalog and human_ask when narrowing is applied.
+    - If tool_catalog has hits: include only hit tools (+ tool_catalog + human_ask).
+    - If tool_catalog has zero hits, or user text is empty: fail open (return full tool set).
 
     This function is stateless: it does not depend on previous tool calls.
     """
@@ -120,6 +119,17 @@ def _select_tool_specs_for_gpt54(
                 latest_user_text = "\n".join(parts)
                 break
 
+    latest_user_text = (latest_user_text or "").strip()
+    if not latest_user_text:
+        if env_get("UAGENT_DEBUG_TOOLS") == "1":
+            try:
+                print("[debug] gpt54.latest_user_text=", latest_user_text)
+                print("[debug] gpt54.tool_catalog_hits=", [])
+                print("[debug] gpt54.narrowing=skip_empty_query(full_tools)")
+            except Exception:
+                pass
+        return specs
+
     rows = tools.get_tool_catalog(query=latest_user_text, max_results=8)
     hit_names = {
         str(row.get("name") or "").strip()
@@ -128,13 +138,24 @@ def _select_tool_specs_for_gpt54(
     }
     hit_names.discard("")
 
-    # Always keep these
-    selected_names = {"tool_catalog", "human_ask"}
+    if env_get("UAGENT_DEBUG_TOOLS") == "1":
+        try:
+            print("[debug] gpt54.latest_user_text=", latest_user_text)
+            print("[debug] gpt54.tool_catalog_hits=", sorted(hit_names))
+        except Exception:
+            pass
 
-    if hit_names:
-        selected_names.update(hit_names)
-    else:
-        selected_names.update({"read_file", "search_files", "get_workdir"})
+    if not hit_names:
+        if env_get("UAGENT_DEBUG_TOOLS") == "1":
+            try:
+                print("[debug] gpt54.narrowing=zero_hit_fail_open(full_tools)")
+            except Exception:
+                pass
+        return specs
+
+    # Always keep these when narrowing applies
+    selected_names = {"tool_catalog", "human_ask"}
+    selected_names.update(hit_names)
 
     narrowed: List[Dict[str, Any]] = []
     for spec in specs:
