@@ -7,6 +7,7 @@ _ = make_tool_translator(__file__)
 import json
 import asyncio
 import os
+from dataclasses import asdict, is_dataclass
 from ..env_utils import env_get
 from typing import Any, Dict, List
 
@@ -93,6 +94,39 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
+def _to_jsonable(value: Any) -> Any:
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+
+    if isinstance(value, dict):
+        return {str(k): _to_jsonable(v) for k, v in value.items()}
+
+    if isinstance(value, (list, tuple, set)):
+        return [_to_jsonable(v) for v in value]
+
+    if is_dataclass(value):
+        try:
+            return _to_jsonable(asdict(value))
+        except Exception:
+            pass
+
+    for method_name in ("model_dump", "dict", "to_dict"):
+        method = getattr(value, method_name, None)
+        if callable(method):
+            try:
+                return _to_jsonable(method())
+            except Exception:
+                pass
+
+    if hasattr(value, "__dict__"):
+        try:
+            return _to_jsonable(vars(value))
+        except Exception:
+            pass
+
+    return str(value)
+
+
 async def _get_tools_from_session(read, write):
     async with ClientSession(read, write) as session:
         init_result = await session.initialize()
@@ -105,7 +139,7 @@ async def _get_tools_from_session(read, write):
                     {
                         "name": t.name,
                         "description": t.description,
-                        "inputSchema": (
+                        "inputSchema": _to_jsonable(
                             t.inputSchema
                             if hasattr(t, "inputSchema")
                             else getattr(t, "input_schema", {})
@@ -114,7 +148,7 @@ async def _get_tools_from_session(read, write):
                 )
 
         return {
-            "initialize": init_result,
+            "initialize": _to_jsonable(init_result),
             "tools_list": {"tools": tools},
         }
 
