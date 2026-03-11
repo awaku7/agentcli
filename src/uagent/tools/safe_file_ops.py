@@ -1,8 +1,7 @@
 """Safe wrappers and utilities for local file operations.
 
 This module provides safety checks (user confirmation) for operations that can be risky,
-including creating files, deleting files/directories, renaming/moving paths, and generating
-a prompt file from a target file.
+including creating files, deleting files/directories, and renaming/moving paths.
 
 Policy (B: Medium):
 - Always ask for user confirmation when an obviously risky operation is detected:
@@ -22,12 +21,10 @@ Cancel:
 
 from __future__ import annotations
 
-import hashlib
 import os
 import shutil
 import time
 from pathlib import Path
-from typing import Optional
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -387,59 +384,6 @@ def safe_rename_path(
             os.remove(dst)
     os.replace(src, dst)
 
-
-def safe_generate_prompt(path: str, template: Optional[str] = None) -> str:
-    if not Path(path).exists():
-        raise FileNotFoundError(
-            _(
-                "err.prompt_target_not_found",
-                default="Target file for prompt generation was not found: {path}",
-            ).format(path=path)
-        )
-
-    resolved = _resolve_path(path)
-    if _is_trigger_path(path) and resolved not in _allowed_paths:
-        ok = _ask_user_confirm(path, "generate_prompt (read)")
-        if not ok:
-            raise PermissionError(
-                _(
-                    "err.prompt_cancel",
-                    default="Prompt generation cancelled because the user did not allow it: {path}",
-                ).format(path=path)
-            )
-        _allowed_paths.add(resolved)
-
-    excerpt_lines: list[str] = []
-    with open(path, "r", encoding="utf-8", errors="ignore") as f:
-        for _i in range(20):
-            line = f.readline()
-            if not line:
-                break
-            excerpt_lines.append(line)
-
-    excerpt = "".join(excerpt_lines)
-    timestamp = int(time.time())
-    digest = hashlib.sha1((resolved + str(timestamp)).encode("utf-8")).hexdigest()[:10]
-    out_dir = Path("files")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / f"generated_prompt_{digest}.txt"
-
-    if template:
-        content = template.format(
-            path=path,
-            lines=excerpt.count("\n")
-            + (1 if excerpt and not excerpt.endswith("\n") else 0),
-            size=Path(path).stat().st_size,
-            mtime=Path(path).stat().st_mtime,
-            excerpt=excerpt,
-            timestamp=timestamp,
-        )
-    else:
-        content = f"# Generated prompt for {path}\n# excerpt:\n{excerpt}\n"
-
-    with open(out_path, "w", encoding="utf-8") as outf:
-        outf.write(content)
-    return str(out_path)
 
 
 def clear_session_allowlist() -> None:
