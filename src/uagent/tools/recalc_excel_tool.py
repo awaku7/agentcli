@@ -20,8 +20,8 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default=(
                 "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. "
-                "Supports a single .xlsx file or a directory scan. By default, a backup "
-                "(<file>.org / <file>.org1 / ...) is created immediately before saving."
+                "Supports a single .xlsx file or a directory scan. By default, no backup "
+                "is created before saving only when backup=true is specified."
             ),
         ),
         "system_prompt": _(
@@ -59,7 +59,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.backup.description",
-                        default="Create backup before save. Default: true.",
+                        default="Create backup before save. Default: false.",
                     ),
                 },
                 "dry_run": {
@@ -153,7 +153,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     include_glob = str(args.get("include_glob", "*.xlsx") or "*.xlsx")
 
     recursive_raw = args.get("recursive", False)
-    backup_raw = args.get("backup", True)
+    backup_raw = args.get("backup", False)
     dry_run_raw = args.get("dry_run", False)
     visible_raw = args.get("visible", False)
     max_files_raw = args.get("max_files", 200)
