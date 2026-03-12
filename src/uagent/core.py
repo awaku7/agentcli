@@ -674,6 +674,14 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     # system / user / assistant 共通
     msg["content"] = obj.get("content") or ""
 
+    # OpenRouter (and compatible stacks) may include assistant.reasoning_details.
+    # Preserve it so a loaded conversation can continue the chain.
+    if role == "assistant" and "reasoning_details" in obj:
+        try:
+            msg["reasoning_details"] = obj.get("reasoning_details")
+        except Exception:
+            pass
+
     # 過去ログに tool_calls が入っていた場合は、現在の形式に揃えて残す
     tcs = obj.get("tool_calls")
     if isinstance(tcs, list):
