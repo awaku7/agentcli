@@ -84,6 +84,11 @@ print_lock = threading.RLock()
 status_busy = False  # True while LLM/tools are processing
 status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 
+# Remember the last selected reasoning effort so CUI prompt can show it even when
+# status lines are not printed (e.g., when stderr is not a TTY).
+# Example stored values: "LLM:auto->low", "LLM:medium"
+last_reasoning_label = ""
+
 
 def print_status_line() -> None:
     """
@@ -135,7 +140,34 @@ def set_status(busy: bool, label: str = "") -> None:
     """
     Busy/Idle 状態を更新し、変化があったときには状態行を描画する。
     """
-    global status_busy, status_label
+    global status_busy, status_label, last_reasoning_label
+
+    # Clear on user/command input so toggling reasoning off does not leave stale
+    # labels in the next prompt.
+    if busy and label in (
+        "command_pending",
+        "user_pending",
+        "user_pending_multi",
+        "replying",
+        "replying_cancel",
+        "replying_multi",
+    ):
+        last_reasoning_label = ""
+
+    # If a new LLM cycle starts, clear last reasoning label.
+    # It will be re-set only when we actually see an effort-bearing label.
+    if busy and label in ("LLM", "LLM:auto", "LLM:auto->"):
+        last_reasoning_label = ""
+
+    # Record selected effort labels when present.
+    if busy and isinstance(label, str):
+        if label.startswith("LLM:auto->"):
+            last_reasoning_label = label
+        elif label.startswith("LLM:"):
+            # Only store when it looks like an effort label (avoid plain "LLM").
+            if label not in ("LLM", "LLM:auto"):
+                last_reasoning_label = label
+
     with status_lock:
         prev_busy = status_busy
         prev_label = status_label
@@ -174,7 +206,12 @@ def get_prompt() -> str:
             cwd = os.getcwd()
         except Exception:
             cwd = "?"
-        return f"{os.path.basename(cwd.rstrip(os.sep)) or cwd}> "
+        base = os.path.basename(cwd.rstrip(os.sep)) or cwd
+        with status_lock:
+            _lr = last_reasoning_label
+        if _lr:
+            return f"{base}[{_lr}]> "
+        return f"{base}> "
 
 
 def get_env(name: str) -> str:
