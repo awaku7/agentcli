@@ -18,23 +18,35 @@ import mimetypes
 from pathlib import Path
 
 from ..env_utils import env_get
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 
 def _image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
     p = Path(str(path))
     if not p.exists() or not p.is_file():
-        raise FileNotFoundError(f"image file not found: {path}")
+        raise FileNotFoundError(
+            _("err.image_not_found", default="image file not found: {path}").format(
+                path=path
+            )
+        )
 
     size = p.stat().st_size
     if size > int(max_bytes):
-        raise ValueError(f"image file too large: {size} bytes (limit={max_bytes})")
+        raise ValueError(
+            _(
+                "err.image_too_large",
+                default="image file too large: {size} bytes (limit={max_bytes})",
+            ).format(size=size, max_bytes=int(max_bytes))
+        )
 
-    mt, _ = mimetypes.guess_type(str(p))
+    mt, _enc = mimetypes.guess_type(str(p))
     mime_type = mt or "application/octet-stream"
 
     data = p.read_bytes()
     b64 = base64.b64encode(data).decode("ascii")
-    return f"data:{mime_type};base64,{b64}"
+    return "data:{mime_type};base64,{b64}".format(mime_type=mime_type, b64=b64)
 
 
 def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
@@ -43,15 +55,29 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
     provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
     if provider not in ("openai", "azure"):
         raise RuntimeError(
-            f"UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure (got provider={provider!r})"
+            _(
+                "err.unsupported_provider",
+                default=(
+                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure "
+                    "(got provider={provider!r})"
+                ),
+            ).format(provider=provider)
         )
 
     try:
         from openai import AzureOpenAI, OpenAI
     except Exception as e:
-        raise RuntimeError(f"Failed to import openai package: {e!r}")
+        raise RuntimeError(
+            _(
+                "err.import_openai",
+                default="Failed to import openai package: {err}",
+            ).format(err=repr(e))
+        )
 
-    text = (prompt or "").strip() or "Please describe this image in detail."
+    text = (prompt or "").strip() or _(
+        "prompt.default",
+        default="Please describe this image in detail.",
+    )
     data_url = _image_file_to_data_url(image_path)
 
     if provider == "azure":
@@ -60,7 +86,14 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
         api_version = env_get("UAGENT_AZURE_API_VERSION")
         model = env_get("UAGENT_AZURE_DEPNAME")
         if not (base_url and api_key and api_version and model):
-            raise RuntimeError("Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)")
+            raise RuntimeError(
+                _(
+                    "err.missing_env.azure",
+                    default=(
+                        "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)"
+                    ),
+                )
+            )
         client = AzureOpenAI(
             azure_endpoint=base_url,
             api_key=api_key,
@@ -71,7 +104,14 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
         base_url = env_get("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
         model = env_get("UAGENT_OPENAI_DEPNAME")
         if not (api_key and model):
-            raise RuntimeError("Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)")
+            raise RuntimeError(
+                _(
+                    "err.missing_env.openai",
+                    default=(
+                        "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+                    ),
+                )
+            )
         client = OpenAI(api_key=api_key, base_url=base_url)
 
     resp = client.responses.create(
@@ -98,4 +138,4 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
     except Exception:
         out = ""
 
-    return (out or "").strip() or "[WARN] empty response"
+    return (out or "").strip() or _("warn.empty_response", default="[WARN] empty response")
