@@ -299,7 +299,19 @@ def web_set_status(busy: bool, label: str = ""):
     # Keep original behavior for CLI/server console (if any)
     if web_manager.original_set_status:
         web_manager.original_set_status(busy, label)
-    # room-scoped status updates are handled by WebRoom.set_status in worker.
+
+    # Web UI: if a worker is running in a room (thread-local), forward status updates there.
+    try:
+        room = getattr(_thread_ctx, "room", None)
+    except Exception:
+        room = None
+
+    if room is not None:
+        try:
+            room.set_status(busy, label)
+        except Exception:
+            pass
+
     return
 
 
