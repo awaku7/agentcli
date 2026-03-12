@@ -902,7 +902,7 @@ def run_llm_rounds(
                             if provider == "openrouter":
                                 # Enable OpenRouter reasoning_details (Chat Completions extension)
                                 try:
-                                    _raw_reason = (env_get("UAGENT_OPENROUTER_REASONING", "0") or "").strip().lower()
+                                    _raw_reason = (env_get("UAGENT_OPENROUTER_REASONING", "1") or "").strip().lower()
                                     if _raw_reason in ("1", "true", "yes", "on", "enabled"):
                                         _eb = chat_kwargs.get("extra_body")
                                         if not isinstance(_eb, dict):
