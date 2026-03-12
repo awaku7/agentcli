@@ -305,6 +305,41 @@ def run_llm_rounds(
 
     empty_no_tool_rounds = 0
 
+    # Some OpenAI-compatible local providers may return empty assistant messages after tool calls.
+    # Tolerate a few consecutive empty/no-tool rounds, then abort with an explicit warning.
+    try:
+        empty_no_tool_max = int(env_get("UAGENT_EMPTY_NO_TOOL_MAX", "2"))
+    except Exception:
+        empty_no_tool_max = 2
+    if empty_no_tool_max < 0:
+        empty_no_tool_max = 2
+
+    def _effectively_empty_text(s: Any) -> bool:
+        if s is None:
+            return True
+        if not isinstance(s, str):
+            try:
+                s = str(s)
+            except Exception:
+                return True
+        t = s.strip()
+        # Treat common invisible characters as empty too (e.g., zero-width space/BOM).
+        # Treat common invisible characters as empty too.
+        # - Zero-width (ZWSP/ZWNJ/ZWJ), BOM
+        # - NO-BREAK SPACE (NBSP), WORD JOINER, INVISIBLE SEPARATOR, SHY
+        for cp in (
+            0x200B, 0x200C, 0x200D, 0xFEFF,
+            0x00A0, 0x2060, 0x2063, 0x00AD,
+        ):
+            t = t.replace(chr(cp), "")
+        # Remove any remaining Unicode separator/control characters by category.
+        try:
+            import unicodedata
+            t = "".join(ch for ch in t if unicodedata.category(ch) not in ("Cf", "Zs", "Zl", "Zp", "Cc"))
+        except Exception:
+            pass
+        return t == ""
+
     core.set_status(True, "LLM")
 
     tool_result_cache: Dict[str, str] = {}
@@ -600,7 +635,7 @@ def run_llm_rounds(
                     core.log_message(assistant_msg)
 
                 if not tool_calls_list:
-                    if assistant_text:
+                    if not _effectively_empty_text(assistant_text):
                         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
                         if not (use_responses_api and stream_responses):
                             print(assistant_text)
@@ -675,7 +710,7 @@ def run_llm_rounds(
                 core.log_message(assistant_msg)
 
                 if not tool_calls_list:
-                    if assistant_text:
+                    if not _effectively_empty_text(assistant_text):
                         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
                         if not (use_responses_api and stream_responses):
                             print(assistant_text)
@@ -1500,19 +1535,89 @@ def run_llm_rounds(
                 messages.append(assistant_msg)
                 core.log_message(assistant_msg)
 
+                eff_empty = _effectively_empty_text(assistant_text)
+                if env_get("UAGENT_DEBUG_FLOW") == "1":
+                    try:
+                        _t = assistant_text if isinstance(assistant_text, str) else str(assistant_text)
+                        _u = _t.encode("utf-8", errors="backslashreplace").decode("utf-8", errors="replace")
+                        _tool_names = []
+                        try:
+                            _tool_names = [tc.get("function", {}).get("name") for tc in tool_calls_list][:5]
+                        except Exception:
+                            pass
+                        print(
+                            "[debug] llm_resp: "
+                            f"tool_calls={len(tool_calls_list)} names={_tool_names} "
+                            f"eff_empty={eff_empty} len={len(_t)} repr={_u!r}",
+                            file=sys.stderr,
+                        )
+                    except Exception:
+                        pass
+
                 if (
-                    not use_responses_api
-                    and not tool_calls_list
-                    and not (assistant_text or "").strip()
+                    not tool_calls_list
+                    and eff_empty
                 ):
                     empty_no_tool_rounds += 1
-                    if empty_no_tool_rounds <= 2:
+
+                    # Optional debug for empty assistant responses (no tool calls).
+                    if env_get("UAGENT_DEBUG_EMPTY") == "1":
+                        try:
+                            _t = assistant_text if isinstance(assistant_text, str) else str(assistant_text)
+                            _u = _t.encode("utf-8", errors="backslashreplace").decode("utf-8", errors="replace")
+                            print(
+                                "[debug] empty assistant_text (no tool_calls): "
+                                f"round={empty_no_tool_rounds}/{empty_no_tool_max} "
+                                f"len={len(_t)} repr={_u!r}",
+                                file=sys.stderr,
+                            )
+                        except Exception:
+                            pass
+
+                    # Optional nudge to recover from providers that sometimes emit an empty message
+                    # right after tool calls.
+                    if (
+                        empty_no_tool_rounds == 1
+                        and env_get("UAGENT_EMPTY_NO_TOOL_NUDGE", "1") != "0"
+                    ):
+                        try:
+                            nudge_msg = {
+                                "role": "user",
+                                "content": "前回のアシスタント返答が空でした。直前のツール結果を踏まえて回答してください。",
+                            }
+                            messages.append(nudge_msg)
+                            core.log_message(nudge_msg)
+                        except Exception:
+                            pass
+
+                    if empty_no_tool_rounds <= empty_no_tool_max:
                         continue
+
+                    warn_text = (
+                        "[WARN] LLM returned an empty assistant message without tool calls.\
+"
+                        f"provider={provider} depname={depname} "
+                        f"empty_no_tool_rounds={empty_no_tool_rounds} (max={empty_no_tool_max})\
+"
+                        "This may happen with OpenAI-compatible local providers after tool calls. "
+                        "You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+                    )
+                    try:
+                        warn_msg = {"role": "assistant", "content": warn_text}
+                        messages.append(warn_msg)
+                        core.log_message(warn_msg)
+                    except Exception:
+                        pass
+                    try:
+                        print(warn_text, file=sys.stderr)
+                    except Exception:
+                        pass
+                    break
                 else:
                     empty_no_tool_rounds = 0
 
                 if not tool_calls_list:
-                    if assistant_text:
+                    if not _effectively_empty_text(assistant_text):
                         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
                         if not (use_responses_api and stream_responses):
                             print(assistant_text)
