@@ -232,7 +232,7 @@ OpenAI互換翻訳の追加設定:
 
 プロバイダ別の指定例: `UAGENT_OPENAI_IMG_ANALYSIS_DEPNAME`, `UAGENT_AZURE_IMG_ANALYSIS_DEPNAME`。
 
-`analyze_image` で利用可能なプロバイダ: `openai`, `azure`, `gemini`, `nvidia`。
+`analyze_image` で利用可能なプロバイダ: `openai`, `azure`。
 
 ---
 
