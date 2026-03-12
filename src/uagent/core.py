@@ -158,15 +158,14 @@ def set_status(busy: bool, label: str = "") -> None:
     # It will be re-set only when we actually see an effort-bearing label.
     if busy and label in ("LLM", "LLM:auto", "LLM:auto->"):
         last_reasoning_label = ""
-
     # Record selected effort labels when present.
+    # Only keep auto-selected effort in the prompt (LLM:auto->...).
     if busy and isinstance(label, str):
         if label.startswith("LLM:auto->"):
             last_reasoning_label = label
         elif label.startswith("LLM:"):
-            # Only store when it looks like an effort label (avoid plain "LLM").
-            if label not in ("LLM", "LLM:auto"):
-                last_reasoning_label = label
+            # Explicit (non-auto) reasoning effort should not appear in the prompt.
+            last_reasoning_label = ""
 
     with status_lock:
         prev_busy = status_busy
