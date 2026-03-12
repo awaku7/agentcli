@@ -706,6 +706,13 @@ def run_llm_rounds(
                 if tool_calls_list:
                     assistant_msg["tool_calls"] = tool_calls_list
 
+                # Preserve OpenRouter reasoning chain (if present) by passing it back unmodified.
+                if provider == "openrouter" and reasoning_details is not None:
+                    try:
+                        assistant_msg["reasoning_details"] = reasoning_details
+                    except Exception:
+                        pass
+
                 messages.append(assistant_msg)
                 core.log_message(assistant_msg)
 
@@ -891,7 +898,20 @@ def run_llm_rounds(
                             # Route options must be sent via extra_body.
                             # - default: do nothing (OpenRouter decides routing)
                             # - if UAGENT_OPENROUTER_PROVIDER_IGNORE is set, send extra_body.provider.ignore
+                            # - if UAGENT_OPENROUTER_REASONING is enabled, send extra_body.reasoning.enabled
                             if provider == "openrouter":
+                                # Enable OpenRouter reasoning_details (Chat Completions extension)
+                                try:
+                                    _raw_reason = (env_get("UAGENT_OPENROUTER_REASONING", "0") or "").strip().lower()
+                                    if _raw_reason in ("1", "true", "yes", "on", "enabled"):
+                                        _eb = chat_kwargs.get("extra_body")
+                                        if not isinstance(_eb, dict):
+                                            _eb = {}
+                                        _eb["reasoning"] = {"enabled": True}
+                                        chat_kwargs["extra_body"] = _eb
+                                except Exception:
+                                    pass
+
                                 try:
                                     _raw_ignore = (
                                         env_get("UAGENT_OPENROUTER_PROVIDER_IGNORE", "")
@@ -1455,6 +1475,14 @@ def run_llm_rounds(
                         choice = resp.choices[0]
                         msg = choice.message
 
+                        # OpenRouter ChatCompletions can return reasoning_details when enabled via extra_body.
+                        reasoning_details = None
+                        if provider == "openrouter":
+                            try:
+                                reasoning_details = getattr(msg, "reasoning_details", None)
+                            except Exception:
+                                reasoning_details = None
+
                         raw_tool_calls = getattr(msg, "tool_calls", None) or []
                         for tc in raw_tool_calls:
                             tc_id = getattr(tc, "id", None)
@@ -1531,6 +1559,13 @@ def run_llm_rounds(
                 }
                 if tool_calls_list:
                     assistant_msg["tool_calls"] = tool_calls_list
+
+                # Preserve OpenRouter reasoning chain (if present) by passing it back unmodified.
+                if provider == "openrouter" and reasoning_details is not None:
+                    try:
+                        assistant_msg["reasoning_details"] = reasoning_details
+                    except Exception:
+                        pass
 
                 messages.append(assistant_msg)
                 core.log_message(assistant_msg)
