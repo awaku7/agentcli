@@ -161,7 +161,7 @@ If you frequently hit context limits, you can enable automatic summarization.
   - How many recent non-system messages to keep after summarization.
 
 Notes:
-- Auto shrink is **disabled** when `UAGENT_PROVIDER=gemini` or `UAGENT_PROVIDER=claude`.
+- Auto shrink works for all providers.
 - When shrink runs (manual or auto), the current session log is rewritten to match the compressed history, and a one-generation backup is created under `<log_dir>/.backup/`.
 
 For provider-specific details (required environment variables, base URL, model settings, etc.), see:
