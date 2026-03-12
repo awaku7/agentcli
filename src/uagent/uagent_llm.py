@@ -15,7 +15,7 @@ from .llm_errors import (
     _is_rate_limit_error,
 )
 from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters
-from .llm_claude import claude_chat_with_tools
+from .llm_claude import claude_chat_with_tools, build_claude_output_config_for_effort
 from .llm_openai_responses import (
     build_responses_request,
     parse_responses_response,
@@ -516,8 +516,44 @@ def run_llm_rounds(
                 attempt_429 = 0
                 while True:
                     try:
+                        # Map UAGENT_REASONING -> Claude output_config.effort (best-effort)
+                        _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
+                        _auto_user_text = ""
+                        _effort_used = None
+
+                        if _reasoning in ("minimal", "low", "medium", "high", "xhigh"):
+                            _effort_used = _reasoning
+                        elif _reasoning == "auto":
+                            _auto_user_text = _extract_latest_user_text(call_messages)
+                            if _is_thinking_task(_auto_user_text):
+                                _effort_used = _choose_auto_effort(_auto_user_text)
+
+                        _claude_out_cfg = (
+                            build_claude_output_config_for_effort(depname, _effort_used)
+                            if _effort_used
+                            else None
+                        )
+                        if _claude_out_cfg is not None:
+                            try:
+                                if _reasoning == "auto":
+                                    core.set_status(True, f"LLM:auto->{_effort_used}")
+                                else:
+                                    core.set_status(True, f"LLM:{_effort_used}")
+                            except Exception:
+                                pass
+
                         assistant_text, tool_calls_list = claude_chat_with_tools(
-                            client, depname, call_messages
+                            client,
+                            depname,
+                            call_messages,
+                            output_config=_claude_out_cfg,
+                            on_output_config_info=lambda m: (
+                                print(m)
+                                if getattr(core, "_last_claude_outcfg_info", None) != m
+                                else None
+                            )
+                            or setattr(core, "_last_claude_outcfg_info", m),
+                            on_output_config_fallback=lambda m: print(m),
                         )
                         break
                     except Exception as e:
