@@ -221,7 +221,7 @@ Provider-specific overrides:
 - `UAGENT_<PROVIDER>_IMG_ANALYSIS_API_KEY`
 - `UAGENT_<PROVIDER>_IMG_ANALYSIS_BASE_URL`
 
-Allowed providers for `analyze_image`: `openai`, `azure`, `gemini`, `nvidia`.
+Allowed providers for `analyze_image`: `openai`, `azure`.
 
 ---
 

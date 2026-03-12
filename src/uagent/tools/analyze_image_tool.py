@@ -42,10 +42,15 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["image_path", "prompt"],
+            "required": ["image_path"],
         },
     },
 }
+
+# When Responses API is enabled, the CLI can send images directly as multimodal user content.
+# Hide analyze_image to avoid redundant tool calls.
+if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes"):
+    TOOL_SPEC = None  # type: ignore[assignment]
 
 
 def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
@@ -88,9 +93,13 @@ def run_tool(args: Dict[str, Any]) -> str:
             "UAGENT_IMG_ANALYSIS_PROVIDER (or UAGENT_PROVIDER) is required for analyze_image"
         )
 
-    if provider.lower() == "openai":
+    if provider.lower() in ("openai", "azure"):
         from .vision_openai import analyze_image_openai
 
-        return analyze_image_openai(image_path=image_path, prompt=prompt)
+        return analyze_image_openai(
+            provider=provider.lower(),
+            image_path=image_path,
+            prompt=prompt,
+        )
 
     raise RuntimeError(f"Unsupported provider: {provider}")
