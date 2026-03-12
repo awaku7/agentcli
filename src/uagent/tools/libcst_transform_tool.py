@@ -159,6 +159,16 @@ ops examples:
                                 "default": False,
                             },
                         },
+                        # Some OpenAI/Azure-proxy validators require `required` to exist and to include
+                        # every key listed in `properties`.
+                        "required": [
+                            "op",
+                            "old",
+                            "new",
+                            "module",
+                            "receiver",
+                            "include_attributes",
+                        ],
                     },
                     "description": _(
                         "param.ops.description",
