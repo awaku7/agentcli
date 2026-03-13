@@ -10,5 +10,41 @@
     "param.sql.description": "実行する SQL。",
     "tool.description": "SQLite データベースに対して SQL クエリを実行し、結果を返します。読み取り専用の操作（SELECT）とスキーマ確認（PRAGMA）のみ対応します。",
     "tool.system_prompt": "ツール名 'db_query' で示される処理を実行します。"
+  },
+  "zh_CN": {
+    "param.db_path.description": "SQLite 数据库文件的路径。",
+    "param.sql.description": "SQL 来执行。",
+    "tool.description": "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作 (SELECT) 和架构检查 (PRAGMA)。",
+    "tool.system_prompt": "该工具执行工具名称“db_query”描述的操作。"
+  },
+  "zh_TW": {
+    "param.db_path.description": "SQLite 資料庫檔案的路徑。",
+    "param.sql.description": "SQL 來執行。",
+    "tool.description": "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作 (SELECT) 和架構檢查 (PRAGMA)。",
+    "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
+  },
+  "es": {
+    "param.db_path.description": "Ruta al archivo de base de datos SQLite.",
+    "param.sql.description": "SQL para ejecutar.",
+    "tool.description": "Ejecute una consulta SQL en una base de datos SQLite y devuelva el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección de esquemas (PRAGMA).",
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'db_query'."
+  },
+  "fr": {
+    "param.db_path.description": "Chemin d'accès au fichier de base de données SQLite.",
+    "param.sql.description": "SQL à exécuter.",
+    "tool.description": "Exécutez une requête SQL sur une base de données SQLite et renvoyez le résultat. Seules les opérations en lecture seule (SELECT) et l'inspection de schéma (PRAGMA) sont prises en charge.",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « db_query »."
+  },
+  "ko": {
+    "param.db_path.description": "SQLite 데이터베이스 파일의 경로입니다.",
+    "param.sql.description": "SQL 실행합니다.",
+    "tool.description": "SQLite 데이터베이스에 대해 SQL 쿼리를 실행하고 결과를 반환합니다. 읽기 전용 작업(SELECT) 및 스키마 검사(PRAGMA)만 지원됩니다.",
+    "tool.system_prompt": "이 도구는 도구 이름 'db_query'에 설명된 작업을 수행합니다."
+  },
+  "th": {
+    "param.db_path.description": "เส้นทางไปยังไฟล์ฐานข้อมูล SQLite",
+    "param.sql.description": "SQL เพื่อดำเนินการ",
+    "tool.description": "ดำเนินการแบบสอบถาม SQL กับฐานข้อมูล SQLite และส่งคืนผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
   }
 }

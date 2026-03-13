@@ -2,31 +2,97 @@
   "en": {
     "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
     "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-
-    "ui.confirm.title": "=== Human confirmation request ===",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_timeout": "confirmation timeout",
-    "err.confirm_failed": "confirmation failed",
-
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected"
+    "ui.confirm.title": "=== Human confirmation request ==="
   },
   "ja": {
     "confirm.risky_command": "危険な可能性があるコマンド内容を検出しました。\ncommand: {command}\n続行する場合は y、取消する場合は c を入力してください。",
     "confirm.shell_metachar": "シェル演算子（パイプ/リダイレクト/連結）を検出しました。\ncommand: {command}\n続行する場合は y、取消する場合は c を入力してください。",
-
-    "ui.confirm.title": "=== 確認 ===",
-    "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
-
-    "err.callbacks_unavailable": "human_ask のコールバックが利用できません",
-    "err.confirm_timeout": "確認がタイムアウトしました",
-    "err.confirm_failed": "確認に失敗しました",
-
     "err.blocked_cancelled": "ユーザーが取り消しました",
-    "err.blocked_rejected": "ユーザーが拒否しました"
+    "err.blocked_rejected": "ユーザーが拒否しました",
+    "err.callbacks_unavailable": "human_ask のコールバックが利用できません",
+    "err.confirm_failed": "確認に失敗しました",
+    "err.confirm_timeout": "確認がタイムアウトしました",
+    "ui.confirm.footer": "=== /確認 ===\n",
+    "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
+    "ui.confirm.title": "=== 確認 ==="
+  },
+  "zh_CN": {
+    "confirm.risky_command": "检测到潜在危险的命令内容。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
+    "confirm.shell_metachar": "检测到 shell 操作符（管道/重定向/链接）。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
+    "err.blocked_cancelled": "用户取消",
+    "err.blocked_rejected": "用户被拒绝",
+    "err.callbacks_unavailable": "human_ask 回调不可用",
+    "err.confirm_failed": "确认失败",
+    "err.confirm_timeout": "确认超时",
+    "ui.confirm.footer": "===/确认===",
+    "ui.confirm.howto": "如何回复：y=继续 / c=取消 / other=拒绝\n",
+    "ui.confirm.title": "===人工确认请求==="
+  },
+  "zh_TW": {
+    "confirm.risky_command": "偵測到潛在危險的命令內容。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
+    "confirm.shell_metachar": "偵測到 shell 操作符（管道/重定向/連結）。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
+    "err.blocked_cancelled": "用戶取消",
+    "err.blocked_rejected": "用戶被拒絕",
+    "err.callbacks_unavailable": "human_ask 回呼不可用",
+    "err.confirm_failed": "確認失敗",
+    "err.confirm_timeout": "確認超時",
+    "ui.confirm.footer": "===/確認===",
+    "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
+    "ui.confirm.title": "===人工確認請求==="
+  },
+  "es": {
+    "confirm.risky_command": "Se detectó contenido de comando potencialmente peligroso.\ncomando: {command}\nEscriba y para continuar o c para cancelar.",
+    "confirm.shell_metachar": "Se detectaron operadores de Shell (tubería/redireccionamiento/encadenamiento).\ncomando: {command}\nEscriba y para continuar o c para cancelar.",
+    "err.blocked_cancelled": "usuario cancelado",
+    "err.blocked_rejected": "usuario rechazado",
+    "err.callbacks_unavailable": "devoluciones de llamada human_ask no disponibles",
+    "err.confirm_failed": "confirmación fallida",
+    "err.confirm_timeout": "tiempo de espera de confirmación",
+    "ui.confirm.footer": "=== /confirmar ===",
+    "ui.confirm.howto": "Cómo responder: y=continuar / c=cancelar / otro=denegar\n",
+    "ui.confirm.title": "=== Solicitud de confirmación humana ==="
+  },
+  "fr": {
+    "confirm.risky_command": "Un contenu de commande potentiellement dangereux a été détecté.\ncommande : {command}\nTapez y pour continuer ou c pour annuler.",
+    "confirm.shell_metachar": "Des opérateurs shell (pipe/redirection/chaining) ont été détectés.\ncommande : {command}\nTapez y pour continuer ou c pour annuler.",
+    "err.blocked_cancelled": "utilisateur annulé",
+    "err.blocked_rejected": "utilisateur rejeté",
+    "err.callbacks_unavailable": "rappels human_ask non disponibles",
+    "err.confirm_failed": "échec de la confirmation",
+    "err.confirm_timeout": "délai de confirmation",
+    "ui.confirm.footer": "=== /confirmer ===",
+    "ui.confirm.howto": "Comment répondre : y=continuer / c=annuler / autre=refuser\n",
+    "ui.confirm.title": "=== Demande de confirmation humaine ==="
+  },
+  "ko": {
+    "confirm.risky_command": "잠재적으로 위험한 명령 내용이 감지되었습니다.\n명령: {command}\n계속하려면 y를 입력하고, 취소하려면 c를 입력하세요.",
+    "confirm.shell_metachar": "셸 연산자(파이프/리디렉션/체인)가 감지되었습니다.\n명령: {command}\n계속하려면 y를 입력하고, 취소하려면 c를 입력하세요.",
+    "err.blocked_cancelled": "사용자가 취소했습니다",
+    "err.blocked_rejected": "사용자가 거부됨",
+    "err.callbacks_unavailable": "human_ask 콜백을 사용할 수 없습니다.",
+    "err.confirm_failed": "확인 실패",
+    "err.confirm_timeout": "확인 시간 초과",
+    "ui.confirm.footer": "=== /확인 ===",
+    "ui.confirm.howto": "응답 방법: y=진행 / c=취소 / 기타=거부",
+    "ui.confirm.title": "=== 사람의 확인 요청 ==="
+  },
+  "th": {
+    "confirm.risky_command": "ตรวจพบเนื้อหาคำสั่งที่อาจเป็นอันตราย\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "confirm.shell_metachar": "ตรวจพบตัวดำเนินการเชลล์ (ไปป์/เปลี่ยนเส้นทาง/ผูกมัด)\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "err.blocked_cancelled": "ผู้ใช้ยกเลิก",
+    "err.blocked_rejected": "ผู้ใช้ถูกปฏิเสธ",
+    "err.callbacks_unavailable": "การโทรกลับ human_ask ไม่พร้อมใช้งาน",
+    "err.confirm_failed": "การยืนยันล้มเหลว",
+    "err.confirm_timeout": "หมดเวลาการยืนยัน",
+    "ui.confirm.footer": "=== /ยืนยัน ===",
+    "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
   }
 }

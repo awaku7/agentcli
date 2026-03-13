@@ -1,12 +1,42 @@
 {
   "en": {
+    "param.command.description": "Command line to execute.",
     "tool.description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request.",
-    "tool.system_prompt": "Use this tool to start an external process asynchronously. Avoid repeated spawns for the same request.",
-    "param.command.description": "Command line to execute."
+    "tool.system_prompt": "Use this tool to start an external process asynchronously. Avoid repeated spawns for the same request."
   },
   "ja": {
+    "param.command.description": "実行するコマンドライン。",
     "tool.description": "外部GUIやブラウザ等のプロセスを非同期に起動します。同一要求での連続起動は避けてください。",
-    "tool.system_prompt": "外部プロセスを非同期に起動するためのツールです。同一要求での連続起動は避けてください。",
-    "param.command.description": "実行するコマンドライン。"
+    "tool.system_prompt": "外部プロセスを非同期に起動するためのツールです。同一要求での連続起動は避けてください。"
+  },
+  "zh_CN": {
+    "param.command.description": "要执行的命令行。",
+    "tool.description": "异步启动外部 GUI 或浏览器进程。避免同一请求重复生成。",
+    "tool.system_prompt": "使用此工具异步启动外部进程。避免同一请求重复生成。"
+  },
+  "zh_TW": {
+    "param.command.description": "要執行的命令列。",
+    "tool.description": "非同步啟動外部 GUI 或瀏覽器進程。避免同一請求重複產生。",
+    "tool.system_prompt": "使用此工具非同步啟動外部程序。避免同一請求重複產生。"
+  },
+  "es": {
+    "param.command.description": "Línea de comando para ejecutar.",
+    "tool.description": "Inicie de forma asincrónica un GUI externo o un proceso de navegador. Evite apariciones repetidas para la misma solicitud.",
+    "tool.system_prompt": "Utilice esta herramienta para iniciar un proceso externo de forma asincrónica. Evite apariciones repetidas para la misma solicitud."
+  },
+  "fr": {
+    "param.command.description": "Ligne de commande à exécuter.",
+    "tool.description": "Démarrez de manière asynchrone un processus externe GUI ou un navigateur. Évitez les apparitions répétées pour la même demande.",
+    "tool.system_prompt": "Utilisez cet outil pour démarrer un processus externe de manière asynchrone. Évitez les apparitions répétées pour la même demande."
+  },
+  "ko": {
+    "param.command.description": "실행할 명령줄입니다.",
+    "tool.description": "외부 GUI 또는 브라우저 프로세스를 비동기적으로 시작합니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요.",
+    "tool.system_prompt": "이 도구를 사용하면 외부 프로세스를 비동기적으로 시작할 수 있습니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요."
+  },
+  "th": {
+    "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
+    "tool.description": "เริ่มต้น GUI ภายนอกหรือกระบวนการเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการวางไข่ซ้ำสำหรับคำขอเดียวกัน",
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเริ่มกระบวนการภายนอกแบบอะซิงโครนัส หลีกเลี่ยงการวางไข่ซ้ำสำหรับคำขอเดียวกัน"
   }
 }

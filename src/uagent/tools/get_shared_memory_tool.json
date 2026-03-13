@@ -1,11 +1,42 @@
 {
   "en": {
-    "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC.",
-    "tool.description": "Retrieves raw long-term memory (shared memory) data shared across users.\n- Usually returns text in JSONL format (one record per line).\n- If shared memory is disabled or the file is missing, returns a descriptive message.\n- Output size is automatically trimmed to the internal maximum byte limit."
+    "doc.run_tool": "Entry point called from tools/__init__.py. Implementation for get_shared_memory.",
+    "tool.description": "Retrieves raw long-term memory (shared memory) data shared across users.\n- Usually returns text in JSONL format (one record per line).\n- If shared memory is disabled or the file is missing, returns a descriptive message.\n- Output size is automatically trimmed to the internal maximum byte limit.",
+    "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
   },
   "ja": {
-    "tool.description": "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。\n- 通常は JSONL 形式（1行1レコード）のテキストを返します。\n- 共有メモリが無効な場合やファイルが存在しない場合は、その旨を示す文字列を返します。\n- 出力サイズは内部で上限バイト数までに自動トリミングされます。",
     "doc.run_tool": "tools/__init__.py から呼ばれるエントリポイント。get_shared_memory 用の実装。",
+    "tool.description": "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。\n- 通常は JSONL 形式（1行1レコード）のテキストを返します。\n- 共有メモリが無効な場合やファイルが存在しない場合は、その旨を示す文字列を返します。\n- 出力サイズは内部で上限バイト数までに自動トリミングされます。",
     "tool.system_prompt": "This ツール executes the functionality described in TOOL_SPEC."
+  },
+  "zh_CN": {
+    "doc.run_tool": "从tools/__init__.py 调用的入口点。 get_shared_memory 的实现。",
+    "tool.description": "检索跨用户共享的原始长期记忆（共享内存）数据。\n- 通常返回 JSONL 格式的文本（每行一条记录）。\n- 如果共享内存被禁用或文件丢失，则返回描述性消息。\n- 输出大小自动调整为内部最大字节限制。",
+    "tool.system_prompt": "该工具执行 TOOL_SPEC 中描述的功能。"
+  },
+  "zh_TW": {
+    "doc.run_tool": "從tools/__init__.py 呼叫的入口點。 get_shared_memory 的實作。",
+    "tool.description": "檢索跨使用者共享的原始長期記憶（共享記憶體）資料。\n- 通常傳回 JSONL 格式的文字（每行一筆記錄）。\n- 如果共享記憶體已停用或檔案遺失，則傳回描述性訊息。\n- 輸出大小自動調整為內部最大位元組限制。",
+    "tool.system_prompt": "此工具執行 TOOL_SPEC 中所述的功能。"
+  },
+  "es": {
+    "doc.run_tool": "Punto de entrada llamado desde tools/__init__.py. Implementación de get_shared_memory.",
+    "tool.description": "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios.\n- Generalmente devuelve texto en formato JSONL (un registro por línea).\n- Si la memoria compartida está deshabilitada o falta el archivo, devuelve un mensaje descriptivo.\n- El tamaño de salida se recorta automáticamente al límite máximo de bytes interno.",
+    "tool.system_prompt": "Esta herramienta ejecuta la funcionalidad descrita en TOOL_SPEC."
+  },
+  "fr": {
+    "doc.run_tool": "Point d'entrée appelé depuis tools/__init__.py. Implémentation pour get_shared_memory.",
+    "tool.description": "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs.\n- Renvoie généralement du texte au format JSONL (un enregistrement par ligne).\n- Si la mémoire partagée est désactivée ou si le fichier est manquant, renvoie un message descriptif.\n- La taille de sortie est automatiquement réduite à la limite maximale d'octets interne.",
+    "tool.system_prompt": "Cet outil exécute la fonctionnalité décrite dans TOOL_SPEC."
+  },
+  "ko": {
+    "doc.run_tool": "tools/__init__.py에서 호출되는 진입점. get_shared_memory 용의 구현.",
+    "tool.description": "사용자 간에 공유되는 원시 장기 메모리(공유 메모리) 데이터를 검색합니다.\n- 일반적으로 JSONL 형식(한 줄에 하나의 레코드)으로 텍스트를 반환합니다.\n- 공유 메모리가 비활성화되었거나 파일이 누락된 경우 설명 메시지를 반환합니다.\n- 출력 크기는 내부 최대 바이트 제한에 맞게 자동으로 조정됩니다.",
+    "tool.system_prompt": "이 도구는 TOOL_SPEC에 설명된 기능을 실행합니다."
+  },
+  "th": {
+    "doc.run_tool": "จุดเริ่มต้นเรียกจาก tools/__init__.py การใช้งานสำหรับ get_shared_memory",
+    "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้\n- โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งบันทึกต่อบรรทัด)\n- หากหน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งานหรือไฟล์หายไป จะส่งกลับข้อความอธิบาย\n- ขนาดเอาต์พุตจะถูกตัดให้เหลือขีดจำกัดไบต์สูงสุดภายในโดยอัตโนมัติ",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการฟังก์ชันการทำงานที่อธิบายไว้ใน TOOL_SPEC"
   }
 }
