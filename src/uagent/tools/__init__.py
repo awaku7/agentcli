@@ -333,6 +333,7 @@ def _tokenize_catalog_query(query: str) -> List[str]:
 
     return expanded
 
+
 def get_tool_catalog(
     *,
     query: str,

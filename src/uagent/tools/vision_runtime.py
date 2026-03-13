@@ -138,4 +138,6 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
     except Exception:
         out = ""
 
-    return (out or "").strip() or _("warn.empty_response", default="[WARN] empty response")
+    return (out or "").strip() or _(
+        "warn.empty_response", default="[WARN] empty response"
+    )

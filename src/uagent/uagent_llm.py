@@ -1,11 +1,12 @@
 import json
+import sys
 import re
 from .env_utils import env_get
 import time
 from .i18n import _
 from .translate import load_translate_config, translate_text
 import traceback
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from urllib.error import URLError
 
 from . import tools
@@ -34,7 +35,10 @@ except Exception:
     APIConnectionError = None
 
 
-from .llm_tool_narrowing import _is_gpt54_tool_search_target, _select_tool_specs_for_gpt54
+from .llm_tool_narrowing import (
+    _is_gpt54_tool_search_target,
+    _select_tool_specs_for_gpt54,
+)
 
 from .llm_openrouter import (
     apply_openrouter_extra_body,
@@ -197,14 +201,25 @@ def run_llm_rounds(
         # - Zero-width (ZWSP/ZWNJ/ZWJ), BOM
         # - NO-BREAK SPACE (NBSP), WORD JOINER, INVISIBLE SEPARATOR, SHY
         for cp in (
-            0x200B, 0x200C, 0x200D, 0xFEFF,
-            0x00A0, 0x2060, 0x2063, 0x00AD,
+            0x200B,
+            0x200C,
+            0x200D,
+            0xFEFF,
+            0x00A0,
+            0x2060,
+            0x2063,
+            0x00AD,
         ):
             t = t.replace(chr(cp), "")
         # Remove any remaining Unicode separator/control characters by category.
         try:
             import unicodedata
-            t = "".join(ch for ch in t if unicodedata.category(ch) not in ("Cf", "Zs", "Zl", "Zp", "Cc"))
+
+            t = "".join(
+                ch
+                for ch in t
+                if unicodedata.category(ch) not in ("Cf", "Zs", "Zl", "Zp", "Cc")
+            )
         except Exception:
             pass
         return t == ""
@@ -612,6 +627,7 @@ def run_llm_rounds(
                     assistant_msg["tool_calls"] = tool_calls_list
 
                 # Preserve OpenRouter reasoning chain (if present) by passing it back unmodified.
+                reasoning_details = None
                 if provider == "openrouter" and reasoning_details is not None:
                     try:
                         assistant_msg["reasoning_details"] = reasoning_details
@@ -802,14 +818,17 @@ def run_llm_rounds(
                             apply_openrouter_extra_body(chat_kwargs, provider=provider)
 
                             # OpenRouter/Azure-proxy tool schema compatibility workarounds
-                            apply_openrouter_tool_schema_compat(chat_kwargs, provider=provider)
+                            apply_openrouter_tool_schema_compat(
+                                chat_kwargs, provider=provider
+                            )
 
                             # Final OpenRouter/Azure-proxy compatibility sync
                             finalize_tool_schema_sync(chat_kwargs)
 
                             # OpenRouter-specific fallback models support (does not affect other providers)
-                            apply_openrouter_fallback_models(chat_kwargs, provider=provider, depname=depname)
-
+                            apply_openrouter_fallback_models(
+                                chat_kwargs, provider=provider, depname=depname
+                            )
 
                             if env_get("UAGENT_DEBUG_TOOLS") == "1":
                                 try:
@@ -921,7 +940,9 @@ def run_llm_rounds(
                         reasoning_details = None
                         if provider == "openrouter":
                             try:
-                                reasoning_details = getattr(msg, "reasoning_details", None)
+                                reasoning_details = getattr(
+                                    msg, "reasoning_details", None
+                                )
                             except Exception:
                                 reasoning_details = None
 
@@ -1003,6 +1024,7 @@ def run_llm_rounds(
                     assistant_msg["tool_calls"] = tool_calls_list
 
                 # Preserve OpenRouter reasoning chain (if present) by passing it back unmodified.
+                reasoning_details = None
                 if provider == "openrouter" and reasoning_details is not None:
                     try:
                         assistant_msg["reasoning_details"] = reasoning_details
@@ -1015,11 +1037,20 @@ def run_llm_rounds(
                 eff_empty = _effectively_empty_text(assistant_text)
                 if env_get("UAGENT_DEBUG_FLOW") == "1":
                     try:
-                        _t = assistant_text if isinstance(assistant_text, str) else str(assistant_text)
-                        _u = _t.encode("utf-8", errors="backslashreplace").decode("utf-8", errors="replace")
+                        _t = (
+                            assistant_text
+                            if isinstance(assistant_text, str)
+                            else str(assistant_text)
+                        )
+                        _u = _t.encode("utf-8", errors="backslashreplace").decode(
+                            "utf-8", errors="replace"
+                        )
                         _tool_names = []
                         try:
-                            _tool_names = [tc.get("function", {}).get("name") for tc in tool_calls_list][:5]
+                            _tool_names = [
+                                tc.get("function", {}).get("name")
+                                for tc in tool_calls_list
+                            ][:5]
                         except Exception:
                             pass
                         print(
@@ -1031,17 +1062,20 @@ def run_llm_rounds(
                     except Exception:
                         pass
 
-                if (
-                    not tool_calls_list
-                    and eff_empty
-                ):
+                if not tool_calls_list and eff_empty:
                     empty_no_tool_rounds += 1
 
                     # Optional debug for empty assistant responses (no tool calls).
                     if env_get("UAGENT_DEBUG_EMPTY") == "1":
                         try:
-                            _t = assistant_text if isinstance(assistant_text, str) else str(assistant_text)
-                            _u = _t.encode("utf-8", errors="backslashreplace").decode("utf-8", errors="replace")
+                            _t = (
+                                assistant_text
+                                if isinstance(assistant_text, str)
+                                else str(assistant_text)
+                            )
+                            _u = _t.encode("utf-8", errors="backslashreplace").decode(
+                                "utf-8", errors="replace"
+                            )
                             print(
                                 "[debug] empty assistant_text (no tool_calls): "
                                 f"round={empty_no_tool_rounds}/{empty_no_tool_max} "

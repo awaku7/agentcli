@@ -24,7 +24,6 @@ import re
 import subprocess
 from typing import Any, Dict, List, Tuple
 
-
 _NEG_COUNT_RE = re.compile(r"^-\d+$")
 
 from .i18n_helper import make_tool_translator

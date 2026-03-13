@@ -160,7 +160,11 @@ def _format_result(result: Any) -> str:
 
     # 0) If server returned plain dict payload
     try:
-        if isinstance(result, dict) and result.get("data_base64") and result.get("filename"):
+        if (
+            isinstance(result, dict)
+            and result.get("data_base64")
+            and result.get("filename")
+        ):
             import base64
 
             raw = base64.b64decode(result.get("data_base64") or "")
@@ -189,14 +193,26 @@ def _format_result(result: Any) -> str:
                 import base64
 
                 # Try common attribute names
-                b64 = getattr(content, "blob", None) or getattr(content, "data_base64", None)
-                fname = getattr(content, "filename", None) or getattr(content, "name", None)
+                b64 = getattr(content, "blob", None) or getattr(
+                    content, "data_base64", None
+                )
+                fname = getattr(content, "filename", None) or getattr(
+                    content, "name", None
+                )
 
                 # Some SDKs wrap resource under .resource
                 res = getattr(content, "resource", None)
                 if res is not None:
-                    b64 = b64 or getattr(res, "blob", None) or getattr(res, "data_base64", None)
-                    fname = fname or getattr(res, "filename", None) or getattr(res, "name", None)
+                    b64 = (
+                        b64
+                        or getattr(res, "blob", None)
+                        or getattr(res, "data_base64", None)
+                    )
+                    fname = (
+                        fname
+                        or getattr(res, "filename", None)
+                        or getattr(res, "name", None)
+                    )
 
                 if b64:
                     raw = base64.b64decode(b64)
@@ -216,7 +232,6 @@ def _format_result(result: Any) -> str:
             indent=2,
         )
     return "\n".join(output_parts)
-
 
 
 def run_tool(args: Dict[str, Any]) -> str:

@@ -119,7 +119,7 @@ def _available_catalog_langs() -> set[str]:
         if not base.is_dir():
             continue
         try:
-            for p in base.glob('*/LC_MESSAGES/uag.mo'):
+            for p in base.glob("*/LC_MESSAGES/uag.mo"):
                 try:
                     langs.add(p.parent.parent.name)  # <lang>/LC_MESSAGES/uag.mo
                 except Exception:
@@ -142,23 +142,23 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
     #   - This project may ship additional catalogs; we detect available ones by scanning locales.
     #   - Unknown / unsupported languages fall back to 'en' (must never break runtime).
 
-    supported = _available_catalog_langs() | {'en'}  # always allow 'en' fallback
+    supported = _available_catalog_langs() | {"en"}  # always allow 'en' fallback
 
     if not tag:
-        return 'en'
+        return "en"
 
     t = str(tag).strip()
     if not t:
-        return 'en'
+        return "en"
 
     # Drop encoding ('.UTF-8') and modifiers ('@...')
-    t = t.split('.', 1)[0].split('@', 1)[0]
+    t = t.split(".", 1)[0].split("@", 1)[0]
 
     # Normalize delimiter
-    t_norm = t.replace('-', '_')
+    t_norm = t.replace("-", "_")
 
-    parts = [p for p in t_norm.split('_') if p]
-    lang = (parts[0].lower() if parts else '')
+    parts = [p for p in t_norm.split("_") if p]
+    lang = parts[0].lower() if parts else ""
     script = None
     region = None
 
@@ -174,39 +174,55 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
             region = parts[2].upper()
 
     # Japanese
-    if lang.startswith('ja'):
-        return 'ja' if 'ja' in supported else 'en'
+    if lang.startswith("ja"):
+        return "ja" if "ja" in supported else "en"
 
     # English
-    if lang.startswith('en'):
-        return 'en'
+    if lang.startswith("en"):
+        return "en"
 
     # Chinese: map Hans/Hant to CN/TW when available
-    if lang.startswith('zh'):
+    if lang.startswith("zh"):
         # explicit region
-        if region in {'CN', 'SG'}:
-            return 'zh_CN' if 'zh_CN' in supported else ('zh_TW' if 'zh_TW' in supported else 'en')
-        if region in {'TW', 'HK', 'MO'}:
-            return 'zh_TW' if 'zh_TW' in supported else ('zh_CN' if 'zh_CN' in supported else 'en')
+        if region in {"CN", "SG"}:
+            return (
+                "zh_CN"
+                if "zh_CN" in supported
+                else ("zh_TW" if "zh_TW" in supported else "en")
+            )
+        if region in {"TW", "HK", "MO"}:
+            return (
+                "zh_TW"
+                if "zh_TW" in supported
+                else ("zh_CN" if "zh_CN" in supported else "en")
+            )
 
         # script hint
-        if script == 'Hans':
-            return 'zh_CN' if 'zh_CN' in supported else ('zh_TW' if 'zh_TW' in supported else 'en')
-        if script == 'Hant':
-            return 'zh_TW' if 'zh_TW' in supported else ('zh_CN' if 'zh_CN' in supported else 'en')
+        if script == "Hans":
+            return (
+                "zh_CN"
+                if "zh_CN" in supported
+                else ("zh_TW" if "zh_TW" in supported else "en")
+            )
+        if script == "Hant":
+            return (
+                "zh_TW"
+                if "zh_TW" in supported
+                else ("zh_CN" if "zh_CN" in supported else "en")
+            )
 
         # plain 'zh'
-        if 'zh_CN' in supported:
-            return 'zh_CN'
-        if 'zh_TW' in supported:
-            return 'zh_TW'
-        return 'en'
+        if "zh_CN" in supported:
+            return "zh_CN"
+        if "zh_TW" in supported:
+            return "zh_TW"
+        return "en"
 
     # General case: if we have exact lang catalog, use it.
     if lang and lang in supported:
         return lang
 
-    return 'en'
+    return "en"
 
 
 def detect_lang() -> str:
