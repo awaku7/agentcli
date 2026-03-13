@@ -1,0 +1,651 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"PO-Revision-Date: 2026-03-13 13:12+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "Git을 설치해 주세요. 다운로드: https://git-scm.com/download/win"
+
+#: src/uagent/checks.py:19
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Git을 설치해 주세요. 예: sudo apt install git (Ubuntu/Debian) 또는 sudo yum install "
+"git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Git을 설치해 주세요. Homebrew 사용 시: brew install git, 또는 Xcode Command Line Tools "
+"설치: xcode-select --install"
+
+#: src/uagent/checks.py:24
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "Git을 설치해 주세요. 참고: https://git-scm.com/"
+
+#: src/uagent/checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Git이 설치되어 있지 않습니다."
+
+#: src/uagent/cli.py:349
+msgid "getch() fallback to input()"
+msgstr "getch()가 input()으로 대체되었습니다"
+
+#: src/uagent/cli.py:531
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "입력이 취소되었습니다(human_ask에 대한 응답으로 전송됩니다)."
+
+#: src/uagent/cli.py:539
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C를 받았습니다. 종료를 시작합니다..."
+
+#: src/uagent/cli.py:546
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "stdin_loop에서 예기치 않은 오류가 발생했습니다: %(err)s"
+
+#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(멀티라인 입력 모드: 내용을 여러 줄로 입력합니다. 다시 시작하려면 \"\"\"retry 를 입력하세요. %(sentinel)s 를 "
+"포함한 한 줄로 종료합니다.)"
+
+#: src/uagent/cli.py:602
+msgid "Cancelled."
+msgstr "취소되었습니다."
+
+#: src/uagent/cli.py:608 src/uagent/cli.py:656
+msgid "Discarded previous input. Please start over."
+msgstr "이전 입력을 폐기했습니다. 다시 시작해 주세요."
+
+#: src/uagent/cli.py:619
+msgid "Received multiline reply."
+msgstr "멀티라인 응답을 받았습니다."
+
+#: src/uagent/cli.py:763 src/uagent/web.py:803
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] workdir를 설정하지 못했습니다: %(err)s"
+
+#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
+
+#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter 대체 모델이 활성화되었습니다."
+
+#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 이 설정되어 있지만 provider '%(provider)s'는 Responses API를 지원하지 "
+"않습니다. ChatCompletions로 대체합니다."
+
+#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API 모드 = Responses (UAGENT_RESPONSES 활성화됨)"
+
+#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API 모드 = ChatCompletions (UAGENT_RESPONSES 비활성화됨)"
+
+#: src/uagent/cli.py:871
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "현재 workdir = %(cwd)s"
+
+#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
+msgid "Loaded long-term memory."
+msgstr "장기 메모리를 로드했습니다."
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
+msgid "Loaded shared long-term memory."
+msgstr "공유 장기 메모리를 로드했습니다."
+
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "공유 장기 메모리를 로드하는 중 예외가 발생했습니다: %(err)s"
+
+#: src/uagent/cli.py:924
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "시작 파일을 읽지 못했습니다: %(path)s (%(err)s)"
+
+#: src/uagent/cli.py:936
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "시작 파일이 지정되었습니다: %(path)s"
+
+#: src/uagent/cli.py:960
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive가 지정되어 stdin을 기다리지 않고 종료합니다."
+
+#: src/uagent/cli.py:1019
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"입력에서 이미지 파일 경로를 찾았습니다.\n"
+"이 이미지를 LLM(외부 API)로 보내 분석하시겠습니까?\n"
+"\n"
+
+#: src/uagent/cli.py:1025
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "보내려면 y, 보내지 않으려면 n(또는 c/cancel)으로 응답해 주세요."
+
+#: src/uagent/cli.py:1040
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "이미지 전송 확인에 실패하여 이미지를 보내지 않습니다: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "이미지를 첨부하지 못했습니다: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1105
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "알 수 없는 이벤트 kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:1119
+msgid "Exited uag."
+msgstr "uag를 종료했습니다."
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "환경 변수 %(name)s가 설정되어 있지 않습니다."
+
+#: src/uagent/core.py:533
+msgid "No log files found."
+msgstr "로그 파일을 찾지 못했습니다."
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: %(shown)d/%(total)d 표시 중 (dir=%(dir)s)"
+
+#: src/uagent/core.py:557
+msgid "Log files:"
+msgstr "로그 파일:"
+
+#: src/uagent/core.py:957
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+msgstr ""
+"- 지금까지의 대화 로그를 영어로 요약해 주세요.\n"
+"- 요약은 간결하게 하되, 주요 결정 사항/제약/미처리 항목을 포함해 주세요.\n"
+"- 출력은 'Summary of the conversation so far'라는 제목의 시스템 메시지로 바로 사용할 수 있어야 합니다.\n"
+
+#: src/uagent/core.py:991
+#, python-format
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "히스토리 압축을 위해 LLM을 호출하는 중 오류가 발생했습니다: %(err)r"
+
+#: src/uagent/core.py:1009
+msgid "Summary of the conversation so far:\n"
+msgstr "지금까지의 대화 요약:\n"
+
+#: src/uagent/core.py:1017
+#, python-brace-format
+msgid ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+msgstr ""
+"[INFO] 대화 기록이 LLM에 의해 요약되었습니다: old_part={old_n} -> 요약 1개 + "
+"tail_part={tail_n}"
+
+#: src/uagent/core.py:1032
+msgid "Available commands:"
+msgstr "사용 가능한 명령:"
+
+#: src/uagent/core.py:1033
+msgid "  :help                 Show this help"
+msgstr "  :help                 이 도움말을 표시합니다"
+
+#: src/uagent/core.py:1034
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (멀티라인 입력 중) \"\"\"retry  입력을 처음부터 다시 시작합니다"
+
+#: src/uagent/core.py:1035
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         로그 파일 목록을 표시합니다"
+
+#: src/uagent/core.py:1037
+msgid ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
+msgstr ""
+"  :cd <path>            확인 없이 workdir를 변경합니다(예: :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/core.py:1040
+msgid ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+msgstr ""
+"  :ls [path]            디렉터리 항목을 나열합니다(예: :ls / :ls .. / :ls ~ / :ls "
+"C:\\path)"
+
+#: src/uagent/core.py:1043
+msgid ""
+"  :load <idx|path>      Load a past log (overwrites current conversation "
+"history)"
+msgstr "  :load <idx|path>      과거 로그를 로드합니다(현재 대화 기록을 덮어씀)"
+
+#: src/uagent/core.py:1046
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       참고: 실행 후 확인을 요청합니다. 'y'를 선택하면 로드한 로그가 현재 세션 로그 파일의 앞에"
+" 추가됩니다(덮어쓰기, 백업 없음)."
+
+#: src/uagent/core.py:1049
+msgid ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
+msgstr ""
+"  :clean [N]            user/assistant/tool 메시지 수(system 제외)가 N 이하인 대화 "
+"로그(scheck_log_*.jsonl)를 삭제합니다(기본값=10)"
+
+#: src/uagent/core.py:1052
+msgid ""
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
+msgstr "  :shrink [N]           대화 기록을 축소합니다(system 제외 최근 N개 유지; 기본값=40)"
+
+#: src/uagent/core.py:1055
+msgid ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+msgstr ""
+"  :shrink_llm [N]        LLM 요약으로 기록을 축소합니다(이전 기록을 system 메시지 1개로 요약; 최근 N개는"
+" 원문 유지; 기본값=20)"
+
+#: src/uagent/core.py:1057
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             장기 메모리 노트를 나열합니다"
+
+#: src/uagent/core.py:1059
+msgid ""
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
+msgstr "  :mem-del <index>      인덱스로 장기 메모리 노트를 삭제합니다(:mem-list 참조)"
+
+#: src/uagent/core.py:1062
+msgid ""
+"  :shared-mem-list      List shared long-term memory notes (requires "
+"UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"  :shared-mem-list      공유 장기 메모리 노트를 나열합니다(UAGENT_SHARED_MEMORY_FILE 필요)"
+
+#: src/uagent/core.py:1064
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr "  :shared-mem-del <i>   인덱스로 공유 장기 메모리 노트를 삭제합니다"
+
+#: src/uagent/core.py:1066
+msgid ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  추론 모드를 설정합니다(0=off, 1=low, 2=medium, "
+"3=high; auto/minimal/xhigh)"
+
+#: src/uagent/core.py:1069
+msgid ""
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=cycle)"
+msgstr ""
+"  :v [0|1|2|3]          출력 상세 모드를 설정합니다(0=off, 1=low, 2=medium, 3=high; 인수 "
+"없음=순환)"
+
+#: src/uagent/core.py:1071
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         종료합니다"
+
+#: src/uagent/core.py:1073
+msgid "Hints:"
+msgstr "힌트:"
+
+#: src/uagent/core.py:1074
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - 'f' 한 글자만 입력한 줄을 입력하면 멀티라인 입력 모드로 들어갑니다."
+
+#: src/uagent/core.py:1075
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "  - 멀티라인 입력 모드를 끝내려면 %(sentinel)s만 있는 줄을 입력하세요."
+
+#: src/uagent/core.py:1115
+msgid "[Available Tools]"
+msgstr "[사용 가능한 도구]"
+
+#: src/uagent/core.py:1118
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr "현재 세션에 다음 도구가 로드되어 있습니다. 작업에 가장 적합한 도구를 선택하세요."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "프로젝트 README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "빠른 시작(Windows wheel 설치)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector(playwright_inspector) 가이드"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "개발자 정보"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "알 수 없는 문서 이름: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "문서 파일을 찾지 못했습니다: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "문서 경로 확인에 실패했습니다: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] 사용 가능한 문서:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "사용법:"
+
+#: src/uagent/docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # 목록"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # 표시"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # 경로 표시"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # OS로 열기"
+
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "지정한 workdir 경로가 파일입니다: %(path)s"
+
+#: src/uagent/runtime_init.py:266
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【공유 장기 메모리(공유 메모)】\n"
+
+#: src/uagent/scheckgui.py:175
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "LLM 제공자 = %(provider)s"
+
+#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
+msgid "Welcome / Quick Guide"
+msgstr "환영합니다 / 빠른 안내"
+
+#: src/uagent/scheckgui.py:441
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI(극한 안정성)"
+
+#: src/uagent/scheckgui.py:487
+msgid "Send"
+msgstr "전송"
+
+#: src/uagent/scheckgui.py:525
+msgid "Help"
+msgstr "도움말"
+
+#: src/uagent/scheckgui.py:540
+msgid "Mode"
+msgstr "모드"
+
+#: src/uagent/scheckgui.py:542
+msgid "Reasoning: off"
+msgstr "추론: off"
+
+#: src/uagent/scheckgui.py:545
+msgid "Reasoning: auto"
+msgstr "추론: auto"
+
+#: src/uagent/scheckgui.py:547
+msgid "Reasoning: minimal"
+msgstr "추론: minimal"
+
+#: src/uagent/scheckgui.py:549
+msgid "Reasoning: low"
+msgstr "추론: low"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: medium"
+msgstr "추론: medium"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: high"
+msgstr "추론: high"
+
+#: src/uagent/scheckgui.py:556
+msgid "Reasoning: xhigh"
+msgstr "추론: xhigh"
+
+#: src/uagent/scheckgui.py:561
+msgid "Verbosity: off"
+msgstr "상세 출력: off"
+
+#: src/uagent/scheckgui.py:563
+msgid "Verbosity: low"
+msgstr "상세 출력: low"
+
+#: src/uagent/scheckgui.py:565
+msgid "Verbosity: medium"
+msgstr "상세 출력: medium"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: high"
+msgstr "상세 출력: high"
+
+#: src/uagent/scheckgui.py:718
+msgid "Enter password..."
+msgstr "비밀번호를 입력하세요..."
+
+#: src/uagent/scheckgui.py:720
+msgid "Enter response for human_ask..."
+msgstr "human_ask에 대한 응답을 입력하세요..."
+
+#: src/uagent/scheckgui.py:725
+msgid "Enter a message..."
+msgstr "메시지를 입력하세요..."
+
+#: src/uagent/uagent_llm.py:342
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] 도구 라운드가 %(max)d회를 초과하여 중단합니다."
+
+#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429 재시도 한도(%(max_retries)s)에 도달했습니다."
+
+#: src/uagent/uagent_llm.py:469
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini 오류] 응답 생성 중 오류가 발생했습니다."
+
+#: src/uagent/uagent_llm.py:583
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
+
+#: src/uagent/uagent_llm.py:993
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "응답을 파싱하는 중 오류가 발생했습니다: %(err)s"
+
+#: src/uagent/util_providers.py:38
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "환경 변수 UAGENT_PROVIDER가 설정되어 있지 않습니다."
+
+#: src/uagent/util_providers.py:43
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "알 수 없는 provider: %(provider)s"
+
+#: src/uagent/util_providers.py:261
+msgid "google-genai package is not installed."
+msgstr "google-genai 패키지가 설치되어 있지 않습니다."
+
+#: src/uagent/util_providers.py:272
+msgid "anthropic package is not installed."
+msgstr "anthropic 패키지가 설치되어 있지 않습니다."
+
+#: src/uagent/web.py:454
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr "이 방에서 다른 작업이 이미 실행 중입니다. 완료된 후 다시 시도해 주세요."
+
+#: src/uagent/web.py:533 src/uagent/web.py:631
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"환경 변수 UAGENT_PROVIDER가 설정되어 있지 않습니다.\n"
+"웹 서버를 시작할 때 환경 변수를 확인해 주세요."
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP 서버]\n"
+"- 설정 파일을 찾지 못했습니다."
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP 서버]\n"
+"- 등록된 서버가 없습니다."
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "[MCP 서버]"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP 서버]\n"
+"- 정보를 가져오지 못했습니다: %(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "[빠른 안내]"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 채팅: 메시지를 입력해 보내세요(GUI에서는 Ctrl+Enter도 사용할 수 있습니다)."
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr "- 멀티라인: 'f'만 있는 줄을 입력하면 멀티라인 모드로 들어갑니다(\"\"\"end로 종료)."
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr "- 명령: 시스템 명령(로그 관리, 기록 압축 등)을 보려면 ':help'를 입력하세요."
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- 종료: ':exit' 또는 ':quit'으로 세션을 종료합니다."
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr "- 이미지: GUI는 드래그&드롭을 지원합니다. CUI에서는 이미지 분석을 위해 파일 경로를 입력할 수 있습니다."
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- 문서: `uag docs`는 포함된 문서를 표시합니다. `uag docs webinspect`는 Web Inspector 도움말을 "
+"표시합니다(`--path/--open` 옵션도 사용 가능)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "[예시]"
+
+#: src/uagent/welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"이 폴더의 소스 코드를 분석하고 README.md를 생성해 주세요.\""
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr "- \"현재 데스크톱의 스크린샷을 찍고, 보이는 창의 내용을 설명해 주세요.\""
+
+#: src/uagent/welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"이 Excel 파일로부터 월간 요약 보고서를 생성해 주세요.\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"이 PDF를 읽고 핵심 포인트 3가지를 나열해 주세요.\""
+
+#: src/uagent/welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"최신 뉴스를 검색하고 특정 주제를 요약해 주세요.\""
