@@ -110,18 +110,39 @@ def _find_localedir_candidates() -> list[str]:
 DOMAIN = "uag"
 
 
+def _available_catalog_langs() -> set[str]:
+    # Return available catalog language codes by scanning locales directory.
+
+    langs: set[str] = set()
+    for cand in _find_localedir_candidates():
+        base = Path(cand)
+        if not base.is_dir():
+            continue
+        try:
+            for p in base.glob('*/LC_MESSAGES/uag.mo'):
+                try:
+                    langs.add(p.parent.parent.name)  # <lang>/LC_MESSAGES/uag.mo
+                except Exception:
+                    pass
+        except Exception:
+            pass
+    return langs
+
+
 def _normalize_lang_tag(tag: Optional[str]) -> str:
-    """Normalize various locale tags into a language code supported by our catalogs.
+    # Normalize various locale tags into a language code supported by our catalogs.
+    #
+    # Examples:
+    #   - 'ja_JP', 'ja-JP', 'ja_JP.UTF-8' -> 'ja'
+    #   - 'en_US', 'en-US' -> 'en'
+    #   - 'zh_CN', 'zh-CN', 'zh_Hans', 'zh-Hans-CN' -> 'zh_CN'
+    #   - 'zh_TW', 'zh-TW', 'zh_Hant', 'zh-Hant-TW' -> 'zh_TW'
+    #
+    # Notes:
+    #   - This project may ship additional catalogs; we detect available ones by scanning locales.
+    #   - Unknown / unsupported languages fall back to 'en' (must never break runtime).
 
-    Examples:
-      - 'ja_JP', 'ja-JP', 'ja_JP.UTF-8' -> 'ja'
-      - 'en_US', 'en-US' -> 'en'
-      - 'zh_CN', 'zh-CN', 'zh_Hans', 'zh-Hans-CN' -> 'zh_CN'
-
-    Notes:
-      - This project currently ships catalogs for: ja / en / zh_CN.
-      - Unknown languages fall back to 'en' (must never break runtime).
-    """
+    supported = _available_catalog_langs() | {'en'}  # always allow 'en' fallback
 
     if not tag:
         return 'en'
@@ -136,18 +157,54 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
     # Normalize delimiter
     t_norm = t.replace('-', '_')
 
-    # Language part
-    lang = t_norm.split('_', 1)[0].lower()
+    parts = [p for p in t_norm.split('_') if p]
+    lang = (parts[0].lower() if parts else '')
+    script = None
+    region = None
 
+    if len(parts) >= 2:
+        # script or region
+        if len(parts[1]) == 4:
+            script = parts[1].title()  # Hans/Hant
+        else:
+            region = parts[1].upper()
+    if len(parts) >= 3:
+        # region if script present
+        if script and not region:
+            region = parts[2].upper()
+
+    # Japanese
     if lang.startswith('ja'):
-        return 'ja'
+        return 'ja' if 'ja' in supported else 'en'
 
-    if lang.startswith('zh'):
-        # We currently ship Simplified Chinese only.
-        return 'zh_CN'
-
+    # English
     if lang.startswith('en'):
         return 'en'
+
+    # Chinese: map Hans/Hant to CN/TW when available
+    if lang.startswith('zh'):
+        # explicit region
+        if region in {'CN', 'SG'}:
+            return 'zh_CN' if 'zh_CN' in supported else ('zh_TW' if 'zh_TW' in supported else 'en')
+        if region in {'TW', 'HK', 'MO'}:
+            return 'zh_TW' if 'zh_TW' in supported else ('zh_CN' if 'zh_CN' in supported else 'en')
+
+        # script hint
+        if script == 'Hans':
+            return 'zh_CN' if 'zh_CN' in supported else ('zh_TW' if 'zh_TW' in supported else 'en')
+        if script == 'Hant':
+            return 'zh_TW' if 'zh_TW' in supported else ('zh_CN' if 'zh_CN' in supported else 'en')
+
+        # plain 'zh'
+        if 'zh_CN' in supported:
+            return 'zh_CN'
+        if 'zh_TW' in supported:
+            return 'zh_TW'
+        return 'en'
+
+    # General case: if we have exact lang catalog, use it.
+    if lang and lang in supported:
+        return lang
 
     return 'en'
 
