@@ -1,63 +1,64 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uag\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-03-13 09:53+0900\n"
-"PO-Revision-Date: 2026-02-17 00:00+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ja\n"
+"PO-Revision-Date: 2026-03-13 12:29+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:16
 msgid "Please install Git. Download from: https://git-scm.com/download/win"
-msgstr "Gitをインストールしてください。公式サイトからダウンロード: https://git-scm.com/download/win"
+msgstr ""
+"Por favor, instale Git. Descárguelo desde: https://git-scm.com/download/win"
 
 #: src/uagent/checks.py:19
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
 msgstr ""
-"Gitをインストールしてください。例: sudo apt install git (Ubuntu/Debian) または sudo yum "
-"install git (CentOS/RHEL)"
+"Por favor, instale Git. Ejemplo: sudo apt install git (Ubuntu/Debian) o sudo"
+" yum install git (CentOS/RHEL)"
 
 #: src/uagent/checks.py:22
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
 msgstr ""
-"Gitをインストールしてください。Homebrewの場合: brew install git, またはXcode Command Line Tools:"
-" xcode-select --install"
+"Por favor, instale Git. Si usa Homebrew: brew install git, o instale Xcode "
+"Command Line Tools: xcode-select --install"
 
 #: src/uagent/checks.py:24
 msgid "Please install Git. See: https://git-scm.com/"
-msgstr "Gitをインストールしてください。https://git-scm.com/ を参照"
+msgstr "Por favor, instale Git. Consulte: https://git-scm.com/"
 
 #: src/uagent/checks.py:25
 msgid "[ERROR] Git is not installed."
-msgstr "[ERROR] Gitがインストールされていません。"
+msgstr "[ERROR] Git no está instalado."
 
 #: src/uagent/cli.py:349
 msgid "getch() fallback to input()"
-msgstr "getch() を input() にフォールバックします"
+msgstr "getch() recurrió a input()"
 
 #: src/uagent/cli.py:531
 msgid "Input cancelled (will be sent as a reply to human_ask)."
-msgstr "入力をキャンセルしました（human_ask への返信として送信されます）。"
+msgstr "Entrada cancelada (se enviará como respuesta a human_ask)."
 
 #: src/uagent/cli.py:539
 msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Ctrl+C を受信しました。終了処理を開始します..."
+msgstr "Se recibió Ctrl+C. Iniciando el cierre..."
 
 #: src/uagent/cli.py:546
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
-msgstr "stdin_loop で予期しないエラーが発生しました: %(err)s"
+msgstr "Error inesperado en stdin_loop: %(err)s"
 
 #: src/uagent/cli.py:572 src/uagent/cli.py:642
 #, python-format
@@ -65,25 +66,26 @@ msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr ""
-"（複数行入力モード：本文を複数行で入力してください。やり直すには \"\"\"retry と入力します。終了するには %(sentinel)s "
-"だけの行を入力してください）"
+"(Modo de entrada multilínea: introduzca el texto en varias líneas; para "
+"reiniciar, escriba \"\"\"retry; termine con una línea que contenga "
+"%(sentinel)s)"
 
 #: src/uagent/cli.py:602
 msgid "Cancelled."
-msgstr "キャンセルしました。"
+msgstr "Cancelado."
 
 #: src/uagent/cli.py:608 src/uagent/cli.py:656
 msgid "Discarded previous input. Please start over."
-msgstr "前回の入力を破棄しました。最初から入力してください。"
+msgstr "Se descartó la entrada anterior. Vuelva a empezar."
 
 #: src/uagent/cli.py:619
 msgid "Received multiline reply."
-msgstr "複数行の返信を受け取りました。"
+msgstr "Se recibió una respuesta multilínea."
 
 #: src/uagent/cli.py:763 src/uagent/web.py:803
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] workdir の設定に失敗しました: %(err)s"
+msgstr "[FATAL] Failed to set directorio de trabajo: %(err)s"
 
 #: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
 #, python-format
@@ -92,7 +94,7 @@ msgstr "model(deployment) = %(depname)s"
 
 #: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
 msgid "OpenRouter fallback models enabled."
-msgstr "OpenRouter fallback models enabled"
+msgstr "Modelos alternativos de OpenRouter habilitados."
 
 #: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
 #, python-format
@@ -100,48 +102,51 @@ msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"UAGENT_RESPONSES=1 が設定されていますが、provider '%(provider)s' は Responses API "
-"をサポートしていません。ChatCompletions にフォールバックします。"
+"UAGENT_RESPONSES=1 está configurado, pero el proveedor '%(provider)s' no "
+"admite la API de Responses. Se usará ChatCompletions."
 
 #: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
-msgstr "LLM API モード = Responses（UAGENT_RESPONSES は有効）"
+msgstr "Modo de API del LLM = Responses (UAGENT_RESPONSES está habilitado)"
 
 #: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "LLM API モード = ChatCompletions（UAGENT_RESPONSES は無効）"
+msgstr ""
+"Modo de API del LLM = ChatCompletions (UAGENT_RESPONSES está deshabilitado)"
 
 #: src/uagent/cli.py:871
 #, python-format
 msgid "current workdir = %(cwd)s"
-msgstr "現在の workdir = %(cwd)s"
+msgstr "current directorio de trabajo = %(cwd)s"
 
 #: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
 msgid "Loaded long-term memory."
-msgstr "長期記憶を読み込みました。"
+msgstr "Memoria a largo plazo cargada."
 
 #: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
 msgid "Loaded shared long-term memory."
-msgstr "共有長期記憶を読み込みました。"
+msgstr "Memoria compartida a largo plazo cargada."
 
 #: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "共有長期記憶の読み込み中に例外が発生しました: %(err)s"
+msgstr ""
+"Se produjo una excepción al cargar la memoria compartida a largo plazo: "
+"%(err)s"
 
 #: src/uagent/cli.py:924
 #, python-format
 msgid "Failed to read startup file: %(path)s (%(err)s)"
-msgstr "起動時ファイルの読み込みに失敗しました: %(path)s (%(err)s)"
+msgstr "No se pudo leer el archivo de inicio: %(path)s (%(err)s)"
 
 #: src/uagent/cli.py:936
 #, python-format
 msgid "Startup file provided: %(path)s"
-msgstr "起動時ファイルが指定されました: %(path)s"
+msgstr "Archivo de inicio proporcionado: %(path)s"
 
 #: src/uagent/cli.py:960
 msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive が指定されたため、標準入力を待たずに終了します。"
+msgstr "Se especificó --non-interactive; saliendo sin esperar stdin."
 
 #: src/uagent/cli.py:1019
 msgid ""
@@ -149,51 +154,53 @@ msgid ""
 "Do you want to send these images to the LLM (external API) for analysis?\n"
 "\n"
 msgstr ""
-"入力に画像ファイルのパスが含まれていました。\n"
-"これらの画像を LLM（外部 API）に送信して解析しますか？\n"
+"Se encontraron rutas de archivos de imagen en su entrada.\n"
+"¿Desea enviar estas imágenes al LLM (API externa) para su análisis?\n"
 "\n"
 
 #: src/uagent/cli.py:1025
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "送信する場合は y、送信しない場合は n（または c/cancel）で返信してください。"
+msgstr "Responda con y para enviar, o n (o c/cancel) para omitir el envío."
 
 #: src/uagent/cli.py:1040
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr "画像送信確認に失敗したため、画像は送信しません: %(etype)s: %(err)s"
+msgstr ""
+"Falló la confirmación de envío de imágenes; no se enviarán: %(etype)s: "
+"%(err)s"
 
 #: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "画像添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
+msgstr "No se pudo adjuntar la imagen: %(path)s (%(etype)s: %(err)s)"
 
 #: src/uagent/cli.py:1105
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "不明なイベント kind=%(kind)r: %(ev)r"
+msgstr "Tipo de evento desconocido kind=%(kind)r: %(ev)r"
 
 #: src/uagent/cli.py:1119
 msgid "Exited uag."
-msgstr "uag を終了しました。"
+msgstr "Se salió de uag."
 
 #: src/uagent/core.py:220 src/uagent/core.py:241
 #, python-format
 msgid "Environment variable %(name)s is not set."
-msgstr "環境変数 %(name)s が設定されていません"
+msgstr "La variable de entorno %(name)s no está configurada."
 
 #: src/uagent/core.py:533
 msgid "No log files found."
-msgstr "ログファイルがありません。"
+msgstr "No se encontraron archivos de registro."
 
 #: src/uagent/core.py:554
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: mostrando %(shown)d/%(total)d (dir=%(dir)s)"
 
 #: src/uagent/core.py:557
 msgid "Log files:"
-msgstr "ログファイル一覧:"
+msgstr "Archivos de registro:"
 
 #: src/uagent/core.py:957
 msgid ""
@@ -201,18 +208,18 @@ msgid ""
 "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
 "- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
 msgstr ""
-"- これまでの会話ログを英語で要約してください。\n"
-"- 簡潔にしつつ、主要な決定事項、制約、保留中の項目を含めてください。\n"
-"- 出力は 'Summary of the conversation so far' というタイトルの system メッセージとして、そのまま使える形にしてください。\n"
+"- Resuma el registro de la conversación hasta ahora en inglés.\n"
+"- Mantenga el resumen conciso, pero incluya decisiones clave, restricciones y elementos pendientes.\n"
+"- La salida debe poder usarse directamente como un mensaje de sistema titulado 'Summary of the conversation so far'.\n"
 
 #: src/uagent/core.py:991
 #, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "レスポンス解析中にエラー: %(err)r"
+msgstr "Error al llamar al LLM para comprimir el historial: %(err)r"
 
 #: src/uagent/core.py:1009
 msgid "Summary of the conversation so far:\n"
-msgstr "これまでの会話の要約:\n"
+msgstr "Resumen de la conversación hasta ahora:\n"
 
 #: src/uagent/core.py:1017
 #, python-brace-format
@@ -220,44 +227,50 @@ msgid ""
 "[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
 " summary + tail_part={tail_n}"
 msgstr ""
-"[INFO] 会話履歴を LLM が要約しました: old_part={old_n} -> 要約1件 + tail_part={tail_n}"
+"[INFO] El historial de la conversación fue resumido por el LLM: "
+"old_part={old_n} -> 1 summary + tail_part={tail_n}"
 
 #: src/uagent/core.py:1032
 msgid "Available commands:"
-msgstr "利用可能なコマンド:"
+msgstr "Available comandos:"
 
 #: src/uagent/core.py:1033
 msgid "  :help                 Show this help"
-msgstr "  :help                 このヘルプを表示"
+msgstr "  :help                 Mostrar esta ayuda"
 
 #: src/uagent/core.py:1034
 msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
-msgstr "  (複数行入力中) \"\"\"retry  入力を最初からやり直す"
+msgstr ""
+"  (en entrada multilínea) \"\"\"retry  Reiniciar la entrada desde el "
+"principio"
 
 #: src/uagent/core.py:1035
 msgid "  :logs / :list         Show log file list"
-msgstr "  :logs / :list         ログファイル一覧を表示"
+msgstr "  :logs / :list         Mostrar la lista de archivos de registro"
 
 #: src/uagent/core.py:1037
 msgid ""
 "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
 ":cd ~ / :cd C:\\path / :cd /)"
 msgstr ""
-"  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd "
-"C:\\path / :cd /）"
+"  :cd <path>            Change directorio de trabajo without confirmation "
+"(e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
 
 #: src/uagent/core.py:1040
 msgid ""
 "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
 ":ls C:\\path)"
 msgstr ""
-"  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）"
+"  :ls [path]            Listar entradas del directorio (p. ej., :ls / :ls .."
+" / :ls ~ / :ls C:\\path)"
 
 #: src/uagent/core.py:1043
 msgid ""
 "  :load <idx|path>      Load a past log (overwrites current conversation "
 "history)"
-msgstr "  :load <idx|path>      過去ログを読み込み（会話履歴を上書き）"
+msgstr ""
+"  :load <idx|path>      Cargar un registro anterior (sobrescribe el "
+"historial actual)"
 
 #: src/uagent/core.py:1046
 msgid ""
@@ -265,8 +278,9 @@ msgid ""
 "confirmation; choosing 'y' prepends the loaded log into the current session "
 "log file (overwrite, no backup)."
 msgstr ""
-"                       ※実行後に確認が出て、y "
-"を選ぶと現在セッションのログファイル先頭へロード元ログ内容を挿入します（バックアップ無しで上書き）"
+"                       Nota: después de ejecutarlo, se le pedirá "
+"confirmación; si elige 'y', el registro cargado se antepondrá al archivo de "
+"registro de la sesión actual (sobrescritura, sin copia de seguridad)."
 
 #: src/uagent/core.py:1049
 msgid ""
@@ -274,305 +288,324 @@ msgid ""
 "the count of user/assistant/tool messages (excluding system) is <= N "
 "(default=10)"
 msgstr ""
-"  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた "
-"user/assistant/tool が N 件以下のログファイルを削除, 既定=10）"
+"  :clean [N]            Eliminar registros de conversación "
+"(scheck_log_*.jsonl) cuyo recuento de mensajes de "
+"usuario/asistente/herramienta (excluyendo system) sea <= N "
+"(predeterminado=10)"
 
 #: src/uagent/core.py:1052
 msgid ""
 "  :shrink [N]           Shrink conversation history (keep last N non-system "
 "messages; default=40)"
-msgstr "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）"
+msgstr ""
+"  :shrink [N]           Reducir el historial de conversación (conservar los "
+"últimos N mensajes no system; predeterminado=40)"
 
 #: src/uagent/core.py:1055
 msgid ""
 "  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
 "older history into 1 system message; keep last N raw; default=20)"
 msgstr ""
-"  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, "
-"既定=20）"
+"  :shrink_llm [N]       Reducir el historial mediante resumen del LLM "
+"(resumir el historial antiguo en 1 mensaje system; conservar los últimos N "
+"sin procesar; predeterminado=20)"
 
 #: src/uagent/core.py:1057
 msgid "  :mem-list             List long-term memory notes"
-msgstr "  :mem-list             長期記憶メモの一覧を表示"
+msgstr "  :mem-list             Listar notas de memoria a largo plazo"
 
 #: src/uagent/core.py:1059
 msgid ""
 "  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
 "list)"
-msgstr "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）"
+msgstr ""
+"  :mem-del <index>      Eliminar una nota de memoria a largo plazo por "
+"índice (ver :mem-list)"
 
 #: src/uagent/core.py:1062
 msgid ""
 "  :shared-mem-list      List shared long-term memory notes (requires "
 "UAGENT_SHARED_MEMORY_FILE)"
-msgstr "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）"
+msgstr ""
+"  :shared-mem-list      Listar notas de memoria compartida a largo plazo "
+"(requiere UAGENT_SHARED_MEMORY_FILE)"
 
 #: src/uagent/core.py:1064
 msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
-msgstr "  :shared-mem-del <i>   指定 index の共有長期記憶メモを削除"
+msgstr ""
+"  :shared-mem-del <i>   Eliminar una nota de memoria compartida por índice"
 
 #: src/uagent/core.py:1066
 msgid ""
 "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
 "2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
-"  :r [0|1|2|3|auto|minimal|xhigh]  推論モードを設定します（0=off, 1=low, 2=medium, "
-"3=high; auto/minimal/xhigh）"
+"  :r [0|1|2|3|auto|minimal|xhigh]  Establecer el modo de razonamiento "
+"(0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 
 #: src/uagent/core.py:1069
 msgid ""
 "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
 "no arg=cycle)"
 msgstr ""
-"  :v [0|1|2|3]          詳細度モードを設定します（0=off, 1=low, 2=medium, 3=high; "
-"引数なし=切替）"
+"  :v [0|1|2|3]          Establecer el modo de verbosidad (0=off, 1=low, "
+"2=medium, 3=high; sin argumento=ciclo)"
 
 #: src/uagent/core.py:1071
 msgid "  :exit / :quit         Exit"
-msgstr "  :exit / :quit         終了"
+msgstr "  :exit / :quit         Salir"
 
 #: src/uagent/core.py:1073
 msgid "Hints:"
-msgstr "ヒント:"
+msgstr "Sugerencias:"
 
 #: src/uagent/core.py:1074
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr "  - ユーザー入力で 'f' を単独行で入力すると複数行入力モードになります。"
+msgstr ""
+"  - Introduzca una línea que sea solo 'f' para entrar en modo de entrada "
+"multilínea."
 
 #: src/uagent/core.py:1075
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr "  - 複数行入力モードの終了は行全体が %(sentinel)s の行です。"
+msgstr ""
+"  - Para terminar el modo multilínea, introduzca una línea que sea "
+"exactamente %(sentinel)s."
 
 #: src/uagent/core.py:1115
 msgid "[Available Tools]"
-msgstr "利用可能なツール"
+msgstr "[Herramientas disponibles]"
 
 #: src/uagent/core.py:1118
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
-msgstr "このセッションで次のツールが読み込まれています。作業に最も適したツールを選んでください。"
+msgstr ""
+"Las siguientes herramientas están cargadas actualmente en esta sesión. Elija"
+" la más adecuada para la tarea."
 
 #: src/uagent/docs_util.py:27
 msgid "Project README"
-msgstr "プロジェクト README"
+msgstr "README del proyecto"
 
 #: src/uagent/docs_util.py:32
 msgid "Quickstart (Windows wheel install)"
-msgstr "Quickstart（Windows wheel インストール）"
+msgstr "Inicio rápido (instalación de wheel en Windows)"
 
 #: src/uagent/docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Web Inspector（playwright_inspector）の説明"
+msgstr "Guía de Web Inspector (playwright_inspector)"
 
 #: src/uagent/docs_util.py:42
 msgid "Developer information"
-msgstr "開発者向け情報"
+msgstr "Información para desarrolladores"
 
 #: src/uagent/docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
-msgstr "unknown doc name: %(name)r"
+msgstr "nombre de documento desconocido: %(name)r"
 
 #: src/uagent/docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
-msgstr "doc file not found: %(filename)s"
+msgstr "no se encontró el archivo del documento: %(filename)s"
 
 #: src/uagent/docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "falló la resolución de la ruta del documento: %(filename)s: %(err)s"
 
 #: src/uagent/docs_util.py:227
 msgid "[docs] Available documents:"
-msgstr "[docs] 利用可能なドキュメント:"
+msgstr "[docs] Documentos disponibles:"
 
 #: src/uagent/docs_util.py:231
 msgid "Usage:"
-msgstr "使い方:"
+msgstr "Uso:"
 
 #: src/uagent/docs_util.py:232
 msgid "  uag docs                 # list"
-msgstr "  uag docs                 # 一覧"
+msgstr "  uag docs                 # listar"
 
 #: src/uagent/docs_util.py:233
 msgid "  uag docs <name>          # show"
-msgstr "  uag docs <name>          # 内容表示"
+msgstr "  uag docs <name>          # mostrar"
 
 #: src/uagent/docs_util.py:234
 msgid "  uag docs --path <name>   # show path"
-msgstr "  uag docs --path <name>   # パス表示"
+msgstr "  uag docs --path <name>   # mostrar ruta"
 
 #: src/uagent/docs_util.py:235
 msgid "  uag docs --open <name>   # open with OS"
-msgstr "  uag docs --open <name>   # OS既定で開く"
+msgstr "  uag docs --open <name>   # abrir con el sistema"
 
 #: src/uagent/runtime_init.py:71
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
-msgstr "指定された workdir がファイルです: %(path)s"
+msgstr "Specified directorio de trabajo path is a file: %(path)s"
 
 #: src/uagent/runtime_init.py:266
 msgid "【Shared long-term memory (shared memo)】\n"
-msgstr "【共有長期記憶（共有メモ）】\n"
+msgstr "【Memoria a largo plazo compartida (nota compartida)】\n"
 
 #: src/uagent/scheckgui.py:175
 #, python-format
 msgid "LLM provider = %(provider)s"
-msgstr "LLM provider = %(provider)s"
+msgstr "Proveedor de LLM = %(provider)s"
 
 #: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
 msgid "Welcome / Quick Guide"
-msgstr "Welcome / クイックガイド"
+msgstr "Bienvenida / Guía rápida"
 
 #: src/uagent/scheckgui.py:441
 msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI（超安定版）"
+msgstr "uag GUI (Estabilidad extrema)"
 
 #: src/uagent/scheckgui.py:487
 msgid "Send"
-msgstr "送信"
+msgstr "Enviar"
 
 #: src/uagent/scheckgui.py:525
 msgid "Help"
-msgstr "ヘルプ"
+msgstr "Ayuda"
 
 #: src/uagent/scheckgui.py:540
 msgid "Mode"
-msgstr "モード"
+msgstr "Modo"
 
 #: src/uagent/scheckgui.py:542
 msgid "Reasoning: off"
-msgstr "推論: off"
+msgstr "Razonamiento: off"
 
 #: src/uagent/scheckgui.py:545
 msgid "Reasoning: auto"
-msgstr "推論: auto"
+msgstr "Razonamiento: auto"
 
 #: src/uagent/scheckgui.py:547
 msgid "Reasoning: minimal"
-msgstr "推論: minimal"
+msgstr "Razonamiento: minimal"
 
 #: src/uagent/scheckgui.py:549
 msgid "Reasoning: low"
-msgstr "推論: low"
+msgstr "Razonamiento: low"
 
 #: src/uagent/scheckgui.py:551
 msgid "Reasoning: medium"
-msgstr "推論: medium"
+msgstr "Razonamiento: medium"
 
 #: src/uagent/scheckgui.py:553
 msgid "Reasoning: high"
-msgstr "推論: high"
+msgstr "Razonamiento: high"
 
 #: src/uagent/scheckgui.py:556
 msgid "Reasoning: xhigh"
-msgstr "推論: xhigh"
+msgstr "Razonamiento: xhigh"
 
 #: src/uagent/scheckgui.py:561
 msgid "Verbosity: off"
-msgstr "詳細度: off"
+msgstr "Verbosidad: off"
 
 #: src/uagent/scheckgui.py:563
 msgid "Verbosity: low"
-msgstr "詳細度: low"
+msgstr "Verbosidad: low"
 
 #: src/uagent/scheckgui.py:565
 msgid "Verbosity: medium"
-msgstr "詳細度: medium"
+msgstr "Verbosidad: medium"
 
 #: src/uagent/scheckgui.py:567
 msgid "Verbosity: high"
-msgstr "詳細度: high"
+msgstr "Verbosidad: high"
 
 #: src/uagent/scheckgui.py:718
 msgid "Enter password..."
-msgstr "パスワードを入力..."
+msgstr "Introduzca la contraseña..."
 
 #: src/uagent/scheckgui.py:720
 msgid "Enter response for human_ask..."
-msgstr "human_ask への回答を入力..."
+msgstr "Introduzca la respuesta para human_ask..."
 
 #: src/uagent/scheckgui.py:725
 msgid "Enter a message..."
-msgstr "メッセージを入力..."
+msgstr "Introduzca un mensaje..."
 
 #: src/uagent/uagent_llm.py:342
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[WARN] ツール使用ラウンドが %(max)d 回を超えたため打ち切ります。"
+msgstr ""
+"[WARN] Se superó el límite de rondas de herramientas %(max)d; abortando."
 
 #: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "429 Retry limit (%(max_retries)s) reached."
+msgstr "Se alcanzó el límite de reintentos 429 (%(max_retries)s)."
 
 #: src/uagent/uagent_llm.py:469
 msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
+msgstr "[Error de Gemini] Se produjo un error al generar una respuesta."
 
 #: src/uagent/uagent_llm.py:583
 msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
+msgstr "[Error de Claude] Se produjo un error al generar una respuesta."
 
 #: src/uagent/uagent_llm.py:993
 #, python-format
 msgid "Error while parsing response: %(err)s"
-msgstr "レスポンス解析中にエラー: %(err)s"
+msgstr "Error al analizar la respuesta: %(err)s"
 
 #: src/uagent/util_providers.py:38
 msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "環境変数 UAGENT_PROVIDER が設定されていません"
+msgstr "La variable de entorno UAGENT_PROVIDER no está configurada."
 
 #: src/uagent/util_providers.py:43
 #, python-format
 msgid "Unknown provider: %(provider)s"
-msgstr "未知のプロバイダです: %(provider)s"
+msgstr "Proveedor desconocido: %(provider)s"
 
 #: src/uagent/util_providers.py:261
 msgid "google-genai package is not installed."
-msgstr "[FATAL] google-genai パッケージがインストールされていません"
+msgstr "El paquete google-genai no está instalado."
 
 #: src/uagent/util_providers.py:272
 msgid "anthropic package is not installed."
-msgstr "[FATAL] anthropic パッケージがインストールされていません"
+msgstr "El paquete anthropic no está instalado."
 
 #: src/uagent/web.py:454
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
-msgstr "このルームでは別の処理が実行中です。完了してから再送してください。"
+msgstr ""
+"Ya hay otra tarea en ejecución en esta sala. Vuelva a intentarlo cuando "
+"termine."
 
 #: src/uagent/web.py:533 src/uagent/web.py:631
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
 msgstr ""
-"環境変数 UAGENT_PROVIDER が設定されていません。\n"
-"Webサーバ起動時の環境変数を確認してください。"
+"La variable de entorno UAGENT_PROVIDER no está configurada.\n"
+"Compruebe las variables de entorno al iniciar el servidor web."
 
 #: src/uagent/welcome.py:27
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
 msgstr ""
-"[MCP サーバー]\n"
-"- 設定ファイルが見つかりません。"
+"[Servidores MCP]\n"
+"- Config file not found."
 
 #: src/uagent/welcome.py:34
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered."
 msgstr ""
-"[MCP サーバー]\n"
-"- 登録されているサーバーはありません。"
+"[Servidores MCP]\n"
+"- No servers registered."
 
 #: src/uagent/welcome.py:36
 msgid "[MCP Servers]"
-msgstr "[MCP サーバー]"
+msgstr "[Servidores MCP]"
 
 #: src/uagent/welcome.py:43
 #, python-format
@@ -580,69 +613,80 @@ msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
 msgstr ""
-"[MCP サーバー]\n"
-"- 情報の取得に失敗しました: %(err)s"
+"[Servidores MCP]\n"
+"- Failed to get info: %(err)s"
 
 #: src/uagent/welcome.py:62
 msgid "[Quick Guide]"
-msgstr "[クイックガイド]"
+msgstr "[Guía rápida]"
 
 #: src/uagent/welcome.py:63
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- チャット: メッセージを入力して送信します（GUI: Ctrl+Enter でも送信できます）。"
+msgstr ""
+"- Chat: escriba un mensaje y envíelo (en la GUI también puede usar "
+"Ctrl+Enter)."
 
 #: src/uagent/welcome.py:65
 msgid ""
 "- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \"\"\"end)."
-msgstr "- 複数行: 'f' だけの行を入力すると複数行入力モード（multiline）に入ります（\"\"\"end で終了）。"
+msgstr ""
+"- Multilínea: introduzca una línea que sea solo 'f' para entrar en modo "
+"multilínea (termine con \"\"\"end)."
 
 #: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.)."
-msgstr "- コマンド: ':help' でシステムコマンド（ログ管理、履歴圧縮など）を表示します。"
+msgstr ""
+"- Commands: type ':help' to see system comandos (log management, history "
+"compression, etc.)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- 終了: ':exit' または ':quit' でセッションを終了します。"
+msgstr "- Salir: ':exit' o ':quit' finaliza la sesión."
 
 #: src/uagent/welcome.py:72
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
-msgstr "- 画像: GUI はドラッグ&ドロップに対応しています。CUI では画像解析のためにファイルパスを入力できます。"
+msgstr ""
+"- Imágenes: la GUI admite arrastrar y soltar; en la CUI puede introducir la "
+"ruta de un archivo para el análisis de imágenes."
 
 #: src/uagent/welcome.py:75
 msgid ""
 "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- ドキュメント: `uag docs` で同梱ドキュメントを表示します。`uag docs webinspect` で Web Inspector "
-"のヘルプを表示します（`--path/--open` も使用できます）。"
+"- Docs: `uag docs` muestra los documentos incluidos; `uag docs webinspect` "
+"muestra la ayuda de Web Inspector (también disponibles `--path/--open`)."
 
 #: src/uagent/welcome.py:78
 msgid "[Examples]"
-msgstr "[例]"
+msgstr "[Ejemplos]"
 
 #: src/uagent/welcome.py:79
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"このフォルダのソースコードを解析して README.md を作成して。\""
+msgstr "- \"Analice el código fuente de esta carpeta y cree un README.md.\""
 
 #: src/uagent/welcome.py:81
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
-msgstr "- \"現在のデスクトップのスクリーンショットを撮って、表示されているウィンドウ内容を説明して。\""
+msgstr ""
+"- \"Tome una captura de pantalla del escritorio actual y describa el "
+"contenido visible de la ventana.\""
 
 #: src/uagent/welcome.py:83
 msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr "- \"この Excel ファイルから月次サマリーレポートを作成して。\""
+msgstr ""
+"- \"Cree un informe de resumen mensual a partir de este archivo de Excel.\""
 
 #: src/uagent/welcome.py:84
 msgid "- \"Read this PDF and list three key points.\""
-msgstr "- \"この PDF を読んで、重要ポイントを3つ挙げて。\""
+msgstr "- \"Lea este PDF y enumere tres puntos clave.\""
 
 #: src/uagent/welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- \"最新ニュースを検索して、特定のトピックを要約して。\""
+msgstr "- \"Busque las últimas noticias y resuma un tema específico.\""
