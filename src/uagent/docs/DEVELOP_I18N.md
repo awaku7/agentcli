@@ -8,6 +8,7 @@ This document describes i18n (internationalization) conventions for the **host a
 
 - **Default language is English**.
 - **Japanese is provided as an additional translation** via gettext.
+- Additional shipped locales: `zh_CN`, `zh_TW`, `es`, `fr`, `ko`.
 - Translation must be **fail-safe**:
   - If a translation is missing, the program must keep working and show the English msgid.
 - Prefer translating **user-facing output**.
