@@ -11,7 +11,9 @@ except ImportError:
     Anthropic = None
 
 
-def _parse_claude_model(model_name: str) -> Tuple[Optional[str], Optional[int], Optional[int]]:
+def _parse_claude_model(
+    model_name: str,
+) -> Tuple[Optional[str], Optional[int], Optional[int]]:
     """Best-effort parse Claude model name.
 
     Examples:
@@ -198,7 +200,9 @@ def claude_chat_with_tools(
                 anthropic_messages[-1]["content"].extend(new_content_blocks)
             else:
                 # 新規メッセージ
-                anthropic_messages.append({"role": new_role, "content": new_content_blocks})
+                anthropic_messages.append(
+                    {"role": new_role, "content": new_content_blocks}
+                )
 
     anthropic_tools = []
     for spec in tools.get_tool_specs():
