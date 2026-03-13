@@ -111,36 +111,45 @@ DOMAIN = "uag"
 
 
 def _normalize_lang_tag(tag: Optional[str]) -> str:
-    """Normalize various locale tags into a simple language code.
+    """Normalize various locale tags into a language code supported by our catalogs.
 
     Examples:
       - 'ja_JP', 'ja-JP', 'ja_JP.UTF-8' -> 'ja'
       - 'en_US', 'en-US' -> 'en'
+      - 'zh_CN', 'zh-CN', 'zh_Hans', 'zh-Hans-CN' -> 'zh_CN'
 
-    Plan A:
-      - if startswith('ja') -> 'ja'
-      - else -> 'en'
+    Notes:
+      - This project currently ships catalogs for: ja / en / zh_CN.
+      - Unknown languages fall back to 'en' (must never break runtime).
     """
 
     if not tag:
-        return "en"
+        return 'en'
 
     t = str(tag).strip()
     if not t:
-        return "en"
+        return 'en'
 
     # Drop encoding ('.UTF-8') and modifiers ('@...')
-    t = t.split(".", 1)[0].split("@", 1)[0]
+    t = t.split('.', 1)[0].split('@', 1)[0]
 
     # Normalize delimiter
-    t = t.replace("-", "_")
+    t_norm = t.replace('-', '_')
 
-    # Take language part
-    lang = t.split("_", 1)[0].lower()
+    # Language part
+    lang = t_norm.split('_', 1)[0].lower()
 
-    if lang.startswith("ja"):
-        return "ja"
-    return "en"
+    if lang.startswith('ja'):
+        return 'ja'
+
+    if lang.startswith('zh'):
+        # We currently ship Simplified Chinese only.
+        return 'zh_CN'
+
+    if lang.startswith('en'):
+        return 'en'
+
+    return 'en'
 
 
 def detect_lang() -> str:

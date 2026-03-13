@@ -1,0 +1,644 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"PO-Revision-Date: 2026-03-13 10:29+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: zh_Hans_CN <LL@li.org>\n"
+"Language: zh_Hans_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "请安装 Git。下载地址：https://git-scm.com/download/win"
+
+#: src/uagent/checks.py:19
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"请安装 Git。例如：sudo apt install git（Ubuntu/Debian）或 sudo yum install "
+"git（CentOS/RHEL）"
+
+#: src/uagent/checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"请安装 Git。若使用 Homebrew：brew install git；或安装 Xcode 命令行工具：xcode-select --install"
+
+#: src/uagent/checks.py:24
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "请安装 Git。详见：https://git-scm.com/"
+
+#: src/uagent/checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "[错误] 未安装 Git。"
+
+#: src/uagent/cli.py:349
+msgid "getch() fallback to input()"
+msgstr "getch() 将回退为 input()"
+
+#: src/uagent/cli.py:531
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "输入已取消（将作为对 human_ask 的回复发送）。"
+
+#: src/uagent/cli.py:539
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "收到 Ctrl+C。开始关闭…"
+
+#: src/uagent/cli.py:546
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "stdin_loop 中发生意外错误：%(err)s"
+
+#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr "（多行输入模式：请分多行输入内容；如需重来，输入 \"\"\"retry；以包含 %(sentinel)s 的一行结束）"
+
+#: src/uagent/cli.py:602
+msgid "Cancelled."
+msgstr "已取消。"
+
+#: src/uagent/cli.py:608 src/uagent/cli.py:656
+msgid "Discarded previous input. Please start over."
+msgstr "已丢弃之前的输入。请重新开始。"
+
+#: src/uagent/cli.py:619
+msgid "Received multiline reply."
+msgstr "已收到多行回复。"
+
+#: src/uagent/cli.py:763 src/uagent/web.py:803
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[致命] 设置 workdir 失败：%(err)s"
+
+#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model（deployment）= %(depname)s"
+
+#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
+msgid "OpenRouter fallback models enabled."
+msgstr "已启用 OpenRouter 备用模型。"
+
+#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"已设置 UAGENT_RESPONSES=1，但 provider \"%(provider)s\" 不支持 Responses API。将回退到 "
+"ChatCompletions。"
+
+#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API 模式 = Responses（已启用 UAGENT_RESPONSES）"
+
+#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API 模式 = ChatCompletions（未启用 UAGENT_RESPONSES）"
+
+#: src/uagent/cli.py:871
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "当前 workdir = %(cwd)s"
+
+#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
+msgid "Loaded long-term memory."
+msgstr "已加载长期记忆。"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
+msgid "Loaded shared long-term memory."
+msgstr "已加载共享长期记忆。"
+
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "加载共享长期记忆时发生异常：%(err)s"
+
+#: src/uagent/cli.py:924
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "读取启动文件失败：%(path)s（%(err)s）"
+
+#: src/uagent/cli.py:936
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "已指定启动文件：%(path)s"
+
+#: src/uagent/cli.py:960
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "已指定 --non-interactive；将不等待 stdin 直接退出。"
+
+#: src/uagent/cli.py:1019
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Image 文件 路径s were found in your input.\n"
+"Do you want to send these 图像s to the LLM (external API) for analysis?\n"
+"\n"
+
+#: src/uagent/cli.py:1025
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "输入 y 发送，输入 n（或 c/cancel）跳过发送。"
+
+#: src/uagent/cli.py:1040
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "Image send 确认 失败; will not send 图像s: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "附加图像失败：%(path)s（%(etype)s：%(err)s）"
+
+#: src/uagent/cli.py:1105
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "未知事件 kind=%(kind)r：%(ev)r"
+
+#: src/uagent/cli.py:1119
+msgid "Exited uag."
+msgstr "已退出 uag。"
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "未设置环境变量 %(name)s。"
+
+#: src/uagent/core.py:533
+msgid "No log files found."
+msgstr "未找到日志文件。"
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs：显示 %(shown)d/%(total)d（dir=%(dir)s）"
+
+#: src/uagent/core.py:557
+msgid "Log files:"
+msgstr "日志文件："
+
+#: src/uagent/core.py:957
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+msgstr ""
+"- 用英文总结截至目前的对话日志。\n"
+"- 总结要简洁，但需包含关键决策、约束条件和待办事项。\n"
+"- 输出应可直接作为系统消息使用，标题为“Summary of the conversation so far”。\n"
+
+#: src/uagent/core.py:991
+#, python-format
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "发生错误： calling LLM for history compression: %(err)r"
+
+#: src/uagent/core.py:1009
+msgid "Summary of the conversation so far:\n"
+msgstr "对话历史摘要：\n"
+
+#: src/uagent/core.py:1017
+#, python-brace-format
+msgid ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+msgstr "[信息] 对话历史已由 LLM 进行摘要：old_part={old_n} -> 1 条摘要 + tail_part={tail_n}"
+
+#: src/uagent/core.py:1032
+msgid "Available commands:"
+msgstr "可用命令："
+
+#: src/uagent/core.py:1033
+msgid "  :help                 Show this help"
+msgstr "  :help                 显示此帮助"
+
+#: src/uagent/core.py:1034
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  （多行输入中）\"\"\"retry  从头重新输入"
+
+#: src/uagent/core.py:1035
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         显示日志文件列表"
+
+#: src/uagent/core.py:1037
+msgid ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
+msgstr ""
+"  :cd <path>            不经确认切换 workdir（例如：:cd .. / :cd ~ / :cd C:\\path / "
+":cd /）"
+
+#: src/uagent/core.py:1040
+msgid ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+msgstr "  :ls [path]            列出目录内容（例如：:ls / :ls .. / :ls ~ / :ls C:\\path）"
+
+#: src/uagent/core.py:1043
+msgid ""
+"  :load <idx|path>      Load a past log (overwrites current conversation "
+"history)"
+msgstr "  :load <idx|path>      加载历史日志（覆盖当前对话历史）"
+
+#: src/uagent/core.py:1046
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Note: after running, you will be asked for 确认; "
+"choosing 'y' prepends the loaded log into the current session log 文件 "
+"(overwrite, no backup)."
+
+#: src/uagent/core.py:1049
+msgid ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
+msgstr ""
+"  :clean [N]            删除对话日志（scheck_log_*.jsonl）：用户/助手/工具消息数（不含system）<= "
+"N（默认=10）"
+
+#: src/uagent/core.py:1052
+msgid ""
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
+msgstr "  :shrink [N]           压缩对话历史（保留最近 N 条非system消息；默认=40）"
+
+#: src/uagent/core.py:1055
+msgid ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+msgstr ""
+"  :shrink_llm [N]       通过 LLM 摘要压缩历史（将较早内容汇总为 1 条system消息；保留最近 N 条原文；默认=20）"
+
+#: src/uagent/core.py:1057
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             列出长期记忆条目"
+
+#: src/uagent/core.py:1059
+msgid ""
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
+msgstr "  :mem-del <index>      按索引删除长期记忆条目（见 :mem-list）"
+
+#: src/uagent/core.py:1062
+msgid ""
+"  :shared-mem-list      List shared long-term memory notes (requires "
+"UAGENT_SHARED_MEMORY_FILE)"
+msgstr "  :shared-mem-list      列出共享长期记忆条目（需要 UAGENT_SHARED_MEMORY_FILE）"
+
+#: src/uagent/core.py:1064
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr "  :shared-mem-del <i>   按索引删除共享长期记忆条目"
+
+#: src/uagent/core.py:1066
+msgid ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  "
+"设置推理模式（0=关闭，1=低，2=中，3=高；auto/minimal/xhigh）"
+
+#: src/uagent/core.py:1069
+msgid ""
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=cycle)"
+msgstr "  :v [0|1|2|3]          设置详细程度（0=关闭，1=低，2=中，3=高；不带参数=循环切换）"
+
+#: src/uagent/core.py:1071
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         退出"
+
+#: src/uagent/core.py:1073
+msgid "Hints:"
+msgstr "提示："
+
+#: src/uagent/core.py:1074
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - 输入仅包含 'f' 的一行，进入多行输入模式。"
+
+#: src/uagent/core.py:1075
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "  - 要结束多行输入模式，请输入一行内容恰好为 %(sentinel)s。"
+
+#: src/uagent/core.py:1115
+msgid "[Available Tools]"
+msgstr "【可用工具】"
+
+#: src/uagent/core.py:1118
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr "以下是当前会话已加载的工具。请为任务选择最合适的工具。"
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "项目 README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Quickstart（Windows wheel 安装）"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector（playwright_inspector）指南"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "开发者信息"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "未知 doc name: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "doc file 未找到: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "解析文档路径失败：%(filename)s：%(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] 可用文档："
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "用法："
+
+#: src/uagent/docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # 列表"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # 显示"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --路径 <name>   # show 路径"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # 用系统默认程序打开"
+
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "指定的 workdir 路径是文件：%(path)s"
+
+#: src/uagent/runtime_init.py:266
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【共享长期记忆（shared memo）】\n"
+
+#: src/uagent/scheckgui.py:175
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "LLM 提供方 = %(provider)s"
+
+#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
+msgid "Welcome / Quick Guide"
+msgstr "欢迎 / 快速指南"
+
+#: src/uagent/scheckgui.py:441
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI（极致稳定）"
+
+#: src/uagent/scheckgui.py:487
+msgid "Send"
+msgstr "发送"
+
+#: src/uagent/scheckgui.py:525
+msgid "Help"
+msgstr "帮助"
+
+#: src/uagent/scheckgui.py:540
+msgid "Mode"
+msgstr "模式"
+
+#: src/uagent/scheckgui.py:542
+msgid "Reasoning: off"
+msgstr "推理：关闭"
+
+#: src/uagent/scheckgui.py:545
+msgid "Reasoning: auto"
+msgstr "推理：自动"
+
+#: src/uagent/scheckgui.py:547
+msgid "Reasoning: minimal"
+msgstr "推理：最小"
+
+#: src/uagent/scheckgui.py:549
+msgid "Reasoning: low"
+msgstr "推理：低"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: medium"
+msgstr "推理：中"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: high"
+msgstr "推理：高"
+
+#: src/uagent/scheckgui.py:556
+msgid "Reasoning: xhigh"
+msgstr "推理：超高"
+
+#: src/uagent/scheckgui.py:561
+msgid "Verbosity: off"
+msgstr "详细程度：关闭"
+
+#: src/uagent/scheckgui.py:563
+msgid "Verbosity: low"
+msgstr "详细程度：低"
+
+#: src/uagent/scheckgui.py:565
+msgid "Verbosity: medium"
+msgstr "详细程度：中"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: high"
+msgstr "详细程度：高"
+
+#: src/uagent/scheckgui.py:718
+msgid "Enter password..."
+msgstr "请输入密码…"
+
+#: src/uagent/scheckgui.py:720
+msgid "Enter response for human_ask..."
+msgstr "请输入对 human_ask 的回复…"
+
+#: src/uagent/scheckgui.py:725
+msgid "Enter a message..."
+msgstr "请输入消息…"
+
+#: src/uagent/uagent_llm.py:342
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[警告] 工具调用轮次超过 %(max)d；已中止。"
+
+#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "已达到 429 重试上限（%(max_retries)s）。"
+
+#: src/uagent/uagent_llm.py:469
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini 错误] 生成回复时发生错误。"
+
+#: src/uagent/uagent_llm.py:583
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude 错误] 生成回复时发生错误。"
+
+#: src/uagent/uagent_llm.py:993
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "发生错误： parsing response: %(err)s"
+
+#: src/uagent/util_providers.py:38
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "未设置环境变量 UAGENT_PROVIDER。"
+
+#: src/uagent/util_providers.py:43
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "未知 provider: %(provider)s"
+
+#: src/uagent/util_providers.py:261
+msgid "google-genai package is not installed."
+msgstr "未安装 google-genai 包。"
+
+#: src/uagent/util_providers.py:272
+msgid "anthropic package is not installed."
+msgstr "未安装 anthropic 包。"
+
+#: src/uagent/web.py:454
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"Another task is already running in this room. 请 retry after it completes."
+
+#: src/uagent/web.py:533 src/uagent/web.py:631
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"未设置环境变量 UAGENT_PROVIDER。\n"
+"启动 Web 服务器时请检查环境变量。"
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP Servers]\n"
+"- Config 文件 未找到."
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP Servers]\n"
+"- 未注册任何服务器。"
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "[MCP 服务器]"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP Servers]\n"
+"- 获取信息失败：%(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "[快速指南]"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 聊天：输入消息并发送（GUI 也可用 Ctrl+Enter）。"
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr "- 多行：输入仅包含 'f' 的一行进入多行模式（以 \"\"\"end 结束）。"
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr "- 命令：输入 ':help' 查看系统命令（日志管理、历史压缩等）。"
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- 退出：输入 ':exit' 或 ':quit' 结束会话。"
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Images: GUI supports drag & drop; in CUI you can input a 文件 路径 for 图像 "
+"analysis."
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--路径/--open` also available)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "[示例]"
+
+#: src/uagent/welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- “分析此文件夹中的源代码并生成 README.md。”"
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr "- “截取当前桌面截图，并描述可见窗口内容。”"
+
+#: src/uagent/welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Create a monthly summary report from this Excel 文件.\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- “读取此 PDF，并列出三个要点。”"
+
+#: src/uagent/welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- “检索最新新闻并总结某个特定主题。”"
