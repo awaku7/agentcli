@@ -236,7 +236,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 wb.Save()
                 result["processed"].append({"path": fp, "backup": backup_path})
             except Exception as e:
-                result["failed"].append({"path": fp, "error": f"{type(e).__name__}: {e}"})
+                result["failed"].append(
+                    {"path": fp, "error": f"{type(e).__name__}: {e}"}
+                )
             finally:
                 if wb is not None:
                     try:

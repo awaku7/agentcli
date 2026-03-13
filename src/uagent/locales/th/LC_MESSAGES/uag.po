@@ -1,0 +1,577 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: uag\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"PO-Revision-Date: 2026-03-13 09:55+0900\n"
+"Last-Translator: \n"
+"Language-Team: th\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:19
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "โปรดติดตั้ง Git ดาวน์โหลดได้ที่: https://git-scm.com/download/win"
+
+#: src/uagent/checks.py:22
+msgid "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo yum install git (CentOS/RHEL)"
+msgstr "โปรดติดตั้ง Git ตัวอย่าง: sudo apt install git (Ubuntu/Debian) หรือ sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:24
+msgid "Please install Git. If using Homebrew: brew install git, or install Xcode Command Line Tools: xcode-select --install"
+msgstr "โปรดติดตั้ง Git หากใช้ Homebrew: brew install git หรือ ติดตั้ง Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:25
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "โปรดติดตั้ง Git ดูที่: https://git-scm.com/"
+
+#: src/uagent/cli.py:349
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] ไม่ได้ติดตั้ง Git"
+
+#: src/uagent/cli.py:531
+msgid "getch() fallback to input()"
+msgstr "getch() จะใช้ input() แทน (fallback)"
+
+#: src/uagent/cli.py:539
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "ยกเลิกการป้อนข้อมูล (จะถูกส่งเป็นคำตอบให้ human_ask)"
+
+#: src/uagent/cli.py:546
+#, python-format
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "ได้รับ Ctrl+C กำลังเริ่มปิดการทำงาน..."
+
+#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "เกิดข้อผิดพลาดที่ไม่คาดคิดใน stdin_loop: %(err)s"
+
+#: src/uagent/cli.py:602
+msgid "(Multiline input mode: enter the body in multiple lines; to restart, type \"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr "(โหมดป้อนหลายบรรทัด: ป้อนเนื้อหาหลายบรรทัด; หากต้องการเริ่มใหม่ พิมพ์ \"\"\"retry; จบด้วยบรรทัดที่มี %(sentinel)s)"
+
+#: src/uagent/cli.py:608 src/uagent/cli.py:656
+msgid "Cancelled."
+msgstr "ยกเลิกแล้ว"
+
+#: src/uagent/cli.py:619
+msgid "Discarded previous input. Please start over."
+msgstr "ละทิ้งอินพุตก่อนหน้าแล้ว โปรดเริ่มใหม่"
+
+#: src/uagent/cli.py:763 src/uagent/web.py:803
+#, python-format
+msgid "Received multiline reply."
+msgstr "ได้รับคำตอบแบบหลายบรรทัด"
+
+#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] ตั้งค่า workdir ไม่สำเร็จ: %(err)s"
+
+#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
+msgid "model(deployment) = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
+
+#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
+#, python-format
+msgid "OpenRouter fallback models enabled."
+msgstr "เปิดใช้งานโมเดลสำรองของ OpenRouter แล้ว"
+
+#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
+msgid "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
+msgstr "ตั้งค่า UAGENT_RESPONSES=1 แล้ว แต่ provider '%(provider)s' ไม่รองรับ Responses API กำลังสลับไปใช้ ChatCompletions"
+
+#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "โหมด LLM API = Responses (เปิดใช้งาน UAGENT_RESPONSES)"
+
+#: src/uagent/cli.py:871
+#, python-format
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "โหมด LLM API = ChatCompletions (ปิดใช้งาน UAGENT_RESPONSES)"
+
+#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
+msgid "current workdir = %(cwd)s"
+msgstr "workdir ปัจจุบัน = %(cwd)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
+msgid "Loaded long-term memory."
+msgstr "โหลดหน่วยความจำระยะยาวแล้ว"
+
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
+#, python-format
+msgid "Loaded shared long-term memory."
+msgstr "โหลดหน่วยความจำระยะยาวแบบแชร์แล้ว"
+
+#: src/uagent/cli.py:924
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "เกิดข้อยกเว้นขณะโหลดหน่วยความจำระยะยาวแบบแชร์: %(err)s"
+
+#: src/uagent/cli.py:936
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "อ่านไฟล์เริ่มต้นไม่สำเร็จ: %(path)s (%(err)s)"
+
+#: src/uagent/cli.py:960
+msgid "Startup file provided: %(path)s"
+msgstr "ระบุไฟล์เริ่มต้น: %(path)s"
+
+#: src/uagent/cli.py:1019
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive ถูกระบุ; ออกจากโปรแกรมโดยไม่รอ stdin"
+
+#: src/uagent/cli.py:1025
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"พบพาธไฟล์รูปภาพในอินพุตของคุณ\n"
+"ต้องการส่งรูปภาพเหล่านี้ไปยัง LLM (API ภายนอก) เพื่อวิเคราะห์หรือไม่?\n"
+"\n"
+
+#: src/uagent/cli.py:1040
+#, python-format
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "ตอบกลับด้วย y เพื่อส่ง หรือ n (หรือ c/cancel) เพื่อข้ามการส่ง"
+
+#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
+#, python-format
+msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "การยืนยันการส่งรูปภาพล้มเหลว จะไม่ส่งรูปภาพ: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1105
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "แนบรูปภาพไม่สำเร็จ: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1119
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "ไม่รู้จักชนิดเหตุการณ์ kind=%(kind)r: %(ev)r"
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Exited uag."
+msgstr "ออกจาก uag แล้ว"
+
+#: src/uagent/core.py:533
+msgid "Environment variable %(name)s is not set."
+msgstr "ไม่ได้ตั้งค่าตัวแปรสภาพแวดล้อม %(name)s"
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "No log files found."
+msgstr "ไม่พบไฟล์บันทึก"
+
+#: src/uagent/core.py:557
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: แสดง %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:957
+msgid "Log files:"
+msgstr "ไฟล์บันทึก:"
+
+#: src/uagent/core.py:991
+#, python-format
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+msgstr ""
+"- สรุปบันทึกการสนทนาจนถึงตอนนี้เป็นภาษาอังกฤษ\n"
+"- ให้สรุปกระชับแต่รวมการตัดสินใจสำคัญ ข้อจำกัด และงานค้าง\n"
+"- เอาต์พุตควรใช้งานได้ทันทีเป็นข้อความ system ชื่อ 'Summary of the conversation so far'\n"
+
+#: src/uagent/core.py:1009
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "เกิดข้อผิดพลาดขณะเรียก LLM เพื่อบีบอัดประวัติ: %(err)r"
+
+#: src/uagent/core.py:1017
+#, python-brace-format
+msgid ""
+"Summary of the conversation so far:\n"
+msgstr ""
+"สรุปการสนทนาจนถึงตอนนี้:\n"
+
+#: src/uagent/core.py:1032
+msgid "[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1 summary + tail_part={tail_n}"
+msgstr "[INFO] ประวัติการสนทนาถูกสรุปโดย LLM: old_part={old_n} -> 1 summary + tail_part={tail_n}"
+
+#: src/uagent/core.py:1033
+msgid "Available commands:"
+msgstr "คำสั่งที่ใช้ได้:"
+
+#: src/uagent/core.py:1034
+msgid "  :help                 Show this help"
+msgstr "  :help                 แสดงความช่วยเหลือ"
+
+#: src/uagent/core.py:1035
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (ในโหมดป้อนหลายบรรทัด) \"\"\"retry  เริ่มป้อนใหม่ตั้งแต่ต้น"
+
+#: src/uagent/core.py:1037
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         แสดงรายการไฟล์บันทึก"
+
+#: src/uagent/core.py:1040
+msgid "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+msgstr "  :cd <path>            เปลี่ยน workdir โดยไม่ต้องยืนยัน (เช่น :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/core.py:1043
+msgid "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "  :ls [path]            แสดงรายการไฟล์/โฟลเดอร์ (เช่น :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/core.py:1046
+msgid "  :load <idx|path>      Load a past log (overwrites current conversation history)"
+msgstr "  :load <idx|path>      โหลดบันทึกเก่า (เขียนทับประวัติการสนทนาปัจจุบัน)"
+
+#: src/uagent/core.py:1049
+msgid "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
+msgstr "                       หมายเหตุ: หลังจากรันแล้ว จะมีการขอให้ยืนยัน; หากเลือก 'y' จะนำบันทึกที่โหลดมาไปไว้ต้นไฟล์ log ของเซสชันปัจจุบัน (เขียนทับ, ไม่มีสำรอง)"
+
+#: src/uagent/core.py:1052
+msgid "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr "  :clean [N]            ลบไฟล์บันทึกการสนทนา (scheck_log_*.jsonl) ที่จำนวนข้อความ user/assistant/tool (ไม่นับ system) <= N (ค่าเริ่มต้น=10)"
+
+#: src/uagent/core.py:1055
+msgid "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr "  :shrink [N]           ย่อประวัติการสนทนา (เก็บข้อความที่ไม่ใช่ system ล่าสุด N รายการ; ค่าเริ่มต้น=40)"
+
+#: src/uagent/core.py:1057
+msgid "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
+msgstr "  :shrink_llm [N]       ย่อประวัติด้วยการสรุปโดย LLM (สรุปประวัติเก่าเป็น 1 ข้อความ system; เก็บข้อความดิบล่าสุด N รายการ; ค่าเริ่มต้น=20)"
+
+#: src/uagent/core.py:1059
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             แสดงรายการบันทึกหน่วยความจำระยะยาว"
+
+#: src/uagent/core.py:1062
+msgid "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
+msgstr "  :mem-del <index>      ลบบันทึกหน่วยความจำระยะยาวตาม index (ดู :mem-list)"
+
+#: src/uagent/core.py:1064
+msgid "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr "  :shared-mem-list      แสดงรายการบันทึกหน่วยความจำระยะยาวแบบแชร์ (ต้องมี UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/core.py:1066
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr "  :shared-mem-del <i>   ลบบันทึกหน่วยความจำระยะยาวแบบแชร์ตาม index"
+
+#: src/uagent/core.py:1069
+msgid "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr "  :r [0|1|2|3|auto|minimal|xhigh]  ตั้งค่าโหมด reasoning (0=ปิด, 1=ต่ำ, 2=ปานกลาง, 3=สูง; auto/minimal/xhigh)"
+
+#: src/uagent/core.py:1071
+msgid "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"
+msgstr "  :v [0|1|2|3]          ตั้งค่าโหมด verbosity (0=ปิด, 1=ต่ำ, 2=ปานกลาง, 3=สูง; ไม่ระบุ=สลับวน)"
+
+#: src/uagent/core.py:1073
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         ออก"
+
+#: src/uagent/core.py:1074
+msgid "Hints:"
+msgstr "คำแนะนำ:"
+
+#: src/uagent/core.py:1075
+#, python-format
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - ป้อนบรรทัดที่มีเพียง 'f' เพื่อเข้าสู่โหมดป้อนหลายบรรทัด"
+
+#: src/uagent/core.py:1115
+msgid "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "  - เพื่อจบโหมดป้อนหลายบรรทัด ให้ป้อนบรรทัดที่ตรงกับ %(sentinel)s เท่านั้น"
+
+#: src/uagent/core.py:1118
+msgid "[Available Tools]"
+msgstr "[เครื่องมือที่ใช้ได้]"
+
+#: src/uagent/docs_util.py:27
+msgid "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."
+msgstr "เครื่องมือต่อไปนี้ถูกโหลดในเซสชันนี้แล้ว โปรดเลือกเครื่องมือที่เหมาะสมที่สุดสำหรับงาน"
+
+#: src/uagent/docs_util.py:32
+msgid "Project README"
+msgstr "README ของโปรเจกต์"
+
+#: src/uagent/docs_util.py:37
+msgid "Quickstart (Windows wheel install)"
+msgstr "เริ่มต้นอย่างรวดเร็ว (ติดตั้ง wheel บน Windows)"
+
+#: src/uagent/docs_util.py:42
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "คู่มือ Web Inspector (playwright_inspector)"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "Developer information"
+msgstr "ข้อมูลสำหรับนักพัฒนา"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "ไม่รู้จักชื่อเอกสาร: %(name)r"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "ไม่พบไฟล์เอกสาร: %(filename)s"
+
+#: src/uagent/docs_util.py:227
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "แก้เส้นทางเอกสารไม่สำเร็จ: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:231
+msgid "[docs] Available documents:"
+msgstr "[docs] เอกสารที่มี:"
+
+#: src/uagent/docs_util.py:232
+msgid "Usage:"
+msgstr "วิธีใช้:"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # แสดงรายการ"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # แสดง"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # แสดงพาธ"
+
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # เปิดด้วย OS"
+
+#: src/uagent/runtime_init.py:266
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
+
+#: src/uagent/scheckgui.py:175
+#, python-format
+msgid ""
+"【Shared long-term memory (shared memo)】\n"
+msgstr ""
+"【หน่วยความจำระยะยาวแบบแชร์ (shared memo)】\n"
+
+#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
+msgid "LLM provider = %(provider)s"
+msgstr "LLM provider = %(provider)s"
+
+#: src/uagent/scheckgui.py:441
+msgid "Welcome / Quick Guide"
+msgstr "ยินดีต้อนรับ / คู่มือฉบับย่อ"
+
+#: src/uagent/scheckgui.py:487
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (เสถียรมาก)"
+
+#: src/uagent/scheckgui.py:525
+msgid "Send"
+msgstr "ส่ง"
+
+#: src/uagent/scheckgui.py:540
+msgid "Help"
+msgstr "ช่วยเหลือ"
+
+#: src/uagent/scheckgui.py:542
+msgid "Mode"
+msgstr "โหมด"
+
+#: src/uagent/scheckgui.py:545
+msgid "Reasoning: off"
+msgstr "Reasoning: ปิด"
+
+#: src/uagent/scheckgui.py:547
+msgid "Reasoning: auto"
+msgstr "Reasoning: อัตโนมัติ"
+
+#: src/uagent/scheckgui.py:549
+msgid "Reasoning: minimal"
+msgstr "Reasoning: น้อยที่สุด"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: low"
+msgstr "Reasoning: ต่ำ"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: medium"
+msgstr "Reasoning: ปานกลาง"
+
+#: src/uagent/scheckgui.py:556
+msgid "Reasoning: high"
+msgstr "Reasoning: สูง"
+
+#: src/uagent/scheckgui.py:561
+msgid "Reasoning: xhigh"
+msgstr "Reasoning: สูงมาก"
+
+#: src/uagent/scheckgui.py:563
+msgid "Verbosity: off"
+msgstr "Verbosity: ปิด"
+
+#: src/uagent/scheckgui.py:565
+msgid "Verbosity: low"
+msgstr "Verbosity: ต่ำ"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: medium"
+msgstr "Verbosity: ปานกลาง"
+
+#: src/uagent/scheckgui.py:718
+msgid "Verbosity: high"
+msgstr "Verbosity: สูง"
+
+#: src/uagent/scheckgui.py:720
+msgid "Enter password..."
+msgstr "กรอกรหัสผ่าน..."
+
+#: src/uagent/scheckgui.py:725
+msgid "Enter response for human_ask..."
+msgstr "ป้อนคำตอบสำหรับ human_ask..."
+
+#: src/uagent/uagent_llm.py:342
+#, python-format
+msgid "Enter a message..."
+msgstr "พิมพ์ข้อความ..."
+
+#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] จำนวนรอบการใช้เครื่องมือเกิน %(max)d; ยกเลิก"
+
+#: src/uagent/uagent_llm.py:469
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "ถึงขีดจำกัดการลองใหม่ 429 (%(max_retries)s) แล้ว"
+
+#: src/uagent/uagent_llm.py:583
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini Error] เกิดข้อผิดพลาดขณะสร้างคำตอบ"
+
+#: src/uagent/uagent_llm.py:993
+#, python-format
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude Error] เกิดข้อผิดพลาดขณะสร้างคำตอบ"
+
+#: src/uagent/util_providers.py:38
+msgid "Error while parsing response: %(err)s"
+msgstr "เกิดข้อผิดพลาดขณะวิเคราะห์การตอบกลับ: %(err)s"
+
+#: src/uagent/util_providers.py:43
+#, python-format
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "ไม่ได้ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_PROVIDER"
+
+#: src/uagent/util_providers.py:261
+msgid "Unknown provider: %(provider)s"
+msgstr "ไม่รู้จัก provider: %(provider)s"
+
+#: src/uagent/util_providers.py:272
+msgid "google-genai package is not installed."
+msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ google-genai"
+
+#: src/uagent/web.py:454
+msgid "anthropic package is not installed."
+msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ anthropic"
+
+#: src/uagent/web.py:533 src/uagent/web.py:631
+msgid "Another task is already running in this room. Please retry after it completes."
+msgstr "มีงานอื่นกำลังทำงานอยู่ในห้องนี้ โปรดลองใหม่หลังจากงานเสร็จสิ้น"
+
+#: src/uagent/welcome.py:27
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"ไม่ได้ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_PROVIDER\n"
+"โปรดตรวจสอบตัวแปรสภาพแวดล้อมเมื่อเริ่มเว็บเซิร์ฟเวอร์"
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP Servers]\n"
+"- ไม่พบไฟล์คอนฟิก"
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP Servers]\n"
+"- ไม่มีเซิร์ฟเวอร์ที่ลงทะเบียน"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid "[MCP Servers]"
+msgstr "[MCP Servers]"
+
+#: src/uagent/welcome.py:62
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP Servers]\n"
+"- ดึงข้อมูลไม่สำเร็จ: %(err)s"
+
+#: src/uagent/welcome.py:63
+msgid "[Quick Guide]"
+msgstr "[คู่มือย่อ]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- แชต: พิมพ์ข้อความและส่ง (GUI: ใช้ Ctrl+Enter ได้ด้วย)"
+
+#: src/uagent/welcome.py:68
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode (end with \"\"\"end)."
+msgstr "- หลายบรรทัด: ป้อนบรรทัดที่มีเพียง 'f' เพื่อเข้าสู่โหมดหลายบรรทัด (จบด้วย \"\"\"end)"
+
+#: src/uagent/welcome.py:70
+msgid "- Commands: type ':help' to see system commands (log management, history compression, etc.)."
+msgstr "- คำสั่ง: พิมพ์ '::help' เพื่อดูคำสั่งระบบ (จัดการ log, บีบอัดประวัติ ฯลฯ)"
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- ออก: ':exit' หรือ ':quit' เพื่อจบเซสชัน"
+
+#: src/uagent/welcome.py:75
+msgid "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
+msgstr "- รูปภาพ: GUI รองรับลากแล้ววาง; ใน CUI คุณสามารถป้อนพาธไฟล์เพื่อวิเคราะห์รูปภาพได้"
+
+#: src/uagent/welcome.py:78
+msgid "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."
+msgstr "- เอกสาร: `uag docs` แสดงเอกสารที่มากับโปรแกรม; `uag docs webinspect` แสดงวิธีใช้ Web Inspector (`--path/--open` ก็ใช้ได้)"
+
+#: src/uagent/welcome.py:79
+msgid "[Examples]"
+msgstr "[ตัวอย่าง]"
+
+#: src/uagent/welcome.py:81
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"วิเคราะห์ซอร์สโค้ดในโฟลเดอร์นี้และสร้าง README.md\""
+
+#: src/uagent/welcome.py:83
+msgid "- \"Take a screenshot of the current desktop and describe the visible window contents.\""
+msgstr "- \"ถ่ายภาพหน้าจอเดสก์ท็อปปัจจุบันและอธิบายเนื้อหาที่เห็นในหน้าต่าง\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"สร้างรายงานสรุปรายเดือนจากไฟล์ Excel นี้\""
+
+#: src/uagent/welcome.py:85
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"อ่าน PDF นี้และสรุป 3 ประเด็นสำคัญ\""
+
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"ค้นหาข่าวล่าสุดและสรุปหัวข้อที่ระบุ\""

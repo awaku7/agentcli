@@ -107,14 +107,17 @@ def run_tool(args: Dict[str, Any]) -> str:
         p = Path(safe_path)
         if not p.is_file():
             return _json_err(
-                _("err.not_a_file", default="[generate_prompt error] not a file: {path}").format(
-                    path=str(p)
-                )
+                _(
+                    "err.not_a_file",
+                    default="[generate_prompt error] not a file: {path}",
+                ).format(path=str(p))
             )
 
         # Keep it simple: treat as UTF-8 text; replace undecodable bytes.
         content = p.read_text(encoding="utf-8", errors="replace")
-        lines = content.count("\n") + (1 if content and not content.endswith("\n") else 0)
+        lines = content.count("\n") + (
+            1 if content and not content.endswith("\n") else 0
+        )
         bsz = p.stat().st_size
 
         vars_map: Dict[str, Any] = {
@@ -129,13 +132,16 @@ def run_tool(args: Dict[str, Any]) -> str:
             out = template.format(**vars_map)
         except KeyError as e:
             return _json_err(
-                _("err.bad_template", default="[generate_prompt error] template has unknown key: {key}").format(
-                    key=str(e)
-                ),
+                _(
+                    "err.bad_template",
+                    default="[generate_prompt error] template has unknown key: {key}",
+                ).format(key=str(e)),
                 available=list(vars_map.keys()),
             )
         except Exception as e:
-            return _json_err(f"[generate_prompt error] template format failed: {type(e).__name__}: {e}")
+            return _json_err(
+                f"[generate_prompt error] template format failed: {type(e).__name__}: {e}"
+            )
 
         if cb.truncate_output:
             return cb.truncate_output("generate_prompt", out, limit=10000)
