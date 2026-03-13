@@ -6,5 +6,29 @@
   "ja": {
     "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。",
     "tool.system_prompt": "このツールは次の目的で使われます: システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。"
+  },
+  "zh_CN": {
+    "tool.description": "重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。",
+    "tool.system_prompt": "该工具的用途如下：重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。"
+  },
+  "zh_TW": {
+    "tool.description": "重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。",
+    "tool.system_prompt": "工具的用途如下：重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。"
+  },
+  "es": {
+    "tool.description": "Vuelva a cargar el sistema y refleje el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recargar el sistema y reflejar el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código."
+  },
+  "fr": {
+    "tool.description": "Rechargez le système et reflétez le dernier code de tous les outils sous tools/ (fichiers Python .py) en mémoire. Exécutez-le après avoir modifié le code.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : recharger le système et refléter le dernier code de tous les outils sous tools/ (fichiers Python .py) en mémoire. Exécutez-le après avoir modifié le code."
+  },
+  "ko": {
+    "tool.description": "시스템을 다시 로드하고 tools/(Python .py 파일) 아래의 모든 도구에 대한 최신 코드를 메모리에 반영합니다. 코드 수정 후 실행해 보세요.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다. 시스템을 다시 로드하고 tools/(Python .py 파일) 아래의 모든 도구에 대한 최신 코드를 메모리에 반영합니다. 코드 수정 후 실행해 보세요."
+  },
+  "th": {
+    "tool.description": "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด"
   }
 }

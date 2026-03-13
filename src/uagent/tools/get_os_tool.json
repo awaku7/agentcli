@@ -4,7 +4,31 @@
     "tool.system_prompt": "This tool is used for the following purpose: get the type of the operating system currently in use (e.g., Windows, Linux, Darwin)."
   },
   "ja": {
-    "tool.system_prompt": "このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。",
-    "tool.description": "取得します the current OS 種類 (例:, Windows, Linux, Darwin)."
+    "tool.description": "取得します the current OS 種類 (例:, Windows, Linux, Darwin).",
+    "tool.system_prompt": "このツールは次の目的で使われます: 現在利用中のOSの種類を取得します（例: Windows, Linux, Darwin など）。"
+  },
+  "zh_CN": {
+    "tool.description": "获取当前操作系统类型（例如 Windows、Linux、Darwin）。",
+    "tool.system_prompt": "该工具用于以下目的：获取当前使用的操作系统的类型（例如Windows、Linux、Darwin）。"
+  },
+  "zh_TW": {
+    "tool.description": "取得目前作業系統類型（例如 Windows、Linux、Darwin）。",
+    "tool.system_prompt": "此工具用於以下目的：取得目前使用的作業系統的類型（例如Windows、Linux、Darwin）。"
+  },
+  "es": {
+    "tool.description": "Obtenga el tipo de sistema operativo actual (por ejemplo, Windows, Linux, Darwin).",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el tipo de sistema operativo actualmente en uso (por ejemplo, Windows, Linux, Darwin)."
+  },
+  "fr": {
+    "tool.description": "Obtenez le type de système d'exploitation actuel (par exemple, Windows, Linux, Darwin).",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : obtenir le type de système d'exploitation actuellement utilisé (par exemple, Windows, Linux, Darwin)."
+  },
+  "ko": {
+    "tool.description": "현재 OS 유형(예: Windows, Linux, Darwin)을 가져옵니다.",
+    "tool.system_prompt": "이 도구는 현재 사용 중인 운영 체제 유형(예: Windows, Linux, Darwin)을 가져오는 목적으로 사용됩니다."
+  },
+  "th": {
+    "tool.description": "รับประเภทระบบปฏิบัติการปัจจุบัน (เช่น Windows, Linux, Darwin)",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับประเภทของระบบปฏิบัติการที่ใช้งานอยู่ในปัจจุบัน (เช่น Windows, Linux, Darwin)"
   }
 }

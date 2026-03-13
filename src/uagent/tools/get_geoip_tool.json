@@ -8,5 +8,35 @@
     "param.format.description": "出力形式。",
     "tool.description": "公開 IP アドレスに基づいてユーザーのおおよその位置を推定します。VPN、プロキシ、モバイル回線を使っている場合は不正確になることがあります。\n\n方針:\n- ユーザーの位置（都市・地域・国）がおおよそ必要で、まだ提供されていない場合に使ってください。\n- ユーザーが既に位置を伝えている場合はそちらを優先し、get_geoip は呼ばないでください。",
     "tool.system_prompt": "外部サービス（ipinfo.io）から IP ベースの位置情報を取得し、簡略化した結果を返します。"
+  },
+  "zh_CN": {
+    "param.format.description": "输出格式。",
+    "tool.description": "根据用户的公共 IP 地址估计用户的大致位置。使用 VPN/proxies/mobile 网络时，结果可能不准确。\n\n政策：\n- 当您需要用户的大概位置（城市/地区/国家）而用户未提供时，请使用此工具。\n- 如果用户已经提供了他们的位置，则更愿意这样做，并且不要调用 get_geoip。",
+    "tool.system_prompt": "从外部服务 (ipinfo.io) 获取基于 IP 的位置数据并返回简化的结果。"
+  },
+  "zh_TW": {
+    "param.format.description": "輸出格式。",
+    "tool.description": "根據使用者的公共 IP 位址估計使用者的大致位置。使用 VPN/proxies/mobile 網路時，結果可能不準確。\n\n政策：\n- 當您需要用戶的大概位置（城市/地區/國家）而用戶未提供時，請使用此工具。\n- 如果使用者已經提供了他們的位置，則更願意這樣做，並且不要呼叫 get_geoip。",
+    "tool.system_prompt": "從外部服務 (ipinfo.io) 取得基於 IP 的位置資料並傳回簡化的結果。"
+  },
+  "es": {
+    "param.format.description": "Formato de salida.",
+    "tool.description": "Calcule la ubicación aproximada del usuario en función de su dirección IP pública. El resultado puede ser inexacto al utilizar VPN/proxies/redes móviles.\n\nPolítica:\n- Utilice esta herramienta cuando necesite la ubicación aproximada del usuario (ciudad/región/país) y el usuario no la haya proporcionado.\n- Si el usuario ya proporcionó su ubicación, prefiérelo y no llame a get_geoip.",
+    "tool.system_prompt": "Obtenga datos de ubicación basados en IP de un servicio externo (ipinfo.io) y obtenga un resultado simplificado."
+  },
+  "fr": {
+    "param.format.description": "Format de sortie.",
+    "tool.description": "Estimez la localisation approximative de l'utilisateur en fonction de son adresse IP publique. Le résultat peut être inexact lors de l'utilisation de VPN/proxys/réseaux mobiles.\n\nPolitique :\n- Utilisez cet outil lorsque vous avez besoin de l'emplacement approximatif de l'utilisateur (ville/région/pays) et que l'utilisateur ne l'a pas fourni.\n- Si l'utilisateur a déjà fourni sa localisation, préférez cela et n'appelez pas get_geoip.",
+    "tool.system_prompt": "Récupérez les données de localisation basées sur IP à partir d'un service externe (ipinfo.io) et renvoyez un résultat simplifié."
+  },
+  "ko": {
+    "param.format.description": "출력 형식.",
+    "tool.description": "공용 IP 주소를 기반으로 사용자의 대략적인 위치를 추정합니다. VPN/프록시/모바일 네트워크를 사용하는 경우 결과가 정확하지 않을 수 있습니다.\n\n정책:\n- 사용자의 대략적인 위치(도시/지역/국가)가 필요하고 사용자가 이를 제공하지 않은 경우 이 도구를 사용하십시오.\n- 사용자가 이미 위치를 제공한 경우 이를 선호하고 get_geoip를 호출하지 마세요.",
+    "tool.system_prompt": "외부 서비스(ipinfo.io)에서 IP 기반 위치 데이터를 가져와 단순화된 결과를 반환합니다."
+  },
+  "th": {
+    "param.format.description": "รูปแบบเอาต์พุต",
+    "tool.description": "ประมาณตำแหน่งคร่าวๆ ของผู้ใช้ตามที่อยู่ IP สาธารณะ ผลลัพธ์อาจไม่ถูกต้องเมื่อใช้ VPN/proxy/mobile network\n\nนโยบาย:\n- ใช้เครื่องมือนี้เมื่อคุณต้องการตำแหน่งโดยประมาณของผู้ใช้ (เมือง/ภูมิภาค/ประเทศ) และผู้ใช้ไม่ได้ระบุไว้\n- หากผู้ใช้ระบุตำแหน่งของตนแล้ว ให้เลือกและอย่าเรียก get_geoip",
+    "tool.system_prompt": "ดึงข้อมูลตำแหน่งตาม IP จากบริการภายนอก (ipinfo.io) และส่งคืนผลลัพธ์ที่เรียบง่าย"
   }
 }
