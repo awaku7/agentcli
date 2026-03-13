@@ -1,0 +1,694 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"PO-Revision-Date: 2026-03-13 12:30+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr ""
+"Veuillez installer Git. Téléchargez-le depuis : https://git-"
+"scm.com/download/win"
+
+#: src/uagent/checks.py:19
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Veuillez installer Git. Exemple : sudo apt install git (Ubuntu/Debian) ou "
+"sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Veuillez installer Git. Si vous utilisez Homebrew : brew install git, ou "
+"installez les Xcode Command Line Tools : xcode-select --install"
+
+#: src/uagent/checks.py:24
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "Veuillez installer Git. Voir : https://git-scm.com/"
+
+#: src/uagent/checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Git n'est pas installé."
+
+#: src/uagent/cli.py:349
+msgid "getch() fallback to input()"
+msgstr "getch() a basculé sur input()"
+
+#: src/uagent/cli.py:531
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Saisie annulée (sera envoyée comme réponse à human_ask)."
+
+#: src/uagent/cli.py:539
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C reçu. Arrêt en cours..."
+
+#: src/uagent/cli.py:546
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "Erreur inattendue dans stdin_loop : %(err)s"
+
+#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Mode de saisie multiligne : saisissez le contenu sur plusieurs lignes ; "
+"pour recommencer, tapez \"\"\"retry ; terminez par une ligne contenant "
+"%(sentinel)s)"
+
+#: src/uagent/cli.py:602
+msgid "Cancelled."
+msgstr "Annulé."
+
+#: src/uagent/cli.py:608 src/uagent/cli.py:656
+msgid "Discarded previous input. Please start over."
+msgstr "L'entrée précédente a été ignorée. Veuillez recommencer."
+
+#: src/uagent/cli.py:619
+msgid "Received multiline reply."
+msgstr "Réponse multiligne reçue."
+
+#: src/uagent/cli.py:763 src/uagent/web.py:803
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Failed to set répertoire de travail: %(err)s"
+
+#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
+
+#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
+msgid "OpenRouter fallback models enabled."
+msgstr "Modèles de secours OpenRouter activés."
+
+#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 est défini, mais le fournisseur '%(provider)s' ne prend "
+"pas en charge l'API Responses. Bascule vers ChatCompletions."
+
+#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Mode API LLM = Responses (UAGENT_RESPONSES est activé)"
+
+#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "Mode API LLM = ChatCompletions (UAGENT_RESPONSES est désactivé)"
+
+#: src/uagent/cli.py:871
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "current répertoire de travail = %(cwd)s"
+
+#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
+msgid "Loaded long-term memory."
+msgstr "Mémoire à long terme chargée."
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
+msgid "Loaded shared long-term memory."
+msgstr "Mémoire partagée à long terme chargée."
+
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Une exception s'est produite lors du chargement de la mémoire partagée à "
+"long terme : %(err)s"
+
+#: src/uagent/cli.py:924
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "Impossible de lire le fichier de démarrage : %(path)s (%(err)s)"
+
+#: src/uagent/cli.py:936
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Fichier de démarrage fourni : %(path)s"
+
+#: src/uagent/cli.py:960
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive a été spécifié ; sortie sans attendre stdin."
+
+#: src/uagent/cli.py:1019
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Des chemins de fichiers image ont été trouvés dans votre saisie.\n"
+"Souhaitez-vous envoyer ces images au LLM (API externe) pour analyse ?\n"
+"\n"
+
+#: src/uagent/cli.py:1025
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Répondez par y pour envoyer, ou n (ou c/cancel) pour ignorer l'envoi."
+
+#: src/uagent/cli.py:1040
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Échec de la confirmation d'envoi des images ; elles ne seront pas envoyées :"
+" %(etype)s : %(err)s"
+
+#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Impossible de joindre l'image : %(path)s (%(etype)s : %(err)s)"
+
+#: src/uagent/cli.py:1105
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Type d'événement inconnu kind=%(kind)r : %(ev)r"
+
+#: src/uagent/cli.py:1119
+msgid "Exited uag."
+msgstr "Sortie de uag."
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "La variable d'environnement %(name)s n'est pas définie."
+
+#: src/uagent/core.py:533
+msgid "No log files found."
+msgstr "Aucun fichier de journal trouvé."
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs : affichage de %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:557
+msgid "Log files:"
+msgstr "Fichiers de journal :"
+
+#: src/uagent/core.py:957
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+msgstr ""
+"- Résumez le journal de conversation jusqu'à présent en anglais.\n"
+"- Gardez le résumé concis, mais incluez les décisions clés, les contraintes et les éléments en attente.\n"
+"- La sortie doit être directement utilisable comme message système intitulé 'Summary of the conversation so far'.\n"
+
+#: src/uagent/core.py:991
+#, python-format
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr ""
+"Erreur lors de l'appel du LLM pour la compression de l'historique : %(err)r"
+
+#: src/uagent/core.py:1009
+msgid "Summary of the conversation so far:\n"
+msgstr "Résumé de la conversation jusqu’à présent :\n"
+
+#: src/uagent/core.py:1017
+#, python-brace-format
+msgid ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+msgstr ""
+"[INFO] L'historique de la conversation a été résumé par le LLM : "
+"old_part={old_n} -> 1 summary + tail_part={tail_n}"
+
+#: src/uagent/core.py:1032
+msgid "Available commands:"
+msgstr "Available commandes:"
+
+#: src/uagent/core.py:1033
+msgid "  :help                 Show this help"
+msgstr "  :help                 Afficher cette aide"
+
+#: src/uagent/core.py:1034
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (en saisie multiligne) \"\"\"retry  Recommencer la saisie depuis le début"
+
+#: src/uagent/core.py:1035
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         Afficher la liste des fichiers de journal"
+
+#: src/uagent/core.py:1037
+msgid ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
+msgstr ""
+"  :cd <path>            Change répertoire de travail without confirmation "
+"(e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/core.py:1040
+msgid ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+msgstr ""
+"  :ls [path]            Lister les entrées du répertoire (ex. : :ls / :ls .."
+" / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/core.py:1043
+msgid ""
+"  :load <idx|path>      Load a past log (overwrites current conversation "
+"history)"
+msgstr ""
+"  :load <idx|path>      Charger un journal précédent (écrase l'historique "
+"actuel)"
+
+#: src/uagent/core.py:1046
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Remarque : après exécution, une confirmation vous "
+"sera demandée ; si vous choisissez 'y', le journal chargé sera préfixé au "
+"fichier de journal de la session en cours (écrasement, sans sauvegarde)."
+
+#: src/uagent/core.py:1049
+msgid ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
+msgstr ""
+"  :clean [N]            Supprimer les journaux de conversation "
+"(scheck_log_*.jsonl) dont le nombre de messages utilisateur/assistant/outils"
+" (hors system) est <= N (par défaut=10)"
+
+#: src/uagent/core.py:1052
+msgid ""
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
+msgstr ""
+"  :shrink [N]           Réduire l'historique (conserver les N derniers "
+"messages hors system ; par défaut=40)"
+
+#: src/uagent/core.py:1055
+msgid ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+msgstr ""
+"  :shrink_llm [N]       Réduire l'historique via résumé par le LLM (résumer "
+"l'ancien historique en 1 message system ; conserver les N derniers bruts ; "
+"par défaut=20)"
+
+#: src/uagent/core.py:1057
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             Lister les notes de mémoire à long terme"
+
+#: src/uagent/core.py:1059
+msgid ""
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
+msgstr ""
+"  :mem-del <index>      Supprimer une note de mémoire à long terme par index"
+" (voir :mem-list)"
+
+#: src/uagent/core.py:1062
+msgid ""
+"  :shared-mem-list      List shared long-term memory notes (requires "
+"UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"  :shared-mem-list      Lister les notes de mémoire partagée à long terme "
+"(nécessite UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/core.py:1064
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr ""
+"  :shared-mem-del <i>   Supprimer une note de mémoire partagée par index"
+
+#: src/uagent/core.py:1066
+msgid ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Définir le mode de raisonnement (0=off, "
+"1=low, 2=medium, 3=high ; auto/minimal/xhigh)"
+
+#: src/uagent/core.py:1069
+msgid ""
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=cycle)"
+msgstr ""
+"  :v [0|1|2|3]          Définir le mode de verbosité (0=off, 1=low, "
+"2=medium, 3=high ; sans argument=cycle)"
+
+#: src/uagent/core.py:1071
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         Quitter"
+
+#: src/uagent/core.py:1073
+msgid "Hints:"
+msgstr "Astuces :"
+
+#: src/uagent/core.py:1074
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Entrez une ligne contenant uniquement 'f' pour passer en mode de saisie "
+"multiligne."
+
+#: src/uagent/core.py:1075
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Pour terminer le mode multiligne, entrez une ligne qui soit exactement "
+"%(sentinel)s."
+
+#: src/uagent/core.py:1115
+msgid "[Available Tools]"
+msgstr "[Outils disponibles]"
+
+#: src/uagent/core.py:1118
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"Les outils suivants sont actuellement chargés dans cette session. Choisissez"
+" le plus approprié pour la tâche."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "README du projet"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Démarrage rapide (installation du wheel Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Guide Web Inspector (playwright_inspector)"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Informations pour les développeurs"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "nom de document inconnu : %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "fichier du document introuvable : %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "échec de résolution du chemin du document : %(filename)s : %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Documents disponibles :"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Utilisation :"
+
+#: src/uagent/docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # lister"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # afficher"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # afficher le chemin"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # ouvrir avec le système"
+
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Specified répertoire de travail path is a file: %(path)s"
+
+#: src/uagent/runtime_init.py:266
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【Mémoire partagée à long terme (mémo partagé)】\n"
+
+#: src/uagent/scheckgui.py:175
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "Fournisseur LLM = %(provider)s"
+
+#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
+msgid "Welcome / Quick Guide"
+msgstr "Bienvenue / Guide rapide"
+
+#: src/uagent/scheckgui.py:441
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (Stabilité extrême)"
+
+#: src/uagent/scheckgui.py:487
+msgid "Send"
+msgstr "Envoyer"
+
+#: src/uagent/scheckgui.py:525
+msgid "Help"
+msgstr "Aide"
+
+#: src/uagent/scheckgui.py:540
+msgid "Mode"
+msgstr "Mode"
+
+#: src/uagent/scheckgui.py:542
+msgid "Reasoning: off"
+msgstr "Raisonnement : off"
+
+#: src/uagent/scheckgui.py:545
+msgid "Reasoning: auto"
+msgstr "Raisonnement : auto"
+
+#: src/uagent/scheckgui.py:547
+msgid "Reasoning: minimal"
+msgstr "Raisonnement : minimal"
+
+#: src/uagent/scheckgui.py:549
+msgid "Reasoning: low"
+msgstr "Raisonnement : low"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: medium"
+msgstr "Raisonnement : medium"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: high"
+msgstr "Raisonnement : high"
+
+#: src/uagent/scheckgui.py:556
+msgid "Reasoning: xhigh"
+msgstr "Raisonnement : xhigh"
+
+#: src/uagent/scheckgui.py:561
+msgid "Verbosity: off"
+msgstr "Verbosité : off"
+
+#: src/uagent/scheckgui.py:563
+msgid "Verbosity: low"
+msgstr "Verbosité : low"
+
+#: src/uagent/scheckgui.py:565
+msgid "Verbosity: medium"
+msgstr "Verbosité : medium"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: high"
+msgstr "Verbosité : high"
+
+#: src/uagent/scheckgui.py:718
+msgid "Enter password..."
+msgstr "Entrez le mot de passe..."
+
+#: src/uagent/scheckgui.py:720
+msgid "Enter response for human_ask..."
+msgstr "Saisissez la réponse pour human_ask..."
+
+#: src/uagent/scheckgui.py:725
+msgid "Enter a message..."
+msgstr "Saisissez un message..."
+
+#: src/uagent/uagent_llm.py:342
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr ""
+"[WARN] Le nombre de tours d'outils a dépassé la limite %(max)d ; abandon."
+
+#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Limite de nouvelles tentatives 429 atteinte (%(max_retries)s)."
+
+#: src/uagent/uagent_llm.py:469
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr ""
+"[Erreur Gemini] Une erreur s'est produite lors de la génération d'une "
+"réponse."
+
+#: src/uagent/uagent_llm.py:583
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr ""
+"[Erreur Claude] Une erreur s'est produite lors de la génération d'une "
+"réponse."
+
+#: src/uagent/uagent_llm.py:993
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Erreur lors de l'analyse de la réponse : %(err)s"
+
+#: src/uagent/util_providers.py:38
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "La variable d'environnement UAGENT_PROVIDER n'est pas définie."
+
+#: src/uagent/util_providers.py:43
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Fournisseur inconnu : %(provider)s"
+
+#: src/uagent/util_providers.py:261
+msgid "google-genai package is not installed."
+msgstr "Le paquet google-genai n'est pas installé."
+
+#: src/uagent/util_providers.py:272
+msgid "anthropic package is not installed."
+msgstr "Le paquet anthropic n'est pas installé."
+
+#: src/uagent/web.py:454
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"Une autre tâche est déjà en cours dans cette salle. Veuillez réessayer une "
+"fois terminée."
+
+#: src/uagent/web.py:533 src/uagent/web.py:631
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"La variable d'environnement UAGENT_PROVIDER n'est pas définie.\n"
+"Veuillez vérifier les variables d'environnement au démarrage du serveur web."
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[Serveurs MCP]\n"
+"- Config file not found."
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[Serveurs MCP]\n"
+"- No servers registered."
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "[Serveurs MCP]"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[Serveurs MCP]\n"
+"- Failed to get info: %(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "[Guide rapide]"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- Chat : saisissez un message et envoyez-le (dans la GUI, Ctrl+Enter est "
+"aussi disponible)."
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Multiligne : entrez une ligne contenant uniquement 'f' pour passer en mode"
+" multiligne (terminez par \"\"\"end)."
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr ""
+"- Commands: type ':help' to see system commandes (log management, history "
+"compression, etc.)."
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Quitter : ':exit' ou ':quit' met fin à la session."
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Images : la GUI prend en charge le glisser-déposer ; en CUI, vous pouvez "
+"saisir un chemin de fichier pour l'analyse d'images."
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs : `uag docs` affiche la documentation incluse ; `uag docs webinspect`"
+" affiche l'aide Web Inspector (options `--path/--open` également "
+"disponibles)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "[Exemples]"
+
+#: src/uagent/welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Analysez le code source de ce dossier et créez un README.md.\""
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Prenez une capture d'écran du bureau actuel et décrivez le contenu "
+"visible de la fenêtre.\""
+
+#: src/uagent/welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Créez un rapport de synthèse mensuel à partir de ce fichier Excel.\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Lisez ce PDF et listez trois points clés.\""
+
+#: src/uagent/welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Recherchez les dernières actualités et résumez un sujet précis.\""
