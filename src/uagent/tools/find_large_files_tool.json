@@ -1,16 +1,82 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
-    "tool.description": "Searches for large files under the specified directory and returns the top N results along with statistics by extension."
+    "param.exclude_dirs.description": "Excluded directory name (directory name match)",
+    "param.group_by_ext.description": "Also returns aggregation by extension",
+    "param.max_files.description": "Maximum number of files to scan (runaway prevention)",
+    "param.min_bytes.description": "Only for files larger than this size (default: 10MB)",
+    "param.root.description": "Search route (only allowed under workdir)",
+    "param.top_n.description": "Upper N pieces",
+    "tool.description": "Searches for large files under the specified directory and returns the top N results along with statistics by extension.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。",
+    "param.exclude_dirs.description": "除外ディレクトリ名（ディレクトリ名一致）",
+    "param.group_by_ext.description": "拡張子別集計も返す",
+    "param.max_files.description": "走査する最大ファイル数（暴走防止）",
+    "param.min_bytes.description": "このサイズ以上のみ対象（既定: 10MB）",
     "param.root.description": "探索ルート（workdir配下のみ許可）",
     "param.top_n.description": "上位N件",
-    "param.min_bytes.description": "このサイズ以上のみ対象（既定: 10MB）",
-    "param.group_by_ext.description": "拡張子別集計も返す",
-    "param.exclude_dirs.description": "除外ディレクトリ名（ディレクトリ名一致）",
-    "param.max_files.description": "走査する最大ファイル数（暴走防止）",
+    "tool.description": "指定ディレクトリ配下の大きいファイルを検索し、上位N件や拡張子別集計を返します。",
     "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+  },
+  "zh_CN": {
+    "param.exclude_dirs.description": "排除的目录名称（目录名称匹配）",
+    "param.group_by_ext.description": "还通过扩展返回聚合",
+    "param.max_files.description": "扫描最大文件数（防止失控）",
+    "param.min_bytes.description": "仅适用于大于此大小的文件（默认值：10MB）",
+    "param.root.description": "搜索路径（仅允许在workdir下）",
+    "param.top_n.description": "上N块",
+    "tool.description": "搜索指定目录下的大文件并返回前 N 个结果以及按扩展名列出的统计信息。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "param.exclude_dirs.description": "排除的目錄名稱（目錄名稱符合）",
+    "param.group_by_ext.description": "也透過擴展返回聚合",
+    "param.max_files.description": "掃描最大文件數（防止失控）",
+    "param.min_bytes.description": "僅適用於此大小的檔案（預設值：10MB）",
+    "param.root.description": "搜尋路徑（僅允許在workdir下）",
+    "param.top_n.description": "上N塊",
+    "tool.description": "搜尋指定目錄下的大檔案並傳回前 N 個結果以及按副檔名列出的統計資料。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "param.exclude_dirs.description": "Nombre de directorio excluido (coincidencia de nombre de directorio)",
+    "param.group_by_ext.description": "También devuelve agregación por extensión.",
+    "param.max_files.description": "Número máximo de archivos para escanear (prevención descontrolada)",
+    "param.min_bytes.description": "Solo para archivos mayores a este tamaño (predeterminado: 10 MB)",
+    "param.root.description": "Ruta de búsqueda (solo permitida en workdir)",
+    "param.top_n.description": "N piezas superiores",
+    "tool.description": "Busca archivos grandes en el directorio especificado y devuelve los N primeros resultados junto con estadísticas por extensión.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "param.exclude_dirs.description": "Nom du répertoire exclu (correspondance du nom du répertoire)",
+    "param.group_by_ext.description": "Renvoie également l'agrégation par extension",
+    "param.max_files.description": "Nombre maximum de fichiers à analyser (prévention de l'emballement)",
+    "param.min_bytes.description": "Uniquement pour les fichiers de taille supérieure à cette taille (par défaut : 10 Mo)",
+    "param.root.description": "Itinéraire de recherche (autorisé uniquement sous workdir)",
+    "param.top_n.description": "Pièces N supérieures",
+    "tool.description": "Recherche les fichiers volumineux dans le répertoire spécifié et renvoie les N premiers résultats ainsi que les statistiques par extension.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "param.exclude_dirs.description": "제외된 디렉터리 이름(디렉터리 이름 일치)",
+    "param.group_by_ext.description": "또한 확장자별 집계를 반환합니다.",
+    "param.max_files.description": "검사할 최대 파일 수(런어웨이 방지)",
+    "param.min_bytes.description": "이 크기보다 큰 파일에만 해당(기본값: 10MB)",
+    "param.root.description": "경로 검색(workdir에서만 허용)",
+    "param.top_n.description": "상위 N개",
+    "tool.description": "지정된 디렉터리에서 대용량 파일을 검색하고 확장자별 통계와 함께 상위 N개 결과를 반환합니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "param.exclude_dirs.description": "ชื่อไดเรกทอรีที่ยกเว้น (ชื่อไดเรกทอรีตรงกัน)",
+    "param.group_by_ext.description": "ส่งคืนการรวมตามส่วนขยายด้วย",
+    "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะสแกน (การป้องกันการหลบหนี)",
+    "param.min_bytes.description": "สำหรับไฟล์ที่มีขนาดใหญ่กว่าขนาดนี้เท่านั้น (ค่าเริ่มต้น: 10MB)",
+    "param.root.description": "ค้นหาเส้นทาง (อนุญาตเฉพาะภายใต้ workdir)",
+    "param.top_n.description": "ชิ้นบน N",
+    "tool.description": "ค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเร็กทอรีที่ระบุ และส่งคืนผลลัพธ์ N อันดับแรกพร้อมกับสถิติตามนามสกุล",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

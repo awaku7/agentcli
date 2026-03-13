@@ -1,15 +1,74 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
-    "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments."
+    "doc.mask_values": "Replace values ​​in dictionaries and lists with '*' (keep structure intact)",
+    "param.server_name.description": "Server name defined in mcp_servers.json. When specified, it takes precedence over url.",
+    "param.tool_arguments.description": "A dictionary of arguments to pass to the tool. Example: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "The name of the tool to run.",
+    "param.url.description": "MCP server endpoint URL (http://... or stdio://command...)",
+    "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。",
-    "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
-    "param.url.description": "MCPサーバーのエンドポイントURL (http://... または stdio://command...)",
-    "param.tool_name.description": "実行するツール名。",
-    "param.tool_arguments.description": "ツールに渡す引数の辞書。例: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
     "doc.mask_values": "辞書やリスト内の値を '*' に置き換える（構造は維持）",
+    "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
+    "param.tool_arguments.description": "ツールに渡す引数の辞書。例: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "実行するツール名。",
+    "param.url.description": "MCPサーバーのエンドポイントURL (http://... または stdio://command...)",
+    "tool.description": "修正版: MCP サーバーのツールを呼び出します。引数が必要なツールは tool_arguments に辞書で渡してください。",
     "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+  },
+  "zh_CN": {
+    "doc.mask_values": "用“*”替换字典和列表中的值（保持结构完整）",
+    "param.server_name.description": "mcp_servers.json 中定义的服务器名称。指定后，它优先于 url。",
+    "param.tool_arguments.description": "要传递给工具的参数字典。示例：{\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "要运行的工具的名称。",
+    "param.url.description": "MCP 服务器端点 URL（http://... 或 stdio://command...）",
+    "tool.description": "从 MCP 服务器调用工具。在 tool_arguments 中以字典形式提供工具参数。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "doc.mask_values": "用“*”取代字典和列表中的值（保持結構完整）",
+    "param.server_name.description": "mcp_servers.json 中定義的伺服器名稱。指定後，它優先於 url。",
+    "param.tool_arguments.description": "要傳遞給工具的參數字典。範例：{\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "要運行的工具的名稱。",
+    "param.url.description": "MCP 伺服器端點 URL（http://... 或 stdio://command...）",
+    "tool.description": "從 MCP 伺服器呼叫工具。在 tool_arguments 中以字典形式提供工具參數。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "doc.mask_values": "Reemplazar valores en diccionarios y listas con '*' (mantener la estructura intacta)",
+    "param.server_name.description": "Nombre del servidor definido en mcp_servers.json. Cuando se especifica, tiene prioridad sobre la URL.",
+    "param.tool_arguments.description": "Un diccionario de argumentos para pasar a la herramienta. Ejemplo: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "El nombre de la herramienta a ejecutar.",
+    "param.url.description": "URL del punto final del servidor MCP (http://... o stdio://command...)",
+    "tool.description": "Llame a una herramienta desde un servidor MCP. Proporcione argumentos de herramienta como un diccionario en tool_arguments.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "doc.mask_values": "Remplacez les valeurs dans les dictionnaires et les listes par '*' (gardez la structure intacte)",
+    "param.server_name.description": "Nom du serveur défini dans mcp_servers.json. Lorsqu'il est spécifié, il est prioritaire sur l'url.",
+    "param.tool_arguments.description": "Un dictionnaire d'arguments à transmettre à l'outil. Exemple : {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "Le nom de l'outil à exécuter.",
+    "param.url.description": "URL du point de terminaison du serveur MCP (http://... ou stdio://command...)",
+    "tool.description": "Appelez un outil depuis un serveur MCP. Fournissez les arguments de l'outil sous forme de dictionnaire dans tool_arguments.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "doc.mask_values": "사전 및 목록의 값을 '*'로 대체(구조를 그대로 유지)",
+    "param.server_name.description": "mcp_servers.json에 정의된 서버 이름. 지정시는 url 보다 우선됩니다.",
+    "param.tool_arguments.description": "도구에 전달할 인수 사전. 예: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "실행할 도구의 이름입니다.",
+    "param.url.description": "MCP 서버 엔드포인트 URL(http://... 또는 stdio://command...)",
+    "tool.description": "MCP 서버에서 도구를 호출합니다. tool_arguments에 도구 인수를 사전으로 제공합니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้เหมือนเดิม)",
+    "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json เมื่อระบุ จะมีลำดับความสำคัญมากกว่า url",
+    "param.tool_arguments.description": "พจนานุกรมข้อโต้แย้งที่จะส่งผ่านไปยังเครื่องมือ ตัวอย่าง: {\"handle\": \"you.bsky.social\", \"password\": \"xxxx\"}",
+    "param.tool_name.description": "ชื่อของเครื่องมือที่จะรัน",
+    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://... หรือ stdio://command...)",
+    "tool.description": "เรียกเครื่องมือจากเซิร์ฟเวอร์ MCP จัดเตรียมอาร์กิวเมนต์ของเครื่องมือเป็นพจนานุกรมใน tool_arguments",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

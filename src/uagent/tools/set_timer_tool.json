@@ -1,18 +1,98 @@
 {
   "en": {
+    "err.queue_uninitialized": "[set_timer error] event_queue callback not initialized.",
+    "err.seconds_invalid": "[set_timer error] seconds cannot be interpreted as an integer: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds must be 0 or more: {val}",
+    "msg.default_timer_done": "Timer ends",
+    "out.ok": "[set_timer] Set timer in {seconds} seconds: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Message to display upon completion.",
+    "param.on_timeout_prompt.description": "Contents to be automatically entered into LLM upon expiration.",
+    "param.seconds.description": "The number of seconds in the timer.",
     "tool.description": "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
     "tool.system_prompt": "This tool is used for the following purpose: display a message after a specified number of seconds and optionally input an automatic message to the LLM."
   },
   "ja": {
-    "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
-    "tool.system_prompt": "このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
-    "param.seconds.description": "タイマーの秒数。",
-    "param.message.description": "完了時に表示するメッセージ。",
-    "param.on_timeout_prompt.description": "満了時にLLMへ自動入力する内容。",
+    "err.queue_uninitialized": "[set_timer error] event_queue コールバックが初期化されていません。",
     "err.seconds_invalid": "[set_timer error] seconds が整数として解釈できません: {raw}",
     "err.seconds_negative": "[set_timer error] seconds は 0 以上で指定してください: {val}",
     "msg.default_timer_done": "タイマー終了",
-    "err.queue_uninitialized": "[set_timer error] event_queue コールバックが初期化されていません。",
-    "out.ok": "[set_timer] {seconds}秒でタイマーセット: {message} (on_timeout_prompt={prompt})"
+    "out.ok": "[set_timer] {seconds}秒でタイマーセット: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "完了時に表示するメッセージ。",
+    "param.on_timeout_prompt.description": "満了時にLLMへ自動入力する内容。",
+    "param.seconds.description": "タイマーの秒数。",
+    "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできる。"
+  },
+  "zh_CN": {
+    "err.queue_uninitialized": "[set_timer 错误] event_queue 回调未初始化。",
+    "err.seconds_invalid": "[set_timer错误]秒不能解释为整数：{raw}",
+    "err.seconds_negative": "[set_timer错误]秒必须大于或等于0：{val}",
+    "msg.default_timer_done": "计时器结束",
+    "out.ok": "[set_timer] {seconds}秒でタイマーセット：{message} (on_timeout_prompt={prompt})",
+    "param.message.description": "完成后显示的消息。",
+    "param.on_timeout_prompt.description": "过期后内容自动输入LLM。",
+    "param.seconds.description": "计时器中的秒数。",
+    "tool.description": "在指定的秒数后显示一条消息。或者，可以将自动消息输入到 LLM 中。",
+    "tool.system_prompt": "该工具用于以下目的：在指定的秒数后显示一条消息，并可选择向 LLM 输入一条自动消息。"
+  },
+  "zh_TW": {
+    "err.queue_uninitialized": "[set_timer 錯誤] event_queue 回呼未初始化。",
+    "err.seconds_invalid": "[set_timer錯誤]秒不能解釋為整數：{raw}",
+    "err.seconds_negative": "[set_timer錯誤]秒必須大於或等於0：{val}",
+    "msg.default_timer_done": "計時器結束",
+    "out.ok": "[set_timer] {seconds}秒でタイマーセット：{message} (on_timeout_prompt={prompt})",
+    "param.message.description": "完成後顯示的訊息。",
+    "param.on_timeout_prompt.description": "過期後內容自動輸入LLM。",
+    "param.seconds.description": "計時器內的秒數。",
+    "tool.description": "在指定的秒數後顯示一則訊息。或者，可以將自動訊息輸入到 LLM 中。",
+    "tool.system_prompt": "此工具用於以下目的：在指定的秒數後顯示一則訊息，並可選擇向 LLM 輸入自動訊息。"
+  },
+  "es": {
+    "err.queue_uninitialized": "[error set_timer] devolución de llamada event_queue no inicializada.",
+    "err.seconds_invalid": "[error set_timer] los segundos no se pueden interpretar como un número entero: {raw}",
+    "err.seconds_negative": "[error set_timer] los segundos deben ser mayores o iguales a 0: {val}",
+    "msg.default_timer_done": "El cronómetro termina",
+    "out.ok": "[set_timer] Configurar el temporizador en {seconds} segundos: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Mensaje para mostrar al finalizar.",
+    "param.on_timeout_prompt.description": "Los contenidos se ingresarán automáticamente en LLM al vencimiento.",
+    "param.seconds.description": "El número de segundos en el temporizador.",
+    "tool.description": "Muestra un mensaje después de un número específico de segundos. Opcionalmente, se puede ingresar un mensaje automático en el LLM.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: mostrar un mensaje después de un número específico de segundos y, opcionalmente, ingresar un mensaje automático al LLM."
+  },
+  "fr": {
+    "err.queue_uninitialized": "[Erreur set_timer] Le rappel event_queue n'est pas initialisé.",
+    "err.seconds_invalid": "[erreur set_timer] les secondes ne peuvent pas être interprétées comme un nombre entier : {raw}",
+    "err.seconds_negative": "[erreur set_timer] les secondes doivent être supérieures ou égales à 0 : {val}",
+    "msg.default_timer_done": "Le minuteur se termine",
+    "out.ok": "[set_timer] {seconds}秒でタイマーセット : {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Message à afficher une fois terminé.",
+    "param.on_timeout_prompt.description": "Le contenu doit être automatiquement saisi dans LLM à l'expiration.",
+    "param.seconds.description": "Le nombre de secondes dans la minuterie.",
+    "tool.description": "Affiche un message après un nombre de secondes spécifié. En option, un message automatique peut être saisi dans le LLM.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : afficher un message après un nombre de secondes spécifié et éventuellement saisir un message automatique sur le LLM."
+  },
+  "ko": {
+    "err.queue_uninitialized": "[set_timer error] event_queue 콜백이 초기화되지 않았습니다.",
+    "err.seconds_invalid": "[set_timer error] seconds를 정수로 해석할 수 없습니다: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds는 0 이상으로 지정하십시오 : {val}",
+    "msg.default_timer_done": "타이머 종료",
+    "out.ok": "[set_timer] {seconds}秒데타이마셋트: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "완료 시 표시할 메시지입니다.",
+    "param.on_timeout_prompt.description": "만료 시 LLM에 자동으로 입력되는 내용입니다.",
+    "param.seconds.description": "타이머의 초 수입니다.",
+    "tool.description": "지정된 시간(초) 후에 메시지를 표시합니다. 선택적으로 LLM에 자동 메시지를 입력할 수 있습니다.",
+    "tool.system_prompt": "이 도구는 지정된 시간(초) 후에 메시지를 표시하고 선택적으로 LLM에 자동 메시지를 입력하는 목적으로 사용됩니다."
+  },
+  "th": {
+    "err.queue_uninitialized": "[ข้อผิดพลาด set_timer] การโทรกลับ event_queue ไม่ได้เตรียมใช้งาน",
+    "err.seconds_invalid": "[ข้อผิดพลาด set_timer] วินาทีไม่สามารถตีความว่าเป็นจำนวนเต็ม: {raw}",
+    "err.seconds_negative": "[ข้อผิดพลาด set_timer] วินาทีต้องมากกว่าหรือเท่ากับ 0: {val}",
+    "msg.default_timer_done": "ตัวจับเวลาสิ้นสุดลง",
+    "out.ok": "[set_timer] {seconds}秒でたイマーセット: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "ข้อความที่จะแสดงเมื่อเสร็จสิ้น",
+    "param.on_timeout_prompt.description": "เนื้อหาที่จะป้อนลงใน LLM โดยอัตโนมัติเมื่อหมดอายุ",
+    "param.seconds.description": "จำนวนวินาทีในตัวจับเวลา",
+    "tool.description": "แสดงข้อความหลังจากจำนวนวินาทีที่ระบุ คุณสามารถป้อนข้อความอัตโนมัติลงใน LLM ได้อีกด้วย",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: แสดงข้อความหลังจากจำนวนวินาทีที่ระบุ และเลือกป้อนข้อความอัตโนมัติไปที่ LLM"
   }
 }

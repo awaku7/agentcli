@@ -8,5 +8,35 @@
     "param.note.description": "共有メモとして追記する本文。",
     "tool.description": "共有長期記憶ストアにメモを1件追記します。共有メモリが未設定の場合は、その機能が無効であることを返します。パスワードやAPIキーなどの秘密情報は保存しないでください。",
     "tool.system_prompt": "共有メモリストアにメモを必ず1件だけ追記します。\n共有メモリが無効（UAGENT_SHARED_MEMORY_FILE 未設定）の場合は、有効化方法を説明するメッセージを返します。\n秘密情報（パスワード、トークン、APIキー）は保存しないでください。"
+  },
+  "zh_CN": {
+    "param.note.description": "要共享的注释文本。",
+    "tool.description": "将单个注释附加到共享长期记忆存储（跨用户/会话共享）。如果未配置共享内存，该工具会报告它已被禁用。切勿存储密码或 API 密钥等机密信息。",
+    "tool.system_prompt": "向共享内存存储中添加恰好一个注释。\n如果共享内存被禁用（UAGENT_SHARED_MEMORY_FILE 未设置），则返回一条消息，解释如何启用它。\n不要存储秘密（密码/令牌/API 密钥）。"
+  },
+  "zh_TW": {
+    "param.note.description": "要分享的註釋文字。",
+    "tool.description": "將單一註釋附加到共享長期記憶儲存（跨使用者/會話共享）。如果未配置共享內存，工具會報告它已停用。切勿儲存密碼或 API 金鑰等機密資訊。",
+    "tool.system_prompt": "在共享記憶體儲存中新增恰好一個註解。\n如果共享記憶體已停用（UAGENT_SHARED_MEMORY_FILE 未設定），則傳回一則訊息，解釋如何啟用它。\n不要儲存秘密（密碼/令牌/API 密鑰）。"
+  },
+  "es": {
+    "param.note.description": "El texto de la nota para compartir.",
+    "tool.description": "Agregue una sola nota al almacén de memoria compartida a largo plazo (compartido entre usuarios/sesiones). Si la memoria compartida no está configurada, la herramienta informa que está deshabilitada. Nunca almacene secretos como contraseñas o claves API.",
+    "tool.system_prompt": "Agregue exactamente una nota al almacén de memoria compartida.\nSi la memoria compartida está deshabilitada (UAGENT_SHARED_MEMORY_FILE no configurada), devolverá un mensaje explicando cómo habilitarla.\nNo almacene secretos (contraseñas/tokens/claves API)."
+  },
+  "fr": {
+    "param.note.description": "Le texte de la note à partager.",
+    "tool.description": "Ajoutez une seule note au magasin de mémoire à long terme partagé (partagé entre les utilisateurs/sessions). Si la mémoire partagée n'est pas configurée, l'outil signale qu'elle est désactivée. Ne stockez jamais de secrets tels que des mots de passe ou des clés API.",
+    "tool.system_prompt": "Ajoutez exactement une note au magasin de mémoire partagée.\nSi la mémoire partagée est désactivée (UAGENT_SHARED_MEMORY_FILE non définie), renvoie un message expliquant comment l'activer.\nNe stockez pas de secrets (mots de passe/jetons/clés API)."
+  },
+  "ko": {
+    "param.note.description": "공유할 메모 텍스트입니다.",
+    "tool.description": "공유 장기 메모리 저장소(사용자/세션 전체에서 공유)에 단일 메모를 추가합니다. 공유 메모리가 구성되지 않은 경우 도구는 공유 메모리가 비활성화되었다고 보고합니다. 비밀번호나 API 키와 같은 비밀을 저장하지 마세요.",
+    "tool.system_prompt": "공유 메모리 저장소에 정확히 하나의 메모를 추가합니다.\n공유 메모리가 비활성화된 경우(UAGENT_SHARED_MEMORY_FILE 설정되지 않음), 활성화 방법을 설명하는 메시지를 반환합니다.\n비밀(비밀번호/토큰/API 키)을 저장하지 마세요."
+  },
+  "th": {
+    "param.note.description": "ข้อความบันทึกย่อที่จะแบ่งปัน",
+    "tool.description": "เพิ่มบันทึกย่อเดียวลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าถูกปิดใช้งาน อย่าเก็บความลับ เช่น รหัสผ่านหรือคีย์ API",
+    "tool.system_prompt": "เพิ่มบันทึกย่อหนึ่งรายการต่อท้ายที่เก็บหน่วยความจำที่ใช้ร่วมกัน\nหากหน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งาน (UAGENT_SHARED_MEMORY_FILE ไม่ได้ตั้งค่า) ให้ส่งคืนข้อความอธิบายวิธีเปิดใช้งาน\nอย่าเก็บความลับ (รหัสผ่าน/โทเค็น/API คีย์)"
   }
 }

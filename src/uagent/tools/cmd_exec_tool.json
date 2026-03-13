@@ -8,5 +8,35 @@
     "param.command.description": "実行するコマンド文字列。",
     "tool.description": "最終手段として Windows コマンドを実行します。他に適切なツールがない場合にのみ使用してください。",
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。"
+  },
+  "zh_CN": {
+    "param.command.description": "要执行的命令字符串。",
+    "tool.description": "作为最后的手段，请执行 Windows 命令。仅当没有其他合适的工具（例如 MCP）可用时才使用。",
+    "tool.system_prompt": "该工具是 LAST RESORT。仅当没有其他合适的工具可用时才使用。"
+  },
+  "zh_TW": {
+    "param.command.description": "要執行的命令字串。",
+    "tool.description": "作為最後的手段，請執行 Windows 指令。僅當沒有其他合適的工具（例如 MCP）可用時才使用。",
+    "tool.system_prompt": "工具是 LAST RESORT。僅當沒有其他合適的工具可用時才使用。"
+  },
+  "es": {
+    "param.command.description": "Cadena de comando a ejecutar.",
+    "tool.description": "Como último recurso, ejecute un comando de Windows. Úselo solo cuando no haya otra herramienta adecuada (por ejemplo, MCP) disponible.",
+    "tool.system_prompt": "Esta herramienta es un LAST RESORT. Úselo sólo si no hay otra herramienta adecuada disponible."
+  },
+  "fr": {
+    "param.command.description": "Chaîne de commande à exécuter.",
+    "tool.description": "En dernier recours, exécutez une commande Windows. À utiliser uniquement lorsqu'aucun autre outil approprié (par exemple, MCP) n'est disponible.",
+    "tool.system_prompt": "Cet outil est un LAST RESORT. À utiliser uniquement si aucun autre outil approprié n'est disponible."
+  },
+  "ko": {
+    "param.command.description": "실행할 명령 문자열입니다.",
+    "tool.description": "최후의 수단으로 Windows 명령을 실행하십시오. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하십시오.",
+    "tool.system_prompt": "이 도구는 LAST RESORT입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하십시오."
+  },
+  "th": {
+    "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
+    "tool.description": "เป็นทางเลือกสุดท้าย ให้ใช้คำสั่ง Windows ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม (เช่น MCP) เท่านั้น",
+    "tool.system_prompt": "เครื่องมือนี้คือ LAST RESORT ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสม"
   }
 }

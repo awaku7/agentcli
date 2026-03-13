@@ -8,5 +8,35 @@
     "param.note.description": "保存するメモ本文。",
     "tool.description": "今後の会話で役立つ、ユーザーや環境に関する長期記憶メモを1件保存します。",
     "tool.system_prompt": "有用な長期記憶メモを1件だけ保存します。\nパスワード、APIキー、トークンなどの秘密情報は保存しないでください。"
+  },
+  "zh_CN": {
+    "param.note.description": "要保存的注释文本。",
+    "tool.description": "保存有关用户/环境的单个长期记忆笔记，这可能在将来的对话中有用。",
+    "tool.system_prompt": "保存一份有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
+  },
+  "zh_TW": {
+    "param.note.description": "要儲存的註釋文字。",
+    "tool.description": "保存有關使用者/環境的單一長期記憶筆記，這可能在將來的對話中有用。",
+    "tool.system_prompt": "保存一份有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
+  },
+  "es": {
+    "param.note.description": "El texto de la nota a guardar.",
+    "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras conversaciones.",
+    "tool.system_prompt": "Guarde una nota útil para la memoria a largo plazo.\nNo almacene secretos como contraseñas, claves API o tokens."
+  },
+  "fr": {
+    "param.note.description": "Le texte de la note à enregistrer.",
+    "tool.description": "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui pourrait être utile dans les conversations futures.",
+    "tool.system_prompt": "Enregistrez une note de mémoire utile à long terme.\nNe stockez pas de secrets tels que des mots de passe, des clés API ou des jetons."
+  },
+  "ko": {
+    "param.note.description": "저장할 메모 텍스트입니다.",
+    "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 기억 메모를 저장하세요.",
+    "tool.system_prompt": "유용한 장기 기억 메모 하나를 저장하세요.\n비밀번호, API 키 또는 토큰과 같은 비밀을 저장하지 마십시오."
+  },
+  "th": {
+    "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
+    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
+    "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
   }
 }

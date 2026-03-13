@@ -1,14 +1,66 @@
 {
   "en": {
+    "param.mask.description": "If true, masks the value (e.g. secret information). Default is true.",
+    "param.missing_ok.description": "If true, return '(not set)' instead of an error when missing. Default is false.",
+    "param.name.description": "Environment variable name to read.",
+    "param.unmasked_chars.description": "Number of characters to leave at the beginning and end when masking. Default is 2.",
     "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
     "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
   },
   "ja": {
-    "tool.description": "指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
-    "tool.system_prompt": "このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
-    "param.name.description": "読み取る環境変数名。",
-    "param.missing_ok.description": "true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。",
     "param.mask.description": "true の場合、値をマスクします（例: 秘密情報）。既定は true。",
-    "param.unmasked_chars.description": "マスク時、先頭と末尾に残す文字数。既定は 2。"
+    "param.missing_ok.description": "true の場合、欠落時にエラーではなく '(not set)' を返します。既定は false。",
+    "param.name.description": "読み取る環境変数名。",
+    "param.unmasked_chars.description": "マスク時、先頭と末尾に残す文字数。既定は 2。",
+    "tool.description": "指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定した名前の環境変数値を取得し、要求された名前で返します。オプションで値をマスクできます。"
+  },
+  "zh_CN": {
+    "param.mask.description": "如果为 true，则屏蔽该值（例如秘密信息）。默认为 true。",
+    "param.missing_ok.description": "如果为 true，则在缺失时返回“（未设置）”而不是错误。默认为 false。",
+    "param.name.description": "要读取的环境变量名称。",
+    "param.unmasked_chars.description": "屏蔽时在开头和结尾保留的字符数。默认值为 2。",
+    "tool.description": "获取指定环境变量的值并返回它。可以选择屏蔽该值。",
+    "tool.system_prompt": "该工具的用途如下：获取指定环境变量的值并返回。可以选择屏蔽该值。"
+  },
+  "zh_TW": {
+    "param.mask.description": "如果為 true，則封鎖該值（例如秘密資訊）。預設為 true。",
+    "param.missing_ok.description": "如果為 true，則在缺失時傳回「（未設定）」而不是錯誤。預設為 false。",
+    "param.name.description": "要讀取的環境變數名稱。",
+    "param.unmasked_chars.description": "屏蔽時在開頭和結尾保留的字元數。預設值為 2。",
+    "tool.description": "取得指定環境變數的值並傳回它。可以選擇屏蔽該值。",
+    "tool.system_prompt": "工具的用途如下：取得指定環境變數的值並傳回。可以選擇屏蔽該值。"
+  },
+  "es": {
+    "param.mask.description": "Si es verdadero, enmascara el valor (por ejemplo, información secreta). El valor predeterminado es verdadero.",
+    "param.missing_ok.description": "Si es verdadero, devuelve '(no establecido)' en lugar de un error cuando falta. El valor predeterminado es falso.",
+    "param.name.description": "Nombre de la variable de entorno a leer.",
+    "param.unmasked_chars.description": "Número de caracteres a dejar al principio y al final al enmascarar. El valor predeterminado es 2.",
+    "tool.description": "Obtiene el valor de una variable de entorno especificada y lo devuelve. Opcionalmente, enmascara el valor.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el valor de una variable de entorno especificada y devolverlo. Opcionalmente, enmascare el valor."
+  },
+  "fr": {
+    "param.mask.description": "Si vrai, masque la valeur (par exemple, informations secrètes). La valeur par défaut est vraie.",
+    "param.missing_ok.description": "Si c'est vrai, renvoie « (non défini) » au lieu d'une erreur en cas d'absence. La valeur par défaut est fausse.",
+    "param.name.description": "Nom de la variable d'environnement à lire.",
+    "param.unmasked_chars.description": "Nombre de caractères à laisser au début et à la fin lors du masquage. La valeur par défaut est 2.",
+    "tool.description": "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie. Masque éventuellement la valeur.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : obtenir la valeur d'une variable d'environnement spécifiée et la renvoyer. Masquez éventuellement la valeur."
+  },
+  "ko": {
+    "param.mask.description": "true 의 경우, 값을 마스크 합니다 (예: 비밀 정보). 기본값은 true입니다.",
+    "param.missing_ok.description": "true이면 누락시 오류가 아닌 '(not set)'을 반환합니다. 기본값은 false입니다.",
+    "param.name.description": "읽을 환경 변수 이름입니다.",
+    "param.unmasked_chars.description": "마스킹할 때 시작과 끝 부분에 남길 문자 수입니다. 기본값은 2입니다.",
+    "tool.description": "지정된 환경 변수의 값을 가져와서 반환합니다. 선택적으로 값을 마스킹합니다.",
+    "tool.system_prompt": "이 도구는 지정된 환경 변수의 값을 가져와 반환하는 목적으로 사용됩니다. 선택적으로 값을 마스크합니다."
+  },
+  "th": {
+    "param.mask.description": "หากเป็นจริง ให้มาสก์ค่า (เช่น ข้อมูลลับ) ค่าเริ่มต้นเป็นจริง",
+    "param.missing_ok.description": "หากเป็นจริง ให้ส่งคืน '(not set)' แทนข้อผิดพลาดเมื่อหายไป ค่าเริ่มต้นเป็นเท็จ",
+    "param.name.description": "ชื่อตัวแปรสภาพแวดล้อมที่จะอ่าน",
+    "param.unmasked_chars.description": "จำนวนอักขระที่จะปล่อยไว้ที่จุดเริ่มต้นและจุดสิ้นสุดเมื่อมาสก์ ค่าเริ่มต้นคือ 2",
+    "tool.description": "รับค่าของตัวแปรสภาพแวดล้อมที่ระบุและส่งกลับค่านั้น คุณสามารถเลือกมาสก์ค่าก็ได้",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับค่าของตัวแปรสภาพแวดล้อมที่ระบุแล้วส่งคืน คุณสามารถเลือกมาสก์ค่าก็ได้"
   }
 }
