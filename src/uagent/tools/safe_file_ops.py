@@ -385,6 +385,5 @@ def safe_rename_path(
     os.replace(src, dst)
 
 
-
 def clear_session_allowlist() -> None:
     _allowed_paths.clear()

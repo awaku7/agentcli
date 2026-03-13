@@ -120,7 +120,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         ctime = _fmt_ts(st.st_ctime)
 
         birthtime_val: Optional[float] = getattr(st, "st_birthtime", None)
-        created_time_best_effort = _fmt_ts(birthtime_val) if birthtime_val is not None else ctime
+        created_time_best_effort = (
+            _fmt_ts(birthtime_val) if birthtime_val is not None else ctime
+        )
         created_time_basis = (
             "birthtime"
             if birthtime_val is not None
