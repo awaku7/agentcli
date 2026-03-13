@@ -10,6 +10,8 @@ This project uses **gettext** catalogs with domain **`uag`**.
 
 This document describes how to add a new locale (example: `zh_CN`).
 
+Currently shipped locales (host-side user-facing strings): `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`.
+
 ## Policy / scope
 
 - We only translate **user-facing strings**.

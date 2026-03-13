@@ -66,6 +66,30 @@ python -m pip install ./uag-<VERSION>-py3-none-any.whl
 
 ## 使い方（最低限）
 
+## 言語（i18n）
+
+ホスト側のUI文言は gettext カタログで多言語化されています。
+
+- 言語選択: `UAGENT_LANG` を設定します（例: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`）。
+- `UAGENT_LANG` が未設定または未対応の場合、英語にフォールバックします。
+
+例:
+
+Windows (cmd):
+```bat
+set UAGENT_LANG=ko
+uag
+```
+
+macOS/Linux:
+```bash
+export UAGENT_LANG=ko
+uag
+```
+
+新しいロケールの追加方法は `src/uagent/docs/ADD_LOCALE.md` を参照してください。
+
+
 ### 起動
 
 ```bash
