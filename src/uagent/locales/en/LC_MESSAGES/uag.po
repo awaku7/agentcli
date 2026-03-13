@@ -1,16 +1,675 @@
-# uag English translations
-#
-# msgid is English; for en we typically keep msgstr identical.
-# This file exists mainly as a template and for tooling consistency.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uag\n"
-"POT-Creation-Date: 2026-02-17 00:00+0000\n"
-"PO-Revision-Date: 2026-02-17 00:00+0000\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"PO-Revision-Date: 2026-03-13 09:55+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: en <LL@li.org>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.18.0\n"
 
-# No explicit translations needed for English.
+#: src/uagent/checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "Please install Git. Download from: https://git-scm.com/download/win"
+
+#: src/uagent/checks.py:19
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:24
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "Please install Git. See: https://git-scm.com/"
+
+#: src/uagent/checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Git is not installed."
+
+#: src/uagent/cli.py:349
+msgid "getch() fallback to input()"
+msgstr "getch() fallback to input()"
+
+#: src/uagent/cli.py:531
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Input cancelled (will be sent as a reply to human_ask)."
+
+#: src/uagent/cli.py:539
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Received Ctrl+C. Starting shutdown..."
+
+#: src/uagent/cli.py:546
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "Unexpected error in stdin_loop: %(err)s"
+
+#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+
+#: src/uagent/cli.py:602
+msgid "Cancelled."
+msgstr "Cancelled."
+
+#: src/uagent/cli.py:608 src/uagent/cli.py:656
+msgid "Discarded previous input. Please start over."
+msgstr "Discarded previous input. Please start over."
+
+#: src/uagent/cli.py:619
+msgid "Received multiline reply."
+msgstr "Received multiline reply."
+
+#: src/uagent/cli.py:763 src/uagent/web.py:803
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Failed to set workdir: %(err)s"
+
+#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
+
+#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter fallback models enabled."
+
+#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+
+#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+
+#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+
+#: src/uagent/cli.py:871
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "current workdir = %(cwd)s"
+
+#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
+msgid "Loaded long-term memory."
+msgstr "Loaded long-term memory."
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
+msgid "Loaded shared long-term memory."
+msgstr "Loaded shared long-term memory."
+
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "Exception occurred while loading shared long-term memory: %(err)s"
+
+#: src/uagent/cli.py:924
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "Failed to read startup file: %(path)s (%(err)s)"
+
+#: src/uagent/cli.py:936
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Startup file provided: %(path)s"
+
+#: src/uagent/cli.py:960
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive was specified; exiting without waiting for stdin."
+
+#: src/uagent/cli.py:1019
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+
+#: src/uagent/cli.py:1025
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Reply with y to send, or n (or c/cancel) to skip sending."
+
+#: src/uagent/cli.py:1040
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1105
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Unknown event kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:1119
+msgid "Exited uag."
+msgstr "Exited uag."
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Environment variable %(name)s is not set."
+
+#: src/uagent/core.py:533
+msgid "No log files found."
+msgstr "No log files found."
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:557
+msgid "Log files:"
+msgstr "Log files:"
+
+#: src/uagent/core.py:957
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+msgstr ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+
+#: src/uagent/core.py:991
+#, python-format
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Error while calling LLM for history compression: %(err)r"
+
+#: src/uagent/core.py:1009
+msgid "Summary of the conversation so far:\n"
+msgstr "Summary of the conversation so far:\n"
+
+#: src/uagent/core.py:1017
+#, python-brace-format
+msgid ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+msgstr ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+
+#: src/uagent/core.py:1032
+msgid "Available commands:"
+msgstr "Available commands:"
+
+#: src/uagent/core.py:1033
+msgid "  :help                 Show this help"
+msgstr "  :help                 Show this help"
+
+#: src/uagent/core.py:1034
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+
+#: src/uagent/core.py:1035
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :list         Show log file list"
+
+#: src/uagent/core.py:1037
+msgid ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
+msgstr ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/core.py:1040
+msgid ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+msgstr ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+
+#: src/uagent/core.py:1043
+msgid ""
+"  :load <idx|path>      Load a past log (overwrites current conversation "
+"history)"
+msgstr ""
+"  :load <idx|path>      Load a past log (overwrites current conversation "
+"history)"
+
+#: src/uagent/core.py:1046
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+
+#: src/uagent/core.py:1049
+msgid ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
+msgstr ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
+
+#: src/uagent/core.py:1052
+msgid ""
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
+msgstr ""
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
+
+#: src/uagent/core.py:1055
+msgid ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+msgstr ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+
+#: src/uagent/core.py:1057
+msgid "  :mem-list             List long-term memory notes"
+msgstr "  :mem-list             List long-term memory notes"
+
+#: src/uagent/core.py:1059
+msgid ""
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
+msgstr ""
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
+
+#: src/uagent/core.py:1062
+msgid ""
+"  :shared-mem-list      List shared long-term memory notes (requires "
+"UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"  :shared-mem-list      List shared long-term memory notes (requires "
+"UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/core.py:1064
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr ""
+"  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+
+#: src/uagent/core.py:1066
+msgid ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
+
+#: src/uagent/core.py:1069
+msgid ""
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=cycle)"
+msgstr ""
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=cycle)"
+
+#: src/uagent/core.py:1071
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         Exit"
+
+#: src/uagent/core.py:1073
+msgid "Hints:"
+msgstr "Hints:"
+
+#: src/uagent/core.py:1074
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - Enter a line that is just 'f' to enter multiline input mode."
+
+#: src/uagent/core.py:1075
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+
+#: src/uagent/core.py:1115
+msgid "[Available Tools]"
+msgstr "[Available Tools]"
+
+#: src/uagent/core.py:1118
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "Project README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Quickstart (Windows wheel install)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector (playwright_inspector) guide"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Developer information"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "unknown doc name: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "doc file not found: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "doc path resolution failed: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Available documents:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Usage:"
+
+#: src/uagent/docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # list"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # show"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # show path"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # open with OS"
+
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Specified workdir path is a file: %(path)s"
+
+#: src/uagent/runtime_init.py:266
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【Shared long-term memory (shared memo)】\n"
+
+#: src/uagent/scheckgui.py:175
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "LLM provider = %(provider)s"
+
+#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
+msgid "Welcome / Quick Guide"
+msgstr "Welcome / Quick Guide"
+
+#: src/uagent/scheckgui.py:441
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (Extreme Stability)"
+
+#: src/uagent/scheckgui.py:487
+msgid "Send"
+msgstr "Send"
+
+#: src/uagent/scheckgui.py:525
+msgid "Help"
+msgstr "Help"
+
+#: src/uagent/scheckgui.py:540
+msgid "Mode"
+msgstr "Mode"
+
+#: src/uagent/scheckgui.py:542
+msgid "Reasoning: off"
+msgstr "Reasoning: off"
+
+#: src/uagent/scheckgui.py:545
+msgid "Reasoning: auto"
+msgstr "Reasoning: auto"
+
+#: src/uagent/scheckgui.py:547
+msgid "Reasoning: minimal"
+msgstr "Reasoning: minimal"
+
+#: src/uagent/scheckgui.py:549
+msgid "Reasoning: low"
+msgstr "Reasoning: low"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: medium"
+msgstr "Reasoning: medium"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: high"
+msgstr "Reasoning: high"
+
+#: src/uagent/scheckgui.py:556
+msgid "Reasoning: xhigh"
+msgstr "Reasoning: xhigh"
+
+#: src/uagent/scheckgui.py:561
+msgid "Verbosity: off"
+msgstr "Verbosity: off"
+
+#: src/uagent/scheckgui.py:563
+msgid "Verbosity: low"
+msgstr "Verbosity: low"
+
+#: src/uagent/scheckgui.py:565
+msgid "Verbosity: medium"
+msgstr "Verbosity: medium"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: high"
+msgstr "Verbosity: high"
+
+#: src/uagent/scheckgui.py:718
+msgid "Enter password..."
+msgstr "Enter password..."
+
+#: src/uagent/scheckgui.py:720
+msgid "Enter response for human_ask..."
+msgstr "Enter response for human_ask..."
+
+#: src/uagent/scheckgui.py:725
+msgid "Enter a message..."
+msgstr "Enter a message..."
+
+#: src/uagent/uagent_llm.py:342
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
+
+#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429 retry limit (%(max_retries)s) reached."
+
+#: src/uagent/uagent_llm.py:469
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini Error] An error occurred while generating a response."
+
+#: src/uagent/uagent_llm.py:583
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude Error] An error occurred while generating a response."
+
+#: src/uagent/uagent_llm.py:993
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Error while parsing response: %(err)s"
+
+#: src/uagent/util_providers.py:38
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Environment variable UAGENT_PROVIDER is not set."
+
+#: src/uagent/util_providers.py:43
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Unknown provider: %(provider)s"
+
+#: src/uagent/util_providers.py:261
+msgid "google-genai package is not installed."
+msgstr "google-genai package is not installed."
+
+#: src/uagent/util_providers.py:272
+msgid "anthropic package is not installed."
+msgstr "anthropic package is not installed."
+
+#: src/uagent/web.py:454
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+
+#: src/uagent/web.py:533 src/uagent/web.py:631
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP Servers]\n"
+"- Config file not found."
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP Servers]\n"
+"- No servers registered."
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "[MCP Servers]"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "[Quick Guide]"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Exit: ':exit' or ':quit' ends the session."
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "[Examples]"
+
+#: src/uagent/welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Analyze the source code in this folder and create a README.md.\""
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+
+#: src/uagent/welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Create a monthly summary report from this Excel file.\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Read this PDF and list three key points.\""
+
+#: src/uagent/welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Search the latest news and summarize a specific topic.\""
