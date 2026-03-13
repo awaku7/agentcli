@@ -129,13 +129,84 @@ async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
 
 
 def _format_result(result: Any) -> str:
-    output_parts = []
+    """Format MCP tool results for LLM.
+
+    If the tool returns a file payload, save it under ./downloads and only return the saved path.
+
+    Supported payload shapes:
+    - Plain dict: {"filename": str, "mime": str, "data_base64": str}
+    - Content blocks (best-effort): objects that expose attributes like filename/name + data_base64/blob
+    """
+
+    def _save_download(filename: str, data: bytes) -> str:
+        dl_dir = os.path.abspath(os.path.join(os.getcwd(), "downloads"))
+        os.makedirs(dl_dir, exist_ok=True)
+
+        base = os.path.basename(filename) or "download.bin"
+        save_path = os.path.join(dl_dir, base)
+
+        # Avoid overwrite collisions
+        if os.path.exists(save_path):
+            root, ext = os.path.splitext(base)
+            for i in range(1, 1000):
+                cand = os.path.join(dl_dir, f"{root}_{i}{ext}")
+                if not os.path.exists(cand):
+                    save_path = cand
+                    break
+
+        with open(save_path, "wb") as f:
+            f.write(data)
+        return save_path
+
+    # 0) If server returned plain dict payload
+    try:
+        if isinstance(result, dict) and result.get("data_base64") and result.get("filename"):
+            import base64
+
+            raw = base64.b64decode(result.get("data_base64") or "")
+            path = _save_download(str(result.get("filename")), raw)
+            return f"[Saved] {path}"
+    except Exception as e:
+        return f"[Error] Failed to save returned file payload: {e}"
+
+    output_parts: List[str] = []
+
+    # 1) ToolResult-like with content blocks
     if hasattr(result, "content"):
         for content in result.content:
+            # TextContent
             if hasattr(content, "text"):
                 output_parts.append(content.text)
-            elif hasattr(content, "data"):  # ImageContent
+                continue
+
+            # ImageContent (keep existing behavior)
+            if hasattr(content, "data") and hasattr(content, "mimeType"):
                 output_parts.append(f"[Binary/Image data: {content.mimeType}]")
+                continue
+
+            # Best-effort: resource/binary block with base64
+            try:
+                import base64
+
+                # Try common attribute names
+                b64 = getattr(content, "blob", None) or getattr(content, "data_base64", None)
+                fname = getattr(content, "filename", None) or getattr(content, "name", None)
+
+                # Some SDKs wrap resource under .resource
+                res = getattr(content, "resource", None)
+                if res is not None:
+                    b64 = b64 or getattr(res, "blob", None) or getattr(res, "data_base64", None)
+                    fname = fname or getattr(res, "filename", None) or getattr(res, "name", None)
+
+                if b64:
+                    raw = base64.b64decode(b64)
+                    path = _save_download(str(fname or "download.bin"), raw)
+                    output_parts.append(f"[Saved] {path}")
+                    continue
+
+            except Exception as e:
+                output_parts.append(f"[Warn] Unhandled binary-like content: {e}")
+                continue
 
     if not output_parts:
         return json.dumps(
@@ -145,6 +216,7 @@ def _format_result(result: Any) -> str:
             indent=2,
         )
     return "\n".join(output_parts)
+
 
 
 def run_tool(args: Dict[str, Any]) -> str:
