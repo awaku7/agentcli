@@ -1,12 +1,42 @@
 {
   "en": {
-    "err.path_empty": "path is empty",
+    "err.file_not_found": "file not found: {filename}",
     "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.file_not_found": "file not found: {filename}"
+    "err.path_empty": "path is empty"
   },
   "ja": {
-    "err.path_empty": "パスが空です",
+    "err.file_not_found": "ファイルが見つかりません: {filename}",
     "err.outside_workdir": "作業ディレクトリ外のパスです: root={root} path={path}",
-    "err.file_not_found": "ファイルが見つかりません: {filename}"
+    "err.path_empty": "パスが空です"
+  },
+  "zh_CN": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
+    "err.path_empty": "路径为空"
+  },
+  "zh_TW": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
+    "err.path_empty": "路徑為空"
+  },
+  "es": {
+    "err.file_not_found": "archivo no encontrado: {filename}",
+    "err.outside_workdir": "la ruta está fuera del directorio de trabajo: root={root} ruta={path}",
+    "err.path_empty": "el camino está vacío"
+  },
+  "fr": {
+    "err.file_not_found": "fichier introuvable : {filename}",
+    "err.outside_workdir": "le chemin se trouve en dehors du répertoire de travail : root={root} path={path}",
+    "err.path_empty": "le chemin est vide"
+  },
+  "ko": {
+    "err.file_not_found": "파일을 찾을 수 없습니다: {filename}",
+    "err.outside_workdir": "경로가 작업 디렉터리 외부에 있습니다: root={root} path={path}",
+    "err.path_empty": "경로가 비어 있습니다"
+  },
+  "th": {
+    "err.file_not_found": "ไม่พบไฟล์: {filename}",
+    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
+    "err.path_empty": "เส้นทางว่างเปล่า"
   }
 }

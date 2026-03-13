@@ -1,21 +1,90 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
     "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
-    "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked."
+    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
+    "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills directory",
+    "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
-    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。",
-    "param.skill_dir.description": "スキルディレクトリ",
-    "param.relative_path.description": "スキルルートからの相対パス（例: references/REFERENCE.md）",
-    "param.max_bytes.description": "読み込み上限バイト数（既定: 5000000）",
     "err.invalid_args": "[ツールエラー] 引数が不正です",
-    "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",
+    "err.max_bytes_positive": "[ツールエラー] max_bytes は正の整数である必要があります",
     "err.relative_path_required": "[ツールエラー] relative_path は空でない文字列である必要があります",
-    "err.max_bytes_positive": "[ツールエラー] max_bytes は正の整数である必要があります"
+    "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",
+    "param.max_bytes.description": "読み込み上限バイト数（既定: 5000000）",
+    "param.relative_path.description": "スキルルートからの相対パス（例: references/REFERENCE.md）",
+    "param.skill_dir.description": "スキルディレクトリ",
+    "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
+    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
+  },
+  "zh_CN": {
+    "err.invalid_args": "[工具错误]无效参数",
+    "err.max_bytes_positive": "[工具错误] max_bytes 必须是正整数",
+    "err.relative_path_required": "[工具错误]relative_path必须是非空字符串",
+    "err.skill_dir_required": "[工具错误] Skill_dir 必须是非空字符串",
+    "param.max_bytes.description": "读取的最大字节数（默认值：5000000）",
+    "param.relative_path.description": "相对于技能根的路径（例如references/REFERENCE.md）",
+    "param.skill_dir.description": "技能目录",
+    "tool.description": "使用相对路径安全地读取技能目录下的文件。路径遍历被阻止。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "err.invalid_args": "[工具錯誤]無效參數",
+    "err.max_bytes_positive": "[工具錯誤] max_bytes 必須是正整數",
+    "err.relative_path_required": "[工具錯誤]relative_path必須是非空字串",
+    "err.skill_dir_required": "[工具錯誤] Skill_dir 必須是非空字串",
+    "param.max_bytes.description": "讀取的最大位元組數（預設值：5000000）",
+    "param.relative_path.description": "相對於技能根的路徑（例如references/REFERENCE.md）",
+    "param.skill_dir.description": "技能目錄",
+    "tool.description": "使用相對路徑安全地讀取技能目錄下的檔案。路徑遍歷被阻止。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "err.invalid_args": "[error de herramienta] argumentos no válidos",
+    "err.max_bytes_positive": "[error de herramienta] max_bytes debe ser un número entero positivo",
+    "err.relative_path_required": "[error de herramienta] ruta_relativa debe ser una cadena que no esté vacía",
+    "err.skill_dir_required": "[error de herramienta] Skill_dir debe ser una cadena que no esté vacía",
+    "param.max_bytes.description": "Número máximo de bytes para leer (predeterminado: 5000000)",
+    "param.relative_path.description": "Ruta relativa a la raíz de la habilidad (por ejemplo, referencias/REFERENCE.md)",
+    "param.skill_dir.description": "directorio de habilidades",
+    "tool.description": "Lee de forma segura un archivo en un directorio de habilidades utilizando una ruta relativa. El recorrido del camino está bloqueado.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "err.invalid_args": "[erreur de l'outil] arguments invalides",
+    "err.max_bytes_positive": "[erreur de l'outil] max_bytes doit être un entier positif",
+    "err.relative_path_required": "[erreur de l'outil] relative_path doit être une chaîne non vide",
+    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une chaîne non vide",
+    "param.max_bytes.description": "Nombre maximum d'octets à lire (par défaut : 5 000 000)",
+    "param.relative_path.description": "Chemin relatif à la racine de la compétence (par exemple, références/REFERENCE.md)",
+    "param.skill_dir.description": "répertoire de compétences",
+    "tool.description": "Lit en toute sécurité un fichier sous un répertoire de compétences en utilisant un chemin relatif. La traversée du chemin est bloquée.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "err.invalid_args": "[도구 오류] 잘못된 인수",
+    "err.max_bytes_positive": "[도구 오류] max_bytes는 양의 정수여야 합니다.",
+    "err.relative_path_required": "[도구 오류] 상대 경로는 비어 있지 않은 문자열이어야 합니다.",
+    "err.skill_dir_required": "[도구 오류] Skill_dir은 비어 있지 않은 문자열이어야 합니다.",
+    "param.max_bytes.description": "읽을 최대 바이트 수(기본값: 5000000)",
+    "param.relative_path.description": "스킬 루트의 상대 경로(예: references/REFERENCE.md)",
+    "param.skill_dir.description": "기술 디렉토리",
+    "tool.description": "상대 경로를 사용하여 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 순회가 차단되었습니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] args ไม่ถูกต้อง",
+    "err.max_bytes_positive": "[ข้อผิดพลาดของเครื่องมือ] max_bytes ต้องเป็นจำนวนเต็มบวก",
+    "err.relative_path_required": "[ข้อผิดพลาดของเครื่องมือ]relative_path ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] Skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)",
+    "param.relative_path.description": "เส้นทางที่เกี่ยวข้องกับรากของทักษะ (เช่น References/REFERENCE.md)",
+    "param.skill_dir.description": "ไดเรกทอรีทักษะ",
+    "tool.description": "อ่านไฟล์อย่างปลอดภัยภายใต้ไดเร็กทอรีทักษะโดยใช้พาธแบบสัมพันธ์ การข้ามเส้นทางถูกบล็อก",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

@@ -1,22 +1,82 @@
 {
   "en": {
-    "param.filename.description": "Path to the file to delete.",
-    "param.path.description": "(Compatibility) Alias of filename.",
-    "param.missing_ok.description": "If true, do not error when the path does not exist.",
-    "param.dry_run.description": "If true, only list matched paths and do not delete anything.",
+    "confirm.delete_paths_bulk": "Delete {count} paths matched by glob?\\n\\n{paths}\\n\\nEnter y to proceed, or c to cancel.",
     "param.allow_dir.description": "If true, allow deleting directories matched by glob.",
+    "param.dry_run.description": "If true, only list matched paths and do not delete anything.",
+    "param.filename.description": "Path to the file to delete.",
+    "param.missing_ok.description": "If true, do not error when the path does not exist.",
+    "param.path.description": "(Compatibility) Alias of filename.",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
-    "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation.",
-    "confirm.delete_paths_bulk": "Delete {count} paths matched by glob?\\n\\n{paths}\\n\\nEnter y to proceed, or c to cancel."
+    "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation."
   },
   "ja": {
-    "param.filename.description": "削除するファイル/ディレクトリのパスです。",
-    "param.path.description": "（互換性のための別名）filename と同じ意味です。",
-    "param.missing_ok.description": "true の場合、パスが存在しなくてもエラーにしません。",
-    "param.dry_run.description": "true の場合、glob に一致した削除候補を一覧表示するだけで、削除は実行しません。",
+    "confirm.delete_paths_bulk": "glob に一致した {count} 件のパスを削除しますか？\\n\\n{paths}\\n\\n続行する場合は y、キャンセルする場合は c を入力してください。",
     "param.allow_dir.description": "true の場合、glob に一致したディレクトリも削除対象に含めます。",
+    "param.dry_run.description": "true の場合、glob に一致した削除候補を一覧表示するだけで、削除は実行しません。",
+    "param.filename.description": "削除するファイル/ディレクトリのパスです。",
+    "param.missing_ok.description": "true の場合、パスが存在しなくてもエラーにしません。",
+    "param.path.description": "（互換性のための別名）filename と同じ意味です。",
     "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除）。危険な操作のため、確認が必要になる場合があります。",
-    "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。",
-    "confirm.delete_paths_bulk": "glob に一致した {count} 件のパスを削除しますか？\\n\\n{paths}\\n\\n続行する場合は y、キャンセルする場合は c を入力してください。"
+    "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。"
+  },
+  "zh_CN": {
+    "confirm.delete_paths_bulk": "删除与 glob 匹配的 {count} 路径吗？\\n\\n{paths}\\n\\n输入 y 继续，或输入 c 取消。",
+    "param.allow_dir.description": "如果为 true，则允许删除与 glob 匹配的目录。",
+    "param.dry_run.description": "如果为 true，则仅列出匹配的路径并且不删除任何内容。",
+    "param.filename.description": "要删除的文件的路径。",
+    "param.missing_ok.description": "如果为 true，则当路径不存在时不会出错。",
+    "param.path.description": "（兼容性）文件名的别名。",
+    "tool.description": "删除指定的文件或目录（目录被递归删除）。由于这很危险，因此可能需要确认。",
+    "tool.system_prompt": "只有在与用户确认是否属于潜在破坏性操作后，才能删除指定路径。"
+  },
+  "zh_TW": {
+    "confirm.delete_paths_bulk": "刪除與 glob 相符的 {count} 路徑嗎？ \\n\\n{paths}\\n\\n輸入 y 繼續，或輸入 c 取消。",
+    "param.allow_dir.description": "如果為 true，則允許刪除與 glob 相符的目錄。",
+    "param.dry_run.description": "如果為 true，則僅列出符合的路徑並且不刪除任何內容。",
+    "param.filename.description": "要刪除的檔案的路徑。",
+    "param.missing_ok.description": "如果為 true，則當路徑不存在時不會出錯。",
+    "param.path.description": "（相容性）檔案名稱的別名。",
+    "tool.description": "刪除指定的檔案或目錄（目錄被遞歸刪除）。由於這很危險，因此可能需要確認。",
+    "tool.system_prompt": "只有在與使用者確認是否屬於潛在破壞性操作後，才能刪除指定路徑。"
+  },
+  "es": {
+    "confirm.delete_paths_bulk": "¿Eliminar {count} rutas que coincidan con glob?\\n\\n{paths}\\n\\nIngrese y para continuar o c para cancelar.",
+    "param.allow_dir.description": "Si es verdadero, permita eliminar directorios que coincidan con glob.",
+    "param.dry_run.description": "Si es verdadero, solo enumere las rutas coincidentes y no elimine nada.",
+    "param.filename.description": "Ruta al archivo a eliminar.",
+    "param.missing_ok.description": "Si es verdadero, no genere error cuando la ruta no exista.",
+    "param.path.description": "(Compatibilidad) Alias del nombre del archivo.",
+    "tool.description": "Elimine el archivo o directorio especificado (los directorios se eliminan de forma recursiva). Debido a que esto es peligroso, es posible que se requiera confirmación.",
+    "tool.system_prompt": "Elimine la ruta especificada solo después de confirmar con el usuario si se trata de una operación potencialmente destructiva."
+  },
+  "fr": {
+    "confirm.delete_paths_bulk": "Supprimer les chemins {count} correspondant à glob ?\\n\\n{paths}\\n\\nEntrez y pour continuer ou c pour annuler.",
+    "param.allow_dir.description": "Si c'est vrai, autorisez la suppression des répertoires correspondant à glob.",
+    "param.dry_run.description": "Si c’est vrai, répertoriez uniquement les chemins correspondants et ne supprimez rien.",
+    "param.filename.description": "Chemin d'accès au fichier à supprimer.",
+    "param.missing_ok.description": "Si c'est vrai, ne faites pas d'erreur lorsque le chemin n'existe pas.",
+    "param.path.description": "(Compatibilité) Alias du nom de fichier.",
+    "tool.description": "Supprimez le fichier ou le répertoire spécifié (les répertoires sont supprimés de manière récursive). Comme cela est dangereux, une confirmation peut être requise.",
+    "tool.system_prompt": "Supprimez le chemin spécifié uniquement après avoir confirmé auprès de l'utilisateur s'il s'agit d'une opération potentiellement destructrice."
+  },
+  "ko": {
+    "confirm.delete_paths_bulk": "glob과 일치하는 {count} 경로를 삭제하시겠습니까?\\n\\n{paths}\\n\\n계속하려면 y를 입력하고, 취소하려면 c를 입력하세요.",
+    "param.allow_dir.description": "true인 경우 glob과 일치하는 디렉터리 삭제를 허용합니다.",
+    "param.dry_run.description": "true인 경우 일치하는 경로만 나열하고 아무것도 삭제하지 않습니다.",
+    "param.filename.description": "삭제할 파일의 경로입니다.",
+    "param.missing_ok.description": "true인 경우 경로가 존재하지 않아도 오류가 발생하지 않습니다.",
+    "param.path.description": "(호환성) 파일 이름의 별칭입니다.",
+    "tool.description": "지정된 파일이나 디렉터리를 삭제합니다(디렉터리는 반복적으로 삭제됩니다). 위험하므로 확인이 필요할 수 있습니다.",
+    "tool.system_prompt": "잠재적으로 파괴적인 작업인 경우 사용자에게 확인한 후에만 지정된 경로를 삭제하십시오."
+  },
+  "th": {
+    "confirm.delete_paths_bulk": "ลบเส้นทาง {count} ที่ตรงกับ glob?\\n\\n{paths}\\n\\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "param.allow_dir.description": "หากเป็นจริง อนุญาตให้ลบไดเร็กทอรีที่ตรงกับ glob",
+    "param.dry_run.description": "หากเป็นจริง ให้แสดงรายการเฉพาะเส้นทางที่ตรงกันและอย่าลบสิ่งใดๆ",
+    "param.filename.description": "เส้นทางไปยังไฟล์ที่จะลบ",
+    "param.missing_ok.description": "หากเป็นจริง อย่าผิดพลาดเมื่อไม่มีเส้นทาง",
+    "param.path.description": "(ความเข้ากันได้) นามแฝงของชื่อไฟล์",
+    "tool.description": "ลบไฟล์หรือไดเร็กทอรีที่ระบุ (ไดเร็กทอรีจะถูกลบซ้ำ) เนื่องจากสิ่งนี้เป็นอันตราย จึงอาจต้องมีการยืนยัน",
+    "tool.system_prompt": "ลบเส้นทางที่ระบุหลังจากยืนยันกับผู้ใช้แล้วเท่านั้นว่าเป็นการดำเนินการที่อาจทำลายได้"
   }
 }

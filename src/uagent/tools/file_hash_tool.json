@@ -1,14 +1,66 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
-    "tool.description": "Calculates the hash (sha256/sha1/md5) of files."
+    "param.algo.description": "hashing algorithm",
+    "param.chunk_size.description": "Read chunk size (bytes)",
+    "param.paths.description": "Target file path array",
+    "param.return.description": "Output form",
+    "tool.description": "Calculates the hash (sha256/sha1/md5) of files.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
-    "param.paths.description": "対象ファイルパス配列",
     "param.algo.description": "ハッシュアルゴリズム",
     "param.chunk_size.description": "読み取りチャンクサイズ(bytes)",
+    "param.paths.description": "対象ファイルパス配列",
     "param.return.description": "出力形式",
+    "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
     "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+  },
+  "zh_CN": {
+    "param.algo.description": "散列算法",
+    "param.chunk_size.description": "读取块大小（字节）",
+    "param.paths.description": "目标文件路径数组",
+    "param.return.description": "输出形式",
+    "tool.description": "计算文件的哈希值（sha256/sha1/md5）。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "param.algo.description": "散列演算法",
+    "param.chunk_size.description": "讀取區塊大小（位元組）",
+    "param.paths.description": "目標檔案路徑數組",
+    "param.return.description": "輸出形式",
+    "tool.description": "計算檔案的雜湊值（sha256/sha1/md5）。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "param.algo.description": "algoritmo de hash",
+    "param.chunk_size.description": "Tamaño de fragmento de lectura (bytes)",
+    "param.paths.description": "Matriz de ruta del archivo de destino",
+    "param.return.description": "Formulario de salida",
+    "tool.description": "Calcula el hash (sha256/sha1/md5) de los archivos.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "param.algo.description": "algorithme de hachage",
+    "param.chunk_size.description": "Taille du fragment de lecture (octets)",
+    "param.paths.description": "Tableau de chemins de fichier cible",
+    "param.return.description": "Formulaire de sortie",
+    "tool.description": "Calcule le hachage (sha256/sha1/md5) des fichiers.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "param.algo.description": "해싱 알고리즘",
+    "param.chunk_size.description": "읽기 청크 크기(바이트)",
+    "param.paths.description": "대상 파일 경로 배열",
+    "param.return.description": "출력 형태",
+    "tool.description": "파일의 해시(sha256/sha1/md5)를 계산합니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "param.algo.description": "อัลกอริธึมการแฮช",
+    "param.chunk_size.description": "อ่านขนาดก้อน (ไบต์)",
+    "param.paths.description": "อาร์เรย์เส้นทางไฟล์เป้าหมาย",
+    "param.return.description": "แบบฟอร์มเอาท์พุต",
+    "tool.description": "คำนวณแฮช (sha256/sha1/md5) ของไฟล์",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

@@ -6,5 +6,29 @@
   "ja": {
     "tool.description": "返します the current time and detailed date/time in形式ion (timezone, weekday, UTC time). Use this to resolve relative date expressions (例:, 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
     "tool.system_prompt": "This ツール provides reference in形式ion so the LLM can perform time calculations accurately.\n- ISO 8601 形式 (with offset)\n- Weekday (English)\n- UTC time\n- Numeric components (year, month, day, hour, minute, second)\nUse these to convert ambiguous user requests (例:, 'next Monday') into a concrete date/time."
+  },
+  "zh_CN": {
+    "tool.description": "返回当前时间和详细的日期/时间信息（时区、工作日、UTC 时间）。使用它通过确定当前工作日和 UTC 偏移量来解析相对日期表达式（例如，“今天”、“明天”、“本周末”、“下个月的第三个星期二”）。",
+    "tool.system_prompt": "该工具提供参考信息，以便 LLM 可以准确地执行时间计算。\n- ISO 8601 格式（带偏移量）\n- 工作日（英语）\n- UTC 时间\n- 数字部分（年、月、日、时、分、秒）\n使用它们将不明确的用户请求（例如“下周一”）转换为具体的日期/时间。"
+  },
+  "zh_TW": {
+    "tool.description": "傳回目前時間和詳細的日期/時間資訊（時區、工作日、UTC 時間）。使用它透過確定當前工作日和 UTC 偏移量來解析相對日期表達式（例如，「今天」、「明天」、「本週末」、「下個月的第三個星期二」）。",
+    "tool.system_prompt": "該工具提供參考信息，以便 LLM 可以準確地執行時間計算。\n- ISO 8601 格式（帶偏移量）\n- 工作日（英語）\n- UTC 時間\n- 數字部分（年、月、日、時、分、秒）\n使用它們將不明確的使用者請求（例如“下週一”）轉換為特定的日期/時間。"
+  },
+  "es": {
+    "tool.description": "Devuelve la hora actual e información detallada de fecha/hora (zona horaria, día laborable, hora UTC). Utilice esto para resolver expresiones de fecha relativa (por ejemplo, 'hoy', 'mañana', 'este fin de semana', 'el tercer martes del próximo mes') determinando el día de la semana actual y el desplazamiento UTC.",
+    "tool.system_prompt": "Esta herramienta proporciona información de referencia para que LLM pueda realizar cálculos de tiempo con precisión.\n- Formato ISO 8601 (con desplazamiento)\n- Día laborable (inglés)\n- UTC hora\n- Componentes numéricos (año, mes, día, hora, minuto, segundo)\nÚselos para convertir solicitudes de usuarios ambiguas (por ejemplo, 'el próximo lunes') en una fecha/hora concreta."
+  },
+  "fr": {
+    "tool.description": "Renvoie l’heure actuelle et les informations détaillées sur la date/heure (fuseau horaire, jour de la semaine, heure UTC). Utilisez-le pour résoudre les expressions de date relative (par exemple, « aujourd'hui », « demain », « ce week-end », « le 3e mardi du mois prochain ») en déterminant le jour de la semaine en cours et le décalage UTC.",
+    "tool.system_prompt": "Cet outil fournit des informations de référence afin que le LLM puisse effectuer des calculs de temps avec précision.\n- Format ISO 8601 (avec décalage)\n- Jour de la semaine (anglais)\n- UTC heure\n- Composantes numériques (année, mois, jour, heure, minute, seconde)\nUtilisez-les pour convertir les demandes ambiguës des utilisateurs (par exemple, « lundi prochain ») en une date/heure concrète."
+  },
+  "ko": {
+    "tool.description": "현재 시간과 자세한 날짜/시간 정보(시간대, 요일, UTC 시간)를 반환합니다. 이를 사용하여 현재 주중 및 UTC 오프셋을 결정하여 상대 날짜 표현(예: '오늘', '내일', '이번 주말', '다음 달 세 번째 화요일')을 확인합니다.",
+    "tool.system_prompt": "이 도구는 LLM이 시간 계산을 정확하게 수행할 수 있도록 참조 정보를 제공합니다.\n- ISO 8601 형식(오프셋 포함)\n- 평일(영문)\n- UTC 시간\n- 숫자 구성요소(년, 월, 일, 시, 분, 초)\n이를 사용하여 모호한 사용자 요청(예: '다음 월요일')을 구체적인 날짜/시간으로 변환합니다."
+  },
+  "th": {
+    "tool.description": "ส่งคืนเวลาปัจจุบันและข้อมูลวันที่/เวลาโดยละเอียด (เขตเวลา วันในสัปดาห์ UTC เวลา) ใช้ตัวเลือกนี้เพื่อแก้ไขนิพจน์วันที่แบบสัมพันธ์ (เช่น 'วันนี้' 'พรุ่งนี้' 'สุดสัปดาห์นี้' 'วันอังคารที่ 3 ของเดือนถัดไป') โดยการกำหนดวันทำงานปัจจุบันและออฟเซ็ต UTC",
+    "tool.system_prompt": "เครื่องมือนี้ให้ข้อมูลอ้างอิง ดังนั้น LLM จึงสามารถคำนวณเวลาได้อย่างแม่นยำ\n- ISO 8601 รูปแบบ (พร้อมออฟเซ็ต)\n- วันธรรมดา (อังกฤษ)\n- UTC เวลา\n- องค์ประกอบตัวเลข (ปี เดือน วัน ชั่วโมง นาที วินาที)\nใช้สิ่งเหล่านี้เพื่อแปลงคำขอของผู้ใช้ที่ไม่ชัดเจน (เช่น 'วันจันทร์หน้า') ให้เป็นวันที่/เวลาที่เป็นรูปธรรม"
   }
 }

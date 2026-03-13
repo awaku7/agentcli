@@ -1,12 +1,50 @@
 {
   "en": {
+    "err.path_empty": "[file_exists error] path is empty",
+    "param.path.description": "The path of the file or directory you want to check for existence (~ can also be used).",
     "tool.description": "Checks if a file or directory exists at the specified path and returns type, size, and modification time if it does.",
     "tool.system_prompt": "This tool is used for the following purpose: check if a file or directory exists at the specified path and return type, size, and modification time if it does."
   },
   "ja": {
-    "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
-    "tool.system_prompt": "このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
+    "err.path_empty": "[file_exists error] path が空です",
     "param.path.description": "存在確認したいファイルまたはディレクトリのパス（~ も使用可）。",
-    "err.path_empty": "[file_exists error] path が空です"
+    "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: 指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。"
+  },
+  "zh_CN": {
+    "err.path_empty": "[file_exists 错误] 路径为空",
+    "param.path.description": "要检查是否存在的文件或目录的路径（也可以使用~）。",
+    "tool.description": "检查指定路径中是否存在文件或目录，如果存在则返回类型、大小和修改时间。",
+    "tool.system_prompt": "该工具的用途如下：检查指定路径下是否存在文件或目录，如果存在则返回类型、大小和修改时间。"
+  },
+  "zh_TW": {
+    "err.path_empty": "[file_exists 錯誤] 路徑為空",
+    "param.path.description": "要檢查是否存在的檔案或目錄的路徑（也可以使用~）。",
+    "tool.description": "檢查指定路徑中是否存在檔案或目錄，如果存在則傳回類型、大小和修改時間。",
+    "tool.system_prompt": "工具的用途如下：檢查指定路徑下是否存在檔案或目錄，如果存在則傳回類型、大小和修改時間。"
+  },
+  "es": {
+    "err.path_empty": "La ruta [file_exists error] está vacía",
+    "param.path.description": "La ruta del archivo o directorio cuya existencia desea comprobar (también se puede utilizar ~).",
+    "tool.description": "Comprueba si existe un archivo o directorio en la ruta especificada y devuelve el tipo, el tamaño y la hora de modificación si es así.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: verificar si un archivo o directorio existe en la ruta especificada y devolver el tipo, tamaño y hora de modificación si existe."
+  },
+  "fr": {
+    "err.path_empty": "Le chemin [erreur file_exists] est vide",
+    "param.path.description": "Le chemin du fichier ou du répertoire dont vous souhaitez vérifier l'existence (~ peut également être utilisé).",
+    "tool.description": "Vérifie si un fichier ou un répertoire existe au chemin spécifié et renvoie le type, la taille et l'heure de modification si c'est le cas.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : vérifier si un fichier ou un répertoire existe au chemin spécifié et renvoyer le type, la taille et l'heure de modification si c'est le cas."
+  },
+  "ko": {
+    "err.path_empty": "[file_exists 오류] 경로가 비어 있습니다.",
+    "param.path.description": "존재할 파일 또는 디렉토리의 경로(~도 사용 가능).",
+    "tool.description": "지정된 경로에 파일이나 디렉터리가 있는지 확인하고 존재하는 경우 유형, 크기 및 수정 시간을 반환합니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: 지정된 경로에 파일이나 디렉터리가 존재하는지 확인하고, 존재하는 경우 유형, 크기 및 수정 시간을 반환합니다."
+  },
+  "th": {
+    "err.path_empty": "เส้นทาง [file_exists error] ว่างเปล่า",
+    "param.path.description": "เส้นทางของไฟล์หรือไดเร็กทอรีที่คุณต้องการตรวจสอบการมีอยู่ (~ สามารถใช้ได้)",
+    "tool.description": "ตรวจสอบว่าไฟล์หรือไดเร็กทอรีอยู่ในพาธที่ระบุหรือไม่ และส่งคืนประเภท ขนาด และเวลาในการแก้ไข หากมี",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: ตรวจสอบว่ามีไฟล์หรือไดเร็กทอรีอยู่ในเส้นทางที่ระบุและประเภทการส่งคืน ขนาด และเวลาในการแก้ไขหากมี"
   }
 }

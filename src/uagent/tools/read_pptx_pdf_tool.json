@@ -1,16 +1,58 @@
 {
   "en": {
-    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
-    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
-    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
     "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
-    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters."
+    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
+    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page)."
   },
   "ja": {
-    "tool.description": "PDF/PPTX（または共通JSONスキーマ）を読み取り、ページ単位の抽出テキストを返します。PDF/PPTX の場合は共通JSONスキーマに変換して処理します。",
-    "tool.system_prompt": "重要: PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。",
-    "param.path.description": "PDF / PPTX / JSON ファイルのパス。",
+    "param.max_chars.description": "返却する最大文字数。省略時は 8000 文字で切り詰めます。",
     "param.page_index.description": "1始まりのページ番号（PDFページ / PPTXスライド番号）。省略時は全ページを連結して返します。",
-    "param.max_chars.description": "返却する最大文字数。省略時は 8000 文字で切り詰めます。"
+    "param.path.description": "PDF / PPTX / JSON ファイルのパス。",
+    "tool.description": "PDF/PPTX（または共通JSONスキーマ）を読み取り、ページ単位の抽出テキストを返します。PDF/PPTX の場合は共通JSONスキーマに変換して処理します。",
+    "tool.system_prompt": "重要: PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。"
+  },
+  "zh_CN": {
+    "param.max_chars.description": "返回的最大字符数。如果省略，则在 8000 个字符处截断。",
+    "param.page_index.description": "从 1 开始的页码（PDF 页或 PPTX 幻灯片索引）。如果省略，则返回所有页面的串联文本。",
+    "param.path.description": "PDF / PPTX / JSON 文件的路径。",
+    "tool.description": "读取 PDF/PPTX （或它们常见的 JSON 模式）并按页返回提取的文本。您可以将路径设置为.pdf / .pptx / .json。对于 PDF/PPTX，该模块将其转换为通用 JSON 模式。",
+    "tool.system_prompt": "IMPORTANT：此工具读取 PDF/PPTX/JSON 并返回页面级文本。输入：路径、page_index、max_chars。输出：页面文本（所有页面或指定页面）。"
+  },
+  "zh_TW": {
+    "param.max_chars.description": "傳回的最大字元數。如果省略，則在 8000 個字元處截斷。",
+    "param.page_index.description": "從 1 開始的頁碼（PDF 頁或 PPTX 投影片索引）。如果省略，則傳回所有頁面的串聯文字。",
+    "param.path.description": "PDF / PPTX / JSON 檔案的路徑。",
+    "tool.description": "讀取 PDF/PPTX （或它們常見的 JSON 模式）並按頁返回提取的文字。您可以將路徑設定為.pdf / .pptx / .json。對於 PDF/PPTX，該模組將其轉換為通用 JSON 模式。",
+    "tool.system_prompt": "IMPORTANT：此工具讀取 PDF/PPTX/JSON 並傳回頁面層級文字。輸入：路徑、page_index、max_chars。輸出：頁面文字（所有頁面或指定頁面）。"
+  },
+  "es": {
+    "param.max_chars.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a los 8000 caracteres.",
+    "param.page_index.description": "Número de página basado en 1 (página PDF o índice de diapositivas PPTX). Si se omite, devuelve texto concatenado para todas las páginas.",
+    "param.path.description": "Ruta a un archivo PDF / PPTX / JSON.",
+    "tool.description": "Lea PDF/PPTX (o su esquema JSON común) y devuelva el texto extraído por página. Puede establecer la ruta en .pdf/.pptx/.json. Para PDF/PPTX, este módulo lo convierte al esquema común JSON.",
+    "tool.system_prompt": "IMPORTANT: esta herramienta lee PDF/PPTX/JSON y devuelve texto a nivel de página. Entrada: ruta, índice de página, max_chars. Salida: texto de la página (todas las páginas o la página especificada)."
+  },
+  "fr": {
+    "param.max_chars.description": "Nombre maximum de caractères à renvoyer. En cas d'omission, tronqué à 8 000 caractères.",
+    "param.page_index.description": "Numéro de page basé sur 1 (page PDF ou index de diapositive PPTX). En cas d'omission, renvoie le texte concaténé pour toutes les pages.",
+    "param.path.description": "Chemin d'accès à un fichier PDF / PPTX / JSON.",
+    "tool.description": "Lisez PDF/PPTX (ou leur schéma commun JSON) et renvoyez le texte extrait par page. Vous pouvez définir le chemin vers .pdf / .pptx / .json. Pour PDF/PPTX, ce module le convertit en schéma JSON commun.",
+    "tool.system_prompt": "IMPORTANT : cet outil lit PDF/PPTX/JSON et renvoie le texte au niveau de la page. Entrée : chemin, page_index, max_chars. Sortie : texte de la page (toutes les pages ou page spécifiée)."
+  },
+  "ko": {
+    "param.max_chars.description": "반환할 최대 문자 수입니다. 생략하면 8000자에서 잘립니다.",
+    "param.page_index.description": "1 기반 페이지 번호(PDF 페이지 또는 PPTX 슬라이드 인덱스). 생략하면 모든 페이지에 대해 연결된 텍스트를 반환합니다.",
+    "param.path.description": "PDF / PPTX / JSON 파일의 경로입니다.",
+    "tool.description": "PDF/PPTX(또는 공통 JSON 스키마)를 읽고 추출된 텍스트를 페이지별로 반환합니다. .pdf / .pptx / .json 경로를 설정할 수 있습니다. PDF/PPTX의 경우 이 모듈은 이를 공통 JSON 스키마로 변환합니다.",
+    "tool.system_prompt": "IMPORTANT: 이 도구는 PDF/PPTX/JSON을 읽고 페이지 수준 텍스트를 반환합니다. 입력: 경로, page_index, max_chars. 출력: 페이지 텍스트(모든 페이지 또는 지정된 페이지)."
+  },
+  "th": {
+    "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้น ให้ตัดทอนที่ 8000 อักขระ",
+    "param.page_index.description": "หมายเลขหน้า 1 (หน้า PDF หรือดัชนีสไลด์ PPTX) หากละเว้น จะส่งกลับข้อความที่ต่อกันสำหรับทุกหน้า",
+    "param.path.description": "พาธไปยังไฟล์ PDF / PPTX / JSON",
+    "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON ทั่วไป) และส่งคืนข้อความที่แยกออกมาทีละหน้า คุณสามารถกำหนดเส้นทางเป็น .pdf / .pptx / .json ได้ สำหรับ PDF/PPTX โมดูลนี้จะแปลงเป็นสคีมา JSON ทั่วไป",
+    "tool.system_prompt": "IMPORTANT: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: เส้นทาง, page_index, max_chars ผลลัพธ์: ข้อความหน้า (ทุกหน้าหรือหน้าที่ระบุ)"
   }
 }

@@ -12,5 +12,47 @@
     "param.new_dir.description": "切り替え先のディレクトリパス。",
     "tool.description": "ユーザー確認の後、現在の作業ディレクトリを変更します。",
     "tool.system_prompt": "ツール名 'change_workdir' で示される処理を実行します。"
+  },
+  "zh_CN": {
+    "confirm.change_workdir": "将当前工作目录更改为：{new_dir}\n\n继续吗？输入 y 继续，输入 c 取消。",
+    "param.confirm.description": "是否要求用户确认。",
+    "param.new_dir.description": "要切换到的新目录路径。",
+    "tool.description": "用户确认后更改当前工作目录。",
+    "tool.system_prompt": "该工具执行工具名称“change_workdir”描述的操作。"
+  },
+  "zh_TW": {
+    "confirm.change_workdir": "將目前工作目錄變更為：{new_dir}\n\n繼續嗎？輸入 y 繼續，輸入 c 取消。",
+    "param.confirm.description": "是否要求用戶確認。",
+    "param.new_dir.description": "要切換到的新目錄路徑。",
+    "tool.description": "使用者確認後更改目前工作目錄。",
+    "tool.system_prompt": "此工具執行工具名稱「change_workdir」所描述的操作。"
+  },
+  "es": {
+    "confirm.change_workdir": "Cambie el directorio de trabajo actual a: {new_dir}\n\n¿Continuar? Ingrese y para continuar, c para cancelar.",
+    "param.confirm.description": "Si se debe solicitar la confirmación del usuario.",
+    "param.new_dir.description": "La nueva ruta del directorio al que cambiar.",
+    "tool.description": "Cambie el directorio de trabajo actual después de la confirmación del usuario.",
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'change_workdir'."
+  },
+  "fr": {
+    "confirm.change_workdir": "Remplacez le répertoire de travail actuel par : {new_dir}\n\nContinuer ? Entrez y pour continuer, c pour annuler.",
+    "param.confirm.description": "S'il faut demander une confirmation à l'utilisateur.",
+    "param.new_dir.description": "Le nouveau chemin de répertoire vers lequel basculer.",
+    "tool.description": "Modifiez le répertoire de travail actuel après confirmation de l'utilisateur.",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « change_workdir »."
+  },
+  "ko": {
+    "confirm.change_workdir": "현재 작업 디렉터리를 다음으로 변경합니다: {new_dir}\n\n계속하시겠습니까? 계속하려면 y를 입력하고, 취소하려면 c를 입력하세요.",
+    "param.confirm.description": "사용자에게 확인을 요청할지 여부입니다.",
+    "param.new_dir.description": "전환할 새 디렉터리 경로입니다.",
+    "tool.description": "사용자 확인 후 현재 작업 디렉터리를 변경합니다.",
+    "tool.system_prompt": "이 도구는 도구 이름 'change_workdir'에 설명된 작업을 수행합니다."
+  },
+  "th": {
+    "confirm.change_workdir": "เปลี่ยนไดเร็กทอรีการทำงานปัจจุบันเป็น: {new_dir}\n\nดำเนินการต่อ? ป้อน y เพื่อดำเนินการต่อ c เพื่อยกเลิก",
+    "param.confirm.description": "ไม่ว่าจะขอคำยืนยันจากผู้ใช้หรือไม่",
+    "param.new_dir.description": "เส้นทางไดเรกทอรีใหม่ที่จะเปลี่ยนไป",
+    "tool.description": "เปลี่ยนไดเร็กทอรีการทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'change_workdir'"
   }
 }

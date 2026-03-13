@@ -8,5 +8,35 @@
     "param.code.description": "実行する Python コード。",
     "tool.description": "Python コードを実行します。計算、データ処理、短いスクリプトの実行など、特に正確さが重要な場合に使ってください。Python 作業では cmd_exec/cmd_exec_json よりこちらを優先してください。",
     "tool.system_prompt": "制御された方法で Python コードを実行します。\n- Python 標準ライブラリ機能や信頼できる数値計算が必要なら、このツールを使ってください。\n- コードを実行する前に、何を実行するかを簡潔に述べてください。\n- 明示的に必要な場合を除き、Python 実行に cmd_exec を使わないでください。"
+  },
+  "zh_CN": {
+    "param.code.description": "要执行的 Python 代码。",
+    "tool.description": "执行Python代码。使用此工具进行计算、数据处理或运行简短的脚本，尤其是在准确性很重要的情况下。对于 Python 工作，更喜欢使用它而不是 cmd_exec/cmd_exec_json。",
+    "tool.system_prompt": "以受控方式执行 Python 代码。\n- 如果您需要Python标准库功能或可靠的数值计算，请使用此工具。\n- 当您要运行代码时，简要说明将执行的内容。\n- 除非明确必要，否则不要使用 cmd_exec 运行 Python。"
+  },
+  "zh_TW": {
+    "param.code.description": "要執行的 Python 程式碼。",
+    "tool.description": "執行Python程式碼。使用此工具進行計算、資料處理或執行簡短的腳本，尤其是在準確性很重要的情況下。對於 Python 工作，更喜歡使用它而不是 cmd_exec/cmd_exec_json。",
+    "tool.system_prompt": "以受控方式執行 Python 程式碼。\n- 如果您需要Python標準庫功能或可靠的數值計算，請使用此工具。\n- 當您要執行程式碼時，請簡要說明將執行的內容。\n- 除非明確必要，否則不要使用 cmd_exec 執行 Python。"
+  },
+  "es": {
+    "param.code.description": "Código Python para ejecutar.",
+    "tool.description": "Ejecutar código Python. Utilice esta herramienta para cálculos, procesamiento de datos o ejecución de scripts cortos, especialmente cuando la precisión es importante. Prefiera esto a cmd_exec/cmd_exec_json para trabajar con Python.",
+    "tool.system_prompt": "Ejecute código Python de forma controlada.\n- Si necesita funciones de la biblioteca estándar de Python o cálculos numéricos confiables, utilice esta herramienta.\n- Cuando esté a punto de ejecutar el código, indique brevemente qué se ejecutará.\n- No utilice cmd_exec para ejecutar Python a menos que sea explícitamente necesario."
+  },
+  "fr": {
+    "param.code.description": "Code Python à exécuter.",
+    "tool.description": "Exécutez le code Python. Utilisez cet outil pour les calculs, le traitement des données ou l'exécution de scripts courts, en particulier lorsque la précision est importante. Préférez ceci à cmd_exec/cmd_exec_json pour le travail Python.",
+    "tool.system_prompt": "Exécutez le code Python de manière contrôlée.\n- Si vous avez besoin de fonctionnalités de bibliothèque standard Python ou d'un calcul numérique fiable, utilisez cet outil.\n- Lorsque vous êtes sur le point d'exécuter du code, indiquez brièvement ce qui sera exécuté.\n- N'utilisez pas cmd_exec pour exécuter Python sauf si cela est explicitement nécessaire."
+  },
+  "ko": {
+    "param.code.description": "실행할 Python 코드입니다.",
+    "tool.description": "Python 코드를 실행합니다. 계산, 데이터 처리 또는 짧은 스크립트 실행, 특히 정확성이 중요한 경우 이 도구를 사용하세요. Python 작업의 경우 cmd_exec/cmd_exec_json보다 이것을 선호합니다.",
+    "tool.system_prompt": "제어된 방식으로 Python 코드를 실행합니다.\n- Python 표준 라이브러리 기능이나 안정적인 수치 계산이 필요한 경우 이 도구를 사용하세요.\n- 코드를 실행하려고 할 때 무엇을 실행할지 간략하게 설명하세요.\n- 명시적으로 필요한 경우가 아니면 cmd_exec를 사용하여 Python을 실행하지 마십시오."
+  },
+  "th": {
+    "param.code.description": "รหัส Python ที่จะดำเนินการ",
+    "tool.description": "รันโค้ด Python ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล หรือการเรียกใช้สคริปต์สั้นๆ โดยเฉพาะอย่างยิ่งเมื่อความถูกต้องมีความสำคัญ ต้องการสิ่งนี้มากกว่า cmd_exec/cmd_exec_json สำหรับงาน Python",
+    "tool.system_prompt": "รันโค้ด Python ด้วยวิธีควบคุม\n- หากคุณต้องการฟีเจอร์ไลบรารีมาตรฐานของ Python หรือการคำนวณตัวเลขที่เชื่อถือได้ ให้ใช้เครื่องมือนี้\n- เมื่อคุณกำลังจะรันโค้ด ให้ระบุสั้นๆ ว่าจะต้องดำเนินการอะไรบ้าง\n- อย่าใช้ cmd_exec เพื่อรัน Python เว้นแต่จะมีความจำเป็นอย่างชัดเจน"
   }
 }

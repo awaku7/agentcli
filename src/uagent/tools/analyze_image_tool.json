@@ -10,5 +10,41 @@
     "param.prompt.description": "画像について知りたい内容。",
     "tool.description": "画像ファイルを読み込み、AI（Vision）で内容を説明します。スクリーンショットの解析やグラフ・表の読み取りに便利です。",
     "tool.system_prompt": "ツール名 'analyze_image' で示される処理を実行します。"
+  },
+  "zh_CN": {
+    "param.image_path.description": "要分析的图像文件的路径。",
+    "param.prompt.description": "您想了解有关图像的信息。",
+    "tool.description": "加载图像文件并让 AI（视觉）描述其内容。对于分析屏幕截图或阅读图表/表格很有用。",
+    "tool.system_prompt": "该工具执行工具名称“analyze_image”描述的操作。"
+  },
+  "zh_TW": {
+    "param.image_path.description": "要分析的影像檔案的路徑。",
+    "param.prompt.description": "您想了解有關圖像的資訊。",
+    "tool.description": "載入圖像檔案並讓 AI（視覺）描述其內容。對於分析螢幕截圖或閱讀圖表/表格很有用。",
+    "tool.system_prompt": "此工具執行工具名稱「analyze_image」所描述的操作。"
+  },
+  "es": {
+    "param.image_path.description": "Ruta al archivo de imagen a analizar.",
+    "param.prompt.description": "Lo que quieres saber sobre la imagen.",
+    "tool.description": "Cargue un archivo de imagen y haga que AI (Vision) describa su contenido. Útil para analizar capturas de pantalla o leer gráficos/tablas.",
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'analyze_image'."
+  },
+  "fr": {
+    "param.image_path.description": "Chemin d'accès au fichier image à analyser.",
+    "param.prompt.description": "Ce que vous voulez savoir sur l'image.",
+    "tool.description": "Chargez un fichier image et demandez à AI (Vision) de décrire son contenu. Utile pour analyser des captures d'écran ou lire des graphiques/tableaux.",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « analyze_image »."
+  },
+  "ko": {
+    "param.image_path.description": "분석할 이미지 파일의 경로입니다.",
+    "param.prompt.description": "이미지에 대해 알고 싶은 것.",
+    "tool.description": "이미지 파일을 로드하고 AI(Vision)가 해당 내용을 설명하도록 하세요. 스크린샷을 분석하거나 차트/표를 읽는 데 유용합니다.",
+    "tool.system_prompt": "이 도구는 도구 이름 'analyze_image'에 설명된 작업을 수행합니다."
+  },
+  "th": {
+    "param.image_path.description": "พาธไปยังไฟล์รูปภาพเพื่อวิเคราะห์",
+    "param.prompt.description": "สิ่งที่คุณต้องการทราบเกี่ยวกับภาพ",
+    "tool.description": "โหลดไฟล์ภาพและให้ AI (Vision) อธิบายเนื้อหา มีประโยชน์สำหรับการวิเคราะห์ภาพหน้าจอหรือการอ่านแผนภูมิ/ตาราง",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'analyze_image'"
   }
 }

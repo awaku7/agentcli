@@ -14,5 +14,53 @@
     "param.sheet_name.description": "対象シート名。",
     "tool.description": "Excel（.xlsx）ファイルの読み書きとシート名取得を行います。既存ファイルへ書き込む場合は、直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / ...）を作成します。",
     "tool.system_prompt": "ツール名 'excel_ops' で示される処理を実行します。"
+  },
+  "zh_CN": {
+    "param.action.description": "要执行的操作。",
+    "param.data.description": "JSON 要写入的数据。",
+    "param.file_path.description": "Excel 文件的绝对路径。",
+    "param.sheet_name.description": "目标工作表名称。",
+    "tool.description": "读取/写入 Excel (.xlsx) 文件并获取工作表名称。写入现有文件时，会在写入之前立即创建同名的备份 (<file_path>.org / <file_path>.org1 / ...)。",
+    "tool.system_prompt": "该工具执行工具名称“excel_ops”描述的操作。"
+  },
+  "zh_TW": {
+    "param.action.description": "要執行的操作。",
+    "param.data.description": "JSON 要寫入的資料。",
+    "param.file_path.description": "Excel 檔案的絕對路徑。",
+    "param.sheet_name.description": "目標工作表名稱。",
+    "tool.description": "讀取/寫入 Excel (.xlsx) 檔案並取得工作表名稱。寫入現有檔案時，會在寫入之前立即建立同名的備份 (<file_path>.org / <file_path>.org1 / ...)。",
+    "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。"
+  },
+  "es": {
+    "param.action.description": "Operación a realizar.",
+    "param.data.description": "JSON datos para escribir.",
+    "param.file_path.description": "Ruta absoluta al archivo de Excel.",
+    "param.sheet_name.description": "Nombre de la hoja de destino.",
+    "tool.description": "Lea/escriba un archivo de Excel (.xlsx) y obtenga nombres de hojas. Al escribir en un archivo existente, se crea una copia de seguridad con el mismo nombre (<file_path>.org / <file_path>.org1 /...) inmediatamente antes de escribir.",
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'excel_ops'."
+  },
+  "fr": {
+    "param.action.description": "Opération à réaliser.",
+    "param.data.description": "JSON données à écrire.",
+    "param.file_path.description": "Chemin absolu vers le fichier Excel.",
+    "param.sheet_name.description": "Nom de la feuille cible.",
+    "tool.description": "Lisez/écrivez un fichier Excel (.xlsx) et obtenez les noms des feuilles. Lors de l'écriture dans un fichier existant, une sauvegarde du même nom (<file_path>.org / <file_path>.org1 / ...) est créée juste avant l'écriture.",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « excel_ops »."
+  },
+  "ko": {
+    "param.action.description": "수행할 작업입니다.",
+    "param.data.description": "JSON 쓸 데이터입니다.",
+    "param.file_path.description": "Excel 파일의 절대 경로입니다.",
+    "param.sheet_name.description": "대상 시트 이름.",
+    "tool.description": "Excel(.xlsx) 파일을 읽고 쓰고 시트 이름을 가져옵니다. 기존 파일에 쓰는 경우 쓰기 직전에 동일한 이름(<file_path>.org / <file_path>.org1 / ...)의 백업이 생성됩니다.",
+    "tool.system_prompt": "이 도구는 도구 이름 'excel_ops'에 설명된 작업을 수행합니다."
+  },
+  "th": {
+    "param.action.description": "การดำเนินการที่จะดำเนินการ",
+    "param.data.description": "JSON ข้อมูลที่จะเขียน",
+    "param.file_path.description": "เส้นทางที่แน่นอนไปยังไฟล์ Excel",
+    "param.sheet_name.description": "ชื่อแผ่นเป้าหมาย",
+    "tool.description": "อ่าน/เขียนไฟล์ Excel (.xlsx) และรับชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างข้อมูลสำรองที่มีชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนที่จะเขียน",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'"
   }
 }

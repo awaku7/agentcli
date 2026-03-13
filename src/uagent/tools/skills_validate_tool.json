@@ -1,16 +1,66 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "err.invalid_args": "[tool error] invalid args",
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings."
+    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
+    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",
-    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。",
+    "err.invalid_args": "[ツールエラー] 引数が不正です",
+    "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",
     "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）",
     "param.strict.description": "warnings も失敗扱いにするか（既定:false）",
-    "err.invalid_args": "[ツールエラー] 引数が不正です",
-    "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります"
+    "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",
+    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
+  },
+  "zh_CN": {
+    "err.invalid_args": "[工具错误]无效参数",
+    "err.skill_dir_required": "[工具错误] Skill_dir 必须是非空字符串",
+    "param.skill_dir.description": "技能目录（下面直接需要SKILL.md）",
+    "param.strict.description": "警告也应该被视为失败吗？ （默认值：假）",
+    "tool.description": "根据代理技能规范验证技能目录 (SKILL.md) 并返回错误和警告。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "err.invalid_args": "[工具錯誤]無效參數",
+    "err.skill_dir_required": "[工具錯誤] Skill_dir 必須是非空字串",
+    "param.skill_dir.description": "技能目錄（下面直接需要SKILL.md）",
+    "param.strict.description": "警告也應該被視為失敗嗎？ （預設值：假）",
+    "tool.description": "根據代理技能規格驗證技能目錄 (SKILL.md) 並傳回錯誤和警告。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "err.invalid_args": "[error de herramienta] argumentos no válidos",
+    "err.skill_dir_required": "[error de herramienta] Skill_dir debe ser una cadena que no esté vacía",
+    "param.skill_dir.description": "Directorio de habilidades (se requiere SKILL.md directamente debajo)",
+    "param.strict.description": "¿Las advertencias también deberían considerarse un fracaso? (predeterminado: falso)",
+    "tool.description": "Valida un directorio de habilidades (SKILL.md) según la especificación de habilidades del agente y devuelve errores y advertencias.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "err.invalid_args": "[erreur de l'outil] arguments invalides",
+    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une chaîne non vide",
+    "param.skill_dir.description": "Répertoire de compétences (SKILL.md est requis directement ci-dessous)",
+    "param.strict.description": "Les avertissements doivent-ils également être traités comme un échec ? (par défaut : faux)",
+    "tool.description": "Valide un répertoire de compétences (SKILL.md) conformément à la spécification des compétences de l'agent et renvoie les erreurs et les avertissements.",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "err.invalid_args": "[도구 오류] 잘못된 인수",
+    "err.skill_dir_required": "[도구 오류] Skill_dir은 비어 있지 않은 문자열이어야 합니다.",
+    "param.skill_dir.description": "스킬 디렉터리(바로 아래에 SKILL.md가 필요함)",
+    "param.strict.description": "경고도 실패로 처리되어야 합니까? (기본값: 거짓)",
+    "tool.description": "에이전트 스킬 사양에 따라 스킬 디렉터리(SKILL.md)를 검증하고 오류 및 경고를 반환합니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] args ไม่ถูกต้อง",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] Skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "param.skill_dir.description": "ไดเรกทอรีทักษะ (จำเป็นต้องมี SKILL.md ด้านล่างโดยตรง)",
+    "param.strict.description": "คำเตือนควรถือเป็นความล้มเหลวด้วยหรือไม่ (ค่าเริ่มต้น: เท็จ)",
+    "tool.description": "ตรวจสอบไดเร็กทอรีทักษะ (SKILL.md) ตามข้อมูลจำเพาะของ Agent Skills และส่งคืนข้อผิดพลาดและคำเตือน",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

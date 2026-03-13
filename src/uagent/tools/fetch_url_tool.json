@@ -8,5 +8,35 @@
     "param.url.description": "アクセスする URL。",
     "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。",
     "tool.system_prompt": "ツール名 'fetch_url' で示される処理を実行します。"
+  },
+  "zh_CN": {
+    "param.url.description": "URL 进行访问。",
+    "tool.description": "通过 HTTP GET 访问指定的 URL 并以文本形式返回响应的开头。对于获取和检查 HTML 或 JSON 很有用。",
+    "tool.system_prompt": "该工具执行工具名称“fetch_url”描述的操作。"
+  },
+  "zh_TW": {
+    "param.url.description": "URL 進行訪問。",
+    "tool.description": "透過 HTTP GET 存取指定的 URL 並以文字形式傳回回應的開頭。對於獲取和檢查 HTML 或 JSON 很有用。",
+    "tool.system_prompt": "此工具執行工具名稱「fetch_url」所描述的操作。"
+  },
+  "es": {
+    "param.url.description": "URL para acceder.",
+    "tool.description": "Acceda al URL especificado a través de HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para buscar e inspeccionar HTML o JSON.",
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'fetch_url'."
+  },
+  "fr": {
+    "param.url.description": "URL pour y accéder.",
+    "tool.description": "Accédez au URL spécifié via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter HTML ou JSON.",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « fetch_url »."
+  },
+  "ko": {
+    "param.url.description": "URL에 액세스합니다.",
+    "tool.description": "HTTP GET을 통해 지정된 URL에 액세스하고 응답의 시작 부분을 텍스트로 반환합니다. HTML 또는 JSON을 가져오고 검사하는 데 유용합니다.",
+    "tool.system_prompt": "이 도구는 도구 이름 'fetch_url'에 설명된 작업을 수행합니다."
+  },
+  "th": {
+    "param.url.description": "URL เพื่อเข้าถึง",
+    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนจุดเริ่มต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงข้อมูลและตรวจสอบ HTML หรือ JSON",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'fetch_url'"
   }
 }

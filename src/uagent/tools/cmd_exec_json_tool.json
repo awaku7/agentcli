@@ -10,5 +10,41 @@
     "param.cwd.description": "コマンドの作業ディレクトリ。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。コマンドは慎重に扱い、ユーザーが明示的に確認した場合を除いて破壊的な操作は避けてください。"
+  },
+  "zh_CN": {
+    "param.command.description": "要执行的命令字符串。",
+    "param.cwd.description": "命令的工作目录。",
+    "tool.description": "作为最后的手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时才使用（例如 MCP 集成）。",
+    "tool.system_prompt": "该工具是 LAST RESORT。仅当没有其他合适的工具可用时才使用它。除非用户明确确认，否则对命令要保守并避免破坏性操作。"
+  },
+  "zh_TW": {
+    "param.command.description": "要執行的命令字串。",
+    "param.cwd.description": "指令的工作目錄。",
+    "tool.description": "作為最後的手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時才使用（例如 MCP 整合）。",
+    "tool.system_prompt": "工具是 LAST RESORT。僅當沒有其他合適的工具可用時才使用它。除非使用者明確確認，否則對命令要保守並避免破壞性操作。"
+  },
+  "es": {
+    "param.command.description": "Cadena de comando a ejecutar.",
+    "param.cwd.description": "Directorio de trabajo para el comando.",
+    "tool.description": "Como último recurso, ejecute un comando de shell y devuelva un resultado JSON. Úselo solo cuando no haya disponible una herramienta más segura o más específica (por ejemplo, una integración MCP).",
+    "tool.system_prompt": "Esta herramienta es un LAST RESORT. Úselo sólo si no hay otra herramienta adecuada disponible. Sea conservador con los comandos y evite operaciones destructivas a menos que el usuario lo confirme explícitamente."
+  },
+  "fr": {
+    "param.command.description": "Chaîne de commande à exécuter.",
+    "param.cwd.description": "Répertoire de travail pour la commande.",
+    "tool.description": "En dernier recours, exécutez une commande shell et renvoyez un résultat JSON. À utiliser uniquement lorsqu'aucun outil plus sûr ou plus spécifique n'est disponible (par exemple, une intégration MCP).",
+    "tool.system_prompt": "Cet outil est un LAST RESORT. Utilisez-le uniquement si aucun autre outil approprié n'est disponible. Soyez prudent avec les commandes et évitez les opérations destructrices, sauf confirmation explicite de l'utilisateur."
+  },
+  "ko": {
+    "param.command.description": "실행할 명령 문자열입니다.",
+    "param.cwd.description": "명령에 대한 작업 디렉터리입니다.",
+    "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환하십시오. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하십시오(예: MCP 통합).",
+    "tool.system_prompt": "이 도구는 LAST RESORT입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하십시오. 명령을 신중하게 사용하고 사용자가 명시적으로 확인하지 않는 한 파괴적인 작업을 피하십시오."
+  },
+  "th": {
+    "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
+    "param.cwd.description": "ไดเร็กทอรีการทำงานสำหรับคำสั่ง",
+    "tool.description": "วิธีสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น การผสานรวม MCP)",
+    "tool.system_prompt": "เครื่องมือนี้คือ LAST RESORT ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ระมัดระวังการใช้คำสั่งและหลีกเลี่ยงการดำเนินการทำลายล้าง เว้นแต่จะได้รับการยืนยันอย่างชัดเจนจากผู้ใช้"
   }
 }

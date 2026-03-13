@@ -1,22 +1,74 @@
 {
   "en": {
-    "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting. Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
-    "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing. Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
-
-    "param.filename.description": "Path of the file to create.",
-    "param.path.description": "(Compatibility) Alias of filename.",
     "param.content.description": "Text content to write.",
     "param.encoding.description": "Text encoding (e.g., 'utf-8', 'cp932'). Default: 'utf-8-sig' for .csv/.tsv when encoding is omitted; otherwise 'utf-8'.",
-    "param.overwrite.description": "Whether to overwrite if the file already exists (default: false)."
+    "param.filename.description": "Path of the file to create.",
+    "param.overwrite.description": "Whether to overwrite if the file already exists (default: false).",
+    "param.path.description": "(Compatibility) Alias of filename.",
+    "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting. Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
+    "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing. Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing)."
   },
   "ja": {
-    "tool.description": "テキストファイルを作成します。既定では既存ファイルを上書きしません。overwrite=true が指定され、かつ作成先に既存ファイルがある場合は、上書き直前にバックアップ（<filename>.org / <filename>.org1 / ...）を作成します。ヒント: CSV/TSV を Microsoft Excel で直接開いて文字化けさせたくない場合は encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。",
-    "tool.system_prompt": "workdir 配下にテキストファイルを作成します。既存ファイルがある場合、overwrite=false ではエラーになります。overwrite=true の場合は、書き込み前にバックアップを作成します。ヒント: CSV/TSV を Microsoft Excel で直接開く用途なら encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。",
-
-    "param.filename.description": "作成するファイルのパス。",
-    "param.path.description": "（互換性用）filename の別名。",
     "param.content.description": "書き込むテキスト内容。",
     "param.encoding.description": "テキストエンコーディング（例: 'utf-8', 'cp932'）。encoding未指定時、.csv/.tsv は既定で 'utf-8-sig'、それ以外は 'utf-8'。",
-    "param.overwrite.description": "既存ファイルがある場合に上書きするか（既定: false）。"
+    "param.filename.description": "作成するファイルのパス。",
+    "param.overwrite.description": "既存ファイルがある場合に上書きするか（既定: false）。",
+    "param.path.description": "（互換性用）filename の別名。",
+    "tool.description": "テキストファイルを作成します。既定では既存ファイルを上書きしません。overwrite=true が指定され、かつ作成先に既存ファイルがある場合は、上書き直前にバックアップ（<filename>.org / <filename>.org1 / ...）を作成します。ヒント: CSV/TSV を Microsoft Excel で直接開いて文字化けさせたくない場合は encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。",
+    "tool.system_prompt": "workdir 配下にテキストファイルを作成します。既存ファイルがある場合、overwrite=false ではエラーになります。overwrite=true の場合は、書き込み前にバックアップを作成します。ヒント: CSV/TSV を Microsoft Excel で直接開く用途なら encoding='utf-8-sig'（UTF-8 BOMあり）を検討してください。機械処理や相互運用性重視なら encoding='utf-8'（BOMなし）を推奨します。判断できない場合は用途（Excelで開くか／プログラム処理か）を確認してください。"
+  },
+  "zh_CN": {
+    "param.content.description": "要写的文字内容。",
+    "param.encoding.description": "文本编码（例如“utf-8”、“cp932”）。默认值：当省略编码时，.csv/.tsv 为“utf-8-sig”；否则为“utf-8”。",
+    "param.filename.description": "要创建的文件的路径。",
+    "param.overwrite.description": "如果文件已存在，是否覆盖（默认：false）。",
+    "param.path.description": "（兼容性）文件名的别名。",
+    "tool.description": "创建一个文本文件。默认情况下，该工具不会覆盖现有文件。如果指定了 overwrite=true 并且目标已存在，则该工具会在覆盖之前立即创建备份 (<文件名>.org / <文件名>.org1 / ...)。提示：如果您希望 CSV/TSV 文件在直接打开时在 Microsoft Excel 中正确打开，请考虑encoding='utf-8-sig'（UTF-8 和 BOM）。对于机器处理和互操作性，首选编码='utf-8'（无 BOM）。如果不确定，请询问如何使用该文件（Excel 与编程处理）。",
+    "tool.system_prompt": "在workdir下创建一个文本文件。如果文件已经存在，overwrite=false 将引发错误。如果 overwrite=true，则在写入之前创建备份。提示：对于要直接在 Microsoft Excel 中打开的 CSV/TSV，请考虑encoding='utf-8-sig'（UTF-8 和 BOM）。对于机器处理和互操作性，首选编码='utf-8'（无 BOM）。如果不确定，请询问如何使用该文件（Excel 与编程处理）。"
+  },
+  "zh_TW": {
+    "param.content.description": "要寫的文字內容。",
+    "param.encoding.description": "文字編碼（例如“utf-8”、“cp932”）。預設值：當省略編碼時，.csv/.tsv 為「utf-8-sig」；否則為「utf-8」。",
+    "param.filename.description": "要建立的文件的路徑。",
+    "param.overwrite.description": "如果檔案已存在，是否覆蓋（預設：false）。",
+    "param.path.description": "（相容性）檔案名稱的別名。",
+    "tool.description": "建立一個文字檔。預設情況下，該工具不會覆蓋現有檔案。如果指定了 overwrite=true 並且目標已存在，則該工具會在覆蓋之前立即建立備份 (<檔案名稱>.org / <檔案名稱>.org1 / ...)。提示：如果您希望 CSV/TSV 文件在直接打開時在 Microsoft Excel 中正確打開，請考慮encoding='utf-8-sig'（UTF-8 和 BOM）。對於機器處理和互通性，首選編碼='utf-8'（無 BOM）。如果不確定，請詢問如何使用該檔案（Excel 與程式設計處理）。",
+    "tool.system_prompt": "在workdir下建立一個文字檔。如果檔案已經存在，overwrite=false 將會引發錯誤。如果 overwrite=true，則在寫入之前建立備份。提示：對於要直接在 Microsoft Excel 中開啟的 CSV/TSV，請考慮encoding='utf-8-sig'（UTF-8 和 BOM）。對於機器處理和互通性，首選編碼='utf-8'（無 BOM）。如果不確定，請詢問如何使用該檔案（Excel 與程式設計處理）。"
+  },
+  "es": {
+    "param.content.description": "Contenido de texto para escribir.",
+    "param.encoding.description": "Codificación de texto (por ejemplo, 'utf-8', 'cp932'). Valor predeterminado: 'utf-8-sig' para .csv/.tsv cuando se omite la codificación; de lo contrario, 'utf-8'.",
+    "param.filename.description": "Ruta del archivo a crear.",
+    "param.overwrite.description": "Si se sobrescribe si el archivo ya existe (predeterminado: falso).",
+    "param.path.description": "(Compatibilidad) Alias del nombre del archivo.",
+    "tool.description": "Crea un archivo de texto. De forma predeterminada, la herramienta no sobrescribirá un archivo existente. Si se especifica overwrite=true y el destino ya existe, la herramienta crea una copia de seguridad (<nombre de archivo>.org/<nombre de archivo>.org1/...) inmediatamente antes de sobrescribir. Consejo: Si desea que los archivos CSV/TSV se abran correctamente en Microsoft Excel cuando se abren directamente, considere encoding='utf-8-sig' (UTF-8 con BOM). Para procesamiento de máquinas e interoperabilidad, prefiera encoding='utf-8' (no BOM). Si no está seguro, pregunte cómo se utilizará el archivo (Excel o procesamiento programático).",
+    "tool.system_prompt": "Cree un archivo de texto en workdir. Si el archivo ya existe, overwrite=false generará un error. Si overwrite=true, se crea una copia de seguridad antes de escribir. Consejo: Para CSV/TSV destinado a abrirse directamente en Microsoft Excel, considere encoding='utf-8-sig' (UTF-8 con BOM). Para procesamiento de máquinas e interoperabilidad, prefiera encoding='utf-8' (no BOM). Si no está seguro, pregunte cómo se utilizará el archivo (Excel o procesamiento programático)."
+  },
+  "fr": {
+    "param.content.description": "Contenu du texte à écrire.",
+    "param.encoding.description": "Encodage de texte (par exemple, « utf-8 », « cp932 »). Par défaut : 'utf-8-sig' pour .csv/.tsv lorsque l'encodage est omis ; sinon 'utf-8'.",
+    "param.filename.description": "Chemin du fichier à créer.",
+    "param.overwrite.description": "S'il faut écraser si le fichier existe déjà (par défaut : false).",
+    "param.path.description": "(Compatibilité) Alias du nom de fichier.",
+    "tool.description": "Créez un fichier texte. Par défaut, l'outil n'écrasera pas un fichier existant. Si overwrite=true est spécifié et que la destination existe déjà, l'outil crée une sauvegarde (<filename>.org / <filename>.org1 / ...) immédiatement avant l'écrasement. Astuce : Si vous souhaitez que les fichiers CSV/TSV s'ouvrent correctement dans Microsoft Excel lorsqu'ils sont ouverts directement, pensez à encoding='utf-8-sig' (UTF-8 avec BOM). Pour le traitement machine et l'interopérabilité, préférez encoding='utf-8' (pas de BOM). En cas de doute, demandez comment le fichier sera utilisé (Excel ou traitement programmatique).",
+    "tool.system_prompt": "Créez un fichier texte sous workdir. Si le fichier existe déjà, overwrite=false générera une erreur. Si overwrite=true, une sauvegarde est créée avant l'écriture. Astuce : Pour CSV/TSV destiné à être ouvert directement dans Microsoft Excel, pensez à encoding='utf-8-sig' (UTF-8 avec BOM). Pour le traitement machine et l'interopérabilité, préférez encoding='utf-8' (pas de BOM). En cas de doute, demandez comment le fichier sera utilisé (Excel ou traitement programmatique)."
+  },
+  "ko": {
+    "param.content.description": "작성할 텍스트 내용입니다.",
+    "param.encoding.description": "텍스트 인코딩(예: 'utf-8', 'cp932') 기본값: 인코딩이 생략된 경우 .csv/.tsv의 경우 'utf-8-sig'; 그렇지 않으면 'utf-8'입니다.",
+    "param.filename.description": "생성할 파일의 경로입니다.",
+    "param.overwrite.description": "파일이 이미 존재하는 경우 덮어쓸지 여부(기본값: false)",
+    "param.path.description": "(호환성) 파일 이름의 별칭입니다.",
+    "tool.description": "Create a text file. By default, the tool will not overwrite an existing file. If overwrite=true is specified and the destination already exists, the tool creates a backup (<filename>.org / <filename>.org1 / ...) immediately before overwriting. Tip: If files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask processing).",
+    "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing. Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider-coding BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing)."
+  },
+  "th": {
+    "param.content.description": "เนื้อหาข้อความที่จะเขียน",
+    "param.encoding.description": "การเข้ารหัสข้อความ (เช่น 'utf-8', 'cp932') ค่าเริ่มต้น: 'utf-8-sig' สำหรับ .csv/.tsv เมื่อละเว้นการเข้ารหัส มิฉะนั้น 'utf-8'",
+    "param.filename.description": "เส้นทางของไฟล์ที่จะสร้าง",
+    "param.overwrite.description": "ไม่ว่าจะเขียนทับหรือไม่หากไฟล์มีอยู่แล้ว (ค่าเริ่มต้น: false)",
+    "param.path.description": "(ความเข้ากันได้) นามแฝงของชื่อไฟล์",
+    "tool.description": "สร้างไฟล์ข้อความ ตามค่าเริ่มต้น เครื่องมือจะไม่เขียนทับไฟล์ที่มีอยู่ หากมีการระบุ overwrite=true และมีปลายทางอยู่แล้ว เครื่องมือจะสร้างการสำรองข้อมูล (<filename>.org / <filename>.org1 / ...) ทันทีก่อนที่จะเขียนทับ เคล็ดลับ: หากคุณต้องการให้ไฟล์ CSV/TSV เปิดอย่างถูกต้องใน Microsoft Excel เมื่อเปิดโดยตรง ให้พิจารณา encoding='utf-8-sig' (UTF-8 ด้วย BOM) สำหรับการประมวลผลของเครื่องจักรและการทำงานร่วมกัน แนะนำให้ใช้ encoding='utf-8' (no BOM) หากไม่แน่ใจ ให้ถามว่าไฟล์จะถูกนำไปใช้อย่างไร (Excel กับการประมวลผลแบบเป็นโปรแกรม)",
+    "tool.system_prompt": "สร้างไฟล์ข้อความภายใต้ workdir หากมีไฟล์อยู่แล้ว overwrite=false จะทำให้เกิดข้อผิดพลาด หากเขียนทับ = true การสำรองข้อมูลจะถูกสร้างขึ้นก่อนที่จะเขียน เคล็ดลับ: สำหรับ CSV/TSV ตั้งใจให้เปิดโดยตรงใน Microsoft Excel ให้พิจารณา encoding='utf-8-sig' (UTF-8 ด้วย BOM) สำหรับการประมวลผลของเครื่องจักรและการทำงานร่วมกัน แนะนำให้ใช้ encoding='utf-8' (no BOM) หากไม่แน่ใจ ให้ถามว่าไฟล์จะถูกนำไปใช้อย่างไร (Excel กับการประมวลผลแบบเป็นโปรแกรม)"
   }
 }

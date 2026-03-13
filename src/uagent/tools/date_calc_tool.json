@@ -1,18 +1,98 @@
 {
   "en": {
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
-    "tool.description": "Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library."
+    "doc.get_holiday_info": "Get the holiday names of the specified country using the holidays library.",
+    "param.base_date.description": "Base date (ISO 8601 format 'YYYY-MM-DD'; if omitted, today).",
+    "param.check_holiday.description": "Whether to determine whether it is a holiday/holiday (default: true)",
+    "param.country.description": "Country code for determining public holidays (ISO 3166-1 alpha-2, e.g. 'JP', 'US', 'GB', 'FR'). Default is 'JP'.",
+    "param.days.description": "Number of days to add (subtraction is a negative number).",
+    "param.months.description": "Number of months to add (subtraction is negative).",
+    "param.weeks.description": "Number of weeks to add (subtraction is negative).",
+    "param.years.description": "Number of years to add (subtraction is a negative number).",
+    "tool.description": "Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。",
+    "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。",
     "param.base_date.description": "基準となる日付 (ISO 8601形式 'YYYY-MM-DD'。省略した場合は今日)。",
-    "param.years.description": "加算する年数（減算は負の数）。",
+    "param.check_holiday.description": "祝日・休日かどうかを判定するかどうか（既定: true）",
+    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.days.description": "加算する日数（減算は負の数）。",
     "param.months.description": "加算する月数（減算は負の数）。",
     "param.weeks.description": "加算する週数（減算は負の数）。",
-    "param.days.description": "加算する日数（減算は負の数）。",
-    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
-    "param.check_holiday.description": "祝日・休日かどうかを判定するかどうか（既定: true）",
-    "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。",
+    "param.years.description": "加算する年数（減算は負の数）。",
+    "tool.description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。世界各国の祝日判定機能（holidaysライブラリ）付き。",
     "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+  },
+  "zh_CN": {
+    "doc.get_holiday_info": "使用假期库获取指定国家/地区的假期名称。",
+    "param.base_date.description": "基准日期（ISO 8601 格式“YYYY-MM-DD”；如果省略，则为今天）。",
+    "param.check_holiday.description": "是否判断是否节假日/节假日（默认：true）",
+    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例如: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.days.description": "要添加的天数（减去的是负数）。",
+    "param.months.description": "要添加的月数（减法为负数）。",
+    "param.weeks.description": "添加周数（减法为负数）。",
+    "param.years.description": "要添加的年数（减法是负数）。",
+    "tool.description": "对指定日期执行年、月、周或日的加法或减法并返回结果。包括使用“假期”库确定假期。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "doc.get_holiday_info": "使用假期庫取得指定國家/地區的假期名稱。",
+    "param.base_date.description": "基準日期（ISO 8601 格式「YYYY-MM-DD」；如果省略，則為今天）。",
+    "param.check_holiday.description": "是否判斷是否為假日/假日（預設：true）",
+    "param.country.description": "祝日を判定する國コード (ISO 3166-1 alpha-2, 例如: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.days.description": "要加的天數（減去的是負數）。",
+    "param.months.description": "要加的月數（減法為負數）。",
+    "param.weeks.description": "加週數（減法為負數）。",
+    "param.years.description": "要加的年數（減法是負數）。",
+    "tool.description": "對指定日期執行年、月、週或日的加法或減法並傳回結果。包括使用“假期”庫確定假期。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "doc.get_holiday_info": "Obtenga los nombres de los días festivos del país especificado utilizando la biblioteca de días festivos.",
+    "param.base_date.description": "Fecha base (ISO 8601 formato 'YYYY-MM-DD'; si se omite, hoy).",
+    "param.check_holiday.description": "Ya sea para determinar si es un feriado/día festivo (predeterminado: verdadero)",
+    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, ejemplo: 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.days.description": "Número de días para sumar (la resta es un número negativo).",
+    "param.months.description": "Número de meses a sumar (la resta es negativa).",
+    "param.weeks.description": "Número de semanas a sumar (la resta es negativa).",
+    "param.years.description": "Número de años a sumar (la resta es un número negativo).",
+    "tool.description": "Realiza sumas o restas de años, meses, semanas o días para una fecha específica y devuelve el resultado. Incluye la determinación de días festivos utilizando la biblioteca 'vacaciones'.",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "doc.get_holiday_info": "Obtenez les noms des jours fériés du pays spécifié à l’aide de la bibliothèque des jours fériés.",
+    "param.base_date.description": "Date de base (format ISO 8601 'YYYY-MM-DD' ; si omis, aujourd'hui).",
+    "param.check_holiday.description": "S'il faut déterminer s'il s'agit d'un jour férié/congé (par défaut : vrai)",
+    "param.country.description": "祝日を判定する国コード (ISO 3166-1 alpha-2, 例 : 'JP', 'US', 'GB', 'FR')。既定は 'JP'。",
+    "param.days.description": "Nombre de jours à ajouter (la soustraction est un nombre négatif).",
+    "param.months.description": "Nombre de mois à ajouter (la soustraction est négative).",
+    "param.weeks.description": "Nombre de semaines à ajouter (la soustraction est négative).",
+    "param.years.description": "Nombre d'années à ajouter (la soustraction est un nombre négatif).",
+    "tool.description": "Effectue une addition ou une soustraction d'années, de mois, de semaines ou de jours pour une date spécifiée et renvoie le résultat. Inclut la détermination des jours fériés à l'aide de la bibliothèque « jours fériés ».",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "doc.get_holiday_info": "holidays 라이브러리를 사용하여 지정된 국가의 공휴일 이름을 가져옵니다.",
+    "param.base_date.description": "기준이 되는 일자(ISO 8601 형식 'YYYY-MM-DD'. 생략했을 경우는 오늘).",
+    "param.check_holiday.description": "공휴일인지/공휴일인지 판단할지 (기본값 : true)",
+    "param.country.description": "祝日を判는 국가 코드(ISO 3166-1 alpha-2, 예: 'JP', 'US', 'GB', 'FR')입니다.",
+    "param.days.description": "더할 일수입니다(뺄셈은 음수입니다).",
+    "param.months.description": "더할 개월 수입니다(뺄셈은 음수입니다).",
+    "param.weeks.description": "더할 주 수입니다(뺄셈은 음수입니다).",
+    "param.years.description": "더할 연수입니다. 빼기는 음수입니다.",
+    "tool.description": "지정된 날짜에 대해 연, 월, 주, 일의 덧셈이나 뺄셈을 수행하고 그 결과를 반환합니다. '휴일' 라이브러리를 사용한 휴일 결정이 포함됩니다.",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "doc.get_holiday_info": "รับชื่อวันหยุดของประเทศที่ระบุโดยใช้ไลบรารีวันหยุด",
+    "param.base_date.description": "วันที่ฐาน (ISO 8601 รูปแบบ 'YYYY-MM-DD' หากละไว้ วันนี้)",
+    "param.check_holiday.description": "ไม่ว่าจะกำหนดว่าเป็นวันหยุด/วันหยุดหรือไม่ (ค่าเริ่มต้น: จริง)",
+    "param.country.description": "祝日を判定スロード (ISO 3166-1 alpha-2, 例: 'JP', 'US', 'GB', 'FR').既定HA 'JP'。",
+    "param.days.description": "จำนวนวันที่ต้องบวก (การลบเป็นจำนวนลบ)",
+    "param.months.description": "จำนวนเดือนที่จะบวก (การลบจะเป็นลบ)",
+    "param.weeks.description": "จำนวนสัปดาห์ที่จะบวก (การลบจะเป็นลบ)",
+    "param.years.description": "จำนวนปีที่บวก (การลบเป็นจำนวนลบ)",
+    "tool.description": "ดำเนินการบวกหรือลบปี เดือน สัปดาห์ หรือวันสำหรับวันที่ที่ระบุและส่งกลับผลลัพธ์ รวมการกำหนดวันหยุดโดยใช้ห้องสมุด 'วันหยุด'",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

@@ -1,10 +1,58 @@
 {
-  "en": {},
+  "en": {
+    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
+    "log.loaded_tools": "[tools] Loaded tools: {names}",
+    "log.no_valid_tools": "[tools] No valid tools were found."
+  },
   "ja": {
+    "log.load_fail.external": "[tools] 外部プラグイン {entry_path} のロード失敗: {err}",
     "log.load_fail.internal": "[tools] 内部プラグイン {mod_name} のロード失敗: {err}",
     "log.load_ok.external": "[tools] 外部ツールをロードしました: {entry_name}",
-    "log.load_fail.external": "[tools] 外部プラグイン {entry_path} のロード失敗: {err}",
     "log.loaded_tools": "[tools] ロードされたツール: {names}",
     "log.no_valid_tools": "[tools] 有効なツールが見つかりませんでした。"
+  },
+  "zh_CN": {
+    "log.load_fail.external": "[工具] 无法加载外部插件 {entry_path}: {err}",
+    "log.load_fail.internal": "[工具] 无法加载内部插件 {mod_name}: {err}",
+    "log.load_ok.external": "[工具] 加载的外部工具：{entry_name}",
+    "log.loaded_tools": "[工具] 加载的工具：{names}",
+    "log.no_valid_tools": "[工具] 未找到有效工具。"
+  },
+  "zh_TW": {
+    "log.load_fail.external": "[工具] 無法載入外部插件 {entry_path}: {err}",
+    "log.load_fail.internal": "[工具] 無法載入內部插件 {mod_name}: {err}",
+    "log.load_ok.external": "[工具] 載入的外部工具：{entry_name}",
+    "log.loaded_tools": "[工具] 載入的工具：{names}",
+    "log.no_valid_tools": "[工具] 找不到有效工具。"
+  },
+  "es": {
+    "log.load_fail.external": "[herramientas] No se pudo cargar el complemento externo {entry_path}: {err}",
+    "log.load_fail.internal": "[herramientas] No se pudo cargar el complemento interno {mod_name}: {err}",
+    "log.load_ok.external": "[herramientas] Herramienta externa cargada: {entry_name}",
+    "log.loaded_tools": "[herramientas] Herramientas cargadas: {names}",
+    "log.no_valid_tools": "[herramientas] No se encontraron herramientas válidas."
+  },
+  "fr": {
+    "log.load_fail.external": "[outils] Échec du chargement du plugin externe {entry_path} : {err}",
+    "log.load_fail.internal": "[outils] Échec du chargement du plugin interne {mod_name} : {err}",
+    "log.load_ok.external": "[outils] Outil externe chargé : {entry_name}",
+    "log.loaded_tools": "[outils] Outils chargés : {names}",
+    "log.no_valid_tools": "[outils] Aucun outil valide n'a été trouvé."
+  },
+  "ko": {
+    "log.load_fail.external": "[tools] 외부 플러그인 {entry_path} 로드 실패: {err}",
+    "log.load_fail.internal": "[tools] 내부 플러그인 {mod_name} 로드 실패: {err}",
+    "log.load_ok.external": "[tools] 외부 도구를로드했습니다 : {entry_name}",
+    "log.loaded_tools": "[도구] 로드된 도구: {names}",
+    "log.no_valid_tools": "[도구] 유효한 도구를 찾을 수 없습니다."
+  },
+  "th": {
+    "log.load_fail.external": "[เครื่องมือ] ไม่สามารถโหลดปลั๊กอินภายนอก {entry_path}: {err}",
+    "log.load_fail.internal": "[เครื่องมือ] ไม่สามารถโหลดปลั๊กอินภายใน {mod_name}: {err}",
+    "log.load_ok.external": "[เครื่องมือ] โหลดเครื่องมือภายนอก: {entry_name}",
+    "log.loaded_tools": "[เครื่องมือ] เครื่องมือที่โหลด: {names}",
+    "log.no_valid_tools": "[เครื่องมือ] ไม่พบเครื่องมือที่ถูกต้อง"
   }
 }

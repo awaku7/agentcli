@@ -1,14 +1,50 @@
 {
   "en": {
+    "err.load": "[shared_memory error] {err_type}: {err}",
     "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
     "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]",
-    "err.load": "[shared_memory error] {err_type}: {err}"
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
   },
   "ja": {
+    "err.load": "[shared_memory エラー] {err_type}: {err}",
     "msg.disabled": "(共有メモリは無効です。UAGENT_SHARED_MEMORY_FILE を設定すると有効になります)",
     "msg.no_shared_memory": "(共有メモリはまだありません)",
-    "msg.truncated": "\n[shared_memory: {max_bytes} バイトで切り詰めました]",
-    "err.load": "[shared_memory エラー] {err_type}: {err}"
+    "msg.truncated": "\n[shared_memory: {max_bytes} バイトで切り詰めました]"
+  },
+  "zh_CN": {
+    "err.load": "[共享内存错误] {err_type}: {err}",
+    "msg.disabled": "（共享内存被禁用；设置 UAGENT_SHARED_MEMORY_FILE 来启用它）",
+    "msg.no_shared_memory": "（还没有共享内存）",
+    "msg.truncated": "\n[共享内存被截断：限制为 {max_bytes} 字节]"
+  },
+  "zh_TW": {
+    "err.load": "[共享記憶體錯誤] {err_type}: {err}",
+    "msg.disabled": "（共享記憶體已停用；設定 UAGENT_SHARED_MEMORY_FILE 來啟用它）",
+    "msg.no_shared_memory": "（還沒有共享記憶體）",
+    "msg.truncated": "\n[共享記憶體被截斷：限制為 {max_bytes} 位元組]"
+  },
+  "es": {
+    "err.load": "[error de memoria_compartida] {err_type}: {err}",
+    "msg.disabled": "(la memoria compartida está deshabilitada; configure UAGENT_SHARED_MEMORY_FILE para habilitarla)",
+    "msg.no_shared_memory": "(aún no hay memoria compartida)",
+    "msg.truncated": "\n[memoria_compartida truncada: limitada a {max_bytes} bytes]"
+  },
+  "fr": {
+    "err.load": "[Erreur de mémoire partagée] {err_type} : {err}",
+    "msg.disabled": "(la mémoire partagée est désactivée ; définissez UAGENT_SHARED_MEMORY_FILE pour l'activer)",
+    "msg.no_shared_memory": "(pas encore de mémoire partagée)",
+    "msg.truncated": "\n[shared_memory tronqué : limité à {max_bytes} octets]"
+  },
+  "ko": {
+    "err.load": "[shared_memory 오류] {err_type}: {err}",
+    "msg.disabled": "(공유 메모리가 비활성화되었습니다. 활성화하려면 UAGENT_SHARED_MEMORY_FILE를 설정하세요)",
+    "msg.no_shared_memory": "(아직 공유 메모리가 없음)",
+    "msg.truncated": "[shared_memory 잘림: {max_bytes}바이트로 제한됨]"
+  },
+  "th": {
+    "err.load": "[ข้อผิดพลาดหน่วยความจำที่ใช้ร่วมกัน] {err_type}: {err}",
+    "msg.disabled": "(หน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งาน ตั้งค่า UAGENT_SHARED_MEMORY_FILE เพื่อเปิดใช้งาน)",
+    "msg.no_shared_memory": "(ยังไม่มีหน่วยความจำที่ใช้ร่วมกัน)",
+    "msg.truncated": "\n[shared_memory ถูกตัดทอน: จำกัดที่ {max_bytes} ไบต์]"
   }
 }

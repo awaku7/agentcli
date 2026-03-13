@@ -1,17 +1,90 @@
 {
   "en": {
+    "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
+    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis/formatter.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not actively execute npx (it tends to result in download execution)\n\nSafety:\n- mode=fix involves file changes, so check with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.\n\nImplementation:\n- Use cmd_exec_json_tool.",
+    "param.cwd.description": "Execution directory (only allowed under workdir). If null, current.",
+    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
+    "param.mode.description": "check=check only / fix=automatic fix",
+    "param.targets.description": "Target path array (only allowed under workdir).",
+    "param.tools.description": "An array of tool names to run. If it is empty, it will be automatically selected (existence will be checked in the order of ruff/black/mypy).",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },
   "ja": {
-    "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
-    "param.mode.description": "check=検査のみ / fix=自動修正",
-    "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
-    "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
-    "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
     "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
     "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。\n\n実装:\n- cmd_exec_json_tool を利用する。",
+    "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+    "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
+    "param.mode.description": "check=検査のみ / fix=自動修正",
+    "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
+    "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "tool.description": "実行します static analysis/形式ters (例:, ruff/black/mypy). モード=fix modifies ファイルs and requires confirmation.",
     "tool.system_prompt": "実行します static analysis/形式ters. If additional user confirmation is required (例:, モード=fix), use human_ask."
+  },
+  "zh_CN": {
+    "confirm.msg": "lint_format(mode=fix) 可能会重写文件。\n工具：{tools}\n目标：{targets}\nCWD：{cwd}\n\n如果要继续，请键入 y；如果要取消，请键入 c。",
+    "doc.module": "lint_format_工具\n\n静的解析・fuォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を优先\n- JavaScript系: 安全のため积极的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全：\n- mode=fix はufァイル変更を伴うため human_ask で确认する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む场合は拒否する。\n\n実装:\n- cmd_exec_json_tool を 利用する。",
+    "param.cwd.description": "执行目录（仅允许在workdir下）。如果为空，则为当前。",
+    "param.extra_args.description": "附加参数（数组）。拒绝危险的元字符。",
+    "param.mode.description": "检查=仅检查/修复=自动修复",
+    "param.targets.description": "目标路径数组（仅允许在workdir下）。",
+    "param.tools.description": "要运行的工具名称数组。如果为空，则会自动选择（按照ruff/black/mypy的顺序检查是否存在）。",
+    "tool.description": "运行静态分析/格式化程序（例如，ruff/black/mypy）。 mode=fix 修改文件并需要确认。",
+    "tool.system_prompt": "运行静态分析/格式化程序。如果需要额外的用户确认（例如，mode=fix），请使用 human_ask。"
+  },
+  "zh_TW": {
+    "confirm.msg": "lint_format(mode=fix) 可能會重寫檔案。\n工具：{tools}\n目標：{targets}\nCWD：{cwd}\n\n如果要繼續，請鍵入 y；如果要取消，請鍵入 c。",
+    "doc.module": "lint_format_工具\n\n靜的解析・fuォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全：\n- mode=fix はufァイル変更を伴うため human_ask で確認する。\n- 引數は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。\n\n実裝:\n- cmd_exec_json_tool を 利用する。",
+    "param.cwd.description": "執行目錄（僅允許在workdir下）。如果為空，則為目前。",
+    "param.extra_args.description": "附加參數（數組）。拒絕危險的元字符。",
+    "param.mode.description": "檢查=僅檢查/修復=自動修復",
+    "param.targets.description": "目標路徑數組（僅允許在workdir下）。",
+    "param.tools.description": "要運行的工具名稱陣列。如果為空，則會自動選擇（按照ruff/black/mypy的順序檢查是否存在）。",
+    "tool.description": "執行靜態分析/格式化程式（例如，ruff/black/mypy）。 mode=fix 修改文件並需要確認。",
+    "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如，mode=fix），請使用 human_ask。"
+  },
+  "es": {
+    "confirm.msg": "lint_format(mode=fix) puede reescribir archivos.\nherramientas: {tools}\nobjetivos: {targets}\ncwd: {cwd}\n\nEscriba y si desea continuar o c si desea cancelar.",
+    "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール.\n\n- Python系: ruff / black / mypy を優先\n- JavaScript: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する.\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する.\n\n実装:\n- cmd_exec_json_tool を利用する.",
+    "param.cwd.description": "Directorio de ejecución (solo permitido en workdir). Si es nulo, actual.",
+    "param.extra_args.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos.",
+    "param.mode.description": "check=verificar solo / fix=corrección automática",
+    "param.targets.description": "Matriz de ruta de destino (solo permitida en workdir).",
+    "param.tools.description": "Una serie de nombres de herramientas para ejecutar. Si está vacío, se seleccionará automáticamente (la existencia se verificará en el orden ruff/black/mypy).",
+    "tool.description": "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy). mode=fix modifica archivos y requiere confirmación.",
+    "tool.system_prompt": "Ejecute análisis/formateadores estáticos. Si se requiere confirmación adicional del usuario (por ejemplo, modo=arreglar), use human_ask."
+  },
+  "fr": {
+    "confirm.msg": "lint_format(mode=fix) peut réécrire les fichiers.\noutils : {tools}\ncibles : {targets}\nmot de passe : {cwd}\n\nTapez y si vous souhaitez continuer, ou c si vous souhaitez annuler.",
+    "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール.\n\n- Python系 : ruff / black / mypy を優先\n- JavaScript : 安全のため積極的なnpx実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix pour human_ask et human_ask.\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。\n\nTraduction :\n- cmd_exec_json_tool à la place.",
+    "param.cwd.description": "Répertoire d'exécution (autorisé uniquement sous workdir). Si nul, actuel.",
+    "param.extra_args.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux.",
+    "param.mode.description": "check=vérification uniquement / fix=correction automatique",
+    "param.targets.description": "Tableau de chemin cible (autorisé uniquement sous workdir).",
+    "param.tools.description": "Un tableau de noms d’outils à exécuter. S'il est vide, il sera automatiquement sélectionné (l'existence sera vérifiée dans l'ordre ruff/black/mypy).",
+    "tool.description": "Exécutez des analyses/formatteurs statiques (par exemple, ruff/black/mypy). mode=fix modifie les fichiers et nécessite une confirmation.",
+    "tool.system_prompt": "Exécutez une analyse statique/des formateurs. Si une confirmation supplémentaire de l'utilisateur est requise (par exemple, mode=fix), utilisez human_ask."
+  },
+  "ko": {
+    "confirm.msg": "lint_format(mode=fix) 는 파일을 다시 쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n그렇다면 y를 취소하면 c를 입력하십시오.",
+    "doc.module": "lint_format_tool\n\n静的解析・fo-mattaを実行는 ための랩파트르입니다.\n\n- Python系 : 러프 / 블랙 / mypy を優先\n- JavaScript系: 안전하지 않은 npx는 실행하기가 쉽지 않습니다(다운로드를 실행하기 쉽도록)\n\n안전:\n- 모드=수정은 human_ask 에 물어보세요.\n- 引数は配列د受け取り、危険なShe르메타文字を含む場合は拒否suru。\n\n설명:\n- cmd_exec_json_tool을 사용할 수 있습니다.",
+    "param.cwd.description": "실행 디렉토리(workdir 부하만 허용). null이면 현재.",
+    "param.extra_args.description": "추가 인수(배열). 위험한 메타문자를 거부하세요.",
+    "param.mode.description": "check=확인만 / fix=자동 수정",
+    "param.targets.description": "대상 경로 배열(workdir에서만 허용됨)",
+    "param.tools.description": "실행할 도구 이름의 배열. 비어 있으면 자동 선택 (ruff/black/mypy 순으로 존재 확인).",
+    "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
+    "tool.system_prompt": "정적 분석/포매터를 실행합니다. 추가 사용자 확인이 필요한 경우(예: mode=fix), human_ask를 사용하세요."
+  },
+  "th": {
+    "confirm.msg": "lint_format(mode=fix) อาจเขียนไฟล์ใหม่\nเครื่องมือ: {tools}\nเป้าหมาย: {targets}\nฝูงชน: {cwd}\n\nพิมพ์ y หากคุณต้องการดำเนินการต่อ หรือ c หากคุณต้องการยกเลิก",
+    "doc.module": "lint_format_tool\n\n静的解析・フォーマッTAを実行したためのラッパーツール。\n\n- Python 系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行HAしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix ฮะ ฟ ァイル変更を伴ななため human_ask で確認した。\n- 引数HA配列で受け取り、危険なしェルメタ文字を含む場合HA拒否した。\n\n実装:\n- cmd_exec_json_tool และคำสั่ง",
+    "param.cwd.description": "ไดเร็กทอรีการดำเนินการ (อนุญาตเฉพาะภายใต้ workdir) ถ้าเป็นโมฆะปัจจุบัน",
+    "param.extra_args.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
+    "param.mode.description": "ตรวจสอบ=ตรวจสอบเท่านั้น / แก้ไข=แก้ไขอัตโนมัติ",
+    "param.targets.description": "อาร์เรย์เส้นทางเป้าหมาย (อนุญาตเฉพาะภายใต้ workdir)",
+    "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่า มันจะถูกเลือกโดยอัตโนมัติ (การมีอยู่จะถูกตรวจสอบตามลำดับ ruff/black/mypy)",
+    "tool.description": "เรียกใช้การวิเคราะห์/ฟอร์แมตแบบคงที่ (เช่น ruff/black/mypy) mode=fix แก้ไขไฟล์และต้องมีการยืนยัน",
+    "tool.system_prompt": "เรียกใช้การวิเคราะห์/ตัวจัดรูปแบบแบบคงที่ หากต้องการการยืนยันผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
   }
 }

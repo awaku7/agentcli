@@ -1,18 +1,90 @@
 {
   "en": {
+    "err.exists": "Error: {path!r} already exists (this tool will not overwrite it)",
+    "err.fail": "ERROR: Failed to create template: {err}",
     "out.ok": "OK: created template: {path!r} (default name={name!r})",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
-    "tool.description": "Creates a template file if mcp_servers.json does not exist. Returns an error if it already exists (does not overwrite)."
+    "param.default_name.description": "Default server name. Default: bluesky-local",
+    "param.default_transport.description": "Default transport (for information). Default: streamable-http",
+    "param.default_url.description": "Default URL. Default: REPLACE_ME (set your MCP server URL)",
+    "param.path.description": "Path to create. If omitted, it will be created in the standard location (<state>/mcps/mcp_servers.json. Default: ~/.uag (formerly: ~/.scheck)/mcps/mcp_servers.json).",
+    "tool.description": "Creates a template file if mcp_servers.json does not exist. Returns an error if it already exists (does not overwrite).",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "tool.description": "mcp_servers.json が存在しない場合に、雛形ファイルを作成します。存在する場合はエラーを返します（上書きはしません）。",
-    "param.path.description": "作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。",
-    "param.default_name.description": "デフォルトのサーバー名。既定: bluesky-local",
-    "param.default_url.description": "デフォルトの URL。既定: REPLACE_ME (set your MCP server URL)",
-    "param.default_transport.description": "デフォルトの transport（参考情報）。既定: streamable-http",
     "err.exists": "Error: {path!r} は既に存在します（このツールは上書きしません）",
     "err.fail": "ERROR: 雛形作成に失敗しました: {err}",
     "out.ok": "OK: created template: {path!r} (既定 name={name!r})",
+    "param.default_name.description": "デフォルトのサーバー名。既定: bluesky-local",
+    "param.default_transport.description": "デフォルトの transport（参考情報）。既定: streamable-http",
+    "param.default_url.description": "デフォルトの URL。既定: REPLACE_ME (set your MCP server URL)",
+    "param.path.description": "作成するパス。省略時は標準の場所（<state>/mcps/mcp_servers.json。既定: ~/.uag（旧: ~/.scheck）/mcps/mcp_servers.json）に作成します。",
+    "tool.description": "mcp_servers.json が存在しない場合に、雛形ファイルを作成します。存在する場合はエラーを返します（上書きはしません）。",
     "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+  },
+  "zh_CN": {
+    "err.exists": "错误：{path!r} 已存在（此工具不会覆盖它）",
+    "err.fail": "ERROR：创建模板失败：{err}",
+    "out.ok": "确定：已创建模板：{path!r}（默认名称={name!r}）",
+    "param.default_name.description": "默认服务器名称。默认值：bluesky-local",
+    "param.default_transport.description": "默认传输（仅供参考）。默认值：streamable-http",
+    "param.default_url.description": "默认 URL。默认值：REPLACE_ME（设置您的 MCP 服务器 URL）",
+    "param.path.description": "创建路径。如果省略，它将在标准位置（<state>/mcps/mcp_servers.json。默认值：~/.uag（以前：~/.scheck）/mcps/mcp_servers.json）中创建。",
+    "tool.description": "如果 mcp_servers.json 不存在，则创建模板文件。如果已存在则返回错误（不覆盖）。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "err.exists": "錯誤：{path!r} 已存在（此工具不會覆蓋它）",
+    "err.fail": "ERROR：建立範本失敗：{err}",
+    "out.ok": "確定：已建立範本：{path!r}（預設名稱={name!r}）",
+    "param.default_name.description": "預設伺服器名稱。預設值：bluesky-local",
+    "param.default_transport.description": "預設傳輸（僅供參考）。預設值：streamable-http",
+    "param.default_url.description": "預設 URL。預設值：REPLACE_ME（設定您的 MCP 伺服器 URL）",
+    "param.path.description": "創建路徑。如果省略，它將在標準位置（<state>/mcps/mcp_servers.json。預設值：~/.uag（以前：~/.scheck）/mcps/mcp_servers.json）中建立。",
+    "tool.description": "如果 mcp_servers.json 不存在，則建立範本檔案。如果已存在則傳回錯誤（不覆蓋）。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "es": {
+    "err.exists": "Error: {path!r} ya existe (esta herramienta no lo sobrescribirá)",
+    "err.fail": "ERROR: No se pudo crear la plantilla: {err}",
+    "out.ok": "OK: plantilla creada: {path!r} (nombre predeterminado={name!r})",
+    "param.default_name.description": "Nombre del servidor predeterminado. Predeterminado: bluesky-local",
+    "param.default_transport.description": "Transporte por defecto (para información). Predeterminado: streaming-http",
+    "param.default_url.description": "Predeterminado URL. Valor predeterminado: REPLACE_ME (configure su servidor MCP URL)",
+    "param.path.description": "Camino para crear. Si se omite, se creará en la ubicación estándar (<estado>/mcps/mcp_servers.json. Predeterminado: ~/.uag (anteriormente: ~/.scheck)/mcps/mcp_servers.json).",
+    "tool.description": "Crea un archivo de plantilla si mcp_servers.json no existe. Devuelve un error si ya existe (no lo sobrescribe).",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+  },
+  "fr": {
+    "err.exists": "Erreur : {path!r} existe déjà (cet outil ne l'écrasera pas)",
+    "err.fail": "ERROR : échec de la création du modèle : {err}",
+    "out.ok": "OK : modèle créé : {path!r} (nom par défaut={name!r})",
+    "param.default_name.description": "Nom du serveur par défaut. Par défaut : bluesky-local",
+    "param.default_transport.description": "Transport par défaut (pour information). Par défaut : streamable-http",
+    "param.default_url.description": "Par défaut URL. Par défaut : REPLACE_ME (définissez votre serveur MCP URL)",
+    "param.path.description": "Chemin à créer. En cas d'omission, il sera créé à l'emplacement standard (<state>/mcps/mcp_servers.json. Par défaut : ~/.uag (anciennement : ~/.scheck)/mcps/mcp_servers.json).",
+    "tool.description": "Crée un fichier modèle si mcp_servers.json n'existe pas. Renvoie une erreur si elle existe déjà (n'écrase pas).",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+  },
+  "ko": {
+    "err.exists": "오류 : {path!r}이 이미 존재합니다 (이 도구는 덮어 쓰지 않습니다)",
+    "err.fail": "ERROR: 템플릿 생성 실패: {err}",
+    "out.ok": "확인: 생성된 템플릿: {path!r}(기본 이름={name!r})",
+    "param.default_name.description": "기본 서버 이름. 기본값: bluesky-local",
+    "param.default_transport.description": "기본 transport(참고 정보). 기본값: streamable-http",
+    "param.default_url.description": "기본 URL. 기본값: REPLACE_ME (set your MCP server URL)",
+    "param.path.description": "만들 경로. 기본적으로 표준 위치(<state>/mcps/mcp_servers.json. 기본값: ~/.uag(이전: ~/.scheck) /mcps/mcp_servers.json)에 만듭니다.",
+    "tool.description": "mcp_servers.json이 존재하지 않는 경우 템플릿 파일을 생성합니다. 이미 존재하는 경우 오류를 반환합니다(덮어쓰지 않음).",
+    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+  },
+  "th": {
+    "err.exists": "ข้อผิดพลาด: {path!r} มีอยู่แล้ว (เครื่องมือนี้จะไม่เขียนทับ)",
+    "err.fail": "ERROR: ไม่สามารถสร้างเทมเพลต: {err}",
+    "out.ok": "ตกลง: สร้างเทมเพลต: {path!r} (ชื่อเริ่มต้น={name!r})",
+    "param.default_name.description": "ชื่อเซิร์ฟเวอร์เริ่มต้น ค่าเริ่มต้น: bluesky-local",
+    "param.default_transport.description": "การขนส่งเริ่มต้น (สำหรับข้อมูล) ค่าเริ่มต้น: streamable-http",
+    "param.default_url.description": "ค่าเริ่มต้น URL ค่าเริ่มต้น: REPLACE_ME (ตั้งค่าเซิร์ฟเวอร์ MCP ของคุณ URL)",
+    "param.path.description": "เส้นทางที่จะสร้าง หากละเว้น จะถูกสร้างขึ้นในตำแหน่งมาตรฐาน (<state>/mcps/mcp_servers.json ค่าเริ่มต้น: ~/.uag (เดิมคือ: ~/.scheck)/mcps/mcp_servers.json)",
+    "tool.description": "สร้างไฟล์เทมเพลตหากไม่มี mcp_servers.json ส่งคืนข้อผิดพลาดหากมีอยู่แล้ว (ไม่เขียนทับ)",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   }
 }

@@ -1,12 +1,42 @@
 {
   "en": {
+    "err.load": "[long_memory error] {err_type}: {err}",
     "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]",
-    "err.load": "[long_memory error] {err_type}: {err}"
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
   },
   "ja": {
+    "err.load": "[long_memory エラー] {err_type}: {err}",
     "msg.no_memory": "(長期記憶はまだありません)",
-    "msg.truncated": "\n[long_memory: {max_bytes} 文字で切り詰めました]",
-    "err.load": "[long_memory エラー] {err_type}: {err}"
+    "msg.truncated": "\n[long_memory: {max_bytes} 文字で切り詰めました]"
+  },
+  "zh_CN": {
+    "err.load": "[长内存错误] {err_type}: {err}",
+    "msg.no_memory": "（还没有长期记忆）",
+    "msg.truncated": "\n[长内存截断：仅限于 {max_bytes} 字符]"
+  },
+  "zh_TW": {
+    "err.load": "[長內存錯誤] {err_type}: {err}",
+    "msg.no_memory": "（還沒有長期記憶）",
+    "msg.truncated": "\n[長內存截斷：僅限於 {max_bytes} 字元]"
+  },
+  "es": {
+    "err.load": "[error de memoria larga] {err_type}: {err}",
+    "msg.no_memory": "(aún no hay memoria a largo plazo)",
+    "msg.truncated": "\n[memoria_larga truncada: limitada a {max_bytes} caracteres]"
+  },
+  "fr": {
+    "err.load": "[erreur de mémoire longue] {err_type} : {err}",
+    "msg.no_memory": "(pas encore de mémoire à long terme)",
+    "msg.truncated": "\n[long_memory tronqué : limité à {max_bytes} caractères]"
+  },
+  "ko": {
+    "err.load": "[long_memory 오류] {err_type}: {err}",
+    "msg.no_memory": "(아직 장기기억이 없음)",
+    "msg.truncated": "[long_memory 잘림: {max_bytes} 문자로 제한됨]"
+  },
+  "th": {
+    "err.load": "[ข้อผิดพลาดหน่วยความจำยาว] {err_type}: {err}",
+    "msg.no_memory": "(ยังไม่มีความจำระยะยาว)",
+    "msg.truncated": "\n[long_memory ถูกตัดทอน: จำกัด ไว้ที่ {max_bytes} ตัวอักษร]"
   }
 }
