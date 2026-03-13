@@ -31,6 +31,30 @@ uag is an interactive local agent that can execute commands, manipulate files, a
 
 ## Minimal Usage
 
+## Language / i18n
+
+Host-side UI strings are localized via gettext catalogs.
+
+- Language selection: set `UAGENT_LANG` (examples: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`).
+- If `UAGENT_LANG` is unset or unsupported, uag falls back to English.
+
+Examples:
+
+Windows (cmd):
+```bat
+set UAGENT_LANG=ko
+uag
+```
+
+macOS/Linux:
+```bash
+export UAGENT_LANG=ko
+uag
+```
+
+See `src/uagent/docs/ADD_LOCALE.md` for how to add a new locale.
+
+
 ### Start
 
 ```bash
