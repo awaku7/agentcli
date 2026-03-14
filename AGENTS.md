@@ -165,7 +165,7 @@ uag handle_mcp_v2
 - **MCP管理**: `mcp_servers_list`, `mcp_servers_add`, `mcp_servers_remove`, `mcp_servers_validate`, `mcp_servers_set_default`, `mcp_servers_init_template`
 - **最終手段 (直接実行)**: `cmd_exec`, `pwsh_exec`, `cmd_exec_json`, `python_exec`
 - **ファイル操作**: `read_file`, `create_file`, `delete_file`, `rename_path`, `replace_in_file`, `search_files`, `zip_ops`
-- **情報取得・計算**: `file_exists`, `file_hash`, `find_large_files`, `get_geoip`, `get_current_time`, `get_os`, `get_env`, `list_windows_titles`, `search_web`, `fetch_url`, `playwright_inspector`, `calculator`, `date_calc`
+- **情報取得・計算**: `file_exists`, `file_hash`, `find_large_files`, `get_geoip`, `get_current_time`, `get_system_specs`, `get_env`, `list_windows_titles`, `search_web`, `fetch_url`, `playwright_inspector`, `calculator`, `date_calc`
 - **データ/ドキュメント**: `read_pptx_pdf`, `excel_ops`, `exstruct`, `db_query`
 - **画像**: `screenshot`, `analyze_image`(※UAGENT_RESPONSES 有効時は非ロード), `generate_image`
 - **開発支援**: `git_ops`, `run_tests`, `lint_format`, `generate_prompt`, `system_reload`
