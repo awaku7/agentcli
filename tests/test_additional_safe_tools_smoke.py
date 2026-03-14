@@ -83,14 +83,15 @@ def test_get_env_mask_and_unmask(monkeypatch) -> None:
     assert out_plain == "UAGENT_TEST_ENV=ABCDEFGH"
 
 
-def test_get_os_smoke() -> None:
-    from uagent.tools.get_os_tool import run_tool
+def test_get_system_specs_smoke() -> None:
+    from uagent.tools.system_specs_tools import run_tool
 
     out = run_tool({})
     obj = json.loads(out)
     assert isinstance(obj, dict)
-    assert isinstance(obj.get("os_name"), str)
-    assert obj["os_name"]
+    assert isinstance(obj.get("os"), dict)
+    assert isinstance(obj["os"].get("sys_platform"), str)
+    assert obj["os"]["sys_platform"]
 
 
 def test_python_exec_smoke() -> None:

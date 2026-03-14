@@ -1,0 +1,50 @@
+{
+  "en": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "ja": {
+    "tool.description": "システム情報（OS/CPU/RAM/ディスク/ボリューム）を、取得できる範囲でクロスプラットフォームに取得します。",
+    "tool.system_prompt": "このツールは次の目的で使われます: OS、CPU、RAM容量、（可能なら）物理ディスク情報、およびボリュームの空き容量などのシステム情報を収集します。",
+    "param.include_volumes.description": "マウントされているボリュームの使用量情報を含めます。",
+    "param.include_disks.description": "可能な場合、物理ディスク情報を含めます（取得できる範囲で）。"
+  },
+  "zh_CN": {
+    "tool.description": "以尽力而为的跨平台方式获取系统信息（OS/CPU/RAM/磁盘/卷）。",
+    "tool.system_prompt": "该工具用于以下目的：收集系统信息，例如操作系统、CPU、内存大小、（尽力而为的）物理磁盘信息以及卷可用空间。",
+    "param.include_volumes.description": "包含已挂载卷的使用情况信息。",
+    "param.include_disks.description": "在可用时包含物理磁盘信息（尽力而为）。"
+  },
+  "zh_TW": {
+    "tool.description": "以盡力而為的跨平台方式取得系統資訊（OS/CPU/RAM/磁碟/磁碟區）。",
+    "tool.system_prompt": "此工具用於以下目的：收集系統資訊，例如作業系統、CPU、記憶體大小、（盡力而為的）實體磁碟資訊以及磁碟區可用空間。",
+    "param.include_volumes.description": "包含已掛載磁碟區的使用量資訊。",
+    "param.include_disks.description": "在可用時包含實體磁碟資訊（盡力而為）。"
+  },
+  "es": {
+    "tool.description": "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo).",
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recopilar especificaciones del sistema como SO, CPU, tamaño de RAM, discos de almacenamiento (mejor esfuerzo) y espacio libre de volúmenes.",
+    "param.include_volumes.description": "Incluir información de uso de volúmenes montados.",
+    "param.include_disks.description": "Incluir información de discos físicos cuando esté disponible (mejor esfuerzo)."
+  },
+  "fr": {
+    "tool.description": "Obtenez les spécifications du système (OS/CPU/RAM/disques/volumes) de manière multiplateforme (best-effort).",
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : collecter des informations système telles que l'OS, le CPU, la taille de la RAM, les disques de stockage (best-effort) et l'espace libre des volumes.",
+    "param.include_volumes.description": "Inclure les informations d’utilisation des volumes montés.",
+    "param.include_disks.description": "Inclure les informations sur les disques physiques lorsqu’elles sont disponibles (best-effort)."
+  },
+  "ko": {
+    "tool.description": "시스템 사양(OS/CPU/RAM/디스크/볼륨)을 가능한 범위에서 크로스플랫폼으로 가져옵니다.",
+    "tool.system_prompt": "이 도구는 OS, CPU, RAM 용량, (가능하면) 물리 디스크 정보, 그리고 볼륨 여유 공간 등의 시스템 정보를 수집하는 목적으로 사용됩니다.",
+    "param.include_volumes.description": "마운트된 볼륨 사용량 정보를 포함합니다.",
+    "param.include_disks.description": "가능한 경우 물리 디스크 정보를 포함합니다(최선의 노력)."
+  },
+  "th": {
+    "tool.description": "รับข้อมูลสเปกระบบ (OS/CPU/RAM/ดิสก์/โวลุ่ม) แบบข้ามแพลตฟอร์มเท่าที่ทำได้",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รวบรวมสเปกระบบ เช่น OS, CPU, ขนาด RAM, ข้อมูลดิสก์ (เท่าที่ทำได้) และพื้นที่ว่างของโวลุ่ม",
+    "param.include_volumes.description": "รวมข้อมูลการใช้งานโวลุ่มที่เมานต์อยู่",
+    "param.include_disks.description": "รวมข้อมูลดิสก์จริงเมื่อมีให้ (เท่าที่ทำได้)"
+  }
+}
