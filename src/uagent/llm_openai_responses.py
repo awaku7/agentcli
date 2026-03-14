@@ -196,7 +196,7 @@ def build_responses_request(
 
             original_content = m_clean.get("content")
             prefix = f"[System: Tool '{tool_name}' returned result]\n"
-            merged = prefix + _as_str(original_content)
+            merged = prefix + _as_str(original_content).lstrip("\r\n")
 
             m_clean["role"] = "user"
             m_clean["content"] = _normalize_content_items(merged, role="user")

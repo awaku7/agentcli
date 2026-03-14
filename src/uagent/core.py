@@ -780,9 +780,21 @@ def sanitize_messages_for_tools(messages: List[Dict[str, Any]]) -> List[Dict[str
                 cleaned.append(m)
             else:
                 # 親のない tool → API ではエラーになるので捨てる
-                print(
-                    file=sys.stderr,
-                )
+                # NOTE: Do not emit blank lines (they look like extra newlines after tool output).
+                # If you want diagnostics, enable: UAGENT_DEBUG_ORPHAN_TOOL=1
+                if (env_get("UAGENT_DEBUG_ORPHAN_TOOL", "0") or "").strip().lower() in (
+                    "1",
+                    "true",
+                    "yes",
+                    "on",
+                ):
+                    try:
+                        print(
+                            f"[WARN] Dropping orphan tool message: tool_call_id={tcid!r} name={m.get('name')!r}",
+                            file=sys.stderr,
+                        )
+                    except Exception:
+                        pass
 
         else:
             # system / user / 通常 assistant はそのまま
