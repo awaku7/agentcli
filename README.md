@@ -138,7 +138,7 @@ If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompl
 
 In-session commands (CLI/GUI/Web):
 - `:r [0|1|2|3|auto|minimal|xhigh]` (no arg: keep current)
-- `:v [0|1|2|3]` (no arg: cycle)
+- `:v [0|1|2|3]` (no arg: keep current)
 
 ---
 
