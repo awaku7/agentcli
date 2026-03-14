@@ -606,7 +606,7 @@ class MainWindow(QtWidgets.QMainWindow):
             new_mode = apply_verbosity_arg(arg)
             print(f"[mode] verbosity={new_mode}")
         except Exception:
-            print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)")
+            print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
         self._update_mode_label()
 
     def _update_ui_from_log(self):

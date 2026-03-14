@@ -338,11 +338,14 @@ def apply_reasoning_arg(arg: str) -> str:
 
 def apply_verbosity_arg(arg: str) -> str:
     cur = get_verbosity_mode()
+
+    # If no arg is given, keep current mode (do not change).
+    if not (arg or "").strip():
+        return cur
+
     lv = _normalize_verbosity_level_arg(arg)
-    if lv is None and (arg or "").strip():
-        raise ValueError("invalid verbosity")
     if lv is None:
-        lv = _cycle_level(cur, _VERBOSITY_LEVELS)
+        raise ValueError("invalid verbosity")
     return set_verbosity_mode(lv)
 
 
@@ -389,7 +392,7 @@ def handle_command(
         try:
             new_mode = apply_verbosity_arg(arg)
         except Exception:
-            print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"))
+            print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
             return True
         print(f"[mode] verbosity={new_mode}")
         return True
@@ -521,6 +524,26 @@ def handle_command(
                     )
                     return True
         core.list_logs(limit=limit, show_all=show_all)
+        return True
+
+    if cmd in ("tools",):
+        try:
+            tool_specs = tools.get_tool_specs() or []
+            if not tool_specs:
+                print(tr("[tools] No tools loaded."))
+                return True
+
+            print(tr("[tools] Loaded %(n)d tools") % {"n": len(tool_specs)})
+            for spec in tool_specs:
+                fn = (spec or {}).get("function") or {}
+                name = fn.get("name") or "(unknown)"
+                desc = (fn.get("description") or "").strip()
+                if desc:
+                    print(f"- {name}: {desc}")
+                else:
+                    print(f"- {name}")
+        except Exception as e:
+            print(f"[tools error] {type(e).__name__}: {e}")
         return True
 
     if cmd in ("skills",):
