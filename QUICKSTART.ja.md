@@ -146,7 +146,7 @@ set UAGENT_VERBOSITY=medium
 
 セッション内コマンド (CLI/GUI/Web):
 - `:r [0|1|2|3|auto|minimal|xhigh]` (引数なしで現在の設定表示)
-- `:v [0|1|2|3]` (引数なしでサイクル切り替え)
+- `:v [0|1|2|3]` (引数なしで現在の設定表示)
 
 詳細は [`README.ja.md`](README.ja.md) の「Responses API」セクションを参照してください。
 

@@ -146,7 +146,7 @@ set UAGENT_VERBOSITY=medium
 
 In-session commands (CLI/GUI/Web):
 - `:r [0|1|2|3|auto|minimal|xhigh]` (no arg: keep current)
-- `:v [0|1|2|3]` (no arg: cycle)
+- `:v [0|1|2|3]` (no arg: keep current)
 
 For details, see the "Optional Responses API knobs (reasoning / verbosity)" section in [`README.md`](README.md).
 
