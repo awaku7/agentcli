@@ -246,7 +246,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return _("err.tool_name_required", default="Error: tool_name is required.")
 
     masked_argv = mask_values(argv)
-    print(f"\n[MCP Call] Tool: {name}", file=sys.stderr)
+    print(f"[MCP Call] Tool: {name}", file=sys.stderr)
     print(f"[MCP Args] {json.dumps(masked_argv, ensure_ascii=False)}", file=sys.stderr)
 
     command = ""
