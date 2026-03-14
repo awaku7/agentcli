@@ -1078,7 +1078,7 @@ def print_help() -> None:
             "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
         ),
         _(
-            "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=cycle)"
+            "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
         ),
         _("  :exit / :quit         Exit"),
         "",
