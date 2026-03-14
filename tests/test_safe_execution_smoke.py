@@ -86,7 +86,7 @@ def test_create_file(repo_tmp_path: Path) -> None:
 
 @pytest.mark.skipif(os.name != "nt", reason="Windows-only tool")
 def test_get_os() -> None:
-    from uagent.tools.get_os_tool import run_tool
+    from uagent.tools.system_specs_tools import run_tool
 
     out = run_tool({})
     assert isinstance(out, str)
