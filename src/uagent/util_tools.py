@@ -6,7 +6,7 @@ import re
 import subprocess
 import sys
 
-from .i18n import _ as i18n_
+from .i18n import _ as tr_
 import base64
 import glob
 import mimetypes
@@ -170,7 +170,7 @@ def try_open_images_from_text(text: str) -> None:
 
     if opened_any:
         print(
-            "[INFO] " + i18n_("Opened image file with the default app."),
+            "[INFO] " + tr_("Opened image file with the default app."),
             file=sys.stderr,
         )
 
@@ -181,14 +181,14 @@ def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
         "--workdir",
         "-C",
         dest="workdir",
-        help=i18n_(
+        help=tr_(
             "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the current directory."
         ),
     )
     parser.add_argument(
         "--non-interactive",
         action="store_true",
-        help=i18n_(
+        help=tr_(
             "Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
         ),
     )
@@ -358,7 +358,7 @@ def handle_command(
 
     戻り値: False を返すとメインループ終了(:exit / :quit)
     """
-    tr = getattr(core, "tr", i18n_)
+    tr = getattr(core, "tr", tr_)
 
     line = line.lstrip(":").strip()
     if not line:
@@ -644,7 +644,7 @@ def handle_command(
         try:
             from uagent.tools.human_ask_tool import run_tool as human_ask
 
-            msg = i18n_(
+            msg = tr_(
                 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
                 "Log dir: %(dir)s\n"
                 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
@@ -742,7 +742,7 @@ def handle_command(
 
             cur_log = getattr(core, "LOG_FILE", None)
             if isinstance(cur_log, str) and cur_log:
-                msg2 = i18n_(
+                msg2 = tr_(
                     ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
                     "Current log: %(cur_log)s\n"
                     "Source log: %(src_log)s\n\n"
@@ -831,7 +831,7 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    i18n_(
+                    tr_(
                         "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
                     )
                     % {"arg": arg, "keep": keep_last}
@@ -845,7 +845,7 @@ def handle_command(
             core.rewrite_current_log_from_messages(messages_ref)
         except Exception as e:
             print(
-                i18n_("[shrink warn] Failed to rewrite current log: %(etype)s: %(err)s")
+                tr_("[shrink warn] Failed to rewrite current log: %(etype)s: %(err)s")
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -858,7 +858,7 @@ def handle_command(
                 keep_last = int(arg)
             except Exception:
                 print(
-                    i18n_(
+                    tr_(
                         "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
                     )
                     % {"arg": arg, "keep": keep_last}
@@ -877,7 +877,7 @@ def handle_command(
             core.rewrite_current_log_from_messages(messages_ref)
         except Exception as e:
             print(
-                i18n_(
+                tr_(
                     "[shrink_llm warn] Failed to rewrite current log: %(etype)s: %(err)s"
                 )
                 % {"etype": type(e).__name__, "err": e},
@@ -925,7 +925,7 @@ def handle_command(
     if cmd == "shared-mem-list":
         if not shared_memory.is_enabled():
             print(
-                i18n_(
+                tr_(
                     "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
                 )
             )
@@ -956,7 +956,7 @@ def handle_command(
 
         if not shared_memory.is_enabled():
             print(
-                i18n_(
+                tr_(
                     "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
                 )
             )
@@ -1124,7 +1124,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
 
     max_chars = 4000
 
-    header = i18n_(
+    header = tr_(
         "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). "
         "Use them as background information about the user. "
         "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"

@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import json
-import os
-from ..env_utils import env_get
 import locale
+import os
 from functools import lru_cache
 from typing import Any, Dict, Optional
+
+from ..env_utils import env_get
 
 
 def _normalize_locale(loc_str: Optional[str]) -> str:
@@ -105,6 +106,12 @@ def _load_tool_dict(json_path: str) -> Dict[str, Any]:
         return {}
 
 
+def _unescape_newlines(s: str) -> str:
+    # Allow translation JSON strings to contain literal backslash-n sequences
+    # and have them rendered as real newlines in prompts/logs.
+    return s.replace("\\r\\n", "\n").replace("\\n", "\n")
+
+
 def make_tool_translator(tool_py_file: str):
     """Create a translator function for a tool module.
 
@@ -131,14 +138,14 @@ def make_tool_translator(tool_py_file: str):
         if isinstance(loc_map, dict):
             v = loc_map.get(key)
             if isinstance(v, str) and v:
-                return v
+                return _unescape_newlines(v)
 
         # 2) fallback en
         en_map = data.get("en")
         if isinstance(en_map, dict):
             v = en_map.get(key)
             if isinstance(v, str) and v:
-                return v
+                return _unescape_newlines(v)
 
         # 3) final fallback: default embedded in code
         return default
