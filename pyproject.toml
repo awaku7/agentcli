@@ -58,6 +58,7 @@ dependencies = [
     "websockets",
     "types-PyYAML",
     "types-python-dateutil",
+    "psutil>=5.9.0",
 ]
 
 
