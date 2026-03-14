@@ -11,7 +11,6 @@ import shutil
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
@@ -64,7 +63,13 @@ def _safe_int(x: Any) -> Optional[int]:
         return None
 
 
-def _add_volume(out: Dict[str, Any], mountpoint: str, *, fstype: str | None = None, device: str | None = None) -> None:
+def _add_volume(
+    out: Dict[str, Any],
+    mountpoint: str,
+    *,
+    fstype: str | None = None,
+    device: str | None = None,
+) -> None:
     try:
         du = shutil.disk_usage(mountpoint)
         out["volumes"].append(
@@ -120,7 +125,9 @@ def _linux_sys_block_map() -> Dict[str, Dict[str, Any]]:
 
         rotational = None
         try:
-            with open(os.path.join(base, "queue/rotational"), "r", encoding="utf-8") as f:
+            with open(
+                os.path.join(base, "queue/rotational"), "r", encoding="utf-8"
+            ) as f:
                 rotational = int(f.read().strip())
         except Exception:
             pass
@@ -174,7 +181,9 @@ def _linux_collect_disks(out: Dict[str, Any]) -> None:
 
         rotational = None
         try:
-            with open(os.path.join(base, "queue/rotational"), "r", encoding="utf-8") as f:
+            with open(
+                os.path.join(base, "queue/rotational"), "r", encoding="utf-8"
+            ) as f:
                 rotational = int(f.read().strip())
         except Exception:
             pass
@@ -195,7 +204,10 @@ def _darwin_sysctl(libc: Any, name: str) -> Optional[int]:
 
     val = ctypes.c_uint64(0)
     size = ctypes.c_size_t(ctypes.sizeof(val))
-    if libc.sysctlbyname(name.encode(), ctypes.byref(val), ctypes.byref(size), None, 0) != 0:
+    if (
+        libc.sysctlbyname(name.encode(), ctypes.byref(val), ctypes.byref(size), None, 0)
+        != 0
+    ):
         return None
     return int(val.value)
 
@@ -262,7 +274,9 @@ def _darwin_collect_volumes(out: Dict[str, Any]) -> None:
             _add_volume(out, mp, fstype=fstype, device=device)
 
 
-def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True) -> Dict[str, Any]:
+def get_system_specs(
+    *, include_volumes: bool = True, include_disks: bool = True
+) -> Dict[str, Any]:
     out: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "os": {
@@ -298,6 +312,20 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
         has_psutil = False
 
     if has_psutil:
+        # boot / uptime
+        try:
+            bt = float(psutil.boot_time())
+            out["boot"] = {
+                "boot_time_epoch": bt,
+                "boot_time_utc": datetime.fromtimestamp(
+                    bt, tz=timezone.utc
+                ).isoformat(),
+                "uptime_seconds": max(0.0, datetime.now(timezone.utc).timestamp() - bt),
+            }
+        except Exception:
+            out["notes"].append("psutil: failed to read boot time.")
+
+        # CPU
         try:
             out["cpu"]["logical_cores"] = psutil.cpu_count(logical=True)
             out["cpu"]["physical_cores"] = psutil.cpu_count(logical=False)
@@ -307,16 +335,66 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
         try:
             freq = psutil.cpu_freq()
             out["cpu"]["max_mhz"] = int(freq.max) if freq and freq.max else None
+            out["cpu"]["min_mhz"] = int(freq.min) if freq and freq.min else None
+            out["cpu"]["current_mhz"] = (
+                int(freq.current) if freq and freq.current else None
+            )
         except Exception:
             pass
 
         try:
-            out["memory"]["total_bytes"] = int(psutil.virtual_memory().total)
+            out["cpu"]["percent"] = psutil.cpu_percent(interval=None)
+        except Exception:
+            out["notes"].append("psutil: failed to read cpu_percent().")
+
+        try:
+            out["cpu"]["percpu_percent"] = psutil.cpu_percent(
+                interval=None, percpu=True
+            )
         except Exception:
             pass
 
+        try:
+            ct = psutil.cpu_times()
+            out["cpu"]["times"] = ct._asdict() if hasattr(ct, "_asdict") else dict(ct)
+        except Exception:
+            pass
+
+        try:
+            cts = psutil.cpu_stats()
+            out["cpu"]["stats"] = (
+                cts._asdict() if hasattr(cts, "_asdict") else dict(cts)
+            )
+        except Exception:
+            pass
+
+        try:
+            la = os.getloadavg()
+            out["cpu"]["loadavg"] = {"1m": la[0], "5m": la[1], "15m": la[2]}
+        except Exception:
+            # Not available on Windows
+            pass
+
+        # Memory
+        try:
+            vm = psutil.virtual_memory()
+            out["memory"]["total_bytes"] = int(vm.total)
+            out["memory"]["virtual"] = (
+                vm._asdict() if hasattr(vm, "_asdict") else dict(vm)
+            )
+        except Exception:
+            pass
+
+        try:
+            sm = psutil.swap_memory()
+            out["memory"]["swap"] = sm._asdict() if hasattr(sm, "_asdict") else dict(sm)
+        except Exception:
+            pass
+
+        # Volumes
         if include_volumes:
             try:
+                out["volumes_psutil"] = []
                 seen = set()
                 for p in psutil.disk_partitions(all=False):
                     if not p.mountpoint or p.mountpoint in seen:
@@ -326,21 +404,42 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
                         du = psutil.disk_usage(p.mountpoint)
                     except Exception:
                         continue
+                    v = {
+                        "mountpoint": p.mountpoint,
+                        "fstype": getattr(p, "fstype", None),
+                        "device": getattr(p, "device", None),
+                        "opts": getattr(p, "opts", None),
+                        "total_bytes": int(du.total),
+                        "free_bytes": int(du.free),
+                        "used_bytes": int(du.used),
+                        "percent": float(getattr(du, "percent", 0.0)),
+                    }
                     out["volumes"].append(
                         {
-                            "mountpoint": p.mountpoint,
-                            "fstype": getattr(p, "fstype", None),
-                            "device": getattr(p, "device", None),
-                            "total_bytes": int(du.total),
-                            "free_bytes": int(du.free),
-                            "used_bytes": int(du.used),
+                            "mountpoint": v["mountpoint"],
+                            "fstype": v["fstype"],
+                            "device": v["device"],
+                            "total_bytes": v["total_bytes"],
+                            "free_bytes": v["free_bytes"],
+                            "used_bytes": v["used_bytes"],
                         }
                     )
+                    out["volumes_psutil"].append(v)
             except Exception:
                 out["notes"].append("psutil: failed to enumerate volumes.")
 
+        # Disks (I/O counters; not physical inventory)
         if include_disks:
             try:
+                out["disks_total_io"] = None
+                try:
+                    tot = psutil.disk_io_counters(perdisk=False)
+                    out["disks_total_io"] = (
+                        tot._asdict() if hasattr(tot, "_asdict") else dict(tot)
+                    )
+                except Exception:
+                    pass
+
                 io = psutil.disk_io_counters(perdisk=True)
                 if io:
                     for name, c in io.items():
@@ -357,7 +456,9 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
                             }
                         )
                 else:
-                    out["notes"].append("psutil: no disk_io_counters(perdisk=True) available.")
+                    out["notes"].append(
+                        "psutil: no disk_io_counters(perdisk=True) available."
+                    )
             except Exception:
                 out["notes"].append("psutil: failed to enumerate disks.")
 
@@ -368,11 +469,138 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
                     for d in out["disks"]:
                         name = d.get("name")
                         if name in sysmap:
-                            d.update({k: v for k, v in sysmap[name].items() if v is not None})
+                            d.update(
+                                {k: v for k, v in sysmap[name].items() if v is not None}
+                            )
                 except Exception:
-                    out["notes"].append("Linux: failed to enrich disks from /sys/block.")
+                    out["notes"].append(
+                        "Linux: failed to enrich disks from /sys/block."
+                    )
 
-        out["notes"].append("psutil: physical disk model/serial is not available; disk entries are best-effort.")
+        # Network
+        try:
+            out["network"] = {
+                "if_addrs": {},
+                "if_stats": {},
+                "io": None,
+                "connections": None,
+                "connections_truncated": False,
+            }
+
+            try:
+                addrs = psutil.net_if_addrs()
+                for ifname, items in addrs.items():
+                    out["network"]["if_addrs"][ifname] = [
+                        {
+                            "family": int(getattr(a.family, "value", a.family)),
+                            "address": getattr(a, "address", None),
+                            "netmask": getattr(a, "netmask", None),
+                            "broadcast": getattr(a, "broadcast", None),
+                            "ptp": getattr(a, "ptp", None),
+                        }
+                        for a in items
+                    ]
+            except Exception:
+                out["notes"].append("psutil: failed to read net_if_addrs().")
+
+            try:
+                stats = psutil.net_if_stats()
+                for ifname, st in stats.items():
+                    out["network"]["if_stats"][ifname] = (
+                        st._asdict() if hasattr(st, "_asdict") else dict(st)
+                    )
+            except Exception:
+                out["notes"].append("psutil: failed to read net_if_stats().")
+
+            try:
+                nio = psutil.net_io_counters(pernic=True)
+                out["network"]["io"] = {
+                    k: (v._asdict() if hasattr(v, "_asdict") else dict(v))
+                    for k, v in nio.items()
+                }
+            except Exception:
+                out["notes"].append(
+                    "psutil: failed to read net_io_counters(pernic=True)."
+                )
+
+            # Connections can be large and/or require admin privileges.
+            try:
+                conns = psutil.net_connections(kind="all")
+                MAX_CONNS = 2000
+                if len(conns) > MAX_CONNS:
+                    conns = conns[:MAX_CONNS]
+                    out["network"]["connections_truncated"] = True
+                out["network"]["connections"] = [
+                    {
+                        "fd": getattr(c, "fd", None),
+                        "family": int(getattr(c.family, "value", c.family)),
+                        "type": int(getattr(c.type, "value", c.type)),
+                        "laddr": getattr(
+                            getattr(c, "laddr", None),
+                            "_asdict",
+                            lambda: getattr(c, "laddr", None),
+                        )(),
+                        "raddr": getattr(
+                            getattr(c, "raddr", None),
+                            "_asdict",
+                            lambda: getattr(c, "raddr", None),
+                        )(),
+                        "status": getattr(c, "status", None),
+                        "pid": getattr(c, "pid", None),
+                    }
+                    for c in conns
+                ]
+            except Exception:
+                out["notes"].append(
+                    "psutil: failed to read net_connections(kind='all')."
+                )
+
+        except Exception:
+            out["notes"].append("psutil: failed to collect network information.")
+
+        # Users
+        try:
+            out["users"] = [
+                u._asdict() if hasattr(u, "_asdict") else dict(u)
+                for u in psutil.users()
+            ]
+        except Exception:
+            pass
+
+        # Sensors (best-effort)
+        try:
+            out["sensors"] = {}
+            try:
+                bat = psutil.sensors_battery()
+                out["sensors"]["battery"] = (
+                    bat._asdict()
+                    if bat and hasattr(bat, "_asdict")
+                    else (bat if bat is None else dict(bat))
+                )
+            except Exception:
+                pass
+            try:
+                temps = psutil.sensors_temperatures(fahrenheit=False)
+                out["sensors"]["temperatures"] = {
+                    k: [t._asdict() if hasattr(t, "_asdict") else dict(t) for t in v]
+                    for k, v in temps.items()
+                }
+            except Exception:
+                pass
+            try:
+                fans = psutil.sensors_fans()
+                out["sensors"]["fans"] = {
+                    k: [f._asdict() if hasattr(f, "_asdict") else dict(f) for f in v]
+                    for k, v in fans.items()
+                }
+            except Exception:
+                pass
+        except Exception:
+            pass
+
+        out["notes"].append(
+            "psutil: physical disk model/serial is not available; disk entries are best-effort."
+        )
         return out
 
     if system == "Windows":
@@ -509,7 +737,9 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
                     seen.add(mp)
                     _add_volume(out, mp, fstype=fstype, device=device)
             except Exception:
-                out["notes"].append("Linux: failed to enumerate volumes from /proc/mounts.")
+                out["notes"].append(
+                    "Linux: failed to enumerate volumes from /proc/mounts."
+                )
 
         if include_disks:
             try:
@@ -526,7 +756,9 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
             libc_path = ctypes.util.find_library("c")
             if libc_path:
                 libc = ctypes.CDLL(libc_path)
-                out["cpu"]["model"] = _darwin_sysctl_str(libc, "machdep.cpu.brand_string")
+                out["cpu"]["model"] = _darwin_sysctl_str(
+                    libc, "machdep.cpu.brand_string"
+                )
                 out["cpu"]["logical_cores"] = _darwin_sysctl(libc, "hw.logicalcpu")
                 out["cpu"]["physical_cores"] = _darwin_sysctl(libc, "hw.physicalcpu")
                 # Hz -> MHz
@@ -542,7 +774,9 @@ def get_system_specs(*, include_volumes: bool = True, include_disks: bool = True
             try:
                 _darwin_collect_volumes(out)
             except Exception:
-                out["notes"].append("macOS: failed to enumerate volumes via getmntinfo.")
+                out["notes"].append(
+                    "macOS: failed to enumerate volumes via getmntinfo."
+                )
 
         if include_disks:
             out["notes"].append(
@@ -559,7 +793,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     include_volumes = bool(args.get("include_volumes", True))
     include_disks = bool(args.get("include_disks", True))
 
-    data = get_system_specs(include_volumes=include_volumes, include_disks=include_disks)
+    data = get_system_specs(
+        include_volumes=include_volumes, include_disks=include_disks
+    )
     return json.dumps(data, ensure_ascii=False)
 
 
