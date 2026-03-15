@@ -17,7 +17,7 @@ Safety notes
   sequence "\\n" (JSON: "\\\\n"). This tool will expand it to a real newline.
   Do NOT include raw newline characters (\n/\r) in JSON strings.
 - For preview=false, the tool may require confirmation when there are many
-  matches (confirm_if_matches_over).
+  matches (confirm_over).
 """
 
 from __future__ import annotations
@@ -159,10 +159,10 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                     "default": True,
                 },
-                "confirm_if_matches_over": {
+                "confirm_over": {
                     "type": "integer",
                     "description": _(
-                        "param.confirm_if_matches_over.description",
+                        "param.confirm_over.description",
                         default="When preview=false, block if the number of matches is greater than this value.",
                     ),
                     "default": 10,
@@ -317,7 +317,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         pattern = str(args.get("pattern") or "")
         replacement = str(args.get("replacement") or "")
         preview_raw = args.get("preview", True)
-        confirm_if_matches_over = args.get("confirm_if_matches_over", 10)
+        confirm_over = args.get("confirm_over", 10)
         encoding = str(args.get("encoding") or "utf-8")
         expand_newline_tokens_raw = args.get("expand_newline_tokens", True)
 
@@ -375,9 +375,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         expand_newline_tokens = expand_newline_tokens_raw
 
         try:
-            confirm_if_matches_over = int(confirm_if_matches_over)
-            if confirm_if_matches_over < 1:
-                raise ValueError("confirm_if_matches_over must be >= 1")
+            confirm_over = int(confirm_over)
+            if confirm_over < 1:
+                raise ValueError("confirm_over must be >= 1")
         except (TypeError, ValueError) as e:
             return json.dumps(
                 {
@@ -482,7 +482,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         diff = _unified_diff(path, original_norm, replaced)
 
         # Block when applying too many matches
-        if not preview and match_count > confirm_if_matches_over:
+        if not preview and match_count > confirm_over:
             return json.dumps(
                 {
                     "ok": True,
@@ -502,7 +502,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                         preview=preview,
                         match_count=match_count,
                         blocked=True,
-                        reason=f"match_count {match_count} > confirm_if_matches_over {confirm_if_matches_over}",
+                        reason=f"match_count {match_count} > confirm_over {confirm_over}",
                     ),
                     "match_hits": match_hits,
                 },
