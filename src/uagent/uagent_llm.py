@@ -2,7 +2,6 @@ import json
 import sys
 import re
 from .env_utils import env_get
-import time
 from .i18n import _
 from .translate import load_translate_config, translate_text
 import traceback
@@ -11,9 +10,7 @@ from urllib.error import URLError
 
 from . import tools
 from .llm_errors import (
-    _compute_retry_wait_seconds,
-    _extract_retry_after,
-    _is_rate_limit_error,
+    _rate_limit_retry_step,
 )
 from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters
 from .llm_claude import claude_chat_with_tools, build_claude_output_config_for_effort
@@ -458,27 +455,28 @@ def run_llm_rounds(
                         )
                         break
                     except Exception as e:
-                        if _is_rate_limit_error(e):
-                            attempt_429 += 1
-                            if attempt_429 > max_retries_429:
-                                print(
-                                    "[Gemini Error] "
-                                    + _("429 retry limit (%(max_retries)s) reached.")
-                                    % {"max_retries": max_retries_429}
-                                )
-                                print(repr(e))
-                                return
-                            _unused, new_client, _unused2 = make_client_fn(core)
-                            client = new_client
-                            ra = _extract_retry_after(e)
-                            wait_s = _compute_retry_wait_seconds(
-                                attempt=attempt_429,
-                                retry_after_header=ra,
-                                base=retry_base,
-                                cap=retry_cap,
-                            )
-                            time.sleep(wait_s)
+                        attempt_429, new_client, action = _rate_limit_retry_step(
+                            exception=e,
+                            provider=provider,
+                            model=depname,
+                            attempt=attempt_429,
+                            max_retries=max_retries_429,
+                            base=retry_base,
+                            cap=retry_cap,
+                            recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                        )
+                        if action == "retry":
+                            if new_client is not None:
+                                client = new_client
                             continue
+                        if action == "give_up":
+                            print(
+                                "[Claude Error] "
+                                + _("429 retry limit (%(max_retries)s) reached.")
+                                % {"max_retries": max_retries_429}
+                            )
+                            print(repr(e))
+                            return
                         print(
                             _(
                                 "[Gemini Error] An error occurred while generating a response."
@@ -572,27 +570,28 @@ def run_llm_rounds(
                         )
                         break
                     except Exception as e:
-                        if _is_rate_limit_error(e):
-                            attempt_429 += 1
-                            if attempt_429 > max_retries_429:
-                                print(
-                                    "[Claude Error] "
-                                    + _("429 retry limit (%(max_retries)s) reached.")
-                                    % {"max_retries": max_retries_429}
-                                )
-                                print(repr(e))
-                                return
-                            _unused, new_client, _unused2 = make_client_fn(core)
-                            client = new_client
-                            ra = _extract_retry_after(e)
-                            wait_s = _compute_retry_wait_seconds(
-                                attempt=attempt_429,
-                                retry_after_header=ra,
-                                base=retry_base,
-                                cap=retry_cap,
-                            )
-                            time.sleep(wait_s)
+                        attempt_429, new_client, action = _rate_limit_retry_step(
+                            exception=e,
+                            provider=provider,
+                            model=depname,
+                            attempt=attempt_429,
+                            max_retries=max_retries_429,
+                            base=retry_base,
+                            cap=retry_cap,
+                            recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                        )
+                        if action == "retry":
+                            if new_client is not None:
+                                client = new_client
                             continue
+                        if action == "give_up":
+                            print(
+                                "[Claude Error] "
+                                + _("429 retry limit (%(max_retries)s) reached.")
+                                % {"max_retries": max_retries_429}
+                            )
+                            print(repr(e))
+                            return
                         print(
                             _(
                                 "[Claude Error] An error occurred while generating a response."
@@ -901,27 +900,28 @@ def run_llm_rounds(
                             print("[Network Error]")
                             print(repr(e))
                             return
-                        if _is_rate_limit_error(e):
-                            attempt_429 += 1
-                            if attempt_429 > max_retries_429:
-                                print(
-                                    "[Azure/OpenAI Error] "
-                                    + _t("429 retry limit (%(max_retries)s) reached.")
-                                    % {"max_retries": max_retries_429}
-                                )
-                                print(repr(e))
-                                return
-                            _unused, new_client, _unused2 = make_client_fn(core)
-                            client = new_client
-                            ra = _extract_retry_after(e)
-                            wait_s = _compute_retry_wait_seconds(
-                                attempt=attempt_429,
-                                retry_after_header=ra,
-                                base=retry_base,
-                                cap=retry_cap,
-                            )
-                            time.sleep(wait_s)
+                        attempt_429, new_client, action = _rate_limit_retry_step(
+                            exception=e,
+                            provider=provider,
+                            model=depname,
+                            attempt=attempt_429,
+                            max_retries=max_retries_429,
+                            base=retry_base,
+                            cap=retry_cap,
+                            recreate_client_fn=(lambda: (make_client_fn(core)[1])),
+                        )
+                        if action == "retry":
+                            if new_client is not None:
+                                client = new_client
                             continue
+                        if action == "give_up":
+                            print(
+                                "[Claude Error] "
+                                + _("429 retry limit (%(max_retries)s) reached.")
+                                % {"max_retries": max_retries_429}
+                            )
+                            print(repr(e))
+                            return
                         print("[LLM Error] " + _t("Unexpected exception."))
                         print(repr(e))
                         return

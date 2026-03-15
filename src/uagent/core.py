@@ -978,33 +978,82 @@ def compress_history_with_llm(
 
     use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
 
-    try:
-        if use_responses_api:
-            resp = client.responses.create(
+    # Rate-limit retry (same env vars as uagent_llm.run_llm_rounds)
+    max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
+    retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
+    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "65"))
+
+    from .llm_errors import _rate_limit_retry_step
+
+    def _recreate_client() -> Any:
+        try:
+            from . import util_providers
+            import sys as _sys
+
+            _core_mod = _sys.modules[__name__]
+            _unused_p, new_client, _unused_m = util_providers.make_client(_core_mod)
+            return new_client
+        except Exception:
+            return None
+
+    attempt_429 = 0
+    while True:
+        try:
+            if use_responses_api:
+                resp = client.responses.create(
+                    model=depname,
+                    instructions=summary_messages[0]["content"],
+                    input=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "input_text", "text": convo_text},
+                            ],
+                        }
+                    ],
+                )
+            else:
+                resp = client.chat.completions.create(
+                    model=depname,
+                    messages=summary_messages,
+                )
+            break
+        except Exception as e:
+            attempt_429, new_client, action = _rate_limit_retry_step(
+                exception=e,
+                provider="summarize",
                 model=depname,
-                instructions=summary_messages[0]["content"],
-                input=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "input_text", "text": convo_text},
-                        ],
-                    }
-                ],
+                attempt=attempt_429,
+                max_retries=max_retries_429,
+                base=retry_base,
+                cap=retry_cap,
+                recreate_client_fn=_recreate_client,
             )
-        else:
-            resp = client.chat.completions.create(
-                model=depname,
-                messages=summary_messages,
+
+            if action == "retry":
+                if new_client is not None:
+                    client = new_client
+                continue
+
+            if action == "give_up":
+                print(
+                    "[WARN] "
+                    + _(
+                        "429 retry limit (%(max_retries)s) reached while history compression."
+                    )
+                    % {"max_retries": max_retries_429},
+                    file=sys.stderr,
+                )
+                print(repr(e), file=sys.stderr)
+                return list(messages)
+
+            print(
+                "[WARN] "
+                + _("Error while calling LLM for history compression: %(err)r")
+                % {"err": e},
+                file=sys.stderr,
             )
-    except Exception as e:
-        print(
-            "[WARN] "
-            + _("Error while calling LLM for history compression: %(err)r")
-            % {"err": e},
-            file=sys.stderr,
-        )
-        return list(messages)
+            return list(messages)
 
     if use_responses_api:
         summary_content = ""

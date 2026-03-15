@@ -1,7 +1,8 @@
 import json
 import random
 import re
-from typing import Any, Dict, List
+import time
+from typing import Any, Callable, Dict, List, Optional
 
 
 def _compute_retry_wait_seconds(
@@ -394,3 +395,66 @@ def _log_rate_limit_debug(
         f"wait={wait_seconds:.1f}s retry_after={retry_after!r}",
         file=sys.stderr,
     )
+
+
+def _rate_limit_retry_step(
+    *,
+    exception: Exception,
+    provider: str,
+    model: str,
+    attempt: int,
+    max_retries: int,
+    base: float,
+    cap: float,
+    recreate_client_fn: Optional[Callable[[], Any]] = None,
+) -> tuple[int, Optional[Any], str]:
+    """Handle one rate-limit retry step.
+
+    Returns:
+      (new_attempt, new_client, action)
+        - action == 'not_rate_limit': exception is not considered a rate-limit error
+        - action == 'retry': slept for computed wait seconds; caller should retry
+        - action == 'give_up': retry limit exceeded; caller should abort
+
+    Notes:
+    - This function performs time.sleep(wait_seconds) when action=='retry'.
+    - new_client is best-effort; may be None.
+    """
+
+    if not _is_rate_limit_error(exception):
+        return attempt, None, "not_rate_limit"
+
+    attempt += 1
+    if attempt > max_retries:
+        return attempt, None, "give_up"
+
+    ra = _extract_retry_after(exception)
+    wait_s = _compute_retry_wait_seconds(
+        attempt=attempt,
+        retry_after_header=ra,
+        base=base,
+        cap=cap,
+    )
+
+    try:
+        _log_rate_limit_debug(
+            provider=provider,
+            model=model,
+            attempt=attempt,
+            max_retries=max_retries,
+            exception=exception,
+            wait_seconds=wait_s,
+            retry_after=ra,
+        )
+    except Exception:
+        pass
+
+    new_client = None
+    if recreate_client_fn is not None:
+        try:
+            new_client = recreate_client_fn()
+        except Exception:
+            new_client = None
+
+    time.sleep(wait_s)
+    return attempt, new_client, "retry"
