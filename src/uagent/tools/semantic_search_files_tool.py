@@ -72,7 +72,7 @@ def _emit_embedding_disabled_reason() -> None:
             "err.disabled",
             default=(
                 "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n"
-                "[tools] EMBEDDING_API_URL={url}\n"
+                "[tools] UAGENT_EMBEDDING_API_URL={url}\n"
                 "[tools] healthcheck={hc_url}\n"
                 "[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
             ),
