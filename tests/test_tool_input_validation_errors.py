@@ -136,7 +136,7 @@ def test_replace_in_file_rejects_incomplete_inputs(payload: dict) -> None:
             "mode": "literal",
             "pattern": "a",
             "replacement": "b",
-            "confirm_if_matches_over": "nope",
+            "confirm_over": "nope",
         },
         {
             "path": "x",
@@ -154,7 +154,7 @@ def test_replace_in_file_rejects_incomplete_inputs(payload: dict) -> None:
         },
     ],
     ids=[
-        "confirm_if_matches_over_not_int",
+        "confirm_over_not_int",
         "preview_not_bool",
         "expand_newline_tokens_not_bool",
     ],
@@ -207,20 +207,20 @@ def test_replace_in_file_rejects_invalid_values(payload: dict) -> None:
             "mode": "literal",
             "pattern": "a",
             "replacement": "b",
-            "confirm_if_matches_over": 0,
+            "confirm_over": 0,
         },
         {
             "path": "x",
             "mode": "literal",
             "pattern": "a",
             "replacement": "b",
-            "confirm_if_matches_over": -1,
+            "confirm_over": -1,
         },
     ],
     ids=[
         "empty_pattern",
-        "confirm_if_matches_over_zero",
-        "confirm_if_matches_over_negative",
+        "confirm_over_zero",
+        "confirm_over_negative",
     ],
 )
 def test_replace_in_file_rejects_invalid_constraints(payload: dict) -> None:

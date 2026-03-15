@@ -60,7 +60,7 @@ def test_replace_in_file_literal_cross_newline_tokens(
             "pattern": "aaa\\nbbb",
             "replacement": "AAA\\nBBB",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     obja = _load(out_apply)
@@ -106,7 +106,7 @@ def test_replace_in_file_regex_cross_newline_tokens(
             "pattern": "hello\\nworld",
             "replacement": "HELLO\\nWORLD",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     _load(out_apply)
@@ -215,7 +215,7 @@ def test_replace_in_file_cp932_roundtrip(repo_tmp_path: Path) -> None:
             "replacement": "置換",
             "encoding": "cp932",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     obj = _load(out)
@@ -246,7 +246,7 @@ def test_replace_in_file_utf8_bom_is_not_crashing(repo_tmp_path: Path) -> None:
             "pattern": "abc",
             "replacement": "ABC",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     _load(out)
@@ -268,7 +268,7 @@ def test_replace_in_file_regex_groups(repo_tmp_path: Path) -> None:
             "pattern": r"name=(.+)",
             "replacement": r"NAME=\1",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     obj = _load(out)
@@ -293,7 +293,7 @@ def test_replace_in_file_trailing_newline_preserved(repo_tmp_path: Path) -> None
                 "pattern": "a",
                 "replacement": "A",
                 "preview": False,
-                "confirm_if_matches_over": 999,
+                "confirm_over": 999,
             }
         )
     )
@@ -310,7 +310,7 @@ def test_replace_in_file_trailing_newline_preserved(repo_tmp_path: Path) -> None
                 "pattern": "a",
                 "replacement": "A",
                 "preview": False,
-                "confirm_if_matches_over": 999,
+                "confirm_over": 999,
             }
         )
     )
@@ -334,7 +334,7 @@ def test_replace_in_file_binary_like_content_is_handled(repo_tmp_path: Path) -> 
             "pattern": "abc",
             "replacement": "ABC",
             "preview": False,
-            "confirm_if_matches_over": 999,
+            "confirm_over": 999,
         }
     )
     obj = _load(out)
