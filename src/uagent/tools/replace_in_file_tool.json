@@ -1,6 +1,6 @@
 {
   "en": {
-    "param.confirm_if_matches_over.description": "When preview=false, block the operation if the number of matches is greater than this value.",
+    "param.confirm_over.description": "When preview=false, block the operation if the number of matches is greater than this value.",
     "param.encoding.description": "File encoding (default: utf-8).",
     "param.expand_newline_tokens.description": "If true (default), expands newline tokens (\\r\\n/\\r/\\n) into real newlines for matching/replacement. If false, treats them as literal characters (e.g., the two characters \\\\ and n).",
     "param.mode.description": "Replacement mode: literal (plain substring) or regex (Python re).",
@@ -12,7 +12,7 @@
     "tool.system_prompt": "Perform a text replacement on a file.\n\nGuidelines:\n- Recommended: Run with preview=true first to verify hit locations and diff.\n- Never include raw newlines in JSON strings; use \\n (JSON: \\\\n).\n- Use mode=literal unless regex is necessary.\n\nNotes:\n- preview=false creates a .org/.orgN backup before writing.\n- In regex mode, replacement follows Python re semantics (\\1, \\2, ... for capture groups).\n- In literal mode, the tool expands \\n/\\r tokens into real newlines.\n"
   },
   "ja": {
-    "param.confirm_if_matches_over.description": "preview=false のとき、マッチ件数がこの値を超えるなら処理をブロックします。",
+    "param.confirm_over.description": "preview=false のとき、マッチ件数がこの値を超えるなら処理をブロックします。",
     "param.encoding.description": "ファイルのエンコーディング（既定: utf-8）。",
     "param.expand_newline_tokens.description": "true（既定）の場合、改行トークン（\\r\\n/\\r/\\n）を実改行に展開してマッチ/置換します。false の場合、\\n 等を文字として扱います（例: 2文字の \\\\ と n）。",
     "param.mode.description": "置換モード（literal=文字列置換 / regex=正規表現）。",
@@ -24,7 +24,7 @@
     "tool.system_prompt": "ファイルに対して置換を行います。\n\nガイドライン:\n- 推奨: まず preview=true で実行し、ヒット位置と diff を確認してください。\n- JSON 文字列に生の改行を入れないでください。改行は \\n（JSON: \\\\n）で表現してください。\n- 単純な部分一致なら mode=literal を使い、regex は必要なときだけ使ってください。\n\n補足:\n- preview=false の場合、書き込み前に .org/.orgN のバックアップが作成されます。\n- regex モードでは replacement は Python の re 置換セマンティクスに従います（\\1, \\2, ...）。\n- literal モードでは \\n/\\r トークンを実改行へ展開します。\n"
   },
   "zh_CN": {
-    "param.confirm_if_matches_over.description": "当preview=false时，如果匹配数大于该值，则阻止操作。",
+    "param.confirm_over.description": "当preview=false时，如果匹配数大于该值，则阻止操作。",
     "param.encoding.description": "文件编码（默认：utf-8）。",
     "param.expand_newline_tokens.description": "如果为 true（默认），则将换行符 (\\r\\n/\\r/\\n) 扩展为真正的换行符以进行匹配/替换。如果为 false，则将它们视为文字字符（例如，两个字符 \\\\ 和 n）。",
     "param.mode.description": "替换模式：文字（纯子字符串）或正则表达式（Python re）。",
@@ -36,7 +36,7 @@
     "tool.system_prompt": "对文件执行文本替换。\n\n指南：\n- 推荐：首先使用 Preview=true 运行以验证命中位置和差异。\n- 切勿在 JSON 字符串中包含原始换行符；使用 \\n (JSON: \\\\n)。\n- 除非需要正则表达式，否则使用 mode=literal。\n\n注意事项：\n- Preview=false 在写入之前创建 .org/.orgN 备份。\n- 在正则表达式模式下，替换遵循 Python re 语义（\\1、\\2、... 对于捕获组）。\n- 在文字模式下，该工具将 \\n/\\r 标记扩展为真正的换行符。\n"
   },
   "zh_TW": {
-    "param.confirm_if_matches_over.description": "當preview=false時，如果匹配數大於該值，則阻止操作。",
+    "param.confirm_over.description": "當preview=false時，如果匹配數大於該值，則阻止操作。",
     "param.encoding.description": "文件編碼（預設：utf-8）。",
     "param.expand_newline_tokens.description": "如果為 true（預設），則將換行符號 (\\r\\n/\\r/\\n) 擴展為真正的換行符號以進行匹配/替換。如果為 false，則將它們視為文字字元（例如，兩個字元 \\\\ 和 n）。",
     "param.mode.description": "替換模式：文字（純子字串）或正規表示式（Python re）。",
@@ -48,7 +48,7 @@
     "tool.system_prompt": "對文件執行文字替換。\n\n指南：\n- 建議：首先使用 Preview=true 運行以驗證命中位置和差異。\n- 切勿在 JSON 字串中包含原始換行符；使用 \\n (JSON: \\\\n)。\n- 除非需要正規表示式，否則使用 mode=literal。\n\n注意事項：\n- Preview=false 在寫入之前建立 .org/.orgN 備份。\n- 在正規表示式模式下，替換遵循 Python re 語意（\\1、\\2、... 對於捕獲組）。\n- 在文字模式下，工具將 \\n/\\r 標記擴展為真正的換行符號。\n"
   },
   "es": {
-    "param.confirm_if_matches_over.description": "Cuando vista previa = falso, bloquee la operación si el número de coincidencias es mayor que este valor.",
+    "param.confirm_over.description": "Cuando vista previa = falso, bloquee la operación si el número de coincidencias es mayor que este valor.",
     "param.encoding.description": "Codificación de archivos (predeterminada: utf-8).",
     "param.expand_newline_tokens.description": "Si es verdadero (predeterminado), expande los tokens de nueva línea (\\r\\n/\\r/\\n) en nuevas líneas reales para compararlas o reemplazarlas. Si es falso, los trata como caracteres literales (por ejemplo, los dos caracteres \\\\ y n).",
     "param.mode.description": "Modo de reemplazo: literal (subcadena simple) o expresión regular (Python re).",
@@ -60,7 +60,7 @@
     "tool.system_prompt": "Realizar un reemplazo de texto en un archivo.\n\nDirectrices:\n- Recomendado: ejecute primero con vista previa = verdadero para verificar las ubicaciones de los resultados y las diferencias.\n- Nunca incluya nuevas líneas sin formato en las cadenas JSON; utilice \\n (JSON: \\\\n).\n- Utilice mode=literal a menos que sea necesaria una expresión regular.\n\nNotas:\n- vista previa=false crea una copia de seguridad .org/.orgN antes de escribir.\n- En modo regex, el reemplazo sigue la semántica de Python (\\1, \\2, ... para grupos de captura).\n- En modo literal, la herramienta expande \\n/\\r tokens en nuevas líneas reales.\n"
   },
   "fr": {
-    "param.confirm_if_matches_over.description": "Lorsque preview=false, bloque l'opération si le nombre de correspondances est supérieur à cette valeur.",
+    "param.confirm_over.description": "Lorsque preview=false, bloque l'opération si le nombre de correspondances est supérieur à cette valeur.",
     "param.encoding.description": "Encodage du fichier (par défaut : utf-8).",
     "param.expand_newline_tokens.description": "Si vrai (par défaut), étend les jetons de nouvelle ligne (\\r\\n/\\r/\\n) en véritables nouvelles lignes pour la correspondance/le remplacement. Si faux, les traite comme des caractères littéraux (par exemple, les deux caractères \\\\ et n).",
     "param.mode.description": "Mode de remplacement : littéral (sous-chaîne simple) ou regex (Python re).",
@@ -72,7 +72,7 @@
     "tool.system_prompt": "Effectuer un remplacement de texte sur un fichier.\n\nLignes directrices :\n- Recommandé : exécutez d'abord avec preview=true pour vérifier les emplacements des hits et les différences.\n- N'incluez jamais de nouvelles lignes brutes dans les chaînes JSON ; utilisez \\n (JSON : \\\\n).\n- Utilisez mode=literal sauf si une regex est nécessaire.\n\nRemarques :\n- preview=false crée une sauvegarde .org/.orgN avant d'écrire.\n- En mode regex, le remplacement suit la sémantique Python (\\1, \\2, ... pour les groupes de capture).\n- En mode littéral, l'outil étend les jetons \\n/\\r en véritables nouvelles lignes.\n"
   },
   "ko": {
-    "param.confirm_if_matches_over.description": "Preview=false인 경우 일치 항목 수가 이 값보다 크면 작업을 차단합니다.",
+    "param.confirm_over.description": "Preview=false인 경우 일치 항목 수가 이 값보다 크면 작업을 차단합니다.",
     "param.encoding.description": "파일 인코딩 (default : utf-8).",
     "param.expand_newline_tokens.description": "true(기본값)인 경우 일치/교체를 위해 줄바꿈 토큰(\\r\\n/\\r/\\n)을 실제 줄바꿈으로 확장합니다. false인 경우 이를 리터럴 문자(예: \\\\ 및 n 두 문자)로 처리합니다.",
     "param.mode.description": "대체 모드: 리터럴(일반 하위 문자열) 또는 정규식(Python re).",
@@ -84,7 +84,7 @@
     "tool.system_prompt": "파일에서 텍스트 바꾸기를 수행합니다.\n\n지침:\n- 권장사항: 먼저 Preview=true로 실행하여 적중 위치와 차이점을 확인하세요.\n- JSON 문자열에 원시 개행 문자를 포함하지 마십시오. \\n(JSON: \\\\n)을 사용하세요.\n- 정규 표현식이 필요하지 않은 경우 mode=literal을 사용하십시오.\n\n참고:\n- Preview=false는 쓰기 전에 .org/.orgN 백업을 생성합니다.\n- 정규식 모드에서 교체는 Python 의미 체계(캡처 그룹의 경우 \\1, \\2, ...)를 따릅니다.\n- 리터럴 모드에서 이 도구는 \\n/\\r 토큰을 실제 줄 바꿈으로 확장합니다."
   },
   "th": {
-    "param.confirm_if_matches_over.description": "เมื่อ Preview=false ให้บล็อกการดำเนินการหากจำนวนรายการที่ตรงกันมากกว่าค่านี้",
+    "param.confirm_over.description": "เมื่อ Preview=false ให้บล็อกการดำเนินการหากจำนวนรายการที่ตรงกันมากกว่าค่านี้",
     "param.encoding.description": "การเข้ารหัสไฟล์ (ค่าเริ่มต้น: utf-8)",
     "param.expand_newline_tokens.description": "หากเป็นจริง (ค่าเริ่มต้น) ให้ขยายโทเค็นการขึ้นบรรทัดใหม่ (\\r\\n/\\r/\\n) เป็นการขึ้นบรรทัดใหม่จริงสำหรับการจับคู่/การแทนที่ หากเป็นเท็จ ให้ถือว่าเป็นอักขระตามตัวอักษร (เช่น อักขระสองตัว \\\\ และ n)",
     "param.mode.description": "โหมดการแทนที่: ตัวอักษร (สตริงย่อยธรรมดา) หรือ regex (Python re)",

@@ -994,7 +994,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-TOOL_SPEC: Dict[str, Any] = {
+if getattr(vec_tool, "TOOL_SPEC", None) is None and getattr(vec_tool, "_DISABLE_IF_UNREACHABLE", False):
+    # semantic_search_files_tool already decided to hide itself because embedding API is unreachable.
+    # Keep graph_rag_search hidden as well, since it depends on embeddings.
+    TOOL_SPEC = None  # type: ignore[assignment]
+else:
+    TOOL_SPEC = {
     "type": "function",
     "function": {
         "name": "graph_rag_search",
