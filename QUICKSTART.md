@@ -4,7 +4,7 @@ This document explains how to install a distributed `uag` wheel (`uag-<VERSION>-
 
 Target OS: Windows
 
----
+______________________________________________________________________
 
 ## 1. Prerequisites
 
@@ -12,7 +12,7 @@ Target OS: Windows
 - (Recommended) Use a virtual environment (venv)
 - After installation, start with `uag` (or `python -m uagent` if `uag` is not found)
 
----
+______________________________________________________________________
 
 ## 2. Install Git (required)
 
@@ -21,7 +21,7 @@ Target OS: Windows
 ### 2.1 Git for Windows
 
 1. Download the installer from https://git-scm.com/download/win
-2. After installation, open a **new terminal** and verify:
+1. After installation, open a **new terminal** and verify:
 
 ```bat
 git --version
@@ -33,14 +33,14 @@ git --version
 winget install --id Git.Git -e
 ```
 
----
+______________________________________________________________________
 
 ## 3. Prepare a working folder
 
 - Place the distributed `uag-<VERSION>-py3-none-any.whl` into a working folder
 - Run the commands below in that folder
 
----
+______________________________________________________________________
 
 ## 4. Create a virtual environment (recommended)
 
@@ -57,7 +57,7 @@ python -m venv .venv
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
----
+______________________________________________________________________
 
 ## 5. Install the wheel with pip
 
@@ -79,7 +79,7 @@ python -m pip install .\uag-<VERSION>-py3-none-any.whl
 python -m pip install .\uag-*.whl
 ```
 
----
+______________________________________________________________________
 
 ## 6. Verify installation
 
@@ -95,7 +95,7 @@ If `where uag` does not find the command, you can start with:
 python -m uagent --help
 ```
 
----
+______________________________________________________________________
 
 ## 7. Start and minimal configuration (CLI)
 
@@ -145,6 +145,7 @@ set UAGENT_VERBOSITY=medium
 ```
 
 In-session commands (CLI/GUI/Web):
+
 - `:r [0|1|2|3|auto|minimal|xhigh]` (no arg: keep current)
 - `:v [0|1|2|3]` (no arg: keep current)
 
@@ -161,6 +162,7 @@ If you frequently hit context limits, you can enable automatic summarization.
   - How many recent non-system messages to keep after summarization.
 
 Notes:
+
 - Auto shrink works for all providers.
 - When shrink runs (manual or auto), the current session log is rewritten to match the compressed history, and a one-generation backup is created under `<log_dir>/.backup/`.
 
@@ -169,11 +171,12 @@ For provider-specific details (required environment variables, base URL, model s
 - [`README.md`](README.md) (Provider section)
 - [`AGENTS.md`](AGENTS.md) (list of environment variables)
 
----
+______________________________________________________________________
 
 ## 8. Smoke test prompts (examples)
 
 Notes:
+
 - In this environment, you can restore the previous conversation with `:load 0`.
 
 After starting `uag`, type instructions at the prompt.
@@ -185,7 +188,7 @@ Examples:
 - Read a specific file
   - "Read [`README.md`](README.md) and summarize the key points."
 
----
+______________________________________________________________________
 
 ## 9. Next to read
 
@@ -193,7 +196,7 @@ Examples:
 - [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
 - `uag docs develop` / `uag docs webinspect`
 
----
+______________________________________________________________________
 
 ## 10. Documentation (`uag docs`)
 
