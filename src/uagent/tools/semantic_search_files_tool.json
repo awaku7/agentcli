@@ -21,7 +21,7 @@
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
-    "doc.db_path": "<state>/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
+    "doc.db_path": "各 root_dir について、<state>/dbs 配下のハッシュ付き DB パスを返します（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
     "doc.is_reachable": "起動時疎通確認。\n\n- 失敗しても例外は投げず False を返す\n- 起動遅延を避けるためタイムアウト短め\n- /v1/models が使えない実装もあり得るため / のGETもフォールバック",
     "doc.sync_file": "単一ファイルのインデックスを同期（新規または更新があれば）",
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
@@ -36,13 +36,13 @@
     "out.target_dir": "対象ディレクトリ: {root_path}",
     "param.file_pattern.description": "対象拡張子（カンマ区切り）。",
     "param.query.description": "検索キーワード。",
-    "param.root_path.description": "検索対象directory。",
+    "param.root_path.description": "検索対象ディレクトリ。",
     "param.top_k.description": "件数。",
-    "tool.description": "ローカルfileに対して意味検索（ベクトル検索）をperforms。Embedding APIを使用してfile内容をベクトル化し、質問に関連するドキュメント箇所を抽出します。初回実行時やfile更新時はインデックス作成処理が走ります。",
+    "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding API を使用してファイル内容をベクトル化し、関連するドキュメント箇所を抽出します。初回実行時、またはファイル更新時にインデックス作成を行います。",
     "tool.system_prompt": "このツールは次の目的で使用されます (ツールの説明を参照)。"
   },
   "zh_CN": {
-    "doc.db_path": "<state>/dbs 配下に、root_dirごとのハッシュ付きDBパsuを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
+    "doc.db_path": "在 <state>/dbs 下，返回每个 root_dir 对应的哈希 DB 路径（默认：~/.uag（旧：~/.scheck）/dbs）。",
     "doc.is_reachable": "启动时确认通讯。\n\n- 即使失败也返回 False 而不抛出异常\n- 更短的超时以避免启动延迟\n- 由于可能存在无法使用 /v1/models 的实现，因此 / 的 GET 也是一种后备。",
     "doc.sync_file": "同步单个文件索引（如果是新的或更新的）",
     "err.dir_not_found": "错误：找不到目录：{root_path}",
@@ -63,7 +63,7 @@
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
   },
   "zh_TW": {
-    "doc.db_path": "<state>/dbs 配下に、root_dirごとのハッシュ付きDBパsuを返す（既定: ~/.uag（舊: ~/.scheck）/dbs）。",
+    "doc.db_path": "在 <state>/dbs 下，回傳每個 root_dir 對應的雜湊 DB 路徑（預設：~/.uag（舊：~/.scheck）/dbs）。",
     "doc.is_reachable": "啟動時確認通訊。\n\n- 即使失敗也回傳 False 而不拋出異常\n- 更短的超時以避免啟動延遲\n- 由於可能存在無法使用 /v1/models 的實現，因此 / 的 GET 也是一種後備。",
     "doc.sync_file": "同步單一檔案索引（如果是新的或更新的）",
     "err.dir_not_found": "錯誤：找不到目錄：{root_path}",
@@ -126,7 +126,7 @@
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
   },
   "ko": {
-    "doc.db_path": "<상태>/dbs는 아래에 、root_dir에 의해 핫슈에 의거 DB파스を返su（既정: ~/.uag（旧: ~/.scheck）/dbs）。",
+    "doc.db_path": "<state>/dbs 아래에서 root_dir 별 해시된 DB 경로를 반환합니다(기본: ~/.uag(구: ~/.scheck)/dbs).",
     "doc.is_reachable": "기동시 소통 확인.\n\n- 실패해도 예외는 던지지 않고 False를 돌려준다\n- 기동 지연을 피하기 위해 타임 아웃 단축\n- /v1/models 를 사용할 수 없는 구현도 있을 수 있기 때문에 / 의 GET 도 폴백",
     "doc.sync_file": "단일 파일 인덱스 동기화(새 파일 또는 업데이트된 경우)",
     "err.dir_not_found": "오류: 디렉터리를 찾을 수 없습니다: {root_path}",
@@ -147,7 +147,7 @@
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
   "th": {
-    "doc.db_path": "<state>/dbs 配下に、root_dirごとのハッシュ付 KiDBパスを返WS（既定: ~/.uag（旧: ~/.scheck）/dbs）",
+    "doc.db_path": "แต่ละ root_dir จะคืนค่าเส้นทาง DB ที่มีแฮชภายใต้ <state>/dbs (ค่าเริ่มต้น: ~/.uag (เดิม: ~/.scheck)/dbs)",
     "doc.is_reachable": "ยืนยันการสื่อสารเมื่อเริ่มต้น\n\n- ส่งกลับค่า False โดยไม่ทิ้งข้อยกเว้นแม้ว่าจะล้มเหลวก็ตาม\n- หมดเวลาสั้นลงเพื่อหลีกเลี่ยงความล่าช้าในการเริ่มต้น\n- เนื่องจากอาจมีการใช้งานที่ไม่สามารถใช้ /v1/models ได้ GET ของ / จึงเป็นทางเลือกสำรองเช่นกัน",
     "doc.sync_file": "ประสานดัชนีไฟล์เดียว (หากใหม่หรืออัปเดต)",
     "err.dir_not_found": "ข้อผิดพลาด: ไม่พบไดเรกทอรี: {root_path}",

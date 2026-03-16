@@ -29,7 +29,7 @@
     "out.no_docs": "関連するドキュメントは見つかりませんでした。",
     "out.query": "検索クエリ: {query}",
     "out.result_content": "内容: {snippet}\n",
-    "out.results_title": "【結果】",
+    "out.results_title": "\n[結果]",
     "out.target_dir": "対象ディレクトリ: {root_path}",
     "param.chunk_size.description": "チャンクサイズ",
     "param.file_pattern.description": "対象パターン（カンマ区切り glob）",
@@ -40,7 +40,7 @@
     "param.top_k_graph.description": "グラフ探索で回収する件数",
     "param.top_k_vector.description": "ベクトル検索の上位件数",
     "tool.description": "GraphRAG(グラフ+ベクトル)でローカルファイルを検索します。対象: py/md/txt/pdf/pptx/xlsx。SQLiteに軽量ナレッジグラフ(entities/relations)を構築し、グラフ探索(hops)で関連チャンクを回収して、ベクトル検索結果と併せて返します。",
-    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description).",
+    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。",
     "warn.indexing_title": "\n[WARN] インデクシング警告（重複除去、先頭50件）:"
   },
   "zh_CN": {
