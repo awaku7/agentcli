@@ -555,17 +555,20 @@ def run_llm_rounds(
                             except Exception:
                                 pass
 
+                        def _on_output_config_info(m: str) -> None:
+
+                            if getattr(core, "_last_claude_outcfg_info", None) != m:
+
+                                print(m)
+
+                            setattr(core, "_last_claude_outcfg_info", m)
+
                         assistant_text, tool_calls_list = claude_chat_with_tools(
                             client,
                             depname,
                             call_messages,
                             output_config=_claude_out_cfg,
-                            on_output_config_info=lambda m: (
-                                print(m)
-                                if getattr(core, "_last_claude_outcfg_info", None) != m
-                                else None
-                            )
-                            or setattr(core, "_last_claude_outcfg_info", m),
+                            on_output_config_info=_on_output_config_info,
                             on_output_config_fallback=lambda m: print(m),
                         )
                         break
