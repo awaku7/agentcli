@@ -15,7 +15,7 @@
 
 動作環境は Windows/macOS/Linux を想定し、Python は **3.11+** です。
 
----
+______________________________________________________________________
 
 ## セットアップ
 
@@ -37,7 +37,7 @@ pip install -e .
 
 依存の全体像は `pyproject.toml` を参照してください。CUI/GUI/Web いずれも `pip install -e .` で利用できます。
 
----
+______________________________________________________________________
 
 ## 環境変数（.env）
 
@@ -46,38 +46,45 @@ pip install -e .
 主な環境変数:
 
 - **プロバイダ設定**
+
   - `UAGENT_PROVIDER`: `azure` / `openai` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
   - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
 
 - **API モード設定**
+
   - `UAGENT_RESPONSES`: `1`/`true` で OpenAI/Azure の Responses API を使用。
     - 画像入力は原則 Responses 側のマルチモーダル（LLM本体）で扱うため、このモードでは `analyze_image` ツールはロードされません（実装: `src/uagent/tools/analyze_image_tool.py`）。
 
 - **実行制御・リトライ**
+
   - `UAGENT_429_MAX_RETRIES`: Rate Limit エラー時の最大リトライ回数。
   - `UAGENT_429_BACKOFF_BASE`, `UAGENT_429_BACKOFF_CAP`: リトライ待機時間の調整。
 
 - **Embedding / 検索系**
+
   - `UAGENT_EMBEDDING_API_URL`: `semantic_search_files` / `index_files` / `graph_rag_search` で使用する Embedding API の URL。
   - `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: `1`/`true` の場合（既定=`1`）、起動時に Embedding API が到達不能だと `semantic_search_files` をロードしません。`0` を指定すると到達不能でもツールを表示したままにできます。
   - `UAGENT_EMBEDDING_API_HEALTHCHECK_PATH`: ヘルスチェックパス（既定 `/v1/models`）。
 
   よくある状況:
+
   - 「`semantic_search_files` / `index_files` がツール一覧に出てこない」
     - Embedding API が到達不能で、起動時にツール登録自体が抑止されている可能性があります。
     - 到達不能でも“ツールだけは見せたい”場合は `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0` を設定してください（ただし実行時は失敗します）。
 
 - **パス・ログ**
+
   - `UAGENT_WORKDIR`: 作業ディレクトリ。
   - `UAGENT_LOG_DIR`, `UAGENT_LOG_FILE`: ログ出力先。
   - `UAGENT_MEMORY_FILE`: 長期記憶ファイル。
   - `UAGENT_SHARED_MEMORY_FILE`: 共有長期記憶ファイル。
 
 - **文字コード**
+
   - `UAGENT_CMD_ENCODING`: 外部コマンド出力のデコード設定（既定 `utf-8`）。
 
----
+______________________________________________________________________
 
 ## 起動方法
 
@@ -111,7 +118,7 @@ uagw
 python -m uagent.web
 ```
 
----
+______________________________________________________________________
 
 ## ドキュメント（`uag docs`）
 
@@ -125,7 +132,7 @@ uag docs --path webinspect
 uag docs --open webinspect
 ```
 
----
+______________________________________________________________________
 
 ## 利用できるツール（現状）
 
@@ -133,25 +140,25 @@ uag docs --open webinspect
 
 ### MCP（Model Context Protocol）を使う最短例
 
-1) サーバ定義ファイルの雛形を作成（未作成の場合）
+1. サーバ定義ファイルの雛形を作成（未作成の場合）
 
 ```bash
 uag mcp_servers_init_template
 ```
 
-2) サーバを追加（例: streamable-http）
+2. サーバを追加（例: streamable-http）
 
 ```bash
 uag mcp_servers_add
 ```
 
-3) サーバ上の tools 一覧を取得
+3. サーバ上の tools 一覧を取得
 
 ```bash
 uag mcp_tools_list
 ```
 
-4) 任意の MCP tool を実行（汎用ラッパ）
+4. 任意の MCP tool を実行（汎用ラッパ）
 
 ```bash
 uag handle_mcp_v2
@@ -171,7 +178,7 @@ uag handle_mcp_v2
 - **開発支援**: `git_ops`, `run_tests`, `lint_format`, `generate_prompt`, `system_reload`
 - **付帯**: `human_ask`, `set_timer`, `add_long_memory`, `get_long_memory`, `add_shared_memory`, `get_shared_memory`, `spawn_process`, `change_workdir`, `index_files`, `semantic_search_files`, `graph_rag_search`
 
----
+______________________________________________________________________
 
 ## 運用ポリシー
 
@@ -180,7 +187,7 @@ uag handle_mcp_v2
 - コミット前に（可能なら） `lint_format` と `run_tests` を実行。
 - ライセンスは Apache License 2.0 を適用。
 
----
+______________________________________________________________________
 
 ## セキュリティ注意
 
