@@ -131,12 +131,26 @@ async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
 def _format_result(result: Any) -> str:
     """Format MCP tool results for LLM.
 
-    If the tool returns a file payload, save it under ./downloads and only return the saved path.
+    - If the tool returns a file payload as base64, save it under ./downloads and return the saved path.
+    - If the tool returns {"saved_path": ...} (server-side saved), return "[Saved] <saved_path>".
+    - If the result is a plain string, return it as-is.
 
     Supported payload shapes:
     - Plain dict: {"filename": str, "mime": str, "data_base64": str}
-    - Content blocks (best-effort): objects that expose attributes like filename/name + data_base64/blob
+    - Plain dict: {"saved_path": str, "filename": str}
+    - ToolResult-like with content blocks (best-effort): objects that expose attributes like filename/name + data_base64/blob
     """
+
+    # 0) Plain string
+    if isinstance(result, str):
+        return result
+
+    # 1) Server-side saved file
+    try:
+        if isinstance(result, dict) and result.get("saved_path"):
+            return f"[Saved] {result.get('saved_path')}"
+    except Exception:
+        pass
 
     def _save_download(filename: str, data: bytes) -> str:
         dl_dir = os.path.abspath(os.path.join(os.getcwd(), "downloads"))
