@@ -386,13 +386,13 @@ class _TopLevelAnalyzer(cst.CSTVisitor):
     def leave_FunctionDef(self, node: cst.FunctionDef) -> None:
         self._depth -= 1
 
-    def visit_AsyncFunctionDef(self, node: cst.AsyncFunctionDef) -> Optional[bool]:
+    def visit_AsyncFunctionDef(self, node: cst.FunctionDef) -> Optional[bool]:
         if self._depth == 0:
             self.functions.append(node.name.value)
         self._depth += 1
         return True
 
-    def leave_AsyncFunctionDef(self, node: cst.AsyncFunctionDef) -> None:
+    def leave_AsyncFunctionDef(self, node: cst.FunctionDef) -> None:
         self._depth -= 1
 
     def visit_ClassDef(self, node: cst.ClassDef) -> Optional[bool]:

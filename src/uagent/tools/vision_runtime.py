@@ -17,6 +17,8 @@ import base64
 import mimetypes
 from pathlib import Path
 
+from typing import Any, cast
+
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -116,15 +118,18 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
 
     resp = client.responses.create(
         model=model,
-        input=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "input_text", "text": text},
-                    {"type": "input_image", "image_url": data_url},
-                ],
-            }
-        ],
+        input=cast(
+            Any,
+            [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "input_text", "text": text},
+                        {"type": "input_image", "image_url": data_url},
+                    ],
+                }
+            ],
+        ),
     )
 
     # Extract output_text

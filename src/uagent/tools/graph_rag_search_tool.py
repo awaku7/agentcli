@@ -994,82 +994,85 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-if getattr(vec_tool, "TOOL_SPEC", None) is None and getattr(vec_tool, "_DISABLE_IF_UNREACHABLE", False):
+if getattr(vec_tool, "TOOL_SPEC", None) is None and getattr(
+    vec_tool, "_DISABLE_IF_UNREACHABLE", False
+):
     # semantic_search_files_tool already decided to hide itself because embedding API is unreachable.
     # Keep graph_rag_search hidden as well, since it depends on embeddings.
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
     TOOL_SPEC = {
-    "type": "function",
-    "function": {
-        "name": "graph_rag_search",
-        "description": _(
-            "tool.description",
-            default=(
-                "Search local files using GraphRAG (Graph + Vector hybrid). "
-                "Supported: py/md/txt/pdf/pptx/xlsx. "
-                "Builds a lightweight knowledge graph (entities/relations) in SQLite, "
-                "retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
+        "type": "function",
+        "function": {
+            "name": "graph_rag_search",
+            "description": _(
+                "tool.description",
+                default=(
+                    "Search local files using GraphRAG (Graph + Vector hybrid). "
+                    "Supported: py/md/txt/pdf/pptx/xlsx. "
+                    "Builds a lightweight knowledge graph (entities/relations) in SQLite, "
+                    "retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
+                ),
             ),
-        ),
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": _(
-                        "param.query.description", default="Search query (required)."
-                    ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": _(
+                            "param.query.description",
+                            default="Search query (required).",
+                        ),
+                    },
+                    "root_path": {
+                        "type": "string",
+                        "description": _(
+                            "param.root_path.description",
+                            default="Target directory for search.",
+                        ),
+                    },
+                    "file_pattern": {
+                        "type": "string",
+                        "description": _(
+                            "param.file_pattern.description",
+                            default="Target pattern (comma-separated glob).",
+                        ),
+                    },
+                    "top_k_vector": {
+                        "type": "integer",
+                        "description": _(
+                            "param.top_k_vector.description",
+                            default="Number of top results from vector search.",
+                        ),
+                    },
+                    "top_k_graph": {
+                        "type": "integer",
+                        "description": _(
+                            "param.top_k_graph.description",
+                            default="Number of results to retrieve via graph traversal.",
+                        ),
+                    },
+                    "hops": {
+                        "type": "integer",
+                        "description": _(
+                            "param.hops.description",
+                            default="Number of hops for graph traversal.",
+                        ),
+                    },
+                    "chunk_size": {
+                        "type": "integer",
+                        "description": _(
+                            "param.chunk_size.description", default="Chunk size."
+                        ),
+                    },
+                    "overlap": {
+                        "type": "integer",
+                        "description": _(
+                            "param.overlap.description", default="Chunk overlap."
+                        ),
+                    },
                 },
-                "root_path": {
-                    "type": "string",
-                    "description": _(
-                        "param.root_path.description",
-                        default="Target directory for search.",
-                    ),
-                },
-                "file_pattern": {
-                    "type": "string",
-                    "description": _(
-                        "param.file_pattern.description",
-                        default="Target pattern (comma-separated glob).",
-                    ),
-                },
-                "top_k_vector": {
-                    "type": "integer",
-                    "description": _(
-                        "param.top_k_vector.description",
-                        default="Number of top results from vector search.",
-                    ),
-                },
-                "top_k_graph": {
-                    "type": "integer",
-                    "description": _(
-                        "param.top_k_graph.description",
-                        default="Number of results to retrieve via graph traversal.",
-                    ),
-                },
-                "hops": {
-                    "type": "integer",
-                    "description": _(
-                        "param.hops.description",
-                        default="Number of hops for graph traversal.",
-                    ),
-                },
-                "chunk_size": {
-                    "type": "integer",
-                    "description": _(
-                        "param.chunk_size.description", default="Chunk size."
-                    ),
-                },
-                "overlap": {
-                    "type": "integer",
-                    "description": _(
-                        "param.overlap.description", default="Chunk overlap."
-                    ),
-                },
+                "required": ["query"],
             },
-            "required": ["query"],
         },
-    },
-}
+    }

@@ -1,26 +1,30 @@
----
+______________________________________________________________________
+
 name: prompt-library
 version: 1.0.0
 description: |
-  uag 同梱の「プロンプトテンプレート集」を Agent Skills 形式で提供するスキル。
+uag 同梱の「プロンプトテンプレート集」を Agent Skills 形式で提供するスキル。
 
-  - 本スキルはツール実行スキルではなく、テンプレ文章（Markdown）を参照するための“ライブラリ”です。
-  - 旧 src/uagent/prompts 配下のテンプレートを移設しています。
+- 本スキルはツール実行スキルではなく、テンプレ文章（Markdown）を参照するための“ライブラリ”です。
+- 旧 src/uagent/prompts 配下のテンプレートを移設しています。
 
 inputs:
-  - name: template_id
-    description: |
-      参照したいテンプレートID。
-      一覧は references/index.yaml を参照。
-    required: false
+
+- name: template_id
+  description: |
+  参照したいテンプレートID。
+  一覧は references/index.yaml を参照。
+  required: false
 
 outputs:
-  - name: template_markdown
-    description: |
-      テンプレ本文（Markdown）。
-      {{placeholder}} が含まれる場合、手動で埋めてから利用してください。
-    required: false
----
+
+- name: template_markdown
+  description: |
+  テンプレ本文（Markdown）。
+  {{placeholder}} が含まれる場合、手動で埋めてから利用してください。
+  required: false
+
+______________________________________________________________________
 
 # Prompt Library
 
@@ -31,12 +35,15 @@ outputs:
 ## 使い方（推奨）
 
 1. テンプレ一覧（カタログ）を読む
+
    - `skills/prompt-library/references/index.yaml`
 
-2. テンプレ本文を読む
+1. テンプレ本文を読む
+
    - `skills/prompt-library/references/templates/<template>.md`
 
-3. `{{placeholder}}` をあなたの状況に合わせて埋めて使う
+1. `{{placeholder}}` をあなたの状況に合わせて埋めて使う
+
    - このスキル自体は placeholder 埋め（context適用）を自動では行いません。
 
 ## テンプレ一覧

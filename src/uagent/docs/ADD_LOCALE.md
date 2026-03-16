@@ -35,6 +35,7 @@ pybabel extract -F babel.cfg -o src/uagent/locales/uag.pot .
 ```
 
 Notes:
+
 - `babel.cfg` defines which source file patterns are scanned.
 
 ## 2. Initialize the locale
@@ -54,6 +55,7 @@ This creates:
 We keep the catalogs aligned across languages by pruning tool-derived entries.
 
 Recommended approach:
+
 - Start from `src/uagent/locales/uag.pot` (or an existing en/ja PO)
 - Remove entries whose occurrence path starts with `src/uagent/tools/`
 
@@ -85,6 +87,7 @@ Language selection is done via `UAGENT_LANG`.
 - Set e.g. `UAGENT_LANG=zh_CN` and run:
 
 Windows (cmd):
+
 ```bat
 set UAGENT_LANG=zh_CN
 python scheck.py
