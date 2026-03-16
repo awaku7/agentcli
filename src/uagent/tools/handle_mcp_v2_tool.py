@@ -153,7 +153,9 @@ def _format_result(result: Any) -> str:
         pass
 
     def _save_download(filename: str, data: bytes) -> str:
-        dl_dir = os.path.abspath(os.path.join(os.getcwd(), "downloads"))
+        # Prefer explicit download dir if provided
+        env_dir = env_get("UAGENT_DOWNLOAD_DIR")
+        dl_dir = os.path.abspath(os.path.expanduser(env_dir)) if env_dir else os.path.abspath(os.path.join(os.getcwd(), "downloads"))
         os.makedirs(dl_dir, exist_ok=True)
 
         base = os.path.basename(filename) or "download.bin"
