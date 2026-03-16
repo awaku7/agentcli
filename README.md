@@ -35,7 +35,7 @@ ______________________________________________________________________
 
 Host-side UI strings are localized via gettext catalogs.
 
-- Language selection: set `UAGENT_LANG` (examples: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`).
+- Language selection: set `UAGENT_LANG` (examples: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`, `th`).
 - If `UAGENT_LANG` is unset or unsupported, uag falls back to English.
 
 Examples:
