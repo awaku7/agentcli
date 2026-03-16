@@ -709,14 +709,20 @@ def run_llm_rounds(
                                 "high",
                                 "xhigh",
                             ):
-                                resp_kwargs["reasoning"] = {"effort": _effort_used}
+                                # Some OpenAI/Azure models do not accept effort="minimal" (or "xhigh").
+                                # Map to a widely-supported set.
+                                _effort_send = _effort_used
+                                if _effort_send == "minimal":
+                                    _effort_send = "low"
+                                elif _effort_send == "xhigh":
+                                    _effort_send = "high"
+
+                                resp_kwargs["reasoning"] = {"effort": _effort_send}
                                 try:
                                     if _reasoning == "auto":
-                                        core.set_status(
-                                            True, f"LLM:auto->{_effort_used}"
-                                        )
+                                        core.set_status(True, f"LLM:auto->{_effort_send}")
                                     else:
-                                        core.set_status(True, f"LLM:{_effort_used}")
+                                        core.set_status(True, f"LLM:{_effort_send}")
                                 except Exception:
                                     pass
 
@@ -788,9 +794,15 @@ def run_llm_rounds(
                                         "high",
                                         "xhigh",
                                     ):
-                                        resp_kwargs["reasoning"] = {
-                                            "effort": _next_effort
-                                        }
+                                        # Some OpenAI/Azure models do not accept effort="minimal" (or "xhigh").
+                                        # Map to a widely-supported set.
+                                        _effort_send2 = _next_effort
+                                        if _effort_send2 == "minimal":
+                                            _effort_send2 = "low"
+                                        elif _effort_send2 == "xhigh":
+                                            _effort_send2 = "high"
+
+                                        resp_kwargs["reasoning"] = {"effort": _effort_send2}
                                         try:
                                             core.set_status(
                                                 True, f"LLM:auto->{_next_effort}"
