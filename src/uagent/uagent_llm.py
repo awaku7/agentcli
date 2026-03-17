@@ -131,30 +131,57 @@ def _bump_effort(effort: str | None) -> str | None:
 
 
 def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
+    """Heuristic detector for unusable assistant outputs (for auto-retry).
+
+    Goals:
+    - Be as language-agnostic as possible.
+    - Prefer structural checks (empty/too short/format mismatch) over phrase lists.
+    - Keep a small set of broad refusal/unknown patterns as a backstop.
+
+    This is intentionally conservative: it is used only to decide a single retry.
+    """
+
     a = (assistant_text or "").strip()
     if not a:
         return True
 
+    # Too short often indicates refusal, truncation, or a non-answer.
+    if len(a) < 8:
+        return True
+
     al = a.lower()
 
-    # "can't / don't know" patterns
-    if re.search(
-        r"(i can't|i cannot|cannot|unable to|don't know|do not know|can't help|cannot help)",
-        al,
-    ):
-        return True
-    if re.search(
-        r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)",
-        a,
-    ):
-        return True
-
-    # format/requirements: JSON requested
+    # If the user asked for JSON, require that the output "looks like" JSON.
     ut = (user_text or "").lower()
     if "json" in ut:
         s = a.lstrip()
-        if not (s.startswith("{") or s.startswith("[") or "```json" in s.lower()):
+        if not (
+            s.startswith("{")
+            or s.startswith("[")
+            or "```json" in s.lower()
+        ):
             return True
+
+    # Broad refusal / inability / uncertainty patterns.
+    # (We keep these mostly English; if a translation layer is used upstream,
+    # they will still help. Without translation, structural checks above still work.)
+    refusal_patterns = (
+        r"\b(i\s*(can't|cannot)|unable\s+to|won't)\b",
+        r"\b(i\s+do\s+not\s+know|i\s+don't\s+know|dont\s+know|not\s+sure)\b",
+        r"\b(as\s+an\s+ai|i\s+cannot\s+access|i\s+can't\s+access|no\s+access)\b",
+        r"\b(i\s+can't\s+help\s+with|i\s+cannot\s+help\s+with|i\s+can't\s+assist|i\s+cannot\s+assist)\b",
+        r"\b(i\s+can't\s+comply|i\s+cannot\s+comply|not\s+able\s+to\s+comply)\b",
+        r"\b(sorry,?\s+i\s+(can't|cannot))\b",
+        # Keep a small Japanese backstop too.
+        r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)",
+    )
+
+    for pat in refusal_patterns:
+        try:
+            if re.search(pat, al, flags=re.IGNORECASE):
+                return True
+        except Exception:
+            continue
 
     return False
 

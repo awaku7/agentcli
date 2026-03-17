@@ -137,49 +137,23 @@ async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
 def _format_result(result: Any) -> str:
     """Format MCP tool results for LLM.
 
-    Return value policy (IMPORTANT):
-    - Always return a JSON *string* so downstream (skills/templates) can reliably access fields.
-    - Include at least: ok, text, saved_path (when applicable).
+    Return value policy:
+    - Return a human-readable string.
+    - If a file is saved locally or the server indicates a saved path, return: "[Saved] <path>".
 
-    This preserves a human-readable summary in `text` while keeping a stable machine-readable
-    structure for skill pipelines.
+    NOTE: Some skill pipelines may prefer structured JSON. If needed, wrap this function
+    in a separate formatter rather than changing this return type.
     """
-
-    def _json_out(
-        *,
-        ok: bool,
-        text: str | None = None,
-        saved_path: str | None = None,
-        error: str | None = None,
-        raw: Any | None = None,
-    ) -> str:
-        payload: Dict[str, Any] = {"ok": ok}
-        if text is not None:
-            payload["text"] = text
-        if saved_path is not None:
-            payload["saved_path"] = saved_path
-        if error is not None:
-            payload["error"] = error
-        if raw is not None:
-            payload["raw"] = raw
-        return json.dumps(payload, ensure_ascii=False)
 
     # 0) Plain string
     if isinstance(result, str):
-        # Preserve original text
-        t = result.strip()
-        is_err = (
-            ("[Error]" in t) or t.startswith("Error:") or t.startswith("Login Error:")
-        )
-        return _json_out(
-            ok=(not is_err), text=result, error=(result if is_err else None)
-        )
+        return result
 
     # 1) Server-side saved file
     try:
         if isinstance(result, dict) and result.get("saved_path"):
             sp = str(result.get("saved_path"))
-            return _json_out(ok=True, text=f"[Saved] {sp}", saved_path=sp, raw=result)
+            return f"[Saved] {sp}"
     except Exception:
         pass
 
@@ -218,14 +192,9 @@ def _format_result(result: Any) -> str:
 
             raw_bytes = base64.b64decode(result.get("data_base64") or "")
             path = _save_download(str(result.get("filename")), raw_bytes)
-            return _json_out(
-                ok=True,
-                text=f"[Saved] {path}",
-                saved_path=path,
-                raw={"filename": result.get("filename"), "mime": result.get("mime")},
-            )
+            return f"[Saved] {path}"
     except Exception as e:
-        return _json_out(ok=False, error=f"Failed to save returned file payload: {e}")
+        return f"[Error] Failed to save returned file payload: {e}"
 
     output_parts: List[str] = []
     saved_path: str | None = None
