@@ -61,7 +61,13 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "handle_mcp_v2",
         "description": _(
             "tool.description",
-            default="Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
+            default=(
+                "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments. "
+                "Return value is a JSON string with at least: ok and text. "
+                "When applicable, saved_path is included (e.g., when the server returns saved_path, or when a file payload like "
+                "{filename, mime, data_base64} is returned and this client saves it to a local downloads directory). "
+                "Note: saved_path may be omitted when the tool does not return any file payload."
+            ),
         ),
         "parameters": {
             "type": "object",
