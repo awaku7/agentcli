@@ -31,14 +31,16 @@ TOOL_SPEC: Dict[str, Any] = {
             "properties": {
                 "action": {
                     "type": "string",
-                    "enum": ["read", "write", "get_sheet_names"],
+                    "enum": ["read", "write", "get_sheet_names", "keep_only_sheets"],
                     "description": _(
                         "param.action.description",
                         default=(
                             "Operation to perform.\n"
                             "- 'read': read the specified sheet and return JSON.\n"
                             "- 'write': write JSON data to the specified sheet (create file if missing).\n"
-                            "- 'get_sheet_names': get a list of sheet names."
+                            "- 'get_sheet_names': get a list of sheet names.\n"
+                            "- 'keep_only_sheets': create a new workbook (output_path) that keeps only the specified sheets. "
+                            "It copies values (not formulas) from the source workbook."
                         ),
                     ),
                 },
@@ -65,6 +67,27 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Data to write (JSON string).",
                     ),
                 },
+                "keep_sheets": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.keep_sheets.description",
+                        default=(
+                            "Sheet names to keep (used only for action='keep_only_sheets'). "
+                            "If any specified sheet does not exist, the tool errors."
+                        ),
+                    ),
+                },
+                "output_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.output_path.description",
+                        default=(
+                            "Output path for action='keep_only_sheets'. If it already exists, it is overwritten after creating a backup "
+                            "(<output_path>.org / <output_path>.org1 / ...)."
+                        ),
+                    ),
+                },
             },
             "required": ["action", "file_path"],
         },
@@ -84,13 +107,22 @@ def _backup_path(path: str) -> str:
         i += 1
 
 
+def _backup_file_if_exists(path: str) -> str | None:
+    if not os.path.exists(path):
+        return None
+    backup = _backup_path(path)
+    with open(path, "rb") as fsrc, open(backup, "wb") as fdst:
+        fdst.write(fsrc.read())
+    return backup
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     action = args.get("action")
     file_path = str(args.get("file_path", "") or "").strip()
     sheet_name = args.get("sheet_name")
     data_str = args.get("data")
 
-    if action not in ("read", "write", "get_sheet_names"):
+    if action not in ("read", "write", "get_sheet_names", "keep_only_sheets"):
         raise ValueError("Invalid action")
 
     if not file_path:
@@ -119,11 +151,95 @@ def run_tool(args: Dict[str, Any]) -> str:
         finally:
             wb.close()
 
+    if action == "keep_only_sheets":
+        keep_sheets = args.get("keep_sheets")
+        output_path = str(args.get("output_path", "") or "").strip()
+
+        if not isinstance(keep_sheets, list) or not keep_sheets or not all(
+            isinstance(s, str) and s.strip() for s in keep_sheets
+        ):
+            raise ValueError("keep_sheets (non-empty array of sheet names) is required for keep_only_sheets")
+
+        keep_sheets = [str(s).strip() for s in keep_sheets]
+
+        if not output_path:
+            raise ValueError("output_path is required for keep_only_sheets")
+
+        # Overwrite allowed; create backup if exists.
+        backup = _backup_file_if_exists(output_path)
+
+        # Read values from a recalculated file (call recalc_excel before this tool if needed).
+        wb_src = openpyxl.load_workbook(file_path, data_only=True)
+        try:
+            missing = [s for s in keep_sheets if s not in wb_src.sheetnames]
+            if missing:
+                raise ValueError(f"keep_sheets contains non-existent sheets: {missing}")
+
+            wb_out = openpyxl.Workbook()
+            try:
+                # Remove default sheet
+                if wb_out.sheetnames:
+                    wb_out.remove(wb_out[wb_out.sheetnames[0]])
+
+                for sname in keep_sheets:
+                    ws_src = wb_src[sname]
+                    ws_out = wb_out.create_sheet(title=sname)
+
+                    # Best-effort layout copy
+                    try:
+                        ws_out.sheet_format = ws_src.sheet_format
+                    except Exception:
+                        pass
+
+                    # Row heights
+                    try:
+                        for r, dim in ws_src.row_dimensions.items():
+                            if dim and dim.height is not None:
+                                ws_out.row_dimensions[r].height = dim.height
+                    except Exception:
+                        pass
+
+                    # Column widths
+                    try:
+                        for col, dim in ws_src.column_dimensions.items():
+                            if dim and dim.width is not None:
+                                ws_out.column_dimensions[col].width = dim.width
+                    except Exception:
+                        pass
+
+                    # Values
+                    for row in ws_src.iter_rows(values_only=True):
+                        ws_out.append(list(row))
+
+                    # Merged cells (ranges only)
+                    try:
+                        for rng in list(ws_src.merged_cells.ranges):
+                            ws_out.merge_cells(str(rng))
+                    except Exception:
+                        pass
+
+                os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+                wb_out.save(output_path)
+            finally:
+                wb_out.close()
+
+            return json.dumps(
+                {
+                    "ok": True,
+                    "file_path": file_path,
+                    "output_path": output_path,
+                    "backup": backup,
+                    "kept_sheets": keep_sheets,
+                    "note": "Values-only copy. Call recalc_excel before this tool if you need updated formula results.",
+                },
+                ensure_ascii=False,
+            )
+        finally:
+            wb_src.close()
+
     # write
     if os.path.exists(file_path):
-        backup = _backup_path(file_path)
-        with open(file_path, "rb") as fsrc, open(backup, "wb") as fdst:
-            fdst.write(fsrc.read())
+        _backup_file_if_exists(file_path)
 
     if os.path.exists(file_path):
         wb = openpyxl.load_workbook(file_path)
