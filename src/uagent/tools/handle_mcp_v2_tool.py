@@ -94,7 +94,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["tool_name"],
+            "required": ["tool_name", "tool_arguments"],
         },
     },
 }
@@ -196,7 +196,28 @@ def _format_result(result: Any) -> str:
         for content in result.content:
             # TextContent
             if hasattr(content, "text"):
-                output_parts.append(content.text)
+                text = content.text
+                if isinstance(text, str):
+                    # Best-effort: if the text itself is JSON containing a file payload, save it.
+                    try:
+                        parsed = json.loads(text)
+                        if isinstance(parsed, dict):
+                            # Server-side saved file
+                            if parsed.get("saved_path"):
+                                output_parts.append(f"[Saved] {parsed.get('saved_path')}")
+                                continue
+                            # Base64 payload
+                            if parsed.get("data_base64") and parsed.get("filename"):
+                                import base64
+
+                                raw = base64.b64decode(parsed.get("data_base64") or "")
+                                path = _save_download(str(parsed.get("filename")), raw)
+                                output_parts.append(f"[Saved] {path}")
+                                continue
+                    except Exception:
+                        pass
+
+                output_parts.append(str(text))
                 continue
 
             # ImageContent (keep existing behavior)
