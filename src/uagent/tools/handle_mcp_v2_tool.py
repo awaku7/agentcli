@@ -8,6 +8,7 @@ import json
 import asyncio
 import sys
 import os
+import re
 from ..env_utils import env_get
 from typing import Any, Dict, List
 
@@ -131,37 +132,60 @@ async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
 def _format_result(result: Any) -> str:
     """Format MCP tool results for LLM.
 
-    - If the tool returns a file payload as base64, save it under ./downloads and return the saved path.
-    - If the tool returns {"saved_path": ...} (server-side saved), return "[Saved] <saved_path>".
-    - If the result is a plain string, return it as-is.
+    Return value policy (IMPORTANT):
+    - Always return a JSON *string* so downstream (skills/templates) can reliably access fields.
+    - Include at least: ok, text, saved_path (when applicable).
 
-    Supported payload shapes:
-    - Plain dict: {"filename": str, "mime": str, "data_base64": str}
-    - Plain dict: {"saved_path": str, "filename": str}
-    - ToolResult-like with content blocks (best-effort): objects that expose attributes like filename/name + data_base64/blob
+    This preserves a human-readable summary in `text` while keeping a stable machine-readable
+    structure for skill pipelines.
     """
+
+    def _json_out(
+        *,
+        ok: bool,
+        text: str | None = None,
+        saved_path: str | None = None,
+        error: str | None = None,
+        raw: Any | None = None,
+    ) -> str:
+        payload: Dict[str, Any] = {"ok": ok}
+        if text is not None:
+            payload["text"] = text
+        if saved_path is not None:
+            payload["saved_path"] = saved_path
+        if error is not None:
+            payload["error"] = error
+        if raw is not None:
+            payload["raw"] = raw
+        return json.dumps(payload, ensure_ascii=False)
 
     # 0) Plain string
     if isinstance(result, str):
-        return result
+        # Preserve original text
+        t = result.strip()
+        is_err = ("[Error]" in t) or t.startswith("Error:") or t.startswith("Login Error:")
+        return _json_out(ok=(not is_err), text=result, error=(result if is_err else None))
 
     # 1) Server-side saved file
     try:
         if isinstance(result, dict) and result.get("saved_path"):
-            return f"[Saved] {result.get('saved_path')}"
+            sp = str(result.get("saved_path"))
+            return _json_out(ok=True, text=f"[Saved] {sp}", saved_path=sp, raw=result)
     except Exception:
         pass
 
     def _save_download(filename: str, data: bytes) -> str:
-        # Prefer explicit download dir if provided
         env_dir = env_get("UAGENT_DOWNLOAD_DIR")
-        dl_dir = os.path.abspath(os.path.expanduser(env_dir)) if env_dir else os.path.abspath(os.path.join(os.getcwd(), "downloads"))
+        dl_dir = (
+            os.path.abspath(os.path.expanduser(env_dir))
+            if env_dir
+            else os.path.abspath(os.path.join(os.getcwd(), "downloads"))
+        )
         os.makedirs(dl_dir, exist_ok=True)
 
         base = os.path.basename(filename) or "download.bin"
         save_path = os.path.join(dl_dir, base)
 
-        # Avoid overwrite collisions
         if os.path.exists(save_path):
             root, ext = os.path.splitext(base)
             for i in range(1, 1000):
@@ -174,44 +198,47 @@ def _format_result(result: Any) -> str:
             f.write(data)
         return save_path
 
-    # 0) If server returned plain dict payload
+    # 2) If server returned plain dict payload (base64 file)
     try:
-        if (
-            isinstance(result, dict)
-            and result.get("data_base64")
-            and result.get("filename")
-        ):
+        if isinstance(result, dict) and result.get("data_base64") and result.get("filename"):
             import base64
 
-            raw = base64.b64decode(result.get("data_base64") or "")
-            path = _save_download(str(result.get("filename")), raw)
-            return f"[Saved] {path}"
+            raw_bytes = base64.b64decode(result.get("data_base64") or "")
+            path = _save_download(str(result.get("filename")), raw_bytes)
+            return _json_out(
+                ok=True,
+                text=f"[Saved] {path}",
+                saved_path=path,
+                raw={"filename": result.get("filename"), "mime": result.get("mime")},
+            )
     except Exception as e:
-        return f"[Error] Failed to save returned file payload: {e}"
+        return _json_out(ok=False, error=f"Failed to save returned file payload: {e}")
 
     output_parts: List[str] = []
+    saved_path: str | None = None
 
-    # 1) ToolResult-like with content blocks
+    # 3) ToolResult-like with content blocks
     if hasattr(result, "content"):
         for content in result.content:
             # TextContent
             if hasattr(content, "text"):
                 text = content.text
                 if isinstance(text, str):
-                    # Best-effort: if the text itself is JSON containing a file payload, save it.
+                    # If the text itself is JSON containing a file payload, save it.
                     try:
                         parsed = json.loads(text)
                         if isinstance(parsed, dict):
-                            # Server-side saved file
                             if parsed.get("saved_path"):
-                                output_parts.append(f"[Saved] {parsed.get('saved_path')}")
+                                sp = str(parsed.get("saved_path"))
+                                saved_path = saved_path or sp
+                                output_parts.append(f"[Saved] {sp}")
                                 continue
-                            # Base64 payload
                             if parsed.get("data_base64") and parsed.get("filename"):
                                 import base64
 
-                                raw = base64.b64decode(parsed.get("data_base64") or "")
-                                path = _save_download(str(parsed.get("filename")), raw)
+                                raw_bytes = base64.b64decode(parsed.get("data_base64") or "")
+                                path = _save_download(str(parsed.get("filename")), raw_bytes)
+                                saved_path = saved_path or path
                                 output_parts.append(f"[Saved] {path}")
                                 continue
                     except Exception:
@@ -220,7 +247,7 @@ def _format_result(result: Any) -> str:
                 output_parts.append(str(text))
                 continue
 
-            # ImageContent (keep existing behavior)
+            # ImageContent
             if hasattr(content, "data") and hasattr(content, "mimeType"):
                 output_parts.append(f"[Binary/Image data: {content.mimeType}]")
                 continue
@@ -229,31 +256,18 @@ def _format_result(result: Any) -> str:
             try:
                 import base64
 
-                # Try common attribute names
-                b64 = getattr(content, "blob", None) or getattr(
-                    content, "data_base64", None
-                )
-                fname = getattr(content, "filename", None) or getattr(
-                    content, "name", None
-                )
+                b64 = getattr(content, "blob", None) or getattr(content, "data_base64", None)
+                fname = getattr(content, "filename", None) or getattr(content, "name", None)
 
-                # Some SDKs wrap resource under .resource
                 res = getattr(content, "resource", None)
                 if res is not None:
-                    b64 = (
-                        b64
-                        or getattr(res, "blob", None)
-                        or getattr(res, "data_base64", None)
-                    )
-                    fname = (
-                        fname
-                        or getattr(res, "filename", None)
-                        or getattr(res, "name", None)
-                    )
+                    b64 = b64 or getattr(res, "blob", None) or getattr(res, "data_base64", None)
+                    fname = fname or getattr(res, "filename", None) or getattr(res, "name", None)
 
                 if b64:
-                    raw = base64.b64decode(b64)
-                    path = _save_download(str(fname or "download.bin"), raw)
+                    raw_bytes = base64.b64decode(b64)
+                    path = _save_download(str(fname or "download.bin"), raw_bytes)
+                    saved_path = saved_path or path
                     output_parts.append(f"[Saved] {path}")
                     continue
 
@@ -262,13 +276,14 @@ def _format_result(result: Any) -> str:
                 continue
 
     if not output_parts:
-        return json.dumps(
-            result,
-            default=lambda x: str(x),
-            ensure_ascii=False,
-            indent=2,
-        )
-    return "\n".join(output_parts)
+        try:
+            raw_text = json.dumps(result, default=lambda x: str(x), ensure_ascii=False)
+        except Exception:
+            raw_text = str(result)
+        return _json_out(ok=True, text=raw_text, raw=result)
+
+    return _json_out(ok=True, text="\n".join(output_parts), saved_path=saved_path)
+
 
 
 def run_tool(args: Dict[str, Any]) -> str:
