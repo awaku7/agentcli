@@ -720,7 +720,9 @@ def run_llm_rounds(
                                 resp_kwargs["reasoning"] = {"effort": _effort_send}
                                 try:
                                     if _reasoning == "auto":
-                                        core.set_status(True, f"LLM:auto->{_effort_send}")
+                                        core.set_status(
+                                            True, f"LLM:auto->{_effort_send}"
+                                        )
                                     else:
                                         core.set_status(True, f"LLM:{_effort_send}")
                                 except Exception:
@@ -802,7 +804,9 @@ def run_llm_rounds(
                                         elif _effort_send2 == "xhigh":
                                             _effort_send2 = "high"
 
-                                        resp_kwargs["reasoning"] = {"effort": _effort_send2}
+                                        resp_kwargs["reasoning"] = {
+                                            "effort": _effort_send2
+                                        }
                                         try:
                                             core.set_status(
                                                 True, f"LLM:auto->{_next_effort}"
