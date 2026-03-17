@@ -1,36 +1,30 @@
-______________________________________________________________________
-
+---
 name: vup-and-release-whl
 description: |
-pyproject.toml の version を patch で +1 し、commit + push したうえで
-dist/\*.whl を GitHub Releases または GitLab (Generic Package + Release link) にアップロードする手順。
+  pyproject.toml の version を patch で +1 し、commit + push したうえで
+  dist/*.whl を GitHub Releases または GitLab (Generic Package + Release link) にアップロードする手順。
 
-対象リポジトリ例:
+  対象リポジトリ例:
 
-- GitHub: https://github.com/awaku7/agentcli
-- GitLab(オンプレ): http(s)://<host>\[/<subpath>\]/...
-  license: Apache-2.0
-
-______________________________________________________________________
+  - GitHub: https://github.com/awaku7/agentcli
+  - GitLab(オンプレ): http(s)://<host>[/<subpath>]/...
+license: Apache-2.0
+---
 
 # vup-and-release-whl
 
 このスキルは **手順（運用Runbook）** です。ツールを自動実行するスキルではなく、
 ローカルの作業手順と確認ポイントをまとめたものです。
 
-______________________________________________________________________
-
 # 0) 最初に選ぶ（GitHub / GitLab）
 
 最初に、どちらへ配布するかを決めます。
 
 - **GitHub Releases にアップロード**する → [GitHub 手順](#github-%E6%89%8B%E9%A0%86)
-- \*\*GitLab（Generic Package Registry + Release asset link）\*\*にアップロードする → [GitLab 手順](#gitlab-%E6%89%8B%E9%A0%86)
+- **GitLab（Generic Package Registry + Release asset link）**にアップロードする → [GitLab 手順](#gitlab-%E6%89%8B%E9%A0%86)
 
 > 注: 「GitLab の PyPI Registry に載せたい」用途は、この手順の対象外です。
-> GitLab 側は `upload_whl_http.py` により \*\*Generic package（ファイル）\*\*としてアップロードします。
-
-______________________________________________________________________
+> GitLab 側は `upload_whl_http.py` により **Generic package（ファイル）**としてアップロードします。
 
 # 共通（GitHub/GitLab 共通）: version up 〜 push 〜 wheel build
 
@@ -63,7 +57,7 @@ git diff -- pyproject.toml
 
 ## 2.1)
 
-- workdir以下のバックアップファイル\*.orgNを全部削除します。
+- workdir以下のバックアップファイル*.orgNを全部削除します。
 
 ## 3) commit
 
@@ -82,8 +76,6 @@ git push origin main
 
 > 重要: commit/push は破壊的操作です。push先ブランチが `main` でよいことを確認してください。
 
-______________________________________________________________________
-
 # wheel を作る（例）
 
 プロジェクトのビルド方法に依存します。一般的な例:
@@ -94,8 +86,6 @@ python -m build
 ```
 
 成果物は通常 `dist/*.whl` に出ます。
-
-______________________________________________________________________
 
 # GitHub 手順
 
@@ -142,8 +132,6 @@ python upload_whl_github.py --latest dist --tag v0.3.10 --create-tag --create-re
 ```bash
 python upload_whl_github.py dist/uag-0.3.10-py3-none-any.whl --tag v0.3.10 --create-tag --create-release
 ```
-
-______________________________________________________________________
 
 # GitLab 手順
 
@@ -209,8 +197,6 @@ python upload_whl_http.py dist/uag-0.3.10-py3-none-any.whl --tag v0.3.10 --creat
 ```bash
 python upload_whl_http.py --latest dist --tag v0.3.10 --base-tag v0.3.9 --generate-description --ensure-release --overwrite-link
 ```
-
-______________________________________________________________________
 
 # トラブルシュート（共通）
 
