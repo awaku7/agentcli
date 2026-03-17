@@ -149,6 +149,9 @@ python upload_whl_github.py dist/uag-0.3.10-py3-none-any.whl --tag v0.3.10 --cre
 
 ### 必要な環境変数
 
+> `upload_whl_http.py` は、以下の環境変数を自動で読み取って API を呼び出します。
+> 事前に環境変数へ設定しておけば、コマンド実行時にトークン等を入力する必要はありません。
+
 - `GITLAB_HOST`
   - 例: `http://wgspace.sbc.nttdata-sbc.co.jp/gitlab/`
 - `GITLAB_PROJECT_ID`
