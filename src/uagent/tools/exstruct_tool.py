@@ -150,46 +150,87 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not file_path:
         raise ValueError("file_path is required")
 
-    mode = args.get("mode")
-    include_shapes = bool(args.get("include_shapes", False))
-    include_cell_links = args.get("include_cell_links")
-    pretty = bool(args.get("pretty", False))
-    fmt = str(args.get("format") or "json")
+    # exstruct (current) API reference (confirmed in this environment):
+    # - extract(file_path, mode='standard', *, alpha_col=False) -> WorkbookData
+    # - export(data, path, fmt=None, *, pretty=False, indent=None) -> None
+    # - set_table_detection_params(...)
 
-    output_path = args.get("output_path")
-    sheets_dir = args.get("sheets_dir")
-    print_areas_dir = args.get("print_areas_dir")
-    auto_page_breaks_dir = args.get("auto_page_breaks_dir")
+    mode = str(args.get("mode") or "standard")
+    alpha_col = bool(args.get("alpha_col", False))
+
+    # Compatibility: these flags are not controllable via extract() in current exstruct.
+    # We accept them but do not enforce them.
+    _ = bool(args.get("include_shapes", False))
+    _ = args.get("include_cell_links")
+
+    pretty = bool(args.get("pretty", False))
+    fmt = str(args.get("format") or "json").lower()
+
+    output_path = str(args.get("output_path") or "").strip()
     table_score_threshold = args.get("table_score_threshold")
     density_min = args.get("density_min")
 
-    if action == "extract":
-        out = exstruct.extract(
-            file_path,
-            mode=mode,
-            include_shapes=include_shapes,
-            include_cell_links=include_cell_links,
-            pretty=pretty,
-            format=fmt,
-            table_score_threshold=table_score_threshold,
-            density_min=density_min,
-        )
-        return str(out)
+    # Apply table detection params when provided
+    try:
+        if table_score_threshold is not None or density_min is not None:
+            exstruct.set_table_detection_params(
+                table_score_threshold=table_score_threshold,
+                density_min=density_min,
+            )
+    except Exception:
+        # Best-effort: ignore if API changes
+        pass
 
-    # export_file
-    out = exstruct.export_file(
+    data = exstruct.extract(
         file_path,
         mode=mode,
-        include_shapes=include_shapes,
-        include_cell_links=include_cell_links,
-        pretty=pretty,
-        format=fmt,
-        output_path=output_path,
-        sheets_dir=sheets_dir,
-        print_areas_dir=print_areas_dir,
-        auto_page_breaks_dir=auto_page_breaks_dir,
-        table_score_threshold=table_score_threshold,
-        density_min=density_min,
+        alpha_col=alpha_col,
     )
 
-    return json.dumps({"ok": True, "output_path": out}, ensure_ascii=False)
+    if action == "extract":
+        # Return as JSON/YAML string without touching filesystem.
+        # export() requires a path, so we serialize in-process.
+        try:
+            as_dict = data.model_dump()  # pydantic v2
+        except Exception:
+            try:
+                as_dict = data.dict()  # pydantic v1
+            except Exception:
+                # Fallback: stringify
+                return str(data)
+
+        if fmt == "yaml" or fmt == "yml":
+            try:
+                import yaml  # type: ignore
+
+                return yaml.safe_dump(
+                    as_dict,
+                    allow_unicode=True,
+                    sort_keys=False,
+                )
+            except Exception as e:
+                raise RuntimeError(
+                    "YAML output requested but PyYAML is not available or failed. "
+                    f"Install pyyaml or use format=json. Details: {e}"
+                )
+
+        return json.dumps(
+            as_dict,
+            ensure_ascii=False,
+            indent=2 if pretty else None,
+        )
+
+    # export_file: save via exstruct.export (this matches latest API).
+    if not output_path:
+        raise ValueError("output_path is required for export_file")
+
+    # Backup behavior is handled by the agent framework for tools that write.
+    # Here we write directly via exstruct.export.
+    exstruct.export(
+        data,
+        output_path,
+        fmt=fmt,
+        pretty=pretty,
+    )
+
+    return json.dumps({"ok": True, "output_path": output_path}, ensure_ascii=False)
