@@ -155,10 +155,14 @@ def run_tool(args: Dict[str, Any]) -> str:
         keep_sheets = args.get("keep_sheets")
         output_path = str(args.get("output_path", "") or "").strip()
 
-        if not isinstance(keep_sheets, list) or not keep_sheets or not all(
-            isinstance(s, str) and s.strip() for s in keep_sheets
+        if (
+            not isinstance(keep_sheets, list)
+            or not keep_sheets
+            or not all(isinstance(s, str) and s.strip() for s in keep_sheets)
         ):
-            raise ValueError("keep_sheets (non-empty array of sheet names) is required for keep_only_sheets")
+            raise ValueError(
+                "keep_sheets (non-empty array of sheet names) is required for keep_only_sheets"
+            )
 
         keep_sheets = [str(s).strip() for s in keep_sheets]
 
