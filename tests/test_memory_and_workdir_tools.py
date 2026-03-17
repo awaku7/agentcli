@@ -13,7 +13,9 @@ def _loads_json(s: str) -> dict:
     return obj
 
 
-def test_add_get_long_memory_roundtrip(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_add_get_long_memory_roundtrip(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.add_long_memory_tool import run_tool as add_long_memory
     from uagent.tools.get_long_memory_tool import run_tool as get_long_memory
 
@@ -28,7 +30,9 @@ def test_add_get_long_memory_roundtrip(repo_tmp_path: Path, monkeypatch: pytest.
     assert "note-1" in out2
 
 
-def test_add_long_memory_rejects_empty_note(monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path) -> None:
+def test_add_long_memory_rejects_empty_note(
+    monkeypatch: pytest.MonkeyPatch, repo_tmp_path: Path
+) -> None:
     from uagent.tools.add_long_memory_tool import run_tool as add_long_memory
 
     mem = repo_tmp_path / "mem.jsonl"
@@ -38,7 +42,9 @@ def test_add_long_memory_rejects_empty_note(monkeypatch: pytest.MonkeyPatch, rep
     assert "error" in out.lower() or "empty" in out.lower()
 
 
-def test_add_get_shared_memory_roundtrip(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_add_get_shared_memory_roundtrip(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.add_shared_memory_tool import run_tool as add_shared_memory
     from uagent.tools.get_shared_memory_tool import run_tool as get_shared_memory
 
@@ -53,7 +59,9 @@ def test_add_get_shared_memory_roundtrip(repo_tmp_path: Path, monkeypatch: pytes
     assert "shared-1" in out2
 
 
-def test_add_shared_memory_empty_note_is_noop(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_add_shared_memory_empty_note_is_noop(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.add_shared_memory_tool import run_tool as add_shared_memory
 
     shared = repo_tmp_path / "shared.jsonl"
@@ -63,7 +71,9 @@ def test_add_shared_memory_empty_note_is_noop(repo_tmp_path: Path, monkeypatch: 
     assert "nothing saved" in out.lower()
 
 
-def test_change_workdir_confirm_false(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_change_workdir_confirm_false(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.change_workdir_tool import run_tool as change_workdir
 
     # ensure we restore cwd after the test
@@ -76,7 +86,9 @@ def test_change_workdir_confirm_false(repo_tmp_path: Path, monkeypatch: pytest.M
         os.chdir(old)
 
 
-def test_change_workdir_confirm_true_accepts_y(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_change_workdir_confirm_true_accepts_y(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.change_workdir_tool import run_tool as change_workdir
 
     def fake_human_ask(_args: dict) -> str:

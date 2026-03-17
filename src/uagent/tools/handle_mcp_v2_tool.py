@@ -8,7 +8,6 @@ import json
 import asyncio
 import sys
 import os
-import re
 from ..env_utils import env_get
 from typing import Any, Dict, List
 
@@ -169,8 +168,12 @@ def _format_result(result: Any) -> str:
     if isinstance(result, str):
         # Preserve original text
         t = result.strip()
-        is_err = ("[Error]" in t) or t.startswith("Error:") or t.startswith("Login Error:")
-        return _json_out(ok=(not is_err), text=result, error=(result if is_err else None))
+        is_err = (
+            ("[Error]" in t) or t.startswith("Error:") or t.startswith("Login Error:")
+        )
+        return _json_out(
+            ok=(not is_err), text=result, error=(result if is_err else None)
+        )
 
     # 1) Server-side saved file
     try:
@@ -206,7 +209,11 @@ def _format_result(result: Any) -> str:
 
     # 2) If server returned plain dict payload (base64 file)
     try:
-        if isinstance(result, dict) and result.get("data_base64") and result.get("filename"):
+        if (
+            isinstance(result, dict)
+            and result.get("data_base64")
+            and result.get("filename")
+        ):
             import base64
 
             raw_bytes = base64.b64decode(result.get("data_base64") or "")
@@ -242,8 +249,12 @@ def _format_result(result: Any) -> str:
                             if parsed.get("data_base64") and parsed.get("filename"):
                                 import base64
 
-                                raw_bytes = base64.b64decode(parsed.get("data_base64") or "")
-                                path = _save_download(str(parsed.get("filename")), raw_bytes)
+                                raw_bytes = base64.b64decode(
+                                    parsed.get("data_base64") or ""
+                                )
+                                path = _save_download(
+                                    str(parsed.get("filename")), raw_bytes
+                                )
                                 saved_path = saved_path or path
                                 output_parts.append(f"[Saved] {path}")
                                 continue
@@ -262,13 +273,25 @@ def _format_result(result: Any) -> str:
             try:
                 import base64
 
-                b64 = getattr(content, "blob", None) or getattr(content, "data_base64", None)
-                fname = getattr(content, "filename", None) or getattr(content, "name", None)
+                b64 = getattr(content, "blob", None) or getattr(
+                    content, "data_base64", None
+                )
+                fname = getattr(content, "filename", None) or getattr(
+                    content, "name", None
+                )
 
                 res = getattr(content, "resource", None)
                 if res is not None:
-                    b64 = b64 or getattr(res, "blob", None) or getattr(res, "data_base64", None)
-                    fname = fname or getattr(res, "filename", None) or getattr(res, "name", None)
+                    b64 = (
+                        b64
+                        or getattr(res, "blob", None)
+                        or getattr(res, "data_base64", None)
+                    )
+                    fname = (
+                        fname
+                        or getattr(res, "filename", None)
+                        or getattr(res, "name", None)
+                    )
 
                 if b64:
                     raw_bytes = base64.b64decode(b64)
@@ -289,7 +312,6 @@ def _format_result(result: Any) -> str:
         return _json_out(ok=True, text=raw_text, raw=result)
 
     return _json_out(ok=True, text="\n".join(output_parts), saved_path=saved_path)
-
 
 
 def run_tool(args: Dict[str, Any]) -> str:
