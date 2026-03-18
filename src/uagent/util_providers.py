@@ -1,5 +1,6 @@
 import sys
 import time
+import atexit
 from typing import Any, Tuple
 
 try:
@@ -29,6 +30,99 @@ try:
     from anthropic import Anthropic
 except ImportError:
     Anthropic = None
+
+
+_HTTPX_CLIENTS: list[Any] = []
+_HTTPX_CLIENTS_REGISTERED = False
+
+
+def _close_httpx_clients() -> None:
+    # Best-effort cleanup for custom httpx clients (OpenAI SDK http_client=...)
+    for c in list(_HTTPX_CLIENTS):
+        try:
+            c.close()
+        except Exception:
+            pass
+
+
+def _register_httpx_client(c: Any) -> None:
+    global _HTTPX_CLIENTS_REGISTERED
+    if c is None:
+        return
+    _HTTPX_CLIENTS.append(c)
+    if not _HTTPX_CLIENTS_REGISTERED:
+        _HTTPX_CLIENTS_REGISTERED = True
+        try:
+            atexit.register(_close_httpx_clients)
+        except Exception:
+            pass
+
+
+def _env_float(name: str, default: float) -> float:
+    v = (env_get(name, "") or "").strip()
+    if not v:
+        return float(default)
+    try:
+        return float(v)
+    except Exception:
+        return float(default)
+
+
+def make_httpx_timeout() -> Any:
+    """Build httpx.Timeout from env.
+
+    Env (seconds):
+      - UAGENT_LLM_TIMEOUT_CONNECT_SEC (default 10)
+      - UAGENT_LLM_TIMEOUT_READ_SEC (default 60)
+      - UAGENT_LLM_TIMEOUT_WRITE_SEC (default 60)
+      - UAGENT_LLM_TIMEOUT_POOL_SEC (default 10)
+    """
+
+    if httpx is None:
+        return None
+
+    connect = _env_float("UAGENT_LLM_TIMEOUT_CONNECT_SEC", 10)
+    read = _env_float("UAGENT_LLM_TIMEOUT_READ_SEC", 60)
+    write = _env_float("UAGENT_LLM_TIMEOUT_WRITE_SEC", 60)
+    pool = _env_float("UAGENT_LLM_TIMEOUT_POOL_SEC", 10)
+
+    try:
+        return httpx.Timeout(connect=connect, read=read, write=write, pool=pool)
+    except Exception:
+        try:
+            return httpx.Timeout(read)
+        except Exception:
+            return None
+
+
+def make_httpx_client(*, verify: Any = None, event_hooks: Any = None) -> Any:
+    """Create an httpx.Client with timeout from env (best-effort)."""
+
+    if httpx is None:
+        return None
+
+    timeout = make_httpx_timeout()
+
+    kwargs: dict[str, Any] = {}
+    if timeout is not None:
+        kwargs["timeout"] = timeout
+    if verify is not None:
+        kwargs["verify"] = verify
+    if event_hooks is not None:
+        kwargs["event_hooks"] = event_hooks
+
+    try:
+        c = httpx.Client(**kwargs)
+    except Exception:
+        # Fallback: drop event_hooks if that caused trouble
+        try:
+            kwargs.pop("event_hooks", None)
+            c = httpx.Client(**kwargs)
+        except Exception:
+            return None
+
+    _register_httpx_client(c)
+    return c
 
 
 def detect_provider() -> str:
@@ -182,14 +276,22 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_AZURE_API_KEY")
         api_version = core.get_env("UAGENT_AZURE_API_VERSION")
 
-        http_client = None
+        http_client = make_httpx_client()
 
-        client = AzureOpenAI(
-            azure_endpoint=base_url,
-            api_key=api_key,
-            api_version=api_version,
-            http_client=http_client,
-        )
+        try:
+            client = AzureOpenAI(
+                azure_endpoint=base_url,
+                api_key=api_key,
+                api_version=api_version,
+                http_client=http_client,
+            )
+        except TypeError:
+            client = AzureOpenAI(
+                azure_endpoint=base_url,
+                api_key=api_key,
+                api_version=api_version,
+            )
+
         return provider, client, model_name
 
     if provider == "openai":
@@ -198,23 +300,20 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
         )
 
-        http_client = None
-        if httpx is not None:
-
-            def _hook(resp: Any) -> None:
-                try:
-                    status = getattr(resp, "status_code", None)
-                    if status not in (429, 503):
-                        return
-                except Exception:
-                    pass
-
+        def _hook(resp: Any) -> None:
             try:
-                http_client = httpx.Client(event_hooks={"response": [_hook]})
+                status = getattr(resp, "status_code", None)
+                if status not in (429, 503):
+                    return
             except Exception:
-                http_client = None
+                return
 
-        client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        http_client = make_httpx_client(event_hooks={"response": [_hook]})
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name
 
@@ -223,7 +322,13 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         base_url = core.get_env_url(
             "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
         )
-        client = OpenAI(api_key=api_key, base_url=base_url)
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name
 
@@ -238,19 +343,39 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             "HTTP-Referer": "https://localhost/agent",
             "X-Title": "scheck-openrouter",
         }
+
+        http_client = make_httpx_client()
+
         try:
             client = OpenAI(
-                api_key=api_key, base_url=base_url, default_headers=default_headers
+                api_key=api_key,
+                base_url=base_url,
+                default_headers=default_headers,
+                http_client=http_client,
             )
         except TypeError:
-            # Fallback for older OpenAI SDKs that don't accept default_headers
-            client = OpenAI(api_key=api_key, base_url=base_url)
+            try:
+                # Fallback for older OpenAI SDKs that don't accept default_headers / http_client
+                client = OpenAI(
+                    api_key=api_key,
+                    base_url=base_url,
+                    default_headers=default_headers,
+                )
+            except TypeError:
+                client = OpenAI(api_key=api_key, base_url=base_url)
+
         return provider, client, model_name
 
     if provider == "grok":
         api_key = core.get_env("UAGENT_GROK_API_KEY")
         base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
-        client = OpenAI(api_key=api_key, base_url=base_url)
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name
 

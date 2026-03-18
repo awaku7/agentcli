@@ -216,9 +216,11 @@ def _run_openai_images(
 
     http_client = None
     try:
-        import httpx  # type: ignore
+        from .. import util_providers as providers  # type: ignore
 
-        http_client = httpx.Client(verify=_ssl_verify_enabled())
+        http_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
+        if http_client is None:
+            raise RuntimeError("httpx is not available")
     except Exception as e:
         raise RuntimeError(
             _("err.httpx_init", default="Failed to initialize httpx: {err}").format(
@@ -231,12 +233,19 @@ def _run_openai_images(
         api_key = _img_env("azure", "generate", "api_key", required=True)
         api_version = _img_env("azure", "generate", "api_version", required=True)
 
-        client = AzureOpenAI(
-            azure_endpoint=base_url,
-            api_key=api_key,
-            api_version=api_version,
-            http_client=http_client,
-        )
+        try:
+            client = AzureOpenAI(
+                azure_endpoint=base_url,
+                api_key=api_key,
+                api_version=api_version,
+                http_client=http_client,
+            )
+        except TypeError:
+            client = AzureOpenAI(
+                azure_endpoint=base_url,
+                api_key=api_key,
+                api_version=api_version,
+            )
     else:
         # OpenAI-compatible (openai / nvidia)
         if provider == "nvidia":
@@ -258,7 +267,10 @@ def _run_openai_images(
                 default="https://api.openai.com/v1",
             ).rstrip("/")
 
-        client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
 
     resp = client.images.generate(
         model=image_model,
