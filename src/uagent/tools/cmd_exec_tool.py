@@ -13,6 +13,9 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 
 TOOL_SPEC: Dict[str, Any] = {
+    # Optional tool gating:
+    # -1 = disabled (will not be registered/loaded)
+    "tool_level": -1,
     "type": "function",
     "function": {
         "name": "cmd_exec",
