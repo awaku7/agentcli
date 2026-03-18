@@ -141,6 +141,23 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if not isinstance(spec, dict) or not callable(runner):
         return False
 
+    # Optional tool level in TOOL_SPEC (default: 0)
+    # - tool_level == -1: disabled (do not register/load)
+    # - tool_level == 0 or missing: enabled
+    # - tool_level == 1: conditional loading (currently treated as disabled)
+    try:
+        tool_level = int(spec.get("tool_level", 0))
+    except Exception:
+        tool_level = 0
+
+    if tool_level == -1:
+        return False
+
+    if tool_level == 1:
+        # Reserved for future: load only when necessary.
+        # For now, do not register the tool.
+        return False
+
     func_info = spec.get("function", {})
     tool_name = func_info.get("name")
     if not tool_name:
@@ -256,6 +273,10 @@ def get_tool_specs() -> List[Dict[str, Any]]:
     clean_specs: List[Dict[str, Any]] = []
     for spec in TOOL_SPECS:
         spec_copy = spec.copy()
+        # Remove internal-only keys from tool specs before sending to LLM.
+        # (OpenAI/Responses schema expects only {type,function} (+ optional name mirror)).
+        spec_copy.pop("disabled", None)
+        spec_copy.pop("tool_level", None)
         if "function" in spec_copy and isinstance(spec_copy["function"], dict):
             func_copy = spec_copy["function"].copy()
             func_copy.pop("system_prompt", None)
