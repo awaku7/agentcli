@@ -387,7 +387,29 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
                 file=sys.stderr,
             )
             sys.exit(1)
-        client = genai.Client(api_key=api_key)
+
+        # google-genai supports per-client HTTP options (timeout, custom httpx client, etc.).
+        # Use the shared LLM timeout env as best-effort.
+        http_options: dict[str, Any] = {}
+        try:
+            # google-genai expects int seconds.
+            read_sec = _env_float("UAGENT_LLM_TIMEOUT_READ_SEC", 60)
+            http_options["timeout"] = max(1, int(read_sec))
+        except Exception:
+            pass
+
+        try:
+            httpx_client = make_httpx_client()
+            if httpx_client is not None:
+                http_options["httpx_client"] = httpx_client
+        except Exception:
+            pass
+
+        try:
+            client = genai.Client(api_key=api_key, http_options=http_options)
+        except TypeError:
+            client = genai.Client(api_key=api_key)
+
         return provider, client, model_name
 
     if provider == "claude":
@@ -398,7 +420,22 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
                 file=sys.stderr,
             )
             sys.exit(1)
-        client = Anthropic(api_key=api_key)
+
+        http_client = make_httpx_client()
+        timeout = make_httpx_timeout()
+
+        try:
+            client = Anthropic(api_key=api_key, timeout=timeout, http_client=http_client)
+        except TypeError:
+            try:
+                # Fallback for older SDKs that don't accept http_client/timeout
+                if timeout is not None:
+                    client = Anthropic(api_key=api_key, timeout=timeout)
+                else:
+                    client = Anthropic(api_key=api_key)
+            except TypeError:
+                client = Anthropic(api_key=api_key)
+
         return provider, client, model_name
 
     return provider, None, model_name
