@@ -44,6 +44,19 @@ except ImportError:
 from .context import get_callbacks
 
 
+def _json_out(**payload: Any) -> str:
+    """Return a stable JSON string for tool outputs.
+
+    - Ensure_ascii=False for Japanese.
+    - Drop None values to keep output compact.
+    - default=str to avoid serialization errors.
+    """
+
+    data = {k: v for k, v in payload.items() if v is not None}
+    return json.dumps(data, ensure_ascii=False, default=lambda x: str(x))
+
+
+
 def mask_values(data: Any) -> Any:
     """Replace values in a dictionary or list with '*' (preserving structure)."""
     if isinstance(data, dict):
@@ -130,6 +143,15 @@ async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
                 await session.initialize()
                 result = await session.call_tool(name, argv)
                 return _format_result(result)
+    except BaseExceptionGroup as eg:
+        # NOTE: ExceptionGroup の内訳を返して原因を特定する（調査用）
+        import traceback
+
+        parts = [f"[Error] MCP http call failed: {str(eg)}"]
+        for i, sub in enumerate(getattr(eg, "exceptions", []) or []):
+            tb = "".join(traceback.format_exception(sub))
+            parts.append(f"\n--- sub-exception {i} ({type(sub).__name__}) ---\n{tb}")
+        return "\n".join(parts)
     except Exception as e:
         return f"[Error] MCP http call failed: {str(e)}"
 
@@ -346,8 +368,13 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         else:
             result_text = asyncio.run(_call_mcp_http(url, name, argv))
-
-        return cb.truncate_output("handle_mcp_v2", result_text, limit=200_000)
+        trunc = getattr(cb, "truncate_output", None)
+        if callable(trunc):
+            try:
+                return trunc("handle_mcp_v2", result_text, 200_000)
+            except TypeError:
+                return trunc("handle_mcp_v2", result_text, limit=200_000)
+        return result_text
 
     except Exception as e:
         return f"Unexpected error in run_tool: {str(e)}"
