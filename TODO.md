@@ -7,51 +7,73 @@
 - 特に Windows 環境で再現しやすい。
 - 「止まらない」に見えるが、実際には通信ライブラリ内のブロッキング I/O から Python へ割り込みが戻ってこないケースがある。
 
+### 現状の精査（コード反映状況）
+- UI 固着（BUSY 表示が戻らない）については、`src/uagent/uagent_llm.py::run_llm_rounds()` が
+  `try: ... finally: core.set_status(False, "")` となっているため、**KeyboardInterrupt を含む例外でも基本的に固着しない**。
+- OpenAI SDK 利用 provider の **timeout（無限待ち防止）** は、`src/uagent/util_providers.py` に集約して実装済み。
+  - `make_httpx_timeout()` / `make_httpx_client()` を追加し、env から `httpx.Timeout(connect/read/write/pool)` を生成。
+  - `azure/openai/openrouter/nvidia/grok` の各クライアントに `http_client=` で渡す（古い SDK 向けに `TypeError` フォールバックあり）。
+- Ctrl-C の体感改善（メインスレッドを割り込みに反応させやすくする）として、LLM 呼び出しの **別スレッド実行** を実装済み。
+  - `src/uagent/uagent_llm.py::run_llm_rounds()` に `_call_maybe_thread()` を追加し、主要な LLM 呼び出し（Gemini/Claude/OpenAI Responses/ChatCompletions、compress_history_with_llm）をラップ。
+  - `UAGENT_LLM_IN_THREAD` は **デフォルト ON**（`0/false/no/off` のときのみ OFF）。
+  - 注意: Python はスレッドを強制 kill できないため、即時停止は保証できない（timeout が安全網）。
+- 画像生成ツールの **timeout 統一** も実装済み。
+  - `src/uagent/tools/generate_image_tool.py` が `util_providers.make_httpx_client()` を使う。
+
 ### 影響範囲
-- `src/uagent/uagent_llm.py` の LLM 呼び出し
-  - `client.responses.create(...)`（Responses API）
-  - `client.chat.completions.create(...)`（ChatCompletions）
-- `src/uagent/util_providers.py` の OpenAI SDK クライアント生成
-  - `httpx.Client(...)` を渡すが **timeout が未設定**
+- OpenAI SDK を使用する provider の LLM 呼び出し
+  - `azure` / `openai` / `openrouter` / `nvidia` / `grok`
+- 直接 LLM 呼び出しを行う箇所
+  - `src/uagent/uagent_llm.py`（Responses / ChatCompletions）
+  - `src/uagent/core.py`（互換/別経路がある場合）
+  - `src/uagent/translate.py` / `src/uagent/tools/vision_openai.py` / `src/uagent/tools/vision_runtime.py`（必要に応じて確認）
 
-### なぜ timeout だけでは不十分か
-- timeout は「無限待ちを防ぐ」ための上限であり、**Ctrl-C の即時停止を保証するものではない**。
-- ただし timeout を適切に短く設定できれば、最悪でも timeout 到達で抜けるため、実用上のハングをかなり軽減できる。
+---
 
-### 目標
+## 目標
 1. 無限ハングを防ぐ（必須）
-2. Ctrl-C で停止したときに UI 状態（BUSY 表示等）が固着しない（必須）
+2. Ctrl-C を押したときに UI 状態（BUSY 表示等）が固着しない（必須・現状ほぼ達成）
 3. 可能なら Ctrl-C を押した瞬間に通信をキャンセルする（努力目標）
 
 ---
 
-## 実装方針（案）
+## 実装方針
 
-### A. OpenAI SDK に渡す httpx.Client に timeout を導入（最優先）
+### A. OpenAI SDK に渡す httpx.Client に timeout を導入（実装済み）
 - 対象: `src/uagent/util_providers.py`
-- `httpx.Client(...)` に `timeout=httpx.Timeout(...)` を設定する。
-- connect/read/write/pool を分けて設定可能にし、環境変数で調整できるようにする。
+- OpenAI SDK を使用する provider（`azure/openai/openrouter/nvidia/grok`）に対して、共通の `httpx.Client(timeout=...)` を生成し `http_client=` として渡す。
 
-#### 環境変数（案）
+#### 環境変数（timeout）
 - `UAGENT_LLM_TIMEOUT_CONNECT_SEC`（default: 10）
 - `UAGENT_LLM_TIMEOUT_READ_SEC`（default: 60）
 - `UAGENT_LLM_TIMEOUT_WRITE_SEC`（default: 60）
 - `UAGENT_LLM_TIMEOUT_POOL_SEC`（default: 10）
 
-※ ひとまとめの `UAGENT_LLM_TIMEOUT_SEC` でも良いが、read だけを短くしたい等の運用があるため分割が望ましい。
+補足:
+- timeout は無限待ちを防ぐための上限であり、Ctrl-C 即時停止を保証しない。
 
-### B. LLM 呼び出し周りで KeyboardInterrupt を明示的に処理（UI 固着防止）
-- 対象: `src/uagent/uagent_llm.py`
-- 各 provider ブロック（gemini/claude/openai系）の外側、または LLM 呼び出し直後に
-  - `except KeyboardInterrupt:`
-    - `core.set_status(False, "")`（必要なら）
-    - ログ/状態を整える
-    - `raise` で再送出
+### B. LLM 呼び出しを「別スレッド」で実行（実装済み）
+- 方針: **デフォルト ON**。
+- 環境変数 `UAGENT_LLM_IN_THREAD` の解釈:
+  - 既定=ON
+  - 値が `0/false/no/off` のときのみ OFF
+  - それ以外（未設定含む）は ON
 
-### C. 「即時キャンセル」を狙う場合の方針（必要になったら）
-- ブロッキング I/O の最中に Python に割り込みが戻らない環境があるため、
-  - LLM 通信を **別スレッド** / **別プロセス** に分離し、キャンセル/kill 可能にする
-  - あるいは OpenAI SDK の transport レイヤ（httpx.Client）を明示的に close できる構造にする
+注意:
+- Python はスレッドを強制 kill できないため、完全な即時停止は保証できない。
+
+### C. 「即時キャンセル」を本気で狙う場合（将来）
+- 別プロセス化（LLM 呼び出しを子プロセスに分離して kill 可能にする）が最も確実。
+- async 化は大規模改修になりやすいため、現段階では優先度を下げる。
+
+---
+
+## 実装ステップ（慎重運用）
+1. `TODO.md`（本書）を更新（完了）
+2. `util_providers.make_client()` に timeout 付き `httpx.Client` 生成関数を追加し、OpenAI SDK provider に適用（完了）
+3. LLM 呼び出し経路に「別スレッド実行」ラッパを導入（完了）
+4. 単体テスト追加（timeout 設定と env 反映 / `UAGENT_LLM_IN_THREAD` の判定）
+5. 手動テスト（Windows でネットワーク遮断/DNS不達/Firewall drop を再現）
 
 ---
 
@@ -63,13 +85,6 @@
   - Ctrl-C で中断できる（または中断が早くなる）こと
   - BUSY 表示が固着しないこと
 
-### 自動テスト（案）
-- `util_providers.make_client()` が `httpx.Timeout` を含む `httpx.Client` を生成することをユニットテスト。
-  - OpenAI SDK 自体はモック。
-  - env から値が反映されることもテスト。
-
----
-
-## メモ
-- 現状でも `stdin_loop` 側は Ctrl-C を握り潰しているわけではないが、
-  LLM 通信中は別経路でブロッキングし得るため、timeout/cancel 設計が必要。
+### 自動テスト（最低限）
+- `util_providers.make_client()` が `httpx.Timeout` を含む `httpx.Client` を生成し、env 値が反映されること。
+- `UAGENT_LLM_IN_THREAD` の ON/OFF 判定が仕様通りであること（ユニットテスト or 小さな結合テスト）。
