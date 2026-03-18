@@ -328,7 +328,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             pass
         else:
             return (
-                "MCP server is not configured. Please add a server via mcp_servers_add (or create a config via mcp_servers_init_template) "
+                "MCP server is not configured. Please add a server via mcp_servers (action=add) (or create a config via mcp_servers (action=init_template)) "
                 "and then specify server_name/url. (No operation performed)"
             )
 
