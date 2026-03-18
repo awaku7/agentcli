@@ -1,6 +1,7 @@
 import json
 import sys
 import re
+import threading
 from .env_utils import env_get
 from .i18n import _
 from .translate import load_translate_config, translate_text
@@ -250,6 +251,44 @@ def run_llm_rounds(
 
     core.set_status(True, "LLM")
 
+    def _env_default_on(name: str) -> bool:
+        v = (env_get(name, "") or "").strip().lower()
+        return v not in ("0", "false", "no", "off")
+
+    use_llm_thread = _env_default_on("UAGENT_LLM_IN_THREAD")
+
+    def _call_maybe_thread(fn: Any) -> Any:
+        """Run a potentially-blocking LLM call.
+
+        When UAGENT_LLM_IN_THREAD is enabled (default), run the call in a daemon
+        thread so the main thread can respond to Ctrl-C more promptly.
+
+        Note: This does not guarantee immediate network cancel; timeouts are the
+        primary safety net.
+        """
+
+        if not use_llm_thread:
+            return fn()
+
+        box: Dict[str, Any] = {"res": None, "exc": None}
+
+        def _runner() -> None:
+            try:
+                box["res"] = fn()
+            except BaseException as e:
+                box["exc"] = e
+
+        th = threading.Thread(target=_runner, daemon=True, name="uagent-llm-call")
+        th.start()
+
+        while th.is_alive():
+            th.join(0.05)
+
+        if box.get("exc") is not None:
+            raise box["exc"]
+
+        return box.get("res")
+
     tool_result_cache: Dict[str, str] = {}
     use_tool_result_cache = env_get(
         "UAGENT_TOOL_RESULT_CACHE", "0"
@@ -349,11 +388,13 @@ def run_llm_rounds(
                                     pass
                                 gemini_cache_name = None
 
-                            new_messages = core.compress_history_with_llm(
-                                client=client,
-                                depname=depname,
-                                messages=messages,
-                                keep_last=keep_last,
+                            new_messages = _call_maybe_thread(
+                                lambda: core.compress_history_with_llm(
+                                    client=client,
+                                    depname=depname,
+                                    messages=messages,
+                                    keep_last=keep_last,
+                                )
                             )
                             messages.clear()
                             messages.extend(new_messages)
@@ -471,8 +512,8 @@ def run_llm_rounds(
                 gemini_content_dump: Dict[str, Any] = {}
                 while True:
                     try:
-                        assistant_text, tool_calls_list, gemini_content_dump = (
-                            gemini_chat_with_tools(
+                        assistant_text, tool_calls_list, gemini_content_dump = _call_maybe_thread(
+                            lambda: gemini_chat_with_tools(
                                 client,
                                 depname,
                                 call_messages,
@@ -590,13 +631,15 @@ def run_llm_rounds(
 
                             setattr(core, "_last_claude_outcfg_info", m)
 
-                        assistant_text, tool_calls_list = claude_chat_with_tools(
-                            client,
-                            depname,
-                            call_messages,
-                            output_config=_claude_out_cfg,
-                            on_output_config_info=_on_output_config_info,
-                            on_output_config_fallback=lambda m: print(m),
+                        assistant_text, tool_calls_list = _call_maybe_thread(
+                            lambda: claude_chat_with_tools(
+                                client,
+                                depname,
+                                call_messages,
+                                output_config=_claude_out_cfg,
+                                on_output_config_info=_on_output_config_info,
+                                on_output_config_fallback=lambda m: print(m),
+                            )
                         )
                         break
                     except Exception as e:
@@ -771,28 +814,26 @@ def run_llm_rounds(
                                 resp_kwargs["tool_choice"] = "auto"
 
                             if stream_responses:
-                                resp = client.responses.create(
-                                    **resp_kwargs,
-                                    stream=True,
-                                )
-                                (
-                                    assistant_text,
-                                    tool_calls_list,
-                                ) = parse_responses_stream(
-                                    resp,
-                                    # In Web mode, parse_responses_stream streams deltas via core.log_message.
-                                    print_delta_fn=(
-                                        None
-                                        if bool(getattr(core, "_is_web", False))
-                                        else (
-                                            lambda s: (
-                                                print(s, end="", flush=True)
-                                                if s
-                                                else None
+                                assistant_text, tool_calls_list = _call_maybe_thread(
+                                    lambda: parse_responses_stream(
+                                        client.responses.create(
+                                            **resp_kwargs,
+                                            stream=True,
+                                        ),
+                                        # In Web mode, parse_responses_stream streams deltas via core.log_message.
+                                        print_delta_fn=(
+                                            None
+                                            if bool(getattr(core, "_is_web", False))
+                                            else (
+                                                lambda s: (
+                                                    print(s, end="", flush=True)
+                                                    if s
+                                                    else None
+                                                )
                                             )
-                                        )
-                                    ),
-                                    core=core,
+                                        ),
+                                        core=core,
+                                    )
                                 )
                                 # ensure newline after streaming output
                                 if assistant_text and not bool(
@@ -800,9 +841,10 @@ def run_llm_rounds(
                                 ):
                                     print("")
                             else:
-                                resp = client.responses.create(**resp_kwargs)
-                                assistant_text, tool_calls_list = (
-                                    parse_responses_response(resp)
+                                assistant_text, tool_calls_list = _call_maybe_thread(
+                                    lambda: parse_responses_response(
+                                        client.responses.create(**resp_kwargs)
+                                    )
                                 )
 
                                 # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
@@ -840,9 +882,10 @@ def run_llm_rounds(
                                             )
                                         except Exception:
                                             pass
-                                        resp2 = client.responses.create(**resp_kwargs)
-                                        assistant_text, tool_calls_list = (
-                                            parse_responses_response(resp2)
+                                        assistant_text, tool_calls_list = _call_maybe_thread(
+                                            lambda: parse_responses_response(
+                                                client.responses.create(**resp_kwargs)
+                                            )
                                         )
                         else:
                             req_tools = (
@@ -903,7 +946,9 @@ def run_llm_rounds(
                                 except Exception as _e:
                                     print("[debug] tools dump failed:", repr(_e))
 
-                            resp = client.chat.completions.create(**chat_kwargs)
+                            resp = _call_maybe_thread(
+                                lambda: client.chat.completions.create(**chat_kwargs)
+                            )
                         break
                     except Exception as e:
                         # NOTE: i18n function _ is a global import, but some exception paths
