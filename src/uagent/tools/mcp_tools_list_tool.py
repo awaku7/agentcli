@@ -180,29 +180,29 @@ def run_tool(args: Dict[str, Any]) -> str:
     url = args.get("url")
     server_name = args.get("server_name")
     pretty = bool(args.get("pretty", True))
+    # Resolve url/command from config if needed
+    command = ""
+    cmd_args: List[str] = []
+    cmd_env: Dict[str, str] = {}
 
-    # Resolve url from config if needed
     if (not url) and server_name:
         try:
-            from .mcp_servers_list_tool import run_tool as list_servers
+            config_path = str(get_default_mcp_config_path())
+            if config_path and os.path.exists(config_path):
+                with open(config_path, "r", encoding="utf-8") as f:
+                    cfg = json.load(f)
 
-            raw = list_servers(
-                {
-                    "path": None,
-                    "pretty": False,
-                    "validate": False,
-                    "default_only": False,
-                    "raw": True,
-                }
-            )
-            # list_servers returns json text or text; try parse
-            obj = json.loads(raw) if raw.strip().startswith("{") else None
-            if obj and isinstance(obj, dict):
-                servers = obj.get("mcp_servers") or []
-                for s in servers:
-                    if isinstance(s, dict) and s.get("name") == server_name:
-                        url = s.get("url")
-                        break
+                servers = cfg.get("mcp_servers") if isinstance(cfg, dict) else []
+                if isinstance(servers, list):
+                    for s in servers:
+                        if isinstance(s, dict) and s.get("name") == server_name:
+                            url = s.get("url")
+                            command = str(s.get("command") or "")
+                            raw_args = s.get("args") or []
+                            cmd_args = [str(x) for x in raw_args] if isinstance(raw_args, list) else []
+                            raw_env = s.get("env") or {}
+                            cmd_env = {str(k): str(v) for k, v in raw_env.items()} if isinstance(raw_env, dict) else {}
+                            break
         except Exception:
             pass
 
@@ -212,12 +212,29 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
+    # If neither url nor command is resolved, fail early.
+    if (not url) and (not command):
+        return json.dumps(
+            {
+                "ok": False,
+                "error": "MCP server is not configured (no url/command).",
+                "server_name": server_name,
+            },
+            ensure_ascii=False,
+        )
+
     try:
-        # If url looks like stdio://command, treat it as stdio shorthand.
-        if isinstance(url, str) and url.startswith("stdio://"):
+        # 1) stdio via configured command
+        if (not url) and command:
+            result = asyncio.run(_mcp_tools_list_stdio(command, cmd_args, cmd_env))
+
+        # 2) stdio shorthand url
+        elif isinstance(url, str) and url.startswith("stdio://"):
             cmd = url[len("stdio://") :]
             # no args/env in shorthand
             result = asyncio.run(_mcp_tools_list_stdio(cmd, [], {}))
+
+        # 3) http
         else:
             result = asyncio.run(_mcp_tools_list_http(str(url)))
 

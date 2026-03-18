@@ -140,7 +140,7 @@ def apply_openrouter_tool_schema_compat(
     except Exception:
         pass
 
-    # OpenRouter/OpenAI-proxy strict schema: mcp_servers_add.env is a free-form mapping.
+    # OpenRouter/OpenAI-proxy strict schema: mcp_servers.env is a free-form mapping.
     # Some validators effectively disallow object properties without fixed 'properties', causing the
     # property to be dropped and then failing because 'required' still includes 'env'.
     # To avoid request rejection, hide 'env' from the tool schema surface for openrouter.
@@ -155,7 +155,7 @@ def apply_openrouter_tool_schema_compat(
             _fn = _t2.get("function") or {}
             _fn2 = _fn.copy() if isinstance(_fn, dict) else _fn
 
-            if isinstance(_fn2, dict) and _fn2.get("name") == "mcp_servers_add":
+            if isinstance(_fn2, dict) and _fn2.get("name") == "mcp_servers":
                 _params = _fn2.get("parameters")
                 if isinstance(_params, dict) and _params.get("type") == "object":
                     _props = _params.get("properties")
