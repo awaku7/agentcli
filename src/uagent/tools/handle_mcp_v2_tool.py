@@ -105,10 +105,13 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                 },
                 "tool_arguments": {
-                    "type": "object",
+                    "anyOf": [
+                        {"type": "object", "additionalProperties": True},
+                        {"type": "string"},
+                    ],
                     "description": _(
                         "param.tool_arguments.description",
-                        default='A dictionary of arguments to pass to the tool. Example: {"handle": "you.bsky.social", "password": "xxxx"}',
+                        default='Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string. Example object: {"yymm": "2503", "dept": "ＳＢＣ", "plan_diff": false}',
                     ),
                 },
             },
@@ -311,6 +314,29 @@ def run_tool(args: Dict[str, Any]) -> str:
     url = args.get("url", "")
     name = args.get("tool_name")
     argv = args.get("tool_arguments", {})
+
+    # Allow tool_arguments to be provided as a JSON string (some proxies/LLMs serialize objects).
+    if argv is None:
+        argv = {}
+    elif isinstance(argv, str):
+        s = argv.strip()
+        if not s:
+            argv = {}
+        else:
+            try:
+                argv = json.loads(s)
+
+                # Some callers double-encode JSON (e.g., tool_arguments='"{}"').
+                # Decode at most twice: str -> dict.
+                if isinstance(argv, str):
+                    s2 = argv.strip()
+                    if s2:
+                        argv = json.loads(s2)
+            except Exception as e:
+                return _json_out(ok=False, text=f"Invalid tool_arguments JSON string: {e}")
+
+    if not isinstance(argv, dict):
+        return _json_out(ok=False, text=f"tool_arguments must be an object/dict (or JSON string of an object). got={type(argv).__name__}")
 
     if not name:
         return _("err.tool_name_required", default="Error: tool_name is required.")
