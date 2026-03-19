@@ -11,6 +11,7 @@ from typing import Any, Dict
 from . import shared_memory
 
 TOOL_SPEC: Dict[str, Any] = {
+    "tool_level": -1,
     "type": "function",
     "function": {
         "name": "add_shared_memory",
