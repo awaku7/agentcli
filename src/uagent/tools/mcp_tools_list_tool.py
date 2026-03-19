@@ -199,9 +199,17 @@ def run_tool(args: Dict[str, Any]) -> str:
                             url = s.get("url")
                             command = str(s.get("command") or "")
                             raw_args = s.get("args") or []
-                            cmd_args = [str(x) for x in raw_args] if isinstance(raw_args, list) else []
+                            cmd_args = (
+                                [str(x) for x in raw_args]
+                                if isinstance(raw_args, list)
+                                else []
+                            )
                             raw_env = s.get("env") or {}
-                            cmd_env = {str(k): str(v) for k, v in raw_env.items()} if isinstance(raw_env, dict) else {}
+                            cmd_env = (
+                                {str(k): str(v) for k, v in raw_env.items()}
+                                if isinstance(raw_env, dict)
+                                else {}
+                            )
                             break
         except Exception:
             pass

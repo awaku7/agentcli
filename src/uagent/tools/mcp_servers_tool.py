@@ -288,7 +288,9 @@ def _load_config(
         servers = []
 
     if not isinstance(servers, list):
-        errors.append(_("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list"))
+        errors.append(
+            _("err.mcp_servers_not_list", default="ERROR: 'mcp_servers' is not a list")
+        )
         servers = []
 
     data["mcp_servers"] = servers
@@ -452,7 +454,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
         )
         default_url = str(args.get("default_url", "")).strip() or ""
-        default_transport = str(args.get("transport", "streamable-http")).strip() or "streamable-http"
+        default_transport = (
+            str(args.get("transport", "streamable-http")).strip() or "streamable-http"
+        )
 
         if os.path.exists(config_path):
             return _json_out(
@@ -906,4 +910,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     # should not happen
-    return _json_out({"ok": False, "action": action, "error": "unhandled"}, pretty=pretty)
+    return _json_out(
+        {"ok": False, "action": action, "error": "unhandled"}, pretty=pretty
+    )
