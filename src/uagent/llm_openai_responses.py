@@ -322,7 +322,6 @@ def parse_responses_stream(
 
     Debugging:
       - If UAGENT_STREAMING_DEBUG is enabled, dumps each event as JSON to:
-          - stderr
           - ./outputs/responses_stream_events.jsonl
 
     This function is intentionally defensive because the exact event names/shape
@@ -331,7 +330,9 @@ def parse_responses_stream(
     Strategy:
       - Iterate events.
       - If an event carries output_text delta, append and optionally print it.
-      - If an event carries function-call name/arguments delta, accumulate per call_id.
+      - If an event carries function-call name/arguments delta, accumulate.
+      - IMPORTANT: Some events may carry only item_id (no call_id). We therefore
+        buffer by (call_id OR item_id) and later promote/merge when call_id becomes known.
       - At end, return the full assistant_text and ChatCompletions-like tool_calls_list.
     """
 
@@ -351,13 +352,7 @@ def parse_responses_stream(
             debug_fp = None
 
     def _dump_event(ev: Any) -> None:
-        """Dump a single streaming event as one-line JSON (JSONL).
-
-        Policy:
-          - When UAGENT_STREAMING_DEBUG is enabled, write JSONL to:
-              ./outputs/responses_stream_events.jsonl
-          - Do NOT print to stdout/stderr (keeps terminal clean and avoids broken newlines).
-        """
+        """Dump a single streaming event as one-line JSON (JSONL)."""
         if not debug_enabled:
             return
 
@@ -382,7 +377,7 @@ def parse_responses_stream(
 
         if debug_fp is not None:
             try:
-                debug_fp.write(line + "\n")
+                debug_fp.write(line + chr(10))
                 debug_fp.flush()
             except Exception:
                 pass
@@ -390,7 +385,7 @@ def parse_responses_stream(
     assistant_text_parts: List[str] = []
     fallback_full_text = ""
 
-    # call_id -> {"name": str, "arguments_parts": [str]}
+    # key -> buffer (key is call_id OR item_id OR synthetic)
     tool_calls_buf: Dict[str, Dict[str, Any]] = {}
 
     # item_id (e.g. "fc_...") -> call_id (e.g. "call_...")
@@ -406,6 +401,55 @@ def parse_responses_stream(
             except Exception:
                 pass
 
+    def _ensure_buf(key: str) -> Dict[str, Any]:
+        buf = tool_calls_buf.get(key)
+        if buf is None:
+            buf = {
+                "name": "unknown",
+                "arguments_parts": [],
+                "call_id": None,
+                "item_id": None,
+            }
+            tool_calls_buf[key] = buf
+        return buf
+
+    def _merge_buf(dst_key: str, src_key: str) -> None:
+        """Merge src into dst and delete src (best-effort)."""
+        if dst_key == src_key:
+            return
+        src = tool_calls_buf.get(src_key)
+        if src is None:
+            return
+        dst = tool_calls_buf.get(dst_key)
+        if dst is None:
+            tool_calls_buf[dst_key] = src
+            try:
+                del tool_calls_buf[src_key]
+            except Exception:
+                pass
+            return
+
+        src_name = _as_str(src.get("name") or "")
+        dst_name = _as_str(dst.get("name") or "")
+        if (not dst_name or dst_name == "unknown") and src_name and src_name != "unknown":
+            dst["name"] = src_name
+
+        dst_parts = dst.get("arguments_parts") or []
+        src_parts = src.get("arguments_parts") or []
+        if isinstance(dst_parts, list) and isinstance(src_parts, list):
+            dst_parts.extend(src_parts)
+            dst["arguments_parts"] = dst_parts
+
+        if not dst.get("call_id") and src.get("call_id"):
+            dst["call_id"] = src.get("call_id")
+        if not dst.get("item_id") and src.get("item_id"):
+            dst["item_id"] = src.get("item_id")
+
+        try:
+            del tool_calls_buf[src_key]
+        except Exception:
+            pass
+
     try:
         # Web streaming: signal start (a single growing assistant bubble)
         try:
@@ -416,24 +460,17 @@ def parse_responses_stream(
         except Exception:
             pass
 
-        # Some SDK versions return an iterator of events only when stream=True,
-        # but others return a ResponseStream object that must be iterated via
-        # .__iter__() or .iter_events(). We normalize here.
+        # Normalize stream iterator
         it = stream
         if hasattr(stream, "iter_events") and callable(getattr(stream, "iter_events")):
             it = stream.iter_events()
+
         for ev in it:
             _dump_event(ev)
 
-            # Common fields across SDKs: ev.type (string)
             ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
 
-            # 1) Output text deltas (Azure/OpenAI Responses streaming)
-            # Only print/accumulate the user-visible channel:
-            #   - response.output_text.delta  -> ev.delta (string)
-            # Do NOT print response.output_text.done (it is the full text and can duplicate output).
-            # We keep it only as a fallback when no deltas arrived.
-
+            # 1) Output text deltas
             delta_text = None
             if ev_type == "response.output_text.delta":
                 d = getattr(ev, "delta", None)
@@ -442,10 +479,6 @@ def parse_responses_stream(
 
             if isinstance(delta_text, str) and delta_text:
                 assistant_text_parts.append(delta_text)
-
-                # In Web mode, stream deltas via core.log_message instead of stdout.
-                # This avoids stdout line buffering issues and allows the Web UI
-                # to grow a single assistant bubble.
                 try:
                     if core is not None and bool(getattr(core, "_is_web", False)):
                         lm = getattr(core, "log_message", None)
@@ -456,25 +489,15 @@ def parse_responses_stream(
                 except Exception:
                     _print_delta(delta_text)
 
-            # Fallback full text (no printing)
             if ev_type == "response.output_text.done":
                 t = getattr(ev, "text", None)
                 if isinstance(t, str) and t:
-                    # store full text as fallback; do not print
                     fallback_full_text = t
 
-            # 2) Tool call accumulation (function_call)
-            # NOTE:
-            #   Some SDKs/Azure deployments emit function call fragments under
-            #   response.output_item.added with item.type == "function_call".
-            #   Others may emit response.function_call_arguments.delta.
-            #   We handle both defensively.
-
-            call_id = None
+            # 2) Tool call accumulation
             fn_name = None
             fn_args_delta = None
 
-            # 0) Identify call_id and item_id
             cid_candidate = (
                 getattr(ev, "call_id", None)
                 or getattr(ev, "id", None)
@@ -486,53 +509,45 @@ def parse_responses_stream(
             )
             iid_candidate = getattr(ev, "item_id", None)
 
-            # a) Nested item for response.output_item.added/delta
             if ev_type in ("response.output_item.added", "response.output_item.delta"):
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
-                if item is not None:
-                    item_type = getattr(item, "type", None)
-                    if item_type == "function_call":
-                        cid = getattr(item, "call_id", None) or getattr(
-                            item, "id", None
-                        )
-                        if cid:
-                            cid_candidate = cid
-                        iid = getattr(item, "id", None)
-                        if iid:
-                            iid_candidate = iid
+                if item is not None and getattr(item, "type", None) == "function_call":
+                    cid = getattr(item, "call_id", None) or getattr(item, "id", None)
+                    if cid:
+                        cid_candidate = cid
+                    iid = getattr(item, "id", None)
+                    if iid:
+                        iid_candidate = iid
 
-                        fn_name = fn_name or getattr(item, "name", None)
+                    fn_name = fn_name or getattr(item, "name", None)
 
-                        # Arguments
-                        item_args = getattr(item, "arguments", None)
-                        if isinstance(item_args, dict):
-                            fn_args_delta = fn_args_delta or json.dumps(
-                                item_args, ensure_ascii=False
-                            )
-                        elif isinstance(item_args, str) and item_args:
-                            fn_args_delta = fn_args_delta or item_args
+                    item_args = getattr(item, "arguments", None)
+                    if isinstance(item_args, dict):
+                        fn_args_delta = fn_args_delta or json.dumps(item_args, ensure_ascii=False)
+                    elif isinstance(item_args, str) and item_args:
+                        fn_args_delta = fn_args_delta or item_args
 
-            # Register mapping
+            # Register mapping and promote/merge buffers when possible
             if cid_candidate and iid_candidate:
                 item_id_map[iid_candidate] = cid_candidate
+                # If we already started buffering under item_id, merge into call_id
+                if iid_candidate in tool_calls_buf:
+                    _merge_buf(cid_candidate, iid_candidate)
 
-            # Resolve call_id
+            # Resolve call_id via item_id map if needed
             if iid_candidate and not cid_candidate:
                 cid_candidate = item_id_map.get(iid_candidate)
-            call_id = cid_candidate
 
-            # b) Function name extraction
+            # Function name extraction
             if not fn_name:
                 if hasattr(ev, "name"):
                     fn_name = getattr(ev, "name")
-                elif hasattr(ev, "function") and hasattr(
-                    getattr(ev, "function"), "name"
-                ):
+                elif hasattr(ev, "function") and hasattr(getattr(ev, "function"), "name"):
                     fn_name = getattr(getattr(ev, "function"), "name")
                 elif hasattr(ev, "delta") and hasattr(getattr(ev, "delta"), "name"):
                     fn_name = getattr(getattr(ev, "delta"), "name")
 
-            # c) Function arguments delta extraction
+            # Function arguments delta extraction
             if not fn_args_delta:
                 if hasattr(ev, "arguments"):
                     fn_args_delta = getattr(ev, "arguments")
@@ -554,35 +569,34 @@ def parse_responses_stream(
                 or fn_args_delta is not None
             )
 
-            # d) Handle 'done' events to overwrite arguments with the final complete string
-            #    This is robust against missing deltas or complex streaming chunks.
             final_args = None
             if ev_type == "response.function_call_arguments.done":
-                # Typically has .arguments (str)
                 final_args = getattr(ev, "arguments", None)
 
             elif ev_type == "response.output_item.done":
-                # item.type == function_call?
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
                 if item and getattr(item, "type", None) == "function_call":
-                    # ensure we have call_id
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:
-                        call_id = cid
-                    # extract final arguments
+                        cid_candidate = cid
                     final_args = getattr(item, "arguments", None)
-                    # ensure we have name
                     if getattr(item, "name", None):
                         fn_name = getattr(item, "name")
 
             if final_args is not None:
                 looks_like_tool = True
 
-            if looks_like_tool and call_id:
-                buf = tool_calls_buf.get(call_id)
-                if buf is None:
-                    buf = {"name": "unknown", "arguments_parts": []}
-                    tool_calls_buf[call_id] = buf
+            if looks_like_tool:
+                key = cid_candidate or iid_candidate
+                if not key:
+                    key = f"call_{int(time.time() * 1000)}_{len(tool_calls_buf)}"
+
+                buf = _ensure_buf(key)
+
+                if cid_candidate:
+                    buf["call_id"] = cid_candidate
+                if iid_candidate:
+                    buf["item_id"] = iid_candidate
 
                 if isinstance(fn_name, str) and fn_name:
                     buf["name"] = fn_name
@@ -590,19 +604,19 @@ def parse_responses_stream(
                 # If we got a final complete arguments string, overwrite everything
                 if final_args is not None:
                     if isinstance(final_args, dict):
-                        buf["arguments_parts"] = [
-                            json.dumps(final_args, ensure_ascii=False)
-                        ]
+                        buf["arguments_parts"] = [json.dumps(final_args, ensure_ascii=False)]
                     else:
                         buf["arguments_parts"] = [_as_str(final_args)]
                 else:
                     # Otherwise append delta
                     if isinstance(fn_args_delta, dict):
-                        buf["arguments_parts"].append(
-                            json.dumps(fn_args_delta, ensure_ascii=False)
-                        )
+                        buf["arguments_parts"].append(json.dumps(fn_args_delta, ensure_ascii=False))
                     elif isinstance(fn_args_delta, str) and fn_args_delta:
                         buf["arguments_parts"].append(fn_args_delta)
+
+                # If we just learned call_id for a buffer keyed by item_id, promote
+                if cid_candidate and iid_candidate and key == iid_candidate:
+                    _merge_buf(cid_candidate, iid_candidate)
 
     finally:
         # Web streaming: signal end
@@ -619,19 +633,19 @@ def parse_responses_stream(
                 debug_fp.close()
             except Exception:
                 pass
-            except Exception:
-                pass
 
     assistant_text = "".join(assistant_text_parts) or fallback_full_text
 
     tool_calls_list: List[Dict[str, Any]] = []
-    for cid, buf in tool_calls_buf.items():
+    for key, buf in tool_calls_buf.items():
         args_str = "".join(buf.get("arguments_parts") or [])
         if not args_str:
             args_str = "{}"
+
+        call_id_out = _as_str(buf.get("call_id") or key)
         tool_calls_list.append(
             {
-                "id": cid,
+                "id": call_id_out,
                 "type": "function",
                 "function": {
                     "name": _as_str(buf.get("name") or "unknown"),
