@@ -156,11 +156,7 @@ def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
     ut = (user_text or "").lower()
     if "json" in ut:
         s = a.lstrip()
-        if not (
-            s.startswith("{")
-            or s.startswith("[")
-            or "```json" in s.lower()
-        ):
+        if not (s.startswith("{") or s.startswith("[") or "```json" in s.lower()):
             return True
 
     # Broad refusal / inability / uncertainty patterns.
@@ -512,13 +508,15 @@ def run_llm_rounds(
                 gemini_content_dump: Dict[str, Any] = {}
                 while True:
                     try:
-                        assistant_text, tool_calls_list, gemini_content_dump = _call_maybe_thread(
-                            lambda: gemini_chat_with_tools(
-                                client,
-                                depname,
-                                call_messages,
-                                cached_content=gemini_cache_name,
-                                core=core,
+                        assistant_text, tool_calls_list, gemini_content_dump = (
+                            _call_maybe_thread(
+                                lambda: gemini_chat_with_tools(
+                                    client,
+                                    depname,
+                                    call_messages,
+                                    cached_content=gemini_cache_name,
+                                    core=core,
+                                )
                             )
                         )
                         break
@@ -882,9 +880,13 @@ def run_llm_rounds(
                                             )
                                         except Exception:
                                             pass
-                                        assistant_text, tool_calls_list = _call_maybe_thread(
-                                            lambda: parse_responses_response(
-                                                client.responses.create(**resp_kwargs)
+                                        assistant_text, tool_calls_list = (
+                                            _call_maybe_thread(
+                                                lambda: parse_responses_response(
+                                                    client.responses.create(
+                                                        **resp_kwargs
+                                                    )
+                                                )
                                             )
                                         )
                         else:

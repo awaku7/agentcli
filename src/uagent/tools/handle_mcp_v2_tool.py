@@ -56,7 +56,6 @@ def _json_out(**payload: Any) -> str:
     return json.dumps(data, ensure_ascii=False, default=lambda x: str(x))
 
 
-
 def mask_values(data: Any) -> Any:
     """Replace values in a dictionary or list with '*' (preserving structure)."""
     if isinstance(data, dict):

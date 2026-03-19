@@ -425,7 +425,9 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         timeout = make_httpx_timeout()
 
         try:
-            client = Anthropic(api_key=api_key, timeout=timeout, http_client=http_client)
+            client = Anthropic(
+                api_key=api_key, timeout=timeout, http_client=http_client
+            )
         except TypeError:
             try:
                 # Fallback for older SDKs that don't accept http_client/timeout
