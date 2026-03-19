@@ -24,14 +24,16 @@ def _get_base_log_dir() -> str:
 
 
 def _get_shared_memory_file() -> str:
+    """Return the absolute path to the shared memory file, or '' if disabled."""
     env = env_get("UAGENT_SHARED_MEMORY_FILE")
     if env:
         return str(Path(env).expanduser().resolve())
-    return os.path.join(_get_base_log_dir(), "scheck_shared_memory.jsonl")
+    return ""
 
 
 def is_enabled() -> bool:
-    return True
+    """Shared memory is enabled only when UAGENT_SHARED_MEMORY_FILE is set."""
+    return bool(env_get("UAGENT_SHARED_MEMORY_FILE"))
 
 
 def get_shared_memory_file() -> str:
