@@ -7,7 +7,7 @@
  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
 ```
 
-# uag (Local Tool-Execution Agent)
+# uag (Local AI Agent)
 
 uag is an interactive local agent that can execute commands, manipulate files, and read various data formats (PDF/PPTX/Excel, etc.) on your PC.
 
@@ -21,8 +21,10 @@ ______________________________________________________________________
 
 - Local-first tool execution with a wide practical tool surface
 - Multiple UI entry points: CLI, GUI, and Web
-- Multiple providers: Azure OpenAI / OpenAI-compatible, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- Multiple providers: Azure OpenAI / OpenAI-compatible, Bedrock, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- End-to-end i18n support: localized host UI (`UAGENT_LANG`) plus optional TO_LLM/FROM_LLM translation for LLM communication
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
+- Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
 - GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
@@ -149,7 +151,7 @@ In-session commands (CLI/GUI/Web):
 
 ______________________________________________________________________
 
-## Provider (OpenAI-compatible handling)
+## Provider
 
 `uag` supports multiple LLM providers.
 
@@ -165,6 +167,12 @@ ______________________________________________________________________
   - Required: `UAGENT_AZURE_API_KEY`
   - Required: `UAGENT_AZURE_API_VERSION`
   - Optional: `UAGENT_AZURE_DEPNAME`
+
+- `UAGENT_PROVIDER=bedrock` uses **Bedrock (OpenAI-compatible gateway)**.
+
+  - Required: `UAGENT_BEDROCK_BASE_URL`
+  - Required: `UAGENT_BEDROCK_API_KEY`
+  - Optional: `UAGENT_BEDROCK_DEPNAME`
 
 - `UAGENT_PROVIDER=openrouter` uses **OpenRouter** (a unified OpenAI-compatible API).
 
