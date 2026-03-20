@@ -133,7 +133,16 @@ def detect_provider() -> str:
         sys.exit(1)
 
     p = p.lower()
-    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "grok", "claude", "nvidia"):
+    if p not in (
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "gemini",
+        "grok",
+        "claude",
+        "nvidia",
+    ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
     return p
