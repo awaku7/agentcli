@@ -10,7 +10,7 @@
 - GUI エントリポイント: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
 - Web エントリポイント: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
 - コア実装: `src/uagent/core.py`
-- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_openai_responses.py`
+- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_openai_responses.py`, `src/uagent/llm_bedrock_responses.py`
 - ツール（プラグイン）群: `src/uagent/tools/`
 
 動作環境は Windows/macOS/Linux を想定し、Python は **3.11+** です。

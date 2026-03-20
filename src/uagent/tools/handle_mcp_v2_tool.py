@@ -333,10 +333,15 @@ def run_tool(args: Dict[str, Any]) -> str:
                     if s2:
                         argv = json.loads(s2)
             except Exception as e:
-                return _json_out(ok=False, text=f"Invalid tool_arguments JSON string: {e}")
+                return _json_out(
+                    ok=False, text=f"Invalid tool_arguments JSON string: {e}"
+                )
 
     if not isinstance(argv, dict):
-        return _json_out(ok=False, text=f"tool_arguments must be an object/dict (or JSON string of an object). got={type(argv).__name__}")
+        return _json_out(
+            ok=False,
+            text=f"tool_arguments must be an object/dict (or JSON string of an object). got={type(argv).__name__}",
+        )
 
     if not name:
         return _("err.tool_name_required", default="Error: tool_name is required.")

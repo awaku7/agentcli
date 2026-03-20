@@ -166,6 +166,29 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
+## （任意）Responses API 設定 (reasoning / verbosity)
+
+Azure/OpenAI/Bedrock で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+
+Bedrock では OpenAI互換ゲートウェイの制約に合わせるため、message list ではなく文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
+
+他プロバイダで `UAGENT_RESPONSES=1` を指定した場合、実行時に ChatCompletions へフォールバックします。
+
+- `UAGENT_REASONING`:
+  - `auto`: リクエストごとに `reasoning.effort` を自動選択（Responses APIのみ。ストリーミングは自動でOFF。低品質出力時に1回だけ再試行する場合があります）
+  - `minimal|low|medium|high|xhigh`: `reasoning={"effort":...}` を送信
+  - `off` / 未設定 / 空: `reasoning` を送信しない
+- `UAGENT_VERBOSITY`:
+  - `low|medium|high`: `text={"verbosity":...}` を送信
+  - `off` / 未設定 / 空: `text.verbosity` を送信しない
+
+セッション内コマンド（CLI/GUI/Web）:
+
+- `:r [0|1|2|3|auto|minimal|xhigh]`（引数なしで現在値表示）
+- `:v [0|1|2|3]`（引数なしで現在値表示）
+
+______________________________________________________________________
+
 ## Provider（OpenAI互換の扱い）
 
 `uag` は複数のLLMプロバイダを切り替えて利用できます。

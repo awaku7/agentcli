@@ -132,7 +132,9 @@ uag
 
 ### 7.3（任意）Responses API 設定 (reasoning / verbosity)
 
-Azure/OpenAI で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+Azure/OpenAI/Bedrock で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+
+Bedrock では OpenAI互換ゲートウェイで message list `input` がバリデーションエラーになるケースを避けるため、文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
 
 他プロバイダで `UAGENT_RESPONSES=1` を指定した場合、実行時に ChatCompletions へフォールバックします。
 
