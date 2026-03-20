@@ -196,7 +196,11 @@ class ScheckWorker(QtCore.QObject):
                 "1",
                 "true",
             )
-            if use_responses_api and self._provider not in ("azure", "openai", "bedrock"):
+            if use_responses_api and self._provider not in (
+                "azure",
+                "openai",
+                "bedrock",
+            ):
                 print(
                     "[WARN] "
                     + _(

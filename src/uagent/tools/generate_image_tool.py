@@ -259,9 +259,9 @@ def _run_openai_images(
             ).rstrip("/")
         elif provider == "bedrock":
             api_key = _img_env("bedrock", "generate", "api_key", required=True)
-            base_url = _img_env("bedrock", "generate", "base_url", required=True).rstrip(
-                "/"
-            )
+            base_url = _img_env(
+                "bedrock", "generate", "base_url", required=True
+            ).rstrip("/")
         else:
             api_key = _img_env("openai", "generate", "api_key", required=True)
             base_url = _img_env(
