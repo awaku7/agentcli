@@ -130,6 +130,25 @@ set UAGENT_OPENAI_API_KEY=YOUR_API_KEY
 uag
 ```
 
+サンプルファイルは `samples/` 配下にあります。
+
+- 共通の正本テンプレート: `samples/env.sample.env`
+- 生成されるシェル別サンプル: `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat`
+- プロバイダ別テンプレート: `samples/provider.*.env.sample`
+- 使い方詳細: `samples/README.md`
+
+推奨（whl/pip インストール後）: `uag_setup` を実行して、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成します。
+
+```bat
+uag_setup
+```
+
+（リポジトリ開発時）番号選択 + `b`（戻る）に対応した対話式ウィザードで、`samples/` 配下のシェル別サンプルを意図した文字コード/改行コードで生成・更新するには:
+
+```bat
+python samples/generate_env_samples.py
+```
+
 ### 7.3（任意）Responses API 設定 (reasoning / verbosity)
 
 Azure/OpenAI/Bedrock で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。

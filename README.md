@@ -208,7 +208,30 @@ ______________________________________________________________________
   - Required: `UAGENT_CLAUDE_API_KEY`
   - Optional: `UAGENT_CLAUDE_DEPNAME`
 
-See `env.sample.*` for provider/key configuration examples.
+See `samples/env.sample.env` for the canonical cross-provider template and `samples/provider.*.env.sample` for provider-specific templates.
+
+- In this repository: run the interactive wizard `python samples/generate_env_samples.py` to generate `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` with the intended encoding and newline settings.
+- After installing via pip/wheel: run `uag_setup` to generate your own `.env` (and optionally `env.sh` / `env.ps1` / `env.bat`) in the current directory.
+
+For details, see `samples/README.md`.
+
+### Env sample generation
+
+Sample files are available under `samples/` (including `samples/README.md`).
+
+Run the interactive wizard to configure and generate shell-specific variants:
+
+```bash
+python samples/generate_env_samples.py
+```
+
+Generated files and format:
+
+- `samples/env.sample.sh`   : UTF-8, LF
+- `samples/env.sample.ps1`  : UTF-8 with BOM (`utf-8-sig`), CRLF
+- `samples/env.sample.bat`  : CP932, CRLF
+
+The wizard supports numbered selections and back navigation (`b`). Re-run it any time to update configuration.
 
 ______________________________________________________________________
 
