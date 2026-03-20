@@ -22,6 +22,7 @@ ______________________________________________________________________
 - Local-first tool execution with a wide practical tool surface
 - Multiple UI entry points: CLI, GUI, and Web
 - Multiple providers: Azure OpenAI / OpenAI-compatible, Bedrock, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- Provider/model switching with session continuity (carry conversation context across LLM changes)
 - End-to-end i18n support: localized host UI (`UAGENT_LANG`) plus optional TO_LLM/FROM_LLM translation for LLM communication
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
 - Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
