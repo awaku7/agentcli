@@ -189,14 +189,14 @@ class ScheckWorker(QtCore.QObject):
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
             # LLM API selection (Responses API vs Chat Completions)
-            # NOTE: Responses API is supported only for Azure/OpenAI providers.
+            # NOTE: Responses API is supported only for Azure/OpenAI/Bedrock providers.
             use_responses_api = (
                 os.environ.get("UAGENT_RESPONSES", "") or ""
             ).lower() in (
                 "1",
                 "true",
             )
-            if use_responses_api and self._provider not in ("azure", "openai"):
+            if use_responses_api and self._provider not in ("azure", "openai", "bedrock"):
                 print(
                     "[WARN] "
                     + _(
@@ -278,6 +278,7 @@ class ScheckWorker(QtCore.QObject):
                             allow_multimodal = use_responses_api and prov in (
                                 "azure",
                                 "openai",
+                                "bedrock",
                             )
 
                             if allow_multimodal:
