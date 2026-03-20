@@ -7,7 +7,7 @@
  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
 ```
 
-# uag（ローカルツール実行エージェント）
+# uag（ローカルAIエージェント）
 
 uag は、ローカルPC上で **コマンド実行**・**ファイル操作**・**各種データ読取** などを行う対話型エージェントです。
 
@@ -21,8 +21,10 @@ ______________________________________________________________________
 
 - ローカル環境ですぐ使える、実用的で幅広いツール群
 - CLI / GUI / Web の3つの入口
-- OpenAI互換 / Azure / OpenRouter / Gemini / Claude / Grok / NVIDIA に対応
+- OpenAI互換 / Azure / Bedrock / OpenRouter / Gemini / Claude / Grok / NVIDIA に対応
+- エンドツーエンドの i18n 対応: ホストUIの多言語化（`UAGENT_LANG`）と、LLM 通信の TO_LLM/FROM_LLM 翻訳をサポート
 - テキスト、PDF、PPTX、Excel、画像、スクリーンショットまで扱える
+- セッション継続と履歴制御: `:logs` / `:load`、手動 `:shrink_llm`、任意の自動圧縮
 - MCP による外部ツールサーバ連携が可能
 - 確認・パス制限・マスキング・スモークテストによる安全性重視
 - GPT-5.4+ Responses 向けに、軽量な tools prompt、`tool_catalog`、リクエストに応じたツール絞り込みを実装
@@ -189,7 +191,7 @@ Bedrock では OpenAI互換ゲートウェイの制約に合わせるため、me
 
 ______________________________________________________________________
 
-## Provider（OpenAI互換の扱い）
+## Provider
 
 `uag` は複数のLLMプロバイダを切り替えて利用できます。
 
@@ -205,6 +207,12 @@ ______________________________________________________________________
   - 必須: `UAGENT_AZURE_API_KEY`
   - 必須: `UAGENT_AZURE_API_VERSION`
   - 任意: `UAGENT_AZURE_DEPNAME`
+
+- `UAGENT_PROVIDER=bedrock` は **Bedrock（OpenAI互換ゲートウェイ）** を利用します。
+
+  - 必須: `UAGENT_BEDROCK_BASE_URL`
+  - 必須: `UAGENT_BEDROCK_API_KEY`
+  - 任意: `UAGENT_BEDROCK_DEPNAME`
 
 - `UAGENT_PROVIDER=openrouter` は **OpenRouter**（OpenAI互換の統一API）を利用します。
 
