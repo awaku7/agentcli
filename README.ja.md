@@ -248,7 +248,30 @@ ______________________________________________________________________
   - 必須: `UAGENT_CLAUDE_API_KEY`
   - 任意: `UAGENT_CLAUDE_DEPNAME`
 
-※プロバイダやキーの設定例は `env.sample.*` を参照してください。
+※共通の正本テンプレートは `samples/env.sample.env` です。
+
+- リポジトリ上では、対話式ウィザード `python samples/generate_env_samples.py` を実行すると、意図した文字コード/改行コードで `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` を生成できます。
+- pip/whl でインストールした環境では、`uag_setup` を実行すると、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
+
+プロバイダ別は `samples/provider.*.env.sample` を参照してください。詳細は `samples/README.md` を参照。
+
+### env サンプル生成
+
+サンプルは `samples/` 配下にあり、詳細は `samples/README.md` を参照してください。
+
+対話式ウィザードで設定し、シェル別サンプルを生成します。
+
+```bash
+python samples/generate_env_samples.py
+```
+
+生成されるファイルと形式:
+
+- `samples/env.sample.sh`   : UTF-8, LF
+- `samples/env.sample.ps1`  : BOM付きUTF-8（`utf-8-sig`）, CRLF
+- `samples/env.sample.bat`  : CP932, CRLF
+
+番号選択と `b`（戻る）に対応した対話式です。再実行でいつでも設定を更新できます。
 
 ______________________________________________________________________
 
