@@ -844,7 +844,7 @@ def main() -> None:
 
         # Responses API is currently supported only on Azure OpenAI (and potentially OpenAI beta).
         # Grok, Gemini, Claude, etc. do not support it.
-        if use_responses_api and provider not in ("azure", "openai"):
+        if use_responses_api and provider not in ("azure", "openai", "bedrock"):
             print(
                 "[WARN] "
                 + _(
@@ -990,7 +990,7 @@ def main() -> None:
                     "true",
                 )
                 prov = (env_get("UAGENT_PROVIDER") or "").lower()
-                allow_multimodal = use_responses_api and prov in ("azure", "openai")
+                allow_multimodal = use_responses_api and prov in ("azure", "openai", "bedrock")
 
                 user_msg: Dict[str, Any]
 

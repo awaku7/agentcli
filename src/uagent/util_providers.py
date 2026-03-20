@@ -133,7 +133,7 @@ def detect_provider() -> str:
         sys.exit(1)
 
     p = p.lower()
-    if p not in ("azure", "openai", "openrouter", "gemini", "grok", "claude", "nvidia"):
+    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "grok", "claude", "nvidia"):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
     return p
@@ -146,6 +146,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_AZURE_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "openai":
         return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
+    if provider == "bedrock":
+        return env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "openrouter":
         return env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2") or "gpt-5.2"
     if provider == "grok":
@@ -251,6 +253,8 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
                 _base = core.get_env_url(
                     "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
                 )
+            elif provider == "bedrock":
+                _base = core.get_env_url("UAGENT_BEDROCK_BASE_URL", "(not set)")
             elif provider == "openrouter":
                 _base = core.get_env_url(
                     "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
@@ -299,6 +303,27 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         base_url = core.get_env_url(
             "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
         )
+
+        def _hook(resp: Any) -> None:
+            try:
+                status = getattr(resp, "status_code", None)
+                if status not in (429, 503):
+                    return
+            except Exception:
+                return
+
+        http_client = make_httpx_client(event_hooks={"response": [_hook]})
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "bedrock":
+        api_key = core.get_env("UAGENT_BEDROCK_API_KEY")
+        base_url = core.get_env_url("UAGENT_BEDROCK_BASE_URL")
 
         def _hook(resp: Any) -> None:
             try:
