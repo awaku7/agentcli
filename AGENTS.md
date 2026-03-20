@@ -41,15 +41,17 @@ ______________________________________________________________________
 
 ## 環境変数（.env）
 
-推奨: `env.sample.bat` / `env.sample.ps1` / `env.sample.sh` を参考に `.env` を作成して設定してください。
+推奨:
+- リポジトリ上では `python samples/generate_env_samples.py`（対話式ウィザード）を実行し、`samples/env.sample.env` と `samples/env.sample.bat` / `samples/env.sample.ps1` / `samples/env.sample.sh` を生成・更新して利用してください（文字コード・改行コードを自動調整、番号選択・`b` 戻る対応）。
+- pip/whl でインストールした利用者向けには `uag_setup`（対話式）で、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
 
 主な環境変数:
 
 - **プロバイダ設定**
 
-  - `UAGENT_PROVIDER`: `azure` / `openai` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
+  - `UAGENT_PROVIDER`: `azure` / `openai` / `bedrock` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
-  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
+  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_BEDROCK_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
 
 - **API モード設定**
 
