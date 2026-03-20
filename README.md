@@ -128,7 +128,9 @@ ______________________________________________________________________
 
 ## Optional Responses API knobs (reasoning / verbosity)
 
-When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI, you can optionally control reasoning effort and output verbosity.
+When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock, you can optionally control reasoning effort and output verbosity.
+
+For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to match OpenAI-compatible gateway constraints.
 
 If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
 

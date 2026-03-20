@@ -108,7 +108,16 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
 
         return provider, missing, warnings
 
-    allowed = ("azure", "openai", "bedrock", "openrouter", "gemini", "grok", "claude", "nvidia")
+    allowed = (
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "gemini",
+        "grok",
+        "claude",
+        "nvidia",
+    )
     if provider not in allowed:
         # We intentionally do not hard-fail here because util_providers.detect_provider
         # already exits. This warning is just to make the message more informative.
