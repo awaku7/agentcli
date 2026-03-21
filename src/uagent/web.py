@@ -570,6 +570,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
                 + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
             )
 
+        print("[INFO] " + _("LLM provider = %(provider)s") % {"provider": provider})
         print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
 
         user_msg = {"role": "user", "content": user_input}

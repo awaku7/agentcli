@@ -811,6 +811,7 @@ def main() -> None:
 
         provider, client, depname = providers.make_client(core)
 
+        print(_("LLM provider = %(provider)s") % {"provider": provider})
         print(_("model(deployment) = %(depname)s") % {"depname": depname})
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
