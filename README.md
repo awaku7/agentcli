@@ -135,7 +135,7 @@ When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedroc
 
 For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to match OpenAI-compatible gateway constraints.
 
-If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
+If `UAGENT_RESPONSES=1` is set with a provider that does not support the Responses API, uag falls back to ChatCompletions at runtime.
 
 - `UAGENT_REASONING`:
   - `auto`: automatically choose `reasoning.effort` per request (Responses API only; streaming is forced off; may retry once on low-quality output)
