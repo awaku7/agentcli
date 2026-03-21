@@ -173,7 +173,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    _responses_supported = provider in ("azure", "openai", "bedrock")
+    _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter")
     if _use_responses_flag and _responses_supported:
         lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
     else:

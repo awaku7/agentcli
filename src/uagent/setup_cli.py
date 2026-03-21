@@ -120,7 +120,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     ],
 }
 
-RESPONSES_PROVIDERS = {"openai", "azure", "bedrock"}
+RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter"}
 
 LANG_PRESETS = [
     "en",
