@@ -153,18 +153,18 @@ def run_tool(args: Dict[str, Any]) -> str:
         raw_input = args.get("path")
 
     missing_ok_raw = args.get("missing_ok", False)
-    dry_run_raw = args.get("dry_run", True)
+    dry_run_is_set = "dry_run" in args
+    dry_run_raw = args.get("dry_run", None)
     allow_dir_raw = args.get("allow_dir", True)
 
     if not isinstance(missing_ok_raw, bool):
         raise ValueError("missing_ok must be a boolean")
-    if not isinstance(dry_run_raw, bool):
+    if dry_run_is_set and not isinstance(dry_run_raw, bool):
         raise ValueError("dry_run must be a boolean")
     if not isinstance(allow_dir_raw, bool):
         raise ValueError("allow_dir must be a boolean")
 
     missing_ok = missing_ok_raw
-    dry_run = dry_run_raw
     allow_dir = allow_dir_raw
 
     if isinstance(raw_input, str):
@@ -184,6 +184,14 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if not items:
         raise ValueError("filename/path is required")
+
+    # Default behavior (matches tests/spec intent):
+    # - If dry_run is explicitly provided, honor it.
+    # - Otherwise, default to dry_run=True when any glob pattern is used.
+    if dry_run_is_set:
+        dry_run = dry_run_raw
+    else:
+        dry_run = any(_has_glob_meta(it) for it in items)
 
     missing_items: List[str] = []
     all_matches: List[str] = []
