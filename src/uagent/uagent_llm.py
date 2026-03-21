@@ -45,6 +45,7 @@ from .llm_openrouter import (
     finalize_tool_schema_sync,
     apply_openrouter_fallback_models,
 )
+from .llm_openrouter_responses import apply_openrouter_responses_compat
 
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
@@ -825,6 +826,12 @@ def run_llm_rounds(
                             if send_tools_this_round and req_tools:
                                 resp_kwargs["tools"] = req_tools
                                 resp_kwargs["tool_choice"] = "auto"
+
+                            apply_openrouter_responses_compat(
+                                resp_kwargs,
+                                provider=provider,
+                                depname=depname,
+                            )
 
                             if stream_responses:
                                 assistant_text, tool_calls_list = _call_maybe_thread(
