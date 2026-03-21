@@ -50,21 +50,45 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_OPENAI_DEPNAME", False, "OpenAI model/deployment name (optional)"),
     ],
     "azure": [
-        ("UAGENT_AZURE_BASE_URL", True, "Azure base URL (e.g. https://<resource>.openai.azure.com/)"),
+        (
+            "UAGENT_AZURE_BASE_URL",
+            True,
+            "Azure base URL (e.g. https://<resource>.openai.azure.com/)",
+        ),
         ("UAGENT_AZURE_API_KEY", True, "Azure API key"),
-        ("UAGENT_AZURE_API_VERSION", False, "Azure API version (optional, e.g. 2024-05-01-preview)"),
+        (
+            "UAGENT_AZURE_API_VERSION",
+            False,
+            "Azure API version (optional, e.g. 2024-05-01-preview)",
+        ),
         ("UAGENT_AZURE_DEPNAME", True, "Azure deployment name"),
     ],
     "bedrock": [
-        ("UAGENT_BEDROCK_BASE_URL", True, "Bedrock gateway base URL (e.g. https://<gateway>/v1)"),
+        (
+            "UAGENT_BEDROCK_BASE_URL",
+            True,
+            "Bedrock gateway base URL (e.g. https://<gateway>/v1)",
+        ),
         ("UAGENT_BEDROCK_API_KEY", True, "Bedrock API key"),
-        ("UAGENT_BEDROCK_DEPNAME", True, "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"),
+        (
+            "UAGENT_BEDROCK_DEPNAME",
+            True,
+            "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)",
+        ),
     ],
     "openrouter": [
         ("UAGENT_OPENROUTER_API_KEY", True, "OpenRouter API key"),
         ("UAGENT_OPENROUTER_BASE_URL", False, "OpenRouter base URL (optional)"),
-        ("UAGENT_OPENROUTER_DEPNAME", False, "OpenRouter model/deployment name (optional)"),
-        ("UAGENT_OPENROUTER_FALLBACK_MODELS", False, "OpenRouter fallback models (optional, comma-separated)"),
+        (
+            "UAGENT_OPENROUTER_DEPNAME",
+            False,
+            "OpenRouter model/deployment name (optional)",
+        ),
+        (
+            "UAGENT_OPENROUTER_FALLBACK_MODELS",
+            False,
+            "OpenRouter fallback models (optional, comma-separated)",
+        ),
     ],
     "gemini": [
         ("UAGENT_GEMINI_API_KEY", True, "Gemini API key"),
@@ -185,7 +209,9 @@ def _parse_template_defaults(lines: list[str]) -> dict[str, str]:
     return defaults
 
 
-def _menu_choice(title: str, options: list[str], default_index: int = 1, allow_back: bool = False) -> str:
+def _menu_choice(
+    title: str, options: list[str], default_index: int = 1, allow_back: bool = False
+) -> str:
     while True:
         print()
         print(title)
@@ -208,7 +234,9 @@ def _menu_choice(title: str, options: list[str], default_index: int = 1, allow_b
         print("Invalid input. Please enter a valid number.")
 
 
-def _ask_text(label: str, default: str = "", required: bool = False, allow_back: bool = True) -> tuple[str, str]:
+def _ask_text(
+    label: str, default: str = "", required: bool = False, allow_back: bool = True
+) -> tuple[str, str]:
     while True:
         prompt = label
         if default:
@@ -303,7 +331,9 @@ def main() -> int:
     while True:
         if stage == 0:
             options = [f"{p} ({label})" for p, label in PROVIDERS]
-            choice = _menu_choice("Select provider", options, default_index=1, allow_back=False)
+            choice = _menu_choice(
+                "Select provider", options, default_index=1, allow_back=False
+            )
             if choice == "__quit__":
                 print("Cancelled.")
                 return 1
@@ -320,7 +350,9 @@ def main() -> int:
 
             key, required, label = provider_fields[field_index]
             default = state.get(key, defaults.get(key, ""))
-            status, value = _ask_text(label, default=default, required=required, allow_back=True)
+            status, value = _ask_text(
+                label, default=default, required=required, allow_back=True
+            )
             if status == "__quit__":
                 print("Cancelled.")
                 return 1
@@ -364,7 +396,13 @@ def main() -> int:
                         return 1
                     if r == "__back__":
                         continue
-                    state["UAGENT_REASONING"] = ["minimal", "low", "medium", "high", "auto"][int(r) - 1]
+                    state["UAGENT_REASONING"] = [
+                        "minimal",
+                        "low",
+                        "medium",
+                        "high",
+                        "auto",
+                    ][int(r) - 1]
 
                     v = _menu_choice(
                         "Select verbosity",
@@ -399,7 +437,12 @@ def main() -> int:
                 continue
             enabled["workdir"] = w == "2"
             if enabled["workdir"]:
-                status, value = _ask_text("UAGENT_WORKDIR", default=state["UAGENT_WORKDIR"], required=False, allow_back=True)
+                status, value = _ask_text(
+                    "UAGENT_WORKDIR",
+                    default=state["UAGENT_WORKDIR"],
+                    required=False,
+                    allow_back=True,
+                )
                 if status == "__quit__":
                     print("Cancelled.")
                     return 1
@@ -407,24 +450,39 @@ def main() -> int:
                     continue
                 state["UAGENT_WORKDIR"] = value
 
-            l = _menu_choice(
+            lang_choice = _menu_choice(
                 "Set optional runtime UAGENT_LANG?",
                 ["No", "Yes"],
                 default_index=1,
                 allow_back=True,
             )
-            if l == "__quit__":
+            if lang_choice == "__quit__":
                 print("Cancelled.")
                 return 1
-            if l == "__back__":
+            if lang_choice == "__back__":
                 continue
-            enabled["lang"] = l == "2"
+            enabled["lang"] = lang_choice == "2"
             if enabled["lang"]:
-                lang_opts = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr", "custom..."]
+                lang_opts = [
+                    "en",
+                    "ja",
+                    "zh_CN",
+                    "zh_TW",
+                    "ko",
+                    "th",
+                    "es",
+                    "fr",
+                    "custom...",
+                ]
                 default_idx = 2 if state["UAGENT_LANG"] == "ja" else 1
                 if state["UAGENT_LANG"] in lang_opts:
                     default_idx = lang_opts.index(state["UAGENT_LANG"]) + 1
-                sel = _menu_choice("Select UAGENT_LANG", lang_opts, default_index=default_idx, allow_back=True)
+                sel = _menu_choice(
+                    "Select UAGENT_LANG",
+                    lang_opts,
+                    default_index=default_idx,
+                    allow_back=True,
+                )
                 if sel == "__quit__":
                     print("Cancelled.")
                     return 1
@@ -432,7 +490,12 @@ def main() -> int:
                     continue
                 chosen = lang_opts[int(sel) - 1]
                 if chosen == "custom...":
-                    status, value = _ask_text("UAGENT_LANG", default=state["UAGENT_LANG"], required=False, allow_back=True)
+                    status, value = _ask_text(
+                        "UAGENT_LANG",
+                        default=state["UAGENT_LANG"],
+                        required=False,
+                        allow_back=True,
+                    )
                     if status == "__quit__":
                         print("Cancelled.")
                         return 1
@@ -463,7 +526,11 @@ def main() -> int:
 
             action = _menu_choice(
                 "Generate files with this configuration?",
-                ["Yes, generate", "Back to runtime options", "Back to provider settings"],
+                [
+                    "Yes, generate",
+                    "Back to runtime options",
+                    "Back to provider settings",
+                ],
                 default_index=1,
                 allow_back=False,
             )
@@ -511,7 +578,9 @@ def main() -> int:
         values["UAGENT_LANG"] = state["UAGENT_LANG"]
         active_keys.add("UAGENT_LANG")
 
-    env_lines = _build_env_lines(template_lines, defaults, values, active_keys, managed_keys)
+    env_lines = _build_env_lines(
+        template_lines, defaults, values, active_keys, managed_keys
+    )
     env_text = "\n".join(env_lines).rstrip() + "\n"
 
     sh_text = _emit_sh(env_lines)
