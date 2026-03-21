@@ -31,13 +31,8 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(
-                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
-            )
-            if os.path.exists(p_new):
-                return p_new
             return os.path.join(
-                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
             )
 
 
