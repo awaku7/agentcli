@@ -825,9 +825,14 @@ def main() -> None:
             "true",
         )
 
-        # Responses API is currently supported only on Azure OpenAI (and potentially OpenAI beta).
+        # Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
         # Grok, Gemini, Claude, etc. do not support it.
-        if use_responses_api and provider not in ("azure", "openai", "bedrock"):
+        if use_responses_api and provider not in (
+            "azure",
+            "openai",
+            "bedrock",
+            "openrouter",
+        ):
             print(
                 "[WARN] "
                 + _(

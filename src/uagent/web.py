@@ -539,12 +539,17 @@ def run_agent_worker(room: WebRoom, user_input: str):
         provider_name, client, depname = providers.make_client(core)
 
         # LLM API selection (Responses API vs Chat Completions)
-        # NOTE: Responses API is supported only for Azure/OpenAI/Bedrock providers.
+        # NOTE: Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
         use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
             "1",
             "true",
         )
-        if use_responses_api and provider_name not in ("azure", "openai", "bedrock"):
+        if use_responses_api and provider_name not in (
+            "azure",
+            "openai",
+            "bedrock",
+            "openrouter",
+        ):
             print(
                 "[WARN] "
                 + _(
