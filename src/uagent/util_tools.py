@@ -1100,6 +1100,11 @@ def build_lightweight_tools_system_prompt() -> str:
     )
 
 
+def _use_tools_system_prompt() -> bool:
+    v = (env_get("UAGENT_SEND_TOOLS_PROMPT") or "").strip().lower()
+    return v in ("1", "true", "yes", "on")
+
+
 def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
     messages: List[Dict[str, Any]] = []
 
@@ -1107,15 +1112,16 @@ def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
     messages.append(system_msg)
     core.log_message(system_msg)
 
-    if _use_gpt54_lightweight_tools_prompt():
-        tools_prompt = build_lightweight_tools_system_prompt()
-    else:
-        tool_specs = tools.get_tool_specs()
-        tools_prompt = core.build_tools_system_prompt(tool_specs)
-    tools_system_msg = {"role": "system", "content": tools_prompt}
+    if _use_tools_system_prompt():
+        if _use_gpt54_lightweight_tools_prompt():
+            tools_prompt = build_lightweight_tools_system_prompt()
+        else:
+            tool_specs = tools.get_tool_specs()
+            tools_prompt = core.build_tools_system_prompt(tool_specs)
+        tools_system_msg = {"role": "system", "content": tools_prompt}
 
-    messages.append(tools_system_msg)
-    core.log_message(tools_system_msg)
+        messages.append(tools_system_msg)
+        core.log_message(tools_system_msg)
 
     return messages
 
@@ -1125,6 +1131,9 @@ def insert_tools_system_message(
     *,
     core: Any,
 ) -> List[Dict[str, Any]]:
+    if not _use_tools_system_prompt():
+        return messages
+
     if _use_gpt54_lightweight_tools_prompt():
         tools_prompt = build_lightweight_tools_system_prompt()
     else:

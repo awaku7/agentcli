@@ -8,6 +8,7 @@ from typing import Any, Dict
 from . import shared_memory
 
 TOOL_SPEC: Dict[str, Any] = {
+    "tool_level": -1,
     "type": "function",
     "function": {
         "name": "get_shared_memory",

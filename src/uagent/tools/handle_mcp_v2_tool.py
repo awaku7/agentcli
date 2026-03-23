@@ -31,13 +31,8 @@ except ImportError:
 
             return str(get_mcp_servers_json_path())
         except Exception:
-            p_new = os.path.join(
-                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
-            )
-            if os.path.exists(p_new):
-                return p_new
             return os.path.join(
-                os.path.expanduser("~"), ".scheck", "mcps", "mcp_servers.json"
+                os.path.expanduser("~"), ".uag", "mcps", "mcp_servers.json"
             )
 
 
@@ -333,10 +328,15 @@ def run_tool(args: Dict[str, Any]) -> str:
                     if s2:
                         argv = json.loads(s2)
             except Exception as e:
-                return _json_out(ok=False, text=f"Invalid tool_arguments JSON string: {e}")
+                return _json_out(
+                    ok=False, text=f"Invalid tool_arguments JSON string: {e}"
+                )
 
     if not isinstance(argv, dict):
-        return _json_out(ok=False, text=f"tool_arguments must be an object/dict (or JSON string of an object). got={type(argv).__name__}")
+        return _json_out(
+            ok=False,
+            text=f"tool_arguments must be an object/dict (or JSON string of an object). got={type(argv).__name__}",
+        )
 
     if not name:
         return _("err.tool_name_required", default="Error: tool_name is required.")

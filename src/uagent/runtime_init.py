@@ -164,12 +164,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}"
         )
+    elif provider == "bedrock":
+        lines.append(
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_BEDROCK_BASE_URL', '(not set)'))}"
+        )
 
     _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
         "true",
     )
-    _responses_supported = provider in ("azure", "openai")
+    _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter")
     if _use_responses_flag and _responses_supported:
         lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
     else:

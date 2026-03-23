@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """vision_runtime.py
 
-Image analysis backend for OpenAI/Azure OpenAI Responses API.
+Image analysis backend for OpenAI/Azure/OpenRouter Responses API.
 
 This module is used by tools/analyze_image_tool.py when UAGENT_RESPONSES=1.
 
 Notes:
-- Responses API support is limited to provider=azure/openai in this project.
+- Responses API support is limited to provider=azure/openai/bedrock/openrouter in this project.
 - The CLI can also send images directly as user content items; this module exists
   mainly to avoid missing-import crashes if the analyze_image tool is invoked.
 """
@@ -52,15 +52,15 @@ def _image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
 
 def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
-    """Analyze an image via Responses API (OpenAI/Azure)."""
+    """Analyze an image via Responses API (OpenAI/Azure/OpenRouter)."""
 
     provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
-    if provider not in ("openai", "azure"):
+    if provider not in ("openai", "azure", "bedrock", "openrouter"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
                 default=(
-                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure "
+                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter "
                     "(got provider={provider!r})"
                 ),
             ).format(provider=provider)
@@ -102,19 +102,50 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
             api_version=api_version,
         )
     else:
-        api_key = env_get("UAGENT_OPENAI_API_KEY")
-        base_url = env_get("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
-        model = env_get("UAGENT_OPENAI_DEPNAME")
-        if not (api_key and model):
-            raise RuntimeError(
-                _(
-                    "err.missing_env.openai",
-                    default=(
-                        "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
-                    ),
+        if provider == "bedrock":
+            api_key = env_get("UAGENT_BEDROCK_API_KEY")
+            base_url = env_get("UAGENT_BEDROCK_BASE_URL")
+            model = env_get("UAGENT_BEDROCK_DEPNAME", "gpt-5.2") or "gpt-5.2"
+            if not (api_key and base_url and model):
+                raise RuntimeError(
+                    _(
+                        "err.missing_env.bedrock",
+                        default=(
+                            "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)"
+                        ),
+                    )
                 )
+            client = OpenAI(api_key=api_key, base_url=base_url)
+        elif provider == "openrouter":
+            api_key = env_get("UAGENT_OPENROUTER_API_KEY")
+            base_url = env_get(
+                "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
             )
-        client = OpenAI(api_key=api_key, base_url=base_url)
+            model = env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2") or "gpt-5.2"
+            if not api_key:
+                raise RuntimeError(
+                    _(
+                        "err.missing_env.openrouter",
+                        default=(
+                            "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)"
+                        ),
+                    )
+                )
+            client = OpenAI(api_key=api_key, base_url=base_url)
+        else:
+            api_key = env_get("UAGENT_OPENAI_API_KEY")
+            base_url = env_get("UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1")
+            model = env_get("UAGENT_OPENAI_DEPNAME")
+            if not (api_key and model):
+                raise RuntimeError(
+                    _(
+                        "err.missing_env.openai",
+                        default=(
+                            "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+                        ),
+                    )
+                )
+            client = OpenAI(api_key=api_key, base_url=base_url)
 
     resp = client.responses.create(
         model=model,

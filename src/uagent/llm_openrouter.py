@@ -1,4 +1,5 @@
-from typing import Any, Dict
+import json
+from typing import Any, Dict, List
 
 from .env_utils import env_get
 
@@ -10,16 +11,17 @@ def apply_openrouter_extra_body(chat_kwargs: Dict[str, Any], *, provider: str) -
         return
 
     # Enable OpenRouter reasoning_details (Chat Completions extension)
+    # Control via the common env var UAGENT_REASONING.
+    # - off/0/false/no => disabled
+    # - anything else (including auto/low/medium/high/...) => enabled
     try:
-        _raw_reason = (
-            (env_get("UAGENT_OPENROUTER_REASONING", "1") or "").strip().lower()
-        )
-        if _raw_reason in ("1", "true", "yes", "on", "enabled"):
-            _eb = chat_kwargs.get("extra_body")
-            if not isinstance(_eb, dict):
-                _eb = {}
-            _eb["reasoning"] = {"enabled": True}
-            chat_kwargs["extra_body"] = _eb
+        _raw_reason = (env_get("UAGENT_REASONING", "medium") or "").strip().lower()
+        _reasoning_enabled = _raw_reason not in ("", "0", "false", "no", "off")
+        _eb = chat_kwargs.get("extra_body")
+        if not isinstance(_eb, dict):
+            _eb = {}
+        _eb["reasoning"] = {"enabled": bool(_reasoning_enabled)}
+        chat_kwargs["extra_body"] = _eb
     except Exception:
         pass
 
