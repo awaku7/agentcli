@@ -7,7 +7,7 @@
  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
 ```
 
-# uag（ローカルツール実行エージェント）
+# uag（ローカルAIエージェント）
 
 uag は、ローカルPC上で **コマンド実行**・**ファイル操作**・**各種データ読取** などを行う対話型エージェントです。
 
@@ -21,8 +21,11 @@ ______________________________________________________________________
 
 - ローカル環境ですぐ使える、実用的で幅広いツール群
 - CLI / GUI / Web の3つの入口
-- OpenAI互換 / Azure / OpenRouter / Gemini / Claude / Grok / NVIDIA に対応
+- OpenAI互換 / Azure / Bedrock / OpenRouter / Gemini / Claude / Grok / NVIDIA に対応
+- LLM（プロバイダ/モデル）を切り替えてもセッション継続が可能（会話コンテキストを引き継ぎ）
+- エンドツーエンドの i18n 対応: ホストUIの多言語化（`UAGENT_LANG`）と、LLM 通信の TO_LLM/FROM_LLM 翻訳をサポート
 - テキスト、PDF、PPTX、Excel、画像、スクリーンショットまで扱える
+- セッション継続と履歴制御: `:logs` / `:load`、手動 `:shrink_llm`、任意の自動圧縮
 - MCP による外部ツールサーバ連携が可能
 - 確認・パス制限・マスキング・スモークテストによる安全性重視
 - GPT-5.4+ Responses 向けに、軽量な tools prompt、`tool_catalog`、リクエストに応じたツール絞り込みを実装
@@ -166,7 +169,30 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## Provider（OpenAI互換の扱い）
+## （任意）Responses API 設定 (reasoning / verbosity)
+
+Azure/OpenAI/Bedrock で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+
+Bedrock では OpenAI互換ゲートウェイの制約に合わせるため、message list ではなく文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
+
+Responses API に未対応のプロバイダで `UAGENT_RESPONSES=1` を指定した場合、実行時に ChatCompletions へフォールバックします。
+
+- `UAGENT_REASONING`:
+  - `auto`: リクエストごとに `reasoning.effort` を自動選択（Responses APIのみ。ストリーミングは自動でOFF。低品質出力時に1回だけ再試行する場合があります）
+  - `minimal|low|medium|high|xhigh`: `reasoning={"effort":...}` を送信
+  - `off` / 未設定 / 空: `reasoning` を送信しない
+- `UAGENT_VERBOSITY`:
+  - `low|medium|high`: `text={"verbosity":...}` を送信
+  - `off` / 未設定 / 空: `text.verbosity` を送信しない
+
+セッション内コマンド（CLI/GUI/Web）:
+
+- `:r [0|1|2|3|auto|minimal|xhigh]`（引数なしで現在値表示）
+- `:v [0|1|2|3]`（引数なしで現在値表示）
+
+______________________________________________________________________
+
+## Provider
 
 `uag` は複数のLLMプロバイダを切り替えて利用できます。
 
@@ -182,6 +208,12 @@ ______________________________________________________________________
   - 必須: `UAGENT_AZURE_API_KEY`
   - 必須: `UAGENT_AZURE_API_VERSION`
   - 任意: `UAGENT_AZURE_DEPNAME`
+
+- `UAGENT_PROVIDER=bedrock` は **Bedrock（OpenAI互換ゲートウェイ）** を利用します。
+
+  - 必須: `UAGENT_BEDROCK_BASE_URL`
+  - 必須: `UAGENT_BEDROCK_API_KEY`
+  - 任意: `UAGENT_BEDROCK_DEPNAME`
 
 - `UAGENT_PROVIDER=openrouter` は **OpenRouter**（OpenAI互換の統一API）を利用します。
 
@@ -216,7 +248,30 @@ ______________________________________________________________________
   - 必須: `UAGENT_CLAUDE_API_KEY`
   - 任意: `UAGENT_CLAUDE_DEPNAME`
 
-※プロバイダやキーの設定例は `env.sample.*` を参照してください。
+※共通の正本テンプレートは `samples/env.sample.env` です。
+
+- リポジトリ上では、対話式ウィザード `python samples/generate_env_samples.py` を実行すると、意図した文字コード/改行コードで `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` を生成できます。
+- pip/whl でインストールした環境では、`uag_setup` を実行すると、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
+
+プロバイダ別は `samples/provider.*.env.sample` を参照してください。詳細は `samples/README.md` を参照。
+
+### env サンプル生成
+
+サンプルは `samples/` 配下にあり、詳細は `samples/README.md` を参照してください。
+
+対話式ウィザードで設定し、シェル別サンプルを生成します。
+
+```bash
+python samples/generate_env_samples.py
+```
+
+生成されるファイルと形式:
+
+- `samples/env.sample.sh`   : UTF-8, LF
+- `samples/env.sample.ps1`  : BOM付きUTF-8（`utf-8-sig`）, CRLF
+- `samples/env.sample.bat`  : CP932, CRLF
+
+番号選択と `b`（戻る）に対応した対話式です。再実行でいつでも設定を更新できます。
 
 ______________________________________________________________________
 

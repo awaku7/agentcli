@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uag"
-version = "0.3.28"
+version = "0.3.30"
 description = "A powerful tool execution agent"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -65,6 +65,7 @@ dependencies = [
 [project.scripts]
 
 uag = "uagent.cli:main"
+uag_setup = "uagent.setup_cli:main"
 uagg = "uagent.gui:main"
 uagw = "uagent.web:main"
 [tool.setuptools.packages.find]

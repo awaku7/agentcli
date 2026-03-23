@@ -69,7 +69,7 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         # to set (depending on which provider they choose).
         missing += _require(
             ["UAGENT_PROVIDER"],
-            reason="Required to select the LLM provider (azure/openai/openrouter/gemini/grok/claude/nvidia).",
+            reason="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
         )
 
         # Candidate requirements for each provider (displayed only when provider is missing).
@@ -108,7 +108,16 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
 
         return provider, missing, warnings
 
-    allowed = ("azure", "openai", "openrouter", "gemini", "grok", "claude", "nvidia")
+    allowed = (
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "gemini",
+        "grok",
+        "claude",
+        "nvidia",
+    )
     if provider not in allowed:
         # We intentionally do not hard-fail here because util_providers.detect_provider
         # already exits. This warning is just to make the message more informative.
@@ -133,6 +142,15 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         )
     elif provider == "openai":
         missing += _require(["UAGENT_OPENAI_API_KEY"], reason="OpenAI API key.")
+    elif provider == "bedrock":
+        missing += _require(
+            ["UAGENT_BEDROCK_BASE_URL"],
+            reason="Bedrock proxy endpoint/base URL (OpenAI-compatible).",
+        )
+        missing += _require(
+            ["UAGENT_BEDROCK_API_KEY"],
+            reason="Bedrock proxy API key (OpenAI-compatible).",
+        )
     elif provider == "openrouter":
         missing += _require(["UAGENT_OPENROUTER_API_KEY"], reason="OpenRouter API key.")
     elif provider == "grok":
