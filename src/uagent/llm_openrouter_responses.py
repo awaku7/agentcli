@@ -216,13 +216,18 @@ def apply_openrouter_responses_compat(
                     continue
 
                 # Function tools: accept both nested (ChatCompletions) and flat (Responses) shapes.
-                fn = t2.get("function") if isinstance(t2.get("function"), dict) else None
+                fn = (
+                    t2.get("function") if isinstance(t2.get("function"), dict) else None
+                )
                 if isinstance(fn, dict):
                     if not (
                         isinstance(t2.get("name"), str)
                         and (t2.get("name") or "").strip()
                     ):
-                        if isinstance(fn.get("name"), str) and (fn.get("name") or "").strip():
+                        if (
+                            isinstance(fn.get("name"), str)
+                            and (fn.get("name") or "").strip()
+                        ):
                             t2["name"] = fn.get("name")
                     if not isinstance(t2.get("description"), str):
                         if isinstance(fn.get("description"), str):
