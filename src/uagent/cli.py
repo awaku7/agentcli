@@ -147,21 +147,33 @@ def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
 
 def _uagent_path_candidates(prefix: str) -> list[str]:
     # Return completion candidates for a filesystem path prefix.
-    # - expands ~ and envvars in the directory part for scanning
-    # - returns candidates in the form that replaces the current token
+    # Notes:
+    # - We keep the *typed* directory prefix (including original slashes) so we don't
+    #   accidentally duplicate segments (e.g. 'src' -> 'src\src\...').
+    # - We expand ~ and envvars only for scanning the filesystem.
 
+    # Expand for filesystem scanning
     expanded = os.path.expandvars(os.path.expanduser(prefix))
 
-    last_sep = max(expanded.rfind("/"), expanded.rfind("\\"))
+    # Find last separator in the *typed* prefix and in the expanded prefix.
+    # We use the typed one to preserve what the user typed.
+    last_sep_typed = max(prefix.rfind("/"), prefix.rfind("\\"))
+    last_sep_expanded = max(expanded.rfind("/"), expanded.rfind("\\"))
 
-    if last_sep >= 0:
-        scan_dir = expanded[: last_sep + 1]
-        base = expanded[last_sep + 1 :]
-        out_prefix_raw = prefix[: last_sep + 1]
+    if last_sep_expanded >= 0:
+        scan_dir = expanded[: last_sep_expanded + 1]
+        base = expanded[last_sep_expanded + 1 :]
     else:
         scan_dir = ""
         base = expanded
+
+    # This is what we will prepend to returned candidates (exactly as typed)
+    if last_sep_typed >= 0:
+        out_prefix_raw = prefix[: last_sep_typed + 1]
+        typed_sep = prefix[last_sep_typed]
+    else:
         out_prefix_raw = ""
+        typed_sep = os.sep
 
     scan_dir_fs = scan_dir or "."
 
@@ -176,15 +188,7 @@ def _uagent_path_candidates(prefix: str) -> list[str]:
             continue
 
         full = os.path.join(scan_dir_fs, name)
-        suffix = os.sep if os.path.isdir(full) else ""
-
-        if last_sep >= 0 and last_sep < len(prefix):
-            typed_sep = prefix[last_sep]
-        else:
-            typed_sep = os.sep
-
-        if suffix:
-            suffix = typed_sep
+        suffix = typed_sep if os.path.isdir(full) else ""
 
         cands.append(out_prefix_raw + name + suffix)
 
@@ -194,6 +198,10 @@ def _uagent_path_candidates(prefix: str) -> list[str]:
 
 def _uagent_rl_completer(text_part: str, state: int):
     # readline completer for ':cd' / ':ls' (first arg only)
+    #
+    # Important: readline expects the returned string to replace the current
+    # token fragment (text_part), not the whole argument. If we return the full
+    # argument, readline may append it and cause duplicated segments.
     try:
         if not readline:
             return None
@@ -213,9 +221,22 @@ def _uagent_rl_completer(text_part: str, state: int):
             return None
 
         cands = _uagent_path_candidates(arg)
-        if state < len(cands):
-            return cands[state]
-        return None
+        if state >= len(cands):
+            return None
+
+        cand = cands[state]
+
+        # Convert full candidate into a replacement for the current fragment.
+        if text_part and arg.endswith(text_part):
+            dir_prefix = arg[: -len(text_part)]
+        else:
+            dir_prefix = arg
+
+        if cand.startswith(dir_prefix):
+            return cand[len(dir_prefix) :]
+
+        # Fallback: return candidate as-is.
+        return cand
     except Exception:
         return None
 
@@ -477,7 +498,15 @@ def stdin_loop() -> None:
                         raise EOFError
                 else:
                     line = None
-                    if os.name == "nt":
+
+                    # If readline is available, prefer input("") so TAB completion works.
+                    # We already printed the prompt ourselves.
+                    if readline and sys.stdin.isatty():
+                        try:
+                            line = input("")
+                        except EOFError:
+                            raise
+                    elif os.name == "nt":
                         try:
                             import msvcrt  # type: ignore
 
@@ -714,6 +743,7 @@ def _handle_docs_cli() -> None:
 
 
 def main() -> None:
+    _uagent_setup_readline_completion()
     # --- startup paging: capture *all* stdout/stderr until shared-memory log ---
     # This matches the requested behavior:
     # "起動直後のすべて（toolsロード行も含む）をまとめてページング".
