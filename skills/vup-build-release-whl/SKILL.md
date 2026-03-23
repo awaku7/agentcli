@@ -1,3 +1,11 @@
+---
+name: vup-build-release-whl
+description: |
+  pyproject.toml の [project].version を patch +1 し、commit + push（origin/main）、wheel build を行ったうえで、
+  dist の最新 .whl を GitHub Releases または GitLab（Generic Package + Release asset link）へアップロードし、tag/release を作成して紐付ける。
+license: Apache-2.0
+---
+
 ______________________________________________________________________
 
 name: vup-build-release-whl
