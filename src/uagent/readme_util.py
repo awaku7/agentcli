@@ -12,7 +12,7 @@ pip/wheel には post-install フックが無いので、起動時（scheck / sc
   - 失敗した場合は標準出力へテキスト表示にフォールバック
 
 実装:
-- フラグ: <state>/first_run_readme_shown.json（既定: ~/.uag/first_run_readme_shown.json。旧: ~/.scheck/first_run_readme_shown.json を読み取り参照）
+- フラグ: <state>/first_run_readme_shown.json（既定: ~/.uag/first_run_readme_shown.json）
   - JSON: {"shown_versions": ["0.2.8", ...]}
 - README の取得: importlib.resources (wheel/zip 環境でも動作)
   - package-data により scheck/README.md が同梱されている前提
@@ -32,19 +32,12 @@ _QUICKSTART_FLAG_FILENAME = "first_run_quickstart_shown.json"
 
 
 def _get_flag_paths() -> list[str]:
-    """Return flag file paths in priority order (new -> legacy).
+    """Return current flag file path list."""
 
-    This keeps backward compatibility when switching state dir from
-    ~/.scheck to ~/.uag without migrating files.
-    """
+    from uagent.utils.paths import get_state_dir
 
-    from uagent.utils.paths import get_state_dir, get_legacy_state_dir
-
-    p_new = str(get_state_dir() / _FLAG_FILENAME)
-    p_old = str(get_legacy_state_dir() / _FLAG_FILENAME)
-    if p_new == p_old:
-        return [p_new]
-    return [p_new, p_old]
+    p = str(get_state_dir() / _FLAG_FILENAME)
+    return [p]
 
 
 def _get_flag_path() -> str:
@@ -168,7 +161,10 @@ def maybe_print_readme_on_first_run(
 
     current_version = _get_installed_version()
 
-    if (not force) and _already_shown(current_version=current_version):
+    if not force:
+        # 初回表示は行わず、現行バージョンを最初から表示済みとして扱う。
+        if not _already_shown(current_version=current_version):
+            _mark_shown(current_version=current_version)
         return False
 
     text = _read_readme_text()
@@ -208,15 +204,12 @@ def maybe_print_readme_on_first_run(
 
 
 def _get_quickstart_flag_paths() -> list[str]:
-    """Return quickstart flag paths in priority order (new -> legacy)."""
+    """Return current quickstart flag file path list."""
 
-    from uagent.utils.paths import get_state_dir, get_legacy_state_dir
+    from uagent.utils.paths import get_state_dir
 
-    p_new = str(get_state_dir() / _QUICKSTART_FLAG_FILENAME)
-    p_old = str(get_legacy_state_dir() / _QUICKSTART_FLAG_FILENAME)
-    if p_new == p_old:
-        return [p_new]
-    return [p_new, p_old]
+    p = str(get_state_dir() / _QUICKSTART_FLAG_FILENAME)
+    return [p]
 
 
 def _get_quickstart_flag_path() -> str:
@@ -299,7 +292,10 @@ def maybe_print_quickstart_on_first_run(
 
     current_version = _get_installed_version()
 
-    if (not force) and _already_shown_quickstart(current_version=current_version):
+    if not force:
+        # 初回表示は行わず、現行バージョンを最初から表示済みとして扱う。
+        if not _already_shown_quickstart(current_version=current_version):
+            _mark_shown_quickstart(current_version=current_version)
         return False
 
     text = _read_quickstart_text()

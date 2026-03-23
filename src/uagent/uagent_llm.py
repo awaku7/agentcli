@@ -20,6 +20,7 @@ from .llm_openai_responses import (
     parse_responses_response,
     parse_responses_stream,
 )
+from .llm_bedrock_responses import build_bedrock_responses_request
 
 try:
     from google.genai import types as gemini_types
@@ -44,6 +45,7 @@ from .llm_openrouter import (
     finalize_tool_schema_sync,
     apply_openrouter_fallback_models,
 )
+from .llm_openrouter_responses import apply_openrouter_responses_compat
 
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
@@ -732,19 +734,33 @@ def run_llm_rounds(
                                 else None
                             )
 
-                            instructions_str, input_msgs, req_tools = (
-                                build_responses_request(
+                            if provider == "bedrock":
+                                _bedrock_req = build_bedrock_responses_request(
                                     call_messages,
                                     send_tools_this_round=send_tools_this_round,
-                                    provider=provider,
                                     tool_specs=responses_tool_specs,
                                 )
-                            )
+                                instructions_str = None
+                                input_msgs = None
+                                req_tools = _bedrock_req.get("tools")
+                                resp_kwargs: Dict[str, Any] = {
+                                    "model": depname,
+                                    "input": _bedrock_req.get("input", ""),
+                                }
+                            else:
+                                instructions_str, input_msgs, req_tools = (
+                                    build_responses_request(
+                                        call_messages,
+                                        send_tools_this_round=send_tools_this_round,
+                                        provider=provider,
+                                        tool_specs=responses_tool_specs,
+                                    )
+                                )
 
-                            resp_kwargs: Dict[str, Any] = {
-                                "model": depname,
-                                "input": input_msgs,
-                            }
+                                resp_kwargs = {
+                                    "model": depname,
+                                    "input": input_msgs,
+                                }
 
                             # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                             # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
@@ -810,6 +826,12 @@ def run_llm_rounds(
                             if send_tools_this_round and req_tools:
                                 resp_kwargs["tools"] = req_tools
                                 resp_kwargs["tool_choice"] = "auto"
+
+                            apply_openrouter_responses_compat(
+                                resp_kwargs,
+                                provider=provider,
+                                depname=depname,
+                            )
 
                             if stream_responses:
                                 assistant_text, tool_calls_list = _call_maybe_thread(

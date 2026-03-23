@@ -10,7 +10,7 @@
 - GUI エントリポイント: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
 - Web エントリポイント: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
 - コア実装: `src/uagent/core.py`
-- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_openai_responses.py`
+- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_openai_responses.py`, `src/uagent/llm_bedrock_responses.py`
 - ツール（プラグイン）群: `src/uagent/tools/`
 
 動作環境は Windows/macOS/Linux を想定し、Python は **3.11+** です。
@@ -41,15 +41,17 @@ ______________________________________________________________________
 
 ## 環境変数（.env）
 
-推奨: `env.sample.bat` / `env.sample.ps1` / `env.sample.sh` を参考に `.env` を作成して設定してください。
+推奨:
+- リポジトリ上では `python samples/generate_env_samples.py`（対話式ウィザード）を実行し、`samples/env.sample.env` と `samples/env.sample.bat` / `samples/env.sample.ps1` / `samples/env.sample.sh` を生成・更新して利用してください（文字コード・改行コードを自動調整、番号選択・`b` 戻る対応）。
+- pip/whl でインストールした利用者向けには `uag_setup`（対話式）で、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
 
 主な環境変数:
 
 - **プロバイダ設定**
 
-  - `UAGENT_PROVIDER`: `azure` / `openai` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
+  - `UAGENT_PROVIDER`: `azure` / `openai` / `bedrock` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
-  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
+  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_BEDROCK_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
 
 - **API モード設定**
 

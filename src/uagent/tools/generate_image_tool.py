@@ -104,7 +104,7 @@ def _get_provider() -> str:
         .strip()
         .lower()
     )
-    if p not in ("azure", "openai", "gemini", "nvidia"):
+    if p not in ("azure", "openai", "bedrock", "gemini", "nvidia"):
         raise RuntimeError(
             f"invalid provider for image generation: {p!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)"
         )
@@ -247,7 +247,7 @@ def _run_openai_images(
                 api_version=api_version,
             )
     else:
-        # OpenAI-compatible (openai / nvidia)
+        # OpenAI-compatible (openai / bedrock / nvidia)
         if provider == "nvidia":
             api_key = _img_env("nvidia", "generate", "api_key", required=True)
             base_url = _img_env(
@@ -256,6 +256,11 @@ def _run_openai_images(
                 "base_url",
                 required=False,
                 default="https://integrate.api.nvidia.com/v1",
+            ).rstrip("/")
+        elif provider == "bedrock":
+            api_key = _img_env("bedrock", "generate", "api_key", required=True)
+            base_url = _img_env(
+                "bedrock", "generate", "base_url", required=True
             ).rstrip("/")
         else:
             api_key = _img_env("openai", "generate", "api_key", required=True)
