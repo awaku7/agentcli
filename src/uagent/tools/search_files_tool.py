@@ -347,10 +347,12 @@ def run_tool(args: Dict[str, Any]) -> str:
                 if os.path.splitext(fname)[1].lower() in IGNORE_EXTS:
                     continue
 
-                if not fnmatch.fnmatch(fname, name_pattern):
-                    continue
-
                 full_path = os.path.join(dirpath, fname)
+
+                # Match by relative path (supports patterns like 'No*/**/README*')
+                rel = os.path.relpath(full_path, root_path).replace(os.sep, "/")
+                if not fnmatch.fnmatch(rel, name_pattern):
+                    continue
 
                 # Content filtering
                 matched_lines: List[str] = []
