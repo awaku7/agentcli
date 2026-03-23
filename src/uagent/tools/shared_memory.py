@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import os
 from ..env_utils import env_get
 import time
 from pathlib import Path
@@ -15,6 +14,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 DEFAULT_MAX_SHARED_MEMORY_BYTES = 200_000
+SHARED_MEMORY_DISABLED_PATH = ""
 
 
 def _get_base_log_dir() -> str:
@@ -24,14 +24,16 @@ def _get_base_log_dir() -> str:
 
 
 def _get_shared_memory_file() -> str:
+    """Return the absolute path to the shared memory file, or '' if disabled."""
     env = env_get("UAGENT_SHARED_MEMORY_FILE")
     if env:
         return str(Path(env).expanduser().resolve())
-    return os.path.join(_get_base_log_dir(), "scheck_shared_memory.jsonl")
+    return SHARED_MEMORY_DISABLED_PATH
 
 
 def is_enabled() -> bool:
-    return True
+    """Shared memory is enabled only when UAGENT_SHARED_MEMORY_FILE is set."""
+    return bool(env_get("UAGENT_SHARED_MEMORY_FILE"))
 
 
 def get_shared_memory_file() -> str:

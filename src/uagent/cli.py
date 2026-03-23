@@ -811,23 +811,7 @@ def main() -> None:
 
         provider, client, depname = providers.make_client(core)
 
-        if provider == "azure":
-            depname = env_get("UAGENT_AZURE_DEPNAME", "gpt-5.2")
-        elif provider == "openai":
-            depname = env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
-        elif provider == "grok":
-            depname = env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
-        elif provider == "gemini":
-            depname = env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash")
-        elif provider == "claude":
-            depname = env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5")
-        elif provider == "nvidia":
-            depname = env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
-        elif provider == "openrouter":
-            depname = env_get("UAGENT_OPENROUTER_DEPNAME", "gpt-5.2")
-        else:
-            depname = env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2")
-
+        print(_("LLM provider = %(provider)s") % {"provider": provider})
         print(_("model(deployment) = %(depname)s") % {"depname": depname})
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
@@ -842,9 +826,14 @@ def main() -> None:
             "true",
         )
 
-        # Responses API is currently supported only on Azure OpenAI (and potentially OpenAI beta).
+        # Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
         # Grok, Gemini, Claude, etc. do not support it.
-        if use_responses_api and provider not in ("azure", "openai"):
+        if use_responses_api and provider not in (
+            "azure",
+            "openai",
+            "bedrock",
+            "openrouter",
+        ):
             print(
                 "[WARN] "
                 + _(
@@ -990,7 +979,11 @@ def main() -> None:
                     "true",
                 )
                 prov = (env_get("UAGENT_PROVIDER") or "").lower()
-                allow_multimodal = use_responses_api and prov in ("azure", "openai")
+                allow_multimodal = use_responses_api and prov in (
+                    "azure",
+                    "openai",
+                    "bedrock",
+                )
 
                 user_msg: Dict[str, Any]
 

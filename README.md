@@ -7,7 +7,7 @@
  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
 ```
 
-# uag (Local Tool-Execution Agent)
+# uag (Local AI Agent)
 
 uag is an interactive local agent that can execute commands, manipulate files, and read various data formats (PDF/PPTX/Excel, etc.) on your PC.
 
@@ -21,8 +21,11 @@ ______________________________________________________________________
 
 - Local-first tool execution with a wide practical tool surface
 - Multiple UI entry points: CLI, GUI, and Web
-- Multiple providers: Azure OpenAI / OpenAI-compatible, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- Multiple providers: Azure OpenAI / OpenAI-compatible, Bedrock, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- Provider/model switching with session continuity (carry conversation context across LLM changes)
+- End-to-end i18n support: localized host UI (`UAGENT_LANG`) plus optional TO_LLM/FROM_LLM translation for LLM communication
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
+- Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
 - GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
@@ -128,9 +131,11 @@ ______________________________________________________________________
 
 ## Optional Responses API knobs (reasoning / verbosity)
 
-When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI, you can optionally control reasoning effort and output verbosity.
+When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock, you can optionally control reasoning effort and output verbosity.
 
-If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
+For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to match OpenAI-compatible gateway constraints.
+
+If `UAGENT_RESPONSES=1` is set with a provider that does not support the Responses API, uag falls back to ChatCompletions at runtime.
 
 - `UAGENT_REASONING`:
   - `auto`: automatically choose `reasoning.effort` per request (Responses API only; streaming is forced off; may retry once on low-quality output)
@@ -147,7 +152,7 @@ In-session commands (CLI/GUI/Web):
 
 ______________________________________________________________________
 
-## Provider (OpenAI-compatible handling)
+## Provider
 
 `uag` supports multiple LLM providers.
 
@@ -163,6 +168,12 @@ ______________________________________________________________________
   - Required: `UAGENT_AZURE_API_KEY`
   - Required: `UAGENT_AZURE_API_VERSION`
   - Optional: `UAGENT_AZURE_DEPNAME`
+
+- `UAGENT_PROVIDER=bedrock` uses **Bedrock (OpenAI-compatible gateway)**.
+
+  - Required: `UAGENT_BEDROCK_BASE_URL`
+  - Required: `UAGENT_BEDROCK_API_KEY`
+  - Optional: `UAGENT_BEDROCK_DEPNAME`
 
 - `UAGENT_PROVIDER=openrouter` uses **OpenRouter** (a unified OpenAI-compatible API).
 
@@ -197,7 +208,30 @@ ______________________________________________________________________
   - Required: `UAGENT_CLAUDE_API_KEY`
   - Optional: `UAGENT_CLAUDE_DEPNAME`
 
-See `env.sample.*` for provider/key configuration examples.
+See `samples/env.sample.env` for the canonical cross-provider template and `samples/provider.*.env.sample` for provider-specific templates.
+
+- In this repository: run the interactive wizard `python samples/generate_env_samples.py` to generate `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` with the intended encoding and newline settings.
+- After installing via pip/wheel: run `uag_setup` to generate your own `.env` (and optionally `env.sh` / `env.ps1` / `env.bat`) in the current directory.
+
+For details, see `samples/README.md`.
+
+### Env sample generation
+
+Sample files are available under `samples/` (including `samples/README.md`).
+
+Run the interactive wizard to configure and generate shell-specific variants:
+
+```bash
+python samples/generate_env_samples.py
+```
+
+Generated files and format:
+
+- `samples/env.sample.sh`   : UTF-8, LF
+- `samples/env.sample.ps1`  : UTF-8 with BOM (`utf-8-sig`), CRLF
+- `samples/env.sample.bat`  : CP932, CRLF
+
+The wizard supports numbered selections and back navigation (`b`). Re-run it any time to update configuration.
 
 ______________________________________________________________________
 

@@ -5,11 +5,11 @@ uagent/scheck が使用する状態ディレクトリ（ログ、キャッシュ
 
 目的:
 - コードベース全体に散らばった ~/.scheck/... 直書きを排除し、設定/移行を容易にする。
-- 環境変数による上書きを可能にしつつ、既定値は ~/.uag とする（旧: ~/.scheck を読み取りフォールバック可能）。
-- 将来的に ~/.uag へ移行する場合でも、このモジュールの既定値を差し替えるだけで済む形にする。
+- 環境変数による上書きを可能にしつつ、既定値は ~/.uag とする。
+- 将来的に状態ディレクトリを変更する場合でも、このモジュールの既定値を差し替えるだけで済む形にする。
 
 重要な方針:
-- 既定では ~/.uag を使用する。旧 ~/.scheck は移行期間の読み取りフォールバックとして扱う（リネームは行わない）。
+- 既定では ~/.uag を使用する。
 - 明示的に変更したい場合は UAGENT_STATE_DIR / UAGENT_LOG_DIR / UAGENT_CACHE_DIR 等を利用する。
 
 環境変数（現状互換 + 将来拡張）:
@@ -50,7 +50,7 @@ def _expand(p: str) -> Path:
 def get_state_dir() -> Path:
     """Return base state directory.
 
-    Default: ~/.uag (legacy: ~/.scheck)
+    Default: ~/.uag
     Override: UAGENT_STATE_DIR
     """
 
@@ -196,31 +196,21 @@ def get_mcp_servers_json_path() -> Path:
     Override:
       - UAGENT_MCP_CONFIG: points directly to the mcp_servers.json
 
-    Default (compatibility mode, no migration):
+    Default:
       - <state>/mcps/mcp_servers.json (default state: ~/.uag)
-      - if missing, fallback to legacy ~/.scheck/mcps/mcp_servers.json
     """
 
     env = env_get("UAGENT_MCP_CONFIG")
     if env:
         return _expand(env)
 
-    # Prefer new location
-    p_new = get_mcps_dir() / "mcp_servers.json"
-    if p_new.exists():
-        return p_new
-
-    # Fallback to legacy (read-only)
-    p_old = get_legacy_state_dir() / "mcps" / "mcp_servers.json"
-    return p_old
+    return get_mcps_dir() / "mcp_servers.json"
 
 
 def get_history_file_path() -> Path:
     """Return CLI history file path.
 
-    NOTE:
-      This is a legacy path (not under state_dir) for backward compatibility.
-      Default: ~/.scheck_history
+    Default: <state>/.uag_history
 
     Override:
       - UAGENT_HISTORY_FILE
@@ -229,29 +219,4 @@ def get_history_file_path() -> Path:
     env = env_get("UAGENT_HISTORY_FILE")
     if env:
         return _expand(env)
-    return Path.home() / ".scheck_history"
-
-
-def get_legacy_state_dir() -> Path:
-    """Return legacy state directory (read-only fallback).
-
-    Default: ~/.scheck
-    Override: UAGENT_LEGACY_STATE_DIR
-
-    NOTE: This does not perform any migration/rename.
-    """
-
-    env = env_get("UAGENT_LEGACY_STATE_DIR")
-    if env:
-        return _expand(env)
-    return Path.home() / ".scheck"
-
-
-def get_compat_state_dirs() -> list[Path]:
-    """Return state directories in priority order (new -> legacy)."""
-
-    sd = get_state_dir()
-    ld = get_legacy_state_dir()
-    if sd == ld:
-        return [sd]
-    return [sd, ld]
+    return get_state_dir() / ".uag_history"

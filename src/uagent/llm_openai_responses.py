@@ -431,7 +431,11 @@ def parse_responses_stream(
 
         src_name = _as_str(src.get("name") or "")
         dst_name = _as_str(dst.get("name") or "")
-        if (not dst_name or dst_name == "unknown") and src_name and src_name != "unknown":
+        if (
+            (not dst_name or dst_name == "unknown")
+            and src_name
+            and src_name != "unknown"
+        ):
             dst["name"] = src_name
 
         dst_parts = dst.get("arguments_parts") or []
@@ -523,7 +527,9 @@ def parse_responses_stream(
 
                     item_args = getattr(item, "arguments", None)
                     if isinstance(item_args, dict):
-                        fn_args_delta = fn_args_delta or json.dumps(item_args, ensure_ascii=False)
+                        fn_args_delta = fn_args_delta or json.dumps(
+                            item_args, ensure_ascii=False
+                        )
                     elif isinstance(item_args, str) and item_args:
                         fn_args_delta = fn_args_delta or item_args
 
@@ -542,7 +548,9 @@ def parse_responses_stream(
             if not fn_name:
                 if hasattr(ev, "name"):
                     fn_name = getattr(ev, "name")
-                elif hasattr(ev, "function") and hasattr(getattr(ev, "function"), "name"):
+                elif hasattr(ev, "function") and hasattr(
+                    getattr(ev, "function"), "name"
+                ):
                     fn_name = getattr(getattr(ev, "function"), "name")
                 elif hasattr(ev, "delta") and hasattr(getattr(ev, "delta"), "name"):
                     fn_name = getattr(getattr(ev, "delta"), "name")
@@ -604,13 +612,17 @@ def parse_responses_stream(
                 # If we got a final complete arguments string, overwrite everything
                 if final_args is not None:
                     if isinstance(final_args, dict):
-                        buf["arguments_parts"] = [json.dumps(final_args, ensure_ascii=False)]
+                        buf["arguments_parts"] = [
+                            json.dumps(final_args, ensure_ascii=False)
+                        ]
                     else:
                         buf["arguments_parts"] = [_as_str(final_args)]
                 else:
                     # Otherwise append delta
                     if isinstance(fn_args_delta, dict):
-                        buf["arguments_parts"].append(json.dumps(fn_args_delta, ensure_ascii=False))
+                        buf["arguments_parts"].append(
+                            json.dumps(fn_args_delta, ensure_ascii=False)
+                        )
                     elif isinstance(fn_args_delta, str) and fn_args_delta:
                         buf["arguments_parts"].append(fn_args_delta)
 
