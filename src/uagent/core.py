@@ -1166,9 +1166,46 @@ SYSTEM_PROMPT_MSGID = """
 - If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.
 """
 
+# Compact variant to reduce tokens.
+SYSTEM_PROMPT_COMPACT_MSGID = """
+## Mission
+- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.
+- Ask the user for confirmation before any dangerous operation.
+- No flattery. No emojis. No conversation summaries. Keep it concise.
+- When creating files, output the complete final content (no diffs/partial summaries).
+
+## Rules
+- Use the provided tools first and verify results with tools.
+- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.
+- Be creative, but do not output uncertain information.
+- Delegate as little decision-making as possible to the user.
+
+## Notes
+- All user messages come via this script's standard input.
+- If required info/parameters are missing, ask via human_ask (do not guess).
+- Relative dates: call get_current_time.
+- Do not store secrets (passwords/tokens) in long-term memory.
+- If you create Python files, run `python -m py_compile`.
+- If expert-level knowledge is required, use Agent Skills prompt templates.
+"""
+
 # System prompt used by the agent. This is translated via gettext; if translations are missing,
 # the msgid (English) is used as-is.
-SYSTEM_PROMPT = _(SYSTEM_PROMPT_MSGID)
+
+def _select_system_prompt() -> str:
+    mode = (env_get("UAGENT_SYSTEM_PROMPT") or "").strip().lower()
+
+    # Default (env unset): compact.
+    if mode in ("full",):
+        return _(SYSTEM_PROMPT_MSGID)
+    if mode in ("", "compact", "short", "lite"):
+        return _(SYSTEM_PROMPT_COMPACT_MSGID)
+
+    # Unknown value: fall back to the full prompt (safer/more compatible).
+    return _(SYSTEM_PROMPT_MSGID)
+
+
+SYSTEM_PROMPT = _select_system_prompt()
 
 
 def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
