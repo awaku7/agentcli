@@ -425,6 +425,623 @@ def _validate_servers_strict(servers: List[Any]) -> Tuple[List[str], List[str]]:
     return warnings, errors
 
 
+def _run_action_init_template(
+    args: Dict[str, Any], *, pretty: bool, config_path: str
+) -> str:
+    action = "init_template"
+    default_name = (
+        str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
+    )
+    default_url = str(args.get("default_url", "")).strip() or ""
+    default_transport = (
+        str(args.get("transport", "streamable-http")).strip() or "streamable-http"
+    )
+
+    if os.path.exists(config_path):
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "path": config_path,
+                "error": "already exists",
+            },
+            pretty=pretty,
+        )
+
+    data: Dict[str, Any] = {
+        "mcp_servers": [
+            {
+                "name": default_name,
+                "url": default_url,
+                "transport": default_transport,
+            }
+        ]
+    }
+
+    try:
+        _save_config(config_path, data)
+    except Exception as e:
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "path": config_path,
+                "error": f"failed to write: {type(e).__name__}: {e}",
+            },
+            pretty=pretty,
+        )
+
+    return _json_out(
+        {
+            "ok": True,
+            "action": action,
+            "path": config_path,
+            "created": True,
+            "default": data["mcp_servers"][0],
+        },
+        pretty=pretty,
+    )
+
+
+def _run_action_list(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+    action = "list"
+    do_validate = bool(args.get("validate", True))
+    default_only = bool(args.get("default_only", False))
+
+    data, load_warn, load_err = _load_config(
+        config_path, create_if_missing=False, missing_is_error=False
+    )
+    servers = data.get("mcp_servers") or []
+
+    warnings = list(load_warn)
+    errors = list(load_err)
+
+    if do_validate:
+        warnings.extend(_validate_servers_for_list(servers))
+
+    view_servers = servers[:1] if default_only else servers
+
+    out_obj: Dict[str, Any] = {
+        "ok": len(errors) == 0,
+        "action": action,
+        "path": config_path,
+        "default_index": 0,
+        "count": len(servers),
+        "default": servers[0] if servers else None,
+        "servers": view_servers,
+        "warnings": warnings,
+        "errors": errors,
+    }
+
+    return _json_out(out_obj, pretty=pretty)
+
+
+def _run_action_validate(
+    args: Dict[str, Any], *, pretty: bool, config_path: str
+) -> str:
+    action = "validate"
+    fail_on_warning = bool(args.get("fail_on_warning", False))
+
+    data, load_warn, load_err = _load_config(
+        config_path, create_if_missing=False, missing_is_error=True
+    )
+    servers: List[Any] = data.get("mcp_servers") or []
+
+    warnings = list(load_warn)
+    errors = list(load_err)
+
+    v_warn, v_err = _validate_servers_strict(servers)
+    warnings.extend(v_warn)
+    errors.extend(v_err)
+
+    overall = "OK"
+    if errors:
+        overall = "FAIL"
+    elif warnings and fail_on_warning:
+        overall = "FAIL"
+
+    return _json_out(
+        {
+            "ok": overall == "OK",
+            "action": action,
+            "path": config_path,
+            "overall": overall,
+            "count": len(servers),
+            "warnings": warnings,
+            "errors": errors,
+        },
+        pretty=pretty,
+    )
+
+
+def _mcp_find_server_index_by_name(servers: List[Any], name: str) -> int | None:
+    for i, s in enumerate(servers):
+        if isinstance(s, dict) and s.get("name") == name:
+            return i
+    return None
+
+
+def _mcp_build_server_entry(
+    *,
+    name: str,
+    transport: str,
+    url: Any,
+    command: Any,
+    arg_list: List[Any],
+    env: Dict[Any, Any],
+) -> Dict[str, Any]:
+    new_entry: Dict[str, Any] = {
+        "name": name,
+        "transport": transport,
+    }
+    if url:
+        new_entry["url"] = str(url)
+    if command:
+        new_entry["command"] = str(command)
+    if arg_list:
+        new_entry["args"] = [str(x) for x in arg_list]
+    if env:
+        new_entry["env"] = {str(k): str(v) for k, v in env.items()}
+    return new_entry
+
+
+def _mcp_add_validate_and_normalize(
+    *,
+    action: str,
+    pretty: bool,
+    name: str,
+    url: Any,
+    command: Any,
+    arg_list: Any,
+    env: Any,
+) -> tuple[List[Any] | None, Dict[Any, Any] | None, str | None]:
+    if not name:
+        return (
+            None,
+            None,
+            _json_out(
+                {"ok": False, "action": action, "error": "name is required"},
+                pretty=pretty,
+            ),
+        )
+
+    if not url and not command:
+        return (
+            None,
+            None,
+            _json_out(
+                {
+                    "ok": False,
+                    "action": action,
+                    "error": "either url or command is required",
+                },
+                pretty=pretty,
+            ),
+        )
+
+    normalized_args = [] if arg_list is None else arg_list
+    normalized_env = {} if env is None else env
+
+    if not isinstance(normalized_args, list):
+        return (
+            None,
+            None,
+            _json_out(
+                {"ok": False, "action": action, "error": "args must be an array"},
+                pretty=pretty,
+            ),
+        )
+    if not isinstance(normalized_env, dict):
+        return (
+            None,
+            None,
+            _json_out(
+                {"ok": False, "action": action, "error": "env must be an object"},
+                pretty=pretty,
+            ),
+        )
+
+    return normalized_args, normalized_env, None
+
+
+def _mcp_upsert_server_entry(
+    *,
+    servers: List[Any],
+    name: str,
+    new_entry: Dict[str, Any],
+    replace: bool,
+    action: str,
+    pretty: bool,
+    config_path: str,
+) -> tuple[int | None, str | None]:
+    idx = _mcp_find_server_index_by_name(servers, name)
+    if idx is None:
+        servers.append(new_entry)
+        return len(servers) - 1, None
+
+    if not replace:
+        return None, _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "already exists (set replace=true to overwrite)",
+                "path": config_path,
+            },
+            pretty=pretty,
+        )
+
+    servers[idx] = new_entry
+    return idx, None
+
+
+def _mcp_move_default_if_requested(
+    servers: List[Any], *, idx: int, set_default: bool
+) -> None:
+    if set_default and idx != 0:
+        servers.insert(0, servers.pop(idx))
+
+
+def _mcp_load_servers_or_error(
+    *,
+    action: str,
+    pretty: bool,
+    config_path: str,
+    create_if_missing: bool,
+) -> tuple[Dict[str, Any] | None, List[Any] | None, List[str], str | None]:
+    data, load_warn, load_err = _load_config(
+        config_path,
+        create_if_missing=create_if_missing,
+        missing_is_error=True,
+    )
+    if load_err:
+        return (
+            None,
+            None,
+            load_warn,
+            _json_out(
+                {
+                    "ok": False,
+                    "action": action,
+                    "path": config_path,
+                    "warnings": load_warn,
+                    "errors": load_err,
+                },
+                pretty=pretty,
+            ),
+        )
+
+    return data, data.get("mcp_servers") or [], load_warn, None
+
+
+def _mcp_error_if_empty_servers(
+    *,
+    action: str,
+    pretty: bool,
+    config_path: str,
+    load_warn: List[str],
+    servers: List[Any],
+) -> str | None:
+    if servers:
+        return None
+    return _json_out(
+        {
+            "ok": False,
+            "action": action,
+            "path": config_path,
+            "error": "mcp_servers is empty",
+            "warnings": load_warn,
+        },
+        pretty=pretty,
+    )
+
+
+def _mcp_save_or_error(
+    *,
+    action: str,
+    pretty: bool,
+    config_path: str,
+    data: Dict[str, Any],
+) -> str | None:
+    try:
+        _save_config(config_path, data)
+    except Exception as e:
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "path": config_path,
+                "error": f"failed to write: {type(e).__name__}: {e}",
+            },
+            pretty=pretty,
+        )
+    return None
+
+
+def _run_action_add(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+    action = "add"
+    name = str(args.get("name") or "").strip()
+    url = args.get("url")
+    command = args.get("command")
+    arg_list = args.get("args")
+    env = args.get("env")
+    transport = str(args.get("transport") or "streamable-http")
+
+    set_default = bool(args.get("set_default", False))
+    replace = bool(args.get("replace", False))
+    create_if_missing = bool(args.get("create_if_missing", True))
+
+    normalized_args, normalized_env, input_err = _mcp_add_validate_and_normalize(
+        action=action,
+        pretty=pretty,
+        name=name,
+        url=url,
+        command=command,
+        arg_list=arg_list,
+        env=env,
+    )
+    if input_err is not None:
+        return input_err
+
+    assert normalized_args is not None
+    assert normalized_env is not None
+
+    data, load_warn, _load_err = _load_config(
+        config_path,
+        create_if_missing=create_if_missing,
+        missing_is_error=False,
+    )
+    servers = data.get("mcp_servers") or []
+
+    new_entry = _mcp_build_server_entry(
+        name=name,
+        transport=transport,
+        url=url,
+        command=command,
+        arg_list=normalized_args,
+        env=normalized_env,
+    )
+
+    idx, upsert_err = _mcp_upsert_server_entry(
+        servers=servers,
+        name=name,
+        new_entry=new_entry,
+        replace=replace,
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+    )
+    if upsert_err is not None:
+        return upsert_err
+
+    assert idx is not None
+    _mcp_move_default_if_requested(servers, idx=idx, set_default=set_default)
+
+    data["mcp_servers"] = servers
+    write_err = _mcp_save_or_error(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        data=data,
+    )
+    if write_err is not None:
+        return write_err
+
+    return _json_out(
+        {
+            "ok": True,
+            "action": action,
+            "path": config_path,
+            "count": len(servers),
+            "warnings": load_warn,
+        },
+        pretty=pretty,
+    )
+
+
+def _mcp_resolve_remove_index(
+    servers: List[Any],
+    *,
+    name: Any,
+    index: Any,
+    action: str,
+    pretty: bool,
+) -> tuple[int | None, str | None]:
+    if index is not None:
+        try:
+            idx = int(index)
+        except Exception:
+            return None, _json_out(
+                {"ok": False, "action": action, "error": "index must be int"},
+                pretty=pretty,
+            )
+        if idx < 0 or idx >= len(servers):
+            return None, _json_out(
+                {
+                    "ok": False,
+                    "action": action,
+                    "error": "index out of range",
+                    "index": idx,
+                },
+                pretty=pretty,
+            )
+        return idx, None
+
+    target = str(name).strip()
+    for i, s in enumerate(servers):
+        if isinstance(s, dict) and s.get("name") == target:
+            return i, None
+
+    return None, _json_out(
+        {
+            "ok": False,
+            "action": action,
+            "error": "name not found",
+            "name": target,
+        },
+        pretty=pretty,
+    )
+
+
+def _run_action_remove(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+    action = "remove"
+    name = args.get("name")
+    index = args.get("index")
+    require_nonempty = bool(args.get("require_nonempty", False))
+
+    if index is None and (not isinstance(name, str) or not str(name).strip()):
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "specify name or index",
+            },
+            pretty=pretty,
+        )
+
+    data, servers, load_warn, load_err_json = _mcp_load_servers_or_error(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        create_if_missing=False,
+    )
+    if load_err_json is not None:
+        return load_err_json
+
+    assert data is not None
+    assert servers is not None
+
+    empty_err = _mcp_error_if_empty_servers(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        load_warn=load_warn,
+        servers=servers,
+    )
+    if empty_err is not None:
+        return empty_err
+
+    removed_idx, resolve_err = _mcp_resolve_remove_index(
+        servers,
+        name=name,
+        index=index,
+        action=action,
+        pretty=pretty,
+    )
+    if resolve_err is not None:
+        return resolve_err
+
+    assert removed_idx is not None
+    removed = servers.pop(removed_idx)
+
+    if require_nonempty and not servers:
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "require_nonempty=true prevents removing last item",
+            },
+            pretty=pretty,
+        )
+
+    data["mcp_servers"] = servers
+    write_err = _mcp_save_or_error(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        data=data,
+    )
+    if write_err is not None:
+        return write_err
+
+    return _json_out(
+        {
+            "ok": True,
+            "action": action,
+            "path": config_path,
+            "removed_index": removed_idx,
+            "removed": removed,
+            "count": len(servers),
+            "default": servers[0] if servers else None,
+            "warnings": load_warn,
+        },
+        pretty=pretty,
+    )
+
+
+def _run_action_set_default(
+    args: Dict[str, Any], *, pretty: bool, config_path: str
+) -> str:
+    action = "set_default"
+    server_name = str(args.get("server_name") or "").strip()
+    create_if_missing = bool(args.get("create_if_missing", True))
+
+    if not server_name:
+        return _json_out(
+            {"ok": False, "action": action, "error": "server_name is required"},
+            pretty=pretty,
+        )
+
+    data, servers, load_warn, load_err_json = _mcp_load_servers_or_error(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        create_if_missing=create_if_missing,
+    )
+    if load_err_json is not None:
+        return load_err_json
+
+    assert data is not None
+    assert servers is not None
+
+    empty_err = _mcp_error_if_empty_servers(
+        action=action,
+        pretty=pretty,
+        config_path=config_path,
+        load_warn=load_warn,
+        servers=servers,
+    )
+    if empty_err is not None:
+        return empty_err
+
+    idx = _mcp_find_server_index_by_name(servers, server_name)
+    if idx is None:
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "path": config_path,
+                "error": "server_name not found",
+                "server_name": server_name,
+            },
+            pretty=pretty,
+        )
+
+    if idx != 0:
+        item = servers.pop(idx)
+        servers.insert(0, item)
+        data["mcp_servers"] = servers
+        write_err = _mcp_save_or_error(
+            action=action,
+            pretty=pretty,
+            config_path=config_path,
+            data=data,
+        )
+        if write_err is not None:
+            return write_err
+
+    return _json_out(
+        {
+            "ok": True,
+            "action": action,
+            "path": config_path,
+            "default": servers[0] if servers else None,
+            "count": len(servers),
+            "warnings": load_warn,
+        },
+        pretty=pretty,
+    )
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     args = args or {}
 
@@ -434,482 +1051,19 @@ def run_tool(args: Dict[str, Any]) -> str:
     path = args.get("path")
     config_path = str(path or get_default_mcp_config_path())
 
-    if action not in (
-        "list",
-        "add",
-        "remove",
-        "set_default",
-        "validate",
-        "init_template",
-    ):
+    handlers = {
+        "init_template": _run_action_init_template,
+        "list": _run_action_list,
+        "validate": _run_action_validate,
+        "add": _run_action_add,
+        "remove": _run_action_remove,
+        "set_default": _run_action_set_default,
+    }
+
+    handler = handlers.get(action)
+    if handler is None:
         return _json_out(
             {"ok": False, "error": "invalid action", "action": action}, pretty=pretty
         )
 
-    # -----------------
-    # init_template
-    # -----------------
-    if action == "init_template":
-        default_name = (
-            str(args.get("default_name", "bluesky-local")).strip() or "bluesky-local"
-        )
-        default_url = str(args.get("default_url", "")).strip() or ""
-        default_transport = (
-            str(args.get("transport", "streamable-http")).strip() or "streamable-http"
-        )
-
-        if os.path.exists(config_path):
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": "already exists",
-                },
-                pretty=pretty,
-            )
-
-        data: Dict[str, Any] = {
-            "mcp_servers": [
-                {
-                    "name": default_name,
-                    "url": default_url,
-                    "transport": default_transport,
-                }
-            ]
-        }
-
-        try:
-            _save_config(config_path, data)
-        except Exception as e:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": f"failed to write: {type(e).__name__}: {e}",
-                },
-                pretty=pretty,
-            )
-
-        return _json_out(
-            {
-                "ok": True,
-                "action": action,
-                "path": config_path,
-                "created": True,
-                "default": data["mcp_servers"][0],
-            },
-            pretty=pretty,
-        )
-
-    # -----------------
-    # list
-    # -----------------
-    if action == "list":
-        do_validate = bool(args.get("validate", True))
-        default_only = bool(args.get("default_only", False))
-
-        data, load_warn, load_err = _load_config(
-            config_path, create_if_missing=False, missing_is_error=False
-        )
-        servers = data.get("mcp_servers") or []
-
-        warnings = list(load_warn)
-        errors = list(load_err)
-
-        if do_validate:
-            warnings.extend(_validate_servers_for_list(servers))
-
-        view_servers = servers[:1] if default_only else servers
-
-        out_obj: Dict[str, Any] = {
-            "ok": len(errors) == 0,
-            "action": action,
-            "path": config_path,
-            "default_index": 0,
-            "count": len(servers),
-            "default": servers[0] if servers else None,
-            "servers": view_servers,
-            "warnings": warnings,
-            "errors": errors,
-        }
-
-        return _json_out(out_obj, pretty=pretty)
-
-    # -----------------
-    # validate
-    # -----------------
-    if action == "validate":
-        fail_on_warning = bool(args.get("fail_on_warning", False))
-
-        data, load_warn, load_err = _load_config(
-            config_path, create_if_missing=False, missing_is_error=True
-        )
-        servers: List[Any] = data.get("mcp_servers") or []
-
-        warnings = list(load_warn)
-        errors = list(load_err)
-
-        v_warn, v_err = _validate_servers_strict(servers)
-        warnings.extend(v_warn)
-        errors.extend(v_err)
-
-        overall = "OK"
-        if errors:
-            overall = "FAIL"
-        elif warnings and fail_on_warning:
-            overall = "FAIL"
-
-        return _json_out(
-            {
-                "ok": overall == "OK",
-                "action": action,
-                "path": config_path,
-                "overall": overall,
-                "count": len(servers),
-                "warnings": warnings,
-                "errors": errors,
-            },
-            pretty=pretty,
-        )
-
-    # -----------------
-    # add
-    # -----------------
-    if action == "add":
-        name = str(args.get("name") or "").strip()
-        url = args.get("url")
-        command = args.get("command")
-        arg_list = args.get("args")
-        env = args.get("env")
-        transport = str(args.get("transport") or "streamable-http")
-
-        set_default = bool(args.get("set_default", False))
-        replace = bool(args.get("replace", False))
-        create_if_missing = bool(args.get("create_if_missing", True))
-
-        if not name:
-            return _json_out(
-                {"ok": False, "action": action, "error": "name is required"},
-                pretty=pretty,
-            )
-
-        if not url and not command:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "error": "either url or command is required",
-                },
-                pretty=pretty,
-            )
-
-        data, load_warn, load_err = _load_config(
-            config_path,
-            create_if_missing=create_if_missing,
-            missing_is_error=False,
-        )
-
-        servers = data.get("mcp_servers") or []
-
-        if arg_list is None:
-            arg_list = []
-        if env is None:
-            env = {}
-
-        if not isinstance(arg_list, list):
-            return _json_out(
-                {"ok": False, "action": action, "error": "args must be an array"},
-                pretty=pretty,
-            )
-        if not isinstance(env, dict):
-            return _json_out(
-                {"ok": False, "action": action, "error": "env must be an object"},
-                pretty=pretty,
-            )
-
-        idx = None
-        for i, s in enumerate(servers):
-            if isinstance(s, dict) and s.get("name") == name:
-                idx = i
-                break
-
-        new_entry: Dict[str, Any] = {
-            "name": name,
-            "transport": transport,
-        }
-        if url:
-            new_entry["url"] = str(url)
-        if command:
-            new_entry["command"] = str(command)
-        if arg_list:
-            new_entry["args"] = [str(x) for x in arg_list]
-        if env:
-            new_entry["env"] = {str(k): str(v) for k, v in env.items()}
-
-        if idx is None:
-            servers.append(new_entry)
-            idx = len(servers) - 1
-        else:
-            if not replace:
-                return _json_out(
-                    {
-                        "ok": False,
-                        "action": action,
-                        "error": "already exists (set replace=true to overwrite)",
-                        "path": config_path,
-                    },
-                    pretty=pretty,
-                )
-            servers[idx] = new_entry
-
-        if set_default and idx != 0:
-            servers.insert(0, servers.pop(idx))
-
-        data["mcp_servers"] = servers
-
-        try:
-            _save_config(config_path, data)
-        except Exception as e:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": f"failed to write: {type(e).__name__}: {e}",
-                },
-                pretty=pretty,
-            )
-
-        return _json_out(
-            {
-                "ok": True,
-                "action": action,
-                "path": config_path,
-                "count": len(servers),
-                "warnings": load_warn,
-            },
-            pretty=pretty,
-        )
-
-    # -----------------
-    # remove
-    # -----------------
-    if action == "remove":
-        name = args.get("name")
-        index = args.get("index")
-        require_nonempty = bool(args.get("require_nonempty", False))
-
-        if index is None and (not isinstance(name, str) or not str(name).strip()):
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "error": "specify name or index",
-                },
-                pretty=pretty,
-            )
-
-        data, load_warn, load_err = _load_config(
-            config_path, create_if_missing=False, missing_is_error=True
-        )
-        servers = data.get("mcp_servers") or []
-
-        if load_err:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "warnings": load_warn,
-                    "errors": load_err,
-                },
-                pretty=pretty,
-            )
-
-        if not servers:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": "mcp_servers is empty",
-                    "warnings": load_warn,
-                },
-                pretty=pretty,
-            )
-
-        removed = None
-        removed_idx = None
-
-        if index is not None:
-            try:
-                idx = int(index)
-            except Exception:
-                return _json_out(
-                    {"ok": False, "action": action, "error": "index must be int"},
-                    pretty=pretty,
-                )
-            if idx < 0 or idx >= len(servers):
-                return _json_out(
-                    {
-                        "ok": False,
-                        "action": action,
-                        "error": "index out of range",
-                        "index": idx,
-                    },
-                    pretty=pretty,
-                )
-            removed = servers.pop(idx)
-            removed_idx = idx
-        else:
-            target = str(name).strip()
-            for i, s in enumerate(servers):
-                if isinstance(s, dict) and s.get("name") == target:
-                    removed = servers.pop(i)
-                    removed_idx = i
-                    break
-            if removed is None:
-                return _json_out(
-                    {
-                        "ok": False,
-                        "action": action,
-                        "error": "name not found",
-                        "name": target,
-                    },
-                    pretty=pretty,
-                )
-
-        if require_nonempty and not servers:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "error": "require_nonempty=true prevents removing last item",
-                },
-                pretty=pretty,
-            )
-
-        data["mcp_servers"] = servers
-
-        try:
-            _save_config(config_path, data)
-        except Exception as e:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": f"failed to write: {type(e).__name__}: {e}",
-                },
-                pretty=pretty,
-            )
-
-        return _json_out(
-            {
-                "ok": True,
-                "action": action,
-                "path": config_path,
-                "removed_index": removed_idx,
-                "removed": removed,
-                "count": len(servers),
-                "default": servers[0] if servers else None,
-                "warnings": load_warn,
-            },
-            pretty=pretty,
-        )
-
-    # -----------------
-    # set_default
-    # -----------------
-    if action == "set_default":
-        server_name = str(args.get("server_name") or "").strip()
-        create_if_missing = bool(args.get("create_if_missing", True))
-
-        if not server_name:
-            return _json_out(
-                {"ok": False, "action": action, "error": "server_name is required"},
-                pretty=pretty,
-            )
-
-        data, load_warn, load_err = _load_config(
-            config_path, create_if_missing=create_if_missing, missing_is_error=True
-        )
-        servers = data.get("mcp_servers") or []
-
-        if load_err:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "warnings": load_warn,
-                    "errors": load_err,
-                },
-                pretty=pretty,
-            )
-
-        if not servers:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": "mcp_servers is empty",
-                    "warnings": load_warn,
-                },
-                pretty=pretty,
-            )
-
-        idx = None
-        for i, s in enumerate(servers):
-            if isinstance(s, dict) and s.get("name") == server_name:
-                idx = i
-                break
-
-        if idx is None:
-            return _json_out(
-                {
-                    "ok": False,
-                    "action": action,
-                    "path": config_path,
-                    "error": "server_name not found",
-                    "server_name": server_name,
-                },
-                pretty=pretty,
-            )
-
-        if idx != 0:
-            item = servers.pop(idx)
-            servers.insert(0, item)
-            data["mcp_servers"] = servers
-            try:
-                _save_config(config_path, data)
-            except Exception as e:
-                return _json_out(
-                    {
-                        "ok": False,
-                        "action": action,
-                        "path": config_path,
-                        "error": f"failed to write: {type(e).__name__}: {e}",
-                    },
-                    pretty=pretty,
-                )
-
-        return _json_out(
-            {
-                "ok": True,
-                "action": action,
-                "path": config_path,
-                "default": servers[0] if servers else None,
-                "count": len(servers),
-                "warnings": load_warn,
-            },
-            pretty=pretty,
-        )
-
-    # should not happen
-    return _json_out(
-        {"ok": False, "action": action, "error": "unhandled"}, pretty=pretty
-    )
+    return handler(args, pretty=pretty, config_path=config_path)
