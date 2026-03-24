@@ -228,3 +228,167 @@ def test_search_files_uses_streaming_for_large_files(
     assert "big.txt" in out
     assert calls["stream"] >= 1
     assert calls["full"] == 0
+
+
+def test_search_files_threshold_equal_size_uses_streaming(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    p = repo_tmp_path / "eq.txt"
+    p.write_text("hello\n", encoding="utf-8")
+    size = p.stat().st_size
+
+    calls: dict[str, int] = {"full": 0, "stream": 0}
+
+    def fake_full(*_args, **_kwargs):
+        calls["full"] += 1
+        return ["L1: hello"]
+
+    def fake_stream(*_args, **_kwargs):
+        calls["stream"] += 1
+        return ["L1: hello"]
+
+    monkeypatch.setattr(sft, "_grep_text_full_read", fake_full)
+    monkeypatch.setattr(sft, "_grep_text_streaming", fake_stream)
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "content_pattern": "hello",
+            "case_sensitive": False,
+            "max_results": 10,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": size,
+        }
+    )
+
+    assert "eq.txt" in out
+    assert calls["stream"] >= 1
+    assert calls["full"] == 0
+
+
+def test_search_files_ignores_default_dirs_and_exts(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    (repo_tmp_path / ".git").mkdir()
+    (repo_tmp_path / ".git" / "secret.txt").write_text("hello", encoding="utf-8")
+    (repo_tmp_path / "ok.txt").write_text("hello", encoding="utf-8")
+    (repo_tmp_path / "image.png").write_text("hello", encoding="utf-8")
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*",
+            "content_pattern": "",
+            "case_sensitive": False,
+            "max_results": 50,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert "ok.txt" in out
+    assert "secret.txt" not in out
+    assert "image.png" not in out
+
+
+def test_search_files_limits_matches_per_file(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    lines = "".join([f"hello {i}\n" for i in range(10)])
+    (repo_tmp_path / "many.txt").write_text(lines, encoding="utf-8")
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "content_pattern": "hello",
+            "case_sensitive": False,
+            "max_results": 10,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert "many.txt" in out
+    assert "... (more matches in file)" in out
+
+
+def test_search_files_cross_line_match_shows_excerpt(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    (repo_tmp_path / "multi.txt").write_text("foo\nbar\n", encoding="utf-8")
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "content_pattern": "foo\\nbar",
+            "case_sensitive": False,
+            "max_results": 10,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert "multi.txt" in out
+    assert "MATCH:" in out
+
+
+def test_search_files_newline_token_normalization_literal_backslash_n(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    (repo_tmp_path / "nl.txt").write_text("foo\nbar\n", encoding="utf-8")
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "content_pattern": r"foo\\nbar",
+            "case_sensitive": False,
+            "max_results": 10,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert "nl.txt" in out
+
+
+def test_search_files_globstar_relative_path(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    (repo_tmp_path / "a" / "b").mkdir(parents=True)
+    (repo_tmp_path / "a" / "b" / "deep.txt").write_text("x", encoding="utf-8")
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "**/*.txt",
+            "content_pattern": "",
+            "case_sensitive": False,
+            "max_results": 10,
+            "exclude_binary": True,
+            "binary_sniff_bytes": 8192,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert "deep.txt" in out
