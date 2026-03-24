@@ -349,6 +349,689 @@ def apply_verbosity_arg(arg: str) -> str:
     return set_verbosity_mode(lv)
 
 
+def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
+    try:
+        new_mode = apply_reasoning_arg(arg)
+    except Exception:
+        print(
+            tr(
+                ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+            )
+        )
+        return True
+
+    print(f"[mode] reasoning={new_mode}")
+    return True
+
+
+def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
+    try:
+        new_mode = apply_verbosity_arg(arg)
+    except Exception:
+        print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
+        return True
+
+    print(f"[mode] verbosity={new_mode}")
+    return True
+
+
+def _handle_cmd_cd(arg: str, *, tr: Any) -> bool:
+    a = (arg or "").strip()
+    if not a:
+        print(tr(":cd <path>"))
+        return True
+
+    try:
+        expanded = os.path.expandvars(os.path.expanduser(a))
+        target = os.path.abspath(expanded)
+
+        if not os.path.isdir(target):
+            print(
+                tr("[cd] Directory does not exist: %(src)s -> %(dst)s")
+                % {"src": a, "dst": target}
+            )
+            return True
+
+        os.chdir(target)
+        print(f"[cd] workdir = {os.getcwd()}")
+    except Exception as e:
+        print(f"[cd error] {type(e).__name__}: {e}")
+
+    return True
+
+
+def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
+    target = (arg or "").strip() or "."
+
+    try:
+        expanded = os.path.expandvars(os.path.expanduser(target))
+        has_glob = any(ch in expanded for ch in ("*", "?", "["))
+
+        if has_glob:
+            matches = glob.glob(expanded)
+            if not matches:
+                print(
+                    tr("[ls] No matching paths: %(src)s -> %(expanded)s")
+                    % {"src": target, "expanded": expanded}
+                )
+                return True
+
+            items = []
+            for p in matches:
+                try:
+                    p_exp = os.path.expandvars(os.path.expanduser(p))
+                    p_abs = os.path.abspath(p_exp)
+                    is_dir = os.path.isdir(p_abs)
+                    size = os.path.getsize(p_abs) if os.path.isfile(p_abs) else 0
+                except Exception:
+                    p_abs = os.path.abspath(p)
+                    is_dir = os.path.isdir(p_abs)
+                    size = 0
+
+                base = os.path.basename(p_abs.rstrip(os.sep)) or p_abs
+                items.append(
+                    (0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size)
+                )
+
+            items.sort(key=lambda x: (x[0], x[1]))
+
+            print(f"[ls] {expanded}")
+            for _, _, name, p_abs, is_dir, size in items:
+                if is_dir:
+                    print(f"  [D] {name} -> {p_abs}")
+                else:
+                    print(f"  [F] {name} ({size} bytes) -> {p_abs}")
+            return True
+
+        target_abs = os.path.abspath(expanded)
+        if not os.path.isdir(target_abs):
+            print(
+                tr("[ls] Directory does not exist: %(src)s -> %(dst)s")
+                % {"src": target, "dst": target_abs}
+            )
+            return True
+
+        entries = []
+        for name in os.listdir(target_abs):
+            p = os.path.join(target_abs, name)
+            try:
+                st = os.stat(p)
+                is_dir = os.path.isdir(p)
+                size = st.st_size
+            except Exception:
+                is_dir = os.path.isdir(p)
+                size = 0
+
+            entries.append((0 if is_dir else 1, name.lower(), name, is_dir, size))
+
+        entries.sort(key=lambda x: (x[0], x[1]))
+
+        print(f"[ls] {target_abs}")
+        for _, _, name, is_dir, size in entries:
+            if is_dir:
+                print(f"  [D] {name}")
+            else:
+                print(f"  [F] {name} ({size} bytes)")
+    except Exception as e:
+        print(f"[ls error] {type(e).__name__}: {e}")
+
+    return True
+
+
+def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
+    show_all = False
+    limit = 10
+
+    a = (arg or "").strip()
+    if a:
+        low = a.lower()
+        if low in ("--all", "-a", "all"):
+            show_all = True
+        else:
+            try:
+                limit = int(a)
+            except Exception:
+                print(
+                    tr(
+                        "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+                    )
+                    % {"arg": a}
+                )
+                return True
+
+    core.list_logs(limit=limit, show_all=show_all)
+    return True
+
+
+def _handle_cmd_tools(*, tr: Any) -> bool:
+    try:
+        tool_specs = tools.get_tool_specs() or []
+        if not tool_specs:
+            print(tr("[tools] No tools loaded."))
+            return True
+
+        print(tr("[tools] Loaded %(n)d tools") % {"n": len(tool_specs)})
+        for spec in tool_specs:
+            fn = (spec or {}).get("function") or {}
+            name = fn.get("name") or "(unknown)"
+            desc = (fn.get("description") or "").strip()
+            if desc:
+                print(f"- {name}: {desc}")
+            else:
+                print(f"- {name}")
+    except Exception as e:
+        print(f"[tools error] {type(e).__name__}: {e}")
+
+    return True
+
+
+def _handle_cmd_skills(*, tr: Any) -> bool:
+    try:
+        from uagent.tools.skills_list_tool import run_tool as skills_list_tool
+
+        res_json = skills_list_tool(
+            {
+                "root_dir": "",
+                "recursive": True,
+                "include_invalid": True,
+                "strict": False,
+            }
+        )
+        res = json.loads(res_json)
+
+        if isinstance(res, list):
+            items = res
+        elif isinstance(res, dict):
+            items = res.get("skills")
+        else:
+            items = None
+
+        if not isinstance(items, list):
+            items = []
+
+        if not items:
+            print(tr("[skills] No skills found."))
+            return True
+
+        print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
+        for it in items:
+            if not isinstance(it, dict):
+                continue
+            name = it.get("name") or "(unknown)"
+            desc = it.get("description") or ""
+            skill_md = it.get("skill_md") or ""
+            print(f"- {name}: {desc}")
+            if skill_md:
+                print(f"    {skill_md}")
+    except Exception as e:
+        print(f"[skills error] {type(e).__name__}: {e}")
+
+    return True
+
+
+def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
+    threshold = 10
+    a = (arg or "").strip()
+    if not a:
+        return threshold
+
+    try:
+        return int(a)
+    except Exception:
+        print(
+            tr(
+                "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
+            )
+            % {"arg": a, "default": threshold}
+        )
+        return None
+
+
+def _collect_clean_targets(
+    *,
+    core: Any,
+    threshold: int,
+    tr: Any,
+) -> tuple[bool, List[str], Dict[str, int]]:
+    try:
+        log_files = core.find_log_files(exclude_current=False)
+    except Exception as e:
+        print(
+            tr("[clean error] Failed to get log list: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return False, [], {}
+
+    targets: List[str] = []
+    counts: Dict[str, int] = {}
+
+    for p in log_files:
+        try:
+            msgs = core.load_conversation_from_log(p)
+            non_system_count = max(0, len(msgs) - 1)
+            counts[p] = non_system_count
+            if non_system_count <= threshold:
+                targets.append(p)
+        except Exception as e:
+            print(
+                tr("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
+                % {"path": p, "etype": type(e).__name__, "err": e}
+            )
+
+    return True, targets, counts
+
+
+def _confirm_clean_delete(
+    *, core: Any, threshold: int, targets: List[str], tr: Any
+) -> bool:
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+
+        msg = tr_(
+            ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+            "Log dir: %(dir)s\n"
+            "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+            "Targets: %(n)d\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        ) % {
+            "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+            "threshold": threshold,
+            "n": len(targets),
+        }
+        res_json = human_ask({"message": msg})
+        res = json.loads(res_json)
+        user_reply = (res.get("user_reply") or "").strip().lower()
+        if user_reply not in ("y", "yes"):
+            print(tr("[clean] Cancelled."))
+            return False
+        return True
+    except Exception as e:
+        print(
+            tr("[clean error] Confirmation failed: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return False
+
+
+def _delete_clean_targets(targets: List[str], *, tr: Any) -> tuple[int, int]:
+    deleted = 0
+    failed = 0
+    for p in targets:
+        try:
+            os.remove(p)
+            deleted += 1
+        except Exception as e:
+            failed += 1
+            print(
+                tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
+                % {"path": p, "etype": type(e).__name__, "err": e}
+            )
+
+    return deleted, failed
+
+
+def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
+    threshold = _parse_clean_threshold(arg, tr=tr)
+    if threshold is None:
+        return True
+
+    ok, targets, counts = _collect_clean_targets(core=core, threshold=threshold, tr=tr)
+    if not ok:
+        return True
+
+    if not targets:
+        print(
+            tr("[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s")
+            % {
+                "threshold": threshold,
+                "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
+            }
+        )
+        return True
+
+    print(
+        tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d")
+        % {"threshold": threshold, "n": len(targets)}
+    )
+    for p in targets:
+        c = counts.get(p, -1)
+        print(f" - ({c} msgs) {p}")
+
+    if not _confirm_clean_delete(
+        core=core, threshold=threshold, targets=targets, tr=tr
+    ):
+        return True
+
+    deleted, failed = _delete_clean_targets(targets, tr=tr)
+    print(
+        tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
+        % {"deleted": deleted, "failed": failed}
+    )
+    return True
+
+
+def _inject_user_history_to_readline(messages: List[Dict[str, Any]]) -> None:
+    try:
+        import readline
+
+        for msg in messages:
+            if msg.get("role") != "user":
+                continue
+            content = msg.get("content")
+            if isinstance(content, str) and content.strip():
+                readline.add_history(content.replace("\n", " "))
+    except Exception:
+        return
+
+
+def _prepend_loaded_log_to_current(
+    *,
+    core: Any,
+    source_log_path: str,
+    tr: Any,
+) -> None:
+    try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+
+        cur_log = getattr(core, "LOG_FILE", None)
+        if not isinstance(cur_log, str) or not cur_log:
+            return
+
+        msg2 = tr_(
+            ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
+            "Current log: %(cur_log)s\n"
+            "Source log: %(src_log)s\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        ) % {"cur_log": cur_log, "src_log": source_log_path}
+        res_json2 = human_ask({"message": msg2})
+        res2 = json.loads(res_json2)
+        user_reply2 = (res2.get("user_reply") or "").strip().lower()
+        if user_reply2 not in ("y", "yes"):
+            print(tr("[load] Prepend to current log was cancelled."))
+            return
+
+        loaded_lines: list[str] = []
+        try:
+            with open(source_log_path, encoding="utf-8") as f:
+                loaded_lines = f.read().splitlines(True)
+        except Exception as e:
+            print(
+                tr("[load warn] Failed to read source log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+            loaded_lines = []
+
+        cur_lines: list[str] = []
+        try:
+            if os.path.exists(cur_log):
+                with open(cur_log, encoding="utf-8") as f:
+                    cur_lines = f.read().splitlines(True)
+        except Exception as e:
+            print(
+                tr("[load warn] Failed to read current log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+            cur_lines = []
+
+        marker = {
+            "role": "system",
+            "content": f"[LOG] :load prepend source={os.path.abspath(source_log_path)}",
+        }
+        marker_line = json.dumps(marker, ensure_ascii=False) + "\n"
+
+        try:
+            os.makedirs(os.path.dirname(cur_log) or ".", exist_ok=True)
+            with open(cur_log, "w", encoding="utf-8") as f:
+                f.write(marker_line)
+                for ln in loaded_lines:
+                    f.write(ln)
+                for ln in cur_lines:
+                    f.write(ln)
+            print(tr("[load] Prepended to current log: %(path)s") % {"path": cur_log})
+        except Exception as e:
+            print(
+                tr("[load warn] Failed to rewrite current log: %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e},
+                file=sys.stderr,
+            )
+    except Exception as e:
+        print(
+            tr("[load warn] Error during prepend to current log: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+
+def _handle_cmd_load(
+    arg: str,
+    messages_ref: List[Dict[str, Any]],
+    *,
+    core: Any,
+    tr: Any,
+) -> bool:
+    if not arg:
+        print(tr(":load <index|path>"))
+        return True
+
+    files = core.find_log_files(exclude_current=True)
+    if arg.isdigit():
+        idx = int(arg)
+        if idx < 0 or idx >= len(files):
+            print(tr("Specified index %(idx)d is out of range.") % {"idx": idx})
+            return True
+        target_path = files[idx]
+    else:
+        target_path = arg
+
+    try:
+        new_messages = core.load_conversation_from_log(target_path)
+    except FileNotFoundError:
+        print(tr("Log file not found: %(path)s") % {"path": target_path})
+        return True
+    except Exception as e:
+        print(f"[load error] {type(e).__name__}: {e}")
+        return True
+
+    new_messages = insert_tools_system_message(new_messages, core=core)
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+
+    _inject_user_history_to_readline(new_messages)
+
+    print(tr("Loaded log: %(path)s") % {"path": target_path})
+    print(tr("Conversation message count: %(n)d") % {"n": len(messages_ref)})
+
+    _prepend_loaded_log_to_current(core=core, source_log_path=target_path, tr=tr)
+    return True
+
+
+def _persist_messages_with_warn(
+    messages: List[Dict[str, Any]], *, core: Any, label: str
+) -> None:
+    try:
+        core.rewrite_current_log_from_messages(messages)
+    except Exception as e:
+        print(
+            tr_(f"[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e},
+            file=sys.stderr,
+        )
+
+
+def _handle_cmd_shrink(
+    arg: str, messages_ref: List[Dict[str, Any]], *, core: Any
+) -> bool:
+    keep_last = 40
+    if arg:
+        try:
+            keep_last = int(arg)
+        except Exception:
+            print(
+                tr_(
+                    "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                )
+                % {"arg": arg, "keep": keep_last}
+            )
+
+    new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+    _persist_messages_with_warn(messages_ref, core=core, label="shrink")
+    return True
+
+
+def _handle_cmd_shrink_llm(
+    arg: str,
+    messages_ref: List[Dict[str, Any]],
+    client: Any,
+    depname: str,
+    *,
+    core: Any,
+) -> bool:
+    keep_last = 20
+    if arg:
+        try:
+            keep_last = int(arg)
+        except Exception:
+            print(
+                tr_(
+                    "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                )
+                % {"arg": arg, "keep": keep_last}
+            )
+
+    new_messages = core.compress_history_with_llm(
+        client=client,
+        depname=depname,
+        messages=messages_ref,
+        keep_last=keep_last,
+    )
+    messages_ref.clear()
+    messages_ref.extend(new_messages)
+    _persist_messages_with_warn(messages_ref, core=core, label="shrink_llm")
+    return True
+
+
+def _handle_cmd_mem_list(*, tr: Any) -> bool:
+    records = personal_long_memory.load_long_memory_records()
+    if not records:
+        print(tr("No long-term memory entries."))
+        return True
+
+    print(tr("Long-term memory entries:"))
+    for idx, rec in enumerate(records):
+        ts = rec.get("ts")
+        if isinstance(ts, (int, float)):
+            import time as _time
+
+            dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
+        else:
+            dt = "(no-ts)"
+        note = str(rec.get("note", ""))
+        print(f"[{idx}] {dt}  {note}")
+    return True
+
+
+def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
+    if not arg:
+        print(tr(":mem-del <index>"))
+        return True
+
+    try:
+        idx = int(arg)
+    except Exception:
+        print(
+            tr("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg}
+        )
+        return True
+
+    if personal_long_memory.delete_long_memory_entry(idx):
+        print(tr("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
+    else:
+        print(tr("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+    return True
+
+
+def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
+    if not shared_memory.is_enabled():
+        print(
+            tr_(
+                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+            )
+        )
+        return True
+
+    records = shared_memory.load_shared_memory_records()
+    if not records:
+        print(tr("No shared long-term memory entries."))
+        return True
+
+    import time as _time
+
+    print(tr("Shared long-term memory entries:"))
+    for idx, rec in enumerate(records):
+        ts = rec.get("ts")
+        if isinstance(ts, (int, float)):
+            dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
+        else:
+            dt = "(no-ts)"
+        note = str(rec.get("note", ""))
+        print(f"[{idx}] {dt}  {note}")
+
+    return True
+
+
+def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
+    if not arg:
+        print(tr(":shared-mem-del <index>"))
+        return True
+
+    if not shared_memory.is_enabled():
+        print(
+            tr_(
+                "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
+            )
+        )
+        return True
+
+    try:
+        idx = int(arg)
+    except Exception:
+        print(
+            tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
+            % {"arg": arg}
+        )
+        return True
+
+    records = shared_memory.load_shared_memory_records()
+    if idx < 0 or idx >= len(records):
+        print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+        return True
+
+    try:
+        records.pop(idx)
+        path = shared_memory.get_shared_memory_file()
+        if not path:
+            print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+            return True
+
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            for rec in records:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception as e:
+        print(
+            tr("[shared-mem-del error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+
+    print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
+    return True
+
+
 def handle_command(
     line: str,
     messages_ref: List[Dict[str, Any]],
@@ -376,651 +1059,49 @@ def handle_command(
         return True
 
     if cmd in ("r", "reasoning"):
-        try:
-            new_mode = apply_reasoning_arg(arg)
-        except Exception:
-            print(
-                tr(
-                    ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-                )
-            )
-            return True
-        print(f"[mode] reasoning={new_mode}")
-        return True
+        return _handle_cmd_reasoning(arg, tr=tr)
 
     if cmd in ("v", "verbosity"):
-        try:
-            new_mode = apply_verbosity_arg(arg)
-        except Exception:
-            print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
-            return True
-        print(f"[mode] verbosity={new_mode}")
-        return True
+        return _handle_cmd_verbosity(arg, tr=tr)
 
-    if cmd in ("cd",):
-        a = (arg or "").strip()
-        if not a:
-            print(tr(":cd <path>"))
-            return True
+    if cmd == "cd":
+        return _handle_cmd_cd(arg, tr=tr)
 
-        try:
-            expanded = os.path.expandvars(os.path.expanduser(a))
-            target = os.path.abspath(expanded)
-
-            if not os.path.isdir(target):
-                print(
-                    tr("[cd] Directory does not exist: %(src)s -> %(dst)s")
-                    % {"src": a, "dst": target}
-                )
-                return True
-
-            os.chdir(target)
-            print(f"[cd] workdir = {os.getcwd()}")
-        except Exception as e:
-            print(f"[cd error] {type(e).__name__}: {e}")
-        return True
-
-    if cmd in ("ls",):
-        a = (arg or "").strip()
-        target = a or "."
-
-        try:
-            expanded = os.path.expandvars(os.path.expanduser(target))
-
-            # Wildcard(glob) support:
-            # - If target contains glob meta (* ? [..]) -> list matched paths (files/dirs)
-            # - Otherwise, treat as directory and list its entries (previous behavior)
-            has_glob = any(ch in expanded for ch in ("*", "?", "["))
-
-            if has_glob:
-                matches = glob.glob(expanded)
-                if not matches:
-                    print(
-                        tr("[ls] No matching paths: %(src)s -> %(expanded)s")
-                        % {"src": target, "expanded": expanded}
-                    )
-                    return True
-
-                items = []
-                for p in matches:
-                    try:
-                        p_exp = os.path.expandvars(os.path.expanduser(p))
-                        p_abs = os.path.abspath(p_exp)
-                        is_dir = os.path.isdir(p_abs)
-                        size = os.path.getsize(p_abs) if os.path.isfile(p_abs) else 0
-                    except Exception:
-                        p_abs = os.path.abspath(p)
-                        is_dir = os.path.isdir(p_abs)
-                        size = 0
-
-                    base = os.path.basename(p_abs.rstrip(os.sep)) or p_abs
-                    items.append(
-                        (0 if is_dir else 1, base.lower(), base, p_abs, is_dir, size)
-                    )
-
-                items.sort(key=lambda x: (x[0], x[1]))
-
-                print(f"[ls] {expanded}")
-                for _, _, name, p_abs, is_dir, size in items:
-                    if is_dir:
-                        print(f"  [D] {name} -> {p_abs}")
-                    else:
-                        print(f"  [F] {name} ({size} bytes) -> {p_abs}")
-                return True
-
-            # Directory listing mode (no glob)
-            target_abs = os.path.abspath(expanded)
-
-            if not os.path.isdir(target_abs):
-                print(
-                    tr("[ls] Directory does not exist: %(src)s -> %(dst)s")
-                    % {"src": target, "dst": target_abs}
-                )
-                return True
-
-            entries = []
-            for name in os.listdir(target_abs):
-                p = os.path.join(target_abs, name)
-                try:
-                    st = os.stat(p)
-                    is_dir = os.path.isdir(p)
-                    size = st.st_size
-                except Exception:
-                    is_dir = os.path.isdir(p)
-                    size = 0
-
-                entries.append((0 if is_dir else 1, name.lower(), name, is_dir, size))
-
-            entries.sort(key=lambda x: (x[0], x[1]))
-
-            print(f"[ls] {target_abs}")
-            for _, _, name, is_dir, size in entries:
-                if is_dir:
-                    print(f"  [D] {name}")
-                else:
-                    print(f"  [F] {name} ({size} bytes)")
-        except Exception as e:
-            print(f"[ls error] {type(e).__name__}: {e}")
-        return True
+    if cmd == "ls":
+        return _handle_cmd_ls(arg, tr=tr)
 
     if cmd in ("logs", "list"):
-        show_all = False
-        limit = 10
+        return _handle_cmd_logs(arg, core=core, tr=tr)
 
-        a = (arg or "").strip()
-        if a:
-            low = a.lower()
-            if low in ("--all", "-a", "all"):
-                show_all = True
-            else:
-                try:
-                    limit = int(a)
-                except Exception:
-                    print(
-                        tr(
-                            "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-                        )
-                        % {"arg": a}
-                    )
-                    return True
-        core.list_logs(limit=limit, show_all=show_all)
-        return True
+    if cmd == "tools":
+        return _handle_cmd_tools(tr=tr)
 
-    if cmd in ("tools",):
-        try:
-            tool_specs = tools.get_tool_specs() or []
-            if not tool_specs:
-                print(tr("[tools] No tools loaded."))
-                return True
-
-            print(tr("[tools] Loaded %(n)d tools") % {"n": len(tool_specs)})
-            for spec in tool_specs:
-                fn = (spec or {}).get("function") or {}
-                name = fn.get("name") or "(unknown)"
-                desc = (fn.get("description") or "").strip()
-                if desc:
-                    print(f"- {name}: {desc}")
-                else:
-                    print(f"- {name}")
-        except Exception as e:
-            print(f"[tools error] {type(e).__name__}: {e}")
-        return True
-
-    if cmd in ("skills",):
-        try:
-            from uagent.tools.skills_list_tool import run_tool as skills_list_tool
-
-            res_json = skills_list_tool(
-                {
-                    "root_dir": "",
-                    "recursive": True,
-                    "include_invalid": True,
-                    "strict": False,
-                }
-            )
-            res = json.loads(res_json)
-
-            # skills_list_tool returns either:
-            # - list[dict] (legacy)
-            # - {"status":..., "skills": [..]} (wrapped)
-            if isinstance(res, list):
-                items = res
-            elif isinstance(res, dict):
-                items = res.get("skills")
-            else:
-                items = None
-
-            if not isinstance(items, list):
-                items = []
-
-            if not items:
-                print(tr("[skills] No skills found."))
-                return True
-
-            print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
-            for it in items:
-                if not isinstance(it, dict):
-                    continue
-                name = it.get("name") or "(unknown)"
-                desc = it.get("description") or ""
-                skill_md = it.get("skill_md") or ""
-                print(f"- {name}: {desc}")
-                if skill_md:
-                    print(f"    {skill_md}")
-        except Exception as e:
-            print(f"[skills error] {type(e).__name__}: {e}")
-        return True
+    if cmd == "skills":
+        return _handle_cmd_skills(tr=tr)
 
     if cmd == "clean":
-        # Dangerous operation: delete conversation log files with <= N non-system messages.
-        # Target: core.BASE_LOG_DIR / scheck_log_*.jsonl
-        # Count: user/assistant/tool messages only (exclude system), consistent with core.load_conversation_from_log
-        # Usage:
-        #   :clean            -> threshold=10
-        #   :clean 10         -> threshold=10
-
-        threshold = 10
-        a = (arg or "").strip()
-        if a:
-            try:
-                threshold = int(a)
-            except Exception:
-                print(
-                    tr(
-                        "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
-                    )
-                    % {"arg": a, "default": threshold}
-                )
-                return True
-
-        try:
-            log_files = core.find_log_files(exclude_current=False)
-        except Exception as e:
-            print(
-                tr("[clean error] Failed to get log list: %(etype)s: %(err)s")
-                % {"etype": type(e).__name__, "err": e}
-            )
-            return True
-
-        targets: List[str] = []
-        counts: Dict[str, int] = {}
-
-        for p in log_files:
-            try:
-                # load_conversation_from_log:
-                # - drops system messages from the log
-                # - then inserts one system message at head
-                # So len(msgs)-1 == non-system message count.
-                msgs = core.load_conversation_from_log(p)
-                non_system_count = max(0, len(msgs) - 1)
-                counts[p] = non_system_count
-                if non_system_count <= threshold:
-                    targets.append(p)
-            except Exception as e:
-                print(
-                    tr(
-                        "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
-                    )
-                    % {"path": p, "etype": type(e).__name__, "err": e}
-                )
-
-        if not targets:
-            print(
-                tr(
-                    "[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s"
-                )
-                % {
-                    "threshold": threshold,
-                    "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
-                }
-            )
-            return True
-
-        print(
-            tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d")
-            % {"threshold": threshold, "n": len(targets)}
-        )
-        for p in targets:
-            c = counts.get(p, -1)
-            print(f" - ({c} msgs) {p}")
-
-        try:
-            from uagent.tools.human_ask_tool import run_tool as human_ask
-
-            msg = tr_(
-                ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-                "Log dir: %(dir)s\n"
-                "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-                "Targets: %(n)d\n\n"
-                "Proceed? Enter y to run, or c to cancel."
-            ) % {
-                "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
-                "threshold": threshold,
-                "n": len(targets),
-            }
-            res_json = human_ask({"message": msg})
-            res = json.loads(res_json)
-            user_reply = (res.get("user_reply") or "").strip().lower()
-            if user_reply not in ("y", "yes"):
-                print(tr("[clean] Cancelled."))
-                return True
-        except Exception as e:
-            print(
-                tr("[clean error] Confirmation failed: %(etype)s: %(err)s")
-                % {"etype": type(e).__name__, "err": e}
-            )
-            return True
-
-        deleted = 0
-        failed = 0
-        for p in targets:
-            try:
-                os.remove(p)
-                deleted += 1
-            except Exception as e:
-                failed += 1
-                print(
-                    tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
-                    % {"path": p, "etype": type(e).__name__, "err": e}
-                )
-
-        print(
-            tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
-            % {"deleted": deleted, "failed": failed}
-        )
-        return True
+        return _handle_cmd_clean(arg, core=core, tr=tr)
 
     if cmd == "load":
-        if not arg:
-            print(tr(":load <index|path>"))
-            return True
-
-        files = core.find_log_files(exclude_current=True)
-        target_path: str
-
-        if arg.isdigit():
-            idx = int(arg)
-            if idx < 0 or idx >= len(files):
-                print(tr("Specified index %(idx)d is out of range.") % {"idx": idx})
-                return True
-            target_path = files[idx]
-        else:
-            target_path = arg
-
-        try:
-            new_messages = core.load_conversation_from_log(target_path)
-        except FileNotFoundError:
-            print(tr("Log file not found: %(path)s") % {"path": target_path})
-            return True
-        except Exception as e:
-            print(f"[load error] {type(e).__name__}: {e}")
-            return True
-
-        new_messages = insert_tools_system_message(new_messages, core=core)
-
-        messages_ref.clear()
-        messages_ref.extend(new_messages)
-
-        # readline の履歴に過去のユーザー発話を注入し、上キーで辿れるようにする
-        try:
-            import readline
-
-            for msg in new_messages:
-                if msg.get("role") == "user":
-                    content = msg.get("content")
-                    if isinstance(content, str) and content.strip():
-                        # 複数行の場合は1行にまとめて履歴に追加
-                        readline.add_history(content.replace("\n", " "))
-        except Exception:
-            pass
-
-        print(tr("Loaded log: %(path)s") % {"path": target_path})
-        print(tr("Conversation message count: %(n)d") % {"n": len(messages_ref)})
-        # --- Optional: prepend loaded log contents into CURRENT session log file ---
-        # User request: When :load is used, keep a trace in the current log by inserting
-        # the loaded conversation at the beginning of the current session log file.
-        # NOTE: This rewrites core.LOG_FILE (no backup, per user request). Dangerous.
-        try:
-            from uagent.tools.human_ask_tool import run_tool as human_ask
-
-            cur_log = getattr(core, "LOG_FILE", None)
-            if isinstance(cur_log, str) and cur_log:
-                msg2 = tr_(
-                    ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
-                    "Current log: %(cur_log)s\n"
-                    "Source log: %(src_log)s\n\n"
-                    "Proceed? Enter y to run, or c to cancel."
-                ) % {"cur_log": cur_log, "src_log": target_path}
-                res_json2 = human_ask({"message": msg2})
-                res2 = json.loads(res_json2)
-                user_reply2 = (res2.get("user_reply") or "").strip().lower()
-                if user_reply2 in ("y", "yes"):
-                    # Read loaded raw log lines
-                    loaded_lines: list[str] = []
-                    try:
-                        with open(target_path, encoding="utf-8") as f:
-                            loaded_lines = f.read().splitlines(True)  # keepends
-                    except Exception as e:
-                        print(
-                            tr(
-                                "[load warn] Failed to read source log: %(etype)s: %(err)s"
-                            )
-                            % {"etype": type(e).__name__, "err": e},
-                            file=sys.stderr,
-                        )
-                        loaded_lines = []
-
-                    # Read current log lines (may not exist yet)
-                    cur_lines: list[str] = []
-                    try:
-                        if os.path.exists(cur_log):
-                            with open(cur_log, encoding="utf-8") as f:
-                                cur_lines = f.read().splitlines(True)
-                    except Exception as e:
-                        print(
-                            tr(
-                                "[load warn] Failed to read current log: %(etype)s: %(err)s"
-                            )
-                            % {"etype": type(e).__name__, "err": e},
-                            file=sys.stderr,
-                        )
-                        cur_lines = []
-
-                    # Build marker line (JSONL entry)
-                    marker = {
-                        "role": "system",
-                        "content": f"[LOG] :load prepend source={os.path.abspath(target_path)}",
-                    }
-                    marker_line = json.dumps(marker, ensure_ascii=False) + "\n"
-
-                    # Write new file: marker + loaded + old
-                    try:
-                        os.makedirs(os.path.dirname(cur_log) or ".", exist_ok=True)
-                        with open(cur_log, "w", encoding="utf-8") as f:
-                            f.write(marker_line)
-                            for ln in loaded_lines:
-                                f.write(ln)
-                            for ln in cur_lines:
-                                f.write(ln)
-                        print(
-                            tr("[load] Prepended to current log: %(path)s")
-                            % {"path": cur_log}
-                        )
-                    except Exception as e:
-                        print(
-                            tr(
-                                "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-                            )
-                            % {"etype": type(e).__name__, "err": e},
-                            file=sys.stderr,
-                        )
-                else:
-                    print(tr("[load] Prepend to current log was cancelled."))
-        except Exception as e:
-            print(
-                tr(
-                    "[load warn] Error during prepend to current log: %(etype)s: %(err)s"
-                )
-                % {"etype": type(e).__name__, "err": e},
-                file=sys.stderr,
-            )
-
-        return True
+        return _handle_cmd_load(arg, messages_ref, core=core, tr=tr)
 
     if cmd == "shrink":
-        keep_last = 40
-        if arg:
-            try:
-                keep_last = int(arg)
-            except Exception:
-                print(
-                    tr_(
-                        "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-                    )
-                    % {"arg": arg, "keep": keep_last}
-                )
-        new_messages = core.shrink_messages(messages_ref, keep_last=keep_last)
-        messages_ref.clear()
-        messages_ref.extend(new_messages)
-
-        # Persist shrink result into current session log file (with backup)
-        try:
-            core.rewrite_current_log_from_messages(messages_ref)
-        except Exception as e:
-            print(
-                tr_("[shrink warn] Failed to rewrite current log: %(etype)s: %(err)s")
-                % {"etype": type(e).__name__, "err": e},
-                file=sys.stderr,
-            )
-        return True
+        return _handle_cmd_shrink(arg, messages_ref, core=core)
 
     if cmd == "shrink_llm":
-        keep_last = 20
-        if arg:
-            try:
-                keep_last = int(arg)
-            except Exception:
-                print(
-                    tr_(
-                        "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-                    )
-                    % {"arg": arg, "keep": keep_last}
-                )
-        new_messages = core.compress_history_with_llm(
-            client=client,
-            depname=depname,
-            messages=messages_ref,
-            keep_last=keep_last,
-        )
-        messages_ref.clear()
-        messages_ref.extend(new_messages)
-
-        # Persist shrink_llm result into current session log file (with backup)
-        try:
-            core.rewrite_current_log_from_messages(messages_ref)
-        except Exception as e:
-            print(
-                tr_(
-                    "[shrink_llm warn] Failed to rewrite current log: %(etype)s: %(err)s"
-                )
-                % {"etype": type(e).__name__, "err": e},
-                file=sys.stderr,
-            )
-        return True
+        return _handle_cmd_shrink_llm(arg, messages_ref, client, depname, core=core)
 
     if cmd == "mem-list":
-        records = personal_long_memory.load_long_memory_records()
-        if not records:
-            print(tr("No long-term memory entries."))
-            return True
-
-        print(tr("Long-term memory entries:"))
-        for idx, rec in enumerate(records):
-            ts = rec.get("ts")
-            if isinstance(ts, (int, float)):
-                import time as _time
-
-                dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
-            else:
-                dt = "(no-ts)"
-            note = str(rec.get("note", ""))
-            print(f"[{idx}] {dt}  {note}")
-        return True
+        return _handle_cmd_mem_list(tr=tr)
 
     if cmd == "mem-del":
-        if not arg:
-            print(tr(":mem-del <index>"))
-            return True
-        try:
-            idx = int(arg)
-        except Exception:
-            print(
-                tr("[mem-del error] Failed to parse index as int: %(arg)r")
-                % {"arg": arg}
-            )
-            return True
-        if personal_long_memory.delete_long_memory_entry(idx):
-            print(tr("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
-        else:
-            print(tr("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
-        return True
+        return _handle_cmd_mem_del(arg, tr=tr)
 
     if cmd == "shared-mem-list":
-        if not shared_memory.is_enabled():
-            print(
-                tr_(
-                    "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
-                )
-            )
-            return True
-
-        records = shared_memory.load_shared_memory_records()
-        if not records:
-            print(tr("No shared long-term memory entries."))
-            return True
-
-        import time as _time
-
-        print(tr("Shared long-term memory entries:"))
-        for idx, rec in enumerate(records):
-            ts = rec.get("ts")
-            if isinstance(ts, (int, float)):
-                dt = _time.strftime("%Y-%m-%d %H:%M:%S", _time.localtime(ts))
-            else:
-                dt = "(no-ts)"
-            note = str(rec.get("note", ""))
-            print(f"[{idx}] {dt}  {note}")
-        return True
+        return _handle_cmd_shared_mem_list(tr=tr)
 
     if cmd == "shared-mem-del":
-        if not arg:
-            print(tr(":shared-mem-del <index>"))
-            return True
-
-        if not shared_memory.is_enabled():
-            print(
-                tr_(
-                    "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
-                )
-            )
-            return True
-
-        try:
-            idx = int(arg)
-        except Exception:
-            print(
-                tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
-                % {"arg": arg}
-            )
-            return True
-
-        records = shared_memory.load_shared_memory_records()
-        if idx < 0 or idx >= len(records):
-            print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
-            return True
-
-        try:
-            records.pop(idx)
-            path = shared_memory.get_shared_memory_file()
-            if not path:
-                print(
-                    tr("[shared-mem-del] Failed to delete index=%(idx)d.")
-                    % {"idx": idx}
-                )
-                return True
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-            with open(path, "w", encoding="utf-8") as f:
-                for rec in records:
-                    f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-        except Exception as e:
-            print(
-                tr("[shared-mem-del error] %(etype)s: %(err)s")
-                % {"etype": type(e).__name__, "err": e}
-            )
-            return True
-
-        print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
-        return True
+        return _handle_cmd_shared_mem_del(arg, tr=tr)
 
     if cmd in ("exit", "quit"):
         print(tr("Exiting."))

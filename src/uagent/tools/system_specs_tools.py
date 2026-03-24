@@ -274,10 +274,8 @@ def _darwin_collect_volumes(out: Dict[str, Any]) -> None:
             _add_volume(out, mp, fstype=fstype, device=device)
 
 
-def get_system_specs(
-    *, include_volumes: bool = True, include_disks: bool = True
-) -> Dict[str, Any]:
-    out: Dict[str, Any] = {
+def _init_system_specs_output() -> Dict[str, Any]:
+    return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "os": {
             "platform": os.name,
@@ -300,489 +298,514 @@ def get_system_specs(
         "notes": [],  # type: ignore[assignment]
     }
 
-    system = out["os"]["sys_platform"]
 
-    # Prefer psutil if available (cross-platform)
+def _psutil_to_dict(obj: Any) -> Any:
+    if hasattr(obj, "_asdict"):
+        return obj._asdict()
     try:
-        import psutil  # type: ignore
-
-        has_psutil = True
+        return dict(obj)
     except Exception:
-        psutil = None  # type: ignore
-        has_psutil = False
+        return obj
 
-    if has_psutil:
-        # boot / uptime
-        try:
-            bt = float(psutil.boot_time())
-            out["boot"] = {
-                "boot_time_epoch": bt,
-                "boot_time_utc": datetime.fromtimestamp(
-                    bt, tz=timezone.utc
-                ).isoformat(),
-                "uptime_seconds": max(0.0, datetime.now(timezone.utc).timestamp() - bt),
+
+def _psutil_collect_boot(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        bt = float(psutil.boot_time())
+        out["boot"] = {
+            "boot_time_epoch": bt,
+            "boot_time_utc": datetime.fromtimestamp(bt, tz=timezone.utc).isoformat(),
+            "uptime_seconds": max(0.0, datetime.now(timezone.utc).timestamp() - bt),
+        }
+    except Exception:
+        out["notes"].append("psutil: failed to read boot time.")
+
+
+def _psutil_collect_cpu(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        out["cpu"]["logical_cores"] = psutil.cpu_count(logical=True)
+        out["cpu"]["physical_cores"] = psutil.cpu_count(logical=False)
+    except Exception:
+        pass
+
+    try:
+        freq = psutil.cpu_freq()
+        out["cpu"]["max_mhz"] = int(freq.max) if freq and freq.max else None
+        out["cpu"]["min_mhz"] = int(freq.min) if freq and freq.min else None
+        out["cpu"]["current_mhz"] = int(freq.current) if freq and freq.current else None
+    except Exception:
+        pass
+
+    try:
+        out["cpu"]["percent"] = psutil.cpu_percent(interval=None)
+    except Exception:
+        out["notes"].append("psutil: failed to read cpu_percent().")
+
+    try:
+        out["cpu"]["percpu_percent"] = psutil.cpu_percent(interval=None, percpu=True)
+    except Exception:
+        pass
+
+    try:
+        out["cpu"]["times"] = _psutil_to_dict(psutil.cpu_times())
+    except Exception:
+        pass
+
+    try:
+        out["cpu"]["stats"] = _psutil_to_dict(psutil.cpu_stats())
+    except Exception:
+        pass
+
+    try:
+        la = os.getloadavg()
+        out["cpu"]["loadavg"] = {"1m": la[0], "5m": la[1], "15m": la[2]}
+    except Exception:
+        # Not available on Windows
+        pass
+
+
+def _psutil_collect_memory(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        vm = psutil.virtual_memory()
+        out["memory"]["total_bytes"] = int(vm.total)
+        out["memory"]["virtual"] = _psutil_to_dict(vm)
+    except Exception:
+        pass
+
+    try:
+        out["memory"]["swap"] = _psutil_to_dict(psutil.swap_memory())
+    except Exception:
+        pass
+
+
+def _psutil_collect_volumes(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        out["volumes_psutil"] = []
+        seen = set()
+        for p in psutil.disk_partitions(all=False):
+            if not p.mountpoint or p.mountpoint in seen:
+                continue
+            seen.add(p.mountpoint)
+            try:
+                du = psutil.disk_usage(p.mountpoint)
+            except Exception:
+                continue
+            v = {
+                "mountpoint": p.mountpoint,
+                "fstype": getattr(p, "fstype", None),
+                "device": getattr(p, "device", None),
+                "opts": getattr(p, "opts", None),
+                "total_bytes": int(du.total),
+                "free_bytes": int(du.free),
+                "used_bytes": int(du.used),
+                "percent": float(getattr(du, "percent", 0.0)),
             }
-        except Exception:
-            out["notes"].append("psutil: failed to read boot time.")
-
-        # CPU
-        try:
-            out["cpu"]["logical_cores"] = psutil.cpu_count(logical=True)
-            out["cpu"]["physical_cores"] = psutil.cpu_count(logical=False)
-        except Exception:
-            pass
-
-        try:
-            freq = psutil.cpu_freq()
-            out["cpu"]["max_mhz"] = int(freq.max) if freq and freq.max else None
-            out["cpu"]["min_mhz"] = int(freq.min) if freq and freq.min else None
-            out["cpu"]["current_mhz"] = (
-                int(freq.current) if freq and freq.current else None
-            )
-        except Exception:
-            pass
-
-        try:
-            out["cpu"]["percent"] = psutil.cpu_percent(interval=None)
-        except Exception:
-            out["notes"].append("psutil: failed to read cpu_percent().")
-
-        try:
-            out["cpu"]["percpu_percent"] = psutil.cpu_percent(
-                interval=None, percpu=True
-            )
-        except Exception:
-            pass
-
-        try:
-            ct = psutil.cpu_times()
-            out["cpu"]["times"] = ct._asdict() if hasattr(ct, "_asdict") else dict(ct)
-        except Exception:
-            pass
-
-        try:
-            cts = psutil.cpu_stats()
-            out["cpu"]["stats"] = (
-                cts._asdict() if hasattr(cts, "_asdict") else dict(cts)
-            )
-        except Exception:
-            pass
-
-        try:
-            la = os.getloadavg()
-            out["cpu"]["loadavg"] = {"1m": la[0], "5m": la[1], "15m": la[2]}
-        except Exception:
-            # Not available on Windows
-            pass
-
-        # Memory
-        try:
-            vm = psutil.virtual_memory()
-            out["memory"]["total_bytes"] = int(vm.total)
-            out["memory"]["virtual"] = (
-                vm._asdict() if hasattr(vm, "_asdict") else dict(vm)
-            )
-        except Exception:
-            pass
-
-        try:
-            sm = psutil.swap_memory()
-            out["memory"]["swap"] = sm._asdict() if hasattr(sm, "_asdict") else dict(sm)
-        except Exception:
-            pass
-
-        # Volumes
-        if include_volumes:
-            try:
-                out["volumes_psutil"] = []
-                seen = set()
-                for p in psutil.disk_partitions(all=False):
-                    if not p.mountpoint or p.mountpoint in seen:
-                        continue
-                    seen.add(p.mountpoint)
-                    try:
-                        du = psutil.disk_usage(p.mountpoint)
-                    except Exception:
-                        continue
-                    v = {
-                        "mountpoint": p.mountpoint,
-                        "fstype": getattr(p, "fstype", None),
-                        "device": getattr(p, "device", None),
-                        "opts": getattr(p, "opts", None),
-                        "total_bytes": int(du.total),
-                        "free_bytes": int(du.free),
-                        "used_bytes": int(du.used),
-                        "percent": float(getattr(du, "percent", 0.0)),
-                    }
-                    out["volumes"].append(
-                        {
-                            "mountpoint": v["mountpoint"],
-                            "fstype": v["fstype"],
-                            "device": v["device"],
-                            "total_bytes": v["total_bytes"],
-                            "free_bytes": v["free_bytes"],
-                            "used_bytes": v["used_bytes"],
-                        }
-                    )
-                    out["volumes_psutil"].append(v)
-            except Exception:
-                out["notes"].append("psutil: failed to enumerate volumes.")
-
-        # Disks (I/O counters; not physical inventory)
-        if include_disks:
-            try:
-                out["disks_total_io"] = None
-                try:
-                    tot = psutil.disk_io_counters(perdisk=False)
-                    out["disks_total_io"] = (
-                        tot._asdict() if hasattr(tot, "_asdict") else dict(tot)
-                    )
-                except Exception:
-                    pass
-
-                io = psutil.disk_io_counters(perdisk=True)
-                if io:
-                    for name, c in io.items():
-                        out["disks"].append(
-                            {
-                                "name": name,
-                                "read_bytes": getattr(c, "read_bytes", None),
-                                "write_bytes": getattr(c, "write_bytes", None),
-                                "read_count": getattr(c, "read_count", None),
-                                "write_count": getattr(c, "write_count", None),
-                                "read_time_ms": getattr(c, "read_time", None),
-                                "write_time_ms": getattr(c, "write_time", None),
-                                "busy_time_ms": getattr(c, "busy_time", None),
-                            }
-                        )
-                else:
-                    out["notes"].append(
-                        "psutil: no disk_io_counters(perdisk=True) available."
-                    )
-            except Exception:
-                out["notes"].append("psutil: failed to enumerate disks.")
-
-            # Enrich disk info where available (Linux: /sys/block)
-            if system == "Linux":
-                try:
-                    sysmap = _linux_sys_block_map()
-                    for d in out["disks"]:
-                        name = d.get("name")
-                        if name in sysmap:
-                            d.update(
-                                {k: v for k, v in sysmap[name].items() if v is not None}
-                            )
-                except Exception:
-                    out["notes"].append(
-                        "Linux: failed to enrich disks from /sys/block."
-                    )
-
-        # Network
-        try:
-            out["network"] = {
-                "if_addrs": {},
-                "if_stats": {},
-                "io": None,
-                "connections": None,
-                "connections_truncated": False,
-            }
-
-            try:
-                addrs = psutil.net_if_addrs()
-                for ifname, items in addrs.items():
-                    out["network"]["if_addrs"][ifname] = [
-                        {
-                            "family": int(getattr(a.family, "value", a.family)),
-                            "address": getattr(a, "address", None),
-                            "netmask": getattr(a, "netmask", None),
-                            "broadcast": getattr(a, "broadcast", None),
-                            "ptp": getattr(a, "ptp", None),
-                        }
-                        for a in items
-                    ]
-            except Exception:
-                out["notes"].append("psutil: failed to read net_if_addrs().")
-
-            try:
-                stats = psutil.net_if_stats()
-                for ifname, st in stats.items():
-                    out["network"]["if_stats"][ifname] = (
-                        st._asdict() if hasattr(st, "_asdict") else dict(st)
-                    )
-            except Exception:
-                out["notes"].append("psutil: failed to read net_if_stats().")
-
-            try:
-                nio = psutil.net_io_counters(pernic=True)
-                out["network"]["io"] = {
-                    k: (v._asdict() if hasattr(v, "_asdict") else dict(v))
-                    for k, v in nio.items()
+            out["volumes"].append(
+                {
+                    "mountpoint": v["mountpoint"],
+                    "fstype": v["fstype"],
+                    "device": v["device"],
+                    "total_bytes": v["total_bytes"],
+                    "free_bytes": v["free_bytes"],
+                    "used_bytes": v["used_bytes"],
                 }
-            except Exception:
-                out["notes"].append(
-                    "psutil: failed to read net_io_counters(pernic=True)."
-                )
+            )
+            out["volumes_psutil"].append(v)
+    except Exception:
+        out["notes"].append("psutil: failed to enumerate volumes.")
 
-            # Connections can be large and/or require admin privileges.
-            try:
-                conns = psutil.net_connections(kind="all")
-                MAX_CONNS = 2000
-                if len(conns) > MAX_CONNS:
-                    conns = conns[:MAX_CONNS]
-                    out["network"]["connections_truncated"] = True
-                out["network"]["connections"] = [
-                    {
-                        "fd": getattr(c, "fd", None),
-                        "family": int(getattr(c.family, "value", c.family)),
-                        "type": int(getattr(c.type, "value", c.type)),
-                        "laddr": getattr(
-                            getattr(c, "laddr", None),
-                            "_asdict",
-                            lambda: getattr(c, "laddr", None),
-                        )(),
-                        "raddr": getattr(
-                            getattr(c, "raddr", None),
-                            "_asdict",
-                            lambda: getattr(c, "raddr", None),
-                        )(),
-                        "status": getattr(c, "status", None),
-                        "pid": getattr(c, "pid", None),
-                    }
-                    for c in conns
-                ]
-            except Exception:
-                out["notes"].append(
-                    "psutil: failed to read net_connections(kind='all')."
-                )
 
-        except Exception:
-            out["notes"].append("psutil: failed to collect network information.")
-
-        # Users
+def _psutil_collect_disks(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
+    try:
+        out["disks_total_io"] = None
         try:
-            out["users"] = [
-                u._asdict() if hasattr(u, "_asdict") else dict(u)
-                for u in psutil.users()
+            tot = psutil.disk_io_counters(perdisk=False)
+            out["disks_total_io"] = _psutil_to_dict(tot)
+        except Exception:
+            pass
+
+        io = psutil.disk_io_counters(perdisk=True)
+        if io:
+            for name, c in io.items():
+                out["disks"].append(
+                    {
+                        "name": name,
+                        "read_bytes": getattr(c, "read_bytes", None),
+                        "write_bytes": getattr(c, "write_bytes", None),
+                        "read_count": getattr(c, "read_count", None),
+                        "write_count": getattr(c, "write_count", None),
+                        "read_time_ms": getattr(c, "read_time", None),
+                        "write_time_ms": getattr(c, "write_time", None),
+                        "busy_time_ms": getattr(c, "busy_time", None),
+                    }
+                )
+        else:
+            out["notes"].append("psutil: no disk_io_counters(perdisk=True) available.")
+    except Exception:
+        out["notes"].append("psutil: failed to enumerate disks.")
+
+    if system != "Linux":
+        return
+
+    try:
+        sysmap = _linux_sys_block_map()
+        for d in out["disks"]:
+            name = d.get("name")
+            if name in sysmap:
+                d.update({k: v for k, v in sysmap[name].items() if v is not None})
+    except Exception:
+        out["notes"].append("Linux: failed to enrich disks from /sys/block.")
+
+
+def _psutil_collect_network(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        out["network"] = {
+            "if_addrs": {},
+            "if_stats": {},
+            "io": None,
+            "connections": None,
+            "connections_truncated": False,
+        }
+
+        try:
+            addrs = psutil.net_if_addrs()
+            for ifname, items in addrs.items():
+                out["network"]["if_addrs"][ifname] = [
+                    {
+                        "family": int(getattr(a.family, "value", a.family)),
+                        "address": getattr(a, "address", None),
+                        "netmask": getattr(a, "netmask", None),
+                        "broadcast": getattr(a, "broadcast", None),
+                        "ptp": getattr(a, "ptp", None),
+                    }
+                    for a in items
+                ]
+        except Exception:
+            out["notes"].append("psutil: failed to read net_if_addrs().")
+
+        try:
+            stats = psutil.net_if_stats()
+            for ifname, st in stats.items():
+                out["network"]["if_stats"][ifname] = _psutil_to_dict(st)
+        except Exception:
+            out["notes"].append("psutil: failed to read net_if_stats().")
+
+        try:
+            nio = psutil.net_io_counters(pernic=True)
+            out["network"]["io"] = {k: _psutil_to_dict(v) for k, v in nio.items()}
+        except Exception:
+            out["notes"].append("psutil: failed to read net_io_counters(pernic=True).")
+
+        try:
+            conns = psutil.net_connections(kind="all")
+            max_conns = 2000
+            if len(conns) > max_conns:
+                conns = conns[:max_conns]
+                out["network"]["connections_truncated"] = True
+            out["network"]["connections"] = [
+                {
+                    "fd": getattr(c, "fd", None),
+                    "family": int(getattr(c.family, "value", c.family)),
+                    "type": int(getattr(c.type, "value", c.type)),
+                    "laddr": getattr(
+                        getattr(c, "laddr", None),
+                        "_asdict",
+                        lambda: getattr(c, "laddr", None),
+                    )(),
+                    "raddr": getattr(
+                        getattr(c, "raddr", None),
+                        "_asdict",
+                        lambda: getattr(c, "raddr", None),
+                    )(),
+                    "status": getattr(c, "status", None),
+                    "pid": getattr(c, "pid", None),
+                }
+                for c in conns
             ]
         except Exception:
-            pass
+            out["notes"].append("psutil: failed to read net_connections(kind='all').")
 
-        # Sensors (best-effort)
+    except Exception:
+        out["notes"].append("psutil: failed to collect network information.")
+
+
+def _psutil_collect_users(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        out["users"] = [_psutil_to_dict(u) for u in psutil.users()]
+    except Exception:
+        pass
+
+
+def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any) -> None:
+    try:
+        out["sensors"] = {}
         try:
-            out["sensors"] = {}
-            try:
-                bat = psutil.sensors_battery()
-                out["sensors"]["battery"] = (
-                    bat._asdict()
-                    if bat and hasattr(bat, "_asdict")
-                    else (bat if bat is None else dict(bat))
-                )
-            except Exception:
-                pass
-            try:
-                temps = psutil.sensors_temperatures(fahrenheit=False)
-                out["sensors"]["temperatures"] = {
-                    k: [t._asdict() if hasattr(t, "_asdict") else dict(t) for t in v]
-                    for k, v in temps.items()
-                }
-            except Exception:
-                pass
-            try:
-                fans = psutil.sensors_fans()
-                out["sensors"]["fans"] = {
-                    k: [f._asdict() if hasattr(f, "_asdict") else dict(f) for f in v]
-                    for k, v in fans.items()
-                }
-            except Exception:
-                pass
+            bat = psutil.sensors_battery()
+            out["sensors"]["battery"] = (
+                bat._asdict()
+                if bat and hasattr(bat, "_asdict")
+                else (bat if bat is None else dict(bat))
+            )
         except Exception:
             pass
+        try:
+            temps = psutil.sensors_temperatures(fahrenheit=False)
+            out["sensors"]["temperatures"] = {
+                k: [_psutil_to_dict(t) for t in v] for k, v in temps.items()
+            }
+        except Exception:
+            pass
+        try:
+            fans = psutil.sensors_fans()
+            out["sensors"]["fans"] = {
+                k: [_psutil_to_dict(f) for f in v] for k, v in fans.items()
+            }
+        except Exception:
+            pass
+    except Exception:
+        pass
 
+
+def _collect_with_psutil(
+    out: Dict[str, Any],
+    *,
+    include_volumes: bool,
+    include_disks: bool,
+    system: str,
+) -> bool:
+    try:
+        import psutil  # type: ignore
+    except Exception:
+        return False
+
+    _psutil_collect_boot(out, psutil)
+    _psutil_collect_cpu(out, psutil)
+    _psutil_collect_memory(out, psutil)
+
+    if include_volumes:
+        _psutil_collect_volumes(out, psutil)
+
+    if include_disks:
+        _psutil_collect_disks(out, psutil, system=system)
+
+    _psutil_collect_network(out, psutil)
+    _psutil_collect_users(out, psutil)
+    _psutil_collect_sensors(out, psutil)
+
+    out["notes"].append(
+        "psutil: physical disk model/serial is not available; disk entries are best-effort."
+    )
+    return True
+
+
+def _collect_windows_specs(
+    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+) -> None:
+    if include_volumes:
+        try:
+            import ctypes
+
+            # GetLogicalDrives returns a bitmask of available drives.
+            mask = ctypes.windll.kernel32.GetLogicalDrives()
+            for i in range(26):
+                if mask & (1 << i):
+                    letter = chr(ord("A") + i)
+                    mp = f"{letter}:\\"
+                    if os.path.exists(mp):
+                        _add_volume(out, mp)
+        except Exception:
+            out["notes"].append("Windows: failed to enumerate volumes.")
+
+    try:
+        import winreg
+
+        with winreg.OpenKey(
+            winreg.HKEY_LOCAL_MACHINE,
+            r"HARDWARE\DESCRIPTION\System\CentralProcessor\0",
+        ) as k:
+            out["cpu"]["model"] = winreg.QueryValueEx(k, "ProcessorNameString")[0]
+            out["cpu"]["max_mhz"] = _safe_int(winreg.QueryValueEx(k, "~MHz")[0])
+    except Exception:
+        out["notes"].append("Windows: failed to read CPU model from registry.")
+
+    try:
+        import ctypes
+
+        class MEMORYSTATUSEX(ctypes.Structure):
+            _fields_ = [
+                ("dwLength", ctypes.c_ulong),
+                ("dwMemoryLoad", ctypes.c_ulong),
+                ("ullTotalPhys", ctypes.c_ulonglong),
+                ("ullAvailPhys", ctypes.c_ulonglong),
+                ("ullTotalPageFile", ctypes.c_ulonglong),
+                ("ullAvailPageFile", ctypes.c_ulonglong),
+                ("ullTotalVirtual", ctypes.c_ulonglong),
+                ("ullAvailVirtual", ctypes.c_ulonglong),
+                ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+            ]
+
+        stat = MEMORYSTATUSEX()
+        stat.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
+        ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
+        out["memory"]["total_bytes"] = int(stat.ullTotalPhys)
+    except Exception:
+        out["notes"].append("Windows: failed to read total memory via WinAPI.")
+
+    if include_disks:
         out["notes"].append(
-            "psutil: physical disk model/serial is not available; disk entries are best-effort."
+            "Windows: physical disk model/type detection is not implemented (stdlib-only)."
         )
+
+
+def _collect_linux_specs(
+    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+) -> None:
+    # CPU model / max MHz / physical cores best-effort
+    try:
+        model = None
+        max_mhz = None
+        phys_cores = None
+        with open("/proc/cpuinfo", "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                ll = line.lower()
+                if model is None and ll.startswith("model name"):
+                    model = line.split(":", 1)[1].strip()
+                elif ll.startswith("cpu mhz"):
+                    v = line.split(":", 1)[1].strip()
+                    try:
+                        mhz = int(float(v))
+                        max_mhz = max(max_mhz or 0, mhz)
+                    except Exception:
+                        pass
+                elif phys_cores is None and ll.startswith("cpu cores"):
+                    # may represent cores per physical CPU package
+                    phys_cores = _safe_int(line.split(":", 1)[1].strip())
+        out["cpu"]["model"] = model
+        out["cpu"]["max_mhz"] = max_mhz
+        out["cpu"]["physical_cores"] = phys_cores
+    except Exception:
+        out["notes"].append("Linux: failed to read /proc/cpuinfo.")
+
+    # Memory total
+    try:
+        with open("/proc/meminfo", "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                if line.startswith("MemTotal:"):
+                    kb = int(line.split()[1])
+                    out["memory"]["total_bytes"] = kb * 1024
+                    break
+    except Exception:
+        out["notes"].append("Linux: failed to read /proc/meminfo.")
+
+    # Volumes
+    if include_volumes:
+        pseudo = {
+            "proc",
+            "sysfs",
+            "tmpfs",
+            "devtmpfs",
+            "devpts",
+            "cgroup",
+            "cgroup2",
+            "pstore",
+            "securityfs",
+            "debugfs",
+            "tracefs",
+            "overlay",
+            "squashfs",
+            "autofs",
+            "mqueue",
+            "hugetlbfs",
+            "fusectl",
+            "rpc_pipefs",
+        }
+        try:
+            mounts: List[tuple[str, str, str]] = []
+            with open("/proc/mounts", "r", encoding="utf-8", errors="ignore") as f:
+                for line in f:
+                    parts = line.split()
+                    if len(parts) >= 3:
+                        device, mp, fstype = parts[0], parts[1], parts[2]
+                        if fstype in pseudo:
+                            continue
+                        mounts.append((mp, fstype, device))
+
+            seen = set()
+            for mp, fstype, device in mounts:
+                if mp in seen:
+                    continue
+                seen.add(mp)
+                _add_volume(out, mp, fstype=fstype, device=device)
+        except Exception:
+            out["notes"].append("Linux: failed to enumerate volumes from /proc/mounts.")
+
+    if include_disks:
+        try:
+            _linux_collect_disks(out)
+        except Exception:
+            out["notes"].append("Linux: failed to collect disks from /sys/block.")
+
+
+def _collect_darwin_specs(
+    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+) -> None:
+    # sysctl + getmntinfo
+    try:
+        import ctypes
+        import ctypes.util
+
+        libc_path = ctypes.util.find_library("c")
+        if libc_path:
+            libc = ctypes.CDLL(libc_path)
+            out["cpu"]["model"] = _darwin_sysctl_str(libc, "machdep.cpu.brand_string")
+            out["cpu"]["logical_cores"] = _darwin_sysctl(libc, "hw.logicalcpu")
+            out["cpu"]["physical_cores"] = _darwin_sysctl(libc, "hw.physicalcpu")
+            # Hz -> MHz
+            hz = _darwin_sysctl(libc, "hw.cpufrequency_max")
+            out["cpu"]["max_mhz"] = int(hz / 1_000_000) if hz else None
+            out["memory"]["total_bytes"] = _darwin_sysctl(libc, "hw.memsize")
+        else:
+            out["notes"].append("macOS: libc not found; sysctl not available.")
+    except Exception:
+        out["notes"].append("macOS: failed to read cpu/memory via sysctl.")
+
+    if include_volumes:
+        try:
+            _darwin_collect_volumes(out)
+        except Exception:
+            out["notes"].append("macOS: failed to enumerate volumes via getmntinfo.")
+
+    if include_disks:
+        out["notes"].append(
+            "macOS: physical disk model/type detection is not implemented (stdlib-only)."
+        )
+
+
+def get_system_specs(
+    *, include_volumes: bool = True, include_disks: bool = True
+) -> Dict[str, Any]:
+    out = _init_system_specs_output()
+    system = out["os"]["sys_platform"]
+
+    if _collect_with_psutil(
+        out,
+        include_volumes=include_volumes,
+        include_disks=include_disks,
+        system=system,
+    ):
         return out
 
     if system == "Windows":
-        if include_volumes:
-            try:
-                import ctypes
-
-                # GetLogicalDrives returns a bitmask of available drives.
-                mask = ctypes.windll.kernel32.GetLogicalDrives()
-                for i in range(26):
-                    if mask & (1 << i):
-                        letter = chr(ord("A") + i)
-                        mp = f"{letter}:\\"
-                        if os.path.exists(mp):
-                            _add_volume(out, mp)
-            except Exception:
-                out["notes"].append("Windows: failed to enumerate volumes.")
-
-        try:
-            import winreg
-
-            with winreg.OpenKey(
-                winreg.HKEY_LOCAL_MACHINE,
-                r"HARDWARE\DESCRIPTION\System\CentralProcessor\0",
-            ) as k:
-                out["cpu"]["model"] = winreg.QueryValueEx(k, "ProcessorNameString")[0]
-                out["cpu"]["max_mhz"] = _safe_int(winreg.QueryValueEx(k, "~MHz")[0])
-        except Exception:
-            out["notes"].append("Windows: failed to read CPU model from registry.")
-
-        try:
-            import ctypes
-
-            class MEMORYSTATUSEX(ctypes.Structure):
-                _fields_ = [
-                    ("dwLength", ctypes.c_ulong),
-                    ("dwMemoryLoad", ctypes.c_ulong),
-                    ("ullTotalPhys", ctypes.c_ulonglong),
-                    ("ullAvailPhys", ctypes.c_ulonglong),
-                    ("ullTotalPageFile", ctypes.c_ulonglong),
-                    ("ullAvailPageFile", ctypes.c_ulonglong),
-                    ("ullTotalVirtual", ctypes.c_ulonglong),
-                    ("ullAvailVirtual", ctypes.c_ulonglong),
-                    ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
-                ]
-
-            stat = MEMORYSTATUSEX()
-            stat.dwLength = ctypes.sizeof(MEMORYSTATUSEX)
-            ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(stat))
-            out["memory"]["total_bytes"] = int(stat.ullTotalPhys)
-        except Exception:
-            out["notes"].append("Windows: failed to read total memory via WinAPI.")
-
-        if include_disks:
-            out["notes"].append(
-                "Windows: physical disk model/type detection is not implemented (stdlib-only)."
-            )
-
+        _collect_windows_specs(
+            out, include_volumes=include_volumes, include_disks=include_disks
+        )
     elif system == "Linux":
-        # CPU model / max MHz / physical cores best-effort
-        try:
-            model = None
-            max_mhz = None
-            phys_cores = None
-            with open("/proc/cpuinfo", "r", encoding="utf-8", errors="ignore") as f:
-                for line in f:
-                    ll = line.lower()
-                    if model is None and ll.startswith("model name"):
-                        model = line.split(":", 1)[1].strip()
-                    elif ll.startswith("cpu mhz"):
-                        v = line.split(":", 1)[1].strip()
-                        try:
-                            mhz = int(float(v))
-                            max_mhz = max(max_mhz or 0, mhz)
-                        except Exception:
-                            pass
-                    elif phys_cores is None and ll.startswith("cpu cores"):
-                        # may represent cores per physical CPU package
-                        phys_cores = _safe_int(line.split(":", 1)[1].strip())
-            out["cpu"]["model"] = model
-            out["cpu"]["max_mhz"] = max_mhz
-            out["cpu"]["physical_cores"] = phys_cores
-        except Exception:
-            out["notes"].append("Linux: failed to read /proc/cpuinfo.")
-
-        # Memory total
-        try:
-            with open("/proc/meminfo", "r", encoding="utf-8", errors="ignore") as f:
-                for line in f:
-                    if line.startswith("MemTotal:"):
-                        kb = int(line.split()[1])
-                        out["memory"]["total_bytes"] = kb * 1024
-                        break
-        except Exception:
-            out["notes"].append("Linux: failed to read /proc/meminfo.")
-
-        # Volumes
-        if include_volumes:
-            pseudo = {
-                "proc",
-                "sysfs",
-                "tmpfs",
-                "devtmpfs",
-                "devpts",
-                "cgroup",
-                "cgroup2",
-                "pstore",
-                "securityfs",
-                "debugfs",
-                "tracefs",
-                "overlay",
-                "squashfs",
-                "autofs",
-                "mqueue",
-                "hugetlbfs",
-                "fusectl",
-                "rpc_pipefs",
-            }
-            try:
-                mounts: List[tuple[str, str, str]] = []
-                with open("/proc/mounts", "r", encoding="utf-8", errors="ignore") as f:
-                    for line in f:
-                        parts = line.split()
-                        if len(parts) >= 3:
-                            device, mp, fstype = parts[0], parts[1], parts[2]
-                            if fstype in pseudo:
-                                continue
-                            mounts.append((mp, fstype, device))
-
-                seen = set()
-                for mp, fstype, device in mounts:
-                    if mp in seen:
-                        continue
-                    seen.add(mp)
-                    _add_volume(out, mp, fstype=fstype, device=device)
-            except Exception:
-                out["notes"].append(
-                    "Linux: failed to enumerate volumes from /proc/mounts."
-                )
-
-        if include_disks:
-            try:
-                _linux_collect_disks(out)
-            except Exception:
-                out["notes"].append("Linux: failed to collect disks from /sys/block.")
-
+        _collect_linux_specs(
+            out, include_volumes=include_volumes, include_disks=include_disks
+        )
     elif system == "Darwin":
-        # sysctl + getmntinfo
-        try:
-            import ctypes
-            import ctypes.util
-
-            libc_path = ctypes.util.find_library("c")
-            if libc_path:
-                libc = ctypes.CDLL(libc_path)
-                out["cpu"]["model"] = _darwin_sysctl_str(
-                    libc, "machdep.cpu.brand_string"
-                )
-                out["cpu"]["logical_cores"] = _darwin_sysctl(libc, "hw.logicalcpu")
-                out["cpu"]["physical_cores"] = _darwin_sysctl(libc, "hw.physicalcpu")
-                # Hz -> MHz
-                hz = _darwin_sysctl(libc, "hw.cpufrequency_max")
-                out["cpu"]["max_mhz"] = int(hz / 1_000_000) if hz else None
-                out["memory"]["total_bytes"] = _darwin_sysctl(libc, "hw.memsize")
-            else:
-                out["notes"].append("macOS: libc not found; sysctl not available.")
-        except Exception:
-            out["notes"].append("macOS: failed to read cpu/memory via sysctl.")
-
-        if include_volumes:
-            try:
-                _darwin_collect_volumes(out)
-            except Exception:
-                out["notes"].append(
-                    "macOS: failed to enumerate volumes via getmntinfo."
-                )
-
-        if include_disks:
-            out["notes"].append(
-                "macOS: physical disk model/type detection is not implemented (stdlib-only)."
-            )
-
+        _collect_darwin_specs(
+            out, include_volumes=include_volumes, include_disks=include_disks
+        )
     else:
         out["notes"].append(f"Unsupported OS: {system}")
 
