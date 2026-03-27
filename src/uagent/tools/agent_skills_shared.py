@@ -219,7 +219,7 @@ def parse_frontmatter_yaml(frontmatter_yaml: str) -> Dict[str, Any]:
                 "err.frontmatter_parse_failed",
                 default="Failed to parse YAML frontmatter: {err}",
             ).format(err=repr(e))
-        )
+        ) from e
 
     if not isinstance(data, dict):
         raise ValueError(

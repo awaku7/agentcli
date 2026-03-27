@@ -156,7 +156,7 @@ def _normalize_hex(s: str) -> str:
     try:
         bytes.fromhex(s2)
     except ValueError as e:
-        raise ValueError(f"invalid hex: {e}")
+        raise ValueError(f"invalid hex: {e}") from e
     return s2
 
 
@@ -326,7 +326,7 @@ def _parse_patch_json(patch_json: str) -> List[Dict[str, Any]]:
     try:
         obj = json.loads(patch_json)
     except Exception as e:
-        raise SystemExit(f"[binary_edit] invalid patch_json: {type(e).__name__}: {e}")
+        raise SystemExit(f"[binary_edit] invalid patch_json: {type(e).__name__}: {e}") from e
 
     if not isinstance(obj, dict):
         raise SystemExit("[binary_edit] patch_json must be a JSON object")

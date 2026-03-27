@@ -149,7 +149,7 @@ def _cosine_similarity(vec_a: List[float], vec_b: List[float]) -> float:
             return 0.0
         return float(np.dot(a, b) / (norm_a * norm_b))
     else:
-        dot = sum(a * b for a, b in zip(vec_a, vec_b))
+        dot = sum(a * b for a, b in zip(vec_a, vec_b, strict=False))
         norm_a = math.sqrt(sum(a * a for a in vec_a))
         norm_b = math.sqrt(sum(b * b for b in vec_b))
         if norm_a == 0 or norm_b == 0:
