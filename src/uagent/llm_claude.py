@@ -287,8 +287,8 @@ def claude_chat_with_tools(
                     pass
                 req_kwargs.pop("output_config", None)
                 response = client.messages.create(**req_kwargs)
-            except Exception:
-                raise e
+            except Exception as retry_exc:
+                raise e from retry_exc
         else:
             raise
 
