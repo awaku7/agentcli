@@ -277,7 +277,7 @@ def build_pdf_blocks(
     def _gap(a: Dict[str, Any], b: Dict[str, Any]) -> float:
         return float(b["bbox"][1]) - float(a["bbox"][3])
 
-    for prev, nxt in zip(line_objs, line_objs[1:]):
+    for prev, nxt in zip(line_objs, line_objs[1:], strict=False):
         g = _gap(prev, nxt)
         if g > 8.0:
             blocks.append({"lines": cur_block})
