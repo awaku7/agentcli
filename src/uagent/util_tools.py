@@ -375,13 +375,20 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
     return True
 
 
-def _handle_cmd_cd(arg: str, *, tr: Any) -> bool:
+def _handle_cmd_cd(
+    arg: str,
+    messages_ref: List[Dict[str, Any]],
+    *,
+    core: Any,
+    tr: Any,
+) -> bool:
     a = (arg or "").strip()
     if not a:
         print(tr(":cd <path>"))
         return True
 
     try:
+        prev = os.getcwd()
         expanded = os.path.expandvars(os.path.expanduser(a))
         target = os.path.abspath(expanded)
 
@@ -393,7 +400,24 @@ def _handle_cmd_cd(arg: str, *, tr: Any) -> bool:
             return True
 
         os.chdir(target)
-        print(f"[cd] workdir = {os.getcwd()}")
+        now = os.getcwd()
+
+        # Record cwd change into message history + log.
+        try:
+            msg = {
+                "role": "system",
+                "content": _format_cwd_system_content(
+                    event="cd",
+                    path=now,
+                    extra={"prev": prev, "src": a, "resolved": target},
+                ),
+            }
+            _insert_cwd_system_message(messages_ref, msg)
+            core.log_message(msg)
+        except Exception:
+            pass
+
+        print(f"[cd] workdir = {now}")
     except Exception as e:
         print(f"[cd error] {type(e).__name__}: {e}")
 
@@ -525,9 +549,142 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
     return True
 
 
-def _handle_cmd_skills(*, tr: Any) -> bool:
+def _cwd_marker_prefix() -> str:
+    # Used to detect/parse workdir markers in message history.
+    return "[CWD] "
+
+
+def _format_cwd_system_content(
+    *,
+    event: str,
+    path: str,
+    extra: Dict[str, Any] | None = None,
+) -> str:
+    payload: Dict[str, Any] = {"event": str(event), "path": str(path)}
+    if isinstance(extra, dict):
+        payload.update(extra)
+    return _cwd_marker_prefix() + json.dumps(payload, ensure_ascii=False)
+
+
+def _insert_cwd_system_message(
+    messages_ref: List[Dict[str, Any]], msg: Dict[str, Any]
+) -> None:
+    # Insert at the end of the leading system-message block.
+    idx = 0
+    while idx < len(messages_ref) and messages_ref[idx].get("role") == "system":
+        idx += 1
+    messages_ref.insert(idx, msg)
+
+
+def _extract_last_cwd_from_messages(messages: List[Dict[str, Any]]) -> str | None:
+    prefix = _cwd_marker_prefix()
+    for m in reversed(messages or []):
+        if not isinstance(m, dict):
+            continue
+        if m.get("role") != "system":
+            continue
+        content = m.get("content")
+        if not isinstance(content, str):
+            continue
+        if not content.startswith(prefix):
+            continue
+        tail = content[len(prefix) :].strip()
+        try:
+            obj = json.loads(tail)
+        except Exception:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        p = obj.get("path")
+        if isinstance(p, str) and p.strip():
+            return p
+    return None
+
+
+def _skills_marker_prefix() -> str:
+    # Used to detect/remove skill injections in message history.
+    return "[SKILL] "
+
+
+def _format_skill_system_content(*, skill: Dict[str, Any], doc: Dict[str, Any]) -> str:
+    name = str((skill or {}).get("name") or "(unknown)").strip()
+    path = str((skill or {}).get("path") or "").strip()
+    skill_md = str((skill or {}).get("skill_md") or "").strip()
+
+    fm = (doc or {}).get("frontmatter")
+    body = (doc or {}).get("body_markdown")
+    if not isinstance(fm, dict):
+        fm = {}
+    if not isinstance(body, str):
+        body = ""
+
+    header_parts: list[str] = [f"{_skills_marker_prefix()}name={name}"]
+    if path:
+        header_parts.append(f"path={path}")
+    if skill_md:
+        header_parts.append(f"skill_md={skill_md}")
+
+    allowed_tools = fm.get("allowed-tools")
+    if allowed_tools is None:
+        allowed_tools = (skill or {}).get("allowed_tools")
+    if allowed_tools is not None:
+        header_parts.append(f"allowed-tools={allowed_tools}")
+
+    header = " ".join(header_parts)
+    body_text = body.strip()
+    if body_text:
+        return header + "\n\n" + body_text + "\n"
+    return header + "\n"
+
+
+def _insert_skill_system_message(
+    messages_ref: List[Dict[str, Any]],
+    skill_system_msg: Dict[str, Any],
+) -> None:
+    # Insert at the end of the leading system-message block.
+    idx = 0
+    while idx < len(messages_ref) and messages_ref[idx].get("role") == "system":
+        idx += 1
+    messages_ref.insert(idx, skill_system_msg)
+
+
+def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
+    prefix = _skills_marker_prefix()
+    before = len(messages_ref)
+    messages_ref[:] = [
+        m
+        for m in messages_ref
+        if not (
+            isinstance(m, dict)
+            and m.get("role") == "system"
+            and isinstance(m.get("content"), str)
+            and m.get("content").startswith(prefix)
+        )
+    ]
+    return before - len(messages_ref)
+
+
+def _handle_cmd_skills(
+    arg: str,
+    messages_ref: List[Dict[str, Any]],
+    *,
+    core: Any,
+    tr: Any,
+) -> bool:
+    a = (arg or "").strip()
+    if a.lower() in ("clear", "off", "unset", "reset"):
+        removed = _clear_skill_messages(messages_ref)
+        if removed <= 0:
+            print(tr("[skills] No active skill messages to clear."))
+            return True
+        _persist_messages_with_warn(messages_ref, core=core, label="skills")
+        print(tr("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
+        return True
+
     try:
+        from uagent.tools.human_ask_tool import run_tool as human_ask
         from uagent.tools.skills_list_tool import run_tool as skills_list_tool
+        from uagent.tools.skills_load_tool import run_tool as skills_load_tool
 
         res_json = skills_list_tool(
             {
@@ -537,15 +694,7 @@ def _handle_cmd_skills(*, tr: Any) -> bool:
                 "strict": False,
             }
         )
-        res = json.loads(res_json)
-
-        if isinstance(res, list):
-            items = res
-        elif isinstance(res, dict):
-            items = res.get("skills")
-        else:
-            items = None
-
+        items = json.loads(res_json)
         if not isinstance(items, list):
             items = []
 
@@ -554,15 +703,76 @@ def _handle_cmd_skills(*, tr: Any) -> bool:
             return True
 
         print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
-        for it in items:
+        for i, it in enumerate(items, start=1):
             if not isinstance(it, dict):
                 continue
             name = it.get("name") or "(unknown)"
             desc = it.get("description") or ""
-            skill_md = it.get("skill_md") or ""
-            print(f"- {name}: {desc}")
-            if skill_md:
-                print(f"    {skill_md}")
+            ok = bool(it.get("ok"))
+            ok_mark = "OK" if ok else "WARN"
+            print(f"[{i}] ({ok_mark}) {name}: {desc}")
+
+        sel_msg = tr_(
+            "Select a skill number to run. Enter c to cancel.\n"
+            "Tip: :skills clear  (remove applied skills)\n\n"
+            "Enter number:"
+        )
+
+        selected_idx: int | None = None
+        while selected_idx is None:
+            sel_json = human_ask({"message": sel_msg})
+            sel = json.loads(sel_json)
+            user_reply = (sel.get("user_reply") or "").strip()
+            low = user_reply.lower()
+            if low in ("c", "cancel"):
+                print(tr("[skills] Cancelled."))
+                return True
+            if not user_reply.isdigit():
+                print(tr("[skills] Please enter a number or c."))
+                continue
+            n = int(user_reply)
+            if n < 1 or n > len(items):
+                print(tr("[skills] Out of range: %(n)d") % {"n": n})
+                continue
+            selected_idx = n - 1
+
+        skill = items[selected_idx]
+        if not isinstance(skill, dict):
+            print(tr("[skills] Invalid selection."))
+            return True
+
+        name = skill.get("name") or "(unknown)"
+        skill_dir = skill.get("path")
+        if not isinstance(skill_dir, str) or not skill_dir.strip():
+            print(tr("[skills] Selected skill has no path."))
+            return True
+
+        confirm_msg = tr_(
+            "Run this skill as a system-level instruction and keep it active in this session?\n\n"
+            "Name: %(name)s\n"
+            "Path: %(path)s\n\n"
+            "Proceed? Enter y to run, or c to cancel."
+        ) % {"name": name, "path": os.path.abspath(skill_dir)}
+
+        conf_json = human_ask({"message": confirm_msg})
+        conf = json.loads(conf_json)
+        conf_reply = (conf.get("user_reply") or "").strip().lower()
+        if conf_reply not in ("y", "yes"):
+            print(tr("[skills] Cancelled."))
+            return True
+
+        doc_json = skills_load_tool({"skill_dir": skill_dir})
+        doc = json.loads(doc_json)
+        if not isinstance(doc, dict):
+            raise ValueError("skills_load returned non-dict")
+
+        content = _format_skill_system_content(skill=skill, doc=doc)
+        skill_system_msg = {"role": "system", "content": content}
+        _insert_skill_system_message(messages_ref, skill_system_msg)
+
+        _persist_messages_with_warn(messages_ref, core=core, label="skills")
+        print(tr("[skills] Applied: %(name)s") % {"name": name})
+
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
 
@@ -838,6 +1048,40 @@ def _handle_cmd_load(
     messages_ref.clear()
     messages_ref.extend(new_messages)
 
+    # Auto-restore cwd from the loaded log (no confirmation).
+    try:
+        target_cwd = _extract_last_cwd_from_messages(new_messages)
+        if (
+            isinstance(target_cwd, str)
+            and target_cwd.strip()
+            and os.path.isdir(target_cwd)
+        ):
+            prev = os.getcwd()
+            os.chdir(target_cwd)
+            now = os.getcwd()
+
+            # Record the cwd change triggered by :load.
+            try:
+                msg = {
+                    "role": "system",
+                    "content": _format_cwd_system_content(
+                        event="load",
+                        path=now,
+                        extra={"prev": prev, "log": os.path.abspath(target_path)},
+                    ),
+                }
+                _insert_cwd_system_message(messages_ref, msg)
+                core.log_message(msg)
+            except Exception:
+                pass
+
+            print(f"[load] workdir = {now}")
+    except Exception as e:
+        print(
+            f"[load warn] Failed to chdir from loaded log: {type(e).__name__}: {e}",
+            file=sys.stderr,
+        )
+
     _inject_user_history_to_readline(new_messages)
 
     print(tr("Loaded log: %(path)s") % {"path": target_path})
@@ -1065,7 +1309,7 @@ def handle_command(
         return _handle_cmd_verbosity(arg, tr=tr)
 
     if cmd == "cd":
-        return _handle_cmd_cd(arg, tr=tr)
+        return _handle_cmd_cd(arg, messages_ref, core=core, tr=tr)
 
     if cmd == "ls":
         return _handle_cmd_ls(arg, tr=tr)
@@ -1077,7 +1321,7 @@ def handle_command(
         return _handle_cmd_tools(tr=tr)
 
     if cmd == "skills":
-        return _handle_cmd_skills(tr=tr)
+        return _handle_cmd_skills(arg, messages_ref, core=core, tr=tr)
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)
@@ -1203,6 +1447,18 @@ def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
 
         messages.append(tools_system_msg)
         core.log_message(tools_system_msg)
+
+    # Record startup cwd into the message history + log.
+    try:
+        cwd = os.getcwd()
+        cwd_msg = {
+            "role": "system",
+            "content": _format_cwd_system_content(event="startup", path=cwd),
+        }
+        _insert_cwd_system_message(messages, cwd_msg)
+        core.log_message(cwd_msg)
+    except Exception:
+        pass
 
     return messages
 
