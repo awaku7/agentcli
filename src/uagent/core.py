@@ -1239,6 +1239,7 @@ SYSTEM_PROMPT_COMPACT_MSGID = _build_system_prompt_compact()
 # System prompt used by the agent. This is translated via gettext; if translations are missing,
 # the msgid (English) is used as-is.
 
+
 def _select_system_prompt() -> str:
     mode = (env_get("UAGENT_SYSTEM_PROMPT") or "").strip().lower()
 
