@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-27 16:30+0900\n"
+"POT-Creation-Date: 2026-03-27 17:01+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -614,6 +614,93 @@ msgstr ""
 
 #: src/uagent/util_providers.py:453
 msgid "anthropic package is not installed."
+msgstr ""
+
+#: src/uagent/util_tools.py:173
+msgid "Opened image file with the default app."
+msgstr ""
+
+#: src/uagent/util_tools.py:185
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the"
+" current directory."
+msgstr ""
+
+#: src/uagent/util_tools.py:192
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing "
+"the startup file (if any)."
+msgstr ""
+
+#: src/uagent/util_tools.py:716
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"\n"
+"Enter number:"
+msgstr ""
+
+#: src/uagent/util_tools.py:751
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this "
+"session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+
+#: src/uagent/util_tools.py:841
+#, python-format
+msgid ""
+":clean will delete conversation log files (scheck_log_*.jsonl) from disk."
+"\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= "
+"%(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+
+#: src/uagent/util_tools.py:951
+#, python-format
+msgid ""
+":load will overwrite the current session log file and prepend the loaded "
+"log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+
+#: src/uagent/util_tools.py:1117
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+
+#: src/uagent/util_tools.py:1144
+#, python-format
+msgid "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+
+#: src/uagent/util_tools.py:1205 src/uagent/util_tools.py:1238
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+
+#: src/uagent/util_tools.py:1497
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term "
+"memory (persistent memos). Use them as background information about the "
+"user. However, always prioritize newly provided information in the "
+"conversation, and if it contradicts older information, adopt the latest "
+"information.\n"
+"\n"
 msgstr ""
 
 #: src/uagent/web.py:454

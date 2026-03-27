@@ -1,17 +1,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  uag\n"
+"Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-27 16:30+0900\n"
+"POT-Creation-Date: 2026-03-27 17:01+0900\n"
 "PO-Revision-Date: 2026-02-17 00:00+0000\n"
 "Last-Translator: \n"
-"Language: ja\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:16
@@ -20,19 +20,19 @@ msgstr "Gitをインストールしてください。公式サイトからダウ
 
 #: src/uagent/checks.py:19
 msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo"
-" yum install git (CentOS/RHEL)"
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
 msgstr ""
 "Gitをインストールしてください。例: sudo apt install git (Ubuntu/Debian) または sudo yum "
 "install git (CentOS/RHEL)"
 
 #: src/uagent/checks.py:22
 msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode"
-" Command Line Tools: xcode-select --install"
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
 msgstr ""
-"Gitをインストールしてください。Homebrewの場合: brew install git, またはXcode Command Line "
-"Tools: xcode-select --install"
+"Gitをインストールしてください。Homebrewの場合: brew install git, またはXcode Command Line Tools:"
+" xcode-select --install"
 
 #: src/uagent/checks.py:24
 msgid "Please install Git. See: https://git-scm.com/"
@@ -62,8 +62,8 @@ msgstr "stdin_loop で予期しないエラーが発生しました: %(err)s"
 #: src/uagent/cli.py:601 src/uagent/cli.py:671
 #, python-format
 msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type"
-" \"\"\"retry; finish with a line containing %(sentinel)s)"
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr ""
 "（複数行入力モード：本文を複数行で入力してください。やり直すには \"\"\"retry と入力します。終了するには %(sentinel)s "
 "だけの行を入力してください）"
@@ -164,7 +164,8 @@ msgstr "送信する場合は y、送信しない場合は n（または c/cance
 
 #: src/uagent/cli.py:1063
 #, python-format
-msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "画像送信確認に失敗したため、画像は送信しません: %(etype)s: %(err)s"
 
 #: src/uagent/cli.py:1091 src/uagent/scheckgui.py:314
@@ -202,15 +203,12 @@ msgstr "ログファイル一覧:"
 #: src/uagent/core.py:969
 msgid ""
 "- Summarize the conversation log so far in English.\n"
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-"- Output should be directly usable as a system message titled 'Summary of"
-" the conversation so far'.\n"
+"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
 msgstr ""
 "- これまでの会話ログを英語で要約してください。\n"
 "- 簡潔にしつつ、主要な決定事項、制約、保留中の項目を含めてください。\n"
-"- 出力は 'Summary of the conversation so far' というタイトルの system "
-"メッセージとして、そのまま使える形にしてください。\n"
+"- 出力は 'Summary of the conversation so far' というタイトルの system メッセージとして、そのまま使える形にしてください。\n"
 
 #: src/uagent/core.py:1042
 #, fuzzy, python-format
@@ -229,9 +227,10 @@ msgstr "これまでの会話の要約:\n"
 #: src/uagent/core.py:1078
 #, python-brace-format
 msgid ""
-"[INFO] Conversation history was summarized by the LLM: old_part={old_n} "
-"-> 1 summary + tail_part={tail_n}"
-msgstr "[INFO] 会話履歴を LLM が要約しました: old_part={old_n} -> 要約1件 + tail_part={tail_n}"
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
+" summary + tail_part={tail_n}"
+msgstr ""
+"[INFO] 会話履歴を LLM が要約しました: old_part={old_n} -> 要約1件 + tail_part={tail_n}"
 
 #: src/uagent/core.py:1093
 msgid "Available commands:"
@@ -251,17 +250,18 @@ msgstr "  :logs / :list         ログファイル一覧を表示"
 
 #: src/uagent/core.py:1098
 msgid ""
-"  :cd <path>            Change workdir without confirmation (e.g. :cd .. "
-"/ :cd ~ / :cd C:\\path / :cd /)"
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
+":cd ~ / :cd C:\\path / :cd /)"
 msgstr ""
-"  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd"
-" C:\\path / :cd /）"
+"  :cd <path>            確認無しで作業ディレクトリ(workdir)を移動（例: :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /）"
 
 #: src/uagent/core.py:1101
 msgid ""
-"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~"
-" / :ls C:\\path)"
-msgstr "  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）"
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
+":ls C:\\path)"
+msgstr ""
+"  :ls [path]            ディレクトリ一覧表示（例: :ls / :ls .. / :ls ~ / :ls C:\\path）"
 
 #: src/uagent/core.py:1104
 msgid ""
@@ -272,25 +272,25 @@ msgstr "  :load <idx|path>      過去ログを読み込み（会話履歴を上
 #: src/uagent/core.py:1107
 msgid ""
 "                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current "
-"session log file (overwrite, no backup)."
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
 msgstr ""
 "                       ※実行後に確認が出て、y "
 "を選ぶと現在セッションのログファイル先頭へロード元ログ内容を挿入します（バックアップ無しで上書き）"
 
 #: src/uagent/core.py:1110
 msgid ""
-"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) "
-"where the count of user/assistant/tool messages (excluding system) is <= "
-"N (default=10)"
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+"the count of user/assistant/tool messages (excluding system) is <= N "
+"(default=10)"
 msgstr ""
 "  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた "
 "user/assistant/tool が N 件以下のログファイルを削除, 既定=10）"
 
 #: src/uagent/core.py:1113
 msgid ""
-"  :shrink [N]           Shrink conversation history (keep last N non-"
-"system messages; default=40)"
+"  :shrink [N]           Shrink conversation history (keep last N non-system "
+"messages; default=40)"
 msgstr "  :shrink [N]           会話履歴を単純圧縮（system 以外を末尾 N 件だけ残す, 既定=40）"
 
 #: src/uagent/core.py:1116
@@ -298,8 +298,8 @@ msgid ""
 "  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
 "older history into 1 system message; keep last N raw; default=20)"
 msgstr ""
-"  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す,"
-" 既定=20）"
+"  :shrink_llm [N]       LLM による要約圧縮（古い履歴を1件の要約 system にまとめ、末尾 N 件は生のまま残す, "
+"既定=20）"
 
 #: src/uagent/core.py:1118
 msgid "  :mem-list             List long-term memory notes"
@@ -307,8 +307,8 @@ msgstr "  :mem-list             長期記憶メモの一覧を表示"
 
 #: src/uagent/core.py:1120
 msgid ""
-"  :mem-del <index>      Delete a long-term memory note by index (see "
-":mem-list)"
+"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
+"list)"
 msgstr "  :mem-del <index>      指定 index の長期記憶メモを削除（:mem-list で番号を確認）"
 
 #: src/uagent/core.py:1123
@@ -332,8 +332,8 @@ msgstr ""
 #: src/uagent/core.py:1130
 #, fuzzy
 msgid ""
-"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, "
-"3=high; no arg=keep)"
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
+"no arg=keep)"
 msgstr ""
 "  :v [0|1|2|3]          詳細度モードを設定します（0=off, 1=low, 2=medium, 3=high; "
 "引数なし=切替）"
@@ -353,22 +353,17 @@ msgstr "  - ユーザー入力で 'f' を単独行で入力すると複数行入
 #: src/uagent/core.py:1136
 #, python-format
 msgid ""
-"  - To end multiline input mode, enter a line that is exactly "
-"%(sentinel)s."
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 複数行入力モードの終了は行全体が %(sentinel)s の行です。"
 
 #: src/uagent/core.py:1149
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a"
-" local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous "
-"operation.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
 
 #: src/uagent/core.py:1157
@@ -377,62 +372,45 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to"
-" the user.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 
 #: src/uagent/core.py:1164
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use "
-"the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent "
-"Skills) and follow them.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 msgstr ""
 
 #: src/uagent/core.py:1174
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of "
-"deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask "
-"exactly once.\n"
-"- Only when the user explicitly replies \"実行して\" (or equivalent explicit "
-"approval), run delete_file again with the same parameters and "
-"dry_run=false.\n"
-"- If there are zero candidates, do not ask; just report that nothing will"
-" be deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"実行して\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
 
 #: src/uagent/core.py:1182
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a"
-" local environment; you can execute commands and operate on the user's "
-"machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no "
-"diffs/partial summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
 
 #: src/uagent/core.py:1189
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the"
-" most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
@@ -441,13 +419,11 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt "
-"templates.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
 
 #: src/uagent/core.py:1260
@@ -456,8 +432,8 @@ msgstr "利用可能なツール"
 
 #: src/uagent/core.py:1263
 msgid ""
-"The following tools are currently loaded in this session. Choose the most"
-" appropriate tool for the task."
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
 msgstr "このセッションで次のツールが読み込まれています。作業に最も適したツールを選んでください。"
 
 #: src/uagent/docs_util.py:27
@@ -641,6 +617,99 @@ msgstr "[FATAL] google-genai パッケージがインストールされていま
 msgid "anthropic package is not installed."
 msgstr "[FATAL] anthropic パッケージがインストールされていません"
 
+#: src/uagent/util_tools.py:173
+msgid "Opened image file with the default app."
+msgstr ""
+
+#: src/uagent/util_tools.py:185
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+
+#: src/uagent/util_tools.py:192
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+
+#: src/uagent/util_tools.py:716
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"\n"
+"Enter number:"
+msgstr ""
+"実行するスキル番号を選んでください。キャンセルは c。\n"
+"ヒント: :skills clear  (適用中スキルの解除)\n"
+"\n"
+"番号を入力:"
+
+#: src/uagent/util_tools.py:751
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"このスキルをシステムレベルの指示として実行し、このセッションで有効のままにしますか？\n"
+"\n"
+"名前: %(name)s\n"
+"パス: %(path)s\n"
+"\n"
+"続行しますか？ 実行は y、キャンセルは c。"
+
+#: src/uagent/util_tools.py:841
+#, fuzzy, python-format
+msgid ""
+":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた "
+"user/assistant/tool が N 件以下のログファイルを削除, 既定=10）"
+
+#: src/uagent/util_tools.py:951
+#, python-format
+msgid ""
+":load will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+
+#: src/uagent/util_tools.py:1117
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+
+#: src/uagent/util_tools.py:1144
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+
+#: src/uagent/util_tools.py:1205 src/uagent/util_tools.py:1238
+#, fuzzy
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）"
+
+#: src/uagent/util_tools.py:1497
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+
 #: src/uagent/web.py:454
 msgid ""
 "Another task is already running in this room. Please retry after it "
@@ -694,8 +763,8 @@ msgstr "- チャット: メッセージを入力して送信します（GUI: Ctr
 
 #: src/uagent/welcome.py:65
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end "
-"with \"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
 msgstr "- 複数行: 'f' だけの行を入力すると複数行入力モード（multiline）に入ります（\"\"\"end で終了）。"
 
 #: src/uagent/welcome.py:68
@@ -719,8 +788,8 @@ msgid ""
 "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- ドキュメント: `uag docs` で同梱ドキュメントを表示します。`uag docs webinspect` で Web "
-"Inspector のヘルプを表示します（`--path/--open` も使用できます）。"
+"- ドキュメント: `uag docs` で同梱ドキュメントを表示します。`uag docs webinspect` で Web Inspector "
+"のヘルプを表示します（`--path/--open` も使用できます）。"
 
 #: src/uagent/welcome.py:78
 msgid "[Examples]"
@@ -732,8 +801,8 @@ msgstr "- \"このフォルダのソースコードを解析して README.md を
 
 #: src/uagent/welcome.py:81
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible "
-"window contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
 msgstr "- \"現在のデスクトップのスクリーンショットを撮って、表示されているウィンドウ内容を説明して。\""
 
 #: src/uagent/welcome.py:83
@@ -775,7 +844,8 @@ msgstr ""
 #: src/uagent/tools/calculator_tool.py:16 src/uagent/tools/catalog_tool.py:16
 #: src/uagent/tools/change_workdir_tool.py:18
 #: src/uagent/tools/cmd_exec_json_tool.py:21
-#: src/uagent/tools/cmd_exec_tool.py:23 src/uagent/tools/create_file_tool.py:20
+#: src/uagent/tools/cmd_exec_tool.py:23
+#: src/uagent/tools/create_file_tool.py:20
 #: src/uagent/tools/date_calc_tool.py:28 src/uagent/tools/db_query_tool.py:18
 #: src/uagent/tools/delete_file_tool.py:21
 #: src/uagent/tools/excel_ops_tool.py:19 src/uagent/tools/exstruct_tool.py:26
@@ -807,7 +877,8 @@ msgstr ""
 #: src/uagent/tools/recalc_excel_tool.py:20
 #: src/uagent/tools/rename_path_tool.py:25
 #: src/uagent/tools/replace_in_file_tool.py:82
-#: src/uagent/tools/run_tests_tool.py:36 src/uagent/tools/screenshot_tool.py:26
+#: src/uagent/tools/run_tests_tool.py:36
+#: src/uagent/tools/screenshot_tool.py:26
 #: src/uagent/tools/search_files_tool.py:31
 #: src/uagent/tools/search_web_tool.py:196
 #: src/uagent/tools/semantic_search_files_tool.py:357
@@ -829,8 +900,10 @@ msgstr ""
 #: src/uagent/tools/binary_edit_tool.py:32
 #: src/uagent/tools/change_workdir_tool.py:22
 #: src/uagent/tools/cmd_exec_json_tool.py:28
-#: src/uagent/tools/cmd_exec_tool.py:29 src/uagent/tools/create_file_tool.py:31
-#: src/uagent/tools/db_query_tool.py:25 src/uagent/tools/delete_file_tool.py:28
+#: src/uagent/tools/cmd_exec_tool.py:29
+#: src/uagent/tools/create_file_tool.py:31
+#: src/uagent/tools/db_query_tool.py:25
+#: src/uagent/tools/delete_file_tool.py:28
 #: src/uagent/tools/excel_ops_tool.py:26 src/uagent/tools/exstruct_tool.py:33
 #: src/uagent/tools/fetch_url_tool.py:26
 #: src/uagent/tools/file_exists_tool.py:28
@@ -879,7 +952,7 @@ msgstr ""
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"
-msgstr ""
+msgstr "{filename} が見つかりません: {path}"
 
 #: src/uagent/tools/agent_skills_shared.py:184
 msgid "err.frontmatter_missing_start"
@@ -1003,7 +1076,8 @@ msgstr ""
 msgid "param.path.description"
 msgstr ""
 
-#: src/uagent/tools/binary_edit_tool.py:53 src/uagent/tools/exstruct_tool.py:60
+#: src/uagent/tools/binary_edit_tool.py:53
+#: src/uagent/tools/exstruct_tool.py:60
 #: src/uagent/tools/libcst_transform_tool.py:81
 #: src/uagent/tools/lint_format_tool.py:62
 #: src/uagent/tools/replace_in_file_tool.py:135
@@ -1074,7 +1148,8 @@ msgstr ""
 msgid "param.query.description"
 msgstr ""
 
-#: src/uagent/tools/catalog_tool.py:34 src/uagent/tools/search_files_tool.py:84
+#: src/uagent/tools/catalog_tool.py:34
+#: src/uagent/tools/search_files_tool.py:84
 #: src/uagent/tools/search_web_tool.py:215
 msgid "param.max_results.description"
 msgstr ""
@@ -1208,7 +1283,8 @@ msgstr ""
 msgid "param.include_cell_links.description"
 msgstr ""
 
-#: src/uagent/tools/exstruct_tool.py:81 src/uagent/tools/mcp_servers_tool.py:67
+#: src/uagent/tools/exstruct_tool.py:81
+#: src/uagent/tools/mcp_servers_tool.py:67
 #: src/uagent/tools/mcp_tools_list_tool.py:80
 msgid "param.pretty.description"
 msgstr ""
@@ -1378,7 +1454,8 @@ msgstr ""
 msgid "err.bad_template"
 msgstr ""
 
-#: src/uagent/tools/get_env_tool.py:31 src/uagent/tools/mcp_servers_tool.py:102
+#: src/uagent/tools/get_env_tool.py:31
+#: src/uagent/tools/mcp_servers_tool.py:102
 msgid "param.name.description"
 msgstr ""
 
@@ -1566,7 +1643,8 @@ msgstr ""
 msgid "err.active_uninitialized"
 msgstr ""
 
-#: src/uagent/tools/human_ask_tool.py:126 src/uagent/tools/set_timer_tool.py:82
+#: src/uagent/tools/human_ask_tool.py:126
+#: src/uagent/tools/set_timer_tool.py:82
 msgid "err.queue_uninitialized"
 msgstr ""
 
@@ -2343,7 +2421,7 @@ msgstr ""
 #: src/uagent/tools/skills_read_file_tool.py:36
 #: src/uagent/tools/skills_validate_tool.py:36
 msgid "param.skill_dir.description"
-msgstr ""
+msgstr "スキルディレクトリ（SKILL.md を含む必要があります）。"
 
 #: src/uagent/tools/skills_load_tool.py:44
 #: src/uagent/tools/skills_read_file_tool.py:63
@@ -2355,7 +2433,7 @@ msgstr ""
 #: src/uagent/tools/skills_read_file_tool.py:71
 #: src/uagent/tools/skills_validate_tool.py:64
 msgid "err.skill_dir_required"
-msgstr ""
+msgstr "[ツールエラー] skill_dir は空でない文字列である必要があります"
 
 #: src/uagent/tools/skills_read_file_tool.py:42
 msgid "param.relative_path.description"
@@ -2405,11 +2483,13 @@ msgstr ""
 msgid "err.missing_env.azure"
 msgstr ""
 
-#: src/uagent/tools/vision_openai.py:170 src/uagent/tools/vision_runtime.py:142
+#: src/uagent/tools/vision_openai.py:170
+#: src/uagent/tools/vision_runtime.py:142
 msgid "err.missing_env.openai"
 msgstr ""
 
-#: src/uagent/tools/vision_openai.py:200 src/uagent/tools/vision_runtime.py:178
+#: src/uagent/tools/vision_openai.py:200
+#: src/uagent/tools/vision_runtime.py:178
 msgid "warn.empty_response"
 msgstr ""
 
@@ -2510,11 +2590,9 @@ msgid "error.zip_extract_failed"
 msgstr ""
 
 #~ msgid ""
-#~ ":clean will delete conversation log "
-#~ "files (scheck_log_*.jsonl) from disk.\n"
+#~ ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 #~ "Log dir: %(dir)s\n"
-#~ "Rule: total user/assistant/tool messages "
-#~ "excluding system <= %(threshold)d\n"
+#~ "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 #~ "Targets: %(n)d\n"
 #~ "\n"
 #~ "Proceed? Enter y to run, or c to cancel."
@@ -2527,9 +2605,7 @@ msgstr ""
 #~ "続行しますか？ 実行するには y、キャンセルするには c を入力してください。"
 
 #~ msgid ""
-#~ ":load will overwrite the current session"
-#~ " log file and prepend the loaded "
-#~ "log (no backup).\n"
+#~ ":load will overwrite the current session log file and prepend the loaded log (no backup).\n"
 #~ "\n"
 #~ "Current log: %(cur_log)s\n"
 #~ "Source log: %(src_log)s\n"
@@ -2544,122 +2620,67 @@ msgstr ""
 #~ "続行しますか？ 実行するには y、キャンセルするには c を入力してください。"
 
 #~ msgid ""
-#~ "## Mission- You are a capable "
-#~ "\\\"general-purpose tool execution agent\\\" "
-#~ "running on a local environment; you "
-#~ "can execute commands and operate on "
-#~ "the user's machine.- Ask the user "
-#~ "for confirmation before any dangerous "
-#~ "operation.- No flattery. No emojis. No"
-#~ " conversation summaries. Keep it concise.-"
-#~ " When creating files, output the "
-#~ "complete final content (no diffs/partial "
-#~ "summaries).## Rules- Use the provided "
-#~ "tools first and verify results with "
-#~ "tools.- Consult tool descriptions for "
-#~ "purpose/arguments/constraints; choose the most "
-#~ "appropriate and safest tool.- Be "
-#~ "creative, but do not output uncertain"
-#~ " information.- Delegate as little "
-#~ "decision-making as possible to the "
-#~ "user.## Notes- All user messages come"
-#~ " via this script's standard input.- "
-#~ "If required info/parameters are missing, "
-#~ "ask via human_ask (do not guess).- "
-#~ "Relative dates: call get_current_time.- Do "
-#~ "not store secrets (passwords/tokens) in "
-#~ "long-term memory.- If you create "
-#~ "Python files, run `python -m "
-#~ "py_compile`.- If expert-level knowledge "
-#~ "is required, use Agent Skills prompt "
-#~ "templates."
+#~ "## Mission- You are a capable \\\"general-purpose tool execution agent\\\" "
+#~ "running on a local environment; you can execute commands and operate on the "
+#~ "user's machine.- Ask the user for confirmation before any dangerous "
+#~ "operation.- No flattery. No emojis. No conversation summaries. Keep it "
+#~ "concise.- When creating files, output the complete final content (no "
+#~ "diffs/partial summaries).## Rules- Use the provided tools first and verify "
+#~ "results with tools.- Consult tool descriptions for "
+#~ "purpose/arguments/constraints; choose the most appropriate and safest tool.-"
+#~ " Be creative, but do not output uncertain information.- Delegate as little "
+#~ "decision-making as possible to the user.## Notes- All user messages come via"
+#~ " this script's standard input.- If required info/parameters are missing, ask"
+#~ " via human_ask (do not guess).- Relative dates: call get_current_time.- Do "
+#~ "not store secrets (passwords/tokens) in long-term memory.- If you create "
+#~ "Python files, run `python -m py_compile`.- If expert-level knowledge is "
+#~ "required, use Agent Skills prompt templates."
 #~ msgstr ""
 #~ "## Mission- "
-#~ "あなたはローカル環境で動作する有能な\\\"汎用ツール実行エージェント\\\"であり、ユーザーのマシン上でコマンド実行やファイル操作ができます。-"
-#~ " 危険な操作の前には必ずユーザーに確認を取ってください。- "
-#~ "お世辞は言いません。絵文字は使いません。会話の要約はしません。簡潔に。- "
+#~ "あなたはローカル環境で動作する有能な\\\"汎用ツール実行エージェント\\\"であり、ユーザーのマシン上でコマンド実行やファイル操作ができます。- "
+#~ "危険な操作の前には必ずユーザーに確認を取ってください。- お世辞は言いません。絵文字は使いません。会話の要約はしません。簡潔に。- "
 #~ "ファイルを作成する場合は、最終内容を全文出力してください（差分/部分要約は不可）。## Rules- "
-#~ "まず提供されているツールを使い、結果はツールで検証してください。- "
-#~ "目的/引数/制約はツール説明を参照し、最も適切で安全なツールを選んでください。- "
-#~ "創造的でよいですが、不確かな情報は出力しないでください。- "
-#~ "判断はできるだけユーザーに委ねず、ユーザーの意思決定負担を減らしてください。## Notes- "
-#~ "すべてのユーザーメッセージはこのスクリプトの標準入力経由で届きます。- 必要情報/必須パラメータが不足している場合は "
-#~ "human_ask で確認してください（推測しない）。- 相対日付の解釈が必要な場合は "
-#~ "get_current_time を呼び出してください。- "
-#~ "秘密情報（パスワード/トークン等）を長期記憶に保存しないでください。- Python ファイルを作成した場合は"
-#~ " `python -m py_compile` を実行してください。- "
-#~ "専門知識が必要な場合は Agent Skills のプロンプトテンプレートを使ってください。"
+#~ "まず提供されているツールを使い、結果はツールで検証してください。- 目的/引数/制約はツール説明を参照し、最も適切で安全なツールを選んでください。- "
+#~ "創造的でよいですが、不確かな情報は出力しないでください。- 判断はできるだけユーザーに委ねず、ユーザーの意思決定負担を減らしてください。## "
+#~ "Notes- すべてのユーザーメッセージはこのスクリプトの標準入力経由で届きます。- 必要情報/必須パラメータが不足している場合は human_ask "
+#~ "で確認してください（推測しない）。- 相対日付の解釈が必要な場合は get_current_time を呼び出してください。- "
+#~ "秘密情報（パスワード/トークン等）を長期記憶に保存しないでください。- Python ファイルを作成した場合は `python -m "
+#~ "py_compile` を実行してください。- 専門知識が必要な場合は Agent Skills のプロンプトテンプレートを使ってください。"
 
 #~ msgid ""
 #~ "\n"
 #~ "## Mission\n"
-#~ "- You are a capable \"general-"
-#~ "purpose tool execution agent\" running "
-#~ "on a local environment, and you "
-#~ "can actually execute commands and "
-#~ "operate on files on the user's "
-#~ "machine.\n"
-#~ "- Ask the user for confirmation "
-#~ "before performing any dangerous operation."
-#~ "\n"
+#~ "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+#~ "- Ask the user for confirmation before performing any dangerous operation.\n"
 #~ "- Do not flatter the user. Do not use emojis.\n"
 #~ "- Do not summarize. Keep information concise.\n"
-#~ "- When creating files, output the "
-#~ "complete final content (do not output"
-#~ " diffs or partial summaries).\n"
+#~ "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 #~ "\n"
 #~ "## Rules\n"
 #~ "- Always use the provided tools and verify the latest information.\n"
 #~ "- Be creative, but do not output uncertain information.\n"
 #~ "- Consult available tools and choose the most appropriate one.\n"
-#~ "- When executing tools, delegate as "
-#~ "little decision-making as possible to"
-#~ " the user.\n"
+#~ "- When executing tools, delegate as little decision-making as possible to the user.\n"
 #~ "\n"
 #~ "## Notes\n"
 #~ "- All user messages come via this script's standard input.\n"
-#~ "- For tool-specific "
-#~ "purpose/arguments/constraints/operational details, prefer"
-#~ " each tool's description.\n"
-#~ "- If you need additional information "
-#~ "or confirmation from the user, use "
-#~ "the human_ask tool.\n"
-#~ "- When handling relative date "
-#~ "expressions, call get_current_time to "
-#~ "reference the current time.\n"
-#~ "- Do not store secrets "
-#~ "(passwords/tokens) in long-term memory "
-#~ "(add_long_memory, etc.).\n"
-#~ "- If you create Python files, run"
-#~ " `python -m py_compile` to validate "
-#~ "syntax.\n"
-#~ "- If expert-level knowledge is "
-#~ "required, use prompt templates (Agent "
-#~ "Skills) and follow them.\n"
+#~ "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+#~ "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+#~ "- When handling relative date expressions, call get_current_time to reference the current time.\n"
+#~ "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+#~ "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+#~ "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 #~ "\n"
 #~ "## Dangerous operation policy (delete_file)\n"
-#~ "- For deletion using the delete_file "
-#~ "tool, do NOT ask for confirmation "
-#~ "before preview.\n"
-#~ "- Always run delete_file with "
-#~ "dry_run=true first to get the list "
-#~ "of deletion candidates.\n"
-#~ "- Show the candidates to the user"
-#~ " and ask confirmation via human_ask "
-#~ "exactly once.\n"
-#~ "- Only when the user explicitly "
-#~ "replies \"実行して\" (or equivalent explicit "
-#~ "approval), run delete_file again with "
-#~ "the same parameters and dry_run=false.\n"
-#~ "- If there are zero candidates, do"
-#~ " not ask; just report that nothing"
-#~ " will be deleted.\n"
+#~ "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+#~ "- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+#~ "- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+#~ "- Only when the user explicitly replies \"実行して\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
+#~ "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 #~ msgstr ""
 #~ "\n"
 #~ "## 使命\n"
-#~ "- "
-#~ "あなたはローカル環境で動作する有能な「汎用ツール実行エージェント」であり、実際にコマンドを実行し、ユーザーのマシン上のファイルを操作できます。"
-#~ "\n"
+#~ "- あなたはローカル環境で動作する有能な「汎用ツール実行エージェント」であり、実際にコマンドを実行し、ユーザーのマシン上のファイルを操作できます。\n"
 #~ "- 危険な操作を行う前には、ユーザーに確認を取ってください。\n"
 #~ "- ユーザーを持ち上げないでください。絵文字を使わないでください。\n"
 #~ "- 要約しないでください。情報は簡潔に保ってください。\n"
@@ -2684,61 +2705,37 @@ msgstr ""
 #~ "- delete_file ツールによる削除では、プレビュー前に確認を求めないでください。\n"
 #~ "- まず必ず delete_file を dry_run=true で実行し、削除候補の一覧を取得してください。\n"
 #~ "- 候補をユーザーに提示し、human_ask による確認は必ず 1 回だけ行ってください。\n"
-#~ "- ユーザーが「実行して」（または同等の明確な承認）と明示的に返答した場合にのみ、同じパラメータで "
-#~ "dry_run=false を指定して delete_file を再実行してください。\n"
+#~ "- ユーザーが「実行して」（または同等の明確な承認）と明示的に返答した場合にのみ、同じパラメータで dry_run=false を指定して delete_file を再実行してください。\n"
 #~ "- 候補が 0 件の場合は確認を取らず、何も削除されないことを報告してください。\n"
 
 #~ msgid ""
 #~ "\n"
 #~ "## Mission\n"
-#~ "- You are a capable \"general-"
-#~ "purpose tool execution agent\" running "
-#~ "on a local environment; you can "
-#~ "execute commands and operate on the "
-#~ "user's machine.\n"
+#~ "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
 #~ "- Ask the user for confirmation before any dangerous operation.\n"
 #~ "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-#~ "- When creating files, output the "
-#~ "complete final content (no diffs/partial "
-#~ "summaries).\n"
+#~ "- When creating files, output the complete final content (no diffs/partial summaries).\n"
 #~ "\n"
 #~ "## Rules\n"
 #~ "- Use the provided tools first and verify results with tools.\n"
-#~ "- Consult tool descriptions for "
-#~ "purpose/arguments/constraints; choose the most "
-#~ "appropriate and safest tool.\n"
+#~ "- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
 #~ "- Be creative, but do not output uncertain information.\n"
 #~ "- Delegate as little decision-making as possible to the user.\n"
 #~ "\n"
 #~ "## Notes\n"
 #~ "- All user messages come via this script's standard input.\n"
-#~ "- If required info/parameters are "
-#~ "missing, ask via human_ask (do not "
-#~ "guess).\n"
+#~ "- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 #~ "- Relative dates: call get_current_time.\n"
 #~ "- Do not store secrets (passwords/tokens) in long-term memory.\n"
 #~ "- If you create Python files, run `python -m py_compile`.\n"
-#~ "- If expert-level knowledge is "
-#~ "required, use Agent Skills prompt "
-#~ "templates.\n"
+#~ "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 #~ "\n"
 #~ "## Dangerous operation policy (delete_file)\n"
-#~ "- For deletion using the delete_file "
-#~ "tool, do NOT ask for confirmation "
-#~ "before preview.\n"
-#~ "- Always run delete_file with "
-#~ "dry_run=true first to get the list "
-#~ "of deletion candidates.\n"
-#~ "- Show the candidates to the user"
-#~ " and ask confirmation via human_ask "
-#~ "exactly once.\n"
-#~ "- Only when the user explicitly "
-#~ "replies \"実行して\" (or equivalent explicit "
-#~ "approval), run delete_file again with "
-#~ "the same parameters and dry_run=false.\n"
-#~ "- If there are zero candidates, do"
-#~ " not ask; just report that nothing"
-#~ " will be deleted.\n"
+#~ "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+#~ "- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+#~ "- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+#~ "- Only when the user explicitly replies \"実行して\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
+#~ "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 #~ msgstr ""
 #~ "\n"
 #~ "## 使命\n"
@@ -2765,7 +2762,5 @@ msgstr ""
 #~ "- delete_file ツールによる削除では、プレビュー前に確認を求めないでください。\n"
 #~ "- まず必ず delete_file を dry_run=true で実行し、削除候補の一覧を取得してください。\n"
 #~ "- 候補をユーザーに提示し、human_ask による確認は必ず 1 回だけ行ってください。\n"
-#~ "- ユーザーが「実行して」（または同等の明確な承認）と明示的に返答した場合にのみ、同じパラメータで "
-#~ "dry_run=false を指定して delete_file を再実行してください。\n"
+#~ "- ユーザーが「実行して」（または同等の明確な承認）と明示的に返答した場合にのみ、同じパラメータで dry_run=false を指定して delete_file を再実行してください。\n"
 #~ "- 候補が 0 件の場合は確認を取らず、何も削除されないことを報告してください。\n"
-
