@@ -1,4 +1,4 @@
-# scheck_core.py
+# core.py
 import os
 import sys
 
@@ -1142,21 +1142,26 @@ def print_help() -> None:
 # ==============================
 # SYSTEM_PROMPT
 # ==============================
-SYSTEM_PROMPT_MSGID = """
-## Mission
+
+# NOTE: Keep system prompt msgids small (avoid giant single msgid).
+# Split into section-level msgids and build full/compact prompts by joining.
+
+SYSTEM_PROMPT_FULL_MISSION = _("""## Mission
 - You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.
 - Ask the user for confirmation before performing any dangerous operation.
 - Do not flatter the user. Do not use emojis.
 - Do not summarize. Keep information concise.
 - When creating files, output the complete final content (do not output diffs or partial summaries).
+""")
 
-## Rules
+SYSTEM_PROMPT_FULL_RULES = _("""## Rules
 - Always use the provided tools and verify the latest information.
 - Be creative, but do not output uncertain information.
 - Consult available tools and choose the most appropriate one.
 - When executing tools, delegate as little decision-making as possible to the user.
+""")
 
-## Notes
+SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
 - For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
 - If you need additional information or confirmation from the user, use the human_ask tool.
@@ -1164,30 +1169,72 @@ SYSTEM_PROMPT_MSGID = """
 - Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
 - If you create Python files, run `python -m py_compile` to validate syntax.
 - If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.
-"""
+""")
 
-# Compact variant to reduce tokens.
-SYSTEM_PROMPT_COMPACT_MSGID = """
-## Mission
+SYSTEM_PROMPT_DANGEROUS_DELETE_FILE = _("""## Dangerous operation policy (delete_file)
+- For deletion using the delete_file tool, do NOT ask for confirmation before preview.
+- Always run delete_file with dry_run=true first to get the list of deletion candidates.
+- Show the candidates to the user and ask confirmation via human_ask exactly once.
+- Only when the user explicitly replies \"実行して\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.
+- If there are zero candidates, do not ask; just report that nothing will be deleted.
+""")
+
+SYSTEM_PROMPT_COMPACT_MISSION = _("""## Mission
 - You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.
 - Ask the user for confirmation before any dangerous operation.
 - No flattery. No emojis. No conversation summaries. Keep it concise.
 - When creating files, output the complete final content (no diffs/partial summaries).
+""")
 
-## Rules
+SYSTEM_PROMPT_COMPACT_RULES = _("""## Rules
 - Use the provided tools first and verify results with tools.
 - Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.
 - Be creative, but do not output uncertain information.
 - Delegate as little decision-making as possible to the user.
+""")
 
-## Notes
+SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
 - If required info/parameters are missing, ask via human_ask (do not guess).
 - Relative dates: call get_current_time.
 - Do not store secrets (passwords/tokens) in long-term memory.
 - If you create Python files, run `python -m py_compile`.
 - If expert-level knowledge is required, use Agent Skills prompt templates.
-"""
+""")
+
+
+def _build_system_prompt_full() -> str:
+    parts = [
+        SYSTEM_PROMPT_FULL_MISSION,
+        "",
+        SYSTEM_PROMPT_FULL_RULES,
+        "",
+        SYSTEM_PROMPT_FULL_NOTES,
+        "",
+        SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
+    ]
+    return "\
+".join(parts).strip() + "\
+"
+
+
+def _build_system_prompt_compact() -> str:
+    parts = [
+        SYSTEM_PROMPT_COMPACT_MISSION,
+        "",
+        SYSTEM_PROMPT_COMPACT_RULES,
+        "",
+        SYSTEM_PROMPT_COMPACT_NOTES,
+        "",
+        SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
+    ]
+    return "\
+".join(parts).strip() + "\
+"
+
+
+SYSTEM_PROMPT_MSGID = _build_system_prompt_full()
+SYSTEM_PROMPT_COMPACT_MSGID = _build_system_prompt_compact()
 
 # System prompt used by the agent. This is translated via gettext; if translations are missing,
 # the msgid (English) is used as-is.
@@ -1197,12 +1244,12 @@ def _select_system_prompt() -> str:
 
     # Default (env unset): compact.
     if mode in ("full",):
-        return _(SYSTEM_PROMPT_MSGID)
+        return SYSTEM_PROMPT_MSGID
     if mode in ("", "compact", "short", "lite"):
-        return _(SYSTEM_PROMPT_COMPACT_MSGID)
+        return SYSTEM_PROMPT_COMPACT_MSGID
 
     # Unknown value: fall back to the full prompt (safer/more compatible).
-    return _(SYSTEM_PROMPT_MSGID)
+    return SYSTEM_PROMPT_MSGID
 
 
 SYSTEM_PROMPT = _select_system_prompt()
