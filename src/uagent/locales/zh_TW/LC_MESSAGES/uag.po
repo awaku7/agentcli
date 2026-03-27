@@ -7,156 +7,733 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-13 09:53+0900\n"
+"POT-Creation-Date: 2026-03-27 16:30+0900\n"
 "PO-Revision-Date: 2026-03-13 11:00+0900\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: zh_Hant_TW <LL@li.org>\n"
 "Language: zh_Hant_TW\n"
+"Language-Team: zh_Hant_TW <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: src/uagent/core.py:1046
+#: src/uagent/checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/win"
+msgstr "請安裝 Git。下載位置：https://git-scm.com/download/win"
+
+#: src/uagent/checks.py:19
 msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo"
+" yum install git (CentOS/RHEL)"
 msgstr ""
-"                       注意： 執行後會要求確認; 選擇 'y' 會把載入的紀錄加到目前會話的紀錄檔開頭 （覆寫，無備份）."
+"請安裝 Git。例：sudo apt install git（Ubuntu/Debian）或 sudo yum install "
+"git（CentOS/RHEL）"
 
-#: src/uagent/core.py:1034
-msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
-msgstr "  (（在多行輸入中）) \"\"\"retry  從頭重新開始輸入"
+#: src/uagent/checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode"
+" Command Line Tools: xcode-select --install"
+msgstr ""
+"請安裝 Git。若使用 Homebrew：brew install git，或安裝 Xcode Command Line Tools：xcode-"
+"select --install"
 
-#: src/uagent/core.py:1074
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr "  - 請輸入一行內容只有 'f' 以進入多行輸入模式."
+#: src/uagent/checks.py:24
+msgid "Please install Git. See: https://git-scm.com/"
+msgstr "請安裝 Git。請參考：https://git-scm.com/"
 
-#: src/uagent/core.py:1075
+#: src/uagent/checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "【錯誤】未安裝 Git。"
+
+#: src/uagent/cli.py:370
+msgid "getch() fallback to input()"
+msgstr "getch() 將退回使用 input()"
+
+#: src/uagent/cli.py:560
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "輸入已取消（將作為 human_ask 的回覆送出）。"
+
+#: src/uagent/cli.py:568
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "收到 Ctrl+C。開始關閉…"
+
+#: src/uagent/cli.py:575
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "stdin_loop 中發生未預期錯誤：%(err)s"
+
+#: src/uagent/cli.py:601 src/uagent/cli.py:671
 #, python-format
 msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr "  - 要結束多行輸入模式, 請輸入一行內容恰為 %(sentinel)s."
+"(Multiline input mode: enter the body in multiple lines; to restart, type"
+" \"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr "(多行輸入模式: 請以多行輸入正文; 要重新開始，請輸入 \"\"\"retry; 以包含以下內容的一行結束 %(sentinel)s)"
 
-#: src/uagent/core.py:1037
+#: src/uagent/cli.py:631
+msgid "Cancelled."
+msgstr "已取消。"
+
+#: src/uagent/cli.py:637 src/uagent/cli.py:685
+msgid "Discarded previous input. Please start over."
+msgstr "已捨棄先前的輸入。請重新開始。"
+
+#: src/uagent/cli.py:648
+msgid "Received multiline reply."
+msgstr "已收到多行回覆。"
+
+#: src/uagent/cli.py:793 src/uagent/web.py:811
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "【致命】設定 workdir 失敗：%(err)s"
+
+#: src/uagent/cli.py:844 src/uagent/scheckgui.py:175 src/uagent/web.py:574
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "LLM 提供者 = %(provider)s"
+
+#: src/uagent/cli.py:845 src/uagent/scheckgui.py:179 src/uagent/web.py:576
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model（deployment）= %(depname)s"
+
+#: src/uagent/cli.py:850 src/uagent/scheckgui.py:189
+msgid "OpenRouter fallback models enabled."
+msgstr "已啟用 OpenRouter 備援模型。"
+
+#: src/uagent/cli.py:870 src/uagent/scheckgui.py:208 src/uagent/web.py:556
+#, python-format
 msgid ""
-"  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
-":cd ~ / :cd C:\\path / :cd /)"
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
 msgstr ""
-"  :cd <path>            變更 workdir 不需確認 (e.g. :cd .. / :cd ~ / :cd C:\\path "
-"/ :cd /)"
+"已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將退回使用 "
+"ChatCompletions。"
 
-#: src/uagent/core.py:1049
+#: src/uagent/cli.py:880 src/uagent/scheckgui.py:218 src/uagent/web.py:565
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API 模式 = Responses（UAGENT_RESPONSES 已啟用）"
+
+#: src/uagent/cli.py:885 src/uagent/scheckgui.py:223 src/uagent/web.py:570
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API 模式 = ChatCompletions（UAGENT_RESPONSES 已停用）"
+
+#: src/uagent/cli.py:890
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "目前 workdir = %(cwd)s"
+
+#: src/uagent/cli.py:898 src/uagent/scheckgui.py:232 src/uagent/web.py:589
+msgid "Loaded long-term memory."
+msgstr "已載入長期記憶。"
+
+#: src/uagent/cli.py:912 src/uagent/scheckgui.py:245 src/uagent/web.py:601
+msgid "Loaded shared long-term memory."
+msgstr "已載入共享長期記憶。"
+
+#: src/uagent/cli.py:921 src/uagent/scheckgui.py:254 src/uagent/web.py:610
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "載入共享長期記憶時發生例外：%(err)s"
+
+#: src/uagent/cli.py:943
+#, python-format
+msgid "Failed to read startup file: %(path)s (%(err)s)"
+msgstr "讀取啟動檔案失敗：%(path)s（%(err)s）"
+
+#: src/uagent/cli.py:955
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "已指定啟動檔案：%(path)s"
+
+#: src/uagent/cli.py:979
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "已指定 --non-interactive；不等待 stdin，直接結束。"
+
+#: src/uagent/cli.py:1042
 msgid ""
-"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
-"the count of user/assistant/tool messages (excluding system) is <= N "
-"(default=10)"
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
 msgstr ""
-"  :clean [N]            刪除對話紀錄 (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (預設=10)"
+"在你的輸入中偵測到影像檔案路徑。\n"
+"要將這些影像送至 LLM（外部 API）進行分析嗎？\n"
+"\n"
 
-#: src/uagent/core.py:1071
-msgid "  :exit / :quit         Exit"
-msgstr "  :exit / :quit         結束"
+#: src/uagent/cli.py:1048
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "回覆 y 以傳送，或回覆 n（或 c/cancel）以略過傳送。"
 
-#: src/uagent/core.py:1033
+#: src/uagent/cli.py:1063
+#, python-format
+msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "影像傳送確認失敗；將不傳送影像：%(etype)s：%(err)s"
+
+#: src/uagent/cli.py:1091 src/uagent/scheckgui.py:314
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "附加影像失敗：%(path)s（%(etype)s：%(err)s）"
+
+#: src/uagent/cli.py:1128
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "未知事件 kind=%(kind)r：%(ev)r"
+
+#: src/uagent/cli.py:1142
+msgid "Exited uag."
+msgstr "結束ed uag."
+
+#: src/uagent/core.py:220 src/uagent/core.py:241
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "未設定環境變數 %(name)s。"
+
+#: src/uagent/core.py:533
+msgid "No log files found."
+msgstr "找不到紀錄檔。"
+
+#: src/uagent/core.py:554
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logs: 顯示 %(shown)d/%(total)d（dir=%(dir)s）"
+
+#: src/uagent/core.py:557
+msgid "Log files:"
+msgstr "紀錄檔："
+
+#: src/uagent/core.py:969
+msgid ""
+"- Summarize the conversation log so far in English.\n"
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+"- Output should be directly usable as a system message titled 'Summary of"
+" the conversation so far'.\n"
+msgstr ""
+"- 請用英文摘要目前為止的對話紀錄。\n"
+"- 摘要要精簡，但需包含關鍵決策、限制與待辦事項。\n"
+"- 輸出需可直接作為標題為 'Summary of the conversation so far' 的 system 訊息使用。\n"
+
+#: src/uagent/core.py:1042
+#, fuzzy, python-format
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr "已達到 429 重試上限（%(max_retries)s）。"
+
+#: src/uagent/core.py:1052
+#, python-format
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "呼叫 LLM 進行歷史壓縮時發生錯誤：%(err)r"
+
+#: src/uagent/core.py:1070
+msgid "Summary of the conversation so far:\n"
+msgstr "目前為止的對話摘要：\n"
+
+#: src/uagent/core.py:1078
+#, python-brace-format
+msgid ""
+"[INFO] Conversation history was summarized by the LLM: old_part={old_n} "
+"-> 1 summary + tail_part={tail_n}"
+msgstr "[資訊] 對話歷史已由 LLM 摘要：old_part={old_n} -> 1 則摘要 + tail_part={tail_n}"
+
+#: src/uagent/core.py:1093
+msgid "Available commands:"
+msgstr "可用指令："
+
+#: src/uagent/core.py:1094
 msgid "  :help                 Show this help"
 msgstr "  :help                 顯示此說明"
 
-#: src/uagent/core.py:1043
+#: src/uagent/core.py:1095
+msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
+msgstr "  (（在多行輸入中）) \"\"\"retry  從頭重新開始輸入"
+
+#: src/uagent/core.py:1096
+msgid "  :logs / :list         Show log file list"
+msgstr "  :logs / :列出         顯示紀錄檔清單"
+
+#: src/uagent/core.py:1098
+msgid ""
+"  :cd <path>            Change workdir without confirmation (e.g. :cd .. "
+"/ :cd ~ / :cd C:\\path / :cd /)"
+msgstr ""
+"  :cd <path>            變更 workdir 不需確認 (e.g. :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/core.py:1101
+msgid ""
+"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~"
+" / :ls C:\\path)"
+msgstr "  :ls [path]            列出目錄項目 (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/core.py:1104
 msgid ""
 "  :load <idx|path>      Load a past log (overwrites current conversation "
 "history)"
 msgstr "  :load <idx|path>      載入過去的紀錄 (會覆寫目前的對話歷史)"
 
-#: src/uagent/core.py:1035
-msgid "  :logs / :list         Show log file list"
-msgstr "  :logs / :列出         顯示紀錄檔清單"
-
-#: src/uagent/core.py:1040
+#: src/uagent/core.py:1107
 msgid ""
-"  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
-":ls C:\\path)"
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current "
+"session log file (overwrite, no backup)."
+msgstr "                       注意： 執行後會要求確認; 選擇 'y' 會把載入的紀錄加到目前會話的紀錄檔開頭 （覆寫，無備份）."
+
+#: src/uagent/core.py:1110
+msgid ""
+"  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) "
+"where the count of user/assistant/tool messages (excluding system) is <= "
+"N (default=10)"
 msgstr ""
-"  :ls [path]            列出目錄項目 (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+"  :clean [N]            刪除對話紀錄 (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (預設=10)"
 
-#: src/uagent/core.py:1059
+#: src/uagent/core.py:1113
 msgid ""
-"  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
-"list)"
-msgstr "  :mem-del <index>      依索引刪除長期記憶筆記 (see :mem-列出)"
+"  :shrink [N]           Shrink conversation history (keep last N non-"
+"system messages; default=40)"
+msgstr "  :shrink [N]           縮減對話歷史 (保留最後 N 非 system 訊息; 預設=40)"
 
-#: src/uagent/core.py:1057
+#: src/uagent/core.py:1116
+msgid ""
+"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
+"older history into 1 system message; keep last N raw; default=20)"
+msgstr ""
+"  :shrink_llm [N]       Shrink history 透過 LLM 摘要 (將較舊的歷史摘要成 1 則 system "
+"訊息; 保留最後 N raw; 預設=20)"
+
+#: src/uagent/core.py:1118
 msgid "  :mem-list             List long-term memory notes"
 msgstr "  :mem-列出             列出長期記憶筆記"
 
-#: src/uagent/core.py:1066
+#: src/uagent/core.py:1120
 msgid ""
-"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
-"2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"  :r [0|1|2|3|auto|minimal|xhigh]  設定推理模式 (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
+"  :mem-del <index>      Delete a long-term memory note by index (see "
+":mem-list)"
+msgstr "  :mem-del <index>      依索引刪除長期記憶筆記 (see :mem-列出)"
 
-#: src/uagent/core.py:1064
-msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
-msgstr "  :shared-mem-del <i>   依索引刪除共享長期記憶筆記"
-
-#: src/uagent/core.py:1062
+#: src/uagent/core.py:1123
 msgid ""
 "  :shared-mem-list      List shared long-term memory notes (requires "
 "UAGENT_SHARED_MEMORY_FILE)"
 msgstr "  :shared-mem-列出      列出共享長期記憶筆記 (需要 UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/core.py:1052
-msgid ""
-"  :shrink [N]           Shrink conversation history (keep last N non-system "
-"messages; default=40)"
-msgstr "  :shrink [N]           縮減對話歷史 (保留最後 N 非 system 訊息; 預設=40)"
+#: src/uagent/core.py:1125
+msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
+msgstr "  :shared-mem-del <i>   依索引刪除共享長期記憶筆記"
 
-#: src/uagent/core.py:1055
+#: src/uagent/core.py:1127
 msgid ""
-"  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
-"older history into 1 system message; keep last N raw; default=20)"
+"  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
+"2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
-"  :shrink_llm [N]       Shrink history 透過 LLM 摘要 (將較舊的歷史摘要成 1 則 system 訊息; "
-"保留最後 N raw; 預設=20)"
+"  :r [0|1|2|3|auto|minimal|xhigh]  設定推理模式 (0=off, 1=low, 2=medium, "
+"3=high; auto/minimal/xhigh)"
 
-#: src/uagent/core.py:1069
+#: src/uagent/core.py:1130
+#, fuzzy
 msgid ""
-"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
-"no arg=cycle)"
+"  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, "
+"3=high; no arg=keep)"
 msgstr ""
-"  :v [0|1|2|3]          設定詳細度模式 (0=off, 1=low, 2=medium, 3=high; 不帶參數=循環切換)"
+"  :v [0|1|2|3]          設定詳細度模式 (0=off, 1=low, 2=medium, 3=high; "
+"不帶參數=循環切換)"
+
+#: src/uagent/core.py:1132
+msgid "  :exit / :quit         Exit"
+msgstr "  :exit / :quit         結束"
+
+#: src/uagent/core.py:1134
+msgid "Hints:"
+msgstr "提示："
+
+#: src/uagent/core.py:1135
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - 請輸入一行內容只有 'f' 以進入多行輸入模式."
+
+#: src/uagent/core.py:1136
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly "
+"%(sentinel)s."
+msgstr "  - 要結束多行輸入模式, 請輸入一行內容恰為 %(sentinel)s."
+
+#: src/uagent/core.py:1149
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a"
+" local environment, and you can actually execute commands and operate on "
+"files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous "
+"operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output "
+"diffs or partial summaries).\n"
+msgstr ""
+
+#: src/uagent/core.py:1157
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to"
+" the user.\n"
+msgstr ""
+
+#: src/uagent/core.py:1164
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, "
+"prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use "
+"the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to "
+"reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory "
+"(add_long_memory, etc.).\n"
+"- If you create Python files, run `python -m py_compile` to validate "
+"syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent "
+"Skills) and follow them.\n"
+msgstr ""
+
+#: src/uagent/core.py:1174
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation "
+"before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of "
+"deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask "
+"exactly once.\n"
+"- Only when the user explicitly replies \"実行して\" (or equivalent explicit "
+"approval), run delete_file again with the same parameters and "
+"dry_run=false.\n"
+"- If there are zero candidates, do not ask; just report that nothing will"
+" be deleted.\n"
+msgstr ""
+
+#: src/uagent/core.py:1182
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a"
+" local environment; you can execute commands and operate on the user's "
+"machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no "
+"diffs/partial summaries).\n"
+msgstr ""
+
+#: src/uagent/core.py:1189
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the"
+" most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+
+#: src/uagent/core.py:1196
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not "
+"guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt "
+"templates.\n"
+msgstr ""
+
+#: src/uagent/core.py:1260
+msgid "[Available Tools]"
+msgstr "【可用工具】"
+
+#: src/uagent/core.py:1263
+msgid ""
+"The following tools are currently loaded in this session. Choose the most"
+" appropriate tool for the task."
+msgstr "以下工具已載入於本次會話中。請選擇最適合任務的工具。"
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "專案 README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Quickstart（Windows wheel 安裝）"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector（playwright_inspector）指南"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "開發者資訊"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "未知的文件名稱：%(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "找不到文件檔案：%(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "文件路徑解析失敗：%(filename)s：%(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "【docs】可用文件："
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "用法："
 
 #: src/uagent/docs_util.py:232
 msgid "  uag docs                 # list"
 msgstr "  uag docs                 # 列出"
 
-#: src/uagent/docs_util.py:235
-msgid "  uag docs --open <name>   # open with OS"
-msgstr "  uag docs --open <name>   # 用作業系統開啟"
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # 顯示"
 
 #: src/uagent/docs_util.py:234
 msgid "  uag docs --path <name>   # show path"
 msgstr "  uag docs --path <name>   # 顯示路徑"
 
-#: src/uagent/docs_util.py:233
-msgid "  uag docs <name>          # show"
-msgstr "  uag docs <name>          # 顯示"
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # 用作業系統開啟"
 
-#: src/uagent/cli.py:572 src/uagent/cli.py:642
+#: src/uagent/runtime_init.py:71
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "指定的 workdir 路徑是檔案：%(path)s"
+
+#: src/uagent/runtime_init.py:270
+msgid "【Shared long-term memory (shared memo)】\n"
+msgstr "【共享長期記憶（共享備忘）】\n"
+
+#: src/uagent/scheckgui.py:439 src/uagent/scheckgui.py:532
+msgid "Welcome / Quick Guide"
+msgstr "歡迎 / 快速指南"
+
+#: src/uagent/scheckgui.py:447
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI（極致穩定）"
+
+#: src/uagent/scheckgui.py:493
+msgid "Send"
+msgstr "傳送"
+
+#: src/uagent/scheckgui.py:531
+msgid "Help"
+msgstr "說明"
+
+#: src/uagent/scheckgui.py:546
+msgid "Mode"
+msgstr "模式"
+
+#: src/uagent/scheckgui.py:548
+msgid "Reasoning: off"
+msgstr "推理：off"
+
+#: src/uagent/scheckgui.py:551
+msgid "Reasoning: auto"
+msgstr "推理：auto"
+
+#: src/uagent/scheckgui.py:553
+msgid "Reasoning: minimal"
+msgstr "推理：minimal"
+
+#: src/uagent/scheckgui.py:555
+msgid "Reasoning: low"
+msgstr "推理：low"
+
+#: src/uagent/scheckgui.py:557
+msgid "Reasoning: medium"
+msgstr "推理：medium"
+
+#: src/uagent/scheckgui.py:559
+msgid "Reasoning: high"
+msgstr "推理：high"
+
+#: src/uagent/scheckgui.py:562
+msgid "Reasoning: xhigh"
+msgstr "推理：xhigh"
+
+#: src/uagent/scheckgui.py:567
+msgid "Verbosity: off"
+msgstr "詳細度：off"
+
+#: src/uagent/scheckgui.py:569
+msgid "Verbosity: low"
+msgstr "詳細度：low"
+
+#: src/uagent/scheckgui.py:571
+msgid "Verbosity: medium"
+msgstr "詳細度：medium"
+
+#: src/uagent/scheckgui.py:573
+msgid "Verbosity: high"
+msgstr "詳細度：high"
+
+#: src/uagent/scheckgui.py:724
+msgid "Enter password..."
+msgstr "輸入密碼…"
+
+#: src/uagent/scheckgui.py:726
+msgid "Enter response for human_ask..."
+msgstr "請輸入 human_ask 的回覆…"
+
+#: src/uagent/scheckgui.py:731
+msgid "Enter a message..."
+msgstr "輸入訊息…"
+
+#: src/uagent/uagent_llm.py:563 src/uagent/uagent_llm.py:653
+#: src/uagent/uagent_llm.py:948
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "已達到 429 重試上限（%(max_retries)s）。"
+
+#: src/uagent/uagent_llm.py:568
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "【Gemini 錯誤】產生回應時發生錯誤。"
+
+#: src/uagent/uagent_llm.py:658
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "【Claude 錯誤】產生回應時發生錯誤。"
+
+#: src/uagent/uagent_llm.py:1030
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "解析回應時發生錯誤：%(err)s"
+
+#: src/uagent/uagent_llm.py:1327
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "【警告】工具回合數超過 %(max)d；中止。"
+
+#: src/uagent/util_providers.py:132
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "未設定環境變數 UAGENT_PROVIDER。"
+
+#: src/uagent/util_providers.py:146
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "未知的提供者：%(provider)s"
+
+#: src/uagent/util_providers.py:420
+msgid "google-genai package is not installed."
+msgstr "未安裝 google-genai 套件。"
+
+#: src/uagent/util_providers.py:453
+msgid "anthropic package is not installed."
+msgstr "未安裝 anthropic 套件。"
+
+#: src/uagent/web.py:454
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr "此房間已有其他任務正在執行。請在完成後再重試。"
+
+#: src/uagent/web.py:533 src/uagent/web.py:639
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"未設定環境變數 UAGENT_PROVIDER。\n"
+"啟動 Web 伺服器時請檢查環境變數。"
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP 伺服器]\n"
+"- 找不到設定檔。"
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP 伺服器]\n"
+"- 未註冊任何伺服器。"
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "【MCP 伺服器】"
+
+#: src/uagent/welcome.py:43
 #, python-format
 msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr "(多行輸入模式: 請以多行輸入正文; 要重新開始，請輸入 \"\"\"retry; 以包含以下內容的一行結束 %(sentinel)s)"
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP 伺服器]\n"
+"- 取得資訊失敗：%(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "【快速指南】"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 聊天：輸入訊息並送出（GUI 也可使用 Ctrl+Enter）。"
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end "
+"with \"\"\"end)."
+msgstr "- 多行輸入：輸入一行只有 'f' 以進入多行模式（以 \"\"\"end 結束）。"
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr "- 指令：輸入 ':help' 查看系統指令（紀錄管理、歷史壓縮等）。"
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- 結束: ':exit' or ':quit' ends the session."
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr "- 影像：GUI 支援拖放；在 CUI 中可輸入檔案路徑進行影像分析。"
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `uag docs` 顯示s bundled docs; `uag docs webinspect` 顯示s Web "
+"Inspector help (`--path/--open` also available)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "【範例】"
 
 #: src/uagent/welcome.py:79
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- 「分析此資料夾中的原始碼，並建立 README.md。」"
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible "
+"window contents.\""
+msgstr "- 「擷取目前桌面的螢幕截圖，並描述可見視窗的內容。」"
 
 #: src/uagent/welcome.py:83
 msgid "- \"Create a monthly summary report from this Excel file.\""
@@ -170,546 +747,2019 @@ msgstr "- \"Read this PDF and 列出 three key points.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- 「搜尋最新新聞並摘要特定主題。」"
 
-#: src/uagent/welcome.py:81
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
-msgstr "- 「擷取目前桌面的螢幕截圖，並描述可見視窗的內容。」"
-
-#: src/uagent/welcome.py:63
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天：輸入訊息並送出（GUI 也可使用 Ctrl+Enter）。"
-
-#: src/uagent/welcome.py:68
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr "- 指令：輸入 ':help' 查看系統指令（紀錄管理、歷史壓縮等）。"
-
-#: src/uagent/welcome.py:75
-msgid ""
-"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
-"Inspector help (`--path/--open` also available)."
+#: src/uagent/tools/__init__.py:205
+msgid "log.load_fail.internal"
 msgstr ""
-"- Docs: `uag docs` 顯示s bundled docs; `uag docs webinspect` 顯示s Web Inspector"
-" help (`--path/--open` also available)."
 
-#: src/uagent/welcome.py:70
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- 結束: ':exit' or ':quit' ends the session."
-
-#: src/uagent/welcome.py:72
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr "- 影像：GUI 支援拖放；在 CUI 中可輸入檔案路徑進行影像分析。"
-
-#: src/uagent/welcome.py:65
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 多行輸入：輸入一行只有 'f' 以進入多行模式（以 \"\"\"end 結束）。"
-
-#: src/uagent/core.py:957
-msgid ""
-"- Summarize the conversation log so far in English.\n"
-"- Keep the summary concise but include key decisions, constraints, and pending items.\n"
-"- Output should be directly usable as a system message titled 'Summary of the conversation so far'.\n"
+#: src/uagent/tools/__init__.py:230
+msgid "log.load_ok.external"
 msgstr ""
-"- 請用英文摘要目前為止的對話紀錄。\n"
-"- 摘要要精簡，但需包含關鍵決策、限制與待辦事項。\n"
-"- 輸出需可直接作為標題為 'Summary of the conversation so far' 的 system 訊息使用。\n"
 
-#: src/uagent/cli.py:960
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "已指定 --non-interactive；不等待 stdin，直接結束。"
-
-#: src/uagent/uagent_llm.py:451 src/uagent/uagent_llm.py:565
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "已達到 429 重試上限（%(max_retries)s）。"
-
-#: src/uagent/web.py:454
-msgid ""
-"Another task is already running in this room. Please retry after it "
-"completes."
-msgstr "此房間已有其他任務正在執行。請在完成後再重試。"
-
-#: src/uagent/core.py:1032
-msgid "Available commands:"
-msgstr "可用指令："
-
-#: src/uagent/cli.py:602
-msgid "Cancelled."
-msgstr "已取消。"
-
-#: src/uagent/docs_util.py:42
-msgid "Developer information"
-msgstr "開發者資訊"
-
-#: src/uagent/cli.py:608 src/uagent/cli.py:656
-msgid "Discarded previous input. Please start over."
-msgstr "已捨棄先前的輸入。請重新開始。"
-
-#: src/uagent/scheckgui.py:725
-msgid "Enter a message..."
-msgstr "輸入訊息…"
-
-#: src/uagent/scheckgui.py:718
-msgid "Enter password..."
-msgstr "輸入密碼…"
-
-#: src/uagent/scheckgui.py:720
-msgid "Enter response for human_ask..."
-msgstr "請輸入 human_ask 的回覆…"
-
-#: src/uagent/core.py:220 src/uagent/core.py:241
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "未設定環境變數 %(name)s。"
-
-#: src/uagent/util_providers.py:38
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "未設定環境變數 UAGENT_PROVIDER。"
-
-#: src/uagent/web.py:533 src/uagent/web.py:631
-msgid ""
-"Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
+#: src/uagent/tools/__init__.py:238
+msgid "log.load_fail.external"
 msgstr ""
-"未設定環境變數 UAGENT_PROVIDER。\n"
-"啟動 Web 伺服器時請檢查環境變數。"
 
-#: src/uagent/core.py:991
-#, python-format
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "呼叫 LLM 進行歷史壓縮時發生錯誤：%(err)r"
-
-#: src/uagent/uagent_llm.py:993
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "解析回應時發生錯誤：%(err)s"
-
-#: src/uagent/cli.py:902 src/uagent/scheckgui.py:249 src/uagent/web.py:602
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "載入共享長期記憶時發生例外：%(err)s"
-
-#: src/uagent/cli.py:1119
-msgid "Exited uag."
-msgstr "結束ed uag."
-
-#: src/uagent/cli.py:1068 src/uagent/scheckgui.py:308
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "附加影像失敗：%(path)s（%(etype)s：%(err)s）"
-
-#: src/uagent/cli.py:924
-#, python-format
-msgid "Failed to read startup file: %(path)s (%(err)s)"
-msgstr "讀取啟動檔案失敗：%(path)s（%(err)s）"
-
-#: src/uagent/scheckgui.py:525
-msgid "Help"
-msgstr "說明"
-
-#: src/uagent/core.py:1073
-msgid "Hints:"
-msgstr "提示："
-
-#: src/uagent/cli.py:1019
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
+#: src/uagent/tools/__init__.py:248
+msgid "log.loaded_tools"
 msgstr ""
-"在你的輸入中偵測到影像檔案路徑。\n"
-"要將這些影像送至 LLM（外部 API）進行分析嗎？\n"
-"\n"
 
-#: src/uagent/cli.py:1040
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr "影像傳送確認失敗；將不傳送影像：%(etype)s：%(err)s"
-
-#: src/uagent/cli.py:531
-msgid "Input cancelled (will be sent as a reply to human_ask)."
-msgstr "輸入已取消（將作為 human_ask 的回覆送出）。"
-
-#: src/uagent/cli.py:866 src/uagent/scheckgui.py:218 src/uagent/web.py:565
-msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "LLM API 模式 = ChatCompletions（UAGENT_RESPONSES 已停用）"
-
-#: src/uagent/cli.py:861 src/uagent/scheckgui.py:213 src/uagent/web.py:560
-msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
-msgstr "LLM API 模式 = Responses（UAGENT_RESPONSES 已啟用）"
-
-#: src/uagent/scheckgui.py:175
-#, python-format
-msgid "LLM provider = %(provider)s"
-msgstr "LLM 提供者 = %(provider)s"
-
-#: src/uagent/cli.py:879 src/uagent/scheckgui.py:227 src/uagent/web.py:581
-msgid "Loaded long-term memory."
-msgstr "已載入長期記憶。"
-
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:240 src/uagent/web.py:593
-msgid "Loaded shared long-term memory."
-msgstr "已載入共享長期記憶。"
-
-#: src/uagent/core.py:557
-msgid "Log files:"
-msgstr "紀錄檔："
-
-#: src/uagent/scheckgui.py:540
-msgid "Mode"
-msgstr "模式"
-
-#: src/uagent/core.py:533
-msgid "No log files found."
-msgstr "找不到紀錄檔。"
-
-#: src/uagent/cli.py:836 src/uagent/scheckgui.py:189
-msgid "OpenRouter fallback models enabled."
-msgstr "已啟用 OpenRouter 備援模型。"
-
-#: src/uagent/checks.py:16
-msgid "Please install Git. Download from: https://git-scm.com/download/win"
-msgstr "請安裝 Git。下載位置：https://git-scm.com/download/win"
-
-#: src/uagent/checks.py:19
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
+#: src/uagent/tools/__init__.py:256
+msgid "log.no_valid_tools"
 msgstr ""
-"請安裝 Git。例：sudo apt install git（Ubuntu/Debian）或 sudo yum install "
-"git（CentOS/RHEL）"
 
-#: src/uagent/checks.py:22
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
+#: src/uagent/tools/add_long_memory_tool.py:21
+#: src/uagent/tools/add_shared_memory_tool.py:19
+#: src/uagent/tools/analyze_image_tool.py:20
+#: src/uagent/tools/binary_edit_tool.py:25
+#: src/uagent/tools/calculator_tool.py:16 src/uagent/tools/catalog_tool.py:16
+#: src/uagent/tools/change_workdir_tool.py:18
+#: src/uagent/tools/cmd_exec_json_tool.py:21
+#: src/uagent/tools/cmd_exec_tool.py:23 src/uagent/tools/create_file_tool.py:20
+#: src/uagent/tools/date_calc_tool.py:28 src/uagent/tools/db_query_tool.py:18
+#: src/uagent/tools/delete_file_tool.py:21
+#: src/uagent/tools/excel_ops_tool.py:19 src/uagent/tools/exstruct_tool.py:26
+#: src/uagent/tools/fetch_url_tool.py:20
+#: src/uagent/tools/file_exists_tool.py:21
+#: src/uagent/tools/file_hash_tool.py:36
+#: src/uagent/tools/find_large_files_tool.py:45
+#: src/uagent/tools/generate_image_tool.py:43
+#: src/uagent/tools/generate_prompt_tool.py:30
+#: src/uagent/tools/get_current_time_tool.py:16
+#: src/uagent/tools/get_env_tool.py:18 src/uagent/tools/get_geoip_tool.py:22
+#: src/uagent/tools/get_long_memory_tool.py:17
+#: src/uagent/tools/get_shared_memory_tool.py:16
+#: src/uagent/tools/get_workdir_tool.py:13 src/uagent/tools/git_ops_tool.py:41
+#: src/uagent/tools/graph_rag_search_tool.py:1009
+#: src/uagent/tools/handle_mcp_v2_tool.py:69
+#: src/uagent/tools/human_ask_tool.py:21
+#: src/uagent/tools/index_files_tool.py:32
+#: src/uagent/tools/libcst_transform_tool.py:40
+#: src/uagent/tools/lint_format_tool.py:38
+#: src/uagent/tools/list_windows_titles_tool.py:16
+#: src/uagent/tools/mcp_servers_tool.py:24
+#: src/uagent/tools/mcp_tools_list_tool.py:44
+#: src/uagent/tools/playwright_inspector_tool.py:20
+#: src/uagent/tools/pwsh_exec_tool.py:81
+#: src/uagent/tools/python_exec_tool.py:25
+#: src/uagent/tools/read_file_tool.py:54
+#: src/uagent/tools/read_pptx_pdf_tool.py:59
+#: src/uagent/tools/recalc_excel_tool.py:20
+#: src/uagent/tools/rename_path_tool.py:25
+#: src/uagent/tools/replace_in_file_tool.py:82
+#: src/uagent/tools/run_tests_tool.py:36 src/uagent/tools/screenshot_tool.py:26
+#: src/uagent/tools/search_files_tool.py:31
+#: src/uagent/tools/search_web_tool.py:196
+#: src/uagent/tools/semantic_search_files_tool.py:357
+#: src/uagent/tools/set_timer_tool.py:19
+#: src/uagent/tools/skills_list_tool.py:28
+#: src/uagent/tools/skills_load_tool.py:22
+#: src/uagent/tools/skills_read_file_tool.py:27
+#: src/uagent/tools/skills_validate_tool.py:27
+#: src/uagent/tools/spawn_process_tool.py:13
+#: src/uagent/tools/system_reload_tool.py:13
+#: src/uagent/tools/system_specs_tools.py:19
+#: src/uagent/tools/zip_ops_tool.py:36
+msgid "tool.description"
 msgstr ""
-"請安裝 Git。若使用 Homebrew：brew install git，或安裝 Xcode Command Line Tools：xcode-"
-"select --install"
 
-#: src/uagent/checks.py:24
-msgid "Please install Git. See: https://git-scm.com/"
-msgstr "請安裝 Git。請參考：https://git-scm.com/"
-
-#: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "專案 README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Quickstart（Windows wheel 安裝）"
-
-#: src/uagent/scheckgui.py:545
-msgid "Reasoning: auto"
-msgstr "推理：auto"
-
-#: src/uagent/scheckgui.py:553
-msgid "Reasoning: high"
-msgstr "推理：high"
-
-#: src/uagent/scheckgui.py:549
-msgid "Reasoning: low"
-msgstr "推理：low"
-
-#: src/uagent/scheckgui.py:551
-msgid "Reasoning: medium"
-msgstr "推理：medium"
-
-#: src/uagent/scheckgui.py:547
-msgid "Reasoning: minimal"
-msgstr "推理：minimal"
-
-#: src/uagent/scheckgui.py:542
-msgid "Reasoning: off"
-msgstr "推理：off"
-
-#: src/uagent/scheckgui.py:556
-msgid "Reasoning: xhigh"
-msgstr "推理：xhigh"
-
-#: src/uagent/cli.py:539
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "收到 Ctrl+C。開始關閉…"
-
-#: src/uagent/cli.py:619
-msgid "Received multiline reply."
-msgstr "已收到多行回覆。"
-
-#: src/uagent/cli.py:1025
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "回覆 y 以傳送，或回覆 n（或 c/cancel）以略過傳送。"
-
-#: src/uagent/scheckgui.py:487
-msgid "Send"
-msgstr "傳送"
-
-#: src/uagent/runtime_init.py:71
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "指定的 workdir 路徑是檔案：%(path)s"
-
-#: src/uagent/cli.py:936
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "已指定啟動檔案：%(path)s"
-
-#: src/uagent/core.py:1009
-msgid "Summary of the conversation so far:\n"
-msgstr "目前為止的對話摘要：\n"
-
-#: src/uagent/core.py:1118
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr "以下工具已載入於本次會話中。請選擇最適合任務的工具。"
-
-#: src/uagent/cli.py:851 src/uagent/scheckgui.py:203 src/uagent/web.py:551
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
+#: src/uagent/tools/add_long_memory_tool.py:27
+#: src/uagent/tools/add_shared_memory_tool.py:27
+#: src/uagent/tools/analyze_image_tool.py:24
+#: src/uagent/tools/binary_edit_tool.py:32
+#: src/uagent/tools/change_workdir_tool.py:22
+#: src/uagent/tools/cmd_exec_json_tool.py:28
+#: src/uagent/tools/cmd_exec_tool.py:29 src/uagent/tools/create_file_tool.py:31
+#: src/uagent/tools/db_query_tool.py:25 src/uagent/tools/delete_file_tool.py:28
+#: src/uagent/tools/excel_ops_tool.py:26 src/uagent/tools/exstruct_tool.py:33
+#: src/uagent/tools/fetch_url_tool.py:26
+#: src/uagent/tools/file_exists_tool.py:28
+#: src/uagent/tools/generate_prompt_tool.py:37
+#: src/uagent/tools/get_current_time_tool.py:24
+#: src/uagent/tools/get_env_tool.py:22 src/uagent/tools/get_geoip_tool.py:32
+#: src/uagent/tools/get_long_memory_tool.py:20
+#: src/uagent/tools/get_shared_memory_tool.py:25
+#: src/uagent/tools/get_workdir_tool.py:16 src/uagent/tools/git_ops_tool.py:48
+#: src/uagent/tools/human_ask_tool.py:28
+#: src/uagent/tools/libcst_transform_tool.py:51
+#: src/uagent/tools/lint_format_tool.py:42
+#: src/uagent/tools/list_windows_titles_tool.py:23
+#: src/uagent/tools/mcp_servers_tool.py:31
+#: src/uagent/tools/mcp_tools_list_tool.py:52
+#: src/uagent/tools/pwsh_exec_tool.py:86
+#: src/uagent/tools/python_exec_tool.py:32
+#: src/uagent/tools/read_file_tool.py:58
+#: src/uagent/tools/read_pptx_pdf_tool.py:66
+#: src/uagent/tools/recalc_excel_tool.py:28
+#: src/uagent/tools/rename_path_tool.py:28
+#: src/uagent/tools/replace_in_file_tool.py:98
+#: src/uagent/tools/screenshot_tool.py:30
+#: src/uagent/tools/search_files_tool.py:35
+#: src/uagent/tools/search_web_tool.py:200
+#: src/uagent/tools/set_timer_tool.py:23
+#: src/uagent/tools/spawn_process_tool.py:33
+#: src/uagent/tools/system_reload_tool.py:19
+#: src/uagent/tools/system_specs_tools.py:23
+#: src/uagent/tools/zip_ops_tool.py:40
+msgid "tool.system_prompt"
 msgstr ""
-"已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將退回使用 "
-"ChatCompletions。"
 
-#: src/uagent/cli.py:546
-#, python-format
-msgid "Unexpected error in stdin_loop: %(err)s"
-msgstr "stdin_loop 中發生未預期錯誤：%(err)s"
+#: src/uagent/tools/add_long_memory_tool.py:40
+#: src/uagent/tools/add_shared_memory_tool.py:40
+msgid "param.note.description"
+msgstr ""
 
-#: src/uagent/cli.py:1105
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "未知事件 kind=%(kind)r：%(ev)r"
+#: src/uagent/tools/add_long_memory_tool.py:56
+msgid "err.note_empty"
+msgstr ""
 
-#: src/uagent/util_providers.py:43
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "未知的提供者：%(provider)s"
+#: src/uagent/tools/agent_skills_shared.py:130
+msgid "err.file_too_large"
+msgstr ""
 
-#: src/uagent/docs_util.py:231
-msgid "Usage:"
-msgstr "用法："
+#: src/uagent/tools/agent_skills_shared.py:150
+msgid "err.skill_md_not_found"
+msgstr ""
 
-#: src/uagent/scheckgui.py:567
-msgid "Verbosity: high"
-msgstr "詳細度：high"
+#: src/uagent/tools/agent_skills_shared.py:184
+msgid "err.frontmatter_missing_start"
+msgstr ""
 
-#: src/uagent/scheckgui.py:563
-msgid "Verbosity: low"
-msgstr "詳細度：low"
+#: src/uagent/tools/agent_skills_shared.py:200
+msgid "err.frontmatter_missing_end"
+msgstr ""
 
-#: src/uagent/scheckgui.py:565
-msgid "Verbosity: medium"
-msgstr "詳細度：medium"
+#: src/uagent/tools/agent_skills_shared.py:219
+msgid "err.frontmatter_parse_failed"
+msgstr ""
 
-#: src/uagent/scheckgui.py:561
-msgid "Verbosity: off"
-msgstr "詳細度：off"
+#: src/uagent/tools/agent_skills_shared.py:227
+msgid "err.frontmatter_not_mapping"
+msgstr ""
 
-#: src/uagent/docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Web Inspector（playwright_inspector）指南"
+#: src/uagent/tools/agent_skills_shared.py:276
+msgid "err.fm_name_required"
+msgstr ""
 
-#: src/uagent/scheckgui.py:433 src/uagent/scheckgui.py:526
-msgid "Welcome / Quick Guide"
-msgstr "歡迎 / 快速指南"
+#: src/uagent/tools/agent_skills_shared.py:285
+msgid "err.fm_name_too_long"
+msgstr ""
 
-#: src/uagent/core.py:1115
-msgid "[Available Tools]"
-msgstr "【可用工具】"
+#: src/uagent/tools/agent_skills_shared.py:292
+msgid "err.fm_name_re"
+msgstr ""
 
-#: src/uagent/uagent_llm.py:583
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "【Claude 錯誤】產生回應時發生錯誤。"
+#: src/uagent/tools/agent_skills_shared.py:299
+msgid "err.fm_name_edge_hyphen"
+msgstr ""
 
-#: src/uagent/checks.py:25
-msgid "[ERROR] Git is not installed."
-msgstr "【錯誤】未安裝 Git。"
+#: src/uagent/tools/agent_skills_shared.py:306
+msgid "err.fm_name_double_hyphen"
+msgstr ""
 
-#: src/uagent/welcome.py:78
-msgid "[Examples]"
-msgstr "【範例】"
+#: src/uagent/tools/agent_skills_shared.py:316
+msgid "err.fm_name_dir_mismatch"
+msgstr ""
 
-#: src/uagent/cli.py:763 src/uagent/web.py:803
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "【致命】設定 workdir 失敗：%(err)s"
+#: src/uagent/tools/agent_skills_shared.py:326
+msgid "err.fm_desc_required"
+msgstr ""
 
-#: src/uagent/uagent_llm.py:469
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "【Gemini 錯誤】產生回應時發生錯誤。"
+#: src/uagent/tools/agent_skills_shared.py:335
+msgid "err.fm_desc_too_long"
+msgstr ""
 
-#: src/uagent/core.py:1017
-#, python-brace-format
-msgid ""
-"[INFO] Conversation history was summarized by the LLM: old_part={old_n} -> 1"
-" summary + tail_part={tail_n}"
-msgstr "[資訊] 對話歷史已由 LLM 摘要：old_part={old_n} -> 1 則摘要 + tail_part={tail_n}"
+#: src/uagent/tools/agent_skills_shared.py:345
+msgid "err.fm_license_type"
+msgstr ""
 
-#: src/uagent/welcome.py:36
-msgid "[MCP Servers]"
+#: src/uagent/tools/agent_skills_shared.py:356
+msgid "err.fm_compat_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:365
+msgid "err.fm_compat_empty"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:372
+msgid "err.fm_compat_too_long"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:383
+msgid "err.fm_meta_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:392
+msgid "err.fm_meta_key_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:400
+msgid "err.fm_meta_val_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:411
+msgid "err.fm_allowed_tools_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:438
+msgid "err.relpath_required"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:448
+msgid "err.abs_path_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:454
+msgid "err.dotdot_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:468
+msgid "err.relpath_points_to_root"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:476
+msgid "err.path_traversal"
+msgstr ""
+
+#: src/uagent/tools/analyze_image_tool.py:33
+msgid "param.image_path.description"
+msgstr ""
+
+#: src/uagent/tools/analyze_image_tool.py:40
+#: src/uagent/tools/generate_image_tool.py:52
+msgid "param.prompt.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:47
+#: src/uagent/tools/create_file_tool.py:53
+#: src/uagent/tools/delete_file_tool.py:53
+#: src/uagent/tools/file_exists_tool.py:40
+#: src/uagent/tools/generate_prompt_tool.py:54
+#: src/uagent/tools/mcp_servers_tool.py:60
+#: src/uagent/tools/read_file_tool.py:74
+#: src/uagent/tools/read_pptx_pdf_tool.py:79
+#: src/uagent/tools/recalc_excel_tool.py:40
+#: src/uagent/tools/replace_in_file_tool.py:127
+msgid "param.path.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:53 src/uagent/tools/exstruct_tool.py:60
+#: src/uagent/tools/libcst_transform_tool.py:81
+#: src/uagent/tools/lint_format_tool.py:62
+#: src/uagent/tools/replace_in_file_tool.py:135
+msgid "param.mode.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:59
+#: src/uagent/tools/delete_file_tool.py:69
+#: src/uagent/tools/recalc_excel_tool.py:68
+#: src/uagent/tools/zip_ops_tool.py:119
+msgid "param.dry_run.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:67
+#: src/uagent/tools/libcst_transform_tool.py:129
+#: src/uagent/tools/skills_read_file_tool.py:49
+msgid "param.max_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:74
+msgid "param.offset.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:81
+msgid "param.data_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:88
+msgid "param.search_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:95
+msgid "param.replace_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:103
+msgid "param.occurrence.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:111
+msgid "param.splice_op.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:118
+msgid "param.delete_len.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:125
+msgid "param.patch_json.description"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:25
+msgid "param.expression.description"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:41
+msgid "err.expression_missing"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:65
+msgid "err.eval"
+msgstr ""
+
+#: src/uagent/tools/catalog_tool.py:27
+#: src/uagent/tools/graph_rag_search_tool.py:1023
+#: src/uagent/tools/search_web_tool.py:209
+#: src/uagent/tools/semantic_search_files_tool.py:366
+msgid "param.query.description"
+msgstr ""
+
+#: src/uagent/tools/catalog_tool.py:34 src/uagent/tools/search_files_tool.py:84
+#: src/uagent/tools/search_web_tool.py:215
+msgid "param.max_results.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:31
+msgid "param.new_dir.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:39
+msgid "param.confirm.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:65
+msgid "confirm.change_workdir"
+msgstr ""
+
+#: src/uagent/tools/cmd_exec_json_tool.py:40
+#: src/uagent/tools/cmd_exec_tool.py:40 src/uagent/tools/git_ops_tool.py:98
+#: src/uagent/tools/mcp_servers_tool.py:116
+#: src/uagent/tools/pwsh_exec_tool.py:102
+#: src/uagent/tools/spawn_process_tool.py:23
+msgid "param.command.description"
+msgstr ""
+
+#: src/uagent/tools/cmd_exec_json_tool.py:47
+#: src/uagent/tools/lint_format_tool.py:88
+#: src/uagent/tools/run_tests_tool.py:71
+msgid "param.cwd.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:46
+#: src/uagent/tools/delete_file_tool.py:43
+#: src/uagent/tools/generate_prompt_tool.py:61
+#: src/uagent/tools/read_file_tool.py:67
+msgid "param.filename.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:60
+msgid "param.content.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:67
+#: src/uagent/tools/replace_in_file_tool.py:173
+msgid "param.encoding.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:74
+#: src/uagent/tools/rename_path_tool.py:56 src/uagent/tools/zip_ops_tool.py:95
+msgid "param.overwrite.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:37
+msgid "param.base_date.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:44
+msgid "param.years.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:51
+msgid "param.months.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:58
+msgid "param.weeks.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:65
+msgid "param.days.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:72
+msgid "param.country.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:80
+msgid "param.check_holiday.description"
+msgstr ""
+
+#: src/uagent/tools/db_query_tool.py:34
+msgid "param.db_path.description"
+msgstr ""
+
+#: src/uagent/tools/db_query_tool.py:41
+msgid "param.sql.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:61 src/uagent/tools/get_env_tool.py:38
+msgid "param.missing_ok.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:77
+msgid "param.allow_dir.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:239
+msgid "confirm.delete_paths_bulk"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:36 src/uagent/tools/exstruct_tool.py:43
+#: src/uagent/tools/mcp_servers_tool.py:43 src/uagent/tools/zip_ops_tool.py:56
+msgid "param.action.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:50 src/uagent/tools/exstruct_tool.py:52
+#: src/uagent/tools/screenshot_tool.py:39
+msgid "param.file_path.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:57
+msgid "param.sheet_name.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:66
+msgid "param.data.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:74
+msgid "param.keep_sheets.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:84 src/uagent/tools/exstruct_tool.py:96
+msgid "param.output_path.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:67
+msgid "param.include_shapes.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:74
+msgid "param.include_cell_links.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:81 src/uagent/tools/mcp_servers_tool.py:67
+#: src/uagent/tools/mcp_tools_list_tool.py:80
+msgid "param.pretty.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:89 src/uagent/tools/get_geoip_tool.py:43
+msgid "param.format.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:103
+msgid "param.sheets_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:110
+msgid "param.print_areas_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:117
+msgid "param.auto_page_breaks_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:124
+msgid "param.table_score_threshold.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:131
+msgid "param.density_min.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:35
+#: src/uagent/tools/handle_mcp_v2_tool.py:91
+#: src/uagent/tools/mcp_servers_tool.py:109
+#: src/uagent/tools/mcp_tools_list_tool.py:64
+#: src/uagent/tools/playwright_inspector_tool.py:34
+msgid "param.url.description"
+msgstr ""
+
+#: src/uagent/tools/file_exists_tool.py:109
+#: src/uagent/tools/safe_file_ops.py:186
+#: src/uagent/tools/safe_file_ops_extras.py:72
+msgid "err.path_empty"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:46
+#: src/uagent/tools/libcst_transform_tool.py:89
+msgid "param.paths.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:55
+msgid "param.algo.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:62
+#: src/uagent/tools/graph_rag_search_tool.py:1065
+msgid "param.chunk_size.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:71
+msgid "param.return.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:55
+msgid "param.root.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:63
+msgid "param.top_n.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:70
+msgid "param.min_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:78
+msgid "param.group_by_ext.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:87
+msgid "param.exclude_dirs.description"
+msgstr ""
+
+#: src/uagent/tools/find_large_files_tool.py:95
+#: src/uagent/tools/libcst_transform_tool.py:121
+#: src/uagent/tools/recalc_excel_tool.py:82
+#: src/uagent/tools/zip_ops_tool.py:103
+msgid "param.max_files.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:59
+msgid "param.size.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:67
+#: src/uagent/tools/search_web_tool.py:229
+msgid "param.n.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:77
+msgid "param.output_dir.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:84
+msgid "param.file_prefix.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:213
+msgid "err.openai_import"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:226
+msgid "err.httpx_init"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:303
+msgid "err.empty_data"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:318
+msgid "err.gemini_import"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:373
+msgid "err.gemini_fail"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:384
+msgid "err.prompt_empty"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:402
+msgid "err.depname_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:410
+msgid "err.mkdir_fail"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:449
+#: src/uagent/tools/vision_openai.py:93 src/uagent/tools/vision_runtime.py:61
+msgid "err.unsupported_provider"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:455
+msgid "err.gen_fail"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:460
+msgid "err.no_saved"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:68
+msgid "param.template.description"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:88
+msgid "err.path_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:96
+msgid "err.template_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:111
+msgid "err.not_a_file"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:136
+msgid "err.bad_template"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:31 src/uagent/tools/mcp_servers_tool.py:102
+msgid "param.name.description"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:45
+msgid "param.mask.description"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:52
+msgid "param.unmasked_chars.description"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:95
+msgid "err.name_required"
+msgstr ""
+
+#: src/uagent/tools/get_geoip_tool.py:59
+msgid "err.format_invalid"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:106
+#: src/uagent/tools/mcp_servers_tool.py:124
+msgid "param.args.description"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:113
+msgid "param.allow_danger.description"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:193
+msgid "error.git_not_found"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:202
+msgid "error.timeout"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:210
+msgid "error.unexpected"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:247
+msgid "error.meta_char"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:284 src/uagent/tools/git_ops_tool.py:292
+msgid "error.option_denied"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:302 src/uagent/tools/git_ops_tool.py:486
+msgid "error.option_danger_requires_allow_danger"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:319
+msgid "error.option_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:377
+msgid "error.invalid_command"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:854
+#: src/uagent/tools/semantic_search_files_tool.py:247
+msgid "err.dir_not_found"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:924
+#: src/uagent/tools/semantic_search_files_tool.py:311
+msgid "out.query"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:926
+#: src/uagent/tools/semantic_search_files_tool.py:312
+msgid "out.target_dir"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:930
+msgid "out.db"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:933
+msgid "out.hits_summary"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:948
+msgid "warn.indexing_title"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:958
+msgid "out.results_title"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:967
+#: src/uagent/tools/semantic_search_files_tool.py:328
+msgid "out.result_content"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:973
+msgid "out.no_docs"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:981
+#: src/uagent/tools/semantic_search_files_tool.py:339
+msgid "err.query_required"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1030
+#: src/uagent/tools/index_files_tool.py:48
+#: src/uagent/tools/search_files_tool.py:51
+#: src/uagent/tools/semantic_search_files_tool.py:372
+msgid "param.root_path.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1037
+#: src/uagent/tools/semantic_search_files_tool.py:379
+msgid "param.file_pattern.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1044
+msgid "param.top_k_vector.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1051
+msgid "param.top_k_graph.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1058
+msgid "param.hops.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1071
+msgid "param.overlap.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:84
+#: src/uagent/tools/mcp_servers_tool.py:188
+#: src/uagent/tools/mcp_tools_list_tool.py:73
+msgid "param.server_name.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:98
+msgid "param.tool_name.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:108
+msgid "param.tool_arguments.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:342
+msgid "err.tool_name_required"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:390
+msgid "err.stdio_url_invalid"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:53 src/uagent/tools/set_timer_tool.py:39
+msgid "param.message.description"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:60
+msgid "param.is_password.description"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:84
+msgid "msg.empty_request"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:92
+msgid "ui.title"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:94
+msgid "ui.footer"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:100
+msgid "ui.howto"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:114
+msgid "err.lock_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:120
+msgid "err.active_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:126 src/uagent/tools/set_timer_tool.py:82
+msgid "err.queue_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:132
+msgid "err.lines_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:138
+msgid "err.multiline_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:144
+msgid "err.password_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:154
+msgid "err.already_active"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:235
+msgid "msg.no_user_reply"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:41
+#: src/uagent/tools/replace_in_file_tool.py:143
+msgid "param.pattern.description"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:56
+#: src/uagent/tools/recalc_excel_tool.py:54
+#: src/uagent/tools/skills_list_tool.py:44
+msgid "param.recursive.description"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:71
+msgid "err.vec_unavailable"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:80
+msgid "err.pattern_required"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:85
+msgid "err.root_not_dir"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:95
+msgid "err.glob_fail"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:104
+#: src/uagent/tools/semantic_search_files_tool.py:308
+msgid "out.not_found"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:119
+msgid "out.completed"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:120
+msgid "out.pattern"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:121
+msgid "out.root"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:122
+msgid "out.success"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:126
+msgid "out.fail"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:131
+msgid "out.footer"
+msgstr ""
+
+#: src/uagent/tools/libcst_transform_tool.py:96
+#: src/uagent/tools/recalc_excel_tool.py:47
+msgid "param.include_glob.description"
+msgstr ""
+
+#: src/uagent/tools/libcst_transform_tool.py:105
+#: src/uagent/tools/zip_ops_tool.py:87
+msgid "param.exclude_globs.description"
+msgstr ""
+
+#: src/uagent/tools/libcst_transform_tool.py:177
+msgid "param.ops.description"
+msgstr ""
+
+#: src/uagent/tools/libcst_transform_tool.py:199
+#: src/uagent/tools/replace_in_file_tool.py:157
+msgid "param.preview.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:53
+msgid "param.tools.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:71
+msgid "param.targets.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:80
+#: src/uagent/tools/run_tests_tool.py:63
+msgid "param.extra_args.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:243
+msgid "confirm.msg"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:35
+msgid "param.all.description"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:42
+msgid "param.pid.description"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:49
+msgid "param.class.description"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:58
+msgid "msg.no_memory"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:60 src/uagent/tools/shared_memory.py:89
+msgid "err.load"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:68 src/uagent/tools/read_file_tool.py:206
+#: src/uagent/tools/shared_memory.py:97
+msgid "msg.truncated"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:76
+msgid "param.validate.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:84
+msgid "param.default_only.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:93
+msgid "param.fail_on_warning.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:131
+msgid "param.env.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:139
+msgid "param.transport.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:147
+msgid "param.set_default.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:155
+msgid "param.replace.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:163
+msgid "param.create_if_missing.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:172
+msgid "param.index.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:179
+msgid "param.require_nonempty.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:196
+msgid "param.default_name.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:204
+msgid "param.default_url.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:241
+msgid "err.not_exists"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:250
+msgid "warn.not_exists_new"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:258
+msgid "warn.not_exists"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:270
+msgid "err.load_fail"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:277
+msgid "err.root_not_dict"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:284
+#, fuzzy
+msgid "warn.no_mcp_servers"
 msgstr "【MCP 伺服器】"
 
-#: src/uagent/welcome.py:27
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
+#: src/uagent/tools/mcp_servers_tool.py:292
+msgid "err.mcp_servers_not_list"
 msgstr ""
-"[MCP 伺服器]\n"
-"- 找不到設定檔。"
 
-#: src/uagent/welcome.py:43
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
+#: src/uagent/tools/mcp_servers_tool.py:315
+msgid "warn.item_not_dict"
 msgstr ""
-"[MCP 伺服器]\n"
-"- 取得資訊失敗：%(err)s"
 
-#: src/uagent/welcome.py:34
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
+#: src/uagent/tools/mcp_servers_tool.py:328
+msgid "warn.name_missing"
 msgstr ""
-"[MCP 伺服器]\n"
-"- 未註冊任何伺服器。"
 
-#: src/uagent/welcome.py:62
-msgid "[Quick Guide]"
-msgstr "【快速指南】"
-
-#: src/uagent/uagent_llm.py:342
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "【警告】工具回合數超過 %(max)d；中止。"
-
-#: src/uagent/docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "【docs】可用文件："
-
-#: src/uagent/util_providers.py:272
-msgid "anthropic package is not installed."
-msgstr "未安裝 anthropic 套件。"
-
-#: src/uagent/cli.py:871
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "目前 workdir = %(cwd)s"
-
-#: src/uagent/docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "找不到文件檔案：%(filename)s"
-
-#: src/uagent/docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "文件路徑解析失敗：%(filename)s：%(err)s"
-
-#: src/uagent/cli.py:349
-msgid "getch() fallback to input()"
-msgstr "getch() 將退回使用 input()"
-
-#: src/uagent/util_providers.py:261
-msgid "google-genai package is not installed."
-msgstr "未安裝 google-genai 套件。"
-
-#: src/uagent/core.py:554
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "logs: 顯示 %(shown)d/%(total)d（dir=%(dir)s）"
-
-#: src/uagent/cli.py:831 src/uagent/scheckgui.py:179 src/uagent/web.py:568
-#, python-format
-msgid "model(deployment) = %(depname)s"
-msgstr "model（deployment）= %(depname)s"
-
-#: src/uagent/scheckgui.py:441
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI（極致穩定）"
-
-#: src/uagent/docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "未知的文件名稱：%(name)r"
-
-#: src/uagent/runtime_init.py:266
-msgid "【Shared long-term memory (shared memo)】\n"
-msgstr "【共享長期記憶（共享備忘）】\n"
-
-msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n\n"
-"Proceed? Enter y to run, or c to cancel."
+#: src/uagent/tools/mcp_servers_tool.py:340
+#: src/uagent/tools/mcp_servers_tool.py:411
+msgid "warn.url_no_mcp"
 msgstr ""
-":clean 將從磁碟刪除對話記錄檔（scheck_log_*.jsonl）。\n"
-"記錄目錄：%(dir)s\n"
-"規則：排除 system 的 user/assistant/tool 訊息總數 <= %(threshold)d\n"
-"目標：%(n)d\n\n"
-"要繼續嗎？輸入 y 執行，或輸入 c 取消。"
 
-msgid ""
-":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n\n"
-"Proceed? Enter y to run, or c to cancel."
+#: src/uagent/tools/mcp_servers_tool.py:350
+msgid "warn.endpoint_missing"
 msgstr ""
-":load 將覆寫目前工作階段記錄檔，並把載入的記錄加到檔案開頭（無備份）。\n\n"
-"目前記錄：%(cur_log)s\n"
-"來源記錄：%(src_log)s\n\n"
-"要繼續嗎？輸入 y 執行，或輸入 c 取消。"
 
-#: src/uagent/core.py
-msgid ""
-"\\n"
-"## Mission\\n"
-"- You are a capable \\\\"general-purpose tool execution agent\\\\" running on a local environment; you can execute commands and operate on the user's machine.\\n"
-"- Ask the user for confirmation before any dangerous operation.\\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\\n"
-"\\n"
-"## Rules\\n"
-"- Use the provided tools first and verify results with tools.\\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\\n"
-"- Be creative, but do not output uncertain information.\\n"
-"- Delegate as little decision-making as possible to the user.\\n"
-"\\n"
-"## Notes\\n"
-"- All user messages come via this script's standard input.\\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\\n"
-"- Relative dates: call get_current_time.\\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\\n"
-"- If you create Python files, run `python -m py_compile`.\\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\\n"
+#: src/uagent/tools/mcp_servers_tool.py:359
+msgid "warn.name_duplicate"
 msgstr ""
-"\\n"
-"## Mission\\n"
-"- 你是一個在本機環境運作的高效\\"通用工具執行代理\\"；你可以在使用者的機器上執行命令並操作檔案。\\n"
-"- 進行任何危險操作之前，務必先向使用者確認。\\n"
-"- 不奉承。不使用表情符號。不做對話摘要。保持簡潔。\\n"
-"- 建立檔案時，輸出完整的最終內容（不要輸出 diff/部分摘要）。\\n"
-"\\n"
-"## Rules\\n"
-"- 優先使用已提供的工具，並以工具驗證結果。\\n"
-"- 參考工具說明（目的/參數/限制），選擇最合適且最安全的工具。\\n"
-"- 可以發揮創意，但不要輸出不確定的資訊。\\n"
-"- 盡量減少讓使用者做決策，降低使用者的決策負擔。\\n"
-"\\n"
-"## Notes\\n"
-"- 所有使用者訊息都會透過此腳本的標準輸入傳入。\\n"
-"- 若缺少必要資訊/參數，請透過 human_ask 詢問（不要猜測）。\\n"
-"- 相對日期：呼叫 get_current_time。\\n"
-"- 不要把秘密資訊（密碼/Token 等）保存到長期記憶。\\n"
-"- 建立 Python 檔案後，執行 `python -m py_compile`。\\n"
-"- 若需要專家級知識，使用 Agent Skills 的提示模板。\\n"
+
+#: src/uagent/tools/mcp_servers_tool.py:377
+msgid "err.item_not_dict"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:390
+msgid "err.name_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:403
+msgid "err.endpoint_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:420
+msgid "err.name_duplicate"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:41
+msgid "param.prefix.description"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:60
+msgid "ui.started"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:62
+msgid "ui.resume_prompt"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:66
+msgid "ui.captured"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:306
+msgid "err.child_failed"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:311
+#: src/uagent/tools/screenshot_tool.py:131
+#: src/uagent/tools/set_timer_tool.py:94
+msgid "out.ok"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:109
+msgid "param.shell.description"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:148
+msgid "err.command_required"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:181
+msgid "err.timeout"
+msgstr ""
+
+#: src/uagent/tools/python_exec_tool.py:46
+msgid "param.code.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:81
+msgid "param.start_line.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:89
+msgid "param.max_lines.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:97
+msgid "param.head_lines.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:105
+msgid "param.tail_lines.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:124
+msgid "err.filename_missing"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:136
+msgid "err.dual_lines"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:214
+msgid "err.out_of_range"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:86
+msgid "param.page_index.description"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:96
+msgid "param.max_chars.description"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:464
+#: src/uagent/tools/recalc_excel_tool.py:162
+msgid "err.path_required"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:502
+msgid "err.page_index_int"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:61
+msgid "param.backup.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:75
+msgid "param.visible.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:99
+#: src/uagent/tools/safe_file_ops.py:296
+msgid "err.path_not_found"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:108
+msgid "err.file_ext"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:117
+msgid "err.max_files_positive"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:164
+msgid "err.recursive_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:166
+msgid "err.backup_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:168
+msgid "err.dry_run_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:170
+msgid "err.visible_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:176
+msgid "err.max_files_int"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:196
+msgid "err.windows_only"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:207
+msgid "err.pywin32_required"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:42
+msgid "param.src.description"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:49
+msgid "param.dst.description"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:64
+msgid "param.mkdirs.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:116
+msgid "param.expand_newline_tokens.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:150
+msgid "param.replacement.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:165
+msgid "param.confirm_over.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:344
+msgid "err.invalid_mode"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:356
+msgid "err.preview_not_bool"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:369
+msgid "err.expand_newline_tokens_not_bool"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:47
+msgid "param.framework.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:54
+msgid "param.target.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:79
+msgid "param.pythonpath.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:88
+msgid "param.report.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:103
+msgid "error.shell_metacharacters_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:189
+msgid "error.invalid_framework"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:200
+msgid "error.invalid_report"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:221
+msgid "error.dangerous_cwd_rejected"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:234
+msgid "error.cwd_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:248
+msgid "error.framework_auto_detect_failed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:279
+msgid "error.unsupported_framework"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:100
+msgid "err.empty_command"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:107
+msgid "err.blocked_by_rule"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:115
+msgid "confirm.risky_command"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:133
+msgid "confirm.shell_metachar"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:147
+msgid "msg.allowed"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:170 src/uagent/tools/safe_exec_ops.py:244
+msgid "err.callbacks_unavailable"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:199
+msgid "err.confirm_timeout"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:204 src/uagent/tools/safe_file_ops.py:105
+msgid "ui.confirm.title"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:208 src/uagent/tools/safe_file_ops.py:109
+msgid "ui.confirm.footer"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:211 src/uagent/tools/safe_file_ops.py:112
+msgid "ui.confirm.howto"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:228 src/uagent/tools/safe_exec_ops.py:258
+msgid "err.blocked_cancelled"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:229 src/uagent/tools/safe_exec_ops.py:259
+msgid "err.blocked_rejected"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:249
+msgid "ui.fallback_prompt"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:252
+msgid "err.confirm_failed"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:131
+msgid "confirm.risky_op"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:144
+msgid "confirm.rename"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:192
+#: src/uagent/tools/safe_file_ops_extras.py:79
+msgid "err.outside_workdir"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:203
+#: src/uagent/tools/safe_file_ops_extras.py:104
+msgid "err.file_not_found"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:238
+msgid "err.create_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:248
+msgid "err.exists_overwrite_false"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:264
+msgid "err.delete_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:285
+msgid "err.delete_path_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:306
+msgid "err.delete_dir_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:323
+msgid "err.src_dst_required"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:327
+msgid "err.src_not_found"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:338
+msgid "reason.src_trigger"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:343
+msgid "reason.dst_trigger"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:351
+msgid "reason.overwrite_delete"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:358
+msgid "err.dst_exists_overwrite_false"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:369
+msgid "err.rename_cancel"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:46
+msgid "param.window_title.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:53
+msgid "param.delay.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:60
+msgid "param.close_window.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:74
+msgid "err.pyautogui_missing"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:81
+msgid "err.pygetwindow_missing"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:102
+msgid "err.window_not_found"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:139
+msgid "out.ok_closed"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:144
+msgid "err.close_fail"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:152
+msgid "err.capture_fail"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:58
+msgid "param.name_pattern.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:67
+msgid "param.content_pattern.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:77
+msgid "param.case_sensitive.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:91
+msgid "param.exclude_binary.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:101
+msgid "param.binary_sniff_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:109
+msgid "param.fast_read_threshold_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:232
+#: src/uagent/tools/search_files_tool.py:271
+msgid "match.line"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:238
+#: src/uagent/tools/search_files_tool.py:277
+msgid "match.more"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:248
+msgid "match.excerpt"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:307
+msgid "err.dir_not_exist"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:326
+msgid "err.regex_compile"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:399
+msgid "out.no_match"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:407
+msgid "out.found_truncated"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:413
+msgid "out.found"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:420
+msgid "out.file"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:174
+msgid "error.duckduckgo_failed_after_retries"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:222
+msgid "param.q.description"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:244
+msgid "error.args_must_be_dict"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:253
+msgid "error.missing_query_parameter"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:277
+#: src/uagent/tools/search_web_tool.py:284
+msgid "error.run_tool_error"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:72
+msgid "err.disabled"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:287
+msgid "err.vec_fail"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:315
+msgid "out.hits"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:323
+msgid "out.result_item"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:386
+msgid "param.top_k.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:32
+msgid "param.seconds.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:46
+msgid "param.on_timeout_prompt.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:67
+msgid "err.seconds_invalid"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:73
+msgid "err.seconds_negative"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:77
+msgid "msg.default_timer_done"
+msgstr ""
+
+#: src/uagent/tools/shared_memory.py:76
+msgid "msg.disabled"
+msgstr ""
+
+#: src/uagent/tools/shared_memory.py:87
+msgid "msg.no_shared_memory"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:37
+msgid "param.root_dir.description"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:52
+msgid "param.include_invalid.description"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:60
+#: src/uagent/tools/skills_validate_tool.py:43
+msgid "param.strict.description"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:31
+#: src/uagent/tools/skills_read_file_tool.py:36
+#: src/uagent/tools/skills_validate_tool.py:36
+msgid "param.skill_dir.description"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:44
+#: src/uagent/tools/skills_read_file_tool.py:63
+#: src/uagent/tools/skills_validate_tool.py:57
+msgid "err.invalid_args"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:49
+#: src/uagent/tools/skills_read_file_tool.py:71
+#: src/uagent/tools/skills_validate_tool.py:64
+msgid "err.skill_dir_required"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:42
+msgid "param.relative_path.description"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:76
+msgid "err.relative_path_required"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:81
+msgid "err.max_bytes_positive"
+msgstr ""
+
+#: src/uagent/tools/spawn_process_tool.py:51
+msgid "err.command_empty"
+msgstr ""
+
+#: src/uagent/tools/spawn_process_tool.py:58
+msgid "err.windows_start_missing_target"
+msgstr ""
+
+#: src/uagent/tools/system_specs_tools.py:35
+msgid "param.include_volumes.description"
+msgstr ""
+
+#: src/uagent/tools/system_specs_tools.py:43
+msgid "param.include_disks.description"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:30 src/uagent/tools/vision_runtime.py:32
+msgid "err.image_not_found"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:39 src/uagent/tools/vision_runtime.py:41
+msgid "err.image_too_large"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:103 src/uagent/tools/vision_runtime.py:74
+msgid "err.import_openai"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:109 src/uagent/tools/vision_runtime.py:80
+msgid "prompt.default"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:139 src/uagent/tools/vision_runtime.py:93
+msgid "err.missing_env.azure"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:170 src/uagent/tools/vision_runtime.py:142
+msgid "err.missing_env.openai"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:200 src/uagent/tools/vision_runtime.py:178
+msgid "warn.empty_response"
+msgstr ""
+
+#: src/uagent/tools/vision_runtime.py:112
+msgid "err.missing_env.bedrock"
+msgstr ""
+
+#: src/uagent/tools/vision_runtime.py:128
+msgid "err.missing_env.openrouter"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:62
+msgid "param.zip_path.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:70
+msgid "param.sources.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:78
+msgid "param.dest_dir.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:111
+msgid "param.max_total_uncompressed_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:188
+msgid "error.invalid_action"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:198
+msgid "error.zip_path_required"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:208
+msgid "error.dangerous_zip_path_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:222
+msgid "error.zip_path_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:235 src/uagent/tools/zip_ops_tool.py:368
+msgid "error.zip_not_found"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:265
+msgid "error.zip_list_failed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:278
+msgid "error.sources_required_for_create"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:293
+msgid "error.dangerous_source_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:306
+msgid "error.source_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:355
+msgid "error.zip_create_failed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:379
+msgid "error.dangerous_dest_dir_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:393
+msgid "error.dest_dir_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:409
+msgid "error.too_many_files_in_zip"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:422
+msgid "error.zip_too_large_to_extract"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:440
+msgid "error.dangerous_zip_entries_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:450
+msgid "confirm.extract_overwrite"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:464
+msgid "error.cancelled_by_user"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:516
+msgid "error.zip_extract_failed"
+msgstr ""
+
+#~ msgid ""
+#~ ":clean will delete conversation log "
+#~ "files (scheck_log_*.jsonl) from disk.\n"
+#~ "Log dir: %(dir)s\n"
+#~ "Rule: total user/assistant/tool messages "
+#~ "excluding system <= %(threshold)d\n"
+#~ "Targets: %(n)d\n"
+#~ "\n"
+#~ "Proceed? Enter y to run, or c to cancel."
+#~ msgstr ""
+#~ ":clean 將從磁碟刪除對話記錄檔（scheck_log_*.jsonl）。\n"
+#~ "記錄目錄：%(dir)s\n"
+#~ "規則：排除 system 的 user/assistant/tool 訊息總數 <= %(threshold)d\n"
+#~ "目標：%(n)d\n"
+#~ "\n"
+#~ "要繼續嗎？輸入 y 執行，或輸入 c 取消。"
+
+#~ msgid ""
+#~ ":load will overwrite the current session"
+#~ " log file and prepend the loaded "
+#~ "log (no backup).\n"
+#~ "\n"
+#~ "Current log: %(cur_log)s\n"
+#~ "Source log: %(src_log)s\n"
+#~ "\n"
+#~ "Proceed? Enter y to run, or c to cancel."
+#~ msgstr ""
+#~ ":load 將覆寫目前工作階段記錄檔，並把載入的記錄加到檔案開頭（無備份）。\n"
+#~ "\n"
+#~ "目前記錄：%(cur_log)s\n"
+#~ "來源記錄：%(src_log)s\n"
+#~ "\n"
+#~ "要繼續嗎？輸入 y 執行，或輸入 c 取消。"
+
+#~ msgid ""
+#~ "\\n## Mission\\n- You are a capable "
+#~ "\\\\\"general-purpose tool execution "
+#~ "agent\\\\\" running on a local "
+#~ "environment; you can execute commands "
+#~ "and operate on the user's machine.\\n-"
+#~ " Ask the user for confirmation before"
+#~ " any dangerous operation.\\n- No flattery."
+#~ " No emojis. No conversation summaries. "
+#~ "Keep it concise.\\n- When creating "
+#~ "files, output the complete final content"
+#~ " (no diffs/partial summaries).\\n\\n## Rules\\n-"
+#~ " Use the provided tools first and "
+#~ "verify results with tools.\\n- Consult "
+#~ "tool descriptions for purpose/arguments/constraints;"
+#~ " choose the most appropriate and "
+#~ "safest tool.\\n- Be creative, but do "
+#~ "not output uncertain information.\\n- Delegate"
+#~ " as little decision-making as "
+#~ "possible to the user.\\n\\n## Notes\\n- "
+#~ "All user messages come via this "
+#~ "script's standard input.\\n- If required "
+#~ "info/parameters are missing, ask via "
+#~ "human_ask (do not guess).\\n- Relative "
+#~ "dates: call get_current_time.\\n- Do not "
+#~ "store secrets (passwords/tokens) in long-"
+#~ "term memory.\\n- If you create Python"
+#~ " files, run `python -m py_compile`.\\n- "
+#~ "If expert-level knowledge is required,"
+#~ " use Agent Skills prompt templates.\\n"
+#~ msgstr ""
+#~ "\\n## Mission\\n- "
+#~ "你是一個在本機環境運作的高效\\\"通用工具執行代理\\\"；你可以在使用者的機器上執行命令並操作檔案。\\n- "
+#~ "進行任何危險操作之前，務必先向使用者確認。\\n- 不奉承。不使用表情符號。不做對話摘要。保持簡潔。\\n- "
+#~ "建立檔案時，輸出完整的最終內容（不要輸出 diff/部分摘要）。\\n\\n## Rules\\n- "
+#~ "優先使用已提供的工具，並以工具驗證結果。\\n- 參考工具說明（目的/參數/限制），選擇最合適且最安全的工具。\\n- "
+#~ "可以發揮創意，但不要輸出不確定的資訊。\\n- 盡量減少讓使用者做決策，降低使用者的決策負擔。\\n\\n## "
+#~ "Notes\\n- 所有使用者訊息都會透過此腳本的標準輸入傳入。\\n- 若缺少必要資訊/參數，請透過 "
+#~ "human_ask 詢問（不要猜測）。\\n- 相對日期：呼叫 "
+#~ "get_current_time。\\n- 不要把秘密資訊（密碼/Token 等）保存到長期記憶。\\n- "
+#~ "建立 Python 檔案後，執行 `python -m "
+#~ "py_compile`。\\n- 若需要專家級知識，使用 Agent Skills "
+#~ "的提示模板。\\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "## Mission\n"
+#~ "- You are a capable \"general-"
+#~ "purpose tool execution agent\" running "
+#~ "on a local environment, and you "
+#~ "can actually execute commands and "
+#~ "operate on files on the user's "
+#~ "machine.\n"
+#~ "- Ask the user for confirmation "
+#~ "before performing any dangerous operation."
+#~ "\n"
+#~ "- Do not flatter the user. Do not use emojis.\n"
+#~ "- Do not summarize. Keep information concise.\n"
+#~ "- When creating files, output the "
+#~ "complete final content (do not output"
+#~ " diffs or partial summaries).\n"
+#~ "\n"
+#~ "## Rules\n"
+#~ "- Always use the provided tools and verify the latest information.\n"
+#~ "- Be creative, but do not output uncertain information.\n"
+#~ "- Consult available tools and choose the most appropriate one.\n"
+#~ "- When executing tools, delegate as "
+#~ "little decision-making as possible to"
+#~ " the user.\n"
+#~ "\n"
+#~ "## Notes\n"
+#~ "- All user messages come via this script's standard input.\n"
+#~ "- For tool-specific "
+#~ "purpose/arguments/constraints/operational details, prefer"
+#~ " each tool's description.\n"
+#~ "- If you need additional information "
+#~ "or confirmation from the user, use "
+#~ "the human_ask tool.\n"
+#~ "- When handling relative date "
+#~ "expressions, call get_current_time to "
+#~ "reference the current time.\n"
+#~ "- Do not store secrets "
+#~ "(passwords/tokens) in long-term memory "
+#~ "(add_long_memory, etc.).\n"
+#~ "- If you create Python files, run"
+#~ " `python -m py_compile` to validate "
+#~ "syntax.\n"
+#~ "- If expert-level knowledge is "
+#~ "required, use prompt templates (Agent "
+#~ "Skills) and follow them.\n"
+#~ "\n"
+#~ "## Dangerous operation policy (delete_file)\n"
+#~ "- For deletion using the delete_file "
+#~ "tool, do NOT ask for confirmation "
+#~ "before preview.\n"
+#~ "- Always run delete_file with "
+#~ "dry_run=true first to get the list "
+#~ "of deletion candidates.\n"
+#~ "- Show the candidates to the user"
+#~ " and ask confirmation via human_ask "
+#~ "exactly once.\n"
+#~ "- Only when the user explicitly "
+#~ "replies \"実行して\" (or equivalent explicit "
+#~ "approval), run delete_file again with "
+#~ "the same parameters and dry_run=false.\n"
+#~ "- If there are zero candidates, do"
+#~ " not ask; just report that nothing"
+#~ " will be deleted.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "## 任務\n"
+#~ "- 你是在本機環境中運行、能力出色的「通用工具執行代理」，可以實際執行指令並操作使用者機器上的檔案。\n"
+#~ "- 在執行任何危險操作之前，向使用者請求確認。\n"
+#~ "- 不要奉承使用者。不要使用表情符號。\n"
+#~ "- 不要做對話摘要。保持資訊精簡。\n"
+#~ "- 建立檔案時，請輸出最終完整內容（不要輸出 diff 或部分摘要）。\n"
+#~ "\n"
+#~ "## 規則\n"
+#~ "- 一律使用提供的工具並驗證最新資訊。\n"
+#~ "- 可以有創意，但不要輸出不確定的資訊。\n"
+#~ "- 查看可用工具並選擇最合適的工具。\n"
+#~ "- 執行工具時，盡量不要把決策交給使用者。\n"
+#~ "\n"
+#~ "## 備註\n"
+#~ "- 所有使用者訊息都會透過本腳本的標準輸入進來。\n"
+#~ "- 工具的目的/參數/限制/操作細節以各工具的說明為準。\n"
+#~ "- 如需額外資訊或確認，請使用 human_ask 工具。\n"
+#~ "- 處理相對日期表達時，呼叫 get_current_time 以參考目前時間。\n"
+#~ "- 不要在長期記憶（add_long_memory 等）中儲存祕密（密碼/Token 等）。\n"
+#~ "- 若建立 Python 檔案，請執行 `python -m py_compile` 以驗證語法。\n"
+#~ "- 若需要專業級知識，請使用提示模板（Agent Skills）並遵循其要求。\n"
+#~ "\n"
+#~ "## 危險操作政策（delete_file）\n"
+#~ "- 使用 delete_file 工具刪除時，預覽前不要要求確認。\n"
+#~ "- 必須先以 dry_run=true 執行一次 delete_file，以取得刪除候選清單。\n"
+#~ "- 向使用者顯示候選項，並透過 human_ask 只詢問一次確認。\n"
+#~ "- 只有當使用者明確回覆「実行して」（或同等明確同意）時，才以相同參數再次執行 delete_file，並設定"
+#~ " dry_run=false。\n"
+#~ "- 若候選項為 0 個，則不要詢問；只需回報不會刪除任何內容。\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "## Mission\n"
+#~ "- You are a capable \"general-"
+#~ "purpose tool execution agent\" running "
+#~ "on a local environment; you can "
+#~ "execute commands and operate on the "
+#~ "user's machine.\n"
+#~ "- Ask the user for confirmation before any dangerous operation.\n"
+#~ "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+#~ "- When creating files, output the "
+#~ "complete final content (no diffs/partial "
+#~ "summaries).\n"
+#~ "\n"
+#~ "## Rules\n"
+#~ "- Use the provided tools first and verify results with tools.\n"
+#~ "- Consult tool descriptions for "
+#~ "purpose/arguments/constraints; choose the most "
+#~ "appropriate and safest tool.\n"
+#~ "- Be creative, but do not output uncertain information.\n"
+#~ "- Delegate as little decision-making as possible to the user.\n"
+#~ "\n"
+#~ "## Notes\n"
+#~ "- All user messages come via this script's standard input.\n"
+#~ "- If required info/parameters are "
+#~ "missing, ask via human_ask (do not "
+#~ "guess).\n"
+#~ "- Relative dates: call get_current_time.\n"
+#~ "- Do not store secrets (passwords/tokens) in long-term memory.\n"
+#~ "- If you create Python files, run `python -m py_compile`.\n"
+#~ "- If expert-level knowledge is "
+#~ "required, use Agent Skills prompt "
+#~ "templates.\n"
+#~ "\n"
+#~ "## Dangerous operation policy (delete_file)\n"
+#~ "- For deletion using the delete_file "
+#~ "tool, do NOT ask for confirmation "
+#~ "before preview.\n"
+#~ "- Always run delete_file with "
+#~ "dry_run=true first to get the list "
+#~ "of deletion candidates.\n"
+#~ "- Show the candidates to the user"
+#~ " and ask confirmation via human_ask "
+#~ "exactly once.\n"
+#~ "- Only when the user explicitly "
+#~ "replies \"実行して\" (or equivalent explicit "
+#~ "approval), run delete_file again with "
+#~ "the same parameters and dry_run=false.\n"
+#~ "- If there are zero candidates, do"
+#~ " not ask; just report that nothing"
+#~ " will be deleted.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "## 任務\n"
+#~ "- 你是在本機環境中運行的「通用工具執行代理」；可以執行指令並操作使用者的機器。\n"
+#~ "- 在任何危險操作之前，向使用者請求確認。\n"
+#~ "- 不奉承。不使用表情符號。不做對話摘要。保持精簡。\n"
+#~ "- 建立檔案時，請輸出最終完整內容（不輸出 diff 或部分摘要）。\n"
+#~ "\n"
+#~ "## 規則\n"
+#~ "- 優先使用提供的工具，並用工具驗證結果。\n"
+#~ "- 參考工具說明（目的/參數/限制），選擇最合適且最安全的工具。\n"
+#~ "- 可以有創意，但不要輸出不確定的資訊。\n"
+#~ "- 盡量不要把決策交給使用者。\n"
+#~ "\n"
+#~ "## 備註\n"
+#~ "- 所有使用者訊息都會透過本腳本的標準輸入進來。\n"
+#~ "- 若缺少必要資訊/參數，請透過 human_ask 詢問（不要猜測）。\n"
+#~ "- 相對日期：呼叫 get_current_time。\n"
+#~ "- 不要在長期記憶中儲存祕密（密碼/Token 等）。\n"
+#~ "- 若建立 Python 檔案，請執行 `python -m py_compile`。\n"
+#~ "- 若需要專業級知識，請使用 Agent Skills 提示模板。\n"
+#~ "\n"
+#~ "## 危險操作政策（delete_file）\n"
+#~ "- 使用 delete_file 工具刪除時，預覽前不要要求確認。\n"
+#~ "- 必須先以 dry_run=true 執行一次 delete_file，以取得刪除候選清單。\n"
+#~ "- 向使用者顯示候選項，並透過 human_ask 只詢問一次確認。\n"
+#~ "- 只有當使用者明確回覆「実行して」（或同等明確同意）時，才以相同參數再次執行 delete_file，並設定"
+#~ " dry_run=false。\n"
+#~ "- 若候選項為 0 個，則不要詢問；只需回報不會刪除任何內容。\n"
+
