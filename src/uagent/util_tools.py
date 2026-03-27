@@ -685,6 +685,34 @@ def _handle_cmd_skills(
         print(tr("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
         return True
 
+    if a.lower() in ("active", "status", "show", "list"):
+        prefix = _skills_marker_prefix()
+        active = []
+        for m in messages_ref or []:
+            if not isinstance(m, dict):
+                continue
+            if m.get("role") != "system":
+                continue
+            content = m.get("content")
+            if not isinstance(content, str):
+                continue
+            if not content.startswith(prefix):
+                continue
+            # Show header only (first line)
+            line = content.splitlines()[0].strip()
+            if line.startswith(prefix):
+                line = line[len(prefix) :].strip()
+            active.append(line)
+
+        if not active:
+            print(tr("[skills] No active skills."))
+            return True
+
+        print(tr("[skills] Active skills: %(n)d") % {"n": len(active)})
+        for i, line in enumerate(active, start=1):
+            print(f"[{i}] {line}")
+        return True
+
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
         from uagent.tools.skills_list_tool import run_tool as skills_list_tool
