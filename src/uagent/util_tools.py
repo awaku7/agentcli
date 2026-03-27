@@ -7,6 +7,10 @@ import subprocess
 import sys
 
 from .i18n import _
+
+# Default translation function used when core.tr is not provided.
+# Kept as a separate name for backward-compatibility.
+tr_ = _
 import base64
 import glob
 import mimetypes
