@@ -6,7 +6,7 @@ import re
 import subprocess
 import sys
 
-from .i18n import _ as tr_
+from .i18n import _
 import base64
 import glob
 import mimetypes
@@ -170,7 +170,7 @@ def try_open_images_from_text(text: str) -> None:
 
     if opened_any:
         print(
-            "[INFO] " + tr_("Opened image file with the default app."),
+            "[INFO] " + _("Opened image file with the default app."),
             file=sys.stderr,
         )
 
@@ -181,14 +181,14 @@ def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
         "--workdir",
         "-C",
         dest="workdir",
-        help=tr_(
+        help=_(
             "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the current directory."
         ),
     )
     parser.add_argument(
         "--non-interactive",
         action="store_true",
-        help=tr_(
+        help=_(
             "Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
         ),
     )
@@ -712,7 +712,7 @@ def _handle_cmd_skills(
             ok_mark = "OK" if ok else "WARN"
             print(f"[{i}] ({ok_mark}) {name}: {desc}")
 
-        sel_msg = tr_(
+        sel_msg = _(
             "Select a skill number to run. Enter c to cancel.\n"
             "Tip: :skills clear  (remove applied skills)\n\n"
             "Enter number:"
@@ -747,7 +747,7 @@ def _handle_cmd_skills(
             print(tr("[skills] Selected skill has no path."))
             return True
 
-        confirm_msg = tr_(
+        confirm_msg = _(
             "Run this skill as a system-level instruction and keep it active in this session?\n\n"
             "Name: %(name)s\n"
             "Path: %(path)s\n\n"
@@ -837,7 +837,7 @@ def _confirm_clean_delete(
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
 
-        msg = tr_(
+        msg = _(
             ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
             "Log dir: %(dir)s\n"
             "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
@@ -947,7 +947,7 @@ def _prepend_loaded_log_to_current(
         if not isinstance(cur_log, str) or not cur_log:
             return
 
-        msg2 = tr_(
+        msg2 = _(
             ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
             "Current log: %(cur_log)s\n"
             "Source log: %(src_log)s\n\n"
@@ -1098,7 +1098,7 @@ def _persist_messages_with_warn(
         core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
-            tr_(f"[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            _(f"[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
@@ -1113,7 +1113,7 @@ def _handle_cmd_shrink(
             keep_last = int(arg)
         except Exception:
             print(
-                tr_(
+                _(
                     "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
                 )
                 % {"arg": arg, "keep": keep_last}
@@ -1140,7 +1140,7 @@ def _handle_cmd_shrink_llm(
             keep_last = int(arg)
         except Exception:
             print(
-                tr_(
+                _(
                     "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
                 )
                 % {"arg": arg, "keep": keep_last}
@@ -1201,7 +1201,7 @@ def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
     if not shared_memory.is_enabled():
         print(
-            tr_(
+            _(
                 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
             )
         )
@@ -1234,7 +1234,7 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
 
     if not shared_memory.is_enabled():
         print(
-            tr_(
+            _(
                 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not set)."
             )
         )
@@ -1493,7 +1493,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
 
     max_chars = 4000
 
-    header = tr_(
+    header = _(
         "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). "
         "Use them as background information about the user. "
         "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"
