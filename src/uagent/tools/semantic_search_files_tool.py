@@ -80,6 +80,12 @@ def _emit_embedding_disabled_reason() -> None:
         try:
             import sys
 
+            # 他の出力と連結して読みにくくならないよう、前後の改行を保証する
+            if msg and not msg.startswith("\n"):
+                msg = "\n" + msg
+            if msg and not msg.endswith("\n"):
+                msg += "\n"
+
             sys.stderr.write(msg)
             sys.stderr.flush()
         except Exception:
