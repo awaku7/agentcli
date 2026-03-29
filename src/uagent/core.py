@@ -49,7 +49,7 @@ if os.name == "nt":
 #     bytes to a cp932 console.
 #
 _FORCE_STDIO_UTF8 = bool(
-    env_get("UAGENT_STDIO_UTF8") == "1"
+    env_get("UAGENT_STDIO_UTF8", "1") == "1"
     or (str(env_get("PYTHONIOENCODING") or "").lower().startswith("utf-8"))
 )
 
