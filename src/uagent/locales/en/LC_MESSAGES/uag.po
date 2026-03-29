@@ -380,6 +380,13 @@ msgid ""
 "- Do not summarize. Keep information concise.\n"
 "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
+"## Mission\n"
+"- You are a capable \\"general-purpose tool execution agent\\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+""
 
 #: src/uagent/core.py:1157
 msgid ""
@@ -389,6 +396,12 @@ msgid ""
 "- Consult available tools and choose the most appropriate one.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+""
 
 #: src/uagent/core.py:1164
 msgid ""
@@ -401,6 +414,15 @@ msgid ""
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 msgstr ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+""
 
 #: src/uagent/core.py:1174
 msgid ""
@@ -411,6 +433,13 @@ msgid ""
 "- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \\"y\\" or \\"yes\\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+""
 
 #: src/uagent/core.py:1182
 msgid ""
@@ -420,6 +449,12 @@ msgid ""
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
 "- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
+"## Mission\n"
+"- You are a capable \\"general-purpose tool execution agent\\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+""
 
 #: src/uagent/core.py:1189
 msgid ""
@@ -429,6 +464,12 @@ msgid ""
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+""
 
 #: src/uagent/core.py:1196
 msgid ""
@@ -440,6 +481,14 @@ msgid ""
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+""
 
 #: src/uagent/core.py:1260
 msgid "[Available Tools]"
@@ -637,18 +686,21 @@ msgstr "anthropic package is not installed."
 #: src/uagent/util_tools.py:173
 msgid "Opened image file with the default app."
 msgstr ""
+"Opened image file with the default app."
 
 #: src/uagent/util_tools.py:185
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
 msgstr ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the current directory."
 
 #: src/uagent/util_tools.py:192
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
 msgstr ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
 
 #: src/uagent/util_tools.py:716
 msgid ""
@@ -703,17 +755,25 @@ msgid ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
+":load will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
 
 #: src/uagent/util_tools.py:1117
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
+"[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1144
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1205 src/uagent/util_tools.py:1238
 #, fuzzy
@@ -726,9 +786,21 @@ msgstr ""
 
 #: src/uagent/util_tools.py:1497
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
+"
+"
+"
+"
+"
+""
 msgstr ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
+"
+"
+"
+"
+"
+""
 
 #: src/uagent/web.py:454
 msgid ""
@@ -850,22 +922,27 @@ msgstr "- \"Search the latest news and summarize a specific topic.\""
 #: src/uagent/tools/__init__.py:205
 msgid "log.load_fail.internal"
 msgstr ""
+"log.load_fail.internal"
 
 #: src/uagent/tools/__init__.py:230
 msgid "log.load_ok.external"
 msgstr ""
+"log.load_ok.external"
 
 #: src/uagent/tools/__init__.py:238
 msgid "log.load_fail.external"
 msgstr ""
+"log.load_fail.external"
 
 #: src/uagent/tools/__init__.py:248
 msgid "log.loaded_tools"
 msgstr ""
+"log.loaded_tools"
 
 #: src/uagent/tools/__init__.py:256
 msgid "log.no_valid_tools"
 msgstr ""
+"log.no_valid_tools"
 
 #: src/uagent/tools/add_long_memory_tool.py:21
 #: src/uagent/tools/add_shared_memory_tool.py:19
@@ -923,6 +1000,7 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:36
 msgid "tool.description"
 msgstr ""
+"tool.description"
 
 #: src/uagent/tools/add_long_memory_tool.py:27
 #: src/uagent/tools/add_shared_memory_tool.py:27
@@ -966,19 +1044,23 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:40
 msgid "tool.system_prompt"
 msgstr ""
+"tool.system_prompt"
 
 #: src/uagent/tools/add_long_memory_tool.py:40
 #: src/uagent/tools/add_shared_memory_tool.py:40
 msgid "param.note.description"
 msgstr ""
+"param.note.description"
 
 #: src/uagent/tools/add_long_memory_tool.py:56
 msgid "err.note_empty"
 msgstr ""
+"err.note_empty"
 
 #: src/uagent/tools/agent_skills_shared.py:130
 msgid "err.file_too_large"
 msgstr ""
+"err.file_too_large"
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"
@@ -987,111 +1069,138 @@ msgstr "{filename} not found: {path}"
 #: src/uagent/tools/agent_skills_shared.py:184
 msgid "err.frontmatter_missing_start"
 msgstr ""
+"err.frontmatter_missing_start"
 
 #: src/uagent/tools/agent_skills_shared.py:200
 msgid "err.frontmatter_missing_end"
 msgstr ""
+"err.frontmatter_missing_end"
 
 #: src/uagent/tools/agent_skills_shared.py:219
 msgid "err.frontmatter_parse_failed"
 msgstr ""
+"err.frontmatter_parse_failed"
 
 #: src/uagent/tools/agent_skills_shared.py:227
 msgid "err.frontmatter_not_mapping"
 msgstr ""
+"err.frontmatter_not_mapping"
 
 #: src/uagent/tools/agent_skills_shared.py:276
 msgid "err.fm_name_required"
 msgstr ""
+"err.fm_name_required"
 
 #: src/uagent/tools/agent_skills_shared.py:285
 msgid "err.fm_name_too_long"
 msgstr ""
+"err.fm_name_too_long"
 
 #: src/uagent/tools/agent_skills_shared.py:292
 msgid "err.fm_name_re"
 msgstr ""
+"err.fm_name_re"
 
 #: src/uagent/tools/agent_skills_shared.py:299
 msgid "err.fm_name_edge_hyphen"
 msgstr ""
+"err.fm_name_edge_hyphen"
 
 #: src/uagent/tools/agent_skills_shared.py:306
 msgid "err.fm_name_double_hyphen"
 msgstr ""
+"err.fm_name_double_hyphen"
 
 #: src/uagent/tools/agent_skills_shared.py:316
 msgid "err.fm_name_dir_mismatch"
 msgstr ""
+"err.fm_name_dir_mismatch"
 
 #: src/uagent/tools/agent_skills_shared.py:326
 msgid "err.fm_desc_required"
 msgstr ""
+"err.fm_desc_required"
 
 #: src/uagent/tools/agent_skills_shared.py:335
 msgid "err.fm_desc_too_long"
 msgstr ""
+"err.fm_desc_too_long"
 
 #: src/uagent/tools/agent_skills_shared.py:345
 msgid "err.fm_license_type"
 msgstr ""
+"err.fm_license_type"
 
 #: src/uagent/tools/agent_skills_shared.py:356
 msgid "err.fm_compat_type"
 msgstr ""
+"err.fm_compat_type"
 
 #: src/uagent/tools/agent_skills_shared.py:365
 msgid "err.fm_compat_empty"
 msgstr ""
+"err.fm_compat_empty"
 
 #: src/uagent/tools/agent_skills_shared.py:372
 msgid "err.fm_compat_too_long"
 msgstr ""
+"err.fm_compat_too_long"
 
 #: src/uagent/tools/agent_skills_shared.py:383
 msgid "err.fm_meta_type"
 msgstr ""
+"err.fm_meta_type"
 
 #: src/uagent/tools/agent_skills_shared.py:392
 msgid "err.fm_meta_key_type"
 msgstr ""
+"err.fm_meta_key_type"
 
 #: src/uagent/tools/agent_skills_shared.py:400
 msgid "err.fm_meta_val_type"
 msgstr ""
+"err.fm_meta_val_type"
 
 #: src/uagent/tools/agent_skills_shared.py:411
 msgid "err.fm_allowed_tools_type"
 msgstr ""
+"err.fm_allowed_tools_type"
 
 #: src/uagent/tools/agent_skills_shared.py:438
 msgid "err.relpath_required"
 msgstr ""
+"err.relpath_required"
 
 #: src/uagent/tools/agent_skills_shared.py:448
 msgid "err.abs_path_not_allowed"
 msgstr ""
+"err.abs_path_not_allowed"
 
 #: src/uagent/tools/agent_skills_shared.py:454
 msgid "err.dotdot_not_allowed"
 msgstr ""
+"err.dotdot_not_allowed"
 
 #: src/uagent/tools/agent_skills_shared.py:468
 msgid "err.relpath_points_to_root"
 msgstr ""
+"err.relpath_points_to_root"
 
 #: src/uagent/tools/agent_skills_shared.py:476
 msgid "err.path_traversal"
 msgstr ""
+"err.path_traversal"
 
 #: src/uagent/tools/analyze_image_tool.py:33
 msgid "param.image_path.description"
 msgstr ""
+"param.image_path.description"
 
 #: src/uagent/tools/analyze_image_tool.py:40
 #: src/uagent/tools/generate_image_tool.py:52
 msgid "param.prompt.description"
 msgstr ""
+"param.prompt.description"
 
 #: src/uagent/tools/binary_edit_tool.py:47
 #: src/uagent/tools/create_file_tool.py:53
@@ -1105,6 +1214,7 @@ msgstr ""
 #: src/uagent/tools/replace_in_file_tool.py:127
 msgid "param.path.description"
 msgstr ""
+"param.path.description"
 
 #: src/uagent/tools/binary_edit_tool.py:53
 #: src/uagent/tools/exstruct_tool.py:60
@@ -1113,6 +1223,7 @@ msgstr ""
 #: src/uagent/tools/replace_in_file_tool.py:135
 msgid "param.mode.description"
 msgstr ""
+"param.mode.description"
 
 #: src/uagent/tools/binary_edit_tool.py:59
 #: src/uagent/tools/delete_file_tool.py:69
@@ -1120,56 +1231,69 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:119
 msgid "param.dry_run.description"
 msgstr ""
+"param.dry_run.description"
 
 #: src/uagent/tools/binary_edit_tool.py:67
 #: src/uagent/tools/libcst_transform_tool.py:129
 #: src/uagent/tools/skills_read_file_tool.py:49
 msgid "param.max_bytes.description"
 msgstr ""
+"param.max_bytes.description"
 
 #: src/uagent/tools/binary_edit_tool.py:74
 msgid "param.offset.description"
 msgstr ""
+"param.offset.description"
 
 #: src/uagent/tools/binary_edit_tool.py:81
 msgid "param.data_hex.description"
 msgstr ""
+"param.data_hex.description"
 
 #: src/uagent/tools/binary_edit_tool.py:88
 msgid "param.search_hex.description"
 msgstr ""
+"param.search_hex.description"
 
 #: src/uagent/tools/binary_edit_tool.py:95
 msgid "param.replace_hex.description"
 msgstr ""
+"param.replace_hex.description"
 
 #: src/uagent/tools/binary_edit_tool.py:103
 msgid "param.occurrence.description"
 msgstr ""
+"param.occurrence.description"
 
 #: src/uagent/tools/binary_edit_tool.py:111
 msgid "param.splice_op.description"
 msgstr ""
+"param.splice_op.description"
 
 #: src/uagent/tools/binary_edit_tool.py:118
 msgid "param.delete_len.description"
 msgstr ""
+"param.delete_len.description"
 
 #: src/uagent/tools/binary_edit_tool.py:125
 msgid "param.patch_json.description"
 msgstr ""
+"param.patch_json.description"
 
 #: src/uagent/tools/calculator_tool.py:25
 msgid "param.expression.description"
 msgstr ""
+"param.expression.description"
 
 #: src/uagent/tools/calculator_tool.py:41
 msgid "err.expression_missing"
 msgstr ""
+"err.expression_missing"
 
 #: src/uagent/tools/calculator_tool.py:65
 msgid "err.eval"
 msgstr ""
+"err.eval"
 
 #: src/uagent/tools/catalog_tool.py:27
 #: src/uagent/tools/graph_rag_search_tool.py:1023
@@ -1177,24 +1301,29 @@ msgstr ""
 #: src/uagent/tools/semantic_search_files_tool.py:366
 msgid "param.query.description"
 msgstr ""
+"param.query.description"
 
 #: src/uagent/tools/catalog_tool.py:34
 #: src/uagent/tools/search_files_tool.py:84
 #: src/uagent/tools/search_web_tool.py:215
 msgid "param.max_results.description"
 msgstr ""
+"param.max_results.description"
 
 #: src/uagent/tools/change_workdir_tool.py:31
 msgid "param.new_dir.description"
 msgstr ""
+"param.new_dir.description"
 
 #: src/uagent/tools/change_workdir_tool.py:39
 msgid "param.confirm.description"
 msgstr ""
+"param.confirm.description"
 
 #: src/uagent/tools/change_workdir_tool.py:65
 msgid "confirm.change_workdir"
 msgstr ""
+"confirm.change_workdir"
 
 #: src/uagent/tools/cmd_exec_json_tool.py:40
 #: src/uagent/tools/cmd_exec_tool.py:40 src/uagent/tools/git_ops_tool.py:98
@@ -1203,12 +1332,14 @@ msgstr ""
 #: src/uagent/tools/spawn_process_tool.py:23
 msgid "param.command.description"
 msgstr ""
+"param.command.description"
 
 #: src/uagent/tools/cmd_exec_json_tool.py:47
 #: src/uagent/tools/lint_format_tool.py:88
 #: src/uagent/tools/run_tests_tool.py:71
 msgid "param.cwd.description"
 msgstr ""
+"param.cwd.description"
 
 #: src/uagent/tools/create_file_tool.py:46
 #: src/uagent/tools/delete_file_tool.py:43
@@ -1216,132 +1347,163 @@ msgstr ""
 #: src/uagent/tools/read_file_tool.py:67
 msgid "param.filename.description"
 msgstr ""
+"param.filename.description"
 
 #: src/uagent/tools/create_file_tool.py:60
 msgid "param.content.description"
 msgstr ""
+"param.content.description"
 
 #: src/uagent/tools/create_file_tool.py:67
 #: src/uagent/tools/replace_in_file_tool.py:173
 msgid "param.encoding.description"
 msgstr ""
+"param.encoding.description"
 
 #: src/uagent/tools/create_file_tool.py:74
 #: src/uagent/tools/rename_path_tool.py:56 src/uagent/tools/zip_ops_tool.py:95
 msgid "param.overwrite.description"
 msgstr ""
+"param.overwrite.description"
 
 #: src/uagent/tools/date_calc_tool.py:37
 msgid "param.base_date.description"
 msgstr ""
+"param.base_date.description"
 
 #: src/uagent/tools/date_calc_tool.py:44
 msgid "param.years.description"
 msgstr ""
+"param.years.description"
 
 #: src/uagent/tools/date_calc_tool.py:51
 msgid "param.months.description"
 msgstr ""
+"param.months.description"
 
 #: src/uagent/tools/date_calc_tool.py:58
 msgid "param.weeks.description"
 msgstr ""
+"param.weeks.description"
 
 #: src/uagent/tools/date_calc_tool.py:65
 msgid "param.days.description"
 msgstr ""
+"param.days.description"
 
 #: src/uagent/tools/date_calc_tool.py:72
 msgid "param.country.description"
 msgstr ""
+"param.country.description"
 
 #: src/uagent/tools/date_calc_tool.py:80
 msgid "param.check_holiday.description"
 msgstr ""
+"param.check_holiday.description"
 
 #: src/uagent/tools/db_query_tool.py:34
 msgid "param.db_path.description"
 msgstr ""
+"param.db_path.description"
 
 #: src/uagent/tools/db_query_tool.py:41
 msgid "param.sql.description"
 msgstr ""
+"param.sql.description"
 
 #: src/uagent/tools/delete_file_tool.py:61 src/uagent/tools/get_env_tool.py:38
 msgid "param.missing_ok.description"
 msgstr ""
+"param.missing_ok.description"
 
 #: src/uagent/tools/delete_file_tool.py:77
 msgid "param.allow_dir.description"
 msgstr ""
+"param.allow_dir.description"
 
 #: src/uagent/tools/delete_file_tool.py:239
 msgid "confirm.delete_paths_bulk"
 msgstr ""
+"confirm.delete_paths_bulk"
 
 #: src/uagent/tools/excel_ops_tool.py:36 src/uagent/tools/exstruct_tool.py:43
 #: src/uagent/tools/mcp_servers_tool.py:43 src/uagent/tools/zip_ops_tool.py:56
 msgid "param.action.description"
 msgstr ""
+"param.action.description"
 
 #: src/uagent/tools/excel_ops_tool.py:50 src/uagent/tools/exstruct_tool.py:52
 #: src/uagent/tools/screenshot_tool.py:39
 msgid "param.file_path.description"
 msgstr ""
+"param.file_path.description"
 
 #: src/uagent/tools/excel_ops_tool.py:57
 msgid "param.sheet_name.description"
 msgstr ""
+"param.sheet_name.description"
 
 #: src/uagent/tools/excel_ops_tool.py:66
 msgid "param.data.description"
 msgstr ""
+"param.data.description"
 
 #: src/uagent/tools/excel_ops_tool.py:74
 msgid "param.keep_sheets.description"
 msgstr ""
+"param.keep_sheets.description"
 
 #: src/uagent/tools/excel_ops_tool.py:84 src/uagent/tools/exstruct_tool.py:96
 msgid "param.output_path.description"
 msgstr ""
+"param.output_path.description"
 
 #: src/uagent/tools/exstruct_tool.py:67
 msgid "param.include_shapes.description"
 msgstr ""
+"param.include_shapes.description"
 
 #: src/uagent/tools/exstruct_tool.py:74
 msgid "param.include_cell_links.description"
 msgstr ""
+"param.include_cell_links.description"
 
 #: src/uagent/tools/exstruct_tool.py:81
 #: src/uagent/tools/mcp_servers_tool.py:67
 #: src/uagent/tools/mcp_tools_list_tool.py:80
 msgid "param.pretty.description"
 msgstr ""
+"param.pretty.description"
 
 #: src/uagent/tools/exstruct_tool.py:89 src/uagent/tools/get_geoip_tool.py:43
 msgid "param.format.description"
 msgstr ""
+"param.format.description"
 
 #: src/uagent/tools/exstruct_tool.py:103
 msgid "param.sheets_dir.description"
 msgstr ""
+"param.sheets_dir.description"
 
 #: src/uagent/tools/exstruct_tool.py:110
 msgid "param.print_areas_dir.description"
 msgstr ""
+"param.print_areas_dir.description"
 
 #: src/uagent/tools/exstruct_tool.py:117
 msgid "param.auto_page_breaks_dir.description"
 msgstr ""
+"param.auto_page_breaks_dir.description"
 
 #: src/uagent/tools/exstruct_tool.py:124
 msgid "param.table_score_threshold.description"
 msgstr ""
+"param.table_score_threshold.description"
 
 #: src/uagent/tools/exstruct_tool.py:131
 msgid "param.density_min.description"
 msgstr ""
+"param.density_min.description"
 
 #: src/uagent/tools/fetch_url_tool.py:35
 #: src/uagent/tools/handle_mcp_v2_tool.py:91
@@ -1350,50 +1512,61 @@ msgstr ""
 #: src/uagent/tools/playwright_inspector_tool.py:34
 msgid "param.url.description"
 msgstr ""
+"param.url.description"
 
 #: src/uagent/tools/file_exists_tool.py:109
 #: src/uagent/tools/safe_file_ops.py:186
 #: src/uagent/tools/safe_file_ops_extras.py:72
 msgid "err.path_empty"
 msgstr ""
+"err.path_empty"
 
 #: src/uagent/tools/file_hash_tool.py:46
 #: src/uagent/tools/libcst_transform_tool.py:89
 msgid "param.paths.description"
 msgstr ""
+"param.paths.description"
 
 #: src/uagent/tools/file_hash_tool.py:55
 msgid "param.algo.description"
 msgstr ""
+"param.algo.description"
 
 #: src/uagent/tools/file_hash_tool.py:62
 #: src/uagent/tools/graph_rag_search_tool.py:1065
 msgid "param.chunk_size.description"
 msgstr ""
+"param.chunk_size.description"
 
 #: src/uagent/tools/file_hash_tool.py:71
 msgid "param.return.description"
 msgstr ""
+"param.return.description"
 
 #: src/uagent/tools/find_large_files_tool.py:55
 msgid "param.root.description"
 msgstr ""
+"param.root.description"
 
 #: src/uagent/tools/find_large_files_tool.py:63
 msgid "param.top_n.description"
 msgstr ""
+"param.top_n.description"
 
 #: src/uagent/tools/find_large_files_tool.py:70
 msgid "param.min_bytes.description"
 msgstr ""
+"param.min_bytes.description"
 
 #: src/uagent/tools/find_large_files_tool.py:78
 msgid "param.group_by_ext.description"
 msgstr ""
+"param.group_by_ext.description"
 
 #: src/uagent/tools/find_large_files_tool.py:87
 msgid "param.exclude_dirs.description"
 msgstr ""
+"param.exclude_dirs.description"
 
 #: src/uagent/tools/find_large_files_tool.py:95
 #: src/uagent/tools/libcst_transform_tool.py:121
@@ -1401,195 +1574,241 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:103
 msgid "param.max_files.description"
 msgstr ""
+"param.max_files.description"
 
 #: src/uagent/tools/generate_image_tool.py:59
 msgid "param.size.description"
 msgstr ""
+"param.size.description"
 
 #: src/uagent/tools/generate_image_tool.py:67
 #: src/uagent/tools/search_web_tool.py:229
 msgid "param.n.description"
 msgstr ""
+"param.n.description"
 
 #: src/uagent/tools/generate_image_tool.py:77
 msgid "param.output_dir.description"
 msgstr ""
+"param.output_dir.description"
 
 #: src/uagent/tools/generate_image_tool.py:84
 msgid "param.file_prefix.description"
 msgstr ""
+"param.file_prefix.description"
 
 #: src/uagent/tools/generate_image_tool.py:213
 msgid "err.openai_import"
 msgstr ""
+"err.openai_import"
 
 #: src/uagent/tools/generate_image_tool.py:226
 msgid "err.httpx_init"
 msgstr ""
+"err.httpx_init"
 
 #: src/uagent/tools/generate_image_tool.py:303
 msgid "err.empty_data"
 msgstr ""
+"err.empty_data"
 
 #: src/uagent/tools/generate_image_tool.py:318
 msgid "err.gemini_import"
 msgstr ""
+"err.gemini_import"
 
 #: src/uagent/tools/generate_image_tool.py:373
 msgid "err.gemini_fail"
 msgstr ""
+"err.gemini_fail"
 
 #: src/uagent/tools/generate_image_tool.py:384
 msgid "err.prompt_empty"
 msgstr ""
+"err.prompt_empty"
 
 #: src/uagent/tools/generate_image_tool.py:402
 msgid "err.depname_missing"
 msgstr ""
+"err.depname_missing"
 
 #: src/uagent/tools/generate_image_tool.py:410
 msgid "err.mkdir_fail"
 msgstr ""
+"err.mkdir_fail"
 
 #: src/uagent/tools/generate_image_tool.py:449
 #: src/uagent/tools/vision_openai.py:93 src/uagent/tools/vision_runtime.py:61
 msgid "err.unsupported_provider"
 msgstr ""
+"err.unsupported_provider"
 
 #: src/uagent/tools/generate_image_tool.py:455
 msgid "err.gen_fail"
 msgstr ""
+"err.gen_fail"
 
 #: src/uagent/tools/generate_image_tool.py:460
 msgid "err.no_saved"
 msgstr ""
+"err.no_saved"
 
 #: src/uagent/tools/generate_prompt_tool.py:68
 msgid "param.template.description"
 msgstr ""
+"param.template.description"
 
 #: src/uagent/tools/generate_prompt_tool.py:88
 msgid "err.path_missing"
 msgstr ""
+"err.path_missing"
 
 #: src/uagent/tools/generate_prompt_tool.py:96
 msgid "err.template_missing"
 msgstr ""
+"err.template_missing"
 
 #: src/uagent/tools/generate_prompt_tool.py:111
 msgid "err.not_a_file"
 msgstr ""
+"err.not_a_file"
 
 #: src/uagent/tools/generate_prompt_tool.py:136
 msgid "err.bad_template"
 msgstr ""
+"err.bad_template"
 
 #: src/uagent/tools/get_env_tool.py:31
 #: src/uagent/tools/mcp_servers_tool.py:102
 msgid "param.name.description"
 msgstr ""
+"param.name.description"
 
 #: src/uagent/tools/get_env_tool.py:45
 msgid "param.mask.description"
 msgstr ""
+"param.mask.description"
 
 #: src/uagent/tools/get_env_tool.py:52
 msgid "param.unmasked_chars.description"
 msgstr ""
+"param.unmasked_chars.description"
 
 #: src/uagent/tools/get_env_tool.py:95
 msgid "err.name_required"
 msgstr ""
+"err.name_required"
 
 #: src/uagent/tools/get_geoip_tool.py:59
 msgid "err.format_invalid"
 msgstr ""
+"err.format_invalid"
 
 #: src/uagent/tools/git_ops_tool.py:106
 #: src/uagent/tools/mcp_servers_tool.py:124
 msgid "param.args.description"
 msgstr ""
+"param.args.description"
 
 #: src/uagent/tools/git_ops_tool.py:113
 msgid "param.allow_danger.description"
 msgstr ""
+"param.allow_danger.description"
 
 #: src/uagent/tools/git_ops_tool.py:193
 msgid "error.git_not_found"
 msgstr ""
+"error.git_not_found"
 
 #: src/uagent/tools/git_ops_tool.py:202
 msgid "error.timeout"
 msgstr ""
+"error.timeout"
 
 #: src/uagent/tools/git_ops_tool.py:210
 msgid "error.unexpected"
 msgstr ""
+"error.unexpected"
 
 #: src/uagent/tools/git_ops_tool.py:247
 msgid "error.meta_char"
 msgstr ""
+"error.meta_char"
 
 #: src/uagent/tools/git_ops_tool.py:284 src/uagent/tools/git_ops_tool.py:292
 msgid "error.option_denied"
 msgstr ""
+"error.option_denied"
 
 #: src/uagent/tools/git_ops_tool.py:302 src/uagent/tools/git_ops_tool.py:486
 msgid "error.option_danger_requires_allow_danger"
 msgstr ""
+"error.option_danger_requires_allow_danger"
 
 #: src/uagent/tools/git_ops_tool.py:319
 msgid "error.option_not_allowed"
 msgstr ""
+"error.option_not_allowed"
 
 #: src/uagent/tools/git_ops_tool.py:377
 msgid "error.invalid_command"
 msgstr ""
+"error.invalid_command"
 
 #: src/uagent/tools/graph_rag_search_tool.py:854
 #: src/uagent/tools/semantic_search_files_tool.py:247
 msgid "err.dir_not_found"
 msgstr ""
+"err.dir_not_found"
 
 #: src/uagent/tools/graph_rag_search_tool.py:924
 #: src/uagent/tools/semantic_search_files_tool.py:311
 msgid "out.query"
 msgstr ""
+"out.query"
 
 #: src/uagent/tools/graph_rag_search_tool.py:926
 #: src/uagent/tools/semantic_search_files_tool.py:312
 msgid "out.target_dir"
 msgstr ""
+"out.target_dir"
 
 #: src/uagent/tools/graph_rag_search_tool.py:930
 msgid "out.db"
 msgstr ""
+"out.db"
 
 #: src/uagent/tools/graph_rag_search_tool.py:933
 msgid "out.hits_summary"
 msgstr ""
+"out.hits_summary"
 
 #: src/uagent/tools/graph_rag_search_tool.py:948
 msgid "warn.indexing_title"
 msgstr ""
+"warn.indexing_title"
 
 #: src/uagent/tools/graph_rag_search_tool.py:958
 msgid "out.results_title"
 msgstr ""
+"out.results_title"
 
 #: src/uagent/tools/graph_rag_search_tool.py:967
 #: src/uagent/tools/semantic_search_files_tool.py:328
 msgid "out.result_content"
 msgstr ""
+"out.result_content"
 
 #: src/uagent/tools/graph_rag_search_tool.py:973
 msgid "out.no_docs"
 msgstr ""
+"out.no_docs"
 
 #: src/uagent/tools/graph_rag_search_tool.py:981
 #: src/uagent/tools/semantic_search_files_tool.py:339
 msgid "err.query_required"
 msgstr ""
+"err.query_required"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1030
 #: src/uagent/tools/index_files_tool.py:48
@@ -1597,291 +1816,360 @@ msgstr ""
 #: src/uagent/tools/semantic_search_files_tool.py:372
 msgid "param.root_path.description"
 msgstr ""
+"param.root_path.description"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1037
 #: src/uagent/tools/semantic_search_files_tool.py:379
 msgid "param.file_pattern.description"
 msgstr ""
+"param.file_pattern.description"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1044
 msgid "param.top_k_vector.description"
 msgstr ""
+"param.top_k_vector.description"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1051
 msgid "param.top_k_graph.description"
 msgstr ""
+"param.top_k_graph.description"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1058
 msgid "param.hops.description"
 msgstr ""
+"param.hops.description"
 
 #: src/uagent/tools/graph_rag_search_tool.py:1071
 msgid "param.overlap.description"
 msgstr ""
+"param.overlap.description"
 
 #: src/uagent/tools/handle_mcp_v2_tool.py:84
 #: src/uagent/tools/mcp_servers_tool.py:188
 #: src/uagent/tools/mcp_tools_list_tool.py:73
 msgid "param.server_name.description"
 msgstr ""
+"param.server_name.description"
 
 #: src/uagent/tools/handle_mcp_v2_tool.py:98
 msgid "param.tool_name.description"
 msgstr ""
+"param.tool_name.description"
 
 #: src/uagent/tools/handle_mcp_v2_tool.py:108
 msgid "param.tool_arguments.description"
 msgstr ""
+"param.tool_arguments.description"
 
 #: src/uagent/tools/handle_mcp_v2_tool.py:342
 msgid "err.tool_name_required"
 msgstr ""
+"err.tool_name_required"
 
 #: src/uagent/tools/handle_mcp_v2_tool.py:390
 msgid "err.stdio_url_invalid"
 msgstr ""
+"err.stdio_url_invalid"
 
 #: src/uagent/tools/human_ask_tool.py:53 src/uagent/tools/set_timer_tool.py:39
 msgid "param.message.description"
 msgstr ""
+"param.message.description"
 
 #: src/uagent/tools/human_ask_tool.py:60
 msgid "param.is_password.description"
 msgstr ""
+"param.is_password.description"
 
 #: src/uagent/tools/human_ask_tool.py:84
 msgid "msg.empty_request"
 msgstr ""
+"msg.empty_request"
 
 #: src/uagent/tools/human_ask_tool.py:92
 msgid "ui.title"
 msgstr ""
+"ui.title"
 
 #: src/uagent/tools/human_ask_tool.py:94
 msgid "ui.footer"
 msgstr ""
+"ui.footer"
 
 #: src/uagent/tools/human_ask_tool.py:100
 msgid "ui.howto"
 msgstr ""
+"ui.howto"
 
 #: src/uagent/tools/human_ask_tool.py:114
 msgid "err.lock_uninitialized"
 msgstr ""
+"err.lock_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:120
 msgid "err.active_uninitialized"
 msgstr ""
+"err.active_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:126
 #: src/uagent/tools/set_timer_tool.py:82
 msgid "err.queue_uninitialized"
 msgstr ""
+"err.queue_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:132
 msgid "err.lines_uninitialized"
 msgstr ""
+"err.lines_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:138
 msgid "err.multiline_uninitialized"
 msgstr ""
+"err.multiline_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:144
 msgid "err.password_uninitialized"
 msgstr ""
+"err.password_uninitialized"
 
 #: src/uagent/tools/human_ask_tool.py:154
 msgid "err.already_active"
 msgstr ""
+"err.already_active"
 
 #: src/uagent/tools/human_ask_tool.py:235
 msgid "msg.no_user_reply"
 msgstr ""
+"msg.no_user_reply"
 
 #: src/uagent/tools/index_files_tool.py:41
 #: src/uagent/tools/replace_in_file_tool.py:143
 msgid "param.pattern.description"
 msgstr ""
+"param.pattern.description"
 
 #: src/uagent/tools/index_files_tool.py:56
 #: src/uagent/tools/recalc_excel_tool.py:54
 #: src/uagent/tools/skills_list_tool.py:44
 msgid "param.recursive.description"
 msgstr ""
+"param.recursive.description"
 
 #: src/uagent/tools/index_files_tool.py:71
 msgid "err.vec_unavailable"
 msgstr ""
+"err.vec_unavailable"
 
 #: src/uagent/tools/index_files_tool.py:80
 msgid "err.pattern_required"
 msgstr ""
+"err.pattern_required"
 
 #: src/uagent/tools/index_files_tool.py:85
 msgid "err.root_not_dir"
 msgstr ""
+"err.root_not_dir"
 
 #: src/uagent/tools/index_files_tool.py:95
 msgid "err.glob_fail"
 msgstr ""
+"err.glob_fail"
 
 #: src/uagent/tools/index_files_tool.py:104
 #: src/uagent/tools/semantic_search_files_tool.py:308
 msgid "out.not_found"
 msgstr ""
+"out.not_found"
 
 #: src/uagent/tools/index_files_tool.py:119
 msgid "out.completed"
 msgstr ""
+"out.completed"
 
 #: src/uagent/tools/index_files_tool.py:120
 msgid "out.pattern"
 msgstr ""
+"out.pattern"
 
 #: src/uagent/tools/index_files_tool.py:121
 msgid "out.root"
 msgstr ""
+"out.root"
 
 #: src/uagent/tools/index_files_tool.py:122
 msgid "out.success"
 msgstr ""
+"out.success"
 
 #: src/uagent/tools/index_files_tool.py:126
 msgid "out.fail"
 msgstr ""
+"out.fail"
 
 #: src/uagent/tools/index_files_tool.py:131
 msgid "out.footer"
 msgstr ""
+"out.footer"
 
 #: src/uagent/tools/libcst_transform_tool.py:96
 #: src/uagent/tools/recalc_excel_tool.py:47
 msgid "param.include_glob.description"
 msgstr ""
+"param.include_glob.description"
 
 #: src/uagent/tools/libcst_transform_tool.py:105
 #: src/uagent/tools/zip_ops_tool.py:87
 msgid "param.exclude_globs.description"
 msgstr ""
+"param.exclude_globs.description"
 
 #: src/uagent/tools/libcst_transform_tool.py:177
 msgid "param.ops.description"
 msgstr ""
+"param.ops.description"
 
 #: src/uagent/tools/libcst_transform_tool.py:199
 #: src/uagent/tools/replace_in_file_tool.py:157
 msgid "param.preview.description"
 msgstr ""
+"param.preview.description"
 
 #: src/uagent/tools/lint_format_tool.py:53
 msgid "param.tools.description"
 msgstr ""
+"param.tools.description"
 
 #: src/uagent/tools/lint_format_tool.py:71
 msgid "param.targets.description"
 msgstr ""
+"param.targets.description"
 
 #: src/uagent/tools/lint_format_tool.py:80
 #: src/uagent/tools/run_tests_tool.py:63
 msgid "param.extra_args.description"
 msgstr ""
+"param.extra_args.description"
 
 #: src/uagent/tools/lint_format_tool.py:243
 msgid "confirm.msg"
 msgstr ""
+"confirm.msg"
 
 #: src/uagent/tools/list_windows_titles_tool.py:35
 msgid "param.all.description"
 msgstr ""
+"param.all.description"
 
 #: src/uagent/tools/list_windows_titles_tool.py:42
 msgid "param.pid.description"
 msgstr ""
+"param.pid.description"
 
 #: src/uagent/tools/list_windows_titles_tool.py:49
 msgid "param.class.description"
 msgstr ""
+"param.class.description"
 
 #: src/uagent/tools/long_memory.py:58
 msgid "msg.no_memory"
 msgstr ""
+"msg.no_memory"
 
 #: src/uagent/tools/long_memory.py:60 src/uagent/tools/shared_memory.py:89
 msgid "err.load"
 msgstr ""
+"err.load"
 
 #: src/uagent/tools/long_memory.py:68 src/uagent/tools/read_file_tool.py:206
 #: src/uagent/tools/shared_memory.py:97
 msgid "msg.truncated"
 msgstr ""
+"msg.truncated"
 
 #: src/uagent/tools/mcp_servers_tool.py:76
 msgid "param.validate.description"
 msgstr ""
+"param.validate.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:84
 msgid "param.default_only.description"
 msgstr ""
+"param.default_only.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:93
 msgid "param.fail_on_warning.description"
 msgstr ""
+"param.fail_on_warning.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:131
 msgid "param.env.description"
 msgstr ""
+"param.env.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:139
 msgid "param.transport.description"
 msgstr ""
+"param.transport.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:147
 msgid "param.set_default.description"
 msgstr ""
+"param.set_default.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:155
 msgid "param.replace.description"
 msgstr ""
+"param.replace.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:163
 msgid "param.create_if_missing.description"
 msgstr ""
+"param.create_if_missing.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:172
 msgid "param.index.description"
 msgstr ""
+"param.index.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:179
 msgid "param.require_nonempty.description"
 msgstr ""
+"param.require_nonempty.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:196
 msgid "param.default_name.description"
 msgstr ""
+"param.default_name.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:204
 msgid "param.default_url.description"
 msgstr ""
+"param.default_url.description"
 
 #: src/uagent/tools/mcp_servers_tool.py:241
 msgid "err.not_exists"
 msgstr ""
+"err.not_exists"
 
 #: src/uagent/tools/mcp_servers_tool.py:250
 msgid "warn.not_exists_new"
 msgstr ""
+"warn.not_exists_new"
 
 #: src/uagent/tools/mcp_servers_tool.py:258
 msgid "warn.not_exists"
 msgstr ""
+"warn.not_exists"
 
 #: src/uagent/tools/mcp_servers_tool.py:270
 msgid "err.load_fail"
 msgstr ""
+"err.load_fail"
 
 #: src/uagent/tools/mcp_servers_tool.py:277
 msgid "err.root_not_dict"
 msgstr ""
+"err.root_not_dict"
 
 #: src/uagent/tools/mcp_servers_tool.py:284
 #, fuzzy
@@ -1891,561 +2179,698 @@ msgstr "[MCP Servers]"
 #: src/uagent/tools/mcp_servers_tool.py:292
 msgid "err.mcp_servers_not_list"
 msgstr ""
+"err.mcp_servers_not_list"
 
 #: src/uagent/tools/mcp_servers_tool.py:315
 msgid "warn.item_not_dict"
 msgstr ""
+"warn.item_not_dict"
 
 #: src/uagent/tools/mcp_servers_tool.py:328
 msgid "warn.name_missing"
 msgstr ""
+"warn.name_missing"
 
 #: src/uagent/tools/mcp_servers_tool.py:340
 #: src/uagent/tools/mcp_servers_tool.py:411
 msgid "warn.url_no_mcp"
 msgstr ""
+"warn.url_no_mcp"
 
 #: src/uagent/tools/mcp_servers_tool.py:350
 msgid "warn.endpoint_missing"
 msgstr ""
+"warn.endpoint_missing"
 
 #: src/uagent/tools/mcp_servers_tool.py:359
 msgid "warn.name_duplicate"
 msgstr ""
+"warn.name_duplicate"
 
 #: src/uagent/tools/mcp_servers_tool.py:377
 msgid "err.item_not_dict"
 msgstr ""
+"err.item_not_dict"
 
 #: src/uagent/tools/mcp_servers_tool.py:390
 msgid "err.name_missing"
 msgstr ""
+"err.name_missing"
 
 #: src/uagent/tools/mcp_servers_tool.py:403
 msgid "err.endpoint_missing"
 msgstr ""
+"err.endpoint_missing"
 
 #: src/uagent/tools/mcp_servers_tool.py:420
 msgid "err.name_duplicate"
 msgstr ""
+"err.name_duplicate"
 
 #: src/uagent/tools/playwright_inspector_tool.py:41
 msgid "param.prefix.description"
 msgstr ""
+"param.prefix.description"
 
 #: src/uagent/tools/playwright_inspector_tool.py:60
 msgid "ui.started"
 msgstr ""
+"ui.started"
 
 #: src/uagent/tools/playwright_inspector_tool.py:62
 msgid "ui.resume_prompt"
 msgstr ""
+"ui.resume_prompt"
 
 #: src/uagent/tools/playwright_inspector_tool.py:66
 msgid "ui.captured"
 msgstr ""
+"ui.captured"
 
 #: src/uagent/tools/playwright_inspector_tool.py:306
 msgid "err.child_failed"
 msgstr ""
+"err.child_failed"
 
 #: src/uagent/tools/playwright_inspector_tool.py:311
 #: src/uagent/tools/screenshot_tool.py:131
 #: src/uagent/tools/set_timer_tool.py:94
 msgid "out.ok"
 msgstr ""
+"out.ok"
 
 #: src/uagent/tools/pwsh_exec_tool.py:109
 msgid "param.shell.description"
 msgstr ""
+"param.shell.description"
 
 #: src/uagent/tools/pwsh_exec_tool.py:148
 msgid "err.command_required"
 msgstr ""
+"err.command_required"
 
 #: src/uagent/tools/pwsh_exec_tool.py:181
 msgid "err.timeout"
 msgstr ""
+"err.timeout"
 
 #: src/uagent/tools/python_exec_tool.py:46
 msgid "param.code.description"
 msgstr ""
+"param.code.description"
 
 #: src/uagent/tools/read_file_tool.py:81
 msgid "param.start_line.description"
 msgstr ""
+"param.start_line.description"
 
 #: src/uagent/tools/read_file_tool.py:89
 msgid "param.max_lines.description"
 msgstr ""
+"param.max_lines.description"
 
 #: src/uagent/tools/read_file_tool.py:97
 msgid "param.head_lines.description"
 msgstr ""
+"param.head_lines.description"
 
 #: src/uagent/tools/read_file_tool.py:105
 msgid "param.tail_lines.description"
 msgstr ""
+"param.tail_lines.description"
 
 #: src/uagent/tools/read_file_tool.py:124
 msgid "err.filename_missing"
 msgstr ""
+"err.filename_missing"
 
 #: src/uagent/tools/read_file_tool.py:136
 msgid "err.dual_lines"
 msgstr ""
+"err.dual_lines"
 
 #: src/uagent/tools/read_file_tool.py:214
 msgid "err.out_of_range"
 msgstr ""
+"err.out_of_range"
 
 #: src/uagent/tools/read_pptx_pdf_tool.py:86
 msgid "param.page_index.description"
 msgstr ""
+"param.page_index.description"
 
 #: src/uagent/tools/read_pptx_pdf_tool.py:96
 msgid "param.max_chars.description"
 msgstr ""
+"param.max_chars.description"
 
 #: src/uagent/tools/read_pptx_pdf_tool.py:464
 #: src/uagent/tools/recalc_excel_tool.py:162
 msgid "err.path_required"
 msgstr ""
+"err.path_required"
 
 #: src/uagent/tools/read_pptx_pdf_tool.py:502
 msgid "err.page_index_int"
 msgstr ""
+"err.page_index_int"
 
 #: src/uagent/tools/recalc_excel_tool.py:61
 msgid "param.backup.description"
 msgstr ""
+"param.backup.description"
 
 #: src/uagent/tools/recalc_excel_tool.py:75
 msgid "param.visible.description"
 msgstr ""
+"param.visible.description"
 
 #: src/uagent/tools/recalc_excel_tool.py:99
 #: src/uagent/tools/safe_file_ops.py:296
 msgid "err.path_not_found"
 msgstr ""
+"err.path_not_found"
 
 #: src/uagent/tools/recalc_excel_tool.py:108
 msgid "err.file_ext"
 msgstr ""
+"err.file_ext"
 
 #: src/uagent/tools/recalc_excel_tool.py:117
 msgid "err.max_files_positive"
 msgstr ""
+"err.max_files_positive"
 
 #: src/uagent/tools/recalc_excel_tool.py:164
 msgid "err.recursive_bool"
 msgstr ""
+"err.recursive_bool"
 
 #: src/uagent/tools/recalc_excel_tool.py:166
 msgid "err.backup_bool"
 msgstr ""
+"err.backup_bool"
 
 #: src/uagent/tools/recalc_excel_tool.py:168
 msgid "err.dry_run_bool"
 msgstr ""
+"err.dry_run_bool"
 
 #: src/uagent/tools/recalc_excel_tool.py:170
 msgid "err.visible_bool"
 msgstr ""
+"err.visible_bool"
 
 #: src/uagent/tools/recalc_excel_tool.py:176
 msgid "err.max_files_int"
 msgstr ""
+"err.max_files_int"
 
 #: src/uagent/tools/recalc_excel_tool.py:196
 msgid "err.windows_only"
 msgstr ""
+"err.windows_only"
 
 #: src/uagent/tools/recalc_excel_tool.py:207
 msgid "err.pywin32_required"
 msgstr ""
+"err.pywin32_required"
 
 #: src/uagent/tools/rename_path_tool.py:42
 msgid "param.src.description"
 msgstr ""
+"param.src.description"
 
 #: src/uagent/tools/rename_path_tool.py:49
 msgid "param.dst.description"
 msgstr ""
+"param.dst.description"
 
 #: src/uagent/tools/rename_path_tool.py:64
 msgid "param.mkdirs.description"
 msgstr ""
+"param.mkdirs.description"
 
 #: src/uagent/tools/replace_in_file_tool.py:116
 msgid "param.expand_newline_tokens.description"
 msgstr ""
+"param.expand_newline_tokens.description"
 
 #: src/uagent/tools/replace_in_file_tool.py:150
 msgid "param.replacement.description"
 msgstr ""
+"param.replacement.description"
 
 #: src/uagent/tools/replace_in_file_tool.py:165
 msgid "param.confirm_over.description"
 msgstr ""
+"param.confirm_over.description"
 
 #: src/uagent/tools/replace_in_file_tool.py:344
 msgid "err.invalid_mode"
 msgstr ""
+"err.invalid_mode"
 
 #: src/uagent/tools/replace_in_file_tool.py:356
 msgid "err.preview_not_bool"
 msgstr ""
+"err.preview_not_bool"
 
 #: src/uagent/tools/replace_in_file_tool.py:369
 msgid "err.expand_newline_tokens_not_bool"
 msgstr ""
+"err.expand_newline_tokens_not_bool"
 
 #: src/uagent/tools/run_tests_tool.py:47
 msgid "param.framework.description"
 msgstr ""
+"param.framework.description"
 
 #: src/uagent/tools/run_tests_tool.py:54
 msgid "param.target.description"
 msgstr ""
+"param.target.description"
 
 #: src/uagent/tools/run_tests_tool.py:79
 msgid "param.pythonpath.description"
 msgstr ""
+"param.pythonpath.description"
 
 #: src/uagent/tools/run_tests_tool.py:88
 msgid "param.report.description"
 msgstr ""
+"param.report.description"
 
 #: src/uagent/tools/run_tests_tool.py:103
 msgid "error.shell_metacharacters_not_allowed"
 msgstr ""
+"error.shell_metacharacters_not_allowed"
 
 #: src/uagent/tools/run_tests_tool.py:189
 msgid "error.invalid_framework"
 msgstr ""
+"error.invalid_framework"
 
 #: src/uagent/tools/run_tests_tool.py:200
 msgid "error.invalid_report"
 msgstr ""
+"error.invalid_report"
 
 #: src/uagent/tools/run_tests_tool.py:221
 msgid "error.dangerous_cwd_rejected"
 msgstr ""
+"error.dangerous_cwd_rejected"
 
 #: src/uagent/tools/run_tests_tool.py:234
 msgid "error.cwd_not_allowed"
 msgstr ""
+"error.cwd_not_allowed"
 
 #: src/uagent/tools/run_tests_tool.py:248
 msgid "error.framework_auto_detect_failed"
 msgstr ""
+"error.framework_auto_detect_failed"
 
 #: src/uagent/tools/run_tests_tool.py:279
 msgid "error.unsupported_framework"
 msgstr ""
+"error.unsupported_framework"
 
 #: src/uagent/tools/safe_exec_ops.py:100
 msgid "err.empty_command"
 msgstr ""
+"err.empty_command"
 
 #: src/uagent/tools/safe_exec_ops.py:107
 msgid "err.blocked_by_rule"
 msgstr ""
+"err.blocked_by_rule"
 
 #: src/uagent/tools/safe_exec_ops.py:115
 msgid "confirm.risky_command"
 msgstr ""
+"confirm.risky_command"
 
 #: src/uagent/tools/safe_exec_ops.py:133
 msgid "confirm.shell_metachar"
 msgstr ""
+"confirm.shell_metachar"
 
 #: src/uagent/tools/safe_exec_ops.py:147
 msgid "msg.allowed"
 msgstr ""
+"msg.allowed"
 
 #: src/uagent/tools/safe_exec_ops.py:170 src/uagent/tools/safe_exec_ops.py:244
 msgid "err.callbacks_unavailable"
 msgstr ""
+"err.callbacks_unavailable"
 
 #: src/uagent/tools/safe_exec_ops.py:199
 msgid "err.confirm_timeout"
 msgstr ""
+"err.confirm_timeout"
 
 #: src/uagent/tools/safe_exec_ops.py:204 src/uagent/tools/safe_file_ops.py:105
 msgid "ui.confirm.title"
 msgstr ""
+"ui.confirm.title"
 
 #: src/uagent/tools/safe_exec_ops.py:208 src/uagent/tools/safe_file_ops.py:109
 msgid "ui.confirm.footer"
 msgstr ""
+"ui.confirm.footer"
 
 #: src/uagent/tools/safe_exec_ops.py:211 src/uagent/tools/safe_file_ops.py:112
 msgid "ui.confirm.howto"
 msgstr ""
+"ui.confirm.howto"
 
 #: src/uagent/tools/safe_exec_ops.py:228 src/uagent/tools/safe_exec_ops.py:258
 msgid "err.blocked_cancelled"
 msgstr ""
+"err.blocked_cancelled"
 
 #: src/uagent/tools/safe_exec_ops.py:229 src/uagent/tools/safe_exec_ops.py:259
 msgid "err.blocked_rejected"
 msgstr ""
+"err.blocked_rejected"
 
 #: src/uagent/tools/safe_exec_ops.py:249
 msgid "ui.fallback_prompt"
 msgstr ""
+"ui.fallback_prompt"
 
 #: src/uagent/tools/safe_exec_ops.py:252
 msgid "err.confirm_failed"
 msgstr ""
+"err.confirm_failed"
 
 #: src/uagent/tools/safe_file_ops.py:131
 msgid "confirm.risky_op"
 msgstr ""
+"confirm.risky_op"
 
 #: src/uagent/tools/safe_file_ops.py:144
 msgid "confirm.rename"
 msgstr ""
+"confirm.rename"
 
 #: src/uagent/tools/safe_file_ops.py:192
 #: src/uagent/tools/safe_file_ops_extras.py:79
 msgid "err.outside_workdir"
 msgstr ""
+"err.outside_workdir"
 
 #: src/uagent/tools/safe_file_ops.py:203
 #: src/uagent/tools/safe_file_ops_extras.py:104
 msgid "err.file_not_found"
 msgstr ""
+"err.file_not_found"
 
 #: src/uagent/tools/safe_file_ops.py:238
 msgid "err.create_cancel"
 msgstr ""
+"err.create_cancel"
 
 #: src/uagent/tools/safe_file_ops.py:248
 msgid "err.exists_overwrite_false"
 msgstr ""
+"err.exists_overwrite_false"
 
 #: src/uagent/tools/safe_file_ops.py:264
 msgid "err.delete_cancel"
 msgstr ""
+"err.delete_cancel"
 
 #: src/uagent/tools/safe_file_ops.py:285
 msgid "err.delete_path_cancel"
 msgstr ""
+"err.delete_path_cancel"
 
 #: src/uagent/tools/safe_file_ops.py:306
 msgid "err.delete_dir_cancel"
 msgstr ""
+"err.delete_dir_cancel"
 
 #: src/uagent/tools/safe_file_ops.py:323
 msgid "err.src_dst_required"
 msgstr ""
+"err.src_dst_required"
 
 #: src/uagent/tools/safe_file_ops.py:327
 msgid "err.src_not_found"
 msgstr ""
+"err.src_not_found"
 
 #: src/uagent/tools/safe_file_ops.py:338
 msgid "reason.src_trigger"
 msgstr ""
+"reason.src_trigger"
 
 #: src/uagent/tools/safe_file_ops.py:343
 msgid "reason.dst_trigger"
 msgstr ""
+"reason.dst_trigger"
 
 #: src/uagent/tools/safe_file_ops.py:351
 msgid "reason.overwrite_delete"
 msgstr ""
+"reason.overwrite_delete"
 
 #: src/uagent/tools/safe_file_ops.py:358
 msgid "err.dst_exists_overwrite_false"
 msgstr ""
+"err.dst_exists_overwrite_false"
 
 #: src/uagent/tools/safe_file_ops.py:369
 msgid "err.rename_cancel"
 msgstr ""
+"err.rename_cancel"
 
 #: src/uagent/tools/screenshot_tool.py:46
 msgid "param.window_title.description"
 msgstr ""
+"param.window_title.description"
 
 #: src/uagent/tools/screenshot_tool.py:53
 msgid "param.delay.description"
 msgstr ""
+"param.delay.description"
 
 #: src/uagent/tools/screenshot_tool.py:60
 msgid "param.close_window.description"
 msgstr ""
+"param.close_window.description"
 
 #: src/uagent/tools/screenshot_tool.py:74
 msgid "err.pyautogui_missing"
 msgstr ""
+"err.pyautogui_missing"
 
 #: src/uagent/tools/screenshot_tool.py:81
 msgid "err.pygetwindow_missing"
 msgstr ""
+"err.pygetwindow_missing"
 
 #: src/uagent/tools/screenshot_tool.py:102
 msgid "err.window_not_found"
 msgstr ""
+"err.window_not_found"
 
 #: src/uagent/tools/screenshot_tool.py:139
 msgid "out.ok_closed"
 msgstr ""
+"out.ok_closed"
 
 #: src/uagent/tools/screenshot_tool.py:144
 msgid "err.close_fail"
 msgstr ""
+"err.close_fail"
 
 #: src/uagent/tools/screenshot_tool.py:152
 msgid "err.capture_fail"
 msgstr ""
+"err.capture_fail"
 
 #: src/uagent/tools/search_files_tool.py:58
 msgid "param.name_pattern.description"
 msgstr ""
+"param.name_pattern.description"
 
 #: src/uagent/tools/search_files_tool.py:67
 msgid "param.content_pattern.description"
 msgstr ""
+"param.content_pattern.description"
 
 #: src/uagent/tools/search_files_tool.py:77
 msgid "param.case_sensitive.description"
 msgstr ""
+"param.case_sensitive.description"
 
 #: src/uagent/tools/search_files_tool.py:91
 msgid "param.exclude_binary.description"
 msgstr ""
+"param.exclude_binary.description"
 
 #: src/uagent/tools/search_files_tool.py:101
 msgid "param.binary_sniff_bytes.description"
 msgstr ""
+"param.binary_sniff_bytes.description"
 
 #: src/uagent/tools/search_files_tool.py:109
 msgid "param.fast_read_threshold_bytes.description"
 msgstr ""
+"param.fast_read_threshold_bytes.description"
 
 #: src/uagent/tools/search_files_tool.py:232
 #: src/uagent/tools/search_files_tool.py:271
 msgid "match.line"
 msgstr ""
+"match.line"
 
 #: src/uagent/tools/search_files_tool.py:238
 #: src/uagent/tools/search_files_tool.py:277
 msgid "match.more"
 msgstr ""
+"match.more"
 
 #: src/uagent/tools/search_files_tool.py:248
 msgid "match.excerpt"
 msgstr ""
+"match.excerpt"
 
 #: src/uagent/tools/search_files_tool.py:307
 msgid "err.dir_not_exist"
 msgstr ""
+"err.dir_not_exist"
 
 #: src/uagent/tools/search_files_tool.py:326
 msgid "err.regex_compile"
 msgstr ""
+"err.regex_compile"
 
 #: src/uagent/tools/search_files_tool.py:399
 msgid "out.no_match"
 msgstr ""
+"out.no_match"
 
 #: src/uagent/tools/search_files_tool.py:407
 msgid "out.found_truncated"
 msgstr ""
+"out.found_truncated"
 
 #: src/uagent/tools/search_files_tool.py:413
 msgid "out.found"
 msgstr ""
+"out.found"
 
 #: src/uagent/tools/search_files_tool.py:420
 msgid "out.file"
 msgstr ""
+"out.file"
 
 #: src/uagent/tools/search_web_tool.py:174
 msgid "error.duckduckgo_failed_after_retries"
 msgstr ""
+"error.duckduckgo_failed_after_retries"
 
 #: src/uagent/tools/search_web_tool.py:222
 msgid "param.q.description"
 msgstr ""
+"param.q.description"
 
 #: src/uagent/tools/search_web_tool.py:244
 msgid "error.args_must_be_dict"
 msgstr ""
+"error.args_must_be_dict"
 
 #: src/uagent/tools/search_web_tool.py:253
 msgid "error.missing_query_parameter"
 msgstr ""
+"error.missing_query_parameter"
 
 #: src/uagent/tools/search_web_tool.py:277
 #: src/uagent/tools/search_web_tool.py:284
 msgid "error.run_tool_error"
 msgstr ""
+"error.run_tool_error"
 
 #: src/uagent/tools/semantic_search_files_tool.py:72
 msgid "err.disabled"
 msgstr ""
+"err.disabled"
 
 #: src/uagent/tools/semantic_search_files_tool.py:287
 msgid "err.vec_fail"
 msgstr ""
+"err.vec_fail"
 
 #: src/uagent/tools/semantic_search_files_tool.py:315
 msgid "out.hits"
 msgstr ""
+"out.hits"
 
 #: src/uagent/tools/semantic_search_files_tool.py:323
 msgid "out.result_item"
 msgstr ""
+"out.result_item"
 
 #: src/uagent/tools/semantic_search_files_tool.py:386
 msgid "param.top_k.description"
 msgstr ""
+"param.top_k.description"
 
 #: src/uagent/tools/set_timer_tool.py:32
 msgid "param.seconds.description"
 msgstr ""
+"param.seconds.description"
 
 #: src/uagent/tools/set_timer_tool.py:46
 msgid "param.on_timeout_prompt.description"
 msgstr ""
+"param.on_timeout_prompt.description"
 
 #: src/uagent/tools/set_timer_tool.py:67
 msgid "err.seconds_invalid"
 msgstr ""
+"err.seconds_invalid"
 
 #: src/uagent/tools/set_timer_tool.py:73
 msgid "err.seconds_negative"
 msgstr ""
+"err.seconds_negative"
 
 #: src/uagent/tools/set_timer_tool.py:77
 msgid "msg.default_timer_done"
 msgstr ""
+"msg.default_timer_done"
 
 #: src/uagent/tools/shared_memory.py:76
 msgid "msg.disabled"
 msgstr ""
+"msg.disabled"
 
 #: src/uagent/tools/shared_memory.py:87
 msgid "msg.no_shared_memory"
 msgstr ""
+"msg.no_shared_memory"
 
 #: src/uagent/tools/skills_list_tool.py:37
 msgid "param.root_dir.description"
 msgstr ""
+"param.root_dir.description"
 
 #: src/uagent/tools/skills_list_tool.py:52
 msgid "param.include_invalid.description"
 msgstr ""
+"param.include_invalid.description"
 
 #: src/uagent/tools/skills_list_tool.py:60
 #: src/uagent/tools/skills_validate_tool.py:43
 msgid "param.strict.description"
 msgstr ""
+"param.strict.description"
 
 #: src/uagent/tools/skills_load_tool.py:31
 #: src/uagent/tools/skills_read_file_tool.py:36
@@ -2458,6 +2883,7 @@ msgstr "The skill directory (must contain SKILL.md)."
 #: src/uagent/tools/skills_validate_tool.py:57
 msgid "err.invalid_args"
 msgstr ""
+"err.invalid_args"
 
 #: src/uagent/tools/skills_load_tool.py:49
 #: src/uagent/tools/skills_read_file_tool.py:71
@@ -2468,154 +2894,192 @@ msgstr "[tool error] skill_dir must be a non-empty string"
 #: src/uagent/tools/skills_read_file_tool.py:42
 msgid "param.relative_path.description"
 msgstr ""
+"param.relative_path.description"
 
 #: src/uagent/tools/skills_read_file_tool.py:76
 msgid "err.relative_path_required"
 msgstr ""
+"err.relative_path_required"
 
 #: src/uagent/tools/skills_read_file_tool.py:81
 msgid "err.max_bytes_positive"
 msgstr ""
+"err.max_bytes_positive"
 
 #: src/uagent/tools/spawn_process_tool.py:51
 msgid "err.command_empty"
 msgstr ""
+"err.command_empty"
 
 #: src/uagent/tools/spawn_process_tool.py:58
 msgid "err.windows_start_missing_target"
 msgstr ""
+"err.windows_start_missing_target"
 
 #: src/uagent/tools/system_specs_tools.py:35
 msgid "param.include_volumes.description"
 msgstr ""
+"param.include_volumes.description"
 
 #: src/uagent/tools/system_specs_tools.py:43
 msgid "param.include_disks.description"
 msgstr ""
+"param.include_disks.description"
 
 #: src/uagent/tools/vision_openai.py:30 src/uagent/tools/vision_runtime.py:32
 msgid "err.image_not_found"
 msgstr ""
+"err.image_not_found"
 
 #: src/uagent/tools/vision_openai.py:39 src/uagent/tools/vision_runtime.py:41
 msgid "err.image_too_large"
 msgstr ""
+"err.image_too_large"
 
 #: src/uagent/tools/vision_openai.py:103 src/uagent/tools/vision_runtime.py:74
 msgid "err.import_openai"
 msgstr ""
+"err.import_openai"
 
 #: src/uagent/tools/vision_openai.py:109 src/uagent/tools/vision_runtime.py:80
 msgid "prompt.default"
 msgstr ""
+"prompt.default"
 
 #: src/uagent/tools/vision_openai.py:139 src/uagent/tools/vision_runtime.py:93
 msgid "err.missing_env.azure"
 msgstr ""
+"err.missing_env.azure"
 
 #: src/uagent/tools/vision_openai.py:170
 #: src/uagent/tools/vision_runtime.py:142
 msgid "err.missing_env.openai"
 msgstr ""
+"err.missing_env.openai"
 
 #: src/uagent/tools/vision_openai.py:200
 #: src/uagent/tools/vision_runtime.py:178
 msgid "warn.empty_response"
 msgstr ""
+"warn.empty_response"
 
 #: src/uagent/tools/vision_runtime.py:112
 msgid "err.missing_env.bedrock"
 msgstr ""
+"err.missing_env.bedrock"
 
 #: src/uagent/tools/vision_runtime.py:128
 msgid "err.missing_env.openrouter"
 msgstr ""
+"err.missing_env.openrouter"
 
 #: src/uagent/tools/zip_ops_tool.py:62
 msgid "param.zip_path.description"
 msgstr ""
+"param.zip_path.description"
 
 #: src/uagent/tools/zip_ops_tool.py:70
 msgid "param.sources.description"
 msgstr ""
+"param.sources.description"
 
 #: src/uagent/tools/zip_ops_tool.py:78
 msgid "param.dest_dir.description"
 msgstr ""
+"param.dest_dir.description"
 
 #: src/uagent/tools/zip_ops_tool.py:111
 msgid "param.max_total_uncompressed_bytes.description"
 msgstr ""
+"param.max_total_uncompressed_bytes.description"
 
 #: src/uagent/tools/zip_ops_tool.py:188
 msgid "error.invalid_action"
 msgstr ""
+"error.invalid_action"
 
 #: src/uagent/tools/zip_ops_tool.py:198
 msgid "error.zip_path_required"
 msgstr ""
+"error.zip_path_required"
 
 #: src/uagent/tools/zip_ops_tool.py:208
 msgid "error.dangerous_zip_path_rejected"
 msgstr ""
+"error.dangerous_zip_path_rejected"
 
 #: src/uagent/tools/zip_ops_tool.py:222
 msgid "error.zip_path_not_allowed"
 msgstr ""
+"error.zip_path_not_allowed"
 
 #: src/uagent/tools/zip_ops_tool.py:235 src/uagent/tools/zip_ops_tool.py:368
 msgid "error.zip_not_found"
 msgstr ""
+"error.zip_not_found"
 
 #: src/uagent/tools/zip_ops_tool.py:265
 msgid "error.zip_list_failed"
 msgstr ""
+"error.zip_list_failed"
 
 #: src/uagent/tools/zip_ops_tool.py:278
 msgid "error.sources_required_for_create"
 msgstr ""
+"error.sources_required_for_create"
 
 #: src/uagent/tools/zip_ops_tool.py:293
 msgid "error.dangerous_source_rejected"
 msgstr ""
+"error.dangerous_source_rejected"
 
 #: src/uagent/tools/zip_ops_tool.py:306
 msgid "error.source_not_allowed"
 msgstr ""
+"error.source_not_allowed"
 
 #: src/uagent/tools/zip_ops_tool.py:355
 msgid "error.zip_create_failed"
 msgstr ""
+"error.zip_create_failed"
 
 #: src/uagent/tools/zip_ops_tool.py:379
 msgid "error.dangerous_dest_dir_rejected"
 msgstr ""
+"error.dangerous_dest_dir_rejected"
 
 #: src/uagent/tools/zip_ops_tool.py:393
 msgid "error.dest_dir_not_allowed"
 msgstr ""
+"error.dest_dir_not_allowed"
 
 #: src/uagent/tools/zip_ops_tool.py:409
 msgid "error.too_many_files_in_zip"
 msgstr ""
+"error.too_many_files_in_zip"
 
 #: src/uagent/tools/zip_ops_tool.py:422
 msgid "error.zip_too_large_to_extract"
 msgstr ""
+"error.zip_too_large_to_extract"
 
 #: src/uagent/tools/zip_ops_tool.py:440
 msgid "error.dangerous_zip_entries_rejected"
 msgstr ""
+"error.dangerous_zip_entries_rejected"
 
 #: src/uagent/tools/zip_ops_tool.py:450
 msgid "confirm.extract_overwrite"
 msgstr ""
+"confirm.extract_overwrite"
 
 #: src/uagent/tools/zip_ops_tool.py:464
 msgid "error.cancelled_by_user"
 msgstr ""
+"error.cancelled_by_user"
 
 #: src/uagent/tools/zip_ops_tool.py:516
 msgid "error.zip_extract_failed"
 msgstr ""
+"error.zip_extract_failed"
 
