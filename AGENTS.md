@@ -42,6 +42,7 @@ ______________________________________________________________________
 ## 環境変数（.env）
 
 推奨:
+
 - リポジトリ上では `python samples/generate_env_samples.py`（対話式ウィザード）を実行し、`samples/env.sample.env` と `samples/env.sample.bat` / `samples/env.sample.ps1` / `samples/env.sample.sh` を生成・更新して利用してください（文字コード・改行コードを自動調整、番号選択・`b` 戻る対応）。
 - pip/whl でインストールした利用者向けには `uag_setup`（対話式）で、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
 
