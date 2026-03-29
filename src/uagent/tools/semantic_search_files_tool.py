@@ -71,20 +71,18 @@ def _emit_embedding_disabled_reason() -> None:
         msg = _(
             "err.disabled",
             default=(
-                "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n"
-                "[tools] UAGENT_EMBEDDING_API_URL={url}\n"
-                "[tools] healthcheck={hc_url}\n"
-                "[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
+                "[TOOL] semantic_search_files is disabled: Embedding API is unreachable.\n"
+                "[TOOL] UAGENT_EMBEDDING_API_URL={url}\n"
+                "[TOOL] healthcheck={hc_url}\n"
+                "[TOOL] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
             ),
         ).format(url=EMBEDDING_API_URL, hc_url=hc_url)
         try:
             import sys
 
-            # 他の出力と連結して読みにくくならないよう、前後の改行を保証する
-            if msg and not msg.startswith("\n"):
-                msg = "\n" + msg
-            if msg and not msg.endswith("\n"):
-                msg += "\n"
+            # 他の出力と連結して読みにくくならないよう、先頭/末尾の余分な改行を除去し、末尾の改行を1つだけ保証する
+            if msg:
+                msg = msg.strip("\n") + "\n"
 
             sys.stderr.write(msg)
             sys.stderr.flush()
