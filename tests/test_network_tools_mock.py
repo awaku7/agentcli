@@ -158,3 +158,86 @@ def test_get_geoip_returns_parse_error_with_raw(
     out = get_geoip_tool.run_tool({"format": "text"})
     assert out.startswith("[get_geoip error]")
     assert "not-json" in out
+
+
+def test_fetch_url_extract_text_from_html(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+
+    class DummyHeaders:
+        def get_content_charset(self):
+            return "utf-8"
+
+    class DummyResp:
+        headers = DummyHeaders()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self, _n: int) -> bytes:
+            return b"<html><body><main><h1>Hello</h1><p>World</p></main></body></html>"
+
+    monkeypatch.setattr(fetch_url_tool, "urlopen", lambda _req: DummyResp())
+
+    out = fetch_url_tool.run_tool({"url": "https://example.com", "extract": "text"})
+    assert out == "Hello\nWorld"
+
+
+def test_fetch_url_extract_text_with_selector(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+
+    class DummyHeaders:
+        def get_content_charset(self):
+            return "utf-8"
+
+    class DummyResp:
+        headers = DummyHeaders()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self, _n: int) -> bytes:
+            return b"<html><body><main><h1>Hello</h1><p>World</p></main></body></html>"
+
+    monkeypatch.setattr(fetch_url_tool, "urlopen", lambda _req: DummyResp())
+
+    out = fetch_url_tool.run_tool(
+        {"url": "https://example.com", "extract": "text", "selector": "h1"}
+    )
+    assert out == "Hello"
+
+
+def test_fetch_url_extract_json_with_pointer(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+
+    class DummyHeaders:
+        def get_content_charset(self):
+            return "utf-8"
+
+    class DummyResp:
+        headers = DummyHeaders()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self, _n: int) -> bytes:
+            return b"{\"a\":{\"b\":[{\"c\":1},{\"c\":2}]}}"
+
+    monkeypatch.setattr(fetch_url_tool, "urlopen", lambda _req: DummyResp())
+
+    out = fetch_url_tool.run_tool(
+        {
+            "url": "https://example.com",
+            "extract": "json",
+            "json_pointer": "/a/b/1/c",
+        }
+    )
+    assert out == "2"
