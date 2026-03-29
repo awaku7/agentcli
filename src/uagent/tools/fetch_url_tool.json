@@ -2,12 +2,24 @@
   "en": {
     "param.url.description": "URL to access.",
     "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
-    "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'."
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'.",
+    "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer).",
+    "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html.",
+    "param.json_pointer.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
+    "param.max_bytes.description": "Maximum bytes to read from the response.",
+    "param.max_chars.description": "Maximum characters to return (applied after decoding/extraction).",
+    "param.user_agent.description": "Optional User-Agent header value."
   },
   "ja": {
     "param.url.description": "アクセスする URL。",
     "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。",
-    "tool.system_prompt": "ツール名 'fetch_url' で示される処理を実行します。"
+    "tool.system_prompt": "ツール名 'fetch_url' で示される処理を実行します。",
+    "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTMLから本文テキストを抽出 / html=HTML断片を抽出 / json=JSONを解析（必要に応じて json_pointer を適用）。",
+    "param.selector.description": "任意の CSS セレクタ。指定した場合、extract=text/html で最初に一致した要素を抽出します。",
+    "param.json_pointer.description": "任意の RFC 6901 JSON Pointer（例: /items/0/title）。extract=json のときに使用します。",
+    "param.max_bytes.description": "レスポンスから読み込む最大バイト数。",
+    "param.max_chars.description": "返却する最大文字数（デコード/抽出後に適用）。",
+    "param.user_agent.description": "任意の User-Agent ヘッダー値。"
   },
   "zh_CN": {
     "param.url.description": "URL 进行访问。",
