@@ -1231,6 +1231,9 @@ SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 """)
 
 
+SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP = _("""- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
+""")
+
 def _build_system_prompt_full() -> str:
     parts = [
         SYSTEM_PROMPT_FULL_MISSION,
@@ -1238,6 +1241,8 @@ def _build_system_prompt_full() -> str:
         SYSTEM_PROMPT_FULL_RULES,
         "",
         SYSTEM_PROMPT_FULL_NOTES,
+        "",
+        SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP,
         "",
         SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
     ]
@@ -1253,6 +1258,8 @@ def _build_system_prompt_compact() -> str:
         SYSTEM_PROMPT_COMPACT_RULES,
         "",
         SYSTEM_PROMPT_COMPACT_NOTES,
+        "",
+        SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP,
         "",
         SYSTEM_PROMPT_DANGEROUS_DELETE_FILE,
     ]
