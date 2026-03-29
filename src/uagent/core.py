@@ -34,21 +34,85 @@ if os.name == "nt":
     except Exception:
         pass
 
-# --- Encoding workaround: prefer UTF-8 for stdout/stderr when possible ---
+# --- Encoding workaround ---
 #
-# Japanese text (e.g. tool load logs, SYSTEM_PROMPT) may get garbled on cp932 consoles.
-# Try to force stdout/stderr to UTF-8 when possible.
-# - Prefer TextIOWrapper.reconfigure (Python 3.7+)
-# - Ignore failures (environment-dependent)
-try:
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    if hasattr(sys.stderr, "reconfigure"):
-        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+# Windows has multiple console modes:
+# - Classic cmd.exe/conhost: output code page is often cp932.
+# - ConPTY terminals (Windows Terminal / VSCode etc.): typically expect UTF-8.
+#
+# Policy:
+# - Allow explicit UTF-8 forcing via UAGENT_STDIO_UTF8=1 or PYTHONIOENCODING=utf-8*.
+# - Otherwise:
+#   - If we look like we're running under a UTF-8 terminal (WT/VSCode), keep
+#     Python defaults (usually UTF-8 when PYTHONUTF8=1).
+#   - Else (classic cmd), match GetConsoleOutputCP() so we don't output UTF-8
+#     bytes to a cp932 console.
+#
+_FORCE_STDIO_UTF8 = bool(
+    env_get("UAGENT_STDIO_UTF8") == "1"
+    or (str(env_get("PYTHONIOENCODING") or "").lower().startswith("utf-8"))
+)
 
 
+def _get_windows_console_output_encoding() -> str | None:
+    if os.name != "nt":
+        return None
+
+    try:
+        import ctypes
+
+        cp = int(ctypes.windll.kernel32.GetConsoleOutputCP())
+        if cp == 65001:
+            return "utf-8"
+        if cp > 0:
+            return f"cp{cp}"
+    except Exception:
+        pass
+
+    return None
+
+
+def _looks_like_utf8_terminal() -> bool:
+    # Heuristic: ConPTY-based terminals usually set one of these env vars.
+    if env_get("WT_SESSION"):
+        return True
+    if env_get("VSCODE_PID"):
+        return True
+    term_program = str(env_get("TERM_PROGRAM") or "").lower()
+    if term_program in {"vscode", "windows_terminal"}:
+        return True
+    return False
+
+
+def _reconfigure_stdio() -> None:
+    if os.name != "nt":
+        return
+
+    stdout_tty = bool(getattr(sys.stdout, "isatty", lambda: False)())
+    stderr_tty = bool(getattr(sys.stderr, "isatty", lambda: False)())
+    if not (stdout_tty or stderr_tty):
+        return
+
+    if not _FORCE_STDIO_UTF8 and _looks_like_utf8_terminal():
+        # Keep Python defaults for ConPTY terminals.
+        return
+
+    enc = (
+        "utf-8"
+        if _FORCE_STDIO_UTF8
+        else (_get_windows_console_output_encoding() or "cp932")
+    )
+
+    try:
+        if stdout_tty and hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding=enc, errors="replace")
+        if stderr_tty and hasattr(sys.stderr, "reconfigure"):
+            sys.stderr.reconfigure(encoding=enc, errors="replace")
+    except Exception:
+        pass
+
+
+_reconfigure_stdio()
 # Session ID and log/memory file paths
 SESSION_ID = time.strftime("%Y%m%d_%H%M%S")
 
