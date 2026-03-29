@@ -979,12 +979,20 @@ def _prepend_loaded_log_to_current(
         if not isinstance(cur_log, str) or not cur_log:
             return
 
-        msg2 = _(
+        _load_confirm_tpl = (
             ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
             "Current log: %(cur_log)s\n"
             "Source log: %(src_log)s\n\n"
             "Proceed? Enter y to run, or c to cancel."
-        ) % {"cur_log": cur_log, "src_log": source_log_path}
+        )
+
+        # NOTE: Some locale catalogs may contain msgstr="" (empty) for this msgid,
+        # which would make the prompt invisible. Fall back to the English template.
+        msg2_tpl = tr(_load_confirm_tpl) if callable(tr) else _load_confirm_tpl
+        if not str(msg2_tpl).strip():
+            msg2_tpl = _load_confirm_tpl
+
+        msg2 = str(msg2_tpl) % {"cur_log": cur_log, "src_log": source_log_path}
         res_json2 = human_ask({"message": msg2})
         res2 = json.loads(res_json2)
         user_reply2 = (res2.get("user_reply") or "").strip().lower()
@@ -1306,6 +1314,77 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
 
     print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
     return True
+
+
+def format_help(*, core: Any) -> str:
+    """Format help text for interactive :help.
+
+    Keep this as the single source of truth for command help.
+    """
+
+    tr = getattr(core, "tr", tr_)
+    sentinel = getattr(core, "MULTI_INPUT_SENTINEL", '"""end')
+
+    lines = [
+        tr("Available commands:"),
+        tr("  :help                 Show this help"),
+        tr('  (in multiline input) """retry  Restart input from the beginning'),
+        tr("  :logs / :list         Show log file list"),
+        tr(
+            "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+        ),
+        tr(
+            "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+        ),
+        tr("  :tools                List loaded tools"),
+        tr(
+            "  :skills [cmd]         Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+        ),
+        tr(
+            "  :load <idx|path>      Load a past log (overwrites current conversation history)"
+        ),
+        tr(
+            "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
+        ),
+        tr(
+            "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
+        ),
+        tr(
+            "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
+        ),
+        tr(
+            "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
+        ),
+        tr("  :mem-list             List long-term memory notes"),
+        tr("  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"),
+        tr(
+            "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+        ),
+        tr("  :shared-mem-del <i>   Delete a shared long-term memory note by index"),
+        tr(
+            "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+        ),
+        tr(
+            "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+        ),
+        tr("  :exit / :quit         Exit"),
+        "",
+        tr("Hints:"),
+        tr("  - Enter a line that is just 'f' to enter multiline input mode."),
+        tr("  - To end multiline input mode, enter a line that is exactly %(sentinel)s.")
+        % {"sentinel": sentinel},
+    ]
+
+    # Normalize indentation for command lines (translations may add extra leading whitespace).
+    norm_lines = []
+    for ln in lines:
+        s = str(ln)
+        stripped = s.lstrip()
+        if stripped.startswith(":"):
+            s = "  " + stripped
+        norm_lines.append(s)
+
+    return "\n".join(norm_lines)
 
 
 def handle_command(
