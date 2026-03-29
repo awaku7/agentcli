@@ -40,7 +40,7 @@ The script runs an interactive wizard (provider selection, back navigation, etc.
 ## Recommended workflow
 
 1. Run `python samples/generate_env_samples.py` and answer prompts.
-2. Verify updated `samples/env.sample.env`.
-3. Verify generated shell-specific files.
+1. Verify updated `samples/env.sample.env`.
+1. Verify generated shell-specific files.
 
 Do not put real secrets in sample files.

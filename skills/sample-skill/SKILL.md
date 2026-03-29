@@ -1,11 +1,6 @@
----
-name: sample-skill
-description: Minimal sample skill for validating Agent Skills tool integration.
-license: Apache-2.0
-metadata:
-  author: uagent
-version: "1.0"
----
+______________________________________________________________________
+
+## name: sample-skill description: Minimal sample skill for validating Agent Skills tool integration. license: Apache-2.0 metadata: author: uagent version: "1.0"
 
 # Sample Skill
 
