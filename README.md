@@ -14,6 +14,7 @@ uag is an interactive local agent that can execute commands, manipulate files, a
 - CLI: `uag` / `python -m uagent`
 - GUI: `uagg` / `python -m uagent.gui`
 - Web: `uagw` / `python -m uagent.web`
+- A2A server: `uaga` / `python -m uagent.a2a.server`
 
 ______________________________________________________________________
 
@@ -33,6 +34,32 @@ ______________________________________________________________________
 ______________________________________________________________________
 
 ## Minimal Usage
+
+## A2A (Agent2Agent) server
+
+uag can also expose an A2A-compatible HTTP server as a separate process (does not affect the existing CLI/GUI/Web behavior).
+
+### Start server
+
+```bash
+# required for authenticated endpoints
+export UAGENT_A2A_TOKEN=YOUR_TOKEN
+
+# default: host=0.0.0.0, port=8765
+uaga
+# or
+python -m uagent.a2a.server
+```
+
+### Client usage (from uag/uagw/uagg code)
+
+```python
+from uagent.a2a.client import A2AClient
+
+c = A2AClient(base_url="http://127.0.0.1:8765", token="YOUR_TOKEN")
+print(c.get_agent_card())
+print(c.send_message(text="hello"))
+```
 
 ## Language / i18n
 

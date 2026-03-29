@@ -65,6 +65,7 @@ dependencies = [
 [project.scripts]
 
 uag = "uagent.cli:main"
+uaga = "uagent.a2a.server:main"
 uag_setup = "uagent.setup_cli:main"
 uagg = "uagent.gui:main"
 uagw = "uagent.web:main"
