@@ -24,31 +24,67 @@
   "zh_CN": {
     "param.url.description": "URL 进行访问。",
     "tool.description": "通过 HTTP GET 访问指定的 URL 并以文本形式返回响应的开头。对于获取和检查 HTML 或 JSON 很有用。",
-    "tool.system_prompt": "该工具执行工具名称“fetch_url”描述的操作。"
+    "tool.system_prompt": "该工具执行工具名称“fetch_url”描述的操作。",
+    "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）。",
+    "param.selector.description": "可选 CSS 选择器。提供时，在 extract=text/html 时提取第一个匹配元素。",
+    "param.json_pointer.description": "可选 RFC 6901 JSON Pointer（例如 /items/0/title），extract=json 时使用。",
+    "param.max_bytes.description": "从响应中读取的最大字节数。",
+    "param.max_chars.description": "返回的最大字符数（在解码/提取后应用）。",
+    "param.user_agent.description": "可选 User-Agent 请求头值。"
   },
   "zh_TW": {
     "param.url.description": "URL 進行訪問。",
     "tool.description": "透過 HTTP GET 存取指定的 URL 並以文字形式傳回回應的開頭。對於獲取和檢查 HTML 或 JSON 很有用。",
-    "tool.system_prompt": "此工具執行工具名稱「fetch_url」所描述的操作。"
+    "tool.system_prompt": "此工具執行工具名稱「fetch_url」所描述的操作。",
+    "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）。",
+    "param.selector.description": "選用 CSS 選擇器。指定時，在 extract=text/html 會擷取第一個符合的元素。",
+    "param.json_pointer.description": "選用 RFC 6901 JSON Pointer（例如 /items/0/title），在 extract=json 時使用。",
+    "param.max_bytes.description": "從回應中讀取的最大位元組數。",
+    "param.max_chars.description": "回傳的最大字元數（在解碼/擷取後套用）。",
+    "param.user_agent.description": "選用 User-Agent 標頭值。"
   },
   "es": {
     "param.url.description": "URL para acceder.",
     "tool.description": "Acceda al URL especificado a través de HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para buscar e inspeccionar HTML o JSON.",
-    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'fetch_url'."
+    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'fetch_url'.",
+    "param.extract.description": "Modo de extracción. head=devuelve el comienzo de la respuesta; text=extrae texto de HTML; html=extrae un fragmento HTML; json=analiza JSON (opcionalmente aplica json_pointer).",
+    "param.selector.description": "Selector CSS opcional. Si se proporciona, se extrae el primer elemento coincidente para extract=text/html.",
+    "param.json_pointer.description": "JSON Pointer opcional (RFC 6901) (p. ej., /items/0/title) usado cuando extract=json.",
+    "param.max_bytes.description": "Número máximo de bytes que se leen de la respuesta.",
+    "param.max_chars.description": "Número máximo de caracteres que se devuelven (se aplica después de decodificar/extraer).",
+    "param.user_agent.description": "Valor opcional del encabezado User-Agent."
   },
   "fr": {
     "param.url.description": "URL pour y accéder.",
     "tool.description": "Accédez au URL spécifié via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter HTML ou JSON.",
-    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « fetch_url »."
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « fetch_url ».",
+    "param.extract.description": "Mode d'extraction. head=renvoie le début de la réponse ; text=extrait le texte depuis le HTML ; html=extrait un fragment HTML ; json=analyse le JSON (peut appliquer json_pointer).",
+    "param.selector.description": "Sélecteur CSS optionnel. S'il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
+    "param.json_pointer.description": "JSON Pointer optionnel (RFC 6901) (ex. /items/0/title) utilisé lorsque extract=json.",
+    "param.max_bytes.description": "Nombre maximal d’octets à lire depuis la réponse.",
+    "param.max_chars.description": "Nombre maximal de caractères à renvoyer (appliqué après décodage/extraction).",
+    "param.user_agent.description": "Valeur optionnelle de l’en-tête User-Agent."
   },
   "ko": {
     "param.url.description": "URL에 액세스합니다.",
     "tool.description": "HTTP GET을 통해 지정된 URL에 액세스하고 응답의 시작 부분을 텍스트로 반환합니다. HTML 또는 JSON을 가져오고 검사하는 데 유용합니다.",
-    "tool.system_prompt": "이 도구는 도구 이름 'fetch_url'에 설명된 작업을 수행합니다."
+    "tool.system_prompt": "이 도구는 도구 이름 'fetch_url'에 설명된 작업을 수행합니다.",
+    "param.extract.description": "추출 모드. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용).",
+    "param.selector.description": "선택적 CSS 셀렉터. 지정하면 extract=text/html에서 첫 번째로 일치하는 요소를 추출합니다.",
+    "param.json_pointer.description": "선택적 RFC 6901 JSON Pointer(예: /items/0/title). extract=json일 때 사용합니다.",
+    "param.max_bytes.description": "응답에서 읽을 최대 바이트 수입니다.",
+    "param.max_chars.description": "반환할 최대 문자 수(디코딩/추출 후 적용)입니다.",
+    "param.user_agent.description": "선택적 User-Agent 헤더 값입니다."
   },
   "th": {
     "param.url.description": "URL เพื่อเข้าถึง",
     "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนจุดเริ่มต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงข้อมูลและตรวจสอบ HTML หรือ JSON",
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'fetch_url'"
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'fetch_url'",
+    "param.extract.description": "โหมดการดึงข้อมูล: head=ส่งคืนส่วนต้นของการตอบกลับ; text=ดึงข้อความจาก HTML; html=ดึงส่วนย่อยของ HTML; json=แยกวิเคราะห์ JSON (สามารถใช้ json_pointer ได้ตามต้องการ)",
+    "param.selector.description": "ตัวเลือก CSS (ไม่บังคับ) หากระบุ จะดึงองค์ประกอบที่ตรงกันตัวแรกสำหรับ extract=text/html",
+    "param.json_pointer.description": "JSON Pointer (RFC 6901) (ไม่บังคับ) เช่น /items/0/title ใช้เมื่อ extract=json",
+    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
+    "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
+    "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent (ไม่บังคับ)"
   }
 }
