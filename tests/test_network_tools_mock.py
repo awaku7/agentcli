@@ -229,7 +229,7 @@ def test_fetch_url_extract_json_with_pointer(monkeypatch: pytest.MonkeyPatch) ->
             return False
 
         def read(self, _n: int) -> bytes:
-            return b"{\"a\":{\"b\":[{\"c\":1},{\"c\":2}]}}"
+            return b'{"a":{"b":[{"c":1},{"c":2}]}}'
 
     monkeypatch.setattr(fetch_url_tool, "urlopen", lambda _req: DummyResp())
 

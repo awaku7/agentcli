@@ -105,6 +105,15 @@ ______________________________________________________________________
 uag
 ```
 
+### 7.1.1 (Optional) Start A2A server
+
+A2A runs as a separate process and does not change the existing `uag` behavior.
+
+```bat
+set UAGENT_A2A_TOKEN=YOUR_TOKEN
+uaga
+```
+
 If `uag` is not found:
 
 ```bat
