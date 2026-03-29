@@ -227,9 +227,9 @@ python samples/generate_env_samples.py
 
 Generated files and format:
 
-- `samples/env.sample.sh`   : UTF-8, LF
-- `samples/env.sample.ps1`  : UTF-8 with BOM (`utf-8-sig`), CRLF
-- `samples/env.sample.bat`  : CP932, CRLF
+- `samples/env.sample.sh` : UTF-8, LF
+- `samples/env.sample.ps1` : UTF-8 with BOM (`utf-8-sig`), CRLF
+- `samples/env.sample.bat` : CP932, CRLF
 
 The wizard supports numbered selections and back navigation (`b`). Re-run it any time to update configuration.
 
