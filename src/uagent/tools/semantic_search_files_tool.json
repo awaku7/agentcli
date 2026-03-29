@@ -25,7 +25,7 @@
     "doc.is_reachable": "起動時疎通確認。\n\n- 失敗しても例外は投げず False を返す\n- 起動遅延を避けるためタイムアウト短め\n- /v1/models が使えない実装もあり得るため / のGETもフォールバック",
     "doc.sync_file": "単一ファイルのインデックスを同期（新規または更新があれば）",
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
-    "err.disabled": "[ツール] semantic_search_files が無効になっています: 埋め込み API に到達できません。\n[ツール] EMBEDDING_API_URL={url}\n[ツール] healthcheck={hc_url}\n[ツール] ツールを表示したままにするには、UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 を設定します。",
+    "err.disabled": "[TOOL] semantic_search_files が無効になっています: 埋め込み API に到達できません。\n[TOOL] EMBEDDING_API_URL={url}\n[TOOL] healthcheck={hc_url}\n[TOOL] ツールを表示したままにするには、UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 を設定します。",
     "err.query_required": "エラー: query は必須です。",
     "err.vec_fail": "エラー: クエリのベクトル化に失敗しました。",
     "out.hits": "ヒット件数: {count}\n",
