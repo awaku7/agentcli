@@ -3053,3 +3053,12 @@ msgid "error.zip_extract_failed"
 msgstr ""
 "error.zip_extract_failed"
 
+
+#: src/uagent/core.py:1234
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
+"
+msgstr ""
+"- Windows の cmd.exe を使っている場合は、コピー/貼り付けで改行が混入しないよう、キャレット (^) による複数行の行継続を使い、各行を短くしてください。
+"
+
