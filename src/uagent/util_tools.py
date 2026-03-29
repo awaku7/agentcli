@@ -1356,7 +1356,9 @@ def format_help(*, core: Any) -> str:
             "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
         tr("  :mem-list             List long-term memory notes"),
-        tr("  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"),
+        tr(
+            "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
+        ),
         tr(
             "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),
@@ -1371,7 +1373,9 @@ def format_help(*, core: Any) -> str:
         "",
         tr("Hints:"),
         tr("  - Enter a line that is just 'f' to enter multiline input mode."),
-        tr("  - To end multiline input mode, enter a line that is exactly %(sentinel)s.")
+        tr(
+            "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+        )
         % {"sentinel": sentinel},
     ]
 

@@ -267,9 +267,9 @@ python samples/generate_env_samples.py
 
 生成されるファイルと形式:
 
-- `samples/env.sample.sh`   : UTF-8, LF
-- `samples/env.sample.ps1`  : BOM付きUTF-8（`utf-8-sig`）, CRLF
-- `samples/env.sample.bat`  : CP932, CRLF
+- `samples/env.sample.sh` : UTF-8, LF
+- `samples/env.sample.ps1` : BOM付きUTF-8（`utf-8-sig`）, CRLF
+- `samples/env.sample.bat` : CP932, CRLF
 
 番号選択と `b`（戻る）に対応した対話式です。再実行でいつでも設定を更新できます。
 
