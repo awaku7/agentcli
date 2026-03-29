@@ -1088,55 +1088,19 @@ def compress_history_with_llm(
 
 
 def print_help() -> None:
-    """Print help for the :help command."""
-    lines = [
-        _("Available commands:"),
-        _("  :help                 Show this help"),
-        _('  (in multiline input) """retry  Restart input from the beginning'),
-        _("  :logs / :list         Show log file list"),
-        _(
-            "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
-        ),
-        _(
-            "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-        ),
-        _(
-            "  :load <idx|path>      Load a past log (overwrites current conversation history)"
-        ),
-        _(
-            "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
-        ),
-        _(
-            "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
-        ),
-        _(
-            "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
-        ),
-        _(
-            "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
-        ),
-        _("  :mem-list             List long-term memory notes"),
-        _(
-            "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
-        ),
-        _(
-            "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
-        ),
-        _("  :shared-mem-del <i>   Delete a shared long-term memory note by index"),
-        _(
-            "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-        ),
-        _(
-            "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-        ),
-        _("  :exit / :quit         Exit"),
-        "",
-        _("Hints:"),
-        _("  - Enter a line that is just 'f' to enter multiline input mode."),
-        _("  - To end multiline input mode, enter a line that is exactly %(sentinel)s.")
-        % {"sentinel": MULTI_INPUT_SENTINEL},
-    ]
-    print("\n".join(lines))
+    """Print help for the :help command.
+
+    Single source of truth: uagent.util_tools.format_help().
+    """
+
+    try:
+        from . import util_tools
+
+        text = util_tools.format_help(core=sys.modules[__name__])
+        print(text)
+    except Exception as e:
+        # Fallback: minimal help (avoid breaking interactive use)
+        print(f":help  (help unavailable: {type(e).__name__}: {e})")
 
 
 # ==============================
