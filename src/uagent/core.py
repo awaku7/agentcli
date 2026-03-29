@@ -670,8 +670,11 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
                 if ln:
                     tail_lines.append(ln)
         # 正確な件数（user/assistant）は全行を走査してカウントする
+        # + フォールバック用に「ログ全体での first/last user content」も拾う
         total_user_count = 0
         total_assistant_count = 0
+        first_user_any = ""
+        last_user_any = ""
         try:
             with open(path, encoding="utf-8") as f_all:
                 for ln in f_all:
@@ -685,12 +688,19 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
                     role = obj.get("role")
                     if role == "user":
                         total_user_count += 1
+                        content = str(obj.get("content") or "").strip()
+                        if content:
+                            if not first_user_any:
+                                first_user_any = content
+                            last_user_any = content
                     elif role == "assistant":
                         total_assistant_count += 1
         except Exception:
             # 読めない場合は 0 扱い（表示が落ちるよりマシ）
             total_user_count = 0
             total_assistant_count = 0
+            first_user_any = ""
+            last_user_any = ""
 
         # first user は先頭側（軽量）から取得
         first_user: str = ""
@@ -724,6 +734,12 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
                 last_user = content
                 break
 
+        # フォールバック: 先頭/末尾が取れない（no user message）場合は、全行走査で拾った値を使う
+        if not first_user and first_user_any:
+            first_user = first_user_any
+        if not last_user and last_user_any:
+            last_user = last_user_any
+
         turns = total_user_count + total_assistant_count
 
         first_user_text = (
@@ -731,14 +747,8 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         )
         last_user_text = _shorten(last_user, 80) if last_user else "(no user message)"
 
-        # path も末尾だけ出す（同一話題でも区別しやすい）
-        try:
-            tail = _shorten(os.path.basename(path), 40)
-        except Exception:
-            tail = "(unknown file)"
-
         print(
-            f"[{idx}] {mtime_text} | {turns} msgs | {tail} | first: {first_user_text} | last: {last_user_text}"
+            f"[{idx}] {mtime_text} | {turns} msgs | first: {first_user_text} | last: {last_user_text}"
         )
 
     return files
