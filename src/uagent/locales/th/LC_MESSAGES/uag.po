@@ -780,21 +780,7 @@ msgstr ""
 
 #: src/uagent/util_tools.py:1497
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
-"
-"
-"
-"
-"
-""
 msgstr ""
-"หัวข้อย่อยด้านล่างเป็นข้อความบางส่วนที่คัดมาจากความจำระยะยาวของผู้ใช้รายนี้ (บันทึกถาวร) ใช้เป็นข้อมูลพื้นฐานเกี่ยวกับผู้ใช้ได้ อย่างไรก็ตาม ให้ให้ความสำคัญกับข้อมูลใหม่ที่ได้รับในบทสนทนาเสมอ และหากขัดแย้งกับข้อมูลเก่า ให้ยึดข้อมูลล่าสุด
-"
-"
-"
-"
-"
-""
 
 #: src/uagent/web.py:454
 msgid ""
@@ -3075,9 +3061,5 @@ msgstr ""
 
 #: src/uagent/core.py:1234
 msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
-"
 msgstr ""
-"- หากผู้ใช้กำลังใช้ Windows cmd.exe ให้ใช้คำสั่งหลายบรรทัดโดยใช้เครื่องหมายแคเร็ต (^) สำหรับการต่อบรรทัด และทำให้แต่ละบรรทัดสั้นเพื่อหลีกเลี่ยงการขึ้นบรรทัดใหม่เวลาคัดลอก/วาง
-"
 
