@@ -77,8 +77,8 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   },
   "th": {
-    "err.child_failed": "[ข้อผิดพลาด playwright_inspector] กระบวนการย่อยล้มเหลว:\n__ต็อก24__",
-    "out.ok": "การจับภาพเสร็จสมบูรณ์: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ ถูกสร้างขึ้นแล้ว\n__ต็อก5__",
+    "err.child_failed": "[ข้อผิดพลาด playwright_inspector] กระบวนการย่อยล้มเหลว:\n{stderr}",
+    "out.ok": "การจับภาพเสร็จสมบูรณ์: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ ถูกสร้างขึ้นแล้ว\n{stdout}",
     "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่จะบันทึก (ค่าเริ่มต้น: debug_capture)",
     "param.url.description": "URL แรกที่จะเปิด (ค่าเริ่มต้น: about:blank)",
     "tool.description": "เปิดตัว Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของเพจ (HTML และรูปภาพ) หลังจากที่ผู้ใช้คลิกปุ่มดำเนินการต่อ นอกจากนี้ บันทึก DOM/ภาพหน้าจอตามลำดับในแต่ละการนำทางเฟรมหลัก และบันทึกการนำทาง เครือข่าย เหตุการณ์คอนโซล ฯลฯ ในไฟล์ JSONL",

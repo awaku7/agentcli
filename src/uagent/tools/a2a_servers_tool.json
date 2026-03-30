@@ -163,6 +163,8 @@
     "err.config_not_found": "未找到配置文件。请先运行 action=init。",
     "err.exception": "异常",
 
-    "err.no_default_profile": "没有默认配置。"
+    "err.no_default_profile": "没有默认配置。",
+    "err.empty_name": "名称为空。",
+    "err.server_missing_base_url": "服务器配置缺少 base_url。"
   }
 }

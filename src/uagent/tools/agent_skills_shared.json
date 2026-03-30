@@ -81,7 +81,7 @@
     "err.frontmatter_missing_start": "开头处缺少 YAML 前置分隔符 '---'",
     "err.frontmatter_not_mapping": "Frontmatter 必须是 YAML 映射（对象）",
     "err.frontmatter_parse_failed": "无法解析 YAML frontmatter: {err}",
-    "err.path_traversal": "检测到路径遍历：已解析路径转义 Skill_dir",
+    "err.path_traversal": "检测到路径遍历：已解析路径转义 skills_dir",
     "err.relpath_points_to_root": "relative_path必须指向一个文件，而不是技能根",
     "err.relpath_required": "relative_path 必须是非空字符串",
     "err.skill_md_not_found": "未找到 {filename}：{path}"
@@ -110,7 +110,7 @@
     "err.frontmatter_missing_start": "開頭處缺少 YAML 前置分隔符號 '---'",
     "err.frontmatter_not_mapping": "Frontmatter 必須是 YAML 映射（物件）",
     "err.frontmatter_parse_failed": "無法解析 YAML frontmatter: {err}",
-    "err.path_traversal": "偵測到路徑遍歷：已解析路徑轉義 Skill_dir",
+    "err.path_traversal": "偵測到路徑遍歷：已解析路徑轉義 skills_dir",
     "err.relpath_points_to_root": "relative_path必須指向一個文件，而不是技能根",
     "err.relpath_required": "relative_path 必須是非空字串",
     "err.skill_md_not_found": "找不到 {filename}：{path}"
@@ -139,7 +139,7 @@
     "err.frontmatter_missing_start": "Falta el delimitador de materia frontal YAML '---' al inicio",
     "err.frontmatter_not_mapping": "Frontmatter debe ser un mapeo (objeto) YAML",
     "err.frontmatter_parse_failed": "No se pudo analizar YAML frontmatter: {err}",
-    "err.path_traversal": "Se detectó un recorrido de ruta: la ruta resuelta escapa a Skill_dir.",
+    "err.path_traversal": "Se detectó un recorrido de ruta: la ruta resuelta escapa a skills_dir.",
     "err.relpath_points_to_root": "relativa_ruta debe apuntar a un archivo, no a la raíz de la habilidad",
     "err.relpath_required": "relativo_path debe ser una cadena que no esté vacía",
     "err.skill_md_not_found": "{filename} no encontrado: {path}"
@@ -197,7 +197,7 @@
     "err.frontmatter_missing_start": "시작 시 YAML 앞부분 구분 기호 '---'가 누락되었습니다.",
     "err.frontmatter_not_mapping": "머리말은 YAML 매핑(객체)이어야 합니다.",
     "err.frontmatter_parse_failed": "YAML 머리말 구문 분석 실패: {err}",
-    "err.path_traversal": "경로 탐색이 감지됨: 해결된 경로가 Skill_dir을 이스케이프합니다.",
+    "err.path_traversal": "경로 탐색이 감지됨: 해결된 경로가 skills_dir을 이스케이프합니다.",
     "err.relpath_points_to_root": "상대 경로는 스킬 루트가 아닌 파일을 가리켜야 합니다.",
     "err.relpath_required": "상대 경로는 비어 있지 않은 문자열이어야 합니다.",
     "err.skill_md_not_found": "{filename}을 찾을 수 없음: {path}"
@@ -226,7 +226,7 @@
     "err.frontmatter_missing_start": "ไม่มีตัวคั่นส่วนหน้า YAML '---' เมื่อเริ่มต้น",
     "err.frontmatter_not_mapping": "Frontmatter จะต้องเป็นการแมป YAML (วัตถุ)",
     "err.frontmatter_parse_failed": "ไม่สามารถแยกวิเคราะห์ YAML ส่วนหน้า: {err}",
-    "err.path_traversal": "ตรวจพบการข้ามผ่านเส้นทาง: เส้นทางที่ได้รับการแก้ไขจะหลบหนี Skill_dir",
+    "err.path_traversal": "ตรวจพบการข้ามผ่านเส้นทาง: เส้นทางที่ได้รับการแก้ไขจะหลบหนี skills_dir",
     "err.relpath_points_to_root": "relative_path ต้องชี้ไปที่ไฟล์ ไม่ใช่รูททักษะ",
     "err.relpath_required": "relative_path จะต้องเป็นสตริงที่ไม่ว่างเปล่า",
     "err.skill_md_not_found": "{filename} ไม่พบ: {path}"
