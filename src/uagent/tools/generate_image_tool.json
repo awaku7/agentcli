@@ -144,7 +144,7 @@
     "err.empty_data": "ข้อมูลรูปภาพว่างเปล่า (resp.data ว่างเปล่าหรือ b64_json/url หายไป)",
     "err.gemini_fail": "ฉันไม่สามารถรับผลลัพธ์การสร้างภาพด้วยราศีเมถุนได้ โมเดลไม่รองรับการสร้างอิมเมจ หรือรูปแบบการส่งคืน SDK ไม่คาดคิด",
     "err.gemini_import": "ไม่สามารถนำเข้า google-genai (pip ติดตั้ง google-genai): {err}",
-    "err.gen_fail": "[generate_image] 画子生成に失敗しました。\nผู้ให้บริการ={provider} รุ่น={model} ขนาด={size} n={n}\n__ต็อก14__",
+    "err.gen_fail": "[generate_image] 画子生成に失敗しました。\nผู้ให้บริการ={provider} รุ่น={model} ขนาด={size} n={n}\n{err}",
     "err.httpx_init": "ไม่สามารถเริ่มต้น httpx: {err}",
     "err.mkdir_fail": "[generate_image] การสร้าง output_dir ล้มเหลว: {err}",
     "err.no_saved": "[generate_image] ข้อมูลรูปภาพว่างเปล่า",
