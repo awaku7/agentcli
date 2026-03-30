@@ -15,21 +15,21 @@
   },
   "zh_CN": {
     "err.invalid_args": "[工具错误]无效参数",
-    "err.skill_dir_required": "[工具错误] Skill_dir 必须是非空字符串",
+    "err.skill_dir_required": "[工具错误] skills_dir 必须是非空字符串",
     "param.skill_dir.description": "技能目录（下面直接需要SKILL.md）",
     "tool.description": "加载特工技能的 SKILL.md 并返回其 YAML frontmatter 和 Markdown 正文。",
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
   },
   "zh_TW": {
     "err.invalid_args": "[工具錯誤]無效參數",
-    "err.skill_dir_required": "[工具錯誤] Skill_dir 必須是非空字串",
+    "err.skill_dir_required": "[工具錯誤] skills_dir 必須是非空字串",
     "param.skill_dir.description": "技能目錄（下面直接需要SKILL.md）",
     "tool.description": "載入特務技能的 SKILL.md 並傳回其 YAML frontmatter 和 Markdown 正文。",
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   },
   "es": {
     "err.invalid_args": "[error de herramienta] argumentos no válidos",
-    "err.skill_dir_required": "[error de herramienta] Skill_dir debe ser una cadena que no esté vacía",
+    "err.skill_dir_required": "[error de herramienta] skills_dir debe ser una cadena que no esté vacía",
     "param.skill_dir.description": "Directorio de habilidades (se requiere SKILL.md directamente debajo)",
     "tool.description": "Carga el SKILL.md para una habilidad de agente y devuelve su YAML frontmatter y el cuerpo de Markdown.",
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
@@ -43,14 +43,14 @@
   },
   "ko": {
     "err.invalid_args": "[도구 오류] 잘못된 인수",
-    "err.skill_dir_required": "[도구 오류] Skill_dir은 비어 있지 않은 문자열이어야 합니다.",
+    "err.skill_dir_required": "[도구 오류] skills_dir은 비어 있지 않은 문자열이어야 합니다.",
     "param.skill_dir.description": "스킬 디렉터리(바로 아래에 SKILL.md가 필요함)",
     "tool.description": "에이전트 스킬에 대한 SKILL.md를 로드하고 해당 YAML 머리말과 마크다운 본문을 반환합니다.",
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
   "th": {
     "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] args ไม่ถูกต้อง",
-    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] Skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skills_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
     "param.skill_dir.description": "ไดเรกทอรีทักษะ (จำเป็นต้องมี SKILL.md ด้านล่างโดยตรง)",
     "tool.description": "โหลด SKILL.md สำหรับทักษะตัวแทนและส่งคืน YAML frontmatter และเนื้อหา Markdown",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
