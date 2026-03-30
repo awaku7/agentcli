@@ -37,6 +37,7 @@ ______________________________________________________________________
 関連ドキュメント:
 
 - ツール作成方法: `src/uagent/docs/DEVELOP_TOOL.md`
+- ホスト側 i18n: `src/uagent/docs/DEVELOP_I18N.md`（コンパイル: `python scripts/compile_locales.py` / QC: `python scripts/po_qc_summary.py`）
 
 ______________________________________________________________________
 

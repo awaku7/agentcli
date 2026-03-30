@@ -87,15 +87,17 @@ uaga
 python -m uagent.a2a.server
 ```
 
-### クライアント利用（uag/uagw/uagg から利用可能）
+### 設定（環境変数）
 
-```python
-from uagent.a2a.client import A2AClient
+- `UAGENT_A2A_TOKEN`: 認証が必要なエンドポイント用。空の場合、認証が必要なエンドポイントは無効化されます。
+- `UAGENT_A2A_CONCURRENCY`: 同時リクエスト数の上限（既定: `1`）。
+- `UAGENT_A2A_ENGINE`: リクエスト処理のバックエンド（既定: `uag`。テストでは `echo` を使う場合があります）。
+- `UAGENT_A2A_BASE_URL`: クライアント側の接続先ベースURL（既定: `http://127.0.0.1:8765`）。
 
-c = A2AClient(base_url="http://127.0.0.1:8765", token="YOUR_TOKEN")
-print(c.get_agent_card())
-print(c.send_message(text="こんにちは"))
-```
+### クライアント利用（任意）
+
+通常の `uag`（CLI/GUI/Web）利用では、A2A クライアントは不要です。
+別プロセス／別アプリから A2A サーバーを呼び出して連携したい場合のみ使用してください。
 
 ## 言語（i18n）
 
@@ -121,6 +123,22 @@ uag
 ```
 
 新しいロケールの追加方法は `src/uagent/docs/ADD_LOCALE.md` を参照してください。
+
+開発向けメモ:
+
+- `src/uagent/locales/*/LC_MESSAGES/uag.po` を編集したら、`.mo` を再生成します:
+
+```bash
+python scripts/compile_locales.py
+```
+
+- i18n の簡易QC（レポートは `outputs/i18n/` に出力）:
+
+```bash
+python scripts/po_qc_summary.py
+```
+
+関連: `src/uagent/docs/DEVELOP_I18N.md`。
 
 ### 起動
 

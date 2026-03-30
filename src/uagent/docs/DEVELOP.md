@@ -31,6 +31,7 @@ Key modules:
 Documentation:
 
 - Tool development: `src/uagent/docs/DEVELOP_TOOL.md`
+- Host-side i18n: `src/uagent/docs/DEVELOP_I18N.md` (compile: `python scripts/compile_locales.py`, QC: `python scripts/po_qc_summary.py`)
 
 ______________________________________________________________________
 

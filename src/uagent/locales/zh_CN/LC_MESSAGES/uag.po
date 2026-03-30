@@ -215,7 +215,7 @@ msgstr "已达到 429 重试上限（%(max_retries)s）。"
 #: src/uagent/core.py:1052
 #, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "发生错误： calling LLM for history compression: %(err)r"
+msgstr "调用 LLM 进行历史压缩时出错：%(err)r"
 
 #: src/uagent/core.py:1070
 msgid "Summary of the conversation so far:\n"
@@ -269,10 +269,7 @@ msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
 "log file (overwrite, no backup)."
-msgstr ""
-"                       Note: after running, you will be asked for 确认; "
-"choosing 'y' prepends the loaded log into the current session log 文件 "
-"(overwrite, no backup)."
+msgstr "                       注意：运行后会要求确认；选择 'y' 会将加载的日志添加到当前会话日志文件的开头（覆盖写入，无备份）。"
 
 #: src/uagent/core.py:1110
 msgid ""
@@ -802,7 +799,7 @@ msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
 msgstr ""
-"[MCP Servers]\n"
+"[MCP 服务器]\n"
 "- 获取信息失败：%(err)s"
 
 #: src/uagent/welcome.py:62
