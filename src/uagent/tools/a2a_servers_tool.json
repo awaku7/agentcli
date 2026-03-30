@@ -1,0 +1,168 @@
+{
+  "en": {
+    "tool.description": "Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Operate on A2A server profile list. Return JSON only.",
+
+    "param.action.description": "Action: init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "Profile name (or a2a://name for get/resolve).",
+    "param.base_url.description": "Server base URL (e.g. http://127.0.0.1:8765).",
+    "param.token.description": "Bearer token (plaintext). It will be encrypted before storing.",
+    "param.timeout_s.description": "Profile timeout in seconds.",
+    "param.interval_ms.description": "Polling interval in milliseconds.",
+    "param.set_default.description": "(add) Set as default profile.",
+    "param.force.description": "(init) Overwrite existing config.",
+
+    "err.missing_name_or_base_url": "Missing 'name' or 'base_url'.",
+    "err.missing_name": "Missing 'name'.",
+    "err.not_found": "Not found.",
+    "err.unknown_action": "Unknown action.",
+    "err.config_not_found": "Config not found. Run action=init first.",
+    "err.exception": "Exception",
+
+    "err.no_default_profile": "No default profile.",
+    "err.empty_name": "Empty name.",
+    "err.server_missing_base_url": "Server profile is missing base_url."
+  },
+  "ja": {
+    "tool.description": "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。",
+    "tool.system_prompt": "A2A サーバープロファイル一覧を操作します。JSONのみ返してください。",
+
+    "param.action.description": "操作: init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "プロファイル名（get/resolve の場合は a2a://name も可）。",
+    "param.base_url.description": "サーバーの base URL（例: http://127.0.0.1:8765）。",
+    "param.token.description": "Bearer トークン（平文）。保存時に暗号化されます。",
+    "param.timeout_s.description": "プロファイルのタイムアウト（秒）。",
+    "param.interval_ms.description": "ポーリング間隔（ミリ秒）。",
+    "param.set_default.description": "(add) 既定プロファイルとして設定します。",
+    "param.force.description": "(init) 既存設定を上書きします。",
+
+    "err.missing_name_or_base_url": "'name' または 'base_url' が指定されていません。",
+    "err.missing_name": "'name' が指定されていません。",
+    "err.not_found": "見つかりません。",
+    "err.unknown_action": "不明な action です。",
+    "err.config_not_found": "設定ファイルが見つかりません。action=init を先に実行してください。",
+    "err.exception": "例外",
+
+    "err.no_default_profile": "既定プロファイルが設定されていません。",
+    "err.empty_name": "名前が空です。",
+    "err.server_missing_base_url": "プロファイルに base_url がありません。"
+  },
+  "es": {
+    "tool.description": "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Opera sobre la lista de perfiles de servidor A2A. Devuelve solo JSON.",
+
+    "param.action.description": "Acción: init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "Nombre del perfil (o a2a://name para get/resolve).",
+    "param.base_url.description": "URL base del servidor (p. ej. http://127.0.0.1:8765).",
+    "param.token.description": "Token Bearer (texto plano). Se cifrará antes de guardarlo.",
+    "param.timeout_s.description": "Tiempo de espera del perfil en segundos.",
+    "param.interval_ms.description": "Intervalo de sondeo en milisegundos.",
+    "param.set_default.description": "(add) Establecer como perfil predeterminado.",
+    "param.force.description": "(init) Sobrescribir la configuración existente.",
+
+    "err.missing_name_or_base_url": "Falta 'name' o 'base_url'.",
+    "err.missing_name": "Falta 'name'.",
+    "err.not_found": "No encontrado.",
+    "err.unknown_action": "Acción desconocida.",
+    "err.config_not_found": "No se encontró la configuración. Ejecuta action=init primero.",
+    "err.exception": "Excepción",
+
+    "err.no_default_profile": "No hay perfil predeterminado.",
+    "err.empty_name": "Nombre vacío.",
+    "err.server_missing_base_url": "Al perfil del servidor le falta base_url."
+  },
+  "fr": {
+    "tool.description": "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Gérer la liste des profils de serveur A2A. Retourner uniquement du JSON.",
+
+    "param.action.description": "Action : init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "Nom du profil (ou a2a://name pour get/resolve).",
+    "param.base_url.description": "URL de base du serveur (ex. http://127.0.0.1:8765).",
+    "param.token.description": "Jeton Bearer (en clair). Il sera chiffré avant l’enregistrement.",
+    "param.timeout_s.description": "Délai d’expiration du profil en secondes.",
+    "param.interval_ms.description": "Intervalle de sondage en millisecondes.",
+    "param.set_default.description": "(add) Définir comme profil par défaut.",
+    "param.force.description": "(init) Écraser la configuration existante.",
+
+    "err.missing_name_or_base_url": "'name' ou 'base_url' manquant.",
+    "err.missing_name": "'name' manquant.",
+    "err.not_found": "Introuvable.",
+    "err.unknown_action": "Action inconnue.",
+    "err.config_not_found": "Configuration introuvable. Exécutez d’abord action=init.",
+    "err.exception": "Exception",
+
+    "err.no_default_profile": "Aucun profil par défaut.",
+    "err.empty_name": "Nom vide.",
+    "err.server_missing_base_url": "Il manque base_url dans le profil du serveur."
+  },
+  "ko": {
+    "tool.description": "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다.",
+    "tool.system_prompt": "A2A 서버 프로필 목록을 조작합니다. JSON만 반환하세요.",
+
+    "param.action.description": "동작: init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "프로필 이름(get/resolve의 경우 a2a://name도 가능).",
+    "param.base_url.description": "서버 base URL(예: http://127.0.0.1:8765).",
+    "param.token.description": "Bearer 토큰(평문). 저장 전에 암호화됩니다.",
+    "param.timeout_s.description": "프로필 타임아웃(초).",
+    "param.interval_ms.description": "폴링 간격(밀리초).",
+    "param.set_default.description": "(add) 기본 프로필로 설정.",
+    "param.force.description": "(init) 기존 설정을 덮어쓰기.",
+
+    "err.missing_name_or_base_url": "'name' 또는 'base_url'이(가) 지정되지 않았습니다.",
+    "err.missing_name": "'name'이(가) 지정되지 않았습니다.",
+    "err.not_found": "찾을 수 없습니다.",
+    "err.unknown_action": "알 수 없는 action입니다.",
+    "err.config_not_found": "설정 파일을 찾을 수 없습니다. 먼저 action=init을 실행하세요.",
+    "err.exception": "예외",
+
+    "err.no_default_profile": "기본 프로필이 없습니다.",
+    "err.empty_name": "이름이 비었습니다.",
+    "err.server_missing_base_url": "서버 프로필에 base_url이 없습니다."
+  },
+  "th": {
+    "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ใต้ไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืนเฉพาะ JSON.",
+
+    "param.action.description": "การกระทำ: init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "ชื่อโปรไฟล์ (หรือ a2a://name สำหรับ get/resolve).",
+    "param.base_url.description": "URL ฐานของเซิร์ฟเวอร์ (เช่น http://127.0.0.1:8765).",
+    "param.token.description": "โทเค็น Bearer (ข้อความล้วน) จะถูกเข้ารหัสก่อนบันทึก.",
+    "param.timeout_s.description": "หมดเวลาโปรไฟล์ (วินาที).",
+    "param.interval_ms.description": "ช่วงเวลาโพลลิง (มิลลิวินาที).",
+    "param.set_default.description": "(add) ตั้งเป็นโปรไฟล์เริ่มต้น.",
+    "param.force.description": "(init) เขียนทับการตั้งค่าที่มีอยู่.",
+
+    "err.missing_name_or_base_url": "ขาด 'name' หรือ 'base_url'.",
+    "err.missing_name": "ขาด 'name'.",
+    "err.not_found": "ไม่พบ.",
+    "err.unknown_action": "การกระทำไม่รู้จัก.",
+    "err.config_not_found": "ไม่พบไฟล์ตั้งค่า กรุณารัน action=init ก่อน.",
+    "err.exception": "ข้อยกเว้น",
+
+    "err.no_default_profile": "ไม่มีโปรไฟล์เริ่มต้น.",
+    "err.empty_name": "ชื่อว่าง.",
+    "err.server_missing_base_url": "โปรไฟล์เซิร์ฟเวอร์ไม่มี base_url."
+  },
+  "zh_CN": {
+    "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置档案。",
+    "tool.system_prompt": "操作 A2A 服务器配置档案列表。仅返回 JSON。",
+
+    "param.action.description": "操作：init/list/add/remove/set_default/get/resolve",
+    "param.name.description": "配置名（get/resolve 时也可用 a2a://name）。",
+    "param.base_url.description": "服务器 base URL（例如 http://127.0.0.1:8765）。",
+    "param.token.description": "Bearer Token（明文）。保存前会加密。",
+    "param.timeout_s.description": "配置超时（秒）。",
+    "param.interval_ms.description": "轮询间隔（毫秒）。",
+    "param.set_default.description": "（add）设为默认配置。",
+    "param.force.description": "（init）覆盖现有配置。",
+
+    "err.missing_name_or_base_url": "缺少 'name' 或 'base_url'。",
+    "err.missing_name": "缺少 'name'。",
+    "err.not_found": "未找到。",
+    "err.unknown_action": "未知 action。",
+    "err.config_not_found": "未找到配置文件。请先运行 action=init。",
+    "err.exception": "异常",
+
+    "err.no_default_profile": "没有默认配置。"
+  }
+}
