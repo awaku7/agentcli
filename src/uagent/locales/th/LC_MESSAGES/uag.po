@@ -845,8 +845,7 @@ msgstr ""
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.)."
-msgstr ""
-"- คำสั่ง: พิมพ์ '::help' เพื่อดูคำสั่งระบบ (จัดการ log, บีบอัดประวัติ ฯลฯ)"
+msgstr "- คำสั่ง: พิมพ์ ':help' เพื่อดูคำสั่งระบบ (การจัดการ log, การบีบอัดประวัติ ฯลฯ)"
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

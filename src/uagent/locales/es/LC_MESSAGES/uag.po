@@ -85,7 +85,7 @@ msgstr "Se recibió una respuesta multilínea."
 #: src/uagent/cli.py:793 src/uagent/web.py:811
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Failed to set directorio de trabajo: %(err)s"
+msgstr "[FATAL] No se pudo establecer el directorio de trabajo: %(err)s"
 
 #: src/uagent/cli.py:844 src/uagent/scheckgui.py:175 src/uagent/web.py:574
 #, python-format
@@ -122,7 +122,7 @@ msgstr ""
 #: src/uagent/cli.py:890
 #, python-format
 msgid "current workdir = %(cwd)s"
-msgstr "current directorio de trabajo = %(cwd)s"
+msgstr "directorio de trabajo actual = %(cwd)s"
 
 #: src/uagent/cli.py:898 src/uagent/scheckgui.py:232 src/uagent/web.py:589
 msgid "Loaded long-term memory."
@@ -242,7 +242,7 @@ msgstr ""
 
 #: src/uagent/core.py:1093
 msgid "Available commands:"
-msgstr "Available comandos:"
+msgstr "Comandos disponibles:"
 
 #: src/uagent/core.py:1094
 msgid "  :help                 Show this help"
@@ -846,7 +846,7 @@ msgid ""
 "- Failed to get info: %(err)s"
 msgstr ""
 "[Servidores MCP]\n"
-"- Failed to get info: %(err)s"
+"- No se pudo obtener información: %(err)s"
 
 #: src/uagent/welcome.py:62
 msgid "[Quick Guide]"
@@ -870,9 +870,7 @@ msgstr ""
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.)."
-msgstr ""
-"- Commands: type ':help' to see system comandos (log management, history "
-"compression, etc.)."
+msgstr "- Comandos: escriba ':help' para ver los comandos del sistema (gestión de registros, compresión del historial, etc.)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

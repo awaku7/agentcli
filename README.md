@@ -51,15 +51,17 @@ uaga
 python -m uagent.a2a.server
 ```
 
-### Client usage (from uag/uagw/uagg code)
+### Configuration (env)
 
-```python
-from uagent.a2a.client import A2AClient
+- `UAGENT_A2A_TOKEN`: required for authenticated endpoints. If empty, authenticated endpoints are disabled.
+- `UAGENT_A2A_CONCURRENCY`: max concurrent requests (default: `1`).
+- `UAGENT_A2A_ENGINE`: backend engine for handling requests (default: `uag`; tests may use `echo`).
+- `UAGENT_A2A_BASE_URL`: client-side base URL (default: `http://127.0.0.1:8765`).
 
-c = A2AClient(base_url="http://127.0.0.1:8765", token="YOUR_TOKEN")
-print(c.get_agent_card())
-print(c.send_message(text="hello"))
-```
+### Client usage (optional)
+
+You do not need an A2A client for normal `uag` CLI/GUI/Web usage.
+Use the client only when you want to call the A2A server from another process or application.
 
 ## Language / i18n
 
@@ -85,6 +87,22 @@ uag
 ```
 
 See `src/uagent/docs/ADD_LOCALE.md` for how to add a new locale.
+
+Developer notes:
+
+- After editing `src/uagent/locales/*/LC_MESSAGES/uag.po`, regenerate `.mo` files:
+
+```bash
+python scripts/compile_locales.py
+```
+
+- Run i18n QC (writes reports under `outputs/i18n/`):
+
+```bash
+python scripts/po_qc_summary.py
+```
+
+See also: `src/uagent/docs/DEVELOP_I18N.md`.
 
 ### Start
 

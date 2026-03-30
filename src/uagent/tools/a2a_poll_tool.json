@@ -1,0 +1,98 @@
+{
+  "en": {
+    "tool.description": "Poll an A2A task until it reaches a terminal status.",
+    "tool.system_prompt": "Poll an A2A task. Return JSON only.",
+
+    "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
+    "param.task_id.description": "Task ID to poll.",
+    "param.interval_ms.description": "Override polling interval (ms).",
+    "param.timeout_s.description": "Override timeout (seconds).",
+
+    "err.missing_task_id": "Missing 'task_id'.",
+    "err.exception": "Exception"
+  },
+  "ja": {
+    "tool.description": "A2A タスクが終端状態になるまでポーリングします。",
+    "tool.system_prompt": "A2A タスクをポーリングします。JSONのみ返してください。",
+
+    "param.profile.description": "プロファイル名または a2a://name。省略時は既定プロファイルを使用します。",
+    "param.task_id.description": "ポーリング対象のタスクID。",
+    "param.interval_ms.description": "ポーリング間隔（ms）の上書き。",
+    "param.timeout_s.description": "タイムアウト（秒）の上書き。",
+
+    "err.missing_task_id": "'task_id' が指定されていません。",
+    "err.exception": "例外"
+  },
+  "es": {
+    "tool.description": "Sondea una tarea A2A hasta que alcance un estado terminal.",
+    "tool.system_prompt": "Sondear una tarea A2A. Devuelve solo JSON.",
+
+    "param.profile.description": "Nombre de perfil o a2a://name. Si se omite, usa el perfil predeterminado.",
+    "param.task_id.description": "ID de la tarea a sondear.",
+    "param.interval_ms.description": "Anular el intervalo de sondeo (ms).",
+    "param.timeout_s.description": "Anular el tiempo de espera (segundos).",
+
+    "err.missing_task_id": "Falta 'task_id'.",
+    "err.exception": "Excepción"
+  },
+  "fr": {
+    "tool.description": "Interroge une tâche A2A jusqu’à ce qu’elle atteigne un état terminal.",
+    "tool.system_prompt": "Interroger une tâche A2A. Retourner uniquement du JSON.",
+
+    "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
+    "param.task_id.description": "ID de la tâche à interroger.",
+    "param.interval_ms.description": "Remplacer l’intervalle de sondage (ms).",
+    "param.timeout_s.description": "Remplacer le délai d’expiration (secondes).",
+
+    "err.missing_task_id": "'task_id' manquant.",
+    "err.exception": "Exception"
+  },
+  "ko": {
+    "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다.",
+    "tool.system_prompt": "A2A 작업을 폴링합니다. JSON만 반환하세요.",
+
+    "param.profile.description": "프로필 이름 또는 a2a://name. 생략 시 기본 프로필을 사용합니다.",
+    "param.task_id.description": "폴링할 작업 ID.",
+    "param.interval_ms.description": "폴링 간격(ms) 재정의.",
+    "param.timeout_s.description": "타임아웃(초) 재정의.",
+
+    "err.missing_task_id": "'task_id'가 지정되지 않았습니다.",
+    "err.exception": "예외"
+  },
+  "th": {
+    "tool.description": "โพลลิงงาน A2A จนกว่าจะถึงสถานะสิ้นสุด.",
+    "tool.system_prompt": "โพลลิงงาน A2A ส่งคืนเฉพาะ JSON.",
+
+    "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
+    "param.task_id.description": "รหัสงานที่จะโพลลิง.",
+    "param.interval_ms.description": "แทนที่ช่วงเวลาโพลลิง (ms).",
+    "param.timeout_s.description": "แทนที่เวลาหมดเวลา (วินาที).",
+
+    "err.missing_task_id": "ขาด 'task_id'.",
+    "err.exception": "ข้อยกเว้น"
+  },
+  "zh_CN": {
+    "tool.description": "轮询 A2A 任务直到进入终态。",
+    "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。",
+
+    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
+    "param.task_id.description": "要轮询的任务 ID。",
+    "param.interval_ms.description": "覆盖轮询间隔（毫秒）。",
+    "param.timeout_s.description": "覆盖超时（秒）。",
+
+    "err.missing_task_id": "缺少 'task_id'。",
+    "err.exception": "异常"
+  },
+  "zh_TW": {
+    "tool.description": "輪詢 A2A 任務直到進入終態。",
+    "tool.system_prompt": "輪詢 A2A 任務。僅回傳 JSON。",
+
+    "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
+    "param.task_id.description": "要輪詢的任務 ID。",
+    "param.interval_ms.description": "覆寫輪詢間隔（毫秒）。",
+    "param.timeout_s.description": "覆寫逾時（秒）。",
+
+    "err.missing_task_id": "缺少 'task_id'。",
+    "err.exception": "例外"
+  }
+}
