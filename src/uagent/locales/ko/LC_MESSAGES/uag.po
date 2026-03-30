@@ -770,21 +770,7 @@ msgstr ""
 
 #: src/uagent/util_tools.py:1497
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
-"
-"
-"
-"
-"
-""
 msgstr ""
-"아래 글머리표는 이 사용자의 장기 기억(영구 메모)에서 발췌한 내용입니다. 사용자에 대한 배경 정보로 활용하세요. 다만 대화에서 새로 제공된 정보를 항상 우선하며, 오래된 정보와 모순될 경우 최신 정보를 채택하세요.
-"
-"
-"
-"
-"
-""
 
 #: src/uagent/web.py:454
 msgid ""
@@ -3060,9 +3046,5 @@ msgstr ""
 
 #: src/uagent/core.py:1234
 msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
-"
 msgstr ""
-"- 사용자가 Windows cmd.exe를 사용 중이라면, 복사/붙여넣기 시 줄바꿈이 섞이는 것을 피하기 위해 캐럿(^) 줄 계속을 사용하는 여러 줄 명령을 우선하고, 각 줄을 짧게 유지하세요.
-"
 

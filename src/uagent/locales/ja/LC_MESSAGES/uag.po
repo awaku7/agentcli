@@ -88,16 +88,16 @@ msgstr "[FATAL] workdir の設定に失敗しました: %(err)s"
 #: src/uagent/cli.py:844 src/uagent/scheckgui.py:175 src/uagent/web.py:574
 #, python-format
 msgid "LLM provider = %(provider)s"
-msgstr "LLM provider = %(provider)s"
+msgstr "LLM プロバイダー = %(provider)s"
 
 #: src/uagent/cli.py:845 src/uagent/scheckgui.py:179 src/uagent/web.py:576
 #, python-format
 msgid "model(deployment) = %(depname)s"
-msgstr "model(deployment) = %(depname)s"
+msgstr "モデル（deployment） = %(depname)s"
 
 #: src/uagent/cli.py:850 src/uagent/scheckgui.py:189
 msgid "OpenRouter fallback models enabled."
-msgstr "OpenRouter fallback models enabled"
+msgstr "OpenRouter のフォールバックモデルを有効化しました。"
 
 #: src/uagent/cli.py:870 src/uagent/scheckgui.py:208 src/uagent/web.py:556
 #, python-format
@@ -194,7 +194,7 @@ msgstr "ログファイルがありません。"
 #: src/uagent/core.py:554
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "ログ: %(shown)d/%(total)d 件を表示中 (dir=%(dir)s)"
 
 #: src/uagent/core.py:557
 msgid "Log files:"
@@ -382,11 +382,10 @@ msgid ""
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
-""
+"- 提供されているツールを常に使用し、最新の情報をツールで検証すること。\n"
+"- 創造的であること。ただし不確かな情報は出力しないこと。\n"
+"- 利用可能なツールを確認し、最も適切なものを選ぶこと。\n"
+"- ツール実行時は、ユーザーに委ねる意思決定をできるだけ少なくすること。\n"
 
 #: src/uagent/core.py:1164
 msgid ""
@@ -400,14 +399,13 @@ msgid ""
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 msgstr ""
 "## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
-""
+"- すべてのユーザーメッセージは、このスクリプトの標準入力から渡されます。\n"
+"- ツール固有の目的/引数/制約/運用上の詳細は、各ツールの説明を優先してください。\n"
+"- 追加情報や確認が必要な場合は human_ask ツールを使用してください。\n"
+"- 相対日付表現を扱う場合は、現在時刻参照のため get_current_time を呼び出してください。\n"
+"- 秘密情報（パスワード/トークン等）を長期記憶（add_long_memory 等）に保存しないでください。\n"
+"- Python ファイルを作成した場合は、構文検証のため `python -m py_compile` を実行してください。\n"
+"- 専門的な知識が必要な場合は、プロンプトテンプレート（Agent Skills）を使用し、それに従ってください。\n"
 
 #: src/uagent/core.py:1174
 msgid ""
@@ -450,11 +448,10 @@ msgid ""
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-""
+"- 提供されているツールを優先して使用し、結果はツールで検証してください。\n"
+"- ツール説明の目的/引数/制約を確認し、最も適切かつ安全なツールを選んでください。\n"
+"- 創造的であること。ただし不確かな情報は出力しないこと。\n"
+"- ユーザーに委ねる意思決定をできるだけ少なくしてください。\n"
 
 #: src/uagent/core.py:1196
 msgid ""
@@ -467,13 +464,12 @@ msgid ""
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
 "## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-""
+"- すべてのユーザーメッセージは、このスクリプトの標準入力から渡されます。\n"
+"- 必要な情報/パラメータが不足している場合は、human_ask で質問してください（推測しない）。\n"
+"- 相対日付: get_current_time を呼び出してください。\n"
+"- 秘密情報（パスワード/トークン等）を長期記憶に保存しないでください。\n"
+"- Python ファイルを作成した場合は、`python -m py_compile` を実行してください。\n"
+"- 専門的な知識が必要な場合は、Agent Skills のプロンプトテンプレートを使用してください。\n"
 
 #: src/uagent/core.py:1260
 msgid "[Available Tools]"
@@ -504,17 +500,17 @@ msgstr "開発者向け情報"
 #: src/uagent/docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
-msgstr "unknown doc name: %(name)r"
+msgstr "不明なドキュメント名: %(name)r"
 
 #: src/uagent/docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
-msgstr "doc file not found: %(filename)s"
+msgstr "ドキュメントファイルが見つかりません: %(filename)s"
 
 #: src/uagent/docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "ドキュメントパスの解決に失敗しました: %(filename)s: %(err)s"
 
 #: src/uagent/docs_util.py:227
 msgid "[docs] Available documents:"
@@ -766,21 +762,9 @@ msgstr "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAG
 
 #: src/uagent/util_tools.py:1497
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
-"
-"
-"
-"
-"
-""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 msgstr ""
-"以下の箇条書きは、このユーザーの長期記憶（永続メモ）からの抜粋です。ユーザーに関する背景情報として参照してください。ただし、会話内で新たに提供された情報を常に優先し、古い情報と矛盾する場合は最新の情報を採用してください。
-"
-"
-"
-"
-"
-""
+"以下の箇条書きは、このユーザーの長期記憶（永続メモ）からの抜粋です。ユーザーに関する背景情報として参照してください。ただし、会話内で新たに提供された情報を常に優先し、古い情報と矛盾する場合は最新の情報を採用してください。\n"
 
 #: src/uagent/web.py:454
 msgid ""
@@ -3056,9 +3040,7 @@ msgstr ""
 
 #: src/uagent/core.py:1234
 msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
-"
+"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.\n"
 msgstr ""
-"- Windows の cmd.exe を使っている場合は、コピー/貼り付けで改行が混入しないよう、キャレット (^) による複数行の行継続を使い、各行を短くしてください。
-"
+"- Windows の cmd.exe を使っている場合は、コピー/貼り付けで改行が混入しないよう、キャレット (^) による複数行の行継続を使い、各行を短くしてください。\n"
 
