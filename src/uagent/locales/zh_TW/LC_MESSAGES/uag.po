@@ -765,21 +765,7 @@ msgstr "  :shared-mem-列出      列出共享長期記憶筆記 (需要 UAGENT_
 
 #: src/uagent/util_tools.py:1497
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.
-"
-"
-"
-"
-"
-""
 msgstr ""
-"下列項目符號為此使用者長期記憶（持久備忘）中的摘錄。請將其作為使用者的背景資訊參考。但請一律以對話中最新提供的資訊為準；若與舊資訊矛盾，應採用最新資訊。
-"
-"
-"
-"
-"
-""
 
 #: src/uagent/web.py:454
 msgid ""
@@ -3055,9 +3041,5 @@ msgstr ""
 
 #: src/uagent/core.py:1234
 msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
-"
 msgstr ""
-"- 如果使用者在使用 Windows 的 cmd.exe，為避免複製/貼上時出現換行，請優先使用插入符號 (^) 進行多行命令續行，並盡量保持每行較短。
-"
 
