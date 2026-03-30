@@ -86,7 +86,7 @@ msgstr "Réponse multiligne reçue."
 #: src/uagent/cli.py:793 src/uagent/web.py:811
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Failed to set répertoire de travail: %(err)s"
+msgstr "[FATAL] Impossible de définir le répertoire de travail : %(err)s"
 
 #: src/uagent/cli.py:844 src/uagent/scheckgui.py:175 src/uagent/web.py:574
 #, python-format
@@ -122,7 +122,7 @@ msgstr "Mode API LLM = ChatCompletions (UAGENT_RESPONSES est désactivé)"
 #: src/uagent/cli.py:890
 #, python-format
 msgid "current workdir = %(cwd)s"
-msgstr "current répertoire de travail = %(cwd)s"
+msgstr "répertoire de travail actuel = %(cwd)s"
 
 #: src/uagent/cli.py:898 src/uagent/scheckgui.py:232 src/uagent/web.py:589
 msgid "Loaded long-term memory."
@@ -220,7 +220,7 @@ msgstr ""
 #: src/uagent/core.py:1042
 #, fuzzy, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Limite de nouvelles tentatives 429 atteinte (%(max_retries)s)."
+msgstr "Limite de nouvelles tentatives 429 atteinte (%(max_retries)s) lors de la compression de l'historique."
 
 #: src/uagent/core.py:1052
 #, python-format
@@ -243,7 +243,7 @@ msgstr ""
 
 #: src/uagent/core.py:1093
 msgid "Available commands:"
-msgstr "Available commandes:"
+msgstr "Commandes disponibles :"
 
 #: src/uagent/core.py:1094
 msgid "  :help                 Show this help"
@@ -847,7 +847,7 @@ msgid ""
 "- Failed to get info: %(err)s"
 msgstr ""
 "[Serveurs MCP]\n"
-"- Failed to get info: %(err)s"
+"- Impossible d'obtenir les informations : %(err)s"
 
 #: src/uagent/welcome.py:62
 msgid "[Quick Guide]"
@@ -871,9 +871,7 @@ msgstr ""
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.)."
-msgstr ""
-"- Commands: type ':help' to see system commandes (log management, history "
-"compression, etc.)."
+msgstr "- Commandes : tapez ':help' pour voir les commandes système (gestion des journaux, compression de l'historique, etc.)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

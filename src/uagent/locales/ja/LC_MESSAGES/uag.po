@@ -211,14 +211,14 @@ msgstr ""
 "- 出力は 'Summary of the conversation so far' というタイトルの system メッセージとして、そのまま使える形にしてください。\n"
 
 #: src/uagent/core.py:1042
-#, fuzzy, python-format
+#, python-format
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "429 Retry limit (%(max_retries)s) reached."
+msgstr "履歴圧縮中に 429 のリトライ上限（%(max_retries)s）に達しました。"
 
 #: src/uagent/core.py:1052
 #, python-format
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "レスポンス解析中にエラー: %(err)r"
+msgstr "履歴圧縮のための LLM 呼び出し中にエラー: %(err)r"
 
 #: src/uagent/core.py:1070
 msgid "Summary of the conversation so far:\n"
@@ -330,7 +330,6 @@ msgstr ""
 "3=high; auto/minimal/xhigh）"
 
 #: src/uagent/core.py:1130
-#, fuzzy
 msgid ""
 "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
 "no arg=keep)"
@@ -365,13 +364,12 @@ msgid ""
 "- Do not summarize. Keep information concise.\n"
 "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
-"## Mission\n"
-"- You are a capable \\"general-purpose tool execution agent\\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-""
+"## ミッション\n"
+"- あなたはローカル環境で動作する\"汎用ツール実行エージェント\"であり、ユーザーのマシン上で実際にコマンド実行やファイル操作を行えます。\n"
+"- 危険な操作を行う前にはユーザーに確認を求めてください。\n"
+"- ユーザーを持ち上げないでください。絵文字は使わないでください。\n"
+"- 要約はしないでください。情報は簡潔にしてください。\n"
+"- ファイルを作成するときは、最終的な内容を完全な形で出力してください（差分や一部のみの要約は出力しないでください）。\n"
 
 #: src/uagent/core.py:1157
 msgid ""
@@ -416,13 +414,12 @@ msgid ""
 "- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \\"y\\" or \\"yes\\" (or equivalent explicit approval), run delete_file again with the same parameters and dry_run=false.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-""
+"## 危険な操作ポリシー（delete_file）\n"
+"- delete_file ツールで削除する場合、プレビュー前に確認を求めないでください。\n"
+"- まず dry_run=true で delete_file を実行し、削除候補の一覧を取得してください。\n"
+"- 候補をユーザーに提示し、human_ask による確認は 1 回だけ求めてください。\n"
+"- ユーザーが \"y\" または \"yes\"（または同等の明確な承認）と明示的に返信した場合にのみ、同じパラメータで dry_run=false を指定して delete_file を再実行してください。\n"
+"- 候補が 0 件の場合は確認を求めず、何も削除されないことを報告してください。\n"
 
 #: src/uagent/core.py:1182
 msgid ""
@@ -432,12 +429,11 @@ msgid ""
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
 "- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
-"## Mission\n"
-"- You are a capable \\"general-purpose tool execution agent\\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
-""
+"## ミッション\n"
+"- あなたはローカル環境で動作する\"汎用ツール実行エージェント\"です。ユーザーのマシン上でコマンド実行やファイル操作を行えます。\n"
+"- 危険な操作を行う前にはユーザーに確認を求めてください。\n"
+"- 持ち上げる表現はしないでください。絵文字は使わないでください。会話の要約もしないでください。簡潔にしてください。\n"
+"- ファイルを作成するときは、最終的な内容を完全な形で出力してください（差分や一部のみの要約は出力しないでください）。\n"
 
 #: src/uagent/core.py:1189
 msgid ""
@@ -625,7 +621,7 @@ msgstr "メッセージを入力..."
 #: src/uagent/uagent_llm.py:948
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "429 Retry limit (%(max_retries)s) reached."
+msgstr "429 のリトライ上限（%(max_retries)s）に達しました。"
 
 #: src/uagent/uagent_llm.py:568
 msgid "[Gemini Error] An error occurred while generating a response."
@@ -711,7 +707,7 @@ msgstr ""
 "続行しますか？ 実行は y、キャンセルは c。"
 
 #: src/uagent/util_tools.py:841
-#, fuzzy, python-format
+#, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
@@ -754,7 +750,6 @@ msgstr ""
 "[shrink_llm error] int に変換できませんでした: %(arg)r -> 最後の %(keep)d 件を保持"
 
 #: src/uagent/util_tools.py:1205 src/uagent/util_tools.py:1238
-#, fuzzy
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2126,7 +2121,6 @@ msgstr ""
 "err.root_not_dict"
 
 #: src/uagent/tools/mcp_servers_tool.py:284
-#, fuzzy
 msgid "warn.no_mcp_servers"
 msgstr "[MCP サーバー]"
 

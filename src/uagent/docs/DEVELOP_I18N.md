@@ -155,6 +155,28 @@ Notes / limitations:
 python -m compileall -q src/uagent
 ```
 
+## QC (translation sanity checks)
+
+This repository provides a small QC helper:
+
+```bash
+python scripts/po_qc_summary.py
+```
+
+It scans `src/uagent/locales/*/LC_MESSAGES/*.po` and writes:
+
+- `outputs/i18n/po_qc_summary.tsv`
+- `outputs/i18n/{locale}_po_qc.txt`
+
+Interpretation (high-level):
+
+- `empty`: untranslated entries (`msgstr ""`).
+- `fuzzy`: entries still marked `#, fuzzy`.
+- `ascii_nonkey`: `msgstr` is ASCII-only but not key-like (often indicates leftover English).
+- `same_as_en`: non-key `msgstr` equals English translation.
+- `no_expected_script`: for `ja/zh/ko/th`, `msgstr` lacks expected script (can include false-positives for technical strings).
+- `same_as_msgid`: `msgstr` equals `msgid` (often OK in this repo due to key-style msgids).
+
 ## Checklist (host-side)
 
 When changing host-side messages:
@@ -163,7 +185,8 @@ When changing host-side messages:
 - [ ] wrapped with `_()`
 - [ ] used named placeholders instead of f-strings where possible
 - [ ] `uag.po` updated (ja)
-- [ ] `.mo` regenerated
+- [ ] `.mo` regenerated (`python scripts/compile_locales.py`)
+- [ ] `python scripts/po_qc_summary.py` checked (at least the affected locale)
 - [ ] `python -m compileall -q src/uagent` passes
 
 ## Out of Scope
