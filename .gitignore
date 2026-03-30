@@ -18,3 +18,7 @@ src/scheck/README.md
 
 # Local outputs
 outputs/
+
+# Local secrets/config (A2A)
+a2a_key
+a2a_servers.json
