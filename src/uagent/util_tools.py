@@ -820,13 +820,15 @@ def _handle_cmd_skills(
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
 
+        synthetic_user_msg = {"role": "user", "content": "読み込んだスキルを実行して"}
+        messages_ref.append(synthetic_user_msg)
+        try:
+            core.log_message(synthetic_user_msg)
+        except Exception:
+            pass
+
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-
-        try:
-            core.event_queue.put({"kind": "user", "text": "実行して"})
-        except Exception as queue_e:
-            print(f"[skills error] {type(queue_e).__name__}: {queue_e}")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
