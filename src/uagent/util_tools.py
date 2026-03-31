@@ -652,6 +652,22 @@ def _insert_skill_system_message(
     messages_ref.insert(idx, skill_system_msg)
 
 
+def _has_any_user_message(messages_ref: List[Dict[str, Any]]) -> bool:
+    for m in messages_ref or []:
+        if isinstance(m, dict) and m.get("role") == "user":
+            return True
+    return False
+
+
+def _trim_messages_after_last_user(messages_ref: List[Dict[str, Any]]) -> bool:
+    for idx in range(len(messages_ref) - 1, -1, -1):
+        m = messages_ref[idx]
+        if isinstance(m, dict) and m.get("role") == "user":
+            del messages_ref[idx + 1 :]
+            return True
+    return False
+
+
 def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
     prefix = _skills_marker_prefix()
     before = len(messages_ref)
@@ -671,6 +687,8 @@ def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
 def _handle_cmd_skills(
     arg: str,
     messages_ref: List[Dict[str, Any]],
+    client: Any,
+    depname: str,
     *,
     core: Any,
     tr: Any,
@@ -804,6 +822,30 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
+
+        if _has_any_user_message(messages_ref):
+            _persist_messages_with_warn(messages_ref, core=core, label="skills")
+            try:
+                from . import uagent_llm as llm_util
+                from .util_providers import make_client as make_client_fn
+
+                provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
+                if provider:
+                    print(tr("[skills] Re-running with the applied skill..."))
+                    llm_util.run_llm_rounds(
+                        provider,
+                        client,
+                        depname,
+                        messages_ref,
+                        core=core,
+                        make_client_fn=make_client_fn,
+                        append_result_to_outfile_fn=append_result_to_outfile,
+                        try_open_images_from_text_fn=try_open_images_from_text,
+                    )
+                else:
+                    print(tr("[skills] Applied, but provider is unavailable; skipping rerun."))
+            except Exception as rerun_e:
+                print(f"[skills rerun error] {type(rerun_e).__name__}: {rerun_e}")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
@@ -1436,7 +1478,7 @@ def handle_command(
         return _handle_cmd_tools(tr=tr)
 
     if cmd == "skills":
-        return _handle_cmd_skills(arg, messages_ref, core=core, tr=tr)
+        return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)
