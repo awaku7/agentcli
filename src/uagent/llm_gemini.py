@@ -238,10 +238,33 @@ def _extract_latest_user_text(messages: List[Dict[str, Any]]) -> str:
             continue
         if m.get("role") != "user":
             continue
-        c = m.get("content")
-        if isinstance(c, str) and c.strip():
+        c = _message_content_text(m)
+        if c.strip():
             return c
     return ""
+
+
+def _message_content_text(message: Dict[str, Any]) -> str:
+    """Normalize message content to plain text for Gemini helpers."""
+    c = message.get("content")
+    if isinstance(c, str):
+        return c
+    if isinstance(c, list):
+        parts: List[str] = []
+        for item in c:
+            if isinstance(item, dict):
+                t = item.get("type")
+                if t in ("text", "input_text", "output_text"):
+                    txt = item.get("text")
+                    if isinstance(txt, str) and txt.strip():
+                        parts.append(txt)
+            elif isinstance(item, str) and item.strip():
+                parts.append(item)
+        if parts:
+            return "\n".join(parts)
+    if c is None:
+        return ""
+    return str(c)
 
 
 def _choose_auto_thinking_level(user_text: str) -> str:
@@ -483,7 +506,7 @@ def gemini_chat_with_tools(
             continue
 
         role = m.get("role")
-        content = (m.get("content") or "").strip()
+        content = _message_content_text(m).strip()
 
         if role == "system":
             if content:
