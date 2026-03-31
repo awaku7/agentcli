@@ -13,7 +13,7 @@ from . import tools
 from .llm_errors import (
     _rate_limit_retry_step,
 )
-from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters
+from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters, _message_content_text
 from .llm_claude import claude_chat_with_tools, build_claude_output_config_for_effort
 from .llm_openai_responses import (
     build_responses_request,
@@ -296,7 +296,7 @@ def _init_gemini_cache(
                 pass
         try:
             system_instruction = "\n".join(
-                [m["content"] for m in messages if m["role"] == "system"]
+                [_message_content_text(m) for m in messages if m["role"] == "system"]
             )
             tool_specs = tools.get_tool_specs() or []
 
