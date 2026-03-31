@@ -823,29 +823,10 @@ def _handle_cmd_skills(
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
 
-        if _has_any_user_message(messages_ref):
-            _persist_messages_with_warn(messages_ref, core=core, label="skills")
-            try:
-                from . import uagent_llm as llm_util
-                from .util_providers import make_client as make_client_fn
-
-                provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
-                if provider:
-                    print(tr("[skills] Re-running with the applied skill..."))
-                    llm_util.run_llm_rounds(
-                        provider,
-                        client,
-                        depname,
-                        messages_ref,
-                        core=core,
-                        make_client_fn=make_client_fn,
-                        append_result_to_outfile_fn=append_result_to_outfile,
-                        try_open_images_from_text_fn=try_open_images_from_text,
-                    )
-                else:
-                    print(tr("[skills] Applied, but provider is unavailable; skipping rerun."))
-            except Exception as rerun_e:
-                print(f"[skills rerun error] {type(rerun_e).__name__}: {rerun_e}")
+        try:
+            core.event_queue.put({"kind": "user", "text": "実行して"})
+        except Exception as queue_e:
+            print(f"[skills error] {type(queue_e).__name__}: {queue_e}")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
