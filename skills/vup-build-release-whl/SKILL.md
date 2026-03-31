@@ -63,7 +63,7 @@ license: Apache-2.0
 
 確認文（固定）:
 
-- `pyproject.toml` の version を patch +1 して commit します
+- `pyproject.toml` の version を必要がある場合 patch +1 して commit します
 - `origin/main` に push します
 - wheel をビルドします（`python -m build`）
 - 配布先（GitHub/GitLab）へ最新 whl をアップロードします
@@ -80,6 +80,7 @@ license: Apache-2.0
 
 ## 1) patch version +1
 
+- 必要がある場合に実行
 - `pyproject.toml` の `[project].version` を `X.Y.Z` → `X.Y.(Z+1)` に更新。
 - 差分確認: `git diff -- pyproject.toml`
 
