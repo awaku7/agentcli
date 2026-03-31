@@ -422,15 +422,9 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             )
             sys.exit(1)
 
-        # google-genai supports per-client HTTP options (timeout, custom httpx client, etc.).
-        # Use the shared LLM timeout env as best-effort.
+        # google-genai supports per-client HTTP options (custom httpx client, etc.).
+        # Keep timeout handling on the shared httpx client to avoid SDK-side timeout quirks.
         http_options: dict[str, Any] = {}
-        try:
-            # google-genai expects int seconds.
-            read_sec = _env_float("UAGENT_LLM_TIMEOUT_READ_SEC", 60)
-            http_options["timeout"] = max(1, int(read_sec))
-        except Exception:
-            pass
 
         try:
             httpx_client = make_httpx_client()
