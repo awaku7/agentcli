@@ -15,6 +15,30 @@ except ImportError:
 # 2. デフォルト: <state>/cache (既定: ~/.uag（旧: ~/.scheck）/cache; uagent.utils.paths.get_cache_dir() により決定)
 from uagent.utils.paths import get_cache_dir
 
+
+def _message_content_text(message: Dict[str, Any]) -> str:
+    """Normalize message content to plain text for Gemini cache handling."""
+    c = message.get("content")
+    if isinstance(c, str):
+        return c
+    if isinstance(c, list):
+        parts: List[str] = []
+        for item in c:
+            if isinstance(item, dict):
+                t = item.get("type")
+                if t in ("text", "input_text", "output_text"):
+                    txt = item.get("text")
+                    if isinstance(txt, str) and txt.strip():
+                        parts.append(txt)
+            elif isinstance(item, str) and item.strip():
+                parts.append(item)
+        if parts:
+            return "\n".join(parts)
+    if c is None:
+        return ""
+    return str(c)
+
+
 CACHE_META_DIR = str(get_cache_dir())
 
 CACHE_META_FILE = os.path.join(CACHE_META_DIR, "gemini_cache_meta.json")
@@ -189,7 +213,7 @@ class GeminiCacheManager:
                 continue
 
             role = m.get("role")
-            content = (m.get("content") or "").strip()
+            content = _message_content_text(m).strip()
 
             if role == "system":
                 continue
