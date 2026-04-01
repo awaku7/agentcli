@@ -948,7 +948,6 @@ def main():
         workdir=decision.chosen_expanded,
         workdir_source=decision.chosen_source,
     )
-    print(banner, end="")
 
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
     model = ""
