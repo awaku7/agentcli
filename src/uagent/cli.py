@@ -786,8 +786,6 @@ def main() -> None:
                 workdir=decision.chosen_expanded,
                 workdir_source=decision.chosen_source,
             )
-            # NOTE: only for merging into startup capture; actual display is via pager.
-            print(banner, end="")
         except Exception as e:
             print(
                 _("[FATAL] Failed to set workdir: %(err)s") % {"err": e},
@@ -843,6 +841,8 @@ def main() -> None:
 
         print(_("LLM provider = %(provider)s") % {"provider": provider})
         print(_("model(deployment) = %(depname)s") % {"depname": depname})
+        if banner:
+            print(banner, end="")
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
             raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()

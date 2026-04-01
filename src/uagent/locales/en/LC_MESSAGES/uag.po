@@ -120,6 +120,14 @@ msgstr "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 
+#: src/uagent/runtime_init.py:192
+msgid "LLM streaming = %(state)s"
+msgstr "LLM streaming = %(state)s"
+
+#: src/uagent/runtime_init.py:195
+msgid "UAGENT_STREAMING is %(env_state)s"
+msgstr "UAGENT_STREAMING is %(env_state)s"
+
 #: src/uagent/cli.py:890
 #, python-format
 msgid "current workdir = %(cwd)s"
