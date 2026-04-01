@@ -524,6 +524,7 @@ def _call_gemini_round(
     max_retries_429: int,
     retry_base: float,
     retry_cap: float,
+    stream_responses: bool,
 ) -> Any:
     attempt_429 = 0
     gemini_content_dump: Dict[str, Any] = {}
@@ -1369,6 +1370,7 @@ def run_llm_rounds(
                         max_retries_429=max_retries_429,
                         retry_base=retry_base,
                         retry_cap=retry_cap,
+                        stream_responses=stream_responses,
                     )
                 )
                 if not ok:
