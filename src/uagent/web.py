@@ -549,7 +549,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
             "openai",
             "bedrock",
             "openrouter",
-        ):
+        ) and provider_name not in ("gemini", "claude"):
             print(
                 "[WARN] "
                 + _(
@@ -563,6 +563,11 @@ def run_agent_worker(room: WebRoom, user_input: str):
         if use_responses_api:
             print(
                 "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+            )
+        elif provider_name in ("gemini", "claude"):
+            print(
+                "[INFO] "
+                + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)")
             )
         else:
             print(
