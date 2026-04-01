@@ -178,33 +178,22 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "true",
     )
     _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter")
-    if provider in ("gemini", "claude"):
+    if _use_responses_flag and not _responses_supported and provider not in ("gemini", "claude"):
         lines.append(
-            "[INFO] LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
-        )
-    elif _use_responses_flag and _responses_supported:
-        lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-    else:
-        # If the env flag is set but provider does not support it, show the effective mode.
-        if _use_responses_flag and not _responses_supported:
-            lines.append(
-                "[WARN] "
-                + (
-                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. "
-                    "Effective mode = ChatCompletions."
-                )
-                % {"provider": provider}
+            "[WARN] "
+            + _(
+                "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
             )
-        lines.append(
-            "[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+            % {"provider": provider}
         )
 
     lines.append(
-        "[INFO] LLM streaming = %(state)s (UAGENT_STREAMING is %(env_state)s)"
-        % {
-            "state": "enabled" if _streaming_flag else "disabled",
-            "env_state": "enabled" if _streaming_flag else "disabled",
-        }
+        _("LLM streaming = %(state)s")
+        % {"state": "enabled" if _streaming_flag else "disabled"}
+    )
+    lines.append(
+        _("UAGENT_STREAMING is %(env_state)s")
+        % {"env_state": "enabled" if _streaming_flag else "disabled"}
     )
 
     return "\n".join(lines) + "\n"
