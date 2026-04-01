@@ -857,8 +857,16 @@ def main() -> None:
         )
 
         # Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
-        # Grok, Gemini, Claude, etc. do not support it.
-        if use_responses_api and provider not in (
+        # Gemini/Claude use their native API path, so Responses is ignored there.
+        if provider in ("gemini", "claude"):
+            if use_responses_api:
+                os.environ["UAGENT_RESPONSES"] = "0"
+            use_responses_api = False
+            print(
+                "[INFO] "
+                + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)")
+            )
+        elif use_responses_api and provider not in (
             "azure",
             "openai",
             "bedrock",
@@ -874,8 +882,11 @@ def main() -> None:
             use_responses_api = False
             # Ensure scheck_llm sees the disabled state
             os.environ["UAGENT_RESPONSES"] = "0"
-
-        if use_responses_api:
+            print(
+                "[INFO] "
+                + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
+            )
+        elif use_responses_api:
             print(
                 "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
             )

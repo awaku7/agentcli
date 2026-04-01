@@ -97,6 +97,10 @@ msgstr "Proveedor de LLM = %(provider)s"
 msgid "model(deployment) = %(depname)s"
 msgstr "model(deployment) = %(depname)s"
 
+#: src/uagent/cli.py:867 src/uagent/runtime_init.py:183 src/uagent/scheckgui.py:224 src/uagent/web.py:570
+msgid "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "Modo de API LLM = API nativa de Gemini/Claude (UAGENT_RESPONSES se ignora)"
+
 #: src/uagent/cli.py:850 src/uagent/scheckgui.py:189
 msgid "OpenRouter fallback models enabled."
 msgstr "Modelos alternativos de OpenRouter habilitados."

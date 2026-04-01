@@ -173,8 +173,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
+    _streaming_flag = (env_get("UAGENT_STREAMING", "") or "").lower() in (
+        "1",
+        "true",
+    )
     _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter")
-    if _use_responses_flag and _responses_supported:
+    if provider in ("gemini", "claude"):
+        lines.append(
+            "[INFO] LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
+        )
+    elif _use_responses_flag and _responses_supported:
         lines.append("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
     else:
         # If the env flag is set but provider does not support it, show the effective mode.
@@ -190,6 +198,14 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         lines.append(
             "[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
         )
+
+    lines.append(
+        "[INFO] LLM streaming = %(state)s (UAGENT_STREAMING is %(env_state)s)"
+        % {
+            "state": "enabled" if _streaming_flag else "disabled",
+            "env_state": "enabled" if _streaming_flag else "disabled",
+        }
+    )
 
     return "\n".join(lines) + "\n"
 
