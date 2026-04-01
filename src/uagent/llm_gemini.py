@@ -423,6 +423,7 @@ def gemini_chat_with_tools(
     model_name: str,
     messages: List[Dict[str, Any]],
     cached_content: str = None,
+    stream: bool = False,
     core: Any = None,
 ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
@@ -500,6 +501,19 @@ def gemini_chat_with_tools(
             except Exception:
                 pass
         contents.append(gemini_types.Content(role=role, parts=[part]))
+
+    def _emit_stream_delta(delta_text: str) -> None:
+        if not delta_text:
+            return
+        try:
+            if core is not None and bool(getattr(core, "_is_web", False)):
+                lm = getattr(core, "log_message", None)
+                if callable(lm):
+                    lm({"type": "assistant_stream_delta", "delta": delta_text})
+                    return
+        except Exception:
+            pass
+        print(delta_text, end="", flush=True)
 
     for m in messages:
         if not isinstance(m, dict):
@@ -696,68 +710,135 @@ def gemini_chat_with_tools(
     if config_obj is not None:
         gen_kwargs["config"] = config_obj
 
-    response = client.models.generate_content(**gen_kwargs)
-
-    candidates = getattr(response, "candidates", None)
-    if not candidates:
-        return "", [], {}
-
-    candidate = candidates[0]
-    content_obj = getattr(candidate, "content", None)
-    parts = getattr(content_obj, "parts", None)
-
-    gemini_content_dump: Dict[str, Any] = {}
-    try:
-        if content_obj is not None:
-            md = getattr(content_obj, "model_dump", None)
-            if callable(md):
-                gemini_content_dump = md(exclude_none=True)
-            else:
-                gemini_content_dump = {"role": getattr(content_obj, "role", "model")}
-    except Exception:
-        gemini_content_dump = {}
-
-    if not parts:
-        return "", [], gemini_content_dump
-
-    text_chunks: List[str] = []
+    assistant_text_parts: List[str] = []
     tool_calls_list: List[Dict[str, Any]] = []
+    gemini_content_dump: Dict[str, Any] = {}
 
-    for part in parts:
-        fc = getattr(part, "function_call", None)
-        if fc is not None:
-            if isinstance(fc, dict):
-                name3 = fc.get("name")
-                args_raw = fc.get("args")
-            else:
-                name3 = getattr(fc, "name", None)
-                args_raw = getattr(fc, "args", None)
+    def _collect_from_response_obj(
+        response_obj: Any,
+        *,
+        stream_mode: bool,
+        text_so_far: str,
+    ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any], str]:
+        candidates = getattr(response_obj, "candidates", None)
+        if not candidates:
+            return "", [], {}, text_so_far
 
-            if isinstance(name3, str) and name3:
-                if isinstance(args_raw, str):
-                    try:
-                        args_obj = json.loads(args_raw)
-                    except Exception:
-                        args_obj = {"_raw": args_raw}
-                elif isinstance(args_raw, dict):
-                    args_obj = args_raw
+        candidate = candidates[0]
+        content_obj = getattr(candidate, "content", None)
+        parts = getattr(content_obj, "parts", None)
+
+        gemini_content_dump: Dict[str, Any] = {}
+        try:
+            if content_obj is not None:
+                md = getattr(content_obj, "model_dump", None)
+                if callable(md):
+                    gemini_content_dump = md(exclude_none=True)
                 else:
-                    args_obj = {}
+                    gemini_content_dump = {"role": getattr(content_obj, "role", "model")}
+        except Exception:
+            gemini_content_dump = {}
 
-                tool_calls_list.append(
-                    {
-                        "id": f"gemini_fc_{len(tool_calls_list) + 1}",
-                        "type": "function",
-                        "function": {
-                            "name": name3,
-                            "arguments": json.dumps(args_obj, ensure_ascii=False),
-                        },
-                    }
-                )
+        chunk_texts: List[str] = []
+        chunk_tool_calls: List[Dict[str, Any]] = []
 
-        t = getattr(part, "text", None)
-        if isinstance(t, str) and t:
-            text_chunks.append(t)
+        if stream_mode:
+            # Avoid response.text here because google-genai emits a warning when
+            # the chunk contains non-text parts such as function_call.
+            # We reconstruct text only from content.parts below.
+            pass
 
-    assistant_content = "".join(text_chunks)
+        if parts:
+            for part in parts:
+                fc = getattr(part, "function_call", None)
+                if fc is not None:
+                    if isinstance(fc, dict):
+                        name3 = fc.get("name")
+                        args_raw = fc.get("args")
+                    else:
+                        name3 = getattr(fc, "name", None)
+                        args_raw = getattr(fc, "args", None)
+
+                    if isinstance(name3, str) and name3:
+                        if isinstance(args_raw, str):
+                            try:
+                                args_obj = json.loads(args_raw)
+                            except Exception:
+                                args_obj = {"_raw": args_raw}
+                        elif isinstance(args_raw, dict):
+                            args_obj = args_raw
+                        else:
+                            args_obj = {}
+
+                        chunk_tool_calls.append(
+                            {
+                                "id": f"gemini_fc_{len(chunk_tool_calls) + 1}",
+                                "type": "function",
+                                "function": {
+                                    "name": name3,
+                                    "arguments": json.dumps(args_obj, ensure_ascii=False),
+                                },
+                            }
+                        )
+
+                if not stream_mode:
+                    t = getattr(part, "text", None)
+                    if isinstance(t, str) and t:
+                        chunk_texts.append(t)
+                elif not chunk_texts:
+                    # Fallback if the stream chunk does not expose response.text.
+                    t = getattr(part, "text", None)
+                    if isinstance(t, str) and t:
+                        delta_text = t
+                        if text_so_far and t.startswith(text_so_far):
+                            delta_text = t[len(text_so_far):]
+                        if delta_text:
+                            chunk_texts.append(delta_text)
+                            _emit_stream_delta(delta_text)
+                            text_so_far += delta_text
+
+        return "".join(chunk_texts), chunk_tool_calls, gemini_content_dump, text_so_far
+
+    if stream:
+        try:
+            if core is not None and bool(getattr(core, "_is_web", False)):
+                lm = getattr(core, "log_message", None)
+                if callable(lm):
+                    lm({"type": "assistant_stream_start"})
+        except Exception:
+            pass
+
+        text_so_far = ""
+        stream_iter = client.models.generate_content_stream(**gen_kwargs)
+        for response in stream_iter:
+            chunk_text, chunk_tool_calls, chunk_dump, text_so_far = _collect_from_response_obj(
+                response,
+                stream_mode=True,
+                text_so_far=text_so_far,
+            )
+            if chunk_text:
+                assistant_text_parts.append(chunk_text)
+            if chunk_tool_calls:
+                tool_calls_list.extend(chunk_tool_calls)
+            if chunk_dump:
+                gemini_content_dump = chunk_dump
+
+        try:
+            if core is not None and bool(getattr(core, "_is_web", False)):
+                lm = getattr(core, "log_message", None)
+                if callable(lm):
+                    lm({"type": "assistant_stream_end"})
+        except Exception:
+            pass
+
+        assistant_content = "".join(assistant_text_parts)
+        return assistant_content, tool_calls_list, gemini_content_dump
+
+    response = client.models.generate_content(**gen_kwargs)
+    assistant_content, tool_calls_list, gemini_content_dump, _ = _collect_from_response_obj(
+        response,
+        stream_mode=False,
+        text_so_far="",
+    )
     return assistant_content, tool_calls_list, gemini_content_dump
+
