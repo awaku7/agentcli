@@ -1070,10 +1070,29 @@ def compress_history_with_llm(
         except Exception:
             return None
 
+    from . import util_providers
+    provider = util_providers.detect_provider()
+
+    summary_content = ""
     attempt_429 = 0
     while True:
         try:
-            if use_responses_api:
+            if provider == "gemini":
+                from .llm_gemini import gemini_chat_with_tools
+                summary_content, _, _ = gemini_chat_with_tools(
+                    client=client,
+                    model_name=depname,
+                    messages=summary_messages,
+                    core=sys.modules[__name__],
+                )
+            elif provider == "claude":
+                from .llm_claude import claude_chat_with_tools
+                summary_content, _, _ = claude_chat_with_tools(
+                    client=client,
+                    model_name=depname,
+                    messages=summary_messages,
+                )
+            elif use_responses_api:
                 resp = client.responses.create(
                     model=depname,
                     instructions=summary_messages[0]["content"],
@@ -1086,11 +1105,18 @@ def compress_history_with_llm(
                         }
                     ],
                 )
+                if hasattr(resp, "output") and resp.output:
+                    for item in resp.output:
+                        if item.type == "message":
+                            for c in item.content:
+                                if c.type == "output_text":
+                                    summary_content += c.text
             else:
                 resp = client.chat.completions.create(
                     model=depname,
                     messages=summary_messages,
                 )
+                summary_content = resp.choices[0].message.content or ""
             break
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
@@ -1128,17 +1154,6 @@ def compress_history_with_llm(
                 file=sys.stderr,
             )
             return list(messages)
-
-    if use_responses_api:
-        summary_content = ""
-        if hasattr(resp, "output") and resp.output:
-            for item in resp.output:
-                if item.type == "message":
-                    for c in item.content:
-                        if c.type == "output_text":
-                            summary_content += c.text
-    else:
-        summary_content = resp.choices[0].message.content or ""
     summary_msg = {
         "role": "system",
         "content": _("Summary of the conversation so far:\n") + summary_content,
