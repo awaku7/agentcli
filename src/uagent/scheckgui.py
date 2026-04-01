@@ -201,7 +201,7 @@ class ScheckWorker(QtCore.QObject):
                 "openai",
                 "bedrock",
                 "openrouter",
-            ):
+            ) and self._provider not in ("gemini", "claude"):
                 print(
                     "[WARN] "
                     + _(
@@ -216,6 +216,13 @@ class ScheckWorker(QtCore.QObject):
                 print(
                     "[INFO] "
                     + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+                )
+            elif self._provider in ("gemini", "claude"):
+                print(
+                    "[INFO] "
+                    + _(
+                        "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
+                    )
                 )
             else:
                 print(
