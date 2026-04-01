@@ -820,6 +820,12 @@ def _handle_cmd_skills(
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
 
+        # Remove existing user messages at the end to ensure the skill's trigger is the last word.
+        # This prevents the LLM from following a previous instruction instead of the skill.
+        _trim_messages_after_last_user(messages_ref)
+        if messages_ref and messages_ref[-1].get("role") == "user":
+            messages_ref.pop()
+
         synthetic_user_msg = {"role": "user", "content": "読み込んだスキルを実行して"}
         messages_ref.append(synthetic_user_msg)
         try:
