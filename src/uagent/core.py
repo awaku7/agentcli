@@ -1040,10 +1040,11 @@ def compress_history_with_llm(
     convo_text = "\\n\\n".join(lines)
 
     # --- 要約用の別コンテキスト ---
-    summary_system_prompt = _("""- Summarize the conversation log so far in English.
-- Keep the summary concise but include key decisions, constraints, and pending items.
-- Output should be directly usable as a system message titled 'Summary of the conversation so far'.
-""")
+    summary_system_prompt = (
+        "- Summarize the conversation log so far in English.\n"
+        "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+        "- Output should be directly usable as a system message titled 'Summary of the conversation so far'."
+    )
 
     summary_messages = [
         {"role": "system", "content": summary_system_prompt},
@@ -1073,13 +1074,21 @@ def compress_history_with_llm(
     from . import util_providers
     provider = util_providers.detect_provider()
 
+    translator = globals().get("_")
+
+    def _t(s: str) -> str:
+        try:
+            return translator(s) if callable(translator) else s
+        except Exception:
+            return s
+
     summary_content = ""
     attempt_429 = 0
     while True:
         try:
-            if provider == "gemini":
+            if provider == "gemini" or "genai.Client" in str(type(client)):
                 from .llm_gemini import gemini_chat_with_tools
-                summary_content, _, _ = gemini_chat_with_tools(
+                summary_content, _summary_unused1, _summary_unused2 = gemini_chat_with_tools(
                     client=client,
                     model_name=depname,
                     messages=summary_messages,
@@ -1087,7 +1096,7 @@ def compress_history_with_llm(
                 )
             elif provider == "claude":
                 from .llm_claude import claude_chat_with_tools
-                summary_content, _, _ = claude_chat_with_tools(
+                summary_content, _summary_unused1, _summary_unused2 = claude_chat_with_tools(
                     client=client,
                     model_name=depname,
                     messages=summary_messages,
@@ -1111,12 +1120,14 @@ def compress_history_with_llm(
                             for c in item.content:
                                 if c.type == "output_text":
                                     summary_content += c.text
-            else:
+            elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
                 resp = client.chat.completions.create(
                     model=depname,
                     messages=summary_messages,
                 )
                 summary_content = resp.choices[0].message.content or ""
+            else:
+                raise AttributeError(f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini.")
             break
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
@@ -1138,7 +1149,7 @@ def compress_history_with_llm(
             if action == "give_up":
                 print(
                     "[WARN] "
-                    + _(
+                    + _t(
                         "429 retry limit (%(max_retries)s) reached while history compression."
                     )
                     % {"max_retries": max_retries_429},
@@ -1149,21 +1160,21 @@ def compress_history_with_llm(
 
             print(
                 "[WARN] "
-                + _("Error while calling LLM for history compression: %(err)r")
+                + _t("Error while calling LLM for history compression: %(err)r")
                 % {"err": e},
                 file=sys.stderr,
             )
             return list(messages)
     summary_msg = {
         "role": "system",
-        "content": _("Summary of the conversation so far:\n") + summary_content,
+        "content": _t("Summary of the conversation so far:\n") + summary_content,
     }
 
     # 新しい messages を構成
     new_messages = system_msgs + [summary_msg] + tail_part
 
     print(
-        _(
+        _t(
             "[INFO] Conversation history was summarized by the LLM: "
             "old_part={old_n} -> 1 summary + tail_part={tail_n}"
         ).format(old_n=len(old_part), tail_n=len(tail_part)),
