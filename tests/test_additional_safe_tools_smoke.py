@@ -102,6 +102,47 @@ def test_python_exec_smoke() -> None:
     assert "3" in out
 
 
+def test_python_exec_py_compile_single_file(repo_tmp_path: Path) -> None:
+    from uagent.tools.python_exec_tool import run_tool
+
+    p = repo_tmp_path / "ok.py"
+    p.write_text("print('ok')\n", encoding="utf-8")
+
+    out = run_tool({"path": str(p)})
+    assert isinstance(out, str)
+    obj = json.loads(out)
+    assert obj["mode"] == "py_compile"
+    assert obj["ok"] is True
+    assert obj["count"] == 1
+    assert obj["compiled"] == [str(p)]
+
+
+def test_python_exec_py_compile_directory_and_glob(repo_tmp_path: Path) -> None:
+    from uagent.tools.python_exec_tool import run_tool
+
+    pkg = repo_tmp_path / "pkg"
+    nested = pkg / "nested"
+    nested.mkdir(parents=True)
+
+    good = pkg / "good.py"
+    bad = pkg / "bad.py"
+    nested_good = nested / "nested_good.py"
+
+    good.write_text("x = 1\n", encoding="utf-8")
+    bad.write_text("def broken(:\n    pass\n", encoding="utf-8")
+    nested_good.write_text("y = 2\n", encoding="utf-8")
+
+    out = run_tool({"paths": [str(pkg), str(pkg / "*.py")]})
+    assert isinstance(out, str)
+    obj = json.loads(out)
+    assert obj["mode"] == "py_compile"
+    assert obj["ok"] is False
+    assert str(good) in obj["compiled"]
+    assert str(nested_good) in obj["compiled"]
+    assert any(item["path"] == str(bad) for item in obj["failed"])
+    assert any(str(p).endswith("good.py") for p in obj["resolved"])
+
+
 def test_recalc_excel_dry_run_defaults(repo_tmp_path: Path) -> None:
     from uagent.tools.recalc_excel_tool import run_tool
 

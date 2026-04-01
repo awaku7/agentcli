@@ -189,6 +189,35 @@ def test_delete_file_glob_cancelled_without_confirm(
     assert f1.exists()
 
 
+def test_delete_file_glob_execute_confirmed_flag_skips_internal_confirm(
+    monkeypatch, repo_tmp_path: Path
+) -> None:
+    from uagent.tools.delete_file_tool import run_tool
+
+    target = repo_tmp_path / "c.tmp"
+    target.write_text("z", encoding="utf-8")
+
+    def _boom(_msg: str) -> bool:
+        raise AssertionError("internal confirmation should be skipped")
+
+    monkeypatch.setattr("uagent.tools.delete_file_tool._human_confirm", _boom)
+
+    out = run_tool(
+        {
+            "filename": str(target),
+            "missing_ok": False,
+            "dry_run": False,
+            "allow_dir": True,
+            "confirmed": True,
+        }
+    )
+    obj = _loads(out)
+    assert obj["ok"] is True
+    assert obj["deleted"] is True
+    assert obj["count"] == 1
+    assert not target.exists()
+
+
 def test_git_ops_rejects_force_push_without_allow_danger() -> None:
     from uagent.tools.git_ops_tool import run_tool
 
