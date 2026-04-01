@@ -337,6 +337,17 @@ def test_delete_file_rejects_nonbool_flags(repo_tmp_path: Path) -> None:
             }
         )
 
+    with pytest.raises(ValueError, match="confirmed must be a boolean"):
+        delete_file(
+            {
+                "filename": str(repo_tmp_path / "*.txt"),
+                "missing_ok": False,
+                "dry_run": False,
+                "allow_dir": True,
+                "confirmed": "false",
+            }
+        )
+
 
 def test_rename_path_rejects_nonbool_flags(repo_tmp_path: Path) -> None:
     rename_path = _import_run_tool("rename_path")

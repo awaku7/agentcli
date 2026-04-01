@@ -1002,10 +1002,26 @@ def main() -> None:
 
             if kind == "command":
                 line = ev.get("text", "")
-                if not handle_command(line, messages, client, depname, core=core):
+                result = handle_command(line, messages, client, depname, core=core)
+                if not result:
                     running = False
                     break
                 core.set_status(False, "")
+                if getattr(result, "run_llm", False):
+                    prompt = getattr(result, "prompt", None) or "読み込んだスキルを実行して"
+                    user_msg = {"role": "user", "content": prompt}
+                    messages.append(user_msg)
+                    core.log_message(user_msg)
+                    llm_util.run_llm_rounds(
+                        provider,
+                        client,
+                        depname,
+                        messages,
+                        core=core,
+                        make_client_fn=providers.make_client,
+                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                    )
                 continue
 
             if kind in ("user", "timer"):

@@ -269,13 +269,31 @@ class ScheckWorker(QtCore.QObject):
                     kind = ev.get("kind")
 
                     if kind == "command":
-                        handle_command(
+                        result = handle_command(
                             ev.get("text", ""),
                             self.messages,
                             self._client,
                             self._depname,
                             core=core,
                         )
+                        if not result:
+                            self._stop.set()
+                            break
+                        if getattr(result, "run_llm", False):
+                            prompt = getattr(result, "prompt", None) or "読み込んだスキルを実行して"
+                            m = {"role": "user", "content": prompt}
+                            self.messages.append(m)
+                            core.log_message(m)
+                            util_run_llm_rounds(
+                                self._provider,
+                                self._client,
+                                self._depname,
+                                self.messages,
+                                core=core,
+                                make_client_fn=util_make_client,
+                                append_result_to_outfile_fn=append_result_to_outfile,
+                                try_open_images_from_text_fn=lambda _: None,
+                            )
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")
 

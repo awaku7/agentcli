@@ -78,6 +78,14 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="If true, allow deleting directories matched by glob.",
                     ),
                 },
+                "confirmed": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": _(
+                        "param.confirmed.description",
+                        default="If true, skip the tool's internal confirmation prompt.",
+                    ),
+                },
             },
             "required": [],
         },
@@ -156,6 +164,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     dry_run_is_set = "dry_run" in args
     dry_run_raw = args.get("dry_run", None)
     allow_dir_raw = args.get("allow_dir", True)
+    confirmed_raw = args.get("confirmed", False)
 
     if not isinstance(missing_ok_raw, bool):
         raise ValueError("missing_ok must be a boolean")
@@ -163,9 +172,12 @@ def run_tool(args: Dict[str, Any]) -> str:
         raise ValueError("dry_run must be a boolean")
     if not isinstance(allow_dir_raw, bool):
         raise ValueError("allow_dir must be a boolean")
+    if not isinstance(confirmed_raw, bool):
+        raise ValueError("confirmed must be a boolean")
 
     missing_ok = missing_ok_raw
     allow_dir = allow_dir_raw
+    confirmed = confirmed_raw
 
     if isinstance(raw_input, str):
         items = [raw_input.strip()] if raw_input.strip() else []
@@ -242,7 +254,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         ),
     ).format(count=len(all_matches), paths=preview_list)
 
-    if not _human_confirm(msg):
+    if not confirmed and not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     deleted: List[str] = []
