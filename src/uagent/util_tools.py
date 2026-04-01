@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
@@ -21,6 +22,16 @@ from .tools.context import ToolCallbacks
 # Default translation function used when core.tr is not provided.
 # Kept as a separate name for backward-compatibility.
 tr_ = _
+
+
+@dataclass
+class CommandResult:
+    continue_running: bool = True
+    run_llm: bool = False
+    prompt: str | None = None
+
+    def __bool__(self) -> bool:
+        return self.continue_running
 
 
 def init_tools_callbacks(core: Any) -> None:
@@ -692,16 +703,16 @@ def _handle_cmd_skills(
     *,
     core: Any,
     tr: Any,
-) -> bool:
+) -> CommandResult:
     a = (arg or "").strip()
     if a.lower() in ("clear", "off", "unset", "reset"):
         removed = _clear_skill_messages(messages_ref)
         if removed <= 0:
             print(tr("[skills] No active skill messages to clear."))
-            return True
+            return CommandResult()
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
-        return True
+        return CommandResult()
 
     if a.lower() in ("active", "status", "show", "list"):
         prefix = _skills_marker_prefix()
@@ -724,12 +735,12 @@ def _handle_cmd_skills(
 
         if not active:
             print(tr("[skills] No active skills."))
-            return True
+            return CommandResult()
 
         print(tr("[skills] Active skills: %(n)d") % {"n": len(active)})
         for i, line in enumerate(active, start=1):
             print(f"[{i}] {line}")
-        return True
+        return CommandResult()
 
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
@@ -750,7 +761,7 @@ def _handle_cmd_skills(
 
         if not items:
             print(tr("[skills] No skills found."))
-            return True
+            return CommandResult()
 
         print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
         for i, it in enumerate(items, start=1):
@@ -776,7 +787,7 @@ def _handle_cmd_skills(
             low = user_reply.lower()
             if low in ("c", "cancel"):
                 print(tr("[skills] Cancelled."))
-                return True
+                return CommandResult()
             if not user_reply.isdigit():
                 print(tr("[skills] Please enter a number or c."))
                 continue
@@ -789,13 +800,13 @@ def _handle_cmd_skills(
         skill = items[selected_idx]
         if not isinstance(skill, dict):
             print(tr("[skills] Invalid selection."))
-            return True
+            return CommandResult()
 
         name = skill.get("name") or "(unknown)"
         skill_dir = skill.get("path")
         if not isinstance(skill_dir, str) or not skill_dir.strip():
             print(tr("[skills] Selected skill has no path."))
-            return True
+            return CommandResult()
 
         confirm_msg = _(
             "Run this skill as a system-level instruction and keep it active in this session?\n\n"
@@ -809,7 +820,7 @@ def _handle_cmd_skills(
         conf_reply = (conf.get("user_reply") or "").strip().lower()
         if conf_reply not in ("y", "yes"):
             print(tr("[skills] Cancelled."))
-            return True
+            return CommandResult()
 
         doc_json = skills_load_tool({"skill_dir": skill_dir})
         doc = json.loads(doc_json)
@@ -826,20 +837,14 @@ def _handle_cmd_skills(
         if messages_ref and messages_ref[-1].get("role") == "user":
             messages_ref.pop()
 
-        synthetic_user_msg = {"role": "user", "content": "読み込んだスキルを実行して"}
-        messages_ref.append(synthetic_user_msg)
-        try:
-            core.log_message(synthetic_user_msg)
-        except Exception:
-            pass
-
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
+        return CommandResult(run_llm=True, prompt="読み込んだスキルを実行して")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
 
-    return True
+    return CommandResult()
 
 
 def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
