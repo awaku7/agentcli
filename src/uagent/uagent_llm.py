@@ -539,6 +539,7 @@ def _call_gemini_round(
                     call_messages,
                     cached_content=gemini_cache_name,
                     core=core,
+                    stream=stream_responses,
                 )
             )
             break
