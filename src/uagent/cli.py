@@ -839,8 +839,8 @@ def main() -> None:
 
         provider, client, depname = providers.make_client(core)
 
-        print(_("LLM provider = %(provider)s") % {"provider": provider})
-        print(_("model(deployment) = %(depname)s") % {"depname": depname})
+        print("[INFO] " + _("LLM provider = %(provider)s") % {"provider": provider})
+        print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
         if banner:
             print(banner, end="")
 
