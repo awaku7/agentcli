@@ -884,7 +884,8 @@ def load_conversation_from_log(
     """
     ログファイル（JSONL）から会話履歴を読み込み、
     ・メッセージを正規化
-    ・ログ中の system はすべて捨てて、先頭に指定された system_prompt を入れ直す
+    ・通常の system は捨てるが、skill 注入の system は維持する
+    ・先頭に指定された system_prompt を入れ直す
       （指定がない場合は現在の SYSTEM_PROMPT を使う）
     という形で messages を再構成する。
     """
@@ -911,7 +912,15 @@ def load_conversation_from_log(
         if nm is not None:
             messages.append(nm)
 
-    # ログ中の system は全部捨てる
+    # skill 注入の system は残し、それ以外の system は捨てる
+    skill_prefix = "[SKILL] "
+    skill_messages = [
+        m
+        for m in messages
+        if m.get("role") == "system"
+        and isinstance(m.get("content"), str)
+        and m.get("content").startswith(skill_prefix)
+    ]
     messages = [m for m in messages if m.get("role") != "system"]
 
     # 引数が None のときは現在の SYSTEM_PROMPT を使う
@@ -921,6 +930,10 @@ def load_conversation_from_log(
     # 先頭に指定された system_prompt を入れ直す
     system_msg = {"role": "system", "content": system_prompt}
     messages.insert(0, system_msg)
+
+    # skill の system メッセージは system_prompt の直後に戻す
+    if skill_messages:
+        messages[1:1] = skill_messages
 
     return list(messages)
 

@@ -108,6 +108,13 @@ A tool may suppress the trace using the extended flag:
 
 `human_ask` uses this to avoid logging the raw user reply.
 
+### 3.6 Agent Skills lifecycle
+
+- `:skills` injects the selected skill as a dedicated `[SKILL] ...` system message.
+- Skill messages are persisted to the session log and restored on reload.
+- `:skills status` shows active skill messages; `:skills clear` removes them.
+- Keep skill instructions separate from the base `SYSTEM_PROMPT`.
+
 ______________________________________________________________________
 
 ## 4. Workdir / banner / long-term memory
