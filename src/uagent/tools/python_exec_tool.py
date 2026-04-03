@@ -227,6 +227,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         return _run_py_compile(args)
 
     if "code" not in args:
-        return "[python_exec error] Provide either 'code' or 'path'/'paths'."
+        return _("[python_exec error] Provide either 'code' or 'path'/'paths'.")
 
     return _run_python_code(args, cb)
