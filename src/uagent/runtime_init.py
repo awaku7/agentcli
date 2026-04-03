@@ -188,7 +188,8 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         )
 
     lines.append(
-        _("LLM streaming = %(state)s")
+        "[INFO] "
+        + _("LLM streaming = %(state)s")
         % {"state": "enabled" if _streaming_flag else "disabled"}
     )
 
