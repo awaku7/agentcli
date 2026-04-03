@@ -93,7 +93,7 @@ python -m uagent.a2a.server
 - `UAGENT_A2A_CONCURRENCY`: 同時リクエスト数の上限（既定: `1`）。
 - `UAGENT_A2A_ENGINE`: リクエスト処理のバックエンド（既定: `uag`。テストでは `echo` を使う場合があります）。
 - `UAGENT_A2A_BASE_URL`: クライアント側の接続先ベースURL（既定: `http://127.0.0.1:8765`）。
-- `UAGENT_SIMPLE_PROMPT`: `1` / `true` / `yes` / `on` を設定すると readline ベースのプロンプト経路を無効化します（CLI の描画が不自然な場合に有効）。
+- `UAGENT_SIMPLE_PROMPT`: 既定は `1` です。`0` / `false` / `no` / `off` を設定すると readline ベースのプロンプト経路を無効化します（CLI の描画が不自然な場合に有効）。
 
 ### クライアント利用（任意）
 
