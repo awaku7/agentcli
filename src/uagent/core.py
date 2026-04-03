@@ -1096,11 +1096,15 @@ def compress_history_with_llm(
                 )
             elif provider == "claude":
                 from .llm_claude import claude_chat_with_tools
-                summary_content, _summary_unused1, _summary_unused2 = claude_chat_with_tools(
+                claude_result = claude_chat_with_tools(
                     client=client,
                     model_name=depname,
                     messages=summary_messages,
                 )
+                if isinstance(claude_result, tuple):
+                    summary_content = claude_result[0] if len(claude_result) >= 1 else ""
+                else:
+                    summary_content = str(claude_result)
             elif use_responses_api:
                 resp = client.responses.create(
                     model=depname,

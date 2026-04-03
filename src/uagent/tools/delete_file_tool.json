@@ -6,6 +6,7 @@
     "param.filename.description": "Path to delete, or a list of paths/glob patterns to delete.",
     "param.missing_ok.description": "If true, do not error when the path does not exist.",
     "param.path.description": "(Compatibility) Alias of filename.",
+    "param.confirmed.description": "If true, skip the tool's internal confirmation prompt.",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
     "tool.system_prompt": "Delete the specified path only after confirming with the user if it is a potentially destructive operation."
   },
@@ -16,6 +17,7 @@
     "param.filename.description": "削除するパス、または削除するパス/glob パターンのリストです。",
     "param.missing_ok.description": "true の場合、パスが存在しなくてもエラーにしません。",
     "param.path.description": "（互換性のための別名）filename と同じ意味です。",
+    "param.confirmed.description": "true の場合、内部の確認プロンプトをスキップします。",
     "tool.description": "指定したファイルまたはディレクトリを削除します（ディレクトリは再帰的に削除）。危険な操作のため、確認が必要になる場合があります。",
     "tool.system_prompt": "破壊的操作になり得るため、削除の実行前に必要に応じてユーザーへ確認してください。"
   },
