@@ -1352,7 +1352,7 @@ def run_llm_rounds(
             send_tools_this_round = True
             max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
             retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
-            retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "65"))
+            retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
 
             tool_calls_list: List[Dict[str, Any]] = []
             assistant_text: str = ""
