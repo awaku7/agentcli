@@ -179,6 +179,7 @@ uag handle_mcp_v2
 - **データ/ドキュメント**: `read_pptx_pdf`, `excel_ops`, `exstruct`, `db_query`
 - **画像**: `screenshot`, `analyze_image`(※UAGENT_RESPONSES 有効時は非ロード), `generate_image`
 - **開発支援**: `git_ops`, `run_tests`, `lint_format`, `generate_prompt`, `system_reload`
+- **Agent Skills**: `skills_list`, `skills_load`, `skills_validate`, `skills_read_file`
 - **付帯**: `human_ask`, `set_timer`, `add_long_memory`, `get_long_memory`, `add_shared_memory`, `get_shared_memory`, `spawn_process`, `change_workdir`, `index_files`, `semantic_search_files`, `graph_rag_search`
 
 ______________________________________________________________________

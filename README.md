@@ -136,6 +136,13 @@ Exit:
   Load the latest session log and continue the conversation.
 - `:load <index>`\
   Load a specific session by index from `:logs`.
+- `:skills`\
+  List Agent Skills, choose one, and load its `SKILL.md` into the session.
+- `:skills status`\
+  Show the active skill system messages.
+- `:skills clear`\
+  Remove active skill system messages.
+- Loaded skills are stored in the session log and restored on `:load`.
 
 ______________________________________________________________________
 
