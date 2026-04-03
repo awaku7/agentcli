@@ -500,8 +500,15 @@ def stdin_loop() -> None:
                     line = None
 
                     # If readline is available, prefer input("") so TAB completion works.
+                    # UAGENT_SIMPLE_PROMPT=1 can disable this to avoid readline/TTY redraw issues.
+                    use_simple_prompt = str(env_get("UAGENT_SIMPLE_PROMPT") or "").lower() in (
+                        "1",
+                        "true",
+                        "yes",
+                        "on",
+                    )
                     # We already printed the prompt ourselves.
-                    if readline and sys.stdin.isatty():
+                    if readline and sys.stdin.isatty() and not use_simple_prompt:
                         try:
                             line = input("")
                         except EOFError:
