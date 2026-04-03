@@ -57,7 +57,7 @@ python -m uagent.a2a.server
 - `UAGENT_A2A_CONCURRENCY`: max concurrent requests (default: `1`).
 - `UAGENT_A2A_ENGINE`: backend engine for handling requests (default: `uag`; tests may use `echo`).
 - `UAGENT_A2A_BASE_URL`: client-side base URL (default: `http://127.0.0.1:8765`).
-- `UAGENT_SIMPLE_PROMPT`: disables the readline-based prompt path when set to `1`/`true`/`yes`/`on` (useful if the CLI redraws strangely).
+- `UAGENT_SIMPLE_PROMPT`: defaults to `1`. Set `0`/`false`/`no`/`off` to disable the readline-based prompt path (useful if the CLI redraws strangely).
 
 ### Client usage (optional)
 
