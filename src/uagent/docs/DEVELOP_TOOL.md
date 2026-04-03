@@ -104,6 +104,7 @@ Guidelines:
 - Return JSON strings when structured results are needed.
 - Do not print secrets.
 - For dangerous operations (delete/overwrite/exec), ask confirmation via `human_ask`.
+- Agent Skills-related tools should keep `SKILL.md` parsing, validation, and path checks inside the tool, and return structured JSON for list/load/validate helpers.
 
 ______________________________________________________________________
 
