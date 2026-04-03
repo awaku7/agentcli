@@ -10,7 +10,7 @@ def _compute_retry_wait_seconds(
     attempt: int,
     retry_after_header: Any,
     base: float = 2.0,
-    cap: float = 120.0,
+    cap: float = 300.0,
 ) -> float:
     """429 等のリトライ待機秒を決める。
 

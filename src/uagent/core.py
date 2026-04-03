@@ -1056,7 +1056,7 @@ def compress_history_with_llm(
     # Rate-limit retry (same env vars as uagent_llm.run_llm_rounds)
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
     retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
-    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "65"))
+    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
 
     from .llm_errors import _rate_limit_retry_step
 
