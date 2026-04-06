@@ -22,7 +22,7 @@ ______________________________________________________________________
 
 - Local-first tool execution with a wide practical tool surface
 - Multiple UI entry points: CLI, GUI, and Web
-- Multiple providers: Azure OpenAI / OpenAI-compatible, Bedrock, OpenRouter, Gemini, Claude, Grok, NVIDIA
+- Multiple providers: Azure OpenAI / OpenAI-compatible, Bedrock, OpenRouter, Ollama, Gemini, Claude, Grok, NVIDIA
 - Provider/model switching with session continuity (carry conversation context across LLM changes)
 - End-to-end i18n support: localized host UI (`UAGENT_LANG`) plus optional TO_LLM/FROM_LLM translation for LLM communication
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
@@ -188,7 +188,7 @@ When using the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedroc
 
 For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to match OpenAI-compatible gateway constraints.
 
-If `UAGENT_RESPONSES=1` is set with a provider that does not support the Responses API, uag falls back to ChatCompletions at runtime.
+If `UAGENT_RESPONSES=1` is set with a provider that does not support the Responses API, uag falls back to ChatCompletions at runtime. Ollama is treated as Responses-capable.
 
 - `UAGENT_REASONING`:
   - `auto`: automatically choose `reasoning.effort` per request (Responses API only; streaming is forced off; may retry once on low-quality output)
@@ -255,6 +255,20 @@ ______________________________________________________________________
 
   - Required: `UAGENT_GEMINI_API_KEY`
   - Optional: `UAGENT_GEMINI_DEPNAME`
+
+- `UAGENT_PROVIDER=ollama` uses **Ollama**.
+
+  - Optional: `UAGENT_OLLAMA_BASE_URL` (default: `http://localhost:11434/v1`)
+  - Optional: `UAGENT_OLLAMA_API_KEY` (default: `dummy`)
+  - Optional: `UAGENT_OLLAMA_DEPNAME`
+  - Optional: Ollama request knobs
+    - `UAGENT_OLLAMA_TEMPERATURE` (default: `0.7`)
+    - `UAGENT_OLLAMA_TOP_P` (default: `0.9`)
+    - `UAGENT_OLLAMA_TOP_K` (default: `40`)
+    - `UAGENT_OLLAMA_REPEAT_PENALTY` (default: `1.1`)
+    - `UAGENT_OLLAMA_KEEP_ALIVE` (default: `5m`)
+    - `UAGENT_OLLAMA_NUM_CTX` (default: `4096`)
+    - `UAGENT_OLLAMA_NUM_PREDICT` (default: `1024`)
 
 - `UAGENT_PROVIDER=claude` uses **Anthropic Claude**.
 

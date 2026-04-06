@@ -26,7 +26,7 @@ ______________________________________________________________________
 - **LLM Logic**: `src/uagent/uagent_llm.py`
   - 対話ラウンド実行、tool call の実行、429等のリトライ制御
 - **Providers**: `src/uagent/util_providers.py`
-  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Grok/OpenRouter/NVIDIA 等）
+  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Grok/OpenRouter/Ollama/NVIDIA 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
 - **Startup init**: `src/uagent/runtime_init.py`

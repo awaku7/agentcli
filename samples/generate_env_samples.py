@@ -40,6 +40,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("gemini", "Gemini"),
     ("grok", "Grok"),
     ("claude", "Claude"),
+    ("ollama", "Ollama"),
     ("nvidia", "NVIDIA"),
 ]
 
@@ -108,9 +109,22 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_NVIDIA_BASE_URL", False, "NVIDIA base URL (optional)"),
         ("UAGENT_NVIDIA_DEPNAME", False, "NVIDIA model/deployment name (optional)"),
     ],
+    "ollama": [
+        ("UAGENT_OLLAMA_BASE_URL", True, "Ollama base URL (e.g. http://localhost:11434/v1)"),
+        ("UAGENT_OLLAMA_API_KEY", False, "Ollama API key (optional, default: dummy)"),
+        ("UAGENT_OLLAMA_DEPNAME", False, "Ollama model/deployment name (optional)"),
+        ("UAGENT_OLLAMA_TIMEOUT_SEC", False, "Ollama request timeout in seconds (default: 60)"),
+        ("UAGENT_OLLAMA_TEMPERATURE", False, "Ollama temperature (default: 0.7)"),
+        ("UAGENT_OLLAMA_TOP_P", False, "Ollama top_p (default: 0.9)"),
+        ("UAGENT_OLLAMA_TOP_K", False, "Ollama top_k (default: 40)"),
+        ("UAGENT_OLLAMA_REPEAT_PENALTY", False, "Ollama repeat_penalty (default: 1.1)"),
+        ("UAGENT_OLLAMA_KEEP_ALIVE", False, "Ollama keep_alive (default: 5m)"),
+        ("UAGENT_OLLAMA_NUM_CTX", False, "Ollama num_ctx (default: 8192)"),
+        ("UAGENT_OLLAMA_NUM_PREDICT", False, "Ollama num_predict (default: 1024)"),
+    ],
 }
 
-RESPONSES_PROVIDERS = {"openai", "azure", "bedrock"}
+RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama"}
 
 
 def _split_kv(s: str) -> tuple[str, str]:

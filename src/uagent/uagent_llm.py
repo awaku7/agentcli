@@ -46,6 +46,8 @@ from .llm_openrouter import (
     apply_openrouter_fallback_models,
 )
 from .llm_openrouter_responses import apply_openrouter_responses_compat
+from .llm_ollama import apply_ollama_extra_body
+from .llm_ollama_responses import apply_ollama_responses_compat
 
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
@@ -685,6 +687,8 @@ def _call_openai_azure_round(
     tool_calls_list: List[Dict[str, Any]] = []
     resp = None
 
+    send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
+
     while True:
         try:
             if use_responses_api:
@@ -775,6 +779,13 @@ def _call_openai_azure_round(
                     depname=depname,
                 )
 
+                # Ollama Responses-API compatibility workarounds
+                apply_ollama_responses_compat(
+                    resp_kwargs,
+                    provider=provider,
+                    depname=depname,
+                )
+
                 if stream_responses:
                     assistant_text, tool_calls_list = call_maybe_thread_fn(
                         lambda: parse_responses_stream(
@@ -852,6 +863,9 @@ def _call_openai_azure_round(
 
                 # OpenRouter provider routing / extensions (optional)
                 apply_openrouter_extra_body(chat_kwargs, provider=provider)
+
+                # Ollama provider routing / extensions (optional)
+                apply_ollama_extra_body(chat_kwargs, provider=provider)
 
                 # OpenRouter/Azure-proxy tool schema compatibility workarounds
                 apply_openrouter_tool_schema_compat(chat_kwargs, provider=provider)
