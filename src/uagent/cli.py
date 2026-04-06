@@ -878,6 +878,7 @@ def main() -> None:
             "openai",
             "bedrock",
             "openrouter",
+            "ollama",
         ):
             print(
                 "[WARN] "

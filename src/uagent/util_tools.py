@@ -1577,6 +1577,9 @@ def build_lightweight_tools_system_prompt() -> str:
 
 
 def _use_tools_system_prompt() -> bool:
+    use_tool = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
+    if use_tool in ("0", "false", "no", "off"):
+        return False
     v = (env_get("UAGENT_SEND_TOOLS_PROMPT") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
 

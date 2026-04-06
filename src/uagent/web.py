@@ -549,6 +549,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
             "openai",
             "bedrock",
             "openrouter",
+            "ollama",
         ) and provider_name not in ("gemini", "claude"):
             print(
                 "[WARN] "
