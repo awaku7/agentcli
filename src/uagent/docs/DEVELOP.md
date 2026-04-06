@@ -24,7 +24,7 @@ Key modules:
 - Core state + UI integration: `src/uagent/core.py`
 - CLI UI loop: `src/uagent/cli.py`
 - LLM loop + tool-calling orchestration: `src/uagent/uagent_llm.py`
-- Provider wiring (OpenAI/Azure/Gemini/Claude/etc.): `src/uagent/util_providers.py`
+- Provider wiring (OpenAI/Azure/Gemini/Claude/Ollama/etc.): `src/uagent/util_providers.py`
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
 - Startup initialization (workdir/banner/long-term memory injection): `src/uagent/runtime_init.py`
 

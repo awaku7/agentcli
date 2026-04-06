@@ -68,6 +68,16 @@ def _env_float(name: str, default: float) -> float:
         return float(default)
 
 
+def _env_int(name: str, default: int) -> int:
+    v = (env_get(name, "") or "").strip()
+    if not v:
+        return int(default)
+    try:
+        return int(float(v))
+    except Exception:
+        return int(default)
+
+
 def make_httpx_timeout() -> Any:
     """Build httpx.Timeout from env.
 
@@ -95,13 +105,14 @@ def make_httpx_timeout() -> Any:
             return None
 
 
-def make_httpx_client(*, verify: Any = None, event_hooks: Any = None) -> Any:
+def make_httpx_client(*, verify: Any = None, event_hooks: Any = None, timeout: Any = None) -> Any:
     """Create an httpx.Client with timeout from env (best-effort)."""
 
     if httpx is None:
         return None
 
-    timeout = make_httpx_timeout()
+    if timeout is None:
+        timeout = make_httpx_timeout()
 
     kwargs: dict[str, Any] = {}
     if timeout is not None:
@@ -138,6 +149,7 @@ def detect_provider() -> str:
         "openai",
         "bedrock",
         "openrouter",
+        "ollama",
         "gemini",
         "grok",
         "claude",
@@ -172,6 +184,8 @@ def get_model_name() -> str:
         return (
             env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5") or "claude-sonnet-4.5"
         )
+    if provider == "ollama":
+        return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.1") or "llama3.1"
     if provider == "nvidia":
         return (
             env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
@@ -331,7 +345,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "bedrock":
-        api_key = core.get_env("UAGENT_BEDROCK_API_KEY")
+        api_key = env_get("UAGENT_BEDROCK_API_KEY") or "dummy"
         base_url = core.get_env_url("UAGENT_BEDROCK_BASE_URL")
 
         def _hook(resp: Any) -> None:
@@ -352,7 +366,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "nvidia":
-        api_key = core.get_env("UAGENT_NVIDIA_API_KEY")
+        api_key = env_get("UAGENT_NVIDIA_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
         )
@@ -366,8 +380,31 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
 
         return provider, client, model_name
 
+    if provider == "ollama":
+        api_key = env_get("UAGENT_OLLAMA_API_KEY") or "dummy"
+        base_url = core.get_env_url(
+            "UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1"
+        )
+        timeout_sec = _env_float("UAGENT_OLLAMA_TIMEOUT_SEC", 60.0)
+        temperature = _env_float("UAGENT_OLLAMA_TEMPERATURE", 0.7)
+        top_p = _env_float("UAGENT_OLLAMA_TOP_P", 0.9)
+        top_k = _env_int("UAGENT_OLLAMA_TOP_K", 40)
+        repeat_penalty = _env_float("UAGENT_OLLAMA_REPEAT_PENALTY", 1.1)
+        keep_alive = env_get("UAGENT_OLLAMA_KEEP_ALIVE") or "5m"
+        num_ctx = _env_int("UAGENT_OLLAMA_NUM_CTX", 8192)
+        num_predict = _env_int("UAGENT_OLLAMA_NUM_PREDICT", 1024)
+
+        http_client = make_httpx_client(timeout=timeout_sec)
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
     if provider == "openrouter":
-        api_key = core.get_env("UAGENT_OPENROUTER_API_KEY")
+        api_key = env_get("UAGENT_OPENROUTER_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
         )
@@ -449,8 +486,8 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             )
             sys.exit(1)
 
-        http_client = make_httpx_client()
         timeout = make_httpx_timeout()
+        http_client = make_httpx_client(timeout=timeout)
 
         try:
             client = Anthropic(

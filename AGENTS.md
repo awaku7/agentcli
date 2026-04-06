@@ -10,7 +10,7 @@
 - GUI エントリポイント: `src/uagent/gui.py`（実行時は `uagg` / `python -m uagent.gui`）
 - Web エントリポイント: `src/uagent/web.py`（実行時は `uagw` / `python -m uagent.web`）
 - コア実装: `src/uagent/core.py`
-- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_openai_responses.py`, `src/uagent/llm_bedrock_responses.py`
+- LLM処理: `src/uagent/uagent_llm.py`, `src/uagent/llm_gemini.py`, `src/uagent/llm_claude.py`, `src/uagent/llm_ollama.py`, `src/uagent/llm_ollama_responses.py`, `src/uagent/llm_openai_responses.py`, `src/uagent/llm_bedrock_responses.py`
 - ツール（プラグイン）群: `src/uagent/tools/`
 
 動作環境は Windows/macOS/Linux を想定し、Python は **3.11+** です。
@@ -50,13 +50,13 @@ ______________________________________________________________________
 
 - **プロバイダ設定**
 
-  - `UAGENT_PROVIDER`: `azure` / `openai` / `bedrock` / `openrouter` / `gemini` / `grok` / `claude` / `nvidia`
+  - `UAGENT_PROVIDER`: `azure` / `openai` / `bedrock` / `openrouter` / `ollama` / `gemini` / `grok` / `claude` / `nvidia`
   - 各プロバイダ固有の API キー (`UAGENT_OPENAI_API_KEY`, `UAGENT_GEMINI_API_KEY`, `UAGENT_CLAUDE_API_KEY` 等)
-  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_BEDROCK_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
+  - モデル名（例: `UAGENT_AZURE_DEPNAME`, `UAGENT_OPENAI_DEPNAME`, `UAGENT_BEDROCK_DEPNAME`, `UAGENT_OPENROUTER_DEPNAME`, `UAGENT_OLLAMA_DEPNAME`, `UAGENT_GEMINI_DEPNAME`, `UAGENT_GROK_DEPNAME`, `UAGENT_CLAUDE_DEPNAME`, `UAGENT_NVIDIA_DEPNAME`）
 
 - **API モード設定**
 
-  - `UAGENT_RESPONSES`: `1`/`true` で OpenAI/Azure の Responses API を使用。
+  - `UAGENT_RESPONSES`: `1`/`true` で OpenAI/Azure/Ollama の Responses API を使用。
     - 画像入力は原則 Responses 側のマルチモーダル（LLM本体）で扱うため、このモードでは `analyze_image` ツールはロードされません（実装: `src/uagent/tools/analyze_image_tool.py`）。
 
 - **実行制御・リトライ**

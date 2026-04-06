@@ -94,6 +94,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
             reason="(grok) Required when using Grok (xAI).",
         )
         missing += _require(
+            ["UAGENT_OLLAMA_BASE_URL"],
+            reason="(ollama) Required when using Ollama.",
+        )
+        missing += _require(
             ["UAGENT_GEMINI_API_KEY"],
             reason="(gemini) Required when using Gemini.",
         )
@@ -113,11 +117,13 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         "openai",
         "bedrock",
         "openrouter",
+        "ollama",
         "gemini",
         "grok",
         "claude",
         "nvidia",
     )
+
     if provider not in allowed:
         # We intentionally do not hard-fail here because util_providers.detect_provider
         # already exits. This warning is just to make the message more informative.
