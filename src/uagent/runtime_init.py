@@ -168,6 +168,10 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_BEDROCK_BASE_URL', '(not set)'))}"
         )
+    elif provider == "ollama":
+        lines.append(
+            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OLLAMA_BASE_URL', 'http://localhost:11434/v1'))}"
+        )
 
     _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
@@ -177,7 +181,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter")
+    _responses_supported = provider in ("azure", "openai", "bedrock", "openrouter", "ollama")
     if _use_responses_flag and not _responses_supported and provider not in ("gemini", "claude"):
         lines.append(
             "[WARN] "

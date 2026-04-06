@@ -201,6 +201,7 @@ class ScheckWorker(QtCore.QObject):
                 "openai",
                 "bedrock",
                 "openrouter",
+                "ollama",
             ) and self._provider not in ("gemini", "claude"):
                 print(
                     "[WARN] "

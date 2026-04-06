@@ -22,7 +22,7 @@ ______________________________________________________________________
 
 - ローカル環境ですぐ使える、実用的で幅広いツール群
 - CLI / GUI / Web の3つの入口
-- OpenAI互換 / Azure / Bedrock / OpenRouter / Gemini / Claude / Grok / NVIDIA に対応
+- OpenAI互換 / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA に対応
 - LLM（プロバイダ/モデル）を切り替えてもセッション継続が可能（会話コンテキストを引き継ぎ）
 - エンドツーエンドの i18n 対応: ホストUIの多言語化（`UAGENT_LANG`）と、LLM 通信の TO_LLM/FROM_LLM 翻訳をサポート
 - テキスト、PDF、PPTX、Excel、画像、スクリーンショットまで扱える
@@ -224,7 +224,7 @@ ______________________________________________________________________
 
 ## （任意）Responses API 設定 (reasoning / verbosity)
 
-Azure/OpenAI/Bedrock で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+Azure/OpenAI/Bedrock/Ollama で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
 
 Bedrock では OpenAI互換ゲートウェイの制約に合わせるため、message list ではなく文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
 
