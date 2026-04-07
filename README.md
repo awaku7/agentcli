@@ -29,7 +29,7 @@ ______________________________________________________________________
 - Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
-- Startup initialization is centralized in `src/uagent/runtime_init.py` for workdir resolution, startup banners, and memory injection
+- Startup initialization is centralized under `src/uagent/runtime_*` (workdir/banner/env/memory) and re-exported from `src/uagent/runtime_init.py` for compatibility
 - GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
 
 ______________________________________________________________________

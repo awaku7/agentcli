@@ -26,10 +26,11 @@ Key modules:
 - LLM loop + tool-calling orchestration: `src/uagent/uagent_llm.py`
 - Provider wiring (OpenAI/Azure/Gemini/Claude/Ollama/etc.): `src/uagent/util_providers.py`
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
-- Startup initialization (workdir/banner/long-term memory injection): `src/uagent/runtime_init.py`
-  - `decide_workdir()` resolves `--workdir/-C`, `UAGENT_WORKDIR`, or auto
-  - `build_startup_banner()` emits startup INFO lines, including Responses API mode when enabled
-  - `append_long_memory_system_messages()` injects personal long-term memory and shared memory as system messages
+- Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
+  - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
+  - `src/uagent/runtime_banner.py`: `build_startup_banner()`
+  - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
+  - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
 
 Documentation:
 
