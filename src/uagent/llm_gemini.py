@@ -735,7 +735,9 @@ def gemini_chat_with_tools(
                 if callable(md):
                     gemini_content_dump = md(exclude_none=True)
                 else:
-                    gemini_content_dump = {"role": getattr(content_obj, "role", "model")}
+                    gemini_content_dump = {
+                        "role": getattr(content_obj, "role", "model")
+                    }
         except Exception:
             gemini_content_dump = {}
 
@@ -776,7 +778,9 @@ def gemini_chat_with_tools(
                                 "type": "function",
                                 "function": {
                                     "name": name3,
-                                    "arguments": json.dumps(args_obj, ensure_ascii=False),
+                                    "arguments": json.dumps(
+                                        args_obj, ensure_ascii=False
+                                    ),
                                 },
                             }
                         )
@@ -791,7 +795,7 @@ def gemini_chat_with_tools(
                     if isinstance(t, str) and t:
                         delta_text = t
                         if text_so_far and t.startswith(text_so_far):
-                            delta_text = t[len(text_so_far):]
+                            delta_text = t[len(text_so_far) :]
                         if delta_text:
                             chunk_texts.append(delta_text)
                             _emit_stream_delta(delta_text)
@@ -811,10 +815,12 @@ def gemini_chat_with_tools(
         text_so_far = ""
         stream_iter = client.models.generate_content_stream(**gen_kwargs)
         for response in stream_iter:
-            chunk_text, chunk_tool_calls, chunk_dump, text_so_far = _collect_from_response_obj(
-                response,
-                stream_mode=True,
-                text_so_far=text_so_far,
+            chunk_text, chunk_tool_calls, chunk_dump, text_so_far = (
+                _collect_from_response_obj(
+                    response,
+                    stream_mode=True,
+                    text_so_far=text_so_far,
+                )
             )
             if chunk_text:
                 assistant_text_parts.append(chunk_text)
@@ -835,10 +841,11 @@ def gemini_chat_with_tools(
         return assistant_content, tool_calls_list, gemini_content_dump
 
     response = client.models.generate_content(**gen_kwargs)
-    assistant_content, tool_calls_list, gemini_content_dump, _ = _collect_from_response_obj(
-        response,
-        stream_mode=False,
-        text_so_far="",
+    assistant_content, tool_calls_list, gemini_content_dump, _ = (
+        _collect_from_response_obj(
+            response,
+            stream_mode=False,
+            text_so_far="",
+        )
     )
     return assistant_content, tool_calls_list, gemini_content_dump
-

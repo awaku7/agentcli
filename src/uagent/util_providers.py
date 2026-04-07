@@ -105,7 +105,9 @@ def make_httpx_timeout() -> Any:
             return None
 
 
-def make_httpx_client(*, verify: Any = None, event_hooks: Any = None, timeout: Any = None) -> Any:
+def make_httpx_client(
+    *, verify: Any = None, event_hooks: Any = None, timeout: Any = None
+) -> Any:
     """Create an httpx.Client with timeout from env (best-effort)."""
 
     if httpx is None:
@@ -386,13 +388,6 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             "UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1"
         )
         timeout_sec = _env_float("UAGENT_OLLAMA_TIMEOUT_SEC", 60.0)
-        temperature = _env_float("UAGENT_OLLAMA_TEMPERATURE", 0.7)
-        top_p = _env_float("UAGENT_OLLAMA_TOP_P", 0.9)
-        top_k = _env_int("UAGENT_OLLAMA_TOP_K", 40)
-        repeat_penalty = _env_float("UAGENT_OLLAMA_REPEAT_PENALTY", 1.1)
-        keep_alive = env_get("UAGENT_OLLAMA_KEEP_ALIVE") or "5m"
-        num_ctx = _env_int("UAGENT_OLLAMA_NUM_CTX", 8192)
-        num_predict = _env_int("UAGENT_OLLAMA_NUM_PREDICT", 1024)
 
         http_client = make_httpx_client(timeout=timeout_sec)
 

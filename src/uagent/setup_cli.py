@@ -120,10 +120,18 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_NVIDIA_DEPNAME", False, "NVIDIA model/deployment name (optional)"),
     ],
     "ollama": [
-        ("UAGENT_OLLAMA_BASE_URL", True, "Ollama base URL (e.g. http://localhost:11434/v1)"),
+        (
+            "UAGENT_OLLAMA_BASE_URL",
+            True,
+            "Ollama base URL (e.g. http://localhost:11434/v1)",
+        ),
         ("UAGENT_OLLAMA_API_KEY", False, "Ollama API key (optional, default: dummy)"),
         ("UAGENT_OLLAMA_DEPNAME", False, "Ollama model/deployment name (optional)"),
-        ("UAGENT_OLLAMA_TIMEOUT_SEC", False, "Ollama request timeout in seconds (default: 60)"),
+        (
+            "UAGENT_OLLAMA_TIMEOUT_SEC",
+            False,
+            "Ollama request timeout in seconds (default: 60)",
+        ),
         ("UAGENT_OLLAMA_TEMPERATURE", False, "Ollama temperature (default: 0.7)"),
         ("UAGENT_OLLAMA_TOP_P", False, "Ollama top_p (default: 0.9)"),
         ("UAGENT_OLLAMA_TOP_K", False, "Ollama top_k (default: 40)"),
