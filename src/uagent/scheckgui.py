@@ -196,13 +196,18 @@ class ScheckWorker(QtCore.QObject):
                 "1",
                 "true",
             )
-            if use_responses_api and self._provider not in (
-                "azure",
-                "openai",
-                "bedrock",
-                "openrouter",
-                "ollama",
-            ) and self._provider not in ("gemini", "claude"):
+            if (
+                use_responses_api
+                and self._provider
+                not in (
+                    "azure",
+                    "openai",
+                    "bedrock",
+                    "openrouter",
+                    "ollama",
+                )
+                and self._provider not in ("gemini", "claude")
+            ):
                 print(
                     "[WARN] "
                     + _(
@@ -281,7 +286,10 @@ class ScheckWorker(QtCore.QObject):
                             self._stop.set()
                             break
                         if getattr(result, "run_llm", False):
-                            prompt = getattr(result, "prompt", None) or "読み込んだスキルを実行して"
+                            prompt = (
+                                getattr(result, "prompt", None)
+                                or "読み込んだスキルを実行して"
+                            )
                             m = {"role": "user", "content": prompt}
                             self.messages.append(m)
                             core.log_message(m)
@@ -961,12 +969,6 @@ def main():
     _runtime_init.apply_workdir(decision)
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
-
-    banner = _runtime_init.build_startup_banner(
-        core=core,
-        workdir=decision.chosen_expanded,
-        workdir_source=decision.chosen_source,
-    )
 
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
     model = ""

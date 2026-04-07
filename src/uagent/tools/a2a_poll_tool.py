@@ -102,7 +102,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         return _json_ok(task=final_task)
 
     except Exception as e:
-        return _json_err(_("err.exception", default="Exception"), exception=type(e).__name__, detail=str(e))
+        return _json_err(
+            _("err.exception", default="Exception"),
+            exception=type(e).__name__,
+            detail=str(e),
+        )
     finally:
         if cb.set_status:
             cb.set_status(False, "tool:a2a_poll")

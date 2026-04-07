@@ -77,7 +77,8 @@ TOOL_SPEC: Dict[str, Any] = {
                         "param.allow_dir.description",
                         default="If true, allow deleting directories matched by glob.",
                     ),
-                },                "confirmed": {
+                },
+                "confirmed": {
                     "type": "boolean",
                     "default": False,
                     "description": _(
