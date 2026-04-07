@@ -276,11 +276,11 @@ def _menu_choice(
         for i, text in enumerate(options, 1):
             mark = " (default)" if i == default_index else ""
             print(f"  {i}. {text}{mark}")
-        hint = _("Enter number")
+        hint = _("Enter number:")
         if allow_back:
-            hint += _(", b=back")
-        hint += _(", q=quit")
-        raw = input(f"{hint}: ").strip().lower()
+            hint += _(" b=back")
+        hint += _(" q=quit")
+        raw = input(f"{hint} ").strip().lower()
         if raw == "q":
             return "__quit__"
         if allow_back and raw == "b":
@@ -365,7 +365,7 @@ def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
     print(_("  q. quit"))
 
     while True:
-        raw = input(_("Choice") + ": ").strip().lower()
+        raw = input(_("Enter number:") + " ").strip().lower()
         if raw == "q":
             return "__quit__", set()
         if allow_back and raw == "b":
