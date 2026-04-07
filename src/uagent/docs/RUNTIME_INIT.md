@@ -1,6 +1,6 @@
 # RUNTIME_INIT (shared startup initialization)
 
-This document describes the purpose and behavior of `src/uagent/runtime_init.py`.
+This document describes the shared startup-initialization API exposed through `src/uagent/runtime_init.py` (a compatibility/re-export layer). The concrete implementations live in `runtime_workdir.py`, `runtime_banner.py`, `runtime_env.py`, and `runtime_memory.py`.
 
 What it does (shared across CLI/Web/GUI):
 
