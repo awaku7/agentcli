@@ -103,6 +103,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
 }
 
 RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama"}
+RESPONSES_DEFAULT_ENABLED = True
 
 
 def _split_kv(s: str) -> tuple[str, str]:
@@ -300,7 +301,7 @@ def main() -> int:
         "UAGENT_WORKDIR": defaults.get("UAGENT_WORKDIR", "."),
         "UAGENT_LANG": defaults.get("UAGENT_LANG", "ja"),
     }
-    enabled: dict[str, bool] = {"responses": False, "workdir": False, "lang": False}
+    enabled: dict[str, bool] = {"responses": RESPONSES_DEFAULT_ENABLED, "workdir": False, "lang": False}
 
     stage = 0
     provider_fields: list[tuple[str, bool, str]] = []
