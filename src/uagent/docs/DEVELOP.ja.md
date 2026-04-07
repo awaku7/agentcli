@@ -30,6 +30,9 @@ ______________________________________________________________________
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
 - **Startup init**: `src/uagent/runtime_init.py`
+  - `decide_workdir()` が `--workdir/-C`、`UAGENT_WORKDIR`、自動選択を解決
+  - `build_startup_banner()` が起動時 INFO を生成し、Responses API 有効時のモードも表示
+  - `append_long_memory_system_messages()` が個人長期記憶と共有メモを system message として挿入
   - workdir 決定/適用、起動バナー生成、長期記憶挿入等
 - **Tools**: `src/uagent/tools/`
   - ツールプラグイン群（`TOOL_SPEC` + `run_tool`）

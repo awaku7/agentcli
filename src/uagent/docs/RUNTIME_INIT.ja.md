@@ -10,6 +10,7 @@ ______________________________________________________________________
 `runtime_init.py` は、CLI/Web/GUI に散在していた「起動時初期化」を共通化するためのヘルパ群です。
 
 - workdir の決定・安全チェック
+- 起動時環境の検証（必要に応じて `validate_or_exit_startup_env(context=...)`）
 - workdir の作成と `chdir`
 - 起動時INFO（banner）文字列の生成
 - 長期記憶/共有メモを system message として履歴に挿入（共通関数）
