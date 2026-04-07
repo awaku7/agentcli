@@ -624,7 +624,7 @@ def main() -> int:
             print()
             print(_("Summary"))
             print(_("  Provider: %(provider)s") % {"provider": st.provider})
-            for key, _, _ in PROVIDER_FIELDS[st.provider]:
+            for key, req, label in PROVIDER_FIELDS[st.provider]:
                 print(_("  %(key)s=%(value)s") % {"key": key, "value": (st.values or {}).get(key, "")})
             print(_("  Responses enabled: %(state)s") % {"state": _("yes") if st.responses_enabled else _("no")})
             if st.responses_enabled:
