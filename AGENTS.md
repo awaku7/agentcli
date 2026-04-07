@@ -6,15 +6,19 @@
 
 ## 参照優先順位
 
-1. `src/uagent/runtime_init.py`
-2. `src/uagent/cli.py`
-3. `src/uagent/gui.py`
-4. `src/uagent/web.py`
-5. `src/uagent/core.py`
-6. `src/uagent/tools/`
-7. `README.md` / `README.ja.md`
-8. `src/uagent/docs/DEVELOP.md` / `src/uagent/docs/DEVELOP.ja.md`
-9. `src/uagent/docs/RUNTIME_INIT.md` / `src/uagent/docs/RUNTIME_INIT.ja.md`
+1. `src/uagent/runtime_init.py`（互換・再エクスポート層）
+2. `src/uagent/runtime_workdir.py`
+3. `src/uagent/runtime_banner.py`
+4. `src/uagent/runtime_env.py`
+5. `src/uagent/runtime_memory.py`
+6. `src/uagent/cli.py`
+7. `src/uagent/gui.py`
+8. `src/uagent/web.py`
+9. `src/uagent/core.py`
+10. `src/uagent/tools/`
+11. `README.md` / `README.ja.md`
+12. `src/uagent/docs/DEVELOP.md` / `src/uagent/docs/DEVELOP.ja.md`
+13. `src/uagent/docs/RUNTIME_INIT.md` / `src/uagent/docs/RUNTIME_INIT.ja.md`
 
 ## 実行前に確認する項目
 
