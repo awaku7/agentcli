@@ -138,15 +138,15 @@ def run_cli_startup(
 
         provider, client, depname = providers.make_client(core)
 
-        print(_("[INFO] LLM provider = %(provider)s", provider=provider))
-        print(_("[INFO] model(deployment) = %(depname)s", depname=depname))
+        print("[INFO] " + _("LLM provider = %(provider)s", provider=provider))
+        print("[INFO] " + _("model(deployment) = %(depname)s", depname=depname))
         if banner:
             print(banner, end="")
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
             raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
             if raw_fb:
-                print(_("[INFO] OpenRouter fallback models enabled."))
+                print("[INFO] " + _("OpenRouter fallback models enabled."))
 
         use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
         if provider in ("gemini", "claude"):
@@ -171,15 +171,11 @@ def run_cli_startup(
                 )
             )
             os.environ["UAGENT_RESPONSES"] = "0"
-            print(
-                _("[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-            )
+            print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
         elif use_responses_api:
-            print(_("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
+            print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
         else:
-            print(
-                _("[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-            )
+            print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
 
         try:
             cwd = os.getcwd()
@@ -268,7 +264,7 @@ def run_cli_startup(
     if non_interactive:
         core.set_status(False, "")
         print(
-            _("[INFO] --non-interactive was specified; exiting without waiting for stdin.")
+            "[INFO] " + _("--non-interactive was specified; exiting without waiting for stdin.")
         )
         return CliStartupState(
             provider=provider,
