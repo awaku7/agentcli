@@ -1085,6 +1085,7 @@ def compress_history_with_llm(
             return None
 
     from . import util_providers
+
     provider = util_providers.detect_provider()
 
     translator = globals().get("_")
@@ -1101,21 +1102,27 @@ def compress_history_with_llm(
         try:
             if provider == "gemini" or "genai.Client" in str(type(client)):
                 from .llm_gemini import gemini_chat_with_tools
-                summary_content, _summary_unused1, _summary_unused2 = gemini_chat_with_tools(
-                    client=client,
-                    model_name=depname,
-                    messages=summary_messages,
-                    core=sys.modules[__name__],
+
+                summary_content, _summary_unused1, _summary_unused2 = (
+                    gemini_chat_with_tools(
+                        client=client,
+                        model_name=depname,
+                        messages=summary_messages,
+                        core=sys.modules[__name__],
+                    )
                 )
             elif provider == "claude":
                 from .llm_claude import claude_chat_with_tools
+
                 claude_result = claude_chat_with_tools(
                     client=client,
                     model_name=depname,
                     messages=summary_messages,
                 )
                 if isinstance(claude_result, tuple):
-                    summary_content = claude_result[0] if len(claude_result) >= 1 else ""
+                    summary_content = (
+                        claude_result[0] if len(claude_result) >= 1 else ""
+                    )
                 else:
                     summary_content = str(claude_result)
             elif use_responses_api:
@@ -1144,7 +1151,9 @@ def compress_history_with_llm(
                 )
                 summary_content = resp.choices[0].message.content or ""
             else:
-                raise AttributeError(f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini.")
+                raise AttributeError(
+                    f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
+                )
             break
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
@@ -1284,8 +1293,11 @@ SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 """)
 
 
-SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP = _("""- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
-""")
+SYSTEM_PROMPT_WINDOWS_CMD_PASTE_TIP = _(
+    """- If the user is using Windows cmd.exe, prefer multi-line commands using caret (^) line continuation, and keep each line short to avoid copy/paste line breaks.
+"""
+)
+
 
 def _build_system_prompt_full() -> str:
     parts = [

@@ -247,6 +247,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         try:
             from .. import util_providers
+
             if util_providers.detect_provider() == "gemini":
                 return json.dumps(
                     {"error": "search_web is disabled for Gemini runtime."},

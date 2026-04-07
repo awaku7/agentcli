@@ -151,7 +151,9 @@ def json_encrypt_fields(*, json_path: str, fields: List[str]) -> None:
             raise TypeError(f)
         parent[last] = {"enc_v1": encrypt_to_b64(v)}
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    p.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def json_decrypt_fields(*, json_path: str, fields: List[str]) -> None:
@@ -169,7 +171,9 @@ def json_decrypt_fields(*, json_path: str, fields: List[str]) -> None:
         else:
             raise TypeError(f)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    p.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -314,7 +318,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             json_decrypt_fields(json_path=json_path, fields=fields)
             return _json_ok(written=json_path)
 
-        return _json_err(_("err.unknown_action", default="Unknown action."), action=action)
+        return _json_err(
+            _("err.unknown_action", default="Unknown action."), action=action
+        )
 
     except FileNotFoundError:
         return _json_err(
@@ -325,7 +331,11 @@ def run_tool(args: Dict[str, Any]) -> str:
             key_path=str(_key_path()),
         )
     except Exception as e:
-        return _json_err(_("err.exception", default="Exception"), exception=type(e).__name__, detail=str(e))
+        return _json_err(
+            _("err.exception", default="Exception"),
+            exception=type(e).__name__,
+            detail=str(e),
+        )
     finally:
         if cb.set_status:
             cb.set_status(False, "tool:secrets")

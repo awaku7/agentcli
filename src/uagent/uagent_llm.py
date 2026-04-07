@@ -13,7 +13,11 @@ from . import tools
 from .llm_errors import (
     _rate_limit_retry_step,
 )
-from .llm_gemini import gemini_chat_with_tools, _sanitize_gemini_parameters, _message_content_text
+from .llm_gemini import (
+    gemini_chat_with_tools,
+    _sanitize_gemini_parameters,
+    _message_content_text,
+)
 from .llm_claude import claude_chat_with_tools, build_claude_output_config_for_effort
 from .llm_openai_responses import (
     build_responses_request,
