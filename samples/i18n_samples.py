@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import locale
 import os
 from pathlib import Path
 from typing import Any
@@ -17,8 +18,21 @@ def _detect_lang() -> str:
         or os.environ.get("LANG")
         or os.environ.get("LC_ALL")
         or os.environ.get("LC_MESSAGES")
-        or "en"
     )
+    if not lang:
+        try:
+            loc, _enc = locale.getlocale()
+            lang = loc or ""
+        except Exception:
+            lang = ""
+    if not lang:
+        try:
+            loc2, _enc2 = locale.getdefaultlocale()  # type: ignore[attr-defined]
+            lang = loc2 or ""
+        except Exception:
+            lang = ""
+    if not lang:
+        lang = "en"
     lang = lang.split(".")[0].split("@")[0]
     return lang.replace("-", "_")
 
