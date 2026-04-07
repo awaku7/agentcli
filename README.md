@@ -29,6 +29,7 @@ ______________________________________________________________________
 - Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
 - MCP support for discovering and calling external tool servers
 - Safer operations through confirmation, path restrictions, masking, and smoke tests
+- Startup initialization is centralized in `src/uagent/runtime_init.py` for workdir resolution, startup banners, and memory injection
 - GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
 
 ______________________________________________________________________
@@ -136,7 +137,6 @@ Exit:
 - `:load 0`\
   Load the latest session log and continue the conversation.
 - `:load <index>`\
-  Load a specific session by index from `:logs`.
 - `:skills`\
   List Agent Skills, choose one, and load its `SKILL.md` into the session.
 - `:skills status`\

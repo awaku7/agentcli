@@ -5,6 +5,7 @@ This document describes the purpose and behavior of `src/uagent/runtime_init.py`
 What it does (shared across CLI/Web/GUI):
 
 - Decide and validate `workdir` (`--workdir/-C`, `UAGENT_WORKDIR`, or auto)
+- Validate startup environment when needed (`validate_or_exit_startup_env(context=...)`)
 - Create the directory and `chdir`
 - Build startup banner text (INFO lines)
 - Append personal long-term memory and shared memory as system messages
