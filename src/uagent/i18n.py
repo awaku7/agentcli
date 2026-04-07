@@ -263,6 +263,11 @@ def detect_lang() -> str:
     except Exception:
         pass
 
+    if os.name == "nt":
+        vcp = _detect_windows_console_lang()
+        if vcp:
+            return vcp
+
     return "en"
 
 
@@ -296,14 +301,29 @@ def _get_translation(lang: str) -> gettext.NullTranslations:
         return gettext.NullTranslations()
 
 
-def _(msgid: str) -> str:
-    """Translate msgid (user-facing string)."""
+def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
+    """Translate msgid (user-facing string).
+
+    If translation is missing, fall back to `default` when provided,
+    otherwise fall back to `msgid`.
+    """
     lang = get_thread_lang() or detect_lang()
     tr = _get_translation(lang)
     try:
-        return tr.gettext(msgid)
+        text = tr.gettext(msgid)
     except Exception:
-        return msgid
+        text = msgid
+
+    if text == msgid and default is not None:
+        text = default
+
+    if kwargs:
+        try:
+            text = text.format(**kwargs)
+        except Exception:
+            pass
+
+    return text
 
 
 def ngettext(singular: str, plural: str, n: int) -> str:

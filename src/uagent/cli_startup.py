@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import subprocess
+import sys
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
@@ -31,6 +33,7 @@ def run_cli_startup(
     from . import util_providers as providers
     from . import util_tools as tools_util
     from .env_utils import env_get
+    from .i18n import _, detect_lang, set_thread_lang
     from .runtime_memory import append_long_memory_system_messages
     from .runtime_init import (
         apply_workdir,
@@ -60,6 +63,8 @@ def run_cli_startup(
         if combined:
             _internal_pager(combined)
 
+    set_thread_lang(detect_lang())
+
     with redirect_stdout(startup_capture_out), redirect_stderr(startup_capture_err):
         try:
             maybe_print_readme_on_first_run(open_with_os=True)
@@ -80,7 +85,7 @@ def run_cli_startup(
             )
         except Exception as e:
             print(
-                "[FATAL] Failed to set workdir: %(err)s" % {"err": e},
+                _("[FATAL] Failed to set workdir: %(err)s", err=e),
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -88,19 +93,44 @@ def run_cli_startup(
         try:
             validate_or_exit_startup_env(context="cli")
         except SystemExit:
+            setup_cmd = [sys.executable, "-m", "uagent.setup_cli"]
             try:
-                combined = (
-                    startup_capture_out.getvalue() + startup_capture_err.getvalue()
+                subprocess.run(setup_cmd, check=False)
+            except Exception as e:
+                try:
+                    combined = (
+                        startup_capture_out.getvalue() + startup_capture_err.getvalue()
+                    )
+                    if combined:
+                        sys.__stderr__.write(combined)
+                        try:
+                            sys.__stderr__.flush()
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+                print(
+                    _("[FATAL] Failed to launch uag_setup: %(err)s", err=e),
+                    file=sys.stderr,
                 )
-                if combined:
-                    sys.__stderr__.write(combined)
-                    try:
-                        sys.__stderr__.flush()
-                    except Exception:
-                        pass
-            except Exception:
-                pass
-            raise
+                raise
+
+            try:
+                validate_or_exit_startup_env(context="cli")
+            except SystemExit:
+                try:
+                    combined = (
+                        startup_capture_out.getvalue() + startup_capture_err.getvalue()
+                    )
+                    if combined:
+                        sys.__stderr__.write(combined)
+                        try:
+                            sys.__stderr__.flush()
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+                raise
 
         print_welcome()
         check_git_installation()
@@ -108,24 +138,23 @@ def run_cli_startup(
 
         provider, client, depname = providers.make_client(core)
 
-        print("[INFO] " + ("LLM provider = %(provider)s" % {"provider": provider}))
-        print("[INFO] " + ("model(deployment) = %(depname)s" % {"depname": depname}))
+        print(_("[INFO] LLM provider = %(provider)s", provider=provider))
+        print(_("[INFO] model(deployment) = %(depname)s", depname=depname))
         if banner:
             print(banner, end="")
 
         if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
             raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
             if raw_fb:
-                print("[INFO] OpenRouter fallback models enabled.")
+                print(_("[INFO] OpenRouter fallback models enabled."))
 
         use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
         if provider in ("gemini", "claude"):
             if use_responses_api:
                 os.environ["UAGENT_RESPONSES"] = "0"
             print(
-                "[INFO] "
-                + (
-                    "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
+                _(
+                    "[INFO] LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
                 )
             )
         elif use_responses_api and provider not in (
@@ -136,21 +165,20 @@ def run_cli_startup(
             "ollama",
         ):
             print(
-                "[WARN] "
-                + (
-                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
-                    % {"provider": provider}
+                _(
+                    "[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions.",
+                    provider=provider,
                 )
             )
             os.environ["UAGENT_RESPONSES"] = "0"
             print(
-                "[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+                _("[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
             )
         elif use_responses_api:
-            print("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+            print(_("[INFO] LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
         else:
             print(
-                "[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+                _("[INFO] LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
             )
 
         try:
@@ -162,7 +190,7 @@ def run_cli_startup(
         core.set_status(False, "")
 
         messages = build_initial_messages(core=core)
-        print("[INFO] Loaded long-term memory.")
+        print("[INFO] " + _("Loaded long-term memory."))
 
         try:
             before_len = len(messages)
@@ -175,16 +203,15 @@ def run_cli_startup(
             )
 
             if flags.get("shared_enabled"):
-                print("[INFO] Loaded shared long-term memory.")
+                print("[INFO] " + _("Loaded shared long-term memory."))
 
             for m in messages[before_len:]:
                 core.log_message(m)
         except Exception as e:
             print(
-                "[WARN] "
-                + (
-                    "Exception occurred while loading shared long-term memory: %(err)s"
-                    % {"err": e}
+                _(
+                    "[WARN] Exception occurred while loading shared long-term memory: %(err)s",
+                    err=e,
                 )
             )
 
@@ -204,10 +231,10 @@ def run_cli_startup(
                     file_text = f.read()
             except Exception as e:
                 print(
-                    "[WARN] "
-                    + (
-                        "Failed to read startup file: %(path)s (%(err)s)"
-                        % {"path": file_path, "err": e}
+                    _(
+                        "[WARN] Failed to read startup file: %(path)s (%(err)s)",
+                        path=file_path,
+                        err=e,
                     )
                 )
                 file_text = ""
@@ -241,7 +268,7 @@ def run_cli_startup(
     if non_interactive:
         core.set_status(False, "")
         print(
-            "[INFO] --non-interactive was specified; exiting without waiting for stdin."
+            _("[INFO] --non-interactive was specified; exiting without waiting for stdin.")
         )
         return CliStartupState(
             provider=provider,
