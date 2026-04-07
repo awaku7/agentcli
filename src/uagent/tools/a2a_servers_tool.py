@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 from ..utils.paths import get_state_dir
 from .arg_util import get_bool, get_int, get_str
@@ -214,14 +214,21 @@ def run_tool(args: Dict[str, Any]) -> str:
                         "interval_ms": s.get("interval_ms"),
                     }
                 )
-            return _json_ok(path=str(_cfg_path()), default=cfg.get("default"), servers=servers)
+            return _json_ok(
+                path=str(_cfg_path()), default=cfg.get("default"), servers=servers
+            )
 
         if action == "add":
             cfg = _load_cfg(create_if_missing=True)
             name = get_str(args, "name", "")
             base_url = get_str(args, "base_url", "")
             if not name or not base_url:
-                return _json_err(_("err.missing_name_or_base_url", default="Missing 'name' or 'base_url'."))
+                return _json_err(
+                    _(
+                        "err.missing_name_or_base_url",
+                        default="Missing 'name' or 'base_url'.",
+                    )
+                )
 
             token_plain = get_str(args, "token", "")
             token_obj = None
@@ -261,7 +268,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 cfg["default"] = name
 
             _write_cfg(cfg)
-            return _json_ok(path=str(_cfg_path()), replaced=replaced, default=cfg.get("default"))
+            return _json_ok(
+                path=str(_cfg_path()), replaced=replaced, default=cfg.get("default")
+            )
 
         if action == "remove":
             cfg = _load_cfg(create_if_missing=False)
@@ -269,7 +278,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             if not name:
                 return _json_err(_("err.missing_name", default="Missing 'name'."))
             before = len(cfg.get("servers") or [])
-            servers = [s for s in (cfg.get("servers") or []) if (s.get("name") or "") != name]
+            servers = [
+                s for s in (cfg.get("servers") or []) if (s.get("name") or "") != name
+            ]
             if len(servers) == before:
                 return _json_err(_("err.not_found", default="Not found."), name=name)
             cfg["servers"] = servers
@@ -294,7 +305,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             # return decrypted token too (caller may need it)
             return _json_ok(profile=prof)
 
-        return _json_err(_("err.unknown_action", default="Unknown action."), action=action)
+        return _json_err(
+            _("err.unknown_action", default="Unknown action."), action=action
+        )
 
     except FileNotFoundError:
         return _json_err(
@@ -305,7 +318,11 @@ def run_tool(args: Dict[str, Any]) -> str:
             path=str(_cfg_path()),
         )
     except Exception as e:
-        return _json_err(_("err.exception", default="Exception"), exception=type(e).__name__, detail=str(e))
+        return _json_err(
+            _("err.exception", default="Exception"),
+            exception=type(e).__name__,
+            detail=str(e),
+        )
     finally:
         if cb.set_status:
             cb.set_status(False, "tool:a2a_servers")

@@ -89,13 +89,18 @@ def run_tool(args: Dict[str, Any]) -> str:
             token=str(prof.get("token") or ""),
             timeout_sec=float(prof.get("timeout_s") or 300),
         )
-        task = client.send_message(text=message, return_immediately=bool(ret_immediately))
+        task = client.send_message(
+            text=message, return_immediately=bool(ret_immediately)
+        )
         # a2a_send returns the created task. Use a2a_poll to wait for completion.
         return _json_ok(task=task)
 
-
     except Exception as e:
-        return _json_err(_("err.exception", default="Exception"), exception=type(e).__name__, detail=str(e))
+        return _json_err(
+            _("err.exception", default="Exception"),
+            exception=type(e).__name__,
+            detail=str(e),
+        )
     finally:
         if cb.set_status:
             cb.set_status(False, "tool:a2a_send")
