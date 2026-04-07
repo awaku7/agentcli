@@ -29,10 +29,11 @@ ______________________________________________________________________
   - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Grok/OpenRouter/Ollama/NVIDIA 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
-- **Startup init**: `src/uagent/runtime_init.py`
-  - `decide_workdir()` が `--workdir/-C`、`UAGENT_WORKDIR`、自動選択を解決
-  - `build_startup_banner()` が起動時 INFO を生成し、Responses API 有効時のモードも表示
-  - `append_long_memory_system_messages()` が個人長期記憶と共有メモを system message として挿入
+- **Startup init**: `src/uagent/runtime_init.py`（互換レイヤ）
+  - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
+  - `src/uagent/runtime_banner.py`: `build_startup_banner()`
+  - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
+  - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
   - workdir 決定/適用、起動バナー生成、長期記憶挿入等
 - **Tools**: `src/uagent/tools/`
   - ツールプラグイン群（`TOOL_SPEC` + `run_tool`）
