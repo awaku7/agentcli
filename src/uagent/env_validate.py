@@ -1,26 +1,11 @@
 # -*- coding: utf-8 -*-
-"""env_validate.py
-
-Centralized environment-variable validation.
-
-Goal:
-- Fail fast at startup with a clear, aggregated error message when required
-  environment variables are missing or invalid.
-
-Notes:
-- Never print secrets (API keys). Only print variable names and brief guidance.
-- This module is intentionally small and dependency-free.
-
-Language policy:
-- English only (as requested).
-"""
-
 from __future__ import annotations
 
-
-from .env_utils import env_get
 from dataclasses import dataclass
 from typing import List, Sequence, Tuple
+
+from .env_utils import env_get
+from .i18n import _
 
 
 @dataclass(frozen=True)
@@ -42,74 +27,54 @@ def _require(names: Sequence[str], reason: str) -> List[MissingEnv]:
 
 
 def detect_provider_allow_empty() -> str:
-    """Return normalized provider name; empty string if not set."""
     return _get("UAGENT_PROVIDER").lower()
 
 
 def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
-    """Validate environment variables required to start.
-
-    Returns:
-      (provider, missing, warnings)
-
-    - provider: normalized provider name ("azure", "openai", ...), or "".
-      If empty, missing will include UAGENT_PROVIDER.
-    - missing: list of missing required env vars.
-    - warnings: non-fatal messages.
-    """
-
     missing: List[MissingEnv] = []
     warnings: List[str] = []
-
     provider = detect_provider_allow_empty()
 
     if not provider:
-        # Provider is required. When it is missing, we also show *all* provider-specific
-        # required variables as candidates, so users can see everything they may need
-        # to set (depending on which provider they choose).
         missing += _require(
             ["UAGENT_PROVIDER"],
-            reason="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
+            reason=_(
+                "env.required.provider",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
+            ),
         )
-
-        # Candidate requirements for each provider (displayed only when provider is missing).
         missing += _require(
-            [
-                "UAGENT_AZURE_BASE_URL",
-                "UAGENT_AZURE_API_KEY",
-                "UAGENT_AZURE_API_VERSION",
-            ],
-            reason="(azure) Required when using Azure OpenAI.",
+            ["UAGENT_AZURE_BASE_URL", "UAGENT_AZURE_API_KEY", "UAGENT_AZURE_API_VERSION"],
+            reason=_("env.required.azure", default="(azure) Required when using Azure OpenAI."),
         )
         missing += _require(
             ["UAGENT_OPENAI_API_KEY"],
-            reason="(openai) Required when using OpenAI.",
+            reason=_("env.required.openai", default="(openai) Required when using OpenAI."),
         )
         missing += _require(
             ["UAGENT_OPENROUTER_API_KEY"],
-            reason="(openrouter) Required when using OpenRouter.",
+            reason=_("env.required.openrouter", default="(openrouter) Required when using OpenRouter."),
         )
         missing += _require(
             ["UAGENT_GROK_API_KEY"],
-            reason="(grok) Required when using Grok (xAI).",
+            reason=_("env.required.grok", default="(grok) Required when using Grok (xAI)."),
         )
         missing += _require(
             ["UAGENT_OLLAMA_BASE_URL"],
-            reason="(ollama) Required when using Ollama.",
+            reason=_("env.required.ollama", default="(ollama) Required when using Ollama."),
         )
         missing += _require(
             ["UAGENT_GEMINI_API_KEY"],
-            reason="(gemini) Required when using Gemini.",
+            reason=_("env.required.gemini", default="(gemini) Required when using Gemini."),
         )
         missing += _require(
             ["UAGENT_CLAUDE_API_KEY"],
-            reason="(claude) Required when using Claude (Anthropic).",
+            reason=_("env.required.claude", default="(claude) Required when using Claude (Anthropic)."),
         )
         missing += _require(
             ["UAGENT_NVIDIA_API_KEY"],
-            reason="(nvidia) Required when using NVIDIA.",
+            reason=_("env.required.nvidia", default="(nvidia) Required when using NVIDIA."),
         )
-
         return provider, missing, warnings
 
     allowed = (
@@ -123,65 +88,90 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         "claude",
         "nvidia",
     )
-
     if provider not in allowed:
-        # We intentionally do not hard-fail here because util_providers.detect_provider
-        # already exits. This warning is just to make the message more informative.
         warnings.append(
-            f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail)."
+            _(
+                "env.warn.unknown_provider",
+                default=f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail).",
+                provider=provider,
+                allowed=", ".join(allowed),
+            )
         )
         return provider, missing, warnings
 
-    # Provider-specific required vars (based on util_providers.make_client)
     if provider == "azure":
         missing += _require(
             ["UAGENT_AZURE_BASE_URL"],
-            reason="Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/).",
+            reason=_(
+                "env.azure.base_url",
+                default="Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/).",
+            ),
         )
         missing += _require(
             ["UAGENT_AZURE_API_KEY"],
-            reason="Azure OpenAI API key.",
+            reason=_("env.azure.api_key", default="Azure OpenAI API key."),
         )
         missing += _require(
             ["UAGENT_AZURE_API_VERSION"],
-            reason="Azure OpenAI API version (e.g., 2024-xx-xx).",
+            reason=_("env.azure.api_version", default="Azure OpenAI API version (e.g., 2024-xx-xx)."),
         )
     elif provider == "openai":
-        missing += _require(["UAGENT_OPENAI_API_KEY"], reason="OpenAI API key.")
+        missing += _require(
+            ["UAGENT_OPENAI_API_KEY"],
+            reason=_("env.openai.api_key", default="OpenAI API key."),
+        )
     elif provider == "bedrock":
         missing += _require(
             ["UAGENT_BEDROCK_BASE_URL"],
-            reason="Bedrock proxy endpoint/base URL (OpenAI-compatible).",
+            reason=_("env.bedrock.base_url", default="Bedrock proxy endpoint/base URL (OpenAI-compatible)."),
         )
         missing += _require(
             ["UAGENT_BEDROCK_API_KEY"],
-            reason="Bedrock proxy API key (OpenAI-compatible).",
+            reason=_("env.bedrock.api_key", default="Bedrock proxy API key (OpenAI-compatible)."),
         )
     elif provider == "openrouter":
-        missing += _require(["UAGENT_OPENROUTER_API_KEY"], reason="OpenRouter API key.")
+        missing += _require(
+            ["UAGENT_OPENROUTER_API_KEY"],
+            reason=_("env.openrouter.api_key", default="OpenRouter API key."),
+        )
     elif provider == "grok":
-        missing += _require(["UAGENT_GROK_API_KEY"], reason="Grok (xAI) API key.")
+        missing += _require(
+            ["UAGENT_GROK_API_KEY"],
+            reason=_("env.grok.api_key", default="Grok (xAI) API key."),
+        )
     elif provider == "gemini":
-        missing += _require(["UAGENT_GEMINI_API_KEY"], reason="Gemini API key.")
-        # Package presence is validated later in util_providers.make_client, but we warn early.
+        missing += _require(
+            ["UAGENT_GEMINI_API_KEY"],
+            reason=_("env.gemini.api_key", default="Gemini API key."),
+        )
         try:
             from google import genai as _genai  # noqa: F401
         except Exception:
             warnings.append(
-                "Python package 'google-genai' is not installed. Provider=gemini requires it."
+                _(
+                    "env.warn.google_genai",
+                    default="Python package 'google-genai' is not installed. Provider=gemini requires it.",
+                )
             )
     elif provider == "claude":
         missing += _require(
-            ["UAGENT_CLAUDE_API_KEY"], reason="Anthropic (Claude) API key."
+            ["UAGENT_CLAUDE_API_KEY"],
+            reason=_("env.claude.api_key", default="Anthropic (Claude) API key."),
         )
         try:
             from anthropic import Anthropic as _Anthropic  # noqa: F401
         except Exception:
             warnings.append(
-                "Python package 'anthropic' is not installed. Provider=claude requires it."
+                _(
+                    "env.warn.anthropic",
+                    default="Python package 'anthropic' is not installed. Provider=claude requires it.",
+                )
             )
     elif provider == "nvidia":
-        missing += _require(["UAGENT_NVIDIA_API_KEY"], reason="NVIDIA API key.")
+        missing += _require(
+            ["UAGENT_NVIDIA_API_KEY"],
+            reason=_("env.nvidia.api_key", default="NVIDIA API key."),
+        )
 
     return provider, missing, warnings
 
@@ -192,31 +182,47 @@ def format_missing_env_message(
     warnings: Sequence[str] = (),
     context: str = "startup",
 ) -> str:
-    """Create a human-friendly fatal message (English only)."""
-
     lines: List[str] = []
-    lines.append(f"[FATAL] Environment validation failed ({context}).")
-
+    lines.append(
+        _(
+            "env.fatal.header",
+            default=f"[FATAL] Environment validation failed ({context}).",
+            context=context,
+        )
+    )
     if missing:
-        lines.append("Missing required environment variables:")
+        lines.append(_("env.fatal.missing", default="Missing required environment variables:"))
         for m in missing:
-            lines.append(f"- {m.name}: {m.reason}")
-
+            lines.append(
+                _(
+                    "env.fatal.item",
+                    default=f"- {m.name}: {m.reason}",
+                    name=m.name,
+                    reason=m.reason,
+                )
+            )
     if warnings:
-        lines.append("Warnings:")
+        lines.append(_("env.fatal.warnings", default="Warnings:"))
         for w in warnings:
             lines.append(f"- {w}")
-
     lines.append("")
-    lines.append("How to fix:")
+    lines.append(_("env.fix.title", default="How to fix:"))
     lines.append(
-        "- Set the variables above in your environment before starting the program."
+        _(
+            "env.fix.one",
+            default="- Set the variables above in your environment before starting the program.",
+        )
     )
     lines.append(
-        "- You can set them via your OS environment settings, a .env file, your shell startup scripts,"
+        _(
+            "env.fix.two",
+            default="- You can set them via your OS environment settings, a .env file, your shell startup scripts,",
+        )
     )
     lines.append(
-        "  or your process manager / service configuration (CI secrets, systemd, Docker, etc.)."
+        _(
+            "env.fix.three",
+            default="  or your process manager / service configuration (CI secrets, systemd, Docker, etc.).",
+        )
     )
-
     return "\n".join(lines) + "\n"
