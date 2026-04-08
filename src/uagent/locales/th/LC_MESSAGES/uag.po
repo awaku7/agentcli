@@ -72,6 +72,10 @@ msgstr ""
 msgid "Cancelled."
 msgstr "ยกเลิกแล้ว"
 
+#: src/uagent/setup_cli.py:477
+msgid "Select provider"
+msgstr "เลือกผู้ให้บริการ"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "ละทิ้งอินพุตก่อนหน้าแล้ว โปรดเริ่มใหม่"
@@ -985,8 +989,7 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:19
 #: src/uagent/tools/zip_ops_tool.py:36
 msgid "tool.description"
-msgstr ""
-"tool.description"
+msgstr "คำอธิบายเครื่องมือ"
 
 #: src/uagent/tools/add_long_memory_tool.py:27
 #: src/uagent/tools/add_shared_memory_tool.py:27
@@ -1029,24 +1032,20 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:23
 #: src/uagent/tools/zip_ops_tool.py:40
 msgid "tool.system_prompt"
-msgstr ""
-"tool.system_prompt"
+msgstr "พรอมต์ระบบของเครื่องมือ"
 
 #: src/uagent/tools/add_long_memory_tool.py:40
 #: src/uagent/tools/add_shared_memory_tool.py:40
 msgid "param.note.description"
-msgstr ""
-"param.note.description"
+msgstr "โน้ต"
 
 #: src/uagent/tools/add_long_memory_tool.py:56
 msgid "err.note_empty"
-msgstr ""
-"err.note_empty"
+msgstr "โน้ตว่างเปล่า"
 
 #: src/uagent/tools/agent_skills_shared.py:130
 msgid "err.file_too_large"
-msgstr ""
-"err.file_too_large"
+msgstr "ไฟล์มีขนาดใหญ่เกินไป"
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"

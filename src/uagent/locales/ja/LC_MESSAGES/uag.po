@@ -964,8 +964,7 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:19
 #: src/uagent/tools/zip_ops_tool.py:36
 msgid "tool.description"
-msgstr ""
-"tool.description"
+msgstr "ツールの説明"
 
 #: src/uagent/tools/add_long_memory_tool.py:27
 #: src/uagent/tools/add_shared_memory_tool.py:27
@@ -1009,23 +1008,23 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:40
 msgid "tool.system_prompt"
 msgstr ""
-"tool.system_prompt"
+"ツールのシステムプロンプト"
 
 #: src/uagent/tools/add_long_memory_tool.py:40
 #: src/uagent/tools/add_shared_memory_tool.py:40
 msgid "param.note.description"
 msgstr ""
-"param.note.description"
+"メモの内容"
 
 #: src/uagent/tools/add_long_memory_tool.py:56
 msgid "err.note_empty"
 msgstr ""
-"err.note_empty"
+"メモを入力してください"
 
 #: src/uagent/tools/agent_skills_shared.py:130
 msgid "err.file_too_large"
 msgstr ""
-"err.file_too_large"
+"ファイルが大きすぎます"
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"
@@ -1034,138 +1033,138 @@ msgstr "{filename} が見つかりません: {path}"
 #: src/uagent/tools/agent_skills_shared.py:184
 msgid "err.frontmatter_missing_start"
 msgstr ""
-"err.frontmatter_missing_start"
+"frontmatter の開始記号 --- がありません"
 
 #: src/uagent/tools/agent_skills_shared.py:200
 msgid "err.frontmatter_missing_end"
 msgstr ""
-"err.frontmatter_missing_end"
+"frontmatter の終了記号 --- がありません"
 
 #: src/uagent/tools/agent_skills_shared.py:219
 msgid "err.frontmatter_parse_failed"
 msgstr ""
-"err.frontmatter_parse_failed"
+"frontmatter の解析に失敗しました"
 
 #: src/uagent/tools/agent_skills_shared.py:227
 msgid "err.frontmatter_not_mapping"
 msgstr ""
-"err.frontmatter_not_mapping"
+"frontmatter はマッピングではありません"
 
 #: src/uagent/tools/agent_skills_shared.py:276
 msgid "err.fm_name_required"
 msgstr ""
-"err.fm_name_required"
+"名前は必須です"
 
 #: src/uagent/tools/agent_skills_shared.py:285
 msgid "err.fm_name_too_long"
 msgstr ""
-"err.fm_name_too_long"
+"名前が長すぎます"
 
 #: src/uagent/tools/agent_skills_shared.py:292
 msgid "err.fm_name_re"
 msgstr ""
-"err.fm_name_re"
+"名前の形式が正しくありません"
 
 #: src/uagent/tools/agent_skills_shared.py:299
 msgid "err.fm_name_edge_hyphen"
 msgstr ""
-"err.fm_name_edge_hyphen"
+"名前の先頭または末尾にハイフンは使えません"
 
 #: src/uagent/tools/agent_skills_shared.py:306
 msgid "err.fm_name_double_hyphen"
 msgstr ""
-"err.fm_name_double_hyphen"
+"名前に連続したハイフンは使えません"
 
 #: src/uagent/tools/agent_skills_shared.py:316
 msgid "err.fm_name_dir_mismatch"
 msgstr ""
-"err.fm_name_dir_mismatch"
+"名前とディレクトリ名が一致しません"
 
 #: src/uagent/tools/agent_skills_shared.py:326
 msgid "err.fm_desc_required"
 msgstr ""
-"err.fm_desc_required"
+"説明は必須です"
 
 #: src/uagent/tools/agent_skills_shared.py:335
 msgid "err.fm_desc_too_long"
 msgstr ""
-"err.fm_desc_too_long"
+"説明が長すぎます"
 
 #: src/uagent/tools/agent_skills_shared.py:345
 msgid "err.fm_license_type"
 msgstr ""
-"err.fm_license_type"
+"license は文字列で指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:356
 msgid "err.fm_compat_type"
 msgstr ""
-"err.fm_compat_type"
+"compatible は文字列または文字列配列で指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:365
 msgid "err.fm_compat_empty"
 msgstr ""
-"err.fm_compat_empty"
+"compatible は空にできません"
 
 #: src/uagent/tools/agent_skills_shared.py:372
 msgid "err.fm_compat_too_long"
 msgstr ""
-"err.fm_compat_too_long"
+"compatible が長すぎます"
 
 #: src/uagent/tools/agent_skills_shared.py:383
 msgid "err.fm_meta_type"
 msgstr ""
-"err.fm_meta_type"
+"meta はオブジェクトで指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:392
 msgid "err.fm_meta_key_type"
 msgstr ""
-"err.fm_meta_key_type"
+"meta のキーは文字列で指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:400
 msgid "err.fm_meta_val_type"
 msgstr ""
-"err.fm_meta_val_type"
+"meta の値は文字列で指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:411
 msgid "err.fm_allowed_tools_type"
 msgstr ""
-"err.fm_allowed_tools_type"
+"allowed_tools は文字列配列で指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:438
 msgid "err.relpath_required"
 msgstr ""
-"err.relpath_required"
+"相対パスを指定してください"
 
 #: src/uagent/tools/agent_skills_shared.py:448
 msgid "err.abs_path_not_allowed"
 msgstr ""
-"err.abs_path_not_allowed"
+"絶対パスは使用できません"
 
 #: src/uagent/tools/agent_skills_shared.py:454
 msgid "err.dotdot_not_allowed"
 msgstr ""
-"err.dotdot_not_allowed"
+".. は使用できません"
 
 #: src/uagent/tools/agent_skills_shared.py:468
 msgid "err.relpath_points_to_root"
 msgstr ""
-"err.relpath_points_to_root"
+"相対パスがルートを指しています"
 
 #: src/uagent/tools/agent_skills_shared.py:476
 msgid "err.path_traversal"
 msgstr ""
-"err.path_traversal"
+"パストラバーサルは許可されません"
 
 #: src/uagent/tools/analyze_image_tool.py:33
 msgid "param.image_path.description"
 msgstr ""
-"param.image_path.description"
+"画像ファイルのパス"
 
 #: src/uagent/tools/analyze_image_tool.py:40
 #: src/uagent/tools/generate_image_tool.py:52
 msgid "param.prompt.description"
 msgstr ""
-"param.prompt.description"
+"プロンプト"
 
 #: src/uagent/tools/binary_edit_tool.py:47
 #: src/uagent/tools/create_file_tool.py:53
@@ -1179,7 +1178,7 @@ msgstr ""
 #: src/uagent/tools/replace_in_file_tool.py:127
 msgid "param.path.description"
 msgstr ""
-"param.path.description"
+"パス"
 
 #: src/uagent/tools/binary_edit_tool.py:53
 #: src/uagent/tools/exstruct_tool.py:60
@@ -1188,7 +1187,7 @@ msgstr ""
 #: src/uagent/tools/replace_in_file_tool.py:135
 msgid "param.mode.description"
 msgstr ""
-"param.mode.description"
+"モード"
 
 #: src/uagent/tools/binary_edit_tool.py:59
 #: src/uagent/tools/delete_file_tool.py:69
@@ -1196,69 +1195,69 @@ msgstr ""
 #: src/uagent/tools/zip_ops_tool.py:119
 msgid "param.dry_run.description"
 msgstr ""
-"param.dry_run.description"
+"実行せず確認のみ行います"
 
 #: src/uagent/tools/binary_edit_tool.py:67
 #: src/uagent/tools/libcst_transform_tool.py:129
 #: src/uagent/tools/skills_read_file_tool.py:49
 msgid "param.max_bytes.description"
 msgstr ""
-"param.max_bytes.description"
+"最大バイト数"
 
 #: src/uagent/tools/binary_edit_tool.py:74
 msgid "param.offset.description"
 msgstr ""
-"param.offset.description"
+"オフセット"
 
 #: src/uagent/tools/binary_edit_tool.py:81
 msgid "param.data_hex.description"
 msgstr ""
-"param.data_hex.description"
+"書き込む 16 進データ"
 
 #: src/uagent/tools/binary_edit_tool.py:88
 msgid "param.search_hex.description"
 msgstr ""
-"param.search_hex.description"
+"検索する 16 進データ"
 
 #: src/uagent/tools/binary_edit_tool.py:95
 msgid "param.replace_hex.description"
 msgstr ""
-"param.replace_hex.description"
+"置換後の 16 進データ"
 
 #: src/uagent/tools/binary_edit_tool.py:103
 msgid "param.occurrence.description"
 msgstr ""
-"param.occurrence.description"
+"出現位置"
 
 #: src/uagent/tools/binary_edit_tool.py:111
 msgid "param.splice_op.description"
 msgstr ""
-"param.splice_op.description"
+"splice 操作"
 
 #: src/uagent/tools/binary_edit_tool.py:118
 msgid "param.delete_len.description"
 msgstr ""
-"param.delete_len.description"
+"削除する長さ"
 
 #: src/uagent/tools/binary_edit_tool.py:125
 msgid "param.patch_json.description"
 msgstr ""
-"param.patch_json.description"
+"適用する JSON パッチ"
 
 #: src/uagent/tools/calculator_tool.py:25
 msgid "param.expression.description"
 msgstr ""
-"param.expression.description"
+"式"
 
 #: src/uagent/tools/calculator_tool.py:41
 msgid "err.expression_missing"
 msgstr ""
-"err.expression_missing"
+"式を入力してください"
 
 #: src/uagent/tools/calculator_tool.py:65
 msgid "err.eval"
 msgstr ""
-"err.eval"
+"式の評価に失敗しました"
 
 #: src/uagent/tools/catalog_tool.py:27
 #: src/uagent/tools/graph_rag_search_tool.py:1023
@@ -1266,29 +1265,29 @@ msgstr ""
 #: src/uagent/tools/semantic_search_files_tool.py:366
 msgid "param.query.description"
 msgstr ""
-"param.query.description"
+"クエリ"
 
 #: src/uagent/tools/catalog_tool.py:34
 #: src/uagent/tools/search_files_tool.py:84
 #: src/uagent/tools/search_web_tool.py:215
 msgid "param.max_results.description"
 msgstr ""
-"param.max_results.description"
+"最大結果数"
 
 #: src/uagent/tools/change_workdir_tool.py:31
 msgid "param.new_dir.description"
 msgstr ""
-"param.new_dir.description"
+"新しいディレクトリ"
 
 #: src/uagent/tools/change_workdir_tool.py:39
 msgid "param.confirm.description"
 msgstr ""
-"param.confirm.description"
+"確認する"
 
 #: src/uagent/tools/change_workdir_tool.py:65
 msgid "confirm.change_workdir"
 msgstr ""
-"confirm.change_workdir"
+"作業ディレクトリを変更しますか？"
 
 #: src/uagent/tools/cmd_exec_json_tool.py:40
 #: src/uagent/tools/cmd_exec_tool.py:40 src/uagent/tools/git_ops_tool.py:98
@@ -1297,7 +1296,7 @@ msgstr ""
 #: src/uagent/tools/spawn_process_tool.py:23
 msgid "param.command.description"
 msgstr ""
-"param.command.description"
+"コマンド"
 
 #: src/uagent/tools/cmd_exec_json_tool.py:47
 #: src/uagent/tools/lint_format_tool.py:88
@@ -3054,3 +3053,434 @@ msgid ""
 msgstr ""
 "- Windows の cmd.exe を使っている場合は、コピー/貼り付けで改行が混入しないよう、キャレット (^) による複数行の行継続を使い、各行を短くしてください。\n"
 
+#: src/uagent/setup_cli.py
+msgid "# .env for uag (generated by `uag_setup`)"
+msgstr "# uag 用 .env（`uag_setup` で生成）"
+
+#: src/uagent/setup_cli.py
+msgid "#"
+msgstr "#"
+
+#: src/uagent/setup_cli.py
+msgid "# Notes:"
+msgstr "# 注記:"
+
+#: src/uagent/setup_cli.py
+msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
+msgstr "# - このファイルには秘密情報（API キー）が含まれる場合があります。Git にコミットしないでください。"
+
+#: src/uagent/setup_cli.py
+msgid "# - You can re-run `uag_setup` anytime to regenerate."
+msgstr "# - `uag_setup` はいつでも再実行して再生成できます。"
+
+#: src/uagent/setup_cli.py
+msgid "#!/usr/bin/env bash"
+msgstr "#!/usr/bin/env bash"
+
+#: src/uagent/setup_cli.py
+msgid "# Auto-generated by uag_setup"
+msgstr "# uag_setup により自動生成"
+
+#: src/uagent/setup_cli.py
+msgid "# Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr "# このファイルを直接編集しないでください。再生成するには uag_setup を再実行してください。"
+
+#: src/uagent/setup_cli.py
+msgid "<#"
+msgstr "<#"
+
+#: src/uagent/setup_cli.py
+msgid " Auto-generated by uag_setup"
+msgstr " uag_setup により自動生成"
+
+#: src/uagent/setup_cli.py
+msgid " Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr " このファイルを直接編集しないでください。再生成するには uag_setup を再実行してください。"
+
+#: src/uagent/setup_cli.py
+msgid "#>"
+msgstr "#>"
+
+#: src/uagent/setup_cli.py
+msgid "@echo off"
+msgstr "@echo off"
+
+#: src/uagent/setup_cli.py
+msgid "REM Auto-generated by uag_setup"
+msgstr "REM uag_setup により自動生成"
+
+#: src/uagent/setup_cli.py
+msgid "REM Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr "REM このファイルを直接編集しないでください。再生成するには uag_setup を再実行してください。"
+
+#: src/uagent/setup_cli.py
+msgid "OpenAI-compatible"
+msgstr "OpenAI 互換"
+
+#: src/uagent/setup_cli.py
+msgid "Azure OpenAI"
+msgstr "Azure OpenAI"
+
+#: src/uagent/setup_cli.py
+msgid "Bedrock OpenAI-compatible gateway"
+msgstr "Bedrock の OpenAI 互換ゲートウェイ"
+
+#: src/uagent/setup_cli.py
+msgid "OpenRouter"
+msgstr "OpenRouter"
+
+#: src/uagent/setup_cli.py
+msgid "Gemini"
+msgstr "Gemini"
+
+#: src/uagent/setup_cli.py
+msgid "Grok"
+msgstr "Grok"
+
+#: src/uagent/setup_cli.py
+msgid "Claude"
+msgstr "Claude"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama"
+msgstr "Ollama"
+
+#: src/uagent/setup_cli.py
+msgid "NVIDIA"
+msgstr "NVIDIA"
+
+#: src/uagent/setup_cli.py
+msgid "OpenAI API key"
+msgstr "OpenAI API キー"
+
+#: src/uagent/setup_cli.py
+msgid "OpenAI base URL (optional)"
+msgstr "OpenAI ベース URL（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "OpenAI model/deployment name (optional)"
+msgstr "OpenAI モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "Azure ベース URL（例: https://<resource>.openai.azure.com/）"
+
+#: src/uagent/setup_cli.py
+msgid "Azure API key"
+msgstr "Azure API キー"
+
+#: src/uagent/setup_cli.py
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Azure API バージョン（任意、例: 2024-05-01-preview）"
+
+#: src/uagent/setup_cli.py
+msgid "Azure deployment name"
+msgstr "Azure デプロイ名"
+
+#: src/uagent/setup_cli.py
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "Bedrock ゲートウェイのベース URL（例: https://<gateway>/v1）"
+
+#: src/uagent/setup_cli.py
+msgid "Bedrock API key"
+msgstr "Bedrock API キー"
+
+#: src/uagent/setup_cli.py
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Bedrock モデル/デプロイ名（例: openai.gpt-oss-120b）"
+
+#: src/uagent/setup_cli.py
+msgid "OpenRouter API key"
+msgstr "OpenRouter API キー"
+
+#: src/uagent/setup_cli.py
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter ベース URL（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "OpenRouter モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "OpenRouter フォールバックモデル（任意、カンマ区切り）"
+
+#: src/uagent/setup_cli.py
+msgid "Gemini API key"
+msgstr "Gemini API キー"
+
+#: src/uagent/setup_cli.py
+msgid "Gemini model name (optional)"
+msgstr "Gemini モデル名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Grok API key"
+msgstr "Grok API キー"
+
+#: src/uagent/setup_cli.py
+msgid "Grok base URL (optional)"
+msgstr "Grok ベース URL（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Grok model/deployment name (optional)"
+msgstr "Grok モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Claude API key"
+msgstr "Claude API キー"
+
+#: src/uagent/setup_cli.py
+msgid "Claude model/deployment name (optional)"
+msgstr "Claude モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "NVIDIA API key"
+msgstr "NVIDIA API キー"
+
+#: src/uagent/setup_cli.py
+msgid "NVIDIA base URL (optional)"
+msgstr "NVIDIA ベース URL（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "NVIDIA モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Ollama ベース URL（例: http://localhost:11434/v1）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Ollama API キー（任意、既定: dummy）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama model/deployment name (optional)"
+msgstr "Ollama モデル/デプロイ名（任意）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Ollama リクエストタイムアウト秒（既定: 60）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Ollama temperature（既定: 0.7）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p（既定: 0.9）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k（既定: 40）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty（既定: 1.1）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive（既定: 5m）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx（既定: 8192）"
+
+#: src/uagent/setup_cli.py
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict（既定: 1024）"
+
+#: src/uagent/setup_cli.py
+msgid "Enter number:"
+msgstr "番号を入力:"
+
+#: src/uagent/setup_cli.py
+msgid " b=back"
+msgstr " b=戻る"
+
+#: src/uagent/setup_cli.py
+msgid " q=quit"
+msgstr " q=終了"
+
+#: src/uagent/setup_cli.py
+msgid "Invalid input. Please enter a valid number."
+msgstr "無効な入力です。有効な番号を入力してください。"
+
+#: src/uagent/setup_cli.py
+msgid " [default: %(default)s]"
+msgstr " [既定: %(default)s]"
+
+#: src/uagent/setup_cli.py
+msgid "This field is required. Please enter a value."
+msgstr "この項目は必須です。値を入力してください。"
+
+#: src/uagent/setup_cli.py
+msgid "Select UAGENT_LANG"
+msgstr "UAGENT_LANG を選択"
+
+#: src/uagent/setup_cli.py
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG（カスタム）"
+
+#: src/uagent/setup_cli.py
+msgid "Select output files to generate in the current directory"
+msgstr "現在のディレクトリに生成する出力ファイルを選択"
+
+#: src/uagent/setup_cli.py
+msgid "  1. .env only"
+msgstr "  1. .env のみ"
+
+#: src/uagent/setup_cli.py
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+#: src/uagent/setup_cli.py
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
+#: src/uagent/setup_cli.py
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + すべて（sh/ps1/bat）"
+
+#: src/uagent/setup_cli.py
+msgid "  b. back"
+msgstr "  b. 戻る"
+
+#: src/uagent/setup_cli.py
+msgid "  q. quit"
+msgstr "  q. 終了"
+
+#: src/uagent/setup_cli.py
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "無効な入力です。1-5、または b/q を入力してください。"
+
+#: src/uagent/setup_cli.py
+msgid "Select reasoning"
+msgstr "推論を選択"
+
+#: src/uagent/setup_cli.py
+msgid "minimal"
+msgstr "最小"
+
+#: src/uagent/setup_cli.py
+msgid "low"
+msgstr "低"
+
+#: src/uagent/setup_cli.py
+msgid "medium"
+msgstr "中"
+
+#: src/uagent/setup_cli.py
+msgid "high"
+msgstr "高"
+
+#: src/uagent/setup_cli.py
+msgid "auto"
+msgstr "自動"
+
+#: src/uagent/setup_cli.py
+msgid "Select verbosity"
+msgstr "詳細度を選択"
+
+#: src/uagent/setup_cli.py
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "UAGENT_WORKDIR を任意で設定しますか？"
+
+#: src/uagent/setup_cli.py
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "UAGENT_LANG を任意で設定しますか？"
+
+#: src/uagent/setup_cli.py
+msgid "Summary"
+msgstr "概要"
+
+#: src/uagent/setup_cli.py
+msgid "  Provider: %(provider)s"
+msgstr "  プロバイダー: %(provider)s"
+
+#: src/uagent/setup_cli.py
+msgid "  %(key)s=%(value)s"
+msgstr "  %(key)s=%(value)s"
+
+#: src/uagent/setup_cli.py
+msgid "  Responses enabled: %(state)s"
+msgstr "  Responses 有効: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "yes"
+msgstr "はい"
+
+#: src/uagent/setup_cli.py
+msgid "no"
+msgstr "いいえ"
+
+#: src/uagent/setup_cli.py
+msgid "  UAGENT_WORKDIR enabled: %(state)s"
+msgstr "  UAGENT_WORKDIR 有効: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "  UAGENT_LANG enabled: %(state)s"
+msgstr "  UAGENT_LANG 有効: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "  Outputs: %(outputs)s"
+msgstr "  出力: %(outputs)s"
+
+#: src/uagent/setup_cli.py
+msgid "Generate files with this configuration?"
+msgstr "この設定でファイルを生成しますか？"
+
+#: src/uagent/setup_cli.py
+msgid "Yes, generate"
+msgstr "生成する"
+
+#: src/uagent/setup_cli.py
+msgid "Back"
+msgstr "戻る"
+
+#: src/uagent/setup_cli.py
+msgid "The following files already exist and will be overwritten:"
+msgstr "次のファイルは既に存在し、上書きされます:"
+
+#: src/uagent/setup_cli.py
+msgid "Proceed?"
+msgstr "続行しますか？"
+
+#: src/uagent/setup_cli.py
+msgid "generated: %(path)s"
+msgstr "生成: %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "- env.ps1 : utf-8-sig, CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
+
+#: src/uagent/setup_cli.py
+msgid "- env.bat : cp932, CRLF"
+msgstr "- env.bat : cp932, CRLF"
+
+#: src/uagent/setup_cli.py
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "任意: Responses API（Azure/OpenAI/Bedrock）"
+
+#: src/uagent/setup_cli.py
+msgid "(not supported by selected provider)"
+msgstr "（選択したプロバイダーでは非対応）"
+
+#: src/uagent/setup_cli.py
+msgid "Optional runtime"
+msgstr "任意のランタイム"
+
+#: src/uagent/setup_cli.py
+msgid "azure / openai / bedrock / openrouter / gemini / grok / claude / nvidia"
+msgstr "azure / openai / bedrock / openrouter / gemini / grok / claude / nvidia"
+
+#: src/uagent/setup_cli.py
+msgid "These strings are the translation targets used by setup_cli.py."
+msgstr "これらの文字列は setup_cli.py で使われる翻訳対象です。"
+
+#: src/uagent/setup_cli.py
+msgid "If a prompt is still shown in English, the corresponding locale entry is missing or not loaded."
+msgstr "プロンプトが英語のまま表示される場合は、対応するロケールエントリが不足しているか、読み込まれていません。"

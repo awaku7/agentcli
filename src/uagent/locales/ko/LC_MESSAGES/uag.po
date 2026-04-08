@@ -72,6 +72,10 @@ msgstr ""
 msgid "Cancelled."
 msgstr "취소되었습니다."
 
+#: src/uagent/setup_cli.py:477
+msgid "Select provider"
+msgstr "공급자를 선택"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "이전 입력을 폐기했습니다. 다시 시작해 주세요."
@@ -971,8 +975,7 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:19
 #: src/uagent/tools/zip_ops_tool.py:36
 msgid "tool.description"
-msgstr ""
-"tool.description"
+msgstr "도구 설명"
 
 #: src/uagent/tools/add_long_memory_tool.py:27
 #: src/uagent/tools/add_shared_memory_tool.py:27
@@ -1015,24 +1018,20 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:23
 #: src/uagent/tools/zip_ops_tool.py:40
 msgid "tool.system_prompt"
-msgstr ""
-"tool.system_prompt"
+msgstr "도구 시스템 프롬프트"
 
 #: src/uagent/tools/add_long_memory_tool.py:40
 #: src/uagent/tools/add_shared_memory_tool.py:40
 msgid "param.note.description"
-msgstr ""
-"param.note.description"
+msgstr "메모"
 
 #: src/uagent/tools/add_long_memory_tool.py:56
 msgid "err.note_empty"
-msgstr ""
-"err.note_empty"
+msgstr "메모가 비어 있습니다"
 
 #: src/uagent/tools/agent_skills_shared.py:130
 msgid "err.file_too_large"
-msgstr ""
-"err.file_too_large"
+msgstr "파일이 너무 큽니다"
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"

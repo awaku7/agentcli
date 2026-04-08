@@ -17,10 +17,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from .i18n import _, set_thread_lang
+from .i18n import _, detect_lang, set_thread_lang
 
-# Setup wizard prefers Japanese UI.
-set_thread_lang("ja")
+# Setup wizard follows detected UI language.
+set_thread_lang(detect_lang())
 
 HEADER_ENV = "\n".join(
     [
@@ -411,7 +411,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# ==============================")
     out.append(_("# Provider selection"))
     out.append("# ==============================")
-    out.append(_("# azure / openai / bedrock / openrouter / gemini / grok / claude / nvidia"))
+    out.append(_("# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / nvidia"))
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")
 
@@ -471,7 +471,7 @@ def main() -> int:
         if stage == 0:
             options = [f"{p} ({label})" for p, label in PROVIDERS]
             choice = _menu_choice(
-                _("Select provider"), options, default_index=1, allow_back=False
+                _("Select provider"), options, default_index=2, allow_back=False
             )
             if choice == "__quit__":
                 print(_("Cancelled."))
@@ -512,7 +512,7 @@ def main() -> int:
                 yn = _menu_choice(
                     _("Enable Responses API options?"),
                     [_("No"), _("Yes")],
-                    default_index=1,
+                    default_index=2,
                     allow_back=True,
                 )
                 if yn == "__quit__":
@@ -644,7 +644,7 @@ def main() -> int:
             action = _menu_choice(
                 _("Generate files with this configuration?"),
                 [_("Yes, generate"), _("Back")],
-                default_index=1,
+                default_index=2,
                 allow_back=False,
             )
             if action == "__quit__":
@@ -670,7 +670,7 @@ def main() -> int:
         print(_("The following files already exist and will be overwritten:"))
         for p in existing:
             print(f"  - {p}")
-        yn = _menu_choice(_("Proceed?"), [_("No"), _("Yes")], default_index=1, allow_back=False)
+        yn = _menu_choice(_("Proceed?"), [_("No"), _("Yes")], default_index=2, allow_back=False)
         if yn == "__quit__" or yn == "1":
             print(_("Cancelled."))
             return 1
