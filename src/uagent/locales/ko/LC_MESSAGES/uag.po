@@ -42,6 +42,38 @@ msgstr "Git을 설치해 주세요. 참고: https://git-scm.com/"
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git이 설치되어 있지 않습니다."
 
+#: src/uagent/env_validate.py
+msgid "env.fatal.header"
+msgstr "[치명적 오류] 환경 검증에 실패했습니다({context})."
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.missing"
+msgstr "누락된 필수 환경 변수:"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.item"
+msgstr "- {name}: {reason}"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.warnings"
+msgstr "경고:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.title"
+msgstr "해결 방법:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.one"
+msgstr "- 프로그램을 시작하기 전에 위 변수들을 환경에 설정하세요."
+
+#: src/uagent/env_validate.py
+msgid "env.fix.two"
+msgstr "- OS 환경 설정, .env 파일, 셸 시작 스크립트,"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.three"
+msgstr "  또는 프로세스 관리자 / 서비스 구성(CI 시크릿, systemd, Docker 등)에서 설정할 수 있습니다."
+
 #: src/uagent/cli.py:370
 msgid "getch() fallback to input()"
 msgstr "getch()가 input()으로 대체되었습니다"
