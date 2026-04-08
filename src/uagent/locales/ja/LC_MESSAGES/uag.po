@@ -42,6 +42,38 @@ msgstr "Gitをインストールしてください。https://git-scm.com/ を参
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Gitがインストールされていません。"
 
+#: src/uagent/env_validate.py
+msgid "env.fatal.header"
+msgstr "[致命的] 環境の検証に失敗しました（{context}）。"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.missing"
+msgstr "不足している必須環境変数:"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.item"
+msgstr "- {name}: {reason}"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.warnings"
+msgstr "警告:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.title"
+msgstr "対処方法:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.one"
+msgstr "- プログラムを起動する前に、上記の変数を環境に設定してください。"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.two"
+msgstr "- OS の環境設定、.env ファイル、シェルの起動スクリプト、"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.three"
+msgstr "  またはプロセスマネージャー / サービス設定（CI シークレット、systemd、Docker など）で設定できます。"
+
 #: src/uagent/cli.py:370
 msgid "getch() fallback to input()"
 msgstr "getch() を input() にフォールバックします"
