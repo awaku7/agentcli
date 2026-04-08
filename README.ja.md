@@ -303,7 +303,7 @@ ______________________________________________________________________
 
 ※共通の正本テンプレートは `samples/env.sample.env` です。
 
-- リポジトリ上では、対話式ウィザード `python samples/generate_env_samples.py` を実行すると、意図した文字コード/改行コードで `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` を生成できます。
+- リポジトリ上では、対話式ウィザード `python -m uagent.setup_cli` を実行すると、意図した文字コード/改行コードで `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` を生成できます。
 - pip/whl でインストールした環境では、`uag_setup` を実行すると、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成できます。
 
 プロバイダ別は `samples/provider.*.env.sample` を参照してください。詳細は `samples/README.md` を参照。
@@ -315,7 +315,7 @@ ______________________________________________________________________
 対話式ウィザードで設定し、シェル別サンプルを生成します。
 
 ```bash
-python samples/generate_env_samples.py
+python -m uagent.setup_cli
 ```
 
 生成されるファイルと形式:
