@@ -41,6 +41,38 @@ msgstr "请安装 Git。详见：https://git-scm.com/"
 msgid "[ERROR] Git is not installed."
 msgstr "[错误] 未安装 Git。"
 
+#: src/uagent/env_validate.py
+msgid "env.fatal.header"
+msgstr "[致命错误] 环境校验失败（{context}）。"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.missing"
+msgstr "缺少必需的环境变量："
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.item"
+msgstr "- {name}：{reason}"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.warnings"
+msgstr "警告："
+
+#: src/uagent/env_validate.py
+msgid "env.fix.title"
+msgstr "解决方法："
+
+#: src/uagent/env_validate.py
+msgid "env.fix.one"
+msgstr "- 在启动程序之前，请先在环境中设置上述变量。"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.two"
+msgstr "- 您可以通过操作系统的环境设置、.env 文件、shell 启动脚本，"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.three"
+msgstr "  或进程管理器 / 服务配置（CI 密钥、systemd、Docker 等）进行设置。"
+
 #: src/uagent/cli.py:370
 msgid "getch() fallback to input()"
 msgstr "getch() 将回退为 input()"

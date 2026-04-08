@@ -43,6 +43,38 @@ msgstr "Por favor, instale Git. Consulte: https://git-scm.com/"
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git no está instalado."
 
+#: src/uagent/env_validate.py
+msgid "env.fatal.header"
+msgstr "[FATAL] Falló la validación del entorno ({context})."
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.missing"
+msgstr "Faltan variables de entorno obligatorias:"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.item"
+msgstr "- {name}: {reason}"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.warnings"
+msgstr "Advertencias:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.title"
+msgstr "Cómo solucionarlo:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.one"
+msgstr "- Configure las variables anteriores en su entorno antes de iniciar el programa."
+
+#: src/uagent/env_validate.py
+msgid "env.fix.two"
+msgstr "- Puede configurarlas mediante la configuración de variables de entorno de su sistema operativo, un archivo .env, sus scripts de inicio de shell,"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.three"
+msgstr "  o la configuración de su gestor de procesos / servicio (secretos de CI, systemd, Docker, etc.)."
+
 #: src/uagent/cli.py:370
 msgid "getch() fallback to input()"
 msgstr "getch() recurrió a input()"

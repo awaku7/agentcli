@@ -42,6 +42,38 @@ msgstr "โปรดติดตั้ง Git ดูที่: https://git-scm.c
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] ไม่ได้ติดตั้ง Git"
 
+#: src/uagent/env_validate.py
+msgid "env.fatal.header"
+msgstr "[FATAL] การตรวจสอบสภาพแวดล้อมล้มเหลว ({context})."
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.missing"
+msgstr "ตัวแปรสภาพแวดล้อมที่จำเป็นหายไป:"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.item"
+msgstr "- {name}: {reason}"
+
+#: src/uagent/env_validate.py
+msgid "env.fatal.warnings"
+msgstr "คำเตือน:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.title"
+msgstr "วิธีแก้ไข:"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.one"
+msgstr "- ตั้งค่าตัวแปรข้างต้นในสภาพแวดล้อมของคุณก่อนเริ่มโปรแกรม"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.two"
+msgstr "- คุณสามารถตั้งค่าได้ผ่านการตั้งค่าสภาพแวดล้อมของระบบปฏิบัติการ, ไฟล์ .env, สคริปต์เริ่มต้นของเชลล์,"
+
+#: src/uagent/env_validate.py
+msgid "env.fix.three"
+msgstr "  หรือการตั้งค่าของตัวจัดการโปรเซส / บริการ (CI secrets, systemd, Docker ฯลฯ)"
+
 #: src/uagent/cli.py:370
 msgid "getch() fallback to input()"
 msgstr "getch() จะใช้ input() แทน (fallback)"
