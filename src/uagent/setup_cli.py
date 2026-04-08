@@ -17,7 +17,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from .i18n import _
+from .i18n import _, set_thread_lang
+
+# Setup wizard prefers Japanese UI.
+set_thread_lang("ja")
 
 HEADER_ENV = "\n".join(
     [

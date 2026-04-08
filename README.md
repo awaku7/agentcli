@@ -277,7 +277,7 @@ ______________________________________________________________________
 
 See `samples/env.sample.env` for the canonical cross-provider template and `samples/provider.*.env.sample` for provider-specific templates.
 
-- In this repository: run the interactive wizard `python samples/generate_env_samples.py` to generate `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` with the intended encoding and newline settings.
+- In this repository: run the interactive wizard `python -m uagent.setup_cli` to generate `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` with the intended encoding and newline settings.
 - After installing via pip/wheel: run `uag_setup` to generate your own `.env` (and optionally `env.sh` / `env.ps1` / `env.bat`) in the current directory.
 
 For details, see `samples/README.md`.
@@ -289,7 +289,7 @@ Sample files are available under `samples/` (including `samples/README.md`).
 Run the interactive wizard to configure and generate shell-specific variants:
 
 ```bash
-python samples/generate_env_samples.py
+python -m uagent.setup_cli
 ```
 
 Generated files and format:
