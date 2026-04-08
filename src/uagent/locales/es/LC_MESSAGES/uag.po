@@ -74,6 +74,10 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Cancelado."
 
+#: src/uagent/setup_cli.py:477
+msgid "Select provider"
+msgstr "Seleccionar proveedor"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "Se descartó la entrada anterior. Vuelva a empezar."
@@ -95,7 +99,7 @@ msgstr "Proveedor de LLM = %(provider)s"
 #: src/uagent/cli.py:845 src/uagent/scheckgui.py:179 src/uagent/web.py:576
 #, python-format
 msgid "model(deployment) = %(depname)s"
-msgstr "model(deployment) = %(depname)s"
+msgstr "modelo(implementación) = %(depname)s"
 
 #: src/uagent/cli.py:867 src/uagent/runtime_init.py:183 src/uagent/scheckgui.py:224 src/uagent/web.py:570
 msgid "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
@@ -1005,8 +1009,7 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:19
 #: src/uagent/tools/zip_ops_tool.py:36
 msgid "tool.description"
-msgstr ""
-"tool.description"
+msgstr "Descripción de la herramienta"
 
 #: src/uagent/tools/add_long_memory_tool.py:27
 #: src/uagent/tools/add_shared_memory_tool.py:27
@@ -1049,24 +1052,20 @@ msgstr ""
 #: src/uagent/tools/system_specs_tools.py:23
 #: src/uagent/tools/zip_ops_tool.py:40
 msgid "tool.system_prompt"
-msgstr ""
-"tool.system_prompt"
+msgstr "Prompt del sistema de la herramienta"
 
 #: src/uagent/tools/add_long_memory_tool.py:40
 #: src/uagent/tools/add_shared_memory_tool.py:40
 msgid "param.note.description"
-msgstr ""
-"param.note.description"
+msgstr "nota"
 
 #: src/uagent/tools/add_long_memory_tool.py:56
 msgid "err.note_empty"
-msgstr ""
-"err.note_empty"
+msgstr "La nota está vacía"
 
 #: src/uagent/tools/agent_skills_shared.py:130
 msgid "err.file_too_large"
-msgstr ""
-"err.file_too_large"
+msgstr "El archivo es demasiado grande"
 
 #: src/uagent/tools/agent_skills_shared.py:150
 msgid "err.skill_md_not_found"

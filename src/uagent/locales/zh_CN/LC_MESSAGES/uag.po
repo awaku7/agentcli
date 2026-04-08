@@ -69,6 +69,10 @@ msgstr "（多行输入模式：请分多行输入内容；如需重来，输入
 msgid "Cancelled."
 msgstr "已取消。"
 
+#: src/uagent/setup_cli.py:477
+msgid "Select provider"
+msgstr "选择提供商"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "已丢弃之前的输入。请重新开始。"
