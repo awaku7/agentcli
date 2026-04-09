@@ -13,5 +13,6 @@ What it does (shared across CLI/Web/GUI):
 Design policy:
 
 - `runtime_init.py` should not print directly; it returns strings/flags and the UI decides how to display them.
+- `runtime_init.py` also loads `.env` from the current working directory at import time when `python-dotenv` is available.
 
 ______________________________________________________________________
