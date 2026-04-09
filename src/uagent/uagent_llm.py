@@ -531,6 +531,7 @@ def _call_gemini_round(
     retry_base: float,
     retry_cap: float,
     stream_responses: bool,
+    force_thinking_level: str | None = None,
 ) -> Any:
     attempt_429 = 0
     gemini_content_dump: Dict[str, Any] = {}
@@ -547,6 +548,7 @@ def _call_gemini_round(
                     cached_content=gemini_cache_name,
                     stream=stream_responses,
                     core=core,
+                    force_thinking_level=force_thinking_level,
                 )
             )
             break
@@ -573,6 +575,22 @@ def _call_gemini_round(
                 )
                 print(repr(e))
                 return False, client, "", [], {}
+            msg = str(e)
+            if force_thinking_level is None and (
+                "Thinking level MINIMAL is not supported for this model" in msg
+                or "thinking level minimal is not supported for this model" in msg.lower()
+            ):
+                try:
+                    from .util_tools import set_reasoning_mode
+                    set_reasoning_mode("medium")
+                except Exception:
+                    pass
+                force_thinking_level = "medium"
+                try:
+                    core.set_status(True, "LLM:medium")
+                except Exception:
+                    pass
+                continue
             print(_("[Gemini Error] An error occurred while generating a response."))
             print(repr(e))
             return False, client, "", [], {}

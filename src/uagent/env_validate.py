@@ -43,38 +43,6 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                 default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
             ),
         )
-        missing += _require(
-            ["UAGENT_AZURE_BASE_URL", "UAGENT_AZURE_API_KEY", "UAGENT_AZURE_API_VERSION"],
-            reason=_("env.required.azure", default="(azure) Required when using Azure OpenAI."),
-        )
-        missing += _require(
-            ["UAGENT_OPENAI_API_KEY"],
-            reason=_("env.required.openai", default="(openai) Required when using OpenAI."),
-        )
-        missing += _require(
-            ["UAGENT_OPENROUTER_API_KEY"],
-            reason=_("env.required.openrouter", default="(openrouter) Required when using OpenRouter."),
-        )
-        missing += _require(
-            ["UAGENT_GROK_API_KEY"],
-            reason=_("env.required.grok", default="(grok) Required when using Grok (xAI)."),
-        )
-        missing += _require(
-            ["UAGENT_OLLAMA_BASE_URL"],
-            reason=_("env.required.ollama", default="(ollama) Required when using Ollama."),
-        )
-        missing += _require(
-            ["UAGENT_GEMINI_API_KEY"],
-            reason=_("env.required.gemini", default="(gemini) Required when using Gemini."),
-        )
-        missing += _require(
-            ["UAGENT_CLAUDE_API_KEY"],
-            reason=_("env.required.claude", default="(claude) Required when using Claude (Anthropic)."),
-        )
-        missing += _require(
-            ["UAGENT_NVIDIA_API_KEY"],
-            reason=_("env.required.nvidia", default="(nvidia) Required when using NVIDIA."),
-        )
         return provider, missing, warnings
 
     allowed = (
