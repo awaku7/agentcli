@@ -668,6 +668,8 @@ def stdin_loop() -> None:
                 continue
 
             if not line.strip():
+                if os.name != "nt":
+                    print()
                 continue
 
             core.set_status(True, "user_pending")
