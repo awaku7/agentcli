@@ -3,6 +3,12 @@ from .runtime_banner import build_startup_banner
 from .runtime_env import validate_or_exit_startup_env
 from .runtime_memory import append_long_memory_system_messages
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 __all__ = [
     "WorkdirDecision",
     "apply_workdir",
