@@ -110,6 +110,10 @@ msgstr "已取消。"
 msgid "Select provider"
 msgstr "選擇提供商"
 
+#: src/uagent/setup_cli.py:486
+msgid "Configure optional image / embedding settings?"
+msgstr "要設定可選的影像／嵌入設定嗎？"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "已捨棄先前的輸入。請重新開始。"

@@ -108,6 +108,10 @@ msgstr "취소되었습니다."
 msgid "Select provider"
 msgstr "공급자를 선택"
 
+#: src/uagent/setup_cli.py:486
+msgid "Configure optional image / embedding settings?"
+msgstr "선택적 이미지 / 임베딩 설정을 구성하시겠습니까?"
+
 #: src/uagent/cli.py:637 src/uagent/cli.py:685
 msgid "Discarded previous input. Please start over."
 msgstr "이전 입력을 폐기했습니다. 다시 시작해 주세요."
