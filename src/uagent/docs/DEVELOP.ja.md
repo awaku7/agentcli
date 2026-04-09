@@ -34,9 +34,7 @@ ______________________________________________________________________
   - `src/uagent/runtime_banner.py`: `build_startup_banner()`
   - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
   - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
-  - workdir 決定/適用、起動バナー生成、長期記憶挿入等
-- **Tools**: `src/uagent/tools/`
-  - ツールプラグイン群（`TOOL_SPEC` + `run_tool`）
+- `runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` を読み込みます
 
 関連ドキュメント:
 
@@ -52,6 +50,7 @@ ______________________________________________________________________
    - workdir の決定（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
    - 必要ならディレクトリ作成し `chdir`
    - 起動バナー文字列を生成して表示
+   - 利用可能ならカレントディレクトリの `.env` を読み込む
 1. ツールをロード（`src/uagent/tools/__init__.py`）
    - 内部ツール: `src/uagent/tools/*.py` を探索して登録
    - 外部ツール: `UAGENT_EXTERNAL_TOOLS_DIR` の `*.py` をロード（任意）
@@ -151,14 +150,10 @@ ______________________________________________________________________
 
 MCP 関連ツールには次があります。
 
-- `mcp_servers_init_template`
-- `mcp_servers_add`
-- `mcp_servers_list`
-- `mcp_servers_validate`
-- `mcp_servers_set_default`
-- `mcp_servers_remove`
-- `mcp_tools_list`
-- `handle_mcp_v2`
+- `mcp_servers_tool.py`
+- `mcp_tools_list_tool.py`
+- `handle_mcp_v2_tool.py`
+- `mcp_servers_shared.py`
 
 最近の smoke test では、template 作成と add/list/validate/set_default/remove の基本フローをカバーしています。
 

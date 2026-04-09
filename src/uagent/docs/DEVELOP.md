@@ -31,6 +31,7 @@ Key modules:
   - `src/uagent/runtime_banner.py`: `build_startup_banner()`
   - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
   - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
+- `runtime_init.py` loads `.env` from the current working directory at import time when `python-dotenv` is available
 
 Documentation:
 
@@ -46,6 +47,7 @@ ______________________________________________________________________
    - Decide workdir (`--workdir/-C`, `UAGENT_WORKDIR`, or current directory)
    - Create directory if needed and `chdir`
    - Build and print startup banner
+   - Load `.env` from the current working directory if `python-dotenv` is available
 1. Tool plugins are loaded from `src/uagent/tools/` (and optionally from an external directory).
 1. Provider client is created based on environment variables (`util_providers.make_client`).
 1. UI loop (CLI/GUI/Web) receives user input and enqueues events.
@@ -149,14 +151,10 @@ ______________________________________________________________________
 
 MCP-related tools include:
 
-- `mcp_servers_init_template`
-- `mcp_servers_add`
-- `mcp_servers_list`
-- `mcp_servers_validate`
-- `mcp_servers_set_default`
-- `mcp_servers_remove`
-- `mcp_tools_list`
-- `handle_mcp_v2`
+- `mcp_servers_tool.py`
+- `mcp_tools_list_tool.py`
+- `handle_mcp_v2_tool.py`
+- `mcp_servers_shared.py`
 
 Recent smoke tests cover template creation and the basic add/list/validate/set_default/remove flow.
 
