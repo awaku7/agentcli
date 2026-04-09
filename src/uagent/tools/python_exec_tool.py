@@ -28,6 +28,8 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Execute Python code or validate Python files with py_compile. Use this tool for calculations, "
                 "data processing, running short scripts, or syntax checking files—especially when accuracy matters. "
+                "Use 'code' to run Python, and use 'path'/'paths' only to validate files with py_compile. "
+                "Do not pass empty strings for 'path' or 'paths', and do not mix 'code' with 'path'/'paths' in one request. "
                 "Prefer this over cmd_exec/cmd_exec_json for Python work."
             ),
         ),
@@ -133,6 +135,7 @@ def _resolve_py_compile_targets(raw_targets: list[str]) -> tuple[list[str], list
 def _run_py_compile(args: Dict[str, Any]) -> str:
     raw_targets = _as_str_list(args.get("paths"))
     raw_targets.extend(_as_str_list(args.get("path")))
+    raw_targets = [t for t in raw_targets if str(t).strip()]
 
     resolved_targets, missing = _resolve_py_compile_targets(raw_targets)
     compiled: list[str] = []
@@ -221,9 +224,15 @@ def _run_python_code(args: Dict[str, Any], cb: Any) -> str:
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
 
-    raw_targets = _as_str_list(args.get("paths"))
-    raw_targets.extend(_as_str_list(args.get("path")))
+    raw_targets = [
+        t
+        for t in _as_str_list(args.get("paths")) + _as_str_list(args.get("path"))
+        if str(t).strip()
+    ]
     if raw_targets:
+        args = dict(args)
+        args["path"] = ""
+        args["paths"] = raw_targets
         return _run_py_compile(args)
 
     if "code" not in args:
