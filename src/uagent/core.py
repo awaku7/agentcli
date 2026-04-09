@@ -1257,6 +1257,7 @@ SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - If you need additional information or confirmation from the user, use the human_ask tool.
 - When handling relative date expressions, call get_current_time to reference the current time.
 - Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
+- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile` to validate syntax.
 - If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.
 """)
@@ -1288,6 +1289,7 @@ SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 - If required info/parameters are missing, ask via human_ask (do not guess).
 - Relative dates: call get_current_time.
 - Do not store secrets (passwords/tokens) in long-term memory.
+- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile`.
 - If expert-level knowledge is required, use Agent Skills prompt templates.
 """)

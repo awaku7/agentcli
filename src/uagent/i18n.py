@@ -318,14 +318,16 @@ def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
         text = default
 
     if kwargs:
+        if "%(" in text:
+            try:
+                return text % kwargs
+            except Exception:
+                pass
         try:
-            if "%(" in text:
-                text = text % kwargs
-            else:
-                text = text.format(**kwargs)
+            return text.format(**kwargs)
         except Exception:
             try:
-                text = text % kwargs
+                return text % kwargs
             except Exception:
                 pass
 

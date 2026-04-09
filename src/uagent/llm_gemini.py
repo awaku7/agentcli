@@ -358,6 +358,7 @@ def _build_thinking_config(
     if rm == "auto":
         rm = _choose_auto_thinking_level(user_text_for_auto)
 
+
     if rm == "xhigh":
         rm = "high"
 
@@ -425,6 +426,7 @@ def gemini_chat_with_tools(
     cached_content: str = None,
     stream: bool = False,
     core: Any = None,
+    force_thinking_level: str | None = None,
 ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
@@ -642,6 +644,9 @@ def gemini_chat_with_tools(
         else:
             system_instruction_parts.append(verbosity_instr)
 
+    if force_thinking_level:
+        reasoning_mode = force_thinking_level.strip().lower() or reasoning_mode
+
     # Resolve and display the effective reasoning level when reasoning=auto.
     _auto_user_text = _extract_latest_user_text(messages)
     if core is not None:
@@ -789,8 +794,7 @@ def gemini_chat_with_tools(
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
                         chunk_texts.append(t)
-                elif not chunk_texts:
-                    # Fallback if the stream chunk does not expose response.text.
+                else:
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
                         delta_text = t
@@ -813,21 +817,34 @@ def gemini_chat_with_tools(
             pass
 
         text_so_far = ""
-        stream_iter = client.models.generate_content_stream(**gen_kwargs)
-        for response in stream_iter:
-            chunk_text, chunk_tool_calls, chunk_dump, text_so_far = (
-                _collect_from_response_obj(
+        try:
+            stream_iter = client.models.generate_content_stream(**gen_kwargs)
+            for response in stream_iter:
+                (
+                    chunk_text,
+                    chunk_tool_calls,
+                    chunk_dump,
+                    text_so_far,
+                ) = _collect_from_response_obj(
                     response,
                     stream_mode=True,
                     text_so_far=text_so_far,
                 )
-            )
-            if chunk_text:
-                assistant_text_parts.append(chunk_text)
-            if chunk_tool_calls:
-                tool_calls_list.extend(chunk_tool_calls)
-            if chunk_dump:
-                gemini_content_dump = chunk_dump
+                if chunk_text:
+                    assistant_text_parts.append(chunk_text)
+                if chunk_tool_calls:
+                    tool_calls_list.extend(chunk_tool_calls)
+                if chunk_dump:
+                    gemini_content_dump = chunk_dump
+        except Exception as e:
+            err_str = str(e).lower()
+            if "finish_reason" in err_str or "safety" in err_str or "blocked" in err_str:
+                if not assistant_text_parts:
+                    assistant_text_parts.append(
+                        "(Gemini safety filter blocked the response)"
+                    )
+            else:
+                raise e
 
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
