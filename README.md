@@ -27,8 +27,7 @@ ______________________________________________________________________
 - End-to-end i18n support: localized host UI (`UAGENT_LANG`) plus optional TO_LLM/FROM_LLM translation for LLM communication
 - Strong file/document handling: text, PDF, PPTX, Excel, screenshots, and images
 - Session continuity and history controls: `:logs` / `:load`, manual `:shrink_llm`, and optional auto-shrink
-- MCP support for discovering and calling external tool servers
-- Safer operations through confirmation, path restrictions, masking, and smoke tests
+- MCP support for discovering and calling external tool servers (`mcp_servers_tool.py`, `mcp_tools_list_tool.py`, `handle_mcp_v2_tool.py`)
 - Startup initialization is centralized under `src/uagent/runtime_*` (workdir/banner/env/memory) and re-exported from `src/uagent/runtime_init.py` for compatibility
 - GPT-5.4+ Responses optimization: lightweight tools prompt, `tool_catalog`, and narrowed tool exposure per request
 

@@ -27,7 +27,7 @@ ______________________________________________________________________
 - エンドツーエンドの i18n 対応: ホストUIの多言語化（`UAGENT_LANG`）と、LLM 通信の TO_LLM/FROM_LLM 翻訳をサポート
 - テキスト、PDF、PPTX、Excel、画像、スクリーンショットまで扱える
 - セッション継続と履歴制御: `:logs` / `:load`、手動 `:shrink_llm`、任意の自動圧縮
-- MCP による外部ツールサーバ連携が可能
+- MCP による外部ツールサーバ連携が可能（`mcp_servers_tool.py`, `mcp_tools_list_tool.py`, `handle_mcp_v2_tool.py`）
 - 確認・パス制限・マスキング・スモークテストによる安全性重視
 - 起動時初期化は `src/uagent/runtime_*`（workdir / banner / env / memory）に分割し、`src/uagent/runtime_init.py` から互換再エクスポートする形で共通化
 - GPT-5.4+ Responses 向けに、軽量な tools prompt、`tool_catalog`、リクエストに応じたツール絞り込みを実装

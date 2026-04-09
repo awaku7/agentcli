@@ -15,6 +15,126 @@ ______________________________________________________________________
 - workdir の作成と `chdir`
 - 起動時INFO（banner）文字列の生成
 - 長期記憶/共有メモを system message として履歴に挿入（共通関数）
+- 利用可能なら起動時にカレントディレクトリの `.env` を読み込む
+
+設計方針:
+
+- `runtime_init.py` 自体は **原則 print しない**（文字列を返し、UIが表示経路を決める）
+- `.env` の読込は import 時の副作用として行う
+- UIの互換性を壊さないため、既存の表示文言を保ちつつ共通化する
+
+______________________________________________________________________
+
+## 2. workdir の決定（decide_workdir）
+
+### 2.1 優先順位
+
+workdir は次の優先順位で決定します。
+
+1. CLI引数: `--workdir` / `-C`
+1. 環境変数: `UAGENT_WORKDIR`
+1. 自動: カレントディレクトリ（`./` の絶対パス）
+
+### 2.2 安全チェック
+
+- 指定された workdir が「既存ファイル」だった場合はエラー（ディレクトリでなければならない）
+
+### 2.3 API
+
+- `decide_workdir(cli_workdir: Optional[str], env_workdir: Optional[str]) -> WorkdirDecision`
+
+`WorkdirDecision` は次を持ちます。
+
+- `chosen`: 元の指定（CLI/ENV/auto）
+- `chosen_source`: `"CLI"` / `"ENV(UAGENT_WORKDIR)"` / `"auto"`
+- `chosen_expanded`: expanduser 済みの実パス
+
+______________________________________________________________________
+
+## 3. workdir の適用（apply_workdir）
+
+- `os.makedirs(..., exist_ok=True)` を行い、ディレクトリを作成します
+- `os.chdir(...)` によりカレントディレクトリを移動します
+
+API:
+
+- `apply_workdir(decision: WorkdirDecision) -> None`
+
+______________________________________________________________________
+
+## 4. 起動時INFO（banner）
+
+`build_startup_banner()` は「起動時に表示していたINFO」を統一的に文字列生成します。
+
+### 4.1 出力内容（代表）
+
+- `[INFO] workdir = ... (source: ...)`
+- `[INFO] provider = ...`
+- provider別:
+  - azure: base_url + api_version
+  - openai/openrouter/grok/nvidia: base_url
+- `UAGENT_RESPONSES=1` が有効かつ非対応 provider の場合:
+  - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`
+- `[INFO] LLM streaming = enabled` または `disabled`
+
+API:
+
+- `build_startup_banner(core, workdir: str, workdir_source: str) -> str`
+
+注意:
+
+- 機密情報（APIキー等）は出力しません
+- base_url は `core.normalize_url()` が存在する場合はそれを使い、なければ簡易正規化します
+
+______________________________________________________________________
+
+## 5. 長期記憶/共有メモの挿入（append_long_memory_system_messages）
+
+### 5.1 目的
+
+CLI/GUI/Web で重複していた「長期記憶/共有メモの読み込み→system message 挿入」を共通化します。
+
+- 個人長期記憶: `tools.long_memory`
+- 共有メモ: `tools.shared_memory`（有効時のみ）
+
+### 5.2 挿入仕様
+
+- 個人長期記憶は `build_long_memory_system_message_fn(raw)` が返した system message を `messages` に append
+- 共有メモは有効なら読み込み、生成された system message を `messages` に append
+- 実装上は、共有メモに追加の prefix は付与しません
+
+### 5.3 API
+
+- `append_long_memory_system_messages(...) -> Dict[str,bool]`
+
+戻り値 flags:
+
+- `shared_enabled`: 共有メモが有効（is_enabled()がTrue）
+
+注意:
+
+- この関数は print しません（UI側が従来のINFO/WARNを出す）
+- 個人/共有どちらの追加完了も、戻り値の flags には含まれません
+
+______________________________________________________________________
+
+## 6. UIごとの適用位置（参考）
+
+- CLI: `cli.py` の `main()` の startup-capture 内で workdir適用・banner出力
+- Web: `web.py` の `main()` で workdir適用・banner出力、`run_agent_worker` で history 初期化時に長期記憶挿入
+- GUI: `gui.py` の `main()` で workdir適用・banner出力、worker 初期化時に長期記憶挿入
+
+（表示経路はUIごとに異なるが、banner生成元・挿入ロジックは統一される）
+
+## 1. 目的
+
+`runtime_init.py` は、CLI/Web/GUI に散在していた「起動時初期化」を共通化するためのヘルパ群です。
+
+- workdir の決定・安全チェック
+- 起動時環境の検証（必要に応じて `validate_or_exit_startup_env(context=...)`）
+- workdir の作成と `chdir`
+- 起動時INFO（banner）文字列の生成
+- 長期記憶/共有メモを system message として履歴に挿入（共通関数）
 
 設計方針:
 
