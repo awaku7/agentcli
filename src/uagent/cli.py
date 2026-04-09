@@ -218,38 +218,28 @@ def _uagent_rl_completer(text_part: str, state: int):
         if state >= len(cands):
             return None
 
-        cand = cands[state]
-
-        # Convert full candidate into a replacement for the current fragment.
-        if text_part and arg.endswith(text_part):
-            dir_prefix = arg[: -len(text_part)]
-        else:
-            dir_prefix = arg
-
-        if cand.startswith(dir_prefix):
-            return cand[len(dir_prefix) :]
-
-        # Fallback: return candidate as-is.
-        return cand
+        return cands[state]
     except Exception:
         return None
 
 
 def _uagent_setup_readline_completion() -> None:
-    # Enable TAB completion when running interactively
+    # Enable TAB completion when readline is available.
+    # Some Windows/pyreadline environments report non-tty stdin even when
+    # interactive completion still works, so do not gate on isatty().
     if not readline:
-        return
-    if not sys.stdin.isatty():
         return
 
     try:
-        readline.parse_and_bind("tab: complete")
+        for binding in ("tab: complete", "Tab: complete", "Control-i: complete"):
+            try:
+                readline.parse_and_bind(binding)
+            except Exception:
+                pass
 
-        # Do not treat ':' as delimiter, otherwise ':cd' gets broken into tokens.
+        # Keep readline from splitting path fragments on separators.
         if hasattr(readline, "set_completer_delims"):
-            delims = readline.get_completer_delims()
-            if ":" in delims:
-                readline.set_completer_delims(delims.replace(":", ""))
+            readline.set_completer_delims(" ")
 
         readline.set_completer(_uagent_rl_completer)
     except Exception:
@@ -494,9 +484,9 @@ def stdin_loop() -> None:
                     line = None
 
                     # If readline is available, prefer input("") so TAB completion works.
-                    # UAGENT_SIMPLE_PROMPT defaults to 1; set 0/false/no/off to disable.
+                    # UAGENT_SIMPLE_PROMPT defaults to 0; set 1/true/yes/on to disable.
                     use_simple_prompt = str(
-                        env_get("UAGENT_SIMPLE_PROMPT", "1") or ""
+                        env_get("UAGENT_SIMPLE_PROMPT", "0") or ""
                     ).lower() in (
                         "1",
                         "true",
