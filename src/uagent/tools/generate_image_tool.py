@@ -104,7 +104,7 @@ def _get_provider() -> str:
         .strip()
         .lower()
     )
-    if p not in ("azure", "openai", "bedrock", "gemini", "nvidia"):
+    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "nvidia"):
         raise RuntimeError(
             f"invalid provider for image generation: {p!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)"
         )
@@ -247,7 +247,7 @@ def _run_openai_images(
                 api_version=api_version,
             )
     else:
-        # OpenAI-compatible (openai / bedrock / nvidia)
+        # OpenAI-compatible (openai / bedrock / openrouter / nvidia)
         if provider == "nvidia":
             api_key = _img_env("nvidia", "generate", "api_key", required=True)
             base_url = _img_env(
@@ -261,6 +261,15 @@ def _run_openai_images(
             api_key = _img_env("bedrock", "generate", "api_key", required=True)
             base_url = _img_env(
                 "bedrock", "generate", "base_url", required=True
+            ).rstrip("/")
+        elif provider == "openrouter":
+            api_key = _img_env("openrouter", "generate", "api_key", required=True)
+            base_url = _img_env(
+                "openrouter",
+                "generate",
+                "base_url",
+                required=False,
+                default="https://openrouter.ai/api/v1",
             ).rstrip("/")
         else:
             api_key = _img_env("openai", "generate", "api_key", required=True)

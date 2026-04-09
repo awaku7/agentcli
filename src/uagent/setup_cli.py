@@ -162,6 +162,22 @@ RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama"}
 
 LANG_PRESETS = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr"]
 
+IMAGE_ANALYSIS_PROVIDERS: list[tuple[str, str]] = [
+    ("openai", _("OpenAI-compatible")),
+    ("azure", _("Azure OpenAI")),
+    ("bedrock", _("Bedrock OpenAI-compatible gateway")),
+    ("openrouter", _("OpenRouter")),
+]
+
+IMAGE_GENERATION_PROVIDERS: list[tuple[str, str]] = [
+    ("azure", _("Azure OpenAI")),
+    ("openai", _("OpenAI-compatible")),
+    ("bedrock", _("Bedrock OpenAI-compatible gateway")),
+    ("openrouter", _("OpenRouter")),
+    ("gemini", _("Gemini")),
+    ("nvidia", _("NVIDIA")),
+]
+
 
 @dataclass
 class _WizardState:
@@ -178,8 +194,18 @@ class _WizardState:
     lang_enabled: bool = False
     lang: str = "ja"
 
+    # Optional tools / extras
+    extra_enabled: bool = False
+    image_analysis_enabled: bool = False
+    image_generate_enabled: bool = False
+    embedding_enabled: bool = False
+    image_open_enabled: bool = True
+
     # Provider-specific values
     values: dict[str, str] | None = None
+    image_analysis_values: dict[str, str] | None = None
+    image_generate_values: dict[str, str] | None = None
+    embedding_values: dict[str, str] | None = None
 
 
 def _q_sh(value: str) -> str:
@@ -386,6 +412,213 @@ def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
         print(_("Invalid input. Please enter 1-5, or b/q."))
 
 
+def _clear_optional_extra_values(st: _WizardState) -> None:
+    st.image_analysis_values = None
+    st.image_generate_values = None
+    st.embedding_values = None
+
+
+def _ask_provider_image_values(
+    provider: str,
+    mode: str,
+    *,
+    allow_back: bool = True,
+    current: dict[str, str] | None = None,
+) -> tuple[str, dict[str, str]]:
+    vals = dict(current or {})
+
+    if provider == "azure":
+        specs = [
+            ("base_url", True, _("Azure base URL (e.g. https://<resource>.openai.azure.com/)") ),
+            ("api_key", True, _("Azure API key")),
+            ("api_version", True, _("Azure API version (e.g. 2024-05-01-preview)")),
+            ("depname", True, _("Azure deployment name")),
+        ]
+    elif provider == "openai":
+        specs = [
+            ("api_key", True, _("OpenAI API key")),
+            ("base_url", False, _("OpenAI base URL (optional)")),
+            ("depname", True, _("OpenAI model/deployment name")),
+        ]
+    elif provider == "bedrock":
+        specs = [
+            ("base_url", True, _("Bedrock gateway base URL (e.g. https://<gateway>/v1)")),
+            ("api_key", True, _("Bedrock API key")),
+            ("depname", True, _("Bedrock model/deployment name (e.g. openai.gpt-oss-120b)")),
+        ]
+    elif provider == "openrouter":
+        specs = [
+            ("api_key", True, _("OpenRouter API key")),
+            ("base_url", False, _("OpenRouter base URL (optional)")),
+            ("depname", True, _("OpenRouter model/deployment name")),
+        ]
+    elif provider == "gemini":
+        specs = [
+            ("api_key", True, _("Gemini API key")),
+            ("depname", True, _("Gemini model name")),
+        ]
+    elif provider == "nvidia":
+        specs = [
+            ("api_key", True, _("NVIDIA API key")),
+            ("base_url", False, _("NVIDIA base URL (optional)")),
+            ("depname", True, _("NVIDIA model/deployment name")),
+        ]
+    else:
+        return "ok", vals
+
+    for suffix, required, label in specs:
+        key = f"UAGENT_{provider.upper()}_IMG_{mode.upper()}_{suffix.upper()}"
+        status, value = _ask_text(
+            _("%(label)s") % {"label": label},
+            default=vals.get(key, ""),
+            required=required,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status, vals
+        vals[key] = value
+
+    return "ok", vals
+
+
+def _ask_optional_extras(st: _WizardState) -> str:
+    yn = _menu_choice(
+        _("Configure optional image / embedding settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=True,
+    )
+    if yn in {"__quit__", "__back__"}:
+        return yn
+
+    st.extra_enabled = yn == "2"
+    _clear_optional_extra_values(st)
+    if not st.extra_enabled:
+        return "ok"
+
+    # Image analysis
+    ia = _menu_choice(
+        _("Configure image analysis settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=True,
+    )
+    if ia in {"__quit__", "__back__"}:
+        return ia
+    st.image_analysis_enabled = ia == "2"
+    if st.image_analysis_enabled:
+        ia_options = [f"{prov} ({label})" for prov, label in IMAGE_ANALYSIS_PROVIDERS]
+        ia_choice = _menu_choice(
+            _("Select image analysis provider"),
+            ia_options,
+            default_index=1,
+            allow_back=True,
+        )
+        if ia_choice in {"__quit__", "__back__"}:
+            return ia_choice
+        ia_provider = IMAGE_ANALYSIS_PROVIDERS[int(ia_choice) - 1][0]
+        st.image_analysis_values = {"UAGENT_IMG_ANALYSIS_PROVIDER": ia_provider}
+        status, vals = _ask_provider_image_values(
+            ia_provider,
+            "analysis",
+            current=st.image_analysis_values,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        st.image_analysis_values = vals
+
+    # Image generation
+    ig = _menu_choice(
+        _("Configure image generation settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=True,
+    )
+    if ig in {"__quit__", "__back__"}:
+        return ig
+    st.image_generate_enabled = ig == "2"
+    if st.image_generate_enabled:
+        ig_options = [f"{prov} ({label})" for prov, label in IMAGE_GENERATION_PROVIDERS]
+        ig_choice = _menu_choice(
+            _("Select image generation provider"),
+            ig_options,
+            default_index=1,
+            allow_back=True,
+        )
+        if ig_choice in {"__quit__", "__back__"}:
+            return ig_choice
+        ig_provider = IMAGE_GENERATION_PROVIDERS[int(ig_choice) - 1][0]
+        st.image_generate_values = {"UAGENT_IMG_GENERATE_PROVIDER": ig_provider}
+        status, vals = _ask_provider_image_values(
+            ig_provider,
+            "generate",
+            current=st.image_generate_values,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        st.image_generate_values = vals
+
+        image_open = _menu_choice(
+            _("Open generated images automatically?"),
+            [_("No"), _("Yes")],
+            default_index=2,
+            allow_back=True,
+        )
+        if image_open in {"__quit__", "__back__"}:
+            return image_open
+        st.image_open_enabled = image_open == "2"
+        if st.image_generate_values is None:
+            st.image_generate_values = {}
+        st.image_generate_values["UAGENT_IMAGE_OPEN"] = "1" if st.image_open_enabled else "0"
+
+    # Embedding / semantic search
+    emb = _menu_choice(
+        _("Configure embedding / semantic search settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=True,
+    )
+    if emb in {"__quit__", "__back__"}:
+        return emb
+    st.embedding_enabled = emb == "2"
+    if st.embedding_enabled:
+        st.embedding_values = {}
+        status, value = _ask_text(
+            _("UAGENT_EMBEDDING_API_URL"),
+            default="",
+            required=True,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        st.embedding_values["UAGENT_EMBEDDING_API_URL"] = value
+
+        status, value = _ask_text(
+            _("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH"),
+            default="/v1/models",
+            required=False,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        if value:
+            st.embedding_values["UAGENT_EMBEDDING_API_HEALTHCHECK_PATH"] = value
+
+        sem = _menu_choice(
+            _("Disable semantic search when embedding API is unreachable?"),
+            [_("No"), _("Yes")],
+            default_index=2,
+            allow_back=True,
+        )
+        if sem in {"__quit__", "__back__"}:
+            return sem
+        st.embedding_values["UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE"] = "1" if sem == "2" else "0"
+
+    return "ok"
+
+
 def _env_lines_from_state(st: _WizardState) -> list[str]:
     values: dict[str, str] = {}
     values["UAGENT_PROVIDER"] = st.provider
@@ -454,8 +687,74 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append(f"UAGENT_LANG={st.lang.strip()}")
     else:
         out.append("# UAGENT_LANG=ja")
-
     out.append("")
+
+    section(_("Optional image / embedding settings"))
+    if st.extra_enabled:
+        if st.image_analysis_enabled:
+            ia_vals = st.image_analysis_values or {}
+            ia_provider = ia_vals.get("UAGENT_IMG_ANALYSIS_PROVIDER", "").strip()
+            if ia_provider:
+                out.append(f"UAGENT_IMG_ANALYSIS_PROVIDER={ia_provider}")
+                for suffix in ("BASE_URL", "API_KEY", "API_VERSION", "DEPNAME"):
+                    key = f"UAGENT_{ia_provider.upper()}_IMG_ANALYSIS_{suffix}"
+                    val = ia_vals.get(key, "").strip()
+                    if val:
+                        out.append(f"{key}={val}")
+        else:
+            out.append("# UAGENT_IMG_ANALYSIS_PROVIDER=")
+            for prov, _label in IMAGE_ANALYSIS_PROVIDERS:
+                out.append(f"# UAGENT_{prov.upper()}_IMG_ANALYSIS_BASE_URL=")
+                out.append(f"# UAGENT_{prov.upper()}_IMG_ANALYSIS_API_KEY=")
+                if prov == "azure":
+                    out.append(f"# UAGENT_{prov.upper()}_IMG_ANALYSIS_API_VERSION=")
+                out.append(f"# UAGENT_{prov.upper()}_IMG_ANALYSIS_DEPNAME=")
+        out.append("")
+
+        if st.image_generate_enabled:
+            ig_vals = st.image_generate_values or {}
+            ig_provider = ig_vals.get("UAGENT_IMG_GENERATE_PROVIDER", "").strip()
+            if ig_provider:
+                out.append(f"UAGENT_IMG_GENERATE_PROVIDER={ig_provider}")
+                for suffix in ("BASE_URL", "API_KEY", "API_VERSION", "DEPNAME"):
+                    key = f"UAGENT_{ig_provider.upper()}_IMG_GENERATE_{suffix}"
+                    val = ig_vals.get(key, "").strip()
+                    if val:
+                        out.append(f"{key}={val}")
+            image_open = (ig_vals.get("UAGENT_IMAGE_OPEN", "") or "").strip()
+            if image_open:
+                out.append(f"UAGENT_IMAGE_OPEN={image_open}")
+        else:
+            out.append("# UAGENT_IMG_GENERATE_PROVIDER=")
+            for prov, _label in IMAGE_GENERATION_PROVIDERS:
+                out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_BASE_URL=")
+                out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_API_KEY=")
+                if prov == "azure":
+                    out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_API_VERSION=")
+                out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_DEPNAME=")
+            out.append("# UAGENT_IMAGE_OPEN=1")
+        out.append("")
+
+        if st.embedding_enabled:
+            emb_vals = st.embedding_values or {}
+            emb_url = emb_vals.get("UAGENT_EMBEDDING_API_URL", "").strip()
+            if emb_url:
+                out.append(f"UAGENT_EMBEDDING_API_URL={emb_url}")
+            hc = emb_vals.get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "").strip()
+            if hc:
+                out.append(f"UAGENT_EMBEDDING_API_HEALTHCHECK_PATH={hc}")
+            sem = emb_vals.get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE", "").strip()
+            if sem:
+                out.append(f"UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE={sem}")
+        else:
+            out.append("# UAGENT_EMBEDDING_API_URL=")
+            out.append("# UAGENT_EMBEDDING_API_HEALTHCHECK_PATH=/v1/models")
+            out.append("# UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=1")
+        out.append("")
+    else:
+        out.append(_("# (optional image / embedding settings not configured)"))
+        out.append("")
+
     return out
 
 
@@ -611,19 +910,30 @@ def main() -> int:
             continue
 
         if stage == 4:
-            status, out_sel = _ask_outputs(allow_back=True)
+            status = _ask_optional_extras(st)
             if status == "__quit__":
                 print(_("Cancelled."))
                 return 1
             if status == "__back__":
                 stage = 3
                 continue
-            outputs = out_sel
-
             stage = 5
             continue
 
         if stage == 5:
+            status, out_sel = _ask_outputs(allow_back=True)
+            if status == "__quit__":
+                print(_("Cancelled."))
+                return 1
+            if status == "__back__":
+                stage = 4
+                continue
+            outputs = out_sel
+
+            stage = 6
+            continue
+
+        if stage == 6:
             print()
             print(_("Summary"))
             print(_("  Provider: %(provider)s") % {"provider": st.provider})
@@ -639,6 +949,20 @@ def main() -> int:
             print(_("  UAGENT_LANG enabled: %(state)s") % {"state": _("yes") if st.lang_enabled else _("no")})
             if st.lang_enabled:
                 print(f"  UAGENT_LANG={st.lang}")
+            print(_("  Optional extras enabled: %(state)s") % {"state": _("yes") if st.extra_enabled else _("no")})
+            if st.extra_enabled:
+                print(_("  Image analysis enabled: %(state)s") % {"state": _("yes") if st.image_analysis_enabled else _("no")})
+                if st.image_analysis_enabled:
+                    print(f"  UAGENT_IMG_ANALYSIS_PROVIDER={(st.values or {}).get('UAGENT_IMG_ANALYSIS_PROVIDER', '')}")
+                print(_("  Image generation enabled: %(state)s") % {"state": _("yes") if st.image_generate_enabled else _("no")})
+                if st.image_generate_enabled:
+                    print(f"  UAGENT_IMG_GENERATE_PROVIDER={(st.values or {}).get('UAGENT_IMG_GENERATE_PROVIDER', '')}")
+                    print(f"  UAGENT_IMAGE_OPEN={(st.values or {}).get('UAGENT_IMAGE_OPEN', '')}")
+                print(_("  Embedding enabled: %(state)s") % {"state": _("yes") if st.embedding_enabled else _("no")})
+                if st.embedding_enabled:
+                    print(f"  UAGENT_EMBEDDING_API_URL={(st.values or {}).get('UAGENT_EMBEDDING_API_URL', '')}")
+                    print(f"  UAGENT_EMBEDDING_API_HEALTHCHECK_PATH={(st.values or {}).get('UAGENT_EMBEDDING_API_HEALTHCHECK_PATH', '')}")
+                    print(f"  UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE={(st.values or {}).get('UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE', '')}")
             print(_("  Outputs: %(outputs)s") % {"outputs": ", ".join(sorted(outputs))})
 
             action = _menu_choice(
@@ -651,7 +975,7 @@ def main() -> int:
                 print(_("Cancelled."))
                 return 1
             if action == "2":
-                stage = 4
+                stage = 5
                 continue
             break
 
