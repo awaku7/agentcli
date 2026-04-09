@@ -31,9 +31,8 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             f"[INFO] api_version = {env_get('UAGENT_AZURE_API_VERSION', '(not set)')}"
         )
     elif provider == "openai":
-        lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OPENAI_BASE_URL', 'https://api.openai.com/v1'))}"
-        )
+        val = env_get("UAGENT_OPENAI_BASE_URL") or "https://api.openai.com/v1"
+        lines.append(f"[INFO] base_url = {_normalize_url(core, val)}")
     elif provider == "nvidia":
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}"
