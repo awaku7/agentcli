@@ -3,6 +3,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import os
+import builtins
 from ..env_utils import env_get
 import json
 import sqlite3
@@ -57,9 +58,9 @@ def _is_embedding_api_reachable() -> bool:
 
 def _emit_embedding_disabled_reason() -> None:
     try:
-        if getattr(_emit_embedding_disabled_reason, "_done", False):
+        if getattr(builtins, "_uagent_embedding_disabled_warned", False):
             return
-        setattr(_emit_embedding_disabled_reason, "_done", True)
+        builtins._uagent_embedding_disabled_warned = True
 
         base = EMBEDDING_API_URL
         if "/v1/" in base:
