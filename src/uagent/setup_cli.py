@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .i18n import _, detect_lang, set_thread_lang
+from uag_envsec.secret_core import DEFAULT_SEC_SUFFIX, encrypt_text, ensure_key_file
 
 # Setup wizard follows detected UI language.
 set_thread_lang(detect_lang())
@@ -758,6 +759,18 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     return out
 
 
+def _ask_encrypt_env() -> tuple[bool, str]:
+    yn = _menu_choice(
+        _("Encrypt the generated .env file?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=False,
+    )
+    if yn == "2":
+        return True, _("Encrypted file will be written as %(path)s")
+    return False, ""
+
+
 def main() -> int:
     st = _WizardState(values={})
 
@@ -1004,6 +1017,14 @@ def main() -> int:
     if "env" in outputs:
         env_text = "\n".join(env_lines).rstrip() + "\n"
         paths["env"].write_text(env_text, encoding="utf-8", newline="\n")
+
+        encrypt_choice, encrypt_msg = _ask_encrypt_env()
+        if encrypt_choice:
+            ensure_key_file()
+            sec_path = paths["env"].with_suffix(paths["env"].suffix + DEFAULT_SEC_SUFFIX)
+            sec_text = encrypt_text(env_text)
+            sec_path.write_text(sec_text + "\n", encoding="utf-8", newline="\n")
+            print(encrypt_msg % {"path": sec_path})
 
     if "sh" in outputs:
         sh_text = _emit_sh(env_lines)
