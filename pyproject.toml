@@ -74,7 +74,7 @@ uagw = "uagent.web:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["uagent", "uagent.*"]
+include = ["uagent", "uagent.*", "uag_envsec", "uag_envsec.*"]
 exclude = ["uagent.mcp*", "test*", "tests*"]
 
 [tool.setuptools.package-data]
