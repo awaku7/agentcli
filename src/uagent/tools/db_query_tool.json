@@ -46,5 +46,29 @@
     "param.sql.description": "SQL เพื่อดำเนินการ",
     "tool.description": "ดำเนินการแบบสอบถาม SQL กับฐานข้อมูล SQLite และส่งคืนผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
+  },
+  "de": {
+    "param.db_path.description": "Pfad zur SQLite-Datenbankdatei.",
+    "param.sql.description": "SQL zum Ausführen.",
+    "tool.description": "Führen Sie eine SQL-Abfrage für eine SQLite-Datenbank aus und geben Sie das Ergebnis zurück. Es werden nur schreibgeschützte Vorgänge (SELECT) und Schemaprüfung (PRAGMA) unterstützt.",
+    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „db_query“ beschriebenen Vorgang aus."
+  },
+  "it": {
+    "param.db_path.description": "Percorso del file di database SQLite.",
+    "param.sql.description": "SQL da eseguire.",
+    "tool.description": "Esegui una query SQL su un database SQLite e restituisce il risultato. Sono supportate solo le operazioni di sola lettura (SELECT) e l'ispezione dello schema (PRAGMA).",
+    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'db_query'."
+  },
+  "ru": {
+    "param.db_path.description": "Путь к файлу базы данных SQLite.",
+    "param.sql.description": "SQL для выполнения.",
+    "tool.description": "Выполните запрос SQL к базе данных SQLite и верните результат. Поддерживаются только операции только для чтения (SELECT) и проверка схемы (PRAGMA).",
+    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «db_query»."
+  },
+  "pt_BR": {
+    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
+    "param.sql.description": "SQL para executar.",
+    "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   }
 }

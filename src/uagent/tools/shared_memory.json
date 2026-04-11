@@ -46,5 +46,29 @@
     "msg.disabled": "(หน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งาน ตั้งค่า UAGENT_SHARED_MEMORY_FILE เพื่อเปิดใช้งาน)",
     "msg.no_shared_memory": "(ยังไม่มีหน่วยความจำที่ใช้ร่วมกัน)",
     "msg.truncated": "\n[shared_memory ถูกตัดทอน: จำกัดที่ {max_bytes} ไบต์]"
+  },
+  "de": {
+    "err.load": "[shared_memory Fehler] {err_type}: {err}",
+    "msg.disabled": "(gemeinsamer Speicher ist deaktiviert; setzen Sie UAGENT_SHARED_MEMORY_FILE, um ihn zu aktivieren)",
+    "msg.no_shared_memory": "(noch kein gemeinsamer Speicher vorhanden)",
+    "msg.truncated": "\n[shared_memory abgeschnitten: auf {max_bytes} Bytes begrenzt]"
+  },
+  "it": {
+    "err.load": "[errore shared_memory] {err_type}: {err}",
+    "msg.disabled": "(la memoria condivisa è disabilitata; imposta UAGENT_SHARED_MEMORY_FILE per abilitarla)",
+    "msg.no_shared_memory": "(nessuna memoria condivisa ancora)",
+    "msg.truncated": "\n[shared_memory troncato: limitato a {max_bytes} byte]"
+  },
+  "ru": {
+    "err.load": "[shared_memory ошибка] {err_type}: {err}",
+    "msg.disabled": "(общая память отключена; установите UAGENT_SHARED_MEMORY_FILE, чтобы включить её)",
+    "msg.no_shared_memory": "(общая память ещё отсутствует)",
+    "msg.truncated": "\n[shared_memory сокращён: ограничено {max_bytes} байтами]"
+  },
+  "pt_BR": {
+    "err.load": "[erro shared_memory] {err_type}: {err}",
+    "msg.disabled": "(a memória compartilhada está desativada; defina UAGENT_SHARED_MEMORY_FILE para ativá-la)",
+    "msg.no_shared_memory": "(ainda não há memória compartilhada)",
+    "msg.truncated": "\n[shared_memory truncado: limitado a {max_bytes} bytes]"
   }
 }

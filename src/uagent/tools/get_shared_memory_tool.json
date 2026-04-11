@@ -38,5 +38,25 @@
     "doc.run_tool": "จุดเริ่มต้นเรียกจาก tools/__init__.py การใช้งานสำหรับ get_shared_memory",
     "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้\n- โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งบันทึกต่อบรรทัด)\n- หากหน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งานหรือไฟล์หายไป จะส่งกลับข้อความอธิบาย\n- ขนาดเอาต์พุตจะถูกตัดให้เหลือขีดจำกัดไบต์สูงสุดภายในโดยอัตโนมัติ",
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการฟังก์ชันการทำงานที่อธิบายไว้ใน TOOL_SPEC"
+  },
+  "de": {
+    "doc.run_tool": "Von tools/__init__.py aufgerufener Einstiegspunkt. Implementierung für get_shared_memory.",
+    "tool.description": "Ruft Rohdaten des Langzeitspeichers (gemeinsam genutzter Speicher) ab, die von allen Benutzern gemeinsam genutzt werden.\n– Gibt normalerweise Text im Format JSONL zurück (ein Datensatz pro Zeile).\n– Wenn der gemeinsame Speicher deaktiviert ist oder die Datei fehlt, wird eine beschreibende Meldung zurückgegeben.\n- Die Ausgabegröße wird automatisch auf die interne maximale Byte-Grenze zugeschnitten.",
+    "tool.system_prompt": "Dieses Tool führt die in TOOL_SPEC beschriebene Funktionalität aus."
+  },
+  "it": {
+    "doc.run_tool": "Punto di ingresso chiamato da tools/__init__.py. Implementazione per get_shared_memory.",
+    "tool.description": "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti.\n- Solitamente restituisce il testo nel formato JSONL (un record per riga).\n- Se la memoria condivisa è disabilitata o manca il file, restituisce un messaggio descrittivo.\n- La dimensione dell'output viene automaticamente ridotta al limite massimo di byte interno.",
+    "tool.system_prompt": "Questo strumento esegue la funzionalità descritta in TOOL_SPEC."
+  },
+  "ru": {
+    "doc.run_tool": "Точка входа вызывается из Tools/__init__.py. Реализация get_shared_memory.",
+    "tool.description": "Извлекает необработанные данные из долговременной памяти (общей памяти), совместно используемые пользователями.\n- Обычно возвращает текст в формате JSONL (одна запись в строке).\n- Если общая память отключена или файл отсутствует, возвращается описательное сообщение.\n- Размер вывода автоматически обрезается до внутреннего максимального предела в байтах.",
+    "tool.system_prompt": "Этот инструмент выполняет функции, описанные в TOOL_SPEC."
+  },
+  "pt_BR": {
+    "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação para get_shared_memory.",
+    "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.\n- Geralmente retorna texto no formato JSONL (um registro por linha).\n- Se a memória compartilhada estiver desabilitada ou o arquivo estiver faltando, retorna uma mensagem descritiva.\n- O tamanho da saída é automaticamente reduzido para o limite máximo de bytes interno.",
+    "tool.system_prompt": "Esta ferramenta executa a funcionalidade descrita em TOOL_SPEC."
   }
 }

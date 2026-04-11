@@ -62,5 +62,37 @@
     "param.strict.description": "คำเตือนควรถือเป็นความล้มเหลวด้วยหรือไม่ (ค่าเริ่มต้น: เท็จ)",
     "tool.description": "ตรวจสอบไดเร็กทอรีทักษะ (SKILL.md) ตามข้อมูลจำเพาะของ Agent Skills และส่งคืนข้อผิดพลาดและคำเตือน",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "err.invalid_args": "[Werkzeugfehler] Ungültige Argumente",
+    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leerer String sein",
+    "param.skill_dir.description": "Skill-Verzeichnis (SKILL.md ist direkt darunter erforderlich)",
+    "param.strict.description": "Sollen Warnungen ebenfalls als Fehler behandelt werden? (Standard: false)",
+    "tool.description": "Validiert ein Skill-Verzeichnis (SKILL.md) gemäß der Agent-Skills-Spezifikation und gibt Fehler sowie Warnungen zurück.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "err.invalid_args": "[errore strumento] argomenti non validi",
+    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una stringa non vuota",
+    "param.skill_dir.description": "Directory dello skill (SKILL.md è richiesto direttamente sotto)",
+    "param.strict.description": "Le avvertenze devono essere considerate anch'esse un fallimento? (predefinito: false)",
+    "tool.description": "Convalida una directory di skill (SKILL.md) secondo la specifica Agent Skills e restituisce errori e avvisi.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "err.invalid_args": "[ошибка инструмента] недопустимые аргументы",
+    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть непустой строкой",
+    "param.skill_dir.description": "Каталог навыка (SKILL.md должен находиться непосредственно ниже)",
+    "param.strict.description": "Считать ли предупреждения ошибками? (по умолчанию: false)",
+    "tool.description": "Проверяет каталог навыка (SKILL.md) согласно спецификации Agent Skills и возвращает ошибки и предупреждения.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "err.invalid_args": "[erro da ferramenta] argumentos inválidos",
+    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma string não vazia",
+    "param.skill_dir.description": "Diretório do skill (SKILL.md é necessário logo abaixo)",
+    "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: false)",
+    "tool.description": "Valida um diretório de skill (SKILL.md) de acordo com a especificação Agent Skills e retorna erros e avisos.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   }
 }

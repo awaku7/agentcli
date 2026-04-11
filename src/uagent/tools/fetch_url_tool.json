@@ -86,5 +86,49 @@
     "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
     "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
     "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent (ไม่บังคับ)"
+  },
+  "de": {
+    "param.url.description": "URL für den Zugriff.",
+    "tool.description": "Greifen Sie über HTTP GET auf den angegebenen URL zu und geben Sie den Anfang der Antwort als Text zurück. Nützlich zum Abrufen und Überprüfen von HTML oder JSON.",
+    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „fetch_url“ beschriebenen Vorgang aus.",
+    "param.extract.description": "Extraktionsmodus. head=gibt den Anfang der Antwort zurück; text=Text aus HTML extrahieren; html=extrahiere das HTML-Fragment; json=parse JSON (optional json_pointer anwenden).",
+    "param.selector.description": "Optionaler CSS-Selektor. Falls angegeben, wird das erste übereinstimmende Element für extract=text/html extrahiert.",
+    "param.json_pointer.description": "Optional RFC 6901 JSON Zeiger (z. B. /items/0/title), der verwendet wird, wenn extract=json.",
+    "param.max_bytes.description": "Maximal aus der Antwort zu lesende Bytes.",
+    "param.max_chars.description": "Maximale Anzahl zurückzugebender Zeichen (wird nach der Dekodierung/Extrahierung angewendet).",
+    "param.user_agent.description": "Optionaler User-Agent-Headerwert."
+  },
+  "it": {
+    "param.url.description": "URL per accedere.",
+    "tool.description": "Accedi al URL specificato tramite HTTP GET e restituisci l'inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON.",
+    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento \"fetch_url\".",
+    "param.extract.description": "Modalità di estrazione. head=restituisce l'inizio della risposta; text=estrai testo da HTML; html=estrai HTML frammento; json=parse JSON (facoltativamente applica json_pointer).",
+    "param.selector.description": "Selettore CSS opzionale. Se fornito, il primo elemento corrispondente viene estratto per extract=text/html.",
+    "param.json_pointer.description": "Opzionale RFC 6901 JSON Puntatore (ad esempio, /items/0/title) utilizzato quando extract=json.",
+    "param.max_bytes.description": "Numero massimo di byte da leggere dalla risposta.",
+    "param.max_chars.description": "Numero massimo di caratteri da restituire (applicato dopo la decodifica/estrazione).",
+    "param.user_agent.description": "Valore facoltativo dell'intestazione User-Agent."
+  },
+  "ru": {
+    "param.url.description": "URL для доступа.",
+    "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON.",
+    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «fetch_url».",
+    "param.extract.description": "Режим экстракции. head=вернуть начало ответа; text=извлечь текст из HTML; html=извлечь фрагмент HTML; json=parse JSON (при желании можно применить json_pointer).",
+    "param.selector.description": "Дополнительный селектор CSS. Если он указан, для Extract=text/html извлекается первый совпавший элемент.",
+    "param.json_pointer.description": "Необязательно RFC 6901 JSON Указатель (например, /items/0/title), используемый, когда extract=json.",
+    "param.max_bytes.description": "Максимальное количество байтов для чтения из ответа.",
+    "param.max_chars.description": "Максимальное количество возвращаемых символов (применяется после декодирования/извлечения).",
+    "param.user_agent.description": "Необязательное значение заголовка User-Agent."
+  },
+  "pt_BR": {
+    "param.url.description": "URL para acessar.",
+    "tool.description": "Acesse o URL especificado via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'fetch_url'.",
+    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrair texto de HTML; html=extrair fragmento HTML; json=parse JSON (opcionalmente aplique json_pointer).",
+    "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente será extraído para extract=text/html.",
+    "param.json_pointer.description": "Opcional RFC 6901 JSON Ponteiro (por exemplo, /items/0/title) usado quando extract=json.",
+    "param.max_bytes.description": "Máximo de bytes a serem lidos na resposta.",
+    "param.max_chars.description": "Máximo de caracteres a serem retornados (aplicado após decodificação/extração).",
+    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent."
   }
 }

@@ -46,5 +46,29 @@
     "param.cwd.description": "ไดเร็กทอรีการทำงานสำหรับคำสั่ง",
     "tool.description": "วิธีสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น การผสานรวม MCP)",
     "tool.system_prompt": "เครื่องมือนี้คือ LAST RESORT ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ระมัดระวังการใช้คำสั่งและหลีกเลี่ยงการดำเนินการทำลายล้าง เว้นแต่จะได้รับการยืนยันอย่างชัดเจนจากผู้ใช้"
+  },
+  "de": {
+    "param.command.description": "Befehlszeichenfolge zur Ausführung.",
+    "param.cwd.description": "Arbeitsverzeichnis für den Befehl.",
+    "tool.description": "Als letzten Ausweg führen Sie einen Shell-Befehl aus und geben ein JSON-Ergebnis zurück. Nur verwenden, wenn kein sichereres oder spezifischeres Tool verfügbar ist (z. B. eine MCP-Integration).",
+    "tool.system_prompt": "Dieses Tool ist ein LAST RESORT. Verwenden Sie es nur, wenn kein anderes geeignetes Werkzeug verfügbar ist. Gehen Sie konservativ mit Befehlen um und vermeiden Sie destruktive Vorgänge, es sei denn, der Benutzer hat dies ausdrücklich bestätigt."
+  },
+  "it": {
+    "param.command.description": "Stringa di comando da eseguire.",
+    "param.cwd.description": "Directory di lavoro per il comando.",
+    "tool.description": "Come ultima risorsa, esegui un comando di shell e restituisci un risultato JSON. Da utilizzare solo quando non è disponibile uno strumento più sicuro o più specifico (ad esempio, un'integrazione MCP).",
+    "tool.system_prompt": "Questo strumento è un LAST RESORT. Usatelo solo se non è disponibile nessun altro strumento appropriato. Sii prudente con i comandi ed evita operazioni distruttive se non esplicitamente confermate dall'utente."
+  },
+  "ru": {
+    "param.command.description": "Командная строка для выполнения.",
+    "param.cwd.description": "Рабочий каталог для команды.",
+    "tool.description": "В крайнем случае, выполните команду оболочки и верните результат JSON. Используйте только в том случае, если более безопасный или более конкретный инструмент недоступен (например, интеграция MCP).",
+    "tool.system_prompt": "Этот инструмент LAST RESORT. Используйте его только в том случае, если другого подходящего инструмента нет. Будьте осторожны с командами и избегайте разрушительных операций, если это явно не подтверждено пользователем."
+  },
+  "pt_BR": {
+    "param.command.description": "Cadeia de comandos a ser executada.",
+    "param.cwd.description": "Diretório de trabalho para o comando.",
+    "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
+    "tool.system_prompt": "Esta ferramenta é um LAST RESORT. Use-o somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que seja explicitamente confirmado pelo usuário."
   }
 }

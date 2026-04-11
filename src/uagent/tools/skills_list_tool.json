@@ -62,5 +62,37 @@
     "param.strict.description": "ไม่ว่าจะถือว่าคำเตือนเป็นความล้มเหลวในระหว่างการตรวจสอบข้อกำหนดหรือไม่ (ค่าเริ่มต้น: เท็จ)",
     "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.md) สแกน UAGENT_SKILLS_DIRS หรือ ./skills หากละเว้น root_dir",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "param.include_invalid.description": "Ob es in die Liste aufgenommen werden soll, auch wenn die Analyse/Verifizierung von SKILL.md fehlschlägt (Standard: true). Wenn false, werden fehlerhafte Skills ausgeschlossen.",
+    "param.recursive.description": "Rekursiv suchen (Standard: true)",
+    "param.root_dir.description": "Suchwurzel für Skills. Wenn leer/nicht angegeben, wird UAGENT_SKILLS_DIRS (durch os.pathsep getrennt) verwendet; andernfalls ./skills.",
+    "param.strict.description": "Ob Warnungen bei der Spezifikationsprüfung als Fehler behandelt werden sollen (Standard: false)",
+    "tool.description": "Gibt anhand der Agent-Skills-Spezifikation (SKILL.md) eine Liste der Skills unter dem angegebenen Root zurück (liest nur das Frontmatter). Wenn root_dir weggelassen wird, werden UAGENT_SKILLS_DIRS oder ./skills durchsucht.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.include_invalid.description": "Se includerlo nell'elenco anche se l'analisi/verifica di SKILL.md non riesce (predefinito: true). Se false, gli skill falliti vengono esclusi.",
+    "param.recursive.description": "Cerca in modo ricorsivo (predefinito: true)",
+    "param.root_dir.description": "Radice di ricerca degli skill. Se vuoto/non specificato, viene usato UAGENT_SKILLS_DIRS (separato da os.pathsep); altrimenti ./skills.",
+    "param.strict.description": "Se trattare anche i warning come fallimenti durante la verifica della specifica (predefinito: false)",
+    "tool.description": "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.md), leggendo solo il frontmatter. Se root_dir è omesso, esegue la scansione di UAGENT_SKILLS_DIRS o ./skills.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.include_invalid.description": "Включать ли в список, даже если разбор/проверка SKILL.md не удалась (по умолчанию: true). Если false, неудачные навыки будут исключены.",
+    "param.recursive.description": "Искать рекурсивно (по умолчанию: true)",
+    "param.root_dir.description": "Корень поиска навыков. Если пусто/не указано, используется UAGENT_SKILLS_DIRS (разделённый os.pathsep); иначе ./skills.",
+    "param.strict.description": "Считать ли предупреждения ошибками при проверке спецификации (по умолчанию: false)",
+    "tool.description": "Возвращает список навыков в указанном корне согласно спецификации Agent Skills (SKILL.md), читая только frontmatter. Если root_dir опущен, сканирует UAGENT_SKILLS_DIRS или ./skills.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.include_invalid.description": "Se deve incluí-lo na lista mesmo que a análise/verificação de SKILL.md falhe (padrão: true). Se false, skills com falha serão excluídos.",
+    "param.recursive.description": "Pesquisar recursivamente (padrão: true)",
+    "param.root_dir.description": "Raiz de busca dos skills. Se vazio/não especificado, UAGENT_SKILLS_DIRS (separado por os.pathsep) será usado; caso contrário, ./skills.",
+    "param.strict.description": "Se avisos também devem ser tratados como falha durante a verificação da especificação (padrão: false)",
+    "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.md), lendo apenas o frontmatter. Se root_dir for omitido, varre UAGENT_SKILLS_DIRS ou ./skills.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   }
 }

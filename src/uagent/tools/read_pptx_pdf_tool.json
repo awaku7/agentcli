@@ -54,5 +54,33 @@
     "param.path.description": "พาธไปยังไฟล์ PDF / PPTX / JSON",
     "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON ทั่วไป) และส่งคืนข้อความที่แยกออกมาทีละหน้า คุณสามารถกำหนดเส้นทางเป็น .pdf / .pptx / .json ได้ สำหรับ PDF/PPTX โมดูลนี้จะแปลงเป็นสคีมา JSON ทั่วไป",
     "tool.system_prompt": "IMPORTANT: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: เส้นทาง, page_index, max_chars ผลลัพธ์: ข้อความหน้า (ทุกหน้าหรือหน้าที่ระบุ)"
+  },
+  "de": {
+    "param.max_chars.description": "Maximale Anzahl der zurückzugebenden Zeichen. Wenn es weggelassen wird, wird es auf 8000 Zeichen gekürzt.",
+    "param.page_index.description": "1-basierte Seitenzahl (PDF Seite oder PPTX Folienindex). Wenn es weggelassen wird, wird verketteter Text für alle Seiten zurückgegeben.",
+    "param.path.description": "Pfad zu einer PDF / PPTX / JSON-Datei.",
+    "tool.description": "Lesen Sie PDF/PPTX (oder ihr gemeinsames JSON-Schema) und geben Sie den extrahierten Text seitenweise zurück. Sie können den Pfad auf .pdf / .pptx / .json festlegen. Für PDF/PPTX konvertiert dieses Modul es in das gemeinsame JSON-Schema.",
+    "tool.system_prompt": "IMPORTANT: Dieses Tool liest PDF/PPTX/JSON und gibt Text auf Seitenebene zurück. Eingabe: Pfad, Seitenindex, max_chars. Ausgabe: Seitentext (alle Seiten oder angegebene Seite)."
+  },
+  "it": {
+    "param.max_chars.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri.",
+    "param.page_index.description": "Numero di pagina in base 1 (pagina PDF o indice diapositiva PPTX). Se omesso, restituisce testo concatenato per tutte le pagine.",
+    "param.path.description": "Percorso di un file PDF / PPTX / JSON.",
+    "tool.description": "Leggi PDF/PPTX (o il loro schema comune JSON) e restituisce il testo estratto per pagina. È possibile impostare il percorso su .pdf / .pptx / .json. Per PDF/PPTX, questo modulo lo converte nello schema comune JSON.",
+    "tool.system_prompt": "IMPORTANT: questo strumento legge PDF/PPTX/JSON e restituisce testo a livello di pagina. Input: percorso, page_index, max_chars. Output: testo della pagina (tutte le pagine o la pagina specificata)."
+  },
+  "ru": {
+    "param.max_chars.description": "Максимальное количество возвращаемых символов. Если опущено, усекается до 8000 символов.",
+    "param.page_index.description": "Номер страницы отсчитывается от 1 (страница PDF или индекс слайда PPTX). Если этот параметр опущен, возвращается объединенный текст для всех страниц.",
+    "param.path.description": "Путь к файлу PDF/PPTX/JSON.",
+    "tool.description": "Прочитайте PDF/PPTX (или их общую схему JSON) и верните извлеченный текст постранично. Вы можете указать путь к .pdf/.pptx/.json. Для PDF/PPTX этот модуль преобразует его в общую схему JSON.",
+    "tool.system_prompt": "IMPORTANT: этот инструмент считывает PDF/PPTX/JSON и возвращает текст на уровне страницы. Ввод: путь, page_index, max_chars. Вывод: текст страницы (все страницы или указанная страница)."
+  },
+  "pt_BR": {
+    "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
+    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slide PPTX). Se omitido, retorna texto concatenado para todas as páginas.",
+    "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
+    "tool.description": "Leia PDF/PPTX (ou seu esquema comum JSON) e retorne o texto extraído por página. Você pode definir o caminho para .pdf/.pptx/.json. Para PDF/PPTX, este módulo o converte no esquema JSON comum.",
+    "tool.system_prompt": "IMPORTANT: Esta ferramenta lê PDF/PPTX/JSON e retorna texto no nível da página. Entrada: caminho, page_index, max_chars. Saída: texto da página (todas as páginas ou página especificada)."
   }
 }

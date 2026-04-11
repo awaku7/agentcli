@@ -38,5 +38,25 @@
     "param.expression.description": "สูตรที่คุณต้องการคำนวณ (เช่น '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)') มีฟังก์ชันจากโมดูลคณิตศาสตร์ของ Python ให้ใช้งานได้",
     "tool.description": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ใช้สำหรับการคำนวณที่ซับซ้อนหรือเมื่อต้องการความแม่นยำ",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "param.expression.description": "Die Formel, die Sie berechnen möchten (z. B. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Es stehen Funktionen aus dem Mathematikmodul von Python zur Verfügung.",
+    "tool.description": "Berechnet einen mathematischen Ausdruck und gibt das Ergebnis zurück. Verwenden Sie dies für komplexe Berechnungen oder wenn Präzision erforderlich ist.",
+    "tool.system_prompt": "Dieses Tool dient folgendem Zweck: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.expression.description": "La formula che desideri calcolare (ad esempio '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Sono disponibili le funzioni del modulo matematico di Python.",
+    "tool.description": "Calcola un'espressione matematica e restituisce il risultato. Utilizzatelo per calcoli complessi o quando è richiesta precisione.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.expression.description": "Формула, которую вы хотите вычислить (например, «123 * (45 + 67)», «sqrt(144)», «sin(pi/2)»). Доступны функции из математического модуля Python.",
+    "tool.description": "Вычисляет математическое выражение и возвращает результат. Используйте это для сложных вычислений или когда требуется точность.",
+    "tool.system_prompt": "Этот инструмент используется для следующих целей: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.expression.description": "A fórmula que você deseja calcular (por exemplo, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funções do módulo matemático do Python estão disponíveis.",
+    "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   }
 }
