@@ -328,6 +328,23 @@ python -m uagent.setup_cli
 
 ______________________________________________________________________
 
+## uag_envsec
+
+`uag_envsec` は、`.env` などの環境ファイル/値を暗号化・復号する小さな独立パッケージです。
+
+- CLI: `uag_envsec`
+- 入力 `.env` を `*.sec` に暗号化（既定: `<入力>.sec`）
+- パスワードを尋ね、ローカルの鍵ファイルを使います
+- CLI の既定鍵ファイル: カレントディレクトリの `.uagent.key`
+- Python ヘルパーを直接使う場合の既定鍵パス: `~/.uag/uag_envsec_key`
+
+使用例:
+
+```bash
+uag_envsec .env
+uag_envsec .env --output .env.sec --key-file .uagent.key
+```
+
 ## 翻訳（TO_LLM / FROM_LLM、任意）
 
 既定では uag は **翻訳しません**。

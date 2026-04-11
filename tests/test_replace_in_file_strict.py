@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -25,11 +26,7 @@ def _read_bytes(path: Path) -> bytes:
     return path.read_bytes()
 
 
-@pytest.mark.parametrize(
-    "newline",
-    ["\n", "\r\n"],
-    ids=["LF", "CRLF"],
-)
+@pytest.mark.parametrize("newline", ["\n", "\r\n"], ids=["LF", "CRLF"])
 def test_replace_in_file_literal_cross_newline_tokens(
     newline: str, repo_tmp_path: Path
 ) -> None:
@@ -37,14 +34,13 @@ def test_replace_in_file_literal_cross_newline_tokens(
 
     suffix = "crlf" if newline == "\r\n" else "lf"
     p = repo_tmp_path / f"literal_{suffix}.txt"
-    # File content uses the specified newline convention.
     _write_bytes(p, f"aaa{newline}bbb{newline}ccc{newline}".encode("utf-8"))
 
     out_preview = replace_in_file(
         {
             "path": str(p),
             "mode": "literal",
-            "pattern": "aaa\\nbbb",  # tokenized newline
+            "pattern": "aaa\\nbbb",
             "replacement": "AAA\\nBBB",
             "preview": True,
         }
@@ -67,17 +63,12 @@ def test_replace_in_file_literal_cross_newline_tokens(
     assert obja["written"] is True
     assert "backup" in obja
 
-    # Verify newline convention preserved in bytes.
     b = _read_bytes(p)
     assert (b"\r\n" in b) if newline == "\r\n" else (b"\r\n" not in b)
     assert b"AAA" in b and b"BBB" in b
 
 
-@pytest.mark.parametrize(
-    "newline",
-    ["\n", "\r\n"],
-    ids=["LF", "CRLF"],
-)
+@pytest.mark.parametrize("newline", ["\n", "\r\n"], ids=["LF", "CRLF"])
 def test_replace_in_file_regex_cross_newline_tokens(
     newline: str, repo_tmp_path: Path
 ) -> None:
@@ -116,11 +107,7 @@ def test_replace_in_file_regex_cross_newline_tokens(
     assert b"HELLO" in b and b"WORLD" in b
 
 
-@pytest.mark.parametrize(
-    "expand_newline_tokens",
-    [True, False],
-    ids=["expand", "no_expand"],
-)
+@pytest.mark.parametrize("expand_newline_tokens", [True, False], ids=["expand", "no_expand"])
 def test_replace_in_file_expand_newline_tokens_flag(
     expand_newline_tokens: bool, repo_tmp_path: Path
 ) -> None:
@@ -145,11 +132,7 @@ def test_replace_in_file_expand_newline_tokens_flag(
         assert objp["match_count"] == 0
 
 
-@pytest.mark.parametrize(
-    "mode",
-    ["literal", "regex"],
-    ids=["literal", "regex"],
-)
+@pytest.mark.parametrize("mode", ["literal", "regex"], ids=["literal", "regex"])
 def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) -> None:
     p = repo_tmp_path / f"preview_no_write_{mode}.txt"
     p.write_text("abc\n", encoding="utf-8", newline="\n")
@@ -173,10 +156,7 @@ def test_replace_in_file_preview_does_not_write(mode: str, repo_tmp_path: Path) 
 
 @pytest.mark.parametrize(
     "pattern,replacement,expected_count",
-    [
-        (r"name=(.+)", r"NAME=\\1", 2),
-        (r"^name=(.+)$", r"NAME=\\1", 0),
-    ],
+    [(r"name=(.+)", r"NAME=\\1", 2), (r"^name=(.+)$", r"NAME=\\1", 0)],
     ids=["no_anchors", "anchors_no_multiline"],
 )
 def test_replace_in_file_regex_anchor_behavior(
@@ -195,7 +175,6 @@ def test_replace_in_file_regex_anchor_behavior(
         }
     )
     obj = _load(out)
-
     assert obj["match_count"] == expected_count
 
 
@@ -219,25 +198,19 @@ def test_replace_in_file_cp932_roundtrip(repo_tmp_path: Path) -> None:
         }
     )
     obj = _load(out)
-    assert obj.get("encoding") in {"cp932", "utf-8"}  # wrapper may fall back
+    assert obj.get("encoding") in {"cp932", "utf-8"}
 
     b = _read_bytes(p)
-    # If encoding really used cp932, bytes should decode cleanly.
     text = b.decode("cp932")
     assert "日本語" in text
     assert "置換" in text
 
 
 def test_replace_in_file_utf8_bom_is_not_crashing(repo_tmp_path: Path) -> None:
-    """If a UTF-8 BOM file is edited, tool should not crash.
-
-    Note: the tool reads with the provided encoding (default utf-8). BOM becomes a \ufeff char.
-    We assert behavior is stable (ok True) and replacement happens.
-    """
+    """If a UTF-8 BOM file is edited, tool should not crash."""
 
     p = repo_tmp_path / "utf8_bom.txt"
-    data = b"\xef\xbb\xbf" + "abc\n".encode("utf-8")
-    _write_bytes(p, data)
+    _write_bytes(p, b"\xef\xbb\xbf" + b"abc\n")
 
     out = replace_in_file(
         {
@@ -251,7 +224,6 @@ def test_replace_in_file_utf8_bom_is_not_crashing(repo_tmp_path: Path) -> None:
     )
     _load(out)
 
-    # Still has BOM bytes because encoding is utf-8 (not utf-8-sig) and we wrote back with utf-8.
     b = _read_bytes(p)
     assert b.startswith(b"\xef\xbb\xbf")
     assert b"ABC" in b
@@ -318,11 +290,7 @@ def test_replace_in_file_trailing_newline_preserved(repo_tmp_path: Path) -> None
 
 
 def test_replace_in_file_binary_like_content_is_handled(repo_tmp_path: Path) -> None:
-    """Binary-ish bytes with NUL should not crash.
-
-    The tool will read as text using utf-8 with errors=replace if needed.
-    We only assert stable JSON ok result (may be changed==False if pattern not found).
-    """
+    """Binary-ish bytes with NUL should not crash."""
 
     p = repo_tmp_path / "binary_like.bin"
     _write_bytes(p, b"abc\x00def\n")
@@ -339,3 +307,71 @@ def test_replace_in_file_binary_like_content_is_handled(repo_tmp_path: Path) -> 
     )
     obj = _load(out)
     assert obj.get("changed") in {True, False}
+
+
+def test_replace_in_file_occurrence_only_replaces_nth_literal(repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "occurrence_literal.txt"
+    p.write_text("aa bb aa bb aa bb\n", encoding="utf-8", newline="\n")
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "literal",
+            "pattern": "aa",
+            "replacement": "XX",
+            "occurrence": 2,
+            "preview": False,
+            "confirm_over": 999,
+        }
+    )
+    obj = _load(out)
+    assert obj["occurrence"] == 2
+    assert obj["match_count"] == 3
+    assert obj["replaced_count"] == 1
+    assert p.read_text(encoding="utf-8") == "aa bb XX bb aa bb\n"
+
+
+def test_replace_in_file_occurrence_only_replaces_nth_regex(repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "occurrence_regex.txt"
+    p.write_text("name=alice\nname=bob\nname=carol\n", encoding="utf-8", newline="\n")
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "regex",
+            "pattern": r"name=(.+)",
+            "replacement": r"NAME=\1",
+            "occurrence": 2,
+            "preview": False,
+            "confirm_over": 999,
+        }
+    )
+    obj = _load(out)
+    assert obj["occurrence"] == 2
+    assert obj["match_count"] == 3
+    assert obj["replaced_count"] == 1
+    txt = p.read_text(encoding="utf-8")
+    assert txt.count("NAME=") == 1
+    assert "NAME=bob" in txt
+
+
+def test_replace_in_file_return_hashes(repo_tmp_path: Path) -> None:
+    p = repo_tmp_path / "hashes.txt"
+    p.write_text("abc\n", encoding="utf-8", newline="\n")
+    before = hashlib.sha256(p.read_bytes()).hexdigest()
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "literal",
+            "pattern": "abc",
+            "replacement": "ABC",
+            "preview": False,
+            "confirm_over": 999,
+            "return_hashes": True,
+        }
+    )
+    obj = _load(out)
+    assert obj["sha256_before"] == before
+    assert obj["sha256_after"] == hashlib.sha256(p.read_bytes()).hexdigest()
+    assert obj["sha256_before"] != obj["sha256_after"]

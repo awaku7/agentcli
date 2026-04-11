@@ -40,8 +40,6 @@ def test_search_files_name_pattern_and_relative_glob(
             "content_pattern": "",
             "case_sensitive": False,
             "max_results": 50,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -64,8 +62,6 @@ def test_search_files_content_case_sensitive_toggle(
             "content_pattern": "hello",
             "case_sensitive": False,
             "max_results": 50,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -78,8 +74,6 @@ def test_search_files_content_case_sensitive_toggle(
             "content_pattern": "hello",
             "case_sensitive": True,
             "max_results": 50,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -101,8 +95,6 @@ def test_search_files_truncates_by_max_results(
             "content_pattern": "",
             "case_sensitive": False,
             "max_results": 2,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -123,8 +115,6 @@ def test_search_files_invalid_regex_returns_error_json(
             "content_pattern": "[",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -145,50 +135,12 @@ def test_search_files_missing_root_returns_error_json(
             "content_pattern": "x",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
     obj = _err_obj(out)
     assert str(missing) in str(obj.get("error", ""))
 
-
-def test_search_files_exclude_binary_toggle(
-    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    monkeypatch.setattr(sft, "_", _no_i18n)
-
-    p = repo_tmp_path / "bin.txt"
-    p.write_bytes(b"\x00hello\n")
-
-    out_excluded = sft.run_tool(
-        {
-            "root_path": str(repo_tmp_path),
-            "name_pattern": "*.txt",
-            "content_pattern": "hello",
-            "case_sensitive": False,
-            "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
-            "fast_read_threshold_bytes": 8000000,
-        }
-    )
-    assert "No files matched" in out_excluded
-
-    out_included = sft.run_tool(
-        {
-            "root_path": str(repo_tmp_path),
-            "name_pattern": "*.txt",
-            "content_pattern": "hello",
-            "case_sensitive": False,
-            "max_results": 10,
-            "exclude_binary": False,
-            "binary_sniff_bytes": 8192,
-            "fast_read_threshold_bytes": 8000000,
-        }
-    )
-    assert "bin.txt" in out_included
 
 
 def test_search_files_uses_streaming_for_large_files(
@@ -219,8 +171,6 @@ def test_search_files_uses_streaming_for_large_files(
             "content_pattern": "hello",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 1,
         }
     )
@@ -259,8 +209,6 @@ def test_search_files_threshold_equal_size_uses_streaming(
             "content_pattern": "hello",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": size,
         }
     )
@@ -287,8 +235,6 @@ def test_search_files_ignores_default_dirs_and_exts(
             "content_pattern": "",
             "case_sensitive": False,
             "max_results": 50,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -313,8 +259,6 @@ def test_search_files_limits_matches_per_file(
             "content_pattern": "hello",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -337,8 +281,6 @@ def test_search_files_cross_line_match_shows_excerpt(
             "content_pattern": "foo\\nbar",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -361,8 +303,6 @@ def test_search_files_newline_token_normalization_literal_backslash_n(
             "content_pattern": r"foo\\nbar",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
@@ -385,8 +325,6 @@ def test_search_files_globstar_relative_path(
             "content_pattern": "",
             "case_sensitive": False,
             "max_results": 10,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
