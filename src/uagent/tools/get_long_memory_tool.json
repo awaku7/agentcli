@@ -38,5 +38,25 @@
     "doc.run_tool": "เครื่องมือในการดึงข้อมูลหน่วยความจำระยะยาวทั้งหมด (ข้อความ JSONL)",
     "tool.description": "รับบันทึกความทรงจำระยะยาวที่บันทึกไว้ทั้งหมด (JSONL)",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: ดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (ในรูปแบบ JSONL)"
+  },
+  "de": {
+    "doc.run_tool": "Ein Tool zum Abrufen des gesamten Langzeitgedächtnisses (JSONL-Text).",
+    "tool.description": "Holen Sie sich alle gespeicherten Langzeitgedächtnisnotizen (JSONL).",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: Abrufen aller gespeicherten Langzeitgedächtnisnotizen (im JSONL-Format)."
+  },
+  "it": {
+    "doc.run_tool": "Uno strumento per recuperare l'intera memoria a lungo termine (testo JSONL).",
+    "tool.description": "Ottieni tutte le note salvate sulla memoria a lungo termine (JSONL).",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: recuperare tutte le note salvate nella memoria a lungo termine (nel formato JSONL)."
+  },
+  "ru": {
+    "doc.run_tool": "Инструмент для извлечения всей долговременной памяти (текст JSONL).",
+    "tool.description": "Получите все сохраненные заметки в долговременной памяти (JSONL).",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: получить все сохраненные записи долговременной памяти (в формате JSONL)."
+  },
+  "pt_BR": {
+    "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
+    "tool.description": "Obtenha todas as notas salvas da memória de longo prazo (JSONL).",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
   }
 }

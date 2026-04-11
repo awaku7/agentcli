@@ -94,5 +94,53 @@
     "ui.confirm.footer": "=== /ยืนยัน ===",
     "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
+  },
+  "de": {
+    "confirm.risky_command": "Möglicherweise gefährlicher Befehlsinhalt wurde erkannt.\nBefehl: {command}\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
+    "confirm.shell_metachar": "Shell-Operatoren (Pipe/Umleitung/Kettung) wurden erkannt.\nBefehl: {command}\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
+    "err.blocked_cancelled": "vom Benutzer abgebrochen",
+    "err.blocked_rejected": "vom Benutzer abgelehnt",
+    "err.callbacks_unavailable": "human_ask-Callbacks nicht verfügbar",
+    "err.confirm_failed": "Bestätigung fehlgeschlagen",
+    "err.confirm_timeout": "Bestätigung abgelaufen",
+    "ui.confirm.footer": "=== /bestätigen ===\n",
+    "ui.confirm.howto": "Antworten: y=fortfahren / c=abbrechen / anderes=ablehnen\n",
+    "ui.confirm.title": "=== Anfrage zur menschlichen Bestätigung ==="
+  },
+  "it": {
+    "confirm.risky_command": "È stato rilevato un contenuto di comando potenzialmente pericoloso.\ncomando: {command}\nDigita y per procedere oppure c per annullare.",
+    "confirm.shell_metachar": "Sono stati rilevati operatori shell (pipe/reindirizzamento/concatenazione).\ncomando: {command}\nDigita y per procedere oppure c per annullare.",
+    "err.blocked_cancelled": "annullato dall'utente",
+    "err.blocked_rejected": "rifiutato dall'utente",
+    "err.callbacks_unavailable": "callback human_ask non disponibili",
+    "err.confirm_failed": "conferma non riuscita",
+    "err.confirm_timeout": "timeout della conferma",
+    "ui.confirm.footer": "=== /conferma ===\n",
+    "ui.confirm.howto": "Come rispondere: y=procedi / c=annulla / altro=nega\n",
+    "ui.confirm.title": "=== Richiesta di conferma umana ==="
+  },
+  "ru": {
+    "confirm.risky_command": "Обнаружено потенциально опасное содержимое команды.\nкоманда: {command}\nВведите y, чтобы продолжить, или c, чтобы отменить.",
+    "confirm.shell_metachar": "Обнаружены операторы оболочки (pipe/redirect/chaining).\nкоманда: {command}\nВведите y, чтобы продолжить, или c, чтобы отменить.",
+    "err.blocked_cancelled": "отменено пользователем",
+    "err.blocked_rejected": "отклонено пользователем",
+    "err.callbacks_unavailable": "коллбэки human_ask недоступны",
+    "err.confirm_failed": "подтверждение не удалось",
+    "err.confirm_timeout": "время подтверждения истекло",
+    "ui.confirm.footer": "=== /подтверждение ===\n",
+    "ui.confirm.howto": "Как ответить: y=продолжить / c=отмена / другое=отклонить\n",
+    "ui.confirm.title": "=== Запрос подтверждения от пользователя ==="
+  },
+  "pt_BR": {
+    "confirm.risky_command": "Foi detectado conteúdo de comando potencialmente perigoso.\ncomando: {command}\nDigite y para continuar ou c para cancelar.",
+    "confirm.shell_metachar": "Foram detectados operadores de shell (pipe/redirecionamento/encadeamento).\ncomando: {command}\nDigite y para continuar ou c para cancelar.",
+    "err.blocked_cancelled": "cancelado pelo usuário",
+    "err.blocked_rejected": "rejeitado pelo usuário",
+    "err.callbacks_unavailable": "callbacks human_ask não disponíveis",
+    "err.confirm_failed": "falha na confirmação",
+    "err.confirm_timeout": "tempo limite da confirmação",
+    "ui.confirm.footer": "=== /confirmar ===\n",
+    "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
+    "ui.confirm.title": "=== Solicitação de confirmação humana ==="
   }
 }

@@ -62,5 +62,37 @@
     "param.return.description": "แบบฟอร์มเอาท์พุต",
     "tool.description": "คำนวณแฮช (sha256/sha1/md5) ของไฟล์",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "param.algo.description": "Hashing-Algorithmus",
+    "param.chunk_size.description": "Blockgröße lesen (Byte)",
+    "param.paths.description": "Zieldateipfad-Array",
+    "param.return.description": "Ausgabeformular",
+    "tool.description": "Berechnet den Hash (sha256/sha1/md5) von Dateien.",
+    "tool.system_prompt": "Dieses Tool dient folgendem Zweck: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.algo.description": "algoritmo di hashing",
+    "param.chunk_size.description": "Leggi la dimensione del blocco (byte)",
+    "param.paths.description": "Matrice del percorso del file di destinazione",
+    "param.return.description": "Modulo di output",
+    "tool.description": "Calcola l'hash (sha256/sha1/md5) dei file.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.algo.description": "алгоритм хеширования",
+    "param.chunk_size.description": "Чтение размера фрагмента (байты)",
+    "param.paths.description": "Массив путей к целевому файлу",
+    "param.return.description": "Форма вывода",
+    "tool.description": "Вычисляет хэш (sha256/sha1/md5) файлов.",
+    "tool.system_prompt": "Этот инструмент используется для следующих целей: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.algo.description": "algoritmo de hash",
+    "param.chunk_size.description": "Ler o tamanho do bloco (bytes)",
+    "param.paths.description": "Matriz de caminho de arquivo de destino",
+    "param.return.description": "Formulário de saída",
+    "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   }
 }

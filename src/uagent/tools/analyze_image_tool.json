@@ -46,5 +46,29 @@
     "param.prompt.description": "สิ่งที่คุณต้องการทราบเกี่ยวกับภาพ",
     "tool.description": "โหลดไฟล์ภาพและให้ AI (Vision) อธิบายเนื้อหา มีประโยชน์สำหรับการวิเคราะห์ภาพหน้าจอหรือการอ่านแผนภูมิ/ตาราง",
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'analyze_image'"
+  },
+  "de": {
+    "param.image_path.description": "Pfad zur zu analysierenden Bilddatei.",
+    "param.prompt.description": "Was Sie über das Bild wissen möchten.",
+    "tool.description": "Laden Sie eine Bilddatei und lassen Sie den Inhalt von AI (Vision) beschreiben. Nützlich zum Analysieren von Screenshots oder zum Lesen von Diagrammen/Tabellen.",
+    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „analyze_image“ beschriebenen Vorgang aus."
+  },
+  "it": {
+    "param.image_path.description": "Percorso del file immagine da analizzare.",
+    "param.prompt.description": "Cosa vuoi sapere sull'immagine.",
+    "tool.description": "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto. Utile per analizzare screenshot o leggere grafici/tabelle.",
+    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento \"analyze_image\"."
+  },
+  "ru": {
+    "param.image_path.description": "Путь к файлу изображения для анализа.",
+    "param.prompt.description": "Что вы хотите знать об изображении.",
+    "tool.description": "Загрузите файл изображения и попросите AI (Vision) описать его содержимое. Полезно для анализа снимков экрана или чтения диаграмм/таблиц.",
+    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «analyze_image»."
+  },
+  "pt_BR": {
+    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
+    "param.prompt.description": "O que você quer saber sobre a imagem.",
+    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
   }
 }

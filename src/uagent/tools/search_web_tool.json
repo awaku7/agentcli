@@ -94,5 +94,53 @@
     "param.query.description": "สตริงคำค้นหา",
     "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ตัวอย่าง",
     "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ตัวอย่าง หากผลลัพธ์ว่างเปล่า ไซต์อาจถูกจำกัดอัตราหรือบล็อกคำขอ"
+  },
+  "de": {
+    "error.args_must_be_dict": "args muss ein Dict sein",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-Anfrage ist nach mehreren Versuchen fehlgeschlagen: {error}",
+    "error.missing_query_parameter": "fehlender 'query'-Parameter",
+    "error.run_tool_error": "run_tool-Fehler: {error}",
+    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5).",
+    "param.n.description": "Alias für 'max_results' (aus Gründen der Abwärtskompatibilität).",
+    "param.q.description": "Alias für 'query' (aus Gründen der Abwärtskompatibilität).",
+    "param.query.description": "Suchanfrage-String.",
+    "tool.description": "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszug zurückgeben.",
+    "tool.system_prompt": "Dieses Tool führt eine DuckDuckGo-HTML-Suche aus und gibt Titel/Link/Auszug zurück. Wenn die Ergebnisse leer sind, limitiert die Seite möglicherweise die Anfragen oder blockiert sie."
+  },
+  "it": {
+    "error.args_must_be_dict": "args deve essere un dizionario",
+    "error.duckduckgo_failed_after_retries": "La richiesta DuckDuckGo è fallita dopo i tentativi: {error}",
+    "error.missing_query_parameter": "manca il parametro 'query'",
+    "error.run_tool_error": "errore run_tool: {error}",
+    "param.max_results.description": "Numero massimo di risultati da restituire (predefinito: 5).",
+    "param.n.description": "Alias di 'max_results' (per compatibilità retroattiva).",
+    "param.q.description": "Alias di 'query' (per compatibilità retroattiva).",
+    "param.query.description": "Stringa della query di ricerca.",
+    "tool.description": "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce titolo/link/anteprima.",
+    "tool.system_prompt": "Questo strumento esegue una ricerca HTML di DuckDuckGo e restituisce titolo/link/anteprima. Se i risultati sono vuoti, il sito potrebbe limitare le richieste o bloccarle."
+  },
+  "ru": {
+    "error.args_must_be_dict": "args должен быть словарём",
+    "error.duckduckgo_failed_after_retries": "Запрос DuckDuckGo не удался после повторных попыток: {error}",
+    "error.missing_query_parameter": "отсутствует параметр 'query'",
+    "error.run_tool_error": "ошибка run_tool: {error}",
+    "param.max_results.description": "Максимальное число возвращаемых результатов (по умолчанию: 5).",
+    "param.n.description": "Псевдоним для 'max_results' (для обратной совместимости).",
+    "param.q.description": "Псевдоним для 'query' (для обратной совместимости).",
+    "param.query.description": "Строка поискового запроса.",
+    "tool.description": "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссылку/фрагмент.",
+    "tool.system_prompt": "Этот инструмент выполняет HTML-поиск DuckDuckGo и возвращает заголовок/ссылку/фрагмент. Если результаты пусты, сайт может ограничивать частоту запросов или блокировать их."
+  },
+  "pt_BR": {
+    "error.args_must_be_dict": "args deve ser um dict",
+    "error.duckduckgo_failed_after_retries": "A requisição ao DuckDuckGo falhou após as tentativas: {error}",
+    "error.missing_query_parameter": "falta o parâmetro 'query'",
+    "error.run_tool_error": "erro ao executar a ferramenta: {error}",
+    "param.max_results.description": "Número máximo de resultados a retornar (padrão: 5).",
+    "param.n.description": "Alias de 'max_results' (para compatibilidade com versões anteriores).",
+    "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
+    "param.query.description": "String da consulta de busca.",
+    "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   }
 }

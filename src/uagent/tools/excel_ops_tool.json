@@ -78,5 +78,45 @@
     "param.output_path.description": "พาธเอาต์พุตสำหรับ action='keep_only_sheets' หากมีอยู่แล้ว จะถูกเขียนทับหลังจากสร้างแบ็กอัป (<output_path>.org / <output_path>.org1 / ...) แล้ว",
     "tool.description": "อ่าน/เขียนไฟล์ Excel (.xlsx) และรับชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างข้อมูลสำรองที่มีชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนที่จะเขียน",
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'"
+  },
+  "de": {
+    "param.action.description": "Auszuführende Operation.",
+    "param.data.description": "JSON Daten zum Schreiben.",
+    "param.file_path.description": "Absoluter Pfad zur Excel-Datei.",
+    "param.sheet_name.description": "Name des Zielblatts.",
+    "param.keep_sheets.description": "Zu behaltende Blattnamen (wird nur für action='keep_only_sheets' verwendet). Wenn ein bestimmtes Blatt nicht vorhanden ist, führt das Werkzeug zu einem Fehler.",
+    "param.output_path.description": "Ausgabepfad für action='keep_only_sheets'. Wenn es bereits vorhanden ist, wird es nach dem Erstellen eines Backups überschrieben (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Lesen/schreiben Sie eine Excel-Datei (.xlsx) und rufen Sie Blattnamen ab. Beim Schreiben in eine bestehende Datei wird unmittelbar vor dem Schreiben ein Backup mit demselben Namen (<file_path>.org / <file_path>.org1 / ...) erstellt.",
+    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „excel_ops“ beschriebenen Vorgang aus."
+  },
+  "it": {
+    "param.action.description": "Operazione da eseguire.",
+    "param.data.description": "JSON dati da scrivere.",
+    "param.file_path.description": "Percorso assoluto del file Excel.",
+    "param.sheet_name.description": "Nome del foglio di destinazione.",
+    "param.keep_sheets.description": "Nomi dei fogli da conservare (utilizzati solo per action='keep_only_sheets'). Se il foglio specificato non esiste, lo strumento genera un errore.",
+    "param.output_path.description": "Percorso di output per action='keep_only_sheets'. Se esiste già, verrà sovrascritto dopo aver creato un backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Leggere/scrivere un file Excel (.xlsx) e ottenere i nomi dei fogli. Quando si scrive su un file esistente, viene creato un backup con lo stesso nome (<file_path>.org / <file_path>.org1 / ...) immediatamente prima della scrittura.",
+    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento \"excel_ops\"."
+  },
+  "ru": {
+    "param.action.description": "Операция, которую необходимо выполнить.",
+    "param.data.description": "JSON данные для записи.",
+    "param.file_path.description": "Абсолютный путь к файлу Excel.",
+    "param.sheet_name.description": "Имя целевого листа.",
+    "param.keep_sheets.description": "Имена листов, которые нужно сохранить (используются только для action='keep_only_sheets'). Если какой-либо указанный лист не существует, инструмент выдает ошибку.",
+    "param.output_path.description": "Путь вывода для action='keep_only_sheets'. Если он уже существует, он перезаписывается после создания резервной копии (<выходной_путь>.org/<выходной_путь>.org1/...).",
+    "tool.description": "Чтение/запись файла Excel (.xlsx) и получение имен листов. При записи в существующий файл непосредственно перед записью создается резервная копия с таким же именем (<путь_файла>.org/<путь_файла>.org1/...).",
+    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «excel_ops»."
+  },
+  "pt_BR": {
+    "param.action.description": "Operação a ser executada.",
+    "param.data.description": "JSON dados a serem gravados.",
+    "param.file_path.description": "Caminho absoluto para o arquivo Excel.",
+    "param.sheet_name.description": "Nome da planilha de destino.",
+    "param.keep_sheets.description": "Nomes de planilhas a serem mantidas (usadas apenas para action='keep_only_sheets'). Se alguma folha especificada não existir, a ferramenta apresenta erros.",
+    "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Leia/grave um arquivo Excel (.xlsx) e obtenha nomes de planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'."
   }
 }

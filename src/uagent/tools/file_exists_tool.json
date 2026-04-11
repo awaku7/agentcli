@@ -46,5 +46,29 @@
     "param.path.description": "เส้นทางของไฟล์หรือไดเร็กทอรีที่คุณต้องการตรวจสอบการมีอยู่ (~ สามารถใช้ได้)",
     "tool.description": "ตรวจสอบว่าไฟล์หรือไดเร็กทอรีอยู่ในพาธที่ระบุหรือไม่ และส่งคืนประเภท ขนาด และเวลาในการแก้ไข หากมี",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: ตรวจสอบว่ามีไฟล์หรือไดเร็กทอรีอยู่ในเส้นทางที่ระบุและประเภทการส่งคืน ขนาด และเวลาในการแก้ไขหากมี"
+  },
+  "de": {
+    "err.path_empty": "[file_exists error] Pfad ist leer",
+    "param.path.description": "Der Pfad der Datei oder des Verzeichnisses, dessen Existenz Sie überprüfen möchten (~ kann ebenfalls verwendet werden).",
+    "tool.description": "Überprüft, ob eine Datei oder ein Verzeichnis im angegebenen Pfad vorhanden ist, und gibt gegebenenfalls Typ, Größe und Änderungszeit zurück.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: Überprüfen Sie, ob eine Datei oder ein Verzeichnis im angegebenen Pfad vorhanden ist, und geben Sie Typ, Größe und Änderungszeit zurück, wenn dies der Fall ist."
+  },
+  "it": {
+    "err.path_empty": "Il percorso [errore_file_esiste] è vuoto",
+    "param.path.description": "Il percorso del file o della directory di cui vuoi verificare l'esistenza (è possibile utilizzare anche ~).",
+    "tool.description": "Controlla se esiste un file o una directory nel percorso specificato e, in tal caso, restituisce tipo, dimensione e ora di modifica.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: verificare se esiste un file o una directory nel percorso specificato e restituire tipo, dimensione e ora di modifica in caso affermativo."
+  },
+  "ru": {
+    "err.path_empty": "[ошибка file_exists] путь пуст",
+    "param.path.description": "Путь к файлу или каталогу, существование которого вы хотите проверить (также можно использовать ~).",
+    "tool.description": "Проверяет, существует ли файл или каталог по указанному пути, и возвращает тип, размер и время изменения, если это так.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: проверить, существует ли файл или каталог по указанному пути, и вернуть тип, размер и время модификации, если это так."
+  },
+  "pt_BR": {
+    "err.path_empty": "[erro file_exists] o caminho está vazio",
+    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja verificar (~ também pode ser usado).",
+    "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e retorna tipo, tamanho e hora de modificação, se existir.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: verificar se existe um arquivo ou diretório no caminho especificado e retornar tipo, tamanho e hora de modificação, se existir."
   }
 }

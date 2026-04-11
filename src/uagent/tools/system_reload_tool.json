@@ -30,5 +30,21 @@
   "th": {
     "tool.description": "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด"
+  },
+  "de": {
+    "tool.description": "Lädt das System neu und übernimmt den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher. Nach Codeänderungen ausführen.",
+    "tool.system_prompt": "Dieses Tool wird verwendet, um das System neu zu laden und den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher zu übernehmen. Nach Codeänderungen ausführen."
+  },
+  "it": {
+    "tool.description": "Ricarica il sistema e riflette in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python .py). Esegui dopo aver modificato il codice.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per ricaricare il sistema e riflettere in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python .py). Esegui dopo aver modificato il codice."
+  },
+  "ru": {
+    "tool.description": "Перезагружает систему и отражает в памяти последний код всех инструментов в tools/ (файлы Python .py). Запускайте после изменения кода.",
+    "tool.system_prompt": "Этот инструмент используется для перезагрузки системы и отражения в памяти последнего кода всех инструментов в tools/ (файлы Python .py). Запускайте после изменения кода."
+  },
+  "pt_BR": {
+    "tool.description": "Recarrega o sistema e reflete na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código.",
+    "tool.system_prompt": "Esta ferramenta é usada para recarregar o sistema e refletir na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código."
   }
 }

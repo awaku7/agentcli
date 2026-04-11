@@ -38,5 +38,25 @@
     "err.file_not_found": "ไม่พบไฟล์: {filename}",
     "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
     "err.path_empty": "เส้นทางว่างเปล่า"
+  },
+  "de": {
+    "err.file_not_found": "Datei nicht gefunden: {filename}",
+    "err.outside_workdir": "Pfad liegt außerhalb des Arbeitsverzeichnisses: root={root} path={path}",
+    "err.path_empty": "Pfad ist leer"
+  },
+  "it": {
+    "err.file_not_found": "File non trovato: {filename}",
+    "err.outside_workdir": "Il percorso è esterno alla directory di lavoro: root={root} path={path}",
+    "err.path_empty": "Il percorso è vuoto"
+  },
+  "ru": {
+    "err.file_not_found": "Файл не найден: {filename}",
+    "err.outside_workdir": "Путь находится вне рабочей директории: root={root} path={path}",
+    "err.path_empty": "Путь пуст"
+  },
+  "pt_BR": {
+    "err.file_not_found": "arquivo não encontrado: {filename}",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.path_empty": "o caminho está vazio"
   }
 }

@@ -278,6 +278,7 @@ See `samples/env.sample.env` for the canonical cross-provider template and `samp
 
 - In this repository: run the interactive wizard `python -m uagent.setup_cli` to generate `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat` with the intended encoding and newline settings.
 - After installing via pip/wheel: run `uag_setup` to generate your own `.env` (and optionally `env.sh` / `env.ps1` / `env.bat`) in the current directory.
+- If required provider variables are missing, `uag` will automatically launch the setup wizard and re-check the environment after you finish it.
 
 For details, see `samples/README.md`.
 
