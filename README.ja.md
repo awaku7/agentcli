@@ -105,7 +105,7 @@ python -m uagent.a2a.server
 
 ホスト側のUI文言は gettext カタログで多言語化されています。
 
-- 言語選択: `UAGENT_LANG` を設定します（例: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`, `th`）。
+- 言語選択: `UAGENT_LANG` を設定します（例: `en`, `ja`, `de`, `it`, `pt_BR`, `ru`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`, `th`）。
 - `UAGENT_LANG` が未設定または未対応の場合、英語にフォールバックします。
 
 例:
