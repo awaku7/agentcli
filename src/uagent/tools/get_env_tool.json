@@ -62,5 +62,37 @@
     "param.unmasked_chars.description": "จำนวนอักขระที่จะปล่อยไว้ที่จุดเริ่มต้นและจุดสิ้นสุดเมื่อมาสก์ ค่าเริ่มต้นคือ 2",
     "tool.description": "รับค่าของตัวแปรสภาพแวดล้อมที่ระบุและส่งกลับค่านั้น คุณสามารถเลือกมาสก์ค่าก็ได้",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับค่าของตัวแปรสภาพแวดล้อมที่ระบุแล้วส่งคืน คุณสามารถเลือกมาสก์ค่าก็ได้"
+  },
+  "de": {
+    "param.mask.description": "Wenn „true“, maskiert der Wert (z. B. geheime Informationen). Der Standardwert ist wahr.",
+    "param.missing_ok.description": "Wenn wahr, wird „(nicht gesetzt)“ anstelle eines Fehlers zurückgegeben, wenn es fehlt. Der Standardwert ist falsch.",
+    "param.name.description": "Zu lesender Name der Umgebungsvariablen.",
+    "param.unmasked_chars.description": "Anzahl der Zeichen, die beim Maskieren am Anfang und Ende verbleiben sollen. Der Standardwert ist 2.",
+    "tool.description": "Ruft den Wert einer angegebenen Umgebungsvariablen ab und gibt ihn zurück. Maskiert optional den Wert.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: Den Wert einer angegebenen Umgebungsvariablen abrufen und zurückgeben. Maskieren Sie optional den Wert."
+  },
+  "it": {
+    "param.mask.description": "Se vero, maschera il valore (ad esempio informazioni segrete). L'impostazione predefinita è vera.",
+    "param.missing_ok.description": "Se vero, restituisce \"(non impostato)\" invece di un errore in caso di mancanza. L'impostazione predefinita è falsa.",
+    "param.name.description": "Nome della variabile di ambiente da leggere.",
+    "param.unmasked_chars.description": "Numero di caratteri da lasciare all'inizio e alla fine durante il mascheramento. L'impostazione predefinita è 2.",
+    "tool.description": "Ottiene il valore di una variabile di ambiente specificata e lo restituisce. Facoltativamente maschera il valore.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: ottenere il valore di una variabile di ambiente specificata e restituirlo. Facoltativamente mascherare il valore."
+  },
+  "ru": {
+    "param.mask.description": "Если это правда, маскирует значение (например, секретную информацию). По умолчанию верно.",
+    "param.missing_ok.description": "Если это правда, при отсутствии ошибки верните «(не установлено)» вместо ошибки. По умолчанию — ложь.",
+    "param.name.description": "Имя переменной среды для чтения.",
+    "param.unmasked_chars.description": "Количество символов, которые необходимо оставить в начале и конце при маскировке. По умолчанию — 2.",
+    "tool.description": "Получает значение указанной переменной среды и возвращает его. При необходимости маскирует значение.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: получить значение указанной переменной среды и вернуть его. При необходимости замаскируйте значение."
+  },
+  "pt_BR": {
+    "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, informações secretas). O padrão é verdadeiro.",
+    "param.missing_ok.description": "Se for verdade, retorne '(not set)' em vez de um erro quando ausente. O padrão é falso.",
+    "param.name.description": "Nome da variável de ambiente a ser lida.",
+    "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
+    "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
   }
 }

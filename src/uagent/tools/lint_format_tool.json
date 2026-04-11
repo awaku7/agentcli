@@ -86,5 +86,49 @@
     "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่า มันจะถูกเลือกโดยอัตโนมัติ (การมีอยู่จะถูกตรวจสอบตามลำดับ ruff/black/mypy)",
     "tool.description": "เรียกใช้การวิเคราะห์/ฟอร์แมตแบบคงที่ (เช่น ruff/black/mypy) mode=fix แก้ไขไฟล์และต้องมีการยืนยัน",
     "tool.system_prompt": "เรียกใช้การวิเคราะห์/ตัวจัดรูปแบบแบบคงที่ หากต้องการการยืนยันผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
+  },
+  "de": {
+    "confirm.msg": "lint_format(mode=fix) kann Dateien neu schreiben.\nWerkzeuge: {tools}\nZiele: {targets}\ncwd: {cwd}\n\nGeben Sie y ein, wenn Sie fortfahren möchten, oder c, wenn Sie abbrechen möchten.",
+    "doc.module": "lint_format_tool\n\nEin Wrapper-Tool zum Ausführen statischer Analysen/Formatierer.\n\n- Python: Bevorzugen Sie Ruff / Black / Mypy\n- JavaScript: Führen Sie npx aus Sicherheitsgründen nicht aktiv aus (dies führt tendenziell zur Ausführung des Downloads).\n\nSicherheit:\n- mode=fix beinhaltet Dateiänderungen, also erkundigen Sie sich bei human_ask.\n- Akzeptieren Sie Argumente als Array und lehnen Sie sie ab, wenn sie gefährliche Shell-Metazeichen enthalten.\n\nUmsetzung:\n- Verwenden Sie cmd_exec_json_tool.",
+    "param.cwd.description": "Ausführungsverzeichnis (nur unter workdir zulässig). Wenn null, aktuell.",
+    "param.extra_args.description": "Zusätzliche Argumente (Array). Lehnen Sie gefährliche Metazeichen ab.",
+    "param.mode.description": "check=nur prüfen / fix=automatische Korrektur",
+    "param.targets.description": "Zielpfad-Array (nur unter Arbeitsverzeichnis zulässig).",
+    "param.tools.description": "Ein Array von Werkzeugnamen, die ausgeführt werden sollen. Wenn es leer ist, wird es automatisch ausgewählt (das Vorhandensein wird in der Reihenfolge Ruff/Black/Mypy überprüft).",
+    "tool.description": "Führen Sie statische Analysen/Formatierer aus (z. B. ruff/black/mypy). mode=fix ändert Dateien und erfordert eine Bestätigung.",
+    "tool.system_prompt": "Führen Sie statische Analysen/Formatierer aus. Wenn eine zusätzliche Benutzerbestätigung erforderlich ist (z. B. mode=fix), verwenden Sie human_ask."
+  },
+  "it": {
+    "confirm.msg": "lint_format(mode=fix) può riscrivere i file.\nstrumenti: {tools}\nobiettivi: {targets}\ncwd: {cwd}\n\nDigita y se vuoi procedere oppure c se vuoi annullare.",
+    "doc.module": "lint_format_tool\n\nUno strumento wrapper per eseguire analisi/formattatori statici.\n\n- Pitone: preferisci gorgiera/nero/mypy\n- JavaScript: per motivi di sicurezza, non eseguire attivamente npx (tende a provocare l'esecuzione del download)\n\nSicurezza:\n- mode=fix implica modifiche ai file, quindi controlla con human_ask.\n- Accetta argomenti come array e rifiutali se contengono metacaratteri shell pericolosi.\n\nAttuazione:\n- Utilizza cmd_exec_json_tool.",
+    "param.cwd.description": "Directory di esecuzione (consentita solo in workdir). Se nullo, corrente.",
+    "param.extra_args.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
+    "param.mode.description": "check=solo controllo / fix=correzione automatica",
+    "param.targets.description": "Array del percorso di destinazione (consentito solo in workdir).",
+    "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente (l'esistenza verrà verificata nell'ordine ruff/black/mypy).",
+    "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy). mode=fix modifica i file e richiede conferma.",
+    "tool.system_prompt": "Esegui analisi/formattatori statici. Se è necessaria un'ulteriore conferma da parte dell'utente (ad esempio, mode=fix), utilizzare human_ask."
+  },
+  "ru": {
+    "confirm.msg": "lint_format(mode=fix) может перезаписывать файлы.\nинструменты: {tools}\nцели: {targets}\ncwd: {cwd}\n\nВведите y, если хотите продолжить, или c, если хотите отменить.",
+    "doc.module": "lint_format_tool\n\nИнструмент-оболочка для запуска статического анализа/форматирования.\n\n- Python: предпочитаю ерш/черный/mypy\n- JavaScript: из соображений безопасности не выполняйте активно npx (это может привести к выполнению загрузки)\n\nБезопасность:\n- mode=fix включает в себя изменения файлов, поэтому проверьте с помощью human_ask.\n— Принимать аргументы как массив и отклонять их, если они содержат опасные метасимволы оболочки.\n\nРеализация:\n- Используйте cmd_exec_json_tool.",
+    "param.cwd.description": "Каталог выполнения (разрешен только в рабочем каталоге). Если ноль, текущий.",
+    "param.extra_args.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы.",
+    "param.mode.description": "check=только проверка / fix=автоматическое исправление",
+    "param.targets.description": "Массив целевых путей (разрешен только в рабочем каталоге).",
+    "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически (наличие будет проверено в порядке ruff/black/mypy).",
+    "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy). mode=fix изменяет файлы и требует подтверждения.",
+    "tool.system_prompt": "Запустите статический анализ/форматирование. Если требуется дополнительное подтверждение пользователя (например, mode=fix), используйте human_ask."
+  },
+  "pt_BR": {
+    "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y se quiser continuar ou c se quiser cancelar.",
+    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: Por motivos de segurança, não execute ativamente o npx (isso tende a resultar na execução do download)\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.\n\nImplementação:\n- Use cmd_exec_json_tool.",
+    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
+    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "param.mode.description": "check=verificar apenas / fix=correção automática",
+    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
+    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente (a existência será verificada na ordem ruff/black/mypy).",
+    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
   }
 }
