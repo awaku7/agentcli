@@ -147,6 +147,7 @@ Sample files are available under `samples/`:
 - Usage details: `samples/README.md`
 
 Recommended (wheel/pip install): run `uag_setup` to generate a `.env` (and optionally `env.sh` / `env.ps1` / `env.bat`) in the current directory.
+If required provider variables are missing, `uag` will automatically launch the setup wizard and re-check the environment after you finish it.
 
 ```bat
 uag_setup

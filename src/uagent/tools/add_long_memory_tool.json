@@ -38,5 +38,25 @@
     "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
     "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
     "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
+  },
+  "de": {
+    "param.note.description": "Der zu speichernde Notiztext.",
+    "tool.description": "Speichern Sie im Langzeitgedächtnis eine einzelne Notiz über den Benutzer/die Umgebung, die bei zukünftigen Gesprächen nützlich sein kann.",
+    "tool.system_prompt": "Speichern Sie eine nützliche Langzeitgedächtnisnotiz.\nSpeichern Sie keine Geheimnisse wie Passwörter, API-Schlüssel oder Token."
+  },
+  "it": {
+    "param.note.description": "Il testo della nota da salvare.",
+    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future.",
+    "tool.system_prompt": "Salva una nota utile nella memoria a lungo termine.\nNon archiviare segreti come password, chiavi API o token."
+  },
+  "ru": {
+    "param.note.description": "Текст заметки, которую нужно сохранить.",
+    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/окружении, которая может пригодиться в будущих разговорах.",
+    "tool.system_prompt": "Сохраните одну полезную заметку на долговременную память.\nНе храните секреты, такие как пароли, ключи API или токены."
+  },
+  "pt_BR": {
+    "param.note.description": "O texto da nota a ser salvo.",
+    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
+    "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves API ou tokens."
   }
 }

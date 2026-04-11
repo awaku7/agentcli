@@ -86,5 +86,49 @@
     "param.skill_dir.description": "ไดเรกทอรีทักษะ",
     "tool.description": "อ่านไฟล์อย่างปลอดภัยภายใต้ไดเร็กทอรีทักษะโดยใช้พาธแบบสัมพันธ์ การข้ามเส้นทางถูกบล็อก",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "err.invalid_args": "[Werkzeugfehler] Ungültige Argumente",
+    "err.max_bytes_positive": "[Werkzeugfehler] max_bytes muss eine positive Ganzzahl sein",
+    "err.relative_path_required": "[Werkzeugfehler] relative_path muss ein nicht leerer String sein",
+    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leerer String sein",
+    "param.max_bytes.description": "Maximale Anzahl der zu lesenden Bytes (Standard: 5000000)",
+    "param.relative_path.description": "Pfad relativ zur Skill-Wurzel (z. B. references/REFERENCE.md)",
+    "param.skill_dir.description": "Skill-Verzeichnis",
+    "tool.description": "Liest sicher eine Datei unter einem Skill-Verzeichnis über einen relativen Pfad. Pfad-Traversal wird blockiert.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "err.invalid_args": "[errore strumento] argomenti non validi",
+    "err.max_bytes_positive": "[errore strumento] max_bytes deve essere un intero positivo",
+    "err.relative_path_required": "[errore strumento] relative_path deve essere una stringa non vuota",
+    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una stringa non vuota",
+    "param.max_bytes.description": "Numero massimo di byte da leggere (predefinito: 5000000)",
+    "param.relative_path.description": "Percorso relativo alla radice dello skill (ad es. references/REFERENCE.md)",
+    "param.skill_dir.description": "Directory dello skill",
+    "tool.description": "Legge in modo sicuro un file sotto una directory dello skill usando un percorso relativo. Il path traversal è bloccato.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "err.invalid_args": "[ошибка инструмента] недопустимые аргументы",
+    "err.max_bytes_positive": "[ошибка инструмента] max_bytes должен быть положительным целым числом",
+    "err.relative_path_required": "[ошибка инструмента] relative_path должен быть непустой строкой",
+    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть непустой строкой",
+    "param.max_bytes.description": "Максимальное число байт для чтения (по умолчанию: 5000000)",
+    "param.relative_path.description": "Путь относительно корня навыка (например, references/REFERENCE.md)",
+    "param.skill_dir.description": "Каталог навыка",
+    "tool.description": "Безопасно читает файл в каталоге навыка по относительному пути. Обход пути блокируется.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "err.invalid_args": "[erro da ferramenta] argumentos inválidos",
+    "err.max_bytes_positive": "[erro da ferramenta] max_bytes deve ser um inteiro positivo",
+    "err.relative_path_required": "[erro da ferramenta] relative_path deve ser uma string não vazia",
+    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma string não vazia",
+    "param.max_bytes.description": "Número máximo de bytes para ler (padrão: 5000000)",
+    "param.relative_path.description": "Caminho relativo à raiz do skill (por exemplo, references/REFERENCE.md)",
+    "param.skill_dir.description": "Diretório do skill",
+    "tool.description": "Lê com segurança um arquivo sob um diretório de skill usando um caminho relativo. A travessia de caminho é bloqueada.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   }
 }

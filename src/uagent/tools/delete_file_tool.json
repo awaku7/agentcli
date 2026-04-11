@@ -80,5 +80,49 @@
     "param.path.description": "(ความเข้ากันได้) นามแฝงของชื่อไฟล์",
     "tool.description": "ลบไฟล์หรือไดเร็กทอรีที่ระบุ (ไดเร็กทอรีจะถูกลบซ้ำ) เนื่องจากสิ่งนี้เป็นอันตราย จึงอาจต้องมีการยืนยัน",
     "tool.system_prompt": "ลบเส้นทางที่ระบุหลังจากยืนยันกับผู้ใช้แล้วเท่านั้นว่าเป็นการดำเนินการที่อาจทำลายได้"
+  },
+  "de": {
+    "confirm.delete_paths_bulk": "{count} Pfade löschen?\\n\\n{paths}\\n\\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
+    "param.allow_dir.description": "Wenn „true“, erlauben Sie das Löschen von Verzeichnissen, die mit Glob übereinstimmen.",
+    "param.dry_run.description": "Wenn „true“, nur übereinstimmende Pfade auflisten und nichts löschen.",
+    "param.filename.description": "Zu löschender Pfad oder eine Liste der zu löschenden Pfade/Glob-Muster.",
+    "param.missing_ok.description": "Wenn „true“, wird kein Fehler ausgegeben, wenn der Pfad nicht vorhanden ist.",
+    "param.path.description": "(Kompatibilität) Alias ​​des Dateinamens.",
+    "param.confirmed.description": "Wenn „true“, überspringen Sie die interne Bestätigungsaufforderung des Tools.",
+    "tool.description": "Löschen Sie die angegebene Datei oder das angegebene Verzeichnis (Verzeichnisse werden rekursiv gelöscht). Da dies gefährlich ist, ist möglicherweise eine Bestätigung erforderlich.",
+    "tool.system_prompt": "Löschen Sie den angegebenen Pfad erst nach Rücksprache mit dem Benutzer, wenn es sich um einen potenziell destruktiven Vorgang handelt."
+  },
+  "it": {
+    "confirm.delete_paths_bulk": "Eliminare {count} percorsi?\\n\\n{paths}\\n\\nInserisci y per procedere o c per annullare.",
+    "param.allow_dir.description": "Se vero, consente l'eliminazione delle directory corrispondenti a glob.",
+    "param.dry_run.description": "Se vero, elenca solo i percorsi corrispondenti e non elimina nulla.",
+    "param.filename.description": "Percorso da eliminare o un elenco di percorsi/modelli glob da eliminare.",
+    "param.missing_ok.description": "Se vero, non commettere errori quando il percorso non esiste.",
+    "param.path.description": "(Compatibilità) Alias ​​del nome file.",
+    "param.confirmed.description": "Se vero, salta la richiesta di conferma interna dello strumento.",
+    "tool.description": "Elimina il file o la directory specificata (le directory vengono eliminate in modo ricorsivo). Poiché questo è pericoloso, potrebbe essere necessaria una conferma.",
+    "tool.system_prompt": "Eliminare il percorso specificato solo dopo aver confermato con l'utente se si tratta di un'operazione potenzialmente distruttiva."
+  },
+  "ru": {
+    "confirm.delete_paths_bulk": "Удалить пути {count}?\\n\\n{paths}\\n\\nВведите y, чтобы продолжить, или c, чтобы отменить.",
+    "param.allow_dir.description": "Если это правда, разрешить удаление каталогов, соответствующих glob.",
+    "param.dry_run.description": "Если это правда, перечислять только совпадающие пути и ничего не удалять.",
+    "param.filename.description": "Путь для удаления или список путей/шаблонов для удаления.",
+    "param.missing_ok.description": "Если это правда, не допускайте ошибок, если путь не существует.",
+    "param.path.description": "(Совместимость) Псевдоним имени файла.",
+    "param.confirmed.description": "Если это правда, пропустите внутренний запрос подтверждения инструмента.",
+    "tool.description": "Удалить указанный файл или каталог (каталоги удаляются рекурсивно). Поскольку это опасно, может потребоваться подтверждение.",
+    "tool.system_prompt": "Удаляйте указанный путь только после подтверждения пользователем того, является ли это потенциально разрушительной операцией."
+  },
+  "pt_BR": {
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\\n\\n{paths}\\n\\nDigite y para continuar ou c para cancelar.",
+    "param.allow_dir.description": "Se for verdade, permite a exclusão de diretórios correspondentes ao glob.",
+    "param.dry_run.description": "Se for verdade, liste apenas os caminhos correspondentes e não exclua nada.",
+    "param.filename.description": "Caminho a ser excluído ou uma lista de caminhos/padrões glob a serem excluídos.",
+    "param.missing_ok.description": "Se for verdade, não cometa erros quando o caminho não existir.",
+    "param.path.description": "(Compatibilidade) Alias ​​do nome do arquivo.",
+    "param.confirmed.description": "Se for verdade, ignore o prompt de confirmação interno da ferramenta.",
+    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação.",
+    "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se é uma operação potencialmente destrutiva."
   }
 }

@@ -70,5 +70,41 @@
     "param.src.description": "เส้นทางดั้งเดิม (ไฟล์/ไดเร็กทอรี) แนะนำเส้นทางสัมพัทธ์",
     "tool.description": "เปลี่ยนชื่อ (ย้าย) ไฟล์หรือไดเร็กทอรี",
     "tool.system_prompt": "เครื่องมือนี้จะเปลี่ยนชื่อหรือย้ายไฟล์หรือไดเร็กทอรี\n\nหมายเหตุด้านความปลอดภัย:\n- จำเป็นต้องมีการยืนยันสำหรับเส้นทางที่แน่นอน เส้นทางที่มี '..' หรือการดำเนินการภายนอก workdir\n- overwrite=true ต้องมีการยืนยันเนื่องจากเกี่ยวข้องกับการลบปลายทาง"
+  },
+  "de": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path-Tool\n\nZweck:\n- Dateien/Verzeichnisse umbenennen/verschieben.\n\nSicherheitspolitik:\n- Bestätigen Sie den Benutzer, wenn gefährliche Pfadbedingungen wie außerhalb des Arbeitsverzeichnisses, absoluter Pfad oder einschließlich ... erfüllt sind.\n- Benutzerbestätigung, wenn overwrite=True (vorhandene dst löschen und ersetzen).\n\nUmsetzung:\n– Entitätsoperationen werden an tools.safe_file_ops.safe_rename_path() delegiert.\n- Um ein vorhandenes DST zu entfernen, heißt die Datei os.remove und das Verzeichnis Shutil.rmtree.\n\nAchtung:\n- Dieses Tool ändert die eigentliche Datei auf die gleiche Weise wie create_file/delete_file, also\n  Entwickelt, um eine Sicherheitsbestätigung zu enthalten, selbst wenn der Anruf von LLM erfolgt.",
+    "param.dst.description": "Zielpfad (Datei/Verzeichnis). Relativer Pfad empfohlen.",
+    "param.mkdirs.description": "Wenn „true“, erstellen Sie vor der Ausführung ein übergeordnetes Verzeichnis für dst.",
+    "param.overwrite.description": "Wenn „true“, löschen und ersetzen Sie dst, falls es bereits vorhanden ist (Sie werden um Bestätigung gebeten).",
+    "param.src.description": "Ursprünglicher Pfad (Datei/Verzeichnis). Relativer Pfad empfohlen.",
+    "tool.description": "Eine Datei oder ein Verzeichnis umbenennen (verschieben).",
+    "tool.system_prompt": "Dieses Tool benennt eine Datei oder ein Verzeichnis um oder verschiebt sie.\n\nSicherheitshinweise:\n– Für absolute Pfade, Pfade, die „..“ enthalten, oder Vorgänge außerhalb des Arbeitsverzeichnisses ist eine Bestätigung erforderlich.\n- overwrite=true erfordert eine Bestätigung, da dabei das Ziel gelöscht wird."
+  },
+  "it": {
+    "doc.module": "tools/rename_path_tool.py\n\nstrumento rinomina_percorso\n\nScopo:\n- Rinominare/spostare file/directory.\n\nPolitica di sicurezza:\n- Confermare l'utente se vengono soddisfatte condizioni di percorso pericolose come directory di lavoro esterna, percorso assoluto o inclusione.\n- Conferma dell'utente se sovrascrivi=Vero (elimina e sostituisci dst esistente).\n\nAttuazione:\n- Le operazioni sulle entità sono delegate a tools.safe_file_ops.safe_rename_path().\n- Per rimuovere un dst esistente, il file è os.remove e la directory è shutil.rmtree.\n\nAttenzione:\n- Questo strumento modifica il file effettivo allo stesso modo di create_file/delete_file, quindi\n  Progettato per includere la conferma di sicurezza anche quando chiamato da LLM.",
+    "param.dst.description": "Percorso di destinazione (file/directory). Percorso relativo consigliato.",
+    "param.mkdirs.description": "Se vero, crea una directory principale per dst prima dell'esecuzione.",
+    "param.overwrite.description": "Se vero, elimina e sostituisci dst se già esiste (ti verrà chiesta conferma).",
+    "param.src.description": "Percorso originale (file/directory). Percorso relativo consigliato.",
+    "tool.description": "Rinominare (spostare) un file o una directory.",
+    "tool.system_prompt": "Questo strumento rinomina o sposta un file o una directory.\n\nNote sulla sicurezza:\n- La conferma è richiesta per percorsi assoluti, percorsi contenenti '..' o operazioni esterne alla directory di lavoro.\n- overwrite=true richiede conferma poiché comporta la cancellazione della destinazione."
+  },
+  "ru": {
+    "doc.module": "инструменты/rename_path_tool.py\n\nинструмент переименования_путь\n\nЦель:\n- Переименовывать/перемещать файлы/каталоги.\n\nПолитика безопасности:\n- Подтвердите пользователя, если выполняются условия опасного пути, такие как внешний рабочий каталог, абсолютный путь или включение ...\n- Подтверждение пользователя, если overwrite=True (удаление и замена существующего dst).\n\nРеализация:\n— Операции с сущностями делегируются в Tools.safe_file_ops.safe_rename_path().\n- Чтобы удалить существующий dst, используйте файл os.remove и каталог Shutil.rmtree.\n\nВнимание:\n- Этот инструмент изменяет сам файл так же, как create_file/delete_file, поэтому\n  Разработан для включения подтверждения безопасности даже при вызове из LLM.",
+    "param.dst.description": "Путь назначения (файл/каталог). Рекомендуется относительный путь.",
+    "param.mkdirs.description": "Если это правда, перед выполнением создайте родительский каталог для dst.",
+    "param.overwrite.description": "Если это правда, удалите и замените dst, если он уже существует (вас попросят подтвердить).",
+    "param.src.description": "Исходный путь (файл/каталог). Рекомендуется относительный путь.",
+    "tool.description": "Переименуйте (переместите) файл или каталог.",
+    "tool.system_prompt": "Этот инструмент переименовывает или перемещает файл или каталог.\n\nПримечания по безопасности:\n— Подтверждение требуется для абсолютных путей, путей, содержащих «..», или операций за пределами рабочего каталога.\n- overwrite=true требует подтверждения, поскольку предполагает удаление места назначения."
+  },
+  "pt_BR": {
+    "doc.module": "ferramentas/renomear_path_tool.py\n\nferramenta renomear_path\n\nObjetivo:\n- Renomear/mover arquivos/diretórios.\n\nPolítica de segurança:\n- Confirme o usuário se condições de caminho perigosas, como workdir externo, caminho absoluto ou incluindo .., forem atendidas.\n- Confirmação do usuário se overwrite=True (excluir e substituir dst existente).\n\nImplementação:\n- As operações da entidade são delegadas a tools.safe_file_ops.safe_rename_path().\n- Para remover um dst existente, o arquivo é os.remove e o diretório é shutil.rmtree.\n\nAtenção:\n- Esta ferramenta altera o arquivo real da mesma forma que create_file/delete_file, então\n  Projetado para incluir confirmação de segurança mesmo quando chamado de LLM.",
+    "param.dst.description": "Caminho de destino (arquivo/diretório). Caminho relativo recomendado.",
+    "param.mkdirs.description": "Se for verdade, crie um diretório pai para dst antes de executar.",
+    "param.overwrite.description": "Se for verdade, exclua e substitua dst se já existir (será solicitada confirmação).",
+    "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
+    "tool.description": "Renomeie (mova) um arquivo ou diretório.",
+    "tool.system_prompt": "Esta ferramenta renomeia ou move um arquivo ou diretório.\n\nNotas de segurança:\n- A confirmação é necessária para caminhos absolutos, caminhos contendo '..' ou operações fora do diretório de trabalho.\n- overwrite=true requer confirmação, pois envolve a exclusão do destino."
   }
 }

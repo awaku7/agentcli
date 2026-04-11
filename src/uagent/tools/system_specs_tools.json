@@ -46,5 +46,29 @@
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รวบรวมสเปกระบบ เช่น OS, CPU, ขนาด RAM, ข้อมูลดิสก์ (เท่าที่ทำได้) และพื้นที่ว่างของโวลุ่ม",
     "param.include_volumes.description": "รวมข้อมูลการใช้งานโวลุ่มที่เมานต์อยู่",
     "param.include_disks.description": "รวมข้อมูลดิสก์จริงเมื่อมีให้ (เท่าที่ทำได้)"
+  },
+  "de": {
+    "tool.description": "Systemspezifikationen (OS/CPU/RAM/Datenträger/Volumes) möglichst plattformübergreifend abrufen.",
+    "tool.system_prompt": "Dieses Tool wird verwendet, um Systemspezifikationen wie Betriebssystem, CPU, RAM-Größe, Speicherlaufwerke (best effort) und freien Speicherplatz der Volumes zu erfassen.",
+    "param.include_volumes.description": "Informationen zur Nutzung eingehängter Volumes einbeziehen.",
+    "param.include_disks.description": "Wenn verfügbar, Informationen zu physischen Datenträgern einbeziehen (best effort)."
+  },
+  "it": {
+    "tool.description": "Ottiene le specifiche di sistema (OS/CPU/RAM/dischi/volumi) nel miglior modo possibile su più piattaforme.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per raccogliere specifiche di sistema come OS, CPU, dimensione della RAM, dischi di archiviazione (best effort) e spazio libero dei volumi.",
+    "param.include_volumes.description": "Includi le informazioni sull'utilizzo dei volumi montati.",
+    "param.include_disks.description": "Includi le informazioni sui dischi fisici quando disponibili (best effort)."
+  },
+  "ru": {
+    "tool.description": "Получает системные характеристики (ОС/CPU/RAM/диски/тома) максимально кроссплатформенно.",
+    "tool.system_prompt": "Этот инструмент используется для сбора системной информации, такой как ОС, CPU, объём RAM, диски хранения (по возможности) и свободное место на томах.",
+    "param.include_volumes.description": "Включать сведения об использовании подключённых томов.",
+    "param.include_disks.description": "Включать сведения о физических дисках, если доступны (по возможности)."
+  },
+  "pt_BR": {
+    "tool.description": "Obtém especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de forma multiplataforma.",
+    "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como SO, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
+    "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
+    "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
   }
 }

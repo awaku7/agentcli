@@ -94,5 +94,53 @@
     "param.seconds.description": "จำนวนวินาทีในตัวจับเวลา",
     "tool.description": "แสดงข้อความหลังจากจำนวนวินาทีที่ระบุ คุณสามารถป้อนข้อความอัตโนมัติลงใน LLM ได้อีกด้วย",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: แสดงข้อความหลังจากจำนวนวินาทีที่ระบุ และเลือกป้อนข้อความอัตโนมัติไปที่ LLM"
+  },
+  "de": {
+    "err.queue_uninitialized": "[set_timer Fehler] event_queue-Callback ist nicht initialisiert.",
+    "err.seconds_invalid": "[set_timer Fehler] Sekunden können nicht als ganze Zahl interpretiert werden: {raw}",
+    "err.seconds_negative": "[set_timer Fehler] Sekunden müssen 0 oder größer sein: {val}",
+    "msg.default_timer_done": "Timer endet",
+    "out.ok": "[set_timer] Timer auf {seconds} Sekunden gesetzt: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Nach Abschluss anzuzeigende Nachricht.",
+    "param.on_timeout_prompt.description": "Inhalt, der beim Ablauf automatisch an das LLM übergeben wird.",
+    "param.seconds.description": "Anzahl der Sekunden des Timers.",
+    "tool.description": "Zeigt nach einer angegebenen Anzahl von Sekunden eine Nachricht an. Optional kann auch eine automatische Nachricht in das LLM eingegeben werden.",
+    "tool.system_prompt": "Dieses Tool wird für folgenden Zweck verwendet: Nach einer angegebenen Anzahl von Sekunden eine Nachricht anzeigen und optional eine automatische Nachricht an das LLM eingeben."
+  },
+  "it": {
+    "err.queue_uninitialized": "[errore set_timer] il callback event_queue non è inizializzato.",
+    "err.seconds_invalid": "[errore set_timer] i secondi non possono essere interpretati come un intero: {raw}",
+    "err.seconds_negative": "[errore set_timer] i secondi devono essere 0 o superiori: {val}",
+    "msg.default_timer_done": "Il timer termina",
+    "out.ok": "[set_timer] Impostato il timer a {seconds} secondi: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Messaggio da mostrare al termine.",
+    "param.on_timeout_prompt.description": "Contenuto da inserire automaticamente in LLM alla scadenza.",
+    "param.seconds.description": "Numero di secondi del timer.",
+    "tool.description": "Mostra un messaggio dopo un numero specificato di secondi. Facoltativamente, è possibile inserire automaticamente un messaggio nell'LLM.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: mostrare un messaggio dopo un numero specificato di secondi e, facoltativamente, inserire automaticamente un messaggio nell'LLM."
+  },
+  "ru": {
+    "err.queue_uninitialized": "[set_timer ошибка] callback event_queue не инициализирован.",
+    "err.seconds_invalid": "[set_timer ошибка] seconds нельзя интерпретировать как целое число: {raw}",
+    "err.seconds_negative": "[set_timer ошибка] seconds должен быть 0 или больше: {val}",
+    "msg.default_timer_done": "Таймер завершается",
+    "out.ok": "[set_timer] Таймер установлен на {seconds} секунд: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Сообщение, отображаемое по завершении.",
+    "param.on_timeout_prompt.description": "Содержимое, которое будет автоматически введено в LLM по истечении срока.",
+    "param.seconds.description": "Количество секунд таймера.",
+    "tool.description": "Отображает сообщение через указанное число секунд. При необходимости можно автоматически ввести сообщение в LLM.",
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: отображать сообщение через указанное число секунд и при необходимости автоматически вводить сообщение в LLM."
+  },
+  "pt_BR": {
+    "err.queue_uninitialized": "[erro set_timer] o callback event_queue não foi inicializado.",
+    "err.seconds_invalid": "[erro set_timer] seconds não pode ser interpretado como um inteiro: {raw}",
+    "err.seconds_negative": "[erro set_timer] seconds deve ser 0 ou maior: {val}",
+    "msg.default_timer_done": "O timer termina",
+    "out.ok": "[set_timer] Timer definido para {seconds} segundos: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Mensagem a exibir ao concluir.",
+    "param.on_timeout_prompt.description": "Conteúdo a ser inserido automaticamente no LLM ao expirar.",
+    "param.seconds.description": "Quantidade de segundos do timer.",
+    "tool.description": "Exibe uma mensagem após um número especificado de segundos. Opcionalmente, também é possível inserir uma mensagem automática no LLM.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: exibir uma mensagem após um número especificado de segundos e, opcionalmente, inserir uma mensagem automática no LLM."
   }
 }

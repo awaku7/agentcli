@@ -54,5 +54,33 @@
     "log.load_ok.external": "[เครื่องมือ] โหลดเครื่องมือภายนอก: {entry_name}",
     "log.loaded_tools": "[เครื่องมือ] เครื่องมือที่โหลด: {names}",
     "log.no_valid_tools": "[เครื่องมือ] ไม่พบเครื่องมือที่ถูกต้อง"
+  },
+  "de": {
+    "log.load_fail.external": "[Tools] Externes Plugin konnte nicht geladen werden {entry_path}: {err}",
+    "log.load_fail.internal": "[Tools] Internes Plugin konnte nicht geladen werden {mod_name}: {err}",
+    "log.load_ok.external": "[Tools] Geladene externe Tools: {entry_name}",
+    "log.loaded_tools": "[Werkzeuge] Geladene Werkzeuge: {names}",
+    "log.no_valid_tools": "[Tools] Es wurden keine gültigen Tools gefunden."
+  },
+  "it": {
+    "log.load_fail.external": "[strumenti] Impossibile caricare il plugin esterno {entry_path}: {err}",
+    "log.load_fail.internal": "[strumenti] Impossibile caricare il plugin interno {mod_name}: {err}",
+    "log.load_ok.external": "[strumenti] Strumenti esterni caricati: {entry_name}",
+    "log.loaded_tools": "[strumenti] Strumenti caricati: {names}",
+    "log.no_valid_tools": "[strumenti] Non sono stati trovati strumenti validi."
+  },
+  "ru": {
+    "log.load_fail.external": "[инструменты] Не удалось загрузить внешний плагин {entry_path}: {err}",
+    "log.load_fail.internal": "[инструменты] Не удалось загрузить внутренний плагин {mod_name}: {err}.",
+    "log.load_ok.external": "[инструменты] Загруженные внешние инструменты: {entry_name}",
+    "log.loaded_tools": "[инструменты] Загруженные инструменты: {names}",
+    "log.no_valid_tools": "[инструменты] Действительные инструменты не найдены."
+  },
+  "pt_BR": {
+    "log.load_fail.external": "[ferramentas] Falha ao carregar o plugin externo {entry_path}: {err}",
+    "log.load_fail.internal": "[ferramentas] Falha ao carregar o plugin interno {mod_name}: {err}",
+    "log.load_ok.external": "[ferramentas] Ferramentas externas carregadas: {entry_name}",
+    "log.loaded_tools": "[ferramentas] Ferramentas carregadas: {names}",
+    "log.no_valid_tools": "[ferramentas] Nenhuma ferramenta válida foi encontrada."
   }
 }

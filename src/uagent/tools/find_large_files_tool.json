@@ -78,5 +78,45 @@
     "param.top_n.description": "ชิ้นบน N",
     "tool.description": "ค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเร็กทอรีที่ระบุ และส่งคืนผลลัพธ์ N อันดับแรกพร้อมกับสถิติตามนามสกุล",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "param.exclude_dirs.description": "Ausgeschlossener Verzeichnisname (Verzeichnisnamenübereinstimmung)",
+    "param.group_by_ext.description": "Gibt auch die Aggregation nach Erweiterung zurück",
+    "param.max_files.description": "Maximale Anzahl zu scannender Dateien (Ausreißerverhinderung)",
+    "param.min_bytes.description": "Nur für Dateien, die größer als diese Größe sind (Standard: 10 MB)",
+    "param.root.description": "Suchroute (nur unter Arbeitsverzeichnis erlaubt)",
+    "param.top_n.description": "Obere N-Stücke",
+    "tool.description": "Sucht nach großen Dateien im angegebenen Verzeichnis und gibt die Top-N-Ergebnisse zusammen mit Statistiken nach Erweiterung zurück.",
+    "tool.system_prompt": "Dieses Tool dient folgendem Zweck: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.exclude_dirs.description": "Nome della directory esclusa (corrispondenza del nome della directory)",
+    "param.group_by_ext.description": "Restituisce anche l'aggregazione per estensione",
+    "param.max_files.description": "Numero massimo di file da scansionare (prevenzione fuga)",
+    "param.min_bytes.description": "Solo per file più grandi di questa dimensione (impostazione predefinita: 10 MB)",
+    "param.root.description": "Percorso di ricerca (consentito solo in workdir)",
+    "param.top_n.description": "N pezzi superiori",
+    "tool.description": "Cerca file di grandi dimensioni nella directory specificata e restituisce i primi N risultati insieme alle statistiche per estensione.",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.exclude_dirs.description": "Исключенное имя каталога (совпадение имени каталога)",
+    "param.group_by_ext.description": "Также возвращает агрегацию по расширению",
+    "param.max_files.description": "Максимальное количество файлов для сканирования (предотвращение выхода из-под контроля)",
+    "param.min_bytes.description": "Только для файлов большего размера (по умолчанию: 10 МБ).",
+    "param.root.description": "Маршрут поиска (разрешен только в рабочем каталоге)",
+    "param.top_n.description": "Верхние N штук",
+    "tool.description": "Ищет большие файлы в указанном каталоге и возвращает первые N результатов вместе со статистикой по расширению.",
+    "tool.system_prompt": "Этот инструмент используется для следующих целей: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.exclude_dirs.description": "Nome de diretório excluído (correspondência de nome de diretório)",
+    "param.group_by_ext.description": "Também retorna agregação por extensão",
+    "param.max_files.description": "Número máximo de arquivos a serem verificados (prevenção de fuga)",
+    "param.min_bytes.description": "Somente para arquivos maiores que esse tamanho (padrão: 10 MB)",
+    "param.root.description": "Rota de pesquisa (permitida apenas em workdir)",
+    "param.top_n.description": "N peças superiores",
+    "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   }
 }

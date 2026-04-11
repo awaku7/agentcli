@@ -38,5 +38,25 @@
     "err.load": "[ข้อผิดพลาดหน่วยความจำยาว] {err_type}: {err}",
     "msg.no_memory": "(ยังไม่มีความจำระยะยาว)",
     "msg.truncated": "\n[long_memory ถูกตัดทอน: จำกัด ไว้ที่ {max_bytes} ตัวอักษร]"
+  },
+  "de": {
+    "err.load": "[long_memory-Fehler] {err_type}: {err}",
+    "msg.no_memory": "(noch kein Langzeitgedächtnis)",
+    "msg.truncated": "[long_memory gekürzt: begrenzt auf {max_bytes} Zeichen]"
+  },
+  "it": {
+    "err.load": "[errore memoria_lunga] {err_type}: {err}",
+    "msg.no_memory": "(nessuna memoria a lungo termine ancora)",
+    "msg.truncated": "[long_memory troncato: limitato a {max_bytes} caratteri]"
+  },
+  "ru": {
+    "err.load": "[ошибка длинной_памяти] {err_type}: {err}",
+    "msg.no_memory": "(пока нет долговременной памяти)",
+    "msg.truncated": "[long_memory усечен: ограничено символами {max_bytes}]"
+  },
+  "pt_BR": {
+    "err.load": "[erro de memória longa] {err_type}: {err}",
+    "msg.no_memory": "(sem memória de longo prazo ainda)",
+    "msg.truncated": "[long_memory truncado: limitado a {max_bytes} caracteres]"
   }
 }

@@ -110,5 +110,61 @@
     "param.tail_lines.description": "จำนวนบรรทัดที่จะอ่านตั้งแต่ตอนท้าย ไม่สามารถระบุพร้อมกับ head_lines ได้",
     "tool.description": "อ่านเนื้อหาไฟล์ (สูงสุด 1,000,000 ไบต์) การอ่านบางส่วนสามารถทำได้โดยระบุ start_line และ max_lines",
     "tool.system_prompt": "อ่านเนื้อหาไฟล์\n- สำหรับไฟล์ขนาดใหญ่ แนะนำให้อ่านบางส่วนโดยใช้ start_line/max_lines\n- การขึ้นบรรทัดใหม่จะถูกทำให้เป็นมาตรฐานโดยอัตโนมัติ"
+  },
+  "de": {
+    "err.dual_lines": "[read_file error] head_lines und tail_lines können nicht gleichzeitig angegeben werden",
+    "err.filename_missing": "[read_file error] Dateiname/Pfad nicht angegeben",
+    "err.out_of_range": "(Die Datei enthält nur {count} Zeilen. start_line {start_line} liegt außerhalb des Bereichs)",
+    "msg.truncated": "[read_file abgeschnitten: Bytelimit {max_bytes} erreicht]",
+    "param.filename.description": "Pfad der zu lesenden Datei.",
+    "param.head_lines.description": "Anzahl der Zeilen, die von Anfang an gelesen werden sollen. Kann nicht gleichzeitig mit tail_lines angegeben werden.",
+    "param.max_lines.description": "Maximale Anzahl der zu lesenden Zeilen. Wenn null, lesen Sie bis zum Ende der Datei.",
+    "param.path.description": "(Aus Kompatibilitätsgründen) Alternativer Name für Dateinamen.",
+    "param.start_line.description": "Zeilennummer (beginnend bei 1), um mit dem Lesen zu beginnen. Der Standardwert ist 1.",
+    "param.tail_lines.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen. Kann nicht gleichzeitig mit head_lines angegeben werden.",
+    "tool.description": "Dateiinhalte lesen (bis zu 1.000.000 Byte). Teilweises Lesen ist durch Angabe von start_line und max_lines möglich.",
+    "tool.system_prompt": "Dateiinhalt lesen.\n- Bei großen Dateien wird das teilweise Lesen mit start_line/max_lines empfohlen.\n- Zeilenumbrüche werden automatisch normalisiert."
+  },
+  "it": {
+    "err.dual_lines": "[errore read_file] head_lines e tail_lines non possono essere specificati contemporaneamente",
+    "err.filename_missing": "[errore read_file] nome file/percorso non specificato",
+    "err.out_of_range": "(Il file contiene solo {count} righe. start_line {start_line} non è compreso nell'intervallo)",
+    "msg.truncated": "[read_file troncato: limite di byte {max_bytes} raggiunto]",
+    "param.filename.description": "Percorso del file da leggere.",
+    "param.head_lines.description": "Numero di righe da leggere dall'inizio. Non può essere specificato contemporaneamente a tail_lines.",
+    "param.max_lines.description": "Numero massimo di righe da leggere. Se null, leggi fino alla fine del file.",
+    "param.path.description": "(Per compatibilità) Nome alternativo per il nome file.",
+    "param.start_line.description": "Numero di riga (a partire da 1) da cui iniziare la lettura. L'impostazione predefinita è 1.",
+    "param.tail_lines.description": "Numero di righe da leggere dalla fine. Non può essere specificato contemporaneamente a head_lines.",
+    "tool.description": "Leggere il contenuto del file (fino a 1.000.000 di byte). La lettura parziale è possibile specificando start_line e max_lines.",
+    "tool.system_prompt": "Leggere il contenuto del file.\n- Per file di grandi dimensioni, si consiglia la lettura parziale utilizzando start_line/max_lines.\n- I ritorni a capo vengono normalizzati automaticamente."
+  },
+  "ru": {
+    "err.dual_lines": "[ошибка чтения_файла] нельзя указать строки_head_lines и Tail_lines одновременно",
+    "err.filename_missing": "[ошибка чтения_файла] имя файла/путь не указаны",
+    "err.out_of_range": "(В файле только {count} строк. start_line {start_line} находится вне диапазона)",
+    "msg.truncated": "[read_file усечен: достигнут лимит байтов {max_bytes}]",
+    "param.filename.description": "Путь к файлу для чтения.",
+    "param.head_lines.description": "Количество строк для чтения с начала. Невозможно указать одновременно с Tail_lines.",
+    "param.max_lines.description": "Максимальное количество строк для чтения. Если значение равно нулю, читать до конца файла.",
+    "param.path.description": "(Для совместимости) Альтернативное имя для имени файла.",
+    "param.start_line.description": "Номер строки (начиная с 1), с которой начинается чтение. По умолчанию — 1.",
+    "param.tail_lines.description": "Количество строк для чтения с конца. Невозможно указать одновременно с head_lines.",
+    "tool.description": "Чтение содержимого файла (до 1 000 000 байт). Частичное чтение возможно путем указания start_line и max_lines.",
+    "tool.system_prompt": "Прочитать содержимое файла.\n- Для больших файлов рекомендуется частичное чтение с использованием start_line/max_lines.\n- Новые строки нормализуются автоматически."
+  },
+  "pt_BR": {
+    "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados ao mesmo tempo",
+    "err.filename_missing": "[erro read_file] nome do arquivo/caminho não especificado",
+    "err.out_of_range": "(O arquivo possui apenas {count} linhas. start_line {start_line} está fora do intervalo)",
+    "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
+    "param.filename.description": "Caminho do arquivo a ser lido.",
+    "param.head_lines.description": "Número de linhas a serem lidas desde o início. Não pode ser especificado ao mesmo tempo que tail_lines.",
+    "param.max_lines.description": "Número máximo de linhas a serem lidas. Se for nulo, leia até o final do arquivo.",
+    "param.path.description": "(Para compatibilidade) Nome alternativo para nome de arquivo.",
+    "param.start_line.description": "Número da linha (começando em 1) para iniciar a leitura. O padrão é 1.",
+    "param.tail_lines.description": "Número de linhas a serem lidas a partir do final. Não pode ser especificado ao mesmo tempo que head_lines.",
+    "tool.description": "Leia o conteúdo do arquivo (até 1.000.000 bytes). A leitura parcial é possível especificando start_line e max_lines.",
+    "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente."
   }
 }

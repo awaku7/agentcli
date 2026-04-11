@@ -94,5 +94,53 @@
     "param.years.description": "จำนวนปีที่บวก (การลบเป็นจำนวนลบ)",
     "tool.description": "ดำเนินการบวกหรือลบปี เดือน สัปดาห์ หรือวันสำหรับวันที่ที่ระบุและส่งกลับผลลัพธ์ รวมการกำหนดวันหยุดโดยใช้ห้องสมุด 'วันหยุด'",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "de": {
+    "doc.get_holiday_info": "Rufen Sie mithilfe der Feiertagsbibliothek die Feiertagsnamen des angegebenen Landes ab.",
+    "param.base_date.description": "Basisdatum (ISO 8601-Format „YYYY-MM-DD“; wenn weggelassen, heute).",
+    "param.check_holiday.description": "Ob festgestellt werden soll, ob es sich um einen Feiertag/Feiertag handelt (Standard: true)",
+    "param.country.description": "Ländercode zur Bestimmung von Feiertagen (ISO 3166-1 alpha-2, z. B. „JP“, „US“, „GB“, „FR“). Der Standardwert ist „JP“.",
+    "param.days.description": "Anzahl der Tage, die addiert werden sollen (Subtraktion ist eine negative Zahl).",
+    "param.months.description": "Anzahl der zu addierenden Monate (Subtraktion ist negativ).",
+    "param.weeks.description": "Anzahl der zu addierenden Wochen (Subtraktion ist negativ).",
+    "param.years.description": "Anzahl der zu addierenden Jahre (Subtraktion ist eine negative Zahl).",
+    "tool.description": "Führt eine Addition oder Subtraktion von Jahren, Monaten, Wochen oder Tagen für ein bestimmtes Datum durch und gibt das Ergebnis zurück. Beinhaltet die Ermittlung von Feiertagen mithilfe der Bibliothek „Feiertage“.",
+    "tool.system_prompt": "Dieses Tool dient folgendem Zweck: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "doc.get_holiday_info": "Ottieni i nomi delle festività del paese specificato utilizzando la libreria delle festività.",
+    "param.base_date.description": "Data di base (ISO formato 8601 'YYYY-MM-DD'; se omesso, oggi).",
+    "param.check_holiday.description": "Se determinare se si tratta di un giorno festivo/festivo (impostazione predefinita: true)",
+    "param.country.description": "Codice paese per determinare i giorni festivi (ISO 3166-1 alpha-2, ad esempio 'JP', 'US', 'GB', 'FR'). L'impostazione predefinita è \"JP\".",
+    "param.days.description": "Numero di giorni da aggiungere (la sottrazione è un numero negativo).",
+    "param.months.description": "Numero di mesi da aggiungere (la sottrazione è negativa).",
+    "param.weeks.description": "Numero di settimane da aggiungere (la sottrazione è negativa).",
+    "param.years.description": "Numero di anni da aggiungere (la sottrazione è un numero negativo).",
+    "tool.description": "Esegue l'addizione o la sottrazione di anni, mesi, settimane o giorni per una data specifica e restituisce il risultato. Include la determinazione delle festività utilizzando la libreria \"vacanze\".",
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "doc.get_holiday_info": "Получите названия праздников указанной страны, используя библиотеку праздников.",
+    "param.base_date.description": "Базовая дата (ISO 8601 в формате «YYYY-MM-DD»; если опущено, то сегодня).",
+    "param.check_holiday.description": "Определять, является ли это выходным/выходным днем ​​(по умолчанию: true)",
+    "param.country.description": "Код страны для определения государственных праздников (ISO 3166-1 альфа-2, например «JP», «US», «GB», «FR»). По умолчанию — «JP».",
+    "param.days.description": "Количество дней для прибавления (вычитание — отрицательное число).",
+    "param.months.description": "Количество месяцев, которое нужно добавить (вычитание отрицательное).",
+    "param.weeks.description": "Количество недель, которое нужно добавить (вычитание отрицательное).",
+    "param.years.description": "Количество лет, которое нужно добавить (вычитание — отрицательное число).",
+    "tool.description": "Выполняет сложение или вычитание лет, месяцев, недель или дней для указанной даты и возвращает результат. Включает определение праздников с использованием библиотеки «праздники».",
+    "tool.system_prompt": "Этот инструмент используется для следующих целей: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca de feriados.",
+    "param.base_date.description": "Data base (formato ISO 8601 'YYYY-MM-DD'; se omitido, hoje).",
+    "param.check_holiday.description": "Se deve determinar se é feriado/feriado (padrão: verdadeiro)",
+    "param.country.description": "Código do país para determinar feriados (ISO 3166-1 alpha-2, por exemplo, 'JP', 'US', 'GB', 'FR'). O padrão é 'JP'.",
+    "param.days.description": "Número de dias a serem adicionados (a subtração é um número negativo).",
+    "param.months.description": "Número de meses a somar (a subtração é negativa).",
+    "param.weeks.description": "Número de semanas a adicionar (a subtração é negativa).",
+    "param.years.description": "Número de anos a serem somados (a subtração é um número negativo).",
+    "tool.description": "Executa adição ou subtração de anos, meses, semanas ou dias para uma data especificada e retorna o resultado. Inclui determinação de feriados usando a biblioteca de 'feriados'.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   }
 }

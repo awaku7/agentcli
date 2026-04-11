@@ -2,16 +2,12 @@
   "en": {
     "tool.description": "Manage MCP server definitions in mcp_servers.json (list/add/remove/set_default/validate/init_template). JSON output only.",
     "tool.system_prompt": "Operate on MCP server definitions stored in mcp_servers.json. Return JSON only. Do not include human-readable text outside JSON.",
-
     "param.action.description": "Operation to perform. One of: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Path to mcp_servers.json. If omitted, uses the default location.",
     "param.pretty.description": "If true, pretty-print JSON output (default: true).",
-
     "param.validate.description": "(list) If true, add basic validation warnings (default: true).",
     "param.default_only.description": "(list) If true, return only the default server (index 0).",
-
     "param.fail_on_warning.description": "(validate) If true, set overall=FAIL when there is any warning.",
-
     "param.name.description": "(add/remove) Server name (mcp_servers[].name).",
     "param.url.description": "(add) MCP endpoint URL for HTTP(SSE) servers.",
     "param.command.description": "(add) Command for stdio servers.",
@@ -21,15 +17,11 @@
     "param.set_default.description": "(add) If true, move the added/updated server to index 0.",
     "param.replace.description": "(add) If true, overwrite an existing entry with the same name.",
     "param.create_if_missing.description": "(add/set_default) If true, create a missing config as empty.",
-
     "param.index.description": "(remove) Index to remove. If specified with name, index takes priority.",
     "param.require_nonempty.description": "(remove) If true, prevent removal if it would make the list empty.",
-
     "param.server_name.description": "(set_default) The server name to set as default.",
-
     "param.default_name.description": "(init_template) Default server name.",
     "param.default_url.description": "(init_template) Default URL.",
-
     "err.not_exists": "ERROR: {path!r} does not exist",
     "warn.not_exists_new": "WARNING: {path!r} does not exist; treating as empty/new.",
     "warn.not_exists": "WARNING: {path!r} does not exist (treating as empty list).",
@@ -37,34 +29,25 @@
     "err.root_not_dict": "ERROR: root is not a dictionary",
     "warn.no_mcp_servers": "WARNING: 'mcp_servers' key is missing (treating as empty list).",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' is not a list",
-
     "warn.item_not_dict": "WARNING: mcp_servers[{idx}] is not a dictionary.",
     "err.item_not_dict": "ERROR: mcp_servers[{idx}] is not a dictionary",
-
     "warn.name_missing": "WARNING: mcp_servers[{idx}].name is missing or empty.",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name is missing or empty",
-
     "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} does not end with '/mcp'. (handle_mcp_v2 / mcp_tools_list will auto-append, but explicit suffix is recommended)",
-
     "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] has neither url nor command.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] must have either url or command",
-
     "warn.name_duplicate": "WARNING: name={name!r} is duplicated ({count} times).",
     "err.name_duplicate": "ERROR: name={name!r} is duplicated ({count} times)"
   },
   "ja": {
     "tool.description": "mcp_servers.json に保存された MCP サーバー定義を管理します（list/add/remove/set_default/validate/init_template）。出力は JSON のみです。",
     "tool.system_prompt": "mcp_servers.json の MCP サーバー定義を操作します。返答は必ず JSON のみとし、JSON 以外の人間向け文章は出力しません。",
-
     "param.action.description": "実行する操作。list/add/remove/set_default/validate/init_template のいずれか。",
     "param.path.description": "mcp_servers.json のパス。省略時は既定の場所を使用します。",
     "param.pretty.description": "true の場合、JSON 出力を整形します（既定: true）。",
-
     "param.validate.description": "(list) true の場合、基本的な検証警告を追加します（既定: true）。",
     "param.default_only.description": "(list) true の場合、デフォルト（index 0）のサーバーのみ返します。",
-
     "param.fail_on_warning.description": "(validate) true の場合、警告が1件でもあれば overall=FAIL とします。",
-
     "param.name.description": "(add/remove) サーバー名（mcp_servers[].name）。",
     "param.url.description": "(add) HTTP(SSE) サーバー用の MCP エンドポイント URL。",
     "param.command.description": "(add) stdio サーバー用のコマンド。",
@@ -74,15 +57,11 @@
     "param.set_default.description": "(add) true の場合、追加/更新したサーバーを index 0 に移動します。",
     "param.replace.description": "(add) true の場合、同名エントリがあれば上書きします。",
     "param.create_if_missing.description": "(add/set_default) true の場合、設定ファイルが無ければ空として作成してから処理します。",
-
     "param.index.description": "(remove) 削除するインデックス。name と併用時は index を優先します。",
     "param.require_nonempty.description": "(remove) true の場合、削除後に空になる操作を禁止します。",
-
     "param.server_name.description": "(set_default) デフォルトに設定するサーバー名。",
-
     "param.default_name.description": "(init_template) 生成するテンプレートのデフォルトサーバー名。",
     "param.default_url.description": "(init_template) 生成するテンプレートのデフォルト URL。",
-
     "err.not_exists": "ERROR: {path!r} は存在しません",
     "warn.not_exists_new": "WARNING: {path!r} は存在しないため、空/新規として扱います。",
     "warn.not_exists": "WARNING: {path!r} は存在しません（空リストとして扱います）。",
@@ -90,34 +69,25 @@
     "err.root_not_dict": "ERROR: ルートが辞書ではありません",
     "warn.no_mcp_servers": "WARNING: 'mcp_servers' キーがありません（空リストとして扱います）。",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' がリストではありません",
-
     "warn.item_not_dict": "WARNING: mcp_servers[{idx}] は辞書ではありません。",
     "err.item_not_dict": "ERROR: mcp_servers[{idx}] は辞書ではありません",
-
     "warn.name_missing": "WARNING: mcp_servers[{idx}].name が未設定または空です。",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name が未設定または空です",
-
     "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} が '/mcp' で終わっていません（handle_mcp_v2 / mcp_tools_list では自動付与しますが、明示的なサフィックス指定を推奨します）。",
-
     "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] に url と command のどちらもありません。",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] には url または command のいずれかが必要です",
-
     "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count} 件）。",
     "err.name_duplicate": "ERROR: name={name!r} が重複しています（{count} 件）"
   },
   "zh_CN": {
     "tool.description": "管理保存在 mcp_servers.json 中的 MCP 服务器定义（list/add/remove/set_default/validate/init_template）。仅输出 JSON。",
     "tool.system_prompt": "操作 mcp_servers.json 中保存的 MCP 服务器定义。仅返回 JSON；不要在 JSON 之外输出面向用户的文本。",
-
     "param.action.description": "要执行的操作。可选：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路径。省略时使用默认位置。",
     "param.pretty.description": "为 true 时，对 JSON 输出进行美化格式化（默认：true）。",
-
     "param.validate.description": "(list) 为 true 时，追加基本校验警告（默认：true）。",
     "param.default_only.description": "(list) 为 true 时，仅返回默认服务器（index 0）。",
-
     "param.fail_on_warning.description": "(validate) 为 true 时，只要存在任何警告就将 overall 设为 FAIL。",
-
     "param.name.description": "(add/remove) 服务器名称（mcp_servers[].name）。",
     "param.url.description": "(add) HTTP(SSE) 服务器的 MCP 端点 URL。",
     "param.command.description": "(add) stdio 服务器的命令。",
@@ -127,15 +97,11 @@
     "param.set_default.description": "(add) 为 true 时，将新增/更新的服务器移动到 index 0。",
     "param.replace.description": "(add) 为 true 时，若存在同名条目则覆盖。",
     "param.create_if_missing.description": "(add/set_default) 为 true 时，若配置缺失则先创建空配置。",
-
     "param.index.description": "(remove) 要删除的索引。与 name 同时指定时，优先使用 index。",
     "param.require_nonempty.description": "(remove) 为 true 时，禁止删除导致列表为空的操作。",
-
     "param.server_name.description": "(set_default) 要设置为默认的服务器名称。",
-
     "param.default_name.description": "(init_template) 模板中的默认服务器名称。",
     "param.default_url.description": "(init_template) 模板中的默认 URL。",
-
     "err.not_exists": "错误：{path!r} 不存在",
     "warn.not_exists_new": "警告：{path!r} 不存在；将其视为新的/空配置。",
     "warn.not_exists": "警告：{path!r} 不存在（视为空列表）。",
@@ -143,34 +109,25 @@
     "err.root_not_dict": "错误：根对象不是字典",
     "warn.no_mcp_servers": "警告：缺少 'mcp_servers' 键（视为空列表）。",
     "err.mcp_servers_not_list": "错误：'mcp_servers' 不是列表",
-
     "warn.item_not_dict": "警告：mcp_servers[{idx}] 不是字典。",
     "err.item_not_dict": "错误：mcp_servers[{idx}] 不是字典",
-
     "warn.name_missing": "警告：mcp_servers[{idx}].name 缺失或为空。",
     "err.name_missing": "错误：mcp_servers[{idx}].name 缺失或为空",
-
     "warn.url_no_mcp": "警告：mcp_servers[{idx}].url={url!r} 未以 '/mcp' 结尾。（handle_mcp_v2 / mcp_tools_list 会自动追加，但建议显式写出后缀）",
-
     "warn.endpoint_missing": "警告：mcp_servers[{idx}] 既没有 url 也没有 command。",
     "err.endpoint_missing": "错误：mcp_servers[{idx}] 必须包含 url 或 command 之一",
-
     "warn.name_duplicate": "警告：name={name!r} 重复（共 {count} 次）。",
     "err.name_duplicate": "错误：name={name!r} 重复（共 {count} 次）"
   },
   "zh_TW": {
     "tool.description": "管理儲存在 mcp_servers.json 中的 MCP 伺服器定義（list/add/remove/set_default/validate/init_template）。僅輸出 JSON。",
     "tool.system_prompt": "操作 mcp_servers.json 中儲存的 MCP 伺服器定義。僅回傳 JSON；請勿在 JSON 之外輸出面向使用者的文字。",
-
     "param.action.description": "要執行的操作。可選：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路徑。省略時使用預設位置。",
     "param.pretty.description": "為 true 時，將 JSON 輸出美化格式化（預設：true）。",
-
     "param.validate.description": "(list) 為 true 時，加入基本驗證警告（預設：true）。",
     "param.default_only.description": "(list) 為 true 時，僅回傳預設伺服器（index 0）。",
-
     "param.fail_on_warning.description": "(validate) 為 true 時，只要有任何警告就將 overall 設為 FAIL。",
-
     "param.name.description": "(add/remove) 伺服器名稱（mcp_servers[].name）。",
     "param.url.description": "(add) HTTP(SSE) 伺服器的 MCP 端點 URL。",
     "param.command.description": "(add) stdio 伺服器的命令。",
@@ -180,15 +137,11 @@
     "param.set_default.description": "(add) 為 true 時，將新增/更新的伺服器移到 index 0。",
     "param.replace.description": "(add) 為 true 時，若存在同名項目則覆寫。",
     "param.create_if_missing.description": "(add/set_default) 為 true 時，若設定檔不存在則先建立空設定。",
-
     "param.index.description": "(remove) 要刪除的索引。與 name 同時指定時，以 index 為優先。",
     "param.require_nonempty.description": "(remove) 為 true 時，禁止刪除導致清單為空的操作。",
-
     "param.server_name.description": "(set_default) 要設為預設的伺服器名稱。",
-
     "param.default_name.description": "(init_template) 範本中的預設伺服器名稱。",
     "param.default_url.description": "(init_template) 範本中的預設 URL。",
-
     "err.not_exists": "錯誤：{path!r} 不存在",
     "warn.not_exists_new": "警告：{path!r} 不存在；將其視為新的/空設定。",
     "warn.not_exists": "警告：{path!r} 不存在（視為空清單）。",
@@ -196,34 +149,25 @@
     "err.root_not_dict": "錯誤：根物件不是字典",
     "warn.no_mcp_servers": "警告：缺少 'mcp_servers' 鍵（視為空清單）。",
     "err.mcp_servers_not_list": "錯誤：'mcp_servers' 不是清單",
-
     "warn.item_not_dict": "警告：mcp_servers[{idx}] 不是字典。",
     "err.item_not_dict": "錯誤：mcp_servers[{idx}] 不是字典",
-
     "warn.name_missing": "警告：mcp_servers[{idx}].name 缺失或為空。",
     "err.name_missing": "錯誤：mcp_servers[{idx}].name 缺失或為空",
-
     "warn.url_no_mcp": "警告：mcp_servers[{idx}].url={url!r} 未以 '/mcp' 結尾。（handle_mcp_v2 / mcp_tools_list 會自動附加，但建議明確寫出後綴）",
-
     "warn.endpoint_missing": "警告：mcp_servers[{idx}] 既沒有 url 也沒有 command。",
     "err.endpoint_missing": "錯誤：mcp_servers[{idx}] 必須包含 url 或 command 其一",
-
     "warn.name_duplicate": "警告：name={name!r} 重複（共 {count} 次）。",
     "err.name_duplicate": "錯誤：name={name!r} 重複（共 {count} 次）"
   },
   "es": {
     "tool.description": "Administra definiciones de servidores MCP almacenadas en mcp_servers.json (list/add/remove/set_default/validate/init_template). Solo salida JSON.",
     "tool.system_prompt": "Opera sobre definiciones de servidores MCP almacenadas en mcp_servers.json. Devuelve solo JSON. No incluyas texto legible fuera de JSON.",
-
     "param.action.description": "Operación a realizar. Una de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Ruta a mcp_servers.json. Si se omite, usa la ubicación predeterminada.",
     "param.pretty.description": "Si es true, formatea la salida JSON (por defecto: true).",
-
     "param.validate.description": "(list) Si es true, agrega advertencias básicas de validación (por defecto: true).",
     "param.default_only.description": "(list) Si es true, devuelve solo el servidor predeterminado (index 0).",
-
     "param.fail_on_warning.description": "(validate) Si es true, establece overall=FAIL cuando exista cualquier advertencia.",
-
     "param.name.description": "(add/remove) Nombre del servidor (mcp_servers[].name).",
     "param.url.description": "(add) URL del endpoint MCP para servidores HTTP(SSE).",
     "param.command.description": "(add) Comando para servidores stdio.",
@@ -233,15 +177,11 @@
     "param.set_default.description": "(add) Si es true, mueve el servidor agregado/actualizado a index 0.",
     "param.replace.description": "(add) Si es true, sobrescribe una entrada existente con el mismo nombre.",
     "param.create_if_missing.description": "(add/set_default) Si es true, crea una configuración vacía si falta.",
-
     "param.index.description": "(remove) Índice a eliminar. Si se especifica junto con name, index tiene prioridad.",
     "param.require_nonempty.description": "(remove) Si es true, evita la eliminación si dejaría la lista vacía.",
-
     "param.server_name.description": "(set_default) Nombre del servidor a establecer como predeterminado.",
-
     "param.default_name.description": "(init_template) Nombre de servidor predeterminado.",
     "param.default_url.description": "(init_template) URL predeterminada.",
-
     "err.not_exists": "ERROR: {path!r} no existe",
     "warn.not_exists_new": "ADVERTENCIA: {path!r} no existe; se tratará como configuración vacía/nueva.",
     "warn.not_exists": "ADVERTENCIA: {path!r} no existe (se trata como lista vacía).",
@@ -249,34 +189,25 @@
     "err.root_not_dict": "ERROR: el objeto raíz no es un diccionario",
     "warn.no_mcp_servers": "ADVERTENCIA: falta la clave 'mcp_servers' (se trata como lista vacía).",
     "err.mcp_servers_not_list": "ERROR: 'mcp_servers' no es una lista",
-
     "warn.item_not_dict": "ADVERTENCIA: mcp_servers[{idx}] no es un diccionario.",
     "err.item_not_dict": "ERROR: mcp_servers[{idx}] no es un diccionario",
-
     "warn.name_missing": "ADVERTENCIA: mcp_servers[{idx}].name falta o está vacío.",
     "err.name_missing": "ERROR: mcp_servers[{idx}].name falta o está vacío",
-
     "warn.url_no_mcp": "ADVERTENCIA: mcp_servers[{idx}].url={url!r} no termina con '/mcp'. (handle_mcp_v2 / mcp_tools_list lo añadirá automáticamente, pero se recomienda indicar el sufijo explícitamente)",
-
     "warn.endpoint_missing": "ADVERTENCIA: mcp_servers[{idx}] no tiene ni url ni command.",
     "err.endpoint_missing": "ERROR: mcp_servers[{idx}] debe tener url o command",
-
     "warn.name_duplicate": "ADVERTENCIA: name={name!r} está duplicado ({count} veces).",
     "err.name_duplicate": "ERROR: name={name!r} está duplicado ({count} veces)"
   },
   "fr": {
     "tool.description": "Gère les définitions de serveurs MCP stockées dans mcp_servers.json (list/add/remove/set_default/validate/init_template). Sortie JSON uniquement.",
     "tool.system_prompt": "Opère sur les définitions de serveurs MCP stockées dans mcp_servers.json. Retourne uniquement du JSON. N'inclus pas de texte lisible en dehors du JSON.",
-
     "param.action.description": "Opération à effectuer. L'une de : list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Chemin vers mcp_servers.json. S'il est omis, utilise l'emplacement par défaut.",
     "param.pretty.description": "Si true, formate la sortie JSON (par défaut : true).",
-
     "param.validate.description": "(list) Si true, ajoute des avertissements de validation de base (par défaut : true).",
     "param.default_only.description": "(list) Si true, renvoie uniquement le serveur par défaut (index 0).",
-
     "param.fail_on_warning.description": "(validate) Si true, définit overall=FAIL s'il existe un avertissement.",
-
     "param.name.description": "(add/remove) Nom du serveur (mcp_servers[].name).",
     "param.url.description": "(add) URL de l'endpoint MCP pour les serveurs HTTP(SSE).",
     "param.command.description": "(add) Commande pour les serveurs stdio.",
@@ -286,15 +217,11 @@
     "param.set_default.description": "(add) Si true, déplace le serveur ajouté/mis à jour à l'index 0.",
     "param.replace.description": "(add) Si true, remplace une entrée existante portant le même nom.",
     "param.create_if_missing.description": "(add/set_default) Si true, crée une configuration vide si elle est manquante.",
-
     "param.index.description": "(remove) Index à supprimer. S'il est spécifié avec name, index est prioritaire.",
     "param.require_nonempty.description": "(remove) Si true, empêche la suppression si cela rendrait la liste vide.",
-
     "param.server_name.description": "(set_default) Nom du serveur à définir comme serveur par défaut.",
-
     "param.default_name.description": "(init_template) Nom de serveur par défaut.",
     "param.default_url.description": "(init_template) URL par défaut.",
-
     "err.not_exists": "ERREUR : {path!r} n'existe pas",
     "warn.not_exists_new": "AVERTISSEMENT : {path!r} n'existe pas ; traité comme configuration vide/nouvelle.",
     "warn.not_exists": "AVERTISSEMENT : {path!r} n'existe pas (traité comme liste vide).",
@@ -302,34 +229,25 @@
     "err.root_not_dict": "ERREUR : l'objet racine n'est pas un dictionnaire",
     "warn.no_mcp_servers": "AVERTISSEMENT : la clé 'mcp_servers' est manquante (traité comme liste vide).",
     "err.mcp_servers_not_list": "ERREUR : 'mcp_servers' n'est pas une liste",
-
     "warn.item_not_dict": "AVERTISSEMENT : mcp_servers[{idx}] n'est pas un dictionnaire.",
     "err.item_not_dict": "ERREUR : mcp_servers[{idx}] n'est pas un dictionnaire",
-
     "warn.name_missing": "AVERTISSEMENT : mcp_servers[{idx}].name est manquant ou vide.",
     "err.name_missing": "ERREUR : mcp_servers[{idx}].name est manquant ou vide",
-
     "warn.url_no_mcp": "AVERTISSEMENT : mcp_servers[{idx}].url={url!r} ne se termine pas par '/mcp'. (handle_mcp_v2 / mcp_tools_list l'ajoutera automatiquement, mais il est recommandé d'indiquer explicitement le suffixe)",
-
     "warn.endpoint_missing": "AVERTISSEMENT : mcp_servers[{idx}] n'a ni url ni command.",
     "err.endpoint_missing": "ERREUR : mcp_servers[{idx}] doit avoir url ou command",
-
     "warn.name_duplicate": "AVERTISSEMENT : name={name!r} est dupliqué ({count} fois).",
     "err.name_duplicate": "ERREUR : name={name!r} est dupliqué ({count} fois)"
   },
   "ko": {
     "tool.description": "mcp_servers.json에 저장된 MCP 서버 정의를 관리합니다(list/add/remove/set_default/validate/init_template). 출력은 JSON만입니다.",
     "tool.system_prompt": "mcp_servers.json에 저장된 MCP 서버 정의를 조작합니다. JSON만 반환하며, JSON 이외의 사람용 문장을 출력하지 않습니다.",
-
     "param.action.description": "수행할 작업. list/add/remove/set_default/validate/init_template 중 하나.",
     "param.path.description": "mcp_servers.json 경로. 생략하면 기본 위치를 사용합니다.",
     "param.pretty.description": "true이면 JSON 출력을 보기 좋게 포맷합니다(기본: true).",
-
     "param.validate.description": "(list) true이면 기본 검증 경고를 추가합니다(기본: true).",
     "param.default_only.description": "(list) true이면 기본 서버(index 0)만 반환합니다.",
-
     "param.fail_on_warning.description": "(validate) true이면 경고가 하나라도 있으면 overall=FAIL로 설정합니다.",
-
     "param.name.description": "(add/remove) 서버 이름(mcp_servers[].name).",
     "param.url.description": "(add) HTTP(SSE) 서버용 MCP 엔드포인트 URL.",
     "param.command.description": "(add) stdio 서버용 명령.",
@@ -339,15 +257,11 @@
     "param.set_default.description": "(add) true이면 추가/업데이트한 서버를 index 0으로 이동합니다.",
     "param.replace.description": "(add) true이면 같은 이름의 기존 항목을 덮어씁니다.",
     "param.create_if_missing.description": "(add/set_default) true이면 설정이 없을 때 빈 설정을 생성합니다.",
-
     "param.index.description": "(remove) 삭제할 인덱스. name과 함께 지정하면 index가 우선합니다.",
     "param.require_nonempty.description": "(remove) true이면 삭제 후 목록이 비게 되는 동작을 막습니다.",
-
     "param.server_name.description": "(set_default) 기본으로 설정할 서버 이름.",
-
     "param.default_name.description": "(init_template) 기본 서버 이름.",
     "param.default_url.description": "(init_template) 기본 URL.",
-
     "err.not_exists": "오류: {path!r}이(가) 존재하지 않습니다",
     "warn.not_exists_new": "경고: {path!r}이(가) 존재하지 않습니다. 새/빈 설정으로 처리합니다.",
     "warn.not_exists": "경고: {path!r}이(가) 존재하지 않습니다(빈 목록으로 처리).",
@@ -355,34 +269,25 @@
     "err.root_not_dict": "오류: 루트가 딕셔너리가 아닙니다",
     "warn.no_mcp_servers": "경고: 'mcp_servers' 키가 없습니다(빈 목록으로 처리).",
     "err.mcp_servers_not_list": "오류: 'mcp_servers'는 리스트가 아닙니다",
-
     "warn.item_not_dict": "경고: mcp_servers[{idx}]는 딕셔너리가 아닙니다.",
     "err.item_not_dict": "오류: mcp_servers[{idx}]는 딕셔너리가 아닙니다",
-
     "warn.name_missing": "경고: mcp_servers[{idx}].name이 없거나 비어 있습니다.",
     "err.name_missing": "오류: mcp_servers[{idx}].name이 없거나 비어 있습니다",
-
     "warn.url_no_mcp": "경고: mcp_servers[{idx}].url={url!r} 이(가) '/mcp'로 끝나지 않습니다. (handle_mcp_v2 / mcp_tools_list가 자동으로 추가하지만, 명시적으로 접미사를 지정하는 것을 권장합니다)",
-
     "warn.endpoint_missing": "경고: mcp_servers[{idx}]에 url 또는 command가 없습니다.",
     "err.endpoint_missing": "오류: mcp_servers[{idx}]에는 url 또는 command 중 하나가 필요합니다",
-
     "warn.name_duplicate": "경고: name={name!r}이(가) 중복됩니다({count}회).",
     "err.name_duplicate": "오류: name={name!r}이(가) 중복됩니다({count}회)"
   },
   "th": {
     "tool.description": "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers.json (list/add/remove/set_default/validate/init_template) เอาต์พุตเป็น JSON เท่านั้น",
     "tool.system_prompt": "ดำเนินการกับนิยามเซิร์ฟเวอร์ MCP ที่เก็บไว้ใน mcp_servers.json ส่งคืน JSON เท่านั้น และห้ามแสดงข้อความที่อ่านได้โดยมนุษย์นอก JSON",
-
     "param.action.description": "การทำงานที่จะทำ หนึ่งใน: list/add/remove/set_default/validate/init_template",
     "param.path.description": "พาธไปยัง mcp_servers.json หากละไว้จะใช้ตำแหน่งเริ่มต้น",
     "param.pretty.description": "ถ้าเป็น true ให้จัดรูปแบบ JSON ให้อ่านง่าย (ค่าเริ่มต้น: true)",
-
     "param.validate.description": "(list) ถ้าเป็น true ให้เพิ่มคำเตือนการตรวจสอบพื้นฐาน (ค่าเริ่มต้น: true)",
     "param.default_only.description": "(list) ถ้าเป็น true ให้คืนค่าเฉพาะเซิร์ฟเวอร์เริ่มต้น (index 0)",
-
     "param.fail_on_warning.description": "(validate) ถ้าเป็น true ให้ตั้ง overall=FAIL เมื่อมีคำเตือนใดๆ",
-
     "param.name.description": "(add/remove) ชื่อเซิร์ฟเวอร์ (mcp_servers[].name)",
     "param.url.description": "(add) URL ปลายทาง MCP สำหรับเซิร์ฟเวอร์ HTTP(SSE)",
     "param.command.description": "(add) คำสั่งสำหรับเซิร์ฟเวอร์ stdio",
@@ -392,15 +297,11 @@
     "param.set_default.description": "(add) ถ้าเป็น true ให้ย้ายเซิร์ฟเวอร์ที่เพิ่ม/อัปเดตไปที่ index 0",
     "param.replace.description": "(add) ถ้าเป็น true ให้เขียนทับรายการที่มีชื่อเดียวกัน",
     "param.create_if_missing.description": "(add/set_default) ถ้าเป็น true ให้สร้างไฟล์ตั้งค่าเปล่าหากยังไม่มี",
-
     "param.index.description": "(remove) ดัชนีที่จะลบ หากระบุพร้อมกับ name จะใช้ index เป็นหลัก",
     "param.require_nonempty.description": "(remove) ถ้าเป็น true ให้ป้องกันการลบที่ทำให้รายการว่างเปล่า",
-
     "param.server_name.description": "(set_default) ชื่อเซิร์ฟเวอร์ที่จะตั้งเป็นค่าเริ่มต้น",
-
     "param.default_name.description": "(init_template) ชื่อเซิร์ฟเวอร์เริ่มต้น",
     "param.default_url.description": "(init_template) URL เริ่มต้น",
-
     "err.not_exists": "ข้อผิดพลาด: {path!r} ไม่มีอยู่",
     "warn.not_exists_new": "คำเตือน: {path!r} ไม่มีอยู่; จะถือว่าเป็นการตั้งค่าใหม่/ว่างเปล่า",
     "warn.not_exists": "คำเตือน: {path!r} ไม่มีอยู่ (ถือว่าเป็นรายการว่าง)",
@@ -408,19 +309,174 @@
     "err.root_not_dict": "ข้อผิดพลาด: ค่ารากไม่ใช่ดิกชันนารี",
     "warn.no_mcp_servers": "คำเตือน: ไม่มีคีย์ 'mcp_servers' (ถือว่าเป็นรายการว่าง)",
     "err.mcp_servers_not_list": "ข้อผิดพลาด: 'mcp_servers' ไม่ใช่รายการ",
-
     "warn.item_not_dict": "คำเตือน: mcp_servers[{idx}] ไม่ใช่ดิกชันนารี",
     "err.item_not_dict": "ข้อผิดพลาด: mcp_servers[{idx}] ไม่ใช่ดิกชันนารี",
-
     "warn.name_missing": "คำเตือน: mcp_servers[{idx}].name ไม่มีหรือว่างเปล่า",
     "err.name_missing": "ข้อผิดพลาด: mcp_servers[{idx}].name ไม่มีหรือว่างเปล่า",
-
     "warn.url_no_mcp": "คำเตือน: mcp_servers[{idx}].url={url!r} ไม่ได้ลงท้ายด้วย '/mcp' (handle_mcp_v2 / mcp_tools_list จะเติมให้อัตโนมัติ แต่แนะนำให้ระบุให้ชัดเจน)",
-
     "warn.endpoint_missing": "คำเตือน: mcp_servers[{idx}] ไม่มีทั้ง url และ command",
     "err.endpoint_missing": "ข้อผิดพลาด: mcp_servers[{idx}] ต้องมี url หรือ command อย่างใดอย่างหนึ่ง",
-
     "warn.name_duplicate": "คำเตือน: name={name!r} ซ้ำ ({count} ครั้ง)",
     "err.name_duplicate": "ข้อผิดพลาด: name={name!r} ซ้ำ ({count} ครั้ง)"
+  },
+  "de": {
+    "tool.description": "Verwalten Sie MCP-Serverdefinitionen in mcp_servers.json (list/add/remove/set_default/validate/init_template). Nur JSON-Ausgabe.",
+    "tool.system_prompt": "Arbeiten Sie mit MCP-Serverdefinitionen, die in mcp_servers.json gespeichert sind. Nur JSON zurückgeben. Fügen Sie keinen für Menschen lesbaren Text außerhalb von JSON ein.",
+    "param.action.description": "Auszuführende Operation. Einer von: list/add/remove/set_default/validate/init_template.",
+    "param.path.description": "Pfad zu mcp_servers.json. Wenn es weggelassen wird, wird der Standardspeicherort verwendet.",
+    "param.pretty.description": "Wenn wahr, wird die JSON-Ausgabe hübsch gedruckt (Standard: wahr).",
+    "param.validate.description": "(Liste) Wenn wahr, fügen Sie grundlegende Validierungswarnungen hinzu (Standard: wahr).",
+    "param.default_only.description": "(Liste) Wenn wahr, wird nur der Standardserver (Index 0) zurückgegeben.",
+    "param.fail_on_warning.description": "(validieren) Wenn wahr, setzen Sie Overall=FAIL, wenn eine Warnung vorliegt.",
+    "param.name.description": "(Hinzufügen/Entfernen) Servername (mcp_servers[].name).",
+    "param.url.description": "(Hinzufügen) MCP Endpunkt URL für HTTP(SSE) Server.",
+    "param.command.description": "(Hinzufügen) Befehl für Standardserver.",
+    "param.args.description": "(Hinzufügen) Argumente für Standardserver.",
+    "param.env.description": "(Hinzufügen) Umgebungsvariablenzuordnung für Standardserver.",
+    "param.transport.description": "(add/init_template) Transport (informativ).",
+    "param.set_default.description": "(add) Wenn „true“, wird der hinzugefügte/aktualisierte Server auf Index 0 verschoben.",
+    "param.replace.description": "(add) Wenn true, überschreibe einen vorhandenen Eintrag mit demselben Namen.",
+    "param.create_if_missing.description": "(add/set_default) Wenn true, erstellen Sie eine fehlende Konfiguration als leer.",
+    "param.index.description": "(entfernen) Index zum Entfernen. Bei Angabe mit Namen hat der Index Priorität.",
+    "param.require_nonempty.description": "(entfernen) Wenn wahr, wird das Entfernen verhindert, wenn dadurch die Liste leer würde.",
+    "param.server_name.description": "(set_default) Der Servername, der als Standard festgelegt werden soll.",
+    "param.default_name.description": "(init_template) Standardservername.",
+    "param.default_url.description": "(init_template) Standard URL.",
+    "err.not_exists": "ERROR: {path!r} existiert nicht",
+    "warn.not_exists_new": "WARNING: {path!r} existiert nicht; als leer/neu behandeln.",
+    "warn.not_exists": "WARNING: {path!r} existiert nicht (wird als leere Liste behandelt).",
+    "err.load_fail": "ERROR: Fehler beim Laden von {path!r}: {err}",
+    "err.root_not_dict": "ERROR: root ist kein Wörterbuch",
+    "warn.no_mcp_servers": "WARNING: Der Schlüssel „mcp_servers“ fehlt (wird als leere Liste behandelt).",
+    "err.mcp_servers_not_list": "ERROR: 'mcp_servers' ist keine Liste",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] ist kein Wörterbuch.",
+    "err.item_not_dict": "ERROR: mcp_servers[{idx}] ist kein Wörterbuch",
+    "warn.name_missing": "WARNING: mcp_servers[{idx}].name fehlt oder ist leer.",
+    "err.name_missing": "ERROR: mcp_servers[{idx}].name fehlt oder ist leer",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} endet nicht mit „/mcp“. (handle_mcp_v2 / mcp_tools_list wird automatisch angehängt, ein explizites Suffix wird jedoch empfohlen)",
+    "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] hat weder URL noch Befehl.",
+    "err.endpoint_missing": "ERROR: mcp_servers[{idx}] muss entweder eine URL oder einen Befehl haben",
+    "warn.name_duplicate": "WARNING: name={name!r} wird dupliziert ({count} Mal).",
+    "err.name_duplicate": "ERROR: name={name!r} wird dupliziert ({count} Mal)"
+  },
+  "it": {
+    "tool.description": "Gestisci le definizioni del server MCP in mcp_servers.json (list/add/remove/set_default/validate/init_template). Solo uscita JSON.",
+    "tool.system_prompt": "Opera sulle definizioni del server MCP archiviate in mcp_servers.json. Restituisci solo JSON. Non includere testo leggibile all'esterno di JSON.",
+    "param.action.description": "Operazione da eseguire. Uno tra: list/add/remove/set_default/validate/init_template.",
+    "param.path.description": "Percorso di mcp_servers.json. Se omesso, utilizza la posizione predefinita.",
+    "param.pretty.description": "Se vero, stampa piuttosto l'output JSON (predefinito: vero).",
+    "param.validate.description": "(elenco) Se vero, aggiunge avvisi di convalida di base (impostazione predefinita: vero).",
+    "param.default_only.description": "(elenco) Se vero, restituisce solo il server predefinito (indice 0).",
+    "param.fail_on_warning.description": "(convalida) Se vero, imposta global=FAIL in caso di avvisi.",
+    "param.name.description": "(aggiungi/rimuovi) Nome del server (mcp_servers[].name).",
+    "param.url.description": "(aggiungere) MCP endpoint URL per i server HTTP(SSE).",
+    "param.command.description": "(aggiungi) Comando per i server stdio.",
+    "param.args.description": "(aggiungere) argomenti per i server stdio.",
+    "param.env.description": "(aggiungere) Mappatura delle variabili di ambiente per i server stdio.",
+    "param.transport.description": "(add/init_template) Trasporto (informativo).",
+    "param.set_default.description": "(aggiungi) Se vero, sposta il server aggiunto/aggiornato all'indice 0.",
+    "param.replace.description": "(aggiungi) Se vero, sovrascrive una voce esistente con lo stesso nome.",
+    "param.create_if_missing.description": "(add/set_default) Se vero, crea una configurazione mancante come vuota.",
+    "param.index.description": "(rimuovi) Indice da rimuovere. Se specificato con il nome, l'indice ha la priorità.",
+    "param.require_nonempty.description": "(rimuovi) Se vero, impedisce la rimozione se renderebbe l'elenco vuoto.",
+    "param.server_name.description": "(set_default) Il nome del server da impostare come predefinito.",
+    "param.default_name.description": "(init_template) Nome del server predefinito.",
+    "param.default_url.description": "(init_template) Predefinito URL.",
+    "err.not_exists": "ERROR: {path!r} non esiste",
+    "warn.not_exists_new": "WARNING: {path!r} non esiste; trattandolo come vuoto/nuovo.",
+    "warn.not_exists": "WARNING: {path!r} non esiste (considerato come elenco vuoto).",
+    "err.load_fail": "ERROR: Impossibile caricare {path!r}: {err}",
+    "err.root_not_dict": "ERROR: root non è un dizionario",
+    "warn.no_mcp_servers": "WARNING: manca la chiave 'mcp_servers' (considerata come elenco vuoto).",
+    "err.mcp_servers_not_list": "ERROR: 'mcp_servers' non è un elenco",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] non è un dizionario.",
+    "err.item_not_dict": "ERROR: mcp_servers[{idx}] non è un dizionario",
+    "warn.name_missing": "WARNING: mcp_servers[{idx}].nome mancante o vuoto.",
+    "err.name_missing": "ERROR: mcp_servers[{idx}].nome mancante o vuoto",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} non termina con '/mcp'. (handle_mcp_v2 / mcp_tools_list verrà aggiunto automaticamente, ma si consiglia il suffisso esplicito)",
+    "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] non ha né URL né comando.",
+    "err.endpoint_missing": "ERROR: mcp_servers[{idx}] deve avere un URL o un comando",
+    "warn.name_duplicate": "WARNING: name={name!r} è duplicato ({count} volte).",
+    "err.name_duplicate": "ERROR: nome={name!r} è duplicato ({count} volte)"
+  },
+  "ru": {
+    "tool.description": "Управляйте определениями серверов MCP в mcp_servers.json (list/add/remove/set_default/validate/init_template). Только вывод JSON.",
+    "tool.system_prompt": "Работайте с определениями серверов MCP, хранящимися в mcp_servers.json. Возвращайте только JSON. Не включайте удобочитаемый текст за пределами JSON.",
+    "param.action.description": "Операция, которую необходимо выполнить. Один из: list/add/remove/set_default/validate/init_template.",
+    "param.path.description": "Путь к mcp_servers.json. Если этот параметр опущен, используется расположение по умолчанию.",
+    "param.pretty.description": "Если это правда, вывод JSON красиво распечатывается (по умолчанию: true).",
+    "param.validate.description": "(список) Если true, добавьте базовые предупреждения проверки (по умолчанию: true).",
+    "param.default_only.description": "(список) Если true, вернуть только сервер по умолчанию (индекс 0).",
+    "param.fail_on_warning.description": "(проверить) Если это правда, установите общий=FAIL при появлении любого предупреждения.",
+    "param.name.description": "(добавить/удалить) Имя сервера (mcp_servers[].name).",
+    "param.url.description": "(добавьте) MCP конечную точку URL для серверов HTTP(SSE).",
+    "param.command.description": "(добавить) Команда для серверов stdio.",
+    "param.args.description": "(добавить) Args для серверов stdio.",
+    "param.env.description": "(добавлено) Сопоставление переменных среды для серверов stdio.",
+    "param.transport.description": "(add/init_template) Транспорт (информационный).",
+    "param.set_default.description": "(добавить) Если true, переместите добавленный/обновленный сервер в индекс 0.",
+    "param.replace.description": "(добавить) Если true, перезаписать существующую запись с тем же именем.",
+    "param.create_if_missing.description": "(add/set_default) Если true, создайте отсутствующую конфигурацию как пустую.",
+    "param.index.description": "(удалить) Индекс для удаления. Если указано с именем, индекс имеет приоритет.",
+    "param.require_nonempty.description": "(удалить) Если true, запретить удаление, если в результате список станет пустым.",
+    "param.server_name.description": "(set_default) Имя сервера, которое будет установлено по умолчанию.",
+    "param.default_name.description": "(init_template) Имя сервера по умолчанию.",
+    "param.default_url.description": "(init_template) По умолчанию URL.",
+    "err.not_exists": "ERROR: {path!r} не существует",
+    "warn.not_exists_new": "WARNING: {path!r} не существует; рассматривается как пустой/новый.",
+    "warn.not_exists": "WARNING: {path!r} не существует (рассматривается как пустой список).",
+    "err.load_fail": "ERROR: Не удалось загрузить {path!r}: {err}",
+    "err.root_not_dict": "ERROR: root — это не словарь",
+    "warn.no_mcp_servers": "WARNING: ключ «mcp_servers» отсутствует (расценивается как пустой список).",
+    "err.mcp_servers_not_list": "ERROR: «mcp_servers» не является списком",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] не является словарем.",
+    "err.item_not_dict": "ERROR: mcp_servers[{idx}] не является словарем",
+    "warn.name_missing": "WARNING: mcp_servers[{idx}].name отсутствует или пусто.",
+    "err.name_missing": "ERROR: mcp_servers[{idx}].имя отсутствует или пусто",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} не заканчивается на '/mcp'. (handle_mcp_v2 / mcp_tools_list будет добавлен автоматически, но рекомендуется указать явный суффикс)",
+    "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] не имеет ни URL-адреса, ни команды.",
+    "err.endpoint_missing": "ERROR: mcp_servers[{idx}] должен иметь либо URL, либо команду",
+    "warn.name_duplicate": "WARNING: name={name!r} дублируется ({count} раз).",
+    "err.name_duplicate": "ERROR: name={name!r} дублируется ({count} раз)"
+  },
+  "pt_BR": {
+    "tool.description": "Gerencie as definições do servidor MCP em mcp_servers.json (list/add/remove/set_default/validate/init_template). JSON somente saída.",
+    "tool.system_prompt": "Opere nas definições do servidor MCP armazenadas em mcp_servers.json. Retorne apenas JSON. Não inclua texto legível fora de JSON.",
+    "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template.",
+    "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
+    "param.pretty.description": "Se for verdade, imprima a saída JSON (padrão: verdadeiro).",
+    "param.validate.description": "(lista) Se verdadeiro, adicione avisos básicos de validação (padrão: verdadeiro).",
+    "param.default_only.description": "(lista) Se verdadeiro, retorna apenas o servidor padrão (índice 0).",
+    "param.fail_on_warning.description": "(validar) Se verdadeiro, defina global=FAIL quando houver algum aviso.",
+    "param.name.description": "(adicionar/remover) Nome do servidor (mcp_servers[].name).",
+    "param.url.description": "(adicionar) endpoint MCP URL para servidores HTTP(SSE).",
+    "param.command.description": "(adicionar) Comando para servidores stdio.",
+    "param.args.description": "(adicionar) Args para servidores stdio.",
+    "param.env.description": "(adicionar) Mapeamento de variáveis ​​de ambiente para servidores stdio.",
+    "param.transport.description": "(add/init_template) Transporte (informativo).",
+    "param.set_default.description": "(adicionar) Se verdadeiro, move o servidor adicionado/atualizado para o índice 0.",
+    "param.replace.description": "(adicionar) Se verdadeiro, sobrescreve uma entrada existente com o mesmo nome.",
+    "param.create_if_missing.description": "(add/set_default) Se verdadeiro, crie uma configuração ausente como vazia.",
+    "param.index.description": "(remover) Índice a ser removido. Se especificado com nome, o índice terá prioridade.",
+    "param.require_nonempty.description": "(remover) Se for verdade, evita a remoção se isso tornar a lista vazia.",
+    "param.server_name.description": "(set_default) O nome do servidor a ser definido como padrão.",
+    "param.default_name.description": "(init_template) Nome do servidor padrão.",
+    "param.default_url.description": "(init_template) Padrão URL.",
+    "err.not_exists": "ERROR: {path!r} não existe",
+    "warn.not_exists_new": "WARNING: {path!r} não existe; tratando como vazio/novo.",
+    "warn.not_exists": "WARNING: {path!r} não existe (tratando como lista vazia).",
+    "err.load_fail": "ERROR: Falha ao carregar {path!r}: {err}",
+    "err.root_not_dict": "ERROR: root não é um dicionário",
+    "warn.no_mcp_servers": "WARNING: chave 'mcp_servers' está faltando (tratando como lista vazia).",
+    "err.mcp_servers_not_list": "ERROR: 'mcp_servers' não é uma lista",
+    "warn.item_not_dict": "WARNING: mcp_servers[{idx}] não é um dicionário.",
+    "err.item_not_dict": "ERROR: mcp_servers[{idx}] não é um dicionário",
+    "warn.name_missing": "WARNING: mcp_servers[{idx}].name está ausente ou vazio.",
+    "err.name_missing": "ERROR: mcp_servers[{idx}].nome está ausente ou vazio",
+    "warn.url_no_mcp": "WARNING: mcp_servers[{idx}].url={url!r} não termina com '/mcp'. (handle_mcp_v2 / mcp_tools_list será anexado automaticamente, mas o sufixo explícito é recomendado)",
+    "warn.endpoint_missing": "WARNING: mcp_servers[{idx}] não tem url nem comando.",
+    "err.endpoint_missing": "ERROR: mcp_servers[{idx}] deve ter url ou comando",
+    "warn.name_duplicate": "WARNING: name={name!r} está duplicado ({count} vezes).",
+    "err.name_duplicate": "ERROR: nome={name!r} está duplicado ({count} vezes)"
   }
 }

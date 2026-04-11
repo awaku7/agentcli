@@ -94,5 +94,53 @@
     "param.replacement.description": "ข้อความแทนที่",
     "tool.description": "แทนที่ข้อความแบบตรงตัวหรือแบบนิพจน์ทั่วไปในไฟล์ข้อความที่มีอยู่ ระบบจะปรับบรรทัดใหม่ให้เป็นรูปแบบมาตรฐานภายใน จึงรองรับแพตเทิร์น/ข้อความแทนที่ที่มีการขึ้นบรรทัดใหม่",
     "tool.system_prompt": "ดำเนินการแทนที่ข้อความในไฟล์\n\nแนวทาง:\n- แนะนำ: รันด้วย preview=true ก่อนเพื่อตรวจสอบตำแหน่งที่พบและ diff\n- ห้ามใส่การขึ้นบรรทัดใหม่ดิบในสตริง JSON ให้ใช้ \\n (JSON: \\\\n)\n- ใช้ mode=literal เว้นแต่จำเป็นต้องใช้ regex\n\nหมายเหตุ regex (mode=regex):\n- pattern เป็น Python re; . * ? [ ] ( ) ^ $ เป็นอักขระพิเศษ\n- \\x ไม่ถูกต้อง; ใช้ \\xNN (เช่น \\x00)\n- replacement \\1, \\2... อ้างถึงกลุ่มที่จับได้\n"
+  },
+  "de": {
+    "param.confirm_over.description": "Bei „preview=false“ wird der Vorgang blockiert, wenn die Anzahl der Übereinstimmungen diesen Wert überschreitet.",
+    "param.encoding.description": "Dateikodierung (Standard: utf-8).",
+    "param.expand_newline_tokens.description": "Wenn true (Standard), werden Zeilenumbrüche (\\r\\n/\\r/\\n) in echte Zeilenumbrüche zum Abgleichen/Ersetzen erweitert. Bei „false“ werden sie als Literalzeichen behandelt (z. B. die beiden Zeichen \\\\ und n).",
+    "param.mode.description": "Ersetzungsmodus: Literal (einfache Teilzeichenfolge) oder Regex (Python re).",
+    "param.path.description": "Zieldateipfad (empfohlen: unter workdir).",
+    "param.pattern.description": "Suchmuster. Um eine neue Zeile auszudrücken, schreiben Sie \\n (JSON: \\\\n).",
+    "param.preview.description": "Wenn „true“, wird nur eine Vorschau zurückgegeben und die Datei nicht geändert.",
+    "param.replacement.description": "Ersatztext.",
+    "tool.description": "Führen Sie Literal- oder reguläre Ausdrucksersetzungen für eine vorhandene Textdatei durch. Zeilenenden werden intern normalisiert, sodass Muster/Ersetzungen, die Zeilenumbrüche enthalten, unterstützt werden.",
+    "tool.system_prompt": "Führen Sie eine Textersetzung für eine Datei durch.\n\nRichtlinien:\n– Empfohlen: Zuerst mit „preview=true“ ausführen, um Trefferpositionen und Unterschiede zu überprüfen.\n- Fügen Sie niemals rohe Zeilenumbrüche in JSON-Strings ein; Verwenden Sie \\n (JSON: \\\\n).\n- Verwenden Sie mode=literal, es sei denn, Regex ist erforderlich.\n\nHinweise:\n- Preview=false erstellt vor dem Schreiben ein .org/.orgN-Backup.\n– Im Regex-Modus folgt die Ersetzung der Python-Resemantik (\\1, \\2, ... für Capture-Gruppen).\n– Im Literalmodus erweitert das Tool \\n/\\r-Tokens in echte Zeilenumbrüche."
+  },
+  "it": {
+    "param.confirm_over.description": "Quando anteprima=false, blocca l'operazione se il numero di corrispondenze è maggiore di questo valore.",
+    "param.encoding.description": "Codifica file (predefinita: utf-8).",
+    "param.expand_newline_tokens.description": "Se vero (impostazione predefinita), espande i token di nuova riga (\\r\\n/\\r/\\n) in veri ritorni a capo per la corrispondenza/sostituzione. Se falso, li tratta come caratteri letterali (ad esempio, i due caratteri \\\\ e n).",
+    "param.mode.description": "Modalità di sostituzione: letterale (sottostringa semplice) o regex (Python re).",
+    "param.path.description": "Percorso del file di destinazione (consigliato: sotto workdir).",
+    "param.pattern.description": "Modello di ricerca. Per esprimere un ritorno a capo, scrivi \\n (JSON: \\\\n).",
+    "param.preview.description": "Se vero, restituisce solo un'anteprima e non modifica il file.",
+    "param.replacement.description": "Testo sostitutivo.",
+    "tool.description": "Esegui sostituzioni letterali o di espressioni regolari su un file di testo esistente. Le terminazioni di riga sono normalizzate internamente, quindi sono supportati modelli/sostituzioni che includono ritorni a capo.",
+    "tool.system_prompt": "Esegue una sostituzione del testo su un file.\n\nLinee guida:\n- Consigliato: esegui prima con anteprima=true per verificare le posizioni dei risultati e le differenze.\n- Non includere mai caratteri di fine riga grezzi nelle stringhe JSON; utilizzare \\n (JSON: \\\\n).\n- Utilizzare mode=literal a meno che non sia necessaria la regex.\n\nNote:\n- Preview=false crea un backup .org/.orgN prima di scrivere.\n- In modalità regex, la sostituzione segue la semantica Python (\\1, \\2, ... per i gruppi capture).\n- In modalità letterale, lo strumento espande i token \\n/\\r in veri ritorni a capo."
+  },
+  "ru": {
+    "param.confirm_over.description": "Если предварительный просмотр = false, заблокируйте операцию, если количество совпадений превышает это значение.",
+    "param.encoding.description": "Кодировка файла (по умолчанию: utf-8).",
+    "param.expand_newline_tokens.description": "Если true (по умолчанию), токены новой строки (\\r\\n/\\r/\\n) расширяются до реальных символов новой строки для сопоставления/замены. Если значение false, они рассматриваются как буквальные символы (например, два символа \\\\ и n).",
+    "param.mode.description": "Режим замены: литерал (простая подстрока) или регулярное выражение (Python re).",
+    "param.path.description": "Путь к целевому файлу (рекомендуется: в рабочем каталоге).",
+    "param.pattern.description": "Шаблон поиска. Чтобы выразить новую строку, напишите \\n (JSON: \\\\n).",
+    "param.preview.description": "Если это правда, вернуть только предварительный просмотр и не изменять файл.",
+    "param.replacement.description": "Текст замены.",
+    "tool.description": "Выполните замену букв или регулярных выражений в существующем текстовом файле. Окончания строк нормализуются внутри, поэтому поддерживаются шаблоны/замены, включающие символы новой строки.",
+    "tool.system_prompt": "Выполните замену текста в файле.\n\nРекомендации:\n- Рекомендуется: сначала запустите с предварительным просмотром = true, чтобы проверить места попадания и различия.\n- Никогда не включайте необработанные символы новой строки в строки JSON; используйте \\n (JSON: \\\\n).\n- Используйте mode=literal, если регулярное выражение не требуется.\n\nПримечания:\n- Preview=false создает резервную копию .org/.orgN перед записью.\n- В режиме регулярного выражения замена соответствует семантике Python (\\1, \\2,... для групп захвата).\n- В буквальном режиме инструмент расширяет токены \\n/\\r в настоящие символы новой строки."
+  },
+  "pt_BR": {
+    "param.confirm_over.description": "Quando preview=false, bloqueie a operação se o número de correspondências for maior que esse valor.",
+    "param.encoding.description": "Codificação de arquivo (padrão: utf-8).",
+    "param.expand_newline_tokens.description": "Se verdadeiro (padrão), expande tokens de nova linha (\\r\\n/\\r/\\n) em novas linhas reais para correspondência/substituição. Se for falso, trata-os como caracteres literais (por exemplo, os dois caracteres \\\\ e n).",
+    "param.mode.description": "Modo de substituição: literal (substring simples) ou regex (Python re).",
+    "param.path.description": "Caminho do arquivo de destino (recomendado: em workdir).",
+    "param.pattern.description": "Padrão de pesquisa. Para expressar uma nova linha, escreva \\n (JSON: \\\\n).",
+    "param.preview.description": "Se for verdade, retorne apenas uma visualização e não modifique o arquivo.",
+    "param.replacement.description": "Texto de substituição.",
+    "tool.description": "Execute substituições de expressões literais ou regulares em um arquivo de texto existente. Os finais de linha são normalizados internamente, portanto, padrões/substituições que incluem novas linhas são suportados.",
+    "tool.system_prompt": "Execute uma substituição de texto em um arquivo.\n\nDiretrizes:\n- Recomendado: execute com preview=true primeiro para verificar locais de acertos e diferenças.\n- Nunca inclua novas linhas brutas em strings JSON; use\\n(JSON:\\n).\n- Use mode=literal, a menos que regex seja necessário.\n\nNotas:\n- preview=false cria um backup .org/.orgN antes de gravar.\n- No modo regex, a substituição segue a semântica do Python (\\1, \\2, ... para grupos de captura).\n- No modo literal, a ferramenta expande os tokens \\n/\\r em novas linhas reais."
   }
 }

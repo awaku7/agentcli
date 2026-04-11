@@ -38,5 +38,25 @@
     "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้ใช้คำสั่ง Windows ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม (เช่น MCP) เท่านั้น",
     "tool.system_prompt": "เครื่องมือนี้คือ LAST RESORT ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสม"
+  },
+  "de": {
+    "param.command.description": "Befehlszeichenfolge zur Ausführung.",
+    "tool.description": "Als letzten Ausweg führen Sie einen Windows-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool (z. B. MCP) verfügbar ist.",
+    "tool.system_prompt": "Dieses Tool ist ein LAST RESORT. Nur verwenden, wenn kein anderes geeignetes Werkzeug verfügbar ist."
+  },
+  "it": {
+    "param.command.description": "Stringa di comando da eseguire.",
+    "tool.description": "Come ultima risorsa, esegui un comando di Windows. Utilizzare solo quando non è disponibile nessun altro strumento appropriato (ad esempio, MCP).",
+    "tool.system_prompt": "Questo strumento è un LAST RESORT. Utilizzare solo se non sono disponibili altri strumenti appropriati."
+  },
+  "ru": {
+    "param.command.description": "Командная строка для выполнения.",
+    "tool.description": "В крайнем случае выполните команду Windows. Используйте только в том случае, если другой подходящий инструмент (например, MCP) недоступен.",
+    "tool.system_prompt": "Этот инструмент LAST RESORT. Используйте только в том случае, если нет другого подходящего инструмента."
+  },
+  "pt_BR": {
+    "param.command.description": "Cadeia de comandos a ser executada.",
+    "tool.description": "Como último recurso, execute um comando do Windows. Use somente quando nenhuma outra ferramenta apropriada (por exemplo, MCP) estiver disponível.",
+    "tool.system_prompt": "Esta ferramenta é um LAST RESORT. Use somente se nenhuma outra ferramenta apropriada estiver disponível."
   }
 }
