@@ -91,8 +91,6 @@ def test_search_files_name_only(repo_tmp_path: Path) -> None:
             "content_pattern": "",
             "case_sensitive": False,
             "max_results": 50,
-            "exclude_binary": True,
-            "binary_sniff_bytes": 8192,
             "fast_read_threshold_bytes": 8000000,
         }
     )
