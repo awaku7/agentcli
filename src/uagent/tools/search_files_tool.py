@@ -39,7 +39,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Notes:\n"
                 "- content_pattern is treated as a Python regular expression.\n"
                 "- If content_pattern is empty, only filename matching is performed.\n"
-                "- For performance and safety, binary-like files can be excluded from content searching."
+                "- For performance, content searching may use a simple binary check internally."
             ),
         ),
         "parameters": {
@@ -85,24 +85,7 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Maximum number of matched files to return (default: 50).",
                     ),
                 },
-                "exclude_binary": {
-                    "type": "boolean",
-                    "description": _(
-                        "param.exclude_binary.description",
-                        default=(
-                            "When content_pattern is set, exclude files that appear to be binary (default: true)."
-                        ),
-                    ),
-                    "default": True,
-                },
-                "binary_sniff_bytes": {
-                    "type": "integer",
-                    "description": _(
-                        "param.binary_sniff_bytes.description",
-                        default="Number of leading bytes used to detect binary-like files (default: 8192).",
-                    ),
-                    "default": 8192,
-                },
+
                 "fast_read_threshold_bytes": {
                     "type": "integer",
                     "description": _(
@@ -290,8 +273,6 @@ def run_tool(args: Dict[str, Any]) -> str:
         content_pattern = args.get("content_pattern", "")
         case_sensitive = args.get("case_sensitive", False)
         max_results = args.get("max_results", 50)
-        exclude_binary = bool(args.get("exclude_binary", True))
-        binary_sniff_bytes = int(args.get("binary_sniff_bytes", 8192))
         fast_read_threshold_bytes = int(
             args.get("fast_read_threshold_bytes", 8_000_000)
         )
@@ -359,8 +340,8 @@ def run_tool(args: Dict[str, Any]) -> str:
                 if regex is not None:
                     try:
                         with open(full_path, "rb") as bf:
-                            head = bf.read(binary_sniff_bytes)
-                        if exclude_binary and _looks_binary(head):
+                            head = bf.read(8192)
+                        if _looks_binary(head):
                             continue
 
                         # Choose strategy based on file size

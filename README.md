@@ -301,6 +301,23 @@ The wizard supports numbered selections and back navigation (`b`). Re-run it any
 
 ______________________________________________________________________
 
+## uag_envsec
+
+`uag_envsec` is a small standalone helper package for encrypting and decrypting env files and values.
+
+- CLI: `uag_envsec`
+- Encrypts an input `.env` file to `*.sec` (default: `<input>.sec`)
+- Prompts for a password and uses a local key file
+- Default key file for the CLI: `.uagent.key` in the current working directory
+- If you use the Python helpers directly, the default key path is `~/.uag/uag_envsec_key`
+
+Usage:
+
+```bash
+uag_envsec .env
+uag_envsec .env --output .env.sec --key-file .uagent.key
+```
+
 ## Optional Translation (TO_LLM / FROM_LLM)
 
 By default, uag does **not** translate.
