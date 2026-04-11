@@ -68,7 +68,7 @@ Use the client only when you want to call the A2A server from another process or
 
 Host-side UI strings are localized via gettext catalogs.
 
-- Language selection: set `UAGENT_LANG` (examples: `en`, `ja`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`, `th`).
+- Language selection: set `UAGENT_LANG` (examples: `en`, `ja`, `de`, `it`, `pt_BR`, `ru`, `zh_CN`, `zh_TW`, `es`, `fr`, `ko`, `th`).
 - If `UAGENT_LANG` is unset or unsupported, uag falls back to English.
 
 Examples:
