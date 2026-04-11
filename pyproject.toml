@@ -71,6 +71,7 @@ uaga = "uagent.a2a.server:main"
 uag_setup = "uagent.setup_cli:main"
 uagg = "uagent.gui:main"
 uagw = "uagent.web:main"
+uag_envsec = "uag_envsec.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
