@@ -17,6 +17,7 @@ from .i18n import _
 from . import tools
 from .tools import long_memory as personal_long_memory
 from .tools import shared_memory
+
 from .tools.context import ToolCallbacks
 
 # Default translation function used when core.tr is not provided.
@@ -828,6 +829,19 @@ def _handle_cmd_skills(
             raise ValueError("skills_load returned non-dict")
 
         content = _format_skill_system_content(skill=skill, doc=doc)
+        # Append instruction to call finish_skill tool when done.
+        finish_instr = (
+            "\
+\
+"
+            "[Skill Termination]\
+"
+            "When you have completed all the tasks defined in this skill, "
+            "you MUST call the `finish_skill` tool to signal the end of the session. "
+            "This will clear the skill-related instructions from the context."
+        )
+        content += finish_instr
+
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
 
@@ -839,7 +853,7 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-        return CommandResult(run_llm=True, prompt="読み込んだスキルを実行して")
+        return CommandResult(run_llm=True, prompt="読み込んだスキルを実行して。完了したら finish_skill を呼んでください。")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
