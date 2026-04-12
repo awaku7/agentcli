@@ -29,7 +29,7 @@ logger.setLevel(logging.INFO)
 DEFAULT_ENDPOINT = "https://html.duckduckgo.com/html/"
 DEFAULT_TIMEOUT_SEC = 15
 DEFAULT_MAX_RESULTS = 5
-DEFAULT_RETRIES = 3
+DEFAULT_RETRIES = 0
 DEFAULT_PROXIES: Optional[Dict[str, str]] = None
 
 
@@ -244,17 +244,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 {"error": _("error.args_must_be_dict", default="args must be a dict")},
                 ensure_ascii=False,
             )
-
-        try:
-            from .. import util_providers
-
-            if util_providers.detect_provider() == "gemini":
-                return json.dumps(
-                    {"error": "search_web is disabled for Gemini runtime."},
-                    ensure_ascii=False,
-                )
-        except Exception:
-            pass
 
         q = args.get("query") or args.get("q")
         if not q:
