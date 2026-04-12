@@ -773,7 +773,7 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 "  :clean [N]            会話ログ（scheck_log_*.jsonl）を削除（system を除いた "
-"user/assistant/tool が N 件以下のログファイルを削除, 既定=10）"
+"user/assistant/tool が %(threshold)d 件以下のログファイルを削除 %(dir)s  %(n)d , 既定=10）"
 
 #: src/uagent/util_tools.py:951
 #, python-format
