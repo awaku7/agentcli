@@ -42,6 +42,19 @@ def _message_content_text(message: Dict[str, Any]) -> str:
 CACHE_META_DIR = str(get_cache_dir())
 
 CACHE_META_FILE = os.path.join(CACHE_META_DIR, "gemini_cache_meta.json")
+SCHEMA_VERSION = 2
+
+
+def _default_meta(model: str) -> Dict[str, Any]:
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "cache_name": None,
+        "model": model,
+        "system_instruction_hash": None,
+        "tools_hash": None,
+        "files": {},  # path -> hash
+        "discovered_files": [],  # 読み込まれたがまだキャッシュに反映されていないファイル
+    }
 
 
 def get_file_hash(path: str) -> str:
@@ -61,6 +74,7 @@ def _validate_message_sequence(messages: List[Dict[str, Any]]) -> bool:
     """Geminiのターン順序を検証：function_callの直後にtool応答が来ているかチェック"""
     expecting_tool = False
     saw_tool_in_block = False
+    last_kept_role = None
 
     for m in messages:
         if not isinstance(m, dict):
@@ -69,17 +83,23 @@ def _validate_message_sequence(messages: List[Dict[str, Any]]) -> bool:
         role = m.get("role")
         if role == "assistant":
             tool_calls = m.get("tool_calls", [])
-            if tool_calls:
+            has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
+            if has_tool_calls:
+                # Gemini では function_call turn は user か function response の直後のみ許可。
+                if last_kept_role not in ("user", "tool"):
+                    return False
                 if expecting_tool and not saw_tool_in_block:
-                    return False  # toolを期待しているのにassistant
+                    return False
                 expecting_tool = True
                 saw_tool_in_block = False
+            last_kept_role = "assistant"
             continue
 
         if role == "tool":
             if not expecting_tool:
                 return False  # toolを期待していない
             saw_tool_in_block = True
+            last_kept_role = "tool"
             continue
 
         if expecting_tool and not saw_tool_in_block:
@@ -88,6 +108,8 @@ def _validate_message_sequence(messages: List[Dict[str, Any]]) -> bool:
         if expecting_tool and saw_tool_in_block:
             expecting_tool = False
             saw_tool_in_block = False
+
+        last_kept_role = role
 
     return not expecting_tool or saw_tool_in_block
 
@@ -101,20 +123,26 @@ class GeminiCacheManager:
         if os.path.exists(CACHE_META_FILE):
             try:
                 with open(CACHE_META_FILE, "r", encoding="utf-8") as f:
-                    return json.load(f)
+                    data = json.load(f)
+                if not isinstance(data, dict):
+                    raise ValueError("invalid cache meta")
+                if data.get("schema_version") != SCHEMA_VERSION:
+                    try:
+                        os.remove(CACHE_META_FILE)
+                    except Exception:
+                        pass
+                    return _default_meta(self.model)
+                return data
             except Exception:
-                pass
-        return {
-            "cache_name": None,
-            "model": self.model,
-            "system_instruction_hash": None,
-            "tools_hash": None,
-            "files": {},  # path -> hash
-            "discovered_files": [],  # 読み込まれたがまだキャッシュに反映されていないファイル
-        }
+                try:
+                    os.remove(CACHE_META_FILE)
+                except Exception:
+                    pass
+        return _default_meta(self.model)
 
     def _save_meta(self):
         os.makedirs(CACHE_META_DIR, exist_ok=True)
+        self.meta_data["schema_version"] = SCHEMA_VERSION
         with open(CACHE_META_FILE, "w", encoding="utf-8") as f:
             json.dump(self.meta_data, f, ensure_ascii=False, indent=2)
 
@@ -191,7 +219,7 @@ class GeminiCacheManager:
         system_instruction: str,
         func_decls: List[Any],
         initial_messages: List[Dict[str, Any]],
-    ) -> str:
+    ) -> Optional[str]:
         """新しいキャッシュを作成し、メタデータを更新する"""
 
         # メッセージ順序の検証
@@ -236,11 +264,13 @@ class GeminiCacheManager:
                 continue
 
             if role == "assistant":
-                if content:
+                tool_calls = m.get("tool_calls") or []
+                has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
+
+                if content and not has_tool_calls:
                     _append("model", gemini_types.Part(text=content))
 
-                tool_calls = m.get("tool_calls") or []
-                if isinstance(tool_calls, list):
+                if has_tool_calls:
                     for tc in tool_calls:
                         if not isinstance(tc, dict):
                             continue
@@ -335,6 +365,16 @@ class GeminiCacheManager:
             except Exception:
                 pass  # print(f"[Gemini Cache] ファイル読み込み失敗: {path} {e}") # ログ抑制
 
+        # Gemini cache API は contents 必須。system_instruction だけでは作れないので、
+        # 履歴が空ならキャッシュを作成せず、そのまま無効扱いにする。
+        if not contents:
+            return None
+
+        # Gemini cache API は contents が必須。
+        # system_instruction しかない場合はキャッシュを作らない。
+        if not contents:
+            return None
+
         # キャッシュ作成
         cache = client.caches.create(
             model=self.model,
@@ -345,7 +385,7 @@ class GeminiCacheManager:
                     if func_decls
                     else None
                 ),
-                contents=contents if contents else None,
+                contents=contents,
                 ttl="3600s",  # 1時間（ロングランニング）
             ),
         )
