@@ -421,11 +421,52 @@ def _build_call_messages(
     gemini_cache_name: Any,
 ) -> List[Dict[str, Any]]:
     if provider == "gemini":
-        if gemini_cache_name:
-            # キャッシュには System プロンプトが含まれているため、それ以外(User, Assistant, Tool等)を送る。
-            # これにより 1 発目の User プロンプトが確実にリクエストに含まれるようになる。
-            return [m for m in messages if m["role"] != "system"]
-        return messages
+        src_messages = (
+            [m for m in messages if m.get("role") != "system"]
+            if gemini_cache_name
+            else list(messages)
+        )
+
+        call_messages: List[Dict[str, Any]] = []
+        expecting_tool = False
+        saw_tool_in_block = False
+
+        for m in src_messages:
+            if not isinstance(m, dict):
+                continue
+
+            role = m.get("role")
+            tool_calls = m.get("tool_calls") or []
+
+            if role == "assistant" and tool_calls:
+                if expecting_tool and not saw_tool_in_block:
+                    break
+                if expecting_tool and saw_tool_in_block:
+                    expecting_tool = False
+                    saw_tool_in_block = False
+
+                call_messages.append(m)
+                expecting_tool = True
+                saw_tool_in_block = False
+                continue
+
+            if role == "tool":
+                if not expecting_tool:
+                    break
+                call_messages.append(m)
+                saw_tool_in_block = True
+                continue
+
+            if expecting_tool and not saw_tool_in_block:
+                break
+
+            if expecting_tool and saw_tool_in_block:
+                expecting_tool = False
+                saw_tool_in_block = False
+
+            call_messages.append(m)
+
+        return call_messages
 
     return core.sanitize_messages_for_tools(messages)
 
@@ -578,10 +619,12 @@ def _call_gemini_round(
             msg = str(e)
             if force_thinking_level is None and (
                 "Thinking level MINIMAL is not supported for this model" in msg
-                or "thinking level minimal is not supported for this model" in msg.lower()
+                or "thinking level minimal is not supported for this model"
+                in msg.lower()
             ):
                 try:
                     from .util_tools import set_reasoning_mode
+
                     set_reasoning_mode("medium")
                 except Exception:
                     pass
