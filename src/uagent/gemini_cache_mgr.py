@@ -60,24 +60,36 @@ def get_string_hash(text: str) -> str:
 def _validate_message_sequence(messages: List[Dict[str, Any]]) -> bool:
     """Geminiのターン順序を検証：function_callの直後にtool応答が来ているかチェック"""
     expecting_tool = False
+    saw_tool_in_block = False
+
     for m in messages:
         if not isinstance(m, dict):
             continue
+
         role = m.get("role")
         if role == "assistant":
             tool_calls = m.get("tool_calls", [])
             if tool_calls:
-                if expecting_tool:
+                if expecting_tool and not saw_tool_in_block:
                     return False  # toolを期待しているのにassistant
                 expecting_tool = True
-        elif role == "tool":
+                saw_tool_in_block = False
+            continue
+
+        if role == "tool":
             if not expecting_tool:
                 return False  # toolを期待していない
+            saw_tool_in_block = True
+            continue
+
+        if expecting_tool and not saw_tool_in_block:
+            return False  # function_callの直後にtool応答が必要
+
+        if expecting_tool and saw_tool_in_block:
             expecting_tool = False
-        # userは順序をリセットしない
-    return (
-        not expecting_tool
-    )  # 最後にtoolを期待していない（未解決のfunction_callがない）
+            saw_tool_in_block = False
+
+    return not expecting_tool or saw_tool_in_block
 
 
 class GeminiCacheManager:
