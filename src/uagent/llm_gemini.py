@@ -542,11 +542,13 @@ def gemini_chat_with_tools(
             continue
 
         if role == "assistant":
-            if content:
+            tool_calls = m.get("tool_calls") or []
+            has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
+
+            if content and not has_tool_calls:
                 _append("model", gemini_types.Part(text=content))
 
-            tool_calls = m.get("tool_calls") or []
-            if isinstance(tool_calls, list):
+            if has_tool_calls:
                 first_fc = True
                 for tc in tool_calls:
                     if not isinstance(tc, dict):
@@ -614,7 +616,8 @@ def gemini_chat_with_tools(
                     name=tool_name,
                     response=resp_obj,
                 )
-                _append("tool", part)
+                # Gemini tool results are safer to send as a user turn with function_response.
+                _append("user", part)
             except Exception:
                 if content:
                     _append(

@@ -430,6 +430,7 @@ def _build_call_messages(
         call_messages: List[Dict[str, Any]] = []
         expecting_tool = False
         saw_tool_in_block = False
+        last_kept_role = None
 
         for m in src_messages:
             if not isinstance(m, dict):
@@ -437,17 +438,24 @@ def _build_call_messages(
 
             role = m.get("role")
             tool_calls = m.get("tool_calls") or []
+            has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
 
-            if role == "assistant" and tool_calls:
+            if role == "assistant" and has_tool_calls:
+                # Gemini requires function_call turns to come directly after user/function response.
+                if last_kept_role not in ("user", "tool"):
+                    break
                 if expecting_tool and not saw_tool_in_block:
                     break
                 if expecting_tool and saw_tool_in_block:
                     expecting_tool = False
                     saw_tool_in_block = False
 
+                # Preserve the original assistant turn as-is.
+                # Gemini-native dumps are consumed later by llm_gemini.py.
                 call_messages.append(m)
                 expecting_tool = True
                 saw_tool_in_block = False
+                last_kept_role = "assistant"
                 continue
 
             if role == "tool":
@@ -455,6 +463,7 @@ def _build_call_messages(
                     break
                 call_messages.append(m)
                 saw_tool_in_block = True
+                last_kept_role = "tool"
                 continue
 
             if expecting_tool and not saw_tool_in_block:
@@ -465,6 +474,19 @@ def _build_call_messages(
                 saw_tool_in_block = False
 
             call_messages.append(m)
+            last_kept_role = role
+
+        if expecting_tool and not saw_tool_in_block:
+            while call_messages:
+                last = call_messages[-1]
+                if (
+                    isinstance(last, dict)
+                    and last.get("role") == "assistant"
+                    and (last.get("tool_calls") or [])
+                ):
+                    call_messages.pop()
+                    break
+                call_messages.pop()
 
         return call_messages
 
@@ -1473,13 +1495,17 @@ def run_llm_rounds(
                 )
 
                 if not tool_calls_list:
-                    _emit_final_answer_if_any(
-                        assistant_text=assistant_text,
-                        use_responses_api=use_responses_api,
-                        stream_responses=stream_responses,
-                        append_result_to_outfile_fn=append_result_to_outfile_fn,
-                        try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    )
+                    # Gemini streaming already emitted the text; avoid double-printing.
+                    if not (
+                        provider == "gemini" and stream_responses
+                    ):
+                        _emit_final_answer_if_any(
+                            assistant_text=assistant_text,
+                            use_responses_api=use_responses_api,
+                            stream_responses=stream_responses,
+                            append_result_to_outfile_fn=append_result_to_outfile_fn,
+                            try_open_images_from_text_fn=try_open_images_from_text_fn,
+                        )
                     break
 
             elif provider == "claude":
