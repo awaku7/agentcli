@@ -180,12 +180,11 @@ class OpResult:
     detail: str
 
 
-def _confirm_or_cancel(message: str) -> None:
+def _confirm_or_cancel(message: str) -> bool:
     res_json = human_ask({"message": message, "is_password": False})
     res = json.loads(res_json)
     ans = (res.get("user_reply") or "").strip().lower()
-    if ans not in ("y", "yes"):
-        raise SystemExit("[binary_edit] cancelled")
+    return ans in ("y", "yes")
 
 
 def _ensure_file_ok(path: Path, *, max_bytes: int) -> Tuple[int, str]:
@@ -468,7 +467,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         if resized:
             msg += "WARNING: This operation changes file size (insert/delete). This may corrupt executable/binary formats.\n"
         msg += "Proceed? Reply with y to write, or n/cancel to abort."
-        _confirm_or_cancel(msg)
+        if not _confirm_or_cancel(msg):
+            return json.dumps({"ok": False, "error": "cancelled by user"}, ensure_ascii=False)
 
     if dry_run:
         payload = {
