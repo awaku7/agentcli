@@ -1,3 +1,4 @@
+import uagent.runtime_init  # noqa: F401
 import getpass
 import re
 import importlib
