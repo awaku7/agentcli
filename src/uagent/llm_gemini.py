@@ -627,7 +627,8 @@ def gemini_chat_with_tools(
 
     # Apply reasoning/verbosity controls from env.
     reasoning_mode = _normalize_reasoning_env(env_get("UAGENT_REASONING"))
-    verbosity_mode = _normalize_verbosity_env(env_get("UAGENT_VERBOSITY"))
+    # Force Gemini verbosity to 'off' to avoid truncation and loop issues.
+    verbosity_mode = "off"
 
     verbosity_instr = _verbosity_to_instruction(verbosity_mode)
     if verbosity_instr:
