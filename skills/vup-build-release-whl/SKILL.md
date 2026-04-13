@@ -64,7 +64,7 @@ license: Apache-2.0
 確認文（固定）:
 
 - `pyproject.toml` の version を更新するか確認します
-- ユーザーが希望する場合のみ patch +1 して commit します
+- *ユーザーが希望する場合のみ* patch +1 して commit します
 - `origin/main` に push します
 - wheel をビルドします（`python -m build`）
 - 配布先（GitHub/GitLab）へ最新 whl をアップロードします
