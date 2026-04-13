@@ -829,16 +829,12 @@ def _handle_cmd_skills(
             raise ValueError("skills_load returned non-dict")
 
         content = _format_skill_system_content(skill=skill, doc=doc)
-        # Append instruction to call finish_skill tool when done.
+        # Append instruction to call finish_skill tool when the skill execution is complete.
         finish_instr = (
-            "\
-\
-"
-            "[Skill Termination]\
-"
-            "When you have completed all the tasks defined in this skill, "
-            "you MUST call the `finish_skill` tool to signal the end of the session. "
-            "This will clear the skill-related instructions from the context."
+            "\n\n"
+            "[Skill Termination]\n"
+            "If the above is an execution skill, run it to completion. "
+            "When the skill execution is complete, call `finish_skill`."
         )
         content += finish_instr
 
@@ -853,7 +849,7 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-        return CommandResult(run_llm=True, prompt="読み込んだスキルを実行して。完了したら finish_skill を呼んでください。")
+        return CommandResult(run_llm=True, prompt="上記が実行スキルの場合、最後までスキルを実行する。スキルの実行が完了した場合、finish_skill を呼ぶ。")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
