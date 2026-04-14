@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uag"
-version = "0.3.61"
+version = "0.3.62"
 description = "A powerful tool execution agent"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -79,7 +79,30 @@ include = ["uagent", "uagent.*", "uag_envsec", "uag_envsec.*"]
 exclude = ["uagent.mcp*", "test*", "tests*"]
 
 [tool.setuptools.package-data]
-uagent = ["tools/**/*", "prompts/**/*", "static/**/*", "templates/**/*", "locales/**/*", "docs/**/*", "README.md", "README.ja.md", "QUICKSTART.md", "QUICKSTART.ja.md"]
+uagent = [
+    "tools/**/*",
+    "prompts/**/*",
+    "static/**/*",
+    "templates/**/*",
+    "locales/**/*",
+    "docs/**/*",
+    "README.md",
+    "README.ja.md",
+    "README.de.md",
+    "README.es.md",
+    "README.fr.md",
+    "README.it.md",
+    "README.ko.md",
+    "README.pt_BR.md",
+    "README.ru.md",
+    "README.th.md",
+    "README.zh_CN.md",
+    "README.zh_TW.md",
+    "QUICKSTART.md",
+    "QUICKSTART.ja.md",
+    "ENVIRONMENT.md",
+    "ENVIRONMENT.ja.md"
+]
 
 [tool.ruff]
 # Ruff settings
