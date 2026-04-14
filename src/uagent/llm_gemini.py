@@ -390,8 +390,10 @@ def _build_thinking_config(
 
 def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
     vm = (verbosity_mode or "").strip().lower()
+    # Geminiは無制限だと途中停止やUI側の打ち切りに見えやすいので、
+    # offでも最小限の上限を入れる。
     if not vm or vm == "off":
-        return None
+        return 8192
 
     # Conservative defaults; users can still override output style in prompts.
     if vm == "low":
@@ -401,7 +403,7 @@ def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
     if vm == "high":
         return 3200
 
-    return None
+    return 8192
 
 
 def _verbosity_to_instruction(verbosity_mode: str) -> str | None:
@@ -740,16 +742,28 @@ def gemini_chat_with_tools(
 
         gemini_content_dump: Dict[str, Any] = {}
         try:
+            fr = getattr(candidate, "finish_reason", None)
+            if fr is not None:
+                fr_str = str(fr)
+                gemini_content_dump["finish_reason"] = fr_str
+                if fr_str.lower() not in ("stop", "finish_reason_unspecified", "max_tokens"):
+                    # STOP以外の異常系（length, safetyなど）だけ出力
+                    pass  # print(f"\\n[Gemini] finish_reason={fr_str}")
+        except Exception:
+            pass
+        try:
             if content_obj is not None:
                 md = getattr(content_obj, "model_dump", None)
                 if callable(md):
-                    gemini_content_dump = md(exclude_none=True)
+                    dumped = md(exclude_none=True)
+                    if isinstance(dumped, dict):
+                        gemini_content_dump.update(dumped)
+                    else:
+                        gemini_content_dump.update({"role": getattr(content_obj, "role", "model")})
                 else:
-                    gemini_content_dump = {
-                        "role": getattr(content_obj, "role", "model")
-                    }
+                    gemini_content_dump.update({"role": getattr(content_obj, "role", "model")})
         except Exception:
-            gemini_content_dump = {}
+            gemini_content_dump = {"finish_reason": gemini_content_dump.get("finish_reason", "unknown")}
 
         chunk_texts: List[str] = []
         chunk_tool_calls: List[Dict[str, Any]] = []
@@ -860,6 +874,17 @@ def gemini_chat_with_tools(
             pass
 
         assistant_content = "".join(assistant_text_parts)
+
+        # Gemini stream deduplication for tool calls
+        unique_tcs = []
+        seen = set()
+        for tc in tool_calls_list:
+            sig = json.dumps(tc.get("function", {}), sort_keys=True)
+            if sig not in seen:
+                seen.add(sig)
+                unique_tcs.append(tc)
+        tool_calls_list = unique_tcs
+
         return assistant_content, tool_calls_list, gemini_content_dump
 
     response = client.models.generate_content(**gen_kwargs)
@@ -870,4 +895,15 @@ def gemini_chat_with_tools(
             text_so_far="",
         )
     )
+
+    # Gemini deduplication for tool calls (just in case)
+    unique_tcs = []
+    seen = set()
+    for tc in tool_calls_list:
+        sig = json.dumps(tc.get("function", {}), sort_keys=True)
+        if sig not in seen:
+            seen.add(sig)
+            unique_tcs.append(tc)
+    tool_calls_list = unique_tcs
+
     return assistant_content, tool_calls_list, gemini_content_dump
