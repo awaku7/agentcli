@@ -764,39 +764,50 @@ def _handle_cmd_skills(
             print(tr("[skills] No skills found."))
             return CommandResult()
 
-        print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
-        for i, it in enumerate(items, start=1):
-            if not isinstance(it, dict):
-                continue
-            name = it.get("name") or "(unknown)"
-            desc = it.get("description") or ""
-            ok = bool(it.get("ok"))
-            ok_mark = "OK" if ok else "WARN"
-            print(f"[{i}] ({ok_mark}) {name}: {desc}")
-
-        sel_msg = _(
-            "Select a skill number to run. Enter c to cancel.\n"
-            "Tip: :skills clear  (remove applied skills)\n\n"
-            "Enter number:"
-        )
-
         selected_idx: int | None = None
-        while selected_idx is None:
-            sel_json = human_ask({"message": sel_msg})
-            sel = json.loads(sel_json)
-            user_reply = (sel.get("user_reply") or "").strip()
-            low = user_reply.lower()
-            if low in ("c", "cancel"):
-                print(tr("[skills] Cancelled."))
-                return CommandResult()
-            if not user_reply.isdigit():
-                print(tr("[skills] Please enter a number or c."))
-                continue
-            n = int(user_reply)
-            if n < 1 or n > len(items):
+        # Check if arg is a number for direct selection
+        if a.isdigit():
+            n = int(a)
+            if 1 <= n <= len(items):
+                selected_idx = n - 1
+            else:
                 print(tr("[skills] Out of range: %(n)d") % {"n": n})
-                continue
-            selected_idx = n - 1
+                return CommandResult()
+
+        # If not direct selection, show list and ask
+        if selected_idx is None:
+            print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
+            for i, it in enumerate(items, start=1):
+                if not isinstance(it, dict):
+                    continue
+                name = it.get("name") or "(unknown)"
+                desc = it.get("description") or ""
+                ok = bool(it.get("ok"))
+                ok_mark = "OK" if ok else "WARN"
+                print(f"[{i}] ({ok_mark}) {name}: {desc}")
+
+            sel_msg = _(
+                "Select a skill number to run. Enter c to cancel."
+                "Tip: :skills clear  (remove applied skills)"
+                "Enter number:"
+            )
+
+            while selected_idx is None:
+                sel_json = human_ask({"message": sel_msg})
+                sel = json.loads(sel_json)
+                user_reply = (sel.get("user_reply") or "").strip()
+                low = user_reply.lower()
+                if low in ("c", "cancel"):
+                    print(tr("[skills] Cancelled."))
+                    return CommandResult()
+                if not user_reply.isdigit():
+                    print(tr("[skills] Please enter a number or c."))
+                    continue
+                n = int(user_reply)
+                if n < 1 or n > len(items):
+                    print(tr("[skills] Out of range: %(n)d") % {"n": n})
+                    continue
+                selected_idx = n - 1
 
         skill = items[selected_idx]
         if not isinstance(skill, dict):
@@ -840,12 +851,6 @@ def _handle_cmd_skills(
 
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
-
-        # Remove existing user messages at the end to ensure the skill's trigger is the last word.
-        # This prevents the LLM from following a previous instruction instead of the skill.
-        _trim_messages_after_last_user(messages_ref)
-        if messages_ref and messages_ref[-1].get("role") == "user":
-            messages_ref.pop()
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
