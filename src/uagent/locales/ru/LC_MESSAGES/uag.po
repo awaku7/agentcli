@@ -2696,3 +2696,79 @@ msgstr "Отменено пользователем"
 #: src/uagent/tools/zip_ops_tool.py:516
 msgid "error.zip_extract_failed"
 msgstr "Не удалось распаковать ZIP"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "Зашифровать созданный файл .env?"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "Нет"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "Да"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Зашифрованный файл будет записан как %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "Обычный файл .env удален после шифрования."
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Предупреждение: Не удалось удалить обычный файл .env: %(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "Настроить параметры анализа изображений?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "Выбрать провайдера анализа изображений"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "Настроить параметры генерации изображений?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "Выбрать провайдера генерации изображений"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "Автоматически открывать созданные изображения?"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search settings?"
+msgstr "Настроить параметры эмбеддингов / семантического поиска?"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "Отключить семантический поиск, если API эмбеддингов недоступен?"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "Дополнительные настройки изображений / эмбеддингов"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (дополнительные настройки изображений / эмбеддингов не настроены)"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "Дополнительные функции включены: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "Анализ изображений включен: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "Генерация изображений включена: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "Эмбеддинги включены: %(state)s"

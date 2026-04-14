@@ -1,49 +1,66 @@
-# uag (uagent)
+```
+██╗   ██╗ █████╗  ██████╗ ███████╗███╗   ██╗████████╗ ██████╗██╗     ██╗
+██║   ██║██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔════╝██║     ██║
+██║   ██║███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ██║     ██║     ██║
+██║   ██║██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ██║     ██║     ██║
+╚██████╔╝██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╗███████╗██║
+ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
+```
 
-uag 是一个在本地环境中运行的通用工具执行代理。它可以通过命令行界面 (CLI) 与用户交互，并根据指示执行文件操作、网络搜索、Python 脚本运行等多种任务。
+# uag (本地 AI 智能体)
 
-## 主要功能
+uag 是一款能够在您的本地 PC 上执行 **命令**、操作 **文件** 并读取 **各种数据格式**（PDF/PPTX/Excel 等）的交互式智能体。它提供三种界面：CLI、GUI 和 Web。
 
-- **本地文件操作**：读取、写入、编辑和搜索文件。
-- **信息检索**：使用 DuckDuckGo 进行网络搜索，提取网页内容。
-- **代码执行**：安全地运行 Python 脚本和 PowerShell 命令。
-- **多媒体处理**：生成图像、读取 PDF/PPTX 文件、截屏。
-- **多语言支持**：支持包括中文、日文和英文在内的多种语言。
-- **MCP (Model Context Protocol) 支持**：可以连接到外部 MCP 服务器以扩展其功能。
+## 安装
 
-## 安装方法
-
-您可以使用 pip 从 PyPI 安装：
+您可以通过 pip 安装 `uag`：
 
 ```bash
 pip install uag
 ```
 
-首次运行时，会自动启动设置向导。
+安装后，首次运行 `uag` 将自动启动 **交互式设置向导** 以配置您的环境变量。有关配置和加密的详细信息，请参阅 **[ENVIRONMENT.md](ENVIRONMENT.md)**。
 
-## 快速入门
+## 主要功能
 
-安装后，只需输入以下命令即可启动：
+- **实用工具集**：配备用于文件操作、网络搜索、数据提取（PDF/PPTX/Excel）、图像生成和分析的工具，均可在本地环境中执行。
+- **多供应商支持**：支持 OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA。
+- **灵活的界面**：
+  - **CLI**: `uag` / `python -m uagent`
+  - **GUI**: `uagg` / `python -m uagent.gui`
+  - **Web**: `uagw` / `python -m uagent.web`
+- **MCP (模型上下文协议)**：支持连接到外部 MCP 工具服务器。
+- **会话持续性**：即使切换供应商或模型，也能保持对话上下文。
+- **Web 检查器**：使用 `playwright_inspector` 自动保存浏览器跳转、DOM 和截图。
+- **内置文档**：使用 `uag docs` 命令即时访问详细的内部文档。
 
+## 使用方法
+
+### 启动与退出
+从终端运行 `uag` 即可开始。输入 `:exit` 退出。
+
+### A2A (智能体间通信) 服务器
+您可以启动一个独立于现有界面的 A2A 兼容 HTTP 服务器。
 ```bash
-uag
+uaga
+# 或 python -m uagent.a2a.server
 ```
 
-启动后，您可以向代理提出如下请求：
-- "读取当前目录下的 README 并总结其内容。"
-- "在 Web 上搜索最新的 AI 新闻并制作摘要。"
-- "将 images 文件夹中的所有 PNG 文件压缩为 ZIP。"
+### 实用技巧 (持续与控制)
+- `:tools`：显示已加载工具的列表。
+- `:logs [n]`：显示会话日志（`n` 用于指定条目数）。
+- `:load <index>`：加载过去的会话以恢复对话。
+- `:skills`：选择并加载智能体技能（额外的角色或指令）。
+- `:shrink [n]`：整理历史记录，仅保留最后 `n` 条消息以节省 Token。
 
-## 配置（环境变量）
+## 配置与详情
 
-uag 的行为可以通过环境变量进行配置。详细信息请参阅：
-- [ENVIRONMENT.md (English)](ENVIRONMENT.md)
+### 环境变量与设置
+有关详细设置（API 密钥、显示语言 `UAGENT_LANG`、历史压缩设置等），请参阅 **[ENVIRONMENT.md](ENVIRONMENT.md)**。
+- **设置**：通过 `python -m uagent.setup_cli` 进行交互式配置。
+- **加密**：使用 `uag_envsec` 工具安全地加密您的 `.env` 文件。
 
-## 文档
-
-- [README.md (English)](README.md)
-- [README.ja.md (Japanese)](README.ja.md)
-
-## 许可证
-
-基于 Apache License 2.0 许可证发布。
+### 开发者与国际化
+- **开发者文档**：`src/uagent/docs/DEVELOP.md`
+- **添加语言区域**：`src/uagent/docs/ADD_LOCALE.md`
+- **其他语言的 README**：[English](README.md) / [日本語](README.ja.md) / [Deutsch](README.de.md) / [Français](README.fr.md) / [한국어](README.ko.md) / [繁體中文](README.zh_TW.md)
