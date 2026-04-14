@@ -11,6 +11,19 @@
 
 uag is an interactive local agent that can execute commands, manipulate files, and read various data formats (PDF/PPTX/Excel, etc.) on your PC.
 
+## Installation
+
+You can install `uag` via pip:
+
+```bash
+pip install uag
+```
+
+After installation, running `uag` for the first time will automatically launch an **interactive setup wizard** to configure your environment variables.
+
+For detailed information on environment variables and their encryption, see **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+
+
 - CLI: `uag` / `python -m uagent`
 - GUI: `uagg` / `python -m uagent.gui`
 - Web: `uagw` / `python -m uagent.web`
