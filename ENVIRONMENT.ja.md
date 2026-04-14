@@ -19,43 +19,63 @@ python -m uagent.setup_cli
 
 ## 主要な環境変数
 
-### 1. LLM プロバイダ設定
+### 1. プロバイダの選択 (`UAGENT_PROVIDER`)
 
-使用するプロバイダに応じて、以下のいずれか（または複数）を設定してください。
+起動時に使用するメインのプロバイダを指定します（必須）。
 
-| プロバイダ | 必須/推奨変数 |
-| :--- | :--- |
-| **OpenAI** | `UAGENT_OPENAI_API_KEY` |
-| **Anthropic** | `UAGENT_ANTHROPIC_API_KEY` |
-| **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` |
-| **Azure OpenAI** | `UAGENT_AZURE_OPENAI_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_DEPLOYMENT_ID` |
-| **AWS (Bedrock)** | `UAGENT_AWS_REGION`, `UAGENT_AWS_ACCESS_KEY_ID`, `UAGENT_AWS_SECRET_ACCESS_KEY` |
-| **OpenRouter** | `UAGENT_OPENROUTER_API_KEY` |
-| **Ollama** | `UAGENT_OLLAMA_BASE_URL` (既定: `http://localhost:11434`) |
-| **Grok (xAI)** | `UAGENT_GROK_API_KEY` |
-| **NVIDIA** | `UAGENT_NVIDIA_API_KEY` |
-| **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY` |
+- 有効な値: `openai`, `azure`, `anthropic`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
 
-### 2. エージェントの基本動作
+### 2. LLM プロバイダ別の設定
 
-- `UAGENT_LANG`: ホスト UI の言語を指定します。
-  - `ja`: 日本語
-  - `en`: 英語
+各プロバイダで必要な変数は以下の通りです。モデル名の指定には `UAGENT_<PROVIDER>_DEPNAME` を使用します。
+
+| プロバイダ | 認証・エンドポイント設定 | モデル名指定 (任意) |
+| :--- | :--- | :--- |
+| **OpenAI** | `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL` | `UAGENT_OPENAI_DEPNAME` |
+| **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
+| **Anthropic** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
+| **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
+| **AWS Bedrock** ※ | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
+| **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
+| **Ollama** | `UAGENT_OLLAMA_BASE_URL` (既定: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
+| **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
+| **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
+
+> ※ **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。
+
+### 3. エージェントの基本動作
+
+- `UAGENT_LANG`: ホスト UI の言語 (`ja`, `en`)。
 - `UAGENT_WORKDIR`: エージェントが操作を行うデフォルトの作業ディレクトリ。
-- `UAGENT_VERBOSITY`: ログ出力の冗長性（`low`, `medium`, `high`）。
+- `UAGENT_STREAMING`: LLM 応答の逐次表示（ストリーミング）の有効化 (`1`: 有効(既定), `0`: 無効)。
+- `UAGENT_VERBOSITY`: ログ出力の冗長性 (`low`, `medium`, `high`)。
+- `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時に使用されるエンドポイントとモデル情報を出力します。
 
-### 3. 会話履歴の管理（オートシュリンク）
+### 4. 高度な機能 (Responses API, 推論等)
 
-トークン消費を抑えるため、会話が長くなった際に古いメッセージを自動的に削除または要約する機能です。
+- `UAGENT_RESPONSES`: `1` に設定すると、対応プロバイダ（Azure/OpenAI/Bedrock/Ollama）で "Responses API" を有効にします。
+- `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベル (`auto`, `low`, `medium`, `high`)。
+- `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
 
-- `UAGENT_SHRINK_CNT`: 自動圧縮を開始するメッセージ数（既定: `100`）。
-- `UAGENT_SHRINK_KEEP_LAST`: 圧縮後に最新のメッセージをいくつ保持するか（既定: `20`）。
+### 5. 画像の生成と解析
 
-### 4. 記憶とツール
+- `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
+- `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: 画像生成用モデル ID (例: `dall-e-3`)。
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: 画像解析に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
+- `UAGENT_IMAGE_OPEN`: 画像生成後に自動で開くかどうか (`0` で無効化)。
+
+### 6. 翻訳機能 (オプション)
+
+- `UAGENT_TRANSLATE_PROVIDER`: 翻訳エンジン (`openai`, `azure`, `openrouter` 等の OpenAI 互換、または `argos`)。
+- `UAGENT_TRANSLATE_TO_LLM`: LLM へ送る前の翻訳先言語 (例: `en`)。
+- `UAGENT_TRANSLATE_FROM_LLM`: LLM からの応答を翻訳する際の言語 (例: `ja`)。
+- `UAGENT_TRANSLATE_DEPNAME`: 翻訳に使用するモデル ID。
+
+### 7. 記憶とセマンティック検索
 
 - `UAGENT_MEMORY_FILE`: 長期記憶メモの保存先パス。
-- `UAGENT_SHARED_MEMORY_FILE`: 他のセッションと共有する長期記憶のパス。
-- `UAGENT_EMBEDDING_API_URL`: セマンティック検索に使用する埋め込み（Embedding）APIのURL。
+- `UAGENT_SHARED_MEMORY_FILE`: 共有長期記憶の保存先パス。
+- `UAGENT_EMBEDDING_API_URL`: 埋め込み (Embedding) API の URL。
 
 ---
 
@@ -63,19 +83,5 @@ python -m uagent.setup_cli
 
 APIキーなどの機密情報を平文の `.env` ファイルに保存したくない場合は、`uag_envsec` を使用してファイルを暗号化できます。
 
-1. **暗号化**:
-   ```bash
-   uag_envsec .env
-   ```
-   パスワードを入力すると、暗号化された `.env.sec` と、ローカル鍵ファイル `.uagent.key` が生成されます。
-   
-2. **利用**:
-   `uag` 起動時に自動的に `.env.sec` が復号されて読み込まれます（パスワード入力が必要です）。
-
----
-
-## 高度な設定
-
-- `UAGENT_RESPONSES`: `1` に設定すると、OpenAI 等のプロバイダで "Responses API" を使用します。
-- `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベルを指定します（`auto`, `low`, `medium`, `high`）。
-- `UAGENT_CMD_ENCODING`: 外部コマンド実行時の標準出力のデコードに使用するエンコーディング。
+1. **暗号化**: `uag_envsec .env` を実行し、パスワードを入力。
+2. **利用**: `uag` 起動時に `.env.sec` が自動的に検出され、パスワード入力により復号・読み込みが行われます。
