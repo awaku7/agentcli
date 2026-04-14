@@ -61,6 +61,6 @@ uaga
 - **暗号化**: `uag_envsec` ツールで `.env` ファイルを安全に暗号化可能。
 
 ### 開発者・多言語対応
-- **開発者ドキュメント**: `src/uagent/docs/DEVELOP.md`
-- **ロケールの追加**: `src/uagent/docs/ADD_LOCALE.md`
-- **他言語の README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md)
+- **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **ロケールの追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
+- **他言語の README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md)
