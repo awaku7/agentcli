@@ -19,42 +19,62 @@ If required environment variables (such as provider settings) are missing when y
 
 ## Key Environment Variables
 
-### 1. LLM Provider Settings
+### 1. Provider Selection (`UAGENT_PROVIDER`)
 
-Set one or more of the following depending on the providers you wish to use.
+Specifies the primary provider to use at startup (Required).
 
-| Provider | Required/Recommended Variables |
-| :--- | :--- |
-| **OpenAI** | `UAGENT_OPENAI_API_KEY` |
-| **Anthropic** | `UAGENT_ANTHROPIC_API_KEY` |
-| **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` |
-| **Azure OpenAI** | `UAGENT_AZURE_OPENAI_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_DEPLOYMENT_ID` |
-| **AWS (Bedrock)** | `UAGENT_AWS_REGION`, `UAGENT_AWS_ACCESS_KEY_ID`, `UAGENT_AWS_SECRET_ACCESS_KEY` |
-| **OpenRouter** | `UAGENT_OPENROUTER_API_KEY` |
-| **Ollama** | `UAGENT_OLLAMA_BASE_URL` (Default: `http://localhost:11434`) |
-| **Grok (xAI)** | `UAGENT_GROK_API_KEY` |
-| **NVIDIA** | `UAGENT_NVIDIA_API_KEY` |
-| **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY` |
+- Values: `openai`, `azure`, `anthropic`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
 
-### 2. Basic Agent Behavior
+### 2. LLM Provider Settings
 
-- `UAGENT_LANG`: Specifies the host UI language.
-  - `en`: English
-  - `ja`: Japanese
+Each provider requires specific variables. You can override the default model using `UAGENT_<PROVIDER>_DEPNAME`.
+
+| Provider | Authentication & Endpoint | Model ID (Optional) |
+| :--- | :--- | :--- |
+| **OpenAI** | `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL` | `UAGENT_OPENAI_DEPNAME` |
+| **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
+| **Anthropic** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
+| **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
+| **AWS Bedrock** * | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
+| **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
+| **Ollama** | `UAGENT_OLLAMA_BASE_URL` (Default: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
+| **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
+| **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
+
+> \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
+
+### 3. Basic Agent Behavior
+
+- `UAGENT_LANG`: Host UI language (`en`, `ja`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
+- `UAGENT_STREAMING`: Enable/disable streaming LLM responses (`1`: Enabled(default), `0`: Disabled).
 - `UAGENT_VERBOSITY`: Output verbosity level (`low`, `medium`, `high`).
+- `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
 
-### 3. History Management (Auto-Shrink)
+### 4. Advanced Features (Responses API, Reasoning, etc.)
 
-To control token consumption, `uag` can automatically delete or summarize old messages when a conversation becomes too long.
+- `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/Ollama).
+- `UAGENT_REASONING`: Reasoning effort level for reasoning models (`auto`, `low`, `medium`, `high`).
+- `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
-- `UAGENT_SHRINK_CNT`: Number of messages to trigger auto-shrink (Default: `100`).
-- `UAGENT_SHRINK_KEEP_LAST`: Number of latest messages to keep after shrinking (Default: `20`).
+### 5. Image Generation and Analysis
 
-### 4. Memory and Tools
+- `UAGENT_IMG_GENERATE_PROVIDER`: Provider for image generation (Default: `UAGENT_PROVIDER`).
+- `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: Model ID for image generation (e.g., `dall-e-3`).
+- `UAGENT_IMG_ANALYSIS_PROVIDER`: Provider for image analysis (Default: `UAGENT_PROVIDER`).
+- `UAGENT_IMAGE_OPEN`: Whether to automatically open images after generation (`0` to disable).
+
+### 6. Translation Features (Optional)
+
+- `UAGENT_TRANSLATE_PROVIDER`: Translation engine (`openai`, `azure`, `openrouter` or other OpenAI-compatible; or `argos`).
+- `UAGENT_TRANSLATE_TO_LLM`: Language to translate into before sending to LLM (e.g., `en`).
+- `UAGENT_TRANSLATE_FROM_LLM`: Language to translate LLM responses into (e.g., `ja`).
+- `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation.
+
+### 7. Memory and Semantic Search
 
 - `UAGENT_MEMORY_FILE`: Path to store long-term memory notes.
-- `UAGENT_SHARED_MEMORY_FILE`: Path to store shared long-term memory across sessions.
+- `UAGENT_SHARED_MEMORY_FILE`: Path to store shared long-term memory.
 - `UAGENT_EMBEDDING_API_URL`: URL for the embedding API used for semantic search.
 
 ---
@@ -63,19 +83,5 @@ To control token consumption, `uag` can automatically delete or summarize old me
 
 If you prefer not to store sensitive API keys in plain text within the `.env` file, you can encrypt it using `uag_envsec`.
 
-1. **Encryption**:
-   ```bash
-   uag_envsec .env
-   ```
-   After entering a password, an encrypted `.env.sec` file and a local key file `.uagent.key` will be created.
-   
-2. **Usage**:
-   `uag` will automatically decrypt and load `.env.sec` at startup (requires password entry).
-
----
-
-## Advanced Settings
-
-- `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers like OpenAI.
-- `UAGENT_REASONING`: Specifies the reasoning effort for reasoning models like o1 (`auto`, `low`, `medium`, `high`).
-- `UAGENT_CMD_ENCODING`: Encoding used to decode stdout from external command execution.
+1. **Encryption**: Run `uag_envsec .env` and enter a password.
+2. **Usage**: `uag` will automatically detect `.env.sec` at startup and prompt for a password to decrypt and load it.
