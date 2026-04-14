@@ -11,6 +11,19 @@
 
 uag は、ローカルPC上で **コマンド実行**・**ファイル操作**・**各種データ読取** などを行う対話型エージェントです。
 
+## インストール
+
+`uag` は pip でインストールできます。
+
+```bash
+pip install uag
+```
+
+インストール後、初回起動時に環境変数を設定するための **対話型セットアップウィザード** が自動的に起動します。
+
+環境変数の詳細や暗号化については、**[ENVIRONMENT.ja.md](ENVIRONMENT.ja.md)** を参照してください。
+
+
 - CUI（CLI）: `uag` / `python -m uagent`
 - GUI: `uagg` / `python -m uagent.gui`
 - Web: `uagw` / `python -m uagent.web`
