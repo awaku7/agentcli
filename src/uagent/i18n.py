@@ -173,63 +173,94 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
         if script and not region:
             region = parts[2].upper()
 
-    # Japanese
-    if lang.startswith("ja"):
-        return "ja" if "ja" in supported else "en"
+    # 1) Map to base supported language codes
+    target = "en"
 
-    # English
-    if lang.startswith("en"):
-        return "en"
+    if lang == "ja":
+        target = "ja"
+    elif lang == "en":
+        target = "en"
+    elif lang == "zh":
+        # Chinese: map Hans/Hant to CN/TW
+        if region in {"CN", "SG"} or script == "Hans":
+            target = "zh_CN"
+        elif region in {"TW", "HK", "MO"} or script == "Hant":
+            target = "zh_TW"
+        else:
+            target = "zh_CN"  # Default zh to CN
+    elif lang == "pt":
+        # Portuguese: default to pt_BR if available
+        target = "pt_BR" if region == "BR" or "pt_BR" in supported else "pt"
+    else:
+        # Generic: use the language code itself (fr, de, ko, etc.)
+        target = lang
 
-    # Chinese: map Hans/Hant to CN/TW when available
-    if lang.startswith("zh"):
-        # explicit region
-        if region in {"CN", "SG"}:
-            return (
-                "zh_CN"
-                if "zh_CN" in supported
-                else ("zh_TW" if "zh_TW" in supported else "en")
-            )
-        if region in {"TW", "HK", "MO"}:
-            return (
-                "zh_TW"
-                if "zh_TW" in supported
-                else ("zh_CN" if "zh_CN" in supported else "en")
-            )
+    # 2) Final fallback check: if requested lang is not in supported catalogs,
+    # try simpler fallbacks before giving up to "en".
+    if target in supported:
+        return target
 
-        # script hint
-        if script == "Hans":
-            return (
-                "zh_CN"
-                if "zh_CN" in supported
-                else ("zh_TW" if "zh_TW" in supported else "en")
-            )
-        if script == "Hant":
-            return (
-                "zh_TW"
-                if "zh_TW" in supported
-                else ("zh_CN" if "zh_CN" in supported else "en")
-            )
-
-        # plain 'zh'
-        if "zh_CN" in supported:
-            return "zh_CN"
-        if "zh_TW" in supported:
-            return "zh_TW"
-        return "en"
-
-    # General case: if we have exact lang catalog, use it.
-    if lang and lang in supported:
-        return lang
+    # 'zh_CN' -> 'zh' (if 'zh' was supported but not 'zh_CN')
+    # 'pt_BR' -> 'pt'
+    if "_" in target:
+        base = target.split("_")[0]
+        if base in supported:
+            return base
 
     return "en"
+
+
+def _detect_windows_console_lang() -> str | None:
+    """Detect language from Windows console code page."""
+    if os.name != "nt":
+        return None
+
+    try:
+        import ctypes
+        # https://learn.microsoft.com/en-us/windows/win32/api/wincon/nf-wincon-getconsoleoutputcp
+        cp = ctypes.windll.kernel32.GetConsoleOutputCP()
+        # Map common Windows console code pages to language codes
+        # https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
+        # Map Windows code pages to supported language codes
+        # https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
+        cp_map = {
+            932: "ja",     # Japanese
+            936: "zh_CN",  # Simplified Chinese
+            949: "ko",     # Korean
+            950: "zh_TW",  # Traditional Chinese
+            1251: "ru",    # Cyrillic (Russian)
+            874:  "th",    # Thai
+            # Western European (1252/850) can be any of en, de, fr, es, it, pt.
+            # Without further API calls, we default to "en" for these code pages.
+            1252: "en",
+            850:  "en",
+            437:  "en",
+        }
+        if cp in cp_map:
+            return cp_map[cp]
+
+        # For Western European or others, try User Default UI Language as a fallback
+        # https://learn.microsoft.com/en-us/windows/win32/api/winnls/nf-winnls-getuserdefaultuilanguage
+        lang_id = ctypes.windll.kernel32.GetUserDefaultUILanguage() & 0x3ff
+        lang_map = {
+            0x07: "de", # German
+            0x0c: "fr", # French
+            0x0a: "es", # Spanish
+            0x10: "it", # Italian
+            0x16: "pt", # Portuguese (pt_BR)
+        }
+        if lang_id in lang_map:
+            return lang_map[lang_id]
+    except Exception:
+        pass
+    return None
 
 
 def detect_lang() -> str:
     """Detect runtime language.
 
     Returns:
-      'ja' or 'en' (current policy).
+      Detected language code (e.g., 'ja', 'en', 'zh_CN').
     """
 
     # 1) explicit override
@@ -266,7 +297,9 @@ def detect_lang() -> str:
     if os.name == "nt":
         vcp = _detect_windows_console_lang()
         if vcp:
-            return vcp
+            # We trust _detect_windows_console_lang's mapping but normalize
+            # just in case to ensure it's in our supported set.
+            return _normalize_lang_tag(vcp)
 
     return "en"
 

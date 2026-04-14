@@ -6,79 +6,12 @@ import os
 from functools import lru_cache
 from typing import Any, Dict, Optional
 
-from ..env_utils import env_get
-
-
-def _normalize_locale(loc_str: Optional[str]) -> str:
-    """Normalize locale strings.
-
-    Examples:
-      - 'ja_JP' -> 'ja'
-      - 'en-US' -> 'en'
-      - None / '' -> 'en'
-    """
-    if not loc_str:
-        return "en"
-    s = str(loc_str).strip()
-    if not s:
-        return "en"
-    s = s.replace("-", "_")
-    # Drop encoding and modifiers
-    s = s.split(".")[0].split("@")[0]
-    base = s.split("_")[0].lower()
-
-    # Common aliases
-    if base in ("us",):
-        base = "en"
-    if base in ("jp",):
-        base = "ja"
-
-    if base.startswith("ja"):
-        return "ja"
-    return base or "en"
+from ..i18n import detect_lang, get_thread_lang
 
 
 def get_locale() -> str:
-    """Return active locale based on environment or OS settings.
-
-    Priority:
-      1) UAGENT_LANG (explicit override)
-      2) LC_ALL / LANG (standard env vars)
-      3) OS default locale (via locale module)
-    """
-
-    # 1) explicit override
-    v = (env_get("UAGENT_LANG") or "").strip()
-    if v:
-        return _normalize_locale(v)
-
-    # 2) common env vars
-    for k in ("LC_ALL", "LANG"):
-        vv = (env_get(k) or "").strip()
-        if vv:
-            return _normalize_locale(vv)
-
-    # 3) OS locale
-    try:
-        loc, _enc = locale.getlocale()
-        if loc:
-            return _normalize_locale(loc)
-    except Exception:
-        pass
-
-    try:
-        # getdefaultlocale is deprecated but serves as a fallback
-        loc2 = None
-        try:
-            loc2, _enc2 = locale.getdefaultlocale()  # type: ignore[attr-defined]
-        except Exception:
-            loc2 = None
-        if loc2:
-            return _normalize_locale(loc2)
-    except Exception:
-        pass
-
-    return "en"
+    """Return active locale (thread-local override or detected default)."""
+    return get_thread_lang() or detect_lang()
 
 
 @lru_cache(maxsize=256)
