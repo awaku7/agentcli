@@ -19,7 +19,7 @@ Você pode instalar o `uag` via pip:
 pip install uag
 ```
 
-Após a instalação, a primeira execução do `uag` iniciará automaticamente um **assistente de configuração interativo** para configurar suas variáveis de ambiente. Para informações detalhadas sobre configuração e criptografia, consulte **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+Após a instalação, a primeira execução do `uag` iniciará automaticamente um **assistente de configuração interativo** para configurar suas variáveis de ambiente. Para informações detalhadas sobre configuração e criptografia, consulte **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 
 ## Principais Características
 
@@ -56,11 +56,11 @@ uaga
 ## Configuração e Detalhes
 
 ### Variáveis de Ambiente e Configuração
-Para configurações detalhadas (chaves de API, idioma de exibição `UAGENT_LANG`, configurações de redução de histórico, etc.), consulte **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+Para configurações detalhadas (chaves de API, idioma de exibição `UAGENT_LANG`, configurações de redução de histórico, etc.), consulte **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Setup**: Configure interativamente via `python -m uagent.setup_cli`.
 - **Criptografia**: Criptografe seus arquivos `.env` com segurança usando a ferramenta `uag_envsec`.
 
 ### Desenvolvedores e Internacionalização
 - **Docs para Desenvolvedores**: `src/uagent/docs/DEVELOP.md`
 - **Adicionando Locais**: `src/uagent/docs/ADD_LOCALE.md`
-- **README em outros idiomas**: [English](README.md) / [日本語](README.ja.md) / [Deutsch](README.de.md) / [Français](README.fr.md) / [한국어](README.ko.md) / [简体中文](README.zh_CN.md)
+- **README em outros idiomas**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md)
