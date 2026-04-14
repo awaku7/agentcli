@@ -3105,3 +3105,79 @@ msgstr ""
 "error.zip_extract_failed"
 
 
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "เข้ารหัสไฟล์ .env ที่สร้างขึ้นหรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "ไม่"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "ใช่"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "ไฟล์ที่เข้ารหัสจะถูกเขียนเป็น %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "ลบไฟล์ .env แบบธรรมดาหลังจากเข้ารหัสแล้ว"
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "คำเตือน: ลบไฟล์ .env แบบธรรมดาไม่สำเร็จ: %(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "กำหนดค่าการตั้งค่าการวิเคราะห์รูปภาพหรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "เลือกผู้ให้บริการการวิเคราะห์รูปภาพ"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "กำหนดค่าการตั้งค่าการสร้างรูปภาพหรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "เลือกผู้ให้บริการการสร้างรูปภาพ"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "เปิดรูปภาพที่สร้างขึ้นโดยอัตโนมัติหรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search settings?"
+msgstr "กำหนดค่าการตั้งค่าการฝังตัว / การค้นหาเชิงความหมายหรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "ปิดใช้งานการค้นหาเชิงความหมายเมื่อไม่สามารถเข้าถึง API การฝังตัวได้หรือไม่?"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "การตั้งค่ารูปภาพ / การฝังตัวเพิ่มเติม"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (ไม่ได้กำหนดค่าการตั้งค่ารูปภาพ / การฝังตัวเพิ่มเติม)"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "เปิดใช้งานฟีเจอร์เพิ่มเติม: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "เปิดใช้งานการวิเคราะห์รูปภาพ: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "เปิดใช้งานการสร้างรูปภาพ: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "เปิดใช้งานการฝังตัว: %(state)s"
