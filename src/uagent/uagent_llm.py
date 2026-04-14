@@ -894,8 +894,7 @@ def _call_openai_azure_round(
                         )
                     )
                     # ensure newline after streaming output
-                    if assistant_text and not bool(getattr(core, "_is_web", False)) and not assistant_text.endswith("
-"):
+                    if assistant_text and not bool(getattr(core, "_is_web", False)) and not assistant_text.endswith("\n"):
                         print("")
                 else:
                     assistant_text, tool_calls_list = call_maybe_thread_fn(
