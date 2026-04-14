@@ -1025,6 +1025,12 @@ def main() -> int:
             sec_text = encrypt_text(env_text)
             sec_path.write_text(sec_text + "\n", encoding="utf-8", newline="\n")
             print(encrypt_msg % {"path": sec_path})
+            # Remove plain .env after encryption
+            try:
+                paths["env"].unlink()
+                print(_("Plain .env file removed after encryption."))
+            except Exception as e:
+                print(_("Warning: Failed to remove plain .env: %(error)s") % {"error": e})
 
     if "sh" in outputs:
         sh_text = _emit_sh(env_lines)
