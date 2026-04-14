@@ -345,6 +345,9 @@ def _maybe_auto_shrink_messages(
     gemini_cache_name: Any,
     call_maybe_thread_fn: Any,
 ) -> Any:
+    # Gemini の場合は自動圧縮を行わない
+    if provider == "gemini":
+        return gemini_cache_name
     # Auto shrink_llm (optional)
     shrink_cnt_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
     try:
@@ -1609,6 +1612,8 @@ def run_llm_rounds(
                 tool_result_cache=tool_result_cache,
                 use_tool_result_cache=use_tool_result_cache,
             )
+
+
 
             core.set_status(True, "LLM")
 
