@@ -26,6 +26,7 @@ def run_cli_startup(
 ) -> CliStartupState:
     import io
     import os
+    os.environ['PYTHONHTTPSVERIFY'] = '0'
     import sys
     from contextlib import redirect_stderr, redirect_stdout
 

@@ -249,6 +249,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     try:
         import os
 
+        os.environ['PYTHONHTTPSVERIFY'] = '0'
         os.environ["UAGENT_A2A_HOST"] = str(args.host)
         os.environ["UAGENT_A2A_PORT"] = str(args.port)
     except Exception:

@@ -874,8 +874,7 @@ def gemini_chat_with_tools(
             pass
 
         assistant_content = "".join(assistant_text_parts)
-        if assistant_content and not bool(getattr(core, "_is_web", False)) and not assistant_content.endswith("
-"):
+        if assistant_content and not bool(getattr(core, "_is_web", False)) and not assistant_content.endswith("\n"):
             print("")
 
         # Gemini stream deduplication for tool calls
