@@ -3090,3 +3090,79 @@ msgid "error.zip_extract_failed"
 msgstr ""
 "error.zip_extract_failed"
 
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "생성된 .env 파일을 암호화하시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "아니요"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "예"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "암호화된 파일이 %(path)s로 저장됩니다"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "암호화 후 일반 .env 파일이 삭제되었습니다."
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "경고: 일반 .env 파일 삭제 실패: %(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "이미지 분석 설정을 구성하시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "이미지 분석 제공자 선택"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "이미지 생성 설정을 구성하시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "이미지 생성 제공자 선택"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "생성된 이미지를 자동으로 여시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search settings?"
+msgstr "임베딩 / 시맨틱 검색 설정을 구성하시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "임베딩 API에 접속할 수 없을 때 시맨틱 검색을 비활성화하시겠습니까?"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "선택적 이미지 / 임베딩 설정"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (선택적 이미지 / 임베딩 설정이 구성되지 않음)"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "선택적 추가 기능 활성화: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "이미지 분석 활성화: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "이미지 생성 활성화: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "임베딩 활성화: %(state)s"

@@ -3081,3 +3081,79 @@ msgid "error.zip_extract_failed"
 msgstr ""
 "error.zip_extract_failed"
 
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "Encrypt the generated .env file?"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "No"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "Yes"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Encrypted file will be written as %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "Plain .env file removed after encryption."
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Warning: Failed to remove plain .env: %(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "Configure image analysis settings?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "Select image analysis provider"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "Configure image generation settings?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "Select image generation provider"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "Open generated images automatically?"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search settings?"
+msgstr "Configure embedding / semantic search settings?"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "Disable semantic search when embedding API is unreachable?"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "Optional image / embedding settings"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (optional image / embedding settings not configured)"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "Optional extras enabled: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "Image analysis enabled: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "Image generation enabled: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "Embedding enabled: %(state)s"

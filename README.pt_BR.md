@@ -1,49 +1,66 @@
-# uag (uagent)
+```
+██╗   ██╗ █████╗  ██████╗ ███████╗███╗   ██╗████████╗ ██████╗██╗     ██╗
+██║   ██║██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝██╔════╝██║     ██║
+██║   ██║███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║   ██║     ██║     ██║
+██║   ██║██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║   ██║     ██║     ██║
+╚██████╔╝██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   ╚██████╗███████╗██║
+ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝╚══════╝╚═╝
+```
 
-uag é um agente de execução de ferramentas de propósito geral que roda em seu ambiente local. Ele interage com os usuários através de uma interface de linha de comando (CLI) e realiza várias tarefas, como operações de arquivo, busca na web e execução de scripts Python de acordo com as instruções.
+# uag (Agente de IA Local)
 
-## Principais Funcionalidades
-
-- **Operações de arquivos locais**: Leitura, escrita, edição e busca de arquivos.
-- **Recuperação de informações**: Busca na web com DuckDuckGo e extração de conteúdo de páginas web.
-- **Execução de código**: Execução segura de scripts Python e comandos PowerShell.
-- **Processamento multimídia**: Geração de imagens, leitura de arquivos PDF/PPTX, capturas de tela.
-- **Suporte a vários idiomas**: Suporta vários idiomas, incluindo português, japonês e inglês.
-- **Suporte MCP (Model Context Protocol)**: Pode ser conectado a servidores MCP externos para expandir suas funções.
+O uag é um agente interativo que executa **comandos**, manipula **arquivos** e lê **vários formatos de dados** (PDF/PPTX/Excel, etc.) no seu PC local. Ele oferece três interfaces: CLI, GUI e Web.
 
 ## Instalação
 
-Você pode instalá-lo com pip do PyPI:
+Você pode instalar o `uag` via pip:
 
 ```bash
 pip install uag
 ```
 
-Na primeira execução, um assistente de configuração será iniciado automaticamente.
+Após a instalação, a primeira execução do `uag` iniciará automaticamente um **assistente de configuração interativo** para configurar suas variáveis de ambiente. Para informações detalhadas sobre configuração e criptografia, consulte **[ENVIRONMENT.md](ENVIRONMENT.md)**.
 
-## Início Rápido
+## Principais Características
 
-Após a instalação, basta digitar o seguinte comando para começar:
+- **Conjunto de Ferramentas Práticas**: Equipado com ferramentas para manipulação de arquivos, busca na web, extração de dados (PDF/PPTX/Excel), geração de imagens e análise, todas executáveis em seu ambiente local.
+- **Suporte Multi-Provedor**: Suporta OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA.
+- **Interfaces Flexíveis**: 
+  - **CLI**: `uag` / `python -m uagent`
+  - **GUI**: `uagg` / `python -m uagent.gui`
+  - **Web**: `uagw` / `python -m uagent.web`
+- **MCP (Model Context Protocol)**: Suporte para conexão com servidores de ferramentas MCP externos.
+- **Continuidade de Sessão**: Mantém o contexto da conversa mesmo ao trocar de provedor ou modelo.
+- **Web Inspector**: Salva automaticamente transições de navegador, DOM e capturas de tela usando o `playwright_inspector`.
+- **Documentação Integrada**: Acesse instantaneamente a documentação interna detalhada usando o comando `uag docs`.
 
+## Uso
+
+### Iniciar e Sair
+Execute `uag` no seu terminal para começar. Digite `:exit` para sair.
+
+### Servidor A2A (Agent2Agent)
+Você pode iniciar um servidor HTTP compatível com A2A separado das interfaces existentes.
 ```bash
-uag
+uaga
+# ou python -m uagent.a2a.server
 ```
 
-Uma vez iniciado, você pode pedir ao agente coisas como:
-- "Leia o README no diretório atual e resuma seu conteúdo."
-- "Pesquise na web as últimas notícias sobre IA e faça um resumo."
-- "Compacte todos os arquivos PNG na pasta 'images' em um arquivo ZIP."
+### Dicas Úteis (Continuidade e Controle)
+- `:tools`: Exibe uma lista das ferramentas carregadas.
+- `:logs [n]`: Mostra os logs da sessão (`n` para especificar o número de entradas).
+- `:load <index>`: Carrega uma sessão anterior para retomar a conversa.
+- `:skills`: Seleciona e carrega Agent Skills (funções ou instruções adicionais).
+- `:shrink [n]`: Organiza o histórico para manter apenas as últimas `n` mensagens para economizar tokens.
 
-## Configuração (Variáveis de Ambiente)
+## Configuração e Detalhes
 
-O comportamento do uag pode ser configurado através de variáveis de ambiente. Para mais detalhes, consulte:
-- [ENVIRONMENT.md (English)](ENVIRONMENT.md)
+### Variáveis de Ambiente e Configuração
+Para configurações detalhadas (chaves de API, idioma de exibição `UAGENT_LANG`, configurações de redução de histórico, etc.), consulte **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+- **Setup**: Configure interativamente via `python -m uagent.setup_cli`.
+- **Criptografia**: Criptografe seus arquivos `.env` com segurança usando a ferramenta `uag_envsec`.
 
-## Documentação
-
-- [README.md (English)](README.md)
-- [README.ja.md (Japanese)](README.ja.md)
-
-## Licença
-
-Publicado sob a Licença Apache 2.0.
+### Desenvolvedores e Internacionalização
+- **Docs para Desenvolvedores**: `src/uagent/docs/DEVELOP.md`
+- **Adicionando Locais**: `src/uagent/docs/ADD_LOCALE.md`
+- **README em outros idiomas**: [English](README.md) / [日本語](README.ja.md) / [Deutsch](README.de.md) / [Français](README.fr.md) / [한국어](README.ko.md) / [简体中文](README.zh_CN.md)
