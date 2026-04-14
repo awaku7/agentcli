@@ -162,12 +162,45 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
     script = None
     region = None
 
+    # Handle Windows-style names (e.g., "Japanese_Japan", "Chinese_China")
+    win_names = {
+        "japanese": ("ja", None),
+        "english": ("en", None),
+        "german": ("de", None),
+        "french": ("fr", None),
+        "spanish": ("es", None),
+        "italian": ("it", None),
+        "portuguese": ("pt", None),
+        "korean": ("ko", None),
+        "russian": ("ru", None),
+        "thai": ("th", None),
+    }
+    if lang in win_names:
+        mapped_lang, mapped_script = win_names[lang]
+        lang = mapped_lang
+        if mapped_script:
+            script = mapped_script
+
     if len(parts) >= 2:
         # script or region
-        if len(parts[1]) == 4:
-            script = parts[1].title()  # Hans/Hant
+        p1 = parts[1]
+        if len(p1) == 4:
+            script = p1.title()  # Hans/Hant
         else:
-            region = parts[1].upper()
+            region = p1.upper()
+            # Special case for Windows "Chinese_China" -> region="CHINA"
+            if region == "CHINA":
+                region = "CN"
+            elif region == "TAIWAN":
+                region = "TW"
+            elif "HONG KONG" in region:
+                region = "HK"
+            elif "MACAU" in region:
+                region = "MO"
+
+    if parts and parts[0].lower() == "chinese":
+        lang = "zh"
+
     if len(parts) >= 3:
         # region if script present
         if script and not region:
