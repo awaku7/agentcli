@@ -19,7 +19,7 @@ You can install `uag` via pip:
 pip install uag
 ```
 
-After installation, running `uag` for the first time will automatically launch an **interactive setup wizard** to configure your environment variables. For detailed information on configuration and encryption, see **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+After installation, running `uag` for the first time will automatically launch an **interactive setup wizard** to configure your environment variables. For detailed information on configuration and encryption, see **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 
 ## Key Features
 
@@ -56,11 +56,11 @@ uaga
 ## Configuration and Details
 
 ### Environment Variables and Setup
-For detailed settings (API keys, display language `UAGENT_LANG`, history shrink settings, etc.), see **[ENVIRONMENT.md](ENVIRONMENT.md)**.
+For detailed settings (API keys, display language `UAGENT_LANG`, history shrink settings, etc.), see **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Setup**: Configure interactively via `python -m uagent.setup_cli`.
 - **Encryption**: Securely encrypt your `.env` file using the `uag_envsec` tool.
 
 ### Developers and Internationalization
 - **Developer Docs**: `src/uagent/docs/DEVELOP.md`
 - **Adding Locales**: `src/uagent/docs/ADD_LOCALE.md`
-- **README in other languages**: [日本語](README.ja.md) / [Deutsch](README.de.md) / [Français](README.fr.md) / [한국어](README.ko.md) / [简体中文](README.zh_CN.md) / [繁體中文](README.zh_TW.md)
+- **README in other languages**: [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md)
