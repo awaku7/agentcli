@@ -1521,12 +1521,17 @@ def load_agents_md() -> str:
     agents_path = os.path.join(os.getcwd(), "AGENTS.md")
     if not os.path.isfile(agents_path):
         return ""
+
+    if getattr(load_agents_md, "_loaded", False):
+        return ""
+
     try:
         from tools.read_file_tool import run_tool as read_file
 
         content = read_file({"filename": agents_path})
         obj = json.loads(content)
         if obj.get("ok"):
+            setattr(load_agents_md, "_loaded", True)
             return str(obj.get("content", ""))
         return ""
     except Exception:
