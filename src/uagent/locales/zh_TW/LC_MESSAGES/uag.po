@@ -3090,3 +3090,79 @@ msgid "error.zip_extract_failed"
 msgstr ""
 "error.zip_extract_failed"
 
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "加密生成的 .env 檔案嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "不"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "是"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "加密檔案將寫入為 %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "加密後已刪除明文 .env 檔案。"
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "警告：未能刪除明文 .env：%(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "配置可選的圖像分析設定嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "選擇圖像分析提供商"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "配置可選的圖像生成設定嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "選擇圖像生成提供商"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "自動打開生成的圖像嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search設定?"
+msgstr "配置嵌入 / 語義搜索設定嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "當嵌入 API 無法訪問時禁用語義搜索嗎？"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "可選的圖像 / 嵌入設定"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "#（未配置可選的圖像 / 嵌入設定）"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "可選擴展已啟用：%(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "圖像分析已啟用：%(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "圖像生成已啟用：%(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "嵌入已啟用：%(state)s"

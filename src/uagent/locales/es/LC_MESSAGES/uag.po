@@ -3125,3 +3125,79 @@ msgstr ""
 "error.zip_extract_failed"
 
 
+
+#: src/uagent/setup_cli.py
+msgid "Encrypt the generated .env file?"
+msgstr "¿Cifrar el archivo .env generado?"
+
+#: src/uagent/setup_cli.py
+msgid "No"
+msgstr "No"
+
+#: src/uagent/setup_cli.py
+msgid "Yes"
+msgstr "Sí"
+
+#: src/uagent/setup_cli.py
+msgid "Encrypted file will be written as %(path)s"
+msgstr "El archivo cifrado se escribirá como %(path)s"
+
+#: src/uagent/setup_cli.py
+msgid "Plain .env file removed after encryption."
+msgstr "Archivo .env sin formato eliminado tras el cifrado."
+
+#: src/uagent/setup_cli.py
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Advertencia: Error al eliminar el archivo .env sin formato: %(error)s"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image analysis settings?"
+msgstr "¿Configurar los ajustes de análisis de imágenes?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image analysis provider"
+msgstr "Seleccionar el proveedor de análisis de imágenes"
+
+#: src/uagent/setup_cli.py
+msgid "Configure image generation settings?"
+msgstr "¿Configurar los ajustes de generación de imágenes?"
+
+#: src/uagent/setup_cli.py
+msgid "Select image generation provider"
+msgstr "Seleccionar el proveedor de generación de imágenes"
+
+#: src/uagent/setup_cli.py
+msgid "Open generated images automatically?"
+msgstr "¿Abrir automáticamente las imágenes generadas?"
+
+#: src/uagent/setup_cli.py
+msgid "Configure embedding / semantic search settings?"
+msgstr "¿Configurar los ajustes de búsqueda semántica / incrustación?"
+
+#: src/uagent/setup_cli.py
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "¿Desactivar la búsqueda semántica cuando la API de incrustación no esté disponible?"
+
+#: src/uagent/setup_cli.py
+msgid "Optional image / embedding settings"
+msgstr "Ajustes opcionales de imagen / incrustación"
+
+#: src/uagent/setup_cli.py
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (ajustes opcionales de imagen / incrustación no configurados)"
+
+#: src/uagent/setup_cli.py
+msgid "Optional extras enabled: %(state)s"
+msgstr "Extras opcionales habilitados: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image analysis enabled: %(state)s"
+msgstr "Análisis de imágenes habilitado: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Image generation enabled: %(state)s"
+msgstr "Generación de imágenes habilitada: %(state)s"
+
+#: src/uagent/setup_cli.py
+msgid "Embedding enabled: %(state)s"
+msgstr "Incrustación habilitada: %(state)s"
