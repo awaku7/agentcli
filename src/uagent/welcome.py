@@ -2,7 +2,7 @@
 import json
 import os
 from .env_utils import env_get
-from .i18n import _
+from .i18n import _,detect_lang
 
 try:
     from . import __version__
