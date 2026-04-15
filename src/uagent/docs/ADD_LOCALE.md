@@ -98,3 +98,33 @@ python -m uagent
 ## 6. Commitment Policy
 
 Always commit both the `.po` and the `.mo` files to ensure the translations are immediately available to users without requiring them to have gettext tools installed.
+
+---
+
+## Tool-Specific Internationalization (JSON)
+
+**Note:** Tools located in `src/uagent/tools/` use a separate i18n mechanism from the main application. They do **not** use the gettext `.po`/`.mo` files.
+
+### 1. Mechanism
+Each tool typically uses `make_tool_translator(__file__)` which looks for a JSON file with the same name as the tool (e.g., `my_tool_tool.py` -> `my_tool_tool.json`) in the same directory.
+
+### 2. How to Translate a Tool
+To add translations for a tool (e.g., `ja` locale):
+
+1.  **Locate/Create the JSON file**: Check if `src/uagent/tools/<tool_name>_tool.json` exists. If not, create it.
+2.  **Add the language key**:
+    ```json
+    {
+      "ja": {
+        "tool.description": "このツールの説明",
+        "error.not_found": "ファイルが見つかりません"
+      },
+      "de": {
+        "tool.description": "Beschreibung dieses Tools",
+        "error.not_found": "Datei nicht gefunden"
+      }
+    }
+    ```
+3.  **Usage in Code**: The tool's Python code accesses these via the `_()` function initialized at the top of the file.
+
+For more details on developing tools, see `src/uagent/docs/DEVELOP_TOOL.md`.
