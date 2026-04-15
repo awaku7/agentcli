@@ -1,50 +1,50 @@
 {
   "de": {
     "param.message.description": "Optionale Abschlussnachricht an den Benutzer.",
-    "tool.description": "Signalisiert, dass die Aufgaben des aktuellen Skills abgeschlossen sind. Dies entfernt Skill-Anweisungen und verhindert Endlosschleifen."
+    "tool.description": "Signalisiert, dass die Aufgaben des aktuellen Skills abgeschlossen sind. (Nur während der Skill-Ausführung basierend auf SKILL.md verwenden). Dies entfernt Skill-Anweisungen und verhindert Endlosschleifen."
   },
   "en": {
     "param.message.description": "Optional final message to the user.",
-    "tool.description": "Signal that the current skill's tasks are complete. This removes skill instructions and prevents infinite loops."
+    "tool.description": "Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.md). This removes skill instructions and prevents infinite loops."
   },
   "es": {
     "param.message.description": "Mensaje final opcional para el usuario.",
-    "tool.description": "Indica que las tareas de la habilidad actual se han completado. Esto elimina las instrucciones de la habilidad y evita bucles infinitos."
+    "tool.description": "Indica que las tareas de la habilidad actual se han completado. (Usar SOLO durante la ejecución de habilidades basada en SKILL.md). Esto elimina las instrucciones de la habilidad y evita bucles infinitos."
   },
   "fr": {
     "param.message.description": "Message final facultatif pour l'utilisateur.",
-    "tool.description": "Signale que les tâches de la compétence actuelle sont terminées. Cela supprime les instructions de la compétence et évite les boucles infinies."
+    "tool.description": "Signale que les tâches de la compétence actuelle sont terminées. (Utiliser UNIQUEMENT lors de l'exécution de compétences basées sur SKILL.md). Cela supprime les instructions de la compétence et évite les boucles infinies."
   },
   "it": {
     "param.message.description": "Messaggio finale facoltativo per l'utente.",
-    "tool.description": "Segnala che le attività della competenza corrente sono state completate. Ciò rimuove le istruzioni della competenza e previene i cicli infiniti."
+    "tool.description": "Segnala che le attività della competenza corrente sono state completate. (Usare SOLO durante l'esecuzione di abilità basata su SKILL.md). Ciò rimuove le istruzioni della competenza e previene i cicli infiniti."
   },
   "ja": {
     "param.message.description": "ユーザーへのオプションの最終メッセージ。",
-    "tool.description": "現在のスキルのタスクが完了したことを知らせます。これによりスキルの指示が削除され、無限ループが防止されます。"
+    "tool.description": "現在のスキルのタスクが完了したことを知らせます。（SKILL.md に基づくスキル実行時のみ使用してください）。これによりスキルの指示が削除され、無限ループが防止されます。"
   },
   "ko": {
     "param.message.description": "사용자에게 보내는 선택적 최종 메시지입니다.",
-    "tool.description": "현재 스킬의 작업이 완료되었음을 알립니다. 이렇게 하면 스킬 지침이 제거되고 무한 루프가 방지됩니다."
+    "tool.description": "현재 스킬의 작업이 완료되었음을 알립니다. (SKILL.md 기반 스킬 실행 시에만 사용하십시오). 이렇게 하면 스킬 지침이 제거되고 무한 루프가 방지됩니다."
   },
   "pt_BR": {
     "param.message.description": "Mensagem final opcional para o usuário.",
-    "tool.description": "Sinaliza que as tarefas da habilidade atual foram concluídas. Isso remove as instruções da habilidade e evita loops infinitos."
+    "tool.description": "Sinaliza que as tarefas da habilidade atual foram concluídas. (Use APENAS durante a execução de habilidades baseada em SKILL.md). Isso remove as instruções da habilidade e evita loops infinitos."
   },
   "ru": {
     "param.message.description": "Необязательное заключительное сообщение пользователю.",
-    "tool.description": "Сигнал о завершении задач текущего навыка. Это удаляет инструкции навыка и предотвращает бесконечные циклы."
+    "tool.description": "Сигнал о завершении задач текущего навыка. (Используйте ТОЛЬКО при выполнении навыков на основе SKILL.md). Это удаляет инструкции навыка и предотвращает бесконечные циклы."
   },
   "th": {
     "param.message.description": "ข้อความสุดท้ายถึงผู้ใช้ (ไม่บังคับ)",
-    "tool.description": "สัญญาณว่างานของทักษะปัจจุบันเสร็จสมบูรณ์แล้ว สิ่งนี้จะลบคำแนะนำทักษะและป้องกันการวนซ้ำไม่สิ้นสุด"
+    "tool.description": "สัญญาณว่างานของทักษะปัจจุบันเสร็จสมบูรณ์แล้ว (ใช้เฉพาะระหว่างการเรียกใช้ทักษะตาม SKILL.md เท่านั้น) สิ่งนี้จะลบคำแนะนำทักษะและป้องกันการวนซ้ำไม่สิ้นสุด"
   },
   "zh_CN": {
     "param.message.description": "向用户发送的可选最终消息。",
-    "tool.description": "指示当前技能的任务已完成。这将删除技能说明并防止无限循环。"
+    "tool.description": "指示当前技能的任务已完成。（仅在基于 SKILL.md 执行技能时使用）。这将删除技能说明并防止无限循环。"
   },
   "zh_TW": {
     "param.message.description": "向使用者發送的可選最終訊息。",
-    "tool.description": "指示目前技能的任務已完成。這將刪除技能說明並防止無限迴圈。"
+    "tool.description": "指示目前技能的任務已完成。（僅在基於 SKILL.md 執行技能時使用）。這將刪除技能說明並防止無限迴圈。"
   }
 }
