@@ -24,7 +24,7 @@ Nach der Installation wird beim ersten Start von `uag` automatisch ein **interak
 ## Hauptmerkmale
 
 - **Praktisches Toolset**: Ausgestattet mit Werkzeugen für Dateimanipulation, Websuche, Datenextraktion (PDF/PPTX/Excel), Bildgenerierung und -analyse, die alle in Ihrer lokalen Umgebung ausgeführt werden können.
-- **Unterstützung mehrerer Anbieter**: Unterstützt OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA.
+- **Unterstützung mehrerer Anbieter**: Unterstützt OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
 - **Flexible Schnittstellen**: 
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

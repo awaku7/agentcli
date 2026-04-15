@@ -81,7 +81,8 @@ curl "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-2.5-f
 - Vertex AI 用の設定は `UAGENT_VERTEXAI_*` に分離する
 - 既存の `UAGENT_GEMINI_*` は Gemini Developer API 用として維持する
 - 可能なら `gemini` と `vertexai` を混在させず、設定の意味を明確に分ける
-- `vertexai` 側の必須項目は少なくとも `UAGENT_VERTEXAI_API_KEY`, `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION`, `UAGENT_VERTEXAI_DEPNAME` を想定する
+- `vertexai` 側の必須項目は少なくとも `UAGENT_VERTEXAI_API_KEY`, `UAGENT_VERTEXAI_DEPNAME` を想定する
+- `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION` は環境や SDK の解決に応じて任意扱いにできる
 
 ## メモ
 今回の切り分け結果としては、

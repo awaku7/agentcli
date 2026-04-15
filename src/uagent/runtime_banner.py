@@ -53,6 +53,12 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         lines.append(
             f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OLLAMA_BASE_URL', 'http://localhost:11434/v1'))}"
         )
+    elif provider == "vertexai":
+        lines.append(
+            "[INFO] vertexai = "
+            f"project={env_get('UAGENT_VERTEXAI_PROJECT', '(not set)')}, "
+            f"location={env_get('UAGENT_VERTEXAI_LOCATION', '(not set)')}"
+        )
 
     _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
@@ -72,7 +78,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     if (
         _use_responses_flag
         and not _responses_supported
-        and provider not in ("gemini", "claude")
+        and provider not in ("gemini", "claude", "vertexai")
     ):
         lines.append(
             "[WARN] "

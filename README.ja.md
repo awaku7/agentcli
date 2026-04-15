@@ -24,7 +24,7 @@ pip install uag
 ## 主な特長
 
 - **実用的なツール群**: ローカル環境で即座に実行可能な、ファイル操作、ウェブ検索、データ抽出（PDF/PPTX/Excel）、画像生成・解析等のツールを搭載。
-- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA をサポート。
+- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA をサポート。
 - **柔軟なインターフェース**: 
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

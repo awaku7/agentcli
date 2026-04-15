@@ -141,7 +141,7 @@
     "param.token_env.description": "Nome da variável de ambiente que armazena o token do bot do Discord.",
     "param.wait_s.description": "Tempo de espera por respostas após o envio (segundos).",
     "tool.description": "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio.",
-    "tool.system_prompt": "Use esta ferramenta para falar com um canal do Discord via API REST. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON.",
+    "tool.system_prompt": "Use esta ferramenta para falar com um canal do Discord via API REST. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
   },
   "ru": {
     "err.exception": "Исключение",

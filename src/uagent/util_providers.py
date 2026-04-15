@@ -153,6 +153,7 @@ def detect_provider() -> str:
         "openrouter",
         "ollama",
         "gemini",
+        "vertexai",
         "grok",
         "claude",
         "nvidia",
@@ -181,6 +182,11 @@ def get_model_name() -> str:
     if provider == "gemini":
         return (
             env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash") or "gemini-1.5-flash"
+        )
+    if provider == "vertexai":
+        return (
+            env_get("UAGENT_VERTEXAI_DEPNAME", "gemini-2.5-flash")
+            or "gemini-2.5-flash"
         )
     if provider == "claude":
         return (
@@ -265,40 +271,6 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
 
     provider = detect_provider()
     model_name = get_model_name()
-
-    # Debug: print the effective provider/base_url/model at client creation time.
-    # Enabled when UAGENT_DEBUG_ENDPOINT=1.
-    _dbg = (env_get("UAGENT_DEBUG_ENDPOINT", "") or "").strip().lower()
-    if _dbg in ("1", "true", "yes", "on"):
-        _base = "(not set)"
-        try:
-            if provider == "azure":
-                _base = core.get_env_url("UAGENT_AZURE_BASE_URL")
-            elif provider == "openai":
-                _base = core.get_env_url(
-                    "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
-                )
-            elif provider == "bedrock":
-                _base = core.get_env_url("UAGENT_BEDROCK_BASE_URL", "(not set)")
-            elif provider == "openrouter":
-                _base = core.get_env_url(
-                    "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
-                )
-            elif provider == "nvidia":
-                _base = core.get_env_url(
-                    "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
-                )
-            elif provider == "grok":
-                _base = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
-        except Exception:
-            pass
-        try:
-            print(
-                f"[INFO] make_client: provider={provider} base_url={_base} model={model_name}",
-                file=sys.stderr,
-            )
-        except Exception:
-            pass
 
     if provider == "azure":
         base_url = core.get_env_url("UAGENT_AZURE_BASE_URL")
@@ -450,7 +422,7 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
         if genai is None:
             print(
                 "[FATAL] " + _("google-genai package is not installed."),
-                file=sys.stderr,
+                file=sys.__stderr__,
             )
             sys.exit(1)
 
@@ -469,6 +441,45 @@ def make_client(core: Any) -> Tuple[str, Any, str]:
             client = genai.Client(api_key=api_key, http_options=http_options)
         except TypeError:
             client = genai.Client(api_key=api_key)
+
+        return provider, client, model_name
+
+    if provider == "vertexai":
+        if genai is None:
+            print(
+                "[FATAL] " + _("google-genai package is not installed."),
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        api_key = core.get_env("UAGENT_VERTEXAI_API_KEY")
+        project = env_get("UAGENT_VERTEXAI_PROJECT")
+        location = env_get("UAGENT_VERTEXAI_LOCATION")
+
+        http_options: dict[str, Any] = {}
+        try:
+            httpx_client = make_httpx_client()
+            if httpx_client is not None:
+                http_options["httpx_client"] = httpx_client
+        except Exception:
+            pass
+
+        kwargs: dict[str, Any] = {"vertexai": True, "api_key": api_key}
+        if project:
+            kwargs["project"] = project
+        if location:
+            kwargs["location"] = location
+        if http_options:
+            kwargs["http_options"] = http_options
+
+        try:
+            client = genai.Client(**kwargs)
+        except Exception:
+            kwargs.pop("http_options", None)
+            try:
+                client = genai.Client(**kwargs)
+            except Exception:
+                client = genai.Client(vertexai=True, api_key=api_key)
 
         return provider, client, model_name
 

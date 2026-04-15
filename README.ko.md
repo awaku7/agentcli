@@ -24,7 +24,7 @@ pip install uag
 ## 주요 특징
 
 - **실용적인 도구 모음**: 로컬 환경에서 즉시 실행 가능한 파일 조작, 웹 검색, 데이터 추출(PDF/PPTX/Excel), 이미지 생성 및 분석 도구를 탑재하고 있습니다.
-- **멀티 프로바이더 지원**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Claude / Grok / NVIDIA를 지원합니다.
+- **멀티 프로바이더 지원**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA를 지원합니다.
 - **유연한 인터페이스**: 
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
