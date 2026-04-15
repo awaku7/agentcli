@@ -209,7 +209,7 @@ def _human_ask_confirm(message: str) -> Optional[str]:
         print(
             _(
                 "ui.confirm.howto",
-                default="How to reply: y=proceed / c=cancel / other=deny\n",
+                default="How to answer: y=proceed / c=cancel / other=deny\n",
             ),
             flush=True,
         )

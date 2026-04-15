@@ -9,8 +9,9 @@ os.environ['PYTHONHTTPSVERIFY'] = '0'
 from .env_utils import env_get
 import sys
 
-from .i18n import _
+from .i18n import _, detect_lang, set_thread_lang
 
+set_thread_lang(detect_lang())
 
 import threading
 import time
@@ -883,7 +884,7 @@ def main() -> None:
             )
     finally:
         # プログラム終了時にキャッシュをクリア
-        if provider == "gemini" and client:
+        if provider in ("gemini", "vertexai") and client:
             try:
                 from .gemini_cache_mgr import GeminiCacheManager
 

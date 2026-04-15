@@ -1100,7 +1100,7 @@ def compress_history_with_llm(
     attempt_429 = 0
     while True:
         try:
-            if provider == "gemini" or "genai.Client" in str(type(client)):
+            if provider in ("gemini", "vertexai") or "genai.Client" in str(type(client)):
                 from .llm_gemini import gemini_chat_with_tools
 
                 summary_content, _summary_unused1, _summary_unused2 = (

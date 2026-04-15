@@ -61,7 +61,7 @@
     "param.replacement.description": "Texto de reemplazo.",
     "summary.blocked": "Bloqueado: {count}",
     "summary.blocked_reason": "Bloqueado: {reason}",
-    "summary.error": "Error: {error}",
+    "summary.error": "Se produjo un error: {error}",
     "summary.files_changed": "{count} archivo(s) modificado(s)",
     "summary.matches": "{count} coincidencia(s)",
     "summary.no_change": "Sin cambios (0 coincidencias)",
@@ -135,7 +135,13 @@
     "summary.matches": "{count} 件の一致",
     "summary.no_change": "変更なし（0 件の一致）",
     "summary.preview_matches": "プレビュー: {count} 件の一致が見つかりました",
-    "tool.description": "既存のテキストファイルに対して、リテラル置換または正規表現置換を行います。改行を含むパターン/置換にも対応します。"
+    "tool.description": "既存のテキストファイルに対して、リテラル置換または正規表現置換を行います。改行を含むパターン/置換にも対応します。",
+    "param.action.description": "操作の種類: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, replace_all_in_files のいずれかです。",
+    "param.line_no.description": "insert_at_line で使用する 1 始まりの行番号です。",
+    "param.name_pattern.description": "replace_all_in_files で使用するファイル名パターン（glob）です。",
+    "param.occurrence.description": "置換対象の出現位置（1 始まり）です。0 の場合はすべての出現を置換します。",
+    "param.recursive.description": "対象ディレクトリ配下を再帰的に検索します。",
+    "param.return_hashes.description": "true の場合、sha256_before と sha256_after も結果に含めます。"
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
