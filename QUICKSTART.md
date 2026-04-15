@@ -20,7 +20,7 @@ ______________________________________________________________________
 
 ### 2.1 Git for Windows
 
-1. Download the installer from https://git-scm.com/download/win
+1. Download the installer from https://git-scm.com/download/
 1. After installation, open a **new terminal** and verify:
 
 ```bat

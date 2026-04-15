@@ -2,7 +2,7 @@
 
 This document explains how to add a new **Tool plugin** to uag.
 
-Tools are Python modules under `src/uagent/tools/` (or external tools under `UAGENT_EXTERNAL_TOOLS_DIR`).
+Tools are Python modules under `src/uagent/tools/` (or external tools under `UAGENT_EXTERNAL_TOOLS_DIR`). Note: External tools must be in a flat directory (no subdirectories).
 
 ______________________________________________________________________
 
