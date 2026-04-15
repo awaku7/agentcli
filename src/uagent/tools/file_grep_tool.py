@@ -11,6 +11,7 @@ from typing import Any, Dict, List
 from .arg_util import get_bool, get_int, get_str
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
+from .safe_file_ops_extras import ensure_within_workdir
 
 _ = make_tool_translator(__file__)
 
@@ -32,7 +33,6 @@ TOOL_SPEC: Dict[str, Any] = {
     "function": {
         "name": "file_grep",
         "description": _("tool.description", default="Search for a pattern in files and return matching lines with line numbers (like grep -n)."),
-        "system_prompt": _("tool.system_prompt", default="Search files for a pattern. Return JSON with 'matches' list."),
         "parameters": {
             "type": "object",
             "properties": {
@@ -41,7 +41,10 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _("param.pattern.description", default="Regex pattern to search for."),
                 },
                 "path": {
-                    "type": "string",
+                    "anyOf": [
+                        {"type": "string"},
+                        {"type": "array", "items": {"type": "string"}},
+                    ],
                     "description": _("param.path.description", default="Root directory or specific file path (default: '.')."),
                 },
                 "name_pattern": {
@@ -68,6 +71,39 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
+def _resolve_files(raw_path: str | list[str], name_pattern: str, recursive: bool) -> List[str]:
+    items = [raw_path] if isinstance(raw_path, str) else raw_path
+    all_files = []
+    seen = set()
+
+    for item in items:
+        try:
+            # プレースホルダや絶対パスなどのリスクを避けるため workdir 内に限定
+            safe_item = ensure_within_workdir(item)
+        except Exception:
+            continue
+
+        if os.path.isfile(safe_item):
+            if safe_item not in seen:
+                seen.add(safe_item)
+                all_files.append(safe_item)
+        else:
+            # ディレクトリまたは glob として扱う
+            if recursive:
+                search_glob = os.path.join(safe_item, "**", name_pattern)
+            else:
+                search_glob = os.path.join(safe_item, name_pattern)
+            
+            matches = glob.glob(search_glob, recursive=recursive)
+            for m in sorted(matches):
+                if os.path.isfile(m):
+                    abs_m = os.path.abspath(m)
+                    if abs_m not in seen:
+                        seen.add(abs_m)
+                        all_files.append(abs_m)
+    return all_files
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
@@ -77,7 +113,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         if not pattern:
             return _json_err(_("err.missing_pattern", default="Missing 'pattern'."))
 
-        path = get_str(args, "path", ".")
+        raw_path = args.get("path", ".")
         name_pattern = get_str(args, "name_pattern", "*")
         recursive = get_bool(args, "recursive", False)
         ignore_case = get_bool(args, "ignore_case", True)
@@ -89,15 +125,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         except re.error as e:
             return _json_err(_("err.invalid_regex", default="Invalid regex pattern."), detail=str(e))
 
-        search_root = os.path.abspath(path)
-        if os.path.isfile(search_root):
-            files = [search_root]
-        else:
-            if recursive:
-                search_glob = os.path.join(search_root, "**", name_pattern)
-            else:
-                search_glob = os.path.join(search_root, name_pattern)
-            files = [f for f in glob.glob(search_glob, recursive=recursive) if os.path.isfile(f)]
+        files = _resolve_files(raw_path, name_pattern, recursive)
+        
+        if not files:
+            return _json_ok(matches=[], count=0, message=_("err.no_files_found", default="No files found matching the criteria."))
 
         matches = []
         count = 0
@@ -108,6 +139,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 limit_reached = True
                 break
             try:
+                # 表示用パスはカレントディレクトリからの相対
                 display_path = os.path.relpath(file_path, os.getcwd())
                 with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                     for line_no, line in enumerate(f, 1):
