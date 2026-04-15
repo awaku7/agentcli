@@ -99,7 +99,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             _(
                 "ui.howto",
                 default=(
-                    "How to reply:\n"
+                    "How to answer:\n"
                     "  - Type your answer and press Enter\n"
                     "  - Type 'f' to enter multi-line mode\n"
                     '  - In multi-line mode: \'"""retry\' clears, \'"""end\' sends\n'

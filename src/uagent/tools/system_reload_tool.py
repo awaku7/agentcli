@@ -1,6 +1,8 @@
 from typing import Any, Dict
 
-from . import reload_plugins
+import importlib
+import sys
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -28,7 +30,11 @@ TOOL_SPEC = {
 
 def run_tool(args: Dict[str, Any]) -> str:
     try:
-        reload_plugins()
-        return "System reload successful. All plugins have been reloaded with the latest code."
+        pkg_name = __package__ or "src.uagent.tools"
+        mod = sys.modules.get(pkg_name)
+        if mod is None:
+            mod = importlib.import_module(pkg_name)
+        importlib.reload(mod)
+        return "System reload successful. All tools were reloaded with the latest code."
     except Exception as e:
         return f"Error during system reload: {str(e)}"

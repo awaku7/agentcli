@@ -110,7 +110,7 @@ def _human_confirm(message: str) -> bool:
         print(
             _(
                 "ui.confirm.howto",
-                default="How to reply: y=proceed / c=cancel / other=deny\n",
+                default="How to answer: y=proceed / c=cancel / other=deny\n",
             ),
             flush=True,
         )

@@ -64,6 +64,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("bedrock", _("Bedrock OpenAI-compatible gateway")),
     ("openrouter", _("OpenRouter")),
     ("gemini", _("Gemini")),
+    ("vertexai", _("Vertex AI")),
     ("grok", _("Grok")),
     ("claude", _("Claude")),
     ("ollama", _("Ollama")),
@@ -121,6 +122,12 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     "gemini": [
         ("UAGENT_GEMINI_API_KEY", True, _("Gemini API key")),
         ("UAGENT_GEMINI_DEPNAME", False, _("Gemini model name (optional)")),
+    ],
+    "vertexai": [
+        ("UAGENT_VERTEXAI_API_KEY", True, _("Vertex AI API key")),
+        ("UAGENT_VERTEXAI_PROJECT", False, _("Vertex AI project ID (optional)")),
+        ("UAGENT_VERTEXAI_LOCATION", False, _("Vertex AI location/region (optional)")),
+        ("UAGENT_VERTEXAI_DEPNAME", True, _("Vertex AI model/deployment name")),
     ],
     "grok": [
         ("UAGENT_GROK_API_KEY", True, _("Grok API key")),
@@ -645,7 +652,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# ==============================")
     out.append("# Provider selection")
     out.append("# ==============================")
-    out.append(_("# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / nvidia"))
+    out.append(_("# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia"))
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")
 

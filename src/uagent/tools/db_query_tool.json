@@ -33,7 +33,7 @@
     "param.db_path.description": "Chemin du fichier de base de données SQLite.",
     "param.sql.description": "SQL à exécuter.",
     "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat. Seules les opérations en lecture seule (SELECT) et l'inspection du schéma (PRAGMA) sont prises en charge.",
-    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « db_query ».",
+    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « db_query »."
   },
   "ko": {
     "param.db_path.description": "SQLite 데이터베이스 파일의 경로입니다.",
