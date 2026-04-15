@@ -1,4 +1,11 @@
 {
+  "de": {
+    "param.code.description": "Auszuführender Python-Code (einzeilig oder mehrzeilig).",
+    "param.path.description": "Eine Python-Datei, ein Verzeichnis oder ein Glob-Muster zur Validierung mit py_compile. Verzeichnisse werden rekursiv durchsucht.",
+    "param.paths.description": "Mehrere Python-Dateien, Verzeichnisse oder Glob-Muster zur Validierung mit py_compile.",
+    "tool.description": "Führt Python-Code aus oder validiert Dateien mit py_compile. Ideal für Berechnungen, Datenverarbeitung oder Syntaxprüfungen. Bevorzugen Sie dieses Tool gegenüber cmd_exec für Python-Aufgaben.",
+    "tool.system_prompt": "Führen Sie Python-Code kontrolliert aus. Nutzen Sie die Standardbibliothek für präzise Berechnungen. Validieren Sie Dateien bei Bedarf mit py_compile. Beschreiben Sie kurz, was ausgeführt wird."
+  },
   "en": {
     "param.code.description": "Python code to execute (single-line or multi-line).",
     "param.path.description": "A Python file, directory, or glob pattern to validate with py_compile. Directories are scanned recursively for *.py files.",
@@ -6,81 +13,74 @@
     "tool.description": "Execute Python code or validate Python files with py_compile. Use this tool for calculations, data processing, running short scripts, or syntax checking files—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
     "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- If file paths or glob patterns are supplied, run py_compile on those targets and return the result.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
   },
-  "ja": {
-    "param.code.description": "実行する Python コード。",
-    "param.path.description": "py_compile で検証する Python ファイル、ディレクトリ、または glob パターン。ディレクトリは再帰的に *.py を走査します。",
-    "param.paths.description": "py_compile で検証する複数の Python ファイル、ディレクトリ、または glob パターン。ディレクトリは再帰的に *.py を走査します。",
-    "tool.description": "Python コードを実行するか、py_compile で Python ファイルを検証します。計算、データ処理、短いスクリプトの実行、構文チェックなど、特に正確さが重要な場合に使ってください。Python 作業では cmd_exec/cmd_exec_json よりこちらを優先してください。",
-    "tool.system_prompt": "制御された方法で Python コードを実行します。\n- Python 標準ライブラリ機能や信頼できる数値計算が必要なら、このツールを使ってください。\n- ファイルパスや glob パターンが指定された場合は、それらを py_compile で検証して結果を返してください。\n- コードを実行する前に、何を実行するかを簡潔に述べてください。\n- 明示的に必要な場合を除き、Python 実行に cmd_exec を使わないでください。"
-  },
-  "zh_CN": {
-    "param.code.description": "要执行的 Python 代码。",
-    "param.path.description": "要使用 py_compile 验证的 Python 文件、目录或 glob 模式。目录会递归扫描 *.py 文件。",
-    "param.paths.description": "要使用 py_compile 验证的多个 Python 文件、目录或 glob 模式。目录会递归扫描 *.py 文件。",
-    "tool.description": "执行 Python 代码或使用 py_compile 验证 Python 文件。用于计算、数据处理、运行简短脚本或进行语法检查，尤其是在准确性很重要的情况下。对于 Python 工作，更喜欢使用它而不是 cmd_exec/cmd_exec_json。",
-    "tool.system_prompt": "以受控方式执行 Python 代码。\n- 如果您需要 Python 标准库功能或可靠的数值计算，请使用此工具。\n- 如果提供了文件路径或 glob 模式，请对这些目标运行 py_compile 并返回结果。\n- 当您要运行代码时，简要说明将执行的内容。\n- 除非明确必要，否则不要使用 cmd_exec 运行 Python。"
-  },
-  "zh_TW": {
-    "param.code.description": "要執行的 Python 程式碼。",
-    "param.path.description": "要使用 py_compile 驗證的 Python 檔案、目錄或 glob 樣式。目錄會遞迴掃描 *.py 檔案。",
-    "param.paths.description": "要使用 py_compile 驗證的多個 Python 檔案、目錄或 glob 樣式。目錄會遞迴掃描 *.py 檔案。",
-    "tool.description": "執行 Python 程式碼或使用 py_compile 驗證 Python 檔案。使用此工具進行計算、資料處理、執行簡短的腳本或進行語法檢查，尤其是在準確性很重要的情況下。對於 Python 工作，更喜歡使用它而不是 cmd_exec/cmd_exec_json。",
-    "tool.system_prompt": "以受控方式執行 Python 程式碼。\n- 如果您需要 Python 標準庫功能或可靠的數值計算，請使用此工具。\n- 如果提供了檔案路徑或 glob 樣式，請對這些目標執行 py_compile 並回傳結果。\n- 當您要執行程式碼時，請簡要說明將執行的內容。\n- 除非明確必要，否則不要使用 cmd_exec 執行 Python。"
-  },
   "es": {
-    "param.code.description": "Código Python para ejecutar.",
-    "param.path.description": "Un archivo Python, directorio o patrón glob para validar con py_compile. Los directorios se examinan recursivamente en busca de archivos *.py.",
-    "param.paths.description": "Varios archivos Python, directorios o patrones glob para validar con py_compile. Los directorios se examinan recursivamente en busca de archivos *.py.",
-    "tool.description": "Ejecutar código Python o validar archivos Python con py_compile. Utilice esta herramienta para cálculos, procesamiento de datos, ejecución de scripts cortos o comprobación de sintaxis, especialmente cuando la precisión es importante. Prefiera esto a cmd_exec/cmd_exec_json para trabajar con Python.",
-    "tool.system_prompt": "Ejecute código Python de forma controlada.\n- Si necesita funciones de la biblioteca estándar de Python o cálculos numéricos confiables, utilice esta herramienta.\n- Si se proporcionan rutas de archivo o patrones glob, ejecute py_compile sobre esos destinos y devuelva el resultado.\n- Cuando esté a punto de ejecutar el código, indique brevemente qué se ejecutará.\n- No utilice cmd_exec para ejecutar Python a menos que sea explícitamente necesario."
+    "param.code.description": "Código Python a ejecutar (una o varias líneas).",
+    "param.path.description": "Archivo, directorio o patrón glob de Python para validar con py_compile (escaneo recursivo).",
+    "param.paths.description": "Múltiples archivos, directorios o patrones glob de Python para validar con py_compile.",
+    "tool.description": "Ejecuta código Python o valida archivos con py_compile. Úselo para cálculos, procesamiento de datos o verificación de sintaxis. Prefiera esto a cmd_exec para tareas de Python.",
+    "tool.system_prompt": "Ejecute código Python de forma controlada. Use la biblioteca estándar para cálculos precisos. Valide archivos con py_compile si se proporcionan rutas. Indique brevemente qué se ejecutará."
   },
   "fr": {
-    "param.code.description": "Code Python à exécuter.",
-    "param.path.description": "Un fichier Python, un répertoire ou un modèle glob à valider avec py_compile. Les répertoires sont analysés récursivement pour les fichiers *.py.",
-    "param.paths.description": "Plusieurs fichiers Python, répertoires ou modèles glob à valider avec py_compile. Les répertoires sont analysés récursivement pour les fichiers *.py.",
-    "tool.description": "Exécutez du code Python ou validez des fichiers Python avec py_compile. Utilisez cet outil pour les calculs, le traitement des données, l'exécution de scripts courts ou la vérification de syntaxe, en particulier lorsque la précision est importante. Préférez ceci à cmd_exec/cmd_exec_json pour le travail Python.",
-    "tool.system_prompt": "Exécutez le code Python de manière contrôlée.\n- Si vous avez besoin de fonctionnalités de bibliothèque standard Python ou d'un calcul numérique fiable, utilisez cet outil.\n- Si des chemins de fichiers ou des modèles glob sont fournis, exécutez py_compile sur ces cibles et renvoyez le résultat.\n- Lorsque vous êtes sur le point d'exécuter du code, indiquez brièvement ce qui sera exécuté.\n- N'utilisez pas cmd_exec pour exécuter Python sauf si cela est explicitement nécessaire."
-  },
-  "ko": {
-    "param.code.description": "실행할 Python 코드입니다.",
-    "param.path.description": "py_compile로 검증할 Python 파일, 디렉터리 또는 glob 패턴입니다. 디렉터리는 *.py 파일을 재귀적으로 검사합니다.",
-    "param.paths.description": "py_compile로 검증할 여러 Python 파일, 디렉터리 또는 glob 패턴입니다. 디렉터리는 *.py 파일을 재귀적으로 검사합니다.",
-    "tool.description": "Python 코드를 실행하거나 py_compile로 Python 파일을 검증합니다. 계산, 데이터 처리, 짧은 스크립트 실행 또는 구문 검사처럼 정확성이 중요한 경우 이 도구를 사용하세요. Python 작업의 경우 cmd_exec/cmd_exec_json보다 이것을 선호합니다.",
-    "tool.system_prompt": "제어된 방식으로 Python 코드를 실행합니다.\n- Python 표준 라이브러리 기능이나 안정적인 수치 계산이 필요한 경우 이 도구를 사용하세요.\n- 파일 경로나 glob 패턴이 제공되면 해당 대상에 대해 py_compile을 실행하고 결과를 반환하세요.\n- 코드를 실행하려고 할 때 무엇을 실행할지 간략하게 설명하세요.\n- 명시적으로 필요한 경우가 아니면 cmd_exec를 사용하여 Python을 실행하지 마십시오."
-  },
-  "th": {
-    "param.code.description": "รหัส Python ที่จะดำเนินการ",
-    "param.path.description": "ไฟล์ Python ไดเร็กทอรี หรือรูปแบบ glob ที่จะตรวจสอบด้วย py_compile ไดเร็กทอรีจะสแกน *.py แบบเรียกซ้ำ",
-    "param.paths.description": "ไฟล์ Python หลายรายการ ไดเร็กทอรี หรือรูปแบบ glob ที่จะตรวจสอบด้วย py_compile ไดเร็กทอรีจะสแกน *.py แบบเรียกซ้ำ",
-    "tool.description": "รันโค้ด Python หรือใช้ py_compile เพื่อตรวจสอบไฟล์ Python ใช้เครื่องมือนี้สำหรับการคำนวณ การประมวลผลข้อมูล การเรียกใช้สคริปต์สั้นๆ หรือการตรวจไวยากรณ์ โดยเฉพาะอย่างยิ่งเมื่อความถูกต้องมีความสำคัญ ต้องการสิ่งนี้มากกว่า cmd_exec/cmd_exec_json สำหรับงาน Python",
-    "tool.system_prompt": "รันโค้ด Python ด้วยวิธีควบคุม\n- หากคุณต้องการฟีเจอร์ไลบรารีมาตรฐานของ Python หรือการคำนวณตัวเลขที่เชื่อถือได้ ให้ใช้เครื่องมือนี้\n- หากมีการระบุพาธไฟล์หรือรูปแบบ glob ให้รัน py_compile กับเป้าหมายเหล่านั้นและส่งคืนผลลัพธ์\n- เมื่อคุณกำลังจะรันโค้ด ให้ระบุสั้นๆ ว่าจะต้องดำเนินการอะไรบ้าง\n- อย่าใช้ cmd_exec เพื่อรัน Python เว้นแต่จะมีความจำเป็นอย่างชัดเจน"
-  },
-  "de": {
-    "param.code.description": "Auszuführender Python-Code (einzeilig oder mehrzeilig).",
-    "param.path.description": "Eine Python-Datei, ein Python-Verzeichnis oder ein Glob-Muster zur Validierung mit py_compile. Verzeichnisse werden rekursiv nach *.py-Dateien durchsucht.",
-    "param.paths.description": "Mehrere Python-Dateien, Verzeichnisse oder Glob-Muster zur Validierung mit py_compile. Verzeichnisse werden rekursiv nach *.py-Dateien durchsucht.",
-    "tool.description": "Führen Sie Python-Code aus oder validieren Sie Python-Dateien mit py_compile. Verwenden Sie dieses Tool für Berechnungen, Datenverarbeitung, die Ausführung kurzer Skripte oder die Syntaxprüfung von Dateien – insbesondere wenn es auf Genauigkeit ankommt. Bevorzugen Sie dies gegenüber cmd_exec/cmd_exec_json für Python-Arbeiten.",
-    "tool.system_prompt": "Führen Sie Python-Code kontrolliert aus.\n- Wenn Sie Funktionen der Python-Standardbibliothek oder zuverlässige numerische Berechnungen benötigen, verwenden Sie dieses Tool.\n– Wenn Dateipfade oder Glob-Muster angegeben werden, führen Sie py_compile auf diesen Zielen aus und geben Sie das Ergebnis zurück.\n- Wenn Sie Code ausführen möchten, geben Sie kurz an, was ausgeführt werden soll.\n– Verwenden Sie cmd_exec nicht zum Ausführen von Python, es sei denn, dies ist ausdrücklich erforderlich."
+    "param.code.description": "Code Python à exécuter (une ou plusieurs lignes).",
+    "param.path.description": "Fichier, répertoire ou modèle glob Python à valider avec py_compile (balayage récursif).",
+    "param.paths.description": "Plusieurs fichiers, répertoires ou modèles glob Python à valider avec py_compile.",
+    "tool.description": "Exécute du code Python ou valide des fichiers avec py_compile. Utile pour les calculs, le traitement de données ou la vérification de syntaxe. À privilégier par rapport à cmd_exec pour Python.",
+    "tool.system_prompt": "Exécutez le code Python de manière contrôlée. Utilisez la bibliothèque standard pour des calculs fiables. Validez les fichiers avec py_compile si nécessaire. Décrivez brièvement l'exécution."
   },
   "it": {
-    "param.code.description": "Codice Python da eseguire (a riga singola o multilinea).",
-    "param.path.description": "Un file, una directory o un modello glob Python da convalidare con py_compile. Le directory vengono scansionate ricorsivamente per i file *.py.",
-    "param.paths.description": "Più file Python, directory o pattern glob da convalidare con py_compile. Le directory vengono scansionate ricorsivamente per i file *.py.",
-    "tool.description": "Esegui il codice Python o convalida i file Python con py_compile. Utilizza questo strumento per calcoli, elaborazione dati, esecuzione di brevi script o controllo della sintassi dei file, soprattutto quando la precisione è importante. Preferisci questo a cmd_exec/cmd_exec_json per il lavoro con Python.",
-    "tool.system_prompt": "Esegui il codice Python in modo controllato.\n- Se hai bisogno delle funzionalità della libreria standard Python o di calcoli numerici affidabili, usa questo strumento.\n- Se vengono forniti percorsi di file o modelli glob, esegui py_compile su tali destinazioni e restituisce il risultato.\n- Quando stai per eseguire il codice, indica brevemente cosa verrà eseguito.\n- Non utilizzare cmd_exec per eseguire Python a meno che non sia esplicitamente necessario."
+    "param.code.description": "Codice Python da eseguire (singola riga o multilinea).",
+    "param.path.description": "File, directory o pattern glob Python da convalidare con py_compile (scansione ricorsiva).",
+    "param.paths.description": "Più file, directory o pattern glob Python da convalidare con py_compile.",
+    "tool.description": "Esegue codice Python o convalida file con py_compile. Ideale per calcoli, elaborazione dati o controllo sintattico. Da preferire a cmd_exec per lavori in Python.",
+    "tool.system_prompt": "Esegui codice Python in modo controllato. Usa la libreria standard per calcoli precisi. Convalida i file con py_compile se vengono forniti percorsi. Descrivi brevemente cosa verrà eseguito."
   },
-  "ru": {
-    "param.code.description": "Код Python для выполнения (однострочный или многострочный).",
-    "param.path.description": "Файл, каталог или шаблон Python для проверки с помощью py_compile. Каталоги рекурсивно сканируются на наличие файлов *.py.",
-    "param.paths.description": "Несколько файлов, каталогов или шаблонов Python для проверки с помощью py_compile. Каталоги рекурсивно сканируются на наличие файлов *.py.",
-    "tool.description": "Выполните код Python или проверьте файлы Python с помощью py_compile. Используйте этот инструмент для вычислений, обработки данных, выполнения коротких сценариев или проверки синтаксиса файлов, особенно когда важна точность. Предпочитайте это cmd_exec/cmd_exec_json для работы с Python.",
-    "tool.system_prompt": "Выполняйте код Python контролируемым образом.\n- Если вам нужны функции стандартной библиотеки Python или надежные числовые вычисления, используйте этот инструмент.\n- Если указаны пути к файлам или шаблоны glob, запустите py_compile для этих целей и верните результат.\n- Когда вы собираетесь запустить код, кратко укажите, что будет выполнено.\n— Не используйте cmd_exec для запуска Python, если в этом нет явной необходимости."
+  "ja": {
+    "param.code.description": "実行する Python コード（単一行または複数行）。",
+    "param.path.description": "py_compile で検証する Python ファイル、ディレクトリ、または glob パターン。ディレクトリは再帰的に走査されます。",
+    "param.paths.description": "py_compile で検証する複数の Python ファイル、ディレクトリ、または glob パターン。",
+    "tool.description": "Python コードを実行するか、py_compile で Python ファイルを検証します。計算、データ処理、構文チェックなど、正確さが重要な場合に使用します。Python 関連の作業では cmd_exec よりこちらを優先してください。",
+    "tool.system_prompt": "制御された方法で Python コードを実行します。標準ライブラリが必要な計算や、ファイル検証（py_compile）に使用してください。実行前に、何を行うかを簡潔に説明してください。"
+  },
+  "ko": {
+    "param.code.description": "실행할 Python 코드 (단일 행 또는 다중 행).",
+    "param.path.description": "py_compile로 검증할 Python 파일, 디렉토리 또는 glob 패턴 (재귀적 스캔).",
+    "param.paths.description": "py_compile로 검증할 여러 Python 파일, 디렉토리 또는 glob 패턴.",
+    "tool.description": "Python 코드를 실행하거나 py_compile로 파일을 검증합니다. 계산, 데이터 처리, 구문 체크 등 정확성이 중요할 때 사용하세요. Python 작업 시 cmd_exec보다 이 도구를 권장합니다.",
+    "tool.system_prompt": "제어된 방식으로 Python 코드를 실행합니다. 표준 라이브러리가 필요한 계산이나 파일 검증(py_compile)에 사용하세요. 실행 전 무엇을 수행하는지 간략히 설명하십시오."
   },
   "pt_BR": {
     "param.code.description": "Código Python a ser executado (linha única ou multilinha).",
-    "param.path.description": "Um arquivo, diretório ou padrão glob Python para validar com py_compile. Os diretórios são verificados recursivamente em busca de arquivos *.py.",
-    "param.paths.description": "Multiple Python files, directories, or glob patterns to validate with py_compile. Os diretórios são verificados recursivamente em busca de arquivos *.py.",
-    "tool.description": "Execute código Python ou valide arquivos Python com py_compile. Use esta ferramenta para cálculos, processamento de dados, execução de scripts curtos ou verificação de sintaxe de arquivos, especialmente quando a precisão é importante. Prefira isso em vez de cmd_exec/cmd_exec_json para trabalho em Python.",
-    "tool.system_prompt": "Execute o código Python de forma controlada.\n- Se você precisar de recursos da biblioteca padrão do Python ou de computação numérica confiável, use esta ferramenta.\n- Se caminhos de arquivo ou padrões glob forem fornecidos, execute py_compile nesses destinos e retorne o resultado.\n- Quando você estiver prestes a executar o código, indique brevemente o que será executado.\n- Não use cmd_exec para executar Python, a menos que seja explicitamente necessário."
+    "param.path.description": "Arquivo, diretório ou padrão glob Python para validar com py_compile (varredura recursiva).",
+    "param.paths.description": "Múltiplos arquivos, diretórios ou padrões glob Python para validar com py_compile.",
+    "tool.description": "Executa código Python ou valida arquivos com py_compile. Use para cálculos, processamento de dados ou verificação de sintaxe. Prefira esta ferramenta ao cmd_exec para tarefas em Python.",
+    "tool.system_prompt": "Execute código Python de forma controlada. Use a biblioteca padrão para cálculos confiáveis. Valide arquivos com py_compile se caminhos forem fornecidos. Descreva brevemente o que será executado."
+  },
+  "ru": {
+    "param.code.description": "Код Python для выполнения (однострочный или многострочный).",
+    "param.path.description": "Файл, каталог или шаблон glob для проверки через py_compile (рекурсивное сканирование).",
+    "param.paths.description": "Несколько файлов, каталогов или шаблонов glob для проверки через py_compile.",
+    "tool.description": "Выполняет код Python или проверяет файлы через py_compile. Используйте для расчетов, обработки данных или проверки синтаксиса. Предпочтительнее cmd_exec для работы с Python.",
+    "tool.system_prompt": "Выполняйте код Python контролируемо. Используйте стандартную библиотеку для точных вычислений. Проверяйте файлы через py_compile. Кратко описывайте, что будет выполнено."
+  },
+  "th": {
+    "param.code.description": "รหัส Python ที่จะดำเนินการ (บรรทัดเดียวหรือหลายบรรทัด)",
+    "param.path.description": "ไฟล์ Python, ไดเรกทอรี หรือรูปแบบ glob ที่จะตรวจสอบด้วย py_compile (สแกนแบบเรียกซ้ำ)",
+    "param.paths.description": "ไฟล์ Python, ไดเรกทอรี หรือรูปแบบ glob หลายรายการที่จะตรวจสอบด้วย py_compile",
+    "tool.description": "รันโค้ด Python หรือตรวจสอบไฟล์ด้วย py_compile ใช้สำหรับการคำนวณ ประมวลผลข้อมูล หรือตรวจไวยากรณ์ แนะนำให้ใช้เครื่องมือนี้แทน cmd_exec สำหรับงาน Python",
+    "tool.system_prompt": "รันโค้ด Python อย่างเป็นระบบ ใช้ไลบรารีมาตรฐานเพื่อการคำนวณที่แม่นยำ ตรวจสอบไฟล์ด้วย py_compile เมื่อมีการระบุพาธ และอธิบายสิ่งที่กำลังจะรันสั้นๆ"
+  },
+  "zh_CN": {
+    "param.code.description": "要执行的 Python 代码（单行或多行）。",
+    "param.path.description": "要使用 py_compile 验证的 Python 文件、目录或 glob 模式（递归扫描）。",
+    "param.paths.description": "要使用 py_compile 验证的多个 Python 文件、目录或 glob 模式。",
+    "tool.description": "执行 Python 代码或使用 py_compile 验证文件。适用于计算、数据处理或语法检查。在进行 Python 相关工作时，优先于 cmd_exec 使用此工具。",
+    "tool.system_prompt": "以受控方式执行 Python 代码。对于需要标准库的计算或文件验证（py_compile），请使用此工具。执行前请简要说明操作内容。"
+  },
+  "zh_TW": {
+    "param.code.description": "要執行的 Python 程式碼（單行或多行）。",
+    "param.path.description": "要使用 py_compile 驗證的 Python 檔案、目錄或 glob 樣式（遞迴掃描）。",
+    "param.paths.description": "要使用 py_compile 驗證的多個 Python 檔案、目錄或 glob 樣式。",
+    "tool.description": "執行 Python 程式碼或使用 py_compile 驗證檔案。適用於計算、資料處理或語法檢查。進行 Python 相關工作時，優先於 cmd_exec 使用此工具。",
+    "tool.system_prompt": "以受控方式執行 Python 程式碼。對於需要標準函式庫的計算或檔案驗證（py_compile），請使用此工具。執行前請簡要說明操作內容。"
   }
 }

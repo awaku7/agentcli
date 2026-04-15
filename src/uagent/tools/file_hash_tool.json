@@ -1,98 +1,98 @@
 {
   "en": {
-    "param.algo.description": "hashing algorithm",
-    "param.chunk_size.description": "Read chunk size (bytes)",
-    "param.paths.description": "Target file path array",
-    "param.return.description": "Output form",
+    "param.algo.description": "Hashing algorithm.",
+    "param.chunk_size.description": "Read chunk size (bytes).",
+    "param.paths.description": "Array of target file paths.",
+    "param.return.description": "Output format.",
     "tool.description": "Calculates the hash (sha256/sha1/md5) of files.",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "This tool calculates file hashes (sha256/sha1/md5)."
   },
   "ja": {
-    "param.algo.description": "ハッシュアルゴリズム",
-    "param.chunk_size.description": "読み取りチャンクサイズ(bytes)",
-    "param.paths.description": "対象ファイルパス配列",
-    "param.return.description": "出力形式",
+    "param.algo.description": "ハッシュアルゴリズム。",
+    "param.chunk_size.description": "読み取りチャンクサイズ（bytes）。",
+    "param.paths.description": "対象ファイルパスの配列。",
+    "param.return.description": "出力形式。",
     "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
-    "tool.system_prompt": "This ツール is used for the following purpose: (see ツール description)."
+    "tool.system_prompt": "このツールはファイルのハッシュ（sha256/sha1/md5）を計算します。"
   },
   "zh_CN": {
-    "param.algo.description": "散列算法",
-    "param.chunk_size.description": "读取块大小（字节）",
-    "param.paths.description": "目标文件路径数组",
-    "param.return.description": "输出形式",
+    "param.algo.description": "哈希算法。",
+    "param.chunk_size.description": "读取块大小（字节）。",
+    "param.paths.description": "目标文件路径数组。",
+    "param.return.description": "输出格式。",
     "tool.description": "计算文件的哈希值（sha256/sha1/md5）。",
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+    "tool.system_prompt": "此工具用于计算文件的哈希值（sha256/sha1/md5）。"
   },
   "zh_TW": {
-    "param.algo.description": "散列演算法",
-    "param.chunk_size.description": "讀取區塊大小（位元組）",
-    "param.paths.description": "目標檔案路徑數組",
-    "param.return.description": "輸出形式",
+    "param.algo.description": "雜湊演算法。",
+    "param.chunk_size.description": "讀取區塊大小（位元組）。",
+    "param.paths.description": "目標檔案路徑陣列。",
+    "param.return.description": "輸出格式。",
     "tool.description": "計算檔案的雜湊值（sha256/sha1/md5）。",
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
   },
   "es": {
-    "param.algo.description": "algoritmo de hash",
-    "param.chunk_size.description": "Tamaño de fragmento de lectura (bytes)",
-    "param.paths.description": "Matriz de ruta del archivo de destino",
-    "param.return.description": "Formulario de salida",
+    "param.algo.description": "Algoritmo de hash.",
+    "param.chunk_size.description": "Tamaño del bloque de lectura (bytes).",
+    "param.paths.description": "Matriz de rutas de archivos de destino.",
+    "param.return.description": "Formato de salida.",
     "tool.description": "Calcula el hash (sha256/sha1/md5) de los archivos.",
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+    "tool.system_prompt": "Esta herramienta calcula hashes de archivos (sha256/sha1/md5)."
   },
   "fr": {
-    "param.algo.description": "algorithme de hachage",
-    "param.chunk_size.description": "Taille du fragment de lecture (octets)",
-    "param.paths.description": "Tableau de chemins de fichier cible",
-    "param.return.description": "Formulaire de sortie",
+    "param.algo.description": "Algorithme de hachage.",
+    "param.chunk_size.description": "Taille du bloc de lecture (octets).",
+    "param.paths.description": "Tableau des chemins des fichiers cibles.",
+    "param.return.description": "Format de sortie.",
     "tool.description": "Calcule le hachage (sha256/sha1/md5) des fichiers.",
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+    "tool.system_prompt": "Cet outil calcule les hachages de fichiers (sha256/sha1/md5)."
   },
   "ko": {
-    "param.algo.description": "해싱 알고리즘",
-    "param.chunk_size.description": "읽기 청크 크기(바이트)",
-    "param.paths.description": "대상 파일 경로 배열",
-    "param.return.description": "출력 형태",
+    "param.algo.description": "해싱 알고리즘입니다.",
+    "param.chunk_size.description": "읽기 청크 크기(바이트)입니다.",
+    "param.paths.description": "대상 파일 경로 배열입니다.",
+    "param.return.description": "출력 형식입니다.",
     "tool.description": "파일의 해시(sha256/sha1/md5)를 계산합니다.",
-    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+    "tool.system_prompt": "이 도구는 파일의 해시(sha256/sha1/md5)를 계산합니다."
   },
   "th": {
-    "param.algo.description": "อัลกอริธึมการแฮช",
-    "param.chunk_size.description": "อ่านขนาดก้อน (ไบต์)",
-    "param.paths.description": "อาร์เรย์เส้นทางไฟล์เป้าหมาย",
-    "param.return.description": "แบบฟอร์มเอาท์พุต",
-    "tool.description": "คำนวณแฮช (sha256/sha1/md5) ของไฟล์",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+    "param.algo.description": "อัลกอริทึมแฮช",
+    "param.chunk_size.description": "ขนาดบล็อกที่อ่าน (ไบต์)",
+    "param.paths.description": "อาร์เรย์ของพาธไฟล์เป้าหมาย",
+    "param.return.description": "รูปแบบเอาต์พุต",
+    "tool.description": "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
+    "tool.system_prompt": "เครื่องมือนี้ใช้คำนวณแฮชของไฟล์ (sha256/sha1/md5)"
   },
   "de": {
-    "param.algo.description": "Hashing-Algorithmus",
-    "param.chunk_size.description": "Blockgröße lesen (Byte)",
-    "param.paths.description": "Zieldateipfad-Array",
-    "param.return.description": "Ausgabeformular",
+    "param.algo.description": "Hash-Algorithmus.",
+    "param.chunk_size.description": "Leseblockgröße (Bytes).",
+    "param.paths.description": "Array der Zieldateipfade.",
+    "param.return.description": "Ausgabeformat.",
     "tool.description": "Berechnet den Hash (sha256/sha1/md5) von Dateien.",
-    "tool.system_prompt": "Dieses Tool dient folgendem Zweck: (siehe Toolbeschreibung)."
+    "tool.system_prompt": "Dieses Tool berechnet Dateihashes (sha256/sha1/md5)."
   },
   "it": {
-    "param.algo.description": "algoritmo di hashing",
-    "param.chunk_size.description": "Leggi la dimensione del blocco (byte)",
-    "param.paths.description": "Matrice del percorso del file di destinazione",
-    "param.return.description": "Modulo di output",
+    "param.algo.description": "Algoritmo di hash.",
+    "param.chunk_size.description": "Dimensione del blocco di lettura (byte).",
+    "param.paths.description": "Array dei percorsi dei file di destinazione.",
+    "param.return.description": "Formato di output.",
     "tool.description": "Calcola l'hash (sha256/sha1/md5) dei file.",
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    "tool.system_prompt": "Questo strumento calcola gli hash dei file (sha256/sha1/md5)."
   },
   "ru": {
-    "param.algo.description": "алгоритм хеширования",
-    "param.chunk_size.description": "Чтение размера фрагмента (байты)",
-    "param.paths.description": "Массив путей к целевому файлу",
-    "param.return.description": "Форма вывода",
+    "param.algo.description": "Алгоритм хеширования.",
+    "param.chunk_size.description": "Размер блока чтения (байты).",
+    "param.paths.description": "Массив путей к целевым файлам.",
+    "param.return.description": "Формат вывода.",
     "tool.description": "Вычисляет хэш (sha256/sha1/md5) файлов.",
-    "tool.system_prompt": "Этот инструмент используется для следующих целей: (см. описание инструмента)."
+    "tool.system_prompt": "Этот инструмент вычисляет хэши файлов (sha256/sha1/md5)."
   },
   "pt_BR": {
-    "param.algo.description": "algoritmo de hash",
-    "param.chunk_size.description": "Ler o tamanho do bloco (bytes)",
-    "param.paths.description": "Matriz de caminho de arquivo de destino",
-    "param.return.description": "Formulário de saída",
+    "param.algo.description": "Algoritmo de hash.",
+    "param.chunk_size.description": "Tamanho do bloco de leitura (bytes).",
+    "param.paths.description": "Matriz de caminhos de arquivos de destino.",
+    "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   }
 }

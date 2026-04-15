@@ -14,73 +14,73 @@
     "tool.system_prompt": "MCP サーバー（HTTP または stdio）に接続し、利用可能なツール一覧を返します。可能であれば mcp_servers.json に設定済みのサーバーを優先してください。"
   },
   "zh_CN": {
-    "param.pretty.description": "是否漂亮地打印 JSON 输出。",
+    "param.pretty.description": "是否格式化 JSON 输出。",
     "param.server_name.description": "配置文件中的服务器名称。",
     "param.url.description": "MCP 服务器端点 URL。",
-    "tool.description": "[最高优先级] 连接到 MCP（模型上下文协议）服务器并返回可用工具的列表。在执行任何 API/系统集成之前，请使用此工具来发现哪些 MCP 工具可用。支持基于 HTTP 和基于 stdio 的 MCP 服务器。",
+    "tool.description": "[最高优先级] 连接到 MCP（模型上下文协议）服务器并返回可用工具列表。在执行任何 API/系统集成之前，请使用此工具来确认可用的 MCP 工具。支持基于 HTTP 和基于 stdio 的 MCP 服务器。",
     "tool.system_prompt": "连接到 MCP 服务器（HTTP 或 stdio）并列出其工具。尽可能优先使用 mcp_servers.json 中配置的服务器。"
   },
   "zh_TW": {
-    "param.pretty.description": "是否漂亮地列印 JSON 輸出。",
+    "param.pretty.description": "是否格式化 JSON 輸出。",
     "param.server_name.description": "設定檔中的伺服器名稱。",
     "param.url.description": "MCP 伺服器端點 URL。",
-    "tool.description": "[最高優先權] 連接到 MCP（模型上下文協定）伺服器並傳回可用工具的清單。在執行任何 API/系統整合之前，請使用此工具來發現哪些 MCP 工具可用。支援基於 HTTP 和基於 stdio 的 MCP 伺服器。",
+    "tool.description": "[最高優先權] 連接到 MCP（模型上下文協定）伺服器並傳回可用工具的清單。在執行任何 API／系統整合之前，請使用此工具確認可用的 MCP 工具。支援基於 HTTP 和基於 stdio 的 MCP 伺服器。",
     "tool.system_prompt": "連接到 MCP 伺服器（HTTP 或 stdio）並列出其工具。盡可能優先使用 mcp_servers.json 中配置的伺服器。"
   },
   "es": {
-    "param.pretty.description": "Ya sea para imprimir la salida JSON.",
+    "param.pretty.description": "Si se debe formatear la salida JSON.",
     "param.server_name.description": "Nombre del servidor del archivo de configuración.",
-    "param.url.description": "MCP extremo del servidor URL.",
-    "tool.description": "[Prioridad más alta] Conéctese a un servidor MCP (Protocolo de contexto modelo) y devuelva la lista de herramientas disponibles. Antes de realizar cualquier integración de API/sistema, utilice esta herramienta para descubrir qué herramientas MCP están disponibles. Admite servidores MCP basados ​​en HTTP y stdio.",
-    "tool.system_prompt": "Conéctese a un servidor MCP (HTTP o stdio) y enumere sus herramientas. Prefiere usar servidores configurados en mcp_servers.json cuando sea posible."
+    "param.url.description": "URL del punto de conexión del servidor MCP.",
+    "tool.description": "[Prioridad más alta] Conéctese a un servidor MCP (Protocolo de Contexto del Modelo) y devuelva la lista de herramientas disponibles. Antes de realizar cualquier integración de API o sistema, utilice esta herramienta para descubrir qué herramientas MCP están disponibles. Admite servidores MCP basados en HTTP y en stdio.",
+    "tool.system_prompt": "Conéctese a un servidor MCP (HTTP o stdio) y enumere sus herramientas. Si es posible, prefiera usar los servidores configurados en mcp_servers.json."
   },
   "fr": {
-    "param.pretty.description": "S'il faut imprimer joliment la sortie JSON.",
-    "param.server_name.description": "Nom du serveur du fichier de configuration.",
-    "param.url.description": "MCP point de terminaison du serveur URL.",
-    "tool.description": "[Priorité la plus élevée] Connectez-vous à un serveur MCP (Model Context Protocol) et renvoyez la liste des outils disponibles. Avant d'effectuer une intégration API/système, utilisez cet outil pour découvrir quels outils MCP sont disponibles. Prend en charge les serveurs MCP basés sur HTTP et stdio.",
-    "tool.system_prompt": "Connectez-vous à un serveur MCP (HTTP ou stdio) et répertoriez ses outils. Préférez utiliser des serveurs configurés dans mcp_servers.json lorsque cela est possible."
+    "param.pretty.description": "Indique s'il faut formater la sortie JSON.",
+    "param.server_name.description": "Nom du serveur figurant dans le fichier de configuration.",
+    "param.url.description": "URL du point de terminaison du serveur MCP.",
+    "tool.description": "[Priorité la plus élevée] Connectez-vous à un serveur MCP (Model Context Protocol) et renvoyez la liste des outils disponibles. Avant toute intégration API/système, utilisez cet outil pour savoir quels outils MCP sont disponibles. Prend en charge les serveurs MCP basés sur HTTP et stdio.",
+    "tool.system_prompt": "Connectez-vous à un serveur MCP (HTTP ou stdio) et répertoriez ses outils. Dans la mesure du possible, privilégiez les serveurs configurés dans mcp_servers.json."
   },
   "ko": {
-    "param.pretty.description": "JSON 출력을 예쁘게 인쇄할지 여부입니다.",
+    "param.pretty.description": "JSON 출력을 예쁘게 표시할지 여부입니다.",
     "param.server_name.description": "구성 파일의 서버 이름입니다.",
     "param.url.description": "MCP 서버 엔드포인트 URL.",
-    "tool.description": "[가장 높은 우선순위] MCP(모델 컨텍스트 프로토콜) 서버에 연결하고 사용 가능한 도구 목록을 반환합니다. API/시스템 통합을 수행하기 전에 이 도구를 사용하여 어떤 MCP 도구를 사용할 수 있는지 알아보세요. HTTP 기반 및 stdio 기반 MCP 서버를 지원합니다.",
-    "tool.system_prompt": "MCP 서버(HTTP 또는 stdio)에 연결하고 해당 도구를 나열합니다. 가능하면 mcp_servers.json에 구성된 서버를 사용하는 것이 좋습니다."
+    "tool.description": "[가장 높은 우선순위] MCP(모델 컨텍스트 프로토콜) 서버에 연결하고 사용 가능한 도구 목록을 반환합니다. API/시스템 통합을 수행하기 전에 이 도구를 사용하여 사용할 수 있는 MCP 도구를 확인하세요. HTTP 기반 및 stdio 기반 MCP 서버를 지원합니다.",
+    "tool.system_prompt": "MCP 서버(HTTP 또는 stdio)에 연결하고 해당 도구를 나열합니다. 가능하면 mcp_servers.json에 구성된 서버를 우선 사용하세요."
   },
   "th": {
-    "param.pretty.description": "ไม่ว่าจะพิมพ์ JSON เอาต์พุตสวย ๆ หรือไม่",
+    "param.pretty.description": "จะจัดรูปแบบเอาต์พุต JSON ให้อ่านง่ายหรือไม่",
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์จากไฟล์ปรับแต่ง",
-    "param.url.description": "MCP จุดสิ้นสุดเซิร์ฟเวอร์ URL",
-    "tool.description": "[ลำดับความสำคัญสูงสุด] เชื่อมต่อกับเซิร์ฟเวอร์ MCP (Model Context Protocol) และส่งคืนรายการเครื่องมือที่พร้อมใช้งาน ก่อนที่จะดำเนินการรวม API/ระบบใดๆ ให้ใช้เครื่องมือนี้เพื่อดูว่ามีเครื่องมือ MCP อะไรบ้าง รองรับเซิร์ฟเวอร์ MCP ที่ใช้ HTTP และแบบ stdio",
-    "tool.system_prompt": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP (HTTP หรือ stdio) และแสดงรายการเครื่องมือ ต้องการใช้เซิร์ฟเวอร์ที่กำหนดค่าใน mcp_servers.json เมื่อเป็นไปได้"
+    "param.url.description": "URL จุดเชื่อมต่อของเซิร์ฟเวอร์ MCP",
+    "tool.description": "[ลำดับความสำคัญสูงสุด] เชื่อมต่อกับเซิร์ฟเวอร์ MCP (Model Context Protocol) และส่งคืนรายการเครื่องมือที่พร้อมใช้งาน ก่อนที่จะดำเนินการรวม API/ระบบใด ๆ ให้ใช้เครื่องมือนี้เพื่อดูว่าเครื่องมือ MCP ใดพร้อมใช้งาน รองรับเซิร์ฟเวอร์ MCP ที่ใช้ HTTP และ stdio",
+    "tool.system_prompt": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP (HTTP หรือ stdio) และแสดงรายการเครื่องมือของเซิร์ฟเวอร์ หากเป็นไปได้ ให้ใช้เซิร์ฟเวอร์ที่กำหนดค่าไว้ใน mcp_servers.json ก่อน"
   },
   "de": {
-    "param.pretty.description": "Ob die JSON-Ausgabe hübsch gedruckt werden soll.",
+    "param.pretty.description": "Ob die JSON-Ausgabe hübsch formatiert werden soll.",
     "param.server_name.description": "Servername aus der Konfigurationsdatei.",
-    "param.url.description": "MCP Serverendpunkt URL.",
-    "tool.description": "[Höchste Priorität] Stellen Sie eine Verbindung zu einem MCP-Server (Model Context Protocol) her und geben Sie die Liste der verfügbaren Tools zurück. Bevor Sie eine API/Systemintegration durchführen, verwenden Sie dieses Tool, um herauszufinden, welche MCP-Tools verfügbar sind. Unterstützt HTTP-basierte und stdio-basierte MCP-Server.",
-    "tool.system_prompt": "Stellen Sie eine Verbindung zu einem MCP-Server (HTTP oder stdio) her und listen Sie seine Tools auf. Wenn möglich, bevorzugen Sie die Verwendung konfigurierter Server in mcp_servers.json."
+    "param.url.description": "URL des MCP-Server-Endpunkts.",
+    "tool.description": "[Höchste Priorität] Stellen Sie eine Verbindung zu einem MCP-Server (Model Context Protocol) her und geben Sie die Liste der verfügbaren Tools zurück. Bevor Sie eine API-/Systemintegration durchführen, verwenden Sie dieses Tool, um herauszufinden, welche MCP-Tools verfügbar sind. Unterstützt HTTP-basierte und stdio-basierte MCP-Server.",
+    "tool.system_prompt": "Stellen Sie eine Verbindung zu einem MCP-Server (HTTP oder stdio) her und listen Sie seine Tools auf. Verwenden Sie nach Möglichkeit die in mcp_servers.json konfigurierten Server."
   },
   "it": {
-    "param.pretty.description": "Se stampare in modo carino l'output JSON.",
-    "param.server_name.description": "Nome del server dal file di configurazione.",
-    "param.url.description": "MCP endpoint del server URL.",
-    "tool.description": "[Priorità più alta] Connettersi a un server MCP (Model Context Protocol) e restituire l'elenco degli strumenti disponibili. Prima di eseguire qualsiasi integrazione API/sistema, utilizza questo strumento per scoprire quali strumenti MCP sono disponibili. Supporta server MCP basati su HTTP e basati su stdio.",
-    "tool.system_prompt": "Connettiti a un server MCP (HTTP o stdio) ed elenca i suoi strumenti. Preferisci utilizzare i server configurati in mcp_servers.json quando possibile."
+    "param.pretty.description": "Indica se formattare in modo leggibile l'output JSON.",
+    "param.server_name.description": "Nome del server nel file di configurazione.",
+    "param.url.description": "URL dell'endpoint del server MCP.",
+    "tool.description": "[Priorità massima] Connettiti a un server MCP (Model Context Protocol) e restituisci l'elenco degli strumenti disponibili. Prima di eseguire qualsiasi integrazione API/sistema, usa questo strumento per scoprire quali strumenti MCP sono disponibili. Supporta server MCP basati su HTTP e su stdio.",
+    "tool.system_prompt": "Connettiti a un server MCP (HTTP o stdio) ed elenca i suoi strumenti. Se possibile, preferisci usare i server configurati in mcp_servers.json."
   },
   "ru": {
-    "param.pretty.description": "Следует ли красиво печатать выходные данные JSON.",
+    "param.pretty.description": "Нужно ли форматировать JSON-вывод.",
     "param.server_name.description": "Имя сервера из файла конфигурации.",
-    "param.url.description": "MCP конечная точка сервера URL.",
-    "tool.description": "[Наивысший приоритет] Подключитесь к серверу MCP (протокол контекста модели) и верните список доступных инструментов. Прежде чем выполнять любую интеграцию API/системы, используйте этот инструмент, чтобы узнать, какие инструменты MCP доступны. Поддерживает серверы MCP на базе HTTP и stdio.",
-    "tool.system_prompt": "Подключитесь к серверу MCP (HTTP или stdio) и перечислите его инструменты. По возможности предпочитайте использовать настроенные серверы в mcp_servers.json."
+    "param.url.description": "URL конечной точки сервера MCP.",
+    "tool.description": "[Наивысший приоритет] Подключитесь к серверу MCP (Model Context Protocol) и верните список доступных инструментов. Перед выполнением любой интеграции с API/системой используйте этот инструмент, чтобы выяснить, какие инструменты MCP доступны. Поддерживает серверы MCP на базе HTTP и stdio.",
+    "tool.system_prompt": "Подключитесь к серверу MCP (HTTP или stdio) и перечислите его инструменты. По возможности используйте серверы, настроенные в mcp_servers.json."
   },
   "pt_BR": {
-    "param.pretty.description": "Seja para imprimir a saída JSON.",
-    "param.server_name.description": "Nome do servidor do arquivo de configuração.",
-    "param.url.description": "MCP terminal do servidor URL.",
-    "tool.description": "[Maior prioridade] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores HTTP e MCP baseados em stdio.",
-    "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Prefira usar servidores configurados em mcp_servers.json quando possível."
+    "param.pretty.description": "Se deve formatar a saída JSON.",
+    "param.server_name.description": "Nome do servidor no arquivo de configuração.",
+    "param.url.description": "URL do endpoint do servidor MCP.",
+    "tool.description": "[Prioridade máxima] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração de API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio.",
+    "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Se possível, prefira usar os servidores configurados em mcp_servers.json."
   }
 }
