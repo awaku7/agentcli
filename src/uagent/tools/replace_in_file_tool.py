@@ -2,41 +2,25 @@
 """replace_in_file_tool
 
 Safely performs literal or regular-expression replacements on an existing text file.
-
-Newline handling
-- The tool normalizes line endings internally and writes the file back using the
-  original newline convention to reduce cross-OS churn.
-
-Modes
-- preview=true: returns only a preview (hit locations and context) and does not
-  modify the file.
-- preview=false: writes changes after creating a backup (.org/.orgN).
-
-Safety notes
-- If you need to express a newline in pattern/replacement, use the two-character
-  sequence "\\n" (JSON: "\\\\n"). This tool will expand it to a real newline.
-  Do NOT include raw newline characters (\n/\r) in JSON strings.
-- For preview=false, the tool may require confirmation when there are many
-  matches (confirm_over).
 """
 
 from __future__ import annotations
-
-from .i18n_helper import make_tool_translator
-
-_ = make_tool_translator(__file__)
 
 import difflib
 import hashlib
 import json
 import os
-from pathlib import Path
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from . import context
-from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
+from .i18n_helper import make_tool_translator
+from .safe_file_ops_extras import (ensure_within_workdir,
+                                   make_backup_before_overwrite)
+
+_ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:replace_in_file"
@@ -49,31 +33,33 @@ def _make_summary(
     blocked: bool = False,
     reason: str | None = None,
     error: str | None = None,
+    hint: str | None = None,
 ) -> str:
-    """Build a stable human-readable summary.
-
-    Notes:
-    - Keep wording stable because tests/assertions may rely on it.
-    """
+    """Build a stable human-readable summary."""
 
     if error is not None:
-        return f"Error: {error}"
+        return _("summary.error", default="Error: {error}").format(error=error)
 
     mc = 0 if match_count is None else int(match_count)
 
     if blocked:
         if reason:
-            return f"Blocked: {reason}"
-        return f"Blocked: {mc}"
+            return _("summary.blocked_reason", default="Blocked: {reason}").format(reason=reason)
+        return _("summary.blocked", default="Blocked: {count}").format(count=mc)
 
+    msg = ""
     if preview:
-        return (
-            f"Preview: {mc} matches found"
+        msg = (
+            _("summary.preview_matches", default="Preview: {count} matches found").format(count=mc)
             if mc
-            else "Successfully no change (0 matches)"
+            else _("summary.no_change", default="Successfully no change (0 matches)")
         )
+    else:
+        msg = _("summary.no_change", default="Successfully no change (0 matches)") if mc == 0 else _("summary.matches", default="{count} match(es)").format(count=mc)
 
-    return "Successfully no change (0 matches)" if mc == 0 else f"{mc} match(es)"
+    if mc == 0 and hint:
+        msg += f"\n\n[HINT] {hint}"
+    return msg
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -83,30 +69,12 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Perform literal or regular-expression replacements on a text file. "
-                "Line endings are normalized internally, so patterns/replacements that include "
-                "newlines are supported.\n\n"
-                "Guidelines:\n"
-                "- Recommended: Run with preview=true first to verify hit locations and diff.\n"
-                "- Never include raw newlines in JSON strings; use \\n (JSON: \\\n).\n"
-                "- Use mode=literal unless regex is necessary.\n\n"
-                "Regex notes (mode=regex):\n"
-                "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
-                "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
-                "- replacement \\1, \\2... refer to capture groups\n"
-            ),
-        ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Guidelines:\n"
-                "- Recommended: Run with preview=true first to verify hit locations and diff.\n"
-                "- Never include raw newlines in JSON strings; use \\n (JSON: \\\n).\n"
-                "- Use mode=literal unless regex is necessary.\n\n"
-                "Regex notes (mode=regex):\n"
-                "- pattern is Python re; . * ? [ ] ( ) ^ $ are special\n"
-                "- \\x is invalid; use \\xNN (e.g., \\x00)\n"
-                "- replacement \\1, \\2... refer to capture groups\n"
+                "Perform literal or regular-expression replacements on a text file.\n"
+                "CRITICAL for Success:\n"
+                "1. EXACT MATCH: 'pattern' must match the file content exactly (spaces/indentation/newlines). If 0 matches, use 'read_file' or 'file_grep' to see the exact current state.\n"
+                "2. NO RAW NEWLINES: Never include actual newlines in JSON strings. Use '\\n' (literal backslash + n).\n"
+                "3. INDENTATION: LLMs often get indentation wrong. If literal mode fails, consider if you missed a space.\n"
+                "4. SMALLER BLOCKS: Prefer replacing smaller, unique anchors instead of large blocks to avoid matching errors."
             ),
         ),
         "parameters": {
@@ -116,10 +84,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.expand_newline_tokens.description",
-                        default=(
-                            "If true (default), expands newline tokens (\\r\\n/\\r/\\n) into real newlines for matching/replacement. "
-                            "If false, treats them as literal characters (e.g., the two characters \\ and n)."
-                        ),
+                        default="If true (default), expands newline tokens (\\r\\n/\\r/\\n) into real newlines."
                     ),
                     "default": True,
                 },
@@ -206,9 +171,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     ],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Operation: replace (default), append/insert_at_end, insert_before, insert_after, insert_at_line, or replace_all_in_files."
-                        ),
+                        default="Operation: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, or replace_all_in_files."
                     ),
                     "default": "replace",
                 },
@@ -232,7 +195,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.recursive.description",
-                        default="When replace_all_in_files is used, recursively scan under the target directory (default: true).",
+                        default="Recursively scan under the target directory.",
                     ),
                     "default": True,
                 },
@@ -244,669 +207,186 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, Any, str]:
-    """Read a text file and return (content, detected_newlines, encoding_used)."""
-
     size = os.path.getsize(path)
     if size > max_bytes:
         raise ValueError(f"file too large: {size} > {max_bytes} bytes")
-
     def try_read(enc: str, errors: str) -> Tuple[str, Any, str]:
         with open(path, "r", encoding=enc, errors=errors, newline=None) as f:
             content = f.read()
             return content, f.newlines, enc
-
     try:
         return try_read(encoding, "strict")
     except (UnicodeDecodeError, LookupError):
         return try_read("utf-8", "replace")
 
-
 def _unified_diff(path: str, original: str, replaced: str) -> str:
-    """Return unified diff string, or an empty string if no changes."""
-
-    if original == replaced:
-        return ""
-
-    a = original.splitlines(True)
-    b = replaced.splitlines(True)
+    if original == replaced: return ""
+    a = original.splitlines(True); b = replaced.splitlines(True)
     diff = difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}")
     return "".join(diff)
 
-
 def _write_text_robust(path: str, text: str, encoding: str, newline: Any) -> None:
-    """Write text back using the original newline convention."""
-
-    # Normalize in-memory newlines to \n (avoid mixed newlines)
     text = text.replace("\r\n", "\n").replace("\r", "\n")
-
-    # If mixed newlines were detected, prefer CRLF.
-    if isinstance(newline, tuple):
-        target_newline = "\r\n" if "\r\n" in newline else newline[0]
-    else:
-        target_newline = newline or "\n"
-
+    target_newline = ("\r\n" if "\r\n" in newline else newline[0]) if isinstance(newline, tuple) else (newline or "\n")
     with open(path, "w", encoding=encoding, newline=target_newline) as f:
         f.write(text)
 
-
 def _expand_newline_tokens_to_lf(s: str) -> str:
-    """Expand user-provided newline tokens and normalize to LF.
-
-    - \r\n / \r / \n (literal tokens) are converted into actual newlines.
-    - Result uses LF (\n) only.
-    """
-
-    # Convert user tokens into real newlines.
     s = s.replace("\\r\\n", "\n").replace("\\r", "\n").replace("\\n", "\n")
-
-    # Normalize any actual CRLF/CR that may have been present.
-    s = s.replace("\r\n", "\n").replace("\r", "\n")
-    return s
-
+    return s.replace("\r\n", "\n").replace("\r", "\n")
 
 @dataclass
 class _Hit:
     start: int
     end: int
 
-
 def _map_idx_to_line_col(text: str, idx: int) -> Tuple[int, int]:
-    """Map absolute idx to (1-based line_no, 0-based col)."""
-
-    if idx < 0:
-        idx = 0
-    if idx > len(text):
-        idx = len(text)
-
-    # Count newlines before idx.
     line_no = text.count("\n", 0, idx) + 1
     last_nl = text.rfind("\n", 0, idx)
     col = idx if last_nl < 0 else idx - last_nl - 1
     return line_no, col
 
-
 def _extract_same_line_context(text: str, start: int, end: int) -> Tuple[str, str, str]:
-    """Extract (before, match, after) on the same line for a hit."""
-
-    # Find line boundaries
-    line_start = text.rfind("\n", 0, start)
-    line_start = 0 if line_start < 0 else line_start + 1
-    line_end = text.find("\n", end)
-    line_end = len(text) if line_end < 0 else line_end
-
-    before = text[line_start:start]
-    match = text[start:end]
-    after = text[end:line_end]
-    return before, match, after
-
+    l_start = text.rfind("\n", 0, start); l_start = 0 if l_start < 0 else l_start + 1
+    l_end = text.find("\n", end); l_end = len(text) if l_end < 0 else l_end
+    return text[l_start:start], text[start:end], text[end:l_end]
 
 def _find_hits_literal(haystack: str, needle: str) -> List[_Hit]:
-    hits: List[_Hit] = []
-    if needle == "":
-        return hits
-
-    start = 0
+    hits = []; start = 0
+    if not needle: return hits
     while True:
         pos = haystack.find(needle, start)
-        if pos < 0:
-            break
-        hits.append(_Hit(pos, pos + len(needle)))
-        start = pos + len(needle)
+        if pos < 0: break
+        hits.append(_Hit(pos, pos + len(needle))); start = pos + len(needle)
     return hits
-
 
 def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
-    hits: List[_Hit] = []
-    for m in pattern.finditer(haystack):
-        hits.append(_Hit(m.start(), m.end()))
-    return hits
-
-
-def _find_regex_match_by_occurrence(
-    haystack: str, pattern: re.Pattern[str], occurrence: int
-):
-    if occurrence < 1:
-        return None
-    for idx, m in enumerate(pattern.finditer(haystack), start=1):
-        if idx == occurrence:
-            return m
-    return None
-
-
-def _apply_replacements_literal(
-    text: str, pattern: str, replacement: str
-) -> Tuple[str, int]:
-    replaced = text.replace(pattern, replacement)
-    return replaced, text.count(pattern) if pattern else 0
-
+    return [_Hit(m.start(), m.end()) for m in pattern.finditer(haystack)]
 
 def _sha256_file(path: str) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
+        for chunk in iter(lambda: f.read(1024 * 1024), b""): h.update(chunk)
     return h.hexdigest()
 
+def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
+    """Analyze why a match failed and provide a hint."""
+    if not pattern: return None
+    
+    # 1. Check if ignoring indentation helps
+    p_strip = pattern.strip()
+    if p_strip and p_strip != pattern:
+        if p_strip in original:
+            return _("hint.indentation_mismatch", default="Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation.")
+    
+    # 2. Check if literal vs regex confusion
+    if mode == "literal":
+        # If it looks like a regex but used as literal
+        if any(c in pattern for c in ".*+?^$[]{}()|"):
+            try:
+                rx = re.compile(re.escape(pattern).replace(r"\.\*", ".*")) # Very loose check
+                if rx.search(original):
+                    return _("hint.possible_regex", default="Pattern looks like it contains regex-style meta-characters but 'mode' is 'literal'.")
+            except: pass
+    
+    return _("hint.check_exact", default="No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.")
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = context.get_callbacks()
+    def _normalize_lf(s: str) -> str: return s.replace("\r\n", "\n").replace("\r", "\n")
 
-    def _normalize_lf(s: str) -> str:
-        return s.replace("\r\n", "\n").replace("\r", "\n")
-
-    def _find_hit_by_occurrence(hits: List[_Hit], occurrence: int) -> _Hit | None:
-        if not hits:
-            return None
-        if occurrence <= 0:
-            return hits[0]
-        if occurrence > len(hits):
-            return None
-        return hits[occurrence - 1]
-
-    def _insert_at_line(text: str, insertion: str, line_no: int) -> Tuple[str, int]:
-        if line_no < 1:
-            raise ValueError("line_no must be >= 1")
-        lines = text.splitlines(True)
-        if line_no > len(lines) + 1:
-            raise ValueError(f"line_no out of range: {line_no} > {len(lines) + 1}")
-        offset = sum(len(line) for line in lines[: line_no - 1])
-        return text[:offset] + insertion + text[offset:], offset
-
-    def _is_probably_binary(file_path: str, sample_size: int = 4096) -> bool:
-        try:
-            with open(file_path, 'rb') as f:
-                return b"\x00" in f.read(sample_size)
-        except OSError:
-            return False
-
-    def _single_file_edit(
-        *,
-        path: str,
-        action: str,
-        mode: str,
-        pattern: str,
-        replacement: str,
-        preview: bool,
-        occurrence: int,
-        confirm_over: int,
-        encoding: str,
-        expand_newline_tokens: bool,
-        return_hashes: bool,
-        line_no: int,
-    ) -> Dict[str, Any]:
+    def _single_file_edit(*, path: str, action: str, mode: str, pattern: str, replacement: str, preview: bool, occurrence: int, confirm_over: int, encoding: str, expand_newline_tokens: bool, return_hashes: bool, line_no: int) -> Dict[str, Any]:
         ensure_within_workdir(path)
+        original, nl, enc_used = _read_text_robust(path, encoding, cb.read_file_max_bytes)
+        orig_norm = _normalize_lf(original)
+        
+        p2 = _expand_newline_tokens_to_lf(pattern) if expand_newline_tokens else pattern
+        r2 = _expand_newline_tokens_to_lf(replacement) if expand_newline_tokens else replacement
 
-        max_bytes = cb.read_file_max_bytes
-        original, detected_newline, encoding_used = _read_text_robust(path, encoding, max_bytes)
-        original_norm = _normalize_lf(original)
-        before_sha = _sha256_file(path)
-        after_sha = before_sha
-
-        if expand_newline_tokens:
-            pattern2 = _expand_newline_tokens_to_lf(pattern)
-            replacement2 = _expand_newline_tokens_to_lf(replacement)
-        else:
-            pattern2 = pattern
-            replacement2 = replacement
-
-        match_count = 0
+        hits = []
+        if action in {"replace", "insert_before", "insert_after"}:
+            if mode == "regex":
+                rx = re.compile(p2)
+                hits = _find_hits_regex(orig_norm, rx)
+            else:
+                hits = _find_hits_literal(orig_norm, p2)
+        
+        match_count = len(hits)
+        replaced_text = orig_norm
         replaced_count = 0
-        replaced = original_norm
-        match_hits: List[Dict[str, Any]] = []
-        action_norm = {"append": "insert_at_end", "insert_at_end": "insert_at_end"}.get(action, action)
+        match_hits = []
 
-        if action_norm == "replace":
-            if mode == "regex":
-                try:
-                    rx = re.compile(pattern2)
-                except re.error as e:
-                    raise ValueError(f"[replace_in_file error] re.error: {e}") from e
-
-                hits = _find_hits_regex(original_norm, rx)
-                match_count = len(hits)
+        if action == "replace":
+            if match_count > 0:
                 if occurrence == 0:
-                    try:
-                        replaced, replaced_count = rx.subn(replacement2, original_norm)
-                    except re.error as e:
-                        raise ValueError(f"[replace_in_file error] re.error during replacement: {e}") from e
-                else:
-                    m = _find_regex_match_by_occurrence(original_norm, rx, occurrence)
-                    if m is None:
-                        replaced_count = 0
-                    else:
-                        try:
-                            repl = m.expand(replacement2)
-                        except re.error as e:
-                            raise ValueError(f"[replace_in_file error] re.error during replacement: {e}") from e
-                        replaced = original_norm[: m.start()] + repl + original_norm[m.end() :]
-                        replaced_count = 1
-                for h in hits[:50]:
-                    line_no2, col = _map_idx_to_line_col(original_norm, h.start)
-                    before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
-                    match_hits.append(
-                        {
-                            "line_no": line_no2,
-                            "col": col,
-                            "match_text": match,
-                            "before": before[-200:],
-                            "after": after[:200],
-                        }
-                    )
-            else:
-                hits = _find_hits_literal(original_norm, pattern2)
-                match_count = len(hits)
-                if occurrence == 0:
-                    replaced, replaced_count = _apply_replacements_literal(original_norm, pattern2, replacement2)
-                else:
-                    if occurrence > len(hits):
-                        replaced_count = 0
-                    else:
-                        h = hits[occurrence - 1]
-                        replaced = original_norm[: h.start] + replacement2 + original_norm[h.end :]
-                        replaced_count = 1
-                for h in hits[:50]:
-                    line_no2, col = _map_idx_to_line_col(original_norm, h.start)
-                    before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
-                    match_hits.append(
-                        {
-                            "line_no": line_no2,
-                            "col": col,
-                            "match_text": match,
-                            "before": before[-200:],
-                            "after": after[:200],
-                        }
-                    )
-
-        elif action_norm in {"insert_before", "insert_after"}:
-            if pattern2 == "":
-                raise ValueError("[replace_in_file error] pattern must not be empty")
-            if mode == "regex":
-                try:
-                    rx = re.compile(pattern2)
-                except re.error as e:
-                    raise ValueError(f"[replace_in_file error] re.error: {e}") from e
-                hits = _find_hits_regex(original_norm, rx)
-            else:
-                hits = _find_hits_literal(original_norm, pattern2)
-            match_count = len(hits)
-            target_hit = _find_hit_by_occurrence(hits, occurrence)
-            if target_hit is not None:
-                if action_norm == "insert_before":
-                    line_start = original_norm.rfind("\n", 0, target_hit.start)
-                    line_start = 0 if line_start < 0 else line_start + 1
-                    insert_at = line_start
-                else:
-                    line_end = original_norm.find("\n", target_hit.end)
-                    insert_at = len(original_norm) if line_end < 0 else line_end + 1
-                replaced = original_norm[:insert_at] + replacement2 + original_norm[insert_at:]
-                replaced_count = 1
+                    if mode == "regex": replaced_text, replaced_count = re.compile(p2).subn(r2, orig_norm)
+                    else: replaced_text = orig_norm.replace(p2, r2); replaced_count = match_count
+                elif 0 < occurrence <= match_count:
+                    h = hits[occurrence - 1]
+                    if mode == "regex":
+                        m = list(re.compile(p2).finditer(orig_norm))[occurrence-1]
+                        replaced_text = orig_norm[:h.start] + m.expand(r2) + orig_norm[h.end:]
+                    else: replaced_text = orig_norm[:h.start] + r2 + orig_norm[h.end:]
+                    replaced_count = 1
             for h in hits[:50]:
-                line_no2, col = _map_idx_to_line_col(original_norm, h.start)
-                before, match, after = _extract_same_line_context(original_norm, h.start, h.end)
-                match_hits.append(
-                    {
-                        "line_no": line_no2,
-                        "col": col,
-                        "match_text": match,
-                        "before": before[-200:],
-                        "after": after[:200],
-                    }
-                )
+                lno, col = _map_idx_to_line_col(orig_norm, h.start); bef, mat, aft = _extract_same_line_context(orig_norm, h.start, h.end)
+                match_hits.append({"line_no": lno, "col": col, "match_text": mat, "before": bef[-200:], "after": aft[:200]})
 
-        elif action_norm == "insert_at_line":
-            replaced, _ = _insert_at_line(original_norm, replacement2, line_no)
-            replaced_count = 1 if replaced != original_norm else 0
+        elif action in {"insert_before", "insert_after"}:
+            if hits:
+                h = hits[occurrence - 1 if 0 < occurrence <= match_count else 0]
+                if action == "insert_before":
+                    idx = orig_norm.rfind("\n", 0, h.start); ins_at = 0 if idx < 0 else idx + 1
+                else:
+                    idx = orig_norm.find("\n", h.end); ins_at = len(orig_norm) if idx < 0 else idx + 1
+                replaced_text = orig_norm[:ins_at] + r2 + orig_norm[ins_at:]; replaced_count = 1
+
+        elif action == "insert_at_line":
+            lines = orig_norm.splitlines(True)
+            if 1 <= line_no <= len(lines) + 1:
+                off = sum(len(l) for l in lines[:line_no-1])
+                replaced_text = orig_norm[:off] + r2 + orig_norm[off:]; replaced_count = 1
             match_count = replaced_count
 
-        elif action_norm == "insert_at_end":
-            replaced = original_norm + replacement2
-            replaced_count = 1 if replaced != original_norm else 0
-            match_count = replaced_count
+        elif action == "insert_at_end":
+            replaced_text = orig_norm + r2; replaced_count = 1; match_count = 1
 
-        else:
-            raise ValueError(f"[replace_in_file error] unsupported action: {action}")
+        hint = None
+        if match_count == 0 and action in {"replace", "insert_before", "insert_after"}:
+            hint = _get_failure_hint(orig_norm, p2, mode)
 
-        changed = replaced != original_norm
-        diff = _unified_diff(path, original_norm, replaced)
-
-        if not preview and action_norm == "replace" and occurrence == 0 and match_count > confirm_over:
-            result = {
-                "ok": True,
-                "path": path,
-                "action": action_norm,
-                "mode": mode,
-                "occurrence": occurrence,
-                "line_no": line_no,
-                "match_count": match_count,
-                "replaced_count": replaced_count,
-                "changed": False,
-                "preview": preview,
-                "diff": diff,
-                "encoding": encoding_used,
-                "detected_newline": "\n" if detected_newline is None else detected_newline,
-                "written": False,
-                "summary": _make_summary(
-                    preview=preview,
-                    match_count=match_count,
-                    blocked=True,
-                    reason=f"match_count {match_count} > confirm_over {confirm_over}",
-                ),
-                "match_hits": match_hits,
-            }
-            if return_hashes:
-                result["sha256_before"] = before_sha
-                result["sha256_after"] = after_sha
-            return result
+        changed = replaced_text != orig_norm
+        if not preview and action == "replace" and occurrence == 0 and match_count > confirm_over:
+            return {"ok": True, "path": path, "match_count": match_count, "changed": False, "summary": _make_summary(preview=preview, match_count=match_count, blocked=True, reason=f"match_count {match_count} > confirm_over {confirm_over}")}
 
         written = False
-        backup_path: str | None = None
         if not preview and changed:
-            backup_path = make_backup_before_overwrite(path)
-            _write_text_robust(path, replaced, encoding_used, detected_newline)
+            make_backup_before_overwrite(path)
+            _write_text_robust(path, replaced_text, enc_used, nl)
             written = True
-            after_sha = _sha256_file(path)
 
-        result: Dict[str, Any] = {
-            "ok": True,
-            "path": path,
-            "action": action_norm,
-            "mode": mode,
-            "occurrence": occurrence,
-            "line_no": line_no,
-            "match_count": match_count,
-            "replaced_count": replaced_count,
-            "changed": changed,
-            "preview": preview,
-            "diff": diff,
-            "encoding": encoding_used,
-            "detected_newline": "\n" if detected_newline is None else detected_newline,
-            "written": written,
-            "summary": _make_summary(preview=preview, match_count=match_count),
-        }
-        if backup_path is not None:
-            result["backup"] = backup_path
-        if match_hits:
-            result["match_hits"] = match_hits
-        if return_hashes:
-            result["sha256_before"] = before_sha
-            result["sha256_after"] = after_sha
-        return result
+        res = {"ok": True, "path": path, "match_count": match_count, "replaced_count": replaced_count, "changed": changed, "preview": preview, "written": written, "summary": _make_summary(preview=preview, match_count=match_count, hint=hint)}
+        if match_hits: res["match_hits"] = match_hits
+        if return_hashes: res.update({"sha256_before": _sha256_file(path), "sha256_after": _sha256_file(path)})
+        return res
 
     try:
-        path = str(args.get("path") or "")
-        action = str(args.get("action") or "replace")
-        mode = str(args.get("mode") or "literal")
-        pattern = str(args.get("pattern") or "")
-        replacement = str(args.get("replacement") or "")
-        preview_raw = args.get("preview", True)
-        occurrence_raw = args.get("occurrence", 0)
-        confirm_over = args.get("confirm_over", 10)
-        encoding = str(args.get("encoding") or "utf-8")
-        expand_newline_tokens_raw = args.get("expand_newline_tokens", True)
-        return_hashes_raw = args.get("return_hashes", False)
-        line_no_raw = args.get("line_no", 0)
-        name_pattern = str(args.get("name_pattern") or "*")
-        recursive_raw = args.get("recursive", True)
+        path = str(args.get("path", "")); action = str(args.get("action", "replace")); mode = str(args.get("mode", "literal"))
+        pattern = str(args.get("pattern", "")); replacement = str(args.get("replacement", ""))
+        preview = bool(args.get("preview", True)); occurrence = int(args.get("occurrence", 0))
+        confirm_over = int(args.get("confirm_over", 10)); line_no = int(args.get("line_no", 0))
 
-        valid_actions = {
-            "replace",
-            "append",
-            "insert_at_end",
-            "insert_before",
-            "insert_after",
-            "insert_at_line",
-            "replace_all_in_files",
-        }
-        if action not in valid_actions:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.invalid_action",
-                        default=f"[replace_in_file error] invalid action: {action}",
-                    ).format(action=action),
-                },
-                ensure_ascii=False,
-            )
-
-        if mode not in {"literal", "regex"}:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.invalid_mode",
-                        default=f"[replace_in_file error] invalid mode: {mode}",
-                    ).format(mode=mode),
-                },
-                ensure_ascii=False,
-            )
-
-        if not isinstance(preview_raw, bool):
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.preview_not_bool",
-                        default="[replace_in_file error] preview must be a boolean",
-                    ),
-                },
-                ensure_ascii=False,
-            )
-        preview = preview_raw
-
-        if not isinstance(expand_newline_tokens_raw, bool):
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.expand_newline_tokens_not_bool",
-                        default="[replace_in_file error] expand_newline_tokens must be a boolean",
-                    ),
-                },
-                ensure_ascii=False,
-            )
-        expand_newline_tokens = expand_newline_tokens_raw
-
-        if not isinstance(return_hashes_raw, bool):
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.return_hashes_not_bool",
-                        default="[replace_in_file error] return_hashes must be a boolean",
-                    ),
-                },
-                ensure_ascii=False,
-            )
-        return_hashes = return_hashes_raw
-
-        if not isinstance(recursive_raw, bool):
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": _(
-                        "err.recursive_not_bool",
-                        default="[replace_in_file error] recursive must be a boolean",
-                    ),
-                },
-                ensure_ascii=False,
-            )
-        recursive = recursive_raw
-
-        try:
-            occurrence = int(occurrence_raw)
-            if occurrence < 0:
-                raise ValueError("occurrence must be >= 0")
-        except (TypeError, ValueError) as e:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": f"[replace_in_file error] invalid occurrence: {e}",
-                },
-                ensure_ascii=False,
-            )
-
-        try:
-            confirm_over = int(confirm_over)
-            if confirm_over < 1:
-                raise ValueError("confirm_over must be >= 1")
-        except (TypeError, ValueError) as e:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": f"[replace_in_file error] invalid numeric argument: {e}",
-                },
-                ensure_ascii=False,
-            )
-
-        try:
-            line_no = int(line_no_raw)
-        except (TypeError, ValueError) as e:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "error": f"[replace_in_file error] invalid line_no: {e}",
-                },
-                ensure_ascii=False,
-            )
-
-        if not path:
-            return json.dumps(
-                {"ok": False, "error": "[replace_in_file error] path is not specified"},
-                ensure_ascii=False,
-            )
+        if not path: return json.dumps({"ok": False, "error": _("err.path_missing", default="path is not specified")}, ensure_ascii=False)
 
         if action == "replace_all_in_files":
-            root_path = ensure_within_workdir(path)
-            root = Path(root_path)
-            if not root.exists():
-                return json.dumps(
-                    {"ok": False, "error": f"[replace_in_file error] path not found: {path}"},
-                    ensure_ascii=False,
-                )
-
-            if root.is_file():
-                targets = [root]
-            else:
-                pattern_glob = name_pattern or "*"
-                iterator = root.rglob(pattern_glob) if recursive else root.glob(pattern_glob)
-                targets = [p for p in iterator if p.is_file() and not _is_probably_binary(str(p))]
-
-            results: List[Dict[str, Any]] = []
-            changed_files = 0
-            written_files = 0
-            total_match_count = 0
-            total_replaced_count = 0
+            root = Path(ensure_within_workdir(path))
+            targets = [root] if root.is_file() else [p for p in (root.rglob(args.get("name_pattern", "*")) if args.get("recursive", True) else root.glob(args.get("name_pattern", "*"))) if p.is_file()]
+            results = []
             for fp in targets:
-                try:
-                    one = _single_file_edit(
-                        path=str(fp),
-                        action="replace",
-                        mode=mode,
-                        pattern=pattern,
-                        replacement=replacement,
-                        preview=preview,
-                        occurrence=occurrence,
-                        confirm_over=confirm_over,
-                        encoding=encoding,
-                        expand_newline_tokens=expand_newline_tokens,
-                        return_hashes=return_hashes,
-                        line_no=line_no,
-                    )
-                except Exception as e:
-                    results.append(
-                        {
-                            "ok": False,
-                            "path": str(fp),
-                            "error": f"[replace_in_file error] {type(e).__name__}: {e}",
-                        }
-                    )
-                    continue
+                try: results.append(_single_file_edit(path=str(fp), action="replace", mode=mode, pattern=pattern, replacement=replacement, preview=preview, occurrence=occurrence, confirm_over=confirm_over, encoding=str(args.get("encoding", "utf-8")), expand_newline_tokens=bool(args.get("expand_newline_tokens", True)), return_hashes=bool(args.get("return_hashes", False)), line_no=line_no))
+                except Exception as e: results.append({"ok": False, "path": str(fp), "error": str(e)})
+            return json.dumps({"ok": True, "action": action, "results": results, "summary": _("summary.files_changed", default="{count} file(s) changed").format(count=sum(1 for r in results if r.get("changed")))}, ensure_ascii=False)
 
-                item = {
-                    "ok": True,
-                    "path": one.get("path"),
-                    "changed": one.get("changed"),
-                    "match_count": one.get("match_count"),
-                    "replaced_count": one.get("replaced_count"),
-                    "written": one.get("written"),
-                    "backup": one.get("backup"),
-                }
-                if return_hashes:
-                    item["sha256_before"] = one.get("sha256_before")
-                    item["sha256_after"] = one.get("sha256_after")
-                results.append(item)
-                total_match_count += int(one.get("match_count") or 0)
-                total_replaced_count += int(one.get("replaced_count") or 0)
-                if one.get("changed"):
-                    changed_files += 1
-                if one.get("written"):
-                    written_files += 1
-
-            return json.dumps(
-                {
-                    "ok": True,
-                    "action": action,
-                    "path": path,
-                    "name_pattern": name_pattern,
-                    "recursive": recursive,
-                    "scanned_files": len(targets),
-                    "changed_files": changed_files,
-                    "written_files": written_files,
-                    "match_count": total_match_count,
-                    "replaced_count": total_replaced_count,
-                    "preview": preview,
-                    "results": results,
-                    "summary": f"{changed_files} file(s) changed",
-                },
-                ensure_ascii=False,
-            )
-
-        # Single-file actions
-        if action != "replace_all_in_files" and not path:
-            return json.dumps(
-                {"ok": False, "error": "[replace_in_file error] path is not specified"},
-                ensure_ascii=False,
-            )
-
-        if action in {"replace", "insert_before", "insert_after"} and pattern == "":
-            return json.dumps(
-                {"ok": False, "error": "[replace_in_file error] pattern must not be empty"},
-                ensure_ascii=False,
-            )
-
-        if action == "insert_at_line" and line_no < 1:
-            return json.dumps(
-                {"ok": False, "error": "[replace_in_file error] line_no must be >= 1"},
-                ensure_ascii=False,
-            )
-
-        if action in {"append", "insert_at_end"}:
-            # pattern is optional for append/end, but keep the runtime behavior explicit.
-            pattern = pattern or ""
-
-        result = _single_file_edit(
-            path=path,
-            action=action,
-            mode=mode,
-            pattern=pattern,
-            replacement=replacement,
-            preview=preview,
-            occurrence=occurrence,
-            confirm_over=confirm_over,
-            encoding=encoding,
-            expand_newline_tokens=expand_newline_tokens,
-            return_hashes=return_hashes,
-            line_no=line_no,
-        )
-        return json.dumps(result, ensure_ascii=False)
-
+        return json.dumps(_single_file_edit(path=path, action=action, mode=mode, pattern=pattern, replacement=replacement, preview=preview, occurrence=occurrence, confirm_over=confirm_over, encoding=str(args.get("encoding", "utf-8")), expand_newline_tokens=bool(args.get("expand_newline_tokens", True)), return_hashes=bool(args.get("return_hashes", False)), line_no=line_no), ensure_ascii=False)
     except Exception as e:
-        return json.dumps(
-            {
-                "ok": False,
-                "error": f"[replace_in_file error] {type(e).__name__}: {e}",
-                "exception": type(e).__name__,
-            },
-            ensure_ascii=False,
-        )
+        return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
