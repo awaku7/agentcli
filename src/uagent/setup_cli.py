@@ -587,7 +587,7 @@ def _ask_optional_extras(st: _WizardState) -> str:
     if st.embedding_enabled:
         st.embedding_values = {}
         status, value = _ask_text(
-            _("UAGENT_EMBEDDING_API_URL"),
+            "UAGENT_EMBEDDING_API_URL",
             default="",
             required=True,
             allow_back=True,
@@ -597,7 +597,7 @@ def _ask_optional_extras(st: _WizardState) -> str:
         st.embedding_values["UAGENT_EMBEDDING_API_URL"] = value
 
         status, value = _ask_text(
-            _("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH"),
+            "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH",
             default="/v1/models",
             required=False,
             allow_back=True,
@@ -643,7 +643,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("")
 
     out.append("# ==============================")
-    out.append(_("# Provider selection"))
+    out.append("# Provider selection")
     out.append("# ==============================")
     out.append(_("# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / nvidia"))
     out.append(f"UAGENT_PROVIDER={st.provider}")
@@ -886,7 +886,7 @@ def main() -> int:
             st.workdir_enabled = w == "2"
             if st.workdir_enabled:
                 status, value = _ask_text(
-                    _("UAGENT_WORKDIR"),
+                    "UAGENT_WORKDIR",
                     default=st.workdir,
                     required=False,
                     allow_back=True,

@@ -29,6 +29,7 @@ After installation, running `uag` for the first time will automatically launch a
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
   - **Web**: `uagw` / `python -m uagent.web`
+  - **A2A (Server)**: `uaga` / `python -m uagent.a2a.server`
 - **MCP (Model Context Protocol)**: Support for connecting to external MCP tool servers.
 - **Session Continuity**: Maintain conversation context even when switching providers or models.
 - **Web Inspector**: Automatically save browser transitions, DOM, and screenshots using `playwright_inspector`.
@@ -40,10 +41,9 @@ After installation, running `uag` for the first time will automatically launch a
 Run `uag` from your terminal to start. Type `:exit` to quit.
 
 ### A2A (Agent2Agent) Server
-You can launch an A2A-compatible HTTP server separate from the existing interfaces.
+Launch an A2A-compatible HTTP server:
 ```bash
 uaga
-# or python -m uagent.a2a.server
 ```
 
 ### Handy Tips (Continuity and Control)
