@@ -169,11 +169,7 @@ def run_cli_startup(
         if provider in ("gemini", "claude"):
             if use_responses_api:
                 os.environ["UAGENT_RESPONSES"] = "0"
-            print(
-                _(
-                    "[INFO] LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
-                )
-            )
+            print("[INFO] " + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"))
         elif use_responses_api and provider not in (
             "azure",
             "openai",

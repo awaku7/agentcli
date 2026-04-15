@@ -73,11 +73,8 @@ msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter のフォールバックモデルを有効化しました。"
 
 #: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:174
-msgid ""
-"[INFO] LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr ""
-"LLM API モード = Gemini/Claude のネイティブ API（UAGENT_RESPONSES は無視され"
-"ます）"
+msgid "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "LLM API モード = Gemini/Claude のネイティブ API（UAGENT_RESPONSES は無視されます）"
 
 #: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:186
 #, python-format
