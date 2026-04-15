@@ -49,7 +49,7 @@
     "err.disabled": "[工具]semantic_search_files 已禁用：嵌入 API 无法访问。\n[工具] EMBEDDING_API_URL={url}\n[工具] healthcheck={hc_url}\n[工具] 设置 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以使工具保持可见。\n",
     "err.query_required": "错误：需要查询。",
     "err.vec_fail": "错误：无法矢量化查询。",
-    "out.hits": "点击次数：{count}",
+    "out.hits": "命中数：{count}",
     "out.not_found": "没有找到相关文件。",
     "out.query": "搜索查询：{query}",
     "out.result_content": "内容：{snippet}",
@@ -70,7 +70,7 @@
     "err.disabled": "[工具]semantic_search_files 已停用：嵌入 API 無法存取。\n[工具] EMBEDDING_API_URL={url}\n[工具] healthcheck={hc_url}\n[工具] 設定 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以使工具保持可見。\n",
     "err.query_required": "錯誤：需要查詢。",
     "err.vec_fail": "錯誤：無法向量化查詢。",
-    "out.hits": "點擊次數：{count}",
+    "out.hits": "命中數：{count}",
     "out.not_found": "沒有找到相關文件。",
     "out.query": "搜尋查詢：{query}",
     "out.result_content": "內容：{snippet}",
@@ -84,7 +84,7 @@
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   },
   "es": {
-    "doc.db_path": "<estado>/dbs 配下に、root_dirごとのハッシュ付きDBパスを返す（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
+    "doc.db_path": "Devuelve la ruta de la base de datos con hash para cada root_dir bajo <state>/dbs (predeterminado: ~/.uag (antiguo: ~/.scheck)/dbs).",
     "doc.is_reachable": "Confirme la comunicación al inicio.\n\n- Devuelve False sin lanzar una excepción incluso si falla\n- Tiempo de espera más corto para evitar retrasos en el inicio\n- Dado que puede haber implementaciones en las que no se puedan utilizar /v1/models, GET de / también es una alternativa.",
     "doc.sync_file": "Sincronizar el índice de un solo archivo (si es nuevo o actualizado)",
     "err.dir_not_found": "Error: Directorio no encontrado: {root_path}",

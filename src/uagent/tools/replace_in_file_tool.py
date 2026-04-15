@@ -299,7 +299,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         ensure_within_workdir(path)
         original, nl, enc_used = _read_text_robust(path, encoding, cb.read_file_max_bytes)
         orig_norm = _normalize_lf(original)
-        
+        before_sha = _sha256_file(path) if return_hashes else None
+
         p2 = _expand_newline_tokens_to_lf(pattern) if expand_newline_tokens else pattern
         r2 = _expand_newline_tokens_to_lf(replacement) if expand_newline_tokens else replacement
 
@@ -315,6 +316,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         replaced_text = orig_norm
         replaced_count = 0
         match_hits = []
+        backup_path = None
 
         if action == "replace":
             if match_count > 0:
@@ -361,17 +363,25 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         written = False
         if not preview and changed:
-            make_backup_before_overwrite(path)
+            backup_path = make_backup_before_overwrite(path)
             _write_text_robust(path, replaced_text, enc_used, nl)
             written = True
 
-        res = {"ok": True, "path": path, "match_count": match_count, "replaced_count": replaced_count, "changed": changed, "preview": preview, "written": written, "summary": _make_summary(preview=preview, match_count=match_count, hint=hint)}
-        if match_hits: res["match_hits"] = match_hits
-        if return_hashes: res.update({"sha256_before": _sha256_file(path), "sha256_after": _sha256_file(path)})
+        after_sha = _sha256_file(path) if return_hashes else None
+
+        res = {"ok": True, "path": path, "action": action, "mode": mode, "match_count": match_count, "replaced_count": replaced_count, "changed": changed, "preview": preview, "written": written, "occurrence": occurrence, "line_no": line_no, "encoding": enc_used, "diff": _unified_diff(path, original, replaced_text), "summary": _make_summary(preview=preview, match_count=match_count, hint=hint)}
+        if backup_path is not None:
+            res["backup"] = backup_path
+        if match_hits:
+            res["match_hits"] = match_hits
+        if return_hashes:
+            res.update({"sha256_before": before_sha, "sha256_after": after_sha})
         return res
 
     try:
         path = str(args.get("path", "")); action = str(args.get("action", "replace")); mode = str(args.get("mode", "literal"))
+        if action == "append":
+            action = "insert_at_end"
         pattern = str(args.get("pattern", "")); replacement = str(args.get("replacement", ""))
         preview = bool(args.get("preview", True)); occurrence = int(args.get("occurrence", 0))
         confirm_over = int(args.get("confirm_over", 10)); line_no = int(args.get("line_no", 0))
@@ -385,7 +395,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             for fp in targets:
                 try: results.append(_single_file_edit(path=str(fp), action="replace", mode=mode, pattern=pattern, replacement=replacement, preview=preview, occurrence=occurrence, confirm_over=confirm_over, encoding=str(args.get("encoding", "utf-8")), expand_newline_tokens=bool(args.get("expand_newline_tokens", True)), return_hashes=bool(args.get("return_hashes", False)), line_no=line_no))
                 except Exception as e: results.append({"ok": False, "path": str(fp), "error": str(e)})
-            return json.dumps({"ok": True, "action": action, "results": results, "summary": _("summary.files_changed", default="{count} file(s) changed").format(count=sum(1 for r in results if r.get("changed")))}, ensure_ascii=False)
+            scanned_files = len(targets)
+            changed_files = sum(1 for r in results if r.get("changed"))
+            written_files = sum(1 for r in results if r.get("written"))
+            match_count = sum(int(r.get("match_count", 0) or 0) for r in results)
+            replaced_count = sum(int(r.get("replaced_count", 0) or 0) for r in results)
+            return json.dumps({"ok": True, "path": str(root), "action": action, "results": results, "scanned_files": scanned_files, "changed_files": changed_files, "written_files": written_files, "match_count": match_count, "replaced_count": replaced_count, "summary": _("summary.files_changed", default="{count} file(s) changed").format(count=changed_files)}, ensure_ascii=False)
 
         return json.dumps(_single_file_edit(path=path, action=action, mode=mode, pattern=pattern, replacement=replacement, preview=preview, occurrence=occurrence, confirm_over=confirm_over, encoding=str(args.get("encoding", "utf-8")), expand_newline_tokens=bool(args.get("expand_newline_tokens", True)), return_hashes=bool(args.get("return_hashes", False)), line_no=line_no), ensure_ascii=False)
     except Exception as e:
