@@ -4,7 +4,7 @@
     "tool.system_prompt": "This tool is used for the following purpose: get the current working directory."
   },
   "ja": {
-    "tool.description": "現在の 作業ディレクトリ.。",
+    "tool.description": "現在の作業ディレクトリを取得します。",
     "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。"
   },
   "zh_CN": {
@@ -16,11 +16,11 @@
     "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
   },
   "es": {
-    "tool.description": "Obtenga el directorio de trabajo actual.",
+    "tool.description": "Obtiene el directorio de trabajo actual.",
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el directorio de trabajo actual."
   },
   "fr": {
-    "tool.description": "Obtenez le répertoire de travail actuel.",
+    "tool.description": "Obtient le répertoire de travail actuel.",
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : obtenir le répertoire de travail actuel."
   },
   "ko": {
@@ -28,23 +28,23 @@
     "tool.system_prompt": "이 도구는 현재 작업 디렉터리를 가져오는 목적으로 사용됩니다."
   },
   "th": {
-    "tool.description": "รับไดเร็กทอรีการทำงานปัจจุบัน",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเร็กทอรีการทำงานปัจจุบัน"
+    "tool.description": "รับไดเรกทอรีการทำงานปัจจุบัน",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเรกทอรีการทำงานปัจจุบัน"
   },
   "de": {
-    "tool.description": "Rufen Sie das aktuelle Arbeitsverzeichnis ab.",
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: Abrufen des aktuellen Arbeitsverzeichnisses."
+    "tool.description": "Ruft das aktuelle Arbeitsverzeichnis ab.",
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: das aktuelle Arbeitsverzeichnis abzurufen."
   },
   "it": {
-    "tool.description": "Ottieni la directory di lavoro corrente.",
+    "tool.description": "Ottiene la directory di lavoro corrente.",
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: ottenere la directory di lavoro corrente."
   },
   "ru": {
-    "tool.description": "Получите текущий рабочий каталог.",
+    "tool.description": "Получает текущий рабочий каталог.",
     "tool.system_prompt": "Этот инструмент используется для следующей цели: получить текущий рабочий каталог."
   },
   "pt_BR": {
-    "tool.description": "Obtenha o diretório de trabalho atual.",
+    "tool.description": "Obtém o diretório de trabalho atual.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
   }
 }

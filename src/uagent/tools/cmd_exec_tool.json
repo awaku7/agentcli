@@ -1,62 +1,57 @@
 {
   "en": {
     "param.command.description": "Command string to execute.",
-    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool, such as Python or MCP, is available.",
     "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
   },
   "ja": {
     "param.command.description": "実行するコマンド文字列。",
-    "tool.description": "最終手段として Windows コマンドを実行します。他に適切なツールがない場合にのみ使用してください。",
+    "tool.description": "最終手段として Windows コマンドを実行します。Python 実行や MCP など、他に適切なツールがない場合にのみ使用してください。",
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。"
   },
   "zh_CN": {
     "param.command.description": "要执行的命令字符串。",
-    "tool.description": "作为最后的手段，请执行 Windows 命令。仅当没有其他合适的工具（例如 MCP）可用时才使用。",
-    "tool.system_prompt": "该工具是 LAST RESORT。仅当没有其他合适的工具可用时才使用。"
+    "tool.description": "作为最后手段，执行 Windows 命令。仅当没有其他合适的工具（如 Python 或 MCP）可用时才使用。",
+    "tool.system_prompt": "该工具是最后手段。仅当没有其他合适的工具可用时才使用。"
   },
   "zh_TW": {
     "param.command.description": "要執行的命令字串。",
-    "tool.description": "作為最後的手段，請執行 Windows 指令。僅當沒有其他合適的工具（例如 MCP）可用時才使用。",
-    "tool.system_prompt": "工具是 LAST RESORT。僅當沒有其他合適的工具可用時才使用。"
+    "tool.description": "作為最後手段，執行 Windows 指令。僅當沒有其他合適的工具（如 Python 或 MCP）可用時才使用。",
+    "tool.system_prompt": "此工具是最後手段。僅當沒有其他合適的工具可用時才使用。"
   },
   "es": {
     "param.command.description": "Cadena de comando a ejecutar.",
-    "tool.description": "Como último recurso, ejecute un comando de Windows. Úselo solo cuando no haya otra herramienta adecuada (por ejemplo, MCP) disponible.",
-    "tool.system_prompt": "Esta herramienta es un LAST RESORT. Úselo sólo si no hay otra herramienta adecuada disponible."
+    "tool.description": "Como último recurso, ejecuta un comando de Windows. Úselo solo cuando no haya otra herramienta adecuada, como Python o MCP, disponible.",
+    "tool.system_prompt": "Esta herramienta es el último recurso. Úsela solo si no hay otra herramienta adecuada disponible."
   },
   "fr": {
     "param.command.description": "Chaîne de commande à exécuter.",
-    "tool.description": "En dernier recours, exécutez une commande Windows. À utiliser uniquement lorsqu'aucun autre outil approprié (par exemple, MCP) n'est disponible.",
-    "tool.system_prompt": "Cet outil est un LAST RESORT. À utiliser uniquement si aucun autre outil approprié n'est disponible."
-  },
-  "ko": {
-    "param.command.description": "실행할 명령 문자열입니다.",
-    "tool.description": "최후의 수단으로 Windows 명령을 실행하십시오. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하십시오.",
-    "tool.system_prompt": "이 도구는 LAST RESORT입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하십시오."
-  },
-  "th": {
-    "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
-    "tool.description": "เป็นทางเลือกสุดท้าย ให้ใช้คำสั่ง Windows ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม (เช่น MCP) เท่านั้น",
-    "tool.system_prompt": "เครื่องมือนี้คือ LAST RESORT ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสม"
-  },
-  "de": {
-    "param.command.description": "Befehlszeichenfolge zur Ausführung.",
-    "tool.description": "Als letzten Ausweg führen Sie einen Windows-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool (z. B. MCP) verfügbar ist.",
-    "tool.system_prompt": "Dieses Tool ist ein LAST RESORT. Nur verwenden, wenn kein anderes geeignetes Werkzeug verfügbar ist."
+    "tool.description": "En dernier recours, exécutez une commande Windows. À utiliser uniquement lorsqu'aucun autre outil approprié, comme Python ou MCP, n'est disponible.",
+    "tool.system_prompt": "Cet outil est un dernier recours. Ne l'utilisez que si aucun autre outil approprié n'est disponible."
   },
   "it": {
     "param.command.description": "Stringa di comando da eseguire.",
-    "tool.description": "Come ultima risorsa, esegui un comando di Windows. Utilizzare solo quando non è disponibile nessun altro strumento appropriato (ad esempio, MCP).",
-    "tool.system_prompt": "Questo strumento è un LAST RESORT. Utilizzare solo se non sono disponibili altri strumenti appropriati."
+    "tool.description": "Come ultima risorsa, esegui un comando Windows. Usalo solo quando non è disponibile nessun altro strumento appropriato, come Python o MCP.",
+    "tool.system_prompt": "Questo strumento è l'ultima risorsa. Usalo solo se non è disponibile nessun altro strumento appropriato."
+  },
+  "ko": {
+    "param.command.description": "실행할 명령 문자열입니다.",
+    "tool.description": "최후의 수단으로 Windows 명령을 실행합니다. Python이나 MCP처럼 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요.",
+    "tool.system_prompt": "이 도구는 최후의 수단입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요."
+  },
+  "pt_BR": {
+    "param.command.description": "Comando a ser executado.",
+    "tool.description": "Como último recurso, execute um comando do Windows. Use apenas quando nenhuma outra ferramenta apropriada, como Python ou MCP, estiver disponível.",
+    "tool.system_prompt": "Esta ferramenta é o último recurso. Use-a apenas se não houver outra ferramenta apropriada disponível."
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
-    "tool.description": "В крайнем случае выполните команду Windows. Используйте только в том случае, если другой подходящий инструмент (например, MCP) недоступен.",
-    "tool.system_prompt": "Этот инструмент LAST RESORT. Используйте только в том случае, если нет другого подходящего инструмента."
+    "tool.description": "В крайнем случае выполните команду Windows. Используйте только если нет других подходящих инструментов, например Python или MCP.",
+    "tool.system_prompt": "Этот инструмент — крайняя мера. Используйте его только если нет других подходящих инструментов."
   },
-  "pt_BR": {
-    "param.command.description": "Cadeia de comandos a ser executada.",
-    "tool.description": "Como último recurso, execute um comando do Windows. Use somente quando nenhuma outra ferramenta apropriada (por exemplo, MCP) estiver disponível.",
-    "tool.system_prompt": "Esta ferramenta é um LAST RESORT. Use somente se nenhuma outra ferramenta apropriada estiver disponível."
+  "th": {
+    "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
+    "tool.description": "ใช้คำสั่ง Windows เป็นทางเลือกสุดท้ายเท่านั้น เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น Python หรือ MCP",
+    "tool.system_prompt": "เครื่องมือนี้คือทางเลือกสุดท้าย ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น"
   }
 }

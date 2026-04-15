@@ -77,34 +77,34 @@
     "param.profile.description": "Profilname oder a2a://name. Wenn es weggelassen wird, wird das Standardprofil verwendet.",
     "param.message.description": "Zu sendende Benutzernachricht.",
     "param.return_immediately.description": "Wenn wahr, kehren Sie direkt nach der Aufgabenerstellung zurück.",
-    "err.missing_message": "Fehlende „Nachricht“.",
+    "err.missing_message": "'message' fehlt.",
     "err.exception": "Ausnahme"
   },
   "it": {
     "tool.description": "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo).",
     "tool.system_prompt": "Invia un messaggio A2A. Restituisci solo JSON.",
-    "param.profile.description": "Nome del profilo o a2a://nome. Se omesso, utilizza il profilo predefinito.",
+    "param.profile.description": "Nome del profilo o a2a://name. Se omesso, utilizza il profilo predefinito.",
     "param.message.description": "Messaggio utente da inviare.",
     "param.return_immediately.description": "Se vero, ritorna subito dopo la creazione dell'attività.",
-    "err.missing_message": "Manca il \"messaggio\".",
+    "err.missing_message": "Manca 'message'.",
     "err.exception": "Eccezione"
   },
   "ru": {
-    "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://имя или имя профиля).",
+    "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля).",
     "tool.system_prompt": "Отправьте сообщение A2A. Возвращайте только JSON.",
-    "param.profile.description": "Имя профиля или a2a://имя. Если опущено, используется профиль по умолчанию.",
+    "param.profile.description": "Имя профиля или a2a://name. Если опущено, используется профиль по умолчанию.",
     "param.message.description": "Сообщение пользователя для отправки.",
-    "param.return_immediately.description": "Если это правда, вернитесь сразу после создания задачи.",
-    "err.missing_message": "Отсутствует «сообщение».",
+    "param.return_immediately.description": "Если true, верните ответ сразу после создания задачи.",
+    "err.missing_message": "Отсутствует 'message'.",
     "err.exception": "Исключение"
   },
   "pt_BR": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil).",
     "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON.",
-    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
+    "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
     "param.message.description": "Mensagem do usuário a ser enviada.",
-    "param.return_immediately.description": "Se for verdade, retorne logo após a criação da tarefa.",
-    "err.missing_message": "Falta 'mensagem'.",
+    "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
+    "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   }
 }
