@@ -12,7 +12,9 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from .env_utils import env_get
-from .i18n import _
+from .i18n import _, detect_lang, set_thread_lang
+
+set_thread_lang(detect_lang())
 
 from . import tools
 from .tools import long_memory as personal_long_memory

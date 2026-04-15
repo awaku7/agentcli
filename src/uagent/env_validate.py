@@ -52,6 +52,7 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         "openrouter",
         "ollama",
         "gemini",
+        "vertexai",
         "grok",
         "claude",
         "nvidia",
@@ -113,6 +114,18 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
             from google import genai as _genai  # noqa: F401
         except Exception:
             warnings.append("Python package 'google-genai' is not installed. Provider=gemini requires it.")
+    elif provider == "vertexai":
+        missing += _require(
+            [
+                "UAGENT_VERTEXAI_API_KEY",
+                "UAGENT_VERTEXAI_DEPNAME",
+            ],
+            reason="Vertex AI API key / model name.",
+        )
+        try:
+            from google import genai as _genai  # noqa: F401
+        except Exception:
+            warnings.append("Python package 'google-genai' is not installed. Provider=vertexai requires it.")
     elif provider == "claude":
         missing += _require(
             ["UAGENT_CLAUDE_API_KEY"],

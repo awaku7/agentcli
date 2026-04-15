@@ -3,7 +3,10 @@ import sys
 import re
 import threading
 from .env_utils import env_get
-from .i18n import _
+from .i18n import _, detect_lang, set_thread_lang
+
+set_thread_lang(detect_lang())
+
 from .translate import load_translate_config, translate_text
 import traceback
 from typing import Any, Dict, List
@@ -287,7 +290,7 @@ def _init_gemini_cache(
 
     use_cache_env = env_get("UAGENT_GEMINI_CACHE", "1").lower()
     if (
-        provider == "gemini"
+        provider in ("gemini", "vertexai")
         and use_cache_env not in ("0", "false", "no")
         and gemini_types
     ):
@@ -346,7 +349,7 @@ def _maybe_auto_shrink_messages(
     call_maybe_thread_fn: Any,
 ) -> Any:
     # Gemini の場合は自動圧縮を行わない
-    if provider == "gemini":
+    if provider in ("gemini", "vertexai"):
         return gemini_cache_name
     # Auto shrink_llm (optional)
     shrink_cnt_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
@@ -379,7 +382,7 @@ def _maybe_auto_shrink_messages(
     try:
         # If Gemini cache is enabled, clear it on auto shrink_llm
         # to avoid mismatched cached system instructions.
-        if provider == "gemini":
+        if provider in ("gemini", "vertexai"):
             try:
                 cache_mgr.clear_cache(client)
             except Exception:
@@ -423,7 +426,7 @@ def _build_call_messages(
     core: Any,
     gemini_cache_name: Any,
 ) -> List[Dict[str, Any]]:
-    if provider == "gemini":
+    if provider in ("gemini", "vertexai"):
         src_messages = (
             [m for m in messages if m.get("role") != "system"]
             if gemini_cache_name
@@ -1461,7 +1464,7 @@ def run_llm_rounds(
             tool_calls_list: List[Dict[str, Any]] = []
             assistant_text: str = ""
 
-            if provider == "gemini":
+            if provider in ("gemini", "vertexai"):
                 ok, client, assistant_text, tool_calls_list, gemini_content_dump = (
                     _call_gemini_round(
                         client=client,
@@ -1500,7 +1503,7 @@ def run_llm_rounds(
                 if not tool_calls_list:
                     # Gemini streaming already emitted the text; avoid double-printing.
                     if not (
-                        provider == "gemini" and stream_responses
+                        provider in ("gemini", "vertexai") and stream_responses
                     ):
                         _emit_final_answer_if_any(
                             assistant_text=assistant_text,

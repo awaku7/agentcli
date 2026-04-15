@@ -22,12 +22,14 @@ from fastapi.templating import Jinja2Templates
 # uagent module imports
 from . import core as core
 from . import runtime_init as _runtime_init
+from .i18n import _, detect_lang, set_thread_lang
+
+set_thread_lang(detect_lang())
+
 from . import uagent_llm as llm_util
 from . import util_providers as providers
 from . import util_tools as tools_util
 from . import tools
-from .i18n import _
-from .i18n import set_thread_lang
 from .welcome import get_welcome_message
 
 try:
@@ -556,7 +558,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
                 "openrouter",
                 "ollama",
             )
-            and provider_name not in ("gemini", "claude")
+            and provider_name not in ("gemini", "claude", "vertexai")
         ):
             print(
                 "[WARN] "
@@ -570,8 +572,8 @@ def run_agent_worker(room: WebRoom, user_input: str):
 
         if use_responses_api:
             print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
-        elif provider_name in ("gemini", "claude"):
-            print("[INFO] " + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"))
+        elif provider_name in ("gemini", "claude", "vertexai"):
+            print("[INFO] " + _("LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"))
         else:
             print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
 
