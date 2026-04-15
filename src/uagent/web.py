@@ -569,21 +569,11 @@ def run_agent_worker(room: WebRoom, user_input: str):
             use_responses_api = False
 
         if use_responses_api:
-            print(
-                "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-            )
+            print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
         elif provider_name in ("gemini", "claude"):
-            print(
-                "[INFO] "
-                + _(
-                    "LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"
-                )
-            )
+            print("[INFO] " + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"))
         else:
-            print(
-                "[INFO] "
-                + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-            )
+            print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
 
         print(
             "[INFO] " + _("LLM provider = %(provider)s") % {"provider": provider_name}
