@@ -20,7 +20,9 @@ os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 from PySide6 import QtCore, QtGui, QtWidgets
 
-from .i18n import _
+from .i18n import _, detect_lang, set_thread_lang
+
+set_thread_lang(detect_lang())
 
 from . import core as core
 from . import tools
@@ -225,8 +227,8 @@ class ScheckWorker(QtCore.QObject):
                     "[INFO] "
                     + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
                 )
-            elif self._provider in ("gemini", "claude"):
-                print("[INFO] " + _("LLM API mode = Native Gemini/Claude API (UAGENT_RESPONSES is ignored)"))
+            elif self._provider in ("gemini", "claude", "vertexai"):
+                print("[INFO] " + _("LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"))
             else:
                 print(
                     "[INFO] "
