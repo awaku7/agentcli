@@ -23,7 +23,7 @@ If required environment variables (such as provider settings) are missing when y
 
 Specifies the primary provider to use at startup (Required).
 
-- Values: `openai`, `azure`, `anthropic`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
+- Values: `openai`, `azure`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
 
 ### 2. LLM Provider Settings
 
@@ -33,7 +33,7 @@ Each provider requires specific variables. You can override the default model us
 | :--- | :--- | :--- |
 | **OpenAI** | `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL` | `UAGENT_OPENAI_DEPNAME` |
 | **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
-| **Anthropic** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
+| **Claude (Anthropic)** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
 | **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
 | **AWS Bedrock** * | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
 | **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
@@ -45,7 +45,7 @@ Each provider requires specific variables. You can override the default model us
 
 ### 3. Basic Agent Behavior
 
-- `UAGENT_LANG`: Host UI language (`en`, `ja`).
+- `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
 - `UAGENT_STREAMING`: Enable/disable streaming LLM responses (`1`: Enabled(default), `0`: Disabled).
 - `UAGENT_VERBOSITY`: Output verbosity level (`low`, `medium`, `high`).
@@ -53,8 +53,8 @@ Each provider requires specific variables. You can override the default model us
 
 ### 4. Advanced Features (Responses API, Reasoning, etc.)
 
-- `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/Ollama).
-- `UAGENT_REASONING`: Reasoning effort level for reasoning models (`auto`, `low`, `medium`, `high`).
+- `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
+- `UAGENT_REASONING`: Reasoning effort level for reasoning models (`auto`, `minimal`, `low`, `medium`, `high`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
 ### 5. Image Generation and Analysis
@@ -66,10 +66,17 @@ Each provider requires specific variables. You can override the default model us
 
 ### 6. Translation Features (Optional)
 
-- `UAGENT_TRANSLATE_PROVIDER`: Translation engine (`openai`, `azure`, `openrouter` or other OpenAI-compatible; or `argos`).
-- `UAGENT_TRANSLATE_TO_LLM`: Language to translate into before sending to LLM (e.g., `en`).
-- `UAGENT_TRANSLATE_FROM_LLM`: Language to translate LLM responses into (e.g., `ja`).
-- `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation.
+Enables automatic translation of user inputs and LLM responses.
+
+- `UAGENT_TRANSLATE_PROVIDER`: Translation engine.
+    - `argos`: Local translation using [Argos Translate](https://github.com/argosopentech/argos-translate) (Requires `pip install argostranslate`).
+    - `openai`, `azure`, `openrouter`, `openai_compat`: Any OpenAI-compatible API.
+    - *Note: Native Gemini/Claude are not supported for translation yet.*
+- `UAGENT_TRANSLATE_TO_LLM`: Target language for user inputs (e.g., `en`). Input is skipped if it already looks like English.
+- `UAGENT_TRANSLATE_FROM_LLM`: Target language for LLM responses (e.g., `ja`).
+- `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation (Required for API providers).
+- `UAGENT_TRANSLATE_API_KEY`: API key for translation (Optional, defaults to `UAGENT_API_KEY`).
+- `UAGENT_TRANSLATE_BASE_URL`: Base URL for translation (Optional, defaults to `UAGENT_BASE_URL`).
 
 ### 7. Memory and Semantic Search
 
