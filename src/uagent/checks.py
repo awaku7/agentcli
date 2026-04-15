@@ -13,7 +13,7 @@ def check_git_installation():
         os_type = platform.system().lower()
         install_msg = {
             "windows": _(
-                "Please install Git. Download from: https://git-scm.com/download/win"
+                "Please install Git. Download from: https://git-scm.com/download/"
             ),
             "linux": _(
                 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo yum install git (CentOS/RHEL)"
@@ -21,7 +21,7 @@ def check_git_installation():
             "darwin": _(
                 "Please install Git. If using Homebrew: brew install git, or install Xcode Command Line Tools: xcode-select --install"
             ),
-        }.get(os_type, _("Please install Git. See: https://git-scm.com/"))
+        }.get(os_type, _("Please install Git. See: https://git-scm.com/download/"))
         print(_("[ERROR] Git is not installed."), file=sys.stderr)
         print(install_msg, file=sys.stderr)
         sys.exit(1)
