@@ -184,6 +184,15 @@ def run_tool(args: Dict[str, Any]) -> str:
         # Keep it minimal; caller environment is responsible for SSL config.
         return urlopen(req)
 
+    def _is_ssl_error(exc: Exception) -> bool:
+        s = f"{type(exc).__name__}: {exc}".lower()
+        return (
+            "ssl" in s
+            or "certificate verify failed" in s
+            or "certificate" in s
+            or "tls" in s
+        )
+
     try:
         with do_request() as resp:
             declared = None
@@ -242,10 +251,13 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     except Exception as e:
+        msg = str(e)
+        if _is_ssl_error(e):
+            msg = "SSL error: " + msg
         return json.dumps(
             {
                 "ok": False,
-                "error": str(e),
+                "error": msg,
             },
             ensure_ascii=False,
         )
