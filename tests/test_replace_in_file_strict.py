@@ -48,6 +48,7 @@ def test_replace_in_file_literal_cross_newline_tokens(
     objp = _load(out_preview)
     assert objp["match_count"] == 1
     assert objp["preview"] is True
+    assert json.loads(out_preview)["ok"] is True
 
     out_apply = replace_in_file(
         {
