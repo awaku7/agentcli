@@ -13,6 +13,7 @@ _ = make_tool_translator(__file__)
 STATUS_LABEL = "tool:finish_skill"
 
 TOOL_SPEC: Dict[str, Any] = {
+    "tool_level": -1,
     "type": "function",
     "function": {
         "name": "finish_skill",
