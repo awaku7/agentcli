@@ -2,7 +2,6 @@ import asyncio
 import json
 import os
 
-os.environ['PYTHONHTTPSVERIFY'] = '0'
 from .env_utils import env_get
 import re
 import sys
