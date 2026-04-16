@@ -114,7 +114,7 @@ def _resolve_files(raw_path: str | list[str], name_pattern: str, recursive: bool
                 for root, dirs, files_in_dir in os.walk(safe_item):
                     # インプレースで dirs を修正して特定のディレクトリへの侵入を防ぐ
                     dirs[:] = [d for d in dirs if d not in DEFAULT_EXCLUDE_DIRS]
-                    
+
                     # glob.fnmatch でフィルタリング
                     import fnmatch
                     for f in sorted(fnmatch.filter(files_in_dir, name_pattern)):
@@ -167,48 +167,48 @@ def run_tool(args: Dict[str, Any]) -> str:
         for file_path in files:
             if total_match_count >= max_results:
                 limit_reached = True; break
-            
+
             if _is_binary(file_path):
                 continue
-                
+
             try:
                 display_path = os.path.relpath(file_path, os.getcwd())
                 with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                     lines = f.readlines()
-                
+
                 file_has_match = False
                 file_matches = []
-                
+
                 for i, line in enumerate(lines):
                     if regex.search(line):
                         file_has_match = True
                         if filenames_only:
                             break
-                        
+
                         # Context
                         start_idx = max(0, i - context_lines)
                         end_idx = min(len(lines), i + context_lines + 1)
-                        
+
                         context_block = []
                         for j in range(start_idx, end_idx):
                             prefix = "> " if j == i else "  "
-                            context_block.append(f"{display_path}:{j+1}{prefix}{lines[j].strip()}")
-                        
+                            context_block.append(f"{display_path}:{j+1}{prefix}{lines[j].rstrip('\\r\\n')}")
+
                         file_matches.append("\n".join(context_block))
                         total_match_count += 1
                         if total_match_count >= max_results:
                             limit_reached = True; break
-                
+
                 if file_has_match:
                     matched_filenames.append(display_path)
                     results_list.extend(file_matches)
-                    
+
             except Exception:
                 continue
 
         if filenames_only:
             return _json_ok(matches=matched_filenames, count=len(matched_filenames), filenames_only=True)
-        
+
         return _json_ok(matches=results_list, limit_reached=limit_reached, count=len(results_list))
 
     except Exception as e:
