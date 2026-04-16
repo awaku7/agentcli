@@ -842,14 +842,14 @@ def _handle_cmd_skills(
             raise ValueError("skills_load returned non-dict")
 
         content = _format_skill_system_content(skill=skill, doc=doc)
-        # Append instruction to call finish_skill tool when the skill execution is complete.
-        finish_instr = (
-            "\n\n"
-            "[Skill Termination]\n"
-            "If the above is an execution skill, run it to completion. "
-            "When the skill execution is complete, call `finish_skill`."
-        )
-        content += finish_instr
+#        # Append instruction to call finish_skill tool when the skill execution is complete.
+#        finish_instr = (
+#            "\n\n"
+#            "[Skill Termination]\n"
+#            "If the above is an execution skill, run it to completion. "
+#            "When the skill execution is complete, call `finish_skill`."
+#        )
+#        content += finish_instr
 
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
