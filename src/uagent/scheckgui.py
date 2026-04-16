@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import os
 
-os.environ['PYTHONHTTPSVERIFY'] = '0'
 import re
 import sys
 import threading
