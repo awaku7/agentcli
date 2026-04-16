@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from typing import Any, Dict
 
@@ -22,6 +23,8 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Create a text file. By default, the tool will not overwrite an existing file. "
                 "If overwrite=true is specified and the destination already exists, the tool creates a backup "
                 "(<filename>.org / <filename>.org1 / ...) immediately before overwriting. "
+                "The tool returns a JSON string with status details such as the created path, whether it was "
+                "created or overwritten, and the backup path when applicable. "
                 "Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). "
                 "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
                 "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
@@ -32,6 +35,7 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. "
                 "If overwrite=true, a backup is created before writing. "
+                "Return a JSON string with the created path and other status fields so the result is easy to inspect. "
                 "Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). "
                 "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
                 "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
@@ -112,18 +116,32 @@ def run_tool(args: Dict[str, Any]) -> str:
         raise ValueError("filename/path is required")
 
     safe_path = ensure_within_workdir(raw_filename)
+    existed_before = os.path.exists(safe_path)
 
-    if os.path.exists(safe_path) and not overwrite:
+    if existed_before and not overwrite:
         raise FileExistsError(f"File already exists: {safe_path}")
 
-    if os.path.exists(safe_path) and overwrite:
-        # Create backup
-        backup = _backup_path(safe_path)
-        with open(safe_path, "rb") as fsrc, open(backup, "wb") as fdst:
+    backup_path = None
+    if existed_before and overwrite:
+        backup_path = _backup_path(safe_path)
+        with open(safe_path, "rb") as fsrc, open(backup_path, "wb") as fdst:
             fdst.write(fsrc.read())
 
     os.makedirs(os.path.dirname(safe_path) or ".", exist_ok=True)
     with open(safe_path, "w", encoding=encoding, newline="") as f:
         f.write(content)
 
-    return safe_path
+    payload = {
+        "ok": True,
+        "path": safe_path,
+        "created": not existed_before,
+        "overwritten": bool(existed_before and overwrite),
+        "backup_path": backup_path,
+        "encoding": encoding,
+        "message": (
+            f"Created file: {safe_path}"
+            if not existed_before
+            else f"Overwrote file: {safe_path}"
+        ),
+    }
+    return json.dumps(payload, ensure_ascii=False)
