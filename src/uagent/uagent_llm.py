@@ -12,6 +12,11 @@ import traceback
 from typing import Any, Dict, List
 from urllib.error import URLError
 
+try:
+    import certifi
+except Exception:
+    certifi = None
+
 from . import tools
 from .llm_errors import (
     _rate_limit_retry_step,
@@ -58,6 +63,25 @@ from .llm_ollama_responses import apply_ollama_responses_compat
 
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
+
+
+def _maybe_print_certifi_where(exc: Exception) -> None:
+    if certifi is None:
+        print("[SSL Info] certifi is not available")
+        return
+
+    try:
+        s = f"{type(exc).__name__}: {exc}".lower()
+    except Exception:
+        s = ""
+
+    if not any(k in s for k in ("ssl", "tls", "cert", "certificate")):
+        return
+
+    try:
+        print(f"[SSL Info] certifi.where() = {certifi.where()}")
+    except Exception:
+        pass
 
 
 def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
@@ -642,6 +666,7 @@ def _call_gemini_round(
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", [], {}
             msg = str(e)
@@ -663,6 +688,7 @@ def _call_gemini_round(
                     pass
                 continue
             print(_("[Gemini Error] An error occurred while generating a response."))
+            _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", [], {}
 
@@ -750,9 +776,11 @@ def _call_claude_round(
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
             print(_("[Claude Error] An error occurred while generating a response."))
+            _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", []
 
@@ -1022,6 +1050,7 @@ def _call_openai_azure_round(
                 or "exceeds the context" in str(e).lower()
             ):
                 print("[Azure/OpenAI Error] " + _t("Input exceeds the context window."))
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
 
@@ -1031,10 +1060,12 @@ def _call_openai_azure_round(
                 return False, client, "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print("[Azure/OpenAI Error] " + _t("Connection error"))
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
             if isinstance(e, URLError):
                 print("[Network Error]")
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
             attempt_429, new_client, action = _rate_limit_retry_step(
@@ -1057,9 +1088,11 @@ def _call_openai_azure_round(
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )
+                _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []
             print("[LLM Error] " + _t("Unexpected exception."))
+            _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", []
 
