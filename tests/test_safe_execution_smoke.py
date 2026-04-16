@@ -81,6 +81,12 @@ def test_create_file(repo_tmp_path: Path) -> None:
     )
 
     assert isinstance(out, str)
+    obj = _must_ok_json(out)
+    assert obj.get("path") == str(out_path)
+    assert obj.get("created") is True
+    assert obj.get("overwritten") is False
+    assert obj.get("backup_path") is None
+    assert obj.get("encoding") == "utf-8"
     assert out_path.read_text(encoding="utf-8") == "abc"
 
 
