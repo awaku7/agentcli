@@ -93,7 +93,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "mode": {
                     "type": "string",
                     "enum": ["literal", "regex"],
-                    "description": _("param.mode.description", default="Replacement mode: literal (plain) or regex (Python re)."),
+                    "description": _(
+                        "param.mode.description",
+                        default=(
+                            "Replacement mode: literal (plain) or regex (Python re). "
+                            "When using regex, backslashes in JSON strings must be escaped, e.g. \\d, \\s, \\\."
+                        ),
+                    ),
                     "default": "literal",
                 },
                 "pattern": {
