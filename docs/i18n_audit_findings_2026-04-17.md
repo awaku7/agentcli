@@ -103,3 +103,14 @@ Date: 2026-04-17 15:25 JST
 ### Follow-up
 - If new `_()` wrappers are added later, regenerate `uag.pot`, `en.po`, `ja.po`, and rebuild `.mo` files again.
 - Keep the catalogs aligned after each i18n change.
+
+## Procedure note: fixing gettext header warnings
+
+When `msgfmt --check` reports header warnings such as missing `PO-Revision-Date`, `MIME-Version`, or `Content-Transfer-Encoding`:
+
+1. Open the locale `.po` file.
+2. Add or restore the standard header fields in the `msgid ""` / `msgstr ""` block.
+3. Keep `Project-Id-Version`, `Language`, `Plural-Forms`, and translator metadata aligned with the project.
+4. Re-run `msgfmt --check` on the `.po` file.
+5. If the file is valid, recompile the locale assets if needed.
+
