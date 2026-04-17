@@ -50,7 +50,7 @@
   "es": {
     "doc.get_holiday_info": "Obtenga los nombres de los días festivos del país especificado utilizando la biblioteca holidays.",
     "param.base_date.description": "Fecha base (formato ISO 8601 'YYYY-MM-DD'; si se omite, hoy).",
-    "param.check_holiday.description": "Whether to determine whether it is a holiday/holiday (default: true)",
+    "param.check_holiday.description": "Especifica si se debe determinar si es un día festivo (predeterminado: true)",
     "param.country.description": "Código de país para determinar los días festivos (ISO 3166-1 alpha-2, por ejemplo 'JP', 'US', 'GB', 'FR'). El valor predeterminado es 'JP'.",
     "param.days.description": "Número de días que se añadirán (la resta es un número negativo).",
     "param.months.description": "Número de meses que se añadirán (la resta es negativa).",
