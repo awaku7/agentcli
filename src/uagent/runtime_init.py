@@ -2,6 +2,8 @@ import io
 import sys
 from pathlib import Path
 
+from .i18n import _
+
 from .runtime_banner import build_startup_banner
 from .runtime_env import validate_or_exit_startup_env
 from .runtime_memory import append_long_memory_system_messages
@@ -39,7 +41,7 @@ def load_dotenv_custom():
             except Exception as e:
                 # Always report decryption errors to stderr if it exists but fails
                 print(
-                    f"[WARN] Failed to decrypt .env.sec: {e}",
+                    _("[WARN] Failed to decrypt .env.sec: %(err)s", err=e),
                     file=sys.stderr,
                 )
     except ImportError:

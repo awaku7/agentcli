@@ -1,6 +1,7 @@
 import json
 import os
 from .env_utils import env_get
+from .i18n import _
 import hashlib
 from typing import Any, Dict, List, Optional
 
@@ -125,7 +126,7 @@ class GeminiCacheManager:
                 with open(CACHE_META_FILE, "r", encoding="utf-8") as f:
                     data = json.load(f)
                 if not isinstance(data, dict):
-                    raise ValueError("invalid cache meta")
+                    raise ValueError(_("invalid cache meta"))
                 if data.get("schema_version") != SCHEMA_VERSION:
                     try:
                         os.remove(CACHE_META_FILE)
