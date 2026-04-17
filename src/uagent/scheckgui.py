@@ -632,7 +632,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def _set_reasoning(self, arg: str) -> None:
         try:
             new_mode = apply_reasoning_arg(arg)
-            print(f"[mode] reasoning={new_mode}")
+            print(_("[mode] reasoning=%(mode)s") % {"mode": new_mode})
         except Exception:
             print(
                 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"

@@ -961,14 +961,14 @@ def main() -> int:
                 print(_("  %(key)s=%(value)s") % {"key": key, "value": (st.values or {}).get(key, "")})
             print(_("  Responses enabled: %(state)s") % {"state": _("yes") if st.responses_enabled else _("no")})
             if st.responses_enabled:
-                print(f"  UAGENT_REASONING={st.reasoning}")
-                print(f"  UAGENT_VERBOSITY={st.verbosity}")
+                print(_("  UAGENT_REASONING=%(value)s") % {"value": st.reasoning})
+                print(_("  UAGENT_VERBOSITY=%(value)s") % {"value": st.verbosity})
             print(_("  UAGENT_WORKDIR enabled: %(state)s") % {"state": _("yes") if st.workdir_enabled else _("no")})
             if st.workdir_enabled:
-                print(f"  UAGENT_WORKDIR={st.workdir}")
+                print(_("  UAGENT_WORKDIR=%(value)s") % {"value": st.workdir})
             print(_("  UAGENT_LANG enabled: %(state)s") % {"state": _("yes") if st.lang_enabled else _("no")})
             if st.lang_enabled:
-                print(f"  UAGENT_LANG={st.lang}")
+                print(_("  UAGENT_LANG=%(value)s") % {"value": st.lang})
             print(_("  Optional extras enabled: %(state)s") % {"state": _("yes") if st.extra_enabled else _("no")})
             if st.extra_enabled:
                 print(_("  Image analysis enabled: %(state)s") % {"state": _("yes") if st.image_analysis_enabled else _("no")})

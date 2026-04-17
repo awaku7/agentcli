@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import sys
 
+from .i18n import _
+
 
 def _handle_docs_cli() -> None:
     """Handle `uag docs` subcommand.
@@ -28,7 +30,7 @@ def _handle_docs_cli() -> None:
 
     if args[0] in ("--path", "--open"):
         if len(args) < 2:
-            print("[docs] name is required", file=sys.stderr)
+            print(_("[docs] name is required"), file=sys.stderr)
             print(docs_util.format_docs_list(docs_util.list_docs()))
             sys.exit(2)
 
