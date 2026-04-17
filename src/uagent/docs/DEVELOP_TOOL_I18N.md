@@ -73,3 +73,16 @@ python -m uagent --tools
 1.  ソースコードの `_()` 定義を確認。
 2.  既存の `.json` を開き、不足している言語（例: `de`, `fr`）のブロックを追加。
 3.  `python -m py_compile` で構文チェック。
+
+
+## 5. Tool technical requirements
+
+When updating tool JSON translations, keep these runtime requirements in mind:
+
+- Keep placeholders such as `{path}`, `%(err)s`, and multiline prompt structure unchanged.
+- Keep the JSON keys used by the Python tool code in sync with the translation file.
+- Do not translate technical identifiers, filenames, or data-format markers.
+- For destructive or external actions, the tool implementation must confirm via `human_ask` before proceeding.
+- After changing a tool’s Python code or JSON translations, verify the tool still loads correctly.
+
+______________________________________________________________________

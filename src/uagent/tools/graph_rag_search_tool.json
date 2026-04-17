@@ -24,7 +24,7 @@
   "ja": {
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
     "err.query_required": "エラー: query は必須です。",
-    "out.db": "DB: {db_path}",
+    "out.db": "データベース: {db_path}",
     "out.hits_summary": "ベクトルヒット: {v} / グラフヒット: {g} / 統合: {m}",
     "out.no_docs": "関連するドキュメントは見つかりませんでした。",
     "out.query": "検索クエリ: {query}",
@@ -134,7 +134,7 @@
   "ko": {
     "err.dir_not_found": "오류: 디렉터리를 찾을 수 없습니다: {root_path}",
     "err.query_required": "오류: 쿼리가 필요합니다.",
-    "out.db": "DB: {db_path}",
+    "out.db": "데이터베이스: {db_path}",
     "out.hits_summary": "벡터 히트: {v} / 그래프 히트: {g} / 병합: {m}",
     "out.no_docs": "관련 문서를 찾을 수 없습니다.",
     "out.query": "검색어: {query}",
@@ -178,7 +178,7 @@
   "de": {
     "err.dir_not_found": "Fehler: Verzeichnis nicht gefunden: {root_path}",
     "err.query_required": "Fehler: Eine Suchanfrage ist erforderlich.",
-    "out.db": "DB: {db_path}",
+    "out.db": "Datenbank: {db_path}",
     "out.hits_summary": "Vektor-Treffer: {v} / Graph-Treffer: {g} / zusammengeführt: {m}",
     "out.no_docs": "Es wurden keine zugehörigen Dokumente gefunden.",
     "out.query": "Suchanfrage: {query}",
@@ -200,7 +200,7 @@
   "it": {
     "err.dir_not_found": "Errore: directory non trovata: {root_path}",
     "err.query_required": "Errore: è richiesta una query.",
-    "out.db": "DB: {db_path}",
+    "out.db": "Database: {db_path}",
     "out.hits_summary": "risultati_vettore: {v} / risultati_grafo: {g} / uniti: {m}",
     "out.no_docs": "Non è stato trovato alcun documento correlato.",
     "out.query": "Query di ricerca: {query}",

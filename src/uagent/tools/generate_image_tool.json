@@ -17,7 +17,7 @@
     "param.prompt.description": "Instructions (prompt) for the image you want to generate",
     "param.size.description": "Image size. Example: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
   },
   "ja": {
     "err.depname_missing": "[generate_image] 画像モデル(デプロイ名)が未設定です。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。",
@@ -37,7 +37,7 @@
     "param.prompt.description": "生成したい画像の指示（プロンプト）",
     "param.size.description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
   },
   "zh_CN": {
     "err.depname_missing": "[generate_image] 尚未设置图像模型（部署名）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
