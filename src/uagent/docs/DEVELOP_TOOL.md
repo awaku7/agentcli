@@ -168,3 +168,18 @@ ______________________________________________________________________
 - Printing sensitive data → use masking and `human_ask(is_password=True)` when necessary.
 
 ______________________________________________________________________
+
+
+## 9. Technical requirements for tool plugins
+
+When implementing or updating a tool, keep the following runtime requirements in mind:
+
+- Export both `TOOL_SPEC` and `run_tool`.
+- Keep JSON schema definitions strict and valid (`additionalProperties: False` is preferred).
+- Keep placeholders such as `{path}`, `%(err)s`, and multiline prompt structure unchanged.
+- If the tool uses localized strings, keep the companion `<tool>_tool.json` file in sync with the Python code.
+- Do not print secrets or raw user input.
+- For destructive or external actions, confirm with `human_ask` before proceeding.
+- After adding or changing a tool module, verify it loads and run `python -m py_compile` if the file is standalone.
+
+______________________________________________________________________
