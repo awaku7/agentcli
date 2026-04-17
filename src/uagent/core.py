@@ -976,6 +976,10 @@ def shrink_messages(
     return new_messages
 
 
+
+
+    
+    
 def compress_history_with_llm(
     client: Any,
     depname: str,
@@ -983,12 +987,9 @@ def compress_history_with_llm(
     keep_last: int = 20,
 ) -> List[Dict[str, Any]]:
     """
-    別の LLM コンテキストを立ち上げて、古い user/assistant を要約し、
-    1 つの system メッセージに圧縮する。
+    別の LLM コンテキストを立ち上げて、古い user/assistant/tool を
+    20件前後のチャンクごとに段階要約し、1つの system メッセージに圧縮する。
     """
-    # If Gemini cache is enabled, clear it before summarization.
-    # Summarization changes the system-message content, so cached system instructions
-    # can become stale/mismatched.
     try:
         from .gemini_cache_mgr import GeminiCacheManager
 
@@ -997,79 +998,74 @@ def compress_history_with_llm(
     except Exception:
         pass
 
-    # system とそれ以外を分離
     system_msgs: List[Dict[str, Any]] = []
     others: List[Dict[str, Any]] = []
 
     hit_non_system = False
     for m in messages:
-        if m.get("role") == "system" and not hit_non_system:
+        if m.get('role') == 'system' and not hit_non_system:
             system_msgs.append(m)
         else:
             hit_non_system = True
             others.append(m)
 
     if not others:
-        print("[INFO] 圧縮対象メッセージがありません。", file=sys.stderr)
+        print('[INFO] 圧縮対象メッセージがありません。', file=sys.stderr)
         return list(messages)
 
     if len(others) <= keep_last:
         print(
-            f"[INFO] 圧縮対象が少ないため、そのままにしました。"
-            f"others={len(others)}, keep_last={keep_last}",
+            f'[INFO] 圧縮対象が少ないため、そのままにしました。others={len(others)}, keep_last={keep_last}',
             file=sys.stderr,
         )
         return list(messages)
 
-    # 要約対象（old_part）と末尾に残す部分（tail_part）に分割
     old_part = others[:-keep_last]
     tail_part = others[-keep_last:]
 
-    # 要約用に user/assistant/tool をテキスト化する
-    # - tool メッセージも要約素材に含める（ユーザー指定仕様）
-    lines: List[str] = []
-    for m in old_part:
-        role = m.get("role")
-        content = m.get("content") or ""
+    chunk_size_raw = (env_get('UAGENT_SHRINK_CHUNK_SIZE', '') or '').strip()
+    try:
+        chunk_size = int(chunk_size_raw) if chunk_size_raw != '' else 20
+    except Exception:
+        chunk_size = 20
+    if chunk_size <= 0:
+        chunk_size = 20
+
+    def _estimate_tokens(text: str) -> int:
+        return max(1, (len(text) + 3) // 4)
+
+    def _message_to_text(m: Dict[str, Any]) -> tuple[str | None, str]:
+        role = str(m.get('role') or '')
+        content = m.get('content') or ''
         if isinstance(content, (dict, list)):
             content = json.dumps(content, ensure_ascii=False)
         content = str(content).strip()
         if not content:
-            continue
+            return None, role
 
-        if role == "user":
-            lines.append(f"User:{content}")
-        elif role == "assistant":
-            lines.append(f"Assistant:{content}")
-        elif role == "tool":
-            # 可能ならツール名も残す
-            tname = m.get("name") or "(unknown_tool)"
-            lines.append(f"Tool: {tname} {content}")
+        if role == 'user':
+            return f'User: {content}', role
+        if role == 'assistant':
+            return f'Assistant: {content}', role
+        if role == 'tool':
+            tname = m.get('name') or '(unknown_tool)'
+            return f'Tool: {tname} {content}', role
+        return None, role
 
-    if not lines:
-        print("[INFO] 要約対象の user/assistant/tool がありません。", file=sys.stderr)
-        return list(messages)
-
-    convo_text = "\\n\\n".join(lines)
-
-    # --- 要約用の別コンテキスト ---
-    summary_system_prompt = (
-        "- Summarize the conversation log so far in English.\n"
-        "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
-        "- Output should be directly usable as a system message titled 'Summary of the conversation so far'."
+    chunks = [old_part[i : i + chunk_size] for i in range(0, len(old_part), chunk_size)]
+    print(
+        (
+            '[INFO] shrink_llm chunked summarization: '
+            f'old_part={len(old_part)} keep_last={keep_last} '
+            f'chunk_size={chunk_size} chunks={len(chunks)}'
+        ),
+        file=sys.stderr,
     )
 
-    summary_messages = [
-        {"role": "system", "content": summary_system_prompt},
-        {"role": "user", "content": convo_text},
-    ]
-
-    use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
-
-    # Rate-limit retry (same env vars as uagent_llm.run_llm_rounds)
-    max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
-    retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
-    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
+    use_responses_api = env_get('UAGENT_RESPONSES', '').lower() in ('1', 'true')
+    max_retries_429 = int(env_get('UAGENT_429_MAX_RETRIES', '20'))
+    retry_base = float(env_get('UAGENT_429_BACKOFF_BASE', '2'))
+    retry_cap = float(env_get('UAGENT_429_BACKOFF_CAP', '300'))
 
     from .llm_errors import _rate_limit_retry_step
 
@@ -1087,8 +1083,7 @@ def compress_history_with_llm(
     from . import util_providers
 
     provider = util_providers.detect_provider()
-
-    translator = globals().get("_")
+    translator = globals().get('_')
 
     def _t(s: str) -> str:
         try:
@@ -1096,122 +1091,207 @@ def compress_history_with_llm(
         except Exception:
             return s
 
-    summary_content = ""
-    attempt_429 = 0
-    while True:
-        try:
-            if provider in ("gemini", "vertexai") or "genai.Client" in str(type(client)):
-                from .llm_gemini import gemini_chat_with_tools
+    def _summarize_with_llm(summary_messages: List[Dict[str, Any]]) -> str | None:
+        nonlocal client
+        summary_content = ''
+        attempt_429 = 0
+        while True:
+            try:
+                if provider in ('gemini', 'vertexai') or 'genai.Client' in str(type(client)):
+                    from .llm_gemini import gemini_chat_with_tools
 
-                summary_content, _summary_unused1, _summary_unused2 = (
-                    gemini_chat_with_tools(
+                    summary_content, _summary_unused1, _summary_unused2 = gemini_chat_with_tools(
                         client=client,
                         model_name=depname,
                         messages=summary_messages,
                         core=sys.modules[__name__],
                     )
-                )
-            elif provider == "claude":
-                from .llm_claude import claude_chat_with_tools
+                elif provider == 'claude':
+                    from .llm_claude import claude_chat_with_tools
 
-                claude_result = claude_chat_with_tools(
-                    client=client,
-                    model_name=depname,
-                    messages=summary_messages,
-                )
-                if isinstance(claude_result, tuple):
-                    summary_content = (
-                        claude_result[0] if len(claude_result) >= 1 else ""
+                    claude_result = claude_chat_with_tools(
+                        client=client,
+                        model_name=depname,
+                        messages=summary_messages,
                     )
+                    if isinstance(claude_result, tuple):
+                        summary_content = claude_result[0] if len(claude_result) >= 1 else ''
+                    else:
+                        summary_content = str(claude_result)
+                elif use_responses_api:
+                    resp = client.responses.create(
+                        model=depname,
+                        instructions=summary_messages[0]['content'],
+                        input=[
+                            {
+                                'role': 'user',
+                                'content': [
+                                    {
+                                        'type': 'input_text',
+                                        'text': summary_messages[1]['content'],
+                                    },
+                                ],
+                            }
+                        ],
+                    )
+                    if hasattr(resp, 'output') and resp.output:
+                        for item in resp.output:
+                            if item.type == 'message':
+                                for c in item.content:
+                                    if c.type == 'output_text':
+                                        summary_content += c.text
+                elif hasattr(client, 'chat') and hasattr(client.chat, 'completions'):
+                    resp = client.chat.completions.create(
+                        model=depname,
+                        messages=summary_messages,
+                    )
+                    summary_content = resp.choices[0].message.content or ''
                 else:
-                    summary_content = str(claude_result)
-            elif use_responses_api:
-                resp = client.responses.create(
-                    model=depname,
-                    instructions=summary_messages[0]["content"],
-                    input=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "input_text", "text": convo_text},
-                            ],
-                        }
-                    ],
-                )
-                if hasattr(resp, "output") and resp.output:
-                    for item in resp.output:
-                        if item.type == "message":
-                            for c in item.content:
-                                if c.type == "output_text":
-                                    summary_content += c.text
-            elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
-                resp = client.chat.completions.create(
-                    model=depname,
-                    messages=summary_messages,
-                )
-                summary_content = resp.choices[0].message.content or ""
-            else:
-                raise AttributeError(
-                    f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
-                )
-            break
-        except Exception as e:
-            attempt_429, new_client, action = _rate_limit_retry_step(
-                exception=e,
-                provider="summarize",
-                model=depname,
-                attempt=attempt_429,
-                max_retries=max_retries_429,
-                base=retry_base,
-                cap=retry_cap,
-                recreate_client_fn=_recreate_client,
-            )
-
-            if action == "retry":
-                if new_client is not None:
-                    client = new_client
-                continue
-
-            if action == "give_up":
-                print(
-                    "[WARN] "
-                    + _t(
-                        "429 retry limit (%(max_retries)s) reached while history compression."
+                    raise AttributeError(
+                        f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
                     )
-                    % {"max_retries": max_retries_429},
+                return summary_content
+            except Exception as e:
+                attempt_429, new_client, action = _rate_limit_retry_step(
+                    exception=e,
+                    provider='summarize',
+                    model=depname,
+                    attempt=attempt_429,
+                    max_retries=max_retries_429,
+                    base=retry_base,
+                    cap=retry_cap,
+                    recreate_client_fn=_recreate_client,
+                )
+
+                if action == 'retry':
+                    if new_client is not None:
+                        client = new_client
+                    continue
+
+                if action == 'give_up':
+                    print(
+                        '[WARN] '
+                        + _t('429 retry limit (%(max_retries)s) reached while history compression.')
+                        % {'max_retries': max_retries_429},
+                        file=sys.stderr,
+                    )
+                    print(repr(e), file=sys.stderr)
+                    return None
+
+                print(
+                    '[WARN] '
+                    + _t('Error while calling LLM for history compression: %(err)r')
+                    % {'err': e},
                     file=sys.stderr,
                 )
-                print(repr(e), file=sys.stderr)
-                return list(messages)
+                return None
 
+    rolling_summary = ''
+    for chunk_idx, chunk in enumerate(chunks, start=1):
+        lines: List[str] = []
+        chunk_chars = 0
+        chunk_tokens = 0
+
+        for msg_idx, m in enumerate(chunk, start=1):
+            rendered, role = _message_to_text(m)
+            if rendered is None:
+                continue
+
+            msg_tokens = _estimate_tokens(rendered)
+            lines.append(rendered)
+            chunk_chars += len(rendered)
+            chunk_tokens += msg_tokens
             print(
-                "[WARN] "
-                + _t("Error while calling LLM for history compression: %(err)r")
-                % {"err": e},
+                (
+                    '[INFO] shrink_llm message: '
+                    f'chunk={chunk_idx}/{len(chunks)} msg={msg_idx}/{len(chunk)} '
+                    f"role={role or '(unknown)'} chars={len(rendered)} est_tokens={msg_tokens}"
+                ),
                 file=sys.stderr,
             )
+
+        if not lines:
+            print(
+                f'[INFO] shrink_llm chunk={chunk_idx}/{len(chunks)} has no summarizable messages.',
+                file=sys.stderr,
+            )
+            continue
+
+        chunk_text = '\n\n'.join(lines)
+        print(
+            (
+                '[INFO] shrink_llm chunk summary input: '
+                f'chunk={chunk_idx}/{len(chunks)} messages={len(chunk)} '
+                f'chars={chunk_chars} est_tokens={chunk_tokens}'
+            ),
+            file=sys.stderr,
+        )
+
+        if not rolling_summary:
+            summary_system_prompt = (
+                '- Summarize the conversation chunk in English.\n'
+                '- Keep the summary concise but include key decisions, constraints, and pending items.\n'
+                '- Output should be directly usable as a system message.'
+            )
+            summary_user_content = (
+                'Conversation chunk:\n'
+                f'{chunk_text}\n\n'
+                'Write a concise summary of this chunk.'
+            )
+        else:
+            summary_system_prompt = (
+                '- You are updating an existing conversation summary.\n'
+                '- Preserve important facts from the previous summary.\n'
+                '- Merge in the new chunk without losing constraints, decisions, or pending items.\n'
+                '- Keep the result concise and suitable for a system message.'
+            )
+            summary_user_content = (
+                'Previous summary:\n'
+                f'{rolling_summary}\n\n'
+                'New chunk:\n'
+                f'{chunk_text}\n\n'
+                'Update the summary while keeping the prior context intact.'
+            )
+
+        summary_messages = [
+            {'role': 'system', 'content': summary_system_prompt},
+            {'role': 'user', 'content': summary_user_content},
+        ]
+
+        summary_content = _summarize_with_llm(summary_messages)
+        if summary_content is None:
             return list(messages)
+
+        rolling_summary = summary_content.strip()
+        print(
+            (
+                '[INFO] shrink_llm chunk summarized: '
+                f'chunk={chunk_idx}/{len(chunks)} summary_chars={len(rolling_summary)}'
+            ),
+            file=sys.stderr,
+        )
+
+    if not rolling_summary:
+        print('[INFO] shrink_llm produced an empty summary.', file=sys.stderr)
+        return list(messages)
+
     summary_msg = {
-        "role": "system",
-        "content": _t("Summary of the conversation so far:\n") + summary_content,
+        'role': 'system',
+        'content': _t('Summary of the conversation so far:\n') + rolling_summary,
     }
 
-    # 新しい messages を構成
     new_messages = system_msgs + [summary_msg] + tail_part
 
     print(
         _t(
-            "[INFO] Conversation history was summarized by the LLM: "
-            "old_part={old_n} -> 1 summary + tail_part={tail_n}"
+            '[INFO] Conversation history was summarized by the LLM: '
+            'old_part={old_n} -> 1 summary + tail_part={tail_n}'
         ).format(old_n=len(old_part), tail_n=len(tail_part)),
         file=sys.stderr,
     )
 
-    # ログにも要約を残す
     log_message(summary_msg)
-
     return new_messages
-
 
 def print_help() -> None:
     """Print help for the :help command.
@@ -1226,8 +1306,7 @@ def print_help() -> None:
         print(text)
     except Exception as e:
         # Fallback: minimal help (avoid breaking interactive use)
-        print(f":help  (help unavailable: {type(e).__name__}: {e})")
-
+        print(_(":help  (help unavailable: %(err)s)") % {"err": f"{type(e).__name__}: {e}"})
 
 # ==============================
 # SYSTEM_PROMPT

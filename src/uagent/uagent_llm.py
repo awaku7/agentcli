@@ -67,7 +67,7 @@ _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
 
 def _maybe_print_certifi_where(exc: Exception) -> None:
     if certifi is None:
-        print("[SSL Info] certifi is not available")
+        print(_("[SSL Info] certifi is not available"))
         return
 
     try:
@@ -79,7 +79,7 @@ def _maybe_print_certifi_where(exc: Exception) -> None:
         return
 
     try:
-        print(f"[SSL Info] certifi.where() = {certifi.where()}")
+        print(_("[SSL Info] certifi.where() = %(path)s", path=certifi.where()))
     except Exception:
         pass
 
@@ -438,7 +438,7 @@ def _maybe_auto_shrink_messages(
             )
         )
     except Exception as e:
-        print("[WARN] Auto shrink_llm failed: " f"{type(e).__name__}: {e}")
+        print(_("[WARN] Auto shrink_llm failed: %(err)s") % {"err": f"{type(e).__name__}: {e}"})
 
     return gemini_cache_name
 
@@ -604,7 +604,7 @@ def _translate_assistant_if_needed(
         )
         if diag:
             # Non-fatal: keep original output and show diagnostics.
-            print(f"[Translate Error] {diag}")
+            print(_("[Translate Error] %(diag)s") % {"diag": diag})
         else:
             assistant_text = out
 

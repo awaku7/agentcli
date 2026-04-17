@@ -4,6 +4,8 @@ import re
 import time
 from typing import Any, Callable, Dict, List, Optional
 
+from .i18n import _
+
 
 def _compute_retry_wait_seconds(
     *,
@@ -390,9 +392,20 @@ def _log_rate_limit_debug(
     status = _extract_status_code_from_exception(exception)
 
     print(
-        f"[RATE_LIMIT] provider={provider} model={model} "
-        f"status={status!r} attempt={attempt}/{max_retries} "
-        f"wait={wait_seconds:.1f}s retry_after={retry_after!r}",
+        _(
+            "[RATE_LIMIT] provider=%(provider)s model=%(model)s "
+            "status=%(status)s attempt=%(attempt)s/%(max_retries)s "
+            "wait=%(wait_seconds).1fs retry_after=%(retry_after)s"
+        )
+        % {
+            "provider": provider,
+            "model": model,
+            "status": repr(status),
+            "attempt": attempt,
+            "max_retries": max_retries,
+            "wait_seconds": wait_seconds,
+            "retry_after": repr(retry_after),
+        },
         file=sys.stderr,
     )
 
