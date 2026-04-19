@@ -856,7 +856,7 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-        return CommandResult(run_llm=True, prompt="上記が実行スキルの場合、最後までスキルを実行する。スキルの実行が完了した場合、finish_skill を呼ぶ。")
+        return CommandResult(run_llm=True, prompt="上記が実行スキルの場合、最後までスキルを実行する。")
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
