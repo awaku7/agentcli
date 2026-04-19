@@ -1566,3 +1566,7 @@ msgstr "- \"Ler este PDF e listar três pontos principais.\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Pesquisar as últimas notícias e resumir um tópico específico.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr "Se esta for uma skill de execução, execute-a até a conclusão. Quando a execução terminar, chame `finish_skill`."

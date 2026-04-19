@@ -430,13 +430,6 @@ def _maybe_auto_shrink_messages(
         except Exception:
             pass
 
-        print(
-            (
-                "[INFO] Auto shrink_llm triggered: "
-                f"others={others_count} >= cnt={shrink_cnt} "
-                f"keep_last={keep_last}"
-            )
-        )
     except Exception as e:
         print(_("[WARN] Auto shrink_llm failed: %(err)s") % {"err": f"{type(e).__name__}: {e}"})
 
