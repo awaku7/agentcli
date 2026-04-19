@@ -1594,3 +1594,7 @@ msgstr "- \"Read this PDF and list three key points.\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr "Si esta es una habilidad de ejecución, ejecútela hasta completarla. Cuando la ejecución haya terminado, llame a `finish_skill`."

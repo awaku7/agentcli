@@ -1556,3 +1556,7 @@ msgstr "- \"อ่าน PDF นี้และระบุประเด็น
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"ค้นหาข่าวล่าสุดและสรุปหัวข้อเฉพาะ\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr "หากนี่เป็นสกิลสำหรับการดำเนินการ ให้รันจนเสร็จสมบูรณ์ เมื่อการดำเนินการเสร็จแล้ว ให้เรียก `finish_skill`."

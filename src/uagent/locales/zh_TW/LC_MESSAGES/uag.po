@@ -1545,3 +1545,7 @@ msgstr "- \"閱讀此 PDF 並列出三個重點。\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜尋最新新聞並摘要特定主題。\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr "如果這是執行型技能，請將其執行到完成。執行完成後，呼叫 `finish_skill`。"
