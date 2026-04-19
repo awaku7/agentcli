@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -767,9 +768,10 @@ def _handle_cmd_skills(
             return CommandResult()
 
         selected_idx: int | None = None
+        a_norm = unicodedata.normalize("NFKC", a).strip()
         # Check if arg is a number for direct selection
-        if a.isdigit():
-            n = int(a)
+        if a_norm.isdigit():
+            n = int(a_norm)
             if 1 <= n <= len(items):
                 selected_idx = n - 1
             else:
@@ -789,15 +791,15 @@ def _handle_cmd_skills(
                 print(f"[{i}] ({ok_mark}) {name}: {desc}")
 
             sel_msg = _(
-                "Select a skill number to run. Enter c to cancel."
-                "Tip: :skills clear  (remove applied skills)"
+                "Select a skill number to run. Enter c to cancel.\n"
+                "Tip: :skills clear  (remove applied skills)\n"
                 "Enter number:"
             )
 
             while selected_idx is None:
                 sel_json = human_ask({"message": sel_msg})
                 sel = json.loads(sel_json)
-                user_reply = (sel.get("user_reply") or "").strip()
+                user_reply = unicodedata.normalize("NFKC", (sel.get("user_reply") or "")).strip()
                 low = user_reply.lower()
                 if low in ("c", "cancel"):
                     print(tr("[skills] Cancelled."))
@@ -856,7 +858,16 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-        return CommandResult(run_llm=True, prompt="上記が実行スキルの場合、最後までスキルを実行する。")
+        return CommandResult(
+            run_llm=True,
+            prompt=tr(
+                "skills.execution.prompt",
+                default=(
+                    "If this is an execution skill, execute it to completion. "
+                    "When execution is complete, call `finish_skill`."
+                ),
+            ),
+        )
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")

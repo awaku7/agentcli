@@ -1009,16 +1009,7 @@ def compress_history_with_llm(
             hit_non_system = True
             others.append(m)
 
-    if not others:
-        print('[INFO] 圧縮対象メッセージがありません。', file=sys.stderr)
-        return list(messages)
 
-    if len(others) <= keep_last:
-        print(
-            f'[INFO] 圧縮対象が少ないため、そのままにしました。others={len(others)}, keep_last={keep_last}',
-            file=sys.stderr,
-        )
-        return list(messages)
 
     old_part = others[:-keep_last]
     tail_part = others[-keep_last:]
@@ -1053,14 +1044,6 @@ def compress_history_with_llm(
         return None, role
 
     chunks = [old_part[i : i + chunk_size] for i in range(0, len(old_part), chunk_size)]
-    print(
-        (
-            '[INFO] shrink_llm chunked summarization: '
-            f'old_part={len(old_part)} keep_last={keep_last} '
-            f'chunk_size={chunk_size} chunks={len(chunks)}'
-        ),
-        file=sys.stderr,
-    )
 
     use_responses_api = env_get('UAGENT_RESPONSES', '').lower() in ('1', 'true')
     max_retries_429 = int(env_get('UAGENT_429_MAX_RETRIES', '20'))
@@ -1201,31 +1184,11 @@ def compress_history_with_llm(
             lines.append(rendered)
             chunk_chars += len(rendered)
             chunk_tokens += msg_tokens
-            print(
-                (
-                    '[INFO] shrink_llm message: '
-                    f'chunk={chunk_idx}/{len(chunks)} msg={msg_idx}/{len(chunk)} '
-                    f"role={role or '(unknown)'} chars={len(rendered)} est_tokens={msg_tokens}"
-                ),
-                file=sys.stderr,
-            )
 
         if not lines:
-            print(
-                f'[INFO] shrink_llm chunk={chunk_idx}/{len(chunks)} has no summarizable messages.',
-                file=sys.stderr,
-            )
             continue
 
         chunk_text = '\n\n'.join(lines)
-        print(
-            (
-                '[INFO] shrink_llm chunk summary input: '
-                f'chunk={chunk_idx}/{len(chunks)} messages={len(chunk)} '
-                f'chars={chunk_chars} est_tokens={chunk_tokens}'
-            ),
-            file=sys.stderr,
-        )
 
         if not rolling_summary:
             summary_system_prompt = (
@@ -1263,16 +1226,8 @@ def compress_history_with_llm(
             return list(messages)
 
         rolling_summary = summary_content.strip()
-        print(
-            (
-                '[INFO] shrink_llm chunk summarized: '
-                f'chunk={chunk_idx}/{len(chunks)} summary_chars={len(rolling_summary)}'
-            ),
-            file=sys.stderr,
-        )
 
     if not rolling_summary:
-        print('[INFO] shrink_llm produced an empty summary.', file=sys.stderr)
         return list(messages)
 
     summary_msg = {
@@ -1284,9 +1239,14 @@ def compress_history_with_llm(
 
     print(
         _t(
-            '[INFO] Conversation history was summarized by the LLM: '
-            'old_part={old_n} -> 1 summary + tail_part={tail_n}'
-        ).format(old_n=len(old_part), tail_n=len(tail_part)),
+            '[INFO] shrink_llm: {old_n} -> {new_n} messages '
+            '(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)'
+        ).format(
+            old_n=len(messages),
+            new_n=len(new_messages),
+            old_part_n=len(old_part),
+            tail_n=len(tail_part),
+        ),
         file=sys.stderr,
     )
 
