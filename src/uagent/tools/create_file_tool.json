@@ -106,5 +106,14 @@
     "param.path.description": "（相容性）filename 的別名。",
     "tool.description": "建立文字檔。預設不覆蓋現有檔案。如果指定 overwrite=true 且檔案已存在，則在覆蓋前建立備份（<檔案名稱>.org / <檔案名稱>.org1 / ...）。提示：若需在 Excel 中直接開啟 CSV/TSV 且不亂碼，請考慮 encoding='utf-8-sig'（帶 BOM 的 UTF-8）。若用於機器處理，推薦 encoding='utf-8'（不帶 BOM）。不確定時請確認用途。",
     "tool.system_prompt": "在工作目錄下建立文字檔。檔案存在且 overwrite=false 時報錯。overwrite=true 時先備份。提示：Excel 用 CSV 推薦 'utf-8-sig'，程式處理推薦 'utf-8'。不確定時請確認。"
+  },
+  "id": {
+    "param.content.description": "Konten teks yang akan ditulis.",
+    "param.encoding.description": "Pengodean teks (mis. 'utf-8', 'cp932'). Default: 'utf-8-sig' untuk .csv/.tsv jika encoding dihilangkan; selain itu 'utf-8'.",
+    "param.filename.description": "Jalur file yang akan dibuat.",
+    "param.overwrite.description": "Apakah akan menimpa jika file sudah ada (default: false).",
+    "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
+    "tool.description": "Buat file teks. Secara default, alat tidak akan menimpa file yang sudah ada. Jika overwrite=true ditentukan dan tujuan sudah ada, alat membuat cadangan (<filename>.org / <filename>.org1 / ...) tepat sebelum menimpa. Tips: Jika Anda ingin file CSV/TSV terbuka dengan benar di Microsoft Excel saat dibuka langsung, pertimbangkan encoding='utf-8-sig' (UTF-8 dengan BOM). Untuk pemrosesan mesin dan interoperabilitas, gunakan encoding='utf-8' (tanpa BOM). Jika ragu, tanyakan bagaimana file akan digunakan (Excel vs pemrosesan programatis).",
+    "tool.system_prompt": "Buat file teks di bawah workdir. Jika file sudah ada, overwrite=false akan menimbulkan error. Jika overwrite=true, cadangan dibuat sebelum penulisan. Tips: Untuk CSV/TSV yang akan dibuka langsung di Microsoft Excel, pertimbangkan encoding='utf-8-sig' (UTF-8 dengan BOM). Untuk pemrosesan mesin dan interoperabilitas, gunakan encoding='utf-8' (tanpa BOM). Jika ragu, tanyakan bagaimana file akan digunakan (Excel vs pemrosesan programatis)."
   }
 }

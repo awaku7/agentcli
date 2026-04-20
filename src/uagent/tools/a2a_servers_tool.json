@@ -250,5 +250,26 @@
     "param.token.description": "Bearer Token（明文）。儲存前會加密。",
     "tool.description": "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。",
     "tool.system_prompt": "操作 A2A 伺服器設定檔列表。僅回傳 JSON。"
+  },
+  "id": {
+    "err.config_not_found": "Konfigurasi tidak ditemukan. Jalankan action=init terlebih dahulu.",
+    "err.empty_name": "Nama kosong.",
+    "err.exception": "Terjadi pengecualian.",
+    "err.missing_name": "Tidak ada 'name'.",
+    "err.missing_name_or_base_url": "Tidak ada 'name' atau 'base_url'.",
+    "err.no_default_profile": "Tidak ada profil default.",
+    "err.not_found": "Tidak ditemukan.",
+    "err.server_missing_base_url": "Profil server tidak memiliki base_url.",
+    "err.unknown_action": "Tindakan tidak dikenal.",
+    "param.action.description": "Tindakan: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "URL dasar server (mis. http://127.0.0.1:8765).",
+    "param.force.description": "(init) Timpa konfigurasi yang ada.",
+    "param.interval_ms.description": "Interval polling dalam milidetik.",
+    "param.name.description": "Nama profil (atau a2a://name untuk get/resolve).",
+    "param.set_default.description": "(add) Tetapkan sebagai profil default.",
+    "param.timeout_s.description": "Waktu habis profil dalam detik.",
+    "param.token.description": "Token Bearer (teks biasa). Akan dienkripsi sebelum disimpan.",
+    "tool.description": "Kelola profil server A2A di direktori state uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Kelola daftar profil server A2A. Kembalikan JSON saja."
   }
 }

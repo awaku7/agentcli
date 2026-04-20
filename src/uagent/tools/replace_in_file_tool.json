@@ -316,5 +316,31 @@
     "param.po_msgid.description": "replace_po_entry 的目標 gettext msgid。若省略，則使用 pattern 作為回退。",
     "param.anchor_before.description": "replace_between 的起始錨點（根據模式為字面值或正規表示式）。",
     "param.anchor_after.description": "replace_between 的結束錨點（根據模式為字面值或正規表示式）。"
+  },
+  "id": {
+    "err.path_missing": "jalur tidak ditentukan",
+    "err.path_not_found": "jalur tidak ditemukan: {path}",
+    "hint.check_exact": "Tidak ada kecocokan. Gunakan 'file_grep' atau 'read_file' untuk menyalin konten persis termasuk spasi.",
+    "hint.indentation_mismatch": "Pola tidak ditemukan, tetapi ada jika spasi di awal/akhir diabaikan. Periksa indentasi Anda.",
+    "hint.possible_regex": "Pola tampaknya berisi metakarakter ala regex tetapi 'mode' adalah 'literal'.",
+    "param.confirm_over.description": "Saat preview=false, blokir operasi jika jumlah kecocokan lebih besar dari nilai ini.",
+    "param.encoding.description": "Pengodean file (default: utf-8).",
+    "param.expand_newline_tokens.description": "Jika true (default), token baris baru (\\r\\n/\\r/\\n) diperluas menjadi baris baru nyata untuk pencocokan/penggantian. Jika false, diperlakukan sebagai karakter literal.",
+    "param.mode.description": "Mode penggantian: literal (substring biasa) atau regex (Python re).",
+    "param.path.description": "Jalur file tujuan (disarankan: di bawah workdir).",
+    "param.pattern.description": "Pola pencarian. Untuk menyatakan baris baru, tulis \\n (JSON: \\\\n).",
+    "param.preview.description": "Jika true, hanya kembalikan pratinjau dan jangan ubah file.",
+    "param.replacement.description": "Teks pengganti.",
+    "summary.blocked": "Diblokir: {count}",
+    "summary.blocked_reason": "Diblokir: {reason}",
+    "summary.error": "Kesalahan: {error}",
+    "summary.files_changed": "{count} file diubah",
+    "summary.matches": "{count} kecocokan",
+    "summary.no_change": "Berhasil tanpa perubahan (0 kecocokan)",
+    "summary.preview_matches": "Pratinjau: ditemukan {count} kecocokan",
+    "tool.description": "Lakukan penggantian literal atau regex pada file teks yang ada. Akhir baris dinormalisasi secara internal, sehingga pola/pengganti yang menyertakan baris baru didukung.",
+    "param.po_msgid.description": "msgid gettext target untuk replace_po_entry. Jika dihilangkan, pattern digunakan sebagai cadangan.",
+    "param.anchor_before.description": "Penanda awal untuk replace_between (literal atau regex tergantung mode).",
+    "param.anchor_after.description": "Penanda akhir untuk replace_between (literal atau regex tergantung mode)."
   }
 }

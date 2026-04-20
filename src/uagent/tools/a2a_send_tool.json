@@ -106,5 +106,14 @@
     "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
+  },
+  "id": {
+    "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil).",
+    "tool.system_prompt": "Kirim pesan A2A. Kembalikan JSON saja.",
+    "param.profile.description": "Nama profil atau a2a://name. Jika dihilangkan, gunakan profil default.",
+    "param.message.description": "Pesan pengguna yang akan dikirim.",
+    "param.return_immediately.description": "Jika true, kembali segera setelah tugas dibuat.",
+    "err.missing_message": "Tidak ada 'message'.",
+    "err.exception": "Terjadi pengecualian."
   }
 }

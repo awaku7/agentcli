@@ -82,5 +82,12 @@
     "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, a seleção será automática.",
     "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta adequada, como MCP, estiver disponível.",
     "tool.system_prompt": "Esta ferramenta é o ÚLTIMO RECURSO.\n1. Primeiro verifique se é possível usar handle_mcp / mcp_tools_list em vez disso.\n2. Use esta ferramenta somente quando não houver outra ferramenta adequada disponível.\n3. Não use esta ferramenta para executar Python; use python_exec em vez disso.\n\nNotas de segurança:\n- Padrões perigosos como download-exec (IWR/IRM/curl/wget) e Base64 (-Enc) podem ser bloqueados ou exigir confirmação."
+  },
+  "id": {
+    "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
+    "param.command.description": "String perintah PowerShell yang diteruskan ke -Command.",
+    "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell). Jika dihilangkan, pilih otomatis.",
+    "tool.description": "Sebagai upaya terakhir, jalankan PowerShell. Gunakan hanya jika tidak ada alat lain yang sesuai (misalnya MCP).",
+    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR.\n1. Pertama periksa apakah handle_mcp / mcp_tools_list dapat digunakan.\n2. Gunakan alat ini hanya jika tidak ada alat lain yang sesuai.\n3. Jangan gunakan alat ini untuk menjalankan Python; gunakan python_exec sebagai gantinya.\n\nCatatan keamanan:\n- Pola berbahaya seperti download-exec (IWR/IRM/curl/wget) dan Base64 (-Enc) dapat diblokir atau memerlukan konfirmasi."
   }
 }

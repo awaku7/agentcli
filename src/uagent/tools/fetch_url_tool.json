@@ -130,5 +130,16 @@
     "param.max_bytes.description": "Número máximo de bytes a ler da resposta.",
     "param.max_chars.description": "Número máximo de caracteres a retornar (aplicado após decodificação/extração).",
     "param.user_agent.description": "Valor opcional do cabeçalho User-Agent."
+  },
+  "id": {
+    "param.url.description": "URL yang akan diakses.",
+    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'fetch_url'.",
+    "param.extract.description": "Mode ekstraksi. head=kembalikan awal respons; text=ekstrak teks dari HTML; html=ekstrak fragmen HTML; json=urai JSON (opsional terapkan json_pointer).",
+    "param.selector.description": "CSS selector opsional. Jika diberikan, elemen pertama yang cocok akan diekstrak untuk extract=text/html.",
+    "param.json_pointer.description": "RFC 6901 JSON Pointer opsional (mis. /items/0/title) yang digunakan saat extract=json.",
+    "param.max_bytes.description": "Maksimum byte yang dibaca dari respons.",
+    "param.max_chars.description": "Maksimum karakter yang dikembalikan (diterapkan setelah decoding/ekstraksi).",
+    "param.user_agent.description": "Nilai header User-Agent opsional."
   }
 }

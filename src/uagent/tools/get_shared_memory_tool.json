@@ -58,5 +58,10 @@
     "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação de get_shared_memory.",
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.\n- Normalmente retorna texto no formato JSONL (um registro por linha).\n- Se a memória compartilhada estiver desativada ou o arquivo estiver ausente, retorna uma mensagem descritiva.\n- O tamanho da saída é automaticamente reduzido ao limite máximo interno de bytes.",
     "tool.system_prompt": "Esta ferramenta executa a funcionalidade descrita em TOOL_SPEC."
+  },
+  "id": {
+    "doc.run_tool": "Titik masuk yang dipanggil dari tools/__init__.py. Implementasi untuk get_shared_memory.",
+    "tool.description": "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna.\n- Biasanya mengembalikan teks dalam format JSONL (satu record per baris).\n- Jika shared memory dinonaktifkan atau file hilang, mengembalikan pesan deskriptif.\n- Ukuran keluaran otomatis dipangkas ke batas byte internal maksimum.",
+    "tool.system_prompt": "Alat ini menjalankan fungsi yang dijelaskan dalam TOOL_SPEC."
   }
 }

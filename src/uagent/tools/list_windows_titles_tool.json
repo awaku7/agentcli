@@ -82,5 +82,12 @@
     "param.pid.description": "Inclui IDs de processo.",
     "tool.description": "Liste os títulos das janelas de nível superior no Windows e retorne JSON estruturado. Parâmetros: 'all' (inclui janelas não visíveis), 'pid' (inclui ID de processo), 'class' (inclui o nome da classe da janela).",
     "tool.system_prompt": "Esta ferramenta lista os títulos das janelas de nível superior no Windows e retorna JSON estruturado. É exclusiva para Windows."
+  },
+  "id": {
+    "param.all.description": "Sertakan jendela yang tidak terlihat.",
+    "param.class.description": "Sertakan nama kelas jendela.",
+    "param.pid.description": "Sertakan ID proses.",
+    "tool.description": "Enumerasi judul jendela tingkat atas di Windows dan kembalikan JSON terstruktur. Parameter: \"all\" (sertakan yang tidak terlihat), \"pid\" (sertakan PID), \"class\" (sertakan nama kelas jendela).",
+    "tool.system_prompt": "Alat ini menghitung judul jendela tingkat atas di Windows dan mengembalikan JSON terstruktur. Ini hanya untuk Windows."
   }
 }

@@ -58,5 +58,10 @@
     "param.note.description": "O texto da nota a ser salvo.",
     "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
     "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves API ou tokens."
+  },
+  "id": {
+    "param.note.description": "Teks catatan yang akan disimpan.",
+    "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang.",
+    "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna."
   }
 }

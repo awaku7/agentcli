@@ -142,5 +142,17 @@
     "param.years.description": "Número de anos a adicionar (a subtração é um número negativo).",
     "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. Inclui detecção de feriados usando a biblioteca holidays.",
     "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
+  },
+  "id": {
+    "doc.get_holiday_info": "Dapatkan nama hari libur untuk negara yang ditentukan menggunakan library holidays.",
+    "param.base_date.description": "Tanggal dasar (format ISO 8601 'YYYY-MM-DD'; jika dihilangkan, gunakan hari ini).",
+    "param.check_holiday.description": "Apakah menentukan apakah hasilnya merupakan hari libur (default: true)",
+    "param.country.description": "Kode negara untuk menentukan hari libur nasional (ISO 3166-1 alpha-2, mis. 'JP', 'US', 'GB', 'FR'). Default: 'JP'.",
+    "param.days.description": "Jumlah hari yang ditambahkan (pengurangan bernilai negatif).",
+    "param.months.description": "Jumlah bulan yang ditambahkan (pengurangan bernilai negatif).",
+    "param.weeks.description": "Jumlah minggu yang ditambahkan (pengurangan bernilai negatif).",
+    "param.years.description": "Jumlah tahun yang ditambahkan (pengurangan bernilai negatif).",
+    "tool.description": "Tambah atau kurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan kembalikan hasilnya. Termasuk deteksi hari libur menggunakan library holidays.",
+    "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan juga dapat menentukan apakah hasilnya jatuh pada hari libur menggunakan library holidays. Lihat deskripsi alat untuk detail."
   }
 }

@@ -130,5 +130,16 @@
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+  },
+  "id": {
+    "err.child_failed": "[playwright_inspector error] Proses child gagal:\n{stderr}",
+    "out.ok": "Perekaman selesai: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ telah dibuat.\n{stdout}",
+    "param.prefix.description": "Awalan nama file yang disimpan (default: debug_capture)",
+    "param.url.description": "URL pertama yang dibuka (default: about:blank)",
+    "tool.description": "Luncurkan Playwright Inspector untuk merekam operasi browser. Membuka URL yang ditentukan dan menyimpan state halaman (HTML dan gambar) setelah pengguna mengklik tombol Resume. Juga menyimpan snapshot DOM/screenshot secara berurutan pada setiap navigasi main-frame dan merekam navigasi, jaringan, event konsol, dan lainnya ke file JSONL.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
+    "ui.captured": "--- TERTANGKAP: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Setelah operasi, tekan Resume (▷) di Inspector.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR DIMULAI ---"
   }
 }

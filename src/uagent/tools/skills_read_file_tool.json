@@ -130,5 +130,16 @@
     "param.skill_dir.description": "Diretório do skill",
     "tool.description": "Lê com segurança um arquivo sob um diretório de skill usando um caminho relativo. A travessia de caminho é bloqueada.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "err.invalid_args": "[tool error] argumen tidak valid",
+    "err.max_bytes_positive": "[tool error] max_bytes harus berupa integer positif",
+    "err.relative_path_required": "[tool error] relative_path harus berupa string non-kosong",
+    "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
+    "param.max_bytes.description": "Jumlah maksimum byte yang dibaca (default: 5000000)",
+    "param.relative_path.description": "Path relatif terhadap root skill (mis. references/REFERENCE.md)",
+    "param.skill_dir.description": "direktori skill",
+    "tool.description": "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }

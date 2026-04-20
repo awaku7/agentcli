@@ -190,5 +190,21 @@
     "param.splice_op.description": "Operação de splice (modo splice).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: editar um arquivo local como bytes brutos (binários).\n\nSECURITY / SAFETY:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host.\n"
+  },
+  "id": {
+    "param.data_hex.description": "String hex byte yang akan ditulis/disisipkan (mis. 'DEADBEEF' atau 'DE AD BE EF').",
+    "param.delete_len.description": "Jumlah byte yang akan dihapus (splice delete).",
+    "param.dry_run.description": "Jika true, jangan ubah file; hanya laporkan perubahan yang akan terjadi.",
+    "param.max_bytes.description": "Tolak file yang lebih besar dari ukuran ini (byte).",
+    "param.mode.description": "Mode pengeditan.",
+    "param.occurrence.description": "Kemunculan mana yang akan diganti (berbasis 1). 0 berarti ganti semua kemunculan (tetap harus sama panjang).",
+    "param.offset.description": "Offset byte (berbasis 0). Diperlukan untuk write/splice.",
+    "param.patch_json.description": "String patch JSON (mode apply_patch).",
+    "param.path.description": "Jalur file target.",
+    "param.replace_hex.description": "String hex pengganti (mode replace). Harus sepanjang search_hex kecuali allow_resize=true (tidak didukung).",
+    "param.search_hex.description": "String hex yang dicari (mode replace).",
+    "param.splice_op.description": "Operasi splice (mode splice).",
+    "tool.description": "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengedit file lokal sebagai byte mentah (binary).\n\nKEAMANAN / KESELAMATAN:\n- Alat ini memodifikasi file lokal dan dapat merusak file.\n- Selalu minta konfirmasi dengan human_ask sebelum menulis.\n- Jangan beroperasi pada path di luar workdir saat berjalan di bawah kebijakan keamanan host agent."
   }
 }

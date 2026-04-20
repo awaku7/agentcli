@@ -238,5 +238,25 @@
     "param.size.description": "Tamanho da imagem. Exemplo: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. Abre a imagem automaticamente após a geração (pode ser desativado com UAGENT_IMAGE_OPEN=0).",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (consulte a descrição da ferramenta)."
+  },
+  "id": {
+    "err.depname_missing": "[generate_image] Nama deployment model gambar belum ditetapkan.\nSilakan set environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "err.empty_data": "Data gambar kosong (resp.data kosong atau b64_json/url tidak ada)",
+    "err.gemini_fail": "Saya tidak bisa mendapatkan hasil pembuatan gambar dengan Gemini. Model tidak mendukung pembuatan gambar, atau format return SDK tidak terduga.",
+    "err.gemini_import": "Gagal mengimpor google-genai (pip install google-genai): {err}",
+    "err.gen_fail": "[generate_image] Pembuatan gambar gagal.\nprovider={provider} model={model} size={size} n={n}\n{err}",
+    "err.httpx_init": "Gagal menginisialisasi httpx: {err}",
+    "err.mkdir_fail": "[generate_image] pembuatan output_dir gagal: {err}",
+    "err.no_saved": "[generate_image] Data gambar kosong",
+    "err.openai_import": "Gagal mengimpor paket openai: {err}",
+    "err.prompt_empty": "[generate_image] prompt kosong",
+    "err.unsupported_provider": "[generate_image] provider tidak didukung {provider!r}",
+    "param.file_prefix.description": "Awalan nama file yang disimpan (opsional)",
+    "param.n.description": "Jumlah gambar yang akan dibuat (saat ini disarankan 1)",
+    "param.output_dir.description": "Direktori tujuan (relatif/absolut). Jika dihilangkan, outputs/image_generations",
+    "param.prompt.description": "Instruksi (prompt) untuk gambar yang ingin Anda buat",
+    "param.size.description": "Ukuran gambar. Contoh: 1024x1024 / 1024x1536 / 1536x1024",
+    "tool.description": "Membuat gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Gambar akan otomatis dibuka setelah dibuat (bisa dinonaktifkan dengan UAGENT_IMAGE_OPEN=0).",
+    "tool.system_prompt": "ツールの説明を参照してください。"
   }
 }

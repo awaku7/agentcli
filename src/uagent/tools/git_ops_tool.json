@@ -98,5 +98,30 @@
     "param.command.description": "要執行的 Git 子命令（適用安全第一限制）。",
     "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能會受到限制。",
     "tool.system_prompt": "此工具用於執行 Git 指令。\n\n重要提示：args 不得包含 shell 元字元。為了安全起見，任何包含以下字元/序列的參數都將被拒絕：&& || | > < `\ngit 提交訊息中的 ';' 會自動替換為 ','（僅在 -m/--message 內）。\n"
+  },
+  "id": {
+    "doc.module": "scheck tool: git_ops\n\nKami menyediakan operasi Git inti dengan keamanan sebagai prioritas utama.\n\nTujuan alat ini adalah untuk \"menyelesaikan operasi harian sebanyak mungkin melalui alat.\"\nDi sisi lain, Git memungkinkan operasi destruktif dan penulisan eksternal (push) dengan mudah.\nKami akan membatasi kebijakan berikut dengan ketat.\n\nKebijakan desain (penting)\n- Hindari operasi yang melibatkan interaksi\n  - Nonaktifkan PAGER/EDITOR\n  - commit/merge dengan --no-edit (sebisa mungkin)\n  - GIT_TERMINAL_PROMPT=0 untuk menghindari input kredensial\n- Operasi berbahaya dilarang secara default\n  - Contoh: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, dll.\n- Secara eksplisit tetapkan allow_danger=true agar dapat dijalankan hanya jika perlu\n  - Namun, item dengan \"tingkat kecelakaan tinggi/sulit dipulihkan\" dilarang bahkan dengan allow_danger.\n- Argumen menggunakan format \"daftar izin\"\n  - Semua opsi (-x / --xxx) tidak diperbolehkan secara menyeluruh, tetapi diizinkan secara eksplisit sesuai tujuan.\n  - Tolak argumen yang mengandung metakarakter jelas (&& || | > < `)\n\nPerhatian\n- Alat ini tidak memberikan akses tak terbatas ke semua fitur git.\n- Karena desainnya, ada beberapa operasi yang tidak dapat dijalankan demi pertimbangan keamanan.",
+    "doc.run_tool": "Alat operasi Git (keamanan dulu).",
+    "error.add_requires_path": "[git_ops error] git add memerlukan target path ('.' diperbolehkan).",
+    "error.command_failed": "[git_ops error] perintah gagal (code={code}):\n{output}",
+    "error.commit_requires_message": "[git_ops error] Commit message diperlukan. Sertakan ['-m','message'] pada args.",
+    "error.git_not_found": "[git_ops error] perintah git tidak ditemukan. Pastikan Git terpasang.",
+    "error.internal_unknown": "[git_ops error] kesalahan internal tidak dikenal",
+    "error.invalid_command": "[git_ops error] perintah tidak didukung atau tidak valid: {command}",
+    "error.meta_char": "Metakarakter berbahaya tidak diizinkan di args: {arg}",
+    "error.option_danger_requires_allow_danger": "Opsi berbahaya memerlukan allow_danger=true: {opt}",
+    "error.option_denied": "Opsi yang dilarang ada: {opt}",
+    "error.option_not_allowed": "Opsi yang tidak diizinkan ada: {opt}",
+    "error.path_outside_workdir": "Path yang dilarang (di luar workdir): {path}",
+    "error.rebase_onto_forbidden": "[git_ops error] rebase --onto dilarang karena mudah bermasalah.",
+    "error.rebase_requires_allow_danger": "[git_ops error] rebase berbahaya dan memerlukan allow_danger=true.",
+    "error.remote_change_requires_allow_danger": "[git_ops error] Mengubah remote memerlukan allow_danger=true.",
+    "error.timeout": "[git_ops error] perintah habis waktunya.",
+    "error.unexpected": "[git_ops error] kesalahan tak terduga: {error}",
+    "param.allow_danger.description": "Apakah akan mengizinkan operasi berbahaya (default false). Contoh: push --force, reset --hard.",
+    "param.args.description": "Daftar argumen yang diteruskan ke perintah Git.",
+    "param.command.description": "Subperintah Git yang akan dijalankan (pembatasan keamanan diterapkan).",
+    "tool.description": "Jalankan perintah Git dengan pembatasan keamanan. Beberapa operasi atau karakter khusus dalam argumen dapat dibatasi demi keamanan.",
+    "tool.system_prompt": "Gunakan alat ini untuk menjalankan perintah Git.\n\nPenting: args tidak boleh mengandung metakarakter shell. Demi keamanan, argumen yang mengandung karakter/urutan berikut akan ditolak: && || | > < `\nUntuk pesan commit git, \";\" secara otomatis diganti dengan \",\" (hanya di dalam -m/--message)."
   }
 }

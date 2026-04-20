@@ -70,5 +70,11 @@
     "msg.disabled": "(a memória compartilhada está desativada; defina UAGENT_SHARED_MEMORY_FILE para ativá-la)",
     "msg.no_shared_memory": "(ainda não há memória compartilhada)",
     "msg.truncated": "\n[shared_memory truncado: limitado a {max_bytes} bytes]"
+  },
+  "id": {
+    "err.load": "[galat shared_memory] {err_type}: {err}",
+    "msg.disabled": "(shared memory dinonaktifkan; set UAGENT_SHARED_MEMORY_FILE untuk mengaktifkannya)",
+    "msg.no_shared_memory": "(belum ada shared memory)",
+    "msg.truncated": "\n[memori bersama dipotong: dibatasi hingga {max_bytes} byte]"
   }
 }

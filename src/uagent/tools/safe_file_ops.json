@@ -262,5 +262,27 @@
     "ui.confirm.footer": "=== /confirmar ===\n",
     "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
     "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+  },
+  "id": {
+    "confirm.rename": "rename/move akan memindahkan file nyata (mungkin menimpa atau menghapus file yang ada).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan.",
+    "confirm.risky_op": "Operasi ini mungkin berbahaya, jadi konfirmasi diperlukan.\noperation: {operation}\npath: {path}\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan.",
+    "err.create_cancel": "Pembuatan dibatalkan karena pengguna tidak mengizinkannya: {filename}",
+    "err.delete_cancel": "Penghapusan dibatalkan karena pengguna tidak mengizinkannya: {filename}",
+    "err.delete_dir_cancel": "Penghapusan direktori dibatalkan karena pengguna tidak mengizinkannya: {path}",
+    "err.delete_path_cancel": "Penghapusan dibatalkan karena pengguna tidak mengizinkannya: {path}",
+    "err.dst_exists_overwrite_false": "dst sudah ada (overwrite=False): {dst}",
+    "err.exists_overwrite_false": "File sudah ada (overwrite=False): {filename}",
+    "err.path_not_found": "Path tidak ada: {path}",
+    "err.prompt_cancel": "Pembuatan prompt dibatalkan karena pengguna tidak mengizinkannya: {path}",
+    "err.prompt_target_not_found": "File target untuk pembuatan prompt tidak ditemukan: {path}",
+    "err.rename_cancel": "rename/move dibatalkan karena pengguna tidak mengizinkannya: {src} -> {dst}",
+    "err.src_dst_required": "src dan dst diperlukan",
+    "err.src_not_found": "src tidak ditemukan: {src}",
+    "reason.dst_trigger": "dst cocok dengan kondisi path berisiko",
+    "reason.overwrite_delete": "overwrite=True akan menghapus dst yang ada dan menggantikannya",
+    "reason.src_trigger": "src cocok dengan kondisi path berisiko",
+    "ui.confirm.footer": "=== /confirm ===",
+    "ui.confirm.howto": "Cara menjawab: y=lanjut / c=batal / lainnya=tolak",
+    "ui.confirm.title": "=== Permintaan konfirmasi manusia ==="
   }
 }

@@ -106,5 +106,14 @@
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
     "tool.description": "Renomeie (mova) um arquivo ou diretório.",
     "tool.system_prompt": "Esta ferramenta renomeia ou move um arquivo ou diretório.\n\nNotas de segurança:\n- É necessária confirmação para caminhos absolutos, caminhos contendo '..' ou operações fora do workdir.\n- overwrite=true exige confirmação porque o destino é excluído antes de ser substituído."
+  },
+  "id": {
+    "doc.module": "tools/rename_path_tool.py\n\nalat rename_path\n\nTujuan:\n- Mengganti nama/memindahkan file/direktori.\n\nKebijakan keamanan:\n- Minta konfirmasi pengguna jika ada kondisi path berbahaya, seperti path di luar workdir, path absolut, atau path yang berisi ..\n- Minta konfirmasi pengguna jika overwrite=True (hapus dan ganti dst yang sudah ada).\n\nImplementasi:\n- Operasi sebenarnya didelegasikan ke tools.safe_file_ops.safe_rename_path().\n- Untuk menghapus dst yang sudah ada, file dihapus dengan os.remove dan direktori dengan shutil.rmtree.\n\nPerhatian:\n- Alat ini mengubah file nyata seperti create_file/delete_file, jadi dirancang untuk memerlukan konfirmasi keamanan bahkan saat dipanggil dari LLM.",
+    "param.dst.description": "Path tujuan (file/direktori). Disarankan path relatif.",
+    "param.mkdirs.description": "Jika true, buat direktori induk untuk dst sebelum menjalankan.",
+    "param.overwrite.description": "Jika true, hapus dan ganti dst jika sudah ada (Anda akan diminta konfirmasi).",
+    "param.src.description": "Path asal (file/direktori). Disarankan path relatif.",
+    "tool.description": "Ganti nama (pindahkan) file atau direktori.",
+    "tool.system_prompt": "Alat ini mengganti nama atau memindahkan file atau direktori.\n\nCatatan keamanan:\n- Konfirmasi diperlukan untuk path absolut, path yang berisi .., atau operasi di luar workdir.\n- overwrite=true memerlukan konfirmasi karena target dihapus terlebih dahulu."
   }
 }

@@ -106,5 +106,14 @@
     "param.url.description": "URL do endpoint do servidor MCP (http://... ou stdio://command...).",
     "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
     "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "doc.mask_values": "Ganti nilai dalam dictionary dan list dengan '*' (struktur tetap dipertahankan).",
+    "param.server_name.description": "Nama server yang didefinisikan di mcp_servers.json. Jika ditentukan, diprioritaskan daripada url.",
+    "param.tool_arguments.description": "Argumen untuk alat MCP. Berikan JSON object (disarankan) atau string JSON. Contoh object: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Nilai kembali berupa string JSON. Jika berlaku, termasuk saved_path. Catatan: saved_path dapat tidak ada bila alat tidak mengembalikan payload file apa pun. Jika alat mengembalikan payload file (misalnya, {filename, mime, data_base64}), klien ini dapat menyimpannya ke direktori downloads lokal dan menyertakan saved_path dalam JSON yang dikembalikan.",
+    "param.tool_name.description": "Nama alat yang akan dieksekusi.",
+    "param.url.description": "URL endpoint server MCP (http://... atau stdio://command...).",
+    "tool.description": "Panggil alat dari server MCP. Berikan argumen alat di tool_arguments sebagai JSON object (disarankan) atau string JSON. Nilai kembali adalah string JSON yang berisi setidaknya ok dan text. Jika berlaku, saved_path disertakan (misalnya ketika server mengembalikan saved_path, atau ketika payload file seperti {filename, mime, data_base64} dikembalikan dan klien menyimpannya ke direktori downloads lokal). Catatan: saved_path dapat tidak ada bila alat tidak mengembalikan payload file apa pun.",
+    "tool.system_prompt": "Gunakan alat ini sesuai tujuan yang dijelaskan di atas (lihat deskripsi alat)."
   }
 }

@@ -46,5 +46,9 @@
   "pt_BR": {
     "tool.description": "Recarrega o sistema e reflete na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código.",
     "tool.system_prompt": "Esta ferramenta é usada para recarregar o sistema e refletir na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código."
+  },
+  "id": {
+    "tool.description": "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: memuat ulang sistem dan menerapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode."
   }
 }

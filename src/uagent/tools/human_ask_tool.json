@@ -238,5 +238,25 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Como responder:\n  - Basta digitar e pressionar Enter para enviar\n  - Digite 'f' para entrar no modo multilinha\n  - No modo multilinha: limpe com '\"\"\"retry', envie com '\"\"\"end'\n  - Cancele com 'c' ou 'cancel'",
     "ui.title": "=== Solicitação para uma pessoa (human_ask) ==="
+  },
+  "id": {
+    "doc.ensure_gui_sentinel": "Pastikan respons dari GUI diakhiri dengan baris multi_input_sentinel.",
+    "doc.run_tool": "human_ask tidak membaca langsung dari stdin,\nSerahkan pemrosesan ke thread stdin_loop di sisi scheck.py\nTerima hasil melalui shared state (callbacks).",
+    "err.active_uninitialized": "[human_ask error] callback human_ask_active belum diinisialisasi.",
+    "err.already_active": "[human_ask error] human_ask lain masih berjalan.",
+    "err.lines_uninitialized": "[human_ask error] callback human_ask_lines belum diinisialisasi.",
+    "err.lock_uninitialized": "[human_ask error] callback human_ask_lock belum diinisialisasi.",
+    "err.multiline_uninitialized": "[human_ask error] callback human_ask_multiline_active belum diinisialisasi.",
+    "err.password_uninitialized": "[human_ask error] callback human_ask_set_password belum diinisialisasi.",
+    "err.queue_uninitialized": "[human_ask error] callback human_ask_queue belum diinisialisasi.",
+    "msg.empty_request": "(Permintaan dari LLM kosong. Silakan tulis operasi dan keputusan yang diperlukan di sini dalam bahasa Jepang.)",
+    "msg.no_user_reply": "(belum ada balasan pengguna)",
+    "param.is_password.description": "Jika true, menyembunyikan (mem-mask) karakter input. Gunakan ini untuk memasukkan kata sandi atau token.",
+    "param.message.description": "Tulis apa yang ingin Anda minta kepada manusia untuk dilakukan dalam bahasa Jepang dalam format yang dapat ditampilkan apa adanya.",
+    "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token), set is_password=True dan mintalah tepat satu item per panggilan.",
+    "tool.system_prompt": "Alat ini digunakan untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri dan menerima satu teks balasan.\n\nPenting: Alat ini hanya menerima satu teks balasan per panggilan. Jangan membagi input ke beberapa bidang.\n\nKEAMANAN (PALING PENTING):\n- Saat meminta rahasia (kata sandi, API key, token, private key, session cookie, dll.), Anda HARUS menetapkan is_password=True.\n- Jangan pernah mengulangi rahasia yang diperoleh dengan is_password=True di pesan asisten berikutnya.\n- Jangan simpan rahasia di memori jangka panjang atau shared memory.\n\nPanduan operasional:\n- Jika input pengguna tambahan diperlukan, selalu gunakan alat human_ask.\n- Dengan is_password=True, mintalah hanya satu item rahasia.\n- Jika username dan password sama-sama diperlukan, panggil human_ask beberapa kali.\n- Jangan meminta banyak item dalam satu panggilan.\n- Untuk ekspresi tanggal relatif (today/this year/dll.), panggil get_current_time.\n- Saat mengeluarkan file atau kode, jangan menghilangkan isi asli penuh kecuali pengguna secara eksplisit memintanya.\n\nPembatalan:\n- Untuk membatalkan, balas dengan satu baris: 'c' atau 'cancel'.",
+    "ui.footer": "=== /human_ask (konfirmasi manusia) ===",
+    "ui.howto": "Cara menjawab:\n  - Cukup ketik lalu tekan Enter untuk mengirim\n  - Masukkan f untuk mode multiline\n  - Dalam mode multiline: hapus dengan \"\"\"retry, kirim dengan \"\"\"end\n  - Batalkan dengan c atau cancel",
+    "ui.title": "=== Permintaan kepada manusia (human_ask) ==="
   }
 }

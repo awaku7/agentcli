@@ -58,5 +58,10 @@
     "err.file_not_found": "arquivo não encontrado: {filename}",
     "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
     "err.path_empty": "o caminho está vazio"
+  },
+  "id": {
+    "err.file_not_found": "file tidak ditemukan: {filename}",
+    "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
+    "err.path_empty": "path kosong"
   }
 }
