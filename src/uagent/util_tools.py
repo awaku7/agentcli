@@ -858,16 +858,7 @@ def _handle_cmd_skills(
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
-        return CommandResult(
-            run_llm=True,
-            prompt=tr(
-                "skills.execution.prompt",
-                default=(
-                    "If this is an execution skill, execute it to completion. "
-                    "When execution is complete, call `finish_skill`."
-                ),
-            ),
-        )
+        return CommandResult(run_llm=True)
 
     except Exception as e:
         print(f"[skills error] {type(e).__name__}: {e}")
