@@ -118,5 +118,15 @@
     "param.top_n.description": "Quantidade de principais resultados a retornar.",
     "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N principais resultados junto com estatísticas por extensão.",
     "tool.system_prompt": "Esta ferramenta pesquisa arquivos grandes no diretório especificado e retorna os N principais resultados junto com estatísticas por extensão."
+  },
+  "id": {
+    "param.exclude_dirs.description": "Nama direktori yang dikecualikan (dicocokkan berdasarkan nama direktori).",
+    "param.group_by_ext.description": "Juga kembalikan statistik yang dikelompokkan berdasarkan ekstensi file.",
+    "param.max_files.description": "Jumlah maksimum file yang akan dipindai (untuk mencegah proses tak terkendali).",
+    "param.min_bytes.description": "Hanya sertakan file yang lebih besar dari ukuran ini (default: 10 MB).",
+    "param.root.description": "Root pencarian (diizinkan hanya di bawah workdir).",
+    "param.top_n.description": "Jumlah hasil teratas yang akan dikembalikan.",
+    "tool.description": "Mencari file besar di bawah direktori yang ditentukan dan mengembalikan N hasil teratas beserta statistik berdasarkan ekstensi.",
+    "tool.system_prompt": "Alat ini mencari file besar di bawah direktori yang ditentukan dan mengembalikan N hasil teratas beserta statistik berdasarkan ekstensi."
   }
 }

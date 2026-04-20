@@ -82,5 +82,12 @@
     "log.load_ok.external": "[ferramentas] Ferramentas externas carregadas: {entry_name}",
     "log.loaded_tools": "[ferramentas] Ferramentas carregadas: {names}",
     "log.no_valid_tools": "[ferramentas] Nenhuma ferramenta válida foi encontrada."
+  },
+  "id": {
+    "log.load_fail.external": "[tools] Gagal memuat plugin eksternal {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Gagal memuat plugin internal {mod_name}: {err}",
+    "log.load_ok.external": "[tools] Alat eksternal dimuat: {entry_name}",
+    "log.loaded_tools": "[tools] Alat yang dimuat: {names}",
+    "log.no_valid_tools": "[tools] Tidak ditemukan alat yang valid."
   }
 }

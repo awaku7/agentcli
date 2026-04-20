@@ -94,5 +94,13 @@
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
     "tool.system_prompt": "Esta ferramenta é usada para obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
+  },
+  "id": {
+    "param.mask.description": "Jika true, sembunyikan nilai (mis. informasi rahasia). Default true.",
+    "param.missing_ok.description": "Jika true, kembalikan '(not set)' alih-alih error saat tidak ada. Default false.",
+    "param.name.description": "Nama variabel lingkungan yang akan dibaca.",
+    "param.unmasked_chars.description": "Jumlah karakter yang dibiarkan di awal dan akhir saat masking. Default 2.",
+    "tool.description": "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya. Bisa juga menyamarkan nilainya.",
+    "tool.system_prompt": "Gunakan alat ini untuk mendapatkan nilai variabel lingkungan tertentu dan mengembalikannya. Nilai dapat disamarkan bila perlu."
   }
 }

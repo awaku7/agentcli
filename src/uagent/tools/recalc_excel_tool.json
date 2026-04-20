@@ -262,5 +262,27 @@
     "param.visible.description": "Mostrar a janela do Excel durante a automação. Padrão: false.",
     "tool.description": "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados. Suporta um único arquivo .xlsx ou a varredura de um diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar.",
     "tool.system_prompt": "Use esta ferramenta quando os valores em cache das fórmulas em .xlsx estiverem desatualizados (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre as pastas de trabalho no Microsoft Excel via COM, executa o recálculo completo e salva."
+  },
+  "id": {
+    "err.backup_bool": "backup harus berupa boolean",
+    "err.dry_run_bool": "dry_run harus berupa boolean",
+    "err.file_ext": "Hanya .xlsx yang didukung untuk mode file: {path}",
+    "err.max_files_int": "max_files harus berupa integer",
+    "err.max_files_positive": "max_files harus >= 1",
+    "err.path_not_found": "Path tidak ditemukan: {path}",
+    "err.path_required": "path diperlukan",
+    "err.pywin32_required": "pywin32 diperlukan (dan Microsoft Excel harus terpasang).",
+    "err.recursive_bool": "recursive harus berupa boolean",
+    "err.visible_bool": "visible harus berupa boolean",
+    "err.windows_only": "recalc_excel hanya didukung di Windows (otomasi Microsoft Excel COM).",
+    "param.backup.description": "Buat backup sebelum menyimpan. Default: true.",
+    "param.dry_run.description": "Jika true, hanya daftar target dan jangan hitung ulang/simpan. Default: false.",
+    "param.include_glob.description": "Pola glob yang digunakan saat path adalah direktori. Default: '*.xlsx'.",
+    "param.max_files.description": "Jumlah maksimum file yang diproses saat memindai direktori. Default: 200.",
+    "param.path.description": "Path file .xlsx target atau path direktori.",
+    "param.recursive.description": "Apakah direktori dipindai secara rekursif. Default: false.",
+    "param.visible.description": "Tampilkan jendela Excel selama otomasi. Default: false.",
+    "tool.description": "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui. Mendukung satu file .xlsx atau pemindaian direktori. Secara default, backup (<file>.org / <file>.org1 / ...) dibuat tepat sebelum menyimpan.",
+    "tool.system_prompt": "Gunakan alat ini saat nilai cache formula di .xlsx sudah usang (misalnya saat openpyxl data_only membaca nilai lama). Alat ini membuka workbook di Microsoft Excel via COM, melakukan full recalculation, dan menyimpan."
   }
 }

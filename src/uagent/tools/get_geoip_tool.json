@@ -58,5 +58,10 @@
     "param.format.description": "Formato de saída.",
     "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPN, proxies ou redes móveis.\n\nPolítica:\n- Use esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e o usuário não a tiver informado.\n- Se o usuário já tiver informado a localização, dê preferência a essa informação e não chame get_geoip.",
     "tool.system_prompt": "Obtém dados de localização com base em IP de um serviço externo (ipinfo.io) e retorna um resultado simplificado."
+  },
+  "id": {
+    "param.format.description": "Format keluaran.",
+    "tool.description": "Perkirakan lokasi kasar pengguna berdasarkan alamat IP publiknya. Hasilnya dapat tidak akurat saat menggunakan VPN, proxy, atau jaringan seluler.\n\nKebijakan:\n- Gunakan alat ini saat Anda memerlukan perkiraan lokasi pengguna (kota/wilayah/negara) dan pengguna belum memberikannya.\n- Jika pengguna sudah memberikan lokasinya, utamakan itu dan jangan panggil get_geoip.",
+    "tool.system_prompt": "Ambil data lokasi berbasis IP dari layanan eksternal (ipinfo.io) dan kembalikan hasil yang disederhanakan."
   }
 }

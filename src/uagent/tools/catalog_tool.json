@@ -58,5 +58,10 @@
     "param.max_results.description": "要傳回的目錄條目的最大數量。",
     "param.query.description": "描述所需功能的自然語言查詢。",
     "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。"
+  },
+  "id": {
+    "param.max_results.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
+    "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang dibutuhkan.",
+    "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap."
   }
 }

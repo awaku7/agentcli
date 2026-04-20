@@ -82,5 +82,12 @@
     "param.paths.description": "要使用 py_compile 驗證的多個 Python 檔案、目錄或 glob 樣式。",
     "tool.description": "執行 Python 程式碼或使用 py_compile 驗證檔案。適用於計算、資料處理或語法檢查。進行 Python 相關工作時，優先於 cmd_exec 使用此工具。",
     "tool.system_prompt": "以受控方式執行 Python 程式碼。對於需要標準函式庫的計算或檔案驗證（py_compile），請使用此工具。執行前請簡要說明操作內容。"
+  },
+  "id": {
+    "param.code.description": "Kode Python yang akan dieksekusi (satu baris atau multi-baris).",
+    "param.path.description": "File Python, direktori, atau pola glob yang akan divalidasi dengan py_compile. Direktori dipindai secara rekursif untuk *.py.",
+    "param.paths.description": "Beberapa file Python, direktori, atau pola glob yang akan divalidasi dengan py_compile. Direktori dipindai secara rekursif untuk *.py.",
+    "tool.description": "Jalankan kode Python atau validasi file Python dengan py_compile. Gunakan alat ini untuk perhitungan, pemrosesan data, menjalankan skrip singkat, atau memeriksa sintaks file—terutama saat akurasi penting. Utamakan ini dibanding cmd_exec/cmd_exec_json untuk pekerjaan Python.",
+    "tool.system_prompt": "Jalankan kode Python dengan cara yang terkontrol.\n- Jika Anda memerlukan fitur standard library Python atau komputasi numerik yang andal, gunakan alat ini.\n- Jika path file atau pola glob diberikan, jalankan py_compile pada target tersebut dan kembalikan hasilnya.\n- Saat akan menjalankan kode, beri tahu secara singkat apa yang akan dieksekusi.\n- Jangan gunakan cmd_exec untuk menjalankan Python kecuali benar-benar diperlukan."
   }
 }

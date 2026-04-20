@@ -118,5 +118,15 @@
     "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'."
+  },
+  "id": {
+    "param.action.description": "Operasi yang akan dilakukan.",
+    "param.data.description": "Data JSON yang akan ditulis.",
+    "param.file_path.description": "Path absolut ke file Excel.",
+    "param.sheet_name.description": "Nama sheet target.",
+    "param.keep_sheets.description": "Nama sheet yang dipertahankan (hanya untuk action='keep_only_sheets'). Jika ada sheet yang disebut tidak ada, alat akan error.",
+    "param.output_path.description": "Path output untuk action='keep_only_sheets'. Jika sudah ada, akan ditimpa setelah membuat cadangan (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Baca dan tulis file Excel (.xlsx) serta dapatkan nama sheet. Saat menulis ke file yang sudah ada, cadangan dengan nama yang sama (<file_path>.org / <file_path>.org1 / ...) dibuat tepat sebelum penulisan.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'excel_ops'."
   }
 }

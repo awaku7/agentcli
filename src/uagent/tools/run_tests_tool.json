@@ -214,5 +214,23 @@
     "param.target.description": "Destino (caminho pytest, diretório inicial do unittest, script npm, etc.). Se nulo, os padrões são usados.",
     "tool.description": "Executa testes (detecção automática de pytest/unittest/npm). Rejeita metacaracteres de shell em extra_args.",
     "tool.system_prompt": "Use esta ferramenta para o propósito descrito na descrição da ferramenta."
+  },
+  "id": {
+    "doc.module": "run_tests_tool\n\nTool pembungkus untuk menjalankan tes.\n\nTujuan:\n- Alih-alih memanggil cmd_exec/pwsh_exec secara langsung, standarkan eksekusi test dan kembalikan hasil terstruktur.\n- Auto-detect pytest / unittest / npm ketika framework=auto.\n\nKebijakan keamanan:\n- Eksekusi test umumnya bukan operasi berbahaya, jadi human_ask tidak dilakukan.\n- Namun, extra_args yang mengandung metakarakter injeksi perintah (&&, |, >, dll.) ditolak.\n\nImplementasi:\n- Menggunakan cmd_exec_json_tool di dalamnya dan menangani returncode/stdout/stderr.\n- Untuk stdout/stderr, terapkan callbacks.truncate_output jika tersedia.\n- Untuk cwd, gunakan argumen cwd dari cmd_exec_json (jangan gunakan cd &&).\n\nFitur tambahan:\n- pythonpath: konfigurasi PYTHONPATH tambahan untuk menjalankan tes.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd tidak diizinkan: {error}",
+    "error.dangerous_cwd_rejected": "cwd berbahaya ditolak: {cwd}",
+    "error.framework_auto_detect_failed": "deteksi otomatis framework gagal",
+    "error.invalid_framework": "framework tidak valid: {framework}",
+    "error.invalid_report": "report tidak valid: {report}",
+    "error.shell_metacharacters_not_allowed": "metakarakter shell tidak diizinkan di argumen: {arg}",
+    "error.unsupported_framework": "framework tidak didukung: {framework}",
+    "param.cwd.description": "Direktori kerja untuk menjalankan (harus di dalam workdir). Jika null, gunakan direktori saat ini.",
+    "param.extra_args.description": "Array argumen tambahan. Tolak jika ada metakarakter shell.",
+    "param.framework.description": "Jenis framework tes.",
+    "param.pythonpath.description": "PYTHONPATH tambahan (mis. 'src'). Jika diberikan, akan diprefix ke perintah tes.",
+    "param.report.description": "Format keluaran.",
+    "param.target.description": "Target (path pytest, direktori awal unittest, script npm, dll.). Jika null, gunakan default.",
+    "tool.description": "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan yang dijelaskan pada deskripsi alat."
   }
 }

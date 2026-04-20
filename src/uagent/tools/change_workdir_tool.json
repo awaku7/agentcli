@@ -82,5 +82,12 @@
     "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
     "tool.description": "Altera o diretório de trabalho atual após a confirmação do usuário.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'change_workdir'."
+  },
+  "id": {
+    "confirm.change_workdir": "Ubah direktori kerja saat ini menjadi: {new_dir}\n\nLanjut? Masukkan y untuk melanjutkan, c untuk membatalkan.",
+    "param.confirm.description": "Apakah akan meminta konfirmasi pengguna.",
+    "param.new_dir.description": "Jalur direktori baru untuk dipindahkan.",
+    "tool.description": "Ubah direktori kerja saat ini setelah konfirmasi pengguna.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'change_workdir'."
   }
 }

@@ -82,5 +82,12 @@
     "param.skill_dir.description": "Diretório do skill (SKILL.md é necessário logo abaixo)",
     "tool.description": "Carrega o SKILL.md de um Agent Skill e retorna seu frontmatter YAML e corpo Markdown.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "err.invalid_args": "[tool error] argumen tidak valid",
+    "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
+    "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
+    "tool.description": "Muat SKILL.md untuk Agent Skill dan kembalikan YAML frontmatter serta body Markdown.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }

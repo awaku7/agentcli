@@ -70,5 +70,11 @@
     "param.sql.description": "SQL a ser executado.",
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
+  },
+  "id": {
+    "param.db_path.description": "Path ke file database SQLite.",
+    "param.sql.description": "SQL yang akan dieksekusi.",
+    "tool.description": "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
   }
 }

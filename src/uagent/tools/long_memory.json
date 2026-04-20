@@ -58,5 +58,10 @@
     "err.load": "[erro de memória longa] {err_type}: {err}",
     "msg.no_memory": "(sem memória de longo prazo ainda)",
     "msg.truncated": "[long_memory truncado: limitado a {max_bytes} caracteres]"
+  },
+  "id": {
+    "err.load": "[galat long_memory] {err_type}: {err}",
+    "msg.no_memory": "(belum ada memori jangka panjang)",
+    "msg.truncated": "\n[memori jangka panjang dipotong: dibatasi hingga {max_bytes} karakter]"
   }
 }

@@ -142,5 +142,17 @@
     "param.seconds.description": "計時的秒數。",
     "tool.description": "在指定秒數後顯示訊息。可以選擇向 LLM 自動輸入訊息。",
     "tool.system_prompt": "此工具用於在指定時間後顯示訊息，並可選擇向 LLM 發送自動訊息。"
+  },
+  "id": {
+    "err.queue_uninitialized": "[set_timer error] callback event_queue belum diinisialisasi.",
+    "err.seconds_invalid": "[set_timer error] seconds tidak dapat diinterpretasikan sebagai integer: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds harus 0 atau lebih: {val}",
+    "msg.default_timer_done": "Timer selesai",
+    "out.ok": "[set_timer] Set timer selama {seconds} detik: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Pesan yang ditampilkan saat selesai.",
+    "param.on_timeout_prompt.description": "Isi yang akan otomatis dimasukkan ke LLM saat waktu habis.",
+    "param.seconds.description": "Jumlah detik pada timer.",
+    "tool.description": "Menampilkan pesan setelah sejumlah detik tertentu. Bisa juga memasukkan pesan otomatis ke LLM.",
+    "tool.system_prompt": "Gunakan alat ini untuk menampilkan pesan setelah waktu tertentu dan secara opsional memasukkan pesan otomatis ke LLM."
   }
 }

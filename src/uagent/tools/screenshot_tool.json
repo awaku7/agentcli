@@ -178,5 +178,20 @@
     "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se especificado, localiza a janela, a ativa e captura apenas essa área.",
     "tool.description": "Captura uma imagem da tela inteira ou de uma janela específica.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada."
+  },
+  "id": {
+    "err.capture_fail": "[screenshot error] Gagal mengambil screenshot: {err}",
+    "err.close_fail": "[screenshot] Disimpan ke {path} tetapi gagal menutup window: {err}",
+    "err.pyautogui_missing": "[screenshot error] modul pyautogui tidak terpasang.",
+    "err.pygetwindow_missing": "[screenshot error] modul pygetwindow tidak terpasang (diperlukan untuk menentukan window).",
+    "err.window_not_found": "[screenshot error] Tidak ada window yang cocok dengan judul: '{title}'",
+    "out.ok": "[screenshot] Disimpan ke {path}",
+    "out.ok_closed": "[screenshot] Disimpan ke {path} dan window ditutup",
+    "param.close_window.description": "Apakah menutup window setelah pengambilan. Hanya valid saat window_title ditentukan. Default false.",
+    "param.delay.description": "Waktu tunggu (detik) sebelum pengambilan. Default 1 detik (untuk berpindah window).",
+    "param.file_path.description": "Path file tujuan (.png disarankan). Jika tidak ditentukan, akan disimpan di direktori saat ini dengan timestamp.",
+    "param.window_title.description": "Judul window yang akan di-screenshot (partial match). Jika ditentukan, alat akan mencari window itu, mengaktifkannya, dan memotret hanya area tersebut.",
+    "tool.description": "Mengambil screenshot seluruh desktop atau window tertentu.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu."
   }
 }

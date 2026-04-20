@@ -70,5 +70,11 @@
     "param.prompt.description": "O que você quer saber sobre a imagem.",
     "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
+  },
+  "id": {
+    "param.image_path.description": "Path ke file gambar yang akan dianalisis.",
+    "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
+    "tool.description": "Muat file gambar dan minta AI (Vision) mendeskripsikan isinya. Berguna untuk menganalisis tangkapan layar atau membaca grafik/tabel.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'analyze_image'."
   }
 }

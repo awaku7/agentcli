@@ -118,5 +118,15 @@
     "param.timeout_s.description": "Substituir o tempo limite (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
+  },
+  "id": {
+    "tool.description": "Melakukan polling pada tugas A2A sampai mencapai status terminal.",
+    "tool.system_prompt": "Lakukan polling pada tugas A2A. Kembalikan JSON saja.",
+    "param.profile.description": "Nama profil atau a2a://name. Jika dihilangkan, gunakan profil default.",
+    "param.task_id.description": "ID tugas yang akan dipoll.",
+    "param.interval_ms.description": "Ganti interval polling (ms).",
+    "param.timeout_s.description": "Ganti batas waktu (detik).",
+    "err.missing_task_id": "Tidak ada 'task_id'.",
+    "err.exception": "Terjadi pengecualian."
   }
 }

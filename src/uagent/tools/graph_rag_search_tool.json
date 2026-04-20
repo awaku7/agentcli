@@ -262,5 +262,27 @@
     "tool.description": "Pesquisa arquivos locais usando GraphRAG (híbrido de grafo + vetor). Suporta: py/md/txt/pdf/pptx/xlsx. Constrói um grafo de conhecimento leve (entidades/relações) em SQLite, recupera chunks relevantes por meio da travessia do grafo (saltos) e os retorna junto com os resultados da pesquisa vetorial.",
     "tool.system_prompt": "Esta ferramenta é usada para o propósito seguinte (veja a descrição da ferramenta).",
     "warn.indexing_title": "[WARN] Aviso de indexação (remoção de duplicados, primeiros 50 itens):"
+  },
+  "id": {
+    "err.dir_not_found": "Error: Direktori tidak ditemukan: {root_path}",
+    "err.query_required": "Error: query diperlukan.",
+    "out.db": "Basis data: {db_path}",
+    "out.hits_summary": "hasil vektor: {v} / hasil graf: {g} / gabungan: {m}",
+    "out.no_docs": "Tidak ada dokumen terkait yang ditemukan.",
+    "out.query": "Kueri pencarian: {query}",
+    "out.result_content": "Konten: {snippet}",
+    "out.results_title": "\n[Hasil]",
+    "out.target_dir": "Direktori target: {root_path}",
+    "param.chunk_size.description": "Ukuran chunk.",
+    "param.file_pattern.description": "Pola target (glob dipisahkan koma).",
+    "param.hops.description": "Jumlah hop untuk traversal graf.",
+    "param.overlap.description": "Overlap chunk.",
+    "param.query.description": "Kueri pencarian (wajib).",
+    "param.root_path.description": "Direktori yang akan dicari.",
+    "param.top_k_graph.description": "Jumlah item yang diambil dari pencarian graf.",
+    "param.top_k_vector.description": "Hasil teratas pencarian vektor.",
+    "tool.description": "Cari file lokal menggunakan GraphRAG (gabungan graph + vector). Dukungan: py/md/txt/pdf/pptx/xlsx. Membangun knowledge graph ringan (entitas/relasi) di SQLite, mengambil chunk yang relevan melalui traversal graf (hop), dan mengembalikannya bersama hasil pencarian vektor.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
+    "warn.indexing_title": "[WARN] Peringatan pengindeksan (penghapusan duplikat, 50 item pertama):"
   }
 }

@@ -82,5 +82,12 @@
     "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
     "tool.description": "Lê PDF/PPTX (ou seu esquema JSON comum) e retorna o texto extraído por página. Você pode definir o caminho para .pdf / .pptx / .json. Para PDF/PPTX, este módulo o converte para o esquema JSON comum.",
     "tool.system_prompt": "IMPORTANTE: esta ferramenta lê PDF/PPTX/JSON e retorna texto por página. Entrada: caminho, page_index, max_chars. Saída: texto da página (todas as páginas ou a página especificada)."
+  },
+  "id": {
+    "param.max_chars.description": "Jumlah maksimum karakter yang dikembalikan. Jika tidak ditentukan, dipotong pada 8000 karakter.",
+    "param.page_index.description": "Nomor halaman berbasis 1 (halaman PDF atau indeks slide PPTX). Jika tidak ditentukan, mengembalikan teks gabungan untuk semua halaman.",
+    "param.path.description": "Path ke file PDF / PPTX / JSON.",
+    "tool.description": "Baca PDF/PPTX (atau skema JSON umum mereka) dan kembalikan teks yang diekstrak per halaman. Anda dapat mengatur path ke .pdf / .pptx / .json. Untuk PDF/PPTX, modul ini mengonversinya ke skema JSON umum.",
+    "tool.system_prompt": "PENTING: Alat ini membaca PDF/PPTX/JSON dan mengembalikan teks tingkat halaman. Input: path, page_index, max_chars. Output: teks halaman (semua halaman atau halaman yang ditentukan)."
   }
 }

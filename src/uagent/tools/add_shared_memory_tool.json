@@ -58,5 +58,10 @@
     "param.note.description": "O texto da nota a ser compartilhada.",
     "tool.description": "Adiciona uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
     "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
+  },
+  "id": {
+    "param.note.description": "Teks catatan yang akan dibagikan.",
+    "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi). Jika shared memory tidak dikonfigurasi, alat akan melaporkan bahwa fitur tersebut dinonaktifkan. Jangan pernah menyimpan rahasia seperti kata sandi atau API key.",
+    "tool.system_prompt": "Tambahkan tepat satu catatan ke penyimpanan shared memory.\nJika shared memory dinonaktifkan (UAGENT_SHARED_MEMORY_FILE tidak disetel), kembalikan pesan yang menjelaskan cara mengaktifkannya.\nJangan menyimpan rahasia (kata sandi/token/API key)."
   }
 }

@@ -1,15 +1,25 @@
 # Tool I18N 開発・翻訳ガイド
 
-ツール (`src/uagent/tools/*.py`) を多言語化し、JSON 形式の翻訳ファイルを管理するためのガイドです。
+ツール (`src/uagent/tools/*.py`) を多言語化し、JSON 形式の翻訳ファイルを管理するための統合ガイドです。`docs/TOOL_I18N_GUIDE.md` の内容はこの文書に統合しました。
 
 ---
 
-## ツール多言語化の標準手順 (1つずつ対応する場合)
+## 1. 重要な前提
 
-新しいツールの作成時や、既存のツールを多言語化する際は、以下のステップで行います。
+- ツール側の I18N は、メインアプリの gettext (`.po` / `.mo`) とは**別方式**です。
+- ツールの翻訳は、各 Python モジュールと同じベース名の JSON で管理します。
+  - 例: `src/uagent/tools/get_workdir_tool.py`
+  - 翻訳ファイル: `src/uagent/tools/get_workdir_tool.json`
+- `make_tool_translator(__file__)` を使うと、実行時の言語設定に応じて適切な翻訳ブロックを選べます。
+- インドネシア語 (`id`) はツール側でも正式対応対象です。
 
-### 1. 準備 (Pythonコードの修正)
-ツール内の翻訳したい文字列を `_("key", default="...")` 形式で囲みます。
+---
+
+## 2. ツール多言語化の標準手順
+
+### 2.1 Python コードの修正
+
+翻訳したい文字列を `_()` で囲みます。
 
 ```python
 from .i18n_helper import make_tool_translator
@@ -18,24 +28,13 @@ _ = make_tool_translator(__file__)
 TOOL_SPEC = {
     "function": {
         "description": _("tool.description", default="Analyzes code."),
-        # ...
     }
 }
 ```
 
-### 2. 翻訳対象の抽出 (xgettext の活用)
-ツール内の `_()` で囲った内容を自動抽出して、翻訳漏れを防ぎます。
+### 2.2 JSON 翻訳ファイルの更新
 
-```bash
-# 特定のツール (例: my_tool_tool.py) から抽出
-xgettext --language=Python --keyword=_:1,2 --from-code=UTF-8 -o my_tool.pot src/uagent/tools/my_tool_tool.py
-```
-*   `--keyword=_:1,2`: 1番目の引数を翻訳キー (`msgid`)、2番目をデフォルト値 (`msgstr`) として抽出するよう指示します。
-
-### 3. JSON ファイルの作成・更新
-抽出した `POT` 内容を元に、同名の JSON ファイルを作成または更新します。
-
-**ファイル名**: `src/uagent/tools/my_tool_tool.json`
+同名の JSON に翻訳を入れます。
 
 ```json
 {
@@ -46,43 +45,105 @@ xgettext --language=Python --keyword=_:1,2 --from-code=UTF-8 -o my_tool.pot src/
   "ja": {
     "tool.description": "コードを解析します。",
     "param.path.description": "対象ファイルのパス。"
+  },
+  "id": {
+    "tool.description": "Kode dianalisis.",
+    "param.path.description": "Path file target."
   }
 }
 ```
 
-### 4. 検証
-ツールを読み込んで、言語設定に応じて `TOOL_SPEC` が切り替わるか確認します。
+### 2.3 翻訳対象の抽出
+
+ツール内の `_()` で囲った内容を自動抽出して、翻訳漏れを防ぎます。
 
 ```bash
-# Windows
-set UAGENT_LANG=ja
-python -m uagent --tools
+xgettext --language=Python --keyword=_:1,2 --from-code=UTF-8 -o my_tool.pot src/uagent/tools/my_tool_tool.py
 ```
 
+- `--keyword=_:1,2`: 1番目の引数を翻訳キー (`msgid`)、2番目の引数をデフォルト値として抽出します。
+
+### 2.4 検証
+
+- ツールが読み込まれることを確認する
+- 必要なら `python -m py_compile` で構文チェックする
+- JSON のキーが Python 側のキーと一致していることを確認する
+- 変更後に `system_reload` や軽い読み込み確認を行う
+
 ---
 
-## 翻訳のルール
+## 3. 翻訳のルール
 
-- **キー名**: `tool.description`, `param.<name>.description`, `error.<name>` を推奨。
-- **改行**: JSON 内では `\n` を使用。
-- **エンコーディング**: 必ず **UTF-8 (BOMなし)**。
+- **キー名**
+  - 推奨: `tool.description`, `tool.system_prompt`, `param.<name>.description`, `err.<name>`
+- **プレースホルダー**
+  - `{path}`, `{count}`, `%(err)s` などは**変更しない**
+- **技術識別子**
+  - ファイル名、クラス名、関数名、形式マーカー、`[WARN]` のようなタグは基本的に翻訳しない
+- **改行**
+  - JSON 内では `\n` を使う
+  - 複数行の system prompt は構造を保つ
+- **エンコーディング**
+  - UTF-8（BOM なし）を推奨
 
 ---
 
-## 既存ツールの翻訳を更新する場合
-1.  ソースコードの `_()` 定義を確認。
-2.  既存の `.json` を開き、不足している言語（例: `de`, `fr`）のブロックを追加。
-3.  `python -m py_compile` で構文チェック。
+## 4. 既存ツールを更新する場合
 
+1. Python 側の `_()` キーを確認する
+2. 既存の `<tool>_tool.json` を開く
+3. 不足している言語ブロックを追加する
+4. 既存キーの文言を更新する場合は、`en` と各ロケールを同期する
+5. 変更後はツールが正しく読み込まれるか確認する
 
-## 5. Tool technical requirements
+---
 
-When updating tool JSON translations, keep these runtime requirements in mind:
+## 5. 破壊的操作や外部操作があるツール
 
-- Keep placeholders such as `{path}`, `%(err)s`, and multiline prompt structure unchanged.
-- Keep the JSON keys used by the Python tool code in sync with the translation file.
-- Do not translate technical identifiers, filenames, or data-format markers.
-- For destructive or external actions, the tool implementation must confirm via `human_ask` before proceeding.
-- After changing a tool’s Python code or JSON translations, verify the tool still loads correctly.
+次のようなツールは、実行前に `human_ask` による確認を必ず入れます。
 
-______________________________________________________________________
+- delete / overwrite / rename / move
+- shell / PowerShell / Python / Git 実行
+- 外部 API / MCP / ブラウザ / Webhook / 送信系
+- ファイルやディレクトリを変更する操作
+
+確認メッセージは、ユーザーが内容を見て判断できるように具体的にします。
+
+---
+
+## 6. 検証チェックリスト
+
+- `TOOL_SPEC` と `run_tool` の両方がある
+- JSON のキーと Python のキーが一致している
+- `en` の fallback が欠けていない
+- `id`（インドネシア語）を含む必要なロケールが入っている
+- プレースホルダーが壊れていない
+- 危険な処理に `human_ask` が入っている
+- 変更後にツールの読み込み確認をした
+
+---
+
+## 7. 参考
+
+- `src/uagent/docs/DEVELOP_TOOL.md`
+- `src/uagent/tools/*.json`
+- `src/uagent/tools/i18n_helper.py`
+
+---
+
+## 8. 補足: インドネシア語 (`id`) 対応
+
+- インドネシア語の翻訳は `id` キーに入れる
+- `make_tool_translator(__file__)` は `id_ID` のようなタグを `id` に正規化する
+- `id` が無い場合でも、`en` の fallback が完結していれば表示は崩れにくい
+
+---
+
+## 9. 運用メモ
+
+- ツールの I18N は gettext の `.po` / `.mo` ではなく、`src/uagent/tools/*.json` で管理する
+- 技術識別子、ファイル名、データ形式マーカーは翻訳しない
+- 既存の翻訳は、意味が変わらない限り維持する
+- 大きな文言変更をした場合は、`en` と各ロケールを必ず同期する
+
+必要に応じて、このガイドに各ツール固有の運用ルールを追記してください。

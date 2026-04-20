@@ -58,5 +58,10 @@
     "param.expression.description": "A fórmula que você deseja calcular (por exemplo, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). As funções do módulo math do Python estão disponíveis.",
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "param.expression.description": "Rumus yang ingin Anda hitung (mis. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Fungsi dari modul math Python tersedia.",
+    "tool.description": "Menghitung ekspresi matematika dan mengembalikan hasilnya. Gunakan ini untuk perhitungan kompleks atau saat presisi diperlukan.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }
