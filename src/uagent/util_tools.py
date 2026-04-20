@@ -656,14 +656,9 @@ def _format_skill_system_content(
 
     header = " ".join(header_parts)
     body_text = body.strip()
-    exec_instructions = (
-        "\n\n[Skill Execution]\n"
-        "This skill is an execution target. Read the skill body carefully and execute it step by step.\n"
-        "If the skill contains a task, carry it out until completion.\n"
-        "Use tools when needed.\n"
-    )
+    exec_instructions = "\n\n" + _("skills.execution.prompt")
     if include_finish_skill:
-        exec_instructions += "When done, stop or call `finish_skill` if available.\n"
+        exec_instructions += _("skills.execution.prompt.finish")
     if body_text:
         return header + "\n\n" + body_text + exec_instructions + "\n"
     return header + exec_instructions + "\n"

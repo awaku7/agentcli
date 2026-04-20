@@ -1594,3 +1594,15 @@ msgstr "- \"Read this PDF and list three key points.\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[Ejecución de habilidad]\n"
+"Esta habilidad es un objetivo de ejecución. Lee el cuerpo de la habilidad con atención y ejecútalo paso a paso.\n"
+"Si la habilidad contiene una tarea, llévala a cabo hasta completarla.\n"
+"Usa herramientas cuando sea necesario.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "Cuando termines, detente o llama a `finish_skill` si está disponible.\n"

@@ -1578,3 +1578,14 @@ msgstr "- \"Read this PDF and list three key points.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
 
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[Skill Execution]\n"
+"This skill is an execution target. Read the skill body carefully and execute it step by step.\n"
+"If the skill contains a task, carry it out until completion.\n"
+"Use tools when needed.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "When done, stop or call `finish_skill` if available.\n"

@@ -1548,4 +1548,12 @@ msgstr "- \"搜尋最新新聞並摘要特定主題。\""
 
 #: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
 msgid "skills.execution.prompt"
-msgstr "如果這是執行型技能，請將其執行到完成。執行完成後，呼叫 `finish_skill`。"
+msgstr ""
+"[技能執行]\n"
+"此技能是執行目標。請仔細閱讀技能正文，並按步驟執行。\n"
+"如果技能包含任務，請將其執行到完成。\n"
+"需要時請使用工具。\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "完成後，請停止，或在可用時呼叫 `finish_skill`。\n"

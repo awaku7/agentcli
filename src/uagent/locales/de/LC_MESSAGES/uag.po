@@ -1601,3 +1601,16 @@ msgstr "- \"Read this PDF and list three key points.\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[Skill-Ausführung]\n"
+"Dieser Skill ist ein Ausführungsziel. Lies den Skill-Text sorgfältig und führe ihn Schritt für Schritt aus.\n"
+"Wenn der Skill eine Aufgabe enthält, führe sie bis zum Abschluss aus.\n"
+"Verwende bei Bedarf Werkzeuge.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr ""
+"Wenn du fertig bist, stoppe oder rufe `finish_skill` auf, falls verfügbar.\n"
