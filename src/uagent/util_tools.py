@@ -625,7 +625,12 @@ def _skills_marker_prefix() -> str:
     return "[SKILL] "
 
 
-def _format_skill_system_content(*, skill: Dict[str, Any], doc: Dict[str, Any]) -> str:
+def _format_skill_system_content(
+    *,
+    skill: Dict[str, Any],
+    doc: Dict[str, Any],
+    include_finish_skill: bool = False,
+) -> str:
     name = str((skill or {}).get("name") or "(unknown)").strip()
     path = str((skill or {}).get("path") or "").strip()
     skill_md = str((skill or {}).get("skill_md") or "").strip()
@@ -656,14 +661,18 @@ def _format_skill_system_content(*, skill: Dict[str, Any], doc: Dict[str, Any]) 
         "This skill is an execution target. Read the skill body carefully and execute it step by step.\n"
         "If the skill contains a task, carry it out until completion.\n"
         "Use tools when needed.\n"
-        "When done, stop or call `finish_skill` if available.\n"
     )
+    if include_finish_skill:
+        exec_instructions += "When done, stop or call `finish_skill` if available.\n"
     if body_text:
         return header + "\n\n" + body_text + exec_instructions + "\n"
     return header + exec_instructions + "\n"
 
-
 def _insert_skill_system_message(
+
+
+
+
     messages_ref: List[Dict[str, Any]],
     skill_system_msg: Dict[str, Any],
 ) -> None:
@@ -757,6 +766,10 @@ def _handle_cmd_skills(
         from uagent.tools.human_ask_tool import run_tool as human_ask
         from uagent.tools.skills_list_tool import run_tool as skills_list_tool
         from uagent.tools.skills_load_tool import run_tool as skills_load_tool
+        try:
+            from uagent.tools import tools as loaded_tools
+        except Exception:
+            loaded_tools = None
 
         res_json = skills_list_tool(
             {
@@ -850,15 +863,21 @@ def _handle_cmd_skills(
         if not isinstance(doc, dict):
             raise ValueError("skills_load returned non-dict")
 
-        content = _format_skill_system_content(skill=skill, doc=doc)
-#        # Append instruction to call finish_skill tool when the skill execution is complete.
-#        finish_instr = (
-#            "\n\n"
-#            "[Skill Termination]\n"
-#            "If the above is an execution skill, run it to completion. "
-#            "When the skill execution is complete, call `finish_skill`."
-#        )
-#        content += finish_instr
+        try:
+            tool_specs = loaded_tools.get_tool_specs() if loaded_tools is not None else []
+        except Exception:
+            tool_specs = []
+        has_finish_skill = any(
+            isinstance(spec, dict)
+            and isinstance(spec.get("function"), dict)
+            and spec["function"].get("name") == "finish_skill"
+            for spec in (tool_specs or [])
+        )
+        content = _format_skill_system_content(
+            skill=skill,
+            doc=doc,
+            include_finish_skill=has_finish_skill,
+        )
 
         skill_system_msg = {"role": "system", "content": content}
         _insert_skill_system_message(messages_ref, skill_system_msg)
