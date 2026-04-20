@@ -98,7 +98,7 @@ TOOL_SPEC: Dict[str, Any] = {
                         "param.mode.description",
                         default=(
                             "Replacement mode: literal (plain) or regex (Python re). "
-                            "When using regex, backslashes in JSON strings must be escaped, e.g. \\d, \\s, \\\."
+                            r"When using regex, backslashes in JSON strings must be escaped, e.g. \\d, \\s, \\."
                         ),
                     ),
                     "default": "literal",
@@ -419,11 +419,22 @@ def _po_parse_entry_block(block_lines: List[str]) -> Dict[str, Any] | None:
         return None
     msgstr_start = msgid_end
     msgstr, msgstr_end = collect(msgstr_start, "msgstr ")
+    msgstr_line_count = max(1, msgstr_end - msgstr_start)
+    msgstr_is_empty = msgstr == ""
+    if msgstr_is_empty:
+        msgstr_kind = "empty"
+    elif msgstr_line_count > 1:
+        msgstr_kind = "multiline"
+    else:
+        msgstr_kind = "singleline"
     return {
         "msgid": msgid,
         "msgstr": msgstr,
         "msgstr_start": msgstr_start,
         "msgstr_end": msgstr_end,
+        "msgstr_line_count": msgstr_line_count,
+        "msgstr_is_empty": msgstr_is_empty,
+        "msgstr_kind": msgstr_kind,
     }
 
 
@@ -514,6 +525,9 @@ def _replace_po_entry_text(
                         "col": 0,
                         "msgid": parsed["msgid"],
                         "msgstr_before": parsed["msgstr"][:200],
+                        "msgstr_line_count": parsed["msgstr_line_count"],
+                        "msgstr_is_empty": parsed["msgstr_is_empty"],
+                        "msgstr_kind": parsed["msgstr_kind"],
                         "entry_kind": "po",
                     }
                 )
@@ -554,10 +568,34 @@ def _replace_po_entry_text(
             expand_newline_tokens=True,
             po_msgid=target_msgid,
         )
+        diag["po_msgid_found"] = True
+        diag["po_msgid_match_count"] = match_total
+        diag["po_msgid_replaced_count"] = 0
+        diag["msgstr_is_empty"] = any(hit.get("msgstr_is_empty") for hit in match_hits)
+        diag["msgstr_kinds"] = sorted({str(hit.get("msgstr_kind")) for hit in match_hits if hit.get("msgstr_kind")})
+        diag["msgstr_line_counts"] = sorted({int(hit.get("msgstr_line_count", 0)) for hit in match_hits if hit.get("msgstr_line_count") is not None})
+        if len(diag["msgstr_kinds"]) == 1:
+            diag["msgstr_kind"] = diag["msgstr_kinds"][0]
+        if len(diag["msgstr_line_counts"]) == 1:
+            diag["msgstr_line_count"] = diag["msgstr_line_counts"][0]
         diag["hints"] = [f"Requested occurrence {occurrence} exceeds available matches ({match_total}).", *diag["hints"]]
         return original, match_total, 0, match_hits, diag
 
-    return "".join(out), match_total, replaced_total, match_hits, None
+    diag = {
+        "po_msgid": target_msgid,
+        "po_msgid_found": True,
+        "po_msgid_match_count": match_total,
+        "po_msgid_replaced_count": replaced_total,
+        "msgstr_is_empty": any(hit.get("msgstr_is_empty") for hit in match_hits),
+        "msgstr_kinds": sorted({str(hit.get("msgstr_kind")) for hit in match_hits if hit.get("msgstr_kind")}),
+        "msgstr_line_counts": sorted({int(hit.get("msgstr_line_count", 0)) for hit in match_hits if hit.get("msgstr_line_count") is not None}),
+    }
+    if len(diag["msgstr_kinds"]) == 1:
+        diag["msgstr_kind"] = diag["msgstr_kinds"][0]
+    if len(diag["msgstr_line_counts"]) == 1:
+        diag["msgstr_line_count"] = diag["msgstr_line_counts"][0]
+
+    return "".join(out), match_total, replaced_total, match_hits, diag
 
 
 def _replace_between_text(
