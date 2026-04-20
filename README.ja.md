@@ -62,6 +62,7 @@ uaga
 詳細な設定（プロバイダの API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定など）については、**[ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md)** を参照してください。
 - **セットアップ**: `python -m uagent.setup_cli` で対話的に設定。
 - **暗号化**: `uag_envsec` ツールで `.env` ファイルを安全に暗号化可能。
+- **更新**: 既存の `.env.sec` に変数を追加/更新するには `uag_envsec add --file .env.sec --key NAME --value VALUE` を使います。
 
 ### 開発者・多言語対応
 - **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

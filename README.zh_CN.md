@@ -62,6 +62,7 @@ uaga
 有关详细设置（API 密钥、显示语言 `UAGENT_LANG`、历史压缩设置等），请参阅 **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**。
 - **设置**：通过 `python -m uagent.setup_cli` 进行交互式配置。
 - **加密**：使用 `uag_envsec` 工具安全地加密您的 `.env` 文件。
+- **更新**：使用 `uag_envsec add --file .env.sec --key NAME --value VALUE`，可在已有的加密文件中添加或更新变量。
 
 ### 开发者与国际化
 - **开发者文档**：[`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

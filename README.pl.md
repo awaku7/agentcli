@@ -60,6 +60,7 @@ uaga
 Szczegółowe ustawienia (klucze API, język interfejsu `UAGENT_LANG`, ustawienia zwijania historii itp.) znajdziesz w **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Konfiguracja**: ustawienia można skonfigurować interaktywnie za pomocą `python -m uagent.setup_cli`.
 - **Szyfrowanie**: bezpiecznie zaszyfruj plik `.env` za pomocą narzędzia `uag_envsec`.
+- **Aktualizacja**: Użyj `uag_envsec add --file .env.sec --key NAME --value VALUE`, aby dodać lub zaktualizować zmienną w istniejącym zaszyfrowanym pliku.
 
 ### Dokumentacja dla deweloperów i internacjonalizacja
 - **Dokumentacja dla deweloperów**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

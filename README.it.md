@@ -62,6 +62,7 @@ uaga
 Per impostazioni dettagliate (chiavi API, lingua di visualizzazione `UAGENT_LANG`, impostazioni di riduzione cronologia, ecc.), consulta **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Setup**: Configura in modo interattivo tramite `python -m uagent.setup_cli`.
 - **Crittografia**: Cripta i tuoi file `.env` in modo sicuro usando lo strumento `uag_envsec`.
+- **Aggiornamento**: Usa `uag_envsec add --file .env.sec --key NAME --value VALUE` per aggiungere o aggiornare una variabile in un file crittografato esistente.
 
 ### Sviluppatori e internazionalizzazione
 - **Documentazione sviluppatore**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
