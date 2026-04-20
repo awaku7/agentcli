@@ -141,5 +141,27 @@
     "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
     "tool.description": "Hapus file atau direktori yang ditentukan (direktori dihapus secara rekursif). Karena ini berbahaya, konfirmasi mungkin diperlukan.",
     "tool.system_prompt": "Hapus path yang ditentukan hanya setelah mengonfirmasi dengan pengguna jika operasi mungkin bersifat destruktif."
+  },
+  "vi": {
+    "confirm.delete_paths_bulk": "Xóa đường dẫn {count}?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy.",
+    "param.allow_dir.description": "Nếu được bật, cho phép xóa các thư mục khớp với toàn cầu.",
+    "param.confirmed.description": "Nếu được bật, hãy bỏ qua lời nhắc xác nhận nội bộ của công cụ.",
+    "param.dry_run.description": "Nếu được bật, chỉ liệt kê các đường dẫn phù hợp và không xóa bất cứ thứ gì.",
+    "param.filename.description": "Đường dẫn cần xóa hoặc danh sách các đường dẫn/mẫu hình cầu cần xóa.",
+    "param.missing_ok.description": "Nếu được bật sẽ không xảy ra lỗi khi đường dẫn không tồn tại.",
+    "param.path.description": "(Khả năng tương thích) Bí danh của tên tệp.",
+    "tool.description": "Xóa tệp hoặc thư mục đã chỉ định (các thư mục sẽ bị xóa đệ quy). Vì điều này nguy hiểm nên có thể cần phải xác nhận.",
+    "tool.system_prompt": "Chỉ xóa đường dẫn đã chỉ định sau khi xác nhận với người dùng nếu thao tác có thể bị phá hủy."
+  },
+  "pl": {
+    "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?\n\n{paths}\n\nWpisz t, aby kontynuować, lub c, aby anulować.",
+    "param.allow_dir.description": "Jeśli ta opcja jest włączona, zezwól na usuwanie katalogów pasujących do glob.",
+    "param.confirmed.description": "Jeśli ta opcja jest włączona, pomiń wewnętrzny monit narzędzia o potwierdzenie.",
+    "param.dry_run.description": "Jeśli ta opcja jest włączona, wyświetla tylko dopasowane ścieżki i niczego nie usuwa.",
+    "param.filename.description": "Ścieżka do usunięcia lub lista ścieżek/wzorców globalnych do usunięcia.",
+    "param.missing_ok.description": "Jeśli ta opcja jest włączona, nie zgłaszaj błędu, gdy ścieżka nie istnieje.",
+    "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
+    "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie.",
+    "tool.system_prompt": "Usuń określoną ścieżkę dopiero po potwierdzeniu z użytkownikiem, jeśli operacja może być destrukcyjna."
   }
 }

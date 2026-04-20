@@ -219,5 +219,39 @@
     "param.table_score_threshold.description": "Ambang deteksi tabel.",
     "tool.description": "Gunakan exstruct untuk mengekstrak data terstruktur dari file Excel (.xlsx) dan mengembalikannya atau menyimpannya sebagai JSON/YAML. Jika export_file.output_path sudah ada, cadangan (<output_path>.org / <output_path>.org1 / ...) dibuat tepat sebelum penyimpanan.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'exstruct'."
+  },
+  "vi": {
+    "param.action.description": "Thao tác để thực hiện.",
+    "param.auto_page_breaks_dir.description": "Thư mục lưu vùng ngắt trang tự động.",
+    "param.density_min.description": "Ngưỡng mật độ bảng.",
+    "param.file_path.description": "Đường dẫn tới file Excel đầu vào.",
+    "param.format.description": "Định dạng đầu ra.",
+    "param.include_cell_links.description": "Có bao gồm siêu liên kết ô hay không.",
+    "param.include_shapes.description": "Có bao gồm các hình dạng hay không.",
+    "param.mode.description": "Chế độ khai thác.",
+    "param.output_path.description": "Đường dẫn đầu ra cho import_file.",
+    "param.pretty.description": "Cho dù đầu ra in đẹp.",
+    "param.print_areas_dir.description": "Thư mục để lưu các tập tin trên mỗi vùng in.",
+    "param.sheets_dir.description": "Thư mục để lưu các tập tin trên mỗi tờ.",
+    "param.table_score_threshold.description": "Ngưỡng phát hiện bảng.",
+    "tool.description": "Sử dụng exstruct để trích xuất dữ liệu có cấu trúc từ tệp Excel (.xlsx) và trả về hoặc lưu dưới dạng JSON/YAML. Nếu import_file.output_path đã tồn tại, một bản sao lưu (<output_path>.org / <output_path>.org1 / ...) sẽ được tạo ngay trước khi lưu.",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'exstruct'."
+  },
+  "pl": {
+    "param.action.description": "Operacja do wykonania.",
+    "param.auto_page_breaks_dir.description": "Katalog do zapisywania obszarów automatycznego podziału strony.",
+    "param.density_min.description": "Próg gęstości tabeli.",
+    "param.file_path.description": "Ścieżka do wejściowego pliku Excel.",
+    "param.format.description": "Format wyjściowy.",
+    "param.include_cell_links.description": "Określa, czy dołączać hiperłącza do komórek.",
+    "param.include_shapes.description": "Czy uwzględniać kształty.",
+    "param.mode.description": "Tryb ekstrakcji.",
+    "param.output_path.description": "Ścieżka wyjściowa dla pliku_eksportu.",
+    "param.pretty.description": "Czy ładnie wydrukować dane wyjściowe.",
+    "param.print_areas_dir.description": "Katalog do zapisywania plików poszczególnych obszarów drukowania.",
+    "param.sheets_dir.description": "Katalog do zapisywania plików poszczególnych arkuszy.",
+    "param.table_score_threshold.description": "Próg wykrywania tabeli.",
+    "tool.description": "Użyj exstruct, aby wyodrębnić uporządkowane dane z pliku Excel (.xlsx) i zwrócić je lub zapisać jako JSON/YAML. Jeśli plik_eksportowy.ścieżka_wyjściowa już istnieje, bezpośrednio przed zapisaniem tworzona jest kopia zapasowa (<ścieżka_wyjściowa>.org / <ścieżka_wyjściowa>.org1 / ...).",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „exstruct”."
   }
 }

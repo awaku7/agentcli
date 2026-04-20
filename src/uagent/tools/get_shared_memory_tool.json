@@ -63,5 +63,15 @@
     "doc.run_tool": "Titik masuk yang dipanggil dari tools/__init__.py. Implementasi untuk get_shared_memory.",
     "tool.description": "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna.\n- Biasanya mengembalikan teks dalam format JSONL (satu record per baris).\n- Jika shared memory dinonaktifkan atau file hilang, mengembalikan pesan deskriptif.\n- Ukuran keluaran otomatis dipangkas ke batas byte internal maksimum.",
     "tool.system_prompt": "Alat ini menjalankan fungsi yang dijelaskan dalam TOOL_SPEC."
+  },
+  "vi": {
+    "doc.run_tool": "Điểm vào được gọi từ tools/__init__.py. Triển khai cho get_shared_memory.",
+    "tool.description": "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng.\n- Thường trả về văn bản ở định dạng JSONL (mỗi dòng một bản ghi).\n- Nếu bộ nhớ dùng chung bị tắt hoặc thiếu tệp, sẽ trả về thông báo mô tả.\n- Kích thước đầu ra được tự động cắt theo giới hạn byte tối đa bên trong.",
+    "tool.system_prompt": "Công cụ này thực thi chức năng được mô tả trong TOOL_SPEC."
+  },
+  "pl": {
+    "doc.run_tool": "Punkt wejścia wywoływany z narzędzi/__init__.py. Implementacja dla get_shared_memory.",
+    "tool.description": "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom.\n- Zwykle zwraca tekst w formacie JSONL (jeden rekord w linii).\n- Jeśli pamięć współdzielona jest wyłączona lub brakuje pliku, zwraca komunikat opisowy.\n- Rozmiar wyjściowy jest automatycznie przycinany do wewnętrznego maksymalnego limitu bajtów.",
+    "tool.system_prompt": "Narzędzie to realizuje funkcjonalność opisaną w TOOL_SPEC."
   }
 }

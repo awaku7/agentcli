@@ -50,5 +50,13 @@
   "id": {
     "param.message.description": "Pesan penutup opsional untuk pengguna.",
     "tool.description": "Menandakan bahwa tugas skill saat ini telah selesai. (Hanya gunakan saat eksekusi skill berdasarkan SKILL.md). Ini menghapus instruksi skill dan mencegah loop tak berujung."
+  },
+  "vi": {
+    "param.message.description": "Thông báo cuối cùng tùy chọn cho người dùng.",
+    "tool.description": "Báo rằng các tác vụ của kỹ năng hiện tại đã hoàn tất. (Chỉ dùng khi thực thi kỹ năng dựa trên SKILL.md). Việc này sẽ xóa hướng dẫn kỹ năng và ngăn vòng lặp vô hạn."
+  },
+  "pl": {
+    "param.message.description": "Opcjonalna wiadomość końcowa dla użytkownika.",
+    "tool.description": "Zasygnalizuj, że zadania bieżącej umiejętności zostały ukończone. (Używaj TYLKO podczas wykonywania umiejętności na podstawie SKILL.md). To usuwa instrukcje umiejętności i zapobiega nieskończonym pętlom."
   }
 }

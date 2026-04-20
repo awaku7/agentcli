@@ -89,5 +89,19 @@
     "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell). Jika dihilangkan, pilih otomatis.",
     "tool.description": "Sebagai upaya terakhir, jalankan PowerShell. Gunakan hanya jika tidak ada alat lain yang sesuai (misalnya MCP).",
     "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR.\n1. Pertama periksa apakah handle_mcp / mcp_tools_list dapat digunakan.\n2. Gunakan alat ini hanya jika tidak ada alat lain yang sesuai.\n3. Jangan gunakan alat ini untuk menjalankan Python; gunakan python_exec sebagai gantinya.\n\nCatatan keamanan:\n- Pola berbahaya seperti download-exec (IWR/IRM/curl/wget) dan Base64 (-Enc) dapat diblokir atau memerlukan konfirmasi."
+  },
+  "vi": {
+    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {seconds} giây",
+    "param.command.description": "Chuỗi lệnh PowerShell được chuyển tới -Command.",
+    "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell). Nếu bỏ qua, hãy tự động chọn.",
+    "tool.description": "Phương án cuối cùng là thực thi PowerShell. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác (ví dụ: MCP).",
+    "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG.\n1. Trước tiên hãy kiểm tra xem có thể sử dụng hand_mcp / mcp_tools_list thay thế hay không.\n2. Chỉ sử dụng công cụ này khi không có sẵn công cụ thích hợp nào khác.\n3. Không sử dụng công cụ này để chạy Python; thay vào đó hãy sử dụng python_exec.\n\nGhi chú bảo mật:\n- Các mẫu nguy hiểm như download-exec (IWR/IRM/curl/wget) và Base64 (-Enc) có thể bị chặn hoặc yêu cầu xác nhận."
+  },
+  "pl": {
+    "err.timeout": "[Limit czasu pwsh_exec] nie zakończył się w ciągu {seconds} sekund",
+    "param.command.description": "Ciąg poleceń PowerShell przekazany do -Command.",
+    "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell). Jeśli zostanie pominięty, wybierz automatycznie.",
+    "tool.description": "W ostateczności uruchom PowerShell. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie (np. MCP).",
+    "tool.system_prompt": "To narzędzie jest ostatecznością.\n1. Najpierw sprawdź, czy zamiast tego można użyć handle_mcp / mcp_tools_list.\n2. Używaj tego narzędzia tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie.\n3. Nie używaj tego narzędzia do uruchamiania Pythona; zamiast tego użyj python_exec.\n\nUwagi dotyczące bezpieczeństwa:\n- Niebezpieczne wzorce, takie jak download-exec (IWR/IRM/curl/wget) i Base64 (-Enc) mogą zostać zablokowane lub wymagać potwierdzenia."
   }
 }

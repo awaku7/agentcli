@@ -141,5 +141,27 @@
     "param.tools.description": "Array nama tool yang akan dijalankan. Jika kosong, dipilih otomatis.",
     "tool.description": "Jalankan static analysis/formatter (mis. ruff/black/mypy). mode=fix mengubah file dan memerlukan konfirmasi.",
     "tool.system_prompt": "Jalankan static analysis/formatter. Jika diperlukan konfirmasi pengguna tambahan (mis. mode=fix), gunakan human_ask."
+  },
+  "vi": {
+    "confirm.msg": "lint_format(mode=fix) có thể ghi lại tập tin.\ncông cụ: {tools}\nmục tiêu: {targets}\ncwd: {cwd}\n\nGõ y nếu bạn muốn tiếp tục, hoặc c nếu bạn muốn hủy.",
+    "doc.module": "lint_format_tool\n\nMột công cụ bao bọc để chạy phân tích/định dạng tĩnh.\n\n- Python: thích ruff/black/mypy\n- JavaScript: Vì lý do an toàn, không chủ động thực thi npx.\n\nAn toàn:\n- mode=fix liên quan đến việc thay đổi tệp, vì vậy hãy kiểm tra với human_ask.\n- Chấp nhận các đối số dưới dạng một mảng và từ chối chúng nếu chúng chứa các siêu ký tự shell nguy hiểm.",
+    "param.cwd.description": "Thư mục thực thi (chỉ được phép trong workdir). Nếu null, hiện tại.",
+    "param.extra_args.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm.",
+    "param.mode.description": "kiểm tra=chỉ kiểm tra / fix=sửa tự động",
+    "param.targets.description": "Mảng đường dẫn đích (chỉ được phép trong Workdir).",
+    "param.tools.description": "Một loạt tên công cụ để chạy. Nếu trống, nó sẽ được chọn tự động.",
+    "tool.description": "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy). mode=fix sửa đổi tập tin và yêu cầu xác nhận.",
+    "tool.system_prompt": "Chạy phân tích/định dạng tĩnh. Nếu cần có xác nhận bổ sung của người dùng (ví dụ: mode=fix), hãy sử dụng human_ask."
+  },
+  "pl": {
+    "confirm.msg": "lint_format(mode=fix) może przepisać pliki.\nnarzędzia: {tools}\ncele: {targets}\ncwd: {cwd}\n\nWpisz y, jeśli chcesz kontynuować, lub c, jeśli chcesz anulować.",
+    "doc.module": "lint_format_tool\n\nNarzędzie opakowujące do uruchamiania analizy/formatowania statycznego.\n\n- Python: preferuj kryzę/czarny/mypy\n- JavaScript: Ze względów bezpieczeństwa nie wykonuj aktywnie npx.\n\nBezpieczeństwo:\n- mode=fix wymaga zmian w plikach, więc sprawdź to za pomocą human_ask.\n- Akceptuj argumenty jako tablicę i odrzucaj je, jeśli zawierają niebezpieczne metaznaki powłoki.",
+    "param.cwd.description": "Katalog wykonawczy (dozwolony tylko w katalogu roboczym). Jeśli null, bieżący.",
+    "param.extra_args.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki.",
+    "param.mode.description": "check=tylko sprawdź / fix=poprawka automatyczna",
+    "param.targets.description": "Docelowa tablica ścieżek (dozwolona tylko w katalogu roboczym).",
+    "param.tools.description": "Tablica nazw narzędzi do uruchomienia. Jeśli jest pusty, zostanie wybrany automatycznie.",
+    "tool.description": "Uruchom analizę/formatowanie statyczne (np. ruff/black/mypy). mode=fix modyfikuje pliki i wymaga potwierdzenia.",
+    "tool.system_prompt": "Uruchom analizę statyczną/formatory. Jeśli wymagane jest dodatkowe potwierdzenie użytkownika (np. mode=fix), użyj human_ask."
   }
 }

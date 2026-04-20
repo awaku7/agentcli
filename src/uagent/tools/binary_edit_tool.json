@@ -206,5 +206,37 @@
     "param.splice_op.description": "Operasi splice (mode splice).",
     "tool.description": "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengedit file lokal sebagai byte mentah (binary).\n\nKEAMANAN / KESELAMATAN:\n- Alat ini memodifikasi file lokal dan dapat merusak file.\n- Selalu minta konfirmasi dengan human_ask sebelum menulis.\n- Jangan beroperasi pada path di luar workdir saat berjalan di bawah kebijakan keamanan host agent."
+  },
+  "vi": {
+    "param.data_hex.description": "Chuỗi byte hex để ghi/chèn (ví dụ: 'DEADBEEF' hoặc 'DE AD BE EF').",
+    "param.delete_len.description": "Số byte cần xóa (xóa mối nối).",
+    "param.dry_run.description": "Nếu đúng, không sửa đổi tệp; chỉ báo cáo những gì sẽ thay đổi.",
+    "param.max_bytes.description": "Từ chối các tệp lớn hơn kích thước này (byte).",
+    "param.mode.description": "Chế độ chỉnh sửa.",
+    "param.occurrence.description": "Lần xuất hiện nào cần thay thế (dựa trên 1). 0 có nghĩa là thay thế tất cả các lần xuất hiện (vẫn yêu cầu cùng độ dài).",
+    "param.offset.description": "Bù byte (dựa trên 0). Cần thiết cho việc ghi/ghép.",
+    "param.patch_json.description": "Bản vá chuỗi JSON (chế độ apply_patch).",
+    "param.path.description": "Đường dẫn tập tin mục tiêu.",
+    "param.replace_hex.description": "Chuỗi hex để thay thế bằng (chế độ thay thế). Phải có cùng độ dài với search_hex trừ khi allow_resize=true (không được hỗ trợ).",
+    "param.search_hex.description": "Chuỗi hex để tìm kiếm (chế độ thay thế).",
+    "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
+    "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).\n\nAN NINH/AN TOÀN:\n- Công cụ này sửa đổi các tập tin cục bộ và có thể làm hỏng chúng.\n- Luôn yêu cầu xác nhận bằng human_ask trước khi viết.\n- Không hoạt động trên các đường dẫn bên ngoài thư mục làm việc hiện tại khi chạy theo chính sách an toàn của tác nhân chủ."
+  },
+  "pl": {
+    "param.data_hex.description": "Szesnastkowy ciąg bajtów do zapisania/wstawienia (np. „DEADBEEF” lub „DE AD BE EF”).",
+    "param.delete_len.description": "Liczba bajtów do usunięcia (usunięcie splotu).",
+    "param.dry_run.description": "Jeśli ma wartość true, nie modyfikuj pliku; zgłaszaj tylko to, co mogłoby się zmienić.",
+    "param.max_bytes.description": "Odrzuć pliki większe niż ten rozmiar (w bajtach).",
+    "param.mode.description": "Tryb edycji.",
+    "param.occurrence.description": "Które wystąpienie zastąpić (w oparciu o 1). 0 oznacza zastąpienie wszystkich wystąpień (nadal wymaga tej samej długości).",
+    "param.offset.description": "Przesunięcie bajtu (od 0). Wymagane do zapisu/splotu.",
+    "param.patch_json.description": "Łatka ciągu JSON (tryb Apply_patch).",
+    "param.path.description": "Docelowa ścieżka pliku.",
+    "param.replace_hex.description": "Ciąg szesnastkowy, który ma zostać zastąpiony (tryb zamiany). Musi mieć tę samą długość co search_hex, chyba że zezwolenie_resize=true (nieobsługiwane).",
+    "param.search_hex.description": "Ciąg szesnastkowy do wyszukania (tryb zamiany).",
+    "param.splice_op.description": "Operacja splotu (tryb splotu).",
+    "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki.",
+    "tool.system_prompt": "Narzędzie to służy do następujących celów: edycja pliku lokalnego w postaci nieprzetworzonych bajtów (binarnie).\n\nBEZPIECZEŃSTWO / BEZPIECZEŃSTWO:\n- To narzędzie modyfikuje pliki lokalne i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed napisaniem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, jeśli działasz zgodnie z zasadami bezpieczeństwa agenta hosta."
   }
 }

@@ -50,5 +50,13 @@
   "id": {
     "tool.description": "Dapatkan direktori kerja saat ini.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mendapatkan direktori kerja saat ini."
+  },
+  "vi": {
+    "tool.description": "Lấy thư mục làm việc hiện tại.",
+    "tool.system_prompt": "Công cụ này được sử dụng với mục đích sau: lấy thư mục làm việc hiện tại."
+  },
+  "pl": {
+    "tool.description": "Pobierz bieżący katalog roboczy.",
+    "tool.system_prompt": "To narzędzie służy do następującego celu: pobranie bieżącego katalogu roboczego."
   }
 }

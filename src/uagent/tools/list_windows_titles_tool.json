@@ -89,5 +89,19 @@
     "param.pid.description": "Sertakan ID proses.",
     "tool.description": "Enumerasi judul jendela tingkat atas di Windows dan kembalikan JSON terstruktur. Parameter: \"all\" (sertakan yang tidak terlihat), \"pid\" (sertakan PID), \"class\" (sertakan nama kelas jendela).",
     "tool.system_prompt": "Alat ini menghitung judul jendela tingkat atas di Windows dan mengembalikan JSON terstruktur. Ini hanya untuk Windows."
+  },
+  "vi": {
+    "param.all.description": "Bao gồm các cửa sổ không nhìn thấy được.",
+    "param.class.description": "Bao gồm tên lớp cửa sổ.",
+    "param.pid.description": "Bao gồm ID tiến trình.",
+    "tool.description": "Liệt kê các tiêu đề cửa sổ cấp cao nhất trên Windows và trả về JSON có cấu trúc. Tham số: 'tất cả' (bao gồm không hiển thị), 'pid' (bao gồm PID), 'class' (bao gồm tên lớp cửa sổ).",
+    "tool.system_prompt": "Công cụ này liệt kê các tiêu đề cửa sổ cấp cao nhất trên Windows và trả về JSON có cấu trúc. Nó chỉ dành cho Windows."
+  },
+  "pl": {
+    "param.all.description": "Uwzględnij niewidoczne okna.",
+    "param.class.description": "Dołącz nazwy klas okien.",
+    "param.pid.description": "Dołącz identyfikatory procesów.",
+    "tool.description": "Wyliczaj tytuły okien najwyższego poziomu w systemie Windows i zwracaj strukturalny kod JSON. Parametry: 'all' (w tym niewidoczne), 'pid' (w tym PID), 'class' (w tym nazwa klasy okna).",
+    "tool.system_prompt": "To narzędzie wylicza tytuły okien najwyższego poziomu w systemie Windows i zwraca ustrukturyzowany kod JSON. Działa tylko w systemie Windows."
   }
 }

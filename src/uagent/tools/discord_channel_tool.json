@@ -232,5 +232,41 @@
     "param.wait_s.description": "Lama menunggu balasan setelah mengirim (detik).",
     "tool.description": "Berinteraksi dengan channel Discord tertentu menggunakan token bot: mengirim pesan, membaca pesan terbaru, dan opsional menunggu balasan setelah mengirim.",
     "tool.system_prompt": "Gunakan alat ini untuk berbicara ke channel Discord via REST API. Token bot harus disediakan melalui variabel lingkungan. Kembalikan JSON saja."
+  },
+  "vi": {
+    "err.exception": "Exception",
+    "err.invalid_action": "Hành động không hợp lệ: {action}",
+    "err.message_too_long": "Nội dung tin nhắn Discord phải có 2000 ký tự trở xuống.",
+    "err.missing_action": "Thiếu 'hành động'.",
+    "err.missing_channel_id": "Thiếu 'channel_id'.",
+    "err.missing_message": "Thiếu 'tin nhắn'.",
+    "param.action.description": "Hành động: gửi/send_and_wait/lịch sử",
+    "param.channel_id.description": "ID kênh Discord mục tiêu.",
+    "param.exclude_bots.description": "Trong khi chờ đợi, hãy bỏ qua tin nhắn của bot.",
+    "param.limit.description": "Số lượng tin nhắn cần tìm nạp cho lịch sử/trả lời.",
+    "param.message.description": "Tin nhắn cần gửi cho hành động gửi/send_and_wait.",
+    "param.poll_interval_s.description": "Khoảng thời gian thăm dò trong khi chờ trả lời (giây).",
+    "param.token_env.description": "Tên biến môi trường lưu trữ mã thông báo bot Discord.",
+    "param.wait_s.description": "Thời gian chờ trả lời sau khi gửi (giây).",
+    "tool.description": "Tương tác với kênh Discord cụ thể bằng mã thông báo bot: gửi tin nhắn, đọc tin nhắn gần đây và tùy chọn chờ phản hồi sau khi gửi.",
+    "tool.system_prompt": "Sử dụng công cụ này để giao tiếp với kênh Discord thông qua API REST. Mã thông báo bot phải được cung cấp thông qua biến môi trường. Chỉ trả về JSON."
+  },
+  "pl": {
+    "err.exception": "Exception",
+    "err.invalid_action": "Nieprawidłowa akcja: {action}",
+    "err.message_too_long": "Treść wiadomości Discord musi mieć maksymalnie 2000 znaków.",
+    "err.missing_action": "Brakuje „akcji”.",
+    "err.missing_channel_id": "Brakuje „identyfikatora_kanału”.",
+    "err.missing_message": "Brakująca „wiadomość”.",
+    "param.action.description": "Akcja: wyślij / wyślij i czekaj / historia",
+    "param.channel_id.description": "Docelowy identyfikator kanału Discord.",
+    "param.exclude_bots.description": "Podczas oczekiwania ignoruj ​​wiadomości od botów.",
+    "param.limit.description": "Liczba wiadomości do pobrania w historii/odpowiedziach.",
+    "param.message.description": "Wiadomość do wysłania w ramach akcji wysyłania/wysyłania i czekania.",
+    "param.poll_interval_s.description": "Interwał odpytywania podczas oczekiwania na odpowiedzi (w sekundach).",
+    "param.token_env.description": "Nazwa zmiennej środowiskowej przechowującej token bota Discord.",
+    "param.wait_s.description": "Jak długo czekać na odpowiedzi po wysłaniu (sekundy).",
+    "tool.description": "Wejdź w interakcję z określonym kanałem Discord za pomocą tokena bota: wysyłaj wiadomości, czytaj najnowsze wiadomości i opcjonalnie czekaj na odpowiedzi po wysłaniu.",
+    "tool.system_prompt": "Użyj tego narzędzia, aby porozmawiać z kanałem Discord za pośrednictwem interfejsu API REST. Token bota należy podać za pomocą zmiennej środowiskowej. Zwróć tylko JSON."
   }
 }

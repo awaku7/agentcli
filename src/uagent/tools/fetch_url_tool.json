@@ -141,5 +141,27 @@
     "param.max_bytes.description": "Maksimum byte yang dibaca dari respons.",
     "param.max_chars.description": "Maksimum karakter yang dikembalikan (diterapkan setelah decoding/ekstraksi).",
     "param.user_agent.description": "Nilai header User-Agent opsional."
+  },
+  "vi": {
+    "param.url.description": "URL để truy cập.",
+    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON.",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'fetch_url'.",
+    "param.extract.description": "Chế độ khai thác. head=trả về phần đầu của phản hồi; text=trích xuất văn bản từ HTML; html=trích xuất đoạn HTML; json=phân tích cú pháp JSON (tùy chọn áp dụng json_pointer).",
+    "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html.",
+    "param.json_pointer.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi extract=json.",
+    "param.max_bytes.description": "Số byte tối đa để đọc từ phản hồi.",
+    "param.max_chars.description": "Số ký tự tối đa cần trả về (áp dụng sau khi giải mã/trích xuất).",
+    "param.user_agent.description": "Giá trị tiêu đề Tác nhân người dùng tùy chọn."
+  },
+  "pl": {
+    "param.url.description": "Adres URL, do którego można uzyskać dostęp.",
+    "tool.description": "Uzyskaj dostęp do określonego adresu URL za pośrednictwem protokołu HTTP GET i zwróć początek odpowiedzi w postaci tekstu. Przydatne do pobierania i sprawdzania kodu HTML lub JSON.",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „fetch_url”.",
+    "param.extract.description": "Tryb ekstrakcji. head=zwróć początek odpowiedzi; tekst=wyodrębnij tekst z HTML; html=wyodrębnij fragment HTML; json=parsuj JSON (opcjonalnie zastosuj json_pointer).",
+    "param.selector.description": "Opcjonalny selektor CSS. Jeśli zostanie podany, pierwszy dopasowany element zostanie wyodrębniony dla ekstraktu=tekst/html.",
+    "param.json_pointer.description": "Opcjonalny wskaźnik JSON RFC 6901 (np. /items/0/title) używany, gdy ekstrakt=json.",
+    "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania z odpowiedzi.",
+    "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowaniu/wyodrębnieniu).",
+    "param.user_agent.description": "Opcjonalna wartość nagłówka User-Agent."
   }
 }

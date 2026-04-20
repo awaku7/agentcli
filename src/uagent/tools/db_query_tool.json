@@ -76,5 +76,17 @@
     "param.sql.description": "SQL yang akan dieksekusi.",
     "tool.description": "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
+  },
+  "vi": {
+    "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệu SQLite.",
+    "param.sql.description": "SQL để thực thi.",
+    "tool.description": "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA).",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'db_query'."
+  },
+  "pl": {
+    "param.db_path.description": "Ścieżka do pliku bazy danych SQLite.",
+    "param.sql.description": "SQL do wykonania.",
+    "tool.description": "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA).",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „db_query”."
   }
 }

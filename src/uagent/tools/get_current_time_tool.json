@@ -50,5 +50,13 @@
   "id": {
     "tool.description": "Kembalikan waktu saat ini dan informasi tanggal/waktu terperinci (zona waktu, hari dalam minggu, waktu UTC). Gunakan ini untuk menyelesaikan ekspresi tanggal relatif (mis. 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') dengan menentukan hari saat ini dan offset UTC.",
     "tool.system_prompt": "Alat ini menyediakan informasi referensi agar LLM dapat melakukan perhitungan waktu dengan akurat.\n- Format ISO 8601 (dengan offset)\n- Hari dalam minggu (bahasa Inggris)\n- Waktu UTC\n- Komponen numerik (tahun, bulan, hari, jam, menit, detik)\nGunakan ini untuk mengubah permintaan pengguna yang ambigu (mis. \"next Monday\") menjadi tanggal/waktu yang konkret."
+  },
+  "vi": {
+    "tool.description": "Trả về thời gian hiện tại và thông tin ngày/giờ chi tiết (múi giờ, ngày trong tuần, giờ UTC). Sử dụng công cụ này để giải quyết các biểu thức ngày tương đối (ví dụ: 'hôm nay', 'ngày mai', 'cuối tuần này', 'thứ Ba thứ 3 của tháng tiếp theo') bằng cách xác định ngày trong tuần hiện tại và độ lệch UTC.",
+    "tool.system_prompt": "Công cụ này cung cấp thông tin tham khảo để LLM có thể thực hiện tính toán thời gian một cách chính xác.\n- Định dạng ISO 8601 (có offset)\n- Ngày trong tuần (tiếng Anh)\n- Giờ UTC\n- Thành phần số (năm, tháng, ngày, giờ, phút, giây)\nSử dụng những thông tin này để chuyển đổi các yêu cầu không rõ ràng của người dùng (ví dụ: 'Thứ Hai tuần sau') thành ngày/giờ cụ thể."
+  },
+  "pl": {
+    "tool.description": "Zwróć bieżący czas i szczegółowe informacje o dacie/godzinie (strefa czasowa, dzień tygodnia, czas UTC). Użyj tej opcji, aby rozwiązać względne wyrażenia dotyczące dat (np. „dzisiaj”, „jutro”, „w ten weekend”, „trzeci wtorek następnego miesiąca”) poprzez określenie bieżącego dnia tygodnia i przesunięcia czasu UTC.",
+    "tool.system_prompt": "To narzędzie zapewnia informacje referencyjne, dzięki którym LLM może dokładnie wykonywać obliczenia czasu.\n-Format ISO 8601 (z offsetem)\n- Dzień powszedni (angielski)\n- Czas UTC\n- Składniki numeryczne (rok, miesiąc, dzień, godzina, minuta, sekunda)\nUżyj ich, aby przekonwertować niejednoznaczne żądania użytkowników (np. „w następny poniedziałek”) na konkretną datę/godzinę."
   }
 }

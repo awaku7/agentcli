@@ -63,5 +63,15 @@
     "param.note.description": "Teks catatan yang akan dibagikan.",
     "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi). Jika shared memory tidak dikonfigurasi, alat akan melaporkan bahwa fitur tersebut dinonaktifkan. Jangan pernah menyimpan rahasia seperti kata sandi atau API key.",
     "tool.system_prompt": "Tambahkan tepat satu catatan ke penyimpanan shared memory.\nJika shared memory dinonaktifkan (UAGENT_SHARED_MEMORY_FILE tidak disetel), kembalikan pesan yang menjelaskan cara mengaktifkannya.\nJangan menyimpan rahasia (kata sandi/token/API key)."
+  },
+  "vi": {
+    "param.note.description": "Các văn bản ghi chú để chia sẻ.",
+    "tool.description": "Thêm một ghi chú vào kho lưu trữ bộ nhớ dài hạn được chia sẻ (được chia sẻ giữa những người dùng/phiên). Nếu bộ nhớ dùng chung không được định cấu hình, công cụ sẽ báo cáo rằng bộ nhớ dùng chung bị tắt. Không bao giờ lưu trữ các bí mật như mật khẩu hoặc khóa API.",
+    "tool.system_prompt": "Nối chính xác một ghi chú vào kho lưu trữ bộ nhớ dùng chung.\nNếu bộ nhớ dùng chung bị tắt (UAGENT_SHARED_MEMORY_FILE chưa được đặt), hãy trả lại thông báo giải thích cách bật bộ nhớ dùng chung.\nKhông lưu trữ bí mật (mật khẩu/mã thông báo/khóa API)."
+  },
+  "pl": {
+    "param.note.description": "Tekst notatki do udostępnienia.",
+    "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłosi, że jest wyłączona. Nigdy nie przechowuj sekretów, takich jak hasła lub klucze API.",
+    "tool.system_prompt": "Dołącz dokładnie jedną notatkę do magazynu pamięci współdzielonej.\nJeśli pamięć współdzielona jest wyłączona (nie ustawiono UAGENT_SHARED_MEMORY_FILE), zwróć komunikat wyjaśniający, jak ją włączyć.\nNie przechowuj sekretów (hasła/tokeny/klucze API)."
   }
 }

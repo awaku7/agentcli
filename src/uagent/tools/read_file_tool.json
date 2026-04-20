@@ -180,5 +180,33 @@
     "param.tail_lines.description": "Jumlah baris yang dibaca dari akhir. Tidak dapat ditentukan bersamaan dengan head_lines.",
     "tool.description": "Baca isi file (hingga 1.000.000 byte). Pembacaan sebagian dapat dilakukan dengan menentukan start_line dan max_lines.",
     "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis."
+  },
+  "vi": {
+    "err.dual_lines": "[lỗi read_file] head_lines và tail_lines không thể được chỉ định cùng một lúc",
+    "err.filename_missing": "[lỗi read_file] tên tệp/đường dẫn không được chỉ định",
+    "err.out_of_range": "(Tệp chỉ có dòng {count}. start_line {start_line} nằm ngoài phạm vi)",
+    "msg.truncated": "[read_file bị cắt bớt: Đã đạt đến giới hạn byte {max_bytes}]",
+    "param.filename.description": "Đường dẫn của tập tin để đọc.",
+    "param.head_lines.description": "Số dòng cần đọc từ đầu. Không thể chỉ định cùng lúc với tail_lines.",
+    "param.max_lines.description": "Số hàng tối đa để đọc. Nếu null thì đọc đến cuối file.",
+    "param.path.description": "(Để tương thích) Tên thay thế cho tên tệp.",
+    "param.start_line.description": "Số dòng (bắt đầu từ 1) để bắt đầu đọc. Mặc định là 1.",
+    "param.tail_lines.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines.",
+    "tool.description": "Đọc nội dung tệp (tối đa 1.000.000 byte). Có thể đọc một phần bằng cách chỉ định start_line và max_lines.",
+    "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động."
+  },
+  "pl": {
+    "err.dual_lines": "[Błąd pliku_odczytu] Nie można jednocześnie określić linii head_lines i tail_lines",
+    "err.filename_missing": "[błąd pliku_odczytu] Nie określono nazwy/ścieżki pliku",
+    "err.out_of_range": "(Plik zawiera tylko linie {count}. linia początkowa {start_line} jest poza zakresem)",
+    "msg.truncated": "[odczyt_pliku obcięty: osiągnięto limit bajtów {max_bytes}]",
+    "param.filename.description": "Ścieżka pliku do odczytania.",
+    "param.head_lines.description": "Liczba linii do przeczytania od początku. Nie można określić w tym samym czasie co tail_lines.",
+    "param.max_lines.description": "Maksymalna liczba wierszy do odczytania. Jeśli ma wartość null, przeczytaj plik do końca.",
+    "param.path.description": "(Dla kompatybilności) Alternatywna nazwa pliku.",
+    "param.start_line.description": "Numer linii (zaczynając od 1), aby rozpocząć czytanie. Wartość domyślna to 1.",
+    "param.tail_lines.description": "Liczba linii do odczytania od końca. Nie można określić w tym samym czasie co head_lines.",
+    "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów). Częściowy odczyt jest możliwy poprzez określenie linii startowej i max_lines.",
+    "tool.system_prompt": "Przeczytaj zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt za pomocą linii start_line/max_lines.\n- Nowe linie są normalizowane automatycznie."
   }
 }
