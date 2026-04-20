@@ -1556,4 +1556,4 @@ msgstr ""
 
 #: src/uagent/util_tools.py:863
 msgid "skills.execution.prompt.finish"
-msgstr "完成后，请停止，或在可用时调用 `finish_skill`。\n"
+msgstr "完成后，请务必在可用时调用 `finish_skill`。\n"

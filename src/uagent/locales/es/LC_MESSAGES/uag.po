@@ -1605,4 +1605,4 @@ msgstr ""
 
 #: src/uagent/util_tools.py:863
 msgid "skills.execution.prompt.finish"
-msgstr "Cuando termines, detente o llama a `finish_skill` si está disponible.\n"
+msgstr "Cuando termines, llama siempre a `finish_skill` si está disponible.\n"
