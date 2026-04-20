@@ -1558,4 +1558,4 @@ msgstr ""
 
 #: src/uagent/util_tools.py:863
 msgid "skills.execution.prompt.finish"
-msgstr "작업이 끝나면 중단하거나, 사용할 수 있다면 `finish_skill`을 호출하세요.\n"
+msgstr "작업이 끝나면 반드시 `finish_skill`을 호출하세요.\n"
