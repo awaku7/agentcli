@@ -62,6 +62,7 @@ uaga
 สำหรับการตั้งค่าโดยละเอียด (API key, ภาษาที่แสดง `UAGENT_LANG`, การตั้งค่าการย่อประวัติ ฯลฯ) โปรดดูที่ **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**
 - **การตั้งค่า**: กำหนดค่าแบบโต้ตอบผ่าน `python -m uagent.setup_cli`
 - **การเข้ารหัส**: เข้ารหัสไฟล์ `.env` ของคุณอย่างปลอดภัยด้วยเครื่องมือ `uag_envsec`
+- **อัปเดต**: ใช้ `uag_envsec add --file .env.sec --key NAME --value VALUE` เพื่อเพิ่มหรืออัปเดตตัวแปรในไฟล์ที่เข้ารหัสอยู่แล้ว
 
 ### สำหรับนักพัฒนาและการรองรับหลายภาษา
 - **เอกสารนักพัฒนา**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
