@@ -154,5 +154,29 @@
     "param.seconds.description": "Jumlah detik pada timer.",
     "tool.description": "Menampilkan pesan setelah sejumlah detik tertentu. Bisa juga memasukkan pesan otomatis ke LLM.",
     "tool.system_prompt": "Gunakan alat ini untuk menampilkan pesan setelah waktu tertentu dan secara opsional memasukkan pesan otomatis ke LLM."
+  },
+  "vi": {
+    "err.queue_uninitialized": "[lỗi set_timer] lệnh gọi lại hàng đợi sự kiện chưa được khởi tạo.",
+    "err.seconds_invalid": "[lỗi set_timer] giây không thể được hiểu là số nguyên: {raw}",
+    "err.seconds_negative": "[lỗi set_timer] giây phải bằng 0 trở lên: {val}",
+    "msg.default_timer_done": "Bộ hẹn giờ kết thúc",
+    "out.ok": "[set_timer] Đặt bộ hẹn giờ sau {seconds} giây: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Thông báo sẽ hiển thị sau khi hoàn thành.",
+    "param.on_timeout_prompt.description": "Nội dung sẽ được tự động nhập vào LLM khi hết hạn.",
+    "param.seconds.description": "Số giây trong bộ đếm thời gian.",
+    "tool.description": "Hiển thị thông báo sau một số giây được chỉ định. Tùy chọn, một tin nhắn tự động có thể được nhập vào LLM.",
+    "tool.system_prompt": "Công cụ này được sử dụng để hiển thị thông báo sau một thời gian nhất định và tùy chọn nhập thông báo tự động vào LLM."
+  },
+  "pl": {
+    "err.queue_uninitialized": "[błąd set_timera] Nie zainicjowano wywołania zwrotnego kolejki zdarzeń.",
+    "err.seconds_invalid": "[błąd set_timera] sekund nie można interpretować jako liczby całkowitej: {raw}",
+    "err.seconds_negative": "[błąd set_timera] sekundy muszą wynosić 0 lub więcej: {val}",
+    "msg.default_timer_done": "Timer się kończy",
+    "out.ok": "[set_timer] Ustaw timer w {seconds} sekundach: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Komunikat wyświetlany po zakończeniu.",
+    "param.on_timeout_prompt.description": "Treść zostanie automatycznie wprowadzona do LLM po wygaśnięciu.",
+    "param.seconds.description": "Liczba sekund licznika czasu.",
+    "tool.description": "Wyświetla komunikat po określonej liczbie sekund. Opcjonalnie do LLM można wprowadzić automatyczny komunikat.",
+    "tool.system_prompt": "Narzędzie to służy do wyświetlania komunikatu po określonym czasie i opcjonalnie wprowadzania automatycznego komunikatu do LLM."
   }
 }

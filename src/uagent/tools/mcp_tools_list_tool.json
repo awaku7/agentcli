@@ -89,5 +89,19 @@
     "param.url.description": "URL endpoint server MCP.",
     "tool.description": "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalikan daftar alat yang tersedia. Sebelum melakukan integrasi API/sistem apa pun, gunakan alat ini untuk mengetahui alat MCP yang tersedia. Mendukung server berbasis HTTP dan stdio.",
     "tool.system_prompt": "Hubungkan ke server MCP (HTTP atau stdio) dan daftar alatnya. Jika memungkinkan, utamakan server yang dikonfigurasi di mcp_servers.json."
+  },
+  "vi": {
+    "param.pretty.description": "Có in đầu ra JSON đẹp hay không.",
+    "param.server_name.description": "Tên máy chủ từ tệp cấu hình.",
+    "param.url.description": "URL điểm cuối của máy chủ MCP.",
+    "tool.description": "[Ưu tiên cao nhất] Kết nối với máy chủ MCP (Giao thức bối cảnh mô hình) và trả về danh sách các công cụ có sẵn. Trước khi thực hiện bất kỳ tích hợp API/hệ thống nào, hãy sử dụng công cụ này để khám phá những công cụ MCP có sẵn. Hỗ trợ các máy chủ MCP dựa trên HTTP và stdio.",
+    "tool.system_prompt": "Kết nối với máy chủ MCP (HTTP hoặc stdio) và liệt kê các công cụ của nó. Ưu tiên sử dụng các máy chủ được định cấu hình trong mcp_servers.json khi có thể."
+  },
+  "pl": {
+    "param.pretty.description": "Określa, czy ładnie wydrukować dane wyjściowe JSON.",
+    "param.server_name.description": "Nazwa serwera z pliku konfiguracyjnego.",
+    "param.url.description": "Adres URL punktu końcowego serwera MCP.",
+    "tool.description": "[Najwyższy priorytet] Połącz się z serwerem MCP (Model Context Protocol) i zwróć listę dostępnych narzędzi. Przed wykonaniem jakiejkolwiek integracji API/systemu użyj tego narzędzia, aby dowiedzieć się, jakie narzędzia MCP są dostępne. Obsługuje serwery MCP oparte na HTTP i stdio.",
+    "tool.system_prompt": "Połącz się z serwerem MCP (HTTP lub stdio) i wyświetl listę jego narzędzi. Jeśli to możliwe, preferuj używanie serwerów skonfigurowanych w pliku mcp_servers.json."
   }
 }

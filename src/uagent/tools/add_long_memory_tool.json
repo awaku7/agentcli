@@ -63,5 +63,15 @@
     "param.note.description": "Teks catatan yang akan disimpan.",
     "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang.",
     "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna."
+  },
+  "vi": {
+    "param.note.description": "Văn bản ghi chú cần lưu.",
+    "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện trong tương lai.",
+    "tool.system_prompt": "Lưu một ghi chú bộ nhớ dài hạn hữu ích.\nKhông lưu trữ các bí mật như mật khẩu, khóa API hoặc mã thông báo."
+  },
+  "pl": {
+    "param.note.description": "Tekst notatki do zapisania.",
+    "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może przydać się w przyszłych rozmowach.",
+    "tool.system_prompt": "Zapisz jedną przydatną notatkę dotyczącą pamięci długoterminowej.\nNie przechowuj sekretów, takich jak hasła, klucze API lub tokeny."
   }
 }

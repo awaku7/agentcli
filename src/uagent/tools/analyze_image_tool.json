@@ -76,5 +76,17 @@
     "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
     "tool.description": "Muat file gambar dan minta AI (Vision) mendeskripsikan isinya. Berguna untuk menganalisis tangkapan layar atau membaca grafik/tabel.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'analyze_image'."
+  },
+  "vi": {
+    "param.image_path.description": "Đường dẫn tới file ảnh cần phân tích.",
+    "param.prompt.description": "Những gì bạn muốn biết về hình ảnh.",
+    "tool.description": "Tải một tệp hình ảnh và yêu cầu AI (Tầm nhìn) mô tả nội dung của nó. Hữu ích cho việc phân tích ảnh chụp màn hình hoặc đọc biểu đồ/bảng.",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'analyze_image'."
+  },
+  "pl": {
+    "param.image_path.description": "Ścieżka do pliku obrazu do analizy.",
+    "param.prompt.description": "Co chcesz wiedzieć o obrazie.",
+    "tool.description": "Załaduj plik obrazu i poproś AI (Vision) o opisanie jego zawartości. Przydatne do analizy zrzutów ekranu lub czytania wykresów/tabel.",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „analyze_image”."
   }
 }

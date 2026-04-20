@@ -115,5 +115,23 @@
     "param.url.description": "URL endpoint server MCP (http://... atau stdio://command...).",
     "tool.description": "Panggil alat dari server MCP. Berikan argumen alat di tool_arguments sebagai JSON object (disarankan) atau string JSON. Nilai kembali adalah string JSON yang berisi setidaknya ok dan text. Jika berlaku, saved_path disertakan (misalnya ketika server mengembalikan saved_path, atau ketika payload file seperti {filename, mime, data_base64} dikembalikan dan klien menyimpannya ke direktori downloads lokal). Catatan: saved_path dapat tidak ada bila alat tidak mengembalikan payload file apa pun.",
     "tool.system_prompt": "Gunakan alat ini sesuai tujuan yang dijelaskan di atas (lihat deskripsi alat)."
+  },
+  "vi": {
+    "doc.mask_values": "Thay thế các giá trị trong từ điển và danh sách bằng '*' (bảo toàn cấu trúc).",
+    "param.server_name.description": "Tên máy chủ được xác định trong mcp_servers.json. Nếu được chỉ định, nó sẽ được ưu tiên hơn url.",
+    "param.tool_arguments.description": "Các đối số cần chuyển tới công cụ MCP. Cung cấp đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON. Đối tượng ví dụ: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Giá trị trả về là một chuỗi JSON. Khi có thể, nó bao gồm đã lưu_path. Lưu ý: save_path có thể bị bỏ qua khi công cụ không trả về bất kỳ tải trọng tệp nào. Nếu công cụ trả về tải trọng tệp (ví dụ: {filename, mime, data_base64}), ứng dụng khách này có thể lưu trọng tải đó vào thư mục tải xuống cục bộ và bao gồm save_path trong JSON được trả về.",
+    "param.tool_name.description": "Tên của công cụ để thực thi.",
+    "param.url.description": "URL điểm cuối của máy chủ MCP (http://... hoặc stdio://command...).",
+    "tool.description": "Gọi một công cụ từ máy chủ MCP. Cung cấp các đối số công cụ trong tool_arguments dưới dạng đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON. Giá trị trả về là một chuỗi JSON chứa ít nhất ok và văn bản. Khi có thể, save_path sẽ được bao gồm (ví dụ: khi máy chủ trả về save_path hoặc khi tải trọng tệp như {filename, mime, data_base64} được trả về và ứng dụng khách này lưu nó vào thư mục tải xuống cục bộ). Lưu ý: save_path có thể bị bỏ qua khi công cụ không trả về bất kỳ tải trọng tệp nào.",
+    "tool.system_prompt": "Sử dụng công cụ này theo mục đích mô tả ở trên (xem mô tả công cụ)."
+  },
+  "pl": {
+    "doc.mask_values": "Zastąp wartości w słownikach i listach znakiem „*” (zachowując strukturę).",
+    "param.server_name.description": "Nazwa serwera zdefiniowana w pliku mcp_servers.json. Jeśli jest określony, ma pierwszeństwo przed adresem URL.",
+    "param.tool_arguments.description": "Argumenty do przekazania do narzędzia MCP. Podaj obiekt JSON (zalecane) lub ciąg JSON. Przykładowy obiekt: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Zwracaną wartością jest ciąg JSON. Jeśli ma to zastosowanie, zawiera zapisaną_ścieżkę. Uwaga: zapisaną_ścieżkę można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku. Jeśli narzędzie zwróci ładunek pliku (na przykład {filename, mime, data_base64}), ten klient może zapisać go w lokalnym katalogu pobierania i dołączyć zapisaną_ścieżkę do zwróconego kodu JSON.",
+    "param.tool_name.description": "Nazwa narzędzia do wykonania.",
+    "param.url.description": "Adres URL punktu końcowego serwera MCP (http://... lub stdio://command...).",
+    "tool.description": "Wywołaj narzędzie z serwera MCP. Podaj argumenty narzędzi w narzędziu_argumenty jako obiekt JSON (zalecane) lub ciąg JSON. Wartość zwracana to ciąg JSON zawierający co najmniej ok i tekst. Jeśli ma to zastosowanie, dołączona jest zapisana_ścieżka (na przykład, gdy serwer zwraca zapisaną_ścieżkę lub gdy zwracany jest ładunek pliku, taki jak {filename, mime, data_base64}, a klient zapisuje go w lokalnym katalogu pobierania). Uwaga: zapisaną_ścieżkę można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku.",
+    "tool.system_prompt": "Używaj tego narzędzia zgodnie z celem opisanym powyżej (patrz opis narzędzia)."
   }
 }

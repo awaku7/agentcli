@@ -141,5 +141,27 @@
     "param.skill_dir.description": "direktori skill",
     "tool.description": "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "err.invalid_args": "[lỗi công cụ] đối số không hợp lệ",
+    "err.max_bytes_positive": "[lỗi công cụ] max_bytes phải là số nguyên dương",
+    "err.relative_path_required": "[lỗi công cụ] đường dẫn tương đối phải là một chuỗi không trống",
+    "err.skill_dir_required": "[lỗi công cụ] Skill_dir phải là một chuỗi không trống",
+    "param.max_bytes.description": "Số byte tối đa cần đọc (mặc định: 5000000)",
+    "param.relative_path.description": "Đường dẫn liên quan đến gốc kỹ năng (ví dụ: tham chiếu/REFERENCE.md)",
+    "param.skill_dir.description": "thư mục kỹ năng",
+    "tool.description": "Đọc an toàn tệp trong thư mục kỹ năng bằng đường dẫn tương đối. Truyền tải đường dẫn bị chặn.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "err.invalid_args": "[błąd narzędzia] nieprawidłowe argumenty",
+    "err.max_bytes_positive": "[błąd narzędzia] max_bytes musi być dodatnią liczbą całkowitą",
+    "err.relative_path_required": "[błąd narzędzia] ścieżka_względna musi być niepustym ciągiem znaków",
+    "err.skill_dir_required": "[błąd narzędzia] katalog_umiejętności musi być niepustym ciągiem znaków",
+    "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania (domyślnie: 5000000)",
+    "param.relative_path.description": "Ścieżka względem korzenia umiejętności (np. referencje/REFERENCE.md)",
+    "param.skill_dir.description": "katalog umiejętności",
+    "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej. Przejście przez ścieżkę jest zablokowane.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }

@@ -102,5 +102,21 @@
     "param.return.description": "Format keluaran.",
     "tool.description": "Hitung hash (sha256/sha1/md5) dari file.",
     "tool.system_prompt": "Alat ini menghitung hash file (sha256/sha1/md5)."
+  },
+  "vi": {
+    "param.algo.description": "Thuật toán băm.",
+    "param.chunk_size.description": "Đọc kích thước chunk (byte).",
+    "param.paths.description": "Mảng đường dẫn tệp đích.",
+    "param.return.description": "Định dạng đầu ra.",
+    "tool.description": "Tính toán hàm băm (sha256/sha1/md5) của tệp.",
+    "tool.system_prompt": "Công cụ này tính toán giá trị băm của tệp (sha256/sha1/md5)."
+  },
+  "pl": {
+    "param.algo.description": "Algorytm mieszający.",
+    "param.chunk_size.description": "Odczytaj rozmiar porcji (w bajtach).",
+    "param.paths.description": "Tablica docelowych ścieżek plików.",
+    "param.return.description": "Format wyjściowy.",
+    "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
+    "tool.system_prompt": "To narzędzie oblicza skróty plików (sha256/sha1/md5)."
   }
 }

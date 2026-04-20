@@ -63,5 +63,15 @@
     "param.format.description": "Format keluaran.",
     "tool.description": "Perkirakan lokasi kasar pengguna berdasarkan alamat IP publiknya. Hasilnya dapat tidak akurat saat menggunakan VPN, proxy, atau jaringan seluler.\n\nKebijakan:\n- Gunakan alat ini saat Anda memerlukan perkiraan lokasi pengguna (kota/wilayah/negara) dan pengguna belum memberikannya.\n- Jika pengguna sudah memberikan lokasinya, utamakan itu dan jangan panggil get_geoip.",
     "tool.system_prompt": "Ambil data lokasi berbasis IP dari layanan eksternal (ipinfo.io) dan kembalikan hasil yang disederhanakan."
+  },
+  "vi": {
+    "param.format.description": "Định dạng đầu ra.",
+    "tool.description": "Ước tính vị trí sơ bộ của người dùng dựa trên địa chỉ IP công cộng của họ. Kết quả có thể không chính xác khi sử dụng VPN, proxy hoặc mạng di động.\n\nChính sách:\n- Sử dụng công cụ này khi bạn cần vị trí gần đúng của người dùng (thành phố/khu vực/quốc gia) và người dùng chưa cung cấp thông tin đó.\n- Nếu người dùng đã cung cấp vị trí của họ, hãy ưu tiên điều đó và không gọi get_geoip.",
+    "tool.system_prompt": "Tìm nạp dữ liệu vị trí dựa trên IP từ một dịch vụ bên ngoài (ipinfo.io) và trả về kết quả đơn giản hóa."
+  },
+  "pl": {
+    "param.format.description": "Format wyjściowy.",
+    "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na podstawie jego publicznego adresu IP. Wynik może być niedokładny w przypadku korzystania z VPN, serwerów proxy lub sieci komórkowych.\n\nPolityka:\n- Użyj tego narzędzia, jeśli potrzebujesz przybliżonej lokalizacji użytkownika (miasto/region/kraj), a użytkownik jej nie podał.\n- Jeśli użytkownik podał już swoją lokalizację, preferuj tę opcję i nie wywołuj get_geoip.",
+    "tool.system_prompt": "Pobierz dane lokalizacyjne oparte na protokole IP z usługi zewnętrznej (ipinfo.io) i zwróć uproszczony wynik."
   }
 }

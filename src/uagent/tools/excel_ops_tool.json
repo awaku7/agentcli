@@ -128,5 +128,25 @@
     "param.output_path.description": "Path output untuk action='keep_only_sheets'. Jika sudah ada, akan ditimpa setelah membuat cadangan (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Baca dan tulis file Excel (.xlsx) serta dapatkan nama sheet. Saat menulis ke file yang sudah ada, cadangan dengan nama yang sama (<file_path>.org / <file_path>.org1 / ...) dibuat tepat sebelum penulisan.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'excel_ops'."
+  },
+  "vi": {
+    "param.action.description": "Thao tác để thực hiện.",
+    "param.data.description": "Dữ liệu JSON để ghi.",
+    "param.file_path.description": "Đường dẫn tuyệt đối tới file Excel.",
+    "param.sheet_name.description": "Tên bảng mục tiêu.",
+    "param.keep_sheets.description": "Tên trang tính cần giữ (chỉ được sử dụng cho action='keep_only_sheets'). Nếu bất kỳ trang tính nào được chỉ định không tồn tại thì công cụ sẽ bị lỗi.",
+    "param.output_path.description": "Đường dẫn đầu ra cho action='keep_only_sheets'. Nếu nó đã tồn tại thì nó sẽ bị ghi đè sau khi tạo bản sao lưu (<output_path>.org/<output_path>.org1/...).",
+    "tool.description": "Đọc và ghi tệp Excel (.xlsx) và lấy tên trang tính. Khi ghi vào một tập tin hiện có, một bản sao lưu có cùng tên (<file_path>.org / <file_path>.org1 / ...) sẽ được tạo ngay trước khi ghi.",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'excel_ops'."
+  },
+  "pl": {
+    "param.action.description": "Operacja do wykonania.",
+    "param.data.description": "Dane JSON do zapisania.",
+    "param.file_path.description": "Ścieżka bezwzględna do pliku Excel.",
+    "param.sheet_name.description": "Nazwa arkusza docelowego.",
+    "param.keep_sheets.description": "Nazwy arkuszy do zachowania (używane tylko dla akcji='keep_only_sheets'). Jeżeli określony arkusz nie istnieje, narzędzie popełnia błędy.",
+    "param.output_path.description": "Ścieżka wyjściowa dla akcji='keep_only_sheets'. Jeśli już istnieje, zostanie nadpisany po utworzeniu kopii zapasowej (<ścieżka_wyjściowa>.org / <ścieżka_wyjściowa>.org1 / ...).",
+    "tool.description": "Odczytuj i zapisuj pliki Excel (.xlsx) oraz pobieraj nazwy arkuszy. Podczas zapisywania do istniejącego pliku bezpośrednio przed zapisem tworzona jest kopia zapasowa o tej samej nazwie (<ścieżka_pliku>.org / <ścieżka_pliku>.org1 / ...).",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „excel_ops”."
   }
 }

@@ -63,5 +63,15 @@
     "err.load": "[galat long_memory] {err_type}: {err}",
     "msg.no_memory": "(belum ada memori jangka panjang)",
     "msg.truncated": "\n[memori jangka panjang dipotong: dibatasi hingga {max_bytes} karakter]"
+  },
+  "vi": {
+    "err.load": "[lỗi long_memory] {err_type}: {err}",
+    "msg.no_memory": "(chưa có trí nhớ dài hạn)",
+    "msg.truncated": "[long_memory bị cắt bớt: giới hạn ở {max_bytes} ký tự]"
+  },
+  "pl": {
+    "err.load": "[błąd długiej_pamięci] {err_type}: {err}",
+    "msg.no_memory": "(nie ma jeszcze pamięci długotrwałej)",
+    "msg.truncated": "[długa_pamięć obcięta: ograniczona do {max_bytes} znaków]"
   }
 }

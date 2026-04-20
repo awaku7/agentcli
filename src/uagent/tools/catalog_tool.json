@@ -63,5 +63,15 @@
     "param.max_results.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
     "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang dibutuhkan.",
     "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap."
+  },
+  "vi": {
+    "param.max_results.description": "Số lượng mục danh mục tối đa cần trả lại.",
+    "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết.",
+    "tool.description": "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ."
+  },
+  "pl": {
+    "param.max_results.description": "Maksymalna liczba wpisów katalogu do zwrotu.",
+    "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebne możliwości.",
+    "tool.description": "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi."
   }
 }

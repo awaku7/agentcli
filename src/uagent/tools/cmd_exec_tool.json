@@ -58,5 +58,15 @@
     "param.command.description": "String perintah yang akan dijalankan.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows. Gunakan hanya jika tidak ada alat lain yang lebih sesuai, seperti Python atau MCP, yang tersedia.",
     "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai."
+  },
+  "vi": {
+    "param.command.description": "Chuỗi lệnh để thực thi.",
+    "tool.description": "Phương án cuối cùng là thực thi lệnh Windows. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác, chẳng hạn như Python hoặc MCP.",
+    "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nếu không có sẵn công cụ thích hợp nào khác."
+  },
+  "pl": {
+    "param.command.description": "Ciąg poleceń do wykonania.",
+    "tool.description": "W ostateczności wykonaj polecenie systemu Windows. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie, takie jak Python lub MCP.",
+    "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie."
   }
 }

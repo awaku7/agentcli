@@ -76,5 +76,17 @@
     "param.cwd.description": "Direktori kerja untuk perintah tersebut.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON. Gunakan hanya jika tidak ada alat lain yang lebih aman atau lebih spesifik yang tersedia (misalnya integrasi MCP).",
     "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai. Bersikaplah konservatif terhadap perintah dan hindari operasi yang merusak kecuali telah dikonfirmasi secara eksplisit oleh pengguna."
+  },
+  "vi": {
+    "param.command.description": "Chuỗi lệnh để thực thi.",
+    "param.cwd.description": "Thư mục làm việc cho lệnh.",
+    "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON. Chỉ sử dụng khi không có sẵn công cụ nào an toàn hơn hoặc cụ thể hơn (ví dụ: tích hợp MCP).",
+    "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nó nếu không có công cụ thích hợp nào khác. Hãy thận trọng với các lệnh và tránh các hoạt động phá hoại trừ khi được người dùng xác nhận rõ ràng."
+  },
+  "pl": {
+    "param.command.description": "Ciąg poleceń do wykonania.",
+    "param.cwd.description": "Katalog roboczy polecenia.",
+    "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON. Używaj tylko wtedy, gdy nie jest dostępne bezpieczniejsze lub bardziej szczegółowe narzędzie (np. integracja MCP).",
+    "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj go tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie. Zachowaj ostrożność w przypadku poleceń i unikaj destrukcyjnych operacji, chyba że użytkownik wyraźnie to potwierdzi."
   }
 }

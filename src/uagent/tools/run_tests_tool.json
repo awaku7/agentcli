@@ -232,5 +232,41 @@
     "param.target.description": "Target (path pytest, direktori awal unittest, script npm, dll.). Jika null, gunakan default.",
     "tool.description": "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan yang dijelaskan pada deskripsi alat."
+  },
+  "vi": {
+    "doc.module": "run_tests_tool\n\nMột công cụ bao bọc để chạy thử nghiệm.\n\nMục đích:\n- Thay vì gọi trực tiếp cmd_exec/pwsh_exec, hãy chuẩn hóa việc thực hiện kiểm tra và trả về kết quả có cấu trúc.\n- Tự động phát hiện pytest/unittest/npm khi framework=auto.\n\nChính sách an toàn:\n- Thực hiện kiểm thử nói chung không phải là một hoạt động nguy hiểm nên không thể thực hiện human_ask.\n- Tuy nhiên, extra_args chứa siêu ký tự chèn lệnh (&&, |, >, v.v.) đều bị từ chối.\n\nThực hiện:\n- Sử dụng nội bộ cmd_exec_json_tool và xử lý returncode/stdout/stderr.\n- Đối với stdout/stderr, áp dụng callbacks.truncate_output nếu có.\n- Đối với đặc tả cwd, sử dụng đối số cwd của cmd_exec_json (không sử dụng cd &&).\n\nCác tính năng bổ sung:\n- pythonpath: cấu hình thêm PYTHONPATH để chạy thử nghiệm.\n  - Windows: đặt PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd không được phép: {error}",
+    "error.dangerous_cwd_rejected": "cwd nguy hiểm bị từ chối: {cwd}",
+    "error.framework_auto_detect_failed": "tự động phát hiện khung không thành công",
+    "error.invalid_framework": "khung không hợp lệ: {framework}",
+    "error.invalid_report": "báo cáo không hợp lệ: {report}",
+    "error.shell_metacharacters_not_allowed": "siêu ký tự shell không được phép trong các đối số: {arg}",
+    "error.unsupported_framework": "khung không được hỗ trợ: {framework}",
+    "param.cwd.description": "Thư mục làm việc để chạy (phải nằm trong workdir). Nếu null, hãy sử dụng thư mục hiện tại.",
+    "param.extra_args.description": "Mảng đối số bổ sung. Từ chối nếu có siêu ký tự shell.",
+    "param.framework.description": "Loại khung kiểm tra.",
+    "param.pythonpath.description": "PYTHONPATH bổ sung (ví dụ: 'src'). Nếu được cung cấp, nó sẽ được đặt trước lệnh kiểm tra.",
+    "param.report.description": "Định dạng đầu ra.",
+    "param.target.description": "Mục tiêu (đường dẫn pytest, thư mục bắt đầu nhỏ nhất, tập lệnh npm, v.v.). Nếu null, giá trị mặc định sẽ được sử dụng.",
+    "tool.description": "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm). Từ chối siêu ký tự shell trong extra_args.",
+    "tool.system_prompt": "Sử dụng công cụ này cho mục đích được mô tả trong mô tả công cụ."
+  },
+  "pl": {
+    "doc.module": "narzędzie run_tests_tool\n\nNarzędzie opakowujące do uruchamiania testów.\n\nCel:\n— Zamiast bezpośrednio wywoływać cmd_exec/pwsh_exec, standaryzuj wykonywanie testów i zwracaj uporządkowane wyniki.\n- Automatycznie wykrywaj pytest / unittest / npm, gdy framework = auto.\n\nPolityka bezpieczeństwa:\n- Wykonanie testu generalnie nie jest operacją niebezpieczną, więc human_ask nie jest wykonywany.\n- Jednakże extra_args zawierające metaznaki wstrzyknięcia polecenia (&&, |, > itd.) są odrzucane.\n\nImplementacja:\n- Wewnętrznie używa cmd_exec_json_tool i obsługuje kod powrotu/stdout/stderr.\n- W przypadku stdout/stderr zastosuj callbacks.truncate_output, jeśli jest dostępny.\n- W przypadku specyfikacji cwd użyj argumentu cwd cmd_exec_json (nie używaj cd &&).\n\nDodatkowe funkcje:\n- pythonpath: skonfiguruj dodatkową ścieżkę PYTHONPATH do uruchamiania testów.\n  - Windows: ustaw PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd niedozwolone: ​​{error}",
+    "error.dangerous_cwd_rejected": "niebezpieczne cwd odrzucone: {cwd}",
+    "error.framework_auto_detect_failed": "Automatyczne wykrywanie struktury nie powiodło się",
+    "error.invalid_framework": "nieprawidłowe ramy: {framework}",
+    "error.invalid_report": "nieprawidłowy raport: {report}",
+    "error.shell_metacharacters_not_allowed": "metaznaki powłoki nie są dozwolone w argumentach: {arg}",
+    "error.unsupported_framework": "nieobsługiwany framework: {framework}",
+    "param.cwd.description": "Katalog roboczy, w którym ma zostać uruchomiony (musi znajdować się w katalogu roboczym). Jeśli ma wartość null, użyj bieżącego katalogu.",
+    "param.extra_args.description": "Tablica dodatkowych argumentów. Odrzuć, jeśli obecne są metaznaki powłoki.",
+    "param.framework.description": "Typ platformy testowej.",
+    "param.pythonpath.description": "Dodatkowy PYTHONPATH (np. „src”). Jeśli jest podany, jest poprzedzany poleceniem testowym.",
+    "param.report.description": "Format wyjściowy.",
+    "param.target.description": "Cel (ścieżka pytest, katalog startowy unittest, skrypt npm itp.). Jeśli null, używane są wartości domyślne.",
+    "tool.description": "Uruchom testy (automatycznie wykryj pytest/unittest/npm). Odrzuć metaznaki powłoki w extra_args.",
+    "tool.system_prompt": "Użyj tego narzędzia do celów opisanych w opisie narzędzia."
   }
 }

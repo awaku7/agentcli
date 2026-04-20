@@ -89,5 +89,19 @@
     "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
     "tool.description": "Muat SKILL.md untuk Agent Skill dan kembalikan YAML frontmatter serta body Markdown.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "err.invalid_args": "[lỗi công cụ] đối số không hợp lệ",
+    "err.skill_dir_required": "[lỗi công cụ] Skill_dir phải là một chuỗi không trống",
+    "param.skill_dir.description": "Thư mục kỹ năng (SKILL.md được yêu cầu ngay bên dưới)",
+    "tool.description": "Tải SKILL.md cho một Kỹ năng đặc vụ và trả về phần nội dung YAML và phần thân Markdown của nó.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "err.invalid_args": "[błąd narzędzia] nieprawidłowe argumenty",
+    "err.skill_dir_required": "[błąd narzędzia] katalog_umiejętności musi być niepustym ciągiem znaków",
+    "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
+    "tool.description": "Ładuje SKILL.md dla umiejętności agenta i zwraca jej frontmater YAML i treść Markdown.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }

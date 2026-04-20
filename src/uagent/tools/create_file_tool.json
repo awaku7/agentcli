@@ -115,5 +115,23 @@
     "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
     "tool.description": "Buat file teks. Secara default, alat tidak akan menimpa file yang sudah ada. Jika overwrite=true ditentukan dan tujuan sudah ada, alat membuat cadangan (<filename>.org / <filename>.org1 / ...) tepat sebelum menimpa. Tips: Jika Anda ingin file CSV/TSV terbuka dengan benar di Microsoft Excel saat dibuka langsung, pertimbangkan encoding='utf-8-sig' (UTF-8 dengan BOM). Untuk pemrosesan mesin dan interoperabilitas, gunakan encoding='utf-8' (tanpa BOM). Jika ragu, tanyakan bagaimana file akan digunakan (Excel vs pemrosesan programatis).",
     "tool.system_prompt": "Buat file teks di bawah workdir. Jika file sudah ada, overwrite=false akan menimbulkan error. Jika overwrite=true, cadangan dibuat sebelum penulisan. Tips: Untuk CSV/TSV yang akan dibuka langsung di Microsoft Excel, pertimbangkan encoding='utf-8-sig' (UTF-8 dengan BOM). Untuk pemrosesan mesin dan interoperabilitas, gunakan encoding='utf-8' (tanpa BOM). Jika ragu, tanyakan bagaimana file akan digunakan (Excel vs pemrosesan programatis)."
+  },
+  "vi": {
+    "param.content.description": "Nội dung văn bản cần viết.",
+    "param.encoding.description": "Mã hóa văn bản (ví dụ: 'utf-8', 'cp932'). Mặc định: 'utf-8-sig' cho .csv/.tsv khi bỏ qua mã hóa; nếu không thì 'utf-8'.",
+    "param.filename.description": "Đường dẫn file cần tạo.",
+    "param.overwrite.description": "Có ghi đè lên nếu file đã tồn tại hay không (mặc định: false).",
+    "param.path.description": "(Khả năng tương thích) Bí danh của tên tệp.",
+    "tool.description": "Tạo một tập tin văn bản. Theo mặc định, công cụ sẽ không ghi đè lên tệp hiện có. Nếu ghi đè=true được chỉ định và đích đã tồn tại, công cụ sẽ tạo bản sao lưu (<filename>.org / <filename>.org1 / ...) ngay trước khi ghi đè. Mẹo: Nếu bạn muốn tệp CSV/TSV mở chính xác trong Microsoft Excel khi được mở trực tiếp, hãy xem xét mã hóa='utf-8-sig' (UTF-8 với BOM). Để xử lý máy và khả năng tương tác, hãy ưu tiên mã hóa='utf-8' (không có BOM). Nếu không chắc chắn, hãy hỏi cách sử dụng tệp (Excel so với xử lý theo chương trình).",
+    "tool.system_prompt": "Tạo một tệp văn bản trong Workdir. Nếu tệp đã tồn tại, ghi đè=false sẽ báo lỗi. Nếu ghi đè=true, bản sao lưu sẽ được tạo trước khi ghi. Mẹo: Đối với CSV/TSV dự định mở trực tiếp trong Microsoft Excel, hãy xem xét mã hóa='utf-8-sig' (UTF-8 với BOM). Để xử lý máy và khả năng tương tác, hãy ưu tiên mã hóa='utf-8' (không có BOM). Nếu không chắc chắn, hãy hỏi cách sử dụng tệp (Excel so với xử lý theo chương trình)."
+  },
+  "pl": {
+    "param.content.description": "Treść tekstowa do napisania.",
+    "param.encoding.description": "Kodowanie tekstu (np. „utf-8”, „cp932”). Wartość domyślna: „utf-8-sig” dla .csv/.tsv, gdy pominięto kodowanie; w przeciwnym razie „utf-8”.",
+    "param.filename.description": "Ścieżka pliku do utworzenia.",
+    "param.overwrite.description": "Określa, czy nadpisać, jeśli plik już istnieje (domyślnie: false).",
+    "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
+    "tool.description": "Utwórz plik tekstowy. Domyślnie narzędzie nie nadpisze istniejącego pliku. Jeśli określono overwrite=true i miejsce docelowe już istnieje, narzędzie tworzy kopię zapasową (<nazwa pliku>.org / <nazwa pliku>.org1 / ...) bezpośrednio przed nadpisaniem. Wskazówka: Jeśli chcesz, aby pliki CSV/TSV otwierały się poprawnie w programie Microsoft Excel przy bezpośrednim otwarciu, rozważ encoding='utf-8-sig' (UTF-8 z BOM). W celu przetwarzania maszynowego i interoperacyjności preferuj encoding='utf-8' (bez BOM). Jeśli nie jesteś pewien, zapytaj, w jaki sposób plik będzie używany (Excel a przetwarzanie programowe).",
+    "tool.system_prompt": "Utwórz plik tekstowy w katalogu roboczym. Jeśli plik już istnieje, overwrite=false zgłosi błąd. Jeśli overwrite=true, przed zapisem tworzona jest kopia zapasowa. Wskazówka: w przypadku plików CSV/TSV przeznaczonych do otwarcia bezpośrednio w programie Microsoft Excel należy rozważyć encoding='utf-8-sig' (UTF-8 z BOM). W celu przetwarzania maszynowego i interoperacyjności preferuj encoding='utf-8' (bez BOM). Jeśli nie jesteś pewien, zapytaj, w jaki sposób plik będzie używany (Excel a przetwarzanie programowe)."
   }
 }

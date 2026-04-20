@@ -76,5 +76,17 @@
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengumpulkan spesifikasi sistem seperti OS, CPU, ukuran RAM, disk penyimpanan (best-effort), dan ruang kosong volume.",
     "param.include_volumes.description": "Sertakan informasi penggunaan volume yang terpasang.",
     "param.include_disks.description": "Sertakan informasi disk fisik jika tersedia (best-effort)."
+  },
+  "vi": {
+    "tool.description": "Nhận thông số kỹ thuật hệ thống (CPU/RAM/ổ đĩa/ổ đĩa) theo cách đa nền tảng với nỗ lực tốt nhất.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: thu thập các thông số kỹ thuật của hệ thống như HĐH, CPU, kích thước RAM, ổ đĩa lưu trữ (nỗ lực tốt nhất) và dung lượng ổ đĩa trống.",
+    "param.include_volumes.description": "Bao gồm thông tin sử dụng ổ đĩa được gắn kết.",
+    "param.include_disks.description": "Bao gồm thông tin đĩa vật lý khi có sẵn (nỗ lực tốt nhất)."
+  },
+  "pl": {
+    "tool.description": "Uzyskaj specyfikacje systemu (procesor/RAM/dyski/woluminy) w najlepszy sposób na wielu platformach.",
+    "tool.system_prompt": "To narzędzie służy do następującego celu: zebrania specyfikacji systemu, takich jak system operacyjny, procesor, rozmiar pamięci RAM, dyski magazynujące (dokładne wysiłki) i wolne miejsce na wolumenie.",
+    "param.include_volumes.description": "Dołącz informacje o użyciu zamontowanego woluminu.",
+    "param.include_disks.description": "Dołącz informacje o dysku fizycznym, jeśli są dostępne (dokładając wszelkich starań)."
   }
 }

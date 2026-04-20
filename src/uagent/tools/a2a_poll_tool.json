@@ -128,5 +128,25 @@
     "param.timeout_s.description": "Ganti batas waktu (detik).",
     "err.missing_task_id": "Tidak ada 'task_id'.",
     "err.exception": "Terjadi pengecualian."
+  },
+  "vi": {
+    "tool.description": "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc.",
+    "tool.system_prompt": "Thăm dò một tác vụ A2A. Chỉ trả về JSON.",
+    "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, dùng hồ sơ mặc định.",
+    "param.task_id.description": "ID tác vụ cần thăm dò.",
+    "param.interval_ms.description": "Ghi đè khoảng thời gian thăm dò (ms).",
+    "param.timeout_s.description": "Ghi đè thời gian chờ (giây).",
+    "err.missing_task_id": "Thiếu 'task_id'.",
+    "err.exception": "Ngoại lệ"
+  },
+  "pl": {
+    "tool.description": "Odpytuj zadanie A2A, aż osiągnie stan końcowy.",
+    "tool.system_prompt": "Odpytuj zadanie A2A. Zwracaj wyłącznie JSON.",
+    "param.profile.description": "Nazwa profilu lub a2a://name. Jeśli pominięto, użyj profilu domyślnego.",
+    "param.task_id.description": "ID zadania do odpytywania.",
+    "param.interval_ms.description": "Zastąp interwał odpytywania (ms).",
+    "param.timeout_s.description": "Zastąp limit czasu (sekundy).",
+    "err.missing_task_id": "Brakuje 'task_id'.",
+    "err.exception": "Wyjątek"
   }
 }

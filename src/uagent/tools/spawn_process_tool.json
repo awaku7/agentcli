@@ -63,5 +63,15 @@
     "param.command.description": "Command line yang akan dieksekusi.",
     "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari menjalankan spawn berulang untuk permintaan yang sama.",
     "tool.system_prompt": "Gunakan alat ini untuk memulai proses eksternal secara asinkron. Hindari menjalankan spawn berulang."
+  },
+  "vi": {
+    "param.command.description": "Dòng lệnh để thực thi.",
+    "tool.description": "Khởi động không đồng bộ một GUI bên ngoài hoặc quá trình trình duyệt. Tránh sinh sản lặp đi lặp lại cho cùng một yêu cầu.",
+    "tool.system_prompt": "Sử dụng công cụ này để bắt đầu một quy trình bên ngoài một cách không đồng bộ. Tránh sinh sản lặp đi lặp lại cho cùng một yêu cầu."
+  },
+  "pl": {
+    "param.command.description": "Wiersz poleceń do wykonania.",
+    "tool.description": "Asynchronicznie uruchom zewnętrzny interfejs GUI lub proces przeglądarki. Unikaj powtarzających się spawnów dla tego samego żądania.",
+    "tool.system_prompt": "Użyj tego narzędzia, aby asynchronicznie uruchomić proces zewnętrzny. Unikaj powtarzających się spawnów dla tego samego żądania."
   }
 }

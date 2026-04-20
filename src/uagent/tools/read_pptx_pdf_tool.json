@@ -89,5 +89,19 @@
     "param.path.description": "Path ke file PDF / PPTX / JSON.",
     "tool.description": "Baca PDF/PPTX (atau skema JSON umum mereka) dan kembalikan teks yang diekstrak per halaman. Anda dapat mengatur path ke .pdf / .pptx / .json. Untuk PDF/PPTX, modul ini mengonversinya ke skema JSON umum.",
     "tool.system_prompt": "PENTING: Alat ini membaca PDF/PPTX/JSON dan mengembalikan teks tingkat halaman. Input: path, page_index, max_chars. Output: teks halaman (semua halaman atau halaman yang ditentukan)."
+  },
+  "vi": {
+    "param.max_chars.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự.",
+    "param.page_index.description": "Số trang dựa trên 1 (trang PDF hoặc chỉ mục slide PPTX). Nếu bị bỏ qua, trả về văn bản nối cho tất cả các trang.",
+    "param.path.description": "Đường dẫn đến tệp PDF / PPTX / JSON.",
+    "tool.description": "Đọc PDF/PPTX (hoặc lược đồ JSON phổ biến của chúng) và trả về văn bản được trích xuất theo trang. Bạn có thể đặt đường dẫn đến .pdf/.pptx/.json. Đối với PDF/PPTX, mô-đun này chuyển đổi nó thành lược đồ JSON chung.",
+    "tool.system_prompt": "QUAN TRỌNG: Công cụ này đọc PDF/PPTX/JSON và trả về văn bản cấp trang. Đầu vào: đường dẫn, page_index, max_chars. Đầu ra: văn bản trang (tất cả các trang hoặc trang được chỉ định)."
+  },
+  "pl": {
+    "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia. W przypadku pominięcia obcinany jest po 8000 znaków.",
+    "param.page_index.description": "Numer strony oparty na 1 (strona PDF lub indeks slajdów PPTX). Jeśli zostanie pominięty, zwraca połączony tekst dla wszystkich stron.",
+    "param.path.description": "Ścieżka do pliku PDF / PPTX / JSON.",
+    "tool.description": "Czytaj pliki PDF/PPTX (lub ich typowy schemat JSON) i zwracaj wyodrębniony tekst według stron. Możesz ustawić ścieżkę na .pdf / .pptx / .json. W przypadku formatu PDF/PPTX moduł ten konwertuje go na typowy schemat JSON.",
+    "tool.system_prompt": "WAŻNE: To narzędzie odczytuje pliki PDF/PPTX/JSON i zwraca tekst na poziomie strony. Dane wejściowe: ścieżka, indeks_strony, max_chars. Dane wyjściowe: tekst strony (wszystkie strony lub określona strona)."
   }
 }

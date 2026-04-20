@@ -76,5 +76,17 @@
     "param.path.description": "Jalur file atau direktori yang ingin Anda periksa keberadaannya (~ juga dapat digunakan).",
     "tool.description": "Periksa apakah file atau direktori ada pada jalur yang ditentukan dan kembalikan jenis, ukuran, serta waktu modifikasinya jika ada.",
     "tool.system_prompt": "Gunakan alat ini untuk memeriksa apakah file atau direktori ada pada jalur yang ditentukan dan, jika ada, kembalikan jenis, ukuran, serta waktu modifikasinya."
+  },
+  "vi": {
+    "err.path_empty": "Đường dẫn [file_exists] trống",
+    "param.path.description": "Đường dẫn của tệp hoặc thư mục bạn muốn kiểm tra sự tồn tại (~ cũng có thể được sử dụng).",
+    "tool.description": "Kiểm tra xem tệp hoặc thư mục có tồn tại ở đường dẫn đã chỉ định hay không và trả về loại, kích thước và thời gian sửa đổi nếu có.",
+    "tool.system_prompt": "Sử dụng công cụ này để kiểm tra xem tệp hoặc thư mục có tồn tại ở đường dẫn đã chỉ định hay không và nếu có, hãy trả về loại, kích thước và thời gian sửa đổi của nó."
+  },
+  "pl": {
+    "err.path_empty": "[błąd_pliku] ścieżka jest pusta",
+    "param.path.description": "Ścieżka pliku lub katalogu, który chcesz sprawdzić pod kątem istnienia (można również użyć ~).",
+    "tool.description": "Sprawdza, czy plik lub katalog istnieje w określonej ścieżce i zwraca jego typ, rozmiar i czas modyfikacji, jeśli tak.",
+    "tool.system_prompt": "Użyj tego narzędzia, aby sprawdzić, czy plik lub katalog istnieje w określonej ścieżce, a jeśli tak, zwrócić jego typ, rozmiar i czas modyfikacji."
   }
 }

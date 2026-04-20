@@ -102,5 +102,21 @@
     "param.unmasked_chars.description": "Jumlah karakter yang dibiarkan di awal dan akhir saat masking. Default 2.",
     "tool.description": "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya. Bisa juga menyamarkan nilainya.",
     "tool.system_prompt": "Gunakan alat ini untuk mendapatkan nilai variabel lingkungan tertentu dan mengembalikannya. Nilai dapat disamarkan bila perlu."
+  },
+  "vi": {
+    "param.mask.description": "Nếu đúng, hãy che dấu giá trị (ví dụ: thông tin bí mật). Mặc định là đúng.",
+    "param.missing_ok.description": "Nếu đúng, hãy trả về '(not set)' thay vì báo lỗi khi thiếu. Mặc định là sai.",
+    "param.name.description": "Tên biến môi trường để đọc.",
+    "param.unmasked_chars.description": "Số lượng ký tự để lại ở đầu và cuối khi tạo mặt nạ. Mặc định là 2.",
+    "tool.description": "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che giấu giá trị.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: lấy giá trị của biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che dấu giá trị."
+  },
+  "pl": {
+    "param.mask.description": "Jeśli prawda, maskuje wartość (np. tajne informacje). Wartość domyślna to prawda.",
+    "param.missing_ok.description": "Jeśli to prawda, w przypadku braku zwróć „(nie ustawiono)” zamiast błędu. Wartość domyślna to fałsz.",
+    "param.name.description": "Nazwa zmiennej środowiskowej do odczytania.",
+    "param.unmasked_chars.description": "Liczba znaków, które należy pozostawić na początku i na końcu podczas maskowania. Wartość domyślna to 2.",
+    "tool.description": "Pobiera wartość określonej zmiennej środowiskowej i zwraca ją. Opcjonalnie maskuje wartość.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: uzyskania wartości określonej zmiennej środowiskowej i zwrócenia jej. Opcjonalnie zamaskuj wartość."
   }
 }

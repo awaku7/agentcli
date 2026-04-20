@@ -102,5 +102,21 @@
     "param.strict.description": "Apakah warning juga diperlakukan sebagai kegagalan? (default: false)",
     "tool.description": "Memvalidasi direktori skill (SKILL.md) sesuai spesifikasi Agent Skills dan mengembalikan error serta warning.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "err.invalid_args": "[lỗi công cụ] đối số không hợp lệ",
+    "err.skill_dir_required": "[lỗi công cụ] Skill_dir phải là một chuỗi không trống",
+    "param.skill_dir.description": "Thư mục kỹ năng (SKILL.md được yêu cầu ngay bên dưới)",
+    "param.strict.description": "Cảnh báo cũng có nên được coi là một thất bại? (mặc định: sai)",
+    "tool.description": "Xác thực thư mục kỹ năng (SKILL.md) theo thông số Kỹ năng của tác nhân và trả về các lỗi cũng như cảnh báo.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "err.invalid_args": "[błąd narzędzia] nieprawidłowe argumenty",
+    "err.skill_dir_required": "[błąd narzędzia] katalog_umiejętności musi być niepustym ciągiem znaków",
+    "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
+    "param.strict.description": "Czy ostrzeżenia również należy traktować jako porażkę? (domyślnie: fałsz)",
+    "tool.description": "Sprawdza katalog umiejętności (SKILL.md) zgodnie ze specyfikacją Agent Skills i zwraca błędy i ostrzeżenia.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }

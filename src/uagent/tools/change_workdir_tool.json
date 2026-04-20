@@ -89,5 +89,19 @@
     "param.new_dir.description": "Jalur direktori baru untuk dipindahkan.",
     "tool.description": "Ubah direktori kerja saat ini setelah konfirmasi pengguna.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'change_workdir'."
+  },
+  "vi": {
+    "confirm.change_workdir": "Thay đổi thư mục làm việc hiện tại thành: {new_dir}\n\nTiếp tục? Nhập y để tiếp tục, c để hủy.",
+    "param.confirm.description": "Có yêu cầu xác nhận của người dùng hay không.",
+    "param.new_dir.description": "Đường dẫn thư mục mới để chuyển sang.",
+    "tool.description": "Thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận.",
+    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'change_workdir'."
+  },
+  "pl": {
+    "confirm.change_workdir": "Zmień bieżący katalog roboczy na: {new_dir}\n\nKontynuować? Wpisz y, aby kontynuować, c, aby anulować.",
+    "param.confirm.description": "Czy prosić o potwierdzenie użytkownika.",
+    "param.new_dir.description": "Nowa ścieżka katalogu, do którego należy się przełączyć.",
+    "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
+    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „change_workdir”."
   }
 }
