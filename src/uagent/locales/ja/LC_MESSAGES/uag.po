@@ -1550,6 +1550,3 @@ msgstr "- \"この PDF を読んで、重要ポイントを3つ挙げて。\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"最新ニュースを検索して、特定のトピックを要約して。\""
 
-#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
-msgid "skills.execution.prompt"
-msgstr "実行スキルであれば、最後まで実行してください。完了したら `finish_skill` を呼んでください。"

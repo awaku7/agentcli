@@ -1578,6 +1578,3 @@ msgstr "- \"Read this PDF and list three key points.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
 
-#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
-msgid "skills.execution.prompt"
-msgstr "If this is an execution skill, execute it to completion. When execution is complete, call `finish_skill`."
