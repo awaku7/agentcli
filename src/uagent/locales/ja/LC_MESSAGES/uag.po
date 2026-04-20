@@ -1550,3 +1550,14 @@ msgstr "- \"この PDF を読んで、重要ポイントを3つ挙げて。\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"最新ニュースを検索して、特定のトピックを要約して。\""
 
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[スキル実行]\n"
+"このスキルは実行対象です。スキル本文をよく読み、手順どおりに実行してください。\n"
+"スキルにタスクが含まれている場合は、完了するまで実行してください。\n"
+"必要に応じてツールを使ってください。\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "完了したら、停止するか、利用可能なら `finish_skill` を呼び出してください。\n"
