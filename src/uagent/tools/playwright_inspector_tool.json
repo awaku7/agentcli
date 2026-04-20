@@ -141,5 +141,27 @@
     "ui.captured": "--- TERTANGKAP: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Setelah operasi, tekan Resume (▷) di Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR DIMULAI ---"
+  },
+  "vi": {
+    "err.child_failed": "[lỗi playwright_inspector] Quá trình con không thành công:\n{stderr}",
+    "out.ok": "Quá trình chụp đã hoàn tất: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ đã được tạo.\n{stdout}",
+    "param.prefix.description": "Tiền tố của tên tệp cần lưu (mặc định: debug_capture)",
+    "param.url.description": "URL đầu tiên mở (mặc định: about:blank)",
+    "tool.description": "Khởi chạy Playwright Inspector để nắm bắt các hoạt động của trình duyệt. Mở URL được chỉ định và lưu trạng thái trang (HTML và hình ảnh) sau khi người dùng nhấp vào nút Tiếp tục. Nó cũng lưu tuần tự các ảnh chụp nhanh DOM/ảnh chụp màn hình trên từng điều hướng khung chính và điều hướng bản ghi, mạng, sự kiện bảng điều khiển, v.v. trong tệp JSONL.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ).",
+    "ui.captured": "--- ĐÃ BẮT BUỘC: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Sau thao tác, nhấn Tiếp tục (▷) trong Thanh tra.",
+    "ui.started": "--- KIỂM TRA PLAYWRIGHT BẮT ĐẦU ---"
+  },
+  "pl": {
+    "err.child_failed": "[błąd playwright_inspector] Proces potomny nie powiódł się:\n{stderr}",
+    "out.ok": "Przechwytywanie zakończone: utworzono {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/.\n{stdout}",
+    "param.prefix.description": "Przedrostek nazwy pliku do zapisania (domyślnie: debug_capture)",
+    "param.url.description": "Pierwszy adres URL do otwarcia (domyślnie: about:blank)",
+    "tool.description": "Uruchom Playwright Inspector, aby przechwycić operacje przeglądarki. Otwiera określony adres URL i zapisuje stan strony (HTML i obraz) po kliknięciu przez użytkownika przycisku Wznów. Zapisuje także sekwencyjnie migawki DOM/zrzuty ekranu w każdej nawigacji na ekranie głównym i rejestruje nawigację, zdarzenia sieciowe, konsolowe i inne w pliku JSONL.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia).",
+    "ui.captured": "--- JĘZYK: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Po operacji naciśnij Wznów (▷) w Inspektorze.",
+    "ui.started": "--- INSPEKTOR PLACÓWEK RUSZYŁ ---"
   }
 }

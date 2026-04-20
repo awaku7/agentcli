@@ -63,5 +63,15 @@
     "param.expression.description": "Rumus yang ingin Anda hitung (mis. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Fungsi dari modul math Python tersedia.",
     "tool.description": "Menghitung ekspresi matematika dan mengembalikan hasilnya. Gunakan ini untuk perhitungan kompleks atau saat presisi diperlukan.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "param.expression.description": "Công thức bạn muốn tính toán (ví dụ: '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Các hàm từ mô-đun toán học của Python đều có sẵn.",
+    "tool.description": "Tính toán một biểu thức toán học và trả về kết quả. Sử dụng tính năng này cho các phép tính phức tạp hoặc khi cần độ chính xác.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "param.expression.description": "Formuła, którą chcesz obliczyć (np. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Dostępne są funkcje z modułu matematycznego Pythona.",
+    "tool.description": "Oblicza wyrażenie matematyczne i zwraca wynik. Użyj tej opcji do skomplikowanych obliczeń lub gdy wymagana jest precyzja.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }

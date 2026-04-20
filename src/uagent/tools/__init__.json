@@ -89,5 +89,19 @@
     "log.load_ok.external": "[tools] Alat eksternal dimuat: {entry_name}",
     "log.loaded_tools": "[tools] Alat yang dimuat: {names}",
     "log.no_valid_tools": "[tools] Tidak ditemukan alat yang valid."
+  },
+  "vi": {
+    "log.load_fail.external": "[công cụ] Không tải được plugin bên ngoài {entry_path}: {err}",
+    "log.load_fail.internal": "[công cụ] Không tải được plugin nội bộ {mod_name}: {err}",
+    "log.load_ok.external": "[công cụ] Đã tải công cụ bên ngoài: {entry_name}",
+    "log.loaded_tools": "[công cụ] Đã tải các công cụ: {names}",
+    "log.no_valid_tools": "[công cụ] Không tìm thấy công cụ hợp lệ."
+  },
+  "pl": {
+    "log.load_fail.external": "[narzędzia] Nie udało się załadować wtyczki zewnętrznej {entry_path}: {err}",
+    "log.load_fail.internal": "[narzędzia] Nie udało się załadować wtyczki wewnętrznej {mod_name}: {err}",
+    "log.load_ok.external": "[narzędzia] Załadowano narzędzia zewnętrzne: {entry_name}",
+    "log.loaded_tools": "[narzędzia] Załadowano narzędzia: {names}",
+    "log.no_valid_tools": "[narzędzia] Nie znaleziono prawidłowych narzędzi."
   }
 }

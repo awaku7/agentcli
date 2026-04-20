@@ -193,5 +193,35 @@
     "param.pattern.description": "Pola regex yang akan dicari.",
     "param.recursive.description": "Apakah mencari subdirektori secara rekursif.",
     "tool.description": "Cari pola dalam file dan kembalikan baris yang cocok beserta nomor barisnya (seperti grep -n)."
+  },
+  "vi": {
+    "err.exception": "Ngoại lệ xảy ra trong quá trình hoạt động grep.",
+    "err.invalid_regex": "Mẫu biểu thức chính quy không hợp lệ.",
+    "err.missing_pattern": "Thiếu 'mẫu'.",
+    "err.no_files_found": "Không tìm thấy tập tin nào phù hợp với tiêu chí.",
+    "param.context_lines.description": "Số dòng ngữ cảnh đầu và cuối cho mỗi trận đấu.",
+    "param.filenames_only.description": "Nếu được bật, chỉ trả về danh sách tên tệp trùng khớp.",
+    "param.ignore_case.description": "Có bỏ qua trường hợp nào không (mặc định: true).",
+    "param.max_results.description": "Số dòng khớp tối đa cần trả về (mặc định: 100).",
+    "param.name_pattern.description": "Mẫu chung cho tên tệp (ví dụ: '*.py').",
+    "param.path.description": "Thư mục gốc hoặc đường dẫn tệp cụ thể (mặc định: '.').",
+    "param.pattern.description": "Mẫu Regex để tìm kiếm.",
+    "param.recursive.description": "Có tìm kiếm đệ quy các thư mục con hay không.",
+    "tool.description": "Tìm kiếm mẫu trong tệp và trả về các dòng khớp với số dòng (như grep -n)."
+  },
+  "pl": {
+    "err.exception": "Wystąpił wyjątek podczas operacji grep.",
+    "err.invalid_regex": "Nieprawidłowy wzór wyrażenia regularnego.",
+    "err.missing_pattern": "Brakuje „wzoru”.",
+    "err.no_files_found": "Nie znaleziono plików spełniających kryteria.",
+    "param.context_lines.description": "Liczba linii kontekstu początkowego i końcowego dla każdego dopasowania.",
+    "param.filenames_only.description": "Jeśli ta opcja jest włączona, zwróć tylko listę nazw plików z dopasowaniami.",
+    "param.ignore_case.description": "Czy ignorować wielkość liter (domyślnie: prawda).",
+    "param.max_results.description": "Maksymalna liczba linii dopasowania do zwrócenia (domyślnie: 100).",
+    "param.name_pattern.description": "Wzorzec globu dla nazw plików (np. „*.py”).",
+    "param.path.description": "Katalog główny lub określona ścieżka pliku (domyślnie: „.”).",
+    "param.pattern.description": "Wzór wyrażenia regularnego do wyszukania.",
+    "param.recursive.description": "Określa, czy rekursywnie przeszukiwać podkatalogi.",
+    "tool.description": "Wyszukaj wzorzec w plikach i zwróć pasujące linie z numerami linii (np. grep -n)."
   }
 }

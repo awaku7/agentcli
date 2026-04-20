@@ -102,5 +102,21 @@
     "param.strict.description": "Apakah warning juga dianggap sebagai kegagalan saat verifikasi spesifikasi (default: false)",
     "tool.description": "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Agent Skills (SKILL.md). Memindai UAGENT_SKILLS_DIRS atau ./skills jika root_dir dihilangkan.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "param.include_invalid.description": "Có đưa nó vào danh sách hay không ngay cả khi phân tích cú pháp/xác minh SKILL.md không thành công (mặc định: true). Nếu sai, các kỹ năng thất bại sẽ bị loại.",
+    "param.recursive.description": "Tìm kiếm đệ quy (mặc định: true)",
+    "param.root_dir.description": "Lộ trình tìm kiếm kỹ năng. Nếu trống/không xác định, UAGENT_SKILLS_DIRS (được phân tách bằng os.pathsep) sẽ được sử dụng và nếu không được chỉ định, ./skills sẽ được sử dụng.",
+    "param.strict.description": "Có coi cảnh báo là lỗi trong quá trình xác minh thông số kỹ thuật hay không (mặc định: sai)",
+    "tool.description": "Trả về danh sách các kỹ năng trong gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (SKILL.md). Quét UAGENT_SKILLS_DIRS hoặc ./skills nếu root_dir bị bỏ qua.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "param.include_invalid.description": "Czy umieścić go na liście, nawet jeśli analiza/weryfikacja SKILL.md nie powiedzie się (domyślnie: true). Jeśli fałszywe, nieudane umiejętności zostaną wykluczone.",
+    "param.recursive.description": "Szukaj rekurencyjnie (domyślnie: prawda)",
+    "param.root_dir.description": "Trasa poszukiwania umiejętności. Jeśli jest pusty/nieokreślony, zostanie użyty UAGENT_SKILLS_DIRS (rozdzielony os.pathsep), a jeśli nie zostanie określony, zostanie użyte ./skills.",
+    "param.strict.description": "Czy podczas weryfikacji specyfikacji traktować ostrzeżenia jako błędy (domyślnie: fałsz)",
+    "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md). Skanuje UAGENT_SKILLS_DIRS lub ./skills, jeśli pominięto katalog_główny.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }

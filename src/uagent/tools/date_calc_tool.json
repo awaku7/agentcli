@@ -154,5 +154,29 @@
     "param.years.description": "Jumlah tahun yang ditambahkan (pengurangan bernilai negatif).",
     "tool.description": "Tambah atau kurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan kembalikan hasilnya. Termasuk deteksi hari libur menggunakan library holidays.",
     "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan juga dapat menentukan apakah hasilnya jatuh pada hari libur menggunakan library holidays. Lihat deskripsi alat untuk detail."
+  },
+  "vi": {
+    "doc.get_holiday_info": "Lấy tên ngày lễ của quốc gia được chỉ định bằng thư viện ngày lễ.",
+    "param.base_date.description": "Ngày cơ sở (định dạng ISO 8601 'YYYY-MM-DD'; nếu bị bỏ qua, là hôm nay).",
+    "param.check_holiday.description": "Có xác định xem đó có phải là ngày nghỉ lễ hay không (mặc định: true)",
+    "param.country.description": "Mã quốc gia để xác định ngày nghỉ lễ (ISO 3166-1 alpha-2, ví dụ: 'JP', 'US', 'GB', 'FR'). Mặc định là 'JP'.",
+    "param.days.description": "Số ngày cần cộng (trừ là số âm).",
+    "param.months.description": "Số tháng cần cộng (trừ là số âm).",
+    "param.weeks.description": "Số tuần cần cộng (trừ là số âm).",
+    "param.years.description": "Số năm cần cộng (trừ là số âm).",
+    "tool.description": "Cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và trả về kết quả. Bao gồm phát hiện ngày lễ bằng thư viện ngày lễ.",
+    "tool.system_prompt": "Công cụ này cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và cũng có thể xác định xem kết quả có rơi vào ngày nghỉ hay không bằng cách sử dụng thư viện ngày lễ. Xem mô tả công cụ để biết chi tiết."
+  },
+  "pl": {
+    "doc.get_holiday_info": "Pobierz nazwy świąt dla określonego kraju, korzystając z biblioteki świąt.",
+    "param.base_date.description": "Data bazowa (format ISO 8601 „RRRR-MM-DD”; jeśli pominięto, oznacza to dzień dzisiejszy).",
+    "param.check_holiday.description": "Czy określić, czy jest to święto/święto (domyślnie: prawda)",
+    "param.country.description": "Kod kraju służący do określania dni ustawowo wolnych od pracy (ISO 3166-1 alfa-2, np. „JP”, „US”, „GB”, „FR”). Wartość domyślna to „JP”.",
+    "param.days.description": "Liczba dni do dodania (odejmowanie jest liczbą ujemną).",
+    "param.months.description": "Liczba miesięcy do dodania (odjęcie jest ujemne).",
+    "param.weeks.description": "Liczba tygodni do dodania (odjęcie jest ujemne).",
+    "param.years.description": "Liczba lat do dodania (odejmowanie jest liczbą ujemną).",
+    "tool.description": "Dodaj lub odejmij lata, miesiące, tygodnie lub dni dla określonej daty i zwróć wynik. Obejmuje wykrywanie dni wolnych przy użyciu biblioteki dni wolnych.",
+    "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie lub dni dla określonej daty, a także może określić, czy wynik przypada na święto, korzystając z biblioteki świąt. Szczegóły znajdziesz w opisie narzędzia."
   }
 }

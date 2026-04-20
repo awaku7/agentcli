@@ -76,5 +76,17 @@
     "msg.disabled": "(shared memory dinonaktifkan; set UAGENT_SHARED_MEMORY_FILE untuk mengaktifkannya)",
     "msg.no_shared_memory": "(belum ada shared memory)",
     "msg.truncated": "\n[memori bersama dipotong: dibatasi hingga {max_bytes} byte]"
+  },
+  "vi": {
+    "err.load": "[lỗi bộ nhớ chia sẻ] {err_type}: {err}",
+    "msg.disabled": "(bộ nhớ dùng chung bị tắt; đặt UAGENT_SHARED_MEMORY_FILE để bật nó)",
+    "msg.no_shared_memory": "(chưa có bộ nhớ chung)",
+    "msg.truncated": "[shared_memory bị cắt bớt: giới hạn ở {max_bytes} byte]"
+  },
+  "pl": {
+    "err.load": "[błąd pamięci współdzielonej] {err_type}: {err}",
+    "msg.disabled": "(pamięć współdzielona jest wyłączona; ustaw UAGENT_SHARED_MEMORY_FILE, aby ją włączyć)",
+    "msg.no_shared_memory": "(nie ma jeszcze pamięci współdzielonej)",
+    "msg.truncated": "[pamięć współdzielona obcięta: ograniczona do {max_bytes} bajtów]"
   }
 }

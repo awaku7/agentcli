@@ -154,5 +154,29 @@
     "ui.confirm.footer": "=== /confirm ===",
     "ui.confirm.howto": "Cara menjawab: y=lanjut / c=batal / lainnya=tolak",
     "ui.confirm.title": "=== Permintaan konfirmasi manusia ==="
+  },
+  "vi": {
+    "confirm.risky_command": "Nội dung lệnh nguy hiểm tiềm tàng đã được phát hiện.\nlệnh: {command}\nGõ y để tiếp tục, hoặc c để hủy.",
+    "confirm.shell_metachar": "Các toán tử Shell (ống/chuyển hướng/chuỗi) đã được phát hiện.\nlệnh: {command}\nGõ y để tiếp tục, hoặc c để hủy.",
+    "err.blocked_cancelled": "người dùng đã hủy",
+    "err.blocked_rejected": "người dùng bị từ chối",
+    "err.callbacks_unavailable": "cuộc gọi lại human_ask không có sẵn",
+    "err.confirm_failed": "xác nhận không thành công",
+    "err.confirm_timeout": "hết thời gian xác nhận",
+    "ui.confirm.footer": "=== /xác nhận ===",
+    "ui.confirm.howto": "Cách trả lời: y=proceed / c=cancel / other=deny",
+    "ui.confirm.title": "=== Yêu cầu xác nhận của con người ==="
+  },
+  "pl": {
+    "confirm.risky_command": "Wykryto potencjalnie niebezpieczną treść polecenia.\npolecenie: {command}\nWpisz y, aby kontynuować, lub c, aby anulować.",
+    "confirm.shell_metachar": "Wykryto operatory powłoki (potok/przekierowanie/łańcuch).\npolecenie: {command}\nWpisz y, aby kontynuować, lub c, aby anulować.",
+    "err.blocked_cancelled": "użytkownik anulowany",
+    "err.blocked_rejected": "użytkownik odrzucony",
+    "err.callbacks_unavailable": "Wywołania zwrotne human_ask są niedostępne",
+    "err.confirm_failed": "potwierdzenie nie powiodło się",
+    "err.confirm_timeout": "limit czasu potwierdzenia",
+    "ui.confirm.footer": "=== /potwierdź ===",
+    "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
+    "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
   }
 }

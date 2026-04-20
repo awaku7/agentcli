@@ -110,5 +110,33 @@
     "param.timeout_s.description": "Timeout permintaan dalam detik.",
     "err.missing_message": "'message' tidak ada.",
     "err.exception": "Pengecualian"
+  },
+  "vi": {
+    "tool.description": "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường.",
+    "tool.system_prompt": "Đăng tải trọng lên Webhook đến của Microsoft Teams. Chỉ trả về JSON.",
+    "param.message.description": "Nội dung tin nhắn để đăng lên Teams. Được sử dụng dưới dạng văn bản thuần túy trừ khi các trường thẻ được cung cấp.",
+    "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
+    "param.summary.description": "Tóm tắt thẻ về tải trọng được webhook hỗ trợ.",
+    "param.image_url.description": "URL hình ảnh cho tải trọng được webhook hỗ trợ.",
+    "param.theme_color.description": "Màu chủ đề thẻ dưới dạng chuỗi hex không có #.",
+    "param.payload_json.description": "Tải trọng webhook thô dưới dạng chuỗi hoặc đối tượng JSON. Nếu được cung cấp, nó sẽ được gửi nguyên trạng.",
+    "param.webhook_env.description": "Tên biến môi trường lưu trữ URL webhook của Teams.",
+    "param.timeout_s.description": "Yêu cầu thời gian chờ tính bằng giây.",
+    "err.missing_message": "Thiếu 'tin nhắn'.",
+    "err.exception": "Ngoại lệ"
+  },
+  "pl": {
+    "tool.description": "Opublikuj wiadomość lub ładunek JSON obsługiwany przez webhook pod adresem URL przychodzącego webhooka Microsoft Teams przechowywanym w zmiennej środowiskowej.",
+    "tool.system_prompt": "Opublikuj ładunek w przychodzącym webhooku Microsoft Teams. Zwróć tylko JSON.",
+    "param.message.description": "Tekst wiadomości do opublikowania w aplikacji Teams. Używany jako zwykły tekst, chyba że podano pola karty.",
+    "param.title.description": "Tytuł karty dla ładunków obsługiwanych przez webhook.",
+    "param.summary.description": "Podsumowanie karty dla ładunków obsługiwanych przez webhook.",
+    "param.image_url.description": "Adres URL obrazu dla ładunków obsługiwanych przez element webhook.",
+    "param.theme_color.description": "Kolor motywu karty jako ciąg szesnastkowy bez znaku #.",
+    "param.payload_json.description": "Surowy ładunek webhooka jako ciąg JSON lub obiekt. Jeśli jest podany, jest wysyłany w stanie takim, w jakim jest.",
+    "param.webhook_env.description": "Nazwa zmiennej środowiskowej przechowującej adres URL elementu webhook aplikacji Teams.",
+    "param.timeout_s.description": "Żądaj limitu czasu w sekundach.",
+    "err.missing_message": "Brakująca „wiadomość”.",
+    "err.exception": "Wyjątek"
   }
 }

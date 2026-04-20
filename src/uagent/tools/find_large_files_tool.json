@@ -128,5 +128,25 @@
     "param.top_n.description": "Jumlah hasil teratas yang akan dikembalikan.",
     "tool.description": "Mencari file besar di bawah direktori yang ditentukan dan mengembalikan N hasil teratas beserta statistik berdasarkan ekstensi.",
     "tool.system_prompt": "Alat ini mencari file besar di bawah direktori yang ditentukan dan mengembalikan N hasil teratas beserta statistik berdasarkan ekstensi."
+  },
+  "vi": {
+    "param.exclude_dirs.description": "Tên thư mục bị loại trừ (khớp với tên thư mục).",
+    "param.group_by_ext.description": "Đồng thời trả về số liệu thống kê được nhóm theo phần mở rộng tệp.",
+    "param.max_files.description": "Số lượng tệp tối đa cần quét (để ngăn quá trình xử lý chạy trốn).",
+    "param.min_bytes.description": "Chỉ bao gồm các tệp lớn hơn kích thước này (mặc định: 10 MB).",
+    "param.root.description": "Tìm kiếm gốc (chỉ được phép trong thư mục công việc).",
+    "param.top_n.description": "Số lượng kết quả hàng đầu được trả về.",
+    "tool.description": "Tìm kiếm các tệp lớn trong thư mục được chỉ định và trả về N kết quả hàng đầu cùng với số liệu thống kê theo tiện ích mở rộng.",
+    "tool.system_prompt": "Công cụ này tìm kiếm các tệp lớn trong thư mục được chỉ định và trả về N kết quả hàng đầu cùng với số liệu thống kê theo tiện ích mở rộng."
+  },
+  "pl": {
+    "param.exclude_dirs.description": "Wykluczone nazwy katalogów (dopasowane według nazwy katalogu).",
+    "param.group_by_ext.description": "Zwróć także statystyki pogrupowane według rozszerzenia pliku.",
+    "param.max_files.description": "Maksymalna liczba plików do przeskanowania (aby zapobiec niekontrolowanemu przetwarzaniu).",
+    "param.min_bytes.description": "Uwzględniaj tylko pliki większe niż ten rozmiar (domyślnie: 10 MB).",
+    "param.root.description": "Wyszukaj w katalogu głównym (dozwolone tylko w katalogu roboczym).",
+    "param.top_n.description": "Liczba najlepszych wyników do zwrócenia.",
+    "tool.description": "Wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia.",
+    "tool.system_prompt": "To narzędzie wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia."
   }
 }

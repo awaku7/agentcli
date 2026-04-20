@@ -193,5 +193,35 @@
     "param.window_title.description": "Judul window yang akan di-screenshot (partial match). Jika ditentukan, alat akan mencari window itu, mengaktifkannya, dan memotret hanya area tersebut.",
     "tool.description": "Mengambil screenshot seluruh desktop atau window tertentu.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu."
+  },
+  "vi": {
+    "err.capture_fail": "[lỗi ảnh chụp màn hình] Không chụp được ảnh chụp màn hình: {err}",
+    "err.close_fail": "[ảnh chụp màn hình] Đã lưu vào {path} nhưng không đóng được cửa sổ: {err}",
+    "err.pyautogui_missing": "[lỗi ảnh chụp màn hình] mô-đun pyautogui chưa được cài đặt.",
+    "err.pygetwindow_missing": "[lỗi ảnh chụp màn hình] Mô-đun pygetwindow chưa được cài đặt (bắt buộc đối với đặc tả cửa sổ).",
+    "err.window_not_found": "[lỗi ảnh chụp màn hình] Không tìm thấy cửa sổ nào khớp với tiêu đề: '{title}'",
+    "out.ok": "[ảnh chụp màn hình] Đã lưu vào {path}",
+    "out.ok_closed": "[ảnh chụp màn hình] Đã lưu vào {path} và đóng cửa sổ",
+    "param.close_window.description": "Có đóng cửa sổ sau khi chụp hay không. Chỉ hợp lệ khi window_title được chỉ định. Mặc định là Sai.",
+    "param.delay.description": "Thời gian chờ (giây) trước khi chụp. Mặc định là 1 giây (đối với chuyển đổi cửa sổ).",
+    "param.file_path.description": "Đường dẫn tệp đích (khuyên dùng .png). Nếu không được chỉ định, nó sẽ được lưu trong thư mục hiện tại kèm theo dấu thời gian.",
+    "param.window_title.description": "Tiêu đề cửa sổ sẽ được quay (khớp một phần). Nếu được chỉ định, hãy định vị cửa sổ đó, kích hoạt nó và chỉ chụp ảnh khu vực đó.",
+    "tool.description": "Chụp ảnh màn hình của toàn bộ màn hình hoặc một cửa sổ cụ thể.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: chụp ảnh màn hình desktop hoặc một cửa sổ cụ thể."
+  },
+  "pl": {
+    "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się zrobić zrzutu ekranu: {err}",
+    "err.close_fail": "[zrzut ekranu] Zapisano w {path}, ale nie udało się zamknąć okna: {err}",
+    "err.pyautogui_missing": "[błąd zrzutu ekranu] moduł pyautogui nie jest zainstalowany.",
+    "err.pygetwindow_missing": "[błąd zrzutu ekranu] Moduł pygetwindow nie jest zainstalowany (wymagany do specyfikacji okna).",
+    "err.window_not_found": "[błąd zrzutu ekranu] Nie znaleziono okna pasującego do tytułu: „{title}”",
+    "out.ok": "[zrzut ekranu] Zapisano w {path}",
+    "out.ok_closed": "[zrzut ekranu] Zapisano w {path} i zamknęliśmy okno",
+    "param.close_window.description": "Czy zamknąć okno po zrobieniu zdjęcia. Prawidłowe tylko wtedy, gdy określono tytuł_okna. Wartość domyślna to Fałsz.",
+    "param.delay.description": "Czas oczekiwania (w sekundach) przed wykonaniem zdjęcia. Wartość domyślna to 1 sekunda (dla przełączania okien).",
+    "param.file_path.description": "Ścieżka pliku docelowego (zalecane .png). Jeśli nie zostanie określony, zostanie zapisany w bieżącym katalogu ze znacznikiem czasu.",
+    "param.window_title.description": "Tytuł okna do strzału (częściowe dopasowanie). Jeśli jest określony, lokalizuje to okno, aktywuje je i fotografuje tylko ten obszar.",
+    "tool.description": "Przechwytuje zrzut ekranu całego pulpitu lub określonego okna.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: przechwycenia zrzutu ekranu pulpitu lub określonego okna."
   }
 }

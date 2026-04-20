@@ -115,5 +115,23 @@
     "param.src.description": "Path asal (file/direktori). Disarankan path relatif.",
     "tool.description": "Ganti nama (pindahkan) file atau direktori.",
     "tool.system_prompt": "Alat ini mengganti nama atau memindahkan file atau direktori.\n\nCatatan keamanan:\n- Konfirmasi diperlukan untuk path absolut, path yang berisi .., atau operasi di luar workdir.\n- overwrite=true memerlukan konfirmasi karena target dihapus terlebih dahulu."
+  },
+  "vi": {
+    "doc.module": "công cụ/rename_path_tool.py\n\ncông cụ đổi tên_path\n\nMục đích:\n- Đổi tên/di chuyển tập tin/thư mục.\n\nChính sách an toàn:\n- Xác nhận với người dùng nếu đáp ứng các điều kiện đường dẫn nguy hiểm, chẳng hạn như đường dẫn bên ngoài workdir, đường dẫn tuyệt đối hoặc đường dẫn chứa ..\n- Xác nhận với người dùng nếu ghi đè=True (xóa và thay thế dst hiện có).\n\nThực hiện:\n- Các hoạt động thực tế được ủy quyền cho tools.safe_file_ops.safe_rename_path().\n- Để xóa một dst hiện có, các tệp sẽ bị xóa bằng os.remove và các thư mục được xóa bằng Shutil.rmtree.\n\nChú ý:\n- Công cụ này thay đổi các file thực giống như create_file/delete_file nên được thiết kế để yêu cầu xác nhận an toàn ngay cả khi được gọi từ LLM.",
+    "param.dst.description": "Đường dẫn đích (tệp/thư mục). Đường dẫn tương đối được đề xuất.",
+    "param.mkdirs.description": "Nếu đúng, hãy tạo thư mục mẹ cho dst trước khi thực thi.",
+    "param.overwrite.description": "Nếu đúng, hãy xóa và thay thế dst nếu nó đã tồn tại (bạn sẽ được yêu cầu xác nhận).",
+    "param.src.description": "Đường dẫn gốc (file/thư mục). Đường dẫn tương đối được đề xuất.",
+    "tool.description": "Đổi tên (di chuyển) một tập tin hoặc thư mục.",
+    "tool.system_prompt": "Công cụ này đổi tên hoặc di chuyển một tập tin hoặc thư mục.\n\nLưu ý an toàn:\n- Cần phải xác nhận đối với các đường dẫn tuyệt đối, đường dẫn chứa '..' hoặc các thao tác bên ngoài thư mục công việc.\n- ghi đè=true yêu cầu xác nhận vì nó xóa đích trước."
+  },
+  "pl": {
+    "doc.module": "Tools/rename_path_tool.py\n\nnarzędzie zmiany nazwy_ścieżki\n\nCel:\n- Zmień nazwę/przenieś pliki/katalogi.\n\nPolityka bezpieczeństwa:\n- Potwierdź u użytkownika, czy spełnione są niebezpieczne warunki ścieżki, takie jak ścieżki poza katalogiem roboczym, ścieżki bezwzględne lub ścieżki zawierające ..\n- Potwierdź u użytkownika, czy overwrite=True (usuń i zastąp istniejący dst).\n\nImplementacja:\n- Rzeczywiste operacje są delegowane do Tools.safe_file_ops.safe_rename_path().\n- Aby usunąć istniejący dst, pliki są usuwane za pomocą os.remove, a katalogi za pomocą Shutil.rmtree.\n\nUwaga:\n- To narzędzie zmienia prawdziwe pliki, podobnie jak utwórz_plik/usuń_plik, dlatego zostało zaprojektowane tak, aby wymagało potwierdzenia bezpieczeństwa nawet w przypadku wywołania z LLM.",
+    "param.dst.description": "Ścieżka docelowa (plik/katalog). Zalecana ścieżka względna.",
+    "param.mkdirs.description": "Jeśli ma wartość true, przed wykonaniem utwórz katalog nadrzędny dla dst.",
+    "param.overwrite.description": "Jeśli prawda, usuń i zastąp dst, jeśli już istnieje (zostaniesz poproszony o potwierdzenie).",
+    "param.src.description": "Oryginalna ścieżka (plik/katalog). Zalecana ścieżka względna.",
+    "tool.description": "Zmień nazwę (przenieś) pliku lub katalogu.",
+    "tool.system_prompt": "To narzędzie zmienia nazwę lub przenosi plik lub katalog.\n\nWskazówki dotyczące bezpieczeństwa:\n- Potwierdzenie jest wymagane w przypadku ścieżek bezwzględnych, ścieżek zawierających „..” lub operacji poza katalogiem roboczym.\n- overwrite=true wymaga potwierdzenia, ponieważ najpierw usuwa miejsce docelowe."
   }
 }

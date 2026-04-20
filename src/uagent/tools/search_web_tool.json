@@ -154,5 +154,29 @@
     "param.query.description": "String kueri pencarian.",
     "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
     "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
+  },
+  "vi": {
+    "error.args_must_be_dict": "args phải là một lệnh",
+    "error.duckduckgo_failed_after_retries": "Yêu cầu DuckDuckGo không thành công sau khi thử lại: {error}",
+    "error.missing_query_parameter": "thiếu tham số 'truy vấn'",
+    "error.run_tool_error": "lỗi run_tool: {error}",
+    "param.max_results.description": "Số kết quả trả về tối đa (mặc định: 5).",
+    "param.n.description": "Bí danh của 'max_results' (để tương thích ngược).",
+    "param.q.description": "Bí danh của 'truy vấn' (để tương thích ngược).",
+    "param.query.description": "Tìm kiếm chuỗi truy vấn.",
+    "tool.description": "Tìm kiếm trên web thông qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/đoạn mã.",
+    "tool.system_prompt": "Công cụ này thực hiện tìm kiếm HTML DuckDuckGo và trả về tiêu đề/liên kết/đoạn mã. Nếu kết quả trống, trang web có thể bị giới hạn tỷ lệ hoặc chặn yêu cầu."
+  },
+  "pl": {
+    "error.args_must_be_dict": "argumenty muszą być dyktatem",
+    "error.duckduckgo_failed_after_retries": "Żądanie DuckDuckGo nie powiodło się po ponownych próbach: {error}",
+    "error.missing_query_parameter": "brak parametru „zapytanie”.",
+    "error.run_tool_error": "błąd narzędzia run_tool: {error}",
+    "param.max_results.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
+    "param.n.description": "Alias ​​„max_results” (dla kompatybilności wstecznej).",
+    "param.q.description": "Alias ​​„query” (dla kompatybilności wstecznej).",
+    "param.query.description": "Wyszukaj ciąg zapytania.",
+    "tool.description": "Przeszukaj Internet za pomocą interfejsu HTML DuckDuckGo i zwróć tytuł/link/fragment.",
+    "tool.system_prompt": "To narzędzie przeprowadza wyszukiwanie w formacie DuckDuckGo w formacie HTML i zwraca tytuł/link/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość lub blokować żądanie."
   }
 }

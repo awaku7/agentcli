@@ -63,5 +63,15 @@
     "err.file_not_found": "file tidak ditemukan: {filename}",
     "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
     "err.path_empty": "path kosong"
+  },
+  "vi": {
+    "err.file_not_found": "không tìm thấy tập tin: {filename}",
+    "err.outside_workdir": "đường dẫn nằm ngoài nơi làm việc: root={root} path={path}",
+    "err.path_empty": "đường dẫn trống"
+  },
+  "pl": {
+    "err.file_not_found": "nie znaleziono pliku: {filename}",
+    "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
+    "err.path_empty": "ścieżka jest pusta"
   }
 }

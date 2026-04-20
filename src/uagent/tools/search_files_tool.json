@@ -245,5 +245,43 @@
     "param.root_path.description": "Direktori root untuk memulai pencarian (default: direktori saat ini).",
     "tool.description": "Cari file di bawah direktori berdasarkan pola nama (glob) dan/atau isi (regex).",
     "tool.system_prompt": "Cari file di bawah direktori. Anda dapat memfilter berdasarkan pola nama file (glob) dan secara opsional mencari isi file menggunakan ekspresi reguler.\n\nCatatan:\n- content_pattern diperlakukan sebagai ekspresi reguler Python.\n- Jika content_pattern kosong, hanya pencocokan nama file yang dilakukan.\n- Demi kinerja dan keamanan, pencarian isi dapat menggunakan pemeriksaan biner sederhana di dalam."
+  },
+  "vi": {
+    "err.dir_not_exist": "[lỗi search_files] Thư mục không tồn tại: {path}",
+    "err.regex_compile": "[lỗi search_files] Không thể biên dịch biểu thức chính quy: {error}",
+    "match.excerpt": "TRẬN ĐẤU: {text}",
+    "match.line": "Dòng {line}: {text}",
+    "match.more": "... (nhiều kết quả phù hợp hơn trong tệp)",
+    "out.file": "Tập tin: {file}",
+    "out.found": "[search_files] Đã tìm thấy {n} kết quả",
+    "out.found_truncated": "[search_files] Đã tìm thấy {n} kết quả (cắt ngắn thành {max_results})",
+    "out.no_match": "[search_files] Không có tệp nào phù hợp với tiêu chí.",
+    "param.case_sensitive.description": "Tìm kiếm nội dung có phân biệt chữ hoa chữ thường hay không (mặc định: sai).",
+    "param.content_pattern.description": "Biểu thức chính quy để tìm kiếm trong tập tin. Nếu được cung cấp, chỉ các tệp chứa ít nhất một dòng phù hợp mới được trả về.",
+    "param.fast_read_threshold_bytes.description": "Các tệp nhỏ hơn ngưỡng này sẽ được đọc đầy đủ() để tìm kiếm nhanh hơn (mặc định: 8000000 ≈ 8 MB). Các tập tin lớn hơn được quét từng dòng.",
+    "param.max_results.description": "Số lượng tệp phù hợp tối đa cần trả về (mặc định: 50).",
+    "param.name_pattern.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*'). Nếu bị bỏ qua, tất cả các tập tin sẽ được xem xét.",
+    "param.root_path.description": "Thư mục gốc để bắt đầu tìm kiếm (mặc định: thư mục hiện tại).",
+    "tool.description": "Tìm kiếm tệp trong thư mục theo mẫu tên (toàn cầu) và/hoặc theo nội dung (regex).",
+    "tool.system_prompt": "Tìm kiếm tập tin trong một thư mục. Bạn có thể lọc theo mẫu tên tệp (toàn cầu) và tùy ý tìm kiếm nội dung tệp bằng biểu thức chính quy.\n\nGhi chú:\n- content_pattern được coi là biểu thức chính quy của Python.\n- Nếu content_pattern trống thì chỉ thực hiện khớp tên tệp.\n- Để đảm bảo hiệu suất và an toàn, việc tìm kiếm nội dung có thể sử dụng kiểm tra nhị phân đơn giản trong nội bộ."
+  },
+  "pl": {
+    "err.dir_not_exist": "[błąd search_files] Katalog nie istnieje: {path}",
+    "err.regex_compile": "[błąd search_files] Nie udało się skompilować wyrażenia regularnego: {error}",
+    "match.excerpt": "MECZ: {text}",
+    "match.line": "Linia {line}: {text}",
+    "match.more": "... (więcej dopasowań w pliku)",
+    "out.file": "Plik: {file}",
+    "out.found": "[search_files] Znaleziono {n} wyników",
+    "out.found_truncated": "[search_files] Znaleziono wyniki {n} (skrócone do {max_results})",
+    "out.no_match": "[search_files] Żadne pliki nie spełniają kryteriów.",
+    "param.case_sensitive.description": "Określa, czy w wyszukiwaniu treści uwzględniana jest wielkość liter (domyślnie: fałsz).",
+    "param.content_pattern.description": "Wyrażenie regularne do wyszukiwania w plikach. Jeśli zostanie podany, zwracane są tylko pliki zawierające co najmniej jedną pasującą linię.",
+    "param.fast_read_threshold_bytes.description": "Pliki mniejsze niż ten próg są w pełni odczytywane() w celu szybszego wyszukiwania (domyślnie: 8000000 ≈ 8 MB). Większe pliki są skanowane linia po linii.",
+    "param.max_results.description": "Maksymalna liczba pasujących plików do zwrócenia (domyślnie: 50).",
+    "param.name_pattern.description": "Wzorzec globalny nazwy pliku (np. „*.py”, „test_*”). Jeśli zostanie pominięty, brane będą pod uwagę wszystkie pliki.",
+    "param.root_path.description": "Katalog główny, od którego należy rozpocząć wyszukiwanie (domyślnie: katalog bieżący).",
+    "tool.description": "Wyszukaj pliki w katalogu według wzorca nazwy (glob) i/lub według zawartości (regex).",
+    "tool.system_prompt": "Wyszukaj pliki w katalogu. Możesz filtrować według wzorca nazwy pliku (glob) i opcjonalnie wyszukiwać zawartość pliku za pomocą wyrażenia regularnego.\n\nUwagi:\n- content_pattern jest traktowany jako wyrażenie regularne Pythona.\n- Jeśli content_pattern jest pusty, wykonywane jest tylko dopasowywanie nazw plików.\n- Ze względu na wydajność i bezpieczeństwo wyszukiwanie treści może wewnętrznie korzystać z prostego sprawdzania binarnego."
   }
 }

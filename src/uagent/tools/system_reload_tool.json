@@ -50,5 +50,13 @@
   "id": {
     "tool.description": "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: memuat ulang sistem dan menerapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode."
+  },
+  "vi": {
+    "tool.description": "Tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python .py) vào bộ nhớ. Chạy cái này sau khi sửa đổi mã.",
+    "tool.system_prompt": "Công cụ này được sử dụng với mục đích sau: tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python .py) vào bộ nhớ. Chạy cái này sau khi sửa đổi mã."
+  },
+  "pl": {
+    "tool.description": "Załaduj ponownie system i zapisz w pamięci najnowszy kod wszystkich narzędzi w obszarze Tools/ (pliki Pythona .py). Uruchom to po zmodyfikowaniu kodu.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: przeładowania systemu i zapisywania w pamięci najnowszego kodu wszystkich narzędzi w obszarze Tools/ (pliki Pythona .py). Uruchom to po zmodyfikowaniu kodu."
   }
 }

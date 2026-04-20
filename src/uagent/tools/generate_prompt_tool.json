@@ -141,5 +141,27 @@
     "param.template.description": "Template format Python. Contoh: '{lines} lines\n\n{content}'.",
     "tool.description": "Buat string prompt dari file menggunakan template format Python. Template dapat merujuk variabel seperti {content}, {lines}, {bytes}, {basename}, {path}.",
     "tool.system_prompt": "Baca file teks di bawah workdir dan buat string prompt dengan menerapkan template (Python str.format).\nVariabel template yang tersedia:\n- content: isi file lengkap (teks)\n- lines: jumlah baris\n- bytes: ukuran file dalam byte\n- basename: nama dasar file\n- path: path absolut yang sudah di-resolve"
+  },
+  "vi": {
+    "err.bad_template": "Mẫu [lỗi tạo_prompt] có khóa không xác định: {key}",
+    "err.not_a_file": "[lỗi tạo_prompt] không phải là tệp: {path}",
+    "err.path_missing": "[lỗi tạo_prompt] đường dẫn/tên tệp không được chỉ định",
+    "err.template_missing": "Mẫu [lỗi_prompt] không được chỉ định",
+    "param.filename.description": "(Tương thích) Bí danh của đường dẫn.",
+    "param.path.description": "Đường dẫn của tệp đầu vào (phải ở dưới workdir).",
+    "param.template.description": "Mẫu định dạng Python. Ví dụ: '{lines} dòng\n\n{content}'.",
+    "tool.description": "Tạo chuỗi nhắc từ tệp bằng mẫu định dạng Python. Mẫu có thể tham chiếu các biến như {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Đọc tệp văn bản trong Workdir và tạo chuỗi lời nhắc bằng cách áp dụng mẫu (Python str.format).\nCác biến mẫu có sẵn:\n- nội dung: nội dung file đầy đủ (văn bản)\n- Line: số dòng\n- byte: kích thước file tính bằng byte\n- basename: tên cơ sở của tập tin\n- đường dẫn: đường dẫn được giải quyết tuyệt đối"
+  },
+  "pl": {
+    "err.bad_template": "Szablon [generate_prompt error] ma nieznany klucz: {key}",
+    "err.not_a_file": "[błąd generowania_promptu] nie jest plikiem: {path}",
+    "err.path_missing": "[Błąd generowania_podpowiedzi] nie określono ścieżki/nazwy pliku",
+    "err.template_missing": "Nie określono szablonu [generate_prompt error].",
+    "param.filename.description": "(Zgodność) Alias ​​ścieżki.",
+    "param.path.description": "Ścieżka pliku wejściowego (musi znajdować się w katalogu roboczym).",
+    "param.template.description": "Szablon w formacie Pythona. Przykład: '{lines} linie\n\n{content}”.",
+    "tool.description": "Wygeneruj ciąg podpowiedzi z pliku przy użyciu szablonu formatu Python. Szablon może odwoływać się do zmiennych takich jak {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Przeczytaj plik tekstowy w katalogu workdir i wygeneruj ciąg znaków zachęty, stosując szablon (Python str.format).\nDostępne zmienne szablonu:\n- treść: pełna zawartość pliku (tekst)\n- linie: liczba linii\n- bajty: rozmiar pliku w bajtach\n- nazwabazowa: nazwabazowa pliku\n- ścieżka: bezwzględnie ustalona ścieżka"
   }
 }

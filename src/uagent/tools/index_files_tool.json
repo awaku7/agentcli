@@ -232,5 +232,41 @@
     "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan. Default adalah direktori saat ini.",
     "tool.description": "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files). Berguna saat Anda ingin menyiapkan data pencarian tanpa langsung membaca isi file.",
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "err.glob_fail": "Lỗi: Không thể phân tích mẫu: {err}",
+    "err.pattern_required": "Lỗi: mẫu không được chỉ định.",
+    "err.root_not_dir": "Lỗi: root_path không phải là thư mục: {root_path}",
+    "err.vec_unavailable": "Lỗi: Không thể tạo chỉ mục vì mô-đun tìm kiếm ngữ nghĩa (semantic_search_files_tool) không khả dụng.",
+    "out.completed": "Quá trình xử lý chỉ mục đã hoàn tất.",
+    "out.fail": "Lỗi: {count} mục",
+    "out.footer": "Bây giờ bạn có thể sử dụng `semantic_search_files` để tìm kiếm các tệp này.",
+    "out.not_found": "Không tìm thấy tệp nào phù hợp với mẫu '{pattern}'.",
+    "out.pattern": "Mẫu mục tiêu: {pattern}",
+    "out.root": "Thư mục gốc: {root_abs}",
+    "out.success": "Thành công: {count} mục",
+    "param.pattern.description": "Tên tệp đích, tên thư mục hoặc mẫu hình cầu (ví dụ: 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không.",
+    "param.root_path.description": "Thư mục là điểm bắt đầu cho việc tìm kiếm và lập chỉ mục. Mặc định là thư mục hiện tại.",
+    "tool.description": "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu toàn cầu) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files). Điều này rất hữu ích khi bạn muốn chuẩn bị dữ liệu tìm kiếm mà không cần đọc nội dung file ngay lập tức.",
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "err.glob_fail": "Błąd: nie udało się przeanalizować wzorca: {err}",
+    "err.pattern_required": "Błąd: nie określono wzoru.",
+    "err.root_not_dir": "Błąd: ścieżka_główna nie jest katalogiem: {root_path}",
+    "err.vec_unavailable": "Błąd: Nie można utworzyć indeksu, ponieważ moduł wyszukiwania semantycznego (narzędzie_wyszukiwania_semantycznego) jest niedostępny.",
+    "out.completed": "Przetwarzanie indeksu zostało zakończone.",
+    "out.fail": "Błąd: {count} elementów",
+    "out.footer": "Możesz teraz użyć `semantic_search_files` do wyszukiwania tych plików.",
+    "out.not_found": "Nie znaleziono plików pasujących do wzorca „{pattern}”.",
+    "out.pattern": "Wzór docelowy: {pattern}",
+    "out.root": "Katalog główny: {root_abs}",
+    "out.success": "Sukces: {count} elementów",
+    "param.pattern.description": "Docelowa nazwa pliku, nazwa katalogu lub wzorzec glob (np. „src/**/*.py”, „*.md”).",
+    "param.recursive.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”.",
+    "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów. Domyślnie jest to katalog bieżący.",
+    "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne, gdy chcesz przygotować dane do wyszukiwania bez natychmiastowego odczytywania zawartości pliku.",
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   }
 }
