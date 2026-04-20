@@ -72,7 +72,8 @@ TOOL_SPEC: Dict[str, Any] = {
                 "1. EXACT MATCH: 'pattern' must match the file content exactly (spaces/indentation/newlines). If 0 matches, use 'read_file' or 'file_grep' to see the exact current state.\n"
                 "2. NO RAW NEWLINES: Never include actual newlines in JSON strings. Use '\\n' (literal backslash + n).\n"
                 "3. INDENTATION: LLMs often get indentation wrong. If literal mode fails, consider if you missed a space.\n"
-                "4. SMALLER BLOCKS: Prefer replacing smaller, unique anchors instead of large blocks to avoid matching errors."
+                "4. SMALLER BLOCKS: Prefer replacing smaller, unique anchors instead of large blocks to avoid matching errors.\n"
+                "5. STRUCTURED MODES: Use replace_po_entry for gettext .po entries and replace_between for anchored blocks."
             ),
         ),
         "parameters": {
@@ -110,6 +111,18 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _("param.replacement.description", default="Replacement text."),
                 },
+                "po_msgid": {
+                    "type": "string",
+                    "description": _("param.po_msgid.description", default="Target gettext msgid for replace_po_entry. If omitted, pattern is used as a fallback."),
+                },
+                "anchor_before": {
+                    "type": "string",
+                    "description": _("param.anchor_before.description", default="Start anchor for replace_between (literal or regex depending on mode)."),
+                },
+                "anchor_after": {
+                    "type": "string",
+                    "description": _("param.anchor_after.description", default="End anchor for replace_between (literal or regex depending on mode)."),
+                },
                 "preview": {
                     "type": "boolean",
                     "description": _("param.preview.description", default="If true, return a preview only and do not modify the file."),
@@ -144,11 +157,13 @@ TOOL_SPEC: Dict[str, Any] = {
                         "insert_before",
                         "insert_after",
                         "insert_at_line",
+                        "replace_between",
+                        "replace_po_entry",
                         "replace_all_in_files",
                     ],
                     "description": _(
                         "param.action.description",
-                        default="Operation: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, or replace_all_in_files.",
+                        default="Operation: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, replace_between, replace_po_entry, or replace_all_in_files.",
                     ),
                     "default": "replace",
                 },
@@ -293,6 +308,330 @@ def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
         default="No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.",
     )
 
+
+
+def _newline_profile(newline: Any) -> str:
+    if isinstance(newline, tuple):
+        if "\r\n" in newline:
+            return "CRLF"
+        if "\r" in newline:
+            return "CR"
+        if "\n" in newline:
+            return "LF"
+        return "UNKNOWN"
+    if newline == "\r\n":
+        return "CRLF"
+    if newline == "\r":
+        return "CR"
+    return "LF"
+
+
+def _diagnostics_hint(diagnostics: Dict[str, Any] | None) -> str | None:
+    if not diagnostics:
+        return None
+    hints = diagnostics.get("hints")
+    if not isinstance(hints, list) or not hints:
+        return None
+    return str(hints[0])
+
+
+def _po_unescape_token(token: str) -> str:
+    t = (token or "").strip()
+    if len(t) >= 2 and t[0] == '"' and t[-1] == '"':
+        t = t[1:-1]
+
+    out: list[str] = []
+    i = 0
+    while i < len(t):
+        ch = t[i]
+        if ch != "\\":
+            out.append(ch)
+            i += 1
+            continue
+
+        i += 1
+        if i >= len(t):
+            out.append("\\")
+            break
+
+        esc = t[i]
+        i += 1
+        if esc == "n":
+            out.append("\n")
+        elif esc == "t":
+            out.append("\t")
+        elif esc == "r":
+            out.append("\r")
+        elif esc == "\\":
+            out.append("\\")
+        elif esc == '"':
+            out.append('"')
+        else:
+            out.append("\\" + esc)
+
+    return "".join(out)
+
+
+def _po_escape_text(text: str) -> str:
+    return (
+        text.replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("\t", "\\t")
+        .replace("\r", "\\r")
+        .replace("\n", "\\n")
+    )
+
+
+def _po_encode_msgstr(text: str) -> List[str]:
+    normalized = _normalize_lf(text)
+    if normalized == "":
+        return ['msgstr ""\n']
+    if "\n" not in normalized and "\r" not in normalized:
+        return [f'msgstr "{_po_escape_text(normalized)}"\n']
+
+    out = ['msgstr ""\n']
+    for part in normalized.splitlines(keepends=True):
+        out.append(f'"{_po_escape_text(part)}"\n')
+    return out
+
+
+def _po_parse_entry_block(block_lines: List[str]) -> Dict[str, Any] | None:
+    if not block_lines:
+        return None
+    if not block_lines[0].lstrip().startswith("msgid "):
+        return None
+
+    def collect(start_idx: int, prefix: str) -> tuple[str, int]:
+        token = block_lines[start_idx].lstrip()[len(prefix):].strip()
+        parts = [_po_unescape_token(token)]
+        i = start_idx + 1
+        while i < len(block_lines):
+            cont = block_lines[i].strip()
+            if len(cont) >= 2 and cont[0] == '"' and cont[-1] == '"':
+                parts.append(_po_unescape_token(cont))
+                i += 1
+            else:
+                break
+        return "".join(parts), i
+
+    msgid, msgid_end = collect(0, "msgid ")
+    if msgid_end >= len(block_lines) or not block_lines[msgid_end].lstrip().startswith("msgstr "):
+        return None
+    msgstr_start = msgid_end
+    msgstr, msgstr_end = collect(msgstr_start, "msgstr ")
+    return {
+        "msgid": msgid,
+        "msgstr": msgstr,
+        "msgstr_start": msgstr_start,
+        "msgstr_end": msgstr_end,
+    }
+
+
+def _build_no_match_diagnostics(
+    *,
+    original: str,
+    search_text: str,
+    mode: str,
+    action: str,
+    expand_newline_tokens: bool,
+    anchor_before: str = "",
+    anchor_after: str = "",
+    po_msgid: str = "",
+) -> Dict[str, Any]:
+    diagnostics: Dict[str, Any] = {
+        "action": action,
+        "mode": mode,
+        "newline_profile": _newline_profile(original),
+        "expand_newline_tokens": expand_newline_tokens,
+        "search_text_length": len(search_text),
+        "contains_escaped_newline_tokens": ("\\n" in search_text or "\\r" in search_text),
+        "contains_regex_meta": bool(re.search(r"[.*+?^$\\[\\]{}()|]", search_text)),
+    }
+
+    hints: list[str] = []
+    stripped = search_text.strip()
+    if not expand_newline_tokens and diagnostics["contains_escaped_newline_tokens"]:
+        hints.append("Escaped newline tokens were not expanded. Set expand_newline_tokens=true or use actual newlines.")
+    if mode == "literal" and diagnostics["contains_regex_meta"]:
+        hints.append("Pattern looks like it contains regex-style meta-characters but mode is literal.")
+    if stripped and stripped != search_text and stripped in original:
+        hints.append("Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation.")
+
+    if action == "replace_between":
+        diagnostics["anchor_before"] = anchor_before
+        diagnostics["anchor_after"] = anchor_after
+        diagnostics["anchor_before_found"] = bool(anchor_before and anchor_before in original)
+        diagnostics["anchor_after_found"] = bool(anchor_after and anchor_after in original)
+        if anchor_before and not diagnostics["anchor_before_found"]:
+            hints.append("anchor_before was not found.")
+        if anchor_after and not diagnostics["anchor_after_found"]:
+            hints.append("anchor_after was not found.")
+    elif action == "replace_po_entry":
+        target = po_msgid or search_text
+        diagnostics["po_msgid"] = target
+        diagnostics["po_msgid_found"] = bool(target and target in original)
+        if not diagnostics["po_msgid_found"]:
+            hints.append("msgid was not found in the .po file.")
+
+    if not hints:
+        hints.append("No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.")
+
+    diagnostics["hints"] = hints
+    return diagnostics
+
+
+def _replace_po_entry_text(
+    original: str,
+    target_msgid: str,
+    replacement: str,
+    occurrence: int,
+) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
+    lines = original.splitlines(keepends=True)
+    out: list[str] = []
+    match_hits: List[Dict[str, Any]] = []
+    match_total = 0
+    replaced_total = 0
+    i = 0
+
+    while i < len(lines):
+        if not lines[i].lstrip().startswith("msgid "):
+            out.append(lines[i])
+            i += 1
+            continue
+
+        j = i + 1
+        while j < len(lines) and not lines[j].lstrip().startswith("msgid "):
+            j += 1
+
+        block = lines[i:j]
+        parsed = _po_parse_entry_block(block)
+        if parsed and parsed["msgid"] == target_msgid:
+            match_total += 1
+            if len(match_hits) < 20:
+                match_hits.append(
+                    {
+                        "line_no": i + 1,
+                        "col": 0,
+                        "msgid": parsed["msgid"],
+                        "msgstr_before": parsed["msgstr"][:200],
+                        "entry_kind": "po",
+                    }
+                )
+            should_replace = occurrence == 0 or occurrence == match_total
+            if should_replace:
+                out.extend(block[: parsed["msgstr_start"]])
+                out.extend(_po_encode_msgstr(replacement))
+                out.extend(block[parsed["msgstr_end"] :])
+                replaced_total += 1
+            else:
+                out.extend(block)
+        else:
+            out.extend(block)
+        i = j
+
+    if match_total == 0:
+        return (
+            original,
+            0,
+            0,
+            [],
+            _build_no_match_diagnostics(
+                original=original,
+                search_text=target_msgid,
+                mode="literal",
+                action="replace_po_entry",
+                expand_newline_tokens=True,
+                po_msgid=target_msgid,
+            ),
+        )
+
+    if occurrence > 0 and occurrence > match_total:
+        diag = _build_no_match_diagnostics(
+            original=original,
+            search_text=target_msgid,
+            mode="literal",
+            action="replace_po_entry",
+            expand_newline_tokens=True,
+            po_msgid=target_msgid,
+        )
+        diag["hints"] = [f"Requested occurrence {occurrence} exceeds available matches ({match_total}).", *diag["hints"]]
+        return original, match_total, 0, match_hits, diag
+
+    return "".join(out), match_total, replaced_total, match_hits, None
+
+
+def _replace_between_text(
+    original: str,
+    anchor_before: str,
+    anchor_after: str,
+    replacement: str,
+    mode: str,
+    occurrence: int,
+) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
+    before_hits = _find_hits_regex(original, re.compile(anchor_before)) if mode == "regex" else _find_hits_literal(original, anchor_before)
+    if not before_hits:
+        return (
+            original,
+            0,
+            0,
+            [],
+            _build_no_match_diagnostics(
+                original=original,
+                search_text=anchor_before,
+                mode=mode,
+                action="replace_between",
+                expand_newline_tokens=True,
+                anchor_before=anchor_before,
+                anchor_after=anchor_after,
+            ),
+        )
+
+    if occurrence <= 0:
+        before_hit = before_hits[0]
+    elif occurrence <= len(before_hits):
+        before_hit = before_hits[occurrence - 1]
+    else:
+        diag = _build_no_match_diagnostics(
+            original=original,
+            search_text=anchor_before,
+            mode=mode,
+            action="replace_between",
+            expand_newline_tokens=True,
+            anchor_before=anchor_before,
+            anchor_after=anchor_after,
+        )
+        diag["hints"] = [f"Requested occurrence {occurrence} exceeds available matches ({len(before_hits)}).", *diag["hints"]]
+        return original, len(before_hits), 0, [], diag
+
+    after_hits = _find_hits_regex(original, re.compile(anchor_after)) if mode == "regex" else _find_hits_literal(original, anchor_after)
+    after_hits = [hit for hit in after_hits if hit.start >= before_hit.end]
+    if not after_hits:
+        diag = _build_no_match_diagnostics(
+            original=original,
+            search_text=anchor_after,
+            mode=mode,
+            action="replace_between",
+            expand_newline_tokens=True,
+            anchor_before=anchor_before,
+            anchor_after=anchor_after,
+        )
+        diag["hints"] = ["anchor_after was not found after anchor_before.", *diag["hints"]]
+        return original, len(before_hits), 0, [], diag
+
+    after_hit = after_hits[0]
+    replaced_text = original[: before_hit.end] + replacement + original[after_hit.start :]
+    lno, col = _map_idx_to_line_col(original, before_hit.start)
+    match_hits = [
+        {
+            "line_no": lno,
+            "col": col,
+            "anchor_before": anchor_before,
+            "anchor_after": anchor_after,
+            "block_before": original[before_hit.start:before_hit.end],
+            "block_after": original[after_hit.start:after_hit.end],
+        }
+    ]
+    return replaced_text, len(before_hits), 1, match_hits, None
 def _pick_newline_style(newline: Any) -> str:
     if isinstance(newline, tuple):
         if "\r\n" in newline:
@@ -326,6 +665,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         expand_newline_tokens: bool,
         return_hashes: bool,
         line_no: int,
+        po_msgid: str,
+        anchor_before: str,
+        anchor_after: str,
     ) -> Dict[str, Any]:
         ensure_within_workdir(path)
         original, nl, enc_used = _read_text_robust(path, encoding, cb.read_file_max_bytes)
@@ -335,6 +677,9 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         p2 = _expand_newline_tokens_to_lf(pattern) if expand_newline_tokens else pattern
         r2 = replacement
+        po_target = _expand_newline_tokens_to_lf(po_msgid) if expand_newline_tokens else po_msgid
+        anchor_before_norm = _expand_newline_tokens_to_lf(anchor_before) if expand_newline_tokens else anchor_before
+        anchor_after_norm = _expand_newline_tokens_to_lf(anchor_after) if expand_newline_tokens else anchor_after
 
         hits: List[_Hit] = []
         if action in {"replace", "insert_before", "insert_after"}:
@@ -348,8 +693,30 @@ def run_tool(args: Dict[str, Any]) -> str:
         replaced_count = 0
         match_hits: List[Dict[str, Any]] = []
         backup_path = None
+        diagnostics: Dict[str, Any] | None = None
 
-        if action == "replace" and match_count > 0:
+        if action == "replace_po_entry":
+            target = po_target or p2
+            if not target:
+                raise ValueError("po_msgid is required for replace_po_entry")
+            replaced_text, match_count, replaced_count, match_hits, diagnostics = _replace_po_entry_text(
+                orig_norm,
+                target,
+                r2,
+                occurrence,
+            )
+        elif action == "replace_between":
+            if not anchor_before_norm or not anchor_after_norm:
+                raise ValueError("anchor_before and anchor_after are required for replace_between")
+            replaced_text, match_count, replaced_count, match_hits, diagnostics = _replace_between_text(
+                orig_norm,
+                anchor_before_norm,
+                anchor_after_norm,
+                r2,
+                mode,
+                occurrence,
+            )
+        elif action == "replace" and match_count > 0:
             if occurrence == 0:
                 if mode == "regex":
                     replaced_text, replaced_count = re.compile(p2).subn(r2, orig_norm)
@@ -394,11 +761,13 @@ def run_tool(args: Dict[str, Any]) -> str:
             match_count = 1
 
         hint = None
-        if match_count == 0 and action in {"replace", "insert_before", "insert_after"}:
+        if diagnostics is not None:
+            hint = _diagnostics_hint(diagnostics)
+        if hint is None and match_count == 0 and action in {"replace", "insert_before", "insert_after"}:
             hint = _get_failure_hint(orig_norm, p2, mode)
 
         changed = replaced_text != orig_norm
-        if not preview and action == "replace" and occurrence == 0 and match_count > confirm_over:
+        if not preview and action in {"replace", "replace_po_entry", "replace_between"} and occurrence == 0 and match_count > confirm_over:
             return {
                 "ok": True,
                 "path": path,
@@ -435,6 +804,8 @@ def run_tool(args: Dict[str, Any]) -> str:
             "diff": _unified_diff(path, original, replaced_text),
             "summary": _make_summary(preview=preview, match_count=match_count, hint=hint),
         }
+        if diagnostics is not None:
+            res["diagnostics"] = diagnostics
         if backup_path is not None:
             res["backup"] = backup_path
         if match_hits:
@@ -455,6 +826,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         occurrence = int(args.get("occurrence", 0))
         confirm_over = int(args.get("confirm_over", 10))
         line_no = int(args.get("line_no", 0))
+        po_msgid = str(args.get("po_msgid", args.get("msgid", "")))
+        anchor_before = str(args.get("anchor_before", ""))
+        anchor_after = str(args.get("anchor_after", ""))
 
         if not path:
             return json.dumps({"ok": False, "error": _("err.path_missing", default="path is not specified")}, ensure_ascii=False)
@@ -483,6 +857,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                             expand_newline_tokens=bool(args.get("expand_newline_tokens", True)),
                             return_hashes=bool(args.get("return_hashes", False)),
                             line_no=line_no,
+                            po_msgid=po_msgid,
+                            anchor_before=anchor_before,
+                            anchor_after=anchor_after,
                         )
                     )
                 except Exception as e:
@@ -522,6 +899,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 expand_newline_tokens=bool(args.get("expand_newline_tokens", True)),
                 return_hashes=bool(args.get("return_hashes", False)),
                 line_no=line_no,
+                po_msgid=po_msgid,
+                anchor_before=anchor_before,
+                anchor_after=anchor_after,
             ),
             ensure_ascii=False,
         )
