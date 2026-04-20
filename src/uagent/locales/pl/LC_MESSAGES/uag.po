@@ -1,0 +1,1478 @@
+# English translations for uag package.
+# Copyright (C) 2026 THE uag'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the uag package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: uag 0.4.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-17 15:03+0900\n"
+"PO-Revision-Date: 2026-04-15 09:48+0900\n"
+"Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
+"Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:103
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Nieznana wartość UAGENT_A2A_ENGINE: %(mode)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:16
+msgid "Please install Git. Download from: https://git-scm.com/download/"
+msgstr "Zainstaluj program Git. Pobierz z: https://git-scm.com/download/"
+
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:19
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr "Zainstaluj program Git. Na przykład: sudo apt install git (Ubuntu/Debian) lub sudo yum install git (CentOS/RHEL)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:22
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr "Zainstaluj program Git. Jeśli używasz Homebrew: brew install git albo zainstaluj Xcode Command Line Tools: xcode-select --install"
+
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:24
+msgid "Please install Git. See: https://git-scm.com/download/"
+msgstr "Proszę zainstalować Git. Zobacz: https://git-scm.com/download/"
+
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:25
+msgid "[ERROR] Git is not installed."
+msgstr "[BŁĄD] Git nie jest zainstalowany."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:357
+msgid "getch() fallback to input()"
+msgstr "getch() przechodzi na input()"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:556
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Anulowano wprowadzanie (zostanie wysłane jako odpowiedź do human_ask)."
+
+#. Ctrl+C で即座に終了シーケンスに入るように変更
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:564
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Odebrano Ctrl+C. Rozpoczynanie zamykania..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:571
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "Nieoczekiwany błąd w stdin_loop: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:597
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:667
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr "(Tryb wielowierszowego wprowadzania: wpisz treść w wielu wierszach; aby zacząć od nowa, wpisz \"\"\"retry; zakończ wierszem zawierającym %(sentinel)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:627
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:796
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:815
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:838
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:854
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:869
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:888
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:902
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:915
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:923
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:935
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:946
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:995
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1019
+msgid "Cancelled."
+msgstr "Anulowano."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:633
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:683
+msgid "Discarded previous input. Please start over."
+msgstr "Odrzucono poprzednie dane wejściowe. Proszę zacząć od nowa."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:644
+msgid "Received multiline reply."
+msgstr "Otrzymano odpowiedź wielowierszową."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:796
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr "W danych wejściowych znaleziono ścieżki do plików obrazów.\nCzy chcesz wysłać te obrazy do LLM (zewnętrzne API) do analizy?\n\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:802
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Odpowiedz y, aby wysłać, albo n (lub c/cancel), aby pominąć wysyłanie."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:817
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "Potwierdzenie wysłania obrazów nie powiodło się; obrazy nie zostaną wysłane: %(etype)s: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:845
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:346
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Nie udało się dołączyć obrazu: %(path)s (%(etype)s: %(err)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:882
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Nieznany typ zdarzenia kind=%(kind)r: %(ev)r"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:896
+msgid "Exited uag."
+msgstr "Zakończono uag."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] wymagane jest podanie nazwy"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:108
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:817
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Nie udało się ustawić workdir: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:133
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Nie udało się uruchomić uag_setup: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:161
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:178
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:580
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "Dostawca LLM = %(provider)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:162
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:182
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:582
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model(wdrożenie) = %(depname)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:169
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:192
+msgid "OpenRouter fallback models enabled."
+msgstr "Włączono awaryjne modele OpenRouter."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:175
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:230
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:575
+msgid ""
+"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
+"ignored)"
+msgstr ""
+"Tryb API LLM = natywny Gemini/Vertex AI/Claude API (UAGENT_RESPONSES jest "
+"ignorowane)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:185
+#, python-format
+msgid ""
+"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
+"support Responses API. Falling back to ChatCompletions."
+msgstr "[OSTRZEŻENIE] Ustawiono UAGENT_RESPONSES=1, ale dostawca '%(provider)s' nie obsługuje Responses API. Przełączam się na ChatCompletions."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:190
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:194
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:234
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:577
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "Tryb API LLM = ChatCompletions (UAGENT_RESPONSES jest wyłączone)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:192
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:227
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:573
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Tryb API LLM = Responses (UAGENT_RESPONSES jest włączone)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:205
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:243
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:595
+msgid "Loaded long-term memory."
+msgstr "Wczytano pamięć długoterminową."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:218
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:256
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:607
+msgid "Loaded shared long-term memory."
+msgstr "Załadowano współdzieloną pamięć długoterminową."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:225
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "[OSTRZEŻENIE] Wystąpił wyjątek podczas ładowania współdzielonej pamięci długoterminowej: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:259
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[OSTRZEŻENIE] Nie udało się odczytać pliku startowego: %(path)s (%(err)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:295
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive został podany; kończę bez czekania na stdin."
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:284
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:305
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Zmienna środowiskowa %(name)s nie jest ustawiona."
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:597
+msgid "No log files found."
+msgstr "Nie znaleziono plików dziennika."
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:618
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "dzienniki: pokazuję %(shown)d/%(total)d (katalog=%(dir)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:621
+msgid "Log files:"
+msgstr "Pliki dziennika:"
+
+#. Fallback: minimal help (avoid breaking interactive use)
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1309
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help  (pomoc niedostępna: %(err)s)"
+
+#. ==============================
+#. SYSTEM_PROMPT
+#. ==============================
+#. NOTE: Keep system prompt msgids small (avoid giant single msgid).
+#. Split into section-level msgids and build full/compact prompts by joining.
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1318
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+msgstr "## Misja\n- Jesteś sprawnym \"agentem wykonującym narzędzia ogólnego przeznaczenia\" działającym w lokalnym środowisku i możesz faktycznie wykonywać polecenia oraz operować na plikach na komputerze użytkownika.\n- Przed wykonaniem jakiejkolwiek niebezpiecznej operacji poproś użytkownika o potwierdzenie.\n- Nie schlebiaj użytkownikowi. Nie używaj emoji.\n- Nie streszczaj. Zachowuj zwięzłość.\n- Podczas tworzenia plików wypisz pełną końcową treść (bez diffów ani częściowych podsumowań).\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1326
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr "## Zasady\n- Zawsze korzystaj z dostarczonych narzędzi i weryfikuj najnowsze informacje.\n- Bądź kreatywny, ale nie podawaj niepewnych informacji.\n- Korzystaj z dostępnych narzędzi i wybieraj najwłaściwsze.\n- Podczas wykonywania narzędzi pozostaw użytkownikowi jak najmniej decyzji.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1333
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+msgstr "## Uwagi\n- Wszystkie wiadomości użytkownika trafiają przez standardowe wejście tego skryptu.\n- W przypadku celu narzędzia / argumentów / ograniczeń / szczegółów działania, preferuj opis każdego narzędzia.\n- Jeśli potrzebujesz dodatkowych informacji lub potwierdzenia od użytkownika, użyj narzędzia human_ask.\n- Przy obsłudze względnych wyrażeń daty wywołaj get_current_time, aby odwołać się do bieżącego czasu.\n- Nie zapisuj sekretów (haseł/tokenów itp.) w pamięci długoterminowej (add_long_memory itp.).\n- Pliki z sufiksami typu .org / .org1 / .org2 są kopiami zapasowymi i nie wolno traktować ich jako głównych plików do edycji.\n- Jeśli tworzysz pliki Python, uruchom `python -m py_compile`, aby sprawdzić składnię.\n- Jeśli potrzebna jest wiedza ekspercka, używaj szablonów promptów (Agent Skills) i postępuj zgodnie z nimi.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1344
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr "## Zasady dotyczące operacji niebezpiecznych (delete_file)\n- Przy usuwaniu za pomocą narzędzia delete_file NIE pytaj o potwierdzenie przed podglądem.\n- Zawsze najpierw uruchom delete_file z dry_run=true, aby uzyskać listę kandydatów do usunięcia.\n- Pokaż kandydatów użytkownikowi i poproś o potwierdzenie tylko raz za pomocą human_ask.\n- Dopiero gdy użytkownik wyraźnie odpowie \"y\" lub \"yes\" (lub równoważną jednoznaczną zgodą), uruchom delete_file ponownie z tymi samymi parametrami, dry_run=false i confirmed=true.\n- Jeśli kandydatów jest zero, nie pytaj; po prostu zgłoś, że nic nie zostanie usunięte.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1352
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+msgstr "## Misja\n- Jesteś sprawnym \"agentem wykonującym narzędzia ogólnego przeznaczenia\" działającym w lokalnym środowisku; możesz wykonywać polecenia i operować na komputerze użytkownika.\n- Przed każdą niebezpieczną operacją poproś użytkownika o potwierdzenie.\n- Bez schlebiania. Bez emoji. Bez podsumowań rozmowy. Zachowaj zwięzłość.\n- Podczas tworzenia plików wypisz pełną końcową treść (bez diffów / częściowych podsumowań).\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1359
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr "## Zasady\n- Najpierw używaj dostarczonych narzędzi i weryfikuj wyniki za pomocą narzędzi.\n- Zapoznaj się z opisami narzędzi pod kątem celu / argumentów / ograniczeń; wybierz najbardziej odpowiednie i najbezpieczniejsze narzędzie.\n- Bądź kreatywny, ale nie podawaj niepewnych informacji.\n- Pozostaw użytkownikowi jak najmniej decyzji.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1366
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+msgstr "## Uwagi\n- Wszystkie wiadomości użytkownika trafiają przez standardowe wejście tego skryptu.\n- Jeśli brakuje wymaganych informacji / parametrów, zapytaj przez human_ask (nie zgaduj).\n- Daty względne: wywołaj get_current_time.\n- Nie zapisuj sekretów (haseł/tokenów) w pamięci długoterminowej.\n- Pliki z sufiksami typu .org / .org1 / .org2 są kopiami zapasowymi i nie wolno traktować ich jako głównych plików do edycji.\n- Jeśli tworzysz pliki Python, uruchom `python -m py_compile`.\n- Jeśli potrzebna jest wiedza ekspercka, używaj szablonów promptów Agent Skills.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1378
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr "- Jeśli użytkownik używa Windows cmd.exe, preferuj wielowierszowe polecenia z kontynuacją caret (^) i utrzymuj każdą linię krótką, aby uniknąć problemów z kopiowaniem/wklejaniem.\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1442
+msgid "[Available Tools]"
+msgstr "[Dostępne narzędzia]"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1445
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr "W tej sesji są aktualnie załadowane następujące narzędzia. Wybierz najbardziej odpowiednie narzędzie do zadania."
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:27
+msgid "Project README"
+msgstr "README projektu"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Szybki start (instalacja wheel na Windows)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Przewodnik Web Inspector (playwright_inspector)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:42
+msgid "Developer information"
+msgstr "Informacje dla programistów"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "nieznana nazwa dokumentu: %(name)r"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "nie znaleziono pliku dokumentu: %(filename)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "nie udało się rozwiązać ścieżki dokumentu: %(filename)s: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Dostępne dokumenty:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:231
+msgid "Usage:"
+msgstr "Użycie:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "  uag docs                 # lista"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # pokaż"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # pokaż ścieżkę"
+
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # otwórz w systemie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:42
+msgid "env.required.provider"
+msgstr "Wymagany dostawca"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:63
+msgid "env.warn.unknown_provider"
+msgstr "[OSTRZEŻENIE] Nieznany dostawca: %(provider)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:156
+msgid "env.fatal.header"
+msgstr "[KRYTYCZNY] Błąd podczas sprawdzania zmiennych środowiskowych:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:162
+msgid "env.fatal.missing"
+msgstr "Brak wymaganej zmiennej środowiskowej: %(name)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:166
+msgid "env.fatal.item"
+msgstr "  - %(item)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:173
+msgid "env.fatal.warnings"
+msgstr "Wykryto ostrzeżenia konfiguracji:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:177
+msgid "env.fix.title"
+msgstr "Jak naprawić:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:180
+msgid "env.fix.one"
+msgstr "  1. Sprawdź ponownie zmienne środowiskowe."
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:186
+msgid "env.fix.two"
+msgstr "  2. Edytuj .env i uruchom ponownie `uag_setup`."
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:192
+msgid "env.fix.three"
+msgstr "  3. Ustaw wartości zgodnie z powyższą sugestią."
+
+#: C:\KAIHATSU\agentcli\src\uagent\gemini_cache_mgr.py:129
+msgid "invalid cache meta"
+msgstr "nieprawidłowe metadane pamięci podręcznej"
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_claude.py:141
+msgid "anthropic パッケージがインストールされていません。（pip install anthropic が必要です）"
+msgstr "Pakiet anthropic nie jest zainstalowany. (wymagane `pip install anthropic`)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_errors.py:396
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr "[RATE_LIMIT] dostawca=%(provider)s model=%(model)s status=%(status)s próba=%(attempt)s/%(max_retries)s czekaj=%(wait_seconds).1fs retry_after=%(retry_after)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:86
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:217
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:565
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr "Ustawiono UAGENT_RESPONSES=1, ale dostawca '%(provider)s' nie obsługuje Responses API. Przełączam się na ChatCompletions."
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:93
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "Strumieniowanie LLM = %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:21
+msgid "env.warn.prefix"
+msgstr "[OSTRZEŻENIE] "
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_init.py:44
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[OSTRZEŻENIE] Nie udało się odszyfrować .env.sec: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_workdir.py:42
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Podana ścieżka workdir jest plikiem: %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:265
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:616
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "Wystąpił wyjątek podczas ładowania współdzielonej pamięci długoterminowej: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:471
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:564
+msgid "Welcome / Quick Guide"
+msgstr "Witamy / Szybki przewodnik"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:479
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (ekstremalna stabilność)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:525
+msgid "Send"
+msgstr "Wyślij"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:563
+msgid "Help"
+msgstr "Pomoc"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:578
+msgid "Mode"
+msgstr "Tryb"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:580
+msgid "Reasoning: off"
+msgstr "Rozumowanie: wyłączone"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:583
+msgid "Reasoning: auto"
+msgstr "Rozumowanie: automatyczne"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:585
+msgid "Reasoning: minimal"
+msgstr "Rozumowanie: minimalne"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:587
+msgid "Reasoning: low"
+msgstr "Rozumowanie: niskie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:589
+msgid "Reasoning: medium"
+msgstr "Rozumowanie: średnie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:591
+msgid "Reasoning: high"
+msgstr "Rozumowanie: wysokie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:594
+msgid "Reasoning: xhigh"
+msgstr "Rozumowanie: bardzo wysokie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:599
+msgid "Verbosity: off"
+msgstr "Szczegółowość: wyłączona"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:601
+msgid "Verbosity: low"
+msgstr "Szczegółowość: niska"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:603
+msgid "Verbosity: medium"
+msgstr "Szczegółowość: średnia"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:605
+msgid "Verbosity: high"
+msgstr "Szczegółowość: wysoka"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:635
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[tryb] rozumowanie=%(mode)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:756
+msgid "Enter password..."
+msgstr "Wpisz hasło..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:758
+msgid "Enter response for human_ask..."
+msgstr "Wpisz odpowiedź dla human_ask..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:763
+msgid "Enter a message..."
+msgstr "Wpisz wiadomość..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:28
+msgid "# .env for uag (generated by `uag_setup`)"
+msgstr "# .env dla uag (wygenerowany przez `uag_setup`)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:29
+msgid "#"
+msgstr "#"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:30
+msgid "# Notes:"
+msgstr "# Uwagi:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:31
+msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
+msgstr "# - Ten plik może zawierać sekrety (klucze API). NIE commituj go do Git."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:32
+msgid "# - You can re-run `uag_setup` anytime to regenerate."
+msgstr "# - Możesz uruchomić `uag_setup` ponownie w dowolnym momencie, aby wygenerować plik od nowa."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:38
+msgid "#!/usr/bin/env bash"
+msgstr "#!/usr/bin/env bash"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:39
+msgid "# Auto-generated by uag_setup"
+msgstr "# Wygenerowano automatycznie przez uag_setup"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:40
+msgid "# Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr "# Nie edytuj tego pliku bezpośrednio. Uruchom ponownie uag_setup, aby wygenerować go od nowa."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:46
+msgid "<#"
+msgstr "<#"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:47
+msgid " Auto-generated by uag_setup"
+msgstr " Wygenerowano automatycznie przez uag_setup"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:48
+msgid " Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr " Nie edytuj tego pliku bezpośrednio. Uruchom ponownie uag_setup, aby wygenerować go od nowa."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:49
+msgid "#>"
+msgstr "#>"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:55
+msgid "@echo off"
+msgstr "@echo off"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:56
+msgid "REM Auto-generated by uag_setup"
+msgstr "REM Wygenerowano automatycznie przez uag_setup"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:57
+msgid "REM Do not edit this file directly. Re-run uag_setup to regenerate."
+msgstr "REM Nie edytuj tego pliku bezpośrednio. Uruchom ponownie uag_setup, aby wygenerować go od nowa."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:62
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:174
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:182
+msgid "OpenAI-compatible"
+msgstr "Zgodne z OpenAI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:63
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:175
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:181
+msgid "Azure OpenAI"
+msgstr "Azure OpenAI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:64
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:176
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:183
+msgid "Bedrock OpenAI-compatible gateway"
+msgstr "brama Bedrock zgodna z OpenAI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:65
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:177
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:184
+msgid "OpenRouter"
+msgstr "OpenRouter"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:66
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:185
+msgid "Gemini"
+msgstr "Gemini"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:67
+msgid "Vertex AI"
+msgstr "Vertex AI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:68
+msgid "Grok"
+msgstr "Grok"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:69
+msgid "Claude"
+msgstr "Claude"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:70
+msgid "Ollama"
+msgstr "Ollama"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:71
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:186
+msgid "NVIDIA"
+msgstr "NVIDIA"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:77
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:447
+msgid "OpenAI API key"
+msgstr "klucz API OpenAI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:78
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:448
+msgid "OpenAI base URL (optional)"
+msgstr "podstawowy URL OpenAI (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia OpenAI (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:85
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:440
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "podstawowy URL Azure (np. https://<resource>.openai.azure.com/)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:87
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:441
+msgid "Azure API key"
+msgstr "klucz API Azure"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "wersja API Azure (opcjonalnie, np. 2024-05-01-preview)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:93
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:443
+msgid "Azure deployment name"
+msgstr "nazwa wdrożenia Azure"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:99
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:453
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "podstawowy URL bramy Bedrock (np. https://<gateway>/v1)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:101
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:454
+msgid "Bedrock API key"
+msgstr "klucz API Bedrock"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:105
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:455
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "nazwa modelu/wdrożenia Bedrock (np. openai.gpt-oss-120b)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:109
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:459
+msgid "OpenRouter API key"
+msgstr "klucz API OpenRouter"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:110
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:460
+msgid "OpenRouter base URL (optional)"
+msgstr "podstawowy URL OpenRouter (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia OpenRouter (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "zapasowe modele OpenRouter (opcjonalnie, rozdzielane przecinkami)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:123
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:465
+msgid "Gemini API key"
+msgstr "klucz API Gemini"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "nazwa modelu Gemini (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "klucz API Vertex AI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "identyfikator projektu Vertex AI (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "lokalizacja/region Vertex AI (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:130
+msgid "Vertex AI model/deployment name"
+msgstr "nazwa modelu/wdrożenia Vertex AI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:133
+msgid "Grok API key"
+msgstr "klucz API Grok"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:134
+msgid "Grok base URL (optional)"
+msgstr "podstawowy URL Grok (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:135
+msgid "Grok model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia Grok (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:138
+msgid "Claude API key"
+msgstr "klucz API Claude"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:139
+msgid "Claude model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia Claude (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:142
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:470
+msgid "NVIDIA API key"
+msgstr "klucz API NVIDIA"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:143
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:471
+msgid "NVIDIA base URL (optional)"
+msgstr "podstawowy URL NVIDIA (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:144
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia NVIDIA (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:150
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "podstawowy URL Ollama (np. http://localhost:11434/v1)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:152
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "klucz API Ollama (opcjonalnie, domyślnie: dummy)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:153
+msgid "Ollama model/deployment name (optional)"
+msgstr "nazwa modelu/wdrożenia Ollama (opcjonalnie)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:157
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "limit czasu żądania Ollama w sekundach (domyślnie: 60)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:159
+msgid "Ollama temperature (default: 0.7)"
+msgstr "temperatura Ollama (domyślnie: 0.7)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:160
+msgid "Ollama top_p (default: 0.9)"
+msgstr "top_p Ollama (domyślnie: 0.9)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:161
+msgid "Ollama top_k (default: 40)"
+msgstr "top_k Ollama (domyślnie: 40)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:162
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "repeat_penalty Ollama (domyślnie: 1.1)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:163
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "keep_alive Ollama (domyślnie: 5m)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:164
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "num_ctx Ollama (domyślnie: 8192)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:165
+msgid "Ollama num_predict (default: 1024)"
+msgstr "num_predict Ollama (domyślnie: 1024)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:316
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:405
+msgid "Enter number:"
+msgstr "Wpisz numer:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:318
+msgid " b=back"
+msgstr " b=wróć"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:319
+msgid " q=quit"
+msgstr " q=wyjście"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:329
+msgid "Invalid input. Please enter a valid number."
+msgstr "Nieprawidłowe dane wejściowe. Wpisz poprawny numer."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:342
+#, python-format
+msgid " [default: %(default)s]"
+msgstr " [domyślnie: %(default)s]"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:345
+msgid "b=back"
+msgstr "b=wróć"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:346
+msgid "q=quit"
+msgstr "q=wyjście"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:358
+msgid "This field is required. Please enter a value."
+msgstr "To pole jest wymagane. Wpisz wartość."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:370
+msgid "Select UAGENT_LANG"
+msgstr "Wybierz UAGENT_LANG"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:381
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (niestandardowe)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:394
+msgid "Select output files to generate in the current directory"
+msgstr "Wybierz pliki wyjściowe do wygenerowania w bieżącym katalogu"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:395
+msgid "  1. .env only"
+msgstr "  1. Tylko .env"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:396
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:397
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:398
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:399
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + wszystko (sh/ps1/bat)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:401
+msgid "  b. back"
+msgstr "  b. wróć"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:402
+msgid "  q. quit"
+msgstr "  q. wyjście"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:420
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Nieprawidłowe dane wejściowe. Wpisz 1-5 albo b/q."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:442
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Wersja API Azure (np. 2024-05-01-preview)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:449
+msgid "OpenAI model/deployment name"
+msgstr "Nazwa modelu/wdrożenia OpenAI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:461
+msgid "OpenRouter model/deployment name"
+msgstr "Nazwa modelu/wdrożenia OpenRouter"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:466
+msgid "Gemini model name"
+msgstr "Nazwa modelu Gemini"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:472
+msgid "NVIDIA model/deployment name"
+msgstr "Nazwa modelu/wdrożenia NVIDIA"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:480
+#, python-format
+msgid "%(label)s"
+msgstr "%(label)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:494
+msgid "Configure optional image / embedding settings?"
+msgstr "Skonfigurować opcjonalne ustawienia obrazu / embeddingu?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:495
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:510
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:542
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:573
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:587
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:619
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:772
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:833
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:883
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:910
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1017
+msgid "No"
+msgstr "Nie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:495
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:510
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:542
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:573
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:587
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:619
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:772
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:833
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:883
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:910
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1017
+msgid "Yes"
+msgstr "Tak"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:509
+msgid "Configure image analysis settings?"
+msgstr "Skonfigurować ustawienia analizy obrazu?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:520
+msgid "Select image analysis provider"
+msgstr "Wybierz dostawcę analizy obrazu"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:541
+msgid "Configure image generation settings?"
+msgstr "Skonfigurować ustawienia generowania obrazu?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:552
+msgid "Select image generation provider"
+msgstr "Wybierz dostawcę generowania obrazu"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:572
+msgid "Open generated images automatically?"
+msgstr "Otwierać wygenerowane obrazy automatycznie?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:586
+msgid "Configure embedding / semantic search settings?"
+msgstr "Skonfigurować ustawienia embeddingu / wyszukiwania semantycznego?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:618
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr "Wyłączyć wyszukiwanie semantyczne, gdy API embeddingu jest niedostępne?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:655
+msgid ""
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
+msgstr "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:665
+#, python-format
+msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:675
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Opcjonalnie: Responses API (Azure/OpenAI/Bedrock)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:685
+msgid "# (not supported by selected provider)"
+msgstr "# (niewspierane przez wybranego dostawcę)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:688
+msgid "Optional runtime"
+msgstr "Opcjonalne środowisko uruchomieniowe"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:700
+msgid "Optional image / embedding settings"
+msgstr "Opcjonalne ustawienia obrazu / embeddingu"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:763
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (nie skonfigurowano opcjonalnych ustawień obrazu / embeddingu)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:771
+msgid "Encrypt the generated .env file?"
+msgstr "Czy zaszyfrować wygenerowany plik .env?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:777
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Zaszyfrowany plik zostanie zapisany jako %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:793
+msgid "Select provider"
+msgstr "Wybierz dostawcę"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:832
+msgid "Enable Responses API options?"
+msgstr "Włączyć opcje Responses API?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:848
+msgid "Select reasoning"
+msgstr "Wybierz poziom rozumowania"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:849
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
+msgid "minimal"
+msgstr "minimalne"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:849
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:864
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:873
+msgid "low"
+msgstr "niskie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:849
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:864
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:873
+msgid "medium"
+msgstr "średnie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:849
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:864
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:873
+msgid "high"
+msgstr "wysokie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:849
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
+msgid "auto"
+msgstr "automatycznie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:863
+msgid "Select verbosity"
+msgstr "Wybierz szczegółowość"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:882
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Ustawić opcjonalne UAGENT_WORKDIR?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:909
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Ustawić opcjonalne UAGENT_LANG?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:958
+msgid "Summary"
+msgstr "Podsumowanie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:959
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "  Dostawca: %(provider)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:961
+#, python-format
+msgid "  %(key)s=%(value)s"
+msgstr "  %(key)s=%(value)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:962
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "  Responses włączone: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:962
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:966
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:969
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:972
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:974
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:977
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:981
+msgid "yes"
+msgstr "tak"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:962
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:966
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:969
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:972
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:974
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:977
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:981
+msgid "no"
+msgstr "nie"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:964
+#, python-format
+msgid "  UAGENT_REASONING=%(value)s"
+msgstr "  UAGENT_REASONING=%(value)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:965
+#, python-format
+msgid "  UAGENT_VERBOSITY=%(value)s"
+msgstr "  UAGENT_VERBOSITY=%(value)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:966
+#, python-format
+msgid "  UAGENT_WORKDIR enabled: %(state)s"
+msgstr "  UAGENT_WORKDIR włączone: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:968
+#, python-format
+msgid "  UAGENT_WORKDIR=%(value)s"
+msgstr "  UAGENT_WORKDIR=%(value)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:969
+#, python-format
+msgid "  UAGENT_LANG enabled: %(state)s"
+msgstr "  UAGENT_LANG włączone: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:971
+#, python-format
+msgid "  UAGENT_LANG=%(value)s"
+msgstr "  UAGENT_LANG=%(value)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:972
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "  Opcjonalne dodatki włączone: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:974
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "  Analiza obrazu włączona: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:977
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "  Generowanie obrazu włączone: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:981
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "  Embedding włączony: %(state)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:986
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "  Wyniki: %(outputs)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:989
+msgid "Generate files with this configuration?"
+msgstr "Wygenerować pliki z tą konfiguracją?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:990
+msgid "Yes, generate"
+msgstr "Tak, generuj"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:990
+msgid "Back"
+msgstr "Wstecz"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1014
+msgid "The following files already exist and will be overwritten:"
+msgstr "Następujące pliki już istnieją i zostaną nadpisane:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1017
+msgid "Proceed?"
+msgstr "Kontynuować?"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1038
+msgid "Plain .env file removed after encryption."
+msgstr "Niezaszyfrowany plik .env został usunięty po szyfrowaniu."
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1040
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Ostrzeżenie: nie udało się usunąć niezaszyfrowanego .env: %(error)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1058
+#, python-format
+msgid "generated: %(path)s"
+msgstr "wygenerowano: %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1061
+msgid "- env.ps1 : utf-8-sig, CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1063
+msgid "- env.bat : cp932, CRLF"
+msgstr "- env.bat : cp932, CRLF"
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:70
+msgid "[SSL Info] certifi is not available"
+msgstr "[Informacje SSL] certifi jest niedostępne"
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:82
+#, python-format
+msgid "[SSL Info] certifi.where() = %(path)s"
+msgstr "[Informacje SSL] certifi.where() = %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:441
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[OSTRZEŻENIE] Automatyczny shrink_llm nie powiódł się: %(err)s"
+
+#. Non-fatal: keep original output and show diagnostics.
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:607
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Błąd tłumaczenia] %(diag)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:666
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:776
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:1088
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Osiągnięto limit ponowień 429 (%(max_retries)s)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:690
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Błąd Gemini] Wystąpił błąd podczas generowania odpowiedzi."
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:782
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Błąd Claude] Wystąpił błąd podczas generowania odpowiedzi."
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:1172
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Błąd podczas analizowania odpowiedzi: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:1469
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[OSTRZEŻENIE] Przekroczono %(max)d rund narzędzi; przerywanie."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:145
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Zmienna środowiskowa UAGENT_PROVIDER nie jest ustawiona."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:161
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Nieznany dostawca: %(provider)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:424
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:450
+msgid "google-genai package is not installed."
+msgstr "Pakiet google-genai nie jest zainstalowany."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:490
+msgid "anthropic package is not installed."
+msgstr "Pakiet anthropic nie jest zainstalowany."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:191
+msgid "Opened image file with the default app."
+msgstr "Otwarto plik obrazu w domyślnej aplikacji."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:203
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr "Określ katalog roboczy. Jeśli nie ustawiono, użyta zostanie zmienna środowiskowa UAGENT_WORKDIR lub bieżący katalog."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:210
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr "Tryb nieinteraktywny. Nie uruchamiaj pętli stdin; zakończ po przetworzeniu pliku startowego (jeśli istnieje)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:792
+msgid ""
+"Select a skill number to run. Enter c to cancel.Tip: :skills clear  (remove "
+"applied skills)Enter number:"
+msgstr "Wybierz numer umiejętności do uruchomienia. Wpisz c, aby anulować. Wskazówka: :skills clear (usuń zastosowane umiejętności). Wpisz numer:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:826
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr "Uruchomić tę umiejętność jako instrukcję systemową i utrzymać ją aktywną w tej sesji?\n\nNazwa: %(name)s\nŚcieżka: %(path)s\n\nKontynuować? Wpisz y, aby uruchomić, lub c, aby anulować."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:926
+#, python-format
+msgid ""
+":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ":clean usunie pliki dziennika rozmów (scheck_log_*.jsonl) z dysku.\nKatalog logów: %(dir)s\nZasada: łączna liczba wiadomości użytkownika/asystenta/narzędzia bez systemowych <= %(threshold)d\nCele: %(n)d\n\nKontynuować? Wpisz y, aby uruchomić, lub c, aby anulować."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1210
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr "[błąd shrink] Nie udało się sparsować jako int: %(arg)r -> zachowaj ostatnie %(keep)d"
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1237
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr "[błąd shrink_llm] Nie udało się sparsować jako int: %(arg)r -> zachowaj ostatnie %(keep)d"
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1298
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1331
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr "Współdzielona pamięć długoterminowa nie jest włączona (UAGENT_SHARED_MEMORY_FILE nie jest ustawione)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1673
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr "Punkty wypunktowane poniżej są fragmentami długoterminowej pamięci tego użytkownika (trwałych notatek). Użyj ich jako informacji tła o użytkowniku. Jednak zawsze priorytetowo traktuj nowo podane informacje w rozmowie, a jeśli są sprzeczne ze starszymi informacjami, przyjmij najnowsze.\n\n"
+
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:457
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr "W tym pokoju działa już inne zadanie. Spróbuj ponownie po jego zakończeniu."
+
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:536
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:645
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr "Zmienna środowiskowa UAGENT_PROVIDER nie jest ustawiona.\nSprawdź zmienne środowiskowe podczas uruchamiania serwera WWW."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr "[Serwery MCP]\n- Nie znaleziono pliku konfiguracyjnego."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr "[Serwery MCP]\n- Brak zarejestrowanych serwerów."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr "[Serwery MCP]\n- Nie udało się pobrać informacji: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:62
+msgid "[Quick Guide]"
+msgstr "[Szybki przewodnik]"
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- Czat: wpisz wiadomość i wyślij (w GUI dostępne jest też Ctrl+Enter)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr "- Wielowierszowo: wpisz linię zawierającą tylko 'f', aby wejść w tryb wielowierszowy (zakończ linią \"\"\"end)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr "- Polecenia: wpisz ':help', aby zobaczyć polecenia systemowe (zarządzanie logami, kompresja historii itd.)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Wyjście: ':exit' lub ':quit' kończy sesję."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr "- Obrazy: GUI obsługuje przeciąganie i upuszczanie; w CUI możesz podać ścieżkę pliku do analizy obrazu."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr "- Dokumentacja: `uag docs` pokazuje dołączone dokumenty; `uag docs webinspect` pokazuje pomoc Web Inspector (dostępne są też `--path/--open`)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:78
+msgid "[Examples]"
+msgstr "[Przykłady]"
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Przeanalizuj kod źródłowy w tym folderze i utwórz README.md.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr "- \"Zrób zrzut ekranu bieżącego pulpitu i opisz widoczną zawartość okna.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Utwórz miesięczny raport podsumowujący na podstawie tego pliku Excel.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Przeczytaj ten plik PDF i wypisz trzy najważniejsze punkty.\""
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Wyszukaj najnowsze wiadomości i podsumuj określony temat.\""
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[Wykonywanie umiejętności]\n"
+"To jest cel wykonania. Przeczytaj uważnie treść umiejętności i wykonuj ją krok po kroku.\n"
+"Jeśli umiejętność zawiera zadanie, realizuj je aż do zakończenia.\n"
+"Używaj narzędzi, gdy są potrzebne.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "Gdy skończysz, zawsze wywołaj `finish_skill`, jeśli jest dostępne.\n"
