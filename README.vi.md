@@ -62,6 +62,7 @@ uaga
 Để xem các thiết lập chi tiết (khóa API, ngôn ngữ hiển thị `UAGENT_LANG`, cài đặt thu gọn lịch sử, v.v.), hãy xem **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Thiết lập**: Cấu hình tương tác thông qua `python -m uagent.setup_cli`.
 - **Mã hóa**: Mã hóa an toàn tệp `.env` của bạn bằng công cụ `uag_envsec`.
+- **Cập nhật**: Dùng `uag_envsec add --file .env.sec --key NAME --value VALUE` để thêm hoặc cập nhật biến trong tệp đã mã hóa.
 
 ### Tài liệu dành cho nhà phát triển và quốc tế hóa
 - **Tài liệu nhà phát triển**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)

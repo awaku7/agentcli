@@ -93,3 +93,4 @@ If you prefer not to store sensitive API keys in plain text within the `.env` fi
 
 1. **Encryption**: Run `uag_envsec .env` and enter a password.
 2. **Usage**: `uag` will automatically detect `.env.sec` at startup and prompt for a password to decrypt and load it.
+3. **Update**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` to add or update a variable in an existing encrypted file.

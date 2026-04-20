@@ -62,6 +62,7 @@ uaga
 Untuk pengaturan rinci (kunci API, bahasa tampilan `UAGENT_LANG`, pengaturan penyusutan riwayat, dll.), lihat **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
 - **Setup**: Konfigurasikan secara interaktif melalui `python -m uagent.setup_cli`.
 - **Enkripsi**: Enkripsi file `.env` Anda secara aman menggunakan alat `uag_envsec`.
+- **Pembaruan**: Gunakan `uag_envsec add --file .env.sec --key NAME --value VALUE` untuk menambah atau memperbarui variabel dalam file terenkripsi yang sudah ada.
 
 ### Dokumentasi Pengembang dan Internasionalisasi
 - **Dokumen Pengembang**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
