@@ -70,5 +70,11 @@
     "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como SO, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
     "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
     "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
+  },
+  "id": {
+    "tool.description": "Dapatkan spesifikasi sistem (CPU/RAM/disk/volume) dengan pendekatan terbaik lintas platform.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengumpulkan spesifikasi sistem seperti OS, CPU, ukuran RAM, disk penyimpanan (best-effort), dan ruang kosong volume.",
+    "param.include_volumes.description": "Sertakan informasi penggunaan volume yang terpasang.",
+    "param.include_disks.description": "Sertakan informasi disk fisik jika tersedia (best-effort)."
   }
 }

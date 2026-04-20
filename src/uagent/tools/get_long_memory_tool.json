@@ -58,5 +58,10 @@
     "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
     "tool.description": "Obtém todas as notas salvas da memória de longo prazo (JSONL).",
     "tool.system_prompt": "Esta ferramenta é usada para recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
+  },
+  "id": {
+    "doc.run_tool": "Alat untuk mengambil seluruh memori jangka panjang (teks JSONL).",
+    "tool.description": "Ambil semua catatan memori jangka panjang yang tersimpan (JSONL).",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengambil semua catatan memori jangka panjang yang tersimpan (dalam format JSONL)."
   }
 }

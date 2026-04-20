@@ -46,5 +46,9 @@
   "zh_TW": {
     "param.message.description": "向使用者發送的可選最終訊息。",
     "tool.description": "指示目前技能的任務已完成。（僅在基於 SKILL.md 執行技能時使用）。這將刪除技能說明並防止無限迴圈。"
+  },
+  "id": {
+    "param.message.description": "Pesan penutup opsional untuk pengguna.",
+    "tool.description": "Menandakan bahwa tugas skill saat ini telah selesai. (Hanya gunakan saat eksekusi skill berdasarkan SKILL.md). Ini menghapus instruksi skill dan mencegah loop tak berujung."
   }
 }

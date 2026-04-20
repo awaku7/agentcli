@@ -214,5 +214,23 @@
     "param.root_path.description": "Diretório que serve como ponto de partida para buscas e índices. O padrão é o diretório atual.",
     "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files). Isso é útil quando você quer preparar os dados de busca sem ler o conteúdo do arquivo imediatamente.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "err.glob_fail": "Error: Gagal mengurai pola: {err}",
+    "err.pattern_required": "Error: pattern belum ditentukan.",
+    "err.root_not_dir": "Error: root_path bukan direktori: {root_path}",
+    "err.vec_unavailable": "Error: Tidak dapat membuat indeks karena modul semantic search (semantic_search_files_tool) tidak tersedia.",
+    "out.completed": "Pemrosesan indeks telah selesai.",
+    "out.fail": "Kegagalan: {count} item",
+    "out.footer": "Sekarang Anda dapat menggunakan `semantic_search_files` untuk mencari file-file ini.",
+    "out.not_found": "Tidak ada file yang ditemukan cocok dengan pola '{pattern}'.",
+    "out.pattern": "Pola target: {pattern}",
+    "out.root": "Direktori root: {root_abs}",
+    "out.success": "Berhasil: {count} item",
+    "param.pattern.description": "Nama file, nama direktori, atau pola glob (mis. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Apakah mencari secara rekursif ketika pola berisi '**'.",
+    "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan. Default adalah direktori saat ini.",
+    "tool.description": "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files). Berguna saat Anda ingin menyiapkan data pencarian tanpa langsung membaca isi file.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }

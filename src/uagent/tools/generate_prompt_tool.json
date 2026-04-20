@@ -130,5 +130,16 @@
     "param.template.description": "Python 格式範本。範例：'{lines} lines\n\n{content}'。",
     "tool.description": "使用 Python 格式範本從檔案產生提示字串。範本可以引用 {content}, {lines}, {bytes}, {basename}, {path} 等變數。",
     "tool.system_prompt": "讀取工作目錄下的文字檔案，並透過套用範本（Python str.format）產生提示字串。\n可用的範本變數：\n- content: 完整檔案內容（文本）\n- lines: 行數\n- bytes: 以位元組為單位的檔案大小\n- basename: 檔案基名\n- path: 絕對解析路徑"
+  },
+  "id": {
+    "err.bad_template": "[generate_prompt error] template memiliki key yang tidak dikenal: {key}",
+    "err.not_a_file": "[generate_prompt error] bukan file: {path}",
+    "err.path_missing": "[generate_prompt error] path/filename tidak ditentukan",
+    "err.template_missing": "[generate_prompt error] template tidak ditentukan",
+    "param.filename.description": "(Kompatibilitas) Alias untuk path.",
+    "param.path.description": "Path file input (harus di bawah workdir).",
+    "param.template.description": "Template format Python. Contoh: '{lines} lines\n\n{content}'.",
+    "tool.description": "Buat string prompt dari file menggunakan template format Python. Template dapat merujuk variabel seperti {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Baca file teks di bawah workdir dan buat string prompt dengan menerapkan template (Python str.format).\nVariabel template yang tersedia:\n- content: isi file lengkap (teks)\n- lines: jumlah baris\n- bytes: ukuran file dalam byte\n- basename: nama dasar file\n- path: path absolut yang sudah di-resolve"
   }
 }

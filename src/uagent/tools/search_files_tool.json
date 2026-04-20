@@ -226,5 +226,24 @@
     "param.root_path.description": "開始搜尋的根目錄（預設：目前目錄）。",
     "tool.description": "按名稱模式（glob）和/或內容（regex）搜尋目錄下的檔案。",
     "tool.system_prompt": "搜尋目錄下的檔案。您可以按檔名模式（glob）進行篩選，也可以選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則僅進行檔名比對。\n- 為了效能與安全，內容搜尋在內部可能會使用簡單的二進位檢查。"
+  },
+  "id": {
+    "err.dir_not_exist": "[search_files error] Direktori tidak ada: {path}",
+    "err.regex_compile": "[search_files error] Gagal mengompilasi regex: {error}",
+    "match.excerpt": "KECOCOKAN: {text}",
+    "match.line": "Baris {line}: {text}",
+    "match.more": "... (lebih banyak kecocokan dalam file)",
+    "out.file": "Berkas: {file}",
+    "out.found": "[search_files] Ditemukan {n} hasil",
+    "out.found_truncated": "[search_files] Ditemukan {n} hasil (dipotong menjadi {max_results})",
+    "out.no_match": "[search_files] Tidak ada file yang cocok dengan kriteria.",
+    "param.case_sensitive.description": "Apakah pencarian isi peka huruf besar/kecil (default: false).",
+    "param.content_pattern.description": "Ekspresi reguler untuk mencari di dalam file. Jika diberikan, hanya file yang berisi setidaknya satu baris cocok yang dikembalikan.",
+    "param.fast_read_threshold_bytes.description": "File yang lebih kecil dari ambang ini dibaca penuh untuk pencarian yang lebih cepat (default: 8000000 ≈ 8 MB). File yang lebih besar dipindai baris demi baris.",
+    "param.max_results.description": "Jumlah maksimum file yang cocok untuk dikembalikan (default: 50).",
+    "param.name_pattern.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan.",
+    "param.root_path.description": "Direktori root untuk memulai pencarian (default: direktori saat ini).",
+    "tool.description": "Cari file di bawah direktori berdasarkan pola nama (glob) dan/atau isi (regex).",
+    "tool.system_prompt": "Cari file di bawah direktori. Anda dapat memfilter berdasarkan pola nama file (glob) dan secara opsional mencari isi file menggunakan ekspresi reguler.\n\nCatatan:\n- content_pattern diperlakukan sebagai ekspresi reguler Python.\n- Jika content_pattern kosong, hanya pencocokan nama file yang dilakukan.\n- Demi kinerja dan keamanan, pencarian isi dapat menggunakan pemeriksaan biner sederhana di dalam."
   }
 }

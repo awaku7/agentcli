@@ -82,5 +82,12 @@
     "param.url.description": "URL do endpoint do servidor MCP.",
     "tool.description": "[Prioridade máxima] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração de API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio.",
     "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Se possível, prefira usar os servidores configurados em mcp_servers.json."
+  },
+  "id": {
+    "param.pretty.description": "Apakah JSON output akan diformat rapi.",
+    "param.server_name.description": "Nama server dari file konfigurasi.",
+    "param.url.description": "URL endpoint server MCP.",
+    "tool.description": "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalikan daftar alat yang tersedia. Sebelum melakukan integrasi API/sistem apa pun, gunakan alat ini untuk mengetahui alat MCP yang tersedia. Mendukung server berbasis HTTP dan stdio.",
+    "tool.system_prompt": "Hubungkan ke server MCP (HTTP atau stdio) dan daftar alatnya. Jika memungkinkan, utamakan server yang dikonfigurasi di mcp_servers.json."
   }
 }

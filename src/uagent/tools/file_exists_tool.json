@@ -70,5 +70,11 @@
     "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja verificar (~ também pode ser usado).",
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e retorna seu tipo, tamanho e hora de modificação, se existir.",
     "tool.system_prompt": "Use esta ferramenta para verificar se um arquivo ou diretório existe no caminho especificado e, se existir, retornar seu tipo, tamanho e hora de modificação."
+  },
+  "id": {
+    "err.path_empty": "[file_exists error] path kosong",
+    "param.path.description": "Jalur file atau direktori yang ingin Anda periksa keberadaannya (~ juga dapat digunakan).",
+    "tool.description": "Periksa apakah file atau direktori ada pada jalur yang ditentukan dan kembalikan jenis, ukuran, serta waktu modifikasinya jika ada.",
+    "tool.system_prompt": "Gunakan alat ini untuk memeriksa apakah file atau direktori ada pada jalur yang ditentukan dan, jika ada, kembalikan jenis, ukuran, serta waktu modifikasinya."
   }
 }

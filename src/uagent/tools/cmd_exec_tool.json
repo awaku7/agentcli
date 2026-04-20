@@ -53,5 +53,10 @@
     "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
     "tool.description": "ใช้คำสั่ง Windows เป็นทางเลือกสุดท้ายเท่านั้น เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น Python หรือ MCP",
     "tool.system_prompt": "เครื่องมือนี้คือทางเลือกสุดท้าย ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น"
+  },
+  "id": {
+    "param.command.description": "String perintah yang akan dijalankan.",
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows. Gunakan hanya jika tidak ada alat lain yang lebih sesuai, seperti Python atau MCP, yang tersedia.",
+    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai."
   }
 }

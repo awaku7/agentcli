@@ -178,5 +178,20 @@
     "param.pattern.description": "要搜尋的正規表示式模式。",
     "param.recursive.description": "是否遞迴搜尋子目錄。",
     "tool.description": "在檔案中搜尋模式並傳回帶有行號的相符行（類似 grep -n）。"
+  },
+  "id": {
+    "err.exception": "Terjadi pengecualian saat operasi grep.",
+    "err.invalid_regex": "Pola regex tidak valid.",
+    "err.missing_pattern": "'pattern' tidak ada.",
+    "err.no_files_found": "Tidak ada file yang cocok dengan kriteria.",
+    "param.context_lines.description": "Jumlah baris konteks sebelum dan sesudah setiap kecocokan.",
+    "param.filenames_only.description": "Jika diaktifkan, kembalikan hanya daftar nama file yang cocok.",
+    "param.ignore_case.description": "Apakah huruf besar/kecil diabaikan (default: true).",
+    "param.max_results.description": "Jumlah maksimum baris kecocokan yang dikembalikan (default: 100).",
+    "param.name_pattern.description": "Pola glob untuk nama file (mis. '*.py').",
+    "param.path.description": "Direktori akar atau jalur file tertentu (default: '.').",
+    "param.pattern.description": "Pola regex yang akan dicari.",
+    "param.recursive.description": "Apakah mencari subdirektori secara rekursif.",
+    "tool.description": "Cari pola dalam file dan kembalikan baris yang cocok beserta nomor barisnya (seperti grep -n)."
   }
 }

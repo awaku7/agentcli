@@ -46,5 +46,9 @@
   "pt_BR": {
     "tool.description": "Obtém o diretório de trabalho atual.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
+  },
+  "id": {
+    "tool.description": "Dapatkan direktori kerja saat ini.",
+    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mendapatkan direktori kerja saat ini."
   }
 }

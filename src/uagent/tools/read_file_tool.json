@@ -166,5 +166,19 @@
     "param.tail_lines.description": "從末尾讀取的行數。不能與 head_lines 同時指定。",
     "tool.description": "讀取檔案內容（最大 1,000,000 位元組）。可指定 start_line 和 max_lines 進行部分讀取。",
     "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。"
+  },
+  "id": {
+    "err.dual_lines": "[read_file error] head_lines dan tail_lines tidak dapat ditentukan bersamaan.",
+    "err.filename_missing": "[read_file error] filename/path tidak ditentukan.",
+    "err.out_of_range": "(File hanya memiliki {count} baris. start_line {start_line} di luar jangkauan)",
+    "msg.truncated": "[read_file terpotong: batas byte {max_bytes} tercapai]",
+    "param.filename.description": "Jalur file yang akan dibaca.",
+    "param.head_lines.description": "Jumlah baris yang dibaca dari awal. Tidak dapat ditentukan bersamaan dengan tail_lines.",
+    "param.max_lines.description": "Jumlah maksimum baris yang dibaca. Jika null, baca sampai akhir file.",
+    "param.path.description": "(Untuk kompatibilitas) Nama lain untuk filename.",
+    "param.start_line.description": "Nomor baris (mulai dari 1) untuk memulai pembacaan. Default adalah 1.",
+    "param.tail_lines.description": "Jumlah baris yang dibaca dari akhir. Tidak dapat ditentukan bersamaan dengan head_lines.",
+    "tool.description": "Baca isi file (hingga 1.000.000 byte). Pembacaan sebagian dapat dilakukan dengan menentukan start_line dan max_lines.",
+    "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis."
   }
 }

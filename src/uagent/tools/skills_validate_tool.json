@@ -94,5 +94,13 @@
     "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: false)",
     "tool.description": "Valida um diretório de skill (SKILL.md) de acordo com a especificação Agent Skills e retorna erros e avisos.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "err.invalid_args": "[tool error] argumen tidak valid",
+    "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
+    "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
+    "param.strict.description": "Apakah warning juga diperlakukan sebagai kegagalan? (default: false)",
+    "tool.description": "Memvalidasi direktori skill (SKILL.md) sesuai spesifikasi Agent Skills dan mengembalikan error serta warning.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }

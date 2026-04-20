@@ -130,5 +130,16 @@
     "param.path.description": "（相容性）filename 的別名。",
     "tool.description": "刪除指定的檔案或目錄（目錄將被遞迴刪除）。由於操作危險，可能需要確認。",
     "tool.system_prompt": "僅在與使用者確認後才刪除指定路徑，因為這可能具有破壞性。"
+  },
+  "id": {
+    "confirm.delete_paths_bulk": "Hapus {count} path berikut?\n\n{paths}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan.",
+    "param.allow_dir.description": "Jika diaktifkan, izinkan penghapusan direktori yang cocok dengan glob.",
+    "param.confirmed.description": "Jika diaktifkan, lewati prompt konfirmasi internal alat.",
+    "param.dry_run.description": "Jika diaktifkan, hanya tampilkan path yang cocok dan jangan hapus apa pun.",
+    "param.filename.description": "Path yang akan dihapus, atau daftar path/pola glob yang akan dihapus.",
+    "param.missing_ok.description": "Jika diaktifkan, tidak error saat path tidak ada.",
+    "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
+    "tool.description": "Hapus file atau direktori yang ditentukan (direktori dihapus secara rekursif). Karena ini berbahaya, konfirmasi mungkin diperlukan.",
+    "tool.system_prompt": "Hapus path yang ditentukan hanya setelah mengonfirmasi dengan pengguna jika operasi mungkin bersifat destruktif."
   }
 }

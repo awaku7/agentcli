@@ -142,5 +142,17 @@
     "param.query.description": "String da consulta de busca.",
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+  },
+  "id": {
+    "error.args_must_be_dict": "args harus berupa dict",
+    "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal setelah beberapa percobaan: {error}",
+    "error.missing_query_parameter": "parameter 'query' tidak ada",
+    "error.run_tool_error": "Galat run_tool: {error}",
+    "param.max_results.description": "Jumlah maksimum hasil yang dikembalikan (default: 5).",
+    "param.n.description": "Alias dari 'max_results' (untuk kompatibilitas mundur).",
+    "param.q.description": "Alias dari 'query' (untuk kompatibilitas mundur).",
+    "param.query.description": "String kueri pencarian.",
+    "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
+    "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
   }
 }

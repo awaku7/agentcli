@@ -46,5 +46,9 @@
   "zh_TW": {
     "tool.description": "傳回目前時間和詳細的日期/時間資訊（時區、星期、UTC 時間）。使用它透過確定目前星期和 UTC 偏移量來解析相對日期表達式（例如，「今天」、「明天」、「本週末」、「下個月的第三個星期二」）。",
     "tool.system_prompt": "此工具提供參考資訊，以便 LLM 能夠準確地執行時間計算。\n- ISO 8601 格式（含偏移量）\n- 星期（英文）\n- UTC 時間\n- 數值元件（年、月、日、時、分、秒）\n使用這些資訊將不明確的使用者請求（例如「下週一」）轉換為具體的日期/時間。\n"
+  },
+  "id": {
+    "tool.description": "Kembalikan waktu saat ini dan informasi tanggal/waktu terperinci (zona waktu, hari dalam minggu, waktu UTC). Gunakan ini untuk menyelesaikan ekspresi tanggal relatif (mis. 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') dengan menentukan hari saat ini dan offset UTC.",
+    "tool.system_prompt": "Alat ini menyediakan informasi referensi agar LLM dapat melakukan perhitungan waktu dengan akurat.\n- Format ISO 8601 (dengan offset)\n- Hari dalam minggu (bahasa Inggris)\n- Waktu UTC\n- Komponen numerik (tahun, bulan, hari, jam, menit, detik)\nGunakan ini untuk mengubah permintaan pengguna yang ambigu (mis. \"next Monday\") menjadi tanggal/waktu yang konkret."
   }
 }

@@ -70,5 +70,11 @@
     "param.cwd.description": "Diretório de trabalho para o comando.",
     "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
     "tool.system_prompt": "Esta ferramenta é um último recurso. Use-a somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que haja confirmação explícita do usuário."
+  },
+  "id": {
+    "param.command.description": "String perintah yang akan dijalankan.",
+    "param.cwd.description": "Direktori kerja untuk perintah tersebut.",
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON. Gunakan hanya jika tidak ada alat lain yang lebih aman atau lebih spesifik yang tersedia (misalnya integrasi MCP).",
+    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai. Bersikaplah konservatif terhadap perintah dan hindari operasi yang merusak kecuali telah dikonfirmasi secara eksplisit oleh pengguna."
   }
 }

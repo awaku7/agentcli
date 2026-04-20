@@ -58,5 +58,10 @@
     "param.command.description": "Linha de comando a ser executada.",
     "tool.description": "Inicia de forma assíncrona um processo externo de GUI ou navegador. Evite múltiplas execuções para a mesma solicitação.",
     "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite múltiplas execuções para a mesma solicitação."
+  },
+  "id": {
+    "param.command.description": "Command line yang akan dieksekusi.",
+    "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari menjalankan spawn berulang untuk permintaan yang sama.",
+    "tool.system_prompt": "Gunakan alat ini untuk memulai proses eksternal secara asinkron. Hindari menjalankan spawn berulang."
   }
 }

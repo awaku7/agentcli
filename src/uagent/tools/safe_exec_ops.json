@@ -142,5 +142,17 @@
     "ui.confirm.footer": "=== /confirmar ===\n",
     "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
     "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+  },
+  "id": {
+    "confirm.risky_command": "Konten perintah yang berpotensi berbahaya terdeteksi.\ncommand: {command}\nKetik y untuk melanjutkan, atau c untuk membatalkan.",
+    "confirm.shell_metachar": "Operator shell (pipe/redirection/chaining) terdeteksi.\ncommand: {command}\nKetik y untuk melanjutkan, atau c untuk membatalkan.",
+    "err.blocked_cancelled": "dibatalkan oleh pengguna",
+    "err.blocked_rejected": "ditolak oleh pengguna",
+    "err.callbacks_unavailable": "callback human_ask tidak tersedia",
+    "err.confirm_failed": "konfirmasi gagal",
+    "err.confirm_timeout": "waktu konfirmasi habis",
+    "ui.confirm.footer": "=== /confirm ===",
+    "ui.confirm.howto": "Cara menjawab: y=lanjut / c=batal / lainnya=tolak",
+    "ui.confirm.title": "=== Permintaan konfirmasi manusia ==="
   }
 }

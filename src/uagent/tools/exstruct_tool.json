@@ -202,5 +202,22 @@
     "param.table_score_threshold.description": "Limite de detecção de tabela.",
     "tool.description": "Use exstruct para extrair dados estruturados de um arquivo Excel (.xlsx) e retorná-los ou salvá-los como JSON/YAML. Se export_file.output_path já existir, um backup (<output_path>.org / <output_path>.org1 / ...) será criado imediatamente antes de salvar.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'exstruct'."
+  },
+  "id": {
+    "param.action.description": "Operasi yang akan dilakukan.",
+    "param.auto_page_breaks_dir.description": "Direktori untuk menyimpan area page break otomatis.",
+    "param.density_min.description": "Ambang kepadatan tabel.",
+    "param.file_path.description": "Path ke file Excel input.",
+    "param.format.description": "Format output.",
+    "param.include_cell_links.description": "Apakah menyertakan hyperlink sel.",
+    "param.include_shapes.description": "Apakah menyertakan shape.",
+    "param.mode.description": "Mode ekstraksi.",
+    "param.output_path.description": "Path output untuk export_file.",
+    "param.pretty.description": "Apakah output diformat rapi.",
+    "param.print_areas_dir.description": "Direktori untuk menyimpan file per area cetak.",
+    "param.sheets_dir.description": "Direktori untuk menyimpan file per sheet.",
+    "param.table_score_threshold.description": "Ambang deteksi tabel.",
+    "tool.description": "Gunakan exstruct untuk mengekstrak data terstruktur dari file Excel (.xlsx) dan mengembalikannya atau menyimpannya sebagai JSON/YAML. Jika export_file.output_path sudah ada, cadangan (<output_path>.org / <output_path>.org1 / ...) dibuat tepat sebelum penyimpanan.",
+    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'exstruct'."
   }
 }

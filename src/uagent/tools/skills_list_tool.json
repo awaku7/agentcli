@@ -94,5 +94,13 @@
     "param.strict.description": "Se avisos também devem ser tratados como falha durante a verificação da especificação (padrão: false)",
     "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.md), lendo apenas o frontmatter. Se root_dir for omitido, varre UAGENT_SKILLS_DIRS ou ./skills.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "id": {
+    "param.include_invalid.description": "Apakah tetap dimasukkan ke daftar meski parsing/verifikasi SKILL.md gagal (default: true). Jika false, skill yang gagal akan dikecualikan.",
+    "param.recursive.description": "Cari secara rekursif (default: true)",
+    "param.root_dir.description": "Root pencarian skill. Jika kosong/tidak ditentukan, UAGENT_SKILLS_DIRS (dipisahkan os.pathsep) akan digunakan, dan jika tidak ditentukan, ./skills akan digunakan.",
+    "param.strict.description": "Apakah warning juga dianggap sebagai kegagalan saat verifikasi spesifikasi (default: false)",
+    "tool.description": "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Agent Skills (SKILL.md). Memindai UAGENT_SKILLS_DIRS atau ./skills jika root_dir dihilangkan.",
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   }
 }

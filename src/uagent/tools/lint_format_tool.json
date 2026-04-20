@@ -130,5 +130,16 @@
     "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
     "tool.description": "執行靜態分析/格式化程式（例如 ruff/black/mypy）。mode=fix 會修改檔案並需要確認。",
     "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
+  },
+  "id": {
+    "confirm.msg": "lint_format(mode=fix) dapat menulis ulang file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y jika Anda ingin melanjutkan, atau c untuk membatalkan.",
+    "doc.module": "lint_format_tool\n\nTool pembungkus untuk menjalankan static analysis/formatter.\n\n- Python: utamakan ruff / black / mypy\n- JavaScript: demi keamanan, jangan menjalankan npx secara aktif.\n\nKeamanan:\n- mode=fix melibatkan perubahan file, jadi periksa dengan human_ask.\n- Terima argumen sebagai array dan tolak jika mengandung metakarakter shell berbahaya.",
+    "param.cwd.description": "Direktori eksekusi (hanya diizinkan di bawah workdir). Jika null, gunakan direktori saat ini.",
+    "param.extra_args.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya.",
+    "param.mode.description": "check=cek saja / fix=perbaikan otomatis",
+    "param.targets.description": "Array path target (hanya diizinkan di bawah workdir).",
+    "param.tools.description": "Array nama tool yang akan dijalankan. Jika kosong, dipilih otomatis.",
+    "tool.description": "Jalankan static analysis/formatter (mis. ruff/black/mypy). mode=fix mengubah file dan memerlukan konfirmasi.",
+    "tool.system_prompt": "Jalankan static analysis/formatter. Jika diperlukan konfirmasi pengguna tambahan (mis. mode=fix), gunakan human_ask."
   }
 }

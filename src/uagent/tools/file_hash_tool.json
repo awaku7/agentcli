@@ -94,5 +94,13 @@
     "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
     "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
+  },
+  "id": {
+    "param.algo.description": "Algoritma hashing.",
+    "param.chunk_size.description": "Ukuran potongan baca (bytes).",
+    "param.paths.description": "Array jalur file target.",
+    "param.return.description": "Format keluaran.",
+    "tool.description": "Hitung hash (sha256/sha1/md5) dari file.",
+    "tool.system_prompt": "Alat ini menghitung hash file (sha256/sha1/md5)."
   }
 }

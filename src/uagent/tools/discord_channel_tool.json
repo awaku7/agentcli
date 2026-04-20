@@ -214,5 +214,23 @@
     "param.wait_s.description": "傳送後等待回覆的時間（秒）。",
     "tool.description": "使用機器人權杖與特定的 Discord 頻道互動：傳送訊息、讀取最新訊息，並可選擇在傳送後等待回覆。",
     "tool.system_prompt": "使用此工具透過 REST API 與 Discord 頻道通訊。必須透過環境變數提供機器人權杖。僅傳回 JSON。"
+  },
+  "id": {
+    "err.exception": "Terjadi pengecualian.",
+    "err.invalid_action": "Tindakan tidak valid: {action}",
+    "err.message_too_long": "Isi pesan Discord harus 2000 karakter atau kurang.",
+    "err.missing_action": "Tidak ada 'action'.",
+    "err.missing_channel_id": "Tidak ada 'channel_id'.",
+    "err.missing_message": "Tidak ada 'message'.",
+    "param.action.description": "Tindakan: send / send_and_wait / history",
+    "param.channel_id.description": "ID channel Discord target.",
+    "param.exclude_bots.description": "Saat menunggu, abaikan pesan bot.",
+    "param.limit.description": "Jumlah pesan yang diambil untuk riwayat/balasan.",
+    "param.message.description": "Pesan yang dikirim untuk aksi send/send_and_wait.",
+    "param.poll_interval_s.description": "Interval polling saat menunggu balasan (detik).",
+    "param.token_env.description": "Nama variabel lingkungan yang menyimpan token bot Discord.",
+    "param.wait_s.description": "Lama menunggu balasan setelah mengirim (detik).",
+    "tool.description": "Berinteraksi dengan channel Discord tertentu menggunakan token bot: mengirim pesan, membaca pesan terbaru, dan opsional menunggu balasan setelah mengirim.",
+    "tool.system_prompt": "Gunakan alat ini untuk berbicara ke channel Discord via REST API. Token bot harus disediakan melalui variabel lingkungan. Kembalikan JSON saja."
   }
 }

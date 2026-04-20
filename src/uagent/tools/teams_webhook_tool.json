@@ -96,5 +96,19 @@
     "param.timeout_s.description": "Timeout della richiesta in secondi.",
     "err.missing_message": "Manca 'message'.",
     "err.exception": "Eccezione"
+  },
+  "id": {
+    "tool.description": "Kirim pesan atau payload JSON yang didukung webhook ke Microsoft Teams Incoming Webhook URL yang disimpan di variabel lingkungan.",
+    "tool.system_prompt": "Kirim payload ke Microsoft Teams Incoming Webhook. Kembalikan JSON saja.",
+    "param.message.description": "Teks pesan yang dikirim ke Teams. Dipakai sebagai plain text kecuali field card disediakan.",
+    "param.title.description": "Judul card untuk payload webhook yang mendukung card.",
+    "param.summary.description": "Ringkasan card untuk payload webhook yang mendukung card.",
+    "param.image_url.description": "URL gambar untuk payload webhook yang mendukung card.",
+    "param.theme_color.description": "Warna tema card sebagai string hex tanpa #.",
+    "param.payload_json.description": "Payload webhook mentah sebagai string JSON atau object. Jika diberikan, dikirim apa adanya.",
+    "param.webhook_env.description": "Nama variabel lingkungan yang menyimpan URL webhook Teams.",
+    "param.timeout_s.description": "Timeout permintaan dalam detik.",
+    "err.missing_message": "'message' tidak ada.",
+    "err.exception": "Pengecualian"
   }
 }
