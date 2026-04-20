@@ -20,7 +20,10 @@
     "summary.matches": "{count} Treffer",
     "summary.no_change": "Erfolgreich keine Änderung (0 Treffer)",
     "summary.preview_matches": "Vorschau: {count} Treffer gefunden",
-    "tool.description": "Führen Sie Literal- oder reguläre Ausdrucksersetzungen für eine vorhandene Textdatei durch. Zeilenenden werden intern normalisiert, sodass Muster/Ersetzungen, die Zeilenumbrüche enthalten, unterstützt werden."
+    "tool.description": "Führen Sie Literal- oder reguläre Ausdrucksersetzungen für eine vorhandene Textdatei durch. Zeilenenden werden intern normalisiert, sodass Muster/Ersetzungen, die Zeilenumbrüche enthalten, unterstützt werden.",
+    "param.po_msgid.description": "Ziel-Gettext-msgid für replace_po_entry. Wenn weggelassen, wird pattern als Fallback verwendet.",
+    "param.anchor_before.description": "Startanker für replace_between (literal oder regex, abhängig vom Modus).",
+    "param.anchor_after.description": "Endanker für replace_between (literal oder regex, abhängig vom Modus)."
   },
   "en": {
     "err.path_missing": "path is not specified",
@@ -43,7 +46,10 @@
     "summary.matches": "{count} match(es)",
     "summary.no_change": "Successfully no change (0 matches)",
     "summary.preview_matches": "Preview: {count} matches found",
-    "tool.description": "Perform literal or regular-expression replacements on an existing text file. Line endings are normalized internally, so patterns/replacements that include newlines are supported."
+    "tool.description": "Perform literal or regular-expression replacements on an existing text file. Line endings are normalized internally, so patterns/replacements that include newlines are supported.",
+    "param.po_msgid.description": "Target gettext msgid for replace_po_entry. If omitted, pattern is used as a fallback.",
+    "param.anchor_before.description": "Start anchor for replace_between (literal or regex depending on mode).",
+    "param.anchor_after.description": "End anchor for replace_between (literal or regex depending on mode)."
   },
   "es": {
     "err.path_missing": "la ruta no está especificada",
@@ -66,7 +72,10 @@
     "summary.matches": "{count} coincidencia(s)",
     "summary.no_change": "Sin cambios (0 coincidencias)",
     "summary.preview_matches": "Vista previa: se encontraron {count} coincidencias",
-    "tool.description": "Realice reemplazos literales o con expresiones regulares en un archivo de texto existente. Los finales de línea se normalizan internamente."
+    "tool.description": "Realice reemplazos literales o con expresiones regulares en un archivo de texto existente. Los finales de línea se normalizan internamente.",
+    "param.po_msgid.description": "msgid gettext de destino para replace_po_entry. Si se omite, pattern se usa como valor de respaldo.",
+    "param.anchor_before.description": "Ancla inicial para replace_between (literal o regex según el modo).",
+    "param.anchor_after.description": "Ancla final para replace_between (literal o regex según el modo)."
   },
   "fr": {
     "err.path_missing": "le chemin n'est pas spécifié",
@@ -89,7 +98,10 @@
     "summary.matches": "{count} correspondance(s)",
     "summary.no_change": "Aucun changement (0 correspondance)",
     "summary.preview_matches": "Aperçu : {count} correspondances trouvées",
-    "tool.description": "Effectuez des remplacements littéraux ou par expression régulière dans un fichier texte existant. Les fins de ligne sont normalisées."
+    "tool.description": "Effectuez des remplacements littéraux ou par expression régulière dans un fichier texte existant. Les fins de ligne sont normalisées.",
+    "param.po_msgid.description": "msgid gettext cible pour replace_po_entry. Si omis, pattern est utilisé en secours.",
+    "param.anchor_before.description": "Ancre de début pour replace_between (littérale ou regex selon le mode).",
+    "param.anchor_after.description": "Ancre de fin pour replace_between (littérale ou regex selon le mode)."
   },
   "it": {
     "err.path_missing": "il percorso non è specificato",
@@ -112,7 +124,10 @@
     "summary.matches": "{count} corrispondenze",
     "summary.no_change": "Nessuna modifica (0 corrispondenze)",
     "summary.preview_matches": "Anteprima: trovate {count} corrispondenze",
-    "tool.description": "Esegui sostituzioni letterali o di espressioni regolari su un file di testo esistente. Le terminazioni di riga sono normalizzate."
+    "tool.description": "Esegui sostituzioni letterali o di espressioni regolari su un file di testo esistente. Le terminazioni di riga sono normalizzate.",
+    "param.po_msgid.description": "msgid gettext di destinazione per replace_po_entry. Se omesso, pattern viene usato come fallback.",
+    "param.anchor_before.description": "Ancora iniziale per replace_between (letterale o regex a seconda della modalità).",
+    "param.anchor_after.description": "Ancora finale per replace_between (letterale o regex a seconda della modalità)."
   },
   "ja": {
     "err.path_missing": "パスが指定されていません",
@@ -141,7 +156,10 @@
     "param.name_pattern.description": "replace_all_in_files で使用するファイル名パターン（glob）です。",
     "param.occurrence.description": "置換対象の出現位置（1 始まり）です。0 の場合はすべての出現を置換します。",
     "param.recursive.description": "対象ディレクトリ配下を再帰的に検索します。",
-    "param.return_hashes.description": "true の場合、sha256_before と sha256_after も結果に含めます。"
+    "param.return_hashes.description": "true の場合、sha256_before と sha256_after も結果に含めます。",
+    "param.po_msgid.description": "replace_po_entry で使う対象の gettext msgid です。省略時は pattern がフォールバックとして使われます。",
+    "param.anchor_before.description": "replace_between の開始アンカーです（mode に応じてリテラルまたは正規表現）。",
+    "param.anchor_after.description": "replace_between の終了アンカーです（mode に応じてリテラルまたは正規表現）。"
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
@@ -164,7 +182,10 @@
     "summary.matches": "{count}개 일치",
     "summary.no_change": "변경 사항 없음 (0개 일치)",
     "summary.preview_matches": "미리보기: {count}개의 일치 항목 발견",
-    "tool.description": "기존 텍스트 파일에서 리터럴 또는 정규식 대체를 수행합니다. 줄 끝은 내부적으로 정규화됩니다."
+    "tool.description": "기존 텍스트 파일에서 리터럴 또는 정규식 대체를 수행합니다. 줄 끝은 내부적으로 정규화됩니다.",
+    "param.po_msgid.description": "replace_po_entry에 사용할 대상 gettext msgid입니다. 생략하면 pattern이 대체값으로 사용됩니다.",
+    "param.anchor_before.description": "replace_between의 시작 앵커입니다(모드에 따라 리터럴 또는 정규식).",
+    "param.anchor_after.description": "replace_between의 종료 앵커입니다(모드에 따라 리터럴 또는 정규식)."
   },
   "pt_BR": {
     "err.path_missing": "o caminho não foi especificado",
@@ -187,7 +208,10 @@
     "summary.matches": "{count} correspondência(s)",
     "summary.no_change": "Nenhuma alteração (0 correspondências)",
     "summary.preview_matches": "Visualização: {count} correspondências encontradas",
-    "tool.description": "Execute substituições de expressões literais ou regulares em um arquivo de texto existente. Os finais de linha são normalizados."
+    "tool.description": "Execute substituições de expressões literais ou regulares em um arquivo de texto existente. Os finais de linha são normalizados.",
+    "param.po_msgid.description": "msgid gettext de destino para replace_po_entry. Se omitido, pattern é usado como fallback.",
+    "param.anchor_before.description": "Âncora inicial para replace_between (literal ou regex, dependendo do modo).",
+    "param.anchor_after.description": "Âncora final para replace_between (literal ou regex, dependendo do modo)."
   },
   "ru": {
     "err.path_missing": "путь не указан",
@@ -210,7 +234,10 @@
     "summary.matches": "{count} совпадений",
     "summary.no_change": "Без изменений (0 совпадений)",
     "summary.preview_matches": "Предварительный просмотр: найдено {count} совпадений",
-    "tool.description": "Выполните замену литералов или регулярных выражений в существующем текстовом файле. Окончания строк нормализуются."
+    "tool.description": "Выполните замену литералов или регулярных выражений в существующем текстовом файле. Окончания строк нормализуются.",
+    "param.po_msgid.description": "Целевой gettext msgid для replace_po_entry. Если не указан, в качестве запасного варианта используется pattern.",
+    "param.anchor_before.description": "Начальная опора для replace_between (буквальная или regex, в зависимости от режима).",
+    "param.anchor_after.description": "Конечная опора для replace_between (буквальная или regex, в зависимости от режима)."
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -233,7 +260,10 @@
     "summary.matches": "{count} รายการที่ตรงกัน",
     "summary.no_change": "ไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)",
     "summary.preview_matches": "ตัวอย่าง: พบรายการที่ตรงกัน {count} รายการ",
-    "tool.description": "แทนที่ข้อความแบบตรงตัวหรือแบบนิพจน์ทั่วไปในไฟล์ข้อความที่มีอยู่ ระบบจะปรับบรรทัดใหม่ให้เป็นมาตรฐานภายใน"
+    "tool.description": "แทนที่ข้อความแบบตรงตัวหรือแบบนิพจน์ทั่วไปในไฟล์ข้อความที่มีอยู่ ระบบจะปรับบรรทัดใหม่ให้เป็นมาตรฐานภายใน",
+    "param.po_msgid.description": "msgid gettext เป้าหมายสำหรับ replace_po_entry หากไม่ระบุจะใช้ pattern เป็นค่าทดแทน",
+    "param.anchor_before.description": "จุดยึดเริ่มต้นสำหรับ replace_between (แบบตรงตัวหรือ regex ตามโหมด)",
+    "param.anchor_after.description": "จุดยึดสิ้นสุดสำหรับ replace_between (แบบตรงตัวหรือ regex ตามโหมด)"
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -256,7 +286,10 @@
     "summary.matches": "{count} 个匹配",
     "summary.no_change": "未发现更改（0 个匹配）",
     "summary.preview_matches": "预览：找到 {count} 个匹配项",
-    "tool.description": "对现有文本文件执行字面量或正则替换。内部会规范化行尾，因此支持包含换行的模式/替换。"
+    "tool.description": "对现有文本文件执行字面量或正则替换。内部会规范化行尾，因此支持包含换行的模式/替换。",
+    "param.po_msgid.description": "replace_po_entry 的目标 gettext msgid。若省略，则使用 pattern 作为回退。",
+    "param.anchor_before.description": "replace_between 的起始锚点（根据模式为字面量或正则表达式）。",
+    "param.anchor_after.description": "replace_between 的结束锚点（根据模式为字面量或正则表达式）。"
   },
   "zh_TW": {
     "err.path_missing": "未指定路徑",
@@ -279,6 +312,9 @@
     "summary.matches": "{count} 個相符",
     "summary.no_change": "未發現更改（0 個相符）",
     "summary.preview_matches": "預覽：找到 {count} 個相符項",
-    "tool.description": "對現有文字檔案執行字面值或正規表示式替換。內部會正規化行尾，因此支援包含換行的模式/替換。"
+    "tool.description": "對現有文字檔案執行字面值或正規表示式替換。內部會正規化行尾，因此支援包含換行的模式/替換。",
+    "param.po_msgid.description": "replace_po_entry 的目標 gettext msgid。若省略，則使用 pattern 作為回退。",
+    "param.anchor_before.description": "replace_between 的起始錨點（根據模式為字面值或正規表示式）。",
+    "param.anchor_after.description": "replace_between 的結束錨點（根據模式為字面值或正規表示式）。"
   }
 }
