@@ -651,9 +651,16 @@ def _format_skill_system_content(*, skill: Dict[str, Any], doc: Dict[str, Any]) 
 
     header = " ".join(header_parts)
     body_text = body.strip()
+    exec_instructions = (
+        "\n\n[Skill Execution]\n"
+        "This skill is an execution target. Read the skill body carefully and execute it step by step.\n"
+        "If the skill contains a task, carry it out until completion.\n"
+        "Use tools when needed.\n"
+        "When done, stop or call `finish_skill` if available.\n"
+    )
     if body_text:
-        return header + "\n\n" + body_text + "\n"
-    return header + "\n"
+        return header + "\n\n" + body_text + exec_instructions + "\n"
+    return header + exec_instructions + "\n"
 
 
 def _insert_skill_system_message(
