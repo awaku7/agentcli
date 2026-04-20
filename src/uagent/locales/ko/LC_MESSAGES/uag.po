@@ -1550,4 +1550,12 @@ msgstr "- \"최신 뉴스를 검색하여 특정 주제를 요약하세요.\""
 
 #: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:863
 msgid "skills.execution.prompt"
-msgstr "실행 스킬이라면 완료될 때까지 실행하세요. 실행이 완료되면 `finish_skill`을 호출하세요."
+msgstr ""
+"[스킬 실행]\n"
+"이 스킬은 실행 대상입니다. 스킬 본문을 주의 깊게 읽고 단계별로 실행하세요.\n"
+"스킬에 작업이 포함되어 있으면 완료될 때까지 수행하세요.\n"
+"필요할 때는 도구를 사용하세요.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr "작업이 끝나면 중단하거나, 사용할 수 있다면 `finish_skill`을 호출하세요.\n"

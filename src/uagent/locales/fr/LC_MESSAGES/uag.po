@@ -1576,3 +1576,16 @@ msgstr "- \"Lire ce PDF et lister trois points clés.\""
 #: C:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Rechercher les dernières actualités et résumer un sujet précis.\""
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt"
+msgstr ""
+"[Exécution de compétence]\n"
+"Cette compétence est une cible d’exécution. Lisez attentivement le corps de la compétence et exécutez-le étape par étape.\n"
+"Si la compétence contient une tâche, menez-la jusqu’à son terme.\n"
+"Utilisez les outils si nécessaire.\n"
+
+#: src/uagent/util_tools.py:863
+msgid "skills.execution.prompt.finish"
+msgstr ""
+"Une fois terminé, arrêtez-vous ou appelez `finish_skill` si disponible.\n"
