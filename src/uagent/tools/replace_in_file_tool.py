@@ -69,7 +69,7 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Perform literal or regular-expression replacements on a text file.\n"
                 "CRITICAL for Success:\n"
-                "1. EXACT MATCH: 'pattern' must match the file content exactly (spaces/indentation/newlines). If 0 matches, use 'read_file' or 'file_grep' to see the exact current state.\n"
+                "1. EXACT MATCH: 'pattern' must match the file content exactly (spaces/indentation/newlines). If 0 matches, use 'read_file' or 'search_files' to see the exact current state.\n"
                 "2. NO RAW NEWLINES: Never include actual newlines in JSON strings. Use '\\n' (literal backslash + n).\n"
                 "3. INDENTATION: LLMs often get indentation wrong. If literal mode fails, consider if you missed a space.\n"
                 "4. SMALLER BLOCKS: Prefer replacing smaller, unique anchors instead of large blocks to avoid matching errors.\n"
@@ -305,7 +305,7 @@ def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
         )
     return _(
         "hint.check_exact",
-        default="No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.",
+        default="No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.",
     )
 
 
@@ -485,7 +485,7 @@ def _build_no_match_diagnostics(
             hints.append("msgid was not found in the .po file.")
 
     if not hints:
-        hints.append("No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.")
+        hints.append("No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.")
 
     diagnostics["hints"] = hints
     return diagnostics
@@ -714,7 +714,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         before_sha = _sha256_file(path) if return_hashes else None
 
         p2 = _expand_newline_tokens_to_lf(pattern) if expand_newline_tokens else pattern
-        r2 = replacement
+        r2 = _expand_newline_tokens_to_lf(replacement) if expand_newline_tokens else replacement
         po_target = _expand_newline_tokens_to_lf(po_msgid) if expand_newline_tokens else po_msgid
         anchor_before_norm = _expand_newline_tokens_to_lf(anchor_before) if expand_newline_tokens else anchor_before
         anchor_after_norm = _expand_newline_tokens_to_lf(anchor_after) if expand_newline_tokens else anchor_after

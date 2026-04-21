@@ -68,7 +68,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "file_grep",
         "description": _(
             "tool.description",
-            default="Search text in files and return matching lines as JSON (auto-detects UTF-8/CP932/Shift_JIS/EUC-JP).",
+            default="Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -356,7 +356,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         pattern = get_str(args, "pattern", "")
         if not pattern:
-            return _json_err(_("err.pattern_required", default="[file_grep error] pattern is required."))
+            return _json_err(_("err.pattern_required", default="Error: pattern is required."))
 
         raw_path = args.get("path")
         if raw_path in (None, ""):
