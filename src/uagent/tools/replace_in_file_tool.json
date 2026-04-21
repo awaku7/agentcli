@@ -2,7 +2,7 @@
   "de": {
     "err.path_missing": "Pfad nicht angegeben",
     "err.path_not_found": "Pfad nicht gefunden: {path}",
-    "hint.check_exact": "Keine Treffer. Verwenden Sie 'file_grep' oder 'read_file', um den exakten Inhalt einschließlich Leerzeichen zu kopieren.",
+    "hint.check_exact": "Keine Treffer. Verwenden Sie 'search_files' oder 'read_file', um den exakten Inhalt einschließlich Leerzeichen zu kopieren.",
     "hint.indentation_mismatch": "Muster nicht gefunden, aber es existiert, wenn führende/nachfolgende Leerzeichen ignoriert werden. Überprüfen Sie Ihre Einrückung.",
     "hint.possible_regex": "Das Muster scheint Regex-Metazeichen zu enthalten, aber 'mode' ist 'literal'.",
     "param.confirm_over.description": "Bei 'preview=false' wird der Vorgang blockiert, wenn die Anzahl der Übereinstimmungen diesen Wert überschreitet.",
@@ -28,7 +28,7 @@
   "en": {
     "err.path_missing": "path is not specified",
     "err.path_not_found": "path not found: {path}",
-    "hint.check_exact": "No matches. Use 'file_grep' or 'read_file' to copy the exact content including spaces.",
+    "hint.check_exact": "No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.",
     "hint.indentation_mismatch": "Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation.",
     "hint.possible_regex": "Pattern looks like it contains regex-style meta-characters but 'mode' is 'literal'.",
     "param.confirm_over.description": "When preview=false, block the operation if the number of matches is greater than this value.",
@@ -54,7 +54,7 @@
   "es": {
     "err.path_missing": "la ruta no está especificada",
     "err.path_not_found": "ruta no encontrada: {path}",
-    "hint.check_exact": "Sin coincidencias. Usa 'file_grep' o 'read_file' para copiar el contenido exacto, incluidos los espacios.",
+    "hint.check_exact": "Sin coincidencias. Usa 'search_files' o 'read_file' para copiar el contenido exacto, incluidos los espacios.",
     "hint.indentation_mismatch": "No se encontró el patrón, pero existe si se ignoran los espacios en blanco iniciales o finales. Revisa tu sangría.",
     "hint.possible_regex": "El patrón parece contener metacaracteres de tipo regex, pero 'mode' es 'literal'.",
     "param.confirm_over.description": "Cuando preview=false, bloquee la operación si el número de coincidencias supera este valor.",
@@ -80,7 +80,7 @@
   "fr": {
     "err.path_missing": "le chemin n'est pas spécifié",
     "err.path_not_found": "chemin introuvable : {path}",
-    "hint.check_exact": "Aucune correspondance. Utilisez 'file_grep' ou 'read_file' pour copier le contenu exact, espaces compris.",
+    "hint.check_exact": "Aucune correspondance. Utilisez 'search_files' ou 'read_file' pour copier le contenu exact, espaces compris.",
     "hint.indentation_mismatch": "Motif introuvable, mais il existe si l'on ignore les espaces de début/fin. Vérifiez votre indentation.",
     "hint.possible_regex": "Le motif semble contenir des métacaractères de type regex mais 'mode' est 'literal'.",
     "param.confirm_over.description": "Lorsque preview=false, bloque l'opération si le nombre de correspondances dépasse cette valeur.",
@@ -106,7 +106,7 @@
   "it": {
     "err.path_missing": "il percorso non è specificato",
     "err.path_not_found": "percorso non trovato: {path}",
-    "hint.check_exact": "Nessuna corrispondenza. Usa 'file_grep' o 'read_file' per copiare il contenuto esatto, inclusi gli spazi.",
+    "hint.check_exact": "Nessuna corrispondenza. Usa 'search_files' o 'read_file' per copiare il contenuto esatto, inclusi gli spazi.",
     "hint.indentation_mismatch": "Pattern non trovato, ma esiste se si ignorano gli spazi iniziali/finali. Controlla la tua indentazione.",
     "hint.possible_regex": "Il pattern sembra contenere metacaratteri in stile regex ma 'mode' è 'literal'.",
     "param.confirm_over.description": "Quando preview=false, blocca l'operazione se il numero di corrispondenze è maggiore di questo valore.",
@@ -132,7 +132,7 @@
   "ja": {
     "err.path_missing": "パスが指定されていません",
     "err.path_not_found": "パスが見つかりません: {path}",
-    "hint.check_exact": "一致しません。'file_grep' や 'read_file' を使用して、空白を含む正確な内容をコピーしてください。",
+    "hint.check_exact": "一致しません。'search_files' や 'read_file' を使用して、空白を含む正確な内容をコピーしてください。",
     "hint.indentation_mismatch": "パターンが見つかりませんでしたが、前後の空白を無視すると存在します。インデント（空白の数）を確認してください。",
     "hint.possible_regex": "パターンに正規表現記号が含まれているようですが、'mode' が 'literal' になっています。",
     "param.confirm_over.description": "preview=false のとき、マッチ件数がこの値を超えるなら処理をブロックします。",
@@ -164,7 +164,7 @@
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
     "err.path_not_found": "경로를 찾을 수 없음: {path}",
-    "hint.check_exact": "일치 항목 없음. 'file_grep' 또는 'read_file'을 사용하여 공백을 포함한 정확한 내용을 복사하세요.",
+    "hint.check_exact": "일치 항목 없음. 'search_files' 또는 'read_file'을 사용하여 공백을 포함한 정확한 내용을 복사하세요.",
     "hint.indentation_mismatch": "패턴을 찾을 수 없으나, 앞뒤 공백을 무시하면 존재합니다. 인덴트(공백 수)를 확인하세요.",
     "hint.possible_regex": "패턴에 정규식 기호가 포함된 것으로 보이나 'mode'가 'literal'로 설정되어 있습니다.",
     "param.confirm_over.description": "preview=false인 경우 일치 항목 수가 이 값보다 크면 작업을 차단합니다.",
@@ -190,7 +190,7 @@
   "pt_BR": {
     "err.path_missing": "o caminho não foi especificado",
     "err.path_not_found": "caminho não encontrado: {path}",
-    "hint.check_exact": "Nenhuma correspondência. Use 'file_grep' o 'read_file' para copiar o conteúdo exato, incluindo espaços.",
+    "hint.check_exact": "Nenhuma correspondência. Use 'search_files' o 'read_file' para copiar o conteúdo exato, incluindo espaços.",
     "hint.indentation_mismatch": "Padrão não encontrado, mas existe se os espaços em branco iniciais/finais forem ignorados. Verifique seu recuo.",
     "hint.possible_regex": "O padrão parece conter metacaracteres de estilo regex, mas 'mode' é 'literal'.",
     "param.confirm_over.description": "Quando preview=false, bloqueie a operação se o número de correspondências for maior que esse valor.",
@@ -216,7 +216,7 @@
   "ru": {
     "err.path_missing": "путь не указан",
     "err.path_not_found": "путь не найден: {path}",
-    "hint.check_exact": "Нет совпадений. Используйте 'file_grep' или 'read_file', чтобы скопировать точное содержимое, включая пробелы.",
+    "hint.check_exact": "Нет совпадений. Используйте 'search_files' или 'read_file', чтобы скопировать точное содержимое, включая пробелы.",
     "hint.indentation_mismatch": "Паттерн не найден, но он существует, если игнорировать начальные/конечные пробелы. Проверьте отступы.",
     "hint.possible_regex": "Паттерн похож на регулярное выражение, но 'mode' установлен в 'literal'.",
     "param.confirm_over.description": "Если preview=false, заблокируйте операцию, если количество совпадений превышает это значение.",
@@ -242,7 +242,7 @@
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
     "err.path_not_found": "ไม่พบเส้นทาง: {path}",
-    "hint.check_exact": "ไม่มีรายการที่ตรงกัน ใช้ 'file_grep' หรือ 'read_file' เพื่อคัดลอกเนื้อหาที่ถูกต้อง",
+    "hint.check_exact": "ไม่มีรายการที่ตรงกัน ใช้ 'search_files' หรือ 'read_file' เพื่อคัดลอกเนื้อหาที่ถูกต้อง",
     "hint.indentation_mismatch": "ไม่พบแพทเทิร์น แต่มีอยู่หากละเว้นช่องว่างนำหน้า/ต่อท้าย",
     "hint.possible_regex": "แพทเทิร์นดูเหมือนจะมีอักขระพิเศษแบบ regex แต่ 'mode' เป็น 'literal'",
     "param.confirm_over.description": "เมื่อ preview=false หากจำนวนรายการที่ตรงกันมากกว่าค่านี้ ให้บล็อกการดำเนินการ",
@@ -268,7 +268,7 @@
   "zh_CN": {
     "err.path_missing": "未指定路径",
     "err.path_not_found": "未找到路径：{path}",
-    "hint.check_exact": "无匹配项。请使用 'file_grep' 或 'read_file' 来复制包含空格的准确内容。",
+    "hint.check_exact": "无匹配项。请使用 'search_files' 或 'read_file' 来复制包含空格的准确内容。",
     "hint.indentation_mismatch": "未找到模式，但如果忽略前导/尾随空格，则该模式存在。请检查您的缩进。",
     "hint.possible_regex": "模式看起来包含正则表达式元字符，但 'mode' 为 'literal'。",
     "param.confirm_over.description": "当 preview=false 时，若匹配数超过此值，则阻止操作。",
@@ -294,7 +294,7 @@
   "zh_TW": {
     "err.path_missing": "未指定路徑",
     "err.path_not_found": "未找到路徑：{path}",
-    "hint.check_exact": "無相符項。請使用 'file_grep' 或 'read_file' 複製包含空格的精確內容。",
+    "hint.check_exact": "無相符項。請使用 'search_files' 或 'read_file' 複製包含空格的精確內容。",
     "hint.indentation_mismatch": "未找到模式，但如果忽略前導/尾隨空格，則該模式存在。請檢查您的縮排。",
     "hint.possible_regex": "模式看起來包含正規表示式元字元，但 'mode' 為 'literal'。",
     "param.confirm_over.description": "當 preview=false 時，若匹配數超過此值，則阻止操作。",
@@ -320,7 +320,7 @@
   "id": {
     "err.path_missing": "jalur tidak ditentukan",
     "err.path_not_found": "jalur tidak ditemukan: {path}",
-    "hint.check_exact": "Tidak ada kecocokan. Gunakan 'file_grep' atau 'read_file' untuk menyalin konten persis termasuk spasi.",
+    "hint.check_exact": "Tidak ada kecocokan. Gunakan 'search_files' atau 'read_file' untuk menyalin konten persis termasuk spasi.",
     "hint.indentation_mismatch": "Pola tidak ditemukan, tetapi ada jika spasi di awal/akhir diabaikan. Periksa indentasi Anda.",
     "hint.possible_regex": "Pola tampaknya berisi metakarakter ala regex tetapi 'mode' adalah 'literal'.",
     "param.confirm_over.description": "Saat preview=false, blokir operasi jika jumlah kecocokan lebih besar dari nilai ini.",
@@ -346,7 +346,7 @@
   "vi": {
     "err.path_missing": "đường dẫn không được chỉ định",
     "err.path_not_found": "không tìm thấy đường dẫn: {path}",
-    "hint.check_exact": "Không có trận đấu nào. Sử dụng 'file_grep' hoặc 'read_file' để sao chép nội dung chính xác bao gồm cả dấu cách.",
+    "hint.check_exact": "Không có trận đấu nào. Sử dụng 'search_files' hoặc 'read_file' để sao chép nội dung chính xác bao gồm cả dấu cách.",
     "hint.indentation_mismatch": "Không tìm thấy mẫu, nhưng nó tồn tại nếu khoảng trắng đầu/cuối bị bỏ qua. Kiểm tra vết lõm của bạn.",
     "hint.possible_regex": "Mẫu có vẻ như chứa các ký tự meta kiểu biểu thức chính quy nhưng 'chế độ' là 'nghĩa đen'.",
     "param.confirm_over.description": "Khi xem trước=false, hãy chặn thao tác nếu số lượng kết quả khớp lớn hơn giá trị này.",
@@ -372,7 +372,7 @@
   "pl": {
     "err.path_missing": "ścieżka nie jest określona",
     "err.path_not_found": "nie znaleziono ścieżki: {path}",
-    "hint.check_exact": "Brak dopasowań. Użyj „file_grep” lub „read_file”, aby skopiować dokładną treść, łącznie ze spacjami.",
+    "hint.check_exact": "Brak dopasowań. Użyj „search_files” lub „read_file”, aby skopiować dokładną treść, łącznie ze spacjami.",
     "hint.indentation_mismatch": "Nie znaleziono wzorca, ale istnieje, jeśli początkowe/końcowe białe znaki zostaną zignorowane. Sprawdź swoje wcięcie.",
     "hint.possible_regex": "Wzorzec wygląda tak, jakby zawierał metaznaki w stylu wyrażenia regularnego, ale „tryb” jest „dosłowny”.",
     "param.confirm_over.description": "Gdy podgląd = fałsz, zablokuj operację, jeśli liczba dopasowań jest większa niż ta wartość.",
