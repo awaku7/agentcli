@@ -124,28 +124,15 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> List[str]:
 
     import glob
 
-    pat_norm = raw_item.replace("\\", "/")
+    pattern = os.path.expandvars(os.path.expanduser(raw_item))
+    pattern = pattern.replace("\\", os.sep)
 
-    if "/" in pat_norm:
-        base_dir = pat_norm.rsplit("/", 1)[0] or "."
-    else:
-        base_dir = "."
-
-    safe_base_dir = ensure_within_workdir(base_dir)
-
-    if base_dir in (".", ""):
-        sub_pat = pat_norm
-    else:
-        sub_pat = pat_norm[len(base_dir) + 1 :]
-
-    search_pat = os.path.join(safe_base_dir, sub_pat)
-    matches = sorted(set(glob.glob(search_pat, recursive=True)))
+    matches = sorted(set(glob.glob(pattern, recursive=True)))
 
     filtered: List[str] = []
     for m in matches:
         try:
-            rel = os.path.relpath(m, os.getcwd())
-            safe_m = ensure_within_workdir(rel)
+            safe_m = ensure_within_workdir(os.path.abspath(m))
         except Exception:
             continue
         if os.path.isdir(safe_m) and not allow_dir:
