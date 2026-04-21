@@ -1,5 +1,3 @@
-# tools/search_files_tool.py
-
 from __future__ import annotations
 
 import fnmatch
@@ -29,13 +27,14 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "search_files",
         "description": _(
             "tool.description",
-            default="Search files under a directory by name pattern (glob) and/or by content (regex).",
+            default="Search files under a directory by filename glob and optionally by content regex.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
                 "Search for files under a directory. You can filter by filename pattern (glob) and optionally "
-                "grep file contents using a regular expression.\n\n"
+                "grep file contents using a regular expression. "
+                "Use path or root_path to choose the search root.\n\n"
                 "Notes:\n"
                 "- content_pattern is treated as a Python regular expression.\n"
                 "- If content_pattern is empty, only filename matching is performed.\n"
@@ -45,30 +44,32 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
+                "path": {
+                    "type": "string",
+                    "description": _(
+                        "param.path.description",
+                        default="Root directory to start searching from (default: current directory). Alias of root_path.",
+                    ),
+                },
                 "root_path": {
                     "type": "string",
                     "description": _(
                         "param.root_path.description",
-                        default="Root directory to start searching from (default: current directory).",
+                        default="Alias of path for backward compatibility.",
                     ),
                 },
                 "name_pattern": {
                     "type": "string",
                     "description": _(
                         "param.name_pattern.description",
-                        default=(
-                            "Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered."
-                        ),
+                        default="Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered.",
                     ),
                 },
                 "content_pattern": {
                     "type": "string",
                     "description": _(
                         "param.content_pattern.description",
-                        default=(
-                            "Regular expression to search within files. If provided, only files containing at least one "
-                            "matching line are returned."
-                        ),
+                        default="Regular expression to search within files. If omitted, only filename matching is performed.",
                     ),
                 },
                 "case_sensitive": {
@@ -85,7 +86,6 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Maximum number of matched files to return (default: 50).",
                     ),
                 },
-
                 "fast_read_threshold_bytes": {
                     "type": "integer",
                     "description": _(
@@ -134,6 +134,8 @@ IGNORE_EXTS = {
     ".gif",
     ".ico",
 }
+
+_TEXT_ENCODING_CANDIDATES = ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp")
 
 
 def _looks_binary(head: bytes) -> bool:
@@ -194,6 +196,52 @@ def _normalize_newline_tokens_in_pattern(content_pattern: str) -> str:
     return cp
 
 
+
+
+
+def _ordered_encodings(preferred: str | None = None) -> List[str]:
+    order: List[str] = []
+    if preferred:
+        order.append(preferred)
+    for enc in _TEXT_ENCODING_CANDIDATES:
+        if enc not in order:
+            order.append(enc)
+    return order
+
+
+
+def _detect_text_encoding(head: bytes) -> str:
+    if not head:
+        return "utf-8"
+    if head.startswith(b"\xef\xbb\xbf"):
+        return "utf-8-sig"
+    for enc in _TEXT_ENCODING_CANDIDATES:
+        try:
+            head.decode(enc, errors="strict")
+        except UnicodeDecodeError:
+            continue
+        return enc
+    return "utf-8"
+
+
+
+def _decode_text_bytes(data: bytes) -> tuple[str, str]:
+    preferred = _detect_text_encoding(data[:8192])
+    for enc in _ordered_encodings(preferred):
+        try:
+            return data.decode(enc, errors="strict"), enc
+        except UnicodeDecodeError:
+            continue
+    return data.decode("utf-8", errors="ignore"), "utf-8"
+
+
+
+def _read_text_auto(full_path: str) -> tuple[str, str]:
+    with open(full_path, "rb") as f:
+        data = f.read()
+    return _decode_text_bytes(data)
+
+
 def _grep_text_full_read(
     full_path: str,
     regex: re.Pattern[str],
@@ -201,8 +249,7 @@ def _grep_text_full_read(
 ) -> List[str]:
     """For small/medium files: read the entire file and grep quickly."""
 
-    with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
-        text = f.read()
+    text, _encoding = _read_text_auto(full_path)
 
     m0 = regex.search(text)
     if not m0:
@@ -234,6 +281,7 @@ def _grep_text_full_read(
     return matched_lines
 
 
+
 def _grep_text_streaming(
     full_path: str,
     regex: re.Pattern[str],
@@ -244,31 +292,45 @@ def _grep_text_streaming(
     Note: streaming mode cannot reliably provide an excerpt for cross-line matches.
     """
 
-    matched_lines: List[str] = []
-    line_num = 0
-    with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
-        for line in f:
-            line_num += 1
-            if regex.search(line):
-                matched_lines.append(
-                    _("match.line", default="L{line}: {text}").format(
-                        line=line_num, text=line.strip()[:200]
-                    )
-                )
-                if len(matched_lines) >= max_hits_per_file:
-                    matched_lines.append(
-                        _("match.more", default="... (more matches in file)")
-                    )
-                    break
+    with open(full_path, "rb") as f:
+        head = f.read(8192)
+    encodings = _ordered_encodings(_detect_text_encoding(head))
+    if "utf-8" not in encodings:
+        encodings.append("utf-8")
 
-    return matched_lines
+    for enc in encodings:
+        matched_lines: List[str] = []
+        line_num = 0
+        try:
+            with open(full_path, "r", encoding=enc, errors="strict") as f:
+                for line in f:
+                    line_num += 1
+                    if regex.search(line):
+                        matched_lines.append(
+                            _("match.line", default="L{line}: {text}").format(
+                                line=line_num, text=line.strip()[:200]
+                            )
+                        )
+                        if len(matched_lines) >= max_hits_per_file:
+                            matched_lines.append(
+                                _("match.more", default="... (more matches in file)")
+                            )
+                            break
+            return matched_lines
+        except UnicodeDecodeError:
+            continue
+        except Exception:
+            continue
+
+    return []
+
 
 
 def run_tool(args: Dict[str, Any]) -> str:
     """Run file search."""
 
     try:
-        root_path = args.get("root_path") or "."
+        root_path = args.get("path") or args.get("root_path") or "."
         name_pattern = args.get("name_pattern") or "*"
         content_pattern = args.get("content_pattern", "")
         case_sensitive = args.get("case_sensitive", False)
