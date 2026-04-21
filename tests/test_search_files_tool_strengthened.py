@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 import uagent.tools.search_files_tool as sft
+import uagent.tools.file_grep_tool as fgt
 
 
 def _no_i18n(*args, **kwargs) -> str:
@@ -278,7 +279,7 @@ def test_search_files_cross_line_match_shows_excerpt(
         {
             "root_path": str(repo_tmp_path),
             "name_pattern": "*.txt",
-            "content_pattern": "foo\\nbar",
+            "content_pattern": "foo\nbar",
             "case_sensitive": False,
             "max_results": 10,
             "fast_read_threshold_bytes": 8000000,
@@ -330,3 +331,61 @@ def test_search_files_globstar_relative_path(
     )
 
     assert "deep.txt" in out
+
+
+@pytest.mark.parametrize("encoding", ["utf-8-sig", "cp932", "shift_jis"])
+def test_search_files_handles_common_text_encodings(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch, encoding: str
+) -> None:
+    monkeypatch.setattr(sft, "_", _no_i18n)
+
+    text = "hello こんにちは\n"
+    target = repo_tmp_path / f"sample_{encoding}.txt"
+    target.write_bytes(text.encode(encoding))
+
+    out = sft.run_tool(
+        {
+            "root_path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "content_pattern": "こんにちは",
+            "case_sensitive": False,
+            "max_results": 10,
+            "fast_read_threshold_bytes": 8000000,
+        }
+    )
+
+    assert target.name in out
+    assert "こんにちは" in out
+
+
+@pytest.mark.parametrize("encoding", ["utf-8-sig", "cp932", "shift_jis"])
+def test_file_grep_handles_common_text_encodings(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch, encoding: str
+) -> None:
+    monkeypatch.setattr(fgt, "_", _no_i18n)
+
+    text = "hello こんにちは\n"
+    target = repo_tmp_path / f"sample_{encoding}.txt"
+    target.write_bytes(text.encode(encoding))
+
+    out = fgt.run_tool(
+        {
+            "pattern": "hello",
+            "path": str(repo_tmp_path),
+            "name_pattern": "*.txt",
+            "recursive": False,
+            "ignore_case": False,
+            "literal": True,
+            "max_results": 10,
+            "max_hits_per_file": 10,
+            "context_lines": 0,
+            "filenames_only": True,
+            "binary_skip": True,
+        }
+    )
+
+    obj = json.loads(out)
+    assert obj.get("ok") is True
+    filenames = obj.get("filenames")
+    assert isinstance(filenames, list)
+    assert any(Path(p).name == target.name for p in filenames)

@@ -2,11 +2,12 @@ from __future__ import annotations
 
 # src/uagent/tools/file_grep_tool.py
 
+import fnmatch
+import glob
 import json
 import os
 import re
-import glob
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Sequence
 
 from .arg_util import get_bool, get_int, get_str
 from .context import get_callbacks
@@ -15,13 +16,44 @@ from .safe_file_ops_extras import ensure_within_workdir
 
 _ = make_tool_translator(__file__)
 
-# 除外するディレクトリのデフォルトリスト
-DEFAULT_EXCLUDE_DIRS = {".git", "__pycache__", "node_modules", ".venv", ".uag", "dist", "build"}
+BUSY_LABEL = True
+STATUS_LABEL = "tool:file_grep"
+
+DEFAULT_EXCLUDE_DIRS = {
+    ".git",
+    "__pycache__",
+    "node_modules",
+    ".venv",
+    ".uag",
+    "dist",
+    "build",
+}
+DEFAULT_EXCLUDE_GLOBS = {
+    "*.pyc",
+    "*.pyd",
+    "*.so",
+    "*.dll",
+    "*.exe",
+    "*.bin",
+    "*.zip",
+    "*.tar",
+    "*.gz",
+    "*.7z",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.ico",
+}
+
+_TEXT_ENCODING_CANDIDATES = ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp")
+
 
 def _json_ok(**obj: Any) -> str:
     out: Dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
+
 
 
 def _json_err(message: str, **extra: Any) -> str:
@@ -34,50 +66,138 @@ TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_grep",
-        "description": _("tool.description", default="Search for a pattern in files and return matching lines with line numbers (like grep -n). Supports multiple paths and context lines."),
+        "description": _(
+            "tool.description",
+            default="Search text in files and return matching lines as JSON (auto-detects UTF-8/CP932/Shift_JIS/EUC-JP).",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default=(
+                "Search file contents under one or more paths. "
+                "Filter files by glob, search using a Python regular expression or literal text, "
+                "optionally include context lines, skip binary-like files, support filenames-only mode, "
+                "and auto-detect text encodings when reading. "
+                "Return JSON only."
+            ),
+        ),
         "parameters": {
             "type": "object",
             "properties": {
-                "pattern": {
-                    "type": "string",
-                    "description": _("param.pattern.description", default="Regex pattern to search for."),
-                },
                 "path": {
                     "anyOf": [
                         {"type": "string"},
                         {"type": "array", "items": {"type": "string"}},
                     ],
-                    "description": _("param.path.description", default="Root directory or specific file path (default: '.')."),
+                    "description": _(
+                        "param.path.description",
+                        default=(
+                            "Root directory or file path to search. "
+                            "You can also pass an array of paths."
+                        ),
+                    ),
+                },
+                "root_path": {
+                    "anyOf": [
+                        {"type": "string"},
+                        {"type": "array", "items": {"type": "string"}},
+                    ],
+                    "description": _(
+                        "param.root_path.description",
+                        default="Alias of path for consistency with search_files.",
+                    ),
                 },
                 "name_pattern": {
                     "type": "string",
-                    "description": _("param.name_pattern.description", default="Glob pattern for filenames (e.g., '*.py')."),
+                    "description": _(
+                        "param.name_pattern.description",
+                        default=(
+                            "Filename glob pattern (e.g., '*.py', 'test_*'). "
+                            "If omitted, all files are considered."
+                        ),
+                    ),
                     "default": "*",
                 },
                 "recursive": {
                     "type": "boolean",
-                    "description": _("param.recursive.description", default="Whether to search subdirectories recursively."),
+                    "description": _(
+                        "param.recursive.description",
+                        default="Whether to search subdirectories recursively.",
+                    ),
                     "default": False,
                 },
                 "ignore_case": {
                     "type": "boolean",
-                    "description": _("param.ignore_case.description", default="Whether to ignore case (default: true)."),
+                    "description": _(
+                        "param.ignore_case.description",
+                        default="Whether to ignore case (default: true).",
+                    ),
                     "default": True,
+                },
+                "literal": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.literal.description",
+                        default="If true, treat pattern as a literal string instead of regex.",
+                    ),
+                    "default": False,
                 },
                 "max_results": {
                     "type": "integer",
-                    "description": _("param.max_results.description", default="Maximum number of match lines to return (default: 100)."),
+                    "description": _(
+                        "param.max_results.description",
+                        default="Maximum number of matches to return (default: 100).",
+                    ),
+                    "default": 100,
+                },
+                "max_hits_per_file": {
+                    "type": "integer",
+                    "description": _(
+                        "param.max_hits_per_file.description",
+                        default="Maximum number of matches to return per file (default: 100).",
+                    ),
                     "default": 100,
                 },
                 "context_lines": {
                     "type": "integer",
-                    "description": _("param.context_lines.description", default="Number of lines of leading and trailing context to each match."),
+                    "description": _(
+                        "param.context_lines.description",
+                        default="Number of leading and trailing context lines to include per match.",
+                    ),
                     "default": 0,
                 },
                 "filenames_only": {
                     "type": "boolean",
-                    "description": _("param.filenames_only.description", default="If true, only return the list of filenames with matches."),
+                    "description": _(
+                        "param.filenames_only.description",
+                        default="If true, only return the list of filenames with matches.",
+                    ),
                     "default": False,
+                },
+                "exclude_dirs": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.exclude_dirs.description",
+                        default="Directory names to exclude from recursive walking.",
+                    ),
+                    "default": [],
+                },
+                "exclude_globs": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.exclude_globs.description",
+                        default="Filename glob patterns to exclude.",
+                    ),
+                    "default": [],
+                },
+                "binary_skip": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.binary_skip.description",
+                        default="Skip files that look like binary files.",
+                    ),
+                    "default": True,
                 },
             },
             "required": ["pattern"],
@@ -86,18 +206,48 @@ TOOL_SPEC: Dict[str, Any] = {
     },
 }
 
+
 def _is_binary(path: str) -> bool:
     try:
-        with open(path, 'rb') as f:
-            chunk = f.read(1024)
-            return b'\0' in chunk
-    except:
+        with open(path, "rb") as f:
+            head = f.read(4096)
+        if not head:
+            return False
+        if b"\x00" in head:
+            return True
+        bad = 0
+        for b in head:
+            if b in (9, 10, 13):
+                continue
+            if 0 <= b < 32:
+                bad += 1
+        return (bad / len(head)) > 0.10
+    except Exception:
         return False
 
-def _resolve_files(raw_path: str | list[str], name_pattern: str, recursive: bool) -> List[str]:
-    items = [raw_path] if isinstance(raw_path, str) else raw_path
-    all_files = []
-    seen = set()
+
+
+def _normalize_items(raw_path: Any) -> List[str]:
+    if raw_path is None:
+        return ["."]
+    if isinstance(raw_path, str):
+        return [raw_path]
+    if isinstance(raw_path, Sequence):
+        return [str(x) for x in raw_path if str(x)]
+    return [str(raw_path)]
+
+
+
+def _resolve_files(
+    raw_path: Any,
+    name_pattern: str,
+    recursive: bool,
+    exclude_dirs: set[str],
+    exclude_globs: List[str],
+) -> List[str]:
+    items = _normalize_items(raw_path)
+    all_files: List[str] = []
+    seen: set[str] = set()
 
     for item in items:
         try:
@@ -106,117 +256,237 @@ def _resolve_files(raw_path: str | list[str], name_pattern: str, recursive: bool
             continue
 
         if os.path.isfile(safe_item):
-            if safe_item not in seen:
-                seen.add(safe_item); all_files.append(safe_item)
-        else:
-            if recursive:
-                # 手動でノイズディレクトリを除外しながら走査
-                for root, dirs, files_in_dir in os.walk(safe_item):
-                    # インプレースで dirs を修正して特定のディレクトリへの侵入を防ぐ
-                    dirs[:] = [d for d in dirs if d not in DEFAULT_EXCLUDE_DIRS]
+            abs_item = os.path.abspath(safe_item)
+            if abs_item not in seen:
+                seen.add(abs_item)
+                all_files.append(abs_item)
+            continue
 
-                    # glob.fnmatch でフィルタリング
-                    import fnmatch
-                    for f in sorted(fnmatch.filter(files_in_dir, name_pattern)):
-                        full_p = os.path.abspath(os.path.join(root, f))
-                        if full_p not in seen:
-                            seen.add(full_p); all_files.append(full_p)
-            else:
-                search_glob = os.path.join(safe_item, name_pattern)
-                matches = glob.glob(search_glob, recursive=False)
-                for m in sorted(matches):
-                    if os.path.isfile(m):
-                        abs_m = os.path.abspath(m)
-                        if abs_m not in seen:
-                            seen.add(abs_m); all_files.append(abs_m)
+        if not os.path.isdir(safe_item):
+            continue
+
+        if recursive:
+            for root, dirs, files_in_dir in os.walk(safe_item):
+                dirs[:] = [d for d in dirs if d not in exclude_dirs]
+                for fname in sorted(fnmatch.filter(files_in_dir, name_pattern)):
+                    if any(fnmatch.fnmatch(fname, g) for g in exclude_globs):
+                        continue
+                    full_p = os.path.abspath(os.path.join(root, fname))
+                    if full_p not in seen:
+                        seen.add(full_p)
+                        all_files.append(full_p)
+        else:
+            try:
+                with os.scandir(safe_item) as it:
+                    entries = sorted((entry for entry in it if entry.is_file()), key=lambda e: e.name)
+            except FileNotFoundError:
+                continue
+            for entry in entries:
+                base = entry.name
+                if not fnmatch.fnmatch(base, name_pattern):
+                    continue
+                if any(fnmatch.fnmatch(base, g) for g in exclude_globs):
+                    continue
+                abs_m = os.path.abspath(entry.path)
+                if abs_m not in seen:
+                    seen.add(abs_m)
+                    all_files.append(abs_m)
+
     return all_files
+
+
+
+def _compile_pattern(pattern: str, literal: bool, ignore_case: bool) -> re.Pattern[str]:
+    flags = re.IGNORECASE if ignore_case else 0
+    expr = re.escape(pattern) if literal else pattern
+    return re.compile(expr, flags)
+
+
+
+def _ordered_encodings(preferred: str | None = None) -> List[str]:
+    order: List[str] = []
+    if preferred:
+        order.append(preferred)
+    for enc in _TEXT_ENCODING_CANDIDATES:
+        if enc not in order:
+            order.append(enc)
+    return order
+
+
+
+def _detect_text_encoding(head: bytes) -> str:
+    if not head:
+        return "utf-8"
+    if head.startswith(b"\xef\xbb\xbf"):
+
+        return "utf-8-sig"
+    for enc in _TEXT_ENCODING_CANDIDATES:
+        try:
+            head.decode(enc, errors="strict")
+        except UnicodeDecodeError:
+            continue
+        return enc
+    return "utf-8"
+
+
+
+def _decode_text_bytes(data: bytes) -> tuple[str, str]:
+    preferred = _detect_text_encoding(data[:8192])
+    for enc in _ordered_encodings(preferred):
+        try:
+            return data.decode(enc, errors="strict"), enc
+        except UnicodeDecodeError:
+            continue
+    return data.decode("utf-8", errors="ignore"), "utf-8"
+
+
+
+def _read_lines(path: str) -> List[str]:
+    with open(path, "rb") as f:
+        data = f.read()
+    text, _encoding = _decode_text_bytes(data)
+    return text.splitlines(keepends=True)
+
 
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
-        cb.set_status(True, "tool:file_grep")
+        cb.set_status(True, STATUS_LABEL)
     try:
         pattern = get_str(args, "pattern", "")
         if not pattern:
-            return _json_err(_("err.missing_pattern", default="Missing 'pattern'."))
+            return _json_err(_("err.pattern_required", default="[file_grep error] pattern is required."))
 
-        raw_path = args.get("path", ".")
+        raw_path = args.get("path")
+        if raw_path in (None, ""):
+            raw_path = args.get("root_path", ".")
+
         name_pattern = get_str(args, "name_pattern", "*")
         recursive = get_bool(args, "recursive", False)
         ignore_case = get_bool(args, "ignore_case", True)
-        max_results = get_int(args, "max_results", 100)
-        context_lines = get_int(args, "context_lines", 0)
+        literal = get_bool(args, "literal", False)
+        max_results = max(0, get_int(args, "max_results", 100))
+        max_hits_per_file = max(0, get_int(args, "max_hits_per_file", 100))
+        context_lines = max(0, get_int(args, "context_lines", 0))
         filenames_only = get_bool(args, "filenames_only", False)
+        binary_skip = get_bool(args, "binary_skip", True)
 
-        flags = re.IGNORECASE if ignore_case else 0
+        exclude_dirs_raw = args.get("exclude_dirs", []) or []
+        exclude_globs_raw = args.get("exclude_globs", []) or []
+        if isinstance(exclude_dirs_raw, str):
+            exclude_dirs = {exclude_dirs_raw}
+        else:
+            exclude_dirs = {str(x) for x in exclude_dirs_raw if str(x)}
+        if isinstance(exclude_globs_raw, str):
+            exclude_globs = [exclude_globs_raw]
+        else:
+            exclude_globs = [str(x) for x in exclude_globs_raw if str(x)]
+
+        exclude_dirs = set(DEFAULT_EXCLUDE_DIRS).union(exclude_dirs)
+        exclude_globs = list(DEFAULT_EXCLUDE_GLOBS) + exclude_globs
+
         try:
-            regex = re.compile(pattern, flags)
+            regex = _compile_pattern(pattern, literal=literal, ignore_case=ignore_case)
         except re.error as e:
-            return _json_err(_("err.invalid_regex", default="Invalid regex pattern."), detail=str(e))
+            return _json_err(
+                _(
+                    "err.regex_compile",
+                    default="[file_grep error] Failed to compile regex: {error}",
+                ).format(error=str(e))
+            )
 
-        files = _resolve_files(raw_path, name_pattern, recursive)
-        if not files:
-            return _json_ok(matches=[], count=0, message=_("err.no_files_found", default="No files found matching the criteria."))
-
-        results_list = []
-        matched_filenames = []
-        total_match_count = 0
+        files = _resolve_files(raw_path, name_pattern, recursive, exclude_dirs, exclude_globs)
+        matched_files: List[str] = []
+        filenames: List[str] = []
+        matches: List[Dict[str, Any]] = []
+        scanned_files = 0
+        skipped_binary = 0
         limit_reached = False
 
-        for file_path in files:
-            if total_match_count >= max_results:
-                limit_reached = True; break
+        for path in files:
+            scanned_files += 1
 
-            if _is_binary(file_path):
+            if binary_skip and _is_binary(path):
+                skipped_binary += 1
                 continue
 
             try:
-                display_path = os.path.relpath(file_path, os.getcwd())
-                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-                    lines = f.readlines()
-
-                file_has_match = False
-                file_matches = []
-
-                for i, line in enumerate(lines):
-                    if regex.search(line):
-                        file_has_match = True
-                        if filenames_only:
-                            break
-
-                        # Context
-                        start_idx = max(0, i - context_lines)
-                        end_idx = min(len(lines), i + context_lines + 1)
-
-                        context_block = []
-                        for j in range(start_idx, end_idx):
-                            prefix = "> " if j == i else "  "
-                            context_block.append(f"{display_path}:{j+1}{prefix}{lines[j].rstrip('\\r\\n')}")
-
-                        file_matches.append("\n".join(context_block))
-                        total_match_count += 1
-                        if total_match_count >= max_results:
-                            limit_reached = True; break
-
-                if file_has_match:
-                    matched_filenames.append(display_path)
-                    results_list.extend(file_matches)
-
+                lines = _read_lines(path)
             except Exception:
                 continue
 
+            file_hit_count = 0
+            file_matched = False
+            for idx, line in enumerate(lines):
+                if not regex.search(line):
+                    continue
+
+                file_matched = True
+                file_hit_count += 1
+
+                if filenames_only:
+                    break
+
+                start_idx = max(0, idx - context_lines)
+                end_idx = min(len(lines), idx + context_lines + 1)
+                before = [ln.rstrip("\r\n") for ln in lines[start_idx:idx]]
+                after = [ln.rstrip("\r\n") for ln in lines[idx + 1:end_idx]]
+                text = line.rstrip("\r\n")
+                matches.append(
+                    {
+                        "file": path,
+                        "line": idx + 1,
+                        "text": text,
+                        "context_before": before,
+                        "context_after": after,
+                    }
+                )
+                if len(matches) >= max_results:
+                    limit_reached = True
+                    break
+                if max_hits_per_file and file_hit_count >= max_hits_per_file:
+                    break
+
+            if file_matched:
+                if path not in matched_files:
+                    matched_files.append(path)
+                if filenames_only:
+                    filenames.append(path)
+                    if max_results and len(filenames) >= max_results:
+                        limit_reached = True
+                        break
+
+            if limit_reached:
+                break
+
         if filenames_only:
-            return _json_ok(matches=matched_filenames, count=len(matched_filenames), filenames_only=True)
+            return _json_ok(
+                filenames=filenames,
+                count=len(filenames),
+                scanned_files=scanned_files,
+                matched_files=len(matched_files),
+                skipped_binary=skipped_binary,
+                limit_reached=limit_reached,
+                pattern=pattern,
+                literal=literal,
+                ignore_case=ignore_case,
+            )
 
-        return _json_ok(matches=results_list, limit_reached=limit_reached, count=len(results_list))
-
-    except Exception as e:
-        return _json_err(
-            _("err.exception", default="Exception occurred during grep operations."),
-            exception=type(e).__name__,
-            detail=str(e),
+        return _json_ok(
+            matches=matches,
+            count=len(matches),
+            scanned_files=scanned_files,
+            matched_files=len(matched_files),
+            skipped_binary=skipped_binary,
+            limit_reached=limit_reached,
+            pattern=pattern,
+            literal=literal,
+            ignore_case=ignore_case,
+            context_lines=context_lines,
         )
+    except Exception as e:
+        return _json_err(str(e))
     finally:
         if cb.set_status:
-            cb.set_status(False, "tool:file_grep")
+            cb.set_status(False, STATUS_LABEL)
