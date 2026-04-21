@@ -6,6 +6,7 @@ import mimetypes
 import os
 import re
 import subprocess
+import shlex
 import sys
 import unicodedata
 from dataclasses import dataclass
@@ -451,7 +452,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
         has_glob = any(ch in expanded for ch in ("*", "?", "["))
 
         if has_glob:
-            matches = glob.glob(expanded)
+            matches = glob.glob(expanded, recursive=True)
             if not matches:
                 print(
                     tr("[ls] No matching paths: %(src)s -> %(expanded)s")
@@ -1130,6 +1131,106 @@ def _prepend_loaded_log_to_current(
         )
 
 
+def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
+    raw = (arg or "").strip()
+    if not raw:
+        print(tr(":rm <path|glob> [path|glob]"))
+        return True
+
+    try:
+        items = shlex.split(raw, posix=False)
+    except Exception as e:
+        print(tr("[rm error] Failed to parse arguments: %(err)s") % {"err": e})
+        return True
+
+    if not items:
+        print(tr(":rm <path|glob> [path|glob]"))
+        return True
+
+    try:
+        from uagent.tools.delete_file_tool import run_tool as delete_file_tool
+        from uagent.tools.human_ask_tool import run_tool as human_ask
+
+        preview_json = delete_file_tool(
+            {
+                "filename": items,
+                "missing_ok": True,
+                "dry_run": True,
+                "allow_dir": True,
+            }
+        )
+        preview = json.loads(preview_json)
+        if not isinstance(preview, dict):
+            print(tr("[rm] Unexpected delete_file preview response."))
+            return True
+
+        if not preview.get("ok", False):
+            print(tr("[rm] Preview failed."))
+            stderr = preview.get("stderr")
+            if stderr:
+                print(str(stderr))
+            return True
+
+        missing = [str(p) for p in (preview.get("missing") or []) if str(p).strip()]
+        matches = [str(p) for p in (preview.get("matches") or []) if str(p).strip()]
+
+        if not matches:
+            print(tr("[rm] No matching paths."))
+            if missing:
+                print(tr("[rm] Missing:"))
+                for p in missing:
+                    print(p)
+            return True
+
+        print(tr("[rm] Candidates:"))
+        for p in matches:
+            print(p)
+        if missing:
+            print(tr("[rm] Missing:"))
+            for p in missing:
+                print(p)
+
+        confirm_msg = _(
+            "Delete {count} path(s)?\n\n{paths}\n\nEnter y to proceed, or c to cancel."
+        ).format(count=len(matches), paths="\n".join(matches))
+        res_json = human_ask({"message": confirm_msg})
+        res = json.loads(res_json)
+        user_reply = (res.get("user_reply") or "").strip().lower()
+        cancelled = bool(res.get("cancelled", False))
+        if cancelled or user_reply not in ("y", "yes"):
+            print(tr("[rm] Cancelled."))
+            return True
+
+        delete_json = delete_file_tool(
+            {
+                "filename": items,
+                "missing_ok": True,
+                "dry_run": False,
+                "allow_dir": True,
+                "confirmed": True,
+            }
+        )
+        delete = json.loads(delete_json)
+        if not isinstance(delete, dict):
+            print(tr("[rm] Unexpected delete_file response."))
+            return True
+
+        if delete.get("ok", False) and delete.get("deleted"):
+            print(
+                tr("[rm] Deleted %(count)d path(s).")
+                % {"count": int(delete.get("count") or 0)}
+            )
+        else:
+            print(tr("[rm] Failed."))
+            stderr = delete.get("stderr")
+            if stderr:
+                print(str(stderr))
+        return True
+    except Exception as e:
+        print(f"[rm error] {type(e).__name__}: {e}")
+        return True
+
+
 def _handle_cmd_load(
     arg: str,
     messages_ref: List[Dict[str, Any]],
@@ -1435,6 +1536,7 @@ def format_help(*, core: Any) -> str:
         tr(
             "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
         ),
+        tr("  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"),
         tr(
             "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),
@@ -1537,6 +1639,9 @@ def handle_command(
 
     if cmd == "shared-mem-del":
         return _handle_cmd_shared_mem_del(arg, tr=tr)
+
+    if cmd == "rm":
+        return _handle_cmd_rm(arg, tr=tr)
 
     if cmd in ("exit", "quit"):
         print(tr("Exiting."))

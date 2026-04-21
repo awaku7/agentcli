@@ -78,3 +78,26 @@ def test_delete_file_single_path_deletes_file(
     assert res["deleted"] is True
     assert Path(res["path"]).name == "x.txt"
     assert not target.exists()
+
+
+def test_delete_file_globstar_recursive_dry_run_lists_matches(
+    repo_tmp_path: Path,
+) -> None:
+    (repo_tmp_path / "top.org").write_text("x", encoding="utf-8")
+    nested = repo_tmp_path / "nested" / "deep"
+    nested.mkdir(parents=True)
+    (nested / "one.org1").write_text("y", encoding="utf-8")
+    (nested / "two.txt").write_text("z", encoding="utf-8")
+
+    res = _run_delete_file(
+        {
+            "filename": str(repo_tmp_path / "**/*.org*"),
+            "missing_ok": False,
+        }
+    )
+
+    assert res["ok"] is True
+    assert res.get("dry_run") is True
+    assert res["count"] == 2
+    matches = sorted(Path(p).name for p in res["matches"])
+    assert matches == ["one.org1", "top.org"]
