@@ -4,62 +4,69 @@
 
 # uag (Local AI Agent)
 
-uag is an interactive agent that executes **commands**, manipulates **files**, and reads **various data formats** (PDF/PPTX/Excel, etc.) on your local PC. It provides three interfaces: CLI, GUI, and Web.
-
+uag is a local interactive agent that executes **commands**, manipulates **files**, and reads **data files** such as PDF, PPTX, and Excel. It provides three user interfaces: CLI, GUI, and Web.
 
 GitHub: https://github.com/awaku7/agentcli
 
 ## Installation
 
-You can install `uag` via pip:
+Install from PyPI with pip:
 
 ```bash
 pip install uag
 ```
 
-After installation, running `uag` for the first time will automatically launch an **interactive setup wizard** to configure your environment variables. For detailed information on configuration and encryption, see **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+If you use a virtual environment, activate it first and then run the command above.
+
+On first launch, `uag` checks your environment and starts the setup wizard automatically when required provider variables are missing. For configuration details, see [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
 
 ## Key Features
 
-- **Practical Toolset**: Equipped with tools for file manipulation, web search, data extraction (PDF/PPTX/Excel), image generation, and analysis, all executable in your local environment.
-- **Multi-Provider Support**: Supports OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
-- **Flexible Interfaces**: 
+- **Practical toolset**: File manipulation, web search, PDF/PPTX/Excel extraction, image generation, and image analysis.
+- **Multi-provider support**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Three interfaces**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
   - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A (Server)**: `uaga` / `python -m uagent.a2a.server`
-- **MCP (Model Context Protocol)**: Support for connecting to external MCP tool servers.
-- **Session Continuity**: Maintain conversation context even when switching providers or models.
-- **Web Inspector**: Automatically save browser transitions, DOM, and screenshots using `playwright_inspector`.
-- **Built-in Docs**: Instantly access detailed internal documentation using the `uag docs` command.
+  - **A2A server**: `uaga` / `python -m uagent.a2a.server`
+- **MCP support**: Connect to external MCP tool servers.
+- **Session continuity**: Keep context when switching models or providers.
+- **Web Inspector**: Save browser transitions, DOM snapshots, and screenshots with `playwright_inspector`.
+- **Built-in docs**: Read bundled docs with `uag docs`.
 
 ## Usage
 
-### Start and Exit
-Run `uag` from your terminal to start. Type `:exit` to quit.
+### Start and exit
+Run `uag` in your terminal to start. Type `:exit` to quit.
 
-### A2A (Agent2Agent) Server
-Launch an A2A-compatible HTTP server:
+### A2A server
+Launch an Agent2Agent-compatible HTTP server:
+
 ```bash
 uaga
 ```
 
-### Handy Tips (Continuity and Control)
-- `:tools`: Display a list of loaded tools.
-- `:logs [n]`: Show session logs (`n` to specify the number of entries).
-- `:load <index>`: Load a past session to resume the conversation.
-- `:skills`: Select and load Agent Skills (additional roles or instructions).
-- `:shrink [n]`: Organize history to keep only the last `n` messages to save tokens.
+### Handy tips
+- `:tools`: show loaded tools
+- `:logs [n]`: show recent session logs
+- `:load <index>`: load a previous session
+- `:skills`: select and load Agent Skills
+- `:shrink [n]`: summarize history and keep the last `n` messages
 
-## Configuration and Details
+## Configuration and details
 
-### Environment Variables and Setup
-For detailed settings (API keys, display language `UAGENT_LANG`, history shrink settings, etc.), see **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
-- **Setup**: Configure interactively via `python -m uagent.setup_cli`.
-- **Encryption**: Securely encrypt your `.env` file using the `uag_envsec` tool.
-- **Update**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` to add or update a variable in an existing encrypted file.
+### Environment variables and setup
+For API keys, language settings (`UAGENT_LANG`), history shrink settings, and more, see [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
 
-### Developers and Internationalization
-- **Developer Docs**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Adding Locales**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/README.id.md)
+- **Setup wizard**: `python -m uagent.setup_cli`
+- **Encrypted environment**: use `uag_envsec` to encrypt `.env` as `.env.sec`
+- **Update encrypted values**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+
+### Responses API note
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+### Developer docs and translations
+- **Developer docs**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Add locales**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
+- **Other README translations**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/README.id.md)

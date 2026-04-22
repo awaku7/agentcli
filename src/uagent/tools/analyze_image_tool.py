@@ -47,9 +47,13 @@ TOOL_SPEC: Dict[str, Any] = {
     },
 }
 
-# When Responses API is enabled, the CLI can send images directly as multimodal user content.
-# Hide analyze_image to avoid redundant tool calls.
-if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes"):
+# When Responses API is enabled for providers that can send images directly,
+# hide analyze_image to avoid redundant tool calls.
+if (
+    (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes")
+    and (env_get("UAGENT_PROVIDER") or "").strip().lower()
+    in ("azure", "openai", "bedrock", "openrouter")
+):
     TOOL_SPEC = None  # type: ignore[assignment]
 
 
@@ -69,16 +73,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     if prompt is not None:
         prompt = str(prompt)
 
-    # If using Responses API wrapper, route to internal runtime.
-    if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
-        "1",
-        "true",
-    ):
-        # Lazy import to avoid heavy deps on tool import.
-        from .vision_runtime import analyze_image_runtime
-
-        return analyze_image_runtime(image_path=image_path, prompt=prompt)
-
     provider = _env_first(
         [
             "UAGENT_IMG_ANALYSIS_PROVIDER",
@@ -93,11 +87,21 @@ def run_tool(args: Dict[str, Any]) -> str:
             "UAGENT_IMG_ANALYSIS_PROVIDER (or UAGENT_PROVIDER) is required for analyze_image"
         )
 
-    if provider.lower() in ("openai", "azure"):
+    provider_l = provider.lower()
+
+    if provider_l == "ollama":
+        from .vision_ollama import analyze_image_ollama
+
+        return analyze_image_ollama(
+            image_path=image_path,
+            prompt=prompt,
+        )
+
+    if provider_l in ("openai", "azure"):
         from .vision_openai import analyze_image_openai
 
         return analyze_image_openai(
-            provider=provider.lower(),
+            provider=provider_l,
             image_path=image_path,
             prompt=prompt,
         )
