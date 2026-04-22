@@ -72,6 +72,7 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default=(
                 "Search file contents under one or more paths. "
+                "Pattern is required. "
                 "Filter files by glob, search using a Python regular expression or literal text, "
                 "optionally include context lines, skip binary-like files, support filenames-only mode, "
                 "and auto-detect text encodings when reading. "
@@ -81,6 +82,13 @@ TOOL_SPEC: Dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
+                "pattern": {
+                    "type": "string",
+                    "description": _(
+                        "param.pattern.description",
+                        default="Regex pattern to search for.",
+                    ),
+                },
                 "path": {
                     "anyOf": [
                         {"type": "string"},
@@ -159,7 +167,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.context_lines.description",
-                        default="Number of leading and trailing context lines to include per match.",
+                        default="Number of lines of leading and trailing context for each match.",
                     ),
                     "default": 0,
                 },
@@ -167,7 +175,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.filenames_only.description",
-                        default="If true, only return the list of filenames with matches.",
+                        default="If enabled, return only the list of filenames with matches.",
                     ),
                     "default": False,
                 },

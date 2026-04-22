@@ -70,15 +70,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "replace_in_file",
         "description": _(
             "tool.description",
-            default=(
-                "Perform literal or regular-expression replacements on a text file.\n"
-                "CRITICAL for Success:\n"
-                "1. EXACT MATCH: 'pattern' must match the file content exactly (spaces/indentation/newlines). If 0 matches, use 'read_file' or 'search_files' to see the exact current state.\n"
-                "2. NO RAW NEWLINES: Never include actual newlines in JSON strings. Use '\\n' (literal backslash + n).\n"
-                "3. INDENTATION: LLMs often get indentation wrong. If literal mode fails, consider if you missed a space.\n"
-                "4. SMALLER BLOCKS: Prefer replacing smaller, unique anchors instead of large blocks to avoid matching errors.\n"
-                "5. STRUCTURED MODES: Use replace_po_entry for gettext .po entries and replace_between for anchored blocks."
-            ),
+            default="If true (default), expands newline tokens (\r\n/\r/\n) into real newlines. If false, treats them as literal characters.",
         ),
         "parameters": {
             "type": "object",
@@ -87,7 +79,11 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.expand_newline_tokens.description",
-                        default="If true (default), expands newline tokens (\\r\\n/\\r/\\n) into real newlines.",
+                        default=("If true (default), expands newline tokens (\
+\
+/\
+/\
+) into real newlines. " "If false, treats them as literal characters."),
                     ),
                     "default": True,
                 },
@@ -104,8 +100,8 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.mode.description",
                         default=(
-                            "Replacement mode: literal (plain) or regex (Python re). "
-                            r"When using regex, backslashes in JSON strings must be escaped, e.g. \\d, \\s, \\."
+                            "Replacement mode: literal (plain substring) or regex (Python re). "
+                            "If you use regex, escape backslashes in JSON strings, for example \\d, \\s, and \\."
                         ),
                     ),
                     "default": "literal",
@@ -114,7 +110,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.pattern.description",
-                        default="Search pattern. To express a newline, write \\n (JSON: \\\n).",
+                        default="Search pattern. Use \\n for newlines. In JSON strings, write backslash sequences as \\\\n.",
                     ),
                 },
                 "replacement": {
@@ -228,7 +224,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "default": True,
                 },
             },
-            "required": ["path", "replacement"],
+            "required": ["path", "replacement", "pattern"],
         },
     },
 }
