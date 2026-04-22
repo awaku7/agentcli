@@ -468,7 +468,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             msg += "WARNING: This operation changes file size (insert/delete). This may corrupt executable/binary formats.\n"
         msg += "Proceed? Reply with y to write, or n/cancel to abort."
         if not _confirm_or_cancel(msg):
-            return json.dumps({"ok": False, "error": "cancelled by user"}, ensure_ascii=False)
+            return json.dumps(
+                {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
+            )
 
     if dry_run:
         payload = {

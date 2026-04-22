@@ -16,7 +16,9 @@ from .secret_core import (
     ensure_key_file,
 )
 
-_ENV_KEY_RE = re.compile(r"^\s*(?:export\s+)?(?P<key>[A-Za-z_][A-Za-z0-9_]*)\s*=", re.MULTILINE)
+_ENV_KEY_RE = re.compile(
+    r"^\s*(?:export\s+)?(?P<key>[A-Za-z_][A-Za-z0-9_]*)\s*=", re.MULTILINE
+)
 
 
 def _build_encrypt_parser() -> argparse.ArgumentParser:
@@ -165,7 +167,9 @@ def _run_encrypt(args: argparse.Namespace) -> int:
         print(f"Input file not found: {src_path}", file=sys.stderr)
         return 1
 
-    out_path = Path(args.output) if args.output else Path(str(src_path) + DEFAULT_SEC_SUFFIX)
+    out_path = (
+        Path(args.output) if args.output else Path(str(src_path) + DEFAULT_SEC_SUFFIX)
+    )
     if out_path.exists() and not args.force:
         print(f"Output file already exists: {out_path} (use --force)", file=sys.stderr)
         return 1
@@ -185,7 +189,11 @@ def _run_add(args: argparse.Namespace) -> int:
         return 1
 
     out_path = Path(args.output) if args.output else enc_path
-    if out_path.exists() and out_path.resolve() != enc_path.resolve() and not args.force:
+    if (
+        out_path.exists()
+        and out_path.resolve() != enc_path.resolve()
+        and not args.force
+    ):
         print(f"Output file already exists: {out_path} (use --force)", file=sys.stderr)
         return 1
 
@@ -203,7 +211,9 @@ def _run_add(args: argparse.Namespace) -> int:
         return 1
 
     try:
-        plaintext = decrypt_text(enc_path.read_text(encoding="utf-8").strip(), key_path=key_file)
+        plaintext = decrypt_text(
+            enc_path.read_text(encoding="utf-8").strip(), key_path=key_file
+        )
     except Exception as exc:
         print(f"Failed to decrypt {enc_path}: {exc}", file=sys.stderr)
         return 1

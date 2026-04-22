@@ -22,8 +22,7 @@ import os
 import re
 import sys
 from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
-
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 LANG_KEY_RE = re.compile(r"^[a-z]{2}(_[A-Z]{2})?$")
 PLACEHOLDER_RE = re.compile(r"\{([a-zA-Z0-9_]+)\}")
@@ -49,7 +48,11 @@ class Finding:
 
 def iter_tool_json_files(root: str, recursive: bool) -> List[str]:
     root = os.path.normpath(root)
-    pattern = os.path.join(root, "**", "*.json") if recursive else os.path.join(root, "*.json")
+    pattern = (
+        os.path.join(root, "**", "*.json")
+        if recursive
+        else os.path.join(root, "*.json")
+    )
     files = glob.glob(pattern, recursive=recursive)
     files = [f for f in files if os.path.isfile(f)]
     files.sort()
@@ -102,7 +105,11 @@ def check_file(path: str, *, base_lang: str, warn_skill_dir: bool) -> List[Findi
 
     data, err = load_json(path)
     if err:
-        findings.append(Finding(severity="error", file=path, kind="json_parse", detail={"error": err}))
+        findings.append(
+            Finding(
+                severity="error", file=path, kind="json_parse", detail={"error": err}
+            )
+        )
         return findings
     assert data is not None
 
@@ -115,7 +122,14 @@ def check_file(path: str, *, base_lang: str, warn_skill_dir: bool) -> List[Findi
 
     base_block = data.get(base)
     if not isinstance(base_block, dict):
-        findings.append(Finding(severity="error", file=path, kind="base_lang_missing_or_invalid", lang=base))
+        findings.append(
+            Finding(
+                severity="error",
+                file=path,
+                kind="base_lang_missing_or_invalid",
+                lang=base,
+            )
+        )
         return findings
 
     base_keys = set(base_block.keys())
@@ -124,7 +138,9 @@ def check_file(path: str, *, base_lang: str, warn_skill_dir: bool) -> List[Findi
     for lg in langs:
         block = data.get(lg)
         if not isinstance(block, dict):
-            findings.append(Finding(severity="error", file=path, kind="lang_block_invalid", lang=lg))
+            findings.append(
+                Finding(severity="error", file=path, kind="lang_block_invalid", lang=lg)
+            )
             continue
         keys = set(block.keys())
         if keys != base_keys:
@@ -210,12 +226,28 @@ def format_text(findings: List[Finding]) -> str:
 def main(argv: Optional[List[str]] = None) -> int:
     _reconfigure_stdout()
 
-    ap = argparse.ArgumentParser(description="Check i18n JSON bundles under src/uagent/tools")
-    ap.add_argument("--root", default="./src/uagent/tools", help="Root directory to scan (default: ./src/uagent/tools)")
+    ap = argparse.ArgumentParser(
+        description="Check i18n JSON bundles under src/uagent/tools"
+    )
+    ap.add_argument(
+        "--root",
+        default="./src/uagent/tools",
+        help="Root directory to scan (default: ./src/uagent/tools)",
+    )
     ap.add_argument("--recursive", action="store_true", help="Scan recursively")
-    ap.add_argument("--base-lang", default="en", help="Base language key (default: en; falls back to first lang if missing)")
-    ap.add_argument("--json", dest="json_out", action="store_true", help="Output findings as JSON")
-    ap.add_argument("--warn-skill-dir", action="store_true", help="Warn on Skill_dir / SkillDir mentions")
+    ap.add_argument(
+        "--base-lang",
+        default="en",
+        help="Base language key (default: en; falls back to first lang if missing)",
+    )
+    ap.add_argument(
+        "--json", dest="json_out", action="store_true", help="Output findings as JSON"
+    )
+    ap.add_argument(
+        "--warn-skill-dir",
+        action="store_true",
+        help="Warn on Skill_dir / SkillDir mentions",
+    )
     ap.add_argument("--strict", action="store_true", help="Treat warnings as failures")
 
     args = ap.parse_args(argv)
@@ -224,7 +256,9 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     all_findings: List[Finding] = []
     for p in files:
-        all_findings.extend(check_file(p, base_lang=args.base_lang, warn_skill_dir=args.warn_skill_dir))
+        all_findings.extend(
+            check_file(p, base_lang=args.base_lang, warn_skill_dir=args.warn_skill_dir)
+        )
 
     errors = [f for f in all_findings if f.severity == "error"]
     warnings = [f for f in all_findings if f.severity == "warning"]

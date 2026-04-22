@@ -358,7 +358,6 @@ def _build_thinking_config(
     if rm == "auto":
         rm = _choose_auto_thinking_level(user_text_for_auto)
 
-
     if rm == "xhigh":
         rm = "high"
 
@@ -746,7 +745,11 @@ def gemini_chat_with_tools(
             if fr is not None:
                 fr_str = str(fr)
                 gemini_content_dump["finish_reason"] = fr_str
-                if fr_str.lower() not in ("stop", "finish_reason_unspecified", "max_tokens"):
+                if fr_str.lower() not in (
+                    "stop",
+                    "finish_reason_unspecified",
+                    "max_tokens",
+                ):
                     # STOP以外の異常系（length, safetyなど）だけ出力
                     pass  # print(f"\\n[Gemini] finish_reason={fr_str}")
         except Exception:
@@ -759,11 +762,17 @@ def gemini_chat_with_tools(
                     if isinstance(dumped, dict):
                         gemini_content_dump.update(dumped)
                     else:
-                        gemini_content_dump.update({"role": getattr(content_obj, "role", "model")})
+                        gemini_content_dump.update(
+                            {"role": getattr(content_obj, "role", "model")}
+                        )
                 else:
-                    gemini_content_dump.update({"role": getattr(content_obj, "role", "model")})
+                    gemini_content_dump.update(
+                        {"role": getattr(content_obj, "role", "model")}
+                    )
         except Exception:
-            gemini_content_dump = {"finish_reason": gemini_content_dump.get("finish_reason", "unknown")}
+            gemini_content_dump = {
+                "finish_reason": gemini_content_dump.get("finish_reason", "unknown")
+            }
 
         chunk_texts: List[str] = []
         chunk_tool_calls: List[Dict[str, Any]] = []
@@ -857,7 +866,11 @@ def gemini_chat_with_tools(
                     gemini_content_dump = chunk_dump
         except Exception as e:
             err_str = str(e).lower()
-            if "finish_reason" in err_str or "safety" in err_str or "blocked" in err_str:
+            if (
+                "finish_reason" in err_str
+                or "safety" in err_str
+                or "blocked" in err_str
+            ):
                 if not assistant_text_parts:
                     assistant_text_parts.append(
                         "(Gemini safety filter blocked the response)"
@@ -874,7 +887,11 @@ def gemini_chat_with_tools(
             pass
 
         assistant_content = "".join(assistant_text_parts)
-        if assistant_content and not bool(getattr(core, "_is_web", False)) and not assistant_content.endswith("\n"):
+        if (
+            assistant_content
+            and not bool(getattr(core, "_is_web", False))
+            and not assistant_content.endswith("\n")
+        ):
             print("")
 
         # Gemini stream deduplication for tool calls

@@ -14,6 +14,7 @@ def _load(out: str) -> dict:
     assert obj.get("ok") is True, obj
     return obj
 
+
 @pytest.mark.parametrize(
     "msgstr_text, expected_msgid, expected_kind, expected_line_count, expected_is_empty",
     [
@@ -35,13 +36,13 @@ def test_replace_in_file_replace_po_entry_diagnostics(
     p.write_text(
         'msgid ""\n'
         'msgstr ""\n'
-        '\n'
+        "\n"
         'msgid "single"\n'
         'msgstr "hello"\n'
-        '\n'
+        "\n"
         'msgid "empty"\n'
         'msgstr ""\n'
-        '\n'
+        "\n"
         'msgid "multi"\n'
         'msgstr ""\n'
         '"line1\\n"\n'

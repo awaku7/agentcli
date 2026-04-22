@@ -108,7 +108,9 @@ def test_replace_in_file_regex_cross_newline_tokens(
     assert b"HELLO" in b and b"WORLD" in b
 
 
-@pytest.mark.parametrize("expand_newline_tokens", [True, False], ids=["expand", "no_expand"])
+@pytest.mark.parametrize(
+    "expand_newline_tokens", [True, False], ids=["expand", "no_expand"]
+)
 def test_replace_in_file_expand_newline_tokens_flag(
     expand_newline_tokens: bool, repo_tmp_path: Path
 ) -> None:
@@ -310,7 +312,9 @@ def test_replace_in_file_binary_like_content_is_handled(repo_tmp_path: Path) -> 
     assert obj.get("changed") in {True, False}
 
 
-def test_replace_in_file_occurrence_only_replaces_nth_literal(repo_tmp_path: Path) -> None:
+def test_replace_in_file_occurrence_only_replaces_nth_literal(
+    repo_tmp_path: Path,
+) -> None:
     p = repo_tmp_path / "occurrence_literal.txt"
     p.write_text("aa bb aa bb aa bb\n", encoding="utf-8", newline="\n")
 
@@ -332,7 +336,9 @@ def test_replace_in_file_occurrence_only_replaces_nth_literal(repo_tmp_path: Pat
     assert p.read_text(encoding="utf-8") == "aa bb XX bb aa bb\n"
 
 
-def test_replace_in_file_occurrence_only_replaces_nth_regex(repo_tmp_path: Path) -> None:
+def test_replace_in_file_occurrence_only_replaces_nth_regex(
+    repo_tmp_path: Path,
+) -> None:
     p = repo_tmp_path / "occurrence_regex.txt"
     p.write_text("name=alice\nname=bob\nname=carol\n", encoding="utf-8", newline="\n")
 

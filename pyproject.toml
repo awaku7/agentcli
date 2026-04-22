@@ -131,6 +131,10 @@ ignore = [
 # they initialize the i18n translator at module import time.
 
 [tool.ruff.lint.per-file-ignores]
+"src/uagent/*.py" = ["E402"]
+"src/uagent/**/*.py" = ["E402"]
+"src/uag_envsec/*.py" = ["E402"]
+"src/uag_envsec/**/*.py" = ["E402"]
 "src/uagent/tools/*.py" = ["E402"]
 "src/uagent/tools/**/*.py" = ["E402"]
 

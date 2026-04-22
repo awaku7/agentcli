@@ -89,7 +89,9 @@ def _build_payload(args: Dict[str, Any]) -> Dict[str, Any]:
     return {"text": message}
 
 
-def _post_message(url: str, payload: Dict[str, Any], timeout_s: int = DEFAULT_TIMEOUT_S) -> Dict[str, Any]:
+def _post_message(
+    url: str, payload: Dict[str, Any], timeout_s: int = DEFAULT_TIMEOUT_S
+) -> Dict[str, Any]:
     resp = requests.post(
         url,
         json=payload,

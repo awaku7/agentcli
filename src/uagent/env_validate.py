@@ -113,7 +113,9 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         try:
             from google import genai as _genai  # noqa: F401
         except Exception:
-            warnings.append("Python package 'google-genai' is not installed. Provider=gemini requires it.")
+            warnings.append(
+                "Python package 'google-genai' is not installed. Provider=gemini requires it."
+            )
     elif provider == "vertexai":
         missing += _require(
             [
@@ -125,7 +127,9 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         try:
             from google import genai as _genai  # noqa: F401
         except Exception:
-            warnings.append("Python package 'google-genai' is not installed. Provider=vertexai requires it.")
+            warnings.append(
+                "Python package 'google-genai' is not installed. Provider=vertexai requires it."
+            )
     elif provider == "claude":
         missing += _require(
             ["UAGENT_CLAUDE_API_KEY"],
@@ -134,7 +138,9 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         try:
             from anthropic import Anthropic as _Anthropic  # noqa: F401
         except Exception:
-            warnings.append("Python package 'anthropic' is not installed. Provider=claude requires it.")
+            warnings.append(
+                "Python package 'anthropic' is not installed. Provider=claude requires it."
+            )
     elif provider == "nvidia":
         missing += _require(
             ["UAGENT_NVIDIA_API_KEY"],
@@ -159,7 +165,9 @@ def format_missing_env_message(
         )
     )
     if missing:
-        lines.append(_("env.fatal.missing", default="Missing required environment variables:"))
+        lines.append(
+            _("env.fatal.missing", default="Missing required environment variables:")
+        )
         for m in missing:
             lines.append(
                 _(

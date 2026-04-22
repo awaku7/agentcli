@@ -42,23 +42,31 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     # 履歴への参照がある場合（uagent 実行環境）、直接解除を試みる
     import sys
+
     # 呼び出し元のフレームから messages または messages_ref を探す
     f = sys._getframe()
     while f:
         m = f.f_locals.get("messages") or f.f_locals.get("messages_ref")
         if isinstance(m, list):
             try:
-                from ..util_tools import _clear_skill_messages, _persist_messages_with_warn
+                from ..util_tools import (
+                    _clear_skill_messages,
+                    _persist_messages_with_warn,
+                )
+
                 removed = _clear_skill_messages(m)
                 if removed > 0:
                     # 可能であれば core 経由で永続化
                     core = f.f_locals.get("core")
                     if core:
                         _persist_messages_with_warn(m, core=core, label="finish_skill")
-                    return json.dumps({
-                        "status": "ok",
-                        "message": f"{message} (Cleared {removed} skill messages)"
-                    }, ensure_ascii=False)
+                    return json.dumps(
+                        {
+                            "status": "ok",
+                            "message": f"{message} (Cleared {removed} skill messages)",
+                        },
+                        ensure_ascii=False,
+                    )
             except Exception:
                 pass
         f = f.f_back

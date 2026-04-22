@@ -26,7 +26,6 @@ def run_cli_startup(
 ) -> CliStartupState:
     import io
     import os
-    import sys
     from contextlib import redirect_stderr, redirect_stdout
 
     from .i18n import _, detect_lang, set_thread_lang
@@ -93,7 +92,9 @@ def run_cli_startup(
                     if workdir_env.exists():
                         load_dotenv(workdir_env, override=True)
 
-                    startdir_env = Path(cli_workdir or env_workdir or os.getcwd()) / ".env"
+                    startdir_env = (
+                        Path(cli_workdir or env_workdir or os.getcwd()) / ".env"
+                    )
                     if startdir_env.exists() and startdir_env != workdir_env:
                         load_dotenv(startdir_env, override=True)
                 except ImportError:
@@ -119,7 +120,8 @@ def run_cli_startup(
                 except Exception as e:
                     try:
                         combined = (
-                            startup_capture_out.getvalue() + startup_capture_err.getvalue()
+                            startup_capture_out.getvalue()
+                            + startup_capture_err.getvalue()
                         )
                         if combined:
                             sys.__stderr__.write(combined)
@@ -140,7 +142,8 @@ def run_cli_startup(
                 except SystemExit:
                     try:
                         combined = (
-                            startup_capture_out.getvalue() + startup_capture_err.getvalue()
+                            startup_capture_out.getvalue()
+                            + startup_capture_err.getvalue()
                         )
                         if combined:
                             sys.__stderr__.write(combined)
@@ -163,8 +166,13 @@ def run_cli_startup(
             if banner:
                 print(banner, end="")
 
-            if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
-                raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
+            if (
+                provider == "openrouter"
+                and (depname or "").strip() == "openrouter/auto"
+            ):
+                raw_fb = (
+                    env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
+                ).strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
@@ -172,7 +180,12 @@ def run_cli_startup(
             if provider in ("gemini", "claude", "vertexai"):
                 if use_responses_api:
                     os.environ["UAGENT_RESPONSES"] = "0"
-                print("[INFO] " + _("LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"))
+                print(
+                    "[INFO] "
+                    + _(
+                        "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+                    )
+                )
             elif use_responses_api and provider not in (
                 "azure",
                 "openai",
@@ -187,11 +200,20 @@ def run_cli_startup(
                     )
                 )
                 os.environ["UAGENT_RESPONSES"] = "0"
-                print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
+                print(
+                    "[INFO] "
+                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
+                )
             elif use_responses_api:
-                print("[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)"))
+                print(
+                    "[INFO] "
+                    + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
+                )
             else:
-                print("[INFO] " + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"))
+                print(
+                    "[INFO] "
+                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
+                )
 
             try:
                 cwd = os.getcwd()
@@ -292,7 +314,8 @@ def run_cli_startup(
     if non_interactive:
         core.set_status(False, "")
         print(
-            "[INFO] " + _("--non-interactive was specified; exiting without waiting for stdin.")
+            "[INFO] "
+            + _("--non-interactive was specified; exiting without waiting for stdin.")
         )
         return CliStartupState(
             provider=provider,

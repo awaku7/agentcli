@@ -9,7 +9,9 @@ from .i18n import _
 def validate_or_exit_startup_env(*, context: str) -> None:
     provider, missing, warnings = validate_startup_env()
     if missing:
-        msg = format_missing_env_message(missing=missing, warnings=warnings, context=context)
+        msg = format_missing_env_message(
+            missing=missing, warnings=warnings, context=context
+        )
         sys.__stderr__.write(msg)
         try:
             sys.__stderr__.flush()
@@ -18,4 +20,7 @@ def validate_or_exit_startup_env(*, context: str) -> None:
         sys.exit(2)
     if warnings:
         for w in warnings:
-            print(_("env.warn.prefix", default="[WARN] {message}", message=w), file=sys.stderr)
+            print(
+                _("env.warn.prefix", default="[WARN] {message}", message=w),
+                file=sys.stderr,
+            )

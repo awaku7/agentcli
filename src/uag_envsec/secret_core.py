@@ -101,7 +101,9 @@ def sign_text(message: str, *, key_path: str | Path | None = None) -> str:
     return base64.b64encode(h.finalize()).decode("ascii")
 
 
-def verify_text(message: str, sig_b64: str, *, key_path: str | Path | None = None) -> bool:
+def verify_text(
+    message: str, sig_b64: str, *, key_path: str | Path | None = None
+) -> bool:
     master = load_key(key_path)
     sign_key = _derive_subkey(master, purpose="sign", length=32)
     sig = base64.b64decode(sig_b64)
