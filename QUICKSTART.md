@@ -1,6 +1,6 @@
 # QUICKSTART (uag / Windows)
 
-This document explains how to install a distributed `uag` wheel (`uag-<VERSION>-py3-none-any.whl`) with **pip**, and verify the minimum setup using the CLI (`uag`).
+This document explains how to install `uag` from **PyPI** with `pip` and verify the minimum setup using the CLI (`uag`).
 
 Target OS: Windows
 
@@ -35,16 +35,9 @@ winget install --id Git.Git -e
 
 ______________________________________________________________________
 
-## 3. Prepare a working folder
+## 3. Create a virtual environment (recommended)
 
-- Place the distributed `uag-<VERSION>-py3-none-any.whl` into a working folder
-- Run the commands below in that folder
-
-______________________________________________________________________
-
-## 4. Create a virtual environment (recommended)
-
-Run in the working folder:
+Run in the working folder where you want to use `uag`:
 
 ```bat
 python -m venv .venv
@@ -59,29 +52,29 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ______________________________________________________________________
 
-## 5. Install the wheel with pip
+## 4. Install `uag` from PyPI with pip
 
-Check the wheel file name:
+Upgrade pip first if needed:
 
 ```bat
-dir *.whl
+python -m pip install --upgrade pip
 ```
 
-Install specifying the file name:
+Install `uag`:
 
 ```bat
-python -m pip install .\uag-<VERSION>-py3-none-any.whl
+python -m pip install uag
 ```
 
-(If there is only one wheel file, this is also fine.)
+If you want to pin a version:
 
 ```bat
-python -m pip install .\uag-*.whl
+python -m pip install "uag==0.4.6"
 ```
 
 ______________________________________________________________________
 
-## 6. Verify installation
+## 5. Verify installation
 
 ```bat
 uag --help
@@ -97,15 +90,15 @@ python -m uagent --help
 
 ______________________________________________________________________
 
-## 7. Start and minimal configuration (CLI)
+## 6. Start and minimal configuration (CLI)
 
-### 7.1 Start
+### 6.1 Start
 
 ```bat
 uag
 ```
 
-### 7.1.1 (Optional) Start A2A server
+### 6.1.1 (Optional) Start A2A server
 
 A2A runs as a separate process and does not change the existing `uag` behavior.
 
@@ -124,7 +117,7 @@ Exit:
 
 - `:exit`
 
-### 7.2 Minimum required environment variables
+### 6.2 Minimum required environment variables
 
 `uag` will exit if no LLM provider configuration is provided.
 
@@ -159,7 +152,7 @@ uag_setup
 python samples/generate_env_samples.py
 ```
 
-### 7.3 (Optional) Responses API knobs (reasoning / verbosity)
+### 6.3 (Optional) Responses API knobs (reasoning / verbosity)
 
 If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock/Ollama, you can optionally control reasoning effort and output verbosity.
 
@@ -182,7 +175,7 @@ In-session commands (CLI/GUI/Web):
 
 For details, see the "Optional Responses API knobs (reasoning / verbosity)" section in [`README.md`](README.md).
 
-### 7.4 (Optional) Auto shrink_llm
+### 6.4 (Optional) Auto shrink_llm
 
 If you frequently hit context limits, you can enable automatic summarization.
 
@@ -204,7 +197,7 @@ For provider-specific details (required environment variables, base URL, model s
 
 ______________________________________________________________________
 
-## 8. Smoke test prompts (examples)
+## 7. Smoke test prompts (examples)
 
 Notes:
 
@@ -221,7 +214,7 @@ Examples:
 
 ______________________________________________________________________
 
-## 9. Next to read
+## 8. Next to read
 
 - [`README.md`](README.md) (overview / Provider / Web Inspector, etc.)
 - [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
@@ -229,7 +222,7 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 10. Documentation (`uag docs`)
+## 9. Documentation (`uag docs`)
 
 After installation, bundled documents are available via `uag docs`.
 

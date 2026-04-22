@@ -1,6 +1,6 @@
 # QUICKSTART（uag / Windows）
 
-このドキュメントは、配布された `uag` の whl（`uag-<VERSION>-py3-none-any.whl`）を **pip でインストールし、CLI（`uag`）で最小構成で動作確認する** ための手順です。
+このドキュメントは、PyPI から `uag` を **pip でインストールし、CLI（`uag`）で最小構成の動作確認を行う** ための手順です。
 
 対象OS: Windows
 
@@ -35,23 +35,16 @@ winget install --id Git.Git -e
 
 ______________________________________________________________________
 
-## 3. 作業フォルダの準備
+## 3. 仮想環境の作成（推奨）
 
-- 配布された `uag-<VERSION>-py3-none-any.whl` を作業フォルダに置きます
-- 以降のコマンドは、その作業フォルダで実行します
-
-______________________________________________________________________
-
-## 4. 仮想環境の作成（推奨）
-
-作業フォルダ直下で実行します。
+`uag` を使う作業フォルダで実行します。
 
 ```bat
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
 
-（PowerShell の場合、実行ポリシーの設定が必要になることがあります。その場合は次を実行してから、もう一度 activate してください。）
+（PowerShell の場合、実行ポリシーの設定が必要になることがあります。その場合は次を実行してから、もう一度 `activate` してください。）
 
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
@@ -59,29 +52,29 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 
 ______________________________________________________________________
 
-## 5. whl を pip でインストール
+## 4. PyPI から `uag` を pip でインストール
 
-まず作業フォルダ内の whl 名を確認します。
+必要に応じて、先に pip を更新します。
 
 ```bat
-dir *.whl
+python -m pip install --upgrade pip
 ```
 
-次に、そのファイル名を指定してインストールします。
+`uag` をインストールします。
 
 ```bat
-python -m pip install .\uag-<VERSION>-py3-none-any.whl
+python -m pip install uag
 ```
 
-（whl が1つだけの場合は、次でも構いません）
+バージョンを固定したい場合:
 
 ```bat
-python -m pip install .\uag-*.whl
+python -m pip install "uag==0.4.6"
 ```
 
 ______________________________________________________________________
 
-## 6. インストール確認
+## 5. インストール確認
 
 ```bat
 uag --help
@@ -97,15 +90,15 @@ python -m uagent --help
 
 ______________________________________________________________________
 
-## 7. 起動と最小設定（CLI）
+## 6. 起動と最小設定（CLI）
 
-### 7.1 起動
+### 6.1 起動
 
 ```bat
 uag
 ```
 
-### 7.1.1（任意）A2A サーバー起動
+### 6.1.1（任意）A2A サーバー起動
 
 A2A は別プロセスで動作し、既存の `uag` の挙動は変更しません。
 
@@ -124,7 +117,7 @@ python -m uagent
 
 - `:exit`
 
-### 7.2 最小の環境変数（必須）
+### 6.2 最小の環境変数（必須）
 
 `uag` は LLM プロバイダ設定が無いと終了します。
 
@@ -141,12 +134,12 @@ uag
 
 サンプルファイルは `samples/` 配下にあります。
 
-- 共通の正本テンプレート: `samples/env.sample.env`
+- 共通テンプレート: `samples/env.sample.env`
 - 生成されるシェル別サンプル: `samples/env.sample.sh` / `samples/env.sample.ps1` / `samples/env.sample.bat`
 - プロバイダ別テンプレート: `samples/provider.*.env.sample`
 - 使い方詳細: `samples/README.md`
 
-推奨（whl/pip インストール後）: `uag_setup` を実行して、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成します。
+推奨（PyPI / pip インストール後）: `uag_setup` を実行して、カレントディレクトリに `.env`（および任意で `env.sh` / `env.ps1` / `env.bat`）を生成します。
 必要なプロバイダ変数が不足している場合、`uag` は自動でセットアップウィザードを起動し、完了後に環境を再確認します。
 
 ```bat
@@ -159,13 +152,13 @@ uag_setup
 python samples/generate_env_samples.py
 ```
 
-### 7.3（任意）Responses API 設定 (reasoning / verbosity)
+### 6.3（任意）Responses API 設定 (reasoning / verbosity)
 
 Azure/OpenAI/Bedrock/Ollama で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
 
 Bedrock では OpenAI互換ゲートウェイで message list `input` がバリデーションエラーになるケースを避けるため、文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
 
-他プロバイダで `UAGENT_RESPONSES=1` を指定した場合、実行時に ChatCompletions へフォールバックします。
+`UAGENT_RESPONSES=1` を他プロバイダで指定した場合は、実行時に ChatCompletions へフォールバックします。
 
 例:
 
@@ -175,14 +168,14 @@ set UAGENT_REASONING=auto
 set UAGENT_VERBOSITY=medium
 ```
 
-セッション内コマンド (CLI/GUI/Web):
+セッション内コマンド（CLI/GUI/Web）:
 
-- `:r [0|1|2|3|auto|minimal|xhigh]` (引数なしで現在の設定表示)
-- `:v [0|1|2|3]` (引数なしで現在の設定表示)
+- `:r [0|1|2|3|auto|minimal|xhigh]`（引数なしで現在の設定を保持）
+- `:v [0|1|2|3]`（引数なしで現在の設定を保持）
 
 詳細は [`README.ja.md`](README.ja.md) の「Responses API」セクションを参照してください。
 
-### 7.4（任意）自動 shrink_llm
+### 6.4（任意）自動 shrink_llm
 
 コンテキスト上限に頻繁に達する場合は、自動要約を有効化できます。
 
@@ -195,7 +188,7 @@ set UAGENT_VERBOSITY=medium
 注意:
 
 - 自動 shrink は全プロバイダ対応です。
-- 圧縮（手動/自動）が動いたとき、現在セッションのログは圧縮後の履歴で書き戻され、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップ（`.org`）が作成されます。
+- 圧縮（手動/自動）が動いたとき、現在セッションのログは圧縮後の履歴で書き戻され、ログ保存フォルダ直下の `<log_dir>/.backup/` に 1 世代バックアップが作成されます。
 
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
@@ -204,11 +197,11 @@ set UAGENT_VERBOSITY=medium
 
 ______________________________________________________________________
 
-## 8. 動作確認（まず試す指示例）
+## 7. 動作確認（まず試す指示例）
 
 補足:
 
-- この環境では「`:load 0`」で直前のやりとり（会話）を復活できます。
+- この環境では `:load 0` で直前のやりとり（会話）を復活できます。
 
 起動後、プロンプトに指示を書きます。
 
@@ -221,15 +214,15 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 9. 次に読む
+## 8. 次に読む
 
 - [`README.ja.md`](README.ja.md)（全体像 / Provider / Web Inspector など）
-- [`AGENTS.md`](AGENTS.md)（ツール一覧 /環境変数 / MCP 最短例）
+- [`AGENTS.md`](AGENTS.md)（ツール一覧 / 環境変数 / MCP 最短例）
 - `uag docs develop` / `uag docs webinspect`
 
 ______________________________________________________________________
 
-## 10. ドキュメント参照（`uag docs`）
+## 9. ドキュメント参照（`uag docs`）
 
 インストール後、同梱ドキュメントは `uag docs` で参照できます。
 

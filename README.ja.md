@@ -4,62 +4,69 @@
 
 # uag（ローカルAIエージェント）
 
-uag は、ローカルPC上で **コマンド実行**・**ファイル操作**・**各種データ読取** などを行う対話型エージェントです。CLI / GUI / Web の 3 つのインターフェースを提供します。
-
+uag は、ローカルPC上で **コマンド実行**・**ファイル操作**・**PDF/PPTX/Excel などのデータ読取** を行う対話型エージェントです。CLI / GUI / Web の 3 つのインターフェースを提供します。
 
 GitHub: https://github.com/awaku7/agentcli
 
 ## インストール
 
-`uag` は pip でインストールできます。
+PyPI から pip でインストールできます。
 
 ```bash
 pip install uag
 ```
 
-インストール後、初回起動時に環境変数を設定するための **対話型セットアップウィザード** が自動的に起動します。環境変数の詳細や暗号化については、**[ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md)** を参照してください。
+仮想環境を使う場合は、先に有効化してから実行してください。
+
+初回起動時には、必要なプロバイダ設定が不足している場合に限り、環境変数を設定するためのセットアップウィザードが自動的に起動します。設定の詳細は [ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md) を参照してください。
 
 ## 主な特長
 
-- **実用的なツール群**: ローカル環境で即座に実行可能な、ファイル操作、ウェブ検索、データ抽出（PDF/PPTX/Excel）、画像生成・解析等のツールを搭載。
-- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA をサポート。
-- **柔軟なインターフェース**: 
+- **実用的なツール群**: ファイル操作、ウェブ検索、PDF/PPTX/Excel 抽出、画像生成、画像解析。
+- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA。
+- **3つのインターフェース**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
   - **Web**: `uagw` / `python -m uagent.web`
-- **MCP (Model Context Protocol)**: 外部 MCP ツールサーバーとの連携が可能。
-- **セッション継続**: プロバイダやモデルを切り替えても会話の文脈を保持。
-- **Web Inspector**: `playwright_inspector` を使用して、ブラウザ操作の遷移、DOM、スクリーンショットを自動保存。
-- **ドキュメント参照**: `uag docs` コマンドで、内蔵されている詳細ドキュメントを即座に参照可能。
+  - **A2A サーバー**: `uaga` / `python -m uagent.a2a.server`
+- **MCP 対応**: 外部 MCP ツールサーバーへ接続可能。
+- **セッション継続**: モデルやプロバイダを切り替えても会話文脈を維持。
+- **Web Inspector**: `playwright_inspector` でブラウザ遷移、DOM、スクリーンショットを保存。
+- **組み込みドキュメント**: `uag docs` で同梱ドキュメントを参照可能。
 
 ## 使い方
 
 ### 起動と終了
-ターミナルから `uag` を実行して開始します。終了するには `:exit` を入力します。
+ターミナルで `uag` を実行して開始します。終了するには `:exit` を入力します。
 
-### A2A（Agent2Agent）サーバー
-既存のインターフェースとは別に、A2A 互換の HTTP サーバーを起動できます。
+### A2A サーバー
+Agent2Agent 互換の HTTP サーバーを起動します。
+
 ```bash
 uaga
-# または python -m uagent.a2a.server
 ```
 
-### 便利な Tips（会話の継続と制御）
-- `:tools`: ロード済みツール一覧を表示。
-- `:logs [n]`: セッションログを表示（`n` で件数指定）。
-- `:load <index>`: 過去のセッションを読み込んで会話を再開。
-- `:skills`: Agent Skills（追加の役割や指示）を選択してロード。
-- `:shrink [n]`: 会話履歴を末尾 `n` 件に整理してトークンを節約。
+### 便利なコマンド
+- `:tools`: ロード済みツール一覧を表示
+- `:logs [n]`: 直近のセッションログを表示
+- `:load <index>`: 過去セッションを読み込む
+- `:skills`: Agent Skills を選択してロード
+- `:shrink [n]`: 履歴を要約して末尾 `n` 件を残す
 
-## 設定と詳細情報
+## 設定と詳細
 
 ### 環境変数とセットアップ
-詳細な設定（プロバイダの API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定など）については、**[ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md)** を参照してください。
-- **セットアップ**: `python -m uagent.setup_cli` で対話的に設定。
-- **暗号化**: `uag_envsec` ツールで `.env` ファイルを安全に暗号化可能。
-- **更新**: 既存の `.env.sec` に変数を追加/更新するには `uag_envsec add --file .env.sec --key NAME --value VALUE` を使います。
+API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定などの詳細は [ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md) を参照してください。
 
-### 開発者・多言語対応
+- **セットアップウィザード**: `python -m uagent.setup_cli`
+- **暗号化済み環境**: `uag_envsec` で `.env` を `.env.sec` として暗号化可能
+- **暗号化ファイルの更新**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+
+### Responses API の注意
+`UAGENT_RESPONSES=1` を設定した場合、Responses API は OpenAI / Azure / Bedrock / OpenRouter / Ollama で使用されます。
+それ以外のプロバイダでは、プロバイダ固有の経路または ChatCompletions にフォールバックします。
+
+### 開発者向けドキュメント / 多言語
 - **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **ロケールの追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
+- **ロケール追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **他言語の README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/README.id.md)

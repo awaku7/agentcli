@@ -33,11 +33,15 @@
 - 起動時処理は `src/uagent/runtime_init.py` に集約されている。
 - workdir 解決、startup banner、長期記憶注入、共有メモリ注入、環境検証はこの層で扱う。
 - 起動時の環境検証は `validate_or_exit_startup_env(context=...)` を参照する。
+- `runtime_init.py` は import 時に CWD の `.env` を読み込む。
+- `runtime_init.py` は `.env.sec` も CWD から読み込める。復号失敗時は `[WARN] Failed to decrypt .env.sec: ...` を stderr に出す。
 
 ## LLM / API ルール
 
-- `UAGENT_RESPONSES=1` の場合、OpenAI / Azure / Ollama 系の Responses API を優先する。
+- `UAGENT_RESPONSES=1` の場合、OpenAI / Azure / Bedrock / OpenRouter / Ollama 系の Responses API を優先する。
 - `UAGENT_RESPONSES=1` の場合、`analyze_image` はロードされない。
+- `UAGENT_RESPONSES=1` でも、provider が非対応なら起動バナーで警告し、ChatCompletions にフォールバックする。
+- `UAGENT_RESPONSES=1` でも、Gemini / Claude / Vertex AI は別扱いで、Responses API 非対応として扱う実装がある。
 - 画像処理や外部送信の前に、機密情報の混入を確認する。
 - provider 切り替え時はセッション継続の挙動を確認する。
 
@@ -57,6 +61,7 @@
 - `UAGENT_EMBEDDING_API_URL`: Embedding API の URL。
 - `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: 到達不能時のツール抑止制御。
 - `UAGENT_CMD_ENCODING`: 外部コマンド出力のデコード設定。
+- `UAGENT_STREAMING`: 起動バナーの streaming 表示に反映される。
 
 ## ドキュメント更新ルール
 
