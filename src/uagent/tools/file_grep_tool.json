@@ -28,8 +28,8 @@
     "param.path.description": "Root directory or specific file path (default: '.').",
     "param.pattern.description": "Regex pattern to search for.",
     "param.recursive.description": "Whether to search subdirectories recursively.",
-    "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
-    "tool.system_prompt": "Search file contents under one or more paths. Pattern is required. Filter files by glob, search using a Python regular expression or literal text, optionally include context lines, skip binary-like files, support filenames-only mode, and auto-detect text encodings when reading. Return JSON only."
+    "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). The pattern is required.",
+    "tool.system_prompt": "Search file contents under one or more paths. The pattern is required. Filter files by glob, search using a Python regular expression or literal text, optionally include context lines, skip binary-like files, support filenames-only mode, and auto-detect text encodings when reading. Return JSON only."
   },
   "es": {
     "err.exception": "Se produjo una excepción durante las operaciones de grep.",
