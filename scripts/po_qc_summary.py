@@ -59,7 +59,7 @@ def _unquote_po(token: str) -> str:
         .replace("\\t", "\t")
         .replace("\\r", "\r")
         .replace("\\\\", "\\")
-        .replace("\\\"", '"')
+        .replace('\\"', '"')
     )
 
 
@@ -114,7 +114,9 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
             msgstr = None
             state = None
             return
-        entries.append({"comments": comments[:], "msgid": msgid or "", "msgstr": msgstr or ""})
+        entries.append(
+            {"comments": comments[:], "msgid": msgid or "", "msgstr": msgstr or ""}
+        )
         comments = []
         msgid = None
         msgstr = None
@@ -156,7 +158,9 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
             i += 1
             while i < len(lines) and not lines[i].startswith("msgstr"):
                 i += 1
-            while i < len(lines) and (lines[i].startswith("msgstr") or lines[i].lstrip().startswith('"')):
+            while i < len(lines) and (
+                lines[i].startswith("msgstr") or lines[i].lstrip().startswith('"')
+            ):
                 i += 1
             # do not flush; plural entries not represented
             msgid = None
@@ -256,7 +260,13 @@ def main() -> int:
                     problems["ascii_nonkey"].append(mid)
 
                 en_str = en_map.get(mid)
-                if mst and en_str and mst == en_str and mst != mid and (not _is_key_like(mst)):
+                if (
+                    mst
+                    and en_str
+                    and mst == en_str
+                    and mst != mid
+                    and (not _is_key_like(mst))
+                ):
                     problems["same_as_en"].append(mid)
 
             # Sanity: placeholder mismatch (just warn by counting)
@@ -277,12 +287,21 @@ def main() -> int:
         lines.append(f"po: {rep['po']}")
         lines.append(f"entries: {rep['total_entries']}")
         lines.append("")
-        for cat in ["empty", "fuzzy", "same_as_en", "ascii_nonkey", "no_expected_script", "same_as_msgid"]:
+        for cat in [
+            "empty",
+            "fuzzy",
+            "same_as_en",
+            "ascii_nonkey",
+            "no_expected_script",
+            "same_as_msgid",
+        ]:
             lines.append(f"[{cat}] count={rep['counts'][cat]}")
             for mid in rep["problems"][cat]:
                 lines.append(mid)
             lines.append("")
-        (OUT_DIR / f"{loc}_po_qc.txt").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+        (OUT_DIR / f"{loc}_po_qc.txt").write_text(
+            "\n".join(lines).rstrip() + "\n", encoding="utf-8"
+        )
 
     # Write summary TSV
     header = "locale\tentries\tempty\tfuzzy\tsame_as_en\tascii_nonkey\tno_expected_script\tsame_as_msgid\tpo"

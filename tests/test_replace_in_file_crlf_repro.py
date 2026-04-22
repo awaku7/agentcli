@@ -85,7 +85,9 @@ def test_replace_in_file_mixed_uses_first_newline_kind(repo_tmp_path: Path) -> N
     assert data == b"A\r\nB\r\nbeta\r\n"
 
 
-def test_replace_in_file_triple_quoted_mixed_pattern_and_replacement(repo_tmp_path: Path) -> None:
+def test_replace_in_file_triple_quoted_mixed_pattern_and_replacement(
+    repo_tmp_path: Path,
+) -> None:
     p = repo_tmp_path / "triple_mixed.txt"
     p.write_text(
         """before

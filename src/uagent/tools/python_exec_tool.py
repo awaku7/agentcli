@@ -72,9 +72,7 @@ def _run_python_code(args: Dict[str, Any], cb: Any) -> str:
             shell=False,
         )
     except subprocess.TimeoutExpired:
-        return (
-            f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds"
-        )
+        return f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds"
     except Exception as e:
         return f"[python_exec error] {type(e).__name__}: {e}"
     finally:

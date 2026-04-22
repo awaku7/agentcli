@@ -143,7 +143,6 @@ def test_search_files_missing_root_returns_error_json(
     assert str(missing) in str(obj.get("error", ""))
 
 
-
 def test_search_files_uses_streaming_for_large_files(
     repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

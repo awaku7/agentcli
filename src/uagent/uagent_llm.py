@@ -431,7 +431,10 @@ def _maybe_auto_shrink_messages(
             pass
 
     except Exception as e:
-        print(_("[WARN] Auto shrink_llm failed: %(err)s") % {"err": f"{type(e).__name__}: {e}"})
+        print(
+            _("[WARN] Auto shrink_llm failed: %(err)s")
+            % {"err": f"{type(e).__name__}: {e}"}
+        )
 
     return gemini_cache_name
 
@@ -921,7 +924,11 @@ def _call_openai_azure_round(
                         )
                     )
                     # ensure newline after streaming output
-                    if assistant_text and not bool(getattr(core, "_is_web", False)) and not assistant_text.endswith("\n"):
+                    if (
+                        assistant_text
+                        and not bool(getattr(core, "_is_web", False))
+                        and not assistant_text.endswith("\n")
+                    ):
                         print("")
                 else:
                     assistant_text, tool_calls_list = call_maybe_thread_fn(
@@ -1528,9 +1535,7 @@ def run_llm_rounds(
 
                 if not tool_calls_list:
                     # Gemini streaming already emitted the text; avoid double-printing.
-                    if not (
-                        provider in ("gemini", "vertexai") and stream_responses
-                    ):
+                    if not (provider in ("gemini", "vertexai") and stream_responses):
                         _emit_final_answer_if_any(
                             assistant_text=assistant_text,
                             use_responses_api=use_responses_api,
@@ -1641,8 +1646,6 @@ def run_llm_rounds(
                 tool_result_cache=tool_result_cache,
                 use_tool_result_cache=use_tool_result_cache,
             )
-
-
 
             core.set_status(True, "LLM")
 

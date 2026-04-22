@@ -6,7 +6,9 @@ import pytest
 
 
 def test_handle_cmd_ls_globstar_recursive_lists_nested_paths(
-    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+    repo_tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     from uagent.util_tools import _handle_cmd_ls
 
