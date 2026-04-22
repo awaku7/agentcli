@@ -96,7 +96,9 @@ def _request_json(
                     retry_after = float(data.get("retry_after") or retry_after)
                 except Exception:
                     try:
-                        retry_after = float(resp.headers.get("Retry-After", retry_after))
+                        retry_after = float(
+                            resp.headers.get("Retry-After", retry_after)
+                        )
                     except Exception:
                         retry_after = 1.0
                 time.sleep(max(0.2, retry_after) + 0.1)
@@ -156,7 +158,9 @@ def _fetch_recent_messages(
     params: Dict[str, Any] = {"limit": max(1, min(100, int(limit)))}
     if after:
         params["after"] = after
-    data = _request_json("GET", f"/channels/{channel_id}/messages", token, params=params)
+    data = _request_json(
+        "GET", f"/channels/{channel_id}/messages", token, params=params
+    )
     if not isinstance(data, list):
         raise RuntimeError("Unexpected response when fetching channel messages")
     return data
@@ -287,12 +291,13 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         message = get_str(args, "message", "")
         if not message:
-            return _json_err(
-                _("err.missing_message", default="Missing 'message'.")
-            )
+            return _json_err(_("err.missing_message", default="Missing 'message'."))
         if len(message) > 2000:
             return _json_err(
-                _("err.message_too_long", default="Discord message content must be 2000 characters or less."),
+                _(
+                    "err.message_too_long",
+                    default="Discord message content must be 2000 characters or less.",
+                ),
                 length=len(message),
                 max_length=2000,
             )
@@ -312,7 +317,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
 
         wait_s = max(0, get_int(args, "wait_s", DEFAULT_WAIT_S))
-        poll_interval_s = max(1, get_int(args, "poll_interval_s", DEFAULT_POLL_INTERVAL_S))
+        poll_interval_s = max(
+            1, get_int(args, "poll_interval_s", DEFAULT_POLL_INTERVAL_S)
+        )
         exclude_bots = get_bool(args, "exclude_bots", True)
         limit = max(1, min(100, get_int(args, "limit", DEFAULT_LIMIT)))
 

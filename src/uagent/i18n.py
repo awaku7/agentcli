@@ -250,6 +250,7 @@ def _detect_windows_console_lang() -> str | None:
 
     try:
         import ctypes
+
         # https://learn.microsoft.com/en-us/windows/win32/api/wincon/nf-wincon-getconsoleoutputcp
         cp = ctypes.windll.kernel32.GetConsoleOutputCP()
         # Map common Windows console code pages to language codes
@@ -257,30 +258,30 @@ def _detect_windows_console_lang() -> str | None:
         # Map Windows code pages to supported language codes
         # https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
         cp_map = {
-            932: "ja",     # Japanese
+            932: "ja",  # Japanese
             936: "zh_CN",  # Simplified Chinese
-            949: "ko",     # Korean
+            949: "ko",  # Korean
             950: "zh_TW",  # Traditional Chinese
-            1251: "ru",    # Cyrillic (Russian)
-            874:  "th",    # Thai
+            1251: "ru",  # Cyrillic (Russian)
+            874: "th",  # Thai
             # Western European (1252/850) can be any of en, de, fr, es, it, pt.
             # Without further API calls, we default to "en" for these code pages.
             1252: "en",
-            850:  "en",
-            437:  "en",
+            850: "en",
+            437: "en",
         }
         if cp in cp_map:
             return cp_map[cp]
 
         # For Western European or others, try User Default UI Language as a fallback
         # https://learn.microsoft.com/en-us/windows/win32/api/winnls/nf-winnls-getuserdefaultuilanguage
-        lang_id = ctypes.windll.kernel32.GetUserDefaultUILanguage() & 0x3ff
+        lang_id = ctypes.windll.kernel32.GetUserDefaultUILanguage() & 0x3FF
         lang_map = {
-            0x07: "de", # German
-            0x0c: "fr", # French
-            0x0a: "es", # Spanish
-            0x10: "it", # Italian
-            0x16: "pt", # Portuguese (pt_BR)
+            0x07: "de",  # German
+            0x0C: "fr",  # French
+            0x0A: "es",  # Spanish
+            0x10: "it",  # Italian
+            0x16: "pt",  # Portuguese (pt_BR)
         }
         if lang_id in lang_map:
             return lang_map[lang_id]

@@ -39,12 +39,16 @@ def _make_summary(
     mc = 0 if match_count is None else int(match_count)
     if blocked:
         if reason:
-            return _("summary.blocked_reason", default="Blocked: {reason}").format(reason=reason)
+            return _("summary.blocked_reason", default="Blocked: {reason}").format(
+                reason=reason
+            )
         return _("summary.blocked", default="Blocked: {count}").format(count=mc)
 
     if preview:
         msg = (
-            _("summary.preview_matches", default="Preview: {count} matches found").format(count=mc)
+            _(
+                "summary.preview_matches", default="Preview: {count} matches found"
+            ).format(count=mc)
             if mc
             else _("summary.no_change", default="Successfully no change (0 matches)")
         )
@@ -89,7 +93,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "path": {
                     "type": "string",
-                    "description": _("param.path.description", default="Target file path (recommended: under workdir)."),
+                    "description": _(
+                        "param.path.description",
+                        default="Target file path (recommended: under workdir).",
+                    ),
                 },
                 "mode": {
                     "type": "string",
@@ -105,47 +112,76 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "pattern": {
                     "type": "string",
-                    "description": _("param.pattern.description", default="Search pattern. To express a newline, write \\n (JSON: \\\n)."),
+                    "description": _(
+                        "param.pattern.description",
+                        default="Search pattern. To express a newline, write \\n (JSON: \\\n).",
+                    ),
                 },
                 "replacement": {
                     "type": "string",
-                    "description": _("param.replacement.description", default="Replacement text."),
+                    "description": _(
+                        "param.replacement.description", default="Replacement text."
+                    ),
                 },
                 "po_msgid": {
                     "type": "string",
-                    "description": _("param.po_msgid.description", default="Target gettext msgid for replace_po_entry. If omitted, pattern is used as a fallback."),
+                    "description": _(
+                        "param.po_msgid.description",
+                        default="Target gettext msgid for replace_po_entry. If omitted, pattern is used as a fallback.",
+                    ),
                 },
                 "anchor_before": {
                     "type": "string",
-                    "description": _("param.anchor_before.description", default="Start anchor for replace_between (literal or regex depending on mode)."),
+                    "description": _(
+                        "param.anchor_before.description",
+                        default="Start anchor for replace_between (literal or regex depending on mode).",
+                    ),
                 },
                 "anchor_after": {
                     "type": "string",
-                    "description": _("param.anchor_after.description", default="End anchor for replace_between (literal or regex depending on mode)."),
+                    "description": _(
+                        "param.anchor_after.description",
+                        default="End anchor for replace_between (literal or regex depending on mode).",
+                    ),
                 },
                 "preview": {
                     "type": "boolean",
-                    "description": _("param.preview.description", default="If true, return a preview only and do not modify the file."),
+                    "description": _(
+                        "param.preview.description",
+                        default="If true, return a preview only and do not modify the file.",
+                    ),
                     "default": True,
                 },
                 "occurrence": {
                     "type": "integer",
-                    "description": _("param.occurrence.description", default="Which occurrence to replace (1-based). 0 means replace all occurrences."),
+                    "description": _(
+                        "param.occurrence.description",
+                        default="Which occurrence to replace (1-based). 0 means replace all occurrences.",
+                    ),
                     "default": 0,
                 },
                 "confirm_over": {
                     "type": "integer",
-                    "description": _("param.confirm_over.description", default="When preview=false, block if the number of matches is greater than this value."),
+                    "description": _(
+                        "param.confirm_over.description",
+                        default="When preview=false, block if the number of matches is greater than this value.",
+                    ),
                     "default": 10,
                 },
                 "encoding": {
                     "type": "string",
-                    "description": _("param.encoding.description", default="File encoding (default: utf-8)."),
+                    "description": _(
+                        "param.encoding.description",
+                        default="File encoding (default: utf-8).",
+                    ),
                     "default": "utf-8",
                 },
                 "return_hashes": {
                     "type": "boolean",
-                    "description": _("param.return_hashes.description", default="If true, include sha256_before and sha256_after in the result."),
+                    "description": _(
+                        "param.return_hashes.description",
+                        default="If true, include sha256_before and sha256_after in the result.",
+                    ),
                     "default": False,
                 },
                 "action": {
@@ -169,17 +205,26 @@ TOOL_SPEC: Dict[str, Any] = {
                 },
                 "line_no": {
                     "type": "integer",
-                    "description": _("param.line_no.description", default="1-based line number used by insert_at_line."),
+                    "description": _(
+                        "param.line_no.description",
+                        default="1-based line number used by insert_at_line.",
+                    ),
                     "default": 0,
                 },
                 "name_pattern": {
                     "type": "string",
-                    "description": _("param.name_pattern.description", default="Glob pattern used by replace_all_in_files (default: '*')."),
+                    "description": _(
+                        "param.name_pattern.description",
+                        default="Glob pattern used by replace_all_in_files (default: '*').",
+                    ),
                     "default": "*",
                 },
                 "recursive": {
                     "type": "boolean",
-                    "description": _("param.recursive.description", default="Recursively scan under the target directory."),
+                    "description": _(
+                        "param.recursive.description",
+                        default="Recursively scan under the target directory.",
+                    ),
                     "default": True,
                 },
             },
@@ -219,7 +264,13 @@ def _write_text_robust(path: str, text: str, encoding: str) -> None:
 
 
 def _expand_newline_tokens_to_lf(s: str) -> str:
-    return s.replace("\\r\\n", "\n").replace("\\r", "\n").replace("\\n", "\n").replace("\r\n", "\n").replace("\r", "\n")
+    return (
+        s.replace("\\r\\n", "\n")
+        .replace("\\r", "\n")
+        .replace("\\n", "\n")
+        .replace("\r\n", "\n")
+        .replace("\r", "\n")
+    )
 
 
 def _normalize_replacement_newlines(text: str, newline: Any) -> str:
@@ -307,7 +358,6 @@ def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
         "hint.check_exact",
         default="No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.",
     )
-
 
 
 def _newline_profile(newline: Any) -> str:
@@ -402,7 +452,7 @@ def _po_parse_entry_block(block_lines: List[str]) -> Dict[str, Any] | None:
         return None
 
     def collect(start_idx: int, prefix: str) -> tuple[str, int]:
-        token = block_lines[start_idx].lstrip()[len(prefix):].strip()
+        token = block_lines[start_idx].lstrip()[len(prefix) :].strip()
         parts = [_po_unescape_token(token)]
         i = start_idx + 1
         while i < len(block_lines):
@@ -415,7 +465,9 @@ def _po_parse_entry_block(block_lines: List[str]) -> Dict[str, Any] | None:
         return "".join(parts), i
 
     msgid, msgid_end = collect(0, "msgid ")
-    if msgid_end >= len(block_lines) or not block_lines[msgid_end].lstrip().startswith("msgstr "):
+    if msgid_end >= len(block_lines) or not block_lines[msgid_end].lstrip().startswith(
+        "msgstr "
+    ):
         return None
     msgstr_start = msgid_end
     msgstr, msgstr_end = collect(msgstr_start, "msgstr ")
@@ -455,24 +507,36 @@ def _build_no_match_diagnostics(
         "newline_profile": _newline_profile(original),
         "expand_newline_tokens": expand_newline_tokens,
         "search_text_length": len(search_text),
-        "contains_escaped_newline_tokens": ("\\n" in search_text or "\\r" in search_text),
+        "contains_escaped_newline_tokens": (
+            "\\n" in search_text or "\\r" in search_text
+        ),
         "contains_regex_meta": bool(re.search(r"[.*+?^$\\[\\]{}()|]", search_text)),
     }
 
     hints: list[str] = []
     stripped = search_text.strip()
     if not expand_newline_tokens and diagnostics["contains_escaped_newline_tokens"]:
-        hints.append("Escaped newline tokens were not expanded. Set expand_newline_tokens=true or use actual newlines.")
+        hints.append(
+            "Escaped newline tokens were not expanded. Set expand_newline_tokens=true or use actual newlines."
+        )
     if mode == "literal" and diagnostics["contains_regex_meta"]:
-        hints.append("Pattern looks like it contains regex-style meta-characters but mode is literal.")
+        hints.append(
+            "Pattern looks like it contains regex-style meta-characters but mode is literal."
+        )
     if stripped and stripped != search_text and stripped in original:
-        hints.append("Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation.")
+        hints.append(
+            "Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation."
+        )
 
     if action == "replace_between":
         diagnostics["anchor_before"] = anchor_before
         diagnostics["anchor_after"] = anchor_after
-        diagnostics["anchor_before_found"] = bool(anchor_before and anchor_before in original)
-        diagnostics["anchor_after_found"] = bool(anchor_after and anchor_after in original)
+        diagnostics["anchor_before_found"] = bool(
+            anchor_before and anchor_before in original
+        )
+        diagnostics["anchor_after_found"] = bool(
+            anchor_after and anchor_after in original
+        )
         if anchor_before and not diagnostics["anchor_before_found"]:
             hints.append("anchor_before was not found.")
         if anchor_after and not diagnostics["anchor_after_found"]:
@@ -485,7 +549,9 @@ def _build_no_match_diagnostics(
             hints.append("msgid was not found in the .po file.")
 
     if not hints:
-        hints.append("No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces.")
+        hints.append(
+            "No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces."
+        )
 
     diagnostics["hints"] = hints
     return diagnostics
@@ -572,13 +638,28 @@ def _replace_po_entry_text(
         diag["po_msgid_match_count"] = match_total
         diag["po_msgid_replaced_count"] = 0
         diag["msgstr_is_empty"] = any(hit.get("msgstr_is_empty") for hit in match_hits)
-        diag["msgstr_kinds"] = sorted({str(hit.get("msgstr_kind")) for hit in match_hits if hit.get("msgstr_kind")})
-        diag["msgstr_line_counts"] = sorted({int(hit.get("msgstr_line_count", 0)) for hit in match_hits if hit.get("msgstr_line_count") is not None})
+        diag["msgstr_kinds"] = sorted(
+            {
+                str(hit.get("msgstr_kind"))
+                for hit in match_hits
+                if hit.get("msgstr_kind")
+            }
+        )
+        diag["msgstr_line_counts"] = sorted(
+            {
+                int(hit.get("msgstr_line_count", 0))
+                for hit in match_hits
+                if hit.get("msgstr_line_count") is not None
+            }
+        )
         if len(diag["msgstr_kinds"]) == 1:
             diag["msgstr_kind"] = diag["msgstr_kinds"][0]
         if len(diag["msgstr_line_counts"]) == 1:
             diag["msgstr_line_count"] = diag["msgstr_line_counts"][0]
-        diag["hints"] = [f"Requested occurrence {occurrence} exceeds available matches ({match_total}).", *diag["hints"]]
+        diag["hints"] = [
+            f"Requested occurrence {occurrence} exceeds available matches ({match_total}).",
+            *diag["hints"],
+        ]
         return original, match_total, 0, match_hits, diag
 
     diag = {
@@ -587,8 +668,20 @@ def _replace_po_entry_text(
         "po_msgid_match_count": match_total,
         "po_msgid_replaced_count": replaced_total,
         "msgstr_is_empty": any(hit.get("msgstr_is_empty") for hit in match_hits),
-        "msgstr_kinds": sorted({str(hit.get("msgstr_kind")) for hit in match_hits if hit.get("msgstr_kind")}),
-        "msgstr_line_counts": sorted({int(hit.get("msgstr_line_count", 0)) for hit in match_hits if hit.get("msgstr_line_count") is not None}),
+        "msgstr_kinds": sorted(
+            {
+                str(hit.get("msgstr_kind"))
+                for hit in match_hits
+                if hit.get("msgstr_kind")
+            }
+        ),
+        "msgstr_line_counts": sorted(
+            {
+                int(hit.get("msgstr_line_count", 0))
+                for hit in match_hits
+                if hit.get("msgstr_line_count") is not None
+            }
+        ),
     }
     if len(diag["msgstr_kinds"]) == 1:
         diag["msgstr_kind"] = diag["msgstr_kinds"][0]
@@ -606,7 +699,11 @@ def _replace_between_text(
     mode: str,
     occurrence: int,
 ) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
-    before_hits = _find_hits_regex(original, re.compile(anchor_before)) if mode == "regex" else _find_hits_literal(original, anchor_before)
+    before_hits = (
+        _find_hits_regex(original, re.compile(anchor_before))
+        if mode == "regex"
+        else _find_hits_literal(original, anchor_before)
+    )
     if not before_hits:
         return (
             original,
@@ -638,10 +735,17 @@ def _replace_between_text(
             anchor_before=anchor_before,
             anchor_after=anchor_after,
         )
-        diag["hints"] = [f"Requested occurrence {occurrence} exceeds available matches ({len(before_hits)}).", *diag["hints"]]
+        diag["hints"] = [
+            f"Requested occurrence {occurrence} exceeds available matches ({len(before_hits)}).",
+            *diag["hints"],
+        ]
         return original, len(before_hits), 0, [], diag
 
-    after_hits = _find_hits_regex(original, re.compile(anchor_after)) if mode == "regex" else _find_hits_literal(original, anchor_after)
+    after_hits = (
+        _find_hits_regex(original, re.compile(anchor_after))
+        if mode == "regex"
+        else _find_hits_literal(original, anchor_after)
+    )
     after_hits = [hit for hit in after_hits if hit.start >= before_hit.end]
     if not after_hits:
         diag = _build_no_match_diagnostics(
@@ -653,11 +757,16 @@ def _replace_between_text(
             anchor_before=anchor_before,
             anchor_after=anchor_after,
         )
-        diag["hints"] = ["anchor_after was not found after anchor_before.", *diag["hints"]]
+        diag["hints"] = [
+            "anchor_after was not found after anchor_before.",
+            *diag["hints"],
+        ]
         return original, len(before_hits), 0, [], diag
 
     after_hit = after_hits[0]
-    replaced_text = original[: before_hit.end] + replacement + original[after_hit.start :]
+    replaced_text = (
+        original[: before_hit.end] + replacement + original[after_hit.start :]
+    )
     lno, col = _map_idx_to_line_col(original, before_hit.start)
     match_hits = [
         {
@@ -665,11 +774,13 @@ def _replace_between_text(
             "col": col,
             "anchor_before": anchor_before,
             "anchor_after": anchor_after,
-            "block_before": original[before_hit.start:before_hit.end],
-            "block_after": original[after_hit.start:after_hit.end],
+            "block_before": original[before_hit.start : before_hit.end],
+            "block_after": original[after_hit.start : after_hit.end],
         }
     ]
     return replaced_text, len(before_hits), 1, match_hits, None
+
+
 def _pick_newline_style(newline: Any) -> str:
     if isinstance(newline, tuple):
         if "\r\n" in newline:
@@ -680,11 +791,13 @@ def _pick_newline_style(newline: Any) -> str:
             return "\n"
     return newline or "\n"
 
+
 def _apply_newline_style(text: str, newline: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     if newline == "\n":
         return text
     return text.replace("\n", newline)
+
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = context.get_callbacks()
@@ -708,16 +821,34 @@ def run_tool(args: Dict[str, Any]) -> str:
         anchor_after: str,
     ) -> Dict[str, Any]:
         ensure_within_workdir(path)
-        original, nl, enc_used = _read_text_robust(path, encoding, cb.read_file_max_bytes)
+        original, nl, enc_used = _read_text_robust(
+            path, encoding, cb.read_file_max_bytes
+        )
         newline_style = _pick_newline_style(nl)
         orig_norm = _normalize_lf(original)
         before_sha = _sha256_file(path) if return_hashes else None
 
         p2 = _expand_newline_tokens_to_lf(pattern) if expand_newline_tokens else pattern
-        r2 = _expand_newline_tokens_to_lf(replacement) if expand_newline_tokens else replacement
-        po_target = _expand_newline_tokens_to_lf(po_msgid) if expand_newline_tokens else po_msgid
-        anchor_before_norm = _expand_newline_tokens_to_lf(anchor_before) if expand_newline_tokens else anchor_before
-        anchor_after_norm = _expand_newline_tokens_to_lf(anchor_after) if expand_newline_tokens else anchor_after
+        r2 = (
+            _expand_newline_tokens_to_lf(replacement)
+            if expand_newline_tokens
+            else replacement
+        )
+        po_target = (
+            _expand_newline_tokens_to_lf(po_msgid)
+            if expand_newline_tokens
+            else po_msgid
+        )
+        anchor_before_norm = (
+            _expand_newline_tokens_to_lf(anchor_before)
+            if expand_newline_tokens
+            else anchor_before
+        )
+        anchor_after_norm = (
+            _expand_newline_tokens_to_lf(anchor_after)
+            if expand_newline_tokens
+            else anchor_after
+        )
 
         hits: List[_Hit] = []
         if action in {"replace", "insert_before", "insert_after"}:
@@ -737,22 +868,28 @@ def run_tool(args: Dict[str, Any]) -> str:
             target = po_target or p2
             if not target:
                 raise ValueError("po_msgid is required for replace_po_entry")
-            replaced_text, match_count, replaced_count, match_hits, diagnostics = _replace_po_entry_text(
-                orig_norm,
-                target,
-                r2,
-                occurrence,
+            replaced_text, match_count, replaced_count, match_hits, diagnostics = (
+                _replace_po_entry_text(
+                    orig_norm,
+                    target,
+                    r2,
+                    occurrence,
+                )
             )
         elif action == "replace_between":
             if not anchor_before_norm or not anchor_after_norm:
-                raise ValueError("anchor_before and anchor_after are required for replace_between")
-            replaced_text, match_count, replaced_count, match_hits, diagnostics = _replace_between_text(
-                orig_norm,
-                anchor_before_norm,
-                anchor_after_norm,
-                r2,
-                mode,
-                occurrence,
+                raise ValueError(
+                    "anchor_before and anchor_after are required for replace_between"
+                )
+            replaced_text, match_count, replaced_count, match_hits, diagnostics = (
+                _replace_between_text(
+                    orig_norm,
+                    anchor_before_norm,
+                    anchor_after_norm,
+                    r2,
+                    mode,
+                    occurrence,
+                )
             )
         elif action == "replace" and match_count > 0:
             if occurrence == 0:
@@ -765,14 +902,24 @@ def run_tool(args: Dict[str, Any]) -> str:
                 h = hits[occurrence - 1]
                 if mode == "regex":
                     m = list(re.compile(p2).finditer(orig_norm))[occurrence - 1]
-                    replaced_text = orig_norm[:h.start] + m.expand(r2) + orig_norm[h.end:]
+                    replaced_text = (
+                        orig_norm[: h.start] + m.expand(r2) + orig_norm[h.end :]
+                    )
                 else:
-                    replaced_text = orig_norm[:h.start] + r2 + orig_norm[h.end:]
+                    replaced_text = orig_norm[: h.start] + r2 + orig_norm[h.end :]
                 replaced_count = 1
             for h in hits[:50]:
                 lno, col = _map_idx_to_line_col(orig_norm, h.start)
                 bef, mat, aft = _extract_same_line_context(orig_norm, h.start, h.end)
-                match_hits.append({"line_no": lno, "col": col, "match_text": mat, "before": bef[-200:], "after": aft[:200]})
+                match_hits.append(
+                    {
+                        "line_no": lno,
+                        "col": col,
+                        "match_text": mat,
+                        "before": bef[-200:],
+                        "after": aft[:200],
+                    }
+                )
 
         elif action in {"insert_before", "insert_after"} and hits:
             h = hits[occurrence - 1 if 0 < occurrence <= match_count else 0]
@@ -788,7 +935,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         elif action == "insert_at_line":
             lines = orig_norm.splitlines(True)
             if 1 <= line_no <= len(lines) + 1:
-                off = sum(len(l) for l in lines[: line_no - 1])
+                off = sum(len(line) for line in lines[: line_no - 1])
                 replaced_text = orig_norm[:off] + r2 + orig_norm[off:]
                 replaced_count = 1
             match_count = replaced_count
@@ -801,11 +948,20 @@ def run_tool(args: Dict[str, Any]) -> str:
         hint = None
         if diagnostics is not None:
             hint = _diagnostics_hint(diagnostics)
-        if hint is None and match_count == 0 and action in {"replace", "insert_before", "insert_after"}:
+        if (
+            hint is None
+            and match_count == 0
+            and action in {"replace", "insert_before", "insert_after"}
+        ):
             hint = _get_failure_hint(orig_norm, p2, mode)
 
         changed = replaced_text != orig_norm
-        if not preview and action in {"replace", "replace_po_entry", "replace_between"} and occurrence == 0 and match_count > confirm_over:
+        if (
+            not preview
+            and action in {"replace", "replace_po_entry", "replace_between"}
+            and occurrence == 0
+            and match_count > confirm_over
+        ):
             return {
                 "ok": True,
                 "path": path,
@@ -822,7 +978,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         written = False
         if not preview and changed:
             backup_path = make_backup_before_overwrite(path)
-            _write_text_robust(path, _apply_newline_style(replaced_text, newline_style), enc_used)
+            _write_text_robust(
+                path, _apply_newline_style(replaced_text, newline_style), enc_used
+            )
             written = True
 
         after_sha = _sha256_file(path) if return_hashes else None
@@ -840,7 +998,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             "line_no": line_no,
             "encoding": enc_used,
             "diff": _unified_diff(path, original, replaced_text),
-            "summary": _make_summary(preview=preview, match_count=match_count, hint=hint),
+            "summary": _make_summary(
+                preview=preview, match_count=match_count, hint=hint
+            ),
         }
         if diagnostics is not None:
             res["diagnostics"] = diagnostics
@@ -869,7 +1029,13 @@ def run_tool(args: Dict[str, Any]) -> str:
         anchor_after = str(args.get("anchor_after", ""))
 
         if not path:
-            return json.dumps({"ok": False, "error": _("err.path_missing", default="path is not specified")}, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _("err.path_missing", default="path is not specified"),
+                },
+                ensure_ascii=False,
+            )
 
         if action == "replace_all_in_files":
             root = Path(ensure_within_workdir(path))
@@ -877,7 +1043,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 targets = [root]
             else:
                 globber = root.rglob if bool(args.get("recursive", True)) else root.glob
-                targets = [p for p in globber(args.get("name_pattern", "*")) if p.is_file()]
+                targets = [
+                    p for p in globber(args.get("name_pattern", "*")) if p.is_file()
+                ]
             results = []
             for fp in targets:
                 try:
@@ -892,7 +1060,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                             occurrence=occurrence,
                             confirm_over=confirm_over,
                             encoding=str(args.get("encoding", "utf-8")),
-                            expand_newline_tokens=bool(args.get("expand_newline_tokens", True)),
+                            expand_newline_tokens=bool(
+                                args.get("expand_newline_tokens", True)
+                            ),
                             return_hashes=bool(args.get("return_hashes", False)),
                             line_no=line_no,
                             po_msgid=po_msgid,
@@ -918,7 +1088,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     "written_files": written_files,
                     "match_count": match_count,
                     "replaced_count": replaced_count,
-                    "summary": _("summary.files_changed", default="{count} file(s) changed").format(count=changed_files),
+                    "summary": _(
+                        "summary.files_changed", default="{count} file(s) changed"
+                    ).format(count=changed_files),
                 },
                 ensure_ascii=False,
             )

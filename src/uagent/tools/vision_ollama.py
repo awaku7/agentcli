@@ -49,7 +49,9 @@ def _image_file_to_base64(path: str, *, max_bytes: int = 10_000_000) -> str:
 
 
 def _ollama_base_url() -> str:
-    base_url = (env_get("UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1") or "").strip()
+    base_url = (
+        env_get("UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1") or ""
+    ).strip()
     if not base_url:
         base_url = "http://localhost:11434/v1"
 
@@ -88,7 +90,9 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
 
     timeout_sec = 60.0
     try:
-        timeout_sec = float((env_get("UAGENT_OLLAMA_TIMEOUT_SEC", "60.0") or "60.0").strip() or 60.0)
+        timeout_sec = float(
+            (env_get("UAGENT_OLLAMA_TIMEOUT_SEC", "60.0") or "60.0").strip() or 60.0
+        )
     except Exception:
         timeout_sec = 60.0
 

@@ -227,7 +227,12 @@ class ScheckWorker(QtCore.QObject):
                     + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
                 )
             elif self._provider in ("gemini", "claude", "vertexai"):
-                print("[INFO] " + _("LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"))
+                print(
+                    "[INFO] "
+                    + _(
+                        "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+                    )
+                )
             else:
                 print(
                     "[INFO] "

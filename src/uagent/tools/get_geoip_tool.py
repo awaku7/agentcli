@@ -64,7 +64,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     # parameter is not supported and is intentionally absent from the schema.
 
     raw = fetch_url_run({"url": "https://ipinfo.io/json"})
-    if isinstance(raw, str) and '"ok": false' in raw and 'SSL error:' in raw:
+    if isinstance(raw, str) and '"ok": false' in raw and "SSL error:" in raw:
         return raw
 
     # Strip fetch_url metadata line(s) and extract JSON payload.

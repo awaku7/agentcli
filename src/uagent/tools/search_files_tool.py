@@ -196,9 +196,6 @@ def _normalize_newline_tokens_in_pattern(content_pattern: str) -> str:
     return cp
 
 
-
-
-
 def _ordered_encodings(preferred: str | None = None) -> List[str]:
     order: List[str] = []
     if preferred:
@@ -207,7 +204,6 @@ def _ordered_encodings(preferred: str | None = None) -> List[str]:
         if enc not in order:
             order.append(enc)
     return order
-
 
 
 def _detect_text_encoding(head: bytes) -> str:
@@ -224,7 +220,6 @@ def _detect_text_encoding(head: bytes) -> str:
     return "utf-8"
 
 
-
 def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     preferred = _detect_text_encoding(data[:8192])
     for enc in _ordered_encodings(preferred):
@@ -233,7 +228,6 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
         except UnicodeDecodeError:
             continue
     return data.decode("utf-8", errors="ignore"), "utf-8"
-
 
 
 def _read_text_auto(full_path: str) -> tuple[str, str]:
@@ -281,7 +275,6 @@ def _grep_text_full_read(
     return matched_lines
 
 
-
 def _grep_text_streaming(
     full_path: str,
     regex: re.Pattern[str],
@@ -323,7 +316,6 @@ def _grep_text_streaming(
             continue
 
     return []
-
 
 
 def run_tool(args: Dict[str, Any]) -> str:

@@ -664,11 +664,8 @@ def _format_skill_system_content(
         return header + "\n\n" + body_text + exec_instructions + "\n"
     return header + exec_instructions + "\n"
 
+
 def _insert_skill_system_message(
-
-
-
-
     messages_ref: List[Dict[str, Any]],
     skill_system_msg: Dict[str, Any],
 ) -> None:
@@ -762,6 +759,7 @@ def _handle_cmd_skills(
         from uagent.tools.human_ask_tool import run_tool as human_ask
         from uagent.tools.skills_list_tool import run_tool as skills_list_tool
         from uagent.tools.skills_load_tool import run_tool as skills_load_tool
+
         try:
             from uagent.tools import tools as loaded_tools
         except Exception:
@@ -815,7 +813,9 @@ def _handle_cmd_skills(
             while selected_idx is None:
                 sel_json = human_ask({"message": sel_msg})
                 sel = json.loads(sel_json)
-                user_reply = unicodedata.normalize("NFKC", (sel.get("user_reply") or "")).strip()
+                user_reply = unicodedata.normalize(
+                    "NFKC", (sel.get("user_reply") or "")
+                ).strip()
                 low = user_reply.lower()
                 if low in ("c", "cancel"):
                     print(tr("[skills] Cancelled."))
@@ -860,7 +860,9 @@ def _handle_cmd_skills(
             raise ValueError("skills_load returned non-dict")
 
         try:
-            tool_specs = loaded_tools.get_tool_specs() if loaded_tools is not None else []
+            tool_specs = (
+                loaded_tools.get_tool_specs() if loaded_tools is not None else []
+            )
         except Exception:
             tool_specs = []
         has_finish_skill = any(
@@ -1536,7 +1538,9 @@ def format_help(*, core: Any) -> str:
         tr(
             "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
         ),
-        tr("  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"),
+        tr(
+            "  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"
+        ),
         tr(
             "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),

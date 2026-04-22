@@ -3,7 +3,6 @@ from __future__ import annotations
 # src/uagent/tools/file_grep_tool.py
 
 import fnmatch
-import glob
 import json
 import os
 import re
@@ -53,7 +52,6 @@ def _json_ok(**obj: Any) -> str:
     out: Dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
-
 
 
 def _json_err(message: str, **extra: Any) -> str:
@@ -226,7 +224,6 @@ def _is_binary(path: str) -> bool:
         return False
 
 
-
 def _normalize_items(raw_path: Any) -> List[str]:
     if raw_path is None:
         return ["."]
@@ -235,7 +232,6 @@ def _normalize_items(raw_path: Any) -> List[str]:
     if isinstance(raw_path, Sequence):
         return [str(x) for x in raw_path if str(x)]
     return [str(raw_path)]
-
 
 
 def _resolve_files(
@@ -278,7 +274,9 @@ def _resolve_files(
         else:
             try:
                 with os.scandir(safe_item) as it:
-                    entries = sorted((entry for entry in it if entry.is_file()), key=lambda e: e.name)
+                    entries = sorted(
+                        (entry for entry in it if entry.is_file()), key=lambda e: e.name
+                    )
             except FileNotFoundError:
                 continue
             for entry in entries:
@@ -295,12 +293,10 @@ def _resolve_files(
     return all_files
 
 
-
 def _compile_pattern(pattern: str, literal: bool, ignore_case: bool) -> re.Pattern[str]:
     flags = re.IGNORECASE if ignore_case else 0
     expr = re.escape(pattern) if literal else pattern
     return re.compile(expr, flags)
-
 
 
 def _ordered_encodings(preferred: str | None = None) -> List[str]:
@@ -311,7 +307,6 @@ def _ordered_encodings(preferred: str | None = None) -> List[str]:
         if enc not in order:
             order.append(enc)
     return order
-
 
 
 def _detect_text_encoding(head: bytes) -> str:
@@ -329,7 +324,6 @@ def _detect_text_encoding(head: bytes) -> str:
     return "utf-8"
 
 
-
 def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     preferred = _detect_text_encoding(data[:8192])
     for enc in _ordered_encodings(preferred):
@@ -340,13 +334,11 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     return data.decode("utf-8", errors="ignore"), "utf-8"
 
 
-
 def _read_lines(path: str) -> List[str]:
     with open(path, "rb") as f:
         data = f.read()
     text, _encoding = _decode_text_bytes(data)
     return text.splitlines(keepends=True)
-
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -356,7 +348,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         pattern = get_str(args, "pattern", "")
         if not pattern:
-            return _json_err(_("err.pattern_required", default="Error: pattern is required."))
+            return _json_err(
+                _("err.pattern_required", default="Error: pattern is required.")
+            )
 
         raw_path = args.get("path")
         if raw_path in (None, ""):
@@ -396,7 +390,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ).format(error=str(e))
             )
 
-        files = _resolve_files(raw_path, name_pattern, recursive, exclude_dirs, exclude_globs)
+        files = _resolve_files(
+            raw_path, name_pattern, recursive, exclude_dirs, exclude_globs
+        )
         matched_files: List[str] = []
         filenames: List[str] = []
         matches: List[Dict[str, Any]] = []
@@ -431,7 +427,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 start_idx = max(0, idx - context_lines)
                 end_idx = min(len(lines), idx + context_lines + 1)
                 before = [ln.rstrip("\r\n") for ln in lines[start_idx:idx]]
-                after = [ln.rstrip("\r\n") for ln in lines[idx + 1:end_idx]]
+                after = [ln.rstrip("\r\n") for ln in lines[idx + 1 : end_idx]]
                 text = line.rstrip("\r\n")
                 matches.append(
                     {

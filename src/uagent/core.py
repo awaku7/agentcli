@@ -976,10 +976,6 @@ def shrink_messages(
     return new_messages
 
 
-
-
-    
-    
 def compress_history_with_llm(
     client: Any,
     depname: str,
@@ -1003,20 +999,18 @@ def compress_history_with_llm(
 
     hit_non_system = False
     for m in messages:
-        if m.get('role') == 'system' and not hit_non_system:
+        if m.get("role") == "system" and not hit_non_system:
             system_msgs.append(m)
         else:
             hit_non_system = True
             others.append(m)
 
-
-
     old_part = others[:-keep_last]
     tail_part = others[-keep_last:]
 
-    chunk_size_raw = (env_get('UAGENT_SHRINK_CHUNK_SIZE', '') or '').strip()
+    chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
-        chunk_size = int(chunk_size_raw) if chunk_size_raw != '' else 20
+        chunk_size = int(chunk_size_raw) if chunk_size_raw != "" else 20
     except Exception:
         chunk_size = 20
     if chunk_size <= 0:
@@ -1026,29 +1020,29 @@ def compress_history_with_llm(
         return max(1, (len(text) + 3) // 4)
 
     def _message_to_text(m: Dict[str, Any]) -> tuple[str | None, str]:
-        role = str(m.get('role') or '')
-        content = m.get('content') or ''
+        role = str(m.get("role") or "")
+        content = m.get("content") or ""
         if isinstance(content, (dict, list)):
             content = json.dumps(content, ensure_ascii=False)
         content = str(content).strip()
         if not content:
             return None, role
 
-        if role == 'user':
-            return f'User: {content}', role
-        if role == 'assistant':
-            return f'Assistant: {content}', role
-        if role == 'tool':
-            tname = m.get('name') or '(unknown_tool)'
-            return f'Tool: {tname} {content}', role
+        if role == "user":
+            return f"User: {content}", role
+        if role == "assistant":
+            return f"Assistant: {content}", role
+        if role == "tool":
+            tname = m.get("name") or "(unknown_tool)"
+            return f"Tool: {tname} {content}", role
         return None, role
 
     chunks = [old_part[i : i + chunk_size] for i in range(0, len(old_part), chunk_size)]
 
-    use_responses_api = env_get('UAGENT_RESPONSES', '').lower() in ('1', 'true')
-    max_retries_429 = int(env_get('UAGENT_429_MAX_RETRIES', '20'))
-    retry_base = float(env_get('UAGENT_429_BACKOFF_BASE', '2'))
-    retry_cap = float(env_get('UAGENT_429_BACKOFF_CAP', '300'))
+    use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
+    max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
+    retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
+    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
 
     from .llm_errors import _rate_limit_retry_step
 
@@ -1066,7 +1060,7 @@ def compress_history_with_llm(
     from . import util_providers
 
     provider = util_providers.detect_provider()
-    translator = globals().get('_')
+    translator = globals().get("_")
 
     def _t(s: str) -> str:
         try:
@@ -1076,20 +1070,24 @@ def compress_history_with_llm(
 
     def _summarize_with_llm(summary_messages: List[Dict[str, Any]]) -> str | None:
         nonlocal client
-        summary_content = ''
+        summary_content = ""
         attempt_429 = 0
         while True:
             try:
-                if provider in ('gemini', 'vertexai') or 'genai.Client' in str(type(client)):
+                if provider in ("gemini", "vertexai") or "genai.Client" in str(
+                    type(client)
+                ):
                     from .llm_gemini import gemini_chat_with_tools
 
-                    summary_content, _summary_unused1, _summary_unused2 = gemini_chat_with_tools(
-                        client=client,
-                        model_name=depname,
-                        messages=summary_messages,
-                        core=sys.modules[__name__],
+                    summary_content, _summary_unused1, _summary_unused2 = (
+                        gemini_chat_with_tools(
+                            client=client,
+                            model_name=depname,
+                            messages=summary_messages,
+                            core=sys.modules[__name__],
+                        )
                     )
-                elif provider == 'claude':
+                elif provider == "claude":
                     from .llm_claude import claude_chat_with_tools
 
                     claude_result = claude_chat_with_tools(
@@ -1098,37 +1096,39 @@ def compress_history_with_llm(
                         messages=summary_messages,
                     )
                     if isinstance(claude_result, tuple):
-                        summary_content = claude_result[0] if len(claude_result) >= 1 else ''
+                        summary_content = (
+                            claude_result[0] if len(claude_result) >= 1 else ""
+                        )
                     else:
                         summary_content = str(claude_result)
                 elif use_responses_api:
                     resp = client.responses.create(
                         model=depname,
-                        instructions=summary_messages[0]['content'],
+                        instructions=summary_messages[0]["content"],
                         input=[
                             {
-                                'role': 'user',
-                                'content': [
+                                "role": "user",
+                                "content": [
                                     {
-                                        'type': 'input_text',
-                                        'text': summary_messages[1]['content'],
+                                        "type": "input_text",
+                                        "text": summary_messages[1]["content"],
                                     },
                                 ],
                             }
                         ],
                     )
-                    if hasattr(resp, 'output') and resp.output:
+                    if hasattr(resp, "output") and resp.output:
                         for item in resp.output:
-                            if item.type == 'message':
+                            if item.type == "message":
                                 for c in item.content:
-                                    if c.type == 'output_text':
+                                    if c.type == "output_text":
                                         summary_content += c.text
-                elif hasattr(client, 'chat') and hasattr(client.chat, 'completions'):
+                elif hasattr(client, "chat") and hasattr(client.chat, "completions"):
                     resp = client.chat.completions.create(
                         model=depname,
                         messages=summary_messages,
                     )
-                    summary_content = resp.choices[0].message.content or ''
+                    summary_content = resp.choices[0].message.content or ""
                 else:
                     raise AttributeError(
                         f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
@@ -1137,7 +1137,7 @@ def compress_history_with_llm(
             except Exception as e:
                 attempt_429, new_client, action = _rate_limit_retry_step(
                     exception=e,
-                    provider='summarize',
+                    provider="summarize",
                     model=depname,
                     attempt=attempt_429,
                     max_retries=max_retries_429,
@@ -1146,30 +1146,32 @@ def compress_history_with_llm(
                     recreate_client_fn=_recreate_client,
                 )
 
-                if action == 'retry':
+                if action == "retry":
                     if new_client is not None:
                         client = new_client
                     continue
 
-                if action == 'give_up':
+                if action == "give_up":
                     print(
-                        '[WARN] '
-                        + _t('429 retry limit (%(max_retries)s) reached while history compression.')
-                        % {'max_retries': max_retries_429},
+                        "[WARN] "
+                        + _t(
+                            "429 retry limit (%(max_retries)s) reached while history compression."
+                        )
+                        % {"max_retries": max_retries_429},
                         file=sys.stderr,
                     )
                     print(repr(e), file=sys.stderr)
                     return None
 
                 print(
-                    '[WARN] '
-                    + _t('Error while calling LLM for history compression: %(err)r')
-                    % {'err': e},
+                    "[WARN] "
+                    + _t("Error while calling LLM for history compression: %(err)r")
+                    % {"err": e},
                     file=sys.stderr,
                 )
                 return None
 
-    rolling_summary = ''
+    rolling_summary = ""
     for chunk_idx, chunk in enumerate(chunks, start=1):
         lines: List[str] = []
         chunk_chars = 0
@@ -1188,37 +1190,37 @@ def compress_history_with_llm(
         if not lines:
             continue
 
-        chunk_text = '\n\n'.join(lines)
+        chunk_text = "\n\n".join(lines)
 
         if not rolling_summary:
             summary_system_prompt = (
-                '- Summarize the conversation chunk in English.\n'
-                '- Keep the summary concise but include key decisions, constraints, and pending items.\n'
-                '- Output should be directly usable as a system message.'
+                "- Summarize the conversation chunk in English.\n"
+                "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+                "- Output should be directly usable as a system message."
             )
             summary_user_content = (
-                'Conversation chunk:\n'
-                f'{chunk_text}\n\n'
-                'Write a concise summary of this chunk.'
+                "Conversation chunk:\n"
+                f"{chunk_text}\n\n"
+                "Write a concise summary of this chunk."
             )
         else:
             summary_system_prompt = (
-                '- You are updating an existing conversation summary.\n'
-                '- Preserve important facts from the previous summary.\n'
-                '- Merge in the new chunk without losing constraints, decisions, or pending items.\n'
-                '- Keep the result concise and suitable for a system message.'
+                "- You are updating an existing conversation summary.\n"
+                "- Preserve important facts from the previous summary.\n"
+                "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+                "- Keep the result concise and suitable for a system message."
             )
             summary_user_content = (
-                'Previous summary:\n'
-                f'{rolling_summary}\n\n'
-                'New chunk:\n'
-                f'{chunk_text}\n\n'
-                'Update the summary while keeping the prior context intact.'
+                "Previous summary:\n"
+                f"{rolling_summary}\n\n"
+                "New chunk:\n"
+                f"{chunk_text}\n\n"
+                "Update the summary while keeping the prior context intact."
             )
 
         summary_messages = [
-            {'role': 'system', 'content': summary_system_prompt},
-            {'role': 'user', 'content': summary_user_content},
+            {"role": "system", "content": summary_system_prompt},
+            {"role": "user", "content": summary_user_content},
         ]
 
         summary_content = _summarize_with_llm(summary_messages)
@@ -1231,16 +1233,16 @@ def compress_history_with_llm(
         return list(messages)
 
     summary_msg = {
-        'role': 'system',
-        'content': _t('Summary of the conversation so far:\n') + rolling_summary,
+        "role": "system",
+        "content": _t("Summary of the conversation so far:\n") + rolling_summary,
     }
 
     new_messages = system_msgs + [summary_msg] + tail_part
 
     print(
         _t(
-            '[INFO] shrink_llm: {old_n} -> {new_n} messages '
-            '(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)'
+            "[INFO] shrink_llm: {old_n} -> {new_n} messages "
+            "(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
         ).format(
             old_n=len(messages),
             new_n=len(new_messages),
@@ -1252,6 +1254,7 @@ def compress_history_with_llm(
 
     log_message(summary_msg)
     return new_messages
+
 
 def print_help() -> None:
     """Print help for the :help command.
@@ -1266,7 +1269,11 @@ def print_help() -> None:
         print(text)
     except Exception as e:
         # Fallback: minimal help (avoid breaking interactive use)
-        print(_(":help  (help unavailable: %(err)s)") % {"err": f"{type(e).__name__}: {e}"})
+        print(
+            _(":help  (help unavailable: %(err)s)")
+            % {"err": f"{type(e).__name__}: {e}"}
+        )
+
 
 # ==============================
 # SYSTEM_PROMPT

@@ -2,7 +2,7 @@
 import json
 import os
 from .env_utils import env_get
-from .i18n import _,detect_lang
+from .i18n import _, detect_lang
 
 try:
     from . import __version__
@@ -84,7 +84,11 @@ def get_welcome_message():
         _('- "Read this PDF and list three key points."'),
         _('- "Search the latest news and summarize a specific topic."'),
         "",
-        f"https://github.com/awaku7/agentcli/blob/main/README.{detect_lang()}.md" if detect_lang() != "en" else "https://github.com/awaku7/agentcli/blob/main/README.md",
+        (
+            f"https://github.com/awaku7/agentcli/blob/main/README.{detect_lang()}.md"
+            if detect_lang() != "en"
+            else "https://github.com/awaku7/agentcli/blob/main/README.md"
+        ),
     ]
     usage = "\n".join(usage_lines) + "\n"
 
