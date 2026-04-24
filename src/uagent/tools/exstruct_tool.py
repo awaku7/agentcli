@@ -1,10 +1,16 @@
-# tools/exstruct_tool.py
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 from typing import Any, Dict
 
 from .i18n_helper import make_tool_translator
+
+try:
+    import msoffcrypto
+except Exception:  # pragma: no cover
+    msoffcrypto = None  # type: ignore[assignment]
 
 _ = make_tool_translator(__file__)
 
@@ -16,6 +22,64 @@ def _import_exstruct():
     import exstruct  # type: ignore
 
     return exstruct
+
+
+def _prompt_for_password(path: str) -> str | None:
+    try:
+        from .human_ask_tool import run_tool as human_ask
+    except Exception:
+        return None
+
+    message = _(
+        "prompt.password",
+        default="Enter the password for this file:\
+{path}",
+    ).format(path=path)
+    try:
+        res_json = human_ask({"message": message, "is_password": True})
+        res = json.loads(res_json)
+    except Exception:
+        return None
+
+    pwd = str(res.get("user_reply") or "").strip()
+    return pwd or None
+
+
+def _resolve_input_file(
+    file_path: str, password: str | None = None
+) -> tuple[str, str | None]:
+    if msoffcrypto is None:
+        return file_path, None
+
+    with open(file_path, "rb") as fin:
+        office = msoffcrypto.OfficeFile(fin)
+        encrypted = False
+        try:
+            encrypted = bool(office.is_encrypted())
+        except Exception:
+            encrypted = False
+
+        if not encrypted:
+            return file_path, None
+
+        if not password:
+            password = _prompt_for_password(file_path)
+        if not password:
+            raise RuntimeError("password is required for encrypted workbook files")
+
+        office.load_key(password=password)
+        fd, temp_path = tempfile.mkstemp(suffix=".xlsx")
+        os.close(fd)
+        try:
+            with open(temp_path, "wb") as fout:
+                office.decrypt(fout)
+        except Exception:
+            try:
+                os.unlink(temp_path)
+            except Exception:
+                pass
+            raise
+        return temp_path, temp_path
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -51,6 +115,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.file_path.description",
                         default="Path to the input Excel file (absolute path recommended).",
+                    ),
+                },
+                "password": {
+                    "type": "string",
+                    "description": _(
+                        "param.password.description",
+                        default=(
+                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
+                            "the tool will prompt once for a password."
+                        ),
                     ),
                 },
                 "mode": {
@@ -144,6 +218,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     action = str(args.get("action") or "").strip()
     file_path = str(args.get("file_path") or "").strip()
+    password = str(args.get("password") or "").strip() or None
 
     if action not in ("extract", "export_file"):
         raise ValueError("Invalid action")
@@ -181,56 +256,69 @@ def run_tool(args: Dict[str, Any]) -> str:
         # Best-effort: ignore if API changes
         pass
 
-    data = exstruct.extract(
-        file_path,
-        mode=mode,
-        alpha_col=alpha_col,
-    )
-
-    if action == "extract":
-        # Return as JSON/YAML string without touching filesystem.
-        # export() requires a path, so we serialize in-process.
-        try:
-            as_dict = data.model_dump()  # pydantic v2
-        except Exception:
-            try:
-                as_dict = data.dict()  # pydantic v1
-            except Exception:
-                # Fallback: stringify
-                return str(data)
-
-        if fmt == "yaml" or fmt == "yml":
-            try:
-                import yaml  # type: ignore
-
-                return yaml.safe_dump(
-                    as_dict,
-                    allow_unicode=True,
-                    sort_keys=False,
-                )
-            except Exception as e:
-                raise RuntimeError(
-                    "YAML output requested but PyYAML is not available or failed. "
-                    f"Install pyyaml or use format=json. Details: {e}"
-                )
-
-        return json.dumps(
-            as_dict,
-            ensure_ascii=False,
-            indent=2 if pretty else None,
+    resolved_file_path = file_path
+    temp_path: str | None = None
+    try:
+        resolved_file_path, temp_path = _resolve_input_file(
+            file_path, password=password
         )
 
-    # export_file: save via exstruct.export (this matches latest API).
-    if not output_path:
-        raise ValueError("output_path is required for export_file")
+        data = exstruct.extract(
+            resolved_file_path,
+            mode=mode,
+            alpha_col=alpha_col,
+        )
 
-    # Backup behavior is handled by the agent framework for tools that write.
-    # Here we write directly via exstruct.export.
-    exstruct.export(
-        data,
-        output_path,
-        fmt=fmt,
-        pretty=pretty,
-    )
+        if action == "extract":
+            # Return as JSON/YAML string without touching filesystem.
+            # export() requires a path, so we serialize in-process.
+            try:
+                as_dict = data.model_dump()  # pydantic v2
+            except Exception:
+                try:
+                    as_dict = data.dict()  # pydantic v1
+                except Exception:
+                    # Fallback: stringify
+                    return str(data)
 
-    return json.dumps({"ok": True, "output_path": output_path}, ensure_ascii=False)
+            if fmt == "yaml" or fmt == "yml":
+                try:
+                    import yaml  # type: ignore
+
+                    return yaml.safe_dump(
+                        as_dict,
+                        allow_unicode=True,
+                        sort_keys=False,
+                    )
+                except Exception as e:
+                    raise RuntimeError(
+                        "YAML output requested but PyYAML is not available or failed. "
+                        f"Install pyyaml or use format=json. Details: {e}"
+                    )
+
+            return json.dumps(
+                as_dict,
+                ensure_ascii=False,
+                indent=2 if pretty else None,
+            )
+
+        # export_file: save via exstruct.export (this matches latest API).
+        if not output_path:
+            raise ValueError("output_path is required for export_file")
+
+        # Backup behavior is handled by the agent framework for tools that write.
+        # Here we write directly via exstruct.export.
+        exstruct.export(
+            data,
+            output_path,
+            fmt=fmt,
+            pretty=pretty,
+        )
+
+        return json.dumps({"ok": True, "output_path": output_path}, ensure_ascii=False)
+    finally:
+        if temp_path is not None:
+            try:
+                os.unlink(temp_path)
+            except Exception:
+                pass

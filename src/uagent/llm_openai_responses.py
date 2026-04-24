@@ -1,6 +1,7 @@
 import json
 import os
 from .env_utils import env_get
+from .i18n import _
 import time
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -139,15 +140,13 @@ def build_responses_request(
     # Force the model to produce usable tool arguments.
     # Without this, some Azure/Responses combinations repeatedly emit
     # function_call arguments={} even for tools with required parameters.
-    TOOL_CALLING_RULES = (
-        "[Tool calling rules]\n"
-        "- When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-        "- The JSON object MUST include all required parameters defined in the tool schema.\n"
-        "- Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-        "- If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-    )
+    TOOL_CALLING_RULES = _("""[Tool calling rules]
+        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.
+        - The JSON object MUST include all required parameters defined by the tool schema.
+        - Never call a tool with an empty object {} unless the tool has no required parameters.
+        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
+        """)
     instructions_list.append(TOOL_CALLING_RULES)
-
     for m in call_messages:
         role = m.get("role")
 

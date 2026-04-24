@@ -137,11 +137,7 @@ def claude_chat_with_tools(
     """
 
     if Anthropic is None:
-        raise RuntimeError(
-            _(
-                "anthropic パッケージがインストールされていません。（pip install anthropic が必要です）"
-            )
-        )
+        raise RuntimeError(_("anthropic package is not installed."))
 
     anthropic_messages: List[Dict[str, Any]] = []
     system_content = ""

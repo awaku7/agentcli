@@ -138,5 +138,33 @@
     "param.timeout_s.description": "Żądaj limitu czasu w sekundach.",
     "err.missing_message": "Brakująca „wiadomość”.",
     "err.exception": "Wyjątek"
+  },
+  "ru": {
+    "tool.description": "Публикует сообщение или JSON-данные, поддерживаемые webhook, в URL Microsoft Teams Incoming Webhook, хранящийся в переменной окружения.",
+    "tool.system_prompt": "Отправляйте payload в Microsoft Teams Incoming Webhook. Возвращайте только JSON.",
+    "param.message.description": "Текст сообщения для публикации в Teams. Используется как обычный текст, если не заданы поля карточки.",
+    "param.title.description": "Заголовок карточки для payload, поддерживаемых webhook.",
+    "param.summary.description": "Краткое описание карточки для payload, поддерживаемых webhook.",
+    "param.image_url.description": "URL изображения для payload, поддерживаемых webhook.",
+    "param.theme_color.description": "Цвет темы карточки в виде шестнадцатеричной строки без #.",
+    "param.payload_json.description": "Сырые данные webhook в виде JSON-строки или объекта. Если указано, отправляется как есть.",
+    "param.webhook_env.description": "Имя переменной окружения, хранящей URL webhook Teams.",
+    "param.timeout_s.description": "Тайм-аут запроса в секундах.",
+    "err.missing_message": "Отсутствует 'message'.",
+    "err.exception": "Исключение"
+  },
+  "pt_BR": {
+    "tool.description": "Publique uma mensagem ou um payload JSON compatível com webhook em uma URL do Microsoft Teams Incoming Webhook armazenada em uma variável de ambiente.",
+    "tool.system_prompt": "Envie um payload para o Microsoft Teams Incoming Webhook. Retorne apenas JSON.",
+    "param.message.description": "Texto da mensagem a ser publicado no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
+    "param.title.description": "Título do cartão para payloads compatíveis com webhook.",
+    "param.summary.description": "Resumo do cartão para payloads compatíveis com webhook.",
+    "param.image_url.description": "URL da imagem para payloads compatíveis com webhook.",
+    "param.theme_color.description": "Cor de tema do cartão como uma string hexadecimal sem #.",
+    "param.payload_json.description": "Payload bruto do webhook como string JSON ou objeto. Se fornecido, é enviado como está.",
+    "param.webhook_env.description": "Nome da variável de ambiente que armazena a URL do webhook do Teams.",
+    "param.timeout_s.description": "Tempo limite da solicitação em segundos.",
+    "err.missing_message": "Falta 'message'.",
+    "err.exception": "Exceção"
   }
 }

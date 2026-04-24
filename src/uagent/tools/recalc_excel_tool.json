@@ -11,7 +11,7 @@
     "err.recursive_bool": "recursive must be a boolean",
     "err.visible_bool": "visible must be a boolean",
     "err.windows_only": "recalc_excel is supported only on Windows (Microsoft Excel COM automation).",
-    "param.backup.description": "Create a backup before saving. Default: true.",
+    "param.backup.description": "Create a backup before saving. Default: false.",
     "param.dry_run.description": "If true, only list targets and do not recalculate/save. Default: false.",
     "param.include_glob.description": "Glob pattern used when path is a directory. Default: '*.xlsx'.",
     "param.max_files.description": "Maximum number of files to process when scanning a directory. Default: 200.",
@@ -19,7 +19,9 @@
     "param.recursive.description": "Whether to scan the directory recursively. Default: false.",
     "param.visible.description": "Show the Excel window during automation. Default: false.",
     "tool.description": "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .xlsx file or a directory scan. By default, a backup (<file>.org / <file>.org1 / ...) is created immediately before saving.",
-    "tool.system_prompt": "Use this tool when formula cached values in .xlsx are stale (for example, when openpyxl data_only reads old values). This tool opens workbook(s) in Microsoft Excel via COM, performs a full recalculation, and saves."
+    "tool.system_prompt": "Use this tool when formula cached values in .xlsx are stale (for example, when openpyxl data_only reads old values). This tool opens workbook(s) in Microsoft Excel via COM, performs a full recalculation, and saves.",
+    "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",
+    "prompt.password": "Enter the password for this file:\n{path}"
   },
   "ja": {
     "err.backup_bool": "backup は boolean で指定してください",
@@ -33,7 +35,7 @@
     "err.recursive_bool": "recursive は boolean で指定してください",
     "err.visible_bool": "visible は boolean で指定してください",
     "err.windows_only": "recalc_excel は Windows（Microsoft Excel COM 自動操作）でのみ利用できます。",
-    "param.backup.description": "保存前にバックアップを作成するかどうか。既定: true。",
+    "param.backup.description": "保存前にバックアップを作成します。既定: false。",
     "param.dry_run.description": "true の場合は対象一覧のみ返し、再計算・保存しません。既定: false。",
     "param.include_glob.description": "path がディレクトリの場合の glob パターン。既定: '*.xlsx'。",
     "param.max_files.description": "ディレクトリ走査時に処理する最大ファイル数。既定: 200。",
@@ -41,7 +43,9 @@
     "param.recursive.description": "ディレクトリを再帰走査するかどうか。既定: false。",
     "param.visible.description": "自動操作中に Excel ウィンドウを表示するかどうか。既定: false。",
     "tool.description": "Microsoft Excel（Windows COM）で数式を再計算し、更新されたキャッシュ値を保存します。単一の .xlsx ファイルまたはディレクトリ走査に対応します。既定では保存直前にバックアップ（<file>.org / <file>.org1 / ...）を作成します。",
-    "tool.system_prompt": "xlsx の数式キャッシュ値が古い場合（たとえば openpyxl の data_only で古い値が読まれる場合）に使用します。このツールは COM で Microsoft Excel 上のブックを開き、全再計算して保存します。"
+    "tool.system_prompt": "xlsx の数式キャッシュ値が古い場合（たとえば openpyxl の data_only で古い値が読まれる場合）に使用します。このツールは COM で Microsoft Excel 上のブックを開き、全再計算して保存します。",
+    "param.password.description": "暗号化された .xlsx ファイルのパスワード（任意）。省略時にファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
+    "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
   "zh_CN": {
     "err.backup_bool": "backup 必须是布尔值",
@@ -55,7 +59,7 @@
     "err.recursive_bool": "recursive 必须是布尔值",
     "err.visible_bool": "visible 必须是布尔值",
     "err.windows_only": "recalc_excel 仅支持 Windows（Microsoft Excel COM 自动化）。",
-    "param.backup.description": "保存前创建备份。默认值：true。",
+    "param.backup.description": "保存前创建备份。默认值：false。",
     "param.dry_run.description": "如果为 true，则仅列出目标，不重新计算/保存。默认值：false。",
     "param.include_glob.description": "当 path 是目录时使用的 glob 模式。默认值：'*.xlsx'。",
     "param.max_files.description": "扫描目录时要处理的最大文件数。默认值：200。",
@@ -63,7 +67,9 @@
     "param.recursive.description": "是否递归扫描目录。默认值：false。",
     "param.visible.description": "自动化期间是否显示 Excel 窗口。默认值：false。",
     "tool.description": "通过自动化 Microsoft Excel（Windows COM）重新计算 Excel 公式并保存更新后的缓存值。支持单个 .xlsx 文件或目录扫描。默认会在保存前立即创建备份（<file>.org / <file>.org1 / ...）。",
-    "tool.system_prompt": "当 .xlsx 中的公式缓存值过期时使用此工具（例如 openpyxl data_only 读取到旧值）。该工具会通过 COM 在 Microsoft Excel 中打开工作簿，执行完全重新计算并保存。"
+    "tool.system_prompt": "当 .xlsx 中的公式缓存值过期时使用此工具（例如 openpyxl data_only 读取到旧值）。该工具会通过 COM 在 Microsoft Excel 中打开工作簿，执行完全重新计算并保存。",
+    "param.password.description": "加密 .xlsx 文件的可选密码。如果省略且文件已加密，系统会提示您输入一次密码。",
+    "prompt.password": "请输入此文件的密码：\n{path}"
   },
   "zh_TW": {
     "err.backup_bool": "backup 必須是布林值",
@@ -77,7 +83,7 @@
     "err.recursive_bool": "recursive 必須是布林值",
     "err.visible_bool": "visible 必須是布林值",
     "err.windows_only": "recalc_excel 僅支援 Windows（Microsoft Excel COM 自動化）。",
-    "param.backup.description": "儲存前建立備份。預設值：true。",
+    "param.backup.description": "儲存前建立備份。預設值：false。",
     "param.dry_run.description": "如果為 true，則只列出目標，不重新計算／儲存。預設值：false。",
     "param.include_glob.description": "當 path 是目錄時使用的 glob 樣式。預設值：'*.xlsx'。",
     "param.max_files.description": "掃描目錄時要處理的最大檔案數。預設值：200。",
@@ -85,7 +91,9 @@
     "param.recursive.description": "是否遞迴掃描目錄。預設值：false。",
     "param.visible.description": "自動化期間是否顯示 Excel 視窗。預設值：false。",
     "tool.description": "透過自動化 Microsoft Excel（Windows COM）重新計算 Excel 公式並儲存更新後的快取值。支援單一 .xlsx 檔案或目錄掃描。預設會在儲存前立即建立備份（<file>.org / <file>.org1 / ...）。",
-    "tool.system_prompt": "當 .xlsx 中的公式快取值過時時使用此工具（例如 openpyxl data_only 讀到舊值）。此工具會透過 COM 在 Microsoft Excel 中開啟活頁簿，執行完整重新計算並儲存。"
+    "tool.system_prompt": "當 .xlsx 中的公式快取值過時時使用此工具（例如 openpyxl data_only 讀到舊值）。此工具會透過 COM 在 Microsoft Excel 中開啟活頁簿，執行完整重新計算並儲存。",
+    "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
+    "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
   "es": {
     "err.backup_bool": "backup debe ser un booleano",
@@ -99,7 +107,7 @@
     "err.recursive_bool": "recursive debe ser un booleano",
     "err.visible_bool": "visible debe ser un booleano",
     "err.windows_only": "recalc_excel solo es compatible en Windows (automatización COM de Microsoft Excel).",
-    "param.backup.description": "Crear una copia de seguridad antes de guardar. Valor predeterminado: true.",
+    "param.backup.description": "Crear una copia de seguridad antes de guardar. Valor predeterminado: false.",
     "param.dry_run.description": "Si es true, solo enumera los objetivos y no vuelve a calcular ni guardar. Valor predeterminado: false.",
     "param.include_glob.description": "Patrón glob usado cuando path es un directorio. Valor predeterminado: '*.xlsx'.",
     "param.max_files.description": "Número máximo de archivos a procesar al analizar un directorio. Valor predeterminado: 200.",
@@ -107,7 +115,9 @@
     "param.recursive.description": "Indica si se debe analizar el directorio de forma recursiva. Valor predeterminado: false.",
     "param.visible.description": "Mostrar la ventana de Excel durante la automatización. Valor predeterminado: false.",
     "tool.description": "Recalcula fórmulas de Excel automatizando Microsoft Excel (Windows COM) y guarda los valores almacenados en caché actualizados. Admite un único archivo .xlsx o un análisis de directorio. De forma predeterminada, se crea una copia de seguridad (<archivo>.org / <archivo>.org1 / ...) justo antes de guardar.",
-    "tool.system_prompt": "Use esta herramienta cuando los valores almacenados en caché de las fórmulas en .xlsx estén obsoletos (por ejemplo, cuando openpyxl data_only lee valores antiguos). Esta herramienta abre los libros en Microsoft Excel mediante COM, realiza un recálculo completo y los guarda."
+    "tool.system_prompt": "Use esta herramienta cuando los valores almacenados en caché de las fórmulas en .xlsx estén obsoletos (por ejemplo, cuando openpyxl data_only lee valores antiguos). Esta herramienta abre los libros en Microsoft Excel mediante COM, realiza un recálculo completo y los guarda.",
+    "param.password.description": "Contraseña opcional para archivos .xlsx cifrados. Si se omite y el archivo está cifrado, se le pedirá la contraseña una vez.",
+    "prompt.password": "Introduzca la contraseña de este archivo:\n{path}"
   },
   "fr": {
     "err.backup_bool": "backup doit être un booléen",
@@ -121,7 +131,7 @@
     "err.recursive_bool": "recursive doit être un booléen",
     "err.visible_bool": "visible doit être un booléen",
     "err.windows_only": "recalc_excel n'est pris en charge que sous Windows (automatisation COM de Microsoft Excel).",
-    "param.backup.description": "Créer une sauvegarde avant l'enregistrement. Par défaut : true.",
+    "param.backup.description": "Créer une sauvegarde avant l'enregistrement. Par défaut : false.",
     "param.dry_run.description": "Si true, répertorie uniquement les cibles et ne recalcule/enregistre pas. Par défaut : false.",
     "param.include_glob.description": "Motif glob utilisé lorsque path est un répertoire. Par défaut : '*.xlsx'.",
     "param.max_files.description": "Nombre maximal de fichiers à traiter lors de l'analyse d'un répertoire. Par défaut : 200.",
@@ -129,7 +139,9 @@
     "param.recursive.description": "Indique si le répertoire doit être analysé de manière récursive. Par défaut : false.",
     "param.visible.description": "Afficher la fenêtre Excel pendant l'automatisation. Par défaut : false.",
     "tool.description": "Recalcule les formules Excel en automatisant Microsoft Excel (Windows COM) et enregistre les valeurs mises en cache mises à jour. Prend en charge un seul fichier .xlsx ou l'analyse d'un répertoire. Par défaut, une sauvegarde (<fichier>.org / <fichier>.org1 / ...) est créée juste avant l'enregistrement.",
-    "tool.system_prompt": "Utilisez cet outil lorsque les valeurs mises en cache des formules dans .xlsx sont obsolètes (par exemple, lorsque openpyxl data_only lit d'anciennes valeurs). Cet outil ouvre les classeurs dans Microsoft Excel via COM, effectue un recalcul complet et enregistre."
+    "tool.system_prompt": "Utilisez cet outil lorsque les valeurs mises en cache des formules dans .xlsx sont obsolètes (par exemple, lorsque openpyxl data_only lit d'anciennes valeurs). Cet outil ouvre les classeurs dans Microsoft Excel via COM, effectue un recalcul complet et enregistre.",
+    "param.password.description": "Mot de passe facultatif pour les fichiers .xlsx chiffrés. S'il est omis et que le fichier est chiffré, il vous sera demandé une seule fois.",
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
   },
   "ko": {
     "err.backup_bool": "backup는 부울이어야 합니다.",
@@ -143,7 +155,7 @@
     "err.recursive_bool": "recursive는 부울이어야 합니다.",
     "err.visible_bool": "visible은 부울이어야 합니다.",
     "err.windows_only": "recalc_excel은 Windows에서만 지원됩니다(Microsoft Excel COM 자동화).",
-    "param.backup.description": "저장하기 전에 백업을 만듭니다. 기본값: true.",
+    "param.backup.description": "저장하기 전에 백업을 만듭니다. 기본값: false.",
     "param.dry_run.description": "true인 경우 대상만 나열하고 다시 계산/저장하지 않습니다. 기본값: false.",
     "param.include_glob.description": "path가 디렉터리일 때 사용하는 glob 패턴입니다. 기본값: '*.xlsx'.",
     "param.max_files.description": "디렉터리를 스캔할 때 처리할 최대 파일 수입니다. 기본값: 200.",
@@ -151,7 +163,9 @@
     "param.recursive.description": "디렉터리를 재귀적으로 검사할지 여부입니다. 기본값: false.",
     "param.visible.description": "자동화 중 Excel 창을 표시합니다. 기본값: false.",
     "tool.description": "Microsoft Excel(Windows COM)을 자동화하여 Excel 수식을 다시 계산하고 업데이트된 캐시 값을 저장합니다. 단일 .xlsx 파일 또는 디렉터리 검색을 지원합니다. 기본적으로 저장 직전에 백업(<file>.org / <file>.org1 / ...)이 생성됩니다.",
-    "tool.system_prompt": ".xlsx의 수식 캐시 값이 오래되었을 때(예: openpyxl data_only가 오래된 값을 읽는 경우) 이 도구를 사용하세요. 이 도구는 COM을 통해 Microsoft Excel에서 통합 문서를 열고 전체 재계산 후 저장합니다."
+    "tool.system_prompt": ".xlsx의 수식 캐시 값이 오래되었을 때(예: openpyxl data_only가 오래된 값을 읽는 경우) 이 도구를 사용하세요. 이 도구는 COM을 통해 Microsoft Excel에서 통합 문서를 열고 전체 재계산 후 저장합니다.",
+    "param.password.description": "암호화된 .xlsx 파일의 선택적 비밀번호입니다. 생략되었고 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
   "th": {
     "err.backup_bool": "backup ต้องเป็นบูลีน",
@@ -165,7 +179,7 @@
     "err.recursive_bool": "recursive ต้องเป็นบูลีน",
     "err.visible_bool": "visible ต้องเป็นบูลีน",
     "err.windows_only": "recalc_excel รองรับเฉพาะบน Windows (Microsoft Excel COM automation)",
-    "param.backup.description": "สร้างข้อมูลสำรองก่อนบันทึก ค่าเริ่มต้น: true",
+    "param.backup.description": "สร้างข้อมูลสำรองก่อนบันทึก ค่าเริ่มต้น: false",
     "param.dry_run.description": "หากเป็น true จะระบุเฉพาะเป้าหมาย และไม่คำนวณใหม่/บันทึก ค่าเริ่มต้น: false",
     "param.include_glob.description": "รูปแบบ glob ที่ใช้เมื่อ path เป็นไดเร็กทอรี ค่าเริ่มต้น: '*.xlsx'",
     "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะประมวลผลเมื่อสแกนไดเร็กทอรี ค่าเริ่มต้น: 200",
@@ -173,7 +187,9 @@
     "param.recursive.description": "จะสแกนไดเร็กทอรีแบบเรียกซ้ำหรือไม่ ค่าเริ่มต้น: false",
     "param.visible.description": "แสดงหน้าต่าง Excel ระหว่างทำงานอัตโนมัติ ค่าเริ่มต้น: false",
     "tool.description": "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์ .xlsx เพียงไฟล์เดียวหรือการสแกนไดเร็กทอรี โดยปกติจะสร้างข้อมูลสำรอง (<file>.org / <file>.org1 / ...) ทันทีก่อนบันทึก",
-    "tool.system_prompt": "ใช้เครื่องมือนี้เมื่อค่าที่แคชไว้ของสูตรใน .xlsx ล้าสมัย (เช่น openpyxl data_only อ่านค่าเก่า) เครื่องมือนี้จะเปิดสมุดงานใน Microsoft Excel ผ่าน COM ทำการคำนวณใหม่ทั้งหมด และบันทึก"
+    "tool.system_prompt": "ใช้เครื่องมือนี้เมื่อค่าที่แคชไว้ของสูตรใน .xlsx ล้าสมัย (เช่น openpyxl data_only อ่านค่าเก่า) เครื่องมือนี้จะเปิดสมุดงานใน Microsoft Excel ผ่าน COM ทำการคำนวณใหม่ทั้งหมด และบันทึก",
+    "param.password.description": "รหัสผ่านสำหรับไฟล์ .xlsx ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและไฟล์ถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
   "de": {
     "err.backup_bool": "backup muss ein boolescher Wert sein",
@@ -187,7 +203,7 @@
     "err.recursive_bool": "recursive muss ein boolescher Wert sein",
     "err.visible_bool": "visible muss ein boolescher Wert sein",
     "err.windows_only": "recalc_excel wird nur unter Windows unterstützt (Microsoft-Excel-COM-Automatisierung).",
-    "param.backup.description": "Vor dem Speichern ein Backup erstellen. Standard: true.",
+    "param.backup.description": "Vor dem Speichern ein Backup erstellen. Standard: false.",
     "param.dry_run.description": "Wenn true, nur Ziele auflisten und nicht neu berechnen/speichern. Standard: false.",
     "param.include_glob.description": "Glob-Muster, das verwendet wird, wenn path ein Verzeichnis ist. Standard: '*.xlsx'.",
     "param.max_files.description": "Maximale Anzahl zu verarbeitender Dateien beim Scannen eines Verzeichnisses. Standard: 200.",
@@ -195,7 +211,9 @@
     "param.recursive.description": "Ob das Verzeichnis rekursiv gescannt werden soll. Standard: false.",
     "param.visible.description": "Excel-Fenster während der Automatisierung anzeigen. Standard: false.",
     "tool.description": "Berechnet Excel-Formeln neu, indem Microsoft Excel (Windows COM) automatisiert wird, und speichert aktualisierte Cachewerte. Unterstützt eine einzelne .xlsx-Datei oder das Scannen eines Verzeichnisses. Standardmäßig wird unmittelbar vor dem Speichern ein Backup (<Datei>.org / <Datei>.org1 / ...) erstellt.",
-    "tool.system_prompt": "Verwenden Sie dieses Tool, wenn zwischengespeicherte Formelwerte in .xlsx veraltet sind (z. B. wenn openpyxl data_only alte Werte liest). Dieses Tool öffnet Arbeitsmappen in Microsoft Excel über COM, führt eine vollständige Neuberechnung durch und speichert."
+    "tool.system_prompt": "Verwenden Sie dieses Tool, wenn zwischengespeicherte Formelwerte in .xlsx veraltet sind (z. B. wenn openpyxl data_only alte Werte liest). Dieses Tool öffnet Arbeitsmappen in Microsoft Excel über COM, führt eine vollständige Neuberechnung durch und speichert.",
+    "param.password.description": "Optionales Kennwort für verschlüsselte .xlsx-Dateien. Wenn es weggelassen wird und die Datei verschlüsselt ist, werden Sie einmal zur Eingabe aufgefordert.",
+    "prompt.password": "Bitte geben Sie das Kennwort für diese Datei ein:\n{path}"
   },
   "it": {
     "err.backup_bool": "backup deve essere un valore booleano",
@@ -209,7 +227,7 @@
     "err.recursive_bool": "recursive deve essere un valore booleano",
     "err.visible_bool": "visible deve essere un valore booleano",
     "err.windows_only": "recalc_excel è supportato solo su Windows (automazione COM di Microsoft Excel).",
-    "param.backup.description": "Crea un backup prima di salvare. Predefinito: true.",
+    "param.backup.description": "Crea un backup prima di salvare. Predefinito: false.",
     "param.dry_run.description": "Se true, elenca solo le destinazioni e non ricalcola/salva. Predefinito: false.",
     "param.include_glob.description": "Pattern glob utilizzato quando path è una directory. Predefinito: '*.xlsx'.",
     "param.max_files.description": "Numero massimo di file da elaborare durante la scansione di una directory. Predefinito: 200.",
@@ -217,7 +235,9 @@
     "param.recursive.description": "Indica se eseguire la scansione ricorsiva della directory. Predefinito: false.",
     "param.visible.description": "Mostra la finestra di Excel durante l'automazione. Predefinito: false.",
     "tool.description": "Ricalcola le formule di Excel automatizzando Microsoft Excel (Windows COM) e salva i valori memorizzati nella cache aggiornati. Supporta un singolo file .xlsx o la scansione di una directory. Per impostazione predefinita, viene creato un backup (<file>.org / <file>.org1 / ...) subito prima del salvataggio.",
-    "tool.system_prompt": "Utilizza questo strumento quando i valori memorizzati nella cache delle formule in .xlsx sono obsoleti (ad esempio, quando openpyxl data_only legge valori vecchi). Questo strumento apre le cartelle di lavoro in Microsoft Excel tramite COM, esegue il ricalcolo completo e salva."
+    "tool.system_prompt": "Utilizza questo strumento quando i valori memorizzati nella cache delle formule in .xlsx sono obsoleti (ad esempio, quando openpyxl data_only legge valori vecchi). Questo strumento apre le cartelle di lavoro in Microsoft Excel tramite COM, esegue il ricalcolo completo e salva.",
+    "param.password.description": "Password facoltativa per file .xlsx crittografati. Se omessa e il file è crittografato, verrà richiesto di inserirla una sola volta.",
+    "prompt.password": "Inserisci la password di questo file:\n{path}"
   },
   "ru": {
     "err.backup_bool": "backup должен быть логическим значением",
@@ -231,7 +251,7 @@
     "err.recursive_bool": "recursive должен быть логическим значением",
     "err.visible_bool": "visible должен быть логическим значением",
     "err.windows_only": "recalc_excel поддерживается только в Windows (автоматизация Microsoft Excel COM).",
-    "param.backup.description": "Создавать резервную копию перед сохранением. По умолчанию: true.",
+    "param.backup.description": "Создавать резервную копию перед сохранением. Значение по умолчанию: false.",
     "param.dry_run.description": "Если true, только перечислить цели и не пересчитывать/не сохранять. По умолчанию: false.",
     "param.include_glob.description": "Шаблон glob, используемый, когда path является каталогом. По умолчанию: '*.xlsx'.",
     "param.max_files.description": "Максимальное количество файлов, обрабатываемых при сканировании каталога. По умолчанию: 200.",
@@ -239,7 +259,9 @@
     "param.recursive.description": "Сканировать каталог рекурсивно или нет. По умолчанию: false.",
     "param.visible.description": "Показывать окно Excel во время автоматизации. По умолчанию: false.",
     "tool.description": "Пересчитывает формулы Excel, автоматизируя Microsoft Excel (Windows COM), и сохраняет обновленные кэшированные значения. Поддерживает один файл .xlsx или сканирование каталога. По умолчанию резервная копия (<file>.org / <file>.org1 / ...) создается непосредственно перед сохранением.",
-    "tool.system_prompt": "Используйте этот инструмент, когда кэшированные значения формул в .xlsx устарели (например, openpyxl data_only читает старые значения). Этот инструмент открывает книги в Microsoft Excel через COM, выполняет полный перерасчет и сохраняет."
+    "tool.system_prompt": "Используйте этот инструмент, когда кэшированные значения формул в .xlsx устарели (например, openpyxl data_only читает старые значения). Этот инструмент открывает книги в Microsoft Excel через COM, выполняет полный перерасчет и сохраняет.",
+    "param.password.description": "Необязательный пароль для зашифрованных файлов .xlsx. Если он не указан и файл зашифрован, пароль будет запрошен один раз.",
+    "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
   "pt_BR": {
     "err.backup_bool": "backup deve ser um booleano",
@@ -253,7 +275,7 @@
     "err.recursive_bool": "recursive deve ser um booleano",
     "err.visible_bool": "visible deve ser um booleano",
     "err.windows_only": "recalc_excel é compatível apenas com Windows (automação COM do Microsoft Excel).",
-    "param.backup.description": "Crie um backup antes de salvar. Padrão: true.",
+    "param.backup.description": "Criar um backup antes de salvar. Padrão: false.",
     "param.dry_run.description": "Se true, lista apenas os alvos e não recalcula/salva. Padrão: false.",
     "param.include_glob.description": "Padrão glob usado quando path é um diretório. Padrão: '*.xlsx'.",
     "param.max_files.description": "Número máximo de arquivos a processar ao varrer um diretório. Padrão: 200.",
@@ -261,7 +283,9 @@
     "param.recursive.description": "Se deve varrer o diretório recursivamente. Padrão: false.",
     "param.visible.description": "Mostrar a janela do Excel durante a automação. Padrão: false.",
     "tool.description": "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados. Suporta um único arquivo .xlsx ou a varredura de um diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar.",
-    "tool.system_prompt": "Use esta ferramenta quando os valores em cache das fórmulas em .xlsx estiverem desatualizados (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre as pastas de trabalho no Microsoft Excel via COM, executa o recálculo completo e salva."
+    "tool.system_prompt": "Use esta ferramenta quando os valores em cache das fórmulas em .xlsx estiverem desatualizados (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre as pastas de trabalho no Microsoft Excel via COM, executa o recálculo completo e salva.",
+    "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitida e o arquivo estiver criptografado, será solicitada uma única vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
   "id": {
     "err.backup_bool": "backup harus berupa boolean",
@@ -275,7 +299,7 @@
     "err.recursive_bool": "recursive harus berupa boolean",
     "err.visible_bool": "visible harus berupa boolean",
     "err.windows_only": "recalc_excel hanya didukung di Windows (otomasi Microsoft Excel COM).",
-    "param.backup.description": "Buat backup sebelum menyimpan. Default: true.",
+    "param.backup.description": "Buat cadangan sebelum menyimpan. Nilai default: false.",
     "param.dry_run.description": "Jika true, hanya daftar target dan jangan hitung ulang/simpan. Default: false.",
     "param.include_glob.description": "Pola glob yang digunakan saat path adalah direktori. Default: '*.xlsx'.",
     "param.max_files.description": "Jumlah maksimum file yang diproses saat memindai direktori. Default: 200.",
@@ -283,7 +307,9 @@
     "param.recursive.description": "Apakah direktori dipindai secara rekursif. Default: false.",
     "param.visible.description": "Tampilkan jendela Excel selama otomasi. Default: false.",
     "tool.description": "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui. Mendukung satu file .xlsx atau pemindaian direktori. Secara default, backup (<file>.org / <file>.org1 / ...) dibuat tepat sebelum menyimpan.",
-    "tool.system_prompt": "Gunakan alat ini saat nilai cache formula di .xlsx sudah usang (misalnya saat openpyxl data_only membaca nilai lama). Alat ini membuka workbook di Microsoft Excel via COM, melakukan full recalculation, dan menyimpan."
+    "tool.system_prompt": "Gunakan alat ini saat nilai cache formula di .xlsx sudah usang (misalnya saat openpyxl data_only membaca nilai lama). Alat ini membuka workbook di Microsoft Excel via COM, melakukan full recalculation, dan menyimpan.",
+    "param.password.description": "Kata sandi opsional untuk file .xlsx terenkripsi. Jika tidak diisi dan file terenkripsi, Anda akan diminta kata sandi satu kali.",
+    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
   "vi": {
     "err.backup_bool": "bản sao lưu phải là một boolean",
@@ -297,7 +323,7 @@
     "err.recursive_bool": "đệ quy phải là boolean",
     "err.visible_bool": "nhìn thấy được phải là một boolean",
     "err.windows_only": "recalc_excel chỉ được hỗ trợ trên Windows (tự động hóa Microsoft Excel COM).",
-    "param.backup.description": "Tạo bản sao lưu trước khi lưu. Mặc định: đúng.",
+    "param.backup.description": "Tạo bản sao lưu trước khi lưu. Mặc định: false.",
     "param.dry_run.description": "Nếu đúng, chỉ liệt kê các mục tiêu và không tính toán lại/lưu. Mặc định: sai.",
     "param.include_glob.description": "Mẫu toàn cầu được sử dụng khi đường dẫn là một thư mục. Mặc định: '*.xlsx'.",
     "param.max_files.description": "Số lượng tệp tối đa cần xử lý khi quét một thư mục. Mặc định: 200.",
@@ -305,7 +331,9 @@
     "param.recursive.description": "Có quét thư mục theo cách đệ quy hay không. Mặc định: sai.",
     "param.visible.description": "Hiển thị cửa sổ Excel trong quá trình tự động hóa. Mặc định: sai.",
     "tool.description": "Tính toán lại các công thức Excel bằng cách tự động hóa Microsoft Excel (Windows COM) và lưu các giá trị được lưu trong bộ nhớ đệm đã cập nhật. Hỗ trợ một tệp .xlsx hoặc quét thư mục. Theo mặc định, bản sao lưu (<file>.org / <file>.org1 / ...) được tạo ngay trước khi lưu.",
-    "tool.system_prompt": "Sử dụng công cụ này khi các giá trị được lưu trong bộ nhớ đệm của công thức trong .xlsx đã cũ (ví dụ: khi openpyxl data_only đọc các giá trị cũ). Công cụ này mở (các) sổ làm việc trong Microsoft Excel qua COM, thực hiện tính toán lại đầy đủ và lưu."
+    "tool.system_prompt": "Sử dụng công cụ này khi các giá trị được lưu trong bộ nhớ đệm của công thức trong .xlsx đã cũ (ví dụ: khi openpyxl data_only đọc các giá trị cũ). Công cụ này mở (các) sổ làm việc trong Microsoft Excel qua COM, thực hiện tính toán lại đầy đủ và lưu.",
+    "param.password.description": "Mật khẩu tùy chọn cho tệp .xlsx đã mã hóa. Nếu bỏ qua và tệp đã được mã hóa, bạn sẽ được yêu cầu nhập mật khẩu một lần.",
+    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
   "pl": {
     "err.backup_bool": "kopia zapasowa musi być wartością logiczną",
@@ -319,7 +347,7 @@
     "err.recursive_bool": "rekurencyjne musi być wartością logiczną",
     "err.visible_bool": "widoczny musi być wartością logiczną",
     "err.windows_only": "recalc_excel jest obsługiwany tylko w systemie Windows (automatyzacja Microsoft Excel COM).",
-    "param.backup.description": "Utwórz kopię zapasową przed zapisaniem. Wartość domyślna: prawda.",
+    "param.backup.description": "Utwórz kopię zapasową przed zapisaniem. Domyślnie: false.",
     "param.dry_run.description": "Jeśli to prawda, wypisz tylko cele i nie przeliczaj/nie zapisuj. Wartość domyślna: fałsz.",
     "param.include_glob.description": "Wzorzec globalny używany, gdy ścieżka jest katalogiem. Wartość domyślna: „*.xlsx”.",
     "param.max_files.description": "Maksymalna liczba plików do przetworzenia podczas skanowania katalogu. Wartość domyślna: 200.",
@@ -327,6 +355,8 @@
     "param.recursive.description": "Określa, czy skanować katalog rekurencyjnie. Wartość domyślna: fałsz.",
     "param.visible.description": "Pokaż okno Excela podczas automatyzacji. Wartość domyślna: fałsz.",
     "tool.description": "Przeliczaj formuły programu Excel, automatyzując program Microsoft Excel (Windows COM) i zapisuj zaktualizowane wartości w pamięci podręcznej. Obsługuje pojedynczy plik .xlsx lub skanowanie katalogów. Domyślnie kopia zapasowa (<plik>.org / <plik>.org1 / ...) tworzona jest bezpośrednio przed zapisaniem.",
-    "tool.system_prompt": "Użyj tego narzędzia, gdy wartości buforowane formułami w pliku .xlsx są nieaktualne (na przykład, gdy openpyxl data_only odczytuje tylko stare wartości). To narzędzie otwiera skoroszyty w programie Microsoft Excel za pośrednictwem interfejsu COM, wykonuje pełne ponowne obliczenia i zapisuje."
+    "tool.system_prompt": "Użyj tego narzędzia, gdy wartości buforowane formułami w pliku .xlsx są nieaktualne (na przykład, gdy openpyxl data_only odczytuje tylko stare wartości). To narzędzie otwiera skoroszyty w programie Microsoft Excel za pośrednictwem interfejsu COM, wykonuje pełne ponowne obliczenia i zapisuje.",
+    "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
+    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   }
 }

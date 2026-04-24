@@ -3,9 +3,15 @@ from __future__ import annotations
 
 import json
 import os
+from io import BytesIO
 from typing import Any, Dict, List
 
 from .i18n_helper import make_tool_translator
+
+try:
+    import msoffcrypto
+except Exception:  # pragma: no cover
+    msoffcrypto = None  # type: ignore[assignment]
 
 _ = make_tool_translator(__file__)
 
@@ -49,6 +55,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.file_path.description",
                         default="Absolute path to the Excel file.",
+                    ),
+                },
+                "password": {
+                    "type": "string",
+                    "description": _(
+                        "param.password.description",
+                        default=(
+                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
+                            "the tool will prompt once for a password."
+                        ),
                     ),
                 },
                 "sheet_name": {
@@ -116,11 +132,63 @@ def _backup_file_if_exists(path: str) -> str | None:
     return backup
 
 
+def _prompt_for_password(path: str) -> str | None:
+    try:
+        from .human_ask_tool import run_tool as human_ask
+    except Exception:
+        return None
+
+    message = _(
+        "prompt.password",
+        default="Enter the password for this file:\n{path}",
+    ).format(path=path)
+    try:
+        res_json = human_ask({"message": message, "is_password": True})
+        res = json.loads(res_json)
+    except Exception:
+        return None
+
+    pwd = str(res.get("user_reply") or "").strip()
+    return pwd or None
+
+
+def _load_workbook_with_password(
+    file_path: str, password: str | None = None, *, data_only: bool = False
+):
+    import openpyxl
+
+    if msoffcrypto is not None:
+        with open(file_path, "rb") as fin:
+            office = msoffcrypto.OfficeFile(fin)
+            encrypted = False
+            try:
+                encrypted = bool(office.is_encrypted())
+            except Exception:
+                encrypted = False
+
+            if encrypted:
+                if not password:
+                    password = _prompt_for_password(file_path)
+                if not password:
+                    raise RuntimeError(
+                        "password is required for encrypted workbook files"
+                    )
+
+                office.load_key(password=password)
+                decrypted = BytesIO()
+                office.decrypt(decrypted)
+                decrypted.seek(0)
+                return openpyxl.load_workbook(decrypted, data_only=data_only)
+
+    return openpyxl.load_workbook(file_path, data_only=data_only)
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     action = args.get("action")
     file_path = str(args.get("file_path", "") or "").strip()
     sheet_name = args.get("sheet_name")
     data_str = args.get("data")
+    password = str(args.get("password") or "").strip() or None
 
     if action not in ("read", "write", "get_sheet_names", "keep_only_sheets"):
         raise ValueError("Invalid action")
@@ -132,14 +200,14 @@ def run_tool(args: Dict[str, Any]) -> str:
     import openpyxl
 
     if action == "get_sheet_names":
-        wb = openpyxl.load_workbook(file_path)
+        wb = _load_workbook_with_password(file_path, password=password)
         try:
             return json.dumps(wb.sheetnames, ensure_ascii=False)
         finally:
             wb.close()
 
     if action == "read":
-        wb = openpyxl.load_workbook(file_path, data_only=True)
+        wb = _load_workbook_with_password(file_path, password=password, data_only=True)
         try:
             target = sheet_name or wb.sheetnames[0]
             ws = wb[target]
@@ -173,7 +241,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         backup = _backup_file_if_exists(output_path)
 
         # Read values from a recalculated file (call recalc_excel before this tool if needed).
-        wb_src = openpyxl.load_workbook(file_path, data_only=True)
+        wb_src = _load_workbook_with_password(
+            file_path, password=password, data_only=True
+        )
         try:
             missing = [s for s in keep_sheets if s not in wb_src.sheetnames]
             if missing:
@@ -246,7 +316,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         _backup_file_if_exists(file_path)
 
     if os.path.exists(file_path):
-        wb = openpyxl.load_workbook(file_path)
+        wb = _load_workbook_with_password(file_path, password=password)
     else:
         wb = openpyxl.Workbook()
 

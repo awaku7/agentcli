@@ -657,23 +657,19 @@ def _format_skill_system_content(
 
     header = " ".join(header_parts)
     body_text = body.strip()
-    exec_instructions = "\n\n" + _("skills.execution.prompt")
+    exec_instructions = "\n\n" + _(
+        "[Skill execution]\n"
+        "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+        "If the skill contains tasks, continue until they are complete.\n"
+        "Use tools as needed.\n"
+    )
     if include_finish_skill:
-        exec_instructions += _("skills.execution.prompt.finish")
+        exec_instructions += _(
+            "When finished, always call `finish_skill` if available.\n"
+        )
     if body_text:
         return header + "\n\n" + body_text + exec_instructions + "\n"
     return header + exec_instructions + "\n"
-
-
-def _insert_skill_system_message(
-    messages_ref: List[Dict[str, Any]],
-    skill_system_msg: Dict[str, Any],
-) -> None:
-    # Insert at the end of the leading system-message block.
-    idx = 0
-    while idx < len(messages_ref) and messages_ref[idx].get("role") == "system":
-        idx += 1
-    messages_ref.insert(idx, skill_system_msg)
 
 
 def _has_any_user_message(messages_ref: List[Dict[str, Any]]) -> bool:
@@ -878,7 +874,7 @@ def _handle_cmd_skills(
         )
 
         skill_system_msg = {"role": "system", "content": content}
-        _insert_skill_system_message(messages_ref, skill_system_msg)
+        _insert_cwd_system_message(messages_ref, skill_system_msg)
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
         print(tr("[skills] Applied: %(name)s") % {"name": name})
