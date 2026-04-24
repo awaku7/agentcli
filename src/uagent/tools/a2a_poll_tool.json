@@ -37,7 +37,7 @@
     "param.interval_ms.description": "Définir un autre intervalle de sondage (ms).",
     "param.timeout_s.description": "Définir un autre délai d’expiration (secondes).",
     "err.missing_task_id": "'task_id' manquant.",
-    "err.exception": "Exception"
+    "err.exception": "Exception inattendue"
   },
   "ko": {
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다.",
@@ -148,5 +148,25 @@
     "param.timeout_s.description": "Zastąp limit czasu (sekundy).",
     "err.missing_task_id": "Brakuje 'task_id'.",
     "err.exception": "Wyjątek"
+  },
+  "pt": {
+    "tool.description": "Pesquise uma tarefa A2A até que ela atinja um status terminal.",
+    "tool.system_prompt": "Pesquise uma tarefa A2A. Retorne apenas JSON.",
+    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
+    "param.task_id.description": "ID da tarefa a ser pesquisada.",
+    "param.interval_ms.description": "Substituir intervalo de pesquisa (ms).",
+    "param.timeout_s.description": "Substituir o tempo limite (segundos).",
+    "err.missing_task_id": "Falta 'task_id'.",
+    "err.exception": "Exceção"
+  },
+  "hi": {
+    "tool.description": "किसी A2A कार्य को तब तक पोल करें जब तक वह टर्मिनल स्थिति तक न पहुंच जाए।",
+    "tool.system_prompt": "A2A कार्य के लिए मतदान करें। केवल JSON लौटाएँ.",
+    "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग करता है।",
+    "param.task_id.description": "मतदान हेतु कार्य आईडी.",
+    "param.interval_ms.description": "ओवरराइड मतदान अंतराल (एमएस)।",
+    "param.timeout_s.description": "ओवरराइड टाइमआउट (सेकंड)।",
+    "err.missing_task_id": "'कार्य_आईडी' गुम है.",
+    "err.exception": "अपवाद"
   }
 }

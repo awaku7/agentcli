@@ -37,7 +37,7 @@
     "param.prompt.description": "生成したい画像の指示（プロンプト）",
     "param.size.description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
-    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
+    "tool.system_prompt": "このツールは、ツールの説明に記載された目的のために使用します。"
   },
   "zh_CN": {
     "err.depname_missing": "[generate_image] 尚未设置图像模型（部署名）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
@@ -298,5 +298,45 @@
     "param.size.description": "Rozmiar obrazu. Przykład: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Generuje obraz z tekstowego promptu, zapisuje go jako PNG i zwraca ścieżkę pliku. Po wygenerowaniu automatycznie otwiera obraz (można wyłączyć przez UAGENT_IMAGE_OPEN=0).",
     "tool.system_prompt": "To narzędzie jest używane w następującym celu (zobacz opis narzędzia)."
+  },
+  "pt": {
+    "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não foi definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "err.empty_data": "Os dados da imagem estavam vazios (resp.data está vazio ou b64_json/url está faltando)",
+    "err.gemini_fail": "Não consegui obter resultados de geração de imagens com o Gemini. O modelo não oferece suporte à geração de imagens ou o formato de retorno do SDK é inesperado.",
+    "err.gemini_import": "Falha ao importar google-genai (pip install google-genai): {err}",
+    "err.gen_fail": "[generate_image] Falha na geração da imagem.\nprovedor={provider} modelo={model} tamanho={size} n={n}\n{err}",
+    "err.httpx_init": "Falha ao inicializar httpx: {err}",
+    "err.mkdir_fail": "Falha na criação de [generate_image] output_dir: {err}",
+    "err.no_saved": "[generate_image] Os dados da imagem estavam vazios",
+    "err.openai_import": "Falha ao importar o pacote openai: {err}",
+    "err.prompt_empty": "O prompt [generate_image] está vazio",
+    "err.unsupported_provider": "[generate_image] Provedor não compatível={provider!r}",
+    "param.file_prefix.description": "Prefixo para o nome do arquivo salvo (opcional)",
+    "param.n.description": "Número de imagens a serem geradas (atualmente 1 é recomendado)",
+    "param.output_dir.description": "Diretório de destino (relativo/absoluto). Se omitido, outputs/image_Generations",
+    "param.prompt.description": "Instruções (prompt) para a imagem que você deseja gerar",
+    "param.size.description": "Tamanho da imagem. Exemplo: 1024x1024/1024x1536/1536x1024",
+    "tool.description": "Gera uma imagem a partir de um prompt de texto, salva-a como PNG e retorna o caminho do arquivo. Abre automaticamente a imagem após a geração (pode ser desabilitada com UAGENT_IMAGE_OPEN=0).",
+    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
+  },
+  "hi": {
+    "err.depname_missing": "[generate_image] छवि मॉडल (परिनियोजन नाम) सेट नहीं किया गया है।\nकृपया पर्यावरण चर UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करें।",
+    "err.empty_data": "छवि डेटा खाली था (resp.data खाली है या b64_json/url गायब है)",
+    "err.gemini_fail": "मुझे जेमिनी के साथ छवि निर्माण परिणाम नहीं मिल सके। मॉडल छवि निर्माण का समर्थन नहीं करता है, या एसडीके रिटर्न प्रारूप अप्रत्याशित है।",
+    "err.gemini_import": "google-genai आयात करने में विफल (pip install google-genai): {err}",
+    "err.gen_fail": "[generate_image] छवि निर्माण विफल रहा।\nप्रदाता={provider} मॉडल={model} आकार={size} n={n}\n{err}",
+    "err.httpx_init": "httpx प्रारंभ करने में विफल: {err}",
+    "err.mkdir_fail": "[जनरेट_इमेज] आउटपुट_डीआईआर निर्माण विफल: {err}",
+    "err.no_saved": "[जनरेट_इमेज] छवि डेटा खाली था",
+    "err.openai_import": "openai पैकेज आयात करने में विफल: {err}",
+    "err.prompt_empty": "[जेनरेट_इमेज] प्रॉम्प्ट खाली है",
+    "err.unsupported_provider": "[generate_image] समर्थित नहीं है प्रदाता={प्रदाता!r}",
+    "param.file_prefix.description": "सहेजे गए फ़ाइल नाम के लिए उपसर्ग (वैकल्पिक)",
+    "param.n.description": "उत्पन्न की जाने वाली छवियों की संख्या (वर्तमान में 1 अनुशंसित है)",
+    "param.output_dir.description": "गंतव्य निर्देशिका (सापेक्ष/निरपेक्ष)। यदि छोड़ा गया है, तो आउटपुट/इमेज_जेनरेशन",
+    "param.prompt.description": "आप जो छवि उत्पन्न करना चाहते हैं उसके लिए निर्देश (संकेत)।",
+    "param.size.description": "छवि का आकार. उदाहरण: 1024x1024 / 1024x1536 / 1536x1024",
+    "tool.description": "टेक्स्ट प्रॉम्प्ट से एक छवि उत्पन्न करता है, इसे पीएनजी के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। पीढ़ी के बाद छवि स्वचालित रूप से खुलती है (UAGENT_IMAGE_OPEN=0 के साथ अक्षम किया जा सकता है)।",
+    "tool.system_prompt": "मैं आपको यह बताना चाहता हूं कि यह कैसे काम करता है।"
   }
 }

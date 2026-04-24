@@ -163,5 +163,27 @@
     "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania z odpowiedzi.",
     "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowaniu/wyodrębnieniu).",
     "param.user_agent.description": "Opcjonalna wartość nagłówka User-Agent."
+  },
+  "pt": {
+    "param.url.description": "URL para acessar.",
+    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'fetch_url'.",
+    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrair texto do HTML; html=extrair fragmento HTML; json=analisa JSON (opcionalmente aplique json_pointer).",
+    "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente será extraído para extract=text/html.",
+    "param.json_pointer.description": "Ponteiro JSON RFC 6901 opcional (por exemplo, /items/0/title) usado quando extract=json.",
+    "param.max_bytes.description": "Máximo de bytes a serem lidos na resposta.",
+    "param.max_chars.description": "Máximo de caracteres a serem retornados (aplicado após decodificação/extração).",
+    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent."
+  },
+  "hi": {
+    "param.url.description": "एक्सेस करने के लिए यूआरएल.",
+    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी।",
+    "tool.system_prompt": "यह टूल टूल नाम 'fetch_url' द्वारा वर्णित ऑपरेशन करता है।",
+    "param.extract.description": "निष्कर्षण मोड. सिर=प्रतिक्रिया की शुरुआत लौटाएं; text=HTML से पाठ निकालें; html=HTML खंड निकालें; json=पार्स JSON (वैकल्पिक रूप से json_pointer लागू करें)।",
+    "param.selector.description": "वैकल्पिक सीएसएस चयनकर्ता. यदि प्रदान किया गया है, तो पहला मिलान तत्व एक्सट्रैक्ट=टेक्स्ट/एचटीएमएल के लिए निकाला जाता है।",
+    "param.json_pointer.description": "वैकल्पिक RFC 6901 JSON पॉइंटर (उदाहरण के लिए, /आइटम/0/शीर्षक) का उपयोग तब किया जाता है जब एक्सट्रैक्ट = json होता है।",
+    "param.max_bytes.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
+    "param.max_chars.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
+    "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान."
   }
 }

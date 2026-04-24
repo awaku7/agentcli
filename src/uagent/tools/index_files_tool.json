@@ -268,5 +268,41 @@
     "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów. Domyślnie jest to katalog bieżący.",
     "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne, gdy chcesz przygotować dane do wyszukiwania bez natychmiastowego odczytywania zawartości pliku.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "pt": {
+    "err.glob_fail": "Erro: Falha ao analisar o padrão: {err}",
+    "err.pattern_required": "Erro: padrão não especificado.",
+    "err.root_not_dir": "Erro: root_path não é um diretório: {root_path}",
+    "err.vec_unavailable": "Erro: Não é possível criar o índice porque o módulo de pesquisa semântica (semantic_search_files_tool) não está disponível.",
+    "out.completed": "O processamento do índice foi concluído.",
+    "out.fail": "Falha: {count} itens",
+    "out.footer": "Agora você pode usar `semantic_search_files` para procurar esses arquivos.",
+    "out.not_found": "Nenhum arquivo foi encontrado correspondente ao padrão '{pattern}'.",
+    "out.pattern": "Padrão de destino: {pattern}",
+    "out.root": "Diretório raiz: {root_abs}",
+    "out.success": "Sucesso: {count} itens",
+    "param.pattern.description": "Nome do arquivo de destino, nome do diretório ou padrão glob (por exemplo, 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
+    "param.root_path.description": "Diretório que é o ponto de partida para pesquisas e índices. O padrão é o diretório atual.",
+    "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files). Isto é útil quando você deseja preparar dados de pesquisa sem ler imediatamente o conteúdo do arquivo.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "err.glob_fail": "त्रुटि: पैटर्न पार्स करने में विफल: {err}",
+    "err.pattern_required": "त्रुटि: पैटर्न निर्दिष्ट नहीं है.",
+    "err.root_not_dir": "त्रुटि: root_path एक निर्देशिका नहीं है: {root_path}",
+    "err.vec_unavailable": "त्रुटि: सिमेंटिक सर्च मॉड्यूल (semantic_search_files_tool) अनुपलब्ध होने के कारण इंडेक्स बनाने में असमर्थ।",
+    "out.completed": "सूचकांक प्रसंस्करण पूरा हो गया है.",
+    "out.fail": "विफलता: {count} आइटम",
+    "out.footer": "अब आप इन फ़ाइलों को खोजने के लिए `semantic_search_files` का उपयोग कर सकते हैं।",
+    "out.not_found": "'{pattern}' पैटर्न से मेल खाती कोई फ़ाइल नहीं मिली।",
+    "out.pattern": "लक्ष्य पैटर्न: {pattern}",
+    "out.root": "मूल निर्देशिका: {root_abs}",
+    "out.success": "सफलता: {count} आइटम",
+    "param.pattern.description": "लक्ष्य फ़ाइल नाम, निर्देशिका नाम, या ग्लोब पैटर्न (उदाहरण के लिए 'src/**/*.py', '*.md')।",
+    "param.recursive.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।",
+    "param.root_path.description": "निर्देशिका जो खोजों और अनुक्रमणिका के लिए प्रारंभिक बिंदु है। डिफ़ॉल्ट वर्तमान निर्देशिका है.",
+    "tool.description": "सिमेंटिक खोज (semantic_search_files) को सक्षम करने के लिए निर्दिष्ट फ़ाइलों या निर्देशिकाओं (ग्लोब पैटर्न) को वेक्टर DB में अनुक्रमित करता है। यह तब उपयोगी होता है जब आप फ़ाइल सामग्री को तुरंत पढ़े बिना खोज डेटा तैयार करना चाहते हैं।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   }
 }

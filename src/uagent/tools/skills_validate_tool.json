@@ -118,5 +118,21 @@
     "param.strict.description": "Czy ostrzeżenia również należy traktować jako porażkę? (domyślnie: fałsz)",
     "tool.description": "Sprawdza katalog umiejętności (SKILL.md) zgodnie ze specyfikacją Agent Skills i zwraca błędy i ostrzeżenia.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "pt": {
+    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
+    "param.skill_dir.description": "Diretório de habilidades (SKILL.md é necessário diretamente abaixo)",
+    "param.strict.description": "Os avisos também deveriam ser tratados como uma falha? (padrão: falso)",
+    "tool.description": "Valida um diretório de habilidades (SKILL.md) de acordo com a especificação de habilidades do agente e retorna erros e avisos.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
+    "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
+    "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
+    "param.strict.description": "क्या चेतावनियों को भी विफलता माना जाना चाहिए? (डिफ़ॉल्ट: ग़लत)",
+    "tool.description": "एजेंट कौशल विनिर्देश के अनुसार एक कौशल निर्देशिका (SKILL.md) को मान्य करता है और त्रुटियाँ और चेतावनियाँ लौटाता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   }
 }

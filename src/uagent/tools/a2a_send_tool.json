@@ -33,7 +33,7 @@
     "param.message.description": "Message utilisateur à envoyer.",
     "param.return_immediately.description": "Si true, retourne juste après la création de la tâche.",
     "err.missing_message": "'message' manquant.",
-    "err.exception": "Exception"
+    "err.exception": "Exception inattendue"
   },
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다.",
@@ -122,8 +122,8 @@
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, sử dụng hồ sơ mặc định.",
     "param.message.description": "Tin nhắn người dùng cần gửi.",
     "param.return_immediately.description": "Nếu đúng, hãy quay lại ngay sau khi tạo nhiệm vụ.",
-    "err.missing_message": "Thiếu 'tin nhắn'.",
-    "err.exception": "Exception"
+    "err.missing_message": "Thiếu trường 'message'.",
+    "err.exception": "Ngoại lệ"
   },
   "pl": {
     "tool.description": "Wyślij wiadomość do profilu serwera A2A (a2a://nazwa lub nazwa profilu).",
@@ -131,7 +131,25 @@
     "param.profile.description": "Nazwa profilu lub a2a://nazwa. Jeśli zostanie pominięty, używa profilu domyślnego.",
     "param.message.description": "Wiadomość użytkownika do wysłania.",
     "param.return_immediately.description": "Jeśli to prawda, wróć zaraz po utworzeniu zadania.",
-    "err.missing_message": "Brakująca „wiadomość”.",
-    "err.exception": "Exception"
+    "err.missing_message": "Brakuje pola „message”.",
+    "err.exception": "Wyjątek"
+  },
+  "pt": {
+    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil).",
+    "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON.",
+    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
+    "param.message.description": "Mensagem do usuário a ser enviada.",
+    "param.return_immediately.description": "Se for verdade, retorne logo após a criação da tarefa.",
+    "err.missing_message": "Falta 'mensagem'.",
+    "err.exception": "Exceção"
+  },
+  "hi": {
+    "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://नाम या प्रोफ़ाइल नाम) पर एक संदेश भेजें।",
+    "tool.system_prompt": "A2A संदेश भेजें. केवल JSON लौटाएँ.",
+    "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग करता है।",
+    "param.message.description": "उपयोगकर्ता संदेश भेजने के लिए.",
+    "param.return_immediately.description": "यदि सत्य है, तो कार्य निर्माण के तुरंत बाद वापस लौटें।",
+    "err.missing_message": "'संदेश' गुम है.",
+    "err.exception": "अपवाद"
   }
 }

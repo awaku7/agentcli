@@ -178,5 +178,29 @@
     "param.query.description": "Wyszukaj ciąg zapytania.",
     "tool.description": "Przeszukaj Internet za pomocą interfejsu HTML DuckDuckGo i zwróć tytuł/link/fragment.",
     "tool.system_prompt": "To narzędzie przeprowadza wyszukiwanie w formacie DuckDuckGo w formacie HTML i zwraca tytuł/link/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość lub blokować żądanie."
+  },
+  "pt": {
+    "error.args_must_be_dict": "args deve ser um ditado",
+    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
+    "error.missing_query_parameter": "parâmetro 'consulta' ausente",
+    "error.run_tool_error": "erro run_tool: {error}",
+    "param.max_results.description": "Número máximo de resultados a serem retornados (padrão: 5).",
+    "param.n.description": "Alias ​​de 'max_results' (para compatibilidade com versões anteriores).",
+    "param.q.description": "Alias ​​de 'query' (para compatibilidade com versões anteriores).",
+    "param.query.description": "String de consulta de pesquisa.",
+    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/snippet.",
+    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML DuckDuckGo e retorna título/link/snippet. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+  },
+  "hi": {
+    "error.args_must_be_dict": "तर्क एक तानाशाही होना चाहिए",
+    "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा: {error}",
+    "error.missing_query_parameter": "'क्वेरी' पैरामीटर गुम है",
+    "error.run_tool_error": "रन_टूल त्रुटि: {error}",
+    "param.max_results.description": "लौटाए जाने वाले परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।",
+    "param.n.description": "'max_results' का उपनाम (पिछली संगतता के लिए)।",
+    "param.q.description": "'क्वेरी' का उपनाम (पिछली संगतता के लिए)।",
+    "param.query.description": "खोज क्वेरी स्ट्रिंग.",
+    "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब पर खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
+    "tool.system_prompt": "यह टूल डकडकगो HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
   }
 }

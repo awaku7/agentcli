@@ -178,5 +178,29 @@
     "param.seconds.description": "Liczba sekund licznika czasu.",
     "tool.description": "Wyświetla komunikat po określonej liczbie sekund. Opcjonalnie do LLM można wprowadzić automatyczny komunikat.",
     "tool.system_prompt": "Narzędzie to służy do wyświetlania komunikatu po określonym czasie i opcjonalnie wprowadzania automatycznego komunikatu do LLM."
+  },
+  "pt": {
+    "err.queue_uninitialized": "[erro set_timer] retorno de chamada event_queue não inicializado.",
+    "err.seconds_invalid": "[set_timer error] segundos não podem ser interpretados como um número inteiro: {raw}",
+    "err.seconds_negative": "[set_timer error] segundos devem ser 0 ou mais: {val}",
+    "msg.default_timer_done": "O cronômetro termina",
+    "out.ok": "[set_timer] Definir temporizador em {seconds} segundos: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Mensagem a ser exibida após a conclusão.",
+    "param.on_timeout_prompt.description": "Conteúdo a ser inserido automaticamente no LLM após a expiração.",
+    "param.seconds.description": "O número de segundos no cronômetro.",
+    "tool.description": "Exibe uma mensagem após um número especificado de segundos. Opcionalmente, uma mensagem automática pode ser inserida no LLM.",
+    "tool.system_prompt": "Esta ferramenta é usada para exibir uma mensagem após um tempo especificado e, opcionalmente, inserir uma mensagem automática no LLM."
+  },
+  "hi": {
+    "err.queue_uninitialized": "[सेट_टाइमर त्रुटि] इवेंट_क्यू कॉलबैक आरंभ नहीं हुआ।",
+    "err.seconds_invalid": "[सेट_टाइमर त्रुटि] सेकंड की व्याख्या पूर्णांक के रूप में नहीं की जा सकती: {raw}",
+    "err.seconds_negative": "[सेट_टाइमर त्रुटि] सेकंड 0 या अधिक होना चाहिए: {val}",
+    "msg.default_timer_done": "टाइमर समाप्त होता है",
+    "out.ok": "[सेट_टाइमर] {seconds} सेकंड में टाइमर सेट करें: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "पूरा होने पर प्रदर्शित करने के लिए संदेश.",
+    "param.on_timeout_prompt.description": "समाप्ति पर सामग्री स्वचालित रूप से एलएलएम में दर्ज की जाएगी।",
+    "param.seconds.description": "टाइमर में सेकंड की संख्या.",
+    "tool.description": "निर्दिष्ट सेकंड के बाद एक संदेश प्रदर्शित करता है। वैकल्पिक रूप से, एक स्वचालित संदेश एलएलएम में इनपुट किया जा सकता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग एक निर्दिष्ट समय के बाद एक संदेश प्रदर्शित करने और वैकल्पिक रूप से एलएलएम में एक स्वचालित संदेश इनपुट करने के लिए किया जाता है।"
   }
 }

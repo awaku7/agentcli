@@ -73,5 +73,15 @@
     "param.format.description": "Format wyjściowy.",
     "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na podstawie jego publicznego adresu IP. Wynik może być niedokładny w przypadku korzystania z VPN, serwerów proxy lub sieci komórkowych.\n\nPolityka:\n- Użyj tego narzędzia, jeśli potrzebujesz przybliżonej lokalizacji użytkownika (miasto/region/kraj), a użytkownik jej nie podał.\n- Jeśli użytkownik podał już swoją lokalizację, preferuj tę opcję i nie wywołuj get_geoip.",
     "tool.system_prompt": "Pobierz dane lokalizacyjne oparte na protokole IP z usługi zewnętrznej (ipinfo.io) i zwróć uproszczony wynik."
+  },
+  "pt": {
+    "param.format.description": "Formato de saída.",
+    "tool.description": "Estime a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPN, proxies ou redes móveis.\n\nPolítica:\n- Utilize esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e o usuário não a forneceu.\n- Se o usuário já informou sua localização, dê preferência e não ligue para get_geoip.",
+    "tool.system_prompt": "Busque dados de localização baseados em IP de um serviço externo (ipinfo.io) e retorne um resultado simplificado."
+  },
+  "hi": {
+    "param.format.description": "आउटपुट स्वरूप.",
+    "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते के आधार पर उसके अनुमानित स्थान का अनुमान लगाएं। वीपीएन, प्रॉक्सी या मोबाइल नेटवर्क का उपयोग करते समय परिणाम गलत हो सकता है।\n\nनीति:\n- इस टूल का उपयोग तब करें जब आपको उपयोगकर्ता के अनुमानित स्थान (शहर/क्षेत्र/देश) की आवश्यकता हो और उपयोगकर्ता ने इसे उपलब्ध नहीं कराया हो।\n- यदि उपयोगकर्ता ने पहले ही अपना स्थान प्रदान कर दिया है, तो उसे प्राथमिकता दें और get_geoip पर कॉल न करें।",
+    "tool.system_prompt": "बाहरी सेवा (ipinfo.io) से आईपी-आधारित स्थान डेटा प्राप्त करें और एक सरलीकृत परिणाम लौटाएं।"
   }
 }

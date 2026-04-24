@@ -178,5 +178,29 @@
     "param.years.description": "Liczba lat do dodania (odejmowanie jest liczbą ujemną).",
     "tool.description": "Dodaj lub odejmij lata, miesiące, tygodnie lub dni dla określonej daty i zwróć wynik. Obejmuje wykrywanie dni wolnych przy użyciu biblioteki dni wolnych.",
     "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie lub dni dla określonej daty, a także może określić, czy wynik przypada na święto, korzystając z biblioteki świąt. Szczegóły znajdziesz w opisie narzędzia."
+  },
+  "pt": {
+    "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca de feriados.",
+    "param.base_date.description": "Data base (formato ISO 8601 'AAAA-MM-DD'; se omitido, hoje).",
+    "param.check_holiday.description": "Se deve determinar se é feriado/feriado (padrão: verdadeiro)",
+    "param.country.description": "Código do país para determinar feriados (ISO 3166-1 alpha-2, por exemplo, 'JP', 'US', 'GB', 'FR'). O padrão é 'JP'.",
+    "param.days.description": "Número de dias a serem adicionados (a subtração é um número negativo).",
+    "param.months.description": "Número de meses a somar (a subtração é negativa).",
+    "param.weeks.description": "Número de semanas a adicionar (a subtração é negativa).",
+    "param.years.description": "Número de anos a serem somados (a subtração é um número negativo).",
+    "tool.description": "Adicione ou subtraia anos, meses, semanas ou dias para uma data especificada e retorne o resultado. Inclui detecção de feriados usando a biblioteca de feriados.",
+    "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias para uma data específica e também pode determinar se o resultado cai em um feriado usando a biblioteca de feriados. Consulte a descrição da ferramenta para obter detalhes."
+  },
+  "hi": {
+    "doc.get_holiday_info": "अवकाश लाइब्रेरी का उपयोग करके निर्दिष्ट देश के लिए छुट्टियों के नाम प्राप्त करें।",
+    "param.base_date.description": "आधार तिथि (आईएसओ 8601 प्रारूप 'YYYY-MM-DD'; यदि छोड़ा गया है, तो आज)।",
+    "param.check_holiday.description": "यह निर्धारित करना है कि यह छुट्टी/अवकाश है या नहीं (डिफ़ॉल्ट: सत्य)",
+    "param.country.description": "सार्वजनिक अवकाश निर्धारित करने के लिए देश कोड (आईएसओ 3166-1 अल्फा-2, उदाहरण के लिए 'जेपी', 'यूएस', 'जीबी', 'एफआर')। डिफ़ॉल्ट 'जेपी' है.",
+    "param.days.description": "जोड़ने के लिए दिनों की संख्या (घटाना एक ऋणात्मक संख्या है)।",
+    "param.months.description": "जोड़ने के लिए महीनों की संख्या (घटाना नकारात्मक है)।",
+    "param.weeks.description": "जोड़ने के लिए सप्ताहों की संख्या (घटाना नकारात्मक है)।",
+    "param.years.description": "जोड़ने के लिए वर्षों की संख्या (घटाना एक ऋणात्मक संख्या है)।",
+    "tool.description": "किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ें या घटाएँ और परिणाम लौटाएँ। छुट्टियों की लाइब्रेरी का उपयोग करके छुट्टियों का पता लगाना शामिल है।",
+    "tool.system_prompt": "यह उपकरण किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ता या घटाता है और यह भी निर्धारित कर सकता है कि परिणाम छुट्टियों की लाइब्रेरी का उपयोग करके छुट्टी पर आता है या नहीं। विवरण के लिए टूल विवरण देखें."
   }
 }

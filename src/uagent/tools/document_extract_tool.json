@@ -118,5 +118,21 @@
     "param.output_format.description": "Format wyjściowy: text lub json.",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanego pliku DOCX. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+  },
+  "pt": {
+    "tool.description": "Extraia texto e estrutura básica de documentos semelhantes ao Word (.docx, .rtf, .odt). Escolha output_format=text ou output_format=json. A ferramenta sempre retorna JSON.",
+    "tool.system_prompt": "Leia documentos .docx, .rtf ou .odt e retorne apenas JSON. Se output_format=text, coloque o texto extraído na resposta JSON. Se output_format=json, inclua seções e tabelas estruturadas quando disponíveis.",
+    "param.path.description": "Caminho para o documento de entrada (.docx, .rtf, .odt).",
+    "param.output_format.description": "Formato de saída: texto ou json.",
+    "param.password.description": "Senha opcional para arquivo DOCX criptografado. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
+  "hi": {
+    "tool.description": "वर्ड जैसे दस्तावेज़ों (.docx, .rtf, .odt) से टेक्स्ट और बुनियादी संरचना निकालें। आउटपुट_फॉर्मेट=टेक्स्ट या आउटपुट_फॉर्मेट=जेसन चुनें। टूल हमेशा JSON लौटाता है।",
+    "tool.system_prompt": ".docx, .rtf, या .odt दस्तावेज़ पढ़ें और केवल JSON लौटाएँ। यदि आउटपुट_फॉर्मेट=टेक्स्ट, निकाले गए टेक्स्ट को JSON प्रतिक्रिया में रखें। यदि आउटपुट_फॉर्मेट=जेसन, उपलब्ध होने पर संरचित अनुभाग और तालिकाएं शामिल करें।",
+    "param.path.description": "इनपुट दस्तावेज़ का पथ (.docx, .rtf, .odt)।",
+    "param.output_format.description": "आउटपुट स्वरूप: टेक्स्ट या json.",
+    "param.password.description": "एन्क्रिप्टेड DOCX फ़ाइल के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और फ़ाइल एन्क्रिप्ट की गई है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   }
 }

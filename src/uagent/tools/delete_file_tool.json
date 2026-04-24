@@ -163,5 +163,27 @@
     "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
     "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie.",
     "tool.system_prompt": "Usuń określoną ścieżkę dopiero po potwierdzeniu z użytkownikiem, jeśli operacja może być destrukcyjna."
+  },
+  "pt": {
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar.",
+    "param.allow_dir.description": "Se ativado, permite a exclusão de diretórios correspondentes ao glob.",
+    "param.confirmed.description": "Se ativado, ignore o prompt de confirmação interno da ferramenta.",
+    "param.dry_run.description": "Se ativado, lista apenas os caminhos correspondentes e não exclui nada.",
+    "param.filename.description": "Caminho a ser excluído ou uma lista de caminhos/padrões glob a serem excluídos.",
+    "param.missing_ok.description": "Se ativado, não cometa erros quando o caminho não existir.",
+    "param.path.description": "(Compatibilidade) Alias ​​do nome do arquivo.",
+    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação.",
+    "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação pode ser destrutiva."
+  },
+  "hi": {
+    "confirm.delete_paths_bulk": "{count} पथ हटाएं?\n\n{paths}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।",
+    "param.allow_dir.description": "यदि सक्षम है, तो ग्लोब से मेल खाने वाली निर्देशिकाओं को हटाने की अनुमति दें।",
+    "param.confirmed.description": "यदि सक्षम है, तो टूल के आंतरिक पुष्टिकरण संकेत को छोड़ दें।",
+    "param.dry_run.description": "यदि सक्षम है, तो केवल मेल खाने वाले पथों को सूचीबद्ध करें और कुछ भी न हटाएं।",
+    "param.filename.description": "हटाने के लिए पथ, या हटाने के लिए पथ/ग्लोब पैटर्न की एक सूची।",
+    "param.missing_ok.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।",
+    "param.path.description": "(संगतता) फ़ाइल नाम का उपनाम।",
+    "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ (निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं)। क्योंकि यह खतरनाक है, पुष्टि की आवश्यकता हो सकती है।",
+    "tool.system_prompt": "यदि ऑपरेशन विनाशकारी हो सकता है तो उपयोगकर्ता से पुष्टि करने के बाद ही निर्दिष्ट पथ को हटाएं।"
   }
 }

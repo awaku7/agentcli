@@ -148,5 +148,25 @@
     "param.top_n.description": "Liczba najlepszych wyników do zwrócenia.",
     "tool.description": "Wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia.",
     "tool.system_prompt": "To narzędzie wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia."
+  },
+  "pt": {
+    "param.exclude_dirs.description": "Nomes de diretório excluídos (correspondentes ao nome do diretório).",
+    "param.group_by_ext.description": "Retorne também estatísticas agrupadas por extensão de arquivo.",
+    "param.max_files.description": "Número máximo de arquivos a serem verificados (para evitar processamento descontrolado).",
+    "param.min_bytes.description": "Inclua apenas arquivos maiores que esse tamanho (padrão: 10 MB).",
+    "param.root.description": "Raiz de pesquisa (permitida apenas no diretório de trabalho).",
+    "param.top_n.description": "Número dos principais resultados a serem retornados.",
+    "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão.",
+    "tool.system_prompt": "Esta ferramenta procura arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão."
+  },
+  "hi": {
+    "param.exclude_dirs.description": "बहिष्कृत निर्देशिका नाम (निर्देशिका नाम से मिलान)।",
+    "param.group_by_ext.description": "फ़ाइल एक्सटेंशन द्वारा समूहीकृत आँकड़े भी लौटाएँ।",
+    "param.max_files.description": "स्कैन करने के लिए फ़ाइलों की अधिकतम संख्या (अनावश्यक प्रसंस्करण को रोकने के लिए)।",
+    "param.min_bytes.description": "केवल इस आकार से बड़ी फ़ाइलें शामिल करें (डिफ़ॉल्ट: 10 एमबी)।",
+    "param.root.description": "रूट खोजें (केवल वर्कडिर के अंतर्गत अनुमति है)।",
+    "param.top_n.description": "वापस आने वाले शीर्ष परिणामों की संख्या.",
+    "tool.description": "निर्दिष्ट निर्देशिका के अंतर्गत बड़ी फ़ाइलों की खोज करता है और एक्सटेंशन द्वारा आंकड़ों के साथ शीर्ष एन परिणाम लौटाता है।",
+    "tool.system_prompt": "यह उपकरण निर्दिष्ट निर्देशिका के अंतर्गत बड़ी फ़ाइलों की खोज करता है और एक्सटेंशन द्वारा आंकड़ों के साथ शीर्ष एन परिणाम लौटाता है।"
   }
 }

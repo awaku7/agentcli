@@ -88,5 +88,17 @@
     "param.cwd.description": "Katalog roboczy polecenia.",
     "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON. Używaj tylko wtedy, gdy nie jest dostępne bezpieczniejsze lub bardziej szczegółowe narzędzie (np. integracja MCP).",
     "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj go tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie. Zachowaj ostrożność w przypadku poleceń i unikaj destrukcyjnych operacji, chyba że użytkownik wyraźnie to potwierdzi."
+  },
+  "pt": {
+    "param.command.description": "Cadeia de comandos a ser executada.",
+    "param.cwd.description": "Diretório de trabalho para o comando.",
+    "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
+    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use-o somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que seja explicitamente confirmado pelo usuário."
+  },
+  "hi": {
+    "param.command.description": "निष्पादित करने के लिए कमांड स्ट्रिंग.",
+    "param.cwd.description": "आदेश के लिए कार्यशील निर्देशिका.",
+    "tool.description": "अंतिम उपाय के रूप में, शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (उदाहरण के लिए, एमसीपी एकीकरण)।",
+    "tool.system_prompt": "यह उपकरण एक अंतिम उपाय है. इसका उपयोग तभी करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो। आदेशों के साथ रूढ़िवादी रहें और विनाशकारी कार्यों से बचें जब तक कि उपयोगकर्ता द्वारा स्पष्ट रूप से पुष्टि न की जाए।"
   }
 }

@@ -178,5 +178,29 @@
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „excel_ops”.",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+  },
+  "pt": {
+    "param.action.description": "Operação a ser executada.",
+    "param.data.description": "Dados JSON a serem gravados.",
+    "param.file_path.description": "Caminho absoluto para o arquivo Excel.",
+    "param.sheet_name.description": "Nome da planilha de destino.",
+    "param.keep_sheets.description": "Nomes de planilhas a serem mantidas (usadas apenas para action='keep_only_sheets'). Se alguma folha especificada não existir, a ferramenta apresenta erros.",
+    "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha nomes de planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
+    "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
+  "hi": {
+    "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन.",
+    "param.data.description": "लिखने के लिए JSON डेटा.",
+    "param.file_path.description": "एक्सेल फ़ाइल का पूर्ण पथ।",
+    "param.sheet_name.description": "लक्ष्य पत्रक का नाम.",
+    "param.keep_sheets.description": "रखने के लिए शीट के नाम (केवल कार्रवाई = 'keep_only_शीट' के लिए उपयोग किए जाते हैं)। यदि कोई निर्दिष्ट शीट मौजूद नहीं है, तो उपकरण में त्रुटियाँ होती हैं।",
+    "param.output_path.description": "कार्रवाई के लिए आउटपुट पथ='keep_only_Sheets'. यदि यह पहले से मौजूद है, तो बैकअप बनाने के बाद इसे अधिलेखित कर दिया जाता है (<output_path>.org / <output_path>.org1 /...)।",
+    "tool.description": "एक्सेल (.xlsx) फ़ाइलें पढ़ें और लिखें और शीट नाम प्राप्त करें। किसी मौजूदा फ़ाइल पर लिखते समय, लिखने से ठीक पहले उसी नाम (<file_path>.org / <file_path>.org1 /...) का बैकअप बनाया जाता है।",
+    "tool.system_prompt": "यह टूल टूल नाम 'excel_ops' द्वारा वर्णित ऑपरेशन करता है।",
+    "param.password.description": "एन्क्रिप्टेड .xlsx फ़ाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और फ़ाइल एन्क्रिप्ट की गई है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   }
 }

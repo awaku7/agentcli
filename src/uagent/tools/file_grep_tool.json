@@ -238,5 +238,37 @@
     "param.recursive.description": "Określa, czy rekursywnie przeszukiwać podkatalogi.",
     "tool.description": "Wyszukaj wzorzec w plikach i zwróć pasujące linie z numerami linii (np. grep -n). Wzorzec jest wymagany.",
     "tool.system_prompt": "Przeszukuj zawartość plików w jednej lub wielu ścieżkach. Wzorzec jest wymagany. Filtruj pliki za pomocą glob, wyszukuj przy użyciu wyrażenia regularnego Pythona lub tekstu dosłownego, opcjonalnie dołączaj linie kontekstu, pomijaj pliki podobne do binarnych, obsługuj tryb tylko nazw plików i automatycznie wykrywaj kodowanie tekstu podczas odczytu. Zwracaj tylko JSON."
+  },
+  "pt": {
+    "err.exception": "Ocorreu uma exceção durante operações grep.",
+    "err.invalid_regex": "Padrão regex inválido.",
+    "err.missing_pattern": "Falta 'padrão'.",
+    "err.no_files_found": "Nenhum arquivo encontrado que corresponda aos critérios.",
+    "param.context_lines.description": "Número de linhas de contexto inicial e final para cada correspondência.",
+    "param.filenames_only.description": "Se habilitado, retorne apenas a lista de nomes de arquivos com correspondências.",
+    "param.ignore_case.description": "Se deve ignorar maiúsculas e minúsculas (padrão: verdadeiro).",
+    "param.max_results.description": "Número máximo de linhas de correspondência a serem retornadas (padrão: 100).",
+    "param.name_pattern.description": "Padrão glob para nomes de arquivos (por exemplo, '*.py').",
+    "param.path.description": "Diretório raiz ou caminho de arquivo específico (padrão: '.').",
+    "param.pattern.description": "Padrão Regex a ser pesquisado.",
+    "param.recursive.description": "Se deve pesquisar subdiretórios recursivamente.",
+    "tool.description": "Procure um padrão nos arquivos e retorne linhas correspondentes com números de linha (como grep -n). O padrão é obrigatório.",
+    "tool.system_prompt": "Pesquise o conteúdo do arquivo em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular Python ou texto literal, inclua opcionalmente linhas de contexto, pule arquivos do tipo binário, suporte ao modo somente nomes de arquivos e detecte automaticamente codificações de texto durante a leitura. Retorne apenas JSON."
+  },
+  "hi": {
+    "err.exception": "ग्रेप परिचालन के दौरान अपवाद उत्पन्न हुआ.",
+    "err.invalid_regex": "अमान्य रेगेक्स पैटर्न.",
+    "err.missing_pattern": "गुम 'पैटर्न'.",
+    "err.no_files_found": "मानदंडों से मेल खाती कोई फ़ाइल नहीं मिली.",
+    "param.context_lines.description": "प्रत्येक मैच के लिए अग्रणी और अनुगामी संदर्भ की पंक्तियों की संख्या।",
+    "param.filenames_only.description": "यदि सक्षम है, तो केवल मिलान वाले फ़ाइल नामों की सूची लौटाएँ।",
+    "param.ignore_case.description": "क्या मामले को अनदेखा करना है (डिफ़ॉल्ट: सत्य)।",
+    "param.max_results.description": "लौटाने के लिए मिलान पंक्तियों की अधिकतम संख्या (डिफ़ॉल्ट: 100)।",
+    "param.name_pattern.description": "फ़ाइल नामों के लिए ग्लोब पैटर्न (उदाहरण के लिए, '*.py')।",
+    "param.path.description": "रूट निर्देशिका या विशिष्ट फ़ाइल पथ (डिफ़ॉल्ट: '.')।",
+    "param.pattern.description": "खोजने के लिए रेगेक्स पैटर्न।",
+    "param.recursive.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से खोजना है।",
+    "tool.description": "फ़ाइलों में एक पैटर्न खोजें और पंक्ति संख्याओं (जैसे grep -n) के साथ मिलान वाली पंक्तियाँ लौटाएँ। पैटर्न आवश्यक है.",
+    "tool.system_prompt": "एक या अधिक पथों के अंतर्गत फ़ाइल सामग्री खोजें। पैटर्न आवश्यक है. ग्लोब द्वारा फ़ाइलों को फ़िल्टर करें, पायथन रेगुलर एक्सप्रेशन या शाब्दिक पाठ का उपयोग करके खोजें, वैकल्पिक रूप से संदर्भ पंक्तियाँ शामिल करें, बाइनरी-जैसी फ़ाइलें छोड़ें, केवल फ़ाइल नाम मोड का समर्थन करें, और पढ़ते समय टेक्स्ट एन्कोडिंग का स्वतः पता लगाएं। केवल JSON लौटाएँ."
   }
 }

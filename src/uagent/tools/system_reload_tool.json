@@ -58,5 +58,13 @@
   "pl": {
     "tool.description": "Załaduj ponownie system i zapisz w pamięci najnowszy kod wszystkich narzędzi w obszarze Tools/ (pliki Pythona .py). Uruchom to po zmodyfikowaniu kodu.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: przeładowania systemu i zapisywania w pamięci najnowszego kodu wszystkich narzędzi w obszarze Tools/ (pliki Pythona .py). Uruchom to po zmodyfikowaniu kodu."
+  },
+  "pt": {
+    "tool.description": "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: recarregar o sistema e refletir o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código."
+  },
+  "hi": {
+    "tool.description": "सिस्टम को पुनः लोड करें और टूल्स/ (पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के लिए नवीनतम कोड को मेमोरी में प्रतिबिंबित करें। कोड संशोधित करने के बाद इसे चलाएँ।",
+    "tool.system_prompt": "इस टूल का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: सिस्टम को पुनः लोड करें और टूल्स/(पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के लिए नवीनतम कोड को मेमोरी में प्रतिबिंबित करें। कोड संशोधित करने के बाद इसे चलाएँ।"
   }
 }

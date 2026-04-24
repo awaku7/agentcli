@@ -163,5 +163,27 @@
     "param.skill_dir.description": "katalog umiejętności",
     "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej. Przejście przez ścieżkę jest zablokowane.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "pt": {
+    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
+    "err.max_bytes_positive": "[erro de ferramenta] max_bytes deve ser um número inteiro positivo",
+    "err.relative_path_required": "[erro de ferramenta] caminho_relativo deve ser uma string não vazia",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
+    "param.max_bytes.description": "Número máximo de bytes a serem lidos (padrão: 5000000)",
+    "param.relative_path.description": "Caminho relativo à raiz da habilidade (por exemplo, reference/REFERENCE.md)",
+    "param.skill_dir.description": "diretório de habilidades",
+    "tool.description": "Lê com segurança um arquivo em um diretório de habilidades usando um caminho relativo. A passagem do caminho está bloqueada.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
+    "err.max_bytes_positive": "[टूल त्रुटि] max_bytes एक धनात्मक पूर्णांक होना चाहिए",
+    "err.relative_path_required": "[टूल त्रुटि] सापेक्ष_पथ एक गैर-रिक्त स्ट्रिंग होना चाहिए",
+    "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
+    "param.max_bytes.description": "पढ़ने के लिए बाइट्स की अधिकतम संख्या (डिफ़ॉल्ट: 5000000)",
+    "param.relative_path.description": "कौशल मूल से संबंधित पथ (उदा. references/REFERENCE.md)",
+    "param.skill_dir.description": "कौशल निर्देशिका",
+    "tool.description": "किसी सापेक्ष पथ का उपयोग करके कौशल निर्देशिका के अंतर्गत किसी फ़ाइल को सुरक्षित रूप से पढ़ता है। पथ परिभ्रमण अवरुद्ध है.",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   }
 }
