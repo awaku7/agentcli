@@ -307,7 +307,7 @@ def main() -> None:
         print(json.dumps(results, ensure_ascii=False, indent=2))
     except RuntimeError as e:
         logger.error("Search failed: %s", e)
-        raise SystemExit(1)
+        raise RuntimeError(f"Search failed: {e}") from e
 
 
 if __name__ == "__main__":
