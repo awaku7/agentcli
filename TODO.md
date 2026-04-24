@@ -34,5 +34,12 @@
 ### 確認したい改善点
 
 - `src/uagent/tools/system_specs_tools.py` の Windows/macOS における物理ディスクのモデル/種別取得を実装する。
-
 - `src/uagent/translate.py` の翻訳 provider に Gemini / Claude を追加するか検討する。
+
+## Playwright Inspector の改善候補
+
+- 遷移ごとに `pages/0001_...` のような番号付き HTML/PNG を保存する。
+- `index.jsonl` で URL / title / 時刻 / ファイル名 を一覧化する。
+- `final.html` とは別に `latest.html` を保存する。
+- SPA 対応のため、`framenavigated` だけでなく `load` や URL 変化監視も併用する。
+- 必要なら、途中ページだけを確実に残すモードを追加する。
