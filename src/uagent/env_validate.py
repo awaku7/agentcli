@@ -39,7 +39,7 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "env.required.provider",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
                 default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
             ),
         )
@@ -60,7 +60,7 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
     if provider not in allowed:
         warnings.append(
             _(
-                "env.warn.unknown_provider",
+                f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail).",
                 default=f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail).",
                 provider=provider,
                 allowed=", ".join(allowed),
@@ -159,45 +159,48 @@ def format_missing_env_message(
     lines: List[str] = []
     lines.append(
         _(
-            "env.fatal.header",
+            f"[FATAL] Environment validation failed ({context}).",
             default=f"[FATAL] Environment validation failed ({context}).",
             context=context,
         )
     )
     if missing:
         lines.append(
-            _("env.fatal.missing", default="Missing required environment variables:")
+            _(
+                "Missing required environment variables:",
+                default="Missing required environment variables:",
+            )
         )
         for m in missing:
             lines.append(
                 _(
-                    "env.fatal.item",
+                    f"- {m.name}: {m.reason}",
                     default=f"- {m.name}: {m.reason}",
                     name=m.name,
                     reason=m.reason,
                 )
             )
     if warnings:
-        lines.append(_("env.fatal.warnings", default="Warnings:"))
+        lines.append(_("Warnings:", default="Warnings:"))
         for w in warnings:
             lines.append(f"- {w}")
     lines.append("")
-    lines.append(_("env.fix.title", default="How to fix:"))
+    lines.append(_("How to fix:", default="How to fix:"))
     lines.append(
         _(
-            "env.fix.one",
+            "- Set the variables above in your environment before starting the program.",
             default="- Set the variables above in your environment before starting the program.",
         )
     )
     lines.append(
         _(
-            "env.fix.two",
+            "- You can set them via your OS environment settings, a .env file, your shell startup scripts,",
             default="- You can set them via your OS environment settings, a .env file, your shell startup scripts,",
         )
     )
     lines.append(
         _(
-            "env.fix.three",
+            "  or your process manager / service configuration (CI secrets, systemd, Docker, etc.).",
             default="  or your process manager / service configuration (CI secrets, systemd, Docker, etc.).",
         )
     )
