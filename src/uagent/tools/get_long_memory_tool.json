@@ -73,5 +73,15 @@
     "doc.run_tool": "Narzędzie umożliwiające odzyskanie całej pamięci długotrwałej (tekst JSONL).",
     "tool.description": "Pobierz wszystkie zapisane notatki pamięci długoterminowej (JSONL).",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: odzyskania wszystkich zapisanych notatek pamięci długotrwałej (w formacie JSONL)."
+  },
+  "pt": {
+    "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
+    "tool.description": "Obtenha todas as notas salvas da memória de longo prazo (JSONL).",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
+  },
+  "hi": {
+    "doc.run_tool": "संपूर्ण दीर्घकालिक मेमोरी (JSONL टेक्स्ट) को पुनः प्राप्त करने के लिए एक उपकरण।",
+    "tool.description": "सभी सहेजे गए दीर्घकालिक मेमोरी नोट्स (JSONL) प्राप्त करें।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्य के लिए किया जाता है: सभी सहेजे गए दीर्घकालिक मेमोरी नोट्स (JSONL प्रारूप में) पुनर्प्राप्त करें।"
   }
 }

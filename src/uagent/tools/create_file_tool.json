@@ -133,5 +133,23 @@
     "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
     "tool.description": "Utwórz plik tekstowy. Domyślnie narzędzie nie nadpisze istniejącego pliku. Jeśli określono overwrite=true i miejsce docelowe już istnieje, narzędzie tworzy kopię zapasową (<nazwa pliku>.org / <nazwa pliku>.org1 / ...) bezpośrednio przed nadpisaniem. Wskazówka: Jeśli chcesz, aby pliki CSV/TSV otwierały się poprawnie w programie Microsoft Excel przy bezpośrednim otwarciu, rozważ encoding='utf-8-sig' (UTF-8 z BOM). W celu przetwarzania maszynowego i interoperacyjności preferuj encoding='utf-8' (bez BOM). Jeśli nie jesteś pewien, zapytaj, w jaki sposób plik będzie używany (Excel a przetwarzanie programowe).",
     "tool.system_prompt": "Utwórz plik tekstowy w katalogu roboczym. Jeśli plik już istnieje, overwrite=false zgłosi błąd. Jeśli overwrite=true, przed zapisem tworzona jest kopia zapasowa. Wskazówka: w przypadku plików CSV/TSV przeznaczonych do otwarcia bezpośrednio w programie Microsoft Excel należy rozważyć encoding='utf-8-sig' (UTF-8 z BOM). W celu przetwarzania maszynowego i interoperacyjności preferuj encoding='utf-8' (bez BOM). Jeśli nie jesteś pewien, zapytaj, w jaki sposób plik będzie używany (Excel a przetwarzanie programowe)."
+  },
+  "pt": {
+    "param.content.description": "Conteúdo de texto para escrever.",
+    "param.encoding.description": "Codificação de texto (por exemplo, 'utf-8', 'cp932'). Padrão: 'utf-8-sig' para .csv/.tsv quando a codificação é omitida; caso contrário, 'utf-8'.",
+    "param.filename.description": "Caminho do arquivo a ser criado.",
+    "param.overwrite.description": "Se deve ser sobrescrito se o arquivo já existir (padrão: falso).",
+    "param.path.description": "(Compatibilidade) Alias ​​do nome do arquivo.",
+    "tool.description": "Crie um arquivo de texto. By default, the tool will not overwrite an existing file. Se overwrite=true for especificado e o destino já existir, a ferramenta criará um backup (<nome do arquivo>.org / <nome do arquivo>.org1 / ...) imediatamente antes da substituição. Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If unsure, ask how the file will be used (Excel vs. programmatic processing).",
+    "tool.system_prompt": "Crie um arquivo de texto em workdir. Se o arquivo já existir, overwrite=false gerará um erro. Se overwrite=true, um backup será criado antes da gravação. Dica: Para CSV/TSV destinados a serem abertos diretamente no Microsoft Excel, considere encoding='utf-8-sig' (UTF-8 com BOM). Para processamento e interoperabilidade da máquina, prefira encoding='utf-8' (sem BOM). Se não tiver certeza, pergunte como o arquivo será usado (Excel vs. processamento programático)."
+  },
+  "hi": {
+    "param.content.description": "लिखने के लिए पाठ्य सामग्री.",
+    "param.encoding.description": "टेक्स्ट एन्कोडिंग (जैसे, 'utf-8', 'cp932')। डिफ़ॉल्ट: एन्कोडिंग छोड़े जाने पर .csv/.tsv के लिए 'utf-8-sig'; अन्यथा 'यूटीएफ-8'।",
+    "param.filename.description": "बनाने के लिए फ़ाइल का पथ.",
+    "param.overwrite.description": "यदि फ़ाइल पहले से मौजूद है तो ओवरराइट करना है या नहीं (डिफ़ॉल्ट: गलत)।",
+    "param.path.description": "(संगतता) फ़ाइल नाम का उपनाम।",
+    "tool.description": "एक टेक्स्ट फ़ाइल बनाएं. डिफ़ॉल्ट रूप से, टूल किसी मौजूदा फ़ाइल को अधिलेखित नहीं करेगा। यदि ओवरराइट=सत्य निर्दिष्ट है और गंतव्य पहले से मौजूद है, तो टूल ओवरराइटिंग से तुरंत पहले एक बैकअप (<फ़ाइल नाम>.org / <फ़ाइल नाम>.org1 / ...) बनाता है। टिप: यदि आप चाहते हैं कि CSV/TSV फ़ाइलें Microsoft Excel में सीधे खुलने पर सही ढंग से खुलें, तो encoding='utf-8-sig' (BOM के साथ UTF-8) पर विचार करें। मशीन प्रोसेसिंग और इंटरऑपरेबिलिटी के लिए, एन्कोडिंग='utf-8' (कोई BOM नहीं) को प्राथमिकता दें। यदि निश्चित नहीं है, तो पूछें कि फ़ाइल का उपयोग कैसे किया जाएगा (एक्सेल बनाम प्रोग्रामेटिक प्रोसेसिंग)।",
+    "tool.system_prompt": "वर्कडिर के अंतर्गत एक टेक्स्ट फ़ाइल बनाएं। यदि फ़ाइल पहले से मौजूद है, तो ओवरराइट = गलत एक त्रुटि उत्पन्न करेगा। यदि अधिलेखित = सत्य है, तो लिखने से पहले एक बैकअप बनाया जाता है। युक्ति: सीधे Microsoft Excel में खोले जाने वाले CSV/TSV के लिए, encoding='utf-8-sig' (BOM के साथ UTF-8) पर विचार करें। मशीन प्रोसेसिंग और इंटरऑपरेबिलिटी के लिए, एन्कोडिंग='utf-8' (कोई BOM नहीं) को प्राथमिकता दें। यदि निश्चित नहीं है, तो पूछें कि फ़ाइल का उपयोग कैसे किया जाएगा (एक्सेल बनाम प्रोग्रामेटिक प्रोसेसिंग)।"
   }
 }

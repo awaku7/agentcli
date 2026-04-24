@@ -283,5 +283,43 @@
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „exstruct”.",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+  },
+  "pt": {
+    "param.action.description": "Operação a ser executada.",
+    "param.auto_page_breaks_dir.description": "Diretório para salvar áreas de quebra automática de página.",
+    "param.density_min.description": "Limite de densidade da tabela.",
+    "param.file_path.description": "Caminho para o arquivo Excel de entrada.",
+    "param.format.description": "Formato de saída.",
+    "param.include_cell_links.description": "Se deve incluir hiperlinks de células.",
+    "param.include_shapes.description": "Se deve incluir formas.",
+    "param.mode.description": "Modo de extração.",
+    "param.output_path.description": "Caminho de saída para export_file.",
+    "param.pretty.description": "Seja para imprimir uma saída bonita.",
+    "param.print_areas_dir.description": "Diretório para salvar arquivos por área de impressão.",
+    "param.sheets_dir.description": "Diretório para salvar arquivos por folha.",
+    "param.table_score_threshold.description": "Limite de detecção de tabela.",
+    "tool.description": "Use exstruct para extrair dados estruturados de um arquivo Excel (.xlsx) e retorná-los ou salvá-los como JSON/YAML. Se export_file.output_path já existir, um backup (<output_path>.org / <output_path>.org1 / ...) será criado imediatamente antes de salvar.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'exstruct'.",
+    "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
+  "hi": {
+    "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन.",
+    "param.auto_page_breaks_dir.description": "ऑटो पेज ब्रेक क्षेत्रों को सहेजने के लिए निर्देशिका।",
+    "param.density_min.description": "तालिका घनत्व सीमा.",
+    "param.file_path.description": "इनपुट एक्सेल फ़ाइल का पथ.",
+    "param.format.description": "आउटपुट स्वरूप.",
+    "param.include_cell_links.description": "सेल हाइपरलिंक शामिल करना है या नहीं.",
+    "param.include_shapes.description": "आकृतियों को शामिल करना है या नहीं.",
+    "param.mode.description": "निष्कर्षण मोड.",
+    "param.output_path.description": "निर्यात_फ़ाइल के लिए आउटपुट पथ।",
+    "param.pretty.description": "क्या आउटपुट को सुंदर-प्रिंट करना है।",
+    "param.print_areas_dir.description": "प्रति-प्रिंट-क्षेत्र फ़ाइलों को सहेजने के लिए निर्देशिका।",
+    "param.sheets_dir.description": "प्रति-शीट फ़ाइलों को सहेजने के लिए निर्देशिका।",
+    "param.table_score_threshold.description": "टेबल डिटेक्शन थ्रेशोल्ड.",
+    "tool.description": "Excel (.xlsx) फ़ाइल से संरचित डेटा निकालने और उसे JSON/YAML के रूप में वापस करने या सहेजने के लिए exstruct का उपयोग करें। यदि निर्यात_फ़ाइल.आउटपुट_पथ पहले से मौजूद है, तो सहेजने से तुरंत पहले एक बैकअप (<आउटपुट_पथ>.org / <आउटपुट_पथ>.org1 /...) बनाया जाता है।",
+    "tool.system_prompt": "यह टूल टूल नाम 'एक्सस्ट्रक्ट' द्वारा वर्णित ऑपरेशन करता है।",
+    "param.password.description": "एन्क्रिप्टेड .xlsx फ़ाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और फ़ाइल एन्क्रिप्ट की गई है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   }
 }

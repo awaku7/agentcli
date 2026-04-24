@@ -118,5 +118,21 @@
     "param.unmasked_chars.description": "Liczba znaków, które należy pozostawić na początku i na końcu podczas maskowania. Wartość domyślna to 2.",
     "tool.description": "Pobiera wartość określonej zmiennej środowiskowej i zwraca ją. Opcjonalnie maskuje wartość.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: uzyskania wartości określonej zmiennej środowiskowej i zwrócenia jej. Opcjonalnie zamaskuj wartość."
+  },
+  "pt": {
+    "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, informações secretas). O padrão é verdadeiro.",
+    "param.missing_ok.description": "Se for verdade, retorne '(not set)' em vez de um erro quando ausente. O padrão é falso.",
+    "param.name.description": "Nome da variável de ambiente a ser lida.",
+    "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
+    "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
+  },
+  "hi": {
+    "param.mask.description": "यदि सत्य है, तो मान छिपा देता है (जैसे गुप्त जानकारी)। डिफ़ॉल्ट सत्य है.",
+    "param.missing_ok.description": "यदि सत्य है, तो गुम होने पर त्रुटि के बजाय '(सेट नहीं)' लौटाएँ। डिफ़ॉल्ट ग़लत है.",
+    "param.name.description": "पढ़ने के लिए पर्यावरण चर का नाम.",
+    "param.unmasked_chars.description": "मास्किंग करते समय आरंभ और अंत में छोड़े जाने वाले वर्णों की संख्या। डिफ़ॉल्ट 2 है.",
+    "tool.description": "एक निर्दिष्ट पर्यावरण चर का मान प्राप्त करता है और उसे लौटाता है। वैकल्पिक रूप से मान को मास्क करें.",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: एक निर्दिष्ट पर्यावरण चर का मान प्राप्त करें और उसे वापस लौटाएँ। वैकल्पिक रूप से मान को छुपाएं."
   }
 }

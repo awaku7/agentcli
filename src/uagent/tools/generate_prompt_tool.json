@@ -163,5 +163,27 @@
     "param.template.description": "Szablon w formacie Pythona. Przykład: '{lines} linie\n\n{content}”.",
     "tool.description": "Wygeneruj ciąg podpowiedzi z pliku przy użyciu szablonu formatu Python. Szablon może odwoływać się do zmiennych takich jak {content}, {lines}, {bytes}, {basename}, {path}.",
     "tool.system_prompt": "Przeczytaj plik tekstowy w katalogu workdir i wygeneruj ciąg znaków zachęty, stosując szablon (Python str.format).\nDostępne zmienne szablonu:\n- treść: pełna zawartość pliku (tekst)\n- linie: liczba linii\n- bajty: rozmiar pliku w bajtach\n- nazwabazowa: nazwabazowa pliku\n- ścieżka: bezwzględnie ustalona ścieżka"
+  },
+  "pt": {
+    "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
+    "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
+    "err.path_missing": "[generate_prompt error] caminho/nome do arquivo não especificado",
+    "err.template_missing": "O modelo [generate_prompt error] não foi especificado",
+    "param.filename.description": "(Compatibilidade) Alias ​​do caminho.",
+    "param.path.description": "Caminho do arquivo de entrada (deve estar em workdir).",
+    "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'.",
+    "tool.description": "Gere uma string de prompt de um arquivo usando um modelo de formato Python. O modelo pode fazer referência a variáveis ​​como {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Leia um arquivo de texto em workdir e gere uma string de prompt aplicando um modelo (Python str.format).\nVariáveis de modelo disponíveis:\n- conteúdo: conteúdo completo do arquivo (texto)\n- linhas: número de linhas\n- bytes: tamanho do arquivo em bytes\n- nome base: nome base do arquivo\n- caminho: caminho absoluto resolvido"
+  },
+  "hi": {
+    "err.bad_template": "[जनरेट_प्रॉम्प्ट त्रुटि] टेम्पलेट में अज्ञात कुंजी है: {key}",
+    "err.not_a_file": "[जनरेट_प्रॉम्प्ट त्रुटि] फ़ाइल नहीं: {path}",
+    "err.path_missing": "[generate_prompt त्रुटि] पथ/फ़ाइल नाम निर्दिष्ट नहीं है",
+    "err.template_missing": "[generate_prompt error] टेम्प्लेट निर्दिष्ट नहीं है",
+    "param.filename.description": "(संगतता) पथ का उपनाम.",
+    "param.path.description": "इनपुट फ़ाइल का पथ (वर्कडिर के अंतर्गत होना चाहिए)।",
+    "param.template.description": "पायथन प्रारूप टेम्पलेट. उदाहरण: '{lines} लाइनें\n\n{content}'।",
+    "tool.description": "पायथन प्रारूप टेम्पलेट का उपयोग करके फ़ाइल से एक प्रॉम्प्ट स्ट्रिंग उत्पन्न करें। टेम्प्लेट {content}, {lines}, {bytes}, {basename}, {path} जैसे वेरिएबल्स को संदर्भित कर सकता है।",
+    "tool.system_prompt": "वर्कडिर के अंतर्गत एक टेक्स्ट फ़ाइल पढ़ें और एक टेम्प्लेट (पायथन str.format) लागू करके एक प्रॉम्प्ट स्ट्रिंग उत्पन्न करें।\nउपलब्ध टेम्पलेट चर:\n- सामग्री: पूर्ण फ़ाइल सामग्री (पाठ)\n- पंक्तियाँ: पंक्तियों की संख्या\n- बाइट्स: फ़ाइल का आकार बाइट्स में\n- बेसनाम: फ़ाइल बेसनाम\n- पथ: पूर्ण रूप से हल किया गया पथ"
   }
 }

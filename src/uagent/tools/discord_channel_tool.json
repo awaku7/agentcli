@@ -54,7 +54,7 @@
     "tool.system_prompt": "Utilice esta herramienta para hablar con un canal de Discord a través de la API REST. Se debe proporcionar un token de bot a través de una variable de entorno. Devuelve solo JSON."
   },
   "fr": {
-    "err.exception": "Exception",
+    "err.exception": "Exception inattendue",
     "err.invalid_action": "Action non valide : {action}",
     "err.message_too_long": "Le contenu du message Discord doit comporter 2000 caractères ou moins.",
     "err.missing_action": "Action manquante.",
@@ -234,7 +234,7 @@
     "tool.system_prompt": "Gunakan alat ini untuk berbicara ke channel Discord via REST API. Token bot harus disediakan melalui variabel lingkungan. Kembalikan JSON saja."
   },
   "vi": {
-    "err.exception": "Exception",
+    "err.exception": "Ngoại lệ",
     "err.invalid_action": "Hành động không hợp lệ: {action}",
     "err.message_too_long": "Nội dung tin nhắn Discord phải có 2000 ký tự trở xuống.",
     "err.missing_action": "Thiếu 'hành động'.",
@@ -252,7 +252,7 @@
     "tool.system_prompt": "Sử dụng công cụ này để giao tiếp với kênh Discord thông qua API REST. Mã thông báo bot phải được cung cấp thông qua biến môi trường. Chỉ trả về JSON."
   },
   "pl": {
-    "err.exception": "Exception",
+    "err.exception": "Wyjątek",
     "err.invalid_action": "Nieprawidłowa akcja: {action}",
     "err.message_too_long": "Treść wiadomości Discord musi mieć maksymalnie 2000 znaków.",
     "err.missing_action": "Brakuje „akcji”.",
@@ -268,5 +268,41 @@
     "param.wait_s.description": "Jak długo czekać na odpowiedzi po wysłaniu (sekundy).",
     "tool.description": "Wejdź w interakcję z określonym kanałem Discord za pomocą tokena bota: wysyłaj wiadomości, czytaj najnowsze wiadomości i opcjonalnie czekaj na odpowiedzi po wysłaniu.",
     "tool.system_prompt": "Użyj tego narzędzia, aby porozmawiać z kanałem Discord za pośrednictwem interfejsu API REST. Token bota należy podać za pomocą zmiennej środowiskowej. Zwróć tylko JSON."
+  },
+  "pt": {
+    "err.exception": "Exceção",
+    "err.invalid_action": "Ação inválida: {action}",
+    "err.message_too_long": "O conteúdo da mensagem do Discord deve ter 2.000 caracteres ou menos.",
+    "err.missing_action": "Falta 'ação'.",
+    "err.missing_channel_id": "Falta 'channel_id'.",
+    "err.missing_message": "Falta 'mensagem'.",
+    "param.action.description": "Ação: enviar/enviar_e_esperar/histórico",
+    "param.channel_id.description": "ID do canal Discord alvo.",
+    "param.exclude_bots.description": "Ao esperar, ignore as mensagens do bot.",
+    "param.limit.description": "Número de mensagens a serem buscadas para histórico/respostas.",
+    "param.message.description": "Mensagem a ser enviada para ações send/send_and_wait.",
+    "param.poll_interval_s.description": "Intervalo de pesquisa enquanto aguarda respostas (segundos).",
+    "param.token_env.description": "Nome da variável de ambiente que armazena o token do bot Discord.",
+    "param.wait_s.description": "Quanto tempo esperar pelas respostas após o envio (segundos).",
+    "tool.description": "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio.",
+    "tool.system_prompt": "Use esta ferramenta para conversar com um canal Discord via REST API. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
+  },
+  "hi": {
+    "err.exception": "अपवाद",
+    "err.invalid_action": "अमान्य कार्रवाई: {action}",
+    "err.message_too_long": "कलह संदेश की सामग्री 2000 अक्षर या उससे कम होनी चाहिए।",
+    "err.missing_action": "'कार्रवाई' गायब है.",
+    "err.missing_channel_id": "'channel_id' गुम है.",
+    "err.missing_message": "'संदेश' गुम है.",
+    "param.action.description": "क्रिया: भेजें/भेजें_और_प्रतीक्षा करें/इतिहास",
+    "param.channel_id.description": "लक्ष्य डिस्कोर्ड चैनल आईडी.",
+    "param.exclude_bots.description": "प्रतीक्षा करते समय, बॉट संदेशों को अनदेखा करें।",
+    "param.limit.description": "इतिहास/उत्तरों के लिए लाने हेतु संदेशों की संख्या।",
+    "param.message.description": "भेजें/भेजें_और_प्रतीक्षा करें कार्रवाई के लिए संदेश भेजें।",
+    "param.poll_interval_s.description": "उत्तरों की प्रतीक्षा करते समय मतदान अंतराल (सेकंड)।",
+    "param.token_env.description": "पर्यावरण चर का नाम जो डिस्कॉर्ड बॉट टोकन को संग्रहीत करता है।",
+    "param.wait_s.description": "भेजने के बाद उत्तर के लिए कितनी देर तक प्रतीक्षा करनी होगी (सेकेंड)।",
+    "tool.description": "बॉट टोकन का उपयोग करके एक विशिष्ट डिस्कोर्ड चैनल के साथ बातचीत करें: संदेश भेजें, हाल के संदेश पढ़ें, और भेजने के बाद वैकल्पिक रूप से उत्तरों की प्रतीक्षा करें।",
+    "tool.system_prompt": "REST API के माध्यम से डिस्कॉर्ड चैनल से बात करने के लिए इस टूल का उपयोग करें। एक पर्यावरण चर के माध्यम से एक बॉट टोकन प्रदान किया जाना चाहिए। केवल JSON लौटाएँ."
   }
 }

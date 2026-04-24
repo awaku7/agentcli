@@ -73,5 +73,15 @@
     "doc.run_tool": "Punkt wejścia wywoływany z narzędzi/__init__.py. Implementacja dla get_shared_memory.",
     "tool.description": "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom.\n- Zwykle zwraca tekst w formacie JSONL (jeden rekord w linii).\n- Jeśli pamięć współdzielona jest wyłączona lub brakuje pliku, zwraca komunikat opisowy.\n- Rozmiar wyjściowy jest automatycznie przycinany do wewnętrznego maksymalnego limitu bajtów.",
     "tool.system_prompt": "Narzędzie to realizuje funkcjonalność opisaną w TOOL_SPEC."
+  },
+  "pt": {
+    "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação para get_shared_memory.",
+    "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.\n- Geralmente retorna texto no formato JSONL (um registro por linha).\n- Se a memória compartilhada estiver desabilitada ou o arquivo estiver faltando, retorna uma mensagem descritiva.\n- O tamanho da saída é automaticamente reduzido para o limite máximo de bytes interno.",
+    "tool.system_prompt": "Esta ferramenta executa a funcionalidade descrita em TOOL_SPEC."
+  },
+  "hi": {
+    "doc.run_tool": "प्रवेश बिंदु को टूल्स/__init__.py से बुलाया गया। Get_shared_memory के लिए कार्यान्वयन।",
+    "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है।\n- आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।\n- यदि साझा की गई मेमोरी अक्षम है या फ़ाइल गुम है, तो एक वर्णनात्मक संदेश लौटाता है।\n- आउटपुट आकार स्वचालित रूप से आंतरिक अधिकतम बाइट सीमा तक कम हो जाता है।",
+    "tool.system_prompt": "यह टूल TOOL_SPEC में वर्णित कार्यक्षमता को निष्पादित करता है।"
   }
 }

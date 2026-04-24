@@ -58,5 +58,13 @@
   "pl": {
     "tool.description": "Zwróć bieżący czas i szczegółowe informacje o dacie/godzinie (strefa czasowa, dzień tygodnia, czas UTC). Użyj tej opcji, aby rozwiązać względne wyrażenia dotyczące dat (np. „dzisiaj”, „jutro”, „w ten weekend”, „trzeci wtorek następnego miesiąca”) poprzez określenie bieżącego dnia tygodnia i przesunięcia czasu UTC.",
     "tool.system_prompt": "To narzędzie zapewnia informacje referencyjne, dzięki którym LLM może dokładnie wykonywać obliczenia czasu.\n-Format ISO 8601 (z offsetem)\n- Dzień powszedni (angielski)\n- Czas UTC\n- Składniki numeryczne (rok, miesiąc, dzień, godzina, minuta, sekunda)\nUżyj ich, aby przekonwertować niejednoznaczne żądania użytkowników (np. „w następny poniedziałek”) na konkretną datę/godzinę."
+  },
+  "pt": {
+    "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC). Use isto para resolver expressões de data relativa (por exemplo, 'hoje', 'amanhã', 'este fim de semana', 'a terceira terça-feira do próximo mês') determinando o dia da semana atual e o deslocamento UTC.",
+    "tool.system_prompt": "Esta ferramenta fornece informações de referência para que o LLM possa realizar cálculos de tempo com precisão.\n- Formato ISO 8601 (com deslocamento)\n- Dia da semana (Inglês)\n- hora UTC\n- Componentes numéricos (ano, mês, dia, hora, minuto, segundo)\nUse-os para converter solicitações ambíguas do usuário (por exemplo, 'próxima segunda-feira') em uma data/hora concreta."
+  },
+  "hi": {
+    "tool.description": "वर्तमान समय और विस्तृत दिनांक/समय जानकारी (समयक्षेत्र, कार्यदिवस, यूटीसी समय) लौटाएँ। वर्तमान कार्यदिवस और यूटीसी ऑफसेट का निर्धारण करके सापेक्ष दिनांक अभिव्यक्तियों (उदाहरण के लिए, 'आज', 'कल', 'इस सप्ताहांत', 'अगले महीने का तीसरा मंगलवार') को हल करने के लिए इसका उपयोग करें।",
+    "tool.system_prompt": "यह उपकरण संदर्भ जानकारी प्रदान करता है ताकि एलएलएम समय की गणना सटीक रूप से कर सके।\n- आईएसओ 8601 प्रारूप (ऑफसेट के साथ)\n- कार्यदिवस (अंग्रेजी)\n- यूटीसी समय\n- संख्यात्मक घटक (वर्ष, माह, दिन, घंटा, मिनट, सेकंड)\nअस्पष्ट उपयोगकर्ता अनुरोधों (उदाहरण के लिए, 'अगले सोमवार') को एक ठोस तारीख/समय में बदलने के लिए इनका उपयोग करें।"
   }
 }

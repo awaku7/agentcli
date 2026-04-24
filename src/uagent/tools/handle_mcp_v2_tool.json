@@ -133,5 +133,23 @@
     "param.url.description": "Adres URL punktu końcowego serwera MCP (http://... lub stdio://command...).",
     "tool.description": "Wywołaj narzędzie z serwera MCP. Podaj argumenty narzędzi w narzędziu_argumenty jako obiekt JSON (zalecane) lub ciąg JSON. Wartość zwracana to ciąg JSON zawierający co najmniej ok i tekst. Jeśli ma to zastosowanie, dołączona jest zapisana_ścieżka (na przykład, gdy serwer zwraca zapisaną_ścieżkę lub gdy zwracany jest ładunek pliku, taki jak {filename, mime, data_base64}, a klient zapisuje go w lokalnym katalogu pobierania). Uwaga: zapisaną_ścieżkę można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku.",
     "tool.system_prompt": "Używaj tego narzędzia zgodnie z celem opisanym powyżej (patrz opis narzędzia)."
+  },
+  "pt": {
+    "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
+    "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, terá prioridade sobre o URL.",
+    "param.tool_arguments.description": "Argumentos a serem passados ​​para a ferramenta MCP. Forneça um objeto JSON (recomendado) ou uma string JSON. Objeto de exemplo: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. O valor de retorno é uma string JSON. Quando aplicável, inclui caminho_salvo. Nota: save_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo. Se a ferramenta retornar uma carga de arquivo (por exemplo, {filename, mime, data_base64}), esse cliente poderá salvá-lo em um diretório de downloads local e incluir save_path no JSON retornado.",
+    "param.tool_name.description": "O nome da ferramenta a ser executada.",
+    "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
+    "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça argumentos de ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e texto. Quando aplicável, save_path é incluído (por exemplo, quando o servidor retorna save_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório de downloads local). Nota: save_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
+    "tool.system_prompt": "Utilize esta ferramenta de acordo com a finalidade descrita acima (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "doc.mask_values": "शब्दकोशों और सूचियों में मानों को '*' (संरचना को संरक्षित करते हुए) से बदलें।",
+    "param.server_name.description": "सर्वर नाम mcp_servers.json में परिभाषित किया गया है। यदि निर्दिष्ट किया गया है, तो यह यूआरएल पर प्राथमिकता लेता है।",
+    "param.tool_arguments.description": "एमसीपी टूल को पास करने के लिए तर्क। या तो एक JSON ऑब्जेक्ट (अनुशंसित) या एक JSON स्ट्रिंग प्रदान करें। उदाहरण वस्तु: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}। वापसी मान एक JSON स्ट्रिंग है। लागू होने पर, इसमें save_path शामिल होता है। ध्यान दें: जब टूल कोई फ़ाइल पेलोड नहीं लौटाता है तो save_path को छोड़ा जा सकता है। यदि टूल एक फ़ाइल पेलोड लौटाता है (उदाहरण के लिए, {फ़ाइल नाम, माइम, डेटा_बेस64}), तो यह क्लाइंट इसे स्थानीय डाउनलोड निर्देशिका में सहेज सकता है और लौटाए गए JSON में save_path शामिल कर सकता है।",
+    "param.tool_name.description": "निष्पादित करने के लिए उपकरण का नाम.",
+    "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल (http://... या stdio://command...)।",
+    "tool.description": "MCP सर्वर से एक टूल को कॉल करें। JSON ऑब्जेक्ट (अनुशंसित) या JSON स्ट्रिंग के रूप में टूल_आर्ग्युमेंट्स में टूल तर्क प्रदान करें। रिटर्न वैल्यू एक JSON स्ट्रिंग है जिसमें कम से कम ओके और टेक्स्ट होता है। लागू होने पर, save_path शामिल किया जाता है (उदाहरण के लिए, जब सर्वर save_path लौटाता है, या जब फ़ाइल पेलोड जैसे कि {filename, mime, data_base64} लौटाया जाता है और यह क्लाइंट इसे स्थानीय डाउनलोड निर्देशिका में सहेजता है)। ध्यान दें: जब टूल कोई फ़ाइल पेलोड नहीं लौटाता है तो save_path को छोड़ा जा सकता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग ऊपर वर्णित उद्देश्य के अनुसार करें (उपकरण विवरण देखें)।"
   }
 }

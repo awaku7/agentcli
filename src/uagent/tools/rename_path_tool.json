@@ -133,5 +133,23 @@
     "param.src.description": "Oryginalna ścieżka (plik/katalog). Zalecana ścieżka względna.",
     "tool.description": "Zmień nazwę (przenieś) pliku lub katalogu.",
     "tool.system_prompt": "To narzędzie zmienia nazwę lub przenosi plik lub katalog.\n\nWskazówki dotyczące bezpieczeństwa:\n- Potwierdzenie jest wymagane w przypadku ścieżek bezwzględnych, ścieżek zawierających „..” lub operacji poza katalogiem roboczym.\n- overwrite=true wymaga potwierdzenia, ponieważ najpierw usuwa miejsce docelowe."
+  },
+  "pt": {
+    "doc.module": "ferramentas/renomear_path_tool.py\n\nferramenta renomear_path\n\nObjetivo:\n- Renomear/mover arquivos/diretórios.\n\nPolítica de segurança:\n- Confirme com o usuário se condições de caminho perigosas são atendidas, como caminhos fora do diretório de trabalho, caminhos absolutos ou caminhos contendo ..\n- Confirme com o usuário se overwrite=True (exclua e substitua o dst existente).\n\nImplementação:\n- As operações reais são delegadas a tools.safe_file_ops.safe_rename_path().\n- Para remover um dst existente, os arquivos são removidos com os.remove e os diretórios com shutil.rmtree.\n\nAtenção:\n- Esta ferramenta altera arquivos reais assim como create_file/delete_file, por isso foi projetada para exigir confirmação de segurança mesmo quando chamada de um LLM.",
+    "param.dst.description": "Caminho de destino (arquivo/diretório). Caminho relativo recomendado.",
+    "param.mkdirs.description": "Se for verdade, crie o diretório pai para dst antes de executar.",
+    "param.overwrite.description": "Se for verdade, exclua e substitua dst se já existir (será solicitada confirmação).",
+    "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
+    "tool.description": "Renomeie (mova) um arquivo ou diretório.",
+    "tool.system_prompt": "Esta ferramenta renomeia ou move um arquivo ou diretório.\n\nNotas de segurança:\n- A confirmação é necessária para caminhos absolutos, caminhos contendo '..' ou operações fora do diretório de trabalho.\n- overwrite=true requer confirmação porque exclui o destino primeiro."
+  },
+  "hi": {
+    "doc.module": "टूल्स/rename_path_tool.py\n\nनाम बदलें_पथ उपकरण\n\nउद्देश्य:\n- फ़ाइलों/निर्देशिकाओं का नाम बदलें/स्थानांतरित करें।\n\nसुरक्षा नीति:\n- यदि खतरनाक पथ स्थितियाँ पूरी होती हैं, जैसे वर्कडिर के बाहर के पथ, निरपेक्ष पथ, या .. वाले पथ, तो उपयोगकर्ता से पुष्टि करें।\n- यदि ओवरराइट=सही है तो उपयोगकर्ता से पुष्टि करें (मौजूदा डीएसटी हटाएं और बदलें)।\n\nकार्यान्वयन:\n- वास्तविक संचालन को Tools.safe_file_ops.safe_rename_path() को सौंपा गया है।\n- मौजूदा डीएसटी को हटाने के लिए, फ़ाइलों को os.remove से और निर्देशिकाओं कोshutil.rmtree से हटा दिया जाता है।\n\nध्यान दें:\n- यह टूल create_file/delete_file की तरह ही वास्तविक फ़ाइलों को बदलता है, इसलिए इसे LLM से कॉल करने पर भी सुरक्षा पुष्टि की आवश्यकता के लिए डिज़ाइन किया गया है।",
+    "param.dst.description": "गंतव्य पथ (फ़ाइल/निर्देशिका)। सापेक्ष पथ अनुशंसित.",
+    "param.mkdirs.description": "यदि सत्य है, तो निष्पादित करने से पहले डीएसटी के लिए मूल निर्देशिका बनाएं।",
+    "param.overwrite.description": "यदि सत्य है, तो डीएसटी हटाएं और बदलें यदि यह पहले से मौजूद है (आपसे पुष्टि के लिए कहा जाएगा)।",
+    "param.src.description": "मूल पथ (फ़ाइल/निर्देशिका)। सापेक्ष पथ अनुशंसित.",
+    "tool.description": "किसी फ़ाइल या निर्देशिका का नाम बदलें (स्थानांतरित करें)।",
+    "tool.system_prompt": "यह टूल किसी फ़ाइल या निर्देशिका का नाम बदलता है या उसे स्थानांतरित करता है।\n\nसुरक्षा नोट:\n- निरपेक्ष पथों, '..' वाले पथों या वर्कडिर के बाहर के संचालन के लिए पुष्टिकरण आवश्यक है।\n- अधिलेखित = सत्य को पुष्टि की आवश्यकता है क्योंकि यह पहले गंतव्य को हटा देता है।"
   }
 }

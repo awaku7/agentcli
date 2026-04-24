@@ -103,5 +103,19 @@
     "param.pid.description": "Dołącz identyfikatory procesów.",
     "tool.description": "Wyliczaj tytuły okien najwyższego poziomu w systemie Windows i zwracaj strukturalny kod JSON. Parametry: 'all' (w tym niewidoczne), 'pid' (w tym PID), 'class' (w tym nazwa klasy okna).",
     "tool.system_prompt": "To narzędzie wylicza tytuły okien najwyższego poziomu w systemie Windows i zwraca ustrukturyzowany kod JSON. Działa tylko w systemie Windows."
+  },
+  "pt": {
+    "param.all.description": "Inclui janelas não visíveis.",
+    "param.class.description": "Inclui nomes de classes de janelas.",
+    "param.pid.description": "Inclui IDs de processo.",
+    "tool.description": "Enumere títulos de janelas de nível superior no Windows e retorne JSON estruturado. Parâmetros: 'all' (inclui não visível), 'pid' (inclui PID), 'class' (inclui o nome da classe da janela).",
+    "tool.system_prompt": "Esta ferramenta enumera títulos de janelas de nível superior no Windows e retorna JSON estruturado. É apenas para Windows."
+  },
+  "hi": {
+    "param.all.description": "गैर-दृश्यमान खिड़कियाँ शामिल करें.",
+    "param.class.description": "विंडो क्लास नाम शामिल करें.",
+    "param.pid.description": "प्रक्रिया आईडी शामिल करें.",
+    "tool.description": "विंडोज़ पर शीर्ष-स्तरीय विंडो शीर्षकों की गणना करें और संरचित JSON लौटाएँ। पैरामीटर्स: 'सभी' (गैर-दृश्यमान शामिल करें), 'पिड' (पीआईडी ​​शामिल करें), 'क्लास' (विंडो क्लास नाम शामिल करें)।",
+    "tool.system_prompt": "यह टूल विंडोज़ पर शीर्ष-स्तरीय विंडो शीर्षकों की गणना करता है और संरचित JSON लौटाता है। यह केवल विंडोज़ है।"
   }
 }

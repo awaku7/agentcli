@@ -133,5 +133,23 @@
     "tool.system_prompt": "WAŻNE: To narzędzie odczytuje pliki PDF/PPTX/JSON i zwraca tekst na poziomie strony. Dane wejściowe: ścieżka, indeks_strony, max_chars. Dane wyjściowe: tekst strony (wszystkie strony lub określona strona).",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików PDF/PPTX. Jeśli zostanie pominięte, a dane wejściowe są zaszyfrowane, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+  },
+  "pt": {
+    "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
+    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX). Se omitido, retorna texto concatenado para todas as páginas.",
+    "param.path.description": "Caminho para um arquivo PDF/PPTX/JSON.",
+    "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página. Você pode definir o caminho para .pdf/.pptx/.json. Para PDF/PPTX, este módulo o converte no esquema JSON comum.",
+    "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
+    "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitido e a entrada for criptografada, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
+  "hi": {
+    "param.max_chars.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
+    "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए संक्षिप्त पाठ लौटाता है।",
+    "param.path.description": "पीडीएफ/पीपीटीएक्स/जेएसओएन फ़ाइल का पथ।",
+    "tool.description": "पीडीएफ/पीपीटीएक्स (या उनकी सामान्य JSON स्कीमा) पढ़ें और निकाले गए टेक्स्ट को पेज के अनुसार लौटाएं। आप .pdf / .pptx / .json पर पथ सेट कर सकते हैं। पीडीएफ/पीपीटीएक्स के लिए, यह मॉड्यूल इसे सामान्य JSON स्कीमा में परिवर्तित करता है।",
+    "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पेज-स्तरीय टेक्स्ट लौटाता है। इनपुट: पथ, पेज_इंडेक्स, अधिकतम_चार। आउटपुट: पेज टेक्स्ट (सभी पेज या निर्दिष्ट पेज)।",
+    "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटीएक्स फाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और इनपुट एन्क्रिप्ट किया गया है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   }
 }

@@ -9,15 +9,10 @@
     "tool.description": "最終手段として Windows コマンドを実行します。Python 実行や MCP など、他に適切なツールがない場合にのみ使用してください。",
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。"
   },
-  "zh_CN": {
-    "param.command.description": "要执行的命令字符串。",
-    "tool.description": "作为最后手段，执行 Windows 命令。仅当没有其他合适的工具（如 Python 或 MCP）可用时才使用。",
-    "tool.system_prompt": "该工具是最后手段。仅当没有其他合适的工具可用时才使用。"
-  },
-  "zh_TW": {
-    "param.command.description": "要執行的命令字串。",
-    "tool.description": "作為最後手段，執行 Windows 指令。僅當沒有其他合適的工具（如 Python 或 MCP）可用時才使用。",
-    "tool.system_prompt": "此工具是最後手段。僅當沒有其他合適的工具可用時才使用。"
+  "de": {
+    "param.command.description": "Befehlszeichenfolge zum Ausführen.",
+    "tool.description": "Führt einen Windows-Befehl als letzte Option aus. Nur verwenden, wenn kein anderes geeignetes Tool, etwa Python oder MCP, verfügbar ist.",
+    "tool.system_prompt": "Dieses Tool ist die LETZTE OPTION. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist."
   },
   "es": {
     "param.command.description": "Cadena de comando a ejecutar.",
@@ -54,19 +49,39 @@
     "tool.description": "ใช้คำสั่ง Windows เป็นทางเลือกสุดท้ายเท่านั้น เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น Python หรือ MCP",
     "tool.system_prompt": "เครื่องมือนี้คือทางเลือกสุดท้าย ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น"
   },
-  "id": {
-    "param.command.description": "String perintah yang akan dijalankan.",
-    "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows. Gunakan hanya jika tidak ada alat lain yang lebih sesuai, seperti Python atau MCP, yang tersedia.",
-    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai."
-  },
   "vi": {
     "param.command.description": "Chuỗi lệnh để thực thi.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh Windows. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác, chẳng hạn như Python hoặc MCP.",
     "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nếu không có sẵn công cụ thích hợp nào khác."
   },
+  "zh_CN": {
+    "param.command.description": "要执行的命令字符串。",
+    "tool.description": "作为最后手段，执行 Windows 命令。仅当没有其他合适的工具（如 Python 或 MCP）可用时才使用。",
+    "tool.system_prompt": "该工具是最后手段。仅当没有其他合适的工具可用时才使用。"
+  },
+  "zh_TW": {
+    "param.command.description": "要執行的命令字串。",
+    "tool.description": "作為最後手段，執行 Windows 指令。僅當沒有其他合適的工具（如 Python 或 MCP）可用時才使用。",
+    "tool.system_prompt": "此工具是最後手段。僅當沒有其他合適的工具可用時才使用。"
+  },
+  "id": {
+    "param.command.description": "String perintah yang akan dijalankan.",
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows. Gunakan hanya jika tidak ada alat lain yang lebih sesuai, seperti Python atau MCP, yang tersedia.",
+    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai."
+  },
   "pl": {
     "param.command.description": "Ciąg poleceń do wykonania.",
     "tool.description": "W ostateczności wykonaj polecenie systemu Windows. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie, takie jak Python lub MCP.",
     "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie."
+  },
+  "pt": {
+    "param.command.description": "Cadeia de comandos a ser executada.",
+    "tool.description": "Como último recurso, execute um comando do Windows. Use somente quando nenhuma outra ferramenta apropriada, como Python ou MCP, estiver disponível.",
+    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use somente se nenhuma outra ferramenta apropriada estiver disponível."
+  },
+  "hi": {
+    "param.command.description": "निष्पादित करने के लिए कमांड स्ट्रिंग.",
+    "tool.description": "अंतिम उपाय के रूप में, Windows कमांड निष्पादित करें। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण, जैसे कि पायथन या एमसीपी, उपलब्ध न हो।",
+    "tool.system_prompt": "यह उपकरण एक अंतिम उपाय है. यदि कोई अन्य उपयुक्त उपकरण उपलब्ध न हो तो ही उपयोग करें।"
   }
 }

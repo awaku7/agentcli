@@ -103,5 +103,19 @@
     "param.new_dir.description": "Nowa ścieżka katalogu, do którego należy się przełączyć.",
     "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „change_workdir”."
+  },
+  "pt": {
+    "confirm.change_workdir": "Altere o diretório de trabalho atual para: {new_dir}\n\nContinuar? Digite y para continuar, c para cancelar.",
+    "param.confirm.description": "Se deve ser solicitada a confirmação do usuário.",
+    "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
+    "tool.description": "Altere o diretório de trabalho atual após a confirmação do usuário.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'change_workdir'."
+  },
+  "hi": {
+    "confirm.change_workdir": "वर्तमान कार्यशील निर्देशिका को इसमें बदलें: {new_dir}\n\nआगे बढ़ें? जारी रखने के लिए y दर्ज करें, रद्द करने के लिए c दर्ज करें।",
+    "param.confirm.description": "उपयोगकर्ता पुष्टिकरण के लिए पूछना है या नहीं.",
+    "param.new_dir.description": "स्विच करने के लिए नई निर्देशिका पथ.",
+    "tool.description": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलें।",
+    "tool.system_prompt": "यह टूल टूल नाम 'change_workdir' द्वारा वर्णित ऑपरेशन करता है।"
   }
 }
