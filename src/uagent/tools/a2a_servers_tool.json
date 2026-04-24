@@ -355,5 +355,26 @@
     "param.token.description": "वाहक टोकन (सादा पाठ)। इसे स्टोर करने से पहले एन्क्रिप्ट किया जाएगा.",
     "tool.description": "यूएजेंट स्टेट डीआईआर (~/.uag/a2a/a2a_servers.json) के तहत A2A सर्वर प्रोफाइल प्रबंधित करें।",
     "tool.system_prompt": "A2A सर्वर प्रोफ़ाइल सूची पर कार्य करें। केवल JSON लौटाएँ."
+  },
+  "ar": {
+    "err.config_not_found": "لم يتم العثور على الإعدادات. شغّل action=init أولًا.",
+    "err.empty_name": "الاسم فارغ.",
+    "err.exception": "استثناء",
+    "err.missing_name": "القيمة 'name' مفقودة.",
+    "err.missing_name_or_base_url": "القيمة 'name' أو 'base_url' مفقودة.",
+    "err.no_default_profile": "لا يوجد ملف شخصي افتراضي.",
+    "err.not_found": "غير موجود.",
+    "err.server_missing_base_url": "ملف الخادم الشخصي يفتقد base_url.",
+    "err.unknown_action": "إجراء غير معروف.",
+    "param.action.description": "الإجراء: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "عنوان URL الأساسي للخادم (مثال: http://127.0.0.1:8765).",
+    "param.force.description": "(init) استبدل الإعدادات الموجودة.",
+    "param.interval_ms.description": "فترة الاستعلام بالمللي ثانية.",
+    "param.name.description": "اسم الملف الشخصي (أو a2a://name في حالتي get/resolve).",
+    "param.set_default.description": "(add) اجعله الملف الشخصي الافتراضي.",
+    "param.timeout_s.description": "مهلة الملف الشخصي بالثواني.",
+    "param.token.description": "رمز Bearer (نص صريح). سيتم تشفيره قبل الحفظ.",
+    "tool.description": "إدارة ملفات الخادم الشخصية A2A ضمن دليل حالة uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "تصرّف في قائمة ملفات خادم A2A الشخصية. أعد JSON فقط."
   }
 }

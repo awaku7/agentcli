@@ -686,15 +686,30 @@ async def get_root():
 async def get_room(request: Request, room_id: str):
     # ensure room exists
     web_manager.get_room(room_id)
-    # Single unified template; client-side handles i18n via ?lang=ja|en (or browser language fallback)
-    return templates.TemplateResponse("index.html", {"request": request})
+    # Single unified template; client-side handles i18n via ?lang=ja|en|ar (or browser language fallback)
+    page_lang = "en"
+    try:
+        q_lang = (request.query_params.get("lang") or "").strip().lower()
+        accept_lang = (request.headers.get("accept-language") or "").strip().lower()
+        raw_lang = q_lang or accept_lang
+        if raw_lang.startswith("ar"):
+            page_lang = "ar"
+        elif raw_lang.startswith("ja"):
+            page_lang = "ja"
+    except Exception:
+        pass
+    page_dir = "rtl" if page_lang == "ar" else "ltr"
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "page_lang": page_lang, "page_dir": page_dir},
+    )
 
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     room_id = websocket.query_params.get("room")
     ws_lang = (websocket.query_params.get("lang") or "").lower().strip()
-    if ws_lang not in ("ja", "en"):
+    if ws_lang not in ("ja", "en", "ar"):
         ws_lang = "en"
     if not room_id:
         # require explicit room for safety

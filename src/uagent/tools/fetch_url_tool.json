@@ -185,5 +185,16 @@
     "param.max_bytes.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
     "param.max_chars.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
     "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान."
+  },
+  "ar": {
+    "param.url.description": "عنوان URL للوصول.",
+    "tool.description": "يمكنك الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب وفحص HTML أو JSON.",
+    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"fetch_url\".",
+    "param.extract.description": "وضع الاستخراج. head=return بداية الاستجابة; النص = استخراج النص من HTML؛ html=استخراج جزء HTML؛ json=parse JSON (يمكنك تطبيق json_pointer اختياريًا).",
+    "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج العنصر المطابق الأول لـ extract=text/html.",
+    "param.json_pointer.description": "يُستخدم مؤشر RFC 6901 JSON الاختياري (على سبيل المثال، /items/0/title) عند extract=json.",
+    "param.max_bytes.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
+    "param.max_chars.description": "الحد الأقصى لعدد الأحرف المطلوب إرجاعها (يتم تطبيقه بعد فك التشفير/الاستخراج).",
+    "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية."
   }
 }

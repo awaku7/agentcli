@@ -100,5 +100,11 @@
     "param.sql.description": "निष्पादित करने के लिए SQL.",
     "tool.description": "SQLite डेटाबेस के विरुद्ध SQL क्वेरी निष्पादित करें और परिणाम लौटाएँ। केवल रीड-ओनली ऑपरेशंस (SELECT) और स्कीमा इंस्पेक्शन (PRAGMA) समर्थित हैं।",
     "tool.system_prompt": "यह टूल टूल नाम 'db_query' द्वारा वर्णित ऑपरेशन करता है।"
+  },
+  "ar": {
+    "param.db_path.description": "المسار إلى ملف قاعدة بيانات SQLite.",
+    "param.sql.description": "SQL للتنفيذ.",
+    "tool.description": "قم بتنفيذ استعلام SQL على قاعدة بيانات SQLite وإرجاع النتيجة. يتم دعم عمليات القراءة فقط (SELECT) وفحص المخطط (PRAGMA) فقط.",
+    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"db_query\"."
   }
 }

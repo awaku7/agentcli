@@ -236,5 +236,19 @@
     "param.timeout_s.description": "सेकंड में टाइमआउट का अनुरोध करें.",
     "err.missing_message": "'संदेश' गुम है.",
     "err.exception": "अपवाद"
+  },
+  "ar": {
+    "tool.description": "انشر رسالة أو حمولة JSON مدعومة بخطاف الويب إلى عنوان URL الوارد لـ Webhook الخاص بـ Microsoft Teams والمخزن في متغير بيئة.",
+    "tool.system_prompt": "نشر حمولة إلى Microsoft Teams Incoming Webhook. إرجاع JSON فقط.",
+    "param.message.description": "رسالة نصية للنشر إلى Teams. يُستخدم كنص عادي ما لم يتم توفير حقول البطاقة.",
+    "param.title.description": "عنوان البطاقة للحمولات التي تدعم خطاف الويب.",
+    "param.summary.description": "ملخص البطاقة للحمولات التي تدعم webhook.",
+    "param.image_url.description": "عنوان URL للصورة للحمولات التي تدعم خطاف الويب.",
+    "param.theme_color.description": "لون سمة البطاقة كسلسلة سداسية عشرية بدون #.",
+    "param.payload_json.description": "حمولة خطاف الويب الأولية كسلسلة أو كائن JSON. إذا تم توفيره، فسيتم إرساله كما هو.",
+    "param.webhook_env.description": "اسم متغير البيئة الذي يخزن عنوان URL للخطاف على الويب الخاص بـ Teams.",
+    "param.timeout_s.description": "طلب المهلة في ثوان.",
+    "err.missing_message": "\"رسالة\" مفقودة.",
+    "err.exception": "استثناء"
   }
 }

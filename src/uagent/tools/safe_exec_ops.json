@@ -178,5 +178,17 @@
     "ui.confirm.footer": "=== /potwierdź ===",
     "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
     "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
+  },
+  "ar": {
+    "confirm.risky_command": "تم اكتشاف محتوى أمر يحتمل أن يكون خطيرًا.\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
+    "confirm.shell_metachar": "تم اكتشاف مشغلي الصدفة (الأنابيب/إعادة التوجيه/التسلسل).\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
+    "err.blocked_cancelled": "تم إلغاء المستخدم",
+    "err.blocked_rejected": "تم رفض المستخدم",
+    "err.callbacks_unavailable": "عمليات الاسترجاعات human_ask غير متوفرة",
+    "err.confirm_failed": "فشل التأكيد",
+    "err.confirm_timeout": "مهلة التأكيد",
+    "ui.confirm.footer": "=== / تأكيد ===",
+    "ui.confirm.howto": "كيفية الرد: ص = متابعة / ج = إلغاء / أخرى = رفض",
+    "ui.confirm.title": "=== طلب التأكيد البشري ==="
   }
 }

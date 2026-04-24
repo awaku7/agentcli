@@ -151,5 +151,14 @@
     "param.return_immediately.description": "यदि सत्य है, तो कार्य निर्माण के तुरंत बाद वापस लौटें।",
     "err.missing_message": "'संदेश' गुम है.",
     "err.exception": "अपवाद"
+  },
+  "ar": {
+    "tool.description": "أرسل رسالة إلى ملف خادم A2A شخصي (a2a://name أو اسم الملف الشخصي).",
+    "tool.system_prompt": "أرسل رسالة A2A. أعد JSON فقط.",
+    "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
+    "param.message.description": "رسالة المستخدم المراد إرسالها.",
+    "param.return_immediately.description": "إذا كانت true، فارجع مباشرة بعد إنشاء المهمة.",
+    "err.missing_message": "القيمة 'message' مفقودة.",
+    "err.exception": "استثناء"
   }
 }

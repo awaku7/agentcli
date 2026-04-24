@@ -338,5 +338,25 @@
     "param.size.description": "छवि का आकार. उदाहरण: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "टेक्स्ट प्रॉम्प्ट से एक छवि उत्पन्न करता है, इसे पीएनजी के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। पीढ़ी के बाद छवि स्वचालित रूप से खुलती है (UAGENT_IMAGE_OPEN=0 के साथ अक्षम किया जा सकता है)।",
     "tool.system_prompt": "मैं आपको यह बताना चाहता हूं कि यह कैसे काम करता है।"
+  },
+  "ar": {
+    "err.depname_missing": "[generate_image] لم يتم تعيين نموذج الصورة (اسم النشر).\nالرجاء ضبط متغير البيئة UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "err.empty_data": "كانت بيانات الصورة فارغة (resp.data فارغة أو b64_json/url مفقود)",
+    "err.gemini_fail": "لم أتمكن من الحصول على نتائج توليد الصور مع الجوزاء. لا يدعم النموذج إنشاء الصور، أو أن تنسيق إرجاع SDK غير متوقع.",
+    "err.gemini_import": "فشل استيراد google-genai (pip install google-genai): {err}",
+    "err.gen_fail": "[generate_image] فشل إنشاء الصورة.\nالموفر={المزود} النموذج={النموذج} الحجم={الحجم} ن={ن}\n{يخطئ}",
+    "err.httpx_init": "فشل في تهيئة httpx: {err}",
+    "err.mkdir_fail": "[إنشاء_صورة] فشل إنشاء مخرج_دير: {يخطئ}",
+    "err.no_saved": "[generate_image] بيانات الصورة كانت فارغة",
+    "err.openai_import": "فشل استيراد حزمة openai: {err}",
+    "err.prompt_empty": "المطالبة [generate_image] فارغة",
+    "err.unsupported_provider": "[generate_image] الموفر غير المدعوم={provider!r}",
+    "param.file_prefix.description": "بادئة لاسم الملف المحفوظ (اختياري)",
+    "param.n.description": "عدد الصور المراد إنشاؤها (يوصى حاليًا بصور واحدة)",
+    "param.output_dir.description": "دليل الوجهة (نسبي/مطلق). إذا تم حذفه، فإن المخرجات/image_ Generations",
+    "param.prompt.description": "تعليمات (موجهة) للصورة التي تريد إنشاءها",
+    "param.size.description": "حجم الصورة. مثال: 1024x1024 / 1024x1536 / 1536x1024",
+    "tool.description": "ينشئ صورة من موجه نصي، ويحفظها بصيغة PNG، ويعيد مسار الملف. يفتح الصورة تلقائيًا بعد الإنشاء (يمكن تعطيلها باستخدام UAGENT_IMAGE_OPEN=0).",
+    "tool.system_prompt": "(このツルルは次の目的で使用 されます (ツ ル の 説明を 参照)."
   }
 }
