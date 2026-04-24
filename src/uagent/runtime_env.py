@@ -21,6 +21,6 @@ def validate_or_exit_startup_env(*, context: str) -> None:
     if warnings:
         for w in warnings:
             print(
-                _("env.warn.prefix", default="[WARN] {message}", message=w),
+                _("[WARN] {message}", default="[WARN] {message}", message=w),
                 file=sys.stderr,
             )

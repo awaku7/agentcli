@@ -11,6 +11,7 @@ mapping them to a common JSON schema.
 import collections
 import collections.abc
 import json
+from io import BytesIO
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -35,6 +36,11 @@ try:
 except ImportError:
     Presentation = None  # type: ignore[assignment]
     MSO_SHAPE_TYPE = None  # type: ignore[assignment]
+
+try:
+    import msoffcrypto
+except Exception:  # pragma: no cover
+    msoffcrypto = None  # type: ignore[assignment]
 
 # Compatibility layer: complement collections and collections.abc
 for name in ("Mapping", "MutableMapping", "Sequence"):
@@ -78,6 +84,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.path.description",
                         default="Path to a PDF / PPTX / JSON file.",
+                    ),
+                },
+                "password": {
+                    "type": "string",
+                    "description": _(
+                        "param.password.description",
+                        default=(
+                            "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, "
+                            "the tool will prompt once for a password."
+                        ),
                     ),
                 },
                 "page_index": {
@@ -336,6 +352,82 @@ def _wrap_page_texts(pages: List[str]) -> Dict[str, Any]:
     )
 
 
+def _prompt_for_password(path: str) -> Optional[str]:
+    try:
+        from .human_ask_tool import run_tool as human_ask
+    except Exception:
+        return None
+
+    message = _(
+        "prompt.password",
+        default="Enter the password for this file:\n{path}",
+    ).format(path=path)
+    try:
+        res_json = human_ask({"message": message, "is_password": True})
+        res = json.loads(res_json)
+    except Exception:
+        return None
+
+    pwd = str(res.get("user_reply") or "").strip()
+    return pwd or None
+
+
+def _looks_like_password_error(exc: Exception) -> bool:
+    name = type(exc).__name__.lower()
+    msg = str(exc).lower()
+    return (
+        "password" in name
+        or "password" in msg
+        or "encrypted" in msg
+        or "decrypt" in msg
+    )
+
+
+def _load_pptx_pres(
+    pptx_path: str, password: Optional[str] = None
+) -> Tuple[Optional[Any], List[str]]:
+    warnings: List[str] = []
+    if Presentation is None:
+        warnings.append("python-pptx is not available")
+        return None, warnings
+
+    if msoffcrypto is not None:
+        try:
+            with open(pptx_path, "rb") as fin:
+                office = msoffcrypto.OfficeFile(fin)
+                encrypted = False
+                try:
+                    encrypted = bool(office.is_encrypted())
+                except Exception:
+                    encrypted = False
+
+                if encrypted:
+                    if not password:
+                        password = _prompt_for_password(pptx_path)
+                    if not password:
+                        warnings.append("password is required for encrypted PPTX files")
+                        return None, warnings
+
+                    office.load_key(password=password)
+                    buf = BytesIO()
+                    office.decrypt(buf)
+                    buf.seek(0)
+                    return Presentation(buf), warnings
+        except Exception as e:
+            warnings.append(f"msoffcrypto failed: {type(e).__name__}: {e}")
+            return None, warnings
+
+    try:
+        return Presentation(pptx_path), warnings
+    except Exception as e:
+        if password is None and _looks_like_password_error(e):
+            prompted = _prompt_for_password(pptx_path)
+            if prompted:
+                return _load_pptx_pres(pptx_path, password=prompted)
+        warnings.append(f"python-pptx failed: {type(e).__name__}: {e}")
+        return None, warnings
+
+
 # ==============================
 # Extractors
 # ==============================
@@ -457,6 +549,7 @@ def _get_pages_text(doc: Dict[str, Any]) -> List[str]:
 
 def run_tool(args: Dict[str, Any]) -> str:
     path = (args.get("path") or "").strip()
+    password = str(args.get("password") or "").strip() or None
     page_index = args.get("page_index")
     max_chars = args.get("max_chars")
 
@@ -484,10 +577,10 @@ def run_tool(args: Dict[str, Any]) -> str:
         doc, warnings = _read_common_json(path)
         pages_text = _get_pages_text(doc)
     elif suffix == ".pdf":
-        pages_text, warnings = _extract_pdf_pages(path)
+        pages_text, warnings = _extract_pdf_pages(path, password=password)
         doc = _wrap_page_texts(pages_text)
     elif suffix == ".pptx":
-        pages_text, warnings = _extract_pptx_pages(path)
+        pages_text, warnings = _extract_pptx_pages(path, password=password)
         doc = _wrap_page_texts(pages_text)
     else:
         return f"[read_pptx_pdf error] unsupported file extension: {suffix}"

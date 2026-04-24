@@ -6,6 +6,11 @@ import os
 from typing import Any, Dict, List
 
 from .i18n_helper import make_tool_translator
+
+try:
+    import msoffcrypto
+except Exception:  # pragma: no cover
+    msoffcrypto = None  # type: ignore[assignment]
 from .safe_file_ops_extras import ensure_within_workdir, make_backup_before_overwrite
 
 _ = make_tool_translator(__file__)
@@ -39,6 +44,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.path.description",
                         default="Target .xlsx file path or directory path.",
+                    ),
+                },
+                "password": {
+                    "type": "string",
+                    "description": _(
+                        "param.password.description",
+                        default=(
+                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
+                            "the tool will prompt once for a password."
+                        ),
                     ),
                 },
                 "include_glob": {
@@ -148,6 +163,40 @@ def _collect_targets(
     return items
 
 
+def _prompt_for_password(path: str) -> str | None:
+    try:
+        from .human_ask_tool import run_tool as human_ask
+    except Exception:
+        return None
+
+    message = _(
+        "prompt.password",
+        default="Enter the password for this file:\n{path}",
+    ).format(path=path)
+    try:
+        res_json = human_ask({"message": message, "is_password": True})
+        res = json.loads(res_json)
+    except Exception:
+        return None
+
+    pwd = str(res.get("user_reply") or "").strip()
+    return pwd or None
+
+
+def _is_encrypted_office_xlsx(path: str) -> bool:
+    if msoffcrypto is None:
+        return False
+    try:
+        with open(path, "rb") as fin:
+            office = msoffcrypto.OfficeFile(fin)
+            try:
+                return bool(office.is_encrypted())
+            except Exception:
+                return False
+    except Exception:
+        return False
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     target_path = str(args.get("path", "") or "").strip()
     include_glob = str(args.get("include_glob", "*.xlsx") or "*.xlsx")
@@ -157,6 +206,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     dry_run_raw = args.get("dry_run", False)
     visible_raw = args.get("visible", False)
     max_files_raw = args.get("max_files", 200)
+    password = str(args.get("password") or "").strip() or None
 
     if not target_path:
         raise ValueError(_("err.path_required", default="path is required"))
@@ -220,6 +270,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         except Exception:
             pass
 
+        prompted_password: str | None = None
+
         for fp in targets:
             wb = None
             backup_path = None
@@ -227,7 +279,24 @@ def run_tool(args: Dict[str, Any]) -> str:
                 if backup_raw and os.path.exists(fp):
                     backup_path = make_backup_before_overwrite(fp)
 
-                wb = excel.Workbooks.Open(fp, UpdateLinks=0, ReadOnly=False)
+                open_password = password
+                if _is_encrypted_office_xlsx(fp):
+                    if not open_password:
+                        if prompted_password is None:
+                            prompted_password = _prompt_for_password(fp)
+                        open_password = prompted_password
+                    if not open_password:
+                        raise RuntimeError(
+                            "password is required for encrypted workbook files"
+                        )
+
+                if open_password:
+                    wb = excel.Workbooks.Open(
+                        fp, UpdateLinks=0, ReadOnly=False, Password=open_password
+                    )
+                else:
+                    wb = excel.Workbooks.Open(fp, UpdateLinks=0, ReadOnly=False)
+
                 excel.CalculateFullRebuild()
                 try:
                     excel.CalculateUntilAsyncQueriesDone()
