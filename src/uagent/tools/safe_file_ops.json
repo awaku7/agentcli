@@ -328,5 +328,27 @@
     "ui.confirm.footer": "=== /potwierdź ===",
     "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
     "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
+  },
+  "ar": {
+    "confirm.rename": "ستؤدي عملية إعادة التسمية/النقل إلى نقل الملفات الحقيقية (قد تؤدي إلى الكتابة فوق الملفات الموجودة أو حذفها).\nسرك: {سرك}\nالتوقيت الصيفي: {التوقيت الصيفي}\nتفاصيل: {تفاصيل}\n\nقم بالرد بـ y للمتابعة، أو c للإلغاء.",
+    "confirm.risky_op": "قد تكون هذه العملية خطيرة، لذا يلزم التأكيد.\nعملية: {عملية}\nالمسار: {مسار}\nقم بالرد بـ y للمتابعة، أو c للإلغاء.",
+    "err.create_cancel": "تم إلغاء الإنشاء لأن المستخدم لم يسمح بذلك: {filename}",
+    "err.delete_cancel": "تم إلغاء الحذف لأن المستخدم لم يسمح بذلك: {filename}",
+    "err.delete_dir_cancel": "تم إلغاء حذف الدليل لأن المستخدم لم يسمح بذلك: {path}",
+    "err.delete_path_cancel": "تم إلغاء الحذف لأن المستخدم لم يسمح بذلك: {path}",
+    "err.dst_exists_overwrite_false": "التوقيت الصيفي موجود بالفعل (الكتابة فوق = خطأ): {dst}",
+    "err.exists_overwrite_false": "الملف موجود بالفعل (الكتابة فوق = خطأ): {اسم الملف}",
+    "err.path_not_found": "المسار غير موجود: {path}",
+    "err.prompt_cancel": "تم إلغاء إنشاء المطالبة لأن المستخدم لم يسمح بذلك: {path}",
+    "err.prompt_target_not_found": "لم يتم العثور على الملف الهدف للإنشاء الفوري: {path}",
+    "err.rename_cancel": "تم إلغاء إعادة التسمية/النقل لأن المستخدم لم يسمح بذلك: {src} -> {dst}",
+    "err.src_dst_required": "مطلوبة src وdst",
+    "err.src_not_found": "src غير موجود: {src}",
+    "reason.dst_trigger": "يتطابق التوقيت الصيفي مع ظروف المسار المحفوفة بالمخاطر",
+    "reason.overwrite_delete": "overwrite=True سيحذف التوقيت الصيفي الموجود ويستبدله",
+    "reason.src_trigger": "يطابق src ظروف المسار المحفوفة بالمخاطر",
+    "ui.confirm.footer": "=== / تأكيد ===",
+    "ui.confirm.howto": "كيفية الرد: ص = متابعة / ج = إلغاء / أخرى = رفض",
+    "ui.confirm.title": "=== طلب التأكيد البشري ==="
   }
 }

@@ -977,6 +977,11 @@ def main():
     model = ""
 
     app = QtWidgets.QApplication(sys.argv)
+    try:
+        if detect_lang() == "ar":
+            app.setLayoutDirection(QtCore.Qt.RightToLeft)
+    except Exception:
+        pass
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
     sys.exit(app.exec())

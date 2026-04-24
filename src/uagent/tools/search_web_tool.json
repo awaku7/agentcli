@@ -202,5 +202,17 @@
     "param.query.description": "खोज क्वेरी स्ट्रिंग.",
     "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब पर खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
     "tool.system_prompt": "यह टूल डकडकगो HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
+  },
+  "ar": {
+    "error.args_must_be_dict": "يجب أن تكون الحجج إملاء",
+    "error.duckduckgo_failed_after_retries": "فشل طلب DuckDuckGo بعد إعادة المحاولة: {خطأ}",
+    "error.missing_query_parameter": "معلمة \"الاستعلام\" مفقودة",
+    "error.run_tool_error": "خطأ في أداة التشغيل: {خطأ}",
+    "param.max_results.description": "الحد الأقصى لعدد النتائج التي سيتم إرجاعها (الافتراضي: 5).",
+    "param.n.description": "الاسم المستعار لـ \"max_results\" (للتوافق مع الإصدارات السابقة).",
+    "param.q.description": "الاسم المستعار لـ \"الاستعلام\" (للتوافق مع الإصدارات السابقة).",
+    "param.query.description": "سلسلة استعلام البحث.",
+    "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجع العنوان/الرابط/المقتطف.",
+    "tool.system_prompt": "تقوم هذه الأداة بإجراء بحث DuckDuckGo HTML وإرجاع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع مقيدًا للمعدل أو يحظر الطلب."
   }
 }

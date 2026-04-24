@@ -202,5 +202,17 @@
     "tool.system_prompt": "यह टूल टूल नाम 'excel_ops' द्वारा वर्णित ऑपरेशन करता है।",
     "param.password.description": "एन्क्रिप्टेड .xlsx फ़ाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और फ़ाइल एन्क्रिप्ट की गई है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
+  },
+  "ar": {
+    "param.action.description": "عملية لأداء.",
+    "param.data.description": "بيانات JSON للكتابة.",
+    "param.file_path.description": "المسار المطلق لملف Excel.",
+    "param.sheet_name.description": "اسم الورقة المستهدفة",
+    "param.keep_sheets.description": "أسماء الأوراق المطلوب الاحتفاظ بها (تُستخدم فقط للإجراء='keep_only_sheets'). في حالة عدم وجود أي ورقة محددة، أخطاء الأداة.",
+    "param.output_path.description": "مسار الإخراج للإجراء = 'keep_only_sheets'. إذا كان موجودًا بالفعل، فسيتم استبداله بعد إنشاء نسخة احتياطية (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "قراءة وكتابة ملفات Excel (.xlsx) والحصول على أسماء الأوراق. عند الكتابة إلى ملف موجود، يتم إنشاء نسخة احتياطية بنفس الاسم (<file_path>.org / <file_path>.org1 / ...) مباشرة قبل الكتابة.",
+    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"excel_ops\".",
+    "param.password.description": "كلمة مرور اختيارية لملفات .xlsx المشفرة. إذا تم حذفه وتم تشفير الملف، فستتم مطالبتك مرة واحدة بكلمة المرور.",
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{المسار}"
   }
 }

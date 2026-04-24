@@ -73,5 +73,10 @@
     "err.file_not_found": "nie znaleziono pliku: {filename}",
     "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
     "err.path_empty": "ścieżka jest pusta"
+  },
+  "ar": {
+    "err.file_not_found": "لم يتم العثور على الملف: {اسم الملف}",
+    "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
+    "err.path_empty": "المسار فارغ"
   }
 }

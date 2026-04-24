@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ page_lang or 'en' }}" dir="{{ page_dir or 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,7 +120,7 @@
             try {
                 const url = new URL(window.location.href);
                 const q = (url.searchParams.get('lang') || '').toLowerCase();
-                if (q === 'ja' || q === 'en') return q;
+                if (q === 'ja' || q === 'en' || q === 'ar') return q;
             } catch (e) {
                 // ignore
             }
@@ -131,6 +131,7 @@
                 for (const l of langs) {
                     const s = String(l || '').toLowerCase();
                     if (s.startsWith('ja')) return 'ja';
+                    if (s.startsWith('ar')) return 'ar';
                     if (s.startsWith('en')) return 'en';
                 }
             } catch (e) {
@@ -141,6 +142,7 @@
             try {
                 const nav = String(navigator.language || navigator.userLanguage || 'en').toLowerCase();
                 if (nav.startsWith('ja')) return 'ja';
+                if (nav.startsWith('ar')) return 'ar';
             } catch (e) {
                 // ignore
             }

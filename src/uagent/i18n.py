@@ -170,6 +170,7 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
         "french": ("fr", None),
         "spanish": ("es", None),
         "italian": ("it", None),
+        "arabic": ("ar", None),
         "portuguese": ("pt", None),
         "korean": ("ko", None),
         "russian": ("ru", None),
@@ -284,6 +285,7 @@ def _detect_windows_console_lang() -> str | None:
             0x0C: "fr",  # French
             0x0A: "es",  # Spanish
             0x10: "it",  # Italian
+            0x01: "ar",  # Arabic
             0x16: "pt",  # Portuguese (pt_BR)
         }
         if lang_id in lang_map:

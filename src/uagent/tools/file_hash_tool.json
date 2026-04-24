@@ -134,5 +134,13 @@
     "param.return.description": "आउटपुट स्वरूप.",
     "tool.description": "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
     "tool.system_prompt": "यह उपकरण फ़ाइल हैश (sha256/sha1/md5) की गणना करता है।"
+  },
+  "ar": {
+    "param.algo.description": "خوارزمية التجزئة.",
+    "param.chunk_size.description": "قراءة حجم القطعة (بايت).",
+    "param.paths.description": "مجموعة من مسارات الملفات الهدف.",
+    "param.return.description": "تنسيق الإخراج.",
+    "tool.description": "يحسب التجزئة (sha256/sha1/md5) من الملفات.",
+    "tool.system_prompt": "تقوم هذه الأداة بحساب تجزئات الملف (sha256/sha1/md5)."
   }
 }

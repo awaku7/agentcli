@@ -73,5 +73,10 @@
     "err.load": "[błąd długiej_pamięci] {err_type}: {err}",
     "msg.no_memory": "(nie ma jeszcze pamięci długotrwałej)",
     "msg.truncated": "[długa_pamięć obcięta: ograniczona do {max_bytes} znaków]"
+  },
+  "ar": {
+    "err.load": "[خطأ في الذاكرة الطويلة] {err_type}: {err}",
+    "msg.no_memory": "(لا توجد ذاكرة طويلة المدى بعد)",
+    "msg.truncated": "[تم اقتطاع الذاكرة الطويلة: يقتصر على {max_bytes} من الأحرف]"
   }
 }
