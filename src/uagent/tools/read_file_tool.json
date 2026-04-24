@@ -208,5 +208,33 @@
     "param.tail_lines.description": "Liczba linii do odczytania od końca. Nie można określić w tym samym czasie co head_lines.",
     "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów). Częściowy odczyt jest możliwy poprzez określenie linii startowej i max_lines.",
     "tool.system_prompt": "Przeczytaj zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt za pomocą linii start_line/max_lines.\n- Nowe linie są normalizowane automatycznie."
+  },
+  "pt": {
+    "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados ao mesmo tempo",
+    "err.filename_missing": "[erro read_file] nome do arquivo/caminho não especificado",
+    "err.out_of_range": "(O arquivo possui apenas {count} linhas. start_line {start_line} está fora do intervalo)",
+    "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
+    "param.filename.description": "Caminho do arquivo a ser lido.",
+    "param.head_lines.description": "Número de linhas a serem lidas desde o início. Não pode ser especificado ao mesmo tempo que tail_lines.",
+    "param.max_lines.description": "Número máximo de linhas a serem lidas. Se for nulo, leia até o final do arquivo.",
+    "param.path.description": "(Para compatibilidade) Nome alternativo para nome de arquivo.",
+    "param.start_line.description": "Número da linha (começando em 1) para iniciar a leitura. O padrão é 1.",
+    "param.tail_lines.description": "Número de linhas a serem lidas a partir do final. Não pode ser especificado ao mesmo tempo que head_lines.",
+    "tool.description": "Leia o conteúdo do arquivo (até 1.000.000 bytes). A leitura parcial é possível especificando start_line e max_lines.",
+    "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente."
+  },
+  "hi": {
+    "err.dual_lines": "[read_file error] हेड_लाइन्स और टेल_लाइन्स को एक ही समय में निर्दिष्ट नहीं किया जा सकता है",
+    "err.filename_missing": "[read_file त्रुटि] फ़ाइल नाम/पथ निर्दिष्ट नहीं है",
+    "err.out_of_range": "(फ़ाइल में केवल {count} लाइनें हैं। स्टार्ट_लाइन {start_line} सीमा से बाहर है)",
+    "msg.truncated": "[पढ़ें_फ़ाइल को छोटा किया गया: बाइट सीमा {max_bytes} तक पहुंच गई]",
+    "param.filename.description": "पढ़ने के लिए फ़ाइल का पथ.",
+    "param.head_lines.description": "आरंभ से पढ़ने योग्य पंक्तियों की संख्या. टेल_लाइन्स के समान समय पर निर्दिष्ट नहीं किया जा सकता।",
+    "param.max_lines.description": "पढ़ने के लिए पंक्तियों की अधिकतम संख्या. यदि शून्य है, तो फ़ाइल के अंत तक पढ़ें।",
+    "param.path.description": "(अनुकूलता के लिए) फ़ाइल नाम के लिए वैकल्पिक नाम।",
+    "param.start_line.description": "पढ़ना शुरू करने के लिए लाइन नंबर (1 से शुरू)। डिफ़ॉल्ट 1 है.",
+    "param.tail_lines.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या. हेड_लाइन्स के समान समय पर निर्दिष्ट नहीं किया जा सकता।",
+    "tool.description": "फ़ाइल सामग्री पढ़ें (1,000,000 बाइट्स तक)। स्टार्ट_लाइन और मैक्स_लाइन्स निर्दिष्ट करके आंशिक पढ़ना संभव है।",
+    "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।"
   }
 }

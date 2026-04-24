@@ -73,5 +73,15 @@
     "param.command.description": "Wiersz poleceń do wykonania.",
     "tool.description": "Asynchronicznie uruchom zewnętrzny interfejs GUI lub proces przeglądarki. Unikaj powtarzających się spawnów dla tego samego żądania.",
     "tool.system_prompt": "Użyj tego narzędzia, aby asynchronicznie uruchomić proces zewnętrzny. Unikaj powtarzających się spawnów dla tego samego żądania."
+  },
+  "pt": {
+    "param.command.description": "Linha de comando para executar.",
+    "tool.description": "Inicie de forma assíncrona uma GUI externa ou um processo de navegador. Evite spawns repetidos para a mesma solicitação.",
+    "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite spawns repetidos para a mesma solicitação."
+  },
+  "hi": {
+    "param.command.description": "निष्पादित करने के लिए कमांड लाइन.",
+    "tool.description": "बाहरी GUI या ब्राउज़र प्रक्रिया को एसिंक्रोनस रूप से प्रारंभ करें। एक ही अनुरोध के लिए बार-बार स्पॉन करने से बचें।",
+    "tool.system_prompt": "किसी बाह्य प्रक्रिया को अतुल्यकालिक रूप से प्रारंभ करने के लिए इस उपकरण का उपयोग करें। एक ही अनुरोध के लिए बार-बार स्पॉन करने से बचें।"
   }
 }

@@ -163,5 +163,27 @@
     "param.tools.description": "Tablica nazw narzędzi do uruchomienia. Jeśli jest pusty, zostanie wybrany automatycznie.",
     "tool.description": "Uruchom analizę/formatowanie statyczne (np. ruff/black/mypy). mode=fix modyfikuje pliki i wymaga potwierdzenia.",
     "tool.system_prompt": "Uruchom analizę statyczną/formatory. Jeśli wymagane jest dodatkowe potwierdzenie użytkownika (np. mode=fix), użyj human_ask."
+  },
+  "pt": {
+    "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y se quiser continuar ou c se quiser cancelar.",
+    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: por motivos de segurança, não execute ativamente o npx.\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.",
+    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
+    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "param.mode.description": "check=verificar apenas / fix=correção automática",
+    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
+    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
+    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
+  },
+  "hi": {
+    "confirm.msg": "lint_format(mode=fix) फ़ाइलों को फिर से लिख सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\nसीडब्ल्यूडी: {cwd}\n\nयदि आप आगे बढ़ना चाहते हैं तो y टाइप करें, या यदि आप रद्द करना चाहते हैं तो c टाइप करें।",
+    "doc.module": "lint_format_tool\n\nस्थैतिक विश्लेषण/फ़ॉर्मेटर चलाने के लिए एक रैपर टूल।\n\n- पायथन: रफ / ब्लैक / मायपी को प्राथमिकता दें\n- जावास्क्रिप्ट: सुरक्षा कारणों से, सक्रिय रूप से एनपीएक्स निष्पादित न करें।\n\nसुरक्षा:\n- मोड=फ़िक्स में फ़ाइल परिवर्तन शामिल हैं, इसलिए human_ask से जांचें।\n- तर्कों को एक सरणी के रूप में स्वीकार करें और यदि उनमें खतरनाक शेल मेटाकैरेक्टर हों तो उन्हें अस्वीकार कर दें।",
+    "param.cwd.description": "निष्पादन निर्देशिका (केवल वर्कडीआईआर के तहत अनुमति)। यदि शून्य, वर्तमान.",
+    "param.extra_args.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर को अस्वीकार करें.",
+    "param.mode.description": "जाँचें=केवल जाँचें / ठीक करें=स्वचालित सुधार",
+    "param.targets.description": "लक्ष्य पथ सरणी (केवल वर्कडीआईआर के तहत अनुमति)।",
+    "param.tools.description": "चलाने के लिए टूल नामों की एक सरणी. यदि यह खाली है, तो यह स्वचालित रूप से चयनित हो जाएगा.",
+    "tool.description": "स्थैतिक विश्लेषण/फ़ॉर्मेटर चलाएँ (उदाहरण के लिए, रफ़/ब्लैक/माइपी)। मोड=फ़िक्स फ़ाइलों को संशोधित करता है और पुष्टि की आवश्यकता होती है।",
+    "tool.system_prompt": "स्थैतिक विश्लेषण/फ़ॉर्मेटर चलाएँ। यदि अतिरिक्त उपयोगकर्ता पुष्टि की आवश्यकता है (उदाहरण के लिए, मोड=फिक्स), human_ask का उपयोग करें।"
   }
 }

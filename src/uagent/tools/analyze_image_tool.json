@@ -88,5 +88,17 @@
     "param.prompt.description": "Co chcesz wiedzieć o obrazie.",
     "tool.description": "Załaduj plik obrazu i poproś AI (Vision) o opisanie jego zawartości. Przydatne do analizy zrzutów ekranu lub czytania wykresów/tabel.",
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „analyze_image”."
+  },
+  "pt": {
+    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
+    "param.prompt.description": "O que você quer saber sobre a imagem.",
+    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
+  },
+  "hi": {
+    "param.image_path.description": "विश्लेषण करने के लिए छवि फ़ाइल का पथ.",
+    "param.prompt.description": "आप छवि के बारे में क्या जानना चाहते हैं.",
+    "tool.description": "एक छवि फ़ाइल लोड करें और AI (विज़न) से उसकी सामग्री का वर्णन कराएं। स्क्रीनशॉट का विश्लेषण करने या चार्ट/टेबल पढ़ने के लिए उपयोगी।",
+    "tool.system_prompt": "यह टूल टूल नाम 'analyze_image' द्वारा वर्णित ऑपरेशन करता है।"
   }
 }

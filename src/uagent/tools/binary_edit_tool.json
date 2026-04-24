@@ -238,5 +238,37 @@
     "param.splice_op.description": "Operacja splotu (tryb splotu).",
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki.",
     "tool.system_prompt": "Narzędzie to służy do następujących celów: edycja pliku lokalnego w postaci nieprzetworzonych bajtów (binarnie).\n\nBEZPIECZEŃSTWO / BEZPIECZEŃSTWO:\n- To narzędzie modyfikuje pliki lokalne i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed napisaniem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, jeśli działasz zgodnie z zasadami bezpieczeństwa agenta hosta."
+  },
+  "pt": {
+    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
+    "param.delete_len.description": "Número de bytes a serem excluídos (exclusão de emenda).",
+    "param.dry_run.description": "Se for verdade, não modifique o arquivo; apenas relate o que mudaria.",
+    "param.max_bytes.description": "Rejeite arquivos maiores que esse tamanho (bytes).",
+    "param.mode.description": "Modo de edição.",
+    "param.occurrence.description": "Qual ocorrência substituir (com base em 1). 0 significa substituir todas as ocorrências (ainda requer o mesmo comprimento).",
+    "param.offset.description": "Deslocamento de bytes (baseado em 0). Necessário para gravação/emenda.",
+    "param.patch_json.description": "Patch de string JSON (modo apply_patch).",
+    "param.path.description": "Caminho do arquivo de destino.",
+    "param.replace_hex.description": "String hexadecimal a ser substituída por (modo de substituição). Deve ter o mesmo comprimento que search_hex, a menos que allow_resize=true (não suportado).",
+    "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
+    "param.splice_op.description": "Operação de emenda (modo de emenda).",
+    "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: editar um arquivo local como bytes brutos (binários).\n\nSEGURANÇA / SEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Sempre solicite confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
+  },
+  "hi": {
+    "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE AD BE EF')।",
+    "param.delete_len.description": "हटाने के लिए बाइट्स की संख्या (स्प्लिस डिलीट)।",
+    "param.dry_run.description": "यदि सत्य है, तो फ़ाइल को संशोधित न करें; केवल वही रिपोर्ट करें जो बदलेगा।",
+    "param.max_bytes.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्वीकार करें।",
+    "param.mode.description": "संपादन मोड.",
+    "param.occurrence.description": "किस घटना को प्रतिस्थापित करना है (1-आधारित)। 0 का अर्थ है सभी घटनाओं को प्रतिस्थापित करना (अभी भी समान लंबाई की आवश्यकता है)।",
+    "param.offset.description": "बाइट ऑफसेट (0-आधारित)। लिखने/बँटाई के लिए आवश्यक है.",
+    "param.patch_json.description": "JSON स्ट्रिंग पैच (apply_patch मोड)।",
+    "param.path.description": "लक्ष्य फ़ाइल पथ.",
+    "param.replace_hex.description": "हेक्स स्ट्रिंग को (रिप्लेस मोड) से बदलें। जब तक अनुमति_resize = true (समर्थित नहीं) हो, search_hex के समान लंबाई होनी चाहिए।",
+    "param.search_hex.description": "खोजने के लिए हेक्स स्ट्रिंग (प्रतिस्थापन मोड)।",
+    "param.splice_op.description": "स्प्लिस ऑपरेशन (स्प्लिस मोड)।",
+    "tool.description": "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: एक स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें।\n\nसुरक्षा/संरक्षा:\n- यह टूल स्थानीय फ़ाइलों को संशोधित करता है और उन्हें दूषित कर सकता है।\n- लिखने से पहले हमेशा human_ask से पुष्टि का अनुरोध करें।\n- होस्ट एजेंट की सुरक्षा नीतियों के तहत चलते समय वर्तमान वर्कडायर के बाहर के पथों पर काम न करें।"
   }
 }

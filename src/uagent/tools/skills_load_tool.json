@@ -103,5 +103,19 @@
     "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
     "tool.description": "Ładuje SKILL.md dla umiejętności agenta i zwraca jej frontmater YAML i treść Markdown.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "pt": {
+    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
+    "param.skill_dir.description": "Diretório de habilidades (SKILL.md é necessário diretamente abaixo)",
+    "tool.description": "Carrega o SKILL.md para uma habilidade do agente e retorna seu frontmatter YAML e corpo Markdown.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
+    "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
+    "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
+    "tool.description": "एजेंट कौशल के लिए SKILL.md को लोड करता है और इसका YAML फ्रंटमैटर और मार्कडाउन बॉडी लौटाता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   }
 }

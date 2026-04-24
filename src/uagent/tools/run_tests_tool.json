@@ -268,5 +268,41 @@
     "param.target.description": "Cel (ścieżka pytest, katalog startowy unittest, skrypt npm itp.). Jeśli null, używane są wartości domyślne.",
     "tool.description": "Uruchom testy (automatycznie wykryj pytest/unittest/npm). Odrzuć metaznaki powłoki w extra_args.",
     "tool.system_prompt": "Użyj tego narzędzia do celów opisanych w opisie narzędzia."
+  },
+  "pt": {
+    "doc.module": "run_tests_tool\n\nUma ferramenta wrapper para executar testes.\n\nObjetivo:\n- Em vez de chamar cmd_exec/pwsh_exec diretamente, padronize a execução do teste e retorne resultados estruturados.\n- Detectar automaticamente pytest / unittest / npm quando framework=auto.\n\nPolítica de segurança:\n- A execução do teste geralmente não é uma operação perigosa, portanto human_ask não é executado.\n- No entanto, extra_args contendo metacaracteres de injeção de comando (&&, |, >, etc.) são rejeitados.\n\nImplementação:\n- Usa internamente cmd_exec_json_tool e lida com returncode/stdout/stderr.\n- Para stdout/stderr, aplique callbacks.truncate_output se disponível.\n- Para especificação cwd, use o argumento cwd de cmd_exec_json (não use cd &&).\n\nRecursos adicionais:\n- pythonpath: configure PYTHONPATH extra para execução de testes.\n  - Windows: defina PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd não permitido: {error}",
+    "error.dangerous_cwd_rejected": "cwd perigoso rejeitado: {cwd}",
+    "error.framework_auto_detect_failed": "falha na detecção automática da estrutura",
+    "error.invalid_framework": "estrutura inválida: {framework}",
+    "error.invalid_report": "relatório inválido: {report}",
+    "error.shell_metacharacters_not_allowed": "metacaracteres shell não são permitidos em argumentos: {arg}",
+    "error.unsupported_framework": "estrutura não suportada: {framework}",
+    "param.cwd.description": "Diretório de trabalho para execução (deve estar dentro de workdir). Se for nulo, use o diretório atual.",
+    "param.extra_args.description": "Matriz de argumentos adicionais. Rejeite se os metacaracteres do shell estiverem presentes.",
+    "param.framework.description": "Tipo de estrutura de teste.",
+    "param.pythonpath.description": "PYTHONPATH adicional (por exemplo, 'src'). Se fornecido, será prefixado ao comando de teste.",
+    "param.report.description": "Formato de saída.",
+    "param.target.description": "Destino (caminho pytest, diretório inicial unittest, script npm, etc.). Se for nulo, os padrões serão usados.",
+    "tool.description": "Execute testes (detecção automática de pytest/unittest/npm). Rejeite metacaracteres de shell em extra_args.",
+    "tool.system_prompt": "Use esta ferramenta para a finalidade descrita na descrição da ferramenta."
+  },
+  "hi": {
+    "doc.module": "run_tests_tool\n\nपरीक्षण चलाने के लिए एक रैपर टूल.\n\nउद्देश्य:\n- सीधे cmd_exec/pwsh_exec को कॉल करने के बजाय, परीक्षण निष्पादन को मानकीकृत करें और संरचित परिणाम लौटाएँ।\n- फ्रेमवर्क = ऑटो होने पर पाइटेस्ट / यूनिटटेस्ट / एनपीएम का स्वतः पता लगाएं।\n\nसुरक्षा नीति:\n- परीक्षण निष्पादन आम तौर पर एक खतरनाक ऑपरेशन नहीं है, इसलिए human_ask निष्पादित नहीं किया जाता है।\n- हालाँकि, कमांड-इंजेक्शन मेटाकैरेक्टर (&&, |, >, आदि) वाले एक्स्ट्रा_आर्ग अस्वीकार कर दिए जाते हैं।\n\nकार्यान्वयन:\n- आंतरिक रूप से cmd_exec_json_tool का उपयोग करता है और रिटर्नकोड/stdout/stderr को संभालता है।\n- stdout/stderr के लिए, यदि उपलब्ध हो तो callbacks.trunate_output लागू करें।\n- cwd विशिष्टता के लिए, cmd_exec_json के cwd तर्क का उपयोग करें (cd && का उपयोग न करें)।\n\nअतिरिक्त विशेषताएं:\n- पायथनपाथ: परीक्षण चलाने के लिए अतिरिक्त पायथनपाथ कॉन्फ़िगर करें।\n  - विंडोज़: PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd> सेट करें\n  - पॉज़िक्स: PythonPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "सीडब्ल्यूडी की अनुमति नहीं है: {error}",
+    "error.dangerous_cwd_rejected": "खतरनाक सीडब्ल्यूडी अस्वीकृत: {cwd}",
+    "error.framework_auto_detect_failed": "फ़्रेमवर्क स्वतः-पहचान विफल रहा",
+    "error.invalid_framework": "अमान्य ढाँचा: {framework}",
+    "error.invalid_report": "अमान्य रिपोर्ट: {report}",
+    "error.shell_metacharacters_not_allowed": "तर्कों में शेल मेटाकैरेक्टर की अनुमति नहीं है: {arg}",
+    "error.unsupported_framework": "असमर्थित ढाँचा: {framework}",
+    "param.cwd.description": "कार्यशील निर्देशिका को चलाने के लिए (वर्कडीआईआर के भीतर होना चाहिए)। यदि शून्य है, तो वर्तमान निर्देशिका का उपयोग करें।",
+    "param.extra_args.description": "अतिरिक्त तर्क सरणी. यदि शेल मेटाकैरेक्टर मौजूद हैं तो अस्वीकार करें।",
+    "param.framework.description": "टेस्ट फ्रेमवर्क प्रकार.",
+    "param.pythonpath.description": "अतिरिक्त PythonPATH (उदा. 'src'). यदि प्रदान किया गया है, तो इसे परीक्षण आदेश से पहले जोड़ा जाता है।",
+    "param.report.description": "आउटपुट स्वरूप.",
+    "param.target.description": "लक्ष्य (पाइटेस्ट पथ, यूनिटेस्ट प्रारंभ निर्देशिका, एनपीएम स्क्रिप्ट, आदि)। यदि शून्य है, तो डिफ़ॉल्ट का उपयोग किया जाता है।",
+    "tool.description": "परीक्षण चलाएँ (ऑटो-डिटेक्ट पाइटेस्ट/यूनिटटेस्ट/एनपीएम)। एक्स्ट्रा_आर्ग्स में शेल मेटाएक्टर्स को अस्वीकार करें।",
+    "tool.system_prompt": "टूल विवरण में वर्णित उद्देश्य के लिए इस टूल का उपयोग करें।"
   }
 }

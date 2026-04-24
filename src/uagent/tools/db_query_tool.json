@@ -88,5 +88,17 @@
     "param.sql.description": "SQL do wykonania.",
     "tool.description": "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA).",
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „db_query”."
+  },
+  "pt": {
+    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
+    "param.sql.description": "SQL para executar.",
+    "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
+  },
+  "hi": {
+    "param.db_path.description": "SQLite डेटाबेस फ़ाइल का पथ.",
+    "param.sql.description": "निष्पादित करने के लिए SQL.",
+    "tool.description": "SQLite डेटाबेस के विरुद्ध SQL क्वेरी निष्पादित करें और परिणाम लौटाएँ। केवल रीड-ओनली ऑपरेशंस (SELECT) और स्कीमा इंस्पेक्शन (PRAGMA) समर्थित हैं।",
+    "tool.system_prompt": "यह टूल टूल नाम 'db_query' द्वारा वर्णित ऑपरेशन करता है।"
   }
 }

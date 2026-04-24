@@ -88,5 +88,17 @@
     "param.path.description": "Ścieżka pliku lub katalogu, który chcesz sprawdzić pod kątem istnienia (można również użyć ~).",
     "tool.description": "Sprawdza, czy plik lub katalog istnieje w określonej ścieżce i zwraca jego typ, rozmiar i czas modyfikacji, jeśli tak.",
     "tool.system_prompt": "Użyj tego narzędzia, aby sprawdzić, czy plik lub katalog istnieje w określonej ścieżce, a jeśli tak, zwrócić jego typ, rozmiar i czas modyfikacji."
+  },
+  "pt": {
+    "err.path_empty": "[erro file_exists] o caminho está vazio",
+    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja verificar (~ também pode ser usado).",
+    "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e retorna seu tipo, tamanho e hora de modificação, se existir.",
+    "tool.system_prompt": "Use esta ferramenta para verificar se um arquivo ou diretório existe no caminho especificado e, se existir, retornar seu tipo, tamanho e hora de modificação."
+  },
+  "hi": {
+    "err.path_empty": "[file_exists त्रुटि] पथ खाली है",
+    "param.path.description": "फ़ाइल या निर्देशिका का पथ जिसे आप अस्तित्व के लिए जांचना चाहते हैं (~ का भी उपयोग किया जा सकता है)।",
+    "tool.description": "जाँचता है कि कोई फ़ाइल या निर्देशिका निर्दिष्ट पथ पर मौजूद है या नहीं और यदि मौजूद है तो उसका प्रकार, आकार और संशोधन समय लौटाता है।",
+    "tool.system_prompt": "इस टूल का उपयोग यह जांचने के लिए करें कि कोई फ़ाइल या निर्देशिका निर्दिष्ट पथ पर मौजूद है या नहीं, और यदि मौजूद है, तो उसका प्रकार, आकार और संशोधन समय लौटाएं।"
   }
 }

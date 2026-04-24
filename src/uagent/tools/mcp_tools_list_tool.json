@@ -103,5 +103,19 @@
     "param.url.description": "Adres URL punktu końcowego serwera MCP.",
     "tool.description": "[Najwyższy priorytet] Połącz się z serwerem MCP (Model Context Protocol) i zwróć listę dostępnych narzędzi. Przed wykonaniem jakiejkolwiek integracji API/systemu użyj tego narzędzia, aby dowiedzieć się, jakie narzędzia MCP są dostępne. Obsługuje serwery MCP oparte na HTTP i stdio.",
     "tool.system_prompt": "Połącz się z serwerem MCP (HTTP lub stdio) i wyświetl listę jego narzędzi. Jeśli to możliwe, preferuj używanie serwerów skonfigurowanych w pliku mcp_servers.json."
+  },
+  "pt": {
+    "param.pretty.description": "Seja para imprimir a saída JSON.",
+    "param.server_name.description": "Nome do servidor do arquivo de configuração.",
+    "param.url.description": "URL do terminal do servidor MCP.",
+    "tool.description": "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e baseados em stdio.",
+    "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Prefira usar servidores configurados em mcp_servers.json quando possível."
+  },
+  "hi": {
+    "param.pretty.description": "क्या JSON आउटपुट को प्री-प्रिंट करना है।",
+    "param.server_name.description": "कॉन्फ़िगरेशन फ़ाइल से सर्वर का नाम.",
+    "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल।",
+    "tool.description": "[उच्चतम प्राथमिकता] एक एमसीपी (मॉडल कॉन्टेक्स्ट प्रोटोकॉल) सर्वर से कनेक्ट करें और उपलब्ध टूल की सूची लौटाएं। कोई भी एपीआई/सिस्टम एकीकरण करने से पहले, यह जानने के लिए इस टूल का उपयोग करें कि कौन से एमसीपी टूल उपलब्ध हैं। HTTP-आधारित और stdio-आधारित MCP सर्वर का समर्थन करता है।",
+    "tool.system_prompt": "किसी MCP सर्वर (HTTP या stdio) से कनेक्ट करें और उसके टूल सूचीबद्ध करें। जब संभव हो तो mcp_servers.json में कॉन्फ़िगर किए गए सर्वर का उपयोग करना पसंद करें।"
   }
 }

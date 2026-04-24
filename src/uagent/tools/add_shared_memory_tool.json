@@ -73,5 +73,15 @@
     "param.note.description": "Tekst notatki do udostępnienia.",
     "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłosi, że jest wyłączona. Nigdy nie przechowuj sekretów, takich jak hasła lub klucze API.",
     "tool.system_prompt": "Dołącz dokładnie jedną notatkę do magazynu pamięci współdzielonej.\nJeśli pamięć współdzielona jest wyłączona (nie ustawiono UAGENT_SHARED_MEMORY_FILE), zwróć komunikat wyjaśniający, jak ją włączyć.\nNie przechowuj sekretów (hasła/tokeny/klucze API)."
+  },
+  "pt": {
+    "param.note.description": "O texto da nota a ser compartilhada.",
+    "tool.description": "Anexe uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informará que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
+    "tool.system_prompt": "Anexe exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
+  },
+  "hi": {
+    "param.note.description": "साझा करने के लिए नोट पाठ.",
+    "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर (उपयोगकर्ताओं/सत्रों में साझा) में एक नोट जोड़ें। यदि साझा मेमोरी कॉन्फ़िगर नहीं की गई है, तो टूल रिपोर्ट करता है कि यह अक्षम है। पासवर्ड या एपीआई कुंजी जैसे रहस्य कभी भी संग्रहीत न करें।",
+    "tool.system_prompt": "साझा मेमोरी स्टोर में बिल्कुल एक नोट जोड़ें।\nयदि साझा मेमोरी अक्षम है (UAGENT_SHARED_MEMORY_FILE सेट नहीं है), तो इसे सक्षम करने का तरीका बताते हुए एक संदेश लौटाएँ।\nरहस्य (पासवर्ड/टोकन/एपीआई कुंजियाँ) संग्रहीत न करें।"
   }
 }

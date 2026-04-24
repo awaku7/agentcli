@@ -118,5 +118,21 @@
     "param.strict.description": "Czy podczas weryfikacji specyfikacji traktować ostrzeżenia jako błędy (domyślnie: fałsz)",
     "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md). Skanuje UAGENT_SKILLS_DIRS lub ./skills, jeśli pominięto katalog_główny.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "pt": {
+    "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.md falhar (padrão: verdadeiro). Se for falso, as habilidades com falha serão excluídas.",
+    "param.recursive.description": "Pesquisa recursivamente (padrão: verdadeiro)",
+    "param.root_dir.description": "Rota de busca de habilidades. Se estiver vazio/não especificado, UAGENT_SKILLS_DIRS (delimitado por os.pathsep) será usado e, se não for especificado, ./skills será usado.",
+    "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verificação das especificações (padrão: falso)",
+    "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL.md). Verifica UAGENT_SKILLS_DIRS ou ./skills se root_dir for omitido.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "hi": {
+    "param.include_invalid.description": "SKILL.md का पार्सिंग/सत्यापन विफल होने पर भी इसे सूची में शामिल करना है या नहीं (डिफ़ॉल्ट: सत्य)। यदि गलत है, तो असफल कौशल को बाहर रखा जाएगा।",
+    "param.recursive.description": "पुनरावर्ती रूप से खोजें (डिफ़ॉल्ट: सत्य)",
+    "param.root_dir.description": "कौशल खोज मार्ग. यदि खाली/अनिर्दिष्ट है, तो UAGENT_SKILLS_DIRS (os.pathsep सीमांकित) का उपयोग किया जाएगा, और यदि अनिर्दिष्ट है, तो ./skills का उपयोग किया जाएगा।",
+    "param.strict.description": "क्या विनिर्देशन सत्यापन के दौरान चेतावनियों को विफलता माना जाए (डिफ़ॉल्ट: गलत)",
+    "tool.description": "एजेंट कौशल विशिष्टता (SKILL.md) के आधार पर निर्दिष्ट रूट (केवल फ्रंटमैटर पढ़ता है) के तहत कौशल की एक सूची लौटाता है। यदि root_dir छोड़ दिया गया है तो UAGENT_SKILLS_DIRS या ./skills को स्कैन करता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   }
 }

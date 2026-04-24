@@ -28,9 +28,9 @@
     "param.url.description": "首先打开的 URL（默认：about:blank）",
     "tool.description": "启动 Playwright Inspector 以捕获浏览器操作。打开指定的 URL，并在用户点击 Resume 按钮后保存页面状态（HTML 和图片）。此外，会在每次主框架导航时依次保存 DOM/截图快照，并在 JSONL 文件中记录导航、网络、控制台事件等。",
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- 已捕获：{html}、{png}、{flow}、{snapshots}/ ---",
     "ui.resume_prompt": "操作完成后，请在 Inspector 中点击 Resume (▷)。",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR 已启动 ---"
   },
   "zh_TW": {
     "err.child_failed": "[playwright_inspector 錯誤] 子程序失敗：\n{stderr}",
@@ -39,9 +39,9 @@
     "param.url.description": "首先開啟的 URL（預設：about:blank）",
     "tool.description": "啟動 Playwright Inspector 以擷取瀏覽器操作。開啟指定的 URL，並在使用者點擊 Resume 按鈕後儲存頁面狀態（HTML 和圖片）。此外，會在每次主框架導覽時依序儲存 DOM／螢幕截圖快照，並在 JSONL 檔案中記錄導覽、網路、主控台事件等。",
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- 已擷取：{html}、{png}、{flow}、{snapshots}/ ---",
     "ui.resume_prompt": "操作完成後，請在 Inspector 中按下 Resume (▷)。",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR 已啟動 ---"
   },
   "es": {
     "err.child_failed": "[error playwright_inspector] Error en el proceso secundario:\n{stderr}",
@@ -50,9 +50,9 @@
     "param.url.description": "Primera URL que se abrirá (predeterminado: about:blank)",
     "tool.description": "Inicie Playwright Inspector para capturar las operaciones del navegador. Abre la URL especificada y guarda el estado de la página (HTML e imagen) después de que el usuario haga clic en el botón Reanudar. Además, guarda capturas de DOM y pantalla de forma secuencial en cada navegación del marco principal y registra navegación, red, eventos de consola y más en un archivo JSONL.",
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (véase la descripción de la herramienta).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Después de la operación, pulse Reanudar (▷) en el Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
   "fr": {
     "err.child_failed": "[Erreur playwright_inspector] Le processus enfant a échoué :\n{stderr}",
@@ -61,9 +61,9 @@
     "param.url.description": "Première URL à ouvrir (par défaut : about:blank)",
     "tool.description": "Lancez Playwright Inspector pour capturer les opérations du navigateur. Ouvre l'URL spécifiée et enregistre l'état de la page (HTML et image) une fois que l'utilisateur a cliqué sur le bouton Reprendre. En outre, enregistre des instantanés DOM/capture d'écran de manière séquentielle à chaque navigation du cadre principal et consigne la navigation, le réseau, les événements de la console, etc., dans un fichier JSONL.",
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l'outil).",
-    "ui.captured": "--- CAPTURED : {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- CAPTURÉ : {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Après l'opération, appuyez sur Reprendre (▷) dans l'Inspecteur.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR DÉMARRÉ ---"
   },
   "ko": {
     "err.child_failed": "[playwright_inspector error] 하위 프로세스가 실패했습니다:\n{stderr}",
@@ -72,9 +72,9 @@
     "param.url.description": "처음 열 URL(기본값: about:blank)",
     "tool.description": "Playwright Inspector를 실행하여 브라우저 작업을 캡처합니다. 지정한 URL을 열고 사용자가 Resume 버튼을 클릭한 뒤의 페이지 상태(HTML 및 이미지)를 저장합니다. 또한 각 메인 프레임 이동마다 DOM/스크린샷 스냅샷을 순차적으로 저장하고, 탐색/네트워크/콘솔 이벤트 등을 JSONL 파일에 기록합니다.",
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- 캡처됨: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "작업 후 Inspector에서 Resume (▷)을 누르세요.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR 시작됨 ---"
   },
   "th": {
     "err.child_failed": "[playwright_inspector error] กระบวนการลูกล้มเหลว:\n{stderr}",
@@ -83,9 +83,9 @@
     "param.url.description": "URL แรกที่จะเปิด (ค่าเริ่มต้น: about:blank)",
     "tool.description": "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้าเว็บ (HTML และรูปภาพ) หลังจากผู้ใช้คลิกปุ่ม Resume นอกจากนี้ ยังบันทึก DOM/ภาพหน้าจอเป็นลำดับในแต่ละครั้งที่มีการนำทางของเฟรมหลัก และบันทึกการนำทาง เครือข่าย เหตุการณ์คอนโซล และอื่น ๆ ลงในไฟล์ JSONL",
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้ (ดูรายละเอียดเครื่องมือ)",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- จับภาพแล้ว: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "หลังจากดำเนินการแล้ว ให้กด Resume (▷) ใน Inspector",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- เริ่มใช้ PLAYWRIGHT INSPECTOR แล้ว ---"
   },
   "de": {
     "err.child_failed": "[playwright_inspector-Fehler] Untergeordneter Prozess fehlgeschlagen:\n{stderr}",
@@ -94,9 +94,9 @@
     "param.url.description": "Zu öffnende erste URL (Standard: about:blank)",
     "tool.description": "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen. Öffnet die angegebene URL und speichert den Seitenzustand (HTML und Bild), nachdem der Benutzer auf die Schaltfläche „Fortsetzen“ geklickt hat. Außerdem werden DOM-/Screenshot-Snapshots bei jeder Navigation des Hauptframes nacheinander gespeichert und Navigation, Netzwerk, Konsolenereignisse und mehr in einer JSONL-Datei protokolliert.",
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet (siehe Toolbeschreibung).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- ERFASST: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Drücken Sie nach dem Vorgang im Inspektor auf „Fortsetzen“ (▷).",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR GESTARTET ---"
   },
   "it": {
     "err.child_failed": "[errore playwright_inspector] Processo figlio non riuscito:\n{stderr}",
@@ -105,9 +105,9 @@
     "param.url.description": "Prima URL da aprire (predefinito: about:blank)",
     "tool.description": "Avvia Playwright Inspector per acquisire le operazioni del browser. Apre l'URL specificato e salva lo stato della pagina (HTML e immagine) dopo che l'utente fa clic sul pulsante Riprendi. Inoltre, salva in sequenza gli snapshot DOM/schermata a ogni navigazione del frame principale e registra navigazione, rete, eventi della console e altro in un file JSONL.",
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo (vedere la descrizione dello strumento).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- ACQUISITO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Dopo l'operazione, premi Riprendi (▷) nell'Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR AVVIATO ---"
   },
   "ru": {
     "err.child_failed": "[ошибка playwright_inspector] Сбой дочернего процесса:\n{stderr}",
@@ -116,9 +116,9 @@
     "param.url.description": "Первый URL для открытия (по умолчанию: about:blank)",
     "tool.description": "Запустите Playwright Inspector, чтобы захватывать действия браузера. Открывает указанный URL и сохраняет состояние страницы (HTML и изображение) после нажатия пользователем кнопки «Продолжить». Кроме того, последовательно сохраняет снимки DOM/экрана при каждой навигации основного фрейма и записывает навигацию, сеть, события консоли и многое другое в файл JSONL.",
     "tool.system_prompt": "Этот инструмент используется для следующей цели (см. описание инструмента).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- ЗАХВАЧЕНО: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "После операции нажмите «Продолжить» (▷) в Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕН ---"
   },
   "pt_BR": {
     "err.child_failed": "[erro playwright_inspector] Falha no processo filho:\n{stderr}",
@@ -127,9 +127,9 @@
     "param.url.description": "Primeira URL a abrir (padrão: about:blank)",
     "tool.description": "Inicie o Playwright Inspector para capturar as operações do navegador. Abre a URL especificada e salva o estado da página (HTML e imagem) depois que o usuário clica no botão Continuar. Além disso, salva snapshots de DOM/tela em sequência a cada navegação do frame principal e registra navegação, rede, eventos do console e muito mais em um arquivo JSONL.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito (veja a descrição da ferramenta).",
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
   "id": {
     "err.child_failed": "[playwright_inspector error] Proses child gagal:\n{stderr}",
@@ -163,5 +163,27 @@
     "ui.captured": "--- JĘZYK: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Po operacji naciśnij Wznów (▷) w Inspektorze.",
     "ui.started": "--- INSPEKTOR PLACÓWEK RUSZYŁ ---"
+  },
+  "pt": {
+    "err.child_failed": "[erro playwright_inspector] Falha no processo filho:\n{stderr}",
+    "out.ok": "Captura concluída: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ foram criados.\n{stdout}",
+    "param.prefix.description": "Prefixo do nome do arquivo para salvar (padrão: debug_capture)",
+    "param.url.description": "Primeira URL a ser aberta (padrão: about:blank)",
+    "tool.description": "Inicie o Playwright Inspector para capturar as operações do navegador. Abre o URL especificado e salva o estado da página (HTML e imagem) depois que o usuário clica no botão Continuar. Ele também salva instantâneos de DOM/capturas de tela sequencialmente em cada navegação de mainframe e registra navegação, rede, eventos de console e muito mais em um arquivo JSONL.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta).",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspetor.",
+    "ui.started": "--- INSPETOR DE PLAYWRIGHT INICIADO ---"
+  },
+  "hi": {
+    "err.child_failed": "[नाटककार_इंस्पेक्टर त्रुटि] चाइल्ड प्रक्रिया विफल:\n{stderr}",
+    "out.ok": "कैप्चर पूरा हुआ: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ बनाए गए।\n{stdout}",
+    "param.prefix.description": "सहेजने के लिए फ़ाइल नाम का उपसर्ग (डिफ़ॉल्ट: डिबग_कैप्चर)",
+    "param.url.description": "खुलने वाला पहला यूआरएल (डिफ़ॉल्ट: लगभग:रिक्त)",
+    "tool.description": "ब्राउज़र संचालन पर कब्जा करने के लिए प्लेराइट इंस्पेक्टर लॉन्च करें। उपयोगकर्ता द्वारा रेज़्यूमे बटन पर क्लिक करने के बाद निर्दिष्ट यूआरएल खोलता है और पेज स्थिति (एचटीएमएल और छवि) सहेजता है। यह प्रत्येक मुख्य-फ़्रेम नेविगेशन पर DOM/स्क्रीनशॉट स्नैपशॉट को क्रमिक रूप से सहेजता है और JSONL फ़ाइल में नेविगेशन, नेटवर्क, कंसोल इवेंट और बहुत कुछ रिकॉर्ड करता है।",
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।",
+    "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "ऑपरेशन के बाद, इंस्पेक्टर में बायोडाटा (▷) दबाएँ।",
+    "ui.started": "--- नाटककार निरीक्षक प्रारंभ ---"
   }
 }

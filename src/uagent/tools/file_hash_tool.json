@@ -118,5 +118,21 @@
     "param.return.description": "Format wyjściowy.",
     "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
     "tool.system_prompt": "To narzędzie oblicza skróty plików (sha256/sha1/md5)."
+  },
+  "pt": {
+    "param.algo.description": "Algoritmo de hash.",
+    "param.chunk_size.description": "Leia o tamanho do pedaço (bytes).",
+    "param.paths.description": "Matriz de caminhos de arquivo de destino.",
+    "param.return.description": "Formato de saída.",
+    "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
+    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivo (sha256/sha1/md5)."
+  },
+  "hi": {
+    "param.algo.description": "हैशिंग एल्गोरिदम.",
+    "param.chunk_size.description": "खंड आकार (बाइट्स) पढ़ें.",
+    "param.paths.description": "लक्ष्य फ़ाइल पथों की सारणी.",
+    "param.return.description": "आउटपुट स्वरूप.",
+    "tool.description": "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
+    "tool.system_prompt": "यह उपकरण फ़ाइल हैश (sha256/sha1/md5) की गणना करता है।"
   }
 }
