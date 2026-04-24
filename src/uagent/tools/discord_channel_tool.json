@@ -304,5 +304,23 @@
     "param.wait_s.description": "भेजने के बाद उत्तर के लिए कितनी देर तक प्रतीक्षा करनी होगी (सेकेंड)।",
     "tool.description": "बॉट टोकन का उपयोग करके एक विशिष्ट डिस्कोर्ड चैनल के साथ बातचीत करें: संदेश भेजें, हाल के संदेश पढ़ें, और भेजने के बाद वैकल्पिक रूप से उत्तरों की प्रतीक्षा करें।",
     "tool.system_prompt": "REST API के माध्यम से डिस्कॉर्ड चैनल से बात करने के लिए इस टूल का उपयोग करें। एक पर्यावरण चर के माध्यम से एक बॉट टोकन प्रदान किया जाना चाहिए। केवल JSON लौटाएँ."
+  },
+  "ar": {
+    "err.exception": "استثناء",
+    "err.invalid_action": "إجراء غير صالح: {action}",
+    "err.message_too_long": "يجب أن يكون محتوى رسالة الديسكورد 2000 حرف أو أقل.",
+    "err.missing_action": "\"الإجراء\" مفقود.",
+    "err.missing_channel_id": "\"channel_id\" مفقود.",
+    "err.missing_message": "\"رسالة\" مفقودة.",
+    "param.action.description": "الإجراء: إرسال/send_and_wait/التاريخ",
+    "param.channel_id.description": "معرف قناة Discord المستهدفة.",
+    "param.exclude_bots.description": "عند الانتظار، تجاهل رسائل الروبوت.",
+    "param.limit.description": "عدد الرسائل المطلوب جلبها للسجل/الردود.",
+    "param.message.description": "رسالة لإرسالها لإجراءات الإرسال/send_and_wait.",
+    "param.poll_interval_s.description": "الفاصل الزمني للاستقصاء أثناء انتظار الردود (ثواني).",
+    "param.token_env.description": "اسم متغير البيئة الذي يخزن رمز Discord bot المميز.",
+    "param.wait_s.description": "كم من الوقت تنتظر الردود بعد الإرسال (ثواني).",
+    "tool.description": "تفاعل مع قناة Discord معينة باستخدام رمز الروبوت: أرسل الرسائل، واقرأ الرسائل الأخيرة، وانتظر الردود اختياريًا بعد الإرسال.",
+    "tool.system_prompt": "استخدم هذه الأداة للتحدث إلى قناة Discord عبر REST API. يجب توفير رمز الروبوت من خلال متغير البيئة. إرجاع JSON فقط."
   }
 }

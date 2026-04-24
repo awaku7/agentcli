@@ -202,5 +202,17 @@
     "param.seconds.description": "टाइमर में सेकंड की संख्या.",
     "tool.description": "निर्दिष्ट सेकंड के बाद एक संदेश प्रदर्शित करता है। वैकल्पिक रूप से, एक स्वचालित संदेश एलएलएम में इनपुट किया जा सकता है।",
     "tool.system_prompt": "इस उपकरण का उपयोग एक निर्दिष्ट समय के बाद एक संदेश प्रदर्शित करने और वैकल्पिक रूप से एलएलएम में एक स्वचालित संदेश इनपुट करने के लिए किया जाता है।"
+  },
+  "ar": {
+    "err.queue_uninitialized": "[خطأ set_timer] لم تتم تهيئة رد اتصال events_queue.",
+    "err.seconds_invalid": "لا يمكن تفسير [خطأ set_timer] الثواني على أنها عدد صحيح: {raw}",
+    "err.seconds_negative": "[خطأ set_timer] يجب أن تكون الثواني 0 أو أكثر: {val}",
+    "msg.default_timer_done": "ينتهي الموقت",
+    "out.ok": "[set_timer] اضبط المؤقت خلال {ثانية} ثانية: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "رسالة لعرضها عند الانتهاء.",
+    "param.on_timeout_prompt.description": "سيتم إدخال المحتويات تلقائيًا في LLM عند انتهاء الصلاحية.",
+    "param.seconds.description": "عدد الثواني في جهاز ضبط الوقت.",
+    "tool.description": "يعرض رسالة بعد عدد محدد من الثواني. اختياريًا، يمكن إدخال رسالة تلقائية في LLM.",
+    "tool.system_prompt": "تُستخدم هذه الأداة لعرض رسالة بعد فترة زمنية محددة وإدخال رسالة تلقائية اختياريًا إلى LLM."
   }
 }

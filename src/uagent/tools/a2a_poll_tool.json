@@ -168,5 +168,15 @@
     "param.timeout_s.description": "ओवरराइड टाइमआउट (सेकंड)।",
     "err.missing_task_id": "'कार्य_आईडी' गुम है.",
     "err.exception": "अपवाद"
+  },
+  "ar": {
+    "tool.description": "استعلم عن مهمة A2A حتى تصل إلى حالة نهائية.",
+    "tool.system_prompt": "استعلم عن مهمة A2A. أعد JSON فقط.",
+    "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
+    "param.task_id.description": "معرّف المهمة المراد الاستعلام عنها.",
+    "param.interval_ms.description": "تجاوز فترة الاستعلام (مللي ثانية).",
+    "param.timeout_s.description": "تجاوز المهلة (ثوانٍ).",
+    "err.missing_task_id": "القيمة 'task_id' مفقودة.",
+    "err.exception": "استثناء"
   }
 }

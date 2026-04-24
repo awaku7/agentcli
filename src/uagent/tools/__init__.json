@@ -103,5 +103,12 @@
     "log.load_ok.external": "[narzędzia] Załadowano narzędzia zewnętrzne: {entry_name}",
     "log.loaded_tools": "[narzędzia] Załadowano narzędzia: {names}",
     "log.no_valid_tools": "[narzędzia] Nie znaleziono prawidłowych narzędzi."
+  },
+  "ar": {
+    "log.load_fail.external": "[الأدوات] فشل تحميل البرنامج الإضافي الخارجي {entry_path}: {err}",
+    "log.load_fail.internal": "[الأدوات] فشل تحميل المكون الإضافي الداخلي {mod_name}: {err}",
+    "log.load_ok.external": "[الأدوات] الأدوات الخارجية المحملة: {entry_name}",
+    "log.loaded_tools": "[الأدوات] الأدوات المحملة: {الأسماء}",
+    "log.no_valid_tools": "[الأدوات] لم يتم العثور على أدوات صالحة."
   }
 }

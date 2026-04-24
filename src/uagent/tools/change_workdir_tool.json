@@ -117,5 +117,12 @@
     "param.new_dir.description": "स्विच करने के लिए नई निर्देशिका पथ.",
     "tool.description": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलें।",
     "tool.system_prompt": "यह टूल टूल नाम 'change_workdir' द्वारा वर्णित ऑपरेशन करता है।"
+  },
+  "ar": {
+    "confirm.change_workdir": "قم بتغيير دليل العمل الحالي إلى: {new_dir}\n\nهل تريد المتابعة؟ أدخل y للمتابعة، وc للإلغاء.",
+    "param.confirm.description": "ما إذا كان سيتم طلب تأكيد المستخدم.",
+    "param.new_dir.description": "مسار الدليل الجديد للتبديل إليه.",
+    "tool.description": "قم بتغيير دليل العمل الحالي بعد تأكيد المستخدم.",
+    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"change_workdir\"."
   }
 }

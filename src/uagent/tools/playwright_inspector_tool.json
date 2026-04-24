@@ -185,5 +185,16 @@
     "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "ऑपरेशन के बाद, इंस्पेक्टर में बायोडाटा (▷) दबाएँ।",
     "ui.started": "--- नाटककार निरीक्षक प्रारंभ ---"
+  },
+  "ar": {
+    "err.child_failed": "[خطأ playwright_inspector] فشلت العملية الفرعية:\n{ستدير}",
+    "out.ok": "اكتمل الالتقاط: تم إنشاء {prefix}.html، {prefix}.png، {prefix}.flow.jsonl، {prefix}_snapshots/.\n{stdout}",
+    "param.prefix.description": "بادئة اسم الملف المراد حفظه (الافتراضي: debug_capture)",
+    "param.url.description": "عنوان URL الأول الذي سيتم فتحه (الافتراضي: about:blank)",
+    "tool.description": "قم بتشغيل Playwright Inspector لالتقاط عمليات المتصفح. يفتح عنوان URL المحدد ويحفظ حالة الصفحة (HTML والصورة) بعد أن ينقر المستخدم على الزر \"استئناف\". كما أنه يحفظ لقطات DOM/لقطة الشاشة بشكل تسلسلي في كل تنقل للإطار الرئيسي ويسجل التنقل والشبكة وأحداث وحدة التحكم والمزيد في ملف JSONL.",
+    "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة).",
+    "ui.captured": "--- تم التقاطها: {html}، {png}، {flow}، {snapshots}/ ---",
+    "ui.resume_prompt": "بعد العملية، اضغط على \"استئناف\" (▷) في المفتش.",
+    "ui.started": "--- بدأ مفتش الكاتب المسرحي ---"
   }
 }

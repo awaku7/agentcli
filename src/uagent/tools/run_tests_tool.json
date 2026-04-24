@@ -304,5 +304,23 @@
     "param.target.description": "लक्ष्य (पाइटेस्ट पथ, यूनिटेस्ट प्रारंभ निर्देशिका, एनपीएम स्क्रिप्ट, आदि)। यदि शून्य है, तो डिफ़ॉल्ट का उपयोग किया जाता है।",
     "tool.description": "परीक्षण चलाएँ (ऑटो-डिटेक्ट पाइटेस्ट/यूनिटटेस्ट/एनपीएम)। एक्स्ट्रा_आर्ग्स में शेल मेटाएक्टर्स को अस्वीकार करें।",
     "tool.system_prompt": "टूल विवरण में वर्णित उद्देश्य के लिए इस टूल का उपयोग करें।"
+  },
+  "ar": {
+    "doc.module": "run_tests_tool\n\nأداة مجمعة لإجراء الاختبارات.\n\nالغرض:\n- بدلاً من استدعاء cmd_exec/pwsh_exec مباشرةً، قم بتوحيد تنفيذ الاختبار وإرجاع النتائج المنظمة.\n- الكشف التلقائي عن pytest/unittest/npm عندما يكون Framework=auto.\n\nسياسة السلامة:\n- لا يعد تنفيذ الاختبار عملية خطيرة بشكل عام، لذلك لا يتم تنفيذ human_ask.\n- ومع ذلك، يتم رفض extra_args التي تحتوي على أحرف أولية لإدخال الأوامر (&&، |، >، وما إلى ذلك).\n\nالتنفيذ:\n- يستخدم داخليًا cmd_exec_json_tool ويتعامل مع كود الإرجاع/stdout/stderr.\n- بالنسبة إلى stdout/stderr، قم بتطبيق callbacks.truncate_output إذا كان ذلك متاحًا.\n- للحصول على مواصفات cwd، استخدم الوسيطة cwd الخاصة بـ cmd_exec_json (لا تستخدم cd &&).\n\nميزات إضافية:\n- pythonpath: قم بتكوين PYTHONPATH الإضافي لإجراء الاختبارات.\n  - Windows: اضبط PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - بوسيكس: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "غير مسموح باستخدام محرك الأقراص المضغوطة: {خطأ}",
+    "error.dangerous_cwd_rejected": "تم رفض cwd الخطير: {cwd}",
+    "error.framework_auto_detect_failed": "فشل الكشف التلقائي عن الإطار",
+    "error.invalid_framework": "إطار عمل غير صالح: {framework}",
+    "error.invalid_report": "تقرير غير صالح: {report}",
+    "error.shell_metacharacters_not_allowed": "غير مسموح بأحرف Shell الأولية في الوسيطات: {arg}",
+    "error.unsupported_framework": "إطار عمل غير مدعوم: {framework}",
+    "param.cwd.description": "دليل العمل الذي سيتم تشغيله (يجب أن يكون ضمن دليل العمل). إذا كانت فارغة، استخدم الدليل الحالي.",
+    "param.extra_args.description": "مجموعة الوسائط الإضافية. قم بالرفض في حالة وجود أحرف تعريفية للصدفة.",
+    "param.framework.description": "نوع إطار الاختبار",
+    "param.pythonpath.description": "PYTHONPATH إضافي (مثل \"src\"). إذا تم توفيره، فسيتم إضافته إلى أمر الاختبار.",
+    "param.report.description": "تنسيق الإخراج.",
+    "param.target.description": "الهدف (مسار pytest، دليل بدء Unittest، البرنامج النصي npm، وما إلى ذلك). إذا كانت فارغة، يتم استخدام الإعدادات الافتراضية.",
+    "tool.description": "تشغيل الاختبارات (الاكتشاف التلقائي pytest/unittest/npm). رفض الأحرف الأولية للصدفة في extra_args.",
+    "tool.system_prompt": "استخدم هذه الأداة للغرض الموضح في وصف الأداة."
   }
 }

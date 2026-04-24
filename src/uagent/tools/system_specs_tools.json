@@ -88,5 +88,11 @@
     "tool.system_prompt": "To narzędzie służy do następującego celu: zebrania specyfikacji systemu, takich jak system operacyjny, procesor, rozmiar pamięci RAM, dyski magazynujące (dokładne wysiłki) i wolne miejsce na wolumenie.",
     "param.include_volumes.description": "Dołącz informacje o użyciu zamontowanego woluminu.",
     "param.include_disks.description": "Dołącz informacje o dysku fizycznym, jeśli są dostępne (dokładając wszelkich starań)."
+  },
+  "ar": {
+    "tool.description": "احصل على مواصفات النظام (وحدة المعالجة المركزية/ذاكرة الوصول العشوائي/الأقراص/وحدات التخزين) بأفضل طريقة عبر الأنظمة الأساسية.",
+    "tool.system_prompt": "يتم استخدام هذه الأداة للأغراض التالية: جمع مواصفات النظام مثل نظام التشغيل ووحدة المعالجة المركزية وحجم ذاكرة الوصول العشوائي وأقراص التخزين (أفضل جهد) والمساحة الخالية لوحدة التخزين.",
+    "param.include_volumes.description": "قم بتضمين معلومات استخدام وحدة التخزين المثبتة.",
+    "param.include_disks.description": "قم بتضمين معلومات القرص الفعلي عند توفرها (أفضل جهد)."
   }
 }

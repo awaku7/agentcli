@@ -88,5 +88,11 @@
     "msg.disabled": "(pamięć współdzielona jest wyłączona; ustaw UAGENT_SHARED_MEMORY_FILE, aby ją włączyć)",
     "msg.no_shared_memory": "(nie ma jeszcze pamięci współdzielonej)",
     "msg.truncated": "[pamięć współdzielona obcięta: ograniczona do {max_bytes} bajtów]"
+  },
+  "ar": {
+    "err.load": "[خطأ في الذاكرة المشتركة] {err_type}: {err}",
+    "msg.disabled": "(الذاكرة المشتركة معطلة؛ قم بتعيين UAGENT_SHARED_MEMORY_FILE لتمكينها)",
+    "msg.no_shared_memory": "(لا توجد ذاكرة مشتركة بعد)",
+    "msg.truncated": "[تم اقتطاع الذاكرة المشتركة: يقتصر على {max_bytes} بايت]"
   }
 }
