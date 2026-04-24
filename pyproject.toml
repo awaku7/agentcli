@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 authors = [
-  { name = "User", email = "ukawa.hirofumi@nttdata-sbc.co.jp" },
+  { name = "Hirofumi Ukawa", email = "hirofumi@ukawa.biz" },
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
