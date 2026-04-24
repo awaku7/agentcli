@@ -222,8 +222,11 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
         else:
             target = "zh_CN"  # Default zh to CN
     elif lang == "pt":
-        # Portuguese: default to pt_BR if available
-        target = "pt_BR" if region == "BR" or "pt_BR" in supported else "pt"
+        # Portuguese: prefer pt for generic/European Portuguese, pt_BR for Brazil.
+        if region == "BR":
+            target = "pt_BR" if "pt_BR" in supported else "pt"
+        else:
+            target = "pt" if "pt" in supported else "pt_BR"
     else:
         # Generic: use the language code itself (fr, de, ko, etc.)
         target = lang

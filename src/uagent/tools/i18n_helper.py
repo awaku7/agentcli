@@ -28,6 +28,8 @@ def _normalize_lang_tag(tag: Optional[str]) -> str:
         return "zh_CN"
     if t.startswith("pt"):
         return "pt_BR" if "br" in t else "pt"
+    if t.startswith("hi"):
+        return "hi"
 
     return t.split("_", 1)[0] or "en"
 
