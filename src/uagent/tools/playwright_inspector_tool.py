@@ -118,8 +118,7 @@ class FlowLogger:
 
 async def main() -> None:
     if len(sys.argv) < 2:
-        print("Error: missing JSON argument", file=sys.stderr)
-        sys.exit(1)
+        raise RuntimeError("missing JSON argument")
 
     payload = json.loads(sys.argv[1])
     url = payload.get("url") or "about:blank"
@@ -287,11 +286,7 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except Exception as e:
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
+    asyncio.run(main())
 """
 
     temp_script = f"temp_inspector_{os.getpid()}.py"
