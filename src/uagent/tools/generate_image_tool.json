@@ -17,7 +17,7 @@
     "param.prompt.description": "Instructions (prompt) for the image you want to generate",
     "param.size.description": "Image size. Example: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
+    "tool.system_prompt": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0).",
   },
   "ja": {
     "err.depname_missing": "[generate_image] 画像モデル(デプロイ名)が未設定です。\n環境変数 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME を設定してください。",
@@ -37,7 +37,7 @@
     "param.prompt.description": "生成したい画像の指示（プロンプト）",
     "param.size.description": "画像サイズ。例: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
-    "tool.system_prompt": "このツールは、ツールの説明に記載された目的のために使用します。"
+    "tool.system_prompt": "テキストプロンプトから画像を生成し、PNGで保存してファイルパスを返します。生成後、自動で画像を開きます（UAGENT_IMAGE_OPEN=0 で無効化可能）。",
   },
   "zh_CN": {
     "err.depname_missing": "[generate_image] 尚未设置图像模型（部署名）。\n请设置环境变量 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
@@ -57,7 +57,7 @@
     "param.prompt.description": "您要生成的图像说明（提示词）",
     "param.size.description": "图像尺寸。例如：1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "根据文本提示生成图像，保存为 PNG，并返回文件路径。生成后会自动打开图像（可通过 UAGENT_IMAGE_OPEN=0 关闭）。",
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+    "tool.system_prompt": "根据文本提示生成图像，保存为 PNG，并返回文件路径。生成后会自动打开图像（可通过 UAGENT_IMAGE_OPEN=0 关闭）。",
   },
   "zh_TW": {
     "err.depname_missing": "[generate_image] 尚未設定影像模型（部署名稱）。\n請設定環境變數 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
@@ -77,7 +77,7 @@
     "param.prompt.description": "您要生成的圖像說明（提示詞）",
     "param.size.description": "影像尺寸。例如：1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "根據文字提示生成影像，儲存為 PNG，並回傳檔案路徑。生成後會自動開啟影像（可透過 UAGENT_IMAGE_OPEN=0 關閉）。",
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    "tool.system_prompt": "根據文字提示生成影像，儲存為 PNG，並回傳檔案路徑。生成後會自動開啟影像（可透過 UAGENT_IMAGE_OPEN=0 關閉）。",
   },
   "es": {
     "err.depname_missing": "[generate_image] No se ha configurado el modelo de imagen (nombre de despliegue).\nDefina la variable de entorno UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -97,7 +97,7 @@
     "param.prompt.description": "Instrucciones (prompt) para la imagen que desea generar",
     "param.size.description": "Tamaño de imagen. Ejemplo: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo. Abre automáticamente la imagen después de generarla (se puede desactivar con UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver la descripción de la herramienta)."
+    "tool.system_prompt": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo. Abre automáticamente la imagen después de generarla (se puede desactivar con UAGENT_IMAGE_OPEN=0).",
   },
   "fr": {
     "err.depname_missing": "[generate_image] Le modèle d'image (nom de déploiement) n'a pas été défini.\nVeuillez définir la variable d'environnement UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -117,7 +117,7 @@
     "param.prompt.description": "Instructions (prompt) pour l’image que vous souhaitez générer",
     "param.size.description": "Taille de l’image. Exemple : 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Génère une image à partir d'un prompt texte, l'enregistre au format PNG et renvoie le chemin du fichier. Ouvre automatiquement l'image après la génération (désactivable avec UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+    "tool.system_prompt": "Génère une image à partir d'un prompt texte, l'enregistre au format PNG et renvoie le chemin du fichier. Ouvre automatiquement l'image après la génération (désactivable avec UAGENT_IMAGE_OPEN=0).",
   },
   "ko": {
     "err.depname_missing": "[generate_image] 이미지 모델(배포명)이 설정되지 않았습니다.\n환경 변수 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME 을 설정하세요.",
@@ -137,7 +137,7 @@
     "param.prompt.description": "생성할 이미지에 대한 지시사항(프롬프트)",
     "param.size.description": "이미지 크기. 예: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 생성 후 이미지를 자동으로 엽니다(UAGENT_IMAGE_OPEN=0으로 비활성화 가능).",
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다: (도구 설명 참조)."
+    "tool.system_prompt": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 생성 후 이미지를 자동으로 엽니다(UAGENT_IMAGE_OPEN=0으로 비활성화 가능).",
   },
   "th": {
     "err.depname_missing": "[generate_image] ยังไม่ได้ตั้งค่ารุ่นภาพ (deployment name)\nโปรดตั้งค่า environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME",
@@ -157,7 +157,7 @@
     "param.prompt.description": "คำสั่ง (prompt) สำหรับภาพที่ต้องการสร้าง",
     "param.size.description": "ขนาดภาพ ตัวอย่าง: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "สร้างภาพจากข้อความ prompt บันทึกเป็น PNG และส่งคืนพาธของไฟล์ หลังสร้างจะเปิดภาพอัตโนมัติ (ปิดได้ด้วย UAGENT_IMAGE_OPEN=0)",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
+    "tool.system_prompt": "สร้างภาพจากข้อความ prompt บันทึกเป็น PNG และส่งคืนพาธของไฟล์ หลังสร้างจะเปิดภาพอัตโนมัติ (ปิดได้ด้วย UAGENT_IMAGE_OPEN=0)",
   },
   "de": {
     "err.depname_missing": "[generate_image] Das Bildmodell (Bereitstellungsname) wurde noch nicht festgelegt.\nBitte setzen Sie die Umgebungsvariable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -177,7 +177,7 @@
     "param.prompt.description": "Anweisungen (Prompt) für das Bild, das Sie generieren möchten",
     "param.size.description": "Bildgröße. Beispiel: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Erzeugt aus einem Textprompt ein Bild, speichert es als PNG und gibt den Dateipfad zurück. Öffnet das Bild nach der Generierung automatisch (kann mit UAGENT_IMAGE_OPEN=0 deaktiviert werden).",
-    "tool.system_prompt": "Dieses Tool dient dem folgenden Zweck: (siehe Toolbeschreibung)."
+    "tool.system_prompt": "Erzeugt aus einem Textprompt ein Bild, speichert es als PNG und gibt den Dateipfad zurück. Öffnet das Bild nach der Generierung automatisch (kann mit UAGENT_IMAGE_OPEN=0 deaktiviert werden).",
   },
   "it": {
     "err.depname_missing": "[generate_image] Il modello di immagine (nome della distribuzione) non è stato impostato.\nImposta la variabile di ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -197,7 +197,7 @@
     "param.prompt.description": "Istruzioni (prompt) per l'immagine che desideri generare",
     "param.size.description": "Dimensione dell'immagine. Esempio: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Genera un'immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. Apre automaticamente l'immagine dopo la generazione (può essere disabilitato con UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    "tool.system_prompt": "Genera un'immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. Apre automaticamente l'immagine dopo la generazione (può essere disabilitato con UAGENT_IMAGE_OPEN=0).",
   },
   "ru": {
     "err.depname_missing": "[generate_image] Модель изображения (имя развертывания) не задана.\nУстановите переменную среды UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -217,7 +217,7 @@
     "param.prompt.description": "Инструкции (prompt) для изображения, которое нужно сгенерировать",
     "param.size.description": "Размер изображения. Пример: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Генерирует изображение по текстовому prompt, сохраняет его как PNG и возвращает путь к файлу. После генерации автоматически открывает изображение (можно отключить через UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    "tool.system_prompt": "Генерирует изображение по текстовому prompt, сохраняет его как PNG и возвращает путь к файлу. После генерации автоматически открывает изображение (можно отключить через UAGENT_IMAGE_OPEN=0).",
   },
   "pt_BR": {
     "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) ainda não foi definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -237,7 +237,7 @@
     "param.prompt.description": "Instruções (prompt) para a imagem que você deseja gerar",
     "param.size.description": "Tamanho da imagem. Exemplo: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. Abre a imagem automaticamente após a geração (pode ser desativado com UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (consulte a descrição da ferramenta)."
+    "tool.system_prompt": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. Abre a imagem automaticamente após a geração (pode ser desativado com UAGENT_IMAGE_OPEN=0).",
   },
   "id": {
     "err.depname_missing": "[generate_image] Nama deployment model gambar belum ditetapkan.\nSilakan set environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -257,7 +257,7 @@
     "param.prompt.description": "Instruksi (prompt) untuk gambar yang ingin Anda buat",
     "param.size.description": "Ukuran gambar. Contoh: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Membuat gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Gambar akan otomatis dibuka setelah dibuat (bisa dinonaktifkan dengan UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "ツールの説明を参照してください。"
+    "tool.system_prompt": "Membuat gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Gambar akan otomatis dibuka setelah dibuat (bisa dinonaktifkan dengan UAGENT_IMAGE_OPEN=0).",
   },
   "vi": {
     "err.depname_missing": "[generate_image] Mô hình ảnh (tên triển khai) chưa được thiết lập.\nHãy đặt biến môi trường UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -277,7 +277,7 @@
     "param.prompt.description": "Chỉ dẫn (prompt) cho ảnh bạn muốn tạo",
     "param.size.description": "Kích thước ảnh. Ví dụ: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Tự động mở ảnh sau khi tạo (có thể tắt bằng UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "Công cụ này được dùng cho mục đích sau (xem mô tả công cụ)."
+    "tool.system_prompt": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Tự động mở ảnh sau khi tạo (có thể tắt bằng UAGENT_IMAGE_OPEN=0).",
   },
   "pl": {
     "err.depname_missing": "[generate_image] Model obrazu (nazwa wdrożenia) nie został ustawiony.\nUstaw zmienną środowiskową UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -297,7 +297,7 @@
     "param.prompt.description": "Instrukcje (prompt) dla obrazu, który chcesz wygenerować",
     "param.size.description": "Rozmiar obrazu. Przykład: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "Generuje obraz z tekstowego promptu, zapisuje go jako PNG i zwraca ścieżkę pliku. Po wygenerowaniu automatycznie otwiera obraz (można wyłączyć przez UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "To narzędzie jest używane w następującym celu (zobacz opis narzędzia)."
+    "tool.system_prompt": "Generuje obraz z tekstowego promptu, zapisuje go jako PNG i zwraca ścieżkę pliku. Po wygenerowaniu automatycznie otwiera obraz (można wyłączyć przez UAGENT_IMAGE_OPEN=0).",
   },
   "pt": {
     "err.depname_missing": "[generate_image] O modelo de imagem (nome da implantação) não foi definido.\nDefina a variável de ambiente UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -317,7 +317,7 @@
     "param.prompt.description": "Instruções (prompt) para a imagem que você deseja gerar",
     "param.size.description": "Tamanho da imagem. Exemplo: 1024x1024/1024x1536/1536x1024",
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva-a como PNG e retorna o caminho do arquivo. Abre automaticamente a imagem após a geração (pode ser desabilitada com UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
+    "tool.system_prompt": "Gera uma imagem a partir de um prompt de texto, salva-a como PNG e retorna o caminho do arquivo. Abre automaticamente a imagem após a geração (pode ser desabilitada com UAGENT_IMAGE_OPEN=0).",
   },
   "hi": {
     "err.depname_missing": "[generate_image] छवि मॉडल (परिनियोजन नाम) सेट नहीं किया गया है।\nकृपया पर्यावरण चर UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME सेट करें।",
@@ -337,7 +337,7 @@
     "param.prompt.description": "आप जो छवि उत्पन्न करना चाहते हैं उसके लिए निर्देश (संकेत)।",
     "param.size.description": "छवि का आकार. उदाहरण: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "टेक्स्ट प्रॉम्प्ट से एक छवि उत्पन्न करता है, इसे पीएनजी के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। पीढ़ी के बाद छवि स्वचालित रूप से खुलती है (UAGENT_IMAGE_OPEN=0 के साथ अक्षम किया जा सकता है)।",
-    "tool.system_prompt": "मैं आपको यह बताना चाहता हूं कि यह कैसे काम करता है।"
+    "tool.system_prompt": "टेक्स्ट प्रॉम्प्ट से एक छवि उत्पन्न करता है, इसे पीएनजी के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। पीढ़ी के बाद छवि स्वचालित रूप से खुलती है (UAGENT_IMAGE_OPEN=0 के साथ अक्षम किया जा सकता है)।",
   },
   "ar": {
     "err.depname_missing": "[generate_image] لم يتم تعيين نموذج الصورة (اسم النشر).\nالرجاء ضبط متغير البيئة UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
@@ -357,6 +357,6 @@
     "param.prompt.description": "تعليمات (موجهة) للصورة التي تريد إنشاءها",
     "param.size.description": "حجم الصورة. مثال: 1024x1024 / 1024x1536 / 1536x1024",
     "tool.description": "ينشئ صورة من موجه نصي، ويحفظها بصيغة PNG، ويعيد مسار الملف. يفتح الصورة تلقائيًا بعد الإنشاء (يمكن تعطيلها باستخدام UAGENT_IMAGE_OPEN=0).",
-    "tool.system_prompt": "(このツルルは次の目的で使用 されます (ツ ル の 説明を 参照)."
+    "tool.system_prompt": "ينشئ صورة من موجه نصي، ويحفظها بصيغة PNG، ويعيد مسار الملف. يفتح الصورة تلقائيًا بعد الإنشاء (يمكن تعطيلها باستخدام UAGENT_IMAGE_OPEN=0).",
   }
 }
