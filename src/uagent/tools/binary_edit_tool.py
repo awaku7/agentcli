@@ -399,7 +399,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             if splice_op == "insert":
                 ins = _hex_to_bytes(str(args.get("data_hex") or ""))
                 if not ins:
-                    raise ValueError("[binary_edit] data_hex is required for splice insert")
+                    raise ValueError(
+                        "[binary_edit] data_hex is required for splice insert"
+                    )
                 results.append(_op_splice_insert(data, offset=offset, ins=ins))
             else:
                 if "delete_len" not in args:
@@ -422,13 +424,17 @@ def run_tool(args: Dict[str, Any]) -> str:
                     offset = int(op.get("offset"))
                     patch = _hex_to_bytes(str(op.get("data_hex") or ""))
                     if not patch:
-                        raise ValueError("[binary_edit] patch op write requires data_hex")
+                        raise ValueError(
+                            "[binary_edit] patch op write requires data_hex"
+                        )
                     results.append(_op_write(data, offset=offset, patch=patch))
                 elif op_type == "insert":
                     offset = int(op.get("offset"))
                     ins = _hex_to_bytes(str(op.get("data_hex") or ""))
                     if not ins:
-                        raise ValueError("[binary_edit] patch op insert requires data_hex")
+                        raise ValueError(
+                            "[binary_edit] patch op insert requires data_hex"
+                        )
                     results.append(_op_splice_insert(data, offset=offset, ins=ins))
                 elif op_type == "delete":
                     offset = int(op.get("offset"))
@@ -441,7 +447,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     repl = _hex_to_bytes(str(op.get("replace_hex") or ""))
                     occurrence = int(op.get("occurrence", 1))
                     results.append(
-                        _op_replace(data, search=search, repl=repl, occurrence=occurrence)
+                        _op_replace(
+                            data, search=search, repl=repl, occurrence=occurrence
+                        )
                     )
                 else:
                     raise ValueError(f"[binary_edit] unknown patch op: {op_type}")
@@ -511,4 +519,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     except ValueError as e:
         return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
     except Exception as e:
-        return json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"}, ensure_ascii=False)
+        return json.dumps(
+            {"ok": False, "error": f"{type(e).__name__}: {e}"}, ensure_ascii=False
+        )

@@ -309,4 +309,4 @@ def claude_chat_with_tools(
                 }
             )
 
-    return assistant_text, tool_calls_list, {}
+    return assistant_text, tool_calls_list
