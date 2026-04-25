@@ -16,22 +16,65 @@ Note:
 """
 
 from __future__ import annotations
+
+import base64
+import json
+import os
+import ssl
+import threading
+import time
+from typing import Any, Dict, List
+
+from ..env_utils import env_get
+from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
 
-import base64
-import os
-from ..env_utils import env_get
-import ssl
-import time
-from typing import Any, Dict, List
+def _msg(key: str, default: str, **kwargs: Any) -> str:
+    return _(key, default=default).format(**kwargs)
 
-from .context import get_callbacks
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:generate_image"
+_SPINNER_FRAMES = "|/-\\"
+
+
+class _StatusSpinner:
+    def __init__(self, cb: Any, base_label: str) -> None:
+        self._cb = cb
+        self._base_label = base_label
+        self._stop = threading.Event()
+        self._thread: threading.Thread | None = None
+
+    def start(self) -> None:
+        if not self._cb or not getattr(self._cb, "set_status", None):
+            return
+        try:
+            self._cb.set_status(True, f"{self._base_label} {_SPINNER_FRAMES[0]}")
+        except Exception:
+            pass
+        self._thread = threading.Thread(target=self._run, daemon=True)
+        self._thread.start()
+
+    def _run(self) -> None:
+        i = 0
+        while not self._stop.wait(0.5):
+            try:
+                self._cb.set_status(
+                    True,
+                    f"{self._base_label} {_SPINNER_FRAMES[i % len(_SPINNER_FRAMES)]}",
+                )
+            except Exception:
+                pass
+            i += 1
+
+    def stop(self) -> None:
+        self._stop.set()
+        if self._thread is not None:
+            self._thread.join(timeout=1.0)
+            self._thread = None
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -41,6 +84,10 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default="Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
+        ),
+        "system_prompt": _(
+            "tool.system_prompt",
+            default="Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
         ),
         "parameters": {
             "type": "object",
@@ -85,6 +132,27 @@ TOOL_SPEC: Dict[str, Any] = {
                     ),
                     "default": "img",
                 },
+                "moderation": {
+                    "type": "string",
+                    "description": _(
+                        "param.moderation.description",
+                        default="Image moderation mode (optional).",
+                    ),
+                },
+                "quality": {
+                    "type": "string",
+                    "description": _(
+                        "param.quality.description",
+                        default="Image quality (optional; e.g. auto/high/medium/low).",
+                    ),
+                },
+                "background": {
+                    "type": "string",
+                    "description": _(
+                        "param.background.description",
+                        default="Image background (optional; e.g. auto/transparent).",
+                    ),
+                },
             },
             "required": ["prompt"],
         },
@@ -105,7 +173,11 @@ def _get_provider() -> str:
     )
     if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "nvidia"):
         raise RuntimeError(
-            f"invalid provider for image generation: {p!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)"
+            _msg(
+                "err.invalid_provider",
+                "invalid provider for image generation: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
+                provider=p,
+            )
         )
     return p
 
@@ -116,7 +188,13 @@ def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
         if v:
             return v
     if required:
-        raise RuntimeError(f"required env var is missing (tried: {', '.join(keys)})")
+        raise RuntimeError(
+            _msg(
+                "err.required_env_vars_missing",
+                "required env var is missing (tried: {keys})",
+                keys=", ".join(keys),
+            )
+        )
     return default
 
 
@@ -134,6 +212,13 @@ def _img_env(
 def _ssl_verify_enabled() -> bool:
     """Default: no verification. Enable only if UAGENT_SSL_VERIFY=1/true/yes/on."""
     v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
+    return v in ("1", "true", "yes", "on")
+
+
+def _env_bool(name: str, default: bool = False) -> bool:
+    v = (env_get(name) or "").strip().lower()
+    if not v:
+        return default
     return v in ("1", "true", "yes", "on")
 
 
@@ -169,6 +254,10 @@ def _sanitize_size_for_provider(size: str) -> str:
     return size
 
 
+def _is_gpt_image_model(image_model: str) -> bool:
+    return image_model.strip().lower().startswith("gpt-image-")
+
+
 def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
     saved: List[str] = []
     for i, b64 in enumerate(b64_list):
@@ -189,15 +278,25 @@ def _download_to_png(url: str, out_path: str) -> None:
 
 
 def _run_openai_images(
-    provider: str, image_model: str, prompt: str, size: str, n: int
+    provider: str,
+    image_model: str,
+    prompt: str,
+    size: str,
+    n: int,
+    *,
+    moderation: str = "",
+    quality: str = "",
+    background: str = "",
 ) -> Dict[str, Any]:
     try:
         from openai import AzureOpenAI, OpenAI
     except Exception as e:
         raise RuntimeError(
-            _(
-                "err.openai_import", default="Failed to import openai package: {err}"
-            ).format(err=repr(e))
+            _msg(
+                "err.openai_import",
+                "Failed to import openai package: {err}",
+                err=repr(e),
+            )
         )
 
     http_client = None
@@ -206,12 +305,12 @@ def _run_openai_images(
 
         http_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
         if http_client is None:
-            raise RuntimeError("httpx is not available")
+            raise RuntimeError(
+                _("err.httpx_unavailable", default="httpx is not available")
+            )
     except Exception as e:
         raise RuntimeError(
-            _("err.httpx_init", default="Failed to initialize httpx: {err}").format(
-                err=repr(e)
-            )
+            _msg("err.httpx_init", "Failed to initialize httpx: {err}", err=repr(e))
         )
 
     if provider == "azure":
@@ -233,7 +332,6 @@ def _run_openai_images(
                 api_version=api_version,
             )
     else:
-        # OpenAI-compatible (openai / bedrock / openrouter / nvidia)
         if provider == "nvidia":
             api_key = _img_env("nvidia", "generate", "api_key", required=True)
             base_url = _img_env(
@@ -272,25 +370,42 @@ def _run_openai_images(
         except TypeError:
             client = OpenAI(api_key=api_key, base_url=base_url)
 
-    resp = client.images.generate(
-        model=image_model,
-        prompt=prompt,
-        size=size,
-        n=n,
-    )
+    gen_kwargs: Dict[str, Any] = {
+        "model": image_model,
+        "prompt": prompt,
+        "size": size,
+        "n": n,
+    }
+    if moderation:
+        gen_kwargs["moderation"] = moderation
+    if _is_gpt_image_model(image_model):
+        gen_kwargs["output_format"] = "png"
+        gen_kwargs["quality"] = quality or "auto"
+        gen_kwargs["background"] = background or "auto"
+    else:
+        gen_kwargs["response_format"] = "b64_json"
+
+    resp = client.images.generate(**gen_kwargs)
 
     b64_list: List[str] = []
     url_list: List[str] = []
+    items: List[Dict[str, Any]] = []
 
     data_list = getattr(resp, "data", None) or []
-    for item in data_list:
+    for idx, item in enumerate(data_list, start=1):
+        item_meta: Dict[str, Any] = {"index": idx}
         b64 = getattr(item, "b64_json", None)
         if b64:
             b64_list.append(b64)
-            continue
+            item_meta["has_b64_json"] = True
         url = getattr(item, "url", None)
         if url:
             url_list.append(url)
+            item_meta["url"] = url
+        revised_prompt = getattr(item, "revised_prompt", None)
+        if revised_prompt:
+            item_meta["revised_prompt"] = revised_prompt
+        items.append(item_meta)
 
     if not b64_list and not url_list:
         raise RuntimeError(
@@ -300,75 +415,84 @@ def _run_openai_images(
             )
         )
 
-    return {"b64_list": b64_list, "url_list": url_list}
+    return {"b64_list": b64_list, "url_list": url_list, "items": items}
 
 
-def _run_gemini_images(image_model: str, prompt: str) -> List[str]:
-    """Gemini image generation."""
+def _run_gemini_images(
+    image_model: str,
+    prompt: str,
+    size: str,
+    n: int,
+) -> List[str]:
     try:
-        from google import genai  # type: ignore
+        from google import genai
+        from google.genai import types as gemini_types
     except Exception as e:
         raise RuntimeError(
-            _(
+            _msg(
                 "err.gemini_import",
-                default="Failed to import google-genai (pip install google-genai): {err}",
-            ).format(err=repr(e))
+                "Failed to import google-genai package: {err}",
+                err=repr(e),
+            )
         )
 
     api_key = _img_env("gemini", "generate", "api_key", required=True)
-    client = genai.Client(api_key=api_key)
 
-    # try 1: client.models.generate_images (Imagen 3/4, etc.)
-    if hasattr(client, "models") and hasattr(client.models, "generate_images"):
-        try:
-            resp = client.models.generate_images(model=image_model, prompt=prompt)
-            b64_list: List[str] = []
-            for gi in getattr(resp, "generated_images", []) or []:
-                img = getattr(gi, "image", None)
-                if img is None:
-                    continue
+    kwargs: Dict[str, Any] = {}
+    try:
+        from .. import util_providers as providers  # type: ignore
 
-                # SDK v1.62+ uses image_bytes (bytes)
-                raw_bytes = getattr(img, "image_bytes", None)
-                if raw_bytes:
-                    b64 = base64.b64encode(raw_bytes).decode("utf-8")
-                else:
-                    # Legacy SDK support
-                    b64 = getattr(img, "bytes_base64_encoded", None) or getattr(
-                        img, "data", None
-                    )
+        httpx_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
+        if httpx_client is not None:
+            kwargs["http_options"] = {"httpx_client": httpx_client}
+    except Exception:
+        pass
 
-                if b64:
-                    b64_list.append(str(b64))
-            if b64_list:
-                return b64_list
-        except Exception:
-            pass
+    try:
+        client = genai.Client(api_key=api_key, **kwargs)
+    except TypeError:
+        client = genai.Client(api_key=api_key)
 
-    # try 2: client.models.generate_content (Multimodal models, etc.)
-    if hasattr(client, "models") and hasattr(client.models, "generate_content"):
-        resp = client.models.generate_content(model=image_model, contents=prompt)
-        b64_list2: List[str] = []
-        cands = getattr(resp, "candidates", None) or []
-        for cand in cands:
-            content = getattr(cand, "content", None)
-            parts = getattr(content, "parts", None) or []
-            for part in parts:
-                inline = getattr(part, "inline_data", None)
-                if inline is None:
-                    continue
-                data = getattr(inline, "data", None)
-                if data:
-                    b64_list2.append(str(data))
-        if b64_list2:
-            return b64_list2
+    config_kwargs: Dict[str, Any] = {
+        "number_of_images": n,
+        "output_mime_type": "image/png",
+    }
+    if size == "1024x1024":
+        config_kwargs["aspect_ratio"] = "1:1"
+    elif size == "1024x1536":
+        config_kwargs["aspect_ratio"] = "2:3"
+    elif size == "1536x1024":
+        config_kwargs["aspect_ratio"] = "3:2"
+    else:
+        config_kwargs["image_size"] = size
 
-    raise RuntimeError(
-        _(
-            "err.gemini_fail",
-            default="Failed to get image generation results from Gemini. The model might not support image generation, or the SDK response format is unexpected.",
-        )
+    resp = client.models.generate_images(
+        model=image_model,
+        prompt=prompt,
+        config=gemini_types.GenerateImagesConfig(**config_kwargs),
     )
+
+    b64_list: List[str] = []
+    gen_list = (
+        getattr(resp, "generated_images", None) or getattr(resp, "images", None) or []
+    )
+    for item in gen_list:
+        img = getattr(item, "image", None)
+        if img is None:
+            continue
+        raw = getattr(img, "image_bytes", None)
+        if raw:
+            b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
+
+    if not b64_list:
+        raise RuntimeError(
+            _msg(
+                "err.empty_data",
+                "Image data was empty (generated_images is empty or image_bytes is missing)",
+            )
+        )
+
+    return b64_list
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -376,7 +500,10 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     prompt = str(args.get("prompt") or "").strip()
     if not prompt:
-        return _("err.prompt_empty", default="[generate_image] prompt is empty")
+        return _(
+            "err.prompt_empty",
+            default="[generate_image] prompt is empty",
+        )
 
     size = str(args.get("size") or "1024x1024")
     n = int(args.get("n") or 1)
@@ -387,45 +514,79 @@ def run_tool(args: Dict[str, Any]) -> str:
     default_output_dir = str(get_image_generations_dir())
     output_dir = str(args.get("output_dir") or default_output_dir)
     file_prefix = str(args.get("file_prefix") or "img")
-
     provider = _get_provider()
-
     try:
         image_model = _get_image_depname(cb.get_env, provider)
-    except Exception:
+    except RuntimeError:
         return _(
             "err.depname_missing",
-            default="[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+            default=(
+                "[generate_image] Image model (deployment name) is not set.\n"
+                "Please set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+            ),
         )
 
     try:
         outdir = _ensure_dir(output_dir)
     except Exception as e:
-        return _(
+        return _msg(
             "err.mkdir_fail",
-            default="[generate_image] Failed to create output_dir: {err}",
-        ).format(err=e)
+            "[generate_image] Failed to create output_dir: {err}",
+            err=e,
+        )
 
     ts = time.strftime("%Y%m%d_%H%M%S")
+    saved: List[str] = []
+    spinner = _StatusSpinner(cb, STATUS_LABEL)
+    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
+    save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
+    moderation = str(
+        args.get("moderation") or env_get("UAGENT_IMG_GENERATE_MODERATION") or ""
+    ).strip()
+    quality = str(
+        args.get("quality") or env_get("UAGENT_IMG_GENERATE_QUALITY") or ""
+    ).strip()
+    background = str(
+        args.get("background") or env_get("UAGENT_IMG_GENERATE_BACKGROUND") or ""
+    ).strip()
+    meta_payload: Dict[str, Any] = {
+        "provider": provider,
+        "model": image_model,
+        "prompt": prompt,
+        "size": size,
+        "n": n,
+        "timestamp": ts,
+        "debug": debug,
+        "save_meta": save_meta,
+        "moderation": moderation or None,
+        "quality": quality or None,
+        "background": background or None,
+    }
 
     try:
+        spinner.start()
         size2 = _sanitize_size_for_provider(size)
+        meta_payload["size"] = size2
 
-        if provider in ("openai", "azure"):
+        if provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
             res = _run_openai_images(
                 provider=provider,
                 image_model=image_model,
                 prompt=prompt,
                 size=size2,
                 n=n,
+                moderation=moderation,
+                quality=quality,
+                background=background,
             )
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
+            meta_payload["items"] = res.get("items") or []
 
-            saved: List[str] = []
             if b64_list:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
             if url_list:
+                meta_payload["downloaded_urls"] = []
                 for i, url in enumerate(url_list):
                     fn = (
                         f"{file_prefix}_{ts}_url_{i+1}.png"
@@ -435,25 +596,55 @@ def run_tool(args: Dict[str, Any]) -> str:
                     out_path = os.path.join(outdir, fn)
                     _download_to_png(url, out_path)
                     saved.append(out_path)
+                    meta_payload["downloaded_urls"].append(url)
 
         elif provider == "gemini":
-            b64_list = _run_gemini_images(image_model=image_model, prompt=prompt)
+            b64_list = _run_gemini_images(
+                image_model=image_model,
+                prompt=prompt,
+                size=size2,
+                n=n,
+            )
             saved = _save_many(outdir, file_prefix, ts, b64_list)
+            meta_payload["items"] = [
+                {"index": i + 1, "has_b64_json": True} for i in range(len(b64_list))
+            ]
         else:
-            return _(
+            return _msg(
                 "err.unsupported_provider",
-                default="[generate_image] Unsupported provider={provider!r}",
-            ).format(provider=provider)
+                "[generate_image] Unsupported provider={provider!r}",
+                provider=provider,
+            )
 
     except Exception as e:
-        return _(
+        return _msg(
             "err.gen_fail",
-            default="[generate_image] Image generation failed.\nprovider={provider} model={model} size={size} n={n}\n{err}",
-        ).format(provider=provider, model=image_model, size=size, n=n, err=repr(e))
+            "[generate_image] Image generation failed.\nprovider={provider} model={model} size={size} n={n}\n{err}",
+            provider=provider,
+            model=image_model,
+            size=size,
+            n=n,
+            err=repr(e),
+        )
+    finally:
+        spinner.stop()
+
+    if save_meta:
+        meta_payload["saved_files"] = saved
+        meta_path = os.path.join(outdir, f"{file_prefix}_{ts}.json")
+        try:
+            with open(meta_path, "w", encoding="utf-8") as f:
+                json.dump(meta_payload, f, ensure_ascii=False, indent=2, default=str)
+                f.write("\n")
+        except Exception:
+            pass
 
     if not saved:
-        return _("err.no_saved", default="[generate_image] Image data was empty")
+        return _(
+            "err.no_saved",
+            default="[generate_image] Image data was empty",
+        )
 
     if len(saved) == 1:
-        return "[OK] generated: " + saved[0]
-    return "[OK] generated:\n" + "\n".join(saved)
+        return _msg("ok.generated_one", "[OK] generated: {path}", path=saved[0])
+    return _msg("ok.generated_many", "[OK] generated:\n{paths}", paths="\n".join(saved))

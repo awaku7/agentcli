@@ -506,6 +506,18 @@ def _ask_provider_image_values(
             return status, vals
         vals[key] = value
 
+    if mode == "generate":
+        status, value = _ask_text(
+            _("Enable image generation debug output? (0/1)"),
+            default=vals.get("UAGENT_IMG_GENERATE_DEBUG", ""),
+            required=False,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status, vals
+        if value:
+            vals["UAGENT_IMG_GENERATE_DEBUG"] = value
+
     return "ok", vals
 
 
@@ -752,16 +764,21 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         if st.image_generate_enabled:
             ig_vals = st.image_generate_values or {}
             ig_provider = ig_vals.get("UAGENT_IMG_GENERATE_PROVIDER", "").strip()
+            emitted: set[str] = {"UAGENT_IMG_GENERATE_PROVIDER"}
             if ig_provider:
                 out.append(f"UAGENT_IMG_GENERATE_PROVIDER={ig_provider}")
                 for suffix in ("BASE_URL", "API_KEY", "API_VERSION", "DEPNAME"):
                     key = f"UAGENT_{ig_provider.upper()}_IMG_GENERATE_{suffix}"
+                    emitted.add(key)
                     val = ig_vals.get(key, "").strip()
                     if val:
                         out.append(f"{key}={val}")
-            image_open = (ig_vals.get("UAGENT_IMAGE_OPEN", "") or "").strip()
-            if image_open:
-                out.append(f"UAGENT_IMAGE_OPEN={image_open}")
+            for key in sorted(ig_vals):
+                if key in emitted:
+                    continue
+                val = (ig_vals.get(key, "") or "").strip()
+                if val:
+                    out.append(f"{key}={val}")
         else:
             out.append("# UAGENT_IMG_GENERATE_PROVIDER=")
             for prov, _label in IMAGE_GENERATION_PROVIDERS:
@@ -770,6 +787,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
                 if prov == "azure":
                     out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_API_VERSION=")
                 out.append(f"# UAGENT_{prov.upper()}_IMG_GENERATE_DEPNAME=")
+            out.append("# UAGENT_IMG_GENERATE_DEBUG=0")
             out.append("# UAGENT_IMAGE_OPEN=1")
         out.append("")
 

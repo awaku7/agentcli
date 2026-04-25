@@ -60,6 +60,7 @@ from .llm_openrouter import (
 from .llm_openrouter_responses import apply_openrouter_responses_compat
 from .llm_ollama import apply_ollama_extra_body
 from .llm_ollama_responses import apply_ollama_responses_compat
+from .image_session import build_image_session_message
 
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
@@ -444,6 +445,7 @@ def _build_call_messages(
     provider: str,
     messages: List[Dict[str, Any]],
     core: Any,
+    depname: str,
     gemini_cache_name: Any,
 ) -> List[Dict[str, Any]]:
     if provider in ("gemini", "vertexai"):
@@ -516,7 +518,12 @@ def _build_call_messages(
 
         return call_messages
 
-    return core.sanitize_messages_for_tools(messages)
+    call_messages = core.sanitize_messages_for_tools(messages)
+
+    image_session_msg = build_image_session_message(call_messages, depname)
+    if image_session_msg is not None:
+        call_messages = [image_session_msg] + call_messages
+    return call_messages
 
 
 def _translate_call_messages(
@@ -1483,6 +1490,7 @@ def run_llm_rounds(
                 provider=provider,
                 messages=messages,
                 core=core,
+                depname=depname,
                 gemini_cache_name=gemini_cache_name,
             )
             call_messages = _translate_call_messages(call_messages, tr_cfg)

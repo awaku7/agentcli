@@ -7,7 +7,9 @@ from types import SimpleNamespace
 import pytest
 
 
-def test_search_web_main_raises_runtime_error_on_failure(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_search_web_main_raises_runtime_error_on_failure(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools import search_web_tool
 
     monkeypatch.setattr(sys, "argv", ["search_web_tool.py", "example"])
