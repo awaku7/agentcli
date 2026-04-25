@@ -4,7 +4,7 @@
 
 Purpose:
 - Generate an image from a text prompt, save it as a PNG file, and return the path.
-- Automatically open the image after generation (can be disabled via environment variable UAGENT_IMAGE_OPEN=0).
+- Opening is handled by the caller (CLI/GUI/Web).
 
 Supported:
 - provider: UAGENT_IMG_GENERATE_PROVIDER (fallback: UAGENT_PROVIDER)
@@ -25,7 +25,6 @@ import base64
 import os
 from ..env_utils import env_get
 import ssl
-import subprocess
 import time
 from typing import Any, Dict, List
 
@@ -41,7 +40,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "generate_image",
         "description": _(
             "tool.description",
-            default="Generates an image from a text prompt, saves it as a PNG, and returns the file path. Automatically opens the image after generation (can be disabled with UAGENT_IMAGE_OPEN=0).",
+            default="Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
         ),
         "parameters": {
             "type": "object",
@@ -187,19 +186,6 @@ def _download_to_png(url: str, out_path: str) -> None:
     with urlopen(req, **_urlopen_kwargs()) as resp:
         raw = resp.read()
     _write_png_bytes(raw, out_path)
-
-
-def _open_image(file_path: str) -> None:
-    """Open an image using the OS's default viewer."""
-    try:
-        if os.name == "nt":  # Windows
-            os.startfile(file_path)
-        elif hasattr(os, "uname") and os.uname().sysname == "Darwin":  # macOS
-            subprocess.run(["open", file_path], check=False)
-        else:  # Linux
-            subprocess.run(["xdg-open", file_path], check=False)
-    except Exception:
-        pass
 
 
 def _run_openai_images(
@@ -467,14 +453,6 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if not saved:
         return _("err.no_saved", default="[generate_image] Image data was empty")
-
-    # Open by default. Disable via UAGENT_IMAGE_OPEN=0/false, etc.
-    env_val = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
-    should_open = env_val not in ("0", "false", "no", "off")
-
-    if should_open:
-        for p in saved:
-            _open_image(p)
 
     if len(saved) == 1:
         return "[OK] generated: " + saved[0]

@@ -30,7 +30,6 @@ _RUNNERS: Dict[str, Callable[[Dict[str, Any]], str]] = {}
 # key: tool_name, value: status_label (e.g. "tool:cmd_exec")
 _BUSY_LABEL_TOOLS: Dict[str, str] = {}
 
-
 # ------------------------------
 # Tool trace (stdout only)
 # ------------------------------
@@ -493,12 +492,14 @@ def run_tool(name: str, args: Dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            return runner(args)
+            result = runner(args)
         finally:
             _safe_set_status(True, "LLM")
+        return result
 
     # Otherwise do not touch status
-    return runner(args)
+    result = runner(args)
+    return result
 
 
 # Load once on module import
