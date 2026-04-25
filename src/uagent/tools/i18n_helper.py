@@ -63,6 +63,14 @@ def _load_tool_dict(json_path: str) -> Dict[str, Any]:
         return {}
 
 
+def clear_tool_i18n_cache() -> None:
+    """Clear cached tool translation JSON data."""
+    try:
+        _load_tool_dict.cache_clear()
+    except Exception:
+        pass
+
+
 def _unescape_newlines(s: str) -> str:
     return s.replace("\\r\\n", "\n").replace("\\n", "\n")
 

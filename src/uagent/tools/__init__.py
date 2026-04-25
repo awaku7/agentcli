@@ -16,7 +16,7 @@ except Exception:  # pragma: no cover
     JanomeTokenizer = None
 
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
-from .i18n_helper import make_tool_translator
+from .i18n_helper import clear_tool_i18n_cache, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
@@ -449,6 +449,7 @@ def get_tool_catalog(
 
 def reload_plugins() -> None:
     """Reload tool plugins (reserved for future extensions)."""
+    clear_tool_i18n_cache()
     _load_plugins()
 
 

@@ -112,6 +112,11 @@ SYSTEM_PROMPT = _(SYSTEM_PROMPT_MSGID)
 
 - Write msgids in English.
 - Wrap with `_()`.
+- If a host-side prompt needs runtime fallback when translations are empty, `tr()` may be used.
+
+### 1.5) Extract POT
+
+- When generating `uag.pot`, include `tr` as a gettext keyword as well as `_` and `ngettext:1,2`.
 
 ### 2) Update `uag.po`
 

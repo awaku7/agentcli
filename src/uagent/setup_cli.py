@@ -323,8 +323,8 @@ def _menu_choice(
             print(f"  {i}. {text}{mark}")
         hint = _("Enter number:")
         if allow_back:
-            hint += _(" b=back")
-        hint += _(" q=quit")
+            hint += " b=back"
+        hint += " q=quit"
         raw = input(f"{hint} ").strip().lower()
         if raw == "q":
             return "__quit__"
@@ -350,8 +350,8 @@ def _ask_text(
             prompt += _(" [default: %(default)s]") % {"default": default}
         hint: list[str] = []
         if allow_back:
-            hint.append(_("b=back"))
-        hint.append(_("q=quit"))
+            hint.append("b=back")
+        hint.append("q=quit")
         prompt += f" ({', '.join(hint)}): "
         raw = input(prompt).strip()
         low = raw.lower()
@@ -406,8 +406,8 @@ def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
     print(_("  4. .env + env.bat"))
     print(_("  5. .env + all (sh/ps1/bat)"))
     if allow_back:
-        print(_("  b. back"))
-    print(_("  q. quit"))
+        print("  b. back")
+    print("  q. quit")
 
     while True:
         raw = input(_("Enter number:") + " ").strip().lower()
