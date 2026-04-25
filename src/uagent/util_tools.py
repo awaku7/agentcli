@@ -374,9 +374,7 @@ def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
         new_mode = apply_reasoning_arg(arg)
     except Exception:
         print(
-            tr(
-                ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-            )
+            ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
         )
         return True
 
@@ -388,7 +386,7 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
     try:
         new_mode = apply_verbosity_arg(arg)
     except Exception:
-        print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
+        print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
         return True
 
     print(f"[mode] verbosity={new_mode}")
@@ -404,7 +402,7 @@ def _handle_cmd_cd(
 ) -> bool:
     a = (arg or "").strip()
     if not a:
-        print(tr(":cd <path>"))
+        print(":cd <path>")
         return True
 
     try:
@@ -537,7 +535,7 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             except Exception:
                 print(
                     tr(
-                        "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+                        tr("[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)")
                     )
                     % {"arg": a}
                 )
@@ -896,9 +894,7 @@ def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
         return int(a)
     except Exception:
         print(
-            tr(
-                "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
-            )
+            tr("[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)")
             % {"arg": a, "default": threshold}
         )
         return None
@@ -1132,7 +1128,7 @@ def _prepend_loaded_log_to_current(
 def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":rm <path|glob> [path|glob]"))
+        print(":rm <path|glob> [path|glob]")
         return True
 
     try:
@@ -1142,7 +1138,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         return True
 
     if not items:
-        print(tr(":rm <path|glob> [path|glob]"))
+        print(":rm <path|glob> [path|glob]")
         return True
 
     try:
@@ -1237,7 +1233,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(tr(":load <index|path>"))
+        print(":load <index|path>")
         return True
 
     files = core.find_log_files(exclude_current=True)
@@ -1329,7 +1325,7 @@ def _handle_cmd_shrink(
         except Exception:
             print(
                 _(
-                    "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    _("[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d")
                 )
                 % {"arg": arg, "keep": keep_last}
             )
@@ -1356,7 +1352,7 @@ def _handle_cmd_shrink_llm(
         except Exception:
             print(
                 _(
-                    "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    _("[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d")
                 )
                 % {"arg": arg, "keep": keep_last}
             )
@@ -1395,7 +1391,7 @@ def _handle_cmd_mem_list(*, tr: Any) -> bool:
 
 def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(tr(":mem-del <index>"))
+        print(":mem-del <index>")
         return True
 
     try:
@@ -1444,7 +1440,7 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
 
 def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(tr(":shared-mem-del <index>"))
+        print(":shared-mem-del <index>")
         return True
 
     if not shared_memory.is_enabled():
@@ -1501,55 +1497,57 @@ def format_help(*, core: Any) -> str:
     sentinel = getattr(core, "MULTI_INPUT_SENTINEL", '"""end')
 
     lines = [
-        tr("Available commands:"),
-        tr("  :help                 Show this help"),
-        tr('  (in multiline input) """retry  Restart input from the beginning'),
-        tr("  :logs / :list         Show log file list"),
-        tr(
-            "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+        "Available commands:",
+        "  :help                 " + tr("Show this help"),
+        '  (in multiline input) """retry  ' + tr("Restart input from the beginning"),
+        "  :logs / :list         " + tr("Show log file list"),
+        "  :cd <path>            " + tr(
+            "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\path / :cd /)"
         ),
-        tr(
-            "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+        "  :ls [path]            " + tr(
+            "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\path)"
         ),
-        tr("  :tools                List loaded tools"),
-        tr(
-            "  :skills [cmd]         Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+        "  :tools                " + tr("List loaded tools"),
+        "  :skills [cmd]         " + tr(
+            "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
         ),
-        tr(
-            "  :load <idx|path>      Load a past log (overwrites current conversation history)"
+        "  :load <idx|path>      " + tr(
+            "Load a past log (overwrites current conversation history)"
         ),
         tr(
             "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
         ),
-        tr(
-            "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
+        "  :clean [N]            " + tr(
+            "Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
         ),
-        tr(
-            "  :shrink [N]           Shrink conversation history (keep last N non-system messages; default=40)"
+        "  :shrink [N]           " + tr(
+            "Shrink conversation history (keep last N non-system messages; default=40)"
         ),
-        tr(
-            "  :shrink_llm [N]       Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
+        "  :shrink_llm [N]       " + tr(
+            "Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
-        tr("  :mem-list             List long-term memory notes"),
-        tr(
-            "  :mem-del <index>      Delete a long-term memory note by index (see :mem-list)"
+        "  :mem-list             " + tr("List long-term memory notes"),
+        "  :mem-del <index>      " + tr(
+            "Delete a long-term memory note by index (see :mem-list)"
         ),
-        tr(
-            "  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"
+        "  :rm <path|glob>       " + tr(
+            "Delete file(s)/directory(ies) with preview + confirm"
         ),
-        tr(
-            "  :shared-mem-list      List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+        "  :shared-mem-list      " + tr(
+            "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
         ),
-        tr("  :shared-mem-del <i>   Delete a shared long-term memory note by index"),
-        tr(
-            "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+        "  :shared-mem-del <i>   " + tr(
+            "Delete a shared long-term memory note by index"
         ),
-        tr(
-            "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+        "  :r [0|1|2|3|auto|minimal|xhigh]  " + tr(
+            "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
         ),
-        tr("  :exit / :quit         Exit"),
+        "  :v [0|1|2|3]          " + tr(
+            "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+        ),
+        "  :exit / :quit         " + tr("Exit"),
         "",
-        tr("Hints:"),
+        "Hints:",
         tr("  - Enter a line that is just 'f' to enter multiline input mode."),
         tr(
             "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1567,7 +1565,6 @@ def format_help(*, core: Any) -> str:
         norm_lines.append(s)
 
     return "\n".join(norm_lines)
-
 
 def handle_command(
     line: str,

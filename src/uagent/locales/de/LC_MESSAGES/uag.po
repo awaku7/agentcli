@@ -1,9 +1,9 @@
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 11:27+0900\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-04-25 11:15+0900\n"
 "PO-Revision-Date: 2026-04-17 15:48+0900\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
@@ -13,12 +13,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/uagent/checks.py:16 src/uagent/checks.py:24
+#: src/uagent/checks.py:15 src/uagent/checks.py:25
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Bitte installieren Sie Git. Siehe: %(url)s"
 
-#: src/uagent/checks.py:19
+#: src/uagent/checks.py:18
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -26,7 +26,7 @@ msgstr ""
 "Bitte installieren Sie Git. Beispiel: sudo apt install git (Ubuntu/Debian) "
 "oder sudo yum install git (CentOS/RHEL)"
 
-#: src/uagent/checks.py:22
+#: src/uagent/checks.py:21
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
@@ -34,7 +34,7 @@ msgstr ""
 "Wenn Sie Homebrew verwenden: brew install git, oder installieren Sie die "
 "Xcode Command Line Tools: xcode-select --install"
 
-#: src/uagent/checks.py:25
+#: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr "[FEHLER] Git ist nicht installiert."
 
@@ -46,7 +46,6 @@ msgstr "getch() fällt auf input() zurück"
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Eingabe abgebrochen (wird als Antwort an human_ask gesendet)."
 
-#. Ctrl+C で即座に終了シーケンスに入るように変更
 #: src/uagent/cli.py:564
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C empfangen. Herunterfahren wird gestartet..."
@@ -126,7 +125,7 @@ msgstr "uag beendet."
 msgid "[docs] name is required"
 msgstr "[docs] Name ist erforderlich"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:827
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Arbeitsverzeichnis konnte nicht gesetzt werden: %(err)s"
@@ -226,32 +225,32 @@ msgstr "Protokolle: zeige %(shown)d/%(total)d (Verzeichnis=%(dir)s)"
 msgid "Log files:"
 msgstr "Protokolldateien:"
 
-#. Fallback: minimal help (avoid breaking interactive use)
 #: src/uagent/core.py:1273
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (Hilfe nicht verfügbar: %(err)s)"
 
-#. ==============================
-#. SYSTEM_PROMPT
-#. ==============================
-#. NOTE: Keep system prompt msgids small (avoid giant single msgid).
-#. Split into section-level msgids and build full/compact prompts by joining.
 #: src/uagent/core.py:1285
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a "
+"local environment, and you can actually execute commands and operate on "
+"files on the user's machine.\n"
 "- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output "
+"diffs or partial summaries).\n"
 msgstr ""
 "## Auftrag\n"
-"- Du bist ein fähiger „general-purpose tool execution agent“, der in einer lokalen Umgebung läuft, und du kannst tatsächlich Befehle ausführen und Dateien auf dem Rechner des Benutzers bearbeiten.\n"
+"- Du bist ein fähiger „general-purpose tool execution agent“, der in einer "
+"lokalen Umgebung läuft, und du kannst tatsächlich Befehle ausführen und "
+"Dateien auf dem Rechner des Benutzers bearbeiten.\n"
 "- Vor jeder gefährlichen Operation den Benutzer um Bestätigung bitten.\n"
 "- Den Benutzer nicht schmeicheln. Keine Emojis verwenden.\n"
 "- Nicht zusammenfassen. Informationen knapp halten.\n"
-"- Beim Erstellen von Dateien den vollständigen Endinhalt ausgeben (keine Diffs oder Teilzusammenfassungen).\n"
+"- Beim Erstellen von Dateien den vollständigen Endinhalt ausgeben (keine "
+"Diffs oder Teilzusammenfassungen).\n"
 
 #: src/uagent/core.py:1293
 msgid ""
@@ -259,77 +258,114 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
+"- When executing tools, delegate as little decision-making as possible to "
+"the user.\n"
 msgstr ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
+"- When executing tools, delegate as little decision-making as possible to "
+"the user.\n"
 
 #: src/uagent/core.py:1300
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, "
+"prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the "
+"human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to "
+"reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory "
+"(add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
+"not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate "
+"syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
+"and follow them.\n"
 msgstr ""
 "## Hinweise\n"
 "- Alle Benutzernachrichten kommen über die Standardeingabe dieses Skripts.\n"
-"- Für zweck-/argument-/einschränkungs- bzw. betriebsspezifische Details der Werkzeuge verwenden Sie die Beschreibung des jeweiligen Werkzeugs.\n"
-"- Wenn Sie zusätzliche Informationen oder Bestätigung vom Benutzer benötigen, verwenden Sie das Werkzeug human_ask.\n"
-"- Bei relativen Datumsangaben rufen Sie get_current_time auf, um die aktuelle Zeit zu verwenden.\n"
-"- Geheimnisse (Passwörter/Token usw.) nicht in Langzeitgedächtnis speichern (add_long_memory usw.).\n"
-"- Dateien mit Endungen wie .org / .org1 / .org2 sind Sicherungskopien und dürfen nicht als primär bearbeitbare Dateien behandelt werden.\n"
-"- Wenn Sie Python-Dateien erstellen, führen Sie `python -m py_compile` zur Syntaxprüfung aus.\n"
-"- Wenn Expertenwissen erforderlich ist, verwenden Sie Prompt-Vorlagen (Agent Skills) und folgen Sie ihnen.\n"
+"- Für zweck-/argument-/einschränkungs- bzw. betriebsspezifische Details der "
+"Werkzeuge verwenden Sie die Beschreibung des jeweiligen Werkzeugs.\n"
+"- Wenn Sie zusätzliche Informationen oder Bestätigung vom Benutzer "
+"benötigen, verwenden Sie das Werkzeug human_ask.\n"
+"- Bei relativen Datumsangaben rufen Sie get_current_time auf, um die "
+"aktuelle Zeit zu verwenden.\n"
+"- Geheimnisse (Passwörter/Token usw.) nicht in Langzeitgedächtnis speichern "
+"(add_long_memory usw.).\n"
+"- Dateien mit Endungen wie .org / .org1 / .org2 sind Sicherungskopien und "
+"dürfen nicht als primär bearbeitbare Dateien behandelt werden.\n"
+"- Wenn Sie Python-Dateien erstellen, führen Sie `python -m py_compile` zur "
+"Syntaxprüfung aus.\n"
+"- Wenn Expertenwissen erforderlich ist, verwenden Sie Prompt-Vorlagen (Agent "
+"Skills) und folgen Sie ihnen.\n"
 
 #: src/uagent/core.py:1311
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation "
+"before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion "
+"candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly "
+"once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
+"explicit approval), run delete_file again with the same parameters, "
+"dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be "
+"deleted.\n"
 msgstr ""
 "## Richtlinie für gefährliche Operationen (delete_file)\n"
-"- Bei Löschungen mit dem Tool delete_file vor der Vorschau keine Bestätigung anfordern.\n"
-"- delete_file immer zuerst mit dry_run=true ausführen, um die Löschkandidaten zu ermitteln.\n"
-"- Die Kandidaten dem Benutzer anzeigen und genau einmal über human_ask um Bestätigung bitten.\n"
-"- Nur wenn der Benutzer ausdrücklich mit \"y\" oder \"yes\" (oder einer gleichwertigen eindeutigen Zustimmung) antwortet, delete_file erneut mit denselben Parametern, dry_run=false und confirmed=true ausführen.\n"
-"- Wenn es keine Kandidaten gibt, nicht nachfragen; nur melden, dass nichts gelöscht wird.\n"
+"- Bei Löschungen mit dem Tool delete_file vor der Vorschau keine Bestätigung "
+"anfordern.\n"
+"- delete_file immer zuerst mit dry_run=true ausführen, um die "
+"Löschkandidaten zu ermitteln.\n"
+"- Die Kandidaten dem Benutzer anzeigen und genau einmal über human_ask um "
+"Bestätigung bitten.\n"
+"- Nur wenn der Benutzer ausdrücklich mit \"y\" oder \"yes\" (oder einer "
+"gleichwertigen eindeutigen Zustimmung) antwortet, delete_file erneut mit "
+"denselben Parametern, dry_run=false und confirmed=true ausführen.\n"
+"- Wenn es keine Kandidaten gibt, nicht nachfragen; nur melden, dass nichts "
+"gelöscht wird.\n"
 
 #: src/uagent/core.py:1319
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a "
+"local environment; you can execute commands and operate on the user's "
+"machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial "
+"summaries).\n"
 msgstr ""
 "## Auftrag\n"
-"- Sie sind ein fähiger \"Allzweck-Toolausführungs-Agent\", der lokal läuft; Sie können Befehle ausführen und auf dem Rechner des Benutzers arbeiten.\n"
+"- Sie sind ein fähiger \"Allzweck-Toolausführungs-Agent\", der lokal läuft; "
+"Sie können Befehle ausführen und auf dem Rechner des Benutzers arbeiten.\n"
 "- Fragen Sie den Benutzer vor jeder gefährlichen Aktion um Bestätigung.\n"
-"- Keine Schmeichelei. Keine Emojis. Keine Gesprächszusammenfassungen. Bleiben Sie knapp.\n"
-"- Beim Erstellen von Dateien die vollständige Endfassung ausgeben (keine Diffs/Teilsummen).\n"
+"- Keine Schmeichelei. Keine Emojis. Keine Gesprächszusammenfassungen. "
+"Bleiben Sie knapp.\n"
+"- Beim Erstellen von Dateien die vollständige Endfassung ausgeben (keine "
+"Diffs/Teilsummen).\n"
 
 #: src/uagent/core.py:1326
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the "
+"most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Regeln\n"
-"- Verwenden Sie zuerst die bereitgestellten Werkzeuge und verifizieren Sie Ergebnisse mit Werkzeugen.\n"
-"- Konsultieren Sie die Werkzeugbeschreibungen zu Zweck/Argumenten/Einschränkungen; wählen Sie das passendste und sicherste Werkzeug.\n"
+"- Verwenden Sie zuerst die bereitgestellten Werkzeuge und verifizieren Sie "
+"Ergebnisse mit Werkzeugen.\n"
+"- Konsultieren Sie die Werkzeugbeschreibungen zu Zweck/Argumenten/"
+"Einschränkungen; wählen Sie das passendste und sicherste Werkzeug.\n"
 "- Seien Sie kreativ, aber geben Sie keine unsicheren Informationen aus.\n"
 "- Überlassen Sie dem Benutzer so wenig Entscheidungsfindung wie möglich.\n"
 
@@ -337,19 +373,23 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not "
+"guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
+"not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
 "## Hinweise\n"
 "- Alle Benutzernachrichten kommen über die Standardeingabe dieses Skripts.\n"
-"- Wenn erforderliche Informationen/Parameter fehlen, über human_ask nachfragen (nicht raten).\n"
+"- Wenn erforderliche Informationen/Parameter fehlen, über human_ask "
+"nachfragen (nicht raten).\n"
 "- Relative Datumsangaben: get_current_time aufrufen.\n"
 "- Keine Geheimnisse (Passwörter/Tokens) in langfristigem Speicher ablegen.\n"
-"- Dateien mit Endungen wie .org / .org1 / .org2 sind Sicherungskopien und dürfen nicht als primäre Bearbeitungsdateien behandelt werden.\n"
+"- Dateien mit Endungen wie .org / .org1 / .org2 sind Sicherungskopien und "
+"dürfen nicht als primäre Bearbeitungsdateien behandelt werden.\n"
 "- Wenn du Python-Dateien erstellst, `python -m py_compile` ausführen.\n"
 "- Wenn Fachwissen erforderlich ist, Agent-Skills-Promptvorlagen verwenden.\n"
 
@@ -359,13 +399,9 @@ msgid ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 msgstr ""
-"- Wenn der Benutzer Windows cmd.exe verwendet, mehrzeilige Befehle mit Caret"
-" (^) als Zeilenfortsetzung bevorzugen und jede Zeile kurz halten, um "
+"- Wenn der Benutzer Windows cmd.exe verwendet, mehrzeilige Befehle mit Caret "
+"(^) als Zeilenfortsetzung bevorzugen und jede Zeile kurz halten, um "
 "Zeilenumbrüche beim Kopieren/Einfügen zu vermeiden.\n"
-
-#: src/uagent/core.py:1409
-msgid "[Available Tools]"
-msgstr "[Verfügbare Werkzeuge]"
 
 #: src/uagent/core.py:1412
 msgid ""
@@ -432,44 +468,44 @@ msgstr "  uag docs --open <name>   # mit dem Betriebssystem öffnen"
 
 #: src/uagent/env_validate.py:42
 msgid ""
-"Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
+"grok/claude/nvidia)."
 msgstr ""
-"Erforderlich, um den LLM-Anbieter auszuwählen "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"Erforderlich, um den LLM-Anbieter auszuwählen (azure/openai/bedrock/"
+"openrouter/gemini/grok/claude/nvidia)."
 
 #: src/uagent/env_validate.py:63
 msgid ", "
 msgstr ", "
 
-#: src/uagent/env_validate.py:169
+#: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
 msgstr "Fehlende erforderliche Umgebungsvariablen:"
 
-#: src/uagent/env_validate.py:181
+#: src/uagent/env_validate.py:184
 msgid "Warnings:"
 msgstr "Warnungen:"
 
-#: src/uagent/env_validate.py:185
+#: src/uagent/env_validate.py:188
 msgid "How to fix:"
 msgstr "So beheben Sie es:"
 
-#: src/uagent/env_validate.py:188
+#: src/uagent/env_validate.py:191
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Legen Sie die oben genannten Variablen in Ihrer Umgebung fest, bevor Sie "
 "das Programm starten."
 
-#: src/uagent/env_validate.py:194
+#: src/uagent/env_validate.py:197
 msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell"
-" startup scripts,"
+"- You can set them via your OS environment settings, a .env file, your shell "
+"startup scripts,"
 msgstr ""
-"- Sie können sie über die Umgebungsvariablen Ihres Betriebssystems, eine "
-".env-Datei oder Ihre Shell-Startskripte festlegen,"
+"- Sie können sie über die Umgebungsvariablen Ihres Betriebssystems, eine ."
+"env-Datei oder Ihre Shell-Startskripte festlegen,"
 
-#: src/uagent/env_validate.py:200
+#: src/uagent/env_validate.py:203
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -481,7 +517,7 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "ungültige Cache-Metadaten"
 
-#: src/uagent/llm_claude.py:142 src/uagent/util_providers.py:489
+#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
 msgid "anthropic package is not installed."
 msgstr "Das Paket anthropic ist nicht installiert."
 
@@ -496,21 +532,29 @@ msgstr ""
 "Versuch=%(attempt)s/%(max_retries)s Wartezeit=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_openai_responses.py:144
+#: src/uagent/llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        - When calling a tool/function, you MUST provide function_call."
+"arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by "
+"the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no "
+"required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using "
+"human_ask instead of guessing.\n"
 "        "
 msgstr ""
 "[Regeln für Tool-Aufrufe]\n"
-"        - Wenn Sie ein Tool/eine Funktion aufrufen, MÜSSEN Sie function_call.arguments als JSON-Objekt angeben.\n"
-"        - Das JSON-Objekt MUSS alle erforderlichen Parameter enthalten, die im Tool-Schema definiert sind.\n"
-"        - Rufen Sie niemals ein Tool mit einem leeren Objekt {} auf, es sei denn, das Tool hat keine erforderlichen Parameter.\n"
-"        - Wenn Ihnen ein erforderlicher Parameter fehlt, fragen Sie den Benutzer mit human_ask danach, statt zu raten.\n"
+"        - Wenn Sie ein Tool/eine Funktion aufrufen, MÜSSEN Sie function_call."
+"arguments als JSON-Objekt angeben.\n"
+"        - Das JSON-Objekt MUSS alle erforderlichen Parameter enthalten, die "
+"im Tool-Schema definiert sind.\n"
+"        - Rufen Sie niemals ein Tool mit einem leeren Objekt {} auf, es sei "
+"denn, das Tool hat keine erforderlichen Parameter.\n"
+"        - Wenn Ihnen ein erforderlicher Parameter fehlt, fragen Sie den "
+"Benutzer mit human_ask danach, statt zu raten.\n"
 "        "
 
 #: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:217
@@ -520,8 +564,8 @@ msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"UAGENT_RESPONSES=1 ist gesetzt, aber der Anbieter '%(provider)s' unterstützt"
-" die Responses-API nicht. Es wird auf ChatCompletions zurückgegriffen."
+"UAGENT_RESPONSES=1 ist gesetzt, aber der Anbieter '%(provider)s' unterstützt "
+"die Responses-API nicht. Es wird auf ChatCompletions zurückgegriffen."
 
 #: src/uagent/runtime_banner.py:93
 #, python-format
@@ -652,8 +696,8 @@ msgstr ""
 #: src/uagent/setup_cli.py:32
 msgid "# - You can re-run `uag_setup` anytime to regenerate."
 msgstr ""
-"# - Sie können `uag_setup` jederzeit erneut ausführen, um die Dateien neu zu"
-" erzeugen."
+"# - Sie können `uag_setup` jederzeit erneut ausführen, um die Dateien neu zu "
+"erzeugen."
 
 #: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
 #: src/uagent/setup_cli.py:192
@@ -836,14 +880,6 @@ msgstr "Ollama num_predict (Standard: 1024)"
 msgid "Enter number:"
 msgstr "Nummer eingeben:"
 
-#: src/uagent/setup_cli.py:326
-msgid " b=back"
-msgstr " b=zurück"
-
-#: src/uagent/setup_cli.py:327
-msgid " q=quit"
-msgstr " q=beenden"
-
 #: src/uagent/setup_cli.py:337
 msgid "Invalid input. Please enter a valid number."
 msgstr "Ungültige Eingabe. Bitte geben Sie eine gültige Zahl ein."
@@ -852,14 +888,6 @@ msgstr "Ungültige Eingabe. Bitte geben Sie eine gültige Zahl ein."
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [Standard: %(default)s]"
-
-#: src/uagent/setup_cli.py:353
-msgid "b=back"
-msgstr "b=zurück"
-
-#: src/uagent/setup_cli.py:354
-msgid "q=quit"
-msgstr "q=beenden"
 
 #: src/uagent/setup_cli.py:366
 msgid "This field is required. Please enter a value."
@@ -897,14 +925,6 @@ msgstr "  4. .env + env.bat"
 #: src/uagent/setup_cli.py:407
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + alles (sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:409
-msgid "  b. back"
-msgstr "  b. zurück"
-
-#: src/uagent/setup_cli.py:410
-msgid "  q. quit"
-msgstr "  q. beenden"
 
 #: src/uagent/setup_cli.py:428
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -984,15 +1004,16 @@ msgstr "Einbettungs- / semantische Such-Einstellungen konfigurieren?"
 #: src/uagent/setup_cli.py:640
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr ""
-"Semantische Suche deaktivieren, wenn die Einbettungs-API nicht erreichbar ist?"
+"Semantische Suche deaktivieren, wenn die Einbettungs-API nicht erreichbar "
+"ist?"
 
 #: src/uagent/setup_cli.py:681
 msgid ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
-"/ ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / "
+"claude / ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
-"/ ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / "
+"claude / ollama / nvidia"
 
 #: src/uagent/setup_cli.py:694
 #, python-format
@@ -1220,7 +1241,6 @@ msgstr "[SSL-Info] certifi.where() = %(path)s"
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARNUNG] Auto shrink_llm fehlgeschlagen: %(err)s"
 
-#. Non-fatal: keep original output and show diagnostics.
 #: src/uagent/uagent_llm.py:603
 #, python-format
 msgid "[Translate Error] %(diag)s"
@@ -1247,7 +1267,7 @@ msgstr ""
 msgid "Error while parsing response: %(err)s"
 msgstr "Fehler beim Parsen der Antwort: %(err)s"
 
-#: src/uagent/uagent_llm.py:1469
+#: src/uagent/uagent_llm.py:1472
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARNUNG] Tool-Runden überschritten: %(max)d; Abbruch."
@@ -1279,57 +1299,63 @@ msgstr ""
 
 #: src/uagent/util_tools.py:212
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
+"Non-interactive mode. Do not start the stdin loop; exit after processing the "
+"startup file (if any)."
 msgstr ""
 "Nicht-interaktiver Modus. Die stdin-Schleife wird nicht gestartet; nach "
 "Verarbeitung der Startdatei (falls vorhanden) wird beendet."
 
-#: src/uagent/util_tools.py:661
+#: src/uagent/util_tools.py:659
 msgid ""
 "[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"This skill is intended to be run. Read the skill body carefully and follow "
+"the instructions.\n"
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 msgstr ""
 "[Skill-Ausführung]\n"
-"Dieser Skill ist zum Ausführen gedacht. Lesen Sie den Inhalt des Skills sorgfältig und folgen Sie den Anweisungen.\n"
-"Wenn der Skill Aufgaben enthält, fahren Sie fort, bis sie abgeschlossen sind.\n"
+"Dieser Skill ist zum Ausführen gedacht. Lesen Sie den Inhalt des Skills "
+"sorgfältig und folgen Sie den Anweisungen.\n"
+"Wenn der Skill Aufgaben enthält, fahren Sie fort, bis sie abgeschlossen "
+"sind.\n"
 "Verwenden Sie bei Bedarf Tools.\n"
 
-#: src/uagent/util_tools.py:668
+#: src/uagent/util_tools.py:666
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr ""
 "Wenn Sie fertig sind, rufen Sie immer `finish_skill` auf, falls verfügbar.\n"
 
-#: src/uagent/util_tools.py:806
+#: src/uagent/util_tools.py:802
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
-"Wählen Sie eine Skill-Nummer zum Ausführen aus. Geben Sie c ein, um abzubrechen.\n"
+"Wählen Sie eine Skill-Nummer zum Ausführen aus. Geben Sie c ein, um "
+"abzubrechen.\n"
 "Tipp: :skills clear  (zugewiesene Skills entfernen)\n"
 "Nummer eingeben:"
 
-#: src/uagent/util_tools.py:842
+#: src/uagent/util_tools.py:838
 #, python-format
 msgid ""
-"Run this skill as a system-level instruction and keep it active in this session?\n"
+"Run this skill as a system-level instruction and keep it active in this "
+"session?\n"
 "\n"
 "Name: %(name)s\n"
 "Path: %(path)s\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"Diesen Skill als systemweite Anweisung ausführen und in dieser Sitzung aktiv halten?\n"
+"Diesen Skill als systemweite Anweisung ausführen und in dieser Sitzung aktiv "
+"halten?\n"
 "\n"
 "Name: %(name)s\n"
 "Pfad: %(path)s\n"
 "\n"
 "Fortfahren? Mit y ausführen, mit c abbrechen."
 
-#: src/uagent/util_tools.py:950
+#: src/uagent/util_tools.py:944
 #, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1339,14 +1365,16 @@ msgid ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean löscht die Gesprächsprotokolle (scheck_log_*.jsonl) von der Festplatte.\n"
+":clean löscht die Gesprächsprotokolle (scheck_log_*.jsonl) von der "
+"Festplatte.\n"
 "Protokollverzeichnis: %(dir)s\n"
-"Regel: Gesamtzahl der Benutzer-/Assistenten-/Werkzeugnachrichten ohne System <= %(threshold)d\n"
+"Regel: Gesamtzahl der Benutzer-/Assistenten-/Werkzeugnachrichten ohne System "
+"<= %(threshold)d\n"
 "Ziele: %(n)d\n"
 "\n"
 "Fortfahren? Mit y ausführen, mit c abbrechen."
 
-#: src/uagent/util_tools.py:1194
+#: src/uagent/util_tools.py:1188
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1361,14 +1389,14 @@ msgstr ""
 "\n"
 "Geben Sie y ein, um fortzufahren, oder c, um abzubrechen."
 
-#: src/uagent/util_tools.py:1334
+#: src/uagent/util_tools.py:1328
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-Fehler] Konnte nicht als Ganzzahl interpretiert werden: %(arg)r -> "
 "letzte %(keep)d beibehalten"
 
-#: src/uagent/util_tools.py:1361
+#: src/uagent/util_tools.py:1355
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1376,7 +1404,7 @@ msgstr ""
 "[shrink_llm-Fehler] Konnte nicht als int geparst werden: %(arg)r -> letzte "
 "%(keep)d behalten"
 
-#: src/uagent/util_tools.py:1422 src/uagent/util_tools.py:1455
+#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1384,12 +1412,20 @@ msgstr ""
 "Gemeinsames Langzeitgedächtnis ist nicht aktiviert "
 "(UAGENT_SHARED_MEMORY_FILE ist nicht gesetzt)."
 
-#: src/uagent/util_tools.py:1803
+#: src/uagent/util_tools.py:1798
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"The bullet points listed below are excerpts from this user's long-term "
+"memory (persistent memos). Use them as background information about the "
+"user. However, always prioritize newly provided information in the "
+"conversation, and if it contradicts older information, adopt the latest "
+"information.\n"
 "\n"
 msgstr ""
-"Die unten aufgeführten Stichpunkte sind Auszüge aus dem Langzeitgedächtnis dieses Benutzers (persistente Notizen). Verwende sie als Hintergrundinformationen über den Benutzer. Priorisiere jedoch immer die neu bereitgestellten Informationen im Gespräch, und wenn sie älteren Informationen widersprechen, übernimm die neuesten Informationen.\n"
+"Die unten aufgeführten Stichpunkte sind Auszüge aus dem Langzeitgedächtnis "
+"dieses Benutzers (persistente Notizen). Verwende sie als "
+"Hintergrundinformationen über den Benutzer. Priorisiere jedoch immer die neu "
+"bereitgestellten Informationen im Gespräch, und wenn sie älteren "
+"Informationen widersprechen, übernimm die neuesten Informationen.\n"
 "\n"
 
 #: src/uagent/web.py:457
@@ -1449,8 +1485,8 @@ msgstr ""
 
 #: src/uagent/welcome.py:65
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
+"\"\"\"end)."
 msgstr ""
 "- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "
 "Mehrzeilenmodus zu aktivieren (Beendigung mit \"\"\"end)."
@@ -1480,9 +1516,8 @@ msgid ""
 "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Docs: `uag docs` zeigt die mitgelieferten Dokumente; `uag docs webinspect`"
-" zeigt die Hilfe für Web Inspector (`--path/--open` ist ebenfalls "
-"verfügbar)."
+"- Docs: `uag docs` zeigt die mitgelieferten Dokumente; `uag docs webinspect` "
+"zeigt die Hilfe für Web Inspector (`--path/--open` ist ebenfalls verfügbar)."
 
 #: src/uagent/welcome.py:78
 msgid "[Examples]"
@@ -1496,8 +1531,8 @@ msgstr ""
 
 #: src/uagent/welcome.py:81
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window "
+"contents.\""
 msgstr ""
 "- \"Erstellen Sie einen Screenshot des aktuellen Desktops und beschreiben "
 "Sie die sichtbaren Fensterinhalte.\""
@@ -1522,3 +1557,174 @@ msgstr ""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Unbekannte UAGENT_A2A_ENGINE: %(mode)s"
+
+#~ msgid "[Available Tools]"
+#~ msgstr "[Verfügbare Werkzeuge]"
+
+#~ msgid " b=back"
+#~ msgstr " b=zurück"
+
+#~ msgid " q=quit"
+#~ msgstr " q=beenden"
+
+#~ msgid "b=back"
+#~ msgstr "b=zurück"
+
+#~ msgid "q=quit"
+#~ msgstr "q=beenden"
+
+#~ msgid "  b. back"
+#~ msgstr "  b. zurück"
+
+#~ msgid "  q. quit"
+#~ msgstr "  q. beenden"
+
+#, fuzzy
+#~ msgid "[skills] Cancelled."
+#~ msgstr "Abgebrochen."
+
+#, fuzzy
+#~ msgid "[skills] Please enter a number or c."
+#~ msgstr "Ungültige Eingabe. Bitte geben Sie eine gültige Zahl ein."
+
+#, fuzzy, python-format
+#~ msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[MCP-Server]\n"
+#~ "- Informationen konnten nicht abgerufen werden: %(err)s"
+
+#, fuzzy, python-format
+#~ msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+#~ msgstr "Bild konnte nicht angehängt werden: %(path)s (%(etype)s: %(err)s)"
+
+#, fuzzy
+#~ msgid "[clean] Cancelled."
+#~ msgstr "Abgebrochen."
+
+#, fuzzy, python-format
+#~ msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "Bestätigung zum Senden von Bildern fehlgeschlagen; Bilder werden nicht "
+#~ "gesendet: %(etype)s: %(err)s"
+
+#, fuzzy, python-format
+#~ msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+#~ msgstr "Bild konnte nicht angehängt werden: %(path)s (%(etype)s: %(err)s)"
+
+#, fuzzy, python-format
+#~ msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[WARNUNG] Startdatei konnte nicht gelesen werden: %(path)s (%(err)s)"
+
+#, fuzzy, python-format
+#~ msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[WARNUNG] Startdatei konnte nicht gelesen werden: %(path)s (%(err)s)"
+
+#, fuzzy, python-format
+#~ msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[WARNUNG] Startdatei konnte nicht gelesen werden: %(path)s (%(err)s)"
+
+#, fuzzy, python-format
+#~ msgid "[rm error] Failed to parse arguments: %(err)s"
+#~ msgstr ""
+#~ "[MCP-Server]\n"
+#~ "- Informationen konnten nicht abgerufen werden: %(err)s"
+
+#, fuzzy
+#~ msgid "[rm] Cancelled."
+#~ msgstr "Abgebrochen."
+
+#, fuzzy, python-format
+#~ msgid "Log file not found: %(path)s"
+#~ msgstr "Dokumentdatei nicht gefunden: %(filename)s"
+
+#, fuzzy, python-format
+#~ msgid "Loaded log: %(path)s"
+#~ msgstr "erstellt: %(path)s"
+
+#, fuzzy
+#~ msgid "No long-term memory entries."
+#~ msgstr "Langzeitgedächtnis geladen."
+
+#, fuzzy
+#~ msgid "Long-term memory entries:"
+#~ msgstr "Langzeitgedächtnis geladen."
+
+#, fuzzy, python-format
+#~ msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+#~ msgstr ""
+#~ "[shrink-Fehler] Konnte nicht als Ganzzahl interpretiert werden: %(arg)r -"
+#~ "> letzte %(keep)d beibehalten"
+
+#, fuzzy, python-format
+#~ msgid "Deleted long-term memory entry [%(idx)d]."
+#~ msgstr "Langzeitgedächtnis geladen."
+
+#, fuzzy
+#~ msgid "No shared long-term memory entries."
+#~ msgstr "Gemeinsames Langzeitgedächtnis geladen."
+
+#, fuzzy
+#~ msgid "Shared long-term memory entries:"
+#~ msgstr "Langzeitgedächtnis geladen."
+
+#, fuzzy, python-format
+#~ msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+#~ msgstr ""
+#~ "[shrink-Fehler] Konnte nicht als Ganzzahl interpretiert werden: %(arg)r -"
+#~ "> letzte %(keep)d beibehalten"
+
+#, fuzzy, python-format
+#~ msgid "Deleted shared long-term memory entry [%(idx)d]."
+#~ msgstr "Gemeinsames Langzeitgedächtnis geladen."
+
+#, fuzzy
+#~ msgid "Available commands:"
+#~ msgstr "[Verfügbare Werkzeuge]"
+
+#, fuzzy
+#~ msgid "  :help                 Show this help"
+#~ msgstr "  uag docs                 # auflisten"
+
+#, fuzzy
+#~ msgid "  :tools                List loaded tools"
+#~ msgstr "  uag docs                 # auflisten"
+
+#, fuzzy
+#~ msgid ""
+#~ "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) "
+#~ "where the count of user/assistant/tool messages (excluding system) is <= "
+#~ "N (default=10)"
+#~ msgstr ""
+#~ ":clean löscht die Gesprächsprotokolle (scheck_log_*.jsonl) von der "
+#~ "Festplatte.\n"
+#~ "Protokollverzeichnis: %(dir)s\n"
+#~ "Regel: Gesamtzahl der Benutzer-/Assistenten-/Werkzeugnachrichten ohne "
+#~ "System <= %(threshold)d\n"
+#~ "Ziele: %(n)d\n"
+#~ "\n"
+#~ "Fortfahren? Mit y ausführen, mit c abbrechen."
+
+#, fuzzy
+#~ msgid ""
+#~ "  :shared-mem-list      List shared long-term memory notes (requires "
+#~ "UAGENT_SHARED_MEMORY_FILE)"
+#~ msgstr ""
+#~ "Gemeinsames Langzeitgedächtnis ist nicht aktiviert "
+#~ "(UAGENT_SHARED_MEMORY_FILE ist nicht gesetzt)."
+
+#, fuzzy
+#~ msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+#~ msgstr ""
+#~ "- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "
+#~ "Mehrzeilenmodus zu aktivieren (Beendigung mit \"\"\"end)."
+
+#, fuzzy
+#~ msgid "Exiting."
+#~ msgstr "uag beendet."
+
+#, fuzzy, python-format
+#~ msgid "Unknown command: :%(cmd)s"
+#~ msgstr "Unbekannter Anbieter: %(provider)s"

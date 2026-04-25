@@ -1406,7 +1406,7 @@ SYSTEM_PROMPT = _select_system_prompt()
 
 def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
     lines: List[str] = []
-    lines.append(_("[Available Tools]"))
+    lines.append("[Available Tools]")
     lines.append(
         _(
             "The following tools are currently loaded in this session. Choose the most appropriate tool for the task."

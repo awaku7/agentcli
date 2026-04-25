@@ -843,7 +843,9 @@ def main():
         sys.exit(1)
 
     init_web()
-    print("Starting server on http://localhost:8000")
+    sys.__stdout__.write("Starting server on http://localhost:8000\
+")
+    sys.__stdout__.flush()
     uvicorn.run(app, host="0.0.0.0", port=8000)
 
 
