@@ -26,6 +26,7 @@ from .i18n import _, detect_lang, set_thread_lang
 set_thread_lang(detect_lang())
 
 from . import uagent_llm as llm_util
+from .image_session import build_image_session_message
 from . import util_providers as providers
 from . import util_tools as tools_util
 from . import tools
@@ -63,6 +64,7 @@ class WebRoom:
         # history for LLM
         self.history: List[Dict[str, Any]] = []
         self.history_initialized = False
+        self.image_session: Optional[Dict[str, Any]] = None
 
         # human_ask sync (room-scoped)
         self.human_ask_sync_event = threading.Event()
@@ -629,6 +631,7 @@ def run_agent_worker(room: WebRoom, user_input: str):
                 )
 
         room.history.append(user_msg)
+        room.image_session = build_image_session_message(room.history, depname)
 
         llm_util.run_llm_rounds(
             provider_name,

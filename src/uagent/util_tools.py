@@ -535,7 +535,9 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             except Exception:
                 print(
                     tr(
-                        tr("[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)")
+                        tr(
+                            "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+                        )
                     )
                     % {"arg": a}
                 )
@@ -894,7 +896,9 @@ def _parse_clean_threshold(arg: str, *, tr: Any) -> int | None:
         return int(a)
     except Exception:
         print(
-            tr("[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)")
+            tr(
+                "[clean] Invalid argument: %(arg)r (specify number=threshold; default is %(default)d)"
+            )
             % {"arg": a, "default": threshold}
         )
         return None
@@ -1325,7 +1329,9 @@ def _handle_cmd_shrink(
         except Exception:
             print(
                 _(
-                    _("[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d")
+                    _(
+                        "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    )
                 )
                 % {"arg": arg, "keep": keep_last}
             )
@@ -1352,7 +1358,9 @@ def _handle_cmd_shrink_llm(
         except Exception:
             print(
                 _(
-                    _("[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d")
+                    _(
+                        "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+                    )
                 )
                 % {"arg": arg, "keep": keep_last}
             )
@@ -1501,50 +1509,45 @@ def format_help(*, core: Any) -> str:
         "  :help                 " + tr("Show this help"),
         '  (in multiline input) """retry  ' + tr("Restart input from the beginning"),
         "  :logs / :list         " + tr("Show log file list"),
-        "  :cd <path>            " + tr(
+        "  :cd <path>            "
+        + tr(
             "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\path / :cd /)"
         ),
-        "  :ls [path]            " + tr(
-            "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\path)"
-        ),
+        "  :ls [path]            "
+        + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\path)"),
         "  :tools                " + tr("List loaded tools"),
-        "  :skills [cmd]         " + tr(
-            "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-        ),
-        "  :load <idx|path>      " + tr(
-            "Load a past log (overwrites current conversation history)"
-        ),
+        "  :skills [cmd]         "
+        + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
+        "  :load <idx|path>      "
+        + tr("Load a past log (overwrites current conversation history)"),
         tr(
             "                       Note: after running, you will be asked for confirmation; choosing 'y' prepends the loaded log into the current session log file (overwrite, no backup)."
         ),
-        "  :clean [N]            " + tr(
+        "  :clean [N]            "
+        + tr(
             "Delete conversation logs (scheck_log_*.jsonl) where the count of user/assistant/tool messages (excluding system) is <= N (default=10)"
         ),
-        "  :shrink [N]           " + tr(
+        "  :shrink [N]           "
+        + tr(
             "Shrink conversation history (keep last N non-system messages; default=40)"
         ),
-        "  :shrink_llm [N]       " + tr(
+        "  :shrink_llm [N]       "
+        + tr(
             "Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
         "  :mem-list             " + tr("List long-term memory notes"),
-        "  :mem-del <index>      " + tr(
-            "Delete a long-term memory note by index (see :mem-list)"
-        ),
-        "  :rm <path|glob>       " + tr(
-            "Delete file(s)/directory(ies) with preview + confirm"
-        ),
-        "  :shared-mem-list      " + tr(
-            "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
-        ),
-        "  :shared-mem-del <i>   " + tr(
-            "Delete a shared long-term memory note by index"
-        ),
-        "  :r [0|1|2|3|auto|minimal|xhigh]  " + tr(
-            "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-        ),
-        "  :v [0|1|2|3]          " + tr(
-            "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-        ),
+        "  :mem-del <index>      "
+        + tr("Delete a long-term memory note by index (see :mem-list)"),
+        "  :rm <path|glob>       "
+        + tr("Delete file(s)/directory(ies) with preview + confirm"),
+        "  :shared-mem-list      "
+        + tr("List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"),
+        "  :shared-mem-del <i>   "
+        + tr("Delete a shared long-term memory note by index"),
+        "  :r [0|1|2|3|auto|minimal|xhigh]  "
+        + tr("Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"),
+        "  :v [0|1|2|3]          "
+        + tr("Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"),
         "  :exit / :quit         " + tr("Exit"),
         "",
         "Hints:",
@@ -1565,6 +1568,7 @@ def format_help(*, core: Any) -> str:
         norm_lines.append(s)
 
     return "\n".join(norm_lines)
+
 
 def handle_command(
     line: str,
@@ -1611,7 +1615,7 @@ def handle_command(
         return _handle_cmd_tools(tr=tr)
 
     if cmd == "skills":
-        return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
+        return bool(_handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr))
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)

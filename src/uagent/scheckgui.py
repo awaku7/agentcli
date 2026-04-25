@@ -42,6 +42,7 @@ from .util_tools import (
 )
 
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
+from .image_session import build_image_session_message
 from .util_providers import make_client as util_make_client
 from .tools.context import ToolCallbacks
 
@@ -131,6 +132,7 @@ class ScheckWorker(QtCore.QObject):
         self.cfg = cfg
         self.tools = tools
         self.messages: List[Dict[str, Any]] = []
+        self.image_session: Optional[Dict[str, Any]] = None
         self._stop = threading.Event()
         self._provider = ""
         self._client = None
@@ -296,6 +298,9 @@ class ScheckWorker(QtCore.QObject):
                             m = {"role": "user", "content": prompt}
                             self.messages.append(m)
                             core.log_message(m)
+                            self.image_session = build_image_session_message(
+                                self.messages, self._depname
+                            )
                             util_run_llm_rounds(
                                 self._provider,
                                 self._client,
@@ -388,6 +393,9 @@ class ScheckWorker(QtCore.QObject):
                             m = {"role": "user", "content": text.strip()}
                             self.messages.append(m)
                             core.log_message(m)
+                            self.image_session = build_image_session_message(
+                                self.messages, self._depname
+                            )
                             util_run_llm_rounds(
                                 self._provider,
                                 self._client,
