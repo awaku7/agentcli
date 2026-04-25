@@ -23,12 +23,13 @@ From the repository root, run `xgettext` with the following arguments to correct
 $srcFiles = Get-ChildItem -Path src/uagent/*.py, src/uagent/a2a/*.py | Select-Object -ExpandProperty FullName
 
 # Extract
-xgettext --package-name=uag --language=Python --keyword=_ --keyword=ngettext:1,2 --from-code=UTF-8 --output=src/uagent/locales/uag.pot $srcFiles
+xgettext --package-name=uag --language=Python --keyword=_ --keyword=tr --keyword=ngettext:1,2 --from-code=UTF-8 --output=src/uagent/locales/uag.pot $srcFiles
 ```
 
 **Key Arguments:**
 - `--language=Python`: Essential for parsing triple quotes (`"""`).
-- `--keyword=_ --keyword=ngettext:1,2`: Tells xgettext which functions contain translatable strings.
+- `--keyword=_ --keyword=tr --keyword=ngettext:1,2`: Tells xgettext which functions contain translatable strings.
+- `--keyword=tr`: Include host-side prompts that intentionally use runtime fallback behavior.
 - `--from-code=UTF-8`: Ensures non-ASCII characters are handled correctly.
 
 ---

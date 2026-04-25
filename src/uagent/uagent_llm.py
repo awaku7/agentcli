@@ -1255,6 +1255,9 @@ def _handle_openai_empty_no_tool(
         except Exception:
             pass
 
+    if tool_calls_list and eff_empty:
+        return "pass", 0
+
     if not tool_calls_list and eff_empty:
         empty_no_tool_rounds += 1
 

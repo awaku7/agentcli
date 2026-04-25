@@ -3,21 +3,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-23 11:27+0900\n"
+"POT-Creation-Date: 2026-04-25 11:15+0900\n"
 "PO-Revision-Date: 2026-04-24 11:12+0900\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#:#: src/uagent/checks.py:16 src/uagent/checks.py:24
+#: src/uagent/checks.py:15 src/uagent/checks.py:25
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Instale Git. Consulte: %(url)s"
 
-#: src/uagent/checks.py:19
+#: src/uagent/checks.py:18
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -25,7 +25,7 @@ msgstr ""
 "Instale Git. Ejemplo: sudo apt install git (Ubuntu/Debian) o sudo yum "
 "install git (CentOS/RHEL)"
 
-#: src/uagent/checks.py:22
+#: src/uagent/checks.py:21
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
@@ -33,7 +33,7 @@ msgstr ""
 "Instale Git. Si usa Homebrew: brew install git, o instale Xcode Command Line"
 " Tools: xcode-select --install"
 
-#: src/uagent/checks.py:25
+#: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git no está instalado."
 
@@ -122,7 +122,7 @@ msgstr "uag finalizó."
 msgid "[docs] name is required"
 msgstr "[docs] se requiere el nombre"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:827
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] No se pudo establecer el directorio de trabajo: %(err)s"
@@ -179,12 +179,12 @@ msgstr "Modo de API LLM = Responses (UAGENT_RESPONSES está activado)"
 #: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:248
 #: src/uagent/web.py:605
 msgid "Loaded long-term memory."
-msgstr "Memoria a largo plazo cargada."
+msgstr "Se cargó la memoria a largo plazo."
 
 #: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:261
 #: src/uagent/web.py:617
 msgid "Loaded shared long-term memory."
-msgstr "Memoria compartida a largo plazo cargada."
+msgstr "Se cargó la memoria compartida a largo plazo."
 
 #: src/uagent/cli_startup.py:247
 #, python-format
@@ -353,10 +353,6 @@ msgstr ""
 "caret (^) como continuación de línea y mantenga cada línea corta para evitar"
 " saltos al copiar y pegar.\n"
 
-#: src/uagent/core.py:1409
-msgid "[Available Tools]"
-msgstr "[Herramientas disponibles]"
-
 #: src/uagent/core.py:1412
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
@@ -432,26 +428,26 @@ msgstr ""
 msgid ", "
 msgstr ", "
 
-#: src/uagent/env_validate.py:169
+#: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
 msgstr "Faltan variables de entorno obligatorias:"
 
-#: src/uagent/env_validate.py:181
+#: src/uagent/env_validate.py:184
 msgid "Warnings:"
 msgstr "Advertencias:"
 
-#: src/uagent/env_validate.py:185
+#: src/uagent/env_validate.py:188
 msgid "How to fix:"
 msgstr "Cómo solucionarlo:"
 
-#: src/uagent/env_validate.py:188
+#: src/uagent/env_validate.py:191
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Defina las variables anteriores en su entorno antes de iniciar el "
 "programa."
 
-#: src/uagent/env_validate.py:194
+#: src/uagent/env_validate.py:197
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -459,7 +455,7 @@ msgstr ""
 "- Puede configurarlas mediante la configuración de variables de entorno de "
 "su sistema operativo, un archivo .env, los scripts de inicio de su shell,"
 
-#: src/uagent/env_validate.py:200
+#: src/uagent/env_validate.py:203
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -471,7 +467,7 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "metadatos de caché no válidos"
 
-#: src/uagent/llm_claude.py:142 src/uagent/util_providers.py:489
+#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
 msgid "anthropic package is not installed."
 msgstr "No está instalado el paquete anthropic."
 
@@ -486,7 +482,7 @@ msgstr ""
 "intento=%(attempt)s/%(max_retries)s espera=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_openai_responses.py:144
+#: src/uagent/llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -827,14 +823,6 @@ msgstr "Ollama num_predict (predeterminado: 1024)"
 msgid "Enter number:"
 msgstr "Introduzca un número:"
 
-#: src/uagent/setup_cli.py:326
-msgid " b=back"
-msgstr " b=volver"
-
-#: src/uagent/setup_cli.py:327
-msgid " q=quit"
-msgstr " q=salir"
-
 #: src/uagent/setup_cli.py:337
 msgid "Invalid input. Please enter a valid number."
 msgstr "Entrada no válida. Introduzca un número válido."
@@ -843,14 +831,6 @@ msgstr "Entrada no válida. Introduzca un número válido."
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [predeterminado: %(default)s]"
-
-#: src/uagent/setup_cli.py:353
-msgid "b=back"
-msgstr "b=volver"
-
-#: src/uagent/setup_cli.py:354
-msgid "q=quit"
-msgstr "q=salir"
 
 #: src/uagent/setup_cli.py:366
 msgid "This field is required. Please enter a value."
@@ -888,14 +868,6 @@ msgstr "  4. solo .env + env.bat"
 #: src/uagent/setup_cli.py:407
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + todo (sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:409
-msgid "  b. back"
-msgstr "  b. volver"
-
-#: src/uagent/setup_cli.py:410
-msgid "  q. quit"
-msgstr "  q. salir"
 
 #: src/uagent/setup_cli.py:428
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1235,7 +1207,7 @@ msgstr "[Error de Claude] Se produjo un error al generar una respuesta."
 msgid "Error while parsing response: %(err)s"
 msgstr "Error al analizar la respuesta: %(err)s"
 
-#: src/uagent/uagent_llm.py:1469
+#: src/uagent/uagent_llm.py:1472
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr ""
@@ -1275,7 +1247,7 @@ msgstr ""
 "Modo no interactivo. No inicie el bucle de stdin; salga después de procesar "
 "el archivo de inicio (si lo hay)."
 
-#: src/uagent/util_tools.py:661
+#: src/uagent/util_tools.py:659
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1287,11 +1259,11 @@ msgstr ""
 "Si el skill contiene tareas, continúe hasta completarlas.\n"
 "Use las herramientas según sea necesario.\n"
 
-#: src/uagent/util_tools.py:668
+#: src/uagent/util_tools.py:666
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Cuando termine, llame siempre a `finish_skill` si está disponible.\n"
 
-#: src/uagent/util_tools.py:806
+#: src/uagent/util_tools.py:802
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1301,7 +1273,7 @@ msgstr ""
 "Consejo: :skills clear  (eliminar los skills aplicados)\n"
 "Introduzca un número:"
 
-#: src/uagent/util_tools.py:842
+#: src/uagent/util_tools.py:838
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1318,7 +1290,7 @@ msgstr ""
 "\n"
 "¿Continuar? Escriba y para ejecutar, o c para cancelar."
 
-#: src/uagent/util_tools.py:950
+#: src/uagent/util_tools.py:944
 #, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1335,7 +1307,7 @@ msgstr ""
 "\n"
 "¿Continuar? Escriba y para ejecutar, o c para cancelar."
 
-#: src/uagent/util_tools.py:1194
+#: src/uagent/util_tools.py:1188
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1350,14 +1322,14 @@ msgstr ""
 "\n"
 "Introduzca y para continuar o c para cancelar."
 
-#: src/uagent/util_tools.py:1334
+#: src/uagent/util_tools.py:1328
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[error shrink] No se pudo interpretar como entero: %(arg)r -> conservar los "
 "últimos %(keep)d"
 
-#: src/uagent/util_tools.py:1361
+#: src/uagent/util_tools.py:1355
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1365,7 +1337,7 @@ msgstr ""
 "[error de shrink_llm] No se pudo interpretar como entero: %(arg)r -> "
 "conservar los últimos %(keep)d"
 
-#: src/uagent/util_tools.py:1422 src/uagent/util_tools.py:1455
+#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1373,7 +1345,7 @@ msgstr ""
 "La memoria compartida a largo plazo no está habilitada "
 "(UAGENT_SHARED_MEMORY_FILE no está definido)."
 
-#: src/uagent/util_tools.py:1803
+#: src/uagent/util_tools.py:1798
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1504,3 +1476,146 @@ msgstr "- \"Busque las noticias más recientes y resuma un tema concreto.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Motor UAGENT_A2A_ENGINE desconocido: %(mode)s"
+
+#~ msgid "[Available Tools]"
+#~ msgstr "[Herramientas disponibles]"
+
+#~ msgid " b=back"
+#~ msgstr " b=volver"
+
+#~ msgid " q=quit"
+#~ msgstr " q=salir"
+
+#~ msgid "b=back"
+#~ msgstr "b=volver"
+
+#~ msgid "q=quit"
+#~ msgstr "q=salir"
+
+#~ msgid "  b. back"
+#~ msgstr "  b. volver"
+
+#~ msgid "  q. quit"
+#~ msgstr "  q. salir"
+
+#~ msgid "[skills] Cancelled."
+#~ msgstr "Cancelado."
+
+#~ msgid "[skills] Please enter a number or c."
+#~ msgstr "Introduzca un número o c."
+
+#, python-format
+#~ msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[clean error] No se pudo obtener la lista de registros: %(etype)s: %(err)s"
+
+#, python-format
+#~ msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+#~ msgstr ""
+#~ "[clean warn] Omitido (falló el análisis): %(path)s (%(etype)s: %(err)s)"
+
+#~ msgid "[clean] Cancelled."
+#~ msgstr "Cancelado."
+
+#, python-format
+#~ msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+#~ msgstr "[clean error] Falló la confirmación: %(etype)s: %(err)s"
+
+#, python-format
+#~ msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+#~ msgstr "[clean warn] No se pudo eliminar: %(path)s (%(etype)s: %(err)s)"
+
+#, python-format
+#~ msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+#~ msgstr "[load warn] No se pudo leer el registro de origen: %(etype)s: %(err)s"
+
+#, python-format
+#~ msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+#~ msgstr "[load warn] No se pudo leer el registro actual: %(etype)s: %(err)s"
+
+#, python-format
+#~ msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+#~ msgstr ""
+#~ "[load warn] No se pudo reescribir el registro actual: %(etype)s: %(err)s"
+
+#, python-format
+#~ msgid "[rm error] Failed to parse arguments: %(err)s"
+#~ msgstr "[rm error] No se pudieron analizar los argumentos: %(err)s"
+
+#~ msgid "[rm] Cancelled."
+#~ msgstr "Cancelado."
+
+#, python-format
+#~ msgid "Log file not found: %(path)s"
+#~ msgstr "No se encontró el archivo de registro: %(path)s"
+
+#, python-format
+#~ msgid "Loaded log: %(path)s"
+#~ msgstr "Registro cargado: %(path)s"
+
+#~ msgid "No long-term memory entries."
+#~ msgstr "No hay entradas de memoria a largo plazo."
+
+#~ msgid "Long-term memory entries:"
+#~ msgstr "Entradas de memoria a largo plazo:"
+
+#, python-format
+#~ msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+#~ msgstr "[mem-del error] No se pudo interpretar el índice como entero: %(arg)r"
+
+#, python-format
+#~ msgid "Deleted long-term memory entry [%(idx)d]."
+#~ msgstr "Se eliminó la entrada de memoria a largo plazo [%(idx)d]."
+
+#~ msgid "No shared long-term memory entries."
+#~ msgstr "No hay entradas compartidas de memoria a largo plazo."
+
+#~ msgid "Shared long-term memory entries:"
+#~ msgstr "Entradas compartidas de memoria a largo plazo:"
+
+#, python-format
+#~ msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+#~ msgstr ""
+#~ "[shared-mem-del error] No se pudo interpretar el índice como entero: %(arg)r"
+
+#, python-format
+#~ msgid "Deleted shared long-term memory entry [%(idx)d]."
+#~ msgstr "Se eliminó la entrada compartida de memoria a largo plazo [%(idx)d]."
+
+#~ msgid "Available commands:"
+#~ msgstr "Comandos disponibles:"
+
+#~ msgid "  :help                 Show this help"
+#~ msgstr "  :help                 Mostrar esta ayuda"
+
+#~ msgid "  :tools                List loaded tools"
+#~ msgstr "  :tools                Listar herramientas cargadas"
+
+#~ msgid ""
+#~ "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
+#~ "the count of user/assistant/tool messages (excluding system) is <= N "
+#~ "(default=10)"
+#~ msgstr ""
+#~ "  :clean [N]            Elimina los registros de conversación "
+#~ "(scheck_log_*.jsonl) cuyo número de mensajes de "
+#~ "usuario/asistente/herramienta (excluyendo system) es <= N "
+#~ "(predeterminado=10)"
+
+#~ msgid ""
+#~ "  :shared-mem-list      List shared long-term memory notes (requires "
+#~ "UAGENT_SHARED_MEMORY_FILE)"
+#~ msgstr ""
+#~ "  :shared-mem-list      Lista las notas compartidas de memoria a largo plazo"
+#~ " (requiere UAGENT_SHARED_MEMORY_FILE)"
+
+#~ msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+#~ msgstr ""
+#~ "  - Escriba una línea que sea solo 'f' para entrar en el modo de entrada "
+#~ "multilínea."
+
+#~ msgid "Exiting."
+#~ msgstr "Saliendo."
+
+#, python-format
+#~ msgid "Unknown command: :%(cmd)s"
+#~ msgstr "Comando desconocido: :%(cmd)s"

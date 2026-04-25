@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-23 13:48+0900\n"
+"POT-Creation-Date: 2026-04-25 11:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: src/uagent/checks.py:16 src/uagent/checks.py:24
+#: src/uagent/checks.py:15 src/uagent/checks.py:25
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr ""
 
-#: src/uagent/checks.py:19
+#: src/uagent/checks.py:18
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo"
 " yum install git (CentOS/RHEL)"
 msgstr ""
 
-#: src/uagent/checks.py:22
+#: src/uagent/checks.py:21
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode"
 " Command Line Tools: xcode-select --install"
 msgstr ""
 
-#: src/uagent/checks.py:25
+#: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 msgid "[docs] name is required"
 msgstr ""
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:827
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr ""
@@ -315,10 +315,6 @@ msgid ""
 " line breaks.\n"
 msgstr ""
 
-#: src/uagent/core.py:1409
-msgid "[Available Tools]"
-msgstr ""
-
 #: src/uagent/core.py:1412
 msgid ""
 "The following tools are currently loaded in this session. Choose the most"
@@ -390,29 +386,29 @@ msgstr ""
 msgid ", "
 msgstr ""
 
-#: src/uagent/env_validate.py:169
+#: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
 msgstr ""
 
-#: src/uagent/env_validate.py:181
+#: src/uagent/env_validate.py:184
 msgid "Warnings:"
 msgstr ""
 
-#: src/uagent/env_validate.py:185
+#: src/uagent/env_validate.py:188
 msgid "How to fix:"
 msgstr ""
 
-#: src/uagent/env_validate.py:188
+#: src/uagent/env_validate.py:191
 msgid "- Set the variables above in your environment before starting the program."
 msgstr ""
 
-#: src/uagent/env_validate.py:194
+#: src/uagent/env_validate.py:197
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your "
 "shell startup scripts,"
 msgstr ""
 
-#: src/uagent/env_validate.py:200
+#: src/uagent/env_validate.py:203
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -422,7 +418,7 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr ""
 
-#: src/uagent/llm_claude.py:142 src/uagent/util_providers.py:489
+#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
 msgid "anthropic package is not installed."
 msgstr ""
 
@@ -434,7 +430,7 @@ msgid ""
 "retry_after=%(retry_after)s"
 msgstr ""
 
-#: src/uagent/llm_openai_responses.py:144
+#: src/uagent/llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -764,14 +760,6 @@ msgstr ""
 msgid "Enter number:"
 msgstr ""
 
-#: src/uagent/setup_cli.py:326
-msgid " b=back"
-msgstr ""
-
-#: src/uagent/setup_cli.py:327
-msgid " q=quit"
-msgstr ""
-
 #: src/uagent/setup_cli.py:337
 msgid "Invalid input. Please enter a valid number."
 msgstr ""
@@ -779,14 +767,6 @@ msgstr ""
 #: src/uagent/setup_cli.py:350
 #, python-format
 msgid " [default: %(default)s]"
-msgstr ""
-
-#: src/uagent/setup_cli.py:353
-msgid "b=back"
-msgstr ""
-
-#: src/uagent/setup_cli.py:354
-msgid "q=quit"
 msgstr ""
 
 #: src/uagent/setup_cli.py:366
@@ -823,14 +803,6 @@ msgstr ""
 
 #: src/uagent/setup_cli.py:407
 msgid "  5. .env + all (sh/ps1/bat)"
-msgstr ""
-
-#: src/uagent/setup_cli.py:409
-msgid "  b. back"
-msgstr ""
-
-#: src/uagent/setup_cli.py:410
-msgid "  q. quit"
 msgstr ""
 
 #: src/uagent/setup_cli.py:428
@@ -1167,7 +1139,7 @@ msgstr ""
 msgid "Error while parsing response: %(err)s"
 msgstr ""
 
-#: src/uagent/uagent_llm.py:1469
+#: src/uagent/uagent_llm.py:1472
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr ""
@@ -1201,7 +1173,7 @@ msgid ""
 "the startup file (if any)."
 msgstr ""
 
-#: src/uagent/util_tools.py:661
+#: src/uagent/util_tools.py:659
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and "
@@ -1210,18 +1182,18 @@ msgid ""
 "Use tools as needed.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:668
+#: src/uagent/util_tools.py:666
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:806
+#: src/uagent/util_tools.py:802
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
 
-#: src/uagent/util_tools.py:842
+#: src/uagent/util_tools.py:838
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this "
@@ -1233,7 +1205,7 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:950
+#: src/uagent/util_tools.py:944
 #, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk."
@@ -1246,7 +1218,7 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1194
+#: src/uagent/util_tools.py:1188
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1256,23 +1228,23 @@ msgid ""
 "Enter y to proceed, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1334
+#: src/uagent/util_tools.py:1328
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1361
+#: src/uagent/util_tools.py:1355
 #, python-format
 msgid "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1422 src/uagent/util_tools.py:1455
+#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1803
+#: src/uagent/util_tools.py:1798
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term "
 "memory (persistent memos). Use them as background information about the "

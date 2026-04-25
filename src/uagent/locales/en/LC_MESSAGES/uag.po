@@ -1,23 +1,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: uag 0.4.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-23 13:06+0900\n"
-"PO-Revision-Date: 2026-04-24 11:12+0900\n"
-"Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
-"Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
+"POT-Creation-Date: 2026-04-25 11:15+0900\n"
+"PO-Revision-Date: 2026-04-25 11:15+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
 
-#:#: src/uagent/checks.py:16 src/uagent/checks.py:24
+#: src/uagent/checks.py:15 src/uagent/checks.py:25
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Please install Git. See: %(url)s"
 
-#: src/uagent/checks.py:19
+#: src/uagent/checks.py:18
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -25,7 +26,7 @@ msgstr ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
 
-#: src/uagent/checks.py:22
+#: src/uagent/checks.py:21
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
@@ -33,7 +34,7 @@ msgstr ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
 
-#: src/uagent/checks.py:25
+#: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git is not installed."
 
@@ -120,7 +121,7 @@ msgstr "Exited uag."
 msgid "[docs] name is required"
 msgstr "[docs] name is required"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:827
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Failed to set workdir: %(err)s"
@@ -349,10 +350,6 @@ msgstr ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 
-#: src/uagent/core.py:1409
-msgid "[Available Tools]"
-msgstr "[Available Tools]"
-
 #: src/uagent/core.py:1412
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
@@ -428,25 +425,25 @@ msgstr ""
 msgid ", "
 msgstr ", "
 
-#: src/uagent/env_validate.py:169
+#: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
 msgstr "Missing required environment variables:"
 
-#: src/uagent/env_validate.py:181
+#: src/uagent/env_validate.py:184
 msgid "Warnings:"
 msgstr "Warnings:"
 
-#: src/uagent/env_validate.py:185
+#: src/uagent/env_validate.py:188
 msgid "How to fix:"
 msgstr "How to fix:"
 
-#: src/uagent/env_validate.py:188
+#: src/uagent/env_validate.py:191
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Set the variables above in your environment before starting the program."
 
-#: src/uagent/env_validate.py:194
+#: src/uagent/env_validate.py:197
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -454,7 +451,7 @@ msgstr ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
 
-#: src/uagent/env_validate.py:200
+#: src/uagent/env_validate.py:203
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -466,7 +463,7 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "invalid cache meta"
 
-#: src/uagent/llm_claude.py:142 src/uagent/util_providers.py:489
+#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
 msgid "anthropic package is not installed."
 msgstr "anthropic package is not installed."
 
@@ -481,7 +478,7 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_openai_responses.py:144
+#: src/uagent/llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -816,14 +813,6 @@ msgstr "Ollama num_predict (default: 1024)"
 msgid "Enter number:"
 msgstr "Enter number:"
 
-#: src/uagent/setup_cli.py:326
-msgid " b=back"
-msgstr " b=back"
-
-#: src/uagent/setup_cli.py:327
-msgid " q=quit"
-msgstr " q=quit"
-
 #: src/uagent/setup_cli.py:337
 msgid "Invalid input. Please enter a valid number."
 msgstr "Invalid input. Please enter a valid number."
@@ -832,14 +821,6 @@ msgstr "Invalid input. Please enter a valid number."
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [default: %(default)s]"
-
-#: src/uagent/setup_cli.py:353
-msgid "b=back"
-msgstr "b=back"
-
-#: src/uagent/setup_cli.py:354
-msgid "q=quit"
-msgstr "q=quit"
 
 #: src/uagent/setup_cli.py:366
 msgid "This field is required. Please enter a value."
@@ -876,14 +857,6 @@ msgstr "  4. .env + env.bat"
 #: src/uagent/setup_cli.py:407
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + all (sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:409
-msgid "  b. back"
-msgstr "  b. back"
-
-#: src/uagent/setup_cli.py:410
-msgid "  q. quit"
-msgstr "  q. quit"
 
 #: src/uagent/setup_cli.py:428
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1221,7 +1194,7 @@ msgstr "[Claude Error] An error occurred while generating a response."
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
 
-#: src/uagent/uagent_llm.py:1469
+#: src/uagent/uagent_llm.py:1472
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
@@ -1259,7 +1232,7 @@ msgstr ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
 
-#: src/uagent/util_tools.py:661
+#: src/uagent/util_tools.py:659
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1271,11 +1244,11 @@ msgstr ""
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 
-#: src/uagent/util_tools.py:668
+#: src/uagent/util_tools.py:666
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "When finished, always call `finish_skill` if available.\n"
 
-#: src/uagent/util_tools.py:806
+#: src/uagent/util_tools.py:802
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1285,7 +1258,7 @@ msgstr ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 
-#: src/uagent/util_tools.py:842
+#: src/uagent/util_tools.py:838
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1302,7 +1275,7 @@ msgstr ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
-#: src/uagent/util_tools.py:950
+#: src/uagent/util_tools.py:944
 #, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1319,7 +1292,7 @@ msgstr ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
-#: src/uagent/util_tools.py:1194
+#: src/uagent/util_tools.py:1188
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1334,19 +1307,19 @@ msgstr ""
 "\n"
 "Enter y to proceed, or c to cancel."
 
-#: src/uagent/util_tools.py:1334
+#: src/uagent/util_tools.py:1328
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1361
+#: src/uagent/util_tools.py:1355
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1422 src/uagent/util_tools.py:1455
+#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1354,7 +1327,7 @@ msgstr ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 
-#: src/uagent/util_tools.py:1803
+#: src/uagent/util_tools.py:1798
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
