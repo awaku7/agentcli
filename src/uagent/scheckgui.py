@@ -4,11 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import html
 import os
 
 import re
 import sys
 import threading
+from pathlib import Path
 from dataclasses import dataclass
 from queue import Empty as QueueEmpty
 from typing import Any, Dict, List, Optional
@@ -29,7 +31,6 @@ from .welcome import get_welcome_message
 from . import runtime_init as _runtime_init
 
 from .util_tools import (
-    extract_image_paths,
     image_file_to_data_url,
     build_long_memory_system_message,
     append_result_to_outfile,
@@ -496,6 +497,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._hist_idx = -1
         self._log_pos = 0
         self._known_image_paths: set[str] = set()
+        self._known_image_preview_paths: set[str] = set()
         self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
 
         central = QtWidgets.QWidget()
@@ -731,10 +733,18 @@ class MainWindow(QtWidgets.QMainWindow):
                 except Exception:
                     pass
 
-                paths = extract_image_paths(clean_text)
+                paths = []
+                try:
+                    for p in self._collect_generated_image_paths():
+                        if p not in paths:
+                            paths.append(p)
+                except Exception:
+                    pass
+
                 for p in paths:
                     if p and os.path.exists(p):
                         self._add_thumb(p, "GEN")
+                        self._append_image_preview(p, "GEN")
 
                 display_lines = []
                 for line in clean_text.splitlines(keepends=True):
@@ -791,6 +801,75 @@ class MainWindow(QtWidgets.QMainWindow):
             if os.path.splitext(p)[1].lower() in IMAGE_EXTS:
                 self._attached_images.append(p)
                 self._add_thumb(p, "ATT")
+
+    def _collect_generated_image_paths(self) -> List[str]:
+        paths: List[str] = []
+        seen: set[str] = set()
+
+        def _add(candidate: Any) -> None:
+            if not isinstance(candidate, str):
+                return
+            p = candidate.strip()
+            if not p or p in seen:
+                return
+            seen.add(p)
+            paths.append(p)
+
+        for msg in reversed(self.messages[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                    continue
+                _add(att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name"))
+
+            _add(msg.get("saved_path"))
+            for item in msg.get("saved_files") or []:
+                _add(item)
+
+        return paths
+
+    def _append_image_preview(self, path, prefix):
+        if path in self._known_image_preview_paths:
+            return
+        self._known_image_preview_paths.add(path)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_image_preview_paths.discard(path)
+                    return
+
+                title = f"{prefix}:{os.path.basename(path)}"
+                try:
+                    src = image_file_to_data_url(path, max_bytes=8_000_000)
+                except Exception:
+                    src = Path(path).resolve().as_uri()
+
+                html_block = (
+                    '<div style="margin:8px 0 10px 0; padding:6px; border:1px solid #d0d0d0; '
+                    'border-radius:6px; background:#fafafa;">'
+                    f'<div style="font-size:11px; color:#666; margin-bottom:4px;">{html.escape(title)}</div>'
+                    f'<a href="{html.escape(Path(path).resolve().as_uri(), quote=True)}">'
+                    f'<img src="{html.escape(src, quote=True)}" '
+                    'style="max-width:360px; max-height:280px; border-radius:4px; display:block;"/>'
+                    '</a>'
+                    '</div>'
+                )
+                self._output.moveCursor(QtGui.QTextCursor.End)
+                self._output.insertHtml(html_block)
+                self._output.insertHtml('<br/>')
+                self._output.ensureCursorVisible()
+            except Exception:
+                self._known_image_preview_paths.discard(path)
+
+        QtCore.QTimer.singleShot(1000, _load)
 
     def _add_thumb(self, path, prefix):
         if path in self._known_image_paths:

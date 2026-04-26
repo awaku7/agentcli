@@ -773,12 +773,14 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     msg: Dict[str, Any] = {"role": role}
 
     if role == "tool":
-        # ツールメッセージ: name / tool_call_id / content のみ残す
         msg["content"] = str(obj.get("content") or "")
         if "tool_call_id" in obj:
             msg["tool_call_id"] = obj["tool_call_id"]
         if "name" in obj:
             msg["name"] = obj["name"]
+        for key in ("attachments", "saved_path", "saved_files"):
+            if key in obj:
+                msg[key] = obj.get(key)
         return msg
 
     # system / user / assistant 共通
@@ -791,6 +793,11 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
             msg["reasoning_details"] = obj.get("reasoning_details")
         except Exception:
             pass
+
+    # 画像添付など、将来の構造化フィールドも残す
+    for key in ("attachments", "saved_path", "saved_files"):
+        if key in obj:
+            msg[key] = obj.get(key)
 
     # 過去ログに tool_calls が入っていた場合は、現在の形式に揃えて残す
     tcs = obj.get("tool_calls")

@@ -8,12 +8,10 @@ adds a small, non-breaking context layer for model names that opt in.
 from __future__ import annotations
 
 import json
-import re
 from typing import Any, Dict, List, Optional
 
 
 _GENERATE_IMAGE_TOOL_NAME = "generate_image"
-_IMAGE_RESULT_PATH_RE = re.compile(r"^\[OK\]\s+generated:\s*(?P<path>.+)$")
 
 
 def supports_multi_turn_image(depname: str) -> bool:
@@ -45,24 +43,24 @@ def _tool_call_args(tc: Dict[str, Any]) -> Dict[str, Any]:
     return {}
 
 
-def _extract_image_paths(tool_result_text: str) -> List[str]:
+def _extract_image_paths_from_attachments(attachments: Any) -> List[str]:
     paths: List[str] = []
-    for raw_line in (tool_result_text or "").splitlines():
-        line = raw_line.strip()
-        if not line:
+    for att in attachments or []:
+        if not isinstance(att, dict):
             continue
-        m = _IMAGE_RESULT_PATH_RE.match(line)
-        if m:
-            p = m.group("path").strip()
-            if p and p not in paths:
-                paths.append(p)
+        if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
             continue
-        if line.startswith("["):
-            continue
-        # Fallback: treat bare lines as paths once the tool output starts listing them.
-        if ":\\" in line or "/" in line:
-            if line not in paths:
-                paths.append(line)
+        candidate = (
+            att.get("saved_path")
+            or att.get("path")
+            or att.get("file_path")
+            or att.get("filename")
+            or att.get("name")
+        )
+        if isinstance(candidate, str):
+            candidate = candidate.strip()
+            if candidate and candidate not in paths:
+                paths.append(candidate)
     return paths
 
 
@@ -92,8 +90,7 @@ def _extract_image_turns(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]
                 break
 
         elif role == "tool" and msg.get("name") == _GENERATE_IMAGE_TOOL_NAME:
-            result_text = str(msg.get("content") or "")
-            paths = _extract_image_paths(result_text)
+            paths = _extract_image_paths_from_attachments(msg.get("attachments"))
             if pending_prompt or paths:
                 turns.append(
                     {

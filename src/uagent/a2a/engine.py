@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Tuple
+import os
+from pathlib import Path
+
+from typing import Any, Dict, List, Tuple
 
 from ..env_utils import env_get
 from ..i18n import _
@@ -24,7 +27,7 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
     from .. import uagent_llm as llm_util
     from .. import util_providers as providers
     from .. import util_tools as tools_util
-    from ..util_tools import build_initial_messages
+    from ..util_tools import build_initial_messages, image_file_to_data_url
 
     provider, client, depname = providers.make_client(core)
 
@@ -35,6 +38,8 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
         core.log_message(user_msg)
     except Exception:
         pass
+
+    start_idx = len(messages)
 
     # Execute one round (same as CLI/web usage)
     llm_util.run_llm_rounds(
@@ -47,6 +52,60 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
         append_result_to_outfile_fn=tools_util.append_result_to_outfile,
         try_open_images_from_text_fn=tools_util.try_open_images_from_text,
     )
+
+    def _collect_attachments() -> List[Dict[str, Any]]:
+        attachments: List[Dict[str, Any]] = []
+        seen: set[str] = set()
+
+        def _add_image_path(raw_path: str) -> None:
+            if not raw_path:
+                return
+            expanded = Path(os.path.expandvars(os.path.expanduser(raw_path)))
+            try:
+                abs_path = expanded if expanded.is_absolute() else expanded.resolve()
+            except Exception:
+                abs_path = expanded
+            key = str(abs_path)
+            if key in seen:
+                return
+            if not abs_path.exists() or not abs_path.is_file():
+                return
+            try:
+                data_url = image_file_to_data_url(str(abs_path))
+            except Exception:
+                return
+            seen.add(key)
+            attachments.append(
+                {
+                    "type": "image",
+                    "mime": "image/png",
+                    "name": abs_path.name,
+                    "data_url": data_url,
+                }
+            )
+
+        for msg in messages[start_idx:]:
+            if not isinstance(msg, dict):
+                continue
+            if msg.get("role") != "tool" or msg.get("name") != "generate_image":
+                continue
+
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() != "image":
+                    continue
+                data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
+                if not isinstance(data_url, str) or not data_url.startswith("data:"):
+                    continue
+                name = str(att.get("name") or att.get("filename") or "image.png")
+                mime = str(att.get("mime") or "image/png")
+                key = f"{name}:{mime}:{hash(data_url)}"
+                if key in seen:
+                    continue
+                seen.add(key)
+                attachments.append({"type": "image", "mime": mime, "name": name, "data_url": data_url})
+        return attachments
 
     # Find last assistant message
     last_assistant: Dict[str, Any] | None = None
@@ -63,6 +122,13 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
                 "message": "No assistant message produced.",
             },
         )
+
+    attachments = _collect_attachments()
+    if attachments:
+        last_assistant = dict(last_assistant)
+        last_assistant["attachments"] = attachments
+        if not str(last_assistant.get("content") or "").strip():
+            last_assistant["content"] = "Generated image(s)."
 
     return last_assistant, None
 
