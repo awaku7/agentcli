@@ -228,7 +228,8 @@ def _load_plugins() -> None:
                                 _(
                                     "log.load_ok.external",
                                     default=f"[tools] Loaded external tool: {entry.name}",
-                                ).format(entry_name=entry.name),
+                                    entry_name=entry.name,
+                                ),
                                 file=sys.stderr,
                             )
                 except Exception as e:
@@ -236,7 +237,9 @@ def _load_plugins() -> None:
                         _(
                             "log.load_fail.external",
                             default=f"[tools] Failed to load external plugin {entry.path}: {e!r}",
-                        ).format(entry_path=entry.path, err=repr(e)),
+                            entry_path=entry.path,
+                            err=repr(e),
+                        ),
                         file=sys.stderr,
                     )
 
@@ -246,7 +249,8 @@ def _load_plugins() -> None:
             _(
                 "log.loaded_tools",
                 default=f"[tools] Loaded tools: {', '.join(names)}",
-            ).format(names=", ".join(names)),
+                names=", ".join(names),
+            ),
             file=sys.stderr,
         )
     else:
