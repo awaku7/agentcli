@@ -175,24 +175,8 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
 
 def try_open_images_from_text(text: str) -> None:
-    """アシスタント最終出力に含まれる画像パスがあれば開く（Windows前提）。"""
-    if os.name != "nt":
-        return
-
-    paths = extract_image_paths(text)
-    if not paths:
-        return
-
-    opened_any = False
-    for p in paths:
-        if open_image_with_default_app(p):
-            opened_any = True
-
-    if opened_any:
-        print(
-            "[INFO] " + _("Opened image file with the default app."),
-            file=sys.stderr,
-        )
+    """Deprecated no-op: assistant-text image auto-open was removed."""
+    return
 
 
 def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:

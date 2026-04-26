@@ -83,8 +83,8 @@ def make_httpx_timeout() -> Any:
 
     Env (seconds):
       - UAGENT_LLM_TIMEOUT_CONNECT_SEC (default 10)
-      - UAGENT_LLM_TIMEOUT_READ_SEC (default 60)
-      - UAGENT_LLM_TIMEOUT_WRITE_SEC (default 60)
+      - UAGENT_LLM_TIMEOUT_READ_SEC (default 300)
+      - UAGENT_LLM_TIMEOUT_WRITE_SEC (default 300)
       - UAGENT_LLM_TIMEOUT_POOL_SEC (default 10)
     """
 
@@ -92,8 +92,8 @@ def make_httpx_timeout() -> Any:
         return None
 
     connect = _env_float("UAGENT_LLM_TIMEOUT_CONNECT_SEC", 10)
-    read = _env_float("UAGENT_LLM_TIMEOUT_READ_SEC", 60)
-    write = _env_float("UAGENT_LLM_TIMEOUT_WRITE_SEC", 60)
+    read = _env_float("UAGENT_LLM_TIMEOUT_READ_SEC", 300)
+    write = _env_float("UAGENT_LLM_TIMEOUT_WRITE_SEC", 300)
     pool = _env_float("UAGENT_LLM_TIMEOUT_POOL_SEC", 10)
 
     try:
