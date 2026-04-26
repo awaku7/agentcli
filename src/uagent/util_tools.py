@@ -136,11 +136,16 @@ def open_image_with_default_app(path: str) -> bool:
         if not os.path.exists(abspath):
             return False
 
-        # Windows: start で既定アプリ起動。
-        # shell=True が必要（cmd の内部コマンド）。
+        # Windows は os.startfile が最も直接的。
+        if os.name == "nt" and hasattr(os, "startfile"):
+            os.startfile(abspath)  # type: ignore[attr-defined]
+            return True
+
+        # フォールバック。
         subprocess.Popen(
-            f'start "" "{abspath}"',
-            shell=True,
+            ["xdg-open", abspath],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
         )
         return True
     except Exception:
