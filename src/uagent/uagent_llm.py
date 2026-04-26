@@ -1681,6 +1681,15 @@ def run_llm_rounds(
                 use_tool_result_cache=use_tool_result_cache,
             )
 
+            if any(
+                isinstance(tc, dict)
+                and (tc.get("function") or {}).get("name") == "generate_image"
+                for tc in tool_calls_list
+            ):
+                # Image generation is terminal for the current turn.
+                # Avoid a follow-up Responses round that can request generate_image again.
+                break
+
             core.set_status(True, "LLM")
 
             if executed_new_tool:

@@ -303,12 +303,14 @@
 
             if (msg.role === 'system') return;
 
+            const hasAttachments = !!((msg && Array.isArray(msg.attachments) && msg.attachments.length) || (msg && msg.saved_path) || (msg && Array.isArray(msg.saved_files) && msg.saved_files.length));
+
             // Suppress empty assistant messages (avoid noisy "ASSISTANT:" only entries)
             const c = (msg.content || '').trim();
-            if (msg.role === 'assistant' && !c) return;
+            if (msg.role === 'assistant' && !c && !hasAttachments) return;
 
-            // Hide tool messages by default (show only when UAGENT_WEB_VERBOSE=1)
-            if (!WEB_VERBOSE && msg.role === 'tool') return;
+            // Hide tool messages by default (show only when UAGENT_WEB_VERBOSE=1), except when they carry images
+            if (!WEB_VERBOSE && msg.role === 'tool' && !hasAttachments) return;
 
             // human_ask tool call/result is handled by overlay
             if (msg.role === 'tool' && msg.name === 'human_ask') return;
@@ -318,12 +320,63 @@
             
             let content = `<strong>${msg.role.toUpperCase()}:</strong> `;
             if (msg.name) content += `<span class="text-xs font-mono">[${msg.name}]</span> `;
-            content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content))}</pre>`;
+            content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content || ''))}</pre>`;
             
             if (WEB_VERBOSE && msg.tool_calls) {
                 msg.tool_calls.forEach(tc => {
                     content += `<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ${tc.function.name}</div>`;
                 });
+            }
+
+            function escapeAttr(text) {
+                return escapeHtml(String(text || ''));
+            }
+
+            function renderAttachments(message) {
+                const items = [];
+                const seen = new Set();
+                const addItem = (candidate) => {
+                    if (!candidate || typeof candidate !== 'object') return;
+                    const att = candidate;
+                    const type = String(att.type || 'image').toLowerCase();
+                    if (type && !['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)) return;
+                    const path = att.saved_path || att.path || att.file_path || att.name || '';
+                    const src = att.data_url || att.url || '';
+                    const key = (src || path || '').trim();
+                    if (!key || seen.has(key)) return;
+                    seen.add(key);
+                    items.push({ att, src, path });
+                };
+
+                (message.attachments || []).forEach(addItem);
+                if (message.saved_path) addItem({ type: 'image', saved_path: message.saved_path });
+                (message.saved_files || []).forEach((p) => addItem({ type: 'image', saved_path: p }));
+
+                if (!items.length) return '';
+
+                let html = '<div class="mt-2 flex flex-wrap gap-3">';
+                items.forEach(({ att, src, path }) => {
+                    const title = att.name || path || 'image';
+                    const finalSrc = src || '';
+                    const link = finalSrc || '#';
+                    html += '<div class="border rounded p-2 bg-white max-w-[380px]">';
+                    html += `<div class="text-xs text-gray-600 mb-1 break-all">${escapeHtml(String(title))}</div>`;
+                    if (finalSrc) {
+                        html += `<a href="${escapeAttr(link)}" target="_blank" rel="noopener noreferrer">`;
+                        html += `<img src="${escapeAttr(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded"/>`;
+                        html += '</a>';
+                    } else {
+                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(path || ''))}</div>`;
+                    }
+                    html += '</div>';
+                });
+                html += '</div>';
+                return html;
+            }
+
+            const attachmentsHtml = renderAttachments(msg);
+            if (attachmentsHtml) {
+                content += attachmentsHtml;
             }
             
             div.innerHTML = content;
