@@ -390,18 +390,25 @@ def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
         text = default
 
     if kwargs:
-        if "%(" in text:
+        candidates = [text]
+        if default is not None and default != text:
+            candidates.append(default)
+        if msgid not in candidates:
+            candidates.append(msgid)
+
+        for candidate in candidates:
+            if "%(" in candidate:
+                try:
+                    return candidate % kwargs
+                except Exception:
+                    pass
             try:
-                return text % kwargs
+                return candidate.format(**kwargs)
             except Exception:
-                pass
-        try:
-            return text.format(**kwargs)
-        except Exception:
-            try:
-                return text % kwargs
-            except Exception:
-                pass
+                try:
+                    return candidate % kwargs
+                except Exception:
+                    pass
 
     return text
 

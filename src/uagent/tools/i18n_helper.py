@@ -80,22 +80,45 @@ def make_tool_translator(tool_py_file: str):
     base = os.path.splitext(os.path.basename(tool_py_file))[0]
     json_path = os.path.join(tool_dir, f"{base}.json")
 
-    def _(key: str, *, default: str) -> str:
+    def _(key: str, *, default: str, **kwargs: object) -> str:
         loc = get_locale()
         data = _load_tool_dict(json_path)
 
+        text = None
         loc_map = data.get(loc)
         if isinstance(loc_map, dict):
             v = loc_map.get(key)
             if isinstance(v, str) and v:
-                return _unescape_newlines(v)
+                text = _unescape_newlines(v)
 
-        en_map = data.get("en")
-        if isinstance(en_map, dict):
-            v = en_map.get(key)
-            if isinstance(v, str) and v:
-                return _unescape_newlines(v)
+        if text is None:
+            en_map = data.get("en")
+            if isinstance(en_map, dict):
+                v = en_map.get(key)
+                if isinstance(v, str) and v:
+                    text = _unescape_newlines(v)
 
-        return default
+        if text is None:
+            text = default
+
+        if kwargs:
+            candidates = [text]
+            if default != text:
+                candidates.append(default)
+            for candidate in candidates:
+                if "%(" in candidate:
+                    try:
+                        return candidate % kwargs
+                    except Exception:
+                        pass
+                try:
+                    return candidate.format(**kwargs)
+                except Exception:
+                    try:
+                        return candidate % kwargs
+                    except Exception:
+                        pass
+
+        return text
 
     return _
