@@ -69,7 +69,7 @@ msgid ""
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr ""
 "(وضع الإدخال متعدد الأسطر: أدخل النص في أسطر متعددة؛ لإعادة التشغيل، اكتب "
-"\"\"\"إعادة المحاولة؛ أنهي بسطر يحتوي على %(sentinel)s)"
+"\"\"\"retry؛ أنهي بسطر يحتوي على %(sentinel)s)"
 
 #: src/uagent/cli.py:627 src/uagent/setup_cli.py:828
 #: src/uagent/setup_cli.py:847 src/uagent/setup_cli.py:870
