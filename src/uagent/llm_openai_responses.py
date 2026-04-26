@@ -156,6 +156,15 @@ def build_responses_request(
 
         m_clean: Dict[str, Any] = dict(m)
 
+        # Responses API input must not contain project-specific attachment metadata.
+        # Keep it in internal history, but drop it from the payload we send.
+        for _k in ("attachments", "saved_path", "saved_files"):
+            if _k in m_clean:
+                try:
+                    del m_clean[_k]
+                except Exception:
+                    pass
+
         # If assistant had tool_calls, remove them and write a trace into instructions
         if "tool_calls" in m_clean:
             tc_info: List[str] = []

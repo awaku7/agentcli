@@ -21,11 +21,14 @@ import base64
 import json
 import os
 import ssl
+import sys
 import threading
 import time
+import traceback
 from typing import Any, Dict, List
 
 from ..env_utils import env_get
+from ..util_tools import open_image_with_default_app
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 from .response_util import make_response
@@ -39,43 +42,23 @@ def _msg(key: str, default: str, **kwargs: Any) -> str:
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:generate_image"
-_SPINNER_FRAMES = "|/-\\"
 
 
 class _StatusSpinner:
     def __init__(self, cb: Any, base_label: str) -> None:
         self._cb = cb
         self._base_label = base_label
-        self._stop = threading.Event()
-        self._thread: threading.Thread | None = None
 
     def start(self) -> None:
         if not self._cb or not getattr(self._cb, "set_status", None):
             return
         try:
-            self._cb.set_status(True, f"{self._base_label} {_SPINNER_FRAMES[0]}")
+            self._cb.set_status(True, self._base_label)
         except Exception:
             pass
-        self._thread = threading.Thread(target=self._run, daemon=True)
-        self._thread.start()
-
-    def _run(self) -> None:
-        i = 0
-        while not self._stop.wait(0.5):
-            try:
-                self._cb.set_status(
-                    True,
-                    f"{self._base_label} {_SPINNER_FRAMES[i % len(_SPINNER_FRAMES)]}",
-                )
-            except Exception:
-                pass
-            i += 1
 
     def stop(self) -> None:
-        self._stop.set()
-        if self._thread is not None:
-            self._thread.join(timeout=1.0)
-            self._thread = None
+        pass
 
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -314,6 +297,18 @@ def _run_openai_images(
             _msg("err.httpx_init", "Failed to initialize httpx: {err}", err=repr(e))
         )
 
+    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
+    if debug:
+        print(
+            "[generate_image][debug] _run_openai_images init",
+            {
+                "provider": provider,
+                "model": image_model,
+                "http_client": type(http_client).__name__ if http_client else None,
+            },
+            flush=True,
+        )
+
     if provider == "azure":
         base_url = _img_env("azure", "generate", "base_url", required=True).rstrip("/")
         api_key = _img_env("azure", "generate", "api_key", required=True)
@@ -386,7 +381,39 @@ def _run_openai_images(
     else:
         gen_kwargs["response_format"] = "b64_json"
 
-    resp = client.images.generate(**gen_kwargs)
+    if debug:
+        print(
+            "[generate_image][debug] client.images.generate request",
+            {
+                "provider": provider,
+                "model": image_model,
+                "keys": sorted(gen_kwargs.keys()),
+                "size": size,
+                "n": n,
+            },
+            flush=True,
+        )
+    try:
+        resp = client.images.generate(**gen_kwargs)
+    except Exception as e:
+        if debug:
+            print(
+                "[generate_image][debug] client.images.generate error",
+                {"provider": provider, "model": image_model, "error": repr(e)},
+                flush=True,
+            )
+            traceback.print_exc()
+        raise
+    if debug:
+        print(
+            "[generate_image][debug] client.images.generate done",
+            {
+                "provider": provider,
+                "model": image_model,
+                "data_len": len(getattr(resp, 'data', None) or []),
+            },
+            flush=True,
+        )
 
     b64_list: List[str] = []
     url_list: List[str] = []
@@ -541,9 +568,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
-    moderation = str(
+    moderation_raw = str(
         args.get("moderation") or env_get("UAGENT_IMG_GENERATE_MODERATION") or ""
     ).strip()
+    moderation = "auto" if moderation_raw.lower() == "safe" else moderation_raw
     quality = str(
         args.get("quality") or env_get("UAGENT_IMG_GENERATE_QUALITY") or ""
     ).strip()
@@ -563,13 +591,46 @@ def run_tool(args: Dict[str, Any]) -> str:
         "quality": quality or None,
         "background": background or None,
     }
+    if debug:
+        print(
+            "[generate_image][debug] start",
+            {
+                "provider": provider,
+                "model": image_model,
+                "size": size,
+                "n": n,
+                "output_dir": outdir,
+                "file_prefix": file_prefix,
+                "save_meta": save_meta,
+                "moderation": moderation or None,
+                "quality": quality or None,
+                "background": background or None,
+            },
+            flush=True,
+        )
 
     try:
+        if debug:
+            print("[generate_image][debug] before spinner.start", flush=True)
         spinner.start()
+        if debug:
+            print("[generate_image][debug] after spinner.start", flush=True)
         size2 = _sanitize_size_for_provider(size)
         meta_payload["size"] = size2
+        if debug:
+            print(
+                "[generate_image][debug] size2",
+                {"size": size, "size2": size2},
+                flush=True,
+            )
 
         if provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
+            if debug:
+                print(
+                    "[generate_image][debug] calling openai_images",
+                    {"provider": provider, "model": image_model},
+                    flush=True,
+                )
             res = _run_openai_images(
                 provider=provider,
                 image_model=image_model,
@@ -583,6 +644,16 @@ def run_tool(args: Dict[str, Any]) -> str:
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
             meta_payload["items"] = res.get("items") or []
+            if debug:
+                print(
+                    "[generate_image][debug] openai_images returned",
+                    {
+                        "b64_count": len(b64_list),
+                        "url_count": len(url_list),
+                        "items_count": len(meta_payload["items"]),
+                    },
+                    flush=True,
+                )
 
             if b64_list:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
@@ -667,5 +738,34 @@ def run_tool(args: Dict[str, Any]) -> str:
     }
     if save_meta:
         data["meta_path"] = meta_path
+
+    if debug:
+        print(
+            "[generate_image][debug] done",
+            {
+                "saved_files": saved,
+                "meta_path": meta_path if save_meta else None,
+                "output_dir": outdir,
+            },
+            flush=True,
+        )
+
+    open_flag = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
+    should_open = not bool(getattr(cb, "is_gui", False)) and open_flag not in (
+        "0",
+        "false",
+        "no",
+        "off",
+    )
+    if should_open:
+        opened_any = False
+        for path in saved:
+            if open_image_with_default_app(path):
+                opened_any = True
+        if opened_any:
+            print(
+                "[INFO] Opened image file with the default app.",
+                file=sys.stderr,
+            )
 
     return make_response(True, _msg("ok.generated", "[OK] generated"), data=data)
