@@ -1397,12 +1397,35 @@ def _execute_tool_calls(
         elif tool_cache_key:
             tool_result_cache[tool_cache_key] = tool_result
 
-        tool_msg = {
+        tool_msg: Dict[str, Any] = {
             "role": "tool",
             "tool_call_id": tc["id"],
             "name": name,
             "content": tool_result,
         }
+        try:
+            parsed_tool_result = json.loads(tool_result)
+        except Exception:
+            parsed_tool_result = None
+        if isinstance(parsed_tool_result, dict):
+            data = parsed_tool_result.get("data")
+            if isinstance(data, dict):
+                attachments = data.get("attachments")
+                if isinstance(attachments, list) and attachments:
+                    tool_msg["attachments"] = attachments
+                if data.get("saved_files"):
+                    tool_msg["saved_files"] = data.get("saved_files")
+                if data.get("meta_path"):
+                    tool_msg["saved_path"] = data.get("meta_path")
+            else:
+                attachments = parsed_tool_result.get("attachments")
+                if isinstance(attachments, list) and attachments:
+                    tool_msg["attachments"] = attachments
+                if parsed_tool_result.get("saved_files"):
+                    tool_msg["saved_files"] = parsed_tool_result.get("saved_files")
+                if parsed_tool_result.get("saved_path"):
+                    tool_msg["saved_path"] = parsed_tool_result.get("saved_path")
+        
         messages.append(tool_msg)
         core.log_message(tool_msg)
 

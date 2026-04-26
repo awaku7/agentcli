@@ -28,6 +28,7 @@ from typing import Any, Dict, List
 from ..env_utils import env_get
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
+from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
@@ -645,6 +646,26 @@ def run_tool(args: Dict[str, Any]) -> str:
             default="[generate_image] Image data was empty",
         )
 
-    if len(saved) == 1:
-        return _msg("ok.generated_one", "[OK] generated: {path}", path=saved[0])
-    return _msg("ok.generated_many", "[OK] generated:\n{paths}", paths="\n".join(saved))
+    attachments = [
+        {
+            "type": "image",
+            "mime": "image/png",
+            "name": os.path.basename(path),
+            "path": path,
+        }
+        for path in saved
+    ]
+    data: Dict[str, Any] = {
+        "provider": provider,
+        "model": image_model,
+        "prompt": prompt,
+        "size": size2,
+        "n": n,
+        "output_dir": outdir,
+        "saved_files": saved,
+        "attachments": attachments,
+    }
+    if save_meta:
+        data["meta_path"] = meta_path
+
+    return make_response(True, _msg("ok.generated", "[OK] generated"), data=data)

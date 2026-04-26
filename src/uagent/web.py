@@ -176,13 +176,12 @@ class WebRoom:
             )
 
     def add_message(self, msg: Dict[str, Any]):
-        display_msg = {
-            "role": msg.get("role"),
-            "content": msg.get("content", ""),
-            "name": msg.get("name"),
-            "tool_calls": msg.get("tool_calls"),
-            "timestamp": datetime.now().isoformat(),
-        }
+        display_msg = dict(msg or {})
+        display_msg["role"] = msg.get("role")
+        display_msg["content"] = msg.get("content", "")
+        display_msg["name"] = msg.get("name")
+        display_msg["tool_calls"] = msg.get("tool_calls")
+        display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
         if self.loop:
             asyncio.run_coroutine_threadsafe(
