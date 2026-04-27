@@ -222,11 +222,45 @@
 
         function isImageAttachment(att) {
             const type = String((att && (att.type || att.mime)) || '').toLowerCase();
-            return type.startsWith('image/') || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type);
+            const path = String((att && (att.saved_path || att.path || att.file_path || att.name)) || '').toLowerCase();
+            return type.startsWith('image/')
+                || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)
+                || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(path);
         }
 
         function basenameFromPath(path) {
             return String(path || '').split(/[\\/]/).filter(Boolean).pop() || '';
+        }
+
+        function openAttachmentViewer(src, alt) {
+            if (!src) return;
+            let overlay = document.getElementById('attachment-viewer');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'attachment-viewer';
+                overlay.className = 'hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4';
+                overlay.innerHTML = `
+                    <div class="relative max-w-[95vw] max-h-[95vh]">
+                        <button type="button" id="attachment-viewer-close" class="absolute -top-10 right-0 text-white text-3xl leading-none">×</button>
+                        <img id="attachment-viewer-img" class="max-w-[95vw] max-h-[95vh] rounded shadow-lg bg-white" alt="">
+                    </div>`;
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) overlay.classList.add('hidden');
+                });
+                document.body.appendChild(overlay);
+                overlay.querySelector('#attachment-viewer-close').onclick = () => overlay.classList.add('hidden');
+            }
+            const img = overlay.querySelector('#attachment-viewer-img');
+            img.src = src;
+            img.alt = alt || 'image';
+            overlay.classList.remove('hidden');
+        }
+
+        function bindAttachmentClicks(root) {
+            if (!root) return;
+            root.querySelectorAll('img[data-attachment-src]').forEach((img) => {
+                img.addEventListener('click', () => openAttachmentViewer(img.dataset.attachmentSrc, img.dataset.attachmentAlt || 'image'));
+            });
         }
 
         function renderPendingAttachments() {
@@ -238,35 +272,36 @@
             }
 
             pendingAttachments.forEach((att, idx) => {
+                const isImage = isImageAttachment(att) && (att.data_url || att.url || att.saved_path || att.path);
                 const wrapper = document.createElement('div');
-                wrapper.className = 'relative border rounded bg-white p-2 max-w-[240px]';
+                wrapper.className = isImage
+                    ? 'relative inline-block max-w-[220px]'
+                    : 'relative inline-flex items-center px-2 py-1 rounded bg-gray-50 border max-w-[220px]';
 
                 const remove = document.createElement('button');
                 remove.type = 'button';
                 remove.textContent = '×';
-                remove.className = 'absolute right-1 top-1 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 text-xs';
+                remove.className = 'absolute right-1 top-1 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 text-xs z-10';
                 remove.onclick = () => {
                     pendingAttachments.splice(idx, 1);
                     renderPendingAttachments();
                 };
                 wrapper.appendChild(remove);
 
-                const title = document.createElement('div');
-                title.className = 'text-xs text-gray-600 mb-1 pr-6 break-all';
-                title.textContent = att.name || basenameFromPath(att.saved_path || att.path || '') || 'file';
-                wrapper.appendChild(title);
-
-                if (isImageAttachment(att) && (att.data_url || att.url || att.saved_path || att.path)) {
+                if (isImage) {
                     const img = document.createElement('img');
-                    img.className = 'max-w-[200px] max-h-[140px] rounded border';
-                    img.src = att.data_url || att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
-                    img.alt = title.textContent;
+                    const src = att.data_url || att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
+                    img.className = 'max-w-[200px] max-h-[140px] rounded border cursor-pointer block';
+                    img.src = src;
+                    img.alt = att.name || basenameFromPath(att.saved_path || att.path || '') || 'image';
+                    img.title = 'クリックで開く';
+                    img.onclick = () => openAttachmentViewer(src, img.alt);
                     wrapper.appendChild(img);
                 } else {
-                    const meta = document.createElement('div');
-                    meta.className = 'text-xs text-gray-500 break-all';
-                    meta.textContent = basenameFromPath(att.saved_path || att.path || '') || (att.mime || 'file');
-                    wrapper.appendChild(meta);
+                    const title = document.createElement('div');
+                    title.className = 'text-xs text-gray-600 break-all';
+                    title.textContent = att.name || basenameFromPath(att.saved_path || att.path || '') || 'file';
+                    wrapper.appendChild(title);
                 }
 
                 attachmentPreview.appendChild(wrapper);
@@ -344,158 +379,204 @@
             };
         }
 
+        function renderMessageAttachments(message) {
+            const items = [];
+            const seen = new Map();
+            const addItem = (candidate) => {
+                if (!candidate || typeof candidate !== 'object') return;
+                const att = candidate;
+                const type = String(att.type || att.mime || 'file').toLowerCase();
+                const path = att.saved_path || att.path || att.file_path || '';
+                const sourceKey = String(att.data_url || att.url || path || att.name || '').trim();
+                if (!sourceKey) return;
+
+                const isImage = isImageAttachment(att);
+                const prevIndex = seen.get(sourceKey);
+                if (prevIndex !== undefined) {
+                    const prev = items[prevIndex];
+                    if (isImage && prev && !prev.isImage) {
+                        items[prevIndex] = { att, type, path, isImage };
+                    }
+                    return;
+                }
+
+                seen.set(sourceKey, items.length);
+                items.push({ att, type, path, isImage });
+            };
+
+            const attachments = Array.isArray(message.attachments) ? message.attachments : [];
+            const hasAttachmentImage = attachments.some((att) => isImageAttachment(att));
+
+            attachments.forEach(addItem);
+            if (!hasAttachmentImage && message.saved_path) addItem({ type: 'image', saved_path: message.saved_path });
+            if (!hasAttachmentImage) (message.saved_files || []).forEach((p) => addItem({ type: 'file', saved_path: p }));
+
+            if (!items.length) return '';
+
+            let html = '<div class="mt-2 flex flex-wrap gap-2">';
+            items.forEach(({ att, type, path, isImage }) => {
+                const title = att.name || basenameFromPath(path) || (isImage ? 'image' : 'file');
+                const finalSrc = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
+                if (isImage && finalSrc) {
+                    html += '<div class="flex flex-col gap-1 max-w-[360px]">';
+                    if (title) {
+                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(title))}</div>`;
+                    }
+                    html += `<img src="${escapeHtml(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded cursor-pointer block" title="クリックで開く" data-attachment-src="${escapeHtml(finalSrc)}" data-attachment-alt="${escapeHtml(title)}"/>`;
+                    html += '</div>';
+                } else {
+                    html += '<div class="inline-flex items-center px-2 py-1 rounded bg-white border max-w-[220px]">';
+                    html += `<div class="text-xs text-gray-600 break-all">${escapeHtml(String(title))}</div>`;
+                    html += '</div>';
+                }
+            });
+            html += '</div>';
+            return html;
+        }
+
+        function normalizeMessageForDisplay(msg) {
+            const src = (msg && typeof msg === 'object') ? Object.assign({}, msg) : { role: '', content: '' };
+            const role = String(src.role || '').toLowerCase();
+            const name = String(src.name || '').toLowerCase();
+            const toolLabel = name || 'tool';
+            let body = String(src.content || '');
+
+            if (role !== 'tool') {
+                return { msg: src, body };
+            }
+
+            const trimmed = body.trim();
+            if (!trimmed) {
+                return { msg: src, body: '' };
+            }
+
+            let parsed = null;
+            if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+                try {
+                    parsed = JSON.parse(trimmed);
+                } catch (e) {
+                    parsed = null;
+                }
+            }
+
+            if (parsed && typeof parsed === 'object') {
+                if (parsed.saved_path) src.saved_path = parsed.saved_path;
+                if (Array.isArray(parsed.saved_files)) src.saved_files = parsed.saved_files;
+                if (!src.saved_files && Array.isArray(parsed.files)) src.saved_files = parsed.files;
+
+                const paths = [];
+                if (src.saved_path) paths.push(src.saved_path);
+                if (Array.isArray(src.saved_files)) paths.push(...src.saved_files);
+
+                if (paths.length) {
+                    body = toolLabel === 'generate_image'
+                        ? `${toolLabel}: done`
+                        : `${toolLabel}: ${paths.map(basenameFromPath).filter(Boolean).join(', ')}`;
+                } else if (typeof parsed.message === 'string' && parsed.message.trim()) {
+                    body = `${toolLabel}: ${parsed.message.trim()}`;
+                } else if (parsed.ok === true) {
+                    body = `${toolLabel}: done`;
+                } else {
+                    body = `${toolLabel}: result`;
+                }
+            } else if (trimmed.includes('{') && trimmed.includes('}')) {
+                // Tool output is JSON-like but could not be parsed cleanly.
+                // Do not dump raw JSON into the chat; keep it compact.
+                const savedPathMatch = trimmed.match(/"saved_path"\s*:\s*"([^"]+)"/i);
+                if (savedPathMatch && savedPathMatch[1]) {
+                    body = toolLabel === 'generate_image'
+                        ? `${toolLabel}: done`
+                        : `${toolLabel}: ${basenameFromPath(savedPathMatch[1])}`;
+                } else {
+                    body = `${toolLabel}: result`;
+                }
+            } else {
+                // Plain text tool output: keep only a short summary.
+                body = `${toolLabel}: ${trimmed.split(/\r?\n/, 1)[0].slice(0, 200)}`;
+            }
+
+            src.content = body;
+            return { msg: src, body };
+        }
+
+        function addMessage(msg) {
+            if (!msg) return;
+            const normalized = normalizeMessageForDisplay(msg);
+            const msgForRender = normalized.msg;
+            const body = normalized.body;
+            const div = document.createElement('div');
+            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
+
+            let content = `<strong>${escapeHtml(String((msgForRender.role || 'message')).toUpperCase())}:</strong> `;
+            if (msgForRender.name) content += `<span class="text-xs font-mono">[${escapeHtml(String(msgForRender.name))}]</span> `;
+
+            if (body) {
+                content += `<pre class="mt-1">${linkifyHtml(escapeHtml(body))}</pre>`;
+            }
+
+            if (WEB_VERBOSE && Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
+                msgForRender.tool_calls.forEach(tc => {
+                    const toolName = tc && tc.function && tc.function.name ? tc.function.name : '';
+                    content += `<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ${escapeHtml(String(toolName))}</div>`;
+                });
+            }
+
+            const attachmentsHtml = renderMessageAttachments(msgForRender);
+            if (attachmentsHtml) {
+                content += attachmentsHtml;
+            }
+
+            div.innerHTML = content;
+            bindAttachmentClicks(div);
+
+            try {
+                div.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : '';
+                div.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : '';
+                div.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now());
+                div.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0';
+            } catch (e) {
+                // ignore
+            }
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
         function startAssistantStream(id) {
-            // Ensure only one streaming bubble exists
             if (streamAssistant.active && streamAssistant.div) {
                 return;
             }
 
             const div = document.createElement('div');
             div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass('assistant')}`;
+
             const pre = document.createElement('pre');
             pre.className = 'mt-1';
             pre.textContent = '';
 
-            div.innerHTML = `<strong>ASSISTANT:</strong> `;
+            div.innerHTML = '<strong>ASSISTANT:</strong> ';
             div.appendChild(pre);
+
+            streamAssistant.id = id;
+            streamAssistant.div = div;
+            streamAssistant.pre = pre;
+            streamAssistant.active = true;
 
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            streamAssistant = { id: id || null, div, pre, active: true };
         }
 
         function appendAssistantStream(id, delta) {
-            if (!delta) return;
-            if (!streamAssistant.active) {
-                startAssistantStream(id);
-            }
-            // If id is provided, keep it
-            if (id && !streamAssistant.id) streamAssistant.id = id;
-
-            streamAssistant.pre.innerHTML = linkifyHtml(escapeHtml((streamAssistant.pre.textContent || '') + delta));
+            if (!streamAssistant.active || streamAssistant.id !== id || !streamAssistant.pre) return;
+            streamAssistant.pre.textContent += String(delta || '');
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function endAssistantStream(id) {
-            if (!streamAssistant.active) return;
-            // Ignore mismatched ids if any
+            if (!streamAssistant.active || streamAssistant.id !== id) return;
             streamAssistant.active = false;
             streamAssistant.id = null;
-            // Keep the bubble as final text (mode A)
-        }
-
-        function addMessage(msg) {
-            // De-dup optimistic USER echo (avoid showing the same USER twice when server broadcasts it back)
-            try {
-                if (msg && msg.role === 'user') {
-                    const last = chatBox.lastElementChild;
-                    const now = Date.now();
-                    if (last && last.dataset) {
-                        const lr = last.dataset.role || '';
-                        const lc = last.dataset.content || '';
-                        const lopt = last.dataset.optimistic || '';
-                        const lts = parseInt(last.dataset.ts || '0', 10) || 0;
-                        if (lr === 'user' && lopt === '1' && lc === (msg.content || '') && lts && (now - lts) < 2000) {
-                            return;
-                        }
-                    }
-                }
-            } catch (e) {
-                // ignore
-            }
-
-            if (msg.role === 'system') return;
-
-            const hasAttachments = !!((msg && Array.isArray(msg.attachments) && msg.attachments.length) || (msg && msg.saved_path) || (msg && Array.isArray(msg.saved_files) && msg.saved_files.length));
-
-            // Suppress empty assistant messages (avoid noisy "ASSISTANT:" only entries)
-            const c = (msg.content || '').trim();
-            if (msg.role === 'assistant' && !c && !hasAttachments) return;
-
-            // Hide tool messages by default (show only when UAGENT_WEB_VERBOSE=1), except when they carry images
-            if (!WEB_VERBOSE && msg.role === 'tool' && !hasAttachments) return;
-
-            // human_ask tool call/result is handled by overlay
-            if (msg.role === 'tool' && msg.name === 'human_ask') return;
-
-            const div = document.createElement('div');
-            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msg.role)}`;
-            
-            let content = `<strong>${msg.role.toUpperCase()}:</strong> `;
-            if (msg.name) content += `<span class="text-xs font-mono">[${msg.name}]</span> `;
-            if (!(msg.role === 'tool' && hasAttachments)) {
-                content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content || ''))}</pre>`;
-            }
-            
-            if (WEB_VERBOSE && msg.tool_calls) {
-                msg.tool_calls.forEach(tc => {
-                    content += `<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ${tc.function.name}</div>`;
-                });
-            }
-
-            function escapeAttr(text) {
-                return escapeHtml(String(text || ''));
-            }
-
-            function renderAttachments(message) {
-                const items = [];
-                const seen = new Set();
-                const addItem = (candidate) => {
-                    if (!candidate || typeof candidate !== 'object') return;
-                    const att = candidate;
-                    const type = String(att.type || att.mime || 'file').toLowerCase();
-                    const path = att.saved_path || att.path || att.file_path || '';
-                    const key = [type, path, att.url || att.data_url || att.name || ''].map(v => String(v || '').trim()).join('|');
-                    if (!key.trim()) return;
-                    if (seen.has(key)) return;
-                    seen.add(key);
-                    items.push({ att, type, path });
-                };
-
-                (message.attachments || []).forEach(addItem);
-                if (message.saved_path) addItem({ type: 'image', saved_path: message.saved_path });
-                (message.saved_files || []).forEach((p) => addItem({ type: 'file', saved_path: p }));
-
-                if (!items.length) return '';
-
-                let html = '<div class="mt-2 flex flex-wrap gap-3">';
-                items.forEach(({ att, type, path }) => {
-                    const title = att.name || basenameFromPath(path) || (type.startsWith('image') ? 'image' : 'file');
-                    const finalSrc = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
-                    html += '<div class="border rounded p-2 bg-white max-w-[380px]">';
-                    html += `<div class="text-xs text-gray-600 mb-1 break-all">${escapeHtml(String(title))}</div>`;
-                    if (type.startsWith('image') && finalSrc) {
-                        html += `<a href="${escapeAttr(finalSrc)}" target="_blank" rel="noopener noreferrer">`;
-                        html += `<img src="${escapeAttr(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded"/>`;
-                        html += '</a>';
-                    } else {
-                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(basenameFromPath(path) || att.mime || 'file'))}</div>`;
-                    }
-                    html += '</div>';
-                });
-                html += '</div>';
-                return html;
-            }
-
-            const attachmentsHtml = renderAttachments(msg);
-            if (attachmentsHtml) {
-                content += attachmentsHtml;
-            }
-            
-            div.innerHTML = content;
-
-            // Store metadata for simple de-dup
-            try {
-                div.dataset.role = (msg && msg.role) ? String(msg.role) : '';
-                div.dataset.content = (msg && (msg.content !== undefined)) ? String(msg.content) : '';
-                div.dataset.ts = String((msg && msg._ts) ? msg._ts : Date.now());
-                div.dataset.optimistic = (msg && msg._optimistic) ? '1' : '0';
-            } catch (e) {
-                // ignore
-            }
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
+            streamAssistant.div = null;
+            streamAssistant.pre = null;
         }
 
         function getRoleClass(role) {
@@ -503,6 +584,7 @@
                 case 'user': return 'role-user shadow-sm';
                 case 'assistant': return 'role-assistant shadow-sm';
                 case 'tool': return 'role-tool';
+                case 'system': return 'role-system';
                 default: return '';
             }
         }
@@ -572,21 +654,13 @@
             const w = status.workdir || '';
             workdirTextHeader.textContent = w ? `workdir: ${w}` : '';
 
-            userInput.disabled = isBusy;
-            sendBtn.disabled = isBusy;
+            userInput.disabled = false;
+            sendBtn.disabled = false;
         }
 
         function sendMessage() {
             const text = userInput.value.trim();
             if ((!text && !pendingAttachments.length) || sendBtn.disabled) return;
-
-            // Optimistic UI: show USER immediately in this tab.
-            // Other browsers/tabs will still see the USER message via server broadcast.
-            try {
-                addMessage({ role: 'user', content: text, attachments: pendingAttachments, _optimistic: true, _ts: Date.now() });
-            } catch (e) {
-                // ignore
-            }
 
             ws.send(JSON.stringify({ type: 'user_input', text: text, attachments: pendingAttachments }));
             userInput.value = '';
