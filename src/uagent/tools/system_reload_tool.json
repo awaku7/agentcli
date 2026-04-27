@@ -70,5 +70,13 @@
   "ar": {
     "tool.description": "أعد تحميل النظام واعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python .py) في الذاكرة. قم بتشغيل هذا بعد تعديل التعليمات البرمجية.",
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: إعادة تحميل النظام وعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python .py) في الذاكرة. قم بتشغيل هذا بعد تعديل التعليمات البرمجية."
+  },
+  "sv": {
+    "tool.description": "Laddar om systemet och lägger in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet. Kör detta efter ...",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: ladda om systemet och läsa in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet."
+  },
+  "nb": {
+    "tool.description": "Laster systemet på nytt og legger den nyeste koden for alle verktøy under tools/ (Python .py-filer) inn i minnet. Kjør dette etter ...",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: laste systemet på nytt og legge den nyeste koden for alle verktøy under tools/ (Python .py-filer) inn i minnet."
   }
 }

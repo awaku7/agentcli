@@ -124,5 +124,19 @@
     "param.shell.description": "PowerShell قابل للتنفيذ للاستخدام: \"pwsh\" (PowerShell 7+) أو \"powershell\" (Windows PowerShell). إذا تم حذفه، حدد تلقائيًا.",
     "tool.description": "كحل أخير، قم بتنفيذ PowerShell. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة (على سبيل المثال، MCP).",
     "tool.system_prompt": "هذه الأداة هي الملاذ الأخير.\n1. تحقق أولاً من إمكانية استخدام Handle_mcp / mcp_tools_list بدلاً من ذلك.\n2. استخدم هذه الأداة فقط في حالة عدم توفر أي أداة مناسبة أخرى.\n3. لا تستخدم هذه الأداة لتشغيل بايثون؛ استخدم python_exec بدلاً من ذلك.\n\nملاحظات أمنية:\n- قد يتم حظر الأنماط الخطيرة مثل download-exec (IWR/IRM/curl/wget) وBase64 (-Enc) أو تتطلب تأكيدًا."
+  },
+  "sv": {
+    "err.timeout": "[pwsh_exec timeout] blev inte klar inom {seconds} sekunder",
+    "param.command.description": "PowerShell-kommandosträng som skickas till -Command.",
+    "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Om den utelämnas väljs den automatiskt.",
+    "tool.description": "Som sista utväg, kör PowerShell. Använd endast när inget annat lämpligt verktyg, till exempel MCP, finns tillgängligt.",
+    "tool.system_prompt": "Det här verktyget är en SISTA UTVÄG.\n1. Kontrollera först om handle_mcp / mcp_tools_list kan användas istället.\n2. Använd endast det här verktyget när inget annat lämpligt verktyg finns.\n3. Använd inte det här verktyget för att köra Python; använd i stället python_exec.\n\nSäkerhetsnoteringar:\n- Farliga mönster som download-exec (IWR/IRM/curl/wget) och Base64 (-Enc) kan blockeras eller kräva bekräftelse."
+  },
+  "nb": {
+    "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
+    "param.command.description": "PowerShell-kommando-streng som sendes til -Command.",
+    "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis den utelates, velges den automatisk.",
+    "tool.description": "Som siste utvei, kjør PowerShell. Bruk bare når ingen andre passende verktøy, for eksempel MCP, er tilgjengelige.",
+    "tool.system_prompt": "Dette verktøyet er en SISTE UTVEI.\n1. Sjekk først om handle_mcp / mcp_tools_list kan brukes i stedet.\n2. Bruk bare dette verktøyet når ingen andre passende verktøy er tilgjengelige.\n3. Ikke bruk dette verktøyet til å kjøre Python; bruk i stedet python_exec.\n\nSikkerhetsnotater:\n- Farlige mønstre som download-exec (IWR/IRM/curl/wget) og Base64 (-Enc) kan bli blokkert eller kreve bekreftelse."
   }
 }

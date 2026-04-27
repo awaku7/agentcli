@@ -250,5 +250,33 @@
     "param.timeout_s.description": "طلب المهلة في ثوان.",
     "err.missing_message": "\"رسالة\" مفقودة.",
     "err.exception": "استثناء"
+  },
+  "sv": {
+    "tool.description": "Publicerar ett meddelande eller en JSON-payload som stöds av webhook till en Microsoft Teams Incoming Webhook-URL som lagras i en miljövariabel.",
+    "tool.system_prompt": "Publicera en payload till Microsoft Teams Incoming Webhook. Returnera endast JSON.",
+    "param.message.description": "Meddelandetext som ska skickas till Teams. Används som vanlig text om inte kortfält anges.",
+    "param.title.description": "Korttitel för payloads som stöds av webhook.",
+    "param.summary.description": "Kortsammanfattning för payloads som stöds av webhook.",
+    "param.image_url.description": "Bild-URL för payloads som stöds av webhook.",
+    "param.theme_color.description": "Kortets temafärg som en hex-sträng utan #.",
+    "param.payload_json.description": "Rå webhook-payload som JSON-sträng eller objekt. Om den anges skickas den som den är.",
+    "param.webhook_env.description": "Namnet på miljövariabeln som lagrar Teams-webhook-URL:en.",
+    "param.timeout_s.description": "Begärans timeout i sekunder.",
+    "err.missing_message": "Saknar 'message'.",
+    "err.exception": "Undantag"
+  },
+  "nb": {
+    "tool.description": "Publiserer en melding eller en webhook-støttet JSON-payload til en Microsoft Teams Incoming Webhook-URL lagret i en miljøvariabel.",
+    "tool.system_prompt": "Publiser en payload til Microsoft Teams Incoming Webhook. Returner kun JSON.",
+    "param.message.description": "Meldingstekst som skal sendes til Teams. Brukes som ren tekst med mindre kortfelter er oppgitt.",
+    "param.title.description": "Korttittel for payload-er som støttes av webhook.",
+    "param.summary.description": "Kortoppsummering for payload-er som støttes av webhook.",
+    "param.image_url.description": "Bilde-URL for payload-er som støttes av webhook.",
+    "param.theme_color.description": "Kortets temafarge som en hex-streng uten #.",
+    "param.payload_json.description": "Rå webhook-payload som JSON-streng eller objekt. Hvis den oppgis, sendes den som den er.",
+    "param.webhook_env.description": "Navnet på miljøvariabelen som lagrer Teams-webhook-URL-en.",
+    "param.timeout_s.description": "Tidsavbrudd for forespørselen i sekunder.",
+    "err.missing_message": "Mangler 'message'.",
+    "err.exception": "Unntak"
   }
 }

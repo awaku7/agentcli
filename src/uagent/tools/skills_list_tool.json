@@ -142,5 +142,21 @@
     "param.strict.description": "ما إذا كان سيتم التعامل مع التحذيرات على أنها حالات فشل أثناء التحقق من المواصفات (الافتراضي: خطأ)",
     "tool.description": "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md). يقوم بمسح UAGENT_SKILLS_DIRS أو ./skills إذا تم حذف root_dir.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "param.include_invalid.description": "Om du vill kan den tas med i listan även om tolkning/verifiering av SKILL.md misslyckas (standard: true). Om false utelämnas misslyckade skills.",
+    "param.recursive.description": "Sök rekursivt (standard: true)",
+    "param.root_dir.description": "Sökväg för skills. Om tom/inte angiven används UAGENT_SKILLS_DIRS (delad med os.pathsep), och om inte angiven används ./skills.",
+    "param.strict.description": "Om varningar ska betraktas som fel vid verifiering av specifikationen (standard: false).",
+    "tool.description": "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen (SKILL.md). Skannar rekursivt som standard.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "param.include_invalid.description": "Om du vil, kan den tas med i listen selv om tolkning/verifisering av SKILL.md mislykkes (standard: true). Hvis false utelates mislykkede skills.",
+    "param.recursive.description": "Søk rekursivt (standard: true)",
+    "param.root_dir.description": "Søkesti for skills. Hvis tom/ikke angitt brukes UAGENT_SKILLS_DIRS (delt med os.pathsep), og hvis ikke angitt brukes ./skills.",
+    "param.strict.description": "Om varsler skal behandles som feil ved spesifikasjonsverifisering (standard: false).",
+    "tool.description": "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikasjonen (SKILL.md). Skanner rekursivt som standard.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   }
 }

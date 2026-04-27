@@ -88,5 +88,15 @@
     "param.note.description": "نص الملاحظة المراد حفظه.",
     "tool.description": "احفظ ملاحظة واحدة من الذاكرة طويلة المدى حول المستخدم/البيئة التي قد تكون مفيدة في المحادثات المستقبلية.",
     "tool.system_prompt": "احفظ ملاحظة واحدة مفيدة للذاكرة طويلة المدى.\nلا تقم بتخزين أسرار مثل كلمات المرور أو مفاتيح API أو الرموز المميزة."
+  },
+  "sv": {
+    "param.note.description": "Texten i anteckningen som ska sparas.",
+    "tool.description": "Spara en enda långsiktig minnesanteckning om användaren eller miljön som kan vara användbar i framtida samtal.",
+    "tool.system_prompt": "Spara exakt en användbar långsiktig minnesanteckning.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
+  },
+  "nb": {
+    "param.note.description": "Teksten i notatet som skal lagres.",
+    "tool.description": "Lagre ett enkelt notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",
+    "tool.system_prompt": "Lagre nøyaktig ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
   }
 }

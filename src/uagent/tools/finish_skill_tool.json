@@ -70,5 +70,15 @@
   "ar": {
     "param.message.description": "رسالة نهائية اختيارية للمستخدم.",
     "tool.description": "قم بالإشارة إلى أن مهام المهارة الحالية قد اكتملت. (استخدم فقط أثناء تنفيذ المهارات بناءً على SKILL.md). يؤدي هذا إلى إزالة تعليمات المهارة ويمنع الحلقات اللانهائية."
+  },
+  "sv": {
+    "param.message.description": "Valfritt slutmeddelande till användaren.",
+    "tool.description": "Markerar att den aktuella skillens uppgifter är slutförda. (Använd endast under skillkörning baserat på SKILL.md). Detta tar bort skillinstruktionerna och förhindrar oändliga loopar.",
+    "tool.system_prompt": "Använd det här verktyget när en skill som följer SKILL.md har slutförts, så att instruktionerna tas bort och oändliga loopar förhindras."
+  },
+  "nb": {
+    "param.message.description": "Valgfri avsluttende melding til brukeren.",
+    "tool.description": "Markerer at den aktuelle skill-oppgaven er fullført. (Bruk KUN under skill-kjøring basert på SKILL.md). Dette fjerner skill-instruksjonene og forhindrer uendelige løkker.",
+    "tool.system_prompt": "Bruk dette verktøyet når en skill som følger SKILL.md er fullført, slik at instruksjonene fjernes og uendelige løkker unngås."
   }
 }

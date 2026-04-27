@@ -88,5 +88,15 @@
     "param.expression.description": "الصيغة التي تريد حسابها (على سبيل المثال، '123 * (45 + 67)'، 'sqrt(144)'، 'sin(pi/2)'). الوظائف من وحدة الرياضيات في بايثون متاحة.",
     "tool.description": "حساب تعبير رياضي وإرجاع النتيجة. استخدم هذا لإجراء العمليات الحسابية المعقدة أو عندما تكون الدقة مطلوبة.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "param.expression.description": "Formeln du vill beräkna (t.ex. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funktioner från Pythons math-modul är tillgängliga.",
+    "tool.description": "Beräknar ett matematiskt uttryck och returnerar resultatet. Använd detta för komplexa beräkningar eller när precision krävs.",
+    "tool.system_prompt": "Det här verktyget används för följande ändamål: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "param.expression.description": "Formelen du vil beregne (f.eks. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funksjoner fra Pythons math-modul er tilgjengelige.",
+    "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon kreves.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se beskrivelsen av verktøyet)."
   }
 }

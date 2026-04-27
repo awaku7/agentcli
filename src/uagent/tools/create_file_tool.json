@@ -160,5 +160,23 @@
     "param.path.description": "(التوافق) الاسم المستعار لاسم الملف.",
     "tool.description": "إنشاء ملف نصي. بشكل افتراضي، لن تقوم الأداة بالكتابة فوق ملف موجود. إذا تم تحديد overwrite=true وكانت الوجهة موجودة بالفعل، فستقوم الأداة بإنشاء نسخة احتياطية (<filename>.org / <filename>.org1 / ...) مباشرة قبل الكتابة فوقها. نصيحة: إذا كنت تريد فتح ملفات CSV/TSV بشكل صحيح في Microsoft Excel عند فتحها مباشرةً، ففكر في التشفير='utf-8-sig' (UTF-8 مع BOM). بالنسبة لمعالجة الآلة وقابلية التشغيل التفاعلي، يفضل التشفير='utf-8' (بدون قائمة مكونات الصنف). إذا لم تكن متأكدًا، فاسأل عن كيفية استخدام الملف (معالجة Excel مقابل المعالجة الآلية).",
     "tool.system_prompt": "قم بإنشاء ملف نصي ضمن Workdir. إذا كان الملف موجودًا بالفعل، فإن الكتابة فوق = خطأ ستؤدي إلى حدوث خطأ. إذا كانت الكتابة فوق = true، فسيتم إنشاء نسخة احتياطية قبل الكتابة. نصيحة: بالنسبة لملفات CSV/TSV المعدة للفتح مباشرة في Microsoft Excel، فكر في التشفير='utf-8-sig' (UTF-8 مع BOM). بالنسبة لمعالجة الآلة وقابلية التشغيل التفاعلي، يفضل التشفير='utf-8' (بدون قائمة مكونات الصنف). إذا لم تكن متأكدًا، فاسأل عن كيفية استخدام الملف (معالجة Excel مقابل المعالجة الآلية)."
+  },
+  "sv": {
+    "param.content.description": "Textinnehåll att skriva.",
+    "param.encoding.description": "Textkodning (t.ex. 'utf-8', 'cp932'). Standard: 'utf-8-sig' för .csv/.tsv när encoding utelämnas; annars 'utf-8'.",
+    "param.filename.description": "Sökväg till filen som ska skapas.",
+    "param.overwrite.description": "Om filen ska skrivas över om den redan finns (standard: false).",
+    "param.path.description": "(Kompatibilitet) Alias för filename.",
+    "tool.description": "Skapa en textfil. Som standard skrivs inte en befintlig fil över. Om overwrite=true anges och målfilen redan finns skapas en säkerhetskopia (<filename>.org / <filename>.org1 / ...) direkt före överskrivningen. Tips: Om du vill att CSV/TSV-filer ska öppnas korrekt i Microsoft Excel när de öppnas direkt, överväg encoding='utf-8-sig' (UTF-8 med BOM). För maskinell bearbetning och kompatibilitet, föredra encoding='utf-8' (utan BOM). Om du är osäker, fråga hur filen ska användas (Excel eller programmatisk bearbetning).",
+    "tool.system_prompt": "Skapa en textfil i arbetskatalogen. Om filen redan finns ger overwrite=false ett fel. Om overwrite=true skapas en säkerhetskopia före skrivning. Tips: För CSV/TSV som ska öppnas direkt i Microsoft Excel, överväg encoding='utf-8-sig' (UTF-8 med BOM). För maskinell bearbetning och kompatibilitet, föredra encoding='utf-8' (utan BOM). Om du är osäker, fråga hur filen ska användas (Excel eller programmatisk bearbetning)."
+  },
+  "nb": {
+    "param.content.description": "Tekstinnhold som skal skrives.",
+    "param.encoding.description": "Tekstkoding (f.eks. 'utf-8', 'cp932'). Standard: 'utf-8-sig' for .csv/.tsv når encoding utelates; ellers 'utf-8'.",
+    "param.filename.description": "Stien til filen som skal opprettes.",
+    "param.overwrite.description": "Om filen skal overskrives hvis den allerede finnes (standard: false).",
+    "param.path.description": "(Kompatibilitet) Alias for filename.",
+    "tool.description": "Opprett en tekstfil. Som standard blir ikke en eksisterende fil overskrevet. Hvis overwrite=true er angitt og målfilen allerede finnes, opprettes det en sikkerhetskopi (<filename>.org / <filename>.org1 / ...) rett før overskrivingen. Tips: Hvis du vil at CSV/TSV-filer skal åpnes riktig i Microsoft Excel når de åpnes direkte, bør du vurdere encoding='utf-8-sig' (UTF-8 med BOM). For maskinell behandling og kompatibilitet, foretrekk encoding='utf-8' (uten BOM). Hvis du er usikker, spør hvordan filen skal brukes (Excel eller programmatisk behandling).",
+    "tool.system_prompt": "Opprett en tekstfil i arbeidskatalogen. Hvis filen allerede finnes, vil overwrite=false gi en feil. Hvis overwrite=true, opprettes det en sikkerhetskopi før skriving. Tips: For CSV/TSV som skal åpnes direkte i Microsoft Excel, bør du vurdere encoding='utf-8-sig' (UTF-8 med BOM). For maskinell behandling og kompatibilitet, foretrekk encoding='utf-8' (uten BOM). Hvis du er usikker, spør hvordan filen skal brukes (Excel eller programmatisk behandling)."
   }
 }

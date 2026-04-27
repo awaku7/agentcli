@@ -286,5 +286,37 @@
     "param.recursive.description": "ما إذا كان سيتم البحث في الدلائل الفرعية بشكل متكرر.",
     "tool.description": "ابحث عن نمط في الملفات وأرجع الأسطر المطابقة بأرقام الأسطر (مثل grep -n). النمط مطلوب.",
     "tool.system_prompt": "ابحث في محتويات الملف ضمن مسار واحد أو أكثر. النمط مطلوب. قم بتصفية الملفات عن طريق الكرة الأرضية، وابحث باستخدام تعبير Python العادي أو النص الحرفي، وقم بتضمين خطوط السياق بشكل اختياري، وتخطي الملفات الثنائية، ودعم وضع أسماء الملفات فقط، والكشف التلقائي عن ترميزات النص عند القراءة. إرجاع JSON فقط."
+  },
+  "sv": {
+    "err.exception": "Ett undantag inträffade under grep-operationen.",
+    "err.invalid_regex": "Ogiltigt regex-mönster.",
+    "err.missing_pattern": "'pattern' saknas.",
+    "err.no_files_found": "Inga filer hittades som matchade kriterierna.",
+    "param.context_lines.description": "Antal rader med kontext före och efter varje träff.",
+    "param.filenames_only.description": "Om aktiverat, returnera endast listan över filnamn med träffar.",
+    "param.ignore_case.description": "Om versaler/gemener ska ignoreras (standard: true).",
+    "param.max_results.description": "Maximalt antal träffrader att returnera (standard: 100).",
+    "param.name_pattern.description": "Glob-mönster för filnamn (t.ex. '*.py').",
+    "param.path.description": "Rotkatalog eller specifik filsökväg (standard: '.').",
+    "param.pattern.description": "Regex-mönster att söka efter.",
+    "param.recursive.description": "Om underkataloger ska sökas rekursivt.",
+    "tool.description": "Sök efter ett mönster i filer och returnera matchande rader med radnummer (som grep -n). Mönstret krävs.",
+    "tool.system_prompt": "Sök igenom filinnehåll under en eller flera sökvägar. Mönstret krävs. Filtrera filer med glob, sök med ett Python-regex eller literal text, inkludera valfritt kontext­rader, hoppa över binärliknande filer, stöd läge endast filnamn och identifiera textkodningar automatiskt vid läsning. Returnera endast JSON."
+  },
+  "nb": {
+    "err.exception": "Det oppsto et unntak under grep-operasjonen.",
+    "err.invalid_regex": "Ugyldig regex-mønster.",
+    "err.missing_pattern": "'pattern' mangler.",
+    "err.no_files_found": "Ingen filer ble funnet som samsvarer med kriteriene.",
+    "param.context_lines.description": "Antall linjer med kontekst før og etter hvert treff.",
+    "param.filenames_only.description": "Hvis aktivert, returner bare listen over filnavn med treff.",
+    "param.ignore_case.description": "Om store/små bokstaver skal ignoreres (standard: true).",
+    "param.max_results.description": "Maksimalt antall trefflinjer som skal returneres (standard: 100).",
+    "param.name_pattern.description": "Glob-mønster for filnavn (f.eks. '*.py').",
+    "param.path.description": "Rotkatalog eller spesifikk filsti (standard: '.').",
+    "param.pattern.description": "Regex-mønster som skal søkes etter.",
+    "param.recursive.description": "Om underkataloger skal søkes rekursivt.",
+    "tool.description": "Søk etter et mønster i filer og returner samsvarende linjer med linjenumre (som grep -n). Mønsteret er obligatorisk.",
+    "tool.system_prompt": "Søk gjennom filinnhold under én eller flere stier. Mønsteret er obligatorisk. Filtrer filer med glob, søk med et Python-regex eller literal tekst, inkluder eventuelt kontekstlinjer, hopp over filer som ser ut som binære filer, støtt bare-filnavn-modus og oppdag tekstkoding automatisk ved lesing. Returner kun JSON."
   }
 }

@@ -178,5 +178,25 @@
     "param.timeout_s.description": "تجاوز المهلة (ثوانٍ).",
     "err.missing_task_id": "القيمة 'task_id' مفقودة.",
     "err.exception": "استثناء"
+  },
+  "sv": {
+    "tool.description": "Fråga en A2A-uppgift tills den når ett slutligt tillstånd.",
+    "tool.system_prompt": "Fråga en A2A-uppgift. Returnera endast JSON.",
+    "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
+    "param.task_id.description": "Uppgifts-ID att fråga.",
+    "param.interval_ms.description": "Åsidosätt pollningsintervall (ms).",
+    "param.timeout_s.description": "Åsidosätt timeout (sekunder).",
+    "err.missing_task_id": "Saknar 'task_id'.",
+    "err.exception": "Undantag"
+  },
+  "nb": {
+    "tool.description": "Spør en A2A-oppgave til den når en terminalstatus.",
+    "tool.system_prompt": "Spør en A2A-oppgave. Returner bare JSON.",
+    "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
+    "param.task_id.description": "Oppgave-ID som skal spørres.",
+    "param.interval_ms.description": "Overstyr pollingintervall (ms).",
+    "param.timeout_s.description": "Overstyr tidsavbrudd (sekunder).",
+    "err.missing_task_id": "Mangler 'task_id'.",
+    "err.exception": "Unntak"
   }
 }

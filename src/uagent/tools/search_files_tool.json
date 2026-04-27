@@ -340,5 +340,43 @@
     "param.root_path.description": "الدليل الجذر لبدء البحث منه (الافتراضي: الدليل الحالي).",
     "tool.description": "ابحث عن الملفات ضمن دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex).",
     "tool.system_prompt": "البحث عن الملفات ضمن الدليل. يمكنك التصفية حسب نمط اسم الملف (الكرة الأرضية) والبحث اختياريًا في محتويات الملف باستخدام تعبير عادي.\n\nملاحظات:\n- يتم التعامل مع content_pattern كتعبير عادي لـ Python.\n- إذا كان content_pattern فارغًا، فسيتم إجراء مطابقة اسم الملف فقط.\n- من أجل الأداء والسلامة، قد يستخدم البحث عن المحتوى فحصًا ثنائيًا بسيطًا داخليًا."
+  },
+  "sv": {
+    "err.dir_not_exist": "[search_files-fel] Katalogen finns inte: {path}",
+    "err.regex_compile": "[search_files-fel] Det gick inte att kompilera regex: {error}",
+    "match.excerpt": "TRÄFF: {text}",
+    "match.line": "Rad {line}: {text}",
+    "match.more": "... (fler träffar i filen)",
+    "out.file": "Fil: {file}",
+    "out.found": "[search_files] Hittade {n} resultat",
+    "out.found_truncated": "[search_files] Hittade {n} resultat (avkortat till {max_results})",
+    "out.no_match": "[search_files] Inga filer matchade kriterierna.",
+    "param.case_sensitive.description": "Om innehållssökningen ska vara skiftlägeskänslig (standard: false).",
+    "param.content_pattern.description": "Reguljärt uttryck att söka efter i filer. Om det anges returneras bara filer som innehåller minst en matchande rad.",
+    "param.fast_read_threshold_bytes.description": "Filer som är mindre än denna gräns läses in helt för snabbare sökning (standard: 8000000 ≈ 8 MB). Större filer genomsöks rad för rad.",
+    "param.max_results.description": "Maximalt antal matchande filer att returnera (standard: 50).",
+    "param.name_pattern.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer.",
+    "param.root_path.description": "Rotkatalogen som sökningen startar från (standard: aktuell katalog).",
+    "tool.description": "Söker efter filer i en katalog med namnpattern (glob) och/eller innehåll (regex).",
+    "tool.system_prompt": "Sök efter filer i en katalog. Du kan filtrera med filnamnsmönster (glob) och valfritt söka i filinnehåll med ett reguljärt uttryck.\n\nAnmärkningar:\n- content_pattern behandlas som ett Python-reguljärt uttryck.\n- Om content_pattern är tomt görs bara filnamnsmatchning.\n- För prestanda och säkerhet kan innehållssökningen internt använda en enkel binär kontroll."
+  },
+  "nb": {
+    "err.dir_not_exist": "[search_files-feil] Katalogen finnes ikke: {path}",
+    "err.regex_compile": "[search_files-feil] Klarte ikke å kompilere regex: {error}",
+    "match.excerpt": "TREFF: {text}",
+    "match.line": "Linje {line}: {text}",
+    "match.more": "... (flere treff i filen)",
+    "out.file": "Fil: {file}",
+    "out.found": "[search_files] Fant {n} resultater",
+    "out.found_truncated": "[search_files] Fant {n} resultater (avkortet til {max_results})",
+    "out.no_match": "[search_files] Ingen filer matchet kriteriene.",
+    "param.case_sensitive.description": "Om innholdssøkingen skal skille mellom store og små bokstaver (standard: false).",
+    "param.content_pattern.description": "Regulært uttrykk som skal søkes etter i filer. Hvis det er angitt, returneres bare filer som inneholder minst én matchende linje.",
+    "param.fast_read_threshold_bytes.description": "Filer som er mindre enn denne grensen leses helt for raskere søk (standard: 8000000 ≈ 8 MB). Større filer skannes linje for linje.",
+    "param.max_results.description": "Maksimalt antall trefffiler som skal returneres (standard: 50).",
+    "param.name_pattern.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer.",
+    "param.root_path.description": "Rotkatalogen søket starter fra (standard: gjeldende katalog).",
+    "tool.description": "Søker etter filer i en katalog etter navnemønster (glob) og/eller innhold (regex).",
+    "tool.system_prompt": "Søk etter filer i en katalog. Du kan filtrere på filnavnmønster (glob) og eventuelt søke i filinnhold med et regulært uttrykk.\n\nMerk:\n- content_pattern behandles som et Python-regulært uttrykk.\n- Hvis content_pattern er tom, gjøres bare filnavnsmatching.\n- Av ytelses- og sikkerhetshensyn kan innholdssøk internt bruke en enkel binær kontroll."
   }
 }

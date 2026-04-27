@@ -142,5 +142,21 @@
     "param.strict.description": "هل يجب أيضًا التعامل مع التحذيرات على أنها فشل؟ (الافتراضي: خطأ)",
     "tool.description": "التحقق من صحة دليل المهارات (SKILL.md) وفقًا لمواصفات مهارات العميل وإرجاع الأخطاء والتحذيرات.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "err.invalid_args": "[verktygsfel] ogiltiga argument",
+    "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
+    "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
+    "param.strict.description": "Ska varningar också behandlas som fel? (standard: false)",
+    "tool.description": "Validerar en skill-katalog (SKILL.md) enligt Agent Skills-specifikationen och returnerar fel och varningar.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
+    "param.strict.description": "Skal varsler også behandles som feil? (standard: false)",
+    "tool.description": "Validerer en skill-katalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og varsler.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   }
 }

@@ -88,5 +88,15 @@
     "param.command.description": "سلسلة الأوامر المراد تنفيذها.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر Windows. يُستخدم فقط في حالة عدم توفر أي أداة مناسبة أخرى، مثل Python أو MCP.",
     "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدم فقط في حالة عدم توفر أداة مناسبة أخرى."
+  },
+  "sv": {
+    "param.command.description": "Kommandosträng att köra.",
+    "tool.description": "Kör ett Windows-kommando som sista utväg. Används bara när inget annat lämpligt verktyg, som Python eller MCP, finns tillgängligt.",
+    "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt."
+  },
+  "nb": {
+    "param.command.description": "Kommandostreng som skal kjøres.",
+    "tool.description": "Kjør en Windows-kommando som siste utvei. Brukes bare når ingen andre egnede verktøy, som Python eller MCP, er tilgjengelige.",
+    "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ingen andre egnede verktøy er tilgjengelige."
   }
 }

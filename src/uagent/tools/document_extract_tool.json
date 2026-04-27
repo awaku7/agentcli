@@ -142,5 +142,21 @@
     "param.output_format.description": "تنسيق الإخراج: نص أو json.",
     "param.password.description": "كلمة مرور اختيارية لملف DOCX المشفر. إذا تم حذفه وتم تشفير الملف، فستتم مطالبتك مرة واحدة بكلمة المرور.",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{المسار}"
+  },
+  "sv": {
+    "tool.description": "Extraherar text och grundläggande struktur från Word-liknande dokument (.docx, .rtf, .odt). Välj output_format=text eller output_format=json. Verktyget returnerar alltid JSON.",
+    "tool.system_prompt": "Läs .docx-, .rtf- eller .odt-dokument och returnera endast JSON. Om output_format=text, placera den extraherade texten i JSON-svaret. Om output_format=json, inkludera strukturerade avsnitt och tabeller när de finns tillgängliga.",
+    "param.path.description": "Sökväg till indokumentet (.docx, .rtf, .odt).",
+    "param.output_format.description": "Utdataformat: text eller json.",
+    "param.password.description": "Valfritt lösenord för krypterad DOCX-fil. Om det utelämnas och filen är krypterad kommer du att uppmanas en gång att ange ett lösenord.",
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "nb": {
+    "tool.description": "Ekstraherer tekst og grunnleggende struktur fra Word-lignende dokumenter (.docx, .rtf, .odt). Velg output_format=text eller output_format=json. Verktøyet returnerer alltid JSON.",
+    "tool.system_prompt": "Les .docx-, .rtf- eller .odt-dokumenter og returner bare JSON. Hvis output_format=text, plasser den ekstraherte teksten i JSON-svaret. Hvis output_format=json, ta med strukturerte seksjoner og tabeller når de er tilgjengelige.",
+    "param.path.description": "Sti til inndokumentet (.docx, .rtf, .odt).",
+    "param.output_format.description": "Utdataformat: text eller json.",
+    "param.password.description": "Valgfritt passord for kryptert DOCX-fil. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   }
 }

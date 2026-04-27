@@ -268,5 +268,35 @@
     "param.window_title.description": "عنوان النافذة المراد تصويرها (تطابق جزئي). إذا تم تحديده، فإنه يحدد موقع تلك النافذة ويجعلها نشطة ويصور تلك المنطقة فقط.",
     "tool.description": "يلتقط لقطة شاشة لسطح المكتب بأكمله أو لنافذة معينة.",
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: التقاط لقطة شاشة لسطح المكتب أو نافذة محددة."
+  },
+  "sv": {
+    "err.capture_fail": "[screenshot-fel] Det gick inte att ta skärmdumpen: {err}",
+    "err.close_fail": "[screenshot] Sparades till {path} men det gick inte att stänga fönstret: {err}",
+    "err.pyautogui_missing": "[screenshot-fel] Modulen pyautogui är inte installerad.",
+    "err.pygetwindow_missing": "[screenshot-fel] Modulen pygetwindow är inte installerad (krävs för att ange fönster).",
+    "err.window_not_found": "[screenshot-fel] Inget fönster hittades som matchar titeln: '{title}'",
+    "out.ok": "[screenshot] Sparades till {path}",
+    "out.ok_closed": "[screenshot] Sparades till {path} och stängde fönstret",
+    "param.close_window.description": "Om fönstret ska stängas efter att bilden tagits. Gäller bara när window_title anges. Standard är False.",
+    "param.delay.description": "Väntetid i sekunder före tagning. Standard är 1 sekund (för att hinna byta fönster).",
+    "param.file_path.description": "Målfilsökväg (.png rekommenderas). Om inget anges sparas filen i den aktuella katalogen med en tidsstämpel.",
+    "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning). Om den anges letas fönstret upp, aktiveras och endast det området fotograferas.",
+    "tool.description": "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster.",
+    "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster."
+  },
+  "nb": {
+    "err.capture_fail": "[screenshot-feil] Klarte ikke å ta skjermbildet: {err}",
+    "err.close_fail": "[screenshot] Lagret til {path}, men klarte ikke å lukke vinduet: {err}",
+    "err.pyautogui_missing": "[screenshot-feil] Modulen pyautogui er ikke installert.",
+    "err.pygetwindow_missing": "[screenshot-feil] Modulen pygetwindow er ikke installert (kreves for å angi vindu).",
+    "err.window_not_found": "[screenshot-feil] Fant ikke noe vindu som samsvarer med tittelen: '{title}'",
+    "out.ok": "[screenshot] Lagret til {path}",
+    "out.ok_closed": "[screenshot] Lagret til {path} og lukket vinduet",
+    "param.close_window.description": "Om vinduet skal lukkes etter at bildet er tatt. Gjelder bare når window_title er angitt. Standard er False.",
+    "param.delay.description": "Ventetid i sekunder før opptak. Standard er 1 sekund (for å bytte vindu).",
+    "param.file_path.description": "Målfilsti (.png anbefales). Hvis ikke angitt, lagres den i gjeldende katalog med et tidsstempel.",
+    "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff). Hvis den er angitt, finner verktøyet vinduet, aktiverer det og tar bare bilde av det området.",
+    "tool.description": "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu.",
+    "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu."
   }
 }

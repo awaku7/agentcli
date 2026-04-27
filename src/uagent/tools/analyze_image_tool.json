@@ -106,5 +106,17 @@
     "param.prompt.description": "ما تريد معرفته عن الصورة.",
     "tool.description": "قم بتحميل ملف صورة واطلب من AI (Vision) وصف محتوياته. مفيد لتحليل لقطات الشاشة أو قراءة المخططات/الجداول.",
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"analyze_image\"."
+  },
+  "sv": {
+    "param.image_path.description": "Sökväg till bildfilen som ska analyseras.",
+    "param.prompt.description": "Det du vill veta om bilden.",
+    "tool.description": "Läs in en bildfil och låt AI (Vision) beskriva innehållet. Användbart för att analysera skärmdumpar eller läsa diagram/tabeller.",
+    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"analyze_image\"."
+  },
+  "nb": {
+    "param.image_path.description": "Sti til bildefilen som skal analyseres.",
+    "param.prompt.description": "Det du vil vite om bildet.",
+    "tool.description": "Last inn en bildefil og la AI (Vision) beskrive innholdet. Nyttig for å analysere skjermbilder eller lese grafer/tabeller.",
+    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"analyze_image\"."
   }
 }

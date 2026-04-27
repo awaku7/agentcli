@@ -124,5 +124,19 @@
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP.",
     "tool.description": "[الأولوية القصوى] اتصل بخادم MCP (بروتوكول السياق النموذجي) وأعد قائمة الأدوات المتاحة. قبل إجراء أي تكامل لواجهة برمجة التطبيقات/النظام، استخدم هذه الأداة لاكتشاف أدوات MCP المتوفرة. يدعم خوادم MCP المستندة إلى HTTP وstdio.",
     "tool.system_prompt": "اتصل بخادم MCP (HTTP أو stdio) وقم بإدراج أدواته. تفضل استخدام الخوادم التي تم تكوينها في mcp_servers.json عندما يكون ذلك ممكنًا."
+  },
+  "sv": {
+    "param.pretty.description": "Om JSON-utdata ska formateras snyggt.",
+    "param.server_name.description": "Servernamn från konfigurationsfilen.",
+    "param.url.description": "MCP-serverns endpoint-URL.",
+    "tool.description": "[Högsta prioritet] Anslut till en MCP-server (Model Context Protocol) och returnera listan över tillgängliga verktyg. Innan du utför någon API-/systemintegration ska du använda detta verktyg för att ta reda på vilka MCP-verktyg som finns tillgängliga. Stöder HTTP-baserade och stdio-baserade MCP-servrar.",
+    "tool.system_prompt": "Anslut till en MCP-server (HTTP eller stdio) och lista dess verktyg. Använd i första hand servrar som är konfigurerade i mcp_servers.json när det är möjligt."
+  },
+  "nb": {
+    "param.pretty.description": "Om JSON-utdata skal formateres pent.",
+    "param.server_name.description": "Servernavn fra konfigurasjonsfilen.",
+    "param.url.description": "URL for MCP-serverens endepunkt.",
+    "tool.description": "[Høyeste prioritet] Koble til en MCP-server (Model Context Protocol) og returner listen over tilgjengelige verktøy. Før du utfører noen API-/systemintegrasjon, bruk dette verktøyet for å finne ut hvilke MCP-verktøy som er tilgjengelige. Støtter HTTP-baserte og stdio-baserte MCP-servere.",
+    "tool.system_prompt": "Koble til en MCP-server (HTTP eller stdio) og list opp verktøyene. Bruk helst servere som er konfigurert i mcp_servers.json når det er mulig."
   }
 }

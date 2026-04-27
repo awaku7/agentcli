@@ -70,5 +70,13 @@
   "ar": {
     "tool.description": "الحصول على دليل العمل الحالي.",
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: الحصول على دليل العمل الحالي."
+  },
+  "sv": {
+    "tool.description": "Hämtar den aktuella arbetskatalogen.",
+    "tool.system_prompt": "Det här verktyget används för att hämta den aktuella arbetskatalogen."
+  },
+  "nb": {
+    "tool.description": "Henter den gjeldende arbeidskatalogen.",
+    "tool.system_prompt": "Dette verktøyet brukes til å hente den gjeldende arbeidskatalogen."
   }
 }

@@ -88,5 +88,15 @@
     "param.note.description": "نص المذكرة للمشاركة.",
     "tool.description": "قم بإلحاق ملاحظة واحدة بمخزن الذاكرة طويل المدى المشترك (المشترك بين المستخدمين/الجلسات). إذا لم يتم تكوين الذاكرة المشتركة، فستقوم الأداة بالإبلاغ عن تعطيلها. لا تقم مطلقًا بتخزين أسرار مثل كلمات المرور أو مفاتيح واجهة برمجة التطبيقات (API).",
     "tool.system_prompt": "إلحاق ملاحظة واحدة بالضبط بمخزن الذاكرة المشتركة.\nإذا تم تعطيل الذاكرة المشتركة (لم يتم تعيين UAGENT_SHARED_MEMORY_FILE)، قم بإرجاع رسالة تشرح كيفية تمكينها.\nلا تقم بتخزين الأسرار (كلمات المرور/الرموز المميزة/مفاتيح واجهة برمجة التطبيقات)."
+  },
+  "sv": {
+    "param.note.description": "Texten i anteckningen som ska delas.",
+    "tool.description": "Lägg till en anteckning i det delade långtidsminnet som delas mellan användare och sessioner. Om delat minne inte är konfigurerat rapporterar verktyget att det är inaktiverat. Spara aldrig hemligheter som lösenord eller API-nycklar.",
+    "tool.system_prompt": "Lägg till exakt en anteckning i det delade minnet.\nOm delat minne är inaktiverat (UAGENT_SHARED_MEMORY_FILE är inte satt), returnera ett meddelande som förklarar hur det aktiveras.\nSpara inte hemligheter (lösenord, token eller API-nycklar)."
+  },
+  "nb": {
+    "param.note.description": "Teksten i notatet som skal deles.",
+    "tool.description": "Legg til ett notat i det delte langtidsminnet som deles mellom brukere og økter. Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det er deaktivert. Ikke lagre hemmeligheter som passord eller API-nøkler.",
+    "tool.system_prompt": "Legg til nøyaktig ett notat i det delte minnet.\nHvis delt minne er deaktivert (UAGENT_SHARED_MEMORY_FILE er ikke satt), returner en melding som forklarer hvordan det kan aktiveres.\nIkke lagre hemmeligheter (passord, token eller API-nøkler)."
   }
 }

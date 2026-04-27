@@ -88,5 +88,15 @@
     "doc.run_tool": "تم استدعاء نقطة الإدخال من الأدوات/__init__.py. تنفيذ get_shared_memory.",
     "tool.description": "يسترد بيانات الذاكرة طويلة المدى (الذاكرة المشتركة) الأولية المشتركة بين المستخدمين.\n- عادةً ما يتم إرجاع النص بتنسيق JSONL (سجل واحد لكل سطر).\n- إذا تم تعطيل الذاكرة المشتركة أو كان الملف مفقودًا، فسيتم إرجاع رسالة وصفية.\n- يتم قطع حجم الإخراج تلقائيًا إلى الحد الأقصى الداخلي للبايت.",
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ الوظيفة الموضحة في TOOL_SPEC."
+  },
+  "sv": {
+    "doc.run_tool": "Startpunkt som anropas från tools/__init__.py. Implementering för get_shared_memory.",
+    "tool.description": "Hämtar rådata från delat långtidsminne som delas mellan användare.\n- Returnerar vanligtvis text i JSONL-format (en post per rad).\n- Om delat minne är inaktiverat eller filen saknas returneras ett beskrivande meddelande.\n- Utdata storleken kapas automatiskt till den interna maximala bytegränsen.",
+    "tool.system_prompt": "Det här verktyget utför funktionen som beskrivs i TOOL_SPEC."
+  },
+  "nb": {
+    "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_shared_memory.",
+    "tool.description": "Henter rådata fra delt langtidsminne som deles mellom brukere.\n- Returnerer vanligvis tekst i JSONL-format (én post per linje).\n- Hvis delt minne er deaktivert eller filen mangler, returneres en beskrivende melding.\n- Utdata blir automatisk trimmet til den interne maksimale bytegrensen.",
+    "tool.system_prompt": "Dette verktøyet utfører funksjonaliteten beskrevet i TOOL_SPEC."
   }
 }

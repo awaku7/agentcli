@@ -322,5 +322,41 @@
     "param.target.description": "الهدف (مسار pytest، دليل بدء Unittest، البرنامج النصي npm، وما إلى ذلك). إذا كانت فارغة، يتم استخدام الإعدادات الافتراضية.",
     "tool.description": "تشغيل الاختبارات (الاكتشاف التلقائي pytest/unittest/npm). رفض الأحرف الأولية للصدفة في extra_args.",
     "tool.system_prompt": "استخدم هذه الأداة للغرض الموضح في وصف الأداة."
+  },
+  "sv": {
+    "doc.module": "run_tests_tool\n\nEtt wrapperverktyg för att köra tester.\n\nSyfte:\n- I stället för att anropa cmd_exec/pwsh_exec direkt standardiseras testkörningen och strukturerade resultat returneras.\n- Auto-detektera pytest / unittest / npm när framework=auto.\n\nSäkerhetspolicy:\n- Testkörning är i allmänhet inte en farlig operation, så human_ask används inte.\n- extra_args som innehåller metatecken för kommandoinjektion (&&, |, > osv.) avvisas dock.\n\nImplementation:\n- Använder internt cmd_exec_json_tool och hanterar returncode/stdout/stderr.\n- För stdout/stderr används callbacks.truncate_output om den finns.\n- För cwd används cmd_exec_jsons cwd-argument (inte cd &&).\n\nYtterligare funktioner:\n- pythonpath: konfigurera extra PYTHONPATH för att köra tester.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd är inte tillåtet: {error}",
+    "error.dangerous_cwd_rejected": "farligt cwd avvisades: {cwd}",
+    "error.framework_auto_detect_failed": "automatisk detektering av framework misslyckades",
+    "error.invalid_framework": "ogiltigt framework: {framework}",
+    "error.invalid_report": "ogiltig report: {report}",
+    "error.shell_metacharacters_not_allowed": "shell-metatecken är inte tillåtna i argument: {arg}",
+    "error.unsupported_framework": "framework stöds inte: {framework}",
+    "param.cwd.description": "Arbetskatalog att köra i (måste ligga inom workdir). Om null används aktuell katalog.",
+    "param.extra_args.description": "Ytterligare argumentlista. Avvisa om shell-metatecken finns.",
+    "param.framework.description": "Typ av testframework.",
+    "param.pythonpath.description": "Ytterligare PYTHONPATH (t.ex. 'src'). Om det anges läggs det framför testkommandot.",
+    "param.report.description": "Utdataformat.",
+    "param.target.description": "Mål (pytest-sökväg, unittest-startkatalog, npm-skript osv.). Om null används standardvärden.",
+    "tool.description": "Kör tester (auto-detektera pytest/unittest/npm). Avvisa shell-metatecken i extra_args.",
+    "tool.system_prompt": "Använd det här verktyget för syftet som beskrivs i verktygsbeskrivningen."
+  },
+  "nb": {
+    "doc.module": "run_tests_tool\n\nEt wrapperverktøy for å kjøre tester.\n\nFormål:\n- I stedet for å kalle cmd_exec/pwsh_exec direkte, standardiser testkjøringen og returner strukturerte resultater.\n- Auto-detektér pytest / unittest / npm når framework=auto.\n\nSikkerhetspolicy:\n- Testkjøring er som regel ikke en farlig operasjon, så human_ask brukes ikke.\n- extra_args som inneholder metategn for kommandoinjeksjon (&&, |, > osv.) avvises likevel.\n\nImplementasjon:\n- Bruker internt cmd_exec_json_tool og håndterer returncode/stdout/stderr.\n- For stdout/stderr brukes callbacks.truncate_output hvis den finnes.\n- For cwd brukes cmd_exec_jsons cwd-argument (ikke cd &&).\n\nYtterligere funksjoner:\n- pythonpath: konfigurer ekstra PYTHONPATH for å kjøre tester.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd er ikke tillatt: {error}",
+    "error.dangerous_cwd_rejected": "farlig cwd ble avvist: {cwd}",
+    "error.framework_auto_detect_failed": "automatisk deteksjon av framework mislyktes",
+    "error.invalid_framework": "ugyldig framework: {framework}",
+    "error.invalid_report": "ugyldig report: {report}",
+    "error.shell_metacharacters_not_allowed": "skallmetategn er ikke tillatt i argumenter: {arg}",
+    "error.unsupported_framework": "framework støttes ikke: {framework}",
+    "param.cwd.description": "Arbeidskatalog å kjøre i (må ligge innenfor workdir). Hvis null brukes gjeldende katalog.",
+    "param.extra_args.description": "Ekstra argumentliste. Avvis hvis det finnes skallmetategn.",
+    "param.framework.description": "Type testframework.",
+    "param.pythonpath.description": "Ekstra PYTHONPATH (f.eks. 'src'). Hvis angitt, prefikseres det testkommandoen.",
+    "param.report.description": "Utdataformat.",
+    "param.target.description": "Mål (pytest-sti, unittest-startkatalog, npm-script osv.). Hvis null brukes standardverdier.",
+    "tool.description": "Kjør tester (auto-detektér pytest/unittest/npm). Avvis skallmetategn i extra_args.",
+    "tool.system_prompt": "Bruk dette verktøyet til formålet som er beskrevet i verktøybeskrivelsen."
   }
 }

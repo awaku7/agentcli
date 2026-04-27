@@ -160,5 +160,23 @@
     "param.return_immediately.description": "إذا كانت true، فارجع مباشرة بعد إنشاء المهمة.",
     "err.missing_message": "القيمة 'message' مفقودة.",
     "err.exception": "استثناء"
+  },
+  "sv": {
+    "tool.description": "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn).",
+    "tool.system_prompt": "Skicka ett A2A-meddelande. Returnera endast JSON.",
+    "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
+    "param.message.description": "Användarmeddelandet som ska skickas.",
+    "param.return_immediately.description": "Om true, returnera direkt efter att uppgiften har skapats.",
+    "err.missing_message": "Saknar 'message'.",
+    "err.exception": "Undantag"
+  },
+  "nb": {
+    "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn).",
+    "tool.system_prompt": "Send en A2A-melding. Returner bare JSON.",
+    "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
+    "param.message.description": "Brukermeldingen som skal sendes.",
+    "param.return_immediately.description": "Hvis true, returner rett etter at oppgaven er opprettet.",
+    "err.missing_message": "Mangler 'message'.",
+    "err.exception": "Unntak"
   }
 }
