@@ -73,6 +73,16 @@
             <span id="status-text-footer" class="text-sm font-bold status-idle">IDLE</span>
         </div>
 
+        <!-- Attachment Area -->
+        <div id="drop-zone" class="mb-3 rounded border-2 border-dashed border-gray-300 bg-gray-50 p-3">
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="text-sm text-gray-600">ここにファイル/画像をドラッグ＆ドロップ</div>
+                <button id="pick-files-btn" type="button" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">ファイル選択</button>
+            </div>
+            <input id="file-input" type="file" multiple class="hidden">
+            <div id="attachment-preview" class="flex flex-wrap gap-3"></div>
+        </div>
+
         <!-- Input Area -->
         <div class="flex gap-2">
             <textarea id="user-input" rows="2" class="flex-grow p-2 border rounded shadow focus:ring-2 focus:ring-blue-500" placeholder="メッセージを入力... (Ctrl+Enterで送信)"></textarea>
@@ -184,6 +194,10 @@
         const statusTextFooter = document.getElementById('status-text-footer');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const pickFilesBtn = document.getElementById('pick-files-btn');
+        const attachmentPreview = document.getElementById('attachment-preview');
         const humanAskContainer = document.getElementById('human-ask-container');
         const humanAskMessage = document.getElementById('human-ask-message');
         const humanAskInput = document.getElementById('human-ask-input');
@@ -192,6 +206,95 @@
         const reasoningSelect = document.getElementById('reasoning-select');
         const verbositySelect = document.getElementById('verbosity-select');
         let CURRENT_MODES = { reasoning: 'off', verbosity: 'off' };
+        let currentRoom = '';
+        let pendingAttachments = [];
+
+        function getRoomIdFromUrl() {
+            try {
+                const url = new URL(window.location.href);
+                const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
+                const queryRoom = url.searchParams.get('room');
+                return pathRoom || queryRoom || '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function isImageAttachment(att) {
+            const type = String((att && (att.type || att.mime)) || '').toLowerCase();
+            return type.startsWith('image/') || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type);
+        }
+
+        function basenameFromPath(path) {
+            return String(path || '').split(/[\\/]/).filter(Boolean).pop() || '';
+        }
+
+        function renderPendingAttachments() {
+            if (!attachmentPreview) return;
+            attachmentPreview.innerHTML = '';
+            if (!pendingAttachments.length) {
+                attachmentPreview.innerHTML = '<div class="text-xs text-gray-500">添付なし</div>';
+                return;
+            }
+
+            pendingAttachments.forEach((att, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'relative border rounded bg-white p-2 max-w-[240px]';
+
+                const remove = document.createElement('button');
+                remove.type = 'button';
+                remove.textContent = '×';
+                remove.className = 'absolute right-1 top-1 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 text-xs';
+                remove.onclick = () => {
+                    pendingAttachments.splice(idx, 1);
+                    renderPendingAttachments();
+                };
+                wrapper.appendChild(remove);
+
+                const title = document.createElement('div');
+                title.className = 'text-xs text-gray-600 mb-1 pr-6 break-all';
+                title.textContent = att.name || basenameFromPath(att.saved_path || att.path || '') || 'file';
+                wrapper.appendChild(title);
+
+                if (isImageAttachment(att) && (att.data_url || att.url || att.saved_path || att.path)) {
+                    const img = document.createElement('img');
+                    img.className = 'max-w-[200px] max-h-[140px] rounded border';
+                    img.src = att.data_url || att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
+                    img.alt = title.textContent;
+                    wrapper.appendChild(img);
+                } else {
+                    const meta = document.createElement('div');
+                    meta.className = 'text-xs text-gray-500 break-all';
+                    meta.textContent = basenameFromPath(att.saved_path || att.path || '') || (att.mime || 'file');
+                    wrapper.appendChild(meta);
+                }
+
+                attachmentPreview.appendChild(wrapper);
+            });
+        }
+
+        async function uploadFiles(fileList) {
+            const files = Array.from(fileList || []);
+            if (!files.length) return;
+            const fd = new FormData();
+            fd.append('room', currentRoom || getRoomIdFromUrl() || '');
+            files.forEach((f) => fd.append('files', f, f.name));
+
+            const resp = await fetch('/upload', { method: 'POST', body: fd });
+            const data = await resp.json();
+            if (!data || !data.ok) {
+                throw new Error((data && data.error) || 'upload failed');
+            }
+            if (Array.isArray(data.files) && data.files.length) {
+                pendingAttachments.push(...data.files);
+                renderPendingAttachments();
+            }
+        }
+
+        function clearPendingAttachments() {
+            pendingAttachments = [];
+            renderPendingAttachments();
+        }
 
         function connect() {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -200,6 +303,7 @@
             const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
             const queryRoom = url.searchParams.get('room');
             const room = pathRoom || queryRoom;
+            currentRoom = room || '';
             const lang = detectLang();
             const qs = room ? `?room=${encodeURIComponent(room)}&lang=${encodeURIComponent(lang)}` : '';
             ws = new WebSocket(`${protocol}//${window.location.host}/ws${qs}`);
@@ -340,36 +444,33 @@
                 const addItem = (candidate) => {
                     if (!candidate || typeof candidate !== 'object') return;
                     const att = candidate;
-                    const type = String(att.type || 'image').toLowerCase();
-                    if (type && !['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)) return;
-                    const path = att.saved_path || att.path || att.file_path || att.name || '';
-                    const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
-                    const keys = [path, src].map(v => String(v || '').trim()).filter(Boolean);
-                    if (!keys.length) return;
-                    if (keys.some(k => seen.has(k))) return;
-                    keys.forEach(k => seen.add(k));
-                    items.push({ att, src, path });
+                    const type = String(att.type || att.mime || 'file').toLowerCase();
+                    const path = att.saved_path || att.path || att.file_path || '';
+                    const key = [type, path, att.url || att.data_url || att.name || ''].map(v => String(v || '').trim()).join('|');
+                    if (!key.trim()) return;
+                    if (seen.has(key)) return;
+                    seen.add(key);
+                    items.push({ att, type, path });
                 };
 
                 (message.attachments || []).forEach(addItem);
                 if (message.saved_path) addItem({ type: 'image', saved_path: message.saved_path });
-                (message.saved_files || []).forEach((p) => addItem({ type: 'image', saved_path: p }));
+                (message.saved_files || []).forEach((p) => addItem({ type: 'file', saved_path: p }));
 
                 if (!items.length) return '';
 
                 let html = '<div class="mt-2 flex flex-wrap gap-3">';
-                items.forEach(({ att, src, path }) => {
-                    const title = att.name || path || 'image';
-                    const finalSrc = src || '';
-                    const link = finalSrc || '#';
+                items.forEach(({ att, type, path }) => {
+                    const title = att.name || basenameFromPath(path) || (type.startsWith('image') ? 'image' : 'file');
+                    const finalSrc = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
                     html += '<div class="border rounded p-2 bg-white max-w-[380px]">';
                     html += `<div class="text-xs text-gray-600 mb-1 break-all">${escapeHtml(String(title))}</div>`;
-                    if (finalSrc) {
-                        html += `<a href="${escapeAttr(link)}" target="_blank" rel="noopener noreferrer">`;
+                    if (type.startsWith('image') && finalSrc) {
+                        html += `<a href="${escapeAttr(finalSrc)}" target="_blank" rel="noopener noreferrer">`;
                         html += `<img src="${escapeAttr(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded"/>`;
                         html += '</a>';
                     } else {
-                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(path || ''))}</div>`;
+                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(basenameFromPath(path) || att.mime || 'file'))}</div>`;
                     }
                     html += '</div>';
                 });
@@ -477,18 +578,19 @@
 
         function sendMessage() {
             const text = userInput.value.trim();
-            if (!text || sendBtn.disabled) return;
+            if ((!text && !pendingAttachments.length) || sendBtn.disabled) return;
 
             // Optimistic UI: show USER immediately in this tab.
             // Other browsers/tabs will still see the USER message via server broadcast.
             try {
-                addMessage({ role: 'user', content: text, _optimistic: true, _ts: Date.now() });
+                addMessage({ role: 'user', content: text, attachments: pendingAttachments, _optimistic: true, _ts: Date.now() });
             } catch (e) {
                 // ignore
             }
 
-            ws.send(JSON.stringify({ type: 'user_input', text: text }));
+            ws.send(JSON.stringify({ type: 'user_input', text: text, attachments: pendingAttachments }));
             userInput.value = '';
+            clearPendingAttachments();
         }
 
         function showHumanAsk(message, isPassword) {
@@ -529,6 +631,47 @@
         });
 
         sendBtn.onclick = sendMessage;
+
+        if (pickFilesBtn && fileInput) {
+            pickFilesBtn.onclick = () => fileInput.click();
+        }
+        if (fileInput) {
+            fileInput.addEventListener('change', async () => {
+                try {
+                    await uploadFiles(fileInput.files);
+                } catch (e) {
+                    alert('Upload failed: ' + e);
+                } finally {
+                    fileInput.value = '';
+                }
+            });
+        }
+        if (dropZone) {
+            const prevent = (e) => { e.preventDefault(); e.stopPropagation(); };
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((evt) => {
+                dropZone.addEventListener(evt, prevent, false);
+            });
+            ['dragenter', 'dragover'].forEach((evt) => {
+                dropZone.addEventListener(evt, () => {
+                    dropZone.classList.add('border-blue-500', 'bg-blue-50');
+                }, false);
+            });
+            ['dragleave', 'drop'].forEach((evt) => {
+                dropZone.addEventListener(evt, () => {
+                    dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+                }, false);
+            });
+            dropZone.addEventListener('drop', async (e) => {
+                try {
+                    const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : [];
+                    if (files.length) {
+                        await uploadFiles(files);
+                    }
+                } catch (err) {
+                    alert('Upload failed: ' + err);
+                }
+            }, false);
+        }
 
         try {
             if (reasoningSelect) reasoningSelect.onchange = sendSetModes;
