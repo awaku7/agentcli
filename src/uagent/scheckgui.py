@@ -90,6 +90,7 @@ class GuiConfig:
 class HistoryEntry:
     text: str
     images: List[str]
+    files: List[str]
 
 
 class DropInput(QtWidgets.QPlainTextEdit):
@@ -353,6 +354,32 @@ class ScheckWorker(QtCore.QObject):
                         text = ev.get("text", "")
 
                         if kind == "gui_user":
+                            files = [
+                                p for p in ev.get("files", []) if isinstance(p, str) and p.strip()
+                            ]
+                            debug_payload = {
+                                "kind": kind,
+                                "text": text,
+                                "images": list(ev.get("images", [])),
+                                "files": files,
+                            }
+                            try:
+                                print(
+                                    "[GUI->LLM] "
+                                    + json.dumps(debug_payload, ensure_ascii=False)
+                                )
+                            except Exception:
+                                pass
+
+                            file_lines = [
+                                f"[Attached File] {os.path.basename(p)} ({p})" for p in files
+                            ]
+                            if file_lines:
+                                if text.strip():
+                                    text = text.rstrip() + "\n\n" + "\n".join(file_lines)
+                                else:
+                                    text = "\n".join(file_lines)
+
                             use_responses_api = (
                                 os.environ.get("UAGENT_RESPONSES", "") or ""
                             ).lower() in (
@@ -530,11 +557,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle(_("uag GUI (Extreme Stability)"))
         self.resize(1100, 850)
         self._attached_images: List[str] = []
+        self._attached_files: List[str] = []
         self._history: List[HistoryEntry] = []
         self._hist_idx = -1
         self._log_pos = 0
         self._known_image_paths: set[str] = set()
         self._known_image_preview_paths: set[str] = set()
+        self._known_file_paths: set[str] = set()
+        self._attachment_seq = 0
         self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
 
         central = QtWidgets.QWidget()
@@ -566,7 +596,7 @@ class MainWindow(QtWidgets.QMainWindow):
         input_layout.setContentsMargins(0, 0, 0, 0)
         input_layout.setSpacing(6)
 
-        self._drop_label = QtWidgets.QLabel(_("Drag & Drop"))
+        self._drop_label = QtWidgets.QLabel(_("↑ Drag&Dropで添付できます"))
         self._drop_label.setStyleSheet("font-weight: bold;")
         input_layout.addWidget(self._drop_label)
 
@@ -784,18 +814,16 @@ class MainWindow(QtWidgets.QMainWindow):
                 except Exception:
                     pass
 
-                paths = []
+                items = []
                 try:
-                    for p in self._collect_generated_image_paths():
-                        if p not in paths:
-                            paths.append(p)
+                    items = self._collect_generated_image_paths()
                 except Exception:
                     pass
 
-                for p in paths:
+                for key, p in items:
                     if p and os.path.exists(p):
-                        self._add_thumb(p, "GEN")
-                        self._append_image_preview(p, "GEN")
+                        self._add_thumb(p, f"GEN:{key}")
+                        self._append_image_preview(p, f"GEN:{key}")
 
                 display_lines = []
                 for line in clean_text.splitlines(keepends=True):
@@ -848,9 +876,14 @@ class MainWindow(QtWidgets.QMainWindow):
             pass
 
     def _on_files_dropped(self, ps):
-        for p in ps:
+        self._attachment_seq += 1
+        for i, p in enumerate(ps):
             if os.path.splitext(p)[1].lower() in IMAGE_EXTS:
                 self._attached_images.append(p)
+                self._add_thumb(p, f"ATT:{self._attachment_seq}:{i}")
+            else:
+                self._attached_files.append(p)
+                self._add_file_item(p, f"ATT:{self._attachment_seq}:{i}")
 
 
     def _collect_generated_image_paths(self) -> List[str]:
@@ -889,6 +922,39 @@ class MainWindow(QtWidgets.QMainWindow):
 
         return paths
 
+    def _collect_generated_image_entries(self):
+        entries = []
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for mi, msg in enumerate(reversed(msgs[-20:])):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            ai = 0
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                    continue
+                p = att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name")
+                if isinstance(p, str) and p.strip():
+                    entries.append((f"m{mi}:a{ai}", p.strip()))
+                    ai += 1
+
+            p = msg.get("saved_path")
+            if isinstance(p, str) and p.strip():
+                entries.append((f"m{mi}:s", p.strip()))
+
+            for si, item in enumerate(msg.get("saved_files") or []):
+                if isinstance(item, str) and item.strip():
+                    entries.append((f"m{mi}:f{si}", item.strip()))
+
+        return entries
+
     def _find_generated_image_url(self, path: str) -> str:
         worker = getattr(self, "_worker", None)
         msgs = getattr(worker, "messages", []) if worker is not None else []
@@ -916,14 +982,15 @@ class MainWindow(QtWidgets.QMainWindow):
         return ""
 
     def _append_image_preview(self, path, prefix):
-        if path in self._known_image_preview_paths:
+        key = f"{prefix}:{path}"
+        if key in self._known_image_preview_paths:
             return
-        self._known_image_preview_paths.add(path)
+        self._known_image_preview_paths.add(key)
 
         def _load():
             try:
                 if not os.path.exists(path):
-                    self._known_image_preview_paths.discard(path)
+                    self._known_image_preview_paths.discard(key)
                     return
 
                 title = f"{prefix}:{os.path.basename(path)}"
@@ -950,19 +1017,20 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._output.insertHtml('<br/>')
                 self._output.ensureCursorVisible()
             except Exception:
-                self._known_image_preview_paths.discard(path)
+                self._known_image_preview_paths.discard(key)
 
         QtCore.QTimer.singleShot(1000, _load)
 
     def _add_thumb(self, path, prefix):
-        if path in self._known_image_paths:
+        key = f"{prefix}:{path}"
+        if key in self._known_image_paths:
             return
-        self._known_image_paths.add(path)
+        self._known_image_paths.add(key)
 
         def _load():
             try:
                 if not os.path.exists(path):
-                    self._known_image_paths.discard(path)
+                    self._known_image_paths.discard(key)
                     return
                 reader = QtGui.QImageReader(path)
                 if not reader.canRead():
@@ -984,6 +1052,28 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._thumbs.addItem(it)
             except Exception:
                 pass
+
+        QtCore.QTimer.singleShot(1000, _load)
+
+    def _add_file_item(self, path, prefix):
+        key = f"{prefix}:{path}"
+        if key in self._known_file_paths:
+            return
+        self._known_file_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_file_paths.discard(key)
+                    return
+                file_info = QtCore.QFileInfo(path)
+                icon_provider = QtWidgets.QFileIconProvider()
+                icon = icon_provider.icon(file_info)
+                it = QtWidgets.QListWidgetItem(icon, os.path.basename(path))
+                it.setToolTip(path)
+                self._thumbs.addItem(it)
+            except Exception:
+                self._known_file_paths.discard(key)
 
         QtCore.QTimer.singleShot(1000, _load)
 
@@ -1147,7 +1237,7 @@ class MainWindow(QtWidgets.QMainWindow):
             text = self._input.toPlainText()
             self._input.clear()
 
-        if not text.strip() and not self._attached_images:
+        if not text.strip() and not self._attached_images and not self._attached_files:
             return
 
         if active and q:
@@ -1166,7 +1256,7 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-            if text.strip().startswith(":") and not self._attached_images:
+            if text.strip().startswith(":") and not self._attached_images and not self._attached_files:
                 core.event_queue.put({"kind": "command", "text": text.strip()})
             else:
                 core.event_queue.put(
@@ -1174,11 +1264,15 @@ class MainWindow(QtWidgets.QMainWindow):
                         "kind": "gui_user",
                         "text": text,
                         "images": list(self._attached_images),
+                        "files": list(self._attached_files),
                     }
                 )
-            self._history.append(HistoryEntry(text, list(self._attached_images)))
+            self._history.append(
+                HistoryEntry(text, list(self._attached_images), list(self._attached_files))
+            )
 
         self._attached_images.clear()
+        self._attached_files.clear()
         self._thumbs.clear()
         self._hist_idx = -1
 
@@ -1205,15 +1299,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _restore_history(self):
         self._thumbs.clear()
+        self._known_image_paths.clear()
+        self._known_image_preview_paths.clear()
+        self._known_file_paths.clear()
         if self._hist_idx == -1:
             self._input.clear()
             self._attached_images = []
+            self._attached_files = []
         else:
             ent = self._history[self._hist_idx]
             self._input.setPlainText(ent.text)
             self._attached_images = list(ent.images)
-            for p in ent.images:
-                pass
+            self._attached_files = list(ent.files)
+            for i, p in enumerate(ent.images):
+                if p and os.path.exists(p):
+                    self._add_thumb(p, f"HIST:{self._hist_idx}:{i}")
+            for i, p in enumerate(ent.files):
+                if p and os.path.exists(p):
+                    self._add_file_item(p, f"HIST:{self._hist_idx}:{i}")
 
 
     def closeEvent(self, event):

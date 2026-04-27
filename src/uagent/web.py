@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import shutil
 
 from .env_utils import env_get
 import re
@@ -13,7 +14,7 @@ from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
 import uvicorn
-from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, File, Form, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -474,7 +475,11 @@ sys.stdout = WebStdout()
 sys.stderr = WebStderr()
 
 
-def run_agent_worker(room: WebRoom, user_input: str):
+def run_agent_worker(
+    room: WebRoom,
+    user_input: str,
+    attachments: Optional[List[Dict[str, Any]]] = None,
+):
     # Ensure logs go to this room (thread-local)
     _thread_ctx.room = room
     set_thread_lang(getattr(room, "lang", "en"))
@@ -628,7 +633,49 @@ def run_agent_worker(room: WebRoom, user_input: str):
         )
         print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
 
-        user_msg = {"role": "user", "content": user_input}
+        user_input = str(user_input or "")
+        attachment_lines: List[str] = []
+        clean_attachments: List[Dict[str, Any]] = []
+        for att in attachments or []:
+            if not isinstance(att, dict):
+                continue
+            item = dict(att)
+            path = str(
+                item.get("saved_path")
+                or item.get("path")
+                or item.get("file_path")
+                or ""
+            ).strip()
+            if not path:
+                continue
+            name = str(item.get("name") or os.path.basename(path) or path).strip()
+            mime = str(
+                item.get("mime") or item.get("content_type") or item.get("type") or ""
+            ).lower().strip()
+            is_image = mime.startswith("image/") or mime == "image"
+            label = os.path.basename(name) or os.path.basename(path) or path
+            if is_image:
+                attachment_lines.append(f"[Attached Image] {label}")
+                item["type"] = "image"
+            else:
+                attachment_lines.append(f"[Attached File] {label}")
+                item["type"] = "file"
+            item["saved_path"] = path
+            if mime:
+                item["mime"] = mime
+            clean_attachments.append(item)
+
+        prompt_text = user_input
+        if attachment_lines:
+            prompt_text = (
+                (prompt_text.rstrip() + "\n\n") if prompt_text.strip() else ""
+            ) + "\n".join(attachment_lines)
+
+        user_msg = {"role": "user", "content": prompt_text}
+
+        user_msg = {"role": "user", "content": prompt_text}
+        if clean_attachments:
+            user_msg["attachments"] = clean_attachments
         core.log_message(user_msg)
 
         if not room.history_initialized:
@@ -743,6 +790,49 @@ async def get_room(request: Request, room_id: str):
     )
 
 
+@app.post("/upload")
+async def upload_files(
+    room: str = Form(""),
+    files: List[UploadFile] = File(...),
+):
+    try:
+        cwd = os.path.abspath(os.getcwd())
+        room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
+        upload_root = os.path.join(cwd, ".uagent_web_uploads", room_id)
+        os.makedirs(upload_root, exist_ok=True)
+
+        saved: List[Dict[str, Any]] = []
+        for upload in files or []:
+            if upload is None:
+                continue
+            original_name = os.path.basename(str(getattr(upload, "filename", "") or "upload"))
+            safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", original_name).strip("._") or "upload"
+            stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+            dst_path = os.path.join(upload_root, f"{stamp}_{safe_name}")
+            with open(dst_path, "wb") as out_f:
+                shutil.copyfileobj(upload.file, out_f)
+
+            mime = str(getattr(upload, "content_type", "") or "").lower().strip()
+            is_image = mime.startswith("image/")
+            item: Dict[str, Any] = {
+                "name": original_name,
+                "saved_path": dst_path,
+                "path": dst_path,
+                "mime": mime,
+                "type": "image" if is_image else "file",
+            }
+            if is_image:
+                try:
+                    item["data_url"] = tools_util.image_file_to_data_url(dst_path)
+                except Exception:
+                    pass
+            saved.append(item)
+
+        return {"ok": True, "files": saved}
+    except Exception as e:
+        return {"ok": False, "error": repr(e)}
+
+
 @app.get("/local-file")
 async def get_local_file(path: str):
     try:
@@ -791,7 +881,9 @@ async def websocket_endpoint(websocket: WebSocket):
                 if _handle_mode_command(str(user_text or "")):
                     continue
                 threading.Thread(
-                    target=run_agent_worker, args=(room, user_text), daemon=True
+                    target=run_agent_worker,
+                    args=(room, user_text, payload.get("attachments")),
+                    daemon=True,
                 ).start()
 
             elif payload.get("type") == "command":
