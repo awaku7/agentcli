@@ -57,11 +57,20 @@ except ImportError:
     def ensure_mcp_config_template():
         pass  # type: ignore
 
-
 THUMB_SIZE_PX = 96
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 LOG_FILE = "gui_worker_session.log"
 
+def _gui_norm_path(p: Any) -> str:
+    if not isinstance(p, str):
+        return ""
+    s = p.strip()
+    if not s:
+        return ""
+    try:
+        return str(Path(s).expanduser().resolve())
+    except Exception:
+        return s
 
 class RedirectToLog:
     def __init__(self, path: str, original_stream):
@@ -72,12 +81,11 @@ class RedirectToLog:
         try:
             with open(self.path, "a", encoding="utf-8") as f:
                 f.write(data)
-        except Exception:
+        except Exception as e:
             pass
 
     def flush(self):
         return
-
 
 @dataclass
 class GuiConfig:
@@ -85,13 +93,11 @@ class GuiConfig:
     model: str
     initial_file: Optional[str]
 
-
 @dataclass
 class HistoryEntry:
     text: str
     images: List[str]
     files: List[str]
-
 
 class DropInput(QtWidgets.QPlainTextEdit):
     sig_files_dropped = QtCore.Signal(list)
@@ -110,7 +116,6 @@ class DropInput(QtWidgets.QPlainTextEdit):
         if ps:
             self.sig_files_dropped.emit(ps)
             e.acceptProposedAction()
-
 
 class DropOutput(QtWidgets.QTextBrowser):
     sig_files_dropped = QtCore.Signal(list)
@@ -155,11 +160,39 @@ class DropOutput(QtWidgets.QTextBrowser):
                             pass
 
                     act.triggered.connect(_do_download)
-        except Exception:
+        except Exception as e:
             pass
         menu.exec(e.globalPos())
         menu.deleteLater()
 
+class DropThumbs(QtWidgets.QListWidget):
+    sig_files_dropped = QtCore.Signal(list)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setAcceptDrops(True)
+        self.viewport().setAcceptDrops(True)
+        self.setDropIndicatorShown(True)
+
+    def dragEnterEvent(self, e):
+        if e.mimeData().hasUrls():
+            e.acceptProposedAction()
+        else:
+            e.ignore()
+
+    def dragMoveEvent(self, e):
+        if e.mimeData().hasUrls():
+            e.acceptProposedAction()
+        else:
+            e.ignore()
+
+    def dropEvent(self, e):
+        ps = [u.toLocalFile() for u in e.mimeData().urls() if u.isLocalFile()]
+        if ps:
+            self.sig_files_dropped.emit(ps)
+            e.acceptProposedAction()
+        else:
+            e.ignore()
 
 class ScheckWorker(QtCore.QObject):
     """Worker that runs the LLM loop."""
@@ -492,7 +525,6 @@ class ScheckWorker(QtCore.QObject):
     def stop(self):
         self._stop.set()
 
-
 class MainWindow(QtWidgets.QMainWindow):
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
 
@@ -537,7 +569,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self._output.moveCursor(QtGui.QTextCursor.End)
             self._output.insertHtml(html)
             self._output.ensureCursorVisible()
-        except Exception:
+        except Exception as e:
             pass
 
     def _show_welcome_dialog(self) -> None:
@@ -581,7 +613,8 @@ class MainWindow(QtWidgets.QMainWindow):
         )
         layout.addWidget(self._output, 1)
 
-        self._thumbs = QtWidgets.QListWidget()
+        self._thumbs = DropThumbs()
+        self._thumbs.sig_files_dropped.connect(self._on_files_dropped)
         self._thumbs.setViewMode(QtWidgets.QListView.IconMode)
         self._thumbs.setFixedHeight(140)
         self._thumbs.setIconSize(QtCore.QSize(THUMB_SIZE_PX, THUMB_SIZE_PX))
@@ -615,6 +648,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._pw_input.setVisible(False)
         self._pw_input.returnPressed.connect(self._on_send)
         pw_row.addWidget(self._pw_input, 1)
+        pw_row.addStretch(1)
 
         self._btn = QtWidgets.QPushButton(_("Send"))
         self._btn.setFixedWidth(80)
@@ -659,7 +693,7 @@ class MainWindow(QtWidgets.QMainWindow):
             help_menu = self.menuBar().addMenu(_("Help"))
             act = help_menu.addAction(_("Welcome / Quick Guide"))
             act.triggered.connect(self._show_welcome_dialog)
-        except Exception:
+        except Exception as e:
             pass
 
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
@@ -707,7 +741,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(
                 lambda: self._set_verbosity("2")
             )
-        except Exception:
+        except Exception as e:
             pass
 
     def _update_mode_label(self) -> None:
@@ -817,13 +851,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 items = []
                 try:
                     items = self._collect_generated_image_paths()
-                except Exception:
+                except Exception as e:
                     pass
 
-                for key, p in items:
+                for p in items:
                     if p and os.path.exists(p):
-                        self._add_thumb(p, f"GEN:{key}")
-                        self._append_image_preview(p, f"GEN:{key}")
+                        self._append_image_preview(p, "GEN")
 
                 display_lines = []
                 for line in clean_text.splitlines(keepends=True):
@@ -872,7 +905,7 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-        except Exception:
+        except Exception as e:
             pass
 
     def _on_files_dropped(self, ps):
@@ -885,15 +918,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._attached_files.append(p)
                 self._add_file_item(p, f"ATT:{self._attachment_seq}:{i}")
 
-
     def _collect_generated_image_paths(self) -> List[str]:
         paths: List[str] = []
         seen: set[str] = set()
 
         def _add(candidate: Any) -> None:
-            if not isinstance(candidate, str):
-                return
-            p = candidate.strip()
+            p = _gui_norm_path(candidate)
             if not p or p in seen:
                 return
             seen.add(p)
@@ -940,18 +970,19 @@ class MainWindow(QtWidgets.QMainWindow):
                     continue
                 if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
                     continue
-                p = att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name")
-                if isinstance(p, str) and p.strip():
-                    entries.append((f"m{mi}:a{ai}", p.strip()))
+                p = _gui_norm_path(att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name"))
+                if p:
+                    entries.append((f"m{mi}:a{ai}", p))
                     ai += 1
 
-            p = msg.get("saved_path")
-            if isinstance(p, str) and p.strip():
-                entries.append((f"m{mi}:s", p.strip()))
+            p = _gui_norm_path(msg.get("saved_path"))
+            if p:
+                entries.append((f"m{mi}:s", p))
 
             for si, item in enumerate(msg.get("saved_files") or []):
-                if isinstance(item, str) and item.strip():
-                    entries.append((f"m{mi}:f{si}", item.strip()))
+                p = _gui_norm_path(item)
+                if p:
+                    entries.append((f"m{mi}:f{si}", p))
 
         return entries
 
@@ -969,19 +1000,20 @@ class MainWindow(QtWidgets.QMainWindow):
                     continue
                 if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
                     continue
-                att_path = (
+                att_path = _gui_norm_path(
                     att.get("saved_path")
                     or att.get("path")
                     or att.get("file_path")
                     or att.get("name")
                     or ""
                 )
-                if str(att_path).strip() != target:
+                if att_path != target:
                     continue
                 return str(att.get("url") or att.get("source_url") or att.get("original_url") or "")
         return ""
 
     def _append_image_preview(self, path, prefix):
+        path = _gui_norm_path(path)
         key = f"{prefix}:{path}"
         if key in self._known_image_preview_paths:
             return
@@ -1022,6 +1054,7 @@ class MainWindow(QtWidgets.QMainWindow):
         QtCore.QTimer.singleShot(1000, _load)
 
     def _add_thumb(self, path, prefix):
+        path = _gui_norm_path(path)
         key = f"{prefix}:{path}"
         if key in self._known_image_paths:
             return
@@ -1034,28 +1067,43 @@ class MainWindow(QtWidgets.QMainWindow):
                     return
                 reader = QtGui.QImageReader(path)
                 if not reader.canRead():
+                    try:
+                        print(
+                            "[GUI][add_thumb] cannot read image "
+                            + json.dumps(
+                                {
+                                    "path": path,
+                                    "format": str(reader.format().data().decode(errors='ignore')) if reader.format() else "",
+                                },
+                                ensure_ascii=False,
+                            )
+                        )
+                    except Exception:
+                        pass
                     return
                 img = reader.read()
-                if not img.isNull():
-                    pix = QtGui.QPixmap.fromImage(
-                        img.scaled(
-                            THUMB_SIZE_PX,
-                            THUMB_SIZE_PX,
-                            QtCore.Qt.KeepAspectRatio,
-                            QtCore.Qt.SmoothTransformation,
-                        )
+                if img.isNull():
+                    return
+                pix = QtGui.QPixmap.fromImage(
+                    img.scaled(
+                        THUMB_SIZE_PX,
+                        THUMB_SIZE_PX,
+                        QtCore.Qt.KeepAspectRatio,
+                        QtCore.Qt.SmoothTransformation,
                     )
-                    it = QtWidgets.QListWidgetItem(
-                        QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}"
-                    )
-                    it.setToolTip(path)
-                    self._thumbs.addItem(it)
-            except Exception:
+                )
+                it = QtWidgets.QListWidgetItem(
+                    QtGui.QIcon(pix), f"{prefix}:{os.path.basename(path)}"
+                )
+                it.setToolTip(path)
+                self._thumbs.addItem(it)
+            except Exception as e:
                 pass
 
         QtCore.QTimer.singleShot(1000, _load)
 
     def _add_file_item(self, path, prefix):
+        path = _gui_norm_path(path)
         key = f"{prefix}:{path}"
         if key in self._known_file_paths:
             return
@@ -1079,6 +1127,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _open_image(self, p):
         try:
+            p = _gui_norm_path(p)
             if sys.platform == "win32":
                 os.startfile(p)
             elif sys.platform == "darwin":
@@ -1089,7 +1138,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 import subprocess
 
                 subprocess.Popen(["xdg-open", p])
-        except Exception:
+        except Exception as e:
             pass
 
     def _handle_output_anchor(self, url):
@@ -1210,7 +1259,7 @@ class MainWindow(QtWidgets.QMainWindow):
             p = url.toLocalFile()
             if p:
                 self._open_image(p)
-        except Exception:
+        except Exception as e:
             pass
 
     def _on_send(self):
@@ -1318,7 +1367,6 @@ class MainWindow(QtWidgets.QMainWindow):
                 if p and os.path.exists(p):
                     self._add_file_item(p, f"HIST:{self._hist_idx}:{i}")
 
-
     def closeEvent(self, event):
         self._worker.stop()
         self._thread.quit()
@@ -1329,7 +1377,6 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
         super().closeEvent(event)
-
 
 def main():
     try:
@@ -1380,7 +1427,6 @@ def main():
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
     sys.exit(app.exec())
-
 
 if __name__ == "__main__":
     main()

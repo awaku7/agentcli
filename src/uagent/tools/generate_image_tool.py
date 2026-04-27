@@ -35,14 +35,11 @@ from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
-
 def _msg(key: str, default: str, **kwargs: Any) -> str:
     return _(key, default=default).format(**kwargs)
 
-
 BUSY_LABEL = True
 STATUS_LABEL = "tool:generate_image"
-
 
 class _StatusSpinner:
     def __init__(self, cb: Any, base_label: str) -> None:
@@ -59,7 +56,6 @@ class _StatusSpinner:
 
     def stop(self) -> None:
         pass
-
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -143,7 +139,6 @@ TOOL_SPEC: Dict[str, Any] = {
     },
 }
 
-
 def _get_provider() -> str:
     """Select provider for image generation."""
     p = (
@@ -165,7 +160,6 @@ def _get_provider() -> str:
         )
     return p
 
-
 def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
@@ -181,7 +175,6 @@ def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
         )
     return default
 
-
 def _img_env(
     provider: str, mode: str, name: str, *, required: bool, default: str = ""
 ) -> str:
@@ -192,19 +185,16 @@ def _img_env(
     keys = [f"UAGENT_{p}_IMG_{m}_{n}", f"UAGENT_{p}_{n}"]
     return _env_first(keys, required=required, default=default)
 
-
 def _ssl_verify_enabled() -> bool:
     """Default: no verification. Enable only if UAGENT_SSL_VERIFY=1/true/yes/on."""
     v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
-
 
 def _env_bool(name: str, default: bool = False) -> bool:
     v = (env_get(name) or "").strip().lower()
     if not v:
         return default
     return v in ("1", "true", "yes", "on")
-
 
 def _urlopen_kwargs() -> Dict[str, Any]:
     """Generate extra args for urllib. Return unverified context if verification is disabled."""
@@ -213,34 +203,27 @@ def _urlopen_kwargs() -> Dict[str, Any]:
     ctx = ssl._create_unverified_context()
     return {"context": ctx}
 
-
 def _get_image_depname(cb_get_env, provider: str) -> str:
     return _img_env(provider, "generate", "depname", required=True)
-
 
 def _ensure_dir(p: str) -> str:
     p2 = os.path.expanduser(p)
     os.makedirs(p2, exist_ok=True)
     return p2
 
-
 def _write_png_bytes(raw: bytes, out_path: str) -> None:
     with open(out_path, "wb") as f:
         f.write(raw)
-
 
 def _write_png_from_b64(b64_data: str, out_path: str) -> None:
     raw = base64.b64decode(b64_data)
     _write_png_bytes(raw, out_path)
 
-
 def _sanitize_size_for_provider(size: str) -> str:
     return size
 
-
 def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
-
 
 def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
     saved: List[str] = []
@@ -251,7 +234,6 @@ def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[s
         saved.append(out_path)
     return saved
 
-
 def _download_to_png(url: str, out_path: str) -> None:
     from urllib.request import Request, urlopen
 
@@ -259,7 +241,6 @@ def _download_to_png(url: str, out_path: str) -> None:
     with urlopen(req, **_urlopen_kwargs()) as resp:
         raw = resp.read()
     _write_png_bytes(raw, out_path)
-
 
 def _run_openai_images(
     provider: str,
@@ -298,17 +279,6 @@ def _run_openai_images(
         )
 
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
-    if debug:
-        print(
-            "[generate_image][debug] _run_openai_images init",
-            {
-                "provider": provider,
-                "model": image_model,
-                "http_client": type(http_client).__name__ if http_client else None,
-            },
-            flush=True,
-        )
-
     if provider == "azure":
         base_url = _img_env("azure", "generate", "base_url", required=True).rstrip("/")
         api_key = _img_env("azure", "generate", "api_key", required=True)
@@ -381,40 +351,10 @@ def _run_openai_images(
     else:
         gen_kwargs["response_format"] = "b64_json"
 
-    if debug:
-        print(
-            "[generate_image][debug] client.images.generate request",
-            {
-                "provider": provider,
-                "model": image_model,
-                "keys": sorted(gen_kwargs.keys()),
-                "size": size,
-                "n": n,
-            },
-            flush=True,
-        )
     try:
         resp = client.images.generate(**gen_kwargs)
     except Exception as e:
-        if debug:
-            print(
-                "[generate_image][debug] client.images.generate error",
-                {"provider": provider, "model": image_model, "error": repr(e)},
-                flush=True,
-            )
-            traceback.print_exc()
         raise
-    if debug:
-        print(
-            "[generate_image][debug] client.images.generate done",
-            {
-                "provider": provider,
-                "model": image_model,
-                "data_len": len(getattr(resp, 'data', None) or []),
-            },
-            flush=True,
-        )
-
     b64_list: List[str] = []
     url_list: List[str] = []
     items: List[Dict[str, Any]] = []
@@ -444,7 +384,6 @@ def _run_openai_images(
         )
 
     return {"b64_list": b64_list, "url_list": url_list, "items": items}
-
 
 def _run_gemini_images(
     image_model: str,
@@ -522,7 +461,6 @@ def _run_gemini_images(
 
     return b64_list
 
-
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()
 
@@ -555,7 +493,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     try:
-        outdir = _ensure_dir(output_dir)
+        outdir = os.path.abspath(_ensure_dir(output_dir))
     except Exception as e:
         return _msg(
             "err.mkdir_fail",
@@ -571,7 +509,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     moderation_raw = str(
         args.get("moderation") or env_get("UAGENT_IMG_GENERATE_MODERATION") or ""
     ).strip()
-    moderation = "auto" if moderation_raw.lower() == "safe" else moderation_raw
+    moderation = moderation_raw.lower()
+    if moderation in ("safe", "standard", "default"):
+        moderation = "auto"
     quality = str(
         args.get("quality") or env_get("UAGENT_IMG_GENERATE_QUALITY") or ""
     ).strip()
@@ -591,46 +531,12 @@ def run_tool(args: Dict[str, Any]) -> str:
         "quality": quality or None,
         "background": background or None,
     }
-    if debug:
-        print(
-            "[generate_image][debug] start",
-            {
-                "provider": provider,
-                "model": image_model,
-                "size": size,
-                "n": n,
-                "output_dir": outdir,
-                "file_prefix": file_prefix,
-                "save_meta": save_meta,
-                "moderation": moderation or None,
-                "quality": quality or None,
-                "background": background or None,
-            },
-            flush=True,
-        )
-
     try:
         if debug:
-            print("[generate_image][debug] before spinner.start", flush=True)
-        spinner.start()
-        if debug:
-            print("[generate_image][debug] after spinner.start", flush=True)
+            spinner.start()
         size2 = _sanitize_size_for_provider(size)
         meta_payload["size"] = size2
-        if debug:
-            print(
-                "[generate_image][debug] size2",
-                {"size": size, "size2": size2},
-                flush=True,
-            )
-
         if provider in ("openai", "azure", "bedrock", "openrouter", "nvidia"):
-            if debug:
-                print(
-                    "[generate_image][debug] calling openai_images",
-                    {"provider": provider, "model": image_model},
-                    flush=True,
-                )
             res = _run_openai_images(
                 provider=provider,
                 image_model=image_model,
@@ -644,17 +550,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             b64_list = res.get("b64_list") or []
             url_list = res.get("url_list") or []
             meta_payload["items"] = res.get("items") or []
-            if debug:
-                print(
-                    "[generate_image][debug] openai_images returned",
-                    {
-                        "b64_count": len(b64_list),
-                        "url_count": len(url_list),
-                        "items_count": len(meta_payload["items"]),
-                    },
-                    flush=True,
-                )
-
             if b64_list:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
             if url_list:
@@ -699,11 +594,15 @@ def run_tool(args: Dict[str, Any]) -> str:
             err=repr(e),
         )
     finally:
-        spinner.stop()
+        if debug:
+            try:
+                spinner.stop()
+            except Exception:
+                pass
 
     if save_meta:
         meta_payload["saved_files"] = saved
-        meta_path = os.path.join(outdir, f"{file_prefix}_{ts}.json")
+        meta_path = os.path.abspath(os.path.join(outdir, f"{file_prefix}_{ts}.json"))
         try:
             with open(meta_path, "w", encoding="utf-8") as f:
                 json.dump(meta_payload, f, ensure_ascii=False, indent=2, default=str)
@@ -741,17 +640,6 @@ def run_tool(args: Dict[str, Any]) -> str:
     }
     if save_meta:
         data["meta_path"] = meta_path
-
-    if debug:
-        print(
-            "[generate_image][debug] done",
-            {
-                "saved_files": saved,
-                "meta_path": meta_path if save_meta else None,
-                "output_dir": outdir,
-            },
-            flush=True,
-        )
 
     open_flag = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
     should_open = not bool(getattr(cb, "is_gui", False)) and open_flag not in (
