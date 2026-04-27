@@ -106,5 +106,17 @@
     "param.cwd.description": "دليل العمل للأمر.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP).",
     "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدمه فقط في حالة عدم توفر أداة مناسبة أخرى. كن متحفظًا فيما يتعلق بالأوامر وتجنب العمليات التدميرية ما لم يتم تأكيدها صراحةً من قبل المستخدم."
+  },
+  "sv": {
+    "param.command.description": "Kommandosträng att köra.",
+    "param.cwd.description": "Arbetskatalog för kommandot.",
+    "tool.description": "Utför ett Windows-kommandot som en sista utväg och returnerar ett JSON-resultat. Används endast när inget annat lämpligt verktyg finns tillgängligt, till exempel Python eller MCP.",
+    "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt. Var försiktig med kommandon och undvik destruktiva åtgärder om inte användaren uttryckligen har bekräftat dem."
+  },
+  "nb": {
+    "param.command.description": "Kommandostreng som skal kjøres.",
+    "param.cwd.description": "Arbeidskatalog for kommandoen.",
+    "tool.description": "Utfør en Windows-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe annet passende verktøy er tilgjengelig, for eksempel Python eller MCP.",
+    "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
   }
 }

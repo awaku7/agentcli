@@ -160,5 +160,23 @@
     "param.src.description": "المسار الأصلي (ملف/دليل). يوصى بالمسار النسبي.",
     "tool.description": "إعادة تسمية (نقل) ملف أو دليل.",
     "tool.system_prompt": "تقوم هذه الأداة بإعادة تسمية أو نقل ملف أو دليل.\n\nملاحظات السلامة:\n- التأكيد مطلوب للمسارات المطلقة، أو المسارات التي تحتوي على '..'، أو العمليات خارج دليل العمل.\n- الكتابة الفوقية=صحيح تتطلب تأكيدًا لأنها تحذف الوجهة أولاً."
+  },
+  "sv": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path-verktyg\n\nSyfte:\n- Byt namn på eller flytta filer/kataloger.\n\nSäkerhetspolicy:\n- Begär bekräftelse för absoluta sökvägar, sökvägar utanför workdir och när överskrivning behövs.",
+    "param.dst.description": "Målsökväg (fil/katalog). Relativ sökväg rekommenderas.",
+    "param.mkdirs.description": "Om true, skapas överordnad katalog för dst före körning.",
+    "param.overwrite.description": "Om true, tas dst bort och ersätts om den redan finns (du ombeds bekräfta).",
+    "param.src.description": "Ursprunglig sökväg (fil/katalog). Relativ sökväg rekommenderas.",
+    "tool.description": "Byt namn på (flytta) en fil eller katalog.",
+    "tool.system_prompt": "Det här verktyget byter namn på eller flyttar en fil eller katalog.\n\nSäkerhetsnoter:\n- Bekräftelse krävs för absoluta sökvägar, sökvägar utanför workdir och när överskrivning behövs."
+  },
+  "nb": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path-verktøy\n\nFormål:\n- Gi nytt navn til eller flytte filer/kataloger.\n\nSikkerhetspolicy:\n- Krev bekreftelse for absolutte stier, stier utenfor workdir og når overskriving trengs.",
+    "param.dst.description": "Destinasjonssti (fil/katalog). Relativ sti anbefales.",
+    "param.mkdirs.description": "Hvis true, opprettes overordnet katalog for dst før kjøring.",
+    "param.overwrite.description": "Hvis true, slettes og erstattes dst hvis den allerede finnes (du blir bedt om bekreftelse).",
+    "param.src.description": "Opprinnelig sti (fil/katalog). Relativ sti anbefales.",
+    "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
+    "tool.system_prompt": "Dette verktøyet gir nytt navn til eller flytter en fil eller katalog.\n\nSikkerhetsnotater:\n- Bekreftelse kreves for absolutte stier, stier utenfor workdir og når overskriving trengs."
   }
 }

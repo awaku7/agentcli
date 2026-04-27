@@ -88,5 +88,15 @@
     "param.format.description": "تنسيق الإخراج.",
     "tool.description": "قم بتقدير الموقع التقريبي للمستخدم بناءً على عنوان IP العام الخاص به. قد تكون النتيجة غير دقيقة عند استخدام VPN أو الوكلاء أو شبكات الهاتف المحمول.\n\nالسياسة:\n- استخدم هذه الأداة عندما تحتاج إلى الموقع التقريبي للمستخدم (المدينة/المنطقة/البلد) ولم يقدمه المستخدم.\n- إذا كان المستخدم قد قدم موقعه بالفعل، ففضل ذلك ولا تتصل بـ get_geoip.",
     "tool.system_prompt": "جلب بيانات الموقع المستندة إلى IP من خدمة خارجية (ipinfo.io) وإرجاع نتيجة مبسطة."
+  },
+  "sv": {
+    "param.format.description": "Utdataformat.",
+    "tool.description": "Uppskatta användarens ungefärliga plats utifrån den publika IP-adressen. Resultatet kan vara felaktigt vid användning av VPN, proxy eller mobila nätverk.\n\nPolicy:\n- Använd detta verktyg när du behöver användarens ungefärliga plats (stad/region/land) och användaren inte har angett den.\n- Om användaren redan har angett sin plats, använd den informationen och anropa inte get_geoip.",
+    "tool.system_prompt": "Hämta platsdata baserat på IP från en extern tjänst (ipinfo.io) och returnera ett förenklat resultat."
+  },
+  "nb": {
+    "param.format.description": "Utdataformat.",
+    "tool.description": "Ansla brukerens omtrentlige plassering basert på den offentlige IP-adressen. Resultatet kan være unøyaktig ved bruk av VPN, proxy eller mobilnett.\n\nPolicy:\n- Bruk dette verktøyet når du trenger brukerens omtrentlige plassering (by/region/land) og brukeren ikke har oppgitt den.\n- Hvis brukeren allerede har oppgitt plasseringen sin, bruk den informasjonen og ikke kall get_geoip.",
+    "tool.system_prompt": "Hent IP-basert posisjonsdata fra en ekstern tjeneste (ipinfo.io) og returner et forenklet resultat."
   }
 }

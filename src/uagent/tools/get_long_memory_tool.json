@@ -88,5 +88,15 @@
     "doc.run_tool": "أداة لاسترداد الذاكرة طويلة المدى بالكامل (نص JSONL).",
     "tool.description": "احصل على جميع ملاحظات الذاكرة طويلة المدى المحفوظة (JSONL).",
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: استرداد جميع ملاحظات الذاكرة طويلة المدى المحفوظة (بتنسيق JSONL)."
+  },
+  "sv": {
+    "doc.run_tool": "Startpunkt som anropas från tools/__init__.py. Implementering för get_long_memory.",
+    "tool.description": "Hämta alla sparade långtidsminnesanteckningar (JSONL).",
+    "tool.system_prompt": "Det här verktyget används för följande ändamål: hämta alla sparade långtidsminnesanteckningar (i JSONL-format)."
+  },
+  "nb": {
+    "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_long_memory.",
+    "tool.description": "Hent alle lagrede langtidsminnenotater (JSONL).",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: hente alle lagrede langtidsminnenotater (i JSONL-format)."
   }
 }

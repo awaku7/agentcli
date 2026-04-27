@@ -88,5 +88,15 @@
     "param.command.description": "سطر الأوامر للتنفيذ.",
     "tool.description": "بدء عملية واجهة المستخدم الرسومية أو المتصفح بشكل غير متزامن. تجنب الظهور المتكرر لنفس الطلب.",
     "tool.system_prompt": "استخدم هذه الأداة لبدء عملية خارجية بشكل غير متزامن. تجنب الظهور المتكرر لنفس الطلب."
+  },
+  "sv": {
+    "param.command.description": "Kommandorad som ska köras.",
+    "tool.description": "Startar en extern GUI- eller webbläsarprocess asynkront. Undvik upprepade starter för samma begäran.",
+    "tool.system_prompt": "Använd det här verktyget för att starta en extern process asynkront. Undvik upprepade starter för samma begäran."
+  },
+  "nb": {
+    "param.command.description": "Kommandolinje som skal kjøres.",
+    "tool.description": "Starter en ekstern GUI- eller nettleserprosess asynkront. Unngå gjentatte oppstarter for samme forespørsel.",
+    "tool.system_prompt": "Bruk dette verktøyet til å starte en ekstern prosess asynkront. Unngå gjentatte oppstarter for samme forespørsel."
   }
 }

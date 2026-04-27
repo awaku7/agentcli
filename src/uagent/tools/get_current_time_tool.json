@@ -70,5 +70,13 @@
   "ar": {
     "tool.description": "قم بإرجاع الوقت الحالي ومعلومات التاريخ/الوقت التفصيلية (المنطقة الزمنية، أيام الأسبوع، توقيت UTC). استخدم هذا لحل تعبيرات التاريخ النسبي (على سبيل المثال، \"اليوم\"، و\"غدًا\"، و\"عطلة نهاية الأسبوع هذه\"، و\"الثلاثاء الثالث من الشهر التالي\") عن طريق تحديد يوم الأسبوع الحالي وإزاحة UTC.",
     "tool.system_prompt": "توفر هذه الأداة معلومات مرجعية حتى يتمكن LLM من إجراء حسابات الوقت بدقة.\n- تنسيق ISO 8601 (مع الإزاحة)\n- أيام الأسبوع (الإنجليزية)\n- التوقيت العالمي المنسق\n- المكونات الرقمية (السنة، الشهر، اليوم، الساعة، الدقيقة، الثانية)\nاستخدمها لتحويل طلبات المستخدم الغامضة (على سبيل المثال، \"الاثنين المقبل\") إلى تاريخ/وقت محدد."
+  },
+  "sv": {
+    "tool.description": "Returnerar aktuell tid och detaljerad datum-/tidsinformation (tidszon, veckodag, UTC-tid). Använd detta för att tolka relativa datumuttryck (t.ex. \"idag\", \"imorgon\", \"den här helgen\", \"nästa månads tredje tisdag\") genom att avgöra aktuell veckodag och UTC-offset.",
+    "tool.system_prompt": "Det här verktyget ger referensinformation så att LLM:n kan göra tidsberäkningar korrekt.\n- ISO 8601-format (med offset)\n- Veckodag (engelska)\n- UTC-tid\n- Numeriska komponenter (år, månad, dag, timme, minut, sekund)\nAnvänd detta för att omvandla otydliga användarbegäranden (t.ex. \"nästa måndag\") till ett konkret datum/en konkret tid.\n"
+  },
+  "nb": {
+    "tool.description": "Returnerer gjeldende tid og detaljert dato-/tidsinformasjon (tidssone, ukedag, UTC-tid). Bruk dette til å tolke relative datouttrykk (for eksempel «i dag», «i morgen», «denne helgen», «tirsdagen i neste måned») ved å finne gjeldende ukedag og UTC-forskyvning.",
+    "tool.system_prompt": "Dette verktøyet gir referanseinformasjon slik at LLM-en kan utføre tidsberegninger nøyaktig.\n- ISO 8601-format (med forskyvning)\n- Ukedag (engelsk)\n- UTC-tid\n- Numeriske komponenter (år, måned, dag, time, minutt, sekund)\nBruk dette til å gjøre uklare brukerspørsmål (for eksempel «neste mandag») om til en konkret dato/et konkret tidspunkt.\n"
   }
 }

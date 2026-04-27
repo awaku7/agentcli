@@ -106,5 +106,17 @@
     "param.sql.description": "SQL للتنفيذ.",
     "tool.description": "قم بتنفيذ استعلام SQL على قاعدة بيانات SQLite وإرجاع النتيجة. يتم دعم عمليات القراءة فقط (SELECT) وفحص المخطط (PRAGMA) فقط.",
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"db_query\"."
+  },
+  "sv": {
+    "param.db_path.description": "Sökvägen till SQLite-databasfilen.",
+    "param.sql.description": "SQL som ska köras.",
+    "tool.description": "Kör en SQL-fråga mot en SQLite-databas och returnerar resultatet. Endast skrivskyddade operationer (SELECT) och schemainspektion (PRAGMA) stöds.",
+    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'db_query'."
+  },
+  "nb": {
+    "param.db_path.description": "Stien til SQLite-databasefilen.",
+    "param.sql.description": "SQL som skal kjøres.",
+    "tool.description": "Kjør en SQL-spørring mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemaoppslag (PRAGMA) støttes.",
+    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'db_query'."
   }
 }

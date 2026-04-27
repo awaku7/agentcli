@@ -160,5 +160,23 @@
     "tool.system_prompt": "هام: تقوم هذه الأداة بقراءة PDF/PPTX/JSON وإرجاع النص على مستوى الصفحة. الإدخال: المسار، page_index، max_chars. الإخراج: نص الصفحة (جميع الصفحات أو صفحة محددة).",
     "param.password.description": "كلمة مرور اختيارية لملفات PDF/PPTX المشفرة. إذا تم حذفه وتم تشفير الإدخال، فستتم مطالبتك مرة واحدة بكلمة المرور.",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{المسار}"
+  },
+  "sv": {
+    "param.max_chars.description": "Maximalt antal tecken som ska returneras. Om det utelämnas trunkeras resultatet vid 8000 tecken.",
+    "param.page_index.description": "1-baserat sidnummer (PDF-sida eller PPTX-bildindex). Om det utelämnas returneras den sammanfogade texten för alla sidor.",
+    "param.path.description": "Sökväg till en PDF / PPTX / JSON-fil.",
+    "tool.description": "Läs PDF/PPTX (eller deras gemensamma JSON-schema) och returnera extraherad text per sida. Du kan ange sökvägen till .pdf / .pptx / .json. För PDF/PPTX konverterar modulen detta till det gemensamma JSON-schemat.",
+    "tool.system_prompt": "VIKTIGT: Det här verktyget läser PDF/PPTX/JSON och returnerar text på sidnivå. Indata: path, page_index, max_chars. Utdata: sidtext (alla sidor eller den angivna sidan).",
+    "param.password.description": "Valfritt lösenord för krypterade PDF/PPTX-filer. Om det utelämnas och indata är krypterad kommer du att ombes ange ett lösenord en gång.",
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "nb": {
+    "param.max_chars.description": "Maksimalt antall tegn som skal returneres. Hvis det utelates, trunkeres resultatet til 8000 tegn.",
+    "param.page_index.description": "1-basert sidenummer (PDF-side eller PPTX-lysbildefølge). Hvis det utelates, returneres den sammenslåtte teksten for alle sider.",
+    "param.path.description": "Sti til en PDF / PPTX / JSON-fil.",
+    "tool.description": "Les PDF/PPTX (eller deres felles JSON-skjema) og returner uttrukket tekst per side. Du kan angi stien til .pdf / .pptx / .json. For PDF/PPTX konverterer modulen dette til det felles JSON-skjemaet.",
+    "tool.system_prompt": "VIKTIG: Dette verktøyet leser PDF/PPTX/JSON og returnerer tekst på sidenivå. Input: path, page_index, max_chars. Output: sidetekst (alle sider eller angitt side).",
+    "param.password.description": "Valgfritt passord for krypterte PDF/PPTX-filer. Hvis det utelates og inndata er kryptert, blir du bedt om et passord én gang.",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   }
 }

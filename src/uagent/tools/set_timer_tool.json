@@ -214,5 +214,29 @@
     "param.seconds.description": "عدد الثواني في جهاز ضبط الوقت.",
     "tool.description": "يعرض رسالة بعد عدد محدد من الثواني. اختياريًا، يمكن إدخال رسالة تلقائية في LLM.",
     "tool.system_prompt": "تُستخدم هذه الأداة لعرض رسالة بعد فترة زمنية محددة وإدخال رسالة تلقائية اختياريًا إلى LLM."
+  },
+  "sv": {
+    "err.queue_uninitialized": "[set_timer-fel] event_queue-callbacken är inte initierad.",
+    "err.seconds_invalid": "[set_timer-fel] sekunder kan inte tolkas som ett heltal: {raw}",
+    "err.seconds_negative": "[set_timer-fel] sekunder måste vara 0 eller större: {val}",
+    "msg.default_timer_done": "Timern är slut",
+    "out.ok": "[set_timer] Ställde in timer på {seconds} sekunder: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Meddelande som visas när tiden har gått ut.",
+    "param.on_timeout_prompt.description": "Innehåll som automatiskt skickas in i LLM när tiden går ut.",
+    "param.seconds.description": "Antalet sekunder för timern.",
+    "tool.description": "Visar ett meddelande efter ett angivet antal sekunder. Valfritt kan ett automatiskt meddelande skickas till LLM.",
+    "tool.system_prompt": "Det här verktyget används för att visa ett meddelande efter en angiven tid och kan vid behov mata in ett automatiskt meddelande i LLM."
+  },
+  "nb": {
+    "err.queue_uninitialized": "[set_timer-feil] event_queue-kallbakken er ikke initialisert.",
+    "err.seconds_invalid": "[set_timer-feil] sekunder kan ikke tolkes som et heltall: {raw}",
+    "err.seconds_negative": "[set_timer-feil] sekunder må være 0 eller større: {val}",
+    "msg.default_timer_done": "Timeren er ferdig",
+    "out.ok": "[set_timer] Satt timer til {seconds} sekunder: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Meldingen som vises når tiden er ute.",
+    "param.on_timeout_prompt.description": "Innhold som automatisk sendes inn i LLM når tiden utløper.",
+    "param.seconds.description": "Antall sekunder for timeren.",
+    "tool.description": "Viser en melding etter et angitt antall sekunder. Valgfritt kan en automatisk melding sendes til LLM.",
+    "tool.system_prompt": "Dette verktøyet brukes til å vise en melding etter en angitt tid og kan eventuelt sende inn en automatisk melding til LLM."
   }
 }

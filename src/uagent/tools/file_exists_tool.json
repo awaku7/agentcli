@@ -106,5 +106,17 @@
     "param.path.description": "مسار الملف أو الدليل الذي تريد التحقق من وجوده (يمكن أيضًا استخدام ~).",
     "tool.description": "التحقق من وجود ملف أو دليل في المسار المحدد وإرجاع نوعه وحجمه ووقت التعديل إذا كان موجودًا.",
     "tool.system_prompt": "استخدم هذه الأداة للتحقق من وجود ملف أو دليل في المسار المحدد، وإذا كان موجودًا، قم بإرجاع نوعه وحجمه ووقت التعديل."
+  },
+  "sv": {
+    "err.path_empty": "[file_exists error] sökvägen är tom",
+    "param.path.description": "Sökvägen till filen eller katalogen som du vill kontrollera (~ kan också användas).",
+    "tool.description": "Kontrollerar om en fil eller katalog finns på den angivna sökvägen och returnerar, om den finns, typ, storlek och ändringstid.",
+    "tool.system_prompt": "Använd det här verktyget för att kontrollera om en fil eller katalog finns på den angivna sökvägen och, om den finns, returnera typ, storlek och ändringstid."
+  },
+  "nb": {
+    "err.path_empty": "[file_exists error] stien er tom",
+    "param.path.description": "Stien til filen eller katalogen du vil sjekke om finnes (~ kan også brukes).",
+    "tool.description": "Sjekker om en fil eller katalog finnes på den angitte stien og returnerer type, størrelse og endringstid hvis den gjør det.",
+    "tool.system_prompt": "Bruk dette verktøyet til å sjekke om en fil eller katalog finnes på den angitte stien, og hvis den gjør det, returner type, størrelse og endringstid."
   }
 }

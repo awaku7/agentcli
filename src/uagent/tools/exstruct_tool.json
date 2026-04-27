@@ -340,5 +340,43 @@
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"exstruct\".",
     "param.password.description": "كلمة مرور اختيارية لملفات .xlsx المشفرة. إذا تم حذفه وتم تشفير الملف، فستتم مطالبتك مرة واحدة بكلمة المرور.",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{المسار}"
+  },
+  "sv": {
+    "param.action.description": "Åtgärd som ska utföras.",
+    "param.auto_page_breaks_dir.description": "Katalog för att spara områden för automatiska sidbrytningar.",
+    "param.density_min.description": "Tröskel för tabelltäthet.",
+    "param.file_path.description": "Sökväg till indata-Excel-filen.",
+    "param.format.description": "Utdataformat.",
+    "param.include_cell_links.description": "Om cellhyperlänkar ska inkluderas.",
+    "param.include_shapes.description": "Om former ska inkluderas.",
+    "param.mode.description": "Extraktionsläge.",
+    "param.output_path.description": "Utmatningssökväg för export_file.",
+    "param.pretty.description": "Om utdata ska formateras snyggt.",
+    "param.print_areas_dir.description": "Katalog för att spara filer per utskriftsområde.",
+    "param.sheets_dir.description": "Katalog för att spara filer per blad.",
+    "param.table_score_threshold.description": "Tröskel för tabellidentifiering.",
+    "tool.description": "Använd exstruct för att extrahera strukturerade data från en Excel-fil (.xlsx) och returnera eller spara dem som JSON/YAML. Om export_file.output_path redan finns skapas en säkerhetskopia (<output_path>.org / <output_path>.org1 / ...) direkt före sparandet.",
+    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'exstruct'.",
+    "param.password.description": "Valfritt lösenord för krypterade .xlsx-filer. Om det utelämnas och filen är krypterad kommer du att uppmanas en gång att ange ett lösenord.",
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "nb": {
+    "param.action.description": "Handling som skal utføres.",
+    "param.auto_page_breaks_dir.description": "Katalog for å lagre områder for automatiske sideskift.",
+    "param.density_min.description": "Terskel for tabelltetthet.",
+    "param.file_path.description": "Sti til inngangs-Excel-filen.",
+    "param.format.description": "Utdataformat.",
+    "param.include_cell_links.description": "Om cellehyperlenker skal inkluderes.",
+    "param.include_shapes.description": "Om former skal inkluderes.",
+    "param.mode.description": "Ekstraksjonsmodus.",
+    "param.output_path.description": "Utdata-sti for export_file.",
+    "param.pretty.description": "Om utdata skal formateres pent.",
+    "param.print_areas_dir.description": "Katalog for å lagre filer per utskriftsområde.",
+    "param.sheets_dir.description": "Katalog for å lagre filer per ark.",
+    "param.table_score_threshold.description": "Terskel for tabellgjenkjenning.",
+    "tool.description": "Bruk exstruct til å trekke ut strukturerte data fra en Excel-fil (.xlsx) og returnere eller lagre dem som JSON/YAML. Hvis export_file.output_path allerede finnes, opprettes det en sikkerhetskopi (<output_path>.org / <output_path>.org1 / ...) rett før lagring.",
+    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'exstruct'.",
+    "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   }
 }

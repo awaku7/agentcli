@@ -322,5 +322,41 @@
     "param.root_path.description": "الدليل الذي يمثل نقطة البداية لعمليات البحث والفهارس. الافتراضي هو الدليل الحالي.",
     "tool.description": "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (ملفات_البحث_الدلالية). يكون هذا مفيدًا عندما تريد إعداد بيانات البحث دون قراءة محتويات الملف على الفور.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "err.glob_fail": "Fel: Kunde inte tolka mönstret: {err}",
+    "err.pattern_required": "Fel: mönster har inte angivits.",
+    "err.root_not_dir": "Fel: root_path är inte en katalog: {root_path}",
+    "err.vec_unavailable": "Fel: Det går inte att skapa index eftersom modulen för semantisk sökning (semantic_search_files_tool) inte är tillgänglig.",
+    "out.completed": "Indexeringen är klar.",
+    "out.fail": "Fel: {count} objekt",
+    "out.footer": "Du kan nu använda `semantic_search_files` för att söka i dessa filer.",
+    "out.not_found": "Inga filer matchade mönstret \"{pattern}\".",
+    "out.pattern": "Målmönster: {pattern}",
+    "out.root": "Rotkatalog: {root_abs}",
+    "out.success": "Lyckades: {count} objekt",
+    "param.pattern.description": "Målfilsnamn, katalognamn eller glob-mönster (t.ex. \"src/**/*.py\", \"*.md\").",
+    "param.recursive.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\".",
+    "param.root_path.description": "Katalog som fungerar som startpunkt för sökningar och indexering. Standard är den aktuella katalogen.",
+    "tool.description": "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files). Detta är användbart när du vill förbereda sökdata utan att läsa filinnehållet direkt.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "err.glob_fail": "Feil: Klarte ikke å tolke mønsteret: {err}",
+    "err.pattern_required": "Feil: mønster er ikke spesifisert.",
+    "err.root_not_dir": "Feil: root_path er ikke en katalog: {root_path}",
+    "err.vec_unavailable": "Feil: Kan ikke opprette indeks fordi modulen for semantisk søk (semantic_search_files_tool) ikke er tilgjengelig.",
+    "out.completed": "Indekseringen er fullført.",
+    "out.fail": "Feil: {count} elementer",
+    "out.footer": "Du kan nå bruke `semantic_search_files` til å søke i disse filene.",
+    "out.not_found": "Ingen filer matchet mønsteret \"{pattern}\".",
+    "out.pattern": "Målmønster: {pattern}",
+    "out.root": "Rotkatalog: {root_abs}",
+    "out.success": "Vellykket: {count} elementer",
+    "param.pattern.description": "Målfilnavn, katalognavn eller glob-mønster (for eksempel \"src/**/*.py\", \"*.md\").",
+    "param.recursive.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\".",
+    "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering. Standard er gjeldende katalog.",
+    "tool.description": "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files). Dette er nyttig når du vil forberede søkedata uten å lese filinnholdet med en gang.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   }
 }

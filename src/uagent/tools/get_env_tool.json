@@ -142,5 +142,21 @@
     "param.unmasked_chars.description": "عدد الأحرف التي يجب تركها في البداية والنهاية عند الإخفاء. الافتراضي هو 2.",
     "tool.description": "الحصول على قيمة متغير البيئة المحدد وإرجاعها. أقنعة القيمة بشكل اختياري.",
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: الحصول على قيمة متغير بيئة محدد وإعادتها. اختياريًا، قم بإخفاء القيمة."
+  },
+  "sv": {
+    "param.mask.description": "Om true, maskerar värdet (t.ex. hemlig information). Standard är true.",
+    "param.missing_ok.description": "Om true, returneras \"(not set)\" i stället för ett fel när värdet saknas. Standard är false.",
+    "param.name.description": "Namnet på miljövariabeln som ska läsas.",
+    "param.unmasked_chars.description": "Antal tecken som ska lämnas kvar i början och slutet vid maskering. Standard är 2.",
+    "tool.description": "Hämtar värdet för en angiven miljövariabel och վերադարձar det. Värdet kan maskeras vid behov.",
+    "tool.system_prompt": "Det här verktyget används för att hämta värdet för en angiven miljövariabel och returnera det. Värdet kan maskeras vid behov."
+  },
+  "nb": {
+    "param.mask.description": "Hvis true, maskerer verdien (for eksempel sensitiv informasjon). Standard er true.",
+    "param.missing_ok.description": "Hvis true, returneres \"(not set)\" i stedet for en feil når verdien mangler. Standard er false.",
+    "param.name.description": "Navnet på miljøvariabelen som skal leses.",
+    "param.unmasked_chars.description": "Antall tegn som skal beholdes i begynnelsen og slutten ved maskering. Standard er 2.",
+    "tool.description": "Henter verdien til en angitt miljøvariabel og returnerer den. Verdien kan maskeres ved behov.",
+    "tool.system_prompt": "Dette verktøyet brukes til å hente verdien til en angitt miljøvariabel og returnere den. Verdien kan maskeres ved behov."
   }
 }

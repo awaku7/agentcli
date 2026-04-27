@@ -286,5 +286,37 @@
     "param.splice_op.description": "عملية splice (وضع splice).",
     "tool.description": "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات.",
     "tool.system_prompt": "تستخدم هذه الأداة للغرض التالي: تحرير ملف محلي على شكل بايتات خام (ثنائي).\n\nSECURITY / SAFETY:\n- تعدل هذه الأداة الملفات المحلية وقد تتسبب في إتلافها.\n- اطلب دائمًا تأكيدًا باستخدام human_ask قبل الكتابة.\n- لا تعمل على مسارات خارج دليل العمل الحالي عند التشغيل تحت سياسات الأمان الخاصة بالوكيل المضيف.\n"
+  },
+  "sv": {
+    "param.data_hex.description": "Hexsträng med byte att skriva/infoga (t.ex. 'DEADBEEF' eller 'DE AD BE EF').",
+    "param.delete_len.description": "Antal byte som ska tas bort (splice-delete).",
+    "param.dry_run.description": "Om true, ändra inte filen; rapportera bara vad som skulle ändras.",
+    "param.max_bytes.description": "Avvisa filer som är större än denna storlek (byte).",
+    "param.mode.description": "Redigeringsläge.",
+    "param.occurrence.description": "Vilket förekommande träff som ska ersättas (1-baserat). 0 betyder ersätt alla förekomster (samma längd krävs fortfarande).",
+    "param.offset.description": "Byte-offset (0-baserat). Krävs för write/splice.",
+    "param.patch_json.description": "JSON-sträng-patch (apply_patch-läge).",
+    "param.path.description": "Målfilens sökväg.",
+    "param.replace_hex.description": "Hexsträng att ersätta med (replace-läge). Måste vara lika lång som search_hex om inte allow_resize=true (stöds inte).",
+    "param.search_hex.description": "Hexsträng att söka efter (replace-läge).",
+    "param.splice_op.description": "Splice-operation (splice-läge).",
+    "tool.description": "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer.",
+    "tool.system_prompt": "Det här verktyget används för att redigera en lokal fil som råa byte (binär).\n\nSECURITY / SAFETY:\n- Det här verktyget ändrar lokala filer och kan förstöra dem.\n- Begär alltid bekräftelse med human_ask innan skrivning.\n- Arbeta inte på sökvägar utanför den aktuella workdir när du kör under värdagentens säkerhetspolicy.\n"
+  },
+  "nb": {
+    "param.data_hex.description": "Hexstreng med byte som skal skrives/innsettes (f.eks. 'DEADBEEF' eller 'DE AD BE EF').",
+    "param.delete_len.description": "Antall byte som skal slettes (splice-sletting).",
+    "param.dry_run.description": "Hvis true, ikke endre filen; bare rapporter hva som ville endres.",
+    "param.max_bytes.description": "Avvis filer som er større enn denne størrelsen (byte).",
+    "param.mode.description": "Redigeringsmodus.",
+    "param.occurrence.description": "Hvilket treff som skal erstattes (1-basert). 0 betyr erstatt alle forekomster (samme lengde kreves fortsatt).",
+    "param.offset.description": "Byte-offset (0-basert). Kreves for write/splice.",
+    "param.patch_json.description": "JSON-streng-patch (apply_patch-modus).",
+    "param.path.description": "Målfilens sti.",
+    "param.replace_hex.description": "Hexstreng som skal erstattes med (replace-modus). Må være like lang som search_hex med mindre allow_resize=true (støttes ikke).",
+    "param.search_hex.description": "Hexstreng som skal søkes etter (replace-modus).",
+    "param.splice_op.description": "Splice-operasjon (splice-modus).",
+    "tool.description": "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer.",
+    "tool.system_prompt": "Dette verktøyet brukes til å redigere en lokal fil som rå byte (binær).\n\nSECURITY / SAFETY:\n- Dette verktøyet endrer lokale filer og kan ødelegge dem.\n- Be alltid om bekreftelse med human_ask før skriving.\n- Ikke arbeid på stier utenfor gjeldende workdir når du kjører under vertsagentens sikkerhetsregler.\n"
   }
 }

@@ -196,5 +196,27 @@
     "param.skill_dir.description": "دليل المهارات",
     "tool.description": "يقرأ الملف بأمان ضمن دليل المهارات باستخدام مسار نسبي. تم حظر اجتياز المسار.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "err.invalid_args": "[verktygsfel] ogiltiga argument",
+    "err.max_bytes_positive": "[verktygsfel] max_bytes måste vara ett positivt heltal",
+    "err.relative_path_required": "[verktygsfel] relative_path måste vara en icke-tom sträng",
+    "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
+    "param.max_bytes.description": "Maximalt antal bytes att läsa (standard: 5000000)",
+    "param.relative_path.description": "Sökväg relativt skill-rot (t.ex. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills-katalog",
+    "tool.description": "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.max_bytes_positive": "[verktøyfeil] max_bytes må være et positivt heltall",
+    "err.relative_path_required": "[verktøyfeil] relative_path må være en ikke-tom streng",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.max_bytes.description": "Maksimalt antall byte som skal leses (standard: 5000000)",
+    "param.relative_path.description": "Sti relativt til skill-rot (f.eks. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills-katalog",
+    "tool.description": "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitrasering blokkeres.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   }
 }

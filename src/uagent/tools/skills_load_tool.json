@@ -124,5 +124,19 @@
     "param.skill_dir.description": "دليل المهارات (مطلوب SKILL.md أدناه مباشرة)",
     "tool.description": "يقوم بتحميل SKILL.md لمهارة العميل ويعيد المادة الأمامية YAML وجسم Markdown.",
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+  },
+  "sv": {
+    "err.invalid_args": "[verktygsfel] ogiltiga argument",
+    "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
+    "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
+    "tool.description": "Läser SKILL.md för en Agent Skill och returnerar dess YAML frontmatter och Markdown-body.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
+    "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
+    "tool.description": "Laster SKILL.md for en Agent Skill og returnerer YAML-frontmatter og Markdown-innhold.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   }
 }

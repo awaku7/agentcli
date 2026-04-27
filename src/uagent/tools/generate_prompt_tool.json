@@ -196,5 +196,27 @@
     "param.template.description": "قالب تنسيق بايثون. مثال: '{خطوط} خطوط\n\n{المحتوى}'.",
     "tool.description": "قم بإنشاء سلسلة مطالبة من ملف باستخدام قالب تنسيق Python. يمكن أن يشير القالب إلى متغيرات مثل {content} و{lines} و{bytes} و{basename} و{path}.",
     "tool.system_prompt": "اقرأ ملفًا نصيًا ضمن Workdir وقم بإنشاء سلسلة مطالبة من خلال تطبيق قالب (Python str.format).\nمتغيرات القالب المتاحة:\n- المحتوى: محتوى الملف الكامل (النص)\n- الخطوط: عدد الخطوط\n- بايت: حجم الملف بالبايت\n- الاسم الأساسي: الاسم الأساسي للملف\n- المسار: مسار الحل المطلق"
+  },
+  "sv": {
+    "err.bad_template": "[generate_prompt-fel] mallen har en okänd nyckel: {key}",
+    "err.not_a_file": "[generate_prompt-fel] inte en fil: {path}",
+    "err.path_missing": "[generate_prompt-fel] sökväg/filnamn är inte angivet",
+    "err.template_missing": "[generate_prompt-fel] mallen är inte angiven",
+    "param.filename.description": "(Kompatibilitet) Alias för path.",
+    "param.path.description": "Sökväg till indatafilen (måste ligga under workdir).",
+    "param.template.description": "Python-formatmall. Exempel: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Genererar en promptsträng från en fil med en Python-formatmall. Mallen kan referera till variabler som {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Läs en textfil under workdir och generera en promptsträng genom att tillämpa en mall (Python str.format).\nTillgängliga mallvariabler:\n- content: hela filinnehållet (text)\n- lines: antal rader\n- bytes: filstorlek i byte\n- basename: filens basnamn\n- path: absolut upplöst sökväg"
+  },
+  "nb": {
+    "err.bad_template": "[generate_prompt-feil] malen har en ukjent nøkkel: {key}",
+    "err.not_a_file": "[generate_prompt-feil] ikke en fil: {path}",
+    "err.path_missing": "[generate_prompt-feil] sti/filnavn er ikke angitt",
+    "err.template_missing": "[generate_prompt-feil] malen er ikke angitt",
+    "param.filename.description": "(Kompatibilitet) Alias for path.",
+    "param.path.description": "Sti til inputfilen (må ligge under workdir).",
+    "param.template.description": "Python-formatmal. Eksempel: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Genererer en promptstreng fra en fil ved hjelp av en Python-formatmal. Malen kan referere til variabler som {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Les en tekstfil under workdir og generer en promptstreng ved å anvende en mal (Python str.format).\nTilgjengelige malvariabler:\n- content: hele filinnholdet (tekst)\n- lines: antall linjer\n- bytes: filstørrelse i byte\n- basename: filens basisnavn\n- path: absolutt løst sti"
   }
 }

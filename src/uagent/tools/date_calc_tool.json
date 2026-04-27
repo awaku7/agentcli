@@ -214,5 +214,29 @@
     "param.years.description": "عدد السنوات المطلوب إضافتها (الطرح هو رقم سالب).",
     "tool.description": "إضافة أو طرح السنوات أو الأشهر أو الأسابيع أو الأيام لتاريخ محدد وإرجاع النتيجة. يتضمن الكشف عن العطلات باستخدام مكتبة العطلات.",
     "tool.system_prompt": "تقوم هذه الأداة بإضافة أو طرح السنوات أو الأشهر أو الأسابيع أو الأيام لتاريخ محدد، ويمكنها أيضًا تحديد ما إذا كانت النتيجة تقع في يوم عطلة باستخدام مكتبة العطلات. راجع وصف الأداة للحصول على التفاصيل."
+  },
+  "sv": {
+    "doc.get_holiday_info": "Hämta helgdagsnamnen för det angivna landet med hjälp av holidays-biblioteket.",
+    "param.base_date.description": "Startdatum (ISO 8601-format 'YYYY-MM-DD'; om det utelämnas används idag).",
+    "param.check_holiday.description": "Om det ska avgöras om resultatet är en helgdag (standard: true)",
+    "param.country.description": "Landskod för att avgöra helgdagar (ISO 3166-1 alpha-2, t.ex. 'JP', 'US', 'GB', 'FR'). Standard är 'JP'.",
+    "param.days.description": "Antal dagar att lägga till (subtraktion anges med ett negativt tal).",
+    "param.months.description": "Antal månader att lägga till (subtraktion anges med ett negativt tal).",
+    "param.weeks.description": "Antal veckor att lägga till (subtraktion anges med ett negativt tal).",
+    "param.years.description": "Antal år att lägga till (subtraktion anges med ett negativt tal).",
+    "tool.description": "Lägg till eller dra ifrån år, månader, veckor eller dagar för ett angivet datum och returnera resultatet. Inkluderar helgdagskontroll med holidays-biblioteket.",
+    "tool.system_prompt": "Det här verktyget lägger till eller drar ifrån år, månader, veckor eller dagar för ett angivet datum och kan också avgöra om resultatet infaller på en helgdag med hjälp av holidays-biblioteket. Se verktygsbeskrivningen för detaljer."
+  },
+  "nb": {
+    "doc.get_holiday_info": "Hent navnene på helligdagene for det angitte landet ved hjelp av holidays-biblioteket.",
+    "param.base_date.description": "Startdato (ISO 8601-format 'YYYY-MM-DD'; hvis utelatt, i dag).",
+    "param.check_holiday.description": "Om det skal avgjøres om det er en helligdag (standard: true)",
+    "param.country.description": "Landkode for å avgjøre offentlige helligdager (ISO 3166-1 alpha-2, f.eks. 'JP', 'US', 'GB', 'FR'). Standard er 'JP'.",
+    "param.days.description": "Antall dager som skal legges til (subtraksjon er et negativt tall).",
+    "param.months.description": "Antall måneder som skal legges til (subtraksjon er negativ).",
+    "param.weeks.description": "Antall uker som skal legges til (subtraksjon er negativ).",
+    "param.years.description": "Antall år som skal legges til (subtraksjon er et negativt tall).",
+    "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Inkluderer helligdagskontroll med holidays-biblioteket.",
+    "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet faller på en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
   }
 }
