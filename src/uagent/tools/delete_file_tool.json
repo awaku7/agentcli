@@ -196,5 +196,27 @@
     "param.path.description": "(التوافق) الاسم المستعار لاسم الملف.",
     "tool.description": "احذف الملف أو الدليل المحدد (يتم حذف الدلائل بشكل متكرر). ونظرًا لخطورة ذلك، فقد تكون هناك حاجة إلى تأكيد.",
     "tool.system_prompt": "احذف المسار المحدد فقط بعد التأكيد مع المستخدم إذا كانت العملية قد تكون مدمرة."
+  },
+  "sv": {
+    "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?\n\n{paths}\n\nSkriv y för att fortsätta, eller c för att avbryta.",
+    "param.allow_dir.description": "Om det är aktiverat tillåts borttagning av kataloger som matchar glob-mönstret.",
+    "param.confirmed.description": "Om det är aktiverat hoppas verktygets interna bekräftelsedialog över.",
+    "param.dry_run.description": "Om det är aktiverat listas endast matchande sökvägar och inget tas bort.",
+    "param.filename.description": "Sökväg som ska tas bort, eller en lista med sökvägar/glob-mönster.",
+    "param.missing_ok.description": "Om det är aktiverat uppstår inget fel när sökvägen inte finns.",
+    "param.path.description": "(Kompatibilitet) Alias för filename.",
+    "tool.description": "Tar bort den angivna filen eller katalogen. Kataloger tas bort rekursivt. Eftersom detta är en farlig åtgärd kan bekräftelse krävas.",
+    "tool.system_prompt": "Ta bort den angivna sökvägen endast efter att du har fått bekräftelse från användaren, eftersom åtgärden kan vara destruktiv."
+  },
+  "nb": {
+    "confirm.delete_paths_bulk": "Slett {count} stier?\n\n{paths}\n\nSkriv y for å fortsette, eller c for å avbryte.",
+    "param.allow_dir.description": "Hvis det er aktivert, tillates sletting av kataloger som matcher glob-mønsteret.",
+    "param.confirmed.description": "Hvis det er aktivert, hoppes verktøyets interne bekreftelsesdialog over.",
+    "param.dry_run.description": "Hvis det er aktivert, listes bare samsvarende stier, og ingenting slettes.",
+    "param.filename.description": "Sti som skal slettes, eller en liste over stier/glob-mønstre.",
+    "param.missing_ok.description": "Hvis det er aktivert, får du ikke feil når stien ikke finnes.",
+    "param.path.description": "(Kompatibilitet) Alias for filename.",
+    "tool.description": "Sletter den angitte filen eller katalogen. Kataloger slettes rekursivt. Siden dette er en farlig handling, kan bekreftelse være nødvendig.",
+    "tool.system_prompt": "Slett den angitte stien bare etter å ha fått bekreftelse fra brukeren, siden handlingen kan være destruktiv."
   }
 }

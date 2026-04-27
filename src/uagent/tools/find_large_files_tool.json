@@ -178,5 +178,25 @@
     "param.top_n.description": "عدد النتائج العليا المراد إرجاعها.",
     "tool.description": "يبحث عن الملفات الكبيرة ضمن الدليل المحدد ويعرض أفضل نتائج N بالإضافة إلى الإحصائيات حسب الامتداد.",
     "tool.system_prompt": "تبحث هذه الأداة عن الملفات الكبيرة ضمن الدليل المحدد وتقوم بإرجاع أفضل نتائج N بالإضافة إلى الإحصائيات حسب الامتداد."
+  },
+  "sv": {
+    "param.exclude_dirs.description": "Uteslutna katalognamn (matchas mot katalognamn).",
+    "param.group_by_ext.description": "Returnera även statistik grupperad per filändelse.",
+    "param.max_files.description": "Maximalt antal filer att skanna (för att förhindra att processen skenar).",
+    "param.min_bytes.description": "Inkludera endast filer som är större än denna storlek (standard: 10 MB).",
+    "param.root.description": "Sökrot (endast tillåten under workdir).",
+    "param.top_n.description": "Antal toppresultat att returnera.",
+    "tool.description": "Söker efter stora filer under den angivna katalogen och возвращar de översta N resultaten tillsammans med statistik per filändelse.",
+    "tool.system_prompt": "Det här verktyget söker efter stora filer under den angivna katalogen och возвращar de översta N resultaten tillsammans med statistik per filändelse."
+  },
+  "nb": {
+    "param.exclude_dirs.description": "Utelatte katalognavn (treffes mot katalognavn).",
+    "param.group_by_ext.description": "Returner også statistikk gruppert etter filendelse.",
+    "param.max_files.description": "Maksimalt antall filer som skal skannes (for å hindre at prosessen løper løpsk).",
+    "param.min_bytes.description": "Inkluder bare filer som er større enn denne størrelsen (standard: 10 MB).",
+    "param.root.description": "Søkerot (kun tillatt under workdir).",
+    "param.top_n.description": "Antall toppresultater som skal returneres.",
+    "tool.description": "Søker etter store filer under den angitte katalogen og returnerer de øverste N resultatene sammen med statistikk per filendelse.",
+    "tool.system_prompt": "Dette verktøyet søker etter store filer under den angitte katalogen og returnerer de øverste N resultatene sammen med statistikk per filendelse."
   }
 }

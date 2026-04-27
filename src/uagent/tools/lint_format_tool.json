@@ -196,5 +196,27 @@
     "param.tools.description": "مجموعة من أسماء الأدوات للتشغيل. إذا كان فارغًا، فسيتم تحديده تلقائيًا.",
     "tool.description": "قم بتشغيل التحليل/التنسيقات الثابتة (على سبيل المثال، ruff/black/mypy). mode=fix يعدل الملفات ويتطلب التأكيد.",
     "tool.system_prompt": "تشغيل التحليل/المنسقات الثابتة. إذا كان هناك حاجة إلى تأكيد إضافي للمستخدم (على سبيل المثال، الوضع = الإصلاح)، فاستخدم human_ask."
+  },
+  "sv": {
+    "confirm.msg": "lint_format(mode=fix) kan skriva om filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSkriv y om du vill fortsätta, eller c om du vill avbryta.",
+    "doc.module": "lint_format_tool\n\nEtt wrapperverktyg för att köra statisk analys/formaterare.\n\n- Python: prioritera ruff / black / mypy\n- JavaScript: Av säkerhetsskäl ska npx inte köras aktivt.\n\nSäkerhet:\n- mode=fix innebär filändringar, så kontrollera med human_ask.\n- Acceptera argument som en array och avvisa dem om de innehåller farliga shell-metatecken.",
+    "param.cwd.description": "Körningskatalog (tillåts endast under workdir). Om null, aktuell.",
+    "param.extra_args.description": "Ytterligare argument (array). Avvisa farliga metatecken.",
+    "param.mode.description": "check=endast kontroll / fix=automatisk korrigering",
+    "param.targets.description": "Array med målvägar (tillåts endast under workdir).",
+    "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
+    "tool.description": "Kör statisk analys/formaterare (t.ex. ruff/black/mypy). mode=fix ändrar filer och kräver bekräftelse.",
+    "tool.system_prompt": "Kör statisk analys/formaterare. Om ytterligare användarbekräftelse krävs (t.ex. mode=fix), använd human_ask."
+  },
+  "nb": {
+    "confirm.msg": "lint_format(mode=fix) kan skrive om filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSkriv y hvis du vil fortsette, eller c hvis du vil avbryte.",
+    "doc.module": "lint_format_tool\n\nEt wrapperverktøy for å kjøre statisk analyse/formaterere.\n\n- Python: prioriter ruff / black / mypy\n- JavaScript: Av sikkerhetsgrunner bør npx ikke kjøres aktivt.\n\nSikkerhet:\n- mode=fix innebærer filendringer, så bekreft med human_ask.\n- Godta argumenter som en matrise og avvis dem hvis de inneholder farlige shell-metategn.",
+    "param.cwd.description": "Kjøringskatalog (kun tillatt under workdir). Hvis null, gjeldende.",
+    "param.extra_args.description": "Tilleggsargumenter (matrise). Avvis farlige metategn.",
+    "param.mode.description": "check=kun kontroll / fix=automatisk korrigering",
+    "param.targets.description": "Matrise med målbaner (kun tillatt under workdir).",
+    "param.tools.description": "En matrise med verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
+    "tool.description": "Kjør statisk analyse/formaterere (for eksempel ruff/black/mypy). mode=fix endrer filer og krever bekreftelse.",
+    "tool.system_prompt": "Kjør statisk analyse/formaterere. Hvis det kreves ytterligere brukerkonfirmasjon (for eksempel mode=fix), bruk human_ask."
   }
 }

@@ -250,5 +250,33 @@
     "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية. لا يمكن تحديدها في نفس الوقت مع خطوط_الرأس.",
     "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت). القراءة الجزئية ممكنة عن طريق تحديد خط البداية وخطوط الحد الأقصى.",
     "tool.system_prompt": "قراءة محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام خطوط start_line/max_lines.\n- يتم تطبيع الخطوط الجديدة تلقائيا."
+  },
+  "sv": {
+    "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
+    "err.filename_missing": "[read_file-fel] filnamn/sökväg har inte angetts.",
+    "err.out_of_range": "(Filen har bara {count} rader. start_line {start_line} ligger utanför intervallet)",
+    "msg.truncated": "[read_file trunkerad: bytegränsen {max_bytes} har nåtts]",
+    "param.filename.description": "Sökväg till filen som ska läsas.",
+    "param.head_lines.description": "Antal rader som ska läsas från början. Kan inte anges samtidigt med tail_lines.",
+    "param.max_lines.description": "Maximalt antal rader att läsa. Om null läses till slutet.",
+    "param.path.description": "(Kompatibilitet) Alternativt namn för filename.",
+    "param.start_line.description": "Radnummer (börjar på 1) där läsningen ska starta. Standard är 1.",
+    "param.tail_lines.description": "Antal rader som ska läsas från slutet. Kan inte anges samtidigt med head_lines.",
+    "tool.description": "Läs filinnehåll (upp till 1 000 000 byte). Partiell läsning är möjlig med start_line och max_lines.",
+    "tool.system_prompt": "Läs filinnehållet.\n- För stora filer rekommenderas partiell läsning med start_line/max_lines.\n- Radbrytningar normaliseras automatiskt."
+  },
+  "nb": {
+    "err.dual_lines": "[read_file-feil] head_lines og tail_lines kan ikke angis samtidig.",
+    "err.filename_missing": "[read_file-feil] filnavn/sti er ikke angitt.",
+    "err.out_of_range": "(Filen har bare {count} linjer. start_line {start_line} er utenfor området)",
+    "msg.truncated": "[read_file avkortet: bytegrensen {max_bytes} er nådd]",
+    "param.filename.description": "Stien til filen som skal leses.",
+    "param.head_lines.description": "Antall linjer som skal leses fra starten. Kan ikke angis samtidig med tail_lines.",
+    "param.max_lines.description": "Maksimalt antall linjer som skal leses. Hvis null, leses det til slutten.",
+    "param.path.description": "(Kompatibilitet) Alternativt navn for filename.",
+    "param.start_line.description": "Linjenummer (starter på 1) der lesingen skal begynne. Standard er 1.",
+    "param.tail_lines.description": "Antall linjer som skal leses fra slutten. Kan ikke angis samtidig med head_lines.",
+    "tool.description": "Les filinnhold (opptil 1 000 000 byte). Delvis lesing er mulig med start_line og max_lines.",
+    "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk."
   }
 }

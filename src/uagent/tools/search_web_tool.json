@@ -214,5 +214,29 @@
     "param.query.description": "سلسلة استعلام البحث.",
     "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجع العنوان/الرابط/المقتطف.",
     "tool.system_prompt": "تقوم هذه الأداة بإجراء بحث DuckDuckGo HTML وإرجاع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع مقيدًا للمعدل أو يحظر الطلب."
+  },
+  "sv": {
+    "error.args_must_be_dict": "args måste vara en dict",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-förfrågan misslyckades efter omförsök: {error}",
+    "error.missing_query_parameter": "saknar parametern 'query'",
+    "error.run_tool_error": "run_tool-fel: {error}",
+    "param.max_results.description": "Maximalt antal resultat att returnera (standard: 5).",
+    "param.n.description": "Alias för 'max_results' (för bakåtkompatibilitet).",
+    "param.q.description": "Alias för 'query' (för bakåtkompatibilitet).",
+    "param.query.description": "Sökfråga som sträng.",
+    "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
+    "tool.system_prompt": "Det här verktyget gör en DuckDuckGo-HTML-sökning och returnerar titel/länk/snutt. Om resultaten är tomma kan webbplatsen vara hastighetsbegränsande eller blockera begäran."
+  },
+  "nb": {
+    "error.args_must_be_dict": "args må være en dict",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørselen mislyktes etter gjentatte forsøk: {error}",
+    "error.missing_query_parameter": "mangler parameteren 'query'",
+    "error.run_tool_error": "run_tool-feil: {error}",
+    "param.max_results.description": "Maksimalt antall resultater som skal returneres (standard: 5).",
+    "param.n.description": "Alias for 'max_results' (for bakoverkompatibilitet).",
+    "param.q.description": "Alias for 'query' (for bakoverkompatibilitet).",
+    "param.query.description": "Søkeord som streng.",
+    "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
+    "tool.system_prompt": "Dette verktøyet utfører et DuckDuckGo HTML-søk og returnerer tittel/lenke/utdrag. Hvis resultatene er tomme, kan nettstedet begrense hastigheten eller blokkere forespørselen."
   }
 }

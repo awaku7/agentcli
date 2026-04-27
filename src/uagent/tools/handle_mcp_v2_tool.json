@@ -160,5 +160,23 @@
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...).",
     "tool.description": "استدعاء أداة من خادم MCP. قم بتوفير وسيطات الأداة في tool_arguments ككائن JSON (مستحسن) أو سلسلة JSON. القيمة المرجعة هي سلسلة JSON تحتوي على موافق ونص على الأقل. عندما يكون ذلك ممكنًا، يتم تضمين save_path (على سبيل المثال، عندما يقوم الخادم بإرجاع save_path، أو عندما يتم إرجاع حمولة ملف مثل {filename, mime, data_base64} ويقوم هذا العميل بحفظها في دليل التنزيلات المحلي). ملاحظة: قد يتم حذف save_path عندما لا تقوم الأداة بإرجاع أي حمولة للملف.",
     "tool.system_prompt": "استخدم هذه الأداة وفقًا للغرض الموضح أعلاه (انظر وصف الأداة)."
+  },
+  "sv": {
+    "doc.mask_values": "Ersätt värden i ordböcker och listor med '*' (strukturen bevaras).",
+    "param.server_name.description": "Servernamn från konfigurationsfilen. Om det anges prioriteras det framför url.",
+    "param.tool_arguments.description": "Argument som ska skickas till MCP-verktyget. Ange antingen ett JSON-objekt (rekommenderas) eller en JSON-sträng. Exempelobjekt: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Returvärdet är en JSON-sträng. När det är tillämpligt innehåller den saved_path. Obs: saved_path kan utelämnas när verktyget inte returnerar någon filpayload. Om verktyget returnerar en filpayload (till exempel {filename, mime, data_base64}) kan klienten spara den i en lokal downloads-katalog och inkludera saved_path i den returnerade JSON:en.",
+    "param.tool_name.description": "Namnet på verktyget som ska köras.",
+    "param.url.description": "MCP-serverns endpoint-URL.",
+    "tool.description": "Anropa ett verktyg från en MCP-server. Ange verktygsargument i tool_arguments som ett JSON-objekt (rekommenderas) eller en JSON-sträng. Returvärdet är en JSON-sträng som innehåller minst ok och text. När det är tillämpligt inkluderas saved_path (till exempel när servern returnerar saved_path, eller när en filpayload som {filename, mime, data_base64} returneras och klienten sparar den i en lokal downloads-katalog). Obs: saved_path kan utelämnas när verktyget inte returnerar någon filpayload.",
+    "tool.system_prompt": "Använd det här verktyget enligt det syfte som beskrivs ovan (se verktygsbeskrivningen)."
+  },
+  "nb": {
+    "doc.mask_values": "Erstatt verdier i ordbøker og lister med '*' (strukturen bevares).",
+    "param.server_name.description": "Servernavn fra konfigurasjonsfilen. Hvis angitt, har det prioritet over url.",
+    "param.tool_arguments.description": "Argumenter som skal sendes til MCP-verktøyet. Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng. Eksempelobjekt: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Returverdien er en JSON-streng. Når det er aktuelt, inkluderer den saved_path. Merk: saved_path kan utelates når verktøyet ikke returnerer noen filpayload. Hvis verktøyet returnerer en filpayload (for eksempel {filename, mime, data_base64}), kan klienten lagre den i en lokal downloads-katalog og inkludere saved_path i den returnerte JSON-en.",
+    "param.tool_name.description": "Navnet på verktøyet som skal kjøres.",
+    "param.url.description": "URL for MCP-serverens endepunkt.",
+    "tool.description": "Kall et verktøy fra en MCP-server. Oppgi verktøyargumenter i tool_arguments som et JSON-objekt (anbefalt) eller en JSON-streng. Returverdien er en JSON-streng som inneholder minst ok og text. Når det er aktuelt, inkluderes saved_path (for eksempel når serveren returnerer saved_path, eller når en filpayload som {filename, mime, data_base64} returneres og klienten lagrer den i en lokal downloads-katalog). Merk: saved_path kan utelates når verktøyet ikke returnerer noen filpayload.",
+    "tool.system_prompt": "Bruk dette verktøyet i henhold til formålet beskrevet ovenfor (se verktøybeskrivelsen)."
   }
 }

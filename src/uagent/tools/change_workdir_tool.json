@@ -124,5 +124,19 @@
     "param.new_dir.description": "مسار الدليل الجديد للتبديل إليه.",
     "tool.description": "قم بتغيير دليل العمل الحالي بعد تأكيد المستخدم.",
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"change_workdir\"."
+  },
+  "sv": {
+    "confirm.change_workdir": "Ändra den aktuella arbetskatalogen till: {new_dir}\n\nFortsätta? Ange y för att fortsätta, c för att avbryta.",
+    "param.confirm.description": "Om användaren ska tillfrågas om bekräftelse.",
+    "param.new_dir.description": "Den nya katalogsökvägen att byta till.",
+    "tool.description": "Ändra den aktuella arbetskatalogen efter användarens bekräftelse.",
+    "tool.system_prompt": "Det här verktyget utför åtgärden som beskrivs av verktygsnamnet \"change_workdir\"."
+  },
+  "nb": {
+    "confirm.change_workdir": "Endre den gjeldende arbeidskatalogen til: {new_dir}\n\nFortsette? Skriv y for å fortsette, c for å avbryte.",
+    "param.confirm.description": "Om brukeren skal bli bedt om bekreftelse.",
+    "param.new_dir.description": "Den nye katalogstien det skal byttes til.",
+    "tool.description": "Endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren.",
+    "tool.system_prompt": "Dette verktøyet utfører handlingen som er beskrevet av verktøynavnet \"change_workdir\"."
   }
 }

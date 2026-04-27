@@ -124,5 +124,19 @@
     "param.pid.description": "تضمين معرفات العملية.",
     "tool.description": "قم بتعداد عناوين النوافذ ذات المستوى الأعلى على نظام التشغيل Windows وإرجاع JSON المنظم. المعلمات: \"الكل\" (بما في ذلك غير المرئي)، و\"معرف المنتج\" (بما في ذلك معرف المنتج)، و\"الفئة\" (بما في ذلك اسم فئة النافذة).",
     "tool.system_prompt": "تقوم هذه الأداة بتعداد عناوين نوافذ المستوى الأعلى على نظام التشغيل Windows وإرجاع JSON منظم. إنه يعمل بنظام Windows فقط."
+  },
+  "sv": {
+    "param.all.description": "Inkludera även icke-synliga fönster.",
+    "param.class.description": "Inkludera fönsterklassnamn.",
+    "param.pid.description": "Inkludera process-ID:n.",
+    "tool.description": "Lista topplagrade fönstertitlar på Windows och returnera strukturerad JSON. Parametrar: \"all\" (inkludera icke-synliga), \"pid\" (inkludera PID), \"class\" (inkludera fönsterklassnamn).",
+    "tool.system_prompt": "Det här verktyget listar topplagrade fönstertitlar på Windows och returnerar strukturerad JSON. Det är endast för Windows."
+  },
+  "nb": {
+    "param.all.description": "Ta også med usynlige vinduer.",
+    "param.class.description": "Ta med vindusklassenavn.",
+    "param.pid.description": "Ta med prosess-ID-er.",
+    "tool.description": "List opp vindustitler på øverste nivå i Windows og returner strukturert JSON. Parametere: \"all\" (ta med usynlige), \"pid\" (ta med PID), \"class\" (ta med vindusklassenavn).",
+    "tool.system_prompt": "Dette verktøyet lister opp vindustitler på øverste nivå i Windows og returnerer strukturert JSON. Det er kun for Windows."
   }
 }

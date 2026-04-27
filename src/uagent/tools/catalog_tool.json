@@ -88,5 +88,15 @@
     "param.max_results.description": "الحد الأقصى لعدد عناصر الكتالوج التي ستُعاد.",
     "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة.",
     "tool.description": "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات."
+  },
+  "sv": {
+    "param.max_results.description": "Maximalt antal katalogposter som ska returneras.",
+    "param.query.description": "Naturlig språk-fråga som beskriver den funktion som behövs.",
+    "tool.description": "Returnerar en lättviktskatalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner."
+  },
+  "nb": {
+    "param.max_results.description": "Maksimalt antall katalogoppføringer som skal returneres.",
+    "param.query.description": "Naturlig språksøket som beskriver funksjonen som trengs.",
+    "tool.description": "Returnerer en lettvektskatalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner."
   }
 }

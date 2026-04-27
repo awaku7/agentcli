@@ -196,5 +196,27 @@
     "ui.captured": "--- تم التقاطها: {html}، {png}، {flow}، {snapshots}/ ---",
     "ui.resume_prompt": "بعد العملية، اضغط على \"استئناف\" (▷) في المفتش.",
     "ui.started": "--- بدأ مفتش الكاتب المسرحي ---"
+  },
+  "sv": {
+    "err.child_failed": "[playwright_inspector error] Underprocessen misslyckades:\n{stderr}",
+    "out.ok": "Infångning slutförd: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ skapades.\n{stdout}",
+    "param.prefix.description": "Prefix för filnamnet som ska sparas (standard: debug_capture)",
+    "param.url.description": "Första URL att öppna (standard: about:blank)",
+    "tool.description": "Starta Playwright Inspector för att fånga webbläsaråtgärder. Öppnar den angivna URL:en och sparar sidans tillstånd (HTML och bild) efter att användaren klickat på Resume-knappen. Dessutom sparas DOM-/skärmdumpssnapshots i följd vid varje navigering i huvudramen och navigering, nätverk, konsolhändelser med mera loggas i en JSONL-fil.",
+    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen).",
+    "ui.captured": "--- INFÅNGAT: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Efter åtgärden, tryck på Resume (▷) i Inspector.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTAD ---"
+  },
+  "nb": {
+    "err.child_failed": "[playwright_inspector error] Underprosessen mislyktes:\n{stderr}",
+    "out.ok": "Opptak fullført: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ ble opprettet.\n{stdout}",
+    "param.prefix.description": "Prefiks for filnavnet som skal lagres (standard: debug_capture)",
+    "param.url.description": "Første URL som skal åpnes (standard: about:blank)",
+    "tool.description": "Start Playwright Inspector for å fange nettleserhandlinger. Åpner den angitte URL-en og lagrer sidens tilstand (HTML og bilde) etter at brukeren klikker Resume-knappen. I tillegg lagres DOM-/skjermbilde-snapshots sekvensielt ved hver navigering i hovedrammen, og navigering, nettverk, konsollhendelser og mer logges i en JSONL-fil.",
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen).",
+    "ui.captured": "--- OPPRETTET: {html}, {png}, {flow}, {snapshots}/ ---",
+    "ui.resume_prompt": "Etter operasjonen, trykk Resume (▷) i Inspector.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
   }
 }

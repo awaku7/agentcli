@@ -196,5 +196,27 @@
     "param.max_bytes.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
     "param.max_chars.description": "الحد الأقصى لعدد الأحرف المطلوب إرجاعها (يتم تطبيقه بعد فك التشفير/الاستخراج).",
     "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية."
+  },
+  "sv": {
+    "param.url.description": "URL att öppna.",
+    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON.",
+    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"fetch_url\".",
+    "param.extract.description": "Extraktionsläge. head=returnera början av svaret; text=extrahera text från HTML; html=extrahera HTML-fragment; json=parsa JSON (tillämpa vid behov json_pointer).",
+    "param.selector.description": "Valfri CSS-selektor. Om den anges extraheras det första matchade elementet för extract=text/html.",
+    "param.json_pointer.description": "Valfri RFC 6901 JSON Pointer (t.ex. /items/0/title) som används när extract=json.",
+    "param.max_bytes.description": "Maximalt antal byte att läsa från svaret.",
+    "param.max_chars.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning/extraktion).",
+    "param.user_agent.description": "Valfritt User-Agent-huvudvärde."
+  },
+  "nb": {
+    "param.url.description": "URL som skal åpnes.",
+    "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON.",
+    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"fetch_url\".",
+    "param.extract.description": "Ekstraksjonsmodus. head=returner begynnelsen av svaret; text=ekstraher tekst fra HTML; html=ekstraher HTML-fragment; json=analyser JSON (bruk ved behov json_pointer).",
+    "param.selector.description": "Valgfri CSS-selector. Hvis den angis, ekstraheres det første samsvarende elementet for extract=text/html.",
+    "param.json_pointer.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) som brukes når extract=json.",
+    "param.max_bytes.description": "Maksimalt antall byte som leses fra svaret.",
+    "param.max_chars.description": "Maksimalt antall tegn som returneres (brukes etter dekoding/ekstraksjon).",
+    "param.user_agent.description": "Valgfri User-Agent-headerverdi."
   }
 }

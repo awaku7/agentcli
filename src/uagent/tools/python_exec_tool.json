@@ -124,5 +124,19 @@
     "param.paths.description": "ملفات Python أو الدلائل أو أنماط الكرة الأرضية المتعددة للتحقق من صحتها باستخدام py_compile. يتم فحص الدلائل بشكل متكرر بحثًا عن ملفات *.py.",
     "tool.description": "قم بتنفيذ كود Python أو التحقق من صحة ملفات Python باستخدام py_compile. استخدم هذه الأداة لإجراء العمليات الحسابية، أو معالجة البيانات، أو تشغيل البرامج النصية القصيرة، أو فحص ملفات بناء الجملة - خاصة عندما تكون الدقة مهمة. تفضل هذا على cmd_exec/cmd_exec_json لعمل Python.",
     "tool.system_prompt": "تنفيذ كود بايثون بطريقة خاضعة للرقابة.\n- إذا كنت بحاجة إلى ميزات مكتبة Python القياسية أو الحسابات الرقمية الموثوقة، فاستخدم هذه الأداة.\n- إذا تم توفير مسارات الملفات أو أنماط الكرة الأرضية، فقم بتشغيل py_compile على تلك الأهداف وأعد النتيجة.\n- عندما تكون على وشك تشغيل التعليمات البرمجية، اذكر بإيجاز ما سيتم تنفيذه.\n- لا تستخدم cmd_exec لتشغيل Python ما لم يكن ذلك ضروريًا بشكل صريح."
+  },
+  "sv": {
+    "param.code.description": "Python-kod som ska köras (enradig eller flerradig).",
+    "param.path.description": "En Python-fil, katalog eller ett glob-mönster som ska valideras med py_compile. Kataloger genomsöks rekursivt efter *.py-filer.",
+    "param.paths.description": "Flera Python-filer, kataloger eller glob-mönster som ska valideras med py_compile. Kataloger genomsöks rekursivt efter *.py-filer.",
+    "tool.description": "Kör Python-kod eller validera Python-filer med py_compile. Använd det här verktyget för beräkningar, databehandling, korta skript eller syntaxkontroll av filer — särskilt när noggrannhet är viktig. Föredra detta framför cmd_exec/cmd_exec_json för Python-arbete.",
+    "tool.system_prompt": "Kör Python-kod på ett kontrollerat sätt.\n- Om du behöver Python-standardbiblioteket eller tillförlitliga numeriska beräkningar, använd det här verktyget.\n- Om filvägar eller glob-mönster anges, kör py_compile på dessa mål och returnera resultatet.\n- När du är på väg att köra kod, ange kort vad som kommer att köras.\n- Använd inte cmd_exec för att köra Python om det inte uttryckligen behövs."
+  },
+  "nb": {
+    "param.code.description": "Python-kode som skal kjøres (enlinje eller flerlinje).",
+    "param.path.description": "En Python-fil, katalog eller et glob-mønster som skal valideres med py_compile. Kataloger skannes rekursivt etter *.py-filer.",
+    "param.paths.description": "Flere Python-filer, kataloger eller glob-mønstre som skal valideres med py_compile. Kataloger skannes rekursivt etter *.py-filer.",
+    "tool.description": "Kjør Python-kode eller valider Python-filer med py_compile. Bruk dette verktøyet til beregninger, databehandling, korte skript eller syntakskontroll av filer — spesielt når nøyaktighet er viktig. Foretrekk dette fremfor cmd_exec/cmd_exec_json for Python-arbeid.",
+    "tool.system_prompt": "Kjør Python-kode på en kontrollert måte.\n- Hvis du trenger Python-standardbiblioteket eller pålitelige numeriske beregninger, bruk dette verktøyet.\n- Hvis filstier eller glob-mønstre er oppgitt, kjør py_compile på disse målene og returner resultatet.\n- Når du er i ferd med å kjøre kode, oppgi kort hva som skal kjøres.\n- Ikke bruk cmd_exec til å kjøre Python med mindre det er uttrykkelig nødvendig."
   }
 }

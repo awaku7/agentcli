@@ -142,5 +142,21 @@
     "param.return.description": "تنسيق الإخراج.",
     "tool.description": "يحسب التجزئة (sha256/sha1/md5) من الملفات.",
     "tool.system_prompt": "تقوم هذه الأداة بحساب تجزئات الملف (sha256/sha1/md5)."
+  },
+  "sv": {
+    "param.algo.description": "Hashalgoritm.",
+    "param.chunk_size.description": "Storlek på läsbitar (byte).",
+    "param.paths.description": "Array med målfilsökvägar.",
+    "param.return.description": "Utdataformat.",
+    "tool.description": "Beräknar hash (sha256/sha1/md5) för filer.",
+    "tool.system_prompt": "Det här verktyget beräknar filhashar (sha256/sha1/md5)."
+  },
+  "nb": {
+    "param.algo.description": "Hash-algoritme.",
+    "param.chunk_size.description": "Størrelse på leseblokk (byte).",
+    "param.paths.description": "Liste over målfilstier.",
+    "param.return.description": "Utdataformat.",
+    "tool.description": "Beregner hash (sha256/sha1/md5) for filer.",
+    "tool.system_prompt": "Dette verktøyet beregner filhasher (sha256/sha1/md5)."
   }
 }

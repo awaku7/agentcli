@@ -322,5 +322,41 @@
     "param.wait_s.description": "كم من الوقت تنتظر الردود بعد الإرسال (ثواني).",
     "tool.description": "تفاعل مع قناة Discord معينة باستخدام رمز الروبوت: أرسل الرسائل، واقرأ الرسائل الأخيرة، وانتظر الردود اختياريًا بعد الإرسال.",
     "tool.system_prompt": "استخدم هذه الأداة للتحدث إلى قناة Discord عبر REST API. يجب توفير رمز الروبوت من خلال متغير البيئة. إرجاع JSON فقط."
+  },
+  "sv": {
+    "err.exception": "Undantag",
+    "err.invalid_action": "Ogiltig åtgärd: {action}",
+    "err.message_too_long": "Discord-meddelandets innehåll får vara högst 2000 tecken.",
+    "err.missing_action": "Saknar \"action\".",
+    "err.missing_channel_id": "Saknar \"channel_id\".",
+    "err.missing_message": "Saknar \"message\".",
+    "param.action.description": "Åtgärd: send / send_and_wait / history",
+    "param.channel_id.description": "ID för målkanalen i Discord.",
+    "param.exclude_bots.description": "Ignorera botmeddelanden medan du väntar.",
+    "param.limit.description": "Antal meddelanden att hämta för historik/svar.",
+    "param.message.description": "Meddelande som ska skickas för send/send_and_wait.",
+    "param.poll_interval_s.description": "Pollningsintervall medan du väntar på svar (sekunder).",
+    "param.token_env.description": "Namnet på miljövariabeln som lagrar Discord-bottoken.",
+    "param.wait_s.description": "Hur länge svar ska väntas efter att meddelandet skickats (sekunder).",
+    "tool.description": "Interagera med en specifik Discord-kanal med en bottoken: skicka meddelanden, läsa senaste meddelanden och valfritt vänta på svar efter sändning.",
+    "tool.system_prompt": "Använd det här verktyget för att prata med en Discord-kanal via REST API. En bottoken måste anges via en miljövariabel. Returnera endast JSON."
+  },
+  "nb": {
+    "err.exception": "Unntak",
+    "err.invalid_action": "Ugyldig handling: {action}",
+    "err.message_too_long": "Innholdet i Discord-meldingen kan være maks 2000 tegn.",
+    "err.missing_action": "Mangler \"action\".",
+    "err.missing_channel_id": "Mangler \"channel_id\".",
+    "err.missing_message": "Mangler \"message\".",
+    "param.action.description": "Handling: send / send_and_wait / history",
+    "param.channel_id.description": "ID for målkanalen i Discord.",
+    "param.exclude_bots.description": "Ignorer botmeldinger mens du venter.",
+    "param.limit.description": "Antall meldinger som skal hentes for historikk/svar.",
+    "param.message.description": "Melding som skal sendes for send/send_and_wait.",
+    "param.poll_interval_s.description": "Pollingintervall mens du venter på svar (sekunder).",
+    "param.token_env.description": "Navnet på miljøvariabelen som lagrer Discord-bottoken.",
+    "param.wait_s.description": "Hvor lenge det skal ventes på svar etter sending (sekunder).",
+    "tool.description": "Samhandle med en bestemt Discord-kanal ved hjelp av en bottoken: send meldinger, les nylige meldinger og vent eventuelt på svar etter sending.",
+    "tool.system_prompt": "Bruk dette verktøyet til å snakke med en Discord-kanal via REST API. En bottoken må oppgis via en miljøvariabel. Returner bare JSON."
   }
 }

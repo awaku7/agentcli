@@ -214,5 +214,29 @@
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"excel_ops\".",
     "param.password.description": "كلمة مرور اختيارية لملفات .xlsx المشفرة. إذا تم حذفه وتم تشفير الملف، فستتم مطالبتك مرة واحدة بكلمة المرور.",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{المسار}"
+  },
+  "sv": {
+    "param.action.description": "Åtgärd som ska utföras.",
+    "param.data.description": "JSON-data som ska skrivas.",
+    "param.file_path.description": "Absolut sökväg till Excel-filen.",
+    "param.sheet_name.description": "Namn på målbladet.",
+    "param.keep_sheets.description": "Bladnamn som ska behållas (används endast för action='keep_only_sheets'). Om något angivet blad inte finns, returnerar verktyget ett fel.",
+    "param.output_path.description": "Utmatningssökväg för action='keep_only_sheets'. Om den redan finns skrivs den över efter att en säkerhetskopia skapats (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Läser och skriver Excel-filer (.xlsx) och hämtar bladnamn. När du skriver till en befintlig fil skapas en säkerhetskopia med samma namn (<file_path>.org / <file_path>.org1 / ...) direkt före skrivningen.",
+    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'excel_ops'.",
+    "param.password.description": "Valfritt lösenord för krypterade .xlsx-filer. Om det utelämnas och filen är krypterad kommer du att uppmanas en gång att ange ett lösenord.",
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "nb": {
+    "param.action.description": "Handling som skal utføres.",
+    "param.data.description": "JSON-data som skal skrives.",
+    "param.file_path.description": "Absolutt sti til Excel-filen.",
+    "param.sheet_name.description": "Navn på målbladet.",
+    "param.keep_sheets.description": "Navn på ark som skal beholdes (brukes bare for action='keep_only_sheets'). Hvis et angitt ark ikke finnes, gir verktøyet en feil.",
+    "param.output_path.description": "Utdata-sti for action='keep_only_sheets'. Hvis den allerede finnes, overskrives den etter at det er opprettet en sikkerhetskopi (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Leser og skriver Excel-filer (.xlsx) og henter arknavn. Når du skriver til en eksisterende fil, opprettes en sikkerhetskopi med samme navn (<file_path>.org / <file_path>.org1 / ...) rett før skrivingen.",
+    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'excel_ops'.",
+    "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   }
 }
