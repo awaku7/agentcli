@@ -14,7 +14,7 @@ from uuid import uuid4
 
 import uvicorn
 from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
-from fastapi.responses import RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -50,6 +50,30 @@ STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 templates = Jinja2Templates(directory=TEMPLATE_DIR)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+def _enrich_message_attachments(msg: Dict[str, Any]) -> Dict[str, Any]:
+    display_msg = dict(msg or {})
+    attachments = display_msg.get("attachments")
+    if isinstance(attachments, list) and attachments:
+        enriched = []
+        for att in attachments:
+            if not isinstance(att, dict):
+                enriched.append(att)
+                continue
+            item = dict(att)
+            path = item.get("path") or item.get("saved_path") or item.get("file_path")
+            mime = str(item.get("mime") or item.get("type") or "").lower()
+            if path and not item.get("data_url") and (
+                mime.startswith("image/") or mime in ("image", "")
+            ):
+                try:
+                    item["data_url"] = tools_util.image_file_to_data_url(str(path))
+                except Exception:
+                    pass
+            enriched.append(item)
+        display_msg["attachments"] = enriched
+    return display_msg
 
 
 class WebRoom:
@@ -89,13 +113,18 @@ class WebRoom:
                     msgs = []
                     for m in self.history:
                         msgs.append(
-                            {
-                                "role": m.get("role"),
-                                "content": m.get("content", ""),
-                                "name": m.get("name"),
-                                "tool_calls": m.get("tool_calls"),
-                                "timestamp": datetime.now().isoformat(),
-                            }
+                            _enrich_message_attachments(
+                                {
+                                    "role": m.get("role"),
+                                    "content": m.get("content", ""),
+                                    "name": m.get("name"),
+                                    "tool_calls": m.get("tool_calls"),
+                                    "attachments": m.get("attachments"),
+                                    "saved_path": m.get("saved_path"),
+                                    "saved_files": m.get("saved_files"),
+                                    "timestamp": datetime.now().isoformat(),
+                                }
+                            )
                         )
                 except Exception:
                     msgs = self.messages
@@ -176,11 +205,13 @@ class WebRoom:
             )
 
     def add_message(self, msg: Dict[str, Any]):
-        display_msg = dict(msg or {})
+        display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
         display_msg["content"] = msg.get("content", "")
         display_msg["name"] = msg.get("name")
         display_msg["tool_calls"] = msg.get("tool_calls")
+        display_msg["saved_path"] = msg.get("saved_path")
+        display_msg["saved_files"] = msg.get("saved_files")
         display_msg["timestamp"] = datetime.now().isoformat()
         self.messages.append(display_msg)
         if self.loop:
@@ -520,6 +551,11 @@ def run_agent_worker(room: WebRoom, user_input: str):
             pass
         if callable(_orig_log_message):
             _orig_log_message(msg)
+        try:
+            if isinstance(msg, dict) and msg.get("role") in ("user", "assistant", "tool"):
+                room.add_message(dict(msg))
+        except Exception:
+            pass
 
     try:
         if callable(_orig_log_message):
@@ -706,6 +742,26 @@ async def get_room(request: Request, room_id: str):
         {"request": request, "page_lang": page_lang, "page_dir": page_dir},
     )
 
+
+@app.get("/local-file")
+async def get_local_file(path: str):
+    try:
+        cwd = os.path.abspath(os.getcwd())
+        raw = str(path or "").strip()
+        if not raw:
+            raise ValueError("missing path")
+        full = os.path.abspath(raw)
+        if not os.path.isabs(raw):
+            full = os.path.abspath(os.path.join(cwd, raw))
+        full_norm = os.path.normpath(full)
+        cwd_norm = os.path.normpath(cwd)
+        if not (full_norm == cwd_norm or full_norm.startswith(cwd_norm + os.sep)):
+            raise ValueError("path outside workdir")
+        if not os.path.isfile(full_norm):
+            raise FileNotFoundError(full_norm)
+        return FileResponse(full_norm)
+    except Exception:
+        raise
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):

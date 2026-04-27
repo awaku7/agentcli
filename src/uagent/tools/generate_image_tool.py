@@ -717,15 +717,18 @@ def run_tool(args: Dict[str, Any]) -> str:
             default="[generate_image] Image data was empty",
         )
 
-    attachments = [
-        {
+    attachments = []
+    for idx, path in enumerate(saved):
+        att = {
             "type": "image",
             "mime": "image/png",
             "name": os.path.basename(path),
             "path": path,
         }
-        for path in saved
-    ]
+        if idx < len(url_list):
+            att["url"] = url_list[idx]
+            att["source_url"] = url_list[idx]
+        attachments.append(att)
     data: Dict[str, Any] = {
         "provider": provider,
         "model": image_model,

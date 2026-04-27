@@ -320,7 +320,9 @@
             
             let content = `<strong>${msg.role.toUpperCase()}:</strong> `;
             if (msg.name) content += `<span class="text-xs font-mono">[${msg.name}]</span> `;
-            content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content || ''))}</pre>`;
+            if (!(msg.role === 'tool' && hasAttachments)) {
+                content += `<pre class="mt-1">${linkifyHtml(escapeHtml(msg.content || ''))}</pre>`;
+            }
             
             if (WEB_VERBOSE && msg.tool_calls) {
                 msg.tool_calls.forEach(tc => {
@@ -341,10 +343,11 @@
                     const type = String(att.type || 'image').toLowerCase();
                     if (type && !['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)) return;
                     const path = att.saved_path || att.path || att.file_path || att.name || '';
-                    const src = att.data_url || att.url || '';
-                    const key = (src || path || '').trim();
-                    if (!key || seen.has(key)) return;
-                    seen.add(key);
+                    const src = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
+                    const keys = [path, src].map(v => String(v || '').trim()).filter(Boolean);
+                    if (!keys.length) return;
+                    if (keys.some(k => seen.has(k))) return;
+                    keys.forEach(k => seen.add(k));
                     items.push({ att, src, path });
                 };
 
