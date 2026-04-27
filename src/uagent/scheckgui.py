@@ -6,17 +6,20 @@ from __future__ import annotations
 import argparse
 import html
 import os
+import shutil
 
 import re
 import sys
 import threading
+from urllib.parse import quote, unquote
+from urllib.request import Request, urlopen
 from pathlib import Path
 from dataclasses import dataclass
 from queue import Empty as QueueEmpty
 from typing import Any, Dict, List, Optional
 
 # DPI warnings and crash avoidance
-os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false"
+os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false;qt.text.font.db=false"
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 from PySide6 import QtCore, QtGui, QtWidgets
@@ -95,6 +98,8 @@ class DropInput(QtWidgets.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
+        self.setPlaceholderText(_("ここにファイル/画像をドラッグ＆ドロップ"))
+        self.setMinimumHeight(120)
 
     def dragEnterEvent(self, e):
         e.acceptProposedAction() if e.mimeData().hasUrls() else e.ignore()
@@ -121,6 +126,38 @@ class DropOutput(QtWidgets.QTextBrowser):
         if ps:
             self.sig_files_dropped.emit(ps)
             e.acceptProposedAction()
+
+    def contextMenuEvent(self, e):
+        menu = self.createStandardContextMenu()
+        try:
+            href = self.anchorAt(e.pos())
+            if href:
+                url = QtCore.QUrl(href)
+                scheme = (url.scheme() or "").lower()
+                if scheme in ("file", "http", "https", "uag-download"):
+                    menu.addSeparator()
+                    act = menu.addAction(_("Download"))
+
+                    def _do_download():
+                        try:
+                            win = self.window()
+                            handler = getattr(win, "_handle_output_anchor", None)
+                            if handler is None:
+                                return
+                            if scheme in ("file", "http", "https") and not url.fragment():
+                                dl = QtCore.QUrl(url)
+                                dl.setFragment("download")
+                                handler(dl)
+                            else:
+                                handler(url)
+                        except Exception:
+                            pass
+
+                    act.triggered.connect(_do_download)
+        except Exception:
+            pass
+        menu.exec(e.globalPos())
+        menu.deleteLater()
 
 
 class ScheckWorker(QtCore.QObject):
@@ -506,8 +543,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self._output = DropOutput()
         self._output.setReadOnly(True)
-        self._output.setOpenExternalLinks(True)
-        self._output.setOpenLinks(True)
+        self._output.setOpenExternalLinks(False)
+        self._output.setOpenLinks(False)
+        self._output.anchorClicked.connect(self._handle_output_anchor)
         self._output.setFont(
             QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
         )
@@ -520,28 +558,41 @@ class MainWindow(QtWidgets.QMainWindow):
         self._thumbs.itemDoubleClicked.connect(
             lambda it: self._open_image(it.toolTip())
         )
+        self._thumbs.setVisible(True)
         layout.addWidget(self._thumbs)
 
-        input_row = QtWidgets.QHBoxLayout()
+        input_panel = QtWidgets.QWidget()
+        input_layout = QtWidgets.QVBoxLayout(input_panel)
+        input_layout.setContentsMargins(0, 0, 0, 0)
+        input_layout.setSpacing(6)
+
+        self._drop_label = QtWidgets.QLabel(_("Drag & Drop"))
+        self._drop_label.setStyleSheet("font-weight: bold;")
+        input_layout.addWidget(self._drop_label)
+
         self._input = DropInput()
-        self._input.setFixedHeight(100)
+        self._input.setFixedHeight(140)
         self._input.installEventFilter(self)
         self._input.sig_files_dropped.connect(self._on_files_dropped)
         self._output.sig_files_dropped.connect(self._on_files_dropped)
-        input_row.addWidget(self._input, 1)
+        input_layout.addWidget(self._input)
 
+        pw_row = QtWidgets.QHBoxLayout()
+        pw_row.setContentsMargins(0, 0, 0, 0)
         self._pw_input = QtWidgets.QLineEdit()
         self._pw_input.setEchoMode(QtWidgets.QLineEdit.Password)
-        self._pw_input.setFixedHeight(100)
+        self._pw_input.setFixedHeight(40)
         self._pw_input.setVisible(False)
         self._pw_input.returnPressed.connect(self._on_send)
-        input_row.addWidget(self._pw_input, 1)
+        pw_row.addWidget(self._pw_input, 1)
 
         self._btn = QtWidgets.QPushButton(_("Send"))
         self._btn.setFixedWidth(80)
         self._btn.clicked.connect(self._on_send)
-        input_row.addWidget(self._btn)
-        layout.addLayout(input_row)
+        pw_row.addWidget(self._btn)
+        input_layout.addLayout(pw_row)
+
+        layout.addWidget(input_panel)
 
         self._status_label = QtWidgets.QLabel(" [STATE] IDLE")
         self.statusBar().addPermanentWidget(self._status_label)
@@ -800,7 +851,7 @@ class MainWindow(QtWidgets.QMainWindow):
         for p in ps:
             if os.path.splitext(p)[1].lower() in IMAGE_EXTS:
                 self._attached_images.append(p)
-                self._add_thumb(p, "ATT")
+
 
     def _collect_generated_image_paths(self) -> List[str]:
         paths: List[str] = []
@@ -815,7 +866,10 @@ class MainWindow(QtWidgets.QMainWindow):
             seen.add(p)
             paths.append(p)
 
-        for msg in reversed(self.messages[-20:]):
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for msg in reversed(msgs[-20:]):
             if not isinstance(msg, dict):
                 continue
             role = str(msg.get("role") or "")
@@ -835,6 +889,32 @@ class MainWindow(QtWidgets.QMainWindow):
 
         return paths
 
+    def _find_generated_image_url(self, path: str) -> str:
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+        target = (path or "").strip()
+        if not target:
+            return ""
+        for msg in reversed(msgs[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                    continue
+                att_path = (
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                    or ""
+                )
+                if str(att_path).strip() != target:
+                    continue
+                return str(att.get("url") or att.get("source_url") or att.get("original_url") or "")
+        return ""
+
     def _append_image_preview(self, path, prefix):
         if path in self._known_image_preview_paths:
             return
@@ -852,14 +932,17 @@ class MainWindow(QtWidgets.QMainWindow):
                 except Exception:
                     src = Path(path).resolve().as_uri()
 
+                remote_url = self._find_generated_image_url(path)
+                download_href = (
+                    f"{remote_url}#download" if remote_url else Path(path).resolve().as_uri() + "#download"
+                )
                 html_block = (
-                    '<div style="margin:8px 0 10px 0; padding:6px; border:1px solid #d0d0d0; '
-                    'border-radius:6px; background:#fafafa;">'
-                    f'<div style="font-size:11px; color:#666; margin-bottom:4px;">{html.escape(title)}</div>'
                     f'<a href="{html.escape(Path(path).resolve().as_uri(), quote=True)}">'
                     f'<img src="{html.escape(src, quote=True)}" '
-                    'style="max-width:360px; max-height:280px; border-radius:4px; display:block;"/>'
+                    'style="max-width:360px; max-height:280px; border:0; margin:0; padding:0; display:block;"/>'
                     '</a>'
+                    f'<div style="font-size:11px; margin-top:2px;">'
+                    f'<a href="{html.escape(download_href, quote=True)}" style="color:#2563eb; text-decoration:underline;">Download</a>'
                     '</div>'
                 )
                 self._output.moveCursor(QtGui.QTextCursor.End)
@@ -916,6 +999,127 @@ class MainWindow(QtWidgets.QMainWindow):
                 import subprocess
 
                 subprocess.Popen(["xdg-open", p])
+        except Exception:
+            pass
+
+    def _handle_output_anchor(self, url):
+        try:
+            scheme = (url.scheme() or "").lower()
+            if scheme == "file" and url.fragment() == "download":
+                src = Path(url.toLocalFile())
+                if not src.exists():
+                    return
+
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+
+                target = dest_dir / src.name
+                if target.exists():
+                    stem, suffix = src.stem, src.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+
+                shutil.copy2(str(src), str(target))
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme in ("http", "https") and url.fragment() == "download":
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+
+                base = Path(unquote(url.path())).name or "download.png"
+                if not os.path.splitext(base)[1]:
+                    base += ".png"
+                target = dest_dir / base
+                if target.exists():
+                    stem, suffix = target.stem, target.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+
+                req = Request(url.toString().split("#", 1)[0], headers={"User-Agent": "uag-gui"})
+                with urlopen(req) as resp:
+                    data = resp.read()
+                with open(target, "wb") as f:
+                    f.write(data)
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "uag-download":
+                raw = unquote(url.toString().split(":", 1)[1])
+                if raw.startswith("/") and re.match(r"^/[A-Za-z]:[\\/]", raw):
+                    raw = raw[1:]
+                src = Path(raw)
+                if not src.exists():
+                    return
+                download_dir = QtCore.QStandardPaths.writableLocation(
+                    QtCore.QStandardPaths.DownloadLocation
+                ) or str(Path.home() / "Downloads")
+                dest_dir = Path(download_dir)
+                try:
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                except Exception:
+                    dest_dir = Path.home()
+                target = dest_dir / src.name
+                if target.exists():
+                    stem, suffix = src.stem, src.suffix
+                    idx = 1
+                    while True:
+                        candidate = dest_dir / f"{stem}_{idx}{suffix}"
+                        if not candidate.exists():
+                            target = candidate
+                            break
+                        idx += 1
+                shutil.copy2(str(src), str(target))
+                try:
+                    self.statusBar().showMessage(
+                        _("Downloaded to") + f" {target}",
+                        5000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme in ("http", "https"):
+                QtGui.QDesktopServices.openUrl(url)
+                return
+
+            p = url.toLocalFile()
+            if p:
+                self._open_image(p)
         except Exception:
             pass
 
@@ -1009,7 +1213,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self._input.setPlainText(ent.text)
             self._attached_images = list(ent.images)
             for p in ent.images:
-                self._add_thumb(p, "ATT")
+                pass
+
 
     def closeEvent(self, event):
         self._worker.stop()
