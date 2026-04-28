@@ -29,3 +29,9 @@
 - 2026-04-28: Added unconditional Gemini image-generation debug logs in generate_image_tool.py (pre-call, post-call, per-item, traceback). Verified with py_compile.
 - 2026-04-28: Switched Gemini image generation from generate_images to generate_content with response_modalities=[TEXT, IMAGE] and image_config. Verified after edit.
 - 2026-04-28: Removed unsupported output_mime_type from Gemini image_config after runtime error. Will re-verify with py_compile/runtime.
+
+## 2026-04-28 21:36 JST
+- Gemini image generation was updated in `generate_image_tool.py`.
+- Switched from `generate_images` to `generate_content(response_modalities=[TEXT, IMAGE])`.
+- Removed the default Gemini debug prints.
+- Verified the file with `py_compile` after the fix.
