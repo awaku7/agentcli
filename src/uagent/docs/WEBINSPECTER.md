@@ -13,4 +13,6 @@ Outputs (under the current workdir):
 - `webinspect/{prefix}/flow.jsonl`
 - `webinspect/{prefix}/snapshots/`
 
+Flow events are JSONL records intended for later inspection by an LLM. The log includes page navigation, request/response, console, pageerror, DOM events, and page summaries when available.
+
 ______________________________________________________________________

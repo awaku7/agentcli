@@ -7,7 +7,7 @@ import os
 import subprocess
 import sys
 import time
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:playwright_inspector"
@@ -22,7 +22,7 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Launch Playwright Inspector to capture browser operations. Opens the specified URL "
                 "and saves the page state (HTML and image) after the user clicks the Resume button. "
                 "Additionally, saves DOM/screenshot sequentially on each main frame navigation and "
-                "records navigation, network, console events, etc., in a JSONL file."
+                "records navigation, network, console events, DOM events, and page summaries in a JSONL file."
             ),
         ),
         "parameters": {
@@ -75,7 +75,7 @@ import os
 import re
 import sys
 import time
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List
 
 from playwright.async_api import async_playwright
 
@@ -116,6 +116,13 @@ class FlowLogger:
             pass
 
 
+def make_event_record(event_type: str, page_id: str, **fields: Any) -> Dict[str, Any]:
+    record: Dict[str, Any] = {"type": event_type, "page_id": page_id}
+    record.update(fields)
+    return record
+
+
+
 async def main() -> None:
     if len(sys.argv) < 2:
         raise RuntimeError("missing JSON argument")
@@ -134,6 +141,7 @@ async def main() -> None:
     os.makedirs(snapshots_dir, exist_ok=True)
 
     logger = FlowLogger(flow_path)
+    page_seq = 0
 
     async with async_playwright() as p:
         try:
@@ -142,111 +150,167 @@ async def main() -> None:
             browser = await p.chromium.launch(headless=False)
 
         context = await browser.new_context(viewport={"width": 1280, "height": 1024})
+
+        async def wire_page(page):
+            nonlocal page_seq
+            page_seq += 1
+            page_id = f"p{page_seq}"
+            action_seq = 0
+            page_actions: List[Dict[str, Any]] = []
+            logger.log(make_event_record("page_open", page_id, url=page.url, summary="Opened page"))
+
+            def emit_dom_event(event_name: str, detail: Dict[str, Any]) -> None:
+                nonlocal action_seq
+                action_seq += 1
+                detail = dict(detail)
+                record = make_event_record(
+                    "dom_event",
+                    page_id,
+                    event=event_name,
+                    action_id=action_seq,
+                    **detail,
+                )
+                page_actions.append(record)
+                logger.log(record)
+
+            async def inject_observer() -> None:
+                await page.add_init_script(r'''
+(() => {
+  if (window.__UAG_OBSERVER_INSTALLED__) return;
+  window.__UAG_OBSERVER_INSTALLED__ = true;
+
+  const send = (event, detail) => {
+    try {
+      console.log("__UAG_EVENT__" + JSON.stringify({event, detail, ts: Date.now()}));
+    } catch (e) {}
+  };
+
+  const describe = (el) => {
+    if (!el || !el.tagName) return {};
+    const out = {
+      tag: el.tagName.toLowerCase(),
+      id: el.id || "",
+      name: el.getAttribute && el.getAttribute("name") || "",
+      text: (el.innerText || el.value || "").toString().trim().slice(0, 200),
+      aria_label: el.getAttribute && el.getAttribute("aria-label") || "",
+      role: el.getAttribute && el.getAttribute("role") || "",
+      cls: el.className && typeof el.className === "string" ? el.className.slice(0, 120) : "",
+    };
+    try {
+      out.selector = el.id ? `#${el.id}` : out.name ? `${out.tag}[name="${out.name}"]` : out.tag;
+    } catch (e) {}
+    return out;
+  };
+
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    send("click", {target: describe(t), x: e.clientX, y: e.clientY});
+  }, true);
+
+  document.addEventListener("input", (e) => {
+    const t = e.target;
+    const value = t && "value" in t ? String(t.value || "") : "";
+    send("input", {target: describe(t), value_length: value.length, checked: !!(t && t.checked)});
+  }, true);
+
+  document.addEventListener("submit", (e) => {
+    const t = e.target;
+    send("submit", {target: describe(t)});
+  }, true);
+})();
+                ''')
+
+
+            async def on_console(msg):
+                try:
+                    text = msg.text
+                    if text.startswith("__UAG_EVENT__"):
+                        raw = text[len("__UAG_EVENT__"):]
+                        data = json.loads(raw)
+                        emit_dom_event(data.get("event", "dom_event"), data.get("detail") or {})
+                        return
+                    logger.log({"type": "console", "level": msg.type, "text": text})
+                except Exception:
+                    pass
+
+            def on_request(req):
+                try:
+                    logger.log(make_event_record("request", page_id, url=req.url, method=req.method, resource_type=req.resource_type))
+                except Exception:
+                    pass
+
+            async def on_response(resp):
+                try:
+                    logger.log(make_event_record("response", page_id, url=resp.url, status=resp.status, ok=resp.ok))
+                except Exception:
+                    pass
+
+            def on_page_error(err):
+                try:
+                    logger.log(make_event_record("pageerror", page_id, error=str(err)))
+                except Exception:
+                    pass
+
+            page.on("request", on_request)
+            page.on("console", lambda m: asyncio.create_task(on_console(m)))
+            page.on("pageerror", on_page_error)
+            page.on("response", lambda r: asyncio.create_task(on_response(r)))
+            await inject_observer()
+
+            snap_lock = asyncio.Lock()
+            snap_idx = 0
+
+            async def save_snapshot(reason: str, nav_url: str) -> None:
+                nonlocal snap_idx
+                async with snap_lock:
+                    snap_idx += 1
+                    idx = snap_idx
+
+                    try:
+                        await page.wait_for_load_state("domcontentloaded", timeout=5000)
+                    except Exception:
+                        pass
+
+                    safe = _sanitize_for_filename(nav_url)
+                    base = os.path.join(snapshots_dir, f"{idx:04d}_{reason}_{safe}")
+
+                    try:
+                        await page.screenshot(path=base + ".png")
+                    except Exception:
+                        pass
+
+                    try:
+                        html = await page.content()
+                        with open(base + ".html", "w", encoding="utf-8") as f:
+                            f.write(html)
+                    except Exception:
+                        pass
+
+                    record = make_event_record("snapshot", page_id, reason=reason, url=nav_url, index=idx, html=os.path.basename(base + ".html"), png=os.path.basename(base + ".png"))
+                    page_actions.append(record)
+                    logger.log(record)
+
+            def on_frame_navigated(frame):
+                try:
+                    if frame != page.main_frame:
+                        return
+                    nav_url = frame.url
+                    nav_record = make_event_record("navigated", page_id, url=nav_url, summary="Main frame navigated")
+                    page_actions.append(nav_record)
+                    logger.log(nav_record)
+                    asyncio.create_task(save_snapshot("navigated", nav_url))
+                except Exception:
+                    pass
+
+            page.on("framenavigated", on_frame_navigated)
+
+            return page_id
+
         page = await context.new_page()
-
-        def on_request(req):
-            try:
-                logger.log(
-                    {
-                        "type": "request",
-                        "url": req.url,
-                        "method": req.method,
-                        "resource_type": req.resource_type,
-                    }
-                )
-            except Exception:
-                pass
-
-        async def on_response(resp):
-            try:
-                logger.log(
-                    {
-                        "type": "response",
-                        "url": resp.url,
-                        "status": resp.status,
-                        "ok": resp.ok,
-                    }
-                )
-            except Exception:
-                pass
-
-        def on_console(msg):
-            try:
-                logger.log(
-                    {
-                        "type": "console",
-                        "level": msg.type,
-                        "text": msg.text,
-                    }
-                )
-            except Exception:
-                pass
-
-        def on_page_error(err):
-            try:
-                logger.log({"type": "pageerror", "error": str(err)})
-            except Exception:
-                pass
-
-        page.on("request", on_request)
-        page.on("console", on_console)
-        page.on("pageerror", on_page_error)
-        page.on("response", lambda r: asyncio.create_task(on_response(r)))
-
-        snap_lock = asyncio.Lock()
-        snap_idx = 0
-
-        async def save_snapshot(reason: str, nav_url: str) -> None:
-            nonlocal snap_idx
-            async with snap_lock:
-                snap_idx += 1
-                idx = snap_idx
-
-                try:
-                    await page.wait_for_load_state("domcontentloaded", timeout=5000)
-                except Exception:
-                    pass
-
-                safe = _sanitize_for_filename(nav_url)
-                base = os.path.join(snapshots_dir, f"{idx:04d}_{reason}_{safe}")
-
-                try:
-                    await page.screenshot(path=base + ".png")
-                except Exception:
-                    pass
-
-                try:
-                    html = await page.content()
-                    with open(base + ".html", "w", encoding="utf-8") as f:
-                        f.write(html)
-                except Exception:
-                    pass
-
-                logger.log(
-                    {
-                        "type": "snapshot",
-                        "reason": reason,
-                        "url": nav_url,
-                        "index": idx,
-                        "html": os.path.basename(base + ".html"),
-                        "png": os.path.basename(base + ".png"),
-                    }
-                )
-
-        def on_frame_navigated(frame):
-            try:
-                if frame != page.main_frame:
-                    return
-                nav_url = frame.url
-                logger.log({"type": "navigated", "url": nav_url})
-                asyncio.create_task(save_snapshot("navigated", nav_url))
-            except Exception:
-                pass
-
-        page.on("framenavigated", on_frame_navigated)
+        page_id = await wire_page(page)
 
         if url != "about:blank":
-            logger.log({"type": "goto", "url": url})
+            logger.log({"type": "goto", "page_id": page_id, "url": url, "summary": "Navigating to initial URL"})
             await page.goto(url)
 
         print(ui_started)
@@ -269,16 +333,11 @@ async def main() -> None:
         except Exception:
             pass
 
-        logger.log(
-            {
-                "type": "final",
-                "url": page.url,
-                "html": final_html,
-                "png": final_png,
-                "snapshots_dir": snapshots_dir,
-                "flow": flow_path,
-            }
-        )
+        try:
+            logger.log(make_page_summary(page_id, page.url, page_actions[-20:]))
+        except Exception:
+            pass
+        logger.log(make_event_record("final", page_id, url=page.url, html=final_html, png=final_png, snapshots_dir=snapshots_dir, flow=flow_path, summary="Captured final page state"))
 
         await browser.close()
         logger.close()
