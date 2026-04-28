@@ -14,7 +14,15 @@ from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
 import uvicorn
-from fastapi import FastAPI, File, Form, Request, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi import (
+    FastAPI,
+    File,
+    Form,
+    Request,
+    UploadFile,
+    WebSocket,
+    WebSocketDisconnect,
+)
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -65,8 +73,10 @@ def _enrich_message_attachments(msg: Dict[str, Any]) -> Dict[str, Any]:
             item = dict(att)
             path = item.get("path") or item.get("saved_path") or item.get("file_path")
             mime = str(item.get("mime") or item.get("type") or "").lower()
-            if path and not item.get("data_url") and (
-                mime.startswith("image/") or mime in ("image", "")
+            if (
+                path
+                and not item.get("data_url")
+                and (mime.startswith("image/") or mime in ("image", ""))
             ):
                 try:
                     item["data_url"] = tools_util.image_file_to_data_url(str(path))
@@ -557,7 +567,11 @@ def run_agent_worker(
         if callable(_orig_log_message):
             _orig_log_message(msg)
         try:
-            if isinstance(msg, dict) and msg.get("role") in ("user", "assistant", "tool"):
+            if isinstance(msg, dict) and msg.get("role") in (
+                "user",
+                "assistant",
+                "tool",
+            ):
                 room.add_message(dict(msg))
         except Exception:
             pass
@@ -649,9 +663,16 @@ def run_agent_worker(
             if not path:
                 continue
             name = str(item.get("name") or os.path.basename(path) or path).strip()
-            mime = str(
-                item.get("mime") or item.get("content_type") or item.get("type") or ""
-            ).lower().strip()
+            mime = (
+                str(
+                    item.get("mime")
+                    or item.get("content_type")
+                    or item.get("type")
+                    or ""
+                )
+                .lower()
+                .strip()
+            )
             is_image = mime.startswith("image/") or mime == "image"
             label = os.path.basename(name) or os.path.basename(path) or path
             if is_image:
@@ -805,8 +826,12 @@ async def upload_files(
         for upload in files or []:
             if upload is None:
                 continue
-            original_name = os.path.basename(str(getattr(upload, "filename", "") or "upload"))
-            safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", original_name).strip("._") or "upload"
+            original_name = os.path.basename(
+                str(getattr(upload, "filename", "") or "upload")
+            )
+            safe_name = (
+                re.sub(r"[^A-Za-z0-9._-]+", "_", original_name).strip("._") or "upload"
+            )
             stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
             dst_path = os.path.join(upload_root, f"{stamp}_{safe_name}")
             with open(dst_path, "wb") as out_f:
@@ -852,6 +877,7 @@ async def get_local_file(path: str):
         return FileResponse(full_norm)
     except Exception:
         raise
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):

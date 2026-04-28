@@ -23,7 +23,7 @@ If required environment variables (such as provider settings) are missing when y
 
 Specifies the primary provider to use at startup (Required).
 
-- Values: `openai`, `azure`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
+- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`
 
 ### 2. LLM Provider Settings
 
@@ -35,7 +35,7 @@ Each provider requires specific variables. You can override the default model us
 | **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
 | **Claude (Anthropic)** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
 | **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
-| **Google (Vertex AI)** | `UAGENT_VERTEXAI_API_KEY` (optional: `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION`) | `UAGENT_VERTEXAI_DEPNAME` |
+| **Google (Vertex AI)** | `UAGENT_VERTEXAI_API_KEY` (optional: `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION`) | `UAGENT_VERTEXAI_DEPNAME` (required) |
 | **AWS Bedrock** * | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
 | **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
 | **Ollama** | `UAGENT_OLLAMA_BASE_URL` (Default: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
@@ -49,13 +49,13 @@ Each provider requires specific variables. You can override the default model us
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
 - `UAGENT_STREAMING`: Enable/disable streaming LLM responses (`1`: Enabled(default), `0`: Disabled).
-- `UAGENT_VERBOSITY`: Output verbosity level (`low`, `medium`, `high`).
+- `UAGENT_VERBOSITY`: Output verbosity level (`off`, `low`, `medium`, `high`).
 - `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
 
 ### 4. Advanced Features (Responses API, Reasoning, etc.)
 
 - `UAGENT_RESPONSES`: Set to `1` to enable the "Responses API" for supported providers (Azure/OpenAI/Bedrock/OpenRouter/Ollama).
-- `UAGENT_REASONING`: Reasoning effort level for reasoning models (`auto`, `minimal`, `low`, `medium`, `high`).
+- `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
 ### 5. Image Generation and Analysis
@@ -86,6 +86,18 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_EMBEDDING_API_URL`: URL for the embedding API used for semantic search.
 
 ---
+
+## A2A Server
+
+`uaga` exposes an Agent2Agent-compatible HTTP server. Configure it with:
+
+- `UAGENT_A2A_HOST`: Bind host for the server (default: `0.0.0.0`).
+- `UAGENT_A2A_PORT`: Listening port (default: `8765`).
+- `UAGENT_A2A_RELOAD`: Enable auto-reload during development.
+- `UAGENT_A2A_PUBLIC_BASE_URL`: Public base URL advertised to clients.
+- `UAGENT_A2A_CONCURRENCY`: Concurrency limit for task execution.
+- `UAGENT_A2A_ENGINE`: A2A execution mode.
+- `UAGENT_A2A_TOKEN`: Bearer token for authenticated endpoints. Leave empty to disable auth.
 
 ## Security and Encryption (`uag_envsec`)
 

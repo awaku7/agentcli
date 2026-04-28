@@ -24,14 +24,14 @@ Key modules:
 - Core state + UI integration: `src/uagent/core.py`
 - CLI UI loop: `src/uagent/cli.py`
 - LLM loop + tool-calling orchestration: `src/uagent/uagent_llm.py`
-- Provider wiring (OpenAI/Azure/Gemini/Claude/Ollama/etc.): `src/uagent/util_providers.py`
+- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/etc.): `src/uagent/util_providers.py`
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
 - Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
   - `src/uagent/runtime_banner.py`: `build_startup_banner()`
   - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
   - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
-- `runtime_init.py` loads `.env` from the current working directory at import time when `python-dotenv` is available
+- `runtime_init.py` loads `.env` and `.env.sec` from the current working directory at import time when `python-dotenv` is available (`.env` first, then `.env.sec` decrypted with `.uagent.key` if present)
 
 Documentation:
 
@@ -47,7 +47,7 @@ ______________________________________________________________________
    - Decide workdir (`--workdir/-C`, `UAGENT_WORKDIR`, or current directory)
    - Create directory if needed and `chdir`
    - Build and print startup banner
-   - Load `.env` from the current working directory if `python-dotenv` is available
+   - Load `.env` and `.env.sec` from the current working directory if `python-dotenv` is available
 1. Tool plugins are loaded from `src/uagent/tools/` (and optionally from an external directory).
 1. Provider client is created based on environment variables (`util_providers.make_client`).
 1. UI loop (CLI/GUI/Web) receives user input and enqueues events.

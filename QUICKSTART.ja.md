@@ -107,6 +107,8 @@ set UAGENT_A2A_TOKEN=YOUR_TOKEN
 uaga
 ```
 
+`UAGENT_A2A_*` の詳細（認証、ホスト、ポート、再読み込み、公開 URL、同時実行数、実行モードなど）は [ENVIRONMENT.ja.md](ENVIRONMENT.ja.md) を参照してください。
+
 `uag` が見つからない場合:
 
 ```bat
@@ -154,11 +156,11 @@ python samples/generate_env_samples.py
 
 ### 6.3（任意）Responses API 設定 (reasoning / verbosity)
 
-Azure/OpenAI/Bedrock/Ollama で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
+Azure/OpenAI/Bedrock/OpenRouter/Ollama で **Responses API** (`UAGENT_RESPONSES=1`) を使用する場合、推論の試行回数や出力の冗長性を制御できます。
 
 Bedrock では OpenAI互換ゲートウェイで message list `input` がバリデーションエラーになるケースを避けるため、文字列 `input` を使う Bedrock 専用の Responses リクエストビルダーを使用します。
 
-`UAGENT_RESPONSES=1` を他プロバイダで指定した場合は、実行時に ChatCompletions へフォールバックします。
+その他のプロバイダでは、実行時にプロバイダ固有の経路または ChatCompletions にフォールバックします。Gemini / Claude / Vertex AI はネイティブ API を使い、`UAGENT_RESPONSES` は無視されます。
 
 例:
 

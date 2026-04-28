@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 from typing import Any, Dict, List, Optional
 
-
 _GENERATE_IMAGE_TOOL_NAME = "generate_image"
 
 
@@ -48,7 +47,11 @@ def _extract_image_paths_from_attachments(attachments: Any) -> List[str]:
     for att in attachments or []:
         if not isinstance(att, dict):
             continue
-        if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+        if str(att.get("type") or "").lower() not in (
+            "image",
+            "image/png",
+            "image/jpeg",
+        ):
             continue
         candidate = (
             att.get("saved_path")

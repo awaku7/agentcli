@@ -44,6 +44,16 @@ uaga
 # 或 python -m uagent.a2a.server
 ```
 
+### Responses API note
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+
+请参阅 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)，了解 `UAGENT_A2A_*` 设置，例如认证、主机、端口、重新加载、公开基础 URL、并发数和引擎。
+
+
 ### 实用技巧 (持续与控制)
 - `:tools`：显示已加载工具的列表。
 - `:logs [n]`：显示会话日志（`n` 用于指定条目数）。

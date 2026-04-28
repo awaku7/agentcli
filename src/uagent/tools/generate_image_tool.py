@@ -22,9 +22,7 @@ import json
 import os
 import ssl
 import sys
-import threading
 import time
-import traceback
 from typing import Any, Dict, List
 
 from ..env_utils import env_get
@@ -35,11 +33,14 @@ from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
+
 def _msg(key: str, default: str, **kwargs: Any) -> str:
     return _(key, default=default).format(**kwargs)
 
+
 BUSY_LABEL = True
 STATUS_LABEL = "tool:generate_image"
+
 
 class _StatusSpinner:
     def __init__(self, cb: Any, base_label: str) -> None:
@@ -56,6 +57,7 @@ class _StatusSpinner:
 
     def stop(self) -> None:
         pass
+
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -139,6 +141,7 @@ TOOL_SPEC: Dict[str, Any] = {
     },
 }
 
+
 def _get_provider() -> str:
     """Select provider for image generation."""
     p = (
@@ -160,6 +163,7 @@ def _get_provider() -> str:
         )
     return p
 
+
 def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
@@ -175,6 +179,7 @@ def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
         )
     return default
 
+
 def _img_env(
     provider: str, mode: str, name: str, *, required: bool, default: str = ""
 ) -> str:
@@ -185,16 +190,19 @@ def _img_env(
     keys = [f"UAGENT_{p}_IMG_{m}_{n}", f"UAGENT_{p}_{n}"]
     return _env_first(keys, required=required, default=default)
 
+
 def _ssl_verify_enabled() -> bool:
     """Default: no verification. Enable only if UAGENT_SSL_VERIFY=1/true/yes/on."""
     v = (env_get("UAGENT_SSL_VERIFY") or "").strip().lower()
     return v in ("1", "true", "yes", "on")
+
 
 def _env_bool(name: str, default: bool = False) -> bool:
     v = (env_get(name) or "").strip().lower()
     if not v:
         return default
     return v in ("1", "true", "yes", "on")
+
 
 def _urlopen_kwargs() -> Dict[str, Any]:
     """Generate extra args for urllib. Return unverified context if verification is disabled."""
@@ -203,27 +211,34 @@ def _urlopen_kwargs() -> Dict[str, Any]:
     ctx = ssl._create_unverified_context()
     return {"context": ctx}
 
+
 def _get_image_depname(cb_get_env, provider: str) -> str:
     return _img_env(provider, "generate", "depname", required=True)
+
 
 def _ensure_dir(p: str) -> str:
     p2 = os.path.expanduser(p)
     os.makedirs(p2, exist_ok=True)
     return p2
 
+
 def _write_png_bytes(raw: bytes, out_path: str) -> None:
     with open(out_path, "wb") as f:
         f.write(raw)
+
 
 def _write_png_from_b64(b64_data: str, out_path: str) -> None:
     raw = base64.b64decode(b64_data)
     _write_png_bytes(raw, out_path)
 
+
 def _sanitize_size_for_provider(size: str) -> str:
     return size
 
+
 def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
+
 
 def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
     saved: List[str] = []
@@ -234,6 +249,7 @@ def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[s
         saved.append(out_path)
     return saved
 
+
 def _download_to_png(url: str, out_path: str) -> None:
     from urllib.request import Request, urlopen
 
@@ -241,6 +257,7 @@ def _download_to_png(url: str, out_path: str) -> None:
     with urlopen(req, **_urlopen_kwargs()) as resp:
         raw = resp.read()
     _write_png_bytes(raw, out_path)
+
 
 def _run_openai_images(
     provider: str,
@@ -278,7 +295,6 @@ def _run_openai_images(
             _msg("err.httpx_init", "Failed to initialize httpx: {err}", err=repr(e))
         )
 
-    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     if provider == "azure":
         base_url = _img_env("azure", "generate", "base_url", required=True).rstrip("/")
         api_key = _img_env("azure", "generate", "api_key", required=True)
@@ -353,7 +369,7 @@ def _run_openai_images(
 
     try:
         resp = client.images.generate(**gen_kwargs)
-    except Exception as e:
+    except Exception:
         raise
     b64_list: List[str] = []
     url_list: List[str] = []
@@ -384,6 +400,7 @@ def _run_openai_images(
         )
 
     return {"b64_list": b64_list, "url_list": url_list, "items": items}
+
 
 def _run_gemini_images(
     image_model: str,
@@ -460,6 +477,7 @@ def _run_gemini_images(
         )
 
     return b64_list
+
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()

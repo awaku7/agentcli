@@ -7,7 +7,7 @@ import os
 import subprocess
 import sys
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:playwright_inspector"
@@ -75,7 +75,7 @@ import os
 import re
 import sys
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 from playwright.async_api import async_playwright
 

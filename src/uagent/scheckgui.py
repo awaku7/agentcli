@@ -5,13 +5,14 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import os
 import shutil
 
 import re
 import sys
 import threading
-from urllib.parse import quote, unquote
+from urllib.parse import unquote
 from urllib.request import Request, urlopen
 from pathlib import Path
 from dataclasses import dataclass
@@ -57,9 +58,11 @@ except ImportError:
     def ensure_mcp_config_template():
         pass  # type: ignore
 
+
 THUMB_SIZE_PX = 96
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
 LOG_FILE = "gui_worker_session.log"
+
 
 def _gui_norm_path(p: Any) -> str:
     if not isinstance(p, str):
@@ -72,6 +75,7 @@ def _gui_norm_path(p: Any) -> str:
     except Exception:
         return s
 
+
 class RedirectToLog:
     def __init__(self, path: str, original_stream):
         self.path = path
@@ -81,11 +85,12 @@ class RedirectToLog:
         try:
             with open(self.path, "a", encoding="utf-8") as f:
                 f.write(data)
-        except Exception as e:
+        except Exception:
             pass
 
     def flush(self):
         return
+
 
 @dataclass
 class GuiConfig:
@@ -93,11 +98,13 @@ class GuiConfig:
     model: str
     initial_file: Optional[str]
 
+
 @dataclass
 class HistoryEntry:
     text: str
     images: List[str]
     files: List[str]
+
 
 class DropInput(QtWidgets.QPlainTextEdit):
     sig_files_dropped = QtCore.Signal(list)
@@ -116,6 +123,7 @@ class DropInput(QtWidgets.QPlainTextEdit):
         if ps:
             self.sig_files_dropped.emit(ps)
             e.acceptProposedAction()
+
 
 class DropOutput(QtWidgets.QTextBrowser):
     sig_files_dropped = QtCore.Signal(list)
@@ -150,7 +158,10 @@ class DropOutput(QtWidgets.QTextBrowser):
                             handler = getattr(win, "_handle_output_anchor", None)
                             if handler is None:
                                 return
-                            if scheme in ("file", "http", "https") and not url.fragment():
+                            if (
+                                scheme in ("file", "http", "https")
+                                and not url.fragment()
+                            ):
                                 dl = QtCore.QUrl(url)
                                 dl.setFragment("download")
                                 handler(dl)
@@ -160,10 +171,11 @@ class DropOutput(QtWidgets.QTextBrowser):
                             pass
 
                     act.triggered.connect(_do_download)
-        except Exception as e:
+        except Exception:
             pass
         menu.exec(e.globalPos())
         menu.deleteLater()
+
 
 class DropThumbs(QtWidgets.QListWidget):
     sig_files_dropped = QtCore.Signal(list)
@@ -193,6 +205,7 @@ class DropThumbs(QtWidgets.QListWidget):
             e.acceptProposedAction()
         else:
             e.ignore()
+
 
 class ScheckWorker(QtCore.QObject):
     """Worker that runs the LLM loop."""
@@ -388,7 +401,9 @@ class ScheckWorker(QtCore.QObject):
 
                         if kind == "gui_user":
                             files = [
-                                p for p in ev.get("files", []) if isinstance(p, str) and p.strip()
+                                p
+                                for p in ev.get("files", [])
+                                if isinstance(p, str) and p.strip()
                             ]
                             debug_payload = {
                                 "kind": kind,
@@ -405,11 +420,14 @@ class ScheckWorker(QtCore.QObject):
                                 pass
 
                             file_lines = [
-                                f"[Attached File] {os.path.basename(p)} ({p})" for p in files
+                                f"[Attached File] {os.path.basename(p)} ({p})"
+                                for p in files
                             ]
                             if file_lines:
                                 if text.strip():
-                                    text = text.rstrip() + "\n\n" + "\n".join(file_lines)
+                                    text = (
+                                        text.rstrip() + "\n\n" + "\n".join(file_lines)
+                                    )
                                 else:
                                     text = "\n".join(file_lines)
 
@@ -525,6 +543,7 @@ class ScheckWorker(QtCore.QObject):
     def stop(self):
         self._stop.set()
 
+
 class MainWindow(QtWidgets.QMainWindow):
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
 
@@ -569,7 +588,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self._output.moveCursor(QtGui.QTextCursor.End)
             self._output.insertHtml(html)
             self._output.ensureCursorVisible()
-        except Exception as e:
+        except Exception:
             pass
 
     def _show_welcome_dialog(self) -> None:
@@ -693,7 +712,7 @@ class MainWindow(QtWidgets.QMainWindow):
             help_menu = self.menuBar().addMenu(_("Help"))
             act = help_menu.addAction(_("Welcome / Quick Guide"))
             act.triggered.connect(self._show_welcome_dialog)
-        except Exception as e:
+        except Exception:
             pass
 
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Return"), self).activated.connect(
@@ -741,7 +760,7 @@ class MainWindow(QtWidgets.QMainWindow):
             QtGui.QShortcut(QtGui.QKeySequence("Ctrl+V"), self).activated.connect(
                 lambda: self._set_verbosity("2")
             )
-        except Exception as e:
+        except Exception:
             pass
 
     def _update_mode_label(self) -> None:
@@ -851,7 +870,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 items = []
                 try:
                     items = self._collect_generated_image_paths()
-                except Exception as e:
+                except Exception:
                     pass
 
                 for p in items:
@@ -905,7 +924,7 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-        except Exception as e:
+        except Exception:
             pass
 
     def _on_files_dropped(self, ps):
@@ -942,9 +961,18 @@ class MainWindow(QtWidgets.QMainWindow):
             for att in msg.get("attachments") or []:
                 if not isinstance(att, dict):
                     continue
-                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
                     continue
-                _add(att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name"))
+                _add(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
 
             _add(msg.get("saved_path"))
             for item in msg.get("saved_files") or []:
@@ -968,9 +996,18 @@ class MainWindow(QtWidgets.QMainWindow):
             for att in msg.get("attachments") or []:
                 if not isinstance(att, dict):
                     continue
-                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
                     continue
-                p = _gui_norm_path(att.get("saved_path") or att.get("path") or att.get("file_path") or att.get("name"))
+                p = _gui_norm_path(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
                 if p:
                     entries.append((f"m{mi}:a{ai}", p))
                     ai += 1
@@ -998,7 +1035,11 @@ class MainWindow(QtWidgets.QMainWindow):
             for att in msg.get("attachments") or []:
                 if not isinstance(att, dict):
                     continue
-                if str(att.get("type") or "").lower() not in ("image", "image/png", "image/jpeg"):
+                if str(att.get("type") or "").lower() not in (
+                    "image",
+                    "image/png",
+                    "image/jpeg",
+                ):
                     continue
                 att_path = _gui_norm_path(
                     att.get("saved_path")
@@ -1009,7 +1050,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
                 if att_path != target:
                     continue
-                return str(att.get("url") or att.get("source_url") or att.get("original_url") or "")
+                return str(
+                    att.get("url")
+                    or att.get("source_url")
+                    or att.get("original_url")
+                    or ""
+                )
         return ""
 
     def _append_image_preview(self, path, prefix):
@@ -1025,7 +1071,6 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._known_image_preview_paths.discard(key)
                     return
 
-                title = f"{prefix}:{os.path.basename(path)}"
                 try:
                     src = image_file_to_data_url(path, max_bytes=8_000_000)
                 except Exception:
@@ -1033,20 +1078,22 @@ class MainWindow(QtWidgets.QMainWindow):
 
                 remote_url = self._find_generated_image_url(path)
                 download_href = (
-                    f"{remote_url}#download" if remote_url else Path(path).resolve().as_uri() + "#download"
+                    f"{remote_url}#download"
+                    if remote_url
+                    else Path(path).resolve().as_uri() + "#download"
                 )
                 html_block = (
                     f'<a href="{html.escape(Path(path).resolve().as_uri(), quote=True)}">'
                     f'<img src="{html.escape(src, quote=True)}" '
                     'style="max-width:360px; max-height:280px; border:0; margin:0; padding:0; display:block;"/>'
-                    '</a>'
+                    "</a>"
                     f'<div style="font-size:11px; margin-top:2px;">'
                     f'<a href="{html.escape(download_href, quote=True)}" style="color:#2563eb; text-decoration:underline;">Download</a>'
-                    '</div>'
+                    "</div>"
                 )
                 self._output.moveCursor(QtGui.QTextCursor.End)
                 self._output.insertHtml(html_block)
-                self._output.insertHtml('<br/>')
+                self._output.insertHtml("<br/>")
                 self._output.ensureCursorVisible()
             except Exception:
                 self._known_image_preview_paths.discard(key)
@@ -1073,7 +1120,15 @@ class MainWindow(QtWidgets.QMainWindow):
                             + json.dumps(
                                 {
                                     "path": path,
-                                    "format": str(reader.format().data().decode(errors='ignore')) if reader.format() else "",
+                                    "format": (
+                                        str(
+                                            reader.format()
+                                            .data()
+                                            .decode(errors="ignore")
+                                        )
+                                        if reader.format()
+                                        else ""
+                                    ),
                                 },
                                 ensure_ascii=False,
                             )
@@ -1097,7 +1152,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 )
                 it.setToolTip(path)
                 self._thumbs.addItem(it)
-            except Exception as e:
+            except Exception:
                 pass
 
         QtCore.QTimer.singleShot(1000, _load)
@@ -1138,7 +1193,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 import subprocess
 
                 subprocess.Popen(["xdg-open", p])
-        except Exception as e:
+        except Exception:
             pass
 
     def _handle_output_anchor(self, url):
@@ -1203,7 +1258,9 @@ class MainWindow(QtWidgets.QMainWindow):
                             break
                         idx += 1
 
-                req = Request(url.toString().split("#", 1)[0], headers={"User-Agent": "uag-gui"})
+                req = Request(
+                    url.toString().split("#", 1)[0], headers={"User-Agent": "uag-gui"}
+                )
                 with urlopen(req) as resp:
                     data = resp.read()
                 with open(target, "wb") as f:
@@ -1259,7 +1316,7 @@ class MainWindow(QtWidgets.QMainWindow):
             p = url.toLocalFile()
             if p:
                 self._open_image(p)
-        except Exception as e:
+        except Exception:
             pass
 
     def _on_send(self):
@@ -1305,7 +1362,11 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-            if text.strip().startswith(":") and not self._attached_images and not self._attached_files:
+            if (
+                text.strip().startswith(":")
+                and not self._attached_images
+                and not self._attached_files
+            ):
                 core.event_queue.put({"kind": "command", "text": text.strip()})
             else:
                 core.event_queue.put(
@@ -1317,7 +1378,9 @@ class MainWindow(QtWidgets.QMainWindow):
                     }
                 )
             self._history.append(
-                HistoryEntry(text, list(self._attached_images), list(self._attached_files))
+                HistoryEntry(
+                    text, list(self._attached_images), list(self._attached_files)
+                )
             )
 
         self._attached_images.clear()
@@ -1378,6 +1441,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 pass
         super().closeEvent(event)
 
+
 def main():
     try:
         from .readme_util import (
@@ -1427,6 +1491,7 @@ def main():
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()

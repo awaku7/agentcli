@@ -104,7 +104,9 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
                 if key in seen:
                     continue
                 seen.add(key)
-                attachments.append({"type": "image", "mime": mime, "name": name, "data_url": data_url})
+                attachments.append(
+                    {"type": "image", "mime": mime, "name": name, "data_url": data_url}
+                )
         return attachments
 
     # Find last assistant message
