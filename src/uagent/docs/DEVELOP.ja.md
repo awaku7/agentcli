@@ -23,8 +23,14 @@ ______________________________________________________________________
   - 会話履歴、ログ、Busy状態（ステータス）、UI連携、（圧縮/要約などの）周辺機能
 - **CLI**: `src/uagent/cli.py`
   - 標準入力ループ、`:cd`/`:ls` 等のコマンド、起動時処理（Mode A では `main()` 内で workdir 初期化）
-- **LLM Logic**: `src/uagent/uagent_llm.py`
+- **LLM Orchestration**: `src/uagent/uagent_llm.py`
   - 対話ラウンド実行、tool call の実行、429等のリトライ制御
+  - ラウンド / メッセージ / tool call のヘルパは以下に分割済み
+    - `src/uagent/llm_helpers.py`
+    - `src/uagent/llm_message_helpers.py`
+    - `src/uagent/llm_round_helpers.py`
+    - `src/uagent/llm_flow_helpers.py`
+  - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
 - **Providers**: `src/uagent/util_providers.py`
   - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Vertex AI/Grok/OpenRouter/Ollama/NVIDIA 等）
 - **Utilities**: `src/uagent/util_tools.py`
