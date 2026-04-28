@@ -23,6 +23,7 @@ import os
 import ssl
 import sys
 import time
+import traceback
 from typing import Any, Dict, List
 
 from ..env_utils import env_get
@@ -437,42 +438,45 @@ def _run_gemini_images(
     except TypeError:
         client = genai.Client(api_key=api_key)
 
-    config_kwargs: Dict[str, Any] = {
-        "number_of_images": n,
-        "output_mime_type": "image/png",
-    }
+    image_config_kwargs: Dict[str, Any] = {}
     if size == "1024x1024":
-        config_kwargs["aspect_ratio"] = "1:1"
+        image_config_kwargs["aspect_ratio"] = "1:1"
     elif size == "1024x1536":
-        config_kwargs["aspect_ratio"] = "2:3"
+        image_config_kwargs["aspect_ratio"] = "2:3"
     elif size == "1536x1024":
-        config_kwargs["aspect_ratio"] = "3:2"
+        image_config_kwargs["aspect_ratio"] = "3:2"
     else:
-        config_kwargs["image_size"] = size
+        image_config_kwargs["image_size"] = size
 
-    resp = client.models.generate_images(
-        model=image_model,
-        prompt=prompt,
-        config=gemini_types.GenerateImagesConfig(**config_kwargs),
-    )
+    try:
+        resp = client.models.generate_content(
+            model=image_model,
+            contents=prompt,
+            config=gemini_types.GenerateContentConfig(
+                response_modalities=["TEXT", "IMAGE"],
+                image_config=gemini_types.ImageConfig(**image_config_kwargs),
+            ),
+        )
+    except Exception:
+        traceback.print_exc(file=sys.stderr)
+        raise
 
     b64_list: List[str] = []
-    gen_list = (
-        getattr(resp, "generated_images", None) or getattr(resp, "images", None) or []
-    )
-    for item in gen_list:
-        img = getattr(item, "image", None)
-        if img is None:
-            continue
-        raw = getattr(img, "image_bytes", None)
-        if raw:
-            b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
+    candidates = getattr(resp, "candidates", None) or []
+    for candidate in candidates:
+        content = getattr(candidate, "content", None)
+        parts = getattr(content, "parts", None) or []
+        for part in parts:
+            inline = getattr(part, "inline_data", None) or getattr(part, "inlineData", None)
+            raw = getattr(inline, "data", None) if inline is not None else None
+            if raw:
+                b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
 
     if not b64_list:
         raise RuntimeError(
             _msg(
                 "err.empty_data",
-                "Image data was empty (generated_images is empty or image_bytes is missing)",
+                "Image data was empty (candidates/inline_data is empty or missing)",
             )
         )
 
@@ -521,6 +525,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     ts = time.strftime("%Y%m%d_%H%M%S")
     saved: List[str] = []
+    url_list: List[str] = []
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
