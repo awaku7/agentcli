@@ -26,7 +26,7 @@ ______________________________________________________________________
 - **LLM Logic**: `src/uagent/uagent_llm.py`
   - 対話ラウンド実行、tool call の実行、429等のリトライ制御
 - **Providers**: `src/uagent/util_providers.py`
-  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Grok/OpenRouter/Ollama/NVIDIA 等）
+  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Vertex AI/Grok/OpenRouter/Ollama/NVIDIA 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
 - **Startup init**: `src/uagent/runtime_init.py`（互換レイヤ）
@@ -34,7 +34,7 @@ ______________________________________________________________________
   - `src/uagent/runtime_banner.py`: `build_startup_banner()`
   - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
   - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
-- `runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` を読み込みます
+- `runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` と `.env.sec` を読み込みます（`.env` を先に読み込み、`.env.sec` は `.uagent.key` があれば使って復号します）
 
 関連ドキュメント:
 
@@ -50,7 +50,7 @@ ______________________________________________________________________
    - workdir の決定（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
    - 必要ならディレクトリ作成し `chdir`
    - 起動バナー文字列を生成して表示
-   - 利用可能ならカレントディレクトリの `.env` を読み込む
+   - 利用可能ならカレントディレクトリの `.env` と `.env.sec` を読み込む
 1. ツールをロード（`src/uagent/tools/__init__.py`）
    - 内部ツール: `src/uagent/tools/*.py` を探索して登録
    - 外部ツール: `UAGENT_EXTERNAL_TOOLS_DIR` の `*.py` をロード（任意）

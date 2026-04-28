@@ -1500,10 +1500,10 @@ def format_help(*, core: Any) -> str:
         "  :logs / :list         " + tr("Show log file list"),
         "  :cd <path>            "
         + tr(
-            "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\path / :cd /)"
+            "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
         ),
         "  :ls [path]            "
-        + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\path)"),
+        + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"),
         "  :tools                " + tr("List loaded tools"),
         "  :skills [cmd]         "
         + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
@@ -1604,7 +1604,9 @@ def handle_command(
         return _handle_cmd_tools(tr=tr)
 
     if cmd == "skills":
-        return bool(_handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr))
+        return bool(
+            _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
+        )
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)

@@ -46,6 +46,8 @@ Agent2Agent 互換の HTTP サーバーを起動します。
 uaga
 ```
 
+認証、ホスト、ポート、再読み込み、公開ベース URL、同時実行数、エンジンなどの `UAGENT_A2A_*` 設定は [ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md) を参照してください。
+
 ### 便利なコマンド
 - `:tools`: ロード済みツール一覧を表示
 - `:logs [n]`: 直近のセッションログを表示
@@ -64,9 +66,14 @@ API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定などの詳細は [
 
 ### Responses API の注意
 `UAGENT_RESPONSES=1` を設定した場合、Responses API は OpenAI / Azure / Bedrock / OpenRouter / Ollama で使用されます。
+Gemini / Claude / Vertex AI はネイティブ API 経路を使い、Responses API の対象外です。
 それ以外のプロバイダでは、プロバイダ固有の経路または ChatCompletions にフォールバックします。
 
 ### 開発者向けドキュメント / 多言語
 - **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **ロケール追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **他言語の README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/README.nb.md)
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
