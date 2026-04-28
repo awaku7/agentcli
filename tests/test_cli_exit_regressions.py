@@ -76,3 +76,4 @@ def test_playwright_inspector_passes_json_payload_to_child_process(
     assert payload["prefix"] == "pytest_capture"
     assert captured["capture_output"] is True
     assert captured["text"] is True
+
