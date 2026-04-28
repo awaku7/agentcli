@@ -44,6 +44,16 @@ Uruchom serwer HTTP zgodny z A2A:
 uaga
 ```
 
+### Responses API note
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+
+Zobacz [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md), aby poznać ustawienia `UAGENT_A2A_*`, takie jak uwierzytelnianie, host, port, przeładowanie, publiczny adres bazowy URL, współbieżność i silnik.
+
+
 ### Przydatne skróty (ciągłość i kontrola)
 - `:tools`: wyświetla listę załadowanych narzędzi.
 - `:logs [n]`: pokazuje logi sesji (`n` określa liczbę wpisów).

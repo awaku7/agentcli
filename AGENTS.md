@@ -38,10 +38,10 @@
 
 ## LLM / API ルール
 
-- `UAGENT_RESPONSES=1` の場合、OpenAI / Azure / Bedrock / OpenRouter / Ollama 系の Responses API を優先する。
+- `UAGENT_RESPONSES=1` の場合、OpenAI / Azure / Bedrock / OpenRouter / Ollama の Responses API を優先する。
 - `UAGENT_RESPONSES=1` の場合、`analyze_image` はロードされない。
 - `UAGENT_RESPONSES=1` でも、provider が非対応なら起動バナーで警告し、ChatCompletions にフォールバックする。
-- `UAGENT_RESPONSES=1` でも、Gemini / Claude / Vertex AI は別扱いで、Responses API 非対応として扱う実装がある。
+- `UAGENT_RESPONSES=1` でも、Gemini / Claude / Vertex AI はネイティブ API 経路を使い、Responses API 対象外として扱う。
 - 画像処理や外部送信の前に、機密情報の混入を確認する。
 - provider 切り替え時はセッション継続の挙動を確認する。
 

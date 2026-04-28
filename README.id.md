@@ -44,6 +44,16 @@ Jalankan server HTTP yang kompatibel dengan A2A:
 uaga
 ```
 
+### Responses API note
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+
+Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk pengaturan `UAGENT_A2A_*` seperti autentikasi, host, port, reload, URL dasar publik, konkurensi, dan engine.
+
+
 ### Tips Praktis (Kelangsungan dan Kontrol)
 - `:tools`: Menampilkan daftar alat yang dimuat.
 - `:logs [n]`: Menampilkan log sesi (`n` untuk menentukan jumlah entri).

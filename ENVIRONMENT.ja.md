@@ -23,7 +23,7 @@ python -m uagent.setup_cli
 
 起動時に使用するメインのプロバイダを指定します（必須）。
 
-- 有効な値: `openai`, `azure`, `anthropic`, `gemini`, `bedrock`, `openrouter`, `ollama`, `grok`, `nvidia`, `claude`
+- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`
 
 ### 2. LLM プロバイダ別の設定
 
@@ -33,9 +33,9 @@ python -m uagent.setup_cli
 | :--- | :--- | :--- |
 | **OpenAI** | `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL` | `UAGENT_OPENAI_DEPNAME` |
 | **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
-| **Anthropic** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
+| **Claude (Anthropic)** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
 | **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
-| **Google (Vertex AI)** | `UAGENT_VERTEXAI_API_KEY`（任意: `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION`） | `UAGENT_VERTEXAI_DEPNAME` |
+| **Google (Vertex AI)** | `UAGENT_VERTEXAI_API_KEY`（必須） | `UAGENT_VERTEXAI_DEPNAME`（必須） |
 | **AWS Bedrock** ※ | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
 | **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
 | **Ollama** | `UAGENT_OLLAMA_BASE_URL` (既定: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
@@ -46,16 +46,16 @@ python -m uagent.setup_cli
 
 ### 3. エージェントの基本動作
 
-- `UAGENT_LANG`: ホスト UI の言語 (`ja`, `en`)。
+- `UAGENT_LANG`: ホスト UI の言語（例: `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`）。
 - `UAGENT_WORKDIR`: エージェントが操作を行うデフォルトの作業ディレクトリ。
 - `UAGENT_STREAMING`: LLM 応答の逐次表示（ストリーミング）の有効化 (`1`: 有効(既定), `0`: 無効)。
-- `UAGENT_VERBOSITY`: ログ出力の冗長性 (`low`, `medium`, `high`)。
+- `UAGENT_VERBOSITY`: ログ出力の冗長性 (`off`, `low`, `medium`, `high`)。
 - `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時に使用されるエンドポイントとモデル情報を出力します。
 
 ### 4. 高度な機能 (Responses API, 推論等)
 
 - `UAGENT_RESPONSES`: `1` に設定すると、対応プロバイダ（Azure/OpenAI/Bedrock/Ollama）で "Responses API" を有効にします。
-- `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベル (`auto`, `low`, `medium`, `high`)。
+- `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベル (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`)。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
 
 ### 5. 画像の生成と解析
@@ -67,10 +67,17 @@ python -m uagent.setup_cli
 
 ### 6. 翻訳機能 (オプション)
 
-- `UAGENT_TRANSLATE_PROVIDER`: 翻訳エンジン (`openai`, `azure`, `openrouter` 等の OpenAI 互換、または `argos`)。
-- `UAGENT_TRANSLATE_TO_LLM`: LLM へ送る前の翻訳先言語 (例: `en`)。
-- `UAGENT_TRANSLATE_FROM_LLM`: LLM からの応答を翻訳する際の言語 (例: `ja`)。
-- `UAGENT_TRANSLATE_DEPNAME`: 翻訳に使用するモデル ID。
+ユーザー入力と LLM 応答の自動翻訳を有効にします。
+
+- `UAGENT_TRANSLATE_PROVIDER`: 翻訳エンジン。
+  - `argos`: [Argos Translate](https://github.com/argosopentech/argos-translate) を使うローカル翻訳（`pip install argostranslate` が必要）。
+  - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI 互換 API を使う翻訳。
+  - *注意: ネイティブの Gemini / Claude 翻訳はまだ未対応です。*
+- `UAGENT_TRANSLATE_TO_LLM`: ユーザー入力の翻訳先言語 (例: `en`)。英語らしい入力はそのまま送られます。
+- `UAGENT_TRANSLATE_FROM_LLM`: LLM 応答の翻訳先言語 (例: `ja`)。
+- `UAGENT_TRANSLATE_DEPNAME`: 翻訳に使用するモデル ID（API プロバイダでは必須）。
+- `UAGENT_TRANSLATE_API_KEY`: 翻訳用 API キー（任意。既定で `UAGENT_API_KEY` を使用）。
+- `UAGENT_TRANSLATE_BASE_URL`: 翻訳用のベース URL（任意。既定で `UAGENT_BASE_URL` を使用）。
 
 ### 7. 記憶とセマンティック検索
 
@@ -79,6 +86,18 @@ python -m uagent.setup_cli
 - `UAGENT_EMBEDDING_API_URL`: 埋め込み (Embedding) API の URL。
 
 ---
+
+## A2A サーバー
+
+`uaga` は Agent2Agent 互換の HTTP サーバーを提供します。以下で設定できます：
+
+- `UAGENT_A2A_HOST`: サーバーのバインド先ホスト（既定: `0.0.0.0`）。
+- `UAGENT_A2A_PORT`: 待受ポート（既定: `8765`）。
+- `UAGENT_A2A_RELOAD`: 開発時の自動リロードを有効化します。
+- `UAGENT_A2A_PUBLIC_BASE_URL`: クライアントに公開するベース URL。
+- `UAGENT_A2A_CONCURRENCY`: タスク実行の同時実行数制限。
+- `UAGENT_A2A_ENGINE`: A2A 実行モード。
+- `UAGENT_A2A_TOKEN`: 認証済みエンドポイント用の Bearer トークン。空欄なら認証を無効化します。
 
 ## セキュリティと暗号化 (`uag_envsec`)
 

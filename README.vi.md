@@ -44,6 +44,16 @@ Khởi chạy máy chủ HTTP tương thích với A2A:
 uaga
 ```
 
+### Responses API note
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+
+Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết các thiết lập `UAGENT_A2A_*` như xác thực, host, cổng, tải lại, URL gốc công khai, đồng thời và engine.
+
+
 ### Mẹo hữu ích (Duy trì và kiểm soát)
 - `:tools`: Hiển thị danh sách công cụ đã tải.
 - `:logs [n]`: Hiển thị nhật ký phiên (`n` là số lượng mục cần xem).

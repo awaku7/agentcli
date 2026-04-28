@@ -107,6 +107,8 @@ set UAGENT_A2A_TOKEN=YOUR_TOKEN
 uaga
 ```
 
+See [ENVIRONMENT.md](ENVIRONMENT.md) for `UAGENT_A2A_*` settings such as auth, host, port, reload, public base URL, concurrency, and engine.
+
 If `uag` is not found:
 
 ```bat
@@ -154,11 +156,11 @@ python samples/generate_env_samples.py
 
 ### 6.3 (Optional) Responses API knobs (reasoning / verbosity)
 
-If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock/Ollama, you can optionally control reasoning effort and output verbosity.
+If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock/OpenRouter/Ollama, you can optionally control reasoning effort and output verbosity.
 
 For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to avoid OpenAI-compatible gateway validation errors for message-list `input`.
 
-If `UAGENT_RESPONSES=1` is set with other providers, uag falls back to ChatCompletions at runtime.
+For other providers, uag falls back to the provider-specific or ChatCompletions path at runtime. Gemini / Claude / Vertex AI use their native APIs and ignore `UAGENT_RESPONSES`.
 
 Example:
 

@@ -44,6 +44,16 @@ uaga
 # 또는 python -m uagent.a2a.server
 ```
 
+### Responses API note
+
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+For other providers, uag falls back to the provider-specific or chat-completions path.
+
+
+인증, 호스트, 포트, 리로드, 공개 기본 URL, 동시 실행 수, 엔진 등의 `UAGENT_A2A_*` 설정은 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)를 참조하세요.
+
+
 ### 유용한 팁 (연속성 및 제어)
 - `:tools`: 로드된 도구 목록을 표시합니다.
 - `:logs [n]`: 세션 로그를 표시합니다 (`n`으로 항목 수 지정).

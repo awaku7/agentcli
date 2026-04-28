@@ -64,6 +64,7 @@ from .image_session import build_image_session_message
 # Auto reasoning (Responses API only)
 _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
 
+
 def _maybe_print_certifi_where(exc: Exception) -> None:
     if certifi is None:
         print(_("[SSL Info] certifi is not available"))
@@ -81,6 +82,7 @@ def _maybe_print_certifi_where(exc: Exception) -> None:
         print(_("[SSL Info] certifi.where() = %(path)s", path=certifi.where()))
     except Exception:
         pass
+
 
 def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
     for m in reversed(call_messages or []):
@@ -101,6 +103,7 @@ def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
             if parts:
                 return "\n".join(parts)
     return ""
+
 
 def _is_thinking_task(user_text: str) -> bool:
     t = (user_text or "").strip().lower()
@@ -142,6 +145,7 @@ def _is_thinking_task(user_text: str) -> bool:
 
     return len(t) >= 200
 
+
 def _choose_auto_effort(user_text: str) -> str:
     n = len((user_text or "").strip())
     if n >= 900:
@@ -152,6 +156,7 @@ def _choose_auto_effort(user_text: str) -> str:
         return "low"
     return "minimal"
 
+
 def _bump_effort(effort: str | None) -> str | None:
     if effort not in _AUTO_EFFORT_LADDER:
         return "minimal"
@@ -159,6 +164,7 @@ def _bump_effort(effort: str | None) -> str | None:
     if idx >= len(_AUTO_EFFORT_LADDER) - 1:
         return None
     return _AUTO_EFFORT_LADDER[idx + 1]
+
 
 def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
     """Heuristic detector for unusable assistant outputs (for auto-retry).
@@ -211,6 +217,7 @@ def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
 
     return False
 
+
 def _effectively_empty_text(s: Any) -> bool:
     if s is None:
         return True
@@ -247,15 +254,18 @@ def _effectively_empty_text(s: Any) -> bool:
         pass
     return t == ""
 
+
 def _env_default_on(name: str) -> bool:
     v = (env_get(name, "") or "").strip().lower()
     return v not in ("0", "false", "no", "off")
+
 
 def _env_default_true(name: str, default: bool = True) -> bool:
     v = (env_get(name, "") or "").strip().lower()
     if v == "":
         return bool(default)
     return v in ("1", "true", "yes", "on")
+
 
 def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     """Run a potentially-blocking LLM call.
@@ -288,6 +298,7 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
         raise box["exc"]
 
     return box.get("res")
+
 
 def _init_gemini_cache(
     *,
@@ -348,6 +359,7 @@ def _init_gemini_cache(
             pass
 
     return cache_mgr, gemini_cache_name
+
 
 def _maybe_auto_shrink_messages(
     *,
@@ -425,6 +437,7 @@ def _maybe_auto_shrink_messages(
         )
 
     return gemini_cache_name
+
 
 def _build_call_messages(
     *,
@@ -511,6 +524,7 @@ def _build_call_messages(
         call_messages = [image_session_msg] + call_messages
     return call_messages
 
+
 def _translate_call_messages(
     call_messages: List[Dict[str, Any]], tr_cfg: Any
 ) -> List[Dict[str, Any]]:
@@ -540,6 +554,7 @@ def _translate_call_messages(
 
     return translated_call_messages
 
+
 def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any) -> Any:
     use_responses_api = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
@@ -568,6 +583,7 @@ def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any) -> Any:
 
     return use_responses_api, stream_responses
 
+
 def _translate_assistant_if_needed(
     *,
     assistant_text: str,
@@ -595,6 +611,7 @@ def _translate_assistant_if_needed(
             assistant_text = out
 
     return assistant_text
+
 
 def _call_gemini_round(
     *,
@@ -678,6 +695,7 @@ def _call_gemini_round(
             return False, client, "", [], {}
 
     return True, client, assistant_text, tool_calls_list, gemini_content_dump
+
 
 def _call_claude_round(
     *,
@@ -769,6 +787,7 @@ def _call_claude_round(
             return False, client, "", []
 
     return True, client, assistant_text, tool_calls_list
+
 
 def _call_openai_azure_round(
     *,
@@ -1162,6 +1181,7 @@ def _call_openai_azure_round(
 
     return True, client, assistant_text, tool_calls_list
 
+
 def _append_assistant_message(
     *,
     messages: List[Dict[str, Any]],
@@ -1185,6 +1205,7 @@ def _append_assistant_message(
     if not (skip_log_when_web and bool(getattr(core, "_is_web", False))):
         core.log_message(assistant_msg)
 
+
 def _emit_final_answer_if_any(
     *,
     assistant_text: str,
@@ -1199,6 +1220,7 @@ def _emit_final_answer_if_any(
             print(assistant_text)
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)
+
 
 def _handle_openai_empty_no_tool(
     *,
@@ -1305,6 +1327,7 @@ def _handle_openai_empty_no_tool(
 
     return "pass", 0
 
+
 def _execute_tool_calls(
     *,
     tool_calls_list: List[Dict[str, Any]],
@@ -1401,12 +1424,13 @@ def _execute_tool_calls(
                     tool_msg["saved_files"] = parsed_tool_result.get("saved_files")
                 if parsed_tool_result.get("saved_path"):
                     tool_msg["saved_path"] = parsed_tool_result.get("saved_path")
-        
+
         messages.append(tool_msg)
 
         core.log_message(tool_msg)
 
     return executed_new_tool
+
 
 def run_llm_rounds(
     provider: str,
