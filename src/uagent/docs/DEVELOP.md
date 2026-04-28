@@ -23,7 +23,13 @@ Key modules:
 
 - Core state + UI integration: `src/uagent/core.py`
 - CLI UI loop: `src/uagent/cli.py`
-- LLM loop + tool-calling orchestration: `src/uagent/uagent_llm.py`
+- LLM orchestration entrypoint: `src/uagent/uagent_llm.py`
+  - Round/message/tool-call helpers are split into:
+    - `src/uagent/llm_helpers.py`
+    - `src/uagent/llm_message_helpers.py`
+    - `src/uagent/llm_round_helpers.py`
+    - `src/uagent/llm_flow_helpers.py`
+  - Retry / backoff helpers live in `src/uagent/llm_errors.py`
 - Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/etc.): `src/uagent/util_providers.py`
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
 - Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
