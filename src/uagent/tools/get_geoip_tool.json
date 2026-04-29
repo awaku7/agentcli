@@ -98,5 +98,15 @@
     "param.format.description": "Utdataformat.",
     "tool.description": "Ansla brukerens omtrentlige plassering basert på den offentlige IP-adressen. Resultatet kan være unøyaktig ved bruk av VPN, proxy eller mobilnett.\n\nPolicy:\n- Bruk dette verktøyet når du trenger brukerens omtrentlige plassering (by/region/land) og brukeren ikke har oppgitt den.\n- Hvis brukeren allerede har oppgitt plasseringen sin, bruk den informasjonen og ikke kall get_geoip.",
     "tool.system_prompt": "Hent IP-basert posisjonsdata fra en ekstern tjeneste (ipinfo.io) og returner et forenklet resultat."
+  },
+  "nl": {
+    "param.format.description": "Uitvoerformaat.",
+    "tool.description": "Schat de globale locatie van de gebruiker op basis van het openbare IP-adres. Het resultaat kan onnauwkeurig zijn bij gebruik van VPN, proxies of mobiele netwerken.\n\nBeleid:\n- Gebruik deze tool wanneer u de geschatte locatie van de gebruiker nodig hebt (stad/regio/land) en de gebruiker die nog niet heeft opgegeven.\n- Als de gebruiker zijn locatie al heeft opgegeven, geef daaraan de voorkeur en roep get_geoip niet aan.",
+    "tool.system_prompt": "Haal IP-gebaseerde locatiegegevens op via een externe dienst (ipinfo.io) en geef een vereenvoudigd resultaat terug."
+  },
+  "fi": {
+    "param.format.description": "Tulostusmuoto.",
+    "tool.description": "Arvioi käyttäjän karkea sijainti hänen julkisen IP-osoitteensa perusteella. Tulos voi olla epätarkka VPN:n, välityspalvelimien tai mobiiliverkkojen käytössä.\n\nKäytäntö:\n- Käytä tätä työkalua, kun tarvitset käyttäjän likimääräisen sijainnin (kaupunki/alue/maa) eikä käyttäjä ole sitä antanut.\n- Jos käyttäjä on jo kertonut sijaintinsa, käytä sitä äläkä kutsu get_geoipia.",
+    "tool.system_prompt": "Hae IP-pohjaiset sijaintitiedot ulkoisesta palvelusta (ipinfo.io) ja palauta yksinkertaistettu tulos."
   }
 }

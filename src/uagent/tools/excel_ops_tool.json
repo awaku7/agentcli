@@ -238,5 +238,29 @@
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'excel_ops'.",
     "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+  },
+  "nl": {
+    "param.action.description": "Uit te voeren actie.",
+    "param.data.description": "JSON-gegevens om te schrijven.",
+    "param.file_path.description": "Absoluut pad naar het Excel-bestand.",
+    "param.sheet_name.description": "Naam van het doelwerkblad (voor read/write).",
+    "param.keep_sheets.description": "Sheet names to keep (used only for action='keep_only_sheets'). If any specified sheet does not exist, the tool errors.",
+    "param.output_path.description": "Output path for action='keep_only_sheets'. If it already exists, it is overwritten after creating a backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Lees en schrijf Excel (.xlsx)-bestanden en haal bladnamen op. Bij schrijven naar een bestaand bestand wordt eerst een back-up gemaakt.",
+    "tool.system_prompt": "Lees/schrijf Excel-bestanden en geef JSON terug. Maak bij bestaande bestanden eerst een back-up.",
+    "param.password.description": "Wachtwoord voor versleutelde .xlsx-bestanden (optioneel).",
+    "prompt.password": "Enter the password for this file:\n{path}"
+  },
+  "fi": {
+    "param.action.description": "Suoritettava toiminto.",
+    "param.data.description": "Kirjoitettavat JSON-tiedot.",
+    "param.file_path.description": "Excel-tiedoston absoluuttinen polku.",
+    "param.sheet_name.description": "Kohdelaskentataulun nimi (read/write).",
+    "param.keep_sheets.description": "Sheet names to keep (used only for action='keep_only_sheets'). If any specified sheet does not exist, the tool errors.",
+    "param.output_path.description": "Output path for action='keep_only_sheets'. If it already exists, it is overwritten after creating a backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Lue ja kirjoita Excel (.xlsx) -tiedostoja sekä hae laskentataulujen nimet. Olemassa olevaan tiedostoon kirjoitettaessa tehdään ensin varmuuskopio.",
+    "tool.system_prompt": "Lue/kirjoita Excel-tiedostoja ja palauta JSON. Tee olemassa oleville tiedostoille ensin varmuuskopio.",
+    "param.password.description": "Salasana salatuille .xlsx-tiedostoille (valinnainen).",
+    "prompt.password": "Enter the password for this file:\n{path}"
   }
 }

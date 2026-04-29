@@ -158,5 +158,21 @@
     "param.return.description": "Utdataformat.",
     "tool.description": "Beregner hash (sha256/sha1/md5) for filer.",
     "tool.system_prompt": "Dette verktøyet beregner filhasher (sha256/sha1/md5)."
+  },
+  "nl": {
+    "param.algo.description": "Hash-algoritme.",
+    "param.chunk_size.description": "Leeschunkgrootte (bytes).",
+    "param.paths.description": "Array met doelbestandspaden.",
+    "param.return.description": "Uitvoerformaat.",
+    "tool.description": "Berekent de hash (sha256/sha1/md5) van bestanden.",
+    "tool.system_prompt": "Deze tool berekent bestandshashes (sha256/sha1/md5)."
+  },
+  "fi": {
+    "param.algo.description": "Tiivistealgoritmi.",
+    "param.chunk_size.description": "Luettavan lohkon koko (tavua).",
+    "param.paths.description": "Kohdetiedostopolkujen taulukko.",
+    "param.return.description": "Tulostusmuoto.",
+    "tool.description": "Laskee tiedostojen tiivisteen (sha256/sha1/md5).",
+    "tool.system_prompt": "Tämä työkalu laskee tiedostotiivisteet (sha256/sha1/md5)."
   }
 }

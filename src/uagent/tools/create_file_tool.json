@@ -178,5 +178,23 @@
     "param.path.description": "(Kompatibilitet) Alias for filename.",
     "tool.description": "Opprett en tekstfil. Som standard blir ikke en eksisterende fil overskrevet. Hvis overwrite=true er angitt og målfilen allerede finnes, opprettes det en sikkerhetskopi (<filename>.org / <filename>.org1 / ...) rett før overskrivingen. Tips: Hvis du vil at CSV/TSV-filer skal åpnes riktig i Microsoft Excel når de åpnes direkte, bør du vurdere encoding='utf-8-sig' (UTF-8 med BOM). For maskinell behandling og kompatibilitet, foretrekk encoding='utf-8' (uten BOM). Hvis du er usikker, spør hvordan filen skal brukes (Excel eller programmatisk behandling).",
     "tool.system_prompt": "Opprett en tekstfil i arbeidskatalogen. Hvis filen allerede finnes, vil overwrite=false gi en feil. Hvis overwrite=true, opprettes det en sikkerhetskopi før skriving. Tips: For CSV/TSV som skal åpnes direkte i Microsoft Excel, bør du vurdere encoding='utf-8-sig' (UTF-8 med BOM). For maskinell behandling og kompatibilitet, foretrekk encoding='utf-8' (uten BOM). Hvis du er usikker, spør hvordan filen skal brukes (Excel eller programmatisk behandling)."
+  },
+  "nl": {
+    "param.content.description": "Te schrijven tekstinhoud.",
+    "param.encoding.description": "Tekencodering (bijv. 'utf-8', 'cp932'). Standaard: 'utf-8-sig' voor .csv/.tsv wanneer encoding wordt weggelaten; anders 'utf-8'.",
+    "param.filename.description": "Pad van het te maken bestand.",
+    "param.overwrite.description": "Of er moet worden overschreven als het bestand al bestaat (standaard: false).",
+    "param.path.description": "(Compatibiliteit) Alias van filename.",
+    "tool.description": "Maak een tekstbestand. Standaard wordt een bestaand bestand niet overschreven. Als overwrite=true is opgegeven en het doelbestand al bestaat, maakt de tool direct vóór overschrijven een back-up (<filename>.org / <filename>.org1 / ...). Tip: als u CSV/TSV rechtstreeks in Microsoft Excel wilt openen, overweeg encoding='utf-8-sig' (UTF-8 met BOM). Voor machinale verwerking en interoperabiliteit heeft encoding='utf-8' (zonder BOM) de voorkeur. Als u twijfelt, vraag dan hoe het bestand gebruikt wordt (Excel of programma-verwerking).",
+    "tool.system_prompt": "Maak een tekstbestand binnen workdir. Als het bestand al bestaat, geeft overwrite=false een fout. Bij overwrite=true wordt vóór het schrijven een back-up gemaakt. Tip: voor CSV/TSV die direct in Microsoft Excel geopend moeten worden, overweeg encoding='utf-8-sig' (UTF-8 met BOM). Voor machinale verwerking en interoperabiliteit heeft encoding='utf-8' (zonder BOM) de voorkeur. Als u twijfelt, vraag dan hoe het bestand gebruikt wordt (Excel of programma-verwerking)."
+  },
+  "fi": {
+    "param.content.description": "Kirjoitettava tekstisisältö.",
+    "param.encoding.description": "Merkistökoodaus (esim. 'utf-8', 'cp932'). Oletus: 'utf-8-sig' .csv/.tsv-tiedostoille, kun encoding jätetään pois; muuten 'utf-8'.",
+    "param.filename.description": "Luotavan tiedoston polku.",
+    "param.overwrite.description": "Korvataanko olemassa oleva tiedosto (oletus: false).",
+    "param.path.description": "(Yhteensopivuuden vuoksi) filename-parametrin alias.",
+    "tool.description": "Luo tekstitiedosto. Oletuksena olemassa olevaa tiedostoa ei korvata. Jos overwrite=true ja kohdetiedosto on jo olemassa, työkalu tekee varmuuskopion (<filename>.org / <filename>.org1 / ...) juuri ennen korvaamista. Vihje: jos haluat avata CSV/TSV-tiedostot suoraan Microsoft Excelissä oikein, harkitse encoding='utf-8-sig' (UTF-8 BOM:lla). Koneelliseen käsittelyyn ja yhteentoimivuuteen suositellaan encoding='utf-8' (ilman BOM:ia). Jos et ole varma, kysy miten tiedostoa käytetään (Excel vai ohjelmallinen käsittely).",
+    "tool.system_prompt": "Luo tekstitiedosto workdirin sisälle. Jos tiedosto on jo olemassa, overwrite=false aiheuttaa virheen. Jos overwrite=true, ennen kirjoittamista tehdään varmuuskopio. Vihje: CSV/TSV-tiedostoille, jotka avataan suoraan Microsoft Excelissä, harkitse encoding='utf-8-sig' (UTF-8 BOM:lla). Koneelliseen käsittelyyn ja yhteentoimivuuteen suositellaan encoding='utf-8' (ilman BOM:ia). Jos et ole varma, kysy miten tiedostoa käytetään (Excel vai ohjelmallinen käsittely)."
   }
 }

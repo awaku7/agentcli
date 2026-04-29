@@ -98,5 +98,15 @@
     "param.command.description": "Kommandostreng som skal kjøres.",
     "tool.description": "Kjør en Windows-kommando som siste utvei. Brukes bare når ingen andre egnede verktøy, som Python eller MCP, er tilgjengelige.",
     "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ingen andre egnede verktøy er tilgjengelige."
+  },
+  "nl": {
+    "param.command.description": "Uit te voeren opdrachtregel.",
+    "tool.description": "Voer als laatste redmiddel een Windows-opdracht uit. Gebruik dit alleen wanneer geen andere geschikte tool, zoals Python of MCP, beschikbaar is.",
+    "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is."
+  },
+  "fi": {
+    "param.command.description": "Suoritettava komentorivi.",
+    "tool.description": "Suorita Windows-komento vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten Pythonia tai MCP:tä, ei ole käytettävissä.",
+    "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole."
   }
 }

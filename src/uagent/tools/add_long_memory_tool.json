@@ -98,5 +98,15 @@
     "param.note.description": "Teksten i notatet som skal lagres.",
     "tool.description": "Lagre ett enkelt notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",
     "tool.system_prompt": "Lagre nøyaktig ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
+  },
+  "nl": {
+    "param.note.description": "De notitietekst om op te slaan.",
+    "tool.description": "Sla één langetermijngeheugen-notitie op over de gebruiker of omgeving die later nuttig kan zijn.",
+    "tool.system_prompt": "Sla één nuttige langetermijngeheugen-notitie op.\nSla geen geheimen op zoals wachtwoorden, API-sleutels of tokens."
+  },
+  "fi": {
+    "param.note.description": "Tallennettava muistiinpanoteksti.",
+    "tool.description": "Tallenna yksi pitkäaikaisen muistin muistiinpano käyttäjästä tai ympäristöstä myöhempää käyttöä varten.",
+    "tool.system_prompt": "Tallenna yksi hyödyllinen pitkäaikaisen muistin muistiinpano.\nÄlä tallenna salaisuuksia kuten salasanoja, API-avaimia tai tokeneita."
   }
 }

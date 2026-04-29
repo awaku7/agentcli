@@ -278,5 +278,33 @@
     "param.tail_lines.description": "Antall linjer som skal leses fra slutten. Kan ikke angis samtidig med head_lines.",
     "tool.description": "Les filinnhold (opptil 1 000 000 byte). Delvis lesing er mulig med start_line og max_lines.",
     "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk."
+  },
+  "nl": {
+    "err.dual_lines": "[read_file fout] head_lines en tail_lines kunnen niet tegelijk worden opgegeven",
+    "err.filename_missing": "[read_file fout] filename/path niet opgegeven",
+    "err.out_of_range": "(Het bestand heeft slechts {count} regels. start_line {start_line} valt buiten bereik)",
+    "msg.truncated": "[read_file afgekapt: byte-limiet {max_bytes} bereikt]",
+    "param.filename.description": "Pad van het bestand dat u wilt lezen.",
+    "param.head_lines.description": "Aantal regels dat vanaf het begin gelezen wordt. Kan niet tegelijk met tail_lines worden opgegeven.",
+    "param.max_lines.description": "Maximaal aantal regels om te lezen. Indien null, lees tot het einde van het bestand.",
+    "param.path.description": "(Voor compatibiliteit) Alternatieve naam voor filename.",
+    "param.start_line.description": "Regelnummer (vanaf 1) om te beginnen met lezen. Standaard is 1.",
+    "param.tail_lines.description": "Aantal regels dat vanaf het einde gelezen wordt. Kan niet tegelijk met head_lines worden opgegeven.",
+    "tool.description": "Bestandsinhoud lezen (tot 1.000.000 bytes). Gedeeltelijk lezen is mogelijk met start_line en max_lines.",
+    "tool.system_prompt": "Bestandsinhoud lezen.\n- Voor grote bestanden wordt gedeeltelijk lezen met start_line/max_lines aanbevolen.\n- Nieuwe regels worden automatisch genormaliseerd."
+  },
+  "fi": {
+    "err.dual_lines": "[read_file-virhe] head_lines ja tail_lines eivät voi olla käytössä yhtä aikaa",
+    "err.filename_missing": "[read_file-virhe] filename/path puuttuu",
+    "err.out_of_range": "(Tiedostossa on vain {count} riviä. start_line {start_line} on alueen ulkopuolella)",
+    "msg.truncated": "[read_file katkaistu: tavuraja {max_bytes} saavutettu]",
+    "param.filename.description": "Luettavan tiedoston polku.",
+    "param.head_lines.description": "Alusta luettavien rivien määrä. Ei voi olla yhtä aikaa tail_linesin kanssa.",
+    "param.max_lines.description": "Luettavien rivien enimmäismäärä. Jos null, lue tiedoston loppuun asti.",
+    "param.path.description": "(Yhteensopivuuden vuoksi) Vaihtoehtoinen nimi filename-parametrille.",
+    "param.start_line.description": "Rivinumero (alkaen 1), josta lukeminen aloitetaan. Oletus on 1.",
+    "param.tail_lines.description": "Lopusta luettavien rivien määrä. Ei voi olla yhtä aikaa head_linesin kanssa.",
+    "tool.description": "Lue tiedoston sisältö (enintään 1 000 000 tavua). Osittainen lukeminen on mahdollista start_line- ja max_lines-parametreilla.",
+    "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti."
   }
 }

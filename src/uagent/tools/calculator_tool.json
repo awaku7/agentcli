@@ -98,5 +98,15 @@
     "param.expression.description": "Formelen du vil beregne (f.eks. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funksjoner fra Pythons math-modul er tilgjengelige.",
     "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon kreves.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se beskrivelsen av verktøyet)."
+  },
+  "nl": {
+    "param.expression.description": "De formule die u wilt berekenen (bijv. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Functies uit Python's math-module zijn beschikbaar.",
+    "tool.description": "Berekent een wiskundige expressie en geeft het resultaat terug. Gebruik dit voor complexe berekeningen of wanneer precisie vereist is.",
+    "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel (zie toolbeschrijving)."
+  },
+  "fi": {
+    "param.expression.description": "Laskettava lauseke (esim. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Pythonin math-moduulin funktiot ovat käytettävissä.",
+    "tool.description": "Laskee matemaattisen lausekkeen ja palauttaa tuloksen. Käytä tätä monimutkaisiin laskuihin tai kun tarkkuutta tarvitaan.",
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen (katso työkalun kuvaus)."
   }
 }

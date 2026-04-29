@@ -78,5 +78,13 @@
   "nb": {
     "tool.description": "Returnerer gjeldende tid og detaljert dato-/tidsinformasjon (tidssone, ukedag, UTC-tid). Bruk dette til å tolke relative datouttrykk (for eksempel «i dag», «i morgen», «denne helgen», «tirsdagen i neste måned») ved å finne gjeldende ukedag og UTC-forskyvning.",
     "tool.system_prompt": "Dette verktøyet gir referanseinformasjon slik at LLM-en kan utføre tidsberegninger nøyaktig.\n- ISO 8601-format (med forskyvning)\n- Ukedag (engelsk)\n- UTC-tid\n- Numeriske komponenter (år, måned, dag, time, minutt, sekund)\nBruk dette til å gjøre uklare brukerspørsmål (for eksempel «neste mandag») om til en konkret dato/et konkret tidspunkt.\n"
+  },
+  "nl": {
+    "tool.description": "Gee de huidige tijd en gedetailleerde datum/tijd-informatie terug (tijdzone, weekdag, UTC-tijd). Gebruik dit om relatieve datumuitdrukkingen op te lossen (bijv. \"vandaag\", \"morgen\", \"dit weekend\", \"de 3e dinsdag van volgende maand\") door de huidige weekdag en UTC-offset te bepalen.",
+    "tool.system_prompt": "Deze tool levert referentie-informatie zodat de LLM tijdberekeningen nauwkeurig kan uitvoeren.\n- ISO 8601-indeling (met offset)\n- Weekdag (Engels)\n- UTC-tijd\n- Numerieke componenten (jaar, maand, dag, uur, minuut, seconde)\nGebruik dit om dubbelzinnige gebruikersverzoeken (bijv. \"volgende maandag\") om te zetten naar een concrete datum/tijd.\n"
+  },
+  "fi": {
+    "tool.description": "Palauttaa nykyisen ajan ja yksityiskohtaiset päivämäärä-/aikatiedot (aikavyöhyke, viikonpäivä, UTC-aika). Käytä tätä suhteellisten päivämääräilmausten ratkaisemiseen (esim. \"tänään\", \"huomenna\", \"tänä viikonloppuna\", \"ensi kuun kolmas tiistai\") selvittämällä nykyinen viikonpäivä ja UTC-siirtymä.",
+    "tool.system_prompt": "Tämä työkalu tarjoaa viitetiedot, jotta LLM voi tehdä aikalaskut tarkasti.\n- ISO 8601 -muoto (siirtymällä)\n- Viikonpäivä (englanniksi)\n- UTC-aika\n- Numeeriset osat (vuosi, kuukausi, päivä, tunti, minuutti, sekunti)\nKäytä näitä muuttamaan epäselvät käyttäjäpyynnöt (esim. \"ensi maanantai\") konkreettiseksi päivämääräksi/ajaksi.\n"
   }
 }

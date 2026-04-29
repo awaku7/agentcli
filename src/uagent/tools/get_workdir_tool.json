@@ -78,5 +78,13 @@
   "nb": {
     "tool.description": "Henter den gjeldende arbeidskatalogen.",
     "tool.system_prompt": "Dette verktøyet brukes til å hente den gjeldende arbeidskatalogen."
+  },
+  "nl": {
+    "tool.description": "Haal de huidige werkmap op.",
+    "tool.system_prompt": "Haal de huidige werkmap op."
+  },
+  "fi": {
+    "tool.description": "Hae nykyinen työskentelyhakemisto.",
+    "tool.system_prompt": "Hae nykyinen työskentelyhakemisto."
   }
 }

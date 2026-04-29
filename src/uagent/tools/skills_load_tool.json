@@ -138,5 +138,19 @@
     "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
     "tool.description": "Laster SKILL.md for en Agent Skill og returnerer YAML-frontmatter og Markdown-innhold.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "fi": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

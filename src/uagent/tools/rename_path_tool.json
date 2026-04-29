@@ -178,5 +178,23 @@
     "param.src.description": "Opprinnelig sti (fil/katalog). Relativ sti anbefales.",
     "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
     "tool.system_prompt": "Dette verktøyet gir nytt navn til eller flytter en fil eller katalog.\n\nSikkerhetsnotater:\n- Bekreftelse kreves for absolutte stier, stier utenfor workdir og når overskriving trengs."
+  },
+  "nl": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path tool\n\nPurpose:\n- Rename/move files/directories.\n\nSafety policy:\n- Confirm with the user if dangerous path conditions are met, such as paths outside the workdir, absolute paths, or paths containing ..\n- Confirm with the user if overwrite=True (delete and replace existing dst).\n\nImplementation:\n- Actual operations are delegated to tools.safe_file_ops.safe_rename_path().\n- To remove an existing dst, files are removed with os.remove and directories with shutil.rmtree.\n\nAttention:\n- This tool changes real files just like create_file/delete_file, so it is designed to require safety confirmation even when called from an LLM.",
+    "param.dst.description": "Doelpad.",
+    "param.mkdirs.description": "Als true, maak de bovenliggende map aan voordat je uitvoert.",
+    "param.overwrite.description": "Als true, bestaand doel overschrijven (na bevestiging).",
+    "param.src.description": "Bronpad.",
+    "tool.description": "Hernoem (verplaats) een bestand of map.",
+    "tool.system_prompt": "Hernoem of verplaats een bestand of map en geef JSON terug."
+  },
+  "fi": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path tool\n\nPurpose:\n- Rename/move files/directories.\n\nSafety policy:\n- Confirm with the user if dangerous path conditions are met, such as paths outside the workdir, absolute paths, or paths containing ..\n- Confirm with the user if overwrite=True (delete and replace existing dst).\n\nImplementation:\n- Actual operations are delegated to tools.safe_file_ops.safe_rename_path().\n- To remove an existing dst, files are removed with os.remove and directories with shutil.rmtree.\n\nAttention:\n- This tool changes real files just like create_file/delete_file, so it is designed to require safety confirmation even when called from an LLM.",
+    "param.dst.description": "Kohdepolku.",
+    "param.mkdirs.description": "Jos true, luo ylähakemisto ennen suoritusta.",
+    "param.overwrite.description": "Jos true, korvaa olemassa oleva kohde (vahvistuksen jälkeen).",
+    "param.src.description": "Lähdepolku.",
+    "tool.description": "Nimeä tiedosto tai hakemisto uudelleen (siirrä).",
+    "tool.system_prompt": "Nimeä tai siirrä tiedosto tai hakemisto ja palauta JSON."
   }
 }

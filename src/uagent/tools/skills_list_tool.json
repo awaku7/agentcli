@@ -158,5 +158,21 @@
     "param.strict.description": "Om varsler skal behandles som feil ved spesifikasjonsverifisering (standard: false).",
     "tool.description": "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikasjonen (SKILL.md). Skanner rekursivt som standard.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "param.include_invalid.description": "Whether to include it in the list even if parsing/verification of SKILL.md fails (default: true). If false, failed skills will be excluded.",
+    "param.recursive.description": "Search recursively (default: true)",
+    "param.root_dir.description": "Skill search route. If empty/unspecified, UAGENT_SKILLS_DIRS (os.pathsep delimited) will be used, and if unspecified, ./skills will be used.",
+    "param.strict.description": "Whether to treat warnings as failures during specification verification (default: false)",
+    "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "fi": {
+    "param.include_invalid.description": "Whether to include it in the list even if parsing/verification of SKILL.md fails (default: true). If false, failed skills will be excluded.",
+    "param.recursive.description": "Search recursively (default: true)",
+    "param.root_dir.description": "Skill search route. If empty/unspecified, UAGENT_SKILLS_DIRS (os.pathsep delimited) will be used, and if unspecified, ./skills will be used.",
+    "param.strict.description": "Whether to treat warnings as failures during specification verification (default: false)",
+    "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }
