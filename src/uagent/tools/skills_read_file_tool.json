@@ -218,5 +218,27 @@
     "param.skill_dir.description": "skills-katalog",
     "tool.description": "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitrasering blokkeres.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
+    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
+    "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills directory",
+    "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "fi": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
+    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
+    "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills directory",
+    "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

@@ -94,5 +94,17 @@
     "tool.system_prompt": "يتم استخدام هذه الأداة للأغراض التالية: جمع مواصفات النظام مثل نظام التشغيل ووحدة المعالجة المركزية وحجم ذاكرة الوصول العشوائي وأقراص التخزين (أفضل جهد) والمساحة الخالية لوحدة التخزين.",
     "param.include_volumes.description": "قم بتضمين معلومات استخدام وحدة التخزين المثبتة.",
     "param.include_disks.description": "قم بتضمين معلومات القرص الفعلي عند توفرها (أفضل جهد)."
+  },
+  "nl": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "fi": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
   }
 }

@@ -80,5 +80,13 @@
     "param.message.description": "Valgfri avsluttende melding til brukeren.",
     "tool.description": "Markerer at den aktuelle skill-oppgaven er fullført. (Bruk KUN under skill-kjøring basert på SKILL.md). Dette fjerner skill-instruksjonene og forhindrer uendelige løkker.",
     "tool.system_prompt": "Bruk dette verktøyet når en skill som følger SKILL.md er fullført, slik at instruksjonene fjernes og uendelige løkker unngås."
+  },
+  "nl": {
+    "param.message.description": "Optional final message to the user.",
+    "tool.description": "Geef aan dat de huidige skill-taak voltooid is. Dit wordt alleen gebruikt tijdens een skill-uitvoering op basis van SKILL.md en voorkomt oneindige lussen."
+  },
+  "fi": {
+    "param.message.description": "Optional final message to the user.",
+    "tool.description": "Ilmoita, että nykyinen skill-tehtävä on valmis. Tätä käytetään vain SKILL.md:n mukaista skill-suoritusta varten ja se estää äärettömät silmukat."
   }
 }

@@ -378,5 +378,43 @@
     "param.root_path.description": "Rotkatalogen søket starter fra (standard: gjeldende katalog).",
     "tool.description": "Søker etter filer i en katalog etter navnemønster (glob) og/eller innhold (regex).",
     "tool.system_prompt": "Søk etter filer i en katalog. Du kan filtrere på filnavnmønster (glob) og eventuelt søke i filinnhold med et regulært uttrykk.\n\nMerk:\n- content_pattern behandles som et Python-regulært uttrykk.\n- Hvis content_pattern er tom, gjøres bare filnavnsmatching.\n- Av ytelses- og sikkerhetshensyn kan innholdssøk internt bruke en enkel binær kontroll."
+  },
+  "nl": {
+    "err.dir_not_exist": "[search_files fout] Map bestaat niet: {path}",
+    "err.regex_compile": "[search_files fout] Regex kon niet worden gecompileerd: {error}",
+    "match.excerpt": "MATCH: {text}",
+    "match.line": "L{line}: {text}",
+    "match.more": "... (meer treffers in bestand)",
+    "out.file": "Bestand: {file}",
+    "out.found": "[search_files] {n} resultaten gevonden",
+    "out.found_truncated": "[search_files] {n} resultaten gevonden (afgekapt tot {max_results})",
+    "out.no_match": "[search_files] Geen bestanden voldeden aan de criteria.",
+    "param.case_sensitive.description": "Of de inhoudszoekopdracht hoofdlettergevoelig is (standaard: false).",
+    "param.content_pattern.description": "Reguliere expressie om in bestanden te zoeken. Indien opgegeven, worden alleen bestanden teruggegeven met ten minste één match.",
+    "param.fast_read_threshold_bytes.description": "Bestanden kleiner dan deze drempel worden volledig gelezen() voor sneller zoeken (standaard: 8000000 ≈ 8 MB). Grotere bestanden worden regel voor regel gescand.",
+    "param.max_results.description": "Maximaal aantal bestanden met treffers om terug te geven (standaard: 50).",
+    "param.name_pattern.description": "Glob-patroon voor bestandsnamen (bijv. '*.py', 'test_*'). Als dit ontbreekt, worden alle bestanden meegenomen.",
+    "param.root_path.description": "Rootmap om vanuit te zoeken (standaard: huidige map).",
+    "tool.description": "Zoek bestanden onder een map op naam (glob) en/of inhoud (regex).",
+    "tool.system_prompt": "Zoek bestanden onder een map. U kunt filteren op bestandsnaam (glob) en optioneel de inhoud zoeken met een reguliere expressie.\n\nOpmerkingen:\n- content_pattern wordt behandeld als een Python-regex.\n- Als content_pattern leeg is, wordt alleen op bestandsnaam gezocht.\n- Voor prestaties en veiligheid kan inhoudszoeken intern een eenvoudige binaire controle gebruiken."
+  },
+  "fi": {
+    "err.dir_not_exist": "[search_files virhe] Hakemistoa ei ole: {path}",
+    "err.regex_compile": "[search_files virhe] Säännöllisen lausekkeen kääntäminen epäonnistui: {error}",
+    "match.excerpt": "OSUMA: {text}",
+    "match.line": "R{line}: {text}",
+    "match.more": "... (lisää osumia tiedostossa)",
+    "out.file": "Tiedosto: {file}",
+    "out.found": "[search_files] Löydetty {n} tulosta",
+    "out.found_truncated": "[search_files] Löydetty {n} tulosta (rajattu arvoon {max_results})",
+    "out.no_match": "[search_files] Mikään tiedosto ei vastannut ehtoja.",
+    "param.case_sensitive.description": "Onko sisällön haku kirjainkoon suhteen herkkä (oletus: false).",
+    "param.content_pattern.description": "Säännöllinen lauseke, jota etsitään tiedostoista. Jos annetaan, palautetaan vain tiedostot, joissa on vähintään yksi osuma.",
+    "param.fast_read_threshold_bytes.description": "Tätä pienemmät tiedostot luetaan kokonaan() nopeampaa hakua varten (oletus: 8000000 ≈ 8 MB). Suuremmat tiedostot käydään läpi rivi riviltä.",
+    "param.max_results.description": "Palautettavien osumia sisältävien tiedostojen enimmäismäärä (oletus: 50).",
+    "param.name_pattern.description": "Tiedostonimien glob-kuvio (esim. '*.py', 'test_*'). Jos jätetään pois, kaikki tiedostot huomioidaan.",
+    "param.root_path.description": "Perushakemisto, josta haku aloitetaan (oletus: nykyinen hakemisto).",
+    "tool.description": "Etsi tiedostoja hakemistosta nimen (glob) ja/tai sisällön (regex) perusteella.",
+    "tool.system_prompt": "Etsi tiedostoja hakemiston alta. Voit rajata hakua tiedostonimikuviolla (glob) ja halutessasi etsiä sisällöstä säännöllisellä lausekkeella.\n\nHuomautukset:\n- content_pattern käsitellään Pythonin säännöllisenä lausekkeena.\n- Jos content_pattern on tyhjä, tehdään vain tiedostonimihaku.\n- Suorituskyvyn ja turvallisuuden vuoksi sisällönhaku voi käyttää sisäisesti yksinkertaista binääritarkistusta."
   }
 }

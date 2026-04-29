@@ -138,5 +138,19 @@
     "param.url.description": "URL for MCP-serverens endepunkt.",
     "tool.description": "[Høyeste prioritet] Koble til en MCP-server (Model Context Protocol) og returner listen over tilgjengelige verktøy. Før du utfører noen API-/systemintegrasjon, bruk dette verktøyet for å finne ut hvilke MCP-verktøy som er tilgjengelige. Støtter HTTP-baserte og stdio-baserte MCP-servere.",
     "tool.system_prompt": "Koble til en MCP-server (HTTP eller stdio) og list opp verktøyene. Bruk helst servere som er konfigurert i mcp_servers.json når det er mulig."
+  },
+  "nl": {
+    "param.pretty.description": "Of JSON-uitvoer netjes geformatteerd wordt.",
+    "param.server_name.description": "Servernaam uit het configuratiebestand.",
+    "param.url.description": "MCP-servereindpunt-URL.",
+    "tool.description": "[Hoogste prioriteit] Verbind met een MCP (Model Context Protocol)-server en geef de lijst met beschikbare tools terug. Gebruik deze tool vóór elke API-/systeemintegratie om te ontdekken welke MCP-tools beschikbaar zijn. Ondersteunt HTTP-gebaseerde en stdio-gebaseerde MCP-servers.",
+    "tool.system_prompt": "Verbind met een MCP-server (HTTP of stdio) en geef de tools lijst terug. Gebruik indien mogelijk geconfigureerde servers in mcp_servers.json."
+  },
+  "fi": {
+    "param.pretty.description": "Muotoillaanko JSON-tulos siististi.",
+    "param.server_name.description": "Palvelimen nimi asetustiedostosta.",
+    "param.url.description": "MCP-palvelimen päätepiste-URL.",
+    "tool.description": "[Korkein prioriteetti] Yhdistä MCP (Model Context Protocol) -palvelimeen ja palauta käytettävissä olevien työkalujen lista. Käytä tätä työkalua ennen mitä tahansa API-/järjestelmäintegraatiota selvittääksesi, mitä MCP-työkaluja on saatavilla. Tukee HTTP-pohjaisia ja stdio-pohjaisia MCP-palvelimia.",
+    "tool.system_prompt": "Yhdistä MCP-palvelimeen (HTTP tai stdio) ja listaa sen työkalut. Suosi mahdollisuuksien mukaan mcp_servers.jsonissa määritettyjä palvelimia."
   }
 }

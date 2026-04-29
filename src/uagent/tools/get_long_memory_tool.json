@@ -98,5 +98,15 @@
     "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_long_memory.",
     "tool.description": "Hent alle lagrede langtidsminnenotater (JSONL).",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: hente alle lagrede langtidsminnenotater (i JSONL-format)."
+  },
+  "nl": {
+    "doc.run_tool": "Een tool om alle langetermijngeheugen-notities op te halen (JSONL-tekst).",
+    "tool.description": "Haalt alle opgeslagen langetermijngeheugen-notities op (JSONL).",
+    "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: haal alle opgeslagen langetermijngeheugen-notities op (in JSONL-formaat)."
+  },
+  "fi": {
+    "doc.run_tool": "Työkalu koko pitkäaikaisen muistin hakemiseen (JSONL-teksti).",
+    "tool.description": "Hakee kaikki tallennetut pitkäaikaisen muistin muistiinpanot (JSONL).",
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: hae kaikki tallennetut pitkäaikaisen muistin muistiinpanot (JSONL-muodossa)."
   }
 }

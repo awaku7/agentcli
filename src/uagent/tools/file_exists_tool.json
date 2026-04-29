@@ -118,5 +118,17 @@
     "param.path.description": "Stien til filen eller katalogen du vil sjekke om finnes (~ kan også brukes).",
     "tool.description": "Sjekker om en fil eller katalog finnes på den angitte stien og returnerer type, størrelse og endringstid hvis den gjør det.",
     "tool.system_prompt": "Bruk dette verktøyet til å sjekke om en fil eller katalog finnes på den angitte stien, og hvis den gjør det, returner type, størrelse og endringstid."
+  },
+  "nl": {
+    "err.path_empty": "[file_exists fout] pad is leeg",
+    "param.path.description": "Pad van het bestand of de map waarvan u wilt controleren of deze bestaat (~ kan ook worden gebruikt).",
+    "tool.description": "Controleert of een bestand of map bestaat op het opgegeven pad en geeft zo ja het type, de grootte en de wijzigingstijd terug.",
+    "tool.system_prompt": "Gebruik deze tool om te controleren of een bestand of map bestaat op het opgegeven pad en, indien dat zo is, het type, de grootte en de wijzigingstijd terug te geven."
+  },
+  "fi": {
+    "err.path_empty": "[file_exists-virhe] polku on tyhjä",
+    "param.path.description": "Tarkistettavan tiedoston tai hakemiston polku (~ voidaan myös käyttää).",
+    "tool.description": "Tarkistaa, onko tiedosto tai hakemisto olemassa annetussa polussa, ja palauttaa tarvittaessa sen tyypin, koon ja muokkausajan.",
+    "tool.system_prompt": "Käytä tätä työkalua tarkistamaan, onko tiedosto tai hakemisto olemassa annetussa polussa, ja jos on, palauta sen tyyppi, koko ja muokkausaika."
   }
 }

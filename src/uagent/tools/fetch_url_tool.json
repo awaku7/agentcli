@@ -218,5 +218,27 @@
     "param.max_bytes.description": "Maksimalt antall byte som leses fra svaret.",
     "param.max_chars.description": "Maksimalt antall tegn som returneres (brukes etter dekoding/ekstraksjon).",
     "param.user_agent.description": "Valgfri User-Agent-headerverdi."
+  },
+  "nl": {
+    "param.url.description": "Te benaderen URL.",
+    "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON.",
+    "tool.system_prompt": "Deze tool voert de bewerking uit die door de toolnaam 'fetch_url' wordt beschreven.",
+    "param.extract.description": "Extractiemodus. head=geef het begin van de respons terug; text=haal tekst uit HTML; html=haal HTML-fragment; json=parse JSON (optioneel json_pointer toepassen).",
+    "param.selector.description": "Optionele CSS-selector. Als deze is opgegeven, wordt bij extract=text/html het eerste overeenkomende element uitgehaald.",
+    "param.json_pointer.description": "Optionele RFC 6901 JSON Pointer (bijv. /items/0/title) voor gebruik bij extract=json.",
+    "param.max_bytes.description": "Maximaal aantal bytes om uit de respons te lezen.",
+    "param.max_chars.description": "Maximaal aantal tekens om terug te geven (na decoderen/extractie toegepast).",
+    "param.user_agent.description": "Optionele User-Agent headerwaarde."
+  },
+  "fi": {
+    "param.url.description": "Avattava URL.",
+    "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen.",
+    "tool.system_prompt": "Tämä työkalu suorittaa työkalun nimen 'fetch_url' kuvaaman toiminnon.",
+    "param.extract.description": "Poimintatila. head=palauta vastauksen alku; text=poimi teksti HTML:stä; html=poimi HTML-fragmentti; json=jäsennä JSON (tarvittaessa käytä json_pointeria).",
+    "param.selector.description": "Valinnainen CSS-valitsin. Jos annetaan, extract=text/html käyttää ensimmäistä vastaavaa elementtiä.",
+    "param.json_pointer.description": "Valinnainen RFC 6901 JSON Pointer (esim. /items/0/title), jota käytetään kun extract=json.",
+    "param.max_bytes.description": "Enimmäismäärä tavuja, jotka luetaan vastauksesta.",
+    "param.max_chars.description": "Enimmäismäärä merkkejä, jotka palautetaan (sovelletaan dekoodauksen/poiminnan jälkeen).",
+    "param.user_agent.description": "Valinnainen User-Agent-otsakearvo."
   }
 }

@@ -138,5 +138,19 @@
     "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis den utelates, velges den automatisk.",
     "tool.description": "Som siste utvei, kjør PowerShell. Bruk bare når ingen andre passende verktøy, for eksempel MCP, er tilgjengelige.",
     "tool.system_prompt": "Dette verktøyet er en SISTE UTVEI.\n1. Sjekk først om handle_mcp / mcp_tools_list kan brukes i stedet.\n2. Bruk bare dette verktøyet når ingen andre passende verktøy er tilgjengelige.\n3. Ikke bruk dette verktøyet til å kjøre Python; bruk i stedet python_exec.\n\nSikkerhetsnotater:\n- Farlige mønstre som download-exec (IWR/IRM/curl/wget) og Base64 (-Enc) kan bli blokkert eller kreve bekreftelse."
+  },
+  "nl": {
+    "err.timeout": "[pwsh_exec timeout] niet voltooid binnen {seconds} seconden",
+    "param.command.description": "PowerShell-opdrachtstring die aan -Command wordt doorgegeven.",
+    "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell). Indien weggelaten, wordt automatisch gekozen.",
+    "tool.description": "Voer als laatste redmiddel PowerShell uit. Gebruik dit alleen wanneer geen andere geschikte tool (bijv. MCP) beschikbaar is.",
+    "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is."
+  },
+  "fi": {
+    "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut {seconds} sekunnissa",
+    "param.command.description": "PowerShell-komentorivi, joka välitetään -Command-parametrille.",
+    "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell). Jos jätetään pois, valitaan automaattisesti.",
+    "tool.description": "Suorita PowerShell vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua (esim. MCP) ei ole käytettävissä.",
+    "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole."
   }
 }

@@ -198,5 +198,25 @@
     "param.timeout_s.description": "Overstyr tidsavbrudd (sekunder).",
     "err.missing_task_id": "Mangler 'task_id'.",
     "err.exception": "Unntak"
+  },
+  "nl": {
+    "tool.description": "Pollen van een A2A-taak totdat deze een terminale status bereikt.",
+    "tool.system_prompt": "Volg een A2A-taak. Geef alleen JSON terug.",
+    "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
+    "param.task_id.description": "Taak-ID om te pollen.",
+    "param.interval_ms.description": "Polling-interval (ms) overschrijven.",
+    "param.timeout_s.description": "Timeout (seconden) overschrijven.",
+    "err.missing_task_id": "Ontbrekende 'task_id'.",
+    "err.exception": "Uitzondering"
+  },
+  "fi": {
+    "tool.description": "Seuraa A2A-tehtävää, kunnes se saavuttaa päättävän tilan.",
+    "tool.system_prompt": "Seuraa A2A-tehtävää. Palauta vain JSON.",
+    "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
+    "param.task_id.description": "Seurattavan tehtävän tunnus.",
+    "param.interval_ms.description": "Kyselyväli (ms).",
+    "param.timeout_s.description": "Aikakatkaisu sekunteina.",
+    "err.missing_task_id": "Puuttuva 'task_id'.",
+    "err.exception": "Poikkeus"
   }
 }

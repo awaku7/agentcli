@@ -98,5 +98,15 @@
     "param.command.description": "Kommandolinje som skal kjøres.",
     "tool.description": "Starter en ekstern GUI- eller nettleserprosess asynkront. Unngå gjentatte oppstarter for samme forespørsel.",
     "tool.system_prompt": "Bruk dette verktøyet til å starte en ekstern prosess asynkront. Unngå gjentatte oppstarter for samme forespørsel."
+  },
+  "nl": {
+    "param.command.description": "Uit te voeren commandoregel.",
+    "tool.description": "Start asynchroon een extern GUI- of browserproces. Vermijd herhaaldelijk dezelfde aanvraag opnieuw te starten.",
+    "tool.system_prompt": "Gebruik deze tool om een extern proces asynchroon te starten. Vermijd herhaaldelijk dezelfde aanvraag opnieuw te starten."
+  },
+  "fi": {
+    "param.command.description": "Suoritettava komentorivi.",
+    "tool.description": "Käynnistä ulkoinen GUI- tai selainprosessi asynkronisesti. Vältä saman pyynnön toistuvaa käynnistämistä.",
+    "tool.system_prompt": "Käytä tätä työkalua ulkoisen prosessin käynnistämiseen asynkronisesti. Vältä saman pyynnön toistuvaa käynnistämistä."
   }
 }

@@ -298,5 +298,35 @@
     "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff). Hvis den er angitt, finner verktøyet vinduet, aktiverer det og tar bare bilde av det området.",
     "tool.description": "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu.",
     "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu."
+  },
+  "nl": {
+    "err.capture_fail": "[screenshot fout] Screenshot maken mislukt: {err}",
+    "err.close_fail": "[screenshot] Opgeslagen naar {path}, maar het venster sluiten mislukte: {err}",
+    "err.pyautogui_missing": "[screenshot fout] De module pyautogui is niet geïnstalleerd.",
+    "err.pygetwindow_missing": "[screenshot fout] De module pygetwindow is niet geïnstalleerd (vereist voor vensterspecificatie).",
+    "err.window_not_found": "[screenshot fout] Er is geen venster gevonden met titel: '{title}'",
+    "out.ok": "[screenshot] Opgeslagen naar {path}",
+    "out.ok_closed": "[screenshot] Opgeslagen naar {path} en venster gesloten",
+    "param.close_window.description": "Of het venster na het maken van de opname moet worden gesloten. Alleen geldig wanneer window_title is opgegeven. Standaard is false.",
+    "param.delay.description": "Wachttijd (seconden) vóór het maken van de opname. Standaard is 1 seconde (voor wisselen van venster).",
+    "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen). Als niet opgegeven, wordt het opgeslagen in de huidige map met een tijdstempel.",
+    "param.window_title.description": "Venstertitel om vast te leggen (gedeeltelijke match). Als opgegeven, zoekt het dat venster, activeert het en fotografeert alleen dat gebied.",
+    "tool.description": "Leg een screenshot vast van het volledige bureaublad of van een specifiek venster.",
+    "tool.system_prompt": "Leg een screenshot vast van het bureaublad of een opgegeven venster."
+  },
+  "fi": {
+    "err.capture_fail": "[screenshot-virhe] Kuvakaappauksen ottaminen epäonnistui: {err}",
+    "err.close_fail": "[screenshot] Tallennettu kohteeseen {path}, mutta ikkunan sulkeminen epäonnistui: {err}",
+    "err.pyautogui_missing": "[screenshot-virhe] pyautogui-moduulia ei ole asennettu.",
+    "err.pygetwindow_missing": "[screenshot-virhe] pygetwindow-moduulia ei ole asennettu (vaaditaan ikkunan valintaa varten).",
+    "err.window_not_found": "[screenshot-virhe] Ikkunaa, jonka otsikko on: '{title}', ei löytynyt",
+    "out.ok": "[screenshot] Tallennettu kohteeseen {path}",
+    "out.ok_closed": "[screenshot] Tallennettu kohteeseen {path} ja ikkuna suljettu",
+    "param.close_window.description": "Suljetaanko ikkuna oton jälkeen. Voimassa vain, kun window_title on annettu. Oletus on false.",
+    "param.delay.description": "Odotusaika (sekunteina) ennen ottoa. Oletus on 1 sekunti (ikkunan vaihtoa varten).",
+    "param.file_path.description": "Tallennuskohteen tiedostopolku (.png suositeltu). Jos ei anneta, tiedosto tallennetaan nykyiseen hakemistoon aikaleimalla.",
+    "param.window_title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma). Jos annetaan, työkalu etsii sen ikkunan, aktivoi sen ja kuvaa vain kyseisen alueen.",
+    "tool.description": "Ota kuvakaappaus koko työpöydästä tai tietystä ikkunasta.",
+    "tool.system_prompt": "Ota kuvakaappaus työpöydästä tai annetusta ikkunasta."
   }
 }

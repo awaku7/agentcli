@@ -78,5 +78,15 @@
     "err.file_not_found": "لم يتم العثور على الملف: {اسم الملف}",
     "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
     "err.path_empty": "المسار فارغ"
+  },
+  "nl": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "fi": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
   }
 }

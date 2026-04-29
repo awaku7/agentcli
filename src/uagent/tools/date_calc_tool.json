@@ -238,5 +238,29 @@
     "param.years.description": "Antall år som skal legges til (subtraksjon er et negativt tall).",
     "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Inkluderer helligdagskontroll med holidays-biblioteket.",
     "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet faller på en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
+  },
+  "nl": {
+    "doc.get_holiday_info": "Get the holiday names for the specified country using the holidays library.",
+    "param.base_date.description": "Basisdatum in ISO 8601-formaat (YYYY-MM-DD). Als weggelaten, wordt vandaag gebruikt.",
+    "param.check_holiday.description": "Of feestdagen/wekeinden moeten worden gecontroleerd (standaard: true).",
+    "param.country.description": "Landcode voor feestdagencontrole (ISO 3166-1 alpha-2, bv. JP, US, GB, FR).",
+    "param.days.description": "Aantal dagen om op te tellen of af te trekken (aftrekken is negatief).",
+    "param.months.description": "Aantal maanden om op te tellen of af te trekken (aftrekken is negatief).",
+    "param.weeks.description": "Aantal weken om op te tellen of af te trekken (aftrekken is negatief).",
+    "param.years.description": "Aantal jaren om op te tellen of af te trekken (aftrekken is negatief).",
+    "tool.description": "Voer optellingen en aftrekkingen van jaren, maanden, weken en dagen uit op een opgegeven datum en geef de resulterende datum terug. Gebruikt de holidays-bibliotheek om feestdagen te controleren.",
+    "tool.system_prompt": "Gebruik deze tool voor datumrekeningen. Geef alleen JSON terug."
+  },
+  "fi": {
+    "doc.get_holiday_info": "Get the holiday names for the specified country using the holidays library.",
+    "param.base_date.description": "Peruspäivämäärä ISO 8601 -muodossa (YYYY-MM-DD). Jos jätetään pois, käytetään tätä päivää.",
+    "param.check_holiday.description": "Tarkistetaanko pyhäpäivät/viikonloput (oletus: true).",
+    "param.country.description": "Maakoodi pyhäpäivien tarkistusta varten (ISO 3166-1 alpha-2, esim. JP, US, GB, FR).",
+    "param.days.description": "Lisättävien tai vähennettävien päivien määrä (vähennys on negatiivinen).",
+    "param.months.description": "Lisättävien tai vähennettävien kuukausien määrä (vähennys on negatiivinen).",
+    "param.weeks.description": "Lisättävien tai vähennettävien viikkojen määrä (vähennys on negatiivinen).",
+    "param.years.description": "Lisättävien tai vähennettävien vuosien määrä (vähennys on negatiivinen).",
+    "tool.description": "Suorita vuosien, kuukausien, viikkojen ja päivien lisäys tai vähennys annetulle päivämäärälle ja palauta tulos. Käyttää holidays-kirjastoa pyhäpäivien tarkistamiseen.",
+    "tool.system_prompt": "Käytä tätä työkalua päivämäärälaskentaan. Palauta vain JSON."
   }
 }

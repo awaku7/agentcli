@@ -118,5 +118,17 @@
     "param.cwd.description": "Arbeidskatalog for kommandoen.",
     "tool.description": "Utfør en Windows-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe annet passende verktøy er tilgjengelig, for eksempel Python eller MCP.",
     "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
+  },
+  "nl": {
+    "param.command.description": "Uit te voeren opdrachtregel.",
+    "param.cwd.description": "Werkmap voor de opdracht.",
+    "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug. Gebruik dit alleen wanneer geen veiligere of specifiekere tool beschikbaar is (bijv. een MCP-integratie).",
+    "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is. Wees voorzichtig met opdrachten en vermijd destructieve handelingen tenzij de gebruiker dit expliciet bevestigt."
+  },
+  "fi": {
+    "param.command.description": "Suoritettava komentorivi.",
+    "param.cwd.description": "Komennon työskentelyhakemisto.",
+    "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos. Käytä tätä vain, kun mitään turvallisempaa tai tarkempaa työkalua ei ole saatavilla (esim. MCP-integraatio).",
+    "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole. Ole varovainen komentojen kanssa ja vältä tuhoavia toimia, ellei käyttäjä ole vahvistanut niitä."
   }
 }

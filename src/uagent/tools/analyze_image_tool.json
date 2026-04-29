@@ -118,5 +118,17 @@
     "param.prompt.description": "Det du vil vite om bildet.",
     "tool.description": "Last inn en bildefil og la AI (Vision) beskrive innholdet. Nyttig for å analysere skjermbilder eller lese grafer/tabeller.",
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"analyze_image\"."
+  },
+  "nl": {
+    "param.image_path.description": "Pad naar het afbeeldingsbestand om te analyseren.",
+    "param.prompt.description": "Wat u over de afbeelding wilt weten.",
+    "tool.description": "Laad een afbeeldingsbestand en laat AI (Vision) de inhoud beschrijven. Handig voor het analyseren van screenshots of het lezen van grafieken/tabellen.",
+    "tool.system_prompt": "Voer de bewerking uit die door de toolnaam 'analyze_image' wordt beschreven."
+  },
+  "fi": {
+    "param.image_path.description": "Analysoitavan kuvatiedoston polku.",
+    "param.prompt.description": "Mitä haluat tietää kuvasta.",
+    "tool.description": "Lataa kuvatiedosto ja anna tekoälyn (Vision) kuvata sen sisältö. Hyödyllinen kuvakaappausten analysointiin tai kaavioiden/taulukoiden lukemiseen.",
+    "tool.system_prompt": "Suorita työkalun nimen 'analyze_image' kuvaama toiminto."
   }
 }

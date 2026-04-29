@@ -198,5 +198,25 @@
     "param.top_n.description": "Antall toppresultater som skal returneres.",
     "tool.description": "Søker etter store filer under den angitte katalogen og returnerer de øverste N resultatene sammen med statistikk per filendelse.",
     "tool.system_prompt": "Dette verktøyet søker etter store filer under den angitte katalogen og returnerer de øverste N resultatene sammen med statistikk per filendelse."
+  },
+  "nl": {
+    "param.exclude_dirs.description": "Uitgesloten mapnamen (gematcht op mapnaam).",
+    "param.group_by_ext.description": "Ook statistieken per bestandsextensie teruggeven.",
+    "param.max_files.description": "Maximaal aantal te scannen bestanden (om runaway-verwerking te voorkomen).",
+    "param.min_bytes.description": "Alleen bestanden opnemen die groter zijn dan deze grootte (standaard: 10 MB).",
+    "param.root.description": "Zoekroot (alleen toegestaan binnen workdir).",
+    "param.top_n.description": "Aantal topresultaten om terug te geven.",
+    "tool.description": "Zoekt naar grote bestanden onder de opgegeven map en geeft de top N resultaten samen met statistieken per extensie terug.",
+    "tool.system_prompt": "Deze tool zoekt naar grote bestanden onder de opgegeven map en geeft de top N resultaten samen met statistieken per extensie terug."
+  },
+  "fi": {
+    "param.exclude_dirs.description": "Poissuljetut hakemistonnimet (verrataan hakemiston nimeen).",
+    "param.group_by_ext.description": "Palauta myös tilastot tiedostopäätteittäin.",
+    "param.max_files.description": "Skannattavien tiedostojen enimmäismäärä (estää hallitsemattoman suorittamisen).",
+    "param.min_bytes.description": "Sisällytä vain tätä suuremmat tiedostot (oletus: 10 MB).",
+    "param.root.description": "Hakukohde (sallittu vain workdirin sisällä).",
+    "param.top_n.description": "Palautettavien parhaiden tulosten määrä.",
+    "tool.description": "Etsii suuria tiedostoja annetusta hakemistosta ja palauttaa N suurinta tulosta sekä tiedostopäätekohtaiset tilastot.",
+    "tool.system_prompt": "Tämä työkalu etsii suuria tiedostoja annetusta hakemistosta ja palauttaa N suurinta tulosta sekä tiedostopäätekohtaiset tilastot."
   }
 }

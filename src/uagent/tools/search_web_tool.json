@@ -238,5 +238,29 @@
     "param.query.description": "Søkeord som streng.",
     "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
     "tool.system_prompt": "Dette verktøyet utfører et DuckDuckGo HTML-søk og returnerer tittel/lenke/utdrag. Hvis resultatene er tomme, kan nettstedet begrense hastigheten eller blokkere forespørselen."
+  },
+  "nl": {
+    "error.args_must_be_dict": "args moet een dict zijn",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-verzoek mislukt na meerdere pogingen: {error}",
+    "error.missing_query_parameter": "ontbrekende parameter 'query'",
+    "error.run_tool_error": "run_tool fout: {error}",
+    "param.max_results.description": "Maximaal aantal resultaten om terug te geven (standaard: 5).",
+    "param.n.description": "Alias van 'max_results' (voor achterwaartse compatibiliteit).",
+    "param.q.description": "Alias van 'query' (voor achterwaartse compatibiliteit).",
+    "param.query.description": "Zoekopdracht.",
+    "tool.description": "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/snippet terug.",
+    "tool.system_prompt": "Doorzoek DuckDuckGo via HTML en geef titel/link/snippet terug. Als resultaten leeg zijn, kan de site verzoeken rate-limiten of blokkeren."
+  },
+  "fi": {
+    "error.args_must_be_dict": "argsin on oltava dict",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-pyyntö epäonnistui toistoyritysten jälkeen: {error}",
+    "error.missing_query_parameter": "puuttuva 'query'-parametri",
+    "error.run_tool_error": "run_tool-virhe: {error}",
+    "param.max_results.description": "Palautettavien tulosten enimmäismäärä (oletus: 5).",
+    "param.n.description": "'max_results'-alias (taaksepäin yhteensopivuuden vuoksi).",
+    "param.q.description": "'query'-alias (taaksepäin yhteensopivuuden vuoksi).",
+    "param.query.description": "Hakukysely.",
+    "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma.",
+    "tool.system_prompt": "Hae DuckDuckGo:sta HTML:n kautta ja palauta otsikko/linkki/katkelma. Jos tulokset ovat tyhjiä, sivusto voi rajoittaa pyyntöjä tai estää ne."
   }
 }

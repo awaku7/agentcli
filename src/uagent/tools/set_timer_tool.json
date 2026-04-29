@@ -238,5 +238,29 @@
     "param.seconds.description": "Antall sekunder for timeren.",
     "tool.description": "Viser en melding etter et angitt antall sekunder. Valgfritt kan en automatisk melding sendes til LLM.",
     "tool.system_prompt": "Dette verktøyet brukes til å vise en melding etter en angitt tid og kan eventuelt sende inn en automatisk melding til LLM."
+  },
+  "nl": {
+    "err.queue_uninitialized": "[set_timer error] event_queue callback not initialized.",
+    "err.seconds_invalid": "[set_timer error] seconds cannot be interpreted as an integer: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds must be 0 or more: {val}",
+    "msg.default_timer_done": "Timer ends",
+    "out.ok": "[set_timer] Set timer in {seconds} seconds: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Message to display upon completion.",
+    "param.on_timeout_prompt.description": "Contents to be automatically entered into LLM upon expiration.",
+    "param.seconds.description": "The number of seconds in the timer.",
+    "tool.description": "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
+    "tool.system_prompt": "This tool is used to display a message after a specified time and optionally input an automatic message to the LLM."
+  },
+  "fi": {
+    "err.queue_uninitialized": "[set_timer error] event_queue callback not initialized.",
+    "err.seconds_invalid": "[set_timer error] seconds cannot be interpreted as an integer: {raw}",
+    "err.seconds_negative": "[set_timer error] seconds must be 0 or more: {val}",
+    "msg.default_timer_done": "Timer ends",
+    "out.ok": "[set_timer] Set timer in {seconds} seconds: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Message to display upon completion.",
+    "param.on_timeout_prompt.description": "Contents to be automatically entered into LLM upon expiration.",
+    "param.seconds.description": "The number of seconds in the timer.",
+    "tool.description": "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
+    "tool.system_prompt": "This tool is used to display a message after a specified time and optionally input an automatic message to the LLM."
   }
 }

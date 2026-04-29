@@ -98,5 +98,15 @@
     "param.max_results.description": "Maksimalt antall katalogoppføringer som skal returneres.",
     "param.query.description": "Naturlig språksøket som beskriver funksjonen som trengs.",
     "tool.description": "Returnerer en lettvektskatalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner."
+  },
+  "nl": {
+    "param.max_results.description": "Maximaal aantal catalogusitems om terug te geven.",
+    "param.query.description": "Query in natuurlijke taal die de benodigde mogelijkheid beschrijft.",
+    "tool.description": "Geef een lichtgewicht catalogus van beschikbare tools zodat het model relevante tools kan ontdekken voordat volledige tooldefinities worden opgevraagd."
+  },
+  "fi": {
+    "param.max_results.description": "Palautettavien luettelomerkintöjen enimmäismäärä.",
+    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavan ominaisuuden.",
+    "tool.description": "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä."
   }
 }
