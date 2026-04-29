@@ -98,5 +98,15 @@
     "param.note.description": "Teksten i notatet som skal deles.",
     "tool.description": "Legg til ett notat i det delte langtidsminnet som deles mellom brukere og økter. Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det er deaktivert. Ikke lagre hemmeligheter som passord eller API-nøkler.",
     "tool.system_prompt": "Legg til nøyaktig ett notat i det delte minnet.\nHvis delt minne er deaktivert (UAGENT_SHARED_MEMORY_FILE er ikke satt), returner en melding som forklarer hvordan det kan aktiveres.\nIkke lagre hemmeligheter (passord, token eller API-nøkler)."
+  },
+  "nl": {
+    "param.note.description": "De notitietekst om te delen.",
+    "tool.description": "Voeg één notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld tussen gebruikers/sessies). Als gedeeld geheugen niet is geconfigureerd, meldt de tool dat het is uitgeschakeld. Sla nooit geheimen op zoals wachtwoorden of API-sleutels.",
+    "tool.system_prompt": "Voeg precies één notitie toe aan de gedeelde geheugenopslag.\nAls gedeeld geheugen is uitgeschakeld (UAGENT_SHARED_MEMORY_FILE niet ingesteld), geef dan een bericht hoe het kan worden ingeschakeld.\nSla geen geheimen op (wachtwoorden/tokens/API-sleutels)."
+  },
+  "fi": {
+    "param.note.description": "Jaettava muistiinpanoteksti.",
+    "tool.description": "Lisää yksi muistiinpano jaettuun pitkäaikaisen muistin varastoon (jaettu käyttäjien/istuntojen kesken). Jos jaettua muistia ei ole määritetty, työkalu ilmoittaa sen olevan poissa käytöstä. Älä koskaan tallenna salaisuuksia kuten salasanoja tai API-avaimia.",
+    "tool.system_prompt": "Lisää täsmälleen yksi muistiinpano jaettuun muistiin.\nJos jaettu muisti on poissa käytöstä (UAGENT_SHARED_MEMORY_FILE ei ole asetettu), palauta viesti, jossa kerrotaan, miten se otetaan käyttöön.\nÄlä tallenna salaisuuksia (salasanat/tokeneita/API-avaimia)."
   }
 }

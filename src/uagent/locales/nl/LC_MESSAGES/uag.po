@@ -1,0 +1,1462 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: uag 0.4.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-04-25 11:15+0900\n"
+"PO-Revision-Date: 2026-04-28 21:59+0900\n"
+"Last-Translator: OpenAI\n"
+"Language-Team: nl\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:15 src/uagent/checks.py:25
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "Installeer Git. Zie: %(url)s"
+
+#: src/uagent/checks.py:18
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Installeer Git. Voorbeeld: sudo apt install git (Ubuntu/Debian) of sudo yum "
+"install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:21
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Installeer Git. Als u Homebrew gebruikt: brew install git, of installeer "
+"Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:28
+msgid "[ERROR] Git is not installed."
+msgstr "[FOUT] Git is niet geïnstalleerd."
+
+#: src/uagent/cli.py:357
+msgid "getch() fallback to input()"
+msgstr "getch() valt terug op input()"
+
+#: src/uagent/cli.py:556
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Invoer geannuleerd (wordt als antwoord naar human_ask verzonden)."
+
+#: src/uagent/cli.py:564
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C ontvangen. Afsluiten wordt gestart..."
+
+#: src/uagent/cli.py:571
+#, python-format
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "Onverwachte fout in stdin_loop: %(err)s"
+
+#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Multiline-invoermodus: voer de body in meerdere regels in; om opnieuw te "
+"starten, typ \"\"\"opnieuw; eindig met een regel met %(sentinel)s)"
+
+#: src/uagent/cli.py:627 src/uagent/setup_cli.py:828
+#: src/uagent/setup_cli.py:847 src/uagent/setup_cli.py:870
+#: src/uagent/setup_cli.py:886 src/uagent/setup_cli.py:905
+#: src/uagent/setup_cli.py:924 src/uagent/setup_cli.py:938
+#: src/uagent/setup_cli.py:951 src/uagent/setup_cli.py:959
+#: src/uagent/setup_cli.py:971 src/uagent/setup_cli.py:982
+#: src/uagent/setup_cli.py:1067 src/uagent/setup_cli.py:1093
+msgid "Cancelled."
+msgstr "Geannuleerd."
+
+#: src/uagent/cli.py:633 src/uagent/cli.py:683
+msgid "Discarded previous input. Please start over."
+msgstr "Eerdere invoer verworpen. Begin opnieuw."
+
+#: src/uagent/cli.py:644
+msgid "Received multiline reply."
+msgstr "Meerregelige reactie ontvangen."
+
+#: src/uagent/cli.py:796
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Er zijn paden voor afbeeldingsbestanden gevonden in uw invoer.\n"
+"Wilt u deze beelden voor analyse naar de LLM (externe API) sturen?"
+
+#: src/uagent/cli.py:802
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"Antwoord met y om te verzenden, of met n (of c/cancel) om het verzenden over"
+" te slaan."
+
+#: src/uagent/cli.py:817
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Bevestiging van het verzenden van de afbeelding is mislukt; zal geen "
+"afbeeldingen verzenden: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:845 src/uagent/scheckgui.py:351
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Kan afbeelding niet bijvoegen: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:882
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Onbekende soort gebeurtenis =%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:896
+msgid "Exited uag."
+msgstr "uag afgesloten."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] naam is vereist"
+
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Kan workdir niet instellen: %(err)s"
+
+#: src/uagent/cli_startup.py:135
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Kan uag_setup niet starten: %(err)s"
+
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:178
+#: src/uagent/web.py:590
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "LLM-provider = %(provider)s"
+
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:182
+#: src/uagent/web.py:592
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "model(implementatie) = %(depname)s"
+
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:192
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter-fallbackmodellen ingeschakeld."
+
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:233
+#: src/uagent/web.py:580
+msgid ""
+"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
+"ignored)"
+msgstr ""
+"LLM API-modus = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES wordt "
+"genegeerd)"
+
+#: src/uagent/cli_startup.py:198
+#, python-format
+msgid ""
+"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
+"support Responses API. Falling back to ChatCompletions."
+msgstr ""
+"[WARN] UAGENT_RESPONSES=1 is ingesteld, maar provider '%(provider)s' "
+"ondersteunt de Responses API niet. Terugvallen op ChatCompletions."
+
+#: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
+#: src/uagent/scheckgui.py:239 src/uagent/web.py:586
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "LLM API-modus = ChatCompletions (UAGENT_RESPONSES is uitgeschakeld)"
+
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:227
+#: src/uagent/web.py:574
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "LLM API-modus = Reacties (UAGENT_RESPONSES is ingeschakeld)"
+
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:248
+#: src/uagent/web.py:605
+msgid "Loaded long-term memory."
+msgstr "Langetermijngeheugen geladen."
+
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:261
+#: src/uagent/web.py:617
+msgid "Loaded shared long-term memory."
+msgstr "Gedeeld langetermijngeheugen geladen."
+
+#: src/uagent/cli_startup.py:247
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Uitzondering opgetreden tijdens het laden van gedeeld "
+"langetermijngeheugen: %(err)s"
+
+#: src/uagent/cli_startup.py:281
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Kan opstartbestand niet lezen: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:318
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive is opgegeven; afsluiten zonder op stdin te wachten."
+
+#: src/uagent/core.py:284 src/uagent/core.py:305
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Omgevingsvariabele %(name)s is niet ingesteld."
+
+#: src/uagent/core.py:597
+msgid "No log files found."
+msgstr "Geen logbestanden gevonden."
+
+#: src/uagent/core.py:618
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logboeken: met %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:621
+msgid "Log files:"
+msgstr "Logbestanden:"
+
+#: src/uagent/core.py:1273
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help  (hulp niet beschikbaar: %(err)s)"
+
+#: src/uagent/core.py:1285
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+msgstr ""
+"## Missie\n"
+"- Je bent een capabele \"general-purpose tool execution agent\" die draait op een lokale omgeving, en je kunt daadwerkelijk commando's uitvoeren en werken op bestanden op de machine van de gebruiker.\n"
+"- Vraag de gebruiker om bevestiging voordat u gevaarlijke handelingen uitvoert.\n"
+"- Vlei de gebruiker niet. Gebruik geen emoji's.\n"
+"- Niet samenvatten. Houd informatie beknopt.\n"
+"- Voer bij het maken van bestanden de volledige uiteindelijke inhoud uit (voer geen diff's of gedeeltelijke samenvattingen uit)."
+
+#: src/uagent/core.py:1293
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Regels\n"
+"- Gebruik altijd de meegeleverde tools en controleer de meest recente informatie.\n"
+"- Wees creatief, maar produceer geen onzekere informatie.\n"
+"- Raadpleeg de beschikbare tools en kies de meest geschikte.\n"
+"- Delegeer bij het uitvoeren van tools zo min mogelijk besluitvorming aan de gebruiker."
+
+#: src/uagent/core.py:1300
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+msgstr "QUERY LENGTH LIMIT EXCEEDED. MAX ALLOWED QUERY : 500 CHARS"
+
+#: src/uagent/core.py:1311
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr "QUERY LENGTH LIMIT EXCEEDED. MAX ALLOWED QUERY : 500 CHARS"
+
+#: src/uagent/core.py:1319
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+msgstr ""
+"## Missie\n"
+"- Je bent een capabele \"general-purpose tool execution agent\" die op een lokale omgeving draait; je kunt commando's uitvoeren en op de machine van de gebruiker werken.\n"
+"- Vraag de gebruiker om bevestiging voordat u gevaarlijke handelingen uitvoert.\n"
+"- Geen vleierij, geen emoji's. Geen gespreksoverzichten. Houd het beknopt.\n"
+"- Voer bij het maken van bestanden de volledige uiteindelijke inhoud uit (geen diffs/gedeeltelijke samenvattingen)."
+
+#: src/uagent/core.py:1326
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Regels\n"
+"- Gebruik eerst de meegeleverde tools en verifieer de resultaten met tools.\n"
+"- Raadpleeg gereedschapsbeschrijvingen voor doel/argumenten/beperkingen; kies het meest geschikte en veiligste gereedschap.\n"
+"- Wees creatief, maar produceer geen onzekere informatie.\n"
+"- Delegeer zo min mogelijk besluitvorming aan de gebruiker."
+
+#: src/uagent/core.py:1333
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+msgstr ""
+"## Opmerkingen\n"
+"- Alle gebruikersberichten komen via de standaardinvoer van dit script.\n"
+"- Als de vereiste informatie/parameters ontbreken, vraag dan via human_ask (niet raden).\n"
+"- Relatieve datums: bel get_current_time.\n"
+"- Bewaar geen geheimen (wachtwoorden/tokens) in het langetermijngeheugen.\n"
+"- Bestanden met achtervoegsels zoals .org / .org1 / .org2 zijn back-upkopieën en mogen niet worden behandeld als primaire bewerkbare bestanden.\n"
+"- Als u Python-bestanden maakt, voert u `python -m py_compile` uit.\n"
+"- Als kennis op expertniveau vereist is, gebruik dan promptsjablonen voor agentvaardigheden."
+
+#: src/uagent/core.py:1345
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Als de gebruiker Windows cmd.exe gebruikt, geef dan de voorkeur aan "
+"opdrachten met meerdere regels met caret (^) -regelcontinuering en houd elke"
+" regel kort om regeleinden te kopiëren/plakken."
+
+#: src/uagent/core.py:1412
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"De volgende tools zijn momenteel geladen in deze sessie. Kies het meest "
+"geschikte gereedschap voor de taak."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "Project-README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Snelstart (Windows-wiel installeren)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector (toneelschrijver_inspector) gids"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Info voor & ontwikkelaar@info"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "onbekende documentnaam: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "doc-bestand niet gevonden: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "doc pad resolutie mislukt: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Beschikbare documenten:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Gebruik:"
+
+#: src/uagent/docs_util.py:232
+msgid "  uag docs                 # list"
+msgstr "uag docs                 # list"
+
+#: src/uagent/docs_util.py:233
+msgid "  uag docs <name>          # show"
+msgstr "uag docs <name>          # show"
+
+#: src/uagent/docs_util.py:234
+msgid "  uag docs --path <name>   # show path"
+msgstr "uag docs --path <name>   # toon pad"
+
+#: src/uagent/docs_util.py:235
+msgid "  uag docs --open <name>   # open with OS"
+msgstr "uag docs --open <name>   # open met OS"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"Vereist om de LLM-aanbieder te selecteren "
+"(azuurblauw/openai/gesteente/openrouter/gemini/grok/claude/nvidia)."
+
+#: src/uagent/env_validate.py:63
+msgid ", "
+msgstr ", "
+
+#: src/uagent/env_validate.py:170
+msgid "Missing required environment variables:"
+msgstr "Ontbrekende vereiste omgevingsvariabelen:"
+
+#: src/uagent/env_validate.py:184
+msgid "Warnings:"
+msgstr "Waarschuwingen:"
+
+#: src/uagent/env_validate.py:188
+msgid "How to fix:"
+msgstr "Hoe te repareren"
+
+#: src/uagent/env_validate.py:191
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Stel de bovenstaande variabelen in uw omgeving in voordat u het programma "
+"start."
+
+#: src/uagent/env_validate.py:197
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- U kunt ze instellen via de instellingen van uw OS-omgeving, een .env-"
+"bestand, uw shell-opstartscripts,"
+
+#: src/uagent/env_validate.py:203
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"of uw procesmanager / serviceconfiguratie (CI-geheimen, systemd, Docker, "
+"enz.)."
+
+#: src/uagent/gemini_cache_mgr.py:129
+msgid "invalid cache meta"
+msgstr "ongeldige cache-meta"
+
+#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
+msgid "anthropic package is not installed."
+msgstr "antropisch pakket is niet geïnstalleerd."
+
+#: src/uagent/llm_errors.py:396
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[SNELHEIDSLIMIET] provider=%(provider)s model=%(model)s status=%(status)s "
+"poging=%(attempt)s/%(max_retries)s wacht=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_openai_responses.py:143
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Regels voor het oproepen van tools]\n"
+"        - Wanneer u een tool/functie aanroept, MOET u function_call.arguments als een JSON-object opgeven.\n"
+"        - Het JSON-object MOET alle vereiste parameters bevatten die zijn gedefinieerd door het toolschema.\n"
+"        - Roep nooit een gereedschap aan met een leeg object {} tenzij het gereedschap geen vereiste parameters heeft.\n"
+"        - Als je geen vereiste parameter hebt, vraag de gebruiker er dan om met human_ask in plaats van te raden."
+
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:217
+#: src/uagent/web.py:565
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 is ingesteld, maar provider '%(provider)s' ondersteunt de"
+" Responses API niet. Terugvallen op ChatCompletions."
+
+#: src/uagent/runtime_banner.py:93
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "LLM-streaming = %(state)s"
+
+#: src/uagent/runtime_env.py:24
+#, python-brace-format
+msgid "[WARN] {message}"
+msgstr "[WAARSCHUWING] {message}"
+
+#: src/uagent/runtime_init.py:44
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] Kan .env.sec niet ontsleutelen: %(err)s"
+
+#: src/uagent/runtime_workdir.py:42
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
+
+#: src/uagent/scheckgui.py:270 src/uagent/web.py:626
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Er is een uitzondering opgetreden tijdens het laden van gedeeld "
+"langetermijngeheugen: %(err)s"
+
+#: src/uagent/scheckgui.py:476 src/uagent/scheckgui.py:569
+msgid "Welcome / Quick Guide"
+msgstr "Welkom / beknopte handleiding"
+
+#: src/uagent/scheckgui.py:484
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (Extreme stabiliteit)"
+
+#: src/uagent/scheckgui.py:530
+msgid "Send"
+msgstr "Versturen"
+
+#: src/uagent/scheckgui.py:568
+msgid "Help"
+msgstr "Hulp"
+
+#: src/uagent/scheckgui.py:583
+msgid "Mode"
+msgstr "Modus"
+
+#: src/uagent/scheckgui.py:585
+msgid "Reasoning: off"
+msgstr "Redenering: uit"
+
+#: src/uagent/scheckgui.py:588
+msgid "Reasoning: auto"
+msgstr "Redenering: auto"
+
+#: src/uagent/scheckgui.py:590
+msgid "Reasoning: minimal"
+msgstr "Redenering: minimaal"
+
+#: src/uagent/scheckgui.py:592
+msgid "Reasoning: low"
+msgstr "Redenering: laag"
+
+#: src/uagent/scheckgui.py:594
+msgid "Reasoning: medium"
+msgstr "Redenering: gemiddeld"
+
+#: src/uagent/scheckgui.py:596
+msgid "Reasoning: high"
+msgstr "Redenering: hoog"
+
+#: src/uagent/scheckgui.py:599
+msgid "Reasoning: xhigh"
+msgstr "Redenering: xhoog"
+
+#: src/uagent/scheckgui.py:604
+msgid "Verbosity: off"
+msgstr "Verbosity: uit"
+
+#: src/uagent/scheckgui.py:606
+msgid "Verbosity: low"
+msgstr "Verbositeit: laag"
+
+#: src/uagent/scheckgui.py:608
+msgid "Verbosity: medium"
+msgstr "Verbositeit: gemiddeld"
+
+#: src/uagent/scheckgui.py:610
+msgid "Verbosity: high"
+msgstr "Verbositeit: hoog"
+
+#: src/uagent/scheckgui.py:640
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[mode] redenering=%(mode)s"
+
+#: src/uagent/scheckgui.py:761
+msgid "Enter password..."
+msgstr "Voer wachtwoord in"
+
+#: src/uagent/scheckgui.py:763
+msgid "Enter response for human_ask..."
+msgstr "Voer antwoord in voor human_ask..."
+
+#: src/uagent/scheckgui.py:768
+msgid "Enter a message..."
+msgstr "Voer een bericht in"
+
+#: src/uagent/setup_cli.py:28
+msgid "# .env for uag (generated by `uag_setup`)"
+msgstr "# .env voor uag (gegenereerd door `uag_setup`)"
+
+#: src/uagent/setup_cli.py:29
+msgid "#"
+msgstr "#"
+
+#: src/uagent/setup_cli.py:30
+msgid "# Notes:"
+msgstr "Opmerkingen:"
+
+#: src/uagent/setup_cli.py:31
+msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
+msgstr ""
+"# - Dit bestand kan geheimen bevatten (API-sleutels). Leg het NIET vast op "
+"Git."
+
+#: src/uagent/setup_cli.py:32
+msgid "# - You can re-run `uag_setup` anytime to regenerate."
+msgstr ""
+"# - U kunt 'uag_setup` op elk gewenst moment opnieuw uitvoeren om te "
+"regenereren."
+
+#: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
+#: src/uagent/setup_cli.py:192
+msgid "OpenRouter"
+msgstr "OpenRouter"
+
+#: src/uagent/setup_cli.py:67
+msgid "Vertex AI"
+msgstr "Vertex AI"
+
+#: src/uagent/setup_cli.py:68
+msgid "Grok"
+msgstr "Grokken"
+
+#: src/uagent/setup_cli.py:70
+msgid "Ollama"
+msgstr "Ollama"
+
+#: src/uagent/setup_cli.py:71 src/uagent/setup_cli.py:194
+msgid "NVIDIA"
+msgstr "NVIDIA"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:459
+msgid "OpenAI API key"
+msgstr "OpenAI API-sleutel"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:460
+msgid "OpenAI base URL (optional)"
+msgstr "OpenAI-basis-URL (optioneel)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "OpenAI-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:451
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "Azure-basis-URL (bijv. https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:453
+msgid "Azure API key"
+msgstr "Azure API-sleutel"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Azure API-versie (optioneel, bijv. 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:455
+msgid "Azure deployment name"
+msgstr "Azure-implementatienaam"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:468
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "Bedrock gateway basis-URL (bijv. https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:470
+msgid "Bedrock API key"
+msgstr "Bedrock API-sleutel"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:474
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Bedrockmodel/implementatienaam (bijv. openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:479
+msgid "OpenRouter API key"
+msgstr "OpenRouter API-sleutel"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:480
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter-basis-URL (optioneel)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "OpenRouter-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "OpenRouter fallback-modellen (optioneel, door komma's gescheiden)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:485
+msgid "Gemini API key"
+msgstr "Gemini API-sleutel"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "Gemini-modelnaam (optioneel)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Vertex AI API-sleutel"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "Vertex AI-project-ID (optioneel)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "Vertex AI locatie/regio (optioneel)"
+
+#: src/uagent/setup_cli.py:130
+msgid "Vertex AI model/deployment name"
+msgstr "Vertex AI-model/implementatienaam"
+
+#: src/uagent/setup_cli.py:133
+msgid "Grok API key"
+msgstr "Grok API-sleutel"
+
+#: src/uagent/setup_cli.py:134
+msgid "Grok base URL (optional)"
+msgstr "Grok basis-URL (optioneel)"
+
+#: src/uagent/setup_cli.py:135
+msgid "Grok model/deployment name (optional)"
+msgstr "Grok-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Claude API key"
+msgstr "Claude API-sleutel"
+
+#: src/uagent/setup_cli.py:139
+msgid "Claude model/deployment name (optional)"
+msgstr "Claude-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:490
+msgid "NVIDIA API key"
+msgstr "NVIDIA API-sleutel"
+
+#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:491
+msgid "NVIDIA base URL (optional)"
+msgstr "NVIDIA-basis-URL (optioneel)"
+
+#: src/uagent/setup_cli.py:144
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "NVIDIA-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:150
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Ollama-basis-URL (bijv. http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:155
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Ollama API-sleutel (optioneel, standaard: dummy)"
+
+#: src/uagent/setup_cli.py:157
+msgid "Ollama model/deployment name (optional)"
+msgstr "Ollama-model/implementatienaam (optioneel)"
+
+#: src/uagent/setup_cli.py:161
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Ollama-verzoek time-out in seconden (standaard: 60)"
+
+#: src/uagent/setup_cli.py:163
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Ollama-temperatuur (standaard: 0,7)"
+
+#: src/uagent/setup_cli.py:164
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (standaard: 0,9)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (standaard: 40)"
+
+#: src/uagent/setup_cli.py:169
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (standaard: 1.1)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (standaard: 5m)"
+
+#: src/uagent/setup_cli.py:172
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (standaard: 8192)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama NUM_Predict (standaard: 1024)"
+
+#: src/uagent/setup_cli.py:324 src/uagent/setup_cli.py:413
+msgid "Enter number:"
+msgstr "Voer nummer in"
+
+#: src/uagent/setup_cli.py:337
+msgid "Invalid input. Please enter a valid number."
+msgstr "Ongeldige invoer. Voer een geldig nummer in."
+
+#: src/uagent/setup_cli.py:350
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[default: %(default)s]"
+
+#: src/uagent/setup_cli.py:366
+msgid "This field is required. Please enter a value."
+msgstr "Dit veld is verplicht, voer een waarde in"
+
+#: src/uagent/setup_cli.py:378
+msgid "Select UAGENT_LANG"
+msgstr "Selecteer UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:389
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (aangepast)"
+
+#: src/uagent/setup_cli.py:402
+msgid "Select output files to generate in the current directory"
+msgstr "Selecteer uitvoerbestanden om te genereren in de huidige map"
+
+#: src/uagent/setup_cli.py:403
+msgid "  1. .env only"
+msgstr "1. Alleen. .env"
+
+#: src/uagent/setup_cli.py:404
+msgid "  2. .env + env.sh"
+msgstr "2. .env + env.sh"
+
+#: src/uagent/setup_cli.py:405
+msgid "  3. .env + env.ps1"
+msgstr "3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py:406
+msgid "  4. .env + env.bat"
+msgstr "4. .env + env.bat"
+
+#: src/uagent/setup_cli.py:407
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + all (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:428
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Ongeldige invoer. Voer 1-5 of b/q in."
+
+#: src/uagent/setup_cli.py:454
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Azure API-versie (bijv. 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:461
+msgid "OpenAI model/deployment name"
+msgstr "OpenAI-model/implementatienaam"
+
+#: src/uagent/setup_cli.py:481
+msgid "OpenRouter model/deployment name"
+msgstr "OpenRouter-model/implementatienaam"
+
+#: src/uagent/setup_cli.py:486
+msgid "Gemini model name"
+msgstr "Gemini-modelnaam"
+
+#: src/uagent/setup_cli.py:492
+msgid "NVIDIA model/deployment name"
+msgstr "NVIDIA-model/implementatienaam"
+
+#: src/uagent/setup_cli.py:500
+#, python-format
+msgid "%(label)s"
+msgstr "%(label)s"
+
+#: src/uagent/setup_cli.py:514
+msgid "Configure optional image / embedding settings?"
+msgstr "Optionele instellingen voor afbeeldingen / insluiten configureren?"
+
+#: src/uagent/setup_cli.py:515 src/uagent/setup_cli.py:530
+#: src/uagent/setup_cli.py:562 src/uagent/setup_cli.py:593
+#: src/uagent/setup_cli.py:609 src/uagent/setup_cli.py:641
+#: src/uagent/setup_cli.py:804 src/uagent/setup_cli.py:865
+#: src/uagent/setup_cli.py:919 src/uagent/setup_cli.py:946
+#: src/uagent/setup_cli.py:1090
+msgid "No"
+msgstr "Nee"
+
+#: src/uagent/setup_cli.py:515 src/uagent/setup_cli.py:530
+#: src/uagent/setup_cli.py:562 src/uagent/setup_cli.py:593
+#: src/uagent/setup_cli.py:609 src/uagent/setup_cli.py:641
+#: src/uagent/setup_cli.py:804 src/uagent/setup_cli.py:865
+#: src/uagent/setup_cli.py:919 src/uagent/setup_cli.py:946
+#: src/uagent/setup_cli.py:1090
+msgid "Yes"
+msgstr "Ja"
+
+#: src/uagent/setup_cli.py:529
+msgid "Configure image analysis settings?"
+msgstr "Instellingen voor beeldanalyse configureren?"
+
+#: src/uagent/setup_cli.py:540
+msgid "Select image analysis provider"
+msgstr "Selecteer leverancier van beeldanalyse"
+
+#: src/uagent/setup_cli.py:561
+msgid "Configure image generation settings?"
+msgstr "Instellingen voor het genereren van afbeeldingen configureren?"
+
+#: src/uagent/setup_cli.py:572
+msgid "Select image generation provider"
+msgstr "Selecteer provider voor het genereren van afbeeldingen"
+
+#: src/uagent/setup_cli.py:592
+msgid "Open generated images automatically?"
+msgstr "Gegenereerde afbeeldingen automatisch openen?"
+
+#: src/uagent/setup_cli.py:608
+msgid "Configure embedding / semantic search settings?"
+msgstr "Instellingen voor insluiten / semantisch zoeken configureren?"
+
+#: src/uagent/setup_cli.py:640
+msgid "Disable semantic search when embedding API is unreachable?"
+msgstr ""
+"Semantisch zoeken uitschakelen wanneer het insluiten van API onbereikbaar "
+"is?"
+
+#: src/uagent/setup_cli.py:681
+msgid ""
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
+msgstr ""
+"# azuurblauw / openai / gesteente / openrouter / gemini / vertexai / grok / "
+"claude / ollama / nvidia"
+
+#: src/uagent/setup_cli.py:694
+#, python-format
+msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Optioneel: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:715
+msgid "# (not supported by selected provider)"
+msgstr "# (niet ondersteund door geselecteerde provider)"
+
+#: src/uagent/setup_cli.py:718
+msgid "Optional runtime"
+msgstr "Optionele looptijd"
+
+#: src/uagent/setup_cli.py:730
+msgid "Optional image / embedding settings"
+msgstr "Optionele instellingen voor afbeelding / insluiten"
+
+#: src/uagent/setup_cli.py:795
+msgid "# (optional image / embedding settings not configured)"
+msgstr "# (optionele afbeelding /insluitingsinstellingen niet geconfigureerd)"
+
+#: src/uagent/setup_cli.py:803
+msgid "Encrypt the generated .env file?"
+msgstr "Het gegenereerde .env-bestand versleutelen?"
+
+#: src/uagent/setup_cli.py:809
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Gecodeerd bestand wordt geschreven als %(path)s"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select provider"
+msgstr "Selecteer leverancier"
+
+#: src/uagent/setup_cli.py:864
+msgid "Enable Responses API options?"
+msgstr "Antwoorden API-opties inschakelen?"
+
+#: src/uagent/setup_cli.py:880
+msgid "Select reasoning"
+msgstr "Selecteer redenering"
+
+#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:891
+msgid "minimal"
+msgstr "minimaal"
+
+#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:892
+#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+msgid "low"
+msgstr "laag"
+
+#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:893
+#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+msgid "medium"
+msgstr "gemiddeld"
+
+#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:894
+#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+msgid "high"
+msgstr "hoog"
+
+#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:895
+msgid "auto"
+msgstr "automatisch"
+
+#: src/uagent/setup_cli.py:899
+msgid "Select verbosity"
+msgstr "Selecteer breedsprakigheid"
+
+#: src/uagent/setup_cli.py:918
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Optionele looptijd instellen UAGENT_WORKDIR?"
+
+#: src/uagent/setup_cli.py:945
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Optionele looptijd instellen UAGENT_LANG?"
+
+#: src/uagent/setup_cli.py:994
+msgid "Summary"
+msgstr "Samenvatting"
+
+#: src/uagent/setup_cli.py:995
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "Dienstverlener: %(provider)s"
+
+#: src/uagent/setup_cli.py:998
+#, python-format
+msgid "  %(key)s=%(value)s"
+msgstr "%(key)s=%(value)s"
+
+#: src/uagent/setup_cli.py:1002
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "Reacties ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1003 src/uagent/setup_cli.py:1010
+#: src/uagent/setup_cli.py:1016 src/uagent/setup_cli.py:1022
+#: src/uagent/setup_cli.py:1027 src/uagent/setup_cli.py:1035
+#: src/uagent/setup_cli.py:1046
+msgid "yes"
+msgstr "Ja"
+
+#: src/uagent/setup_cli.py:1003 src/uagent/setup_cli.py:1010
+#: src/uagent/setup_cli.py:1016 src/uagent/setup_cli.py:1022
+#: src/uagent/setup_cli.py:1027 src/uagent/setup_cli.py:1035
+#: src/uagent/setup_cli.py:1046
+msgid "no"
+msgstr "nee"
+
+#: src/uagent/setup_cli.py:1006
+#, python-format
+msgid "  UAGENT_REASONING=%(value)s"
+msgstr "UAGENT_REASONING=%(value)s"
+
+#: src/uagent/setup_cli.py:1007
+#, python-format
+msgid "  UAGENT_VERBOSITY=%(value)s"
+msgstr "UAGENT_VERBOSITY=%(value)s"
+
+#: src/uagent/setup_cli.py:1009
+#, python-format
+msgid "  UAGENT_WORKDIR enabled: %(state)s"
+msgstr "UAGENT_WORKDIR ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1013
+#, python-format
+msgid "  UAGENT_WORKDIR=%(value)s"
+msgstr "UAGENT_WORKDIR=%(value)s"
+
+#: src/uagent/setup_cli.py:1015
+#, python-format
+msgid "  UAGENT_LANG enabled: %(state)s"
+msgstr "UAGENT_LANG ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1019
+#, python-format
+msgid "  UAGENT_LANG=%(value)s"
+msgstr "UAGENT_LANG=%(value)s"
+
+#: src/uagent/setup_cli.py:1021
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "Optionele extra's ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1026
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "Beeldanalyse ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1034
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "Beeldgeneratie ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1045
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "Inbedding ingeschakeld: %(state)s"
+
+#: src/uagent/setup_cli.py:1058
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "Outputs: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1061
+msgid "Generate files with this configuration?"
+msgstr "Bestanden genereren met deze configuratie?"
+
+#: src/uagent/setup_cli.py:1062
+msgid "Yes, generate"
+msgstr "Ja, genereren"
+
+#: src/uagent/setup_cli.py:1062
+msgid "Back"
+msgstr "Terug"
+
+#: src/uagent/setup_cli.py:1086
+msgid "The following files already exist and will be overwritten:"
+msgstr "De volgende bestanden bestaan al en worden overschreven:"
+
+#: src/uagent/setup_cli.py:1090
+msgid "Proceed?"
+msgstr "Verdergaan?"
+
+#: src/uagent/setup_cli.py:1114
+msgid "Plain .env file removed after encryption."
+msgstr "Gewoon .env-bestand verwijderd na codering."
+
+#: src/uagent/setup_cli.py:1117
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Waarschuwing: kan gewone .env niet verwijderen: %(error)s"
+
+#: src/uagent/setup_cli.py:1136
+#, python-format
+msgid "generated: %(path)s"
+msgstr "gegenereerd: %(path)s"
+
+#: src/uagent/setup_cli.py:1139
+msgid "- env.ps1 : utf-8-sig, CRLF"
+msgstr "- env.ps1: utf-8-sig, CRLF"
+
+#: src/uagent/setup_cli.py:1141
+msgid "- env.bat : cp932, CRLF"
+msgstr "- env.bat: cp932, CRLF"
+
+#: src/uagent/uagent_llm.py:70
+msgid "[SSL Info] certifi is not available"
+msgstr "[SSL Info] certifi is niet beschikbaar"
+
+#: src/uagent/uagent_llm.py:82
+#, python-format
+msgid "[SSL Info] certifi.where() = %(path)s"
+msgstr "[SSL-info] certifi.where() = %(path)s"
+
+#: src/uagent/uagent_llm.py:435
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Automatisch krimpen_llm mislukt: %(err)s"
+
+#: src/uagent/uagent_llm.py:603
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Vertaalfout] %(diag)s"
+
+#: src/uagent/uagent_llm.py:662 src/uagent/uagent_llm.py:772
+#: src/uagent/uagent_llm.py:1088
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429 herkansingslimiet (%(max_retries)s) bereikt."
+
+#: src/uagent/uagent_llm.py:686
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr ""
+"[Gemini Error] Er is een fout opgetreden tijdens het genereren van een "
+"reactie."
+
+#: src/uagent/uagent_llm.py:778
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr ""
+"[Claude Error] Er is een fout opgetreden tijdens het genereren van een "
+"antwoord."
+
+#: src/uagent/uagent_llm.py:1172
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Fout bij het parseren van reactie: %(err)s"
+
+#: src/uagent/uagent_llm.py:1472
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] Gereedschapsrondes overschreden %(max)d; afbreken."
+
+#: src/uagent/util_providers.py:145
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Omgevingsvariabele UAGENT_PROVIDER is niet ingesteld."
+
+#: src/uagent/util_providers.py:161
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Onbekende provider: %(provider)s"
+
+#: src/uagent/util_providers.py:423 src/uagent/util_providers.py:449
+msgid "google-genai package is not installed."
+msgstr "google-genai pakket is niet geïnstalleerd."
+
+#: src/uagent/util_tools.py:193
+msgid "Opened image file with the default app."
+msgstr "Geopend afbeeldingsbestand met de standaard app."
+
+#: src/uagent/util_tools.py:205
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Specificeer werkmap. Indien niet ingesteld, gebruikt UAGENT_WORKDIR ENV var "
+"of de huidige map."
+
+#: src/uagent/util_tools.py:212
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Niet-interactieve modus. Start de STDIN-lus niet; sluit af na het verwerken "
+"van het opstartbestand (indien aanwezig)."
+
+#: src/uagent/util_tools.py:659
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Vaardigheden uitvoeren]\n"
+"Deze vaardigheid is bedoeld om te worden uitgevoerd. Lees de vaardigheid aandachtig en volg de instructies.\n"
+"Als de vaardigheid taken bevat, ga dan door totdat ze voltooid zijn.\n"
+"Gebruik indien nodig gereedschap."
+
+#: src/uagent/util_tools.py:666
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Als u klaar bent, belt u altijd `finish_skill` indien beschikbaar."
+
+#: src/uagent/util_tools.py:802
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Selecteer een vaardigheidsnummer om uit te voeren. Voer c in om te annuleren.\n"
+"Tip: :vaardigheden duidelijk  (verwijder toegepaste vaardigheden)\n"
+"Nummer invoeren:"
+
+#: src/uagent/util_tools.py:838
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Deze vaardigheid uitvoeren als een instructie op systeemniveau en deze actief houden in deze sessie?\n"
+"\n"
+"Naam: %(name)s\n"
+"Pad: %(path)s\n"
+"\n"
+"Doorgaan? Voer y in om uit te voeren, of c om te annuleren."
+
+#: src/uagent/util_tools.py:944
+#, python-format
+msgid ""
+":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+":clean verwijdert gesprekslogbestanden (scheck_log_* .jsonl) van de schijf.\n"
+"Logboekmap: %(dir)s\n"
+"Regel: totale gebruikers-/assistent-/machineberichten exclusief systeem <= %(threshold)d\n"
+"Doelstellingen: %(n)d\n"
+"\n"
+"Doorgaan? Voer y in om uit te voeren, of c om te annuleren."
+
+#: src/uagent/util_tools.py:1188
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"{count} pad(en) verwijderen?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Voer y in om door te gaan, of c om te annuleren."
+
+#: src/uagent/util_tools.py:1328
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink error] Ontleden als INT mislukt: %(arg)r -> keep last %(keep)d"
+
+#: src/uagent/util_tools.py:1355
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink_llm error] Ontleden als INT mislukt: %(arg)r -> keep last %(keep)d"
+
+#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Gedeeld langetermijngeheugen is niet ingeschakeld (UAGENT_SHARED_MEMORY_FILE"
+" is niet ingesteld)."
+
+#: src/uagent/util_tools.py:1798
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"De onderstaande opsommingstekens zijn uittreksels uit het "
+"langetermijngeheugen van deze gebruiker (persistente memo's). Gebruik ze als"
+" achtergrondinformatie over de gebruiker. Geef echter altijd prioriteit aan "
+"nieuw verstrekte informatie in het gesprek en als het in tegenspraak is met "
+"oudere informatie, neem dan de nieuwste informatie over."
+
+#: src/uagent/web.py:457
+msgid ""
+"Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"Er loopt al een andere taak in deze kamer. Probeer het opnieuw nadat het is "
+"voltooid."
+
+#: src/uagent/web.py:536 src/uagent/web.py:655
+msgid ""
+"Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"Omgevingsvariabele UAGENT_PROVIDER is niet ingesteld.\n"
+"Controleer de omgevingsvariabelen bij het starten van de webserver."
+
+#: src/uagent/welcome.py:27
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP Servers]\n"
+"- Configuratiebestand niet gevonden."
+
+#: src/uagent/welcome.py:34
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP Servers]\n"
+"- Geen servers geregistreerd."
+
+#: src/uagent/welcome.py:36
+msgid "[MCP Servers]"
+msgstr "[MCP-servers]"
+
+#: src/uagent/welcome.py:43
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP Servers]\n"
+"- Kan informatie niet verkrijgen: %(err)s"
+
+#: src/uagent/welcome.py:62
+msgid "[Quick Guide]"
+msgstr "  Korte handleiding"
+
+#: src/uagent/welcome.py:63
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- Chat: typ een bericht en verstuur (GUI: Ctrl+Enter is ook beschikbaar)."
+
+#: src/uagent/welcome.py:65
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Multiline: voer een regel in die net 'f' is om naar de multiline-modus te "
+"gaan (eindig met \"\"\"einde)."
+
+#: src/uagent/welcome.py:68
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.)."
+msgstr ""
+"- Opdrachten: typ ':help' om systeemopdrachten te zien (logboekbeheer, "
+"compressie van de geschiedenis, enz.)."
+
+#: src/uagent/welcome.py:70
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Afsluiten: ':exit' of ':quit' beëindigt de sessie."
+
+#: src/uagent/welcome.py:72
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Afbeeldingen: GUI ondersteunt slepen en neerzetten; in CUI kunt u een "
+"bestandspad invoeren voor beeldanalyse."
+
+#: src/uagent/welcome.py:75
+msgid ""
+"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Documenten: `uag docs` toont gebundelde documenten; `uag docs webinspect` "
+"toont Web Inspector help (`--path/--open` ook beschikbaar)."
+
+#: src/uagent/welcome.py:78
+msgid "[Examples]"
+msgstr "Voorbeelden"
+
+#: src/uagent/welcome.py:79
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Analyseer de broncode in deze map en maak een README.md.\""
+
+#: src/uagent/welcome.py:81
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Maak een screenshot van het huidige bureaublad en beschrijf de zichtbare"
+" inhoud van het venster.\""
+
+#: src/uagent/welcome.py:83
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Maak een maandelijks overzichtsrapport van dit Excel-bestand.\""
+
+#: src/uagent/welcome.py:84
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Lees deze PDF en noem drie belangrijke punten.\""
+
+#: src/uagent/welcome.py:85
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Zoek in het laatste nieuws en vat een specifiek onderwerp samen.\""
+
+#: src/uagent/a2a/engine.py:103
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Onbekende UAGENT_A2A_ENGINE: %(mode)s"

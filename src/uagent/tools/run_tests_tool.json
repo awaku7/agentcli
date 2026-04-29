@@ -358,5 +358,41 @@
     "param.target.description": "Mål (pytest-sti, unittest-startkatalog, npm-script osv.). Hvis null brukes standardverdier.",
     "tool.description": "Kjør tester (auto-detektér pytest/unittest/npm). Avvis skallmetategn i extra_args.",
     "tool.system_prompt": "Bruk dette verktøyet til formålet som er beskrevet i verktøybeskrivelsen."
+  },
+  "nl": {
+    "doc.module": "run_tests_tool\n\nEen wrapper-tool voor het uitvoeren van tests.\n\nDoel:\n- In plaats van cmd_exec/pwsh_exec direct aan te roepen, testuitvoering standaardiseren en gestructureerde resultaten teruggeven.\n- Auto-detectie van pytest / unittest / npm wanneer framework=auto.\n\nVeiligheidsbeleid:\n- Testuitvoering is doorgaans geen gevaarlijke handeling, dus human_ask wordt niet uitgevoerd.\n- extra_args met command-injection metatekens (&&, |, >, enz.) worden echter geweigerd.\n\nImplementatie:\n- Gebruikt intern cmd_exec_json_tool en verwerkt returncode/stdout/stderr.\n- Voor stdout/stderr wordt indien beschikbaar callbacks.truncate_output toegepast.\n- Gebruik voor cwd de cwd-parameter van cmd_exec_json (niet cd &&).\n\nExtra functies:\n- pythonpath: extra PYTHONPATH instellen voor het uitvoeren van tests.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd niet toegestaan: {error}",
+    "error.dangerous_cwd_rejected": "gevaarlijke cwd geweigerd: {cwd}",
+    "error.framework_auto_detect_failed": "framework-auto-detectie mislukt",
+    "error.invalid_framework": "ongeldig framework: {framework}",
+    "error.invalid_report": "ongeldig rapport: {report}",
+    "error.shell_metacharacters_not_allowed": "shell-metatekens zijn niet toegestaan in argumenten: {arg}",
+    "error.unsupported_framework": "niet-ondersteund framework: {framework}",
+    "param.cwd.description": "Werkmap om in uit te voeren (moet binnen workdir liggen). Als null, gebruik de huidige map.",
+    "param.extra_args.description": "Aanvullende argumenten-array. Weigeren als shell-metatekens aanwezig zijn.",
+    "param.framework.description": "Type testframework.",
+    "param.pythonpath.description": "Extra PYTHONPATH (bijv. 'src'). Indien opgegeven, wordt dit voor de testopdracht geplaatst.",
+    "param.report.description": "Uitvoerformaat.",
+    "param.target.description": "Doel (pytest-pad, unittest-startmap, npm-script, enz.). Als null, worden standaardwaarden gebruikt.",
+    "tool.description": "Tests uitvoeren (pytest/unittest/npm automatisch detecteren). Shell-metatekens in extra_args weigeren.",
+    "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat."
+  },
+  "fi": {
+    "doc.module": "run_tests_tool\n\nTestien ajamiseen tarkoitettu apurityökalu.\n\nTarkoitus:\n- Sen sijaan, että kutsuttaisiin cmd_exec/pwsh_execia suoraan, standardoi testien suoritus ja palauta jäsennellyt tulokset.\n- Automaattinen pytest / unittest / npm -tunnistus, kun framework=auto.\n\nTurvallisuuskäytäntö:\n- Testien suorittaminen ei yleensä ole vaarallinen toimenpide, joten human_askia ei käytetä.\n- extra_args, jotka sisältävät komentoinjektion metamerkkejä (&&, |, > jne.), hylätään.\n\nToteutus:\n- Käyttää sisäisesti cmd_exec_json_toolia ja käsittelee returncode/stdout/stderr-arvot.\n- stdout/stderr:iin sovelletaan tarvittaessa callbacks.truncate_outputia.\n- cwd:n asettamiseen käytä cmd_exec_jsonin cwd-parametria (älä käytä cd &&).\n\nLisäominaisuudet:\n- pythonpath: aseta ylimääräinen PYTHONPATH testien ajoa varten.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd ei sallittu: {error}",
+    "error.dangerous_cwd_rejected": "vaarallinen cwd hylätty: {cwd}",
+    "error.framework_auto_detect_failed": "frameworkin automaattinen tunnistus epäonnistui",
+    "error.invalid_framework": "virheellinen framework: {framework}",
+    "error.invalid_report": "virheellinen raportti: {report}",
+    "error.shell_metacharacters_not_allowed": "shellin metamerkkejä ei sallita argumenteissa: {arg}",
+    "error.unsupported_framework": "tuetun ulkopuolinen framework: {framework}",
+    "param.cwd.description": "Työhakemisto, jossa suoritetaan (on oltava workdirin sisällä). Jos null, käytä nykyistä hakemistoa.",
+    "param.extra_args.description": "Lisäargumenttitaulukko. Hylätään, jos shell-metamerkkejä on mukana.",
+    "param.framework.description": "Testikehyksen tyyppi.",
+    "param.pythonpath.description": "Lisä-PYTHONPATH (esim. 'src'). Jos annetaan, se lisätään testikomennon eteen.",
+    "param.report.description": "Tulostusmuoto.",
+    "param.target.description": "Kohde (pytest-polku, unittestin aloitushakemisto, npm-skripti jne.). Jos null, käytetään oletuksia.",
+    "tool.description": "Aja testit (pytest/unittest/npm automaattitunnistuksella). Hylkää shell-metamerkit extra_argsissa.",
+    "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen."
   }
 }

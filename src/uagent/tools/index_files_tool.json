@@ -358,5 +358,41 @@
     "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering. Standard er gjeldende katalog.",
     "tool.description": "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files). Dette er nyttig når du vil forberede søkedata uten å lese filinnholdet med en gang.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "err.glob_fail": "Fout: patroon kon niet worden geparseerd: {err}",
+    "err.pattern_required": "Fout: pattern niet opgegeven.",
+    "err.root_not_dir": "Fout: root_path is geen map: {root_path}",
+    "err.vec_unavailable": "Fout: index kan niet worden gemaakt omdat de semantische zoekmodule (semantic_search_files_tool) niet beschikbaar is.",
+    "out.completed": "Indexverwerking is voltooid.",
+    "out.fail": "Mislukt: {count} item(s)",
+    "out.footer": "U kunt nu `semantic_search_files` gebruiken om in deze bestanden te zoeken.",
+    "out.not_found": "Geen bestanden gevonden die overeenkomen met patroon '{pattern}'.",
+    "out.pattern": "Doelpatroon: {pattern}",
+    "out.root": "Rootmap: {root_abs}",
+    "out.success": "Succes: {count} item(s)",
+    "param.pattern.description": "Doelbestandsnaam, mapnaam of glob-patroon (bijv. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
+    "param.root_path.description": "Map die het startpunt is voor zoek- en indexbewerkingen. Standaard is de huidige map.",
+    "tool.description": "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken. Handig wanneer u zoekdata wilt voorbereiden zonder direct bestandsinhoud te lezen.",
+    "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: (zie toolbeschrijving)."
+  },
+  "fi": {
+    "err.glob_fail": "Virhe: kaavaa ei voitu jäsentää: {err}",
+    "err.pattern_required": "Virhe: pattern puuttuu.",
+    "err.root_not_dir": "Virhe: root_path ei ole hakemisto: {root_path}",
+    "err.vec_unavailable": "Virhe: indeksiä ei voida luoda, koska semanttisen haun moduuli (semantic_search_files_tool) ei ole käytettävissä.",
+    "out.completed": "Indeksointi on valmis.",
+    "out.fail": "Epäonnistui: {count} kohdetta",
+    "out.footer": "Voit nyt käyttää `semantic_search_files`-hakua näihin tiedostoihin.",
+    "out.not_found": "Kaavaa '{pattern}' vastaavia tiedostoja ei löytynyt.",
+    "out.pattern": "Kohdekaava: {pattern}",
+    "out.root": "Juuri: {root_abs}",
+    "out.success": "Onnistui: {count} kohdetta",
+    "param.pattern.description": "Kohdetiedoston nimi, hakemiston nimi tai glob-kuvio (esim. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'.",
+    "param.root_path.description": "Hakemisto, joka on haun ja indeksoinnin aloituspiste. Oletus on nykyinen hakemisto.",
+    "tool.description": "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista. Hyödyllinen, kun haluat valmistella hakudataa lukematta tiedostosisältöä heti.",
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   }
 }

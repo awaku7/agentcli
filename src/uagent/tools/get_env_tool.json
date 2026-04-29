@@ -158,5 +158,21 @@
     "param.unmasked_chars.description": "Antall tegn som skal beholdes i begynnelsen og slutten ved maskering. Standard er 2.",
     "tool.description": "Henter verdien til en angitt miljøvariabel og returnerer den. Verdien kan maskeres ved behov.",
     "tool.system_prompt": "Dette verktøyet brukes til å hente verdien til en angitt miljøvariabel og returnere den. Verdien kan maskeres ved behov."
+  },
+  "nl": {
+    "param.mask.description": "Indien true, wordt de waarde gemaskeerd (bijv. geheime informatie). Standaard is true.",
+    "param.missing_ok.description": "Indien true, geef \"(not set)\" terug in plaats van een fout wanneer de waarde ontbreekt. Standaard is false.",
+    "param.name.description": "Naam van de omgevingsvariabele om te lezen.",
+    "param.unmasked_chars.description": "Aantal tekens dat aan het begin en einde zichtbaar blijft bij maskeren. Standaard is 2.",
+    "tool.description": "Haalt de waarde op van een opgegeven omgevingsvariabele en geeft deze terug. Kan de waarde optioneel maskeren.",
+    "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: haal de waarde op van een opgegeven omgevingsvariabele en geef deze terug. Kan de waarde optioneel maskeren."
+  },
+  "fi": {
+    "param.mask.description": "Jos true, arvo peitetään (esim. salainen tieto). Oletus on true.",
+    "param.missing_ok.description": "Jos true, palauta \"(not set)\" virheen sijaan, kun arvo puuttuu. Oletus on false.",
+    "param.name.description": "Luettavan ympäristömuuttujan nimi.",
+    "param.unmasked_chars.description": "Kuinka monta merkkiä säilytetään näkyvissä alussa ja lopussa peittämisen yhteydessä. Oletus on 2.",
+    "tool.description": "Hakee annetun ympäristömuuttujan arvon ja palauttaa sen. Arvon voi halutessa peittää.",
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: hae annetun ympäristömuuttujan arvo ja palauta se. Arvon voi halutessa peittää."
   }
 }

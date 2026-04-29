@@ -138,5 +138,19 @@
     "param.new_dir.description": "Den nye katalogstien det skal byttes til.",
     "tool.description": "Endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren.",
     "tool.system_prompt": "Dette verktøyet utfører handlingen som er beskrevet av verktøynavnet \"change_workdir\"."
+  },
+  "nl": {
+    "confirm.change_workdir": "Wijzig de huidige werkmap naar: {new_dir}\n\nDoorgaan? Voer y in om door te gaan, c om te annuleren.",
+    "param.confirm.description": "Of om gebruikersbevestiging gevraagd moet worden.",
+    "param.new_dir.description": "Het nieuwe pad van de werkmap om naar te schakelen.",
+    "tool.description": "Wijzig de huidige werkmap na bevestiging van de gebruiker.",
+    "tool.system_prompt": "Deze tool voert de bewerking uit die door de toolnaam 'change_workdir' wordt beschreven."
+  },
+  "fi": {
+    "confirm.change_workdir": "Vaihdetaan nykyinen työskentelyhakemisto tähän: {new_dir}\n\nJatketaanko? Kirjoita y jatkaaksesi, c peruuttaaksesi.",
+    "param.confirm.description": "Pyydetäänkö käyttäjän vahvistus.",
+    "param.new_dir.description": "Uusi työskentelyhakemiston polku, johon vaihdetaan.",
+    "tool.description": "Vaihda nykyinen työskentelyhakemisto käyttäjän vahvistuksen jälkeen.",
+    "tool.system_prompt": "Tämä työkalu suorittaa työkalun nimen 'change_workdir' kuvaaman toiminnon."
   }
 }

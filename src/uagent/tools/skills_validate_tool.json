@@ -158,5 +158,21 @@
     "param.strict.description": "Skal varsler også behandles som feil? (standard: false)",
     "tool.description": "Validerer en skill-katalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og varsler.",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
+    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "fi": {
+    "err.invalid_args": "[tool error] invalid args",
+    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
+    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
+    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   }
 }

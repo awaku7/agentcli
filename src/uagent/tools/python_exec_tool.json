@@ -138,5 +138,19 @@
     "param.paths.description": "Flere Python-filer, kataloger eller glob-mønstre som skal valideres med py_compile. Kataloger skannes rekursivt etter *.py-filer.",
     "tool.description": "Kjør Python-kode eller valider Python-filer med py_compile. Bruk dette verktøyet til beregninger, databehandling, korte skript eller syntakskontroll av filer — spesielt når nøyaktighet er viktig. Foretrekk dette fremfor cmd_exec/cmd_exec_json for Python-arbeid.",
     "tool.system_prompt": "Kjør Python-kode på en kontrollert måte.\n- Hvis du trenger Python-standardbiblioteket eller pålitelige numeriske beregninger, bruk dette verktøyet.\n- Hvis filstier eller glob-mønstre er oppgitt, kjør py_compile på disse målene og returner resultatet.\n- Når du er i ferd med å kjøre kode, oppgi kort hva som skal kjøres.\n- Ikke bruk cmd_exec til å kjøre Python med mindre det er uttrykkelig nødvendig."
+  },
+  "nl": {
+    "param.code.description": "Python-code om uit te voeren (één of meerdere regels).",
+    "param.path.description": "Een Python-bestand, map of glob-patroon om met py_compile te valideren. Mappen worden recursief gescand op *.py-bestanden.",
+    "param.paths.description": "Meerdere Python-bestanden, mappen of glob-patronen om met py_compile te valideren. Mappen worden recursief gescand op *.py-bestanden.",
+    "tool.description": "Voer Python-code uit of valideer Python-bestanden met py_compile. Gebruik deze tool voor berekeningen, gegevensverwerking, het draaien van korte scripts of syntaxiscontrole—vooral wanneer nauwkeurigheid belangrijk is. Gebruik dit liever dan cmd_exec/cmd_exec_json voor Python-werk.",
+    "tool.system_prompt": "Voer Python-code op een gecontroleerde manier uit.\n- Als u de standaardbibliotheek van Python of betrouwbare numerieke berekening nodig hebt, gebruik dan deze tool.\n- Als bestandspaden of glob-patronen zijn opgegeven, voer py_compile uit op die doelen en geef het resultaat terug.\n- Vermeld kort wat er uitgevoerd gaat worden voordat u de code draait.\n- Gebruik cmd_exec niet om Python uit te voeren, tenzij dat echt nodig is."
+  },
+  "fi": {
+    "param.code.description": "Suoritettava Python-koodi (yksi tai useampi rivi).",
+    "param.path.description": "Python-tiedosto, hakemisto tai glob-kuvio, joka validoidaan py_compilella. Hakemistot käydään rekursiivisesti läpi *.py-tiedostojen varalta.",
+    "param.paths.description": "Useita Python-tiedostoja, hakemistoja tai glob-kuvioita, jotka validoidaan py_compilella. Hakemistot käydään rekursiivisesti läpi *.py-tiedostojen varalta.",
+    "tool.description": "Suorita Python-koodia tai validoi Python-tiedostoja py_compilella. Käytä tätä työkalua laskuihin, datankäsittelyyn, lyhyiden skriptien ajamiseen tai syntaksitarkistuksiin—erityisesti silloin, kun tarkkuus on tärkeää. Suosi tätä cmd_exec/cmd_exec_jsonin sijaan Python-työssä.",
+    "tool.system_prompt": "Suorita Python-koodi hallitusti.\n- Jos tarvitset Pythonin vakiokirjastoa tai luotettavaa numeerista laskentaa, käytä tätä työkalua.\n- Jos annetaan tiedostopolkuja tai glob-kuvioita, aja py_compile näille kohteille ja palauta tulos.\n- Kerro lyhyesti, mitä ajetaan, ennen kuin suoritat koodin.\n- Älä käytä cmd_execia Pythonin ajamiseen, ellei se ole ehdottoman välttämätöntä."
   }
 }

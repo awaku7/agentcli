@@ -178,5 +178,23 @@
     "tool.system_prompt": "VIKTIG: Dette verktøyet leser PDF/PPTX/JSON og returnerer tekst på sidenivå. Input: path, page_index, max_chars. Output: sidetekst (alle sider eller angitt side).",
     "param.password.description": "Valgfritt passord for krypterte PDF/PPTX-filer. Hvis det utelates og inndata er kryptert, blir du bedt om et passord én gang.",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+  },
+  "nl": {
+    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
+    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
+    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
+    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
+    "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "prompt.password": "Enter the password for this file:\n{path}"
+  },
+  "fi": {
+    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
+    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
+    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
+    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
+    "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "prompt.password": "Enter the password for this file:\n{path}"
   }
 }

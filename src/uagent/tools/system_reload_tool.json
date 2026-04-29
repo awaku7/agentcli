@@ -78,5 +78,13 @@
   "nb": {
     "tool.description": "Laster systemet på nytt og legger den nyeste koden for alle verktøy under tools/ (Python .py-filer) inn i minnet. Kjør dette etter ...",
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: laste systemet på nytt og legge den nyeste koden for alle verktøy under tools/ (Python .py-filer) inn i minnet."
+  },
+  "nl": {
+    "tool.description": "Laad het systeem opnieuw en werk de nieuwste code voor alle tools onder tools/ (Python .py-bestanden) in het geheugen bij. Voer dit uit nadat u code hebt gewijzigd.",
+    "tool.system_prompt": "Laad het systeem opnieuw en werk de nieuwste code voor alle tools onder tools/ (Python .py-bestanden) in het geheugen bij. Voer dit uit nadat u code hebt gewijzigd."
+  },
+  "fi": {
+    "tool.description": "Lataa järjestelmä uudelleen ja päivitä tools/-kansion alla olevien työkalujen (Python .py -tiedostojen) uusin koodi muistiin. Suorita tämä koodimuutosten jälkeen.",
+    "tool.system_prompt": "Lataa järjestelmä uudelleen ja päivitä tools/-kansion alla olevien työkalujen (Python .py -tiedostojen) uusin koodi muistiin. Suorita tämä koodimuutosten jälkeen."
   }
 }

@@ -138,5 +138,19 @@
     "param.pid.description": "Ta med prosess-ID-er.",
     "tool.description": "List opp vindustitler på øverste nivå i Windows og returner strukturert JSON. Parametere: \"all\" (ta med usynlige), \"pid\" (ta med PID), \"class\" (ta med vindusklassenavn).",
     "tool.system_prompt": "Dette verktøyet lister opp vindustitler på øverste nivå i Windows og returnerer strukturert JSON. Det er kun for Windows."
+  },
+  "nl": {
+    "param.all.description": "Niet-zichtbare vensters opnemen.",
+    "param.class.description": "Vensterklassenaam opnemen.",
+    "param.pid.description": "Proces-ID's opnemen.",
+    "tool.description": "Som top-level venstertitels op Windows op en geef gestructureerde JSON terug. Parameters: 'all' (niet-zichtbare opnemen), 'pid' (PID opnemen), 'class' (vensterklassenaam opnemen).",
+    "tool.system_prompt": "Som top-level venstertitels op Windows op en geef gestructureerde JSON terug. Alleen Windows."
+  },
+  "fi": {
+    "param.all.description": "Sisällytä myös näkymättömät ikkunat.",
+    "param.class.description": "Sisällytä ikkunaluokan nimet.",
+    "param.pid.description": "Sisällytä prosessitunnukset.",
+    "tool.description": "Listaa Windowsin ylimmän tason ikkunoiden otsikot ja palauta jäsennelty JSON. Parametrit: 'all' (sisällytä näkymättömät), 'pid' (sisällytä PID), 'class' (sisällytä ikkunaluokan nimi).",
+    "tool.system_prompt": "Listaa Windowsin ylimmän tason ikkunoiden otsikot ja palauta jäsennelty JSON. Vain Windowsissa."
   }
 }

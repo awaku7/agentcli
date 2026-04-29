@@ -378,5 +378,43 @@
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'exstruct'.",
     "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+  },
+  "nl": {
+    "param.action.description": "Operation to perform.",
+    "param.auto_page_breaks_dir.description": "Directory to save auto page break areas.",
+    "param.density_min.description": "Table density threshold.",
+    "param.file_path.description": "Path to the input Excel file.",
+    "param.format.description": "Output format.",
+    "param.include_cell_links.description": "Whether to include cell hyperlinks.",
+    "param.include_shapes.description": "Whether to include shapes.",
+    "param.mode.description": "Extraction mode.",
+    "param.output_path.description": "Output path for export_file.",
+    "param.pretty.description": "Whether to pretty-print output.",
+    "param.print_areas_dir.description": "Directory to save per-print-area files.",
+    "param.sheets_dir.description": "Directory to save per-sheet files.",
+    "param.table_score_threshold.description": "Table detection threshold.",
+    "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) file and return or save it as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'.",
+    "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",
+    "prompt.password": "Enter the password for this file:\n{path}"
+  },
+  "fi": {
+    "param.action.description": "Operation to perform.",
+    "param.auto_page_breaks_dir.description": "Directory to save auto page break areas.",
+    "param.density_min.description": "Table density threshold.",
+    "param.file_path.description": "Path to the input Excel file.",
+    "param.format.description": "Output format.",
+    "param.include_cell_links.description": "Whether to include cell hyperlinks.",
+    "param.include_shapes.description": "Whether to include shapes.",
+    "param.mode.description": "Extraction mode.",
+    "param.output_path.description": "Output path for export_file.",
+    "param.pretty.description": "Whether to pretty-print output.",
+    "param.print_areas_dir.description": "Directory to save per-print-area files.",
+    "param.sheets_dir.description": "Directory to save per-sheet files.",
+    "param.table_score_threshold.description": "Table detection threshold.",
+    "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) file and return or save it as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
+    "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'.",
+    "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",
+    "prompt.password": "Enter the password for this file:\n{path}"
   }
 }

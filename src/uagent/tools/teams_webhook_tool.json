@@ -278,5 +278,33 @@
     "param.timeout_s.description": "Tidsavbrudd for forespørselen i sekunder.",
     "err.missing_message": "Mangler 'message'.",
     "err.exception": "Unntak"
+  },
+  "nl": {
+    "tool.description": "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
+    "tool.system_prompt": "Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
+    "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
+    "param.title.description": "Card title for webhook-supported payloads.",
+    "param.summary.description": "Card summary for webhook-supported payloads.",
+    "param.image_url.description": "Image URL for webhook-supported payloads.",
+    "param.theme_color.description": "Card theme color as a hex string without #.",
+    "param.payload_json.description": "Raw webhook payload as JSON string or object. If provided, it is sent as-is.",
+    "param.webhook_env.description": "Environment variable name that stores the Teams webhook URL.",
+    "param.timeout_s.description": "Request timeout in seconds.",
+    "err.missing_message": "Missing 'message'.",
+    "err.exception": "Exception"
+  },
+  "fi": {
+    "tool.description": "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
+    "tool.system_prompt": "Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
+    "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
+    "param.title.description": "Card title for webhook-supported payloads.",
+    "param.summary.description": "Card summary for webhook-supported payloads.",
+    "param.image_url.description": "Image URL for webhook-supported payloads.",
+    "param.theme_color.description": "Card theme color as a hex string without #.",
+    "param.payload_json.description": "Raw webhook payload as JSON string or object. If provided, it is sent as-is.",
+    "param.webhook_env.description": "Environment variable name that stores the Teams webhook URL.",
+    "param.timeout_s.description": "Request timeout in seconds.",
+    "err.missing_message": "Missing 'message'.",
+    "err.exception": "Exception"
   }
 }

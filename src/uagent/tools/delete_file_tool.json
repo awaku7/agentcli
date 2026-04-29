@@ -218,5 +218,27 @@
     "param.path.description": "(Kompatibilitet) Alias for filename.",
     "tool.description": "Sletter den angitte filen eller katalogen. Kataloger slettes rekursivt. Siden dette er en farlig handling, kan bekreftelse være nødvendig.",
     "tool.system_prompt": "Slett den angitte stien bare etter å ha fått bekreftelse fra brukeren, siden handlingen kan være destruktiv."
+  },
+  "nl": {
+    "confirm.delete_paths_bulk": "Deze {count} paden verwijderen?\n\n{paths}\n\nVoer y in om door te gaan, of c om te annuleren.",
+    "param.allow_dir.description": "Indien ingeschakeld, het verwijderen van door glob gematchte mappen toestaan.",
+    "param.confirmed.description": "Indien ingeschakeld, de interne bevestigingsprompt van de tool overslaan.",
+    "param.dry_run.description": "Indien ingeschakeld, alleen gematchte paden tonen en niets verwijderen.",
+    "param.filename.description": "Pad om te verwijderen, of een lijst met paden/glob-patronen om te verwijderen.",
+    "param.missing_ok.description": "Indien ingeschakeld, geen fout geven als het pad niet bestaat.",
+    "param.path.description": "(Compatibiliteit) Alias van filename.",
+    "tool.description": "Verwijder het opgegeven bestand of de opgegeven map (mappen worden recursief verwijderd). Omdat dit gevaarlijk is, kan bevestiging vereist zijn.",
+    "tool.system_prompt": "Verwijder het opgegeven pad alleen nadat de gebruiker de bewerking heeft bevestigd als deze mogelijk destructief is."
+  },
+  "fi": {
+    "confirm.delete_paths_bulk": "Poistetaanko nämä {count} polkua?\n\n{paths}\n\nKirjoita y jatkaaksesi tai c peruuttaaksesi.",
+    "param.allow_dir.description": "Kun käytössä, salli globilla osuvien hakemistojen poistaminen.",
+    "param.confirmed.description": "Kun käytössä, ohita työkalun sisäinen vahvistuskehote.",
+    "param.dry_run.description": "Kun käytössä, listaa vain osuvat polut äläkä poista mitään.",
+    "param.filename.description": "Poistettava polku tai poistettavien polkujen/glob-kuvioiden lista.",
+    "param.missing_ok.description": "Kun käytössä, älä anna virhettä, jos polkua ei ole olemassa.",
+    "param.path.description": "(Yhteensopivuuden vuoksi) filename-parametrin alias.",
+    "tool.description": "Poista annettu tiedosto tai hakemisto (hakemistot poistetaan rekursiivisesti). Koska tämä on vaarallista, vahvistus voidaan vaatia.",
+    "tool.system_prompt": "Poista annettu polku vasta, kun käyttäjä on vahvistanut toiminnon, jos se voi olla tuhoava."
   }
 }

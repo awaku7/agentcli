@@ -218,5 +218,27 @@
     "param.tools.description": "En matrise med verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
     "tool.description": "Kjør statisk analyse/formaterere (for eksempel ruff/black/mypy). mode=fix endrer filer og krever bekreftelse.",
     "tool.system_prompt": "Kjør statisk analyse/formaterere. Hvis det kreves ytterligere brukerkonfirmasjon (for eksempel mode=fix), bruk human_ask."
+  },
+  "nl": {
+    "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
+    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis/formatter.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not actively execute npx.\n\nSafety:\n- mode=fix involves file changes, so check with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
+    "param.cwd.description": "Execution directory (only allowed under workdir). If null, current.",
+    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
+    "param.mode.description": "check=check only / fix=automatic fix",
+    "param.targets.description": "Target path array (only allowed under workdir).",
+    "param.tools.description": "An array of tool names to run. If it is empty, it will be automatically selected.",
+    "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
+  },
+  "fi": {
+    "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
+    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis/formatter.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not actively execute npx.\n\nSafety:\n- mode=fix involves file changes, so check with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
+    "param.cwd.description": "Execution directory (only allowed under workdir). If null, current.",
+    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
+    "param.mode.description": "check=check only / fix=automatic fix",
+    "param.targets.description": "Target path array (only allowed under workdir).",
+    "param.tools.description": "An array of tool names to run. If it is empty, it will be automatically selected.",
+    "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   }
 }

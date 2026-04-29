@@ -218,5 +218,27 @@
     "param.template.description": "Python-formatmal. Eksempel: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Genererer en promptstreng fra en fil ved hjelp av en Python-formatmal. Malen kan referere til variabler som {content}, {lines}, {bytes}, {basename}, {path}.",
     "tool.system_prompt": "Les en tekstfil under workdir og generer en promptstreng ved å anvende en mal (Python str.format).\nTilgjengelige malvariabler:\n- content: hele filinnholdet (tekst)\n- lines: antall linjer\n- bytes: filstørrelse i byte\n- basename: filens basisnavn\n- path: absolutt løst sti"
+  },
+  "nl": {
+    "err.bad_template": "[generate_prompt fout] sjabloon bevat onbekende sleutel: {key}",
+    "err.not_a_file": "[generate_prompt fout] geen bestand: {path}",
+    "err.path_missing": "[generate_prompt fout] path/filename niet opgegeven",
+    "err.template_missing": "[generate_prompt fout] template niet opgegeven",
+    "param.filename.description": "(Compatibiliteit) Alias van path.",
+    "param.path.description": "Pad van het invoerbestand (moet onder workdir liggen).",
+    "param.template.description": "Python-opmaaksjabloon. Voorbeeld: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Genereert een promptstring uit een bestand met een Python-opmaaksjabloon. Het sjabloon kan variabelen zoals {content}, {lines}, {bytes}, {basename}, {path} gebruiken.",
+    "tool.system_prompt": "Lees een tekstbestand onder workdir en genereer een promptstring door een sjabloon toe te passen (Python str.format).\\nBeschikbare sjabloonvariabelen:\\n- content: volledige bestandsinhoud (tekst)\\n- lines: aantal regels\\n- bytes: bestandsgrootte in bytes\\n- basename: bestandsnaam zonder pad\\n- path: absoluut opgelost pad"
+  },
+  "fi": {
+    "err.bad_template": "[generate_prompt-virhe] template sisältää tuntemattoman avaimen: {key}",
+    "err.not_a_file": "[generate_prompt-virhe] ei ole tiedosto: {path}",
+    "err.path_missing": "[generate_prompt-virhe] path/filename puuttuu",
+    "err.template_missing": "[generate_prompt-virhe] template puuttuu",
+    "param.filename.description": "(Yhteensopivuuden vuoksi) path-parametrin alias.",
+    "param.path.description": "Syötetiedoston polku (on oltava workdirin alla).",
+    "param.template.description": "Pythonin muotoilupohja. Esimerkki: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Luo prompt-merkkijonon tiedostosta Pythonin muotoilupohjaa käyttäen. Pohja voi viitata muuttujiin kuten {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Lue tekstitiedosto workdirin alta ja luo prompt-merkkijono soveltamalla pohjaa (Python str.format).\\nKäytettävissä olevat pohjamuuttujat:\\n- content: koko tiedoston sisältö (teksti)\\n- lines: rivien määrä\\n- bytes: tiedoston koko tavuina\\n- basename: tiedoston perusnimi\\n- path: absoluuttinen ratkaistu polku"
   }
 }

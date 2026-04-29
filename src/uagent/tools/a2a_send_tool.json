@@ -178,5 +178,23 @@
     "param.return_immediately.description": "Hvis true, returner rett etter at oppgaven er opprettet.",
     "err.missing_message": "Mangler 'message'.",
     "err.exception": "Unntak"
+  },
+  "nl": {
+    "tool.description": "Stuur een bericht naar een A2A-serverprofiel (a2a://naam of profielnaam).",
+    "tool.system_prompt": "Stuur een A2A-bericht. Geef alleen JSON terug.",
+    "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
+    "param.message.description": "Gebruikersbericht om te verzenden.",
+    "param.return_immediately.description": "Als true, direct terugkeren na het aanmaken van de taak.",
+    "err.missing_message": "Ontbrekend 'message'.",
+    "err.exception": "Uitzondering"
+  },
+  "fi": {
+    "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://nimi tai profiilin nimi).",
+    "tool.system_prompt": "Lähetä A2A-viesti. Palauta vain JSON.",
+    "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
+    "param.message.description": "Lähetettävä käyttäjän viesti.",
+    "param.return_immediately.description": "Jos true, palauta heti tehtävän luonnin jälkeen.",
+    "err.missing_message": "Puuttuva 'message'.",
+    "err.exception": "Poikkeus"
   }
 }

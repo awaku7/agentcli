@@ -318,5 +318,37 @@
     "param.splice_op.description": "Splice-operasjon (splice-modus).",
     "tool.description": "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer.",
     "tool.system_prompt": "Dette verktøyet brukes til å redigere en lokal fil som rå byte (binær).\n\nSECURITY / SAFETY:\n- Dette verktøyet endrer lokale filer og kan ødelegge dem.\n- Be alltid om bekreftelse med human_ask før skriving.\n- Ikke arbeid på stier utenfor gjeldende workdir når du kjører under vertsagentens sikkerhetsregler.\n"
+  },
+  "nl": {
+    "param.data_hex.description": "Hex-tekenreeks van bytes om te schrijven/in te voegen (bijv. 'DEADBEEF' of 'DE AD BE EF').",
+    "param.delete_len.description": "Aantal bytes om te verwijderen (splice delete).",
+    "param.dry_run.description": "Als true, wijzig het bestand niet; rapporteer alleen wat zou veranderen.",
+    "param.max_bytes.description": "Weiger bestanden groter dan deze grootte (bytes).",
+    "param.mode.description": "Bewerkingsmodus.",
+    "param.occurrence.description": "Welke voorkomens vervangen moeten worden (1-based). 0 betekent alle voorkomens vervangen (vereist nog steeds dezelfde lengte).",
+    "param.offset.description": "Byte-offset (0-based). Vereist voor write/splice.",
+    "param.patch_json.description": "JSON patch-string (apply_patch-modus).",
+    "param.path.description": "Doelbestandspad.",
+    "param.replace_hex.description": "Hex-tekenreeks om mee te vervangen (replace-modus). Moet dezelfde lengte hebben als search_hex, tenzij allow_resize=true (niet ondersteund).",
+    "param.search_hex.description": "Hex-tekenreeks om naar te zoeken (replace-modus).",
+    "param.splice_op.description": "Splice-operatie (splice-modus).",
+    "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen.",
+    "tool.system_prompt": "Gebruik deze tool voor het volgende doel: bewerk een lokaal bestand als ruwe bytes (binair).\n\nVEILIGHEID:\n- Deze tool wijzigt lokale bestanden en kan ze beschadigen.\n- Vraag altijd bevestiging met human_ask vóór het schrijven.\n- Werk onder de veiligheidspolitiek van de host-agent niet op paden buiten de huidige workdir."
+  },
+  "fi": {
+    "param.data_hex.description": "Kirjoitettavien/lisättävien tavujen heksamerkkijono (esim. 'DEADBEEF' tai 'DE AD BE EF').",
+    "param.delete_len.description": "Poistettavien tavujen määrä (splice delete).",
+    "param.dry_run.description": "Jos true, älä muuta tiedostoa; raportoi vain, mitä muuttuisi.",
+    "param.max_bytes.description": "Hylkää tätä suuremmat tiedostot (tavuina).",
+    "param.mode.description": "Muokkaustila.",
+    "param.occurrence.description": "Mikä esiintymä korvataan (alkaen 1). 0 tarkoittaa kaikkien esiintymien korvaamista (vaatii silti saman pituuden).",
+    "param.offset.description": "Tavusiirtymä (alkaen 0). Vaaditaan write/splice-toiminnoissa.",
+    "param.patch_json.description": "JSON-paikkamerkkijono (apply_patch-tila).",
+    "param.path.description": "Kohdetiedoston polku.",
+    "param.replace_hex.description": "Heksamerkkijono, jolla korvataan (replace-tila). Sen on oltava samaa pituutta kuin search_hex, ellei allow_resize=true (ei tuettu).",
+    "param.search_hex.description": "Heksamerkkijono, jota etsitään (replace-tila).",
+    "param.splice_op.description": "Splice-toiminto (splice-tila).",
+    "tool.description": "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja.",
+    "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: muokkaa paikallista tiedostoa raakatavuina (binäärinä).\n\nTURVALLISUUS:\n- Tämä työkalu muokkaa paikallisia tiedostoja ja voi rikkoa ne.\n- Pyydä aina vahvistus human_askilla ennen kirjoittamista.\n- Älä käsittele polkuja nykyisen workdirin ulkopuolella host-agentin turvallisuuskäytäntöjen aikana."
   }
 }

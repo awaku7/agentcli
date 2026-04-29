@@ -358,5 +358,41 @@
     "param.wait_s.description": "Hvor lenge det skal ventes på svar etter sending (sekunder).",
     "tool.description": "Samhandle med en bestemt Discord-kanal ved hjelp av en bottoken: send meldinger, les nylige meldinger og vent eventuelt på svar etter sending.",
     "tool.system_prompt": "Bruk dette verktøyet til å snakke med en Discord-kanal via REST API. En bottoken må oppgis via en miljøvariabel. Returner bare JSON."
+  },
+  "nl": {
+    "err.exception": "Exception",
+    "err.invalid_action": "Invalid action: {action}",
+    "err.message_too_long": "Discord message content must be 2000 characters or less.",
+    "err.missing_action": "Missing 'action'.",
+    "err.missing_channel_id": "Missing 'channel_id'.",
+    "err.missing_message": "Missing 'message'.",
+    "param.action.description": "Action: send / send_and_wait / history",
+    "param.channel_id.description": "Target Discord channel ID.",
+    "param.exclude_bots.description": "When waiting, ignore bot messages.",
+    "param.limit.description": "Number of messages to fetch for history/replies.",
+    "param.message.description": "Message to send for send/send_and_wait actions.",
+    "param.poll_interval_s.description": "Polling interval while waiting for replies (seconds).",
+    "param.token_env.description": "Environment variable name that stores the Discord bot token.",
+    "param.wait_s.description": "How long to wait for replies after sending (seconds).",
+    "tool.description": "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending.",
+    "tool.system_prompt": "Use this tool to talk to a Discord channel via REST API. A bot token must be provided through an environment variable. Return JSON only."
+  },
+  "fi": {
+    "err.exception": "Exception",
+    "err.invalid_action": "Invalid action: {action}",
+    "err.message_too_long": "Discord message content must be 2000 characters or less.",
+    "err.missing_action": "Missing 'action'.",
+    "err.missing_channel_id": "Missing 'channel_id'.",
+    "err.missing_message": "Missing 'message'.",
+    "param.action.description": "Action: send / send_and_wait / history",
+    "param.channel_id.description": "Target Discord channel ID.",
+    "param.exclude_bots.description": "When waiting, ignore bot messages.",
+    "param.limit.description": "Number of messages to fetch for history/replies.",
+    "param.message.description": "Message to send for send/send_and_wait actions.",
+    "param.poll_interval_s.description": "Polling interval while waiting for replies (seconds).",
+    "param.token_env.description": "Environment variable name that stores the Discord bot token.",
+    "param.wait_s.description": "How long to wait for replies after sending (seconds).",
+    "tool.description": "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending.",
+    "tool.system_prompt": "Use this tool to talk to a Discord channel via REST API. A bot token must be provided through an environment variable. Return JSON only."
   }
 }

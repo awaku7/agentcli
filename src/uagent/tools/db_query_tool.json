@@ -118,5 +118,17 @@
     "param.sql.description": "SQL som skal kjøres.",
     "tool.description": "Kjør en SQL-spørring mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemaoppslag (PRAGMA) støttes.",
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'db_query'."
+  },
+  "nl": {
+    "param.db_path.description": "Pad naar het SQLite-databasebestand.",
+    "param.sql.description": "De uit te voeren SQL.",
+    "tool.description": "Voer SQL-kyselys uit op een SQLite-database en geef de resultaten terug. Ondersteunt alleen leesbewerkingen (SELECT) en schema-controle (PRAGMA).",
+    "tool.system_prompt": "Voer alleen leesbewerkingen uit op SQLite (SELECT/PRAGMA) en geef JSON terug."
+  },
+  "fi": {
+    "param.db_path.description": "SQLite-tietokantatiedoston polku.",
+    "param.sql.description": "Suoritettava SQL.",
+    "tool.description": "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulokset. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA).",
+    "tool.system_prompt": "Suorita vain SQLite:n lukuoperaatioita (SELECT/PRAGMA) ja palauta JSON."
   }
 }

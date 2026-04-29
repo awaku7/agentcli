@@ -158,5 +158,21 @@
     "param.output_format.description": "Utdataformat: text eller json.",
     "param.password.description": "Valgfritt passord for kryptert DOCX-fil. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+  },
+  "nl": {
+    "tool.description": "Extraheer hoofdtekst en basisstructuur uit Word-documenten (.docx, .rtf, .odt). U kunt output_format=text of output_format=json kiezen. De terugkeerwaarde is altijd JSON.",
+    "tool.system_prompt": "Extraheer tekst en basisstructuur uit Word-documenten en geef alleen JSON terug.",
+    "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
+    "param.output_format.description": "Uitvoerformaat: text of json.",
+    "param.password.description": "Wachtwoord voor versleutelde DOCX-bestanden (optioneel).",
+    "prompt.password": "Enter the password for this file:\n{path}"
+  },
+  "fi": {
+    "tool.description": "Poimi pääteksti ja perusrakenne Word-asiakirjoista (.docx, .rtf, .odt). Voit valita output_format=text tai output_format=json. Paluuarvo on aina JSON.",
+    "tool.system_prompt": "Poimi teksti ja perusrakenne Word-asiakirjoista ja palauta vain JSON.",
+    "param.path.description": "Syöteasiakirjan polku (.docx, .rtf, .odt).",
+    "param.output_format.description": "Tulostusmuoto: text tai json.",
+    "param.password.description": "Salasana salatuille DOCX-tiedostoille (valinnainen).",
+    "prompt.password": "Enter the password for this file:\n{path}"
   }
 }

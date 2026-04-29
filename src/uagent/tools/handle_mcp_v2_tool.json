@@ -178,5 +178,23 @@
     "param.url.description": "URL for MCP-serverens endepunkt.",
     "tool.description": "Kall et verktøy fra en MCP-server. Oppgi verktøyargumenter i tool_arguments som et JSON-objekt (anbefalt) eller en JSON-streng. Returverdien er en JSON-streng som inneholder minst ok og text. Når det er aktuelt, inkluderes saved_path (for eksempel når serveren returnerer saved_path, eller når en filpayload som {filename, mime, data_base64} returneres og klienten lagrer den i en lokal downloads-katalog). Merk: saved_path kan utelates når verktøyet ikke returnerer noen filpayload.",
     "tool.system_prompt": "Bruk dette verktøyet i henhold til formålet beskrevet ovenfor (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "doc.mask_values": "Vervang waarden in woordenboeken en lijsten door '*' (structuur behouden).",
+    "param.server_name.description": "Servernaam die gebruikt moet worden.",
+    "param.tool_arguments.description": "Argumenten voor de MCP-tool (JSON-object of JSON-string).",
+    "param.tool_name.description": "Naam van de MCP-tool om uit te voeren.",
+    "param.url.description": "MCP-server-URL.",
+    "tool.description": "Verbind met een MCP-server en voer MCP-tools uit. Ondersteunt serverselectie, tool-aanroepen en het teruggeven van JSON-resultaten.",
+    "tool.system_prompt": "Gebruik een MCP-server om de gevraagde tool uit te voeren en geef alleen JSON terug."
+  },
+  "fi": {
+    "doc.mask_values": "Korvaa sanakirjojen ja listojen arvot '*' -merkillä (säilytä rakenne).",
+    "param.server_name.description": "Käytettävä palvelimen nimi.",
+    "param.tool_arguments.description": "MCP-työkalun argumentit (JSON-objekti tai JSON-merkkijono).",
+    "param.tool_name.description": "Suoritettavan MCP-työkalun nimi.",
+    "param.url.description": "MCP-palvelimen URL.",
+    "tool.description": "Yhdistä MCP-palvelimeen ja suorita MCP-työkaluja. Tukee palvelimen valintaa, työkalun kutsumista ja JSON-tulosten palauttamista.",
+    "tool.system_prompt": "Käytä MCP-palvelinta pyydetyn työkalun suorittamiseen ja palauta vain JSON."
   }
 }

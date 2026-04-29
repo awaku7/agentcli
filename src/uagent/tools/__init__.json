@@ -110,5 +110,19 @@
     "log.load_ok.external": "[الأدوات] الأدوات الخارجية المحملة: {entry_name}",
     "log.loaded_tools": "[الأدوات] الأدوات المحملة: {الأسماء}",
     "log.no_valid_tools": "[الأدوات] لم يتم العثور على أدوات صالحة."
+  },
+  "nl": {
+    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
+    "log.loaded_tools": "[tools] Loaded tools: {names}",
+    "log.no_valid_tools": "[tools] No valid tools were found."
+  },
+  "fi": {
+    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
+    "log.loaded_tools": "[tools] Loaded tools: {names}",
+    "log.no_valid_tools": "[tools] No valid tools were found."
   }
 }

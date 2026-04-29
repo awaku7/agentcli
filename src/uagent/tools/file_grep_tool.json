@@ -318,5 +318,37 @@
     "param.recursive.description": "Om underkataloger skal søkes rekursivt.",
     "tool.description": "Søk etter et mønster i filer og returner samsvarende linjer med linjenumre (som grep -n). Mønsteret er obligatorisk.",
     "tool.system_prompt": "Søk gjennom filinnhold under én eller flere stier. Mønsteret er obligatorisk. Filtrer filer med glob, søk med et Python-regex eller literal tekst, inkluder eventuelt kontekstlinjer, hopp over filer som ser ut som binære filer, støtt bare-filnavn-modus og oppdag tekstkoding automatisk ved lesing. Returner kun JSON."
+  },
+  "nl": {
+    "err.exception": "Er is een uitzondering opgetreden tijdens grep-bewerkingen.",
+    "err.invalid_regex": "Ongeldig regex-patroon.",
+    "err.missing_pattern": "Ontbrekend \"pattern\".",
+    "err.no_files_found": "Geen bestanden gevonden die aan de criteria voldoen.",
+    "param.context_lines.description": "Aantal regels context vóór en na elke treffer.",
+    "param.filenames_only.description": "Indien ingeschakeld, alleen de lijst met bestandsnamen met treffers teruggeven.",
+    "param.ignore_case.description": "Of hoofdletterverschillen genegeerd worden (standaard: true).",
+    "param.max_results.description": "Maximaal aantal regeltreffers om terug te geven (standaard: 100).",
+    "param.name_pattern.description": "Glob-patroon voor bestandsnamen (bijv. '*.py').",
+    "param.path.description": "Rootmap of specifiek bestandspad (standaard: '.').",
+    "param.pattern.description": "Regex-patroon om naar te zoeken.",
+    "param.recursive.description": "Of submappen recursief doorzocht moeten worden.",
+    "tool.description": "Zoek naar een patroon in bestanden en geef overeenkomende regels met regelnummers terug (zoals grep -n). Het patroon is verplicht.",
+    "tool.system_prompt": "Zoek naar bestandsinhoud onder een of meer paden. Het patroon is verplicht. Filter bestanden op glob, zoek met een Python-regex of letterlijke tekst, voeg desgewenst contextregels toe, sla binaire-achtige bestanden over, ondersteun een modus met alleen bestandsnamen en detecteer automatisch tekstcoderingen bij het lezen. Geef alleen JSON terug."
+  },
+  "fi": {
+    "err.exception": "Poikkeus grep-toiminnoissa.",
+    "err.invalid_regex": "Virheellinen regex-kaava.",
+    "err.missing_pattern": "Puuttuva \"pattern\".",
+    "err.no_files_found": "Mitään ehtoja vastaavia tiedostoja ei löytynyt.",
+    "param.context_lines.description": "Rivien määrä ennen ja jälkeen jokaisen osuman.",
+    "param.filenames_only.description": "Jos käytössä, palauta vain osuman sisältävien tiedostojen nimet.",
+    "param.ignore_case.description": "Huomioidaanko kirjainkoko (oletus: true).",
+    "param.max_results.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
+    "param.name_pattern.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
+    "param.path.description": "Perushakemisto tai yksittäinen tiedostopolku (oletus: '\\.').",
+    "param.pattern.description": "Etsittävä regex-kaava.",
+    "param.recursive.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
+    "tool.description": "Etsi tiedostoista kaavaa ja palauta osuvat rivit rivinumeroineen (kuten grep -n). Kaava on pakollinen.",
+    "tool.system_prompt": "Etsi tiedostosisältöä yhdestä tai useammasta polusta. Kaava on pakollinen. Suodata tiedostot globin avulla, hae Pythonin säännöllisellä lausekkeella tai kirjaimellisella tekstillä, lisää tarvittaessa kontekstit riveineen, ohita binäärin kaltaiset tiedostot, tue vain tiedostonimet -tilaa ja tunnista tekstikoodaus automaattisesti luettaessa. Palauta vain JSON."
   }
 }

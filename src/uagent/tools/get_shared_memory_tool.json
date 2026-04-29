@@ -98,5 +98,15 @@
     "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_shared_memory.",
     "tool.description": "Henter rådata fra delt langtidsminne som deles mellom brukere.\n- Returnerer vanligvis tekst i JSONL-format (én post per linje).\n- Hvis delt minne er deaktivert eller filen mangler, returneres en beskrivende melding.\n- Utdata blir automatisk trimmet til den interne maksimale bytegrensen.",
     "tool.system_prompt": "Dette verktøyet utfører funksjonaliteten beskrevet i TOOL_SPEC."
+  },
+  "nl": {
+    "doc.run_tool": "Ingangspunt aangeroepen vanuit tools/__init__.py. Implementatie voor get_shared_memory.",
+    "tool.description": "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld.\n- Geeft meestal tekst terug in JSONL-formaat (één record per regel).\n- Als gedeeld geheugen is uitgeschakeld of het bestand ontbreekt, wordt een beschrijvende melding teruggegeven.\n- De uitvoergrootte wordt automatisch ingekort tot de interne maximale bytegrens.",
+    "tool.system_prompt": "Deze tool voert de functionaliteit uit die in TOOL_SPEC wordt beschreven."
+  },
+  "fi": {
+    "doc.run_tool": "Tools/__init__.py:stä kutsuttu sisääntulokohta. Toteutus get_shared_memorylle.",
+    "tool.description": "Hakee käyttäjien kesken jaetut raakamuotoiset pitkäaikaisen muistin (jaetun muistin) tiedot.\n- Palauttaa yleensä tekstiä JSONL-muodossa (yksi tietue per rivi).\n- Jos jaettu muisti on poissa käytöstä tai tiedosto puuttuu, palauttaa kuvailevan viestin.\n- Tulosteen koko rajataan automaattisesti sisäiseen enimmäistavurajaan.",
+    "tool.system_prompt": "Tämä työkalu suorittaa TOOL_SPECissä kuvatun toiminnallisuuden."
   }
 }
