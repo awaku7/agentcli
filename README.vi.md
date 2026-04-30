@@ -6,7 +6,6 @@
 
 `uag` là một tác nhân tương tác có thể thực thi **lệnh**, thao tác **tệp tin**, và đọc **nhiều định dạng dữ liệu** như PDF/PPTX/Excel trên máy tính cục bộ của bạn. Ứng dụng cung cấp ba giao diện: CLI, GUI và Web.
 
-
 GitHub: https://github.com/awaku7/agentcli
 
 ## Cài đặt
@@ -44,15 +43,13 @@ Khởi chạy máy chủ HTTP tương thích với A2A:
 uaga
 ```
 
-### Responses API note
+### Ghi chú về Responses API
 
-If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
-
+Nếu bạn đặt `UAGENT_RESPONSES=1`, Responses API sẽ được dùng cho các nhà cung cấp được hỗ trợ: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI sử dụng các đường dẫn API gốc của họ và không nằm trong phạm vi của Responses API.
+Với các nhà cung cấp khác, uag sẽ quay về đường dẫn riêng của nhà cung cấp hoặc luồng chat-completions.
 
 Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết các thiết lập `UAGENT_A2A_*` như xác thực, host, cổng, tải lại, URL gốc công khai, đồng thời và engine.
-
 
 ### Mẹo hữu ích (Duy trì và kiểm soát)
 - `:tools`: Hiển thị danh sách công cụ đã tải.
