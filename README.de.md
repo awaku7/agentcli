@@ -6,7 +6,6 @@
 
 uag ist ein interaktiver Agent, der **Befehle** ausführt, **Dateien** manipuliert und **verschiedene Datenformate** (PDF/PPTX/Excel usw.) auf Ihrem lokalen PC liest. Er bietet drei Schnittstellen: CLI, GUI und Web.
 
-
 GitHub: https://github.com/awaku7/agentcli
 
 ## Installation
@@ -37,22 +36,20 @@ Nach der Installation wird beim ersten Start von `uag` automatisch ein **interak
 ### Starten und Beenden
 Führen Sie `uag` in Ihrem Terminal aus, um zu starten. Geben Sie `:exit` ein, um das Programm zu beenden.
 
-### A2A (Agent2Agent) Server
+### A2A-Server (Agent2Agent)
 Sie können einen A2A-kompatiblen HTTP-Server separat von den bestehenden Schnittstellen starten.
 ```bash
 uaga
 # oder python -m uagent.a2a.server
 ```
 
-### Responses API note
+### Hinweis zur Responses API
 
-If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
-
+Wenn Sie `UAGENT_RESPONSES=1` setzen, wird die Responses API für unterstützte Anbieter verwendet: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI verwenden ihre nativen API-Pfade und werden nicht von der Responses API abgedeckt.
+Für andere Anbieter fällt uag auf den anbieterspezifischen Pfad oder den chat-completions-Pfad zurück.
 
 Siehe [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) für `UAGENT_A2A_*`-Einstellungen wie Authentifizierung, Host, Port, Reload, öffentliche Basis-URL, Parallelität und Engine.
-
 
 ### Praktische Tipps (Kontinuität und Kontrolle)
 - `:tools`: Liste der geladenen Tools anzeigen.
