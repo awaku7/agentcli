@@ -6,7 +6,6 @@
 
 uag adalah agen interaktif yang menjalankan **perintah**, memanipulasi **berkas**, dan membaca **berbagai format data** (PDF/PPTX/Excel, dll.) di PC lokal Anda. Aplikasi ini menyediakan tiga antarmuka: CLI, GUI, dan Web.
 
-
 GitHub: https://github.com/awaku7/agentcli
 
 ## Instalasi
@@ -44,15 +43,13 @@ Jalankan server HTTP yang kompatibel dengan A2A:
 uaga
 ```
 
-### Responses API note
+### Catatan tentang Responses API
 
-If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
-
+Jika Anda menetapkan `UAGENT_RESPONSES=1`, Responses API digunakan untuk penyedia yang didukung: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI menggunakan jalur API bawaan mereka dan tidak tercakup oleh Responses API.
+Untuk penyedia lain, uag kembali ke jalur khusus penyedia atau alur chat-completions.
 
 Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk pengaturan `UAGENT_A2A_*` seperti autentikasi, host, port, reload, URL dasar publik, konkurensi, dan engine.
-
 
 ### Tips Praktis (Kelangsungan dan Kontrol)
 - `:tools`: Menampilkan daftar alat yang dimuat.

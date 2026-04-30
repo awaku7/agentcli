@@ -6,7 +6,6 @@
 
 uag 是一款能够在您的本地 PC 上执行 **命令**、操作 **文件** 并读取 **各种数据格式**（PDF/PPTX/Excel 等）的交互式智能体。它提供三种界面：CLI、GUI 和 Web。
 
-
 GitHub: https://github.com/awaku7/agentcli
 
 ## 安装
@@ -44,15 +43,13 @@ uaga
 # 或 python -m uagent.a2a.server
 ```
 
-### Responses API note
+### Responses API 说明
 
-If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
-
+如果设置 `UAGENT_RESPONSES=1`，受支持的提供方将使用 Responses API：OpenAI / Azure / Bedrock / OpenRouter / Ollama。
+Gemini / Claude / Vertex AI 使用各自的原生 API 路径，不在 Responses API 的覆盖范围内。
+对于其他提供方，uag 会回退到提供方专用路径或 chat-completions 流程。
 
 请参阅 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)，了解 `UAGENT_A2A_*` 设置，例如认证、主机、端口、重新加载、公开基础 URL、并发数和引擎。
-
 
 ### 实用技巧 (持续与控制)
 - `:tools`：显示已加载工具的列表。
