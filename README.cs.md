@@ -1,0 +1,75 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+</p>
+
+# uag (Lokální AI agent)
+
+uag je lokální interaktivní agent, který spouští **příkazy**, pracuje se **soubory** a čte **datové soubory** jako PDF, PPTX a Excel. Nabízí tři uživatelská rozhraní: CLI, GUI a Web.
+
+GitHub: https://github.com/awaku7/agentcli
+
+## Instalace
+
+Nainstalujte z PyPI pomocí pip:
+
+```bash
+pip install uag
+```
+
+Pokud používáte virtuální prostředí, nejdřív ho aktivujte a potom spusťte výše uvedený příkaz.
+
+Při prvním spuštění `uag` zkontroluje vaše prostředí a automaticky spustí průvodce nastavením, pokud chybí potřebné proměnné poskytovatele. Podrobnosti ke konfiguraci najdete v [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+
+## Hlavní vlastnosti
+
+- **Praktická sada nástrojů**: práce se soubory, webové vyhledávání, extrakce z PDF/PPTX/Excel, generování obrázků a analýza obrázků.
+- **Podpora více poskytovatelů**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Tři rozhraní**:
+  - **CLI**: `uag` / `python -m uagent`
+  - **GUI**: `uagg` / `python -m uagent.gui`
+  - **Web**: `uagw` / `python -m uagent.web`
+  - **A2A server**: `uaga` / `python -m uagent.a2a.server`
+- **Podpora MCP**: připojení k externím MCP tool serverům.
+- **Kontinuita relace**: zachování kontextu při přepínání modelu nebo poskytovatele.
+- **Web Inspector**: ukládání navigací v prohlížeči, DOM snapshotů a screenshotů pomocí `playwright_inspector`.
+- **Vestavěná dokumentace**: čtení přiložených dokumentů pomocí `uag docs`.
+
+## Použití
+
+### Spuštění a ukončení
+Spusťte `uag` v terminálu. Ukončíte ho zadáním `:exit`.
+
+### A2A server
+Spusťte HTTP server kompatibilní s Agent2Agent:
+
+```bash
+uaga
+```
+
+Nastavení `UAGENT_A2A_*`, jako je autentizace, hostitel, port, opětovné načítání, veřejná base URL, souběžnost a engine, najdete v [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+
+### Užitečné příkazy
+- `:tools`: zobrazit načtené nástroje
+- `:logs [n]`: zobrazit poslední logy sezení
+- `:load <index>`: načíst předchozí sezení
+- `:skills`: vybrat a načíst Agent Skills
+- `:shrink [n]`: shrnout historii a ponechat posledních `n` zpráv
+
+## Konfigurace a podrobnosti
+
+### Proměnné prostředí a nastavení
+Podrobnosti o API klíčích, nastavení jazyka (`UAGENT_LANG`), zkracování historie a dalších věcech najdete v [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+
+- **Průvodce nastavením**: `python -m uagent.setup_cli`
+- **Šifrované prostředí**: použijte `uag_envsec` k zašifrování `.env` jako `.env.sec`
+- **Aktualizace šifrovaných hodnot**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+
+### Poznámka k Responses API
+Pokud nastavíte `UAGENT_RESPONSES=1`, Responses API se použije pro podporované poskytovatele: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+Gemini / Claude / Vertex AI používají své nativní API cesty a Responses API se na ně nevztahuje.
+Pro ostatní poskytovatele uag přechází na poskytovatelem specifickou cestu nebo na chat-completions.
+
+### Vývojářská dokumentace a překlady
+- **Vývojářská dokumentace**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Přidání locale**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
+- **Další překlady README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/README.uk.md)
