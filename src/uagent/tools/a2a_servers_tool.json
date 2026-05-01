@@ -18,7 +18,7 @@
     "param.timeout_s.description": "Profil-Timeout in Sekunden.",
     "param.token.description": "Bearer-Token (Klartext). Es wird vor dem Speichern verschlüsselt.",
     "tool.description": "A2A-Serverprofile im uagent-Statusverzeichnis (~/.uag/a2a/a2a_servers.json) verwalten.",
-    "tool.system_prompt": "Die A2A-Serverprofilliste verwalten. Nur JSON zurückgeben."
+    "tool.system_prompt": "Verwalten Sie die Liste der A2A-Serverprofile. Geben Sie nur JSON zurück."
   },
   "en": {
     "err.config_not_found": "Config not found. Run action=init first.",
@@ -39,7 +39,7 @@
     "param.timeout_s.description": "Profile timeout in seconds.",
     "param.token.description": "Bearer token (plaintext). It will be encrypted before storing.",
     "tool.description": "Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Operate on A2A server profile list. Return JSON only."
+    "tool.system_prompt": "Manage the A2A server profile list. Return JSON only."
   },
   "es": {
     "err.config_not_found": "No se encontró la configuración. Ejecuta action=init primero.",
@@ -60,12 +60,12 @@
     "param.timeout_s.description": "Tiempo de espera del perfil en segundos.",
     "param.token.description": "Token Bearer (texto plano). Se cifrará antes de guardarlo.",
     "tool.description": "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Opera sobre la lista de perfiles de servidor A2A. Devuelve solo JSON."
+    "tool.system_prompt": "Administre la lista de perfiles de servidor A2A. Devuelva solo JSON."
   },
   "fr": {
     "err.config_not_found": "Configuration introuvable. Exécutez d’abord action=init.",
     "err.empty_name": "Nom vide.",
-    "err.exception": "Exception inattendue",
+    "err.exception": "Exception",
     "err.missing_name": "'name' manquant.",
     "err.missing_name_or_base_url": "'name' ou 'base_url' manquant.",
     "err.no_default_profile": "Aucun profil par défaut.",
@@ -81,7 +81,7 @@
     "param.timeout_s.description": "Délai d’expiration du profil en secondes.",
     "param.token.description": "Jeton Bearer (en clair). Il sera chiffré avant l’enregistrement.",
     "tool.description": "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Gérer la liste des profils de serveur A2A. Retourner uniquement du JSON."
+    "tool.system_prompt": "Gérez la liste des profils de serveur A2A. Retournez uniquement du JSON."
   },
   "it": {
     "err.config_not_found": "Configurazione non trovata. Esegui prima action=init.",
@@ -101,8 +101,8 @@
     "param.set_default.description": "(add) Imposta come profilo predefinito.",
     "param.timeout_s.description": "Timeout del profilo in secondi.",
     "param.token.description": "Token Bearer (testo in chiaro). Verrà crittografato prima dell'archiviazione.",
-    "tool.description": "Gestisci i profili server A2A nella directory di stato uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Opera sull'elenco dei profili del server A2A. Restituisci solo JSON."
+    "tool.description": "Gestisce i profili dei server A2A nella directory di stato di uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Gestisci l’elenco dei profili del server A2A. Restituisci solo JSON."
   },
   "ja": {
     "err.config_not_found": "設定ファイルが見つかりません。action=init を先に実行してください。",
@@ -123,7 +123,7 @@
     "param.timeout_s.description": "プロファイルのタイムアウト（秒）。",
     "param.token.description": "Bearer トークン（平文）。保存時に暗号化されます。",
     "tool.description": "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。",
-    "tool.system_prompt": "A2A サーバープロファイル一覧を操作します。JSONのみ返してください。"
+    "tool.system_prompt": "A2A サーバープロファイル一覧を管理します。JSONのみ返してください。"
   },
   "ko": {
     "err.config_not_found": "설정 파일을 찾을 수 없습니다. 먼저 action=init을 실행하세요.",
@@ -144,7 +144,7 @@
     "param.timeout_s.description": "프로필 타임아웃(초).",
     "param.token.description": "Bearer 토큰(평문). 저장 전에 암호화됩니다.",
     "tool.description": "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다.",
-    "tool.system_prompt": "A2A 서버 프로필 목록을 조작합니다. JSON만 반환하세요."
+    "tool.system_prompt": "A2A 서버 프로필 목록을 관리합니다. JSON만 반환하세요."
   },
   "pt_BR": {
     "err.config_not_found": "Configuração não encontrada. Execute action=init primeiro.",
@@ -164,8 +164,8 @@
     "param.set_default.description": "(add) Definir como perfil padrão.",
     "param.timeout_s.description": "Tempo limite do perfil em segundos.",
     "param.token.description": "Token Bearer (texto simples). Ele será criptografado antes de ser armazenado.",
-    "tool.description": "Gerencie perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Operar na lista de perfis do servidor A2A. Retorne apenas JSON."
+    "tool.description": "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Gerencie a lista de perfis de servidor A2A. Retorne apenas JSON."
   },
   "ru": {
     "err.config_not_found": "Конфигурация не найдена. Сначала запустите action=init.",
@@ -186,7 +186,7 @@
     "param.timeout_s.description": "Таймаут профиля в секундах.",
     "param.token.description": "Bearer-токен (открытый текст). Перед сохранением он будет зашифрован.",
     "tool.description": "Управляйте профилями сервера A2A в каталоге состояния uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "Работайте со списком профилей сервера A2A. Возвращайте только JSON."
+    "tool.system_prompt": "Управляйте списком профилей серверов A2A. Возвращайте только JSON."
   },
   "th": {
     "err.config_not_found": "ไม่พบไฟล์ตั้งค่า กรุณารัน action=init ก่อน.",
@@ -206,8 +206,8 @@
     "param.set_default.description": "(add) ตั้งเป็นโปรไฟล์เริ่มต้น.",
     "param.timeout_s.description": "หมดเวลาโปรไฟล์ (วินาที).",
     "param.token.description": "โทเค็น Bearer (ข้อความล้วน) จะถูกเข้ารหัสก่อนบันทึก.",
-    "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ใต้ไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืนเฉพาะ JSON."
+    "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืน JSON เท่านั้น."
   },
   "zh_CN": {
     "err.config_not_found": "未找到配置文件。请先运行 action=init。",
@@ -227,8 +227,8 @@
     "param.set_default.description": "（add）设为默认配置。",
     "param.timeout_s.description": "配置超时（秒）。",
     "param.token.description": "Bearer Token（明文）。保存前会加密。",
-    "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置档案。",
-    "tool.system_prompt": "操作 A2A 服务器配置档案列表。仅返回 JSON。"
+    "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置文件。",
+    "tool.system_prompt": "管理 A2A 服务器配置文件列表。仅返回 JSON。"
   },
   "zh_TW": {
     "err.config_not_found": "未找到組態檔。請先執行 action=init。",
@@ -249,7 +249,7 @@
     "param.timeout_s.description": "設定檔逾時（秒）。",
     "param.token.description": "Bearer Token（明文）。儲存前會加密。",
     "tool.description": "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。",
-    "tool.system_prompt": "操作 A2A 伺服器設定檔列表。僅回傳 JSON。"
+    "tool.system_prompt": "管理 A2A 伺服器設定檔列表。僅回傳 JSON。"
   },
   "id": {
     "err.config_not_found": "Konfigurasi tidak ditemukan. Jalankan action=init terlebih dahulu.",
@@ -260,7 +260,7 @@
     "err.no_default_profile": "Tidak ada profil default.",
     "err.not_found": "Tidak ditemukan.",
     "err.server_missing_base_url": "Profil server tidak memiliki base_url.",
-    "err.unknown_action": "Tindakan tidak dikenal.",
+    "err.unknown_action": "Aksi tidak dikenal.",
     "param.action.description": "Tindakan: init/list/add/remove/set_default/get/resolve",
     "param.base_url.description": "URL dasar server (mis. http://127.0.0.1:8765).",
     "param.force.description": "(init) Timpa konfigurasi yang ada.",
@@ -269,7 +269,7 @@
     "param.set_default.description": "(add) Tetapkan sebagai profil default.",
     "param.timeout_s.description": "Waktu habis profil dalam detik.",
     "param.token.description": "Token Bearer (teks biasa). Akan dienkripsi sebelum disimpan.",
-    "tool.description": "Kelola profil server A2A di direktori state uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.description": "Kelola profil server A2A di direktori status uagent (~/.uag/a2a/a2a_servers.json).",
     "tool.system_prompt": "Kelola daftar profil server A2A. Kembalikan JSON saja."
   },
   "vi": {
@@ -374,8 +374,8 @@
     "param.set_default.description": "(add) اجعله الملف الشخصي الافتراضي.",
     "param.timeout_s.description": "مهلة الملف الشخصي بالثواني.",
     "param.token.description": "رمز Bearer (نص صريح). سيتم تشفيره قبل الحفظ.",
-    "tool.description": "إدارة ملفات الخادم الشخصية A2A ضمن دليل حالة uagent (~/.uag/a2a/a2a_servers.json).",
-    "tool.system_prompt": "تصرّف في قائمة ملفات خادم A2A الشخصية. أعد JSON فقط."
+    "tool.description": "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "أدر قائمة ملفات تعريف خوادم A2A. أعد JSON فقط."
   },
   "sv": {
     "err.config_not_found": "Konfiguration hittades inte. Kör action=init först.",
@@ -460,5 +460,47 @@
     "param.token.description": "Bearer-token (selväkielisenä). Se salataan ennen tallentamista.",
     "tool.description": "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/.uag/a2a/a2a_servers.json).",
     "tool.system_prompt": "Käsittele A2A-palvelinprofiilien listaa. Palauta vain JSON."
+  },
+  "cs": {
+    "err.config_not_found": "Konfigurace nenalezena. Nejprve spusťte action=init.",
+    "err.empty_name": "Prázdný název.",
+    "err.exception": "Výjimka",
+    "err.missing_name": "Chybí 'name'.",
+    "err.missing_name_or_base_url": "Chybí 'name' nebo 'base_url'.",
+    "err.no_default_profile": "Žádný výchozí profil.",
+    "err.not_found": "Nenalezeno.",
+    "err.server_missing_base_url": "Serverový profil postrádá base_url.",
+    "err.unknown_action": "Neznámá akce.",
+    "param.action.description": "Akce: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "Základní URL serveru (např. http://127.0.0.1:8765).",
+    "param.force.description": "(init) Přepsat existující konfiguraci.",
+    "param.interval_ms.description": "Interval dotazování v milisekundách.",
+    "param.name.description": "Název profilu (nebo a2a://name pro get/resolve).",
+    "param.set_default.description": "(add) Nastavit jako výchozí profil.",
+    "param.timeout_s.description": "Časový limit profilu v sekundách.",
+    "param.token.description": "Bearer token (prostý text). Před uložením bude zašifrován.",
+    "tool.description": "Spravuje profily A2A serverů v adresáři stavu uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Pracujte se seznamem profilů A2A serverů. Vracejte pouze JSON."
+  },
+  "uk": {
+    "err.config_not_found": "Конфігурацію не знайдено. Спочатку запустіть action=init.",
+    "err.empty_name": "Порожня назва.",
+    "err.exception": "Виняток",
+    "err.missing_name": "Відсутнє 'name'.",
+    "err.missing_name_or_base_url": "Відсутнє 'name' або 'base_url'.",
+    "err.no_default_profile": "Немає профілю за замовчуванням.",
+    "err.not_found": "Не знайдено.",
+    "err.server_missing_base_url": "У профілі сервера відсутній base_url.",
+    "err.unknown_action": "Невідома дія.",
+    "param.action.description": "Дія: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "Базова URL-адреса сервера (наприклад, http://127.0.0.1:8765).",
+    "param.force.description": "(init) Перезаписати наявну конфігурацію.",
+    "param.interval_ms.description": "Інтервал опитування в мілісекундах.",
+    "param.name.description": "Назва профілю (або a2a://name для get/resolve).",
+    "param.set_default.description": "(add) Встановити як профіль за замовчуванням.",
+    "param.timeout_s.description": "Час очікування профілю в секундах.",
+    "param.token.description": "Bearer-токен (відкритий текст). Перед збереженням буде зашифрований.",
+    "tool.description": "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Працюйте зі списком профілів серверів A2A. Повертайте лише JSON."
   }
 }

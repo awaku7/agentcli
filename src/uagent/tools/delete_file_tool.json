@@ -8,7 +8,7 @@
     "param.missing_ok.description": "Wenn aktiviert, wird kein Fehler ausgegeben, wenn der Pfad nicht existiert.",
     "param.path.description": "(Kompatibilität) Alias für filename.",
     "tool.description": "Löscht die angegebene Datei oder das angegebene Verzeichnis. Verzeichnisse werden rekursiv gelöscht. Da dies ein gefährlicher Vorgang ist, kann eine Bestätigung erforderlich sein.",
-    "tool.system_prompt": "Löschen Sie Pfade nur nach ausdrücklicher Bestätigung durch den Benutzer, da dies ein destruktiver Vorgang sein kann."
+    "tool.system_prompt": "Löschen Sie den angegebenen Pfad nur nach ausdrücklicher Bestätigung durch den Benutzer, da dies ein destruktiver Vorgang sein kann."
   },
   "en": {
     "confirm.delete_paths_bulk": "Delete {count} paths?\n\n{paths}\n\nEnter y to proceed, or c to cancel.",
@@ -18,7 +18,7 @@
     "param.filename.description": "Path to delete, or a list of paths/glob patterns to delete.",
     "param.missing_ok.description": "If enabled, do not error when the path does not exist.",
     "param.path.description": "(Compatibility) Alias of filename.",
-    "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
+    "tool.description": "Delete the specified file or directory. Directories are deleted recursively. Because this is a dangerous operation, confirmation may be required.",
     "tool.system_prompt": "Delete the specified path only after confirming with the user if the operation may be destructive."
   },
   "es": {
@@ -29,7 +29,7 @@
     "param.filename.description": "Ruta a eliminar o lista de rutas/patrones glob.",
     "param.missing_ok.description": "Si está activado, no devuelve error si la ruta no existe.",
     "param.path.description": "(Compatibilidad) Alias de filename.",
-    "tool.description": "Elimina el archivo o directorio especificado (los directorios se eliminan de forma recursiva). Al ser una operación peligrosa, puede requerir confirmación.",
+    "tool.description": "Elimina el archivo o directorio especificado. Los directorios se eliminan de forma recursiva. Al ser una operación peligrosa, puede requerir confirmación.",
     "tool.system_prompt": "Elimine la ruta especificada solo después de confirmar con el usuario si la operación puede ser destructiva."
   },
   "fr": {
@@ -40,8 +40,8 @@
     "param.filename.description": "Chemin à supprimer ou liste de chemins/modèles glob à supprimer.",
     "param.missing_ok.description": "Si activé, ne produit pas d'erreur si le chemin n'existe pas.",
     "param.path.description": "(Compatibilité) Alias de filename.",
-    "tool.description": "Supprime le fichier ou le répertoire spécifié (les répertoires sont supprimés récursivement). Comme cette opération est dangereuse, une confirmation peut être nécessaire.",
-    "tool.system_prompt": "Ne supprimez le chemin spécifié qu'après confirmation de l'utilisateur si l'opération peut être destructive."
+    "tool.description": "Supprime le fichier ou le répertoire spécifié. Les répertoires sont supprimés récursivement. Comme cette opération est dangereuse, une confirmation peut être nécessaire.",
+    "tool.system_prompt": "Ne supprimez le chemin spécifié qu’après confirmation de l’utilisateur si l’opération peut être destructive."
   },
   "it": {
     "confirm.delete_paths_bulk": "Eliminare {count} percorsi?\n\n{paths}\n\nDigita 'y' per procedere o 'c' per annullare.",
@@ -51,8 +51,8 @@
     "param.filename.description": "Percorso da eliminare o elenco di percorsi/pattern glob.",
     "param.missing_ok.description": "Se attivato, non genera errore se il percorso non esiste.",
     "param.path.description": "(Compatibilità) Alias di filename.",
-    "tool.description": "Elimina il file o la directory specificata (le directory vengono eliminate ricorsivamente). Poiché si tratta di un'operazione pericolosa, può essere richiesta una conferma.",
-    "tool.system_prompt": "Elimina il percorso specificato solo dopo la conferma dell'utente se l'operazione può essere distruttiva."
+    "tool.description": "Elimina il file o la directory specificata. Le directory vengono eliminate ricorsivamente. Poiché si tratta di un’operazione pericolosa, può essere richiesta una conferma.",
+    "tool.system_prompt": "Elimina il percorso specificato solo dopo la conferma dell’utente se l’operazione può essere distruttiva."
   },
   "ja": {
     "confirm.delete_paths_bulk": "次の {count} 件のパスを削除しますか？\n\n{paths}\n\n続行する場合は y、キャンセルする場合は c を入力してください。",
@@ -73,7 +73,7 @@
     "param.filename.description": "삭제할 경로 또는 경로/glob 패턴 목록입니다.",
     "param.missing_ok.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다.",
     "param.path.description": "(호환성용) filename의 별칭.",
-    "tool.description": "지정된 파일 또는 디렉토리를 삭제합니다. 디렉토리는 재귀적으로 삭제됩니다. 위험한 작업이므로 확인이 필요할 수 있습니다.",
+    "tool.description": "지정된 파일 또는 디렉터리를 삭제합니다. 디렉터리는 재귀적으로 삭제됩니다. 위험한 작업이므로 확인이 필요할 수 있습니다.",
     "tool.system_prompt": "파괴적인 작업일 수 있으므로 사용자에게 확인을 받은 후에만 지정된 경로를 삭제하십시오."
   },
   "pt_BR": {
@@ -84,7 +84,7 @@
     "param.filename.description": "Caminho a excluir ou lista de caminhos/padrões glob.",
     "param.missing_ok.description": "Se ativado, não gera erro se o caminho não existir.",
     "param.path.description": "(Compatibilidade) Alias para filename.",
-    "tool.description": "Exclui o arquivo ou diretório especificado (diretórios são excluídos recursivamente). Por ser uma operação perigosa, pode exigir confirmação.",
+    "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Por ser uma operação perigosa, pode exigir confirmação.",
     "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação puder ser destrutiva."
   },
   "ru": {
@@ -95,7 +95,7 @@
     "param.filename.description": "Путь для удаления или список путей/шаблонов glob.",
     "param.missing_ok.description": "Если включено, не выводит ошибку, если путь не существует.",
     "param.path.description": "(Совместимость) Псевдоним для filename.",
-    "tool.description": "Удаляет указанный файл или директорию (директории удаляются рекурсивно). Это опасная операция, поэтому может потребоваться подтверждение.",
+    "tool.description": "Удаляет указанный файл или каталог. Каталоги удаляются рекурсивно. Это опасная операция, поэтому может потребоваться подтверждение.",
     "tool.system_prompt": "Удаляйте указанный путь только после подтверждения пользователя, если операция может быть деструктивной."
   },
   "th": {
@@ -106,7 +106,7 @@
     "param.filename.description": "เส้นทางที่จะลบ หรือรายการของเส้นทาง/รูปแบบ glob",
     "param.missing_ok.description": "หากเปิดใช้งาน จะไม่แสดงข้อผิดพลาดหากไม่พบเส้นทาง",
     "param.path.description": "(ความเข้ากันได้) ชื่อเรียกอื่นของ filename",
-    "tool.description": "ลบไฟล์หรือไดเรกทอรีที่ระบุ (ไดเรกทอรีจะถูกลบแบบเรียกซ้ำ) เนื่องจากเป็นการดำเนินการที่อันตราย อาจต้องมีการยืนยันก่อน",
+    "tool.description": "ลบไฟล์หรือไดเรกทอรีที่ระบุ ไดเรกทอรีจะถูกลบแบบเรียกซ้ำ เนื่องจากเป็นการดำเนินการที่อันตราย อาจต้องมีการยืนยันก่อน",
     "tool.system_prompt": "ลบเส้นทางที่ระบุหลังจากได้รับการยืนยันจากผู้ใช้แล้วเท่านั้น หากการดำเนินการอาจเป็นการทำลายข้อมูล"
   },
   "zh_CN": {
@@ -117,7 +117,7 @@
     "param.filename.description": "要删除的路径，或路径/glob 模式列表。",
     "param.missing_ok.description": "如果启用，路径不存在时不会报错。",
     "param.path.description": "（兼容性）filename 的别名。",
-    "tool.description": "删除指定的文件或目录（目录将被递归删除）。由于操作危险，可能需要确认。",
+    "tool.description": "删除指定的文件或目录。目录将被递归删除。由于这是危险操作，可能需要确认。",
     "tool.system_prompt": "仅在与用户确认后才删除指定路径，因为这可能具有破坏性。"
   },
   "zh_TW": {
@@ -128,7 +128,7 @@
     "param.filename.description": "要刪除的路徑，或路徑/glob 模式清單。",
     "param.missing_ok.description": "如果啟用，路徑不存在時不會報錯。",
     "param.path.description": "（相容性）filename 的別名。",
-    "tool.description": "刪除指定的檔案或目錄（目錄將被遞迴刪除）。由於操作危險，可能需要確認。",
+    "tool.description": "刪除指定的檔案或目錄。目錄將被遞迴刪除。由於這是危險操作，可能需要確認。",
     "tool.system_prompt": "僅在與使用者確認後才刪除指定路徑，因為這可能具有破壞性。"
   },
   "id": {
@@ -139,18 +139,18 @@
     "param.filename.description": "Path yang akan dihapus, atau daftar path/pola glob yang akan dihapus.",
     "param.missing_ok.description": "Jika diaktifkan, tidak error saat path tidak ada.",
     "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
-    "tool.description": "Hapus file atau direktori yang ditentukan (direktori dihapus secara rekursif). Karena ini berbahaya, konfirmasi mungkin diperlukan.",
+    "tool.description": "Hapus file atau direktori yang ditentukan. Direktori dihapus secara rekursif. Karena ini berbahaya, konfirmasi mungkin diperlukan.",
     "tool.system_prompt": "Hapus path yang ditentukan hanya setelah mengonfirmasi dengan pengguna jika operasi mungkin bersifat destruktif."
   },
   "vi": {
     "confirm.delete_paths_bulk": "Xóa đường dẫn {count}?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy.",
-    "param.allow_dir.description": "Nếu được bật, cho phép xóa các thư mục khớp với toàn cầu.",
+    "param.allow_dir.description": "Nếu được bật, cho phép xóa các thư mục khớp với glob.",
     "param.confirmed.description": "Nếu được bật, hãy bỏ qua lời nhắc xác nhận nội bộ của công cụ.",
     "param.dry_run.description": "Nếu được bật, chỉ liệt kê các đường dẫn phù hợp và không xóa bất cứ thứ gì.",
-    "param.filename.description": "Đường dẫn cần xóa hoặc danh sách các đường dẫn/mẫu hình cầu cần xóa.",
+    "param.filename.description": "Đường dẫn cần xóa hoặc danh sách các đường dẫn/mẫu glob cần xóa.",
     "param.missing_ok.description": "Nếu được bật sẽ không xảy ra lỗi khi đường dẫn không tồn tại.",
     "param.path.description": "(Khả năng tương thích) Bí danh của tên tệp.",
-    "tool.description": "Xóa tệp hoặc thư mục đã chỉ định (các thư mục sẽ bị xóa đệ quy). Vì điều này nguy hiểm nên có thể cần phải xác nhận.",
+    "tool.description": "Xóa tệp hoặc thư mục đã chỉ định. Các thư mục sẽ bị xóa đệ quy. Vì đây là thao tác nguy hiểm nên có thể cần xác nhận.",
     "tool.system_prompt": "Chỉ xóa đường dẫn đã chỉ định sau khi xác nhận với người dùng nếu thao tác có thể bị phá hủy."
   },
   "pl": {
@@ -161,18 +161,18 @@
     "param.filename.description": "Ścieżka do usunięcia lub lista ścieżek/wzorców globalnych do usunięcia.",
     "param.missing_ok.description": "Jeśli ta opcja jest włączona, nie zgłaszaj błędu, gdy ścieżka nie istnieje.",
     "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
-    "tool.description": "Usuń określony plik lub katalog (katalogi są usuwane rekurencyjnie). Ponieważ jest to niebezpieczne, może być wymagane potwierdzenie.",
+    "tool.description": "Usuń określony plik lub katalog. Katalogi są usuwane rekurencyjnie. Ponieważ jest to niebezpieczna operacja, może być wymagane potwierdzenie.",
     "tool.system_prompt": "Usuń określoną ścieżkę dopiero po potwierdzeniu z użytkownikiem, jeśli operacja może być destrukcyjna."
   },
   "pt": {
-    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar.",
+    "confirm.delete_paths_bulk": "Excluir {count} caminhos?\n\n{paths}\n\nDigite y para continuar ou c para cancelar.",
     "param.allow_dir.description": "Se ativado, permite a exclusão de diretórios correspondentes ao glob.",
     "param.confirmed.description": "Se ativado, ignore o prompt de confirmação interno da ferramenta.",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos correspondentes e não exclui nada.",
     "param.filename.description": "Caminho a ser excluído ou uma lista de caminhos/padrões glob a serem excluídos.",
     "param.missing_ok.description": "Se ativado, não cometa erros quando o caminho não existir.",
     "param.path.description": "(Compatibilidade) Alias ​​do nome do arquivo.",
-    "tool.description": "Exclua o arquivo ou diretório especificado (os diretórios são excluídos recursivamente). Como isso é perigoso, pode ser necessária confirmação.",
+    "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Como isso é perigoso, pode ser necessária confirmação.",
     "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação pode ser destrutiva."
   },
   "hi": {
@@ -183,18 +183,18 @@
     "param.filename.description": "हटाने के लिए पथ, या हटाने के लिए पथ/ग्लोब पैटर्न की एक सूची।",
     "param.missing_ok.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।",
     "param.path.description": "(संगतता) फ़ाइल नाम का उपनाम।",
-    "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ (निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं)। क्योंकि यह खतरनाक है, पुष्टि की आवश्यकता हो सकती है।",
+    "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ। निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं। क्योंकि यह एक खतरनाक ऑपरेशन है, पुष्टि की आवश्यकता हो सकती है।",
     "tool.system_prompt": "यदि ऑपरेशन विनाशकारी हो सकता है तो उपयोगकर्ता से पुष्टि करने के बाद ही निर्दिष्ट पथ को हटाएं।"
   },
   "ar": {
-    "confirm.delete_paths_bulk": "هل تريد حذف {count} من المسارات؟\n\n{المسارات}\n\nأدخل y للمتابعة، أو c للإلغاء.",
-    "param.allow_dir.description": "إذا تم تمكينه، فاسمح بحذف الدلائل المتطابقة مع glob.",
+    "confirm.delete_paths_bulk": "هل تريد حذف {count} من المسارات؟\n\n{paths}\n\nأدخل y للمتابعة، أو c للإلغاء.",
+    "param.allow_dir.description": "إذا تم تمكينه، فاسمح بحذف الدلائل المطابقة لـ glob.",
     "param.confirmed.description": "في حالة التمكين، قم بتخطي مطالبة التأكيد الداخلي للأداة.",
     "param.dry_run.description": "في حالة التمكين، قم بإدراج المسارات المتطابقة فقط ولا تحذف أي شيء.",
-    "param.filename.description": "المسار المطلوب حذفه، أو قائمة المسارات/أنماط الكرة الأرضية المطلوب حذفها.",
+    "param.filename.description": "المسار المراد حذفه، أو قائمة المسارات/أنماط glob المراد حذفها.",
     "param.missing_ok.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود.",
     "param.path.description": "(التوافق) الاسم المستعار لاسم الملف.",
-    "tool.description": "احذف الملف أو الدليل المحدد (يتم حذف الدلائل بشكل متكرر). ونظرًا لخطورة ذلك، فقد تكون هناك حاجة إلى تأكيد.",
+    "tool.description": "احذف الملف أو الدليل المحدد. تُحذف الأدلة بشكلٍ递归ي. ونظرًا لخطورة ذلك، قد يلزم التأكيد.",
     "tool.system_prompt": "احذف المسار المحدد فقط بعد التأكيد مع المستخدم إذا كانت العملية قد تكون مدمرة."
   },
   "sv": {
@@ -227,7 +227,7 @@
     "param.filename.description": "Pad om te verwijderen, of een lijst met paden/glob-patronen om te verwijderen.",
     "param.missing_ok.description": "Indien ingeschakeld, geen fout geven als het pad niet bestaat.",
     "param.path.description": "(Compatibiliteit) Alias van filename.",
-    "tool.description": "Verwijder het opgegeven bestand of de opgegeven map (mappen worden recursief verwijderd). Omdat dit gevaarlijk is, kan bevestiging vereist zijn.",
+    "tool.description": "Verwijdert het opgegeven bestand of de opgegeven map. Mappen worden recursief verwijderd. Omdat dit gevaarlijk is, kan bevestiging vereist zijn.",
     "tool.system_prompt": "Verwijder het opgegeven pad alleen nadat de gebruiker de bewerking heeft bevestigd als deze mogelijk destructief is."
   },
   "fi": {
@@ -238,7 +238,29 @@
     "param.filename.description": "Poistettava polku tai poistettavien polkujen/glob-kuvioiden lista.",
     "param.missing_ok.description": "Kun käytössä, älä anna virhettä, jos polkua ei ole olemassa.",
     "param.path.description": "(Yhteensopivuuden vuoksi) filename-parametrin alias.",
-    "tool.description": "Poista annettu tiedosto tai hakemisto (hakemistot poistetaan rekursiivisesti). Koska tämä on vaarallista, vahvistus voidaan vaatia.",
+    "tool.description": "Poistaa annetun tiedoston tai hakemiston. Hakemistot poistetaan rekursiivisesti. Koska tämä on vaarallista, vahvistus voidaan vaatia.",
     "tool.system_prompt": "Poista annettu polku vasta, kun käyttäjä on vahvistanut toiminnon, jos se voi olla tuhoava."
+  },
+  "cs": {
+    "confirm.delete_paths_bulk": "Smazat {count} cest?\n\n{paths}\n\nZadejte y pro pokračování, nebo c pro zrušení.",
+    "param.allow_dir.description": "Je-li povoleno, dovolí mazání adresářů odpovídajících glob vzoru.",
+    "param.confirmed.description": "Je-li povoleno, přeskočí interní potvrzovací výzvu nástroje.",
+    "param.dry_run.description": "Je-li povoleno, pouze vypíše odpovídající cesty a nic nesmaže.",
+    "param.filename.description": "Cesta ke smazání nebo seznam cest / glob vzorů ke smazání.",
+    "param.missing_ok.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje.",
+    "param.path.description": "(Kompatibilita) Alias pro filename.",
+    "tool.description": "Smaže zadaný soubor nebo adresář. Adresáře se mažou rekurzivně. Protože jde o nebezpečnou operaci, může být vyžadováno potvrzení.",
+    "tool.system_prompt": "Zadanou cestu mažte pouze po potvrzení od uživatele, pokud může být operace destruktivní."
+  },
+  "uk": {
+    "confirm.delete_paths_bulk": "Видалити {count} шляхів?\n\n{paths}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
+    "param.allow_dir.description": "Якщо ввімкнено, дозволяє видаляти каталоги, що відповідають glob-масці.",
+    "param.confirmed.description": "Якщо ввімкнено, пропускає внутрішній запит підтвердження інструмента.",
+    "param.dry_run.description": "Якщо ввімкнено, лише перелічує відповідні шляхи й нічого не видаляє.",
+    "param.filename.description": "Шлях для видалення або список шляхів/шаблонів glob для видалення.",
+    "param.missing_ok.description": "Якщо ввімкнено, не повертати помилку, коли шлях не існує.",
+    "param.path.description": "(Сумісність) Псевдонім для filename.",
+    "tool.description": "Видаляє вказаний файл або каталог. Каталоги видаляються рекурсивно. Оскільки це небезпечна операція, може знадобитися підтвердження.",
+    "tool.system_prompt": "Видаляйте вказаний шлях лише після підтвердження користувачем, якщо операція може бути деструктивною."
   }
 }

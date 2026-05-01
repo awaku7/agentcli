@@ -2,7 +2,7 @@
   "en": {
     "param.command.description": "Command string to execute.",
     "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool, such as Python or MCP, is available.",
-    "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
+    "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available."
   },
   "ja": {
     "param.command.description": "実行するコマンド文字列。",
@@ -11,7 +11,7 @@
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge zum Ausführen.",
-    "tool.description": "Führt einen Windows-Befehl als letzte Option aus. Nur verwenden, wenn kein anderes geeignetes Tool, etwa Python oder MCP, verfügbar ist.",
+    "tool.description": "Führt als letzter Ausweg einen Windows-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool, etwa Python oder MCP, verfügbar ist.",
     "tool.system_prompt": "Dieses Tool ist die LETZTE OPTION. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist."
   },
   "es": {
@@ -36,8 +36,8 @@
   },
   "pt_BR": {
     "param.command.description": "Comando a ser executado.",
-    "tool.description": "Como último recurso, execute um comando do Windows. Use apenas quando nenhuma outra ferramenta apropriada, como Python ou MCP, estiver disponível.",
-    "tool.system_prompt": "Esta ferramenta é o último recurso. Use-a apenas se não houver outra ferramenta apropriada disponível."
+    "tool.description": "Como último recurso, execute um comando do Windows. Use apenas quando nenhuma outra ferramenta adequada, como Python ou MCP, estiver disponível.",
+    "tool.system_prompt": "Esta ferramenta é o último recurso. Use-a apenas se não houver outra ferramenta adequada disponível."
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
@@ -81,8 +81,8 @@
   },
   "hi": {
     "param.command.description": "निष्पादित करने के लिए कमांड स्ट्रिंग.",
-    "tool.description": "अंतिम उपाय के रूप में, Windows कमांड निष्पादित करें। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण, जैसे कि पायथन या एमसीपी, उपलब्ध न हो।",
-    "tool.system_prompt": "यह उपकरण एक अंतिम उपाय है. यदि कोई अन्य उपयुक्त उपकरण उपलब्ध न हो तो ही उपयोग करें।"
+    "tool.description": "अंतिम उपाय के रूप में Windows कमांड चलाएँ। केवल तभी उपयोग करें जब Python या MCP जैसा कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।",
+    "tool.system_prompt": "यह उपकरण अंतिम उपाय है। इसका उपयोग तभी करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।"
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر المراد تنفيذها.",
@@ -108,5 +108,15 @@
     "param.command.description": "Suoritettava komentorivi.",
     "tool.description": "Suorita Windows-komento vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten Pythonia tai MCP:tä, ei ole käytettävissä.",
     "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole."
+  },
+  "cs": {
+    "param.command.description": "Řetězec příkazu k vykonání.",
+    "tool.description": "Jako poslední možnost spustí příkaz Windows. Použijte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj, například Python nebo MCP.",
+    "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, pokud není k dispozici žádný jiný vhodný nástroj."
+  },
+  "uk": {
+    "param.command.description": "Рядок команди для виконання.",
+    "tool.description": "Як крайній захід, виконує команду Windows. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад Python або MCP.",
+    "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента."
   }
 }

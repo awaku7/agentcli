@@ -1,7 +1,7 @@
 {
   "en": {
     "param.format.description": "Output format.",
-    "tool.description": "Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN, proxies, or mobile networks.\n\nPolicy:\n- Use this tool when you need the user's approximate location (city/region/country) and the user has not provided it.\n- If the user has already provided their location, prefer that and do not call get_geoip.",
+    "tool.description": "Estimates the user’s approximate location from their public IP address. The result may be inaccurate when using VPNs, proxies, or mobile networks.\n\nPolicy:\n- Use this tool when you need the user’s approximate location (city/region/country) and they have not provided it.\n- If the user has already provided their location, prefer that and do not call get_geoip.",
     "tool.system_prompt": "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
   },
   "ja": {
@@ -21,12 +21,12 @@
   },
   "es": {
     "param.format.description": "Formato de salida.",
-    "tool.description": "Estime la ubicación aproximada del usuario a partir de su dirección IP pública. El resultado puede ser inexacto al usar VPN, proxies o redes móviles.\n\nPolítica:\n- Use esta herramienta cuando necesite la ubicación aproximada del usuario (ciudad/región/país) y el usuario no la haya proporcionado.\n- Si el usuario ya proporcionó su ubicación, dé prioridad a esa información y no llame a get_geoip.",
+    "tool.description": "Estima la ubicación aproximada del usuario a partir de su dirección IP pública. El resultado puede ser inexacto al usar VPN, proxies o redes móviles.\n\nPolítica:\n- Use esta herramienta cuando necesite la ubicación aproximada del usuario (ciudad/región/país) y el usuario no la haya proporcionado.\n- Si el usuario ya proporcionó su ubicación, dé prioridad a esa información y no llame a get_geoip.",
     "tool.system_prompt": "Obtenga datos de ubicación basados en IP desde un servicio externo (ipinfo.io) y devuelva un resultado simplificado."
   },
   "fr": {
     "param.format.description": "Format de sortie.",
-    "tool.description": "Estime la localisation approximative de l'utilisateur à partir de son adresse IP publique. Le résultat peut être inexact en cas d'utilisation de VPN, de proxy ou de réseau mobile.\n\nConsignes :\n- Utilisez cet outil lorsque vous avez besoin de la localisation approximative de l'utilisateur (ville/région/pays) et que l'utilisateur ne l'a pas fournie.\n- Si l'utilisateur a déjà fourni sa localisation, privilégiez cette information et n'appelez pas get_geoip.",
+    "tool.description": "Estime la localisation approximative de l’utilisateur à partir de son adresse IP publique. Le résultat peut être inexact en cas d’utilisation d’un VPN, d’un proxy ou d’un réseau mobile.\n\nConsignes :\n- Utilisez cet outil lorsque vous avez besoin de la localisation approximative de l’utilisateur (ville/région/pays) et qu’il ne l’a pas fournie.\n- Si l’utilisateur a déjà donné sa localisation, privilégiez cette information et n’appelez pas get_geoip.",
     "tool.system_prompt": "Récupère des données de localisation basées sur l'adresse IP depuis un service externe (ipinfo.io) et renvoie un résultat simplifié."
   },
   "ko": {
@@ -41,7 +41,7 @@
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
-    "tool.description": "Schätzt den ungefähren Standort des Benutzers anhand seiner öffentlichen IP-Adresse. Das Ergebnis kann bei Verwendung von VPN, Proxys oder mobilen Netzwerken ungenau sein.\n\nRichtlinie:\n- Verwenden Sie dieses Tool, wenn Sie den ungefähren Standort des Benutzers (Stadt/Region/Land) benötigen und der Benutzer ihn nicht angegeben hat.\n- Wenn der Benutzer seinen Standort bereits angegeben hat, verwenden Sie diese Angabe und rufen Sie get_geoip nicht auf.",
+    "tool.description": "Schätzt den ungefähren Standort des Benutzers anhand seiner öffentlichen IP-Adresse. Das Ergebnis kann bei Verwendung von VPNs, Proxys oder Mobilfunknetzen ungenau sein.\n\nRichtlinie:\n- Verwenden Sie dieses Tool, wenn Sie den ungefähren Standort des Benutzers (Stadt/Region/Land) benötigen und der Benutzer ihn nicht angegeben hat.\n- Wenn der Benutzer seinen Standort bereits angegeben hat, verwenden Sie diese Angabe und rufen Sie get_geoip nicht auf.",
     "tool.system_prompt": "Ruft IP-basierte Standortdaten von einem externen Dienst (ipinfo.io) ab und gibt ein vereinfachtes Ergebnis zurück."
   },
   "it": {
@@ -56,57 +56,67 @@
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
-    "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPN, proxies ou redes móveis.\n\nPolítica:\n- Use esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e o usuário não a tiver informado.\n- Se o usuário já tiver informado a localização, dê preferência a essa informação e não chame get_geoip.",
+    "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPN, proxies ou redes móveis.\n\nPolítica:\n- Use esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e ele ainda não a tiver informado.\n- Se o usuário já informou sua localização, dê preferência a essa informação e não chame get_geoip.",
     "tool.system_prompt": "Obtém dados de localização com base em IP de um serviço externo (ipinfo.io) e retorna um resultado simplificado."
   },
   "id": {
     "param.format.description": "Format keluaran.",
-    "tool.description": "Perkirakan lokasi kasar pengguna berdasarkan alamat IP publiknya. Hasilnya dapat tidak akurat saat menggunakan VPN, proxy, atau jaringan seluler.\n\nKebijakan:\n- Gunakan alat ini saat Anda memerlukan perkiraan lokasi pengguna (kota/wilayah/negara) dan pengguna belum memberikannya.\n- Jika pengguna sudah memberikan lokasinya, utamakan itu dan jangan panggil get_geoip.",
+    "tool.description": "Perkirakan lokasi kasar pengguna berdasarkan alamat IP publiknya. Hasilnya bisa tidak akurat saat menggunakan VPN, proxy, atau jaringan seluler.\n\nKebijakan:\n- Gunakan alat ini saat Anda memerlukan perkiraan lokasi pengguna (kota/wilayah/negara) dan pengguna belum memberikannya.\n- Jika pengguna sudah memberikan lokasinya, utamakan itu dan jangan panggil get_geoip.",
     "tool.system_prompt": "Ambil data lokasi berbasis IP dari layanan eksternal (ipinfo.io) dan kembalikan hasil yang disederhanakan."
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
-    "tool.description": "Ước tính vị trí sơ bộ của người dùng dựa trên địa chỉ IP công cộng của họ. Kết quả có thể không chính xác khi sử dụng VPN, proxy hoặc mạng di động.\n\nChính sách:\n- Sử dụng công cụ này khi bạn cần vị trí gần đúng của người dùng (thành phố/khu vực/quốc gia) và người dùng chưa cung cấp thông tin đó.\n- Nếu người dùng đã cung cấp vị trí của họ, hãy ưu tiên điều đó và không gọi get_geoip.",
+    "tool.description": "Ước tính vị trí sơ bộ của người dùng dựa trên địa chỉ IP công cộng của họ. Kết quả có thể không chính xác khi sử dụng VPN, proxy hoặc mạng di động.\n\nChính sách:\n- Sử dụng công cụ này khi bạn cần vị trí gần đúng của người dùng (thành phố/khu vực/quốc gia) và người dùng chưa cung cấp thông tin đó.\n- Nếu người dùng đã cung cấp vị trí của họ, hãy ưu tiên thông tin đó và không gọi get_geoip.",
     "tool.system_prompt": "Tìm nạp dữ liệu vị trí dựa trên IP từ một dịch vụ bên ngoài (ipinfo.io) và trả về kết quả đơn giản hóa."
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
-    "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na podstawie jego publicznego adresu IP. Wynik może być niedokładny w przypadku korzystania z VPN, serwerów proxy lub sieci komórkowych.\n\nPolityka:\n- Użyj tego narzędzia, jeśli potrzebujesz przybliżonej lokalizacji użytkownika (miasto/region/kraj), a użytkownik jej nie podał.\n- Jeśli użytkownik podał już swoją lokalizację, preferuj tę opcję i nie wywołuj get_geoip.",
+    "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na podstawie jego publicznego adresu IP. Wynik może być niedokładny w przypadku korzystania z VPN, proxy lub sieci mobilnych.\n\nZasady:\n- Użyj tego narzędzia, gdy potrzebujesz przybliżonej lokalizacji użytkownika (miasto/region/kraj), a użytkownik jej nie podał.\n- Jeśli użytkownik podał już swoją lokalizację, użyj tej informacji i nie wywołuj get_geoip.",
     "tool.system_prompt": "Pobierz dane lokalizacyjne oparte na protokole IP z usługi zewnętrznej (ipinfo.io) i zwróć uproszczony wynik."
   },
   "pt": {
     "param.format.description": "Formato de saída.",
-    "tool.description": "Estime a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPN, proxies ou redes móveis.\n\nPolítica:\n- Utilize esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e o usuário não a forneceu.\n- Se o usuário já informou sua localização, dê preferência e não ligue para get_geoip.",
+    "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público. O resultado pode ser impreciso ao usar VPNs, proxies ou redes móveis.\n\nPolítica:\n- Use esta ferramenta quando precisar da localização aproximada do usuário (cidade/região/país) e ela ainda não tiver sido informada.\n- Se o usuário já informou sua localização, dê preferência a essa informação e não chame get_geoip.",
     "tool.system_prompt": "Busque dados de localização baseados em IP de um serviço externo (ipinfo.io) e retorne um resultado simplificado."
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
-    "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते के आधार पर उसके अनुमानित स्थान का अनुमान लगाएं। वीपीएन, प्रॉक्सी या मोबाइल नेटवर्क का उपयोग करते समय परिणाम गलत हो सकता है।\n\nनीति:\n- इस टूल का उपयोग तब करें जब आपको उपयोगकर्ता के अनुमानित स्थान (शहर/क्षेत्र/देश) की आवश्यकता हो और उपयोगकर्ता ने इसे उपलब्ध नहीं कराया हो।\n- यदि उपयोगकर्ता ने पहले ही अपना स्थान प्रदान कर दिया है, तो उसे प्राथमिकता दें और get_geoip पर कॉल न करें।",
+    "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते के आधार पर उसके अनुमानित स्थान का अनुमान लगाएं। वीपीएन, प्रॉक्सी या मोबाइल नेटवर्क का उपयोग करने पर परिणाम गलत हो सकता है।\n\nनीति:\n- इस टूल का उपयोग तब करें जब आपको उपयोगकर्ता के अनुमानित स्थान (शहर/क्षेत्र/देश) की आवश्यकता हो और उपयोगकर्ता ने उसे प्रदान न किया हो।\n- यदि उपयोगकर्ता ने पहले ही अपना स्थान प्रदान कर दिया है, तो उसी को प्राथमिकता दें और get_geoip को कॉल न करें।",
     "tool.system_prompt": "बाहरी सेवा (ipinfo.io) से आईपी-आधारित स्थान डेटा प्राप्त करें और एक सरलीकृत परिणाम लौटाएं।"
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
-    "tool.description": "قم بتقدير الموقع التقريبي للمستخدم بناءً على عنوان IP العام الخاص به. قد تكون النتيجة غير دقيقة عند استخدام VPN أو الوكلاء أو شبكات الهاتف المحمول.\n\nالسياسة:\n- استخدم هذه الأداة عندما تحتاج إلى الموقع التقريبي للمستخدم (المدينة/المنطقة/البلد) ولم يقدمه المستخدم.\n- إذا كان المستخدم قد قدم موقعه بالفعل، ففضل ذلك ولا تتصل بـ get_geoip.",
+    "tool.description": "قم بتقدير الموقع التقريبي للمستخدم بناءً على عنوان IP العام الخاص به. قد تكون النتيجة غير دقيقة عند استخدام VPN أو الوكلاء أو شبكات الهاتف المحمول.\n\nالسياسة:\n- استخدم هذه الأداة عندما تحتاج إلى الموقع التقريبي للمستخدم (المدينة/المنطقة/البلد) ولم يقدمه المستخدم.\n- إذا كان المستخدم قد قدم موقعه بالفعل، فامنح الأولوية لذلك ولا تتصل بـ get_geoip.",
     "tool.system_prompt": "جلب بيانات الموقع المستندة إلى IP من خدمة خارجية (ipinfo.io) وإرجاع نتيجة مبسطة."
   },
   "sv": {
     "param.format.description": "Utdataformat.",
-    "tool.description": "Uppskatta användarens ungefärliga plats utifrån den publika IP-adressen. Resultatet kan vara felaktigt vid användning av VPN, proxy eller mobila nätverk.\n\nPolicy:\n- Använd detta verktyg när du behöver användarens ungefärliga plats (stad/region/land) och användaren inte har angett den.\n- Om användaren redan har angett sin plats, använd den informationen och anropa inte get_geoip.",
+    "tool.description": "Uppskattar användarens ungefärliga plats utifrån den publika IP-adressen. Resultatet kan vara felaktigt vid användning av VPN, proxy eller mobila nätverk.\n\nPolicy:\n- Använd detta verktyg när du behöver användarens ungefärliga plats (stad/region/land) och användaren inte har angett den.\n- Om användaren redan har angett sin plats, använd den informationen och anropa inte get_geoip.",
     "tool.system_prompt": "Hämta platsdata baserat på IP från en extern tjänst (ipinfo.io) och returnera ett förenklat resultat."
   },
   "nb": {
     "param.format.description": "Utdataformat.",
-    "tool.description": "Ansla brukerens omtrentlige plassering basert på den offentlige IP-adressen. Resultatet kan være unøyaktig ved bruk av VPN, proxy eller mobilnett.\n\nPolicy:\n- Bruk dette verktøyet når du trenger brukerens omtrentlige plassering (by/region/land) og brukeren ikke har oppgitt den.\n- Hvis brukeren allerede har oppgitt plasseringen sin, bruk den informasjonen og ikke kall get_geoip.",
+    "tool.description": "Ansla brukerens omtrentlige plassering basert på den offentlige IP-adressen. Resultatet kan være unøyaktig ved bruk av VPN, proxy eller mobilnett.\n\nRetningslinjer:\n- Bruk dette verktøyet når du trenger brukerens omtrentlige plassering (by/region/land) og brukeren ikke har oppgitt den.\n- Hvis brukeren allerede har oppgitt plasseringen sin, bruk den informasjonen og ikke kall get_geoip.",
     "tool.system_prompt": "Hent IP-basert posisjonsdata fra en ekstern tjeneste (ipinfo.io) og returner et forenklet resultat."
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
-    "tool.description": "Schat de globale locatie van de gebruiker op basis van het openbare IP-adres. Het resultaat kan onnauwkeurig zijn bij gebruik van VPN, proxies of mobiele netwerken.\n\nBeleid:\n- Gebruik deze tool wanneer u de geschatte locatie van de gebruiker nodig hebt (stad/regio/land) en de gebruiker die nog niet heeft opgegeven.\n- Als de gebruiker zijn locatie al heeft opgegeven, geef daaraan de voorkeur en roep get_geoip niet aan.",
+    "tool.description": "Schat de globale locatie van de gebruiker op basis van het openbare IP-adres. Het resultaat kan onnauwkeurig zijn bij gebruik van een VPN, proxy of mobiel netwerk.\n\nBeleid:\n- Gebruik deze tool wanneer u de geschatte locatie van de gebruiker nodig hebt (stad/regio/land) en de gebruiker die nog niet heeft opgegeven.\n- Als de gebruiker zijn locatie al heeft opgegeven, geef daaraan de voorkeur en roep get_geoip niet aan.",
     "tool.system_prompt": "Haal IP-gebaseerde locatiegegevens op via een externe dienst (ipinfo.io) en geef een vereenvoudigd resultaat terug."
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
-    "tool.description": "Arvioi käyttäjän karkea sijainti hänen julkisen IP-osoitteensa perusteella. Tulos voi olla epätarkka VPN:n, välityspalvelimien tai mobiiliverkkojen käytössä.\n\nKäytäntö:\n- Käytä tätä työkalua, kun tarvitset käyttäjän likimääräisen sijainnin (kaupunki/alue/maa) eikä käyttäjä ole sitä antanut.\n- Jos käyttäjä on jo kertonut sijaintinsa, käytä sitä äläkä kutsu get_geoipia.",
+    "tool.description": "Arvioi käyttäjän karkean sijainnin julkisen IP-osoitteen perusteella. Tulos voi olla epätarkka VPN:n, välityspalvelinten tai mobiiliverkkojen käytössä.\n\nKäytäntö:\n- Käytä tätä työkalua, kun tarvitset käyttäjän likimääräisen sijainnin (kaupunki/alue/maa) eikä käyttäjä ole sitä antanut.\n- Jos käyttäjä on jo kertonut sijaintinsa, käytä sitä äläkä kutsu get_geoipia.",
     "tool.system_prompt": "Hae IP-pohjaiset sijaintitiedot ulkoisesta palvelusta (ipinfo.io) ja palauta yksinkertaistettu tulos."
+  },
+  "cs": {
+    "param.format.description": "Formát výstupu.",
+    "tool.description": "Odhaduje přibližnou polohu uživatele podle jeho veřejné IP adresy. Při použití VPN, proxy nebo mobilní sítě může být výsledek nepřesný.\n\nPravidla:\n- Tento nástroj použijte, když potřebujete přibližnou polohu uživatele (město/oblast/stát) a uživatel ji neposkytl.\n- Pokud už uživatel svou polohu uvedl, upřednostněte ji a get_geoip nevolejte.",
+    "tool.system_prompt": "Získá z externí služby (ipinfo.io) údaje o poloze na základě IP a vrátí zjednodušený výsledek."
+  },
+  "uk": {
+    "param.format.description": "Формат виводу.",
+    "tool.description": "Оцінює приблизне місцеперебування користувача на основі його публічної IP-адреси. Результат може бути неточним під час використання VPN, проксі або мобільних мереж.\n\nПолітика:\n- Використовуйте цей інструмент, коли вам потрібне приблизне місцеперебування користувача (місто/регіон/країна), а користувач його не надав.\n- Якщо користувач уже вказав своє місцеперебування, надайте йому перевагу і не викликайте get_geoip.",
+    "tool.system_prompt": "Отримує з зовнішнього сервісу (ipinfo.io) дані про місцеперебування на основі IP та повертає спрощений результат."
   }
 }

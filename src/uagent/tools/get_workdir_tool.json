@@ -1,11 +1,11 @@
 {
   "en": {
     "tool.description": "Get the current working directory.",
-    "tool.system_prompt": "This tool is used for the following purpose: get the current working directory."
+    "tool.system_prompt": "Use this tool to get the current working directory."
   },
   "ja": {
     "tool.description": "現在の作業ディレクトリを取得します。",
-    "tool.system_prompt": "このツールは次の目的で使われます: 現在の作業ディレクトリを取得します。"
+    "tool.system_prompt": "このツールは現在の作業ディレクトリを取得するために使います。"
   },
   "zh_CN": {
     "tool.description": "获取当前工作目录。",
@@ -61,15 +61,15 @@
   },
   "pt": {
     "tool.description": "Obtenha o diretório de trabalho atual.",
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
+    "tool.system_prompt": "Use esta ferramenta para obter o diretório de trabalho atual."
   },
   "hi": {
     "tool.description": "वर्तमान कार्यशील निर्देशिका प्राप्त करें.",
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्य के लिए किया जाता है: वर्तमान कार्यशील निर्देशिका प्राप्त करें।"
+    "tool.system_prompt": "इस उपकरण का उपयोग वर्तमान कार्यशील निर्देशिका प्राप्त करने के लिए किया जाता है।"
   },
   "ar": {
     "tool.description": "الحصول على دليل العمل الحالي.",
-    "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: الحصول على دليل العمل الحالي."
+    "tool.system_prompt": "استخدم هذه الأداة للحصول على دليل العمل الحالي."
   },
   "sv": {
     "tool.description": "Hämtar den aktuella arbetskatalogen.",
@@ -81,10 +81,18 @@
   },
   "nl": {
     "tool.description": "Haal de huidige werkmap op.",
-    "tool.system_prompt": "Haal de huidige werkmap op."
+    "tool.system_prompt": "Gebruik deze tool om de huidige werkmap op te halen."
   },
   "fi": {
-    "tool.description": "Hae nykyinen työskentelyhakemisto.",
-    "tool.system_prompt": "Hae nykyinen työskentelyhakemisto."
+    "tool.description": "Hae nykyinen työhakemisto.",
+    "tool.system_prompt": "Käytä tätä työkalua nykyisen työhakemiston hakemiseen."
+  },
+  "cs": {
+    "tool.description": "Získejte aktuální pracovní adresář.",
+    "tool.system_prompt": "Použijte tento nástroj k získání aktuálního pracovního adresáře."
+  },
+  "uk": {
+    "tool.description": "Отримайте поточний робочий каталог.",
+    "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати поточний робочий каталог."
   }
 }
