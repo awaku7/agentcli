@@ -1,5 +1,4 @@
 import json
-import sys
 import traceback
 from urllib.error import URLError
 from typing import Any, Dict, List
@@ -14,14 +13,34 @@ from . import tools
 from .llm_errors import _rate_limit_retry_step
 from .llm_gemini import gemini_chat_with_tools
 from .llm_claude import claude_chat_with_tools, build_claude_output_config_for_effort
-from .llm_openai_responses import build_responses_request, parse_responses_response, parse_responses_stream
+from .llm_openai_responses import (
+    build_responses_request,
+    parse_responses_response,
+    parse_responses_stream,
+)
 from .llm_bedrock_responses import build_bedrock_responses_request
-from .llm_tool_narrowing import _is_gpt54_tool_search_target, _select_tool_specs_for_gpt54
-from .llm_openrouter import apply_openrouter_extra_body, apply_openrouter_tool_schema_compat, finalize_tool_schema_sync, apply_openrouter_fallback_models
+from .llm_tool_narrowing import (
+    _is_gpt54_tool_search_target,
+    _select_tool_specs_for_gpt54,
+)
+from .llm_openrouter import (
+    apply_openrouter_extra_body,
+    apply_openrouter_tool_schema_compat,
+    finalize_tool_schema_sync,
+    apply_openrouter_fallback_models,
+)
 from .llm_openrouter_responses import apply_openrouter_responses_compat
 from .llm_ollama import apply_ollama_extra_body
 from .llm_ollama_responses import apply_ollama_responses_compat
-from .llm_helpers import _auto_low_quality, _bump_effort, _call_maybe_thread, _choose_auto_effort, _env_default_on, _extract_latest_user_text, _is_thinking_task, _maybe_print_certifi_where
+from .llm_helpers import (
+    _auto_low_quality,
+    _bump_effort,
+    _choose_auto_effort,
+    _env_default_on,
+    _extract_latest_user_text,
+    _is_thinking_task,
+    _maybe_print_certifi_where,
+)
 from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _env_default_true
@@ -114,6 +133,7 @@ def _translate_assistant_if_needed(
             assistant_text = out
 
     return assistant_text
+
 
 def _call_gemini_round(
     *,
@@ -682,6 +702,3 @@ def _call_openai_azure_round(
         return False, client, "", []
 
     return True, client, assistant_text, tool_calls_list
-
-
-

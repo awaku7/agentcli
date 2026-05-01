@@ -111,7 +111,8 @@
     "param.name_pattern.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
     "param.root_path.description": "検索を開始するルートディレクトリ（既定: 現在のディレクトリ）。",
     "tool.description": "ディレクトリ下のファイルを名前パターン（glob）や内容（regex）で検索します。",
-    "tool.system_prompt": "ディレクトリ下のファイルを検索します。ファイル名のパターン（glob）で絞り込み、必要に応じて正規表現でファイル内容を検索できます。\n\n注意:\n- content_pattern は Python の正規表現として扱われます。\n- content_pattern が空の場合は、ファイル名の一致のみを行います。\n- 性能と安全性のため、内容検索は内部で単純なバイナリチェックを使う場合があります。"
+    "tool.system_prompt": "ディレクトリ下のファイルを検索します。ファイル名のパターン（glob）で絞り込み、必要に応じて正規表現でファイル内容を検索できます。\n\n注意:\n- content_pattern は Python の正規表現として扱われます。\n- content_pattern が空の場合は、ファイル名の一致のみを行います。\n- 性能と安全性のため、内容検索は内部で単純なバイナリチェックを使う場合があります。",
+    "param.path.description": "検索を開始するルートディレクトリです（既定: 現在のディレクトリ）。"
   },
   "ko": {
     "err.dir_not_exist": "[search_files 오류] 디렉터리가 존재하지 않습니다: {path}",

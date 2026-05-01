@@ -467,7 +467,9 @@ def _run_gemini_images(
         content = getattr(candidate, "content", None)
         parts = getattr(content, "parts", None) or []
         for part in parts:
-            inline = getattr(part, "inline_data", None) or getattr(part, "inlineData", None)
+            inline = getattr(part, "inline_data", None) or getattr(
+                part, "inlineData", None
+            )
             raw = getattr(inline, "data", None) if inline is not None else None
             if raw:
                 b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))

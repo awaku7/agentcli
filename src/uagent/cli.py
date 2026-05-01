@@ -56,6 +56,7 @@ from . import util_providers as providers
 from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
+from .scheduler import start_background_scheduler, stop_background_scheduler
 
 
 from uagent.utils.paths import get_history_file_path
@@ -716,6 +717,8 @@ def main() -> None:
     if startup.should_exit:
         return
 
+    start_background_scheduler(core.event_queue)
+
     t = threading.Thread(target=stdin_loop, daemon=True)
     t.start()
 
@@ -749,6 +752,12 @@ def main() -> None:
                         append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                         try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                     )
+                continue
+
+            if kind == "schedule_notice":
+                notice = (ev.get("text", "") or "").strip()
+                if notice:
+                    print("[INFO] " + notice)
                 continue
 
             if kind in ("user", "timer"):
@@ -882,6 +891,10 @@ def main() -> None:
                 + _("Unknown event kind=%(kind)r: %(ev)r") % {"kind": kind, "ev": ev}
             )
     finally:
+        try:
+            stop_background_scheduler()
+        except Exception:
+            pass
         # プログラム終了時にキャッシュをクリア
         if provider in ("gemini", "vertexai") and client:
             try:

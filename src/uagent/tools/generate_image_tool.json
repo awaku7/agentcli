@@ -47,7 +47,10 @@
     "err.gen_fail": "[generate_image] 画像生成に失敗しました。\nprovider={provider} model={model} size={size} n={n}\n{err}",
     "err.no_saved": "[generate_image] 画像データが空です",
     "ok.generated_one": "[OK] 生成しました: {path}",
-    "ok.generated_many": "[OK] 生成しました:\n{paths}"
+    "ok.generated_many": "[OK] 生成しました:\n{paths}",
+    "param.background.description": "画像の背景です（任意、例: auto/transparent）。",
+    "param.moderation.description": "画像モデレーションモードです（任意）。",
+    "param.quality.description": "画像品質です（任意、例: auto/high/medium/low）。"
   },
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",

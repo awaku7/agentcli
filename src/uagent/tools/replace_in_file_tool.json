@@ -177,7 +177,10 @@
     "param.anchor_after.description": "replace_between の終了アンカーです（mode に応じて literal または regex）。",
     "param.occurrence.description": "どの出現箇所を置換するか（1始まり）。0 はすべて置換します。",
     "param.name_pattern.description": "replace_all_in_files で使う glob パターン（既定: '*')。",
-    "param.recursive.description": "対象ディレクトリ配下を再帰的に検索します。"
+    "param.recursive.description": "対象ディレクトリ配下を再帰的に検索します。",
+    "param.action.description": "操作モード: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, replace_between, replace_po_entry, あるいは replace_all_in_files。",
+    "param.line_no.description": "insert_at_line で使う1始まりの行番号です。",
+    "param.return_hashes.description": "true の場合、sha256_before と sha256_after を結果に含めます。"
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
