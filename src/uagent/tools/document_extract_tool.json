@@ -190,5 +190,13 @@
     "param.output_format.description": "Формат виводу: text або json.",
     "param.password.description": "Необовʼязковий пароль для зашифрованого файлу DOCX. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
+  },
+  "sw": {
+    "tool.description": "Toa maandishi na muundo wa msingi kutoka kwa hati za Word (.docx, .rtf, .odt). Chagua output_format=text au output_format=json. Zana hii huandika JSON kila wakati.",
+    "tool.system_prompt": "Soma hati za .docx, .rtf, au .odt na urudishe JSON pekee. Ikiwa output_format=text, weka maandishi yaliyotolewa ndani ya jibu la JSON. Ikiwa output_format=json, jumuisha sehemu na majedwali yaliyopangwa inapowezekana.",
+    "param.path.description": "Njia ya hati ya ingizo (.docx, .rtf, .odt).",
+    "param.output_format.description": "Muundo wa matokeo: text au json.",
+    "param.password.description": "Nenosiri la hiari kwa faili ya DOCX iliyosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   }
 }

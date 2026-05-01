@@ -96,15 +96,57 @@
     "param.include_disks.description": "قم بتضمين معلومات القرص الفعلي عند توفرها (أفضل جهد)."
   },
   "nl": {
-    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
-    "param.include_volumes.description": "Include mounted volume usage information.",
-    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+    "tool.description": "Systeemgegevens (OS/CPU/RAM/schijven/volumes) op een best-effort manier en platformonafhankelijk ophalen.",
+    "tool.system_prompt": "Deze tool wordt gebruikt om systeeminformatie te verzamelen, zoals het besturingssysteem, de CPU, de hoeveelheid RAM, opslagschijven (best-effort) en vrije ruimte op volumes.",
+    "param.include_volumes.description": "Informatie over het gebruik van aangekoppelde volumes opnemen.",
+    "param.include_disks.description": "Informatie over fysieke schijven opnemen wanneer beschikbaar (best-effort)."
   },
   "fi": {
-    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
-    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
-    "param.include_volumes.description": "Include mounted volume usage information.",
-    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+    "tool.description": "Hae järjestelmätiedot (käyttöjärjestelmä/CPU/RAM/levyt/volyymit) parhaalla mahdollisella tavalla alustasta riippumatta.",
+    "tool.system_prompt": "Tätä työkalua käytetään järjestelmätietojen, kuten käyttöjärjestelmän, suorittimen, RAM-muistin koon, tallennuslevyjen (parhaan mahdollisen mukaan) ja volyymien vapaan tilan, keräämiseen.",
+    "param.include_volumes.description": "Sisällytä liitettyjen volyymien käyttö­tiedot.",
+    "param.include_disks.description": "Sisällytä fyysiset levytiedot, kun ne ovat saatavilla (parhaan mahdollisen mukaan)."
+  },
+  "cs": {
+    "tool.description": "Získejte systémové specifikace (OS/CPU/RAM/disky/svazky) co nejlépe napříč platformami.",
+    "tool.system_prompt": "Tento nástroj slouží ke shromáždění systémových informací, jako je operační systém, CPU, velikost RAM, úložiště (co nejlépe) a volné místo na svazcích.",
+    "param.include_volumes.description": "Zahrnout informace o využití připojených svazků.",
+    "param.include_disks.description": "Zahrnout informace o fyzických discích, pokud jsou k dispozici (co nejlépe)."
+  },
+  "hi": {
+    "tool.description": "सिस्टम विनिर्देश (OS/CPU/RAM/डिस्क/वॉल्यूम) सर्वोत्तम प्रयास के साथ, क्रॉस-प्लेटफ़ॉर्म तरीके से प्राप्त करें।",
+    "tool.system_prompt": "यह टूल OS, CPU, RAM आकार, (सर्वोत्तम प्रयास के साथ) स्टोरेज डिस्क, और वॉल्यूम के खाली स्थान जैसी सिस्टम जानकारी एकत्र करने के लिए उपयोग किया जाता है।",
+    "param.include_volumes.description": "माउंट किए गए वॉल्यूम के उपयोग की जानकारी शामिल करें।",
+    "param.include_disks.description": "उपलब्ध होने पर भौतिक डिस्क की जानकारी शामिल करें (सर्वोत्तम प्रयास के साथ)।"
+  },
+  "nb": {
+    "tool.description": "Hent systemspesifikasjoner (OS/CPU/RAM/disker/volumer) på en best mulig måte på tvers av plattformer.",
+    "tool.system_prompt": "Dette verktøyet brukes til å samle systeminformasjon som operativsystem, CPU, RAM-størrelse, lagringsdisker (best mulig innsats) og ledig plass på volumer.",
+    "param.include_volumes.description": "Ta med informasjon om bruk av monterte volumer.",
+    "param.include_disks.description": "Ta med informasjon om fysiske disker når det er tilgjengelig (best mulig innsats)."
+  },
+  "pt": {
+    "tool.description": "Obtenha especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de maneira multiplataforma.",
+    "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como sistema operacional, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
+    "param.include_volumes.description": "Incluir informações de uso dos volumes montados.",
+    "param.include_disks.description": "Incluir informações de discos físicos quando disponíveis (melhor esforço)."
+  },
+  "sv": {
+    "tool.description": "Hämta systemspecifikationer (OS/CPU/RAM/diskar/volymer) på bästa möjliga sätt plattformsoberoende.",
+    "tool.system_prompt": "Det här verktyget används för att samla in systeminformation som operativsystem, CPU, RAM-storlek, lagringsdiskar (bästa möjliga försök) och ledigt utrymme på volymer.",
+    "param.include_volumes.description": "Inkludera information om monterade volymers användning.",
+    "param.include_disks.description": "Inkludera information om fysiska diskar när det är tillgängligt (bästa möjliga försök)."
+  },
+  "uk": {
+    "tool.description": "Отримайте характеристики системи (ОС/CPU/RAM/диски/томи) наскільки можливо кросплатформно.",
+    "tool.system_prompt": "Цей інструмент використовується для збору системної інформації, як-от ОС, CPU, обсяг RAM, накопичувачі (за можливості) та вільне місце на томах.",
+    "param.include_volumes.description": "Включати відомості про використання підключених томів.",
+    "param.include_disks.description": "Включати відомості про фізичні диски, якщо вони доступні (за можливості)."
+  },
+  "sw": {
+    "tool.description": "Pata taarifa za mfumo (OS/CPU/RAM/diski/volumu) kwa njia bora iwezekanavyo na inayofanya kazi kwenye majukwaa mbalimbali.",
+    "tool.system_prompt": "Zana hii hutumiwa kukusanya taarifa za mfumo kama vile OS, CPU, ukubwa wa RAM, diski za kuhifadhi (kwa kadiri inavyowezekana), na nafasi huru ya volumu.",
+    "param.include_volumes.description": "Jumuisha taarifa za matumizi ya volumu zilizowekwa.",
+    "param.include_disks.description": "Jumuisha taarifa za diski halisi inapopatikana (kwa kadiri inavyowezekana)."
   }
 }

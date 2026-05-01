@@ -189,6 +189,16 @@
     "err.missing_task_id": "'task_id' saknas.",
     "err.exception": "Undantag"
   },
+  "sw": {
+    "tool.description": "Fuatilia kazi ya A2A hadi ifikie hali ya mwisho.",
+    "tool.system_prompt": "Fuatilia kazi ya A2A. Rudisha JSON pekee.",
+    "param.profile.description": "Jina la wasifu au a2a://name. Ikiwa halikutajwa, tumia wasifu chaguomsingi.",
+    "param.task_id.description": "Kitambulisho cha kazi cha kufuatilia.",
+    "param.interval_ms.description": "Badilisha muda wa uchunguzi (ms).",
+    "param.timeout_s.description": "Badilisha muda wa kuisha (sekunde).",
+    "err.missing_task_id": "Kipengee 'task_id' hakipo.",
+    "err.exception": "Hitilafu"
+  },
   "nb": {
     "tool.description": "Poll en A2A-oppgave til den når en sluttstatus.",
     "tool.system_prompt": "Poll en A2A-oppgave. Returner bare JSON.",

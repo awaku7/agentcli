@@ -142,5 +142,11 @@
     "param.prompt.description": "Що ви хочете дізнатися про зображення.",
     "tool.description": "Завантажує зображення і просить AI (Vision) описати його. Корисно для знімків екрана, діаграм і таблиць.",
     "tool.system_prompt": "Проаналізуйте зображення, описане назвою інструмента \"analyze_image\", і поверніть результат."
+  },
+  "sw": {
+    "param.image_path.description": "Njia ya faili la picha litakalochanganuliwa.",
+    "param.prompt.description": "Unachotaka kujua kuhusu picha.",
+    "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali.",
+    "tool.system_prompt": "Changanua picha iliyoelezwa na jina la zana \"analyze_image\" na urudishe matokeo."
   }
 }

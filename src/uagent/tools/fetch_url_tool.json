@@ -262,5 +262,16 @@
     "param.max_bytes.description": "Максимальна кількість байтів, що читаються з відповіді.",
     "param.max_chars.description": "Максимальна кількість символів для повернення (застосовується після декодування/витягування).",
     "param.user_agent.description": "Необовʼязкове значення заголовка User-Agent."
+  },
+  "sw": {
+    "param.url.description": "URL ya kufikia.",
+    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON.",
+    "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'fetch_url'.",
+    "param.extract.description": "Hali ya uchimbaji. head=rudisha mwanzo wa jibu; text=toa maandishi kutoka HTML; html=toa kipande cha HTML; json=changanua JSON (na hiari tumia json_pointer).",
+    "param.selector.description": "CSS selector ya hiari. Ikitolewa, kipengele cha kwanza kinacholingana hutolewa kwa extract=text/html.",
+    "param.json_pointer.description": "RFC 6901 JSON Pointer ya hiari (mfano /items/0/title) inayotumika wakati extract=json.",
+    "param.max_bytes.description": "Idadi ya juu ya bytes za kusoma kutoka kwa jibu.",
+    "param.max_chars.description": "Idadi ya juu ya herufi za kurudisha (hutumika baada ya ku-decode/kuchambua).",
+    "param.user_agent.description": "Thamani ya hiari ya kichwa cha User-Agent."
   }
 }

@@ -262,5 +262,16 @@
     "param.path.description": "(Сумісність) Псевдонім для filename.",
     "tool.description": "Видаляє вказаний файл або каталог. Каталоги видаляються рекурсивно. Оскільки це небезпечна операція, може знадобитися підтвердження.",
     "tool.system_prompt": "Видаляйте вказаний шлях лише після підтвердження користувачем, якщо операція може бути деструктивною."
+  },
+  "sw": {
+    "confirm.delete_paths_bulk": "Futa njia {count}?\n\n{paths}\n\nAndika y kuendelea, au c kughairi.",
+    "param.allow_dir.description": "Ikiwashwa, ruhusu kufuta saraka zinazolingana na glob.",
+    "param.confirmed.description": "Ikiwashwa, ruka ombi la uthibitisho la ndani la zana.",
+    "param.dry_run.description": "Ikiwashwa, orodhesha tu njia zinazolingana na usifute chochote.",
+    "param.filename.description": "Njia ya kufuta, au orodha ya njia/viwango vya glob vya kufuta.",
+    "param.missing_ok.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo.",
+    "param.path.description": "(Ulinganifu) Jina lingine la filename.",
+    "tool.description": "Futa faili au saraka iliyobainishwa. Saraka hufutwa kwa kujirudia. Kwa kuwa hiki ni kitendo hatari, uthibitisho unaweza kuhitajika.",
+    "tool.system_prompt": "Futa njia iliyobainishwa tu baada ya kuthibitisha na mtumiaji ikiwa kitendo kinaweza kuharibu data."
   }
 }

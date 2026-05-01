@@ -574,5 +574,29 @@
     "tool.system_prompt": "Використовуйте цей інструмент, коли кешовані значення формул у .xlsx застаріли (наприклад, коли openpyxl data_only читає старі значення). Інструмент відкриває книги в Microsoft Excel через COM, виконує повний перерахунок і зберігає їх.",
     "param.password.description": "Необов’язковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
+  },
+  "sw": {
+    "err.backup_bool": "backup lazima iwe boolean.",
+    "err.dry_run_bool": "dry_run lazima iwe boolean.",
+    "err.file_ext": "Modi ya faili inaauni tu .xlsx: {path}",
+    "err.max_files_int": "max_files lazima iwe nambari kamili.",
+    "err.max_files_positive": "max_files lazima iwe >= 1.",
+    "err.path_not_found": "Njia haikupatikana: {path}",
+    "err.path_required": "path inahitajika",
+    "err.pywin32_required": "pywin32 inahitajika (na Microsoft Excel lazima iwe imewekwa).",
+    "err.recursive_bool": "recursive lazima iwe boolean.",
+    "err.visible_bool": "visible lazima iwe boolean.",
+    "err.windows_only": "recalc_excel inaungwa mkono tu kwenye Windows (Microsoft Excel COM automation).",
+    "param.backup.description": "Unda nakala ya akiba kabla ya kuhifadhi. Chaguomsingi: false.",
+    "param.dry_run.description": "Ikiwa ni true, orodhesha tu malengo na usirecalculate/uhifadhi. Chaguomsingi: false.",
+    "param.include_glob.description": "Mfano wa glob unaotumika wakati path ni saraka. Chaguomsingi: '*.xlsx'.",
+    "param.max_files.description": "Idadi ya juu ya faili za kuchakata wakati wa kuchanganua saraka. Chaguomsingi: 200.",
+    "param.path.description": "Njia ya faili lengwa la .xlsx au njia ya saraka.",
+    "param.recursive.description": "Ikiwa saraka itachanganuliwa kwa kina. Chaguomsingi: false.",
+    "param.visible.description": "Onyesha dirisha la Excel wakati wa otomatiki. Chaguomsingi: false.",
+    "tool.description": "Fanya hesabu upya za fomula za Excel kwa kuendesha Microsoft Excel (Windows COM) na uhifadhi thamani za akiba zilizosasishwa. Inaunga mkono faili moja la .xlsx au kuchanganua saraka. Kwa chaguomsingi, nakala ya akiba (<file>.org / <file>.org1 / ...) huundwa kabla ya kuhifadhi.",
+    "tool.system_prompt": "Tumia zana hii wakati thamani za akiba za fomula kwenye .xlsx ni za zamani (kwa mfano, openpyxl data_only ikisoma thamani za zamani). Zana hii hufungua workbook(s) katika Microsoft Excel kupitia COM, hufanya hesabu kamili upya, na kuhifadhi.",
+    "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likiachwa na faili ikiwa imesimbwa, utaulizwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
   }
 }

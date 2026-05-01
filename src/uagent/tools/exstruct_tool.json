@@ -454,5 +454,24 @@
     "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'exstruct'.",
     "param.password.description": "Необовʼязковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
+  },
+  "sw": {
+    "param.action.description": "Kitendo cha kutekeleza.",
+    "param.auto_page_breaks_dir.description": "Saraka ya kuhifadhi maeneo ya mapumziko ya ukurasa wa kiotomatiki.",
+    "param.density_min.description": "Kiwango cha chini cha msongamano wa jedwali.",
+    "param.file_path.description": "Njia ya faili la Excel la ingizo.",
+    "param.format.description": "Muundo wa matokeo.",
+    "param.include_cell_links.description": "Iwapo kujumuisha viungo vya seli.",
+    "param.include_shapes.description": "Iwapo kujumuisha maumbo.",
+    "param.mode.description": "Hali ya uchimbaji.",
+    "param.output_path.description": "Njia ya matokeo kwa export_file.",
+    "param.pretty.description": "Iwapo matokeo yawe yamepangwa vizuri.",
+    "param.print_areas_dir.description": "Saraka ya kuhifadhi faili kwa kila eneo la kuchapisha.",
+    "param.sheets_dir.description": "Saraka ya kuhifadhi faili kwa kila karatasi.",
+    "param.table_score_threshold.description": "Kiwango cha ugunduzi wa jedwali.",
+    "tool.description": "Tumia exstruct kutoa data iliyopangwa kutoka kwenye faili la Excel (.xlsx) na kuirudisha au kuihifadhi kama JSON/YAML. Ikiwa export_file.output_path tayari ipo, nakala ya hifadhi (<output_path>.org / <output_path>.org1 / ...) huundwa mara moja kabla ya kuhifadhi.",
+    "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'exstruct'.",
+    "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   }
 }
