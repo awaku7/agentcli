@@ -214,5 +214,14 @@
     "param.src.description": "Початковий шлях (файл/каталог). Рекомендовано використовувати відносний шлях.",
     "tool.description": "Перейменовує (переміщує) файл або каталог.",
     "tool.system_prompt": "Цей інструмент перейменовує або переміщує файл чи каталог.\n\nПримітки щодо безпеки:\n- Для абсолютних шляхів, шляхів, що містять \"..\", або операцій поза workdir потрібне підтвердження.\n- overwrite=true потребує підтвердження, оскільки спочатку видаляє ціль."
+  },
+  "sw": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path tool\n\nPurpose:\n- Rename/move files/directories.\n\nSafety policy:\n- Confirm with the user if dangerous path conditions are met, such as paths outside the workdir, absolute paths, or paths containing ..\n- Confirm with the user if overwrite=True (delete and replace existing dst).\n\nImplementation:\n- Actual operations are delegated to tools.safe_file_ops.safe_rename_path().\n- To remove an existing dst, files are removed with os.remove and directories with shutil.rmtree.\n\nAttention:\n- This tool changes real files just like create_file/delete_file, so it is designed to require safety confirmation even when called from an LLM.",
+    "param.dst.description": "Njia ya lengwa (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
+    "param.mkdirs.description": "Ikiwa ni true, tengeneza saraka ya mzazi ya dst kabla ya kutekeleza.",
+    "param.overwrite.description": "Ikiwa ni true, futa na ubadilishe dst ikiwa tayari ipo (utaombwa uthibitisho).",
+    "param.src.description": "Njia ya asili (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
+    "tool.description": "Badilisha jina (hamisha) la faili au saraka.",
+    "tool.system_prompt": "Zana hii hubadilisha jina au kuhamisha faili au saraka.\n\nVidokezo vya usalama:\n- Uthibitisho unahitajika kwa njia kamili, njia zenye \"..\", au shughuli zilizo nje ya workdir.\n- overwrite=true huhitaji uthibitisho kwa sababu hufuta lengwa kwanza."
   }
 }

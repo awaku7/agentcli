@@ -382,5 +382,21 @@
     "param.recursive.description": "Чи шукати в підкаталогах рекурсивно.",
     "tool.description": "Шукає шаблон у файлах і повертає відповідні рядки з номерами рядків (як grep -n). Шаблон є обовʼязковим.",
     "tool.system_prompt": "Шукайте вміст файлів в одному або кількох шляхах. Шаблон є обовʼязковим. Фільтруйте файли за glob, шукайте за допомогою регулярного виразу Python або буквального тексту, за потреби включайте рядки контексту, пропускайте файли, схожі на бінарні, підтримуйте режим лише назв файлів і автоматично визначайте кодування тексту під час читання. Повертайте лише JSON."
+  },
+  "sw": {
+    "err.exception": "Hitilafu imetokea wakati wa operesheni za grep.",
+    "err.invalid_regex": "Muundo wa regex si sahihi.",
+    "err.missing_pattern": "'pattern' haipo.",
+    "err.no_files_found": "Hakuna faili lililopatikana linalolingana na vigezo.",
+    "param.context_lines.description": "Idadi ya mistari ya muktadha kabla na baada ya kila ulinganifu.",
+    "param.filenames_only.description": "Ikiwa imewashwa, rudisha tu orodha ya majina ya faili yenye ulinganifu.",
+    "param.ignore_case.description": "Iwapo kupuuza herufi kubwa/kidogo (chaguo-msingi: true).",
+    "param.max_results.description": "Idadi ya juu ya mistari ya ulinganifu ya kurudisha (chaguo-msingi: 100).",
+    "param.name_pattern.description": "Muundo wa glob kwa majina ya faili (mfano \"*.py\").",
+    "param.path.description": "Saraka ya mizizi au njia mahususi ya faili (chaguo-msingi: \".\").",
+    "param.pattern.description": "Muundo wa regex wa kutafuta.",
+    "param.recursive.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
+    "tool.description": "Tafuta muundo ndani ya faili na urudishe mistari inayolingana pamoja na nambari za mistari (kama grep -n). pattern ni lazima.",
+    "tool.system_prompt": "Tafuta maudhui ya faili chini ya njia moja au zaidi. pattern ni lazima. Chuja faili kwa glob, tafuta kwa kutumia regex ya Python au maandishi halisi, ongeza mistari ya muktadha kwa hiari, ruka faili zinazofanana na binary, toa hali ya majina ya faili pekee, na tambua usimbaji wa maandishi kiotomatiki wakati wa kusoma. Rudisha JSON pekee."
   }
 }

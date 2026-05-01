@@ -286,5 +286,17 @@
     "param.years.description": "Кількість років для додавання (віднімання — від’ємне число).",
     "tool.description": "Додає або віднімає роки, місяці, тижні чи дні для вказаної дати та повертає результат. Також включає перевірку свят за допомогою бібліотеки holidays.",
     "tool.system_prompt": "Цей інструмент додає або віднімає роки, місяці, тижні чи дні для вказаної дати та за допомогою бібліотеки holidays може також визначити, чи припадає результат на свято. Докладніше див. опис інструмента."
+  },
+  "sw": {
+    "doc.get_holiday_info": "Pata majina ya sikukuu kwa nchi iliyobainishwa kwa kutumia maktaba ya holidays.",
+    "param.base_date.description": "Tarehe ya msingi (muundo wa ISO 8601 'YYYY-MM-DD'; ikiachwa, leo).",
+    "param.check_holiday.description": "Iwapo itakaguliwa kama matokeo ni sikukuu (chaguo-msingi: true)",
+    "param.country.description": "Msimbo wa nchi kwa ajili ya kubaini sikukuu za umma (ISO 3166-1 alpha-2, mfano 'JP', 'US', 'GB', 'FR'). Chaguo-msingi ni 'JP'.",
+    "param.days.description": "Idadi ya siku za kuongeza (kutoa ni nambari hasi).",
+    "param.months.description": "Idadi ya miezi ya kuongeza (kutoa ni nambari hasi).",
+    "param.weeks.description": "Idadi ya wiki za kuongeza (kutoa ni nambari hasi).",
+    "param.years.description": "Idadi ya miaka ya kuongeza (kutoa ni nambari hasi).",
+    "tool.description": "Ongeza au toa miaka, miezi, wiki au siku kwenye tarehe iliyobainishwa na urudishe matokeo. Pia huangalia kama matokeo ni sikukuu kwa kutumia maktaba ya holidays.",
+    "tool.system_prompt": "Zana hii huongeza au hupunguza miaka, miezi, wiki au siku kwa tarehe iliyobainishwa, na pia inaweza kubaini kama matokeo ni sikukuu kwa kutumia maktaba ya holidays. Tazama maelezo ya zana kwa ufafanuzi zaidi."
   }
 }

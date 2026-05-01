@@ -94,5 +94,9 @@
   "uk": {
     "tool.description": "Повертає поточний час і докладну інформацію про дату/час (часовий пояс, день тижня, UTC-час). Використовуйте це, щоб розв’язувати відносні вирази дати (наприклад, «сьогодні», «завтра», «ці вихідні», «третій вівторок наступного місяця») шляхом визначення поточного дня тижня та зміщення UTC.",
     "tool.system_prompt": "Цей інструмент надає довідкову інформацію, щоб LLM міг точно виконувати обчислення часу.\n- Формат ISO 8601 (із зміщенням)\n- День тижня (англійською)\n- Час UTC\n- Числові складові (рік, місяць, день, година, хвилина, секунда)\nВикористовуйте це, щоб перетворювати неоднозначні запити користувача (наприклад, «наступний понеділок») на конкретну дату/час.\n"
+  },
+  "sw": {
+    "tool.description": "Rudisha muda wa sasa na maelezo ya kina ya tarehe/muda (eneo la saa, siku ya wiki, muda wa UTC). Tumia hili kutatua semi za tarehe za uwiano (mfano, 'leo', 'kesho', 'mwishoni mwa wiki hii', 'Jumanne ya tatu ya mwezi ujao') kwa kubaini siku ya sasa ya wiki na mkengeuko wa UTC.",
+    "tool.system_prompt": "Zana hii hutoa maelezo ya marejeleo ili LLM iweze kufanya hesabu za muda kwa usahihi.\n- Muundo wa ISO 8601 (na mkengeuko)\n- Siku ya wiki (Kiingereza)\n- Muda wa UTC\n- Vipengele vya nambari (mwaka, mwezi, siku, saa, dakika, sekunde)\nTumia hivi kubadilisha maombi yasiyoeleweka ya mtumiaji (mfano, 'Jumatatu ijayo') kuwa tarehe/muda mahsusi.\n"
   }
 }

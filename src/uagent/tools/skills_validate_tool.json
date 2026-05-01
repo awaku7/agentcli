@@ -190,5 +190,13 @@
     "param.strict.description": "Чи слід також вважати попередження помилками? (типово: false)",
     "tool.description": "Перевіряє каталог skill (SKILL.md) згідно зі специфікацією Agent Skills і повертає помилки та попередження.",
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
+  },
+  "sw": {
+    "err.invalid_args": "[hitilafu ya zana] hoja batili",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
+    "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
+    "param.strict.description": "Je, maonyo pia yahesabiwe kama kushindwa? (chaguomsingi: false)",
+    "tool.description": "Huthibitisha saraka ya skill (SKILL.md) kulingana na Agent Skills spec na kurudisha makosa na maonyo.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   }
 }

@@ -214,5 +214,14 @@
     "param.path.description": "(Сумісність) Псевдонім для filename.",
     "tool.description": "Створює текстовий файл. За замовчуванням інструмент не перезаписує наявний файл. Якщо вказано overwrite=true і цільовий файл уже існує, інструмент створює резервну копію (<filename>.org / <filename>.org1 / ...) безпосередньо перед перезаписом. Порада: Якщо потрібно, щоб CSV/TSV правильно відкривались у Microsoft Excel, розгляньте encoding='utf-8-sig' (UTF-8 з BOM). Для машинної обробки та сумісності краще encoding='utf-8' (без BOM). Якщо не впевнені, уточніть, як використовуватиметься файл (Excel чи програмна обробка).",
     "tool.system_prompt": "Створіть текстовий файл у робочому каталозі. Якщо файл уже існує, overwrite=false спричинить помилку. Якщо overwrite=true, перед записом створюється резервна копія. Порада: Для CSV/TSV, призначених для прямого відкриття в Microsoft Excel, розгляньте encoding='utf-8-sig' (UTF-8 з BOM). Для машинної обробки та сумісності краще encoding='utf-8' (без BOM). Якщо не впевнені, уточніть, як використовуватиметься файл (Excel чи програмна обробка)."
+  },
+  "sw": {
+    "param.content.description": "Maudhui ya maandishi ya kuandika.",
+    "param.encoding.description": "Usimbaji wa maandishi (mfano 'utf-8', 'cp932'). Chaguo-msingi: 'utf-8-sig' kwa .csv/.tsv endapo encoding haijatolewa; vinginevyo 'utf-8'.",
+    "param.filename.description": "Njia ya faili litakaloundwa.",
+    "param.overwrite.description": "Iwapo la kuandika juu ikiwa faili tayari lipo (chaguo-msingi: false).",
+    "param.path.description": "(Ulinganifu) Jina lingine la filename.",
+    "tool.description": "Unda faili la maandishi. Kwa chaguo-msingi, faili zilizopo haziandikwi juu. Ikiwa overwrite=true imewekwa na lengwa tayari lipo, nakala ya hifadhi (<filename>.org / <filename>.org1 / ...) huundwa mara moja kabla ya kuandika juu. Kidokezo: kwa faili za CSV/TSV zinazofunguliwa moja kwa moja katika Microsoft Excel, zingatia encoding='utf-8-sig' (UTF-8 yenye BOM). Kwa uchakataji wa mashine na ulinganifu, pendelea encoding='utf-8' (bila BOM). Ukishindwa kuamua, uliza faili itatumika kwa nini (Excel au uchakataji wa programu).",
+    "tool.system_prompt": "Unda faili la maandishi ndani ya workdir. Ikiwa faili tayari lipo, overwrite=false husababisha hitilafu. Ikiwa overwrite=true, nakala ya hifadhi huundwa kabla ya kuandika. Kidokezo: kwa CSV/TSV zinazokusudiwa kufunguliwa moja kwa moja katika Microsoft Excel, zingatia encoding='utf-8-sig' (UTF-8 yenye BOM). Kwa uchakataji wa mashine na ulinganifu, pendelea encoding='utf-8' (bila BOM). Ukishindwa kuamua, uliza faili itatumika kwa nini (Excel au uchakataji wa programu)."
   }
 }

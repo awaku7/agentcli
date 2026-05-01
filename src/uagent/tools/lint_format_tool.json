@@ -12,12 +12,12 @@
   },
   "en": {
     "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
-    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis/formatter.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not actively execute npx.\n\nSafety:\n- mode=fix involves file changes, so check with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
+    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
     "param.cwd.description": "Execution directory (only allowed under workdir). If null, current.",
     "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
     "param.mode.description": "check=check only / fix=automatic fix",
     "param.targets.description": "Target path array (only allowed under workdir).",
-    "param.tools.description": "An array of tool names to run. If it is empty, it will be automatically selected.",
+    "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },
@@ -232,7 +232,7 @@
   },
   "fi": {
     "confirm.msg": "lint_format(mode=fix) voi kirjoittaa tiedostoja uudelleen.\ntyökalut: {tools}\ntavoitteet: {targets}\ncwd: {cwd}\n\nKirjoita y, jos haluat jatkaa, tai c, jos haluat peruuttaa.",
-    "doc.module": "lint_format_tool\n\nKääretyökalu staattisen analyysin ja muotoilutyökalujen suorittamiseen.\n\n- Python: suosi ruff / black / mypy\n- JavaScript: turvallisuussyistä älä aja npx:ää aktiivisesti.\n\nTurvallisuus:\n- mode=fix muuttaa tiedostoja, joten varmista asia human_askilla.\n- Hyväksy аргументы taulukkona ja hylkää ne, jos niissä on vaarallisia shell-metamerkkejä.",
+    "doc.module": "lint_format_tool\n\nKääretyökalu staattisen analyysin ja muotoilutyökalujen suorittamiseen.\n\n- Python: suosi ruff / black / mypy\n- JavaScript: turvallisuussyistä älä aja npx:ää suoraan.\n\nTurvallisuus:\n- mode=fix muuttaa tiedostoja, joten pyydä vahvistus human_askilla.\n- Hyväksy argumentit taulukkona ja hylkää ne, jos niissä on vaarallisia shell-metamerkkejä.",
     "param.cwd.description": "Suoritushakemisto (sallittu vain workdirin alla). Jos null, nykyinen.",
     "param.extra_args.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit.",
     "param.mode.description": "check=vain tarkistus / fix=automaattinen korjaus",

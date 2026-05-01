@@ -118,5 +118,10 @@
     "param.command.description": "Рядок команди для виконання.",
     "tool.description": "Асинхронно запускає зовнішній GUI або процес браузера. Уникайте повторного запуску для того самого запиту.",
     "tool.system_prompt": "Використовуйте цей інструмент для асинхронного запуску зовнішнього процесу. Уникайте повторного запуску для того самого запиту."
+  },
+  "sw": {
+    "param.command.description": "Amri ya kutekeleza.",
+    "tool.description": "Huanzisha kwa njia ya asinkroni mchakato wa nje wa GUI au kivinjari. Epuka kuzindua tena kwa ombi lilelile.",
+    "tool.system_prompt": "Tumia zana hii kuanzisha mchakato wa nje kwa njia ya asinkroni. Epuka kuzindua tena kwa ombi lilelile."
   }
 }

@@ -502,5 +502,26 @@
     "param.top_k.description": "число.",
     "tool.description": "Виконує семантичний пошук (векторний пошук) у локальних файлах. Використовує Embedding API для векторизації вмісту файлів і витягує релевантні частини документа. Індексація виконується під час першого запуску або при зміні файлів.",
     "tool.system_prompt": "Цей інструмент використовується для семантичного пошуку в локальних файлах. Поверніть лише JSON."
+  },
+  "sw": {
+    "doc.db_path": "Hurejesha njia ya DB iliyohashiwa kwa kila root_dir chini ya <state>/dbs (chaguomsingi: ~/.uag (zamani: ~/.scheck)/dbs).",
+    "doc.is_reachable": "Hukagua muunganisho wakati wa kuanza.\n\n- Hurejesha False bila kuibua hitilafu hata ukaguzi ukishindikana\n- Hutumia muda mfupi wa kusubiri ili kuepuka ucheleweshaji wa kuanza\n- Hurejea pia GET / kwa sababu baadhi ya utekelezaji huenda usiunge mkono /v1/models.",
+    "doc.sync_file": "Sawazisha faharasa ya faili moja (ikiwa ni mpya au imesasishwa)",
+    "err.dir_not_found": "Hitilafu: Saraka haikupatikana: {root_path}",
+    "err.disabled": "[tools] semantic_search_files imezimwa: API ya embedding haiwezi kufikiwa.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Weka UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ili chombo kisionekane.\n",
+    "err.query_required": "Hitilafu: query ni lazima.",
+    "err.vec_fail": "Hitilafu: Imeshindwa kubadili query kuwa vekta.",
+    "out.hits": "Idadi ya matokeo: {count}",
+    "out.not_found": "Hakuna hati zinazohusiana zilizopatikana.",
+    "out.query": "Hoja ya utafutaji: {query}",
+    "out.result_content": "Yaliyomo: {snippet}",
+    "out.result_item": "[{rank}] Alama: {score:.4f} | Faili: {rel_path}",
+    "out.target_dir": "Saraka lengwa: {root_path}",
+    "param.file_pattern.description": "Viendelezi lengwa (vilivyotenganishwa kwa koma).",
+    "param.query.description": "Neno kuu la utafutaji.",
+    "param.root_path.description": "Saraka ya kutafuta.",
+    "param.top_k.description": "idadi.",
+    "tool.description": "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani. Hutumia Embedding API kubadili yaliyomo ya faili kuwa vekta na kutoa sehemu husika za hati. Kuorodhesha hufanyika mara ya kwanza au faili zinapobadilika.",
+    "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee."
   }
 }

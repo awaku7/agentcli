@@ -454,5 +454,24 @@
     "param.root_path.description": "Кореневий каталог, з якого починається пошук (типово: поточний каталог).",
     "tool.description": "Шукає файли в каталозі за шаблоном назви (glob) та/або вмістом (regex).",
     "tool.system_prompt": "Шукайте файли в каталозі. Ви можете фільтрувати за шаблоном назви файлу (glob) і, за потреби, шукати вміст файлів за допомогою регулярного виразу.\n\nПримітки:\n- content_pattern трактується як регулярний вираз Python.\n- Якщо content_pattern порожній, виконується лише зіставлення за назвою файла.\n- З міркувань продуктивності та безпеки пошук вмісту може внутрішньо використовувати просту бінарну перевірку."
+  },
+  "sw": {
+    "err.dir_not_exist": "[search_files kosa] Saraka haipo: {path}",
+    "err.regex_compile": "[search_files kosa] Imeshindwa kukusanya regex: {error}",
+    "match.excerpt": "INAENDANA: {text}",
+    "match.line": "Mstari {line}: {text}",
+    "match.more": "... (vinaendana zaidi ndani ya faili)",
+    "out.file": "Faili: {file}",
+    "out.found": "[search_files] Imepata matokeo {n}",
+    "out.found_truncated": "[search_files] Imepata matokeo {n} (yamepunguzwa hadi {max_results})",
+    "out.no_match": "[search_files] Hakuna faili zilizolingana na vigezo.",
+    "param.case_sensitive.description": "Je, utafutaji wa yaliyomo uzingatie herufi kubwa na ndogo (chaguomsingi: false).",
+    "param.content_pattern.description": "Regex ya kutafuta ndani ya faili. Ikitolewa, ni faili zilizo na angalau mstari mmoja unaolingana ndizo hurudishwa.",
+    "param.fast_read_threshold_bytes.description": "Faili ndogo kuliko kizingiti hiki husomwa zote kwa haraka zaidi (chaguomsingi: 8000000 ≈ 8 MB). Faili kubwa hukaguliwa mstari kwa mstari.",
+    "param.max_results.description": "Idadi ya juu ya faili zinazolingana za kurudisha (chaguomsingi: 50).",
+    "param.name_pattern.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa.",
+    "param.root_path.description": "Saraka ya mzizi ya kuanzia kutafuta (chaguomsingi: saraka ya sasa).",
+    "tool.description": "Tafuta faili ndani ya saraka kwa kigezo cha jina (glob) na/au yaliyomo (regex).",
+    "tool.system_prompt": "Tafuta faili ndani ya saraka. Unaweza kuchuja kwa kigezo cha jina la faili (glob) na, ukihitajika, kutafuta yaliyomo kwa kutumia regex.\n\nVidokezo:\n- content_pattern huchukuliwa kama regex ya Python.\n- Ikiwa content_pattern ni tupu, utafutaji wa jina la faili pekee ndio hufanyika.\n- Kwa ufanisi na usalama, utafutaji wa yaliyomo unaweza kutumia ukaguzi rahisi wa jozi-baiti ndani yake."
   }
 }

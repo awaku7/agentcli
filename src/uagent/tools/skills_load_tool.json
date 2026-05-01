@@ -166,5 +166,12 @@
     "param.skill_dir.description": "Каталог skill (SKILL.md має бути безпосередньо під ним)",
     "tool.description": "Завантажує SKILL.md для Agent Skill і повертає його YAML frontmatter та Markdown-вміст.",
     "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента."
+  },
+  "sw": {
+    "err.invalid_args": "[hitilafu ya zana] hoja batili",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
+    "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
+    "tool.description": "Hupakia SKILL.md ya Agent Skill na kurudisha YAML frontmatter na kiini cha Markdown.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   }
 }

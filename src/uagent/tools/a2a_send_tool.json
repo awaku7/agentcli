@@ -214,5 +214,14 @@
     "param.return_immediately.description": "Якщо true, поверніть відповідь одразу після створення завдання.",
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
+  },
+  "sw": {
+    "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili).",
+    "tool.system_prompt": "Tuma ujumbe wa A2A. Rudisha JSON pekee.",
+    "param.profile.description": "Jina la profaili au a2a://name. Ikiwa halikutajwa, tumia profaili chaguomsingi.",
+    "param.message.description": "Ujumbe wa mtumiaji wa kutuma.",
+    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada ya kazi kuundwa.",
+    "err.missing_message": "Kipengee 'message' hakipo.",
+    "err.exception": "Hitilafu"
   }
 }

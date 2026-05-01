@@ -286,5 +286,17 @@
     "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'excel_ops'.",
     "param.password.description": "Необовʼязковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
+  },
+  "sw": {
+    "param.action.description": "Operesheni ya kutekeleza.",
+    "param.data.description": "Data ya JSON ya kuandika.",
+    "param.file_path.description": "Njia kamili ya faili la Excel.",
+    "param.sheet_name.description": "Jina la karatasi lengwa.",
+    "param.keep_sheets.description": "Majina ya karatasi za kubaki (hutumika tu kwa action='keep_only_sheets'). Ikiwa karatasi yoyote iliyotajwa haipo, zana itatoa hitilafu.",
+    "param.output_path.description": "Njia ya matokeo kwa action='keep_only_sheets'. Ikiwa tayari ipo, itaandikwa juu baada ya kuunda nakala ya hifadhi (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Soma na andika faili za Excel (.xlsx) na upate majina ya karatasi. Unapoandika kwenye faili lililopo, nakala ya hifadhi yenye jina hilo hilo (<file_path>.org / <file_path>.org1 / ...) huundwa mara moja kabla ya kuandika.",
+    "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
+    "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   }
 }

@@ -358,5 +358,20 @@
     "param.window_title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область.",
     "tool.description": "Робить знімок усього робочого столу або конкретного вікна.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна."
+  },
+  "sw": {
+    "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
+    "err.close_fail": "[screenshot] Imehifadhiwa katika {path} lakini imeshindwa kufunga dirisha: {err}",
+    "err.pyautogui_missing": "[screenshot error] Moduli ya pyautogui haijasakinishwa.",
+    "err.pygetwindow_missing": "[screenshot error] Moduli ya pygetwindow haijasakinishwa (inahitajika kwa kutaja dirisha).",
+    "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa: '{title}'",
+    "out.ok": "[screenshot] Imehifadhiwa katika {path}",
+    "out.ok_closed": "[screenshot] Imehifadhiwa katika {path} na dirisha limefungwa",
+    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha. Hutumika tu wakati window_title imetajwa. Chaguomsingi ni False.",
+    "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha. Chaguomsingi ni sekunde 1 (kwa kubadilisha dirisha).",
+    "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa). Ikiwa haijatolewa, itahifadhiwa katika saraka ya sasa na muhuri wa muda.",
+    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
+    "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
+    "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
   }
 }

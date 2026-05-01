@@ -106,5 +106,47 @@
     "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
     "msg.no_shared_memory": "(no shared memory yet)",
     "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+  },
+  "sw": {
+    "err.load": "[hitilafu ya shared_memory] {err_type}: {err}",
+    "msg.disabled": "(kumbukumbu ya pamoja imezimwa; weka UAGENT_SHARED_MEMORY_FILE ili kuiwasha)",
+    "msg.no_shared_memory": "(bado hakuna kumbukumbu ya pamoja)",
+    "msg.truncated": "\n[shared_memory imepunguzwa: imewekewa kikomo cha {max_bytes} baiti]"
+  },
+  "cs": {
+    "err.load": "[chyba shared_memory] {err_type}: {err}",
+    "msg.disabled": "(sdílená paměť je vypnutá; nastavte UAGENT_SHARED_MEMORY_FILE, chcete-li ji povolit)",
+    "msg.no_shared_memory": "(zatím žádná sdílená paměť)",
+    "msg.truncated": "\n[shared_memory zkrácen: omezeno na {max_bytes} bajtů]"
+  },
+  "hi": {
+    "err.load": "[shared_memory त्रुटि] {err_type}: {err}",
+    "msg.disabled": "(साझा मेमोरी अक्षम है; इसे चालू करने के लिए UAGENT_SHARED_MEMORY_FILE सेट करें)",
+    "msg.no_shared_memory": "(अभी तक कोई साझा मेमोरी नहीं है)",
+    "msg.truncated": "\n[shared_memory छोटा किया गया: {max_bytes} बाइट तक सीमित]"
+  },
+  "nb": {
+    "err.load": "[shared_memory-feil] {err_type}: {err}",
+    "msg.disabled": "(delt minne er deaktivert; sett UAGENT_SHARED_MEMORY_FILE for å aktivere det)",
+    "msg.no_shared_memory": "(ingen delt minne ennå)",
+    "msg.truncated": "\n[shared_memory avkortet: begrenset til {max_bytes} byte]"
+  },
+  "pt": {
+    "err.load": "[erro de shared_memory] {err_type}: {err}",
+    "msg.disabled": "(a memória compartilhada está desativada; defina UAGENT_SHARED_MEMORY_FILE para ativá-la)",
+    "msg.no_shared_memory": "(ainda não há memória compartilhada)",
+    "msg.truncated": "\n[shared_memory truncado: limitado a {max_bytes} bytes]"
+  },
+  "uk": {
+    "err.load": "[помилка shared_memory] {err_type}: {err}",
+    "msg.disabled": "(спільну пам’ять вимкнено; встановіть UAGENT_SHARED_MEMORY_FILE, щоб увімкнути її)",
+    "msg.no_shared_memory": "(спільної пам’яті ще немає)",
+    "msg.truncated": "\n[shared_memory скорочено: обмежено {max_bytes} байтами]"
+  },
+  "sv": {
+    "err.load": "[shared_memory-fel] {err_type}: {err}",
+    "msg.disabled": "(delat minne är inaktiverat; ange UAGENT_SHARED_MEMORY_FILE för att aktivera det)",
+    "msg.no_shared_memory": "(inget delat minne ännu)",
+    "msg.truncated": "\n[shared_memory avkortad: begränsad till {max_bytes} byte]"
   }
 }

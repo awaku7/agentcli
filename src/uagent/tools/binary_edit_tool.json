@@ -382,5 +382,21 @@
     "param.splice_op.description": "Операція splice (режим splice).",
     "tool.description": "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли.",
     "tool.system_prompt": "Цей інструмент використовується для редагування локального файла як необроблених байтів (бінарно).\n\nБЕЗПЕКА:\n- Цей інструмент змінює локальні файли та може їх пошкодити.\n- Завжди запитуйте підтвердження через human_ask перед записом.\n- Не працюйте з шляхами поза поточним робочим каталогом під час виконання згідно з політиками безпеки хост-агента."
+  },
+  "sw": {
+    "param.data_hex.description": "Mfuatano wa hex wa bytes za kuandika au kuingiza (mfano 'DEADBEEF' au 'DE AD BE EF').",
+    "param.delete_len.description": "Idadi ya bytes za kufuta (splice delete).",
+    "param.dry_run.description": "Ikiwa ni kweli, usibadilishe faili; ripoti tu kitakachobadilika.",
+    "param.max_bytes.description": "Kataa faili zilizo kubwa kuliko ukubwa huu (bytes).",
+    "param.mode.description": "Hali ya uhariri.",
+    "param.occurrence.description": "Ni tukio lipi la kubadilisha (kuanzia 1). 0 humaanisha badilisha matukio yote (bado lazima yawe na urefu sawa).",
+    "param.offset.description": "Nafasi ya byte (kuanzia 0). Inahitajika kwa write/splice.",
+    "param.patch_json.description": "Kiraka cha JSON kama kamba (hali ya apply_patch).",
+    "param.path.description": "Njia ya faili lengwa.",
+    "param.replace_hex.description": "Mfuatano wa hex wa kubadilisha nao (hali ya replace). Lazima uwe na urefu sawa na search_hex isipokuwa allow_resize=true (haitumiki).",
+    "param.search_hex.description": "Mfuatano wa hex wa kutafuta (hali ya replace).",
+    "param.splice_op.description": "Operesheni ya splice (kuingiza au kufuta).",
+    "tool.description": "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili.",
+    "tool.system_prompt": "Hii ni zana ya kuhariri faili kama bytes ghafi (binary).\n\nUSALAMA:\n- Zana hii hubadilisha faili za ndani na inaweza kuharibu faili.\n- Omba uthibitisho kila wakati kwa human_ask kabla ya kuandika.\n- Usifanye kazi kwenye njia zilizo nje ya workdir ya sasa wakati unafuata sera za usalama za host agent."
   }
 }

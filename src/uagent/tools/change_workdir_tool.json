@@ -166,5 +166,12 @@
     "param.new_dir.description": "Шлях до нового каталогу, на який потрібно перейти.",
     "tool.description": "Змінює поточний робочий каталог після підтвердження користувача.",
     "tool.system_prompt": "Використовуйте цей інструмент, щоб змінити поточний робочий каталог після підтвердження користувача."
+  },
+  "sw": {
+    "confirm.change_workdir": "Badilisha saraka ya sasa ya kazi kuwa: {new_dir}\n\nUendelee? Andika y ili kuendelea, c kufuta.",
+    "param.confirm.description": "Iwapo utaomba uthibitisho wa mtumiaji.",
+    "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
+    "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
+    "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
   }
 }

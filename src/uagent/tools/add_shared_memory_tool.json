@@ -118,5 +118,10 @@
     "param.note.description": "Текст нотатки для спільного доступу.",
     "tool.description": "Додає одну нотатку до спільного сховища довготривалої пам’яті (спільного між користувачами та сеансами). Якщо спільну пам’ять не налаштовано, інструмент повідомляє, що її вимкнено. Ніколи не зберігайте секрети, як-от паролі або ключі API.",
     "tool.system_prompt": "Додайте до спільної пам’яті рівно одну нотатку.\nЯкщо спільну пам’ять вимкнено (UAGENT_SHARED_MEMORY_FILE не встановлено), поверніть повідомлення з поясненням, як її увімкнути.\nНе зберігайте секрети (паролі/токени/ключі API)."
+  },
+  "sw": {
+    "param.note.description": "Maandishi ya dokezo la kushiriki.",
+    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya pamoja kuhusu mtumiaji au mazingira ambalo linaweza kusaidia mazungumzo ya baadaye.",
+    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya pamoja. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
   }
 }

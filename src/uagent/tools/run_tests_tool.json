@@ -447,5 +447,25 @@
     "param.target.description": "Ціль (шлях pytest, початковий каталог unittest, сценарій npm тощо). Якщо null, використовуються значення за замовчуванням.",
     "tool.description": "Запускає тести (автовизначення pytest/unittest/npm). Відхиляє метасимволи shell у extra_args.",
     "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента."
+  },
+  "sw": {
+    "doc.module": "run_tests_tool\n\nZana mbadala ya kuendesha majaribio.\n\nLengo:\n- Badala ya kuita cmd_exec/pwsh_exec moja kwa moja, sanifisha utekelezaji wa majaribio na rudisha matokeo yaliyopangwa.\n- Tambua pytest / unittest / npm kiotomatiki wakati framework=auto.\n\nSera ya usalama:\n- Utekelezaji wa majaribio kwa kawaida si operesheni hatari, kwa hiyo human_ask haitumiki.\n- Hata hivyo, extra_args zilizo na alama hatari za kuingiza amri (&&, |, >, n.k.) hukataliwa.\n\nUtekelezaji:\n- Ndani hutumia cmd_exec_json_tool na hushughulikia returncode/stdout/stderr.\n- Kwa stdout/stderr, tumia callbacks.truncate_output ikiwa ipo.\n- Kwa kubainisha cwd, tumia hoja ya cwd ya cmd_exec_json (usitumie cd &&).\n\nVipengele vya ziada:\n- pythonpath: sanidi PYTHONPATH ya ziada kwa ajili ya kuendesha majaribio.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd hairuhusiwi: {error}",
+    "error.dangerous_cwd_rejected": "cwd hatari imekataliwa: {cwd}",
+    "error.framework_auto_detect_failed": "utambuzi wa kiotomatiki wa framework umeshindikana",
+    "error.invalid_framework": "framework batili: {framework}",
+    "error.invalid_report": "report batili: {report}",
+    "error.shell_metacharacters_not_allowed": "alama za shell haziruhusiwi katika hoja: {arg}",
+    "error.unsupported_framework": "framework haitumiki: {framework}",
+    "param.cwd.description": "Saraka ya kazi ya kuendesha ndani yake (lazima iwe ndani ya workdir). Ikiwa ni null, tumia saraka ya sasa.",
+    "param.extra_args.description": "Safu ya hoja za ziada. Kataa ikiwa kuna alama za shell.",
+    "param.framework.description": "Aina ya framework ya majaribio.",
+    "param.pythonpath.description": "PYTHONPATH ya ziada (kwa mfano 'src'). Ikitolewa, huwekwa mbele ya amri ya majaribio.",
+    "param.report.description": "Muundo wa matokeo.",
+    "param.target.description": "Lengo (njia ya pytest, saraka ya kuanzia ya unittest, script ya npm, n.k.). Ikiwa ni null, chaguo-msingi hutumika.",
+    "tool.description": "Endesha majaribio (gundua pytest/unittest/npm kiotomatiki). Kataa alama za shell katika extra_args.",
+    "tool.system_prompt": "Tumia zana hii kwa madhumuni yaliyofafanuliwa katika maelezo ya zana.",
+    "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)",
+    "param.pattern.description": "Mfano wa utafutaji. Tumia \\n kwa mstari mpya."
   }
 }

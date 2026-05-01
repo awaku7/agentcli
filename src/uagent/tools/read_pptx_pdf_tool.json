@@ -214,5 +214,14 @@
     "tool.system_prompt": "ВАЖЛИВО: цей інструмент читає PDF/PPTX/JSON і повертає текст на рівні сторінки. Вхід: path, page_index, max_chars. Вихід: текст сторінки (усі сторінки або вказана сторінка).",
     "param.password.description": "Необов’язковий пароль для зашифрованих файлів PDF/PPTX. Якщо його не вказано і вхідні дані зашифровані, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
+  },
+  "sw": {
+    "param.max_chars.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
+    "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX). Ikiwa haijatajwa, hurudisha maandishi yaliyounganishwa ya kurasa zote.",
+    "param.path.description": "Njia ya faili la PDF / PPTX / JSON.",
+    "tool.description": "Soma PDF/PPTX (au schema yao ya kawaida ya JSON) na rudisha maandishi yaliyotolewa kwa kila ukurasa. Unaweza kuweka path kuwa .pdf / .pptx / .json. Kwa PDF/PPTX, moduli hii hubadilisha kuwa schema ya kawaida ya JSON.",
+    "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
+    "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
   }
 }

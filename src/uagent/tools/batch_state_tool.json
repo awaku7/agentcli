@@ -430,5 +430,23 @@
     "err.message_empty": "[batch_state error] 訊息為空",
     "err.not_found": "[batch_state error] 找不到批次",
     "err.exception": "[batch_state error] 例外"
+  },
+  "sw": {
+    "tool.description": "Hifadhi na dhibiti hali ya batch kwa kazi za faili nyingi chini ya ~/.uag/batches/.",
+    "tool.system_prompt": "Dhibiti hali ya batch. Rudisha JSON pekee. Iwapo maendeleo yatabadilika, sasisha current_file, done_files, na pending_files waziwazi.",
+    "param.action.description": "Kitendo: init/load/update/append_log/finalize/list/delete",
+    "param.batch_id.description": "Kitambulisho cha batch. Kinahitajika kwa load/update/finalize/delete; hiari kwa init/list.",
+    "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
+    "param.instructions.description": "Maelekezo ya kina kwa kazi ya batch.",
+    "param.target_files.description": "Faili lengwa za kazi ya batch.",
+    "param.patch.description": "Kiraka cha sehemu kitakachotumika kwenye hali ya batch. Tumia kusasisha current_file, done_files, na pending_files.",
+    "param.message.description": "Ujumbe wa kumbukumbu wa kuongeza.",
+    "param.overwrite.description": "Ikiwa ni kweli, init itafuta faili ya batch iliyopo.",
+    "err.unknown_action": "[batch_state error] kitendo kisichojulikana",
+    "err.batch_exists": "[batch_state error] batch tayari ipo",
+    "err.invalid_patch": "[batch_state error] patch lazima iwe kitu cha JSON",
+    "err.message_empty": "[batch_state error] ujumbe hauna maudhui",
+    "err.not_found": "[batch_state error] batch haikupatikana",
+    "err.exception": "[batch_state error] hitilafu"
   }
 }

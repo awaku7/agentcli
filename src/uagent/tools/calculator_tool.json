@@ -118,5 +118,10 @@
     "param.expression.description": "Формула, яку ви хочете обчислити (наприклад, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Доступні функції з модуля math Python.",
     "tool.description": "Обчислює математичний вираз і повертає результат. Використовуйте це для складних обчислень або коли потрібна точність.",
     "tool.system_prompt": "Обчисліть математичний вираз і поверніть результат. Повертайте лише JSON."
+  },
+  "sw": {
+    "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Kazi za moduli ya math ya Python zinapatikana.",
+    "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
+    "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
   }
 }
