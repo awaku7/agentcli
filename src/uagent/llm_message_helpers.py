@@ -5,8 +5,6 @@ from .env_utils import env_get
 from .image_session import build_image_session_message
 from .i18n import _
 from .llm_gemini import _message_content_text, _sanitize_gemini_parameters
-from .llm_helpers import _env_default_true
-from .translate import translate_text
 
 try:
     from google.genai import types as gemini_types

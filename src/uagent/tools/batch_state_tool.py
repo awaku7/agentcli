@@ -186,7 +186,9 @@ def _save_state(batch_id: str, state: Dict[str, Any]) -> None:
         f.write("\n")
 
 
-def _current_file_can_move_forward(state: Dict[str, Any], current_file: str, candidate: str) -> bool:
+def _current_file_can_move_forward(
+    state: Dict[str, Any], current_file: str, candidate: str
+) -> bool:
     if candidate == "":
         return True
     if not current_file or current_file == candidate:
@@ -259,7 +261,6 @@ def _normalize_status(value: Any, fallback: str = "active") -> str:
     return status
 
 
-
 def _reconcile_progress_state(state: Dict[str, Any]) -> Dict[str, Any]:
     out = dict(state)
     out["status"] = _normalize_status(out.get("status"), "active")
@@ -270,11 +271,17 @@ def _reconcile_progress_state(state: Dict[str, Any]) -> Dict[str, Any]:
         out["done_files"] = _dedupe_preserve_order(out.get("done_files"))
         out["pending_files"] = _dedupe_preserve_order(out.get("pending_files"))
         current_file = str(out.get("current_file") or "").strip()
-        out["current_file"] = current_file if current_file in out["target_files"] else current_file
+        out["current_file"] = (
+            current_file if current_file in out["target_files"] else current_file
+        )
         return out
 
     out["target_files"] = target_files
-    done_files = [item for item in _dedupe_preserve_order(out.get("done_files")) if item in target_files]
+    done_files = [
+        item
+        for item in _dedupe_preserve_order(out.get("done_files"))
+        if item in target_files
+    ]
     out["done_files"] = done_files
     out["pending_files"] = [item for item in target_files if item not in done_files]
 
@@ -283,7 +290,14 @@ def _reconcile_progress_state(state: Dict[str, Any]) -> Dict[str, Any]:
         current_file = out["pending_files"][0] if out["pending_files"] else ""
     elif current_file in done_files:
         current_index = target_files.index(current_file)
-        current_file = next((item for item in target_files[current_index + 1 :] if item not in done_files), "")
+        current_file = next(
+            (
+                item
+                for item in target_files[current_index + 1 :]
+                if item not in done_files
+            ),
+            "",
+        )
     out["current_file"] = current_file
     return out
 
@@ -311,16 +325,25 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
             out[key] = _merge_unique_lists(out.get(key), value)
         elif key == "current_file":
             if value is not None:
-                current_file = str(out.get("current_file") or state.get("current_file") or "").strip()
+                current_file = str(
+                    out.get("current_file") or state.get("current_file") or ""
+                ).strip()
                 candidate = str(value).strip()
                 effective_state = dict(out)
                 if isinstance(target_files, list):
                     effective_state["target_files"] = target_files
-                if _current_file_can_move_forward(effective_state, current_file, candidate):
+                if _current_file_can_move_forward(
+                    effective_state, current_file, candidate
+                ):
                     if current_file and current_file != candidate:
                         done_files = _dedupe_preserve_order(out.get("done_files"))
-                        effective_targets = _dedupe_preserve_order(effective_state.get("target_files"))
-                        if current_file in effective_targets and current_file not in done_files:
+                        effective_targets = _dedupe_preserve_order(
+                            effective_state.get("target_files")
+                        )
+                        if (
+                            current_file in effective_targets
+                            and current_file not in done_files
+                        ):
                             done_files.append(current_file)
                             out["done_files"] = done_files
                     out[key] = candidate
@@ -329,7 +352,9 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
                 out[key] = str(value)
         elif key == "status":
             if value is not None:
-                out[key] = _normalize_status(value, str(out.get("status") or state.get("status") or "active"))
+                out[key] = _normalize_status(
+                    value, str(out.get("status") or state.get("status") or "active")
+                )
         elif key == "batch_id":
             continue
         else:
@@ -362,37 +387,59 @@ def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _result(ok: bool, **payload: Any) -> str:
-    return json.dumps({"ok": ok, **payload}, ensure_ascii=False, indent=2, sort_keys=True)
+    return json.dumps(
+        {"ok": ok, **payload}, ensure_ascii=False, indent=2, sort_keys=True
+    )
 
 
 def run_tool(args: Dict[str, Any]) -> str:
     action = str(args.get("action") or "").strip()
     if action not in _TOOL_ACTIONS:
-        return _result(False, error=_(
-            "err.unknown_action",
-            default=f"[batch_state error] unknown action: {action!r}",
-        ), allowed_actions=list(_TOOL_ACTIONS))
+        return _result(
+            False,
+            error=_(
+                "err.unknown_action",
+                default=f"[batch_state error] unknown action: {action!r}",
+            ),
+            allowed_actions=list(_TOOL_ACTIONS),
+        )
 
     try:
         if action == "init":
-            batch_id = _normalize_batch_id(args.get("batch_id")) or f"batch-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid4().hex[:8]}"
+            batch_id = (
+                _normalize_batch_id(args.get("batch_id"))
+                or f"batch-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid4().hex[:8]}"
+            )
             batch_id = _validate_batch_id(batch_id)
             path = _path_for_batch_id(batch_id)
             if path.exists() and not bool(args.get("overwrite", False)):
-                return _result(False, error=_(
-                    "err.batch_exists",
-                    default=f"[batch_state error] batch already exists: {batch_id}",
-                ), batch_id=batch_id, path=str(path))
+                return _result(
+                    False,
+                    error=_(
+                        "err.batch_exists",
+                        default=f"[batch_state error] batch already exists: {batch_id}",
+                    ),
+                    batch_id=batch_id,
+                    path=str(path),
+                )
 
             state = _default_state(batch_id)
             patch = _collect_state_patch(args)
             if patch:
                 state = _merge_state(state, patch)
-            if isinstance(state.get("target_files"), list) and not state.get("pending_files"):
+            if isinstance(state.get("target_files"), list) and not state.get(
+                "pending_files"
+            ):
                 state["pending_files"] = list(state.get("target_files") or [])
             state = _reconcile_progress_state(state)
             _save_state(batch_id, state)
-            return _result(True, action="init", batch_id=batch_id, path=str(path), state=_batch_overview(state))
+            return _result(
+                True,
+                action="init",
+                batch_id=batch_id,
+                path=str(path),
+                state=_batch_overview(state),
+            )
 
         if action == "list":
             root = _ensure_dir()
@@ -409,18 +456,37 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             summary = {
                 "batch_count": len(items),
-                "active_count": sum(1 for item in items if item.get("status") == "active"),
+                "active_count": sum(
+                    1 for item in items if item.get("status") == "active"
+                ),
                 "done_count": sum(1 for item in items if item.get("status") == "done"),
-                "paused_count": sum(1 for item in items if item.get("status") == "paused"),
-                "error_count": sum(1 for item in items if item.get("status") == "error"),
+                "paused_count": sum(
+                    1 for item in items if item.get("status") == "paused"
+                ),
+                "error_count": sum(
+                    1 for item in items if item.get("status") == "error"
+                ),
             }
-            return _result(True, action="list", root=str(root), count=len(items), summary=summary, batches=items)
+            return _result(
+                True,
+                action="list",
+                root=str(root),
+                count=len(items),
+                summary=summary,
+                batches=items,
+            )
 
         batch_id = _validate_batch_id(_normalize_batch_id(args.get("batch_id")))
 
         if action == "load":
             state = _reconcile_progress_state(_load_state(batch_id))
-            return _result(True, action="load", batch_id=batch_id, path=str(_path_for_batch_id(batch_id)), state=state)
+            return _result(
+                True,
+                action="load",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=state,
+            )
 
         if action == "update":
             state = _load_state(batch_id)
@@ -428,33 +494,53 @@ def run_tool(args: Dict[str, Any]) -> str:
             if patch_arg is None:
                 patch = {}
             elif not isinstance(patch_arg, dict):
-                return _result(False, error=_(
-                    "err.invalid_patch",
-                    default="[batch_state error] patch must be an object",
-                ), batch_id=batch_id)
+                return _result(
+                    False,
+                    error=_(
+                        "err.invalid_patch",
+                        default="[batch_state error] patch must be an object",
+                    ),
+                    batch_id=batch_id,
+                )
             else:
                 patch = dict(patch_arg)
             patch = {**_collect_state_patch(args), **patch}
             state = _merge_state(state, patch)
             state = _reconcile_progress_state(state)
             _save_state(batch_id, state)
-            return _result(True, action="update", batch_id=batch_id, path=str(_path_for_batch_id(batch_id)), state=_batch_overview(state))
+            return _result(
+                True,
+                action="update",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=_batch_overview(state),
+            )
 
         if action == "append_log":
             state = _load_state(batch_id)
             message = str(args.get("message") or "").strip()
             if not message:
-                return _result(False, error=_(
-                    "err.message_empty",
-                    default="[batch_state error] message is empty",
-                ), batch_id=batch_id)
+                return _result(
+                    False,
+                    error=_(
+                        "err.message_empty",
+                        default="[batch_state error] message is empty",
+                    ),
+                    batch_id=batch_id,
+                )
             logs = state.get("logs")
             if not isinstance(logs, list):
                 logs = []
             logs.append({"ts": _now_iso(), "message": message})
             state["logs"] = logs
             _save_state(batch_id, state)
-            return _result(True, action="append_log", batch_id=batch_id, path=str(_path_for_batch_id(batch_id)), state=_batch_overview(state))
+            return _result(
+                True,
+                action="append_log",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=_batch_overview(state),
+            )
 
         if action == "finalize":
             state = _load_state(batch_id)
@@ -462,39 +548,63 @@ def run_tool(args: Dict[str, Any]) -> str:
             if patch_arg is None:
                 patch = {}
             elif not isinstance(patch_arg, dict):
-                return _result(False, error=_(
-                    "err.invalid_patch",
-                    default="[batch_state error] patch must be an object",
-                ), batch_id=batch_id)
+                return _result(
+                    False,
+                    error=_(
+                        "err.invalid_patch",
+                        default="[batch_state error] patch must be an object",
+                    ),
+                    batch_id=batch_id,
+                )
             else:
                 patch = dict(patch_arg)
             patch = {**_collect_state_patch(args), **patch}
             if patch:
                 state = _merge_state(state, patch)
-            state["status"] = _normalize_status(args.get("status") or state.get("status") or "done", "done")
+            state["status"] = _normalize_status(
+                args.get("status") or state.get("status") or "done", "done"
+            )
             state = _reconcile_progress_state(state)
             _save_state(batch_id, state)
-            return _result(True, action="finalize", batch_id=batch_id, path=str(_path_for_batch_id(batch_id)), state=_batch_overview(state))
+            return _result(
+                True,
+                action="finalize",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=_batch_overview(state),
+            )
 
         if action == "delete":
             path = _path_for_batch_id(batch_id)
             if not path.exists():
-                return _result(False, error=_(
-                    "err.not_found",
-                    default=f"[batch_state error] batch not found: {batch_id}",
-                ), batch_id=batch_id)
+                return _result(
+                    False,
+                    error=_(
+                        "err.not_found",
+                        default=f"[batch_state error] batch not found: {batch_id}",
+                    ),
+                    batch_id=batch_id,
+                )
             path.unlink()
             return _result(True, action=action, batch_id=batch_id, path=str(path))
 
-        return _result(False, error=_(
-            "err.unknown_action",
-            default=f"[batch_state error] unknown action: {action!r}",
-        ), allowed_actions=list(_TOOL_ACTIONS))
+        return _result(
+            False,
+            error=_(
+                "err.unknown_action",
+                default=f"[batch_state error] unknown action: {action!r}",
+            ),
+            allowed_actions=list(_TOOL_ACTIONS),
+        )
     except Exception as e:
-        return _result(False, error=_(
-            "err.exception",
-            default=f"[batch_state error] exception: {e!r}",
-        ), exception=repr(e))
+        return _result(
+            False,
+            error=_(
+                "err.exception",
+                default=f"[batch_state error] exception: {e!r}",
+            ),
+            exception=repr(e),
+        )
 
 
 if __name__ == "__main__":

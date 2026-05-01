@@ -1,13 +1,19 @@
-# tools/set_timer.py
+from __future__ import annotations
+
+from datetime import timedelta
+from typing import Any, Dict
+from uuid import uuid4
+
+from ..scheduler import (
+    SCHEDULE_TYPE_ONCE,
+    ScheduleItem,
+    SchedulerStore,
+    format_iso_datetime,
+    utc_now,
+)
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
-from typing import Any, Dict
-import threading
-import time
-
-from .context import get_callbacks
 
 BUSY_LABEL = False
 
@@ -56,8 +62,6 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    cb = get_callbacks()
-
     raw_seconds = args.get("seconds", 0)
 
     try:
@@ -74,22 +78,26 @@ def run_tool(args: Dict[str, Any]) -> str:
             default="[set_timer error] seconds must be 0 or greater: {val}",
         ).format(val=seconds)
 
-    message = args.get("message", _("msg.default_timer_done", default="Timer finished"))
+    raw_message = args.get("message")
+    message = (
+        _("msg.default_timer_done", default="Timer finished")
+        if raw_message is None
+        else str(raw_message)
+    )
     on_timeout_prompt = args.get("on_timeout_prompt")
+    llm_prompt = "" if on_timeout_prompt is None else str(on_timeout_prompt)
 
-    if cb.event_queue is None:
-        return _(
-            "err.queue_uninitialized",
-            default="[set_timer error] event_queue callback is not initialized.",
-        )
+    schedule = ScheduleItem(
+        id=str(uuid4()),
+        type=SCHEDULE_TYPE_ONCE,
+        at=format_iso_datetime(utc_now() + timedelta(seconds=seconds)),
+        message=message,
+        llm_prompt=llm_prompt,
+        interval_sec=0,
+        enabled=True,
+    )
+    SchedulerStore().add_item(schedule)
 
-    def timer_func():
-        time.sleep(seconds)
-        if cb.set_status:
-            cb.set_status(True, "timer_pending")
-        cb.event_queue.put({"kind": "timer", "text": on_timeout_prompt or message})
-
-    threading.Thread(target=timer_func, daemon=True).start()
     return _(
         "out.ok",
         default="[set_timer] Timer set for {seconds} seconds: {message} (on_timeout_prompt={prompt})",

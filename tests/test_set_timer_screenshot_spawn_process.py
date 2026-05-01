@@ -1,81 +1,94 @@
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 from types import SimpleNamespace
 
 import pytest
 
 
-def test_set_timer_rejects_non_integer_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
+def _set_timer_module(monkeypatch: pytest.MonkeyPatch):
     from uagent.tools import set_timer_tool
 
-    cb = SimpleNamespace(event_queue=object(), set_status=None)
-    monkeypatch.setattr(set_timer_tool, "get_callbacks", lambda: cb)
+    monkeypatch.setattr(
+        set_timer_tool,
+        "_",
+        lambda key, default=None: default if default is not None else key,
+    )
+    return set_timer_tool
+
+
+def test_set_timer_rejects_non_integer_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
+    set_timer_tool = _set_timer_module(monkeypatch)
 
     out = set_timer_tool.run_tool({"seconds": "abc"})
     assert out.startswith("[set_timer error]")
-    assert "'abc'" in out
+    assert "abc" in out
 
 
 def test_set_timer_rejects_negative_seconds(monkeypatch: pytest.MonkeyPatch) -> None:
-    from uagent.tools import set_timer_tool
-
-    cb = SimpleNamespace(event_queue=object(), set_status=None)
-    monkeypatch.setattr(set_timer_tool, "get_callbacks", lambda: cb)
+    set_timer_tool = _set_timer_module(monkeypatch)
 
     out = set_timer_tool.run_tool({"seconds": -1})
     assert out.startswith("[set_timer error]")
     assert "-1" in out
 
 
-def test_set_timer_errors_when_event_queue_is_missing(
+def test_set_timer_creates_persistent_schedule_with_prompt(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from uagent.tools import set_timer_tool
+    set_timer_tool = _set_timer_module(monkeypatch)
 
-    cb = SimpleNamespace(event_queue=None, set_status=None)
-    monkeypatch.setattr(set_timer_tool, "get_callbacks", lambda: cb)
+    fixed_now = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+    captured: dict[str, object] = {}
 
-    out = set_timer_tool.run_tool({"seconds": 0})
-    assert out.startswith("[set_timer error]")
+    class DummyStore:
+        def add_item(self, item):
+            captured["item"] = item
+            return item
 
-
-def test_set_timer_enqueues_event_without_real_wait(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    from uagent.tools import set_timer_tool
-
-    events: list[dict] = []
-    status_calls: list[tuple[bool, str]] = []
-
-    class DummyQueue:
-        def put(self, item: dict) -> None:
-            events.append(item)
-
-    class DummyThread:
-        def __init__(self, target, daemon: bool = True):
-            self._target = target
-            self.daemon = daemon
-
-        def start(self) -> None:
-            self._target()
-
-    cb = SimpleNamespace(
-        event_queue=DummyQueue(),
-        set_status=lambda busy, label: status_calls.append((busy, label)),
-    )
-
-    monkeypatch.setattr(set_timer_tool, "get_callbacks", lambda: cb)
-    monkeypatch.setattr(set_timer_tool.time, "sleep", lambda _s: None)
-    monkeypatch.setattr(set_timer_tool.threading, "Thread", DummyThread)
+    store = DummyStore()
+    monkeypatch.setattr(set_timer_tool, "SchedulerStore", lambda: store)
+    monkeypatch.setattr(set_timer_tool, "utc_now", lambda: fixed_now)
 
     out = set_timer_tool.run_tool(
         {"seconds": 1, "message": "done", "on_timeout_prompt": "auto"}
     )
 
+    item = captured["item"]
     assert out.startswith("[set_timer]")
-    assert "on_timeout_prompt='auto'" in out
-    assert events == [{"kind": "timer", "text": "auto"}]
-    assert status_calls == [(True, "timer_pending")]
+    assert "auto" in out
+    assert item.message == "done"
+    assert item.llm_prompt == "auto"
+    assert item.enabled is True
+    assert item.interval_sec == 0
+    assert item.type == set_timer_tool.SCHEDULE_TYPE_ONCE
+    assert item.at == set_timer_tool.format_iso_datetime(
+        fixed_now + timedelta(seconds=1)
+    )
+
+
+def test_set_timer_defaults_message_and_prompt(monkeypatch: pytest.MonkeyPatch) -> None:
+    set_timer_tool = _set_timer_module(monkeypatch)
+
+    fixed_now = datetime(2026, 1, 1, 12, 0, 0, tzinfo=timezone.utc)
+    captured: dict[str, object] = {}
+
+    class DummyStore:
+        def add_item(self, item):
+            captured["item"] = item
+            return item
+
+    store = DummyStore()
+    monkeypatch.setattr(set_timer_tool, "SchedulerStore", lambda: store)
+    monkeypatch.setattr(set_timer_tool, "utc_now", lambda: fixed_now)
+
+    out = set_timer_tool.run_tool({"seconds": 0})
+
+    item = captured["item"]
+    assert out.startswith("[set_timer]")
+    assert item.message == "Timer finished"
+    assert item.llm_prompt == ""
+    assert item.at == set_timer_tool.format_iso_datetime(fixed_now)
 
 
 def test_screenshot_errors_when_pyautogui_missing(
