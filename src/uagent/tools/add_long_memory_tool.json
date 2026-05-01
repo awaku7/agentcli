@@ -94,6 +94,11 @@
     "tool.description": "Spara en anteckning i långtidsminnet om användaren eller miljön som kan vara användbar i framtida samtal.",
     "tool.system_prompt": "Spara en användbar anteckning i långtidsminnet.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
   },
+  "sw": {
+    "param.note.description": "Maandishi ya dokezo la kuhifadhi.",
+    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambalo linaweza kusaidia katika mazungumzo ya baadaye.",
+    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya muda mrefu. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
+  },
   "nb": {
     "param.note.description": "Teksten i notatet som skal lagres.",
     "tool.description": "Lagre ett notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",

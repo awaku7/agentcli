@@ -142,5 +142,11 @@
     "param.cwd.description": "Робочий каталог для команди.",
     "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат. Використовуйте лише тоді, коли немає безпечнішого або більш спеціалізованого інструмента (наприклад, інтеграції MCP).",
     "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента. Будьте обережні з командами та уникайте руйнівних операцій, якщо користувач явно їх не підтвердив."
+  },
+  "sw": {
+    "param.command.description": "Mfuatano wa amri wa kutekeleza.",
+    "param.cwd.description": "Saraka ya kazi ya amri.",
+    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON. Tumia tu wakati hakuna zana salama zaidi au mahususi zaidi inayopatikana (kwa mfano, ujumuishaji wa MCP).",
+    "tool.system_prompt": "Zana hii ni suluhisho la mwisho. Itumie tu ikiwa hakuna zana nyingine inayofaa inayopatikana. Kuwa mwangalifu na amri na epuka shughuli zenye uharibifu isipokuwa mtumiaji athibitishe wazi."
   }
 }

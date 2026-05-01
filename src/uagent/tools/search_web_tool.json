@@ -286,5 +286,17 @@
     "param.query.description": "Рядок пошукового запиту.",
     "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок.",
     "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
+  },
+  "sw": {
+    "error.args_must_be_dict": "args lazima iwe dict",
+    "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo limeshindwa baada ya majaribio ya kurudia: {error}",
+    "error.missing_query_parameter": "'query' haipo",
+    "error.run_tool_error": "Hitilafu ya run_tool: {error}",
+    "param.max_results.description": "Idadi ya juu ya matokeo ya kurejesha (chaguomsingi: 5).",
+    "param.n.description": "Kisawe cha 'max_results' (kwa uoanifu wa nyuma).",
+    "param.q.description": "Kisawe cha 'query' (kwa uoanifu wa nyuma).",
+    "param.query.description": "Kamba ya hoja ya utafutaji.",
+    "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
+    "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
   }
 }

@@ -502,5 +502,26 @@
     "param.token.description": "Bearer-токен (відкритий текст). Перед збереженням буде зашифрований.",
     "tool.description": "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json).",
     "tool.system_prompt": "Працюйте зі списком профілів серверів A2A. Повертайте лише JSON."
+  },
+  "sw": {
+    "err.config_not_found": "Mipangilio haikupatikana. Endesha action=init kwanza.",
+    "err.empty_name": "Jina tupu.",
+    "err.exception": "Hitilafu",
+    "err.missing_name": "Kipengee 'name' hakipo.",
+    "err.missing_name_or_base_url": "Kipengee 'name' au 'base_url' hakipo.",
+    "err.no_default_profile": "Hakuna wasifu chaguomsingi.",
+    "err.not_found": "Haikupatikana.",
+    "err.server_missing_base_url": "Wasifu wa seva hauna base_url.",
+    "err.unknown_action": "Kitendo kisichojulikana.",
+    "param.action.description": "Kitendo: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "URL ya msingi ya seva (mfano http://127.0.0.1:8765).",
+    "param.force.description": "(init) Andika juu ya mipangilio iliyopo.",
+    "param.interval_ms.description": "Kipindi cha uchunguzi (ms).",
+    "param.name.description": "Jina la wasifu (au a2a://name kwa get/resolve).",
+    "param.set_default.description": "(add) Weka kama wasifu chaguomsingi.",
+    "param.timeout_s.description": "Muda wa kuisha wa wasifu (sekunde).",
+    "param.token.description": "Tokeni ya Bearer (maandishi wazi). Itasimbwa kwa njia fiche kabla ya kuhifadhi.",
+    "tool.description": "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json).",
+    "tool.system_prompt": "Dhibiti orodha ya wasifu za seva za A2A. Rudisha JSON pekee."
   }
 }

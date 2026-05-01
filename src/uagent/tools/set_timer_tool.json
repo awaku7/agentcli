@@ -286,5 +286,17 @@
     "param.seconds.description": "Кількість секунд таймера.",
     "tool.description": "Показує повідомлення після заданої кількості секунд. За потреби може автоматично передати повідомлення в LLM.",
     "tool.system_prompt": "Цей інструмент показує повідомлення після заданого часу і за потреби може автоматично ввести повідомлення в LLM."
+  },
+  "sw": {
+    "err.queue_uninitialized": "[set_timer kosa] callback ya event_queue haijaanzishwa.",
+    "err.seconds_invalid": "[set_timer kosa] sekunde haziwezi kufasiriwa kama nambari kamili: {raw}",
+    "err.seconds_negative": "[set_timer kosa] sekunde lazima ziwe 0 au zaidi: {val}",
+    "msg.default_timer_done": "Kipima muda kimekamilika",
+    "out.ok": "[set_timer] Kipima muda kimewekwa kwa sekunde {seconds}: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Ujumbe wa kuonyesha baada ya kukamilika.",
+    "param.on_timeout_prompt.description": "Maudhui yatakayoingizwa kiotomatiki kwenye LLM muda ukiisha.",
+    "param.seconds.description": "Idadi ya sekunde za kipima muda.",
+    "tool.description": "Huonyesha ujumbe baada ya sekunde fulani. Pia inaweza kutuma ujumbe wa moja kwa moja kwa LLM.",
+    "tool.system_prompt": "Tumia zana hii kuonyesha ujumbe baada ya muda uliobainishwa na, ikihitajika, kutuma ujumbe wa moja kwa moja kwa LLM."
   }
 }

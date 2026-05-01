@@ -262,5 +262,16 @@
     "param.template.description": "Шаблон формату Python. Приклад: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Створює рядок запиту з файла за допомогою шаблону формату Python. Шаблон може посилатися на змінні на кшталт {content}, {lines}, {bytes}, {basename}, {path}.",
     "tool.system_prompt": "Зчитайте текстовий файл у workdir і згенеруйте рядок запиту, застосувавши шаблон (Python str.format).\nДоступні змінні шаблону:\n- content: повний вміст файла (текст)\n- lines: кількість рядків\n- bytes: розмір файла в байтах\n- basename: базова назва файла\n- path: абсолютний розв’язаний шлях"
+  },
+  "sw": {
+    "err.bad_template": "[hitilafu generate_prompt] kiolezo kina ufunguo usiojulikana: {key}",
+    "err.not_a_file": "[hitilafu generate_prompt] si faili: {path}",
+    "err.path_missing": "[hitilafu generate_prompt] njia/jina la faili halijabainishwa",
+    "err.template_missing": "[hitilafu generate_prompt] kiolezo hakijabainishwa",
+    "param.filename.description": "(Uoanishaji) Jina lingine la path.",
+    "param.path.description": "Njia ya faili la ingizo (lazima liwe chini ya workdir).",
+    "param.template.description": "Kiolezo cha umbizo la Python. Mfano: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Tengeneza kamba ya prompt kutoka kwa faili kwa kutumia kiolezo cha umbizo la Python. Kiolezo kinaweza kurejelea vigeu kama {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Soma faili la maandishi chini ya workdir na tengeneza kamba ya prompt kwa kutumia kiolezo (Python str.format).\nVigeu vinavyopatikana kwenye kiolezo:\n- content: maudhui yote ya faili (maandishi)\n- lines: idadi ya mistari\n- bytes: ukubwa wa faili kwa baiti\n- basename: jina la msingi la faili\n- path: njia kamili iliyotatuliwa"
   }
 }

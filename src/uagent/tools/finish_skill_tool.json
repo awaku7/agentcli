@@ -103,5 +103,10 @@
     "param.message.description": "Необовʼязкове завершальне повідомлення для користувача.",
     "tool.description": "Позначає, що завдання поточної навички виконано. (Використовуйте ЛИШЕ під час виконання навички на основі SKILL.md). Це видаляє інструкції навички та запобігає нескінченним циклам.",
     "tool.system_prompt": "Використовуйте цей інструмент, коли навичку за SKILL.md завершено, щоб інструкції було видалено й уникнено нескінченних циклів."
+  },
+  "sw": {
+    "param.message.description": "Ujumbe wa mwisho wa hiari kwa mtumiaji.",
+    "tool.description": "Huonyesha kuwa majukumu ya skill ya sasa yamekamilika. (Tumia tu wakati wa utekelezaji wa skill kulingana na SKILL.md). Hii huondoa maagizo ya skill na huzuia mizunguko isiyoisha.",
+    "tool.system_prompt": "Tumia zana hii wakati skill inayofuata SKILL.md imekamilika, ili maagizo yaondolewe na mizunguko isiyoisha yazuiwe."
   }
 }

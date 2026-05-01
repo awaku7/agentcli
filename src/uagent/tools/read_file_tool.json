@@ -247,9 +247,9 @@
     "param.max_lines.description": "الحد الأقصى لعدد الأسطر المراد قراءتها. إذا كانت null، فاقرأ حتى نهاية الملف.",
     "param.path.description": "(للتوافق) اسم بديل لاسم الملف.",
     "param.start_line.description": "رقم السطر (يبدأ من 1) لبدء القراءة. الافتراضي هو 1.",
-    "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية. لا يمكن تحديدها في نفس الوقت مع خطوط_الرأس.",
+    "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية. لا يمكن تحديدها في نفس الوقت مع head_lines.",
     "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت). يمكن القراءة الجزئية عبر start_line و max_lines.",
-    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- يتم تطبيع أسطر السطر الجديد تلقائيًا."
+    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- تتم تسوية فواصل الأسطر تلقائيًا."
   },
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
@@ -334,5 +334,19 @@
     "param.tail_lines.description": "Кількість рядків для читання з кінця. Не можна вказувати одночасно з head_lines.",
     "tool.description": "Читає вміст файла (до 1 000 000 байтів). Часткове читання можливе через start_line і max_lines.",
     "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються."
+  },
+  "sw": {
+    "err.dual_lines": "[hitilafu read_file] head_lines na tail_lines haviwezi kutolewa kwa wakati mmoja.",
+    "err.filename_missing": "[hitilafu read_file] jina la faili/njia halijatolewa.",
+    "err.out_of_range": "(Faili lina mistari {count} pekee. start_line {start_line} iko nje ya masafa)",
+    "msg.truncated": "[read_file imekatizwa: kikomo cha baiti {max_bytes} kimefikiwa]",
+    "param.filename.description": "Njia ya faili la kusoma.",
+    "param.head_lines.description": "Idadi ya mistari ya kusoma kuanzia mwanzo. Haiwezi kutolewa pamoja na tail_lines.",
+    "param.max_lines.description": "Idadi ya juu ya mistari ya kusoma. Ikiwa null, soma hadi mwisho.",
+    "param.path.description": "(Kwa uoanifu) Jina jingine la filename.",
+    "param.start_line.description": "Nambari ya mstari wa kuanzia kusoma (kuanzia 1). Chaguomsingi ni 1.",
+    "param.tail_lines.description": "Idadi ya mistari ya kusoma kuanzia mwisho. Haiwezi kutolewa pamoja na head_lines.",
+    "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000). Unaweza kusoma kwa sehemu kwa kutumia start_line na max_lines.",
+    "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki."
   }
 }

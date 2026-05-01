@@ -190,5 +190,13 @@
     "param.return.description": "Формат виводу.",
     "tool.description": "Обчислює хеш файлів (sha256/sha1/md5).",
     "tool.system_prompt": "Цей інструмент обчислює хеші файлів (sha256/sha1/md5)."
+  },
+  "sw": {
+    "param.algo.description": "Algoriti ya hashing.",
+    "param.chunk_size.description": "Ukubwa wa chunk ya kusoma (bytes).",
+    "param.paths.description": "Safu ya njia za faili lengwa.",
+    "param.return.description": "Muundo wa matokeo.",
+    "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
+    "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
   }
 }

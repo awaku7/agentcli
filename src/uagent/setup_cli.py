@@ -176,7 +176,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
 
 RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama"}
 
-LANG_PRESETS = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr"]
+LANG_PRESETS = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr", "sw"]
 
 IMAGE_ANALYSIS_PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI-compatible"),

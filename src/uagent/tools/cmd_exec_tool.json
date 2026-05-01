@@ -118,5 +118,10 @@
     "param.command.description": "Рядок команди для виконання.",
     "tool.description": "Як крайній захід, виконує команду Windows. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад Python або MCP.",
     "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента."
+  },
+  "sw": {
+    "param.command.description": "Mfuatano wa amri wa kutekeleza.",
+    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya Windows. Tumia tu wakati hakuna zana nyingine inayofaa, kama Python au MCP, inayopatikana.",
+    "tool.system_prompt": "Hii ni suluhisho la mwisho. Tumia tu ikiwa hakuna zana nyingine inayofaa inayopatikana."
   }
 }

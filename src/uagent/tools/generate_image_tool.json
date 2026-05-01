@@ -198,5 +198,30 @@
     "err.no_saved": "[generate_image] Дані зображення були порожніми",
     "ok.generated_one": "[OK] створено: {path}",
     "ok.generated_many": "[OK] створено:\n{paths}"
+  },
+  "sw": {
+    "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili. Kufungua kunashughulikiwa na mwitaji (CLI/GUI/Web).",
+    "tool.system_prompt": "Tengeneza picha kutoka kwa prompt uliyopewa. Ihifadhi kama PNG na urudishe tu njia ya faili iliyohifadhiwa.",
+    "param.prompt.description": "Maelekezo (prompt) kwa picha unayotaka kutengeneza.",
+    "param.size.description": "Ukubwa wa picha. Mfano: 1024x1024 / 1024x1536 / 1536x1024",
+    "param.n.description": "Idadi ya picha za kutengeneza (sasa inashauriwa 1).",
+    "param.output_dir.description": "Saraka ya kuhifadhi picha (ya ndani au kamili). Ikiachwa wazi, outputs/image_generations itatumika.",
+    "param.file_prefix.description": "Kianzio cha jina la faili lililohifadhiwa (hiari).",
+    "err.invalid_provider": "provider batili kwa utengenezaji wa picha: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
+    "err.required_env_vars_missing": "mabadiliko ya mazingira yanayohitajika hayapo (yaliyotafutwa: {keys})",
+    "err.openai_import": "Imeshindikana kuingiza kifurushi cha openai: {err}",
+    "err.httpx_unavailable": "httpx haipatikani",
+    "err.httpx_init": "Imeshindikana kuanzisha httpx: {err}",
+    "err.empty_data": "Data ya picha ilikuwa tupu (resp.data haipo au b64_json/url haipo)",
+    "err.gemini_import": "Imeshindikana kuingiza google-genai (pip install google-genai): {err}",
+    "err.gemini_fail": "Imeshindikana kupata matokeo ya utengenezaji wa picha kutoka Gemini. Huenda modeli haiungi mkono utengenezaji wa picha, au muundo wa jibu la SDK ni usiotarajiwa.",
+    "err.prompt_empty": "[generate_image] prompt ni tupu",
+    "err.depname_missing": "[generate_image] Modeli ya picha (deployment name) haijawekwa.\nWeka mabadiliko ya mazingira UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "err.mkdir_fail": "[generate_image] Imeshindikana kuunda output_dir: {err}",
+    "err.unsupported_provider": "[generate_image] provider haitumiki: {provider!r}",
+    "err.gen_fail": "[generate_image] Utengenezaji wa picha umeshindikana.\nprovider={provider} model={model} size={size} n={n}\n{err}",
+    "err.no_saved": "[generate_image] Data ya picha ilikuwa tupu",
+    "ok.generated_one": "[OK] imetengenezwa: {path}",
+    "ok.generated_many": "[OK] zimetengenezwa:\n{paths}"
   }
 }

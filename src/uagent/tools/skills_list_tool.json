@@ -190,5 +190,13 @@
     "param.strict.description": "Чи вважати попередження помилками під час перевірки специфікації (типово: false)",
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.md). Якщо root_dir не вказано, сканує UAGENT_SKILLS_DIRS або ./skills.",
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
+  },
+  "sw": {
+    "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.md unashindwa (chaguomsingi: true). Ikiwa false, skills zilizoshindwa zitaondolewa.",
+    "param.recursive.description": "Tafuta kwa kujirudia (chaguomsingi: true)",
+    "param.root_dir.description": "Mzizi wa kutafuta skills. Ikiwa tupu au haujabainishwa, UAGENT_SKILLS_DIRS (ikitenganishwa kwa os.pathsep) itatumika; ikiwa haijabainishwa, ./skills itatumika.",
+    "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha maelezo (chaguomsingi: false)",
+    "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
   }
 }

@@ -430,5 +430,23 @@
     "param.wait_s.description": "Скільки часу чекати на відповіді після надсилання (у секундах).",
     "tool.description": "Працює з окремим каналом Discord за допомогою токена бота: надсилає повідомлення, читає нещодавні повідомлення та за потреби чекає на відповіді після надсилання.",
     "tool.system_prompt": "Використовуйте цей інструмент для взаємодії з каналом Discord через REST API. Токен бота потрібно надати через змінну середовища. Повертайте лише JSON."
+  },
+  "sw": {
+    "err.exception": "Hitilafu",
+    "err.invalid_action": "Kitendo batili: {action}",
+    "err.message_too_long": "Ujumbe wa Discord lazima usizidi herufi 2000.",
+    "err.missing_action": "Kipengee 'action' hakipo.",
+    "err.missing_channel_id": "Kipengee 'channel_id' hakipo.",
+    "err.missing_message": "Kipengee 'message' hakipo.",
+    "param.action.description": "Kitendo: send / send_and_wait / history",
+    "param.channel_id.description": "Kitambulisho cha chaneli lengwa ya Discord.",
+    "param.exclude_bots.description": "Unaposubiri, puuza ujumbe wa bot.",
+    "param.limit.description": "Idadi ya ujumbe wa kuchukua kwa historia/majibu.",
+    "param.message.description": "Ujumbe wa kutuma kwa vitendo send/send_and_wait.",
+    "param.poll_interval_s.description": "Muda wa kuchuja majibu (sekunde).",
+    "param.token_env.description": "Jina la kigezo cha mazingira kinachohifadhi tokeni ya bot ya Discord.",
+    "param.wait_s.description": "Muda wa kusubiri majibu baada ya kutuma (sekunde).",
+    "tool.description": "Wasiliana na chaneli mahususi ya Discord kwa kutumia tokeni ya bot: tuma ujumbe, soma ujumbe wa hivi karibuni, na kwa hiari subiri majibu baada ya kutuma.",
+    "tool.system_prompt": "Tumia zana hii kuwasiliana na chaneli ya Discord kupitia REST API. Tokeni ya bot lazima itolewe kupitia kigezo cha mazingira. Rudisha JSON pekee."
   }
 }

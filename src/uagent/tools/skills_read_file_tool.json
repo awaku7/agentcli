@@ -262,5 +262,16 @@
     "param.skill_dir.description": "каталог skill",
     "tool.description": "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано.",
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
+  },
+  "sw": {
+    "err.invalid_args": "[hitilafu ya zana] hoja batili",
+    "err.max_bytes_positive": "[hitilafu ya zana] max_bytes lazima iwe nambari kamili chanya",
+    "err.relative_path_required": "[hitilafu ya zana] relative_path lazima iwe mfuatano usio tupu",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
+    "param.max_bytes.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)",
+    "param.relative_path.description": "Njia ya jamaa kutoka mzizi wa skill (mfano: references/REFERENCE.md)",
+    "param.skill_dir.description": "saraka ya skill",
+    "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   }
 }

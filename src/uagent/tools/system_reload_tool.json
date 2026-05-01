@@ -94,5 +94,9 @@
   "uk": {
     "tool.description": "Перезавантажує систему та завантажує в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: перезавантажити систему та завантажити в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду."
+  },
+  "sw": {
+    "tool.description": "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo.",
+    "tool.system_prompt": "Tumia zana hii kupakia upya mfumo na kuingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo."
   }
 }

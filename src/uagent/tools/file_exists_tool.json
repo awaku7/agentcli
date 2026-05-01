@@ -142,5 +142,11 @@
     "param.path.description": "Шлях до файла або каталогу, існування якого ви хочете перевірити (~ також можна використовувати).",
     "tool.description": "Перевіряє, чи існує файл або каталог за вказаним шляхом, і, якщо так, повертає його тип, розмір і час зміни.",
     "tool.system_prompt": "Використовуйте цей інструмент, щоб перевірити, чи існує файл або каталог за вказаним шляхом, і, якщо так, повернути його тип, розмір і час зміни."
+  },
+  "sw": {
+    "err.path_empty": "[file_exists error] path iko tupu",
+    "param.path.description": "Njia ya faili au saraka unayotaka kuangalia uwepo wake (~ pia inaweza kutumika).",
+    "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
+    "tool.system_prompt": "Tumia zana hii kuangalia kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, rudisha aina yake, ukubwa na muda wa mwisho kubadilishwa."
   }
 }

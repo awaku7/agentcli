@@ -238,5 +238,15 @@
     "param.top_n.description": "Кількість найкращих результатів для повернення.",
     "tool.description": "Шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями.",
     "tool.system_prompt": "Цей інструмент шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями."
+  },
+  "sw": {
+    "param.exclude_dirs.description": "Majina ya saraka za kuondoa (hutolewa kulingana na jina la saraka).",
+    "param.group_by_ext.description": "Rudisha pia takwimu zilizogawanywa kwa kiendelezi cha faili.",
+    "param.max_files.description": "Idadi ya juu ya faili za kuchanganua (kuzuia uchakataji usio na kikomo).",
+    "param.min_bytes.description": "Jumuisha tu faili zilizo kubwa kuliko ukubwa huu (chaguo-msingi: 10 MB).",
+    "param.root.description": "Mzizi wa utafutaji (unaruhusiwa tu chini ya workdir).",
+    "param.top_n.description": "Idadi ya matokeo ya juu ya kurudisha.",
+    "tool.description": "Tafuta faili kubwa chini ya saraka iliyobainishwa na urudishe matokeo ya juu N pamoja na takwimu kwa kiendelezi.",
+    "tool.system_prompt": "Zana hii hutafuta faili kubwa chini ya saraka iliyobainishwa na kurudisha matokeo ya juu N pamoja na takwimu kwa kiendelezi."
   }
 }

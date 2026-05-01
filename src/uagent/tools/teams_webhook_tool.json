@@ -334,5 +334,19 @@
     "param.timeout_s.description": "Час очікування запиту в секундах.",
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
+  },
+  "sw": {
+    "tool.description": "Tuma ujumbe au payload ya JSON inayoendana na webhook kwenda kwenye URL ya Microsoft Teams Incoming Webhook iliyohifadhiwa kwenye kigezo cha mazingira.",
+    "tool.system_prompt": "Tuma payload kwenda Microsoft Teams Incoming Webhook. Rudisha JSON pekee.",
+    "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams. Hutumika kama maandishi ya kawaida isipokuwa sehemu za kadi zimetolewa.",
+    "param.title.description": "Kichwa cha kadi kwa payload zinazotumika na webhook.",
+    "param.summary.description": "Muhtasari wa kadi kwa payload zinazotumika na webhook.",
+    "param.image_url.description": "URL ya picha kwa payload zinazotumika na webhook.",
+    "param.theme_color.description": "Rangi ya mandhari ya kadi kama mfuatano wa hex bila #.",
+    "param.payload_json.description": "Payload ghafi ya webhook kama mfuatano wa JSON au kitu. Ikitolewa, hutumwa kama ilivyo.",
+    "param.webhook_env.description": "Jina la kigezo cha mazingira kinachohifadhi URL ya webhook ya Teams.",
+    "param.timeout_s.description": "Muda wa kusubiri ombi kwa sekunde.",
+    "err.missing_message": "Pungufu la 'message'.",
+    "err.exception": "Hitilafu"
   }
 }
