@@ -3,13 +3,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-25 11:15+0900\n"
+"POT-Creation-Date: 2026-05-01 11:05+0900\n"
 "PO-Revision-Date: 2026-04-27 00:00+0000\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
@@ -65,13 +65,13 @@ msgstr ""
 "(Fler­radsinmatning: skriv innehållet på flera rader; för att börja om, "
 "skriv \"\"\"retry; avsluta med en rad som innehåller %(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:828
-#: src/uagent/setup_cli.py:847 src/uagent/setup_cli.py:870
-#: src/uagent/setup_cli.py:886 src/uagent/setup_cli.py:905
-#: src/uagent/setup_cli.py:924 src/uagent/setup_cli.py:938
-#: src/uagent/setup_cli.py:951 src/uagent/setup_cli.py:959
-#: src/uagent/setup_cli.py:971 src/uagent/setup_cli.py:982
-#: src/uagent/setup_cli.py:1067 src/uagent/setup_cli.py:1093
+#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
+#: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
+#: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
+#: src/uagent/setup_cli.py:969 src/uagent/setup_cli.py:977
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1000
+#: src/uagent/setup_cli.py:1085 src/uagent/setup_cli.py:1111
 msgid "Cancelled."
 msgstr "Avbruten."
 
@@ -106,7 +106,7 @@ msgstr ""
 "Bekräftelse av bildsändning misslyckades; skickar inte bilder: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:351
+#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kunde inte bifoga bild: %(path)s (%(etype)s: %(err)s)"
@@ -124,7 +124,7 @@ msgstr "uag avslutades."
 msgid "[docs] name is required"
 msgstr "[docs] namn krävs"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:842
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:1018
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Kunde inte ställa in arbetskatalog: %(err)s"
@@ -134,24 +134,24 @@ msgstr "[FATAL] Kunde inte ställa in arbetskatalog: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Kunde inte starta uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:178
-#: src/uagent/web.py:590
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM-leverantör = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:182
-#: src/uagent/web.py:592
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "modell(distribution) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:192
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-reservmodeller aktiverade."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:233
-#: src/uagent/web.py:580
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
 "ignored)"
@@ -169,22 +169,22 @@ msgstr ""
 " inte Responses API. Faller tillbaka till ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:239 src/uagent/web.py:586
+#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM-API-läge = ChatCompletions (UAGENT_RESPONSES är inaktiverat)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:227
-#: src/uagent/web.py:574
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM-API-läge = Responses (UAGENT_RESPONSES är aktiverat)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:248
-#: src/uagent/web.py:605
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Långtidsminne laddat."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:261
-#: src/uagent/web.py:617
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Delat långtidsminne laddat."
 
@@ -222,12 +222,12 @@ msgstr "loggar: visar %(shown)d/%(total)d (katalog=%(dir)s)"
 msgid "Log files:"
 msgstr "Loggfiler:"
 
-#: src/uagent/core.py:1273
+#: src/uagent/core.py:1280
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (hjälp inte tillgänglig: %(err)s)"
 
-#: src/uagent/core.py:1285
+#: src/uagent/core.py:1292
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -242,23 +242,23 @@ msgstr ""
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
 "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-
-#: src/uagent/core.py:1293
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
 
 #: src/uagent/core.py:1300
 msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+
+#: src/uagent/core.py:1307
+msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
@@ -279,7 +279,7 @@ msgstr ""
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 
-#: src/uagent/core.py:1311
+#: src/uagent/core.py:1318
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -294,37 +294,37 @@ msgstr ""
 "- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
 "- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-
-#: src/uagent/core.py:1319
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
-msgstr ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 
 #: src/uagent/core.py:1326
 msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 
 #: src/uagent/core.py:1333
 msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+
+#: src/uagent/core.py:1340
+msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- If required info/parameters are missing, ask via human_ask (do not guess).\n"
@@ -343,7 +343,7 @@ msgstr ""
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 
-#: src/uagent/core.py:1345
+#: src/uagent/core.py:1352
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -353,7 +353,7 @@ msgstr ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 
-#: src/uagent/core.py:1412
+#: src/uagent/core.py:1419
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -481,6 +481,11 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
+#: src/uagent/llm_message_helpers.py:149
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[VARNING] Auto shrink_llm misslyckades: %(err)s"
+
 #: src/uagent/llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
@@ -498,8 +503,32 @@ msgstr ""
 "        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:217
-#: src/uagent/web.py:565
+#: src/uagent/llm_round_helpers.py:111
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Översättningsfel] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
+#: src/uagent/llm_round_helpers.py:595
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429-omförsöksgränsen (%(max_retries)s) har nåtts."
+
+#: src/uagent/llm_round_helpers.py:193
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini-fel] Ett fel uppstod när ett svar genererades."
+
+#: src/uagent/llm_round_helpers.py:285
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude-fel] Ett fel uppstod när ett svar genererades."
+
+#: src/uagent/llm_round_helpers.py:679
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Fel vid tolkning av svar: %(err)s"
+
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/web.py:621
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -528,91 +557,108 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
 
-#: src/uagent/scheckgui.py:270 src/uagent/web.py:626
+#: src/uagent/scheckgui.py:115
+msgid "ここにファイル/画像をドラッグ＆ドロップ"
+msgstr ""
+
+#: src/uagent/scheckgui.py:153
+msgid "Download"
+msgstr "Ladda ner"
+
+#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Exception occurred while loading shared long-term memory: %(err)s"
 
-#: src/uagent/scheckgui.py:476 src/uagent/scheckgui.py:569
+#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
 msgid "Welcome / Quick Guide"
 msgstr "Välkommen / snabbguide"
 
-#: src/uagent/scheckgui.py:484
+#: src/uagent/scheckgui.py:608
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (extrem stabilitet)"
 
-#: src/uagent/scheckgui.py:530
+#: src/uagent/scheckgui.py:651
+msgid "↑ Drag&Dropで添付できます"
+msgstr ""
+
+#: src/uagent/scheckgui.py:672
 msgid "Send"
 msgstr "Skicka"
 
-#: src/uagent/scheckgui.py:568
+#: src/uagent/scheckgui.py:712
 msgid "Help"
 msgstr "Hjälp"
 
-#: src/uagent/scheckgui.py:583
+#: src/uagent/scheckgui.py:727
 msgid "Mode"
 msgstr "Läge"
 
-#: src/uagent/scheckgui.py:585
+#: src/uagent/scheckgui.py:729
 msgid "Reasoning: off"
 msgstr "Resonemang: av"
 
-#: src/uagent/scheckgui.py:588
+#: src/uagent/scheckgui.py:732
 msgid "Reasoning: auto"
 msgstr "Resonemang: auto"
 
-#: src/uagent/scheckgui.py:590
+#: src/uagent/scheckgui.py:734
 msgid "Reasoning: minimal"
 msgstr "Resonemang: minimal"
 
-#: src/uagent/scheckgui.py:592
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: low"
 msgstr "Resonemang: låg"
 
-#: src/uagent/scheckgui.py:594
+#: src/uagent/scheckgui.py:738
 msgid "Reasoning: medium"
 msgstr "Resonemang: medel"
 
-#: src/uagent/scheckgui.py:596
+#: src/uagent/scheckgui.py:740
 msgid "Reasoning: high"
 msgstr "Resonemang: hög"
 
-#: src/uagent/scheckgui.py:599
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: xhigh"
 msgstr "Resonemang: mycket hög"
 
-#: src/uagent/scheckgui.py:604
+#: src/uagent/scheckgui.py:748
 msgid "Verbosity: off"
 msgstr "Utförlighet: av"
 
-#: src/uagent/scheckgui.py:606
+#: src/uagent/scheckgui.py:750
 msgid "Verbosity: low"
 msgstr "Utförlighet: låg"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:752
 msgid "Verbosity: medium"
 msgstr "Utförlighet: medel"
 
-#: src/uagent/scheckgui.py:610
+#: src/uagent/scheckgui.py:754
 msgid "Verbosity: high"
 msgstr "Utförlighet: hög"
 
-#: src/uagent/scheckgui.py:640
+#: src/uagent/scheckgui.py:784
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[läge] resonemang=%(mode)s"
 
-#: src/uagent/scheckgui.py:761
+#: src/uagent/scheckgui.py:910
 msgid "Enter password..."
 msgstr "Ange lösenord..."
 
-#: src/uagent/scheckgui.py:763
+#: src/uagent/scheckgui.py:912
 msgid "Enter response for human_ask..."
 msgstr "Ange svar för human_ask..."
 
-#: src/uagent/scheckgui.py:768
+#: src/uagent/scheckgui.py:917
 msgid "Enter a message..."
 msgstr "Ange ett meddelande..."
+
+#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
+#: src/uagent/scheckgui.py:1305
+msgid "Downloaded to"
+msgstr "Nedladdad till"
 
 #: src/uagent/setup_cli.py:28
 msgid "# .env for uag (generated by `uag_setup`)"
@@ -890,57 +936,62 @@ msgstr "NVIDIA-modell/distributionsnamn"
 msgid "%(label)s"
 msgstr "%(label)s"
 
-#: src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:511
+#, fuzzy
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Välj leverantör för bildgenerering"
+
+#: src/uagent/setup_cli.py:526
 msgid "Configure optional image / embedding settings?"
 msgstr "Konfigurera valfria bild-/embeddinginställningar?"
 
-#: src/uagent/setup_cli.py:515 src/uagent/setup_cli.py:530
-#: src/uagent/setup_cli.py:562 src/uagent/setup_cli.py:593
-#: src/uagent/setup_cli.py:609 src/uagent/setup_cli.py:641
-#: src/uagent/setup_cli.py:804 src/uagent/setup_cli.py:865
-#: src/uagent/setup_cli.py:919 src/uagent/setup_cli.py:946
-#: src/uagent/setup_cli.py:1090
+#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
+#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
+#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
+#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
+#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
+#: src/uagent/setup_cli.py:1108
 msgid "No"
 msgstr "Nej"
 
-#: src/uagent/setup_cli.py:515 src/uagent/setup_cli.py:530
-#: src/uagent/setup_cli.py:562 src/uagent/setup_cli.py:593
-#: src/uagent/setup_cli.py:609 src/uagent/setup_cli.py:641
-#: src/uagent/setup_cli.py:804 src/uagent/setup_cli.py:865
-#: src/uagent/setup_cli.py:919 src/uagent/setup_cli.py:946
-#: src/uagent/setup_cli.py:1090
+#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
+#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
+#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
+#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
+#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
+#: src/uagent/setup_cli.py:1108
 msgid "Yes"
 msgstr "Ja"
 
-#: src/uagent/setup_cli.py:529
+#: src/uagent/setup_cli.py:541
 msgid "Configure image analysis settings?"
 msgstr "Konfigurera inställningar för bildanalys?"
 
-#: src/uagent/setup_cli.py:540
+#: src/uagent/setup_cli.py:552
 msgid "Select image analysis provider"
 msgstr "Välj leverantör för bildanalys"
 
-#: src/uagent/setup_cli.py:561
+#: src/uagent/setup_cli.py:573
 msgid "Configure image generation settings?"
 msgstr "Konfigurera inställningar för bildgenerering?"
 
-#: src/uagent/setup_cli.py:572
+#: src/uagent/setup_cli.py:584
 msgid "Select image generation provider"
 msgstr "Välj leverantör för bildgenerering"
 
-#: src/uagent/setup_cli.py:592
+#: src/uagent/setup_cli.py:604
 msgid "Open generated images automatically?"
 msgstr "Öppna genererade bilder automatiskt?"
 
-#: src/uagent/setup_cli.py:608
+#: src/uagent/setup_cli.py:620
 msgid "Configure embedding / semantic search settings?"
 msgstr "Konfigurera embedding-/semantiksökinställningar?"
 
-#: src/uagent/setup_cli.py:640
+#: src/uagent/setup_cli.py:652
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr "Inaktivera semantisk sökning när embedding-API:t inte kan nås?"
 
-#: src/uagent/setup_cli.py:681
+#: src/uagent/setup_cli.py:693
 msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
@@ -948,256 +999,218 @@ msgstr ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 
-#: src/uagent/setup_cli.py:694
+#: src/uagent/setup_cli.py:706
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
-#: src/uagent/setup_cli.py:705
+#: src/uagent/setup_cli.py:717
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "Valfritt: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:715
+#: src/uagent/setup_cli.py:727
 msgid "# (not supported by selected provider)"
 msgstr "# (stöds inte av vald leverantör)"
 
-#: src/uagent/setup_cli.py:718
+#: src/uagent/setup_cli.py:730
 msgid "Optional runtime"
 msgstr "Valfri körning"
 
-#: src/uagent/setup_cli.py:730
+#: src/uagent/setup_cli.py:742
 msgid "Optional image / embedding settings"
 msgstr "Valfria bild-/embeddinginställningar"
 
-#: src/uagent/setup_cli.py:795
+#: src/uagent/setup_cli.py:813
 msgid "# (optional image / embedding settings not configured)"
 msgstr "# (valfria bild-/embeddinginställningar är inte konfigurerade)"
 
-#: src/uagent/setup_cli.py:803
+#: src/uagent/setup_cli.py:821
 msgid "Encrypt the generated .env file?"
 msgstr "Kryptera den genererade .env-filen?"
 
-#: src/uagent/setup_cli.py:809
+#: src/uagent/setup_cli.py:827
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "Den krypterade filen skrivs som %(path)s"
 
-#: src/uagent/setup_cli.py:825
+#: src/uagent/setup_cli.py:843
 msgid "Select provider"
 msgstr "Välj leverantör"
 
-#: src/uagent/setup_cli.py:864
+#: src/uagent/setup_cli.py:882
 msgid "Enable Responses API options?"
 msgstr "Aktivera Responses API-alternativ?"
 
-#: src/uagent/setup_cli.py:880
+#: src/uagent/setup_cli.py:898
 msgid "Select reasoning"
 msgstr "Välj resonemang"
 
-#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:891
+#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:909
 msgid "minimal"
 msgstr "minimal"
 
-#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:892
-#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:910
+#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
 msgid "low"
 msgstr "låg"
 
-#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:893
-#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:911
+#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
 msgid "medium"
 msgstr "medel"
 
-#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:894
-#: src/uagent/setup_cli.py:900 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:912
+#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
 msgid "high"
 msgstr "hög"
 
-#: src/uagent/setup_cli.py:881 src/uagent/setup_cli.py:895
+#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:913
 msgid "auto"
 msgstr "auto"
 
-#: src/uagent/setup_cli.py:899
+#: src/uagent/setup_cli.py:917
 msgid "Select verbosity"
 msgstr "Välj utförlighet"
 
-#: src/uagent/setup_cli.py:918
+#: src/uagent/setup_cli.py:936
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "Ange valfri körningsinställning UAGENT_WORKDIR?"
 
-#: src/uagent/setup_cli.py:945
+#: src/uagent/setup_cli.py:963
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Ange valfri körningsinställning UAGENT_LANG?"
 
-#: src/uagent/setup_cli.py:994
+#: src/uagent/setup_cli.py:1012
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: src/uagent/setup_cli.py:995
+#: src/uagent/setup_cli.py:1013
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  Leverantör: %(provider)s"
 
-#: src/uagent/setup_cli.py:998
+#: src/uagent/setup_cli.py:1016
 #, python-format
 msgid "  %(key)s=%(value)s"
 msgstr "  %(key)s=%(value)s"
 
-#: src/uagent/setup_cli.py:1002
+#: src/uagent/setup_cli.py:1020
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  Responses aktiverat: %(state)s"
 
-#: src/uagent/setup_cli.py:1003 src/uagent/setup_cli.py:1010
-#: src/uagent/setup_cli.py:1016 src/uagent/setup_cli.py:1022
-#: src/uagent/setup_cli.py:1027 src/uagent/setup_cli.py:1035
-#: src/uagent/setup_cli.py:1046
+#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
+#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
+#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
+#: src/uagent/setup_cli.py:1064
 msgid "yes"
 msgstr "ja"
 
-#: src/uagent/setup_cli.py:1003 src/uagent/setup_cli.py:1010
-#: src/uagent/setup_cli.py:1016 src/uagent/setup_cli.py:1022
-#: src/uagent/setup_cli.py:1027 src/uagent/setup_cli.py:1035
-#: src/uagent/setup_cli.py:1046
+#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
+#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
+#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
+#: src/uagent/setup_cli.py:1064
 msgid "no"
 msgstr "nej"
 
-#: src/uagent/setup_cli.py:1006
+#: src/uagent/setup_cli.py:1024
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
 msgstr "  UAGENT_REASONING=%(value)s"
 
-#: src/uagent/setup_cli.py:1007
+#: src/uagent/setup_cli.py:1025
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
 msgstr "  UAGENT_VERBOSITY=%(value)s"
 
-#: src/uagent/setup_cli.py:1009
+#: src/uagent/setup_cli.py:1027
 #, python-format
 msgid "  UAGENT_WORKDIR enabled: %(state)s"
 msgstr "  UAGENT_WORKDIR aktiverat: %(state)s"
 
-#: src/uagent/setup_cli.py:1013
+#: src/uagent/setup_cli.py:1031
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
 msgstr "  UAGENT_WORKDIR=%(value)s"
 
-#: src/uagent/setup_cli.py:1015
+#: src/uagent/setup_cli.py:1033
 #, python-format
 msgid "  UAGENT_LANG enabled: %(state)s"
 msgstr "  UAGENT_LANG aktiverat: %(state)s"
 
-#: src/uagent/setup_cli.py:1019
+#: src/uagent/setup_cli.py:1037
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
 msgstr "  UAGENT_LANG=%(value)s"
 
-#: src/uagent/setup_cli.py:1021
+#: src/uagent/setup_cli.py:1039
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  Valfria tillägg aktiverade: %(state)s"
 
-#: src/uagent/setup_cli.py:1026
+#: src/uagent/setup_cli.py:1044
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  Bildanalys aktiverad: %(state)s"
 
-#: src/uagent/setup_cli.py:1034
+#: src/uagent/setup_cli.py:1052
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  Bildgenerering aktiverad: %(state)s"
 
-#: src/uagent/setup_cli.py:1045
+#: src/uagent/setup_cli.py:1063
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  Embedding aktiverat: %(state)s"
 
-#: src/uagent/setup_cli.py:1058
+#: src/uagent/setup_cli.py:1076
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  Utdata: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1061
+#: src/uagent/setup_cli.py:1079
 msgid "Generate files with this configuration?"
 msgstr "Generera filer med denna konfiguration?"
 
-#: src/uagent/setup_cli.py:1062
+#: src/uagent/setup_cli.py:1080
 msgid "Yes, generate"
 msgstr "Ja, generera"
 
-#: src/uagent/setup_cli.py:1062
+#: src/uagent/setup_cli.py:1080
 msgid "Back"
 msgstr "Tillbaka"
 
-#: src/uagent/setup_cli.py:1086
+#: src/uagent/setup_cli.py:1104
 msgid "The following files already exist and will be overwritten:"
 msgstr "Följande filer finns redan och kommer att skrivas över:"
 
-#: src/uagent/setup_cli.py:1090
+#: src/uagent/setup_cli.py:1108
 msgid "Proceed?"
 msgstr "Fortsätta?"
 
-#: src/uagent/setup_cli.py:1114
+#: src/uagent/setup_cli.py:1132
 msgid "Plain .env file removed after encryption."
 msgstr "Okrypterad .env-fil togs bort efter kryptering."
 
-#: src/uagent/setup_cli.py:1117
+#: src/uagent/setup_cli.py:1135
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "Varning: Kunde inte ta bort okrypterad .env: %(error)s"
 
-#: src/uagent/setup_cli.py:1136
+#: src/uagent/setup_cli.py:1154
 #, python-format
 msgid "generated: %(path)s"
 msgstr "genererad: %(path)s"
 
-#: src/uagent/setup_cli.py:1139
+#: src/uagent/setup_cli.py:1157
 msgid "- env.ps1 : utf-8-sig, CRLF"
 msgstr "- env.ps1 : utf-8-sig, CRLF"
 
-#: src/uagent/setup_cli.py:1141
+#: src/uagent/setup_cli.py:1159
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:70
-msgid "[SSL Info] certifi is not available"
-msgstr "[SSL-info] certifi är inte tillgängligt"
-
-#: src/uagent/uagent_llm.py:82
-#, python-format
-msgid "[SSL Info] certifi.where() = %(path)s"
-msgstr "[SSL-info] certifi.where() = %(path)s"
-
-#: src/uagent/uagent_llm.py:435
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[VARNING] Auto shrink_llm misslyckades: %(err)s"
-
-#: src/uagent/uagent_llm.py:603
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[Översättningsfel] %(diag)s"
-
-#: src/uagent/uagent_llm.py:662 src/uagent/uagent_llm.py:772
-#: src/uagent/uagent_llm.py:1088
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "429-omförsöksgränsen (%(max_retries)s) har nåtts."
-
-#: src/uagent/uagent_llm.py:686
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Gemini-fel] Ett fel uppstod när ett svar genererades."
-
-#: src/uagent/uagent_llm.py:778
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Claude-fel] Ett fel uppstod när ett svar genererades."
-
-#: src/uagent/uagent_llm.py:1172
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "Fel vid tolkning av svar: %(err)s"
-
-#: src/uagent/uagent_llm.py:1472
+#: src/uagent/uagent_llm.py:408
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[VARNING] Verktygsrundor överskred %(max)d; avbryter."
@@ -1215,11 +1228,7 @@ msgstr "Okänd leverantör: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "Paketet google-genai är inte installerat."
 
-#: src/uagent/util_tools.py:193
-msgid "Opened image file with the default app."
-msgstr "Bildfilen öppnades med standardprogrammet."
-
-#: src/uagent/util_tools.py:205
+#: src/uagent/util_tools.py:194
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1227,7 +1236,7 @@ msgstr ""
 "Ange arbetskatalog. Om den inte är satt används miljövariabeln "
 "UAGENT_WORKDIR eller aktuell katalog."
 
-#: src/uagent/util_tools.py:212
+#: src/uagent/util_tools.py:201
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1235,7 +1244,7 @@ msgstr ""
 "Icke-interaktivt läge. Starta inte stdin-loopen; avsluta efter att "
 "startfilen (om någon) har behandlats."
 
-#: src/uagent/util_tools.py:659
+#: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1247,11 +1256,11 @@ msgstr ""
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 
-#: src/uagent/util_tools.py:666
+#: src/uagent/util_tools.py:657
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "When finished, always call `finish_skill` if available.\n"
 
-#: src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1261,7 +1270,7 @@ msgstr ""
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 
-#: src/uagent/util_tools.py:838
+#: src/uagent/util_tools.py:829
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1278,7 +1287,7 @@ msgstr ""
 "\n"
 "Fortsätta? Ange y för att köra, eller c för att avbryta."
 
-#: src/uagent/util_tools.py:944
+#: src/uagent/util_tools.py:937
 #, python-format
 msgid ""
 ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1295,7 +1304,7 @@ msgstr ""
 "\n"
 "Fortsätta? Ange y för att köra, eller c för att avbryta."
 
-#: src/uagent/util_tools.py:1188
+#: src/uagent/util_tools.py:1181
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1310,14 +1319,14 @@ msgstr ""
 "\n"
 "Ange y för att fortsätta, eller c för att avbryta."
 
-#: src/uagent/util_tools.py:1328
+#: src/uagent/util_tools.py:1322
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-fel] Kunde inte tolka som heltal: %(arg)r -> behåll de senaste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1355
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1325,7 +1334,7 @@ msgstr ""
 "[shrink_llm-fel] Kunde inte tolka som heltal: %(arg)r -> behåll de senaste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1416 src/uagent/util_tools.py:1449
+#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1333,7 +1342,7 @@ msgstr ""
 "Delat långtidsminne är inte aktiverat (UAGENT_SHARED_MEMORY_FILE är inte "
 "inställd)."
 
-#: src/uagent/util_tools.py:1798
+#: src/uagent/util_tools.py:1793
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1341,13 +1350,13 @@ msgstr ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 
-#: src/uagent/web.py:457
+#: src/uagent/web.py:504
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
 msgstr "En annan uppgift körs redan i detta rum. Försök igen när den är klar."
 
-#: src/uagent/web.py:536 src/uagent/web.py:655
+#: src/uagent/web.py:592 src/uagent/web.py:761
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -1457,7 +1466,16 @@ msgstr "- \"Läs denna PDF och lista tre huvudpunkter.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Sök efter de senaste nyheterna och sammanfatta ett specifikt ämne.\""
 
-#: src/uagent/a2a/engine.py:103
+#: src/uagent/a2a/engine.py:171
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Okänd UAGENT_A2A_ENGINE: %(mode)s"
+
+#~ msgid "[SSL Info] certifi is not available"
+#~ msgstr "[SSL-info] certifi är inte tillgängligt"
+
+#~ msgid "[SSL Info] certifi.where() = %(path)s"
+#~ msgstr "[SSL-info] certifi.where() = %(path)s"
+
+#~ msgid "Opened image file with the default app."
+#~ msgstr "Bildfilen öppnades med standardprogrammet."
