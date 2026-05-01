@@ -127,6 +127,14 @@ A tool may suppress the trace using the extended flag:
 - `:skills status` shows active skill messages; `:skills clear` removes them.
 - Keep skill instructions separate from the base `SYSTEM_PROMPT`.
 
+### 3.7 Batch state helper
+
+- `src/uagent/tools/batch_state_tool.py` provides persisted state for multi-file tasks.
+- Default storage: `~/.uag/batches/`
+- Override with `UAGENT_BATCHES_DIR`
+- `load` can resume an existing batch and restore `task_description`, `instructions`, `target_files`, `done_files`, `pending_files`, and related progress fields.
+- Supported actions: `init`, `load`, `update`, `append_log`, `finalize`, `list`, `delete`
+
 ______________________________________________________________________
 
 ## 4. Workdir / banner / long-term memory

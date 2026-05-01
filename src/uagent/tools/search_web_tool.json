@@ -50,25 +50,25 @@
   "es": {
     "error.args_must_be_dict": "args debe ser un dict",
     "error.duckduckgo_failed_after_retries": "La solicitud de DuckDuckGo falló después de los reintentos: {error}",
-    "error.missing_query_parameter": "falta el parámetro 'consulta'",
-    "error.run_tool_error": "error de ejecución_herramienta: {error}",
+    "error.missing_query_parameter": "falta el parámetro 'query'",
+    "error.run_tool_error": "error al ejecutar run_tool: {error}",
     "param.max_results.description": "Número máximo de resultados a devolver (predeterminado: 5).",
     "param.n.description": "Alias de 'max_results' (para compatibilidad con versiones anteriores).",
-    "param.q.description": "Alias de 'consulta' (para compatibilidad con versiones anteriores).",
+    "param.q.description": "Alias de 'query' (para compatibilidad con versiones anteriores).",
     "param.query.description": "Cadena de consulta de búsqueda.",
-    "tool.description": "Busque en la web a través de la interfaz DuckDuckGo HTML y devuelva el título/enlace/fragmento.",
-    "tool.system_prompt": "Esta herramienta realiza una búsqueda DuckDuckGo HTML y devuelve título/enlace/fragmento. Si los resultados están vacíos, es posible que el sitio esté limitando la velocidad o bloqueando la solicitud."
+    "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva título/enlace/extracto.",
+    "tool.system_prompt": "Esta herramienta realiza una búsqueda HTML de DuckDuckGo y devuelve título/enlace/extracto. Si los resultados están vacíos, es posible que el sitio esté limitando la velocidad o bloqueando la solicitud."
   },
   "fr": {
-    "error.args_must_be_dict": "les arguments doivent être un dicta",
+    "error.args_must_be_dict": "args doit être un dict",
     "error.duckduckgo_failed_after_retries": "La requête DuckDuckGo a échoué après plusieurs tentatives : {error}",
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
     "param.max_results.description": "Nombre maximum de résultats à renvoyer (par défaut : 5).",
     "param.n.description": "Alias de 'max_results' (pour une compatibilité ascendante).",
-    "param.q.description": "Alias de « requête » (pour une compatibilité ascendante).",
+    "param.q.description": "Alias de 'query' (pour une compatibilité ascendante).",
     "param.query.description": "Chaîne de requête de recherche.",
-    "tool.description": "Recherchez sur le Web via l'interface DuckDuckGo HTML et renvoyez le titre/lien/extrait.",
+    "tool.description": "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le titre/lien/extrait.",
     "tool.system_prompt": "Cet outil effectue une recherche DuckDuckGo HTML et renvoie le titre/lien/extrait. Si les résultats sont vides, le site peut limiter le débit ou bloquer la demande."
   },
   "ko": {
@@ -84,16 +84,16 @@
     "tool.system_prompt": "이 도구는 DuckDuckGo HTML 검색을 수행하고 제목/링크/스니펫을 반환합니다. 결과가 비어 있으면 사이트에서 요청 속도를 제한하거나 차단하고 있을 수 있습니다."
   },
   "th": {
-    "error.args_must_be_dict": "args จะต้องเป็นคำสั่ง",
+    "error.args_must_be_dict": "args ต้องเป็น dict",
     "error.duckduckgo_failed_after_retries": "คำขอ DuckDuckGo ล้มเหลวหลังจากลองอีกครั้ง: {error}",
-    "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'แบบสอบถาม'",
+    "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
     "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
     "param.max_results.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
     "param.n.description": "นามแฝงของ 'max_results' (สำหรับความเข้ากันได้แบบย้อนหลัง)",
-    "param.q.description": "นามแฝงของ 'แบบสอบถาม' (สำหรับความเข้ากันได้แบบย้อนหลัง)",
+    "param.q.description": "ชื่อแทนของ 'query' (เพื่อความเข้ากันได้แบบย้อนหลัง)",
     "param.query.description": "สตริงคำค้นหา",
-    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ตัวอย่าง",
-    "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ตัวอย่าง หากผลลัพธ์ว่างเปล่า ไซต์อาจถูกจำกัดอัตราหรือบล็อกคำขอ"
+    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
+    "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
   },
   "de": {
     "error.args_must_be_dict": "args muss ein Dict sein",
@@ -156,64 +156,64 @@
     "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
   },
   "vi": {
-    "error.args_must_be_dict": "args phải là một lệnh",
+    "error.args_must_be_dict": "args phải là một dict",
     "error.duckduckgo_failed_after_retries": "Yêu cầu DuckDuckGo không thành công sau khi thử lại: {error}",
-    "error.missing_query_parameter": "thiếu tham số 'truy vấn'",
+    "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.max_results.description": "Số kết quả trả về tối đa (mặc định: 5).",
     "param.n.description": "Bí danh của 'max_results' (để tương thích ngược).",
-    "param.q.description": "Bí danh của 'truy vấn' (để tương thích ngược).",
-    "param.query.description": "Tìm kiếm chuỗi truy vấn.",
-    "tool.description": "Tìm kiếm trên web thông qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/đoạn mã.",
-    "tool.system_prompt": "Công cụ này thực hiện tìm kiếm HTML DuckDuckGo và trả về tiêu đề/liên kết/đoạn mã. Nếu kết quả trống, trang web có thể bị giới hạn tỷ lệ hoặc chặn yêu cầu."
+    "param.q.description": "Bí danh của 'query' (để tương thích ngược).",
+    "param.query.description": "Chuỗi truy vấn tìm kiếm.",
+    "tool.description": "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet.",
+    "tool.system_prompt": "Công cụ này thực hiện tìm kiếm DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet. Nếu kết quả trống, trang web có thể đang giới hạn tốc độ hoặc chặn yêu cầu."
   },
   "pl": {
-    "error.args_must_be_dict": "argumenty muszą być dyktatem",
+    "error.args_must_be_dict": "args musi być dict",
     "error.duckduckgo_failed_after_retries": "Żądanie DuckDuckGo nie powiodło się po ponownych próbach: {error}",
-    "error.missing_query_parameter": "brak parametru „zapytanie”.",
-    "error.run_tool_error": "błąd narzędzia run_tool: {error}",
+    "error.missing_query_parameter": "brakuje parametru 'query'",
+    "error.run_tool_error": "błąd run_tool: {error}",
     "param.max_results.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
-    "param.n.description": "Alias ​​„max_results” (dla kompatybilności wstecznej).",
-    "param.q.description": "Alias ​​„query” (dla kompatybilności wstecznej).",
-    "param.query.description": "Wyszukaj ciąg zapytania.",
-    "tool.description": "Przeszukaj Internet za pomocą interfejsu HTML DuckDuckGo i zwróć tytuł/link/fragment.",
-    "tool.system_prompt": "To narzędzie przeprowadza wyszukiwanie w formacie DuckDuckGo w formacie HTML i zwraca tytuł/link/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość lub blokować żądanie."
+    "param.n.description": "Alias dla 'max_results' (dla zgodności wstecznej).",
+    "param.q.description": "Alias dla 'query' (dla zgodności wstecznej).",
+    "param.query.description": "Łańcuch zapytania wyszukiwania.",
+    "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment.",
+    "tool.system_prompt": "To narzędzie wykonuje wyszukiwanie HTML DuckDuckGo i zwraca tytuł/odnośnik/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość albo blokować żądanie."
   },
   "pt": {
-    "error.args_must_be_dict": "args deve ser um ditado",
+    "error.args_must_be_dict": "args deve ser um dict",
     "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
-    "error.missing_query_parameter": "parâmetro 'consulta' ausente",
-    "error.run_tool_error": "erro run_tool: {error}",
+    "error.missing_query_parameter": "falta o parâmetro 'query'",
+    "error.run_tool_error": "erro ao executar run_tool: {error}",
     "param.max_results.description": "Número máximo de resultados a serem retornados (padrão: 5).",
     "param.n.description": "Alias ​​de 'max_results' (para compatibilidade com versões anteriores).",
-    "param.q.description": "Alias ​​de 'query' (para compatibilidade com versões anteriores).",
-    "param.query.description": "String de consulta de pesquisa.",
-    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/snippet.",
-    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML DuckDuckGo e retorna título/link/snippet. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+    "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
+    "param.query.description": "String da consulta de pesquisa.",
+    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
   "hi": {
-    "error.args_must_be_dict": "तर्क एक तानाशाही होना चाहिए",
+    "error.args_must_be_dict": "args एक dict होना चाहिए",
     "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा: {error}",
-    "error.missing_query_parameter": "'क्वेरी' पैरामीटर गुम है",
-    "error.run_tool_error": "रन_टूल त्रुटि: {error}",
+    "error.missing_query_parameter": "'query' पैरामीटर गायब है",
+    "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.max_results.description": "लौटाए जाने वाले परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।",
     "param.n.description": "'max_results' का उपनाम (पिछली संगतता के लिए)।",
-    "param.q.description": "'क्वेरी' का उपनाम (पिछली संगतता के लिए)।",
+    "param.q.description": "'query' का उपनाम (पिछली संगतता के लिए).",
     "param.query.description": "खोज क्वेरी स्ट्रिंग.",
-    "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब पर खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
-    "tool.system_prompt": "यह टूल डकडकगो HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
+    "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
+    "tool.system_prompt": "यह टूल DuckDuckGo HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
   },
   "ar": {
-    "error.args_must_be_dict": "يجب أن تكون الحجج إملاء",
-    "error.duckduckgo_failed_after_retries": "فشل طلب DuckDuckGo بعد إعادة المحاولة: {خطأ}",
-    "error.missing_query_parameter": "معلمة \"الاستعلام\" مفقودة",
-    "error.run_tool_error": "خطأ في أداة التشغيل: {خطأ}",
+    "error.args_must_be_dict": "يجب أن تكون args قاموسًا",
+    "error.duckduckgo_failed_after_retries": "فشل طلب DuckDuckGo بعد إعادة المحاولة: {error}",
+    "error.missing_query_parameter": "المعامل 'query' مفقود",
+    "error.run_tool_error": "خطأ في run_tool: {error}",
     "param.max_results.description": "الحد الأقصى لعدد النتائج التي سيتم إرجاعها (الافتراضي: 5).",
     "param.n.description": "الاسم المستعار لـ \"max_results\" (للتوافق مع الإصدارات السابقة).",
-    "param.q.description": "الاسم المستعار لـ \"الاستعلام\" (للتوافق مع الإصدارات السابقة).",
+    "param.q.description": "اسم بديل لـ 'query' (للتوافق مع الإصدارات السابقة).",
     "param.query.description": "سلسلة استعلام البحث.",
-    "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجع العنوان/الرابط/المقتطف.",
-    "tool.system_prompt": "تقوم هذه الأداة بإجراء بحث DuckDuckGo HTML وإرجاع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع مقيدًا للمعدل أو يحظر الطلب."
+    "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
+    "tool.system_prompt": "تُجري هذه الأداة بحثًا عبر DuckDuckGo HTML وتُرجع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع يحدّ من معدل الطلبات أو يحظرها."
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara en dict",
@@ -262,5 +262,29 @@
     "param.query.description": "Hakukysely.",
     "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma.",
     "tool.system_prompt": "Hae DuckDuckGo:sta HTML:n kautta ja palauta otsikko/linkki/katkelma. Jos tulokset ovat tyhjiä, sivusto voi rajoittaa pyyntöjä tai estää ne."
+  },
+  "cs": {
+    "error.args_must_be_dict": "args musí být dict",
+    "error.duckduckgo_failed_after_retries": "Po opakovaných pokusech selhal požadavek na DuckDuckGo: {error}",
+    "error.missing_query_parameter": "chybí parametr 'query'",
+    "error.run_tool_error": "chyba run_tool: {error}",
+    "param.max_results.description": "Maximální počet vracených výsledků (výchozí: 5).",
+    "param.n.description": "Alias pro 'max_results' (pro zpětnou kompatibilitu).",
+    "param.q.description": "Alias pro 'query' (pro zpětnou kompatibilitu).",
+    "param.query.description": "Řetězec dotazu pro vyhledávání.",
+    "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
+    "tool.system_prompt": "Tento nástroj provádí vyhledávání DuckDuckGo HTML a vrací titul/odkaz/úryvek. Pokud jsou výsledky prázdné, může být web omezující rychlost nebo blokující požadavek."
+  },
+  "uk": {
+    "error.args_must_be_dict": "args має бути dict",
+    "error.duckduckgo_failed_after_retries": "Запит до DuckDuckGo не вдався після повторних спроб: {error}",
+    "error.missing_query_parameter": "відсутній параметр 'query'",
+    "error.run_tool_error": "помилка run_tool: {error}",
+    "param.max_results.description": "Максимальна кількість результатів для повернення (типово: 5).",
+    "param.n.description": "Псевдонім для 'max_results' (для зворотної сумісності).",
+    "param.q.description": "Псевдонім для 'query' (для зворотної сумісності).",
+    "param.query.description": "Рядок пошукового запиту.",
+    "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок.",
+    "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
   }
 }

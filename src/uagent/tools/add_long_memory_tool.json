@@ -11,13 +11,13 @@
   },
   "zh_CN": {
     "param.note.description": "要保存的注释文本。",
-    "tool.description": "保存有关用户/环境的单个长期记忆笔记，这可能在将来的对话中有用。",
-    "tool.system_prompt": "保存一份有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
+    "tool.description": "保存关于用户/环境的单条长期记忆笔记，未来对话中可能有用。",
+    "tool.system_prompt": "保存一条有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
   },
   "zh_TW": {
     "param.note.description": "要儲存的註釋文字。",
-    "tool.description": "保存有關使用者/環境的單一長期記憶筆記，這可能在將來的對話中有用。",
-    "tool.system_prompt": "保存一份有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
+    "tool.description": "保存有關使用者/環境的單條長期記憶筆記，未來的對話中可能有用。",
+    "tool.system_prompt": "保存一則有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
   },
   "es": {
     "param.note.description": "El texto de la nota a guardar.",
@@ -36,7 +36,7 @@
   },
   "th": {
     "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
-    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
+    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
     "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
   },
   "de": {
@@ -62,7 +62,7 @@
   "id": {
     "param.note.description": "Teks catatan yang akan disimpan.",
     "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang.",
-    "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna."
+    "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna.\nJangan simpan rahasia seperti kata sandi, kunci API, atau token."
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần lưu.",
@@ -91,13 +91,13 @@
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska sparas.",
-    "tool.description": "Spara en enda långsiktig minnesanteckning om användaren eller miljön som kan vara användbar i framtida samtal.",
-    "tool.system_prompt": "Spara exakt en användbar långsiktig minnesanteckning.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
+    "tool.description": "Spara en anteckning i långtidsminnet om användaren eller miljön som kan vara användbar i framtida samtal.",
+    "tool.system_prompt": "Spara en användbar anteckning i långtidsminnet.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal lagres.",
-    "tool.description": "Lagre ett enkelt notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",
-    "tool.system_prompt": "Lagre nøyaktig ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
+    "tool.description": "Lagre ett notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",
+    "tool.system_prompt": "Lagre ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
   },
   "nl": {
     "param.note.description": "De notitietekst om op te slaan.",
@@ -108,5 +108,15 @@
     "param.note.description": "Tallennettava muistiinpanoteksti.",
     "tool.description": "Tallenna yksi pitkäaikaisen muistin muistiinpano käyttäjästä tai ympäristöstä myöhempää käyttöä varten.",
     "tool.system_prompt": "Tallenna yksi hyödyllinen pitkäaikaisen muistin muistiinpano.\nÄlä tallenna salaisuuksia kuten salasanoja, API-avaimia tai tokeneita."
+  },
+  "cs": {
+    "param.note.description": "Text poznámky, kterou chcete uložit.",
+    "tool.description": "Uloží jednu užitečnou poznámku o uživateli nebo prostředí do dlouhodobé paměti, která se může hodit v budoucích konverzacích.",
+    "tool.system_prompt": "Uložte jednu užitečnou poznámku do dlouhodobé paměti.\nNeukládejte tajné údaje, jako jsou hesla, API klíče nebo tokeny."
+  },
+  "uk": {
+    "param.note.description": "Текст нотатки, яку потрібно зберегти.",
+    "tool.description": "Зберігає одну корисну нотатку про користувача або середовище в довготривалій пам’яті, яка може стати у пригоді в майбутніх розмовах.",
+    "tool.system_prompt": "Збережіть одну корисну нотатку в довготривалій пам’яті.\nНе зберігайте секрети, як-от паролі, ключі API або токени."
   }
 }

@@ -84,7 +84,7 @@
     "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Se possível, prefira usar os servidores configurados em mcp_servers.json."
   },
   "id": {
-    "param.pretty.description": "Apakah JSON output akan diformat rapi.",
+    "param.pretty.description": "Apakah keluaran JSON akan diformat rapi.",
     "param.server_name.description": "Nama server dari file konfigurasi.",
     "param.url.description": "URL endpoint server MCP.",
     "tool.description": "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalikan daftar alat yang tersedia. Sebelum melakukan integrasi API/sistem apa pun, gunakan alat ini untuk mengetahui alat MCP yang tersedia. Mendukung server berbasis HTTP dan stdio.",
@@ -105,10 +105,10 @@
     "tool.system_prompt": "Połącz się z serwerem MCP (HTTP lub stdio) i wyświetl listę jego narzędzi. Jeśli to możliwe, preferuj używanie serwerów skonfigurowanych w pliku mcp_servers.json."
   },
   "pt": {
-    "param.pretty.description": "Seja para imprimir a saída JSON.",
+    "param.pretty.description": "Se true, formate a saída JSON.",
     "param.server_name.description": "Nome do servidor do arquivo de configuração.",
-    "param.url.description": "URL do terminal do servidor MCP.",
-    "tool.description": "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e baseados em stdio.",
+    "param.url.description": "URL do endpoint do servidor MCP.",
+    "tool.description": "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio.",
     "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Prefira usar servidores configurados em mcp_servers.json quando possível."
   },
   "hi": {
@@ -152,5 +152,19 @@
     "param.url.description": "MCP-palvelimen päätepiste-URL.",
     "tool.description": "[Korkein prioriteetti] Yhdistä MCP (Model Context Protocol) -palvelimeen ja palauta käytettävissä olevien työkalujen lista. Käytä tätä työkalua ennen mitä tahansa API-/järjestelmäintegraatiota selvittääksesi, mitä MCP-työkaluja on saatavilla. Tukee HTTP-pohjaisia ja stdio-pohjaisia MCP-palvelimia.",
     "tool.system_prompt": "Yhdistä MCP-palvelimeen (HTTP tai stdio) ja listaa sen työkalut. Suosi mahdollisuuksien mukaan mcp_servers.jsonissa määritettyjä palvelimia."
+  },
+  "cs": {
+    "param.pretty.description": "Zda se má JSON výstup formátovat přehledně.",
+    "param.server_name.description": "Název serveru z konfiguračního souboru.",
+    "param.url.description": "URL koncového bodu MCP serveru.",
+    "tool.description": "[Nejvyšší priorita] Připojí se k serveru MCP (Model Context Protocol) a vrátí seznam dostupných nástrojů. Než provedete jakoukoli integraci API/systému, použijte tento nástroj ke zjištění, které nástroje MCP jsou k dispozici. Podporuje servery MCP přes HTTP i stdio.",
+    "tool.system_prompt": "Připojte se k serveru MCP (HTTP nebo stdio) a vypište jeho nástroje. Pokud je to možné, upřednostněte servery nakonfigurované v mcp_servers.json."
+  },
+  "uk": {
+    "param.pretty.description": "Чи потрібно гарно форматувати JSON-вивід.",
+    "param.server_name.description": "Назва сервера з файлу конфігурації.",
+    "param.url.description": "URL кінцевої точки сервера MCP.",
+    "tool.description": "[Найвищий пріоритет] Підключається до сервера MCP (Model Context Protocol) і повертає список доступних інструментів. Перш ніж виконувати будь-яку інтеграцію API/системи, використайте цей інструмент, щоб з’ясувати, які інструменти MCP доступні. Підтримує сервери MCP на основі HTTP і stdio.",
+    "tool.system_prompt": "Підключіться до сервера MCP (HTTP або stdio) і перелічіть його інструменти. За можливості надавайте перевагу серверам, налаштованим у mcp_servers.json."
   }
 }

@@ -29,7 +29,7 @@
     "param.search_hex.description": "検索する16進文字列（replace モード）。",
     "param.splice_op.description": "splice 操作（splice モード）。",
     "tool.description": "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります。",
-    "tool.system_prompt": "このツールは次の目的で使用します: ローカルファイルをバイナリ（生バイト列）として編集する。\n\nSECURITY / SAFETY:\n- このツールはローカルファイルを変更し、破損させる可能性があります。\n- 書き込み前には必ず human_ask で確認を求めてください。\n- ホストエージェントの安全ポリシー下では、現在の workdir 外のパスを操作しないでください。\n"
+    "tool.system_prompt": "このツールは、ローカルファイルをバイナリ（生バイト列）として編集するために使用します。\n\n安全上の注意:\n- このツールはローカルファイルを変更し、破損させる可能性があります。\n- 書き込み前には必ず human_ask で確認を求めてください。\n- ホストエージェントの安全ポリシー下では、現在の workdir 外のパスを操作しないでください。"
   },
   "zh_CN": {
     "param.data_hex.description": "要写入/插入的十六进制字节字符串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
@@ -44,8 +44,8 @@
     "param.replace_hex.description": "用于替换的十六进制字符串（replace 模式）。除非 allow_resize=true（不支持），否则必须与 search_hex 长度相同。",
     "param.search_hex.description": "要搜索的十六进制字符串（replace 模式）。",
     "param.splice_op.description": "splice 操作（splice 模式）。",
-    "tool.description": "将本地文件作为原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
-    "tool.system_prompt": "此工具用于以下目的：将本地文件作为原始字节（二进制）进行编辑。\n\nSECURITY / SAFETY:\n- 此工具会修改本地文件，并可能损坏文件。\n- 写入前务必通过 human_ask 请求确认。\n- 在主机代理的安全策略下运行时，不要操作当前工作目录之外的路径。\n"
+    "tool.description": "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
+    "tool.system_prompt": "此工具用于将本地文件按原始字节（二进制）进行编辑。\n\n安全注意事项：\n- 此工具会修改本地文件，并可能损坏文件。\n- 写入前务必使用 human_ask 请求确认。\n- 在主机代理的安全策略下运行时，不要操作当前工作目录之外的路径。"
   },
   "zh_TW": {
     "param.data_hex.description": "要寫入/插入的十六進位位元組字串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
@@ -61,7 +61,7 @@
     "param.search_hex.description": "要搜尋的十六進位字串（replace 模式）。",
     "param.splice_op.description": "splice 操作（splice 模式）。",
     "tool.description": "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案。",
-    "tool.system_prompt": "此工具用於以下目的：將本機檔案以原始位元組（二進位）方式編輯。\n\nSECURITY / SAFETY:\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。\n"
+    "tool.system_prompt": "此工具用於將本機檔案以原始位元組（二進位）方式編輯。\n\n安全注意事項：\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。"
   },
   "es": {
     "param.data_hex.description": "Cadena hexadecimal de bytes que se escribirá o insertará (por ejemplo, 'DEADBEEF' o 'DE AD BE EF').",
@@ -77,7 +77,7 @@
     "param.search_hex.description": "Cadena hexadecimal que se va a buscar (modo replace).",
     "param.splice_op.description": "Operación de splice (modo splice).",
     "tool.description": "Edita un archivo local como bytes sin procesar (binario). Admite escritura por desplazamiento, búsqueda/reemplazo, splice (insertar/eliminar) y la aplicación de un parche JSON sencillo. Peligroso: esta herramienta puede dañar archivos.",
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: editar un archivo local como bytes sin procesar (binario).\n\nSECURITY / SAFETY:\n- Esta herramienta modifica archivos locales y puede dañarlos.\n- Solicita siempre confirmación con human_ask antes de escribir.\n- No operes sobre rutas fuera del directorio de trabajo actual cuando se ejecute bajo las políticas de seguridad del agente anfitrión.\n"
+    "tool.system_prompt": "Esta herramienta se usa para editar un archivo local como bytes sin procesar (binario).\n\nSEGURIDAD / PROTECCIÓN:\n- Esta herramienta modifica archivos locales y puede dañarlos.\n- Solicite siempre confirmación con human_ask antes de escribir.\n- No opere sobre rutas fuera del directorio de trabajo actual cuando se ejecute bajo las políticas de seguridad del agente anfitrión."
   },
   "fr": {
     "param.data_hex.description": "Chaîne hexadécimale d'octets à écrire/insérer (par exemple 'DEADBEEF' ou 'DE AD BE EF').",
@@ -93,7 +93,7 @@
     "param.search_hex.description": "Chaîne hexadécimale à rechercher (mode replace).",
     "param.splice_op.description": "Opération de splice (mode splice).",
     "tool.description": "Modifiez un fichier local sous forme d'octets bruts (binaire). Prend en charge l'écriture à un décalage, la recherche/remplacement, le splice (insertion/suppression) et l'application d'un correctif JSON simple. Dangereux : cet outil peut corrompre des fichiers.",
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : modifier un fichier local sous forme d'octets bruts (binaire).\n\nSECURITY / SAFETY:\n- Cet outil modifie les fichiers locaux et peut les corrompre.\n- Demandez toujours une confirmation avec human_ask avant d'écrire.\n- N'opérez pas sur des chemins en dehors du répertoire de travail actuel lorsque vous exécutez sous les politiques de sécurité de l'agent hôte.\n"
+    "tool.system_prompt": "Cet outil est utilisé pour modifier un fichier local sous forme d’octets bruts (binaire).\n\nSÉCURITÉ :\n- Cet outil modifie les fichiers locaux et peut les corrompre.\n- Demandez toujours une confirmation avec human_ask avant d’écrire.\n- N’opérez pas sur des chemins situés en dehors du répertoire de travail actuel lorsque vous exécutez sous les politiques de sécurité de l’agent hôte."
   },
   "ko": {
     "param.data_hex.description": "쓰기/삽입할 바이트의 16진수 문자열입니다(예: 'DEADBEEF' 또는 'DE AD BE EF').",
@@ -109,7 +109,7 @@
     "param.search_hex.description": "검색할 16진수 문자열(replace 모드)입니다.",
     "param.splice_op.description": "splice 작업(splice 모드)입니다.",
     "tool.description": "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다.",
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다: 로컬 파일을 원시 바이트(바이너리)로 편집합니다.\n\nSECURITY / SAFETY:\n- 이 도구는 로컬 파일을 수정하여 손상시킬 수 있습니다.\n- 쓰기 전에 항상 human_ask로 확인을 요청하세요.\n- 호스트 에이전트의 보안 정책 하에서 실행할 때는 현재 작업 디렉터리 밖의 경로를 다루지 마세요.\n"
+    "tool.system_prompt": "이 도구는 로컬 파일을 원시 바이트(바이너리)로 편집하는 데 사용합니다.\n\n보안 안내:\n- 이 도구는 로컬 파일을 수정하여 손상시킬 수 있습니다.\n- 쓰기 전에 항상 human_ask로 확인을 요청하세요.\n- 호스트 에이전트의 보안 정책 하에서는 현재 workdir 밖의 경로를 다루지 마세요."
   },
   "th": {
     "param.data_hex.description": "สตริงเลขฐานสิบหกของไบต์ที่จะเขียนหรือแทรก (เช่น 'DEADBEEF' หรือ 'DE AD BE EF')",
@@ -125,7 +125,7 @@
     "param.search_hex.description": "สตริงเลขฐานสิบหกที่ใช้ค้นหา (โหมด replace)",
     "param.splice_op.description": "การดำเนินการแบบ splice (โหมด splice)",
     "tool.description": "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับวัตถุประสงค์ต่อไปนี้: แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี)\n\nSECURITY / SAFETY:\n- เครื่องมือนี้จะปรับเปลี่ยนไฟล์ในเครื่องและอาจทำให้ไฟล์เสียหายได้\n- ต้องขอการยืนยันด้วย human_ask ก่อนเขียนทุกครั้ง\n- อย่าดำเนินการกับพาธนอกไดเรกทอรีงานปัจจุบันเมื่อทำงานภายใต้นโยบายความปลอดภัยของโฮสต์เอเจนต์\n"
+    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับแก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี)\n\nข้อควรระวังด้านความปลอดภัย:\n- เครื่องมือนี้จะปรับเปลี่ยนไฟล์ในเครื่องและอาจทำให้ไฟล์เสียหายได้\n- ต้องขอการยืนยันด้วย human_ask ก่อนเขียนทุกครั้ง\n- อย่าดำเนินการกับพาธนอกไดเรกทอรีงานปัจจุบันเมื่อทำงานภายใต้นโยบายความปลอดภัยของโฮสต์เอเจนต์"
   },
   "de": {
     "param.data_hex.description": "Hex-String der Bytes zum Schreiben/Einfügen (z. B. 'DEADBEEF' oder 'DE AD BE EF').",
@@ -141,7 +141,7 @@
     "param.search_hex.description": "Hex-String, nach dem gesucht werden soll (Modus replace).",
     "param.splice_op.description": "Splice-Vorgang (Modus splice).",
     "tool.description": "Bearbeitet eine lokale Datei als Rohbytes (binär). Unterstützt Schreiben mit Offset, Suchen/Ersetzen, Splice (Einfügen/Löschen) und das Anwenden eines einfachen JSON-Patches. Gefährlich: Dieses Tool kann Dateien beschädigen.",
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: eine lokale Datei als Rohbytes (binär) zu bearbeiten.\n\nSECURITY / SAFETY:\n- Dieses Tool verändert lokale Dateien und kann sie beschädigen.\n- Fordern Sie vor dem Schreiben immer eine Bestätigung mit human_ask an.\n- Arbeiten Sie nicht auf Pfaden außerhalb des aktuellen Arbeitsverzeichnisses, wenn Sie unter den Sicherheitsrichtlinien des Host-Agenten laufen.\n"
+    "tool.system_prompt": "Dieses Tool wird verwendet, um eine lokale Datei als Rohbytes (binär) zu bearbeiten.\n\nSICHERHEIT:\n- Dieses Tool verändert lokale Dateien und kann sie beschädigen.\n- Fordern Sie vor dem Schreiben immer eine Bestätigung mit human_ask an.\n- Arbeiten Sie nicht auf Pfaden außerhalb des aktuellen Arbeitsverzeichnisses, wenn Sie unter den Sicherheitsrichtlinien des Host-Agents ausgeführt werden."
   },
   "it": {
     "param.data_hex.description": "Stringa esadecimale dei byte da scrivere o inserire (ad es. 'DEADBEEF' o 'DE AD BE EF').",
@@ -157,7 +157,7 @@
     "param.search_hex.description": "Stringa esadecimale da cercare (modalità replace).",
     "param.splice_op.description": "Operazione di splice (modalità splice).",
     "tool.description": "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file.",
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: modificare un file locale come byte grezzi (binario).\n\nSECURITY / SAFETY:\n- Questo strumento modifica i file locali e può corromperli.\n- Richiedi sempre conferma con human_ask prima di scrivere.\n- Non operare su percorsi fuori dalla directory di lavoro corrente quando si esegue secondo le politiche di sicurezza dell'host agent.\n"
+    "tool.system_prompt": "Questo strumento viene utilizzato per modificare un file locale come byte grezzi (binario).\n\nSICUREZZA:\n- Questo strumento modifica i file locali e può danneggiarli.\n- Richiedi sempre conferma con human_ask prima di scrivere.\n- Non operare su percorsi fuori dalla directory di lavoro corrente quando esegui sotto le politiche di sicurezza dell’host agent."
   },
   "ru": {
     "param.data_hex.description": "Шестнадцатеричная строка байтов для записи или вставки (например, 'DEADBEEF' или 'DE AD BE EF').",
@@ -173,7 +173,7 @@
     "param.search_hex.description": "Шестнадцатеричная строка для поиска (режим replace).",
     "param.splice_op.description": "Операция splice (режим splice).",
     "tool.description": "Редактирует локальный файл как необработанные байты (двоичные данные). Поддерживает запись со смещением, поиск/замену, splice (вставку/удаление) и применение простого JSON-патча. Опасно: этот инструмент может повредить файлы.",
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: редактировать локальный файл как необработанные байты (двоичные данные).\n\nSECURITY / SAFETY:\n- Этот инструмент изменяет локальные файлы и может их повредить.\n- Всегда запрашивайте подтверждение через human_ask перед записью.\n- Не работайте с путями вне текущего рабочего каталога при выполнении в соответствии с политиками безопасности хост-агента.\n"
+    "tool.system_prompt": "Этот инструмент используется для редактирования локального файла как необработанных байтов (двоичных данных).\n\nБЕЗОПАСНОСТЬ:\n- Этот инструмент изменяет локальные файлы и может их повредить.\n- Всегда запрашивайте подтверждение через human_ask перед записью.\n- Не работайте с путями вне текущего рабочего каталога при выполнении в соответствии с политиками безопасности хост-агента."
   },
   "pt_BR": {
     "param.data_hex.description": "String hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
@@ -189,7 +189,7 @@
     "param.search_hex.description": "String hexadecimal a ser pesquisada (modo replace).",
     "param.splice_op.description": "Operação de splice (modo splice).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos.",
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: editar um arquivo local como bytes brutos (binários).\n\nSECURITY / SAFETY:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host.\n"
+    "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
   },
   "id": {
     "param.data_hex.description": "String hex byte yang akan ditulis/disisipkan (mis. 'DEADBEEF' atau 'DE AD BE EF').",
@@ -205,7 +205,7 @@
     "param.search_hex.description": "String hex yang dicari (mode replace).",
     "param.splice_op.description": "Operasi splice (mode splice).",
     "tool.description": "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file.",
-    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengedit file lokal sebagai byte mentah (binary).\n\nKEAMANAN / KESELAMATAN:\n- Alat ini memodifikasi file lokal dan dapat merusak file.\n- Selalu minta konfirmasi dengan human_ask sebelum menulis.\n- Jangan beroperasi pada path di luar workdir saat berjalan di bawah kebijakan keamanan host agent."
+    "tool.system_prompt": "Alat ini digunakan untuk mengedit file lokal sebagai byte mentah (biner).\n\nKEAMANAN:\n- Alat ini memodifikasi file lokal dan dapat merusaknya.\n- Selalu minta konfirmasi dengan human_ask sebelum menulis.\n- Jangan beroperasi pada path di luar workdir saat berjalan di bawah kebijakan keamanan host agent."
   },
   "vi": {
     "param.data_hex.description": "Chuỗi byte hex để ghi/chèn (ví dụ: 'DEADBEEF' hoặc 'DE AD BE EF').",
@@ -221,7 +221,7 @@
     "param.search_hex.description": "Chuỗi hex để tìm kiếm (chế độ thay thế).",
     "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
     "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin.",
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).\n\nAN NINH/AN TOÀN:\n- Công cụ này sửa đổi các tập tin cục bộ và có thể làm hỏng chúng.\n- Luôn yêu cầu xác nhận bằng human_ask trước khi viết.\n- Không hoạt động trên các đường dẫn bên ngoài thư mục làm việc hiện tại khi chạy theo chính sách an toàn của tác nhân chủ."
+    "tool.system_prompt": "Công cụ này được dùng để chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).\n\nAN TOÀN:\n- Công cụ này sửa đổi các tệp cục bộ và có thể làm hỏng chúng.\n- Luôn yêu cầu xác nhận bằng human_ask trước khi ghi.\n- Không thao tác trên các đường dẫn bên ngoài thư mục làm việc hiện tại khi chạy theo chính sách an toàn của tác nhân chủ."
   },
   "pl": {
     "param.data_hex.description": "Szesnastkowy ciąg bajtów do zapisania/wstawienia (np. „DEADBEEF” lub „DE AD BE EF”).",
@@ -237,7 +237,7 @@
     "param.search_hex.description": "Ciąg szesnastkowy do wyszukania (tryb zamiany).",
     "param.splice_op.description": "Operacja splotu (tryb splotu).",
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki.",
-    "tool.system_prompt": "Narzędzie to służy do następujących celów: edycja pliku lokalnego w postaci nieprzetworzonych bajtów (binarnie).\n\nBEZPIECZEŃSTWO / BEZPIECZEŃSTWO:\n- To narzędzie modyfikuje pliki lokalne i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed napisaniem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, jeśli działasz zgodnie z zasadami bezpieczeństwa agenta hosta."
+    "tool.system_prompt": "To narzędzie służy do edycji lokalnego pliku jako surowych bajtów (binarnie).\n\nBEZPIECZEŃSTWO:\n- To narzędzie modyfikuje lokalne pliki i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed zapisem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, gdy działa to zgodnie z zasadami bezpieczeństwa agenta hosta."
   },
   "pt": {
     "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
@@ -253,7 +253,7 @@
     "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
     "param.splice_op.description": "Operação de emenda (modo de emenda).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos.",
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: editar um arquivo local como bytes brutos (binários).\n\nSEGURANÇA / SEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Sempre solicite confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
+    "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
   },
   "hi": {
     "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE AD BE EF')।",
@@ -269,7 +269,7 @@
     "param.search_hex.description": "खोजने के लिए हेक्स स्ट्रिंग (प्रतिस्थापन मोड)।",
     "param.splice_op.description": "स्प्लिस ऑपरेशन (स्प्लिस मोड)।",
     "tool.description": "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: एक स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें।\n\nसुरक्षा/संरक्षा:\n- यह टूल स्थानीय फ़ाइलों को संशोधित करता है और उन्हें दूषित कर सकता है।\n- लिखने से पहले हमेशा human_ask से पुष्टि का अनुरोध करें।\n- होस्ट एजेंट की सुरक्षा नीतियों के तहत चलते समय वर्तमान वर्कडायर के बाहर के पथों पर काम न करें।"
+    "tool.system_prompt": "यह टूल स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करने के लिए उपयोग किया जाता है।\n\nसुरक्षा:\n- यह टूल स्थानीय फ़ाइलों को संशोधित कर सकता है और उन्हें दूषित कर सकता है।\n- लिखने से पहले हमेशा human_ask से पुष्टि मांगें।\n- होस्ट एजेंट की सुरक्षा नीतियों के तहत चलते समय वर्तमान workdir के बाहर के पथों पर काम न करें।"
   },
   "ar": {
     "param.data_hex.description": "سلسلة hex للبايتات المراد كتابتها/إدراجها (مثل 'DEADBEEF' أو 'DE AD BE EF').",
@@ -285,7 +285,7 @@
     "param.search_hex.description": "سلسلة hex المراد البحث عنها (وضع replace).",
     "param.splice_op.description": "عملية splice (وضع splice).",
     "tool.description": "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات.",
-    "tool.system_prompt": "تستخدم هذه الأداة للغرض التالي: تحرير ملف محلي على شكل بايتات خام (ثنائي).\n\nSECURITY / SAFETY:\n- تعدل هذه الأداة الملفات المحلية وقد تتسبب في إتلافها.\n- اطلب دائمًا تأكيدًا باستخدام human_ask قبل الكتابة.\n- لا تعمل على مسارات خارج دليل العمل الحالي عند التشغيل تحت سياسات الأمان الخاصة بالوكيل المضيف.\n"
+    "tool.system_prompt": "يُستخدم هذا الأداة لتحرير ملف محلي على شكل بايتات خام (ثنائي).\n\nالسلامة:\n- تقوم هذه الأداة بتعديل الملفات المحلية وقد تتسبب في إتلافها.\n- اطلب دائمًا تأكيدًا باستخدام human_ask قبل الكتابة.\n- لا تعمل على مسارات خارج دليل العمل الحالي عند التشغيل تحت سياسات الأمان الخاصة بالوكيل المضيف."
   },
   "sv": {
     "param.data_hex.description": "Hexsträng med byte att skriva/infoga (t.ex. 'DEADBEEF' eller 'DE AD BE EF').",
@@ -301,7 +301,7 @@
     "param.search_hex.description": "Hexsträng att söka efter (replace-läge).",
     "param.splice_op.description": "Splice-operation (splice-läge).",
     "tool.description": "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer.",
-    "tool.system_prompt": "Det här verktyget används för att redigera en lokal fil som råa byte (binär).\n\nSECURITY / SAFETY:\n- Det här verktyget ändrar lokala filer och kan förstöra dem.\n- Begär alltid bekräftelse med human_ask innan skrivning.\n- Arbeta inte på sökvägar utanför den aktuella workdir när du kör under värdagentens säkerhetspolicy.\n"
+    "tool.system_prompt": "Det här verktyget används för att redigera en lokal fil som råa byte (binärt).\n\nSÄKERHET:\n- Det här verktyget ändrar lokala filer och kan förstöra dem.\n- Begär alltid bekräftelse med human_ask innan skrivning.\n- Arbeta inte på sökvägar utanför den aktuella workdir när du kör under värdagentens säkerhetspolicy."
   },
   "nb": {
     "param.data_hex.description": "Hexstreng med byte som skal skrives/innsettes (f.eks. 'DEADBEEF' eller 'DE AD BE EF').",
@@ -317,7 +317,7 @@
     "param.search_hex.description": "Hexstreng som skal søkes etter (replace-modus).",
     "param.splice_op.description": "Splice-operasjon (splice-modus).",
     "tool.description": "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer.",
-    "tool.system_prompt": "Dette verktøyet brukes til å redigere en lokal fil som rå byte (binær).\n\nSECURITY / SAFETY:\n- Dette verktøyet endrer lokale filer og kan ødelegge dem.\n- Be alltid om bekreftelse med human_ask før skriving.\n- Ikke arbeid på stier utenfor gjeldende workdir når du kjører under vertsagentens sikkerhetsregler.\n"
+    "tool.system_prompt": "Dette verktøyet brukes til å redigere en lokal fil som rå byte (binær).\n\nSIKKERHET:\n- Dette verktøyet endrer lokale filer og kan ødelegge dem.\n- Be alltid om bekreftelse med human_ask før skriving.\n- Ikke arbeid på stier utenfor gjeldende workdir når du kjører under vertsagentens sikkerhetsregler."
   },
   "nl": {
     "param.data_hex.description": "Hex-tekenreeks van bytes om te schrijven/in te voegen (bijv. 'DEADBEEF' of 'DE AD BE EF').",
@@ -333,7 +333,7 @@
     "param.search_hex.description": "Hex-tekenreeks om naar te zoeken (replace-modus).",
     "param.splice_op.description": "Splice-operatie (splice-modus).",
     "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen.",
-    "tool.system_prompt": "Gebruik deze tool voor het volgende doel: bewerk een lokaal bestand als ruwe bytes (binair).\n\nVEILIGHEID:\n- Deze tool wijzigt lokale bestanden en kan ze beschadigen.\n- Vraag altijd bevestiging met human_ask vóór het schrijven.\n- Werk onder de veiligheidspolitiek van de host-agent niet op paden buiten de huidige workdir."
+    "tool.system_prompt": "Deze tool wordt gebruikt om een lokaal bestand als ruwe bytes (binair) te bewerken.\n\nVEILIGHEID:\n- Deze tool wijzigt lokale bestanden en kan ze beschadigen.\n- Vraag altijd bevestiging met human_ask voordat u schrijft.\n- Werk onder het beveiligingsbeleid van de host-agent niet op paden buiten de huidige workdir."
   },
   "fi": {
     "param.data_hex.description": "Kirjoitettavien/lisättävien tavujen heksamerkkijono (esim. 'DEADBEEF' tai 'DE AD BE EF').",
@@ -349,6 +349,38 @@
     "param.search_hex.description": "Heksamerkkijono, jota etsitään (replace-tila).",
     "param.splice_op.description": "Splice-toiminto (splice-tila).",
     "tool.description": "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja.",
-    "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: muokkaa paikallista tiedostoa raakatavuina (binäärinä).\n\nTURVALLISUUS:\n- Tämä työkalu muokkaa paikallisia tiedostoja ja voi rikkoa ne.\n- Pyydä aina vahvistus human_askilla ennen kirjoittamista.\n- Älä käsittele polkuja nykyisen workdirin ulkopuolella host-agentin turvallisuuskäytäntöjen aikana."
+    "tool.system_prompt": "Tätä työkalua käytetään paikallisen tiedoston muokkaamiseen raakatavuina (binäärinä).\n\nTURVALLISUUS:\n- Tämä työkalu muokkaa paikallisia tiedostoja ja voi rikkoa ne.\n- Pyydä aina vahvistus human_askilla ennen kirjoittamista.\n- Älä käsittele polkuja nykyisen workdirin ulkopuolella host-agentin turvallisuuskäytäntöjen aikana."
+  },
+  "cs": {
+    "param.data_hex.description": "Hexadecimální řetězec bajtů k zápisu/vložení (např. 'DEADBEEF' nebo 'DE AD BE EF').",
+    "param.delete_len.description": "Počet bajtů ke smazání (splice delete).",
+    "param.dry_run.description": "Pokud je true, soubor se neupraví; pouze se nahlásí, co by se změnilo.",
+    "param.max_bytes.description": "Odmítne soubory větší než tato velikost (v bajtech).",
+    "param.mode.description": "Režim úprav.",
+    "param.occurrence.description": "Který výskyt nahradit (číslováno od 1). 0 znamená nahradit všechny výskyty (stále je nutná stejná délka).",
+    "param.offset.description": "Byte offset (od 0). Vyžadováno pro write/splice.",
+    "param.patch_json.description": "Řetězec JSON patche (režim apply_patch).",
+    "param.path.description": "Cesta k cílovému souboru.",
+    "param.replace_hex.description": "Hexadecimální řetězec, kterým se má nahradit (režim replace). Musí mít stejnou délku jako search_hex, pokud není allow_resize=true (není podporováno).",
+    "param.search_hex.description": "Hexadecimální řetězec k hledání (režim replace).",
+    "param.splice_op.description": "Operace splice (režim splice).",
+    "tool.description": "Upravuje místní soubor jako surové bajty (binárně). Podporuje zápis s offsetem, hledání/nahrazování, splice (vložení/smazání) a jednoduchý JSON patch. Nebezpečné: tento nástroj může poškodit soubory.",
+    "tool.system_prompt": "Tento nástroj se používá k úpravě místního souboru jako surových bajtů (binárně).\n\nBEZPEČNOST:\n- Tento nástroj mění místní soubory a může je poškodit.\n- Před zápisem vždy vyžádejte potvrzení pomocí human_ask.\n- Nepracujte s cestami mimo aktuální pracovní adresář, když běžíte podle bezpečnostních zásad hostitelského agenta."
+  },
+  "uk": {
+    "param.data_hex.description": "Шістнадцятковий рядок байтів для запису/вставки (наприклад, 'DEADBEEF' або 'DE AD BE EF').",
+    "param.delete_len.description": "Кількість байтів для видалення (splice delete).",
+    "param.dry_run.description": "Якщо true, файл не змінюється; повідомляється лише про те, що змінилося б.",
+    "param.max_bytes.description": "Відхиляє файли, більші за цей розмір (у байтах).",
+    "param.mode.description": "Режим редагування.",
+    "param.occurrence.description": "Яке входження замінити (нумерація з 1). 0 означає замінити всі входження (потрібна та сама довжина).",
+    "param.offset.description": "Зсув байта (від 0). Потрібно для write/splice.",
+    "param.patch_json.description": "Рядок JSON-патча (режим apply_patch).",
+    "param.path.description": "Шлях до цільового файла.",
+    "param.replace_hex.description": "Шістнадцятковий рядок, яким слід замінити (режим replace). Має мати ту саму довжину, що й search_hex, якщо не використовується allow_resize=true (не підтримується).",
+    "param.search_hex.description": "Шістнадцятковий рядок для пошуку (режим replace).",
+    "param.splice_op.description": "Операція splice (режим splice).",
+    "tool.description": "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли.",
+    "tool.system_prompt": "Цей інструмент використовується для редагування локального файла як необроблених байтів (бінарно).\n\nБЕЗПЕКА:\n- Цей інструмент змінює локальні файли та може їх пошкодити.\n- Завжди запитуйте підтвердження через human_ask перед записом.\n- Не працюйте з шляхами поза поточним робочим каталогом під час виконання згідно з політиками безпеки хост-агента."
   }
 }

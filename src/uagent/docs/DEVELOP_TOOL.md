@@ -106,6 +106,16 @@ Guidelines:
 - For dangerous operations (delete/overwrite/exec), ask confirmation via `human_ask`.
 - Agent Skills-related tools should keep `SKILL.md` parsing, validation, and path checks inside the tool, and return structured JSON for list/load/validate helpers.
 
+### 4.1 Persisted batch state tools
+
+When a tool needs to resume multi-file work across runs, follow the batch-state pattern used by `batch_state_tool.py`:
+
+- Default state dir: `~/.uag/batches/`
+- Override with `UAGENT_BATCHES_DIR`
+- Validate `batch_id`
+- Keep `load` capable of resuming the saved task state
+- Use structured JSON for `init`, `load`, `update`, `append_log`, `finalize`, `list`, and `delete`
+
 ______________________________________________________________________
 
 ## 5. i18n for tools (JSON)
