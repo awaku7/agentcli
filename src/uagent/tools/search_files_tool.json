@@ -34,8 +34,8 @@
     "param.max_results.description": "Maximale Anzahl der zurückzugebenden Treffer (Standard: 50).",
     "param.name_pattern.description": "Dateinamen-Globmuster (z. B. '*.py', 'test_*'). Wenn weggelassen, werden alle Dateien berücksichtigt.",
     "param.root_path.description": "Stammverzeichnis, von dem aus die Suche startet (Standard: aktuelles Verzeichnis).",
-    "tool.description": "Dateien in einem Verzeichnis anhand von Namensmustern (Glob) und/oder Inhalt (Regex) suchen.",
-    "tool.system_prompt": "Dateien in einem Verzeichnis suchen. Sie können nach Dateinamensmustern (Glob) filtern und optional Dateiinhalte mit einem regulären Ausdruck durchsuchen.\n\nHinweise:\n- content_pattern wird als Python-Regulärer Ausdruck behandelt.\n- Wenn content_pattern leer ist, wird nur die Dateinamenübereinstimmung durchgeführt.\n- Aus Leistungs- und Sicherheitsgründen kann die Inhaltssuche intern eine einfache Binärprüfung verwenden."
+    "tool.description": "Dateien in einem Verzeichnis nach Namensmuster (glob) und/oder nach Inhalt (Regex) durchsuchen.",
+    "tool.system_prompt": "Suchen Sie Dateien in einem Verzeichnis. Sie können nach einem Dateinamensmuster (glob) filtern und optional den Dateiinhalt mit einem regulären Ausdruck durchsuchen.\n\nHinweise:\n- content_pattern wird als Python-Regulärer Ausdruck behandelt.\n- Wenn content_pattern leer ist, wird nur der Dateiname geprüft.\n- Aus Leistungs- und Sicherheitsgründen kann die Inhaltssuche intern eine einfache Binärprüfung verwenden."
   },
   "es": {
     "err.dir_not_exist": "[error de search_files] El directorio no existe: {path}",
@@ -72,8 +72,8 @@
     "param.max_results.description": "Nombre maximum de fichiers correspondants à renvoyer (par défaut : 50).",
     "param.name_pattern.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*'). S'il est omis, tous les fichiers sont pris en compte.",
     "param.root_path.description": "Répertoire racine à partir duquel commencer la recherche (par défaut : répertoire actuel).",
-    "tool.description": "Rechercher des fichiers dans un répertoire par modèle de nom (glob) et/ou par contenu (regex).",
-    "tool.system_prompt": "Rechercher des fichiers dans un répertoire. Vous pouvez filtrer par modèle de nom de fichier (glob) et éventuellement rechercher le contenu des fichiers à l'aide d'une expression régulière.\n\nNotes :\n- content_pattern est traité comme une expression régulière Python.\n- Si content_pattern est vide, seule la correspondance par nom de fichier est effectuée.\n- Pour des raisons de performance et de sécurité, la recherche de contenu peut utiliser en interne une simple vérification binaire."
+    "tool.description": "Recherchez des fichiers dans un répertoire par motif de nom (glob) et/ou par contenu (regex).",
+    "tool.system_prompt": "Recherchez des fichiers dans un répertoire. Vous pouvez filtrer par motif de nom de fichier (glob) et, si besoin, rechercher le contenu des fichiers à l’aide d’une expression régulière.\n\nNotes :\n- content_pattern est traité comme une expression régulière Python.\n- Si content_pattern est vide, seule la correspondance sur le nom de fichier est effectuée.\n- Pour des raisons de performances et de sécurité, la recherche de contenu peut utiliser en interne une simple vérification binaire."
   },
   "it": {
     "err.dir_not_exist": "[search_files errore] La directory non esiste: {path}",
@@ -167,8 +167,8 @@
     "param.max_results.description": "Максимальное число совпавших файлов для возврата (по умолчанию: 50).",
     "param.name_pattern.description": "Шаблон glob для имени файла (например, '*.py', 'test_*'). Если не указан, рассматриваются все файлы.",
     "param.root_path.description": "Корневой каталог, с которого начинается поиск (по умолчанию: текущий каталог).",
-    "tool.description": "Поиск файлов в каталоге по шаблону имени (glob) и/или по содержимому (regex).",
-    "tool.system_prompt": "Поиск файлов в каталоге. Вы можете фильтровать по шаблону имени файла (glob) и при необходимости искать содержимое файлов с помощью регулярного выражения.\n\nПримечания:\n- content_pattern интерпретируется как регулярное выражение Python.\n- Если content_pattern пуст, выполняется только сопоставление по имени файла.\n- По соображениям производительности и безопасности поиск по содержимому может внутренне использовать простую бинарную проверку."
+    "tool.description": "Ищет файлы в каталоге по шаблону имени (glob) и/или по содержимому (regex).",
+    "tool.system_prompt": "Ищите файлы в каталоге. Можно фильтровать по шаблону имени файла (glob) и при необходимости искать содержимое файлов с помощью регулярного выражения.\n\nПримечания:\n- content_pattern интерпретируется как регулярное выражение Python.\n- Если content_pattern пуст, выполняется только сопоставление по имени файла.\n- В целях производительности и безопасности поиск по содержимому может внутренне использовать простую бинарную проверку."
   },
   "th": {
     "err.dir_not_exist": "[ข้อผิดพลาด search_files] ไดเรกทอรีไม่มีอยู่: {path}",
@@ -205,8 +205,8 @@
     "param.max_results.description": "要返回的最大匹配文件数（默认：50）。",
     "param.name_pattern.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。",
     "param.root_path.description": "开始搜索的根目录（默认：当前目录）。",
-    "tool.description": "按名称模式（glob）和/或内容（regex）搜索目录下的文件。",
-    "tool.system_prompt": "搜索目录下的文件。您可以按文件名模式（glob）进行筛选，也可以选择使用正则表达式搜索文件内容。\n\n注意：\n- content_pattern 会被视为 Python 正则表达式。\n- 如果 content_pattern 为空，则仅进行文件名匹配。\n- 为了性能和安全，内容搜索在内部可能会使用简单的二进制检查。"
+    "tool.description": "按名称模式（glob）和/或内容（正则表达式）搜索目录中的文件。",
+    "tool.system_prompt": "在目录中搜索文件。您可以按文件名模式（glob）筛选，并可选地使用正则表达式搜索文件内容。\n\n注意：\n- content_pattern 会被视为 Python 正则表达式。\n- 如果 content_pattern 为空，则只进行文件名匹配。\n- 为了性能和安全，内容搜索内部可能会使用简单的二进制检查。"
   },
   "zh_TW": {
     "err.dir_not_exist": "[search_files 錯誤] 目錄不存在：{path}",
@@ -224,8 +224,8 @@
     "param.max_results.description": "要傳回的最大相符檔案數（預設：50）。",
     "param.name_pattern.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。",
     "param.root_path.description": "開始搜尋的根目錄（預設：目前目錄）。",
-    "tool.description": "按名稱模式（glob）和/或內容（regex）搜尋目錄下的檔案。",
-    "tool.system_prompt": "搜尋目錄下的檔案。您可以按檔名模式（glob）進行篩選，也可以選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則僅進行檔名比對。\n- 為了效能與安全，內容搜尋在內部可能會使用簡單的二進位檢查。"
+    "tool.description": "依名稱模式（glob）和/或內容（正規表示式）搜尋目錄中的檔案。",
+    "tool.system_prompt": "在目錄中搜尋檔案。您可以依檔名模式（glob）篩選，並可選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則只進行檔名比對。\n- 為了效能與安全，內容搜尋內部可能會使用簡單的二進位檢查。"
   },
   "id": {
     "err.dir_not_exist": "[search_files error] Direktori tidak ada: {path}",
@@ -268,12 +268,12 @@
   "pl": {
     "err.dir_not_exist": "[błąd search_files] Katalog nie istnieje: {path}",
     "err.regex_compile": "[błąd search_files] Nie udało się skompilować wyrażenia regularnego: {error}",
-    "match.excerpt": "MECZ: {text}",
+    "match.excerpt": "DOPASOWANIE: {text}",
     "match.line": "Linia {line}: {text}",
     "match.more": "... (więcej dopasowań w pliku)",
     "out.file": "Plik: {file}",
     "out.found": "[search_files] Znaleziono {n} wyników",
-    "out.found_truncated": "[search_files] Znaleziono wyniki {n} (skrócone do {max_results})",
+    "out.found_truncated": "[search_files] Znaleziono {n} wyników (przycięto do {max_results})",
     "out.no_match": "[search_files] Żadne pliki nie spełniają kryteriów.",
     "param.case_sensitive.description": "Określa, czy w wyszukiwaniu treści uwzględniana jest wielkość liter (domyślnie: fałsz).",
     "param.content_pattern.description": "Wyrażenie regularne do wyszukiwania w plikach. Jeśli zostanie podany, zwracane są tylko pliki zawierające co najmniej jedną pasującą linię.",
@@ -281,8 +281,8 @@
     "param.max_results.description": "Maksymalna liczba pasujących plików do zwrócenia (domyślnie: 50).",
     "param.name_pattern.description": "Wzorzec globalny nazwy pliku (np. „*.py”, „test_*”). Jeśli zostanie pominięty, brane będą pod uwagę wszystkie pliki.",
     "param.root_path.description": "Katalog główny, od którego należy rozpocząć wyszukiwanie (domyślnie: katalog bieżący).",
-    "tool.description": "Wyszukaj pliki w katalogu według wzorca nazwy (glob) i/lub według zawartości (regex).",
-    "tool.system_prompt": "Wyszukaj pliki w katalogu. Możesz filtrować według wzorca nazwy pliku (glob) i opcjonalnie wyszukiwać zawartość pliku za pomocą wyrażenia regularnego.\n\nUwagi:\n- content_pattern jest traktowany jako wyrażenie regularne Pythona.\n- Jeśli content_pattern jest pusty, wykonywane jest tylko dopasowywanie nazw plików.\n- Ze względu na wydajność i bezpieczeństwo wyszukiwanie treści może wewnętrznie korzystać z prostego sprawdzania binarnego."
+    "tool.description": "Wyszukuj pliki w katalogu według wzorca nazwy (glob) i/lub zawartości (regex).",
+    "tool.system_prompt": "Wyszukaj pliki w katalogu. Możesz filtrować według wzorca nazwy pliku (glob) i opcjonalnie przeszukiwać zawartość plików za pomocą wyrażenia regularnego.\n\nUwagi:\n- content_pattern jest traktowany jako wyrażenie regularne Pythona.\n- Jeśli content_pattern jest puste, wykonywane jest tylko dopasowanie nazwy pliku.\n- Ze względu na wydajność i bezpieczeństwo wyszukiwanie treści może wewnętrznie używać prostego sprawdzenia binarnego."
   },
   "pt": {
     "err.dir_not_exist": "[erro search_files] O diretório não existe: {path}",
@@ -291,8 +291,8 @@
     "match.line": "L{line}: {text}",
     "match.more": "... (mais correspondências no arquivo)",
     "out.file": "Arquivo: {file}",
-    "out.found": "[search_files] Resultados {n} encontrados",
-    "out.found_truncated": "[search_files] Resultados {n} encontrados (truncados para {max_results})",
+    "out.found": "[search_files] {n} resultados encontrados",
+    "out.found_truncated": "[search_files] {n} resultados encontrados (limitado a {max_results})",
     "out.no_match": "[search_files] Nenhum arquivo corresponde aos critérios.",
     "param.case_sensitive.description": "Se a pesquisa de conteúdo diferencia maiúsculas de minúsculas (padrão: falso).",
     "param.content_pattern.description": "Expressão regular para pesquisar em arquivos. Se fornecido, somente os arquivos contendo pelo menos uma linha correspondente serão retornados.",
@@ -300,14 +300,14 @@
     "param.max_results.description": "Número máximo de arquivos correspondentes a serem retornados (padrão: 50).",
     "param.name_pattern.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*'). Se omitido, todos os arquivos serão considerados.",
     "param.root_path.description": "Diretório raiz para iniciar a pesquisa (padrão: diretório atual).",
-    "tool.description": "Pesquise arquivos em um diretório por padrão de nome (glob) e/ou por conteúdo (regex).",
-    "tool.system_prompt": "Procure arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo do arquivo usando uma expressão regular.\n\nNotas:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência de nome de arquivo será executada.\n- Para desempenho e segurança, a pesquisa de conteúdo pode usar uma simples verificação binária internamente."
+    "tool.description": "Pesquise arquivos em um diretório por padrão de nome (glob) e/ou conteúdo (regex).",
+    "tool.system_prompt": "Pesquise arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo dos arquivos com uma expressão regular.\n\nObservações:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência pelo nome do arquivo será feita.\n- Por desempenho e segurança, a pesquisa de conteúdo pode usar internamente uma verificação binária simples."
   },
   "hi": {
     "err.dir_not_exist": "[search_files त्रुटि] निर्देशिका मौजूद नहीं है: {path}",
     "err.regex_compile": "[search_files त्रुटि] रेगेक्स संकलित करने में विफल: {error}",
-    "match.excerpt": "मैच: {text}",
-    "match.line": "एल{line}: {text}",
+    "match.excerpt": "मिलान: {text}",
+    "match.line": "पंक्ति {line}: {text}",
     "match.more": "... (फ़ाइल में अधिक मिलान)",
     "out.file": "फ़ाइल: {file}",
     "out.found": "[search_files] {n} परिणाम मिले",
@@ -319,27 +319,27 @@
     "param.max_results.description": "लौटाने के लिए मिलान की गई फ़ाइलों की अधिकतम संख्या (डिफ़ॉल्ट: 50)।",
     "param.name_pattern.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*.py', 'test_*')। यदि छोड़ दिया जाए तो सभी फाइलों पर विचार किया जाता है।",
     "param.root_path.description": "खोज शुरू करने के लिए रूट निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)।",
-    "tool.description": "किसी निर्देशिका के अंतर्गत नाम पैटर्न (ग्लोब) और/या सामग्री (रेगेक्स) के आधार पर फ़ाइलें खोजें।",
-    "tool.system_prompt": "किसी निर्देशिका के अंतर्गत फ़ाइलें खोजें. आप फ़ाइल नाम पैटर्न (ग्लोब) के आधार पर फ़िल्टर कर सकते हैं और वैकल्पिक रूप से रेगुलर एक्सप्रेशन का उपयोग करके फ़ाइल सामग्री खोज सकते हैं।\n\nटिप्पणियाँ:\n- कंटेंट_पैटर्न को पायथन रेगुलर एक्सप्रेशन के रूप में माना जाता है।\n- यदि कंटेंट_पैटर्न खाली है, तो केवल फ़ाइल नाम मिलान किया जाता है।\n- प्रदर्शन और सुरक्षा के लिए, सामग्री खोज आंतरिक रूप से एक सरल बाइनरी जांच का उपयोग कर सकती है।"
+    "tool.description": "नाम पैटर्न (glob) और/या सामग्री (regex) के आधार पर किसी निर्देशिका में फ़ाइलें खोजें।",
+    "tool.system_prompt": "किसी निर्देशिका में फ़ाइलें खोजें। आप फ़ाइल नाम पैटर्न (glob) से फ़िल्टर कर सकते हैं और चाहें तो नियमित अभिव्यक्ति से फ़ाइल सामग्री भी खोज सकते हैं।\n\nनोट्स:\n- content_pattern को Python नियमित अभिव्यक्ति माना जाता है।\n- यदि content_pattern खाली है, तो केवल फ़ाइल नाम मिलान किया जाता है।\n- प्रदर्शन और सुरक्षा के लिए, सामग्री खोज आंतरिक रूप से एक सरल बाइनरी जाँच का उपयोग कर सकती है।"
   },
   "ar": {
-    "err.dir_not_exist": "[خطأ في ملفات البحث] الدليل غير موجود: {path}",
-    "err.regex_compile": "[خطأ في ملفات البحث] فشل في تجميع التعبير العادي: {خطأ}",
-    "match.excerpt": "المباراة: {نص}",
-    "match.line": "ل {سطر}: {نص}",
-    "match.more": "... (المزيد من التطابقات في الملف)",
-    "out.file": "ملف: {ملف}",
-    "out.found": "[search_files] تم العثور على {n} من النتائج",
-    "out.found_truncated": "[search_files] تم العثور على {n} من النتائج (تم اقتطاعها إلى {max_results})",
-    "out.no_match": "[search_files] لا توجد ملفات مطابقة للمعايير.",
-    "param.case_sensitive.description": "ما إذا كان البحث عن المحتوى حساسًا لحالة الأحرف (الافتراضي: خطأ).",
-    "param.content_pattern.description": "التعبير العادي للبحث داخل الملفات. إذا تم توفيره، فسيتم إرجاع الملفات التي تحتوي على سطر مطابق واحد فقط على الأقل.",
-    "param.fast_read_threshold_bytes.description": "تتم قراءة الملفات الأصغر من هذا الحد بالكامل () للبحث بشكل أسرع (الافتراضي: 8000000 ≈ 8 ميجابايت). يتم فحص الملفات الأكبر حجمًا سطرًا تلو الآخر.",
-    "param.max_results.description": "الحد الأقصى لعدد الملفات المطابقة المراد إرجاعها (الافتراضي: 50).",
-    "param.name_pattern.description": "النمط الشامل لاسم الملف (على سبيل المثال، '*.py'، 'test_*'). إذا تم حذفها، يتم النظر في جميع الملفات.",
-    "param.root_path.description": "الدليل الجذر لبدء البحث منه (الافتراضي: الدليل الحالي).",
-    "tool.description": "ابحث عن الملفات ضمن دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex).",
-    "tool.system_prompt": "البحث عن الملفات ضمن الدليل. يمكنك التصفية حسب نمط اسم الملف (الكرة الأرضية) والبحث اختياريًا في محتويات الملف باستخدام تعبير عادي.\n\nملاحظات:\n- يتم التعامل مع content_pattern كتعبير عادي لـ Python.\n- إذا كان content_pattern فارغًا، فسيتم إجراء مطابقة اسم الملف فقط.\n- من أجل الأداء والسلامة، قد يستخدم البحث عن المحتوى فحصًا ثنائيًا بسيطًا داخليًا."
+    "err.dir_not_exist": "[خطأ search_files] الدليل غير موجود: {path}",
+    "err.regex_compile": "[خطأ search_files] فشل في تجميع التعبير النمطي: {error}",
+    "match.excerpt": "تطابق: {text}",
+    "match.line": "السطر {line}: {text}",
+    "match.more": "... (مزيد من التطابقات في الملف)",
+    "out.file": "الملف: {file}",
+    "out.found": "[search_files] تم العثور على {n} نتيجة",
+    "out.found_truncated": "[search_files] تم العثور على {n} نتيجة (تم اقتطاعها إلى {max_results})",
+    "out.no_match": "[search_files] لم يتم العثور على ملفات تطابق المعايير.",
+    "param.case_sensitive.description": "ما إذا كان البحث في المحتوى حساسًا لحالة الأحرف (الافتراضي: false).",
+    "param.content_pattern.description": "تعبير نمطي للبحث داخل الملفات. إذا تم توفيره، فستُعاد فقط الملفات التي تحتوي على سطر مطابق واحد على الأقل.",
+    "param.fast_read_threshold_bytes.description": "تُقرأ الملفات الأصغر من هذا الحد بالكامل للبحث بشكل أسرع (الافتراضي: 8000000 ≈ 8 MB). أما الملفات الأكبر فتُفحص سطرًا بسطر.",
+    "param.max_results.description": "الحد الأقصى لعدد الملفات المطابقة التي ستُعاد (الافتراضي: 50).",
+    "param.name_pattern.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار.",
+    "param.root_path.description": "الدليل الجذر الذي يبدأ منه البحث (الافتراضي: الدليل الحالي).",
+    "tool.description": "ابحث عن الملفات داخل دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex).",
+    "tool.system_prompt": "ابحث عن الملفات داخل دليل. يمكنك التصفية حسب نمط اسم الملف (glob) والبحث اختياريًا في محتوى الملف باستخدام تعبير نمطي.\n\nملاحظات:\n- يُعامل content_pattern كتعبير نمطي في Python.\n- إذا كان content_pattern فارغًا، فسيتم البحث بالاسم فقط.\n- لأسباب تتعلق بالأداء والسلامة، قد يستخدم البحث في المحتوى داخليًا فحصًا ثنائيًا بسيطًا."
   },
   "sv": {
     "err.dir_not_exist": "[search_files-fel] Katalogen finns inte: {path}",
@@ -416,5 +416,43 @@
     "param.root_path.description": "Perushakemisto, josta haku aloitetaan (oletus: nykyinen hakemisto).",
     "tool.description": "Etsi tiedostoja hakemistosta nimen (glob) ja/tai sisällön (regex) perusteella.",
     "tool.system_prompt": "Etsi tiedostoja hakemiston alta. Voit rajata hakua tiedostonimikuviolla (glob) ja halutessasi etsiä sisällöstä säännöllisellä lausekkeella.\n\nHuomautukset:\n- content_pattern käsitellään Pythonin säännöllisenä lausekkeena.\n- Jos content_pattern on tyhjä, tehdään vain tiedostonimihaku.\n- Suorituskyvyn ja turvallisuuden vuoksi sisällönhaku voi käyttää sisäisesti yksinkertaista binääritarkistusta."
+  },
+  "cs": {
+    "err.dir_not_exist": "[search_files chyba] Adresář neexistuje: {path}",
+    "err.regex_compile": "[search_files chyba] Nepodařilo se zkompilovat regulární výraz: {error}",
+    "match.excerpt": "SHODA: {text}",
+    "match.line": "Ř{line}: {text}",
+    "match.more": "... (další shody v souboru)",
+    "out.file": "Soubor: {file}",
+    "out.found": "[search_files] Nalezeno {n} výsledků",
+    "out.found_truncated": "[search_files] Nalezeno {n} výsledků (oříznuto na {max_results})",
+    "out.no_match": "[search_files] Žádný soubor neodpovídá kritériím.",
+    "param.case_sensitive.description": "Zda má být vyhledávání v obsahu citlivé na velikost písmen (výchozí: false).",
+    "param.content_pattern.description": "Regulární výraz pro vyhledávání v souborech. Pokud je zadán, vrátí se pouze soubory s alespoň jedním odpovídajícím řádkem.",
+    "param.fast_read_threshold_bytes.description": "Soubory menší než tato hranice se pro rychlejší vyhledávání čtou celé (výchozí: 8000000 ≈ 8 MB). Větší soubory se procházejí po řádcích.",
+    "param.max_results.description": "Maximální počet vrácených shodných souborů (výchozí: 50).",
+    "param.name_pattern.description": "Glob vzor názvu souboru (např. '*.py', 'test_*'). Pokud je vynechán, berou se v úvahu všechny soubory.",
+    "param.root_path.description": "Kořenový adresář, od kterého se má vyhledávání spustit (výchozí: aktuální adresář).",
+    "tool.description": "Vyhledává soubory v adresáři podle názvu (glob) a/nebo obsahu (regex).",
+    "tool.system_prompt": "Vyhledávejte soubory v adresáři. Můžete filtrovat podle vzoru názvu souboru (glob) a volitelně prohledávat obsah souborů pomocí regulárního výrazu.\n\nPoznámky:\n- content_pattern je interpretován jako regulární výraz Pythonu.\n- Pokud je content_pattern prázdný, provádí se pouze porovnání názvu souboru.\n- Z důvodů výkonu a bezpečnosti může vyhledávání obsahu interně používat jednoduchou binární kontrolu."
+  },
+  "uk": {
+    "err.dir_not_exist": "[search_files помилка] Каталог не існує: {path}",
+    "err.regex_compile": "[search_files помилка] Не вдалося скомпілювати регулярний вираз: {error}",
+    "match.excerpt": "ЗБІГ: {text}",
+    "match.line": "Рядок {line}: {text}",
+    "match.more": "... (ще збіги в файлі)",
+    "out.file": "Файл: {file}",
+    "out.found": "[search_files] Знайдено {n} результатів",
+    "out.found_truncated": "[search_files] Знайдено {n} результатів (обрізано до {max_results})",
+    "out.no_match": "[search_files] Файлів, що відповідають критеріям, не знайдено.",
+    "param.case_sensitive.description": "Чи враховувати регістр під час пошуку вмісту (типово: false).",
+    "param.content_pattern.description": "Регулярний вираз для пошуку всередині файлів. Якщо вказано, повертаються лише файли щонайменше з одним рядком, що збігається.",
+    "param.fast_read_threshold_bytes.description": "Файли менші за цей поріг читаються повністю для швидшого пошуку (типово: 8000000 ≈ 8 MB). Більші файли скануються построково.",
+    "param.max_results.description": "Максимальна кількість файлів, що відповідають, які слід повернути (типово: 50).",
+    "param.name_pattern.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли.",
+    "param.root_path.description": "Кореневий каталог, з якого починається пошук (типово: поточний каталог).",
+    "tool.description": "Шукає файли в каталозі за шаблоном назви (glob) та/або вмістом (regex).",
+    "tool.system_prompt": "Шукайте файли в каталозі. Ви можете фільтрувати за шаблоном назви файлу (glob) і, за потреби, шукати вміст файлів за допомогою регулярного виразу.\n\nПримітки:\n- content_pattern трактується як регулярний вираз Python.\n- Якщо content_pattern порожній, виконується лише зіставлення за назвою файла.\n- З міркувань продуктивності та безпеки пошук вмісту може внутрішньо використовувати просту бінарну перевірку."
   }
 }

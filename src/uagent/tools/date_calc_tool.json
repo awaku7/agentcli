@@ -2,14 +2,14 @@
   "en": {
     "doc.get_holiday_info": "Get the holiday names for the specified country using the holidays library.",
     "param.base_date.description": "Base date (ISO 8601 format 'YYYY-MM-DD'; if omitted, today).",
-    "param.check_holiday.description": "Whether to determine whether it is a holiday/holiday (default: true)",
+    "param.check_holiday.description": "Whether to check if the result is a holiday (default: true)",
     "param.country.description": "Country code for determining public holidays (ISO 3166-1 alpha-2, e.g. 'JP', 'US', 'GB', 'FR'). Default is 'JP'.",
     "param.days.description": "Number of days to add (subtraction is a negative number).",
     "param.months.description": "Number of months to add (subtraction is negative).",
     "param.weeks.description": "Number of weeks to add (subtraction is negative).",
     "param.years.description": "Number of years to add (subtraction is a negative number).",
-    "tool.description": "Add or subtract years, months, weeks, or days for a specified date and return the result. Includes holiday detection using the holidays library.",
-    "tool.system_prompt": "This tool adds or subtracts years, months, weeks, or days for a specified date and can also determine whether the result falls on a holiday using the holidays library. See the tool description for details."
+    "tool.description": "Add or subtract years, months, weeks, or days from a specified date and return the result. Holiday detection is included using the holidays library.",
+    "tool.system_prompt": "This tool adds or subtracts years, months, weeks, or days for a specified date and can also determine whether the result is a holiday using the holidays library. See the tool description for details."
   },
   "ja": {
     "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。",
@@ -20,32 +20,32 @@
     "param.months.description": "加算する月数（減算は負の数）。",
     "param.weeks.description": "加算する週数（減算は負の数）。",
     "param.years.description": "加算する年数（減算は負の数）。",
-    "tool.description": "指定した日付に対して年、月、週、日単位の加算・減算を行い、結果の日付を返します。holidaysライブラリを使って祝日判定も行います。",
-    "tool.system_prompt": "このツールは、指定した日付に対して年、月、週、日単位の加算・減算を行い、必要に応じて holidays ライブラリで祝日判定も行います。詳細は tool.description を参照してください。"
+    "tool.description": "指定した日付に対して年、月、週、日を加算・減算し、結果を返します。holidays ライブラリを使った祝日判定も行います。",
+    "tool.system_prompt": "このツールは、指定した日付に対して年、月、週、日を加算・減算し、必要に応じて holidays ライブラリで祝日判定も行います。詳細は tool.description を参照してください。"
   },
   "zh_CN": {
     "doc.get_holiday_info": "使用 holidays 库获取指定国家的节假日名称。",
     "param.base_date.description": "基准日期（ISO 8601 格式 'YYYY-MM-DD'；如果省略，则为今天）。",
-    "param.check_holiday.description": "是否判断是否为节假日/假日（默认：true）",
+    "param.check_holiday.description": "是否检查结果是否为节假日（默认：true）",
     "param.country.description": "用于判断节假日的国家代码（ISO 3166-1 alpha-2，例如 'JP'、'US'、'GB'、'FR'）。默认值为 'JP'。",
     "param.days.description": "要加的天数（减法为负数）。",
     "param.months.description": "要加的月数（减法为负数）。",
     "param.weeks.description": "要加的周数（减法为负数）。",
     "param.years.description": "要加的年数（减法为负数）。",
-    "tool.description": "对指定日期进行年、月、周或日的加减运算并返回结果。使用 holidays 库进行节假日判断。",
-    "tool.system_prompt": "此工具用于对指定日期进行年、月、周、日的加减运算，并可使用 holidays 库判断结果是否落在节假日。详情请参见 tool.description。"
+    "tool.description": "对指定日期进行年、月、周或日的加减运算并返回结果。可使用 holidays 库进行节假日判断。",
+    "tool.system_prompt": "此工具用于对指定日期进行年、月、周、日的加减运算，并可使用 holidays 库判断结果是否为节假日。详情请参见 tool.description。"
   },
   "zh_TW": {
     "doc.get_holiday_info": "使用 holidays 庫取得指定國家的假日名稱。",
     "param.base_date.description": "基準日期（ISO 8601 格式 'YYYY-MM-DD'；若省略，則為今天）。",
-    "param.check_holiday.description": "是否判斷是否為假日/休假日（預設：true）",
+    "param.check_holiday.description": "是否檢查結果是否為假日（預設：true）",
     "param.country.description": "用於判斷國定假日的國家代碼（ISO 3166-1 alpha-2，例如 'JP'、'US'、'GB'、'FR'）。預設值為 'JP'。",
     "param.days.description": "要加的天數（減法為負數）。",
     "param.months.description": "要加的月數（減法為負數）。",
     "param.weeks.description": "要加的週數（減法為負數）。",
     "param.years.description": "要加的年數（減法為負數）。",
-    "tool.description": "對指定日期執行年、月、週或日的加減運算並傳回結果。使用 holidays 庫進行假日判定。",
-    "tool.system_prompt": "此工具用於對指定日期執行年、月、週、日的加減運算，並可使用 holidays 庫判斷結果是否落在假日。詳情請參閱 tool.description。"
+    "tool.description": "對指定日期執行年、月、週或日的加減運算並回傳結果。可使用 holidays 庫進行假日判定。",
+    "tool.system_prompt": "此工具用於對指定日期執行年、月、週、日的加減運算，並可使用 holidays 庫判斷結果是否為假日。詳情請參閱 tool.description。"
   },
   "es": {
     "doc.get_holiday_info": "Obtenga los nombres de los días festivos del país especificado utilizando la biblioteca holidays.",
@@ -56,7 +56,7 @@
     "param.months.description": "Número de meses que se añadirán (la resta es negativa).",
     "param.weeks.description": "Número de semanas que se añadirán (la resta es negativa).",
     "param.years.description": "Número de años que se añadirán (la resta es un número negativo).",
-    "tool.description": "Suma o resta años, meses, semanas o días a una fecha especificada y devuelve el resultado. Incluye la detección de festivos con la biblioteca holidays.",
+    "tool.description": "Suma o resta años, meses, semanas o días a una fecha especificada y devuelve el resultado. Incluye detección de festivos con la biblioteca holidays.",
     "tool.system_prompt": "Esta herramienta suma o resta años, meses, semanas o días a una fecha especificada y también puede determinar si el resultado cae en un festivo mediante la biblioteca holidays. Consulte la descripción de la herramienta para más detalles."
   },
   "fr": {
@@ -68,8 +68,8 @@
     "param.months.description": "Nombre de mois à ajouter (la soustraction est négative).",
     "param.weeks.description": "Nombre de semaines à ajouter (la soustraction est négative).",
     "param.years.description": "Nombre d’années à ajouter (la soustraction est un nombre négatif).",
-    "tool.description": "Ajoute ou soustrait des années, des mois, des semaines ou des jours à une date spécifiée et renvoie le résultat. Inclut la détection des jours fériés avec la bibliothèque holidays.",
-    "tool.system_prompt": "Cet outil ajoute ou soustrait des années, des mois, des semaines ou des jours à une date spécifiée et peut aussi déterminer si le résultat tombe sur un jour férié à l’aide de la bibliothèque holidays. Voir la description de l’outil pour plus de détails."
+    "tool.description": "Ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et renvoie le résultat. La détection des jours fériés est incluse via la bibliothèque holidays.",
+    "tool.system_prompt": "Cet outil ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et peut aussi déterminer si le résultat tombe un jour férié à l’aide de la bibliothèque holidays. Voir la description de l’outil pour plus de détails."
   },
   "ko": {
     "doc.get_holiday_info": "holidays 라이브러리를 사용하여 지정된 국가의 공휴일 이름을 가져옵니다.",
@@ -80,8 +80,8 @@
     "param.months.description": "더할 개월 수입니다(빼기는 음수입니다).",
     "param.weeks.description": "더할 주 수입니다(빼기는 음수입니다).",
     "param.years.description": "더할 연수입니다(빼기는 음수입니다).",
-    "tool.description": "지정한 날짜에 대해 연, 월, 주, 일 단위의 덧셈 또는 뺄셈을 수행하고 결과를 반환합니다. holidays 라이브러리를 사용한 공휴일 판정도 포함됩니다.",
-    "tool.system_prompt": "이 도구는 지정한 날짜에 대해 연, 월, 주, 일 단위의 덧셈 또는 뺄셈을 수행하고, 필요하면 holidays 라이브러리로 공휴일 여부도 판정합니다. 자세한 내용은 tool.description을 참조하세요."
+    "tool.description": "지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고 결과를 반환합니다. holidays 라이브러리를 사용한 공휴일 판정도 포함됩니다.",
+    "tool.system_prompt": "이 도구는 지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고, 필요하면 holidays 라이브러리로 공휴일 여부도 판정합니다. 자세한 내용은 tool.description을 참조하세요."
   },
   "th": {
     "doc.get_holiday_info": "รับชื่อวันหยุดของประเทศที่ระบุโดยใช้ไลบรารี holidays",
@@ -92,8 +92,8 @@
     "param.months.description": "จำนวนเดือนที่จะบวก (การลบเป็นค่าลบ)",
     "param.weeks.description": "จำนวนสัปดาห์ที่จะบวก (การลบเป็นค่าลบ)",
     "param.years.description": "จำนวนปีที่จะบวก (การลบเป็นค่าลบ)",
-    "tool.description": "บวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ แล้วส่งกลับผลลัพธ์ รวมการตรวจสอบวันหยุดด้วยไลบรารี holidays",
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับบวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ และสามารถตรวจสอบได้ว่าผลลัพธ์ตรงกับวันหยุดหรือไม่โดยใช้ไลบรารี holidays ดูรายละเอียดเพิ่มเติมใน tool.description"
+    "tool.description": "บวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ แล้วส่งกลับผลลัพธ์ พร้อมตรวจสอบวันหยุดด้วยไลบรารี holidays",
+    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับบวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ และสามารถตรวจสอบได้ว่าผลลัพธ์ตรงกับวันหยุดหรือไม่ด้วยไลบรารี holidays ดูรายละเอียดเพิ่มเติมใน tool.description"
   },
   "de": {
     "doc.get_holiday_info": "Ermitteln Sie mithilfe der holidays-Bibliothek die Feiertagsnamen des angegebenen Landes.",
@@ -104,8 +104,8 @@
     "param.months.description": "Anzahl der hinzuzufügenden Monate (Subtraktion ist negativ).",
     "param.weeks.description": "Anzahl der hinzuzufügenden Wochen (Subtraktion ist negativ).",
     "param.years.description": "Anzahl der hinzuzufügenden Jahre (Subtraktion ist eine negative Zahl).",
-    "tool.description": "Addiert oder subtrahiert für ein angegebenes Datum Jahre, Monate, Wochen oder Tage und gibt das Ergebnis zurück. Enthält die Feiertagserkennung mithilfe der holidays-Bibliothek.",
-    "tool.system_prompt": "Dieses Tool addiert oder subtrahiert für ein angegebenes Datum Jahre, Monate, Wochen oder Tage und kann mithilfe der holidays-Bibliothek auch prüfen, ob das Ergebnis auf einen Feiertag fällt. Weitere Details finden Sie in der Toolbeschreibung."
+    "tool.description": "Addiert oder subtrahiert Jahre, Monate, Wochen oder Tage zu einem angegebenen Datum und gibt das Ergebnis zurück. Die Feiertagsprüfung erfolgt mit der holidays-Bibliothek.",
+    "tool.system_prompt": "Dieses Tool addiert oder subtrahiert Jahre, Monate, Wochen oder Tage für ein angegebenes Datum und kann mithilfe der holidays-Bibliothek auch prüfen, ob das Ergebnis ein Feiertag ist. Weitere Details finden Sie in der Toolbeschreibung."
   },
   "it": {
     "doc.get_holiday_info": "Ottieni i nomi delle festività del paese specificato utilizzando la libreria holidays.",
@@ -116,8 +116,8 @@
     "param.months.description": "Numero di mesi da aggiungere (la sottrazione è negativa).",
     "param.weeks.description": "Numero di settimane da aggiungere (la sottrazione è negativa).",
     "param.years.description": "Numero di anni da aggiungere (la sottrazione è un numero negativo).",
-    "tool.description": "Aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e restituisce il risultato. Include il rilevamento delle festività usando la libreria holidays.",
-    "tool.system_prompt": "Questo strumento aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e può anche determinare se il risultato coincide con un giorno festivo usando la libreria holidays. Per maggiori dettagli, vedere la descrizione dello strumento."
+    "tool.description": "Aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e restituisce il risultato. Include il rilevamento delle festività con la libreria holidays.",
+    "tool.system_prompt": "Questo strumento aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e può anche determinare se il risultato cade in un giorno festivo usando la libreria holidays. Per i dettagli, vedere la descrizione dello strumento."
   },
   "ru": {
     "doc.get_holiday_info": "Получите названия праздников указанной страны с помощью библиотеки holidays.",
@@ -128,8 +128,8 @@
     "param.months.description": "Количество месяцев, которые нужно добавить (вычитание — отрицательное).",
     "param.weeks.description": "Количество недель, которые нужно добавить (вычитание — отрицательное).",
     "param.years.description": "Количество лет, которые нужно добавить (вычитание — отрицательное число).",
-    "tool.description": "Добавляет или вычитает годы, месяцы, недели или дни для указанной даты и возвращает результат. Включает определение праздников с помощью библиотеки holidays.",
-    "tool.system_prompt": "Этот инструмент добавляет или вычитает годы, месяцы, недели или дни для указанной даты и также может определить, выпадает ли результат на праздник, с помощью библиотеки holidays. Подробности см. в описании инструмента."
+    "tool.description": "Прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и возвращает результат. Также включает определение праздников с помощью библиотеки holidays.",
+    "tool.system_prompt": "Этот инструмент прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и также может определить, является ли результат праздником, с помощью библиотеки holidays. Подробности см. в описании инструмента."
   },
   "pt_BR": {
     "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca holidays.",
@@ -140,7 +140,7 @@
     "param.months.description": "Número de meses a adicionar (a subtração é negativa).",
     "param.weeks.description": "Número de semanas a adicionar (a subtração é negativa).",
     "param.years.description": "Número de anos a adicionar (a subtração é um número negativo).",
-    "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. Inclui detecção de feriados usando a biblioteca holidays.",
+    "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays.",
     "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
   },
   "id": {
@@ -152,8 +152,8 @@
     "param.months.description": "Jumlah bulan yang ditambahkan (pengurangan bernilai negatif).",
     "param.weeks.description": "Jumlah minggu yang ditambahkan (pengurangan bernilai negatif).",
     "param.years.description": "Jumlah tahun yang ditambahkan (pengurangan bernilai negatif).",
-    "tool.description": "Tambah atau kurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan kembalikan hasilnya. Termasuk deteksi hari libur menggunakan library holidays.",
-    "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari untuk tanggal tertentu dan juga dapat menentukan apakah hasilnya jatuh pada hari libur menggunakan library holidays. Lihat deskripsi alat untuk detail."
+    "tool.description": "Menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan mengembalikan hasilnya. Deteksi hari libur menggunakan library holidays disertakan.",
+    "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan juga dapat menentukan apakah hasilnya merupakan hari libur dengan menggunakan library holidays. Lihat deskripsi alat untuk detail."
   },
   "vi": {
     "doc.get_holiday_info": "Lấy tên ngày lễ của quốc gia được chỉ định bằng thư viện ngày lễ.",
@@ -164,56 +164,56 @@
     "param.months.description": "Số tháng cần cộng (trừ là số âm).",
     "param.weeks.description": "Số tuần cần cộng (trừ là số âm).",
     "param.years.description": "Số năm cần cộng (trừ là số âm).",
-    "tool.description": "Cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và trả về kết quả. Bao gồm phát hiện ngày lễ bằng thư viện ngày lễ.",
-    "tool.system_prompt": "Công cụ này cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và cũng có thể xác định xem kết quả có rơi vào ngày nghỉ hay không bằng cách sử dụng thư viện ngày lễ. Xem mô tả công cụ để biết chi tiết."
+    "tool.description": "Cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và trả về kết quả. Có bao gồm việc kiểm tra ngày lễ bằng thư viện holidays.",
+    "tool.system_prompt": "Công cụ này cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và cũng có thể xác định xem kết quả có phải là ngày lễ hay không bằng thư viện holidays. Xem mô tả công cụ để biết chi tiết."
   },
   "pl": {
-    "doc.get_holiday_info": "Pobierz nazwy świąt dla określonego kraju, korzystając z biblioteki świąt.",
+    "doc.get_holiday_info": "Pobierz nazwy świąt dla wskazanego kraju, korzystając z biblioteki holidays.",
     "param.base_date.description": "Data bazowa (format ISO 8601 „RRRR-MM-DD”; jeśli pominięto, oznacza to dzień dzisiejszy).",
-    "param.check_holiday.description": "Czy określić, czy jest to święto/święto (domyślnie: prawda)",
-    "param.country.description": "Kod kraju służący do określania dni ustawowo wolnych od pracy (ISO 3166-1 alfa-2, np. „JP”, „US”, „GB”, „FR”). Wartość domyślna to „JP”.",
+    "param.check_holiday.description": "Czy sprawdzić, czy wynik przypada na dzień wolny od pracy (domyślnie: true)",
+    "param.country.description": "Kod kraju do określania dni wolnych od pracy (ISO 3166-1 alpha-2, np. \"JP\", \"US\", \"GB\", \"FR\").",
     "param.days.description": "Liczba dni do dodania (odejmowanie jest liczbą ujemną).",
     "param.months.description": "Liczba miesięcy do dodania (odjęcie jest ujemne).",
     "param.weeks.description": "Liczba tygodni do dodania (odjęcie jest ujemne).",
     "param.years.description": "Liczba lat do dodania (odejmowanie jest liczbą ujemną).",
-    "tool.description": "Dodaj lub odejmij lata, miesiące, tygodnie lub dni dla określonej daty i zwróć wynik. Obejmuje wykrywanie dni wolnych przy użyciu biblioteki dni wolnych.",
-    "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie lub dni dla określonej daty, a także może określić, czy wynik przypada na święto, korzystając z biblioteki świąt. Szczegóły znajdziesz w opisie narzędzia."
+    "tool.description": "Dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i zwraca wynik. Obejmuje także sprawdzanie świąt za pomocą biblioteki holidays.",
+    "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i może też sprawdzić, czy wynik przypada na święto, z użyciem biblioteki holidays. Szczegóły znajdziesz w opisie narzędzia."
   },
   "pt": {
     "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca de feriados.",
     "param.base_date.description": "Data base (formato ISO 8601 'AAAA-MM-DD'; se omitido, hoje).",
-    "param.check_holiday.description": "Se deve determinar se é feriado/feriado (padrão: verdadeiro)",
+    "param.check_holiday.description": "Se deve verificar se o resultado é feriado (padrão: true)",
     "param.country.description": "Código do país para determinar feriados (ISO 3166-1 alpha-2, por exemplo, 'JP', 'US', 'GB', 'FR'). O padrão é 'JP'.",
     "param.days.description": "Número de dias a serem adicionados (a subtração é um número negativo).",
     "param.months.description": "Número de meses a somar (a subtração é negativa).",
     "param.weeks.description": "Número de semanas a adicionar (a subtração é negativa).",
     "param.years.description": "Número de anos a serem somados (a subtração é um número negativo).",
-    "tool.description": "Adicione ou subtraia anos, meses, semanas ou dias para uma data especificada e retorne o resultado. Inclui detecção de feriados usando a biblioteca de feriados.",
-    "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias para uma data específica e também pode determinar se o resultado cai em um feriado usando a biblioteca de feriados. Consulte a descrição da ferramenta para obter detalhes."
+    "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays.",
+    "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
   },
   "hi": {
-    "doc.get_holiday_info": "अवकाश लाइब्रेरी का उपयोग करके निर्दिष्ट देश के लिए छुट्टियों के नाम प्राप्त करें।",
+    "doc.get_holiday_info": "holidays लाइब्रेरी का उपयोग करके निर्दिष्ट देश के अवकाशों के नाम प्राप्त करें।",
     "param.base_date.description": "आधार तिथि (आईएसओ 8601 प्रारूप 'YYYY-MM-DD'; यदि छोड़ा गया है, तो आज)।",
-    "param.check_holiday.description": "यह निर्धारित करना है कि यह छुट्टी/अवकाश है या नहीं (डिफ़ॉल्ट: सत्य)",
-    "param.country.description": "सार्वजनिक अवकाश निर्धारित करने के लिए देश कोड (आईएसओ 3166-1 अल्फा-2, उदाहरण के लिए 'जेपी', 'यूएस', 'जीबी', 'एफआर')। डिफ़ॉल्ट 'जेपी' है.",
+    "param.check_holiday.description": "क्या परिणाम के अवकाश होने की जांच करनी है (डिफ़ॉल्ट: true)",
+    "param.country.description": "सार्वजनिक अवकाश निर्धारित करने के लिए देश कोड (ISO 3166-1 alpha-2, उदाहरण: \"JP\", \"US\", \"GB\", \"FR\").",
     "param.days.description": "जोड़ने के लिए दिनों की संख्या (घटाना एक ऋणात्मक संख्या है)।",
     "param.months.description": "जोड़ने के लिए महीनों की संख्या (घटाना नकारात्मक है)।",
     "param.weeks.description": "जोड़ने के लिए सप्ताहों की संख्या (घटाना नकारात्मक है)।",
     "param.years.description": "जोड़ने के लिए वर्षों की संख्या (घटाना एक ऋणात्मक संख्या है)।",
-    "tool.description": "किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ें या घटाएँ और परिणाम लौटाएँ। छुट्टियों की लाइब्रेरी का उपयोग करके छुट्टियों का पता लगाना शामिल है।",
-    "tool.system_prompt": "यह उपकरण किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ता या घटाता है और यह भी निर्धारित कर सकता है कि परिणाम छुट्टियों की लाइब्रेरी का उपयोग करके छुट्टी पर आता है या नहीं। विवरण के लिए टूल विवरण देखें."
+    "tool.description": "किसी निर्दिष्ट तिथि से वर्ष, महीने, सप्ताह या दिन जोड़ें या घटाएँ और परिणाम लौटाएँ। holidays लाइब्रेरी से अवकाश जाँच भी शामिल है।",
+    "tool.system_prompt": "यह टूल किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ता या घटाता है और holidays लाइब्रेरी का उपयोग करके यह भी निर्धारित कर सकता है कि परिणाम अवकाश है या नहीं। विवरण के लिए tool.description देखें।"
   },
   "ar": {
-    "doc.get_holiday_info": "احصل على أسماء العطلات للبلد المحدد باستخدام مكتبة العطلات.",
+    "doc.get_holiday_info": "احصل على أسماء العطلات للبلد المحدد باستخدام مكتبة holidays.",
     "param.base_date.description": "التاريخ الأساسي (تنسيق ISO 8601 \"YYYY-MM-DD\"، إذا تم حذفه، فهو اليوم).",
-    "param.check_holiday.description": "ما إذا كان سيتم تحديد ما إذا كانت عطلة/عطلة (الافتراضي: صحيح)",
-    "param.country.description": "رمز البلد لتحديد العطلات الرسمية (ISO 3166-1 alpha-2، على سبيل المثال \"JP\"، و\"US\"، و\"GB\"، و\"FR\"). الافتراضي هو \"JP\".",
+    "param.check_holiday.description": "ما إذا كان يجب التحقق من كون النتيجة عطلة (الافتراضي: true)",
+    "param.country.description": "رمز البلد لتحديد العطلات الرسمية (ISO 3166-1 alpha-2، مثل \"JP\" أو \"US\" أو \"GB\" أو \"FR\").",
     "param.days.description": "عدد الأيام المطلوب إضافتها (الطرح هو رقم سالب).",
     "param.months.description": "عدد الأشهر المراد إضافتها (الطرح سلبي).",
     "param.weeks.description": "عدد الأسابيع المراد إضافتها (الطرح سلبي).",
     "param.years.description": "عدد السنوات المطلوب إضافتها (الطرح هو رقم سالب).",
-    "tool.description": "إضافة أو طرح السنوات أو الأشهر أو الأسابيع أو الأيام لتاريخ محدد وإرجاع النتيجة. يتضمن الكشف عن العطلات باستخدام مكتبة العطلات.",
-    "tool.system_prompt": "تقوم هذه الأداة بإضافة أو طرح السنوات أو الأشهر أو الأسابيع أو الأيام لتاريخ محدد، ويمكنها أيضًا تحديد ما إذا كانت النتيجة تقع في يوم عطلة باستخدام مكتبة العطلات. راجع وصف الأداة للحصول على التفاصيل."
+    "tool.description": "أضف أو اطرح سنوات أو أشهر أو أسابيع أو أيامًا من تاريخ محدد وأعد النتيجة. يتضمن ذلك التحقق من العطلات باستخدام مكتبة holidays.",
+    "tool.system_prompt": "تضيف هذه الأداة أو تطرح سنوات أو أشهر أو أسابيع أو أيامًا لتاريخ محدد، ويمكنها أيضًا التحقق مما إذا كانت النتيجة تقع في عطلة باستخدام مكتبة holidays. راجع وصف الأداة للتفاصيل."
   },
   "sv": {
     "doc.get_holiday_info": "Hämta helgdagsnamnen för det angivna landet med hjälp av holidays-biblioteket.",
@@ -224,8 +224,8 @@
     "param.months.description": "Antal månader att lägga till (subtraktion anges med ett negativt tal).",
     "param.weeks.description": "Antal veckor att lägga till (subtraktion anges med ett negativt tal).",
     "param.years.description": "Antal år att lägga till (subtraktion anges med ett negativt tal).",
-    "tool.description": "Lägg till eller dra ifrån år, månader, veckor eller dagar för ett angivet datum och returnera resultatet. Inkluderar helgdagskontroll med holidays-biblioteket.",
-    "tool.system_prompt": "Det här verktyget lägger till eller drar ifrån år, månader, veckor eller dagar för ett angivet datum och kan också avgöra om resultatet infaller på en helgdag med hjälp av holidays-biblioteket. Se verktygsbeskrivningen för detaljer."
+    "tool.description": "Lägg till eller dra ifrån år, månader, veckor eller dagar för ett angivet datum och returnera resultatet. Helgdagskontroll ingår via holidays-biblioteket.",
+    "tool.system_prompt": "Det här verktyget lägger till eller drar ifrån år, månader, veckor eller dagar för ett angivet datum och kan också avgöra om resultatet är en helgdag med hjälp av holidays-biblioteket. Se verktygsbeskrivningen för detaljer."
   },
   "nb": {
     "doc.get_holiday_info": "Hent navnene på helligdagene for det angitte landet ved hjelp av holidays-biblioteket.",
@@ -236,31 +236,55 @@
     "param.months.description": "Antall måneder som skal legges til (subtraksjon er negativ).",
     "param.weeks.description": "Antall uker som skal legges til (subtraksjon er negativ).",
     "param.years.description": "Antall år som skal legges til (subtraksjon er et negativt tall).",
-    "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Inkluderer helligdagskontroll med holidays-biblioteket.",
-    "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet faller på en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
+    "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Helligdagskontroll er inkludert med holidays-biblioteket.",
+    "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet er en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
   },
   "nl": {
-    "doc.get_holiday_info": "Get the holiday names for the specified country using the holidays library.",
+    "doc.get_holiday_info": "Haal de feestdagennamen op voor het opgegeven land met de holidays-bibliotheek.",
     "param.base_date.description": "Basisdatum in ISO 8601-formaat (YYYY-MM-DD). Als weggelaten, wordt vandaag gebruikt.",
-    "param.check_holiday.description": "Of feestdagen/wekeinden moeten worden gecontroleerd (standaard: true).",
-    "param.country.description": "Landcode voor feestdagencontrole (ISO 3166-1 alpha-2, bv. JP, US, GB, FR).",
+    "param.check_holiday.description": "Of moet worden gecontroleerd of het resultaat een feestdag is (standaard: true).",
+    "param.country.description": "Landcode voor het bepalen van feestdagen (ISO 3166-1 alpha-2, bijv. \"JP\", \"US\", \"GB\", \"FR\").",
     "param.days.description": "Aantal dagen om op te tellen of af te trekken (aftrekken is negatief).",
     "param.months.description": "Aantal maanden om op te tellen of af te trekken (aftrekken is negatief).",
     "param.weeks.description": "Aantal weken om op te tellen of af te trekken (aftrekken is negatief).",
     "param.years.description": "Aantal jaren om op te tellen of af te trekken (aftrekken is negatief).",
-    "tool.description": "Voer optellingen en aftrekkingen van jaren, maanden, weken en dagen uit op een opgegeven datum en geef de resulterende datum terug. Gebruikt de holidays-bibliotheek om feestdagen te controleren.",
-    "tool.system_prompt": "Gebruik deze tool voor datumrekeningen. Geef alleen JSON terug."
+    "tool.description": "Tel jaren, maanden, weken of dagen op bij of trek ze af van een opgegeven datum en geef het resultaat terug. Feestdagcontrole is inbegrepen via de holidays-bibliotheek.",
+    "tool.system_prompt": "Deze tool telt jaren, maanden, weken of dagen op bij of trekt ze af van een opgegeven datum en kan ook bepalen of het resultaat een feestdag is met behulp van de holidays-bibliotheek. Zie de toolbeschrijving voor details."
   },
   "fi": {
-    "doc.get_holiday_info": "Get the holiday names for the specified country using the holidays library.",
+    "doc.get_holiday_info": "Hae annetun maan juhlapäivien nimet holidays-kirjaston avulla.",
     "param.base_date.description": "Peruspäivämäärä ISO 8601 -muodossa (YYYY-MM-DD). Jos jätetään pois, käytetään tätä päivää.",
-    "param.check_holiday.description": "Tarkistetaanko pyhäpäivät/viikonloput (oletus: true).",
-    "param.country.description": "Maakoodi pyhäpäivien tarkistusta varten (ISO 3166-1 alpha-2, esim. JP, US, GB, FR).",
+    "param.check_holiday.description": "Tarkistetaanko, onko tulos pyhäpäivä (oletus: true).",
+    "param.country.description": "Maakoodi pyhäpäivien tarkistusta varten (ISO 3166-1 alpha-2, esim. \"JP\", \"US\", \"GB\", \"FR\").",
     "param.days.description": "Lisättävien tai vähennettävien päivien määrä (vähennys on negatiivinen).",
     "param.months.description": "Lisättävien tai vähennettävien kuukausien määrä (vähennys on negatiivinen).",
     "param.weeks.description": "Lisättävien tai vähennettävien viikkojen määrä (vähennys on negatiivinen).",
     "param.years.description": "Lisättävien tai vähennettävien vuosien määrä (vähennys on negatiivinen).",
-    "tool.description": "Suorita vuosien, kuukausien, viikkojen ja päivien lisäys tai vähennys annetulle päivämäärälle ja palauta tulos. Käyttää holidays-kirjastoa pyhäpäivien tarkistamiseen.",
-    "tool.system_prompt": "Käytä tätä työkalua päivämäärälaskentaan. Palauta vain JSON."
+    "tool.description": "Laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja palauttaa tuloksen. Juhlapäivien tarkistus sisältyy holidays-kirjaston avulla.",
+    "tool.system_prompt": "Tämä työkalu laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja voi myös tarkistaa holidays-kirjaston avulla, osuuko tulos juhlapäivään. Katso lisätiedot työkalun kuvauksesta."
+  },
+  "cs": {
+    "doc.get_holiday_info": "Získejte názvy svátků pro zadanou zemi pomocí knihovny holidays.",
+    "param.base_date.description": "Základní datum (formát ISO 8601 'YYYY-MM-DD'; pokud je vynecháno, použije se dnešní datum).",
+    "param.check_holiday.description": "Zda určit, zda jde o svátek nebo den pracovního klidu (výchozí: true)",
+    "param.country.description": "Kód země pro určení státních svátků (ISO 3166-1 alpha-2, např. 'JP', 'US', 'GB', 'FR'). Výchozí je 'JP'.",
+    "param.days.description": "Počet dní k přičtení (odčítání je záporné číslo).",
+    "param.months.description": "Počet měsíců k přičtení (odčítání je záporné).",
+    "param.weeks.description": "Počet týdnů k přičtení (odčítání je záporné).",
+    "param.years.description": "Počet let k přičtení (odčítání je záporné číslo).",
+    "tool.description": "Přičte nebo odečte roky, měsíce, týdny nebo dny pro zadané datum a vrátí výsledek. Součástí je i kontrola svátků pomocí knihovny holidays.",
+    "tool.system_prompt": "Tento nástroj přičítá nebo odečítá roky, měsíce, týdny nebo dny pro zadané datum a pomocí knihovny holidays může také určit, zda výsledek připadá na svátek. Podrobnosti viz popis nástroje."
+  },
+  "uk": {
+    "doc.get_holiday_info": "Отримайте назви свят для вказаної країни за допомогою бібліотеки holidays.",
+    "param.base_date.description": "Базова дата (формат ISO 8601 'YYYY-MM-DD'; якщо опущено, використовується сьогоднішня дата).",
+    "param.check_holiday.description": "Чи визначати, чи це свято або вихідний день (за замовчуванням: true)",
+    "param.country.description": "Код країни для визначення державних свят (ISO 3166-1 alpha-2, наприклад, 'JP', 'US', 'GB', 'FR'). За замовчуванням — 'JP'.",
+    "param.days.description": "Кількість днів для додавання (віднімання — від’ємне число).",
+    "param.months.description": "Кількість місяців для додавання (віднімання — від’ємне).",
+    "param.weeks.description": "Кількість тижнів для додавання (віднімання — від’ємне).",
+    "param.years.description": "Кількість років для додавання (віднімання — від’ємне число).",
+    "tool.description": "Додає або віднімає роки, місяці, тижні чи дні для вказаної дати та повертає результат. Також включає перевірку свят за допомогою бібліотеки holidays.",
+    "tool.system_prompt": "Цей інструмент додає або віднімає роки, місяці, тижні чи дні для вказаної дати та за допомогою бібліотеки holidays може також визначити, чи припадає результат на свято. Докладніше див. опис інструмента."
   }
 }

@@ -186,8 +186,8 @@
     "param.min_bytes.description": "Inkludera endast filer som är större än denna storlek (standard: 10 MB).",
     "param.root.description": "Sökrot (endast tillåten under workdir).",
     "param.top_n.description": "Antal toppresultat att returnera.",
-    "tool.description": "Söker efter stora filer under den angivna katalogen och возвращar de översta N resultaten tillsammans med statistik per filändelse.",
-    "tool.system_prompt": "Det här verktyget söker efter stora filer under den angivna katalogen och возвращar de översta N resultaten tillsammans med statistik per filändelse."
+    "tool.description": "Söker efter stora filer under den angivna katalogen och returnerar de N bästa resultaten tillsammans med statistik per filändelse.",
+    "tool.system_prompt": "Det här verktyget söker efter stora filer under den angivna katalogen och returnerar de N bästa resultaten tillsammans med statistik per filändelse."
   },
   "nb": {
     "param.exclude_dirs.description": "Utelatte katalognavn (treffes mot katalognavn).",
@@ -218,5 +218,25 @@
     "param.top_n.description": "Palautettavien parhaiden tulosten määrä.",
     "tool.description": "Etsii suuria tiedostoja annetusta hakemistosta ja palauttaa N suurinta tulosta sekä tiedostopäätekohtaiset tilastot.",
     "tool.system_prompt": "Tämä työkalu etsii suuria tiedostoja annetusta hakemistosta ja palauttaa N suurinta tulosta sekä tiedostopäätekohtaiset tilastot."
+  },
+  "cs": {
+    "param.exclude_dirs.description": "Názvy vyloučených adresářů (shoda podle názvu adresáře).",
+    "param.group_by_ext.description": "Vrátit také statistiky seskupené podle přípony souboru.",
+    "param.max_files.description": "Maximální počet souborů ke skenování (aby se zabránilo nekonečnému zpracování).",
+    "param.min_bytes.description": "Zahrnout pouze soubory větší než tato velikost (výchozí: 10 MB).",
+    "param.root.description": "Kořen vyhledávání (povoleno pouze pod workdir).",
+    "param.top_n.description": "Počet nejlepších výsledků k vrácení.",
+    "tool.description": "Vyhledá velké soubory ve zadaném adresáři a vrátí N nejlepších výsledků spolu se statistikami podle přípony.",
+    "tool.system_prompt": "Tento nástroj vyhledává velké soubory ve zadaném adresáři a vrací N nejlepších výsledků spolu se statistikami podle přípony."
+  },
+  "uk": {
+    "param.exclude_dirs.description": "Назви виключених каталогів (зіставлення за назвою каталогу).",
+    "param.group_by_ext.description": "Також повертати статистику, згруповану за розширенням файлу.",
+    "param.max_files.description": "Максимальна кількість файлів для сканування (щоб запобігти неконтрольованій обробці).",
+    "param.min_bytes.description": "Включати лише файли, більші за цей розмір (типово: 10 МБ).",
+    "param.root.description": "Корінь пошуку (дозволено лише в межах workdir).",
+    "param.top_n.description": "Кількість найкращих результатів для повернення.",
+    "tool.description": "Шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями.",
+    "tool.system_prompt": "Цей інструмент шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями."
   }
 }

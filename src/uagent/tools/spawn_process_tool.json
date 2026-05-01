@@ -11,23 +11,23 @@
   },
   "zh_CN": {
     "param.command.description": "要执行的命令行。",
-    "tool.description": "异步启动外部 GUI 或浏览器进程。避免同一请求重复生成。",
-    "tool.system_prompt": "使用此工具异步启动外部进程。避免同一请求重复生成。"
+    "tool.description": "异步启动外部 GUI 或浏览器进程。避免对同一请求重复启动。",
+    "tool.system_prompt": "使用此工具异步启动外部进程。避免对同一请求重复启动。"
   },
   "zh_TW": {
     "param.command.description": "要執行的命令列。",
-    "tool.description": "非同步啟動外部 GUI 或瀏覽器進程。避免同一請求重複產生。",
-    "tool.system_prompt": "使用此工具非同步啟動外部程序。避免同一請求重複產生。"
+    "tool.description": "非同步啟動外部 GUI 或瀏覽器程序。避免對同一請求重複啟動。",
+    "tool.system_prompt": "使用此工具非同步啟動外部程序。避免對同一請求重複啟動。"
   },
   "es": {
     "param.command.description": "Línea de comando para ejecutar.",
-    "tool.description": "Inicie de forma asincrónica un GUI externo o un proceso de navegador. Evite apariciones repetidas para la misma solicitud.",
-    "tool.system_prompt": "Utilice esta herramienta para iniciar un proceso externo de forma asincrónica. Evite apariciones repetidas para la misma solicitud."
+    "tool.description": "Inicia de forma asíncrona un proceso externo de GUI o navegador. Evita iniciarlo repetidamente para la misma solicitud.",
+    "tool.system_prompt": "Utilice esta herramienta para iniciar un proceso externo de forma asincrónica. Evite iniciarlo repetidamente para la misma solicitud."
   },
   "fr": {
     "param.command.description": "Ligne de commande à exécuter.",
-    "tool.description": "Démarrez de manière asynchrone un processus externe GUI ou un navigateur. Évitez les apparitions répétées pour la même demande.",
-    "tool.system_prompt": "Utilisez cet outil pour démarrer un processus externe de manière asynchrone. Évitez les apparitions répétées pour la même demande."
+    "tool.description": "Lance de manière asynchrone un processus externe de type GUI ou navigateur. Évitez les lancements répétés pour la même requête.",
+    "tool.system_prompt": "Utilisez cet outil pour démarrer un processus externe de manière asynchrone. Évitez les lancements répétés pour la même requête."
   },
   "ko": {
     "param.command.description": "실행할 명령줄입니다.",
@@ -36,8 +36,8 @@
   },
   "th": {
     "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
-    "tool.description": "เริ่มต้น GUI ภายนอกหรือกระบวนการเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการวางไข่ซ้ำสำหรับคำขอเดียวกัน",
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเริ่มกระบวนการภายนอกแบบอะซิงโครนัส หลีกเลี่ยงการวางไข่ซ้ำสำหรับคำขอเดียวกัน"
+    "tool.description": "เริ่มต้นกระบวนการ GUI ภายนอกหรือเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน",
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเริ่มกระบวนการภายนอกแบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน"
   },
   "de": {
     "param.command.description": "Auszuführende Befehlszeile.",
@@ -61,23 +61,23 @@
   },
   "id": {
     "param.command.description": "Command line yang akan dieksekusi.",
-    "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari menjalankan spawn berulang untuk permintaan yang sama.",
-    "tool.system_prompt": "Gunakan alat ini untuk memulai proses eksternal secara asinkron. Hindari menjalankan spawn berulang."
+    "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari menjalankannya berulang kali untuk permintaan yang sama.",
+    "tool.system_prompt": "Gunakan alat ini untuk memulai proses eksternal secara asinkron. Hindari menjalankannya berulang kali untuk permintaan yang sama."
   },
   "vi": {
     "param.command.description": "Dòng lệnh để thực thi.",
-    "tool.description": "Khởi động không đồng bộ một GUI bên ngoài hoặc quá trình trình duyệt. Tránh sinh sản lặp đi lặp lại cho cùng một yêu cầu.",
-    "tool.system_prompt": "Sử dụng công cụ này để bắt đầu một quy trình bên ngoài một cách không đồng bộ. Tránh sinh sản lặp đi lặp lại cho cùng một yêu cầu."
+    "tool.description": "Khởi động không đồng bộ một tiến trình GUI hoặc trình duyệt bên ngoài. Tránh khởi động lặp lại cho cùng một yêu cầu.",
+    "tool.system_prompt": "Sử dụng công cụ này để khởi động một tiến trình bên ngoài một cách không đồng bộ. Tránh khởi động lặp lại cho cùng một yêu cầu."
   },
   "pl": {
     "param.command.description": "Wiersz poleceń do wykonania.",
-    "tool.description": "Asynchronicznie uruchom zewnętrzny interfejs GUI lub proces przeglądarki. Unikaj powtarzających się spawnów dla tego samego żądania.",
-    "tool.system_prompt": "Użyj tego narzędzia, aby asynchronicznie uruchomić proces zewnętrzny. Unikaj powtarzających się spawnów dla tego samego żądania."
+    "tool.description": "Asynchronicznie uruchamia zewnętrzny proces GUI lub przeglądarki. Unikaj wielokrotnego uruchamiania dla tego samego żądania.",
+    "tool.system_prompt": "Użyj tego narzędzia, aby asynchronicznie uruchomić zewnętrzny proces. Unikaj wielokrotnego uruchamiania dla tego samego żądania."
   },
   "pt": {
     "param.command.description": "Linha de comando para executar.",
-    "tool.description": "Inicie de forma assíncrona uma GUI externa ou um processo de navegador. Evite spawns repetidos para a mesma solicitação.",
-    "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite spawns repetidos para a mesma solicitação."
+    "tool.description": "Inicie de forma assíncrona um processo externo de GUI ou navegador. Evite iniciá-lo repetidamente para a mesma solicitação.",
+    "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite iniciá-lo repetidamente para a mesma solicitação."
   },
   "hi": {
     "param.command.description": "निष्पादित करने के लिए कमांड लाइन.",
@@ -100,7 +100,7 @@
     "tool.system_prompt": "Bruk dette verktøyet til å starte en ekstern prosess asynkront. Unngå gjentatte oppstarter for samme forespørsel."
   },
   "nl": {
-    "param.command.description": "Uit te voeren commandoregel.",
+    "param.command.description": "Opdrachtregel om uit te voeren.",
     "tool.description": "Start asynchroon een extern GUI- of browserproces. Vermijd herhaaldelijk dezelfde aanvraag opnieuw te starten.",
     "tool.system_prompt": "Gebruik deze tool om een extern proces asynchroon te starten. Vermijd herhaaldelijk dezelfde aanvraag opnieuw te starten."
   },
@@ -108,5 +108,15 @@
     "param.command.description": "Suoritettava komentorivi.",
     "tool.description": "Käynnistä ulkoinen GUI- tai selainprosessi asynkronisesti. Vältä saman pyynnön toistuvaa käynnistämistä.",
     "tool.system_prompt": "Käytä tätä työkalua ulkoisen prosessin käynnistämiseen asynkronisesti. Vältä saman pyynnön toistuvaa käynnistämistä."
+  },
+  "cs": {
+    "param.command.description": "Příkazový řádek, který se má spustit.",
+    "tool.description": "Asynchronně spustí externí GUI nebo proces prohlížeče. Vyhněte se opakovanému spuštění pro stejný požadavek.",
+    "tool.system_prompt": "Použijte tento nástroj ke spuštění externího procesu asynchronně. Vyhněte se opakovanému spuštění pro stejný požadavek."
+  },
+  "uk": {
+    "param.command.description": "Рядок команди для виконання.",
+    "tool.description": "Асинхронно запускає зовнішній GUI або процес браузера. Уникайте повторного запуску для того самого запиту.",
+    "tool.system_prompt": "Використовуйте цей інструмент для асинхронного запуску зовнішнього процесу. Уникайте повторного запуску для того самого запиту."
   }
 }

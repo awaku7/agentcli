@@ -103,11 +103,11 @@
     "err.not_a_file": "[ข้อผิดพลาด generate_prompt] ไม่ใช่ไฟล์: {path}",
     "err.path_missing": "[ข้อผิดพลาด generate_prompt] ไม่ได้ระบุเส้นทาง/ชื่อไฟล์",
     "err.template_missing": "[ข้อผิดพลาด generate_prompt] ไม่ได้ระบุเทมเพลต",
-    "param.filename.description": "(ความเข้ากันได้) นามแฝงของเส้นทาง",
+    "param.filename.description": "(ความเข้ากันได้) ชื่อแทนของ path",
     "param.path.description": "เส้นทางของไฟล์อินพุต (ต้องอยู่ภายใต้ workdir)",
     "param.template.description": "เทมเพลตรูปแบบ Python ตัวอย่าง: '{lines} lines\n\n{content}'",
-    "tool.description": "สร้างสตริงพรอมต์จากไฟล์โดยใช้เทมเพลตรูปแบบ Python เทมเพลตสามารถอ้างอิงตัวแปรเช่น {content}, {lines}, {bytes}, {basename}, {path}",
-    "tool.system_prompt": "อ่านไฟล์ข้อความภายใต้ workdir และสร้างสตริงพรอมต์โดยใช้เทมเพลต (Python str.format)\nตัวแปรเทมเพลตที่มีให้:\n- content: เนื้อหาไฟล์ทั้งหมด (ข้อความ)\n- lines: จำนวนบรรทัด\n- bytes: ขนาดไฟล์เป็นไบต์\n- basename: ชื่อฐานไฟล์\n- path: เส้นทางสัมบูรณ์ที่ได้รับการแก้ไข"
+    "tool.description": "สร้างสตริงพรอมต์จากไฟล์โดยใช้เทมเพลตรูปแบบ Python เทมเพลตสามารถอ้างอิงตัวแปร เช่น {content}, {lines}, {bytes}, {basename}, {path} ได้",
+    "tool.system_prompt": "อ่านไฟล์ข้อความภายใต้ workdir และสร้างสตริงพรอมต์โดยใช้เทมเพลต (Python str.format)\nตัวแปรเทมเพลตที่มีให้:\n- content: เนื้อหาไฟล์ทั้งหมด (ข้อความ)\n- lines: จำนวนบรรทัด\n- bytes: ขนาดไฟล์เป็นไบต์\n- basename: ชื่อฐานไฟล์\n- path: พาธแบบเต็มที่แก้ไขแล้ว"
   },
   "zh_CN": {
     "err.bad_template": "[generate_prompt 错误] 模板包含未知键：{key}",
@@ -143,37 +143,37 @@
     "tool.system_prompt": "Baca file teks di bawah workdir dan buat string prompt dengan menerapkan template (Python str.format).\nVariabel template yang tersedia:\n- content: isi file lengkap (teks)\n- lines: jumlah baris\n- bytes: ukuran file dalam byte\n- basename: nama dasar file\n- path: path absolut yang sudah di-resolve"
   },
   "vi": {
-    "err.bad_template": "Mẫu [lỗi tạo_prompt] có khóa không xác định: {key}",
+    "err.bad_template": "[lỗi generate_prompt] mẫu có khóa không xác định: {key}",
     "err.not_a_file": "[lỗi tạo_prompt] không phải là tệp: {path}",
     "err.path_missing": "[lỗi tạo_prompt] đường dẫn/tên tệp không được chỉ định",
-    "err.template_missing": "Mẫu [lỗi_prompt] không được chỉ định",
+    "err.template_missing": "[lỗi generate_prompt] chưa chỉ định mẫu",
     "param.filename.description": "(Tương thích) Bí danh của đường dẫn.",
     "param.path.description": "Đường dẫn của tệp đầu vào (phải ở dưới workdir).",
     "param.template.description": "Mẫu định dạng Python. Ví dụ: '{lines} dòng\n\n{content}'.",
-    "tool.description": "Tạo chuỗi nhắc từ tệp bằng mẫu định dạng Python. Mẫu có thể tham chiếu các biến như {content}, {lines}, {bytes}, {basename}, {path}.",
-    "tool.system_prompt": "Đọc tệp văn bản trong Workdir và tạo chuỗi lời nhắc bằng cách áp dụng mẫu (Python str.format).\nCác biến mẫu có sẵn:\n- nội dung: nội dung file đầy đủ (văn bản)\n- Line: số dòng\n- byte: kích thước file tính bằng byte\n- basename: tên cơ sở của tập tin\n- đường dẫn: đường dẫn được giải quyết tuyệt đối"
+    "tool.description": "Tạo chuỗi prompt từ một tệp bằng mẫu định dạng Python. Mẫu có thể tham chiếu các biến như {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Đọc một tệp văn bản trong workdir và tạo chuỗi prompt bằng cách áp dụng mẫu (Python str.format).\nCác biến mẫu có sẵn:\n- content: toàn bộ nội dung tệp (văn bản)\n- lines: số dòng\n- bytes: kích thước tệp tính bằng byte\n- basename: tên cơ sở của tệp\n- path: đường dẫn tuyệt đối đã được giải quyết"
   },
   "pl": {
-    "err.bad_template": "Szablon [generate_prompt error] ma nieznany klucz: {key}",
-    "err.not_a_file": "[błąd generowania_promptu] nie jest plikiem: {path}",
-    "err.path_missing": "[Błąd generowania_podpowiedzi] nie określono ścieżki/nazwy pliku",
-    "err.template_missing": "Nie określono szablonu [generate_prompt error].",
-    "param.filename.description": "(Zgodność) Alias ​​ścieżki.",
+    "err.bad_template": "[błąd generate_prompt] szablon zawiera nieznany klucz: {key}",
+    "err.not_a_file": "[błąd generate_prompt] to nie jest plik: {path}",
+    "err.path_missing": "[błąd generate_prompt] nie określono ścieżki/nazwy pliku",
+    "err.template_missing": "[błąd generate_prompt] nie określono szablonu",
+    "param.filename.description": "(Zgodność) Alias ścieżki.",
     "param.path.description": "Ścieżka pliku wejściowego (musi znajdować się w katalogu roboczym).",
-    "param.template.description": "Szablon w formacie Pythona. Przykład: '{lines} linie\n\n{content}”.",
-    "tool.description": "Wygeneruj ciąg podpowiedzi z pliku przy użyciu szablonu formatu Python. Szablon może odwoływać się do zmiennych takich jak {content}, {lines}, {bytes}, {basename}, {path}.",
-    "tool.system_prompt": "Przeczytaj plik tekstowy w katalogu workdir i wygeneruj ciąg znaków zachęty, stosując szablon (Python str.format).\nDostępne zmienne szablonu:\n- treść: pełna zawartość pliku (tekst)\n- linie: liczba linii\n- bajty: rozmiar pliku w bajtach\n- nazwabazowa: nazwabazowa pliku\n- ścieżka: bezwzględnie ustalona ścieżka"
+    "param.template.description": "Szablon formatu Python. Przykład: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Generuje ciąg promptu z pliku przy użyciu szablonu formatu Python. Szablon może odwoływać się do zmiennych takich jak {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Odczytaj plik tekstowy w workdir i wygeneruj ciąg promptu, stosując szablon (Python str.format).\nDostępne zmienne szablonu:\n- content: pełna zawartość pliku (tekst)\n- lines: liczba linii\n- bytes: rozmiar pliku w bajtach\n- basename: nazwa pliku bez ścieżki\n- path: bezwzględna, rozwiązana ścieżka"
   },
   "pt": {
-    "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
-    "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
-    "err.path_missing": "[generate_prompt error] caminho/nome do arquivo não especificado",
-    "err.template_missing": "O modelo [generate_prompt error] não foi especificado",
-    "param.filename.description": "(Compatibilidade) Alias ​​do caminho.",
+    "err.bad_template": "[erro generate_prompt] o modelo tem uma chave desconhecida: {key}",
+    "err.not_a_file": "[erro generate_prompt] não é um arquivo: {path}",
+    "err.path_missing": "[erro generate_prompt] caminho/nome do arquivo não especificado",
+    "err.template_missing": "[erro generate_prompt] modelo não especificado",
+    "param.filename.description": "(Compatibilidade) Alias de path.",
     "param.path.description": "Caminho do arquivo de entrada (deve estar em workdir).",
     "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'.",
-    "tool.description": "Gere uma string de prompt de um arquivo usando um modelo de formato Python. O modelo pode fazer referência a variáveis ​​como {content}, {lines}, {bytes}, {basename}, {path}.",
-    "tool.system_prompt": "Leia um arquivo de texto em workdir e gere uma string de prompt aplicando um modelo (Python str.format).\nVariáveis de modelo disponíveis:\n- conteúdo: conteúdo completo do arquivo (texto)\n- linhas: número de linhas\n- bytes: tamanho do arquivo em bytes\n- nome base: nome base do arquivo\n- caminho: caminho absoluto resolvido"
+    "tool.description": "Gera uma string de prompt a partir de um arquivo usando um modelo de formato Python. O modelo pode referenciar variáveis como {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Lê um arquivo de texto em workdir e gera uma string de prompt aplicando um modelo (Python str.format).\nVariáveis de modelo disponíveis:\n- content: conteúdo completo do arquivo (texto)\n- lines: número de linhas\n- bytes: tamanho do arquivo em bytes\n- basename: nome base do arquivo\n- path: caminho absoluto resolvido"
   },
   "hi": {
     "err.bad_template": "[जनरेट_प्रॉम्प्ट त्रुटि] टेम्पलेट में अज्ञात कुंजी है: {key}",
@@ -187,15 +187,15 @@
     "tool.system_prompt": "वर्कडिर के अंतर्गत एक टेक्स्ट फ़ाइल पढ़ें और एक टेम्प्लेट (पायथन str.format) लागू करके एक प्रॉम्प्ट स्ट्रिंग उत्पन्न करें।\nउपलब्ध टेम्पलेट चर:\n- सामग्री: पूर्ण फ़ाइल सामग्री (पाठ)\n- पंक्तियाँ: पंक्तियों की संख्या\n- बाइट्स: फ़ाइल का आकार बाइट्स में\n- बेसनाम: फ़ाइल बेसनाम\n- पथ: पूर्ण रूप से हल किया गया पथ"
   },
   "ar": {
-    "err.bad_template": "يحتوي القالب [generate_prompt error] على مفتاح غير معروف: {key}",
-    "err.not_a_file": "[خطأ إنشاء_مطالبة] ليس ملفًا: {المسار}",
-    "err.path_missing": "[خطأ إنشاء_موجه] لم يتم تحديد المسار/اسم الملف",
-    "err.template_missing": "لم يتم تحديد القالب [خطأ إنشاء_المطالبة].",
-    "param.filename.description": "(التوافق) الاسم المستعار للمسار.",
-    "param.path.description": "مسار ملف الإدخال (يجب أن يكون ضمن دليل العمل).",
-    "param.template.description": "قالب تنسيق بايثون. مثال: '{خطوط} خطوط\n\n{المحتوى}'.",
-    "tool.description": "قم بإنشاء سلسلة مطالبة من ملف باستخدام قالب تنسيق Python. يمكن أن يشير القالب إلى متغيرات مثل {content} و{lines} و{bytes} و{basename} و{path}.",
-    "tool.system_prompt": "اقرأ ملفًا نصيًا ضمن Workdir وقم بإنشاء سلسلة مطالبة من خلال تطبيق قالب (Python str.format).\nمتغيرات القالب المتاحة:\n- المحتوى: محتوى الملف الكامل (النص)\n- الخطوط: عدد الخطوط\n- بايت: حجم الملف بالبايت\n- الاسم الأساسي: الاسم الأساسي للملف\n- المسار: مسار الحل المطلق"
+    "err.bad_template": "[خطأ generate_prompt] يحتوي القالب على مفتاح غير معروف: {key}",
+    "err.not_a_file": "[خطأ generate_prompt] ليس ملفًا: {path}",
+    "err.path_missing": "[خطأ generate_prompt] لم يتم تحديد المسار/اسم الملف",
+    "err.template_missing": "[خطأ generate_prompt] لم يتم تحديد القالب",
+    "param.filename.description": "(التوافق) اسم مستعار للمسار.",
+    "param.path.description": "مسار ملف الإدخال (يجب أن يكون ضمن workdir).",
+    "param.template.description": "قالب تنسيق Python. مثال: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "أنشئ سلسلة مطالبة من ملف باستخدام قالب تنسيق Python. يمكن للقالب الإشارة إلى متغيرات مثل {content} و{lines} و{bytes} و{basename} و{path}.",
+    "tool.system_prompt": "اقرأ ملفًا نصيًا ضمن workdir وأنشئ سلسلة مطالبة بتطبيق قالب (Python str.format).\nمتغيرات القالب المتاحة:\n- content: المحتوى الكامل للملف (نص)\n- lines: عدد الأسطر\n- bytes: حجم الملف بالبايت\n- basename: اسم الملف الأساسي\n- path: المسار المطلق الذي تم حله"
   },
   "sv": {
     "err.bad_template": "[generate_prompt-fel] mallen har en okänd nyckel: {key}",
@@ -239,6 +239,28 @@
     "param.path.description": "Syötetiedoston polku (on oltava workdirin alla).",
     "param.template.description": "Pythonin muotoilupohja. Esimerkki: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Luo prompt-merkkijonon tiedostosta Pythonin muotoilupohjaa käyttäen. Pohja voi viitata muuttujiin kuten {content}, {lines}, {bytes}, {basename}, {path}.",
-    "tool.system_prompt": "Lue tekstitiedosto workdirin alta ja luo prompt-merkkijono soveltamalla pohjaa (Python str.format).\\nKäytettävissä olevat pohjamuuttujat:\\n- content: koko tiedoston sisältö (teksti)\\n- lines: rivien määrä\\n- bytes: tiedoston koko tavuina\\n- basename: tiedoston perusnimi\\n- path: absoluuttinen ratkaistu polku"
+    "tool.system_prompt": "Lue tekstitiedosto workdirin alta ja luo prompt-merkkijono soveltamalla pohjaa (Python str.format).\nKäytettävissä olevat pohjamuuttujat:\n- content: koko tiedoston sisältö (teksti)\n- lines: rivien määrä\n- bytes: tiedoston koko tavuina\n- basename: tiedoston perusnimi\n- path: absoluuttinen ratkaistu polku"
+  },
+  "cs": {
+    "err.bad_template": "[generate_prompt chyba] šablona obsahuje neznámý klíč: {key}",
+    "err.not_a_file": "[generate_prompt chyba] není soubor: {path}",
+    "err.path_missing": "[generate_prompt chyba] není zadána cesta/název souboru",
+    "err.template_missing": "[generate_prompt chyba] není zadána šablona",
+    "param.filename.description": "(Kompatibilita) Alias pro path.",
+    "param.path.description": "Cesta ke vstupnímu souboru (musí být v workdir).",
+    "param.template.description": "Šablona formátu Pythonu. Příklad: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Vygeneruje řetězec promptu ze souboru pomocí šablony formátu Python. Šablona může odkazovat na proměnné jako {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Načtěte textový soubor ve workdir a vygenerujte řetězec promptu použitím šablony (Python str.format).\nDostupné proměnné šablony:\n- content: celý obsah souboru (text)\n- lines: počet řádků\n- bytes: velikost souboru v bajtech\n- basename: název souboru bez cesty\n- path: absolutní vyřešená cesta"
+  },
+  "uk": {
+    "err.bad_template": "[generate_prompt помилка] шаблон містить невідомий ключ: {key}",
+    "err.not_a_file": "[generate_prompt помилка] це не файл: {path}",
+    "err.path_missing": "[generate_prompt помилка] не вказано шлях/ім'я файла",
+    "err.template_missing": "[generate_prompt помилка] не вказано шаблон",
+    "param.filename.description": "(Сумісність) Псевдонім для path.",
+    "param.path.description": "Шлях до вхідного файла (має бути в межах workdir).",
+    "param.template.description": "Шаблон формату Python. Приклад: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Створює рядок запиту з файла за допомогою шаблону формату Python. Шаблон може посилатися на змінні на кшталт {content}, {lines}, {bytes}, {basename}, {path}.",
+    "tool.system_prompt": "Зчитайте текстовий файл у workdir і згенеруйте рядок запиту, застосувавши шаблон (Python str.format).\nДоступні змінні шаблону:\n- content: повний вміст файла (текст)\n- lines: кількість рядків\n- bytes: розмір файла в байтах\n- basename: базова назва файла\n- path: абсолютний розв’язаний шлях"
   }
 }

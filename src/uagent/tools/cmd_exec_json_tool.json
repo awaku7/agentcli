@@ -3,7 +3,7 @@
     "param.command.description": "Command string to execute.",
     "param.cwd.description": "Working directory for the command.",
     "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
-    "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
+    "tool.system_prompt": "This tool is a last resort. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
   },
   "ja": {
     "param.command.description": "実行するコマンド文字列。",
@@ -45,7 +45,7 @@
     "param.command.description": "สตริงคำสั่งที่จะดำเนินการ",
     "param.cwd.description": "ไดเร็กทอรีการทำงานสำหรับคำสั่ง",
     "tool.description": "ใช้เป็นทางเลือกสุดท้ายเพื่อรันคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้ (เช่น การเชื่อมต่อ MCP)",
-    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย ใช้เฉพาะในกรณีที่ไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ใช้คำสั่งอย่างระมัดระวัง และหลีกเลี่ยงการดำเนินการที่ทำลายล้าง เว้นแต่ผู้ใช้จะยืนยันอย่างชัดเจน"
+    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย ใช้เฉพาะเมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ใช้คำสั่งอย่างระมัดระวัง และหลีกเลี่ยงการดำเนินการที่ทำลายล้าง เว้นแต่ผู้ใช้จะยืนยันอย่างชัดเจน"
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge zur Ausführung.",
@@ -98,25 +98,25 @@
   "hi": {
     "param.command.description": "निष्पादित करने के लिए कमांड स्ट्रिंग.",
     "param.cwd.description": "आदेश के लिए कार्यशील निर्देशिका.",
-    "tool.description": "अंतिम उपाय के रूप में, शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (उदाहरण के लिए, एमसीपी एकीकरण)।",
-    "tool.system_prompt": "यह उपकरण एक अंतिम उपाय है. इसका उपयोग तभी करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो। आदेशों के साथ रूढ़िवादी रहें और विनाशकारी कार्यों से बचें जब तक कि उपयोगकर्ता द्वारा स्पष्ट रूप से पुष्टि न की जाए।"
+    "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई अधिक सुरक्षित या अधिक विशिष्ट टूल उपलब्ध न हो (उदाहरण के लिए, MCP एकीकरण)।",
+    "tool.system_prompt": "यह टूल अंतिम उपाय है। इसका उपयोग केवल तभी करें जब कोई अन्य उपयुक्त टूल उपलब्ध न हो। कमांड के साथ सावधानी बरतें और जब तक उपयोगकर्ता स्पष्ट रूप से पुष्टि न करे, विनाशकारी कार्यों से बचें।"
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر المراد تنفيذها.",
     "param.cwd.description": "دليل العمل للأمر.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP).",
-    "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدمه فقط في حالة عدم توفر أداة مناسبة أخرى. كن متحفظًا فيما يتعلق بالأوامر وتجنب العمليات التدميرية ما لم يتم تأكيدها صراحةً من قبل المستخدم."
+    "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدمها فقط إذا لم تتوفر أداة أخرى مناسبة. كن حذرًا مع الأوامر وتجنب العمليات التدميرية ما لم يؤكد المستخدم ذلك صراحةً."
   },
   "sv": {
     "param.command.description": "Kommandosträng att köra.",
     "param.cwd.description": "Arbetskatalog för kommandot.",
-    "tool.description": "Utför ett Windows-kommandot som en sista utväg och returnerar ett JSON-resultat. Används endast när inget annat lämpligt verktyg finns tillgängligt, till exempel Python eller MCP.",
+    "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat. Används endast när inget säkrare eller mer specifikt verktyg finns tillgängligt (till exempel en MCP-integrering).",
     "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt. Var försiktig med kommandon och undvik destruktiva åtgärder om inte användaren uttryckligen har bekräftat dem."
   },
   "nb": {
     "param.command.description": "Kommandostreng som skal kjøres.",
     "param.cwd.description": "Arbeidskatalog for kommandoen.",
-    "tool.description": "Utfør en Windows-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe annet passende verktøy er tilgjengelig, for eksempel Python eller MCP.",
+    "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe tryggere eller mer spesifikt verktøy er tilgjengelig (for eksempel en MCP-integrasjon).",
     "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
   },
   "nl": {
@@ -130,5 +130,17 @@
     "param.cwd.description": "Komennon työskentelyhakemisto.",
     "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos. Käytä tätä vain, kun mitään turvallisempaa tai tarkempaa työkalua ei ole saatavilla (esim. MCP-integraatio).",
     "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole. Ole varovainen komentojen kanssa ja vältä tuhoavia toimia, ellei käyttäjä ole vahvistanut niitä."
+  },
+  "cs": {
+    "param.command.description": "Řetězec příkazu k vykonání.",
+    "param.cwd.description": "Pracovní adresář pro příkaz.",
+    "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek. Použijte pouze tehdy, když není k dispozici bezpečnější nebo specifičtější nástroj (například integrace MCP).",
+    "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, pokud není k dispozici žádný jiný vhodný nástroj. S příkazy zacházejte opatrně a vyhněte se destruktivním operacím, pokud je uživatel výslovně nepotvrdí."
+  },
+  "uk": {
+    "param.command.description": "Рядок команди для виконання.",
+    "param.cwd.description": "Робочий каталог для команди.",
+    "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат. Використовуйте лише тоді, коли немає безпечнішого або більш спеціалізованого інструмента (наприклад, інтеграції MCP).",
+    "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента. Будьте обережні з командами та уникайте руйнівних операцій, якщо користувач явно їх не підтвердив."
   }
 }

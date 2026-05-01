@@ -2,7 +2,7 @@
   "en": {
     "param.db_path.description": "Path to the SQLite database file.",
     "param.sql.description": "SQL to execute.",
-    "tool.description": "Execute an SQL query against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
+    "tool.description": "Execute SQL queries against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
     "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
   },
   "ja": {
@@ -72,7 +72,7 @@
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   },
   "id": {
-    "param.db_path.description": "Path ke file database SQLite.",
+    "param.db_path.description": "Jalur ke file database SQLite.",
     "param.sql.description": "SQL yang akan dieksekusi.",
     "tool.description": "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung.",
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
@@ -122,13 +122,25 @@
   "nl": {
     "param.db_path.description": "Pad naar het SQLite-databasebestand.",
     "param.sql.description": "De uit te voeren SQL.",
-    "tool.description": "Voer SQL-kyselys uit op een SQLite-database en geef de resultaten terug. Ondersteunt alleen leesbewerkingen (SELECT) en schema-controle (PRAGMA).",
-    "tool.system_prompt": "Voer alleen leesbewerkingen uit op SQLite (SELECT/PRAGMA) en geef JSON terug."
+    "tool.description": "Voer SQL-query's uit op een SQLite-database en geef het resultaat terug. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund.",
+    "tool.system_prompt": "Gebruik deze tool voor SQLite-querys en retourneer JSON. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund."
   },
   "fi": {
     "param.db_path.description": "SQLite-tietokantatiedoston polku.",
     "param.sql.description": "Suoritettava SQL.",
-    "tool.description": "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulokset. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA).",
-    "tool.system_prompt": "Suorita vain SQLite:n lukuoperaatioita (SELECT/PRAGMA) ja palauta JSON."
+    "tool.description": "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulos. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA).",
+    "tool.system_prompt": "Käytä tätä työkalua SQLite-kyselyihin ja palauta JSON. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA)."
+  },
+  "cs": {
+    "param.db_path.description": "Cesta k souboru databáze SQLite.",
+    "param.sql.description": "SQL dotaz k provedení.",
+    "tool.description": "Provede SQL dotaz nad databází SQLite a vrátí výsledek. Podporovány jsou pouze operace jen pro čtení (SELECT) a kontrola schématu (PRAGMA).",
+    "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'db_query'."
+  },
+  "uk": {
+    "param.db_path.description": "Шлях до файла бази даних SQLite.",
+    "param.sql.description": "SQL-запит для виконання.",
+    "tool.description": "Виконує SQL-запит до бази даних SQLite та повертає результат. Підтримуються лише операції лише для читання (SELECT) та перевірка схеми (PRAGMA).",
+    "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'db_query'."
   }
 }

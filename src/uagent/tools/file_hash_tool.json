@@ -96,7 +96,7 @@
     "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   },
   "id": {
-    "param.algo.description": "Algoritma hashing.",
+    "param.algo.description": "Algoritma pembuatan hash.",
     "param.chunk_size.description": "Ukuran potongan baca (bytes).",
     "param.paths.description": "Array jalur file target.",
     "param.return.description": "Format keluaran.",
@@ -105,15 +105,15 @@
   },
   "vi": {
     "param.algo.description": "Thuật toán băm.",
-    "param.chunk_size.description": "Đọc kích thước chunk (byte).",
+    "param.chunk_size.description": "Kích thước khối đọc (byte).",
     "param.paths.description": "Mảng đường dẫn tệp đích.",
     "param.return.description": "Định dạng đầu ra.",
-    "tool.description": "Tính toán hàm băm (sha256/sha1/md5) của tệp.",
+    "tool.description": "Tính mã băm (sha256/sha1/md5) của tệp.",
     "tool.system_prompt": "Công cụ này tính toán giá trị băm của tệp (sha256/sha1/md5)."
   },
   "pl": {
-    "param.algo.description": "Algorytm mieszający.",
-    "param.chunk_size.description": "Odczytaj rozmiar porcji (w bajtach).",
+    "param.algo.description": "Algorytm haszujący.",
+    "param.chunk_size.description": "Rozmiar czytanego bloku (bajty).",
     "param.paths.description": "Tablica docelowych ścieżek plików.",
     "param.return.description": "Format wyjściowy.",
     "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
@@ -121,15 +121,15 @@
   },
   "pt": {
     "param.algo.description": "Algoritmo de hash.",
-    "param.chunk_size.description": "Leia o tamanho do pedaço (bytes).",
+    "param.chunk_size.description": "Tamanho do bloco de leitura (bytes).",
     "param.paths.description": "Matriz de caminhos de arquivo de destino.",
     "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
-    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivo (sha256/sha1/md5)."
+    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   },
   "hi": {
     "param.algo.description": "हैशिंग एल्गोरिदम.",
-    "param.chunk_size.description": "खंड आकार (बाइट्स) पढ़ें.",
+    "param.chunk_size.description": "पढ़ने के लिए खंड आकार (बाइट्स).",
     "param.paths.description": "लक्ष्य फ़ाइल पथों की सारणी.",
     "param.return.description": "आउटपुट स्वरूप.",
     "tool.description": "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
@@ -140,7 +140,7 @@
     "param.chunk_size.description": "قراءة حجم القطعة (بايت).",
     "param.paths.description": "مجموعة من مسارات الملفات الهدف.",
     "param.return.description": "تنسيق الإخراج.",
-    "tool.description": "يحسب التجزئة (sha256/sha1/md5) من الملفات.",
+    "tool.description": "يحسب تجزئة الملفات (sha256/sha1/md5).",
     "tool.system_prompt": "تقوم هذه الأداة بحساب تجزئات الملف (sha256/sha1/md5)."
   },
   "sv": {
@@ -174,5 +174,21 @@
     "param.return.description": "Tulostusmuoto.",
     "tool.description": "Laskee tiedostojen tiivisteen (sha256/sha1/md5).",
     "tool.system_prompt": "Tämä työkalu laskee tiedostotiivisteet (sha256/sha1/md5)."
+  },
+  "cs": {
+    "param.algo.description": "Algoritmus pro vytváření otisku.",
+    "param.chunk_size.description": "Velikost čtecího bloku (bajty).",
+    "param.paths.description": "Pole cílových cest k souborům.",
+    "param.return.description": "Formát výstupu.",
+    "tool.description": "Vypočítává hash souborů (sha256/sha1/md5).",
+    "tool.system_prompt": "Tento nástroj vypočítává hash souborů (sha256/sha1/md5)."
+  },
+  "uk": {
+    "param.algo.description": "Алгоритм хешування.",
+    "param.chunk_size.description": "Розмір блоку читання (байти).",
+    "param.paths.description": "Масив цільових шляхів до файлів.",
+    "param.return.description": "Формат виводу.",
+    "tool.description": "Обчислює хеш файлів (sha256/sha1/md5).",
+    "tool.system_prompt": "Цей інструмент обчислює хеші файлів (sha256/sha1/md5)."
   }
 }

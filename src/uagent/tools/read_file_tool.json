@@ -20,7 +20,7 @@
     "msg.truncated": "[read_file truncated: Byte limit {max_bytes} reached]",
     "param.filename.description": "Path of the file to read.",
     "param.head_lines.description": "Number of lines to read from the beginning. Cannot be specified at the same time as tail_lines.",
-    "param.max_lines.description": "Maximum number of rows to read. If null, read to the end of the file.",
+    "param.max_lines.description": "Maximum number of lines to read. If null, read to the end of the file.",
     "param.path.description": "(For compatibility) Alternative name for filename.",
     "param.start_line.description": "Line number (starting from 1) to start reading. Default is 1.",
     "param.tail_lines.description": "Number of lines to read from the end. Cannot be specified at the same time as head_lines.",
@@ -34,7 +34,7 @@
     "msg.truncated": "[read_file truncado: límite de bytes {max_bytes} alcanzado]",
     "param.filename.description": "Ruta del archivo a leer.",
     "param.head_lines.description": "Número de líneas a leer desde el principio. No se puede usar con tail_lines.",
-    "param.max_lines.description": "Número máximo de filas a leer. Si es null, lee hasta el final.",
+    "param.max_lines.description": "Número máximo de líneas a leer. Si es null, lee hasta el final.",
     "param.path.description": "(Compatibilidad) Alias de filename.",
     "param.start_line.description": "Número de línea (desde 1) para empezar la lectura. Por defecto es 1.",
     "param.tail_lines.description": "Número de líneas a leer desde el final. No se puede usar con head_lines.",
@@ -196,10 +196,10 @@
     "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động."
   },
   "pl": {
-    "err.dual_lines": "[Błąd pliku_odczytu] Nie można jednocześnie określić linii head_lines i tail_lines",
-    "err.filename_missing": "[błąd pliku_odczytu] Nie określono nazwy/ścieżki pliku",
+    "err.dual_lines": "[błąd read_file] head_lines i tail_lines nie mogą być określone jednocześnie.",
+    "err.filename_missing": "[błąd read_file] nie podano nazwy pliku/ścieżki.",
     "err.out_of_range": "(Plik zawiera tylko linie {count}. linia początkowa {start_line} jest poza zakresem)",
-    "msg.truncated": "[odczyt_pliku obcięty: osiągnięto limit bajtów {max_bytes}]",
+    "msg.truncated": "[read_file obcięty: osiągnięto limit {max_bytes} bajtów]",
     "param.filename.description": "Ścieżka pliku do odczytania.",
     "param.head_lines.description": "Liczba linii do przeczytania od początku. Nie można określić w tym samym czasie co tail_lines.",
     "param.max_lines.description": "Maksymalna liczba wierszy do odczytania. Jeśli ma wartość null, przeczytaj plik do końca.",
@@ -207,7 +207,7 @@
     "param.start_line.description": "Numer linii (zaczynając od 1), aby rozpocząć czytanie. Wartość domyślna to 1.",
     "param.tail_lines.description": "Liczba linii do odczytania od końca. Nie można określić w tym samym czasie co head_lines.",
     "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów). Częściowy odczyt jest możliwy poprzez określenie linii startowej i max_lines.",
-    "tool.system_prompt": "Przeczytaj zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt za pomocą linii start_line/max_lines.\n- Nowe linie są normalizowane automatycznie."
+    "tool.system_prompt": "Czyta zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt z użyciem start_line/max_lines.\n- Nowe linie są automatycznie normalizowane."
   },
   "pt": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados ao mesmo tempo",
@@ -238,18 +238,18 @@
     "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।"
   },
   "ar": {
-    "err.dual_lines": "[خطأ في ملف القراءة] لا يمكن تحديد خطوط الرأس وخطوط الذيل في نفس الوقت",
-    "err.filename_missing": "[خطأ read_file] اسم الملف/المسار غير محدد",
-    "err.out_of_range": "(يحتوي الملف على {count} من الأسطر فقط. خط البداية {start_line} خارج النطاق)",
-    "msg.truncated": "[تم اقتطاع ملف القراءة: تم الوصول إلى حد البايت {max_bytes}]",
+    "err.dual_lines": "[read_file خطأ] لا يمكن تحديد head_lines وtail_lines في الوقت نفسه.",
+    "err.filename_missing": "[read_file خطأ] لم يتم تحديد اسم الملف/المسار.",
+    "err.out_of_range": "(الملف يحتوي على {count} سطرًا فقط. start_line {start_line} خارج النطاق)",
+    "msg.truncated": "[read_file تم اقتطاعه: تم الوصول إلى حد {max_bytes} بايت]",
     "param.filename.description": "مسار الملف المراد قراءته.",
     "param.head_lines.description": "عدد الأسطر التي يجب قراءتها من البداية. لا يمكن تحديدها في نفس الوقت مع tail_lines.",
-    "param.max_lines.description": "الحد الأقصى لعدد الصفوف للقراءة. إذا كان فارغًا، فاقرأ حتى نهاية الملف.",
+    "param.max_lines.description": "الحد الأقصى لعدد الأسطر المراد قراءتها. إذا كانت null، فاقرأ حتى نهاية الملف.",
     "param.path.description": "(للتوافق) اسم بديل لاسم الملف.",
     "param.start_line.description": "رقم السطر (يبدأ من 1) لبدء القراءة. الافتراضي هو 1.",
     "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية. لا يمكن تحديدها في نفس الوقت مع خطوط_الرأس.",
-    "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت). القراءة الجزئية ممكنة عن طريق تحديد خط البداية وخطوط الحد الأقصى.",
-    "tool.system_prompt": "قراءة محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام خطوط start_line/max_lines.\n- يتم تطبيع الخطوط الجديدة تلقائيا."
+    "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت). يمكن القراءة الجزئية عبر start_line و max_lines.",
+    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- يتم تطبيع أسطر السطر الجديد تلقائيًا."
   },
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
@@ -306,5 +306,33 @@
     "param.tail_lines.description": "Lopusta luettavien rivien määrä. Ei voi olla yhtä aikaa head_linesin kanssa.",
     "tool.description": "Lue tiedoston sisältö (enintään 1 000 000 tavua). Osittainen lukeminen on mahdollista start_line- ja max_lines-parametreilla.",
     "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti."
+  },
+  "cs": {
+    "err.dual_lines": "[read_file chyba] head_lines a tail_lines nelze zadat současně.",
+    "err.filename_missing": "[read_file chyba] název souboru/cesta není zadán/a.",
+    "err.out_of_range": "(Soubor má pouze {count} řádků. start_line {start_line} je mimo rozsah)",
+    "msg.truncated": "[read_file zkráceno: dosažen limit {max_bytes} bajtů]",
+    "param.filename.description": "Cesta k souboru, který se má číst.",
+    "param.head_lines.description": "Počet řádků ke čtení od začátku. Nelze zadat současně s tail_lines.",
+    "param.max_lines.description": "Maximální počet řádků ke čtení. Je-li null, čte se až do konce.",
+    "param.path.description": "(Pro kompatibilitu) Alternativní název pro filename.",
+    "param.start_line.description": "Číslo řádku (od 1), od kterého se má začít číst. Výchozí je 1.",
+    "param.tail_lines.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines.",
+    "tool.description": "Čte obsah souboru (až 1 000 000 bajtů). Částečné čtení je možné pomocí start_line a max_lines.",
+    "tool.system_prompt": "Čte obsah souboru.\n- U velkých souborů se doporučuje částečné čtení pomocí start_line/max_lines.\n- Konce řádků se automaticky normalizují."
+  },
+  "uk": {
+    "err.dual_lines": "[read_file помилка] head_lines і tail_lines не можна вказувати одночасно.",
+    "err.filename_missing": "[read_file помилка] ім'я файла/шлях не вказано.",
+    "err.out_of_range": "(У файлі лише {count} рядків. start_line {start_line} поза діапазоном)",
+    "msg.truncated": "[read_file скорочено: досягнуто ліміт {max_bytes} байтів]",
+    "param.filename.description": "Шлях до файла, який слід прочитати.",
+    "param.head_lines.description": "Кількість рядків для читання з початку. Не можна вказувати одночасно з tail_lines.",
+    "param.max_lines.description": "Максимальна кількість рядків для читання. Якщо null, читати до кінця.",
+    "param.path.description": "(Для сумісності) Альтернативна назва для filename.",
+    "param.start_line.description": "Номер рядка (починаючи з 1), з якого почати читання. Типово 1.",
+    "param.tail_lines.description": "Кількість рядків для читання з кінця. Не можна вказувати одночасно з head_lines.",
+    "tool.description": "Читає вміст файла (до 1 000 000 байтів). Часткове читання можливе через start_line і max_lines.",
+    "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються."
   }
 }

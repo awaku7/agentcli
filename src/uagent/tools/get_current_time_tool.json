@@ -86,5 +86,13 @@
   "fi": {
     "tool.description": "Palauttaa nykyisen ajan ja yksityiskohtaiset päivämäärä-/aikatiedot (aikavyöhyke, viikonpäivä, UTC-aika). Käytä tätä suhteellisten päivämääräilmausten ratkaisemiseen (esim. \"tänään\", \"huomenna\", \"tänä viikonloppuna\", \"ensi kuun kolmas tiistai\") selvittämällä nykyinen viikonpäivä ja UTC-siirtymä.",
     "tool.system_prompt": "Tämä työkalu tarjoaa viitetiedot, jotta LLM voi tehdä aikalaskut tarkasti.\n- ISO 8601 -muoto (siirtymällä)\n- Viikonpäivä (englanniksi)\n- UTC-aika\n- Numeeriset osat (vuosi, kuukausi, päivä, tunti, minuutti, sekunti)\nKäytä näitä muuttamaan epäselvät käyttäjäpyynnöt (esim. \"ensi maanantai\") konkreettiseksi päivämääräksi/ajaksi.\n"
+  },
+  "cs": {
+    "tool.description": "Vraťte aktuální čas a podrobné informace o datu/čase (časové pásmo, den v týdnu, čas UTC). Použijte to k vyřešení relativních datových výrazů (např. „dnes“, „zítra“, „tento víkend“, „třetí úterý příštího měsíce“) určením aktuálního dne v týdnu a posunu UTC.",
+    "tool.system_prompt": "Tento nástroj poskytuje referenční informace, aby LLM mohlo přesně provádět výpočty času.\n- Formát ISO 8601 (s posunem)\n- Den v týdnu (anglicky)\n- Čas UTC\n- Číselné složky (rok, měsíc, den, hodina, minuta, sekunda)\nPoužijte je k převodu nejednoznačných uživatelských požadavků (např. „příští pondělí“) na konkrétní datum/čas.\n"
+  },
+  "uk": {
+    "tool.description": "Повертає поточний час і докладну інформацію про дату/час (часовий пояс, день тижня, UTC-час). Використовуйте це, щоб розв’язувати відносні вирази дати (наприклад, «сьогодні», «завтра», «ці вихідні», «третій вівторок наступного місяця») шляхом визначення поточного дня тижня та зміщення UTC.",
+    "tool.system_prompt": "Цей інструмент надає довідкову інформацію, щоб LLM міг точно виконувати обчислення часу.\n- Формат ISO 8601 (із зміщенням)\n- День тижня (англійською)\n- Час UTC\n- Числові складові (рік, місяць, день, година, хвилина, секунда)\nВикористовуйте це, щоб перетворювати неоднозначні запити користувача (наприклад, «наступний понеділок») на конкретну дату/час.\n"
   }
 }

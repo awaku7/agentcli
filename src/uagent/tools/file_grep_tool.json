@@ -13,7 +13,7 @@
     "param.pattern.description": "Regex-Muster, nach dem gesucht werden soll.",
     "param.recursive.description": "Ob Unterverzeichnisse rekursiv durchsucht werden sollen.",
     "tool.description": "Sucht in Dateien nach einem Muster und gibt passende Zeilen mit Zeilennummern zurück (wie grep -n). Das Muster ist erforderlich.",
-    "tool.system_prompt": "Durchsuche den Inhalt von Dateien unter einem oder mehreren Pfaden. Das Muster ist erforderlich. Filtere Dateien per Glob, suche mit einem Python-RegEx oder Literaltext, optional mit Kontextzeilen, überspringe binärähnliche Dateien, unterstütze einen Nur-Dateinamen-Modus und erkenne Textkodierungen beim Lesen automatisch. Gib nur JSON zurück."
+    "tool.system_prompt": "Durchsuchen Sie den Inhalt von Dateien unter einem oder mehreren Pfaden. Das Muster ist erforderlich. Filtern Sie Dateien per Glob, suchen Sie mit einem Python-Regulären Ausdruck oder Literaltext, fügen Sie optional Kontextzeilen hinzu, überspringen Sie binärähnliche Dateien, unterstützen Sie den Nur-Dateinamen-Modus und erkennen Sie Textkodierungen beim Lesen automatisch. Geben Sie nur JSON zurück."
   },
   "en": {
     "err.exception": "Exception occurred during grep operations.",
@@ -61,7 +61,7 @@
     "param.pattern.description": "Motif regex à rechercher.",
     "param.recursive.description": "Si la recherche doit être effectuée récursivement dans les sous-répertoires.",
     "tool.description": "Recherchez un motif dans des fichiers et renvoyez les lignes correspondantes avec leurs numéros de ligne (comme grep -n). Le motif est obligatoire.",
-    "tool.system_prompt": "Recherche le contenu des fichiers sous un ou plusieurs chemins. Le motif est obligatoire. Filtrez les fichiers par glob, recherchez avec une expression régulière Python ou du texte littéral, incluez éventuellement des lignes de contexte, ignorez les fichiers ressemblant à des binaires, prenez en charge le mode noms de fichiers uniquement et détectez automatiquement l'encodage du texte à la lecture. Retournez uniquement du JSON."
+    "tool.system_prompt": "Recherchez le contenu des fichiers sous un ou plusieurs chemins. Le motif est obligatoire. Filtrez les fichiers par glob, recherchez avec une expression régulière Python ou du texte littéral, incluez éventuellement des lignes de contexte, ignorez les fichiers ressemblant à des binaires, prenez en charge le mode noms de fichiers uniquement et détectez automatiquement l’encodage du texte à la lecture. Retournez uniquement du JSON."
   },
   "it": {
     "err.exception": "Si è verificata un'eccezione durante le operazioni grep.",
@@ -77,7 +77,7 @@
     "param.pattern.description": "Pattern regex da cercare.",
     "param.recursive.description": "Se cercare ricorsivamente nelle sottodirectory.",
     "tool.description": "Cerca un pattern nei file e restituisce le righe corrispondenti con i numeri di riga (come grep -n). Il pattern è obbligatorio.",
-    "tool.system_prompt": "Cerca il contenuto dei file sotto uno o più percorsi. Il pattern è obbligatorio. Filtra i file con glob, cerca usando un'espressione regolare Python o testo letterale, includi facoltativamente le righe di contesto, salta i file simili a binari, supporta la modalità solo nomi file e rileva automaticamente la codifica del testo durante la lettura. Restituisci solo JSON."
+    "tool.system_prompt": "Cerca il contenuto dei file sotto uno o più percorsi. Il pattern è obbligatorio. Filtra i file con glob, cerca usando un’espressione regolare Python o testo letterale, includi facoltativamente le righe di contesto, ignora i file simili a binari, supporta la modalità solo nomi file e rileva automaticamente la codifica del testo durante la lettura. Restituisci solo JSON."
   },
   "ja": {
     "err.exception": "grep 操作中に例外が発生しました。",
@@ -345,10 +345,42 @@
     "param.ignore_case.description": "Huomioidaanko kirjainkoko (oletus: true).",
     "param.max_results.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
     "param.name_pattern.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
-    "param.path.description": "Perushakemisto tai yksittäinen tiedostopolku (oletus: '\\.').",
+    "param.path.description": "Perushakemisto tai yksittäinen tiedostopolku (oletus: '.').",
     "param.pattern.description": "Etsittävä regex-kaava.",
     "param.recursive.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
     "tool.description": "Etsi tiedostoista kaavaa ja palauta osuvat rivit rivinumeroineen (kuten grep -n). Kaava on pakollinen.",
     "tool.system_prompt": "Etsi tiedostosisältöä yhdestä tai useammasta polusta. Kaava on pakollinen. Suodata tiedostot globin avulla, hae Pythonin säännöllisellä lausekkeella tai kirjaimellisella tekstillä, lisää tarvittaessa kontekstit riveineen, ohita binäärin kaltaiset tiedostot, tue vain tiedostonimet -tilaa ja tunnista tekstikoodaus automaattisesti luettaessa. Palauta vain JSON."
+  },
+  "cs": {
+    "err.exception": "Při operaci grep došlo k výjimce.",
+    "err.invalid_regex": "Neplatný vzor regulárního výrazu.",
+    "err.missing_pattern": "Chybí 'pattern'.",
+    "err.no_files_found": "Nebyly nalezeny žádné soubory odpovídající kritériím.",
+    "param.context_lines.description": "Počet řádků kontextu před a po každé shodě.",
+    "param.filenames_only.description": "Je-li povoleno, vraťte pouze seznam názvů souborů se shodami.",
+    "param.ignore_case.description": "Zda ignorovat velikost písmen (výchozí: true).",
+    "param.max_results.description": "Maximální počet řádků se shodou k vrácení (výchozí: 100).",
+    "param.name_pattern.description": "Glob vzor pro názvy souborů (např. '*.py').",
+    "param.path.description": "Kořenový adresář nebo konkrétní cesta k souboru (výchozí: '.').",
+    "param.pattern.description": "Regex vzor k vyhledání.",
+    "param.recursive.description": "Zda hledat v podadresářích rekurzivně.",
+    "tool.description": "Hledá vzor v souborech a vrací odpovídající řádky s čísly řádků (jako grep -n). Vzor je povinný.",
+    "tool.system_prompt": "Prohledávejte obsah souborů v jednom nebo více cestách. Vzor je povinný. Filtrování souborů provádějte pomocí globu, vyhledávejte pomocí regulárního výrazu v Pythonu nebo doslovného textu, volitelně zahrnujte okolní řádky, přeskočte soubory připomínající binární, podporujte režim pouze názvů souborů a při čtení automaticky detekujte textové kódování. Vracejte pouze JSON."
+  },
+  "uk": {
+    "err.exception": "Під час операції grep сталася виняткова ситуація.",
+    "err.invalid_regex": "Недійсний шаблон регулярного виразу.",
+    "err.missing_pattern": "Відсутній 'pattern'.",
+    "err.no_files_found": "Не знайдено файлів, що відповідають критеріям.",
+    "param.context_lines.description": "Кількість рядків контексту до і після кожного збігу.",
+    "param.filenames_only.description": "Якщо ввімкнено, повертати лише список назв файлів зі збігами.",
+    "param.ignore_case.description": "Чи ігнорувати регістр (типово: true).",
+    "param.max_results.description": "Максимальна кількість рядків зі збігами для повернення (типово: 100).",
+    "param.name_pattern.description": "Glob-шаблон для назв файлів (наприклад, '*.py').",
+    "param.path.description": "Кореневий каталог або конкретний шлях до файла (типово: '.').",
+    "param.pattern.description": "Шаблон регулярного виразу для пошуку.",
+    "param.recursive.description": "Чи шукати в підкаталогах рекурсивно.",
+    "tool.description": "Шукає шаблон у файлах і повертає відповідні рядки з номерами рядків (як grep -n). Шаблон є обовʼязковим.",
+    "tool.system_prompt": "Шукайте вміст файлів в одному або кількох шляхах. Шаблон є обовʼязковим. Фільтруйте файли за glob, шукайте за допомогою регулярного виразу Python або буквального тексту, за потреби включайте рядки контексту, пропускайте файли, схожі на бінарні, підтримуйте режим лише назв файлів і автоматично визначайте кодування тексту під час читання. Повертайте лише JSON."
   }
 }

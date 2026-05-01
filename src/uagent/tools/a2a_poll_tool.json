@@ -20,7 +20,7 @@
     "err.exception": "例外"
   },
   "es": {
-    "tool.description": "Consulta una tarea A2A hasta que alcance un estado terminal.",
+    "tool.description": "Consulta periódicamente una tarea A2A hasta que alcance un estado terminal.",
     "tool.system_prompt": "Consulta una tarea A2A. Devuelve solo JSON.",
     "param.profile.description": "Nombre de perfil o a2a://name. Si se omite, usa el perfil predeterminado.",
     "param.task_id.description": "ID de la tarea que se va a consultar.",
@@ -30,14 +30,14 @@
     "err.exception": "Excepción"
   },
   "fr": {
-    "tool.description": "Interroge une tâche A2A jusqu’à ce qu’elle atteigne un état terminal.",
-    "tool.system_prompt": "Interroger une tâche A2A. Retourner uniquement du JSON.",
+    "tool.description": "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état terminal.",
+    "tool.system_prompt": "Interrogez une tâche A2A. Retournez uniquement du JSON.",
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
     "param.task_id.description": "ID de la tâche à interroger.",
-    "param.interval_ms.description": "Définir un autre intervalle de sondage (ms).",
-    "param.timeout_s.description": "Définir un autre délai d’expiration (secondes).",
-    "err.missing_task_id": "'task_id' manquant.",
-    "err.exception": "Exception inattendue"
+    "param.interval_ms.description": "Remplacer l’intervalle d’interrogation (ms).",
+    "param.timeout_s.description": "Remplacer le délai d’expiration (secondes).",
+    "err.missing_task_id": "'task_id' est manquant.",
+    "err.exception": "Exception"
   },
   "ko": {
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다.",
@@ -50,11 +50,11 @@
     "err.exception": "예외"
   },
   "th": {
-    "tool.description": "โพลงาน A2A จนกว่าจะถึงสถานะสิ้นสุด.",
-    "tool.system_prompt": "โพลงาน A2A ส่งคืนเฉพาะ JSON.",
+    "tool.description": "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย.",
+    "tool.system_prompt": "โพลงาน A2A ส่งคืน JSON เท่านั้น.",
     "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
     "param.task_id.description": "รหัสงานที่จะโพล.",
-    "param.interval_ms.description": "แทนที่ช่วงเวลาโพล (ms).",
+    "param.interval_ms.description": "แทนที่ช่วงเวลาโพล (มิลลิวินาที).",
     "param.timeout_s.description": "แทนที่เวลาหมดเวลา (วินาที).",
     "err.missing_task_id": "ขาด 'task_id'.",
     "err.exception": "ข้อยกเว้น"
@@ -80,17 +80,17 @@
     "err.exception": "例外"
   },
   "de": {
-    "tool.description": "Fragen Sie eine A2A-Aufgabe ab, bis sie einen Terminalstatus erreicht.",
+    "tool.description": "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht.",
     "tool.system_prompt": "Fragen Sie eine A2A-Aufgabe ab. Nur JSON zurückgeben.",
     "param.profile.description": "Profilname oder a2a://name. Wenn es weggelassen wird, wird das Standardprofil verwendet.",
     "param.task_id.description": "Aufgaben-ID zur Abfrage.",
     "param.interval_ms.description": "Abfrageintervall (ms) überschreiben.",
-    "param.timeout_s.description": "Zeitüberschreitung (Sekunden) überschreiben.",
+    "param.timeout_s.description": "Zeitlimit (Sekunden) überschreiben.",
     "err.missing_task_id": "'task_id' fehlt.",
     "err.exception": "Ausnahme"
   },
   "it": {
-    "tool.description": "Interroga un'attività A2A finché non raggiunge lo stato terminale.",
+    "tool.description": "Interroga periodicamente un'attività A2A finché non raggiunge uno stato terminale.",
     "tool.system_prompt": "Interroga un'attività A2A. Restituisci solo JSON.",
     "param.profile.description": "Nome del profilo o a2a://name. Se omesso, utilizza il profilo predefinito.",
     "param.task_id.description": "ID attività da interrogare.",
@@ -110,11 +110,11 @@
     "err.exception": "Исключение"
   },
   "pt_BR": {
-    "tool.description": "Consulte uma tarefa A2A até que ela atinja um estado terminal.",
-    "tool.system_prompt": "Consulte uma tarefa A2A. Retorne apenas JSON.",
+    "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal.",
+    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
     "param.task_id.description": "ID da tarefa a ser consultada.",
-    "param.interval_ms.description": "Substituir o intervalo de sondagem (ms).",
+    "param.interval_ms.description": "Substituir o intervalo de polling (ms).",
     "param.timeout_s.description": "Substituir o tempo limite (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
@@ -150,27 +150,27 @@
     "err.exception": "Wyjątek"
   },
   "pt": {
-    "tool.description": "Pesquise uma tarefa A2A até que ela atinja um status terminal.",
-    "tool.system_prompt": "Pesquise uma tarefa A2A. Retorne apenas JSON.",
-    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
-    "param.task_id.description": "ID da tarefa a ser pesquisada.",
-    "param.interval_ms.description": "Substituir intervalo de pesquisa (ms).",
+    "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal.",
+    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON.",
+    "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
+    "param.task_id.description": "ID da tarefa a ser consultada.",
+    "param.interval_ms.description": "Substituir o intervalo de polling (ms).",
     "param.timeout_s.description": "Substituir o tempo limite (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
   },
   "hi": {
-    "tool.description": "किसी A2A कार्य को तब तक पोल करें जब तक वह टर्मिनल स्थिति तक न पहुंच जाए।",
-    "tool.system_prompt": "A2A कार्य के लिए मतदान करें। केवल JSON लौटाएँ.",
-    "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग करता है।",
-    "param.task_id.description": "मतदान हेतु कार्य आईडी.",
-    "param.interval_ms.description": "ओवरराइड मतदान अंतराल (एमएस)।",
-    "param.timeout_s.description": "ओवरराइड टाइमआउट (सेकंड)।",
-    "err.missing_task_id": "'कार्य_आईडी' गुम है.",
+    "tool.description": "किसी A2A कार्य को तब तक नियमित रूप से पोल करें जब तक वह अंतिम स्थिति तक न पहुंच जाए।",
+    "tool.system_prompt": "A2A कार्य को पोल करें। केवल JSON लौटाएँ।",
+    "param.profile.description": "प्रोफ़ाइल नाम या a2a://name. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग किया जाता है।",
+    "param.task_id.description": "पोल किए जाने वाले कार्य का ID.",
+    "param.interval_ms.description": "पोलिंग अंतराल (मिलीसेकंड) को ओवरराइड करें।",
+    "param.timeout_s.description": "टाइमआउट (सेकंड) को ओवरराइड करें।",
+    "err.missing_task_id": "'task_id' गुम है।",
     "err.exception": "अपवाद"
   },
   "ar": {
-    "tool.description": "استعلم عن مهمة A2A حتى تصل إلى حالة نهائية.",
+    "tool.description": "استعلم عن مهمة A2A بشكل دوري حتى تصل إلى حالة نهائية.",
     "tool.system_prompt": "استعلم عن مهمة A2A. أعد JSON فقط.",
     "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
     "param.task_id.description": "معرّف المهمة المراد الاستعلام عنها.",
@@ -180,18 +180,18 @@
     "err.exception": "استثناء"
   },
   "sv": {
-    "tool.description": "Fråga en A2A-uppgift tills den når ett slutligt tillstånd.",
-    "tool.system_prompt": "Fråga en A2A-uppgift. Returnera endast JSON.",
+    "tool.description": "Polla en A2A-uppgift tills den når ett slutligt tillstånd.",
+    "tool.system_prompt": "Polla en A2A-uppgift. Returnera endast JSON.",
     "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
     "param.task_id.description": "Uppgifts-ID att fråga.",
-    "param.interval_ms.description": "Åsidosätt pollningsintervall (ms).",
-    "param.timeout_s.description": "Åsidosätt timeout (sekunder).",
-    "err.missing_task_id": "Saknar 'task_id'.",
+    "param.interval_ms.description": "Åsidosätt pollingintervall (ms).",
+    "param.timeout_s.description": "Åsidosätt tidsgräns (sekunder).",
+    "err.missing_task_id": "'task_id' saknas.",
     "err.exception": "Undantag"
   },
   "nb": {
-    "tool.description": "Spør en A2A-oppgave til den når en terminalstatus.",
-    "tool.system_prompt": "Spør en A2A-oppgave. Returner bare JSON.",
+    "tool.description": "Poll en A2A-oppgave til den når en sluttstatus.",
+    "tool.system_prompt": "Poll en A2A-oppgave. Returner bare JSON.",
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
     "param.task_id.description": "Oppgave-ID som skal spørres.",
     "param.interval_ms.description": "Overstyr pollingintervall (ms).",
@@ -200,23 +200,43 @@
     "err.exception": "Unntak"
   },
   "nl": {
-    "tool.description": "Pollen van een A2A-taak totdat deze een terminale status bereikt.",
-    "tool.system_prompt": "Volg een A2A-taak. Geef alleen JSON terug.",
+    "tool.description": "Poll een A2A-taak totdat deze een eindstatus bereikt.",
+    "tool.system_prompt": "Poll een A2A-taak. Geef alleen JSON terug.",
     "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
     "param.task_id.description": "Taak-ID om te pollen.",
     "param.interval_ms.description": "Polling-interval (ms) overschrijven.",
-    "param.timeout_s.description": "Timeout (seconden) overschrijven.",
+    "param.timeout_s.description": "Time-out (seconden) overschrijven.",
     "err.missing_task_id": "Ontbrekende 'task_id'.",
-    "err.exception": "Uitzondering"
+    "err.exception": "Exceptie"
   },
   "fi": {
-    "tool.description": "Seuraa A2A-tehtävää, kunnes se saavuttaa päättävän tilan.",
-    "tool.system_prompt": "Seuraa A2A-tehtävää. Palauta vain JSON.",
+    "tool.description": "Kyselyä A2A-tehtävää, kunnes se saavuttaa päättävän tilan.",
+    "tool.system_prompt": "Kysy A2A-tehtävää. Palauta vain JSON.",
     "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
     "param.task_id.description": "Seurattavan tehtävän tunnus.",
-    "param.interval_ms.description": "Kyselyväli (ms).",
-    "param.timeout_s.description": "Aikakatkaisu sekunteina.",
-    "err.missing_task_id": "Puuttuva 'task_id'.",
+    "param.interval_ms.description": "Korvaa kyselyväli (ms).",
+    "param.timeout_s.description": "Korvaa aikakatkaisu (sekuntia).",
+    "err.missing_task_id": "'task_id' puuttuu.",
     "err.exception": "Poikkeus"
+  },
+  "cs": {
+    "tool.description": "Průběžně dotazuje úlohu A2A, dokud nedosáhne koncového stavu.",
+    "tool.system_prompt": "Dotazujte úlohu A2A. Vracejte pouze JSON.",
+    "param.profile.description": "Název profilu nebo a2a://name. Pokud je vynecháno, použije se výchozí profil.",
+    "param.task_id.description": "ID úlohy, kterou chcete dotazovat.",
+    "param.interval_ms.description": "Přepsat interval dotazování (ms).",
+    "param.timeout_s.description": "Přepsat časový limit (sekundy).",
+    "err.missing_task_id": "Chybí 'task_id'.",
+    "err.exception": "Výjimka"
+  },
+  "uk": {
+    "tool.description": "Періодично опитує завдання A2A, доки воно не досягне кінцевого стану.",
+    "tool.system_prompt": "Опитуйте завдання A2A. Повертайте лише JSON.",
+    "param.profile.description": "Назва профілю або a2a://name. Якщо опущено, використовується профіль за замовчуванням.",
+    "param.task_id.description": "ID завдання, яке потрібно опитувати.",
+    "param.interval_ms.description": "Перевизначити інтервал опитування (мс).",
+    "param.timeout_s.description": "Перевизначити тайм-аут (секунди).",
+    "err.missing_task_id": "Відсутній 'task_id'.",
+    "err.exception": "Виняток"
   }
 }
