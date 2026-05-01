@@ -1226,7 +1226,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(":load <index|path>")
+        print(tr(":load <index|path>"))
         return True
 
     files = core.find_log_files(exclude_current=True)
