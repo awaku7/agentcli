@@ -5,7 +5,6 @@ from typing import Any, Dict, List
 
 from . import tools
 from .env_utils import env_get
-from .i18n import _
 from .llm_helpers import _effectively_empty_text
 
 

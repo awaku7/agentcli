@@ -19,6 +19,7 @@ uagent/scheck が使用する状態ディレクトリ（ログ、キャッシュ
 - UAGENT_DB_DIR: DB ディレクトリ（優先）
 - UAGENT_TMP_DIR: tmp ディレクトリ（優先）
 - UAGENT_OUTPUTS_DIR: outputs ディレクトリ（優先）
+- UAGENT_SCHEDULES_FILE: スケジュール保存JSONのパス
 - UAGENT_MCP_CONFIG: MCP設定ファイルのパス（mcp_servers.json を直接指す）
 
 注意:
@@ -205,6 +206,21 @@ def get_mcp_servers_json_path() -> Path:
         return _expand(env)
 
     return get_mcps_dir() / "mcp_servers.json"
+
+
+def get_schedules_json_path() -> Path:
+    """Return scheduler persistence file path.
+
+    Default: <state>/schedules.json
+
+    Override:
+      - UAGENT_SCHEDULES_FILE
+    """
+
+    env = env_get("UAGENT_SCHEDULES_FILE")
+    if env:
+        return _expand(env)
+    return get_state_dir() / "schedules.json"
 
 
 def get_history_file_path() -> Path:

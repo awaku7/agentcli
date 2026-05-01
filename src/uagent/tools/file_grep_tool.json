@@ -93,7 +93,13 @@
     "param.pattern.description": "検索する正規表現パターン。",
     "param.recursive.description": "サブディレクトリを再帰的に検索するかどうか。",
     "tool.description": "ファイル内のパターンを検索し、行番号付きの一致行を返します（grep -n 相当）。pattern は必須です。",
-    "tool.system_prompt": "1つ以上のパス配下のファイル内容を検索します。pattern は必須です。glob で対象ファイルを絞り込み、Python の正規表現またはリテラル文字列で検索し、必要に応じて前後の文脈行を含め、バイナリらしきファイルは除外し、ファイル名のみ返すモードをサポートし、読み込み時はテキストエンコーディングを自動判定します。JSON のみ返してください。"
+    "tool.system_prompt": "1つ以上のパス配下のファイル内容を検索します。pattern は必須です。glob で対象ファイルを絞り込み、Python の正規表現またはリテラル文字列で検索し、必要に応じて前後の文脈行を含め、バイナリらしきファイルは除外し、ファイル名のみ返すモードをサポートし、読み込み時はテキストエンコーディングを自動判定します。JSON のみ返してください。",
+    "param.binary_skip.description": "バイナリらしきファイルをスキップするかどうか。",
+    "param.exclude_dirs.description": "再帰走査から除外するディレクトリ名です。",
+    "param.exclude_globs.description": "除外するファイル名 glob パターンです。",
+    "param.literal.description": "true の場合、pattern を正規表現ではなく文字列として扱います。",
+    "param.max_hits_per_file.description": "1ファイルあたり返す一致件数の最大数（既定: 100）。",
+    "param.root_path.description": "検索を開始するルートディレクトリです。"
   },
   "ko": {
     "err.exception": "grep 작업 중 예외가 발생했습니다.",

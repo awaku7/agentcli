@@ -39,23 +39,20 @@ def test_binary_edit_replace_rejects_size_change(repo_tmp_path: Path) -> None:
     p = repo_tmp_path / "bin.dat"
     p.write_bytes(bytes.fromhex("AABBCCDD"))
 
-    try:
-        run_tool(
-            {
-                "path": str(p),
-                "mode": "replace",
-                "dry_run": True,
-                "search_hex": "AA",
-                "replace_hex": "AABB",
-                "occurrence": 1,
-                "max_bytes": 200000000,
-            }
-        )
-    except SystemExit as e:
-        assert "same length" in str(e)
-        return
-
-    raise AssertionError("expected SystemExit for size-changing replace")
+    out = run_tool(
+        {
+            "path": str(p),
+            "mode": "replace",
+            "dry_run": True,
+            "search_hex": "AA",
+            "replace_hex": "AABB",
+            "occurrence": 1,
+            "max_bytes": 200000000,
+        }
+    )
+    obj = _loads(out)
+    assert obj["ok"] is False
+    assert "same length" in obj["error"]
 
 
 def test_binary_edit_non_dry_run_with_monkeypatched_confirm(
@@ -67,7 +64,7 @@ def test_binary_edit_non_dry_run_with_monkeypatched_confirm(
     p.write_bytes(bytes.fromhex("0011"))
 
     monkeypatch.setattr(
-        "uagent.tools.binary_edit_tool._confirm_or_cancel", lambda _m: None
+        "uagent.tools.binary_edit_tool._confirm_or_cancel", lambda _m: True
     )
 
     out = run_tool(
@@ -235,9 +232,7 @@ def test_git_ops_rejects_shell_metachar_in_args() -> None:
     )
     obj = _loads(out)
     assert obj["ok"] is False
-    assert (
-        "metacharacter" in obj["stderr"].lower() or "dangerous" in obj["stderr"].lower()
-    )
+    assert "--short&&whoami" in obj["stderr"]
 
 
 def test_rename_path_wraps_errors_from_safe_layer(monkeypatch) -> None:

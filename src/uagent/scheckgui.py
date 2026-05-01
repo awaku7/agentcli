@@ -50,6 +50,7 @@ from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
 from .util_providers import make_client as util_make_client
 from .tools.context import ToolCallbacks
+from .scheduler import start_background_scheduler, stop_background_scheduler
 
 try:
     from .tools.mcp_servers_shared import ensure_mcp_config_template
@@ -257,6 +258,7 @@ class ScheckWorker(QtCore.QObject):
     def run(self):
         try:
             self._init_callbacks()
+            start_background_scheduler(core.event_queue)
 
             # Provider/client/model are decided by util_make_client.
             self._provider, self._client, self._depname = util_make_client(core)
@@ -396,6 +398,11 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
+                    elif kind == "schedule_notice":
+                        notice = (ev.get("text", "") or "").strip()
+                        if notice:
+                            print("[INFO] " + notice)
+                        continue
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")
 
@@ -1432,6 +1439,10 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self, event):
         self._worker.stop()
+        try:
+            stop_background_scheduler()
+        except Exception:
+            pass
         self._thread.quit()
         self._thread.wait(2000)
         if os.path.exists(LOG_FILE):
