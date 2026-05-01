@@ -2,6 +2,7 @@ import json
 import sys
 import traceback
 from urllib.error import URLError
+from typing import Any, Dict, List
 
 try:
     from openai import APIConnectionError, BadRequestError
