@@ -515,6 +515,7 @@ def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any, *, system: str) ->
     except Exception:
         pass
 
+
 def _collect_with_psutil(
     out: Dict[str, Any],
     *,
