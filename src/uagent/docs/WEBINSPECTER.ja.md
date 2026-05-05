@@ -56,8 +56,14 @@ ______________________________________________________________________
   - 最終状態の DOM（`page.content()`）
 - `webinspect/{prefix}/final.png`
   - 最終状態のスクリーンショット
+- `webinspect/{prefix}/latest.html`
+  - 直近のページ状態の HTML
 - `webinspect/{prefix}/flow.jsonl`
   - イベントログ（JSON Lines）
+- `webinspect/{prefix}/index.jsonl`
+  - 遷移ごとの一覧（URL / title / 時刻 / ファイル名）
+- `webinspect/{prefix}/pages/`
+  - 遷移ごとの HTML / スクリーンショット（`0001_...` 形式）
 - `webinspect/{prefix}/snapshots/`
   - URL 遷移（メインフレーム `framenavigated`）ごとの DOM/スクショ
   - 例: `0001_navigated_<sanitized>.html` / `0001_navigated_<sanitized>.png`
@@ -67,6 +73,8 @@ ______________________________________________________________________
 ## 4. flow.jsonl（イベントログ）の見方
 
 `flow.jsonl` は 1行1JSON の形式です。
+
+`index.jsonl` には、各ページキャプチャの URL / title / 時刻 / ファイル名が 1行1JSON で並びます。
 
 代表的な `type`:
 
