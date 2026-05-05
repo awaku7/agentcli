@@ -549,8 +549,6 @@
             const normalized = normalizeMessageForDisplay(msg);
             const msgForRender = normalized.msg;
             const body = normalized.body;
-            const div = document.createElement('div');
-            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
 
             let content = `<strong>${escapeHtml(String((msgForRender.role || 'message')).toUpperCase())}:</strong> `;
             if (msgForRender.name) content += `<span class="text-xs font-mono">[${escapeHtml(String(msgForRender.name))}]</span> `;
@@ -571,6 +569,34 @@
                 content += attachmentsHtml;
             }
 
+            const isAssistantFinal = String(msgForRender.role || '').toLowerCase() === 'assistant';
+            const streamedText = String(lastAssistantStreamText || '').trim();
+            const bodyText = String(body || '').trim();
+            const streamDiv = streamAssistant.div && streamAssistant.div.dataset && streamAssistant.div.dataset.streamAssistant === '1'
+                ? streamAssistant.div
+                : null;
+            if (isAssistantFinal && streamDiv && streamedText && bodyText && streamedText === bodyText) {
+                streamDiv.innerHTML = content;
+                streamDiv.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
+                bindAttachmentClicks(streamDiv);
+                try {
+                    streamDiv.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : '';
+                    streamDiv.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : '';
+                    streamDiv.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now());
+                    streamDiv.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0';
+                    streamDiv.dataset.streamAssistant = '0';
+                } catch (e) {
+                    // ignore
+                }
+                lastAssistantStreamText = '';
+                streamAssistant.div = null;
+                streamAssistant.pre = null;
+                chatBox.scrollTop = chatBox.scrollHeight;
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
             div.innerHTML = content;
             bindAttachmentClicks(div);
 
@@ -600,6 +626,7 @@
 
             div.innerHTML = '<strong>ASSISTANT:</strong> ';
             div.appendChild(pre);
+            div.dataset.streamAssistant = '1';
 
             streamAssistant.id = id;
             streamAssistant.div = div;
@@ -624,8 +651,6 @@
             lastAssistantStreamText = String(streamAssistant.text || '');
             streamAssistant.active = false;
             streamAssistant.id = null;
-            streamAssistant.div = null;
-            streamAssistant.pre = null;
             streamAssistant.text = '';
         }
 

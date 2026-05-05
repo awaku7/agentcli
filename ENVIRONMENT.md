@@ -65,7 +65,16 @@ Each provider requires specific variables. You can override the default model us
 - `UAGENT_IMG_ANALYSIS_PROVIDER`: Provider for image analysis (Default: `UAGENT_PROVIDER`).
 - `UAGENT_IMAGE_OPEN`: Whether to automatically open images after generation (`0` to disable).
 
-### 6. Translation Features (Optional)
+### 6. Audio Speech and Transcription
+
+- `UAGENT_AUDIO_PROVIDER`: Provider for audio speech/transcription (Default: `UAGENT_PROVIDER`; supported: `openai`, `azure`).
+- `UAGENT_AZURE_SPEECH_DEPNAME`: Azure speech deployment name.
+- `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI speech model/deployment name.
+- `UAGENT_AZURE_TRANSCRIBE_DEPNAME`: Azure transcription deployment name.
+- `UAGENT_OPENAI_TRANSCRIBE_DEPNAME`: OpenAI transcription model/deployment name.
+- `UAGENT_AUDIO_OPEN`: Whether to automatically open generated audio after speech output (`0` to disable).
+
+### 7. Translation Features (Optional)
 
 Enables automatic translation of user inputs and LLM responses.
 
@@ -79,7 +88,7 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_TRANSLATE_API_KEY`: API key for translation (Optional, defaults to `UAGENT_API_KEY`).
 - `UAGENT_TRANSLATE_BASE_URL`: Base URL for translation (Optional, defaults to `UAGENT_BASE_URL`).
 
-### 7. Memory and Semantic Search
+### 8. Memory and Semantic Search
 
 - `UAGENT_MEMORY_FILE`: Path to store long-term memory notes.
 - `UAGENT_SHARED_MEMORY_FILE`: Path to store shared long-term memory.

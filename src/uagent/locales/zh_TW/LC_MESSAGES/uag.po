@@ -1,17 +1,19 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uag 0.4.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-05 17:47+0900\n"
-"PO-Revision-Date: 2026-04-24 11:12+0900\n"
-"Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
-"Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
-"Language: zh_TW\n"
+"POT-Creation-Date: 2026-05-06 03:16+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:15 src/uagent/checks.py:25
@@ -63,13 +65,13 @@ msgid ""
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr "(多行輸入模式：請用多行輸入正文；若要重新開始，請輸入 \"\"\"retry；以包含 %(sentinel)s 的一行結束)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
-#: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
-#: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
-#: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
-#: src/uagent/setup_cli.py:969 src/uagent/setup_cli.py:977
-#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1000
-#: src/uagent/setup_cli.py:1085 src/uagent/setup_cli.py:1111
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:979
+#: src/uagent/setup_cli.py:998 src/uagent/setup_cli.py:1021
+#: src/uagent/setup_cli.py:1037 src/uagent/setup_cli.py:1056
+#: src/uagent/setup_cli.py:1075 src/uagent/setup_cli.py:1089
+#: src/uagent/setup_cli.py:1102 src/uagent/setup_cli.py:1110
+#: src/uagent/setup_cli.py:1122 src/uagent/setup_cli.py:1133
+#: src/uagent/setup_cli.py:1218 src/uagent/setup_cli.py:1244
 msgid "Cancelled."
 msgstr "已取消。"
 
@@ -93,7 +95,7 @@ msgstr ""
 
 #: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "回覆 y 以送出，回覆 n（或 c/cancel）以略過送出。"
+msgstr "回覆 y 以傳送，或 n（或 c/cancel）略過傳送。"
 
 #: src/uagent/cli.py:826
 #, python-format
@@ -101,7 +103,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "確認傳送圖片失敗；不會傳送圖片：%(etype)s：%(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:460
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "無法附加圖片：%(path)s（%(etype)s：%(err)s）"
@@ -119,7 +121,7 @@ msgstr "uag 已結束。"
 msgid "[docs] name is required"
 msgstr "[docs] 名稱為必填項目"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:1018
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:1030
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[致命錯誤] 無法設定工作目錄：%(err)s"
@@ -129,24 +131,24 @@ msgstr "[致命錯誤] 無法設定工作目錄：%(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[致命錯誤] 無法啟動 uag_setup：%(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
-#: src/uagent/web.py:646
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:268
+#: src/uagent/web.py:658
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM 提供者 = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
-#: src/uagent/web.py:648
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:272
+#: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "模型/部署名稱 = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
 msgid "OpenRouter fallback models enabled."
 msgstr "已啟用 OpenRouter 備援模型。"
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
-#: src/uagent/web.py:636
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:323
+#: src/uagent/web.py:648
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
 "ignored)"
@@ -162,22 +164,22 @@ msgstr ""
 "Responses API. Falling back to ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:329 src/uagent/web.py:654
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM API 模式 = ChatCompletions（已停用 UAGENT_RESPONSES）"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
-#: src/uagent/web.py:630
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:317
+#: src/uagent/web.py:642
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM API 模式 = Responses（已啟用 UAGENT_RESPONSES）"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
-#: src/uagent/web.py:710
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:338
+#: src/uagent/web.py:722
 msgid "Loaded long-term memory."
 msgstr "已載入長期記憶。"
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
-#: src/uagent/web.py:722
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:351
+#: src/uagent/web.py:734
 msgid "Loaded shared long-term memory."
 msgstr "Loaded long-term memory."
 
@@ -194,7 +196,7 @@ msgstr "[警告] 無法讀取啟動檔案：%(path)s（%(err)s）"
 
 #: src/uagent/cli_startup.py:318
 msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "已指定 --non-interactive；不等待 stdin 即退出。"
+msgstr "已指定 --non-interactive；不等待 stdin 即結束。"
 
 #: src/uagent/core.py:284 src/uagent/core.py:305
 #, python-format
@@ -228,12 +230,12 @@ msgid ""
 "- Do not summarize. Keep information concise.\n"
 "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"## 任務\n"
+"- 您是一個在本機環境中執行的高能力「通用工具執行代理」，可以實際在使用者的電腦上執行命令並操作檔案。\n"
+"- 在執行任何危險操作前，請先向使用者確認。\n"
+"- 不要奉承使用者。不要使用表情符號。\n"
+"- 不要做摘要。保持資訊簡潔。\n"
+"- 建立檔案時，請輸出完整的最終內容（不要輸出差異或部分摘要）。\n"
 
 #: src/uagent/core.py:1300
 msgid ""
@@ -243,11 +245,11 @@ msgid ""
 "- Consult available tools and choose the most appropriate one.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
+"## 規則\n"
+"- 一律使用提供的工具並驗證最新資訊。\n"
+"- 可以有創意，但不要輸出不確定的資訊。\n"
+"- 請參考可用工具，並選擇最適合的工具。\n"
+"- 執行工具時，盡量不要把決策交給使用者。\n"
 
 #: src/uagent/core.py:1307
 msgid ""
@@ -341,9 +343,7 @@ msgid ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 msgstr ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
+"- 如果使用者使用的是 Windows cmd.exe，請優先使用 caret (^) 行續接的多行命令，並將每一行保持短一些，以避免複製/貼上時出現換行問題。\n"
 
 #: src/uagent/core.py:1419
 msgid ""
@@ -370,17 +370,17 @@ msgstr "開發者資訊"
 #: src/uagent/docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
-msgstr "unknown doc name: %(name)r"
+msgstr "找不到文件名稱：%(name)r"
 
 #: src/uagent/docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
-msgstr "doc file not found: %(filename)s"
+msgstr "找不到文件：%(filename)s"
 
 #: src/uagent/docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "文件路徑解析失敗：%(filename)s：%(err)s"
 
 #: src/uagent/docs_util.py:227
 msgid "[docs] Available documents:"
@@ -392,19 +392,19 @@ msgstr "用法："
 
 #: src/uagent/docs_util.py:232
 msgid "  uag docs                 # list"
-msgstr "  uag docs                 # list"
+msgstr "  uag docs                 # 列出"
 
 #: src/uagent/docs_util.py:233
 msgid "  uag docs <name>          # show"
-msgstr "  uag docs <name>          # show"
+msgstr "  uag docs <name>          # 顯示"
 
 #: src/uagent/docs_util.py:234
 msgid "  uag docs --path <name>   # show path"
-msgstr "  uag docs --path <name>   # show path"
+msgstr "  uag docs --path <name>   # 顯示路徑"
 
 #: src/uagent/docs_util.py:235
 msgid "  uag docs --open <name>   # open with OS"
-msgstr "  uag docs --open <name>   # open with OS"
+msgstr "  uag docs --open <name>   # 以作業系統開啟"
 
 #: src/uagent/env_validate.py:42
 msgid ""
@@ -452,7 +452,7 @@ msgstr "快取中繼資料無效"
 
 #: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
 msgid "anthropic package is not installed."
-msgstr "anthropic package is not installed."
+msgstr "尚未安裝 anthropic 套件。"
 
 #: src/uagent/llm_errors.py:396
 #, python-format
@@ -460,10 +460,7 @@ msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
-msgstr ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
+msgstr "[速率限制] provider=%(provider)s model=%(model)s status=%(status)s attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs retry_after=%(retry_after)s"
 
 #: src/uagent/llm_message_helpers.py:147
 #, python-format
@@ -496,7 +493,7 @@ msgstr "[翻譯錯誤] %(diag)s"
 #: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "429 retry limit (%(max_retries)s) reached."
+msgstr "已達 429 重試上限（%(max_retries)s）。"
 
 #: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
@@ -511,15 +508,13 @@ msgstr "[Claude 錯誤] 產生回覆時發生錯誤。"
 msgid "Error while parsing response: %(err)s"
 msgstr "剖析回覆時發生錯誤：%(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
-#: src/uagent/web.py:621
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:307
+#: src/uagent/web.py:633
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
+msgstr "已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將回退至 ChatCompletions。"
 
 #: src/uagent/runtime_banner.py:93
 #, python-format
@@ -539,114 +534,122 @@ msgstr "[WARN] 無法解密 .env.sec：%(err)s"
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
-msgstr "Specified workdir path is a file: %(path)s"
+msgstr "指定的 workdir 路徑是一個檔案：%(path)s"
 
-#: src/uagent/scheckgui.py:116
+#: src/uagent/scheckgui.py:117
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "將檔案/圖片拖放到此處"
 
-#: src/uagent/scheckgui.py:154
+#: src/uagent/scheckgui.py:155
 msgid "Download"
 msgstr "下載"
 
-#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:360 src/uagent/web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "載入共用長期記憶時發生例外：%(err)s"
 
-#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
+#: src/uagent/scheckgui.py:587 src/uagent/scheckgui.py:711
 msgid "Welcome / Quick Guide"
-msgstr "Welcome / Quick Guide"
+msgstr "歡迎 / 快速指南"
 
-#: src/uagent/scheckgui.py:615
+#: src/uagent/scheckgui.py:595
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI（極致穩定）"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:649
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ 可透過拖放附加"
 
-#: src/uagent/scheckgui.py:679
+#: src/uagent/scheckgui.py:670
 msgid "Send"
 msgstr "傳送"
 
-#: src/uagent/scheckgui.py:719
+#: src/uagent/scheckgui.py:710
 msgid "Help"
 msgstr "說明"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:725
 msgid "Mode"
 msgstr "模式"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:727
 msgid "Reasoning: off"
 msgstr "推理：關閉"
 
-#: src/uagent/scheckgui.py:739
+#: src/uagent/scheckgui.py:730
 msgid "Reasoning: auto"
 msgstr "推理：自動"
 
-#: src/uagent/scheckgui.py:741
+#: src/uagent/scheckgui.py:732
 msgid "Reasoning: minimal"
 msgstr "推理：最小"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:734
 msgid "Reasoning: low"
 msgstr "推理：低"
 
-#: src/uagent/scheckgui.py:745
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: medium"
 msgstr "推理：中"
 
-#: src/uagent/scheckgui.py:747
+#: src/uagent/scheckgui.py:738
 msgid "Reasoning: high"
 msgstr "推理：高"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: xhigh"
 msgstr "推理：超高"
 
-#: src/uagent/scheckgui.py:755
+#: src/uagent/scheckgui.py:746
 msgid "Verbosity: off"
 msgstr "詳細程度：關閉"
 
-#: src/uagent/scheckgui.py:757
+#: src/uagent/scheckgui.py:748
 msgid "Verbosity: low"
 msgstr "詳細程度：低"
 
-#: src/uagent/scheckgui.py:759
+#: src/uagent/scheckgui.py:750
 msgid "Verbosity: medium"
 msgstr "詳細程度：中"
 
-#: src/uagent/scheckgui.py:761
+#: src/uagent/scheckgui.py:752
 msgid "Verbosity: high"
 msgstr "詳細程度：高"
 
-#: src/uagent/scheckgui.py:791
+#: src/uagent/scheckgui.py:782
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 推論=%(mode)s"
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:918
 msgid "Enter password..."
 msgstr "請輸入密碼..."
 
-#: src/uagent/scheckgui.py:919
+#: src/uagent/scheckgui.py:920
 msgid "Enter response for human_ask..."
 msgstr "請輸入 human_ask 的回覆..."
 
-#: src/uagent/scheckgui.py:924
+#: src/uagent/scheckgui.py:925
 msgid "Enter a message..."
 msgstr "請輸入訊息..."
 
-#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1332 src/uagent/scheckgui.py:1372
+#: src/uagent/scheckgui.py:1407
 msgid "Downloaded to"
 msgstr "已下載至"
 
+#: src/uagent/scheckgui.py:1426
+msgid "Playing"
+msgstr "播放中"
+
+#: src/uagent/scheckgui.py:1436
+msgid "Stopped"
+msgstr "已停止"
+
 #: src/uagent/setup_cli.py:28
 msgid "# .env for uag (generated by `uag_setup`)"
-msgstr "# .env for uag (generated by `uag_setup`)"
+msgstr "# uag 的 .env（由 `uag_setup` 產生）"
 
 #: src/uagent/setup_cli.py:29
 msgid "#"
@@ -654,16 +657,15 @@ msgstr "#"
 
 #: src/uagent/setup_cli.py:30
 msgid "# Notes:"
-msgstr "# Notes:"
+msgstr "# 備註："
 
 #: src/uagent/setup_cli.py:31
 msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
-msgstr ""
-"# - This file may contain secrets (API keys). Do NOT commit it to Git."
+msgstr "# - 此檔案可能包含機密（API 金鑰）。請勿提交到 Git。"
 
 #: src/uagent/setup_cli.py:32
 msgid "# - You can re-run `uag_setup` anytime to regenerate."
-msgstr "# - You can re-run `uag_setup` anytime to regenerate."
+msgstr "# - 你可以隨時重新執行 `uag_setup` 來重新產生。"
 
 #: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
 #: src/uagent/setup_cli.py:192
@@ -686,11 +688,11 @@ msgstr "Ollama"
 msgid "NVIDIA"
 msgstr "NVIDIA"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:459
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
 msgstr "OpenAI API 金鑰"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:460
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
 msgid "OpenAI base URL (optional)"
 msgstr "OpenAI 基礎 URL（選填）"
 
@@ -698,11 +700,11 @@ msgstr "OpenAI 基礎 URL（選填）"
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI 模型/部署名稱（選填）"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:451
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "Azure 基礎 URL（例如 https://<resource>.openai.azure.com/）"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:453
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
 msgid "Azure API key"
 msgstr "Azure API 金鑰"
 
@@ -710,27 +712,27 @@ msgstr "Azure API 金鑰"
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Azure API 版本（選填，例如 2024-05-01-preview）"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:455
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
 msgid "Azure deployment name"
 msgstr "Azure 部署名稱"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:468
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "Bedrock 閘道基礎 URL（例如 https://<gateway>/v1）"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:470
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
 msgid "Bedrock API key"
 msgstr "Bedrock API 金鑰"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Bedrock 模型/部署名稱（例如 openai.gpt-oss-120b）"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:479
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
 msgid "OpenRouter API key"
 msgstr "OpenRouter API 金鑰"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:480
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
 msgid "OpenRouter base URL (optional)"
 msgstr "OpenRouter 基礎 URL（選填）"
 
@@ -740,9 +742,9 @@ msgstr "OpenRouter 模型/部署名稱（選填）"
 
 #: src/uagent/setup_cli.py:119
 msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "OpenRouter 備援模型（選填，以逗號分隔）"
+msgstr "OpenRouter 後備模型（選填，以逗號分隔）"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:485
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
 msgid "Gemini API key"
 msgstr "Gemini API 金鑰"
 
@@ -786,11 +788,11 @@ msgstr "Claude API 金鑰"
 msgid "Claude model/deployment name (optional)"
 msgstr "Claude 模型/部署名稱（選填）"
 
-#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:490
+#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
 msgid "NVIDIA API key"
 msgstr "NVIDIA API 金鑰"
 
-#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
 msgid "NVIDIA base URL (optional)"
 msgstr "NVIDIA 基礎 URL（選填）"
 
@@ -812,169 +814,201 @@ msgstr "Ollama 模型/部署名稱（選填）"
 
 #: src/uagent/setup_cli.py:161
 msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Ollama request timeout in seconds (default: 60)"
+msgstr "Ollama 請求逾時（秒，預設：60）"
 
 #: src/uagent/setup_cli.py:163
 msgid "Ollama temperature (default: 0.7)"
-msgstr "Ollama temperature (default: 0.7)"
+msgstr "Ollama temperature（預設：0.7）"
 
 #: src/uagent/setup_cli.py:164
 msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p（預設：0.9）"
 
 #: src/uagent/setup_cli.py:165
 msgid "Ollama top_k (default: 40)"
-msgstr "Ollama top_k (default: 40)"
+msgstr "Ollama top_k（預設：40）"
 
 #: src/uagent/setup_cli.py:169
 msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty（預設：1.1）"
 
 #: src/uagent/setup_cli.py:171
 msgid "Ollama keep_alive (default: 5m)"
-msgstr "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive（預設：5m）"
 
 #: src/uagent/setup_cli.py:172
 msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx（預設：8192）"
 
 #: src/uagent/setup_cli.py:173
 msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict（預設：1024）"
 
-#: src/uagent/setup_cli.py:324 src/uagent/setup_cli.py:413
+#: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
 msgid "Enter number:"
-msgstr "Enter number:"
+msgstr "請輸入數字："
 
-#: src/uagent/setup_cli.py:337
+#: src/uagent/setup_cli.py:344
 msgid "Invalid input. Please enter a valid number."
-msgstr "Invalid input. Please enter a valid number."
+msgstr "輸入無效。請輸入有效的數字。"
 
-#: src/uagent/setup_cli.py:350
+#: src/uagent/setup_cli.py:357
 #, python-format
 msgid " [default: %(default)s]"
-msgstr " [default: %(default)s]"
+msgstr " [預設：%(default)s]"
 
-#: src/uagent/setup_cli.py:366
+#: src/uagent/setup_cli.py:373
 msgid "This field is required. Please enter a value."
-msgstr "This field is required. Please enter a value."
+msgstr "此欄位為必填。請輸入值。"
 
-#: src/uagent/setup_cli.py:378
+#: src/uagent/setup_cli.py:385
 msgid "Select UAGENT_LANG"
-msgstr "Select UAGENT_LANG"
+msgstr "選擇 UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:389
+#: src/uagent/setup_cli.py:396
 msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG（自訂）"
 
-#: src/uagent/setup_cli.py:402
+#: src/uagent/setup_cli.py:409
 msgid "Select output files to generate in the current directory"
-msgstr "Select output files to generate in the current directory"
+msgstr "選擇要在目前目錄產生的輸出檔案"
 
-#: src/uagent/setup_cli.py:403
+#: src/uagent/setup_cli.py:410
 msgid "  1. .env only"
-msgstr "  1. .env only"
+msgstr "  1. 僅 .env"
 
-#: src/uagent/setup_cli.py:404
+#: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
 msgstr "  2. .env + env.sh"
 
-#: src/uagent/setup_cli.py:405
+#: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env + env.ps1"
 
-#: src/uagent/setup_cli.py:406
+#: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
 msgstr "  4. .env + env.bat"
 
-#: src/uagent/setup_cli.py:407
+#: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "  5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + 全部（sh/ps1/bat）"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:435
 msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "Invalid input. Please enter 1-5, or b/q."
+msgstr "輸入無效。請輸入 1-5，或 b/q。"
 
-#: src/uagent/setup_cli.py:454
+#: src/uagent/setup_cli.py:463
 msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Azure API 版本（例如 2024-05-01-preview）"
 
-#: src/uagent/setup_cli.py:461
+#: src/uagent/setup_cli.py:470
 msgid "OpenAI model/deployment name"
-msgstr "OpenAI model/deployment name"
+msgstr "OpenAI 模型/部署名稱"
 
-#: src/uagent/setup_cli.py:481
+#: src/uagent/setup_cli.py:490
 msgid "OpenRouter model/deployment name"
-msgstr "OpenRouter model/deployment name"
+msgstr "OpenRouter 模型/部署名稱"
 
-#: src/uagent/setup_cli.py:486
+#: src/uagent/setup_cli.py:495
 msgid "Gemini model name"
-msgstr "Gemini model name"
+msgstr "Gemini 模型名稱"
 
-#: src/uagent/setup_cli.py:492
+#: src/uagent/setup_cli.py:501
 msgid "NVIDIA model/deployment name"
-msgstr "NVIDIA model/deployment name"
+msgstr "NVIDIA 模型/部署名稱"
 
-#: src/uagent/setup_cli.py:500
+#: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
 msgstr "%(label)s"
 
-#: src/uagent/setup_cli.py:511
+#: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
-msgstr "Select provider"
+msgstr "要啟用圖片生成除錯輸出嗎？（0/1）"
 
-#: src/uagent/setup_cli.py:526
-msgid "Configure optional image / embedding settings?"
-msgstr "Optional image / embedding settings"
+#: src/uagent/setup_cli.py:543
+msgid "Azure speech deployment name"
+msgstr "Azure 語音部署名稱"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:544
+msgid "Azure transcription deployment name"
+msgstr "Azure 轉錄部署名稱"
+
+#: src/uagent/setup_cli.py:551
+msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+msgstr "OpenAI TTS 模型/部署名稱（選填，預設：gpt-4o-mini-tts）"
+
+#: src/uagent/setup_cli.py:557
+msgid ""
+"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
+"transcribe)"
+msgstr "OpenAI 轉錄模型/部署名稱（可選，預設：gpt-4o-mini-transcribe）"
+
+#: src/uagent/setup_cli.py:583
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "要設定選用的圖片 / 嵌入 / 音訊選項嗎？"
+
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "No"
-msgstr "No"
+msgstr "否"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "Yes"
-msgstr "Yes"
+msgstr "是"
 
-#: src/uagent/setup_cli.py:541
+#: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
-msgstr "Configure image analysis settings?"
+msgstr "要設定圖片分析選項嗎？"
 
-#: src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:609
 msgid "Select image analysis provider"
 msgstr "選擇影像分析提供者"
 
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:630
 msgid "Configure image generation settings?"
-msgstr "Configure image generation settings?"
+msgstr "要設定圖片生成選項嗎？"
 
-#: src/uagent/setup_cli.py:584
+#: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
-msgstr "Select provider"
+msgstr "選擇圖片生成提供者"
 
-#: src/uagent/setup_cli.py:604
+#: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
-msgstr "Open generated images automatically?"
+msgstr "自動開啟生成的圖片嗎？"
 
-#: src/uagent/setup_cli.py:620
+#: src/uagent/setup_cli.py:677
 msgid "Configure embedding / semantic search settings?"
-msgstr "Configure embedding / semantic search settings?"
+msgstr "要設定嵌入 / 語意搜尋選項嗎？"
 
-#: src/uagent/setup_cli.py:652
+#: src/uagent/setup_cli.py:709
 msgid "Disable semantic search when embedding API is unreachable?"
-msgstr "Disable semantic search when embedding API is unreachable?"
+msgstr "當 embedding API 無法連線時停用語意搜尋嗎？"
 
-#: src/uagent/setup_cli.py:693
+#: src/uagent/setup_cli.py:722
+msgid "Configure audio speech / transcription settings?"
+msgstr "設定語音/轉錄音訊選項？"
+
+#: src/uagent/setup_cli.py:736
+msgid "Select audio provider"
+msgstr "選擇音訊提供者"
+
+#: src/uagent/setup_cli.py:755
+msgid "Open generated audio automatically?"
+msgstr "自動開啟生成的音訊？"
+
+#: src/uagent/setup_cli.py:799
 msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
@@ -982,221 +1016,221 @@ msgstr ""
 "# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
 "nvidia"
 
-#: src/uagent/setup_cli.py:706
+#: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
-#: src/uagent/setup_cli.py:717
+#: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "選用：Responses API（Azure/OpenAI/Bedrock）"
 
-#: src/uagent/setup_cli.py:727
+#: src/uagent/setup_cli.py:833
 msgid "# (not supported by selected provider)"
-msgstr "# (not supported by selected provider)"
+msgstr "#（所選提供者不支援）"
 
-#: src/uagent/setup_cli.py:730
+#: src/uagent/setup_cli.py:836
 msgid "Optional runtime"
-msgstr "Optional runtime"
+msgstr "可選執行階段設定"
 
-#: src/uagent/setup_cli.py:742
-msgid "Optional image / embedding settings"
+#: src/uagent/setup_cli.py:848
+msgid "Optional image / embedding / audio settings"
 msgstr "Optional image / embedding settings"
 
-#: src/uagent/setup_cli.py:813
+#: src/uagent/setup_cli.py:946
 msgid "# (optional image / embedding settings not configured)"
-msgstr "# (optional image / embedding settings not configured)"
+msgstr "#（尚未設定可選的圖片 / 嵌入設定）"
 
-#: src/uagent/setup_cli.py:821
+#: src/uagent/setup_cli.py:954
 msgid "Encrypt the generated .env file?"
-msgstr "Encrypt the generated .env file?"
+msgstr "要加密產生的 .env 檔嗎？"
 
-#: src/uagent/setup_cli.py:827
+#: src/uagent/setup_cli.py:960
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
-msgstr "Encrypted file will be written as %(path)s"
+msgstr "加密後的檔案將寫入為 %(path)s"
 
-#: src/uagent/setup_cli.py:843
+#: src/uagent/setup_cli.py:976
 msgid "Select provider"
 msgstr "選擇提供者"
 
-#: src/uagent/setup_cli.py:882
+#: src/uagent/setup_cli.py:1015
 msgid "Enable Responses API options?"
-msgstr "Enable Responses API options?"
+msgstr "要啟用 Responses API 選項嗎？"
 
-#: src/uagent/setup_cli.py:898
+#: src/uagent/setup_cli.py:1031
 msgid "Select reasoning"
-msgstr "Select reasoning"
+msgstr "選擇推理模式"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "minimal"
+msgstr "最少"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:910
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "low"
+msgstr "低"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:911
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "medium"
+msgstr "中"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:912
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "high"
+msgstr "高"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "auto"
+msgstr "自動"
 
-#: src/uagent/setup_cli.py:917
+#: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
-msgstr "Select verbosity"
+msgstr "選擇詳細程度"
 
-#: src/uagent/setup_cli.py:936
+#: src/uagent/setup_cli.py:1069
 msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "Set optional runtime UAGENT_WORKDIR?"
+msgstr "要設定可選的執行階段 UAGENT_WORKDIR 嗎？"
 
-#: src/uagent/setup_cli.py:963
+#: src/uagent/setup_cli.py:1096
 msgid "Set optional runtime UAGENT_LANG?"
-msgstr "Set optional runtime UAGENT_LANG?"
+msgstr "要設定可選的執行階段 UAGENT_LANG 嗎？"
 
-#: src/uagent/setup_cli.py:1012
+#: src/uagent/setup_cli.py:1145
 msgid "Summary"
-msgstr "Summary"
+msgstr "摘要"
 
-#: src/uagent/setup_cli.py:1013
+#: src/uagent/setup_cli.py:1146
 #, python-format
 msgid "  Provider: %(provider)s"
-msgstr "  Provider: %(provider)s"
+msgstr "  提供者：%(provider)s"
 
-#: src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
 msgstr "  %(key)s=%(value)s"
 
-#: src/uagent/setup_cli.py:1020
+#: src/uagent/setup_cli.py:1153
 #, python-format
 msgid "  Responses enabled: %(state)s"
-msgstr "  Responses enabled: %(state)s"
+msgstr "  已啟用 Responses：%(state)s"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "yes"
-msgstr "yes"
+msgstr "是"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "no"
-msgstr "no"
+msgstr "否"
 
-#: src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
 msgstr "  UAGENT_REASONING=%(value)s"
 
-#: src/uagent/setup_cli.py:1025
+#: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
 msgstr "  UAGENT_VERBOSITY=%(value)s"
 
-#: src/uagent/setup_cli.py:1027
+#: src/uagent/setup_cli.py:1160
 #, python-format
 msgid "  UAGENT_WORKDIR enabled: %(state)s"
-msgstr "  UAGENT_WORKDIR enabled: %(state)s"
+msgstr "  已啟用 UAGENT_WORKDIR：%(state)s"
 
-#: src/uagent/setup_cli.py:1031
+#: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
 msgstr "  UAGENT_WORKDIR=%(value)s"
 
-#: src/uagent/setup_cli.py:1033
+#: src/uagent/setup_cli.py:1166
 #, python-format
 msgid "  UAGENT_LANG enabled: %(state)s"
-msgstr "  UAGENT_LANG enabled: %(state)s"
+msgstr "  已啟用 UAGENT_LANG：%(state)s"
 
-#: src/uagent/setup_cli.py:1037
+#: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
 msgstr "  UAGENT_LANG=%(value)s"
 
-#: src/uagent/setup_cli.py:1039
+#: src/uagent/setup_cli.py:1172
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
-msgstr "  Optional extras enabled: %(state)s"
+msgstr "  已啟用其他選項：%(state)s"
 
-#: src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1177
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
-msgstr "  Image analysis enabled: %(state)s"
+msgstr "  已啟用圖片分析：%(state)s"
 
-#: src/uagent/setup_cli.py:1052
+#: src/uagent/setup_cli.py:1185
 #, python-format
 msgid "  Image generation enabled: %(state)s"
-msgstr "  Image generation enabled: %(state)s"
+msgstr "  已啟用圖片生成：%(state)s"
 
-#: src/uagent/setup_cli.py:1063
+#: src/uagent/setup_cli.py:1196
 #, python-format
 msgid "  Embedding enabled: %(state)s"
-msgstr "  Embedding enabled: %(state)s"
+msgstr "  已啟用嵌入：%(state)s"
 
-#: src/uagent/setup_cli.py:1076
+#: src/uagent/setup_cli.py:1209
 #, python-format
 msgid "  Outputs: %(outputs)s"
-msgstr "  Outputs: %(outputs)s"
+msgstr "  輸出：%(outputs)s"
 
-#: src/uagent/setup_cli.py:1079
+#: src/uagent/setup_cli.py:1212
 msgid "Generate files with this configuration?"
-msgstr "Generate files with this configuration?"
+msgstr "要使用此設定產生檔案嗎？"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Yes, generate"
-msgstr "Yes, generate"
+msgstr "是，生成"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Back"
-msgstr "Back"
+msgstr "返回"
 
-#: src/uagent/setup_cli.py:1104
+#: src/uagent/setup_cli.py:1237
 msgid "The following files already exist and will be overwritten:"
-msgstr "The following files already exist and will be overwritten:"
+msgstr "下列檔案已存在，將被覆寫："
 
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:1241
 msgid "Proceed?"
-msgstr "Proceed?"
+msgstr "要繼續嗎？"
 
-#: src/uagent/setup_cli.py:1132
+#: src/uagent/setup_cli.py:1265
 msgid "Plain .env file removed after encryption."
-msgstr "Plain .env file removed after encryption."
+msgstr "已在加密後移除純文字 .env 檔。"
 
-#: src/uagent/setup_cli.py:1135
+#: src/uagent/setup_cli.py:1268
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "警告：無法移除未加密的 .env：%(error)s"
 
-#: src/uagent/setup_cli.py:1154
+#: src/uagent/setup_cli.py:1287
 #, python-format
 msgid "generated: %(path)s"
-msgstr "generated: %(path)s"
+msgstr "已產生：%(path)s"
 
-#: src/uagent/setup_cli.py:1157
+#: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1 : utf-8-sig, CRLF"
+msgstr "- env.ps1：utf-8-sig，CRLF"
 
-#: src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat : cp932, CRLF"
+msgstr "- env.bat：cp932，CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] 工具輪次超過 %(max)d；正在中止。"
 
 #: src/uagent/util_providers.py:145
 msgid "Environment variable UAGENT_PROVIDER is not set."
@@ -1209,15 +1243,13 @@ msgstr "未知的提供者：%(provider)s"
 
 #: src/uagent/util_providers.py:423 src/uagent/util_providers.py:449
 msgid "google-genai package is not installed."
-msgstr "google-genai package is not installed."
+msgstr "尚未安裝 google-genai 套件。"
 
 #: src/uagent/util_tools.py:194
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
-msgstr ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
+msgstr "請指定工作目錄。若未設定，將使用 UAGENT_WORKDIR 環境變數或目前目錄。"
 
 #: src/uagent/util_tools.py:201
 msgid ""
@@ -1455,37 +1487,37 @@ msgstr "[load] 已追加到当前日志开头：%(path)s"
 msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr "[load 警告] 重写当前日志失敗：%(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1114
+#: src/uagent/util_tools.py:1115
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[載入錯誤] 失敗：%(etype)s：%(err)s"
 
-#: src/uagent/util_tools.py:1127
+#: src/uagent/util_tools.py:1130
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm 錯誤] 解析参數失敗：%(err)s"
 
-#: src/uagent/util_tools.py:1148
+#: src/uagent/util_tools.py:1151
 msgid "[rm] Unexpected delete_file preview response."
 msgstr "[rm] delete_file 预览响应异常。"
 
-#: src/uagent/util_tools.py:1152
+#: src/uagent/util_tools.py:1155
 msgid "[rm] Preview failed."
 msgstr "[rm] 预览失敗。"
 
-#: src/uagent/util_tools.py:1162
+#: src/uagent/util_tools.py:1165
 msgid "[rm] No matching paths."
 msgstr "[rm] 没有匹配的路徑。"
 
-#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1176
 msgid "[rm] Missing:"
 msgstr "[rm] 缺失："
 
-#: src/uagent/util_tools.py:1169
+#: src/uagent/util_tools.py:1172
 msgid "[rm] Candidates:"
 msgstr "[rm] 候选项："
 
-#: src/uagent/util_tools.py:1178
+#: src/uagent/util_tools.py:1181
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1500,148 +1532,146 @@ msgstr ""
 "\n"
 "輸入 y 继续，或輸入 c 取消。"
 
-#: src/uagent/util_tools.py:1185
+#: src/uagent/util_tools.py:1188
 msgid "[rm] Cancelled."
 msgstr "[rm] 已取消。"
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1202
 msgid "[rm] Unexpected delete_file response."
 msgstr "[rm] delete_file 响应异常。"
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1207
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr "[rm] 已刪除 %(count)d 个路徑。"
 
-#: src/uagent/util_tools.py:1208
+#: src/uagent/util_tools.py:1211
 msgid "[rm] Failed."
 msgstr "[rm] 失敗。"
 
-#: src/uagent/util_tools.py:1233
+#: src/uagent/util_tools.py:1236
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "指定的索引 %(idx)d 超出范围。"
 
-#: src/uagent/util_tools.py:1242
+#: src/uagent/util_tools.py:1245
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "未找到日志檔案：%(path)s"
 
-#: src/uagent/util_tools.py:1288
+#: src/uagent/util_tools.py:1291
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "已載入日志：%(path)s"
 
-#: src/uagent/util_tools.py:1289
+#: src/uagent/util_tools.py:1292
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "會話訊息數：%(n)d"
 
-#: src/uagent/util_tools.py:1319
+#: src/uagent/util_tools.py:1322
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink 錯誤] 無法解析為整數：%(arg)r -> 保留最後 %(keep)d 筆"
 
-#: src/uagent/util_tools.py:1348
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1369
+#: src/uagent/util_tools.py:1372
 msgid "No long-term memory entries."
 msgstr "没有長期記憶条目。"
 
-#: src/uagent/util_tools.py:1372
+#: src/uagent/util_tools.py:1375
 msgid "Long-term memory entries:"
 msgstr "長期記憶条目："
 
-#: src/uagent/util_tools.py:1395
+#: src/uagent/util_tools.py:1398
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del 錯誤] 无法将索引解析为整數：%(arg)r"
 
-#: src/uagent/util_tools.py:1400
+#: src/uagent/util_tools.py:1403
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "已刪除長期記憶条目 [%(idx)d]。"
 
-#: src/uagent/util_tools.py:1402
+#: src/uagent/util_tools.py:1405
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] 刪除索引=%(idx)d 失敗。"
 
-#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
+#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
-msgstr ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
+msgstr "尚未啟用共用長期記憶（未設定 UAGENT_SHARED_MEMORY_FILE）。"
 
-#: src/uagent/util_tools.py:1417
+#: src/uagent/util_tools.py:1420
 msgid "No shared long-term memory entries."
 msgstr "没有共享長期記憶条目。"
 
-#: src/uagent/util_tools.py:1422
+#: src/uagent/util_tools.py:1425
 msgid "Shared long-term memory entries:"
 msgstr "共享長期記憶条目："
 
-#: src/uagent/util_tools.py:1452
+#: src/uagent/util_tools.py:1455
 #, python-format
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[shared-mem-del 錯誤] 无法将索引解析为整數：%(arg)r"
 
-#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] 刪除索引=%(idx)d 失敗。"
 
-#: src/uagent/util_tools.py:1475
+#: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
 msgstr "[shared-mem-del 錯誤] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1480
+#: src/uagent/util_tools.py:1483
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "已刪除共享長期記憶条目 [%(idx)d]。"
 
-#: src/uagent/util_tools.py:1495
+#: src/uagent/util_tools.py:1498
 msgid "Show this help"
 msgstr "顯示此說明"
 
-#: src/uagent/util_tools.py:1496
+#: src/uagent/util_tools.py:1499
 msgid "Restart input from the beginning"
 msgstr "從頭重新輸入"
 
-#: src/uagent/util_tools.py:1497
+#: src/uagent/util_tools.py:1500
 msgid "Show log file list"
 msgstr "顯示記錄檔清單"
 
-#: src/uagent/util_tools.py:1500
+#: src/uagent/util_tools.py:1503
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr "無需確認即可變更工作目錄（例如：:cd .. / :cd ~ / :cd C:\\path / :cd /）"
 
-#: src/uagent/util_tools.py:1503
+#: src/uagent/util_tools.py:1506
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "列出目錄項目（例如：:ls / :ls .. / :ls ~ / :ls C:\\path）"
 
-#: src/uagent/util_tools.py:1504
+#: src/uagent/util_tools.py:1507
 msgid "List loaded tools"
 msgstr "列出已載入的工具"
 
-#: src/uagent/util_tools.py:1506
+#: src/uagent/util_tools.py:1509
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "管理/套用技能（例如：:skills / :skills active / :skills clear）"
 
-#: src/uagent/util_tools.py:1508
+#: src/uagent/util_tools.py:1511
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "載入過去的記錄（會覆寫目前的對話歷史）"
 
-#: src/uagent/util_tools.py:1510
+#: src/uagent/util_tools.py:1513
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1649,94 +1679,92 @@ msgid ""
 msgstr ""
 "                       注意：运行后会要求確認；選擇 'y' 会把載入的日志追加到当前會話日志檔案开头（覆盖写入，不备份）。"
 
-#: src/uagent/util_tools.py:1514
+#: src/uagent/util_tools.py:1517
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 "刪除對話記錄（scheck_log_*.jsonl），其中 user/assistant/tool 訊息數（不含 system）<= N（預設=10）"
 
-#: src/uagent/util_tools.py:1518
+#: src/uagent/util_tools.py:1521
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "縮減對話歷史（保留最近 N 則非 system 訊息；預設=40）"
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1525
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
 msgstr "透過 LLM 摘要縮減歷史（將較早的歷史總結為 1 則 system 訊息；保留最近 N 則原文；預設=20）"
 
-#: src/uagent/util_tools.py:1524
+#: src/uagent/util_tools.py:1527
 msgid "List long-term memory notes"
 msgstr "長期記憶條目："
 
-#: src/uagent/util_tools.py:1526
+#: src/uagent/util_tools.py:1529
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "依索引刪除長期記憶筆記（請參見 :mem-list）"
 
-#: src/uagent/util_tools.py:1528
+#: src/uagent/util_tools.py:1531
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "透過預覽與確認刪除檔案／目錄"
 
-#: src/uagent/util_tools.py:1530
+#: src/uagent/util_tools.py:1533
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr "列出共用長期記憶筆記（需要 UAGENT_SHARED_MEMORY_FILE）"
 
-#: src/uagent/util_tools.py:1532
+#: src/uagent/util_tools.py:1535
 msgid "Delete a shared long-term memory note by index"
 msgstr "依索引刪除共用長期記憶筆記"
 
-#: src/uagent/util_tools.py:1534
+#: src/uagent/util_tools.py:1537
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr "設定推理模式（0=關閉，1=低，2=中，3=高；auto/minimal/xhigh）"
 
-#: src/uagent/util_tools.py:1536
+#: src/uagent/util_tools.py:1539
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr "設定詳細程度（0=關閉，1=低，2=中，3=高；無參數=保持）"
+msgstr "設定詳細度模式（0=關、1=低、2=中、3=高；無參數=維持不變）"
 
-#: src/uagent/util_tools.py:1537
+#: src/uagent/util_tools.py:1540
 msgid "Exit"
 msgstr "結束"
 
-#: src/uagent/util_tools.py:1540
+#: src/uagent/util_tools.py:1543
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - 輸入仅包含 'f' 的一行即可进入多行輸入模式。"
 
-#: src/uagent/util_tools.py:1542
+#: src/uagent/util_tools.py:1545
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 要结束多行輸入模式，請輸入完全等于 %(sentinel)s 的一行。"
 
-#: src/uagent/util_tools.py:1636
+#: src/uagent/util_tools.py:1639
 msgid "Exiting."
 msgstr "正在退出。"
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1642
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "未知命令：:%(cmd)s"
 
-#: src/uagent/util_tools.py:1790
+#: src/uagent/util_tools.py:1793
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"下方列出的項目是來自這位使用者的長期記憶（持久備忘錄）的摘錄。請將它們視為關於使用者的背景資訊。不過，請始終優先採用對話中最新提供的資訊；如果與舊資訊衝突，請以最新資訊為準。\n"
 "\n"
 
-#: src/uagent/web.py:504
+#: src/uagent/web.py:511
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
-msgstr ""
-"Another task is already running in this room. Please retry after it "
-"completes."
+msgstr "此房間中已有其他工作正在執行。請在完成後再試一次。"
 
-#: src/uagent/web.py:592 src/uagent/web.py:761
+#: src/uagent/web.py:604 src/uagent/web.py:773
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -1767,11 +1795,11 @@ msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
 
 #: src/uagent/welcome.py:62
 msgid "[Quick Guide]"
-msgstr "[Quick Guide]"
+msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:63
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 聊天：輸入訊息並傳送（GUI：Ctrl+Enter 也可用）"
 
 #: src/uagent/welcome.py:65
 msgid ""
@@ -1789,15 +1817,13 @@ msgstr "- 指令：輸入 ':help' 查看系統指令（記錄管理、歷史壓�
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- 離開：`:exit` 或 `:quit` 結束工作階段"
 
 #: src/uagent/welcome.py:72
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
-msgstr ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
+msgstr "- 圖片：GUI 支援拖放；在 CUI 中可輸入檔案路徑進行圖片分析。"
 
 #: src/uagent/welcome.py:75
 msgid ""
@@ -1809,7 +1835,7 @@ msgstr ""
 
 #: src/uagent/welcome.py:78
 msgid "[Examples]"
-msgstr "[Examples]"
+msgstr "[範例]"
 
 #: src/uagent/welcome.py:79
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
