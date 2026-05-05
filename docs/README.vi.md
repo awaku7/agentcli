@@ -6,6 +6,8 @@
 
 `uag` là một tác nhân tương tác có thể thực thi **lệnh**, thao tác **tệp tin**, và đọc **nhiều định dạng dữ liệu** như PDF/PPTX/Excel trên máy tính cục bộ của bạn. Ứng dụng cung cấp ba giao diện: CLI, GUI và Web.
 
+uag được tạo ra để **giúp bạn thoát khỏi các ứng dụng bị khóa bởi nhà cung cấp**: hãy dùng giao diện phù hợp với quy trình làm việc của bạn, đổi nhà cung cấp và giữ quyền kiểm soát môi trường của bạn.
+
 GitHub: https://github.com/awaku7/agentcli
 
 ## Cài đặt

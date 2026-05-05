@@ -6,6 +6,8 @@
 
 uag est un agent interactif qui exécute des **commandes**, manipule des **fichiers** et lit **divers formats de données** (PDF/PPTX/Excel, etc.) sur votre PC local. Il propose trois interfaces : CLI, GUI et Web.
 
+uag est conçu pour **vous libérer des applications verrouillées par un fournisseur** : utilisez l’interface adaptée à votre flux de travail, changez de fournisseur et gardez le contrôle de votre environnement.
+
 GitHub: https://github.com/awaku7/agentcli
 
 ## Installation

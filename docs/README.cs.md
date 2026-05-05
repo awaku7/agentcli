@@ -6,6 +6,8 @@
 
 uag je lokální interaktivní agent, který spouští **příkazy**, pracuje se **soubory** a čte **datové soubory** jako PDF, PPTX a Excel. Nabízí tři uživatelská rozhraní: CLI, GUI a Web.
 
+uag je navržen tak, aby vás **udržel svobodné od aplikací vázaných na jediného dodavatele**: používejte rozhraní, které odpovídá vašemu workflow, přepínejte poskytovatele a mějte své prostředí pod kontrolou.
+
 GitHub: https://github.com/awaku7/agentcli
 
 ## Instalace
