@@ -1,45 +1,34 @@
 # TODO
 
-## LLM 通信が Ctrl-C で停止できない（または停止が遅い）
+## P0: LLM 通信の Ctrl-C 対応と BUSY 固着防止
 
-### 背景 / 症状
-
-- エージェント実行中、LLM API 呼び出しが詰まったときに **Ctrl-C を押してもすぐ止まらない**ことがある。
-- 特に Windows 環境で再現しやすい。
-- 通信ライブラリ内のブロッキング I/O から Python へ割り込みが戻ってこないケースがある。
-
-### 目標
-
-1. 無限ハングを防ぐ（必須）
-1. Ctrl-C を押したときに UI 状態（BUSY 表示等）が固着しない（必須）
-1. 可能なら Ctrl-C を押した瞬間に通信をキャンセルする（努力目標）
+### 状況
+- かなり改善済み。
+- ただし Windows での再現テストが必要。
+- 完全な即時停止は別プロセス化が最有力。
 
 ### 残タスク
-
 - Windows でネットワーク断 / DNS 不達 / Firewall drop を再現して手動テストする。
+- Ctrl-C で中断できることを確認する。
+- BUSY 表示や状態が固着しないことを確認する。
 
-### 手動テスト観点
+### 優先度
+- 無限ハング防止: 必須
+- UI 状態の復帰: 必須
+- 即時キャンセル: 努力目標
 
-- LLM 呼び出し中にネットワーク断 / タイムアウト相当を再現し、timeout で復帰すること。
-- Ctrl-C で中断できる、または中断が早くなること。
-- BUSY 表示が固着しないこと。
+## P1: `src/uagent/tools/system_specs_tools.py` の物理ディスク情報
 
-### 補足
+- Windows / macOS で物理ディスクのモデル・種別を best-effort で取得する。
+- 既存の軽量実装を壊さない範囲で検討する。
 
-- 完全な即時停止を本気で狙うなら、別プロセス化が最有力。
-- async 化は大規模改修になりやすいため、現段階では優先度を下げる。
+## P2: Playwright Inspector の出力改善
 
-## リポジトリ全体で拾った未実装候補
-
-### 確認したい改善点
-
-- `src/uagent/tools/system_specs_tools.py` の Windows/macOS における物理ディスクのモデル/種別取得を実装する。
-- `src/uagent/translate.py` の翻訳 provider に Gemini / Claude を追加するか検討する。
-
-## Playwright Inspector の改善候補
-
-- 遷移ごとに `pages/0001_...` のような番号付き HTML/PNG を保存する。
+- 遷移ごとに `pages/0001_...` 形式で HTML / PNG を保存する。
 - `index.jsonl` で URL / title / 時刻 / ファイル名 を一覧化する。
-- `final.html` とは別に `latest.html` を保存する。
-- SPA 対応のため、`framenavigated` だけでなく `load` や URL 変化監視も併用する。
-- 必要なら、途中ページだけを確実に残すモードを追加する。
+- `latest.html` を別途保存する。
+- SPA 対応を強化する。
+
+## 保留
+
+- 翻訳 provider の追加検討は削除済み。必要時に別途整理する。
