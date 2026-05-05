@@ -6,6 +6,8 @@
 
 uag 是一款能够在您的本地 PC 上执行 **命令**、操作 **文件** 并读取 **各种数据格式**（PDF/PPTX/Excel 等）的交互式智能体。它提供三种界面：CLI、GUI 和 Web。
 
+uag 的设计旨在**让您摆脱厂商绑定的应用**：使用适合您工作流的界面，切换提供商，并始终掌控您的环境。
+
 GitHub: https://github.com/awaku7/agentcli
 
 ## 安装

@@ -6,6 +6,8 @@
 
 uag ni wakala shirikishi wa ndani unaotekeleza **amri**, kusimamia **faili**, na kusoma **faili za data** kama PDF, PPTX, na Excel. Inatoa miingiliano mitatu ya mtumiaji: CLI, GUI, na Web.
 
+uag imeundwa ili **ikuepushe na programu zilizo fungwa na mtoa huduma**: tumia kiolesura kinachofaa mtiririko wako wa kazi, badili watoa huduma, na udumishe udhibiti wa mazingira yako.
+
 GitHub: https://github.com/awaku7/agentcli
 
 ## Usakinishaji

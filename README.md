@@ -5,7 +5,7 @@
 # uag (Local AI Agent)
 
 uag is a local interactive agent that executes **commands**, manipulates **files**, and reads **data files** such as PDF, PPTX, and Excel. It provides three user interfaces: CLI, GUI, and Web.
-
+uag is built to **keep you free from vendor-locked apps**: use the interface that fits your workflow, switch providers, and stay in control of your environment.
 GitHub: https://github.com/awaku7/agentcli
 
 ## Installation
