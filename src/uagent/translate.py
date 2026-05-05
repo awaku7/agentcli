@@ -124,9 +124,7 @@ def load_translate_config() -> Optional[TranslateConfig]:
             "UAGENT_TRANSLATE_BASE_URL", "UAGENT_AZURE_BASE_URL", "UAGENT_BASE_URL"
         )
     elif provider == "openrouter":
-        depname = _env_first(
-            "UAGENT_TRANSLATE_DEPNAME", "UAGENT_OPENROUTER_DEPNAME"
-        )
+        depname = _env_first("UAGENT_TRANSLATE_DEPNAME", "UAGENT_OPENROUTER_DEPNAME")
         api_key = _env_first(
             "UAGENT_TRANSLATE_API_KEY",
             "UAGENT_OPENROUTER_API_KEY",
@@ -319,10 +317,18 @@ def _translate_claude(
         content = getattr(response, "content", None)
         if content:
             for block in content:
-                btype = block.get("type") if isinstance(block, dict) else getattr(block, "type", None)
+                btype = (
+                    block.get("type")
+                    if isinstance(block, dict)
+                    else getattr(block, "type", None)
+                )
                 if btype != "text":
                     continue
-                txt = block.get("text") if isinstance(block, dict) else getattr(block, "text", None)
+                txt = (
+                    block.get("text")
+                    if isinstance(block, dict)
+                    else getattr(block, "text", None)
+                )
                 if isinstance(txt, str) and txt.strip():
                     parts_out.append(txt)
 

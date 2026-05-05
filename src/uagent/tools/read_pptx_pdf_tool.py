@@ -433,7 +433,9 @@ def _load_pptx_pres(
 # ==============================
 
 
-def _extract_pdf_pages(pdf_path: str, password: str | None = None) -> Tuple[List[str], List[str]]:
+def _extract_pdf_pages(
+    pdf_path: str, password: str | None = None
+) -> Tuple[List[str], List[str]]:
     warnings: List[str] = []
 
     if pdfplumber is None:
@@ -472,7 +474,9 @@ def _extract_pdf_pages(pdf_path: str, password: str | None = None) -> Tuple[List
     return pages_text, warnings
 
 
-def _extract_pptx_pages(pptx_path: str, password: str | None = None) -> Tuple[List[str], List[str]]:
+def _extract_pptx_pages(
+    pptx_path: str, password: str | None = None
+) -> Tuple[List[str], List[str]]:
     warnings: List[str] = []
 
     if Presentation is None:
