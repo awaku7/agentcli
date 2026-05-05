@@ -175,7 +175,7 @@ set UAGENT_VERBOSITY=medium
 - `:r [0|1|2|3|auto|minimal|xhigh]`（引数なしで現在の設定を保持）
 - `:v [0|1|2|3]`（引数なしで現在の設定を保持）
 
-詳細は [`README.ja.md`](README.ja.md) の「Responses API」セクションを参照してください。
+詳細は [`docs/README.ja.md`](docs/README.ja.md) の「Responses API」セクションを参照してください。
 
 ### 6.4（任意）自動 shrink_llm
 
@@ -194,7 +194,7 @@ set UAGENT_VERBOSITY=medium
 
 プロバイダごとの詳細（必要な環境変数、Base URL、モデル指定など）は、次を参照してください。
 
-- [`README.ja.md`](README.ja.md)（Provider の説明）
+- [`docs/README.ja.md`](docs/README.ja.md)（Provider の説明）
 - [`AGENTS.md`](AGENTS.md)（環境変数の一覧）
 
 ______________________________________________________________________
@@ -212,13 +212,13 @@ ______________________________________________________________________
 - フォルダ構造を調べる
   - 「このフォルダを解析して。重要なファイル、構成、実行方法を教えて」
 - 特定ファイルを読ませる
-  - 「[`README.ja.md`](README.ja.md) を読んで要点を整理して」
+  - 「[`docs/README.ja.md`](docs/README.ja.md) を読んで要点を整理して」
 
 ______________________________________________________________________
 
 ## 8. 次に読む
 
-- [`README.ja.md`](README.ja.md)（全体像 / Provider / Web Inspector など）
+- [`docs/README.ja.md`](docs/README.ja.md)（全体像 / Provider / Web Inspector など）
 - [`AGENTS.md`](AGENTS.md)（ツール一覧 / 環境変数 / MCP 最短例）
 - `uag docs develop` / `uag docs webinspect`
 

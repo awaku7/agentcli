@@ -4,6 +4,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+import functools
 import json
 import os
 import platform
@@ -87,6 +88,7 @@ def _add_volume(
         return
 
 
+@functools.lru_cache(maxsize=1)
 def _linux_sys_block_map() -> Dict[str, Dict[str, Any]]:
     sys_block = "/sys/block"
     out: Dict[str, Dict[str, Any]] = {}
@@ -143,60 +145,15 @@ def _linux_sys_block_map() -> Dict[str, Dict[str, Any]]:
 
 
 def _linux_collect_disks(out: Dict[str, Any]) -> None:
-    # /sys/block: model/vendor/size + SSD/HDD hint via rotational
+    # Reuse cached /sys/block data to avoid repeated directory scans.
     sys_block = "/sys/block"
     if not os.path.isdir(sys_block):
         out["notes"].append("Linux: /sys/block not found; disks not collected.")
         return
 
-    for dev in os.listdir(sys_block):
-        if dev.startswith(("loop", "ram", "dm-")):
-            continue
-
-        base = os.path.join(sys_block, dev)
-
-        size_sectors = None
-        try:
-            with open(os.path.join(base, "size"), "r", encoding="utf-8") as f:
-                size_sectors = int(f.read().strip())
-        except Exception:
-            pass
-
-        size_bytes = size_sectors * 512 if size_sectors is not None else None
-
-        model = vendor = None
-        for pth, key in (
-            (os.path.join(base, "device/model"), "model"),
-            (os.path.join(base, "device/vendor"), "vendor"),
-        ):
-            try:
-                with open(pth, "r", encoding="utf-8", errors="ignore") as f:
-                    val = f.read().strip()
-                if key == "model":
-                    model = val
-                else:
-                    vendor = val
-            except Exception:
-                pass
-
-        rotational = None
-        try:
-            with open(
-                os.path.join(base, "queue/rotational"), "r", encoding="utf-8"
-            ) as f:
-                rotational = int(f.read().strip())
-        except Exception:
-            pass
-
-        out["disks"].append(
-            {
-                "name": dev,
-                "model": model,
-                "vendor": vendor,
-                "size_bytes": size_bytes,
-                "rotational": rotational,  # 0=SSD-ish, 1=HDD-ish
-            }
-        )
+    sysmap = _linux_sys_block_map()
+    for dev, info in sysmap.items():
+        out["disks"].append({"name": dev, **info})
 
 
 def _darwin_sysctl(libc: Any, name: str) -> Optional[int]:
@@ -416,47 +373,28 @@ def _psutil_collect_volumes(out: Dict[str, Any], psutil: Any) -> None:
 
 def _psutil_collect_disks(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
-        out["disks_total_io"] = None
         try:
             tot = psutil.disk_io_counters(perdisk=False)
             out["disks_total_io"] = _psutil_to_dict(tot)
         except Exception:
-            pass
-
-        io = psutil.disk_io_counters(perdisk=True)
-        if io:
-            for name, c in io.items():
-                out["disks"].append(
-                    {
-                        "name": name,
-                        "read_bytes": getattr(c, "read_bytes", None),
-                        "write_bytes": getattr(c, "write_bytes", None),
-                        "read_count": getattr(c, "read_count", None),
-                        "write_count": getattr(c, "write_count", None),
-                        "read_time_ms": getattr(c, "read_time", None),
-                        "write_time_ms": getattr(c, "write_time", None),
-                        "busy_time_ms": getattr(c, "busy_time", None),
-                    }
-                )
-        else:
-            out["notes"].append("psutil: no disk_io_counters(perdisk=True) available.")
+            out["disks_total_io"] = None
     except Exception:
-        out["notes"].append("psutil: failed to enumerate disks.")
+        out["notes"].append("psutil: failed to read total disk I/O counters.")
+        out["disks_total_io"] = None
 
-    if system != "Linux":
-        return
+    # Per-disk counters are skipped for speed; best-effort disk metadata is kept instead.
+    if system == "Linux":
+        try:
+            sysmap = _linux_sys_block_map()
+            for name, info in sysmap.items():
+                out["disks"].append({"name": name, **info})
+        except Exception:
+            out["notes"].append("Linux: failed to collect disks from /sys/block.")
+    else:
+        out["notes"].append("psutil: per-disk I/O counters skipped for speed.")
 
-    try:
-        sysmap = _linux_sys_block_map()
-        for d in out["disks"]:
-            name = d.get("name")
-            if name in sysmap:
-                d.update({k: v for k, v in sysmap[name].items() if v is not None})
-    except Exception:
-        out["notes"].append("Linux: failed to enrich disks from /sys/block.")
 
-
-def _psutil_collect_network(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_network(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
         out["network"] = {
             "if_addrs": {},
@@ -466,37 +404,43 @@ def _psutil_collect_network(out: Dict[str, Any], psutil: Any) -> None:
             "connections_truncated": False,
         }
 
-        try:
-            addrs = psutil.net_if_addrs()
-            for ifname, items in addrs.items():
-                out["network"]["if_addrs"][ifname] = [
-                    {
-                        "family": int(getattr(a.family, "value", a.family)),
-                        "address": getattr(a, "address", None),
-                        "netmask": getattr(a, "netmask", None),
-                        "broadcast": getattr(a, "broadcast", None),
-                        "ptp": getattr(a, "ptp", None),
-                    }
-                    for a in items
-                ]
-        except Exception:
-            out["notes"].append("psutil: failed to read net_if_addrs().")
+        if system != "Windows":
+            try:
+                addrs = psutil.net_if_addrs()
+                for ifname, items in addrs.items():
+                    out["network"]["if_addrs"][ifname] = [
+                        {
+                            "family": int(getattr(a.family, "value", a.family)),
+                            "address": getattr(a, "address", None),
+                            "netmask": getattr(a, "netmask", None),
+                            "broadcast": getattr(a, "broadcast", None),
+                            "ptp": getattr(a, "ptp", None),
+                        }
+                        for a in items
+                    ]
+            except Exception:
+                out["notes"].append("psutil: failed to read net_if_addrs().")
+
+            try:
+                stats = psutil.net_if_stats()
+                for ifname, st in stats.items():
+                    out["network"]["if_stats"][ifname] = _psutil_to_dict(st)
+            except Exception:
+                out["notes"].append("psutil: failed to read net_if_stats().")
+        else:
+            out["notes"].append(
+                "Windows: skipped net_if_addrs()/net_if_stats() for speed."
+            )
 
         try:
-            stats = psutil.net_if_stats()
-            for ifname, st in stats.items():
-                out["network"]["if_stats"][ifname] = _psutil_to_dict(st)
+            nio = psutil.net_io_counters(pernic=False)
+            out["network"]["io"] = _psutil_to_dict(nio)
         except Exception:
-            out["notes"].append("psutil: failed to read net_if_stats().")
+            out["notes"].append("psutil: failed to read net_io_counters(pernic=False).")
 
         try:
-            nio = psutil.net_io_counters(pernic=True)
-            out["network"]["io"] = {k: _psutil_to_dict(v) for k, v in nio.items()}
-        except Exception:
-            out["notes"].append("psutil: failed to read net_io_counters(pernic=True).")
-
-        try:
-            conns = psutil.net_connections(kind="all")
+            # Keep this best-effort and narrower than kind='all' for speed.
+            conns = psutil.net_connections(kind="inet")
             max_conns = 2000
             if len(conns) > max_conns:
                 conns = conns[:max_conns]
@@ -522,7 +466,7 @@ def _psutil_collect_network(out: Dict[str, Any], psutil: Any) -> None:
                 for c in conns
             ]
         except Exception:
-            out["notes"].append("psutil: failed to read net_connections(kind='all').")
+            out["notes"].append("psutil: failed to read net_connections(kind='inet').")
 
     except Exception:
         out["notes"].append("psutil: failed to collect network information.")
@@ -535,7 +479,7 @@ def _psutil_collect_users(out: Dict[str, Any], psutil: Any) -> None:
         pass
 
 
-def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
         out["sensors"] = {}
         try:
@@ -547,23 +491,29 @@ def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any) -> None:
             )
         except Exception:
             pass
+
+        # Temperatures/fans are comparatively expensive; skip them on Windows.
+        if system == "Windows":
+            return
+
         try:
             temps = psutil.sensors_temperatures(fahrenheit=False)
-            out["sensors"]["temperatures"] = {
-                k: [_psutil_to_dict(t) for t in v] for k, v in temps.items()
-            }
-        except Exception:
-            pass
-        try:
-            fans = psutil.sensors_fans()
-            out["sensors"]["fans"] = {
-                k: [_psutil_to_dict(f) for f in v] for k, v in fans.items()
-            }
+            if temps:
+                out["sensors"]["temperatures"] = {
+                    k: [_psutil_to_dict(t) for t in v] for k, v in temps.items()
+                }
+                try:
+                    fans = psutil.sensors_fans()
+                    if fans:
+                        out["sensors"]["fans"] = {
+                            k: [_psutil_to_dict(f) for f in v] for k, v in fans.items()
+                        }
+                except Exception:
+                    pass
         except Exception:
             pass
     except Exception:
         pass
-
 
 def _collect_with_psutil(
     out: Dict[str, Any],
@@ -587,13 +537,14 @@ def _collect_with_psutil(
     if include_disks:
         _psutil_collect_disks(out, psutil, system=system)
 
-    _psutil_collect_network(out, psutil)
+    _psutil_collect_network(out, psutil, system=system)
     _psutil_collect_users(out, psutil)
-    _psutil_collect_sensors(out, psutil)
+    _psutil_collect_sensors(out, psutil, system=system)
 
-    out["notes"].append(
-        "psutil: physical disk model/serial is not available; disk entries are best-effort."
-    )
+    if include_disks:
+        out["notes"].append(
+            "psutil: physical disk model/serial is not available; disk entries are best-effort."
+        )
     return True
 
 

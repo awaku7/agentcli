@@ -70,9 +70,9 @@ python -m uagent.setup_cli
 ユーザー入力と LLM 応答の自動翻訳を有効にします。
 
 - `UAGENT_TRANSLATE_PROVIDER`: 翻訳エンジン。
-  - `argos`: [Argos Translate](https://github.com/argosopentech/argos-translate) を使うローカル翻訳（`pip install argostranslate` が必要）。
   - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI 互換 API を使う翻訳。
-  - *注意: ネイティブの Gemini / Claude 翻訳はまだ未対応です。*
+  - `gemini`: Google Gemini を使う翻訳。
+  - `claude`: Anthropic Claude を使う翻訳。
 - `UAGENT_TRANSLATE_TO_LLM`: ユーザー入力の翻訳先言語 (例: `en`)。英語らしい入力はそのまま送られます。
 - `UAGENT_TRANSLATE_FROM_LLM`: LLM 応答の翻訳先言語 (例: `ja`)。
 - `UAGENT_TRANSLATE_DEPNAME`: 翻訳に使用するモデル ID（API プロバイダでは必須）。
