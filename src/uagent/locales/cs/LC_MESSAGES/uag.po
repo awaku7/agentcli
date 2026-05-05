@@ -1,17 +1,19 @@
-# 
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: uag 0.4.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-05 17:47+0900\n"
-"PO-Revision-Date: 2026-04-25 11:15+0900\n"
+"POT-Creation-Date: 2026-05-06 03:16+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: en <LL@li.org>\n"
-"Language: en\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:15 src/uagent/checks.py:25
@@ -32,8 +34,8 @@ msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
 msgstr ""
-"Nainstalujte si prosím Git. Pokud používáte Homebrew: brew install git, nebo "
-"nainstalujte Xcode Command Line Tools: xcode-select --install"
+"Nainstalujte si prosím Git. Pokud používáte Homebrew: brew install git, nebo"
+" nainstalujte Xcode Command Line Tools: xcode-select --install"
 
 #: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
@@ -62,16 +64,16 @@ msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr ""
-"(Režim vícerádkového vstupu: tělo zadejte na více řádků; pro restart zadejte "
-"\"\"\"retry; ukončete řádkem obsahujícím %(sentinel)s)"
+"(Režim vícerádkového vstupu: tělo zadejte na více řádků; pro restart zadejte"
+" \"\"\"retry; ukončete řádkem obsahujícím %(sentinel)s)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
-#: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
-#: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
-#: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
-#: src/uagent/setup_cli.py:969 src/uagent/setup_cli.py:977
-#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1000
-#: src/uagent/setup_cli.py:1085 src/uagent/setup_cli.py:1111
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:979
+#: src/uagent/setup_cli.py:998 src/uagent/setup_cli.py:1021
+#: src/uagent/setup_cli.py:1037 src/uagent/setup_cli.py:1056
+#: src/uagent/setup_cli.py:1075 src/uagent/setup_cli.py:1089
+#: src/uagent/setup_cli.py:1102 src/uagent/setup_cli.py:1110
+#: src/uagent/setup_cli.py:1122 src/uagent/setup_cli.py:1133
+#: src/uagent/setup_cli.py:1218 src/uagent/setup_cli.py:1244
 msgid "Cancelled."
 msgstr "Zrušeno."
 
@@ -106,7 +108,7 @@ msgstr ""
 "Potvrzení odeslání obrázků selhalo; obrázky nebudou odeslány: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:460
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Nepodařilo se připojit obrázek: %(path)s (%(etype)s: %(err)s)"
@@ -124,7 +126,7 @@ msgstr "uag ukončen."
 msgid "[docs] name is required"
 msgstr "[docs] je vyžadováno jméno"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:1018
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:1030
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATÁLNÍ] Nepodařilo se nastavit pracovní adresář: %(err)s"
@@ -134,24 +136,24 @@ msgstr "[FATÁLNÍ] Nepodařilo se nastavit pracovní adresář: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Nepodařilo se spustit uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
-#: src/uagent/web.py:646
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:268
+#: src/uagent/web.py:658
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "Poskytovatel LLM = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
-#: src/uagent/web.py:648
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:272
+#: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "model(rozmístění) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
 msgid "OpenRouter fallback models enabled."
 msgstr "Záložní modely OpenRouter povoleny."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
-#: src/uagent/web.py:636
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:323
+#: src/uagent/web.py:648
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
 "ignored)"
@@ -169,22 +171,22 @@ msgstr ""
 "nepodporuje Responses API. Vrátíme se k ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:329 src/uagent/web.py:654
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "Režim LLM API = ChatCompletions (UAGENT_RESPONSES je vypnuto)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
-#: src/uagent/web.py:630
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:317
+#: src/uagent/web.py:642
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Režim LLM API = Responses (UAGENT_RESPONSES je povoleno)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
-#: src/uagent/web.py:710
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:338
+#: src/uagent/web.py:722
 msgid "Loaded long-term memory."
 msgstr "Nabitá dlouhodobá paměť."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
-#: src/uagent/web.py:722
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:351
+#: src/uagent/web.py:734
 msgid "Loaded shared long-term memory."
 msgstr "Načtena sdílená dlouhodobá paměť."
 
@@ -230,25 +232,18 @@ msgstr ":help (nápověda není k dispozici: %(err)s)"
 #: src/uagent/core.py:1292
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
 "- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
 "## Mise\n"
-"- Jste schopný \"univerzální nástroj pro provádění agenta\" běžící v místním "
-"prostředí a můžete skutečně spouštět příkazy a pracovat se soubory na "
-"počítači uživatele.\n"
-"- Před provedením jakékoli nebezpečné operace požádejte uživatele o "
-"potvrzení.\n"
+"- Jste schopný \"univerzální nástroj pro provádění agenta\" běžící v místním prostředí a můžete skutečně spouštět příkazy a pracovat se soubory na počítači uživatele.\n"
+"- Před provedením jakékoli nebezpečné operace požádejte uživatele o potvrzení.\n"
 "- Nelichotit uživateli. Nepoužívejte emotikony.\n"
 "- Neshrnujte. Udržujte informace stručné.\n"
-"- Při vytváření souborů vytiskněte úplný konečný obsah (nevypisujte rozdíly "
-"ani částečné souhrny)."
+"- Při vytváření souborů vytiskněte úplný konečný obsah (nevypisujte rozdíly ani částečné souhrny)."
 
 #: src/uagent/core.py:1300
 msgid ""
@@ -256,8 +251,7 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to "
-"the user.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Pravidla\n"
 "- Vždy používejte poskytnuté nástroje a ověřte si nejnovější informace.\n"
@@ -269,100 +263,65 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the "
-"human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
-"and follow them.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 msgstr ""
 "## Poznámky\n"
-"- Všechny uživatelské zprávy přicházejí přes standardní vstup tohoto "
-"skriptu.\n"
-"- Pro konkrétní účel/argumenty/omezení/provozní detaily nástroje preferujte "
-"popis každého nástroje.\n"
-"- Pokud potřebujete další informace nebo potvrzení od uživatele, použijte "
-"nástroj human_ask.\n"
-"- Při zpracování výrazů relativního data zavolejte get_current_time, abyste "
-"odkazovali na aktuální čas.\n"
-"- Neukládejte tajemství (hesla/tokeny) do dlouhodobé paměti (add_long_memory "
-"atd.).\n"
-"- Soubory s příponami jako .org / .org1 / .org2 jsou záložní kopie a nesmí "
-"se s nimi zacházet jako s primárními upravitelnými soubory.\n"
-"- Pokud vytváříte soubory Python, spusťte `python -m py_compile` pro ověření "
-"syntaxe.\n"
-"- Pokud jsou vyžadovány znalosti na úrovni expertů, použijte šablony pro "
-"výzvy (Agent Skills) a řiďte se jimi."
+"- Všechny uživatelské zprávy přicházejí přes standardní vstup tohoto skriptu.\n"
+"- Pro konkrétní účel/argumenty/omezení/provozní detaily nástroje preferujte popis každého nástroje.\n"
+"- Pokud potřebujete další informace nebo potvrzení od uživatele, použijte nástroj human_ask.\n"
+"- Při zpracování výrazů relativního data zavolejte get_current_time, abyste odkazovali na aktuální čas.\n"
+"- Neukládejte tajemství (hesla/tokeny) do dlouhodobé paměti (add_long_memory atd.).\n"
+"- Soubory s příponami jako .org / .org1 / .org2 jsou záložní kopie a nesmí se s nimi zacházet jako s primárními upravitelnými soubory.\n"
+"- Pokud vytváříte soubory Python, spusťte `python -m py_compile` pro ověření syntaxe.\n"
+"- Pokud jsou vyžadovány znalosti na úrovni expertů, použijte šablony pro výzvy (Agent Skills) a řiďte se jimi."
 
 #: src/uagent/core.py:1318
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion "
-"candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly "
-"once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
-"explicit approval), run delete_file again with the same parameters, "
-"dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be "
-"deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
 "## Zásady nebezpečné operace (delete_file)\n"
-"- Pro smazání pomocí nástroje delete_file NEŽÁDEJTE o potvrzení před "
-"náhledem.\n"
-"- Vždy nejprve spusťte delete_file s dry_run=true, abyste získali seznam "
-"kandidátů na odstranění.\n"
-"- Ukažte kandidáty uživateli a požádejte o potvrzení přes human_ask přesně "
-"jednou.\n"
-"- Pouze když uživatel výslovně odpoví \"y\" nebo \"ano\" (nebo ekvivalentní "
-"výslovný souhlas), spusťte delete_file znovu se stejnými parametry, "
-"dry_run=false a potvrzeno=true.\n"
+"- Pro smazání pomocí nástroje delete_file NEŽÁDEJTE o potvrzení před náhledem.\n"
+"- Vždy nejprve spusťte delete_file s dry_run=true, abyste získali seznam kandidátů na odstranění.\n"
+"- Ukažte kandidáty uživateli a požádejte o potvrzení přes human_ask přesně jednou.\n"
+"- Pouze když uživatel výslovně odpoví \"y\" nebo \"ano\" (nebo ekvivalentní výslovný souhlas), spusťte delete_file znovu se stejnými parametry, dry_run=false a potvrzeno=true.\n"
 "- Pokud je nula kandidátů, neptejte se; stačí nahlásit, že se nic nesmaže."
 
 #: src/uagent/core.py:1326
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment; you can execute commands and operate on the user's "
-"machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial "
-"summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
 "## Mise\n"
-"- Jste schopným \"univerzálním nástrojem pro provádění agentů\" běžícím v "
-"místním prostředí; můžete provádět příkazy a pracovat na počítači "
-"uživatele.\n"
+"- Jste schopným \"univerzálním nástrojem pro provádění agentů\" běžícím v místním prostředí; můžete provádět příkazy a pracovat na počítači uživatele.\n"
 "- Před jakoukoli nebezpečnou operací požádejte uživatele o potvrzení.\n"
-"- Žádné lichotky. Žádné emotikony. Žádné shrnutí konverzace. Udržujte to "
-"stručné.\n"
-"- Při vytváření souborů vytiskněte kompletní konečný obsah (bez rozdílů/"
-"částečných souhrnů)."
+"- Žádné lichotky. Žádné emotikony. Žádné shrnutí konverzace. Udržujte to stručné.\n"
+"- Při vytváření souborů vytiskněte kompletní konečný obsah (bez rozdílů/částečných souhrnů)."
 
 #: src/uagent/core.py:1333
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the "
-"most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Pravidla\n"
 "- Nejprve použijte dodané nástroje a ověřte výsledky pomocí nástrojů.\n"
-"- Prohlédněte si popisy nástrojů pro účely/argumenty/omezení; vybrat "
-"nejvhodnější a nejbezpečnější nástroj.\n"
+"- Prohlédněte si popisy nástrojů pro účely/argumenty/omezení; vybrat nejvhodnější a nejbezpečnější nástroj.\n"
 "- Buďte kreativní, ale nevydávejte nejisté informace.\n"
 "- Delegujte co nejméně rozhodování na uživatele."
 
@@ -370,27 +329,21 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
 "## Poznámky\n"
-"- Všechny uživatelské zprávy přicházejí přes standardní vstup tohoto "
-"skriptu.\n"
-"- Pokud požadované informace/parametry chybí, zeptejte se přes human_ask "
-"(nehádejte).\n"
+"- Všechny uživatelské zprávy přicházejí přes standardní vstup tohoto skriptu.\n"
+"- Pokud požadované informace/parametry chybí, zeptejte se přes human_ask (nehádejte).\n"
 "- Relativní data: volání get_current_time.\n"
 "- Neukládejte tajemství (hesla/tokeny) do dlouhodobé paměti.\n"
-"- Soubory s příponami jako .org / .org1 / .org2 jsou záložní kopie a nesmí "
-"se s nimi zacházet jako s primárními upravitelnými soubory.\n"
+"- Soubory s příponami jako .org / .org1 / .org2 jsou záložní kopie a nesmí se s nimi zacházet jako s primárními upravitelnými soubory.\n"
 "- Pokud vytváříte soubory Python, spusťte `python -m py_compile`.\n"
-"- Pokud jsou vyžadovány znalosti na úrovni odborníka, použijte šablony výzev "
-"pro dovednosti agenta."
+"- Pokud jsou vyžadovány znalosti na úrovni odborníka, použijte šablony výzev pro dovednosti agenta."
 
 #: src/uagent/core.py:1352
 msgid ""
@@ -398,8 +351,8 @@ msgid ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 msgstr ""
-"- Pokud uživatel používá Windows cmd.exe, upřednostňujte víceřádkové příkazy "
-"s pokračováním řádku stříška (^) a každý řádek udržujte krátký, aby se "
+"- Pokud uživatel používá Windows cmd.exe, upřednostňujte víceřádkové příkazy"
+" s pokračováním řádku stříška (^) a každý řádek udržujte krátký, aby se "
 "zabránilo kopírování/vkládání zalomení řádků."
 
 #: src/uagent/core.py:1419
@@ -467,11 +420,11 @@ msgstr "uag docs --open <name> # open with OS"
 
 #: src/uagent/env_validate.py:42
 msgid ""
-"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia)."
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 msgstr ""
-"Nutné pro výběr poskytovatele LLM (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia)."
+"Nutné pro výběr poskytovatele LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
 #: src/uagent/env_validate.py:63
 msgid ", "
@@ -497,11 +450,11 @@ msgstr ""
 
 #: src/uagent/env_validate.py:197
 msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell "
-"startup scripts,"
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
 msgstr ""
-"- Můžete je nastavit prostřednictvím nastavení prostředí operačního systému, "
-"souboru .env, spouštěcích skriptů prostředí,"
+"- Můžete je nastavit prostřednictvím nastavení prostředí operačního systému,"
+" souboru .env, spouštěcích skriptů prostředí,"
 
 #: src/uagent/env_validate.py:203
 msgid ""
@@ -539,25 +492,17 @@ msgstr "[WARN] Auto shrink_llm selhalo: %(err)s"
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call."
-"arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by "
-"the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no "
-"required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using "
-"human_ask instead of guessing.\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 msgstr ""
 "[Pravidla volání nástroje]\n"
-"        - Při volání nástroje/funkce MUSÍTE poskytnout function_call."
-"arguments jako objekt JSON.\n"
-"        - Objekt JSON MUSÍ obsahovat všechny požadované parametry definované "
-"schématem nástroje.\n"
-"        - Nikdy nevolejte nástroj s prázdným objektem {}, pokud nástroj nemá "
-"žádné požadované parametry.\n"
-"        - Pokud nemáte požadovaný parametr, požádejte o něj uživatele pomocí "
-"human_ask namísto hádání."
+"        - Při volání nástroje/funkce MUSÍTE poskytnout function_call.arguments jako objekt JSON.\n"
+"        - Objekt JSON MUSÍ obsahovat všechny požadované parametry definované schématem nástroje.\n"
+"        - Nikdy nevolejte nástroj s prázdným objektem {}, pokud nástroj nemá žádné požadované parametry.\n"
+"        - Pokud nemáte požadovaný parametr, požádejte o něj uživatele pomocí human_ask namísto hádání."
 
 #: src/uagent/llm_round_helpers.py:131
 #, python-format
@@ -583,15 +528,15 @@ msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 msgid "Error while parsing response: %(err)s"
 msgstr "Chyba při analýze odpovědi: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
-#: src/uagent/web.py:621
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:307
+#: src/uagent/web.py:633
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"UAGENT_RESPONSES=1 je nastaveno, ale poskytovatel '%(provider)s' nepodporuje "
-"Responses API. Vrátíme se k ChatCompletions."
+"UAGENT_RESPONSES=1 je nastaveno, ale poskytovatel '%(provider)s' nepodporuje"
+" Responses API. Vrátíme se k ChatCompletions."
 
 #: src/uagent/runtime_banner.py:93
 #, python-format
@@ -613,108 +558,116 @@ msgstr "[VAROVÁNÍ] Nepodařilo se dešifrovat soubor .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
 
-#: src/uagent/scheckgui.py:116
+#: src/uagent/scheckgui.py:117
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "Sem přetáhněte soubory/obrázky"
 
-#: src/uagent/scheckgui.py:154
+#: src/uagent/scheckgui.py:155
 msgid "Download"
 msgstr "Stáhnout"
 
-#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:360 src/uagent/web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Při načítání sdílené dlouhodobé paměti došlo k výjimce: %(err)s"
 
-#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
+#: src/uagent/scheckgui.py:587 src/uagent/scheckgui.py:711
 msgid "Welcome / Quick Guide"
 msgstr "Vítejte / Rychlý průvodce"
 
-#: src/uagent/scheckgui.py:615
+#: src/uagent/scheckgui.py:595
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (extrémní stabilita)"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:649
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ Můžete je připojit přetažením"
 
-#: src/uagent/scheckgui.py:679
+#: src/uagent/scheckgui.py:670
 msgid "Send"
 msgstr "Poslat"
 
-#: src/uagent/scheckgui.py:719
+#: src/uagent/scheckgui.py:710
 msgid "Help"
 msgstr "Pomoc"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:725
 msgid "Mode"
 msgstr "Režim"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:727
 msgid "Reasoning: off"
 msgstr "Odůvodnění: vypnuto"
 
-#: src/uagent/scheckgui.py:739
+#: src/uagent/scheckgui.py:730
 msgid "Reasoning: auto"
 msgstr "Důvod: auto"
 
-#: src/uagent/scheckgui.py:741
+#: src/uagent/scheckgui.py:732
 msgid "Reasoning: minimal"
 msgstr "Odůvodnění: minimální"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:734
 msgid "Reasoning: low"
 msgstr "Odůvodnění: nízké"
 
-#: src/uagent/scheckgui.py:745
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: medium"
 msgstr "Odůvodnění: střední"
 
-#: src/uagent/scheckgui.py:747
+#: src/uagent/scheckgui.py:738
 msgid "Reasoning: high"
 msgstr "Odůvodnění: vysoké"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: xhigh"
 msgstr "Odůvodnění: xhigh"
 
-#: src/uagent/scheckgui.py:755
+#: src/uagent/scheckgui.py:746
 msgid "Verbosity: off"
 msgstr "Výřečnost: vypnuto"
 
-#: src/uagent/scheckgui.py:757
+#: src/uagent/scheckgui.py:748
 msgid "Verbosity: low"
 msgstr "Výřečnost: nízká"
 
-#: src/uagent/scheckgui.py:759
+#: src/uagent/scheckgui.py:750
 msgid "Verbosity: medium"
 msgstr "Výřečnost: střední"
 
-#: src/uagent/scheckgui.py:761
+#: src/uagent/scheckgui.py:752
 msgid "Verbosity: high"
 msgstr "Výřečnost: vysoká"
 
-#: src/uagent/scheckgui.py:791
+#: src/uagent/scheckgui.py:782
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[režim] uvažování=%(mode)s"
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:918
 msgid "Enter password..."
 msgstr "Zadejte heslo..."
 
-#: src/uagent/scheckgui.py:919
+#: src/uagent/scheckgui.py:920
 msgid "Enter response for human_ask..."
 msgstr "Zadejte odpověď pro human_ask..."
 
-#: src/uagent/scheckgui.py:924
+#: src/uagent/scheckgui.py:925
 msgid "Enter a message..."
 msgstr "Zadejte zprávu..."
 
-#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1332 src/uagent/scheckgui.py:1372
+#: src/uagent/scheckgui.py:1407
 msgid "Downloaded to"
 msgstr "Staženo do"
+
+#: src/uagent/scheckgui.py:1426
+msgid "Playing"
+msgstr "Přehrávání"
+
+#: src/uagent/scheckgui.py:1436
+msgid "Stopped"
+msgstr "Zastaveno"
 
 #: src/uagent/setup_cli.py:28
 msgid "# .env for uag (generated by `uag_setup`)"
@@ -758,11 +711,11 @@ msgstr "Ollama"
 msgid "NVIDIA"
 msgstr "NVIDIA"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:459
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
 msgstr "Klíč OpenAI API"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:460
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
 msgid "OpenAI base URL (optional)"
 msgstr "Základní URL OpenAI (volitelné)"
 
@@ -770,11 +723,12 @@ msgstr "Základní URL OpenAI (volitelné)"
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI model/název nasazení (volitelné)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:451
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "Základní adresa URL Azure (např. https://<resource>.openai.azure.com/)"
+msgstr ""
+"Základní adresa URL Azure (např. https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:453
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
 msgid "Azure API key"
 msgstr "Klíč Azure API"
 
@@ -782,27 +736,27 @@ msgstr "Klíč Azure API"
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Verze Azure API (volitelné, např. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:455
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
 msgid "Azure deployment name"
 msgstr "Název nasazení Azure"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:468
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "Základní adresa URL brány Bedrock (např. https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:470
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
 msgid "Bedrock API key"
 msgstr "Klíč API Bedrock"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Název modelu/rozmístění základního kamene (např. openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:479
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
 msgid "OpenRouter API key"
 msgstr "Klíč API OpenRouter"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:480
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
 msgid "OpenRouter base URL (optional)"
 msgstr "Základní URL OpenRouter (volitelné)"
 
@@ -814,7 +768,7 @@ msgstr "OpenRouter model/název nasazení (volitelné)"
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "Záložní modely OpenRouter (volitelné, oddělené čárkami)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:485
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
 msgid "Gemini API key"
 msgstr "Gemini API klíč"
 
@@ -858,11 +812,11 @@ msgstr "Klíč API Claude"
 msgid "Claude model/deployment name (optional)"
 msgstr "Název modelu/rozmístění Claude (volitelné)"
 
-#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:490
+#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
 msgid "NVIDIA API key"
 msgstr "Klíč NVIDIA API"
 
-#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
 msgid "NVIDIA base URL (optional)"
 msgstr "Základní adresa URL NVIDIA (volitelné)"
 
@@ -914,356 +868,392 @@ msgstr "Ollama num_ctx (výchozí: 8192)"
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama num_predict (výchozí: 1024)"
 
-#: src/uagent/setup_cli.py:324 src/uagent/setup_cli.py:413
+#: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
 msgid "Enter number:"
 msgstr "Zadejte číslo:"
 
-#: src/uagent/setup_cli.py:337
+#: src/uagent/setup_cli.py:344
 msgid "Invalid input. Please enter a valid number."
 msgstr "Neplatný vstup. Zadejte prosím platné číslo."
 
-#: src/uagent/setup_cli.py:350
+#: src/uagent/setup_cli.py:357
 #, python-format
 msgid " [default: %(default)s]"
 msgstr "[výchozí: %(default)s]"
 
-#: src/uagent/setup_cli.py:366
+#: src/uagent/setup_cli.py:373
 msgid "This field is required. Please enter a value."
 msgstr "Toto pole je povinné. Zadejte hodnotu."
 
-#: src/uagent/setup_cli.py:378
+#: src/uagent/setup_cli.py:385
 msgid "Select UAGENT_LANG"
 msgstr "Vyberte UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:389
+#: src/uagent/setup_cli.py:396
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (vlastní)"
 
-#: src/uagent/setup_cli.py:402
+#: src/uagent/setup_cli.py:409
 msgid "Select output files to generate in the current directory"
 msgstr ""
 "Vyberte výstupní soubory, které chcete vygenerovat v aktuálním adresáři"
 
-#: src/uagent/setup_cli.py:403
+#: src/uagent/setup_cli.py:410
 msgid "  1. .env only"
 msgstr "1. .pouze env"
 
-#: src/uagent/setup_cli.py:404
+#: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
 msgstr "2. .env + env.sh"
 
-#: src/uagent/setup_cli.py:405
+#: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
 msgstr "3. .env + env.ps1"
 
-#: src/uagent/setup_cli.py:406
+#: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
 msgstr "4. .env + env.bat"
 
-#: src/uagent/setup_cli.py:407
+#: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "5. .env + vše (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:435
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "Neplatný vstup. Zadejte 1-5 nebo b/q."
 
-#: src/uagent/setup_cli.py:454
+#: src/uagent/setup_cli.py:463
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Verze Azure API (např. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:461
+#: src/uagent/setup_cli.py:470
 msgid "OpenAI model/deployment name"
 msgstr "Název modelu/rozmístění OpenAI"
 
-#: src/uagent/setup_cli.py:481
+#: src/uagent/setup_cli.py:490
 msgid "OpenRouter model/deployment name"
 msgstr "Název modelu/rozmístění OpenRouter"
 
-#: src/uagent/setup_cli.py:486
+#: src/uagent/setup_cli.py:495
 msgid "Gemini model name"
 msgstr "Název modelu Gemini"
 
-#: src/uagent/setup_cli.py:492
+#: src/uagent/setup_cli.py:501
 msgid "NVIDIA model/deployment name"
 msgstr "Název modelu/rozmístění NVIDIA"
 
-#: src/uagent/setup_cli.py:500
+#: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
 msgstr "%(label)s"
 
-#: src/uagent/setup_cli.py:511
+#: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Vyberte poskytovatele generování obrázků"
 
-#: src/uagent/setup_cli.py:526
-msgid "Configure optional image / embedding settings?"
+#: src/uagent/setup_cli.py:543
+msgid "Azure speech deployment name"
+msgstr "Název nasazení řeči Azure"
+
+#: src/uagent/setup_cli.py:544
+msgid "Azure transcription deployment name"
+msgstr "Název nasazení přepisu Azure"
+
+#: src/uagent/setup_cli.py:551
+msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+msgstr ""
+"Název modelu/nasazení OpenAI TTS (volitelné, výchozí: gpt-4o-mini-tts)"
+
+#: src/uagent/setup_cli.py:557
+msgid ""
+"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
+"transcribe)"
+msgstr ""
+"Název modelu/nasazení pro přepis OpenAI (volitelné, výchozí: gpt-4o-mini-"
+"transcribe)"
+
+#: src/uagent/setup_cli.py:583
+msgid "Configure optional image / embedding / audio settings?"
 msgstr "Konfigurovat volitelná nastavení obrázku / vkládání?"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "No"
 msgstr "Žádný"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "Yes"
 msgstr "Ano"
 
-#: src/uagent/setup_cli.py:541
+#: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
 msgstr "Konfigurovat nastavení analýzy obrazu?"
 
-#: src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:609
 msgid "Select image analysis provider"
 msgstr "Vyberte poskytovatele analýzy obrazu"
 
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:630
 msgid "Configure image generation settings?"
 msgstr "Konfigurovat nastavení generování obrázků?"
 
-#: src/uagent/setup_cli.py:584
+#: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
 msgstr "Vyberte poskytovatele generování obrázků"
 
-#: src/uagent/setup_cli.py:604
+#: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
 msgstr "Otevřít vygenerované obrázky automaticky?"
 
-#: src/uagent/setup_cli.py:620
+#: src/uagent/setup_cli.py:677
 msgid "Configure embedding / semantic search settings?"
 msgstr "Konfigurovat nastavení vkládání / sémantického vyhledávání?"
 
-#: src/uagent/setup_cli.py:652
+#: src/uagent/setup_cli.py:709
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr ""
-"Zakázat sémantické vyhledávání, když je rozhraní API pro vkládání nedostupné?"
+"Zakázat sémantické vyhledávání, když je rozhraní API pro vkládání "
+"nedostupné?"
 
-#: src/uagent/setup_cli.py:693
+#: src/uagent/setup_cli.py:722
+msgid "Configure audio speech / transcription settings?"
+msgstr "Nakonfigurovat nastavení hlasového výstupu / přepisu?"
+
+#: src/uagent/setup_cli.py:736
+msgid "Select audio provider"
+msgstr "Vyberte poskytovatele zvuku"
+
+#: src/uagent/setup_cli.py:755
+msgid "Open generated audio automatically?"
+msgstr "Otevřít vygenerovaný zvuk automaticky?"
+
+#: src/uagent/setup_cli.py:799
 msgid ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / "
-"claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / "
-"claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
-#: src/uagent/setup_cli.py:706
+#: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
-#: src/uagent/setup_cli.py:717
+#: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "Volitelné: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:727
+#: src/uagent/setup_cli.py:833
 msgid "# (not supported by selected provider)"
 msgstr "# (nepodporováno vybraným poskytovatelem)"
 
-#: src/uagent/setup_cli.py:730
+#: src/uagent/setup_cli.py:836
 msgid "Optional runtime"
 msgstr "Volitelný runtime"
 
-#: src/uagent/setup_cli.py:742
-msgid "Optional image / embedding settings"
+#: src/uagent/setup_cli.py:848
+msgid "Optional image / embedding / audio settings"
 msgstr "Volitelná nastavení obrázků / vkládání"
 
-#: src/uagent/setup_cli.py:813
+#: src/uagent/setup_cli.py:946
 msgid "# (optional image / embedding settings not configured)"
-msgstr "# (volitelná nastavení obrázku / vkládání nejsou nakonfigurována)"
+msgstr "# (volitelná nastavení obrázků / vkládání nejsou nakonfigurována)"
 
-#: src/uagent/setup_cli.py:821
+#: src/uagent/setup_cli.py:954
 msgid "Encrypt the generated .env file?"
 msgstr "Šifrovat vygenerovaný soubor .env?"
 
-#: src/uagent/setup_cli.py:827
+#: src/uagent/setup_cli.py:960
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "Šifrovaný soubor bude zapsán jako %(path)s"
 
-#: src/uagent/setup_cli.py:843
+#: src/uagent/setup_cli.py:976
 msgid "Select provider"
 msgstr "Vyberte poskytovatele"
 
-#: src/uagent/setup_cli.py:882
+#: src/uagent/setup_cli.py:1015
 msgid "Enable Responses API options?"
 msgstr "Povolit možnosti rozhraní Responses API?"
 
-#: src/uagent/setup_cli.py:898
+#: src/uagent/setup_cli.py:1031
 msgid "Select reasoning"
 msgstr "Vyberte uvažování"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
 msgstr "minimální"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:910
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
 msgstr "nízký"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:911
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
 msgstr "střední"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:912
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
 msgstr "vysoký"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
 msgstr "auto"
 
-#: src/uagent/setup_cli.py:917
+#: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
 msgstr "Vyberte výřečnost"
 
-#: src/uagent/setup_cli.py:936
+#: src/uagent/setup_cli.py:1069
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "Nastavit volitelný runtime UAGENT_WORKDIR?"
 
-#: src/uagent/setup_cli.py:963
+#: src/uagent/setup_cli.py:1096
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Nastavit volitelné runtime UAGENT_LANG?"
 
-#: src/uagent/setup_cli.py:1012
+#: src/uagent/setup_cli.py:1145
 msgid "Summary"
 msgstr "Shrnutí"
 
-#: src/uagent/setup_cli.py:1013
+#: src/uagent/setup_cli.py:1146
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "Poskytovatel: %(provider)s"
 
-#: src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
 msgstr "%(key)s=%(value)s"
 
-#: src/uagent/setup_cli.py:1020
+#: src/uagent/setup_cli.py:1153
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "Odpovědi povoleny: %(state)s"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "yes"
 msgstr "Ano"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "no"
 msgstr "žádný"
 
-#: src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
 msgstr "UAGENT_REASONING=%(value)s"
 
-#: src/uagent/setup_cli.py:1025
+#: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
 msgstr "UAGENT_VERBOSITY=%(value)s"
 
-#: src/uagent/setup_cli.py:1027
+#: src/uagent/setup_cli.py:1160
 #, python-format
 msgid "  UAGENT_WORKDIR enabled: %(state)s"
 msgstr "UAGENT_WORKDIR povoleno: %(state)s"
 
-#: src/uagent/setup_cli.py:1031
+#: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
 msgstr "UAGENT_WORKDIR=%(value)s"
 
-#: src/uagent/setup_cli.py:1033
+#: src/uagent/setup_cli.py:1166
 #, python-format
 msgid "  UAGENT_LANG enabled: %(state)s"
 msgstr "UAGENT_LANG povoleno: %(state)s"
 
-#: src/uagent/setup_cli.py:1037
+#: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
 msgstr "UAGENT_LANG=%(value)s"
 
-#: src/uagent/setup_cli.py:1039
+#: src/uagent/setup_cli.py:1172
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "Volitelné doplňky povoleny: %(state)s"
 
-#: src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1177
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "Analýza obrázků povolena: %(state)s"
 
-#: src/uagent/setup_cli.py:1052
+#: src/uagent/setup_cli.py:1185
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "Generování obrázků povoleno: %(state)s"
 
-#: src/uagent/setup_cli.py:1063
+#: src/uagent/setup_cli.py:1196
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "Vkládání povoleno: %(state)s"
 
-#: src/uagent/setup_cli.py:1076
+#: src/uagent/setup_cli.py:1209
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "Výstupy: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1079
+#: src/uagent/setup_cli.py:1212
 msgid "Generate files with this configuration?"
 msgstr "Generovat soubory s touto konfigurací?"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Yes, generate"
 msgstr "Ano, vygenerovat"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Back"
 msgstr "Zadní"
 
-#: src/uagent/setup_cli.py:1104
+#: src/uagent/setup_cli.py:1237
 msgid "The following files already exist and will be overwritten:"
 msgstr "Následující soubory již existují a budou přepsány:"
 
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:1241
 msgid "Proceed?"
 msgstr "Pokračovat?"
 
-#: src/uagent/setup_cli.py:1132
+#: src/uagent/setup_cli.py:1265
 msgid "Plain .env file removed after encryption."
 msgstr "Po zašifrování byl odstraněn prostý soubor .env."
 
-#: src/uagent/setup_cli.py:1135
+#: src/uagent/setup_cli.py:1268
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "Upozornění: Nepodařilo se odstranit plain .env: %(error)s"
 
-#: src/uagent/setup_cli.py:1154
+#: src/uagent/setup_cli.py:1287
 #, python-format
 msgid "generated: %(path)s"
 msgstr "vygenerováno: %(path)s"
 
-#: src/uagent/setup_cli.py:1157
+#: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
 msgstr "- env.ps1: utf-8-sig, CRLF"
 
-#: src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat: cp932, CRLF"
 
@@ -1295,8 +1285,8 @@ msgstr ""
 
 #: src/uagent/util_tools.py:201
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the "
-"startup file (if any)."
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
 msgstr ""
 "Neinteraktivní režim. Nespouštějte smyčku stdin; ukončete po zpracování "
 "spouštěcího souboru (pokud existuje)."
@@ -1333,14 +1323,12 @@ msgstr "[tools] Načteno %(n)d nástrojů"
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow "
-"the instructions.\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 msgstr ""
 "[provádění dovedností]\n"
-"Tato dovednost je určena k provozování. Přečtěte si pozorně tělo dovednosti "
-"a postupujte podle pokynů.\n"
+"Tato dovednost je určena k provozování. Přečtěte si pozorně tělo dovednosti a postupujte podle pokynů.\n"
 "Pokud dovednost obsahuje úkoly, pokračujte, dokud nejsou dokončeny.\n"
 "Používejte nástroje podle potřeby."
 
@@ -1409,16 +1397,14 @@ msgstr "[dovednosti] Vybraná dovednost nemá žádnou cestu."
 #: src/uagent/util_tools.py:829
 #, python-format
 msgid ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\n"
+"Run this skill as a system-level instruction and keep it active in this session?\n"
 "\n"
 "Name: %(name)s\n"
 "Path: %(path)s\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"Spustit tuto dovednost jako instrukci na úrovni systému a ponechat ji v této "
-"relaci aktivní?\n"
+"Spustit tuto dovednost jako instrukci na úrovni systému a ponechat ji v této relaci aktivní?\n"
 "\n"
 "Jméno: %(name)s\n"
 "Cesta: %(path)s\n"
@@ -1464,8 +1450,7 @@ msgid ""
 msgstr ""
 "odstraní soubory protokolu konverzace (scheck_log_*.jsonl) z disku.\n"
 "Adresář protokolu: %(dir)s\n"
-"Pravidlo: celkový počet zpráv pro uživatele/asistenta/nástroje s výjimkou "
-"systému <= %(threshold)d\n"
+"Pravidlo: celkový počet zpráv pro uživatele/asistenta/nástroje s výjimkou systému <= %(threshold)d\n"
 "Cíle: %(n)d\n"
 "\n"
 "Pokračovat? Zadejte y pro spuštění nebo c pro zrušení."
@@ -1506,16 +1491,14 @@ msgstr "[čisté] Hotovo: smazáno=%(smazáno)d, neúspěšné=%(neúspěšné)d
 #: src/uagent/util_tools.py:1050
 #, python-format
 msgid ""
-"will overwrite the current session log file and prepend the loaded log (no "
-"backup).\n"
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
 "\n"
 "Current log: %(cur_log)s\n"
 "Source log: %(src_log)s\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"přepíše aktuální soubor protokolu relace a přidá načtený protokol (bez "
-"zálohy).\n"
+"přepíše aktuální soubor protokolu relace a přidá načtený protokol (bez zálohy).\n"
 "\n"
 "Aktuální protokol: %(cur_log)s\n"
 "Zdrojový protokol: %(src_log)s\n"
@@ -1530,13 +1513,15 @@ msgstr "[načíst] Předřazení aktuálnímu protokolu bylo zrušeno."
 #, python-format
 msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
 msgstr ""
-"[načíst varování] Nepodařilo se přečíst zdrojový protokol: %(etype)s: %(err)s"
+"[načíst varování] Nepodařilo se přečíst zdrojový protokol: %(etype)s: "
+"%(err)s"
 
 #: src/uagent/util_tools.py:1085
 #, python-format
 msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
 msgstr ""
-"[načíst varování] Nepodařilo se přečíst aktuální protokol: %(etype)s: %(err)s"
+"[načíst varování] Nepodařilo se přečíst aktuální protokol: %(etype)s: "
+"%(err)s"
 
 #: src/uagent/util_tools.py:1105
 #, python-format
@@ -1547,39 +1532,40 @@ msgstr "[načíst] Předřazeno aktuálnímu protokolu: %(cesta)s"
 #, python-format
 msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr ""
-"[načíst varování] Nepodařilo se přepsat aktuální protokol: %(etype)s: %(err)s"
+"[načíst varování] Nepodařilo se přepsat aktuální protokol: %(etype)s: "
+"%(err)s"
 
-#: src/uagent/util_tools.py:1114
+#: src/uagent/util_tools.py:1115
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[chyba načítání] Selhalo: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1127
+#: src/uagent/util_tools.py:1130
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm error] Nepodařilo se analyzovat argumenty: %(err)s"
 
-#: src/uagent/util_tools.py:1148
+#: src/uagent/util_tools.py:1151
 msgid "[rm] Unexpected delete_file preview response."
 msgstr "[rm] Neočekávaná odpověď na náhled delete_file."
 
-#: src/uagent/util_tools.py:1152
+#: src/uagent/util_tools.py:1155
 msgid "[rm] Preview failed."
 msgstr "[rm] Náhled se nezdařil."
 
-#: src/uagent/util_tools.py:1162
+#: src/uagent/util_tools.py:1165
 msgid "[rm] No matching paths."
 msgstr "[rm] Žádné odpovídající cesty."
 
-#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1176
 msgid "[rm] Missing:"
 msgstr "[rm] Chybí:"
 
-#: src/uagent/util_tools.py:1169
+#: src/uagent/util_tools.py:1172
 msgid "[rm] Candidates:"
 msgstr "[rm] Kandidáti:"
 
-#: src/uagent/util_tools.py:1178
+#: src/uagent/util_tools.py:1181
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1594,51 +1580,51 @@ msgstr ""
 "\n"
 "Zadejte y pro pokračování nebo c pro zrušení."
 
-#: src/uagent/util_tools.py:1185
+#: src/uagent/util_tools.py:1188
 msgid "[rm] Cancelled."
 msgstr "[rm] Zrušeno."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1202
 msgid "[rm] Unexpected delete_file response."
 msgstr "[rm] Neočekávaná odpověď delete_file."
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1207
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr "[rm] Smazáno %(count)d cest."
 
-#: src/uagent/util_tools.py:1208
+#: src/uagent/util_tools.py:1211
 msgid "[rm] Failed."
 msgstr "[rm] Selhalo."
 
-#: src/uagent/util_tools.py:1233
+#: src/uagent/util_tools.py:1236
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Zadaný index %(idx)d je mimo rozsah."
 
-#: src/uagent/util_tools.py:1242
+#: src/uagent/util_tools.py:1245
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Soubor protokolu nebyl nalezen: %(cesta)s"
 
-#: src/uagent/util_tools.py:1288
+#: src/uagent/util_tools.py:1291
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "Načtený protokol: %(cesta)s"
 
-#: src/uagent/util_tools.py:1289
+#: src/uagent/util_tools.py:1292
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "Počet zpráv konverzace: %(n)d"
 
-#: src/uagent/util_tools.py:1319
+#: src/uagent/util_tools.py:1322
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[chyba zmenšení] Nepodařilo se analyzovat jako int: %(arg)r -> zachovat "
 "poslední %(keep)d"
 
-#: src/uagent/util_tools.py:1348
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1646,30 +1632,30 @@ msgstr ""
 "[chyba shrink_llm] Nepodařilo se analyzovat jako int: %(arg)r -> zachovat "
 "poslední %(keep)d"
 
-#: src/uagent/util_tools.py:1369
+#: src/uagent/util_tools.py:1372
 msgid "No long-term memory entries."
 msgstr "Žádné záznamy o dlouhodobé paměti."
 
-#: src/uagent/util_tools.py:1372
+#: src/uagent/util_tools.py:1375
 msgid "Long-term memory entries:"
 msgstr "Záznamy dlouhodobé paměti:"
 
-#: src/uagent/util_tools.py:1395
+#: src/uagent/util_tools.py:1398
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[chyba mem-del] Nepodařilo se analyzovat index jako int: %(arg)r"
 
-#: src/uagent/util_tools.py:1400
+#: src/uagent/util_tools.py:1403
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "Smazán záznam dlouhodobé paměti [%(idx)d]."
 
-#: src/uagent/util_tools.py:1402
+#: src/uagent/util_tools.py:1405
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] Nepodařilo se odstranit index=%(idx)d."
 
-#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
+#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1677,74 +1663,74 @@ msgstr ""
 "Sdílená dlouhodobá paměť není povolena (UAGENT_SHARED_MEMORY_FILE není "
 "nastaveno)."
 
-#: src/uagent/util_tools.py:1417
+#: src/uagent/util_tools.py:1420
 msgid "No shared long-term memory entries."
 msgstr "Žádné položky sdílené dlouhodobé paměti."
 
-#: src/uagent/util_tools.py:1422
+#: src/uagent/util_tools.py:1425
 msgid "Shared long-term memory entries:"
 msgstr "Záznamy sdílené dlouhodobé paměti:"
 
-#: src/uagent/util_tools.py:1452
+#: src/uagent/util_tools.py:1455
 #, python-format
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr ""
 "[chyba sdílené-mem-del] Nepodařilo se analyzovat index jako int: %(arg)r"
 
-#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Nepodařilo se odstranit index=%(idx)d."
 
-#: src/uagent/util_tools.py:1475
+#: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
 msgstr "[chyba sdílené paměti] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1480
+#: src/uagent/util_tools.py:1483
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Smazán záznam sdílené dlouhodobé paměti [%(idx)d]."
 
-#: src/uagent/util_tools.py:1495
+#: src/uagent/util_tools.py:1498
 msgid "Show this help"
 msgstr "Ukažte tuto nápovědu"
 
-#: src/uagent/util_tools.py:1496
+#: src/uagent/util_tools.py:1499
 msgid "Restart input from the beginning"
 msgstr "Restartujte vstup od začátku"
 
-#: src/uagent/util_tools.py:1497
+#: src/uagent/util_tools.py:1500
 msgid "Show log file list"
 msgstr "Zobrazit seznam souborů protokolu"
 
-#: src/uagent/util_tools.py:1500
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :"
-"cd /)"
-msgstr ""
-"Změňte pracovní adresář bez potvrzení (např. :cd .. / :cd ~ / :cd C:"
-"\\cesta / :cd /)"
-
 #: src/uagent/util_tools.py:1503
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Změňte pracovní adresář bez potvrzení (např. :cd .. / :cd ~ / :cd C:\\cesta "
+"/ :cd /)"
+
+#: src/uagent/util_tools.py:1506
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Vypsat položky adresáře (např. :ls / :ls .. / :ls ~ / :ls C:\\cesta)"
 
-#: src/uagent/util_tools.py:1504
+#: src/uagent/util_tools.py:1507
 msgid "List loaded tools"
 msgstr "Seznam načtených nástrojů"
 
-#: src/uagent/util_tools.py:1506
+#: src/uagent/util_tools.py:1509
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Spravujte/aplikujte dovednosti (např. :skills / :skills active / :skills "
 "clear)"
 
-#: src/uagent/util_tools.py:1508
+#: src/uagent/util_tools.py:1511
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Načíst minulý protokol (přepíše aktuální historii konverzace)"
 
-#: src/uagent/util_tools.py:1510
+#: src/uagent/util_tools.py:1513
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1753,22 +1739,22 @@ msgstr ""
 "Poznámka: po spuštění budete požádáni o potvrzení; volba 'y' přidá načtený "
 "protokol před aktuální soubor protokolu relace (přepsání, žádná záloha)."
 
-#: src/uagent/util_tools.py:1514
+#: src/uagent/util_tools.py:1517
 msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of user/"
-"assistant/tool messages (excluding system) is <= N (default=10)"
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 "Smazat protokoly konverzací (scheck_log_*.jsonl), kde je počet zpráv "
 "uživatele/asistenta/nástroje (kromě systému) <= N (výchozí = 10)"
 
-#: src/uagent/util_tools.py:1518
+#: src/uagent/util_tools.py:1521
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Zmenšit historii konverzace (zachovat posledních N nesystémových zpráv; "
 "výchozí = 40)"
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1525
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1776,51 +1762,53 @@ msgstr ""
 "Zmenšit historii pomocí sumarizace LLM (shrnout starší historii do 1 "
 "systémové zprávy; ponechat posledních N raw; výchozí = 20)"
 
-#: src/uagent/util_tools.py:1524
+#: src/uagent/util_tools.py:1527
 msgid "List long-term memory notes"
 msgstr "Seznam poznámek k dlouhodobé paměti"
 
-#: src/uagent/util_tools.py:1526
+#: src/uagent/util_tools.py:1529
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Smazat poznámku z dlouhodobé paměti podle indexu (viz :mem-list)"
 
-#: src/uagent/util_tools.py:1528
+#: src/uagent/util_tools.py:1531
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Smazat soubor(y)/adresář(y) s náhledem + potvrdit"
 
-#: src/uagent/util_tools.py:1530
-msgid "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+#: src/uagent/util_tools.py:1533
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr ""
 "Seznam sdílených poznámek k dlouhodobé paměti (vyžaduje "
 "UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/util_tools.py:1532
+#: src/uagent/util_tools.py:1535
 msgid "Delete a shared long-term memory note by index"
 msgstr "Odstraňte poznámku ze sdílené dlouhodobé paměti podle indexu"
 
-#: src/uagent/util_tools.py:1534
-msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+#: src/uagent/util_tools.py:1537
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
-"Nastavte režim uvažování (0=vypnuto, 1=nízké, 2=střední, 3=vysoké; auto/"
-"minimální/xvysoké)"
+"Nastavte režim uvažování (0=vypnuto, 1=nízké, 2=střední, 3=vysoké; "
+"auto/minimální/xvysoké)"
 
-#: src/uagent/util_tools.py:1536
+#: src/uagent/util_tools.py:1539
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Nastavit režim výřečnosti (0=vypnuto, 1=nízká, 2=střední, 3=vysoká; žádný "
 "argument=zachovat)"
 
-#: src/uagent/util_tools.py:1537
+#: src/uagent/util_tools.py:1540
 msgid "Exit"
 msgstr "Výstup"
 
-#: src/uagent/util_tools.py:1540
+#: src/uagent/util_tools.py:1543
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- Zadejte řádek, který je pouze 'f' pro vstup do režimu víceřádkového "
 "zadávání."
 
-#: src/uagent/util_tools.py:1542
+#: src/uagent/util_tools.py:1545
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1828,22 +1816,18 @@ msgstr ""
 "- Chcete-li ukončit režim víceřádkového zadávání, zadejte řádek, který je "
 "přesně %(sentinel)s."
 
-#: src/uagent/util_tools.py:1636
+#: src/uagent/util_tools.py:1639
 msgid "Exiting."
 msgstr "Konec."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1642
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Neznámý příkaz: :%(cmd)s"
 
-#: src/uagent/util_tools.py:1790
+#: src/uagent/util_tools.py:1793
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term "
-"memory (persistent memos). Use them as background information about the "
-"user. However, always prioritize newly provided information in the "
-"conversation, and if it contradicts older information, adopt the latest "
-"information.\n"
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
 "Níže uvedené odrážky jsou výňatky z dlouhodobé paměti tohoto uživatele "
@@ -1851,13 +1835,13 @@ msgstr ""
 "konverzaci však vždy upřednostňujte nově poskytnuté informace, a pokud jsou "
 "v rozporu se staršími informacemi, osvojte si nejnovější informace."
 
-#: src/uagent/web.py:504
+#: src/uagent/web.py:511
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
 msgstr "V této místnosti již běží další úkol. Po dokončení to zkuste znovu."
 
-#: src/uagent/web.py:592 src/uagent/web.py:761
+#: src/uagent/web.py:604 src/uagent/web.py:773
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -1905,8 +1889,8 @@ msgstr ""
 
 #: src/uagent/welcome.py:65
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
-"\"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
 msgstr ""
 "- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového "
 "režimu (konec \"\"\"konec)."
@@ -1928,16 +1912,16 @@ msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
 msgstr ""
-"- Obrázky: GUI podporuje drag & drop; v CUI můžete zadat cestu k souboru pro "
-"analýzu obrazu."
+"- Obrázky: GUI podporuje drag & drop; v CUI můžete zadat cestu k souboru pro"
+" analýzu obrazu."
 
 #: src/uagent/welcome.py:75
 msgid ""
 "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Dokumenty: `uag docs` zobrazuje přibalené dokumenty; `uag docs webinspect` "
-"zobrazuje nápovědu Web Inspector (k dispozici je také `--path/--open`)."
+"- Dokumenty: `uag docs` zobrazuje přibalené dokumenty; `uag docs webinspect`"
+" zobrazuje nápovědu Web Inspector (k dispozici je také `--path/--open`)."
 
 #: src/uagent/welcome.py:78
 msgid "[Examples]"
@@ -1945,16 +1929,15 @@ msgstr "[Příklady]"
 
 #: src/uagent/welcome.py:79
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr ""
-"- \"Analyzujte zdrojový kód v této složce a vytvořte soubor README.md.\""
+msgstr "- \"Analyzujte zdrojový kód v této složce a vytvořte soubor README.md.\""
 
 #: src/uagent/welcome.py:81
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window "
-"contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
 msgstr ""
-"- \"Udělejte snímek obrazovky aktuální plochy a popište viditelný obsah okna."
-"\""
+"- \"Udělejte snímek obrazovky aktuální plochy a popište viditelný obsah "
+"okna.\""
 
 #: src/uagent/welcome.py:83
 msgid "- \"Create a monthly summary report from this Excel file.\""

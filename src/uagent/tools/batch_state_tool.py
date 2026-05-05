@@ -29,7 +29,7 @@ TOOL_SPEC: Dict[str, Any] = {
         ),
         "system_prompt": _(
             "tool.system_prompt",
-            default="Manage batch state. Return JSON only.",
+            default="Manage batch state. Use update with patch to merge partial state changes. To advance progress, set patch.current_file to the next file; current_file only moves forward. Return JSON only.",
         ),
         "parameters": {
             "type": "object",
@@ -40,7 +40,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "enum": list(_TOOL_ACTIONS),
                     "description": _(
                         "param.action.description",
-                        default="Action: init/load/update/append_log/finalize/list/delete",
+                        default="Action: init/load/update/append_log/finalize/list/delete. Use update with patch to change current_file and done_files.",
                     ),
                 },
                 "batch_id": {
@@ -76,7 +76,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "object",
                     "description": _(
                         "param.patch.description",
-                        default="Partial state update to merge into the batch state.",
+                        default="Partial state update to merge into the batch state. Use patch.current_file to advance to the next file; current_file only moves forward.",
                     ),
                 },
                 "message": {

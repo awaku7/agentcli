@@ -194,6 +194,11 @@ IMAGE_GENERATION_PROVIDERS: list[tuple[str, str]] = [
     ("nvidia", _("NVIDIA")),
 ]
 
+AUDIO_PROVIDERS: list[tuple[str, str]] = [
+    ("openai", "OpenAI-compatible"),
+    ("azure", "Azure OpenAI"),
+]
+
 
 @dataclass
 class _WizardState:
@@ -215,7 +220,9 @@ class _WizardState:
     image_analysis_enabled: bool = False
     image_generate_enabled: bool = False
     embedding_enabled: bool = False
+    audio_enabled: bool = False
     image_open_enabled: bool = True
+    audio_open_enabled: bool = True
 
     # Provider-specific values
     values: dict[str, str] | None = None
@@ -432,6 +439,8 @@ def _clear_optional_extra_values(st: _WizardState) -> None:
     st.image_analysis_values = None
     st.image_generate_values = None
     st.embedding_values = None
+    st.audio_values = None
+    st.audio_enabled = False
 
 
 def _ask_provider_image_values(
@@ -521,9 +530,57 @@ def _ask_provider_image_values(
     return "ok", vals
 
 
+def _ask_provider_audio_values(
+    provider: str,
+    *,
+    allow_back: bool = True,
+    current: dict[str, str] | None = None,
+) -> tuple[str, dict[str, str]]:
+    vals = dict(current or {})
+
+    if provider == "azure":
+        specs = [
+            ("speech", True, _("Azure speech deployment name")),
+            ("transcribe", True, _("Azure transcription deployment name")),
+        ]
+    elif provider == "openai":
+        specs = [
+            (
+                "speech",
+                False,
+                _("OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"),
+            ),
+            (
+                "transcribe",
+                False,
+                _(
+                    "OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-transcribe)"
+                ),
+            ),
+        ]
+        vals.setdefault("UAGENT_OPENAI_SPEECH_DEPNAME", "gpt-4o-mini-tts")
+        vals.setdefault("UAGENT_OPENAI_TRANSCRIBE_DEPNAME", "gpt-4o-mini-transcribe")
+    else:
+        return "ok", vals
+
+    for suffix, required, label in specs:
+        key = f"UAGENT_{provider.upper()}_{suffix.upper()}_DEPNAME"
+        status, value = _ask_text(
+            _("%(label)s") % {"label": label},
+            default=vals.get(key, ""),
+            required=required,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status, vals
+        vals[key] = value
+
+    return "ok", vals
+
+
 def _ask_optional_extras(st: _WizardState) -> str:
     yn = _menu_choice(
-        _("Configure optional image / embedding settings?"),
+        _("Configure optional image / embedding / audio settings?"),
         [_("No"), _("Yes")],
         default_index=1,
         allow_back=True,
@@ -660,6 +717,55 @@ def _ask_optional_extras(st: _WizardState) -> str:
             "1" if sem == "2" else "0"
         )
 
+    # Audio speech / transcription
+    au = _menu_choice(
+        _("Configure audio speech / transcription settings?"),
+        [_("No"), _("Yes")],
+        default_index=1,
+        allow_back=True,
+    )
+    if au in {"__quit__", "__back__"}:
+        return au
+    st.audio_enabled = au == "2"
+    if st.audio_enabled:
+        au_options = [f"{prov} ({label})" for prov, label in AUDIO_PROVIDERS]
+        au_default = 1
+        if st.provider in {prov for prov, _ in AUDIO_PROVIDERS}:
+            au_default = next(i + 1 for i, (prov, _label) in enumerate(AUDIO_PROVIDERS) if prov == st.provider)
+        au_choice = _menu_choice(
+            _("Select audio provider"),
+            au_options,
+            default_index=au_default,
+            allow_back=True,
+        )
+        if au_choice in {"__quit__", "__back__"}:
+            return au_choice
+        au_provider = AUDIO_PROVIDERS[int(au_choice) - 1][0]
+        st.audio_values = {"UAGENT_AUDIO_PROVIDER": au_provider}
+        status, vals = _ask_provider_audio_values(
+            au_provider,
+            current=st.audio_values,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        st.audio_values = vals
+
+        audio_open = _menu_choice(
+            _("Open generated audio automatically?"),
+            [_("No"), _("Yes")],
+            default_index=2,
+            allow_back=True,
+        )
+        if audio_open in {"__quit__", "__back__"}:
+            return audio_open
+        st.audio_open_enabled = audio_open == "2"
+        if st.audio_values is None:
+            st.audio_values = {}
+        st.audio_values["UAGENT_AUDIO_OPEN"] = (
+            "1" if st.audio_open_enabled else "0"
+        )
+
     return "ok"
 
 
@@ -739,7 +845,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# UAGENT_LANG=ja")
     out.append("")
 
-    section(_("Optional image / embedding settings"))
+    section(_("Optional image / embedding / audio settings"))
     if st.extra_enabled:
         if st.image_analysis_enabled:
             ia_vals = st.image_analysis_values or {}
@@ -808,6 +914,33 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
             out.append("# UAGENT_EMBEDDING_API_URL=")
             out.append("# UAGENT_EMBEDDING_API_HEALTHCHECK_PATH=/v1/models")
             out.append("# UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=1")
+        out.append("")
+
+        if st.audio_enabled:
+            audio_vals = st.audio_values or {}
+            audio_provider = audio_vals.get("UAGENT_AUDIO_PROVIDER", "").strip()
+            if audio_provider:
+                out.append(f"UAGENT_AUDIO_PROVIDER={audio_provider}")
+                if audio_provider == "azure":
+                    for key in ("UAGENT_AZURE_SPEECH_DEPNAME", "UAGENT_AZURE_TRANSCRIBE_DEPNAME"):
+                        val = audio_vals.get(key, "").strip()
+                        if val:
+                            out.append(f"{key}={val}")
+                elif audio_provider == "openai":
+                    for key in ("UAGENT_OPENAI_SPEECH_DEPNAME", "UAGENT_OPENAI_TRANSCRIBE_DEPNAME"):
+                        val = audio_vals.get(key, "").strip()
+                        if val:
+                            out.append(f"{key}={val}")
+            audio_open = audio_vals.get("UAGENT_AUDIO_OPEN", "").strip()
+            if audio_open:
+                out.append(f"UAGENT_AUDIO_OPEN={audio_open}")
+        else:
+            out.append("# UAGENT_AUDIO_PROVIDER=")
+            out.append("# UAGENT_AZURE_SPEECH_DEPNAME=")
+            out.append("# UAGENT_OPENAI_SPEECH_DEPNAME=")
+            out.append("# UAGENT_AZURE_TRANSCRIBE_DEPNAME=")
+            out.append("# UAGENT_OPENAI_TRANSCRIBE_DEPNAME=")
+            out.append("# UAGENT_AUDIO_OPEN=1")
         out.append("")
     else:
         out.append(_("# (optional image / embedding settings not configured)"))
