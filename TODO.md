@@ -17,18 +17,6 @@
 - UI 状態の復帰: 必須
 - 即時キャンセル: 努力目標
 
-## P1: `src/uagent/tools/system_specs_tools.py` の物理ディスク情報
-
-- Windows / macOS で物理ディスクのモデル・種別を best-effort で取得する。
-- 既存の軽量実装を壊さない範囲で検討する。
-
-## P2: Playwright Inspector の出力改善
-
-- 遷移ごとに `pages/0001_...` 形式で HTML / PNG を保存する。
-- `index.jsonl` で URL / title / 時刻 / ファイル名 を一覧化する。
-- `latest.html` を別途保存する。
-- SPA 対応を強化する。
-
 ## 保留
 
 - 翻訳 provider の追加検討は削除済み。必要時に別途整理する。

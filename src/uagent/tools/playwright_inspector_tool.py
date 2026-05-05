@@ -21,8 +21,8 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Launch Playwright Inspector to capture browser operations. Opens the specified URL "
                 "and saves the page state (HTML and image) after the user clicks the Resume button. "
-                "Additionally, saves DOM/screenshot sequentially on each main frame navigation and "
-                "records navigation, network, console events, DOM events, and page summaries in a JSONL file."
+                "Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, "
+                "writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file."
             ),
         ),
         "parameters": {
@@ -75,7 +75,7 @@ import os
 import re
 import sys
 import time
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from playwright.async_api import async_playwright
 
@@ -122,6 +122,15 @@ def make_event_record(event_type: str, page_id: str, **fields: Any) -> Dict[str,
     return record
 
 
+def make_page_summary(page_id: str, page_url: str, recent_actions: List[Dict[str, Any]]) -> Dict[str, Any]:
+    return make_event_record(
+        "page_summary",
+        page_id,
+        url=page_url,
+        recent_action_count=len(recent_actions),
+        recent_action_types=[item.get("type") for item in recent_actions[-5:]],
+    )
+
 
 async def main() -> None:
     if len(sys.argv) < 2:
@@ -138,9 +147,14 @@ async def main() -> None:
     base_dir = os.path.join("webinspect", prefix_dir_name)
     flow_path = os.path.join(base_dir, "flow.jsonl")
     snapshots_dir = os.path.join(base_dir, "snapshots")
+    pages_dir = os.path.join(base_dir, "pages")
+    latest_html_path = os.path.join(base_dir, "latest.html")
+    index_path = os.path.join(base_dir, "index.jsonl")
     os.makedirs(snapshots_dir, exist_ok=True)
+    os.makedirs(pages_dir, exist_ok=True)
 
     logger = FlowLogger(flow_path)
+    index_logger = FlowLogger(index_path)
     page_seq = 0
 
     async with async_playwright() as p:
@@ -272,23 +286,49 @@ async def main() -> None:
                         pass
 
                     safe = _sanitize_for_filename(nav_url)
-                    base = os.path.join(snapshots_dir, f"{idx:04d}_{reason}_{safe}")
+                    snapshot_base = os.path.join(snapshots_dir, f"{idx:04d}_{reason}_{safe}")
+                    page_base = os.path.join(pages_dir, f"{idx:04d}_{reason}_{safe}")
 
+                    title = ""
                     try:
-                        await page.screenshot(path=base + ".png")
+                        title = await page.title()
                     except Exception:
                         pass
 
                     try:
                         html = await page.content()
-                        with open(base + ".html", "w", encoding="utf-8") as f:
-                            f.write(html)
                     except Exception:
-                        pass
+                        html = ""
 
-                    record = make_event_record("snapshot", page_id, reason=reason, url=nav_url, index=idx, html=os.path.basename(base + ".html"), png=os.path.basename(base + ".png"))
+                    for path in (snapshot_base + ".png", page_base + ".png"):
+                        try:
+                            await page.screenshot(path=path)
+                        except Exception:
+                            pass
+
+                    for path in (snapshot_base + ".html", page_base + ".html", latest_html_path):
+                        try:
+                            with open(path, "w", encoding="utf-8") as f:
+                                f.write(html)
+                        except Exception:
+                            pass
+
+                    record = make_event_record(
+                        "snapshot",
+                        page_id,
+                        reason=reason,
+                        url=nav_url,
+                        title=title,
+                        index=idx,
+                        html=os.path.basename(page_base + ".html"),
+                        png=os.path.basename(page_base + ".png"),
+                        snapshot_html=os.path.basename(snapshot_base + ".html"),
+                        snapshot_png=os.path.basename(snapshot_base + ".png"),
+                        latest_html=os.path.basename(latest_html_path),
+                    )
                     page_actions.append(record)
                     logger.log(record)
+                    index_logger.log(record)
 
             def on_frame_navigated(frame):
                 try:
@@ -328,8 +368,9 @@ async def main() -> None:
 
         try:
             content = await page.content()
-            with open(final_html, "w", encoding="utf-8") as f:
-                f.write(content)
+            for path in (final_html, latest_html_path):
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(content)
         except Exception:
             pass
 
@@ -337,10 +378,13 @@ async def main() -> None:
             logger.log(make_page_summary(page_id, page.url, page_actions[-20:]))
         except Exception:
             pass
-        logger.log(make_event_record("final", page_id, url=page.url, html=final_html, png=final_png, snapshots_dir=snapshots_dir, flow=flow_path, summary="Captured final page state"))
+        final_record = make_event_record("final", page_id, url=page.url, html=final_html, latest_html=latest_html_path, png=final_png, snapshots_dir=snapshots_dir, flow=flow_path, summary="Captured final page state")
+        logger.log(final_record)
+        index_logger.log(final_record)
 
         await browser.close()
         logger.close()
+        index_logger.close()
         print(ui_captured.format(html=final_html, png=final_png, flow=flow_path, snapshots=snapshots_dir))
 
 
@@ -363,7 +407,7 @@ if __name__ == "__main__":
 
         return _(
             "out.ok",
-            default="Capture complete: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/ created.\n{stdout}",
+            default="Capture complete: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html created.\n{stdout}",
         ).format(prefix=prefix, stdout=result.stdout or "")
     except Exception as e:
         return f"[playwright_inspector error] {type(e).__name__}: {e}"
