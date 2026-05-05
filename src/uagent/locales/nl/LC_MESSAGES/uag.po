@@ -3,13 +3,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-01 11:05+0900\n"
+"POT-Creation-Date: 2026-05-05 17:47+0900\n"
 "PO-Revision-Date: 2026-04-28 21:59+0900\n"
 "Last-Translator: OpenAI\n"
 "Language-Team: nl\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
@@ -31,32 +31,30 @@ msgstr ""
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
-msgstr ""
-"Installeer Git. Als u Homebrew gebruikt: brew install git, of installeer "
-"Xcode Command Line Tools: xcode-select --install"
+msgstr ", "
 
 #: src/uagent/checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr "[FOUT] Git is niet geïnstalleerd."
 
-#: src/uagent/cli.py:357
+#: src/uagent/cli.py:358
 msgid "getch() fallback to input()"
 msgstr "getch() valt terug op input()"
 
-#: src/uagent/cli.py:556
+#: src/uagent/cli.py:557
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Invoer geannuleerd (wordt als antwoord naar human_ask verzonden)."
 
-#: src/uagent/cli.py:564
+#: src/uagent/cli.py:565
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C ontvangen. Afsluiten wordt gestart..."
 
-#: src/uagent/cli.py:571
+#: src/uagent/cli.py:572
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Onverwachte fout in stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#: src/uagent/cli.py:598 src/uagent/cli.py:668
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -65,7 +63,7 @@ msgstr ""
 "(Multiline-invoermodus: voer de body in meerdere regels in; om opnieuw te "
 "starten, typ \"\"\"opnieuw; eindig met een regel met %(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
 #: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
 #: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
 #: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
@@ -75,15 +73,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Geannuleerd."
 
-#: src/uagent/cli.py:633 src/uagent/cli.py:683
+#: src/uagent/cli.py:634 src/uagent/cli.py:684
 msgid "Discarded previous input. Please start over."
 msgstr "Eerdere invoer verworpen. Begin opnieuw."
 
-#: src/uagent/cli.py:644
+#: src/uagent/cli.py:645
 msgid "Received multiline reply."
 msgstr "Meerregelige reactie ontvangen."
 
-#: src/uagent/cli.py:796
+#: src/uagent/cli.py:805
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -92,13 +90,13 @@ msgstr ""
 "Er zijn paden voor afbeeldingsbestanden gevonden in uw invoer.\n"
 "Wilt u deze beelden voor analyse naar de LLM (externe API) sturen?"
 
-#: src/uagent/cli.py:802
+#: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Antwoord met y om te verzenden, of met n (of c/cancel) om het verzenden over"
 " te slaan."
 
-#: src/uagent/cli.py:817
+#: src/uagent/cli.py:826
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -106,19 +104,19 @@ msgstr ""
 "Bevestiging van het verzenden van de afbeelding is mislukt; zal geen "
 "afbeeldingen verzenden: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kan afbeelding niet bijvoegen: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:882
+#: src/uagent/cli.py:891
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Onbekende soort gebeurtenis =%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:896
+#: src/uagent/cli.py:909
 msgid "Exited uag."
-msgstr "uag afgesloten."
+msgstr "Afsluiten"
 
 #: src/uagent/cli_docs.py:33
 msgid "[docs] name is required"
@@ -134,23 +132,23 @@ msgstr "[FATAL] Kan workdir niet instellen: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Kan uag_setup niet starten: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
 #: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM-provider = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
 #: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "model(implementatie) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-fallbackmodellen ingeschakeld."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
 #: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -169,21 +167,21 @@ msgstr ""
 "ondersteunt de Responses API niet. Terugvallen op ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM API-modus = ChatCompletions (UAGENT_RESPONSES is uitgeschakeld)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
 #: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM API-modus = Reacties (UAGENT_RESPONSES is ingeschakeld)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
 #: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Langetermijngeheugen geladen."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
 #: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Gedeeld langetermijngeheugen geladen."
@@ -468,7 +466,7 @@ msgstr ""
 "poging=%(attempt)s/%(max_retries)s wacht=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:149
+#: src/uagent/llm_message_helpers.py:147
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Automatisch krimpen_llm mislukt: %(err)s"
@@ -489,35 +487,35 @@ msgstr ""
 "        - Roep nooit een gereedschap aan met een leeg object {} tenzij het gereedschap geen vereiste parameters heeft.\n"
 "        - Als je geen vereiste parameter hebt, vraag de gebruiker er dan om met human_ask in plaats van te raden."
 
-#: src/uagent/llm_round_helpers.py:111
+#: src/uagent/llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Vertaalfout] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
-#: src/uagent/llm_round_helpers.py:595
+#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
+#: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "429 herkansingslimiet (%(max_retries)s) bereikt."
 
-#: src/uagent/llm_round_helpers.py:193
+#: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr ""
 "[Gemini Error] Er is een fout opgetreden tijdens het genereren van een "
 "reactie."
 
-#: src/uagent/llm_round_helpers.py:285
+#: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr ""
 "[Claude Error] Er is een fout opgetreden tijdens het genereren van een "
 "antwoord."
 
-#: src/uagent/llm_round_helpers.py:679
+#: src/uagent/llm_round_helpers.py:700
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Fout bij het parseren van reactie: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
 #: src/uagent/web.py:621
 #, python-format
 msgid ""
@@ -547,108 +545,108 @@ msgstr "[WARN] Kan .env.sec niet ontsleutelen: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
 
-#: src/uagent/scheckgui.py:115
+#: src/uagent/scheckgui.py:116
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
-msgstr ""
+msgstr "Sleep bestanden/afbeeldingen hierheen"
 
-#: src/uagent/scheckgui.py:153
+#: src/uagent/scheckgui.py:154
 msgid "Download"
 msgstr "Downloaden"
 
-#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Er is een uitzondering opgetreden tijdens het laden van gedeeld "
 "langetermijngeheugen: %(err)s"
 
-#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
+#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
 msgid "Welcome / Quick Guide"
 msgstr "Welkom / beknopte handleiding"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:615
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Extreme stabiliteit)"
 
-#: src/uagent/scheckgui.py:651
+#: src/uagent/scheckgui.py:658
 msgid "↑ Drag&Dropで添付できます"
-msgstr ""
+msgstr "↑ Je kunt bijvoegen door te slepen en neer te zetten"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:679
 msgid "Send"
 msgstr "Versturen"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:719
 msgid "Help"
 msgstr "Hulp"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:734
 msgid "Mode"
 msgstr "Modus"
 
-#: src/uagent/scheckgui.py:729
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: off"
 msgstr "Redenering: uit"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:739
 msgid "Reasoning: auto"
 msgstr "Redenering: auto"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: minimal"
 msgstr "Redenering: minimaal"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: low"
 msgstr "Redenering: laag"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: medium"
 msgstr "Redenering: gemiddeld"
 
-#: src/uagent/scheckgui.py:740
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: high"
 msgstr "Redenering: hoog"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:750
 msgid "Reasoning: xhigh"
 msgstr "Redenering: xhoog"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:755
 msgid "Verbosity: off"
 msgstr "Verbosity: uit"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:757
 msgid "Verbosity: low"
 msgstr "Verbositeit: laag"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:759
 msgid "Verbosity: medium"
 msgstr "Verbositeit: gemiddeld"
 
-#: src/uagent/scheckgui.py:754
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: high"
 msgstr "Verbositeit: hoog"
 
-#: src/uagent/scheckgui.py:784
+#: src/uagent/scheckgui.py:791
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] redenering=%(mode)s"
 
-#: src/uagent/scheckgui.py:910
+#: src/uagent/scheckgui.py:917
 msgid "Enter password..."
 msgstr "Voer wachtwoord in"
 
-#: src/uagent/scheckgui.py:912
+#: src/uagent/scheckgui.py:919
 msgid "Enter response for human_ask..."
 msgstr "Voer antwoord in voor human_ask..."
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:924
 msgid "Enter a message..."
 msgstr "Voer een bericht in"
 
-#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
-#: src/uagent/scheckgui.py:1305
+#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
+#: src/uagent/scheckgui.py:1312
 msgid "Downloaded to"
 msgstr "Gedownload naar"
 
@@ -932,9 +930,8 @@ msgid "%(label)s"
 msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:511
-#, fuzzy
 msgid "Enable image generation debug output? (0/1)"
-msgstr "Selecteer provider voor het genereren van afbeeldingen"
+msgstr "Debug-uitvoer voor beeldgeneratie inschakelen? (0/1)"
 
 #: src/uagent/setup_cli.py:526
 msgid "Configure optional image / embedding settings?"
@@ -1207,7 +1204,7 @@ msgstr "- env.ps1: utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat: cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:408
+#: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Gereedschapsrondes overschreden %(max)d; afbreken."
@@ -1241,6 +1238,35 @@ msgstr ""
 "Niet-interactieve modus. Start de STDIN-lus niet; sluit af na het verwerken "
 "van het opstartbestand (indien aanwezig)."
 
+#: src/uagent/util_tools.py:404
+#, python-format
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] Map bestaat niet: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:445
+#, python-format
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] Geen overeenkomende paden: %(src)s -> %(expanded)s"
+
+#: src/uagent/util_tools.py:480
+#, python-format
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] Map bestaat niet: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:528
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] Ongeldig argument: %(arg)r (geef all / --all / -a / nummer op)"
+
+#: src/uagent/util_tools.py:543
+msgid "[tools] No tools loaded."
+msgstr "[tools] Geen tools geladen."
+
+#: src/uagent/util_tools.py:546
+#, python-format
+msgid "[tools] Loaded %(n)d tools"
+msgstr "[tools] %(n)d tools geladen"
+
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
@@ -1257,6 +1283,38 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Als u klaar bent, belt u altijd `finish_skill` indien beschikbaar."
 
+#: src/uagent/util_tools.py:709
+msgid "[skills] No active skill messages to clear."
+msgstr "[skills] Geen actieve skill-berichten om te wissen."
+
+#: src/uagent/util_tools.py:712
+#, python-format
+msgid "[skills] Cleared %(n)d skill message(s)."
+msgstr "[skills] %(n)d skill-bericht(en) gewist."
+
+#: src/uagent/util_tools.py:735
+msgid "[skills] No active skills."
+msgstr "[skills] Geen actieve skills."
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[skills] Active skills: %(n)d"
+msgstr "[skills] Actieve skills: %(n)d"
+
+#: src/uagent/util_tools.py:766
+msgid "[skills] No skills found."
+msgstr "[skills] Geen skills gevonden."
+
+#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#, python-format
+msgid "[skills] Out of range: %(n)d"
+msgstr "[skills] Buiten bereik: %(n)d"
+
+#: src/uagent/util_tools.py:782
+#, python-format
+msgid "[skills] Found %(n)d skills"
+msgstr "[skills] %(n)d skills gevonden"
+
 #: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1266,6 +1324,22 @@ msgstr ""
 "Selecteer een vaardigheidsnummer om uit te voeren. Voer c in om te annuleren.\n"
 "Tip: :vaardigheden duidelijk  (verwijder toegepaste vaardigheden)\n"
 "Nummer invoeren:"
+
+#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+msgid "[skills] Cancelled."
+msgstr "[skills] Geannuleerd."
+
+#: src/uagent/util_tools.py:809
+msgid "[skills] Please enter a number or c."
+msgstr "[skills] Voer een nummer of c in."
+
+#: src/uagent/util_tools.py:819
+msgid "[skills] Invalid selection."
+msgstr "[skills] Ongeldige selectie."
+
+#: src/uagent/util_tools.py:825
+msgid "[skills] Selected skill has no path."
+msgstr "[skills] De geselecteerde skill heeft geen pad."
 
 #: src/uagent/util_tools.py:829
 #, python-format
@@ -1284,24 +1358,156 @@ msgstr ""
 "\n"
 "Doorgaan? Voer y in om uit te voeren, of c om te annuleren."
 
-#: src/uagent/util_tools.py:937
+#: src/uagent/util_tools.py:869
+#, python-format
+msgid "[skills] Applied: %(name)s"
+msgstr "[skills] Toegepast: %(name)s"
+
+#: src/uagent/util_tools.py:889
 #, python-format
 msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Ongeldig argument: %(arg)r (geef nummer=drempel op; standaard is "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:906
+#, python-format
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean-fout] Loglijst ophalen mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:923
+#, python-format
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr ""
+"[clean-waarschuwing] Overgeslagen (parseren mislukt): %(path)s (%(etype)s: "
+"%(err)s)"
+
+#: src/uagent/util_tools.py:938
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean verwijdert gesprekslogbestanden (scheck_log_* .jsonl) van de schijf.\n"
-"Logboekmap: %(dir)s\n"
-"Regel: totale gebruikers-/assistent-/machineberichten exclusief systeem <= %(threshold)d\n"
-"Doelstellingen: %(n)d\n"
+"zal gesprekslogbestanden (scheck_log_*.jsonl) van schijf verwijderen.\n"
+"Logmap: %(dir)s\n"
+"Regel: totaal aantal user-/assistant-/tool-berichten zonder system <= %(threshold)d\n"
+"Doelen: %(n)d\n"
 "\n"
 "Doorgaan? Voer y in om uit te voeren, of c om te annuleren."
 
-#: src/uagent/util_tools.py:1181
+#: src/uagent/util_tools.py:953
+msgid "[clean] Cancelled."
+msgstr "[clean] Geannuleerd."
+
+#: src/uagent/util_tools.py:958
+#, python-format
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean-fout] Bevestiging mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:974
+#, python-format
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr ""
+"[clean-waarschuwing] Verwijderen mislukt: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:992
+#, python-format
+msgid ""
+"[clean] No logs to delete (threshold=%(threshold)d).\n"
+"Log dir: %(dir)s"
+msgstr ""
+"[clean] Geen logs om te verwijderen (drempel=%(threshold)d).\n"
+"Logmap: %(dir)s"
+
+#: src/uagent/util_tools.py:1001
+#, python-format
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] Te verwijderen logs (<= %(threshold)d berichten): %(n)d"
+
+#: src/uagent/util_tools.py:1015
+#, python-format
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr "[clean] Klaar: verwijderd=%(deleted)d, mislukt=%(failed)d"
+
+#: src/uagent/util_tools.py:1050
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"zal het huidige sessielogbestand overschrijven en het geladen log ervoor plaatsen (geen back-up).\n"
+"\n"
+"Huidig log: %(cur_log)s\n"
+"Bronlog: %(src_log)s\n"
+"\n"
+"Doorgaan? Voer y in om uit te voeren, of c om te annuleren."
+
+#: src/uagent/util_tools.py:1063
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] Het vóór het huidige log plaatsen is geannuleerd."
+
+#: src/uagent/util_tools.py:1072
+#, python-format
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load-waarschuwing] Bronlog lezen mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1085
+#, python-format
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load-waarschuwing] Huidig log lezen mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1105
+#, python-format
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] Voor het huidige log geplaatst: %(path)s"
+
+#: src/uagent/util_tools.py:1108
+#, python-format
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+"[load-waarschuwing] Huidig log herschrijven mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1114
+#, python-format
+msgid "[load error] Failed: %(etype)s: %(err)s"
+msgstr "[load-fout] Mislukt: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1127
+#, python-format
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm-fout] Argumenten parsen mislukt: %(err)s"
+
+#: src/uagent/util_tools.py:1148
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Onverwacht antwoord op delete_file-voorbeeldweergave."
+
+#: src/uagent/util_tools.py:1152
+msgid "[rm] Preview failed."
+msgstr "[rm] Voorbeeldweergave mislukt."
+
+#: src/uagent/util_tools.py:1162
+msgid "[rm] No matching paths."
+msgstr "[rm] Geen overeenkomende paden."
+
+#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+msgid "[rm] Missing:"
+msgstr "[rm] Ontbrekend:"
+
+#: src/uagent/util_tools.py:1169
+msgid "[rm] Candidates:"
+msgstr "[rm] Kandidaten:"
+
+#: src/uagent/util_tools.py:1178
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1316,20 +1522,80 @@ msgstr ""
 "\n"
 "Voer y in om door te gaan, of c om te annuleren."
 
-#: src/uagent/util_tools.py:1322
+#: src/uagent/util_tools.py:1185
+msgid "[rm] Cancelled."
+msgstr "[rm] Geannuleerd."
+
+#: src/uagent/util_tools.py:1199
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Onverwacht antwoord van delete_file."
+
+#: src/uagent/util_tools.py:1204
+#, python-format
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] %(count)d pad(en) verwijderd."
+
+#: src/uagent/util_tools.py:1208
+msgid "[rm] Failed."
+msgstr "[rm] Mislukt."
+
+#: src/uagent/util_tools.py:1233
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Opgegeven index %(idx)d valt buiten bereik."
+
+#: src/uagent/util_tools.py:1242
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Logbestand niet gevonden: %(path)s"
+
+#: src/uagent/util_tools.py:1288
+#, python-format
+msgid "Loaded log: %(path)s"
+msgstr "Geladen log: %(path)s"
+
+#: src/uagent/util_tools.py:1289
+#, python-format
+msgid "Conversation message count: %(n)d"
+msgstr "Aantal gespreksberichten: %(n)d"
+
+#: src/uagent/util_tools.py:1319
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink error] Ontleden als INT mislukt: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink_llm error] Ontleden als INT mislukt: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: src/uagent/util_tools.py:1369
+msgid "No long-term memory entries."
+msgstr "Geen langetermijngeheugen-items."
+
+#: src/uagent/util_tools.py:1372
+msgid "Long-term memory entries:"
+msgstr "Langetermijngeheugen-items:"
+
+#: src/uagent/util_tools.py:1395
+#, python-format
+msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[mem-del-fout] Index als geheel getal parsen mislukt: %(arg)r"
+
+#: src/uagent/util_tools.py:1400
+#, python-format
+msgid "Deleted long-term memory entry [%(idx)d]."
+msgstr "Langetermijngeheugen-item [%(idx)d] verwijderd."
+
+#: src/uagent/util_tools.py:1402
+#, python-format
+msgid "[mem-del] Failed to delete index=%(idx)d."
+msgstr "[mem-del] Verwijderen van index=%(idx)d mislukt."
+
+#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1337,7 +1603,168 @@ msgstr ""
 "Gedeeld langetermijngeheugen is niet ingeschakeld (UAGENT_SHARED_MEMORY_FILE"
 " is niet ingesteld)."
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1417
+msgid "No shared long-term memory entries."
+msgstr "Geen gedeelde langetermijngeheugen-items."
+
+#: src/uagent/util_tools.py:1422
+msgid "Shared long-term memory entries:"
+msgstr "Gedeelde langetermijngeheugen-items:"
+
+#: src/uagent/util_tools.py:1452
+#, python-format
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[shared-mem-del-fout] Index als geheel getal parsen mislukt: %(arg)r"
+
+#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#, python-format
+msgid "[shared-mem-del] Failed to delete index=%(idx)d."
+msgstr "[shared-mem-del] Verwijderen van index=%(idx)d mislukt."
+
+#: src/uagent/util_tools.py:1475
+#, python-format
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del-fout] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1480
+#, python-format
+msgid "Deleted shared long-term memory entry [%(idx)d]."
+msgstr "Gedeeld langetermijngeheugen-item [%(idx)d] verwijderd."
+
+#: src/uagent/util_tools.py:1495
+msgid "Show this help"
+msgstr "Deze hulp tonen"
+
+#: src/uagent/util_tools.py:1496
+msgid "Restart input from the beginning"
+msgstr "Invoer vanaf het begin opnieuw starten"
+
+#: src/uagent/util_tools.py:1497
+msgid "Show log file list"
+msgstr "Logbestandenlijst tonen"
+
+#: src/uagent/util_tools.py:1500
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Werkmap wijzigen zonder bevestiging (bijv. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+
+#: src/uagent/util_tools.py:1503
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Mapinhoud weergeven (bijv. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1504
+msgid "List loaded tools"
+msgstr "Geladen tools tonen"
+
+#: src/uagent/util_tools.py:1506
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Skills beheren/toepassen (bijv. :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1508
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Een eerder log laden (overschrijft de huidige gespreksgeschiedenis)"
+
+#: src/uagent/util_tools.py:1510
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Let op: na het uitvoeren wordt om bevestiging "
+"gevraagd; als u 'y' kiest, wordt het geladen log vooraan toegevoegd aan het "
+"huidige sessielogbestand (overschrijven, geen back-up)."
+
+#: src/uagent/util_tools.py:1514
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Gesprekslogbestanden verwijderen (scheck_log_*.jsonl) wanneer het aantal "
+"user-/assistant-/tool-berichten (zonder system) <= N is (standaard=10)"
+
+#: src/uagent/util_tools.py:1518
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Gespreksgeschiedenis inkorten (laatste N niet-systemberichten behouden; "
+"standaard=40)"
+
+#: src/uagent/util_tools.py:1522
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Geschiedenis inkorten via LLM-samenvatting (oudere geschiedenis samenvatten "
+"tot 1 systeembericht; laatste N onbewerkte berichten behouden; standaard=20)"
+
+#: src/uagent/util_tools.py:1524
+msgid "List long-term memory notes"
+msgstr "Langetermijngeheugen-notities weergeven"
+
+#: src/uagent/util_tools.py:1526
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Een langetermijngeheugen-notitie verwijderen op index (zie :mem-list)"
+
+#: src/uagent/util_tools.py:1528
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Bestand(en)/map(pen) verwijderen met voorbeeldweergave + bevestiging"
+
+#: src/uagent/util_tools.py:1530
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"Gedeelde langetermijngeheugen-notities weergeven (vereist "
+"UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/util_tools.py:1532
+msgid "Delete a shared long-term memory note by index"
+msgstr "Een gedeelde langetermijngeheugen-notitie verwijderen op index"
+
+#: src/uagent/util_tools.py:1534
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Redeneermodus instellen (0=uit, 1=laag, 2=middel, 3=hoog; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1536
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Uitvoerigheidsmodus instellen (0=uit, 1=laag, 2=middel, 3=hoog; geen "
+"arg=behouden)"
+
+#: src/uagent/util_tools.py:1537
+msgid "Exit"
+msgstr "Afsluiten"
+
+#: src/uagent/util_tools.py:1540
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"- Voer een regel in die alleen 'f' bevat om de modus voor invoer over "
+"meerdere regels te openen."
+
+#: src/uagent/util_tools.py:1542
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Om de modus voor meerregelige invoer te beëindigen, voert u een regel in"
+" die exact %(sentinel)s is."
+
+#: src/uagent/util_tools.py:1636
+msgid "Exiting."
+msgstr "Afsluiten."
+
+#: src/uagent/util_tools.py:1639
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Onbekend commando: :%(cmd)s"
+
+#: src/uagent/util_tools.py:1790
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1368,9 +1795,7 @@ msgstr ""
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
-msgstr ""
-"[MCP Servers]\n"
-"- Configuratiebestand niet gevonden."
+msgstr "[MCP-servers]"
 
 #: src/uagent/welcome.py:34
 msgid ""
@@ -1470,12 +1895,3 @@ msgstr "- \"Zoek in het laatste nieuws en vat een specifiek onderwerp samen.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Onbekende UAGENT_A2A_ENGINE: %(mode)s"
-
-#~ msgid "[SSL Info] certifi is not available"
-#~ msgstr "[SSL Info] certifi is niet beschikbaar"
-
-#~ msgid "[SSL Info] certifi.where() = %(path)s"
-#~ msgstr "[SSL-info] certifi.where() = %(path)s"
-
-#~ msgid "Opened image file with the default app."
-#~ msgstr "Geopend afbeeldingsbestand met de standaard app."

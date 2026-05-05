@@ -33,7 +33,7 @@
     "param.message.description": "Message utilisateur à envoyer.",
     "param.return_immediately.description": "Si true, renvoyer juste après la création de la tâche.",
     "err.missing_message": "'message' manquant.",
-    "err.exception": "Exception"
+    "err.exception": "Exception inattendue"
   },
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다.",

@@ -3,13 +3,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-01 11:05+0900\n"
+"POT-Creation-Date: 2026-05-05 17:47+0900\n"
 "PO-Revision-Date: 2026-04-27 00:00+0000\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
@@ -39,24 +39,24 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[FEIL] Git er ikke installert."
 
-#: src/uagent/cli.py:357
+#: src/uagent/cli.py:358
 msgid "getch() fallback to input()"
 msgstr "getch() faller tilbake til input()"
 
-#: src/uagent/cli.py:556
+#: src/uagent/cli.py:557
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Inndata ble avbrutt (sendes som svar til human_ask)."
 
-#: src/uagent/cli.py:564
+#: src/uagent/cli.py:565
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Mottok Ctrl+C. Starter avslutning..."
 
-#: src/uagent/cli.py:571
+#: src/uagent/cli.py:572
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Uventet feil i stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#: src/uagent/cli.py:598 src/uagent/cli.py:668
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -65,7 +65,7 @@ msgstr ""
 "(Flerlinjet inndatamodus: skriv innholdet på flere linjer; for å starte på "
 "nytt, skriv \"\"\"retry; avslutt med en linje som inneholder %(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
 #: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
 #: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
 #: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
@@ -75,15 +75,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Avbrutt."
 
-#: src/uagent/cli.py:633 src/uagent/cli.py:683
+#: src/uagent/cli.py:634 src/uagent/cli.py:684
 msgid "Discarded previous input. Please start over."
 msgstr "Tidligere inndata ble kastet. Start på nytt."
 
-#: src/uagent/cli.py:644
+#: src/uagent/cli.py:645
 msgid "Received multiline reply."
 msgstr "Mottok svar med flere linjer."
 
-#: src/uagent/cli.py:796
+#: src/uagent/cli.py:805
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -93,11 +93,11 @@ msgstr ""
 "Vil du sende disse bildene til LLM (eksternt API) for analyse?\n"
 "\n"
 
-#: src/uagent/cli.py:802
+#: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Svar med y for å sende, eller n (eller c/avbryt) for å hoppe over."
 
-#: src/uagent/cli.py:817
+#: src/uagent/cli.py:826
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -105,17 +105,17 @@ msgstr ""
 "Bekreftelse av bildesending mislyktes; sender ikke bilder: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kunne ikke legge ved bilde: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:882
+#: src/uagent/cli.py:891
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Ukjent hendelsestype=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:896
+#: src/uagent/cli.py:909
 msgid "Exited uag."
 msgstr "uag avsluttet."
 
@@ -133,23 +133,23 @@ msgstr "[FATAL] Klarte ikke å sette arbeidskatalog: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Klarte ikke å starte uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
 #: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM-leverandør = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
 #: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "modell/distribusjon = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-reservemodeller aktivert."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
 #: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -168,21 +168,21 @@ msgstr ""
 "støtter ikke Responses API. Faller tilbake til ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM-API-modus = ChatCompletions (UAGENT_RESPONSES er deaktivert)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
 #: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM-API-modus = Responses (UAGENT_RESPONSES er aktivert)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
 #: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Langtidsminne lastet."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
 #: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Delt langtidsminne lastet."
@@ -480,7 +480,7 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:149
+#: src/uagent/llm_message_helpers.py:147
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[ADVARSEL] Auto shrink_llm mislyktes: %(err)s"
@@ -502,31 +502,31 @@ msgstr ""
 "        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:111
+#: src/uagent/llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Oversettelsesfeil] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
-#: src/uagent/llm_round_helpers.py:595
+#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
+#: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "429-omforsøkgrensen (%(max_retries)s) er nådd."
 
-#: src/uagent/llm_round_helpers.py:193
+#: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Gemini-feil] Det oppstod en feil under generering av et svar."
 
-#: src/uagent/llm_round_helpers.py:285
+#: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude-feil] Det oppstod en feil under generering av et svar."
 
-#: src/uagent/llm_round_helpers.py:679
+#: src/uagent/llm_round_helpers.py:700
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Feil under tolkning av svar: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
 #: src/uagent/web.py:621
 #, python-format
 msgid ""
@@ -556,106 +556,106 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
 
-#: src/uagent/scheckgui.py:115
+#: src/uagent/scheckgui.py:116
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
-msgstr ""
+msgstr "Dra og slipp filer/bilder her"
 
-#: src/uagent/scheckgui.py:153
+#: src/uagent/scheckgui.py:154
 msgid "Download"
 msgstr "Last ned"
 
-#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Exception occurred while loading shared long-term memory: %(err)s"
 
-#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
+#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
 msgid "Welcome / Quick Guide"
 msgstr "Velkommen / hurtigguide"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:615
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (ekstrem stabilitet)"
 
-#: src/uagent/scheckgui.py:651
+#: src/uagent/scheckgui.py:658
 msgid "↑ Drag&Dropで添付できます"
-msgstr ""
+msgstr "↑ Du kan legge ved ved å dra og slippe"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:679
 msgid "Send"
 msgstr "Send"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:719
 msgid "Help"
 msgstr "Hjelp"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:734
 msgid "Mode"
 msgstr "Modus"
 
-#: src/uagent/scheckgui.py:729
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: off"
 msgstr "Resonnering: av"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:739
 msgid "Reasoning: auto"
 msgstr "Resonnering: auto"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: minimal"
 msgstr "Resonnering: minimal"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: low"
 msgstr "Resonnering: lav"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: medium"
 msgstr "Resonnering: middels"
 
-#: src/uagent/scheckgui.py:740
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: high"
 msgstr "Resonnering: høy"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:750
 msgid "Reasoning: xhigh"
 msgstr "Resonnering: svært høy"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:755
 msgid "Verbosity: off"
 msgstr "Utførlighet: av"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:757
 msgid "Verbosity: low"
 msgstr "Utførlighet: lav"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:759
 msgid "Verbosity: medium"
 msgstr "Utførlighet: middels"
 
-#: src/uagent/scheckgui.py:754
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: high"
 msgstr "Utførlighet: høy"
 
-#: src/uagent/scheckgui.py:784
+#: src/uagent/scheckgui.py:791
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[modus] resonnering=%(mode)s"
 
-#: src/uagent/scheckgui.py:910
+#: src/uagent/scheckgui.py:917
 msgid "Enter password..."
 msgstr "Skriv inn passord..."
 
-#: src/uagent/scheckgui.py:912
+#: src/uagent/scheckgui.py:919
 msgid "Enter response for human_ask..."
 msgstr "Skriv inn svar for human_ask..."
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:924
 msgid "Enter a message..."
 msgstr "Skriv inn en melding..."
 
-#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
-#: src/uagent/scheckgui.py:1305
+#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
+#: src/uagent/scheckgui.py:1312
 msgid "Downloaded to"
 msgstr "Lastet ned til"
 
@@ -936,9 +936,8 @@ msgid "%(label)s"
 msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:511
-#, fuzzy
 msgid "Enable image generation debug output? (0/1)"
-msgstr "Velg leverandør for bildegenerering"
+msgstr "Slå på feilsøkingsutdata for bildegenerering? (0/1)"
 
 #: src/uagent/setup_cli.py:526
 msgid "Configure optional image / embedding settings?"
@@ -1209,7 +1208,7 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:408
+#: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ADVARSEL] Verktøy-runder oversteg %(max)d; avbryter."
@@ -1243,6 +1242,35 @@ msgstr ""
 "Ikke-interaktiv modus. Ikke start stdin-loopen; avslutt etter at "
 "oppstartsfilen (hvis noen) er behandlet."
 
+#: src/uagent/util_tools.py:404
+#, python-format
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] Katalogen finnes ikke: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:445
+#, python-format
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] Ingen treffende stier: %(src)s -> %(expanded)s"
+
+#: src/uagent/util_tools.py:480
+#, python-format
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] Katalogen finnes ikke: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:528
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] Ugyldig argument: %(arg)r (angi all / --all / -a / tall)"
+
+#: src/uagent/util_tools.py:543
+msgid "[tools] No tools loaded."
+msgstr "[tools] Ingen verktøy lastet."
+
+#: src/uagent/util_tools.py:546
+#, python-format
+msgid "[tools] Loaded %(n)d tools"
+msgstr "[tools] Lastet %(n)d verktøy"
+
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
@@ -1259,6 +1287,38 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "When finished, always call `finish_skill` if available.\n"
 
+#: src/uagent/util_tools.py:709
+msgid "[skills] No active skill messages to clear."
+msgstr "[skills] Ingen aktive ferdighetsmeldinger å rydde."
+
+#: src/uagent/util_tools.py:712
+#, python-format
+msgid "[skills] Cleared %(n)d skill message(s)."
+msgstr "[skills] Ryddet %(n)d ferdighetsmelding(er)."
+
+#: src/uagent/util_tools.py:735
+msgid "[skills] No active skills."
+msgstr "[skills] Ingen aktive ferdigheter."
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[skills] Active skills: %(n)d"
+msgstr "[skills] Aktive ferdigheter: %(n)d"
+
+#: src/uagent/util_tools.py:766
+msgid "[skills] No skills found."
+msgstr "[skills] Fant ingen ferdigheter."
+
+#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#, python-format
+msgid "[skills] Out of range: %(n)d"
+msgstr "[skills] Utenfor rekkevidde: %(n)d"
+
+#: src/uagent/util_tools.py:782
+#, python-format
+msgid "[skills] Found %(n)d skills"
+msgstr "[skills] Fant %(n)d ferdigheter"
+
 #: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1268,6 +1328,22 @@ msgstr ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
+
+#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+msgid "[skills] Cancelled."
+msgstr "[skills] Avbrutt."
+
+#: src/uagent/util_tools.py:809
+msgid "[skills] Please enter a number or c."
+msgstr "[skills] Skriv inn et tall eller c."
+
+#: src/uagent/util_tools.py:819
+msgid "[skills] Invalid selection."
+msgstr "[skills] Ugyldig valg."
+
+#: src/uagent/util_tools.py:825
+msgid "[skills] Selected skill has no path."
+msgstr "[skills] Den valgte ferdigheten har ingen sti."
 
 #: src/uagent/util_tools.py:829
 #, python-format
@@ -1286,24 +1362,154 @@ msgstr ""
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:937
+#: src/uagent/util_tools.py:869
+#, python-format
+msgid "[skills] Applied: %(name)s"
+msgstr "[skills] Brukt: %(name)s"
+
+#: src/uagent/util_tools.py:889
 #, python-format
 msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Ugyldig argument: %(arg)r (angi tall=terskel; standard er "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:906
+#, python-format
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean error] Klarte ikke å hente logglisten: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:923
+#, python-format
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr ""
+"[clean advarsel] Hoppet over (tolking feilet): %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:938
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean vil slette samtaleloggfiler (scheck_log_*.jsonl) fra disken.\n"
+"vil slette samtaleloggfiler (scheck_log_*.jsonl) fra disken.\n"
 "Loggmappe: %(dir)s\n"
-"Regel: totalt antall bruker-/assistent-/verktøymeldinger ekskl. system <= %(threshold)d\n"
+"Regel: totalt antall bruker-/assistent-/verktøymeldinger uten system <= %(threshold)d\n"
 "Mål: %(n)d\n"
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1181
+#: src/uagent/util_tools.py:953
+msgid "[clean] Cancelled."
+msgstr "[clean] Avbrutt."
+
+#: src/uagent/util_tools.py:958
+#, python-format
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean error] Bekreftelse feilet: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:974
+#, python-format
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean advarsel] Sletting feilet: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:992
+#, python-format
+msgid ""
+"[clean] No logs to delete (threshold=%(threshold)d).\n"
+"Log dir: %(dir)s"
+msgstr ""
+"[clean] Ingen logger å slette (terskel=%(threshold)d).\n"
+"Loggmappe: %(dir)s"
+
+#: src/uagent/util_tools.py:1001
+#, python-format
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] Logger å slette (<= %(threshold)d meldinger): %(n)d"
+
+#: src/uagent/util_tools.py:1015
+#, python-format
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr "[clean] Ferdig: slettet=%(deleted)d, mislyktes=%(failed)d"
+
+#: src/uagent/util_tools.py:1050
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"vil overskrive gjeldende sesjonsloggfil og legge den innlastede loggen først (uten sikkerhetskopi).\n"
+"\n"
+"Gjeldende logg: %(cur_log)s\n"
+"Kildelogg: %(src_log)s\n"
+"\n"
+"Fortsette? Skriv y for å kjøre, eller c for å avbryte."
+
+#: src/uagent/util_tools.py:1063
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] Det å legge til først i gjeldende logg ble avbrutt."
+
+#: src/uagent/util_tools.py:1072
+#, python-format
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load advarsel] Klarte ikke å lese kildeloggen: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1085
+#, python-format
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load advarsel] Klarte ikke å lese gjeldende logg: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1105
+#, python-format
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] La til først i gjeldende logg: %(path)s"
+
+#: src/uagent/util_tools.py:1108
+#, python-format
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+"[load advarsel] Klarte ikke å skrive om gjeldende logg: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1114
+#, python-format
+msgid "[load error] Failed: %(etype)s: %(err)s"
+msgstr "[load error] Mislyktes: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1127
+#, python-format
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm error] Klarte ikke å tolke argumentene: %(err)s"
+
+#: src/uagent/util_tools.py:1148
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Uventet forhåndsvisningssvar fra delete_file."
+
+#: src/uagent/util_tools.py:1152
+msgid "[rm] Preview failed."
+msgstr "[rm] Forhåndsvisning feilet."
+
+#: src/uagent/util_tools.py:1162
+msgid "[rm] No matching paths."
+msgstr "[rm] Ingen treffende stier."
+
+#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+msgid "[rm] Missing:"
+msgstr "[rm] Mangler:"
+
+#: src/uagent/util_tools.py:1169
+msgid "[rm] Candidates:"
+msgstr "[rm] Kandidater:"
+
+#: src/uagent/util_tools.py:1178
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1318,14 +1524,51 @@ msgstr ""
 "\n"
 "Skriv y for å fortsette, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1322
+#: src/uagent/util_tools.py:1185
+msgid "[rm] Cancelled."
+msgstr "[rm] Avbrutt."
+
+#: src/uagent/util_tools.py:1199
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Uventet svar fra delete_file."
+
+#: src/uagent/util_tools.py:1204
+#, python-format
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] Slettet %(count)d sti(er)."
+
+#: src/uagent/util_tools.py:1208
+msgid "[rm] Failed."
+msgstr "[rm] Mislyktes."
+
+#: src/uagent/util_tools.py:1233
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Angitt indeks %(idx)d er utenfor rekkevidde."
+
+#: src/uagent/util_tools.py:1242
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Loggfil ikke funnet: %(path)s"
+
+#: src/uagent/util_tools.py:1288
+#, python-format
+msgid "Loaded log: %(path)s"
+msgstr "Lastet logg: %(path)s"
+
+#: src/uagent/util_tools.py:1289
+#, python-format
+msgid "Conversation message count: %(n)d"
+msgstr "Antall meldinger i samtalen: %(n)d"
+
+#: src/uagent/util_tools.py:1319
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-feil] Klarte ikke å tolke som int: %(arg)r -> behold de siste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1333,7 +1576,30 @@ msgstr ""
 "[shrink_llm-feil] Klarte ikke å tolke som int: %(arg)r -> behold de siste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: src/uagent/util_tools.py:1369
+msgid "No long-term memory entries."
+msgstr "Ingen langtidsminneoppføringer."
+
+#: src/uagent/util_tools.py:1372
+msgid "Long-term memory entries:"
+msgstr "Langtidsminneoppføringer:"
+
+#: src/uagent/util_tools.py:1395
+#, python-format
+msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[mem-del error] Klarte ikke å tolke indeks som heltall: %(arg)r"
+
+#: src/uagent/util_tools.py:1400
+#, python-format
+msgid "Deleted long-term memory entry [%(idx)d]."
+msgstr "Slettet langtidsminneoppføring [%(idx)d]."
+
+#: src/uagent/util_tools.py:1402
+#, python-format
+msgid "[mem-del] Failed to delete index=%(idx)d."
+msgstr "[mem-del] Klarte ikke å slette indeks=%(idx)d."
+
+#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1341,7 +1607,163 @@ msgstr ""
 "Delt langtidsminne er ikke aktivert (UAGENT_SHARED_MEMORY_FILE er ikke "
 "satt)."
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1417
+msgid "No shared long-term memory entries."
+msgstr "Ingen delte langtidsminneoppføringer."
+
+#: src/uagent/util_tools.py:1422
+msgid "Shared long-term memory entries:"
+msgstr "Delte langtidsminneoppføringer:"
+
+#: src/uagent/util_tools.py:1452
+#, python-format
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+"[shared-mem-del error] Klarte ikke å tolke indeks som heltall: %(arg)r"
+
+#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#, python-format
+msgid "[shared-mem-del] Failed to delete index=%(idx)d."
+msgstr "[shared-mem-del] Klarte ikke å slette indeks=%(idx)d."
+
+#: src/uagent/util_tools.py:1475
+#, python-format
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1480
+#, python-format
+msgid "Deleted shared long-term memory entry [%(idx)d]."
+msgstr "Slettet delt langtidsminneoppføring [%(idx)d]."
+
+#: src/uagent/util_tools.py:1495
+msgid "Show this help"
+msgstr "Vis denne hjelpen"
+
+#: src/uagent/util_tools.py:1496
+msgid "Restart input from the beginning"
+msgstr "Start inndata på nytt fra begynnelsen"
+
+#: src/uagent/util_tools.py:1497
+msgid "Show log file list"
+msgstr "Vis loggfillisten"
+
+#: src/uagent/util_tools.py:1500
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Endre arbeidskatalog uten bekreftelse (f.eks. :cd .. / :cd ~ / :cd C:\\path "
+"/ :cd /)"
+
+#: src/uagent/util_tools.py:1503
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "List katalogoppføringer (f.eks. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1504
+msgid "List loaded tools"
+msgstr "Vis lastede verktøy"
+
+#: src/uagent/util_tools.py:1506
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Administrer/bruk ferdigheter (f.eks. :skills / :skills active / :skills "
+"clear)"
+
+#: src/uagent/util_tools.py:1508
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Last inn en tidligere logg (overskriver gjeldende samtalehistorikk)"
+
+#: src/uagent/util_tools.py:1510
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Merk: etter kjøring blir du bedt om bekreftelse; "
+"velger du 'y', legges den innlastede loggen først i gjeldende sesjonsloggfil"
+" (overskriving, uten sikkerhetskopi)."
+
+#: src/uagent/util_tools.py:1514
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Slett samtalelogger (scheck_log_*.jsonl) når antallet "
+"bruker-/assistent-/verktøymeldinger (uten system) er <= N (standard=10)"
+
+#: src/uagent/util_tools.py:1518
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Forkort samtalehistorikken (behold de siste N ikke-systemmeldingene; "
+"standard=40)"
+
+#: src/uagent/util_tools.py:1522
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Forkort historikken med LLM-oppsummering (oppsummer eldre historikk til 1 "
+"systemmelding; behold de siste N råmeldingene; standard=20)"
+
+#: src/uagent/util_tools.py:1524
+msgid "List long-term memory notes"
+msgstr "Vis langtidsminnenotater"
+
+#: src/uagent/util_tools.py:1526
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Slett et langtidsminnenotat etter indeks (se :mem-list)"
+
+#: src/uagent/util_tools.py:1528
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Slett fil(er)/katalog(er) med forhåndsvisning og bekreftelse"
+
+#: src/uagent/util_tools.py:1530
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr "Vis delte langtidsminnenotater (krever UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/util_tools.py:1532
+msgid "Delete a shared long-term memory note by index"
+msgstr "Slett et delt langtidsminnenotat etter indeks"
+
+#: src/uagent/util_tools.py:1534
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Sett resonneringsmodus (0=av, 1=lav, 2=middels, 3=høy; auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1536
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr "Sett detaljnivå (0=av, 1=lav, 2=middels, 3=høy; uten arg=behold)"
+
+#: src/uagent/util_tools.py:1537
+msgid "Exit"
+msgstr "Avslutt"
+
+#: src/uagent/util_tools.py:1540
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - Skriv en linje som bare er 'f' for å gå inn i flerslinjemodus."
+
+#: src/uagent/util_tools.py:1542
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - For å avslutte flerslinjemodus, skriv en linje som er nøyaktig "
+"%(sentinel)s."
+
+#: src/uagent/util_tools.py:1636
+msgid "Exiting."
+msgstr "Avslutter."
+
+#: src/uagent/util_tools.py:1639
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Ukjent kommando: :%(cmd)s"
+
+#: src/uagent/util_tools.py:1790
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1470,12 +1892,3 @@ msgstr "- \"Søk etter de siste nyhetene og oppsummer et bestemt tema.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Ukjent UAGENT_A2A_ENGINE: %(mode)s"
-
-#~ msgid "[SSL Info] certifi is not available"
-#~ msgstr "[SSL-info] certifi er ikke tilgjengelig"
-
-#~ msgid "[SSL Info] certifi.where() = %(path)s"
-#~ msgstr "[SSL-info] certifi.where() = %(path)s"
-
-#~ msgid "Opened image file with the default app."
-#~ msgstr "Bildefilen ble åpnet med standardappen."

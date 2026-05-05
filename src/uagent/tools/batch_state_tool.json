@@ -159,7 +159,7 @@
     "err.invalid_patch": "[batch_state error] patch doit être un objet JSON",
     "err.message_empty": "[batch_state error] le message est vide",
     "err.not_found": "[batch_state error] lot introuvable",
-    "err.exception": "[batch_state error] exception"
+    "err.exception": "Exception inattendue"
   },
   "hi": {
     "tool.description": "बहु-फ़ाइल कार्यों के लिए ~/.uag/batches/ में बैच की स्थिति को सहेजता और प्रबंधित करता है।",

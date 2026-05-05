@@ -140,17 +140,17 @@
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
-    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+    "err.invalid_args": "[tool error] ongeldige argumenten",
+    "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege tekenreeks zijn",
+    "param.skill_dir.description": "Skill-map (SKILL.md is direct eronder vereist)",
+    "tool.description": "Laadt de SKILL.md voor een Agent Skill en retourneert de YAML-frontmatter en de Markdown-body.",
     "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat."
   },
   "fi": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
-    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+    "err.invalid_args": "[työkaluvirhe] virheelliset аргументы",
+    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä merkkijono",
+    "param.skill_dir.description": "Skill-hakemisto (SKILL.md vaaditaan heti sen alla)",
+    "tool.description": "Lataa Agent Skillin SKILL.md-tiedoston ja palauttaa sen YAML-frontmatterin sekä Markdown-rungon.",
     "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen."
   },
   "cs": {

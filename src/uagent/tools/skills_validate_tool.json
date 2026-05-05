@@ -160,20 +160,20 @@
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
-    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
-    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "err.invalid_args": "[toolfout] ongeldige argumenten",
+    "err.skill_dir_required": "[toolfout] skill_dir moet een niet-lege tekenreeks zijn",
+    "param.skill_dir.description": "Skillmap (SKILL.md is direct eronder vereist)",
+    "param.strict.description": "Moeten waarschuwingen ook als fout worden behandeld? (standaard: false)",
+    "tool.description": "Valideert een skillmap (SKILL.md) volgens de Agent Skills-specificatie en geeft fouten en waarschuwingen terug.",
+    "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
   },
   "fi": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
-    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
-    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "err.invalid_args": "[työkaluvirhe] virheelliset аргументы",
+    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä merkkijono",
+    "param.skill_dir.description": "Skill-hakemisto (SKILL.md vaaditaan heti sen alla)",
+    "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisena? (oletus: false)",
+    "tool.description": "Validoi skill-hakemiston (SKILL.md) Agent Skills -määrityksen mukaisesti ja palauttaa virheet sekä varoitukset.",
+    "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
   "cs": {
     "err.invalid_args": "[chyba nástroje] neplatné argumenty",

@@ -8,12 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-01 11:05+0900\n"
+"POT-Creation-Date: 2026-05-05 17:47+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
@@ -42,24 +43,24 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git haijasakinishwa."
 
-#: src/uagent/cli.py:357
+#: src/uagent/cli.py:358
 msgid "getch() fallback to input()"
 msgstr "getch() inatumia input() kama mbadala"
 
-#: src/uagent/cli.py:556
+#: src/uagent/cli.py:557
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Uingizaji umeghairiwa (utatumwa kama jibu kwa human_ask)."
 
-#: src/uagent/cli.py:564
+#: src/uagent/cli.py:565
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Imepokea Ctrl+C. Inaanza kuzima..."
 
-#: src/uagent/cli.py:571
+#: src/uagent/cli.py:572
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Hitilafu isiyotazamiwa katika stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#: src/uagent/cli.py:598 src/uagent/cli.py:668
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -68,7 +69,7 @@ msgstr ""
 "(Hali ya ingizo la mistari mingi: andika maudhui katika mistari kadhaa; ili "
 "kuanza upya, andika \"\"\"retry; malizia kwa mstari unao na %(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
 #: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
 #: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
 #: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
@@ -78,15 +79,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Imeghairiwa."
 
-#: src/uagent/cli.py:633 src/uagent/cli.py:683
+#: src/uagent/cli.py:634 src/uagent/cli.py:684
 msgid "Discarded previous input. Please start over."
 msgstr "Ingizo la awali limeondolewa. Tafadhali anza upya."
 
-#: src/uagent/cli.py:644
+#: src/uagent/cli.py:645
 msgid "Received multiline reply."
 msgstr "Imepokea jibu la mistari mingi."
 
-#: src/uagent/cli.py:796
+#: src/uagent/cli.py:805
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -96,11 +97,11 @@ msgstr ""
 "Je, ungependa kutuma picha hizi kwa LLM (API ya nje) kwa uchambuzi?\n"
 "\n"
 
-#: src/uagent/cli.py:802
+#: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Jibu kwa y kutuma, au n (au c/cancel) kuruka kutuma."
 
-#: src/uagent/cli.py:817
+#: src/uagent/cli.py:826
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -108,17 +109,17 @@ msgstr ""
 "Uthibitisho wa kutuma picha umeshindwa; picha hazitatumwa: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Imeshindwa kuambatisha picha: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:882
+#: src/uagent/cli.py:891
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tukio lisilojulikana kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:896
+#: src/uagent/cli.py:909
 msgid "Exited uag."
 msgstr "Uag imeondoka."
 
@@ -136,23 +137,23 @@ msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
 #: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "Mtoa huduma wa LLM = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
 #: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "modeli(uwekaji) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
 msgid "OpenRouter fallback models enabled."
 msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
 #: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -171,21 +172,21 @@ msgstr ""
 "haitumii Responses API. Inarudi ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "Hali ya API ya LLM = ChatCompletions (UAGENT_RESPONSES imezimwa)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
 #: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Hali ya API ya LLM = Responses (UAGENT_RESPONSES imewezeshwa)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
 #: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Kumbukumbu ya muda mrefu imepakiwa."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
 #: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
@@ -484,7 +485,7 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:149
+#: src/uagent/llm_message_helpers.py:147
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[ONYO] Kupunguza shrink_llm kiotomatiki kumeshindwa: %(err)s"
@@ -506,31 +507,31 @@ msgstr ""
 "        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:111
+#: src/uagent/llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Hitilafu ya Tafsiri] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
-#: src/uagent/llm_round_helpers.py:595
+#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
+#: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Kikomo cha majaribio ya 429 kimefikiwa (%(max_retries)s)."
 
-#: src/uagent/llm_round_helpers.py:193
+#: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Hitilafu ya Gemini] Hitilafu imetokea wakati wa kutengeneza jibu."
 
-#: src/uagent/llm_round_helpers.py:285
+#: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Hitilafu ya Claude] Hitilafu imetokea wakati wa kutengeneza jibu."
 
-#: src/uagent/llm_round_helpers.py:679
+#: src/uagent/llm_round_helpers.py:700
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
 #: src/uagent/web.py:621
 #, python-format
 msgid ""
@@ -560,108 +561,108 @@ msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
 
-#: src/uagent/scheckgui.py:115
+#: src/uagent/scheckgui.py:116
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "ここにファイル/画像をドラッグ＆ドロップ"
 
-#: src/uagent/scheckgui.py:153
+#: src/uagent/scheckgui.py:154
 msgid "Download"
 msgstr "Pakua"
 
-#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya pamoja: "
 "%(err)s"
 
-#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
+#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
 msgid "Welcome / Quick Guide"
 msgstr "Karibu / Mwongozo wa Haraka"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:615
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Uthabiti wa Juu)"
 
-#: src/uagent/scheckgui.py:651
+#: src/uagent/scheckgui.py:658
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ Drag&Dropで添付できます"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:679
 msgid "Send"
 msgstr "Tuma"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:719
 msgid "Help"
 msgstr "Msaada"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:734
 msgid "Mode"
 msgstr "Hali"
 
-#: src/uagent/scheckgui.py:729
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: off"
 msgstr "Ufikiri: umezimwa"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:739
 msgid "Reasoning: auto"
 msgstr "Ufikiri: otomatiki"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: minimal"
 msgstr "Ufikiri: kidogo"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: low"
 msgstr "Ufikiri: chini"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: medium"
 msgstr "Ufikiri: kati"
 
-#: src/uagent/scheckgui.py:740
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: high"
 msgstr "Ufikiri: juu"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:750
 msgid "Reasoning: xhigh"
 msgstr "Ufikiri: juu sana"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:755
 msgid "Verbosity: off"
 msgstr "Kiwango cha maelezo: kimezimwa"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:757
 msgid "Verbosity: low"
 msgstr "Kiwango cha maelezo: chini"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:759
 msgid "Verbosity: medium"
 msgstr "Kiwango cha maelezo: kati"
 
-#: src/uagent/scheckgui.py:754
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: high"
 msgstr "Kiwango cha maelezo: juu"
 
-#: src/uagent/scheckgui.py:784
+#: src/uagent/scheckgui.py:791
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
-#: src/uagent/scheckgui.py:910
+#: src/uagent/scheckgui.py:917
 msgid "Enter password..."
 msgstr "Weka nenosiri..."
 
-#: src/uagent/scheckgui.py:912
+#: src/uagent/scheckgui.py:919
 msgid "Enter response for human_ask..."
 msgstr "Weka jibu kwa human_ask..."
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:924
 msgid "Enter a message..."
 msgstr "Weka ujumbe..."
 
-#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
-#: src/uagent/scheckgui.py:1305
+#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
+#: src/uagent/scheckgui.py:1312
 msgid "Downloaded to"
 msgstr "Imepakuliwa hadi"
 
@@ -1216,7 +1217,7 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:408
+#: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ONYO] Mizunguko ya zana imezidi %(max)d; inasitisha."
@@ -1250,6 +1251,35 @@ msgstr ""
 "Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
 "faili ya kuanzisha (kama ipo)."
 
+#: src/uagent/util_tools.py:404
+#, python-format
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] Saraka haipo: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:445
+#, python-format
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] Hakuna njia zinazolingana: %(src)s -> %(expanded)s"
+
+#: src/uagent/util_tools.py:480
+#, python-format
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] Saraka haipo: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:528
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] Hoja batili: %(arg)r (taja all / --all / -a / namba)"
+
+#: src/uagent/util_tools.py:543
+msgid "[tools] No tools loaded."
+msgstr "[tools] Hakuna zana zilizopakiwa."
+
+#: src/uagent/util_tools.py:546
+#, python-format
+msgid "[tools] Loaded %(n)d tools"
+msgstr "[tools] Zana %(n)d zimepakiwa"
+
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
@@ -1266,6 +1296,38 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Unapomaliza, kila mara piga `finish_skill` ikiwa ipo.\n"
 
+#: src/uagent/util_tools.py:709
+msgid "[skills] No active skill messages to clear."
+msgstr "[skills] Hakuna ujumbe wa ujuzi hai wa kufuta."
+
+#: src/uagent/util_tools.py:712
+#, python-format
+msgid "[skills] Cleared %(n)d skill message(s)."
+msgstr "[skills] Ujumbe wa ujuzi %(n)d umefutwa."
+
+#: src/uagent/util_tools.py:735
+msgid "[skills] No active skills."
+msgstr "[skills] Hakuna ujuzi hai."
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[skills] Active skills: %(n)d"
+msgstr "[skills] Ujuzi hai: %(n)d"
+
+#: src/uagent/util_tools.py:766
+msgid "[skills] No skills found."
+msgstr "[skills] Hakuna ujuzi uliopatikana."
+
+#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#, python-format
+msgid "[skills] Out of range: %(n)d"
+msgstr "[skills] Nje ya wigo: %(n)d"
+
+#: src/uagent/util_tools.py:782
+#, python-format
+msgid "[skills] Found %(n)d skills"
+msgstr "[skills] Ujuzi %(n)d umepatikana"
+
 #: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1275,6 +1337,22 @@ msgstr ""
 "Chagua namba ya ujuzi wa kuendesha. Weka c ili kughairi.\n"
 "Kidokezo: :skills clear  (ondoa ujuzi uliotumika)\n"
 "Weka namba:"
+
+#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+msgid "[skills] Cancelled."
+msgstr "[skills] Imeghairiwa."
+
+#: src/uagent/util_tools.py:809
+msgid "[skills] Please enter a number or c."
+msgstr "[skills] Tafadhali ingiza namba au c."
+
+#: src/uagent/util_tools.py:819
+msgid "[skills] Invalid selection."
+msgstr "[skills] Uteuzi batili."
+
+#: src/uagent/util_tools.py:825
+msgid "[skills] Selected skill has no path."
+msgstr "[skills] Ujuzi ulioteuliwa hauna njia."
 
 #: src/uagent/util_tools.py:829
 #, python-format
@@ -1293,24 +1371,154 @@ msgstr ""
 "\n"
 "Endelea? Weka y ili kuendesha, au c ili kughairi."
 
-#: src/uagent/util_tools.py:937
+#: src/uagent/util_tools.py:869
+#, python-format
+msgid "[skills] Applied: %(name)s"
+msgstr "[skills] Imetumika: %(name)s"
+
+#: src/uagent/util_tools.py:889
 #, python-format
 msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Hoja batili: %(arg)r (taja number=threshold; chaguo-msingi ni "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:906
+#, python-format
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean error] Imeshindwa kupata orodha ya logi: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:923
+#, python-format
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr ""
+"[clean warn] Imepuuzwa (uchambuzi umeshindwa): %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:938
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean itafuta faili za logi za mazungumzo (scheck_log_*.jsonl) kutoka diski.\n"
+"itafuta faili za logi za mazungumzo (scheck_log_*.jsonl) kutoka diski.\n"
 "Saraka ya logi: %(dir)s\n"
-"Kanuni: jumla ya ujumbe wa mtumiaji/msaidizi/zana bila mfumo <= %(threshold)d\n"
+"Sheria: jumla ya ujumbe wa mtumiaji/msaidizi/zana bila mfumo <= %(threshold)d\n"
 "Lengo: %(n)d\n"
 "\n"
-"Endelea? Weka y ili kuendesha, au c ili kughairi."
+"Kuendelea? Weka y ili kuendesha, au c kughairi."
 
-#: src/uagent/util_tools.py:1181
+#: src/uagent/util_tools.py:953
+msgid "[clean] Cancelled."
+msgstr "[clean] Imeghairiwa."
+
+#: src/uagent/util_tools.py:958
+#, python-format
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean error] Uthibitisho umeshindwa: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:974
+#, python-format
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] Kufuta kumeshindwa: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:992
+#, python-format
+msgid ""
+"[clean] No logs to delete (threshold=%(threshold)d).\n"
+"Log dir: %(dir)s"
+msgstr ""
+"[clean] Hakuna logi za kufuta (threshold=%(threshold)d).\n"
+"Saraka ya logi: %(dir)s"
+
+#: src/uagent/util_tools.py:1001
+#, python-format
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] Logi za kufuta (<= %(threshold)d ujumbe): %(n)d"
+
+#: src/uagent/util_tools.py:1015
+#, python-format
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr ""
+"[clean] Imekamilika: zilizofutwa=%(deleted)d, zilizoshindwa=%(failed)d"
+
+#: src/uagent/util_tools.py:1050
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"itaandika upya faili ya logi ya kipindi cha sasa na kuweka logi iliyopakiwa mwanzo (hakuna chelezo).\n"
+"\n"
+"Logi ya sasa: %(cur_log)s\n"
+"Logi chanzo: %(src_log)s\n"
+"\n"
+"Kuendelea? Weka y ili kuendesha, au c kughairi."
+
+#: src/uagent/util_tools.py:1063
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] Uwekaji wa mwanzo wa logi ya sasa umeghairiwa."
+
+#: src/uagent/util_tools.py:1072
+#, python-format
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load warn] Imeshindwa kusoma logi chanzo: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1085
+#, python-format
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load warn] Imeshindwa kusoma logi ya sasa: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1105
+#, python-format
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] Imeongezwa mwanzo wa logi ya sasa: %(path)s"
+
+#: src/uagent/util_tools.py:1108
+#, python-format
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[load warn] Imeshindwa kuandika upya logi ya sasa: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1114
+#, python-format
+msgid "[load error] Failed: %(etype)s: %(err)s"
+msgstr "[load error] Imeshindwa: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1127
+#, python-format
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm error] Imeshindwa kuchanganua hoja: %(err)s"
+
+#: src/uagent/util_tools.py:1148
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Jibu lisilotarajiwa kutoka kwa onyesho la awali la delete_file."
+
+#: src/uagent/util_tools.py:1152
+msgid "[rm] Preview failed."
+msgstr "[rm] Onyesho la awali limeshindwa."
+
+#: src/uagent/util_tools.py:1162
+msgid "[rm] No matching paths."
+msgstr "[rm] Hakuna njia zinazolingana."
+
+#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+msgid "[rm] Missing:"
+msgstr "[rm] Zisizopo:"
+
+#: src/uagent/util_tools.py:1169
+msgid "[rm] Candidates:"
+msgstr "[rm] Wagombea:"
+
+#: src/uagent/util_tools.py:1178
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1325,14 +1533,51 @@ msgstr ""
 "\n"
 "Weka y ili kuendelea, au c ili kughairi."
 
-#: src/uagent/util_tools.py:1322
+#: src/uagent/util_tools.py:1185
+msgid "[rm] Cancelled."
+msgstr "[rm] Imeghairiwa."
+
+#: src/uagent/util_tools.py:1199
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Jibu lisilotarajiwa kutoka delete_file."
+
+#: src/uagent/util_tools.py:1204
+#, python-format
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] Njia %(count)d zimefutwa."
+
+#: src/uagent/util_tools.py:1208
+msgid "[rm] Failed."
+msgstr "[rm] Imeshindwa."
+
+#: src/uagent/util_tools.py:1233
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Faharisi iliyoainishwa %(idx)d iko nje ya wigo."
+
+#: src/uagent/util_tools.py:1242
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Faili ya logi haikupatikana: %(path)s"
+
+#: src/uagent/util_tools.py:1288
+#, python-format
+msgid "Loaded log: %(path)s"
+msgstr "Logi iliyopakiwa: %(path)s"
+
+#: src/uagent/util_tools.py:1289
+#, python-format
+msgid "Conversation message count: %(n)d"
+msgstr "Idadi ya ujumbe wa mazungumzo: %(n)d"
+
+#: src/uagent/util_tools.py:1319
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi ya "
 "mwisho %(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1340,7 +1585,30 @@ msgstr ""
 "[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi"
 " ya mwisho %(keep)d"
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: src/uagent/util_tools.py:1369
+msgid "No long-term memory entries."
+msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu."
+
+#: src/uagent/util_tools.py:1372
+msgid "Long-term memory entries:"
+msgstr "Maingizo ya kumbukumbu ya muda mrefu:"
+
+#: src/uagent/util_tools.py:1395
+#, python-format
+msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[mem-del error] Imeshindwa kuchanganua index kuwa int: %(arg)r"
+
+#: src/uagent/util_tools.py:1400
+#, python-format
+msgid "Deleted long-term memory entry [%(idx)d]."
+msgstr "Ingizo la kumbukumbu ya muda mrefu [%(idx)d] limefutwa."
+
+#: src/uagent/util_tools.py:1402
+#, python-format
+msgid "[mem-del] Failed to delete index=%(idx)d."
+msgstr "[mem-del] Imeshindwa kufuta index=%(idx)d."
+
+#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1348,7 +1616,167 @@ msgstr ""
 "Kumbukumbu ya muda mrefu ya pamoja haijawezeshwa (UAGENT_SHARED_MEMORY_FILE "
 "haijawekwa)."
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1417
+msgid "No shared long-term memory entries."
+msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu ya pamoja."
+
+#: src/uagent/util_tools.py:1422
+msgid "Shared long-term memory entries:"
+msgstr "Maingizo ya kumbukumbu ya muda mrefu ya pamoja:"
+
+#: src/uagent/util_tools.py:1452
+#, python-format
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[shared-mem-del error] Imeshindwa kuchanganua index kuwa int: %(arg)r"
+
+#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#, python-format
+msgid "[shared-mem-del] Failed to delete index=%(idx)d."
+msgstr "[shared-mem-del] Imeshindwa kufuta index=%(idx)d."
+
+#: src/uagent/util_tools.py:1475
+#, python-format
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1480
+#, python-format
+msgid "Deleted shared long-term memory entry [%(idx)d]."
+msgstr "Ingizo la kumbukumbu ya muda mrefu ya pamoja [%(idx)d] limefutwa."
+
+#: src/uagent/util_tools.py:1495
+msgid "Show this help"
+msgstr "Onyesha msaada huu"
+
+#: src/uagent/util_tools.py:1496
+msgid "Restart input from the beginning"
+msgstr "Anza upya ingizo kutoka mwanzo"
+
+#: src/uagent/util_tools.py:1497
+msgid "Show log file list"
+msgstr "Onyesha orodha ya faili za logi"
+
+#: src/uagent/util_tools.py:1500
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Badilisha saraka ya kazi bila uthibitisho (mf. :cd .. / :cd ~ / :cd C:\\path"
+" / :cd /)"
+
+#: src/uagent/util_tools.py:1503
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Orodhesha maingizo ya saraka (mf. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1504
+msgid "List loaded tools"
+msgstr "Orodhesha zana zilizopakiwa"
+
+#: src/uagent/util_tools.py:1506
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr "Dhibiti/tumia ujuzi (mf. :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1508
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Pakia logi ya awali (itaandika upya historia ya mazungumzo ya sasa)"
+
+#: src/uagent/util_tools.py:1510
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Kumbuka: baada ya kuendesha, utaombwa uthibitisho; "
+"ukichagua 'y', logi iliyopakiwa itawekwa mwanzo wa faili ya logi ya kipindi "
+"cha sasa (itaandika upya, bila chelezo)."
+
+#: src/uagent/util_tools.py:1514
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Futa logi za mazungumzo (scheck_log_*.jsonl) ambapo idadi ya ujumbe wa "
+"mtumiaji/msaidizi/zana (bila system) ni <= N (chaguo-msingi=10)"
+
+#: src/uagent/util_tools.py:1518
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Punguza historia ya mazungumzo (hifadhi ujumbe wa mwisho N usio wa system; "
+"chaguo-msingi=40)"
+
+#: src/uagent/util_tools.py:1522
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Punguza historia kwa muhtasari wa LLM (fanya muhtasari wa historia ya zamani"
+" kuwa ujumbe 1 wa system; hifadhi N za mwisho bila kuchakatwa; chaguo-"
+"msingi=20)"
+
+#: src/uagent/util_tools.py:1524
+msgid "List long-term memory notes"
+msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
+
+#: src/uagent/util_tools.py:1526
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
+
+#: src/uagent/util_tools.py:1528
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Futa faili/saraka kwa onyesho la awali + uthibitisho"
+
+#: src/uagent/util_tools.py:1530
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"Orodhesha madokezo ya kumbukumbu ya muda mrefu ya pamoja (inahitaji "
+"UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/util_tools.py:1532
+msgid "Delete a shared long-term memory note by index"
+msgstr "Futa dokezo la kumbukumbu ya muda mrefu ya pamoja kwa index"
+
+#: src/uagent/util_tools.py:1534
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Weka hali ya hoja (0=zimwa, 1=chini, 2=wastani, 3=juu; auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1536
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Weka hali ya urefu wa maelezo (0=zimwa, 1=chini, 2=wastani, 3=juu; bila "
+"hoja=endelea)"
+
+#: src/uagent/util_tools.py:1537
+msgid "Exit"
+msgstr "Toka"
+
+#: src/uagent/util_tools.py:1540
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Weka mstari ambao ni tu 'f' ili kuingia katika hali ya kuingiza mistari "
+"mingi."
+
+#: src/uagent/util_tools.py:1542
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Ili kumaliza hali ya kuingiza mistari mingi, weka mstari unaolingana "
+"kabisa na %(sentinel)s."
+
+#: src/uagent/util_tools.py:1636
+msgid "Exiting."
+msgstr "Inatoka."
+
+#: src/uagent/util_tools.py:1639
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Amri isiyojulikana: :%(cmd)s"
+
+#: src/uagent/util_tools.py:1790
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

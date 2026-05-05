@@ -680,7 +680,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                 opened_any = True
         if opened_any:
             print(
-                "[INFO] Opened image file with the default app.",
+                _msg(
+                    "log.opened_default_app",
+                    "[INFO] Opened image file with the default app.",
+                ),
                 file=sys.stderr,
             )
 
