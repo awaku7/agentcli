@@ -70,9 +70,9 @@ Each provider requires specific variables. You can override the default model us
 Enables automatic translation of user inputs and LLM responses.
 
 - `UAGENT_TRANSLATE_PROVIDER`: Translation engine.
-    - `argos`: Local translation using [Argos Translate](https://github.com/argosopentech/argos-translate) (Requires `pip install argostranslate`).
-    - `openai`, `azure`, `openrouter`, `openai_compat`: Any OpenAI-compatible API.
-    - *Note: Native Gemini/Claude are not supported for translation yet.*
+    - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI-compatible API を使う翻訳。
+    - `gemini`: Google Gemini を使う翻訳。
+    - `claude`: Anthropic Claude を使う翻訳。
 - `UAGENT_TRANSLATE_TO_LLM`: Target language for user inputs (e.g., `en`). Input is skipped if it already looks like English.
 - `UAGENT_TRANSLATE_FROM_LLM`: Target language for LLM responses (e.g., `ja`).
 - `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation (Required for API providers).

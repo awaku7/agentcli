@@ -16,7 +16,7 @@
 8. `src/uagent/web.py`
 9. `src/uagent/core.py`
 10. `src/uagent/tools/`
-11. `README.md` / `README.ja.md`
+11. `README.md` / `docs/README.ja.md`
 12. `src/uagent/docs/DEVELOP.md` / `src/uagent/docs/DEVELOP.ja.md`
 13. `src/uagent/docs/RUNTIME_INIT.md` / `src/uagent/docs/RUNTIME_INIT.ja.md`
 
