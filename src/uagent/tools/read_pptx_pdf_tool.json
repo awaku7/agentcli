@@ -180,21 +180,21 @@
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   },
   "nl": {
-    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
-    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
-    "param.path.description": "Path to a PDF / PPTX / JSON file.",
+    "param.max_chars.description": "Maximaal aantal tekens om terug te geven. Indien weggelaten, wordt afgekapt op 8000 tekens.",
+    "param.page_index.description": "Paginanummer vanaf 1 (PDF-pagina of PPTX-dia-index). Indien weggelaten, wordt de samengevoegde tekst van alle pagina’s teruggegeven.",
+    "param.path.description": "Pad naar een PDF / PPTX / JSON-bestand.",
     "tool.description": "Leest PDF/PPTX (of het gemeenschappelijke JSON-schema) en geeft de geëxtraheerde tekst per pagina terug. U kunt het pad instellen op .pdf / .pptx / .json. Voor PDF/PPTX zet deze module dit om naar het gemeenschappelijke JSON-schema.",
     "tool.system_prompt": "BELANGRIJK: deze tool leest PDF/PPTX/JSON en geeft tekst op paginaniveau terug. Invoer: path, page_index, max_chars. Uitvoer: tekst van de pagina (alle pagina’s of de opgegeven pagina).",
-    "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "param.password.description": "Optioneel wachtwoord voor versleutelde PDF/PPTX-bestanden. Als dit wordt weggelaten en de invoer versleuteld is, wordt u één keer om een wachtwoord gevraagd.",
     "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
   },
   "fi": {
-    "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
-    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
+    "param.max_chars.description": "Palautettavien merkkien enimmäismäärä. Jos jätetään pois, tulos katkaistaan 8000 merkkiin.",
+    "param.page_index.description": "1:stä alkava sivunumero (PDF-sivu tai PPTX-dian indeksi). Jos jätetään pois, palautetaan kaikkien sivujen yhdistetty teksti.",
     "param.path.description": "Polku PDF-/PPTX-/JSON-tiedostoon.",
     "tool.description": "Lukee PDF/PPTX-tiedoston (tai niiden yhteisen JSON-skeeman) ja palauttaa sivukohtaisesti puretun tekstin. Poluksi voi antaa .pdf / .pptx / .json. PDF/PPTX muunnetaan yhteiseen JSON-skeemaan.",
     "tool.system_prompt": "TÄRKEÄÄ: tämä työkalu lukee PDF/PPTX/JSON-tiedostoja ja palauttaa tekstin sivukohtaisesti. Syöte: path, page_index, max_chars. Tuloste: sivun teksti (kaikki sivut tai annettu sivu).",
-    "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "param.password.description": "Valinnainen salasana salatuille PDF/PPTX-tiedostoille. Jos se jätetään pois ja syöte on salattu, sinulta kysytään salasana kerran.",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
   "cs": {

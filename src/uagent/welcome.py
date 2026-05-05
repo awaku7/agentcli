@@ -33,7 +33,7 @@ def get_mcp_servers_summary():
         if not servers:
             return _("[MCP Servers]\n- No servers registered.")
 
-        lines = [_(["[MCP Servers]"][0])]
+        lines = [_("[MCP Servers]")]
         for s in servers:
             name = s.get("name", "unknown")
             transport = s.get("transport", "stdio")

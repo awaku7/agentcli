@@ -447,7 +447,7 @@ def stdin_loop() -> None:
                     pass
 
                 # 応答直後の出力競合を避けるため、短い安定化待ち
-                time.sleep(0.05)
+                time.sleep(0.1)
 
                 try:
                     if not is_reply:
@@ -455,7 +455,7 @@ def stdin_loop() -> None:
                             if core.human_ask_active:
                                 continue
                         if getattr(core, "status_busy", False):
-                            time.sleep(0.05)
+                            time.sleep(0.1)
                             continue
 
                     lock = getattr(core, "print_lock", None)
@@ -516,7 +516,7 @@ def stdin_loop() -> None:
                                     if line == "":
                                         raise EOFError
                                     break
-                                time.sleep(0.05)
+                                time.sleep(0.1)
                         except EOFError:
                             raise
                         except Exception:
@@ -612,7 +612,7 @@ def stdin_loop() -> None:
                         with core.human_ask_lock:
                             if not core.human_ask_active:
                                 break
-                        time.sleep(0.01)
+                        time.sleep(0.03)
                     # NOTE: Do not print acknowledgement here. It can interleave with subsequent human_ask prompts
                     # and confuse the user when multiple human_ask calls happen back-to-back.
                     should_wait_completion = True

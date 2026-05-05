@@ -37,7 +37,7 @@
     "param.interval_ms.description": "Remplacer l’intervalle d’interrogation (ms).",
     "param.timeout_s.description": "Remplacer le délai d’expiration (secondes).",
     "err.missing_task_id": "'task_id' est manquant.",
-    "err.exception": "Exception"
+    "err.exception": "Exception inattendue"
   },
   "ko": {
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다.",
