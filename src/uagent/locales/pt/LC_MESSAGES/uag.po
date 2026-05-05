@@ -2,14 +2,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-01 11:05+0900\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-05-05 17:47+0900\n"
 "PO-Revision-Date: 2026-04-24 11:12+0900\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
@@ -39,24 +39,24 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERRO] O Git não está instalado."
 
-#: src/uagent/cli.py:357
+#: src/uagent/cli.py:358
 msgid "getch() fallback to input()"
 msgstr "getch() usa input() como alternativa"
 
-#: src/uagent/cli.py:556
+#: src/uagent/cli.py:557
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Entrada cancelada (será enviada como resposta ao human_ask)."
 
-#: src/uagent/cli.py:564
+#: src/uagent/cli.py:565
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C recebido. Iniciando o desligamento..."
 
-#: src/uagent/cli.py:571
+#: src/uagent/cli.py:572
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Erro inesperado em stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#: src/uagent/cli.py:598 src/uagent/cli.py:668
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -66,7 +66,7 @@ msgstr ""
 "reiniciar, digite \"\"\"retry; termine com uma linha que contenha "
 "%(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
 #: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
 #: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
 #: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
@@ -76,15 +76,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Cancelado."
 
-#: src/uagent/cli.py:633 src/uagent/cli.py:683
+#: src/uagent/cli.py:634 src/uagent/cli.py:684
 msgid "Discarded previous input. Please start over."
 msgstr "Entrada anterior descartada. Comece novamente."
 
-#: src/uagent/cli.py:644
+#: src/uagent/cli.py:645
 msgid "Received multiline reply."
 msgstr "Resposta multilinha recebida."
 
-#: src/uagent/cli.py:796
+#: src/uagent/cli.py:805
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -94,11 +94,11 @@ msgstr ""
 "Deseja enviar essas imagens ao LLM (API externa) para análise?\n"
 "\n"
 
-#: src/uagent/cli.py:802
+#: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Responda com y para enviar ou n (ou c/cancel) para ignorar o envio."
 
-#: src/uagent/cli.py:817
+#: src/uagent/cli.py:826
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -106,17 +106,17 @@ msgstr ""
 "Falha na confirmação do envio das imagens; elas não serão enviadas: "
 "%(etype)s: %(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Falha ao anexar imagem: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:882
+#: src/uagent/cli.py:891
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tipo de evento desconhecido kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:896
+#: src/uagent/cli.py:909
 msgid "Exited uag."
 msgstr "uag encerrado."
 
@@ -134,23 +134,23 @@ msgstr "[FATAL] Falha ao definir o diretório de trabalho: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Falha ao iniciar uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
 #: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "Provedor de LLM = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
 #: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "modelo/implantação = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
 msgid "OpenRouter fallback models enabled."
 msgstr "Modelos de fallback do OpenRouter ativados."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
 #: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -167,21 +167,21 @@ msgstr ""
 "suporta a Responses API. Voltando para ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "Modo da API LLM = ChatCompletions (UAGENT_RESPONSES desativado)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
 #: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Modo da API LLM = Responses (UAGENT_RESPONSES ativado)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
 #: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Memória de longo prazo carregada."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
 #: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Memória compartilhada de longo prazo carregada."
@@ -479,7 +479,7 @@ msgstr ""
 "tentativa=%(attempt)s/%(max_retries)s espera=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:149
+#: src/uagent/llm_message_helpers.py:147
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[AVISO] Falha ao executar shrink_llm automaticamente: %(err)s"
@@ -501,31 +501,31 @@ msgstr ""
 "        - Se você não tiver um parâmetro obrigatório, pergunte ao usuário usando human_ask em vez de adivinhar.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:111
+#: src/uagent/llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Erro de tradução] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
-#: src/uagent/llm_round_helpers.py:595
+#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
+#: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Limite de tentativas 429 (%(max_retries)s) atingido."
 
-#: src/uagent/llm_round_helpers.py:193
+#: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Erro do Gemini] Ocorreu um erro ao gerar uma resposta."
 
-#: src/uagent/llm_round_helpers.py:285
+#: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Erro do Claude] Ocorreu um erro ao gerar uma resposta."
 
-#: src/uagent/llm_round_helpers.py:679
+#: src/uagent/llm_round_helpers.py:700
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Erro ao analisar a resposta: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
 #: src/uagent/web.py:621
 #, python-format
 msgid ""
@@ -556,108 +556,108 @@ msgid "Specified workdir path is a file: %(path)s"
 msgstr ""
 "O caminho do diretório de trabalho especificado é um arquivo: %(path)s"
 
-#: src/uagent/scheckgui.py:115
+#: src/uagent/scheckgui.py:116
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
-msgstr ""
+msgstr "Arraste e solte arquivos/imagens aqui"
 
-#: src/uagent/scheckgui.py:153
+#: src/uagent/scheckgui.py:154
 msgid "Download"
 msgstr "Baixar"
 
-#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Ocorreu uma exceção ao carregar a memória compartilhada de longo prazo: "
 "%(err)s"
 
-#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
+#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
 msgid "Welcome / Quick Guide"
 msgstr "Bem-vindo / Guia rápido"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:615
 msgid "uag GUI (Extreme Stability)"
 msgstr "GUI do uag (estabilidade extrema)"
 
-#: src/uagent/scheckgui.py:651
+#: src/uagent/scheckgui.py:658
 msgid "↑ Drag&Dropで添付できます"
-msgstr ""
+msgstr "↑ Você pode anexar arrastando e soltando"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:679
 msgid "Send"
 msgstr "Enviar"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:719
 msgid "Help"
 msgstr "Ajuda"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:734
 msgid "Mode"
 msgstr "Modo"
 
-#: src/uagent/scheckgui.py:729
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: off"
 msgstr "Raciocínio: desativado"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:739
 msgid "Reasoning: auto"
 msgstr "Raciocínio: automático"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: minimal"
 msgstr "Raciocínio: mínimo"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: low"
 msgstr "Raciocínio: baixo"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: medium"
 msgstr "Raciocínio: médio"
 
-#: src/uagent/scheckgui.py:740
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: high"
 msgstr "Raciocínio: alto"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:750
 msgid "Reasoning: xhigh"
 msgstr "Raciocínio: muito alto"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:755
 msgid "Verbosity: off"
 msgstr "Verbosidade: desativada"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:757
 msgid "Verbosity: low"
 msgstr "Verbosidade: baixa"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:759
 msgid "Verbosity: medium"
 msgstr "Verbosidade: média"
 
-#: src/uagent/scheckgui.py:754
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: high"
 msgstr "Verbosidade: alta"
 
-#: src/uagent/scheckgui.py:784
+#: src/uagent/scheckgui.py:791
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[modo] raciocínio=%(mode)s"
 
-#: src/uagent/scheckgui.py:910
+#: src/uagent/scheckgui.py:917
 msgid "Enter password..."
 msgstr "Digite a senha..."
 
-#: src/uagent/scheckgui.py:912
+#: src/uagent/scheckgui.py:919
 msgid "Enter response for human_ask..."
 msgstr "Digite a resposta para human_ask..."
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:924
 msgid "Enter a message..."
 msgstr "Digite uma mensagem..."
 
-#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
-#: src/uagent/scheckgui.py:1305
+#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
+#: src/uagent/scheckgui.py:1312
 msgid "Downloaded to"
 msgstr "Baixado para"
 
@@ -941,9 +941,8 @@ msgid "%(label)s"
 msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:511
-#, fuzzy
 msgid "Enable image generation debug output? (0/1)"
-msgstr "Selecionar provedor de geração de imagens"
+msgstr "Habilitar saída de depuração da geração de imagens? (0/1)"
 
 #: src/uagent/setup_cli.py:526
 msgid "Configure optional image / embedding settings?"
@@ -1215,7 +1214,7 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:408
+#: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr ""
@@ -1250,6 +1249,36 @@ msgstr ""
 "Modo não interativo. Não inicie o loop de stdin; saia após processar o "
 "arquivo de inicialização (se houver)."
 
+#: src/uagent/util_tools.py:404
+#, python-format
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] O diretório não existe: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:445
+#, python-format
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] Nenhum caminho correspondente: %(src)s -> %(expanded)s"
+
+#: src/uagent/util_tools.py:480
+#, python-format
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] O diretório não existe: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:528
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[logs] Argumento inválido: %(arg)r (especifique all / --all / -a / número)"
+
+#: src/uagent/util_tools.py:543
+msgid "[tools] No tools loaded."
+msgstr "[tools] Nenhuma ferramenta carregada."
+
+#: src/uagent/util_tools.py:546
+#, python-format
+msgid "[tools] Loaded %(n)d tools"
+msgstr "[tools] %(n)d ferramentas carregadas"
+
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
@@ -1266,6 +1295,38 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Ao terminar, sempre chame `finish_skill` se estiver disponível.\n"
 
+#: src/uagent/util_tools.py:709
+msgid "[skills] No active skill messages to clear."
+msgstr "[skills] Nenhuma mensagem de skill ativa para limpar."
+
+#: src/uagent/util_tools.py:712
+#, python-format
+msgid "[skills] Cleared %(n)d skill message(s)."
+msgstr "[skills] %(n)d mensagem(ns) de skill limpas."
+
+#: src/uagent/util_tools.py:735
+msgid "[skills] No active skills."
+msgstr "[skills] Nenhuma skill ativa."
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[skills] Active skills: %(n)d"
+msgstr "[skills] Skills ativas: %(n)d"
+
+#: src/uagent/util_tools.py:766
+msgid "[skills] No skills found."
+msgstr "[skills] Nenhuma skill encontrada."
+
+#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#, python-format
+msgid "[skills] Out of range: %(n)d"
+msgstr "[skills] Fora do intervalo: %(n)d"
+
+#: src/uagent/util_tools.py:782
+#, python-format
+msgid "[skills] Found %(n)d skills"
+msgstr "[skills] %(n)d skills encontradas"
+
 #: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1275,6 +1336,22 @@ msgstr ""
 "Selecione um número de skill para executar. Digite c para cancelar.\n"
 "Dica: :skills clear  (remove as skills aplicadas)\n"
 "Digite o número:"
+
+#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+msgid "[skills] Cancelled."
+msgstr "Cancelado."
+
+#: src/uagent/util_tools.py:809
+msgid "[skills] Please enter a number or c."
+msgstr "Digite um número ou c."
+
+#: src/uagent/util_tools.py:819
+msgid "[skills] Invalid selection."
+msgstr "[skills] Seleção inválida."
+
+#: src/uagent/util_tools.py:825
+msgid "[skills] Selected skill has no path."
+msgstr "[skills] A skill selecionada não tem caminho."
 
 #: src/uagent/util_tools.py:829
 #, python-format
@@ -1293,24 +1370,153 @@ msgstr ""
 "\n"
 "Prosseguir? Digite y para executar ou c para cancelar."
 
-#: src/uagent/util_tools.py:937
+#: src/uagent/util_tools.py:869
+#, python-format
+msgid "[skills] Applied: %(name)s"
+msgstr "[skills] Aplicada: %(name)s"
+
+#: src/uagent/util_tools.py:889
 #, python-format
 msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Argumento inválido: %(arg)r (especifique number=threshold; o padrão "
+"é %(default)d)"
+
+#: src/uagent/util_tools.py:906
+#, python-format
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean error] Falha ao obter a lista de logs: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:923
+#, python-format
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr ""
+"[clean warn] Ignorado (falha na análise): %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:938
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean apagará os arquivos de registro de conversa (scheck_log_*.jsonl) do disco.\n"
+"apagará os arquivos de log da conversa (scheck_log_*.jsonl) do disco.\n"
 "Diretório dos logs: %(dir)s\n"
 "Regra: total de mensagens de usuário/assistente/ferramenta, excluindo system, <= %(threshold)d\n"
 "Alvos: %(n)d\n"
 "\n"
 "Prosseguir? Digite y para executar ou c para cancelar."
 
-#: src/uagent/util_tools.py:1181
+#: src/uagent/util_tools.py:953
+msgid "[clean] Cancelled."
+msgstr "Cancelado."
+
+#: src/uagent/util_tools.py:958
+#, python-format
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean error] Falha na confirmação: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:974
+#, python-format
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] Falha ao excluir: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:992
+#, python-format
+msgid ""
+"[clean] No logs to delete (threshold=%(threshold)d).\n"
+"Log dir: %(dir)s"
+msgstr ""
+"[clean] Nenhum log para excluir (limiar=%(threshold)d).\n"
+"Diretório de logs: %(dir)s"
+
+#: src/uagent/util_tools.py:1001
+#, python-format
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] Logs para excluir (<= %(threshold)d msgs): %(n)d"
+
+#: src/uagent/util_tools.py:1015
+#, python-format
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr "[clean] Concluído: excluídos=%(deleted)d, falhas=%(failed)d"
+
+#: src/uagent/util_tools.py:1050
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"sobrescreverá o arquivo de log da sessão atual e prependará o log carregado (sem backup).\n"
+"\n"
+"Log atual: %(cur_log)s\n"
+"Log de origem: %(src_log)s\n"
+"\n"
+"Prosseguir? Digite y para executar ou c para cancelar."
+
+#: src/uagent/util_tools.py:1063
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] A inclusão no início do log atual foi cancelada."
+
+#: src/uagent/util_tools.py:1072
+#, python-format
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load warn] Falha ao ler o log de origem: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1085
+#, python-format
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load warn] Falha ao ler o log atual: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1105
+#, python-format
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] Adicionado ao início do log atual: %(path)s"
+
+#: src/uagent/util_tools.py:1108
+#, python-format
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[load warn] Falha ao reescrever o log atual: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1114
+#, python-format
+msgid "[load error] Failed: %(etype)s: %(err)s"
+msgstr "[load erro] Falha: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1127
+#, python-format
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm error] Falha ao analisar os argumentos: %(err)s"
+
+#: src/uagent/util_tools.py:1148
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Resposta inesperada da pré-visualização do delete_file."
+
+#: src/uagent/util_tools.py:1152
+msgid "[rm] Preview failed."
+msgstr "[rm] Falha na pré-visualização."
+
+#: src/uagent/util_tools.py:1162
+msgid "[rm] No matching paths."
+msgstr "[rm] Nenhum caminho correspondente."
+
+#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+msgid "[rm] Missing:"
+msgstr "[rm] Ausentes:"
+
+#: src/uagent/util_tools.py:1169
+msgid "[rm] Candidates:"
+msgstr "[rm] Candidatos:"
+
+#: src/uagent/util_tools.py:1178
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1325,14 +1531,51 @@ msgstr ""
 "\n"
 "Digite y para continuar ou c para cancelar."
 
-#: src/uagent/util_tools.py:1322
+#: src/uagent/util_tools.py:1185
+msgid "[rm] Cancelled."
+msgstr "Cancelado."
+
+#: src/uagent/util_tools.py:1199
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Resposta inesperada do delete_file."
+
+#: src/uagent/util_tools.py:1204
+#, python-format
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] %(count)d caminho(s) excluído(s)."
+
+#: src/uagent/util_tools.py:1208
+msgid "[rm] Failed."
+msgstr "[rm] Falhou."
+
+#: src/uagent/util_tools.py:1233
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "O índice especificado %(idx)d está fora do intervalo."
+
+#: src/uagent/util_tools.py:1242
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Arquivo de log não encontrado: %(path)s"
+
+#: src/uagent/util_tools.py:1288
+#, python-format
+msgid "Loaded log: %(path)s"
+msgstr "Log carregado: %(path)s"
+
+#: src/uagent/util_tools.py:1289
+#, python-format
+msgid "Conversation message count: %(n)d"
+msgstr "Contagem de mensagens da conversa: %(n)d"
+
+#: src/uagent/util_tools.py:1319
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[erro shrink] Falha ao interpretar como inteiro: %(arg)r -> manter os "
 "últimos %(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1340,7 +1583,30 @@ msgstr ""
 "[erro shrink_llm] Falha ao interpretar como inteiro: %(arg)r -> manter os "
 "últimos %(keep)d"
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: src/uagent/util_tools.py:1369
+msgid "No long-term memory entries."
+msgstr "Nenhuma entrada de memória de longo prazo."
+
+#: src/uagent/util_tools.py:1372
+msgid "Long-term memory entries:"
+msgstr "Entradas de memória de longo prazo:"
+
+#: src/uagent/util_tools.py:1395
+#, python-format
+msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[mem-del error] Falha ao interpretar o índice como inteiro: %(arg)r"
+
+#: src/uagent/util_tools.py:1400
+#, python-format
+msgid "Deleted long-term memory entry [%(idx)d]."
+msgstr "Entrada de memória de longo prazo excluída [%(idx)d]."
+
+#: src/uagent/util_tools.py:1402
+#, python-format
+msgid "[mem-del] Failed to delete index=%(idx)d."
+msgstr "[mem-del] Falha ao excluir o índice=%(idx)d."
+
+#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1348,7 +1614,170 @@ msgstr ""
 "A memória compartilhada de longo prazo não está ativada "
 "(UAGENT_SHARED_MEMORY_FILE não está definido)."
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1417
+msgid "No shared long-term memory entries."
+msgstr "Nenhuma entrada de memória compartilhada de longo prazo."
+
+#: src/uagent/util_tools.py:1422
+msgid "Shared long-term memory entries:"
+msgstr "Entradas de memória compartilhada de longo prazo:"
+
+#: src/uagent/util_tools.py:1452
+#, python-format
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+"[shared-mem-del error] Falha ao interpretar o índice como inteiro: %(arg)r"
+
+#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#, python-format
+msgid "[shared-mem-del] Failed to delete index=%(idx)d."
+msgstr "[shared-mem-del] Falha ao excluir o índice=%(idx)d."
+
+#: src/uagent/util_tools.py:1475
+#, python-format
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del erro] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1480
+#, python-format
+msgid "Deleted shared long-term memory entry [%(idx)d]."
+msgstr "Entrada de memória compartilhada de longo prazo excluída [%(idx)d]."
+
+#: src/uagent/util_tools.py:1495
+msgid "Show this help"
+msgstr "Mostrar esta ajuda"
+
+#: src/uagent/util_tools.py:1496
+msgid "Restart input from the beginning"
+msgstr "Reiniciar a entrada do início"
+
+#: src/uagent/util_tools.py:1497
+msgid "Show log file list"
+msgstr "Mostrar lista de arquivos de log"
+
+#: src/uagent/util_tools.py:1500
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Alterar o diretório de trabalho sem confirmação (ex.: :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1503
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Listar entradas do diretório (ex.: :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1504
+msgid "List loaded tools"
+msgstr "Listar ferramentas carregadas"
+
+#: src/uagent/util_tools.py:1506
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Gerenciar/aplicar skills (ex.: :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1508
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Carregar um log anterior (substitui o histórico atual da conversa)"
+
+#: src/uagent/util_tools.py:1510
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Observação: após executar, você será solicitado a "
+"confirmar; ao escolher 'y', o log carregado será incluído no início do "
+"arquivo de log da sessão atual (sobrescrita, sem backup)."
+
+#: src/uagent/util_tools.py:1514
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Excluir logs da conversa (scheck_log_*.jsonl) quando a contagem de mensagens"
+" de usuário/assistente/ferramenta (excluindo system) for <= N (padrão=10)"
+
+#: src/uagent/util_tools.py:1518
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Encurtar o histórico da conversa (manter as últimas N mensagens não system; "
+"padrão=40)"
+
+#: src/uagent/util_tools.py:1522
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Encurtar o histórico via sumarização com LLM (resumir o histórico antigo em "
+"1 mensagem system; manter as últimas N mensagens brutas; padrão=20)"
+
+#: src/uagent/util_tools.py:1524
+msgid "List long-term memory notes"
+msgstr "Listar notas de memória de longo prazo"
+
+#: src/uagent/util_tools.py:1526
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr ""
+"Excluir uma nota de memória de longo prazo pelo índice (veja :mem-list)"
+
+#: src/uagent/util_tools.py:1528
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Excluir arquivo(s)/diretório(s) com pré-visualização + confirmação"
+
+#: src/uagent/util_tools.py:1530
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"Listar notas compartilhadas de memória de longo prazo (requer "
+"UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/util_tools.py:1532
+msgid "Delete a shared long-term memory note by index"
+msgstr "Excluir uma nota compartilhada de memória de longo prazo pelo índice"
+
+#: src/uagent/util_tools.py:1534
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Definir o modo de raciocínio (0=desl., 1=baixo, 2=médio, 3=alto; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1536
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Definir o modo de verbosidade (0=desl., 1=baixo, 2=médio, 3=alto; sem "
+"arg=manter)"
+
+#: src/uagent/util_tools.py:1537
+msgid "Exit"
+msgstr "Sair"
+
+#: src/uagent/util_tools.py:1540
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Digite uma linha que seja apenas 'f' para entrar no modo de entrada "
+"multilinha."
+
+#: src/uagent/util_tools.py:1542
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Para encerrar o modo de entrada multilinha, digite uma linha exatamente "
+"igual a %(sentinel)s."
+
+#: src/uagent/util_tools.py:1636
+msgid "Exiting."
+msgstr "Saindo."
+
+#: src/uagent/util_tools.py:1639
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Comando desconhecido: :%(cmd)s"
+
+#: src/uagent/util_tools.py:1790
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1480,407 +1909,3 @@ msgstr "- \"Pesquisar as últimas notícias e resumir um tópico específico.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "UAGENT_A2A_ENGINE desconhecido: %(mode)s"
-
-#~ msgid ", "
-#~ msgstr ", "
-
-#~ msgid "[MCP Servers]"
-#~ msgstr "[Servidores MCP]"
-
-#~ msgid "[Available Tools]"
-#~ msgstr "[Ferramentas disponíveis]"
-
-#~ msgid ""
-#~ "Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will "
-#~ "likely fail)."
-#~ msgstr ""
-#~ "Provedor desconhecido: {provider!r}. Permitidos: {', '.join(allowed)} (a "
-#~ "inicialização provavelmente falhará)."
-
-#~ msgid "[FATAL] Environment validation failed ({context})."
-#~ msgstr "[FATAL] Falha na validação do ambiente ({context})."
-
-#~ msgid "- {m.name}: {m.reason}"
-#~ msgstr "- {m.name}: {m.reason}"
-
-#~ msgid " b=back"
-#~ msgstr " b=back"
-
-#~ msgid " q=quit"
-#~ msgstr " q=sair"
-
-#~ msgid "b=back"
-#~ msgstr "b=voltar"
-
-#~ msgid "q=quit"
-#~ msgstr "q=sair"
-
-#~ msgid "  b. back"
-#~ msgstr "  b. voltar"
-
-#~ msgid "  q. quit"
-#~ msgstr "  q. sair"
-
-#~ msgid "[SSL Info] certifi is not available"
-#~ msgstr "[Info SSL] certifi não está disponível"
-
-#~ msgid "[SSL Info] certifi.where() = %(path)s"
-#~ msgstr "[Informações SSL] certifi.where() = %(path)s"
-
-#~ msgid "Opened image file with the default app."
-#~ msgstr "Arquivo de imagem aberto com o aplicativo padrão."
-
-#~ msgid ""
-#~ ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-#~ "auto/minimal/xhigh)"
-#~ msgstr ""
-#~ ":r [0|1|2|3|auto|minimal|xhigh]  (0=desl., 1=baixo, 2=médio, 3=alto; "
-#~ "auto/minimal/xhigh)"
-
-#~ msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-#~ msgstr ":v [0|1|2|3]  (0=desl., 1=baixo, 2=médio, 3=alto; sem arg=manter)"
-
-#~ msgid ":cd <path>"
-#~ msgstr ":cd <path>"
-
-#~ msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
-#~ msgstr "[cd] O diretório não existe: %(src)s -> %(dst)s"
-
-#~ msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
-#~ msgstr "[ls] Nenhum caminho correspondente: %(src)s -> %(expanded)s"
-
-#~ msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
-#~ msgstr "[ls] O diretório não existe: %(src)s -> %(dst)s"
-
-#~ msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-#~ msgstr ""
-#~ "[logs] Argumento inválido: %(arg)r (especifique all / --all / -a / número)"
-
-#~ msgid "[tools] No tools loaded."
-#~ msgstr "[tools] Nenhuma ferramenta carregada."
-
-#~ msgid "[tools] Loaded %(n)d tools"
-#~ msgstr "[tools] %(n)d ferramentas carregadas"
-
-#~ msgid "[skills] No active skill messages to clear."
-#~ msgstr "[skills] Nenhuma mensagem de skill ativa para limpar."
-
-#~ msgid "[skills] Cleared %(n)d skill message(s)."
-#~ msgstr "[skills] %(n)d mensagem(ns) de skill limpas."
-
-#~ msgid "[skills] No active skills."
-#~ msgstr "[skills] Nenhuma skill ativa."
-
-#~ msgid "[skills] Active skills: %(n)d"
-#~ msgstr "[skills] Skills ativas: %(n)d"
-
-#~ msgid "[skills] No skills found."
-#~ msgstr "[skills] Nenhuma skill encontrada."
-
-#~ msgid "[skills] Out of range: %(n)d"
-#~ msgstr "[skills] Fora do intervalo: %(n)d"
-
-#~ msgid "[skills] Found %(n)d skills"
-#~ msgstr "[skills] %(n)d skills encontradas"
-
-#~ msgid "[skills] Cancelled."
-#~ msgstr "Cancelado."
-
-#~ msgid "[skills] Please enter a number or c."
-#~ msgstr "Digite um número ou c."
-
-#~ msgid "[skills] Invalid selection."
-#~ msgstr "[skills] Seleção inválida."
-
-#~ msgid "[skills] Selected skill has no path."
-#~ msgstr "[skills] A skill selecionada não tem caminho."
-
-#~ msgid "[skills] Applied: %(name)s"
-#~ msgstr "[skills] Aplicada: %(name)s"
-
-#~ msgid ""
-#~ "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-#~ "%(default)d)"
-#~ msgstr ""
-#~ "[clean] Argumento inválido: %(arg)r (especifique number=threshold; o padrão "
-#~ "é %(default)d)"
-
-#~ msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
-#~ msgstr "[clean error] Falha ao obter a lista de logs: %(etype)s: %(err)s"
-
-#~ msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
-#~ msgstr ""
-#~ "[clean warn] Ignorado (falha na análise): %(path)s (%(etype)s: %(err)s)"
-
-#~ msgid "[clean] Cancelled."
-#~ msgstr "Cancelado."
-
-#~ msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
-#~ msgstr "[clean error] Falha na confirmação: %(etype)s: %(err)s"
-
-#~ msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
-#~ msgstr "[clean warn] Falha ao excluir: %(path)s (%(etype)s: %(err)s)"
-
-#~ msgid ""
-#~ "[clean] No logs to delete (threshold=%(threshold)d).\n"
-#~ "Log dir: %(dir)s"
-#~ msgstr ""
-#~ "[clean] Nenhum log para excluir (limiar=%(threshold)d).\n"
-#~ "Diretório de logs: %(dir)s"
-
-#~ msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
-#~ msgstr "[clean] Logs para excluir (<= %(threshold)d msgs): %(n)d"
-
-#~ msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-#~ msgstr "[clean] Concluído: excluídos=%(deleted)d, falhas=%(failed)d"
-
-#~ msgid "[load] Prepend to current log was cancelled."
-#~ msgstr "[load] A inclusão no início do log atual foi cancelada."
-
-#~ msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Falha ao ler o log de origem: %(etype)s: %(err)s"
-
-#~ msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Falha ao ler o log atual: %(etype)s: %(err)s"
-
-#~ msgid "[load] Prepended to current log: %(path)s"
-#~ msgstr "[load] Adicionado ao início do log atual: %(path)s"
-
-#~ msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Falha ao reescrever o log atual: %(etype)s: %(err)s"
-
-#~ msgid "[load warn] Error during prepend to current log: %(etype)s: %(err)s"
-#~ msgstr ""
-#~ "[load warn] Erro ao adicionar no início do log atual: %(etype)s: %(err)s"
-
-#~ msgid ":rm <path|glob> [path|glob]"
-#~ msgstr ":rm <path|glob> [path|glob]"
-
-#~ msgid "[rm error] Failed to parse arguments: %(err)s"
-#~ msgstr "[rm error] Falha ao analisar os argumentos: %(err)s"
-
-#~ msgid "[rm] Unexpected delete_file preview response."
-#~ msgstr "[rm] Resposta inesperada da pré-visualização do delete_file."
-
-#~ msgid "[rm] Preview failed."
-#~ msgstr "[rm] Falha na pré-visualização."
-
-#~ msgid "[rm] No matching paths."
-#~ msgstr "[rm] Nenhum caminho correspondente."
-
-#~ msgid "[rm] Missing:"
-#~ msgstr "[rm] Ausentes:"
-
-#~ msgid "[rm] Candidates:"
-#~ msgstr "[rm] Candidatos:"
-
-#~ msgid "[rm] Cancelled."
-#~ msgstr "Cancelado."
-
-#~ msgid "[rm] Unexpected delete_file response."
-#~ msgstr "[rm] Resposta inesperada do delete_file."
-
-#~ msgid "[rm] Deleted %(count)d path(s)."
-#~ msgstr "[rm] %(count)d caminho(s) excluído(s)."
-
-#~ msgid "[rm] Failed."
-#~ msgstr "[rm] Falhou."
-
-#~ msgid ":load <index|path>"
-#~ msgstr ":load <index|path>"
-
-#~ msgid "Specified index %(idx)d is out of range."
-#~ msgstr "O índice especificado %(idx)d está fora do intervalo."
-
-#~ msgid "Log file not found: %(path)s"
-#~ msgstr "Arquivo de log não encontrado: %(path)s"
-
-#~ msgid "Loaded log: %(path)s"
-#~ msgstr "Log carregado: %(path)s"
-
-#~ msgid "Conversation message count: %(n)d"
-#~ msgstr "Contagem de mensagens da conversa: %(n)d"
-
-#~ msgid "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
-#~ msgstr "[{label} aviso] Falha ao reescrever o log atual: %(etype)s: %(err)s"
-
-#~ msgid "No long-term memory entries."
-#~ msgstr "Nenhuma entrada de memória de longo prazo."
-
-#~ msgid "Long-term memory entries:"
-#~ msgstr "Entradas de memória de longo prazo:"
-
-#~ msgid ":mem-del <index>"
-#~ msgstr ":mem-del <index>"
-
-#~ msgid "[mem-del error] Failed to parse index as int: %(arg)r"
-#~ msgstr "[mem-del error] Falha ao interpretar o índice como inteiro: %(arg)r"
-
-#~ msgid "Deleted long-term memory entry [%(idx)d]."
-#~ msgstr "Entrada de memória de longo prazo excluída [%(idx)d]."
-
-#~ msgid "[mem-del] Failed to delete index=%(idx)d."
-#~ msgstr "[mem-del] Falha ao excluir o índice=%(idx)d."
-
-#~ msgid "No shared long-term memory entries."
-#~ msgstr "Nenhuma entrada de memória compartilhada de longo prazo."
-
-#~ msgid "Shared long-term memory entries:"
-#~ msgstr "Entradas de memória compartilhada de longo prazo:"
-
-#~ msgid ":shared-mem-del <index>"
-#~ msgstr ":shared-mem-del <index>"
-
-#~ msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-#~ msgstr ""
-#~ "[shared-mem-del error] Falha ao interpretar o índice como inteiro: %(arg)r"
-
-#~ msgid "[shared-mem-del] Failed to delete index=%(idx)d."
-#~ msgstr "[shared-mem-del] Falha ao excluir o índice=%(idx)d."
-
-#~ msgid "[shared-mem-del error] %(etype)s: %(err)s"
-#~ msgstr "[shared-mem-del erro] %(etype)s: %(err)s"
-
-#~ msgid "Deleted shared long-term memory entry [%(idx)d]."
-#~ msgstr "Entrada de memória compartilhada de longo prazo excluída [%(idx)d]."
-
-#~ msgid "Available commands:"
-#~ msgstr "Comandos disponíveis:"
-
-#~ msgid "  :help                 Show this help"
-#~ msgstr "  :help                 Mostra esta ajuda"
-
-#~ msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
-#~ msgstr "  (na entrada multilinha) \"\"\"retry  Reinicia a entrada do começo"
-
-#~ msgid "  :logs / :list         Show log file list"
-#~ msgstr "  :logs / :list         Mostra a lista de arquivos de log"
-
-#~ msgid ""
-#~ "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
-#~ ":cd ~ / :cd C:\\path / :cd /)"
-#~ msgstr ""
-#~ "  :cd <path>            Altera o diretório de trabalho sem confirmação (ex.:"
-#~ " :cd .. / :cd ~ / :cd C:\\path / :cd /)"
-
-#~ msgid ""
-#~ "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
-#~ ":ls C:\\path)"
-#~ msgstr ""
-#~ "  :ls [path]            Lista entradas do diretório (ex.: :ls / :ls .. / :ls"
-#~ " ~ / :ls C:\\path)"
-
-#~ msgid "  :tools                List loaded tools"
-#~ msgstr "  :tools                Lista as ferramentas carregadas"
-
-#~ msgid ""
-#~ "  :skills [cmd]         Manage/apply skills (e.g. :skills / :skills active /"
-#~ " :skills clear)"
-#~ msgstr ""
-#~ "  :skills [cmd]         Gerencia/aplica skills (ex.: :skills / :skills "
-#~ "active / :skills clear)"
-
-#~ msgid ""
-#~ "  :load <idx|path>      Load a past log (overwrites current conversation "
-#~ "history)"
-#~ msgstr ""
-#~ "  :load <idx|path>      Carrega um log anterior (substitui o histórico atual"
-#~ " da conversa)"
-
-#~ msgid ""
-#~ "                       Note: after running, you will be asked for "
-#~ "confirmation; choosing 'y' prepends the loaded log into the current session "
-#~ "log file (overwrite, no backup)."
-#~ msgstr ""
-#~ "                       Observação: após executar, você será solicitado a "
-#~ "confirmar; ao escolher 'y', o log carregado será incluído no início do "
-#~ "arquivo de log da sessão atual (sobrescrita, sem backup)."
-
-#~ msgid ""
-#~ "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
-#~ "the count of user/assistant/tool messages (excluding system) is <= N "
-#~ "(default=10)"
-#~ msgstr ""
-#~ "  :clean [N]            Exclui logs da conversa (scheck_log_*.jsonl) quando "
-#~ "a contagem de mensagens de usuário/assistente/ferramenta (excluindo system) "
-#~ "for <= N (padrão=10)"
-
-#~ msgid ""
-#~ "  :shrink [N]           Shrink conversation history (keep last N non-system "
-#~ "messages; default=40)"
-#~ msgstr ""
-#~ "  :shrink [N]           Encurta o histórico da conversa (mantém as últimas N"
-#~ " mensagens não sistêmicas; padrão=40)"
-
-#~ msgid ""
-#~ "  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
-#~ "older history into 1 system message; keep last N raw; default=20)"
-#~ msgstr ""
-#~ "  :shrink_llm [N]       Encurta o histórico via resumo com LLM (resume o "
-#~ "histórico antigo em 1 mensagem de sistema; mantém os últimos N brutos; "
-#~ "padrão=20)"
-
-#~ msgid "  :mem-list             List long-term memory notes"
-#~ msgstr "  :mem-list             Lista notas de memória de longo prazo"
-
-#~ msgid ""
-#~ "  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
-#~ "list)"
-#~ msgstr ""
-#~ "  :mem-del <index>      Exclui uma nota de memória de longo prazo pelo "
-#~ "índice (veja :mem-list)"
-
-#~ msgid ""
-#~ "  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"
-#~ msgstr ""
-#~ "  :rm <path|glob>       Exclui arquivo(s)/diretório(s) com pré-visualização "
-#~ "+ confirmação"
-
-#~ msgid ""
-#~ "  :shared-mem-list      List shared long-term memory notes (requires "
-#~ "UAGENT_SHARED_MEMORY_FILE)"
-#~ msgstr ""
-#~ "  :shared-mem-list      Lista notas compartilhadas de memória de longo prazo"
-#~ " (requer UAGENT_SHARED_MEMORY_FILE)"
-
-#~ msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
-#~ msgstr ""
-#~ "  :shared-mem-del <i>   Exclui uma nota de memória compartilhada de longo "
-#~ "prazo pelo índice"
-
-#~ msgid ""
-#~ "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
-#~ "2=medium, 3=high; auto/minimal/xhigh)"
-#~ msgstr ""
-#~ "  :r [0|1|2|3|auto|minimal|xhigh]  Define o modo de raciocínio (0=desl., "
-#~ "1=baixo, 2=médio, 3=alto; auto/minimal/xhigh)"
-
-#~ msgid ""
-#~ "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
-#~ "no arg=keep)"
-#~ msgstr ""
-#~ "  :v [0|1|2|3]          Define o modo de verbosidade (0=desl., 1=baixo, "
-#~ "2=médio, 3=alto; sem arg=manter)"
-
-#~ msgid "  :exit / :quit         Exit"
-#~ msgstr "  :exit / :quit         Sair"
-
-#~ msgid "Hints:"
-#~ msgstr "Dicas:"
-
-#~ msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-#~ msgstr ""
-#~ "  - Digite uma linha que seja apenas 'f' para entrar no modo de entrada "
-#~ "multilinha."
-
-#~ msgid ""
-#~ "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-#~ msgstr ""
-#~ "  - Para encerrar o modo de entrada multilinha, digite uma linha exatamente "
-#~ "igual a %(sentinel)s."
-
-#~ msgid "Exiting."
-#~ msgstr "Saindo."
-
-#~ msgid "Unknown command: :%(cmd)s"
-#~ msgstr "Comando desconhecido: :%(cmd)s"

@@ -291,7 +291,7 @@
     "param.webhook_env.description": "Naam van de omgevingsvariabele waarin de Teams-webhook-URL is opgeslagen.",
     "param.timeout_s.description": "Time-out van de aanvraag in seconden.",
     "err.missing_message": "'message' ontbreekt.",
-    "err.exception": "Exception"
+    "err.exception": "Uitzondering"
   },
   "fi": {
     "tool.description": "Lähetä viesti tai webhookia tukeva JSON-lataus Microsoft Teams Incoming Webhook -osoitteeseen, joka on tallennettu ympäristömuuttujaan.",
@@ -305,7 +305,7 @@
     "param.webhook_env.description": "Ympäristömuuttujan nimi, johon Teams-webhook-URL on tallennettu.",
     "param.timeout_s.description": "Pyynnön aikakatkaisu sekunteina.",
     "err.missing_message": "'message' puuttuu.",
-    "err.exception": "Exception"
+    "err.exception": "Poikkeus"
   },
   "cs": {
     "tool.description": "Odešle zprávu nebo JSON payload podporovaný webhookem na URL Microsoft Teams Incoming Webhook uloženou v proměnné prostředí.",

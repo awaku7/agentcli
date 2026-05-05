@@ -220,26 +220,26 @@
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
-    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
+    "err.invalid_args": "[tool error] ongeldige argumenten",
+    "err.max_bytes_positive": "[tool error] max_bytes moet een positief geheel getal zijn",
+    "err.relative_path_required": "[tool error] relative_path moet een niet-lege tekenreeks zijn",
+    "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege tekenreeks zijn",
+    "param.max_bytes.description": "Maximaal aantal bytes om te lezen (standaard: 5000000)",
     "param.relative_path.description": "Pad relatief aan de skill-root (bijv. references/REFERENCE.md)",
     "param.skill_dir.description": "skills-map",
     "tool.description": "Leest veilig een bestand onder een skills-map met een relatief pad. Pad-traversal wordt geblokkeerd.",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
   },
   "fi": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
-    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
+    "err.invalid_args": "[tool error] virheelliset argumentit",
+    "err.max_bytes_positive": "[tool error] max_bytesin on oltava positiivinen kokonaisluku",
+    "err.relative_path_required": "[tool error] relative_pathin on oltava ei-tyhjä merkkijono",
+    "err.skill_dir_required": "[tool error] skill_dirin on oltava ei-tyhjä merkkijono",
+    "param.max_bytes.description": "Luettavien tavujen enimmäismäärä (oletus: 5000000)",
     "param.relative_path.description": "Polku suhteessa skill-juureen (esim. references/REFERENCE.md)",
     "param.skill_dir.description": "skill-hakemisto",
     "tool.description": "Lukee tiedoston turvallisesti skill-hakemiston alta suhteellisella polulla. Polun läpikäynti estetään.",
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
   "cs": {
     "err.invalid_args": "[chyba nástroje] neplatné argumenty",

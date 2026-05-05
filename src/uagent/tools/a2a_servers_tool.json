@@ -65,7 +65,7 @@
   "fr": {
     "err.config_not_found": "Configuration introuvable. Exécutez d’abord action=init.",
     "err.empty_name": "Nom vide.",
-    "err.exception": "Exception",
+    "err.exception": "Exception inattendue",
     "err.missing_name": "'name' manquant.",
     "err.missing_name_or_base_url": "'name' ou 'base_url' manquant.",
     "err.no_default_profile": "Aucun profil par défaut.",

@@ -2,14 +2,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: uag 0.4.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-01 11:05+0900\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-05-05 17:47+0900\n"
 "PO-Revision-Date: 2026-04-15 09:48+0900\n"
 "Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
@@ -39,24 +39,24 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[KESALAHAN] Git belum terpasang."
 
-#: src/uagent/cli.py:357
+#: src/uagent/cli.py:358
 msgid "getch() fallback to input()"
 msgstr "getch() memakai input() sebagai alternatif"
 
-#: src/uagent/cli.py:556
+#: src/uagent/cli.py:557
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Input dibatalkan (akan dikirim sebagai balasan untuk human_ask)."
 
-#: src/uagent/cli.py:564
+#: src/uagent/cli.py:565
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C diterima. Memulai proses penghentian..."
 
-#: src/uagent/cli.py:571
+#: src/uagent/cli.py:572
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Terjadi kesalahan tak terduga di stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:597 src/uagent/cli.py:667
+#: src/uagent/cli.py:598 src/uagent/cli.py:668
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -65,7 +65,7 @@ msgstr ""
 "(Mode input multiline: masukkan isi dalam beberapa baris; untuk mengulang, "
 "ketik \"\"\"retry; akhiri dengan baris yang hanya berisi %(sentinel)s)"
 
-#: src/uagent/cli.py:627 src/uagent/setup_cli.py:846
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
 #: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
 #: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
 #: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
@@ -75,15 +75,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "Dibatalkan."
 
-#: src/uagent/cli.py:633 src/uagent/cli.py:683
+#: src/uagent/cli.py:634 src/uagent/cli.py:684
 msgid "Discarded previous input. Please start over."
 msgstr "Input sebelumnya dibuang. Silakan mulai dari awal."
 
-#: src/uagent/cli.py:644
+#: src/uagent/cli.py:645
 msgid "Received multiline reply."
 msgstr "Balasan multiline diterima."
 
-#: src/uagent/cli.py:796
+#: src/uagent/cli.py:805
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -93,12 +93,12 @@ msgstr ""
 "Apakah Anda ingin mengirim gambar ini ke LLM (API eksternal) untuk dianalisis?\n"
 "\n"
 
-#: src/uagent/cli.py:802
+#: src/uagent/cli.py:811
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Balas y untuk mengirim, atau n (atau c/cancel) untuk melewati pengiriman."
 
-#: src/uagent/cli.py:817
+#: src/uagent/cli.py:826
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -106,17 +106,17 @@ msgstr ""
 "Konfirmasi pengiriman gambar gagal; gambar tidak akan dikirim: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:845 src/uagent/scheckgui.py:472
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Gagal melampirkan gambar: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:882
+#: src/uagent/cli.py:891
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Jenis event tidak dikenal kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:896
+#: src/uagent/cli.py:909
 msgid "Exited uag."
 msgstr "uag selesai."
 
@@ -134,23 +134,23 @@ msgstr "[FATAL] Gagal menetapkan direktori kerja: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Gagal menjalankan uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:265
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
 #: src/uagent/web.py:646
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "Penyedia LLM = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:269
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
 #: src/uagent/web.py:648
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "model(deployment) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:279
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
 msgid "OpenRouter fallback models enabled."
 msgstr "Model cadangan untuk OpenRouter diaktifkan."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
 #: src/uagent/web.py:636
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -168,21 +168,21 @@ msgstr ""
 "tidak mendukung Responses API. Beralih ke ChatCompletions."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:326 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "Mode API LLM = ChatCompletions (UAGENT_RESPONSES dimatikan)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:314
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
 #: src/uagent/web.py:630
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Mode API LLM = Responses (UAGENT_RESPONSES diaktifkan)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:335
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
 #: src/uagent/web.py:710
 msgid "Loaded long-term memory."
 msgstr "Memori jangka panjang dimuat."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:348
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
 #: src/uagent/web.py:722
 msgid "Loaded shared long-term memory."
 msgstr "Memori jangka panjang bersama dimuat."
@@ -481,7 +481,7 @@ msgstr ""
 "percobaan=%(attempt)s/%(max_retries)s tunggu=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:149
+#: src/uagent/llm_message_helpers.py:147
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[PERINGATAN] shrink_llm otomatis gagal: %(err)s"
@@ -503,31 +503,31 @@ msgstr ""
 "        - Jika Anda tidak memiliki parameter wajib, tanyakan kepada pengguna melalui human_ask alih-alih menebak.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:111
+#: src/uagent/llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Kesalahan terjemahan] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:169 src/uagent/llm_round_helpers.py:279
-#: src/uagent/llm_round_helpers.py:595
+#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
+#: src/uagent/llm_round_helpers.py:616
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Batas percobaan 429 (%(max_retries)s) tercapai."
 
-#: src/uagent/llm_round_helpers.py:193
+#: src/uagent/llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Kesalahan Gemini] Terjadi kesalahan saat membuat respons."
 
-#: src/uagent/llm_round_helpers.py:285
+#: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
 
-#: src/uagent/llm_round_helpers.py:679
+#: src/uagent/llm_round_helpers.py:700
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Kesalahan saat mengurai respons: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:304
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
 #: src/uagent/web.py:621
 #, python-format
 msgid ""
@@ -557,107 +557,107 @@ msgstr "[PERINGATAN] Gagal mendekripsi .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Path workdir yang ditentukan adalah file: %(path)s"
 
-#: src/uagent/scheckgui.py:115
+#: src/uagent/scheckgui.py:116
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
-msgstr "Seret dan jatuhkan file/gambar ke sini"
+msgstr "Seret dan jatuhkan file/gambar di sini"
 
-#: src/uagent/scheckgui.py:153
+#: src/uagent/scheckgui.py:154
 msgid "Download"
 msgstr "Unduh"
 
-#: src/uagent/scheckgui.py:357 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Terjadi pengecualian saat memuat memori jangka panjang bersama: %(err)s"
 
-#: src/uagent/scheckgui.py:600 src/uagent/scheckgui.py:713
+#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
 msgid "Welcome / Quick Guide"
 msgstr "Selamat datang / Panduan singkat"
 
-#: src/uagent/scheckgui.py:608
+#: src/uagent/scheckgui.py:615
 msgid "uag GUI (Extreme Stability)"
 msgstr "GUI uag (Stabilitas Ekstrem)"
 
-#: src/uagent/scheckgui.py:651
+#: src/uagent/scheckgui.py:658
 msgid "↑ Drag&Dropで添付できます"
-msgstr "↑ Bisa dilampirkan dengan drag & drop"
+msgstr "↑ Anda dapat melampirkannya dengan drag-and-drop"
 
-#: src/uagent/scheckgui.py:672
+#: src/uagent/scheckgui.py:679
 msgid "Send"
 msgstr "Kirim"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:719
 msgid "Help"
 msgstr "Bantuan"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:734
 msgid "Mode"
 msgstr "Mode"
 
-#: src/uagent/scheckgui.py:729
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: off"
 msgstr "Penalaran: mati"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:739
 msgid "Reasoning: auto"
 msgstr "Penalaran: otomatis"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: minimal"
 msgstr "Penalaran: minimal"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:743
 msgid "Reasoning: low"
 msgstr "Penalaran: rendah"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: medium"
 msgstr "Penalaran: sedang"
 
-#: src/uagent/scheckgui.py:740
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: high"
 msgstr "Penalaran: tinggi"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:750
 msgid "Reasoning: xhigh"
 msgstr "Penalaran: sangat tinggi"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:755
 msgid "Verbosity: off"
 msgstr "Tingkat detail: mati"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:757
 msgid "Verbosity: low"
 msgstr "Tingkat detail: rendah"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:759
 msgid "Verbosity: medium"
 msgstr "Tingkat detail: sedang"
 
-#: src/uagent/scheckgui.py:754
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: high"
 msgstr "Tingkat detail: tinggi"
 
-#: src/uagent/scheckgui.py:784
+#: src/uagent/scheckgui.py:791
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] penalaran=%(mode)s"
 
-#: src/uagent/scheckgui.py:910
+#: src/uagent/scheckgui.py:917
 msgid "Enter password..."
 msgstr "Masukkan kata sandi..."
 
-#: src/uagent/scheckgui.py:912
+#: src/uagent/scheckgui.py:919
 msgid "Enter response for human_ask..."
 msgstr "Masukkan balasan untuk human_ask..."
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:924
 msgid "Enter a message..."
 msgstr "Masukkan pesan..."
 
-#: src/uagent/scheckgui.py:1230 src/uagent/scheckgui.py:1270
-#: src/uagent/scheckgui.py:1305
+#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
+#: src/uagent/scheckgui.py:1312
 msgid "Downloaded to"
 msgstr "Diunduh ke"
 
@@ -938,7 +938,6 @@ msgid "%(label)s"
 msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:511
-#, fuzzy
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Pilih penyedia pembuatan gambar"
 
@@ -1214,7 +1213,7 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
-#: src/uagent/uagent_llm.py:408
+#: src/uagent/uagent_llm.py:123
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[PERINGATAN] Putaran alat melebihi %(max)d; dihentikan."
@@ -1248,6 +1247,36 @@ msgstr ""
 "Mode non-interaktif. Jangan mulai loop stdin; keluar setelah memproses file "
 "startup (jika ada)."
 
+#: src/uagent/util_tools.py:404
+#, python-format
+msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[cd] Direktori tidak ada: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:445
+#, python-format
+msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
+msgstr "[ls] Tidak ada path yang cocok: %(src)s -> %(expanded)s"
+
+#: src/uagent/util_tools.py:480
+#, python-format
+msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr "[ls] Direktori tidak ada: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:528
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[logs] Argumen tidak valid: %(arg)r (gunakan all / --all / -a / angka)"
+
+#: src/uagent/util_tools.py:543
+msgid "[tools] No tools loaded."
+msgstr "[tools] Tidak ada tool yang dimuat."
+
+#: src/uagent/util_tools.py:546
+#, python-format
+msgid "[tools] Loaded %(n)d tools"
+msgstr "[tools] %(n)d tool dimuat"
+
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
@@ -1264,6 +1293,38 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Saat selesai, selalu panggil `finish_skill` jika tersedia.\n"
 
+#: src/uagent/util_tools.py:709
+msgid "[skills] No active skill messages to clear."
+msgstr "[skills] Tidak ada pesan skill aktif untuk dibersihkan."
+
+#: src/uagent/util_tools.py:712
+#, python-format
+msgid "[skills] Cleared %(n)d skill message(s)."
+msgstr "[skills] %(n)d pesan skill dibersihkan."
+
+#: src/uagent/util_tools.py:735
+msgid "[skills] No active skills."
+msgstr "[skills] Tidak ada skill aktif."
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[skills] Active skills: %(n)d"
+msgstr "[skills] Skill aktif: %(n)d"
+
+#: src/uagent/util_tools.py:766
+msgid "[skills] No skills found."
+msgstr "[skills] Tidak ada skill ditemukan."
+
+#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#, python-format
+msgid "[skills] Out of range: %(n)d"
+msgstr "[skills] Di luar jangkauan: %(n)d"
+
+#: src/uagent/util_tools.py:782
+#, python-format
+msgid "[skills] Found %(n)d skills"
+msgstr "[skills] Ditemukan %(n)d skill"
+
 #: src/uagent/util_tools.py:793
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1273,6 +1334,22 @@ msgstr ""
 "Pilih nomor skill untuk dijalankan. Masukkan c untuk membatalkan.\n"
 "Tip: :skills clear  (hapus skill yang diterapkan)\n"
 "Masukkan nomor:"
+
+#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+msgid "[skills] Cancelled."
+msgstr "[skills] Dibatalkan."
+
+#: src/uagent/util_tools.py:809
+msgid "[skills] Please enter a number or c."
+msgstr "[skills] Masukkan angka atau c."
+
+#: src/uagent/util_tools.py:819
+msgid "[skills] Invalid selection."
+msgstr "[skills] Pilihan tidak valid."
+
+#: src/uagent/util_tools.py:825
+msgid "[skills] Selected skill has no path."
+msgstr "[skills] Skill yang dipilih tidak memiliki path."
 
 #: src/uagent/util_tools.py:829
 #, python-format
@@ -1291,24 +1368,152 @@ msgstr ""
 "\n"
 "Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:937
+#: src/uagent/util_tools.py:869
+#, python-format
+msgid "[skills] Applied: %(name)s"
+msgstr "[skills] Diterapkan: %(name)s"
+
+#: src/uagent/util_tools.py:889
 #, python-format
 msgid ""
-":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Argumen tidak valid: %(arg)r (gunakan number=threshold; default "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:906
+#, python-format
+msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
+msgstr "[clean error] Gagal mendapatkan daftar log: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:923
+#, python-format
+msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] Dilewati (gagal parsing): %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:938
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
 "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-":clean akan menghapus file log percakapan (scheck_log_*.jsonl) dari disk.\n"
+"akan menghapus file log percakapan (scheck_log_*.jsonl) dari disk.\n"
 "Direktori log: %(dir)s\n"
 "Aturan: total pesan user/assistant/tool tanpa system <= %(threshold)d\n"
 "Target: %(n)d\n"
 "\n"
 "Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1181
+#: src/uagent/util_tools.py:953
+msgid "[clean] Cancelled."
+msgstr "[clean] Dibatalkan."
+
+#: src/uagent/util_tools.py:958
+#, python-format
+msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
+msgstr "[clean error] Konfirmasi gagal: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:974
+#, python-format
+msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
+msgstr "[clean warn] Gagal menghapus: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/util_tools.py:992
+#, python-format
+msgid ""
+"[clean] No logs to delete (threshold=%(threshold)d).\n"
+"Log dir: %(dir)s"
+msgstr ""
+"[clean] Tidak ada log untuk dihapus (ambang=%(threshold)d).\n"
+"Direktori log: %(dir)s"
+
+#: src/uagent/util_tools.py:1001
+#, python-format
+msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
+msgstr "[clean] Log yang akan dihapus (<= %(threshold)d pesan): %(n)d"
+
+#: src/uagent/util_tools.py:1015
+#, python-format
+msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
+msgstr "[clean] Selesai: dihapus=%(deleted)d, gagal=%(failed)d"
+
+#: src/uagent/util_tools.py:1050
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"akan menimpa file log sesi saat ini dan menambahkan log yang dimuat di awal (tanpa cadangan).\n"
+"\n"
+"Log saat ini: %(cur_log)s\n"
+"Log sumber: %(src_log)s\n"
+"\n"
+"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
+
+#: src/uagent/util_tools.py:1063
+msgid "[load] Prepend to current log was cancelled."
+msgstr "[load] Penambahan di awal log saat ini dibatalkan."
+
+#: src/uagent/util_tools.py:1072
+#, python-format
+msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
+msgstr "[load warn] Gagal membaca log sumber: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1085
+#, python-format
+msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
+msgstr "[load warn] Gagal membaca log saat ini: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1105
+#, python-format
+msgid "[load] Prepended to current log: %(path)s"
+msgstr "[load] Ditambahkan di awal log saat ini: %(path)s"
+
+#: src/uagent/util_tools.py:1108
+#, python-format
+msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[load warn] Gagal menulis ulang log saat ini: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1114
+#, python-format
+msgid "[load error] Failed: %(etype)s: %(err)s"
+msgstr "[kesalahan muat] Gagal: %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1127
+#, python-format
+msgid "[rm error] Failed to parse arguments: %(err)s"
+msgstr "[rm error] Gagal mengurai argumen: %(err)s"
+
+#: src/uagent/util_tools.py:1148
+msgid "[rm] Unexpected delete_file preview response."
+msgstr "[rm] Respons pratinjau delete_file tidak terduga."
+
+#: src/uagent/util_tools.py:1152
+msgid "[rm] Preview failed."
+msgstr "[rm] Pratinjau gagal."
+
+#: src/uagent/util_tools.py:1162
+msgid "[rm] No matching paths."
+msgstr "[rm] Tidak ada path yang cocok."
+
+#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+msgid "[rm] Missing:"
+msgstr "[rm] Hilang:"
+
+#: src/uagent/util_tools.py:1169
+msgid "[rm] Candidates:"
+msgstr "[rm] Kandidat:"
+
+#: src/uagent/util_tools.py:1178
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1323,14 +1528,51 @@ msgstr ""
 "\n"
 "Masukkan y untuk melanjutkan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1322
+#: src/uagent/util_tools.py:1185
+msgid "[rm] Cancelled."
+msgstr "[rm] Dibatalkan."
+
+#: src/uagent/util_tools.py:1199
+msgid "[rm] Unexpected delete_file response."
+msgstr "[rm] Respons delete_file tidak terduga."
+
+#: src/uagent/util_tools.py:1204
+#, python-format
+msgid "[rm] Deleted %(count)d path(s)."
+msgstr "[rm] %(count)d path dihapus."
+
+#: src/uagent/util_tools.py:1208
+msgid "[rm] Failed."
+msgstr "[rm] Gagal."
+
+#: src/uagent/util_tools.py:1233
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Indeks yang ditentukan %(idx)d di luar jangkauan."
+
+#: src/uagent/util_tools.py:1242
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Berkas log tidak ditemukan: %(path)s"
+
+#: src/uagent/util_tools.py:1288
+#, python-format
+msgid "Loaded log: %(path)s"
+msgstr "Log dimuat: %(path)s"
+
+#: src/uagent/util_tools.py:1289
+#, python-format
+msgid "Conversation message count: %(n)d"
+msgstr "Jumlah pesan percakapan: %(n)d"
+
+#: src/uagent/util_tools.py:1319
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[Kesalahan shrink] Gagal mengurai sebagai int: %(arg)r -> simpan terakhir "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1338,7 +1580,30 @@ msgstr ""
 "[Kesalahan shrink_llm] Gagal mengurai sebagai int: %(arg)r -> simpan "
 "terakhir %(keep)d"
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: src/uagent/util_tools.py:1369
+msgid "No long-term memory entries."
+msgstr "Tidak ada entri memori jangka panjang."
+
+#: src/uagent/util_tools.py:1372
+msgid "Long-term memory entries:"
+msgstr "Entri memori jangka panjang:"
+
+#: src/uagent/util_tools.py:1395
+#, python-format
+msgid "[mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[mem-del error] Gagal mengurai indeks sebagai bilangan bulat: %(arg)r"
+
+#: src/uagent/util_tools.py:1400
+#, python-format
+msgid "Deleted long-term memory entry [%(idx)d]."
+msgstr "Entri memori jangka panjang [%(idx)d] dihapus."
+
+#: src/uagent/util_tools.py:1402
+#, python-format
+msgid "[mem-del] Failed to delete index=%(idx)d."
+msgstr "[mem-del] Gagal menghapus indeks=%(idx)d."
+
+#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1346,7 +1611,166 @@ msgstr ""
 "Memori jangka panjang bersama tidak diaktifkan (UAGENT_SHARED_MEMORY_FILE "
 "belum disetel)."
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1417
+msgid "No shared long-term memory entries."
+msgstr "Tidak ada entri memori jangka panjang bersama."
+
+#: src/uagent/util_tools.py:1422
+msgid "Shared long-term memory entries:"
+msgstr "Entri memori jangka panjang bersama:"
+
+#: src/uagent/util_tools.py:1452
+#, python-format
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+"[shared-mem-del error] Gagal mengurai indeks sebagai bilangan bulat: %(arg)r"
+
+#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#, python-format
+msgid "[shared-mem-del] Failed to delete index=%(idx)d."
+msgstr "[shared-mem-del] Gagal menghapus indeks=%(idx)d."
+
+#: src/uagent/util_tools.py:1475
+#, python-format
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:1480
+#, python-format
+msgid "Deleted shared long-term memory entry [%(idx)d]."
+msgstr "Entri memori jangka panjang bersama [%(idx)d] dihapus."
+
+#: src/uagent/util_tools.py:1495
+msgid "Show this help"
+msgstr "Tampilkan bantuan ini"
+
+#: src/uagent/util_tools.py:1496
+msgid "Restart input from the beginning"
+msgstr "Mulai ulang input dari awal"
+
+#: src/uagent/util_tools.py:1497
+msgid "Show log file list"
+msgstr "Tampilkan daftar file log"
+
+#: src/uagent/util_tools.py:1500
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Ubah workdir tanpa konfirmasi (mis. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1503
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Daftar entri direktori (mis. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1504
+msgid "List loaded tools"
+msgstr "Tampilkan alat yang dimuat"
+
+#: src/uagent/util_tools.py:1506
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr "Kelola/terapkan skill (mis. :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1508
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Muat log sebelumnya (menimpa riwayat percakapan saat ini)"
+
+#: src/uagent/util_tools.py:1510
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Catatan: setelah dijalankan, Anda akan diminta "
+"konfirmasi; memilih 'y' akan menambahkan log yang dimuat ke awal file log "
+"sesi saat ini (menimpa, tanpa cadangan)."
+
+#: src/uagent/util_tools.py:1514
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Hapus log percakapan (scheck_log_*.jsonl) saat jumlah pesan "
+"user/assistant/tool (tanpa system) <= N (default=10)"
+
+#: src/uagent/util_tools.py:1518
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Perkecil riwayat percakapan (simpan N pesan non-system terakhir; default=40)"
+
+#: src/uagent/util_tools.py:1522
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Perkecil riwayat lewat ringkasan LLM (ringkas riwayat lama menjadi 1 pesan "
+"system; simpan N pesan mentah terakhir; default=20)"
+
+#: src/uagent/util_tools.py:1524
+msgid "List long-term memory notes"
+msgstr "Entri memori jangka panjang:"
+
+#: src/uagent/util_tools.py:1526
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr ""
+"Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
+
+#: src/uagent/util_tools.py:1528
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Hapus file/direktori dengan pratinjau + konfirmasi"
+
+#: src/uagent/util_tools.py:1530
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+msgstr ""
+"Daftar catatan memori jangka panjang bersama (memerlukan "
+"UAGENT_SHARED_MEMORY_FILE)"
+
+#: src/uagent/util_tools.py:1532
+msgid "Delete a shared long-term memory note by index"
+msgstr "Entri memori jangka panjang bersama [%(idx)d] dihapus."
+
+#: src/uagent/util_tools.py:1534
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Setel mode penalaran (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1536
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Setel mode verbositas (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; tanpa "
+"argumen=pertahankan)"
+
+#: src/uagent/util_tools.py:1537
+msgid "Exit"
+msgstr "Keluar."
+
+#: src/uagent/util_tools.py:1540
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Masukkan baris yang hanya berisi 'f' untuk masuk mode input multibaris."
+
+#: src/uagent/util_tools.py:1542
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Untuk mengakhiri mode input multibaris, masukkan baris yang tepat "
+"%(sentinel)s."
+
+#: src/uagent/util_tools.py:1636
+msgid "Exiting."
+msgstr "Keluar."
+
+#: src/uagent/util_tools.py:1639
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Perintah tidak dikenal: :%(cmd)s"
+
+#: src/uagent/util_tools.py:1790
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1475,398 +1899,3 @@ msgstr "- \"Cari berita terbaru dan rangkum topik tertentu.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Mesin UAGENT_A2A_ENGINE tidak dikenal: %(mode)s"
-
-#~ msgid "[Available Tools]"
-#~ msgstr "[Alat Tersedia]"
-
-#~ msgid ""
-#~ "Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will "
-#~ "likely fail)."
-#~ msgstr ""
-#~ "Penyedia tidak dikenal: {provider!r}. Diizinkan: {', '.join(allowed)} "
-#~ "(startup kemungkinan gagal)."
-
-#~ msgid "[FATAL] Environment validation failed ({context})."
-#~ msgstr "[FATAL] Validasi lingkungan gagal ({context})."
-
-#~ msgid "- {m.name}: {m.reason}"
-#~ msgstr "- {m.name}: {m.reason}"
-
-#~ msgid " b=back"
-#~ msgstr " b=kembali"
-
-#~ msgid " q=quit"
-#~ msgstr " q=keluar"
-
-#~ msgid "b=back"
-#~ msgstr "b=kembali"
-
-#~ msgid "q=quit"
-#~ msgstr "q=keluar"
-
-#~ msgid "  b. back"
-#~ msgstr "  b. kembali"
-
-#~ msgid "  q. quit"
-#~ msgstr "  q. keluar"
-
-#~ msgid "[SSL Info] certifi is not available"
-#~ msgstr "[Info SSL] certifi tidak tersedia"
-
-#~ msgid "[SSL Info] certifi.where() = %(path)s"
-#~ msgstr "[Info SSL] certifi.where() = %(path)s"
-
-#~ msgid "Opened image file with the default app."
-#~ msgstr "File gambar dibuka dengan aplikasi bawaan."
-
-#~ msgid ""
-#~ ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-#~ "auto/minimal/xhigh)"
-#~ msgstr ""
-#~ ":r [0|1|2|3|auto|minimal|xhigh]  (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
-#~ "auto/minimal/xhigh)"
-
-#~ msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-#~ msgstr ""
-#~ ":v [0|1|2|3]  (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; tanpa "
-#~ "argumen=pertahankan)"
-
-#~ msgid ":cd <path>"
-#~ msgstr ":cd <path>"
-
-#~ msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
-#~ msgstr "[cd] Direktori tidak ada: %(src)s -> %(dst)s"
-
-#~ msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
-#~ msgstr "[ls] Tidak ada path yang cocok: %(src)s -> %(expanded)s"
-
-#~ msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
-#~ msgstr "[ls] Direktori tidak ada: %(src)s -> %(dst)s"
-
-#~ msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-#~ msgstr ""
-#~ "[logs] Argumen tidak valid: %(arg)r (gunakan all / --all / -a / angka)"
-
-#~ msgid "[tools] No tools loaded."
-#~ msgstr "[tools] Tidak ada tool yang dimuat."
-
-#~ msgid "[tools] Loaded %(n)d tools"
-#~ msgstr "[tools] %(n)d tool dimuat"
-
-#~ msgid "[skills] No active skill messages to clear."
-#~ msgstr "[skills] Tidak ada pesan skill aktif untuk dibersihkan."
-
-#~ msgid "[skills] Cleared %(n)d skill message(s)."
-#~ msgstr "[skills] %(n)d pesan skill dibersihkan."
-
-#~ msgid "[skills] No active skills."
-#~ msgstr "[skills] Tidak ada skill aktif."
-
-#~ msgid "[skills] Active skills: %(n)d"
-#~ msgstr "[skills] Skill aktif: %(n)d"
-
-#~ msgid "[skills] No skills found."
-#~ msgstr "[skills] Tidak ada skill ditemukan."
-
-#~ msgid "[skills] Out of range: %(n)d"
-#~ msgstr "[skills] Di luar jangkauan: %(n)d"
-
-#~ msgid "[skills] Found %(n)d skills"
-#~ msgstr "[skills] Ditemukan %(n)d skill"
-
-#~ msgid "[skills] Cancelled."
-#~ msgstr "[skills] Dibatalkan."
-
-#~ msgid "[skills] Please enter a number or c."
-#~ msgstr "[skills] Masukkan angka atau c."
-
-#~ msgid "[skills] Invalid selection."
-#~ msgstr "[skills] Pilihan tidak valid."
-
-#~ msgid "[skills] Selected skill has no path."
-#~ msgstr "[skills] Skill yang dipilih tidak memiliki path."
-
-#~ msgid "[skills] Applied: %(name)s"
-#~ msgstr "[skills] Diterapkan: %(name)s"
-
-#~ msgid ""
-#~ "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-#~ "%(default)d)"
-#~ msgstr ""
-#~ "[clean] Argumen tidak valid: %(arg)r (gunakan number=threshold; default "
-#~ "%(default)d)"
-
-#~ msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
-#~ msgstr "[clean error] Gagal mendapatkan daftar log: %(etype)s: %(err)s"
-
-#~ msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
-#~ msgstr "[clean warn] Dilewati (gagal parsing): %(path)s (%(etype)s: %(err)s)"
-
-#~ msgid "[clean] Cancelled."
-#~ msgstr "[clean] Dibatalkan."
-
-#~ msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
-#~ msgstr "[clean error] Konfirmasi gagal: %(etype)s: %(err)s"
-
-#~ msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
-#~ msgstr "[clean warn] Gagal menghapus: %(path)s (%(etype)s: %(err)s)"
-
-#~ msgid ""
-#~ "[clean] No logs to delete (threshold=%(threshold)d).\n"
-#~ "Log dir: %(dir)s"
-#~ msgstr ""
-#~ "[clean] Tidak ada log untuk dihapus (ambang=%(threshold)d).\n"
-#~ "Direktori log: %(dir)s"
-
-#~ msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
-#~ msgstr "[clean] Log yang akan dihapus (<= %(threshold)d pesan): %(n)d"
-
-#~ msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-#~ msgstr "[clean] Selesai: dihapus=%(deleted)d, gagal=%(failed)d"
-
-#~ msgid "[load] Prepend to current log was cancelled."
-#~ msgstr "[load] Penambahan di awal log saat ini dibatalkan."
-
-#~ msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Gagal membaca log sumber: %(etype)s: %(err)s"
-
-#~ msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Gagal membaca log saat ini: %(etype)s: %(err)s"
-
-#~ msgid "[load] Prepended to current log: %(path)s"
-#~ msgstr "[load] Ditambahkan di awal log saat ini: %(path)s"
-
-#~ msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-#~ msgstr "[load warn] Gagal menulis ulang log saat ini: %(etype)s: %(err)s"
-
-#~ msgid "[load warn] Error during prepend to current log: %(etype)s: %(err)s"
-#~ msgstr ""
-#~ "[load warn] Galat saat menambahkan ke awal log saat ini: %(etype)s: %(err)s"
-
-#~ msgid ":rm <path|glob> [path|glob]"
-#~ msgstr ":rm <path|glob> [path|glob]"
-
-#~ msgid "[rm error] Failed to parse arguments: %(err)s"
-#~ msgstr "[rm error] Gagal mengurai argumen: %(err)s"
-
-#~ msgid "[rm] Unexpected delete_file preview response."
-#~ msgstr "[rm] Respons pratinjau delete_file tidak terduga."
-
-#~ msgid "[rm] Preview failed."
-#~ msgstr "[rm] Pratinjau gagal."
-
-#~ msgid "[rm] No matching paths."
-#~ msgstr "[rm] Tidak ada path yang cocok."
-
-#~ msgid "[rm] Missing:"
-#~ msgstr "[rm] Hilang:"
-
-#~ msgid "[rm] Candidates:"
-#~ msgstr "[rm] Kandidat:"
-
-#~ msgid "[rm] Cancelled."
-#~ msgstr "[rm] Dibatalkan."
-
-#~ msgid "[rm] Unexpected delete_file response."
-#~ msgstr "[rm] Respons delete_file tidak terduga."
-
-#~ msgid "[rm] Deleted %(count)d path(s)."
-#~ msgstr "[rm] %(count)d path dihapus."
-
-#~ msgid "[rm] Failed."
-#~ msgstr "[rm] Gagal."
-
-#~ msgid ":load <index|path>"
-#~ msgstr ":load <index|path>"
-
-#~ msgid "Specified index %(idx)d is out of range."
-#~ msgstr "Indeks yang ditentukan %(idx)d di luar jangkauan."
-
-#~ msgid "Log file not found: %(path)s"
-#~ msgstr "Berkas log tidak ditemukan: %(path)s"
-
-#~ msgid "Loaded log: %(path)s"
-#~ msgstr "Log dimuat: %(path)s"
-
-#~ msgid "Conversation message count: %(n)d"
-#~ msgstr "Jumlah pesan percakapan: %(n)d"
-
-#~ msgid "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
-#~ msgstr "[{label} warn] Gagal menulis ulang log saat ini: %(etype)s: %(err)s"
-
-#~ msgid "No long-term memory entries."
-#~ msgstr "Tidak ada entri memori jangka panjang."
-
-#~ msgid "Long-term memory entries:"
-#~ msgstr "Entri memori jangka panjang:"
-
-#~ msgid ":mem-del <index>"
-#~ msgstr ":mem-del <index>"
-
-#~ msgid "[mem-del error] Failed to parse index as int: %(arg)r"
-#~ msgstr "[mem-del error] Gagal mengurai indeks sebagai bilangan bulat: %(arg)r"
-
-#~ msgid "Deleted long-term memory entry [%(idx)d]."
-#~ msgstr "Entri memori jangka panjang [%(idx)d] dihapus."
-
-#~ msgid "[mem-del] Failed to delete index=%(idx)d."
-#~ msgstr "[mem-del] Gagal menghapus indeks=%(idx)d."
-
-#~ msgid "No shared long-term memory entries."
-#~ msgstr "Tidak ada entri memori jangka panjang bersama."
-
-#~ msgid "Shared long-term memory entries:"
-#~ msgstr "Entri memori jangka panjang bersama:"
-
-#~ msgid ":shared-mem-del <index>"
-#~ msgstr ":shared-mem-del <index>"
-
-#~ msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-#~ msgstr ""
-#~ "[shared-mem-del error] Gagal mengurai indeks sebagai bilangan bulat: %(arg)r"
-
-#~ msgid "[shared-mem-del] Failed to delete index=%(idx)d."
-#~ msgstr "[shared-mem-del] Gagal menghapus indeks=%(idx)d."
-
-#~ msgid "[shared-mem-del error] %(etype)s: %(err)s"
-#~ msgstr "[shared-mem-del error] %(etype)s: %(err)s"
-
-#~ msgid "Deleted shared long-term memory entry [%(idx)d]."
-#~ msgstr "Entri memori jangka panjang bersama [%(idx)d] dihapus."
-
-#~ msgid "Available commands:"
-#~ msgstr "Perintah tersedia:"
-
-#~ msgid "  :help                 Show this help"
-#~ msgstr "  :help                 Tampilkan bantuan ini"
-
-#~ msgid "  (in multiline input) \"\"\"retry  Restart input from the beginning"
-#~ msgstr "  (dalam input multibaris) \"\"\"retry  Mulai ulang input dari awal"
-
-#~ msgid "  :logs / :list         Show log file list"
-#~ msgstr "  :logs / :list         Tampilkan daftar file log"
-
-#~ msgid ""
-#~ "  :cd <path>            Change workdir without confirmation (e.g. :cd .. / "
-#~ ":cd ~ / :cd C:\\path / :cd /)"
-#~ msgstr ""
-#~ "  :cd <path>            Ubah workdir tanpa konfirmasi (mis. :cd .. / :cd ~ /"
-#~ " :cd C:\\path / :cd /)"
-
-#~ msgid ""
-#~ "  :ls [path]            List directory entries (e.g. :ls / :ls .. / :ls ~ / "
-#~ ":ls C:\\path)"
-#~ msgstr ""
-#~ "  :ls [path]            Daftar entri direktori (mis. :ls / :ls .. / :ls ~ / "
-#~ ":ls C:\\path)"
-
-#~ msgid "  :tools                List loaded tools"
-#~ msgstr "  :tools                Daftar tool yang dimuat"
-
-#~ msgid ""
-#~ "  :skills [cmd]         Manage/apply skills (e.g. :skills / :skills active /"
-#~ " :skills clear)"
-#~ msgstr ""
-#~ "  :skills [cmd]         Kelola/terapkan skill (mis. :skills / :skills active"
-#~ " / :skills clear)"
-
-#~ msgid ""
-#~ "  :load <idx|path>      Load a past log (overwrites current conversation "
-#~ "history)"
-#~ msgstr ""
-#~ "  :load <idx|path>      Muat log lama (menimpa riwayat percakapan saat ini)"
-
-#~ msgid ""
-#~ "                       Note: after running, you will be asked for "
-#~ "confirmation; choosing 'y' prepends the loaded log into the current session "
-#~ "log file (overwrite, no backup)."
-#~ msgstr ""
-#~ "                       Catatan: setelah dijalankan, Anda akan diminta "
-#~ "konfirmasi; memilih 'y' akan menambahkan log yang dimuat ke awal file log "
-#~ "sesi saat ini (menimpa, tanpa cadangan)."
-
-#~ msgid ""
-#~ "  :clean [N]            Delete conversation logs (scheck_log_*.jsonl) where "
-#~ "the count of user/assistant/tool messages (excluding system) is <= N "
-#~ "(default=10)"
-#~ msgstr ""
-#~ "  :clean [N]            Hapus log percakapan (scheck_log_*.jsonl) saat "
-#~ "jumlah pesan user/assistant/tool (tanpa system) <= N (default=10)"
-
-#~ msgid ""
-#~ "  :shrink [N]           Shrink conversation history (keep last N non-system "
-#~ "messages; default=40)"
-#~ msgstr ""
-#~ "  :shrink [N]           Perkecil riwayat percakapan (simpan N pesan non-"
-#~ "system terakhir; default=40)"
-
-#~ msgid ""
-#~ "  :shrink_llm [N]       Shrink history via LLM summarization (summarize "
-#~ "older history into 1 system message; keep last N raw; default=20)"
-#~ msgstr ""
-#~ "  :shrink_llm [N]       Perkecil riwayat lewat ringkasan LLM (ringkas "
-#~ "riwayat lama menjadi 1 pesan sistem; simpan N pesan mentah terakhir; "
-#~ "default=20)"
-
-#~ msgid "  :mem-list             List long-term memory notes"
-#~ msgstr "  :mem-list             Daftar catatan memori jangka panjang"
-
-#~ msgid ""
-#~ "  :mem-del <index>      Delete a long-term memory note by index (see :mem-"
-#~ "list)"
-#~ msgstr ""
-#~ "  :mem-del <index>      Hapus catatan memori jangka panjang berdasarkan "
-#~ "indeks (lihat :mem-list)"
-
-#~ msgid ""
-#~ "  :rm <path|glob>       Delete file(s)/directory(ies) with preview + confirm"
-#~ msgstr ""
-#~ "  :rm <path|glob>       Hapus file/direktori dengan pratinjau + konfirmasi"
-
-#~ msgid ""
-#~ "  :shared-mem-list      List shared long-term memory notes (requires "
-#~ "UAGENT_SHARED_MEMORY_FILE)"
-#~ msgstr ""
-#~ "  :shared-mem-list      Daftar catatan memori jangka panjang bersama "
-#~ "(memerlukan UAGENT_SHARED_MEMORY_FILE)"
-
-#~ msgid "  :shared-mem-del <i>   Delete a shared long-term memory note by index"
-#~ msgstr ""
-#~ "  :shared-mem-del <i>   Hapus catatan memori jangka panjang bersama "
-#~ "berdasarkan indeks"
-
-#~ msgid ""
-#~ "  :r [0|1|2|3|auto|minimal|xhigh]  Set reasoning mode (0=off, 1=low, "
-#~ "2=medium, 3=high; auto/minimal/xhigh)"
-#~ msgstr ""
-#~ "  :r [0|1|2|3|auto|minimal|xhigh]  Setel mode penalaran (0=nonaktif, "
-#~ "1=rendah, 2=sedang, 3=tinggi; auto/minimal/xhigh)"
-
-#~ msgid ""
-#~ "  :v [0|1|2|3]          Set verbosity mode (0=off, 1=low, 2=medium, 3=high; "
-#~ "no arg=keep)"
-#~ msgstr ""
-#~ "  :v [0|1|2|3]          Setel mode verbositas (0=nonaktif, 1=rendah, "
-#~ "2=sedang, 3=tinggi; tanpa argumen=pertahankan)"
-
-#~ msgid "  :exit / :quit         Exit"
-#~ msgstr "  :exit / :quit         Keluar"
-
-#~ msgid "Hints:"
-#~ msgstr "Petunjuk:"
-
-#~ msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-#~ msgstr ""
-#~ "  - Masukkan baris yang hanya berisi 'f' untuk masuk mode input multibaris."
-
-#~ msgid ""
-#~ "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-#~ msgstr ""
-#~ "  - Untuk mengakhiri mode input multibaris, masukkan baris yang tepat "
-#~ "%(sentinel)s."
-
-#~ msgid "Exiting."
-#~ msgstr "Keluar."
-
-#~ msgid "Unknown command: :%(cmd)s"
-#~ msgstr "Perintah tidak dikenal: :%(cmd)s"

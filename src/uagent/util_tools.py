@@ -933,18 +933,20 @@ def _confirm_clean_delete(
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
 
-        msg = _(
-            ":clean will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+        cmd = ":clean"
+        body_tpl = _(
+            "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
             "Log dir: %(dir)s\n"
             "Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
             "Targets: %(n)d\n\n"
             "Proceed? Enter y to run, or c to cancel."
-        ) % {
+        )
+        body = (tr(body_tpl) if callable(tr) else body_tpl) % {
             "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
             "threshold": threshold,
             "n": len(targets),
         }
-        res_json = human_ask({"message": msg})
+        res_json = human_ask({"message": f"{cmd} {body}"})
         res = json.loads(res_json)
         user_reply = (res.get("user_reply") or "").strip().lower()
         if user_reply not in ("y", "yes"):
@@ -1043,21 +1045,18 @@ def _prepend_loaded_log_to_current(
         if not isinstance(cur_log, str) or not cur_log:
             return
 
-        _load_confirm_tpl = (
-            ":load will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
+        cmd = ":load"
+        body_tpl = _(
+            "will overwrite the current session log file and prepend the loaded log (no backup).\n\n"
             "Current log: %(cur_log)s\n"
             "Source log: %(src_log)s\n\n"
             "Proceed? Enter y to run, or c to cancel."
         )
-
-        # NOTE: Some locale catalogs may contain msgstr="" (empty) for this msgid,
-        # which would make the prompt invisible. Fall back to the English template.
-        msg2_tpl = tr(_load_confirm_tpl) if callable(tr) else _load_confirm_tpl
-        if not str(msg2_tpl).strip():
-            msg2_tpl = _load_confirm_tpl
-
-        msg2 = str(msg2_tpl) % {"cur_log": cur_log, "src_log": source_log_path}
-        res_json2 = human_ask({"message": msg2})
+        body = (tr(body_tpl) if callable(tr) else body_tpl) % {
+            "cur_log": cur_log,
+            "src_log": source_log_path,
+        }
+        res_json2 = human_ask({"message": f"{cmd} {body}"})
         res2 = json.loads(res_json2)
         user_reply2 = (res2.get("user_reply") or "").strip().lower()
         if user_reply2 not in ("y", "yes"):
@@ -1110,12 +1109,13 @@ def _prepend_loaded_log_to_current(
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
+            return
     except Exception as e:
         print(
-            tr("[load warn] Error during prepend to current log: %(etype)s: %(err)s")
-            % {"etype": type(e).__name__, "err": e},
-            file=sys.stderr,
+            tr("[load error] Failed: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
         )
+        return
 
 
 def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
@@ -1226,7 +1226,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(tr(":load <index|path>"))
+        print(":load <index|path>")
         return True
 
     files = core.find_log_files(exclude_current=True)
