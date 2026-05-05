@@ -1,17 +1,19 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uag 0.4.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-05 17:47+0900\n"
-"PO-Revision-Date: 2026-04-24 10:22+0900\n"
-"Last-Translator: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
-"Language-Team: User <ukawa.hirofumi@nttdata-sbc.co.jp>\n"
-"Language: ko\n"
+"POT-Creation-Date: 2026-05-06 03:16+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:15 src/uagent/checks.py:25
@@ -65,13 +67,13 @@ msgstr ""
 "(여러 줄 입력 모드: 본문을 여러 줄로 입력하세요. 다시 시작하려면 \"\"\"retry를 입력하고 %(sentinel)s가 포함된 "
 "줄로 끝내세요)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
-#: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
-#: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
-#: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
-#: src/uagent/setup_cli.py:969 src/uagent/setup_cli.py:977
-#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1000
-#: src/uagent/setup_cli.py:1085 src/uagent/setup_cli.py:1111
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:979
+#: src/uagent/setup_cli.py:998 src/uagent/setup_cli.py:1021
+#: src/uagent/setup_cli.py:1037 src/uagent/setup_cli.py:1056
+#: src/uagent/setup_cli.py:1075 src/uagent/setup_cli.py:1089
+#: src/uagent/setup_cli.py:1102 src/uagent/setup_cli.py:1110
+#: src/uagent/setup_cli.py:1122 src/uagent/setup_cli.py:1133
+#: src/uagent/setup_cli.py:1218 src/uagent/setup_cli.py:1244
 msgid "Cancelled."
 msgstr "취소되었습니다."
 
@@ -103,7 +105,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "이미지 전송 확인에 실패했습니다. 이미지를 보내지 않습니다: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:460
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "이미지를 첨부하지 못했습니다: %(path)s (%(etype)s: %(err)s)"
@@ -121,7 +123,7 @@ msgstr "uag를 종료했습니다."
 msgid "[docs] name is required"
 msgstr "[docs] 이름이 필요합니다"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:1018
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:1030
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[치명적 오류] 작업 디렉터리를 설정하지 못했습니다: %(err)s"
@@ -131,24 +133,24 @@ msgstr "[치명적 오류] 작업 디렉터리를 설정하지 못했습니다: 
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[치명적 오류] uag_setup을 시작하지 못했습니다: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
-#: src/uagent/web.py:646
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:268
+#: src/uagent/web.py:658
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM 공급자 = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
-#: src/uagent/web.py:648
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:272
+#: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "모델(배포) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter 대체 모델이 활성화되었습니다."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
-#: src/uagent/web.py:636
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:323
+#: src/uagent/web.py:648
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
 "ignored)"
@@ -164,22 +166,22 @@ msgstr ""
 "않습니다. ChatCompletions로 전환합니다."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:329 src/uagent/web.py:654
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM API 모드 = ChatCompletions(UAGENT_RESPONSES가 비활성화됨)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
-#: src/uagent/web.py:630
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:317
+#: src/uagent/web.py:642
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM API 모드 = Responses(UAGENT_RESPONSES가 활성화됨)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
-#: src/uagent/web.py:710
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:338
+#: src/uagent/web.py:722
 msgid "Loaded long-term memory."
 msgstr "장기 메모리를 불러왔습니다."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
-#: src/uagent/web.py:722
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:351
+#: src/uagent/web.py:734
 msgid "Loaded shared long-term memory."
 msgstr "공유 장기 메모리를 불러왔습니다."
 
@@ -513,8 +515,8 @@ msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
 msgid "Error while parsing response: %(err)s"
 msgstr "응답을 파싱하는 중 오류가 발생했습니다: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
-#: src/uagent/web.py:621
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:307
+#: src/uagent/web.py:633
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -543,108 +545,116 @@ msgstr "[WARN] .env.sec를 복호화하지 못했습니다: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
 
-#: src/uagent/scheckgui.py:116
+#: src/uagent/scheckgui.py:117
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "여기에 파일/이미지를 드래그 앤 드롭하세요"
 
-#: src/uagent/scheckgui.py:154
+#: src/uagent/scheckgui.py:155
 msgid "Download"
 msgstr "다운로드"
 
-#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:360 src/uagent/web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "공유 장기 메모리를 불러오는 중 예외가 발생했습니다: %(err)s"
 
-#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
+#: src/uagent/scheckgui.py:587 src/uagent/scheckgui.py:711
 msgid "Welcome / Quick Guide"
 msgstr "환영합니다 / 빠른 안내"
 
-#: src/uagent/scheckgui.py:615
+#: src/uagent/scheckgui.py:595
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI(극한 안정성)"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:649
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ 드래그 앤 드롭으로 첨부할 수 있습니다"
 
-#: src/uagent/scheckgui.py:679
+#: src/uagent/scheckgui.py:670
 msgid "Send"
 msgstr "보내기"
 
-#: src/uagent/scheckgui.py:719
+#: src/uagent/scheckgui.py:710
 msgid "Help"
 msgstr "도움말"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:725
 msgid "Mode"
 msgstr "모드"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:727
 msgid "Reasoning: off"
 msgstr "추론: 끔"
 
-#: src/uagent/scheckgui.py:739
+#: src/uagent/scheckgui.py:730
 msgid "Reasoning: auto"
 msgstr "추론: 자동"
 
-#: src/uagent/scheckgui.py:741
+#: src/uagent/scheckgui.py:732
 msgid "Reasoning: minimal"
 msgstr "추론: 최소"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:734
 msgid "Reasoning: low"
 msgstr "추론: 낮음"
 
-#: src/uagent/scheckgui.py:745
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: medium"
 msgstr "추론: 보통"
 
-#: src/uagent/scheckgui.py:747
+#: src/uagent/scheckgui.py:738
 msgid "Reasoning: high"
 msgstr "추론: 높음"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: xhigh"
 msgstr "추론: 매우 높음"
 
-#: src/uagent/scheckgui.py:755
+#: src/uagent/scheckgui.py:746
 msgid "Verbosity: off"
 msgstr "상세도: 끔"
 
-#: src/uagent/scheckgui.py:757
+#: src/uagent/scheckgui.py:748
 msgid "Verbosity: low"
 msgstr "상세도: 낮음"
 
-#: src/uagent/scheckgui.py:759
+#: src/uagent/scheckgui.py:750
 msgid "Verbosity: medium"
 msgstr "상세도: 보통"
 
-#: src/uagent/scheckgui.py:761
+#: src/uagent/scheckgui.py:752
 msgid "Verbosity: high"
 msgstr "상세도: 높음"
 
-#: src/uagent/scheckgui.py:791
+#: src/uagent/scheckgui.py:782
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 추론=%(mode)s"
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:918
 msgid "Enter password..."
 msgstr "비밀번호를 입력하세요..."
 
-#: src/uagent/scheckgui.py:919
+#: src/uagent/scheckgui.py:920
 msgid "Enter response for human_ask..."
 msgstr "human_ask 응답을 입력하세요..."
 
-#: src/uagent/scheckgui.py:924
+#: src/uagent/scheckgui.py:925
 msgid "Enter a message..."
 msgstr "메시지를 입력하세요..."
 
-#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1332 src/uagent/scheckgui.py:1372
+#: src/uagent/scheckgui.py:1407
 msgid "Downloaded to"
 msgstr "다운로드 위치"
+
+#: src/uagent/scheckgui.py:1426
+msgid "Playing"
+msgstr "재생 중"
+
+#: src/uagent/scheckgui.py:1436
+msgid "Stopped"
+msgstr "중지됨"
 
 #: src/uagent/setup_cli.py:28
 msgid "# .env for uag (generated by `uag_setup`)"
@@ -687,11 +697,11 @@ msgstr "Ollama"
 msgid "NVIDIA"
 msgstr "NVIDIA"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:459
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
 msgstr "OpenAI API 키"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:460
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
 msgid "OpenAI base URL (optional)"
 msgstr "OpenAI 기본 URL(선택 사항)"
 
@@ -699,11 +709,11 @@ msgstr "OpenAI 기본 URL(선택 사항)"
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI 모델/배포 이름(선택 사항)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:451
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "Azure 기본 URL(예: https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:453
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
 msgid "Azure API key"
 msgstr "Azure API 키"
 
@@ -711,27 +721,27 @@ msgstr "Azure API 키"
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Azure API 버전(선택 사항, 예: 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:455
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
 msgid "Azure deployment name"
 msgstr "Azure 배포 이름"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:468
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "Bedrock 게이트웨이 기본 URL(예: https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:470
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
 msgid "Bedrock API key"
 msgstr "Bedrock API 키"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Bedrock 모델/배포 이름(예: openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:479
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
 msgid "OpenRouter API key"
 msgstr "OpenRouter API 키"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:480
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
 msgid "OpenRouter base URL (optional)"
 msgstr "OpenRouter 기본 URL(선택 사항)"
 
@@ -743,7 +753,7 @@ msgstr "OpenRouter 모델/배포 이름(선택 사항)"
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "OpenRouter 대체 모델(선택 사항, 쉼표로 구분)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:485
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
 msgid "Gemini API key"
 msgstr "Gemini API 키"
 
@@ -787,11 +797,11 @@ msgstr "Claude API 키"
 msgid "Claude model/deployment name (optional)"
 msgstr "Claude 모델/배포 이름(선택 사항)"
 
-#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:490
+#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
 msgid "NVIDIA API key"
 msgstr "NVIDIA API 키"
 
-#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
 msgid "NVIDIA base URL (optional)"
 msgstr "NVIDIA 기본 URL(선택 사항)"
 
@@ -843,139 +853,171 @@ msgstr "Ollama 문맥 길이(num_ctx) (기본값: 8192)"
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama 예측 수(num_predict) (기본값: 1024)"
 
-#: src/uagent/setup_cli.py:324 src/uagent/setup_cli.py:413
+#: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
 msgid "Enter number:"
 msgstr "숫자를 입력하세요:"
 
-#: src/uagent/setup_cli.py:337
+#: src/uagent/setup_cli.py:344
 msgid "Invalid input. Please enter a valid number."
 msgstr "잘못된 입력입니다. 유효한 숫자를 입력하세요."
 
-#: src/uagent/setup_cli.py:350
+#: src/uagent/setup_cli.py:357
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [기본값: %(default)s]"
 
-#: src/uagent/setup_cli.py:366
+#: src/uagent/setup_cli.py:373
 msgid "This field is required. Please enter a value."
 msgstr "이 항목은 필수입니다. 값을 입력하세요."
 
-#: src/uagent/setup_cli.py:378
+#: src/uagent/setup_cli.py:385
 msgid "Select UAGENT_LANG"
 msgstr "UAGENT_LANG 선택"
 
-#: src/uagent/setup_cli.py:389
+#: src/uagent/setup_cli.py:396
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG(사용자 지정)"
 
-#: src/uagent/setup_cli.py:402
+#: src/uagent/setup_cli.py:409
 msgid "Select output files to generate in the current directory"
 msgstr "현재 디렉터리에 생성할 출력 파일을 선택"
 
-#: src/uagent/setup_cli.py:403
+#: src/uagent/setup_cli.py:410
 msgid "  1. .env only"
 msgstr "  1. .env만"
 
-#: src/uagent/setup_cli.py:404
+#: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
 msgstr "  2. .env + env.sh"
 
-#: src/uagent/setup_cli.py:405
+#: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env + env.ps1"
 
-#: src/uagent/setup_cli.py:406
+#: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
 msgstr "  4. .env + env.bat"
 
-#: src/uagent/setup_cli.py:407
+#: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + 모두(sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:435
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "잘못된 입력입니다. 1-5 또는 b/q를 입력하세요."
 
-#: src/uagent/setup_cli.py:454
+#: src/uagent/setup_cli.py:463
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Azure API 버전(예: 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:461
+#: src/uagent/setup_cli.py:470
 msgid "OpenAI model/deployment name"
 msgstr "OpenAI 모델/배포 이름"
 
-#: src/uagent/setup_cli.py:481
+#: src/uagent/setup_cli.py:490
 msgid "OpenRouter model/deployment name"
 msgstr "OpenRouter 모델/배포 이름"
 
-#: src/uagent/setup_cli.py:486
+#: src/uagent/setup_cli.py:495
 msgid "Gemini model name"
 msgstr "Gemini 모델 이름"
 
-#: src/uagent/setup_cli.py:492
+#: src/uagent/setup_cli.py:501
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA 모델/배포 이름"
 
-#: src/uagent/setup_cli.py:500
+#: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
 msgstr "%(label)s"
 
-#: src/uagent/setup_cli.py:511
+#: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
 msgstr "공급자 선택"
 
-#: src/uagent/setup_cli.py:526
-msgid "Configure optional image / embedding settings?"
+#: src/uagent/setup_cli.py:543
+msgid "Azure speech deployment name"
+msgstr "Azure 음성 배포 이름"
+
+#: src/uagent/setup_cli.py:544
+msgid "Azure transcription deployment name"
+msgstr "Azure 텍스트 변환 배포 이름"
+
+#: src/uagent/setup_cli.py:551
+msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+msgstr "OpenAI TTS 모델/배포 이름(선택 사항, 기본값: gpt-4o-mini-tts)"
+
+#: src/uagent/setup_cli.py:557
+msgid ""
+"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
+"transcribe)"
+msgstr "OpenAI 텍스트 변환 모델/배포 이름(선택 사항, 기본값: gpt-4o-mini-transcribe)"
+
+#: src/uagent/setup_cli.py:583
+msgid "Configure optional image / embedding / audio settings?"
 msgstr "선택적 이미지/임베딩 설정을 구성하시겠습니까?"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "No"
 msgstr "No"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "Yes"
 msgstr "Yes"
 
-#: src/uagent/setup_cli.py:541
+#: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
 msgstr "이미지 분석 설정을 구성하시겠습니까?"
 
-#: src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:609
 msgid "Select image analysis provider"
 msgstr "이미지 분석 공급자 선택"
 
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:630
 msgid "Configure image generation settings?"
 msgstr "이미지 생성 설정을 구성하시겠습니까?"
 
-#: src/uagent/setup_cli.py:584
+#: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
 msgstr "공급자 선택"
 
-#: src/uagent/setup_cli.py:604
+#: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
 msgstr "생성된 이미지를 자동으로 열까요?"
 
-#: src/uagent/setup_cli.py:620
+#: src/uagent/setup_cli.py:677
 msgid "Configure embedding / semantic search settings?"
 msgstr "임베딩/의미 검색 설정을 구성하시겠습니까?"
 
-#: src/uagent/setup_cli.py:652
+#: src/uagent/setup_cli.py:709
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr "임베딩 API에 연결할 수 없을 때 의미 검색을 비활성화할까요?"
 
-#: src/uagent/setup_cli.py:693
+#: src/uagent/setup_cli.py:722
+msgid "Configure audio speech / transcription settings?"
+msgstr "음성 읽기 / 텍스트 변환 설정을 구성하시겠습니까?"
+
+#: src/uagent/setup_cli.py:736
+msgid "Select audio provider"
+msgstr "오디오 제공업체 선택"
+
+#: src/uagent/setup_cli.py:755
+msgid "Open generated audio automatically?"
+msgstr "생성된 오디오를 자동으로 열까요?"
+
+#: src/uagent/setup_cli.py:799
 msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
@@ -983,214 +1025,214 @@ msgstr ""
 "# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
 "nvidia"
 
-#: src/uagent/setup_cli.py:706
+#: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
-#: src/uagent/setup_cli.py:717
+#: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "선택 사항: Responses API(Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:727
+#: src/uagent/setup_cli.py:833
 msgid "# (not supported by selected provider)"
 msgstr "# (선택한 공급자에서 지원되지 않음)"
 
-#: src/uagent/setup_cli.py:730
+#: src/uagent/setup_cli.py:836
 msgid "Optional runtime"
 msgstr "선택적 런타임"
 
-#: src/uagent/setup_cli.py:742
-msgid "Optional image / embedding settings"
+#: src/uagent/setup_cli.py:848
+msgid "Optional image / embedding / audio settings"
 msgstr "선택적 이미지 / 임베딩 설정"
 
-#: src/uagent/setup_cli.py:813
+#: src/uagent/setup_cli.py:946
 msgid "# (optional image / embedding settings not configured)"
 msgstr "# (선택적 이미지 / 임베딩 설정이 구성되지 않음)"
 
-#: src/uagent/setup_cli.py:821
+#: src/uagent/setup_cli.py:954
 msgid "Encrypt the generated .env file?"
 msgstr "생성된 .env 파일을 암호화하시겠습니까?"
 
-#: src/uagent/setup_cli.py:827
+#: src/uagent/setup_cli.py:960
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "암호화된 파일은 %(path)s로 저장됩니다"
 
-#: src/uagent/setup_cli.py:843
+#: src/uagent/setup_cli.py:976
 msgid "Select provider"
 msgstr "공급자 선택"
 
-#: src/uagent/setup_cli.py:882
+#: src/uagent/setup_cli.py:1015
 msgid "Enable Responses API options?"
 msgstr "Responses API 옵션을 사용하시겠습니까?"
 
-#: src/uagent/setup_cli.py:898
+#: src/uagent/setup_cli.py:1031
 msgid "Select reasoning"
 msgstr "추론 수준 선택"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
 msgstr "minimal"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:910
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
 msgstr "low"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:911
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
 msgstr "medium"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:912
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
 msgstr "high"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
 msgstr "auto"
 
-#: src/uagent/setup_cli.py:917
+#: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
 msgstr "상세도 선택"
 
-#: src/uagent/setup_cli.py:936
+#: src/uagent/setup_cli.py:1069
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "선택적 런타임 UAGENT_WORKDIR를 설정하시겠습니까?"
 
-#: src/uagent/setup_cli.py:963
+#: src/uagent/setup_cli.py:1096
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "선택적 런타임 UAGENT_LANG를 설정하시겠습니까?"
 
-#: src/uagent/setup_cli.py:1012
+#: src/uagent/setup_cli.py:1145
 msgid "Summary"
 msgstr "요약"
 
-#: src/uagent/setup_cli.py:1013
+#: src/uagent/setup_cli.py:1146
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  공급자: %(provider)s"
 
-#: src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
 msgstr "  %(key)s=%(value)s"
 
-#: src/uagent/setup_cli.py:1020
+#: src/uagent/setup_cli.py:1153
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  Responses 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "yes"
 msgstr "yes"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "no"
 msgstr "no"
 
-#: src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
 msgstr "  UAGENT_REASONING=%(value)s"
 
-#: src/uagent/setup_cli.py:1025
+#: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
 msgstr "  UAGENT_VERBOSITY=%(value)s"
 
-#: src/uagent/setup_cli.py:1027
+#: src/uagent/setup_cli.py:1160
 #, python-format
 msgid "  UAGENT_WORKDIR enabled: %(state)s"
 msgstr "  UAGENT_WORKDIR 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1031
+#: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
 msgstr "  UAGENT_WORKDIR=%(value)s"
 
-#: src/uagent/setup_cli.py:1033
+#: src/uagent/setup_cli.py:1166
 #, python-format
 msgid "  UAGENT_LANG enabled: %(state)s"
 msgstr "  UAGENT_LANG 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1037
+#: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
 msgstr "  UAGENT_LANG=%(value)s"
 
-#: src/uagent/setup_cli.py:1039
+#: src/uagent/setup_cli.py:1172
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  선택적 추가 기능 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1177
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  이미지 분석 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1052
+#: src/uagent/setup_cli.py:1185
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  이미지 생성 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1063
+#: src/uagent/setup_cli.py:1196
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  임베딩 활성화: %(state)s"
 
-#: src/uagent/setup_cli.py:1076
+#: src/uagent/setup_cli.py:1209
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  출력: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1079
+#: src/uagent/setup_cli.py:1212
 msgid "Generate files with this configuration?"
 msgstr "이 설정으로 파일을 생성하시겠습니까?"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Yes, generate"
 msgstr "예, 생성"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Back"
 msgstr "뒤로"
 
-#: src/uagent/setup_cli.py:1104
+#: src/uagent/setup_cli.py:1237
 msgid "The following files already exist and will be overwritten:"
 msgstr "다음 파일이 이미 존재하며 덮어쓰게 됩니다:"
 
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:1241
 msgid "Proceed?"
 msgstr "계속하시겠습니까?"
 
-#: src/uagent/setup_cli.py:1132
+#: src/uagent/setup_cli.py:1265
 msgid "Plain .env file removed after encryption."
 msgstr "암호화 후 일반 텍스트 .env 파일을 삭제했습니다."
 
-#: src/uagent/setup_cli.py:1135
+#: src/uagent/setup_cli.py:1268
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "경고: 일반 .env를 제거하지 못했습니다: %(error)s"
 
-#: src/uagent/setup_cli.py:1154
+#: src/uagent/setup_cli.py:1287
 #, python-format
 msgid "generated: %(path)s"
 msgstr "생성됨: %(path)s"
 
-#: src/uagent/setup_cli.py:1157
+#: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
 msgstr "- env.ps1 : utf-8-sig, CRLF"
 
-#: src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat : cp932, CRLF"
 
@@ -1454,37 +1496,37 @@ msgstr "[load] 현재 로그 앞에 붙였습니다: %(path)s"
 msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr "[load 경고] 현재 로그를 다시 쓰지 못했습니다: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1114
+#: src/uagent/util_tools.py:1115
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load 오류] 실패했습니다: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1127
+#: src/uagent/util_tools.py:1130
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm 오류] 인수 파싱 실패: %(err)s"
 
-#: src/uagent/util_tools.py:1148
+#: src/uagent/util_tools.py:1151
 msgid "[rm] Unexpected delete_file preview response."
 msgstr "[rm] 예상치 못한 delete_file 미리보기 응답입니다."
 
-#: src/uagent/util_tools.py:1152
+#: src/uagent/util_tools.py:1155
 msgid "[rm] Preview failed."
 msgstr "[rm] 미리보기에 실패했습니다."
 
-#: src/uagent/util_tools.py:1162
+#: src/uagent/util_tools.py:1165
 msgid "[rm] No matching paths."
 msgstr "[rm] 일치하는 경로가 없습니다."
 
-#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1176
 msgid "[rm] Missing:"
 msgstr "[rm] 누락:"
 
-#: src/uagent/util_tools.py:1169
+#: src/uagent/util_tools.py:1172
 msgid "[rm] Candidates:"
 msgstr "[rm] 후보:"
 
-#: src/uagent/util_tools.py:1178
+#: src/uagent/util_tools.py:1181
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1499,146 +1541,146 @@ msgstr ""
 "\n"
 "진행하려면 y를, 취소하려면 c를 입력하세요."
 
-#: src/uagent/util_tools.py:1185
+#: src/uagent/util_tools.py:1188
 msgid "[rm] Cancelled."
 msgstr "[rm] 취소되었습니다."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1202
 msgid "[rm] Unexpected delete_file response."
 msgstr "[rm] 예상치 못한 delete_file 응답입니다."
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1207
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr "[rm] %(count)d개 경로를 삭제했습니다."
 
-#: src/uagent/util_tools.py:1208
+#: src/uagent/util_tools.py:1211
 msgid "[rm] Failed."
 msgstr "[rm] 실패했습니다."
 
-#: src/uagent/util_tools.py:1233
+#: src/uagent/util_tools.py:1236
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "지정한 인덱스 %(idx)d가 범위를 벗어났습니다."
 
-#: src/uagent/util_tools.py:1242
+#: src/uagent/util_tools.py:1245
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "로그 파일을 찾을 수 없습니다: %(path)s"
 
-#: src/uagent/util_tools.py:1288
+#: src/uagent/util_tools.py:1291
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "불러온 로그: %(path)s"
 
-#: src/uagent/util_tools.py:1289
+#: src/uagent/util_tools.py:1292
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "대화 메시지 수: %(n)d"
 
-#: src/uagent/util_tools.py:1319
+#: src/uagent/util_tools.py:1322
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink 오류] 정수로 파싱하지 못했습니다: %(arg)r -> 마지막 %(keep)d개 유지"
 
-#: src/uagent/util_tools.py:1348
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1369
+#: src/uagent/util_tools.py:1372
 msgid "No long-term memory entries."
 msgstr "장기 메모리 항목이 없습니다."
 
-#: src/uagent/util_tools.py:1372
+#: src/uagent/util_tools.py:1375
 msgid "Long-term memory entries:"
 msgstr "장기 메모리 항목:"
 
-#: src/uagent/util_tools.py:1395
+#: src/uagent/util_tools.py:1398
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del 오류] 인덱스를 정수로 파싱하지 못했습니다: %(arg)r"
 
-#: src/uagent/util_tools.py:1400
+#: src/uagent/util_tools.py:1403
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "장기 메모리 항목 [%(idx)d]를 삭제했습니다."
 
-#: src/uagent/util_tools.py:1402
+#: src/uagent/util_tools.py:1405
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] 인덱스=%(idx)d 삭제 실패"
 
-#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
+#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr "공유 장기 메모리가 활성화되어 있지 않습니다(UAGENT_SHARED_MEMORY_FILE이 설정되지 않음)."
 
-#: src/uagent/util_tools.py:1417
+#: src/uagent/util_tools.py:1420
 msgid "No shared long-term memory entries."
 msgstr "공유 장기 메모리 항목이 없습니다."
 
-#: src/uagent/util_tools.py:1422
+#: src/uagent/util_tools.py:1425
 msgid "Shared long-term memory entries:"
 msgstr "공유 장기 메모리 항목:"
 
-#: src/uagent/util_tools.py:1452
+#: src/uagent/util_tools.py:1455
 #, python-format
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[shared-mem-del 오류] 인덱스를 정수로 파싱하지 못했습니다: %(arg)r"
 
-#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] 인덱스=%(idx)d 삭제 실패"
 
-#: src/uagent/util_tools.py:1475
+#: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
 msgstr "[shared-mem-del 오류] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1480
+#: src/uagent/util_tools.py:1483
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "공유 장기 메모리 항목 [%(idx)d]를 삭제했습니다."
 
-#: src/uagent/util_tools.py:1495
+#: src/uagent/util_tools.py:1498
 msgid "Show this help"
 msgstr "이 도움말 보기"
 
-#: src/uagent/util_tools.py:1496
+#: src/uagent/util_tools.py:1499
 msgid "Restart input from the beginning"
 msgstr "처음부터 다시 입력"
 
-#: src/uagent/util_tools.py:1497
+#: src/uagent/util_tools.py:1500
 msgid "Show log file list"
 msgstr "로그 파일 목록 보기"
 
-#: src/uagent/util_tools.py:1500
+#: src/uagent/util_tools.py:1503
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr "확인 없이 작업 디렉터리 변경 (예: :cd .. / :cd ~ / :cd C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:1503
+#: src/uagent/util_tools.py:1506
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "디렉터리 항목 나열 (예: :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1504
+#: src/uagent/util_tools.py:1507
 msgid "List loaded tools"
 msgstr "로드된 도구 목록 보기"
 
-#: src/uagent/util_tools.py:1506
+#: src/uagent/util_tools.py:1509
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "skill 관리/적용 (예: :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1508
+#: src/uagent/util_tools.py:1511
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "과거 로그 불러오기 (현재 대화 기록을 덮어씀)"
 
-#: src/uagent/util_tools.py:1510
+#: src/uagent/util_tools.py:1513
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1647,78 +1689,78 @@ msgstr ""
 "        참고: 실행 후 확인을 요청합니다. 'y'를 선택하면 불러온 로그가 현재 세션 로그 파일 앞에 붙습니다(덮어쓰기, 백업 "
 "없음)."
 
-#: src/uagent/util_tools.py:1514
+#: src/uagent/util_tools.py:1517
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 "대화 로그 삭제 (scheck_log_*.jsonl), user/assistant/tool 메시지 수(시스템 제외)가 N 이하일 때"
 
-#: src/uagent/util_tools.py:1518
+#: src/uagent/util_tools.py:1521
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "대화 기록 줄이기 (마지막 N개의 비-system 메시지만 유지; 기본=40)"
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1525
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
 msgstr "LLM 요약으로 기록 줄이기 (과거 기록을 1개의 system 메시지로 요약; 마지막 N개의 원문 유지; 기본=20)"
 
-#: src/uagent/util_tools.py:1524
+#: src/uagent/util_tools.py:1527
 msgid "List long-term memory notes"
 msgstr "장기 메모리 항목 보기"
 
-#: src/uagent/util_tools.py:1526
+#: src/uagent/util_tools.py:1529
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "장기 메모리 항목을 인덱스로 삭제 (:mem-list 참조)"
 
-#: src/uagent/util_tools.py:1528
+#: src/uagent/util_tools.py:1531
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "미리보기 + 확인으로 파일/디렉터리 삭제"
 
-#: src/uagent/util_tools.py:1530
+#: src/uagent/util_tools.py:1533
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr "공유 장기 메모리 항목 보기 (UAGENT_SHARED_MEMORY_FILE 필요)"
 
-#: src/uagent/util_tools.py:1532
+#: src/uagent/util_tools.py:1535
 msgid "Delete a shared long-term memory note by index"
 msgstr "공유 장기 메모리 항목을 인덱스로 삭제"
 
-#: src/uagent/util_tools.py:1534
+#: src/uagent/util_tools.py:1537
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr "추론 모드 설정 (0=끔, 1=낮음, 2=중간, 3=높음; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1536
+#: src/uagent/util_tools.py:1539
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "상세 수준 설정 (0=끔, 1=낮음, 2=중간, 3=높음; 인수 없음=유지)"
 
-#: src/uagent/util_tools.py:1537
+#: src/uagent/util_tools.py:1540
 msgid "Exit"
 msgstr "종료"
 
-#: src/uagent/util_tools.py:1540
+#: src/uagent/util_tools.py:1543
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - 여러 줄 입력 모드로 들어가려면 'f'만 있는 줄을 입력하세요."
 
-#: src/uagent/util_tools.py:1542
+#: src/uagent/util_tools.py:1545
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 여러 줄 입력 모드를 끝내려면 %(sentinel)s와 정확히 같은 줄을 입력하세요."
 
-#: src/uagent/util_tools.py:1636
+#: src/uagent/util_tools.py:1639
 msgid "Exiting."
 msgstr "종료 중입니다."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1642
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "알 수 없는 명령: :%(cmd)s"
 
-#: src/uagent/util_tools.py:1790
+#: src/uagent/util_tools.py:1793
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1726,13 +1768,13 @@ msgstr ""
 "아래에 나열된 글머리표 항목은 이 사용자의 장기 메모(영구 메모)에서 발췌한 내용입니다. 사용자에 대한 배경 정보로 활용하세요. 다만 대화에서 새로 제공된 정보는 항상 우선하며, 이전 정보와 충돌하면 최신 정보를 따르세요.\n"
 "\n"
 
-#: src/uagent/web.py:504
+#: src/uagent/web.py:511
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
 msgstr "이 방에서는 이미 다른 작업이 실행 중입니다. 완료 후 다시 시도하세요."
 
-#: src/uagent/web.py:592 src/uagent/web.py:761
+#: src/uagent/web.py:604 src/uagent/web.py:773
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."

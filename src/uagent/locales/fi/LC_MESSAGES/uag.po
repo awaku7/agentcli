@@ -1,17 +1,19 @@
-# 
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: uag 0.4.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-05 17:47+0900\n"
-"PO-Revision-Date: 2026-04-25 11:15+0900\n"
+"POT-Creation-Date: 2026-05-06 03:16+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: en <LL@li.org>\n"
-"Language: en\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:15 src/uagent/checks.py:25
@@ -65,13 +67,13 @@ msgstr ""
 "(Monirivinen syöttötila: kirjoita sisältö usealle riville; aloittaaksesi "
 "alusta kirjoita \"\"\"retry; päätä rivi, joka sisältää %(sentinel)s)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:846
-#: src/uagent/setup_cli.py:865 src/uagent/setup_cli.py:888
-#: src/uagent/setup_cli.py:904 src/uagent/setup_cli.py:923
-#: src/uagent/setup_cli.py:942 src/uagent/setup_cli.py:956
-#: src/uagent/setup_cli.py:969 src/uagent/setup_cli.py:977
-#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1000
-#: src/uagent/setup_cli.py:1085 src/uagent/setup_cli.py:1111
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:979
+#: src/uagent/setup_cli.py:998 src/uagent/setup_cli.py:1021
+#: src/uagent/setup_cli.py:1037 src/uagent/setup_cli.py:1056
+#: src/uagent/setup_cli.py:1075 src/uagent/setup_cli.py:1089
+#: src/uagent/setup_cli.py:1102 src/uagent/setup_cli.py:1110
+#: src/uagent/setup_cli.py:1122 src/uagent/setup_cli.py:1133
+#: src/uagent/setup_cli.py:1218 src/uagent/setup_cli.py:1244
 msgid "Cancelled."
 msgstr "Peruutettu."
 
@@ -89,8 +91,7 @@ msgid ""
 "Do you want to send these images to the LLM (external API) for analysis?\n"
 "\n"
 msgstr ""
-"Syötteestä löytyi kuvatiedostopolkuja. Haluatko lähettää nämä kuvat LLM:lle "
-"(ulkoinen API) analysoitavaksi?\n"
+"Syötteestä löytyi kuvatiedostopolkuja. Haluatko lähettää nämä kuvat LLM:lle (ulkoinen API) analysoitavaksi?\n"
 "\n"
 
 #: src/uagent/cli.py:811
@@ -105,7 +106,7 @@ msgstr ""
 "Kuvien lähetyksen vahvistus epäonnistui; kuvia ei lähetetä: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:479
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:460
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kuvan liittäminen epäonnistui: %(path)s (%(etype)s: %(err)s)"
@@ -123,7 +124,7 @@ msgstr "uag suljettiin."
 msgid "[docs] name is required"
 msgstr "[docs] nimi vaaditaan"
 
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:1018
+#: src/uagent/cli_startup.py:109 src/uagent/web.py:1030
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[VAKAVA] Työhakemiston asettaminen epäonnistui: %(err)s"
@@ -133,24 +134,24 @@ msgstr "[VAKAVA] Työhakemiston asettaminen epäonnistui: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[VAKAVA] uag_setupin käynnistys epäonnistui: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:267
-#: src/uagent/web.py:646
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:268
+#: src/uagent/web.py:658
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "LLM-palveluntarjoaja = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:271
-#: src/uagent/web.py:648
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:272
+#: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "malli (deployment) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:281
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-varamallit käytössä."
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:322
-#: src/uagent/web.py:636
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:323
+#: src/uagent/web.py:648
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
 "ignored)"
@@ -168,22 +169,22 @@ msgstr ""
 "'%(provider)s' ei tue Responses APIa. Palataan ChatCompletions-tilaan."
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:328 src/uagent/web.py:642
+#: src/uagent/scheckgui.py:329 src/uagent/web.py:654
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "LLM API -tila = ChatCompletions (UAGENT_RESPONSES ei ole käytössä)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:316
-#: src/uagent/web.py:630
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:317
+#: src/uagent/web.py:642
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "LLM API -tila = Responses (UAGENT_RESPONSES on käytössä)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:337
-#: src/uagent/web.py:710
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:338
+#: src/uagent/web.py:722
 msgid "Loaded long-term memory."
 msgstr "Pitkäaikainen muisti ladattu."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:350
-#: src/uagent/web.py:722
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:351
+#: src/uagent/web.py:734
 msgid "Loaded shared long-term memory."
 msgstr "Jaettu pitkäaikainen muisti ladattu."
 
@@ -191,7 +192,8 @@ msgstr "Jaettu pitkäaikainen muisti ladattu."
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "[VAROITUS] Poikkeus jaettua pitkäaikaista muistia ladattaessa: %(err)s"
+msgstr ""
+"[VAROITUS] Poikkeus jaettua pitkäaikaista muistia ladattaessa: %(err)s"
 
 #: src/uagent/cli_startup.py:281
 #, python-format
@@ -230,24 +232,18 @@ msgstr ":help  (ohje ei ole käytettävissä: %(err)s)"
 #: src/uagent/core.py:1292
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
 "- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
 "## Tehtävä\n"
-"- Olet kykenevä \"yleiskäyttöinen työkalujen suoritusagentti\", joka toimii "
-"paikallisessa ympäristössä ja pystyy suorittamaan komentoja sekä "
-"käsittelemään käyttäjän koneen tiedostoja.\n"
+"- Olet kykenevä \"yleiskäyttöinen työkalujen suoritusagentti\", joka toimii paikallisessa ympäristössä ja pystyy suorittamaan komentoja sekä käsittelemään käyttäjän koneen tiedostoja.\n"
 "- Pyydä käyttäjältä vahvistus ennen vaarallisten toimintojen suorittamista.\n"
 "- Älä imartele käyttäjää. Älä käytä emojeita.\n"
 "- Älä tee yhteenvetoa. Pidä tiedot lyhyinä.\n"
-"- Kun luot tiedostoja, tulosta koko lopullinen sisältö (älä tulosta diffiä "
-"tai osittaista yhteenvetoa).\n"
+"- Kun luot tiedostoja, tulosta koko lopullinen sisältö (älä tulosta diffiä tai osittaista yhteenvetoa).\n"
 
 #: src/uagent/core.py:1300
 msgid ""
@@ -255,113 +251,77 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to "
-"the user.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Säännöt\n"
 "- Käytä aina annettuja työkaluja ja varmista uusin tieto.\n"
 "- Ole luova, mutta älä esitä epävarmaa tietoa.\n"
 "- Tutki käytettävissä olevat työkalut ja valitse sopivin.\n"
-"- Työkaluja käyttäessäsi delegoi käyttäjälle mahdollisimman vähän "
-"päätöksentekoa.\n"
+"- Työkaluja käyttäessäsi delegoi käyttäjälle mahdollisimman vähän päätöksentekoa.\n"
 
 #: src/uagent/core.py:1307
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the "
-"human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
-"and follow them.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 msgstr ""
 "## Huomautukset\n"
 "- Kaikki käyttäjän viestit tulevat tämän skriptin standardisyötteen kautta.\n"
-"- Käytä työkalukohtaisissa tarkoitus-, argumentti-, rajoite- ja "
-"toimintatiedoissa kunkin työkalun kuvausta.\n"
-"- Jos tarvitset käyttäjältä lisätietoja tai vahvistuksen, käytä human_ask-"
-"työkalua.\n"
-"- Kun käsittelet suhteellisia päivämääräilmaisuja, kutsu get_current_time "
-"nykyhetken tarkistamiseksi.\n"
-"- Älä tallenna salaisuuksia (salasanat/tunnukset) pitkäkestoiseen muistiin "
-"(add_long_memory jne.).\n"
-"- .org / .org1 / .org2 -päätteiset tiedostot ovat varmuuskopioita, eikä "
-"niitä saa käsitellä ensisijaisina muokattavina tiedostoina.\n"
-"- Jos luot Python-tiedostoja, aja `python -m py_compile` syntaksin "
-"tarkistamiseksi.\n"
-"- Jos tarvitaan asiantuntijatason tietoa, käytä Agent Skills -kehotepohjia "
-"ja noudata niitä.\n"
+"- Käytä työkalukohtaisissa tarkoitus-, argumentti-, rajoite- ja toimintatiedoissa kunkin työkalun kuvausta.\n"
+"- Jos tarvitset käyttäjältä lisätietoja tai vahvistuksen, käytä human_ask-työkalua.\n"
+"- Kun käsittelet suhteellisia päivämääräilmaisuja, kutsu get_current_time nykyhetken tarkistamiseksi.\n"
+"- Älä tallenna salaisuuksia (salasanat/tunnukset) pitkäkestoiseen muistiin (add_long_memory jne.).\n"
+"- .org / .org1 / .org2 -päätteiset tiedostot ovat varmuuskopioita, eikä niitä saa käsitellä ensisijaisina muokattavina tiedostoina.\n"
+"- Jos luot Python-tiedostoja, aja `python -m py_compile` syntaksin tarkistamiseksi.\n"
+"- Jos tarvitaan asiantuntijatason tietoa, käytä Agent Skills -kehotepohjia ja noudata niitä.\n"
 
 #: src/uagent/core.py:1318
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion "
-"candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly "
-"once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
-"explicit approval), run delete_file again with the same parameters, "
-"dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be "
-"deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
 "## Vaarallisten toimintojen käytäntö (delete_file)\n"
-"- Kun käytät delete_file-työkalua poistamiseen, älä pyydä vahvistusta ennen "
-"esikatselua.\n"
-"- Aja aina ensin delete_file dry_run=true -tilassa, jotta saat "
-"poistokohteiden listan.\n"
+"- Kun käytät delete_file-työkalua poistamiseen, älä pyydä vahvistusta ennen esikatselua.\n"
+"- Aja aina ensin delete_file dry_run=true -tilassa, jotta saat poistokohteiden listan.\n"
 "- Näytä kohteet käyttäjälle ja pyydä vahvistus human_askilla tasan kerran.\n"
-"- Vain jos käyttäjä vastaa nimenomaisesti \"y\" tai \"yes\" (tai muuten "
-"selvästi hyväksyy), aja delete_file uudelleen samoilla parametreilla, "
-"dry_run=false ja confirmed=true.\n"
-"- Jos kohteita ei ole yhtään, älä kysy mitään; ilmoita vain, ettei mitään "
-"poisteta.\n"
+"- Vain jos käyttäjä vastaa nimenomaisesti \"y\" tai \"yes\" (tai muuten selvästi hyväksyy), aja delete_file uudelleen samoilla parametreilla, dry_run=false ja confirmed=true.\n"
+"- Jos kohteita ei ole yhtään, älä kysy mitään; ilmoita vain, ettei mitään poisteta.\n"
 
 #: src/uagent/core.py:1326
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment; you can execute commands and operate on the user's "
-"machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial "
-"summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
 "## Tehtävä\n"
-"- Olet kyvykäs \"yleiskäyttöinen työkalujen suoritusagentti\", joka toimii "
-"paikallisessa ympäristössä; voit suorittaa komentoja ja käsitellä käyttäjän "
-"koneen tiedostoja.\n"
+"- Olet kyvykäs \"yleiskäyttöinen työkalujen suoritusagentti\", joka toimii paikallisessa ympäristössä; voit suorittaa komentoja ja käsitellä käyttäjän koneen tiedostoja.\n"
 "- Pyydä käyttäjältä vahvistus ennen mitään vaarallista toimenpidettä.\n"
-"- Älä imartele. Älä käytä emojeita. Älä tee yhteenvetoja. Pidä viestit "
-"lyhyinä.\n"
-"- Kun luot tiedostoja, tulosta koko lopullinen sisältö (ei diffiä/"
-"puutteellisia yhteenvetoja).\n"
+"- Älä imartele. Älä käytä emojeita. Älä tee yhteenvetoja. Pidä viestit lyhyinä.\n"
+"- Kun luot tiedostoja, tulosta koko lopullinen sisältö (ei diffiä/puutteellisia yhteenvetoja).\n"
 
 #: src/uagent/core.py:1333
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the "
-"most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## Säännöt\n"
 "- Käytä ensin annettuja työkaluja ja varmista tulokset työkaluilla.\n"
-"- Tarkista työkalujen kuvauksista tarkoitus, аргументit ja rajoitukset; "
-"valitse sopivin ja turvallisin työkalu.\n"
+"- Tarkista työkalujen kuvauksista tarkoitus, аргументit ja rajoitukset; valitse sopivin ja turvallisin työkalu.\n"
 "- Ole luova, mutta älä esitä epävarmaa tietoa.\n"
 "- Delegoi käyttäjälle mahdollisimman vähän päätöksentekoa.\n"
 
@@ -369,23 +329,19 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
 "## Huomautukset\n"
 "- Kaikki käyttäjän viestit tulevat tämän skriptin standardisyötteen kautta.\n"
-"- Jos pakolliset tiedot tai parametrit puuttuvat, kysy ne human_askilla (älä "
-"arvaa).\n"
+"- Jos pakolliset tiedot tai parametrit puuttuvat, kysy ne human_askilla (älä arvaa).\n"
 "- Suhteelliset päivämäärät: kutsu get_current_time.\n"
 "- Älä tallenna salaisuuksia (salasanat/tunnukset) pitkäkestoiseen muistiin.\n"
-"- .org / .org1 / .org2 -päätteiset tiedostot ovat varmuuskopioita, eikä "
-"niitä saa käsitellä ensisijaisina muokattavina tiedostoina.\n"
+"- .org / .org1 / .org2 -päätteiset tiedostot ovat varmuuskopioita, eikä niitä saa käsitellä ensisijaisina muokattavina tiedostoina.\n"
 "- Jos luot Python-tiedostoja, aja `python -m py_compile`.\n"
 "- Jos tarvitaan asiantuntijatason tietoa, käytä Agent Skills -kehotepohjia.\n"
 
@@ -464,11 +420,11 @@ msgstr "  uag docs --open <name>   # avaa käyttöjärjestelmässä"
 
 #: src/uagent/env_validate.py:42
 msgid ""
-"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia)."
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 msgstr ""
-"Pakollinen LLM-palveluntarjoajan valintaan (azure/openai/bedrock/openrouter/"
-"gemini/grok/claude/nvidia)."
+"Pakollinen LLM-palveluntarjoajan valintaan "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
 #: src/uagent/env_validate.py:63
 msgid ", "
@@ -494,8 +450,8 @@ msgstr ""
 
 #: src/uagent/env_validate.py:197
 msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell "
-"startup scripts,"
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
 msgstr ""
 "- Voit asettaa ne käyttöjärjestelmän ympäristöasetuksissa, .env-tiedostossa "
 "tai komentotulkin käynnistysskripteissä,"
@@ -536,25 +492,17 @@ msgstr "[VAROITUS] shrink_llm:n automaattinen suoritus epäonnistui: %(err)s"
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call."
-"arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by "
-"the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no "
-"required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using "
-"human_ask instead of guessing.\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 msgstr ""
 "[Työkalujen kutsusäännöt]\n"
-"        - Kun kutsut työkalua/funktiota, sinun ON annettava function_call."
-"arguments JSON-objektina.\n"
-"        - JSON-objektin ON sisällettävä kaikki työkalun skeemassa "
-"määritellyt pakolliset parametrit.\n"
-"        - Älä koskaan kutsu työkalua tyhjällä {}-objektilla, ellei "
-"työkalulla ole pakollisia parametreja.\n"
-"        - Jos sinulla ei ole tarvittavaa parametria, kysy se käyttäjältä "
-"human_askilla äläkä arvaa.\n"
+"        - Kun kutsut työkalua/funktiota, sinun ON annettava function_call.arguments JSON-objektina.\n"
+"        - JSON-objektin ON sisällettävä kaikki työkalun skeemassa määritellyt pakolliset parametrit.\n"
+"        - Älä koskaan kutsu työkalua tyhjällä {}-objektilla, ellei työkalulla ole pakollisia parametreja.\n"
+"        - Jos sinulla ei ole tarvittavaa parametria, kysy se käyttäjältä human_askilla äläkä arvaa.\n"
 "        "
 
 #: src/uagent/llm_round_helpers.py:131
@@ -581,15 +529,15 @@ msgstr "[Claude-virhe] Vastauksen luonti epäonnistui."
 msgid "Error while parsing response: %(err)s"
 msgstr "Virhe vastausta jäsennettäessä: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:306
-#: src/uagent/web.py:621
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:307
+#: src/uagent/web.py:633
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"UAGENT_RESPONSES=1 on asetettu, mutta palveluntarjoaja '%(provider)s' ei tue "
-"Responses APIa. Palataan ChatCompletions-tilaan."
+"UAGENT_RESPONSES=1 on asetettu, mutta palveluntarjoaja '%(provider)s' ei tue"
+" Responses APIa. Palataan ChatCompletions-tilaan."
 
 #: src/uagent/runtime_banner.py:93
 #, python-format
@@ -611,108 +559,116 @@ msgstr "[VAROITUS] .env.sec:n salauksen purku epäonnistui: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
 
-#: src/uagent/scheckgui.py:116
+#: src/uagent/scheckgui.py:117
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "Vedä ja pudota tiedostot/kuvat tähän"
 
-#: src/uagent/scheckgui.py:154
+#: src/uagent/scheckgui.py:155
 msgid "Download"
 msgstr "Lataa"
 
-#: src/uagent/scheckgui.py:359 src/uagent/web.py:731
+#: src/uagent/scheckgui.py:360 src/uagent/web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Poikkeus jaettua pitkäkestoista muistia ladattaessa: %(err)s"
 
-#: src/uagent/scheckgui.py:607 src/uagent/scheckgui.py:720
+#: src/uagent/scheckgui.py:587 src/uagent/scheckgui.py:711
 msgid "Welcome / Quick Guide"
 msgstr "Tervetuloa / pikaopas"
 
-#: src/uagent/scheckgui.py:615
+#: src/uagent/scheckgui.py:595
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (äärimmäinen vakaus)"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:649
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ Voit liittää ne vetämällä ja pudottamalla"
 
-#: src/uagent/scheckgui.py:679
+#: src/uagent/scheckgui.py:670
 msgid "Send"
 msgstr "Lähetä"
 
-#: src/uagent/scheckgui.py:719
+#: src/uagent/scheckgui.py:710
 msgid "Help"
 msgstr "Ohje"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:725
 msgid "Mode"
 msgstr "Tila"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:727
 msgid "Reasoning: off"
 msgstr "Päättely: pois"
 
-#: src/uagent/scheckgui.py:739
+#: src/uagent/scheckgui.py:730
 msgid "Reasoning: auto"
 msgstr "Päättely: automaattinen"
 
-#: src/uagent/scheckgui.py:741
+#: src/uagent/scheckgui.py:732
 msgid "Reasoning: minimal"
 msgstr "Päättely: vähäinen"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:734
 msgid "Reasoning: low"
 msgstr "Päättely: matala"
 
-#: src/uagent/scheckgui.py:745
+#: src/uagent/scheckgui.py:736
 msgid "Reasoning: medium"
 msgstr "Päättely: keskitaso"
 
-#: src/uagent/scheckgui.py:747
+#: src/uagent/scheckgui.py:738
 msgid "Reasoning: high"
 msgstr "Päättely: korkea"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:741
 msgid "Reasoning: xhigh"
 msgstr "Päättely: erittäin korkea"
 
-#: src/uagent/scheckgui.py:755
+#: src/uagent/scheckgui.py:746
 msgid "Verbosity: off"
 msgstr "Yksityiskohtaisuus: pois"
 
-#: src/uagent/scheckgui.py:757
+#: src/uagent/scheckgui.py:748
 msgid "Verbosity: low"
 msgstr "Yksityiskohtaisuus: matala"
 
-#: src/uagent/scheckgui.py:759
+#: src/uagent/scheckgui.py:750
 msgid "Verbosity: medium"
 msgstr "Yksityiskohtaisuus: keskitaso"
 
-#: src/uagent/scheckgui.py:761
+#: src/uagent/scheckgui.py:752
 msgid "Verbosity: high"
 msgstr "Yksityiskohtaisuus: korkea"
 
-#: src/uagent/scheckgui.py:791
+#: src/uagent/scheckgui.py:782
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[tila] päättely=%(mode)s"
 
-#: src/uagent/scheckgui.py:917
+#: src/uagent/scheckgui.py:918
 msgid "Enter password..."
 msgstr "Anna salasana..."
 
-#: src/uagent/scheckgui.py:919
+#: src/uagent/scheckgui.py:920
 msgid "Enter response for human_ask..."
 msgstr "Anna vastaus human_askille..."
 
-#: src/uagent/scheckgui.py:924
+#: src/uagent/scheckgui.py:925
 msgid "Enter a message..."
 msgstr "Kirjoita viesti..."
 
-#: src/uagent/scheckgui.py:1237 src/uagent/scheckgui.py:1277
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1332 src/uagent/scheckgui.py:1372
+#: src/uagent/scheckgui.py:1407
 msgid "Downloaded to"
 msgstr "Ladattu kohteeseen"
+
+#: src/uagent/scheckgui.py:1426
+msgid "Playing"
+msgstr "Toistetaan"
+
+#: src/uagent/scheckgui.py:1436
+msgid "Stopped"
+msgstr "Pysäytetty"
 
 #: src/uagent/setup_cli.py:28
 msgid "# .env for uag (generated by `uag_setup`)"
@@ -729,8 +685,8 @@ msgstr "# Huomautukset:"
 #: src/uagent/setup_cli.py:31
 msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
 msgstr ""
-"# - Tämä tiedosto voi sisältää salaisuuksia (API-avaimia). Älä tallenna sitä "
-"Git-repositorioon."
+"# - Tämä tiedosto voi sisältää salaisuuksia (API-avaimia). Älä tallenna sitä"
+" Git-repositorioon."
 
 #: src/uagent/setup_cli.py:32
 msgid "# - You can re-run `uag_setup` anytime to regenerate."
@@ -759,11 +715,11 @@ msgstr "Ollama-palvelu"
 msgid "NVIDIA"
 msgstr "NVIDIA-palvelu"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:459
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
 msgstr "OpenAI-API-avain"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:460
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
 msgid "OpenAI base URL (optional)"
 msgstr "OpenAI:n perus-URL (valinnainen)"
 
@@ -771,11 +727,11 @@ msgstr "OpenAI:n perus-URL (valinnainen)"
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI-mallin/toteutuksen nimi (valinnainen)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:451
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "Azuren perus-URL (esim. https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:453
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
 msgid "Azure API key"
 msgstr "Azure-API-avain"
 
@@ -783,27 +739,27 @@ msgstr "Azure-API-avain"
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Azure-API-versio (valinnainen, esim. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:455
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
 msgid "Azure deployment name"
 msgstr "Azure-toteutuksen nimi"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:468
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "Bedrock-yhdyskäytävän perus-URL (esim. https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:470
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
 msgid "Bedrock API key"
 msgstr "Bedrock-API-avain"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Bedrock-mallin/toteutuksen nimi (esim. openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:479
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
 msgid "OpenRouter API key"
 msgstr "OpenRouter-API-avain"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:480
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
 msgid "OpenRouter base URL (optional)"
 msgstr "OpenRouterin perus-URL (valinnainen)"
 
@@ -815,7 +771,7 @@ msgstr "OpenRouter-mallin/toteutuksen nimi (valinnainen)"
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "OpenRouterin varamallit (valinnainen, pilkuilla erotettu)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:485
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
 msgid "Gemini API key"
 msgstr "Gemini-API-avain"
 
@@ -859,11 +815,11 @@ msgstr "Claude-API-avain"
 msgid "Claude model/deployment name (optional)"
 msgstr "Claude-mallin/toteutuksen nimi (valinnainen)"
 
-#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:490
+#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
 msgid "NVIDIA API key"
 msgstr "NVIDIA-API-avain"
 
-#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
 msgid "NVIDIA base URL (optional)"
 msgstr "NVIDIAn perus-URL (valinnainen)"
 
@@ -915,355 +871,390 @@ msgstr "Ollaman num_ctx (oletus: 8192)"
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollaman num_predict (oletus: 1024)"
 
-#: src/uagent/setup_cli.py:324 src/uagent/setup_cli.py:413
+#: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
 msgid "Enter number:"
 msgstr "Anna numero:"
 
-#: src/uagent/setup_cli.py:337
+#: src/uagent/setup_cli.py:344
 msgid "Invalid input. Please enter a valid number."
 msgstr "Virheellinen syöte. Anna kelvollinen numero."
 
-#: src/uagent/setup_cli.py:350
+#: src/uagent/setup_cli.py:357
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [oletus: %(default)s]"
 
-#: src/uagent/setup_cli.py:366
+#: src/uagent/setup_cli.py:373
 msgid "This field is required. Please enter a value."
 msgstr "Tämä kenttä on pakollinen. Anna arvo."
 
-#: src/uagent/setup_cli.py:378
+#: src/uagent/setup_cli.py:385
 msgid "Select UAGENT_LANG"
 msgstr "Valitse UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:389
+#: src/uagent/setup_cli.py:396
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (mukautettu)"
 
-#: src/uagent/setup_cli.py:402
+#: src/uagent/setup_cli.py:409
 msgid "Select output files to generate in the current directory"
 msgstr "Valitse nykyiseen hakemistoon luotavat tiedostot"
 
-#: src/uagent/setup_cli.py:403
+#: src/uagent/setup_cli.py:410
 msgid "  1. .env only"
 msgstr "  1. Vain .env"
 
-#: src/uagent/setup_cli.py:404
+#: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
 msgstr "  2. .env + env.sh (Unix-shell)"
 
-#: src/uagent/setup_cli.py:405
+#: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env + env.ps1 (PowerShell)"
 
-#: src/uagent/setup_cli.py:406
+#: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
 msgstr "  4. .env + env.bat (Windowsin komentotulkki)"
 
-#: src/uagent/setup_cli.py:407
+#: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + kaikki (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:435
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "Virheellinen syöte. Anna 1-5 tai b/q."
 
-#: src/uagent/setup_cli.py:454
+#: src/uagent/setup_cli.py:463
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Azure-API-versio (esim. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:461
+#: src/uagent/setup_cli.py:470
 msgid "OpenAI model/deployment name"
 msgstr "OpenAI-mallin/toteutuksen nimi"
 
-#: src/uagent/setup_cli.py:481
+#: src/uagent/setup_cli.py:490
 msgid "OpenRouter model/deployment name"
 msgstr "OpenRouter-mallin/toteutuksen nimi"
 
-#: src/uagent/setup_cli.py:486
+#: src/uagent/setup_cli.py:495
 msgid "Gemini model name"
 msgstr "Gemini-mallin nimi"
 
-#: src/uagent/setup_cli.py:492
+#: src/uagent/setup_cli.py:501
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA-mallin/toteutuksen nimi"
 
-#: src/uagent/setup_cli.py:500
+#: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
 msgstr "%(label)s:"
 
-#: src/uagent/setup_cli.py:511
+#: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Valitse kuvanluonnin tarjoaja"
 
-#: src/uagent/setup_cli.py:526
-msgid "Configure optional image / embedding settings?"
+#: src/uagent/setup_cli.py:543
+msgid "Azure speech deployment name"
+msgstr "Azuren puhekäyttöönoton nimi"
+
+#: src/uagent/setup_cli.py:544
+msgid "Azure transcription deployment name"
+msgstr "Azuren litterointikäyttöönoton nimi"
+
+#: src/uagent/setup_cli.py:551
+msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+msgstr ""
+"OpenAI TTS -mallin/käyttöönoton nimi (valinnainen, oletus: gpt-4o-mini-tts)"
+
+#: src/uagent/setup_cli.py:557
+msgid ""
+"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
+"transcribe)"
+msgstr ""
+"OpenAI-litterointimallin/käyttöönoton nimi (valinnainen, oletus: "
+"gpt-4o-mini-transcribe)"
+
+#: src/uagent/setup_cli.py:583
+msgid "Configure optional image / embedding / audio settings?"
 msgstr "Määritä valinnaiset kuva- / upotusasetukset?"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "No"
 msgstr "Ei"
 
-#: src/uagent/setup_cli.py:527 src/uagent/setup_cli.py:542
-#: src/uagent/setup_cli.py:574 src/uagent/setup_cli.py:605
-#: src/uagent/setup_cli.py:621 src/uagent/setup_cli.py:653
-#: src/uagent/setup_cli.py:822 src/uagent/setup_cli.py:883
-#: src/uagent/setup_cli.py:937 src/uagent/setup_cli.py:964
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
+#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
+#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
+#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
+#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1241
 msgid "Yes"
 msgstr "Kyllä"
 
-#: src/uagent/setup_cli.py:541
+#: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
 msgstr "Määritä kuvan analyysin asetukset?"
 
-#: src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:609
 msgid "Select image analysis provider"
 msgstr "Valitse kuvan analyysin tarjoaja"
 
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:630
 msgid "Configure image generation settings?"
 msgstr "Määritä kuvanluonnin asetukset?"
 
-#: src/uagent/setup_cli.py:584
+#: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
 msgstr "Valitse kuvanluonnin tarjoaja"
 
-#: src/uagent/setup_cli.py:604
+#: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
 msgstr "Avaa luodut kuvat automaattisesti?"
 
-#: src/uagent/setup_cli.py:620
+#: src/uagent/setup_cli.py:677
 msgid "Configure embedding / semantic search settings?"
 msgstr "Määritä upotus- / semanttisen haun asetukset?"
 
-#: src/uagent/setup_cli.py:652
+#: src/uagent/setup_cli.py:709
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr ""
 "Poista semanttinen haku käytöstä, kun upotus-API ei ole tavoitettavissa?"
 
-#: src/uagent/setup_cli.py:693
+#: src/uagent/setup_cli.py:722
+msgid "Configure audio speech / transcription settings?"
+msgstr "Määritetäänkö äänen puhe-/litterointiasetukset?"
+
+#: src/uagent/setup_cli.py:736
+msgid "Select audio provider"
+msgstr "Valitse äänipalveluntarjoaja"
+
+#: src/uagent/setup_cli.py:755
+msgid "Open generated audio automatically?"
+msgstr "Avataanko luotu ääni automaattisesti?"
+
+#: src/uagent/setup_cli.py:799
 msgid ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / "
-"claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 msgstr ""
 "# käytettävät tarjoajat: azure / openai / bedrock / openrouter / gemini / "
 "vertexai / grok / claude / ollama / nvidia"
 
-#: src/uagent/setup_cli.py:706
+#: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s):"
 
-#: src/uagent/setup_cli.py:717
+#: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "Valinnainen: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:727
+#: src/uagent/setup_cli.py:833
 msgid "# (not supported by selected provider)"
 msgstr "# (valittu tarjoaja ei tue tätä)"
 
-#: src/uagent/setup_cli.py:730
+#: src/uagent/setup_cli.py:836
 msgid "Optional runtime"
 msgstr "Valinnainen ajonaikainen asetus"
 
-#: src/uagent/setup_cli.py:742
-msgid "Optional image / embedding settings"
+#: src/uagent/setup_cli.py:848
+msgid "Optional image / embedding / audio settings"
 msgstr "Valinnaiset kuva- / upotusasetukset"
 
-#: src/uagent/setup_cli.py:813
+#: src/uagent/setup_cli.py:946
 msgid "# (optional image / embedding settings not configured)"
-msgstr "# (valinnaisia kuva- / upotusasetuksia ei ole määritetty)"
+msgstr "# (valinnaisia kuva-/upotusasetuksia ei ole määritetty)"
 
-#: src/uagent/setup_cli.py:821
+#: src/uagent/setup_cli.py:954
 msgid "Encrypt the generated .env file?"
 msgstr "Salaatko luodun .env-tiedoston?"
 
-#: src/uagent/setup_cli.py:827
+#: src/uagent/setup_cli.py:960
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "Salattu tiedosto kirjoitetaan polkuun %(path)s"
 
-#: src/uagent/setup_cli.py:843
+#: src/uagent/setup_cli.py:976
 msgid "Select provider"
 msgstr "Valitse tarjoaja"
 
-#: src/uagent/setup_cli.py:882
+#: src/uagent/setup_cli.py:1015
 msgid "Enable Responses API options?"
 msgstr "Ota Responses API -asetukset käyttöön?"
 
-#: src/uagent/setup_cli.py:898
+#: src/uagent/setup_cli.py:1031
 msgid "Select reasoning"
 msgstr "Valitse päättely"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:909
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
 msgstr "vähäinen"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:910
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
 msgstr "matala"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:911
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
 msgstr "keskitaso"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:912
-#: src/uagent/setup_cli.py:918 src/uagent/setup_cli.py:927
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
+#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
 msgstr "korkea"
 
-#: src/uagent/setup_cli.py:899 src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
 msgstr "automaattinen"
 
-#: src/uagent/setup_cli.py:917
+#: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
 msgstr "Valitse yksityiskohtaisuus"
 
-#: src/uagent/setup_cli.py:936
+#: src/uagent/setup_cli.py:1069
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "Määritä valinnainen UAGENT_WORKDIR?"
 
-#: src/uagent/setup_cli.py:963
+#: src/uagent/setup_cli.py:1096
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Määritä valinnainen UAGENT_LANG?"
 
-#: src/uagent/setup_cli.py:1012
+#: src/uagent/setup_cli.py:1145
 msgid "Summary"
 msgstr "Yhteenveto"
 
-#: src/uagent/setup_cli.py:1013
+#: src/uagent/setup_cli.py:1146
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  Tarjoaja: %(provider)s"
 
-#: src/uagent/setup_cli.py:1016
+#: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
 msgstr "  %(key)s = %(value)s"
 
-#: src/uagent/setup_cli.py:1020
+#: src/uagent/setup_cli.py:1153
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  Responses käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "yes"
 msgstr "kyllä"
 
-#: src/uagent/setup_cli.py:1021 src/uagent/setup_cli.py:1028
-#: src/uagent/setup_cli.py:1034 src/uagent/setup_cli.py:1040
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1053
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
+#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
+#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
+#: src/uagent/setup_cli.py:1197
 msgid "no"
 msgstr "ei"
 
-#: src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
 msgstr "  UAGENT_REASONING = %(value)s"
 
-#: src/uagent/setup_cli.py:1025
+#: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
 msgstr "  UAGENT_VERBOSITY = %(value)s"
 
-#: src/uagent/setup_cli.py:1027
+#: src/uagent/setup_cli.py:1160
 #, python-format
 msgid "  UAGENT_WORKDIR enabled: %(state)s"
 msgstr "  UAGENT_WORKDIR käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1031
+#: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
 msgstr "  UAGENT_WORKDIR = %(value)s"
 
-#: src/uagent/setup_cli.py:1033
+#: src/uagent/setup_cli.py:1166
 #, python-format
 msgid "  UAGENT_LANG enabled: %(state)s"
 msgstr "  UAGENT_LANG käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1037
+#: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
 msgstr "  UAGENT_LANG = %(value)s"
 
-#: src/uagent/setup_cli.py:1039
+#: src/uagent/setup_cli.py:1172
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  Valinnaiset lisäosat käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1044
+#: src/uagent/setup_cli.py:1177
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  Kuvan analyysi käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1052
+#: src/uagent/setup_cli.py:1185
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  Kuvanluonti käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1063
+#: src/uagent/setup_cli.py:1196
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  Upotukset käytössä: %(state)s"
 
-#: src/uagent/setup_cli.py:1076
+#: src/uagent/setup_cli.py:1209
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  Tulosteet: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1079
+#: src/uagent/setup_cli.py:1212
 msgid "Generate files with this configuration?"
 msgstr "Luodaanko tiedostot tällä kokoonpanolla?"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Yes, generate"
 msgstr "Kyllä, luo"
 
-#: src/uagent/setup_cli.py:1080
+#: src/uagent/setup_cli.py:1213
 msgid "Back"
 msgstr "Takaisin"
 
-#: src/uagent/setup_cli.py:1104
+#: src/uagent/setup_cli.py:1237
 msgid "The following files already exist and will be overwritten:"
 msgstr "Seuraavat tiedostot ovat jo olemassa ja ne korvataan:"
 
-#: src/uagent/setup_cli.py:1108
+#: src/uagent/setup_cli.py:1241
 msgid "Proceed?"
 msgstr "Jatketaanko?"
 
-#: src/uagent/setup_cli.py:1132
+#: src/uagent/setup_cli.py:1265
 msgid "Plain .env file removed after encryption."
 msgstr "Salaamaton .env-tiedosto poistettiin salauksen jälkeen."
 
-#: src/uagent/setup_cli.py:1135
+#: src/uagent/setup_cli.py:1268
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "Varoitus: Salaamattoman .env-tiedoston poisto epäonnistui: %(error)s"
 
-#: src/uagent/setup_cli.py:1154
+#: src/uagent/setup_cli.py:1287
 #, python-format
 msgid "generated: %(path)s"
 msgstr "luotu: %(path)s"
 
-#: src/uagent/setup_cli.py:1157
+#: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
 msgstr "- env.ps1: utf-8-sig, CRLF"
 
-#: src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
 msgstr "- env.bat: cp932, CRLF"
 
@@ -1296,8 +1287,8 @@ msgstr ""
 
 #: src/uagent/util_tools.py:201
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the "
-"startup file (if any)."
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
 msgstr ""
 "Ei-interaktiivinen tila. Älä käynnistä stdin-silmukkaa; poistu "
 "käynnistystiedoston käsittelyn jälkeen (jos sellainen on)."
@@ -1336,14 +1327,12 @@ msgstr "[työkalut] Ladattu %(n)d työkalua"
 #: src/uagent/util_tools.py:650
 msgid ""
 "[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow "
-"the instructions.\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 msgstr ""
 "[Taidon suoritus]\n"
-"Tämä taito on tarkoitettu suoritettavaksi. Lue taidon teksti huolellisesti "
-"ja noudata ohjeita.\n"
+"Tämä taito on tarkoitettu suoritettavaksi. Lue taidon teksti huolellisesti ja noudata ohjeita.\n"
 "Jos taito sisältää tehtäviä, jatka, kunnes ne on suoritettu.\n"
 "Käytä työkaluja tarpeen mukaan.\n"
 
@@ -1412,16 +1401,14 @@ msgstr "[taidot] Valitulla taidolla ei ole polkua."
 #: src/uagent/util_tools.py:829
 #, python-format
 msgid ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\n"
+"Run this skill as a system-level instruction and keep it active in this session?\n"
 "\n"
 "Name: %(name)s\n"
 "Path: %(path)s\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"Suoritetaanko tämä taito järjestelmätason ohjeena ja pidetäänkö se "
-"aktiivisena tässä istunnossa?\n"
+"Suoritetaanko tämä taito järjestelmätason ohjeena ja pidetäänkö se aktiivisena tässä istunnossa?\n"
 "\n"
 "Nimi: %(name)s\n"
 "Polku: %(path)s\n"
@@ -1466,8 +1453,7 @@ msgid ""
 msgstr ""
 "poistaa keskustelulokitiedostot (scheck_log_*.jsonl) levyltä.\n"
 "Lokihakemisto: %(dir)s\n"
-"Sääntö: käyttäjän/avustajan/työkalun viestien kokonaismäärä ilman "
-"järjestelmää <= %(threshold)d\n"
+"Sääntö: käyttäjän/avustajan/työkalun viestien kokonaismäärä ilman järjestelmää <= %(threshold)d\n"
 "Tavoitteet: %(n)d\n"
 "\n"
 "Jatketaanko? Suorita syöttämällä y tai peruuta painamalla c."
@@ -1510,16 +1496,14 @@ msgstr ""
 #: src/uagent/util_tools.py:1050
 #, python-format
 msgid ""
-"will overwrite the current session log file and prepend the loaded log (no "
-"backup).\n"
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
 "\n"
 "Current log: %(cur_log)s\n"
 "Source log: %(src_log)s\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"korvaa nykyisen istunnon lokitiedoston ja lisää ladatun lokin (ei "
-"varmuuskopiota).\n"
+"korvaa nykyisen istunnon lokitiedoston ja lisää ladatun lokin (ei varmuuskopiota).\n"
 "\n"
 "Nykyinen loki: %(cur_log)s\n"
 "Lähdeloki: %(src_log)s\n"
@@ -1553,37 +1537,37 @@ msgstr ""
 "[latausvaroitus] Nykyisen lokin uudelleenkirjoitus epäonnistui: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/util_tools.py:1114
+#: src/uagent/util_tools.py:1115
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[latausvirhe] Epäonnistui: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1127
+#: src/uagent/util_tools.py:1130
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm error] Argumenttien jäsentäminen epäonnistui: %(err)s"
 
-#: src/uagent/util_tools.py:1148
+#: src/uagent/util_tools.py:1151
 msgid "[rm] Unexpected delete_file preview response."
 msgstr "[rm] Odottamaton delete_file esikatseluvastaus."
 
-#: src/uagent/util_tools.py:1152
+#: src/uagent/util_tools.py:1155
 msgid "[rm] Preview failed."
 msgstr "[rm] Esikatselu epäonnistui."
 
-#: src/uagent/util_tools.py:1162
+#: src/uagent/util_tools.py:1165
 msgid "[rm] No matching paths."
 msgstr "[rm] Ei vastaavia polkuja."
 
-#: src/uagent/util_tools.py:1164 src/uagent/util_tools.py:1173
+#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1176
 msgid "[rm] Missing:"
 msgstr "[rm] Puuttuu:"
 
-#: src/uagent/util_tools.py:1169
+#: src/uagent/util_tools.py:1172
 msgid "[rm] Candidates:"
 msgstr "[rm] Ehdokkaat:"
 
-#: src/uagent/util_tools.py:1178
+#: src/uagent/util_tools.py:1181
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1598,51 +1582,51 @@ msgstr ""
 "\n"
 "Kirjoita y jatkaaksesi tai c peruuttaaksesi."
 
-#: src/uagent/util_tools.py:1185
+#: src/uagent/util_tools.py:1188
 msgid "[rm] Cancelled."
 msgstr "[rm] Peruutettu."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1202
 msgid "[rm] Unexpected delete_file response."
 msgstr "[rm] Odottamaton delete_file -vastaus."
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1207
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr "[rm] Poistettu %(count)d polkua."
 
-#: src/uagent/util_tools.py:1208
+#: src/uagent/util_tools.py:1211
 msgid "[rm] Failed."
 msgstr "[rm] Epäonnistui."
 
-#: src/uagent/util_tools.py:1233
+#: src/uagent/util_tools.py:1236
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Määritetty indeksi %(idx)d on alueen ulkopuolella."
 
-#: src/uagent/util_tools.py:1242
+#: src/uagent/util_tools.py:1245
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Lokitiedostoa ei löydy: %(path)s"
 
-#: src/uagent/util_tools.py:1288
+#: src/uagent/util_tools.py:1291
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "Ladattu loki: %(path)s"
 
-#: src/uagent/util_tools.py:1289
+#: src/uagent/util_tools.py:1292
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "Keskusteluviestien määrä: %(n)d"
 
-#: src/uagent/util_tools.py:1319
+#: src/uagent/util_tools.py:1322
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> säilytetään "
 "viimeiset %(keep)d"
 
-#: src/uagent/util_tools.py:1348
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1650,30 +1634,30 @@ msgstr ""
 "[shrink_llm-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> "
 "säilytetään viimeiset %(keep)d"
 
-#: src/uagent/util_tools.py:1369
+#: src/uagent/util_tools.py:1372
 msgid "No long-term memory entries."
 msgstr "Ei pitkäaikaismuistin merkintöjä."
 
-#: src/uagent/util_tools.py:1372
+#: src/uagent/util_tools.py:1375
 msgid "Long-term memory entries:"
 msgstr "Pitkäaikaisen muistin merkinnät:"
 
-#: src/uagent/util_tools.py:1395
+#: src/uagent/util_tools.py:1398
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del error] Indeksin jäsentäminen epäonnistui: %(arg)r"
 
-#: src/uagent/util_tools.py:1400
+#: src/uagent/util_tools.py:1403
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "Poistettu pitkäaikaismuistin merkintä [%(idx)d]."
 
-#: src/uagent/util_tools.py:1402
+#: src/uagent/util_tools.py:1405
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] Index=%(idx)d poistaminen epäonnistui."
 
-#: src/uagent/util_tools.py:1410 src/uagent/util_tools.py:1443
+#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1681,72 +1665,72 @@ msgstr ""
 "Jaettu pitkäkestoinen muisti ei ole käytössä (UAGENT_SHARED_MEMORY_FILE ei "
 "ole asetettu)."
 
-#: src/uagent/util_tools.py:1417
+#: src/uagent/util_tools.py:1420
 msgid "No shared long-term memory entries."
 msgstr "Ei jaettuja pitkäaikaismuistin merkintöjä."
 
-#: src/uagent/util_tools.py:1422
+#: src/uagent/util_tools.py:1425
 msgid "Shared long-term memory entries:"
 msgstr "Jaetut pitkäaikaismuistimerkinnät:"
 
-#: src/uagent/util_tools.py:1452
+#: src/uagent/util_tools.py:1455
 #, python-format
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[shared-mem-del error] Indeksin jäsentäminen epäonnistui: %(arg)r"
 
-#: src/uagent/util_tools.py:1459 src/uagent/util_tools.py:1466
+#: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Index=%(idx)d poistaminen epäonnistui."
 
-#: src/uagent/util_tools.py:1475
+#: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
 msgstr "[shared-mem-del error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1480
+#: src/uagent/util_tools.py:1483
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Poistettu jaetun pitkäaikaisen muistin merkintä [%(idx)d]."
 
-#: src/uagent/util_tools.py:1495
+#: src/uagent/util_tools.py:1498
 msgid "Show this help"
 msgstr "Näytä tämä ohje"
 
-#: src/uagent/util_tools.py:1496
+#: src/uagent/util_tools.py:1499
 msgid "Restart input from the beginning"
 msgstr "Aloita syöttö uudelleen alusta"
 
-#: src/uagent/util_tools.py:1497
+#: src/uagent/util_tools.py:1500
 msgid "Show log file list"
 msgstr "Näytä lokitiedostoluettelo"
 
-#: src/uagent/util_tools.py:1500
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :"
-"cd /)"
-msgstr ""
-"Muuta työhakemistoa ilman vahvistusta (esim. :cd .. / :cd ~ / :cd C:"
-"\\polku / :cd /)"
-
 #: src/uagent/util_tools.py:1503
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Muuta työhakemistoa ilman vahvistusta (esim. :cd .. / :cd ~ / :cd C:\\polku "
+"/ :cd /)"
+
+#: src/uagent/util_tools.py:1506
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Listaa hakemistomerkinnät (esim. :ls / :ls .. / :ls ~ / :ls C:\\polku)"
 
-#: src/uagent/util_tools.py:1504
+#: src/uagent/util_tools.py:1507
 msgid "List loaded tools"
 msgstr "Listaa ladatut työkalut"
 
-#: src/uagent/util_tools.py:1506
+#: src/uagent/util_tools.py:1509
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Hallinnoi tai käytä taitoja (esim. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1508
+#: src/uagent/util_tools.py:1511
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Lataa aiempi loki (korvaa nykyisen keskusteluhistorian)"
 
-#: src/uagent/util_tools.py:1510
+#: src/uagent/util_tools.py:1513
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1756,22 +1740,23 @@ msgstr ""
 "ladatun lokin nykyisen istunnon lokitiedostoon (korvaa, ei "
 "varmuuskopiointia)."
 
-#: src/uagent/util_tools.py:1514
+#: src/uagent/util_tools.py:1517
 msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of user/"
-"assistant/tool messages (excluding system) is <= N (default=10)"
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
-"Poista keskustelulokit (scheck_log_*.jsonl), joissa käyttäjän/avustajan/"
-"työkalun viestien määrä (ilman järjestelmää) on <= N (oletus=10)"
+"Poista keskustelulokit (scheck_log_*.jsonl), joissa "
+"käyttäjän/avustajan/työkalun viestien määrä (ilman järjestelmää) on <= N "
+"(oletus=10)"
 
-#: src/uagent/util_tools.py:1518
+#: src/uagent/util_tools.py:1521
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Pienennä keskusteluhistoriaa (säilytä viimeiset N muuta kuin "
 "järjestelmäviestiä; oletus=40)"
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1525
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1779,50 +1764,51 @@ msgstr ""
 "Pienennä historiaa LLM-yhteenvedon avulla (tiivistää vanhempi historia "
 "yhdeksi järjestelmäviestiksi; säilytä viimeinen N raakana; oletus=20)"
 
-#: src/uagent/util_tools.py:1524
+#: src/uagent/util_tools.py:1527
 msgid "List long-term memory notes"
 msgstr "Listaa pitkän aikavälin muistiinpanot"
 
-#: src/uagent/util_tools.py:1526
+#: src/uagent/util_tools.py:1529
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Pitkäaikaisen muistin poistaminen indeksin mukaan (katso :mem-list)"
 
-#: src/uagent/util_tools.py:1528
+#: src/uagent/util_tools.py:1531
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Poista tiedosto(t)/hakemisto(t) esikatselulla + vahvista"
 
-#: src/uagent/util_tools.py:1530
-msgid "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
+#: src/uagent/util_tools.py:1533
+msgid ""
+"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr ""
 "Listaa jaetut pitkän aikavälin muistiinpanot (vaatii "
 "UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/util_tools.py:1532
+#: src/uagent/util_tools.py:1535
 msgid "Delete a shared long-term memory note by index"
 msgstr "Poista jaettu pitkäaikaismuistiinpano hakemiston mukaan"
 
-#: src/uagent/util_tools.py:1534
-msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+#: src/uagent/util_tools.py:1537
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
-"Aseta päättelytila ​​(0=pois, 1=matala, 2=keskitaso, 3=korkea; auto/minimi/"
-"xkorkea)"
+"Aseta päättelytila ​​(0=pois, 1=matala, 2=keskitaso, 3=korkea; "
+"auto/minimi/xkorkea)"
 
-#: src/uagent/util_tools.py:1536
+#: src/uagent/util_tools.py:1539
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
-"Aseta monisanaisuustila (0 = pois, 1 = matala, 2 = keskitaso, 3 = korkea; ei "
-"arg = säilytä)"
+"Aseta monisanaisuustila (0 = pois, 1 = matala, 2 = keskitaso, 3 = korkea; ei"
+" arg = säilytä)"
 
-#: src/uagent/util_tools.py:1537
+#: src/uagent/util_tools.py:1540
 msgid "Exit"
 msgstr "Poistu"
 
-#: src/uagent/util_tools.py:1540
+#: src/uagent/util_tools.py:1543
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr ""
-"- Syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen syöttötilaan."
+msgstr "- Syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen syöttötilaan."
 
-#: src/uagent/util_tools.py:1542
+#: src/uagent/util_tools.py:1545
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1830,32 +1816,24 @@ msgstr ""
 "- Lopeta monirivinen syöttötila kirjoittamalla rivi, joka on täsmälleen "
 "%(sentinel)s."
 
-#: src/uagent/util_tools.py:1636
+#: src/uagent/util_tools.py:1639
 msgid "Exiting."
 msgstr "Poistuminen."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1642
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Tuntematon komento: :%(cmd)s"
 
-#: src/uagent/util_tools.py:1790
+#: src/uagent/util_tools.py:1793
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term "
-"memory (persistent memos). Use them as background information about the "
-"user. However, always prioritize newly provided information in the "
-"conversation, and if it contradicts older information, adopt the latest "
-"information.\n"
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
-"Alla luetellut kohdat ovat otteita tämän käyttäjän pitkäkestoisesta "
-"muistista (pysyvät muistiinpanot). Käytä niitä taustatietona käyttäjästä. "
-"Aina kuitenkin etusijalle asetetaan keskustelussa juuri annetut tiedot, ja "
-"jos ne ovat ristiriidassa vanhempien tietojen kanssa, käytä uusimpia "
-"tietoja.\n"
+"Alla luetellut kohdat ovat otteita tämän käyttäjän pitkäkestoisesta muistista (pysyvät muistiinpanot). Käytä niitä taustatietona käyttäjästä. Aina kuitenkin etusijalle asetetaan keskustelussa juuri annetut tiedot, ja jos ne ovat ristiriidassa vanhempien tietojen kanssa, käytä uusimpia tietoja.\n"
 "\n"
 
-#: src/uagent/web.py:504
+#: src/uagent/web.py:511
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
@@ -1863,7 +1841,7 @@ msgstr ""
 "Toinen tehtävä on jo käynnissä tässä huoneessa. Yritä uudelleen, kun se on "
 "valmis."
 
-#: src/uagent/web.py:592 src/uagent/web.py:761
+#: src/uagent/web.py:604 src/uagent/web.py:773
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -1906,12 +1884,13 @@ msgstr "[Pikaopas]"
 
 #: src/uagent/welcome.py:63
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Keskustelu: kirjoita viesti ja lähetä (GUI: Ctrl+Enter toimii myös)."
+msgstr ""
+"- Keskustelu: kirjoita viesti ja lähetä (GUI: Ctrl+Enter toimii myös)."
 
 #: src/uagent/welcome.py:65
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
-"\"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
 msgstr ""
 "- Monirivinen: kirjoita rivi, joka on pelkkä 'f', siirtyäksesi "
 "monirivitilaan (lopeta kirjoittamalla \"\"\"end)."
@@ -1955,11 +1934,11 @@ msgstr "- \"Analysoi tämän kansion lähdekoodi ja luo README.md.\""
 
 #: src/uagent/welcome.py:81
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window "
-"contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
 msgstr ""
-"- \"Ota kuvakaappaus nykyisestä työpöydästä ja kuvaa näkyvän ikkunan sisältö."
-"\""
+"- \"Ota kuvakaappaus nykyisestä työpöydästä ja kuvaa näkyvän ikkunan "
+"sisältö.\""
 
 #: src/uagent/welcome.py:83
 msgid "- \"Create a monthly summary report from this Excel file.\""
