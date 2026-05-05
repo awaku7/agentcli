@@ -125,7 +125,7 @@ def _duckduckgo_search(
 ) -> List[Dict[str, str]]:
     """Perform a DuckDuckGo search query."""
 
-    logger.info("Performing DuckDuckGo search: %s", query)
+    logger.debug("Performing DuckDuckGo search: %s", query)
 
     params = {"q": query}
     headers = _default_headers()
@@ -148,10 +148,10 @@ def _duckduckgo_search(
             results = _parse_results(resp.text, max_results)
 
             if results:
-                logger.info("Found %d results", len(results))
+                logger.debug("Found %d results", len(results))
                 return results
 
-            logger.warning(
+            logger.debug(
                 "Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1
             )
             if attempt < retries:
@@ -161,7 +161,7 @@ def _duckduckgo_search(
 
         except requests.RequestException as exc:
             last_exc = exc
-            logger.warning(
+            logger.debug(
                 "DDG request failed (attempt %d/%d): %s", attempt + 1, retries + 1, exc
             )
             if attempt < retries:
@@ -269,8 +269,17 @@ def run_tool(args: Dict[str, Any]) -> str:
         else:
             n = DEFAULT_MAX_RESULTS
 
-        results = search_web(str(q), n)
-        return json.dumps({"results": results}, ensure_ascii=False)
+        q_str = str(q)
+        results = search_web(q_str, n)
+        return json.dumps(
+            {
+                "query": q_str,
+                "max_results": n,
+                "result_count": len(results),
+                "results": results,
+            },
+            ensure_ascii=False,
+        )
 
     except Exception as e:
         logger.exception(

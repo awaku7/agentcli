@@ -20,10 +20,10 @@ from queue import Empty as QueueEmpty
 from typing import Any, Dict, List, Optional
 
 # DPI warnings and crash avoidance
-os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false;qt.text.font.db=false"
+os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false;qt.text.font.db=false;qt.multimedia.ffmpeg=false"
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
-from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
 
 from .i18n import _, detect_lang, set_thread_lang
 
@@ -62,6 +62,7 @@ except ImportError:
 
 THUMB_SIZE_PX = 96
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
+AUDIO_EXTS = {".mp3", ".wav", ".m4a", ".aac", ".flac", ".ogg", ".opus", ".wma", ".mp4", ".webm"}
 LOG_FILE = "gui_worker_session.log"
 
 
@@ -405,112 +406,92 @@ class ScheckWorker(QtCore.QObject):
                         continue
                     elif kind in ("user", "timer", "gui_user"):
                         text = ev.get("text", "")
+                        files = list(ev.get("files", []) or [])
 
-                        if kind == "gui_user":
-                            files = [
-                                p
-                                for p in ev.get("files", [])
-                                if isinstance(p, str) and p.strip()
-                            ]
-                            debug_payload = {
-                                "kind": kind,
-                                "text": text,
-                                "images": list(ev.get("images", [])),
-                                "files": files,
-                            }
-                            try:
-                                print(
-                                    "[GUI->LLM] "
-                                    + json.dumps(debug_payload, ensure_ascii=False)
-                                )
-                            except Exception:
-                                pass
-
+                        if files:
                             file_lines = [
                                 f"[Attached File] {os.path.basename(p)} ({p})"
                                 for p in files
                             ]
                             if file_lines:
                                 if text.strip():
-                                    text = (
-                                        text.rstrip() + "\n\n" + "\n".join(file_lines)
-                                    )
+                                    text = text.rstrip() + "\n\n" + "\n".join(file_lines)
                                 else:
                                     text = "\n".join(file_lines)
 
-                            use_responses_api = (
-                                os.environ.get("UAGENT_RESPONSES", "") or ""
-                            ).lower() in (
-                                "1",
-                                "true",
-                            )
-                            prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
-                            allow_multimodal = use_responses_api and prov in (
-                                "azure",
-                                "openai",
-                                "bedrock",
-                            )
+                        use_responses_api = (
+                            os.environ.get("UAGENT_RESPONSES", "") or ""
+                        ).lower() in (
+                            "1",
+                            "true",
+                        )
+                        prov = (os.environ.get("UAGENT_PROVIDER") or "").lower()
+                        allow_multimodal = use_responses_api and prov in (
+                            "azure",
+                            "openai",
+                            "bedrock",
+                        )
 
-                            if allow_multimodal:
-                                parts: List[Dict[str, Any]] = [
-                                    {"type": "text", "text": text.strip()}
-                                ]
+                        if allow_multimodal:
+                            parts: List[Dict[str, Any]] = [
+                                {"type": "text", "text": text.strip()}
+                            ]
 
-                                for p in ev.get("images", []):
-                                    if not os.path.isfile(p):
-                                        continue
-                                    try:
-                                        data_url = image_file_to_data_url(
-                                            p, max_bytes=10_000_000
-                                        )
-                                        parts.append(
-                                            {
-                                                "type": "image_url",
-                                                "image_url": {"url": data_url},
-                                            }
-                                        )
-                                    except Exception as e:
-                                        parts.append(
-                                            {
-                                                "type": "text",
-                                                "text": "[WARN] "
-                                                + (
-                                                    _(
-                                                        "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-                                                    )
-                                                    % {
-                                                        "path": p,
-                                                        "etype": type(e).__name__,
-                                                        "err": e,
-                                                    }
-                                                ),
-                                            }
-                                        )
-
-                                m = {"role": "user", "content": parts}
-                                self.messages.append(m)
-                                core.log_message(m)
-
-                                util_run_llm_rounds(
-                                    self._provider,
-                                    self._client,
-                                    self._depname,
-                                    self.messages,
-                                    core=core,
-                                    make_client_fn=util_make_client,
-                                    append_result_to_outfile_fn=append_result_to_outfile,
-                                    try_open_images_from_text_fn=lambda _: None,
-                                )
-                                continue
-
-                            # Fallback: analyze_image tool -> text injection
                             for p in ev.get("images", []):
-                                if os.path.isfile(p):
-                                    core.set_status(True, "analyze_image")
-                                    res = self.tools.run_tool(
-                                        "analyze_image", {"image_path": p}
+                                if not os.path.isfile(p):
+                                    continue
+                                try:
+                                    data_url = image_file_to_data_url(
+                                        p, max_bytes=10_000_000
                                     )
-                                    text += f"\n[Attached Image] {p}\n{res}"
+                                    parts.append(
+                                        {
+                                            "type": "image_url",
+                                            "image_url": {"url": data_url},
+                                        }
+                                    )
+                                except Exception as e:
+                                    parts.append(
+                                        {
+                                            "type": "text",
+                                            "text": "[WARN] "
+                                            + (
+                                                _(
+                                                    "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+                                                )
+                                                % {
+                                                    "path": p,
+                                                    "etype": type(e).__name__,
+                                                    "err": e,
+                                                }
+                                            ),
+                                        }
+                                    )
+
+                            m = {"role": "user", "content": parts}
+                            self.messages.append(m)
+                            core.log_message(m)
+
+                            util_run_llm_rounds(
+                                self._provider,
+                                self._client,
+                                self._depname,
+                                self.messages,
+                                core=core,
+                                make_client_fn=util_make_client,
+                                append_result_to_outfile_fn=append_result_to_outfile,
+                                try_open_images_from_text_fn=lambda _: None,
+                            )
+                            continue
+
+                        # Fallback: analyze_image tool -> text injection
+                        for p in ev.get("images", []):
+                            if os.path.isfile(p):
+                                core.set_status(True, "analyze_image")
+                                res = self.tools.run_tool(
+                                    "analyze_image", {"image_path": p}
+                                )
+                                text += f"\\n[Attached Image] {p}\\n{res}"
 
                         if text.strip():
                             m = {"role": "user", "content": text.strip()}
@@ -529,7 +510,6 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
-
                 except QueueEmpty:
                     continue
                 except Exception:
@@ -624,6 +604,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self._known_file_paths: set[str] = set()
         self._attachment_seq = 0
         self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
+        self._audio_output = QtMultimedia.QAudioOutput(self)
+        try:
+            self._audio_output.setVolume(0.8)
+        except Exception:
+            pass
+        self._audio_player = QtMultimedia.QMediaPlayer(self)
+        try:
+            self._audio_player.setAudioOutput(self._audio_output)
+        except Exception:
+            pass
+        self._audio_current_path = ""
 
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
@@ -884,6 +875,16 @@ class MainWindow(QtWidgets.QMainWindow):
                     if p and os.path.exists(p):
                         self._append_image_preview(p, "GEN")
 
+                audio_items = []
+                try:
+                    audio_items = self._collect_generated_audio_paths()
+                except Exception:
+                    pass
+
+                for p in audio_items:
+                    if p and os.path.exists(p):
+                        self._append_audio_preview(p, "GENA")
+
                 display_lines = []
                 for line in clean_text.splitlines(keepends=True):
                     s = line.strip()
@@ -984,6 +985,61 @@ class MainWindow(QtWidgets.QMainWindow):
             _add(msg.get("saved_path"))
             for item in msg.get("saved_files") or []:
                 _add(item)
+
+        return paths
+
+    def _collect_generated_audio_paths(self) -> List[str]:
+        paths: List[str] = []
+        seen: set[str] = set()
+
+        def _add(candidate: Any) -> None:
+            p = _gui_norm_path(candidate)
+            if not p or p in seen:
+                return
+            seen.add(p)
+            paths.append(p)
+
+        worker = getattr(self, "_worker", None)
+        msgs = getattr(worker, "messages", []) if worker is not None else []
+
+        for msg in reversed(msgs[-20:]):
+            if not isinstance(msg, dict):
+                continue
+            role = str(msg.get("role") or "")
+            if role not in ("assistant", "tool"):
+                continue
+
+            for att in msg.get("attachments") or []:
+                if not isinstance(att, dict):
+                    continue
+                if str(att.get("type") or "").lower() not in (
+                    "audio",
+                    "audio/mpeg",
+                    "audio/mp3",
+                    "audio/wav",
+                    "audio/x-wav",
+                    "audio/mp4",
+                    "audio/aac",
+                    "audio/flac",
+                    "audio/ogg",
+                    "audio/opus",
+                    "audio/webm",
+                ):
+                    continue
+                _add(
+                    att.get("saved_path")
+                    or att.get("path")
+                    or att.get("file_path")
+                    or att.get("name")
+                )
+
+            p = _gui_norm_path(msg.get("saved_path"))
+            if p and os.path.splitext(p)[1].lower() in AUDIO_EXTS:
+                _add(p)
+
+            for item in msg.get("saved_files") or []:
+                if os.path.splitext(_gui_norm_path(item))[1].lower() in AUDIO_EXTS:
+                    _add(item)
 
         return paths
 
@@ -1203,6 +1259,45 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
+    def _is_audio_path(self, p):
+        p = _gui_norm_path(p).lower()
+        return bool(p and os.path.splitext(p)[1] in AUDIO_EXTS)
+
+    def _append_audio_preview(self, path, prefix):
+        path = _gui_norm_path(path)
+        key = f"{prefix}:{path}"
+        if key in self._known_file_paths:
+            return
+        self._known_file_paths.add(key)
+
+        def _load():
+            try:
+                if not os.path.exists(path):
+                    self._known_file_paths.discard(key)
+                    return
+                title = html.escape(os.path.basename(path), quote=True)
+                file_uri = Path(path).resolve().as_uri()
+                html_block = (
+                    '<div style="max-width:360px; border:1px solid #ddd; border-radius:6px; padding:6px; margin-top:4px;">'
+                    f'<div style="font-size:12px; margin-bottom:4px;">{title}</div>'
+                    '<div style="font-size:11px; line-height:1.6;">'
+                    f'<a href="audio-play:{html.escape(path, quote=True)}" style="color:#2563eb; text-decoration:underline;">Play</a>'
+                    ' &nbsp;'
+                    f'<a href="audio-stop:" style="color:#2563eb; text-decoration:underline;">Stop</a>'
+                    ' &nbsp;'
+                    f'<a href="{html.escape(file_uri, quote=True)}#download" style="color:#2563eb; text-decoration:underline;">Download</a>'
+                    '</div>'
+                    '</div>'
+                )
+                self._output.moveCursor(QtGui.QTextCursor.End)
+                self._output.insertHtml(html_block)
+                self._output.insertHtml("<br/>")
+                self._output.ensureCursorVisible()
+            except Exception:
+                self._known_file_paths.discard(key)
+
+        QtCore.QTimer.singleShot(1000, _load)
+
     def _handle_output_anchor(self, url):
         try:
             scheme = (url.scheme() or "").lower()
@@ -1312,6 +1407,33 @@ class MainWindow(QtWidgets.QMainWindow):
                         _("Downloaded to") + f" {target}",
                         5000,
                     )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "audio-play":
+                raw = unquote(url.toString().split(":", 1)[1])
+                if raw.startswith("/") and re.match(r"^/[A-Za-z]:[\\/]", raw):
+                    raw = raw[1:]
+                src = Path(raw)
+                if not src.exists():
+                    return
+                try:
+                    self._audio_current_path = str(src)
+                    self._audio_player.setSource(QtCore.QUrl.fromLocalFile(str(src)))
+                    self._audio_player.play()
+                    self.statusBar().showMessage(
+                        _("Playing") + f" {src.name}",
+                        3000,
+                    )
+                except Exception:
+                    pass
+                return
+
+            if scheme == "audio-stop":
+                try:
+                    self._audio_player.stop()
+                    self.statusBar().showMessage(_("Stopped"), 2000)
                 except Exception:
                     pass
                 return
