@@ -30,6 +30,17 @@ def get_int(args: Dict[str, Any], key: str, default: int = 0) -> int:
         return default
 
 
+def get_float(args: Dict[str, Any], key: str, default: float = 0.0) -> float:
+    """Get a float argument safely."""
+    val = args.get(key)
+    if val is None:
+        return default
+    try:
+        return float(val)
+    except (ValueError, TypeError):
+        return default
+
+
 def get_bool(args: Dict[str, Any], key: str, default: bool = False) -> bool:
     """Get a boolean argument safely."""
     val = args.get(key)

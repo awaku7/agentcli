@@ -165,7 +165,14 @@ class WebRoom:
                     welcome_msg = welcome_msg + "\n" + banner
 
                 if welcome_msg.strip():
-                    self.add_message({"role": "assistant", "content": welcome_msg})
+                    welcome_display = _enrich_message_attachments(
+                        {"role": "assistant", "content": welcome_msg}
+                    )
+                    welcome_display["role"] = "assistant"
+                    welcome_display["content"] = welcome_msg
+                    welcome_display["timestamp"] = datetime.now().isoformat()
+                    self.messages.append(welcome_display)
+                    msgs = self.messages
 
                 try:
                     setattr(self, "welcome_shown", True)
@@ -515,7 +522,11 @@ def run_agent_worker(
         pass
 
     # Streaming helpers for Web UI
-    stream_state: Dict[str, Any] = {"id": None, "active": False}
+    stream_state: Dict[str, Any] = {
+        "id": None,
+        "active": False,
+        "suppress_next_assistant_message": False,
+    }
 
     def _web_stream_send(payload: Dict[str, Any]) -> None:
         try:
@@ -528,6 +539,7 @@ def run_agent_worker(
         sid = f"asst_{int(time.time() * 1000)}"
         stream_state["id"] = sid
         stream_state["active"] = True
+        stream_state["suppress_next_assistant_message"] = True
         _web_stream_send({"type": "assistant_stream_start", "id": sid})
         return sid
 
@@ -572,7 +584,11 @@ def run_agent_worker(
                 "assistant",
                 "tool",
             ):
-                room.add_message(dict(msg))
+                role = str(msg.get("role") or "").lower()
+                if role == "assistant" and stream_state.get("suppress_next_assistant_message"):
+                    stream_state["suppress_next_assistant_message"] = False
+                else:
+                    room.add_message(dict(msg))
         except Exception:
             pass
 

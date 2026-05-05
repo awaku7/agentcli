@@ -186,7 +186,9 @@
 
 
         // Streaming assistant bubble state
-        let streamAssistant = { id: null, div: null, pre: null, active: false };
+        let streamAssistant = { id: null, div: null, pre: null, active: false, text: '' };
+        let lastAssistantStreamText = '';
+
         const chatBox = document.getElementById('chat-box');
         const statusTextHeader = document.getElementById('status-text-header');
         const busyIndicator = document.getElementById('busy-indicator');
@@ -226,6 +228,14 @@
             return type.startsWith('image/')
                 || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)
                 || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(path);
+        }
+
+        function isAudioAttachment(att) {
+            const type = String((att && (att.type || att.mime)) || '').toLowerCase();
+            const path = String((att && (att.saved_path || att.path || att.file_path || att.name)) || '').toLowerCase();
+            return type.startsWith('audio/')
+                || ['audio', 'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'audio/opus', 'audio/webm'].includes(type)
+                || /\.(mp3|wav|m4a|aac|flac|ogg|opus|wma|mp4|webm)$/i.test(path);
         }
 
         function basenameFromPath(path) {
@@ -273,10 +283,13 @@
 
             pendingAttachments.forEach((att, idx) => {
                 const isImage = isImageAttachment(att) && (att.data_url || att.url || att.saved_path || att.path);
+                const isAudio = isAudioAttachment(att) && (att.url || att.saved_path || att.path);
                 const wrapper = document.createElement('div');
                 wrapper.className = isImage
                     ? 'relative inline-block max-w-[220px]'
-                    : 'relative inline-flex items-center px-2 py-1 rounded bg-gray-50 border max-w-[220px]';
+                    : (isAudio
+                        ? 'relative inline-flex flex-col gap-1 px-2 py-2 rounded bg-gray-50 border max-w-[260px]'
+                        : 'relative inline-flex items-center px-2 py-1 rounded bg-gray-50 border max-w-[220px]');
 
                 const remove = document.createElement('button');
                 remove.type = 'button';
@@ -297,6 +310,17 @@
                     img.title = 'クリックで開く';
                     img.onclick = () => openAttachmentViewer(src, img.alt);
                     wrapper.appendChild(img);
+                } else if (isAudio) {
+                    const title = document.createElement('div');
+                    title.className = 'text-xs text-gray-600 break-all';
+                    title.textContent = att.name || basenameFromPath(att.saved_path || att.path || '') || 'audio';
+                    wrapper.appendChild(title);
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.preload = 'none';
+                    audio.className = 'w-[240px] max-w-full';
+                    audio.src = att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
+                    wrapper.appendChild(audio);
                 } else {
                     const title = document.createElement('div');
                     title.className = 'text-xs text-gray-600 break-all';
@@ -348,6 +372,9 @@
                 
                 if (data.type === 'init') {
                     WEB_VERBOSE = !!data.web_verbose;
+                    if (chatBox) chatBox.innerHTML = '';
+                    streamAssistant = { id: null, div: null, pre: null, active: false, text: '' };
+                    lastAssistantStreamText = '';
                     data.messages.forEach(addMessage);
                     updateStatus(data.status);
                     if (data.modes) updateModes(data.modes);
@@ -391,17 +418,18 @@
                 if (!sourceKey) return;
 
                 const isImage = isImageAttachment(att);
+                const isAudio = isAudioAttachment(att);
                 const prevIndex = seen.get(sourceKey);
                 if (prevIndex !== undefined) {
                     const prev = items[prevIndex];
                     if (isImage && prev && !prev.isImage) {
-                        items[prevIndex] = { att, type, path, isImage };
+                        items[prevIndex] = { att, type, path, isImage, isAudio };
                     }
                     return;
                 }
 
                 seen.set(sourceKey, items.length);
-                items.push({ att, type, path, isImage });
+                items.push({ att, type, path, isImage, isAudio });
             };
 
             const attachments = Array.isArray(message.attachments) ? message.attachments : [];
@@ -414,8 +442,8 @@
             if (!items.length) return '';
 
             let html = '<div class="mt-2 flex flex-wrap gap-2">';
-            items.forEach(({ att, type, path, isImage }) => {
-                const title = att.name || basenameFromPath(path) || (isImage ? 'image' : 'file');
+            items.forEach(({ att, type, path, isImage, isAudio }) => {
+                const title = att.name || basenameFromPath(path) || (isImage ? 'image' : (isAudio ? 'audio' : 'file'));
                 const finalSrc = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
                 if (isImage && finalSrc) {
                     html += '<div class="flex flex-col gap-1 max-w-[360px]">';
@@ -423,6 +451,13 @@
                         html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(title))}</div>`;
                     }
                     html += `<img src="${escapeHtml(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded cursor-pointer block" title="クリックで開く" data-attachment-src="${escapeHtml(finalSrc)}" data-attachment-alt="${escapeHtml(title)}"/>`;
+                    html += '</div>';
+                } else if (isAudio && finalSrc) {
+                    html += '<div class="inline-flex flex-col gap-1 px-2 py-2 rounded bg-white border max-w-[280px]">';
+                    if (title) {
+                        html += `<div class="text-xs text-gray-600 break-all">${escapeHtml(String(title))}</div>`;
+                    }
+                    html += `<audio controls preload="none" class="w-[240px] max-w-full" src="${escapeHtml(finalSrc)}"></audio>`;
                     html += '</div>';
                 } else {
                     html += '<div class="inline-flex items-center px-2 py-1 rounded bg-white border max-w-[220px]">';
@@ -474,6 +509,16 @@
                         : `${toolLabel}: ${paths.map(basenameFromPath).filter(Boolean).join(', ')}`;
                 } else if (typeof parsed.message === 'string' && parsed.message.trim()) {
                     body = `${toolLabel}: ${parsed.message.trim()}`;
+                } else if (Array.isArray(parsed.results)) {
+                    const q = typeof parsed.query === 'string' && parsed.query.trim() ? parsed.query.trim() : '';
+                    const titles = parsed.results
+                        .map(r => (r && typeof r.title === 'string' ? r.title.trim() : ''))
+                        .filter(Boolean)
+                        .slice(0, 3);
+                    const count = parsed.results.length;
+                    body = q
+                        ? `${toolLabel}: ${q} → ${count}件${titles.length ? ` / ${titles.join(', ')}` : ''}`
+                        : `${toolLabel}: ${count}件${titles.length ? ` / ${titles.join(', ')}` : ''}`;
                 } else if (parsed.ok === true) {
                     body = `${toolLabel}: done`;
                 } else {
@@ -559,6 +604,7 @@
             streamAssistant.id = id;
             streamAssistant.div = div;
             streamAssistant.pre = pre;
+            streamAssistant.text = '';
             streamAssistant.active = true;
 
             chatBox.appendChild(div);
@@ -567,16 +613,20 @@
 
         function appendAssistantStream(id, delta) {
             if (!streamAssistant.active || streamAssistant.id !== id || !streamAssistant.pre) return;
-            streamAssistant.pre.textContent += String(delta || '');
+            const s = String(delta || '');
+            streamAssistant.text = String(streamAssistant.text || '') + s;
+            streamAssistant.pre.textContent += s;
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function endAssistantStream(id) {
             if (!streamAssistant.active || streamAssistant.id !== id) return;
+            lastAssistantStreamText = String(streamAssistant.text || '');
             streamAssistant.active = false;
             streamAssistant.id = null;
             streamAssistant.div = null;
             streamAssistant.pre = null;
+            streamAssistant.text = '';
         }
 
         function getRoleClass(role) {
