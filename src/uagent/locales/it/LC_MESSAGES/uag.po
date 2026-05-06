@@ -1,7 +1,3 @@
-# Translations template for PROJECT.
-# Copyright (C) 2026 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
@@ -146,7 +142,7 @@ msgstr "Fornitore LLM = %(provider)s"
 #: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
-msgstr "Nome modello/deployment = %(depname)s"
+msgstr "model(deployment) = %(depname)s"
 
 #: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
 msgid "OpenRouter fallback models enabled."
@@ -981,7 +977,8 @@ msgstr ""
 
 #: src/uagent/setup_cli.py:583
 msgid "Configure optional image / embedding / audio settings?"
-msgstr "Optional image / embedding settings"
+msgstr ""
+"Configurare le impostazioni opzionali per immagini / embedding / audio?"
 
 #: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
 #: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
@@ -1017,7 +1014,7 @@ msgstr "Configurare le impostazioni di generazione immagini?"
 
 #: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
-msgstr "Select provider"
+msgstr "Seleziona il provider di generazione immagini"
 
 #: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
@@ -1076,7 +1073,8 @@ msgstr "Impostazioni opzionali per immagini / embedding"
 
 #: src/uagent/setup_cli.py:946
 msgid "# (optional image / embedding settings not configured)"
-msgstr "# (impostazioni opzionali di immagine / incorporamento non configurate)"
+msgstr ""
+"# (impostazioni opzionali di immagine / incorporamento non configurate)"
 
 #: src/uagent/setup_cli.py:954
 msgid "Encrypt the generated .env file?"
@@ -1089,7 +1087,7 @@ msgstr "Il file cifrato verrà scritto come %(path)s"
 
 #: src/uagent/setup_cli.py:976
 msgid "Select provider"
-msgstr "Seleziona provider"
+msgstr "Seleziona il provider"
 
 #: src/uagent/setup_cli.py:1015
 msgid "Enable Responses API options?"
@@ -1097,7 +1095,7 @@ msgstr "Abilitare le opzioni Responses API?"
 
 #: src/uagent/setup_cli.py:1031
 msgid "Select reasoning"
-msgstr "Seleziona il ragionamento"
+msgstr "Seleziona il livello di ragionamento"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
@@ -1687,7 +1685,7 @@ msgstr "[shared-mem-del] Impossibile eliminare l'indice=%(idx)d."
 #: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del errore] %(etype)s: %(err)s"
+msgstr "[errore eliminazione memoria condivisa] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1483
 #, python-format

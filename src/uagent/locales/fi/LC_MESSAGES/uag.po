@@ -1,7 +1,3 @@
-# Translations template for PROJECT.
-# Copyright (C) 2026 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
@@ -1686,7 +1682,7 @@ msgstr "[shared-mem-del] Index=%(idx)d poistaminen epäonnistui."
 #: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[jaetun muistin poisto virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1483
 #, python-format
