@@ -67,6 +67,7 @@ For API keys, language settings (`UAGENT_LANG`), history shrink settings, and mo
 ### Responses API note
 If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
 Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
+Image analysis via Responses is currently limited to OpenAI / Azure / Bedrock / OpenRouter.
 For other providers, uag falls back to the provider-specific or chat-completions path.
 
 ### Developer docs and translations

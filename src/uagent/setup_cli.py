@@ -548,7 +548,9 @@ def _ask_provider_audio_values(
             (
                 "speech",
                 False,
-                _("OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"),
+                _(
+                    "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+                ),
             ),
             (
                 "transcribe",
@@ -731,7 +733,11 @@ def _ask_optional_extras(st: _WizardState) -> str:
         au_options = [f"{prov} ({label})" for prov, label in AUDIO_PROVIDERS]
         au_default = 1
         if st.provider in {prov for prov, _ in AUDIO_PROVIDERS}:
-            au_default = next(i + 1 for i, (prov, _label) in enumerate(AUDIO_PROVIDERS) if prov == st.provider)
+            au_default = next(
+                i + 1
+                for i, (prov, _label) in enumerate(AUDIO_PROVIDERS)
+                if prov == st.provider
+            )
         au_choice = _menu_choice(
             _("Select audio provider"),
             au_options,
@@ -762,9 +768,7 @@ def _ask_optional_extras(st: _WizardState) -> str:
         st.audio_open_enabled = audio_open == "2"
         if st.audio_values is None:
             st.audio_values = {}
-        st.audio_values["UAGENT_AUDIO_OPEN"] = (
-            "1" if st.audio_open_enabled else "0"
-        )
+        st.audio_values["UAGENT_AUDIO_OPEN"] = "1" if st.audio_open_enabled else "0"
 
     return "ok"
 
@@ -922,12 +926,18 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
             if audio_provider:
                 out.append(f"UAGENT_AUDIO_PROVIDER={audio_provider}")
                 if audio_provider == "azure":
-                    for key in ("UAGENT_AZURE_SPEECH_DEPNAME", "UAGENT_AZURE_TRANSCRIBE_DEPNAME"):
+                    for key in (
+                        "UAGENT_AZURE_SPEECH_DEPNAME",
+                        "UAGENT_AZURE_TRANSCRIBE_DEPNAME",
+                    ):
                         val = audio_vals.get(key, "").strip()
                         if val:
                             out.append(f"{key}={val}")
                 elif audio_provider == "openai":
-                    for key in ("UAGENT_OPENAI_SPEECH_DEPNAME", "UAGENT_OPENAI_TRANSCRIBE_DEPNAME"):
+                    for key in (
+                        "UAGENT_OPENAI_SPEECH_DEPNAME",
+                        "UAGENT_OPENAI_TRANSCRIBE_DEPNAME",
+                    ):
                         val = audio_vals.get(key, "").strip()
                         if val:
                             out.append(f"{key}={val}")

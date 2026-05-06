@@ -696,11 +696,11 @@ msgstr ""
 #: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
 #: src/uagent/setup_cli.py:192
 msgid "OpenRouter"
-msgstr "OpenRouter-tjenesten"
+msgstr "OpenRouter"
 
 #: src/uagent/setup_cli.py:67
 msgid "Vertex AI"
-msgstr "Vertex AI-tjenesten"
+msgstr "Vertex AI"
 
 #: src/uagent/setup_cli.py:68
 msgid "Grok"
@@ -708,11 +708,11 @@ msgstr "Grok"
 
 #: src/uagent/setup_cli.py:70
 msgid "Ollama"
-msgstr "Ollama-tjenesten"
+msgstr "Ollama"
 
 #: src/uagent/setup_cli.py:71 src/uagent/setup_cli.py:194
 msgid "NVIDIA"
-msgstr "NVIDIA-tjenesten"
+msgstr "NVIDIA"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
@@ -946,7 +946,7 @@ msgstr "NVIDIA modell-/distribusjonsnavn"
 #: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
-msgstr "Etikett: %(label)s"
+msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
@@ -1043,13 +1043,13 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# støttede leverandører: azure / openai / bedrock / openrouter / gemini / "
-"vertexai / grok / claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-msgstr "Etikett: %(label)s (UAGENT_PROVIDER=%(prov)s)"
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
 #: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
@@ -1094,26 +1094,26 @@ msgstr "Velg resonnering"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "minimalt"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "lav"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "middels"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "høy"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automatisk"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1251,11 +1251,11 @@ msgstr "generert: %(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1 : utf-8-sig, CRLF-linjeskift"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat : cp932, CRLF-linjeskift"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """vision_runtime.py
 
-Image analysis backend for OpenAI/Azure/OpenRouter Responses API.
+Image analysis backend for OpenAI/Azure/Bedrock/OpenRouter Responses API.
 
 This module is used by tools/analyze_image_tool.py when UAGENT_RESPONSES=1.
 

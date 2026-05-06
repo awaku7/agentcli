@@ -691,7 +691,7 @@ msgstr "Vertex AI"
 
 #: src/uagent/setup_cli.py:68
 msgid "Grok"
-msgstr "Grokken"
+msgstr "Grok"
 
 #: src/uagent/setup_cli.py:70
 msgid "Ollama"
@@ -892,15 +892,15 @@ msgstr "1. Alleen. .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "2. .env + env.sh"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "4. .env + env.bat"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -1031,8 +1031,8 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# azuurblauw / openai / gesteente / openrouter / gemini / vertexai / grok / "
-"claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
@@ -1083,26 +1083,26 @@ msgstr "Selecteer redenering"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "minimaal"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "laag"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "gemiddeld"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "hoog"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automatisch"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1128,7 +1128,7 @@ msgstr "Dienstverlener: %(provider)s"
 #: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
-msgstr "%(key)s=%(value)s"
+msgstr "  %(key)s=%(value)s"
 
 #: src/uagent/setup_cli.py:1153
 #, python-format
@@ -1152,12 +1152,12 @@ msgstr "nee"
 #: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
-msgstr "UAGENT_REASONING=%(value)s"
+msgstr "  UAGENT_REASONING=%(value)s"
 
 #: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
-msgstr "UAGENT_VERBOSITY=%(value)s"
+msgstr "  UAGENT_VERBOSITY=%(value)s"
 
 #: src/uagent/setup_cli.py:1160
 #, python-format
@@ -1167,7 +1167,7 @@ msgstr "UAGENT_WORKDIR ingeschakeld: %(state)s"
 #: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
-msgstr "UAGENT_WORKDIR=%(value)s"
+msgstr "  UAGENT_WORKDIR=%(value)s"
 
 #: src/uagent/setup_cli.py:1166
 #, python-format
@@ -1177,7 +1177,7 @@ msgstr "UAGENT_LANG ingeschakeld: %(state)s"
 #: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
-msgstr "UAGENT_LANG=%(value)s"
+msgstr "  UAGENT_LANG=%(value)s"
 
 #: src/uagent/setup_cli.py:1172
 #, python-format
@@ -1240,11 +1240,11 @@ msgstr "gegenereerd: %(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1: utf-8-sig, CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat: cp932, CRLF"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format

@@ -1095,21 +1095,21 @@ msgstr "minimal"
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "rendah"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "sedang"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "tinggi"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "otomatis"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1769,7 +1769,7 @@ msgstr ""
 
 #: src/uagent/util_tools.py:1535
 msgid "Delete a shared long-term memory note by index"
-msgstr "Entri memori jangka panjang bersama [%(idx)d] dihapus."
+msgstr "Hapus catatan memori jangka panjang bersama berdasarkan indeks."
 
 #: src/uagent/util_tools.py:1537
 msgid ""

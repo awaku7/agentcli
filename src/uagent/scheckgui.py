@@ -20,7 +20,9 @@ from queue import Empty as QueueEmpty
 from typing import Any, Dict, List, Optional
 
 # DPI warnings and crash avoidance
-os.environ["QT_LOGGING_RULES"] = "qt.qpa.window=false;qt.text.font.db=false;qt.multimedia.ffmpeg=false"
+os.environ["QT_LOGGING_RULES"] = (
+    "qt.qpa.window=false;qt.text.font.db=false;qt.multimedia.ffmpeg=false"
+)
 os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 from PySide6 import QtCore, QtGui, QtWidgets, QtMultimedia
@@ -62,7 +64,18 @@ except ImportError:
 
 THUMB_SIZE_PX = 96
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp", ".tif", ".tiff"}
-AUDIO_EXTS = {".mp3", ".wav", ".m4a", ".aac", ".flac", ".ogg", ".opus", ".wma", ".mp4", ".webm"}
+AUDIO_EXTS = {
+    ".mp3",
+    ".wav",
+    ".m4a",
+    ".aac",
+    ".flac",
+    ".ogg",
+    ".opus",
+    ".wma",
+    ".mp4",
+    ".webm",
+}
 LOG_FILE = "gui_worker_session.log"
 
 
@@ -415,7 +428,9 @@ class ScheckWorker(QtCore.QObject):
                             ]
                             if file_lines:
                                 if text.strip():
-                                    text = text.rstrip() + "\n\n" + "\n".join(file_lines)
+                                    text = (
+                                        text.rstrip() + "\n\n" + "\n".join(file_lines)
+                                    )
                                 else:
                                     text = "\n".join(file_lines)
 
@@ -1282,12 +1297,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     f'<div style="font-size:12px; margin-bottom:4px;">{title}</div>'
                     '<div style="font-size:11px; line-height:1.6;">'
                     f'<a href="audio-play:{html.escape(path, quote=True)}" style="color:#2563eb; text-decoration:underline;">Play</a>'
-                    ' &nbsp;'
+                    " &nbsp;"
                     f'<a href="audio-stop:" style="color:#2563eb; text-decoration:underline;">Stop</a>'
-                    ' &nbsp;'
+                    " &nbsp;"
                     f'<a href="{html.escape(file_uri, quote=True)}#download" style="color:#2563eb; text-decoration:underline;">Download</a>'
-                    '</div>'
-                    '</div>'
+                    "</div>"
+                    "</div>"
                 )
                 self._output.moveCursor(QtGui.QTextCursor.End)
                 self._output.insertHtml(html_block)

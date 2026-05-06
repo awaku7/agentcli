@@ -168,7 +168,9 @@ def test_recalc_excel_dry_run_defaults(repo_tmp_path: Path) -> None:
     assert len(obj["targets"]) == 1
 
 
-def test_batch_state_init_and_load_smoke(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_batch_state_init_and_load_smoke(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from uagent.tools.batch_state_tool import run_tool
 
     monkeypatch.setenv("UAGENT_BATCHES_DIR", str(repo_tmp_path / "batches"))

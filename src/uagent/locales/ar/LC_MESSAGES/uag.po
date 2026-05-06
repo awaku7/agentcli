@@ -420,7 +420,7 @@ msgstr ""
 
 #: src/uagent/env_validate.py:63
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
@@ -896,15 +896,15 @@ msgstr "1..البيئة فقط"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "2..env + env.sh"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "3..env + env.ps1"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "4..env + env.bat"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -1033,8 +1033,8 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# أزور / أوبن إيه آي / بيدروك / أوبن راوتر / جيميني / فيرتكس آي / جروك / "
-"كلود / أولاما / إنفيديا"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
@@ -1084,26 +1084,26 @@ msgstr "حدد المنطق"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "الحد الأدنى"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "قليل"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "واسطة"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "عالي"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "آلي"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1129,7 +1129,7 @@ msgstr "المزود: %(provider)s"
 #: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
-msgstr "%(key)s=%(value)s"
+msgstr "  %(key)s=%(value)s"
 
 #: src/uagent/setup_cli.py:1153
 #, python-format
@@ -1153,12 +1153,12 @@ msgstr "لا"
 #: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
-msgstr "UAGENT_REASONING=%(value)s"
+msgstr "  UAGENT_REASONING=%(value)s"
 
 #: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
-msgstr "UAGENT_VERBOSITY=%(value)s"
+msgstr "  UAGENT_VERBOSITY=%(value)s"
 
 #: src/uagent/setup_cli.py:1160
 #, python-format
@@ -1168,7 +1168,7 @@ msgstr "تم تمكين UAGENT_WORKDIR: %(state)s"
 #: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
-msgstr "UAGENT_WORKDIR=%(value)s"
+msgstr "  UAGENT_WORKDIR=%(value)s"
 
 #: src/uagent/setup_cli.py:1166
 #, python-format
@@ -1178,7 +1178,7 @@ msgstr "تم تمكين UAGENT_LANG: %(state)s"
 #: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
-msgstr "UAGENT_LANG=%(value)s"
+msgstr "  UAGENT_LANG=%(value)s"
 
 #: src/uagent/setup_cli.py:1172
 #, python-format
@@ -1245,7 +1245,7 @@ msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat : cp932، CRLF"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
@@ -1404,7 +1404,7 @@ msgstr ""
 #: src/uagent/util_tools.py:869
 #, python-format
 msgid "[skills] Applied: %(name)s"
-msgstr "[المهارات] التطبيقية: %(الاسم)s"
+msgstr "[المهارات] تم التطبيق: %(name)s"
 
 #: src/uagent/util_tools.py:889
 #, python-format
@@ -1412,7 +1412,7 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[نظيف] وسيطة غير صالحة: %(arg)r (حدد الرقم=العتبة؛ الافتراضي هو %(افتراضي)d)"
+"[نظيف] وسيطة غير صالحة: %(arg)r (حدد الرقم=العتبة؛ الافتراضي هو %(default)d)"
 
 #: src/uagent/util_tools.py:906
 #, python-format
@@ -1436,10 +1436,10 @@ msgid ""
 msgstr ""
 "سيتم حذف ملفات سجل المحادثة (scheck_log_*.jsonl) من القرص.\n"
 "سجل السجل: %(dir)s\n"
-"القاعدة: إجمالي رسائل المستخدم/المساعد/الأداة باستثناء النظام <= %(العتبة)د\n"
-"الأهداف: %(ن)د\n"
+"القاعدة: إجمالي رسائل المستخدم/المساعد/الأداة باستثناء النظام <= %(threshold)d\n"
+"الأهداف: %(n)d\n"
 "\n"
-"هل تريد المتابعة؟ أدخل y للتشغيل، أو c للإلغاء."
+"هل تريد المتابعة؟ أدخل y للتشغيل، أو c للإلغاء.\n"
 
 #: src/uagent/util_tools.py:953
 msgid "[clean] Cancelled."
@@ -1461,8 +1461,8 @@ msgid ""
 "[clean] No logs to delete (threshold=%(threshold)d).\n"
 "Log dir: %(dir)s"
 msgstr ""
-"[نظيف] لا توجد سجلات لحذفها (العتبة=%(العتبة)د).\n"
-"سجل السجل: %(dir)s"
+"[نظيف] لا توجد سجلات لحذفها (العتبة=%(threshold)d).\n"
+"سجل السجل: %(dir)s\n"
 
 #: src/uagent/util_tools.py:1001
 #, python-format
@@ -1472,7 +1472,7 @@ msgstr "[نظيف] السجلات المطلوب حذفها (<= %(threshold)d ا
 #: src/uagent/util_tools.py:1015
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-msgstr "[نظيف] تم: تم الحذف=%(محذوف)د، فشل=%(فشل)د"
+msgstr "[نظيف] تم: تم الحذف=%(deleted)d، فشل=%(failed)d"
 
 #: src/uagent/util_tools.py:1050
 #, python-format

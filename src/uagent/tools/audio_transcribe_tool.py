@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any, Dict
 
@@ -97,7 +96,9 @@ def _env_first(keys: list[str], *, required: bool = False, default: str = "") ->
 
 
 def _provider() -> str:
-    provider = _env_first(["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai")
+    provider = _env_first(
+        ["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai"
+    )
     provider = provider.strip().lower()
     if provider not in ("openai", "azure"):
         raise RuntimeError(
@@ -143,7 +144,9 @@ def _make_client(provider: str):
         )
 
     api_key = _env_first(["UAGENT_OPENAI_API_KEY"], required=True)
-    base_url = _env_first(["UAGENT_OPENAI_BASE_URL"], default="https://api.openai.com/v1")
+    base_url = _env_first(
+        ["UAGENT_OPENAI_BASE_URL"], default="https://api.openai.com/v1"
+    )
     return OpenAI(api_key=api_key, base_url=base_url.rstrip("/"))
 
 
@@ -220,7 +223,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 payload = resp.model_dump()  # type: ignore[attr-defined]
                 if isinstance(payload, dict):
                     text = str(payload.get("text") or "").strip()
-                    resp_language = str(payload.get("language") or resp_language or "").strip()
+                    resp_language = str(
+                        payload.get("language") or resp_language or ""
+                    ).strip()
                     duration = payload.get("duration", duration)
             except Exception:
                 pass
@@ -242,7 +247,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     if duration is not None:
         data["duration"] = duration
 
-    return make_response(True, _("ok.transcribed", default="Transcription completed"), data=data)
+    return make_response(
+        True, _("ok.transcribed", default="Transcription completed"), data=data
+    )
 
 
 if __name__ == "__main__":

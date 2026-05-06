@@ -428,7 +428,7 @@ msgstr ""
 
 #: src/uagent/env_validate.py:63
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: src/uagent/env_validate.py:170
 msgid "Missing required environment variables:"
@@ -681,7 +681,7 @@ msgstr "# .env für uag (von `uag_setup` erzeugt)"
 
 #: src/uagent/setup_cli.py:29
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: src/uagent/setup_cli.py:30
 msgid "# Notes:"
@@ -702,23 +702,23 @@ msgstr ""
 #: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
 #: src/uagent/setup_cli.py:192
 msgid "OpenRouter"
-msgstr ""
+msgstr "OpenRouter"
 
 #: src/uagent/setup_cli.py:67
 msgid "Vertex AI"
-msgstr ""
+msgstr "Vertex AI"
 
 #: src/uagent/setup_cli.py:68
 msgid "Grok"
-msgstr ""
+msgstr "Grok"
 
 #: src/uagent/setup_cli.py:70
 msgid "Ollama"
-msgstr ""
+msgstr "Ollama"
 
 #: src/uagent/setup_cli.py:71 src/uagent/setup_cli.py:194
 msgid "NVIDIA"
-msgstr ""
+msgstr "NVIDIA"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
@@ -912,15 +912,15 @@ msgstr "  1. Nur .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr ""
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr ""
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr ""
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -953,7 +953,7 @@ msgstr "NVIDIA-Modell-/Bereitstellungsname"
 #: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
-msgstr ""
+msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
@@ -1051,11 +1051,13 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-msgstr ""
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
 #: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
@@ -1100,26 +1102,26 @@ msgstr "Begründung auswählen"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr ""
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "niedrig"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "mittel"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "hoch"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automatisch"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1145,7 +1147,7 @@ msgstr "  Anbieter: %(provider)s"
 #: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
-msgstr ""
+msgstr "  %(key)s=%(value)s"
 
 #: src/uagent/setup_cli.py:1153
 #, python-format
@@ -1169,12 +1171,12 @@ msgstr "nein"
 #: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
-msgstr ""
+msgstr "  UAGENT_REASONING=%(value)s"
 
 #: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
-msgstr ""
+msgstr "  UAGENT_VERBOSITY=%(value)s"
 
 #: src/uagent/setup_cli.py:1160
 #, python-format
@@ -1184,7 +1186,7 @@ msgstr "  UAGENT_WORKDIR aktiviert: %(state)s"
 #: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
-msgstr ""
+msgstr "  UAGENT_WORKDIR=%(value)s"
 
 #: src/uagent/setup_cli.py:1166
 #, python-format
@@ -1194,7 +1196,7 @@ msgstr "  UAGENT_LANG aktiviert: %(state)s"
 #: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
-msgstr ""
+msgstr "  UAGENT_LANG=%(value)s"
 
 #: src/uagent/setup_cli.py:1172
 #, python-format
@@ -1258,11 +1260,11 @@ msgstr "erstellt: %(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr ""
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr ""
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
@@ -1432,7 +1434,7 @@ msgid ""
 "%(default)d)"
 msgstr ""
 "[sauber] Ungültiges Argument: %(arg)r (Nummer=Schwellenwert angeben; "
-"Standard ist %(Standard)d)"
+"Standard ist %(default)d)"
 
 #: src/uagent/util_tools.py:906
 #, python-format
@@ -1696,7 +1698,7 @@ msgstr "[shared-mem-del] Index=%(idx)d konnte nicht gelöscht werden."
 #: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1483
 #, python-format
