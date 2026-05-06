@@ -4,6 +4,8 @@ import json
 import sqlite3
 from pathlib import Path
 
+import pytest
+
 
 def test_calculator_smoke() -> None:
     from uagent.tools.calculator_tool import run_tool
@@ -164,3 +166,28 @@ def test_recalc_excel_dry_run_defaults(repo_tmp_path: Path) -> None:
     assert obj["dry_run"] is True
     assert obj["backup"] is False
     assert len(obj["targets"]) == 1
+
+
+def test_batch_state_init_and_load_smoke(repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools.batch_state_tool import run_tool
+
+    monkeypatch.setenv("UAGENT_BATCHES_DIR", str(repo_tmp_path / "batches"))
+
+    out_init = run_tool(
+        {
+            "action": "init",
+            "batch_id": "smoke-batch",
+            "task_description": "smoke",
+        }
+    )
+    obj_init = json.loads(out_init)
+    assert obj_init["ok"] is True
+    assert obj_init["batch_id"] == "smoke-batch"
+    assert obj_init["state"]["batch_id"] == "smoke-batch"
+    assert obj_init["state"]["status"] == "active"
+
+    out_load = run_tool({"action": "load", "batch_id": "smoke-batch"})
+    obj_load = json.loads(out_load)
+    assert obj_load["ok"] is True
+    assert obj_load["state"]["batch_id"] == "smoke-batch"
+    assert obj_load["state"]["targets"] == []
