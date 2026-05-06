@@ -693,23 +693,23 @@ msgstr ""
 #: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
 #: src/uagent/setup_cli.py:192
 msgid "OpenRouter"
-msgstr "OpenRouter-palvelu"
+msgstr "OpenRouter"
 
 #: src/uagent/setup_cli.py:67
 msgid "Vertex AI"
-msgstr "Vertex AI -palvelu"
+msgstr "Vertex AI"
 
 #: src/uagent/setup_cli.py:68
 msgid "Grok"
-msgstr "Grok-palvelu"
+msgstr "Grok"
 
 #: src/uagent/setup_cli.py:70
 msgid "Ollama"
-msgstr "Ollama-palvelu"
+msgstr "Ollama"
 
 #: src/uagent/setup_cli.py:71 src/uagent/setup_cli.py:194
 msgid "NVIDIA"
-msgstr "NVIDIA-palvelu"
+msgstr "NVIDIA"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
@@ -902,15 +902,15 @@ msgstr "  1. Vain .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh (Unix-shell)"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1 (PowerShell)"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat (Windowsin komentotulkki)"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -943,7 +943,7 @@ msgstr "NVIDIA-mallin/toteutuksen nimi"
 #: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
 #, python-format
 msgid "%(label)s"
-msgstr "%(label)s:"
+msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
@@ -1040,13 +1040,13 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# käytettävät tarjoajat: azure / openai / bedrock / openrouter / gemini / "
-"vertexai / grok / claude / ollama / nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s):"
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
 #: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
@@ -1091,26 +1091,26 @@ msgstr "Valitse päättely"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "vähäinen"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "matala"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "keskitaso"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "korkea"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automaattinen"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1136,7 +1136,7 @@ msgstr "  Tarjoaja: %(provider)s"
 #: src/uagent/setup_cli.py:1149
 #, python-format
 msgid "  %(key)s=%(value)s"
-msgstr "  %(key)s = %(value)s"
+msgstr "  %(key)s=%(value)s"
 
 #: src/uagent/setup_cli.py:1153
 #, python-format
@@ -1160,12 +1160,12 @@ msgstr "ei"
 #: src/uagent/setup_cli.py:1157
 #, python-format
 msgid "  UAGENT_REASONING=%(value)s"
-msgstr "  UAGENT_REASONING = %(value)s"
+msgstr "  UAGENT_REASONING=%(value)s"
 
 #: src/uagent/setup_cli.py:1158
 #, python-format
 msgid "  UAGENT_VERBOSITY=%(value)s"
-msgstr "  UAGENT_VERBOSITY = %(value)s"
+msgstr "  UAGENT_VERBOSITY=%(value)s"
 
 #: src/uagent/setup_cli.py:1160
 #, python-format
@@ -1175,7 +1175,7 @@ msgstr "  UAGENT_WORKDIR käytössä: %(state)s"
 #: src/uagent/setup_cli.py:1164
 #, python-format
 msgid "  UAGENT_WORKDIR=%(value)s"
-msgstr "  UAGENT_WORKDIR = %(value)s"
+msgstr "  UAGENT_WORKDIR=%(value)s"
 
 #: src/uagent/setup_cli.py:1166
 #, python-format
@@ -1185,7 +1185,7 @@ msgstr "  UAGENT_LANG käytössä: %(state)s"
 #: src/uagent/setup_cli.py:1170
 #, python-format
 msgid "  UAGENT_LANG=%(value)s"
-msgstr "  UAGENT_LANG = %(value)s"
+msgstr "  UAGENT_LANG=%(value)s"
 
 #: src/uagent/setup_cli.py:1172
 #, python-format
@@ -1248,11 +1248,11 @@ msgstr "luotu: %(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1: utf-8-sig, CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat: cp932, CRLF"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
@@ -1423,7 +1423,7 @@ msgid ""
 "%(default)d)"
 msgstr ""
 "[puhdas] Virheellinen argumentti: %(arg)r (määritä numero=kynnys; oletus on "
-"%(oletus)d)"
+"%(default)d)"
 
 #: src/uagent/util_tools.py:906
 #, python-format
@@ -1486,8 +1486,7 @@ msgstr "[puhdas] Poistettavat lokit (<= %(threshold)d msgs): %(n)d"
 #: src/uagent/util_tools.py:1015
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-msgstr ""
-"[puhdas] Valmis: poistettu=%(poistettu)d, epäonnistunut=%(epäonnistunut)d"
+msgstr "[puhdas] Valmis: poistettu=%(deleted)d, epäonnistunut=%(failed)d"
 
 #: src/uagent/util_tools.py:1050
 #, python-format

@@ -151,9 +151,7 @@ def _duckduckgo_search(
                 logger.debug("Found %d results", len(results))
                 return results
 
-            logger.debug(
-                "Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1
-            )
+            logger.debug("Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1)
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
