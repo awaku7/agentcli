@@ -1,13 +1,13 @@
 {
   "en": {
     "tool.description": "Manage persisted batch state for multi-file tasks under ~/.uag/batches/.",
-    "tool.system_prompt": "Manage batch state. Return JSON only. When progress changes, update current_file, done_files, and pending_files explicitly.",
-    "param.action.description": "Action: init/load/update/append_log/finalize/list/delete",
+    "tool.system_prompt": "Manage batch state. Prefer targets=[{dir, files, next_index}] and current_target. Advance progress by increasing next_index. current_file is a legacy alias. Return JSON only.",
+    "param.action.description": "Action: init/load/update/append_log/finalize/list/delete. Use update with patch to change targets/current_target/next_index.",
     "param.batch_id.description": "Batch ID. Required for load/update/finalize/delete; optional for init/list.",
     "param.task_description.description": "Short description of the batch task.",
     "param.instructions.description": "Detailed instructions for the batch task.",
-    "param.target_files.description": "Target files for the batch task.",
-    "param.patch.description": "Partial update to apply to the batch state. Use it to update progress fields such as current_file, done_files, and pending_files.",
+    "param.target_files.description": "Legacy single-target file list. Prefer targets.",
+    "param.patch.description": "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target. For legacy single-target flows, patch.current_file can advance the current target, and next_index is derived from the file order.",
     "param.message.description": "Log message to append.",
     "param.overwrite.description": "If true, init overwrites an existing batch file.",
     "err.unknown_action": "[batch_state error] unknown action",
@@ -15,17 +15,19 @@
     "err.invalid_patch": "[batch_state error] patch must be a JSON object",
     "err.message_empty": "[batch_state error] message is empty",
     "err.not_found": "[batch_state error] batch not found",
-    "err.exception": "[batch_state error] exception"
+    "err.exception": "[batch_state error] exception",
+    "param.targets.description": "Target groups. Each entry contains dir, files (dir-relative), and next_index.",
+    "param.current_target.description": "Index of the current target group."
   },
   "ja": {
     "tool.description": "複数ファイルの作業用に、~/.uag/batches/ にバッチ状態を保存・管理します。",
-    "tool.system_prompt": "バッチの状態を管理してください。JSON のみを返してください。進捗が変わるときは current_file / done_files / pending_files も明示的に更新してください。",
-    "param.action.description": "操作: init/load/update/append_log/finalize/list/delete",
+    "tool.system_prompt": "バッチの状態を管理してください。JSON のみを返してください。進捗は targets[].next_index と current_target で管理し、current_file は互換用です。",
+    "param.action.description": "操作: init/load/update/append_log/finalize/list/delete。patch で targets/current_target/next_index を更新します。",
     "param.batch_id.description": "バッチID。load/update/finalize/delete では必須、init/list では省略可。",
     "param.task_description.description": "バッチ作業の概要。",
     "param.instructions.description": "バッチ作業の詳細な指示。",
-    "param.target_files.description": "対象となるファイル一覧。",
-    "param.patch.description": "バッチ状態に適用する部分更新。current_file / done_files / pending_files などの進捗項目を明示的に更新するときに使います。",
+    "param.target_files.description": "旧形式の単一ターゲット用ファイル一覧。targets を優先してください。",
+    "param.patch.description": "バッチ状態に適用する部分更新。targets / current_target / next_index を使って進捗を更新します。",
     "param.message.description": "追加するログメッセージ。",
     "param.overwrite.description": "true の場合、既存のバッチファイルを上書きします。",
     "err.unknown_action": "[batch_state error] 不明な操作",
@@ -33,7 +35,9 @@
     "err.invalid_patch": "[batch_state error] patch は JSON オブジェクトである必要があります",
     "err.message_empty": "[batch_state error] message が空です",
     "err.not_found": "[batch_state error] バッチが見つかりません",
-    "err.exception": "[batch_state error] 例外"
+    "err.exception": "[batch_state error] 例外",
+    "param.targets.description": "ターゲットグループ。各要素は dir, files（dir 基準の相対パス）, next_index を持ちます。",
+    "param.current_target.description": "現在のターゲットグループのインデックス。"
   },
   "cs": {
     "tool.description": "Ukládá a spravuje stav dávkového úkolu pro práci s více soubory v ~/.uag/batches/.",
@@ -51,7 +55,9 @@
     "err.invalid_patch": "[batch_state error] patch musí být JSON objekt",
     "err.message_empty": "[batch_state error] message je prázdná",
     "err.not_found": "[batch_state error] dávka nenalezena",
-    "err.exception": "[batch_state error] výjimka"
+    "err.exception": "[batch_state error] výjimka",
+    "param.targets.description": "Skupiny cílů. Každá položka obsahuje dir, files (relativní k dir) a next_index.",
+    "param.current_target.description": "Index aktuální skupiny cílů."
   },
   "uk": {
     "tool.description": "Зберігає та керує станом пакетних завдань для роботи з кількома файлами у ~/.uag/batches/.",
@@ -87,7 +93,9 @@
     "err.invalid_patch": "[batch_state error] يجب أن يكون patch كائن JSON",
     "err.message_empty": "[batch_state error] الرسالة فارغة",
     "err.not_found": "[batch_state error] لم يتم العثور على الدفعة",
-    "err.exception": "[batch_state error] استثناء"
+    "err.exception": "[batch_state error] استثناء",
+    "param.targets.description": "مجموعات الأهداف. يحتوي كل عنصر على dir وfiles (نسبية بالنسبة إلى dir) وnext_index.",
+    "param.current_target.description": "فهرس مجموعة الأهداف الحالية."
   },
   "de": {
     "tool.description": "Verwaltet und speichert Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
@@ -105,7 +113,9 @@
     "err.invalid_patch": "[batch_state error] patch muss ein JSON-Objekt sein",
     "err.message_empty": "[batch_state error] Nachricht ist leer",
     "err.not_found": "[batch_state error] Batch nicht gefunden",
-    "err.exception": "[batch_state error] Ausnahme"
+    "err.exception": "[batch_state error] Ausnahme",
+    "param.targets.description": "Zielgruppen. Jeder Eintrag enthält dir, files (relativ zu dir) und next_index.",
+    "param.current_target.description": "Index der aktuellen Zielgruppe."
   },
   "es": {
     "tool.description": "Guarda y administra el estado del lote para tareas con varios archivos en ~/.uag/batches/.",
@@ -123,7 +133,9 @@
     "err.invalid_patch": "[batch_state error] patch debe ser un objeto JSON",
     "err.message_empty": "[batch_state error] el mensaje está vacío",
     "err.not_found": "[batch_state error] lote no encontrado",
-    "err.exception": "[batch_state error] excepción"
+    "err.exception": "[batch_state error] excepción",
+    "param.targets.description": "Grupos de destino. Cada elemento contiene dir, files (relativos a dir) y next_index.",
+    "param.current_target.description": "Índice del grupo de destino actual."
   },
   "fi": {
     "tool.description": "Tallentaa ja hallitsee eräajon tilaa usean tiedoston tehtäville hakemistossa ~/.uag/batches/.",
@@ -141,7 +153,9 @@
     "err.invalid_patch": "[batch_state error] patchin on oltava JSON-objekti",
     "err.message_empty": "[batch_state error] viesti on tyhjä",
     "err.not_found": "[batch_state error] erää ei löytynyt",
-    "err.exception": "[batch_state error] poikkeus"
+    "err.exception": "[batch_state error] poikkeus",
+    "param.targets.description": "Kohderyhmät. Jokainen alkio sisältää dir:n, files-kentän (suhteessa dir:iin) ja next_indexin.",
+    "param.current_target.description": "Nykyisen kohderyhmän indeksi."
   },
   "fr": {
     "tool.description": "Enregistre et gère l’état des lots pour les tâches multi-fichiers dans ~/.uag/batches/.",
@@ -159,7 +173,9 @@
     "err.invalid_patch": "[batch_state error] patch doit être un objet JSON",
     "err.message_empty": "[batch_state error] le message est vide",
     "err.not_found": "[batch_state error] lot introuvable",
-    "err.exception": "Exception inattendue"
+    "err.exception": "Exception inattendue",
+    "param.targets.description": "Groupes de cibles. Chaque entrée contient dir, files (relatifs à dir) et next_index.",
+    "param.current_target.description": "Indice du groupe de cibles actuel."
   },
   "hi": {
     "tool.description": "बहु-फ़ाइल कार्यों के लिए ~/.uag/batches/ में बैच की स्थिति को सहेजता और प्रबंधित करता है।",
@@ -177,7 +193,9 @@
     "err.invalid_patch": "[batch_state error] patch एक JSON object होना चाहिए",
     "err.message_empty": "[batch_state error] संदेश खाली है",
     "err.not_found": "[batch_state error] बैच नहीं मिला",
-    "err.exception": "[batch_state error] अपवाद"
+    "err.exception": "[batch_state error] अपवाद",
+    "param.targets.description": "लक्ष्य समूह। प्रत्येक प्रविष्टि में dir, files (dir के सापेक्ष) और next_index होते हैं।",
+    "param.current_target.description": "वर्तमान लक्ष्य समूह का सूचकांक।"
   },
   "id": {
     "tool.description": "Menyimpan dan mengelola status batch untuk tugas multi-file di ~/.uag/batches/.",
@@ -195,7 +213,9 @@
     "err.invalid_patch": "[batch_state error] patch harus berupa objek JSON",
     "err.message_empty": "[batch_state error] pesan kosong",
     "err.not_found": "[batch_state error] batch tidak ditemukan",
-    "err.exception": "[batch_state error] pengecualian"
+    "err.exception": "[batch_state error] pengecualian",
+    "param.targets.description": "Kelompok target. Setiap entri berisi dir, files (relatif terhadap dir), dan next_index.",
+    "param.current_target.description": "Indeks kelompok target saat ini."
   },
   "it": {
     "tool.description": "Salva e gestisce lo stato dei batch per attività che coinvolgono più file in ~/.uag/batches/.",
@@ -213,7 +233,9 @@
     "err.invalid_patch": "[batch_state error] patch deve essere un oggetto JSON",
     "err.message_empty": "[batch_state error] il messaggio è vuoto",
     "err.not_found": "[batch_state error] batch non trovato",
-    "err.exception": "[batch_state error] eccezione"
+    "err.exception": "[batch_state error] eccezione",
+    "param.targets.description": "Gruppi di destinazione. Ogni elemento contiene dir, files (relativi a dir) e next_index.",
+    "param.current_target.description": "Indice del gruppo di destinazione corrente."
   },
   "ko": {
     "tool.description": "여러 파일을 다루는 작업의 배치 상태를 ~/.uag/batches/ 아래에 저장하고 관리합니다.",
@@ -231,7 +253,9 @@
     "err.invalid_patch": "[batch_state error] patch는 JSON 객체여야 합니다",
     "err.message_empty": "[batch_state error] 메시지가 비어 있습니다",
     "err.not_found": "[batch_state error] 배치를 찾을 수 없습니다",
-    "err.exception": "[batch_state error] 예외"
+    "err.exception": "[batch_state error] 예외",
+    "param.targets.description": "대상 그룹입니다. 각 항목은 dir, files(dir 기준 상대 경로), next_index를 포함합니다.",
+    "param.current_target.description": "현재 대상 그룹의 인덱스."
   },
   "nb": {
     "tool.description": "Lagrer og administrerer batch-status for oppgaver med flere filer under ~/.uag/batches/.",
@@ -249,7 +273,9 @@
     "err.invalid_patch": "[batch_state error] patch må være et JSON-objekt",
     "err.message_empty": "[batch_state error] meldingen er tom",
     "err.not_found": "[batch_state error] batch ikke funnet",
-    "err.exception": "[batch_state error] unntak"
+    "err.exception": "[batch_state error] unntak",
+    "param.targets.description": "Målgrupper. Hvert element inneholder dir, files (relative til dir) og next_index.",
+    "param.current_target.description": "Indeks for den gjeldende målgruppen."
   },
   "nl": {
     "tool.description": "Slaat batchstatus op en beheert deze voor taken met meerdere bestanden onder ~/.uag/batches/.",
@@ -267,7 +293,9 @@
     "err.invalid_patch": "[batch_state error] patch moet een JSON-object zijn",
     "err.message_empty": "[batch_state error] bericht is leeg",
     "err.not_found": "[batch_state error] batch niet gevonden",
-    "err.exception": "[batch_state error] uitzondering"
+    "err.exception": "[batch_state error] uitzondering",
+    "param.targets.description": "Doelgroepen. Elke invoer bevat dir, files (relatief ten opzichte van dir) en next_index.",
+    "param.current_target.description": "Index van de huidige doelgroep."
   },
   "pl": {
     "tool.description": "Zapisuje i zarządza stanem partii dla zadań z wieloma plikami w ~/.uag/batches/.",
@@ -285,7 +313,9 @@
     "err.invalid_patch": "[batch_state error] patch musi być obiektem JSON",
     "err.message_empty": "[batch_state error] wiadomość jest pusta",
     "err.not_found": "[batch_state error] nie znaleziono partii",
-    "err.exception": "[batch_state error] wyjątek"
+    "err.exception": "[batch_state error] wyjątek",
+    "param.targets.description": "Grupy docelowe. Każdy wpis zawiera dir, files (względne względem dir) i next_index.",
+    "param.current_target.description": "Indeks bieżącej grupy docelowej."
   },
   "pt": {
     "tool.description": "Salva e gerencia o estado do lote para tarefas com vários arquivos em ~/.uag/batches/.",
@@ -303,7 +333,9 @@
     "err.invalid_patch": "[batch_state error] patch deve ser um objeto JSON",
     "err.message_empty": "[batch_state error] a mensagem está vazia",
     "err.not_found": "[batch_state error] lote não encontrado",
-    "err.exception": "[batch_state error] exceção"
+    "err.exception": "[batch_state error] exceção",
+    "param.targets.description": "Grupos de destino. Cada entrada contém dir, files (relativos a dir) e next_index.",
+    "param.current_target.description": "Índice do grupo de destino atual."
   },
   "pt_BR": {
     "tool.description": "Salva e gerencia o estado do lote para tarefas com vários arquivos em ~/.uag/batches/.",
@@ -321,7 +353,9 @@
     "err.invalid_patch": "[batch_state error] patch deve ser um objeto JSON",
     "err.message_empty": "[batch_state error] a mensagem está vazia",
     "err.not_found": "[batch_state error] lote não encontrado",
-    "err.exception": "[batch_state error] exceção"
+    "err.exception": "[batch_state error] exceção",
+    "param.targets.description": "Grupos de destino. Cada entrada contém dir, files (relativos a dir) e next_index.",
+    "param.current_target.description": "Índice do grupo de destino atual."
   },
   "ru": {
     "tool.description": "Сохраняет и управляет состоянием пакета для многофайловых задач в ~/.uag/batches/.",
@@ -339,7 +373,9 @@
     "err.invalid_patch": "[batch_state error] patch должен быть JSON-объектом",
     "err.message_empty": "[batch_state error] сообщение пустое",
     "err.not_found": "[batch_state error] пакет не найден",
-    "err.exception": "[batch_state error] исключение"
+    "err.exception": "[batch_state error] исключение",
+    "param.targets.description": "Группы целей. Каждый элемент содержит dir, files (относительно dir) и next_index.",
+    "param.current_target.description": "Индекс текущей группы целей."
   },
   "sv": {
     "tool.description": "Sparar och hanterar batchstatus för uppgifter med flera filer under ~/.uag/batches/.",
@@ -357,7 +393,9 @@
     "err.invalid_patch": "[batch_state error] patch måste vara ett JSON-objekt",
     "err.message_empty": "[batch_state error] meddelandet är tomt",
     "err.not_found": "[batch_state error] batch hittades inte",
-    "err.exception": "[batch_state error] undantag"
+    "err.exception": "[batch_state error] undantag",
+    "param.targets.description": "Målgrupper. Varje post innehåller dir, files (relativa till dir) och next_index.",
+    "param.current_target.description": "Index för den aktuella målgruppen."
   },
   "th": {
     "tool.description": "จัดการและบันทึกสถานะแบตช์สำหรับงานที่มีหลายไฟล์ภายใต้ ~/.uag/batches/",
@@ -375,7 +413,9 @@
     "err.invalid_patch": "[batch_state error] patch ต้องเป็น JSON object",
     "err.message_empty": "[batch_state error] ข้อความว่างเปล่า",
     "err.not_found": "[batch_state error] ไม่พบแบตช์",
-    "err.exception": "[batch_state error] ข้อยกเว้น"
+    "err.exception": "[batch_state error] ข้อยกเว้น",
+    "param.targets.description": "กลุ่มเป้าหมาย แต่ละรายการประกอบด้วย dir, files (อ้างอิงแบบสัมพัทธ์กับ dir) และ next_index",
+    "param.current_target.description": "ดัชนีของกลุ่มเป้าหมายปัจจุบัน"
   },
   "vi": {
     "tool.description": "Lưu và quản lý trạng thái batch cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
@@ -393,7 +433,9 @@
     "err.invalid_patch": "[batch_state error] patch phải là một đối tượng JSON",
     "err.message_empty": "[batch_state error] thông báo trống",
     "err.not_found": "[batch_state error] không tìm thấy batch",
-    "err.exception": "[batch_state error] ngoại lệ"
+    "err.exception": "[batch_state error] ngoại lệ",
+    "param.targets.description": "Các nhóm đích. Mỗi mục chứa dir, files (tương đối so với dir) và next_index.",
+    "param.current_target.description": "Chỉ số của nhóm đích hiện tại."
   },
   "zh_CN": {
     "tool.description": "在 ~/.uag/batches/ 下保存和管理多文件任务的批处理状态。",
@@ -411,7 +453,9 @@
     "err.invalid_patch": "[batch_state error] patch 必须是 JSON 对象",
     "err.message_empty": "[batch_state error] 消息为空",
     "err.not_found": "[batch_state error] 未找到批次",
-    "err.exception": "[batch_state error] 异常"
+    "err.exception": "[batch_state error] 异常",
+    "param.targets.description": "目标组。每个条目包含 dir、files（相对于 dir）和 next_index。",
+    "param.current_target.description": "当前目标组的索引。"
   },
   "zh_TW": {
     "tool.description": "在 ~/.uag/batches/ 下儲存並管理多檔案任務的批次狀態。",
@@ -429,18 +473,22 @@
     "err.invalid_patch": "[batch_state error] patch 必須是 JSON 物件",
     "err.message_empty": "[batch_state error] 訊息為空",
     "err.not_found": "[batch_state error] 找不到批次",
-    "err.exception": "[batch_state error] 例外"
+    "err.exception": "[batch_state error] 例外",
+    "param.targets.description": "目標群組。每個項目都包含 dir、files（相對於 dir）和 next_index。",
+    "param.current_target.description": "目前目標群組的索引。"
   },
   "sw": {
     "tool.description": "Hifadhi na dhibiti hali ya batch kwa kazi za faili nyingi chini ya ~/.uag/batches/.",
-    "tool.system_prompt": "Dhibiti hali ya batch. Rudisha JSON pekee. Iwapo maendeleo yatabadilika, sasisha current_file, done_files, na pending_files waziwazi.",
+    "tool.system_prompt": "Dhibiti hali ya batch. Rudisha JSON pekee. Maendeleo husimamiwa kwa next_index na current_target; current_file ni kiambajengo cha zamani.",
     "param.action.description": "Kitendo: init/load/update/append_log/finalize/list/delete",
     "param.batch_id.description": "Kitambulisho cha batch. Kinahitajika kwa load/update/finalize/delete; hiari kwa init/list.",
     "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
     "param.instructions.description": "Maelekezo ya kina kwa kazi ya batch.",
     "param.target_files.description": "Faili lengwa za kazi ya batch.",
-    "param.patch.description": "Kiraka cha sehemu kitakachotumika kwenye hali ya batch. Tumia kusasisha current_file, done_files, na pending_files.",
+    "param.patch.description": "Kiraka cha sehemu kitakachotumika kwenye hali ya batch. Tumia targets/current_target na, kwa mtiririko wa zamani, current_file; next_index ndiyo chanzo cha maendeleo.",
     "param.message.description": "Ujumbe wa kumbukumbu wa kuongeza.",
+    "param.targets.description": "Makundi ya malengo. Kila ingizo lina dir, files (zinalingana na dir), na next_index.",
+    "param.current_target.description": "Nambari ya kikundi cha sasa cha lengwa.",
     "param.overwrite.description": "Ikiwa ni kweli, init itafuta faili ya batch iliyopo.",
     "err.unknown_action": "[batch_state error] kitendo kisichojulikana",
     "err.batch_exists": "[batch_state error] batch tayari ipo",
@@ -448,5 +496,9 @@
     "err.message_empty": "[batch_state error] ujumbe hauna maudhui",
     "err.not_found": "[batch_state error] batch haikupatikana",
     "err.exception": "[batch_state error] hitilafu"
+  },
+  "ụk": {
+    "param.targets.description": "Групи цілей. Кожен елемент містить dir, files (відносні до dir) та next_index.",
+    "param.current_target.description": "Індекс поточної групи цілей."
   }
 }

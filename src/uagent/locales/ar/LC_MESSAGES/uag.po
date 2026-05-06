@@ -712,7 +712,7 @@ msgstr "عنوان URL الأساسي لـ OpenAI (اختياري)"
 
 #: src/uagent/setup_cli.py:79
 msgid "OpenAI model/deployment name (optional)"
-msgstr "نموذج OpenAI/اسم النشر (اختياري)"
+msgstr "اسم نموذج/نشر OpenAI (اختياري)"
 
 #: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
@@ -928,7 +928,7 @@ msgstr "نموذج/اسم النشر لـ OpenRouter"
 
 #: src/uagent/setup_cli.py:495
 msgid "Gemini model name"
-msgstr "اسم الموديل الجوزاء"
+msgstr "اسم نموذج Gemini"
 
 #: src/uagent/setup_cli.py:501
 msgid "NVIDIA model/deployment name"
@@ -941,7 +941,7 @@ msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
-msgstr "حدد مزود توليد الصور"
+msgstr "هل تريد تفعيل مخرجات تصحيح توليد الصور؟ (0/1)"
 
 #: src/uagent/setup_cli.py:543
 msgid "Azure speech deployment name"
@@ -965,7 +965,7 @@ msgstr ""
 
 #: src/uagent/setup_cli.py:583
 msgid "Configure optional image / embedding / audio settings?"
-msgstr "هل تريد تكوين إعدادات الصورة/التضمين الاختيارية؟"
+msgstr "هل تريد إعداد الخيارات الاختيارية للصورة/التضمين/الصوت؟"
 
 #: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
 #: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
@@ -989,7 +989,7 @@ msgstr "نعم"
 
 #: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
-msgstr "تكوين إعدادات تحليل الصور؟"
+msgstr "هل تريد إعداد تحليل الصور؟"
 
 #: src/uagent/setup_cli.py:609
 msgid "Select image analysis provider"
@@ -997,7 +997,7 @@ msgstr "حدد مزود تحليل الصور"
 
 #: src/uagent/setup_cli.py:630
 msgid "Configure image generation settings?"
-msgstr "تكوين إعدادات توليد الصور؟"
+msgstr "هل تريد إعداد توليد الصور؟"
 
 #: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
@@ -1005,37 +1005,36 @@ msgstr "حدد مزود توليد الصور"
 
 #: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
-msgstr "فتح الصور التي تم إنشاؤها تلقائيا؟"
+msgstr "هل تريد فتح الصور المُولَّدة تلقائيًا؟"
 
 #: src/uagent/setup_cli.py:677
 msgid "Configure embedding / semantic search settings?"
-msgstr "تكوين إعدادات التضمين / البحث الدلالي؟"
+msgstr "هل تريد إعداد التضمين / البحث الدلالي؟"
 
 #: src/uagent/setup_cli.py:709
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr ""
-"هل تريد تعطيل البحث الدلالي عندما يتعذر الوصول إلى تضمين واجهة برمجة "
-"التطبيقات؟"
+"هل تريد تعطيل البحث الدلالي عند تعذر الوصول إلى واجهة برمجة تطبيقات التضمين؟"
 
 #: src/uagent/setup_cli.py:722
 msgid "Configure audio speech / transcription settings?"
-msgstr "هل تريد ضبط إعدادات تحويل النص إلى كلام / التفريغ الصوتي؟"
+msgstr "هل تريد إعداد تحويل النص إلى كلام / النسخ الصوتي؟"
 
 #: src/uagent/setup_cli.py:736
 msgid "Select audio provider"
-msgstr "اختر مزوّد الصوت"
+msgstr "اختر مزود الصوت"
 
 #: src/uagent/setup_cli.py:755
 msgid "Open generated audio automatically?"
-msgstr "فتح الصوت المُنشأ تلقائيًا؟"
+msgstr "هل تريد فتح الصوت المُولَّد تلقائيًا؟"
 
 #: src/uagent/setup_cli.py:799
 msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# أزور / أوبيناي / بيدروك / أوبن راوتر / جيميني / فيرتيكساي / جروك / كلود / "
-"أولاما / نفيديا"
+"# أزور / أوبن إيه آي / بيدروك / أوبن راوتر / جيميني / فيرتكس آي / جروك / "
+"كلود / أولاما / إنفيديا"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
