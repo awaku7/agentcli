@@ -934,7 +934,7 @@ msgstr "%(label)s"
 
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
-msgstr "공급자 선택"
+msgstr "이미지 생성 디버그 출력을 활성화하시겠습니까? (0/1)"
 
 #: src/uagent/setup_cli.py:543
 msgid "Azure speech deployment name"
@@ -966,7 +966,7 @@ msgstr "선택적 이미지/임베딩 설정을 구성하시겠습니까?"
 #: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
 #: src/uagent/setup_cli.py:1241
 msgid "No"
-msgstr "No"
+msgstr "아니오"
 
 #: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
 #: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
@@ -976,7 +976,7 @@ msgstr "No"
 #: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
 #: src/uagent/setup_cli.py:1241
 msgid "Yes"
-msgstr "Yes"
+msgstr "예"
 
 #: src/uagent/setup_cli.py:598
 msgid "Configure image analysis settings?"
@@ -992,7 +992,7 @@ msgstr "이미지 생성 설정을 구성하시겠습니까?"
 
 #: src/uagent/setup_cli.py:641
 msgid "Select image generation provider"
-msgstr "공급자 선택"
+msgstr "이미지 생성 공급자 선택"
 
 #: src/uagent/setup_cli.py:661
 msgid "Open generated images automatically?"
@@ -1023,8 +1023,8 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
-"nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
@@ -1131,14 +1131,14 @@ msgstr "  Responses 활성화: %(state)s"
 #: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
 #: src/uagent/setup_cli.py:1197
 msgid "yes"
-msgstr "yes"
+msgstr "예"
 
 #: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
 #: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
 #: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
 #: src/uagent/setup_cli.py:1197
 msgid "no"
-msgstr "no"
+msgstr "아니오"
 
 #: src/uagent/setup_cli.py:1157
 #, python-format
@@ -1380,9 +1380,12 @@ msgid ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\\n\\nName: %(name)s\\nPath: %(path)s\\n\\nProceed? Enter y to run, "
-"or c to cancel."
+"이 스킬을 시스템 수준 지침으로 실행하고 이 세션에서 활성 상태로 유지하시겠습니까?\n"
+"\n"
+"이름: %(name)s\n"
+"경로: %(path)s\n"
+"\n"
+"계속하시겠습니까? 실행하려면 y, 취소하려면 c를 입력하세요."
 
 #: src/uagent/util_tools.py:869
 #, python-format
@@ -1416,12 +1419,12 @@ msgid ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
-"현재 세션 로그 파일을 덮어쓰고 불러온 로그를 앞에 붙입니다(백업 없음).\n"
+"대화 로그 파일(scheck_log_*.jsonl)을 디스크에서 삭제합니다.\n"
+"로그 디렉터리: %(dir)s\n"
+"규칙: 시스템을 제외한 사용자/assistant/도구 메시지 총합 <= %(threshold)d\n"
+"대상: %(n)d\n"
 "\n"
-"현재 로그: %(cur_log)s\n"
-"원본 로그: %(src_log)s\n"
-"\n"
-"계속하시겠습니까? 실행하려면 y, 취소하려면 c를 입력하세요."
+"계속하시겠습니까? 실행하려면 y, 취소하려면 c를 입력하세요.\n"
 
 #: src/uagent/util_tools.py:953
 msgid "[clean] Cancelled."
@@ -1785,13 +1788,17 @@ msgstr "Environment variable UAGENT_PROVIDER is not set."
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
-msgstr "[MCP Servers]\\n- Config file not found."
+msgstr ""
+"[MCP 서버]\n"
+"- 설정 파일을 찾을 수 없습니다."
 
 #: src/uagent/welcome.py:34
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered."
-msgstr "[MCP Servers]\\n- No servers registered."
+msgstr ""
+"[MCP 서버]\n"
+"- 등록된 서버가 없습니다."
 
 #: src/uagent/welcome.py:36
 msgid "[MCP Servers]"
@@ -1802,7 +1809,9 @@ msgstr "[MCP 서버]"
 msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
-msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
+msgstr ""
+"[MCP 서버]\n"
+"- 정보를 가져오지 못했습니다: %(err)s"
 
 #: src/uagent/welcome.py:62
 msgid "[Quick Guide]"

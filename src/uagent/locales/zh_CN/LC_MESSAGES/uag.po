@@ -229,7 +229,13 @@ msgid ""
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
 "- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-msgstr "## 使命\n- 你是在本地环境中运行的“通用工具执行代理”，能够在用户机器上实际执行命令并操作文件。\n- 在执行任何危险操作前，先征求用户确认。\n- 不要奉承用户。不要使用表情符号。\n- 不要总结。保持信息简洁。\n- 创建文件时，请输出完整的最终内容（不要输出 diff 或部分摘要）。\n"
+msgstr ""
+"## 使命\n"
+"- 你是在本地环境中运行的“通用工具执行代理”，能够在用户机器上实际执行命令并操作文件。\n"
+"- 在执行任何危险操作前，先征求用户确认。\n"
+"- 不要奉承用户。不要使用表情符号。\n"
+"- 不要总结。保持信息简洁。\n"
+"- 创建文件时，请输出完整的最终内容（不要输出 diff 或部分摘要）。\n"
 
 #: src/uagent/core.py:1300
 msgid ""
@@ -238,7 +244,12 @@ msgid ""
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
 "- When executing tools, delegate as little decision-making as possible to the user.\n"
-msgstr "## 规则\n- 始终使用提供的工具，并验证最新信息。\n- 可以灵活处理，但不要输出不确定的信息。\n- 请参考可用工具，并选择最合适的那个。\n- 执行工具时，尽量不要把决策交给用户。\n"
+msgstr ""
+"## 规则\n"
+"- 始终使用提供的工具，并验证最新信息。\n"
+"- 可以灵活处理，但不要输出不确定的信息。\n"
+"- 请参考可用工具，并选择最合适的那个。\n"
+"- 执行工具时，尽量不要把决策交给用户。\n"
 
 #: src/uagent/core.py:1307
 msgid ""
@@ -270,7 +281,13 @@ msgid ""
 "- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
 "- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-msgstr "## 危险操作策略（delete_file）\n- 使用 delete_file 删除时，预览之前不要先要求确认。\n- 始终先以 dry_run=true 运行 delete_file，以获取删除候选列表。\n- 将候选项展示给用户，并且只通过 human_ask 询问一次确认。\n- 只有当用户明确回复“y”或“yes”（或等效的明确同意）时，才用相同参数再次运行 delete_file，并设置 dry_run=false、confirmed=true。\n- 如果没有候选项，不要询问；只报告不会删除任何内容。\n"
+msgstr ""
+"## 危险操作策略（delete_file）\n"
+"- 使用 delete_file 工具进行删除时，不要在预览前请求确认。\n"
+"- 始终先以 dry_run=true 运行 delete_file，以获取删除候选列表。\n"
+"- 将候选项展示给用户，并且只通过 human_ask 请求一次确认。\n"
+"- 只有当用户明确回复“y”或“yes”（或同等明确同意）时，才使用相同参数再次运行 delete_file，并将 dry_run=false、confirmed=true。\n"
+"- 如果候选项为 0，则不要询问；只需报告不会删除任何内容。\n"
 
 #: src/uagent/core.py:1326
 msgid ""
@@ -310,14 +327,23 @@ msgid ""
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-msgstr "## 注意\n- 所有用户消息都通过此脚本的标准输入传入。\n- 如果缺少必需的信息/参数，请通过 human_ask 提问（不要猜测）。\n- 相对日期：调用 get_current_time。\n- 不要把密钥（密码/令牌）存入长期记忆。\n- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不能当作主要编辑文件。\n- 如果创建 Python 文件，请运行 `python -m py_compile`。\n- 如果需要专家级知识，请使用 Agent Skills 的提示模板。\n"
+msgstr ""
+"## 说明\n"
+"- 所有用户消息都通过此脚本的标准输入传入。\n"
+"- 如缺少必要信息/参数，请通过 human_ask 询问（不要猜测）。\n"
+"- 相对日期：调用 get_current_time。\n"
+"- 不要把秘密信息（密码/令牌）保存到长期记忆中。\n"
+"- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不应当作主要编辑对象。\n"
+"- 如果创建 Python 文件，请运行 `python -m py_compile`。\n"
+"- 如果需要专业级知识，请使用 Agent Skills 的提示模板。\n"
 
 #: src/uagent/core.py:1352
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
-msgstr "- 如果用户使用 Windows cmd.exe，请优先使用 caret (^) 进行多行命令续行，并保持每行较短，以避免复制/粘贴时出现换行问题。\n"
+msgstr ""
+"- 如果用户使用 Windows cmd.exe，请优先使用 caret (^) 进行多行命令续行，并保持每行较短，以避免复制/粘贴时出现换行问题。\n"
 
 #: src/uagent/core.py:1419
 msgid ""
@@ -858,15 +884,15 @@ msgstr "  1. 仅 .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "  2. 仅 .env + env.sh"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "  3. 仅 .env + env.ps1"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "  4. 仅 .env + env.bat"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -992,13 +1018,13 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
-"nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
 msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-msgstr "%(label)s（UAGENT_PROVIDER=%(prov)s）"
+msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
 
 #: src/uagent/setup_cli.py:823
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
@@ -1043,26 +1069,26 @@ msgstr "选择推理"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "最少"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "低"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "中"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "高"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "自动"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1200,11 +1226,11 @@ msgstr "已生成：%(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1：utf-8-sig，CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat：cp932，CRLF"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
@@ -1735,7 +1761,7 @@ msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"下面列出的要点摘自该用户的长期记忆（持久备忘录）。请将其作为关于该用户的背景信息。不过，始终优先使用对话中最新提供的信息；如果它与旧信息冲突，请采用最新信息。\n"
 "\n"
 
 #: src/uagent/web.py:511

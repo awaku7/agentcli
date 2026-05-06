@@ -909,15 +909,15 @@ msgstr "  1. Solo .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "  2. solo .env + env.sh"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "  3. solo .env + env.ps1"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "  4. solo .env + env.bat"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -1100,26 +1100,26 @@ msgstr "Seleccione el razonamiento"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "mínimo"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "bajo"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "medio"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "alto"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automático"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1424,7 +1424,7 @@ msgstr ""
 #: src/uagent/util_tools.py:869
 #, python-format
 msgid "[skills] Applied: %(name)s"
-msgstr "[habilidades] Aplicadas: %(nombre)s"
+msgstr "[habilidades] Aplicadas: %(name)s"
 
 #: src/uagent/util_tools.py:889
 #, python-format
@@ -1459,10 +1459,10 @@ msgid ""
 msgstr ""
 "eliminará los archivos de registro de conversaciones (scheck_log_*.jsonl) del disco.\n"
 "Directorio de registro: %(dir)s\n"
-"Regla: total de mensajes de usuario/asistente/herramienta excluyendo el sistema <= %(umbral)d\n"
+"Regla: total de mensajes de usuario/asistente/herramienta excluyendo el sistema <= %(threshold)d\n"
 "Objetivos: %(n)d\n"
 "\n"
-"¿Continuar? Ingrese y para ejecutar o c para cancelar."
+"¿Continuar? Ingrese y para ejecutar o c para cancelar.\n"
 
 #: src/uagent/util_tools.py:953
 msgid "[clean] Cancelled."
@@ -1484,8 +1484,8 @@ msgid ""
 "[clean] No logs to delete (threshold=%(threshold)d).\n"
 "Log dir: %(dir)s"
 msgstr ""
-"[limpiar] No hay registros para eliminar (umbral =% (umbral) d).\n"
-"Directorio de registro: %(dir)s"
+"[limpiar] No hay registros para eliminar (umbral=%(threshold)d).\n"
+"Directorio de registro: %(dir)s\n"
 
 #: src/uagent/util_tools.py:1001
 #, python-format
@@ -1495,7 +1495,7 @@ msgstr "[limpiar] Registros para eliminar (<= %(threshold)d mensajes): %(n)d"
 #: src/uagent/util_tools.py:1015
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-msgstr "[limpiar] Hecho: eliminado=%(eliminado)d, fallido=%(fallido)d"
+msgstr "[limpiar] Hecho: eliminado=%(deleted)d, fallido=%(failed)d"
 
 #: src/uagent/util_tools.py:1050
 #, python-format
@@ -1531,7 +1531,7 @@ msgstr "[load warn] No se pudo leer el registro actual: %(etype)s: %(err)s"
 #: src/uagent/util_tools.py:1105
 #, python-format
 msgid "[load] Prepended to current log: %(path)s"
-msgstr "[cargar] Antepuesto al registro actual: %(ruta)s"
+msgstr "[cargar] Antepuesto al registro actual: %(path)s"
 
 #: src/uagent/util_tools.py:1108
 #, python-format

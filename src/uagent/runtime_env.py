@@ -4,7 +4,6 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Iterable
 
 from uag_envsec.secret_core import encrypt_text, ensure_key_file
 
@@ -60,7 +59,9 @@ def _maybe_offer_envsec_creation(*, context: str) -> bool:
     if not env_text.strip():
         return False
 
-    interactive = context == "cli" and bool(getattr(sys.stdin, "isatty", lambda: False)())
+    interactive = context == "cli" and bool(
+        getattr(sys.stdin, "isatty", lambda: False)()
+    )
     if interactive:
         prompt = _(
             "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "

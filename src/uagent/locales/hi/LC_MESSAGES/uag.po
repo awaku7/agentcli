@@ -476,8 +476,8 @@ msgid ""
 "retry_after=%(retry_after)s"
 msgstr ""
 "[RATE_LIMIT] प्रदाता=%(provider)s मॉडल=%(model)s स्थिति=%(status)s "
-"प्रयास=%(attempt)s/%(max_retries)s प्रतीक्षा=%(प्रतीक्षा_सेकेंड).1fs पुनः "
-"प्रयास_बाद=%(retry_after)s"
+"प्रयास=%(attempt)s/%(max_retries)s प्रतीक्षा=%(wait_seconds).1fs "
+"पुनः_प्रयास_बाद=%(retry_after)s"
 
 #: src/uagent/llm_message_helpers.py:147
 #, python-format
@@ -901,15 +901,15 @@ msgstr "  1. केवल .env"
 
 #: src/uagent/setup_cli.py:411
 msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh (शेल)"
+msgstr "  2. .env + env.sh"
 
 #: src/uagent/setup_cli.py:412
 msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1 (PowerShell)"
+msgstr "  3. .env + env.ps1"
 
 #: src/uagent/setup_cli.py:413
 msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat (बैच)"
+msgstr "  4. .env + env.bat"
 
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
@@ -1088,26 +1088,26 @@ msgstr "तर्क का चयन करें"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "न्यूनतम"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "कम"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "मध्यम"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "उच्च"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "ऑटो"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"

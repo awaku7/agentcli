@@ -1047,8 +1047,8 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
-"nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
@@ -1099,26 +1099,26 @@ msgstr "Seleziona il livello di ragionamento"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "minimo"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "basso"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "medio"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "alto"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "automatico"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"

@@ -479,8 +479,8 @@ msgid ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 msgstr ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"[RATE_LIMIT] mtoa huduma=%(provider)s modeli=%(model)s hali=%(status)s "
+"jaribio=%(attempt)s/%(max_retries)s subiri=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
 #: src/uagent/llm_message_helpers.py:147
@@ -498,11 +498,11 @@ msgid ""
 "        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 msgstr ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"[Sheria za kupiga zana]\n"
+"        - Unapopiga zana/funguzi, lazima utoe function_call.arguments kama kitu cha JSON.\n"
+"        - Kitu cha JSON lazima kijumuishe vigezo vyote vinavyohitajika vilivyofafanuliwa na skima ya zana.\n"
+"        - Kamwe usipige zana kwa kitu tupu {} isipokuwa zana haina vigezo vinavyohitajika.\n"
+"        - Ikiwa huna kigezo kinachohitajika, muulize mtumiaji kupitia human_ask badala ya kubahatisha.\n"
 "        "
 
 #: src/uagent/llm_round_helpers.py:131
@@ -547,7 +547,7 @@ msgstr "Utiririshaji wa LLM = %(state)s"
 #: src/uagent/runtime_env.py:24
 #, python-brace-format
 msgid "[WARN] {message}"
-msgstr "[WARN] {message}"
+msgstr "[ONYO] {message}"
 
 #: src/uagent/runtime_init.py:44
 #, python-format
@@ -645,7 +645,7 @@ msgstr "Kiwango cha maelezo: juu"
 #: src/uagent/scheckgui.py:782
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
-msgstr "[mode] reasoning=%(mode)s"
+msgstr "[hali] hoja=%(mode)s"
 
 #: src/uagent/scheckgui.py:918
 msgid "Enter password..."
@@ -718,111 +718,111 @@ msgstr "NVIDIA"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
-msgstr "OpenAI API key"
+msgstr "Funguo ya API ya OpenAI"
 
 #: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
 msgid "OpenAI base URL (optional)"
-msgstr "OpenAI base URL (optional)"
+msgstr "URL msingi ya OpenAI (hiari)"
 
 #: src/uagent/setup_cli.py:79
 msgid "OpenAI model/deployment name (optional)"
-msgstr "OpenAI model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la OpenAI (hiari)"
 
 #: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "URL msingi ya Azure (mf. https://<resource>.openai.azure.com/)"
 
 #: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
 msgid "Azure API key"
-msgstr "Azure API key"
+msgstr "Funguo ya API ya Azure"
 
 #: src/uagent/setup_cli.py:91
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Toleo la API la Azure (hiari, mf. 2024-05-01-preview)"
 
 #: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
 msgid "Azure deployment name"
-msgstr "Azure deployment name"
+msgstr "Jina la utekelezaji la Azure"
 
 #: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "URL msingi ya lango la Bedrock (mf. https://<gateway>/v1)"
 
 #: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
 msgid "Bedrock API key"
-msgstr "Bedrock API key"
+msgstr "Funguo ya API ya Bedrock"
 
 #: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Jina la muundo/utekelezaji la Bedrock (mf. openai.gpt-oss-120b)"
 
 #: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
 msgid "OpenRouter API key"
-msgstr "OpenRouter API key"
+msgstr "Funguo ya API ya OpenRouter"
 
 #: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
 msgid "OpenRouter base URL (optional)"
-msgstr "OpenRouter base URL (optional)"
+msgstr "URL msingi ya OpenRouter (hiari)"
 
 #: src/uagent/setup_cli.py:114
 msgid "OpenRouter model/deployment name (optional)"
-msgstr "OpenRouter model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la OpenRouter (hiari)"
 
 #: src/uagent/setup_cli.py:119
 msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "OpenRouter fallback models (optional, comma-separated)"
+msgstr "Miundo mbadala ya OpenRouter (hiari, imetenganishwa kwa koma)"
 
 #: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
 msgid "Gemini API key"
-msgstr "Gemini API key"
+msgstr "Funguo ya API ya Gemini"
 
 #: src/uagent/setup_cli.py:124
 msgid "Gemini model name (optional)"
-msgstr "Gemini model name (optional)"
+msgstr "Jina la muundo la Gemini (hiari)"
 
 #: src/uagent/setup_cli.py:127
 msgid "Vertex AI API key"
-msgstr "Vertex AI API key"
+msgstr "Funguo ya API ya Vertex AI"
 
 #: src/uagent/setup_cli.py:128
 msgid "Vertex AI project ID (optional)"
-msgstr "Vertex AI project ID (optional)"
+msgstr "Kitambulisho cha mradi cha Vertex AI (hiari)"
 
 #: src/uagent/setup_cli.py:129
 msgid "Vertex AI location/region (optional)"
-msgstr "Vertex AI location/region (optional)"
+msgstr "Eneo/mkoa wa Vertex AI (hiari)"
 
 #: src/uagent/setup_cli.py:130
 msgid "Vertex AI model/deployment name"
-msgstr "Vertex AI model/deployment name"
+msgstr "Jina la muundo/utekelezaji la Vertex AI"
 
 #: src/uagent/setup_cli.py:133
 msgid "Grok API key"
-msgstr "Grok API key"
+msgstr "Funguo ya API ya Grok"
 
 #: src/uagent/setup_cli.py:134
 msgid "Grok base URL (optional)"
-msgstr "Grok base URL (optional)"
+msgstr "URL msingi ya Grok (hiari)"
 
 #: src/uagent/setup_cli.py:135
 msgid "Grok model/deployment name (optional)"
-msgstr "Grok model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Grok (hiari)"
 
 #: src/uagent/setup_cli.py:138
 msgid "Claude API key"
-msgstr "Claude API key"
+msgstr "Funguo ya API ya Claude"
 
 #: src/uagent/setup_cli.py:139
 msgid "Claude model/deployment name (optional)"
-msgstr "Claude model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Claude (hiari)"
 
 #: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
 msgid "NVIDIA API key"
-msgstr "NVIDIA API key"
+msgstr "Funguo ya API ya NVIDIA"
 
 #: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
 msgid "NVIDIA base URL (optional)"
-msgstr "NVIDIA base URL (optional)"
+msgstr "URL msingi ya NVIDIA (hiari)"
 
 #: src/uagent/setup_cli.py:144
 msgid "NVIDIA model/deployment name (optional)"
@@ -830,47 +830,47 @@ msgstr "Jina la modeli/utekelezaji wa NVIDIA (hiari)"
 
 #: src/uagent/setup_cli.py:150
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "URL msingi ya Ollama (mf. http://localhost:11434/v1)"
 
 #: src/uagent/setup_cli.py:155
 msgid "Ollama API key (optional, default: dummy)"
-msgstr "Ollama API key (optional, default: dummy)"
+msgstr "Funguo ya API ya Ollama (hiari, chaguo-msingi: dummy)"
 
 #: src/uagent/setup_cli.py:157
 msgid "Ollama model/deployment name (optional)"
-msgstr "Ollama model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Ollama (hiari)"
 
 #: src/uagent/setup_cli.py:161
 msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Ollama request timeout in seconds (default: 60)"
+msgstr "Muda wa kuisha kwa ombi la Ollama kwa sekunde (chaguo-msingi: 60)"
 
 #: src/uagent/setup_cli.py:163
 msgid "Ollama temperature (default: 0.7)"
-msgstr "Ollama temperature (default: 0.7)"
+msgstr "Joto la Ollama (chaguo-msingi: 0.7)"
 
 #: src/uagent/setup_cli.py:164
 msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (chaguo-msingi: 0.9)"
 
 #: src/uagent/setup_cli.py:165
 msgid "Ollama top_k (default: 40)"
-msgstr "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (chaguo-msingi: 40)"
 
 #: src/uagent/setup_cli.py:169
 msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (chaguo-msingi: 1.1)"
 
 #: src/uagent/setup_cli.py:171
 msgid "Ollama keep_alive (default: 5m)"
-msgstr "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (chaguo-msingi: 5m)"
 
 #: src/uagent/setup_cli.py:172
 msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (chaguo-msingi: 8192)"
 
 #: src/uagent/setup_cli.py:173
 msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (chaguo-msingi: 1024)"
 
 #: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
 msgid "Enter number:"
@@ -1096,26 +1096,26 @@ msgstr "Chagua kiwango cha ufikiri"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "kidogo"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "chini"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "kati"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "juu"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "otomatiki"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1679,7 +1679,7 @@ msgstr "[shared-mem-del] Imeshindwa kufuta index=%(idx)d."
 #: src/uagent/util_tools.py:1478
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[hitilafu ya kufuta kumbukumbu-shirikishi] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1483
 #, python-format

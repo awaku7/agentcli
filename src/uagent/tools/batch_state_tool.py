@@ -307,7 +307,9 @@ def _view_target(target: Dict[str, Any]) -> Dict[str, Any]:
         "dir": _normalize_path_text(target.get("dir")),
         "files": files,
         "next_index": next_index,
-        "current_file": display_files[next_index] if next_index < len(display_files) else "",
+        "current_file": (
+            display_files[next_index] if next_index < len(display_files) else ""
+        ),
         "pending_files": display_files[next_index:],
         "total_count": len(display_files),
         "done_count": next_index,
@@ -361,7 +363,9 @@ def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
             normalized_targets[current_target]["files"]
         ):
             for idx in range(current_target + 1, len(normalized_targets)):
-                if normalized_targets[idx]["next_index"] < len(normalized_targets[idx]["files"]):
+                if normalized_targets[idx]["next_index"] < len(
+                    normalized_targets[idx]["files"]
+                ):
                     current_target = idx
                     break
     else:
@@ -444,7 +448,12 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
     total_count = sum(item["total_count"] for item in target_views)
     done_count = sum(item["done_count"] for item in target_views)
     pending_count = sum(item["pending_count"] for item in target_views)
-    target_files = [item for view in target_views for item in view["pending_files"] + [view["current_file"]] if item]
+    target_files = [
+        item
+        for view in target_views
+        for item in view["pending_files"] + [view["current_file"]]
+        if item
+    ]
     pending_files = [item for view in target_views for item in view["pending_files"]]
     current_target = _coerce_int(state.get("current_target"), 0)
     if target_views:
@@ -483,7 +492,9 @@ def _apply_legacy_current_file(state: Dict[str, Any], candidate: Any) -> Dict[st
         return state
 
     current_target = _coerce_int(state.get("current_target"), 0)
-    search_order = list(range(current_target, len(targets))) + list(range(0, current_target))
+    search_order = list(range(current_target, len(targets))) + list(
+        range(0, current_target)
+    )
     for idx in search_order:
         target = targets[idx]
         display_files = _target_paths(target)
@@ -530,7 +541,9 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
     out = dict(state)
 
     if "workdir" in patch and patch.get("workdir") is not None:
-        out["workdir"] = _normalize_path_text(patch.get("workdir")) or out.get("workdir", "")
+        out["workdir"] = _normalize_path_text(patch.get("workdir")) or out.get(
+            "workdir", ""
+        )
 
     if "targets" in patch and patch.get("targets") is not None:
         out["targets"] = _normalize_targets(patch.get("targets"))
@@ -615,7 +628,9 @@ def _default_state(batch_id: str) -> Dict[str, Any]:
 
 
 def _result(ok: bool, **payload: Any) -> str:
-    return json.dumps({"ok": ok, **payload}, ensure_ascii=False, indent=2, sort_keys=True)
+    return json.dumps(
+        {"ok": ok, **payload}, ensure_ascii=False, indent=2, sort_keys=True
+    )
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -678,10 +693,16 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             summary = {
                 "batch_count": len(items),
-                "active_count": sum(1 for item in items if item.get("status") == "active"),
+                "active_count": sum(
+                    1 for item in items if item.get("status") == "active"
+                ),
                 "done_count": sum(1 for item in items if item.get("status") == "done"),
-                "paused_count": sum(1 for item in items if item.get("status") == "paused"),
-                "error_count": sum(1 for item in items if item.get("status") == "error"),
+                "paused_count": sum(
+                    1 for item in items if item.get("status") == "paused"
+                ),
+                "error_count": sum(
+                    1 for item in items if item.get("status") == "error"
+                ),
             }
             return _result(
                 True,

@@ -110,7 +110,9 @@ def _env_first(keys: list[str], *, required: bool = False, default: str = "") ->
 
 
 def _provider() -> str:
-    provider = _env_first(["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai")
+    provider = _env_first(
+        ["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai"
+    )
     provider = provider.strip().lower()
     if provider not in ("openai", "azure"):
         raise RuntimeError(
@@ -156,7 +158,9 @@ def _make_client(provider: str):
         )
 
     api_key = _env_first(["UAGENT_OPENAI_API_KEY"], required=True)
-    base_url = _env_first(["UAGENT_OPENAI_BASE_URL"], default="https://api.openai.com/v1")
+    base_url = _env_first(
+        ["UAGENT_OPENAI_BASE_URL"], default="https://api.openai.com/v1"
+    )
     return OpenAI(api_key=api_key, base_url=base_url.rstrip("/"))
 
 
@@ -166,7 +170,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not text:
         return make_response(False, _("err.text_empty", default="text is required"))
     if not output_path:
-        return make_response(False, _("err.output_path_empty", default="output_path is required"))
+        return make_response(
+            False, _("err.output_path_empty", default="output_path is required")
+        )
 
     provider = _provider()
     model = get_str(args, "model", "") or _model(provider)

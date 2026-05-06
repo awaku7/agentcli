@@ -282,12 +282,12 @@ msgid ""
 "- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
 "- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+"## 危險操作政策（delete_file）\n"
+"- 使用 delete_file 工具進行刪除時，不要在預覽前要求確認。\n"
+"- 一律先以 dry_run=true 執行 delete_file，以取得刪除候選項目。\n"
+"- 將候選項目顯示給使用者，並且只透過 human_ask 要求一次確認。\n"
+"- 只有當使用者明確回覆「y」或「yes」（或同等明確同意）時，才以相同參數再次執行 delete_file，並將 dry_run=false、confirmed=true。\n"
+"- 如果候選項目為 0，則不要詢問；只要回報不會刪除任何內容。\n"
 
 #: src/uagent/core.py:1326
 msgid ""
@@ -328,14 +328,14 @@ msgid ""
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 msgstr ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"## 說明\n"
+"- 所有使用者訊息都透過此腳本的標準輸入傳入。\n"
+"- 如缺少必要資訊/參數，請透過 human_ask 詢問（不要猜測）。\n"
+"- 相對日期：呼叫 get_current_time。\n"
+"- 不要把秘密資訊（密碼/權杖）存入長期記憶。\n"
+"- 帶有 .org / .org1 / .org2 等後綴的檔案是備份副本，不應視為主要編輯對象。\n"
+"- 如果建立 Python 檔案，請執行 `python -m py_compile`。\n"
+"- 如果需要專業級知識，請使用 Agent Skills 的提示範本。\n"
 
 #: src/uagent/core.py:1352
 msgid ""
@@ -343,7 +343,8 @@ msgid ""
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 msgstr ""
-"- 如果使用者使用的是 Windows cmd.exe，請優先使用 caret (^) 行續接的多行命令，並將每一行保持短一些，以避免複製/貼上時出現換行問題。\n"
+"- 如果使用者使用的是 Windows cmd.exe，請優先使用 caret (^) "
+"行續接的多行命令，並將每一行保持短一些，以避免複製/貼上時出現換行問題。\n"
 
 #: src/uagent/core.py:1419
 msgid ""
@@ -460,7 +461,10 @@ msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
-msgstr "[速率限制] provider=%(provider)s model=%(model)s status=%(status)s attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs retry_after=%(retry_after)s"
+msgstr ""
+"[速率限制] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
 
 #: src/uagent/llm_message_helpers.py:147
 #, python-format
@@ -514,7 +518,9 @@ msgstr "剖析回覆時發生錯誤：%(err)s"
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
-msgstr "已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將回退至 ChatCompletions。"
+msgstr ""
+"已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將回退至 "
+"ChatCompletions。"
 
 #: src/uagent/runtime_banner.py:93
 #, python-format
@@ -1013,8 +1019,8 @@ msgid ""
 "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
 "/ ollama / nvidia"
 msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / grok / claude / ollama / "
-"nvidia"
+"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
+"/ ollama / nvidia"
 
 #: src/uagent/setup_cli.py:812
 #, python-format
@@ -1064,26 +1070,26 @@ msgstr "選擇推理模式"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
 msgid "minimal"
-msgstr "最少"
+msgstr "minimal"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "low"
-msgstr "低"
+msgstr "low"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "medium"
-msgstr "中"
+msgstr "medium"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
 #: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
 msgid "high"
-msgstr "高"
+msgstr "high"
 
 #: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
 msgid "auto"
-msgstr "自動"
+msgstr "auto"
 
 #: src/uagent/setup_cli.py:1050
 msgid "Select verbosity"
@@ -1221,11 +1227,11 @@ msgstr "已產生：%(path)s"
 
 #: src/uagent/setup_cli.py:1290
 msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1：utf-8-sig，CRLF"
+msgstr "- env.ps1 : utf-8-sig, CRLF"
 
 #: src/uagent/setup_cli.py:1292
 msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat：cp932，CRLF"
+msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
