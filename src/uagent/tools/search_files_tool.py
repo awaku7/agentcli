@@ -230,20 +230,14 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
             continue
     return data.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n"), "utf-8"
 
-def _read_text_auto(full_path: str) -> tuple[str, str]:
-    with open(full_path, "rb") as f:
-        data = f.read()
-    return _decode_text_bytes(data)
-
-
-def _grep_text_full_read(
-    full_path: str,
+def _grep_text_full_read_bytes(
+    data: bytes,
     regex: re.Pattern[str],
     max_hits_per_file: int,
 ) -> List[str]:
-    """For small/medium files: read the entire file and grep quickly."""
+    """For small/medium files: decode once and grep quickly."""
 
-    text, _encoding = _read_text_auto(full_path)
+    text, _encoding = _decode_text_bytes(data)
 
     m0 = regex.search(text)
     if not m0:
@@ -268,6 +262,49 @@ def _grep_text_full_read(
         s = max(0, m0.start() - 80)
         e = min(len(text), m0.end() + 80)
         excerpt = text[s:e].replace("\n", "\\n").replace("\r", "\\r")
+        matched_lines.append(
+            _("match.excerpt", default="MATCH: {text}").format(text=excerpt[:200])
+        )
+
+    return matched_lines
+
+
+def _read_text_auto(full_path: str) -> tuple[str, str]:
+    with open(full_path, "rb") as f:
+        data = f.read()
+    return _decode_text_bytes(data)
+
+
+def _grep_text_full_read(
+    full_path: str,
+    regex: re.Pattern[str],
+    max_hits_per_file: int,
+) -> List[str]:
+    """Backward-compatible wrapper for path-based callers."""
+
+    text, _encoding = _read_text_auto(full_path)
+    m0 = regex.search(text)
+    if not m0:
+        return []
+
+    matched_lines: List[str] = []
+    for i, line in enumerate(text.splitlines(), start=1):
+        if regex.search(line):
+            matched_lines.append(
+                _("match.line", default="L{line}: {text}").format(
+                    line=i, text=line.strip()[:200]
+                )
+            )
+            if len(matched_lines) >= max_hits_per_file:
+                matched_lines.append(
+                    _("match.more", default="... (more matches in file)")
+                )
+                break
+
+    if not matched_lines:
+        s = max(0, m0.start() - 80)
+        e = min(len(text), m0.end() + 80)
+        excerpt = text[s:e].replace("\n", "\n").replace("\r", "\r")
         matched_lines.append(
             _("match.excerpt", default="MATCH: {text}").format(text=excerpt[:200])
         )
@@ -367,12 +404,11 @@ def run_tool(args: Dict[str, Any]) -> str:
         count = 0
         truncated = False
 
-        import sys
-
-        print(
-            f"[search_files] root='{root_path}', name='{name_pattern}', grep='{compiled_pattern_for_log}'",
-            file=sys.stderr,
-        )
+        if os.environ.get("UAGENT_SEARCH_FILES_DEBUG"):
+            print(
+                f"[search_files] root='{root_path}', name='{name_pattern}', grep='{compiled_pattern_for_log}'",
+                file=sys.stderr,
+            )
 
         for dirpath, dirnames, filenames in os.walk(root_path):
             # Filter excluded directories by mutating dirnames in-place.
@@ -401,8 +437,12 @@ def run_tool(args: Dict[str, Any]) -> str:
                         # Choose strategy based on file size
                         size = os.path.getsize(full_path)
                         if size < fast_read_threshold_bytes:
-                            matched_lines = _grep_text_full_read(
-                                full_path, regex, max_hits_per_file=5
+                            with open(full_path, "rb") as bf:
+                                data = bf.read()
+                            if _looks_binary(data[:8192]):
+                                continue
+                            matched_lines = _grep_text_full_read_bytes(
+                                data, regex, max_hits_per_file=5
                             )
                         else:
                             matched_lines = _grep_text_streaming(
