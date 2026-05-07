@@ -17,24 +17,6 @@
     "param.password.description": "暗号化された PDF/PPTX ファイルのパスワード（任意）。省略時に入力ファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
-  "zh_CN": {
-    "param.max_chars.description": "返回的最大字符数。省略时截断为 8000 个字符。",
-    "param.page_index.description": "从 1 开始的页码（PDF 页或 PPTX 幻灯片索引）。省略时，返回所有页面拼接后的文本。",
-    "param.path.description": "PDF / PPTX / JSON 文件的路径。",
-    "tool.description": "读取 PDF/PPTX（或其通用 JSON 模式），并按页返回提取的文本。您可以将路径设置为 .pdf / .pptx / .json。对于 PDF/PPTX，此模块会将其转换为通用 JSON 模式。",
-    "tool.system_prompt": "重要：此工具读取 PDF/PPTX/JSON，并返回页级文本。输入：path、page_index、max_chars。输出：页面文本（全部页面或指定页面）。",
-    "param.password.description": "加密 PDF/PPTX 文件的可选密码。如果省略且输入内容已加密，系统会提示您输入一次密码。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
-  },
-  "zh_TW": {
-    "param.max_chars.description": "傳回的最大字元數。省略時會在 8000 個字元處截斷。",
-    "param.page_index.description": "從 1 開始的頁碼（PDF 頁或 PPTX 投影片索引）。省略時，會傳回所有頁面串接後的文字。",
-    "param.path.description": "PDF / PPTX / JSON 檔案的路徑。",
-    "tool.description": "讀取 PDF/PPTX（或其通用 JSON 模式），並依頁回傳擷取文字。您可以將路徑設定為 .pdf / .pptx / .json。對於 PDF/PPTX，此模組會將其轉換為通用 JSON 模式。",
-    "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
-    "param.password.description": "加密 PDF/PPTX 檔案的可選密碼。若省略且輸入內容已加密，系統會提示您輸入一次密碼。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
-  },
   "es": {
     "param.max_chars.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres.",
     "param.page_index.description": "Número de página basado en 1 (página PDF o índice de diapositiva PPTX). Si se omite, devuelve el texto concatenado de todas las páginas.",
@@ -61,15 +43,6 @@
     "tool.system_prompt": "중요: 이 도구는 PDF/PPTX/JSON을 읽고 페이지 단위 텍스트를 반환합니다. 입력: path, page_index, max_chars. 출력: 페이지 텍스트(모든 페이지 또는 지정된 페이지).",
     "param.password.description": "암호화된 PDF/PPTX 파일의 선택적 비밀번호입니다. 생략되었고 입력 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
-  },
-  "th": {
-    "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
-    "param.page_index.description": "หมายเลขหน้าแบบเริ่มที่ 1 (หน้า PDF หรือดัชนีสไลด์ PPTX) หากละเว้น จะส่งคืนข้อความที่ต่อกันของทุกหน้า",
-    "param.path.description": "พาธไปยังไฟล์ PDF / PPTX / JSON",
-    "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON กลาง) และส่งคืนข้อความที่แยกออกมาตามหน้า คุณสามารถกำหนดพาธเป็น .pdf / .pptx / .json ได้ สำหรับ PDF/PPTX โมดูลนี้จะแปลงเป็นสคีมา JSON กลาง",
-    "tool.system_prompt": "สำคัญ: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: path, page_index, max_chars เอาต์พุต: ข้อความของหน้า (ทุกหน้าหรือหน้าที่ระบุ)",
-    "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPTX ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและข้อมูลนำเข้าถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
   "de": {
     "param.max_chars.description": "Maximale Anzahl der zurückzugebenden Zeichen. Wenn weggelassen, wird auf 8000 Zeichen gekürzt.",
@@ -107,6 +80,15 @@
     "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitida e a entrada estiver criptografada, será solicitada uma única vez.",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
+  "pt": {
+    "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
+    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX). Se omitido, retorna texto concatenado para todas as páginas.",
+    "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
+    "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página. Você pode definir o caminho para .pdf/.pptx/.json. Para PDF/PPTX, este módulo o converte no esquema JSON comum.",
+    "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
+    "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitido e a entrada for criptografada, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
   "id": {
     "param.max_chars.description": "Jumlah maksimum karakter yang dikembalikan. Jika tidak ditentukan, dipotong pada 8000 karakter.",
     "param.page_index.description": "Nomor halaman berbasis 1 (halaman PDF atau indeks slide PPTX). Jika tidak ditentukan, mengembalikan teks gabungan untuk semua halaman.",
@@ -134,15 +116,6 @@
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików PDF/PPTX. Jeśli zostanie pominięte, a dane wejściowe są zaszyfrowane, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
-  "pt": {
-    "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
-    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX). Se omitido, retorna texto concatenado para todas as páginas.",
-    "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
-    "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página. Você pode definir o caminho para .pdf/.pptx/.json. Para PDF/PPTX, este módulo o converte no esquema JSON comum.",
-    "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
-    "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitido e a entrada for criptografada, uma senha será solicitada uma vez.",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
-  },
   "hi": {
     "param.max_chars.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
     "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए संक्षिप्त पाठ लौटाता है।",
@@ -169,6 +142,15 @@
     "tool.system_prompt": "VIKTIGT: Det här verktyget läser PDF/PPTX/JSON och returnerar text på sidnivå. Indata: path, page_index, max_chars. Utdata: sidtext (alla sidor eller angiven sida).",
     "param.password.description": "Valfritt lösenord för krypterade PDF/PPTX-filer. Om det utelämnas och indata är krypterad kommer du att ombes ange ett lösenord en gång.",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "sw": {
+    "param.max_chars.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
+    "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX). Ikiwa haijatajwa, hurudisha maandishi yaliyounganishwa ya kurasa zote.",
+    "param.path.description": "Njia ya faili la PDF / PPTX / JSON.",
+    "tool.description": "Soma PDF/PPTX (au schema yao ya kawaida ya JSON) na rudisha maandishi yaliyotolewa kwa kila ukurasa. Unaweza kuweka path kuwa .pdf / .pptx / .json. Kwa PDF/PPTX, moduli hii hubadilisha kuwa schema ya kawaida ya JSON.",
+    "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
+    "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
   },
   "nb": {
     "param.max_chars.description": "Maksimalt antall tegn som skal returneres. Hvis det utelates, trunkeres resultatet til 8000 tegn.",
@@ -215,15 +197,6 @@
     "param.password.description": "Необов’язковий пароль для зашифрованих файлів PDF/PPTX. Якщо його не вказано і вхідні дані зашифровані, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
-  "sw": {
-    "param.max_chars.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
-    "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX). Ikiwa haijatajwa, hurudisha maandishi yaliyounganishwa ya kurasa zote.",
-    "param.path.description": "Njia ya faili la PDF / PPTX / JSON.",
-    "tool.description": "Soma PDF/PPTX (au schema yao ya kawaida ya JSON) na rudisha maandishi yaliyotolewa kwa kila ukurasa. Unaweza kuweka path kuwa .pdf / .pptx / .json. Kwa PDF/PPTX, moduli hii hubadilisha kuwa schema ya kawaida ya JSON.",
-    "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
-    "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
-    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
-  },
   "tr": {
     "param.max_chars.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
     "param.page_index.description": "1-tabanlı sayfa numarası (PDF sayfa veya PPTX slayt dizini). Atlanırsa, tüm sayfalar için birleştirilmiş metni döndürür.",
@@ -232,5 +205,32 @@
     "tool.system_prompt": "IMPORTANT: Bu araç PDF/PPTX/JSON okur ve sayfa düzeyinde metin döndürür. Giriş: yol, sayfa_dizini, maksimum_karakterler. Çıktı: sayfa metni (tüm sayfalar veya belirtilen sayfa).",
     "param.password.description": "Şifrelenmiş PDF/PPTX dosyaları için isteğe bağlı şifre. Atlanırsa ve giriş şifrelenirse, bir kez parola girmeniz istenecektir.",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+  },
+  "th": {
+    "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
+    "param.page_index.description": "หมายเลขหน้าแบบเริ่มที่ 1 (หน้า PDF หรือดัชนีสไลด์ PPTX) หากละเว้น จะส่งคืนข้อความที่ต่อกันของทุกหน้า",
+    "param.path.description": "พาธไปยังไฟล์ PDF / PPTX / JSON",
+    "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON กลาง) และส่งคืนข้อความที่แยกออกมาตามหน้า คุณสามารถกำหนดพาธเป็น .pdf / .pptx / .json ได้ สำหรับ PDF/PPTX โมดูลนี้จะแปลงเป็นสคีมา JSON กลาง",
+    "tool.system_prompt": "สำคัญ: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: path, page_index, max_chars เอาต์พุต: ข้อความของหน้า (ทุกหน้าหรือหน้าที่ระบุ)",
+    "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPTX ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและข้อมูลนำเข้าถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+  },
+  "zh_CN": {
+    "param.max_chars.description": "返回的最大字符数。省略时截断为 8000 个字符。",
+    "param.page_index.description": "从 1 开始的页码（PDF 页或 PPTX 幻灯片索引）。省略时，返回所有页面拼接后的文本。",
+    "param.path.description": "PDF / PPTX / JSON 文件的路径。",
+    "tool.description": "读取 PDF/PPTX（或其通用 JSON 模式），并按页返回提取的文本。您可以将路径设置为 .pdf / .pptx / .json。对于 PDF/PPTX，此模块会将其转换为通用 JSON 模式。",
+    "tool.system_prompt": "重要：此工具读取 PDF/PPTX/JSON，并返回页级文本。输入：path、page_index、max_chars。输出：页面文本（全部页面或指定页面）。",
+    "param.password.description": "加密 PDF/PPTX 文件的可选密码。如果省略且输入内容已加密，系统会提示您输入一次密码。",
+    "prompt.password": "请输入此文件的密码：\n{path}"
+  },
+  "zh_TW": {
+    "param.max_chars.description": "傳回的最大字元數。省略時會在 8000 個字元處截斷。",
+    "param.page_index.description": "從 1 開始的頁碼（PDF 頁或 PPTX 投影片索引）。省略時，會傳回所有頁面串接後的文字。",
+    "param.path.description": "PDF / PPTX / JSON 檔案的路徑。",
+    "tool.description": "讀取 PDF/PPTX（或其通用 JSON 模式），並依頁回傳擷取文字。您可以將路徑設定為 .pdf / .pptx / .json。對於 PDF/PPTX，此模組會將其轉換為通用 JSON 模式。",
+    "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
+    "param.password.description": "加密 PDF/PPTX 檔案的可選密碼。若省略且輸入內容已加密，系統會提示您輸入一次密碼。",
+    "prompt.password": "請輸入此文件的密碼：\n{path}"
   }
 }

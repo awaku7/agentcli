@@ -23,30 +23,6 @@
     "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
     "tool.system_prompt": "このツールは DuckDuckGo の HTML 検索を実行し、title/link/snippet を返します。結果が空の場合は、サイト側でレート制限またはブロックされている可能性があります。"
   },
-  "zh_CN": {
-    "error.args_must_be_dict": "args 必须是一个字典",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo 请求重试后失败：{error}",
-    "error.missing_query_parameter": "缺少“查询”参数",
-    "error.run_tool_error": "运行工具错误：{error}",
-    "param.max_results.description": "返回结果的最大数量（默认值：5）。",
-    "param.n.description": "“max_results”的别名（为了向后兼容）。",
-    "param.q.description": "“query”的别名（为了向后兼容）。",
-    "param.query.description": "搜索查询字符串。",
-    "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
-    "tool.system_prompt": "该工具执行 DuckDuckGo HTML 搜索并返回标题/链接/片段。如果结果为空，则该站点可能会限制速率或阻止请求。"
-  },
-  "zh_TW": {
-    "error.args_must_be_dict": "args 必須是字典",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo 請求重試後失敗：{error}",
-    "error.missing_query_parameter": "缺少“查詢”參數",
-    "error.run_tool_error": "運行工具錯誤：{error}",
-    "param.max_results.description": "傳回結果的最大數量（預設值：5）。",
-    "param.n.description": "「max_results」的別名（為了向後相容）。",
-    "param.q.description": "「query」的別名（為了向後相容）。",
-    "param.query.description": "搜尋查詢字串。",
-    "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
-    "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
-  },
   "es": {
     "error.args_must_be_dict": "args debe ser un dict",
     "error.duckduckgo_failed_after_retries": "La solicitud de DuckDuckGo falló después de los reintentos: {error}",
@@ -82,18 +58,6 @@
     "param.query.description": "검색어 문자열입니다.",
     "tool.description": "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다.",
     "tool.system_prompt": "이 도구는 DuckDuckGo HTML 검색을 수행하고 제목/링크/스니펫을 반환합니다. 결과가 비어 있으면 사이트에서 요청 속도를 제한하거나 차단하고 있을 수 있습니다."
-  },
-  "th": {
-    "error.args_must_be_dict": "args ต้องเป็น dict",
-    "error.duckduckgo_failed_after_retries": "คำขอ DuckDuckGo ล้มเหลวหลังจากลองอีกครั้ง: {error}",
-    "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
-    "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
-    "param.max_results.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
-    "param.n.description": "นามแฝงของ 'max_results' (สำหรับความเข้ากันได้แบบย้อนหลัง)",
-    "param.q.description": "ชื่อแทนของ 'query' (เพื่อความเข้ากันได้แบบย้อนหลัง)",
-    "param.query.description": "สตริงคำค้นหา",
-    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
-    "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
   },
   "de": {
     "error.args_must_be_dict": "args muss ein Dict sein",
@@ -143,6 +107,18 @@
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
+  "pt": {
+    "error.args_must_be_dict": "args deve ser um dict",
+    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
+    "error.missing_query_parameter": "falta o parâmetro 'query'",
+    "error.run_tool_error": "erro ao executar run_tool: {error}",
+    "param.max_results.description": "Número máximo de resultados a serem retornados (padrão: 5).",
+    "param.n.description": "Alias ​​de 'max_results' (para compatibilidade com versões anteriores).",
+    "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
+    "param.query.description": "String da consulta de pesquisa.",
+    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+  },
   "id": {
     "error.args_must_be_dict": "args harus berupa dict",
     "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal setelah beberapa percobaan: {error}",
@@ -179,18 +155,6 @@
     "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment.",
     "tool.system_prompt": "To narzędzie wykonuje wyszukiwanie HTML DuckDuckGo i zwraca tytuł/odnośnik/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość albo blokować żądanie."
   },
-  "pt": {
-    "error.args_must_be_dict": "args deve ser um dict",
-    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
-    "error.missing_query_parameter": "falta o parâmetro 'query'",
-    "error.run_tool_error": "erro ao executar run_tool: {error}",
-    "param.max_results.description": "Número máximo de resultados a serem retornados (padrão: 5).",
-    "param.n.description": "Alias ​​de 'max_results' (para compatibilidade com versões anteriores).",
-    "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
-    "param.query.description": "String da consulta de pesquisa.",
-    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho.",
-    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
-  },
   "hi": {
     "error.args_must_be_dict": "args एक dict होना चाहिए",
     "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा: {error}",
@@ -226,6 +190,18 @@
     "param.query.description": "Sökfråga som sträng.",
     "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
     "tool.system_prompt": "Det här verktyget gör en DuckDuckGo-HTML-sökning och returnerar titel/länk/snutt. Om resultaten är tomma kan webbplatsen vara hastighetsbegränsande eller blockera begäran."
+  },
+  "sw": {
+    "error.args_must_be_dict": "args lazima iwe dict",
+    "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo limeshindwa baada ya majaribio ya kurudia: {error}",
+    "error.missing_query_parameter": "'query' haipo",
+    "error.run_tool_error": "Hitilafu ya run_tool: {error}",
+    "param.max_results.description": "Idadi ya juu ya matokeo ya kurejesha (chaguomsingi: 5).",
+    "param.n.description": "Kisawe cha 'max_results' (kwa uoanifu wa nyuma).",
+    "param.q.description": "Kisawe cha 'query' (kwa uoanifu wa nyuma).",
+    "param.query.description": "Kamba ya hoja ya utafutaji.",
+    "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
+    "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -287,18 +263,6 @@
     "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок.",
     "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
   },
-  "sw": {
-    "error.args_must_be_dict": "args lazima iwe dict",
-    "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo limeshindwa baada ya majaribio ya kurudia: {error}",
-    "error.missing_query_parameter": "'query' haipo",
-    "error.run_tool_error": "Hitilafu ya run_tool: {error}",
-    "param.max_results.description": "Idadi ya juu ya matokeo ya kurejesha (chaguomsingi: 5).",
-    "param.n.description": "Kisawe cha 'max_results' (kwa uoanifu wa nyuma).",
-    "param.q.description": "Kisawe cha 'query' (kwa uoanifu wa nyuma).",
-    "param.query.description": "Kamba ya hoja ya utafutaji.",
-    "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
-    "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
-  },
   "tr": {
     "error.args_must_be_dict": "args bir dict olmalıdır",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo isteği yeniden denemelerden sonra başarısız oldu: {error}",
@@ -310,5 +274,41 @@
     "param.query.description": "Arama sorgusu dizgesi.",
     "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür.",
     "tool.system_prompt": "Bu araç DuckDuckGo HTML araması yapar ve başlık/bağlantı/snippet döndürür. Sonuçlar boşsa site istekleri hız sınırlıyor veya engelliyor olabilir."
+  },
+  "th": {
+    "error.args_must_be_dict": "args ต้องเป็น dict",
+    "error.duckduckgo_failed_after_retries": "คำขอ DuckDuckGo ล้มเหลวหลังจากลองอีกครั้ง: {error}",
+    "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
+    "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
+    "param.max_results.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
+    "param.n.description": "นามแฝงของ 'max_results' (สำหรับความเข้ากันได้แบบย้อนหลัง)",
+    "param.q.description": "ชื่อแทนของ 'query' (เพื่อความเข้ากันได้แบบย้อนหลัง)",
+    "param.query.description": "สตริงคำค้นหา",
+    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
+    "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
+  },
+  "zh_CN": {
+    "error.args_must_be_dict": "args 必须是一个字典",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo 请求重试后失败：{error}",
+    "error.missing_query_parameter": "缺少“查询”参数",
+    "error.run_tool_error": "运行工具错误：{error}",
+    "param.max_results.description": "返回结果的最大数量（默认值：5）。",
+    "param.n.description": "“max_results”的别名（为了向后兼容）。",
+    "param.q.description": "“query”的别名（为了向后兼容）。",
+    "param.query.description": "搜索查询字符串。",
+    "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
+    "tool.system_prompt": "该工具执行 DuckDuckGo HTML 搜索并返回标题/链接/片段。如果结果为空，则该站点可能会限制速率或阻止请求。"
+  },
+  "zh_TW": {
+    "error.args_must_be_dict": "args 必須是字典",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo 請求重試後失敗：{error}",
+    "error.missing_query_parameter": "缺少“查詢”參數",
+    "error.run_tool_error": "運行工具錯誤：{error}",
+    "param.max_results.description": "傳回結果的最大數量（預設值：5）。",
+    "param.n.description": "「max_results」的別名（為了向後相容）。",
+    "param.q.description": "「query」的別名（為了向後相容）。",
+    "param.query.description": "搜尋查詢字串。",
+    "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
+    "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
   }
 }

@@ -9,16 +9,6 @@
     "tool.description": "保存されている長期記憶メモ（JSONL）をすべて取得します。",
     "tool.system_prompt": "このツールは次の目的で使われます: 保存されている長期記憶メモをすべて JSONL 形式で取得します。"
   },
-  "zh_CN": {
-    "doc.run_tool": "用于检索整个长期记忆的工具（JSONL 文本）。",
-    "tool.description": "获取所有已保存的长期记忆笔记（JSONL）。",
-    "tool.system_prompt": "此工具用于检索所有已保存的长期记忆笔记（JSONL 格式）。"
-  },
-  "zh_TW": {
-    "doc.run_tool": "用於檢索整個長期記憶的工具（JSONL 文字）。",
-    "tool.description": "取得所有已儲存的長期記憶筆記（JSONL）。",
-    "tool.system_prompt": "此工具用於檢索所有已儲存的長期記憶筆記（JSONL 格式）。"
-  },
   "es": {
     "doc.run_tool": "Una herramienta para recuperar toda la memoria a largo plazo (texto JSONL).",
     "tool.description": "Obtiene todas las notas guardadas de la memoria a largo plazo (JSONL).",
@@ -33,11 +23,6 @@
     "doc.run_tool": "전체 장기 기억(JSONL 텍스트)을 가져오는 도구입니다.",
     "tool.description": "저장된 모든 장기 기억 메모(JSONL)를 가져옵니다.",
     "tool.system_prompt": "이 도구는 저장된 모든 장기 기억 메모를 JSONL 형식으로 가져오는 데 사용됩니다."
-  },
-  "th": {
-    "doc.run_tool": "เครื่องมือสำหรับดึงข้อมูลหน่วยความจำระยะยาวทั้งหมด (ข้อความ JSONL)",
-    "tool.description": "ดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (JSONL)",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (ในรูปแบบ JSONL)"
   },
   "de": {
     "doc.run_tool": "Ein Tool zum Abrufen des gesamten Langzeitgedächtnisses (JSONL-Text).",
@@ -59,6 +44,11 @@
     "tool.description": "Obtém todas as notas salvas da memória de longo prazo (JSONL).",
     "tool.system_prompt": "Esta ferramenta é usada para recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
   },
+  "pt": {
+    "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
+    "tool.description": "Obtenha todas as notas salvas da memória de longo prazo (JSONL).",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
+  },
   "id": {
     "doc.run_tool": "Alat untuk mengambil seluruh memori jangka panjang (teks JSONL).",
     "tool.description": "Ambil semua catatan memori jangka panjang yang tersimpan (JSONL).",
@@ -74,11 +64,6 @@
     "tool.description": "Pobierz wszystkie zapisane notatki pamięci długoterminowej (JSONL).",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: odzyskania wszystkich zapisanych notatek pamięci długotrwałej (w formacie JSONL)."
   },
-  "pt": {
-    "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
-    "tool.description": "Obtenha todas as notas salvas da memória de longo prazo (JSONL).",
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: recuperar todas as notas salvas da memória de longo prazo (no formato JSONL)."
-  },
   "hi": {
     "doc.run_tool": "संपूर्ण दीर्घकालिक मेमोरी (JSONL टेक्स्ट) को पुनः प्राप्त करने के लिए एक उपकरण।",
     "tool.description": "सभी सहेजे गए दीर्घकालिक मेमोरी नोट्स (JSONL) प्राप्त करें।",
@@ -93,6 +78,11 @@
     "doc.run_tool": "Verktyg för att hämta all långtidsminnesdata (JSONL-text).",
     "tool.description": "Hämta alla sparade långtidsminnesanteckningar (JSONL).",
     "tool.system_prompt": "Det här verktyget används för följande ändamål: hämta alla sparade långtidsminnesanteckningar (i JSONL-format)."
+  },
+  "sw": {
+    "doc.run_tool": "A tool to retrieve the entire long-term memory (JSONL text).",
+    "tool.description": "Gets all saved long-term memory notes (JSONL).",
+    "tool.system_prompt": "This tool is used for the following purpose: retrieve all saved long-term memory notes in JSONL format."
   },
   "nb": {
     "doc.run_tool": "Verktøy for å hente alt langtidsminnet (JSONL-tekst).",
@@ -123,5 +113,20 @@
     "doc.run_tool": "Uzun süreli belleğin tamamını (JSONL metni) almak için bir araç.",
     "tool.description": "Kaydedilen tüm uzun süreli hafıza notlarını alır (JSONL).",
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: Kaydedilmiş tüm uzun süreli hafıza notlarını JSONL formatında almak."
+  },
+  "th": {
+    "doc.run_tool": "เครื่องมือสำหรับดึงข้อมูลหน่วยความจำระยะยาวทั้งหมด (ข้อความ JSONL)",
+    "tool.description": "ดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (JSONL)",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (ในรูปแบบ JSONL)"
+  },
+  "zh_CN": {
+    "doc.run_tool": "用于检索整个长期记忆的工具（JSONL 文本）。",
+    "tool.description": "获取所有已保存的长期记忆笔记（JSONL）。",
+    "tool.system_prompt": "此工具用于检索所有已保存的长期记忆笔记（JSONL 格式）。"
+  },
+  "zh_TW": {
+    "doc.run_tool": "用於檢索整個長期記憶的工具（JSONL 文字）。",
+    "tool.description": "取得所有已儲存的長期記憶筆記（JSONL）。",
+    "tool.system_prompt": "此工具用於檢索所有已儲存的長期記憶筆記（JSONL 格式）。"
   }
 }

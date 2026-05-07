@@ -15,22 +15,6 @@
     "tool.description": "Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します。",
     "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
   },
-  "zh_CN": {
-    "param.include_invalid.description": "即使 SKILL.md 解析/验证失败，是否将其包含在列表中（默认值：true）。如果错误，失败的技能将被排除。",
-    "param.recursive.description": "递归搜索（默认值：true）",
-    "param.root_dir.description": "技能搜索路径。若为空或未指定，将使用 UAGENT_SKILLS_DIRS（以 os.pathsep 分隔）；如果仍未指定，则使用 ./skills。",
-    "param.strict.description": "在规范验证期间是否将警告视为失败（默认：false）。",
-    "tool.description": "根据代理技能规范 (SKILL.md) 返回指定根下的技能列表（仅读取 frontmatter）。如果省略 root_dir，则扫描 UAGENT_SKILLS_DIRS 或 ./skills。",
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
-  },
-  "zh_TW": {
-    "param.include_invalid.description": "即使 SKILL.md 解析/驗證失敗，是否將其包含在清單中（預設值：true）。如果錯誤，失敗的技能將被排除。",
-    "param.recursive.description": "遞歸搜尋（預設值：true）",
-    "param.root_dir.description": "技能搜尋路徑。若為空或未指定，將使用 UAGENT_SKILLS_DIRS（以 os.pathsep 分隔）；若仍未指定，則使用 ./skills。",
-    "param.strict.description": "在規格驗證期間是否將警告視為失敗（預設：false）。",
-    "tool.description": "根據代理技能規格 (SKILL.md) 傳回指定根下的技能清單（僅讀取 frontmatter）。如果省略 root_dir，則掃描 UAGENT_SKILLS_DIRS 或 ./skills。",
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
-  },
   "es": {
     "param.include_invalid.description": "Si se debe incluir en la lista incluso si falla el análisis/verificación de SKILL.md (valor predeterminado: verdadero). Si es falso, se excluirán las habilidades fallidas.",
     "param.recursive.description": "Buscar recursivamente (predeterminado: verdadero)",
@@ -54,14 +38,6 @@
     "param.strict.description": "사양 검증에서 경고를 실패로 간주할지 여부입니다(기본값: false).",
     "tool.description": "에이전트 스킬 사양(SKILL.md)을 기반으로 지정된 루트(머리말만 읽기) 아래의 스킬 목록을 반환합니다. root_dir이 생략된 경우 UAGENT_SKILLS_DIRS 또는 ./skills를 검색합니다.",
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
-  },
-  "th": {
-    "param.include_invalid.description": "ไม่ว่าจะรวมไว้ในรายการหรือไม่ แม้ว่าการแยกวิเคราะห์/การตรวจสอบ SKILL.md จะล้มเหลว (ค่าเริ่มต้น: true) หากเป็นเท็จ ทักษะที่ล้มเหลวจะถูกยกเว้น",
-    "param.recursive.description": "ค้นหาซ้ำ (ค่าเริ่มต้น: จริง)",
-    "param.root_dir.description": "รากสำหรับค้นหาทักษะ หากเว้นว่างหรือไม่ได้ระบุ จะใช้ UAGENT_SKILLS_DIRS (คั่นด้วย os.pathsep) และหากไม่ได้ระบุ จะใช้ ./skills",
-    "param.strict.description": "จะถือว่า warning เป็นความล้มเหลวระหว่างการตรวจสอบข้อกำหนดหรือไม่ (ค่าเริ่มต้น: false)",
-    "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.md) สแกน UAGENT_SKILLS_DIRS หรือ ./skills หากละเว้น root_dir",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
   },
   "de": {
     "param.include_invalid.description": "Ob es in die Liste aufgenommen werden soll, auch wenn die Analyse/Verifizierung von SKILL.md fehlschlägt (Standard: true). Wenn false, werden fehlerhafte Skills ausgeschlossen.",
@@ -95,6 +71,14 @@
     "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.md), lendo apenas o frontmatter. Se root_dir for omitido, varre UAGENT_SKILLS_DIRS ou ./skills.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
+  "pt": {
+    "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.md falhar (padrão: verdadeiro). Se for falso, as habilidades com falha serão excluídas.",
+    "param.recursive.description": "Pesquisa recursivamente (padrão: verdadeiro)",
+    "param.root_dir.description": "Rota de busca de habilidades. Se estiver vazio/não especificado, UAGENT_SKILLS_DIRS (delimitado por os.pathsep) será usado e, se não for especificado, ./skills será usado.",
+    "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verificação das especificações (padrão: falso)",
+    "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL.md). Verifica UAGENT_SKILLS_DIRS ou ./skills se root_dir for omitido.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
   "id": {
     "param.include_invalid.description": "Apakah tetap dimasukkan ke daftar meski parsing/verifikasi SKILL.md gagal (default: true). Jika false, skill yang gagal akan dikecualikan.",
     "param.recursive.description": "Cari secara rekursif (default: true)",
@@ -119,14 +103,6 @@
     "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md). Skanuje UAGENT_SKILLS_DIRS lub ./skills, jeśli pominięto katalog_główny.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
-  "pt": {
-    "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.md falhar (padrão: verdadeiro). Se for falso, as habilidades com falha serão excluídas.",
-    "param.recursive.description": "Pesquisa recursivamente (padrão: verdadeiro)",
-    "param.root_dir.description": "Rota de busca de habilidades. Se estiver vazio/não especificado, UAGENT_SKILLS_DIRS (delimitado por os.pathsep) será usado e, se não for especificado, ./skills será usado.",
-    "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verificação das especificações (padrão: falso)",
-    "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL.md). Verifica UAGENT_SKILLS_DIRS ou ./skills se root_dir for omitido.",
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
-  },
   "hi": {
     "param.include_invalid.description": "SKILL.md का पार्सिंग/सत्यापन विफल होने पर भी इसे सूची में शामिल करना है या नहीं (डिफ़ॉल्ट: सत्य)। यदि गलत है, तो असफल कौशल को बाहर रखा जाएगा।",
     "param.recursive.description": "पुनरावर्ती रूप से खोजें (डिफ़ॉल्ट: सत्य)",
@@ -150,6 +126,14 @@
     "param.strict.description": "Om varningar ska betraktas som fel vid verifiering av specifikationen (standard: false).",
     "tool.description": "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen (SKILL.md). Skannar rekursivt som standard.",
     "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+  },
+  "sw": {
+    "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.md unashindwa (chaguomsingi: true). Ikiwa false, skills zilizoshindwa zitaondolewa.",
+    "param.recursive.description": "Tafuta kwa kujirudia (chaguomsingi: true)",
+    "param.root_dir.description": "Mzizi wa kutafuta skills. Ikiwa tupu au haujabainishwa, UAGENT_SKILLS_DIRS (ikitenganishwa kwa os.pathsep) itatumika; ikiwa haijabainishwa, ./skills itatumika.",
+    "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha maelezo (chaguomsingi: false)",
+    "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
   },
   "nb": {
     "param.include_invalid.description": "Om du vil, kan den tas med i listen selv om tolkning/verifisering av SKILL.md mislykkes (standard: true). Hvis false utelates mislykkede skills.",
@@ -191,14 +175,6 @@
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.md). Якщо root_dir не вказано, сканує UAGENT_SKILLS_DIRS або ./skills.",
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
   },
-  "sw": {
-    "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.md unashindwa (chaguomsingi: true). Ikiwa false, skills zilizoshindwa zitaondolewa.",
-    "param.recursive.description": "Tafuta kwa kujirudia (chaguomsingi: true)",
-    "param.root_dir.description": "Mzizi wa kutafuta skills. Ikiwa tupu au haujabainishwa, UAGENT_SKILLS_DIRS (ikitenganishwa kwa os.pathsep) itatumika; ikiwa haijabainishwa, ./skills itatumika.",
-    "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha maelezo (chaguomsingi: false)",
-    "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa.",
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
-  },
   "tr": {
     "param.include_invalid.description": "SKILL.md'nin ayrıştırılması/doğrulanması başarısız olsa bile listeye dahil edilsin mi (varsayılan: true). false ise başarısız beceriler hariç tutulur.",
     "param.recursive.description": "Yinelemeli ara (varsayılan: true)",
@@ -206,5 +182,29 @@
     "param.strict.description": "Özellik doğrulaması sırasında uyarılar da başarısızlık olarak kabul edilsin mi (varsayılan: false)",
     "tool.description": "Agent Skills belirtimine (SKILL.md) göre belirtilen kök altındaki becerileri döndürür (yalnızca frontmatter okunur). root_dir atlanırsa UAGENT_SKILLS_DIRS veya ./skills taranır.",
     "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (araç açıklamasına bakın)."
+  },
+  "th": {
+    "param.include_invalid.description": "ไม่ว่าจะรวมไว้ในรายการหรือไม่ แม้ว่าการแยกวิเคราะห์/การตรวจสอบ SKILL.md จะล้มเหลว (ค่าเริ่มต้น: true) หากเป็นเท็จ ทักษะที่ล้มเหลวจะถูกยกเว้น",
+    "param.recursive.description": "ค้นหาซ้ำ (ค่าเริ่มต้น: จริง)",
+    "param.root_dir.description": "รากสำหรับค้นหาทักษะ หากเว้นว่างหรือไม่ได้ระบุ จะใช้ UAGENT_SKILLS_DIRS (คั่นด้วย os.pathsep) และหากไม่ได้ระบุ จะใช้ ./skills",
+    "param.strict.description": "จะถือว่า warning เป็นความล้มเหลวระหว่างการตรวจสอบข้อกำหนดหรือไม่ (ค่าเริ่มต้น: false)",
+    "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.md) สแกน UAGENT_SKILLS_DIRS หรือ ./skills หากละเว้น root_dir",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
+  },
+  "zh_CN": {
+    "param.include_invalid.description": "即使 SKILL.md 解析/验证失败，是否将其包含在列表中（默认值：true）。如果错误，失败的技能将被排除。",
+    "param.recursive.description": "递归搜索（默认值：true）",
+    "param.root_dir.description": "技能搜索路径。若为空或未指定，将使用 UAGENT_SKILLS_DIRS（以 os.pathsep 分隔）；如果仍未指定，则使用 ./skills。",
+    "param.strict.description": "在规范验证期间是否将警告视为失败（默认：false）。",
+    "tool.description": "根据代理技能规范 (SKILL.md) 返回指定根下的技能列表（仅读取 frontmatter）。如果省略 root_dir，则扫描 UAGENT_SKILLS_DIRS 或 ./skills。",
+    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "param.include_invalid.description": "即使 SKILL.md 解析/驗證失敗，是否將其包含在清單中（預設值：true）。如果錯誤，失敗的技能將被排除。",
+    "param.recursive.description": "遞歸搜尋（預設值：true）",
+    "param.root_dir.description": "技能搜尋路徑。若為空或未指定，將使用 UAGENT_SKILLS_DIRS（以 os.pathsep 分隔）；若仍未指定，則使用 ./skills。",
+    "param.strict.description": "在規格驗證期間是否將警告視為失敗（預設：false）。",
+    "tool.description": "根據代理技能規格 (SKILL.md) 傳回指定根下的技能清單（僅讀取 frontmatter）。如果省略 root_dir，則掃描 UAGENT_SKILLS_DIRS 或 ./skills。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   }
 }

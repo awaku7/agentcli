@@ -23,30 +23,6 @@
     "param.password.description": "暗号化された .xlsx ファイルのパスワード（任意）。省略時にファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
-  "zh_CN": {
-    "param.action.description": "要执行的操作。",
-    "param.data.description": "要写入的 JSON 数据。",
-    "param.file_path.description": "Excel 文件的绝对路径。",
-    "param.sheet_name.description": "目标工作表名称。",
-    "param.keep_sheets.description": "要保留的工作表名称（仅用于 action='keep_only_sheets'）。如果任一指定工作表不存在，工具将报错。",
-    "param.output_path.description": "action='keep_only_sheets' 的输出路径。如果已存在，将在创建备份（<output_path>.org / <output_path>.org1 / ...）后覆盖。",
-    "tool.description": "读取和写入 Excel (.xlsx) 文件并获取工作表名称。写入现有文件时，会在写入之前立即创建同名的备份 (<file_path>.org / <file_path>.org1 / ...)。",
-    "tool.system_prompt": "此工具执行工具名称“excel_ops”所描述的操作。",
-    "param.password.description": "加密 .xlsx 文件的可选密码。如果省略且文件已加密，系统会提示您输入一次密码。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
-  },
-  "zh_TW": {
-    "param.action.description": "要執行的操作。",
-    "param.data.description": "要寫入的 JSON 資料。",
-    "param.file_path.description": "Excel 檔案的絕對路徑。",
-    "param.sheet_name.description": "目標工作表名稱。",
-    "param.keep_sheets.description": "要保留的工作表名稱（僅用於 action='keep_only_sheets'）。若任一指定工作表不存在，工具會報錯。",
-    "param.output_path.description": "action='keep_only_sheets' 的輸出路徑。若已存在，會先建立備份（<output_path>.org / <output_path>.org1 / ...）再覆寫。",
-    "tool.description": "讀取和寫入 Excel (.xlsx) 檔案並取得工作表名稱。寫入現有檔案時，會在寫入之前立即建立同名的備份 (<file_path>.org / <file_path>.org1 / ...)。",
-    "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。",
-    "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
-  },
   "es": {
     "param.action.description": "Operación a realizar.",
     "param.data.description": "Datos JSON para escribir.",
@@ -82,18 +58,6 @@
     "tool.system_prompt": "이 도구는 도구 이름 'excel_ops'에 설명된 작업을 수행합니다.",
     "param.password.description": "암호화된 .xlsx 파일의 선택적 비밀번호입니다. 생략되었고 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
-  },
-  "th": {
-    "param.action.description": "การดำเนินการที่ต้องการทำ",
-    "param.data.description": "ข้อมูล JSON ที่จะเขียน",
-    "param.file_path.description": "พาธแบบเต็มไปยังไฟล์ Excel",
-    "param.sheet_name.description": "ชื่อแผ่นงานเป้าหมาย",
-    "param.keep_sheets.description": "ชื่อชีตที่ต้องการเก็บไว้ (ใช้เฉพาะกับ action='keep_only_sheets') หากชีตใดที่ระบุไม่มีอยู่ เครื่องมือจะเกิดข้อผิดพลาด",
-    "param.output_path.description": "พาธเอาต์พุตสำหรับ action='keep_only_sheets' หากมีอยู่แล้ว จะถูกเขียนทับหลังจากสร้างแบ็กอัป (<output_path>.org / <output_path>.org1 / ...) แล้ว",
-    "tool.description": "อ่านและเขียนไฟล์ Excel (.xlsx) และดึงชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างแบ็กอัปชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนเขียน",
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'",
-    "param.password.description": "รหัสผ่านสำหรับไฟล์ .xlsx ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและไฟล์ถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
   "de": {
     "param.action.description": "Auszuführende Operation.",
@@ -143,6 +107,18 @@
     "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitida e o arquivo estiver criptografado, será solicitada uma única vez.",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
+  "pt": {
+    "param.action.description": "Operação a ser executada.",
+    "param.data.description": "Dados JSON a serem gravados.",
+    "param.file_path.description": "Caminho absoluto para o arquivo Excel.",
+    "param.sheet_name.description": "Nome da planilha de destino.",
+    "param.keep_sheets.description": "Nomes das planilhas a serem mantidas (usado apenas para action='keep_only_sheets'). Se alguma planilha especificada não existir, a ferramenta retorna erro.",
+    "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
+    "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+  },
   "id": {
     "param.action.description": "Operasi yang akan dilakukan.",
     "param.data.description": "Data JSON yang akan ditulis.",
@@ -179,18 +155,6 @@
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
-  "pt": {
-    "param.action.description": "Operação a ser executada.",
-    "param.data.description": "Dados JSON a serem gravados.",
-    "param.file_path.description": "Caminho absoluto para o arquivo Excel.",
-    "param.sheet_name.description": "Nome da planilha de destino.",
-    "param.keep_sheets.description": "Nomes das planilhas a serem mantidas (usado apenas para action='keep_only_sheets'). Se alguma planilha especificada não existir, a ferramenta retorna erro.",
-    "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
-    "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
-    "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
-  },
   "hi": {
     "param.action.description": "किया जाने वाला ऑपरेशन।",
     "param.data.description": "लिखने के लिए JSON डेटा।",
@@ -226,6 +190,18 @@
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'excel_ops'.",
     "param.password.description": "Valfritt lösenord för krypterade .xlsx-filer. Om det utelämnas och filen är krypterad kommer du att uppmanas en gång att ange ett lösenord.",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+  },
+  "sw": {
+    "param.action.description": "Operesheni ya kutekeleza.",
+    "param.data.description": "Data ya JSON ya kuandika.",
+    "param.file_path.description": "Njia kamili ya faili la Excel.",
+    "param.sheet_name.description": "Jina la karatasi lengwa.",
+    "param.keep_sheets.description": "Majina ya karatasi za kubaki (hutumika tu kwa action='keep_only_sheets'). Ikiwa karatasi yoyote iliyotajwa haipo, zana itatoa hitilafu.",
+    "param.output_path.description": "Njia ya matokeo kwa action='keep_only_sheets'. Ikiwa tayari ipo, itaandikwa juu baada ya kuunda nakala ya hifadhi (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Soma na andika faili za Excel (.xlsx) na upate majina ya karatasi. Unapoandika kwenye faili lililopo, nakala ya hifadhi yenye jina hilo hilo (<file_path>.org / <file_path>.org1 / ...) huundwa mara moja kabla ya kuandika.",
+    "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
+    "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   },
   "nb": {
     "param.action.description": "Handling som skal utføres.",
@@ -287,18 +263,6 @@
     "param.password.description": "Необовʼязковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
-  "sw": {
-    "param.action.description": "Operesheni ya kutekeleza.",
-    "param.data.description": "Data ya JSON ya kuandika.",
-    "param.file_path.description": "Njia kamili ya faili la Excel.",
-    "param.sheet_name.description": "Jina la karatasi lengwa.",
-    "param.keep_sheets.description": "Majina ya karatasi za kubaki (hutumika tu kwa action='keep_only_sheets'). Ikiwa karatasi yoyote iliyotajwa haipo, zana itatoa hitilafu.",
-    "param.output_path.description": "Njia ya matokeo kwa action='keep_only_sheets'. Ikiwa tayari ipo, itaandikwa juu baada ya kuunda nakala ya hifadhi (<output_path>.org / <output_path>.org1 / ...).",
-    "tool.description": "Soma na andika faili za Excel (.xlsx) na upate majina ya karatasi. Unapoandika kwenye faili lililopo, nakala ya hifadhi yenye jina hilo hilo (<file_path>.org / <file_path>.org1 / ...) huundwa mara moja kabla ya kuandika.",
-    "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
-    "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
-    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
-  },
   "tr": {
     "param.action.description": "Gerçekleştirilecek işlem.",
     "param.data.description": "JSON yazılacak veri.",
@@ -310,5 +274,41 @@
     "tool.system_prompt": "Bu araç, 'excel_ops' araç adıyla açıklanan işlemi gerçekleştirir.",
     "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+  },
+  "th": {
+    "param.action.description": "การดำเนินการที่ต้องการทำ",
+    "param.data.description": "ข้อมูล JSON ที่จะเขียน",
+    "param.file_path.description": "พาธแบบเต็มไปยังไฟล์ Excel",
+    "param.sheet_name.description": "ชื่อแผ่นงานเป้าหมาย",
+    "param.keep_sheets.description": "ชื่อชีตที่ต้องการเก็บไว้ (ใช้เฉพาะกับ action='keep_only_sheets') หากชีตใดที่ระบุไม่มีอยู่ เครื่องมือจะเกิดข้อผิดพลาด",
+    "param.output_path.description": "พาธเอาต์พุตสำหรับ action='keep_only_sheets' หากมีอยู่แล้ว จะถูกเขียนทับหลังจากสร้างแบ็กอัป (<output_path>.org / <output_path>.org1 / ...) แล้ว",
+    "tool.description": "อ่านและเขียนไฟล์ Excel (.xlsx) และดึงชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างแบ็กอัปชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนเขียน",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'",
+    "param.password.description": "รหัสผ่านสำหรับไฟล์ .xlsx ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและไฟล์ถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+  },
+  "zh_CN": {
+    "param.action.description": "要执行的操作。",
+    "param.data.description": "要写入的 JSON 数据。",
+    "param.file_path.description": "Excel 文件的绝对路径。",
+    "param.sheet_name.description": "目标工作表名称。",
+    "param.keep_sheets.description": "要保留的工作表名称（仅用于 action='keep_only_sheets'）。如果任一指定工作表不存在，工具将报错。",
+    "param.output_path.description": "action='keep_only_sheets' 的输出路径。如果已存在，将在创建备份（<output_path>.org / <output_path>.org1 / ...）后覆盖。",
+    "tool.description": "读取和写入 Excel (.xlsx) 文件并获取工作表名称。写入现有文件时，会在写入之前立即创建同名的备份 (<file_path>.org / <file_path>.org1 / ...)。",
+    "tool.system_prompt": "此工具执行工具名称“excel_ops”所描述的操作。",
+    "param.password.description": "加密 .xlsx 文件的可选密码。如果省略且文件已加密，系统会提示您输入一次密码。",
+    "prompt.password": "请输入此文件的密码：\n{path}"
+  },
+  "zh_TW": {
+    "param.action.description": "要執行的操作。",
+    "param.data.description": "要寫入的 JSON 資料。",
+    "param.file_path.description": "Excel 檔案的絕對路徑。",
+    "param.sheet_name.description": "目標工作表名稱。",
+    "param.keep_sheets.description": "要保留的工作表名稱（僅用於 action='keep_only_sheets'）。若任一指定工作表不存在，工具會報錯。",
+    "param.output_path.description": "action='keep_only_sheets' 的輸出路徑。若已存在，會先建立備份（<output_path>.org / <output_path>.org1 / ...）再覆寫。",
+    "tool.description": "讀取和寫入 Excel (.xlsx) 檔案並取得工作表名稱。寫入現有檔案時，會在寫入之前立即建立同名的備份 (<file_path>.org / <file_path>.org1 / ...)。",
+    "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。",
+    "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
+    "prompt.password": "請輸入此文件的密碼：\n{path}"
   }
 }

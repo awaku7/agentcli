@@ -11,18 +11,6 @@
     "tool.description": "画像を読み込み、AI（Vision）で内容を説明します。スクリーンショットやグラフ、表の解析に便利です。",
     "tool.system_prompt": "ツール名「analyze_image」で指定された画像を解析し、結果を返します。"
   },
-  "zh_CN": {
-    "param.image_path.description": "要分析的图像文件的路径。",
-    "param.prompt.description": "您想了解有关图像的信息。",
-    "tool.description": "加载图像并让 AI（视觉）描述其内容。适用于分析屏幕截图、图表和表格。",
-    "tool.system_prompt": "分析工具名“analyze_image”所描述的图像，并返回结果。"
-  },
-  "zh_TW": {
-    "param.image_path.description": "要分析的影像檔案的路徑。",
-    "param.prompt.description": "您想了解有關圖像的資訊。",
-    "tool.description": "載入圖像並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格。",
-    "tool.system_prompt": "分析工具名稱「analyze_image」所描述的圖像，並回傳結果。"
-  },
   "es": {
     "param.image_path.description": "Ruta al archivo de imagen a analizar.",
     "param.prompt.description": "Lo que quieres saber sobre la imagen.",
@@ -40,12 +28,6 @@
     "param.prompt.description": "이미지에 대해 알고 싶은 것.",
     "tool.description": "이미지를 불러와 AI(Vision)가 내용을 설명하게 합니다. 스크린샷, 차트, 표를 분석할 때 유용합니다.",
     "tool.system_prompt": "도구 이름 \"analyze_image\"가 설명하는 이미지를 분석하고 결과를 반환하세요."
-  },
-  "th": {
-    "param.image_path.description": "พาธไปยังไฟล์รูปภาพเพื่อวิเคราะห์",
-    "param.prompt.description": "สิ่งที่คุณต้องการทราบเกี่ยวกับภาพ",
-    "tool.description": "โหลดไฟล์ภาพและให้ AI (Vision) อธิบายเนื้อหา เหมาะสำหรับการวิเคราะห์ภาพหน้าจอ แผนภูมิ และตาราง",
-    "tool.system_prompt": "เครื่องมือนี้จะวิเคราะห์ภาพที่ระบุด้วยชื่อเครื่องมือ \"analyze_image\" และส่งกลับผลลัพธ์"
   },
   "de": {
     "param.image_path.description": "Pfad zur zu analysierenden Bilddatei.",
@@ -71,6 +53,12 @@
     "tool.description": "Carregue uma imagem e faça com que a IA (Visão) a descreva. Útil para capturas de tela, gráficos e tabelas.",
     "tool.system_prompt": "Analise a imagem descrita pelo nome da ferramenta \"analyze_image\" e retorne o resultado."
   },
+  "pt": {
+    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
+    "param.prompt.description": "O que você quer saber sobre a imagem.",
+    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
+  },
   "id": {
     "param.image_path.description": "Jalur ke file gambar yang akan dianalisis.",
     "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
@@ -89,12 +77,6 @@
     "tool.description": "Załaduj plik obrazu i poproś AI (Vision) o opisanie jego zawartości. Przydatne do analizy zrzutów ekranu lub czytania wykresów/tabel.",
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „analyze_image”."
   },
-  "pt": {
-    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
-    "param.prompt.description": "O que você quer saber sobre a imagem.",
-    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
-  },
   "hi": {
     "param.image_path.description": "विश्लेषण करने के लिए छवि फ़ाइल का पथ.",
     "param.prompt.description": "आप छवि के बारे में क्या जानना चाहते हैं.",
@@ -112,6 +94,12 @@
     "param.prompt.description": "Det du vill veta om bilden.",
     "tool.description": "Läs in en bildfil och låt AI (Vision) beskriva innehållet. Användbart för att analysera skärmdumpar eller läsa diagram/tabeller.",
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"analyze_image\"."
+  },
+  "sw": {
+    "param.image_path.description": "Njia ya faili la picha litakalochanganuliwa.",
+    "param.prompt.description": "Unachotaka kujua kuhusu picha.",
+    "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali.",
+    "tool.system_prompt": "Changanua picha iliyoelezwa na jina la zana \"analyze_image\" na urudishe matokeo."
   },
   "nb": {
     "param.image_path.description": "Sti til bildefilen som skal analyseres.",
@@ -143,16 +131,28 @@
     "tool.description": "Завантажує зображення і просить AI (Vision) описати його. Корисно для знімків екрана, діаграм і таблиць.",
     "tool.system_prompt": "Проаналізуйте зображення, описане назвою інструмента \"analyze_image\", і поверніть результат."
   },
-  "sw": {
-    "param.image_path.description": "Njia ya faili la picha litakalochanganuliwa.",
-    "param.prompt.description": "Unachotaka kujua kuhusu picha.",
-    "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali.",
-    "tool.system_prompt": "Changanua picha iliyoelezwa na jina la zana \"analyze_image\" na urudishe matokeo."
-  },
   "tr": {
     "param.image_path.description": "Analiz edilecek görüntü dosyasının yolu.",
     "param.prompt.description": "Resim hakkında bilmek istedikleriniz.",
     "tool.description": "Bir resim yükleyin ve AI (Görme)'nin bunu açıklamasını sağlayın. Ekran görüntüleri, grafikler ve tablolar için kullanışlıdır.",
     "tool.system_prompt": "\"analyze_image\" araç adıyla tanımlanan görüntüyü analiz edin ve sonucu döndürün."
+  },
+  "th": {
+    "param.image_path.description": "พาธไปยังไฟล์รูปภาพเพื่อวิเคราะห์",
+    "param.prompt.description": "สิ่งที่คุณต้องการทราบเกี่ยวกับภาพ",
+    "tool.description": "โหลดไฟล์ภาพและให้ AI (Vision) อธิบายเนื้อหา เหมาะสำหรับการวิเคราะห์ภาพหน้าจอ แผนภูมิ และตาราง",
+    "tool.system_prompt": "เครื่องมือนี้จะวิเคราะห์ภาพที่ระบุด้วยชื่อเครื่องมือ \"analyze_image\" และส่งกลับผลลัพธ์"
+  },
+  "zh_CN": {
+    "param.image_path.description": "要分析的图像文件的路径。",
+    "param.prompt.description": "您想了解有关图像的信息。",
+    "tool.description": "加载图像并让 AI（视觉）描述其内容。适用于分析屏幕截图、图表和表格。",
+    "tool.system_prompt": "分析工具名“analyze_image”所描述的图像，并返回结果。"
+  },
+  "zh_TW": {
+    "param.image_path.description": "要分析的影像檔案的路徑。",
+    "param.prompt.description": "您想了解有關圖像的資訊。",
+    "tool.description": "載入圖像並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格。",
+    "tool.system_prompt": "分析工具名稱「analyze_image」所描述的圖像，並回傳結果。"
   }
 }

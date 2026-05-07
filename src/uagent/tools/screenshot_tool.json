@@ -29,36 +29,6 @@
     "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
     "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"
   },
-  "zh_CN": {
-    "err.capture_fail": "[截图错误] 截图失败：{err}",
-    "err.close_fail": "[截图] 已保存到 {path}，但无法关闭窗口：{err}",
-    "err.pyautogui_missing": "[截图错误] 未安装 pyautogui 模块。",
-    "err.pygetwindow_missing": "[截图错误] 未安装 pygetwindow 模块（指定窗口时需要）。",
-    "err.window_not_found": "[截图错误] 未找到标题匹配的窗口：'{title}'",
-    "out.ok": "[截图] 已保存到 {path}",
-    "out.ok_closed": "[截图] 已保存到 {path} 并已关闭窗口",
-    "param.close_window.description": "拍摄后是否关闭窗口。仅在指定 window_title 时有效。默认值为 False。",
-    "param.delay.description": "拍摄前的等待时间（秒）。默认值为 1 秒（用于切换窗口）。",
-    "param.file_path.description": "目标文件路径（建议使用 .png）。如果未指定，则会带时间戳保存到当前目录。",
-    "param.window_title.description": "要拍摄的窗口标题（部分匹配）。如果指定，则找到该窗口，使其处于活动状态，并只拍摄该区域。",
-    "tool.description": "捕获整个桌面或特定窗口的屏幕截图。",
-    "tool.system_prompt": "该工具用于以下目的：捕获桌面或指定窗口的屏幕截图。"
-  },
-  "zh_TW": {
-    "err.capture_fail": "[截圖錯誤] 截圖失敗：{err}",
-    "err.close_fail": "[截圖] 已儲存至 {path}，但無法關閉視窗：{err}",
-    "err.pyautogui_missing": "[截圖錯誤] 未安裝 pyautogui 模組。",
-    "err.pygetwindow_missing": "[截圖錯誤] 未安裝 pygetwindow 模組（指定視窗時需要）。",
-    "err.window_not_found": "[截圖錯誤] 找不到標題相符的視窗：'{title}'",
-    "out.ok": "[截圖] 已儲存至 {path}",
-    "out.ok_closed": "[截圖] 已儲存至 {path} 並已關閉視窗",
-    "param.close_window.description": "拍攝後是否關閉視窗。僅在指定 window_title 時有效。預設值為 False。",
-    "param.delay.description": "拍攝前的等待時間（秒）。預設值為 1 秒（用於切換視窗）。",
-    "param.file_path.description": "目標檔案路徑（建議使用 .png）。若未指定，會加上時間戳記儲存在目前目錄。",
-    "param.window_title.description": "要拍攝的視窗標題（部分符合）。若指定，會找到該視窗並將其設為作用中，只擷取該區域。",
-    "tool.description": "擷取整個桌面或特定視窗的螢幕截圖。",
-    "tool.system_prompt": "此工具用於以下目的：擷取桌面或指定視窗的螢幕截圖。"
-  },
   "es": {
     "err.capture_fail": "[error de captura] No se pudo tomar la captura de pantalla: {err}",
     "err.close_fail": "[captura] Se guardó en {path}, pero no se pudo cerrar la ventana: {err}",
@@ -103,21 +73,6 @@
     "param.window_title.description": "촬영할 창 제목(부분 일치)입니다. 지정하면 해당 창을 찾아 활성화하고 그 영역만 촬영합니다.",
     "tool.description": "전체 데스크톱 또는 특정 창의 스크린샷을 캡처합니다.",
     "tool.system_prompt": "이 도구는 데스크톱 또는 지정된 창의 스크린샷을 캡처하는 데 사용됩니다."
-  },
-  "th": {
-    "err.capture_fail": "[ข้อผิดพลาดภาพหน้าจอ] ไม่สามารถจับภาพหน้าจอได้: {err}",
-    "err.close_fail": "[ภาพหน้าจอ] บันทึกไปที่ {path} แล้ว แต่ไม่สามารถปิดหน้าต่างได้: {err}",
-    "err.pyautogui_missing": "[ข้อผิดพลาดภาพหน้าจอ] ยังไม่ได้ติดตั้งโมดูล pyautogui",
-    "err.pygetwindow_missing": "[ข้อผิดพลาดภาพหน้าจอ] ยังไม่ได้ติดตั้งโมดูล pygetwindow (จำเป็นสำหรับการระบุหน้าต่าง)",
-    "err.window_not_found": "[ข้อผิดพลาดภาพหน้าจอ] ไม่พบหน้าต่างที่ตรงกับชื่อเรื่อง: '{title}'",
-    "out.ok": "[ภาพหน้าจอ] บันทึกไปที่ {path}",
-    "out.ok_closed": "[ภาพหน้าจอ] บันทึกไปที่ {path} และปิดหน้าต่างแล้ว",
-    "param.close_window.description": "จะปิดหน้าต่างหลังจากจับภาพหรือไม่ ใช้ได้เฉพาะเมื่อระบุ window_title ค่าเริ่มต้นคือ False",
-    "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำหรับสลับหน้าต่าง)",
-    "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .png) หากไม่ระบุ จะบันทึกในไดเร็กทอรีปัจจุบันพร้อมเวลาประทับ",
-    "param.window_title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น",
-    "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อจับภาพหน้าจอของเดสก์ท็อปหรือหน้าต่างที่ระบุ"
   },
   "de": {
     "err.capture_fail": "[screenshot-Fehler] Screenshot konnte nicht erstellt werden: {err}",
@@ -179,6 +134,21 @@
     "tool.description": "Captura uma imagem da tela inteira ou de uma janela específica.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada."
   },
+  "pt": {
+    "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
+    "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
+    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
+    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para especificar a janela).",
+    "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o título: '{title}'",
+    "out.ok": "[captura de tela] Salvo em {path}",
+    "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
+    "param.close_window.description": "Se deve fechar a janela após a captura. Válido apenas quando window_title for especificado. Padrão: False.",
+    "param.delay.description": "Tempo de espera antes da captura (segundos). Padrão: 1 segundo (para trocar de janela).",
+    "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
+    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se informado, localiza a janela, ativa-a e captura apenas essa área.",
+    "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela específica.",
+    "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica."
+  },
   "id": {
     "err.capture_fail": "[screenshot error] Gagal mengambil screenshot: {err}",
     "err.close_fail": "[screenshot] Disimpan ke {path} tetapi gagal menutup window: {err}",
@@ -224,21 +194,6 @@
     "tool.description": "Wykonuje zrzut ekranu całego pulpitu albo wskazanego okna.",
     "tool.system_prompt": "Użyj tego narzędzia do wykonania zrzutu ekranu pulpitu lub wskazanego okna."
   },
-  "pt": {
-    "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
-    "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
-    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
-    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para especificar a janela).",
-    "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o título: '{title}'",
-    "out.ok": "[captura de tela] Salvo em {path}",
-    "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
-    "param.close_window.description": "Se deve fechar a janela após a captura. Válido apenas quando window_title for especificado. Padrão: False.",
-    "param.delay.description": "Tempo de espera antes da captura (segundos). Padrão: 1 segundo (para trocar de janela).",
-    "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
-    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se informado, localiza a janela, ativa-a e captura apenas essa área.",
-    "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela específica.",
-    "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica."
-  },
   "hi": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटि] स्क्रीनशॉट लेने में विफल: {err}",
     "err.close_fail": "[स्क्रीनशॉट] {path} में सहेजा गया, लेकिन विंडो बंद नहीं हो सकी: {err}",
@@ -283,6 +238,21 @@
     "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning). Om den anges letas fönstret upp, aktiveras och endast det området fotograferas.",
     "tool.description": "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster.",
     "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster."
+  },
+  "sw": {
+    "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
+    "err.close_fail": "[screenshot] Imehifadhiwa katika {path} lakini imeshindwa kufunga dirisha: {err}",
+    "err.pyautogui_missing": "[screenshot error] Moduli ya pyautogui haijasakinishwa.",
+    "err.pygetwindow_missing": "[screenshot error] Moduli ya pygetwindow haijasakinishwa (inahitajika kwa kutaja dirisha).",
+    "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa: '{title}'",
+    "out.ok": "[screenshot] Imehifadhiwa katika {path}",
+    "out.ok_closed": "[screenshot] Imehifadhiwa katika {path} na dirisha limefungwa",
+    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha. Hutumika tu wakati window_title imetajwa. Chaguomsingi ni False.",
+    "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha. Chaguomsingi ni sekunde 1 (kwa kubadilisha dirisha).",
+    "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa). Ikiwa haijatolewa, itahifadhiwa katika saraka ya sasa na muhuri wa muda.",
+    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
+    "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
+    "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
   },
   "nb": {
     "err.capture_fail": "[screenshot-feil] Klarte ikke å ta skjermbildet: {err}",
@@ -359,21 +329,6 @@
     "tool.description": "Робить знімок усього робочого столу або конкретного вікна.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна."
   },
-  "sw": {
-    "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
-    "err.close_fail": "[screenshot] Imehifadhiwa katika {path} lakini imeshindwa kufunga dirisha: {err}",
-    "err.pyautogui_missing": "[screenshot error] Moduli ya pyautogui haijasakinishwa.",
-    "err.pygetwindow_missing": "[screenshot error] Moduli ya pygetwindow haijasakinishwa (inahitajika kwa kutaja dirisha).",
-    "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa: '{title}'",
-    "out.ok": "[screenshot] Imehifadhiwa katika {path}",
-    "out.ok_closed": "[screenshot] Imehifadhiwa katika {path} na dirisha limefungwa",
-    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha. Hutumika tu wakati window_title imetajwa. Chaguomsingi ni False.",
-    "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha. Chaguomsingi ni sekunde 1 (kwa kubadilisha dirisha).",
-    "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa). Ikiwa haijatolewa, itahifadhiwa katika saraka ya sasa na muhuri wa muda.",
-    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
-    "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
-    "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
-  },
   "tr": {
     "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
     "err.close_fail": "[ekran görüntüsü] {path} konumuna kaydedildi ancak pencere kapatılamadı: {err}",
@@ -388,5 +343,50 @@
     "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme). Belirtilmişse o pencerenin yerini belirler, aktif hale getirir ve yalnızca o alanın fotoğrafını çeker.",
     "tool.description": "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar.",
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak."
+  },
+  "th": {
+    "err.capture_fail": "[ข้อผิดพลาดภาพหน้าจอ] ไม่สามารถจับภาพหน้าจอได้: {err}",
+    "err.close_fail": "[ภาพหน้าจอ] บันทึกไปที่ {path} แล้ว แต่ไม่สามารถปิดหน้าต่างได้: {err}",
+    "err.pyautogui_missing": "[ข้อผิดพลาดภาพหน้าจอ] ยังไม่ได้ติดตั้งโมดูล pyautogui",
+    "err.pygetwindow_missing": "[ข้อผิดพลาดภาพหน้าจอ] ยังไม่ได้ติดตั้งโมดูล pygetwindow (จำเป็นสำหรับการระบุหน้าต่าง)",
+    "err.window_not_found": "[ข้อผิดพลาดภาพหน้าจอ] ไม่พบหน้าต่างที่ตรงกับชื่อเรื่อง: '{title}'",
+    "out.ok": "[ภาพหน้าจอ] บันทึกไปที่ {path}",
+    "out.ok_closed": "[ภาพหน้าจอ] บันทึกไปที่ {path} และปิดหน้าต่างแล้ว",
+    "param.close_window.description": "จะปิดหน้าต่างหลังจากจับภาพหรือไม่ ใช้ได้เฉพาะเมื่อระบุ window_title ค่าเริ่มต้นคือ False",
+    "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำหรับสลับหน้าต่าง)",
+    "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .png) หากไม่ระบุ จะบันทึกในไดเร็กทอรีปัจจุบันพร้อมเวลาประทับ",
+    "param.window_title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น",
+    "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อจับภาพหน้าจอของเดสก์ท็อปหรือหน้าต่างที่ระบุ"
+  },
+  "zh_CN": {
+    "err.capture_fail": "[截图错误] 截图失败：{err}",
+    "err.close_fail": "[截图] 已保存到 {path}，但无法关闭窗口：{err}",
+    "err.pyautogui_missing": "[截图错误] 未安装 pyautogui 模块。",
+    "err.pygetwindow_missing": "[截图错误] 未安装 pygetwindow 模块（指定窗口时需要）。",
+    "err.window_not_found": "[截图错误] 未找到标题匹配的窗口：'{title}'",
+    "out.ok": "[截图] 已保存到 {path}",
+    "out.ok_closed": "[截图] 已保存到 {path} 并已关闭窗口",
+    "param.close_window.description": "拍摄后是否关闭窗口。仅在指定 window_title 时有效。默认值为 False。",
+    "param.delay.description": "拍摄前的等待时间（秒）。默认值为 1 秒（用于切换窗口）。",
+    "param.file_path.description": "目标文件路径（建议使用 .png）。如果未指定，则会带时间戳保存到当前目录。",
+    "param.window_title.description": "要拍摄的窗口标题（部分匹配）。如果指定，则找到该窗口，使其处于活动状态，并只拍摄该区域。",
+    "tool.description": "捕获整个桌面或特定窗口的屏幕截图。",
+    "tool.system_prompt": "该工具用于以下目的：捕获桌面或指定窗口的屏幕截图。"
+  },
+  "zh_TW": {
+    "err.capture_fail": "[截圖錯誤] 截圖失敗：{err}",
+    "err.close_fail": "[截圖] 已儲存至 {path}，但無法關閉視窗：{err}",
+    "err.pyautogui_missing": "[截圖錯誤] 未安裝 pyautogui 模組。",
+    "err.pygetwindow_missing": "[截圖錯誤] 未安裝 pygetwindow 模組（指定視窗時需要）。",
+    "err.window_not_found": "[截圖錯誤] 找不到標題相符的視窗：'{title}'",
+    "out.ok": "[截圖] 已儲存至 {path}",
+    "out.ok_closed": "[截圖] 已儲存至 {path} 並已關閉視窗",
+    "param.close_window.description": "拍攝後是否關閉視窗。僅在指定 window_title 時有效。預設值為 False。",
+    "param.delay.description": "拍攝前的等待時間（秒）。預設值為 1 秒（用於切換視窗）。",
+    "param.file_path.description": "目標檔案路徑（建議使用 .png）。若未指定，會加上時間戳記儲存在目前目錄。",
+    "param.window_title.description": "要拍攝的視窗標題（部分符合）。若指定，會找到該視窗並將其設為作用中，只擷取該區域。",
+    "tool.description": "擷取整個桌面或特定視窗的螢幕截圖。",
+    "tool.system_prompt": "此工具用於以下目的：擷取桌面或指定視窗的螢幕截圖。"
   }
 }

@@ -9,16 +9,6 @@
     "tool.description": "共有長期記憶ストアにメモを1件追加します。共有メモリが未設定の場合は、その機能が無効であることを返します。パスワードやAPIキーなどの秘密情報は保存しないでください。",
     "tool.system_prompt": "共有メモリストアにメモをちょうど1件追加します。\n共有メモリが無効（UAGENT_SHARED_MEMORY_FILE 未設定）の場合は、有効化方法を説明するメッセージを返します。\n秘密情報（パスワード、トークン、APIキー）は保存しないでください。"
   },
-  "zh_CN": {
-    "param.note.description": "要分享的备注文本。",
-    "tool.description": "向共享长期记忆存储中追加一条备注（在用户/会话之间共享）。如果未配置共享记忆，工具会提示该功能已禁用。不要存储密码或 API 密钥等机密信息。",
-    "tool.system_prompt": "仅向共享记忆存储中追加一条备注。\n如果共享记忆已禁用（未设置 UAGENT_SHARED_MEMORY_FILE），请返回说明如何启用的消息。\n不要存储秘密（密码/令牌/API 密钥）。"
-  },
-  "zh_TW": {
-    "param.note.description": "要分享的備註文字。",
-    "tool.description": "向共享長期記憶儲存中新增一則備註（在使用者/工作階段之間共享）。如果未設定共享記憶，工具會回報該功能已停用。不要儲存密碼或 API 金鑰等機密資訊。",
-    "tool.system_prompt": "僅向共享記憶儲存中新增一則備註。\n如果共享記憶已停用（未設定 UAGENT_SHARED_MEMORY_FILE），請回傳說明如何啟用的訊息。\n不要儲存機密資料（密碼/權杖/API 金鑰）。"
-  },
   "es": {
     "param.note.description": "El texto de la nota a compartir.",
     "tool.description": "Añade una sola nota al almacén de memoria compartida a largo plazo (compartida entre usuarios/sesiones). Si la memoria compartida no está configurada, la herramienta informa que está deshabilitada. No almacenes secretos como contraseñas o claves de API.",
@@ -33,11 +23,6 @@
     "param.note.description": "공유할 메모 텍스트입니다.",
     "tool.description": "공유 장기 메모리 저장소에 메모를 1개 추가합니다(사용자/세션 간 공유). 공유 메모리가 설정되지 않은 경우 도구는 비활성화되었다고 보고합니다. 비밀번호나 API 키 같은 비밀 정보는 저장하지 마세요.",
     "tool.system_prompt": "공유 메모리 저장소에 메모를 정확히 1개 추가합니다.\n공유 메모리가 비활성화되어 있으면(UAGENT_SHARED_MEMORY_FILE 미설정) 활성화 방법을 안내하는 메시지를 반환합니다.\n비밀 정보(비밀번호/토큰/API 키)는 저장하지 마세요."
-  },
-  "th": {
-    "param.note.description": "ข้อความบันทึกที่จะแชร์",
-    "tool.description": "เพิ่มบันทึกหนึ่งรายการลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าถูกปิดใช้งาน อย่าเก็บความลับ เช่น รหัสผ่านหรือคีย์ API",
-    "tool.system_prompt": "เพิ่มบันทึกเพียงหนึ่งรายการลงในที่เก็บหน่วยความจำที่ใช้ร่วมกัน\nอย่าเก็บความลับ (รหัสผ่าน/โทเค็น/API คีย์)"
   },
   "de": {
     "param.note.description": "Der zu teilende Notiztext.",
@@ -59,6 +44,11 @@
     "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
     "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
   },
+  "pt": {
+    "param.note.description": "O texto da nota a ser compartilhada.",
+    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
+    "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
+  },
   "id": {
     "param.note.description": "Teks catatan yang akan dibagikan.",
     "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi). Jika shared memory tidak dikonfigurasi, alat akan melaporkan bahwa fitur tersebut dinonaktifkan. Jangan pernah menyimpan rahasia seperti kata sandi atau API key.",
@@ -74,11 +64,6 @@
     "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłosi, że jest wyłączona. Nigdy nie przechowuj sekretów, takich jak hasła lub klucze API.",
     "tool.system_prompt": "Dołącz dokładnie jedną notatkę do magazynu pamięci współdzielonej.\nJeśli pamięć współdzielona jest wyłączona (nie ustawiono UAGENT_SHARED_MEMORY_FILE), zwróć komunikat wyjaśniający, jak ją włączyć.\nNie przechowuj sekretów (hasła/tokeny/klucze API)."
   },
-  "pt": {
-    "param.note.description": "O texto da nota a ser compartilhada.",
-    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
-    "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
-  },
   "hi": {
     "param.note.description": "साझा करने के लिए नोट पाठ.",
     "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर (उपयोगकर्ताओं/सत्रों में साझा) में एक नोट जोड़ें। यदि साझा मेमोरी कॉन्फ़िगर नहीं की गई है, तो टूल रिपोर्ट करता है कि यह अक्षम है। पासवर्ड या एपीआई कुंजी जैसे रहस्य कभी भी संग्रहीत न करें।",
@@ -93,6 +78,11 @@
     "param.note.description": "Texten i anteckningen som ska delas.",
     "tool.description": "Lägg till en anteckning i det delade långtidsminnet som delas mellan användare och sessioner. Om delat minne inte är konfigurerat rapporterar verktyget att det är inaktiverat. Spara aldrig hemligheter som lösenord eller API-nycklar.",
     "tool.system_prompt": "Lägg till exakt en anteckning i det delade minnet.\nOm delat minne är inaktiverat (UAGENT_SHARED_MEMORY_FILE är inte satt), returnera ett meddelande som förklarar hur det aktiveras.\nSpara inte hemligheter (lösenord, token eller API-nycklar)."
+  },
+  "sw": {
+    "param.note.description": "Maandishi ya dokezo la kushiriki.",
+    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya pamoja kuhusu mtumiaji au mazingira ambalo linaweza kusaidia mazungumzo ya baadaye.",
+    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya pamoja. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal deles.",
@@ -119,14 +109,24 @@
     "tool.description": "Додає одну нотатку до спільного сховища довготривалої пам’яті (спільного між користувачами та сеансами). Якщо спільну пам’ять не налаштовано, інструмент повідомляє, що її вимкнено. Ніколи не зберігайте секрети, як-от паролі або ключі API.",
     "tool.system_prompt": "Додайте до спільної пам’яті рівно одну нотатку.\nЯкщо спільну пам’ять вимкнено (UAGENT_SHARED_MEMORY_FILE не встановлено), поверніть повідомлення з поясненням, як її увімкнути.\nНе зберігайте секрети (паролі/токени/ключі API)."
   },
-  "sw": {
-    "param.note.description": "Maandishi ya dokezo la kushiriki.",
-    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya pamoja kuhusu mtumiaji au mazingira ambalo linaweza kusaidia mazungumzo ya baadaye.",
-    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya pamoja. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
-  },
   "tr": {
     "param.note.description": "Paylaşılacak not metni.",
     "tool.description": "Paylaşılan uzun vadeli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekleyin. Paylaşılan bellek yapılandırılmamışsa araç bunun devre dışı bırakıldığını bildirir. Parolalar veya API anahtarları gibi sırları asla saklamayın.",
     "tool.system_prompt": "Paylaşılan hafıza deposuna tam olarak bir not ekleyin.\nSırları saklamayın (şifreler/belirteçler/API anahtarlar)."
+  },
+  "th": {
+    "param.note.description": "ข้อความบันทึกที่จะแชร์",
+    "tool.description": "เพิ่มบันทึกหนึ่งรายการลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าถูกปิดใช้งาน อย่าเก็บความลับ เช่น รหัสผ่านหรือคีย์ API",
+    "tool.system_prompt": "เพิ่มบันทึกเพียงหนึ่งรายการลงในที่เก็บหน่วยความจำที่ใช้ร่วมกัน\nอย่าเก็บความลับ (รหัสผ่าน/โทเค็น/API คีย์)"
+  },
+  "zh_CN": {
+    "param.note.description": "要分享的备注文本。",
+    "tool.description": "向共享长期记忆存储中追加一条备注（在用户/会话之间共享）。如果未配置共享记忆，工具会提示该功能已禁用。不要存储密码或 API 密钥等机密信息。",
+    "tool.system_prompt": "仅向共享记忆存储中追加一条备注。\n如果共享记忆已禁用（未设置 UAGENT_SHARED_MEMORY_FILE），请返回说明如何启用的消息。\n不要存储秘密（密码/令牌/API 密钥）。"
+  },
+  "zh_TW": {
+    "param.note.description": "要分享的備註文字。",
+    "tool.description": "向共享長期記憶儲存中新增一則備註（在使用者/工作階段之間共享）。如果未設定共享記憶，工具會回報該功能已停用。不要儲存密碼或 API 金鑰等機密資訊。",
+    "tool.system_prompt": "僅向共享記憶儲存中新增一則備註。\n如果共享記憶已停用（未設定 UAGENT_SHARED_MEMORY_FILE），請回傳說明如何啟用的訊息。\n不要儲存機密資料（密碼/權杖/API 金鑰）。"
   }
 }
