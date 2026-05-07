@@ -81,7 +81,9 @@ def _maybe_offer_envsec_sync(*, context: str) -> bool:
         )
         if interactive:
             prompt = (
-                "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+                _(
+                    "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+                )
             )
             try:
                 sys.__stdout__.write(prompt)
@@ -96,7 +98,9 @@ def _maybe_offer_envsec_sync(*, context: str) -> bool:
                 return False
         else:
             print(
-                "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it.",
+                _(
+                    "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+                ),
                 file=sys.__stderr__,
             )
             return False
@@ -106,7 +110,9 @@ def _maybe_offer_envsec_sync(*, context: str) -> bool:
         )
         if interactive:
             prompt = (
-                "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+                _(
+                    "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+                )
             )
             try:
                 sys.__stdout__.write(prompt)
@@ -121,7 +127,9 @@ def _maybe_offer_envsec_sync(*, context: str) -> bool:
                 return False
         else:
             print(
-                "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables.",
+                _(
+                    "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+                ),
                 file=sys.__stderr__,
             )
             return False

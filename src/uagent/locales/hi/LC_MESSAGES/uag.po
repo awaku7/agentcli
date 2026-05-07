@@ -545,6 +545,24 @@ msgstr "[चेतावनी] {संदेश}"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[चेतावनी] .env.sec को डिक्रिप्ट करने में विफल: %(err)s"
 
+#: src/uagent/runtime_env.py:172
+#, python-format
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec की सामग्री वर्तमान UAGENT_* परिवेश चर से मेल नहीं खाती। क्या इसे अद्यतन करें? [y/N] "
+
+#: src/uagent/runtime_env.py:180
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec की सामग्री वर्तमान UAGENT_* परिवेश चर से मेल नहीं खाती। इसे अद्यतन करने के लिए `uag_envsec` का उपयोग करें।"
+
+#: src/uagent/runtime_env.py:192
+#, python-format
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] .env.sec अनुपस्थित है। क्या इसे वर्तमान UAGENT_* परिवेश चर से बनाएं? [y/N] "
+
+#: src/uagent/runtime_env.py:200
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] .env.sec अनुपस्थित है। वर्तमान UAGENT_* परिवेश चर से इसे बनाने के लिए `uag_envsec` का उपयोग करें।"
+
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"

@@ -522,6 +522,22 @@ msgstr ""
 msgid "LLM streaming = %(state)s"
 msgstr "LLM ストリーミング = %(state)s"
 
+#: src/uagent/runtime_env.py:95
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[情報] .env.sec の内容が現在の UAGENT_* 環境変数と一致しません。更新しますか？ [y/N] "
+
+#: src/uagent/runtime_env.py:102
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[情報] .env.sec の内容が現在の UAGENT_* 環境変数と一致しません。更新するには `uag_envsec` を使用してください。"
+
+#: src/uagent/runtime_env.py:128
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[情報] .env.sec がありません。現在の UAGENT_* 環境変数から作成しますか？ [y/N] "
+
+#: src/uagent/runtime_env.py:135
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[情報] .env.sec がありません。作成するには `uag_envsec` を使用してください。"
+
 #: src/uagent/runtime_env.py:157
 #, python-brace-format
 msgid "[WARN] {message}"
