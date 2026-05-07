@@ -166,5 +166,12 @@
     "param.paths.description": "Кілька файлів Python, каталогів або glob-шаблонів для перевірки за допомогою py_compile. Каталоги скануються рекурсивно.",
     "tool.description": "Виконує код Python або перевіряє файли Python за допомогою py_compile. Використовуйте для обчислень, обробки даних, коротких скриптів або перевірки синтаксису — особливо коли важлива точність. Для роботи з Python надавайте перевагу цьому інструменту над cmd_exec/cmd_exec_json.",
     "tool.system_prompt": "Виконуйте код Python контрольовано.\n- Якщо вам потрібні можливості стандартної бібліотеки Python або надійні чисельні обчислення, використовуйте цей інструмент.\n- Якщо вказано шляхи до файлів або glob-шаблони, запустіть на них py_compile і поверніть результат.\n- Перед запуском коду коротко опишіть, що буде виконано.\n- Не використовуйте cmd_exec для запуску Python, якщо це не є явно необхідним."
+  },
+  "tr": {
+    "param.code.description": "Yürütülecek Python kodu (tek satırlı veya çok satırlı).",
+    "param.path.description": "py_compile ile doğrulanacak bir Python dosyası, dizini veya glob modeli. Dizinler *.py dosyaları için yinelemeli olarak taranır.",
+    "param.paths.description": "Py_compile ile doğrulanacak birden fazla Python dosyası, dizin veya glob modeli. Dizinler *.py dosyaları için yinelemeli olarak taranır.",
+    "tool.description": "Python kodunu yürütün veya Python dosyalarını py_compile ile doğrulayın. Hesaplamalar, veri işleme, kısa komut dosyalarını çalıştırma veya dosyaların sözdizimi denetimi için (özellikle doğruluk önemli olduğunda) bu aracı kullanın. Python çalışması için bunu cmd_exec/cmd_exec_json yerine tercih edin.",
+    "tool.system_prompt": "Python kodunu kontrollü bir şekilde yürütün.\n- Python standart kitaplık özelliklerine veya güvenilir sayısal hesaplamaya ihtiyacınız varsa bu aracı kullanın.\n- Dosya yolları veya glob kalıpları sağlanmışsa, bu hedeflerde py_compile komutunu çalıştırın ve sonucu döndürün.\n- Kodu çalıştırmak üzereyken ne yürütüleceğini kısaca belirtin.\n- Açıkça gerekmedikçe Python'u çalıştırmak için cmd_exec kullanmayın."
   }
 }

@@ -500,5 +500,25 @@
   "ụk": {
     "param.targets.description": "Групи цілей. Кожен елемент містить dir, files (відносні до dir) та next_index.",
     "param.current_target.description": "Індекс поточної групи цілей."
+  },
+  "tr": {
+    "tool.description": "Çok dosyalı görevler için ~/.uag/batches/ altında kalıcı batch durumunu yönetin.",
+    "tool.system_prompt": "Batch durumunu yönetin. targets=[{dir, files, next_index}] ve current_target kullanılması tercih edilir. İlerlemede next_index artırılır. current_file eski bir takma addır. Yalnızca JSON döndürün.",
+    "param.action.description": "Eylem: başlatma/yükleme/güncelleme/append_log/finalize/liste/delete. Hedefleri/current_target/next_index'i değiştirmek için yama ile güncellemeyi kullanın.",
+    "param.batch_id.description": "Toplu ID. Yükleme/güncelleme/sonlandırma/silme için gereklidir; başlatma/liste için isteğe bağlıdır.",
+    "param.task_description.description": "Toplu görevin kısa açıklaması.",
+    "param.instructions.description": "Toplu görev için ayrıntılı talimatlar.",
+    "param.target_files.description": "Eski tek hedefli dosya listesi. Hedefleri tercih edin.",
+    "param.patch.description": "Toplu durumla birleştirmek için kısmi güncelleme. patch.targets ve patch.current_target'ı tercih edin. Eski tek hedefli akışlar için patch.current_file geçerli hedefi ilerletebilir ve next_index dosya sırasından türetilir.",
+    "param.message.description": "Eklenecek günlük mesajı.",
+    "param.overwrite.description": "Doğruysa, init mevcut bir toplu iş dosyasının üzerine yazar.",
+    "err.unknown_action": "[batch_state error] bilinmeyen eylem",
+    "err.batch_exists": "[batch_state error] toplu iş zaten mevcut",
+    "err.invalid_patch": "[batch_state error] yaması bir JSON nesnesi olmalıdır",
+    "err.message_empty": "[batch_state error] mesajı boş",
+    "err.not_found": "[batch_state error] toplu iş bulunamadı",
+    "err.exception": "[toplu_durum hatası] istisnası",
+    "param.targets.description": "Hedef gruplar. Her giriş dizin, dosyalar (dizine bağlı) ve next_index içerir.",
+    "param.current_target.description": "Mevcut hedef grubun indeksi."
   }
 }

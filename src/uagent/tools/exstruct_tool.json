@@ -473,5 +473,24 @@
     "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'exstruct'.",
     "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
+  },
+  "tr": {
+    "param.action.description": "Gerçekleştirilecek işlem.",
+    "param.auto_page_breaks_dir.description": "Otomatik sayfa sonu alanlarının kaydedileceği dizin.",
+    "param.density_min.description": "Tablo yoğunluğu eşiği.",
+    "param.file_path.description": "Giriş Excel dosyasının yolu.",
+    "param.format.description": "Çıkış formatı.",
+    "param.include_cell_links.description": "Hücre köprülerinin dahil edilip edilmeyeceği.",
+    "param.include_shapes.description": "Şekillerin dahil edilip edilmeyeceği.",
+    "param.mode.description": "Ekstraksiyon modu.",
+    "param.output_path.description": "Export_file için çıktı yolu.",
+    "param.pretty.description": "Çıktıyı güzel yazdırıp yazdırmayacağınız.",
+    "param.print_areas_dir.description": "Yazdırma alanı başına dosyaların kaydedileceği dizin.",
+    "param.sheets_dir.description": "Sayfa başına dosyaların kaydedileceği dizin.",
+    "param.table_score_threshold.description": "Tablo algılama eşiği.",
+    "tool.description": "Bir Excel (.xlsx) dosyasından yapılandırılmış verileri ayıklamak ve onu JSON/YAML olarak döndürmek veya kaydetmek için exstruct'ı kullanın. Export_file.output_path zaten mevcutsa, kaydetmeden hemen önce bir yedek (<output_path>.org / <output_path>.org1 / ...) oluşturulur.",
+    "tool.system_prompt": "Bu araç, 'exstruct' araç adıyla tanımlanan işlemi gerçekleştirir.",
+    "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   }
 }

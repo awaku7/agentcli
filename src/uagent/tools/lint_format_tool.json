@@ -262,5 +262,16 @@
     "param.tools.description": "Масив назв інструментів для запуску. Якщо порожній, буде вибрано автоматично.",
     "tool.description": "Запускає статичний аналіз/форматери (наприклад, ruff/black/mypy). mode=fix змінює файли та потребує підтвердження.",
     "tool.system_prompt": "Запускайте статичний аналіз/форматери. Якщо потрібне додаткове підтвердження користувача (наприклад, mode=fix), використовуйте human_ask."
+  },
+  "tr": {
+    "confirm.msg": "lint_format(mode=fix) dosyaları yeniden yazabilir.\naraçlar: {tools}\nhedefler: {targets}\ncwd: {cwd}\n\nDevam etmek istiyorsanız y, iptal etmek istiyorsanız c yazın.",
+    "doc.module": "lint_format_tool\n\nStatik analiz ve biçimlendirme araçlarını çalıştırmak için bir sarmalayıcı araç.\n\n- Python: ruff / black / mypy'yi tercih edin\n- JavaScript: Güvenlik nedeniyle npx'i doğrudan çalıştırmayın.\n\nGüvenlik:\n- mode=fix dosyaları değiştirir, dolayısıyla human_ask ile onay isteyin.\n- Argümanları bir dizi olarak kabul edin ve tehlikeli kabuk meta karakterleri içeriyorsa reddedin.",
+    "param.cwd.description": "Yürütme dizini (yalnızca çalışma dizini altında izin verilir). Boşsa geçerli.",
+    "param.extra_args.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin.",
+    "param.mode.description": "check=yalnızca kontrol et / fix=otomatik düzeltme",
+    "param.targets.description": "Hedef yol dizisi (yalnızca çalışma dizini altında izin verilir).",
+    "param.tools.description": "Çalıştırılacak bir dizi araç adı. Boşsa araçlar otomatik olarak seçilir.",
+    "tool.description": "Statik analiz/biçimlendiricileri çalıştırın (ör. ruff/black/mypy). mode=fix dosyaları değiştirir ve onay gerektirir.",
+    "tool.system_prompt": "Statik analiz/biçimlendiricileri çalıştırın. Ek kullanıcı onayı gerekiyorsa (örn. mode=fix), human_ask'ı kullanın."
   }
 }

@@ -198,5 +198,13 @@
     "param.return.description": "Muundo wa matokeo.",
     "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
     "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
+  },
+  "tr": {
+    "param.algo.description": "Karma algoritması.",
+    "param.chunk_size.description": "Parça boyutunu (bayt) okuyun.",
+    "param.paths.description": "Hedef dosya yolları dizisi.",
+    "param.return.description": "Çıkış formatı.",
+    "tool.description": "Dosyaların karmasını (sha256/sha1/md5) hesaplar.",
+    "tool.system_prompt": "Bu araç dosya karmalarını (sha256/sha1/md5) hesaplar."
   }
 }

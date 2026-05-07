@@ -398,5 +398,21 @@
     "param.splice_op.description": "Operesheni ya splice (kuingiza au kufuta).",
     "tool.description": "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili.",
     "tool.system_prompt": "Hii ni zana ya kuhariri faili kama bytes ghafi (binary).\n\nUSALAMA:\n- Zana hii hubadilisha faili za ndani na inaweza kuharibu faili.\n- Omba uthibitisho kila wakati kwa human_ask kabla ya kuandika.\n- Usifanye kazi kwenye njia zilizo nje ya workdir ya sasa wakati unafuata sera za usalama za host agent."
+  },
+  "tr": {
+    "param.data_hex.description": "Yazılacak/eklenecek onaltılık bayt dizisi (örneğin, 'DEADBEEF' veya 'DE AD BE EF').",
+    "param.delete_len.description": "Silinecek bayt sayısı (ekleme silme).",
+    "param.dry_run.description": "Doğruysa dosyayı değiştirmeyin; yalnızca neyin değişeceğini bildirin.",
+    "param.max_bytes.description": "Bu boyuttan (bayt) daha büyük dosyaları reddedin.",
+    "param.mode.description": "Düzenleme modu.",
+    "param.occurrence.description": "Hangi olayın değiştirileceği (1-tabanlı). 0, tüm oluşumları değiştir anlamına gelir (yine de aynı uzunluğu gerektirir).",
+    "param.offset.description": "Bayt ofseti (0-tabanlı). Yazma/ekleme için gereklidir.",
+    "param.patch_json.description": "JSON dize yaması (apply_patch modu).",
+    "param.path.description": "Hedef dosya yolu.",
+    "param.replace_hex.description": "Değiştirilecek onaltılı dize (değiştirme modu). Allow_resize=true (desteklenmediği sürece) search_hex ile aynı uzunlukta olmalıdır.",
+    "param.search_hex.description": "Aranacak onaltılı dize (modu değiştir).",
+    "param.splice_op.description": "Ekleme işlemi (ekleme modu).",
+    "tool.description": "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir.",
+    "tool.system_prompt": "Bu araç şu amaç için kullanılır: yerel bir dosyayı ham bayt (ikili) olarak düzenlemek.\n\nSECURITY / SAFETY:\n- Bu araç yerel dosyaları değiştirir ve onları bozabilir.\n- Yazmadan önce daima human_ask ile onay isteyin.\n- Ana bilgisayar aracısının güvenlik politikaları kapsamında çalışırken mevcut çalışma dizininin dışındaki yollarda işlem yapmayın."
   }
 }

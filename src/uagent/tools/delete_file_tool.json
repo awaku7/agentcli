@@ -273,5 +273,16 @@
     "param.path.description": "(Ulinganifu) Jina lingine la filename.",
     "tool.description": "Futa faili au saraka iliyobainishwa. Saraka hufutwa kwa kujirudia. Kwa kuwa hiki ni kitendo hatari, uthibitisho unaweza kuhitajika.",
     "tool.system_prompt": "Futa njia iliyobainishwa tu baada ya kuthibitisha na mtumiaji ikiwa kitendo kinaweza kuharibu data."
+  },
+  "tr": {
+    "confirm.delete_paths_bulk": "{count} yolları silinsin mi?\n\n{paths}\n\nDevam etmek için y'yi, iptal etmek için c'yi girin.",
+    "param.allow_dir.description": "Etkinleştirilirse, glob ile eşleşen dizinlerin silinmesine izin ver.",
+    "param.confirmed.description": "Etkinleştirilirse aracın dahili onay istemini atlayın.",
+    "param.dry_run.description": "Etkinleştirilirse yalnızca eşleşen yolları listeleyin ve hiçbir şeyi silmeyin.",
+    "param.filename.description": "Silinecek yol veya silinecek yolların/küre desenlerinin listesi.",
+    "param.missing_ok.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın.",
+    "param.path.description": "(Uyumluluk) Dosya adının takma adı.",
+    "tool.description": "Belirtilen dosyayı veya dizini silin. Dizinler yinelemeli olarak silinir. Bu tehlikeli bir işlem olduğu için onay gerekebilir.",
+    "tool.system_prompt": "Belirtilen yolu yalnızca işlemin yıkıcı olup olmadığını kullanıcıyla onayladıktan sonra silin."
   }
 }

@@ -123,5 +123,10 @@
     "err.load": "[long_memory-fel] {err_type}: {err}",
     "msg.no_memory": "(ingen långtidsminne ännu)",
     "msg.truncated": "\n[long_memory avkortad: begränsad till {max_bytes} tecken]"
+  },
+  "tr": {
+    "err.load": "[uzun_bellek hatası] {err_type}: {err}",
+    "msg.no_memory": "(henüz uzun süreli hafıza yok)",
+    "msg.truncated": "[uzun_bellek kesildi: {max_bytes} karakterle sınırlı]"
   }
 }

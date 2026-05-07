@@ -262,5 +262,16 @@
     "ui.captured": "--- ЗАХОПЛЕНО: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
     "ui.resume_prompt": "Після операції натисніть Resume (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕНО ---"
+  },
+  "tr": {
+    "err.child_failed": "[playwright_inspector error] Alt süreç başarısız oldu:\n{stderr}",
+    "out.ok": "Yakalama tamamlandı: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, sayfalar/, index.jsonl, last.html oluşturuldu.\n{stdout}",
+    "param.prefix.description": "Kaydedilecek dosya adının öneki (varsayılan: debug_capture)",
+    "param.url.description": "Açılan ilk URL (varsayılan: hakkında:boş)",
+    "tool.description": "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatın. Belirtilen URL dosyasını açar ve kullanıcı Sürdür düğmesini tıkladıktan sonra sayfa durumunu (HTML ve resim) kaydeder. Ayrıca, gezinme başına numaralandırılmış HTML/PNG sayfalarını/ altına kaydeder, en son.html'yi güncel tutar, index.jsonl yazar ve gezinmeyi, ağı, konsol olaylarını, DOM olaylarını ve sayfa özetlerini bir JSONL dosyasına kaydeder.",
+    "tool.system_prompt": "Bu aracı TOOL_SPEC'da açıklanan amaç için kullanın.",
+    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/, sayfalar/, index.jsonl, en son.html ---",
+    "ui.resume_prompt": "İşlemden sonra Inspector'da Devam Et (▷) tuşuna basın.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   }
 }

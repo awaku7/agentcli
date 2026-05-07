@@ -248,5 +248,15 @@
     "param.top_n.description": "Idadi ya matokeo ya juu ya kurudisha.",
     "tool.description": "Tafuta faili kubwa chini ya saraka iliyobainishwa na urudishe matokeo ya juu N pamoja na takwimu kwa kiendelezi.",
     "tool.system_prompt": "Zana hii hutafuta faili kubwa chini ya saraka iliyobainishwa na kurudisha matokeo ya juu N pamoja na takwimu kwa kiendelezi."
+  },
+  "tr": {
+    "param.exclude_dirs.description": "Hariç tutulan dizin adları (dizin adına göre eşleştirilir).",
+    "param.group_by_ext.description": "Ayrıca dosya uzantısına göre gruplandırılmış istatistikleri de döndürür.",
+    "param.max_files.description": "Taranacak maksimum dosya sayısı (kaçak işlemeyi önlemek için).",
+    "param.min_bytes.description": "Yalnızca bu boyuttan büyük dosyaları dahil edin (varsayılan: 10 MB).",
+    "param.root.description": "Kök arama (yalnızca çalışma dizininde izin verilir).",
+    "param.top_n.description": "Döndürülecek en iyi sonuçların sayısı.",
+    "tool.description": "Belirtilen dizin altındaki büyük dosyaları arar ve uzantıya göre istatistiklerle birlikte ilk N sonucu döndürür.",
+    "tool.system_prompt": "Bu araç, belirtilen dizin altındaki büyük dosyaları arar ve uzantıya göre istatistiklerle birlikte ilk N sonucu döndürür."
   }
 }

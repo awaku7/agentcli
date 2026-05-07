@@ -223,5 +223,14 @@
     "param.path.description": "(Ulinganifu) Jina lingine la filename.",
     "tool.description": "Unda faili la maandishi. Kwa chaguo-msingi, faili zilizopo haziandikwi juu. Ikiwa overwrite=true imewekwa na lengwa tayari lipo, nakala ya hifadhi (<filename>.org / <filename>.org1 / ...) huundwa mara moja kabla ya kuandika juu. Kidokezo: kwa faili za CSV/TSV zinazofunguliwa moja kwa moja katika Microsoft Excel, zingatia encoding='utf-8-sig' (UTF-8 yenye BOM). Kwa uchakataji wa mashine na ulinganifu, pendelea encoding='utf-8' (bila BOM). Ukishindwa kuamua, uliza faili itatumika kwa nini (Excel au uchakataji wa programu).",
     "tool.system_prompt": "Unda faili la maandishi ndani ya workdir. Ikiwa faili tayari lipo, overwrite=false husababisha hitilafu. Ikiwa overwrite=true, nakala ya hifadhi huundwa kabla ya kuandika. Kidokezo: kwa CSV/TSV zinazokusudiwa kufunguliwa moja kwa moja katika Microsoft Excel, zingatia encoding='utf-8-sig' (UTF-8 yenye BOM). Kwa uchakataji wa mashine na ulinganifu, pendelea encoding='utf-8' (bila BOM). Ukishindwa kuamua, uliza faili itatumika kwa nini (Excel au uchakataji wa programu)."
+  },
+  "tr": {
+    "param.content.description": "Yazılacak metin içeriği.",
+    "param.encoding.description": "Metin kodlaması (ör. 'utf-8', 'cp932'). Varsayılan: Kodlama atlandığında .csv/.tsv için 'utf-8-sig'; aksi halde 'utf-8'.",
+    "param.filename.description": "Oluşturulacak dosyanın yolu.",
+    "param.overwrite.description": "Dosya zaten mevcutsa üzerine yazıp yazılmayacağı (varsayılan: false).",
+    "param.path.description": "(Uyumluluk) Dosya adının takma adı.",
+    "tool.description": "Bir metin dosyası oluşturun. Varsayılan olarak mevcut dosyaların üzerine yazılmaz. Overwrite=true ayarlandıysa ve hedef zaten mevcutsa, üzerine yazmadan hemen önce bir yedek (<dosyaadı>.org / <dosyaadı>.org1 / ...) oluşturulur. İpucu: Doğrudan Microsoft Excel'de açılan CSV/TSV dosyaları için encoding='utf-8-sig' (UTF-8 ile BOM) seçeneğini göz önünde bulundurun. Makineyle işleme ve birlikte çalışabilirlik için encoding='utf-8' (BOM yok) seçeneğini tercih edin. Emin değilseniz dosyanın nasıl kullanılacağını sorun (Excel ve programlı işleme).",
+    "tool.system_prompt": "Workdir altında bir metin dosyası oluşturun. Dosya zaten mevcutsa overwrite=false bir hataya neden olur. Overwrite=true ise yazmadan önce bir yedek oluşturulur. İpucu: Doğrudan Microsoft Excel'de açılması amaçlanan CSV/TSV için encoding='utf-8-sig' (UTF-8 ile BOM) seçeneğini göz önünde bulundurun. Makineyle işleme ve birlikte çalışabilirlik için encoding='utf-8' (BOM yok) seçeneğini tercih edin. Emin değilseniz dosyanın nasıl kullanılacağını sorun (Excel ve programlı işleme)."
   }
 }

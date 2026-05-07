@@ -173,5 +173,12 @@
     "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
     "tool.description": "Hupakia SKILL.md ya Agent Skill na kurudisha YAML frontmatter na kiini cha Markdown.",
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
+  },
+  "tr": {
+    "err.invalid_args": "[araç hatası] geçersiz argümanlar",
+    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
+    "param.skill_dir.description": "Beceri dizini (SKILL.md doğrudan altında gereklidir)",
+    "tool.description": "Bir Agent Skill için SKILL.md'yi yükler ve YAML frontmatter ile Markdown gövdesini döndürür.",
+    "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   }
 }

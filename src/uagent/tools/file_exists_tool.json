@@ -148,5 +148,11 @@
     "param.path.description": "Njia ya faili au saraka unayotaka kuangalia uwepo wake (~ pia inaweza kutumika).",
     "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
     "tool.system_prompt": "Tumia zana hii kuangalia kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, rudisha aina yake, ukubwa na muda wa mwisho kubadilishwa."
+  },
+  "tr": {
+    "err.path_empty": "[file_exists error] yolu boş",
+    "param.path.description": "Varlığını kontrol etmek istediğiniz dosya veya dizinin yolu (~ da kullanılabilir).",
+    "tool.description": "Belirtilen yolda bir dosya veya dizinin bulunup bulunmadığını kontrol eder ve varsa türünü, boyutunu ve değiştirilme zamanını döndürür.",
+    "tool.system_prompt": "Belirtilen yolda bir dosya veya dizinin mevcut olup olmadığını kontrol etmek ve varsa türünü, boyutunu ve değiştirilme zamanını döndürmek için bu aracı kullanın."
   }
 }

@@ -198,5 +198,13 @@
     "param.strict.description": "Je, maonyo pia yahesabiwe kama kushindwa? (chaguomsingi: false)",
     "tool.description": "Huthibitisha saraka ya skill (SKILL.md) kulingana na Agent Skills spec na kurudisha makosa na maonyo.",
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
+  },
+  "tr": {
+    "err.invalid_args": "[araç hatası] geçersiz argümanlar",
+    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
+    "param.skill_dir.description": "Beceri dizini (SKILL.md doğrudan altında gereklidir)",
+    "param.strict.description": "Uyarılar da başarısızlık olarak kabul edilsin mi? (varsayılan: false)",
+    "tool.description": "Agent Skills belirtimine göre bir beceri dizinini (SKILL.md) doğrular ve hata ile uyarıları döndürür.",
+    "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   }
 }

@@ -423,5 +423,22 @@
     "err.output_path_empty": "output_path inahitajika",
     "err.speech_failed": "Uundaji wa sauti umeshindwa: {err}",
     "ok.saved": "Faili ya sauti imehifadhiwa"
+  },
+  "tr": {
+    "tool.description": "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün.",
+    "tool.system_prompt": "Verilen metinden konuşma sesi oluşturun ve bunu belirtilen çıkış yoluna kaydedin. Yalnızca JSON yanıtı döndürün.",
+    "param.text.description": "Konuşmaya sentezlenecek metin.",
+    "param.output_path.description": "Oluşturulan ses dosyasının kaydedileceği yol.",
+    "param.model.description": "Konuşma modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
+    "param.voice.description": "Konuşma sentezi için kullanılacak ses adı.",
+    "param.response_format.description": "Oluşturulacak ses dosyası formatı.",
+    "param.speed.description": "Oynatma hızı çarpanı (örn. 1,0).",
+    "param.instructions.description": "Konuşma stili için isteğe bağlı talimatlar.",
+    "err.unsupported_provider": "Sesli konuşma için desteklenmeyen sağlayıcı: {provider!r}",
+    "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
+    "err.text_empty": "metin gerekli",
+    "err.output_path_empty": "çıktı_yolu gerekli",
+    "err.speech_failed": "Sesli konuşma oluşturulamadı: {err}",
+    "ok.saved": "Ses dosyası kaydedildi"
   }
 }

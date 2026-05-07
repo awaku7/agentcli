@@ -94,5 +94,9 @@
   "uk": {
     "tool.description": "Отримайте поточний робочий каталог.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати поточний робочий каталог."
+  },
+  "tr": {
+    "tool.description": "Geçerli çalışma dizinini alın.",
+    "tool.system_prompt": "Geçerli çalışma dizinini almak için bu aracı kullanın."
   }
 }

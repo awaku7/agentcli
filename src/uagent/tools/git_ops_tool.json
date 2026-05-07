@@ -598,5 +598,30 @@
     "param.command.description": "Підкоманда Git для запуску (діють обмеження безпеки).",
     "tool.description": "Виконує команди Git із обмеженнями, орієнтованими на безпеку. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки.",
     "tool.system_prompt": "Цей інструмент використовується для виконання команд Git.\n\nВажливо: args не повинен містити метасимволи shell. З міркувань безпеки аргументи, що містять такі послідовності/символи, буде відхилено: && || | > < `\nУ повідомленнях коміту git символ \";\" автоматично замінюється на \",\" (лише всередині -m/--message).\n"
+  },
+  "tr": {
+    "doc.module": "Git işlemleri aracı: git_ops\n\nTemel Git operasyonlarını önce güvenlikle sağlıyoruz.\n\nBu aracın amacı günlük işlemleri mümkün olduğunca araç üzerinden tamamlamaktır.\nÖte yandan Git, kolay yıkıcı işlemlere ve harici yazmalara (itme) olanak tanır.\nAşağıdaki politikayı kesinlikle sınırlayacağız.\n\nTasarım politikası (önemli)\n- Etkileşim içeren işlemlerden kaçının\n  - PAGER/EDITOR'yi devre dışı bırakın\n  - --no-edit ile taahhüt/birleştirme (mümkün olduğunca)\n  - Kimlik bilgilerinin girilmesini önlemek için GIT_TERMINAL_PROMPT=0\n- Tehlikeli işlemler varsayılan olarak yasaktır\n  - Örnekler: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, vb.\n- Yalnızca gerektiğinde yürütülebilir hale getirmek için açıkça izin_danger=true belirtin\n  - Ancak 'kaza oranı yüksek/kurtarılması zor' olan öğeler, izin_danger ile bile yasaktır.\n- Bağımsız değişkenler 'izin verilenler listesi' biçimindedir\n  - Tüm seçeneklere (-x / --xxx) kapsamlı olarak izin verilmez, ancak amaca bağlı olarak açıkça izin verilir.\n  - Açık meta karakterler içeren bağımsız değişkenleri reddet (&& || | > < `)\n\nDikkat\n- Bu araç git'in tüm özelliklerine sınırsız erişim sağlamaz.\n- Tasarım gereği güvenlik nedeniyle gerçekleştirilemeyen bazı işlemler mevcuttur.",
+    "doc.run_tool": "Git işlem aracı (önce güvenlik).",
+    "error.add_requires_path": "[git_ops hatası] git add bir hedef yol gerektiriyor ('.' izin veriliyor).",
+    "error.command_failed": "[git_ops error] komutu başarısız oldu (kod={code}):\n{output}",
+    "error.commit_requires_message": "[git_ops hatası] Taahhüt mesajı gerekli. Bağımsız değişkenlere ['-m','mesaj'] ekleyin.",
+    "error.git_not_found": "[git_ops hatası] git komutu bulunamadı. Lütfen Git'in kurulu olduğundan emin olun.",
+    "error.internal_unknown": "[git_ops hatası] bilinmeyen dahili hata",
+    "error.invalid_command": "[git_ops hatası] desteklenmeyen veya geçersiz komut: {command}",
+    "error.meta_char": "Bağımsız değişkenlerde tehlikeli meta karaktere izin verilmez: {arg}",
+    "error.option_danger_requires_allow_danger": "Tehlikeli seçenek, Allow_danger=true gerektirir: {opt}",
+    "error.option_denied": "İzin verilmeyen seçenek mevcut: {opt}",
+    "error.option_not_allowed": "İzin verilmeyen seçenek mevcut: {opt}",
+    "error.path_outside_workdir": "İzin verilmeyen yol (çalışma dizini dışında): {path}",
+    "error.rebase_onto_forbidden": "[git_ops hatası] rebase --onto hataya açık olduğundan yasaktır.",
+    "error.rebase_requires_allow_danger": "[git_ops hatası] yeniden taban tehlikelidir ve izin_danger=true gerektirir.",
+    "error.remote_change_requires_allow_danger": "[git_ops hatası] Uzaktan kumandaları değiştirmek için izin_danger=true gerekir.",
+    "error.timeout": "[git_ops error] komutu zaman aşımına uğradı.",
+    "error.unexpected": "[git_ops hatası] beklenmeyen hata: {error}",
+    "param.allow_danger.description": "Tehlikeli işlemlere izin verilip verilmeyeceği (varsayılan yanlış). Örnek: push --force, reset --hard.",
+    "param.args.description": "Git komutuna iletilen bağımsız değişkenlerin listesi.",
+    "param.command.description": "Çalıştırılacak Git alt komutu (önce güvenlik kısıtlamaları geçerlidir).",
+    "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir.",
+    "tool.system_prompt": "Bu araç Git komutlarını çalıştırmak için kullanılır.\n\nÖnemli: args kabuk metakarakterlerini içermemelidir. Güvenlik nedeniyle, aşağıdaki karakterleri/dizileri içeren herhangi bir bağımsız değişken reddedilecektir: && || | > < `\nGit taahhüt mesajları için ';' otomatik olarak ',' ile değiştirilir (yalnızca -m/--message içinde)."
   }
 }

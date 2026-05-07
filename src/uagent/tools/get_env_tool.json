@@ -190,5 +190,13 @@
     "param.unmasked_chars.description": "Кількість символів, які залишаються на початку та в кінці під час маскування. Типове значення — 2.",
     "tool.description": "Отримує значення вказаної змінної середовища та повертає його. За потреби значення можна замаскувати.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати значення вказаної змінної середовища та повернути його. За потреби значення можна замаскувати."
+  },
+  "tr": {
+    "param.mask.description": "Doğruysa değeri maskeler (ör. gizli bilgiler). Varsayılan doğrudur.",
+    "param.missing_ok.description": "Doğruysa, eksik olduğunda hata yerine '(not set)' değerini döndürün. Varsayılan yanlıştır.",
+    "param.name.description": "Okunacak ortam değişkeni adı.",
+    "param.unmasked_chars.description": "Maskeleme sırasında başlangıçta ve sonda bırakılacak karakter sayısı. Varsayılan 2'dir.",
+    "tool.description": "Belirtilen ortam değişkeninin değerini alır ve döndürür. İsteğe bağlı olarak değeri maskeler.",
+    "tool.system_prompt": "Bu araç şu amaç için kullanılır: Belirtilen ortam değişkeninin değerini almak ve onu döndürmek. İsteğe bağlı olarak değeri maskeleyin."
   }
 }

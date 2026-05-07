@@ -490,5 +490,24 @@
     "tool.system_prompt": "Tumia zana hii kwa madhumuni yaliyofafanuliwa katika maelezo ya zana.",
     "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)",
     "param.pattern.description": "Mfano wa utafutaji. Tumia \\n kwa mstari mpya."
+  },
+  "tr": {
+    "doc.module": "run_tests_tool\n\nTestleri çalıştırmak için bir sarma aracı.\n\nAmaç:\n- Doğrudan cmd_exec/pwsh_exec'i çağırmak yerine test yürütmeyi standartlaştırın ve yapılandırılmış sonuçları döndürün.\n- Framework=auto olduğunda pytest/unittest/npm'yi otomatik olarak algıla.\n\nGüvenlik politikası:\n- Test yürütme genellikle tehlikeli bir işlem olmadığından human_ask gerçekleştirilmez.\n- Ancak, komut ekleme meta karakterlerini (&&, |, > vb.) içeren extra_args reddedilir.\n\nUygulama:\n- Dahili olarak cmd_exec_json_tool'u kullanır ve dönüş kodunu/stdout/stderr'i yönetir.\n- Stdout/stderr için varsa callbacks.truncate_output'u uygulayın.\n- Cwd belirtimi için cmd_exec_json'un cwd bağımsız değişkenini kullanın (cd && kullanmayın).\n\nEk özellikler:\n- pythonpath: testleri çalıştırmak için ekstra PYTHONPATH yapılandırın.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd'ye izin verilmiyor: {error}",
+    "error.dangerous_cwd_rejected": "tehlikeli cwd reddedildi: {cwd}",
+    "error.framework_auto_detect_failed": "çerçeve otomatik algılaması başarısız oldu",
+    "error.invalid_framework": "geçersiz çerçeve: {framework}",
+    "error.invalid_report": "geçersiz rapor: {report}",
+    "error.shell_metacharacters_not_allowed": "Bağımsız değişkenlerde kabuk meta karakterlerine izin verilmez: {arg}",
+    "error.unsupported_framework": "desteklenmeyen çerçeve: {framework}",
+    "param.cwd.description": "Çalıştırılacak çalışma dizini (workdir içinde olmalıdır). Boşsa geçerli dizini kullanın.",
+    "param.extra_args.description": "Ek bağımsız değişkenler dizisi. Kabuk meta karakterleri mevcutsa reddet.",
+    "param.framework.description": "Çerçeve türünü test edin.",
+    "param.pythonpath.description": "Ek PYTHONPATH (ör. 'src'). Sağlanmışsa, test komutunun önüne eklenir.",
+    "param.report.description": "Çıkış formatı.",
+    "param.target.description": "Hedef (pytest yolu, birim test başlangıç ​​dizini, npm betiği vb.). Boşsa, varsayılanlar kullanılır.",
+    "tool.description": "Testleri çalıştırın (pytest/unittest/npm'yi otomatik olarak algıla). Extra_args içindeki kabuk metakarakterlerini reddet.",
+    "tool.system_prompt": "Bu aracı, araç açıklamasında açıklanan amaç için kullanın.",
+    "summary.no_change": "Başarıyla hiçbir değişiklik yapılmadı (0 eşleşme)"
   }
 }

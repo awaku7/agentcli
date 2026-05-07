@@ -214,5 +214,14 @@
     "param.url.description": "URL кінцевої точки сервера MCP (http://... або stdio://command...).",
     "tool.description": "Викликає інструмент із сервера MCP. Передавайте аргументи інструмента в tool_arguments як JSON-об’єкт (рекомендовано) або JSON-рядок. Повернене значення — JSON-рядок, що містить щонайменше ok і text. За можливості містить saved_path (наприклад, коли сервер повертає saved_path або коли повертається файловий payload на кшталт {filename, mime, data_base64}, і цей клієнт зберігає його в локальний каталог downloads). Примітка: saved_path може бути опущено, якщо інструмент не повертає файловий payload.",
     "tool.system_prompt": "Використовуйте цей інструмент відповідно до описаної вище мети (див. опис інструмента)."
+  },
+  "tr": {
+    "doc.mask_values": "Sözlüklerdeki ve listelerdeki değerleri '*' (yapıyı koruyarak) ile değiştirin.",
+    "param.server_name.description": "Mcp_servers.json'da tanımlanan sunucu adı. Belirtilmişse URL'ye göre önceliklidir.",
+    "param.tool_arguments.description": "MCP aracına aktarılacak argümanlar. Bir JSON nesnesi (önerilen) veya bir JSON dizesi sağlayın. Örnek nesne: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Dönüş değeri bir JSON dizesidir. Uygun olduğunda, kayıtlı_yol'u içerir. Not: Araç herhangi bir dosya yükü döndürmediğinde kaydedilen_yol atlanabilir. Araç bir dosya verisi döndürürse (örneğin, {filename, mime, data_base64}), bu istemci onu yerel bir indirilenler dizinine kaydedebilir ve kaydedilen_path'i döndürülen JSON dosyasına ekleyebilir.",
+    "param.tool_name.description": "Yürütülecek aracın adı.",
+    "param.url.description": "MCP sunucu uç noktası URL (http://... veya stdio://command...).",
+    "tool.description": "MCP sunucusundan bir aracı çağırın. tool_arguments'ta araç bağımsız değişkenlerini JSON nesnesi (önerilir) veya JSON dizesi olarak sağlayın. Dönüş değeri, en azından ok ve metin içeren bir JSON dizesidir. Uygun olduğunda, kaydedilen_yol dahil edilir (örneğin, sunucu kaydedilen_yolu döndürdüğünde veya {filename, mime, data_base64} gibi bir dosya yükü döndürüldüğünde ve bu istemci bunu yerel indirilenler dizinine kaydettiğinde). Not: Araç herhangi bir dosya yükü döndürmediğinde kaydedilen_yol atlanabilir.",
+    "tool.system_prompt": "Bu aleti yukarıda açıklanan amaca uygun olarak kullanın (alet açıklamasına bakın)."
   }
 }

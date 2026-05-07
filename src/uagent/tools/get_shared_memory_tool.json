@@ -118,5 +118,10 @@
     "doc.run_tool": "Точка входу, викликана з tools/__init__.py. Реалізація get_shared_memory.",
     "tool.description": "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами.\n- Зазвичай повертає текст у форматі JSONL (один запис на рядок).\n- Якщо спільну пам’ять вимкнено або файл відсутній, повертає описове повідомлення.\n- Розмір виводу автоматично обрізається до внутрішньої максимальної межі байтів.",
     "tool.system_prompt": "Цей інструмент виконує функціональність, описану в TOOL_SPEC."
+  },
+  "tr": {
+    "doc.run_tool": "Tools/__init__.py adresinden çağrılan giriş noktası. get_shared_memory için uygulama.",
+    "tool.description": "Kullanıcılar arasında paylaşılan ham uzun süreli bellek (paylaşılan bellek) verilerini alır.\n- Genellikle metni JSONL biçiminde döndürür (satır başına bir kayıt).\n- Paylaşılan hafıza devre dışıysa veya dosya eksikse açıklayıcı bir mesaj döndürür.\n- Çıkış boyutu otomatik olarak dahili maksimum bayt sınırına göre ayarlanır.",
+    "tool.system_prompt": "Bu araç, TOOL_SPEC'da açıklanan işlevselliği yürütür."
   }
 }

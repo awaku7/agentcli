@@ -423,5 +423,22 @@
     "err.transcribe_failed": "Transkripsheni ya sauti imeshindwa: {err}",
     "ok.transcribed": "Transkripsheni imekamilika",
     "warn.empty_transcript": "[WARN] transkripti tupu"
+  },
+  "tr": {
+    "tool.description": "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır.",
+    "tool.system_prompt": "Verilen ses dosyasını yazıya dökün ve yalnızca JSON yanıtını döndürün. Output_format=text ise transkript metnini yanıta ekleyin. Output_format=json ise temel meta verileri de ekleyin.",
+    "param.path.description": "Giriş ses dosyasının yolu.",
+    "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
+    "param.language.description": "İsteğe bağlı dil ipucu (ör. 'ja', 'en').",
+    "param.prompt.description": "Transkripsiyon kalitesini artırmak için isteğe bağlı bağlam istemi.",
+    "param.output_format.description": "JSON yanıtında ne kadar ayrıntı döndürülecek: text veya json.",
+    "err.unsupported_provider": "Ses transkripsiyonu için desteklenmeyen sağlayıcı: {provider!r}",
+    "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
+    "err.path_empty": "yol gerekli",
+    "err.file_not_found": "ses dosyası bulunamadı: {path}",
+    "err.invalid_output_format": "Geçersiz çıktı_biçimi: {output_format}",
+    "err.transcribe_failed": "Sesin transkripsiyonu başarısız oldu: {err}",
+    "ok.transcribed": "Transkripsiyon tamamlandı",
+    "warn.empty_transcript": "[WARN] boş transkript"
   }
 }

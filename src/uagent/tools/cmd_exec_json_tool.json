@@ -148,5 +148,11 @@
     "param.cwd.description": "Saraka ya kazi ya amri.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON. Tumia tu wakati hakuna zana salama zaidi au mahususi zaidi inayopatikana (kwa mfano, ujumuishaji wa MCP).",
     "tool.system_prompt": "Zana hii ni suluhisho la mwisho. Itumie tu ikiwa hakuna zana nyingine inayofaa inayopatikana. Kuwa mwangalifu na amri na epuka shughuli zenye uharibifu isipokuwa mtumiaji athibitishe wazi."
+  },
+  "tr": {
+    "param.command.description": "Yürütülecek komut dizisi.",
+    "param.cwd.description": "Komutun çalışma dizini.",
+    "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün. Yalnızca daha güvenli veya daha spesifik bir araç mevcut olmadığında kullanın (örn. MCP entegrasyonu).",
+    "tool.system_prompt": "Bu araç son çaredir. Bunu yalnızca başka uygun bir araç bulunmadığında kullanın. Komutlar konusunda dikkatli olun ve kullanıcı tarafından açıkça onaylanmadıkça yıkıcı işlemlerden kaçının."
   }
 }

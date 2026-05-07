@@ -498,5 +498,25 @@
     "ui.footer": "=== /human_ask (ingizo la mtumiaji) ===",
     "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Katika hali ya mistari mingi: futa kwa \"\"\"retry, tuma kwa \"\"\"end\n  - Ghairi kwa c au cancel",
     "ui.title": "=== Ombi kwa mtu (human_ask) ==="
+  },
+  "tr": {
+    "doc.ensure_gui_sentinel": "GUI'dan gelen yanıtın multi_input_sentinel satırıyla bittiğinden emin olun.",
+    "doc.run_tool": "human_ask doğrudan stdin'den okumaz;\nscheck.py tarafındaki stdin_loop iş parçacığının işlemeyi yönetmesine izin verin\nve sonuçları paylaşılan durum (geri aramalar) aracılığıyla alın.",
+    "err.active_uninitialized": "[human_ask error] human_ask_active geri araması başlatılmadı.",
+    "err.already_active": "[human_ask hatası] Başka bir human_ask zaten çalışıyor.",
+    "err.lines_uninitialized": "[human_ask error] human_ask_lines geri araması başlatılmadı.",
+    "err.lock_uninitialized": "[human_ask hatası] human_ask_lock geri araması başlatılmadı.",
+    "err.multiline_uninitialized": "[human_ask error] human_ask_multiline_active geri arama başlatılmadı.",
+    "err.password_uninitialized": "[human_ask error] human_ask_set_password geri araması başlatılmadı.",
+    "err.queue_uninitialized": "[human_ask error] human_ask_queue geri araması başlatılmadı.",
+    "msg.empty_request": "(LLM'dan gelen talep boş. Lütfen gerekli işlem ve kararları buraya Japonca yazınız.)",
+    "msg.no_user_reply": "(kullanıcı yanıtı yok)",
+    "param.is_password.description": "Doğruysa, giriş karakterlerini gizler (maskeler). Şifrenizi veya jetonunuzu girmek için bunu kullanın.",
+    "param.message.description": "Bir insandan yapmasını istediğiniz şeyi Japonca olarak, tam olarak olduğu gibi görüntülenebilecek bir formatta yazın.",
+    "tool.description": "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç. Güvenlik notu: Gizli bilgileri (şifreler/belirteçler) isterken, is_password=True değerini ayarlayın ve arama başına tam olarak bir öğe isteyin.",
+    "tool.system_prompt": "Bu araç şu amaçlarla kullanılır: Modelin kendi başına tamamlayamayacağı bir girdiyi/kararı insan kullanıcıdan istemek ve tek bir yanıt metni almak.\n\nÖnemli: Bu araç, çağrı başına yalnızca bir yanıt metni alabilir. Girişi birden fazla alana bölmeyin.\n\nSECURITY (MOST IMPORTANT):\n- Sırları isterken (şifreler, API anahtarlar, belirteçler, özel anahtarlar, oturum çerezleri vb.), is_password=True ayarını MUST yaparsınız.\n- is_password=True ile elde edilen bir sırrı daha sonraki asistan mesajlarında asla tekrarlamayın.\n- Sırları uzun süreli hafızada veya paylaşılan hafızada saklamayın.\n\nOperasyonel yönergeler:\n- Ek kullanıcı girişi gerekiyorsa daima human_ask aracını kullanın.\n- is_password=True ile yalnızca bir gizli öğe isteyin.\n- Hem kullanıcı adı hem de şifre gerekiyorsa human_ask'ı birden çok kez arayın.\n- Tek bir aramada birden fazla öğe talep etmeyin.\n- Göreli tarih ifadeleri için (bugün/bu yıl/vb.), get_current_time'ı çağırın.\n- Dosya veya kod çıktısı alırken, kullanıcı açıkça talep etmedikçe orijinal içeriğin tamamını çıkarmayın.\n\nİptal:\n- İptal etmek için tek satırlık yanıt verin: 'c' veya 'iptal'.",
+    "ui.footer": "=== /human_ask (kullanıcı girişi) ===",
+    "ui.howto": "Nasıl cevap verilir:\n  - Sadece yazın ve göndermek için Enter tuşuna basın\n  - Çok satırlı moda girmek için 'f' girin\n  - Çok satırlı modda: \"\"\"tekrar dene ile temizleyin, \"\"\"son ile gönderin\n  - 'c' veya 'iptal' ile iptal edin",
+    "ui.title": "=== Bir kişiye istek (human_ask) ==="
   }
 }
