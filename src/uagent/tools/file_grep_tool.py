@@ -342,12 +342,6 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
             continue
     return data.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n"), "utf-8"
 
-def _read_lines(path: str) -> List[str]:
-    with open(path, "rb") as f:
-        data = f.read()
-    text, _encoding = _decode_text_bytes(data)
-    return text.splitlines(keepends=True)
-
 
 def _read_lines(path: str) -> List[str]:
     with open(path, "rb") as f:
@@ -408,7 +402,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         files = _resolve_files(
             raw_path, name_pattern, recursive, exclude_dirs, exclude_globs
         )
-        matched_files: List[str] = []
+        matched_files: set[str] = set()
         filenames: List[str] = []
         matches: List[Dict[str, Any]] = []
         scanned_files = 0
@@ -460,8 +454,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     break
 
             if file_matched:
-                if path not in matched_files:
-                    matched_files.append(path)
+                matched_files.add(path)
                 if filenames_only:
                     filenames.append(path)
                     if max_results and len(filenames) >= max_results:
