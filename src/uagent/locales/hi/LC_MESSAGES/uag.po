@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-06 03:16+0900\n"
+"POT-Creation-Date: 2026-05-07 14:40+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,13 +64,13 @@ msgstr ""
 " \"\"\"पुनः प्रयास करें टाइप करें; %(sentinel)s वाली लाइन के साथ समाप्त "
 "करें)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:979
-#: src/uagent/setup_cli.py:998 src/uagent/setup_cli.py:1021
-#: src/uagent/setup_cli.py:1037 src/uagent/setup_cli.py:1056
-#: src/uagent/setup_cli.py:1075 src/uagent/setup_cli.py:1089
-#: src/uagent/setup_cli.py:1102 src/uagent/setup_cli.py:1110
-#: src/uagent/setup_cli.py:1122 src/uagent/setup_cli.py:1133
-#: src/uagent/setup_cli.py:1218 src/uagent/setup_cli.py:1244
+#: src/uagent/cli.py:628 src/uagent/setup_cli.py:987
+#: src/uagent/setup_cli.py:1006 src/uagent/setup_cli.py:1029
+#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1083 src/uagent/setup_cli.py:1097
+#: src/uagent/setup_cli.py:1110 src/uagent/setup_cli.py:1118
+#: src/uagent/setup_cli.py:1130 src/uagent/setup_cli.py:1141
+#: src/uagent/setup_cli.py:1226 src/uagent/setup_cli.py:1252
 msgid "Cancelled."
 msgstr "रद्द कर दिया गया."
 
@@ -102,7 +102,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "छवि भेजने की पुष्टि विफल रही; छवियाँ नहीं भेजेंगे: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:460
+#: src/uagent/cli.py:854 src/uagent/scheckgui.py:475
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "छवि संलग्न करने में विफल: %(path)s (%(etype)s: %(err)s)"
@@ -130,23 +130,23 @@ msgstr "[घातक] वर्कडीआईआर सेट करने म
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[घातक] uag_setup लॉन्च करने में विफल: %(err)s"
 
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:268
+#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:281
 #: src/uagent/web.py:658
 #, python-format
 msgid "LLM provider = %(provider)s"
 msgstr "एलएलएम प्रदाता = %(provider)s"
 
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:272
+#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:285
 #: src/uagent/web.py:660
 #, python-format
 msgid "model(deployment) = %(depname)s"
 msgstr "मॉडल(तैनाती) = %(depname)s"
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:282
+#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:295
 msgid "OpenRouter fallback models enabled."
 msgstr "ओपनराउटर फ़ॉलबैक मॉडल सक्षम।"
 
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:323
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:336
 #: src/uagent/web.py:648
 msgid ""
 "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
@@ -165,21 +165,21 @@ msgstr ""
 "एपीआई का समर्थन नहीं करता है। ChatCompletions पर वापस आ रहा हूँ।"
 
 #: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:329 src/uagent/web.py:654
+#: src/uagent/scheckgui.py:342 src/uagent/web.py:654
 msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "एलएलएम एपीआई मोड = चैट पूर्णताएं (UAGENT_RESPONSES अक्षम है)"
 
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:317
+#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:330
 #: src/uagent/web.py:642
 msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
 msgstr "एलएलएम एपीआई मोड = प्रतिक्रियाएं (UAGENT_RESPONSES सक्षम है)"
 
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:338
+#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:351
 #: src/uagent/web.py:722
 msgid "Loaded long-term memory."
 msgstr "भरी हुई दीर्घकालिक स्मृति."
 
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:351
+#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:364
 #: src/uagent/web.py:734
 msgid "Loaded shared long-term memory."
 msgstr "भरी हुई साझा दीर्घकालिक स्मृति।"
@@ -422,29 +422,25 @@ msgstr ""
 "एलएलएम प्रदाता (एज़्योर/ओपनई/बेडरॉक/ओपनराउटर/जेमिनी/ग्रोक/क्लाउड/एनवीडिया) "
 "का चयन करना आवश्यक है।"
 
-#: src/uagent/env_validate.py:63
-msgid ", "
-msgstr ", "
-
-#: src/uagent/env_validate.py:170
+#: src/uagent/env_validate.py:165
 msgid "Missing required environment variables:"
 msgstr "आवश्यक पर्यावरण चर अनुपलब्ध:"
 
-#: src/uagent/env_validate.py:184
+#: src/uagent/env_validate.py:179
 msgid "Warnings:"
 msgstr "चेतावनियाँ:"
 
-#: src/uagent/env_validate.py:188
+#: src/uagent/env_validate.py:183
 msgid "How to fix:"
 msgstr "कैसे ठीक करें:"
 
-#: src/uagent/env_validate.py:191
+#: src/uagent/env_validate.py:186
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- प्रोग्राम शुरू करने से पहले अपने वातावरण में उपरोक्त वेरिएबल सेट करें।"
 
-#: src/uagent/env_validate.py:197
+#: src/uagent/env_validate.py:192
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -452,7 +448,7 @@ msgstr ""
 "- आप उन्हें अपने ओएस पर्यावरण सेटिंग्स, एक .env फ़ाइल, अपनी शेल स्टार्टअप "
 "स्क्रिप्ट के माध्यम से सेट कर सकते हैं।"
 
-#: src/uagent/env_validate.py:203
+#: src/uagent/env_validate.py:198
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -506,7 +502,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[अनुवाद त्रुटि] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
-#: src/uagent/llm_round_helpers.py:616
+#: src/uagent/llm_round_helpers.py:621
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "429 पुनः प्रयास सीमा (%(max_retries)s) तक पहुंच गई।"
@@ -519,12 +515,12 @@ msgstr "[मिथुन त्रुटि] प्रतिक्रिया �
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[क्लाउड त्रुटि] प्रतिक्रिया उत्पन्न करते समय एक त्रुटि उत्पन्न हुई।"
 
-#: src/uagent/llm_round_helpers.py:700
+#: src/uagent/llm_round_helpers.py:705
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "प्रतिक्रिया पार्स करते समय त्रुटि: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:307
+#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:320
 #: src/uagent/web.py:633
 #, python-format
 msgid ""
@@ -539,7 +535,7 @@ msgstr ""
 msgid "LLM streaming = %(state)s"
 msgstr "एलएलएम स्ट्रीमिंग = %(state)s"
 
-#: src/uagent/runtime_env.py:24
+#: src/uagent/runtime_env.py:157
 #, python-brace-format
 msgid "[WARN] {message}"
 msgstr "[चेतावनी] {संदेश}"
@@ -554,161 +550,116 @@ msgstr "[चेतावनी] .env.sec को डिक्रिप्ट क�
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट वर्कडीआईआर पथ एक फ़ाइल है: %(path)s"
 
-#: src/uagent/scheckgui.py:117
+#: src/uagent/scheckgui.py:130
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
 msgstr "फ़ाइलें/छवियाँ यहाँ ड्रैग और ड्रॉप करें"
 
-#: src/uagent/scheckgui.py:155
+#: src/uagent/scheckgui.py:168
 msgid "Download"
 msgstr "डाउनलोड"
 
-#: src/uagent/scheckgui.py:360 src/uagent/web.py:743
+#: src/uagent/scheckgui.py:373 src/uagent/web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "साझा दीर्घकालिक मेमोरी लोड करते समय अपवाद उत्पन्न हुआ: %(err)s"
 
-#: src/uagent/scheckgui.py:587 src/uagent/scheckgui.py:711
+#: src/uagent/scheckgui.py:602 src/uagent/scheckgui.py:726
 msgid "Welcome / Quick Guide"
 msgstr "स्वागत है / त्वरित मार्गदर्शन"
 
-#: src/uagent/scheckgui.py:595
+#: src/uagent/scheckgui.py:610
 msgid "uag GUI (Extreme Stability)"
 msgstr "यूएजी जीयूआई (अत्यधिक स्थिरता)"
 
-#: src/uagent/scheckgui.py:649
+#: src/uagent/scheckgui.py:664
 msgid "↑ Drag&Dropで添付できます"
 msgstr "↑ इन्हें Drag & Drop से संलग्न कर सकते हैं"
 
-#: src/uagent/scheckgui.py:670
+#: src/uagent/scheckgui.py:685
 msgid "Send"
 msgstr "भेजना"
 
-#: src/uagent/scheckgui.py:710
+#: src/uagent/scheckgui.py:725
 msgid "Help"
 msgstr "मदद"
 
-#: src/uagent/scheckgui.py:725
+#: src/uagent/scheckgui.py:740
 msgid "Mode"
 msgstr "तरीका"
 
-#: src/uagent/scheckgui.py:727
+#: src/uagent/scheckgui.py:742
 msgid "Reasoning: off"
 msgstr "तर्क: बंद"
 
-#: src/uagent/scheckgui.py:730
+#: src/uagent/scheckgui.py:745
 msgid "Reasoning: auto"
 msgstr "तर्क: ऑटो"
 
-#: src/uagent/scheckgui.py:732
+#: src/uagent/scheckgui.py:747
 msgid "Reasoning: minimal"
 msgstr "तर्क: न्यूनतम"
 
-#: src/uagent/scheckgui.py:734
+#: src/uagent/scheckgui.py:749
 msgid "Reasoning: low"
 msgstr "तर्क: निम्न"
 
-#: src/uagent/scheckgui.py:736
+#: src/uagent/scheckgui.py:751
 msgid "Reasoning: medium"
 msgstr "तर्क: मध्यम"
 
-#: src/uagent/scheckgui.py:738
+#: src/uagent/scheckgui.py:753
 msgid "Reasoning: high"
 msgstr "तर्क: उच्च"
 
-#: src/uagent/scheckgui.py:741
+#: src/uagent/scheckgui.py:756
 msgid "Reasoning: xhigh"
 msgstr "तर्क: xhigh"
 
-#: src/uagent/scheckgui.py:746
+#: src/uagent/scheckgui.py:761
 msgid "Verbosity: off"
 msgstr "वाचालता: बंद"
 
-#: src/uagent/scheckgui.py:748
+#: src/uagent/scheckgui.py:763
 msgid "Verbosity: low"
 msgstr "वाचालता: कम"
 
-#: src/uagent/scheckgui.py:750
+#: src/uagent/scheckgui.py:765
 msgid "Verbosity: medium"
 msgstr "वाचालता: मध्यम"
 
-#: src/uagent/scheckgui.py:752
+#: src/uagent/scheckgui.py:767
 msgid "Verbosity: high"
 msgstr "वाचालता: उच्च"
 
-#: src/uagent/scheckgui.py:782
+#: src/uagent/scheckgui.py:797
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[मोड] तर्क=%(mode)s"
 
-#: src/uagent/scheckgui.py:918
+#: src/uagent/scheckgui.py:933
 msgid "Enter password..."
 msgstr "पास वर्ड दर्ज करें..."
 
-#: src/uagent/scheckgui.py:920
+#: src/uagent/scheckgui.py:935
 msgid "Enter response for human_ask..."
 msgstr "human_ask के लिए प्रतिक्रिया दर्ज करें..."
 
-#: src/uagent/scheckgui.py:925
+#: src/uagent/scheckgui.py:940
 msgid "Enter a message..."
 msgstr "एक संदेश दर्ज करें..."
 
-#: src/uagent/scheckgui.py:1332 src/uagent/scheckgui.py:1372
-#: src/uagent/scheckgui.py:1407
+#: src/uagent/scheckgui.py:1347 src/uagent/scheckgui.py:1387
+#: src/uagent/scheckgui.py:1422
 msgid "Downloaded to"
 msgstr "डाउनलोड किया गया:"
 
-#: src/uagent/scheckgui.py:1426
+#: src/uagent/scheckgui.py:1441
 msgid "Playing"
 msgstr "चल रहा है"
 
-#: src/uagent/scheckgui.py:1436
+#: src/uagent/scheckgui.py:1451
 msgid "Stopped"
 msgstr "रुका हुआ"
-
-#: src/uagent/setup_cli.py:28
-msgid "# .env for uag (generated by `uag_setup`)"
-msgstr "# uag के लिए .env (`uag_setup` द्वारा उत्पन्न)"
-
-#: src/uagent/setup_cli.py:29
-msgid "#"
-msgstr "#"
-
-#: src/uagent/setup_cli.py:30
-msgid "# Notes:"
-msgstr "# टिप्पणियाँ:"
-
-#: src/uagent/setup_cli.py:31
-msgid "# - This file may contain secrets (API keys). Do NOT commit it to Git."
-msgstr ""
-"# - इस फ़ाइल में रहस्य (एपीआई कुंजियाँ) हो सकते हैं। इसे Git के लिए "
-"प्रतिबद्ध न करें."
-
-#: src/uagent/setup_cli.py:32
-msgid "# - You can re-run `uag_setup` anytime to regenerate."
-msgstr ""
-"# - आप पुन: उत्पन्न करने के लिए `uag_setup` को किसी भी समय पुनः चला सकते "
-"हैं।"
-
-#: src/uagent/setup_cli.py:65 src/uagent/setup_cli.py:185
-#: src/uagent/setup_cli.py:192
-msgid "OpenRouter"
-msgstr "OpenRouter"
-
-#: src/uagent/setup_cli.py:67
-msgid "Vertex AI"
-msgstr "Vertex AI"
-
-#: src/uagent/setup_cli.py:68
-msgid "Grok"
-msgstr "Grok"
-
-#: src/uagent/setup_cli.py:70
-msgid "Ollama"
-msgstr "Ollama"
-
-#: src/uagent/setup_cli.py:71 src/uagent/setup_cli.py:194
-msgid "NVIDIA"
-msgstr "NVIDIA"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
 msgid "OpenAI API key"
@@ -899,18 +850,6 @@ msgstr "वर्तमान निर्देशिका में उत्
 msgid "  1. .env only"
 msgstr "  1. केवल .env"
 
-#: src/uagent/setup_cli.py:411
-msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh"
-
-#: src/uagent/setup_cli.py:412
-msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1"
-
-#: src/uagent/setup_cli.py:413
-msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat"
-
 #: src/uagent/setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + सभी (sh/ps1/bat)"
@@ -939,11 +878,6 @@ msgstr "मिथुन मॉडल का नाम"
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA मॉडल/परिनियोजन नाम"
 
-#: src/uagent/setup_cli.py:509 src/uagent/setup_cli.py:569
-#, python-format
-msgid "%(label)s"
-msgstr "%(label)s"
-
 #: src/uagent/setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
 msgstr "छवि निर्माण प्रदाता का चयन करें"
@@ -956,11 +890,11 @@ msgstr "Azure स्पीच डिप्लॉयमेंट नाम"
 msgid "Azure transcription deployment name"
 msgstr "Azure ट्रांसक्रिप्शन डिप्लॉयमेंट नाम"
 
-#: src/uagent/setup_cli.py:551
+#: src/uagent/setup_cli.py:552
 msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
 msgstr "OpenAI TTS मॉडल/डिप्लॉयमेंट नाम (वैकल्पिक, डिफ़ॉल्ट: gpt-4o-mini-tts)"
 
-#: src/uagent/setup_cli.py:557
+#: src/uagent/setup_cli.py:559
 msgid ""
 "OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
 "transcribe)"
@@ -968,289 +902,202 @@ msgstr ""
 "OpenAI ट्रांसक्रिप्शन मॉडल/डिप्लॉयमेंट नाम (वैकल्पिक, डिफ़ॉल्ट: gpt-4o-mini-"
 "transcribe)"
 
-#: src/uagent/setup_cli.py:583
+#: src/uagent/setup_cli.py:585
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "वैकल्पिक छवि/एम्बेडिंग सेटिंग्स कॉन्फ़िगर करें?"
 
-#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
-#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
-#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
-#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
-#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
-#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
-#: src/uagent/setup_cli.py:1241
+#: src/uagent/setup_cli.py:586 src/uagent/setup_cli.py:601
+#: src/uagent/setup_cli.py:633 src/uagent/setup_cli.py:664
+#: src/uagent/setup_cli.py:680 src/uagent/setup_cli.py:712
+#: src/uagent/setup_cli.py:725 src/uagent/setup_cli.py:762
+#: src/uagent/setup_cli.py:963 src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1078 src/uagent/setup_cli.py:1105
+#: src/uagent/setup_cli.py:1249
 msgid "No"
 msgstr "नहीं"
 
-#: src/uagent/setup_cli.py:584 src/uagent/setup_cli.py:599
-#: src/uagent/setup_cli.py:631 src/uagent/setup_cli.py:662
-#: src/uagent/setup_cli.py:678 src/uagent/setup_cli.py:710
-#: src/uagent/setup_cli.py:723 src/uagent/setup_cli.py:756
-#: src/uagent/setup_cli.py:955 src/uagent/setup_cli.py:1016
-#: src/uagent/setup_cli.py:1070 src/uagent/setup_cli.py:1097
-#: src/uagent/setup_cli.py:1241
+#: src/uagent/setup_cli.py:586 src/uagent/setup_cli.py:601
+#: src/uagent/setup_cli.py:633 src/uagent/setup_cli.py:664
+#: src/uagent/setup_cli.py:680 src/uagent/setup_cli.py:712
+#: src/uagent/setup_cli.py:725 src/uagent/setup_cli.py:762
+#: src/uagent/setup_cli.py:963 src/uagent/setup_cli.py:1024
+#: src/uagent/setup_cli.py:1078 src/uagent/setup_cli.py:1105
+#: src/uagent/setup_cli.py:1249
 msgid "Yes"
 msgstr "हाँ"
 
-#: src/uagent/setup_cli.py:598
+#: src/uagent/setup_cli.py:600
 msgid "Configure image analysis settings?"
 msgstr "छवि विश्लेषण सेटिंग्स कॉन्फ़िगर करें?"
 
-#: src/uagent/setup_cli.py:609
+#: src/uagent/setup_cli.py:611
 msgid "Select image analysis provider"
 msgstr "छवि विश्लेषण प्रदाता का चयन करें"
 
-#: src/uagent/setup_cli.py:630
+#: src/uagent/setup_cli.py:632
 msgid "Configure image generation settings?"
 msgstr "छवि निर्माण सेटिंग्स कॉन्फ़िगर करें?"
 
-#: src/uagent/setup_cli.py:641
+#: src/uagent/setup_cli.py:643
 msgid "Select image generation provider"
 msgstr "छवि निर्माण प्रदाता का चयन करें"
 
-#: src/uagent/setup_cli.py:661
+#: src/uagent/setup_cli.py:663
 msgid "Open generated images automatically?"
 msgstr "उत्पन्न छवियाँ स्वचालित रूप से खोलें?"
 
-#: src/uagent/setup_cli.py:677
+#: src/uagent/setup_cli.py:679
 msgid "Configure embedding / semantic search settings?"
 msgstr "एम्बेडिंग/सिमेंटिक खोज सेटिंग्स कॉन्फ़िगर करें?"
 
-#: src/uagent/setup_cli.py:709
+#: src/uagent/setup_cli.py:711
 msgid "Disable semantic search when embedding API is unreachable?"
 msgstr "जब एम्बेडिंग एपीआई पहुंच योग्य न हो तो सिमेंटिक खोज अक्षम करें?"
 
-#: src/uagent/setup_cli.py:722
+#: src/uagent/setup_cli.py:724
 msgid "Configure audio speech / transcription settings?"
 msgstr "ऑडियो स्पीच / ट्रांसक्रिप्शन सेटिंग्स कॉन्फ़िगर करें?"
 
-#: src/uagent/setup_cli.py:736
+#: src/uagent/setup_cli.py:742
 msgid "Select audio provider"
 msgstr "ऑडियो प्रदाता चुनें"
 
-#: src/uagent/setup_cli.py:755
+#: src/uagent/setup_cli.py:761
 msgid "Open generated audio automatically?"
 msgstr "जनरेटेड ऑडियो को स्वतः खोलें?"
 
-#: src/uagent/setup_cli.py:799
-msgid ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
-"/ ollama / nvidia"
-msgstr ""
-"# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude "
-"/ ollama / nvidia"
-
-#: src/uagent/setup_cli.py:812
-#, python-format
-msgid "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-msgstr "%(label)s (UAGENT_PROVIDER=%(prov)s)"
-
-#: src/uagent/setup_cli.py:823
+#: src/uagent/setup_cli.py:825
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "वैकल्पिक: प्रतिक्रियाएँ API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:833
-msgid "# (not supported by selected provider)"
-msgstr "# (चयनित प्रदाता द्वारा समर्थित नहीं)"
-
-#: src/uagent/setup_cli.py:836
+#: src/uagent/setup_cli.py:838
 msgid "Optional runtime"
 msgstr "वैकल्पिक रनटाइम"
 
-#: src/uagent/setup_cli.py:848
+#: src/uagent/setup_cli.py:850
 msgid "Optional image / embedding / audio settings"
 msgstr "वैकल्पिक छवि/एम्बेडिंग सेटिंग्स"
 
-#: src/uagent/setup_cli.py:946
-msgid "# (optional image / embedding settings not configured)"
-msgstr "# (वैकल्पिक छवि / एम्बेडिंग सेटिंग्स कॉन्फ़िगर नहीं की गई हैं)"
-
-#: src/uagent/setup_cli.py:954
+#: src/uagent/setup_cli.py:962
 msgid "Encrypt the generated .env file?"
 msgstr "उत्पन्न .env फ़ाइल को एन्क्रिप्ट करें?"
 
-#: src/uagent/setup_cli.py:960
+#: src/uagent/setup_cli.py:968
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "एन्क्रिप्टेड फ़ाइल को %(path)s के रूप में लिखा जाएगा"
 
-#: src/uagent/setup_cli.py:976
+#: src/uagent/setup_cli.py:984
 msgid "Select provider"
 msgstr "प्रदाता का चयन करें"
 
-#: src/uagent/setup_cli.py:1015
+#: src/uagent/setup_cli.py:1023
 msgid "Enable Responses API options?"
 msgstr "प्रतिक्रियाएँ API विकल्प सक्षम करें?"
 
-#: src/uagent/setup_cli.py:1031
+#: src/uagent/setup_cli.py:1039
 msgid "Select reasoning"
 msgstr "तर्क का चयन करें"
 
-#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1042
-msgid "minimal"
-msgstr "minimal"
-
-#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1043
-#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
-msgid "low"
-msgstr "low"
-
-#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1044
-#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
-msgid "medium"
-msgstr "medium"
-
-#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1045
-#: src/uagent/setup_cli.py:1051 src/uagent/setup_cli.py:1060
-msgid "high"
-msgstr "high"
-
-#: src/uagent/setup_cli.py:1032 src/uagent/setup_cli.py:1046
-msgid "auto"
-msgstr "auto"
-
-#: src/uagent/setup_cli.py:1050
+#: src/uagent/setup_cli.py:1058
 msgid "Select verbosity"
 msgstr "वाचालता का चयन करें"
 
-#: src/uagent/setup_cli.py:1069
+#: src/uagent/setup_cli.py:1077
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "वैकल्पिक रनटाइम UAGENT_WORKDIR सेट करें?"
 
-#: src/uagent/setup_cli.py:1096
+#: src/uagent/setup_cli.py:1104
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "वैकल्पिक रनटाइम UAGENT_LANG सेट करें?"
 
-#: src/uagent/setup_cli.py:1145
+#: src/uagent/setup_cli.py:1153
 msgid "Summary"
 msgstr "सारांश"
 
-#: src/uagent/setup_cli.py:1146
+#: src/uagent/setup_cli.py:1154
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "प्रदाता: %(provider)s"
 
-#: src/uagent/setup_cli.py:1149
-#, python-format
-msgid "  %(key)s=%(value)s"
-msgstr "  %(key)s=%(value)s"
-
-#: src/uagent/setup_cli.py:1153
+#: src/uagent/setup_cli.py:1161
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "प्रतिक्रियाएँ सक्षम: %(state)s"
 
-#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
-#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
-#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
-#: src/uagent/setup_cli.py:1197
+#: src/uagent/setup_cli.py:1162 src/uagent/setup_cli.py:1169
+#: src/uagent/setup_cli.py:1175 src/uagent/setup_cli.py:1181
+#: src/uagent/setup_cli.py:1186 src/uagent/setup_cli.py:1194
+#: src/uagent/setup_cli.py:1205
 msgid "yes"
 msgstr "हाँ"
 
-#: src/uagent/setup_cli.py:1154 src/uagent/setup_cli.py:1161
-#: src/uagent/setup_cli.py:1167 src/uagent/setup_cli.py:1173
-#: src/uagent/setup_cli.py:1178 src/uagent/setup_cli.py:1186
-#: src/uagent/setup_cli.py:1197
+#: src/uagent/setup_cli.py:1162 src/uagent/setup_cli.py:1169
+#: src/uagent/setup_cli.py:1175 src/uagent/setup_cli.py:1181
+#: src/uagent/setup_cli.py:1186 src/uagent/setup_cli.py:1194
+#: src/uagent/setup_cli.py:1205
 msgid "no"
 msgstr "नहीं"
 
-#: src/uagent/setup_cli.py:1157
-#, python-format
-msgid "  UAGENT_REASONING=%(value)s"
-msgstr "  UAGENT_REASONING=%(value)s"
-
-#: src/uagent/setup_cli.py:1158
-#, python-format
-msgid "  UAGENT_VERBOSITY=%(value)s"
-msgstr "  UAGENT_VERBOSITY=%(value)s"
-
-#: src/uagent/setup_cli.py:1160
-#, python-format
-msgid "  UAGENT_WORKDIR enabled: %(state)s"
-msgstr "UAGENT_WORKDIR सक्षम: %(state)s"
-
-#: src/uagent/setup_cli.py:1164
-#, python-format
-msgid "  UAGENT_WORKDIR=%(value)s"
-msgstr "  UAGENT_WORKDIR=%(value)s"
-
-#: src/uagent/setup_cli.py:1166
-#, python-format
-msgid "  UAGENT_LANG enabled: %(state)s"
-msgstr "UAGENT_LANG सक्षम: %(state)s"
-
-#: src/uagent/setup_cli.py:1170
-#, python-format
-msgid "  UAGENT_LANG=%(value)s"
-msgstr "  UAGENT_LANG=%(value)s"
-
-#: src/uagent/setup_cli.py:1172
+#: src/uagent/setup_cli.py:1180
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "वैकल्पिक अतिरिक्त सक्षम: %(state)s"
 
-#: src/uagent/setup_cli.py:1177
+#: src/uagent/setup_cli.py:1185
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "छवि विश्लेषण सक्षम: %(state)s"
 
-#: src/uagent/setup_cli.py:1185
+#: src/uagent/setup_cli.py:1193
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "छवि निर्माण सक्षम: %(state)s"
 
-#: src/uagent/setup_cli.py:1196
+#: src/uagent/setup_cli.py:1204
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "एम्बेडिंग सक्षम: %(state)s"
 
-#: src/uagent/setup_cli.py:1209
+#: src/uagent/setup_cli.py:1217
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "आउटपुट: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1212
+#: src/uagent/setup_cli.py:1220
 msgid "Generate files with this configuration?"
 msgstr "इस कॉन्फ़िगरेशन के साथ फ़ाइलें जेनरेट करें?"
 
-#: src/uagent/setup_cli.py:1213
+#: src/uagent/setup_cli.py:1221
 msgid "Yes, generate"
 msgstr "हाँ, उत्पन्न करें"
 
-#: src/uagent/setup_cli.py:1213
+#: src/uagent/setup_cli.py:1221
 msgid "Back"
 msgstr "पीछे"
 
-#: src/uagent/setup_cli.py:1237
+#: src/uagent/setup_cli.py:1245
 msgid "The following files already exist and will be overwritten:"
 msgstr ""
 "निम्नलिखित फ़ाइलें पहले से मौजूद हैं और उन्हें अधिलेखित कर दिया जाएगा:"
 
-#: src/uagent/setup_cli.py:1241
+#: src/uagent/setup_cli.py:1249
 msgid "Proceed?"
 msgstr "आगे बढ़ना?"
 
-#: src/uagent/setup_cli.py:1265
+#: src/uagent/setup_cli.py:1273
 msgid "Plain .env file removed after encryption."
 msgstr "एन्क्रिप्शन के बाद सादा .env फ़ाइल हटा दी गई।"
 
-#: src/uagent/setup_cli.py:1268
+#: src/uagent/setup_cli.py:1276
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "चेतावनी: सादे .env को हटाने में विफल: %(error)s"
 
-#: src/uagent/setup_cli.py:1287
+#: src/uagent/setup_cli.py:1295
 #, python-format
 msgid "generated: %(path)s"
 msgstr "उत्पन्न: %(path)s"
-
-#: src/uagent/setup_cli.py:1290
-msgid "- env.ps1 : utf-8-sig, CRLF"
-msgstr "- env.ps1 : utf-8-sig, CRLF"
-
-#: src/uagent/setup_cli.py:1292
-msgid "- env.bat : cp932, CRLF"
-msgstr "- env.bat : cp932, CRLF"
 
 #: src/uagent/uagent_llm.py:123
 #, python-format
@@ -1658,22 +1505,10 @@ msgstr "साझा दीर्घकालिक स्मृति प्र
 msgid "Shared long-term memory entries:"
 msgstr "साझा दीर्घकालिक स्मृति प्रविष्टियाँ:"
 
-#: src/uagent/util_tools.py:1455
-#, python-format
-msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr ""
-"[shared-mem-del त्रुटि] इंडेक्स को पूर्णांक के रूप में पार्स करने में विफल: "
-"%(arg)r"
-
 #: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] इंडेक्स=%(idx)d हटाने में विफल।"
-
-#: src/uagent/util_tools.py:1478
-#, python-format
-msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del त्रुटि] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1483
 #, python-format

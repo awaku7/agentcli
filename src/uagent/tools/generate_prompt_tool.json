@@ -273,5 +273,16 @@
     "param.template.description": "Kiolezo cha umbizo la Python. Mfano: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Tengeneza kamba ya prompt kutoka kwa faili kwa kutumia kiolezo cha umbizo la Python. Kiolezo kinaweza kurejelea vigeu kama {content}, {lines}, {bytes}, {basename}, {path}.",
     "tool.system_prompt": "Soma faili la maandishi chini ya workdir na tengeneza kamba ya prompt kwa kutumia kiolezo (Python str.format).\nVigeu vinavyopatikana kwenye kiolezo:\n- content: maudhui yote ya faili (maandishi)\n- lines: idadi ya mistari\n- bytes: ukubwa wa faili kwa baiti\n- basename: jina la msingi la faili\n- path: njia kamili iliyotatuliwa"
+  },
+  "tr": {
+    "err.bad_template": "[generate_prompt error] şablonunda bilinmeyen anahtar var: {key}",
+    "err.not_a_file": "[generate_prompt error] bir dosya değil: {path}",
+    "err.path_missing": "[generate_prompt error] yol/dosya adı belirtilmedi",
+    "err.template_missing": "[generate_prompt error] şablonu belirtilmedi",
+    "param.filename.description": "(Uyumluluk) Yolun takma adı.",
+    "param.path.description": "Giriş dosyasının yolu (workdir altında olmalıdır).",
+    "param.template.description": "Python biçimi şablonu. Örnek: '{lines} satırları\n\n{content}'.",
+    "tool.description": "Python format şablonunu kullanarak bir dosyadan bilgi istemi dizesi oluşturun. Şablon, {content}, {lines}, {bytes}, {basename}, {path} gibi değişkenlere referans verebilir.",
+    "tool.system_prompt": "Workdir altındaki bir metin dosyasını okuyun ve bir şablon (Python str.format) uygulayarak bir bilgi istemi dizesi oluşturun.\nMevcut şablon değişkenleri:\n- içerik: tam dosya içeriği (metin)\n- satırlar: satır sayısı\n- bayt: bayt cinsinden dosya boyutu\n- taban adı: dosya taban adı\n- yol: mutlak çözümlenmiş yol"
   }
 }

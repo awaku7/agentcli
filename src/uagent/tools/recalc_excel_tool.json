@@ -598,5 +598,29 @@
     "tool.system_prompt": "Tumia zana hii wakati thamani za akiba za fomula kwenye .xlsx ni za zamani (kwa mfano, openpyxl data_only ikisoma thamani za zamani). Zana hii hufungua workbook(s) katika Microsoft Excel kupitia COM, hufanya hesabu kamili upya, na kuhifadhi.",
     "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likiachwa na faili ikiwa imesimbwa, utaulizwa nenosiri mara moja.",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
+  },
+  "tr": {
+    "err.backup_bool": "yedekleme bir boole olmalıdır",
+    "err.dry_run_bool": "Dry_run bir boole olmalıdır",
+    "err.file_ext": "Dosya modu için yalnızca .xlsx desteklenir: {path}",
+    "err.max_files_int": "max_files bir tamsayı olmalıdır",
+    "err.max_files_positive": "max_files >= 1 olmalıdır",
+    "err.path_not_found": "Yol bulunamadı: {path}",
+    "err.path_required": "yol gerekli",
+    "err.pywin32_required": "pywin32 gereklidir (ve Microsoft Excel'in yüklü olması gerekir).",
+    "err.recursive_bool": "özyinelemeli bir boole olmalıdır",
+    "err.visible_bool": "görünür bir boole olmalıdır",
+    "err.windows_only": "recalc_excel yalnızca Windows'ta desteklenir (Microsoft Excel COM otomasyonu).",
+    "param.backup.description": "Kaydetmeden önce bir yedek oluşturun. Varsayılan: yanlış.",
+    "param.dry_run.description": "Doğruysa, yalnızca hedefleri listeleyin ve yeniden hesaplamayın/kaydetmeyin. Varsayılan: yanlış.",
+    "param.include_glob.description": "Yol bir dizin olduğunda kullanılan glob modeli. Varsayılan: '*.xlsx'.",
+    "param.max_files.description": "Bir dizini tararken işlenecek maksimum dosya sayısı. Varsayılan: 200.",
+    "param.path.description": ".xlsx dosya yolunu veya dizin yolunu hedefleyin.",
+    "param.recursive.description": "Dizinin yinelemeli olarak taranıp taranmayacağı. Varsayılan: yanlış.",
+    "param.visible.description": "Otomasyon sırasında Excel penceresini göster. Varsayılan: yanlış.",
+    "tool.description": "Microsoft Excel'i (Windows COM) otomatikleştirerek Excel formüllerini yeniden hesaplayın ve güncellenmiş önbelleğe alınmış değerleri kaydedin. Tek bir .xlsx dosyasını veya dizin taramasını destekler. Varsayılan olarak, kaydetmeden hemen önce bir yedek (<file>.org / <file>.org1 / ...) oluşturulur.",
+    "tool.system_prompt": ".xlsx dosyasındaki formül önbelleğe alınmış değerler eski olduğunda (örneğin, openpyxl data_only eski değerleri okuduğunda) bu aracı kullanın. Bu araç, çalışma kitaplarını Microsoft Excel'de COM aracılığıyla açar, tam bir yeniden hesaplama gerçekleştirir ve kaydeder.",
+    "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   }
 }

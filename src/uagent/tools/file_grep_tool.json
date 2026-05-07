@@ -404,5 +404,21 @@
     "param.recursive.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
     "tool.description": "Tafuta muundo ndani ya faili na urudishe mistari inayolingana pamoja na nambari za mistari (kama grep -n). pattern ni lazima.",
     "tool.system_prompt": "Tafuta maudhui ya faili chini ya njia moja au zaidi. pattern ni lazima. Chuja faili kwa glob, tafuta kwa kutumia regex ya Python au maandishi halisi, ongeza mistari ya muktadha kwa hiari, ruka faili zinazofanana na binary, toa hali ya majina ya faili pekee, na tambua usimbaji wa maandishi kiotomatiki wakati wa kusoma. Rudisha JSON pekee."
+  },
+  "tr": {
+    "err.exception": "Grep işlemleri sırasında özel durum oluştu.",
+    "err.invalid_regex": "Geçersiz normal ifade modeli.",
+    "err.missing_pattern": "'Desen' eksik.",
+    "err.no_files_found": "Kriterlere uygun dosya bulunamadı.",
+    "param.context_lines.description": "Her maç için önde gelen ve sondaki bağlamın satır sayısı.",
+    "param.filenames_only.description": "Etkinleştirilirse yalnızca eşleşen dosya adlarının listesini döndürün.",
+    "param.ignore_case.description": "Büyük/küçük harfin göz ardı edilip edilmeyeceği (varsayılan: doğru).",
+    "param.max_results.description": "Döndürülecek maksimum eşleşme satırı sayısı (varsayılan: 100).",
+    "param.name_pattern.description": "Dosya adları için genel desen (ör. '*.py').",
+    "param.path.description": "Kök dizin veya belirli bir dosya yolu (varsayılan: '.').",
+    "param.pattern.description": "Aranacak normal ifade modeli.",
+    "param.recursive.description": "Alt dizinlerin yinelemeli olarak aranıp aranmayacağı.",
+    "tool.description": "Dosyalarda bir model arayın ve satır numaralarıyla eşleşen satırları döndürün (grep -n gibi). Desen gereklidir.",
+    "tool.system_prompt": "Dosya içeriğini bir veya daha fazla yol altında arayın. Desen gereklidir. Dosyaları glob'a göre filtreleyin, bir Python normal ifadesi veya değişmez metin kullanarak arama yapın, isteğe bağlı olarak bağlam satırları ekleyin, ikili benzeri dosyaları atlayın, yalnızca dosya adları modunu destekleyin ve okurken metin kodlamalarını otomatik olarak algılayın. Yalnızca JSON değerini döndür."
   }
 }

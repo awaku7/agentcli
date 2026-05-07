@@ -273,5 +273,16 @@
     "param.skill_dir.description": "saraka ya skill",
     "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
+  },
+  "tr": {
+    "err.invalid_args": "[araç hatası] geçersiz argümanlar",
+    "err.max_bytes_positive": "[araç hatası] max_bytes pozitif bir tam sayı olmalıdır",
+    "err.relative_path_required": "[araç hatası] relative_path boş olmayan bir dize olmalıdır",
+    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
+    "param.max_bytes.description": "Okunacak azami bayt sayısı (varsayılan: 5000000)",
+    "param.relative_path.description": "Beceri köküne göre göreli yol (örn. references/REFERENCE.md)",
+    "param.skill_dir.description": "beceri dizini",
+    "tool.description": "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur. Yol aşımı engellenir.",
+    "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   }
 }

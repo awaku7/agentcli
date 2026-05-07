@@ -148,5 +148,11 @@
     "param.sql.description": "SQL ya kutekeleza.",
     "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
     "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'db_query'."
+  },
+  "tr": {
+    "param.db_path.description": "SQLite veritabanı dosyasının yolu.",
+    "param.sql.description": "SQL yürütülecek.",
+    "tool.description": "Bir SQLite veritabanında SQL sorgularını yürütün ve sonucu döndürün. Yalnızca salt okunur işlemler (SELECT) ve şema incelemesi (PRAGMA) desteklenir.",
+    "tool.system_prompt": "Bu araç, 'db_query' araç adıyla açıklanan işlemi gerçekleştirir."
   }
 }

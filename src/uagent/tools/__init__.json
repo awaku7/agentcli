@@ -124,5 +124,12 @@
     "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
     "log.loaded_tools": "[tools] Loaded tools: {names}",
     "log.no_valid_tools": "[tools] No valid tools were found."
+  },
+  "tr": {
+    "log.load_fail.external": "[araçlar] Harici eklenti {entry_path} yüklenemedi: {err}",
+    "log.load_fail.internal": "[araçlar] Dahili eklenti {mod_name} yüklenemedi: {err}",
+    "log.load_ok.external": "[araçlar] Yüklenen harici araçlar: {entry_name}",
+    "log.loaded_tools": "[araçlar] Yüklenen araçlar: {names}",
+    "log.no_valid_tools": "[araçlar] Geçerli bir araç bulunamadı."
   }
 }

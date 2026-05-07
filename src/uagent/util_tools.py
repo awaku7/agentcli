@@ -1452,7 +1452,7 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
         idx = int(arg)
     except Exception:
         print(
-            tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
+            "[shared-mem-del error] Failed to parse index as int: %(arg)r"
             % {"arg": arg}
         )
         return True
@@ -1475,7 +1475,7 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception as e:
         print(
-            tr("[shared-mem-del error] %(etype)s: %(err)s")
+            "[shared-mem-del error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True

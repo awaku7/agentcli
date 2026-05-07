@@ -223,5 +223,14 @@
     "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
     "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
+  },
+  "tr": {
+    "param.max_chars.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
+    "param.page_index.description": "1-tabanlı sayfa numarası (PDF sayfa veya PPTX slayt dizini). Atlanırsa, tüm sayfalar için birleştirilmiş metni döndürür.",
+    "param.path.description": "PDF / PPTX / JSON dosyasının yolu.",
+    "tool.description": "PDF/PPTX (veya bunların ortak JSON şemasını) okuyun ve çıkarılan metni sayfa sayfa döndürün. Yolu .pdf / .pptx / .json olarak ayarlayabilirsiniz. PDF/PPTX için bu modül onu ortak JSON şemasına dönüştürür.",
+    "tool.system_prompt": "IMPORTANT: Bu araç PDF/PPTX/JSON okur ve sayfa düzeyinde metin döndürür. Giriş: yol, sayfa_dizini, maksimum_karakterler. Çıktı: sayfa metni (tüm sayfalar veya belirtilen sayfa).",
+    "param.password.description": "Şifrelenmiş PDF/PPTX dosyaları için isteğe bağlı şifre. Atlanırsa ve giriş şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   }
 }

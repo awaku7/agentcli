@@ -394,5 +394,27 @@
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "tr": {
+    "confirm.rename": "yeniden adlandır/taşı, gerçek dosyaları taşır (mevcut dosyaların üzerine yazabilir veya silebilir).\nkaynak: {src}\nvarış yeri: {dst}\nayrıntılar: {details}\n\nDevam etmek için y ile veya iptal etmek için c ile yanıtlayın.",
+    "confirm.risky_op": "Bu işlem tehlikeli olabilir, dolayısıyla onay gereklidir.\nişlem: {operation}\nyol: {path}\nDevam etmek için y ile veya iptal etmek için c ile yanıtlayın.",
+    "err.create_cancel": "Oluşturma işlemi, kullanıcı izin vermediği için iptal edildi: {filename}",
+    "err.delete_cancel": "Kullanıcı izin vermediği için silme işlemi iptal edildi: {filename}",
+    "err.delete_dir_cancel": "Kullanıcı izin vermediği için dizin silme işlemi iptal edildi: {path}",
+    "err.delete_path_cancel": "Kullanıcı izin vermediği için silme işlemi iptal edildi: {path}",
+    "err.dst_exists_overwrite_false": "dst zaten mevcut (üzerine yazma=Yanlış): {dst}",
+    "err.exists_overwrite_false": "Dosya zaten mevcut (üzerine yazma=Yanlış): {filename}",
+    "err.path_not_found": "Yol mevcut değil: {path}",
+    "err.prompt_cancel": "Kullanıcı izin vermediği için bilgi istemi oluşturma işlemi iptal edildi: {path}",
+    "err.prompt_target_not_found": "Bilgi istemi oluşturmaya yönelik hedef dosya bulunamadı: {path}",
+    "err.rename_cancel": "kullanıcı izin vermediği için yeniden adlandırma/taşıma işlemi iptal edildi: {src} -> {dst}",
+    "err.src_dst_required": "src ve dst gereklidir",
+    "err.src_not_found": "kaynak mevcut değil: {src}",
+    "reason.dst_trigger": "dst riskli yol koşullarıyla eşleşiyor",
+    "reason.overwrite_delete": "overwrite=True mevcut dst'yi silecek ve değiştirecek",
+    "reason.src_trigger": "src riskli yol koşullarıyla eşleşiyor",
+    "ui.confirm.footer": "=== /onayla ===",
+    "ui.confirm.howto": "Nasıl cevap verilir: y=devam et / c=iptal / diğer=reddet",
+    "ui.confirm.title": "=== İnsandan onay talebi ==="
   }
 }

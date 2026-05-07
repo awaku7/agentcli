@@ -298,5 +298,17 @@
     "param.years.description": "Idadi ya miaka ya kuongeza (kutoa ni nambari hasi).",
     "tool.description": "Ongeza au toa miaka, miezi, wiki au siku kwenye tarehe iliyobainishwa na urudishe matokeo. Pia huangalia kama matokeo ni sikukuu kwa kutumia maktaba ya holidays.",
     "tool.system_prompt": "Zana hii huongeza au hupunguza miaka, miezi, wiki au siku kwa tarehe iliyobainishwa, na pia inaweza kubaini kama matokeo ni sikukuu kwa kutumia maktaba ya holidays. Tazama maelezo ya zana kwa ufafanuzi zaidi."
+  },
+  "tr": {
+    "doc.get_holiday_info": "Tatil kitaplığını kullanarak belirtilen ülkenin tatil adlarını alın.",
+    "param.base_date.description": "Temel tarih (ISO 8601 biçimi 'YYYY-MM-DD'; atlanırsa bugün).",
+    "param.check_holiday.description": "Sonucun tatil olup olmadığının kontrol edilip edilmeyeceği (varsayılan: doğru)",
+    "param.country.description": "Resmi tatilleri belirlemek için ülke kodu (ISO 3166-1 alpha-2, örn. 'JP', 'US', 'GB', 'FR'). Varsayılan 'JP'dır.",
+    "param.days.description": "Eklenecek gün sayısı (çıkarma negatif bir sayıdır).",
+    "param.months.description": "Eklenecek ay sayısı (çıkarma negatiftir).",
+    "param.weeks.description": "Eklenecek hafta sayısı (çıkarma negatiftir).",
+    "param.years.description": "Eklenecek yıl sayısı (çıkarma negatif bir sayıdır).",
+    "tool.description": "Belirli bir tarihe yıl, ay, hafta veya gün ekleyin veya çıkarın ve sonucu döndürün. Tatil tespiti, tatil kütüphanesi kullanılarak dahil edilir.",
+    "tool.system_prompt": "Bu araç, belirli bir tarih için yılları, ayları, haftaları veya günleri ekler veya çıkarır ve ayrıca tatil kitaplığını kullanarak sonucun tatil olup olmadığını da belirleyebilir. Ayrıntılar için araç açıklamasına bakın."
   }
 }

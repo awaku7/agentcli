@@ -448,5 +448,23 @@
     "param.wait_s.description": "Muda wa kusubiri majibu baada ya kutuma (sekunde).",
     "tool.description": "Wasiliana na chaneli mahususi ya Discord kwa kutumia tokeni ya bot: tuma ujumbe, soma ujumbe wa hivi karibuni, na kwa hiari subiri majibu baada ya kutuma.",
     "tool.system_prompt": "Tumia zana hii kuwasiliana na chaneli ya Discord kupitia REST API. Tokeni ya bot lazima itolewe kupitia kigezo cha mazingira. Rudisha JSON pekee."
+  },
+  "tr": {
+    "err.exception": "İstisna",
+    "err.invalid_action": "Geçersiz işlem: {action}",
+    "err.message_too_long": "Discord mesaj içeriği 2000 karakter veya daha az olmalıdır.",
+    "err.missing_action": "'Eylem' eksik.",
+    "err.missing_channel_id": "'channel_id' eksik.",
+    "err.missing_message": "'Mesaj' eksik.",
+    "param.action.description": "Eylem: gönder / gönder_ve_bekle / geçmiş",
+    "param.channel_id.description": "Discord kanalını hedefleyin ID.",
+    "param.exclude_bots.description": "Beklerken bot mesajlarını dikkate almayın.",
+    "param.limit.description": "Geçmiş/yanıtlar için getirilecek ileti sayısı.",
+    "param.message.description": "Send/send_and_wait eylemleri için gönderilecek mesaj.",
+    "param.poll_interval_s.description": "Cevaplar beklenirken yoklama aralığı (saniye).",
+    "param.token_env.description": "Discord bot jetonunu saklayan ortam değişkeninin adı.",
+    "param.wait_s.description": "Gönderdikten sonra yanıtların ne kadar süre bekleneceği (saniye).",
+    "tool.description": "Bir bot belirteci kullanarak belirli bir Discord kanalıyla etkileşim kurun: mesaj gönderin, son mesajları okuyun ve isteğe bağlı olarak gönderdikten sonra yanıtları bekleyin.",
+    "tool.system_prompt": "REST API aracılığıyla bir Discord kanalıyla konuşmak için bu aracı kullanın. Bir ortam değişkeni aracılığıyla bir bot belirteci sağlanmalıdır. Yalnızca JSON değerini döndür."
   }
 }

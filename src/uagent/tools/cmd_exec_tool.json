@@ -123,5 +123,10 @@
     "param.command.description": "Mfuatano wa amri wa kutekeleza.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya Windows. Tumia tu wakati hakuna zana nyingine inayofaa, kama Python au MCP, inayopatikana.",
     "tool.system_prompt": "Hii ni suluhisho la mwisho. Tumia tu ikiwa hakuna zana nyingine inayofaa inayopatikana."
+  },
+  "tr": {
+    "param.command.description": "Yürütülecek komut dizisi.",
+    "tool.description": "Son çare olarak bir Windows komutunu çalıştırın. Yalnızca Python veya MCP gibi başka uygun bir araç bulunmadığında kullanın.",
+    "tool.system_prompt": "Bu araç bir LAST RESORT'dir. Bunu yalnızca başka uygun bir araç bulunmadığında kullanın."
   }
 }

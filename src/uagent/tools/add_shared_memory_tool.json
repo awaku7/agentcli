@@ -123,5 +123,10 @@
     "param.note.description": "Maandishi ya dokezo la kushiriki.",
     "tool.description": "Hifadhi dokezo moja la kumbukumbu ya pamoja kuhusu mtumiaji au mazingira ambalo linaweza kusaidia mazungumzo ya baadaye.",
     "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya pamoja. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
+  },
+  "tr": {
+    "param.note.description": "Paylaşılacak not metni.",
+    "tool.description": "Paylaşılan uzun vadeli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekleyin. Paylaşılan bellek yapılandırılmamışsa araç bunun devre dışı bırakıldığını bildirir. Parolalar veya API anahtarları gibi sırları asla saklamayın.",
+    "tool.system_prompt": "Paylaşılan hafıza deposuna tam olarak bir not ekleyin.\nSırları saklamayın (şifreler/belirteçler/API anahtarlar)."
   }
 }

@@ -474,5 +474,24 @@
     "param.root_path.description": "Saraka ya mzizi ya kuanzia kutafuta (chaguomsingi: saraka ya sasa).",
     "tool.description": "Tafuta faili ndani ya saraka kwa kigezo cha jina (glob) na/au yaliyomo (regex).",
     "tool.system_prompt": "Tafuta faili ndani ya saraka. Unaweza kuchuja kwa kigezo cha jina la faili (glob) na, ukihitajika, kutafuta yaliyomo kwa kutumia regex.\n\nVidokezo:\n- content_pattern huchukuliwa kama regex ya Python.\n- Ikiwa content_pattern ni tupu, utafutaji wa jina la faili pekee ndio hufanyika.\n- Kwa ufanisi na usalama, utafutaji wa yaliyomo unaweza kutumia ukaguzi rahisi wa jozi-baiti ndani yake."
+  },
+  "tr": {
+    "err.dir_not_exist": "[search_files hatası] Dizin mevcut değil: {path}",
+    "err.regex_compile": "[search_files hatası] Regex derlenemedi: {error}",
+    "match.excerpt": "EŞLEŞME: {text}",
+    "match.line": "Satır {line}: {text}",
+    "match.more": "... (dosyada daha fazla eşleşme var)",
+    "out.file": "Dosya: {file}",
+    "out.found": "[search_files] {n} sonuç bulundu",
+    "out.found_truncated": "[search_files] {n} sonuç bulundu ({max_results} ile sınırlandı)",
+    "out.no_match": "[search_files] Kriterlere uyan dosya bulunamadı.",
+    "param.case_sensitive.description": "İçerik aramasının büyük/küçük harfe duyarlı olup olmadığı (varsayılan: false).",
+    "param.content_pattern.description": "Dosyalar içinde aranacak düzenli ifade. Sağlanırsa yalnızca en az bir eşleşen satır içeren dosyalar döndürülür.",
+    "param.fast_read_threshold_bytes.description": "Bu eşikten küçük dosyalar daha hızlı arama için tamamen okunur (varsayılan: 8000000 ≈ 8 MB). Daha büyük dosyalar satır satır taranır.",
+    "param.max_results.description": "Döndürülecek maksimum eşleşen dosya sayısı (varsayılan: 50).",
+    "param.name_pattern.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir.",
+    "param.root_path.description": "Aramanın başlayacağı kök dizin (varsayılan: geçerli dizin).",
+    "tool.description": "Dizin altındaki dosyaları ad deseni (glob) ve/veya içerik (regex) ile arar.",
+    "tool.system_prompt": "Bir dizin altındaki dosyaları arayın. Dosya adı desenine (glob) göre filtreleyebilir ve isteğe bağlı olarak dosya içeriğini düzenli ifadeyle arayabilirsiniz.\n\nNotlar:\n- content_pattern bir Python düzenli ifadesi olarak ele alınır.\n- content_pattern boşsa yalnızca dosya adı eşleştirmesi yapılır.\n- Performans ve güvenlik için içerik araması dahili olarak basit bir ikili denetim kullanabilir."
   }
 }

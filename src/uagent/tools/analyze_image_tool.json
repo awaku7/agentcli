@@ -148,5 +148,11 @@
     "param.prompt.description": "Unachotaka kujua kuhusu picha.",
     "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali.",
     "tool.system_prompt": "Changanua picha iliyoelezwa na jina la zana \"analyze_image\" na urudishe matokeo."
+  },
+  "tr": {
+    "param.image_path.description": "Analiz edilecek görüntü dosyasının yolu.",
+    "param.prompt.description": "Resim hakkında bilmek istedikleriniz.",
+    "tool.description": "Bir resim yükleyin ve AI (Görme)'nin bunu açıklamasını sağlayın. Ekran görüntüleri, grafikler ve tablolar için kullanışlıdır.",
+    "tool.system_prompt": "\"analyze_image\" araç adıyla tanımlanan görüntüyü analiz edin ve sonucu döndürün."
   }
 }

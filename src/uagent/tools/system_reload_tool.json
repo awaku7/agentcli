@@ -98,5 +98,9 @@
   "sw": {
     "tool.description": "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo.",
     "tool.system_prompt": "Tumia zana hii kupakia upya mfumo na kuingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo."
+  },
+  "tr": {
+    "tool.description": "Sistemi yeniden yükleyin ve tools/ altındaki tüm araçlar (Python .py dosyaları) için en yeni kodu belleğe alın. Kodu değiştirdikten sonra çalıştırın.",
+    "tool.system_prompt": "Bu araç, sistemi yeniden yüklemek ve tools/ altındaki tüm araçların (Python .py dosyaları) en yeni kodunu belleğe almak için kullanılır. Kodu değiştirdikten sonra çalıştırın."
   }
 }

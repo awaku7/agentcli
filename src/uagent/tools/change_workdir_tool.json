@@ -173,5 +173,12 @@
     "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
     "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
     "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
+  },
+  "tr": {
+    "confirm.change_workdir": "Geçerli çalışma dizinini şu şekilde değiştirin: {new_dir}\n\nDevam etmek mi? Devam etmek için y, iptal etmek için c girin.",
+    "param.confirm.description": "Kullanıcı onayı istenip istenmeyeceği.",
+    "param.new_dir.description": "Geçiş yapılacak yeni dizin yolu.",
+    "tool.description": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirin.",
+    "tool.system_prompt": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirmek için bu aracı kullanın."
   }
 }

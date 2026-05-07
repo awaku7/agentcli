@@ -118,5 +118,10 @@
     "doc.run_tool": "Інструмент для отримання всієї довготривалої пам’яті (текст JSONL).",
     "tool.description": "Отримує всі збережені нотатки довготривалої пам’яті (JSONL).",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати всі збережені нотатки довготривалої пам’яті (у форматі JSONL)."
+  },
+  "tr": {
+    "doc.run_tool": "Uzun süreli belleğin tamamını (JSONL metni) almak için bir araç.",
+    "tool.description": "Kaydedilen tüm uzun süreli hafıza notlarını alır (JSONL).",
+    "tool.system_prompt": "Bu araç şu amaç için kullanılır: Kaydedilmiş tüm uzun süreli hafıza notlarını JSONL formatında almak."
   }
 }

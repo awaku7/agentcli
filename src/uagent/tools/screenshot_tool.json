@@ -373,5 +373,20 @@
     "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
     "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
     "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
+  },
+  "tr": {
+    "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
+    "err.close_fail": "[ekran görüntüsü] {path} konumuna kaydedildi ancak pencere kapatılamadı: {err}",
+    "err.pyautogui_missing": "[ekran görüntüsü hatası] pyautogui modülü kurulu değil.",
+    "err.pygetwindow_missing": "[ekran görüntüsü hatası] Pygetwindow modülü kurulu değil (pencere spesifikasyonu için gereklidir).",
+    "err.window_not_found": "[ekran görüntüsü hatası] Başlıkla eşleşen pencere bulunamadı: '{title}'",
+    "out.ok": "[ekran görüntüsü] {path} konumuna kaydedildi",
+    "out.ok_closed": "[ekran görüntüsü] {path}'a kaydedildi ve pencere kapatıldı",
+    "param.close_window.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı. Yalnızca window_title belirtildiğinde geçerlidir. Varsayılan Yanlış'tır.",
+    "param.delay.description": "Çekimden önce bekleme süresi (saniye). Varsayılan 1 saniyedir (pencere geçişi için).",
+    "param.file_path.description": "Hedef dosya yolu (.png önerilir). Belirtilmemişse, geçerli dizine bir zaman damgasıyla kaydedilecektir.",
+    "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme). Belirtilmişse o pencerenin yerini belirler, aktif hale getirir ve yalnızca o alanın fotoğrafını çeker.",
+    "tool.description": "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar.",
+    "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak."
   }
 }

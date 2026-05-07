@@ -526,5 +526,27 @@
     "tool.description": "Шукає локальні файли за допомогою GraphRAG (гібрид графа й вектора). Підтримується: py/md/txt/pdf/pptx/xlsx. Будує в SQLite легкий граф знань (сутності/зв’язки), отримує релевантні chunk-и через обходи графа (hops) і повертає їх разом із результатами векторного пошуку.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети (див. опис інструмента).",
     "warn.indexing_title": "[WARN] Попередження індексації (видалення дублікатів, перші 50 елементів):"
+  },
+  "tr": {
+    "err.dir_not_found": "Hata: Dizin bulunamadı: {root_path}",
+    "err.query_required": "Hata: sorgu gerekli.",
+    "out.db": "DB: {db_path}",
+    "out.hits_summary": "vektör_hits: {v} / graph_hits: {g} / birleştirilmiş: {m}",
+    "out.no_docs": "İlgili belge bulunamadı.",
+    "out.query": "Arama sorgusu: {query}",
+    "out.result_content": "İçerik: {snippet}",
+    "out.results_title": "[Sonuçlar]",
+    "out.target_dir": "Hedef dizin: {root_path}",
+    "param.chunk_size.description": "Parça boyutu.",
+    "param.file_pattern.description": "Hedef modeli (virgülle ayrılmış küre).",
+    "param.hops.description": "Grafik geçişi için atlama sayısı.",
+    "param.overlap.description": "Parça örtüşmesi.",
+    "param.query.description": "Arama sorgusu (gerekli).",
+    "param.root_path.description": "Aranacak dizin.",
+    "param.top_k_graph.description": "Grafik aramasıyla alınan öğe sayısı.",
+    "param.top_k_vector.description": "En iyi vektör arama sonuçları.",
+    "tool.description": "GraphRAG (grafik + vektör hibriti) kullanarak yerel dosyaları arayın. Desteklenen: py/md/txt/pdf/pptx/xlsx. SQLite'da hafif bir bilgi grafiği (varlıklar/ilişkiler) oluşturur, grafik geçişi (atlamalar) yoluyla ilgili parçaları alır ve bunları vektör arama sonuçlarıyla birlikte döndürür.",
+    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (alet açıklamasına bakın).",
+    "warn.indexing_title": "[WARN] Dizine ekleme uyarısı (yinelenen öğelerin kaldırılması, ilk 50 öğe):"
   }
 }

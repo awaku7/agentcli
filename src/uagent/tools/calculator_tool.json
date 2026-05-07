@@ -123,5 +123,10 @@
     "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Kazi za moduli ya math ya Python zinapatikana.",
     "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
     "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
+  },
+  "tr": {
+    "param.expression.description": "Hesaplamak istediğiniz formül (ör. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Python'un matematik modülündeki işlevler mevcuttur.",
+    "tool.description": "Matematiksel bir ifadeyi hesaplar ve sonucu döndürür. Bunu karmaşık hesaplamalar için veya hassasiyet gerektiğinde kullanın.",
+    "tool.system_prompt": "Matematiksel bir ifade hesaplayın ve sonucu döndürün. Yalnızca JSON değerini döndür."
   }
 }

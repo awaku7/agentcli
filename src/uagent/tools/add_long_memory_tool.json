@@ -123,5 +123,10 @@
     "param.note.description": "Текст нотатки, яку потрібно зберегти.",
     "tool.description": "Зберігає одну корисну нотатку про користувача або середовище в довготривалій пам’яті, яка може стати у пригоді в майбутніх розмовах.",
     "tool.system_prompt": "Збережіть одну корисну нотатку в довготривалій пам’яті.\nНе зберігайте секрети, як-от паролі, ключі API або токени."
+  },
+  "tr": {
+    "param.note.description": "Kaydedilecek not metni.",
+    "tool.description": "Kullanıcı/ortam hakkında gelecekteki konuşmalarda faydalı olabilecek tek bir uzun süreli hafıza notu kaydedin.",
+    "tool.system_prompt": "Yararlı bir uzun süreli hafıza notu kaydedin.\nParolalar, API anahtarları veya belirteçler gibi sırları saklamayın."
   }
 }

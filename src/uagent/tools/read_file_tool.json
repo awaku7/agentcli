@@ -348,5 +348,19 @@
     "param.tail_lines.description": "Idadi ya mistari ya kusoma kuanzia mwisho. Haiwezi kutolewa pamoja na head_lines.",
     "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000). Unaweza kusoma kwa sehemu kwa kutumia start_line na max_lines.",
     "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki."
+  },
+  "tr": {
+    "err.dual_lines": "[dosya okuma hatası] başlık satırları ve kuyruk_satırları aynı anda belirtilemez",
+    "err.filename_missing": "[dosya okuma hatası] dosya adı/yolu belirtilmedi",
+    "err.out_of_range": "(Dosyada yalnızca {count} satır var. start_line {start_line} aralık dışında)",
+    "msg.truncated": "[okuma_dosyası kesildi: Bayt sınırına {max_bytes} ulaşıldı]",
+    "param.filename.description": "Okunacak dosyanın yolu.",
+    "param.head_lines.description": "Baştan itibaren okunacak satır sayısı. tail_lines ile aynı anda belirtilemez.",
+    "param.max_lines.description": "Okunacak maksimum satır sayısı. Eğer null ise dosyanın sonuna kadar okuyun.",
+    "param.path.description": "(Uyumluluk için) Dosya adı için alternatif ad.",
+    "param.start_line.description": "Okumaya başlamak için satır numarası (1'den başlayarak). Varsayılan 1'dir.",
+    "param.tail_lines.description": "Sondan itibaren okunacak satır sayısı. Head_lines ile aynı anda belirtilemez.",
+    "tool.description": "Dosya içeriğini okuyun (1,000,000 bayta kadar). Kısmi okuma, başlangıç_satırı ve maksimum_satırlar belirtilerek mümkündür.",
+    "tool.system_prompt": "Dosya içeriğini okuyun.\n- Büyük dosyalar için start_line/max_lines kullanılarak kısmi okuma yapılması önerilir.\n- Yeni satırlar otomatik olarak normalleştirilir."
   }
 }

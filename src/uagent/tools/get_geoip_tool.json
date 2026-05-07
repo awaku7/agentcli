@@ -118,5 +118,10 @@
     "param.format.description": "Формат виводу.",
     "tool.description": "Оцінює приблизне місцеперебування користувача на основі його публічної IP-адреси. Результат може бути неточним під час використання VPN, проксі або мобільних мереж.\n\nПолітика:\n- Використовуйте цей інструмент, коли вам потрібне приблизне місцеперебування користувача (місто/регіон/країна), а користувач його не надав.\n- Якщо користувач уже вказав своє місцеперебування, надайте йому перевагу і не викликайте get_geoip.",
     "tool.system_prompt": "Отримує з зовнішнього сервісу (ipinfo.io) дані про місцеперебування на основі IP та повертає спрощений результат."
+  },
+  "tr": {
+    "param.format.description": "Çıkış formatı.",
+    "tool.description": "Kullanıcının genel IP adresinden yaklaşık konumunu tahmin eder. VPN'ler, proxy'ler veya mobil ağlar kullanıldığında sonuç hatalı olabilir.\n\nPolitika:\n- Kullanıcının yaklaşık konumuna (şehir/bölge/ülke) ihtiyacınız varsa ve kullanıcı bunu sağlamadıysa bu aracı kullanın.\n- Kullanıcı konumunu zaten vermişse bunu tercih edin ve get_geoip'i çağırmayın.",
+    "tool.system_prompt": "Harici bir hizmetten (ipinfo.io) IP-tabanlı konum verilerini alın ve basitleştirilmiş bir sonuç döndürün."
   }
 }

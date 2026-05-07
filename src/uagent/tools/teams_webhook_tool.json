@@ -348,5 +348,19 @@
     "param.timeout_s.description": "Muda wa kusubiri ombi kwa sekunde.",
     "err.missing_message": "Pungufu la 'message'.",
     "err.exception": "Hitilafu"
+  },
+  "tr": {
+    "tool.description": "Bir mesajı veya webhook destekli JSON yükünü, bir ortam değişkeninde saklanan Microsoft Teams Incoming Webhook URL'sine gönderir.",
+    "tool.system_prompt": "Microsoft Teams Incoming Webhook'a bir yük gönderin. Yalnızca JSON döndürün.",
+    "param.message.description": "Teams'e gönderilecek mesaj metni. Kart alanları verilmedikçe düz metin olarak kullanılır.",
+    "param.title.description": "Webhook destekli yükler için kart başlığı.",
+    "param.summary.description": "Webhook destekli yükler için kart özeti.",
+    "param.image_url.description": "Webhook destekli yükler için resim URL'si.",
+    "param.theme_color.description": "Kart tema rengi, # olmadan onaltılık dize olarak.",
+    "param.payload_json.description": "Ham webhook yükü, JSON dizesi veya nesnesi olarak. Sağlanırsa aynen gönderilir.",
+    "param.webhook_env.description": "Teams webhook URL'sini saklayan ortam değişkeninin adı.",
+    "param.timeout_s.description": "İstek zaman aşımı (saniye).",
+    "err.missing_message": "'message' eksik.",
+    "err.exception": "İstisna"
   }
 }

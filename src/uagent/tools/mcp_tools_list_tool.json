@@ -166,5 +166,12 @@
     "param.url.description": "URL кінцевої точки сервера MCP.",
     "tool.description": "[Найвищий пріоритет] Підключається до сервера MCP (Model Context Protocol) і повертає список доступних інструментів. Перш ніж виконувати будь-яку інтеграцію API/системи, використайте цей інструмент, щоб з’ясувати, які інструменти MCP доступні. Підтримує сервери MCP на основі HTTP і stdio.",
     "tool.system_prompt": "Підключіться до сервера MCP (HTTP або stdio) і перелічіть його інструменти. За можливості надавайте перевагу серверам, налаштованим у mcp_servers.json."
+  },
+  "tr": {
+    "param.pretty.description": "JSON çıktısının güzel yazdırılıp yazdırılmayacağı.",
+    "param.server_name.description": "Yapılandırma dosyasından sunucu adı.",
+    "param.url.description": "MCP sunucu uç noktası URL.",
+    "tool.description": "[En yüksek öncelik] Bir MCP (Model Bağlam Protokolü) sunucusuna bağlanın ve mevcut araçların listesini döndürün. Herhangi bir API/sistem entegrasyonu gerçekleştirmeden önce, hangi MCP araçlarının mevcut olduğunu keşfetmek için bu aracı kullanın. HTTP-tabanlı ve stdio tabanlı MCP sunucularını destekler.",
+    "tool.system_prompt": "Bir MCP sunucusuna (HTTP veya stdio) bağlanın ve araçlarını listeleyin. Mümkün olduğunda mcp_servers.json dosyasındaki yapılandırılmış sunucuları kullanmayı tercih edin."
   }
 }

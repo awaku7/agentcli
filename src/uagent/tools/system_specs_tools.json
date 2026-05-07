@@ -148,5 +148,11 @@
     "tool.system_prompt": "Zana hii hutumiwa kukusanya taarifa za mfumo kama vile OS, CPU, ukubwa wa RAM, diski za kuhifadhi (kwa kadiri inavyowezekana), na nafasi huru ya volumu.",
     "param.include_volumes.description": "Jumuisha taarifa za matumizi ya volumu zilizowekwa.",
     "param.include_disks.description": "Jumuisha taarifa za diski halisi inapopatikana (kwa kadiri inavyowezekana)."
+  },
+  "tr": {
+    "tool.description": "Sistem özelliklerini (CPU/RAM/diskler/birimler) mümkün olduğunca platformlar arası bir şekilde alın.",
+    "tool.system_prompt": "Bu araç, işletim sistemi, CPU, RAM boyutu, depolama diskleri (en iyi çaba) ve birim boş alanı gibi sistem bilgilerini toplamak için kullanılır.",
+    "param.include_volumes.description": "Bağlı birimlerin kullanım bilgilerini dahil edin.",
+    "param.include_disks.description": "Mevcut olduğunda fiziksel disk bilgilerini dahil edin (en iyi çaba)."
   }
 }

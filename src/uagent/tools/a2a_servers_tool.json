@@ -523,5 +523,26 @@
     "param.token.description": "Tokeni ya Bearer (maandishi wazi). Itasimbwa kwa njia fiche kabla ya kuhifadhi.",
     "tool.description": "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json).",
     "tool.system_prompt": "Dhibiti orodha ya wasifu za seva za A2A. Rudisha JSON pekee."
+  },
+  "tr": {
+    "err.config_not_found": "Yapılandırma bulunamadı. İlk önce action=init komutunu çalıştırın.",
+    "err.empty_name": "Boş isim.",
+    "err.exception": "İstisna",
+    "err.missing_name": "'Ad' eksik.",
+    "err.missing_name_or_base_url": "'Ad' veya 'base_url' eksik.",
+    "err.no_default_profile": "Varsayılan profil yok.",
+    "err.not_found": "Bulunamadı.",
+    "err.server_missing_base_url": "Sunucu profilinde base_url eksik.",
+    "err.unknown_action": "Bilinmeyen eylem.",
+    "param.action.description": "Eylem: init/list/add/remove/set_default/get/resolve",
+    "param.base_url.description": "Sunucu tabanı URL (ör. http://127.0.0.1:8765).",
+    "param.force.description": "(init) Mevcut yapılandırmanın üzerine yazın.",
+    "param.interval_ms.description": "Milisaniye cinsinden yoklama aralığı.",
+    "param.name.description": "Profil adı (veya alma/çözme için a2a://name).",
+    "param.set_default.description": "(ekle) Varsayılan profil olarak ayarla.",
+    "param.timeout_s.description": "Saniye cinsinden profil zaman aşımı.",
+    "param.token.description": "Taşıyıcı belirteci (düz metin). Saklamadan önce şifrelenecektir.",
+    "tool.description": "uagent durumu dizini (~/.uag/a2a/a2a_servers.json) altında A2A sunucu profillerini yönetin.",
+    "tool.system_prompt": "A2A sunucu profili listesini yönetin. Yalnızca JSON değerini döndür."
   }
 }
