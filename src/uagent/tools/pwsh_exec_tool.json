@@ -13,20 +13,6 @@
     "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP など）が使えない場合にのみ使用してください。",
     "tool.system_prompt": "このツールは【最終手段】です。\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\n\nセキュリティ注記:\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。"
   },
-  "zh_CN": {
-    "err.timeout": "[pwsh_exec 超时] 未在 {seconds} 秒内完成",
-    "param.command.description": "传递给 -Command 的 PowerShell 命令字符串。",
-    "param.shell.description": "要使用的 PowerShell 可执行文件：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，则自动选择。",
-    "tool.description": "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用。",
-    "tool.system_prompt": "该工具是最后手段。\n1. 先检查是否可以改用 handle_mcp / mcp_tools_list。\n2. 仅当没有其他合适的工具可用时，才使用此工具。\n3. 不要使用此工具运行 Python；请改用 python_exec。\n\n安全注意事项：\n- download-exec（IWR/IRM/curl/wget）和 Base64（-Enc）等危险模式可能会被阻止或需要确认。"
-  },
-  "zh_TW": {
-    "err.timeout": "[pwsh_exec 逾時] 未在 {seconds} 秒內完成",
-    "param.command.description": "傳遞給 -Command 的 PowerShell 命令字串。",
-    "param.shell.description": "要使用的 PowerShell 執行檔：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，則自動選擇。",
-    "tool.description": "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用。",
-    "tool.system_prompt": "此工具是最後手段。\n1. 先檢查是否可以改用 handle_mcp / mcp_tools_list。\n2. 僅當沒有其他合適的工具可用時，才使用此工具。\n3. 不要使用此工具執行 Python；請改用 python_exec。\n\n安全注意事項：\n- download-exec（IWR/IRM/curl/wget）和 Base64（-Enc）等危險模式可能會被阻止或需要確認。"
-  },
   "es": {
     "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds} segundos",
     "param.command.description": "Cadena de comando de PowerShell pasada a -Command.",
@@ -47,13 +33,6 @@
     "param.shell.description": "사용할 PowerShell 실행 파일입니다. 'pwsh'(PowerShell 7+) 또는 'powershell'(Windows PowerShell) 중 하나를 사용합니다. 생략하면 자동으로 선택합니다.",
     "tool.description": "최후의 수단으로 PowerShell을 실행합니다. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하세요.",
     "tool.system_prompt": "이 도구는 마지막 수단입니다.\n1. 먼저 대신 handle_mcp / mcp_tools_list를 사용할 수 있는지 확인하세요.\n2. 다른 적절한 도구가 없을 때만 이 도구를 사용하세요.\n3. Python을 실행하는 데 이 도구를 사용하지 마세요. 대신 python_exec를 사용하세요.\n\n보안 참고 사항:\n- download-exec(IWR/IRM/curl/wget) 및 Base64(-Enc) 같은 위험한 패턴은 차단되거나 확인이 필요할 수 있습니다."
-  },
-  "th": {
-    "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
-    "param.command.description": "สตริงคำสั่ง PowerShell ที่ส่งผ่านไปยัง -Command",
-    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ระบบจะเลือกให้อัตโนมัติ",
-    "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
-    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย\n1. ตรวจสอบก่อนว่าสามารถใช้ handle_mcp / mcp_tools_list แทนได้หรือไม่\n2. ใช้เครื่องมือนี้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น\n3. อย่าใช้เครื่องมือนี้เพื่อรัน Python ให้ใช้ python_exec แทน\n\nหมายเหตุด้านความปลอดภัย:\n- รูปแบบที่เป็นอันตราย เช่น download-exec (IWR/IRM/curl/wget) และ Base64 (-Enc) อาจถูกบล็อกหรือต้องมีการยืนยัน"
   },
   "de": {
     "err.timeout": "[pwsh_exec timeout] wurde nicht innerhalb von {seconds} Sekunden beendet",
@@ -83,6 +62,13 @@
     "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta adequada, como MCP, estiver disponível.",
     "tool.system_prompt": "Esta ferramenta é o ÚLTIMO RECURSO.\n1. Primeiro verifique se é possível usar handle_mcp / mcp_tools_list em vez disso.\n2. Use esta ferramenta somente quando não houver outra ferramenta adequada disponível.\n3. Não use esta ferramenta para executar Python; use python_exec em vez disso.\n\nNotas de segurança:\n- Padrões perigosos como download-exec (IWR/IRM/curl/wget) e Base64 (-Enc) podem ser bloqueados ou exigir confirmação."
   },
+  "pt": {
+    "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
+    "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
+    "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, selecione automaticamente.",
+    "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta apropriada, como MCP, estiver disponível.",
+    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO.\n1. Primeiro verifique se é possível usar handle_mcp / mcp_tools_list em vez disso.\n2. Use esta ferramenta somente quando nenhuma outra ferramenta adequada estiver disponível.\n3. Não use esta ferramenta para executar Python; use python_exec em vez disso.\n\nNotas de segurança:\n- Padrões perigosos como download-exec (IWR/IRM/curl/wget) e Base64 (-Enc) podem ser bloqueados ou exigir confirmação."
+  },
   "id": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
     "param.command.description": "String perintah PowerShell yang diteruskan ke -Command.",
@@ -104,13 +90,6 @@
     "tool.description": "W ostateczności uruchom PowerShell. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie (np. MCP).",
     "tool.system_prompt": "To narzędzie jest ostatecznością.\n1. Najpierw sprawdź, czy zamiast tego można użyć handle_mcp / mcp_tools_list.\n2. Używaj tego narzędzia tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie.\n3. Nie używaj tego narzędzia do uruchamiania Pythona; zamiast tego użyj python_exec.\n\nUwagi dotyczące bezpieczeństwa:\n- Niebezpieczne wzorce, takie jak download-exec (IWR/IRM/curl/wget) i Base64 (-Enc) mogą zostać zablokowane lub wymagać potwierdzenia."
   },
-  "pt": {
-    "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
-    "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
-    "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, selecione automaticamente.",
-    "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta apropriada, como MCP, estiver disponível.",
-    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO.\n1. Primeiro verifique se é possível usar handle_mcp / mcp_tools_list em vez disso.\n2. Use esta ferramenta somente quando nenhuma outra ferramenta adequada estiver disponível.\n3. Não use esta ferramenta para executar Python; use python_exec em vez disso.\n\nNotas de segurança:\n- Padrões perigosos como download-exec (IWR/IRM/curl/wget) e Base64 (-Enc) podem ser bloqueados ou exigir confirmação."
-  },
   "hi": {
     "err.timeout": "[pwsh_exec टाइमआउट] {seconds} सेकंड के भीतर समाप्त नहीं हुआ",
     "param.command.description": "-Command को पास की जाने वाली PowerShell कमांड स्ट्रिंग।",
@@ -131,6 +110,13 @@
     "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Om den utelämnas väljs den automatiskt.",
     "tool.description": "Som sista utväg, kör PowerShell. Använd endast när inget annat lämpligt verktyg, till exempel MCP, finns tillgängligt.",
     "tool.system_prompt": "Det här verktyget är en SISTA UTVÄG.\n1. Kontrollera först om handle_mcp / mcp_tools_list kan användas istället.\n2. Använd endast det här verktyget när inget annat lämpligt verktyg finns.\n3. Använd inte det här verktyget för att köra Python; använd i stället python_exec.\n\nSäkerhetsnoteringar:\n- Farliga mönster som download-exec (IWR/IRM/curl/wget) och Base64 (-Enc) kan blockeras eller kräva bekräftelse."
+  },
+  "sw": {
+    "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
+    "param.command.description": "PowerShell command string passed to -Command.",
+    "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
+    "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.system_prompt": "This tool is a LAST RESORT.\n1. First check whether handle_mcp / mcp_tools_list can be used instead.\n2. Use this tool only when no other appropriate tool is available.\n3. Do not use this tool to run Python; use python_exec instead.\n\nSecurity notes:\n- Dangerous patterns such as download-exec (IWR/IRM/curl/wget) and Base64 (-Enc) may be blocked or require confirmation."
   },
   "nb": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
@@ -173,5 +159,26 @@
     "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell). Atlanırsa otomatik seçin.",
     "tool.description": "Son çare olarak PowerShell'i çalıştırın. Yalnızca başka uygun bir araç (örn. MCP) mevcut olmadığında kullanın.",
     "tool.system_prompt": "Bu araç bir LAST RESORT'dir.\n1. Öncelikle bunun yerine hand_mcp / mcp_tools_list'in kullanılıp kullanılamayacağını kontrol edin.\n2. Bu aracı yalnızca başka uygun bir araç bulunmadığında kullanın.\n3. Python'u çalıştırmak için bu aracı kullanmayın; bunun yerine python_exec kullanın.\n\nGüvenlik notları:\n- Download-exec (IWR/IRM/curl/wget) ve Base64 (-Enc) gibi tehlikeli kalıplar engellenebilir veya onay gerektirebilir."
+  },
+  "th": {
+    "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
+    "param.command.description": "สตริงคำสั่ง PowerShell ที่ส่งผ่านไปยัง -Command",
+    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ระบบจะเลือกให้อัตโนมัติ",
+    "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
+    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย\n1. ตรวจสอบก่อนว่าสามารถใช้ handle_mcp / mcp_tools_list แทนได้หรือไม่\n2. ใช้เครื่องมือนี้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น\n3. อย่าใช้เครื่องมือนี้เพื่อรัน Python ให้ใช้ python_exec แทน\n\nหมายเหตุด้านความปลอดภัย:\n- รูปแบบที่เป็นอันตราย เช่น download-exec (IWR/IRM/curl/wget) และ Base64 (-Enc) อาจถูกบล็อกหรือต้องมีการยืนยัน"
+  },
+  "zh_CN": {
+    "err.timeout": "[pwsh_exec 超时] 未在 {seconds} 秒内完成",
+    "param.command.description": "传递给 -Command 的 PowerShell 命令字符串。",
+    "param.shell.description": "要使用的 PowerShell 可执行文件：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，则自动选择。",
+    "tool.description": "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用。",
+    "tool.system_prompt": "该工具是最后手段。\n1. 先检查是否可以改用 handle_mcp / mcp_tools_list。\n2. 仅当没有其他合适的工具可用时，才使用此工具。\n3. 不要使用此工具运行 Python；请改用 python_exec。\n\n安全注意事项：\n- download-exec（IWR/IRM/curl/wget）和 Base64（-Enc）等危险模式可能会被阻止或需要确认。"
+  },
+  "zh_TW": {
+    "err.timeout": "[pwsh_exec 逾時] 未在 {seconds} 秒內完成",
+    "param.command.description": "傳遞給 -Command 的 PowerShell 命令字串。",
+    "param.shell.description": "要使用的 PowerShell 執行檔：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，則自動選擇。",
+    "tool.description": "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用。",
+    "tool.system_prompt": "此工具是最後手段。\n1. 先檢查是否可以改用 handle_mcp / mcp_tools_list。\n2. 僅當沒有其他合適的工具可用時，才使用此工具。\n3. 不要使用此工具執行 Python；請改用 python_exec。\n\n安全注意事項：\n- download-exec（IWR/IRM/curl/wget）和 Base64（-Enc）等危險模式可能會被阻止或需要確認。"
   }
 }

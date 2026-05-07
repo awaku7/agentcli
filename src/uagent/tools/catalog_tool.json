@@ -1,13 +1,13 @@
 {
-  "de": {
-    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Katalogeinträge.",
-    "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Funktion beschreibt.",
-    "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert."
-  },
   "en": {
     "param.max_results.description": "Maximum number of catalog entries to return.",
     "param.query.description": "Natural-language query describing the needed capability.",
     "tool.description": "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions."
+  },
+  "ja": {
+    "param.max_results.description": "返却するカタログ項目の最大数。",
+    "param.query.description": "必要な機能を説明する自然言語のクエリ。",
+    "tool.description": "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします。"
   },
   "es": {
     "param.max_results.description": "Número máximo de entradas de catálogo a devolver.",
@@ -19,45 +19,35 @@
     "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
     "tool.description": "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes."
   },
-  "it": {
-    "param.max_results.description": "Numero massimo di voci del catalogo da restituire.",
-    "param.query.description": "Query in linguaggio naturale che descrive la funzionalità richiesta.",
-    "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete."
-  },
-  "ja": {
-    "param.max_results.description": "返却するカタログ項目の最大数。",
-    "param.query.description": "必要な機能を説明する自然言語のクエリ。",
-    "tool.description": "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします。"
-  },
   "ko": {
     "param.max_results.description": "반환할 카탈로그 항목의 최대 수입니다.",
     "param.query.description": "필요한 기능을 설명하는 자연어 쿼리입니다.",
     "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다."
   },
-  "pt_BR": {
-    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
-    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
-    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas."
+  "de": {
+    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Katalogeinträge.",
+    "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Funktion beschreibt.",
+    "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert."
+  },
+  "it": {
+    "param.max_results.description": "Numero massimo di voci del catalogo da restituire.",
+    "param.query.description": "Query in linguaggio naturale che descrive la funzionalità richiesta.",
+    "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete."
   },
   "ru": {
     "param.max_results.description": "Максимальное количество записей каталога для возврата.",
     "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность.",
     "tool.description": "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов."
   },
-  "th": {
-    "param.max_results.description": "จำนวนรายการแคตตาล็อกสูงสุดที่จะส่งคืน",
-    "param.query.description": "คำถามภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
-    "tool.description": "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด"
+  "pt_BR": {
+    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas."
   },
-  "zh_CN": {
-    "param.max_results.description": "要返回的目录条目的最大数量。",
-    "param.query.description": "描述所需功能的自然语言查询。",
-    "tool.description": "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具。"
-  },
-  "zh_TW": {
-    "param.max_results.description": "要傳回的目錄條目的最大數量。",
-    "param.query.description": "描述所需功能的自然語言查詢。",
-    "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。"
+  "pt": {
+    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
+    "param.query.description": "Consulta em linguagem natural que descreve a capacidade necessária.",
+    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas."
   },
   "id": {
     "param.max_results.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
@@ -74,11 +64,6 @@
     "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebne możliwości.",
     "tool.description": "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi."
   },
-  "pt": {
-    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
-    "param.query.description": "Consulta em linguagem natural que descreve a capacidade necessária.",
-    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas."
-  },
   "hi": {
     "param.max_results.description": "लौटाने के लिए कैटलॉग प्रविष्टियों की अधिकतम संख्या.",
     "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक-भाषा क्वेरी।",
@@ -93,6 +78,11 @@
     "param.max_results.description": "Maximalt antal katalogposter som ska returneras.",
     "param.query.description": "Naturlig språk-fråga som beskriver den funktion som behövs.",
     "tool.description": "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner."
+  },
+  "sw": {
+    "param.max_results.description": "Idadi ya juu ya maingizo ya katalogi ya kurudishwa.",
+    "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
+    "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana."
   },
   "nb": {
     "param.max_results.description": "Maksimalt antall katalogoppføringer som skal returneres.",
@@ -119,14 +109,24 @@
     "param.query.description": "Запит природною мовою, що описує потрібну можливість.",
     "tool.description": "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів."
   },
-  "sw": {
-    "param.max_results.description": "Idadi ya juu ya maingizo ya katalogi ya kurudishwa.",
-    "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
-    "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana."
-  },
   "tr": {
     "param.max_results.description": "Döndürülecek maksimum katalog girişi sayısı.",
     "param.query.description": "Gerekli yeteneği açıklayan doğal dil sorgusu.",
     "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün."
+  },
+  "th": {
+    "param.max_results.description": "จำนวนรายการแคตตาล็อกสูงสุดที่จะส่งคืน",
+    "param.query.description": "คำถามภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
+    "tool.description": "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด"
+  },
+  "zh_CN": {
+    "param.max_results.description": "要返回的目录条目的最大数量。",
+    "param.query.description": "描述所需功能的自然语言查询。",
+    "tool.description": "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具。"
+  },
+  "zh_TW": {
+    "param.max_results.description": "要傳回的目錄條目的最大數量。",
+    "param.query.description": "描述所需功能的自然語言查詢。",
+    "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。"
   }
 }

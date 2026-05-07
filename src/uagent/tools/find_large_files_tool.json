@@ -19,26 +19,6 @@
     "tool.description": "指定したディレクトリ配下の大きなファイルを検索し、上位 N 件の結果と拡張子別の集計を返します。",
     "tool.system_prompt": "このツールは、指定したディレクトリ配下の大きなファイルを検索し、上位 N 件の結果と拡張子別の集計を返します。"
   },
-  "zh_CN": {
-    "param.exclude_dirs.description": "要排除的目录名称（按目录名匹配）。",
-    "param.group_by_ext.description": "同时返回按文件扩展名分组的统计信息。",
-    "param.max_files.description": "要扫描的最大文件数（防止失控）。",
-    "param.min_bytes.description": "仅包含大于此大小的文件（默认：10 MB）。",
-    "param.root.description": "搜索根目录（仅允许在 workdir 下）。",
-    "param.top_n.description": "返回前 N 个结果。",
-    "tool.description": "在指定目录下搜索大文件，并返回前 N 个结果以及按扩展名统计的信息。",
-    "tool.system_prompt": "此工具用于在指定目录下搜索大文件，并返回前 N 个结果以及按扩展名统计的信息。"
-  },
-  "zh_TW": {
-    "param.exclude_dirs.description": "要排除的目錄名稱（依目錄名稱比對）。",
-    "param.group_by_ext.description": "也會傳回依副檔名分組的統計資訊。",
-    "param.max_files.description": "要掃描的最大檔案數（避免失控）。",
-    "param.min_bytes.description": "只包含大於此大小的檔案（預設：10 MB）。",
-    "param.root.description": "搜尋根目錄（僅允許在 workdir 下）。",
-    "param.top_n.description": "要傳回的前 N 個結果。",
-    "tool.description": "在指定目錄下搜尋大檔案，並傳回前 N 個結果以及依副檔名統計的資訊。",
-    "tool.system_prompt": "此工具用於在指定目錄下搜尋大檔案，並傳回前 N 個結果以及依副檔名統計的資訊。"
-  },
   "es": {
     "param.exclude_dirs.description": "Nombres de directorio excluidos (coincidencia por nombre de directorio).",
     "param.group_by_ext.description": "También devuelve estadísticas agrupadas por extensión de archivo.",
@@ -68,16 +48,6 @@
     "param.top_n.description": "반환할 상위 결과 개수입니다.",
     "tool.description": "지정한 디렉터리 아래에서 큰 파일을 검색하고, 상위 N개 결과와 확장자별 통계를 반환합니다.",
     "tool.system_prompt": "이 도구는 지정한 디렉터리 아래에서 큰 파일을 검색하고, 상위 N개 결과와 확장자별 통계를 반환합니다."
-  },
-  "th": {
-    "param.exclude_dirs.description": "ชื่อไดเรกทอรีที่ยกเว้น (จับคู่ตามชื่อไดเรกทอรี)",
-    "param.group_by_ext.description": "ส่งคืนสถิติที่จัดกลุ่มตามนามสกุลไฟล์ด้วย",
-    "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะสแกน (เพื่อป้องกันการทำงานเกินขอบเขต)",
-    "param.min_bytes.description": "รวมเฉพาะไฟล์ที่มีขนาดใหญ่กว่าค่านี้ (ค่าเริ่มต้น: 10 MB)",
-    "param.root.description": "ไดเรกทอรีรากสำหรับค้นหา (อนุญาตเฉพาะภายใต้ workdir)",
-    "param.top_n.description": "จำนวนผลลัพธ์อันดับต้น ๆ ที่จะส่งคืน",
-    "tool.description": "ค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเรกทอรีที่ระบุ และส่งคืนผลลัพธ์อันดับต้น ๆ พร้อมสถิติตามนามสกุล",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเรกทอรีที่ระบุ และส่งคืนผลลัพธ์อันดับต้น ๆ พร้อมสถิติตามนามสกุล"
   },
   "de": {
     "param.exclude_dirs.description": "Auszuschließende Verzeichnisnamen (Abgleich nach Verzeichnisname).",
@@ -119,6 +89,16 @@
     "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N principais resultados junto com estatísticas por extensão.",
     "tool.system_prompt": "Esta ferramenta pesquisa arquivos grandes no diretório especificado e retorna os N principais resultados junto com estatísticas por extensão."
   },
+  "pt": {
+    "param.exclude_dirs.description": "Nomes de diretório excluídos (correspondentes ao nome do diretório).",
+    "param.group_by_ext.description": "Retorne também estatísticas agrupadas por extensão de arquivo.",
+    "param.max_files.description": "Número máximo de arquivos a serem verificados (para evitar processamento descontrolado).",
+    "param.min_bytes.description": "Inclua apenas arquivos maiores que esse tamanho (padrão: 10 MB).",
+    "param.root.description": "Raiz de pesquisa (permitida apenas no diretório de trabalho).",
+    "param.top_n.description": "Número dos principais resultados a serem retornados.",
+    "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão.",
+    "tool.system_prompt": "Esta ferramenta procura arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão."
+  },
   "id": {
     "param.exclude_dirs.description": "Nama direktori yang dikecualikan (dicocokkan berdasarkan nama direktori).",
     "param.group_by_ext.description": "Juga kembalikan statistik yang dikelompokkan berdasarkan ekstensi file.",
@@ -149,16 +129,6 @@
     "tool.description": "Wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia.",
     "tool.system_prompt": "To narzędzie wyszukuje duże pliki w określonym katalogu i zwraca N pierwszych wyników wraz ze statystykami według rozszerzenia."
   },
-  "pt": {
-    "param.exclude_dirs.description": "Nomes de diretório excluídos (correspondentes ao nome do diretório).",
-    "param.group_by_ext.description": "Retorne também estatísticas agrupadas por extensão de arquivo.",
-    "param.max_files.description": "Número máximo de arquivos a serem verificados (para evitar processamento descontrolado).",
-    "param.min_bytes.description": "Inclua apenas arquivos maiores que esse tamanho (padrão: 10 MB).",
-    "param.root.description": "Raiz de pesquisa (permitida apenas no diretório de trabalho).",
-    "param.top_n.description": "Número dos principais resultados a serem retornados.",
-    "tool.description": "Pesquisa arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão.",
-    "tool.system_prompt": "Esta ferramenta procura arquivos grandes no diretório especificado e retorna os N resultados principais junto com estatísticas por extensão."
-  },
   "hi": {
     "param.exclude_dirs.description": "बहिष्कृत निर्देशिका नाम (निर्देशिका नाम से मिलान)।",
     "param.group_by_ext.description": "फ़ाइल एक्सटेंशन द्वारा समूहीकृत आँकड़े भी लौटाएँ।",
@@ -188,6 +158,16 @@
     "param.top_n.description": "Antal toppresultat att returnera.",
     "tool.description": "Söker efter stora filer under den angivna katalogen och returnerar de N bästa resultaten tillsammans med statistik per filändelse.",
     "tool.system_prompt": "Det här verktyget söker efter stora filer under den angivna katalogen och returnerar de N bästa resultaten tillsammans med statistik per filändelse."
+  },
+  "sw": {
+    "param.exclude_dirs.description": "Majina ya saraka za kuondoa (hutolewa kulingana na jina la saraka).",
+    "param.group_by_ext.description": "Rudisha pia takwimu zilizogawanywa kwa kiendelezi cha faili.",
+    "param.max_files.description": "Idadi ya juu ya faili za kuchanganua (kuzuia uchakataji usio na kikomo).",
+    "param.min_bytes.description": "Jumuisha tu faili zilizo kubwa kuliko ukubwa huu (chaguo-msingi: 10 MB).",
+    "param.root.description": "Mzizi wa utafutaji (unaruhusiwa tu chini ya workdir).",
+    "param.top_n.description": "Idadi ya matokeo ya juu ya kurudisha.",
+    "tool.description": "Tafuta faili kubwa chini ya saraka iliyobainishwa na urudishe matokeo ya juu N pamoja na takwimu kwa kiendelezi.",
+    "tool.system_prompt": "Zana hii hutafuta faili kubwa chini ya saraka iliyobainishwa na kurudisha matokeo ya juu N pamoja na takwimu kwa kiendelezi."
   },
   "nb": {
     "param.exclude_dirs.description": "Utelatte katalognavn (treffes mot katalognavn).",
@@ -239,16 +219,6 @@
     "tool.description": "Шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями.",
     "tool.system_prompt": "Цей інструмент шукає великі файли у вказаному каталозі та повертає N найкращих результатів разом зі статистикою за розширеннями."
   },
-  "sw": {
-    "param.exclude_dirs.description": "Majina ya saraka za kuondoa (hutolewa kulingana na jina la saraka).",
-    "param.group_by_ext.description": "Rudisha pia takwimu zilizogawanywa kwa kiendelezi cha faili.",
-    "param.max_files.description": "Idadi ya juu ya faili za kuchanganua (kuzuia uchakataji usio na kikomo).",
-    "param.min_bytes.description": "Jumuisha tu faili zilizo kubwa kuliko ukubwa huu (chaguo-msingi: 10 MB).",
-    "param.root.description": "Mzizi wa utafutaji (unaruhusiwa tu chini ya workdir).",
-    "param.top_n.description": "Idadi ya matokeo ya juu ya kurudisha.",
-    "tool.description": "Tafuta faili kubwa chini ya saraka iliyobainishwa na urudishe matokeo ya juu N pamoja na takwimu kwa kiendelezi.",
-    "tool.system_prompt": "Zana hii hutafuta faili kubwa chini ya saraka iliyobainishwa na kurudisha matokeo ya juu N pamoja na takwimu kwa kiendelezi."
-  },
   "tr": {
     "param.exclude_dirs.description": "Hariç tutulan dizin adları (dizin adına göre eşleştirilir).",
     "param.group_by_ext.description": "Ayrıca dosya uzantısına göre gruplandırılmış istatistikleri de döndürür.",
@@ -258,5 +228,35 @@
     "param.top_n.description": "Döndürülecek en iyi sonuçların sayısı.",
     "tool.description": "Belirtilen dizin altındaki büyük dosyaları arar ve uzantıya göre istatistiklerle birlikte ilk N sonucu döndürür.",
     "tool.system_prompt": "Bu araç, belirtilen dizin altındaki büyük dosyaları arar ve uzantıya göre istatistiklerle birlikte ilk N sonucu döndürür."
+  },
+  "th": {
+    "param.exclude_dirs.description": "ชื่อไดเรกทอรีที่ยกเว้น (จับคู่ตามชื่อไดเรกทอรี)",
+    "param.group_by_ext.description": "ส่งคืนสถิติที่จัดกลุ่มตามนามสกุลไฟล์ด้วย",
+    "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะสแกน (เพื่อป้องกันการทำงานเกินขอบเขต)",
+    "param.min_bytes.description": "รวมเฉพาะไฟล์ที่มีขนาดใหญ่กว่าค่านี้ (ค่าเริ่มต้น: 10 MB)",
+    "param.root.description": "ไดเรกทอรีรากสำหรับค้นหา (อนุญาตเฉพาะภายใต้ workdir)",
+    "param.top_n.description": "จำนวนผลลัพธ์อันดับต้น ๆ ที่จะส่งคืน",
+    "tool.description": "ค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเรกทอรีที่ระบุ และส่งคืนผลลัพธ์อันดับต้น ๆ พร้อมสถิติตามนามสกุล",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อค้นหาไฟล์ขนาดใหญ่ภายใต้ไดเรกทอรีที่ระบุ และส่งคืนผลลัพธ์อันดับต้น ๆ พร้อมสถิติตามนามสกุล"
+  },
+  "zh_CN": {
+    "param.exclude_dirs.description": "要排除的目录名称（按目录名匹配）。",
+    "param.group_by_ext.description": "同时返回按文件扩展名分组的统计信息。",
+    "param.max_files.description": "要扫描的最大文件数（防止失控）。",
+    "param.min_bytes.description": "仅包含大于此大小的文件（默认：10 MB）。",
+    "param.root.description": "搜索根目录（仅允许在 workdir 下）。",
+    "param.top_n.description": "返回前 N 个结果。",
+    "tool.description": "在指定目录下搜索大文件，并返回前 N 个结果以及按扩展名统计的信息。",
+    "tool.system_prompt": "此工具用于在指定目录下搜索大文件，并返回前 N 个结果以及按扩展名统计的信息。"
+  },
+  "zh_TW": {
+    "param.exclude_dirs.description": "要排除的目錄名稱（依目錄名稱比對）。",
+    "param.group_by_ext.description": "也會傳回依副檔名分組的統計資訊。",
+    "param.max_files.description": "要掃描的最大檔案數（避免失控）。",
+    "param.min_bytes.description": "只包含大於此大小的檔案（預設：10 MB）。",
+    "param.root.description": "搜尋根目錄（僅允許在 workdir 下）。",
+    "param.top_n.description": "要傳回的前 N 個結果。",
+    "tool.description": "在指定目錄下搜尋大檔案，並傳回前 N 個結果以及依副檔名統計的資訊。",
+    "tool.system_prompt": "此工具用於在指定目錄下搜尋大檔案，並傳回前 N 個結果以及依副檔名統計的資訊。"
   }
 }

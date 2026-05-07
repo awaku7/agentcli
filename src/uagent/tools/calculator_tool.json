@@ -9,16 +9,6 @@
     "tool.description": "数式を計算して結果を返します。複雑な計算や、精度が必要な計算に使います。",
     "tool.system_prompt": "数式を計算して結果を返します。JSONのみ返してください。"
   },
-  "zh_CN": {
-    "param.expression.description": "您要计算的公式（例如 '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。可使用 Python 的 math 模块中的函数。",
-    "tool.description": "计算数学表达式并返回结果。可用于复杂计算或需要精度的场景。",
-    "tool.system_prompt": "计算数学表达式并返回结果。仅返回 JSON。"
-  },
-  "zh_TW": {
-    "param.expression.description": "您要計算的公式（例如 '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。可使用 Python 的 math 模組中的函式。",
-    "tool.description": "計算數學表達式並傳回結果。可用於複雜計算或需要精確度的情境。",
-    "tool.system_prompt": "計算數學表達式並回傳結果。僅回傳 JSON。"
-  },
   "es": {
     "param.expression.description": "La fórmula que desea calcular (por ejemplo, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Las funciones del módulo math de Python están disponibles.",
     "tool.description": "Calcula una expresión matemática y devuelve el resultado. Úselo para cálculos complejos o cuando se requiera precisión.",
@@ -33,11 +23,6 @@
     "param.expression.description": "계산하려는 수식입니다(예: '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Python의 math 모듈 함수를 사용할 수 있습니다.",
     "tool.description": "수학 표현식을 계산하여 결과를 반환합니다. 복잡한 계산이나 정밀도가 필요한 경우에 사용하세요.",
     "tool.system_prompt": "수학 표현식을 계산하고 결과를 반환합니다. JSON만 반환하세요."
-  },
-  "th": {
-    "param.expression.description": "สูตรที่คุณต้องการคำนวณ (เช่น '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)') มีฟังก์ชันจากโมดูล math ของ Python ให้ใช้งาน",
-    "tool.description": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ใช้สำหรับการคำนวณที่ซับซ้อนหรือเมื่อจำเป็นต้องใช้ความแม่นยำ",
-    "tool.system_prompt": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ส่งคืนเฉพาะ JSON เท่านั้น"
   },
   "de": {
     "param.expression.description": "Die Formel, die Sie berechnen möchten (z. B. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Es stehen Funktionen aus dem Mathematikmodul von Python zur Verfügung.",
@@ -59,6 +44,11 @@
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
   },
+  "pt": {
+    "param.expression.description": "A fórmula que você deseja calcular (por exemplo, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funções do módulo matemático do Python estão disponíveis.",
+    "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
+    "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
+  },
   "id": {
     "param.expression.description": "Rumus yang ingin Anda hitung (mis. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Fungsi dari modul math Python tersedia.",
     "tool.description": "Menghitung ekspresi matematika dan mengembalikan hasilnya. Gunakan ini untuk perhitungan kompleks atau saat presisi diperlukan.",
@@ -74,11 +64,6 @@
     "tool.description": "Oblicza wyrażenie matematyczne i zwraca wynik. Użyj tej opcji do skomplikowanych obliczeń lub gdy wymagana jest precyzja.",
     "tool.system_prompt": "Oblicz wyrażenie matematyczne i zwróć wynik. Zwracaj wyłącznie JSON."
   },
-  "pt": {
-    "param.expression.description": "A fórmula que você deseja calcular (por exemplo, '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funções do módulo matemático do Python estão disponíveis.",
-    "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
-    "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
-  },
   "hi": {
     "param.expression.description": "वह सूत्र जिसकी आप गणना करना चाहते हैं (जैसे '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)')। पायथन के गणित मॉड्यूल के फ़ंक्शन उपलब्ध हैं।",
     "tool.description": "गणितीय अभिव्यक्ति की गणना करता है और परिणाम देता है। जटिल गणनाओं के लिए या जब सटीकता की आवश्यकता हो तो इसका उपयोग करें।",
@@ -93,6 +78,11 @@
     "param.expression.description": "Formeln du vill beräkna (t.ex. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funktioner från Pythons math-modul är tillgängliga.",
     "tool.description": "Beräknar ett matematiskt uttryck och returnerar resultatet. Använd detta för komplexa beräkningar eller när precision krävs.",
     "tool.system_prompt": "Beräkna ett matematiskt uttryck och returnera resultatet. Returnera endast JSON."
+  },
+  "sw": {
+    "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Kazi za moduli ya math ya Python zinapatikana.",
+    "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
+    "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
   },
   "nb": {
     "param.expression.description": "Formelen du vil beregne (f.eks. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Funksjoner fra Pythons math-modul er tilgjengelige.",
@@ -119,14 +109,24 @@
     "tool.description": "Обчислює математичний вираз і повертає результат. Використовуйте це для складних обчислень або коли потрібна точність.",
     "tool.system_prompt": "Обчисліть математичний вираз і поверніть результат. Повертайте лише JSON."
   },
-  "sw": {
-    "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Kazi za moduli ya math ya Python zinapatikana.",
-    "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
-    "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
-  },
   "tr": {
     "param.expression.description": "Hesaplamak istediğiniz formül (ör. '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Python'un matematik modülündeki işlevler mevcuttur.",
     "tool.description": "Matematiksel bir ifadeyi hesaplar ve sonucu döndürür. Bunu karmaşık hesaplamalar için veya hassasiyet gerektiğinde kullanın.",
     "tool.system_prompt": "Matematiksel bir ifade hesaplayın ve sonucu döndürün. Yalnızca JSON değerini döndür."
+  },
+  "th": {
+    "param.expression.description": "สูตรที่คุณต้องการคำนวณ (เช่น '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)') มีฟังก์ชันจากโมดูล math ของ Python ให้ใช้งาน",
+    "tool.description": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ใช้สำหรับการคำนวณที่ซับซ้อนหรือเมื่อจำเป็นต้องใช้ความแม่นยำ",
+    "tool.system_prompt": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ส่งคืนเฉพาะ JSON เท่านั้น"
+  },
+  "zh_CN": {
+    "param.expression.description": "您要计算的公式（例如 '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。可使用 Python 的 math 模块中的函数。",
+    "tool.description": "计算数学表达式并返回结果。可用于复杂计算或需要精度的场景。",
+    "tool.system_prompt": "计算数学表达式并返回结果。仅返回 JSON。"
+  },
+  "zh_TW": {
+    "param.expression.description": "您要計算的公式（例如 '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'）。可使用 Python 的 math 模組中的函式。",
+    "tool.description": "計算數學表達式並傳回結果。可用於複雜計算或需要精確度的情境。",
+    "tool.system_prompt": "計算數學表達式並回傳結果。僅回傳 JSON。"
   }
 }

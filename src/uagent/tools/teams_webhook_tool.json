@@ -27,20 +27,6 @@
     "err.missing_message": "'message' がありません。",
     "err.exception": "例外"
   },
-  "de": {
-    "tool.description": "Sende eine Nachricht oder eine vom Webhook unterstützte JSON-Nutzlast an eine in einer Umgebungsvariable gespeicherte Microsoft-Teams-Incoming-Webhook-URL.",
-    "tool.system_prompt": "Sende eine Nutzlast an den Microsoft Teams Incoming Webhook. Nur JSON zurückgeben.",
-    "param.message.description": "Nachrichtentext für Teams. Wird als Klartext verwendet, sofern keine Kartenfelder angegeben sind.",
-    "param.title.description": "Kartentitel für vom Webhook unterstützte Nutzlasten.",
-    "param.summary.description": "Karten-Zusammenfassung für vom Webhook unterstützte Nutzlasten.",
-    "param.image_url.description": "Bild-URL für vom Webhook unterstützte Nutzlasten.",
-    "param.theme_color.description": "Karten-Designfarbe als Hex-String ohne #.",
-    "param.payload_json.description": "Rohe Webhook-Nutzlast als JSON-String oder Objekt. Wenn angegeben, wird sie unverändert gesendet.",
-    "param.webhook_env.description": "Name der Umgebungsvariable, die die Teams-Webhook-URL speichert.",
-    "param.timeout_s.description": "Anfrage-Timeout in Sekunden.",
-    "err.missing_message": "'message' fehlt.",
-    "err.exception": "Ausnahme"
-  },
   "es": {
     "tool.description": "Envía un mensaje o una carga JSON compatible con el webhook a una URL de Microsoft Teams Incoming Webhook almacenada en una variable de entorno.",
     "tool.system_prompt": "Envía una carga al Microsoft Teams Incoming Webhook. Devuelve solo JSON.",
@@ -69,20 +55,6 @@
     "err.missing_message": "'message' est manquant.",
     "err.exception": "Exception inattendue"
   },
-  "it": {
-    "tool.description": "Invia un messaggio o un payload JSON supportato dal webhook a un URL Microsoft Teams Incoming Webhook memorizzato in una variabile d'ambiente.",
-    "tool.system_prompt": "Invia un payload a Microsoft Teams Incoming Webhook. Restituisci solo JSON.",
-    "param.message.description": "Testo del messaggio da pubblicare su Teams. Usato come testo normale a meno che non siano forniti campi della scheda.",
-    "param.title.description": "Titolo della scheda per i payload supportati dal webhook.",
-    "param.summary.description": "Riepilogo della scheda per i payload supportati dal webhook.",
-    "param.image_url.description": "URL dell'immagine per i payload supportati dal webhook.",
-    "param.theme_color.description": "Colore del tema della scheda come stringa esadecimale senza #.",
-    "param.payload_json.description": "Payload webhook non elaborato come stringa JSON o oggetto. Se fornito, viene inviato così com'è.",
-    "param.webhook_env.description": "Nome della variabile d'ambiente che memorizza l'URL del webhook di Teams.",
-    "param.timeout_s.description": "Timeout della richiesta in secondi.",
-    "err.missing_message": "Manca 'message'.",
-    "err.exception": "Eccezione"
-  },
   "ko": {
     "tool.description": "환경 변수에 저장된 Microsoft Teams Incoming Webhook URL로 메시지 또는 webhook에서 지원하는 JSON 페이로드를 전송합니다.",
     "tool.system_prompt": "Microsoft Teams Incoming Webhook으로 페이로드를 전송합니다. JSON만 반환하세요.",
@@ -97,19 +69,33 @@
     "err.missing_message": "'message'가 없습니다.",
     "err.exception": "예외"
   },
-  "pt_BR": {
-    "tool.description": "Publique uma mensagem ou um payload JSON compatível com webhook em uma URL do Microsoft Teams Incoming Webhook armazenada em uma variável de ambiente.",
-    "tool.system_prompt": "Envie um payload para o Microsoft Teams Incoming Webhook. Retorne apenas JSON.",
-    "param.message.description": "Texto da mensagem a ser publicado no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
-    "param.title.description": "Título do cartão para payloads compatíveis com webhook.",
-    "param.summary.description": "Resumo do cartão para payloads compatíveis com webhook.",
-    "param.image_url.description": "URL da imagem para payloads compatíveis com webhook.",
-    "param.theme_color.description": "Cor de tema do cartão como uma string hexadecimal sem #.",
-    "param.payload_json.description": "Payload bruto do webhook como string JSON ou objeto. Se fornecido, é enviado como está.",
-    "param.webhook_env.description": "Nome da variável de ambiente que armazena a URL do webhook do Teams.",
-    "param.timeout_s.description": "Tempo limite da solicitação em segundos.",
-    "err.missing_message": "Falta 'message'.",
-    "err.exception": "Exceção"
+  "de": {
+    "tool.description": "Sende eine Nachricht oder eine vom Webhook unterstützte JSON-Nutzlast an eine in einer Umgebungsvariable gespeicherte Microsoft-Teams-Incoming-Webhook-URL.",
+    "tool.system_prompt": "Sende eine Nutzlast an den Microsoft Teams Incoming Webhook. Nur JSON zurückgeben.",
+    "param.message.description": "Nachrichtentext für Teams. Wird als Klartext verwendet, sofern keine Kartenfelder angegeben sind.",
+    "param.title.description": "Kartentitel für vom Webhook unterstützte Nutzlasten.",
+    "param.summary.description": "Karten-Zusammenfassung für vom Webhook unterstützte Nutzlasten.",
+    "param.image_url.description": "Bild-URL für vom Webhook unterstützte Nutzlasten.",
+    "param.theme_color.description": "Karten-Designfarbe als Hex-String ohne #.",
+    "param.payload_json.description": "Rohe Webhook-Nutzlast als JSON-String oder Objekt. Wenn angegeben, wird sie unverändert gesendet.",
+    "param.webhook_env.description": "Name der Umgebungsvariable, die die Teams-Webhook-URL speichert.",
+    "param.timeout_s.description": "Anfrage-Timeout in Sekunden.",
+    "err.missing_message": "'message' fehlt.",
+    "err.exception": "Ausnahme"
+  },
+  "it": {
+    "tool.description": "Invia un messaggio o un payload JSON supportato dal webhook a un URL Microsoft Teams Incoming Webhook memorizzato in una variabile d'ambiente.",
+    "tool.system_prompt": "Invia un payload a Microsoft Teams Incoming Webhook. Restituisci solo JSON.",
+    "param.message.description": "Testo del messaggio da pubblicare su Teams. Usato come testo normale a meno che non siano forniti campi della scheda.",
+    "param.title.description": "Titolo della scheda per i payload supportati dal webhook.",
+    "param.summary.description": "Riepilogo della scheda per i payload supportati dal webhook.",
+    "param.image_url.description": "URL dell'immagine per i payload supportati dal webhook.",
+    "param.theme_color.description": "Colore del tema della scheda come stringa esadecimale senza #.",
+    "param.payload_json.description": "Payload webhook non elaborato come stringa JSON o oggetto. Se fornito, viene inviato così com'è.",
+    "param.webhook_env.description": "Nome della variabile d'ambiente che memorizza l'URL del webhook di Teams.",
+    "param.timeout_s.description": "Timeout della richiesta in secondi.",
+    "err.missing_message": "Manca 'message'.",
+    "err.exception": "Eccezione"
   },
   "ru": {
     "tool.description": "Публикует сообщение или JSON-данные, поддерживаемые webhook, в URL Microsoft Teams Incoming Webhook, хранящийся в переменной окружения.",
@@ -125,61 +111,33 @@
     "err.missing_message": "Отсутствует 'message'.",
     "err.exception": "Исключение"
   },
-  "th": {
-    "tool.description": "ส่งข้อความหรือ JSON payload ที่รองรับ webhook ไปยัง URL ของ Microsoft Teams Incoming Webhook ที่เก็บไว้ในตัวแปรสภาพแวดล้อม",
-    "tool.system_prompt": "ส่ง payload ไปยัง Microsoft Teams Incoming Webhook ส่งกลับเฉพาะ JSON",
-    "param.message.description": "ข้อความที่จะโพสต์ไปยัง Teams ใช้เป็นข้อความธรรมดาเว้นแต่จะระบุฟิลด์ของการ์ด",
-    "param.title.description": "ชื่อการ์ดสำหรับ payload ที่รองรับ webhook",
-    "param.summary.description": "สรุปการ์ดสำหรับ payload ที่รองรับ webhook",
-    "param.image_url.description": "URL รูปภาพสำหรับ payload ที่รองรับ webhook",
-    "param.theme_color.description": "สีธีมของการ์ดในรูปแบบสตริงฐานสิบหกโดยไม่ใส่ #",
-    "param.payload_json.description": "payload ของ webhook แบบดิบในรูป JSON string หรือ object หากระบุจะส่งตามที่เป็น",
-    "param.webhook_env.description": "ชื่อตัวแปรสภาพแวดล้อมที่เก็บ URL ของ Teams webhook",
-    "param.timeout_s.description": "เวลารอคำขอเป็นวินาที",
-    "err.missing_message": "ไม่มี 'message'.",
-    "err.exception": "ข้อยกเว้น"
+  "pt_BR": {
+    "tool.description": "Publique uma mensagem ou um payload JSON compatível com webhook em uma URL do Microsoft Teams Incoming Webhook armazenada em uma variável de ambiente.",
+    "tool.system_prompt": "Envie um payload para o Microsoft Teams Incoming Webhook. Retorne apenas JSON.",
+    "param.message.description": "Texto da mensagem a ser publicado no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
+    "param.title.description": "Título do cartão para payloads compatíveis com webhook.",
+    "param.summary.description": "Resumo do cartão para payloads compatíveis com webhook.",
+    "param.image_url.description": "URL da imagem para payloads compatíveis com webhook.",
+    "param.theme_color.description": "Cor de tema do cartão como uma string hexadecimal sem #.",
+    "param.payload_json.description": "Payload bruto do webhook como string JSON ou objeto. Se fornecido, é enviado como está.",
+    "param.webhook_env.description": "Nome da variável de ambiente que armazena a URL do webhook do Teams.",
+    "param.timeout_s.description": "Tempo limite da solicitação em segundos.",
+    "err.missing_message": "Falta 'message'.",
+    "err.exception": "Exceção"
   },
-  "vi": {
-    "tool.description": "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường.",
-    "tool.system_prompt": "Đăng tải trọng lên Webhook đến của Microsoft Teams. Chỉ trả về JSON.",
-    "param.message.description": "Nội dung tin nhắn để đăng lên Teams. Được sử dụng dưới dạng văn bản thuần túy trừ khi các trường thẻ được cung cấp.",
-    "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
-    "param.summary.description": "Tóm tắt thẻ về tải trọng được webhook hỗ trợ.",
-    "param.image_url.description": "URL hình ảnh cho tải trọng được webhook hỗ trợ.",
-    "param.theme_color.description": "Màu chủ đề thẻ dưới dạng chuỗi hex không có #.",
-    "param.payload_json.description": "Tải trọng webhook thô dưới dạng chuỗi hoặc đối tượng JSON. Nếu được cung cấp, nó sẽ được gửi nguyên trạng.",
-    "param.webhook_env.description": "Tên biến môi trường lưu trữ URL webhook của Teams.",
-    "param.timeout_s.description": "Yêu cầu thời gian chờ tính bằng giây.",
-    "err.missing_message": "Thiếu 'message'.",
-    "err.exception": "Ngoại lệ"
-  },
-  "zh_CN": {
-    "tool.description": "将消息或 webhook 支持的 JSON 负载发送到存储在环境变量中的 Microsoft Teams Incoming Webhook URL。",
-    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 发送负载。仅返回 JSON。",
-    "param.message.description": "要发布到 Teams 的消息文本。除非提供了卡片字段，否则将作为纯文本使用。",
-    "param.title.description": "适用于 webhook 支持的负载的卡片标题。",
-    "param.summary.description": "适用于 webhook 支持的负载的卡片摘要。",
-    "param.image_url.description": "适用于 webhook 支持的负载的图片 URL。",
-    "param.theme_color.description": "卡片主题颜色，使用不带 # 的十六进制字符串。",
-    "param.payload_json.description": "以 JSON 字符串或对象形式提供原始 webhook 负载。若提供，则原样发送。",
-    "param.webhook_env.description": "存储 Teams webhook URL 的环境变量名。",
-    "param.timeout_s.description": "请求超时时间（秒）。",
-    "err.missing_message": "缺少 'message'。",
-    "err.exception": "异常"
-  },
-  "zh_TW": {
-    "tool.description": "將訊息或 webhook 支援的 JSON 載荷傳送到儲存在環境變數中的 Microsoft Teams Incoming Webhook URL。",
-    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 傳送載荷。只回傳 JSON。",
-    "param.message.description": "要發布到 Teams 的訊息文字。除非提供卡片欄位，否則會以純文字使用。",
-    "param.title.description": "適用於 webhook 支援載荷的卡片標題。",
-    "param.summary.description": "適用於 webhook 支援載荷的卡片摘要。",
-    "param.image_url.description": "適用於 webhook 支援載荷的圖片 URL。",
-    "param.theme_color.description": "卡片主題色，使用不含 # 的十六進位字串。",
-    "param.payload_json.description": "原始 webhook 載荷，格式為 JSON 字串或物件。若提供，將原樣傳送。",
-    "param.webhook_env.description": "儲存 Teams webhook URL 的環境變數名稱。",
-    "param.timeout_s.description": "請求逾時秒數。",
-    "err.missing_message": "缺少 'message'。",
-    "err.exception": "例外"
+  "pt": {
+    "tool.description": "Poste uma mensagem ou carga JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente.",
+    "tool.system_prompt": "Publique uma carga no Webhook de entrada do Microsoft Teams. Retorne apenas JSON.",
+    "param.message.description": "Texto da mensagem para postar no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
+    "param.title.description": "Título do cartão para cargas suportadas por webhook.",
+    "param.summary.description": "Resumo do cartão para cargas suportadas por webhook.",
+    "param.image_url.description": "URL da imagem para cargas suportadas por webhook.",
+    "param.theme_color.description": "Cor do tema do cartão como uma sequência hexadecimal sem #.",
+    "param.payload_json.description": "Carga útil bruta do webhook como string ou objeto JSON. Se fornecido, ele será enviado como está.",
+    "param.webhook_env.description": "Nome da variável de ambiente que armazena a URL do webhook do Teams.",
+    "param.timeout_s.description": "Tempo limite da solicitação em segundos.",
+    "err.missing_message": "Falta 'mensagem'.",
+    "err.exception": "Exceção"
   },
   "id": {
     "tool.description": "Kirim pesan atau payload JSON yang didukung webhook ke Microsoft Teams Incoming Webhook URL yang disimpan di variabel lingkungan.",
@@ -195,6 +153,20 @@
     "err.missing_message": "'message' tidak ada.",
     "err.exception": "Pengecualian"
   },
+  "vi": {
+    "tool.description": "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường.",
+    "tool.system_prompt": "Đăng tải trọng lên Webhook đến của Microsoft Teams. Chỉ trả về JSON.",
+    "param.message.description": "Nội dung tin nhắn để đăng lên Teams. Được sử dụng dưới dạng văn bản thuần túy trừ khi các trường thẻ được cung cấp.",
+    "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
+    "param.summary.description": "Tóm tắt thẻ về tải trọng được webhook hỗ trợ.",
+    "param.image_url.description": "URL hình ảnh cho tải trọng được webhook hỗ trợ.",
+    "param.theme_color.description": "Màu chủ đề thẻ dưới dạng chuỗi hex không có #.",
+    "param.payload_json.description": "Tải trọng webhook thô dưới dạng chuỗi hoặc đối tượng JSON. Nếu được cung cấp, nó sẽ được gửi nguyên trạng.",
+    "param.webhook_env.description": "Tên biến môi trường lưu trữ URL webhook của Teams.",
+    "param.timeout_s.description": "Yêu cầu thời gian chờ tính bằng giây.",
+    "err.missing_message": "Thiếu 'message'.",
+    "err.exception": "Ngoại lệ"
+  },
   "pl": {
     "tool.description": "Opublikuj wiadomość lub ładunek JSON obsługiwany przez webhook pod adresem URL przychodzącego webhooka Microsoft Teams przechowywanym w zmiennej środowiskowej.",
     "tool.system_prompt": "Opublikuj ładunek w przychodzącym webhooku Microsoft Teams. Zwróć tylko JSON.",
@@ -208,20 +180,6 @@
     "param.timeout_s.description": "Limit czasu żądania w sekundach.",
     "err.missing_message": "Brakująca „wiadomość”.",
     "err.exception": "Wyjątek"
-  },
-  "pt": {
-    "tool.description": "Poste uma mensagem ou carga JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente.",
-    "tool.system_prompt": "Publique uma carga no Webhook de entrada do Microsoft Teams. Retorne apenas JSON.",
-    "param.message.description": "Texto da mensagem para postar no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
-    "param.title.description": "Título do cartão para cargas suportadas por webhook.",
-    "param.summary.description": "Resumo do cartão para cargas suportadas por webhook.",
-    "param.image_url.description": "URL da imagem para cargas suportadas por webhook.",
-    "param.theme_color.description": "Cor do tema do cartão como uma sequência hexadecimal sem #.",
-    "param.payload_json.description": "Carga útil bruta do webhook como string ou objeto JSON. Se fornecido, ele será enviado como está.",
-    "param.webhook_env.description": "Nome da variável de ambiente que armazena a URL do webhook do Teams.",
-    "param.timeout_s.description": "Tempo limite da solicitação em segundos.",
-    "err.missing_message": "Falta 'mensagem'.",
-    "err.exception": "Exceção"
   },
   "hi": {
     "tool.description": "एक पर्यावरण चर में संग्रहीत Microsoft Teams इनकमिंग वेबहुक URL पर एक संदेश या वेबहुक-समर्थित JSON पेलोड पोस्ट करें।",
@@ -264,6 +222,20 @@
     "param.timeout_s.description": "Begärans timeout i sekunder.",
     "err.missing_message": "'message' saknas.",
     "err.exception": "Undantag"
+  },
+  "sw": {
+    "tool.description": "Tuma ujumbe au payload ya JSON inayoendana na webhook kwenda kwenye URL ya Microsoft Teams Incoming Webhook iliyohifadhiwa kwenye kigezo cha mazingira.",
+    "tool.system_prompt": "Tuma payload kwenda Microsoft Teams Incoming Webhook. Rudisha JSON pekee.",
+    "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams. Hutumika kama maandishi ya kawaida isipokuwa sehemu za kadi zimetolewa.",
+    "param.title.description": "Kichwa cha kadi kwa payload zinazotumika na webhook.",
+    "param.summary.description": "Muhtasari wa kadi kwa payload zinazotumika na webhook.",
+    "param.image_url.description": "URL ya picha kwa payload zinazotumika na webhook.",
+    "param.theme_color.description": "Rangi ya mandhari ya kadi kama mfuatano wa hex bila #.",
+    "param.payload_json.description": "Payload ghafi ya webhook kama mfuatano wa JSON au kitu. Ikitolewa, hutumwa kama ilivyo.",
+    "param.webhook_env.description": "Jina la kigezo cha mazingira kinachohifadhi URL ya webhook ya Teams.",
+    "param.timeout_s.description": "Muda wa kusubiri ombi kwa sekunde.",
+    "err.missing_message": "Pungufu la 'message'.",
+    "err.exception": "Hitilafu"
   },
   "nb": {
     "tool.description": "Publiser en melding eller en JSON-payload som støttes av webhook, til en Microsoft Teams Incoming Webhook-URL lagret i en miljøvariabel.",
@@ -335,20 +307,6 @@
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
   },
-  "sw": {
-    "tool.description": "Tuma ujumbe au payload ya JSON inayoendana na webhook kwenda kwenye URL ya Microsoft Teams Incoming Webhook iliyohifadhiwa kwenye kigezo cha mazingira.",
-    "tool.system_prompt": "Tuma payload kwenda Microsoft Teams Incoming Webhook. Rudisha JSON pekee.",
-    "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams. Hutumika kama maandishi ya kawaida isipokuwa sehemu za kadi zimetolewa.",
-    "param.title.description": "Kichwa cha kadi kwa payload zinazotumika na webhook.",
-    "param.summary.description": "Muhtasari wa kadi kwa payload zinazotumika na webhook.",
-    "param.image_url.description": "URL ya picha kwa payload zinazotumika na webhook.",
-    "param.theme_color.description": "Rangi ya mandhari ya kadi kama mfuatano wa hex bila #.",
-    "param.payload_json.description": "Payload ghafi ya webhook kama mfuatano wa JSON au kitu. Ikitolewa, hutumwa kama ilivyo.",
-    "param.webhook_env.description": "Jina la kigezo cha mazingira kinachohifadhi URL ya webhook ya Teams.",
-    "param.timeout_s.description": "Muda wa kusubiri ombi kwa sekunde.",
-    "err.missing_message": "Pungufu la 'message'.",
-    "err.exception": "Hitilafu"
-  },
   "tr": {
     "tool.description": "Bir mesajı veya webhook destekli JSON yükünü, bir ortam değişkeninde saklanan Microsoft Teams Incoming Webhook URL'sine gönderir.",
     "tool.system_prompt": "Microsoft Teams Incoming Webhook'a bir yük gönderin. Yalnızca JSON döndürün.",
@@ -362,5 +320,47 @@
     "param.timeout_s.description": "İstek zaman aşımı (saniye).",
     "err.missing_message": "'message' eksik.",
     "err.exception": "İstisna"
+  },
+  "th": {
+    "tool.description": "ส่งข้อความหรือ JSON payload ที่รองรับ webhook ไปยัง URL ของ Microsoft Teams Incoming Webhook ที่เก็บไว้ในตัวแปรสภาพแวดล้อม",
+    "tool.system_prompt": "ส่ง payload ไปยัง Microsoft Teams Incoming Webhook ส่งกลับเฉพาะ JSON",
+    "param.message.description": "ข้อความที่จะโพสต์ไปยัง Teams ใช้เป็นข้อความธรรมดาเว้นแต่จะระบุฟิลด์ของการ์ด",
+    "param.title.description": "ชื่อการ์ดสำหรับ payload ที่รองรับ webhook",
+    "param.summary.description": "สรุปการ์ดสำหรับ payload ที่รองรับ webhook",
+    "param.image_url.description": "URL รูปภาพสำหรับ payload ที่รองรับ webhook",
+    "param.theme_color.description": "สีธีมของการ์ดในรูปแบบสตริงฐานสิบหกโดยไม่ใส่ #",
+    "param.payload_json.description": "payload ของ webhook แบบดิบในรูป JSON string หรือ object หากระบุจะส่งตามที่เป็น",
+    "param.webhook_env.description": "ชื่อตัวแปรสภาพแวดล้อมที่เก็บ URL ของ Teams webhook",
+    "param.timeout_s.description": "เวลารอคำขอเป็นวินาที",
+    "err.missing_message": "ไม่มี 'message'.",
+    "err.exception": "ข้อยกเว้น"
+  },
+  "zh_CN": {
+    "tool.description": "将消息或 webhook 支持的 JSON 负载发送到存储在环境变量中的 Microsoft Teams Incoming Webhook URL。",
+    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 发送负载。仅返回 JSON。",
+    "param.message.description": "要发布到 Teams 的消息文本。除非提供了卡片字段，否则将作为纯文本使用。",
+    "param.title.description": "适用于 webhook 支持的负载的卡片标题。",
+    "param.summary.description": "适用于 webhook 支持的负载的卡片摘要。",
+    "param.image_url.description": "适用于 webhook 支持的负载的图片 URL。",
+    "param.theme_color.description": "卡片主题颜色，使用不带 # 的十六进制字符串。",
+    "param.payload_json.description": "以 JSON 字符串或对象形式提供原始 webhook 负载。若提供，则原样发送。",
+    "param.webhook_env.description": "存储 Teams webhook URL 的环境变量名。",
+    "param.timeout_s.description": "请求超时时间（秒）。",
+    "err.missing_message": "缺少 'message'。",
+    "err.exception": "异常"
+  },
+  "zh_TW": {
+    "tool.description": "將訊息或 webhook 支援的 JSON 載荷傳送到儲存在環境變數中的 Microsoft Teams Incoming Webhook URL。",
+    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 傳送載荷。只回傳 JSON。",
+    "param.message.description": "要發布到 Teams 的訊息文字。除非提供卡片欄位，否則會以純文字使用。",
+    "param.title.description": "適用於 webhook 支援載荷的卡片標題。",
+    "param.summary.description": "適用於 webhook 支援載荷的卡片摘要。",
+    "param.image_url.description": "適用於 webhook 支援載荷的圖片 URL。",
+    "param.theme_color.description": "卡片主題色，使用不含 # 的十六進位字串。",
+    "param.payload_json.description": "原始 webhook 載荷，格式為 JSON 字串或物件。若提供，將原樣傳送。",
+    "param.webhook_env.description": "儲存 Teams webhook URL 的環境變數名稱。",
+    "param.timeout_s.description": "請求逾時秒數。",
+    "err.missing_message": "缺少 'message'。",
+    "err.exception": "例外"
   }
 }

@@ -44,33 +44,6 @@
     "err.missing_message": "'message'가 지정되지 않았습니다.",
     "err.exception": "예외"
   },
-  "th": {
-    "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์).",
-    "tool.system_prompt": "ส่งข้อความ A2A ส่งคืนเฉพาะ JSON.",
-    "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
-    "param.message.description": "ข้อความผู้ใช้ที่จะส่ง.",
-    "param.return_immediately.description": "ถ้าเป็น true จะส่งคืนทันทีหลังสร้างงาน.",
-    "err.missing_message": "ขาด 'message'.",
-    "err.exception": "ข้อยกเว้น"
-  },
-  "zh_CN": {
-    "tool.description": "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。",
-    "tool.system_prompt": "发送 A2A 消息。仅返回 JSON。",
-    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
-    "param.message.description": "要发送的用户消息。",
-    "param.return_immediately.description": "若为 true，则在创建任务后立即返回。",
-    "err.missing_message": "缺少 'message'。",
-    "err.exception": "异常"
-  },
-  "zh_TW": {
-    "tool.description": "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。",
-    "tool.system_prompt": "傳送 A2A 訊息。僅回傳 JSON。",
-    "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
-    "param.message.description": "要傳送的使用者訊息。",
-    "param.return_immediately.description": "若為 true，建立任務後立即回傳。",
-    "err.missing_message": "缺少 'message'。",
-    "err.exception": "例外"
-  },
   "de": {
     "tool.description": "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname).",
     "tool.system_prompt": "Senden Sie eine A2A-Nachricht. Nur JSON zurückgeben.",
@@ -107,6 +80,15 @@
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   },
+  "pt": {
+    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil).",
+    "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON.",
+    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
+    "param.message.description": "Mensagem do usuário a ser enviada.",
+    "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
+    "err.missing_message": "Falta 'message'.",
+    "err.exception": "Exceção"
+  },
   "id": {
     "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil).",
     "tool.system_prompt": "Kirim pesan A2A. Kembalikan JSON saja.",
@@ -134,15 +116,6 @@
     "err.missing_message": "Brakuje 'message'.",
     "err.exception": "Wyjątek"
   },
-  "pt": {
-    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil).",
-    "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON.",
-    "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
-    "param.message.description": "Mensagem do usuário a ser enviada.",
-    "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
-    "err.missing_message": "Falta 'message'.",
-    "err.exception": "Exceção"
-  },
   "hi": {
     "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें।",
     "tool.system_prompt": "A2A संदेश भेजें। केवल JSON लौटाएँ।",
@@ -169,6 +142,15 @@
     "param.return_immediately.description": "Om true, returnera direkt efter att uppgiften har skapats.",
     "err.missing_message": "Saknar 'message'.",
     "err.exception": "Undantag"
+  },
+  "sw": {
+    "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili).",
+    "tool.system_prompt": "Tuma ujumbe wa A2A. Rudisha JSON pekee.",
+    "param.profile.description": "Jina la profaili au a2a://name. Ikiwa halikutajwa, tumia profaili chaguomsingi.",
+    "param.message.description": "Ujumbe wa mtumiaji wa kutuma.",
+    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada ya kazi kuundwa.",
+    "err.missing_message": "Kipengee 'message' hakipo.",
+    "err.exception": "Hitilafu"
   },
   "nb": {
     "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn).",
@@ -215,15 +197,6 @@
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
   },
-  "sw": {
-    "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili).",
-    "tool.system_prompt": "Tuma ujumbe wa A2A. Rudisha JSON pekee.",
-    "param.profile.description": "Jina la profaili au a2a://name. Ikiwa halikutajwa, tumia profaili chaguomsingi.",
-    "param.message.description": "Ujumbe wa mtumiaji wa kutuma.",
-    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada ya kazi kuundwa.",
-    "err.missing_message": "Kipengee 'message' hakipo.",
-    "err.exception": "Hitilafu"
-  },
   "tr": {
     "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin.",
     "tool.system_prompt": "Bir A2A mesajı gönderin. Yalnızca JSON döndürün.",
@@ -232,5 +205,32 @@
     "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen sonra geri dönün.",
     "err.missing_message": "'Mesaj' eksik.",
     "err.exception": "İstisna"
+  },
+  "th": {
+    "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์).",
+    "tool.system_prompt": "ส่งข้อความ A2A ส่งคืนเฉพาะ JSON.",
+    "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
+    "param.message.description": "ข้อความผู้ใช้ที่จะส่ง.",
+    "param.return_immediately.description": "ถ้าเป็น true จะส่งคืนทันทีหลังสร้างงาน.",
+    "err.missing_message": "ขาด 'message'.",
+    "err.exception": "ข้อยกเว้น"
+  },
+  "zh_CN": {
+    "tool.description": "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。",
+    "tool.system_prompt": "发送 A2A 消息。仅返回 JSON。",
+    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
+    "param.message.description": "要发送的用户消息。",
+    "param.return_immediately.description": "若为 true，则在创建任务后立即返回。",
+    "err.missing_message": "缺少 'message'。",
+    "err.exception": "异常"
+  },
+  "zh_TW": {
+    "tool.description": "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。",
+    "tool.system_prompt": "傳送 A2A 訊息。僅回傳 JSON。",
+    "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
+    "param.message.description": "要傳送的使用者訊息。",
+    "param.return_immediately.description": "若為 true，建立任務後立即回傳。",
+    "err.missing_message": "缺少 'message'。",
+    "err.exception": "例外"
   }
 }

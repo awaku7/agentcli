@@ -9,16 +9,6 @@
     "err.outside_workdir": "作業ディレクトリ外のパスです: root={root} path={path}",
     "err.path_empty": "パスが空です"
   },
-  "zh_CN": {
-    "err.file_not_found": "未找到文件：{filename}",
-    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
-    "err.path_empty": "路径为空"
-  },
-  "zh_TW": {
-    "err.file_not_found": "未找到文件：{filename}",
-    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
-    "err.path_empty": "路徑為空"
-  },
   "es": {
     "err.file_not_found": "archivo no encontrado: {filename}",
     "err.outside_workdir": "la ruta está fuera del directorio de trabajo: root={root} ruta={path}",
@@ -33,11 +23,6 @@
     "err.file_not_found": "파일을 찾을 수 없습니다: {filename}",
     "err.outside_workdir": "경로가 작업 디렉터리 외부에 있습니다: root={root} path={path}",
     "err.path_empty": "경로가 비어 있습니다"
-  },
-  "th": {
-    "err.file_not_found": "ไม่พบไฟล์: {filename}",
-    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
-    "err.path_empty": "เส้นทางว่างเปล่า"
   },
   "de": {
     "err.file_not_found": "Datei nicht gefunden: {filename}",
@@ -59,6 +44,11 @@
     "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
     "err.path_empty": "o caminho está vazio"
   },
+  "pt": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
   "id": {
     "err.file_not_found": "file tidak ditemukan: {filename}",
     "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
@@ -74,10 +64,30 @@
     "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
     "err.path_empty": "ścieżka jest pusta"
   },
+  "hi": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
   "ar": {
     "err.file_not_found": "لم يتم العثور على الملف: {اسم الملف}",
     "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
     "err.path_empty": "المسار فارغ"
+  },
+  "sv": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "sw": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "nb": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
   },
   "nl": {
     "err.file_not_found": "file not found: {filename}",
@@ -89,9 +99,34 @@
     "err.outside_workdir": "path is outside workdir: root={root} path={path}",
     "err.path_empty": "path is empty"
   },
+  "cs": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "uk": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
   "tr": {
     "err.file_not_found": "dosya bulunamadı: {filename}",
     "err.outside_workdir": "yol çalışma dizininin dışında: root={root} path={path}",
     "err.path_empty": "yol boş"
+  },
+  "th": {
+    "err.file_not_found": "ไม่พบไฟล์: {filename}",
+    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
+    "err.path_empty": "เส้นทางว่างเปล่า"
+  },
+  "zh_CN": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
+    "err.path_empty": "路径为空"
+  },
+  "zh_TW": {
+    "err.file_not_found": "未找到文件：{filename}",
+    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
+    "err.path_empty": "路徑為空"
   }
 }

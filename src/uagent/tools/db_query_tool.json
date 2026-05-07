@@ -11,18 +11,6 @@
     "tool.description": "SQLite データベースに対して SQL クエリを実行し、結果を返します。読み取り専用の操作（SELECT）とスキーマ確認（PRAGMA）のみ対応します。",
     "tool.system_prompt": "このツールは、ツール名 'db_query' で示される処理を実行します。"
   },
-  "zh_CN": {
-    "param.db_path.description": "SQLite 数据库文件的路径。",
-    "param.sql.description": "要执行的 SQL。",
-    "tool.description": "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作（SELECT）和架构检查（PRAGMA）。",
-    "tool.system_prompt": "此工具执行工具名称“db_query”所描述的操作。"
-  },
-  "zh_TW": {
-    "param.db_path.description": "SQLite 資料庫檔案的路徑。",
-    "param.sql.description": "要執行的 SQL。",
-    "tool.description": "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作（SELECT）和結構檢查（PRAGMA）。",
-    "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
-  },
   "es": {
     "param.db_path.description": "Ruta al archivo de base de datos SQLite.",
     "param.sql.description": "SQL a ejecutar.",
@@ -40,12 +28,6 @@
     "param.sql.description": "실행할 SQL입니다.",
     "tool.description": "SQLite 데이터베이스에 SQL 쿼리를 실행하고 결과를 반환합니다. 읽기 전용 작업(SELECT)과 스키마 검사(PRAGMA)만 지원합니다.",
     "tool.system_prompt": "이 도구는 도구 이름 'db_query'에 설명된 작업을 수행합니다."
-  },
-  "th": {
-    "param.db_path.description": "พาธไปยังไฟล์ฐานข้อมูล SQLite",
-    "param.sql.description": "SQL ที่จะดำเนินการ",
-    "tool.description": "ดำเนินการคิวรี SQL กับฐานข้อมูล SQLite และส่งกลับผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
   },
   "de": {
     "param.db_path.description": "Pfad zur SQLite-Datenbankdatei.",
@@ -71,6 +53,12 @@
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   },
+  "pt": {
+    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
+    "param.sql.description": "SQL para executar.",
+    "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
+    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
+  },
   "id": {
     "param.db_path.description": "Jalur ke file database SQLite.",
     "param.sql.description": "SQL yang akan dieksekusi.",
@@ -89,12 +77,6 @@
     "tool.description": "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA).",
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „db_query”."
   },
-  "pt": {
-    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
-    "param.sql.description": "SQL para executar.",
-    "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
-  },
   "hi": {
     "param.db_path.description": "SQLite डेटाबेस फ़ाइल का पथ.",
     "param.sql.description": "निष्पादित करने के लिए SQL.",
@@ -112,6 +94,12 @@
     "param.sql.description": "SQL som ska köras.",
     "tool.description": "Kör en SQL-fråga mot en SQLite-databas och returnerar resultatet. Endast skrivskyddade operationer (SELECT) och schemainspektion (PRAGMA) stöds.",
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'db_query'."
+  },
+  "sw": {
+    "param.db_path.description": "Njia ya faili la hifadhidata ya SQLite.",
+    "param.sql.description": "SQL ya kutekeleza.",
+    "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
+    "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'db_query'."
   },
   "nb": {
     "param.db_path.description": "Stien til SQLite-databasefilen.",
@@ -143,16 +131,28 @@
     "tool.description": "Виконує SQL-запит до бази даних SQLite та повертає результат. Підтримуються лише операції лише для читання (SELECT) та перевірка схеми (PRAGMA).",
     "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'db_query'."
   },
-  "sw": {
-    "param.db_path.description": "Njia ya faili la hifadhidata ya SQLite.",
-    "param.sql.description": "SQL ya kutekeleza.",
-    "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
-    "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'db_query'."
-  },
   "tr": {
     "param.db_path.description": "SQLite veritabanı dosyasının yolu.",
     "param.sql.description": "SQL yürütülecek.",
     "tool.description": "Bir SQLite veritabanında SQL sorgularını yürütün ve sonucu döndürün. Yalnızca salt okunur işlemler (SELECT) ve şema incelemesi (PRAGMA) desteklenir.",
     "tool.system_prompt": "Bu araç, 'db_query' araç adıyla açıklanan işlemi gerçekleştirir."
+  },
+  "th": {
+    "param.db_path.description": "พาธไปยังไฟล์ฐานข้อมูล SQLite",
+    "param.sql.description": "SQL ที่จะดำเนินการ",
+    "tool.description": "ดำเนินการคิวรี SQL กับฐานข้อมูล SQLite และส่งกลับผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
+    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
+  },
+  "zh_CN": {
+    "param.db_path.description": "SQLite 数据库文件的路径。",
+    "param.sql.description": "要执行的 SQL。",
+    "tool.description": "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作（SELECT）和架构检查（PRAGMA）。",
+    "tool.system_prompt": "此工具执行工具名称“db_query”所描述的操作。"
+  },
+  "zh_TW": {
+    "param.db_path.description": "SQLite 資料庫檔案的路徑。",
+    "param.sql.description": "要執行的 SQL。",
+    "tool.description": "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作（SELECT）和結構檢查（PRAGMA）。",
+    "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
   }
 }
