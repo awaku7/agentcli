@@ -198,5 +198,13 @@
     "param.output_format.description": "Muundo wa matokeo: text au json.",
     "param.password.description": "Nenosiri la hiari kwa faili ya DOCX iliyosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
+  },
+  "tr": {
+    "tool.description": "Word benzeri belgelerden (.docx, .rtf, .odt) metni ve temel yapıyı çıkarın. Output_format=text veya Output_format=json'u seçin. Araç her zaman JSON değerini döndürür.",
+    "tool.system_prompt": ".docx, .rtf veya .odt belgelerini okuyun ve yalnızca JSON değerini döndürün. Output_format=text ise, çıkartılan metni JSON yanıtına yerleştirin. Output_format=json ise, mümkün olduğunda yapılandırılmış bölümleri ve tabloları ekleyin.",
+    "param.path.description": "Giriş belgesinin yolu (.docx, .rtf, .odt).",
+    "param.output_format.description": "Çıkış formatı: metin veya json.",
+    "param.password.description": "Şifrelenmiş DOCX dosyası için isteğe bağlı şifre. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   }
 }

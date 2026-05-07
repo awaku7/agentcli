@@ -298,5 +298,17 @@
     "param.seconds.description": "Idadi ya sekunde za kipima muda.",
     "tool.description": "Huonyesha ujumbe baada ya sekunde fulani. Pia inaweza kutuma ujumbe wa moja kwa moja kwa LLM.",
     "tool.system_prompt": "Tumia zana hii kuonyesha ujumbe baada ya muda uliobainishwa na, ikihitajika, kutuma ujumbe wa moja kwa moja kwa LLM."
+  },
+  "tr": {
+    "err.queue_uninitialized": "[set_timer hatası] event_queue geri çağrısı başlatılmadı.",
+    "err.seconds_invalid": "[set_timer hatası] saniye değeri tamsayı olarak yorumlanamadı: {raw}",
+    "err.seconds_negative": "[set_timer hatası] saniye 0 veya daha büyük olmalıdır: {val}",
+    "msg.default_timer_done": "Zamanlayıcı sona erdi",
+    "out.ok": "[set_timer] Zamanlayıcı {seconds} saniyeye ayarlandı: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Tamamlandığında gösterilecek mesaj.",
+    "param.on_timeout_prompt.description": "Süre dolduğunda LLM'ye otomatik olarak girilecek içerik.",
+    "param.seconds.description": "Zamanlayıcı için saniye sayısı.",
+    "tool.description": "Belirtilen saniye sayısından sonra bir mesaj gösterir. İsteğe bağlı olarak LLM'ye otomatik bir mesaj da gönderebilir.",
+    "tool.system_prompt": "Bu araç, belirtilen bir süreden sonra bir mesaj göstermek ve isteğe bağlı olarak LLM'ye otomatik bir mesaj göndermek için kullanılır."
   }
 }

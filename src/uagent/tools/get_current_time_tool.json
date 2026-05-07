@@ -98,5 +98,9 @@
   "sw": {
     "tool.description": "Rudisha muda wa sasa na maelezo ya kina ya tarehe/muda (eneo la saa, siku ya wiki, muda wa UTC). Tumia hili kutatua semi za tarehe za uwiano (mfano, 'leo', 'kesho', 'mwishoni mwa wiki hii', 'Jumanne ya tatu ya mwezi ujao') kwa kubaini siku ya sasa ya wiki na mkengeuko wa UTC.",
     "tool.system_prompt": "Zana hii hutoa maelezo ya marejeleo ili LLM iweze kufanya hesabu za muda kwa usahihi.\n- Muundo wa ISO 8601 (na mkengeuko)\n- Siku ya wiki (Kiingereza)\n- Muda wa UTC\n- Vipengele vya nambari (mwaka, mwezi, siku, saa, dakika, sekunde)\nTumia hivi kubadilisha maombi yasiyoeleweka ya mtumiaji (mfano, 'Jumatatu ijayo') kuwa tarehe/muda mahsusi.\n"
+  },
+  "tr": {
+    "tool.description": "Geçerli saati ve ayrıntılı tarih/saat bilgilerini (saat dilimi, hafta içi, UTC saati) döndürür. Haftanın geçerli gününü ve UTC farkını belirleyerek göreli tarih ifadelerini (örneğin, 'bugün', 'yarın', 'bu hafta sonu', 'gelecek ayın 3. Salısı') çözümlemek için bunu kullanın.",
+    "tool.system_prompt": "Bu araç, LLM'ın zaman hesaplamalarını doğru bir şekilde gerçekleştirebilmesi için referans bilgileri sağlar.\n- ISO 8601 formatı (ofset ile)\n- Hafta içi (İngilizce)\n- UTC zamanı\n- Sayısal bileşenler (yıl, ay, gün, saat, dakika, saniye)\nBelirsiz kullanıcı isteklerini (örneğin, 'gelecek Pazartesi') somut bir tarih/saat'e dönüştürmek için bunları kullanın."
   }
 }

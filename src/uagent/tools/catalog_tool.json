@@ -123,5 +123,10 @@
     "param.max_results.description": "Idadi ya juu ya maingizo ya katalogi ya kurudishwa.",
     "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
     "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana."
+  },
+  "tr": {
+    "param.max_results.description": "Döndürülecek maksimum katalog girişi sayısı.",
+    "param.query.description": "Gerekli yeteneği açıklayan doğal dil sorgusu.",
+    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün."
   }
 }

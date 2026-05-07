@@ -298,5 +298,17 @@
     "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
     "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
+  },
+  "tr": {
+    "param.action.description": "Gerçekleştirilecek işlem.",
+    "param.data.description": "JSON yazılacak veri.",
+    "param.file_path.description": "Excel dosyasının mutlak yolu.",
+    "param.sheet_name.description": "Hedef sayfa adı.",
+    "param.keep_sheets.description": "Saklanacak sayfa adları (yalnızca action='keep_only_sheets' için kullanılır). Belirtilen herhangi bir sayfa mevcut değilse, araç hata verir.",
+    "param.output_path.description": "Eylemin çıktı yolu='keep_only_sheets'. Zaten mevcutsa, bir yedek oluşturulduktan sonra üzerine yazılır (<output_path>.org / <output_path>.org1 / ...).",
+    "tool.description": "Excel (.xlsx) dosyalarını okuyup yazın ve sayfa adlarını alın. Mevcut bir dosyaya yazarken, yazmadan hemen önce aynı adda (<file_path>.org / <file_path>.org1 / ...) bir yedek oluşturulur.",
+    "tool.system_prompt": "Bu araç, 'excel_ops' araç adıyla açıklanan işlemi gerçekleştirir.",
+    "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   }
 }

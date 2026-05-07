@@ -273,5 +273,16 @@
     "param.max_bytes.description": "Idadi ya juu ya bytes za kusoma kutoka kwa jibu.",
     "param.max_chars.description": "Idadi ya juu ya herufi za kurudisha (hutumika baada ya ku-decode/kuchambua).",
     "param.user_agent.description": "Thamani ya hiari ya kichwa cha User-Agent."
+  },
+  "tr": {
+    "param.url.description": "Erişmek için URL.",
+    "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır.",
+    "tool.system_prompt": "Bu araç, 'fetch_url' araç adıyla açıklanan işlemi gerçekleştirir.",
+    "param.extract.description": "Ekstraksiyon modu. head=yanıtın başlangıcını döndürür; metin=metni HTML'dan çıkar; html=extract HTML parçası; json=parse JSON (isteğe bağlı olarak json_pointer'ı uygulayın).",
+    "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html için çıkarılır.",
+    "param.json_pointer.description": "İsteğe bağlı RFC 6901 JSON Extract=json olduğunda kullanılan işaretçi (ör. /items/0/title).",
+    "param.max_bytes.description": "Yanıttan okunacak maksimum bayt sayısı.",
+    "param.max_chars.description": "Döndürülecek maksimum karakter (kod çözme/çıkarma işleminden sonra uygulanır).",
+    "param.user_agent.description": "İsteğe bağlı Kullanıcı Aracısı başlık değeri."
   }
 }

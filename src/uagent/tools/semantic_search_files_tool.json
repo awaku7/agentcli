@@ -523,5 +523,26 @@
     "param.top_k.description": "idadi.",
     "tool.description": "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani. Hutumia Embedding API kubadili yaliyomo ya faili kuwa vekta na kutoa sehemu husika za hati. Kuorodhesha hufanyika mara ya kwanza au faili zinapobadilika.",
     "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee."
+  },
+  "tr": {
+    "doc.db_path": "<state>/dbs altındaki her root_dir için karma DB yolunu döndürür (varsayılan: ~/.uag (eski: ~/.scheck)/dbs).",
+    "doc.is_reachable": "Başlangıçta bağlantıyı kontrol eder.\n\n- Kontrol başarısız olsa da istisna fırlatmadan False döndürür\n- Başlangıç gecikmelerini önlemek için kısa bir zaman aşımı kullanır\n- Bazı uygulamalar /v1/models desteği sunmayabileceğinden GET / de yedek olarak kullanılır.",
+    "doc.sync_file": "Tek dosya indeksini eşitle (yeni veya güncellenmişse)",
+    "err.dir_not_found": "Hata: Dizin bulunamadı: {root_path}",
+    "err.disabled": "[tools] semantic_search_files devre dışı: Embedding API'ye ulaşılamıyor.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Aracı görünür tutmak için UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ayarlayın.\n",
+    "err.query_required": "Hata: query zorunludur.",
+    "err.vec_fail": "Hata: sorgu vektörleştirilemedi.",
+    "out.hits": "Sonuç sayısı: {count}",
+    "out.not_found": "İlgili belge bulunamadı.",
+    "out.query": "Arama sorgusu: {query}",
+    "out.result_content": "İçerik: {snippet}",
+    "out.result_item": "[{rank}] Puan: {score:.4f} | Dosya: {rel_path}",
+    "out.target_dir": "Hedef dizin: {root_path}",
+    "param.file_pattern.description": "Hedef uzantılar (virgülle ayrılmış).",
+    "param.query.description": "Arama anahtar kelimesi.",
+    "param.root_path.description": "Aranacak dizin.",
+    "param.top_k.description": "sayı.",
+    "tool.description": "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar. Dosya içeriklerini vektörleştirmek ve ilgili belge bölümlerini çıkarmak için Embedding API'yi kullanır. Dizinleme ilk kullanımda veya dosyalar değiştiğinde çalışır.",
+    "tool.system_prompt": "Bu araç, yerel dosyalar üzerinde anlamsal arama için kullanılır. Yalnızca JSON döndürün."
   }
 }

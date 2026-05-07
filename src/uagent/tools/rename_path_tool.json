@@ -223,5 +223,14 @@
     "param.src.description": "Njia ya asili (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
     "tool.description": "Badilisha jina (hamisha) la faili au saraka.",
     "tool.system_prompt": "Zana hii hubadilisha jina au kuhamisha faili au saraka.\n\nVidokezo vya usalama:\n- Uthibitisho unahitajika kwa njia kamili, njia zenye \"..\", au shughuli zilizo nje ya workdir.\n- overwrite=true huhitaji uthibitisho kwa sababu hufuta lengwa kwanza."
+  },
+  "tr": {
+    "doc.module": "araçlar/rename_path_tool.py\n\nrename_path aracı\n\nAmaç:\n- Dosyaları/dizinleri yeniden adlandırın/taşıyın.\n\nGüvenlik politikası:\n- Çalışma dizininin dışındaki yollar, mutlak yollar veya .. içeren yollar gibi tehlikeli yol koşullarının karşılanıp karşılanmadığını kullanıcıdan onaylayın.\n- Overwrite=True ise kullanıcıyla onaylayın (mevcut dst'yi silin ve değiştirin).\n\nUygulama:\n- Gerçek işlemler, Tools.safe_file_ops.safe_rename_path()'a devredilir.\n- Mevcut bir dst'yi kaldırmak için dosyalar os.remove ile, dizinler ise Shutil.rmtree ile kaldırılır.\n\nDikkat:\n- Bu araç, tıpkı create_file/delete_file gibi gerçek dosyaları değiştirir, dolayısıyla LLM'dan çağrıldığında bile güvenlik onayı gerektirecek şekilde tasarlanmıştır.",
+    "param.dst.description": "Hedef yol (dosya/dizin). Göreceli yol önerilir.",
+    "param.mkdirs.description": "Doğruysa, çalıştırmadan önce dst için ana dizini oluşturun.",
+    "param.overwrite.description": "Doğruysa, dst'yi silin ve zaten mevcutsa değiştirin (onay vermeniz istenecektir).",
+    "param.src.description": "Orijinal yol (dosya/dizin). Göreceli yol önerilir.",
+    "tool.description": "Bir dosyayı veya dizini yeniden adlandırın (taşıyın).",
+    "tool.system_prompt": "Bu araç, bir dosyayı veya dizini yeniden adlandırır veya taşır.\n\nGüvenlik notları:\n- Mutlak yollar, '..' içeren yollar veya çalışma dizini dışındaki işlemler için onay gereklidir.\n- overwrite=true önce hedefi sildiğinden onay gerektirir."
   }
 }

@@ -166,5 +166,12 @@
     "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell). Якщо не вказано, вибирається автоматично.",
     "tool.description": "Як крайній захід, виконайте PowerShell. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад MCP.",
     "tool.system_prompt": "Цей інструмент є КРАЙНІМ ЗАХОДОМ.\n1. Спочатку перевірте, чи можна замість нього використати handle_mcp / mcp_tools_list.\n2. Використовуйте цей інструмент лише тоді, коли немає іншого відповідного інструмента.\n3. Не використовуйте цей інструмент для запуску Python; натомість використовуйте python_exec.\n\nПримітки щодо безпеки:\n- Небезпечні шаблони на кшталт download-exec (IWR/IRM/curl/wget) і Base64 (-Enc) можуть бути заблоковані або потребувати підтвердження."
+  },
+  "tr": {
+    "err.timeout": "[pwsh_exec timeout] {seconds} saniye içinde tamamlanmadı",
+    "param.command.description": "PowerShell komut dizesi -Command'a aktarıldı.",
+    "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell). Atlanırsa otomatik seçin.",
+    "tool.description": "Son çare olarak PowerShell'i çalıştırın. Yalnızca başka uygun bir araç (örn. MCP) mevcut olmadığında kullanın.",
+    "tool.system_prompt": "Bu araç bir LAST RESORT'dir.\n1. Öncelikle bunun yerine hand_mcp / mcp_tools_list'in kullanılıp kullanılamayacağını kontrol edin.\n2. Bu aracı yalnızca başka uygun bir araç bulunmadığında kullanın.\n3. Python'u çalıştırmak için bu aracı kullanmayın; bunun yerine python_exec kullanın.\n\nGüvenlik notları:\n- Download-exec (IWR/IRM/curl/wget) ve Base64 (-Enc) gibi tehlikeli kalıplar engellenebilir veya onay gerektirebilir."
   }
 }

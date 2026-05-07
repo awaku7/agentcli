@@ -298,5 +298,17 @@
     "param.query.description": "Kamba ya hoja ya utafutaji.",
     "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
     "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
+  },
+  "tr": {
+    "error.args_must_be_dict": "args bir dict olmalıdır",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo isteği yeniden denemelerden sonra başarısız oldu: {error}",
+    "error.missing_query_parameter": "'query' parametresi eksik",
+    "error.run_tool_error": "run_tool hatası: {error}",
+    "param.max_results.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5).",
+    "param.n.description": "'max_results' için takma ad (geriye dönük uyumluluk için).",
+    "param.q.description": "'query' için takma ad (geriye dönük uyumluluk için).",
+    "param.query.description": "Arama sorgusu dizgesi.",
+    "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür.",
+    "tool.system_prompt": "Bu araç DuckDuckGo HTML araması yapar ve başlık/bağlantı/snippet döndürür. Sonuçlar boşsa site istekleri hız sınırlıyor veya engelliyor olabilir."
   }
 }

@@ -148,5 +148,11 @@
     "msg.disabled": "(delat minne är inaktiverat; ange UAGENT_SHARED_MEMORY_FILE för att aktivera det)",
     "msg.no_shared_memory": "(inget delat minne ännu)",
     "msg.truncated": "\n[shared_memory avkortad: begränsad till {max_bytes} byte]"
+  },
+  "tr": {
+    "err.load": "[paylaşılan bellek hatası] {err_type}: {err}",
+    "msg.disabled": "(paylaşılan bellek devre dışı; etkinleştirmek için UAGENT_SHARED_MEMORY_FILE ayarlayın)",
+    "msg.no_shared_memory": "(henüz paylaşılan bellek yok)",
+    "msg.truncated": "\n[shared_memory kesildi: {max_bytes} bayt ile sınırlı]"
   }
 }

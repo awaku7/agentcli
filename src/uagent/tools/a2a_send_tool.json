@@ -223,5 +223,14 @@
     "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada ya kazi kuundwa.",
     "err.missing_message": "Kipengee 'message' hakipo.",
     "err.exception": "Hitilafu"
+  },
+  "tr": {
+    "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin.",
+    "tool.system_prompt": "Bir A2A mesajı gönderin. Yalnızca JSON döndürün.",
+    "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
+    "param.message.description": "Gönderilecek kullanıcı mesajı.",
+    "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen sonra geri dönün.",
+    "err.missing_message": "'Mesaj' eksik.",
+    "err.exception": "İstisna"
   }
 }

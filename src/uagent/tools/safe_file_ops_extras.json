@@ -88,5 +88,10 @@
     "err.file_not_found": "file not found: {filename}",
     "err.outside_workdir": "path is outside workdir: root={root} path={path}",
     "err.path_empty": "path is empty"
+  },
+  "tr": {
+    "err.file_not_found": "dosya bulunamadı: {filename}",
+    "err.outside_workdir": "yol çalışma dizininin dışında: root={root} path={path}",
+    "err.path_empty": "yol boş"
   }
 }

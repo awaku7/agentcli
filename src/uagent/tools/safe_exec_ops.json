@@ -214,5 +214,17 @@
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "tr": {
+    "confirm.risky_command": "Potansiyel olarak tehlikeli komut içeriği algılandı.\nkomut: {command}\nDevam etmek için y, iptal etmek için c yazın.",
+    "confirm.shell_metachar": "Kabuk operatörleri (boru/yönlendirme/zincirleme) tespit edildi.\nkomut: {command}\nDevam etmek için y, iptal etmek için c yazın.",
+    "err.blocked_cancelled": "kullanıcı iptal edildi",
+    "err.blocked_rejected": "kullanıcı reddedildi",
+    "err.callbacks_unavailable": "human_ask geri aramaları kullanılamıyor",
+    "err.confirm_failed": "onay başarısız oldu",
+    "err.confirm_timeout": "onay zaman aşımı",
+    "ui.confirm.footer": "=== /onayla ===",
+    "ui.confirm.howto": "Nasıl cevap verilir: y=devam et / c=iptal / diğer=reddet",
+    "ui.confirm.title": "=== İnsandan onay talebi ==="
   }
 }

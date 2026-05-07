@@ -5,7 +5,7 @@ import re
 import sys
 from pathlib import Path
 
-from uag_envsec.secret_core import encrypt_text, ensure_key_file
+from uag_envsec.secret_core import decrypt_text, encrypt_text, ensure_key_file
 
 from .env_validate import format_missing_env_message, validate_startup_env
 from .i18n import _
@@ -50,51 +50,90 @@ def _write_text_atomic(path: Path, content: str) -> None:
                 pass
 
 
-def _maybe_offer_envsec_creation(*, context: str) -> bool:
-    sec_path = Path.cwd() / ".env.sec"
-    if sec_path.exists():
-        return False
+def _read_envsec_plaintext(sec_path: Path) -> str:
+    body = sec_path.read_text(encoding="utf-8").strip()
+    if not body:
+        return ""
+    local_key = Path.cwd() / ".uagent.key"
+    kp = str(local_key) if local_key.exists() else None
+    return decrypt_text(body, key_path=kp)
 
+
+def _envsec_needs_update(sec_path: Path, env_text: str) -> bool:
+    try:
+        existing = _read_envsec_plaintext(sec_path)
+    except Exception:
+        return False
+    return existing.rstrip("\n") != env_text.rstrip("\n")
+
+
+def _maybe_offer_envsec_sync(*, context: str) -> bool:
+    sec_path = Path.cwd() / ".env.sec"
     env_text = _build_uagent_env_text()
     if not env_text.strip():
         return False
 
-    interactive = context == "cli" and bool(
-        getattr(sys.stdin, "isatty", lambda: False)()
-    )
-    if interactive:
-        prompt = _(
-            "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-        )
-        try:
-            sys.__stdout__.write(prompt)
-            sys.__stdout__.flush()
-        except Exception:
-            pass
-        try:
-            answer = input().strip().lower()
-        except EOFError:
-            answer = ""
-        if answer not in ("y", "yes"):
+    if sec_path.exists():
+        if not _envsec_needs_update(sec_path, env_text):
             return False
-
-    else:
-        print(
-            _(
-                "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-            ),
-            file=sys.__stderr__,
+        interactive = context == "cli" and bool(
+            getattr(sys.stdin, "isatty", lambda: False)()
         )
-        return False
+        if interactive:
+            prompt = (
+                "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+            )
+            try:
+                sys.__stdout__.write(prompt)
+                sys.__stdout__.flush()
+            except Exception:
+                pass
+            try:
+                answer = input().strip().lower()
+            except EOFError:
+                answer = ""
+            if answer not in ("y", "yes"):
+                return False
+        else:
+            print(
+                "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it.",
+                file=sys.__stderr__,
+            )
+            return False
+    else:
+        interactive = context == "cli" and bool(
+            getattr(sys.stdin, "isatty", lambda: False)()
+        )
+        if interactive:
+            prompt = (
+                "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+            )
+            try:
+                sys.__stdout__.write(prompt)
+                sys.__stdout__.flush()
+            except Exception:
+                pass
+            try:
+                answer = input().strip().lower()
+            except EOFError:
+                answer = ""
+            if answer not in ("y", "yes"):
+                return False
+        else:
+            print(
+                "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables.",
+                file=sys.__stderr__,
+            )
+            return False
 
     try:
         ensure_key_file()
         _write_text_atomic(sec_path, encrypt_text(env_text) + "\n")
-        print(_("Created .env.sec: %(path)s") % {"path": sec_path}, file=sys.__stderr__)
+        print("Created .env.sec: %(path)s" % {"path": sec_path}, file=sys.__stderr__)
         return True
     except Exception as e:
         print(
-            _("[WARN] Failed to create .env.sec: %(err)s", err=e),
+            "[WARN] Failed to create .env.sec: %(err)s" % {"err": e},
             file=sys.__stderr__,
         )
         return False
@@ -119,4 +158,4 @@ def validate_or_exit_startup_env(*, context: str) -> None:
                 file=sys.stderr,
             )
 
-    _maybe_offer_envsec_creation(context=context)
+    _maybe_offer_envsec_sync(context=context)

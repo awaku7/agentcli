@@ -430,5 +430,23 @@
     "param.root_path.description": "Каталог, який є відправною точкою для пошуку та індексування. За замовчуванням використовується поточний каталог.",
     "tool.description": "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files). Це корисно, коли потрібно підготувати дані для пошуку, не читаючи вміст файлів одразу.",
     "tool.system_prompt": "Використовуйте цей інструмент для наведеного вище призначення (див. опис інструмента)."
+  },
+  "tr": {
+    "err.glob_fail": "Hata: Desen ayrıştırılamadı: {err}",
+    "err.pattern_required": "Hata: desen belirtilmedi.",
+    "err.root_not_dir": "Hata: root_path bir dizin değil: {root_path}",
+    "err.vec_unavailable": "Hata: Anlamsal arama modülü (semantic_search_files_tool) kullanılamadığından dizin oluşturulamıyor.",
+    "out.completed": "Dizin işleme tamamlandı.",
+    "out.fail": "Hata: {count} öğe",
+    "out.footer": "Artık bu dosyaları aramak için `semantic_search_files` komutunu kullanabilirsiniz.",
+    "out.not_found": "'{pattern}' modeliyle eşleşen dosya bulunamadı.",
+    "out.pattern": "Hedef modeli: {pattern}",
+    "out.root": "Kök dizin: {root_abs}",
+    "out.success": "Başarılı: {count} öğe",
+    "param.pattern.description": "Hedef dosya adı, dizin adı veya glob modeli (ör. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yapılmayacağı.",
+    "param.root_path.description": "Aramalar ve dizinler için başlangıç ​​noktası olan dizin. Varsayılan geçerli dizindir.",
+    "tool.description": "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler. Bu, dosya içeriğini hemen okumadan arama verilerini hazırlamak istediğinizde kullanışlıdır.",
+    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (alet açıklamasına bakın)."
   }
 }

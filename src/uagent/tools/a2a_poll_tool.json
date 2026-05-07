@@ -248,5 +248,15 @@
     "param.timeout_s.description": "Перевизначити тайм-аут (секунди).",
     "err.missing_task_id": "Відсутній 'task_id'.",
     "err.exception": "Виняток"
+  },
+  "tr": {
+    "tool.description": "Bir A2A görevini terminal durumuna ulaşana kadar yoklayın.",
+    "tool.system_prompt": "Bir A2A görevini yoklayın. Yalnızca JSON değerini döndür.",
+    "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
+    "param.task_id.description": "Anket yapmak için ID görevi.",
+    "param.interval_ms.description": "Yoklama aralığını (ms) geçersiz kıl.",
+    "param.timeout_s.description": "Zaman aşımını geçersiz kıl (saniye).",
+    "err.missing_task_id": "'Görev_id'si eksik.",
+    "err.exception": "İstisna"
   }
 }

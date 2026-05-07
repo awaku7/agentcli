@@ -166,5 +166,12 @@
     "param.pid.description": "Включити ідентифікатори процесів.",
     "tool.description": "Перелічує заголовки вікон верхнього рівня у Windows і повертає структурований JSON. Параметри: \"all\" (включати невидимі), \"pid\" (включати PID), \"class\" (включати назву класу вікна).",
     "tool.system_prompt": "Цей інструмент перелічує заголовки вікон верхнього рівня у Windows і повертає структурований JSON. Працює лише у Windows."
+  },
+  "tr": {
+    "param.all.description": "Görünmeyen pencereleri dahil edin.",
+    "param.class.description": "Pencere sınıfı adlarını ekleyin.",
+    "param.pid.description": "İşlem kimliklerini ekleyin.",
+    "tool.description": "Windows'ta üst düzey pencere başlıklarını listeleyin ve yapılandırılmış JSON değerini döndürün. Parametreler: 'tümü' (görünmeyen pencereleri içerir), 'pid' (ID işlemini içerir), 'sınıf' (pencere sınıfı adını içerir).",
+    "tool.system_prompt": "Bu araç, Windows'ta üst düzey pencere başlıklarını listeler ve yapılandırılmış JSON değerini döndürür. Yalnızca Windows."
   }
 }

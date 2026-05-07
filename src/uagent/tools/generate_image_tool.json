@@ -651,5 +651,31 @@
     "ok.generated_one": "[OK] 已生成：{path}",
     "ok.generated_many": "[OK] 已生成：\n{paths}",
     "log.opened_default_app": "[INFO] 已用預設應用程式開啟圖片檔。"
+  },
+  "tr": {
+    "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür. Açma, arayan kişi tarafından gerçekleştirilir (CLI/GUI/Web).",
+    "tool.system_prompt": "Sağlanan istemden bir görüntü oluşturun. PNG olarak kaydedin ve yalnızca kaydedilen dosya yolunu döndürün.",
+    "param.prompt.description": "Oluşturmak istediğiniz görüntüye ilişkin talimatlar (istem).",
+    "param.size.description": "Resim boyutu. Örn., 1024x1024 / 1024x1536 / 1536x1024",
+    "param.n.description": "Oluşturulacak görüntü sayısı (şu anda 1 önerilir).",
+    "param.output_dir.description": "Görüntülerin kaydedileceği dizin (göreceli veya mutlak). Atlanırsa varsayılan olarak çıktılar/görüntü_oluşturmaları kullanılır.",
+    "param.file_prefix.description": "Kaydedilen dosya adı için önek (isteğe bağlı).",
+    "err.invalid_provider": "görüntü oluşturma için geçersiz sağlayıcı: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
+    "err.required_env_vars_missing": "gerekli env var eksik (denendi: {keys})",
+    "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
+    "err.httpx_unavailable": "httpx kullanılamıyor",
+    "err.httpx_init": "httpx başlatılamadı: {err}",
+    "err.empty_data": "Resim verileri boştu (resp.data boş veya b64_json/url eksik)",
+    "err.gemini_import": "Google-genai içe aktarılamadı (pip install google-genai): {err}",
+    "err.gemini_fail": "Gemini'den görüntü oluşturma sonuçları alınamadı. Model, görüntü oluşturmayı desteklemiyor olabilir veya SDK yanıt biçimi beklenmedik olabilir.",
+    "err.prompt_empty": "[generate_image] istemi boş",
+    "err.depname_missing": "[generate_image] Görüntü modeli (dağıtım adı) ayarlanmadı.\nLütfen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME ortam değişkenini ayarlayın.",
+    "err.mkdir_fail": "[generate_image] Output_dir oluşturulamadı: {err}",
+    "err.unsupported_provider": "[generate_image] Desteklenmeyen sağlayıcı={provider!r}",
+    "err.gen_fail": "[generate_image] Görüntü oluşturma başarısız oldu.\nsağlayıcı={provider} model={model} boyut={size} n={n}\n{err}",
+    "err.no_saved": "[generate_image] Resim verileri boştu",
+    "ok.generated_one": "[OK] oluşturuldu: {path}",
+    "ok.generated_many": "[OK] oluşturuldu:\n{paths}",
+    "log.opened_default_app": "[INFO] Varsayılan uygulamayla açılan resim dosyası."
   }
 }

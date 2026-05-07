@@ -59,12 +59,7 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
     )
     if provider not in allowed:
         warnings.append(
-            _(
-                f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail).",
-                default=f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail).",
-                provider=provider,
-                allowed=", ".join(allowed),
-            )
+            f"Unknown provider: {provider!r}. Allowed: {', '.join(allowed)} (startup will likely fail)."
         )
         return provider, missing, warnings
 

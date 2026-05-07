@@ -123,5 +123,10 @@
     "param.message.description": "Ujumbe wa mwisho wa hiari kwa mtumiaji.",
     "tool.description": "Huonyesha kuwa majukumu ya skill ya sasa yamekamilika. (Tumia tu wakati wa utekelezaji wa skill kulingana na SKILL.md). Hii huondoa maagizo ya skill na huzuia mizunguko isiyoisha.",
     "tool.system_prompt": "Tumia zana hii wakati skill inayofuata SKILL.md imekamilika, ili maagizo yaondolewe na mizunguko isiyoisha yazuiwe."
+  },
+  "tr": {
+    "param.message.description": "Kullanıcıya isteğe bağlı son mesaj.",
+    "tool.description": "Mevcut becerinin görevlerinin tamamlandığının sinyalini verin. (SKILL.md'ye dayalı beceri yürütme sırasında ONLY kullanın). Bu, beceri talimatlarını kaldırır ve sonsuz döngüleri önler.",
+    "tool.system_prompt": "Talimatların kaldırılması ve sonsuz döngülerin önlenmesi için SKILL.md tabanlı bir beceri tamamlandığında bu aracı kullanın."
   }
 }

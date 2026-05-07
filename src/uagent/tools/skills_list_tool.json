@@ -198,5 +198,13 @@
     "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha maelezo (chaguomsingi: false)",
     "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa.",
     "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+  },
+  "tr": {
+    "param.include_invalid.description": "SKILL.md'nin ayrıştırılması/doğrulanması başarısız olsa bile listeye dahil edilsin mi (varsayılan: true). false ise başarısız beceriler hariç tutulur.",
+    "param.recursive.description": "Yinelemeli ara (varsayılan: true)",
+    "param.root_dir.description": "Beceri arama kökü. Boş/ belirtilmemişse UAGENT_SKILLS_DIRS (os.pathsep ile ayrılmış) kullanılır; belirtilmemişse ./skills kullanılır.",
+    "param.strict.description": "Özellik doğrulaması sırasında uyarılar da başarısızlık olarak kabul edilsin mi (varsayılan: false)",
+    "tool.description": "Agent Skills belirtimine (SKILL.md) göre belirtilen kök altındaki becerileri döndürür (yalnızca frontmatter okunur). root_dir atlanırsa UAGENT_SKILLS_DIRS veya ./skills taranır.",
+    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (araç açıklamasına bakın)."
   }
 }
