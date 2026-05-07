@@ -9,16 +9,6 @@
     "tool.description": "今後の会話で役立つ、ユーザーや環境に関する長期記憶メモを1件保存します。",
     "tool.system_prompt": "有用な長期記憶メモを1件だけ保存します。\nパスワード、APIキー、トークンなどの秘密情報は保存しないでください。"
   },
-  "zh_CN": {
-    "param.note.description": "要保存的注释文本。",
-    "tool.description": "保存关于用户/环境的单条长期记忆笔记，未来对话中可能有用。",
-    "tool.system_prompt": "保存一条有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
-  },
-  "zh_TW": {
-    "param.note.description": "要儲存的註釋文字。",
-    "tool.description": "保存有關使用者/環境的單條長期記憶筆記，未來的對話中可能有用。",
-    "tool.system_prompt": "保存一則有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
-  },
   "es": {
     "param.note.description": "El texto de la nota a guardar.",
     "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras conversaciones.",
@@ -33,11 +23,6 @@
     "param.note.description": "저장할 메모 텍스트입니다.",
     "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 기억 메모를 저장하세요.",
     "tool.system_prompt": "유용한 장기 기억 메모 하나를 저장하세요.\n비밀번호, API 키 또는 토큰과 같은 비밀을 저장하지 마십시오."
-  },
-  "th": {
-    "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
-    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
-    "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
   },
   "de": {
     "param.note.description": "Der zu speichernde Notiztext.",
@@ -59,6 +44,11 @@
     "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
     "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves API ou tokens."
   },
+  "pt": {
+    "param.note.description": "O texto da nota a ser salvo.",
+    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
+    "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves de API ou tokens."
+  },
   "id": {
     "param.note.description": "Teks catatan yang akan disimpan.",
     "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang.",
@@ -73,11 +63,6 @@
     "param.note.description": "Tekst notatki do zapisania.",
     "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może przydać się w przyszłych rozmowach.",
     "tool.system_prompt": "Zapisz jedną przydatną notatkę dotyczącą pamięci długoterminowej.\nNie przechowuj sekretów, takich jak hasła, klucze API lub tokeny."
-  },
-  "pt": {
-    "param.note.description": "O texto da nota a ser salvo.",
-    "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
-    "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves de API ou tokens."
   },
   "hi": {
     "param.note.description": "सहेजने के लिए नोट पाठ.",
@@ -128,5 +113,20 @@
     "param.note.description": "Kaydedilecek not metni.",
     "tool.description": "Kullanıcı/ortam hakkında gelecekteki konuşmalarda faydalı olabilecek tek bir uzun süreli hafıza notu kaydedin.",
     "tool.system_prompt": "Yararlı bir uzun süreli hafıza notu kaydedin.\nParolalar, API anahtarları veya belirteçler gibi sırları saklamayın."
+  },
+  "th": {
+    "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
+    "tool.description": "บันทึกบันทึกความทรงจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
+    "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
+  },
+  "zh_CN": {
+    "param.note.description": "要保存的注释文本。",
+    "tool.description": "保存关于用户/环境的单条长期记忆笔记，未来对话中可能有用。",
+    "tool.system_prompt": "保存一条有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
+  },
+  "zh_TW": {
+    "param.note.description": "要儲存的註釋文字。",
+    "tool.description": "保存有關使用者/環境的單條長期記憶筆記，未來的對話中可能有用。",
+    "tool.system_prompt": "保存一則有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
   }
 }

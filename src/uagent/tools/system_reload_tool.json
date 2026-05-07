@@ -7,14 +7,6 @@
     "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。",
     "tool.system_prompt": "このツールは次の目的で使われます: システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。"
   },
-  "zh_CN": {
-    "tool.description": "重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。",
-    "tool.system_prompt": "该工具的用途如下：重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。"
-  },
-  "zh_TW": {
-    "tool.description": "重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。",
-    "tool.system_prompt": "工具的用途如下：重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。"
-  },
   "es": {
     "tool.description": "Vuelva a cargar el sistema y refleje el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código.",
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recargar el sistema y reflejar el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código."
@@ -26,10 +18,6 @@
   "ko": {
     "tool.description": "시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python .py 파일)의 최신 코드를 메모리에 반영합니다. 코드 수정 후 실행합니다.",
     "tool.system_prompt": "이 도구는 시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python .py 파일)의 최신 코드를 메모리에 반영하는 데 사용합니다. 코드 수정 후 실행합니다."
-  },
-  "th": {
-    "tool.description": "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด"
   },
   "de": {
     "tool.description": "Lädt das System neu und übernimmt den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher. Nach Codeänderungen ausführen.",
@@ -47,6 +35,10 @@
     "tool.description": "Recarrega o sistema e reflete na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código.",
     "tool.system_prompt": "Esta ferramenta é usada para recarregar o sistema e refletir na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código."
   },
+  "pt": {
+    "tool.description": "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código.",
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: recarregar o sistema e refletir o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código."
+  },
   "id": {
     "tool.description": "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: memuat ulang sistem dan menerapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode."
@@ -59,10 +51,6 @@
     "tool.description": "Załaduj ponownie system i wczytaj do pamięci najnowszy kod wszystkich narzędzi w tools/ (pliki Python .py). Uruchom to po zmianie kodu.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: przeładowania systemu i wczytania do pamięci najnowszego kodu wszystkich narzędzi w tools/ (pliki Python .py). Uruchom to po zmianie kodu."
   },
-  "pt": {
-    "tool.description": "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código.",
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: recarregar o sistema e refletir o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código."
-  },
   "hi": {
     "tool.description": "सिस्टम को पुनः लोड करें और tools/ (पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के नवीनतम कोड को मेमोरी में लोड करें। कोड संशोधित करने के बाद इसे चलाएँ।",
     "tool.system_prompt": "इस टूल का उपयोग सिस्टम को पुनः लोड करने और tools/ (पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के नवीनतम कोड को मेमोरी में लोड करने के लिए किया जाता है। कोड संशोधित करने के बाद इसे चलाएँ।"
@@ -74,6 +62,10 @@
   "sv": {
     "tool.description": "Laddar om systemet och läser in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet. Kör detta efter att du har ändrat koden.",
     "tool.system_prompt": "Det här verktyget används för att ladda om systemet och läsa in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet. Kör detta efter att du har ändrat koden."
+  },
+  "sw": {
+    "tool.description": "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo.",
+    "tool.system_prompt": "Tumia zana hii kupakia upya mfumo na kuingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo."
   },
   "nb": {
     "tool.description": "Laster systemet på nytt og laster inn den nyeste koden for alle verktøy under tools/ (Python .py-filer) i minnet. Kjør dette etter at du har endret koden.",
@@ -95,12 +87,20 @@
     "tool.description": "Перезавантажує систему та завантажує в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду.",
     "tool.system_prompt": "Цей інструмент використовується для такої мети: перезавантажити систему та завантажити в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду."
   },
-  "sw": {
-    "tool.description": "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo.",
-    "tool.system_prompt": "Tumia zana hii kupakia upya mfumo na kuingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo."
-  },
   "tr": {
     "tool.description": "Sistemi yeniden yükleyin ve tools/ altındaki tüm araçlar (Python .py dosyaları) için en yeni kodu belleğe alın. Kodu değiştirdikten sonra çalıştırın.",
     "tool.system_prompt": "Bu araç, sistemi yeniden yüklemek ve tools/ altındaki tüm araçların (Python .py dosyaları) en yeni kodunu belleğe almak için kullanılır. Kodu değiştirdikten sonra çalıştırın."
+  },
+  "th": {
+    "tool.description": "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด"
+  },
+  "zh_CN": {
+    "tool.description": "重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。",
+    "tool.system_prompt": "该工具的用途如下：重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。"
+  },
+  "zh_TW": {
+    "tool.description": "重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。",
+    "tool.system_prompt": "工具的用途如下：重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。"
   }
 }

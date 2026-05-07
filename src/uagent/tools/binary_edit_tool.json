@@ -31,38 +31,6 @@
     "tool.description": "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります。",
     "tool.system_prompt": "このツールは、ローカルファイルをバイナリ（生バイト列）として編集するために使用します。\n\n安全上の注意:\n- このツールはローカルファイルを変更し、破損させる可能性があります。\n- 書き込み前には必ず human_ask で確認を求めてください。\n- ホストエージェントの安全ポリシー下では、現在の workdir 外のパスを操作しないでください。"
   },
-  "zh_CN": {
-    "param.data_hex.description": "要写入/插入的十六进制字节字符串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
-    "param.delete_len.description": "要删除的字节数（splice 删除）。",
-    "param.dry_run.description": "如果为 true，则不修改文件；只报告将发生的更改。",
-    "param.max_bytes.description": "拒绝大于此大小（字节）的文件。",
-    "param.mode.description": "编辑模式。",
-    "param.occurrence.description": "要替换的第几个匹配项（从 1 开始）。0 表示替换所有匹配项（仍要求长度相同）。",
-    "param.offset.description": "字节偏移量（从 0 开始）。write/splice 需要。",
-    "param.patch_json.description": "JSON 字符串补丁（apply_patch 模式）。",
-    "param.path.description": "目标文件路径。",
-    "param.replace_hex.description": "用于替换的十六进制字符串（replace 模式）。除非 allow_resize=true（不支持），否则必须与 search_hex 长度相同。",
-    "param.search_hex.description": "要搜索的十六进制字符串（replace 模式）。",
-    "param.splice_op.description": "splice 操作（splice 模式）。",
-    "tool.description": "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
-    "tool.system_prompt": "此工具用于将本地文件按原始字节（二进制）进行编辑。\n\n安全注意事项：\n- 此工具会修改本地文件，并可能损坏文件。\n- 写入前务必使用 human_ask 请求确认。\n- 在主机代理的安全策略下运行时，不要操作当前工作目录之外的路径。"
-  },
-  "zh_TW": {
-    "param.data_hex.description": "要寫入/插入的十六進位位元組字串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
-    "param.delete_len.description": "要刪除的位元組數（splice 刪除）。",
-    "param.dry_run.description": "如果為 true，則不修改檔案；只回報將發生的變更。",
-    "param.max_bytes.description": "拒絕大於此大小（位元組）的檔案。",
-    "param.mode.description": "編輯模式。",
-    "param.occurrence.description": "要替換的第幾個出現項目（從 1 開始）。0 代表替換所有出現項目（仍需維持相同長度）。",
-    "param.offset.description": "位元組位移（從 0 開始）。write/splice 需要。",
-    "param.patch_json.description": "JSON 字串修補（apply_patch 模式）。",
-    "param.path.description": "目標檔案路徑。",
-    "param.replace_hex.description": "要替換成的十六進位字串（replace 模式）。除非 allow_resize=true（不支援），否則必須與 search_hex 長度相同。",
-    "param.search_hex.description": "要搜尋的十六進位字串（replace 模式）。",
-    "param.splice_op.description": "splice 操作（splice 模式）。",
-    "tool.description": "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案。",
-    "tool.system_prompt": "此工具用於將本機檔案以原始位元組（二進位）方式編輯。\n\n安全注意事項：\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。"
-  },
   "es": {
     "param.data_hex.description": "Cadena hexadecimal de bytes que se escribirá o insertará (por ejemplo, 'DEADBEEF' o 'DE AD BE EF').",
     "param.delete_len.description": "Número de bytes que se eliminarán (eliminación por splice).",
@@ -110,22 +78,6 @@
     "param.splice_op.description": "splice 작업(splice 모드)입니다.",
     "tool.description": "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다.",
     "tool.system_prompt": "이 도구는 로컬 파일을 원시 바이트(바이너리)로 편집하는 데 사용합니다.\n\n보안 안내:\n- 이 도구는 로컬 파일을 수정하여 손상시킬 수 있습니다.\n- 쓰기 전에 항상 human_ask로 확인을 요청하세요.\n- 호스트 에이전트의 보안 정책 하에서는 현재 workdir 밖의 경로를 다루지 마세요."
-  },
-  "th": {
-    "param.data_hex.description": "สตริงเลขฐานสิบหกของไบต์ที่จะเขียนหรือแทรก (เช่น 'DEADBEEF' หรือ 'DE AD BE EF')",
-    "param.delete_len.description": "จำนวนไบต์ที่จะลบ (การลบแบบ splice)",
-    "param.dry_run.description": "หากเป็น true จะไม่แก้ไขไฟล์; รายงานเฉพาะสิ่งที่จะเปลี่ยนแปลง",
-    "param.max_bytes.description": "ปฏิเสธไฟล์ที่มีขนาดใหญ่กว่านี้ (ไบต์)",
-    "param.mode.description": "โหมดแก้ไข",
-    "param.occurrence.description": "จะให้แทนที่รายการที่กี่ (นับจาก 1) 0 หมายถึงแทนที่ทุกรายการ (ยังต้องมีความยาวเท่ากัน)",
-    "param.offset.description": "ออฟเซ็ตของไบต์ (เริ่มที่ 0) จำเป็นสำหรับ write/splice",
-    "param.patch_json.description": "แพตช์ JSON แบบสตริง (โหมด apply_patch)",
-    "param.path.description": "พาธของไฟล์เป้าหมาย",
-    "param.replace_hex.description": "สตริงเลขฐานสิบหกสำหรับแทนที่ (โหมด replace) ต้องมีความยาวเท่ากับ search_hex เว้นแต่จะใช้ allow_resize=true (ไม่รองรับ)",
-    "param.search_hex.description": "สตริงเลขฐานสิบหกที่ใช้ค้นหา (โหมด replace)",
-    "param.splice_op.description": "การดำเนินการแบบ splice (โหมด splice)",
-    "tool.description": "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับแก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี)\n\nข้อควรระวังด้านความปลอดภัย:\n- เครื่องมือนี้จะปรับเปลี่ยนไฟล์ในเครื่องและอาจทำให้ไฟล์เสียหายได้\n- ต้องขอการยืนยันด้วย human_ask ก่อนเขียนทุกครั้ง\n- อย่าดำเนินการกับพาธนอกไดเรกทอรีงานปัจจุบันเมื่อทำงานภายใต้นโยบายความปลอดภัยของโฮสต์เอเจนต์"
   },
   "de": {
     "param.data_hex.description": "Hex-String der Bytes zum Schreiben/Einfügen (z. B. 'DEADBEEF' oder 'DE AD BE EF').",
@@ -191,6 +143,22 @@
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos.",
     "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
   },
+  "pt": {
+    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
+    "param.delete_len.description": "Número de bytes a serem excluídos (exclusão de emenda).",
+    "param.dry_run.description": "Se for verdade, não modifique o arquivo; apenas relate o que mudaria.",
+    "param.max_bytes.description": "Rejeite arquivos maiores que esse tamanho (bytes).",
+    "param.mode.description": "Modo de edição.",
+    "param.occurrence.description": "Qual ocorrência substituir (com base em 1). 0 significa substituir todas as ocorrências (ainda requer o mesmo comprimento).",
+    "param.offset.description": "Deslocamento de bytes (baseado em 0). Necessário para gravação/emenda.",
+    "param.patch_json.description": "Patch de string JSON (modo apply_patch).",
+    "param.path.description": "Caminho do arquivo de destino.",
+    "param.replace_hex.description": "String hexadecimal a ser substituída por (modo de substituição). Deve ter o mesmo comprimento que search_hex, a menos que allow_resize=true (não suportado).",
+    "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
+    "param.splice_op.description": "Operação de emenda (modo de emenda).",
+    "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos.",
+    "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
+  },
   "id": {
     "param.data_hex.description": "String hex byte yang akan ditulis/disisipkan (mis. 'DEADBEEF' atau 'DE AD BE EF').",
     "param.delete_len.description": "Jumlah byte yang akan dihapus (splice delete).",
@@ -239,22 +207,6 @@
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki.",
     "tool.system_prompt": "To narzędzie służy do edycji lokalnego pliku jako surowych bajtów (binarnie).\n\nBEZPIECZEŃSTWO:\n- To narzędzie modyfikuje lokalne pliki i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed zapisem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, gdy działa to zgodnie z zasadami bezpieczeństwa agenta hosta."
   },
-  "pt": {
-    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
-    "param.delete_len.description": "Número de bytes a serem excluídos (exclusão de emenda).",
-    "param.dry_run.description": "Se for verdade, não modifique o arquivo; apenas relate o que mudaria.",
-    "param.max_bytes.description": "Rejeite arquivos maiores que esse tamanho (bytes).",
-    "param.mode.description": "Modo de edição.",
-    "param.occurrence.description": "Qual ocorrência substituir (com base em 1). 0 significa substituir todas as ocorrências (ainda requer o mesmo comprimento).",
-    "param.offset.description": "Deslocamento de bytes (baseado em 0). Necessário para gravação/emenda.",
-    "param.patch_json.description": "Patch de string JSON (modo apply_patch).",
-    "param.path.description": "Caminho do arquivo de destino.",
-    "param.replace_hex.description": "String hexadecimal a ser substituída por (modo de substituição). Deve ter o mesmo comprimento que search_hex, a menos que allow_resize=true (não suportado).",
-    "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
-    "param.splice_op.description": "Operação de emenda (modo de emenda).",
-    "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos.",
-    "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
-  },
   "hi": {
     "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE AD BE EF')।",
     "param.delete_len.description": "हटाने के लिए बाइट्स की संख्या (स्प्लिस डिलीट)।",
@@ -302,6 +254,22 @@
     "param.splice_op.description": "Splice-operation (splice-läge).",
     "tool.description": "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer.",
     "tool.system_prompt": "Det här verktyget används för att redigera en lokal fil som råa byte (binärt).\n\nSÄKERHET:\n- Det här verktyget ändrar lokala filer och kan förstöra dem.\n- Begär alltid bekräftelse med human_ask innan skrivning.\n- Arbeta inte på sökvägar utanför den aktuella workdir när du kör under värdagentens säkerhetspolicy."
+  },
+  "sw": {
+    "param.data_hex.description": "Mfuatano wa hex wa bytes za kuandika au kuingiza (mfano 'DEADBEEF' au 'DE AD BE EF').",
+    "param.delete_len.description": "Idadi ya bytes za kufuta (splice delete).",
+    "param.dry_run.description": "Ikiwa ni kweli, usibadilishe faili; ripoti tu kitakachobadilika.",
+    "param.max_bytes.description": "Kataa faili zilizo kubwa kuliko ukubwa huu (bytes).",
+    "param.mode.description": "Hali ya uhariri.",
+    "param.occurrence.description": "Ni tukio lipi la kubadilisha (kuanzia 1). 0 humaanisha badilisha matukio yote (bado lazima yawe na urefu sawa).",
+    "param.offset.description": "Nafasi ya byte (kuanzia 0). Inahitajika kwa write/splice.",
+    "param.patch_json.description": "Kiraka cha JSON kama kamba (hali ya apply_patch).",
+    "param.path.description": "Njia ya faili lengwa.",
+    "param.replace_hex.description": "Mfuatano wa hex wa kubadilisha nao (hali ya replace). Lazima uwe na urefu sawa na search_hex isipokuwa allow_resize=true (haitumiki).",
+    "param.search_hex.description": "Mfuatano wa hex wa kutafuta (hali ya replace).",
+    "param.splice_op.description": "Operesheni ya splice (kuingiza au kufuta).",
+    "tool.description": "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili.",
+    "tool.system_prompt": "Hii ni zana ya kuhariri faili kama bytes ghafi (binary).\n\nUSALAMA:\n- Zana hii hubadilisha faili za ndani na inaweza kuharibu faili.\n- Omba uthibitisho kila wakati kwa human_ask kabla ya kuandika.\n- Usifanye kazi kwenye njia zilizo nje ya workdir ya sasa wakati unafuata sera za usalama za host agent."
   },
   "nb": {
     "param.data_hex.description": "Hexstreng med byte som skal skrives/innsettes (f.eks. 'DEADBEEF' eller 'DE AD BE EF').",
@@ -383,22 +351,6 @@
     "tool.description": "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли.",
     "tool.system_prompt": "Цей інструмент використовується для редагування локального файла як необроблених байтів (бінарно).\n\nБЕЗПЕКА:\n- Цей інструмент змінює локальні файли та може їх пошкодити.\n- Завжди запитуйте підтвердження через human_ask перед записом.\n- Не працюйте з шляхами поза поточним робочим каталогом під час виконання згідно з політиками безпеки хост-агента."
   },
-  "sw": {
-    "param.data_hex.description": "Mfuatano wa hex wa bytes za kuandika au kuingiza (mfano 'DEADBEEF' au 'DE AD BE EF').",
-    "param.delete_len.description": "Idadi ya bytes za kufuta (splice delete).",
-    "param.dry_run.description": "Ikiwa ni kweli, usibadilishe faili; ripoti tu kitakachobadilika.",
-    "param.max_bytes.description": "Kataa faili zilizo kubwa kuliko ukubwa huu (bytes).",
-    "param.mode.description": "Hali ya uhariri.",
-    "param.occurrence.description": "Ni tukio lipi la kubadilisha (kuanzia 1). 0 humaanisha badilisha matukio yote (bado lazima yawe na urefu sawa).",
-    "param.offset.description": "Nafasi ya byte (kuanzia 0). Inahitajika kwa write/splice.",
-    "param.patch_json.description": "Kiraka cha JSON kama kamba (hali ya apply_patch).",
-    "param.path.description": "Njia ya faili lengwa.",
-    "param.replace_hex.description": "Mfuatano wa hex wa kubadilisha nao (hali ya replace). Lazima uwe na urefu sawa na search_hex isipokuwa allow_resize=true (haitumiki).",
-    "param.search_hex.description": "Mfuatano wa hex wa kutafuta (hali ya replace).",
-    "param.splice_op.description": "Operesheni ya splice (kuingiza au kufuta).",
-    "tool.description": "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili.",
-    "tool.system_prompt": "Hii ni zana ya kuhariri faili kama bytes ghafi (binary).\n\nUSALAMA:\n- Zana hii hubadilisha faili za ndani na inaweza kuharibu faili.\n- Omba uthibitisho kila wakati kwa human_ask kabla ya kuandika.\n- Usifanye kazi kwenye njia zilizo nje ya workdir ya sasa wakati unafuata sera za usalama za host agent."
-  },
   "tr": {
     "param.data_hex.description": "Yazılacak/eklenecek onaltılık bayt dizisi (örneğin, 'DEADBEEF' veya 'DE AD BE EF').",
     "param.delete_len.description": "Silinecek bayt sayısı (ekleme silme).",
@@ -414,5 +366,53 @@
     "param.splice_op.description": "Ekleme işlemi (ekleme modu).",
     "tool.description": "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir.",
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: yerel bir dosyayı ham bayt (ikili) olarak düzenlemek.\n\nSECURITY / SAFETY:\n- Bu araç yerel dosyaları değiştirir ve onları bozabilir.\n- Yazmadan önce daima human_ask ile onay isteyin.\n- Ana bilgisayar aracısının güvenlik politikaları kapsamında çalışırken mevcut çalışma dizininin dışındaki yollarda işlem yapmayın."
+  },
+  "th": {
+    "param.data_hex.description": "สตริงเลขฐานสิบหกของไบต์ที่จะเขียนหรือแทรก (เช่น 'DEADBEEF' หรือ 'DE AD BE EF')",
+    "param.delete_len.description": "จำนวนไบต์ที่จะลบ (การลบแบบ splice)",
+    "param.dry_run.description": "หากเป็น true จะไม่แก้ไขไฟล์; รายงานเฉพาะสิ่งที่จะเปลี่ยนแปลง",
+    "param.max_bytes.description": "ปฏิเสธไฟล์ที่มีขนาดใหญ่กว่านี้ (ไบต์)",
+    "param.mode.description": "โหมดแก้ไข",
+    "param.occurrence.description": "จะให้แทนที่รายการที่กี่ (นับจาก 1) 0 หมายถึงแทนที่ทุกรายการ (ยังต้องมีความยาวเท่ากัน)",
+    "param.offset.description": "ออฟเซ็ตของไบต์ (เริ่มที่ 0) จำเป็นสำหรับ write/splice",
+    "param.patch_json.description": "แพตช์ JSON แบบสตริง (โหมด apply_patch)",
+    "param.path.description": "พาธของไฟล์เป้าหมาย",
+    "param.replace_hex.description": "สตริงเลขฐานสิบหกสำหรับแทนที่ (โหมด replace) ต้องมีความยาวเท่ากับ search_hex เว้นแต่จะใช้ allow_resize=true (ไม่รองรับ)",
+    "param.search_hex.description": "สตริงเลขฐานสิบหกที่ใช้ค้นหา (โหมด replace)",
+    "param.splice_op.description": "การดำเนินการแบบ splice (โหมด splice)",
+    "tool.description": "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
+    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับแก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี)\n\nข้อควรระวังด้านความปลอดภัย:\n- เครื่องมือนี้จะปรับเปลี่ยนไฟล์ในเครื่องและอาจทำให้ไฟล์เสียหายได้\n- ต้องขอการยืนยันด้วย human_ask ก่อนเขียนทุกครั้ง\n- อย่าดำเนินการกับพาธนอกไดเรกทอรีงานปัจจุบันเมื่อทำงานภายใต้นโยบายความปลอดภัยของโฮสต์เอเจนต์"
+  },
+  "zh_CN": {
+    "param.data_hex.description": "要写入/插入的十六进制字节字符串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
+    "param.delete_len.description": "要删除的字节数（splice 删除）。",
+    "param.dry_run.description": "如果为 true，则不修改文件；只报告将发生的更改。",
+    "param.max_bytes.description": "拒绝大于此大小（字节）的文件。",
+    "param.mode.description": "编辑模式。",
+    "param.occurrence.description": "要替换的第几个匹配项（从 1 开始）。0 表示替换所有匹配项（仍要求长度相同）。",
+    "param.offset.description": "字节偏移量（从 0 开始）。write/splice 需要。",
+    "param.patch_json.description": "JSON 字符串补丁（apply_patch 模式）。",
+    "param.path.description": "目标文件路径。",
+    "param.replace_hex.description": "用于替换的十六进制字符串（replace 模式）。除非 allow_resize=true（不支持），否则必须与 search_hex 长度相同。",
+    "param.search_hex.description": "要搜索的十六进制字符串（replace 模式）。",
+    "param.splice_op.description": "splice 操作（splice 模式）。",
+    "tool.description": "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
+    "tool.system_prompt": "此工具用于将本地文件按原始字节（二进制）进行编辑。\n\n安全注意事项：\n- 此工具会修改本地文件，并可能损坏文件。\n- 写入前务必使用 human_ask 请求确认。\n- 在主机代理的安全策略下运行时，不要操作当前工作目录之外的路径。"
+  },
+  "zh_TW": {
+    "param.data_hex.description": "要寫入/插入的十六進位位元組字串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
+    "param.delete_len.description": "要刪除的位元組數（splice 刪除）。",
+    "param.dry_run.description": "如果為 true，則不修改檔案；只回報將發生的變更。",
+    "param.max_bytes.description": "拒絕大於此大小（位元組）的檔案。",
+    "param.mode.description": "編輯模式。",
+    "param.occurrence.description": "要替換的第幾個出現項目（從 1 開始）。0 代表替換所有出現項目（仍需維持相同長度）。",
+    "param.offset.description": "位元組位移（從 0 開始）。write/splice 需要。",
+    "param.patch_json.description": "JSON 字串修補（apply_patch 模式）。",
+    "param.path.description": "目標檔案路徑。",
+    "param.replace_hex.description": "要替換成的十六進位字串（replace 模式）。除非 allow_resize=true（不支援），否則必須與 search_hex 長度相同。",
+    "param.search_hex.description": "要搜尋的十六進位字串（replace 模式）。",
+    "param.splice_op.description": "splice 操作（splice 模式）。",
+    "tool.description": "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案。",
+    "tool.system_prompt": "此工具用於將本機檔案以原始位元組（二進位）方式編輯。\n\n安全注意事項：\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。"
   }
 }

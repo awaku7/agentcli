@@ -1,15 +1,4 @@
 {
-  "de": {
-    "confirm.msg": "lint_format(mode=fix) kann Dateien überschreiben.\nWerkzeuge: {tools}\nZiele: {targets}\ncwd: {cwd}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
-    "doc.module": "lint_format_tool\n\nEin Wrapper-Tool zum Ausführen statischer Analyse- und Formatierungswerkzeuge.\n\n- Python: Ruff / Black / mypy bevorzugen\n- JavaScript: Aus Sicherheitsgründen npx nicht aktiv ausführen.\n\nSicherheit:\n- mode=fix ändert Dateien, daher mit human_ask nachfragen.\n- Argumente als Array akzeptieren und bei gefährlichen Shell-Metazeichen ablehnen.",
-    "param.cwd.description": "Ausführungsverzeichnis (nur unter workdir zulässig). Wenn null, aktuelles Verzeichnis.",
-    "param.extra_args.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
-    "param.mode.description": "check=nur prüfen / fix=automatische Korrektur",
-    "param.targets.description": "Zielpfad-Array (nur unter workdir zulässig).",
-    "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
-    "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z. B. ruff/black/mypy). mode=fix ändert Dateien und erfordert eine Bestätigung.",
-    "tool.system_prompt": "Führen Sie statische Analyse-/Formatierungswerkzeuge aus. Wenn zusätzliche Benutzerbestätigung erforderlich ist (z. B. mode=fix), verwenden Sie human_ask."
-  },
   "en": {
     "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
     "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
@@ -20,6 +9,17 @@
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
+  },
+  "ja": {
+    "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
+    "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。",
+    "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
+    "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
+    "param.mode.description": "check=検査のみ / fix=自動修正",
+    "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
+    "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
+    "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
+    "tool.system_prompt": "静的解析・フォーマッタを実行します。ユーザーの追加確認が必要な場合（例：mode=fix）、human_ask を使用してください。"
   },
   "es": {
     "confirm.msg": "lint_format(mode=fix) puede reescribir archivos.\nherramientas: {tools}\nobjetivos: {targets}\ncwd: {cwd}\n\nEscriba y si desea continuar o c si desea cancelar.",
@@ -43,28 +43,6 @@
     "tool.description": "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy). mode=fix modifie les fichiers et nécessite une confirmation.",
     "tool.system_prompt": "Exécutez une analyse statique/des formateurs. Si une confirmation supplémentaire de l'utilisateur est requise (par exemple, mode=fix), utilisez human_ask."
   },
-  "it": {
-    "confirm.msg": "lint_format(mode=fix) può riscrivere i file.\nstrumenti: {tools}\nobiettivi: {targets}\ncwd: {cwd}\n\nDigita y se vuoi procedere oppure c se vuoi annullare.",
-    "doc.module": "lint_format_tool\n\nUno strumento wrapper per eseguire analisi/formattatori statici.\n\n- Python: preferisci ruff / black / mypy\n- JavaScript: per motivi di sicurezza, non eseguire attivamente npx.",
-    "param.cwd.description": "Directory di esecuzione (consentita solo in workdir). Se nullo, corrente.",
-    "param.extra_args.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
-    "param.mode.description": "check=solo controllo / fix=correzione automatica",
-    "param.targets.description": "Array del percorso di destinazione (consentito solo in workdir).",
-    "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente.",
-    "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy). mode=fix modifica i file e richiede conferma.",
-    "tool.system_prompt": "Esegui analisi/formattatori statici. Se è necessaria un'ulteriore conferma da parte dell'utente (ad esempio, mode=fix), utilizzare human_ask."
-  },
-  "ja": {
-    "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
-    "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。",
-    "param.cwd.description": "実行ディレクトリ（workdir配下のみ許可）。nullなら現在。",
-    "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
-    "param.mode.description": "check=検査のみ / fix=自動修正",
-    "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
-    "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
-    "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
-    "tool.system_prompt": "静的解析・フォーマッタを実行します。ユーザーの追加確認が必要な場合（例：mode=fix）、human_ask を使用してください。"
-  },
   "ko": {
     "confirm.msg": "lint_format(mode=fix)는 파일을 다시 쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n진행하려면 y, 취소하려면 c를 입력하십시오.",
     "doc.module": "lint_format_tool\n\n정적 분석/포매터 실행을 위한 래퍼 도구.\n\n- Python 계열: ruff / black / mypy 우선\n- JavaScript 계열: 보안상의 이유로 npx를 적극적으로 실행하지 않음",
@@ -76,16 +54,27 @@
     "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
     "tool.system_prompt": "정적 분석/포매터를 실행합니다. 추가 사용자 확인이 필요한 경우(예: mode=fix), human_ask를 사용하세요."
   },
-  "pt_BR": {
-    "confirm.msg": "lint_format(mode=fix) pode sobrescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y para continuar ou c para cancelar.",
-    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise estática/formatador.\n\n- Python: prefira ruff / black / mypy\n- JavaScript: Por motivos de segurança, não execute npx ativamente.",
-    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
-    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
-    "param.mode.description": "check=verificar apenas / fix=correção automática",
-    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
-    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
-    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
-    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
+  "de": {
+    "confirm.msg": "lint_format(mode=fix) kann Dateien überschreiben.\nWerkzeuge: {tools}\nZiele: {targets}\ncwd: {cwd}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
+    "doc.module": "lint_format_tool\n\nEin Wrapper-Tool zum Ausführen statischer Analyse- und Formatierungswerkzeuge.\n\n- Python: Ruff / Black / mypy bevorzugen\n- JavaScript: Aus Sicherheitsgründen npx nicht aktiv ausführen.\n\nSicherheit:\n- mode=fix ändert Dateien, daher mit human_ask nachfragen.\n- Argumente als Array akzeptieren und bei gefährlichen Shell-Metazeichen ablehnen.",
+    "param.cwd.description": "Ausführungsverzeichnis (nur unter workdir zulässig). Wenn null, aktuelles Verzeichnis.",
+    "param.extra_args.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
+    "param.mode.description": "check=nur prüfen / fix=automatische Korrektur",
+    "param.targets.description": "Zielpfad-Array (nur unter workdir zulässig).",
+    "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
+    "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z. B. ruff/black/mypy). mode=fix ändert Dateien und erfordert eine Bestätigung.",
+    "tool.system_prompt": "Führen Sie statische Analyse-/Formatierungswerkzeuge aus. Wenn zusätzliche Benutzerbestätigung erforderlich ist (z. B. mode=fix), verwenden Sie human_ask."
+  },
+  "it": {
+    "confirm.msg": "lint_format(mode=fix) può riscrivere i file.\nstrumenti: {tools}\nobiettivi: {targets}\ncwd: {cwd}\n\nDigita y se vuoi procedere oppure c se vuoi annullare.",
+    "doc.module": "lint_format_tool\n\nUno strumento wrapper per eseguire analisi/formattatori statici.\n\n- Python: preferisci ruff / black / mypy\n- JavaScript: per motivi di sicurezza, non eseguire attivamente npx.",
+    "param.cwd.description": "Directory di esecuzione (consentita solo in workdir). Se nullo, corrente.",
+    "param.extra_args.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
+    "param.mode.description": "check=solo controllo / fix=correzione automatica",
+    "param.targets.description": "Array del percorso di destinazione (consentito solo in workdir).",
+    "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente.",
+    "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy). mode=fix modifica i file e richiede conferma.",
+    "tool.system_prompt": "Esegui analisi/formattatori statici. Se è necessaria un'ulteriore conferma da parte dell'utente (ad esempio, mode=fix), utilizzare human_ask."
   },
   "ru": {
     "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\nинструменты: {tools}\nцели: {targets}\ncwd: {cwd}\n\nВведите y, чтобы продолжить, или c, чтобы отменить.",
@@ -98,38 +87,27 @@
     "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy). mode=fix изменяет файлы и требует подтверждения.",
     "tool.system_prompt": "Запустите статический анализ/форматирование. Если требуется дополнительное подтверждение пользователя (например, mode=fix), используйте human_ask."
   },
-  "th": {
-    "confirm.msg": "lint_format(mode=fix) อาจเขียนไฟล์ใหม่\nเครื่องมือ: {tools}\nเป้าหมาย: {targets}\ncwd: {cwd}\n\nพิมพ์ y หากต้องการดำเนินการต่อ หรือ c หากต้องการยกเลิก",
-    "doc.module": "lint_format_tool\n\nเครื่องมือห่อหุ้มสำหรับรันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ\n\n- Python: แนะนำ ruff / black / mypy\n- JavaScript: เพื่อความปลอดภัย ไม่ควรรัน npx โดยตรง",
-    "param.cwd.description": "ไดเร็กทอรีการดำเนินการ (อนุญาตเฉพาะภายใต้ workdir) ถ้าเป็นโมฆะจะใช้ปัจจุบัน",
-    "param.extra_args.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
-    "param.mode.description": "check=ตรวจสอบเท่านั้น / fix=แก้ไขอัตโนมัติ",
-    "param.targets.description": "อาร์เรย์เส้นทางเป้าหมาย (อนุญาตเฉพาะภายใต้ workdir)",
-    "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่าจะเลือกโดยอัตโนมัติ",
-    "tool.description": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
-    "tool.system_prompt": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ หากต้องการการยืนยันจากผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
+  "pt_BR": {
+    "confirm.msg": "lint_format(mode=fix) pode sobrescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y para continuar ou c para cancelar.",
+    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise estática/formatador.\n\n- Python: prefira ruff / black / mypy\n- JavaScript: Por motivos de segurança, não execute npx ativamente.",
+    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
+    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "param.mode.description": "check=verificar apenas / fix=correção automática",
+    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
+    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
+    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
   },
-  "zh_CN": {
-    "confirm.msg": "lint_format(mode=fix) 可能会重写文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n如果要继续请键入 y，如果要取消请键入 c。",
-    "doc.module": "lint_format_tool\n\n用于运行静态分析/格式化程序的包装工具。\n\n- Python 系：优先使用 ruff / black / mypy\n- JavaScript 系：出于安全原因，不主动执行 npx",
-    "param.cwd.description": "执行目录（仅允许在 workdir 下）。如果为空则为当前目录。",
-    "param.extra_args.description": "附加参数（数组）。拒绝危险的元字符。",
-    "param.mode.description": "check=仅检查 / fix=自动修复",
-    "param.targets.description": "目标路径数组（仅允许在 workdir 下）。",
-    "param.tools.description": "要运行的工具名称数组。如果为空，将自动选择。",
-    "tool.description": "运行静态分析/格式化程序（例如 ruff/black/mypy）。mode=fix 会修改文件并需要确认。",
-    "tool.system_prompt": "运行静态分析/格式化程序。如果需要额外的用户确认（例如 mode=fix），请使用 human_ask。"
-  },
-  "zh_TW": {
-    "confirm.msg": "lint_format(mode=fix) 可能會重寫檔案。\n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n如果要繼續請輸入 y，如果要取消請輸入 c。",
-    "doc.module": "lint_format_tool\n\n用於執行靜態分析/格式化程式的包裝工具。\n\n- Python 系：優先使用 ruff / black / mypy\n- JavaScript 系：出於安全原因，不主動執行 npx",
-    "param.cwd.description": "執行目錄（僅允許在 workdir 下）。如果為空則為目前目錄。",
-    "param.extra_args.description": "附加參數（陣列）。拒絕危險的元字元。",
-    "param.mode.description": "check=僅檢查 / fix=自動修復",
-    "param.targets.description": "目標路徑陣列（僅允許在 workdir 下）。",
-    "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
-    "tool.description": "執行靜態分析/格式化程式（例如 ruff/black/mypy）。mode=fix 會修改檔案並需要確認。",
-    "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
+  "pt": {
+    "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y se quiser continuar ou c se quiser cancelar.",
+    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: por motivos de segurança, não execute ativamente o npx.\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.",
+    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
+    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
+    "param.mode.description": "check=verificar apenas / fix=correção automática",
+    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
+    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
+    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
   },
   "id": {
     "confirm.msg": "lint_format(mode=fix) dapat menulis ulang file.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y jika Anda ingin melanjutkan, atau c untuk membatalkan.",
@@ -164,17 +142,6 @@
     "tool.description": "Uruchamia statyczną analizę/formatowanie (np. ruff/black/mypy). mode=fix modyfikuje pliki i wymaga potwierdzenia.",
     "tool.system_prompt": "Uruchamiaj statyczną analizę/formatowanie. Jeśli potrzebne jest dodatkowe potwierdzenie użytkownika (np. mode=fix), użyj human_ask."
   },
-  "pt": {
-    "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y se quiser continuar ou c se quiser cancelar.",
-    "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: por motivos de segurança, não execute ativamente o npx.\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.",
-    "param.cwd.description": "Diretório de execução (permitido apenas em workdir). Se nulo, atual.",
-    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
-    "param.mode.description": "check=verificar apenas / fix=correção automática",
-    "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
-    "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
-    "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
-    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
-  },
   "hi": {
     "confirm.msg": "lint_format(mode=fix) फ़ाइलों को फिर से लिख सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\ncwd: {cwd}\n\nजारी रखने के लिए y टाइप करें, या रद्द करने के लिए c टाइप करें।",
     "doc.module": "lint_format_tool\n\nस्थैतिक विश्लेषण/फ़ॉर्मैटर चलाने के लिए एक रैपर टूल।\n\n- Python: ruff / black / mypy को प्राथमिकता दें\n- JavaScript: सुरक्षा कारणों से npx को सक्रिय रूप से न चलाएँ।\n\nसुरक्षा:\n- mode=fix में फ़ाइल परिवर्तन शामिल हैं, इसलिए human_ask से पुष्टि लें।\n- तर्कों को ऐरे के रूप में स्वीकार करें और खतरनाक shell metacharacters होने पर उन्हें अस्वीकार करें।",
@@ -207,6 +174,17 @@
     "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
     "tool.description": "Kör statisk analys/formaterare (t.ex. ruff/black/mypy). mode=fix ändrar filer och kräver bekräftelse.",
     "tool.system_prompt": "Kör statisk analys/formaterare. Om ytterligare användarbekräftelse krävs (t.ex. mode=fix), använd human_ask."
+  },
+  "sw": {
+    "confirm.msg": "lint_format(mode=fix) may rewrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nType y if you want to proceed, or c if you want to cancel.",
+    "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
+    "param.cwd.description": "Execution directory (only allowed under workdir). If null, current.",
+    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
+    "param.mode.description": "check=check only / fix=automatic fix",
+    "param.targets.description": "Target path array (only allowed under workdir).",
+    "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
+    "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },
   "nb": {
     "confirm.msg": "lint_format(mode=fix) kan skrive om filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSkriv y hvis du vil fortsette, eller c hvis du vil avbryte.",
@@ -273,5 +251,38 @@
     "param.tools.description": "Çalıştırılacak bir dizi araç adı. Boşsa araçlar otomatik olarak seçilir.",
     "tool.description": "Statik analiz/biçimlendiricileri çalıştırın (ör. ruff/black/mypy). mode=fix dosyaları değiştirir ve onay gerektirir.",
     "tool.system_prompt": "Statik analiz/biçimlendiricileri çalıştırın. Ek kullanıcı onayı gerekiyorsa (örn. mode=fix), human_ask'ı kullanın."
+  },
+  "th": {
+    "confirm.msg": "lint_format(mode=fix) อาจเขียนไฟล์ใหม่\nเครื่องมือ: {tools}\nเป้าหมาย: {targets}\ncwd: {cwd}\n\nพิมพ์ y หากต้องการดำเนินการต่อ หรือ c หากต้องการยกเลิก",
+    "doc.module": "lint_format_tool\n\nเครื่องมือห่อหุ้มสำหรับรันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ\n\n- Python: แนะนำ ruff / black / mypy\n- JavaScript: เพื่อความปลอดภัย ไม่ควรรัน npx โดยตรง",
+    "param.cwd.description": "ไดเร็กทอรีการดำเนินการ (อนุญาตเฉพาะภายใต้ workdir) ถ้าเป็นโมฆะจะใช้ปัจจุบัน",
+    "param.extra_args.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
+    "param.mode.description": "check=ตรวจสอบเท่านั้น / fix=แก้ไขอัตโนมัติ",
+    "param.targets.description": "อาร์เรย์เส้นทางเป้าหมาย (อนุญาตเฉพาะภายใต้ workdir)",
+    "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่าจะเลือกโดยอัตโนมัติ",
+    "tool.description": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
+    "tool.system_prompt": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ หากต้องการการยืนยันจากผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
+  },
+  "zh_CN": {
+    "confirm.msg": "lint_format(mode=fix) 可能会重写文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n如果要继续请键入 y，如果要取消请键入 c。",
+    "doc.module": "lint_format_tool\n\n用于运行静态分析/格式化程序的包装工具。\n\n- Python 系：优先使用 ruff / black / mypy\n- JavaScript 系：出于安全原因，不主动执行 npx",
+    "param.cwd.description": "执行目录（仅允许在 workdir 下）。如果为空则为当前目录。",
+    "param.extra_args.description": "附加参数（数组）。拒绝危险的元字符。",
+    "param.mode.description": "check=仅检查 / fix=自动修复",
+    "param.targets.description": "目标路径数组（仅允许在 workdir 下）。",
+    "param.tools.description": "要运行的工具名称数组。如果为空，将自动选择。",
+    "tool.description": "运行静态分析/格式化程序（例如 ruff/black/mypy）。mode=fix 会修改文件并需要确认。",
+    "tool.system_prompt": "运行静态分析/格式化程序。如果需要额外的用户确认（例如 mode=fix），请使用 human_ask。"
+  },
+  "zh_TW": {
+    "confirm.msg": "lint_format(mode=fix) 可能會重寫檔案。\n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n如果要繼續請輸入 y，如果要取消請輸入 c。",
+    "doc.module": "lint_format_tool\n\n用於執行靜態分析/格式化程式的包裝工具。\n\n- Python 系：優先使用 ruff / black / mypy\n- JavaScript 系：出於安全原因，不主動執行 npx",
+    "param.cwd.description": "執行目錄（僅允許在 workdir 下）。如果為空則為目前目錄。",
+    "param.extra_args.description": "附加參數（陣列）。拒絕危險的元字元。",
+    "param.mode.description": "check=僅檢查 / fix=自動修復",
+    "param.targets.description": "目標路徑陣列（僅允許在 workdir 下）。",
+    "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
+    "tool.description": "執行靜態分析/格式化程式（例如 ruff/black/mypy）。mode=fix 會修改檔案並需要確認。",
+    "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
   }
 }

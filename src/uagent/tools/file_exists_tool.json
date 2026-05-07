@@ -11,18 +11,6 @@
     "tool.description": "指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、あれば種別・サイズ・更新日時を返します。",
     "tool.system_prompt": "このツールは、指定したパスにファイルまたはディレクトリが存在するかどうかを確認し、存在する場合はその種別・サイズ・更新日時を返します。"
   },
-  "zh_CN": {
-    "err.path_empty": "[file_exists 错误] 路径为空",
-    "param.path.description": "要检查是否存在的文件或目录的路径（也可以使用 ~）。",
-    "tool.description": "检查指定路径下是否存在文件或目录，如果存在，则返回其类型、大小和修改时间。",
-    "tool.system_prompt": "使用此工具检查指定路径下是否存在文件或目录，并在存在时返回类型、大小和修改时间。"
-  },
-  "zh_TW": {
-    "err.path_empty": "[file_exists 錯誤] 路徑為空",
-    "param.path.description": "要檢查是否存在的檔案或目錄的路徑（也可以使用 ~）。",
-    "tool.description": "檢查指定路徑下是否存在檔案或目錄，若存在則傳回其類型、大小和修改時間。",
-    "tool.system_prompt": "使用此工具檢查指定路徑下是否存在檔案或目錄，並在存在時傳回類型、大小和修改時間。"
-  },
   "es": {
     "err.path_empty": "[error de file_exists] la ruta está vacía",
     "param.path.description": "La ruta del archivo o directorio cuya existencia desea comprobar (también se puede utilizar ~).",
@@ -40,12 +28,6 @@
     "param.path.description": "존재 여부를 확인할 파일 또는 디렉토리의 경로(~도 사용 가능).",
     "tool.description": "지정된 경로에 파일이나 디렉터리가 있는지 확인하고, 존재하면 유형, 크기, 수정 시간을 반환합니다.",
     "tool.system_prompt": "이 도구는 지정된 경로에 파일이나 디렉터리가 있는지 확인하고, 존재하는 경우 유형, 크기, 수정 시간을 반환하는 데 사용합니다."
-  },
-  "th": {
-    "err.path_empty": "[file_exists error] พาธว่างเปล่า",
-    "param.path.description": "พาธของไฟล์หรือไดเรกทอรีที่ต้องการตรวจสอบว่ามีอยู่หรือไม่ (~ ใช้ได้เช่นกัน)",
-    "tool.description": "ตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี จะส่งคืนชนิด ขนาด และเวลาแก้ไข",
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี ให้ส่งคืนชนิด ขนาด และเวลาแก้ไข"
   },
   "de": {
     "err.path_empty": "[file_exists-Fehler] Der Pfad ist leer",
@@ -71,6 +53,12 @@
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
     "tool.system_prompt": "Use esta ferramenta para verificar se um arquivo ou diretório existe no caminho especificado e, se existir, retorne seu tipo, tamanho e hora de modificação."
   },
+  "pt": {
+    "err.path_empty": "[erro file_exists] o caminho está vazio",
+    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja verificar (~ também pode ser usado).",
+    "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
+    "tool.system_prompt": "Use esta ferramenta para verificar se um arquivo ou diretório existe no caminho especificado e, se existir, retorne seu tipo, tamanho e hora de modificação."
+  },
   "id": {
     "err.path_empty": "[file_exists error] path kosong",
     "param.path.description": "Jalur file atau direktori yang ingin Anda periksa keberadaannya (~ juga dapat digunakan).",
@@ -89,12 +77,6 @@
     "tool.description": "Sprawdza, czy plik lub katalog istnieje pod podaną ścieżką i, jeśli tak, zwraca jego typ, rozmiar oraz czas modyfikacji.",
     "tool.system_prompt": "Użyj tego narzędzia, aby sprawdzić, czy plik lub katalog istnieje pod podaną ścieżką, a jeśli tak, zwrócić jego typ, rozmiar i czas modyfikacji."
   },
-  "pt": {
-    "err.path_empty": "[erro file_exists] o caminho está vazio",
-    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja verificar (~ também pode ser usado).",
-    "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
-    "tool.system_prompt": "Use esta ferramenta para verificar se um arquivo ou diretório existe no caminho especificado e, se existir, retorne seu tipo, tamanho e hora de modificação."
-  },
   "hi": {
     "err.path_empty": "[file_exists त्रुटि] पथ खाली है",
     "param.path.description": "फ़ाइल या निर्देशिका का पथ जिसे आप अस्तित्व के लिए जांचना चाहते हैं (~ का भी उपयोग किया जा सकता है)।",
@@ -112,6 +94,12 @@
     "param.path.description": "Sökvägen till filen eller katalogen som du vill kontrollera (~ kan också användas).",
     "tool.description": "Kontrollerar om en fil eller katalog finns på den angivna sökvägen och returnerar, om så är fallet, typ, storlek och ändringstid.",
     "tool.system_prompt": "Använd det här verktyget för att kontrollera om en fil eller katalog finns på den angivna sökvägen och, om den finns, returnera typ, storlek och ändringstid."
+  },
+  "sw": {
+    "err.path_empty": "[file_exists error] path iko tupu",
+    "param.path.description": "Njia ya faili au saraka unayotaka kuangalia uwepo wake (~ pia inaweza kutumika).",
+    "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
+    "tool.system_prompt": "Tumia zana hii kuangalia kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, rudisha aina yake, ukubwa na muda wa mwisho kubadilishwa."
   },
   "nb": {
     "err.path_empty": "[file_exists error] stien er tom",
@@ -143,16 +131,28 @@
     "tool.description": "Перевіряє, чи існує файл або каталог за вказаним шляхом, і, якщо так, повертає його тип, розмір і час зміни.",
     "tool.system_prompt": "Використовуйте цей інструмент, щоб перевірити, чи існує файл або каталог за вказаним шляхом, і, якщо так, повернути його тип, розмір і час зміни."
   },
-  "sw": {
-    "err.path_empty": "[file_exists error] path iko tupu",
-    "param.path.description": "Njia ya faili au saraka unayotaka kuangalia uwepo wake (~ pia inaweza kutumika).",
-    "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
-    "tool.system_prompt": "Tumia zana hii kuangalia kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, rudisha aina yake, ukubwa na muda wa mwisho kubadilishwa."
-  },
   "tr": {
     "err.path_empty": "[file_exists error] yolu boş",
     "param.path.description": "Varlığını kontrol etmek istediğiniz dosya veya dizinin yolu (~ da kullanılabilir).",
     "tool.description": "Belirtilen yolda bir dosya veya dizinin bulunup bulunmadığını kontrol eder ve varsa türünü, boyutunu ve değiştirilme zamanını döndürür.",
     "tool.system_prompt": "Belirtilen yolda bir dosya veya dizinin mevcut olup olmadığını kontrol etmek ve varsa türünü, boyutunu ve değiştirilme zamanını döndürmek için bu aracı kullanın."
+  },
+  "th": {
+    "err.path_empty": "[file_exists error] พาธว่างเปล่า",
+    "param.path.description": "พาธของไฟล์หรือไดเรกทอรีที่ต้องการตรวจสอบว่ามีอยู่หรือไม่ (~ ใช้ได้เช่นกัน)",
+    "tool.description": "ตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี จะส่งคืนชนิด ขนาด และเวลาแก้ไข",
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี ให้ส่งคืนชนิด ขนาด และเวลาแก้ไข"
+  },
+  "zh_CN": {
+    "err.path_empty": "[file_exists 错误] 路径为空",
+    "param.path.description": "要检查是否存在的文件或目录的路径（也可以使用 ~）。",
+    "tool.description": "检查指定路径下是否存在文件或目录，如果存在，则返回其类型、大小和修改时间。",
+    "tool.system_prompt": "使用此工具检查指定路径下是否存在文件或目录，并在存在时返回类型、大小和修改时间。"
+  },
+  "zh_TW": {
+    "err.path_empty": "[file_exists 錯誤] 路徑為空",
+    "param.path.description": "要檢查是否存在的檔案或目錄的路徑（也可以使用 ~）。",
+    "tool.description": "檢查指定路徑下是否存在檔案或目錄，若存在則傳回其類型、大小和修改時間。",
+    "tool.system_prompt": "使用此工具檢查指定路徑下是否存在檔案或目錄，並在存在時傳回類型、大小和修改時間。"
   }
 }

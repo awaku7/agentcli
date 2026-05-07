@@ -9,16 +9,6 @@
     "tool.description": "外部GUIやブラウザ等のプロセスを非同期に起動します。同一要求での連続起動は避けてください。",
     "tool.system_prompt": "外部プロセスを非同期に起動するためのツールです。同一要求での連続起動は避けてください。"
   },
-  "zh_CN": {
-    "param.command.description": "要执行的命令行。",
-    "tool.description": "异步启动外部 GUI 或浏览器进程。避免对同一请求重复启动。",
-    "tool.system_prompt": "使用此工具异步启动外部进程。避免对同一请求重复启动。"
-  },
-  "zh_TW": {
-    "param.command.description": "要執行的命令列。",
-    "tool.description": "非同步啟動外部 GUI 或瀏覽器程序。避免對同一請求重複啟動。",
-    "tool.system_prompt": "使用此工具非同步啟動外部程序。避免對同一請求重複啟動。"
-  },
   "es": {
     "param.command.description": "Línea de comando para ejecutar.",
     "tool.description": "Inicia de forma asíncrona un proceso externo de GUI o navegador. Evita iniciarlo repetidamente para la misma solicitud.",
@@ -33,11 +23,6 @@
     "param.command.description": "실행할 명령줄입니다.",
     "tool.description": "외부 GUI 또는 브라우저 프로세스를 비동기적으로 시작합니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요.",
     "tool.system_prompt": "이 도구를 사용하면 외부 프로세스를 비동기적으로 시작할 수 있습니다. 동일한 요청에 대해 반복적으로 생성되지 않도록 하세요."
-  },
-  "th": {
-    "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
-    "tool.description": "เริ่มต้นกระบวนการ GUI ภายนอกหรือเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน",
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเริ่มกระบวนการภายนอกแบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน"
   },
   "de": {
     "param.command.description": "Auszuführende Befehlszeile.",
@@ -59,6 +44,11 @@
     "tool.description": "Inicia de forma assíncrona um processo externo de GUI ou navegador. Evite múltiplas execuções para a mesma solicitação.",
     "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite múltiplas execuções para a mesma solicitação."
   },
+  "pt": {
+    "param.command.description": "Linha de comando para executar.",
+    "tool.description": "Inicie de forma assíncrona um processo externo de GUI ou navegador. Evite iniciá-lo repetidamente para a mesma solicitação.",
+    "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite iniciá-lo repetidamente para a mesma solicitação."
+  },
   "id": {
     "param.command.description": "Command line yang akan dieksekusi.",
     "tool.description": "Mulai proses GUI atau browser eksternal secara asinkron. Hindari menjalankannya berulang kali untuk permintaan yang sama.",
@@ -74,11 +64,6 @@
     "tool.description": "Asynchronicznie uruchamia zewnętrzny proces GUI lub przeglądarki. Unikaj wielokrotnego uruchamiania dla tego samego żądania.",
     "tool.system_prompt": "Użyj tego narzędzia, aby asynchronicznie uruchomić zewnętrzny proces. Unikaj wielokrotnego uruchamiania dla tego samego żądania."
   },
-  "pt": {
-    "param.command.description": "Linha de comando para executar.",
-    "tool.description": "Inicie de forma assíncrona um processo externo de GUI ou navegador. Evite iniciá-lo repetidamente para a mesma solicitação.",
-    "tool.system_prompt": "Use esta ferramenta para iniciar um processo externo de forma assíncrona. Evite iniciá-lo repetidamente para a mesma solicitação."
-  },
   "hi": {
     "param.command.description": "निष्पादित करने के लिए कमांड लाइन.",
     "tool.description": "बाहरी GUI या ब्राउज़र प्रक्रिया को एसिंक्रोनस रूप से प्रारंभ करें। एक ही अनुरोध के लिए बार-बार स्पॉन करने से बचें।",
@@ -93,6 +78,11 @@
     "param.command.description": "Kommandorad som ska köras.",
     "tool.description": "Startar en extern GUI- eller webbläsarprocess asynkront. Undvik upprepade starter för samma begäran.",
     "tool.system_prompt": "Använd det här verktyget för att starta en extern process asynkront. Undvik upprepade starter för samma begäran."
+  },
+  "sw": {
+    "param.command.description": "Amri ya kutekeleza.",
+    "tool.description": "Huanzisha kwa njia ya asinkroni mchakato wa nje wa GUI au kivinjari. Epuka kuzindua tena kwa ombi lilelile.",
+    "tool.system_prompt": "Tumia zana hii kuanzisha mchakato wa nje kwa njia ya asinkroni. Epuka kuzindua tena kwa ombi lilelile."
   },
   "nb": {
     "param.command.description": "Kommandolinje som skal kjøres.",
@@ -119,14 +109,24 @@
     "tool.description": "Асинхронно запускає зовнішній GUI або процес браузера. Уникайте повторного запуску для того самого запиту.",
     "tool.system_prompt": "Використовуйте цей інструмент для асинхронного запуску зовнішнього процесу. Уникайте повторного запуску для того самого запиту."
   },
-  "sw": {
-    "param.command.description": "Amri ya kutekeleza.",
-    "tool.description": "Huanzisha kwa njia ya asinkroni mchakato wa nje wa GUI au kivinjari. Epuka kuzindua tena kwa ombi lilelile.",
-    "tool.system_prompt": "Tumia zana hii kuanzisha mchakato wa nje kwa njia ya asinkroni. Epuka kuzindua tena kwa ombi lilelile."
-  },
   "tr": {
     "param.command.description": "Çalıştırılacak komut satırı.",
     "tool.description": "Harici bir GUI veya tarayıcı sürecini eşzamansız olarak başlatır. Aynı istek için tekrar tekrar başlatmaktan kaçının.",
     "tool.system_prompt": "Bu aracı, harici bir süreci eşzamansız olarak başlatmak için kullanın. Aynı istek için tekrar tekrar başlatmaktan kaçının."
+  },
+  "th": {
+    "param.command.description": "บรรทัดคำสั่งที่จะดำเนินการ",
+    "tool.description": "เริ่มต้นกระบวนการ GUI ภายนอกหรือเบราว์เซอร์แบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน",
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเริ่มกระบวนการภายนอกแบบอะซิงโครนัส หลีกเลี่ยงการเริ่มซ้ำสำหรับคำขอเดียวกัน"
+  },
+  "zh_CN": {
+    "param.command.description": "要执行的命令行。",
+    "tool.description": "异步启动外部 GUI 或浏览器进程。避免对同一请求重复启动。",
+    "tool.system_prompt": "使用此工具异步启动外部进程。避免对同一请求重复启动。"
+  },
+  "zh_TW": {
+    "param.command.description": "要執行的命令列。",
+    "tool.description": "非同步啟動外部 GUI 或瀏覽器程序。避免對同一請求重複啟動。",
+    "tool.system_prompt": "使用此工具非同步啟動外部程序。避免對同一請求重複啟動。"
   }
 }

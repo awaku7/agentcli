@@ -7,14 +7,6 @@
     "tool.description": "現在の作業ディレクトリを取得します。",
     "tool.system_prompt": "このツールは現在の作業ディレクトリを取得するために使います。"
   },
-  "zh_CN": {
-    "tool.description": "获取当前工作目录。",
-    "tool.system_prompt": "该工具用于以下目的：获取当前工作目录。"
-  },
-  "zh_TW": {
-    "tool.description": "取得目前工作目錄。",
-    "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
-  },
   "es": {
     "tool.description": "Obtiene el directorio de trabajo actual.",
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el directorio de trabajo actual."
@@ -26,10 +18,6 @@
   "ko": {
     "tool.description": "현재 작업 디렉터리를 가져옵니다.",
     "tool.system_prompt": "이 도구는 현재 작업 디렉터리를 가져오는 목적으로 사용됩니다."
-  },
-  "th": {
-    "tool.description": "รับไดเรกทอรีการทำงานปัจจุบัน",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเรกทอรีการทำงานปัจจุบัน"
   },
   "de": {
     "tool.description": "Ruft das aktuelle Arbeitsverzeichnis ab.",
@@ -47,6 +35,10 @@
     "tool.description": "Obtém o diretório de trabalho atual.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
   },
+  "pt": {
+    "tool.description": "Obtenha o diretório de trabalho atual.",
+    "tool.system_prompt": "Use esta ferramenta para obter o diretório de trabalho atual."
+  },
   "id": {
     "tool.description": "Dapatkan direktori kerja saat ini.",
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mendapatkan direktori kerja saat ini."
@@ -59,10 +51,6 @@
     "tool.description": "Pobierz bieżący katalog roboczy.",
     "tool.system_prompt": "To narzędzie służy do następującego celu: pobranie bieżącego katalogu roboczego."
   },
-  "pt": {
-    "tool.description": "Obtenha o diretório de trabalho atual.",
-    "tool.system_prompt": "Use esta ferramenta para obter o diretório de trabalho atual."
-  },
   "hi": {
     "tool.description": "वर्तमान कार्यशील निर्देशिका प्राप्त करें.",
     "tool.system_prompt": "इस उपकरण का उपयोग वर्तमान कार्यशील निर्देशिका प्राप्त करने के लिए किया जाता है।"
@@ -74,6 +62,10 @@
   "sv": {
     "tool.description": "Hämtar den aktuella arbetskatalogen.",
     "tool.system_prompt": "Det här verktyget används för att hämta den aktuella arbetskatalogen."
+  },
+  "sw": {
+    "tool.description": "Get the current working directory.",
+    "tool.system_prompt": "Use this tool to get the current working directory."
   },
   "nb": {
     "tool.description": "Henter den gjeldende arbeidskatalogen.",
@@ -98,5 +90,17 @@
   "tr": {
     "tool.description": "Geçerli çalışma dizinini alın.",
     "tool.system_prompt": "Geçerli çalışma dizinini almak için bu aracı kullanın."
+  },
+  "th": {
+    "tool.description": "รับไดเรกทอรีการทำงานปัจจุบัน",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเรกทอรีการทำงานปัจจุบัน"
+  },
+  "zh_CN": {
+    "tool.description": "获取当前工作目录。",
+    "tool.system_prompt": "该工具用于以下目的：获取当前工作目录。"
+  },
+  "zh_TW": {
+    "tool.description": "取得目前工作目錄。",
+    "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
   }
 }

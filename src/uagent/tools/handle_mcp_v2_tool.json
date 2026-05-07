@@ -17,24 +17,6 @@
     "tool.description": "MCP サーバー上のツールを呼び出します。tool_arguments に JSON オブジェクト（推奨）または JSON 文字列で引数を渡してください。返り値は少なくとも ok と text を含む JSON 文字列です。適用可能な場合は saved_path が含まれます（例: サーバーが saved_path を返す場合、または {filename, mime, data_base64} のようなファイルペイロードが返り、このクライアントがローカルの downloads ディレクトリに保存する場合）。注意: ツールがファイルのペイロードを返さない場合、saved_path は省略されることがあります。",
     "tool.system_prompt": "上記の目的に従って、このツールを使用してください（ツールの説明を参照）。"
   },
-  "zh_CN": {
-    "doc.mask_values": "将字典和列表中的值替换为“*”（保留结构）。",
-    "param.server_name.description": "mcp_servers.json 中定义的服务器名称。指定后优先于 url。",
-    "param.tool_arguments.description": "传递给 MCP 工具的参数。可提供 JSON 对象（推荐）或 JSON 字符串。示例（对象）：{\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}。返回值为 JSON 字符串。适用时会包含 saved_path。注意：当工具未返回任何文件负载时，saved_path 可能会被省略。如果工具返回文件负载（例如 {filename, mime, data_base64}），该客户端可能会将其保存到本地 downloads 目录，并在返回的 JSON 中包含 saved_path。",
-    "param.tool_name.description": "要执行的工具名称。",
-    "param.url.description": "MCP 服务器端点 URL（http://... 或 stdio://command...）。",
-    "tool.description": "从 MCP 服务器调用工具。请在 tool_arguments 中以 JSON 对象（推荐）或 JSON 字符串提供工具参数。返回值为 JSON 字符串，至少包含 ok 和 text。适用时会包含 saved_path（例如服务器返回 saved_path，或返回 {filename, mime, data_base64} 之类的文件负载且该客户端将其保存到本地 downloads 目录时）。注意：当工具未返回任何文件负载时，saved_path 可能会被省略。",
-    "tool.system_prompt": "请根据上述目的使用此工具（参见工具说明）。"
-  },
-  "zh_TW": {
-    "doc.mask_values": "將字典與列表中的值取代為「*」（保留結構）。",
-    "param.server_name.description": "mcp_servers.json 中定義的伺服器名稱。指定時會優先於 url。",
-    "param.tool_arguments.description": "要傳遞給 MCP 工具的參數。可提供 JSON 物件（建議）或 JSON 字串。範例（物件）：{\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}。回傳值為 JSON 字串。適用時會包含 saved_path。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略。若工具回傳檔案負載（例如 {filename, mime, data_base64}），此用戶端可能會將其儲存到本機 downloads 目錄，並在回傳的 JSON 中包含 saved_path。",
-    "param.tool_name.description": "要執行的工具名稱。",
-    "param.url.description": "MCP 伺服器端點 URL（http://... 或 stdio://command...）。",
-    "tool.description": "從 MCP 伺服器呼叫工具。請在 tool_arguments 中以 JSON 物件（建議）或 JSON 字串提供工具參數。回傳值為 JSON 字串，至少包含 ok 與 text。適用時會包含 saved_path（例如伺服器回傳 saved_path，或回傳 {filename, mime, data_base64} 之類的檔案負載且此用戶端將其儲存到本機 downloads 目錄時）。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略。",
-    "tool.system_prompt": "請依照上述目的使用此工具（參見工具說明）。"
-  },
   "es": {
     "doc.mask_values": "Reemplace los valores de diccionarios y listas con '*' (conservando la estructura).",
     "param.server_name.description": "Nombre del servidor definido en mcp_servers.json. Si se especifica, tiene prioridad sobre url.",
@@ -61,15 +43,6 @@
     "param.url.description": "MCP 서버 엔드포인트 URL(http://... 또는 stdio://command...).",
     "tool.description": "MCP 서버의 도구를 호출합니다. tool_arguments에 도구 인수를 JSON 객체(권장) 또는 JSON 문자열로 제공하세요. 반환값은 최소한 ok와 text를 포함하는 JSON 문자열입니다. 적용 가능한 경우 saved_path가 포함됩니다(예: 서버가 saved_path를 반환하거나, {filename, mime, data_base64} 같은 파일 페이로드가 반환되어 이 클라이언트가 로컬 downloads 디렉터리에 저장하는 경우). 참고: 도구가 파일 페이로드를 반환하지 않으면 saved_path는 생략될 수 있습니다.",
     "tool.system_prompt": "위의 목적에 맞게 이 도구를 사용하세요(도구 설명 참조)."
-  },
-  "th": {
-    "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้).",
-    "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json หากระบุ จะมีลำดับความสำคัญเหนือ url",
-    "param.tool_arguments.description": "อาร์กิวเมนต์ที่จะส่งต่อไปยังเครื่องมือ MCP สามารถระบุได้ทั้ง JSON object (แนะนำ) หรือ JSON string ตัวอย่าง (object): {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false} ผลลัพธ์ที่ได้เป็นสตริง JSON และเมื่อเหมาะสมจะมี saved_path รวมอยู่ด้วย หมายเหตุ: saved_path อาจถูกละเว้นเมื่อเครื่องมือไม่ได้ส่งคืนเพย์โหลดไฟล์ใด ๆ หากเครื่องมือส่งคืนเพย์โหลดไฟล์ (เช่น {filename, mime, data_base64}) ไคลเอนต์นี้อาจบันทึกลงในไดเรกทอรี downloads ภายในเครื่อง และใส่ saved_path ใน JSON ที่ส่งคืน",
-    "param.tool_name.description": "ชื่อของเครื่องมือที่จะรัน",
-    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://... หรือ stdio://command...).",
-    "tool.description": "เรียกใช้เครื่องมือจากเซิร์ฟเวอร์ MCP โดยส่งอาร์กิวเมนต์ของเครื่องมือใน tool_arguments เป็น JSON object (แนะนำ) หรือ JSON string ผลลัพธ์ที่ได้เป็นสตริง JSON ซึ่งมีอย่างน้อย ok และ text และเมื่อเหมาะสมจะมี saved_path รวมอยู่ด้วย (เช่น เมื่อเซิร์ฟเวอร์ส่งคืน saved_path หรือเมื่อมีการส่งคืนเพย์โหลดไฟล์อย่าง {filename, mime, data_base64} และไคลเอนต์นี้บันทึกลงในไดเรกทอรี downloads ภายในเครื่อง) หมายเหตุ: saved_path อาจถูกละเว้นเมื่อเครื่องมือไม่ได้ส่งคืนเพย์โหลดไฟล์ใด ๆ",
-    "tool.system_prompt": "โปรดใช้เครื่องมือนี้ตามวัตถุประสงค์ข้างต้น (ดูคำอธิบายของเครื่องมือ)"
   },
   "de": {
     "doc.mask_values": "Ersetzen Sie Werte in Wörterbüchern und Listen durch '*' (Struktur beibehalten).",
@@ -107,6 +80,15 @@
     "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
     "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
   },
+  "pt": {
+    "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
+    "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, terá prioridade sobre o URL.",
+    "param.tool_arguments.description": "Argumentos a serem passados para a ferramenta MCP. Forneça um objeto JSON (recomendado) ou uma string JSON. Exemplo de objeto: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. O valor de retorno é uma string JSON. Quando aplicável, inclui saved_path. Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo. Se a ferramenta retornar uma carga de arquivo (por exemplo, {filename, mime, data_base64}), este cliente pode salvá-la em um diretório local downloads e incluir saved_path no JSON retornado.",
+    "param.tool_name.description": "O nome da ferramenta a ser executada.",
+    "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
+    "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
+    "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
+  },
   "id": {
     "doc.mask_values": "Ganti nilai dalam dictionary dan list dengan '*' (struktur tetap dipertahankan).",
     "param.server_name.description": "Nama server yang didefinisikan di mcp_servers.json. Jika ditentukan, diprioritaskan daripada url.",
@@ -134,15 +116,6 @@
     "tool.description": "Wywołaj narzędzie z serwera MCP. Podaj argumenty narzędzi w tool_arguments jako obiekt JSON (zalecane) lub ciąg JSON. Wartość zwracana to ciąg JSON zawierający co najmniej ok i tekst. Jeśli ma to zastosowanie, dołączona jest zapisana_ścieżka (na przykład, gdy serwer zwraca saved_path lub gdy zwracany jest ładunek pliku, taki jak {filename, mime, data_base64}, a klient zapisuje go w lokalnym katalogu pobierania). Uwaga: saved_path można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku.",
     "tool.system_prompt": "Używaj tego narzędzia zgodnie z celem opisanym powyżej (patrz opis narzędzia)."
   },
-  "pt": {
-    "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
-    "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, terá prioridade sobre o URL.",
-    "param.tool_arguments.description": "Argumentos a serem passados para a ferramenta MCP. Forneça um objeto JSON (recomendado) ou uma string JSON. Exemplo de objeto: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. O valor de retorno é uma string JSON. Quando aplicável, inclui saved_path. Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo. Se a ferramenta retornar uma carga de arquivo (por exemplo, {filename, mime, data_base64}), este cliente pode salvá-la em um diretório local downloads e incluir saved_path no JSON retornado.",
-    "param.tool_name.description": "O nome da ferramenta a ser executada.",
-    "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
-    "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
-    "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
-  },
   "hi": {
     "doc.mask_values": "शब्दकोशों और सूचियों में मानों को '*' (संरचना को संरक्षित करते हुए) से बदलें।",
     "param.server_name.description": "सर्वर नाम mcp_servers.json में परिभाषित किया गया है। यदि निर्दिष्ट किया गया है, तो यह यूआरएल पर प्राथमिकता लेता है।",
@@ -169,6 +142,15 @@
     "param.url.description": "MCP-serverns endpoint-URL.",
     "tool.description": "Anropa ett verktyg från en MCP-server. Ange verktygsargument i tool_arguments som ett JSON-objekt (rekommenderas) eller en JSON-sträng. Returvärdet är en JSON-sträng som innehåller minst ok och text. När det är tillämpligt inkluderas saved_path (till exempel när servern returnerar saved_path, eller när en filpayload som {filename, mime, data_base64} returneras och klienten sparar den i en lokal downloads-katalog). Obs: saved_path kan utelämnas när verktyget inte returnerar någon filpayload.",
     "tool.system_prompt": "Använd det här verktyget enligt det syfte som beskrivs ovan (se verktygsbeskrivningen)."
+  },
+  "sw": {
+    "doc.mask_values": "Replace values in dictionaries and lists with '*' (preserving structure).",
+    "param.server_name.description": "Server name defined in mcp_servers.json. If specified, it takes priority over url.",
+    "param.tool_arguments.description": "Arguments to pass to the MCP tool. Provide either a JSON object (recommended) or a JSON string. Example object: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. The return value is a JSON string. When applicable, it includes saved_path. Note: saved_path may be omitted when the tool does not return any file payload. If the tool returns a file payload (for example, {filename, mime, data_base64}), this client may save it to a local downloads directory and include saved_path in the returned JSON.",
+    "param.tool_name.description": "The name of the tool to execute.",
+    "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
+    "tool.description": "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload.",
+    "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
   },
   "nb": {
     "doc.mask_values": "Erstatt verdier i ordbøker og lister med '*' (strukturen bevares).",
@@ -223,5 +205,32 @@
     "param.url.description": "MCP sunucu uç noktası URL (http://... veya stdio://command...).",
     "tool.description": "MCP sunucusundan bir aracı çağırın. tool_arguments'ta araç bağımsız değişkenlerini JSON nesnesi (önerilir) veya JSON dizesi olarak sağlayın. Dönüş değeri, en azından ok ve metin içeren bir JSON dizesidir. Uygun olduğunda, kaydedilen_yol dahil edilir (örneğin, sunucu kaydedilen_yolu döndürdüğünde veya {filename, mime, data_base64} gibi bir dosya yükü döndürüldüğünde ve bu istemci bunu yerel indirilenler dizinine kaydettiğinde). Not: Araç herhangi bir dosya yükü döndürmediğinde kaydedilen_yol atlanabilir.",
     "tool.system_prompt": "Bu aleti yukarıda açıklanan amaca uygun olarak kullanın (alet açıklamasına bakın)."
+  },
+  "th": {
+    "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้).",
+    "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json หากระบุ จะมีลำดับความสำคัญเหนือ url",
+    "param.tool_arguments.description": "อาร์กิวเมนต์ที่จะส่งต่อไปยังเครื่องมือ MCP สามารถระบุได้ทั้ง JSON object (แนะนำ) หรือ JSON string ตัวอย่าง (object): {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false} ผลลัพธ์ที่ได้เป็นสตริง JSON และเมื่อเหมาะสมจะมี saved_path รวมอยู่ด้วย หมายเหตุ: saved_path อาจถูกละเว้นเมื่อเครื่องมือไม่ได้ส่งคืนเพย์โหลดไฟล์ใด ๆ หากเครื่องมือส่งคืนเพย์โหลดไฟล์ (เช่น {filename, mime, data_base64}) ไคลเอนต์นี้อาจบันทึกลงในไดเรกทอรี downloads ภายในเครื่อง และใส่ saved_path ใน JSON ที่ส่งคืน",
+    "param.tool_name.description": "ชื่อของเครื่องมือที่จะรัน",
+    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://... หรือ stdio://command...).",
+    "tool.description": "เรียกใช้เครื่องมือจากเซิร์ฟเวอร์ MCP โดยส่งอาร์กิวเมนต์ของเครื่องมือใน tool_arguments เป็น JSON object (แนะนำ) หรือ JSON string ผลลัพธ์ที่ได้เป็นสตริง JSON ซึ่งมีอย่างน้อย ok และ text และเมื่อเหมาะสมจะมี saved_path รวมอยู่ด้วย (เช่น เมื่อเซิร์ฟเวอร์ส่งคืน saved_path หรือเมื่อมีการส่งคืนเพย์โหลดไฟล์อย่าง {filename, mime, data_base64} และไคลเอนต์นี้บันทึกลงในไดเรกทอรี downloads ภายในเครื่อง) หมายเหตุ: saved_path อาจถูกละเว้นเมื่อเครื่องมือไม่ได้ส่งคืนเพย์โหลดไฟล์ใด ๆ",
+    "tool.system_prompt": "โปรดใช้เครื่องมือนี้ตามวัตถุประสงค์ข้างต้น (ดูคำอธิบายของเครื่องมือ)"
+  },
+  "zh_CN": {
+    "doc.mask_values": "将字典和列表中的值替换为“*”（保留结构）。",
+    "param.server_name.description": "mcp_servers.json 中定义的服务器名称。指定后优先于 url。",
+    "param.tool_arguments.description": "传递给 MCP 工具的参数。可提供 JSON 对象（推荐）或 JSON 字符串。示例（对象）：{\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}。返回值为 JSON 字符串。适用时会包含 saved_path。注意：当工具未返回任何文件负载时，saved_path 可能会被省略。如果工具返回文件负载（例如 {filename, mime, data_base64}），该客户端可能会将其保存到本地 downloads 目录，并在返回的 JSON 中包含 saved_path。",
+    "param.tool_name.description": "要执行的工具名称。",
+    "param.url.description": "MCP 服务器端点 URL（http://... 或 stdio://command...）。",
+    "tool.description": "从 MCP 服务器调用工具。请在 tool_arguments 中以 JSON 对象（推荐）或 JSON 字符串提供工具参数。返回值为 JSON 字符串，至少包含 ok 和 text。适用时会包含 saved_path（例如服务器返回 saved_path，或返回 {filename, mime, data_base64} 之类的文件负载且该客户端将其保存到本地 downloads 目录时）。注意：当工具未返回任何文件负载时，saved_path 可能会被省略。",
+    "tool.system_prompt": "请根据上述目的使用此工具（参见工具说明）。"
+  },
+  "zh_TW": {
+    "doc.mask_values": "將字典與列表中的值取代為「*」（保留結構）。",
+    "param.server_name.description": "mcp_servers.json 中定義的伺服器名稱。指定時會優先於 url。",
+    "param.tool_arguments.description": "要傳遞給 MCP 工具的參數。可提供 JSON 物件（建議）或 JSON 字串。範例（物件）：{\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}。回傳值為 JSON 字串。適用時會包含 saved_path。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略。若工具回傳檔案負載（例如 {filename, mime, data_base64}），此用戶端可能會將其儲存到本機 downloads 目錄，並在回傳的 JSON 中包含 saved_path。",
+    "param.tool_name.description": "要執行的工具名稱。",
+    "param.url.description": "MCP 伺服器端點 URL（http://... 或 stdio://command...）。",
+    "tool.description": "從 MCP 伺服器呼叫工具。請在 tool_arguments 中以 JSON 物件（建議）或 JSON 字串提供工具參數。回傳值為 JSON 字串，至少包含 ok 與 text。適用時會包含 saved_path（例如伺服器回傳 saved_path，或回傳 {filename, mime, data_base64} 之類的檔案負載且此用戶端將其儲存到本機 downloads 目錄時）。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略。",
+    "tool.system_prompt": "請依照上述目的使用此工具（參見工具說明）。"
   }
 }

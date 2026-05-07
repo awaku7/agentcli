@@ -21,28 +21,6 @@
     "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
-  "zh_CN": {
-    "err.invalid_args": "[工具错误] 无效参数",
-    "err.max_bytes_positive": "[工具错误] max_bytes 必须是正整数",
-    "err.relative_path_required": "[工具错误] relative_path 必须是非空字符串",
-    "err.skill_dir_required": "[工具错误] skill_dir 必须是非空字符串",
-    "param.max_bytes.description": "读取的最大字节数（默认值：5000000）",
-    "param.relative_path.description": "相对于技能根目录的路径（例如：references/REFERENCE.md）",
-    "param.skill_dir.description": "技能目录",
-    "tool.description": "使用相对路径安全读取技能目录下的文件。会阻止路径穿越。",
-    "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。"
-  },
-  "zh_TW": {
-    "err.invalid_args": "[工具錯誤] 無效參數",
-    "err.max_bytes_positive": "[工具錯誤] max_bytes 必須是正整數",
-    "err.relative_path_required": "[工具錯誤] relative_path 必須是非空字串",
-    "err.skill_dir_required": "[工具錯誤] skill_dir 必須是非空字串",
-    "param.max_bytes.description": "讀取的最大位元組數（預設值：5000000）",
-    "param.relative_path.description": "相對於技能根目錄的路徑（例如：references/REFERENCE.md）",
-    "param.skill_dir.description": "技能目錄",
-    "tool.description": "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越。",
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
-  },
   "es": {
     "err.invalid_args": "[error de herramienta] argumentos no válidos",
     "err.max_bytes_positive": "[error de herramienta] max_bytes debe ser un entero positivo",
@@ -75,17 +53,6 @@
     "param.skill_dir.description": "스킬 디렉터리",
     "tool.description": "상대 경로를 사용해 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 탐색은 차단됩니다.",
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
-  },
-  "th": {
-    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] อาร์กิวเมนต์ไม่ถูกต้อง",
-    "err.max_bytes_positive": "[ข้อผิดพลาดของเครื่องมือ] max_bytes ต้องเป็นจำนวนเต็มบวก",
-    "err.relative_path_required": "[ข้อผิดพลาดของเครื่องมือ] relative_path ต้องเป็นสตริงที่ไม่ว่างเปล่า",
-    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
-    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)",
-    "param.relative_path.description": "พาธสัมพัทธ์จากรากของสกิล (เช่น references/REFERENCE.md)",
-    "param.skill_dir.description": "ไดเรกทอรีสกิล",
-    "tool.description": "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   },
   "de": {
     "err.invalid_args": "[Werkzeugfehler] Ungültige Argumente",
@@ -131,6 +98,17 @@
     "tool.description": "Lê com segurança um arquivo dentro de um diretório de skill usando um caminho relativo. A travessia de caminho é bloqueada.",
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
+  "pt": {
+    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
+    "err.max_bytes_positive": "[erro de ferramenta] max_bytes deve ser um número inteiro positivo",
+    "err.relative_path_required": "[erro de ferramenta] caminho_relativo deve ser uma string não vazia",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
+    "param.max_bytes.description": "Número máximo de bytes a serem lidos (padrão: 5000000)",
+    "param.relative_path.description": "Caminho relativo à raiz da habilidade (por exemplo, references/REFERENCE.md)",
+    "param.skill_dir.description": "diretório da habilidade",
+    "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo. A travessia de caminho é bloqueada.",
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
   "id": {
     "err.invalid_args": "[tool error] argumen tidak valid",
     "err.max_bytes_positive": "[tool error] max_bytes harus berupa integer positif",
@@ -164,17 +142,6 @@
     "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej. Przechodzenie ścieżek jest blokowane.",
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
-  "pt": {
-    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
-    "err.max_bytes_positive": "[erro de ferramenta] max_bytes deve ser um número inteiro positivo",
-    "err.relative_path_required": "[erro de ferramenta] caminho_relativo deve ser uma string não vazia",
-    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
-    "param.max_bytes.description": "Número máximo de bytes a serem lidos (padrão: 5000000)",
-    "param.relative_path.description": "Caminho relativo à raiz da habilidade (por exemplo, references/REFERENCE.md)",
-    "param.skill_dir.description": "diretório da habilidade",
-    "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo. A travessia de caminho é bloqueada.",
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
-  },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
     "err.max_bytes_positive": "[टूल त्रुटि] max_bytes एक धनात्मक पूर्णांक होना चाहिए",
@@ -207,6 +174,17 @@
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras.",
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+  },
+  "sw": {
+    "err.invalid_args": "[hitilafu ya zana] hoja batili",
+    "err.max_bytes_positive": "[hitilafu ya zana] max_bytes lazima iwe nambari kamili chanya",
+    "err.relative_path_required": "[hitilafu ya zana] relative_path lazima iwe mfuatano usio tupu",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
+    "param.max_bytes.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)",
+    "param.relative_path.description": "Njia ya jamaa kutoka mzizi wa skill (mfano: references/REFERENCE.md)",
+    "param.skill_dir.description": "saraka ya skill",
+    "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
   "nb": {
     "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
@@ -263,17 +241,6 @@
     "tool.description": "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано.",
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
   },
-  "sw": {
-    "err.invalid_args": "[hitilafu ya zana] hoja batili",
-    "err.max_bytes_positive": "[hitilafu ya zana] max_bytes lazima iwe nambari kamili chanya",
-    "err.relative_path_required": "[hitilafu ya zana] relative_path lazima iwe mfuatano usio tupu",
-    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
-    "param.max_bytes.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)",
-    "param.relative_path.description": "Njia ya jamaa kutoka mzizi wa skill (mfano: references/REFERENCE.md)",
-    "param.skill_dir.description": "saraka ya skill",
-    "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
-  },
   "tr": {
     "err.invalid_args": "[araç hatası] geçersiz argümanlar",
     "err.max_bytes_positive": "[araç hatası] max_bytes pozitif bir tam sayı olmalıdır",
@@ -284,5 +251,38 @@
     "param.skill_dir.description": "beceri dizini",
     "tool.description": "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur. Yol aşımı engellenir.",
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
+  },
+  "th": {
+    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] อาร์กิวเมนต์ไม่ถูกต้อง",
+    "err.max_bytes_positive": "[ข้อผิดพลาดของเครื่องมือ] max_bytes ต้องเป็นจำนวนเต็มบวก",
+    "err.relative_path_required": "[ข้อผิดพลาดของเครื่องมือ] relative_path ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
+    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)",
+    "param.relative_path.description": "พาธสัมพัทธ์จากรากของสกิล (เช่น references/REFERENCE.md)",
+    "param.skill_dir.description": "ไดเรกทอรีสกิล",
+    "tool.description": "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+  },
+  "zh_CN": {
+    "err.invalid_args": "[工具错误] 无效参数",
+    "err.max_bytes_positive": "[工具错误] max_bytes 必须是正整数",
+    "err.relative_path_required": "[工具错误] relative_path 必须是非空字符串",
+    "err.skill_dir_required": "[工具错误] skill_dir 必须是非空字符串",
+    "param.max_bytes.description": "读取的最大字节数（默认值：5000000）",
+    "param.relative_path.description": "相对于技能根目录的路径（例如：references/REFERENCE.md）",
+    "param.skill_dir.description": "技能目录",
+    "tool.description": "使用相对路径安全读取技能目录下的文件。会阻止路径穿越。",
+    "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。"
+  },
+  "zh_TW": {
+    "err.invalid_args": "[工具錯誤] 無效參數",
+    "err.max_bytes_positive": "[工具錯誤] max_bytes 必須是正整數",
+    "err.relative_path_required": "[工具錯誤] relative_path 必須是非空字串",
+    "err.skill_dir_required": "[工具錯誤] skill_dir 必須是非空字串",
+    "param.max_bytes.description": "讀取的最大位元組數（預設值：5000000）",
+    "param.relative_path.description": "相對於技能根目錄的路徑（例如：references/REFERENCE.md）",
+    "param.skill_dir.description": "技能目錄",
+    "tool.description": "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越。",
+    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   }
 }

@@ -15,22 +15,6 @@
     "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
     "tool.system_prompt": "このツールはファイルのハッシュ（sha256/sha1/md5）を計算します。"
   },
-  "zh_CN": {
-    "param.algo.description": "哈希算法。",
-    "param.chunk_size.description": "读取块大小（字节）。",
-    "param.paths.description": "目标文件路径数组。",
-    "param.return.description": "输出格式。",
-    "tool.description": "计算文件的哈希值（sha256/sha1/md5）。",
-    "tool.system_prompt": "此工具用于计算文件的哈希值（sha256/sha1/md5）。"
-  },
-  "zh_TW": {
-    "param.algo.description": "雜湊演算法。",
-    "param.chunk_size.description": "讀取區塊大小（位元組）。",
-    "param.paths.description": "目標檔案路徑陣列。",
-    "param.return.description": "輸出格式。",
-    "tool.description": "計算檔案的雜湊值（sha256/sha1/md5）。",
-    "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
-  },
   "es": {
     "param.algo.description": "Algoritmo de hash.",
     "param.chunk_size.description": "Tamaño del bloque de lectura (bytes).",
@@ -54,14 +38,6 @@
     "param.return.description": "출력 형식입니다.",
     "tool.description": "파일의 해시(sha256/sha1/md5)를 계산합니다.",
     "tool.system_prompt": "이 도구는 파일의 해시(sha256/sha1/md5)를 계산합니다."
-  },
-  "th": {
-    "param.algo.description": "อัลกอริทึมแฮช",
-    "param.chunk_size.description": "ขนาดบล็อกที่อ่าน (ไบต์)",
-    "param.paths.description": "อาร์เรย์ของพาธไฟล์เป้าหมาย",
-    "param.return.description": "รูปแบบเอาต์พุต",
-    "tool.description": "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
-    "tool.system_prompt": "เครื่องมือนี้ใช้คำนวณแฮชของไฟล์ (sha256/sha1/md5)"
   },
   "de": {
     "param.algo.description": "Hash-Algorithmus.",
@@ -95,6 +71,14 @@
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
     "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   },
+  "pt": {
+    "param.algo.description": "Algoritmo de hash.",
+    "param.chunk_size.description": "Tamanho do bloco de leitura (bytes).",
+    "param.paths.description": "Matriz de caminhos de arquivo de destino.",
+    "param.return.description": "Formato de saída.",
+    "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
+    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
+  },
   "id": {
     "param.algo.description": "Algoritma pembuatan hash.",
     "param.chunk_size.description": "Ukuran potongan baca (bytes).",
@@ -119,14 +103,6 @@
     "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
     "tool.system_prompt": "To narzędzie oblicza skróty plików (sha256/sha1/md5)."
   },
-  "pt": {
-    "param.algo.description": "Algoritmo de hash.",
-    "param.chunk_size.description": "Tamanho do bloco de leitura (bytes).",
-    "param.paths.description": "Matriz de caminhos de arquivo de destino.",
-    "param.return.description": "Formato de saída.",
-    "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
-    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
-  },
   "hi": {
     "param.algo.description": "हैशिंग एल्गोरिदम.",
     "param.chunk_size.description": "पढ़ने के लिए खंड आकार (बाइट्स).",
@@ -150,6 +126,14 @@
     "param.return.description": "Utdataformat.",
     "tool.description": "Beräknar hash (sha256/sha1/md5) för filer.",
     "tool.system_prompt": "Det här verktyget beräknar filhashar (sha256/sha1/md5)."
+  },
+  "sw": {
+    "param.algo.description": "Algoriti ya hashing.",
+    "param.chunk_size.description": "Ukubwa wa chunk ya kusoma (bytes).",
+    "param.paths.description": "Safu ya njia za faili lengwa.",
+    "param.return.description": "Muundo wa matokeo.",
+    "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
+    "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
   },
   "nb": {
     "param.algo.description": "Hash-algoritme.",
@@ -191,14 +175,6 @@
     "tool.description": "Обчислює хеш файлів (sha256/sha1/md5).",
     "tool.system_prompt": "Цей інструмент обчислює хеші файлів (sha256/sha1/md5)."
   },
-  "sw": {
-    "param.algo.description": "Algoriti ya hashing.",
-    "param.chunk_size.description": "Ukubwa wa chunk ya kusoma (bytes).",
-    "param.paths.description": "Safu ya njia za faili lengwa.",
-    "param.return.description": "Muundo wa matokeo.",
-    "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
-    "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
-  },
   "tr": {
     "param.algo.description": "Karma algoritması.",
     "param.chunk_size.description": "Parça boyutunu (bayt) okuyun.",
@@ -206,5 +182,29 @@
     "param.return.description": "Çıkış formatı.",
     "tool.description": "Dosyaların karmasını (sha256/sha1/md5) hesaplar.",
     "tool.system_prompt": "Bu araç dosya karmalarını (sha256/sha1/md5) hesaplar."
+  },
+  "th": {
+    "param.algo.description": "อัลกอริทึมแฮช",
+    "param.chunk_size.description": "ขนาดบล็อกที่อ่าน (ไบต์)",
+    "param.paths.description": "อาร์เรย์ของพาธไฟล์เป้าหมาย",
+    "param.return.description": "รูปแบบเอาต์พุต",
+    "tool.description": "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
+    "tool.system_prompt": "เครื่องมือนี้ใช้คำนวณแฮชของไฟล์ (sha256/sha1/md5)"
+  },
+  "zh_CN": {
+    "param.algo.description": "哈希算法。",
+    "param.chunk_size.description": "读取块大小（字节）。",
+    "param.paths.description": "目标文件路径数组。",
+    "param.return.description": "输出格式。",
+    "tool.description": "计算文件的哈希值（sha256/sha1/md5）。",
+    "tool.system_prompt": "此工具用于计算文件的哈希值（sha256/sha1/md5）。"
+  },
+  "zh_TW": {
+    "param.algo.description": "雜湊演算法。",
+    "param.chunk_size.description": "讀取區塊大小（位元組）。",
+    "param.paths.description": "目標檔案路徑陣列。",
+    "param.return.description": "輸出格式。",
+    "tool.description": "計算檔案的雜湊值（sha256/sha1/md5）。",
+    "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
   }
 }

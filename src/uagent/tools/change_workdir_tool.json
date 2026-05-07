@@ -13,20 +13,6 @@
     "tool.description": "ユーザー確認の後、現在の作業ディレクトリを変更します。",
     "tool.system_prompt": "ユーザー確認の後、現在の作業ディレクトリを変更します。"
   },
-  "zh_CN": {
-    "confirm.change_workdir": "将当前工作目录更改为：{new_dir}\n\n继续吗？输入 y 继续，输入 c 取消。",
-    "param.confirm.description": "是否要求用户确认。",
-    "param.new_dir.description": "要切换到的新目录路径。",
-    "tool.description": "在用户确认后更改当前工作目录。",
-    "tool.system_prompt": "在用户确认后更改当前工作目录。"
-  },
-  "zh_TW": {
-    "confirm.change_workdir": "將目前工作目錄變更為：{new_dir}\n\n繼續嗎？輸入 y 繼續，輸入 c 取消。",
-    "param.confirm.description": "是否要請求使用者確認。",
-    "param.new_dir.description": "要切換到的新目錄路徑。",
-    "tool.description": "在使用者確認後變更目前工作目錄。",
-    "tool.system_prompt": "在使用者確認後變更目前工作目錄。"
-  },
   "es": {
     "confirm.change_workdir": "Cambiar el directorio de trabajo actual a: {new_dir}\n\n¿Continuar? Escriba y para continuar o c para cancelar.",
     "param.confirm.description": "Si se debe pedir confirmación al usuario.",
@@ -47,13 +33,6 @@
     "param.new_dir.description": "전환할 새 디렉터리 경로입니다.",
     "tool.description": "사용자 확인 후 현재 작업 디렉터리를 변경합니다.",
     "tool.system_prompt": "사용자 확인 후 현재 작업 디렉터리를 변경합니다."
-  },
-  "th": {
-    "confirm.change_workdir": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันเป็น: {new_dir}\n\nดำเนินการต่อหรือไม่? พิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
-    "param.confirm.description": "ว่าจะขอการยืนยันจากผู้ใช้หรือไม่",
-    "param.new_dir.description": "เส้นทางไดเรกทอรีใหม่ที่จะเปลี่ยนไป",
-    "tool.description": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน"
   },
   "de": {
     "confirm.change_workdir": "Ändern Sie das aktuelle Arbeitsverzeichnis zu: {new_dir}\n\nFortfahren? Geben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
@@ -83,6 +62,13 @@
     "tool.description": "Altera o diretório de trabalho atual após a confirmação do usuário.",
     "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
   },
+  "pt": {
+    "confirm.change_workdir": "Altere o diretório de trabalho atual para: {new_dir}\n\nContinuar? Digite y para continuar, c para cancelar.",
+    "param.confirm.description": "Se deve ser solicitada a confirmação do usuário.",
+    "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
+    "tool.description": "Altere o diretório de trabalho atual após a confirmação do usuário.",
+    "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
+  },
   "id": {
     "confirm.change_workdir": "Ubah direktori kerja saat ini menjadi: {new_dir}\n\nLanjut? Masukkan y untuk melanjutkan, c untuk membatalkan.",
     "param.confirm.description": "Apakah akan meminta konfirmasi pengguna.",
@@ -104,13 +90,6 @@
     "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
     "tool.system_prompt": "Użyj tego narzędzia, aby zmienić bieżący katalog roboczy po potwierdzeniu użytkownika."
   },
-  "pt": {
-    "confirm.change_workdir": "Altere o diretório de trabalho atual para: {new_dir}\n\nContinuar? Digite y para continuar, c para cancelar.",
-    "param.confirm.description": "Se deve ser solicitada a confirmação do usuário.",
-    "param.new_dir.description": "O novo caminho do diretório para o qual alternar.",
-    "tool.description": "Altere o diretório de trabalho atual após a confirmação do usuário.",
-    "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
-  },
   "hi": {
     "confirm.change_workdir": "वर्तमान कार्यशील निर्देशिका को इसमें बदलें: {new_dir}\n\nआगे बढ़ें? जारी रखने के लिए y दर्ज करें, रद्द करने के लिए c दर्ज करें।",
     "param.confirm.description": "उपयोगकर्ता से पुष्टि माँगनी है या नहीं।",
@@ -131,6 +110,13 @@
     "param.new_dir.description": "Den nya katalogsökvägen att byta till.",
     "tool.description": "Ändra den aktuella arbetskatalogen efter användarens bekräftelse.",
     "tool.system_prompt": "Använd det här verktyget för att ändra den aktuella arbetskatalogen efter användarens bekräftelse."
+  },
+  "sw": {
+    "confirm.change_workdir": "Badilisha saraka ya sasa ya kazi kuwa: {new_dir}\n\nUendelee? Andika y ili kuendelea, c kufuta.",
+    "param.confirm.description": "Iwapo utaomba uthibitisho wa mtumiaji.",
+    "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
+    "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
+    "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
   },
   "nb": {
     "confirm.change_workdir": "Endre den gjeldende arbeidskatalogen til: {new_dir}\n\nFortsette? Skriv y for å fortsette, c for å avbryte.",
@@ -167,18 +153,32 @@
     "tool.description": "Змінює поточний робочий каталог після підтвердження користувача.",
     "tool.system_prompt": "Використовуйте цей інструмент, щоб змінити поточний робочий каталог після підтвердження користувача."
   },
-  "sw": {
-    "confirm.change_workdir": "Badilisha saraka ya sasa ya kazi kuwa: {new_dir}\n\nUendelee? Andika y ili kuendelea, c kufuta.",
-    "param.confirm.description": "Iwapo utaomba uthibitisho wa mtumiaji.",
-    "param.new_dir.description": "Njia ya saraka mpya ya kuhamia.",
-    "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
-    "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
-  },
   "tr": {
     "confirm.change_workdir": "Geçerli çalışma dizinini şu şekilde değiştirin: {new_dir}\n\nDevam etmek mi? Devam etmek için y, iptal etmek için c girin.",
     "param.confirm.description": "Kullanıcı onayı istenip istenmeyeceği.",
     "param.new_dir.description": "Geçiş yapılacak yeni dizin yolu.",
     "tool.description": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirin.",
     "tool.system_prompt": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirmek için bu aracı kullanın."
+  },
+  "th": {
+    "confirm.change_workdir": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันเป็น: {new_dir}\n\nดำเนินการต่อหรือไม่? พิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "param.confirm.description": "ว่าจะขอการยืนยันจากผู้ใช้หรือไม่",
+    "param.new_dir.description": "เส้นทางไดเรกทอรีใหม่ที่จะเปลี่ยนไป",
+    "tool.description": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน"
+  },
+  "zh_CN": {
+    "confirm.change_workdir": "将当前工作目录更改为：{new_dir}\n\n继续吗？输入 y 继续，输入 c 取消。",
+    "param.confirm.description": "是否要求用户确认。",
+    "param.new_dir.description": "要切换到的新目录路径。",
+    "tool.description": "在用户确认后更改当前工作目录。",
+    "tool.system_prompt": "在用户确认后更改当前工作目录。"
+  },
+  "zh_TW": {
+    "confirm.change_workdir": "將目前工作目錄變更為：{new_dir}\n\n繼續嗎？輸入 y 繼續，輸入 c 取消。",
+    "param.confirm.description": "是否要請求使用者確認。",
+    "param.new_dir.description": "要切換到的新目錄路徑。",
+    "tool.description": "在使用者確認後變更目前工作目錄。",
+    "tool.system_prompt": "在使用者確認後變更目前工作目錄。"
   }
 }

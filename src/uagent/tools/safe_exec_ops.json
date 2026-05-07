@@ -23,30 +23,6 @@
     "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
     "ui.confirm.title": "=== 確認 ==="
   },
-  "zh_CN": {
-    "confirm.risky_command": "检测到潜在危险的命令内容。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
-    "confirm.shell_metachar": "检测到 shell 操作符（管道/重定向/链接）。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
-    "err.blocked_cancelled": "用户取消",
-    "err.blocked_rejected": "用户被拒绝",
-    "err.callbacks_unavailable": "human_ask 回调不可用",
-    "err.confirm_failed": "确认失败",
-    "err.confirm_timeout": "确认超时",
-    "ui.confirm.footer": "===/确认===",
-    "ui.confirm.howto": "如何回复：y=继续 / c=取消 / other=拒绝\n",
-    "ui.confirm.title": "===人工确认请求==="
-  },
-  "zh_TW": {
-    "confirm.risky_command": "偵測到潛在危險的命令內容。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
-    "confirm.shell_metachar": "偵測到 shell 操作符（管道/重定向/連結）。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
-    "err.blocked_cancelled": "用戶取消",
-    "err.blocked_rejected": "用戶被拒絕",
-    "err.callbacks_unavailable": "human_ask 回呼不可用",
-    "err.confirm_failed": "確認失敗",
-    "err.confirm_timeout": "確認超時",
-    "ui.confirm.footer": "===/確認===",
-    "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
-    "ui.confirm.title": "===人工確認請求==="
-  },
   "es": {
     "confirm.risky_command": "Se detectó contenido de comando potencialmente peligroso.\ncomando: {command}\nEscriba y para continuar o c para cancelar.",
     "confirm.shell_metachar": "Se detectaron operadores de Shell (tubería/redireccionamiento/encadenamiento).\ncomando: {command}\nEscriba y para continuar o c para cancelar.",
@@ -82,18 +58,6 @@
     "ui.confirm.footer": "=== /확인 ===",
     "ui.confirm.howto": "응답 방법: y=진행 / c=취소 / 기타=거부",
     "ui.confirm.title": "=== 사람의 확인 요청 ==="
-  },
-  "th": {
-    "confirm.risky_command": "ตรวจพบเนื้อหาคำสั่งที่อาจเป็นอันตราย\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
-    "confirm.shell_metachar": "ตรวจพบตัวดำเนินการเชลล์ (ไปป์/เปลี่ยนเส้นทาง/ผูกมัด)\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
-    "err.blocked_cancelled": "ผู้ใช้ยกเลิก",
-    "err.blocked_rejected": "ผู้ใช้ถูกปฏิเสธ",
-    "err.callbacks_unavailable": "การโทรกลับ human_ask ไม่พร้อมใช้งาน",
-    "err.confirm_failed": "การยืนยันล้มเหลว",
-    "err.confirm_timeout": "หมดเวลาการยืนยัน",
-    "ui.confirm.footer": "=== /ยืนยัน ===",
-    "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
   },
   "de": {
     "confirm.risky_command": "Möglicherweise gefährlicher Befehlsinhalt wurde erkannt.\nBefehl: {command}\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
@@ -143,6 +107,18 @@
     "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
     "ui.confirm.title": "=== Solicitação de confirmação humana ==="
   },
+  "pt": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
   "id": {
     "confirm.risky_command": "Konten perintah yang berpotensi berbahaya terdeteksi.\ncommand: {command}\nKetik y untuk melanjutkan, atau c untuk membatalkan.",
     "confirm.shell_metachar": "Operator shell (pipe/redirection/chaining) terdeteksi.\ncommand: {command}\nKetik y untuk melanjutkan, atau c untuk membatalkan.",
@@ -179,6 +155,18 @@
     "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
     "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
   },
+  "hi": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
   "ar": {
     "confirm.risky_command": "تم اكتشاف محتوى أمر يحتمل أن يكون خطيرًا.\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
     "confirm.shell_metachar": "تم اكتشاف مشغلي الصدفة (الأنابيب/إعادة التوجيه/التسلسل).\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
@@ -190,6 +178,42 @@
     "ui.confirm.footer": "=== / تأكيد ===",
     "ui.confirm.howto": "كيفية الرد: ص = متابعة / ج = إلغاء / أخرى = رفض",
     "ui.confirm.title": "=== طلب التأكيد البشري ==="
+  },
+  "sv": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "sw": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "nb": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
   },
   "nl": {
     "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
@@ -215,6 +239,30 @@
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ==="
   },
+  "cs": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "uk": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
   "tr": {
     "confirm.risky_command": "Potansiyel olarak tehlikeli komut içeriği algılandı.\nkomut: {command}\nDevam etmek için y, iptal etmek için c yazın.",
     "confirm.shell_metachar": "Kabuk operatörleri (boru/yönlendirme/zincirleme) tespit edildi.\nkomut: {command}\nDevam etmek için y, iptal etmek için c yazın.",
@@ -226,5 +274,41 @@
     "ui.confirm.footer": "=== /onayla ===",
     "ui.confirm.howto": "Nasıl cevap verilir: y=devam et / c=iptal / diğer=reddet",
     "ui.confirm.title": "=== İnsandan onay talebi ==="
+  },
+  "th": {
+    "confirm.risky_command": "ตรวจพบเนื้อหาคำสั่งที่อาจเป็นอันตราย\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "confirm.shell_metachar": "ตรวจพบตัวดำเนินการเชลล์ (ไปป์/เปลี่ยนเส้นทาง/ผูกมัด)\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
+    "err.blocked_cancelled": "ผู้ใช้ยกเลิก",
+    "err.blocked_rejected": "ผู้ใช้ถูกปฏิเสธ",
+    "err.callbacks_unavailable": "การโทรกลับ human_ask ไม่พร้อมใช้งาน",
+    "err.confirm_failed": "การยืนยันล้มเหลว",
+    "err.confirm_timeout": "หมดเวลาการยืนยัน",
+    "ui.confirm.footer": "=== /ยืนยัน ===",
+    "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
+  },
+  "zh_CN": {
+    "confirm.risky_command": "检测到潜在危险的命令内容。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
+    "confirm.shell_metachar": "检测到 shell 操作符（管道/重定向/链接）。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
+    "err.blocked_cancelled": "用户取消",
+    "err.blocked_rejected": "用户被拒绝",
+    "err.callbacks_unavailable": "human_ask 回调不可用",
+    "err.confirm_failed": "确认失败",
+    "err.confirm_timeout": "确认超时",
+    "ui.confirm.footer": "===/确认===",
+    "ui.confirm.howto": "如何回复：y=继续 / c=取消 / other=拒绝\n",
+    "ui.confirm.title": "===人工确认请求==="
+  },
+  "zh_TW": {
+    "confirm.risky_command": "偵測到潛在危險的命令內容。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
+    "confirm.shell_metachar": "偵測到 shell 操作符（管道/重定向/連結）。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
+    "err.blocked_cancelled": "用戶取消",
+    "err.blocked_rejected": "用戶被拒絕",
+    "err.callbacks_unavailable": "human_ask 回呼不可用",
+    "err.confirm_failed": "確認失敗",
+    "err.confirm_timeout": "確認超時",
+    "ui.confirm.footer": "===/確認===",
+    "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
+    "ui.confirm.title": "===人工確認請求==="
   }
 }

@@ -49,36 +49,6 @@
     "err.missing_task_id": "'task_id'가 지정되지 않았습니다.",
     "err.exception": "예외"
   },
-  "th": {
-    "tool.description": "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย.",
-    "tool.system_prompt": "โพลงาน A2A ส่งคืน JSON เท่านั้น.",
-    "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
-    "param.task_id.description": "รหัสงานที่จะโพล.",
-    "param.interval_ms.description": "แทนที่ช่วงเวลาโพล (มิลลิวินาที).",
-    "param.timeout_s.description": "แทนที่เวลาหมดเวลา (วินาที).",
-    "err.missing_task_id": "ขาด 'task_id'.",
-    "err.exception": "ข้อยกเว้น"
-  },
-  "zh_CN": {
-    "tool.description": "轮询 A2A 任务直到进入终态。",
-    "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。",
-    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
-    "param.task_id.description": "要轮询的任务 ID。",
-    "param.interval_ms.description": "覆盖轮询间隔（毫秒）。",
-    "param.timeout_s.description": "覆盖超时（秒）。",
-    "err.missing_task_id": "缺少 'task_id'。",
-    "err.exception": "异常"
-  },
-  "zh_TW": {
-    "tool.description": "輪詢 A2A 任務直到進入終態。",
-    "tool.system_prompt": "輪詢 A2A 任務。僅回傳 JSON。",
-    "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
-    "param.task_id.description": "要輪詢的任務 ID。",
-    "param.interval_ms.description": "覆寫輪詢間隔（毫秒）。",
-    "param.timeout_s.description": "覆寫逾時（秒）。",
-    "err.missing_task_id": "缺少 'task_id'。",
-    "err.exception": "例外"
-  },
   "de": {
     "tool.description": "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht.",
     "tool.system_prompt": "Fragen Sie eine A2A-Aufgabe ab. Nur JSON zurückgeben.",
@@ -119,6 +89,16 @@
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
   },
+  "pt": {
+    "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal.",
+    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON.",
+    "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
+    "param.task_id.description": "ID da tarefa a ser consultada.",
+    "param.interval_ms.description": "Substituir o intervalo de polling (ms).",
+    "param.timeout_s.description": "Substituir o tempo limite (segundos).",
+    "err.missing_task_id": "Falta 'task_id'.",
+    "err.exception": "Exceção"
+  },
   "id": {
     "tool.description": "Melakukan polling pada tugas A2A sampai mencapai status terminal.",
     "tool.system_prompt": "Lakukan polling pada tugas A2A. Kembalikan JSON saja.",
@@ -148,16 +128,6 @@
     "param.timeout_s.description": "Zastąp limit czasu (sekundy).",
     "err.missing_task_id": "Brakuje 'task_id'.",
     "err.exception": "Wyjątek"
-  },
-  "pt": {
-    "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal.",
-    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON.",
-    "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
-    "param.task_id.description": "ID da tarefa a ser consultada.",
-    "param.interval_ms.description": "Substituir o intervalo de polling (ms).",
-    "param.timeout_s.description": "Substituir o tempo limite (segundos).",
-    "err.missing_task_id": "Falta 'task_id'.",
-    "err.exception": "Exceção"
   },
   "hi": {
     "tool.description": "किसी A2A कार्य को तब तक नियमित रूप से पोल करें जब तक वह अंतिम स्थिति तक न पहुंच जाए।",
@@ -258,5 +228,35 @@
     "param.timeout_s.description": "Zaman aşımını geçersiz kıl (saniye).",
     "err.missing_task_id": "'Görev_id'si eksik.",
     "err.exception": "İstisna"
+  },
+  "th": {
+    "tool.description": "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย.",
+    "tool.system_prompt": "โพลงาน A2A ส่งคืน JSON เท่านั้น.",
+    "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
+    "param.task_id.description": "รหัสงานที่จะโพล.",
+    "param.interval_ms.description": "แทนที่ช่วงเวลาโพล (มิลลิวินาที).",
+    "param.timeout_s.description": "แทนที่เวลาหมดเวลา (วินาที).",
+    "err.missing_task_id": "ขาด 'task_id'.",
+    "err.exception": "ข้อยกเว้น"
+  },
+  "zh_CN": {
+    "tool.description": "轮询 A2A 任务直到进入终态。",
+    "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。",
+    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
+    "param.task_id.description": "要轮询的任务 ID。",
+    "param.interval_ms.description": "覆盖轮询间隔（毫秒）。",
+    "param.timeout_s.description": "覆盖超时（秒）。",
+    "err.missing_task_id": "缺少 'task_id'。",
+    "err.exception": "异常"
+  },
+  "zh_TW": {
+    "tool.description": "輪詢 A2A 任務直到進入終態。",
+    "tool.system_prompt": "輪詢 A2A 任務。僅回傳 JSON。",
+    "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
+    "param.task_id.description": "要輪詢的任務 ID。",
+    "param.interval_ms.description": "覆寫輪詢間隔（毫秒）。",
+    "param.timeout_s.description": "覆寫逾時（秒）。",
+    "err.missing_task_id": "缺少 'task_id'。",
+    "err.exception": "例外"
   }
 }
