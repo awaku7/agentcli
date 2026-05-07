@@ -388,20 +388,15 @@ def _call_openai_azure_round(
                         _effort_used = _choose_auto_effort(_auto_user_text)
 
                 if _effort_used in ("minimal", "low", "medium", "high", "xhigh"):
-                    # Some OpenAI/Azure models do not accept effort="minimal" (or "xhigh").
-                    # Map to a widely-supported set.
-                    _effort_send = _effort_used
-                    if _effort_send == "minimal":
-                        _effort_send = "low"
-                    elif _effort_send == "xhigh":
-                        _effort_send = "high"
-
-                    resp_kwargs["reasoning"] = {"effort": _effort_send}
+                    # Send the requested effort as-is. If the backend rejects
+                    # minimal/xhigh for a specific model, retry once with a
+                    # fallback value below.
+                    resp_kwargs["reasoning"] = {"effort": _effort_used}
                     try:
                         if _reasoning == "auto":
-                            core.set_status(True, f"LLM:auto->{_effort_send}")
+                            core.set_status(True, f"LLM:auto->{_effort_used}")
                         else:
-                            core.set_status(True, f"LLM:{_effort_send}")
+                            core.set_status(True, f"LLM:{_effort_used}")
                     except Exception:
                         pass
 
@@ -459,46 +454,56 @@ def _call_openai_azure_round(
                     ):
                         print("")
                 else:
+                    def _create_responses_with_effort_fallback() -> Any:
+                        try:
+                            return client.responses.create(**resp_kwargs)
+                        except Exception as e:
+                            err_text = str(e).lower()
+                            effort = None
+                            if isinstance(resp_kwargs.get("reasoning"), dict):
+                                effort = resp_kwargs["reasoning"].get("effort")
+
+                            # Only fall back for effort-related rejections.
+                            if effort == "minimal" and (
+                                "reasoning.effort" in err_text
+                                or "invalid value" in err_text
+                                or "unsupported" in err_text
+                            ):
+                                resp_kwargs["reasoning"] = {"effort": "low"}
+                                return client.responses.create(**resp_kwargs)
+                            if effort == "xhigh" and (
+                                "reasoning.effort" in err_text
+                                or "invalid value" in err_text
+                                or "unsupported" in err_text
+                            ):
+                                resp_kwargs["reasoning"] = {"effort": "high"}
+                                return client.responses.create(**resp_kwargs)
+                            raise
+
                     assistant_text, tool_calls_list = call_maybe_thread_fn(
                         lambda: parse_responses_response(
-                            client.responses.create(**resp_kwargs)
+                            _create_responses_with_effort_fallback()
                         )
                     )
 
                     # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
                     if (
                         _reasoning == "auto"
-                        and _effort_used
-                        in ("minimal", "low", "medium", "high", "xhigh")
+                        and _effort_used in ("minimal", "low", "medium", "high", "xhigh")
                         and not tool_calls_list
                         and _auto_low_quality(_auto_user_text, assistant_text)
                     ):
                         _next_effort = _bump_effort(_effort_used)
-                        if _next_effort in (
-                            "minimal",
-                            "low",
-                            "medium",
-                            "high",
-                            "xhigh",
-                        ):
-                            # Some OpenAI/Azure models do not accept effort="minimal" (or "xhigh").
-                            # Map to a widely-supported set.
-                            _effort_send2 = _next_effort
-                            if _effort_send2 == "minimal":
-                                _effort_send2 = "low"
-                            elif _effort_send2 == "xhigh":
-                                _effort_send2 = "high"
-
-                            resp_kwargs["reasoning"] = {"effort": _effort_send2}
+                        if _next_effort in ("minimal", "low", "medium", "high", "xhigh"):
                             try:
                                 core.set_status(True, f"LLM:auto->{_next_effort}")
                             except Exception:
                                 pass
-                            assistant_text, tool_calls_list = call_maybe_thread_fn(
-                                lambda: parse_responses_response(
-                                    client.responses.create(**resp_kwargs)
-                                )
+                            resp_kwargs["reasoning"] = {"effort": _next_effort}
+                            resp = call_maybe_thread_fn(
+                                lambda: client.responses.create(**resp_kwargs)
                             )
+                            assistant_text, tool_calls_list = parse_responses_response(resp)
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
