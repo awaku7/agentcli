@@ -1719,3 +1719,35 @@ msgstr "- \"최신 뉴스를 검색하여 특정 주제를 요약하세요.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "알 수 없는 UAGENT_A2A_ENGINE: %(mode)s"
+#: src/uagent/runtime_env.py:95
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+
+#: src/uagent/runtime_env.py:102
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+
+#: src/uagent/runtime_env.py:128
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+
+#: src/uagent/runtime_env.py:135
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+
+
+#: src/uagent/runtime_env.py:95
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+
+#: src/uagent/runtime_env.py:102
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+
+#: src/uagent/runtime_env.py:128
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+
+#: src/uagent/runtime_env.py:135
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
