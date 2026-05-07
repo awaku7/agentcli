@@ -137,12 +137,12 @@ def decide_cmd_exec(
                         "Reply with y to proceed, or c to cancel."
                     ),
                 ).format(command=command)
-            return ExecDecision(
-                True,
-                f"shell metachar (confirm): {token_pat}",
-                require_confirm=True,
-                confirm_message=msg,
-            )
+                return ExecDecision(
+                    True,
+                    f"shell metachar (confirm): {token_pat}",
+                    require_confirm=True,
+                    confirm_message=msg,
+                )
 
     return ExecDecision(True, _("msg.allowed", default="allowed"))
 
@@ -243,7 +243,6 @@ def confirm_if_needed(decision: ExecDecision) -> Optional[str]:
     if err == _(
         "err.callbacks_unavailable", default="human_ask callbacks not available"
     ):
-
         try:
             resp = input(
                 decision.confirm_message + _("ui.fallback_prompt", default=" [y/c/N]: ")
