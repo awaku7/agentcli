@@ -38,6 +38,7 @@ def _json_err(message: str, **extra: Any) -> str:
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "tool_level": -1,
     "type": "function",
     "function": {
         "name": "find_large_files",
