@@ -545,6 +545,24 @@ msgstr "[VAROVÁNÍ] {message}"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[VAROVÁNÍ] Nepodařilo se dešifrovat soubor .env.sec: %(err)s"
 
+#: src/uagent/runtime_env.py:172
+#, python-format
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] Obsah .env.sec neodpovídá aktuálním proměnným prostředí UAGENT_*. Aktualizovat? [y/N] "
+
+#: src/uagent/runtime_env.py:180
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] Obsah .env.sec neodpovídá aktuálním proměnným prostředí UAGENT_*. Použijte `uag_envsec` k jeho aktualizaci."
+
+#: src/uagent/runtime_env.py:192
+#, python-format
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] Soubor .env.sec chybí. Vytvořit ho z aktuálních proměnných prostředí UAGENT_*? [y/N] "
+
+#: src/uagent/runtime_env.py:200
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] Soubor .env.sec chybí. Použijte `uag_envsec` k jeho vytvoření z aktuálních proměnných prostředí UAGENT_*."
+
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"

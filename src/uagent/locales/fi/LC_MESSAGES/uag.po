@@ -546,6 +546,24 @@ msgstr "[VAROITUS] {message}"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[VAROITUS] .env.sec:n salauksen purku epäonnistui: %(err)s"
 
+#: src/uagent/runtime_env.py:172
+#, python-format
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec:n sisältö ei vastaa nykyisiä UAGENT_* -ympäristömuuttujia. Päivitetäänkö se? [y/N] "
+
+#: src/uagent/runtime_env.py:180
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec:n sisältö ei vastaa nykyisiä UAGENT_* -ympäristömuuttujia. Päivitä se komennolla `uag_envsec`."
+
+#: src/uagent/runtime_env.py:192
+#, python-format
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] .env.sec puuttuu. Luodaanko se nykyisistä UAGENT_* -ympäristömuuttujista? [y/N] "
+
+#: src/uagent/runtime_env.py:200
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] .env.sec puuttuu. Käytä komentoa `uag_envsec` luodaksesi sen nykyisistä UAGENT_* -ympäristömuuttujista."
+
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"

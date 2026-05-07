@@ -543,6 +543,24 @@ msgstr "[คำเตือน] {message}"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] ถอดรหัส .env.sec ไม่สำเร็จ: %(err)s"
 
+#: src/uagent/runtime_env.py:172
+#, python-format
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+
+#: src/uagent/runtime_env.py:180
+msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+
+#: src/uagent/runtime_env.py:192
+#, python-format
+msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+
+#: src/uagent/runtime_env.py:200
+msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
