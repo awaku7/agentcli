@@ -224,11 +224,11 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     preferred = _detect_text_encoding(data[:8192])
     for enc in _ordered_encodings(preferred):
         try:
-            return data.decode(enc, errors="strict"), enc
+            text = data.decode(enc, errors="strict")
+            return text.replace("\r\n", "\n").replace("\r", "\n"), enc
         except UnicodeDecodeError:
             continue
-    return data.decode("utf-8", errors="ignore"), "utf-8"
-
+    return data.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n"), "utf-8"
 
 def _read_text_auto(full_path: str) -> tuple[str, str]:
     with open(full_path, "rb") as f:

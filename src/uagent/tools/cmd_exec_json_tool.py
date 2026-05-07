@@ -38,7 +38,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.command.description",
-                        default="Command string passed to cmd.exe /c (Windows) or sh -lc (Unix-like).",
+                        default="Command string passed to the OS shell. On Windows, cmd.exe /d /c is used.",
                     ),
                 },
                 "cwd": {
@@ -87,7 +87,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not command:
         raise ValueError("command is required")
 
-    decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=False)
+    decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=True)
     if not decision.allowed:
         return json.dumps({"ok": False, "error": decision.reason}, ensure_ascii=False)
 
