@@ -13,6 +13,7 @@ logs/
 *.org
 *.org*
 .env
+.env.sec
 src/scheck/README.md
 *~
 
