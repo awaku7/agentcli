@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import io
+import os
 import sys
 from pathlib import Path
 
@@ -9,11 +12,26 @@ from .runtime_env import validate_or_exit_startup_env
 from .runtime_memory import append_long_memory_system_messages
 from .runtime_workdir import WorkdirDecision, apply_workdir, decide_workdir
 
+_STARTUP_UAGENT_ENV_SNAPSHOT: dict[str, str] | None = None
+
+
+def get_startup_uagent_env_snapshot() -> dict[str, str] | None:
+    if _STARTUP_UAGENT_ENV_SNAPSHOT is None:
+        return None
+    return dict(_STARTUP_UAGENT_ENV_SNAPSHOT)
+
 
 def load_dotenv_custom():
     """Load .env and .env.sec from CWD."""
     try:
         from dotenv import load_dotenv
+
+        global _STARTUP_UAGENT_ENV_SNAPSHOT
+        _STARTUP_UAGENT_ENV_SNAPSHOT = {
+            key: value
+            for key, value in os.environ.items()
+            if key.startswith("UAGENT_")
+        }
 
         cwd = Path.cwd()
 
@@ -59,4 +77,5 @@ __all__ = [
     "build_startup_banner",
     "validate_or_exit_startup_env",
     "append_long_memory_system_messages",
+    "get_startup_uagent_env_snapshot",
 ]

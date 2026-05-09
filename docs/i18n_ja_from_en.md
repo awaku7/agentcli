@@ -6,7 +6,7 @@
 
 ## 目的
 
-- `uag.pot` から抽出された最新のメッセージセットを基準にする
+- `uagent.pot` から抽出された最新のメッセージセットを基準にする
 - `en.po` を完全一致の参照版として整える
 - 既存の対象言語 `uag.po` は退避してから、必要な訳を戻す
 - 足りない分は新規に翻訳する
@@ -23,21 +23,21 @@
 
 - `src/uagent/tools` を対象外にする
 - `tests` を対象外にする
-- 共通メッセージだけを `uag.pot` に含める
+- 共通メッセージだけを `uagent.pot` に含める
 
 これにより、ロケールファイルに不要な内部メッセージが混ざるのを防ぎます。
 
-### 2. `uag.pot` を再生成する
+### 2. `uagent.pot` を再生成する
 
 `babel.cfg` を反映した状態で、テンプレートを再生成します。
 
 ```bash
-python -m babel.messages.frontend extract -F ./babel.cfg -o src/uagent/locales/uag.pot .
+python -m babel.messages.frontend extract -F ./babel.cfg -o src/uagent/locales/uagent.pot .
 ```
 
 ### 3. `en.po` を作り直す
 
-`uag.pot` を元に、`en.po` を全件 `msgid == msgstr` の参照版として作り直します。
+`uagent.pot` を元に、`en.po` を全件 `msgid == msgstr` の参照版として作り直します。
 
 - `msgid` の一覧を最新化する
 - `fuzzy` を除去する
@@ -58,11 +58,11 @@ src/uagent/locales/<lang>/LC_MESSAGES/uag.po
 これで元の訳を参照できるようにします。
 退避した `.org` / `.org1` は翻訳の参考として使い、新しい `uag.po` を作るときに照合します。
 
-### 5. 新しい `uag.po` を `uag.pot` から作る
+### 5. 新しい `uag.po` を `uagent.pot` から作る
 
 退避済みの `uag.po.org1` を参照しながら、新しい `uag.po` を作成します。
 
-- `uag.pot` にある最新の件数を新しい対象にする
+- `uagent.pot` にある最新の件数を新しい対象にする
 - 旧 `uag.po.org1` と一致するものは復元する
 - 旧訳がないものは新規に翻訳する
 - pot に存在しない古い msgid は残さない
@@ -122,7 +122,7 @@ python scripts/compile_locales.py
 
 最終確認では、以下をチェックします。
 
-- `entries` が `uag.pot` と一致していること
+- `entries` が `uagent.pot` と一致していること
 - `fuzzy = 0`
 - `plural = 0`
 - `msgid != msgstr` がないこと
@@ -136,7 +136,7 @@ python scripts/compile_locales.py
 
 今回の再構築では、次の状態になりました。
 
-- `en.po` は `uag.pot` と完全一致
+- `en.po` は `uagent.pot` と完全一致
 - `target.po` は旧訳を復元しつつ、不足分を新規翻訳
 - `fuzzy` / `plural` / 不整合を解消
 - その後、自然さを見て追加修正
@@ -164,7 +164,7 @@ python scripts/compile_locales.py
 流れは次の通りです。
 
 1. `babel.cfg` を整理する
-2. `uag.pot` を再生成する
+2. `uagent.pot` を再生成する
 3. `en.po` を参照版として整える
 4. 対象言語の `uag.po` を退避する
 5. 退避版を参照して `uag.po` を作り直す
