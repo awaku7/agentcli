@@ -548,21 +548,37 @@ msgstr "[WARN] Не вдалося розшифрувати .env.sec: %(err)s"
 
 #: src/uagent/runtime_env.py:172
 #, python-format
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
+"UAGENT_*. Оновити його? [y/N] "
 
 #: src/uagent/runtime_env.py:180
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
+"UAGENT_*. Використайте `uag_envsec`, щоб оновити його."
 
 #: src/uagent/runtime_env.py:192
 #, python-format
-msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec відсутній. Створити його з поточних змінних середовища "
+"запуску UAGENT_*? [y/N] "
 
 #: src/uagent/runtime_env.py:200
-msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec відсутній. Використайте `uag_envsec`, щоб створити його з "
+"поточних змінних середовища запуску UAGENT_*."
 
 #: src/uagent/runtime_workdir.py:42
 #, python-format
@@ -1808,3 +1824,23 @@ msgstr "- «Пошук останніх новин і підсумовуванн
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Невідомий UAGENT_A2A_ENGINE: %(mode)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:190
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Оновлено .env.sec: %(path)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:194
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] Не вдалося оновити .env.sec: %(err)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:232
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Створено .env.sec: %(path)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:236
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] Не вдалося створити .env.sec: %(err)s"

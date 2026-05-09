@@ -545,26 +545,42 @@ msgstr "[WARN] 解密 .env.sec thất bại: %(err)s"
 
 #: src/uagent/runtime_env.py:172
 #, python-format
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
+"khởi động hiện tại. Cập nhật không? [y/N] "
 
 #: src/uagent/runtime_env.py:180
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
+"khởi động hiện tại. Dùng `uag_envsec` để cập nhật."
 
 #: src/uagent/runtime_env.py:192
 #, python-format
-msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec bị thiếu. Tạo từ các biến môi trường UAGENT_* khi khởi động "
+"hiện tại? [y/N] "
 
 #: src/uagent/runtime_env.py:200
-msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec bị thiếu. Dùng `uag_envsec` để tạo từ các biến môi trường "
+"UAGENT_* khi khởi động hiện tại."
 
 #: src/uagent/runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
-msgstr "指定的thư mục làm việcđường dẫn是tệp: %(path)s"
+msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
 
 #: src/uagent/scheckgui.py:130
 msgid "ここにファイル/画像をドラッグ＆ドロップ"
@@ -1765,3 +1781,15 @@ msgstr "- \"搜索最新新闻并总结一个特定主题.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "未知的 UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid "Updated .env.sec: %(path)s"
+msgstr "Đã cập nhật .env.sec: %(path)s"
+
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[CẢNH BÁO] Không thể cập nhật .env.sec: %(err)s"
+
+msgid "Created .env.sec: %(path)s"
+msgstr "Đã tạo .env.sec: %(path)s"
+
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[CẢNH BÁO] Không thể tạo .env.sec: %(err)s"

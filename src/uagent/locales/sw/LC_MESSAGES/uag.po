@@ -548,21 +548,37 @@ msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
 
 #: src/uagent/runtime_env.py:172
 #, python-format
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
+" UAGENT_* wakati wa kuanzisha. Kuyasasisha? [y/N] "
 
 #: src/uagent/runtime_env.py:180
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
+" UAGENT_* wakati wa kuanzisha. Tumia `uag_envsec` kuyasasisha."
 
 #: src/uagent/runtime_env.py:192
 #, python-format
-msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] Faili .env.sec haipo. Je, uitengeneze kutoka kwa vigezo vya sasa vya "
+"mazingira vya UAGENT_* wakati wa kuanzisha? [y/N] "
 
 #: src/uagent/runtime_env.py:200
-msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] Faili .env.sec haipo. Tumia `uag_envsec` kuitengeneza kutoka kwa "
+"vigezo vya sasa vya mazingira vya UAGENT_* wakati wa kuanzisha."
 
 #: src/uagent/runtime_workdir.py:42
 #, python-format
@@ -1801,3 +1817,23 @@ msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Injini isiyojulikana ya UAGENT_A2A_ENGINE: %(mode)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:190
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Imesasishwa .env.sec: %(path)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:194
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kusasisha .env.sec: %(err)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:232
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Imeundwa .env.sec: %(path)s"
+
+#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:236
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kuunda .env.sec: %(err)s"

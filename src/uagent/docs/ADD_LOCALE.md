@@ -6,13 +6,13 @@ This project uses **gettext** catalogs with domain **`uag`** for user-facing str
 - Per-locale files:
   - PO (Source): `src/uagent/locales/<lang>/LC_MESSAGES/uag.po`
   - MO (Binary): `src/uagent/locales/<lang>/LC_MESSAGES/uag.mo`
-- Template (POT): `src/uagent/locales/uag.pot`
+- Template (POT): `src/uagent/locales/uagent.pot`
 
 ---
 
 ## 1. Extracting Strings from Source (Updating POT)
 
-When you add new messages to the code or change existing ones, you must update the `uag.pot` template.
+When you add new messages to the code or change existing ones, you must update the `uagent.pot` template.
 
 ### The Command
 From the repository root, run `xgettext` with the following arguments to correctly handle Python multiline strings and keywords:
@@ -23,7 +23,7 @@ From the repository root, run `xgettext` with the following arguments to correct
 $srcFiles = Get-ChildItem -Path src/uagent/*.py, src/uagent/a2a/*.py | Select-Object -ExpandProperty FullName
 
 # Extract
-xgettext --package-name=uag --language=Python --keyword=_ --keyword=tr --keyword=ngettext:1,2 --from-code=UTF-8 --output=src/uagent/locales/uag.pot $srcFiles
+xgettext --package-name=uag --language=Python --keyword=_ --keyword=tr --keyword=ngettext:1,2 --from-code=UTF-8 --output=src/uagent/locales/uagent.pot $srcFiles
 ```
 
 **Key Arguments:**
@@ -36,14 +36,14 @@ xgettext --package-name=uag --language=Python --keyword=_ --keyword=tr --keyword
 
 ## 2. Updating Existing Locales (Code Change Flow)
 
-After updating `uag.pot`, you must merge the changes into all existing `.po` files.
+After updating `uagent.pot`, you must merge the changes into all existing `.po` files.
 
 ### Merge and Clean up
 For each language (e.g., `ja`, `de`):
 
 ```bash
 # 1. Merge new strings and mark changed ones as fuzzy
-msgmerge --update --backup=none src/uagent/locales/ja/LC_MESSAGES/uag.po src/uagent/locales/uag.pot
+msgmerge --update --backup=none src/uagent/locales/ja/LC_MESSAGES/uag.po src/uagent/locales/uagent.pot
 
 # 2. Remove obsolete messages that are no longer in the source
 msgattrib --no-obsolete --output=src/uagent/locales/ja/LC_MESSAGES/uag.po src/uagent/locales/ja/LC_MESSAGES/uag.po

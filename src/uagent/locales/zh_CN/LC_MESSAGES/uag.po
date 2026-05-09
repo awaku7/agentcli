@@ -1,16 +1,6 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-07 14:40+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
 
 #: src/uagent/checks.py:15 src/uagent/checks.py:25
 #, python-format
@@ -1706,35 +1696,39 @@ msgstr "- \"搜索最新新闻并总结一个特定主题。\""
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
-#: src/uagent/runtime_env.py:95
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-
-#: src/uagent/runtime_env.py:102
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-
-#: src/uagent/runtime_env.py:128
-msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-
-#: src/uagent/runtime_env.py:135
-msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-
 
 #: src/uagent/runtime_env.py:95
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Update it? [y/N] "
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。是否更新？[y/N] "
 
 #: src/uagent/runtime_env.py:102
-msgid "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec content does not match the current UAGENT_* environment variables. Use `uag_envsec` to update it."
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。请使用 `uag_envsec` 进行更新。"
 
 #: src/uagent/runtime_env.py:128
-msgid "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
-msgstr "[INFO] .env.sec is missing. Create it from the current UAGENT_* environment variables? [y/N] "
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr "[INFO] .env.sec 缺失。是否根据当前启动时的 UAGENT_* 环境变量创建？[y/N] "
 
 #: src/uagent/runtime_env.py:135
-msgid "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
-msgstr "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current UAGENT_* environment variables."
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr "[INFO] .env.sec 缺失。请使用 `uag_envsec` 根据当前启动时的 UAGENT_* 环境变量创建。"
+
+msgid "Updated .env.sec: %(path)s"
+msgstr "已更新 .env.sec：%(path)s"
+
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] 更新 .env.sec 失败：%(err)s"
+
+msgid "Created .env.sec: %(path)s"
+msgstr "已创建 .env.sec：%(path)s"
+
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] 创建 .env.sec 失败：%(err)s"

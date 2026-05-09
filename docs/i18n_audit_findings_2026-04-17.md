@@ -53,7 +53,7 @@ This file lists host-side strings that appear to be user-facing and are likely s
 - Review each candidate and decide whether it should be wrapped with `_()`.
 - If code changes are made, regenerate locale files and the compiled `.mo` file.
 - Use `src/uagent/locales/en/LC_MESSAGES/uag.po` as the baseline template when updating locale files.
-- Keep `uag.pot`, `en.po`, and `ja.po` aligned after each `_()` change.
+- Keep `uagent.pot`, `en.po`, and `ja.po` aligned after each `_()` change.
 
 ## Progress update
 
@@ -76,7 +76,7 @@ Date: 2026-04-17 15:25 JST
 - `src/uagent/tools/**` was not edited.
 
 ### Follow-up
-- If new `_()` wrappers are added later, regenerate `uag.pot`, `en.po`, and `ja.po` together.
+- If new `_()` wrappers are added later, regenerate `uagent.pot`, `en.po`, and `ja.po` together.
 - Keep the locale catalogs aligned after each i18n change.
 
 ## Final progress update
@@ -86,7 +86,7 @@ Date: 2026-04-17 15:25 JST
 ### Completed
 - Reviewed and updated host-side i18n candidates under `src/uagent/**`.
 - Added `_()` wrapping for the selected user-facing strings.
-- Regenerated `src/uagent/locales/uag.pot`.
+- Regenerated `src/uagent/locales/uagent.pot`.
 - Synchronized `src/uagent/locales/en/LC_MESSAGES/uag.po` to match msgids.
 - Synchronized `src/uagent/locales/ja/LC_MESSAGES/uag.po` and resolved the duplicate `msgid` issue.
 - Removed obsolete entries from both `en.po` and `ja.po`.
@@ -101,7 +101,7 @@ Date: 2026-04-17 15:25 JST
 - The work stayed within host-side code and locale files.
 
 ### Follow-up
-- If new `_()` wrappers are added later, regenerate `uag.pot`, `en.po`, `ja.po`, and rebuild `.mo` files again.
+- If new `_()` wrappers are added later, regenerate `uagent.pot`, `en.po`, `ja.po`, and rebuild `.mo` files again.
 - Keep the catalogs aligned after each i18n change.
 
 ## Procedure note: fixing gettext header warnings
