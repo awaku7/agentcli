@@ -23,6 +23,7 @@ class ToolCallbacks:
     error: Optional[Callable[[str], None]] = None
     exception: Optional[Callable[[str], None]] = None
     finish_skill: Optional[Callable[[str], str]] = None
+    rewrite_current_log_from_messages: Optional[Callable[[Any], str]] = None
 
     # Environment variable access
     get_env: Optional[Callable[[str], str]] = None

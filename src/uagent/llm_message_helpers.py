@@ -2,6 +2,7 @@ from typing import Any, Dict, List
 
 from . import tools
 from .env_utils import env_get
+from .tools.context import get_callbacks
 from .image_session import build_image_session_message
 from .i18n import _
 from .llm_gemini import _message_content_text, _sanitize_gemini_parameters
@@ -138,7 +139,12 @@ def _maybe_auto_shrink_messages(
 
         # Persist into current session log
         try:
-            core.rewrite_current_log_from_messages(messages)
+            cb = get_callbacks()
+            rewrite_current_log = getattr(cb, "rewrite_current_log_from_messages", None)
+            if rewrite_current_log is not None:
+                rewrite_current_log(messages)
+            else:
+                core.rewrite_current_log_from_messages(messages)
         except Exception:
             pass
 

@@ -22,7 +22,7 @@ from . import tools
 from .tools import long_memory as personal_long_memory
 from .tools import shared_memory
 
-from .tools.context import ToolCallbacks
+from .tools.context import ToolCallbacks, get_callbacks
 
 # Default translation function used when core.tr is not provided.
 # Kept as a separate name for backward-compatibility.
@@ -48,6 +48,9 @@ def init_tools_callbacks(core: Any) -> None:
         log=getattr(core, "log", None),
         error=getattr(core, "error", None),
         exception=getattr(core, "exception", None),
+        rewrite_current_log_from_messages=getattr(
+            core, "rewrite_current_log_from_messages", None
+        ),
         get_env=getattr(core, "get_env", None),
         get_env_url=getattr(core, "get_env_url", None),
         truncate_output=(
@@ -1303,7 +1306,12 @@ def _persist_messages_with_warn(
     messages: List[Dict[str, Any]], *, core: Any, label: str
 ) -> None:
     try:
-        core.rewrite_current_log_from_messages(messages)
+        cb = get_callbacks()
+        rewrite_current_log = getattr(cb, "rewrite_current_log_from_messages", None)
+        if rewrite_current_log is not None:
+            rewrite_current_log(messages)
+        else:
+            core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
             _(f"[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s")
