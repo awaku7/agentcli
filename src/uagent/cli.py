@@ -108,7 +108,7 @@ INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 
 # ------------------------------
 # Readline TAB completion (interactive TTY only)
-# - Only for :cd and :ls arguments
+# - Only for :cd, :ls, and :rm arguments
 # - Other inputs keep current behavior
 
 
@@ -191,7 +191,7 @@ def _uagent_path_candidates(prefix: str) -> list[str]:
 
 
 def _uagent_rl_completer(text_part: str, state: int):
-    # readline completer for ':cd' / ':ls' (first arg only)
+    # readline completer for ':cd' / ':ls' / ':rm' (first arg only)
     #
     # Important: readline expects the returned string to replace the current
     # token fragment (text_part), not the whole argument. If we return the full
@@ -203,15 +203,15 @@ def _uagent_rl_completer(text_part: str, state: int):
         buf = readline.get_line_buffer() or ""
         cmd, arg, _arg_start = _uagent_split_cmd_arg(buf)
 
-        if cmd not in ("cd", "ls"):
+        if cmd not in ("cd", "ls", "rm"):
             return None
 
         # Only complete the first argument; if spaces already present in arg, stop.
         if " " in arg or "	" in arg:
             return None
 
-        # For :ls, if arg already contains glob meta, do not complete (avoid odd mixes)
-        if cmd == "ls" and _uagent_has_glob_meta(arg):
+        # For :ls/:rm, if arg already contains glob meta, do not complete (avoid odd mixes)
+        if cmd in ("ls", "rm") and _uagent_has_glob_meta(arg):
             return None
 
         cands = _uagent_path_candidates(arg)
