@@ -92,7 +92,12 @@ Enables automatic translation of user inputs and LLM responses.
 
 - `UAGENT_MEMORY_FILE`: Path to store long-term memory notes.
 - `UAGENT_SHARED_MEMORY_FILE`: Path to store shared long-term memory.
-- `UAGENT_EMBEDDING_API_URL`: URL for the embedding API used for semantic search.
+- `UAGENT_EMBEDDING_PROVIDER`: Provider for embeddings (default: `UAGENT_PROVIDER`).
+- `UAGENT_<PROVIDER>_EMBEDDING_BASE_URL`: Base URL for the embedding provider.
+- `UAGENT_<PROVIDER>_EMBEDDING_API_KEY`: API key for the embedding provider.
+- `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION`: API version for Azure-style providers.
+- `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
+- `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: Disable semantic search tooling if the embedding endpoint is unreachable.
 
 ---
 

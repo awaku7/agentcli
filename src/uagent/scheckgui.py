@@ -128,7 +128,7 @@ class DropInput(QtWidgets.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
-        self.setPlaceholderText(_("ここにファイル/画像をドラッグ＆ドロップ"))
+        self.setPlaceholderText(_("Drop files/images here"))
         self.setMinimumHeight(120)
 
     def dragEnterEvent(self, e):
@@ -673,7 +673,7 @@ class MainWindow(QtWidgets.QMainWindow):
         input_layout.setContentsMargins(0, 0, 0, 0)
         input_layout.setSpacing(6)
 
-        self._drop_label = QtWidgets.QLabel(_("↑ Drag&Dropで添付できます"))
+        self._drop_label = QtWidgets.QLabel(_("↑ You can attach files by drag & drop"))
         self._drop_label.setStyleSheet("font-weight: bold;")
         input_layout.addWidget(self._drop_label)
 
