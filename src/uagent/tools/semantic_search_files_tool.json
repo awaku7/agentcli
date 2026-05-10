@@ -4,7 +4,7 @@
     "doc.is_reachable": "Check connectivity at startup.\n\n- Returns False without raising if the check fails\n- Uses a short timeout to avoid startup delays\n- Falls back to GET / because some implementations may not support /v1/models.",
     "doc.sync_file": "Synchronize single file index (if new or updated)",
     "err.dir_not_found": "Error: Directory not found: {root_path}",
-    "err.disabled": "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n",
+    "err.disabled": "[tools] semantic_search_files is disabled: Embedding API is unreachable.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n",
     "err.query_required": "Error: query is required.",
     "err.vec_fail": "Error: Failed to vectorize query.",
     "out.hits": "Number of hits: {count}",
@@ -18,7 +18,8 @@
     "param.root_path.description": "Directory to search.",
     "param.top_k.description": "number.",
     "tool.description": "Performs semantic search (vector search) over local files. Uses the Embedding API to vectorize file contents and extract relevant document sections. Indexing runs on first use or when files change.",
-    "tool.system_prompt": "This tool is used for semantic search over local files. Return JSON only."
+    "tool.system_prompt": "This tool is used for semantic search over local files. Return JSON only.",
+    "err.disabled_reason": "embedding endpoint is unreachable."
   },
   "ja": {
     "doc.db_path": "各 root_dir について、<state>/dbs 配下のハッシュ付き DB パスを返します（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
@@ -39,14 +40,15 @@
     "param.root_path.description": "検索対象ディレクトリ。",
     "param.top_k.description": "件数。",
     "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding API を使用してファイル内容をベクトル化し、関連するドキュメント箇所を抽出します。初回実行時、またはファイル更新時にインデックス作成を行います。",
-    "tool.system_prompt": "このツールは次の目的で使用されます (ツールの説明を参照)。"
+    "tool.system_prompt": "このツールは次の目的で使用されます (ツールの説明を参照)。",
+    "err.disabled_reason": "埋め込み API に到達できません。"
   },
   "es": {
     "doc.db_path": "Devuelve la ruta de la base de datos con hash para cada root_dir bajo <state>/dbs (predeterminado: ~/.uag (antiguo: ~/.scheck)/dbs).",
     "doc.is_reachable": "Comprueba la conectividad al iniciar.\n\n- Devuelve False sin lanzar excepciones aunque falle\n- Usa un tiempo de espera corto para evitar retrasos al iniciar\n- Como algunas implementaciones pueden no admitir /v1/models, GET / también sirve como alternativa.",
     "doc.sync_file": "Sincronizar el índice de un solo archivo (si es nuevo o actualizado)",
     "err.dir_not_found": "Error: Directorio no encontrado: {root_path}",
-    "err.disabled": "[tools] semantic_search_files está deshabilitado: no se puede الوصول al API de embeddings.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Establezca UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para mantener visible la herramienta.\n",
+    "err.disabled": "[tools] semantic_search_files está deshabilitado: no se puede الوصول al API de embeddings.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Establezca UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para mantener visible la herramienta.\n",
     "err.query_required": "Error: la consulta es obligatoria.",
     "err.vec_fail": "Error: no se pudo vectorizar la consulta.",
     "out.hits": "Número de coincidencias: {count}",
@@ -60,14 +62,15 @@
     "param.root_path.description": "Directorio para buscar.",
     "param.top_k.description": "número.",
     "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) en archivos locales. Usa la API de embeddings para vectorizar el contenido de los archivos y extraer secciones relevantes del documento. La indexación se ejecuta en la primera ejecución o cuando cambian los archivos.",
-    "tool.system_prompt": "Esta herramienta se utiliza para la búsqueda semántica en archivos locales. Devuelve solo JSON."
+    "tool.system_prompt": "Esta herramienta se utiliza para la búsqueda semántica en archivos locales. Devuelve solo JSON.",
+    "err.disabled_reason": "No se puede الوصول al API de embeddings."
   },
   "fr": {
     "doc.db_path": "Renvoie le chemin de la base de données haché pour chaque root_dir sous <state>/dbs (par défaut : ~/.uag (ancien : ~/.scheck)/dbs).",
     "doc.is_reachable": "Vérifie la connectivité au démarrage.\n\n- Renvoie False sans lever d'exception en cas d'échec\n- Utilise un délai d'attente court pour éviter de ralentir le démarrage\n- Comme certaines implémentations peuvent ne pas prendre en charge /v1/models, GET / sert aussi de solution de repli.",
     "doc.sync_file": "Synchroniser l'index de fichier unique (s'il est nouveau ou mis à jour)",
     "err.dir_not_found": "Erreur : Répertoire introuvable : {root_path}",
-    "err.disabled": "[tools] semantic_search_files est désactivé : l’API d’embeddings est inaccessible.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Définissez UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 pour garder l’outil visible.\n",
+    "err.disabled": "[tools] semantic_search_files est désactivé : l’API d’embeddings est inaccessible.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Définissez UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 pour garder l’outil visible.\n",
     "err.query_required": "Erreur : query est obligatoire.",
     "err.vec_fail": "Erreur : impossible de vectoriser la requête.",
     "out.hits": "Nombre de résultats : {count}",
@@ -81,14 +84,15 @@
     "param.root_path.description": "Annuaire à rechercher.",
     "param.top_k.description": "nombre.",
     "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l’API d’embeddings pour vectoriser le contenu des fichiers et extraire les sections pertinentes du document. L’indexation s’exécute à la première utilisation ou lors de la modification des fichiers.",
-    "tool.system_prompt": "Cet outil sert à la recherche sémantique dans les fichiers locaux. Retournez uniquement du JSON."
+    "tool.system_prompt": "Cet outil sert à la recherche sémantique dans les fichiers locaux. Retournez uniquement du JSON.",
+    "err.disabled_reason": "L’API d’embeddings est inaccessible."
   },
   "ko": {
     "doc.db_path": "<state>/dbs 아래에서 각 root_dir에 대한 해시된 DB 경로를 반환합니다(기본값: ~/.uag(이전: ~/.scheck)/dbs).",
     "doc.is_reachable": "시작 시 연결 상태를 확인합니다.\n\n- 실패해도 예외를 발생시키지 않고 False를 반환합니다\n- 시작 지연을 피하기 위해 짧은 시간 제한을 사용합니다\n- /v1/models 를 지원하지 않는 구현도 있을 수 있으므로 / 에 대한 GET 도 폴백으로 사용합니다.",
     "doc.sync_file": "단일 파일 인덱스 동기화(새 파일 또는 업데이트된 경우)",
     "err.dir_not_found": "오류: 디렉터리를 찾을 수 없습니다: {root_path}",
-    "err.disabled": "[tools] semantic_search_files가 비활성화되었습니다: 임베딩 API에 연결할 수 없습니다.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] 도구를 계속 표시하려면 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0을 설정하세요.\n",
+    "err.disabled": "[tools] semantic_search_files가 비활성화되었습니다: 임베딩 API에 연결할 수 없습니다.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] 도구를 계속 표시하려면 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0을 설정하세요.\n",
     "err.query_required": "오류: query는 필수입니다.",
     "err.vec_fail": "오류: 쿼리를 벡터화하지 못했습니다.",
     "out.hits": "결과 수: {count}",
@@ -102,14 +106,15 @@
     "param.root_path.description": "검색할 디렉터리입니다.",
     "param.top_k.description": "숫자.",
     "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. 임베딩 API를 사용해 파일 내용을 벡터화하고 관련 문서 부분을 추출합니다. 인덱싱은 처음 실행하거나 파일이 변경될 때 수행됩니다.",
-    "tool.system_prompt": "이 도구는 로컬 파일에 대한 의미 검색에 사용됩니다. JSON만 반환하세요."
+    "tool.system_prompt": "이 도구는 로컬 파일에 대한 의미 검색에 사용됩니다. JSON만 반환하세요.",
+    "err.disabled_reason": "임베딩 API에 연결할 수 없습니다."
   },
   "de": {
     "doc.db_path": "Gibt für jedes root_dir unter <state>/dbs den gehashten DB-Pfad zurück (Standard: ~/.uag (alt: ~/.scheck)/dbs).",
     "doc.is_reachable": "Prüft die Erreichbarkeit beim Start.\n\n- Gibt bei Fehlern False zurück, ohne eine Ausnahme auszulösen\n- Kürzeres Timeout, um Startverzögerungen zu vermeiden\n- Da manche Implementierungen /v1/models nicht unterstützen, dient GET / ebenfalls als Fallback.",
     "doc.sync_file": "Einzelnen Dateiindex synchronisieren (falls neu oder aktualisiert)",
     "err.dir_not_found": "Fehler: Verzeichnis nicht gefunden: {root_path}",
-    "err.disabled": "[tools] semantic_search_files ist deaktiviert: Die Embedding-API ist nicht erreichbar.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Setzen Sie UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, um das Tool sichtbar zu lassen.\n",
+    "err.disabled": "[tools] semantic_search_files ist deaktiviert: Die Embedding-API ist nicht erreichbar.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Setzen Sie UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, um das Tool sichtbar zu lassen.\n",
     "err.query_required": "Fehler: query ist erforderlich.",
     "err.vec_fail": "Fehler: Abfrage konnte nicht vektorisiert werden.",
     "out.hits": "Anzahl der Treffer: {count}",
@@ -123,14 +128,15 @@
     "param.root_path.description": "Verzeichnis, das durchsucht werden soll.",
     "param.top_k.description": "Anzahl.",
     "tool.description": "Führt eine semantische Suche (Vektorsuche) in lokalen Dateien aus. Verwendet die Embedding-API, um Dateiinhalt zu vektorisieren und relevante Dokumentabschnitte zu extrahieren. Die Indizierung erfolgt beim ersten Aufruf oder wenn sich Dateien ändern.",
-    "tool.system_prompt": "Dieses Tool wird für semantische Suche in lokalen Dateien verwendet. Geben Sie nur JSON zurück."
+    "tool.system_prompt": "Dieses Tool wird für semantische Suche in lokalen Dateien verwendet. Geben Sie nur JSON zurück.",
+    "err.disabled_reason": "Die Embedding-API ist nicht erreichbar."
   },
   "it": {
     "doc.db_path": "Restituisce il percorso DB con hash per ogni root_dir sotto <state>/dbs (predefinito: ~/.uag (vecchio: ~/.scheck)/dbs).",
     "doc.is_reachable": "Verifica la connessione all’avvio.\n\n- Restituisce False senza sollevare eccezioni anche in caso di errore\n- Timeout più breve per evitare ritardi all’avvio\n- Poiché alcune implementazioni potrebbero non supportare /v1/models, anche GET / è un fallback.",
     "doc.sync_file": "Sincronizza l'indice di un singolo file (se nuovo o aggiornato)",
     "err.dir_not_found": "Errore: directory non trovata: {root_path}",
-    "err.disabled": "[tools] semantic_search_files è disabilitato: l’API di embedding non è raggiungibile.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Imposta UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 per mantenere visibile lo strumento.\n",
+    "err.disabled": "[tools] semantic_search_files è disabilitato: l’API di embedding non è raggiungibile.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Imposta UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 per mantenere visibile lo strumento.\n",
     "err.query_required": "Errore: la query è obbligatoria.",
     "err.vec_fail": "Errore: impossibile vettorizzare la query.",
     "out.hits": "Numero di risultati: {count}",
@@ -144,14 +150,15 @@
     "param.root_path.description": "Directory da cercare.",
     "param.top_k.description": "numero.",
     "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) nei file locali. Usa l’API di embedding per vettorializzare il contenuto dei file ed estrarre le sezioni pertinenti del documento. L’indicizzazione avviene al primo utilizzo o quando i file cambiano.",
-    "tool.system_prompt": "Questo strumento serve per la ricerca semantica nei file locali. Restituisci solo JSON."
+    "tool.system_prompt": "Questo strumento serve per la ricerca semantica nei file locali. Restituisci solo JSON.",
+    "err.disabled_reason": "L’API di embedding non è raggiungibile."
   },
   "ru": {
     "doc.db_path": "Возвращает хешированный путь БД для каждого root_dir в <state>/dbs (по умолчанию: ~/.uag (старый: ~/.scheck)/dbs).",
     "doc.is_reachable": "Проверяет связь при запуске.\n\n- Возвращает False без выброса исключения даже при сбое\n- Более короткий таймаут, чтобы избежать задержек запуска\n- Поскольку в некоторых реализациях /v1/models может быть недоступен, GET / также используется как запасной вариант.",
     "doc.sync_file": "Синхронизирует индекс одного файла (если новый или обновлённый)",
     "err.dir_not_found": "Ошибка: каталог не найден: {root_path}",
-    "err.disabled": "[tools] semantic_search_files отключён: Embedding API недоступен.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Установите UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, чтобы инструмент оставался видимым.\n",
+    "err.disabled": "[tools] semantic_search_files отключён: Embedding API недоступен.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Установите UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, чтобы инструмент оставался видимым.\n",
     "err.query_required": "Ошибка: query обязательна.",
     "err.vec_fail": "Ошибка: не удалось векторизовать запрос.",
     "out.hits": "Количество результатов: {count}",
@@ -165,14 +172,15 @@
     "param.root_path.description": "Каталог для поиска.",
     "param.top_k.description": "число.",
     "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные части документа. Индексация выполняется при первом запуске или при изменении файлов.",
-    "tool.system_prompt": "Этот инструмент используется для семантического поиска по локальным файлам. Возвращайте только JSON."
+    "tool.system_prompt": "Этот инструмент используется для семантического поиска по локальным файлам. Возвращайте только JSON.",
+    "err.disabled_reason": "Embedding API недоступен."
   },
   "pt_BR": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
     "doc.is_reachable": "Verifique a conectividade na inicialização.\n\n- Retorna False sem lançar exceção mesmo em caso de falha\n- Usa timeout curto para evitar atrasos na inicialização\n- Como algumas implementações podem não suportar /v1/models, GET / também serve como fallback.",
     "doc.sync_file": "Sincroniza o índice de um único arquivo (se novo ou atualizado)",
     "err.dir_not_found": "Erro: diretório não encontrado: {root_path}",
-    "err.disabled": "[tools] semantic_search_files está desativado: a API de embeddings não está acessível.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Defina UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para manter a ferramenta visível.\n",
+    "err.disabled": "[tools] semantic_search_files está desativado: a API de embeddings não está acessível.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Defina UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para manter a ferramenta visível.\n",
     "err.query_required": "Erro: a query é obrigatória.",
     "err.vec_fail": "Erro: não foi possível vetorizar a query.",
     "out.hits": "Número de resultados: {count}",
@@ -186,14 +194,15 @@
     "param.root_path.description": "Diretório para pesquisa.",
     "param.top_k.description": "número.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair trechos relevantes do documento. A indexação é feita na primeira execução ou quando os arquivos são alterados.",
-    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON."
+    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
+    "err.disabled_reason": "A API de embeddings não está acessível."
   },
   "pt": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
     "doc.is_reachable": "Verifique a conectividade na inicialização.\n\n- Retorna False sem lançar exceção mesmo em caso de falha\n- Usa timeout curto para evitar atrasos na inicialização\n- Como algumas implementações podem não suportar /v1/models, GET / também serve como fallback.",
     "doc.sync_file": "Sincronize o índice de arquivo único (se novo ou atualizado)",
     "err.dir_not_found": "Erro: Diretório não encontrado: {root_path}",
-    "err.disabled": "[tools] semantic_search_files está desativado: a API de embeddings não está acessível.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Defina UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para manter a ferramenta visível.\n",
+    "err.disabled": "[tools] semantic_search_files está desativado: a API de embeddings não está acessível.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Defina UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 para manter a ferramenta visível.\n",
     "err.query_required": "Erro: query é obrigatória.",
     "err.vec_fail": "Erro: não foi possível vetorizar a query.",
     "out.hits": "Número de resultados: {count}",
@@ -207,14 +216,15 @@
     "param.root_path.description": "Diretório para pesquisar.",
     "param.top_k.description": "número.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair seções relevantes do documento. A indexação ocorre na primeira execução ou quando os arquivos são alterados.",
-    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON."
+    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
+    "err.disabled_reason": "A API de embeddings não está acessível."
   },
   "id": {
     "doc.db_path": "Mengembalikan path DB yang di-hash untuk setiap root_dir di bawah <state>/dbs (default: ~/.uag (lama: ~/.scheck)/dbs).",
     "doc.is_reachable": "Periksa konektivitas saat startup.\n\n- Mengembalikan False tanpa melempar exception meskipun gagal\n- Timeout lebih singkat untuk menghindari keterlambatan startup\n- Karena mungkin ada implementasi yang tidak mendukung /v1/models, GET / juga menjadi fallback.",
     "doc.sync_file": "Sinkronkan indeks satu file (jika baru atau diperbarui)",
     "err.dir_not_found": "Error: Direktori tidak ditemukan: {root_path}",
-    "err.disabled": "[tools] semantic_search_files dinonaktifkan: API embedding tidak dapat dijangkau.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 agar alat tetap terlihat.\n",
+    "err.disabled": "[tools] semantic_search_files dinonaktifkan: API embedding tidak dapat dijangkau.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 agar alat tetap terlihat.\n",
     "err.query_required": "Error: query diperlukan.",
     "err.vec_fail": "Error: gagal memvectorisasi query.",
     "out.hits": "Jumlah hasil: {count}",
@@ -228,14 +238,15 @@
     "param.root_path.description": "Direktori yang akan dicari.",
     "param.top_k.description": "angka.",
     "tool.description": "Melakukan semantic search (vector search) pada file lokal. Menggunakan Embedding API untuk memvectorisasi isi file dan mengekstrak bagian dokumen yang relevan. Pengindeksan dilakukan saat pertama kali dijalankan atau ketika file berubah.",
-    "tool.system_prompt": "Alat ini digunakan untuk pencarian semantik pada file lokal. Kembalikan JSON saja."
+    "tool.system_prompt": "Alat ini digunakan untuk pencarian semantik pada file lokal. Kembalikan JSON saja.",
+    "err.disabled_reason": "API embedding tidak dapat dijangkau."
   },
   "vi": {
     "doc.db_path": "Trả về đường dẫn DB đã băm cho từng root_dir dưới <state>/dbs (mặc định: ~/.uag (cũ: ~/.scheck)/dbs).",
     "doc.is_reachable": "Kiểm tra kết nối khi khởi động.\n\n- Trả về False mà không ném ngoại lệ ngay cả khi thất bại\n- Timeout ngắn hơn để tránh chậm khởi động\n- Vì một số triển khai có thể không hỗ trợ /v1/models, GET / cũng là phương án dự phòng.",
     "doc.sync_file": "Đồng bộ chỉ mục của một tệp (nếu mới hoặc đã cập nhật)",
     "err.dir_not_found": "Lỗi: Không tìm thấy thư mục: {root_path}",
-    "err.disabled": "[tools] semantic_search_files đã bị vô hiệu hóa: Không thể truy cập Embedding API.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Đặt UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 để giữ công cụ hiển thị.\n",
+    "err.disabled": "[tools] semantic_search_files đã bị vô hiệu hóa: Không thể truy cập Embedding API.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Đặt UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 để giữ công cụ hiển thị.\n",
     "err.query_required": "Lỗi: query là bắt buộc.",
     "err.vec_fail": "Lỗi: không thể vector hóa truy vấn.",
     "out.hits": "Số kết quả: {count}",
@@ -249,14 +260,15 @@
     "param.root_path.description": "Thư mục để tìm kiếm.",
     "param.top_k.description": "Số lượng.",
     "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng Embedding API để vector hóa nội dung tệp và trích xuất các phần tài liệu liên quan. Việc lập chỉ mục được thực hiện ở lần chạy đầu tiên hoặc khi tệp được cập nhật.",
-    "tool.system_prompt": "Công cụ này được dùng để tìm kiếm ngữ nghĩa trên các tệp cục bộ. Chỉ trả về JSON."
+    "tool.system_prompt": "Công cụ này được dùng để tìm kiếm ngữ nghĩa trên các tệp cục bộ. Chỉ trả về JSON.",
+    "err.disabled_reason": "Không thể truy cập Embedding API."
   },
   "pl": {
     "doc.db_path": "Zwraca haszowaną ścieżkę DB dla każdego root_dir w <state>/dbs (domyślnie: ~/.uag (stary: ~/.scheck)/dbs).",
     "doc.is_reachable": "Sprawdza łączność podczas uruchamiania.\n\n- Zwraca False bez zgłaszania wyjątku nawet w razie niepowodzenia\n- Krótszy limit czasu, aby uniknąć opóźnień startu\n- Ponieważ w niektórych implementacjach /v1/models może nie być dostępne, GET / służy także jako zapasowy wariant.",
     "doc.sync_file": "Synchronizuj indeks pojedynczego pliku (jeśli nowy lub zaktualizowany)",
     "err.dir_not_found": "Błąd: Nie znaleziono katalogu: {root_path}",
-    "err.disabled": "[tools] semantic_search_files jest wyłączone: interfejs Embedding API jest niedostępny.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Ustaw UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, aby narzędzie pozostało widoczne.\n",
+    "err.disabled": "[tools] semantic_search_files jest wyłączone: interfejs Embedding API jest niedostępny.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Ustaw UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, aby narzędzie pozostało widoczne.\n",
     "err.query_required": "Błąd: query jest wymagane.",
     "err.vec_fail": "Błąd: nie udało się zwektoryzować zapytania.",
     "out.hits": "Liczba wyników: {count}",
@@ -270,14 +282,15 @@
     "param.root_path.description": "Katalog do przeszukania.",
     "param.top_k.description": "Liczba.",
     "tool.description": "Wykonuje semantyczne wyszukiwanie (wyszukiwanie wektorowe) w lokalnych plikach. Używa Embedding API do wektoryzacji treści plików i wyodrębniania odpowiednich fragmentów dokumentów. Indeksowanie odbywa się przy pierwszym uruchomieniu lub po zmianie plików.",
-    "tool.system_prompt": "To narzędzie służy do wyszukiwania semantycznego w lokalnych plikach. Zwracaj tylko JSON."
+    "tool.system_prompt": "To narzędzie służy do wyszukiwania semantycznego w lokalnych plikach. Zwracaj tylko JSON.",
+    "err.disabled_reason": "Interfejs Embedding API jest niedostępny."
   },
   "hi": {
     "doc.db_path": "<state>/dbs के अंतर्गत प्रत्येक root_dir के लिए हैश्ड DB पथ लौटाता है (डिफ़ॉल्ट: ~/.uag (पुराना: ~/.scheck)/dbs)।",
     "doc.is_reachable": "स्टार्टअप पर कनेक्टिविटी जांचें.\n\n- विफल होने पर भी अपवाद उठाए बिना False लौटाता है\n- स्टार्टअप देरी से बचने के लिए छोटा timeout\n- चूंकि कुछ कार्यान्वयन /v1/models का समर्थन नहीं कर सकते, इसलिए / पर GET भी एक fallback है।",
     "doc.sync_file": "एकल फ़ाइल अनुक्रमणिका को सिंक्रनाइज़ करें (यदि नया या अद्यतन किया गया हो)",
     "err.dir_not_found": "त्रुटि: निर्देशिका नहीं मिली: {root_path}",
-    "err.disabled": "[tools] semantic_search_files अक्षम है: Embedding API उपलब्ध नहीं है।\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] टूल को दृश्यमान रखने के लिए UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 सेट करें।\n",
+    "err.disabled": "[tools] semantic_search_files अक्षम है: Embedding API उपलब्ध नहीं है।\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] टूल को दृश्यमान रखने के लिए UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 सेट करें।\n",
     "err.query_required": "त्रुटि: query आवश्यक है।",
     "err.vec_fail": "त्रुटि: क्वेरी को वेक्टराइज़ नहीं किया जा सका।",
     "out.hits": "हिट की संख्या: {count}",
@@ -291,14 +304,15 @@
     "param.root_path.description": "खोजने के लिए निर्देशिका.",
     "param.top_k.description": "संख्या।",
     "tool.description": "स्थानीय फ़ाइलों पर अर्थ-आधारित खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अनुभागों को निकालने के लिए Embedding API का उपयोग करता है। अनुक्रमण पहली बार उपयोग पर या फ़ाइलें बदलने पर चलता है।",
-    "tool.system_prompt": "यह टूल स्थानीय फ़ाइलों पर अर्थ-आधारित खोज के लिए उपयोग किया जाता है। केवल JSON लौटाएँ।"
+    "tool.system_prompt": "यह टूल स्थानीय फ़ाइलों पर अर्थ-आधारित खोज के लिए उपयोग किया जाता है। केवल JSON लौटाएँ।",
+    "err.disabled_reason": "embedding endpoint is unreachable."
   },
   "ar": {
     "doc.db_path": "يُرجع مسار قاعدة البيانات المُجزّأ لكل root_dir ضمن <state>/dbs (الافتراضي: ~/.uag (القديم: ~/.scheck)/dbs).",
     "doc.is_reachable": "تحقق من الاتصال عند بدء التشغيل.\n\n- يُرجع False دون رفع استثناء حتى عند الفشل\n- مهلة قصيرة لتجنب تأخير بدء التشغيل\n- بما أن بعض التطبيقات قد لا تدعم /v1/models، فإن GET / يعمل أيضًا كبديل.",
     "doc.sync_file": "مزامنة فهرس ملف واحد (إذا كان جديدًا أو محدّثًا)",
     "err.dir_not_found": "خطأ: لم يتم العثور على الدليل: {root_path}",
-    "err.disabled": "[tools] semantic_search_files معطّلة: واجهة برمجة تطبيقات التضمين غير متاحة.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] اضبط UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 لإبقاء الأداة مرئية.\n",
+    "err.disabled": "[tools] semantic_search_files معطّلة: واجهة برمجة تطبيقات التضمين غير متاحة.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] اضبط UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 لإبقاء الأداة مرئية.\n",
     "err.query_required": "خطأ: query مطلوبة.",
     "err.vec_fail": "خطأ: تعذّر تحويل الاستعلام إلى متجه.",
     "out.hits": "عدد النتائج: {count}",
@@ -312,14 +326,15 @@
     "param.root_path.description": "الدليل المراد البحث فيه.",
     "param.top_k.description": "العدد.",
     "tool.description": "ينفذ بحثًا دلاليًا (بحثًا متجهيًا) على الملفات المحلية. يستخدم واجهة Embedding API لتحويل محتوى الملفات إلى متجهات واستخراج الأجزاء ذات الصلة من المستندات. يتم إنشاء الفهرس عند أول تشغيل أو عند تحديث الملفات.",
-    "tool.system_prompt": "تُستخدم هذه الأداة للبحث الدلالي في الملفات المحلية. أرجع JSON فقط."
+    "tool.system_prompt": "تُستخدم هذه الأداة للبحث الدلالي في الملفات المحلية. أرجع JSON فقط.",
+    "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API."
   },
   "sv": {
     "doc.db_path": "Returnerar den hashade DB-sökvägen för varje root_dir under <state>/dbs (standard: ~/.uag (tidigare ~/.scheck)/dbs).",
     "doc.is_reachable": "Kontrollera anslutningen vid start.\n\n- Returnerar False utan att kasta ett undantag även om kontrollen misslyckas\n- Kort timeout för att undvika startfördröjning\n- Eftersom vissa implementationer kanske inte stöder /v1/models fungerar GET / också som reserv.",
     "doc.sync_file": "Synkronisera index för en enskild fil (om den är ny eller uppdaterad)",
     "err.dir_not_found": "Fel: Katalogen hittades inte: {root_path}",
-    "err.disabled": "[tools] semantic_search_files är inaktiverat: Embedding API är inte tillgängligt.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Ange UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 för att låta verktyget vara synligt.\n",
+    "err.disabled": "[tools] semantic_search_files är inaktiverat: Embedding API är inte tillgängligt.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Ange UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 för att låta verktyget vara synligt.\n",
     "err.query_required": "Fel: query krävs.",
     "err.vec_fail": "Fel: kunde inte vektorisera frågan.",
     "out.hits": "Antal träffar: {count}",
@@ -333,14 +348,15 @@
     "param.root_path.description": "Katalog att söka i.",
     "param.top_k.description": "antal.",
     "tool.description": "Utför semantisk sökning (vektorsökning) i lokala filer. Använder Embedding API för att vektorisera filinnehåll och extrahera relevanta dokumentavsnitt. Indexeringen körs vid första användning eller när filer ändras.",
-    "tool.system_prompt": "Det här verktyget används för semantisk sökning i lokala filer. Returnera endast JSON."
+    "tool.system_prompt": "Det här verktyget används för semantisk sökning i lokala filer. Returnera endast JSON.",
+    "err.disabled_reason": "Embedding API är inte tillgängligt."
   },
   "sw": {
     "doc.db_path": "Hurejesha njia ya DB iliyohashiwa kwa kila root_dir chini ya <state>/dbs (chaguomsingi: ~/.uag (zamani: ~/.scheck)/dbs).",
     "doc.is_reachable": "Hukagua muunganisho wakati wa kuanza.\n\n- Hurejesha False bila kuibua hitilafu hata ukaguzi ukishindikana\n- Hutumia muda mfupi wa kusubiri ili kuepuka ucheleweshaji wa kuanza\n- Hurejea pia GET / kwa sababu baadhi ya utekelezaji huenda usiunge mkono /v1/models.",
     "doc.sync_file": "Sawazisha faharasa ya faili moja (ikiwa ni mpya au imesasishwa)",
     "err.dir_not_found": "Hitilafu: Saraka haikupatikana: {root_path}",
-    "err.disabled": "[tools] semantic_search_files imezimwa: API ya embedding haiwezi kufikiwa.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Weka UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ili chombo kisionekane.\n",
+    "err.disabled": "[tools] semantic_search_files imezimwa: API ya embedding haiwezi kufikiwa.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Weka UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ili chombo kisionekane.\n",
     "err.query_required": "Hitilafu: query ni lazima.",
     "err.vec_fail": "Hitilafu: Imeshindwa kubadili query kuwa vekta.",
     "out.hits": "Idadi ya matokeo: {count}",
@@ -354,14 +370,15 @@
     "param.root_path.description": "Saraka ya kutafuta.",
     "param.top_k.description": "idadi.",
     "tool.description": "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani. Hutumia Embedding API kubadili yaliyomo ya faili kuwa vekta na kutoa sehemu husika za hati. Kuorodhesha hufanyika mara ya kwanza au faili zinapobadilika.",
-    "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee."
+    "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee.",
+    "err.disabled_reason": "Embedding API haipatikani."
   },
   "nb": {
     "doc.db_path": "Returnerer den hashede DB-stien for hver root_dir under <state>/dbs (standard: ~/.uag (gammel: ~/.scheck)/dbs).",
     "doc.is_reachable": "Kontroller tilkoblingen ved oppstart.\n\n- Returnerer False uten å kaste et unntak selv om kontrollen mislykkes\n- Kort timeout for å unngå oppstartsforsinkelser\n- Siden noen implementasjoner kanskje ikke støtter /v1/models, er GET / også en reserve.",
     "doc.sync_file": "Synkroniser indeks for én enkelt fil (hvis den er ny eller oppdatert)",
     "err.dir_not_found": "Feil: Katalogen ble ikke funnet: {root_path}",
-    "err.disabled": "[tools] semantic_search_files er deaktivert: Embedding API er ikke tilgjengelig.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Sett UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 for å holde verktøyet synlig.\n",
+    "err.disabled": "[tools] semantic_search_files er deaktivert: Embedding API er ikke tilgjengelig.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Sett UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 for å holde verktøyet synlig.\n",
     "err.query_required": "Feil: query er påkrevd.",
     "err.vec_fail": "Feil: klarte ikke å vektorisere spørringen.",
     "out.hits": "Antall treff: {count}",
@@ -375,14 +392,15 @@
     "param.root_path.description": "Katalogen som skal søkes i.",
     "param.top_k.description": "antall.",
     "tool.description": "Utfører semantisk søk (vektorsøk) i lokale filer. Bruker Embedding API til å vektorisere filinnhold og hente ut relevante dokumentdeler. Indeksering kjøres ved første bruk eller når filer endres.",
-    "tool.system_prompt": "Dette verktøyet brukes til semantisk søk i lokale filer. Returner bare JSON."
+    "tool.system_prompt": "Dette verktøyet brukes til semantisk søk i lokale filer. Returner bare JSON.",
+    "err.disabled_reason": "Embedding API er ikke tilgjengelig."
   },
   "nl": {
     "doc.db_path": "Geeft het gehashte DB-pad terug voor elke root_dir onder <state>/dbs (standaard: ~/.uag (oud: ~/.scheck)/dbs).",
     "doc.is_reachable": "Controleer de verbinding bij het opstarten.\n\n- Geeft False terug zonder een uitzondering op te gooien als de controle mislukt\n- Gebruikt een korte timeout om opstartvertraging te voorkomen\n- Valt terug op GET / omdat sommige implementaties /v1/models mogelijk niet ondersteunen.",
     "doc.sync_file": "Synchroniseer index van één bestand (als nieuw of bijgewerkt)",
     "err.dir_not_found": "Fout: map niet gevonden: {root_path}",
-    "err.disabled": "[tools] semantic_search_files is uitgeschakeld: de Embedding API is niet bereikbaar.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Stel UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 in om de tool zichtbaar te houden.\n",
+    "err.disabled": "[tools] semantic_search_files is uitgeschakeld: de Embedding API is niet bereikbaar.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Stel UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 in om de tool zichtbaar te houden.\n",
     "err.query_required": "Fout: query is vereist.",
     "err.vec_fail": "Fout: query vectoriseren mislukt.",
     "out.hits": "Aantal treffers: {count}",
@@ -396,14 +414,15 @@
     "param.root_path.description": "Map om in te zoeken.",
     "param.top_k.description": "aantal.",
     "tool.description": "Voert semantisch zoeken (vectorzoekopdracht) uit in lokale bestanden. Gebruikt de Embedding API om bestandsinhoud te vectoriseren en relevante documentgedeelten te extraheren. Indexering wordt uitgevoerd bij het eerste gebruik of wanneer bestanden veranderen.",
-    "tool.system_prompt": "Deze tool wordt gebruikt voor semantisch zoeken in lokale bestanden. Geef alleen JSON terug."
+    "tool.system_prompt": "Deze tool wordt gebruikt voor semantisch zoeken in lokale bestanden. Geef alleen JSON terug.",
+    "err.disabled_reason": "Embedding-API is niet bereikbaar."
   },
   "fi": {
     "doc.db_path": "Palauttaa hajautetun DB-polun kullekin root_dirille hakemiston <state>/dbs alla (oletus: ~/.uag (vanha: ~/.scheck)/dbs).",
     "doc.is_reachable": "Tarkista yhteys käynnistyksen yhteydessä.\n\n- Palauttaa False-arvon eikä nosta poikkeusta, jos tarkistus epäonnistuu\n- Käyttää lyhyttä aikakatkaisua käynnistysviiveen välttämiseksi\n- GET / toimii varamenetelmänä, koska jotkin toteutukset eivät välttämättä tue /v1/models-polkuja.",
     "doc.sync_file": "Synkronoi yksittäisen tiedoston indeksi (jos uusi tai päivitetty)",
     "err.dir_not_found": "Virhe: hakemistoa ei löytynyt: {root_path}",
-    "err.disabled": "[tools] semantic_search_files on poistettu käytöstä: Embedding API ei ole tavoitettavissa.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Aseta UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 pitääksesi työkalun näkyvissä.\n",
+    "err.disabled": "[tools] semantic_search_files on poistettu käytöstä: Embedding API ei ole tavoitettavissa.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Aseta UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 pitääksesi työkalun näkyvissä.\n",
     "err.query_required": "Virhe: query on pakollinen.",
     "err.vec_fail": "Virhe: kyselyn vektorisointi epäonnistui.",
     "out.hits": "Osumien määrä: {count}",
@@ -417,14 +436,15 @@
     "param.root_path.description": "Hakemisto, jota etsitään.",
     "param.top_k.description": "määrä.",
     "tool.description": "Tee semanttinen haku (vektorihaku) paikallisista tiedostoista. Käyttää Embedding APIa tiedostosisällön vektorointiin ja relevanttien dokumenttiosien poimintaan. Indeksointi suoritetaan ensimmäisellä käyttökerralla tai tiedostojen muuttuessa.",
-    "tool.system_prompt": "Tätä työkalua käytetään paikallisten tiedostojen semanttiseen hakuun. Palauta vain JSON."
+    "tool.system_prompt": "Tätä työkalua käytetään paikallisten tiedostojen semanttiseen hakuun. Palauta vain JSON.",
+    "err.disabled_reason": "Embedding-API ei ole tavoitettavissa."
   },
   "cs": {
     "doc.db_path": "Vrací hašovanou cestu k DB pro každé root_dir v <state>/dbs (výchozí: ~/.uag (dříve: ~/.scheck)/dbs).",
     "doc.is_reachable": "Ověří připojení při startu.\n\n- I při selhání vrátí False bez vyhození výjimky\n- Kratší timeout, aby se předešlo zdržení startu\n- Protože některé implementace nemusí podporovat /v1/models, je GET / také záložní možnost.",
     "doc.sync_file": "Synchronizuje index jednoho souboru (pokud je nový nebo aktualizovaný)",
     "err.dir_not_found": "Chyba: adresář nebyl nalezen: {root_path}",
-    "err.disabled": "[tools] semantic_search_files je zakázán: Embedding API není dostupné.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Nastavte UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, pokud chcete nástroj ponechat viditelný.\n",
+    "err.disabled": "[tools] semantic_search_files je zakázán: Embedding API není dostupné.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Nastavte UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, pokud chcete nástroj ponechat viditelný.\n",
     "err.query_required": "Chyba: query je povinné.",
     "err.vec_fail": "Chyba: dotaz se nepodařilo převést na vektor.",
     "out.hits": "Počet výsledků: {count}",
@@ -438,14 +458,15 @@
     "param.root_path.description": "Adresář, ve kterém se má hledat.",
     "param.top_k.description": "počet.",
     "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) v místních souborech. Používá Embedding API k vektorizaci obsahu souborů a extrakci relevantních částí dokumentů. Indexování probíhá při prvním spuštění nebo při změně souborů.",
-    "tool.system_prompt": "Tento nástroj slouží k sémantickému vyhledávání v místních souborech. Vracejte pouze JSON."
+    "tool.system_prompt": "Tento nástroj slouží k sémantickému vyhledávání v místních souborech. Vracejte pouze JSON.",
+    "err.disabled_reason": "Embedding API není dostupné."
   },
   "uk": {
     "doc.db_path": "Повертає хешований шлях БД для кожного root_dir у <state>/dbs (типово: ~/.uag (старе: ~/.scheck)/dbs).",
     "doc.is_reachable": "Перевіряє зв’язок під час запуску.\n\n- Повертає False без винятку навіть у разі збою\n- Коротший тайм-аут, щоб уникнути затримок запуску\n- Оскільки деякі реалізації можуть не підтримувати /v1/models, GET / також використовується як запасний варіант.",
     "doc.sync_file": "Синхронізує індекс одного файлу (якщо новий або оновлений)",
     "err.dir_not_found": "Помилка: каталог не знайдено: {root_path}",
-    "err.disabled": "[tools] semantic_search_files вимкнено: Embedding API недоступний.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Встановіть UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, щоб інструмент залишався видимим.\n",
+    "err.disabled": "[tools] semantic_search_files вимкнено: Embedding API недоступний.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Встановіть UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0, щоб інструмент залишався видимим.\n",
     "err.query_required": "Помилка: query є обов’язковою.",
     "err.vec_fail": "Помилка: не вдалося векторизувати запит.",
     "out.hits": "Кількість результатів: {count}",
@@ -459,14 +480,15 @@
     "param.root_path.description": "Каталог, у якому слід шукати.",
     "param.top_k.description": "число.",
     "tool.description": "Виконує семантичний пошук (векторний пошук) у локальних файлах. Використовує Embedding API для векторизації вмісту файлів і витягує релевантні частини документа. Індексація виконується під час першого запуску або при зміні файлів.",
-    "tool.system_prompt": "Цей інструмент використовується для семантичного пошуку в локальних файлах. Поверніть лише JSON."
+    "tool.system_prompt": "Цей інструмент використовується для семантичного пошуку в локальних файлах. Поверніть лише JSON.",
+    "err.disabled_reason": "Embedding API недоступний."
   },
   "tr": {
     "doc.db_path": "<state>/dbs altındaki her root_dir için karma DB yolunu döndürür (varsayılan: ~/.uag (eski: ~/.scheck)/dbs).",
     "doc.is_reachable": "Başlangıçta bağlantıyı kontrol eder.\n\n- Kontrol başarısız olsa da istisna fırlatmadan False döndürür\n- Başlangıç gecikmelerini önlemek için kısa bir zaman aşımı kullanır\n- Bazı uygulamalar /v1/models desteği sunmayabileceğinden GET / de yedek olarak kullanılır.",
     "doc.sync_file": "Tek dosya indeksini eşitle (yeni veya güncellenmişse)",
     "err.dir_not_found": "Hata: Dizin bulunamadı: {root_path}",
-    "err.disabled": "[tools] semantic_search_files devre dışı: Embedding API'ye ulaşılamıyor.\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] Aracı görünür tutmak için UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ayarlayın.\n",
+    "err.disabled": "[tools] semantic_search_files devre dışı: Embedding API'ye ulaşılamıyor.\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] Aracı görünür tutmak için UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 ayarlayın.\n",
     "err.query_required": "Hata: query zorunludur.",
     "err.vec_fail": "Hata: sorgu vektörleştirilemedi.",
     "out.hits": "Sonuç sayısı: {count}",
@@ -480,14 +502,15 @@
     "param.root_path.description": "Aranacak dizin.",
     "param.top_k.description": "sayı.",
     "tool.description": "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar. Dosya içeriklerini vektörleştirmek ve ilgili belge bölümlerini çıkarmak için Embedding API'yi kullanır. Dizinleme ilk kullanımda veya dosyalar değiştiğinde çalışır.",
-    "tool.system_prompt": "Bu araç, yerel dosyalar üzerinde anlamsal arama için kullanılır. Yalnızca JSON döndürün."
+    "tool.system_prompt": "Bu araç, yerel dosyalar üzerinde anlamsal arama için kullanılır. Yalnızca JSON döndürün.",
+    "err.disabled_reason": "Embedding API’ye ulaşılamıyor."
   },
   "th": {
     "doc.db_path": "ส่งคืนเส้นทาง DB ที่แฮชแล้วสำหรับ root_dir แต่ละรายการภายใต้ <state>/dbs (ค่าเริ่มต้น: ~/.uag (เดิม: ~/.scheck)/dbs)",
     "doc.is_reachable": "ตรวจสอบการเชื่อมต่อเมื่อเริ่มต้น\n\n- คืนค่า False โดยไม่ยกข้อยกเว้นแม้การตรวจสอบล้มเหลว\n- ใช้เวลา timeout สั้นเพื่อหลีกเลี่ยงความล่าช้าในการเริ่มต้น\n- เนื่องจากบางการใช้งานอาจไม่รองรับ /v1/models จึงใช้ GET / เป็นทางเลือกสำรองด้วย",
     "doc.sync_file": "ประสานดัชนีไฟล์เดียว (หากใหม่หรืออัปเดต)",
     "err.dir_not_found": "ข้อผิดพลาด: ไม่พบไดเรกทอรี: {root_path}",
-    "err.disabled": "[tools] semantic_search_files ถูกปิดใช้งาน: ไม่สามารถเข้าถึง Embedding API ได้\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] ตั้งค่า UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 เพื่อให้เครื่องมือยังคงมองเห็นได้\n",
+    "err.disabled": "[tools] semantic_search_files ถูกปิดใช้งาน: ไม่สามารถเข้าถึง Embedding API ได้\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] ตั้งค่า UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 เพื่อให้เครื่องมือยังคงมองเห็นได้\n",
     "err.query_required": "ข้อผิดพลาด: ต้องระบุ query",
     "err.vec_fail": "ข้อผิดพลาด: แปลง query เป็นเวกเตอร์ไม่สำเร็จ",
     "out.hits": "จำนวนผลลัพธ์: {count}",
@@ -501,14 +524,15 @@
     "param.root_path.description": "ไดเรกทอรีเพื่อค้นหา",
     "param.top_k.description": "ตัวเลข.",
     "tool.description": "ทำ semantic search (vector search) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และดึงส่วนของเอกสารที่เกี่ยวข้อง การทำดัชนีจะเกิดขึ้นเมื่อใช้งานครั้งแรกหรือเมื่อไฟล์มีการเปลี่ยนแปลง",
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับการค้นหาเชิงความหมายในไฟล์ในเครื่อง ส่งคืน JSON เท่านั้น"
+    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับการค้นหาเชิงความหมายในไฟล์ในเครื่อง ส่งคืน JSON เท่านั้น",
+    "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้"
   },
   "zh_CN": {
     "doc.db_path": "返回 <state>/dbs 下每个 root_dir 对应的哈希 DB 路径（默认：~/.uag（旧：~/.scheck）/dbs）。",
     "doc.is_reachable": "在启动时检查连通性。\n\n- 即使失败也返回 False，不抛出异常\n- 使用较短超时以避免启动延迟\n- 由于某些实现可能不支持 /v1/models，因此 GET / 也作为后备。",
     "doc.sync_file": "同步单个文件索引（如果是新的或更新的）",
     "err.dir_not_found": "错误：找不到目录：{root_path}",
-    "err.disabled": "[tools] semantic_search_files 已禁用：无法访问 Embedding API。\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] 将 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以保持工具可见。\n",
+    "err.disabled": "[tools] semantic_search_files 已禁用：无法访问 Embedding API。\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] 将 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以保持工具可见。\n",
     "err.query_required": "错误：需要 query。",
     "err.vec_fail": "错误：无法将查询向量化。",
     "out.hits": "命中数：{count}",
@@ -522,14 +546,15 @@
     "param.root_path.description": "要搜索的目录。",
     "param.top_k.description": "数字。",
     "tool.description": "对本地文件执行语义搜索（向量检索）。使用 Embedding API 对文件内容进行向量化，并提取相关文档片段。索引会在首次运行或文件更新时生成。",
-    "tool.system_prompt": "此工具用于对本地文件进行语义搜索。仅返回 JSON。"
+    "tool.system_prompt": "此工具用于对本地文件进行语义搜索。仅返回 JSON。",
+    "err.disabled_reason": "无法访问嵌入 API。"
   },
   "zh_TW": {
     "doc.db_path": "返回 <state>/dbs 下每個 root_dir 對應的雜湊 DB 路徑（預設：~/.uag（舊：~/.scheck）/dbs）。",
     "doc.is_reachable": "在啟動時檢查連通性。\n\n- 即使失敗也回傳 False，不拋出例外\n- 使用較短逾時以避免啟動延遲\n- 由於某些實作可能不支援 /v1/models，因此 GET / 也作為後備。",
     "doc.sync_file": "同步單一檔案索引（如果是新的或更新的）",
     "err.dir_not_found": "錯誤：找不到目錄：{root_path}",
-    "err.disabled": "[tools] semantic_search_files 已停用：無法存取 Embedding API。\n[tools] EMBEDDING_API_URL={url}\n[tools] healthcheck={hc_url}\n[tools] 將 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以保持工具可見。\n",
+    "err.disabled": "[tools] semantic_search_files 已停用：無法存取 Embedding API。\n[tools] UAGENT_EMBEDDING_PROVIDER={provider}\n[tools] base_url={base_url}\n[tools] depname={depname}\n[tools] endpoint={endpoint}\n[tools] 將 UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 以保持工具可見。\n",
     "err.query_required": "錯誤：需要 query。",
     "err.vec_fail": "錯誤：無法將查詢向量化。",
     "out.hits": "命中數：{count}",
@@ -543,6 +568,7 @@
     "param.root_path.description": "要搜尋的目錄。",
     "param.top_k.description": "數字。",
     "tool.description": "對本機檔案執行語義搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並擷取相關文件片段。索引會在首次執行或檔案更新時建立。",
-    "tool.system_prompt": "此工具用於對本機檔案執行語義搜尋。僅回傳 JSON。"
+    "tool.system_prompt": "此工具用於對本機檔案執行語義搜尋。僅回傳 JSON。",
+    "err.disabled_reason": "無法連線到嵌入 API。"
   }
 }

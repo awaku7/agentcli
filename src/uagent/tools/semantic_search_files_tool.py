@@ -3,7 +3,6 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import os
-import builtins
 from ..env_utils import env_get
 import json
 import sqlite3
@@ -19,78 +18,116 @@ try:
 except ImportError:
     HAS_NUMPY = False
 
-EMBEDDING_API_URL = ""
-EMBEDDING_MODEL = "embeddinggemma:latest"
+EMBEDDING_PROVIDER = (
+    env_get("UAGENT_EMBEDDING_PROVIDER") or env_get("UAGENT_PROVIDER") or ""
+).strip().lower()
 
-EMBEDDING_API_URL = env_get("UAGENT_EMBEDDING_API_URL") or EMBEDDING_API_URL
-
-_DISABLE_IF_UNREACHABLE = (
+_DISABLE_IF_UNREACHABLE = str(
     env_get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
-).strip().lower() in ("1", "true", "yes")
-_HEALTHCHECK_PATH = env_get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "/v1/models")
+).strip().lower() not in {"0", "false", "no", "off"}
+
+_ALLOWED_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"}
+_DEFAULT_BASE_URLS = {
+    "openai": "https://api.openai.com/v1",
+    "azure": "https://api.openai.com/v1",
+    "bedrock": "https://api.openai.com/v1",
+    "openrouter": "https://openrouter.ai/api/v1",
+    "ollama": "http://localhost:11434/v1",
+    "nvidia": "https://integrate.api.nvidia.com/v1",
+}
+
+LOAD_DISABLED_REASON = ""
+
+
+def _embedding_env(provider: str, suffix: str, *, default: str = "") -> str:
+    key = f"UAGENT_{provider.upper()}_EMBEDDING_{suffix.upper()}"
+    return (env_get(key) or default).strip()
+
+
+def _resolve_embedding_config() -> dict[str, Any]:
+    provider = EMBEDDING_PROVIDER
+    if provider not in _ALLOWED_PROVIDERS:
+        return {}
+
+    cfg: dict[str, Any] = {"provider": provider}
+
+    if provider == "azure":
+        base_url = _embedding_env(provider, "base_url")
+        api_key = _embedding_env(provider, "api_key")
+        api_version = _embedding_env(provider, "api_version")
+        depname = _embedding_env(provider, "depname")
+        if not (base_url and api_key and api_version and depname):
+            return {}
+        cfg.update(
+            {
+                "base_url": base_url,
+                "api_key": api_key,
+                "api_version": api_version,
+                "depname": depname,
+                "endpoint": base_url.rstrip("/")
+                + f"/openai/deployments/{depname}/embeddings?api-version={api_version}",
+                "headers": {"Content-Type": "application/json", "api-key": api_key},
+                "payload_base": {},
+            }
+        )
+        return cfg
+
+    base_url = _embedding_env(
+        provider, "base_url", default=_DEFAULT_BASE_URLS[provider]
+    )
+    api_key = _embedding_env(provider, "api_key")
+    depname = _embedding_env(provider, "depname")
+
+    if provider in {"openai", "bedrock", "openrouter", "ollama", "nvidia"}:
+        if not depname:
+            return {}
+    if provider in {"openai", "nvidia", "openrouter", "bedrock"} and not api_key:
+        return {}
+    if provider == "ollama":
+        api_key = api_key or ""
+
+    headers: dict[str, str] = {"Content-Type": "application/json"}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+
+    cfg.update(
+        {
+            "base_url": base_url,
+            "api_key": api_key,
+            "depname": depname,
+            "endpoint": base_url.rstrip("/") + "/embeddings",
+            "headers": headers,
+            "payload_base": {"model": depname} if depname else {},
+        }
+    )
+    return cfg
 
 
 def _is_embedding_api_reachable() -> bool:
-    base = EMBEDDING_API_URL
-    if "/v1/" in base:
-        base_root = base.split("/v1/", 1)[0]
-    else:
-        base_root = base.rstrip("/")
-
-    hc_url = base_root.rstrip("/") + _HEALTHCHECK_PATH
-
-    try:
-        r = requests.get(hc_url, timeout=3)
-        if 200 <= r.status_code < 500:
-            return True
-    except Exception:
-        pass
-
-    try:
-        r = requests.get(base_root + "/", timeout=3)
-        if 200 <= r.status_code < 500:
-            return True
-    except Exception:
+    cfg = _resolve_embedding_config()
+    if not cfg:
         return False
 
-    return False
+    base_url = str(cfg.get("base_url") or "").rstrip("/")
+    candidates = [base_url, base_url + "/"]
+    if cfg.get("provider") == "azure":
+        api_version = str(cfg.get("api_version") or "")
+        depname = str(cfg.get("depname") or "")
+        if api_version and depname:
+            candidates.append(
+                base_url + f"/openai/deployments/{depname}?api-version={api_version}"
+            )
 
-
-def _emit_embedding_disabled_reason() -> None:
-    try:
-        if getattr(builtins, "_uagent_embedding_disabled_warned", False):
-            return
-        builtins._uagent_embedding_disabled_warned = True
-
-        base = EMBEDDING_API_URL
-        if "/v1/" in base:
-            base_root = base.split("/v1/", 1)[0]
-        else:
-            base_root = base.rstrip("/")
-
-        hc_url = base_root.rstrip("/") + _HEALTHCHECK_PATH
-        msg = _(
-            "err.disabled",
-            default=(
-                "[TOOL] semantic_search_files is disabled: Embedding API is unreachable.\n"
-                "[TOOL] UAGENT_EMBEDDING_API_URL={url}\n"
-                "[TOOL] healthcheck={hc_url}\n"
-                "[TOOL] Set UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=0 to keep the tool visible.\n"
-            ),
-        ).format(url=EMBEDDING_API_URL, hc_url=hc_url)
+    for url in candidates:
+        if not url:
+            continue
         try:
-            import sys
-
-            # 他の出力と連結して読みにくくならないよう、先頭/末尾の余分な改行を除去し、末尾の改行を1つだけ保証する
-            if msg:
-                msg = msg.strip("\n") + "\n"
-
-            sys.stderr.write(msg)
-            sys.stderr.flush()
+            r = requests.get(url, timeout=3)
+            if 200 <= r.status_code < 500:
+                return True
         except Exception:
-            print(msg, flush=True)
-    except Exception:
-        return
+            continue
+    return False
 
 
 def _get_db_path(root_dir: str) -> str:
@@ -129,17 +166,31 @@ def _init_db(db_path: str):
 
 
 def _get_embedding(text: str) -> List[float]:
-    payload = {"model": EMBEDDING_MODEL, "input": text}
+    cfg = _resolve_embedding_config()
+    if not cfg:
+        return []
+
+    payload = dict(cfg.get("payload_base") or {})
+    payload["input"] = text
     try:
         resp = requests.post(
-            EMBEDDING_API_URL,
+            str(cfg["endpoint"]),
             json=payload,
-            headers={"Content-Type": "application/json"},
+            headers=dict(cfg.get("headers") or {}),
             timeout=30,
         )
         resp.raise_for_status()
         data = resp.json()
-        return data["data"][0]["embedding"]
+        if isinstance(data, dict):
+            rows = data.get("data")
+            if isinstance(rows, list) and rows:
+                emb = rows[0].get("embedding") if isinstance(rows[0], dict) else None
+                if isinstance(emb, list):
+                    return emb
+            emb = data.get("embedding")
+            if isinstance(emb, list):
+                return emb
+        return []
     except Exception:
         return []
 
@@ -351,7 +402,10 @@ def run_tool(args: Dict[str, Any]) -> str:
 
 
 if _DISABLE_IF_UNREACHABLE and not _is_embedding_api_reachable():
-    _emit_embedding_disabled_reason()
+    LOAD_DISABLED_REASON = _(
+        "err.disabled_reason",
+        default="embedding endpoint is unreachable.",
+    )
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
     TOOL_SPEC = {

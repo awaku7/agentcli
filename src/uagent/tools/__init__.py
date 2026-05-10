@@ -197,7 +197,19 @@ def _load_plugins() -> None:
                 mod = reload(sys.modules[mod_name])
             else:
                 mod = import_module(mod_name)
-            _register_tool_module(mod, mod_name)
+            loaded = _register_tool_module(mod, mod_name)
+            reason = getattr(mod, "LOAD_DISABLED_REASON", "")
+            if (not loaded) and reason:
+                print(
+                    _(
+                        "log.load_disabled.internal",
+                        default=(
+                            "[tools] Internal plugin {mod_name} is disabled:\n"
+                            "[tools] {reason}"
+                        ),
+                    ).format(mod_name=mod_name, reason=reason),
+                    file=sys.stderr,
+                )
         except Exception as e:
             print(
                 _(

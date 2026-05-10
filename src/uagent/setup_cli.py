@@ -530,7 +530,7 @@ def _ask_provider_image_values(
     return "ok", vals
 
 
-def _ask_provider_audio_values(
+def _ask_provider_embedding_values(
     provider: str,
     *,
     allow_back: bool = True,
@@ -540,33 +540,66 @@ def _ask_provider_audio_values(
 
     if provider == "azure":
         specs = [
-            ("speech", True, _("Azure speech deployment name")),
-            ("transcribe", True, _("Azure transcription deployment name")),
+            (
+                "base_url",
+                True,
+                _("Azure base URL (e.g. https://<resource>.openai.azure.com/)")
+            ),
+            ("api_key", True, _("Azure API key")),
+            (
+                "api_version",
+                True,
+                _("Azure API version (e.g. 2024-05-01-preview)"),
+            ),
+            ("depname", True, _("Azure embedding deployment name")),
         ]
     elif provider == "openai":
         specs = [
+            ("api_key", True, _("OpenAI API key")),
+            ("base_url", False, _("OpenAI base URL (optional)")),
+            ("depname", True, _("OpenAI embedding model/deployment name")),
+        ]
+    elif provider == "bedrock":
+        specs = [
             (
-                "speech",
-                False,
-                _(
-                    "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
-                ),
+                "base_url",
+                True,
+                _("Bedrock gateway base URL (e.g. https://<gateway>/v1)"),
             ),
+            ("api_key", True, _("Bedrock API key")),
             (
-                "transcribe",
-                False,
-                _(
-                    "OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-transcribe)"
-                ),
+                "depname",
+                True,
+                _("Bedrock embedding model/deployment name"),
             ),
         ]
-        vals.setdefault("UAGENT_OPENAI_SPEECH_DEPNAME", "gpt-4o-mini-tts")
-        vals.setdefault("UAGENT_OPENAI_TRANSCRIBE_DEPNAME", "gpt-4o-mini-transcribe")
+    elif provider == "openrouter":
+        specs = [
+            ("api_key", True, _("OpenRouter API key")),
+            ("base_url", False, _("OpenRouter base URL (optional)")),
+            ("depname", True, _("OpenRouter embedding model/deployment name")),
+        ]
+    elif provider == "ollama":
+        specs = [
+            (
+                "base_url",
+                True,
+                _("Ollama base URL (e.g. http://localhost:11434/v1)"),
+            ),
+            ("depname", True, _("Ollama embedding model name")),
+        ]
+    elif provider == "nvidia":
+        specs = [
+            ("api_key", True, _("NVIDIA API key")),
+            ("base_url", False, _("NVIDIA base URL (optional)")),
+            ("depname", True, _("NVIDIA embedding model/deployment name")),
+        ]
     else:
         return "ok", vals
 
+    vals["UAGENT_EMBEDDING_PROVIDER"] = provider
     for suffix, required, label in specs:
-        key = f"UAGENT_{provider.upper()}_{suffix.upper()}_DEPNAME"
+        key = f"UAGENT_{provider.upper()}_EMBEDDING_{suffix.upper()}"
         status, value = _ask_text(
             "%(label)s" % {"label": label},
             default=vals.get(key, ""),
@@ -580,7 +613,12 @@ def _ask_provider_audio_values(
     return "ok", vals
 
 
-def _ask_optional_extras(st: _WizardState) -> str:
+def _ask_provider_audio_values(
+    provider: str,
+    *,
+    allow_back: bool = True,
+    current: dict[str, str] | None = None,
+) -> tuple[str, dict[str, str]]:
     yn = _menu_choice(
         _("Configure optional image / embedding / audio settings?"),
         [_("No"), _("Yes")],
@@ -685,39 +723,36 @@ def _ask_optional_extras(st: _WizardState) -> str:
         return emb
     st.embedding_enabled = emb == "2"
     if st.embedding_enabled:
-        st.embedding_values = {}
-        status, value = _ask_text(
-            "UAGENT_EMBEDDING_API_URL",
-            default="",
-            required=True,
+        emb_options = [f"{prov} ({label})" for prov, label in IMAGE_ANALYSIS_PROVIDERS + [("ollama", "Ollama"), ("nvidia", "NVIDIA")]]
+        # keep provider list explicit and aligned with embedding backends
+        emb_options = [
+            "openai (OpenAI-compatible)",
+            "azure (Azure OpenAI)",
+            "bedrock (Bedrock OpenAI-compatible gateway)",
+            "openrouter (OpenRouter)",
+            "ollama (Ollama)",
+            "nvidia (NVIDIA)",
+        ]
+        emb_choice = _menu_choice(
+            _("Select embedding provider"),
+            emb_options,
+            default_index=1,
+            allow_back=True,
+        )
+        if emb_choice in {"__quit__", "__back__"}:
+            return emb_choice
+        emb_provider = ["openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"][
+            int(emb_choice) - 1
+        ]
+        st.embedding_values = {"UAGENT_EMBEDDING_PROVIDER": emb_provider}
+        status, vals = _ask_provider_embedding_values(
+            emb_provider,
+            current=st.embedding_values,
             allow_back=True,
         )
         if status in {"__quit__", "__back__"}:
             return status
-        st.embedding_values["UAGENT_EMBEDDING_API_URL"] = value
-
-        status, value = _ask_text(
-            "UAGENT_EMBEDDING_API_HEALTHCHECK_PATH",
-            default="/v1/models",
-            required=False,
-            allow_back=True,
-        )
-        if status in {"__quit__", "__back__"}:
-            return status
-        if value:
-            st.embedding_values["UAGENT_EMBEDDING_API_HEALTHCHECK_PATH"] = value
-
-        sem = _menu_choice(
-            _("Disable semantic search when embedding API is unreachable?"),
-            [_("No"), _("Yes")],
-            default_index=2,
-            allow_back=True,
-        )
-        if sem in {"__quit__", "__back__"}:
-            return sem
-        st.embedding_values["UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE"] = (
-            "1" if sem == "2" else "0"
-        )
+        st.embedding_values = vals
 
     # Audio speech / transcription
     au = _menu_choice(
@@ -899,21 +934,22 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
 
         if st.embedding_enabled:
             emb_vals = st.embedding_values or {}
-            emb_url = emb_vals.get("UAGENT_EMBEDDING_API_URL", "").strip()
-            if emb_url:
-                out.append(f"UAGENT_EMBEDDING_API_URL={emb_url}")
-            hc = emb_vals.get("UAGENT_EMBEDDING_API_HEALTHCHECK_PATH", "").strip()
-            if hc:
-                out.append(f"UAGENT_EMBEDDING_API_HEALTHCHECK_PATH={hc}")
-            sem = emb_vals.get(
-                "UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE", ""
-            ).strip()
-            if sem:
-                out.append(f"UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE={sem}")
+            emb_provider = emb_vals.get("UAGENT_EMBEDDING_PROVIDER", "").strip()
+            if emb_provider:
+                out.append(f"UAGENT_EMBEDDING_PROVIDER={emb_provider}")
+                for suffix in ("BASE_URL", "API_KEY", "API_VERSION", "DEPNAME"):
+                    key = f"UAGENT_{emb_provider.upper()}_EMBEDDING_{suffix}"
+                    val = emb_vals.get(key, "").strip()
+                    if val:
+                        out.append(f"{key}={val}")
         else:
-            out.append("# UAGENT_EMBEDDING_API_URL=")
-            out.append("# UAGENT_EMBEDDING_API_HEALTHCHECK_PATH=/v1/models")
-            out.append("# UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE=1")
+            out.append("# UAGENT_EMBEDDING_PROVIDER=")
+            for prov in ["openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"]:
+                out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_BASE_URL=")
+                out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_API_KEY=")
+                if prov == "azure":
+                    out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_API_VERSION=")
+                out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_DEPNAME=")
         out.append("")
 
         if st.audio_enabled:
@@ -1204,13 +1240,10 @@ def main() -> int:
                 )
                 if st.embedding_enabled:
                     print(
-                        f"  UAGENT_EMBEDDING_API_URL={(st.values or {}).get('UAGENT_EMBEDDING_API_URL', '')}"
+                        f"  UAGENT_EMBEDDING_PROVIDER={(st.embedding_values or {}).get('UAGENT_EMBEDDING_PROVIDER', '')}"
                     )
                     print(
-                        f"  UAGENT_EMBEDDING_API_HEALTHCHECK_PATH={(st.values or {}).get('UAGENT_EMBEDDING_API_HEALTHCHECK_PATH', '')}"
-                    )
-                    print(
-                        f"  UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE={(st.values or {}).get('UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE', '')}"
+                        f"  UAGENT_{(st.embedding_values or {}).get('UAGENT_EMBEDDING_PROVIDER', '').upper()}_EMBEDDING_DEPNAME={(st.embedding_values or {}).get('UAGENT_' + (st.embedding_values or {}).get('UAGENT_EMBEDDING_PROVIDER', '').upper() + '_EMBEDDING_DEPNAME', '')}"
                     )
             print(_("  Outputs: %(outputs)s") % {"outputs": ", ".join(sorted(outputs))})
 

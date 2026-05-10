@@ -142,6 +142,72 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
             reason="NVIDIA API key.",
         )
 
+    embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()
+    if embedding_provider:
+        embedding_allowed = (
+            "openai",
+            "azure",
+            "bedrock",
+            "openrouter",
+            "ollama",
+            "nvidia",
+        )
+        if embedding_provider not in embedding_allowed:
+            warnings.append(
+                f"Unknown embedding provider: {embedding_provider!r}. Allowed: {', '.join(embedding_allowed)} (startup will likely fail)."
+            )
+        elif embedding_provider == "azure":
+            missing += _require(
+                [
+                    "UAGENT_AZURE_EMBEDDING_BASE_URL",
+                    "UAGENT_AZURE_EMBEDDING_API_KEY",
+                    "UAGENT_AZURE_EMBEDDING_API_VERSION",
+                    "UAGENT_AZURE_EMBEDDING_DEPNAME",
+                ],
+                reason="Azure embedding endpoint / API key / API version / deployment name.",
+            )
+        elif embedding_provider == "openai":
+            missing += _require(
+                [
+                    "UAGENT_OPENAI_EMBEDDING_API_KEY",
+                    "UAGENT_OPENAI_EMBEDDING_DEPNAME",
+                ],
+                reason="OpenAI embedding API key / model name.",
+            )
+        elif embedding_provider == "bedrock":
+            missing += _require(
+                [
+                    "UAGENT_BEDROCK_EMBEDDING_BASE_URL",
+                    "UAGENT_BEDROCK_EMBEDDING_API_KEY",
+                    "UAGENT_BEDROCK_EMBEDDING_DEPNAME",
+                ],
+                reason="Bedrock embedding endpoint / API key / deployment name.",
+            )
+        elif embedding_provider == "openrouter":
+            missing += _require(
+                [
+                    "UAGENT_OPENROUTER_EMBEDDING_API_KEY",
+                    "UAGENT_OPENROUTER_EMBEDDING_DEPNAME",
+                ],
+                reason="OpenRouter embedding API key / model name.",
+            )
+        elif embedding_provider == "ollama":
+            missing += _require(
+                [
+                    "UAGENT_OLLAMA_EMBEDDING_BASE_URL",
+                    "UAGENT_OLLAMA_EMBEDDING_DEPNAME",
+                ],
+                reason="Ollama embedding base URL / model name.",
+            )
+        elif embedding_provider == "nvidia":
+            missing += _require(
+                [
+                    "UAGENT_NVIDIA_EMBEDDING_API_KEY",
+                    "UAGENT_NVIDIA_EMBEDDING_DEPNAME",
+                ],
+                reason="NVIDIA embedding API key / model name.",
+            )
+
     return provider, missing, warnings
 
 
