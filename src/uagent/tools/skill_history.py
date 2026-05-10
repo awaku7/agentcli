@@ -1,0 +1,37 @@
+from __future__ import annotations
+
+from typing import Any, Dict, List
+
+
+def _skills_marker_prefix() -> str:
+    return "[SKILL] "
+
+
+def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
+    prefix = _skills_marker_prefix()
+    before = len(messages_ref)
+    messages_ref[:] = [
+        m
+        for m in messages_ref
+        if not (
+            isinstance(m, dict)
+            and m.get("role") == "system"
+            and isinstance(m.get("content"), str)
+            and m.get("content").startswith(prefix)
+        )
+    ]
+    return before - len(messages_ref)
+
+
+def _persist_messages_with_warn(
+    messages: List[Dict[str, Any]], *, core: Any, label: str
+) -> None:
+    try:
+        core.rewrite_current_log_from_messages(messages)
+    except Exception as e:
+        import sys
+
+        print(
+            f"[{label} warn] Failed to rewrite current log: {type(e).__name__}: {e}",
+            file=sys.stderr,
+        )

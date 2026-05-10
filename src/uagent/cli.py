@@ -66,14 +66,10 @@ from .util_tools import (
     image_file_to_data_url,
     parse_startup_args as _parse_startup_args,
     handle_command,
-    init_tools_callbacks as _init_tools_callbacks,
 )
 
 # scheck_core をインポート
 core = importlib.import_module(".core", package="uagent")
-
-# callbacks 注入
-_init_tools_callbacks(core)
 
 
 # Readline history setup

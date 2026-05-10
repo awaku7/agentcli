@@ -49,7 +49,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         m = f.f_locals.get("messages") or f.f_locals.get("messages_ref")
         if isinstance(m, list):
             try:
-                from ..util_tools import (
+                from .skill_history import (
                     _clear_skill_messages,
                     _persist_messages_with_warn,
                 )
