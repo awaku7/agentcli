@@ -57,6 +57,8 @@ def run_cli_startup(
         build_long_memory_system_message,
     )
 
+    tools_util.init_tools_callbacks(core)
+
     startup_capture_out = io.StringIO()
     startup_capture_err = io.StringIO()
 
