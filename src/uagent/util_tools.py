@@ -44,6 +44,10 @@ def init_tools_callbacks(core: Any) -> None:
 
     cb = ToolCallbacks(
         set_status=getattr(core, "set_status", None),
+        debug=getattr(core, "debug", None),
+        log=getattr(core, "log", None),
+        error=getattr(core, "error", None),
+        exception=getattr(core, "exception", None),
         get_env=getattr(core, "get_env", None),
         get_env_url=getattr(core, "get_env_url", None),
         truncate_output=(

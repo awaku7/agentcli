@@ -193,3 +193,43 @@ def test_batch_state_init_and_load_smoke(
     assert obj_load["ok"] is True
     assert obj_load["state"]["batch_id"] == "smoke-batch"
     assert obj_load["state"]["targets"] == []
+
+    out_status = run_tool({"action": "status", "batch_id": "smoke-batch"})
+    obj_status = json.loads(out_status)
+    assert obj_status["ok"] is True
+    assert obj_status["state"]["status"] == "active"
+    assert obj_status["state"]["batch_id"] == "smoke-batch"
+
+
+def test_batch_state_reset_smoke(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools.batch_state_tool import run_tool
+
+    monkeypatch.setenv("UAGENT_BATCHES_DIR", str(repo_tmp_path / "batches"))
+
+    out_init = run_tool(
+        {
+            "action": "init",
+            "batch_id": "reset-batch",
+            "task_description": "smoke",
+            "instructions": "元の指示",
+            "targets": [
+                {"dir": "src", "files": ["a.py", "b.py"], "next_index": 1},
+                {"dir": "docs", "files": ["c.md"], "next_index": 0},
+            ],
+        }
+    )
+    obj_init = json.loads(out_init)
+    assert obj_init["ok"] is True
+    assert obj_init["state"]["instructions"] == "元の指示"
+    assert obj_init["state"]["current_file"] == "src/b.py"
+
+    out_reset = run_tool({"action": "reset", "batch_id": "reset-batch"})
+    obj_reset = json.loads(out_reset)
+    assert obj_reset["ok"] is True
+    assert obj_reset["state"]["instructions"] == "元の指示"
+    assert obj_reset["state"]["current_target"] == 0
+    assert obj_reset["state"]["current_file"] == "src/a.py"
+    assert obj_reset["state"]["targets"][0]["next_index"] == 0
+    assert obj_reset["state"]["targets"][1]["next_index"] == 0

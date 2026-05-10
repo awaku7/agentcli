@@ -162,10 +162,16 @@ def run_cli_startup(
             provider, client, depname = providers.make_client(core)
 
             print("[INFO] " + _("LLM provider = %(provider)s", provider=provider))
-            print("[INFO] UAGENT_PROVIDER = %(value)s" % {"value": env_get("UAGENT_PROVIDER", "(not set)")})
+            print(
+                "[INFO] UAGENT_PROVIDER = %(value)s"
+                % {"value": env_get("UAGENT_PROVIDER", "(not set)")}
+            )
             try:
-                from .runtime_env import _read_envsec_plaintext as _uagent_read_envsec_plaintext
+                from .runtime_env import (
+                    _read_envsec_plaintext as _uagent_read_envsec_plaintext,
+                )
                 from pathlib import Path as _Path
+
                 _uagent_sec_path = _Path.cwd() / ".env.sec"
                 _uagent_sec_plain = (
                     _uagent_read_envsec_plaintext(_uagent_sec_path)
@@ -180,9 +186,14 @@ def run_cli_startup(
                     ),
                     "(not found)",
                 )
-                print("[DEBUG] .env.sec UAGENT_PROVIDER = %(value)s" % {"value": _uagent_sec_provider})
+                print(
+                    "[DEBUG] .env.sec UAGENT_PROVIDER = %(value)s"
+                    % {"value": _uagent_sec_provider}
+                )
             except Exception as e:
-                print("[DEBUG] .env.sec UAGENT_PROVIDER = <error: %(err)s>" % {"err": e})
+                print(
+                    "[DEBUG] .env.sec UAGENT_PROVIDER = <error: %(err)s>" % {"err": e}
+                )
             print("[INFO] " + _("model(deployment) = %(depname)s", depname=depname))
             if banner:
                 print(banner, end="")

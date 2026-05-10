@@ -241,6 +241,10 @@ class ScheckWorker(QtCore.QObject):
     def _init_callbacks(self):
         cb = ToolCallbacks(
             set_status=core.set_status,
+            debug=getattr(core, "debug", None),
+            log=getattr(core, "log", None),
+            error=getattr(core, "error", None),
+            exception=getattr(core, "exception", None),
             get_env=core.get_env,
             truncate_output=core.truncate_output,
             human_ask_lock=core.human_ask_lock,
