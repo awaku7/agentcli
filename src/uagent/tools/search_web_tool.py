@@ -7,12 +7,14 @@ import logging
 from ..env_utils import env_get
 import random
 import time
+import traceback
 from typing import Any, Dict, List, Optional
 from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 
 from .i18n_helper import make_tool_translator
+from .context import get_callbacks
 
 _ = make_tool_translator(__file__)
 
@@ -20,6 +22,36 @@ logger = logging.getLogger(__name__)
 if not logger.handlers:
     logger.addHandler(logging.StreamHandler())
 logger.setLevel(logging.INFO)
+
+
+def _emit_debug(message: str) -> None:
+    cb = get_callbacks().debug
+    if cb is not None:
+        try:
+            cb(message)
+        except Exception:
+            pass
+    logger.debug(message)
+
+
+def _emit_error(message: str) -> None:
+    cb = get_callbacks().error
+    if cb is not None:
+        try:
+            cb(message)
+        except Exception:
+            pass
+    logger.error(message)
+
+
+def _emit_exception(message: str) -> None:
+    cb = get_callbacks().exception
+    if cb is not None:
+        try:
+            cb(message)
+        except Exception:
+            pass
+    logger.exception(message)
 
 
 # ------------------------------
@@ -125,7 +157,7 @@ def _duckduckgo_search(
 ) -> List[Dict[str, str]]:
     """Perform a DuckDuckGo search query."""
 
-    logger.debug("Performing DuckDuckGo search: %s", query)
+    _emit_debug(f"Performing DuckDuckGo search: {query}")
 
     params = {"q": query}
     headers = _default_headers()
@@ -148,10 +180,10 @@ def _duckduckgo_search(
             results = _parse_results(resp.text, max_results)
 
             if results:
-                logger.debug("Found %d results", len(results))
+                _emit_debug(f"Found {len(results)} results")
                 return results
 
-            logger.debug("Parsed 0 results (attempt %d/%d).", attempt + 1, retries + 1)
+            _emit_debug(f"Parsed 0 results (attempt {attempt + 1}/{retries + 1}).")
             if attempt < retries:
                 _sleep_backoff(attempt)
                 continue
@@ -159,8 +191,8 @@ def _duckduckgo_search(
 
         except requests.RequestException as exc:
             last_exc = exc
-            logger.debug(
-                "DDG request failed (attempt %d/%d): %s", attempt + 1, retries + 1, exc
+            _emit_debug(
+                f"DDG request failed (attempt {attempt + 1}/{retries + 1}): {exc}"
             )
             if attempt < retries:
                 _sleep_backoff(attempt)
@@ -280,10 +312,12 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     except Exception as e:
-        logger.exception(
+        _emit_exception(
             _("error.run_tool_error", default="run_tool error: {error}").format(
                 error=""
             )
+            + "\n"
+            + traceback.format_exc().rstrip()
         )
         return json.dumps(
             {
@@ -313,7 +347,7 @@ def main() -> None:
         results = search_web(args.query, args.number)
         print(json.dumps(results, ensure_ascii=False, indent=2))
     except RuntimeError as e:
-        logger.error("Search failed: %s", e)
+        _emit_error(f"Search failed: {e}")
         raise RuntimeError(f"Search failed: {e}") from e
 
 

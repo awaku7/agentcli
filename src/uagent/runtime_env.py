@@ -138,7 +138,6 @@ def _maybe_offer_envsec_sync(
 
     sec_values = _parse_uagent_env_text(sec_plain) if sec_plain.strip() else {}
 
-
     if sec_path.exists():
         if not sec_values:
             return False
@@ -155,10 +154,8 @@ def _maybe_offer_envsec_sync(
             getattr(sys.stdin, "isatty", lambda: False)()
         )
         if interactive:
-            prompt = (
-                _(
-                    "[INFO] .env.sec content does not match the current startup UAGENT_* environment variables. Update it? [y/N] "
-                )
+            prompt = _(
+                "[INFO] .env.sec content does not match the current startup UAGENT_* environment variables. Update it? [y/N] "
             )
             try:
                 sys.__stdout__.write(prompt)
@@ -200,10 +197,8 @@ def _maybe_offer_envsec_sync(
         getattr(sys.stdin, "isatty", lambda: False)()
     )
     if interactive:
-        prompt = (
-            _(
-                "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* environment variables? [y/N] "
-            )
+        prompt = _(
+            "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* environment variables? [y/N] "
         )
         try:
             sys.__stdout__.write(prompt)

@@ -810,9 +810,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# ==============================")
 
     for prov, label in PROVIDERS:
-        section(
-            "%(label)s (UAGENT_PROVIDER=%(prov)s)" % {"label": label, "prov": prov}
-        )
+        section("%(label)s (UAGENT_PROVIDER=%(prov)s)" % {"label": label, "prov": prov})
         fields = PROVIDER_FIELDS[prov]
         for k, _req, _lab in fields:
             v = values.get(k, "") if prov == st.provider else ""

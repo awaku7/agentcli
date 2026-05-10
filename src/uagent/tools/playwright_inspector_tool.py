@@ -1,4 +1,5 @@
 from .i18n_helper import make_tool_translator
+from .context import get_callbacks
 
 _ = make_tool_translator(__file__)
 
@@ -11,6 +12,16 @@ from typing import Any, Dict
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:playwright_inspector"
+
+
+def _emit_debug(message: str) -> None:
+    cb = get_callbacks().debug
+    if cb is not None:
+        try:
+            cb(message)
+        except Exception:
+            pass
+
 
 TOOL_SPEC: Dict[str, Any] = {
     "type": "function",
@@ -52,6 +63,8 @@ def run_playwright_inspector(
     url: str = "about:blank", prefix: str = "debug_capture"
 ) -> str:
     """Launch Playwright Inspector and save the state and navigation snapshots after user operations."""
+
+    _emit_debug(f"Launching Playwright Inspector: url={url!r}, prefix={prefix!r}")
 
     payload = {
         "url": url,
