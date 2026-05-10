@@ -28,9 +28,7 @@ def load_dotenv_custom():
 
         global _STARTUP_UAGENT_ENV_SNAPSHOT
         _STARTUP_UAGENT_ENV_SNAPSHOT = {
-            key: value
-            for key, value in os.environ.items()
-            if key.startswith("UAGENT_")
+            key: value for key, value in os.environ.items() if key.startswith("UAGENT_")
         }
 
         cwd = Path.cwd()

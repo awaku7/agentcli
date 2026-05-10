@@ -454,6 +454,7 @@ def _call_openai_azure_round(
                     ):
                         print("")
                 else:
+
                     def _create_responses_with_effort_fallback() -> Any:
                         try:
                             return client.responses.create(**resp_kwargs)
@@ -489,12 +490,19 @@ def _call_openai_azure_round(
                     # Auto retry (non-streaming only): if output looks unusable, retry once with higher effort.
                     if (
                         _reasoning == "auto"
-                        and _effort_used in ("minimal", "low", "medium", "high", "xhigh")
+                        and _effort_used
+                        in ("minimal", "low", "medium", "high", "xhigh")
                         and not tool_calls_list
                         and _auto_low_quality(_auto_user_text, assistant_text)
                     ):
                         _next_effort = _bump_effort(_effort_used)
-                        if _next_effort in ("minimal", "low", "medium", "high", "xhigh"):
+                        if _next_effort in (
+                            "minimal",
+                            "low",
+                            "medium",
+                            "high",
+                            "xhigh",
+                        ):
                             try:
                                 core.set_status(True, f"LLM:auto->{_next_effort}")
                             except Exception:
@@ -503,7 +511,9 @@ def _call_openai_azure_round(
                             resp = call_maybe_thread_fn(
                                 lambda: client.responses.create(**resp_kwargs)
                             )
-                            assistant_text, tool_calls_list = parse_responses_response(resp)
+                            assistant_text, tool_calls_list = parse_responses_response(
+                                resp
+                            )
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 

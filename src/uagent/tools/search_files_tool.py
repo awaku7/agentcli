@@ -4,6 +4,7 @@ import fnmatch
 import json
 import os
 import re
+import sys
 from typing import Any, Dict, List, Optional
 
 from .i18n_helper import make_tool_translator
@@ -228,7 +229,11 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
             return text.replace("\r\n", "\n").replace("\r", "\n"), enc
         except UnicodeDecodeError:
             continue
-    return data.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n"), "utf-8"
+    return (
+        data.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n"),
+        "utf-8",
+    )
+
 
 def _grep_text_full_read_bytes(
     data: bytes,

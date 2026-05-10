@@ -15,7 +15,17 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
 
-_TOOL_ACTIONS = ("init", "load", "update", "append_log", "finalize", "list", "delete")
+_TOOL_ACTIONS = (
+    "init",
+    "load",
+    "status",
+    "update",
+    "reset",
+    "append_log",
+    "finalize",
+    "list",
+    "delete",
+)
 _BATCH_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 _ALLOWED_STATUSES = {"active", "done", "paused", "cancelled", "error"}
 
@@ -30,7 +40,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "Manage batch state. Prefer targets=[{dir, files, next_index}] and current_target. "
+                "Manage batch state. Use the same language as the user's latest instruction. Do not translate or rewrite user-provided text. Prefer targets=[{dir, files, next_index}] and current_target. "
                 "Advance progress by increasing next_index. current_file is a legacy alias. "
                 "Return JSON only."
             ),
@@ -45,7 +55,8 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.action.description",
                         default=(
-                            "Action: init/load/update/append_log/finalize/list/delete. "
+                            "Action: init/load/status/update/reset/append_log/finalize/list/delete. "
+                            "Use load/status to inspect current progress. "
                             "Use update with patch to change targets/current_target/next_index."
                         ),
                     ),
@@ -54,21 +65,21 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.batch_id.description",
-                        default="Batch ID. Required for load/update/finalize/delete; optional for init/list.",
+                        default="Batch ID. Required for load/status/update/finalize/delete; optional for init/list.",
                     ),
                 },
                 "task_description": {
                     "type": "string",
                     "description": _(
                         "param.task_description.description",
-                        default="Short description of the batch task.",
+                        default="Short description of the batch task. Keep the user's original language; do not translate.",
                     ),
                 },
                 "instructions": {
                     "type": "string",
                     "description": _(
                         "param.instructions.description",
-                        default="Detailed instructions for the batch task.",
+                        default="Detailed instructions for the batch task. Keep the user's original language; do not translate.",
                     ),
                 },
                 "targets": {
@@ -127,7 +138,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.message.description",
-                        default="Log message to append.",
+                        default="Log message to append. Keep the user's original language; do not translate.",
                     ),
                 },
                 "overwrite": {
@@ -591,6 +602,7 @@ def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
         "batch_id": snapshot.get("batch_id", ""),
         "status": snapshot.get("status", ""),
         "task_description": snapshot.get("task_description", ""),
+        "instructions": snapshot.get("instructions", ""),
         "workdir": snapshot.get("workdir", ""),
         "current_target": snapshot.get("current_target", 0),
         "current_target_dir": snapshot.get("current_target_dir", ""),
@@ -714,15 +726,24 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
 
         batch_id = _validate_batch_id(_normalize_batch_id(args.get("batch_id")))
-
         if action == "load":
-            state = _state_with_progress_view(_load_state(batch_id))
+            state = _load_state(batch_id)
             return _result(
                 True,
                 action="load",
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
-                state=state,
+                state=_batch_overview(state),
+            )
+
+        if action == "status":
+            state = _load_state(batch_id)
+            return _result(
+                True,
+                action="status",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=_batch_overview(state),
             )
 
         if action == "update":
@@ -742,12 +763,31 @@ def run_tool(args: Dict[str, Any]) -> str:
             else:
                 patch = dict(patch_arg)
             patch = {**_collect_state_patch(args), **patch}
-            state = _merge_state(state, patch)
+            if patch:
+                state = _merge_state(state, patch)
             state = _normalize_persisted_state(state)
             _save_state(batch_id, state)
             return _result(
                 True,
                 action="update",
+                batch_id=batch_id,
+                path=str(_path_for_batch_id(batch_id)),
+                state=_batch_overview(state),
+            )
+
+        if action == "reset":
+            state = _load_state(batch_id)
+            targets = _normalize_targets(state.get("targets"))
+            for target in targets:
+                if isinstance(target, dict):
+                    target["next_index"] = 0
+            state["targets"] = targets
+            state["current_target"] = 0
+            state = _normalize_persisted_state(state)
+            _save_state(batch_id, state)
+            return _result(
+                True,
+                action="reset",
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
@@ -810,7 +850,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
             )
-
         if action == "delete":
             path = _path_for_batch_id(batch_id)
             if not path.exists():

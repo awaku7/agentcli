@@ -18,6 +18,10 @@ from typing import Any, Callable, Optional
 class ToolCallbacks:
     # Busy/Idle status updates
     set_status: Optional[Callable[[bool, str], None]] = None
+    debug: Optional[Callable[[str], None]] = None
+    log: Optional[Callable[[str], None]] = None
+    error: Optional[Callable[[str], None]] = None
+    exception: Optional[Callable[[str], None]] = None
 
     # Environment variable access
     get_env: Optional[Callable[[str], str]] = None

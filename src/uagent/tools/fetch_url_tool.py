@@ -3,14 +3,17 @@ from __future__ import annotations
 
 import json
 import sys
+import warnings
 from typing import Any, Dict, Optional
 from urllib.request import Request, urlopen
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
+
+warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 BUSY_LABEL = True
 
