@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from typing import Any, Callable, Dict, List
 
+from .context import get_callbacks
+
 
 def _skills_marker_prefix() -> str:
     return "[SKILL] "
@@ -28,7 +30,12 @@ def _persist_messages_with_warn(
     messages: List[Dict[str, Any]], *, core: Any, label: str
 ) -> None:
     try:
-        core.rewrite_current_log_from_messages(messages)
+        cb = get_callbacks()
+        rewrite_current_log = getattr(cb, "rewrite_current_log_from_messages", None)
+        if rewrite_current_log is not None:
+            rewrite_current_log(messages)
+        else:
+            core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         import sys
 

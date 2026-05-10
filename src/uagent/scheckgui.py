@@ -246,6 +246,9 @@ class ScheckWorker(QtCore.QObject):
             log=getattr(core, "log", None),
             error=getattr(core, "error", None),
             exception=getattr(core, "exception", None),
+            rewrite_current_log_from_messages=getattr(
+                core, "rewrite_current_log_from_messages", None
+            ),
             get_env=core.get_env,
             truncate_output=core.truncate_output,
             human_ask_lock=core.human_ask_lock,
