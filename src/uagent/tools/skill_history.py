@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List
+import json
+from typing import Any, Callable, Dict, List
 
 
 def _skills_marker_prefix() -> str:
@@ -35,3 +36,22 @@ def _persist_messages_with_warn(
             f"[{label} warn] Failed to rewrite current log: {type(e).__name__}: {e}",
             file=sys.stderr,
         )
+
+
+def make_finish_skill_handler(
+    messages_ref: List[Dict[str, Any]], core: Any
+) -> Callable[[str], str]:
+    def finish_skill(message: str) -> str:
+        removed = _clear_skill_messages(messages_ref)
+        if removed > 0:
+            _persist_messages_with_warn(messages_ref, core=core, label="finish_skill")
+            return json.dumps(
+                {
+                    "status": "ok",
+                    "message": f"{message} (Cleared {removed} skill messages)",
+                },
+                ensure_ascii=False,
+            )
+        return json.dumps({"status": "ok", "message": message}, ensure_ascii=False)
+
+    return finish_skill

@@ -12,12 +12,12 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from polib import POEntry, POFile, pofile  # noqa: E402
 
-from po_qc_summary import (
+from po_qc_summary import (  # noqa: E402
     _has_expected_script,
     _is_ascii_only,
     _is_key_like,
     parse_po_entries,
-)  # noqa: E402
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 LOCALES_DIR = ROOT / "src" / "uagent" / "locales"

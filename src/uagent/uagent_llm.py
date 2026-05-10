@@ -47,6 +47,8 @@ from .llm_flow_helpers import (
     _handle_openai_empty_no_tool,
     _execute_tool_calls,
 )
+from .tools.context import get_callbacks
+from .tools.skill_history import make_finish_skill_handler
 from . import llm_tool_narrowing as _llm_tool_narrowing
 
 _is_gpt54_tool_search_target = _llm_tool_narrowing._is_gpt54_tool_search_target
@@ -77,6 +79,10 @@ def run_llm_rounds(
         empty_no_tool_max = 2
     if empty_no_tool_max < 0:
         empty_no_tool_max = 2
+
+    cb = get_callbacks()
+    prev_finish_skill = cb.finish_skill
+    cb.finish_skill = make_finish_skill_handler(messages, core)
 
     core.set_status(True, "LLM")
 
@@ -325,6 +331,7 @@ def run_llm_rounds(
                     break
 
     finally:
+        cb.finish_skill = prev_finish_skill
         # セッション中（プログラム終了まで）キャッシュを保持するため、ここでは削除しない。
         # クリーンアップは cli.py のメインループを抜けた際の finally で行う。
         core.set_status(False, "")
