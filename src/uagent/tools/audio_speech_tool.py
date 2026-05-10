@@ -5,7 +5,7 @@ import sys
 from typing import Any, Dict
 
 from ..env_utils import env_get
-from ..util_tools import open_image_with_default_app
+from .openers import open_image_with_default_app
 from .arg_util import get_float, get_str
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
