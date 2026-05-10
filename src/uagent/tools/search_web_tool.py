@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import logging
 from ..env_utils import env_get
 import random
 import time
@@ -18,11 +17,6 @@ from .context import get_callbacks
 
 _ = make_tool_translator(__file__)
 
-logger = logging.getLogger(__name__)
-if not logger.handlers:
-    logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.INFO)
-
 
 def _emit_debug(message: str) -> None:
     cb = get_callbacks().debug
@@ -31,7 +25,6 @@ def _emit_debug(message: str) -> None:
             cb(message)
         except Exception:
             pass
-    logger.debug(message)
 
 
 def _emit_error(message: str) -> None:
@@ -41,7 +34,6 @@ def _emit_error(message: str) -> None:
             cb(message)
         except Exception:
             pass
-    logger.error(message)
 
 
 def _emit_exception(message: str) -> None:
@@ -51,7 +43,6 @@ def _emit_exception(message: str) -> None:
             cb(message)
         except Exception:
             pass
-    logger.exception(message)
 
 
 # ------------------------------
