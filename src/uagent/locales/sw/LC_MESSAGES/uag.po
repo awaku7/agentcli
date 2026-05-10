@@ -1,23 +1,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-07 14:40+0900\n"
+"Project-Id-Version: uag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 22:27+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
 
-#: src/uagent/checks.py:15 src/uagent/checks.py:25
+#: F:\KAIHATSU\agentcli\src\uagent\checks.py:15
+#: F:\KAIHATSU\agentcli\src\uagent\checks.py:25
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Tafadhali sakinisha Git. Tazama: %(url)s"
 
-#: src/uagent/checks.py:18
+#: F:\KAIHATSU\agentcli\src\uagent\checks.py:18
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -25,7 +26,7 @@ msgstr ""
 "Tafadhali sakinisha Git. Mfano: sudo apt install git (Ubuntu/Debian) au sudo"
 " yum install git (CentOS/RHEL)"
 
-#: src/uagent/checks.py:21
+#: F:\KAIHATSU\agentcli\src\uagent\checks.py:21
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
@@ -33,28 +34,124 @@ msgstr ""
 "Tafadhali sakinisha Git. Ukitumia Homebrew: brew install git, au sakinisha "
 "Xcode Command Line Tools: xcode-select --install"
 
-#: src/uagent/checks.py:28
+#: F:\KAIHATSU\agentcli\src\uagent\checks.py:28
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git haijasakinishwa."
 
-#: src/uagent/cli.py:358
+#: F:\KAIHATSU\agentcli\src\uagent\cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] jina linahitajika"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:111
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:1030
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:137
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:166
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:289
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:658
+#, python-format
+msgid "LLM provider = %(provider)s"
+msgstr "Mtoa huduma wa LLM = %(provider)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:199
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:293
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:660
+#, python-format
+msgid "model(deployment) = %(depname)s"
+msgstr "modeli(uwekaji) = %(depname)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:211
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:303
+msgid "OpenRouter fallback models enabled."
+msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:220
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:344
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:648
+msgid ""
+"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
+"ignored)"
+msgstr ""
+"Hali ya API ya LLM = API asili ya Gemini/Vertex AI/Claude (UAGENT_RESPONSES "
+"inapuuziwa)"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:232
+#, python-format
+msgid ""
+"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
+"support Responses API. Falling back to ChatCompletions."
+msgstr ""
+"[WARN] UAGENT_RESPONSES=1 imewekwa, lakini mtoa huduma '%(provider)s' "
+"haitumii Responses API. Inarudi ChatCompletions."
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:239
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:249
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:350
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:654
+msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "Hali ya API ya LLM = ChatCompletions (UAGENT_RESPONSES imezimwa)"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:244
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:338
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:642
+msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Hali ya API ya LLM = Responses (UAGENT_RESPONSES imewezeshwa)"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:261
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:362
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:722
+msgid "Loaded long-term memory."
+msgstr "Kumbukumbu ya muda mrefu imepakiwa."
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:274
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:375
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:734
+msgid "Loaded shared long-term memory."
+msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:281
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya "
+"pamoja: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:315
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Imeshindwa kusoma faili ya kuanzisha: %(path)s (%(err)s)"
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli_startup.py:352
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
+
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:354
 msgid "getch() fallback to input()"
 msgstr "getch() inatumia input() kama mbadala"
 
-#: src/uagent/cli.py:557
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:553
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr "Uingizaji umeghairiwa (utatumwa kama jibu kwa human_ask)."
 
-#: src/uagent/cli.py:565
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:561
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Imepokea Ctrl+C. Inaanza kuzima..."
 
-#: src/uagent/cli.py:572
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:568
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr "Hitilafu isiyotazamiwa katika stdin_loop: %(err)s"
 
-#: src/uagent/cli.py:598 src/uagent/cli.py:668
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:594
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:664
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -63,25 +160,33 @@ msgstr ""
 "(Hali ya ingizo la mistari mingi: andika maudhui katika mistari kadhaa; ili "
 "kuanza upya, andika \"\"\"retry; malizia kwa mstari unao na %(sentinel)s)"
 
-#: src/uagent/cli.py:628 src/uagent/setup_cli.py:987
-#: src/uagent/setup_cli.py:1006 src/uagent/setup_cli.py:1029
-#: src/uagent/setup_cli.py:1045 src/uagent/setup_cli.py:1064
-#: src/uagent/setup_cli.py:1083 src/uagent/setup_cli.py:1097
-#: src/uagent/setup_cli.py:1110 src/uagent/setup_cli.py:1118
-#: src/uagent/setup_cli.py:1130 src/uagent/setup_cli.py:1141
-#: src/uagent/setup_cli.py:1226 src/uagent/setup_cli.py:1252
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:624
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1021
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1040
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1063
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1079
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1098
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1117
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1131
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1144
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1152
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1164
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1175
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1257
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1283
 msgid "Cancelled."
 msgstr "Imeghairiwa."
 
-#: src/uagent/cli.py:634 src/uagent/cli.py:684
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:630
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:680
 msgid "Discarded previous input. Please start over."
 msgstr "Ingizo la awali limeondolewa. Tafadhali anza upya."
 
-#: src/uagent/cli.py:645
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:641
 msgid "Received multiline reply."
 msgstr "Imepokea jibu la mistari mingi."
 
-#: src/uagent/cli.py:805
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:801
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -91,11 +196,11 @@ msgstr ""
 "Je, ungependa kutuma picha hizi kwa LLM (API ya nje) kwa uchambuzi?\n"
 "\n"
 
-#: src/uagent/cli.py:811
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:807
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Jibu kwa y kutuma, au n (au c/cancel) kuruka kutuma."
 
-#: src/uagent/cli.py:826
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:822
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -103,129 +208,46 @@ msgstr ""
 "Uthibitisho wa kutuma picha umeshindwa; picha hazitatumwa: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:854 src/uagent/scheckgui.py:475
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:850
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:486
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Imeshindwa kuambatisha picha: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:891
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:887
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tukio lisilojulikana kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:909
+#: F:\KAIHATSU\agentcli\src\uagent\cli.py:905
 msgid "Exited uag."
 msgstr "Uag imeondoka."
 
-#: src/uagent/cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] jina linahitajika"
-
-#: src/uagent/cli_startup.py:109 src/uagent/web.py:1030
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
-
-#: src/uagent/cli_startup.py:135
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
-
-#: src/uagent/cli_startup.py:164 src/uagent/scheckgui.py:281
-#: src/uagent/web.py:658
-#, python-format
-msgid "LLM provider = %(provider)s"
-msgstr "Mtoa huduma wa LLM = %(provider)s"
-
-#: src/uagent/cli_startup.py:165 src/uagent/scheckgui.py:285
-#: src/uagent/web.py:660
-#, python-format
-msgid "model(deployment) = %(depname)s"
-msgstr "modeli(uwekaji) = %(depname)s"
-
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:295
-msgid "OpenRouter fallback models enabled."
-msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
-
-#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:336
-#: src/uagent/web.py:648
-msgid ""
-"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
-"ignored)"
-msgstr ""
-"Hali ya API ya LLM = API asili ya Gemini/Vertex AI/Claude (UAGENT_RESPONSES "
-"inapuuziwa)"
-
-#: src/uagent/cli_startup.py:198
-#, python-format
-msgid ""
-"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
-"support Responses API. Falling back to ChatCompletions."
-msgstr ""
-"[WARN] UAGENT_RESPONSES=1 imewekwa, lakini mtoa huduma '%(provider)s' "
-"haitumii Responses API. Inarudi ChatCompletions."
-
-#: src/uagent/cli_startup.py:205 src/uagent/cli_startup.py:215
-#: src/uagent/scheckgui.py:342 src/uagent/web.py:654
-msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "Hali ya API ya LLM = ChatCompletions (UAGENT_RESPONSES imezimwa)"
-
-#: src/uagent/cli_startup.py:210 src/uagent/scheckgui.py:330
-#: src/uagent/web.py:642
-msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Hali ya API ya LLM = Responses (UAGENT_RESPONSES imewezeshwa)"
-
-#: src/uagent/cli_startup.py:227 src/uagent/scheckgui.py:351
-#: src/uagent/web.py:722
-msgid "Loaded long-term memory."
-msgstr "Kumbukumbu ya muda mrefu imepakiwa."
-
-#: src/uagent/cli_startup.py:240 src/uagent/scheckgui.py:364
-#: src/uagent/web.py:734
-msgid "Loaded shared long-term memory."
-msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
-
-#: src/uagent/cli_startup.py:247
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[WARN] Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya "
-"pamoja: %(err)s"
-
-#: src/uagent/cli_startup.py:281
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Imeshindwa kusoma faili ya kuanzisha: %(path)s (%(err)s)"
-
-#: src/uagent/cli_startup.py:318
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
-
-#: src/uagent/core.py:284 src/uagent/core.py:305
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:284
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:305
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Kigezo cha mazingira %(name)s hakijawekwa."
 
-#: src/uagent/core.py:597
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:597
 msgid "No log files found."
 msgstr "Hakuna faili za logi zilizopatikana."
 
-#: src/uagent/core.py:618
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:618
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "logi: inaonyesha %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:621
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:621
 msgid "Log files:"
 msgstr "Faili za logi:"
 
-#: src/uagent/core.py:1280
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1280
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (msaada haupatikani: %(err)s)"
 
-#: src/uagent/core.py:1292
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1292
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -241,7 +263,7 @@ msgstr ""
 "- Usifanye muhtasari. Weka taarifa fupi.\n"
 "- Unapounda faili, toa maudhui kamili ya mwisho (usiweke tofauti wala muhtasari wa sehemu).\n"
 
-#: src/uagent/core.py:1300
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1300
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -255,7 +277,7 @@ msgstr ""
 "- Rejelea zana zinazopatikana na uchague inayofaa zaidi.\n"
 "- Unapotekeleza zana, achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
 
-#: src/uagent/core.py:1307
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1307
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -277,7 +299,7 @@ msgstr ""
 "- Ukiumba faili za Python, tumia `python -m py_compile` kuthibitisha sintaksia.\n"
 "- Ikiwa ujuzi wa kiwango cha juu unahitajika, tumia violezo vya haraka (Agent Skills) na uzifuate.\n"
 
-#: src/uagent/core.py:1318
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1318
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -293,7 +315,7 @@ msgstr ""
 "- Ni pale tu mtumiaji anapojibu waziwazi \"y\" au \"yes\" (au idhini nyingine wazi), endesha delete_file tena kwa vigezo vilevile, dry_run=false, na confirmed=true.\n"
 "- Ikiwa kuna wagombea sifuri, usiombe; toa tu taarifa kwamba hakuna kitakachofutwa.\n"
 
-#: src/uagent/core.py:1326
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1326
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -307,7 +329,7 @@ msgstr ""
 "- Hakuna kusifia. Hakuna emoji. Hakuna muhtasari wa mazungumzo. Weka iwe fupi.\n"
 "- Unapounda faili, toa maudhui kamili ya mwisho (bila tofauti/muhtasari wa sehemu).\n"
 
-#: src/uagent/core.py:1333
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1333
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -321,7 +343,7 @@ msgstr ""
 "- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
 "- Achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
 
-#: src/uagent/core.py:1340
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1340
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -341,7 +363,7 @@ msgstr ""
 "- Ukiumba faili za Python, endesha `python -m py_compile`.\n"
 "- Ikiwa ujuzi wa kiwango cha juu unahitajika, tumia violezo vya haraka vya Agent Skills.\n"
 
-#: src/uagent/core.py:1352
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1352
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -351,7 +373,7 @@ msgstr ""
 "kwa kutumia uendelezaji wa mstari kwa caret (^), na weka kila mstari mfupi "
 "ili kuepuka mapumziko ya kunakili/kubandika.\n"
 
-#: src/uagent/core.py:1419
+#: F:\KAIHATSU\agentcli\src\uagent\core.py:1419
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -359,62 +381,46 @@ msgstr ""
 "Zana zifuatazo zimepakiwa sasa kwenye kipindi hiki. Chagua zana inayofaa "
 "zaidi kwa kazi hii."
 
-#: src/uagent/docs_util.py:27
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:27
 msgid "Project README"
 msgstr "README ya mradi"
 
-#: src/uagent/docs_util.py:32
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:32
 msgid "Quickstart (Windows wheel install)"
 msgstr "Haraka kuanza (usakinishaji wa wheel kwenye Windows)"
 
-#: src/uagent/docs_util.py:37
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "Mwongozo wa Web Inspector (playwright_inspector)"
 
-#: src/uagent/docs_util.py:42
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:42
 msgid "Developer information"
 msgstr "Taarifa za msanidi"
 
-#: src/uagent/docs_util.py:149
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "jina la hati lisilojulikana: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "faili ya hati haikupatikana: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "kushindwa kutatua njia ya hati: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:227
 msgid "[docs] Available documents:"
 msgstr "[docs] Hati zinazopatikana:"
 
-#: src/uagent/docs_util.py:231
+#: F:\KAIHATSU\agentcli\src\uagent\docs_util.py:231
 msgid "Usage:"
 msgstr "Matumizi:"
 
-#: src/uagent/docs_util.py:232
-msgid "  uag docs                 # list"
-msgstr "  uag docs                 # orodha"
-
-#: src/uagent/docs_util.py:233
-msgid "  uag docs <name>          # show"
-msgstr "  uag docs <name>          # onyesha"
-
-#: src/uagent/docs_util.py:234
-msgid "  uag docs --path <name>   # show path"
-msgstr "  uag docs --path <name>   # onyesha njia"
-
-#: src/uagent/docs_util.py:235
-msgid "  uag docs --open <name>   # open with OS"
-msgstr "  uag docs --open <name>   # fungua na mfumo"
-
-#: src/uagent/env_validate.py:42
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
@@ -422,25 +428,31 @@ msgstr ""
 "Lazima uchague mtoa huduma wa LLM "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
-#: src/uagent/env_validate.py:165
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Uthibitishaji wa mazingira umeshindwa ({context})."
+
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:231
 msgid "Missing required environment variables:"
 msgstr "Mabadiliko ya mazingira yanayohitajika hayapo:"
 
-#: src/uagent/env_validate.py:179
+msgid "- {m.name}: {m.reason}"
+msgstr "• {m.name}: {m.reason}"
+
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:245
 msgid "Warnings:"
 msgstr "Onyo:"
 
-#: src/uagent/env_validate.py:183
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:249
 msgid "How to fix:"
 msgstr "Jinsi ya kurekebisha:"
 
-#: src/uagent/env_validate.py:186
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:252
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Weka vigezo vilivyo juu kwenye mazingira yako kabla ya kuanza programu."
 
-#: src/uagent/env_validate.py:192
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:258
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -448,7 +460,7 @@ msgstr ""
 "- Unaweza kuvianisha kupitia mipangilio ya mazingira ya OS yako, faili ya "
 ".env, skripti za kuanza za ganda lako,"
 
-#: src/uagent/env_validate.py:198
+#: F:\KAIHATSU\agentcli\src\uagent\env_validate.py:264
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -456,15 +468,16 @@ msgstr ""
 "  au usanidi wa kidhibiti cha mchakato / huduma (siri za CI, systemd, "
 "Docker, n.k.)."
 
-#: src/uagent/gemini_cache_mgr.py:129
+#: F:\KAIHATSU\agentcli\src\uagent\gemini_cache_mgr.py:129
 msgid "invalid cache meta"
 msgstr "meta ya akiba batili"
 
-#: src/uagent/llm_claude.py:140 src/uagent/util_providers.py:489
+#: F:\KAIHATSU\agentcli\src\uagent\llm_claude.py:140
+#: F:\KAIHATSU\agentcli\src\uagent\util_providers.py:489
 msgid "anthropic package is not installed."
 msgstr "Kifurushi cha anthropic hakijasakinishwa."
 
-#: src/uagent/llm_errors.py:396
+#: F:\KAIHATSU\agentcli\src\uagent\llm_errors.py:396
 #, python-format
 msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
@@ -475,12 +488,12 @@ msgstr ""
 "jaribio=%(attempt)s/%(max_retries)s subiri=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_message_helpers.py:147
+#: F:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:153
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[ONYO] Kupunguza shrink_llm kiotomatiki kumeshindwa: %(err)s"
 
-#: src/uagent/llm_openai_responses.py:143
+#: F:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:143
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -497,32 +510,34 @@ msgstr ""
 "        - Ikiwa huna kigezo kinachohitajika, muulize mtumiaji kupitia human_ask badala ya kubahatisha.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:131
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:131
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Hitilafu ya Tafsiri] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:190 src/uagent/llm_round_helpers.py:300
-#: src/uagent/llm_round_helpers.py:621
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:190
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:300
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:631
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Kikomo cha majaribio ya 429 kimefikiwa (%(max_retries)s)."
 
-#: src/uagent/llm_round_helpers.py:214
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:214
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Hitilafu ya Gemini] Hitilafu imetokea wakati wa kutengeneza jibu."
 
-#: src/uagent/llm_round_helpers.py:306
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Hitilafu ya Claude] Hitilafu imetokea wakati wa kutengeneza jibu."
 
-#: src/uagent/llm_round_helpers.py:705
+#: F:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:715
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
 
-#: src/uagent/runtime_banner.py:86 src/uagent/scheckgui.py:320
-#: src/uagent/web.py:633
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:86
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:328
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:633
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -531,22 +546,12 @@ msgstr ""
 "UAGENT_RESPONSES=1 imewekwa, lakini mtoa huduma '%(provider)s' haiauni "
 "Responses API. Inarudi kwa ChatCompletions."
 
-#: src/uagent/runtime_banner.py:93
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:93
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr "Utiririshaji wa LLM = %(state)s"
 
-#: src/uagent/runtime_env.py:157
-#, python-brace-format
-msgid "[WARN] {message}"
-msgstr "[ONYO] {message}"
-
-#: src/uagent/runtime_init.py:44
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:172
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:158
 #, python-format
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
@@ -555,7 +560,7 @@ msgstr ""
 "[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
 " UAGENT_* wakati wa kuanzisha. Kuyasasisha? [y/N] "
 
-#: src/uagent/runtime_env.py:180
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:174
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
@@ -563,7 +568,17 @@ msgstr ""
 "[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
 " UAGENT_* wakati wa kuanzisha. Tumia `uag_envsec` kuyasasisha."
 
-#: src/uagent/runtime_env.py:192
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:187
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Imesasishwa .env.sec: %(path)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:191
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kusasisha .env.sec: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:201
 #, python-format
 msgid ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
@@ -572,7 +587,7 @@ msgstr ""
 "[INFO] Faili .env.sec haipo. Je, uitengeneze kutoka kwa vigezo vya sasa vya "
 "mazingira vya UAGENT_* wakati wa kuanzisha? [y/N] "
 
-#: src/uagent/runtime_env.py:200
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:217
 msgid ""
 "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
 "startup UAGENT_* environment variables."
@@ -580,582 +595,643 @@ msgstr ""
 "[INFO] Faili .env.sec haipo. Tumia `uag_envsec` kuitengeneza kutoka kwa "
 "vigezo vya sasa vya mazingira vya UAGENT_* wakati wa kuanzisha."
 
-#: src/uagent/runtime_workdir.py:42
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:227
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Imeundwa .env.sec: %(path)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:231
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kuunda .env.sec: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_env.py:252
+#, python-brace-format
+msgid "[WARN] {message}"
+msgstr "[ONYO] {message}"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_init.py:60
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\runtime_workdir.py:42
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
 
-#: src/uagent/scheckgui.py:130
-msgid "ここにファイル/画像をドラッグ＆ドロップ"
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:131
+msgid "Drop files/images here"
 msgstr "Buruta na dondosha faili/picha hapa"
 
-#: src/uagent/scheckgui.py:168
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:169
 msgid "Download"
 msgstr "Pakua"
 
-#: src/uagent/scheckgui.py:373 src/uagent/web.py:743
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:384
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:743
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya pamoja: "
 "%(err)s"
 
-#: src/uagent/scheckgui.py:602 src/uagent/scheckgui.py:726
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:614
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:738
 msgid "Welcome / Quick Guide"
 msgstr "Karibu / Mwongozo wa Haraka"
 
-#: src/uagent/scheckgui.py:610
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:622
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Uthabiti wa Juu)"
 
-#: src/uagent/scheckgui.py:664
-msgid "↑ Drag&Dropで添付できます"
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:676
+msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Unaweza kuambatisha kwa kuburuta na kudondosha"
 
-#: src/uagent/scheckgui.py:685
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:697
 msgid "Send"
 msgstr "Tuma"
 
-#: src/uagent/scheckgui.py:725
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:737
 msgid "Help"
 msgstr "Msaada"
 
-#: src/uagent/scheckgui.py:740
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:752
 msgid "Mode"
 msgstr "Hali"
 
-#: src/uagent/scheckgui.py:742
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:754
 msgid "Reasoning: off"
 msgstr "Ufikiri: umezimwa"
 
-#: src/uagent/scheckgui.py:745
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:757
 msgid "Reasoning: auto"
 msgstr "Ufikiri: otomatiki"
 
-#: src/uagent/scheckgui.py:747
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:759
 msgid "Reasoning: minimal"
 msgstr "Ufikiri: kidogo"
 
-#: src/uagent/scheckgui.py:749
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:761
 msgid "Reasoning: low"
 msgstr "Ufikiri: chini"
 
-#: src/uagent/scheckgui.py:751
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:763
 msgid "Reasoning: medium"
 msgstr "Ufikiri: kati"
 
-#: src/uagent/scheckgui.py:753
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:765
 msgid "Reasoning: high"
 msgstr "Ufikiri: juu"
 
-#: src/uagent/scheckgui.py:756
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:768
 msgid "Reasoning: xhigh"
 msgstr "Ufikiri: juu sana"
 
-#: src/uagent/scheckgui.py:761
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:773
 msgid "Verbosity: off"
 msgstr "Kiwango cha maelezo: kimezimwa"
 
-#: src/uagent/scheckgui.py:763
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:775
 msgid "Verbosity: low"
 msgstr "Kiwango cha maelezo: chini"
 
-#: src/uagent/scheckgui.py:765
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:777
 msgid "Verbosity: medium"
 msgstr "Kiwango cha maelezo: kati"
 
-#: src/uagent/scheckgui.py:767
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:779
 msgid "Verbosity: high"
 msgstr "Kiwango cha maelezo: juu"
 
-#: src/uagent/scheckgui.py:797
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:809
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[hali] hoja=%(mode)s"
 
-#: src/uagent/scheckgui.py:933
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:945
 msgid "Enter password..."
 msgstr "Weka nenosiri..."
 
-#: src/uagent/scheckgui.py:935
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:947
 msgid "Enter response for human_ask..."
 msgstr "Weka jibu kwa human_ask..."
 
-#: src/uagent/scheckgui.py:940
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:952
 msgid "Enter a message..."
 msgstr "Weka ujumbe..."
 
-#: src/uagent/scheckgui.py:1347 src/uagent/scheckgui.py:1387
-#: src/uagent/scheckgui.py:1422
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1359
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1399
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1434
 msgid "Downloaded to"
 msgstr "Imepakuliwa hadi"
 
-#: src/uagent/scheckgui.py:1441
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1453
 msgid "Playing"
 msgstr "Inacheza"
 
-#: src/uagent/scheckgui.py:1451
+#: F:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1463
 msgid "Stopped"
 msgstr "Imesimamishwa"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:468
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:77
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:468
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:558
 msgid "OpenAI API key"
 msgstr "Funguo ya API ya OpenAI"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:469
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:78
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:469
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:559
 msgid "OpenAI base URL (optional)"
 msgstr "URL msingi ya OpenAI (hiari)"
 
-#: src/uagent/setup_cli.py:79
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:79
 msgid "OpenAI model/deployment name (optional)"
 msgstr "Jina la muundo/utekelezaji la OpenAI (hiari)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:460
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:85
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:460
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:546
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "URL msingi ya Azure (mf. https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:462
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:87
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:462
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:548
 msgid "Azure API key"
 msgstr "Funguo ya API ya Azure"
 
-#: src/uagent/setup_cli.py:91
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:91
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Toleo la API la Azure (hiari, mf. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:464
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:93
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:464
 msgid "Azure deployment name"
 msgstr "Jina la utekelezaji la Azure"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:477
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:99
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:477
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:567
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "URL msingi ya lango la Bedrock (mf. https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:479
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:101
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:479
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:569
 msgid "Bedrock API key"
 msgstr "Funguo ya API ya Bedrock"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:483
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:105
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:483
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Jina la muundo/utekelezaji la Bedrock (mf. openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:488
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:109
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:488
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:578
 msgid "OpenRouter API key"
 msgstr "Funguo ya API ya OpenRouter"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:489
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:110
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:489
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:579
 msgid "OpenRouter base URL (optional)"
 msgstr "URL msingi ya OpenRouter (hiari)"
 
-#: src/uagent/setup_cli.py:114
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:114
 msgid "OpenRouter model/deployment name (optional)"
 msgstr "Jina la muundo/utekelezaji la OpenRouter (hiari)"
 
-#: src/uagent/setup_cli.py:119
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:119
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "Miundo mbadala ya OpenRouter (hiari, imetenganishwa kwa koma)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:494
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:123
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:494
 msgid "Gemini API key"
 msgstr "Funguo ya API ya Gemini"
 
-#: src/uagent/setup_cli.py:124
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:124
 msgid "Gemini model name (optional)"
 msgstr "Jina la muundo la Gemini (hiari)"
 
-#: src/uagent/setup_cli.py:127
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:127
 msgid "Vertex AI API key"
 msgstr "Funguo ya API ya Vertex AI"
 
-#: src/uagent/setup_cli.py:128
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:128
 msgid "Vertex AI project ID (optional)"
 msgstr "Kitambulisho cha mradi cha Vertex AI (hiari)"
 
-#: src/uagent/setup_cli.py:129
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:129
 msgid "Vertex AI location/region (optional)"
 msgstr "Eneo/mkoa wa Vertex AI (hiari)"
 
-#: src/uagent/setup_cli.py:130
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:130
 msgid "Vertex AI model/deployment name"
 msgstr "Jina la muundo/utekelezaji la Vertex AI"
 
-#: src/uagent/setup_cli.py:133
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:133
 msgid "Grok API key"
 msgstr "Funguo ya API ya Grok"
 
-#: src/uagent/setup_cli.py:134
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:134
 msgid "Grok base URL (optional)"
 msgstr "URL msingi ya Grok (hiari)"
 
-#: src/uagent/setup_cli.py:135
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:135
 msgid "Grok model/deployment name (optional)"
 msgstr "Jina la muundo/utekelezaji la Grok (hiari)"
 
-#: src/uagent/setup_cli.py:138
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:138
 msgid "Claude API key"
 msgstr "Funguo ya API ya Claude"
 
-#: src/uagent/setup_cli.py:139
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:139
 msgid "Claude model/deployment name (optional)"
 msgstr "Jina la muundo/utekelezaji la Claude (hiari)"
 
-#: src/uagent/setup_cli.py:142 src/uagent/setup_cli.py:499
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:142
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:499
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:593
 msgid "NVIDIA API key"
 msgstr "Funguo ya API ya NVIDIA"
 
-#: src/uagent/setup_cli.py:143 src/uagent/setup_cli.py:500
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:143
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:500
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:594
 msgid "NVIDIA base URL (optional)"
 msgstr "URL msingi ya NVIDIA (hiari)"
 
-#: src/uagent/setup_cli.py:144
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:144
 msgid "NVIDIA model/deployment name (optional)"
 msgstr "Jina la modeli/utekelezaji wa NVIDIA (hiari)"
 
-#: src/uagent/setup_cli.py:150
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:150
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:587
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr "URL msingi ya Ollama (mf. http://localhost:11434/v1)"
 
-#: src/uagent/setup_cli.py:155
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:155
 msgid "Ollama API key (optional, default: dummy)"
 msgstr "Funguo ya API ya Ollama (hiari, chaguo-msingi: dummy)"
 
-#: src/uagent/setup_cli.py:157
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:157
 msgid "Ollama model/deployment name (optional)"
 msgstr "Jina la muundo/utekelezaji la Ollama (hiari)"
 
-#: src/uagent/setup_cli.py:161
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:161
 msgid "Ollama request timeout in seconds (default: 60)"
 msgstr "Muda wa kuisha kwa ombi la Ollama kwa sekunde (chaguo-msingi: 60)"
 
-#: src/uagent/setup_cli.py:163
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:163
 msgid "Ollama temperature (default: 0.7)"
 msgstr "Joto la Ollama (chaguo-msingi: 0.7)"
 
-#: src/uagent/setup_cli.py:164
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:164
 msgid "Ollama top_p (default: 0.9)"
 msgstr "Ollama top_p (chaguo-msingi: 0.9)"
 
-#: src/uagent/setup_cli.py:165
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:165
 msgid "Ollama top_k (default: 40)"
 msgstr "Ollama top_k (chaguo-msingi: 40)"
 
-#: src/uagent/setup_cli.py:169
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:169
 msgid "Ollama repeat_penalty (default: 1.1)"
 msgstr "Ollama repeat_penalty (chaguo-msingi: 1.1)"
 
-#: src/uagent/setup_cli.py:171
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:171
 msgid "Ollama keep_alive (default: 5m)"
 msgstr "Ollama keep_alive (chaguo-msingi: 5m)"
 
-#: src/uagent/setup_cli.py:172
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:172
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "Ollama num_ctx (chaguo-msingi: 8192)"
 
-#: src/uagent/setup_cli.py:173
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:173
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama num_predict (chaguo-msingi: 1024)"
 
-#: src/uagent/setup_cli.py:331 src/uagent/setup_cli.py:420
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:331
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:420
 msgid "Enter number:"
 msgstr "Weka namba:"
 
-#: src/uagent/setup_cli.py:344
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:344
 msgid "Invalid input. Please enter a valid number."
 msgstr "Ingizo batili. Tafadhali weka namba halali."
 
-#: src/uagent/setup_cli.py:357
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:357
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [chaguo-msingi: %(default)s]"
 
-#: src/uagent/setup_cli.py:373
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:373
 msgid "This field is required. Please enter a value."
 msgstr "Sehemu hii inahitajika. Tafadhali weka thamani."
 
-#: src/uagent/setup_cli.py:385
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:385
 msgid "Select UAGENT_LANG"
 msgstr "Chagua UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:396
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:396
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (maalum)"
 
-#: src/uagent/setup_cli.py:409
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:409
 msgid "Select output files to generate in the current directory"
 msgstr "Chagua faili za matokeo za kutengeneza kwenye saraka ya sasa"
 
-#: src/uagent/setup_cli.py:410
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:410
 msgid "  1. .env only"
 msgstr "  1. .env pekee"
 
-#: src/uagent/setup_cli.py:414
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:414
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + zote (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:435
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:435
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "Ingizo batili. Tafadhali weka 1-5, au b/q."
 
-#: src/uagent/setup_cli.py:463
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:463
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:552
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Toleo la Azure API (mfano 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:470
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:470
 msgid "OpenAI model/deployment name"
 msgstr "Jina la modeli/uwekaji la OpenAI"
 
-#: src/uagent/setup_cli.py:490
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:490
 msgid "OpenRouter model/deployment name"
 msgstr "Jina la modeli/uwekaji la OpenRouter"
 
-#: src/uagent/setup_cli.py:495
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:495
 msgid "Gemini model name"
 msgstr "Jina la modeli la Gemini"
 
-#: src/uagent/setup_cli.py:501
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:501
 msgid "NVIDIA model/deployment name"
 msgstr "Jina la modeli/uwekaji la NVIDIA"
 
-#: src/uagent/setup_cli.py:520
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:520
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Washa matokeo ya uchunguzi wa uundaji picha? (0/1)"
 
-#: src/uagent/setup_cli.py:543
-msgid "Azure speech deployment name"
-msgstr "Jina la utekelezaji wa sauti la Azure"
+msgid "Azure embedding deployment name"
+msgstr "Jina la uwekaji la Azure kwa embedding"
 
-#: src/uagent/setup_cli.py:544
-msgid "Azure transcription deployment name"
-msgstr "Jina la utekelezaji wa unukuzi la Azure"
+msgid "OpenAI embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenAI kwa embedding"
 
-#: src/uagent/setup_cli.py:552
-msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
-msgstr ""
-"Jina la modeli/utekelezaji wa OpenAI TTS (hiari, chaguo-msingi: gpt-4o-mini-"
-"tts)"
+msgid "Bedrock embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la Bedrock kwa embedding"
 
-#: src/uagent/setup_cli.py:559
-msgid ""
-"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
-"transcribe)"
-msgstr ""
-"Jina la modeli/utekelezaji wa unukuzi wa OpenAI (hiari, chaguo-msingi: "
-"gpt-4o-mini-transcribe)"
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenRouter kwa embedding"
 
-#: src/uagent/setup_cli.py:585
+msgid "Ollama embedding model name"
+msgstr "Jina la modeli la Ollama kwa embedding"
+
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la NVIDIA kwa embedding"
+
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:623
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "Sanidi mipangilio ya hiari ya picha / embedding?"
 
-#: src/uagent/setup_cli.py:586 src/uagent/setup_cli.py:601
-#: src/uagent/setup_cli.py:633 src/uagent/setup_cli.py:664
-#: src/uagent/setup_cli.py:680 src/uagent/setup_cli.py:712
-#: src/uagent/setup_cli.py:725 src/uagent/setup_cli.py:762
-#: src/uagent/setup_cli.py:963 src/uagent/setup_cli.py:1024
-#: src/uagent/setup_cli.py:1078 src/uagent/setup_cli.py:1105
-#: src/uagent/setup_cli.py:1249
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:624
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:639
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:671
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:702
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:718
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:760
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:797
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:997
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1058
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1112
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1139
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1280
 msgid "No"
 msgstr "Hapana"
 
-#: src/uagent/setup_cli.py:586 src/uagent/setup_cli.py:601
-#: src/uagent/setup_cli.py:633 src/uagent/setup_cli.py:664
-#: src/uagent/setup_cli.py:680 src/uagent/setup_cli.py:712
-#: src/uagent/setup_cli.py:725 src/uagent/setup_cli.py:762
-#: src/uagent/setup_cli.py:963 src/uagent/setup_cli.py:1024
-#: src/uagent/setup_cli.py:1078 src/uagent/setup_cli.py:1105
-#: src/uagent/setup_cli.py:1249
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:624
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:639
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:671
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:702
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:718
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:760
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:797
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:997
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1058
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1112
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1139
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1280
 msgid "Yes"
 msgstr "Ndiyo"
 
-#: src/uagent/setup_cli.py:600
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:638
 msgid "Configure image analysis settings?"
 msgstr "Sanidi mipangilio ya uchanganuzi wa picha?"
 
-#: src/uagent/setup_cli.py:611
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:649
 msgid "Select image analysis provider"
 msgstr "Chagua mtoa huduma wa uchanganuzi wa picha"
 
-#: src/uagent/setup_cli.py:632
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:670
 msgid "Configure image generation settings?"
 msgstr "Sanidi mipangilio ya uundaji wa picha?"
 
-#: src/uagent/setup_cli.py:643
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:681
 msgid "Select image generation provider"
 msgstr "Chagua mtoa huduma wa uundaji wa picha"
 
-#: src/uagent/setup_cli.py:663
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:701
 msgid "Open generated images automatically?"
 msgstr "Fungua picha zilizoundwa kiotomatiki?"
 
-#: src/uagent/setup_cli.py:679
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:717
 msgid "Configure embedding / semantic search settings?"
 msgstr "Sanidi mipangilio ya embedding / utafutaji wa kisemantiki?"
 
-#: src/uagent/setup_cli.py:711
-msgid "Disable semantic search when embedding API is unreachable?"
-msgstr "Zima utafutaji wa kisemantiki wakati API ya embedding haipatikani?"
+msgid "Select embedding provider"
+msgstr "Chagua mtoaji wa embedding"
 
-#: src/uagent/setup_cli.py:724
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:759
 msgid "Configure audio speech / transcription settings?"
 msgstr "Sanidi mipangilio ya sauti / unukuzi?"
 
-#: src/uagent/setup_cli.py:742
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:777
 msgid "Select audio provider"
 msgstr "Chagua mtoa huduma wa sauti"
 
-#: src/uagent/setup_cli.py:761
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:796
 msgid "Open generated audio automatically?"
 msgstr "Fungua sauti iliyotengenezwa kiotomatiki?"
 
-#: src/uagent/setup_cli.py:825
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:858
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "Hiari: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:838
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:871
 msgid "Optional runtime"
 msgstr "Muda wa utekelezaji wa hiari"
 
-#: src/uagent/setup_cli.py:850
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:883
 msgid "Optional image / embedding / audio settings"
 msgstr "Mipangilio ya hiari ya picha / embedding"
 
-#: src/uagent/setup_cli.py:962
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:996
 msgid "Encrypt the generated .env file?"
 msgstr "Usimbue faili ya .env iliyoundwa?"
 
-#: src/uagent/setup_cli.py:968
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1002
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "Faili iliyosimbwa itaandikwa kama %(path)s"
 
-#: src/uagent/setup_cli.py:984
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1018
 msgid "Select provider"
 msgstr "Chagua mtoa huduma"
 
-#: src/uagent/setup_cli.py:1023
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1057
 msgid "Enable Responses API options?"
 msgstr "Washa chaguo za Responses API?"
 
-#: src/uagent/setup_cli.py:1039
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1073
 msgid "Select reasoning"
 msgstr "Chagua kiwango cha ufikiri"
 
-#: src/uagent/setup_cli.py:1058
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1092
 msgid "Select verbosity"
 msgstr "Chagua kiwango cha maelezo"
 
-#: src/uagent/setup_cli.py:1077
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1111
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "Weka UAGENT_WORKDIR ya hiari wakati wa utekelezaji?"
 
-#: src/uagent/setup_cli.py:1104
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1138
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Weka UAGENT_LANG ya hiari wakati wa utekelezaji?"
 
-#: src/uagent/setup_cli.py:1153
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1187
 msgid "Summary"
 msgstr "Muhtasari"
 
-#: src/uagent/setup_cli.py:1154
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1188
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  Mtoa huduma: %(provider)s"
 
-#: src/uagent/setup_cli.py:1161
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1195
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  Responses imewashwa: %(state)s"
 
-#: src/uagent/setup_cli.py:1162 src/uagent/setup_cli.py:1169
-#: src/uagent/setup_cli.py:1175 src/uagent/setup_cli.py:1181
-#: src/uagent/setup_cli.py:1186 src/uagent/setup_cli.py:1194
-#: src/uagent/setup_cli.py:1205
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1196
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1203
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1209
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1215
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1220
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1228
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1239
 msgid "yes"
 msgstr "ndiyo"
 
-#: src/uagent/setup_cli.py:1162 src/uagent/setup_cli.py:1169
-#: src/uagent/setup_cli.py:1175 src/uagent/setup_cli.py:1181
-#: src/uagent/setup_cli.py:1186 src/uagent/setup_cli.py:1194
-#: src/uagent/setup_cli.py:1205
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1196
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1203
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1209
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1215
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1220
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1228
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1239
 msgid "no"
 msgstr "hapana"
 
-#: src/uagent/setup_cli.py:1180
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1214
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  Ziada za hiari zimewashwa: %(state)s"
 
-#: src/uagent/setup_cli.py:1185
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1219
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  Uchanganuzi wa picha umewezeshwa: %(state)s"
 
-#: src/uagent/setup_cli.py:1193
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1227
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  Uundaji wa picha umewezeshwa: %(state)s"
 
-#: src/uagent/setup_cli.py:1204
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1238
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  Embedding imewezeshwa: %(state)s"
 
-#: src/uagent/setup_cli.py:1217
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1248
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  Matokeo: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1220
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1251
 msgid "Generate files with this configuration?"
 msgstr "Tengeneza faili kwa usanidi huu?"
 
-#: src/uagent/setup_cli.py:1221
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1252
 msgid "Yes, generate"
 msgstr "Ndiyo, tengeneza"
 
-#: src/uagent/setup_cli.py:1221
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1252
 msgid "Back"
 msgstr "Rudi nyuma"
 
-#: src/uagent/setup_cli.py:1245
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1276
 msgid "The following files already exist and will be overwritten:"
 msgstr "Faili zifuatazo tayari zipo na zitaandikwa upya:"
 
-#: src/uagent/setup_cli.py:1249
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1280
 msgid "Proceed?"
 msgstr "Endelea?"
 
-#: src/uagent/setup_cli.py:1273
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1304
 msgid "Plain .env file removed after encryption."
 msgstr "Faili ya kawaida ya .env imeondolewa baada ya usimbaji."
 
-#: src/uagent/setup_cli.py:1276
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1307
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "Onyo: Imeshindwa kuondoa .env ya kawaida: %(error)s"
 
-#: src/uagent/setup_cli.py:1295
+#: F:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1326
 #, python-format
 msgid "generated: %(path)s"
 msgstr "iliyoundwa: %(path)s"
 
-#: src/uagent/uagent_llm.py:123
+#: F:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:129
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ONYO] Mizunguko ya zana imezidi %(max)d; inasitisha."
 
-#: src/uagent/util_providers.py:145
+#: F:\KAIHATSU\agentcli\src\uagent\util_providers.py:145
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa."
 
-#: src/uagent/util_providers.py:161
+#: F:\KAIHATSU\agentcli\src\uagent\util_providers.py:161
 #, python-format
 msgid "Unknown provider: %(provider)s"
 msgstr "Mtoa huduma asiyejulikana: %(provider)s"
 
-#: src/uagent/util_providers.py:423 src/uagent/util_providers.py:449
+#: F:\KAIHATSU\agentcli\src\uagent\util_providers.py:423
+#: F:\KAIHATSU\agentcli\src\uagent\util_providers.py:449
 msgid "google-genai package is not installed."
 msgstr "Kifurushi cha google-genai hakijasakinishwa."
 
-#: src/uagent/util_tools.py:194
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:201
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1163,7 +1239,7 @@ msgstr ""
 "Bainisha saraka ya kazi. Ikiwa haijawekwa, hutumia kigezo cha mazingira "
 "UAGENT_WORKDIR au saraka ya sasa."
 
-#: src/uagent/util_tools.py:201
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:208
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1171,36 +1247,36 @@ msgstr ""
 "Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
 "faili ya kuanzisha (kama ipo)."
 
-#: src/uagent/util_tools.py:404
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:411
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Saraka haipo: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:445
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:452
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Hakuna njia zinazolingana: %(src)s -> %(expanded)s"
 
-#: src/uagent/util_tools.py:480
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:487
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Saraka haipo: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:528
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:535
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "[logs] Hoja batili: %(arg)r (taja all / --all / -a / namba)"
 
-#: src/uagent/util_tools.py:543
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:550
 msgid "[tools] No tools loaded."
 msgstr "[tools] Hakuna zana zilizopakiwa."
 
-#: src/uagent/util_tools.py:546
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:553
 #, python-format
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Zana %(n)d zimepakiwa"
 
-#: src/uagent/util_tools.py:650
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:657
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1212,43 +1288,44 @@ msgstr ""
 "Ikiwa ujuzi una kazi, endelea hadi zikamilike.\n"
 "Tumia zana inapohitajika.\n"
 
-#: src/uagent/util_tools.py:657
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:664
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Unapomaliza, kila mara piga `finish_skill` ikiwa ipo.\n"
 
-#: src/uagent/util_tools.py:709
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:716
 msgid "[skills] No active skill messages to clear."
 msgstr "[skills] Hakuna ujumbe wa ujuzi hai wa kufuta."
 
-#: src/uagent/util_tools.py:712
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:719
 #, python-format
 msgid "[skills] Cleared %(n)d skill message(s)."
 msgstr "[skills] Ujumbe wa ujuzi %(n)d umefutwa."
 
-#: src/uagent/util_tools.py:735
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:742
 msgid "[skills] No active skills."
 msgstr "[skills] Hakuna ujuzi hai."
 
-#: src/uagent/util_tools.py:738
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:745
 #, python-format
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Ujuzi hai: %(n)d"
 
-#: src/uagent/util_tools.py:766
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:773
 msgid "[skills] No skills found."
 msgstr "[skills] Hakuna ujuzi uliopatikana."
 
-#: src/uagent/util_tools.py:777 src/uagent/util_tools.py:813
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:784
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:820
 #, python-format
 msgid "[skills] Out of range: %(n)d"
 msgstr "[skills] Nje ya wigo: %(n)d"
 
-#: src/uagent/util_tools.py:782
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:789
 #, python-format
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] Ujuzi %(n)d umepatikana"
 
-#: src/uagent/util_tools.py:793
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:800
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1258,23 +1335,24 @@ msgstr ""
 "Kidokezo: :skills clear  (ondoa ujuzi uliotumika)\n"
 "Weka namba:"
 
-#: src/uagent/util_tools.py:806 src/uagent/util_tools.py:839
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:813
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:846
 msgid "[skills] Cancelled."
 msgstr "[skills] Imeghairiwa."
 
-#: src/uagent/util_tools.py:809
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:816
 msgid "[skills] Please enter a number or c."
 msgstr "[skills] Tafadhali ingiza namba au c."
 
-#: src/uagent/util_tools.py:819
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:826
 msgid "[skills] Invalid selection."
 msgstr "[skills] Uteuzi batili."
 
-#: src/uagent/util_tools.py:825
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:832
 msgid "[skills] Selected skill has no path."
 msgstr "[skills] Ujuzi ulioteuliwa hauna njia."
 
-#: src/uagent/util_tools.py:829
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:836
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1291,12 +1369,12 @@ msgstr ""
 "\n"
 "Endelea? Weka y ili kuendesha, au c ili kughairi."
 
-#: src/uagent/util_tools.py:869
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:876
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Imetumika: %(name)s"
 
-#: src/uagent/util_tools.py:889
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:896
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -1305,18 +1383,18 @@ msgstr ""
 "[clean] Hoja batili: %(arg)r (taja number=threshold; chaguo-msingi ni "
 "%(default)d)"
 
-#: src/uagent/util_tools.py:906
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:913
 #, python-format
 msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
 msgstr "[clean error] Imeshindwa kupata orodha ya logi: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:923
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:930
 #, python-format
 msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
 msgstr ""
 "[clean warn] Imepuuzwa (uchambuzi umeshindwa): %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/util_tools.py:938
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:945
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1333,21 +1411,21 @@ msgstr ""
 "\n"
 "Kuendelea? Weka y ili kuendesha, au c kughairi."
 
-#: src/uagent/util_tools.py:953
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:960
 msgid "[clean] Cancelled."
 msgstr "[clean] Imeghairiwa."
 
-#: src/uagent/util_tools.py:958
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:965
 #, python-format
 msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
 msgstr "[clean error] Uthibitisho umeshindwa: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:974
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:981
 #, python-format
 msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
 msgstr "[clean warn] Kufuta kumeshindwa: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/util_tools.py:992
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:999
 #, python-format
 msgid ""
 "[clean] No logs to delete (threshold=%(threshold)d).\n"
@@ -1356,18 +1434,18 @@ msgstr ""
 "[clean] Hakuna logi za kufuta (threshold=%(threshold)d).\n"
 "Saraka ya logi: %(dir)s"
 
-#: src/uagent/util_tools.py:1001
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1008
 #, python-format
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Logi za kufuta (<= %(threshold)d ujumbe): %(n)d"
 
-#: src/uagent/util_tools.py:1015
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1022
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
 msgstr ""
 "[clean] Imekamilika: zilizofutwa=%(deleted)d, zilizoshindwa=%(failed)d"
 
-#: src/uagent/util_tools.py:1050
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1057
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1384,61 +1462,62 @@ msgstr ""
 "\n"
 "Kuendelea? Weka y ili kuendesha, au c kughairi."
 
-#: src/uagent/util_tools.py:1063
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1070
 msgid "[load] Prepend to current log was cancelled."
 msgstr "[load] Uwekaji wa mwanzo wa logi ya sasa umeghairiwa."
 
-#: src/uagent/util_tools.py:1072
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1079
 #, python-format
 msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
 msgstr "[load warn] Imeshindwa kusoma logi chanzo: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1085
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1092
 #, python-format
 msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
 msgstr "[load warn] Imeshindwa kusoma logi ya sasa: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1105
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1112
 #, python-format
 msgid "[load] Prepended to current log: %(path)s"
 msgstr "[load] Imeongezwa mwanzo wa logi ya sasa: %(path)s"
 
-#: src/uagent/util_tools.py:1108
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1115
 #, python-format
 msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr "[load warn] Imeshindwa kuandika upya logi ya sasa: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1115
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1122
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load error] Imeshindwa: %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:1130
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1137
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm error] Imeshindwa kuchanganua hoja: %(err)s"
 
-#: src/uagent/util_tools.py:1151
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1158
 msgid "[rm] Unexpected delete_file preview response."
 msgstr "[rm] Jibu lisilotarajiwa kutoka kwa onyesho la awali la delete_file."
 
-#: src/uagent/util_tools.py:1155
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1162
 msgid "[rm] Preview failed."
 msgstr "[rm] Onyesho la awali limeshindwa."
 
-#: src/uagent/util_tools.py:1165
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1172
 msgid "[rm] No matching paths."
 msgstr "[rm] Hakuna njia zinazolingana."
 
-#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1176
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1174
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1183
 msgid "[rm] Missing:"
 msgstr "[rm] Zisizopo:"
 
-#: src/uagent/util_tools.py:1172
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1179
 msgid "[rm] Candidates:"
 msgstr "[rm] Wagombea:"
 
-#: src/uagent/util_tools.py:1181
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1188
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1453,51 +1532,55 @@ msgstr ""
 "\n"
 "Weka y ili kuendelea, au c ili kughairi."
 
-#: src/uagent/util_tools.py:1188
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1195
 msgid "[rm] Cancelled."
 msgstr "[rm] Imeghairiwa."
 
-#: src/uagent/util_tools.py:1202
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1209
 msgid "[rm] Unexpected delete_file response."
 msgstr "[rm] Jibu lisilotarajiwa kutoka delete_file."
 
-#: src/uagent/util_tools.py:1207
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1214
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr "[rm] Njia %(count)d zimefutwa."
 
-#: src/uagent/util_tools.py:1211
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1218
 msgid "[rm] Failed."
 msgstr "[rm] Imeshindwa."
 
-#: src/uagent/util_tools.py:1236
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1243
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Faharisi iliyoainishwa %(idx)d iko nje ya wigo."
 
-#: src/uagent/util_tools.py:1245
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1252
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Faili ya logi haikupatikana: %(path)s"
 
-#: src/uagent/util_tools.py:1291
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1298
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "Logi iliyopakiwa: %(path)s"
 
-#: src/uagent/util_tools.py:1292
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1299
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "Idadi ya ujumbe wa mazungumzo: %(n)d"
 
-#: src/uagent/util_tools.py:1322
+msgid "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+"[{label} onyo] Imeshindikana kuandika upya logi ya sasa: %(etype)s: %(err)s"
+
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1334
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi ya "
 "mwisho %(keep)d"
 
-#: src/uagent/util_tools.py:1351
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1363
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1505,30 +1588,31 @@ msgstr ""
 "[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi"
 " ya mwisho %(keep)d"
 
-#: src/uagent/util_tools.py:1372
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1384
 msgid "No long-term memory entries."
 msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu."
 
-#: src/uagent/util_tools.py:1375
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1387
 msgid "Long-term memory entries:"
 msgstr "Maingizo ya kumbukumbu ya muda mrefu:"
 
-#: src/uagent/util_tools.py:1398
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1410
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del error] Imeshindwa kuchanganua index kuwa int: %(arg)r"
 
-#: src/uagent/util_tools.py:1403
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1415
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "Ingizo la kumbukumbu ya muda mrefu [%(idx)d] limefutwa."
 
-#: src/uagent/util_tools.py:1405
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1417
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] Imeshindwa kufuta index=%(idx)d."
 
-#: src/uagent/util_tools.py:1413 src/uagent/util_tools.py:1446
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1425
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1458
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1536,37 +1620,38 @@ msgstr ""
 "Kumbukumbu ya muda mrefu ya pamoja haijawezeshwa (UAGENT_SHARED_MEMORY_FILE "
 "haijawekwa)."
 
-#: src/uagent/util_tools.py:1420
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1432
 msgid "No shared long-term memory entries."
 msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu ya pamoja."
 
-#: src/uagent/util_tools.py:1425
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1437
 msgid "Shared long-term memory entries:"
 msgstr "Maingizo ya kumbukumbu ya muda mrefu ya pamoja:"
 
-#: src/uagent/util_tools.py:1462 src/uagent/util_tools.py:1469
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1474
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1481
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Imeshindwa kufuta index=%(idx)d."
 
-#: src/uagent/util_tools.py:1483
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1495
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Ingizo la kumbukumbu ya muda mrefu ya pamoja [%(idx)d] limefutwa."
 
-#: src/uagent/util_tools.py:1498
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1510
 msgid "Show this help"
 msgstr "Onyesha msaada huu"
 
-#: src/uagent/util_tools.py:1499
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1511
 msgid "Restart input from the beginning"
 msgstr "Anza upya ingizo kutoka mwanzo"
 
-#: src/uagent/util_tools.py:1500
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1512
 msgid "Show log file list"
 msgstr "Onyesha orodha ya faili za logi"
 
-#: src/uagent/util_tools.py:1503
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1515
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -1574,23 +1659,23 @@ msgstr ""
 "Badilisha saraka ya kazi bila uthibitisho (mf. :cd .. / :cd ~ / :cd C:\\path"
 " / :cd /)"
 
-#: src/uagent/util_tools.py:1506
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1518
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Orodhesha maingizo ya saraka (mf. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1507
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1519
 msgid "List loaded tools"
 msgstr "Orodhesha zana zilizopakiwa"
 
-#: src/uagent/util_tools.py:1509
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1521
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "Dhibiti/tumia ujuzi (mf. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1511
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1523
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Pakia logi ya awali (itaandika upya historia ya mazungumzo ya sasa)"
 
-#: src/uagent/util_tools.py:1513
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1525
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1600,7 +1685,7 @@ msgstr ""
 "ukichagua 'y', logi iliyopakiwa itawekwa mwanzo wa faili ya logi ya kipindi "
 "cha sasa (itaandika upya, bila chelezo)."
 
-#: src/uagent/util_tools.py:1517
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1529
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1608,14 +1693,14 @@ msgstr ""
 "Futa logi za mazungumzo (scheck_log_*.jsonl) ambapo idadi ya ujumbe wa "
 "mtumiaji/msaidizi/zana (bila system) ni <= N (chaguo-msingi=10)"
 
-#: src/uagent/util_tools.py:1521
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1533
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Punguza historia ya mazungumzo (hifadhi ujumbe wa mwisho N usio wa system; "
 "chaguo-msingi=40)"
 
-#: src/uagent/util_tools.py:1525
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1537
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1624,52 +1709,52 @@ msgstr ""
 " kuwa ujumbe 1 wa system; hifadhi N za mwisho bila kuchakatwa; chaguo-"
 "msingi=20)"
 
-#: src/uagent/util_tools.py:1527
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1539
 msgid "List long-term memory notes"
 msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
 
-#: src/uagent/util_tools.py:1529
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1541
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
 
-#: src/uagent/util_tools.py:1531
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1543
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Futa faili/saraka kwa onyesho la awali + uthibitisho"
 
-#: src/uagent/util_tools.py:1533
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1545
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr ""
 "Orodhesha madokezo ya kumbukumbu ya muda mrefu ya pamoja (inahitaji "
 "UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/util_tools.py:1535
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1547
 msgid "Delete a shared long-term memory note by index"
 msgstr "Futa dokezo la kumbukumbu ya muda mrefu ya pamoja kwa index"
 
-#: src/uagent/util_tools.py:1537
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1549
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Weka hali ya hoja (0=zimwa, 1=chini, 2=wastani, 3=juu; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1539
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1551
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Weka hali ya urefu wa maelezo (0=zimwa, 1=chini, 2=wastani, 3=juu; bila "
 "hoja=endelea)"
 
-#: src/uagent/util_tools.py:1540
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1552
 msgid "Exit"
 msgstr "Toka"
 
-#: src/uagent/util_tools.py:1543
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1555
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "  - Weka mstari ambao ni tu 'f' ili kuingia katika hali ya kuingiza mistari "
 "mingi."
 
-#: src/uagent/util_tools.py:1545
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1557
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1677,16 +1762,16 @@ msgstr ""
 "  - Ili kumaliza hali ya kuingiza mistari mingi, weka mstari unaolingana "
 "kabisa na %(sentinel)s."
 
-#: src/uagent/util_tools.py:1639
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1651
 msgid "Exiting."
 msgstr "Inatoka."
 
-#: src/uagent/util_tools.py:1642
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1654
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Amri isiyojulikana: :%(cmd)s"
 
-#: src/uagent/util_tools.py:1793
+#: F:\KAIHATSU\agentcli\src\uagent\util_tools.py:1805
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1694,7 +1779,7 @@ msgstr ""
 "Vipengele vya orodha vilivyo hapa chini ni dondoo kutoka kumbukumbu ya muda mrefu ya mtumiaji huyu (memo za kudumu). Vitumie kama taarifa ya msingi kuhusu mtumiaji. Hata hivyo, daima zingatia taarifa mpya zilizotolewa katika mazungumzo, na ikiwa zinapingana na taarifa za zamani, chukua taarifa ya hivi karibuni.\n"
 "\n"
 
-#: src/uagent/web.py:511
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:511
 msgid ""
 "Another task is already running in this room. Please retry after it "
 "completes."
@@ -1702,7 +1787,8 @@ msgstr ""
 "Kazi nyingine tayari inaendelea katika chumba hiki. Tafadhali jaribu tena "
 "baada ya kukamilika."
 
-#: src/uagent/web.py:604 src/uagent/web.py:773
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:604
+#: F:\KAIHATSU\agentcli\src\uagent\web.py:773
 msgid ""
 "Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -1710,7 +1796,7 @@ msgstr ""
 "Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa.\n"
 "Tafadhali angalia vigezo vya mazingira unapoanzisha seva ya wavuti."
 
-#: src/uagent/welcome.py:27
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:27
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
@@ -1718,7 +1804,7 @@ msgstr ""
 "[Seva za MCP]\n"
 "- Faili ya usanidi haikupatikana."
 
-#: src/uagent/welcome.py:34
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:34
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered."
@@ -1726,11 +1812,11 @@ msgstr ""
 "[Seva za MCP]\n"
 "- Hakuna seva zilizosajiliwa."
 
-#: src/uagent/welcome.py:36
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:36
 msgid "[MCP Servers]"
 msgstr "[Seva za MCP]"
 
-#: src/uagent/welcome.py:43
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:43
 #, python-format
 msgid ""
 "[MCP Servers]\n"
@@ -1739,15 +1825,15 @@ msgstr ""
 "[Seva za MCP]\n"
 "- Imeshindwa kupata taarifa: %(err)s"
 
-#: src/uagent/welcome.py:62
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:62
 msgid "[Quick Guide]"
 msgstr "[Mwongozo wa Haraka]"
 
-#: src/uagent/welcome.py:63
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:63
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- Chat: andika ujumbe na utume (GUI: Ctrl+Enter pia inapatikana)."
 
-#: src/uagent/welcome.py:65
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:65
 msgid ""
 "- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \"\"\"end)."
@@ -1755,7 +1841,7 @@ msgstr ""
 "- Mistari mingi: weka mstari wenye tu 'f' ili kuingia hali ya mistari mingi "
 "(malizia kwa \"\"\"end)."
 
-#: src/uagent/welcome.py:68
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.)."
@@ -1763,11 +1849,11 @@ msgstr ""
 "- Amri: andika ':help' ili kuona amri za mfumo (usimamizi wa logi, kubana "
 "historia, n.k.)."
 
-#: src/uagent/welcome.py:70
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."
 msgstr "- Toka: ':exit' au ':quit' humaliza kipindi."
 
-#: src/uagent/welcome.py:72
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:72
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
@@ -1775,23 +1861,23 @@ msgstr ""
 "- Picha: GUI inaunga mkono buruta na dondosha; kwenye CUI unaweza kuingiza "
 "njia ya faili kwa uchanganuzi wa picha."
 
-#: src/uagent/welcome.py:75
 msgid ""
-"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Hati: `uag docs` huonyesha hati zilizounganishwa; `uag docs webinspect` "
-"huonyesha msaada wa Web Inspector (`--path/--open` pia zinapatikana)."
+"- Docs: `%(docs_cmd)s` huonyesha nyaraka zilizojumuishwa; "
+"`%(webinspect_cmd)s` huonyesha msaada wa Web Inspector (`--path/--open` pia "
+"zinapatikana)."
 
-#: src/uagent/welcome.py:78
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:78
 msgid "[Examples]"
 msgstr "[Mifano]"
 
-#: src/uagent/welcome.py:79
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:79
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"Chambua msimbo chanzo kwenye folda hii na unda README.md.\""
 
-#: src/uagent/welcome.py:81
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:81
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -1799,41 +1885,21 @@ msgstr ""
 "- \"Piga picha ya skrini ya eneo-kazi la sasa na eleza yaliyomo ya dirisha "
 "linaloonekana.\""
 
-#: src/uagent/welcome.py:83
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:83
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr ""
 "- \"Tengeneza ripoti ya muhtasari wa kila mwezi kutoka kwenye faili hii ya "
 "Excel.\""
 
-#: src/uagent/welcome.py:84
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:84
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Soma PDF hii na orodhesha pointi tatu kuu.\""
 
-#: src/uagent/welcome.py:85
+#: F:\KAIHATSU\agentcli\src\uagent\welcome.py:85
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
 
-#: src/uagent/a2a/engine.py:171
+#: F:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:171
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Injini isiyojulikana ya UAGENT_A2A_ENGINE: %(mode)s"
-
-#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:190
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "Imesasishwa .env.sec: %(path)s"
-
-#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:194
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kusasisha .env.sec: %(err)s"
-
-#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:232
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr "Imeundwa .env.sec: %(path)s"
-
-#: C:/KAIHATSU/agentcli/src/uagent/runtime_env.py:236
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kuunda .env.sec: %(err)s"

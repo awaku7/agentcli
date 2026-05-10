@@ -72,8 +72,8 @@ def get_welcome_message():
             "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
         ),
         _(
-            "- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web Inspector help (`--path/--open` also available)."
-        ),
+            "- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web Inspector help (`--path/--open` also available)."
+        ) % {"docs_cmd": "uag docs", "webinspect_cmd": "uag docs webinspect"},
         "",
         _("[Examples]"),
         _('- "Analyze the source code in this folder and create a README.md."'),

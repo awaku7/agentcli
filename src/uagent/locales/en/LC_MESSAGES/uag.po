@@ -1,16 +1,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-09 22:55+0900\n"
+"Project-Id-Version: uag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-10 22:27+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
 
 msgid "Please install Git. See: %(url)s"
 msgstr "Please install Git. See: %(url)s"
@@ -31,60 +31,6 @@ msgstr ""
 
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git is not installed."
-
-msgid "getch() fallback to input()"
-msgstr "getch() fallback to input()"
-
-msgid "Input cancelled (will be sent as a reply to human_ask)."
-msgstr "Input cancelled (will be sent as a reply to human_ask)."
-
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Received Ctrl+C. Starting shutdown..."
-
-msgid "Unexpected error in stdin_loop: %(err)s"
-msgstr "Unexpected error in stdin_loop: %(err)s"
-
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-
-msgid "Cancelled."
-msgstr "Cancelled."
-
-msgid "Discarded previous input. Please start over."
-msgstr "Discarded previous input. Please start over."
-
-msgid "Received multiline reply."
-msgstr "Received multiline reply."
-
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "Reply with y to send, or n (or c/cancel) to skip sending."
-
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "Unknown event kind=%(kind)r: %(ev)r"
-
-msgid "Exited uag."
-msgstr "Exited uag."
 
 msgid "[docs] name is required"
 msgstr "[docs] name is required"
@@ -140,6 +86,60 @@ msgstr "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive was specified; exiting without waiting for stdin."
+
+msgid "getch() fallback to input()"
+msgstr "getch() fallback to input()"
+
+msgid "Input cancelled (will be sent as a reply to human_ask)."
+msgstr "Input cancelled (will be sent as a reply to human_ask)."
+
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Received Ctrl+C. Starting shutdown..."
+
+msgid "Unexpected error in stdin_loop: %(err)s"
+msgstr "Unexpected error in stdin_loop: %(err)s"
+
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+
+msgid "Cancelled."
+msgstr "Cancelled."
+
+msgid "Discarded previous input. Please start over."
+msgstr "Discarded previous input. Please start over."
+
+msgid "Received multiline reply."
+msgstr "Received multiline reply."
+
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Reply with y to send, or n (or c/cancel) to skip sending."
+
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Unknown event kind=%(kind)r: %(ev)r"
+
+msgid "Exited uag."
+msgstr "Exited uag."
 
 msgid "Environment variable %(name)s is not set."
 msgstr "Environment variable %(name)s is not set."
@@ -308,18 +308,6 @@ msgstr "[docs] Available documents:"
 msgid "Usage:"
 msgstr "Usage:"
 
-msgid "  uag docs                 # list"
-msgstr "  uag docs                 # list"
-
-msgid "  uag docs <name>          # show"
-msgstr "  uag docs <name>          # show"
-
-msgid "  uag docs --path <name>   # show path"
-msgstr "  uag docs --path <name>   # show path"
-
-msgid "  uag docs --open <name>   # open with OS"
-msgstr "  uag docs --open <name>   # open with OS"
-
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
@@ -327,8 +315,14 @@ msgstr ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Environment validation failed ({context})."
+
 msgid "Missing required environment variables:"
 msgstr "Missing required environment variables:"
+
+msgid "- {m.name}: {m.reason}"
+msgstr "- {m.name}: {m.reason}"
 
 msgid "Warnings:"
 msgstr "Warnings:"
@@ -462,8 +456,8 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
 
-msgid "ここにファイル/画像をドラッグ＆ドロップ"
-msgstr "ここにファイル/画像をドラッグ＆ドロップ"
+msgid "Drop files/images here"
+msgstr "Drop files/images here"
 
 msgid "Download"
 msgstr "Download"
@@ -477,8 +471,8 @@ msgstr "Welcome / Quick Guide"
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Extreme Stability)"
 
-msgid "↑ Drag&Dropで添付できます"
-msgstr "↑ Drag&Dropで添付できます"
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ You can attach files by drag & drop"
 
 msgid "Send"
 msgstr "Send"
@@ -708,21 +702,23 @@ msgstr "NVIDIA model/deployment name"
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Enable image generation debug output? (0/1)"
 
-msgid "Azure speech deployment name"
-msgstr "Azure speech deployment name"
+msgid "Azure embedding deployment name"
+msgstr "Azure embedding deployment name"
 
-msgid "Azure transcription deployment name"
-msgstr "Azure transcription deployment name"
+msgid "OpenAI embedding model/deployment name"
+msgstr "OpenAI embedding model/deployment name"
 
-msgid "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
-msgstr "OpenAI TTS model/deployment name (optional, default: gpt-4o-mini-tts)"
+msgid "Bedrock embedding model/deployment name"
+msgstr "Bedrock embedding model/deployment name"
 
-msgid ""
-"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
-"transcribe)"
-msgstr ""
-"OpenAI transcription model/deployment name (optional, default: gpt-4o-mini-"
-"transcribe)"
+msgid "OpenRouter embedding model/deployment name"
+msgstr "OpenRouter embedding model/deployment name"
+
+msgid "Ollama embedding model name"
+msgstr "Ollama embedding model name"
+
+msgid "NVIDIA embedding model/deployment name"
+msgstr "NVIDIA embedding model/deployment name"
 
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "Configure optional image / embedding / audio settings?"
@@ -751,8 +747,8 @@ msgstr "Open generated images automatically?"
 msgid "Configure embedding / semantic search settings?"
 msgstr "Configure embedding / semantic search settings?"
 
-msgid "Disable semantic search when embedding API is unreachable?"
-msgstr "Disable semantic search when embedding API is unreachable?"
+msgid "Select embedding provider"
+msgstr "Select embedding provider"
 
 msgid "Configure audio speech / transcription settings?"
 msgstr "Configure audio speech / transcription settings?"
@@ -1106,6 +1102,9 @@ msgstr "Loaded log: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Conversation message count: %(n)d"
 
+msgid "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
+
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
@@ -1322,10 +1321,10 @@ msgstr ""
 "image analysis."
 
 msgid ""
-"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Docs: `uag docs` shows bundled docs; `uag docs webinspect` shows Web "
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
 "Inspector help (`--path/--open` also available)."
 
 msgid "[Examples]"

@@ -92,7 +92,12 @@ python -m uagent.setup_cli
 
 - `UAGENT_MEMORY_FILE`: 長期記憶メモの保存先パス。
 - `UAGENT_SHARED_MEMORY_FILE`: 共有長期記憶の保存先パス。
-- `UAGENT_EMBEDDING_API_URL`: 埋め込み (Embedding) API の URL。
+- `UAGENT_EMBEDDING_PROVIDER`: 埋め込み用プロバイダ（既定: `UAGENT_PROVIDER`）。
+- `UAGENT_<PROVIDER>_EMBEDDING_BASE_URL`: 埋め込みプロバイダのベース URL。
+- `UAGENT_<PROVIDER>_EMBEDDING_API_KEY`: 埋め込みプロバイダの API キー。
+- `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION`: Azure 形式プロバイダの API バージョン。
+- `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: 埋め込みモデル / デプロイ名。
+- `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: 埋め込みエンドポイント到達不能時にツールを無効化する。
 
 ---
 
