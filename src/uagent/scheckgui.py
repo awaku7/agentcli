@@ -51,7 +51,8 @@ from .util_tools import (
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
 from .util_providers import make_client as util_make_client
-from .tools.context import ToolCallbacks
+from .tools.context import ToolCallbacks, get_callbacks
+from .tools.skill_history import make_finish_skill_handler
 from .scheduler import start_background_scheduler, stop_background_scheduler
 
 try:
@@ -347,6 +348,9 @@ class ScheckWorker(QtCore.QObject):
                 )
 
             self.messages = build_initial_messages(core=core)
+            cb = get_callbacks()
+            prev_finish_skill = cb.finish_skill
+            cb.finish_skill = make_finish_skill_handler(self.messages, core)
 
             # Long-term memory
             from .tools import long_memory as personal_long_memory
@@ -544,6 +548,7 @@ class ScheckWorker(QtCore.QObject):
                         pass
                     continue
         finally:
+            get_callbacks().finish_skill = prev_finish_skill
             self.sig_finished.emit()
 
     def stop(self):
