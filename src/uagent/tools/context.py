@@ -22,6 +22,7 @@ class ToolCallbacks:
     log: Optional[Callable[[str], None]] = None
     error: Optional[Callable[[str], None]] = None
     exception: Optional[Callable[[str], None]] = None
+    finish_skill: Optional[Callable[[str], str]] = None
 
     # Environment variable access
     get_env: Optional[Callable[[str], str]] = None
