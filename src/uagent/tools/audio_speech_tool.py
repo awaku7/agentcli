@@ -133,7 +133,7 @@ def _model(provider: str) -> str:
     if provider in ("gemini", "vertexai"):
         return _env_first(
             ["UAGENT_GEMINI_SPEECH_DEPNAME", "UAGENT_GEMINI_MODEL"],
-            default="gemini-2.0-flash",
+            default="ja-JP-Neural2-B",
         )
     return _env_first(
         ["UAGENT_OPENAI_SPEECH_DEPNAME"],
@@ -195,61 +195,38 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     if provider in ("gemini", "vertexai"):
         try:
-            from google import genai
-            from google.genai import types
+            from google.cloud import texttospeech
+            import certifi
         except ImportError:
-            return make_response(False, "google-genai package is not installed.")
-
-        # Initialize client using the same logic as generate_image
-        try:
-            if provider == "vertexai":
-                # Use Gemini API Key for better compatibility if available
-                api_key = env_get("UAGENT_GEMINI_API_KEY") or env_get("UAGENT_VERTEXAI_API_KEY")
-                use_vertex = (env_get("UAGENT_GEMINI_API_KEY") is None)
-                client = genai.Client(vertexai=use_vertex, api_key=api_key)
-            else:
-                api_key = env_get("UAGENT_GEMINI_API_KEY")
-                client = genai.Client(api_key=api_key)
-        except Exception as e:
-            return make_response(False, f"Failed to initialize Gemini/VertexAI client: {e}")
-
-        # Map voice name if it's still OpenAI defaults
-        if voice in ("alloy", "echo", "fable", "onyx", "nova", "shimmer"):
-            voice = "Aoide" # Default Gemini voice
+            return make_response(False, "google-cloud-texttospeech or certifi package is not installed.")
 
         try:
-            # Gemini TTS via generate_content (multimodal output)
-            # instructions are used as part of the prompt
-            final_contents = text
-            if instructions:
-                final_contents = f"{instructions}\n\nText to speak: {text}"
-            resp = client.models.generate_content(
-                model=model,
-                contents=final_contents,
-                config=types.GenerateContentConfig(
-                    response_modalities=["AUDIO"],
-                    speech_config=types.SpeechConfig(
-                        voice_config=types.VoiceConfig(
-                            prebuilt_voice_config=types.PrebuiltVoiceConfig(
-                                voice_name=voice,
-                            )
-                        )
-                    )
-                )
+            # Use REST transport to avoid gRPC/ALPN issues with Python 3.14 on Windows
+            from google.cloud.texttospeech_v1.services.text_to_speech.transports.rest import TextToSpeechRestTransport
+            transport = TextToSpeechRestTransport()
+            client = texttospeech.TextToSpeechClient(transport=transport)
+
+            synthesis_input = texttospeech.SynthesisInput(text=text)
+            
+            language_code = "ja-JP"
+            if voice.lower() in ("alloy", "echo", "fable", "onyx", "nova", "shimmer", "puck", "aoede"):
+                voice = "ja-JP-Neural2-B"
+            
+            voice_params = texttospeech.VoiceSelectionParams(
+                language_code=language_code, name=voice
             )
             
-            audio_part = None
-            if resp.candidates and resp.candidates[0].content.parts:
-                for part in resp.candidates[0].content.parts:
-                    if part.inline_data:
-                        audio_part = part.inline_data
-                        break
-            
-            if not audio_part or not audio_part.data:
-                return make_response(False, "No audio data returned from Gemini.")
+            audio_config = texttospeech.AudioConfig(
+                audio_encoding=texttospeech.AudioEncoding.MP3,
+                speaking_rate=speed
+            )
+
+            resp = client.synthesize_speech(
+                input=synthesis_input, voice=voice_params, audio_config=audio_config
+            )
 
             with open(safe_out, "wb") as f:
-                f.write(audio_part.data)
+                f.write(resp.audio_content)
         except Exception as exc:
             return make_response(
                 False,
@@ -315,16 +292,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         "off",
     )
     if should_open and open_image_with_default_app(safe_out):
-        print(
-            _(
-                "log.opened_default_app",
-                default="[INFO] Opened audio file with the default app.",
-            ),
-            file=sys.stderr,
-        )
+        pass
 
     return make_response(True, _("ok.saved", default="Audio file saved"), data=data)
 
-
 if __name__ == "__main__":
-    print(run_tool({"text": "hello", "output_path": "out.mp3"}))
+    pass
