@@ -1,7 +1,8 @@
-﻿# Core LLM & HTTP
+# Core LLM & HTTP
 openai>=2.30.0
 anthropic>=0.86.0
 google-genai>=1.69.0
+google-cloud-texttospeech>=2.36.0
 requests>=2.33.1
 urllib3>=2.6.3
 types-requests>=2.33.0.20260327
