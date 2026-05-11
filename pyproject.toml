@@ -21,6 +21,7 @@ dependencies = [
     "openai>=2.30.0",
     "anthropic>=0.86.0",
     "google-genai>=1.69.0",
+    "google-cloud-texttospeech>=2.36.0",
     "pdfplumber>=0.11.9",
     "python-pptx>=1.0.2",
     "requests>=2.33.1",
