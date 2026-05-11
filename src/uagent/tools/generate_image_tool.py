@@ -579,7 +579,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     saved: List[str] = []
     url_list: List[str] = []
     spinner = _StatusSpinner(cb, STATUS_LABEL)
-    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", True)
+    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
     moderation_raw = str(
         args.get("moderation") or env_get("UAGENT_IMG_GENERATE_MODERATION") or ""
