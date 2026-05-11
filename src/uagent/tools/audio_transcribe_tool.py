@@ -100,7 +100,7 @@ def _provider() -> str:
         ["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai"
     )
     provider = provider.strip().lower()
-    if provider not in ("openai", "azure"):
+    if provider not in ("openai", "azure", "gemini", "vertexai"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -115,6 +115,11 @@ def _model(provider: str) -> str:
         return _env_first(
             ["UAGENT_AZURE_TRANSCRIBE_DEPNAME"],
             required=True,
+        )
+    if provider in ("gemini", "vertexai"):
+        return _env_first(
+            ["UAGENT_GEMINI_TRANSCRIBE_DEPNAME", "UAGENT_GEMINI_MODEL"],
+            default="gemini-1.5-flash",
         )
     return _env_first(
         ["UAGENT_OPENAI_TRANSCRIBE_DEPNAME"],
@@ -184,51 +189,112 @@ def run_tool(args: Dict[str, Any]) -> str:
             ).format(path=safe_path),
         )
 
-    client = _make_client(provider)
-
-    transcribe_kwargs: Dict[str, Any] = {"file": open(safe_path, "rb"), "model": model}
-    if language:
-        transcribe_kwargs["language"] = language
-    if prompt:
-        transcribe_kwargs["prompt"] = prompt
-    if output_format == "json":
-        transcribe_kwargs["response_format"] = "verbose_json"
-
-    try:
-        with transcribe_kwargs["file"] as fin:
-            transcribe_kwargs["file"] = fin
-            resp = client.audio.transcriptions.create(**transcribe_kwargs)
-    except Exception as exc:
-        return make_response(
-            False,
-            _(
-                "err.transcribe_failed",
-                default="Audio transcription failed: {err}",
-            ).format(err=repr(exc)),
-            data={"path": safe_path, "provider": provider, "model": model},
-        )
-
     text: str = ""
     resp_language: str = ""
     duration: Any = None
 
-    if isinstance(resp, str):
-        text = resp.strip()
+    if provider in ("gemini", "vertexai"):
+        try:
+            from google import genai
+            from google.genai import types
+        except ImportError:
+            return make_response(False, "google-genai package is not installed.")
+
+        try:
+            if provider == "vertexai":
+                # Try with Gemini API Key if VertexAI API Key fails or for better compatibility with Audio
+                api_key = env_get("UAGENT_GEMINI_API_KEY") or env_get("UAGENT_VERTEXAI_API_KEY")
+                # When using Gemini API Key, we should NOT set vertexai=True
+                use_vertex = (env_get("UAGENT_GEMINI_API_KEY") is None)
+                client = genai.Client(vertexai=use_vertex, api_key=api_key)
+            else:
+                api_key = env_get("UAGENT_GEMINI_API_KEY")
+                client = genai.Client(api_key=api_key)
+        except Exception as e:
+            return make_response(False, f"Failed to initialize Gemini/VertexAI client: {e}")
+
+        try:
+            with open(safe_path, "rb") as f:
+                audio_bytes = f.read()
+            
+            suffix = Path(safe_path).suffix.lower()
+            mime_type = "audio/mpeg"
+            if suffix == ".wav":
+                mime_type = "audio/wav"
+            elif suffix == ".ogg":
+                mime_type = "audio/ogg"
+            elif suffix == ".aac":
+                mime_type = "audio/aac"
+            elif suffix == ".flac":
+                mime_type = "audio/flac"
+
+            final_prompt = "Transcribe the following audio accurately."
+            if prompt:
+                final_prompt = f"{prompt}\n\n{final_prompt}"
+            if language:
+                final_prompt += f" The language is {language}."
+
+            resp = client.models.generate_content(
+                model=model,
+                contents=[
+                    types.Part.from_bytes(data=audio_bytes, mime_type=mime_type),
+                    final_prompt
+                ]
+            )
+            text = resp.text or ""
+            resp_language = language
+            duration = None
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.transcribe_failed",
+                    default="Audio transcription failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_path, "provider": provider, "model": model},
+            )
     else:
-        text = str(getattr(resp, "text", "") or "").strip()
-        resp_language = str(getattr(resp, "language", "") or "").strip()
-        duration = getattr(resp, "duration", None)
-        if not text:
-            try:
-                payload = resp.model_dump()  # type: ignore[attr-defined]
-                if isinstance(payload, dict):
-                    text = str(payload.get("text") or "").strip()
-                    resp_language = str(
-                        payload.get("language") or resp_language or ""
-                    ).strip()
-                    duration = payload.get("duration", duration)
-            except Exception:
-                pass
+        client = _make_client(provider)
+
+        transcribe_kwargs: Dict[str, Any] = {"file": open(safe_path, "rb"), "model": model}
+        if language:
+            transcribe_kwargs["language"] = language
+        if prompt:
+            transcribe_kwargs["prompt"] = prompt
+        if output_format == "json":
+            transcribe_kwargs["response_format"] = "verbose_json"
+
+        try:
+            with transcribe_kwargs["file"] as fin:
+                transcribe_kwargs["file"] = fin
+                resp = client.audio.transcriptions.create(**transcribe_kwargs)
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.transcribe_failed",
+                    default="Audio transcription failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_path, "provider": provider, "model": model},
+            )
+
+        if isinstance(resp, str):
+            text = resp.strip()
+        else:
+            text = str(getattr(resp, "text", "") or "").strip()
+            resp_language = str(getattr(resp, "language", "") or "").strip()
+            duration = getattr(resp, "duration", None)
+            if not text:
+                try:
+                    payload = resp.model_dump()  # type: ignore[attr-defined]
+                    if isinstance(payload, dict):
+                        text = str(payload.get("text") or "").strip()
+                        resp_language = str(
+                            payload.get("language") or resp_language or ""
+                        ).strip()
+                        duration = payload.get("duration", duration)
+                except Exception:
+                    pass
 
     if not text:
         text = _("warn.empty_transcript", default="[WARN] empty transcript")
