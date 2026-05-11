@@ -154,7 +154,7 @@ def _get_provider() -> str:
         .strip()
         .lower()
     )
-    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "nvidia"):
+    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "nvidia", "vertexai"):
         raise RuntimeError(
             _msg(
                 "err.invalid_provider",
@@ -404,6 +404,7 @@ def _run_openai_images(
 
 
 def _run_gemini_images(
+    provider: str,
     image_model: str,
     prompt: str,
     size: str,
@@ -421,8 +422,6 @@ def _run_gemini_images(
             )
         )
 
-    api_key = _img_env("gemini", "generate", "api_key", required=True)
-
     kwargs: Dict[str, Any] = {}
     try:
         from .. import util_providers as providers  # type: ignore
@@ -434,9 +433,18 @@ def _run_gemini_images(
         pass
 
     try:
-        client = genai.Client(api_key=api_key, **kwargs)
-    except TypeError:
-        client = genai.Client(api_key=api_key)
+        if provider == "vertexai":
+            api_key = _img_env("vertexai", "generate", "api_key", required=False)
+            client = genai.Client(
+                vertexai=True,
+                api_key=api_key,
+                **kwargs,
+            )
+        else:
+            api_key = _img_env("gemini", "generate", "api_key", required=True)
+            client = genai.Client(api_key=api_key, **kwargs)
+    except Exception as e:
+        raise RuntimeError(f"Failed to initialize Gemini/VertexAI client: {e}")
 
     image_config_kwargs: Dict[str, Any] = {}
     if size == "1024x1024":
@@ -449,31 +457,69 @@ def _run_gemini_images(
         image_config_kwargs["image_size"] = size
 
     try:
-        resp = client.models.generate_content(
-            model=image_model,
-            contents=prompt,
-            config=gemini_types.GenerateContentConfig(
-                response_modalities=["TEXT", "IMAGE"],
-                image_config=gemini_types.ImageConfig(**image_config_kwargs),
-            ),
-        )
+        if "imagen" in image_model.lower():
+            # Imagen 3 specific config (google-genai SDK 1.x uses generate_images/GenerateImagesConfig)
+            image_config_kwargs = {"number_of_images": n}
+            if size == "1024x1024":
+                image_config_kwargs["aspect_ratio"] = "1:1"
+            elif size == "1024x1536":
+                image_config_kwargs["aspect_ratio"] = "2:3"
+            elif size == "1536x1024":
+                image_config_kwargs["aspect_ratio"] = "3:2"
+
+            # Check for GenerateImagesConfig (google-genai v1+)
+            try:
+                config_cls = getattr(gemini_types, "GenerateImagesConfig")
+                method = client.models.generate_images
+            except AttributeError:
+                # Fallback to older or different SDK version naming if necessary
+                config_cls = getattr(gemini_types, "GenerateImageConfig", None)
+                method = getattr(client.models, "generate_image", None)
+
+            if not method or not config_cls:
+                 raise RuntimeError("Could not find generate_images/generate_image method in SDK.")
+
+            resp = method(
+                model=image_model,
+                prompt=prompt,
+                config=config_cls(**image_config_kwargs),
+            )
+            b64_list: List[str] = []
+            generated_images = getattr(resp, "generated_images", None) or []
+            if not generated_images and hasattr(resp, "images"):
+                generated_images = resp.images
+
+            for img in generated_images:
+                # Structure: GeneratedImage.image.image_bytes
+                img_obj = getattr(img, "image", img)
+                raw = getattr(img_obj, "image_bytes", None)
+                if raw:
+                    b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
+        else:
+            # Traditional Gemini multimodal generation
+            resp = client.models.generate_content(
+                model=image_model,
+                contents=prompt,
+                config=gemini_types.GenerateContentConfig(
+                    response_modalities=["TEXT", "IMAGE"],
+                    image_config=gemini_types.ImageConfig(**image_config_kwargs),
+                ),
+            )
+            b64_list = []
+            candidates = getattr(resp, "candidates", None) or []
+            for candidate in candidates:
+                content = getattr(candidate, "content", None)
+                parts = getattr(content, "parts", None) or []
+                for part in parts:
+                    inline = getattr(part, "inline_data", None) or getattr(
+                        part, "inlineData", None
+                    )
+                    raw = getattr(inline, "data", None) if inline is not None else None
+                    if raw:
+                        b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
     except Exception:
         traceback.print_exc(file=sys.stderr)
         raise
-
-    b64_list: List[str] = []
-    candidates = getattr(resp, "candidates", None) or []
-    for candidate in candidates:
-        content = getattr(candidate, "content", None)
-        parts = getattr(content, "parts", None) or []
-        for part in parts:
-            inline = getattr(part, "inline_data", None) or getattr(
-                part, "inlineData", None
-            )
-            raw = getattr(inline, "data", None) if inline is not None else None
-            if raw:
-                b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
-
     if not b64_list:
         raise RuntimeError(
             _msg(
@@ -481,7 +527,6 @@ def _run_gemini_images(
                 "Image data was empty (candidates/inline_data is empty or missing)",
             )
         )
-
     return b64_list
 
 
@@ -507,8 +552,13 @@ def run_tool(args: Dict[str, Any]) -> str:
     provider = _get_provider()
     try:
         image_model = _get_image_depname(cb.get_env, provider)
+        if provider == "vertexai" and "imagen" not in image_model.lower():
+            image_model = "imagen-3.0-generate-001"
     except RuntimeError:
-        return _(
+        if provider == "vertexai":
+            image_model = "imagen-3.0-generate-001"
+        else:
+            return _(
             "err.depname_missing",
             default=(
                 "[generate_image] Image model (deployment name) is not set.\n"
@@ -529,7 +579,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     saved: List[str] = []
     url_list: List[str] = []
     spinner = _StatusSpinner(cb, STATUS_LABEL)
-    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
+    debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", True)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
     moderation_raw = str(
         args.get("moderation") or env_get("UAGENT_IMG_GENERATE_MODERATION") or ""
@@ -590,8 +640,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     saved.append(out_path)
                     meta_payload["downloaded_urls"].append(url)
 
-        elif provider == "gemini":
+        elif provider in ("gemini", "vertexai"):
             b64_list = _run_gemini_images(
+                provider=provider,
                 image_model=image_model,
                 prompt=prompt,
                 size=size2,
