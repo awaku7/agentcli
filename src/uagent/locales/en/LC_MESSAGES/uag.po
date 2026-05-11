@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 22:27+0900\n"
+"POT-Creation-Date: 2026-05-11 21:37+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -594,6 +594,12 @@ msgstr "Vertex AI project ID (optional)"
 msgid "Vertex AI location/region (optional)"
 msgstr "Vertex AI location/region (optional)"
 
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Google credentials for Vertex AI (optional)"
+
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Google location/region for Vertex AI (optional)"
+
 msgid "Vertex AI model/deployment name"
 msgstr "Vertex AI model/deployment name"
 
@@ -719,6 +725,18 @@ msgstr "Ollama embedding model name"
 
 msgid "NVIDIA embedding model/deployment name"
 msgstr "NVIDIA embedding model/deployment name"
+
+msgid "Azure speech deployment name"
+msgstr "Azure speech deployment name"
+
+msgid "Azure transcription deployment name"
+msgstr "Azure transcription deployment name"
+
+msgid "OpenAI speech model/deployment name"
+msgstr "OpenAI speech model/deployment name"
+
+msgid "OpenAI transcription model/deployment name"
+msgstr "OpenAI transcription model/deployment name"
 
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "Configure optional image / embedding / audio settings?"
