@@ -447,16 +447,12 @@ def _run_gemini_images(
         raise RuntimeError(f"Failed to initialize Gemini/VertexAI client: {e}")
 
     image_config_kwargs: Dict[str, Any] = {}
-    if size == "1024x1024":
-        image_config_kwargs["aspect_ratio"] = "1:1"
-    elif size == "1024x1536":
-        image_config_kwargs["aspect_ratio"] = "2:3"
-    elif size == "1536x1024":
-        image_config_kwargs["aspect_ratio"] = "3:2"
-    else:
-        image_config_kwargs["image_size"] = size
 
     try:
+        print(
+            f"[generate_image] provider={provider} image_model={image_model} size={size} n={n}",
+            file=sys.stderr,
+        )
         if "imagen" in image_model.lower():
             # Imagen 3 specific config (google-genai SDK 1.x uses generate_images/GenerateImagesConfig)
             image_config_kwargs = {"number_of_images": n}
@@ -507,15 +503,24 @@ def _run_gemini_images(
             )
             b64_list = []
             candidates = getattr(resp, "candidates", None) or []
+            print(
+                f"[generate_image] Gemini resp_type={type(resp).__name__} candidates={len(candidates)}",
+                file=sys.stderr,
+            )
             for candidate in candidates:
                 content = getattr(candidate, "content", None)
                 parts = getattr(content, "parts", None) or []
+                print(
+                    f"[generate_image] candidate parts={len(parts)}",
+                    file=sys.stderr,
+                )
                 for part in parts:
                     inline = getattr(part, "inline_data", None) or getattr(
                         part, "inlineData", None
                     )
                     raw = getattr(inline, "data", None) if inline is not None else None
                     if raw:
+                        print("[generate_image] found inline_data", file=sys.stderr)
                         b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
     except Exception:
         traceback.print_exc(file=sys.stderr)
@@ -552,11 +557,13 @@ def run_tool(args: Dict[str, Any]) -> str:
     provider = _get_provider()
     try:
         image_model = _get_image_depname(cb.get_env, provider)
+        if provider == "gemini" and "imagen" not in image_model.lower():
+            image_model = "imagen-4.0-generate-001"
         if provider == "vertexai" and "imagen" not in image_model.lower():
-            image_model = "imagen-3.0-generate-001"
+            image_model = "imagen-4.0-generate-001"
     except RuntimeError:
         if provider == "vertexai":
-            image_model = "imagen-3.0-generate-001"
+            image_model = "imagen-4.0-generate-001"
         else:
             return _(
             "err.depname_missing",
