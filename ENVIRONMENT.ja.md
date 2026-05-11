@@ -67,9 +67,12 @@ python -m uagent.setup_cli
 
 ### 6. 音声の生成と文字起こし
 
-- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`)。
+- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`)。- `UAGENT_AUDIO_PROVIDER`: 音声生成/文字起こしに使用するプロバイダ (既定: `UAGENT_PROVIDER`; 対応: `openai`, `azure`, `gemini`, `vertexai`)。
 - `UAGENT_AZURE_SPEECH_DEPNAME`: Azure 音声生成のデプロイ名。
 - `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI 音声生成のモデル/デプロイ名。
+- `UAGENT_GEMINI_SPEECH_DEPNAME`: Gemini/VertexAI 音声生成のモデル名 (既定: `ja-JP-Neural2-B`)。
+- `UAGENT_GOOGLE_CREDENTIALS`: Google Cloud サービスアカウント JSON のパス、または JSON 文字列。
+- `UAGENT_GOOGLE_LOCATION`: Google Cloud のロケーション/リージョン (例: `asia-northeast1`)。
 - `UAGENT_AZURE_TRANSCRIBE_DEPNAME`: Azure 文字起こしのデプロイ名。
 - `UAGENT_OPENAI_TRANSCRIBE_DEPNAME`: OpenAI 文字起こしのモデル/デプロイ名。
 - `UAGENT_AUDIO_OPEN`: 音声生成後に生成ファイルを自動で開くかどうか (`0` で無効化)。
