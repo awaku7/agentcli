@@ -44,6 +44,13 @@ Each provider requires specific variables. You can override the default model us
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
+#### Google Cloud Settings
+
+Used by Gemini / Vertex AI features that need Google Cloud access.
+
+- `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
+- `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
+
 ### 3. Basic Agent Behavior
 
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
@@ -67,12 +74,10 @@ Each provider requires specific variables. You can override the default model us
 
 ### 6. Audio Speech and Transcription
 
-- `UAGENT_AUDIO_PROVIDER`: Provider for audio speech/transcription (Default: `UAGENT_PROVIDER`; supported: `openai`, `azure`).- `UAGENT_AUDIO_PROVIDER`: Provider for audio speech/transcription (Default: `UAGENT_PROVIDER`; supported: `openai`, `azure`, `gemini`, `vertexai`).
+- `UAGENT_AUDIO_PROVIDER`: Provider for audio speech/transcription (Default: `UAGENT_PROVIDER`; supported: `openai`, `azure`, `gemini`, `vertexai`).
 - `UAGENT_AZURE_SPEECH_DEPNAME`: Azure speech deployment name.
 - `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI speech model/deployment name.
 - `UAGENT_GEMINI_SPEECH_DEPNAME`: Gemini/VertexAI speech model name (Default: `ja-JP-Neural2-B`).
-- `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
-- `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
 - `UAGENT_AZURE_TRANSCRIBE_DEPNAME`: Azure transcription deployment name.
 - `UAGENT_OPENAI_TRANSCRIBE_DEPNAME`: OpenAI transcription model/deployment name.
 - `UAGENT_AUDIO_OPEN`: Whether to automatically open generated audio after speech output (`0` to disable).

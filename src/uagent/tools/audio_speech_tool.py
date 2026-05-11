@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import sys
 from typing import Any, Dict
 
 from ..env_utils import env_get
@@ -196,50 +195,76 @@ def run_tool(args: Dict[str, Any]) -> str:
     if provider in ("gemini", "vertexai"):
         try:
             from google.cloud import texttospeech
-            import certifi
         except ImportError:
-            return make_response(False, "google-cloud-texttospeech or certifi package is not installed.")
+            return make_response(
+                False, "google-cloud-texttospeech or certifi package is not installed."
+            )
 
         try:
             # Use REST transport to avoid gRPC/ALPN issues with Python 3.14 on Windows
-            from google.cloud.texttospeech_v1.services.text_to_speech.transports.rest import TextToSpeechRestTransport
+            from google.cloud.texttospeech_v1.services.text_to_speech.transports.rest import (
+                TextToSpeechRestTransport,
+            )
             from google.api_core import client_options
             import json
 
             # Handle credentials from UAGENT_GOOGLE_CREDENTIALS or standard env
-            creds_data = _env_first(["UAGENT_GOOGLE_CREDENTIALS", "GOOGLE_APPLICATION_CREDENTIALS"])
+            creds_data = _env_first(
+                ["UAGENT_GOOGLE_CREDENTIALS", "GOOGLE_APPLICATION_CREDENTIALS"]
+            )
             credentials = None
             if creds_data:
                 if creds_data.strip().startswith("{"):
                     from google.oauth2 import service_account
-                    credentials = service_account.Credentials.from_service_account_info(json.loads(creds_data))
+
+                    credentials = service_account.Credentials.from_service_account_info(
+                        json.loads(creds_data)
+                    )
                 elif Path(creds_data).exists():
                     from google.oauth2 import service_account
-                    credentials = service_account.Credentials.from_service_account_file(creds_data)
+
+                    credentials = service_account.Credentials.from_service_account_file(
+                        creds_data
+                    )
 
             # Handle location-based endpoint
-            location = _env_first(["UAGENT_GOOGLE_LOCATION", "UAGENT_LOCATION", "GOOGLE_LOCATION"], default="global")
+            location = _env_first(
+                ["UAGENT_GOOGLE_LOCATION", "UAGENT_LOCATION", "GOOGLE_LOCATION"],
+                default="global",
+            )
             c_opts = None
             if location and location != "global":
                 endpoint = f"{location}-texttospeech.googleapis.com"
                 c_opts = client_options.ClientOptions(api_endpoint=endpoint)
 
-            transport = TextToSpeechRestTransport(client_options=c_opts, credentials=credentials)
-            client = texttospeech.TextToSpeechClient(transport=transport, client_options=c_opts)
+            transport = TextToSpeechRestTransport(
+                client_options=c_opts, credentials=credentials
+            )
+            client = texttospeech.TextToSpeechClient(
+                transport=transport, client_options=c_opts
+            )
 
             synthesis_input = texttospeech.SynthesisInput(text=text)
-            
+
             language_code = "ja-JP"
-            if voice.lower() in ("alloy", "echo", "fable", "onyx", "nova", "shimmer", "puck", "aoede"):
+            if voice.lower() in (
+                "alloy",
+                "echo",
+                "fable",
+                "onyx",
+                "nova",
+                "shimmer",
+                "puck",
+                "aoede",
+            ):
                 voice = "ja-JP-Neural2-B"
-            
+
             voice_params = texttospeech.VoiceSelectionParams(
                 language_code=language_code, name=voice
             )
-            
+
             audio_config = texttospeech.AudioConfig(
-                audio_encoding=texttospeech.AudioEncoding.MP3,
-                speaking_rate=speed
+                audio_encoding=texttospeech.AudioEncoding.MP3, speaking_rate=speed
             )
 
             resp = client.synthesize_speech(
@@ -316,6 +341,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         pass
 
     return make_response(True, _("ok.saved", default="Audio file saved"), data=data)
+
 
 if __name__ == "__main__":
     pass
