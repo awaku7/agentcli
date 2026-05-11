@@ -203,8 +203,29 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             # Use REST transport to avoid gRPC/ALPN issues with Python 3.14 on Windows
             from google.cloud.texttospeech_v1.services.text_to_speech.transports.rest import TextToSpeechRestTransport
-            transport = TextToSpeechRestTransport()
-            client = texttospeech.TextToSpeechClient(transport=transport)
+            from google.api_core import client_options
+            import json
+
+            # Handle credentials from UAGENT_GOOGLE_CREDENTIALS or standard env
+            creds_data = _env_first(["UAGENT_GOOGLE_CREDENTIALS", "GOOGLE_APPLICATION_CREDENTIALS"])
+            credentials = None
+            if creds_data:
+                if creds_data.strip().startswith("{"):
+                    from google.oauth2 import service_account
+                    credentials = service_account.Credentials.from_service_account_info(json.loads(creds_data))
+                elif Path(creds_data).exists():
+                    from google.oauth2 import service_account
+                    credentials = service_account.Credentials.from_service_account_file(creds_data)
+
+            # Handle location-based endpoint
+            location = _env_first(["UAGENT_GOOGLE_LOCATION", "UAGENT_LOCATION", "GOOGLE_LOCATION"], default="global")
+            c_opts = None
+            if location and location != "global":
+                endpoint = f"{location}-texttospeech.googleapis.com"
+                c_opts = client_options.ClientOptions(api_endpoint=endpoint)
+
+            transport = TextToSpeechRestTransport(client_options=c_opts, credentials=credentials)
+            client = texttospeech.TextToSpeechClient(transport=transport, client_options=c_opts)
 
             synthesis_input = texttospeech.SynthesisInput(text=text)
             
