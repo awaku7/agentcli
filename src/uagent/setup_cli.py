@@ -127,6 +127,16 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_VERTEXAI_API_KEY", True, _("Vertex AI API key")),
         ("UAGENT_VERTEXAI_PROJECT", False, _("Vertex AI project ID (optional)")),
         ("UAGENT_VERTEXAI_LOCATION", False, _("Vertex AI location/region (optional)")),
+        (
+            "UAGENT_GOOGLE_CREDENTIALS",
+            False,
+            _("Google credentials for Vertex AI (optional)"),
+        ),
+        (
+            "UAGENT_GOOGLE_LOCATION",
+            False,
+            _("Google location/region for Vertex AI (optional)"),
+        ),
         ("UAGENT_VERTEXAI_DEPNAME", True, _("Vertex AI model/deployment name")),
     ],
     "grok": [
@@ -543,7 +553,7 @@ def _ask_provider_embedding_values(
             (
                 "base_url",
                 True,
-                _("Azure base URL (e.g. https://<resource>.openai.azure.com/)")
+                _("Azure base URL (e.g. https://<resource>.openai.azure.com/)"),
             ),
             ("api_key", True, _("Azure API key")),
             (
@@ -619,6 +629,45 @@ def _ask_provider_audio_values(
     allow_back: bool = True,
     current: dict[str, str] | None = None,
 ) -> tuple[str, dict[str, str]]:
+    vals = dict(current or {})
+
+    if provider == "azure":
+        specs = [
+            ("speech_depname", True, _("Azure speech deployment name")),
+            ("transcribe_depname", True, _("Azure transcription deployment name")),
+        ]
+    elif provider == "openai":
+        specs = [
+            ("speech_depname", True, _("OpenAI speech model/deployment name")),
+            (
+                "transcribe_depname",
+                True,
+                _("OpenAI transcription model/deployment name"),
+            ),
+        ]
+    else:
+        return "ok", vals
+
+    for suffix, required, label in specs:
+        key = f"UAGENT_{provider.upper()}_{suffix.upper()}"
+        status, value = _ask_text(
+            "%(label)s" % {"label": label},
+            default=vals.get(key, ""),
+            required=required,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status, vals
+        vals[key] = value
+
+    return "ok", vals
+
+
+def _ask_optional_extras(
+    st: _WizardState,
+    *,
+    allow_back: bool = True,
+) -> str:
     yn = _menu_choice(
         _("Configure optional image / embedding / audio settings?"),
         [_("No"), _("Yes")],
@@ -723,7 +772,11 @@ def _ask_provider_audio_values(
         return emb
     st.embedding_enabled = emb == "2"
     if st.embedding_enabled:
-        emb_options = [f"{prov} ({label})" for prov, label in IMAGE_ANALYSIS_PROVIDERS + [("ollama", "Ollama"), ("nvidia", "NVIDIA")]]
+        emb_options = [
+            f"{prov} ({label})"
+            for prov, label in IMAGE_ANALYSIS_PROVIDERS
+            + [("ollama", "Ollama"), ("nvidia", "NVIDIA")]
+        ]
         # keep provider list explicit and aligned with embedding backends
         emb_options = [
             "openai (OpenAI-compatible)",
@@ -944,7 +997,14 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
                         out.append(f"{key}={val}")
         else:
             out.append("# UAGENT_EMBEDDING_PROVIDER=")
-            for prov in ["openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"]:
+            for prov in [
+                "openai",
+                "azure",
+                "bedrock",
+                "openrouter",
+                "ollama",
+                "nvidia",
+            ]:
                 out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_BASE_URL=")
                 out.append(f"# UAGENT_{prov.upper()}_EMBEDDING_API_KEY=")
                 if prov == "azure":

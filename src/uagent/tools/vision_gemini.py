@@ -1,15 +1,16 @@
 # tools/vision_gemini.py
 from __future__ import annotations
 import os
-import sys
-import base64
-from typing import Any, Dict, List, Optional
+from typing import Optional
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-def _img_env(provider: str, mode: str, name: str, *, required: bool, default: str = "") -> str:
+
+def _img_env(
+    provider: str, mode: str, name: str, *, required: bool, default: str = ""
+) -> str:
     p = provider.strip().upper()
     m = mode.strip().upper()
     n = name.strip().upper()
@@ -21,6 +22,7 @@ def _img_env(provider: str, mode: str, name: str, *, required: bool, default: st
     if required:
         raise RuntimeError(f"Missing required env var(s): {keys}")
     return default
+
 
 def analyze_image_gemini(
     provider: str,
@@ -43,9 +45,9 @@ def analyze_image_gemini(
     model_name = _img_env(provider, "analysis", "depname", required=False)
     if not model_name:
         if provider == "vertexai":
-            model_name = "gemini-1.5-flash" # Default for Vertex AI Vision
+            model_name = "gemini-1.5-flash"  # Default for Vertex AI Vision
         else:
-            model_name = "gemini-1.5-flash" # Default for Gemini AI Studio
+            model_name = "gemini-1.5-flash"  # Default for Gemini AI Studio
 
     # Initialize client
     try:
@@ -73,14 +75,14 @@ def analyze_image_gemini(
 
     # Call Gemini
     final_prompt = prompt or "Please describe this image in detail."
-    
+
     try:
         response = client.models.generate_content(
             model=model_name,
             contents=[
                 types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
-                final_prompt
-            ]
+                final_prompt,
+            ],
         )
         return response.text or "[No description generated]"
     except Exception as e:
