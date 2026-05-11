@@ -49,6 +49,7 @@ Implementation notes:
 - The load order is `.env` first, then `.env.sec` decrypted with `.uagent.key` if present.
 - Because this happens at import time, changes to the working directory or secret files can affect startup behavior early.
 - Treat this as startup-sensitive behavior: avoid relying on late mutations of cwd or secret files after import.
+- If the `.env.sec` sync prompt appears and the user answers `n`/`N`, the startup `UAGENT_*` snapshot is restored for the session and `.env.sec` is left unchanged.
 
 Documentation:
 

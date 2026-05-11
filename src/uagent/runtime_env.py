@@ -114,6 +114,17 @@ def _snapshot_uagent_env(env: Mapping[str, str] | None = None) -> dict[str, str]
     return {key: value for key, value in source.items() if key.startswith("UAGENT_")}
 
 
+def _restore_uagent_env_snapshot(snapshot: Mapping[str, str] | None) -> None:
+    if snapshot is None:
+        return
+    current_keys = [key for key in os.environ if key.startswith("UAGENT_")]
+    for key in current_keys:
+        if key in snapshot:
+            os.environ[key] = snapshot[key]
+        else:
+            os.environ.pop(key, None)
+
+
 def _maybe_offer_envsec_sync(
     *,
     context: str,
@@ -167,6 +178,7 @@ def _maybe_offer_envsec_sync(
             except EOFError:
                 answer = ""
             if answer not in ("y", "yes"):
+                _restore_uagent_env_snapshot(env_snapshot)
                 return False
         else:
             print(
@@ -175,6 +187,7 @@ def _maybe_offer_envsec_sync(
                 ),
                 file=sys.__stderr__,
             )
+            _restore_uagent_env_snapshot(env_snapshot)
             return False
 
         try:
