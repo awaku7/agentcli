@@ -104,4 +104,13 @@ def run_tool(args: Dict[str, Any]) -> str:
             prompt=prompt,
         )
 
+    if provider_l in ("gemini", "vertexai"):
+        from .vision_gemini import analyze_image_gemini
+
+        return analyze_image_gemini(
+            provider=provider_l,
+            image_path=image_path,
+            prompt=prompt,
+        )
+
     raise RuntimeError(f"Unsupported provider: {provider}")
