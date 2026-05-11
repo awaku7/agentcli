@@ -537,12 +537,6 @@ def gemini_chat_with_tools(
                 contents.append(cobj)
                 continue
 
-        if role == "user":
-            if content:
-                _append("user", gemini_types.Part(text=content))
-            continue
-
-        if role == "assistant":
             tool_calls = m.get("tool_calls") or []
             has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
 
@@ -593,6 +587,11 @@ def gemini_chat_with_tools(
                             )
 
                     _append("model", part_fc)
+            continue
+
+        if role == "user":
+            if content:
+                _append("user", gemini_types.Part(text=content))
             continue
 
         if role == "tool":
@@ -678,11 +677,30 @@ def gemini_chat_with_tools(
     system_instruction = (
         "\n\n".join(system_instruction_parts) if system_instruction_parts else None
     )
+    valid_contents: List[gemini_types.Content] = []
+    for c in contents:
+        try:
+            parts = getattr(c, "parts", None)
+            if parts is None:
+                continue
+            if not isinstance(parts, list) or not parts:
+                continue
+            valid_parts = [p for p in parts if p is not None]
+            if not valid_parts:
+                continue
+            try:
+                c.parts = valid_parts
+            except Exception:
+                pass
+            valid_contents.append(c)
+        except Exception:
+            continue
+    contents = valid_contents
 
     if not contents and not cached_content:
-        # キャッシュもコンテンツもない場合のみ、空のUserメッセージを追加して生成を可能にする。
+        # キャッシュもコンテンツもない場合のみ、最低1つのPartを持つUserメッセージを追加する。
         contents = [
-            gemini_types.Content(role="user", parts=[gemini_types.Part(text="")])
+            gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
         ]
 
     cfg_kwargs: Dict[str, Any] = {}

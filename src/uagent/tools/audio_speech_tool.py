@@ -114,7 +114,7 @@ def _provider() -> str:
         ["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai"
     )
     provider = provider.strip().lower()
-    if provider not in ("openai", "azure"):
+    if provider not in ("openai", "azure", "gemini", "vertexai"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -129,6 +129,11 @@ def _model(provider: str) -> str:
         return _env_first(
             ["UAGENT_AZURE_SPEECH_DEPNAME"],
             required=True,
+        )
+    if provider in ("gemini", "vertexai"):
+        return _env_first(
+            ["UAGENT_GEMINI_SPEECH_DEPNAME", "UAGENT_GEMINI_MODEL"],
+            default="gemini-2.0-flash",
         )
     return _env_first(
         ["UAGENT_OPENAI_SPEECH_DEPNAME"],
@@ -188,31 +193,98 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     Path(safe_out).parent.mkdir(parents=True, exist_ok=True)
 
-    client = _make_client(provider)
+    if provider in ("gemini", "vertexai"):
+        try:
+            from google import genai
+            from google.genai import types
+        except ImportError:
+            return make_response(False, "google-genai package is not installed.")
 
-    speech_kwargs: Dict[str, Any] = {
-        "input": text,
-        "model": model,
-        "voice": voice,
-        "response_format": response_format,
-    }
-    if instructions:
-        speech_kwargs["instructions"] = instructions
-    if speed and speed != 1.0:
-        speech_kwargs["speed"] = speed
+        # Initialize client using the same logic as generate_image
+        try:
+            if provider == "vertexai":
+                # Use Gemini API Key for better compatibility if available
+                api_key = env_get("UAGENT_GEMINI_API_KEY") or env_get("UAGENT_VERTEXAI_API_KEY")
+                use_vertex = (env_get("UAGENT_GEMINI_API_KEY") is None)
+                client = genai.Client(vertexai=use_vertex, api_key=api_key)
+            else:
+                api_key = env_get("UAGENT_GEMINI_API_KEY")
+                client = genai.Client(api_key=api_key)
+        except Exception as e:
+            return make_response(False, f"Failed to initialize Gemini/VertexAI client: {e}")
 
-    try:
-        resp = client.audio.speech.create(**speech_kwargs)
-        resp.write_to_file(safe_out)
-    except Exception as exc:
-        return make_response(
-            False,
-            _(
-                "err.speech_failed",
-                default="Audio speech generation failed: {err}",
-            ).format(err=repr(exc)),
-            data={"path": safe_out, "provider": provider, "model": model},
-        )
+        # Map voice name if it's still OpenAI defaults
+        if voice in ("alloy", "echo", "fable", "onyx", "nova", "shimmer"):
+            voice = "Aoide" # Default Gemini voice
+
+        try:
+            # Gemini TTS via generate_content (multimodal output)
+            # instructions are used as part of the prompt
+            final_contents = text
+            if instructions:
+                final_contents = f"{instructions}\n\nText to speak: {text}"
+            resp = client.models.generate_content(
+                model=model,
+                contents=final_contents,
+                config=types.GenerateContentConfig(
+                    response_modalities=["AUDIO"],
+                    speech_config=types.SpeechConfig(
+                        voice_config=types.VoiceConfig(
+                            prebuilt_voice_config=types.PrebuiltVoiceConfig(
+                                voice_name=voice,
+                            )
+                        )
+                    )
+                )
+            )
+            
+            audio_part = None
+            if resp.candidates and resp.candidates[0].content.parts:
+                for part in resp.candidates[0].content.parts:
+                    if part.inline_data:
+                        audio_part = part.inline_data
+                        break
+            
+            if not audio_part or not audio_part.data:
+                return make_response(False, "No audio data returned from Gemini.")
+
+            with open(safe_out, "wb") as f:
+                f.write(audio_part.data)
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.speech_failed",
+                    default="Audio speech generation failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_out, "provider": provider, "model": model},
+            )
+    else:
+        client = _make_client(provider)
+
+        speech_kwargs: Dict[str, Any] = {
+            "input": text,
+            "model": model,
+            "voice": voice,
+            "response_format": response_format,
+        }
+        if instructions:
+            speech_kwargs["instructions"] = instructions
+        if speed and speed != 1.0:
+            speech_kwargs["speed"] = speed
+
+        try:
+            resp = client.audio.speech.create(**speech_kwargs)
+            resp.write_to_file(safe_out)
+        except Exception as exc:
+            return make_response(
+                False,
+                _(
+                    "err.speech_failed",
+                    default="Audio speech generation failed: {err}",
+                ).format(err=repr(exc)),
+                data={"path": safe_out, "provider": provider, "model": model},
+            )
 
     mime = "audio/mpeg" if response_format == "mp3" else f"audio/{response_format}"
     data = {
