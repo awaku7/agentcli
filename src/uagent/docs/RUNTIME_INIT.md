@@ -23,6 +23,7 @@ Design policy:
 - `runtime_init.py` does not print by itself; helpers return values and UI code decides how to display them.
 - Import-time environment loading is best-effort. `.env` is loaded first with `override=False`, then `.env.sec` is decrypted and loaded with `override=True`.
 - If `.uagent.key` exists in the current working directory, it is used to decrypt `.env.sec`.
+- If the `.env.sec` sync prompt appears later and the user declines (`n` / `N`), the startup `UAGENT_*` snapshot is restored for the session and `.env.sec` is not updated.
 
 ______________________________________________________________________
 
