@@ -163,40 +163,6 @@ def run_cli_startup(
 
             provider, client, depname = providers.make_client(core)
 
-            print("[INFO] " + _("LLM provider = %(provider)s", provider=provider))
-            print(
-                "[INFO] UAGENT_PROVIDER = %(value)s"
-                % {"value": env_get("UAGENT_PROVIDER", "(not set)")}
-            )
-            try:
-                from .runtime_env import (
-                    _read_envsec_plaintext as _uagent_read_envsec_plaintext,
-                )
-                from pathlib import Path as _Path
-
-                _uagent_sec_path = _Path.cwd() / ".env.sec"
-                _uagent_sec_plain = (
-                    _uagent_read_envsec_plaintext(_uagent_sec_path)
-                    if _uagent_sec_path.exists()
-                    else ""
-                )
-                _uagent_sec_provider = next(
-                    (
-                        line.split("=", 1)[1]
-                        for line in _uagent_sec_plain.splitlines()
-                        if line.startswith("UAGENT_PROVIDER=")
-                    ),
-                    "(not found)",
-                )
-                print(
-                    "[DEBUG] .env.sec UAGENT_PROVIDER = %(value)s"
-                    % {"value": _uagent_sec_provider}
-                )
-            except Exception as e:
-                print(
-                    "[DEBUG] .env.sec UAGENT_PROVIDER = <error: %(err)s>" % {"err": e}
-                )
-            print("[INFO] " + _("model(deployment) = %(depname)s", depname=depname))
             if banner:
                 print(banner, end="")
 
@@ -210,45 +176,7 @@ def run_cli_startup(
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
-            use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
-            if provider in ("gemini", "claude", "vertexai"):
-                if use_responses_api:
-                    os.environ["UAGENT_RESPONSES"] = "0"
-                print(
-                    "[INFO] "
-                    + _(
-                        "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-                    )
-                )
-            elif use_responses_api and provider not in (
-                "azure",
-                "openai",
-                "bedrock",
-                "openrouter",
-                "ollama",
-            ):
-                print(
-                    _(
-                        "[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions.",
-                        provider=provider,
-                    )
-                )
-                os.environ["UAGENT_RESPONSES"] = "0"
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-                )
-            elif use_responses_api:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-                )
-            else:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-                )
-
+            
             try:
                 cwd = os.getcwd()
                 print("[INFO] " + ("current workdir = %(cwd)s" % {"cwd": cwd}))
@@ -326,7 +254,7 @@ def run_cli_startup(
 
             initial_file_msg = {
                 "role": "user",
-                "content": ("Startup file provided: %(path)s" % {"path": file_path})
+                "content": (_("Startup file provided: %(path)s") % {"path": file_path})
                 + "\n\n"
                 + file_text,
             }

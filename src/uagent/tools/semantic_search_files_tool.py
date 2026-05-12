@@ -141,8 +141,13 @@ def _get_db_path(root_dir: str) -> str:
 
 
 def _init_db(db_path: str):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, timeout=30)
     cur = conn.cursor()
+    try:
+        cur.execute("PRAGMA journal_mode=WAL")
+        cur.execute("PRAGMA busy_timeout=30000")
+    except Exception:
+        pass
     cur.execute("""
         CREATE TABLE IF NOT EXISTS files (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -168,31 +173,28 @@ def _init_db(db_path: str):
 def _get_embedding(text: str) -> List[float]:
     cfg = _resolve_embedding_config()
     if not cfg:
-        return []
+        raise RuntimeError("Embedding config is not set")
 
     payload = dict(cfg.get("payload_base") or {})
     payload["input"] = text
-    try:
-        resp = requests.post(
-            str(cfg["endpoint"]),
-            json=payload,
-            headers=dict(cfg.get("headers") or {}),
-            timeout=30,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        if isinstance(data, dict):
-            rows = data.get("data")
-            if isinstance(rows, list) and rows:
-                emb = rows[0].get("embedding") if isinstance(rows[0], dict) else None
-                if isinstance(emb, list):
-                    return emb
-            emb = data.get("embedding")
+    resp = requests.post(
+        str(cfg["endpoint"]),
+        json=payload,
+        headers=dict(cfg.get("headers") or {}),
+        timeout=30,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    if isinstance(data, dict):
+        rows = data.get("data")
+        if isinstance(rows, list) and rows:
+            emb = rows[0].get("embedding") if isinstance(rows[0], dict) else None
             if isinstance(emb, list):
                 return emb
-        return []
-    except Exception:
-        return []
+        emb = data.get("embedding")
+        if isinstance(emb, list):
+            return emb
+    raise RuntimeError("Embedding response did not contain a vector")
 
 
 def _cosine_similarity(vec_a: List[float], vec_b: List[float]) -> float:
@@ -229,6 +231,8 @@ def _chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[st
 
 
 def sync_file(fpath: str, root_dir: str = "."):
+    import time
+
     fpath_abs = os.path.abspath(fpath)
     if not os.path.isfile(fpath_abs):
         return
@@ -237,56 +241,78 @@ def sync_file(fpath: str, root_dir: str = "."):
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
 
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
+    max_attempts = 5
+    backoff_s = 0.2
 
-    try:
-        mtime = os.path.getmtime(fpath_abs)
-        size = os.path.getsize(fpath_abs)
+    for attempt in range(1, max_attempts + 1):
+        conn = sqlite3.connect(db_path, timeout=30)
+        cur = conn.cursor()
+        try:
+            cur.execute("PRAGMA journal_mode=WAL")
+            cur.execute("PRAGMA busy_timeout=30000")
+        except Exception:
+            pass
 
-        cur.execute("SELECT id, mtime FROM files WHERE path=?", (fpath_abs,))
-        row = cur.fetchone()
+        try:
+            mtime = os.path.getmtime(fpath_abs)
+            size = os.path.getsize(fpath_abs)
 
-        needs_update = False
-        file_id = None
-        if row:
-            if abs(mtime - row[1]) > 1.0:
-                needs_update = True
-                file_id = row[0]
-        else:
-            needs_update = True
+            cur.execute("SELECT id, mtime FROM files WHERE path=?", (fpath_abs,))
+            row = cur.fetchone()
 
-        if needs_update:
-            with open(fpath_abs, "r", encoding="utf-8", errors="ignore") as f:
-                content = f.read()
-
-            if file_id:
-                cur.execute("DELETE FROM vectors WHERE file_id=?", (file_id,))
-                cur.execute(
-                    "UPDATE files SET mtime=?, file_size=? WHERE id=?",
-                    (mtime, size, file_id),
-                )
+            needs_update = False
+            file_id = None
+            if row:
+                if abs(mtime - row[1]) > 1.0:
+                    needs_update = True
+                    file_id = row[0]
             else:
-                cur.execute(
-                    "INSERT INTO files (path, mtime, file_size) VALUES (?, ?, ?)",
-                    (fpath_abs, mtime, size),
-                )
-                file_id = cur.lastrowid
+                needs_update = True
 
-            chunks = _chunk_text(content)
-            for i, chunk in enumerate(chunks):
-                vec = _get_embedding(chunk)
-                embedding_json = json.dumps(vec) if vec else None
-                cur.execute(
-                    "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
-                    (file_id, i, chunk, embedding_json),
-                )
+            if needs_update:
+                with open(fpath_abs, "r", encoding="utf-8", errors="ignore") as f:
+                    content = f.read()
 
-            conn.commit()
-    except Exception:
-        pass
-    finally:
-        conn.close()
+                if file_id:
+                    cur.execute("DELETE FROM vectors WHERE file_id=?", (file_id,))
+                    cur.execute(
+                        "UPDATE files SET mtime=?, file_size=? WHERE id=?",
+                        (mtime, size, file_id),
+                    )
+                else:
+                    cur.execute(
+                        "INSERT INTO files (path, mtime, file_size) VALUES (?, ?, ?)",
+                        (fpath_abs, mtime, size),
+                    )
+                    file_id = cur.lastrowid
+
+                chunks = _chunk_text(content)
+                for i, chunk in enumerate(chunks):
+                    try:
+                        vec = _get_embedding(chunk)
+                    except Exception:
+                        continue
+                    if not vec:
+                        continue
+                    embedding_json = json.dumps(vec)
+                    cur.execute(
+                        "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
+                        (file_id, i, chunk, embedding_json),
+                    )
+
+                conn.commit()
+            return
+        except sqlite3.OperationalError as e:
+            msg = str(e).lower()
+            if "database is locked" in msg or "database table is locked" in msg:
+                if attempt < max_attempts:
+                    time.sleep(backoff_s * attempt)
+                    continue
+            raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
+        except Exception as e:
+            raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
+        finally:
+            conn.close()
 
 
 def semantic_search_files(
@@ -306,8 +332,13 @@ def semantic_search_files(
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
 
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, timeout=30)
     cur = conn.cursor()
+    try:
+        cur.execute("PRAGMA journal_mode=WAL")
+        cur.execute("PRAGMA busy_timeout=30000")
+    except Exception:
+        pass
     patterns = [p.strip() for p in file_pattern.split(",")]
     target_files = []
     for p in patterns:
@@ -342,15 +373,26 @@ def semantic_search_files(
     if not query_vec:
         return _("err.vec_fail", default="Error: Failed to vectorize the query.")
 
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, timeout=30)
     cur = conn.cursor()
+    try:
+        cur.execute("PRAGMA journal_mode=WAL")
+        cur.execute("PRAGMA busy_timeout=30000")
+    except Exception:
+        pass
     cur.execute("SELECT file_id, text_content, embedding_json FROM vectors")
     rows = cur.fetchall()
 
     results = []
     for row in rows:
         fid, text, vec_json = row
-        score = _cosine_similarity(query_vec, json.loads(vec_json))
+        if not vec_json:
+            continue
+        try:
+            vec = json.loads(vec_json)
+        except Exception:
+            continue
+        score = _cosine_similarity(query_vec, vec)
         results.append({"score": score, "file_id": fid, "text": text})
 
     results.sort(key=lambda x: x["score"], reverse=True)
@@ -401,14 +443,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-if _DISABLE_IF_UNREACHABLE and not _is_embedding_api_reachable():
-    LOAD_DISABLED_REASON = _(
-        "err.disabled_reason",
-        default="embedding endpoint is unreachable.",
-    )
-    TOOL_SPEC = None  # type: ignore[assignment]
-else:
-    TOOL_SPEC = {
+TOOL_SPEC = {
         "type": "function",
         "function": {
             "name": "semantic_search_files",
