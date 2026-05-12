@@ -294,7 +294,6 @@ class ScheckWorker(QtCore.QObject):
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
-            
             self.messages = build_initial_messages(core=core)
             cb = get_callbacks()
             prev_finish_skill = cb.finish_skill

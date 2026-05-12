@@ -7,6 +7,7 @@ from ..env_utils import env_get
 import json
 import sqlite3
 import math
+import threading
 import hashlib
 import requests
 from typing import List, Dict, Any
@@ -19,8 +20,10 @@ except ImportError:
     HAS_NUMPY = False
 
 EMBEDDING_PROVIDER = (
-    env_get("UAGENT_EMBEDDING_PROVIDER") or env_get("UAGENT_PROVIDER") or ""
-).strip().lower()
+    (env_get("UAGENT_EMBEDDING_PROVIDER") or env_get("UAGENT_PROVIDER") or "")
+    .strip()
+    .lower()
+)
 
 _DISABLE_IF_UNREACHABLE = str(
     env_get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
@@ -37,6 +40,8 @@ _DEFAULT_BASE_URLS = {
 }
 
 LOAD_DISABLED_REASON = ""
+
+_DB_LOCK = threading.Lock()
 
 
 def _embedding_env(provider: str, suffix: str, *, default: str = "") -> str:
@@ -130,6 +135,20 @@ def _is_embedding_api_reachable() -> bool:
     return False
 
 
+def _embedding_identity() -> str:
+    cfg = _resolve_embedding_config()
+    if not cfg:
+        return "no-embedding"
+    identity = {
+        "provider": str(cfg.get("provider") or ""),
+        "base_url": str(cfg.get("base_url") or ""),
+        "api_version": str(cfg.get("api_version") or ""),
+        "depname": str(cfg.get("depname") or ""),
+    }
+    raw = json.dumps(identity, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:12]
+
+
 def _get_db_path(root_dir: str) -> str:
     from uagent.utils.paths import get_dbs_dir
 
@@ -137,37 +156,39 @@ def _get_db_path(root_dir: str) -> str:
     os.makedirs(dbs_dir, exist_ok=True)
     root_abs = os.path.abspath(root_dir)
     root_hash = hashlib.sha256(root_abs.encode("utf-8")).hexdigest()[:12]
-    return os.path.join(dbs_dir, f"vectors_{root_hash}.db")
+    embed_hash = _embedding_identity()
+    return os.path.join(dbs_dir, f"vectors_{root_hash}_{embed_hash}.db")
 
 
 def _init_db(db_path: str):
-    conn = sqlite3.connect(db_path, timeout=30)
-    cur = conn.cursor()
-    try:
-        cur.execute("PRAGMA journal_mode=WAL")
-        cur.execute("PRAGMA busy_timeout=30000")
-    except Exception:
-        pass
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS files (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            path TEXT UNIQUE,
-            mtime REAL,
-            file_size INTEGER
-        )
-    """)
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS vectors (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            file_id INTEGER,
-            chunk_index INTEGER,
-            text_content TEXT,
-            embedding_json TEXT,
-            FOREIGN KEY(file_id) REFERENCES files(id) ON DELETE CASCADE
-        )
-    """)
-    conn.commit()
-    conn.close()
+    with _DB_LOCK:
+        conn = sqlite3.connect(db_path, timeout=30)
+        cur = conn.cursor()
+        try:
+            cur.execute("PRAGMA journal_mode=WAL")
+            cur.execute("PRAGMA busy_timeout=30000")
+        except Exception:
+            pass
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS files (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                path TEXT UNIQUE,
+                mtime REAL,
+                file_size INTEGER
+            )
+        """)
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS vectors (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                file_id INTEGER,
+                chunk_index INTEGER,
+                text_content TEXT,
+                embedding_json TEXT,
+                FOREIGN KEY(file_id) REFERENCES files(id) ON DELETE CASCADE
+            )
+        """)
+        conn.commit()
+        conn.close()
 
 
 def _get_embedding(text: str) -> List[float]:
@@ -245,74 +266,75 @@ def sync_file(fpath: str, root_dir: str = "."):
     backoff_s = 0.2
 
     for attempt in range(1, max_attempts + 1):
-        conn = sqlite3.connect(db_path, timeout=30)
-        cur = conn.cursor()
-        try:
-            cur.execute("PRAGMA journal_mode=WAL")
-            cur.execute("PRAGMA busy_timeout=30000")
-        except Exception:
-            pass
+        with _DB_LOCK:
+            conn = sqlite3.connect(db_path, timeout=30)
+            cur = conn.cursor()
+            try:
+                cur.execute("PRAGMA journal_mode=WAL")
+                cur.execute("PRAGMA busy_timeout=30000")
+            except Exception:
+                pass
 
-        try:
-            mtime = os.path.getmtime(fpath_abs)
-            size = os.path.getsize(fpath_abs)
+            try:
+                mtime = os.path.getmtime(fpath_abs)
+                size = os.path.getsize(fpath_abs)
 
-            cur.execute("SELECT id, mtime FROM files WHERE path=?", (fpath_abs,))
-            row = cur.fetchone()
+                cur.execute("SELECT id, mtime FROM files WHERE path=?", (fpath_abs,))
+                row = cur.fetchone()
 
-            needs_update = False
-            file_id = None
-            if row:
-                if abs(mtime - row[1]) > 1.0:
-                    needs_update = True
-                    file_id = row[0]
-            else:
-                needs_update = True
-
-            if needs_update:
-                with open(fpath_abs, "r", encoding="utf-8", errors="ignore") as f:
-                    content = f.read()
-
-                if file_id:
-                    cur.execute("DELETE FROM vectors WHERE file_id=?", (file_id,))
-                    cur.execute(
-                        "UPDATE files SET mtime=?, file_size=? WHERE id=?",
-                        (mtime, size, file_id),
-                    )
+                needs_update = False
+                file_id = None
+                if row:
+                    if abs(mtime - row[1]) > 1.0:
+                        needs_update = True
+                        file_id = row[0]
                 else:
-                    cur.execute(
-                        "INSERT INTO files (path, mtime, file_size) VALUES (?, ?, ?)",
-                        (fpath_abs, mtime, size),
-                    )
-                    file_id = cur.lastrowid
+                    needs_update = True
 
-                chunks = _chunk_text(content)
-                for i, chunk in enumerate(chunks):
-                    try:
-                        vec = _get_embedding(chunk)
-                    except Exception:
-                        continue
-                    if not vec:
-                        continue
-                    embedding_json = json.dumps(vec)
-                    cur.execute(
-                        "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
-                        (file_id, i, chunk, embedding_json),
-                    )
+                if needs_update:
+                    with open(fpath_abs, "r", encoding="utf-8", errors="ignore") as f:
+                        content = f.read()
 
-                conn.commit()
-            return
-        except sqlite3.OperationalError as e:
-            msg = str(e).lower()
-            if "database is locked" in msg or "database table is locked" in msg:
-                if attempt < max_attempts:
-                    time.sleep(backoff_s * attempt)
-                    continue
-            raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
-        except Exception as e:
-            raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
-        finally:
-            conn.close()
+                    if file_id:
+                        cur.execute("DELETE FROM vectors WHERE file_id=?", (file_id,))
+                        cur.execute(
+                            "UPDATE files SET mtime=?, file_size=? WHERE id=?",
+                            (mtime, size, file_id),
+                        )
+                    else:
+                        cur.execute(
+                            "INSERT INTO files (path, mtime, file_size) VALUES (?, ?, ?)",
+                            (fpath_abs, mtime, size),
+                        )
+                        file_id = cur.lastrowid
+
+                    chunks = _chunk_text(content)
+                    for i, chunk in enumerate(chunks):
+                        try:
+                            vec = _get_embedding(chunk)
+                        except Exception:
+                            continue
+                        if not vec:
+                            continue
+                        embedding_json = json.dumps(vec)
+                        cur.execute(
+                            "INSERT INTO vectors (file_id, chunk_index, text_content, embedding_json) VALUES (?, ?, ?, ?)",
+                            (file_id, i, chunk, embedding_json),
+                        )
+
+                    conn.commit()
+                return
+            except sqlite3.OperationalError as e:
+                msg = str(e).lower()
+                if "database is locked" in msg or "database table is locked" in msg:
+                    if attempt < max_attempts:
+                        time.sleep(backoff_s * attempt)
+                        continue
+                raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
+            except Exception as e:
+                raise RuntimeError(f"Failed to index {fpath_abs}: {e}") from e
+            finally:
+                conn.close()
 
 
 def semantic_search_files(
@@ -332,39 +354,40 @@ def semantic_search_files(
     db_path = _get_db_path(root_abs)
     _init_db(db_path)
 
-    conn = sqlite3.connect(db_path, timeout=30)
-    cur = conn.cursor()
-    try:
-        cur.execute("PRAGMA journal_mode=WAL")
-        cur.execute("PRAGMA busy_timeout=30000")
-    except Exception:
-        pass
-    patterns = [p.strip() for p in file_pattern.split(",")]
-    target_files = []
-    for p in patterns:
-        search_path = os.path.join(root_abs, "**", p)
+    with _DB_LOCK:
+        conn = sqlite3.connect(db_path, timeout=30)
+        cur = conn.cursor()
         try:
-            target_files.extend(glob.glob(search_path, recursive=True))
+            cur.execute("PRAGMA journal_mode=WAL")
+            cur.execute("PRAGMA busy_timeout=30000")
         except Exception:
-            target_files.extend(glob.glob(os.path.join(root_abs, p)))
+            pass
+        patterns = [p.strip() for p in file_pattern.split(",")]
+        target_files = []
+        for p in patterns:
+            search_path = os.path.join(root_abs, "**", p)
+            try:
+                target_files.extend(glob.glob(search_path, recursive=True))
+            except Exception:
+                target_files.extend(glob.glob(os.path.join(root_abs, p)))
 
-    from uagent.utils.scan_filters import is_ignored_path
+        from uagent.utils.scan_filters import is_ignored_path
 
-    target_files = [
-        f
-        for f in sorted(list(set(target_files)))
-        if (not is_ignored_path(f)) and os.path.isfile(f)
-    ]
+        target_files = [
+            f
+            for f in sorted(list(set(target_files)))
+            if (not is_ignored_path(f)) and os.path.isfile(f)
+        ]
 
-    cur.execute("SELECT id, path FROM files")
-    db_files = {row[1]: row[0] for row in cur.fetchall()}
-    removed = set(db_files.keys()) - set(os.path.abspath(f) for f in target_files)
-    for p in removed:
-        fid = db_files[p]
-        cur.execute("DELETE FROM vectors WHERE file_id=?", (fid,))
-        cur.execute("DELETE FROM files WHERE id=?", (fid,))
-    conn.commit()
-    conn.close()
+        cur.execute("SELECT id, path FROM files")
+        db_files = {row[1]: row[0] for row in cur.fetchall()}
+        removed = set(db_files.keys()) - set(os.path.abspath(f) for f in target_files)
+        for p in removed:
+            fid = db_files[p]
+            cur.execute("DELETE FROM vectors WHERE file_id=?", (fid,))
+            cur.execute("DELETE FROM files WHERE id=?", (fid,))
+        conn.commit()
+        conn.close()
 
     for f in target_files:
         sync_file(f, root_abs)
@@ -373,15 +396,16 @@ def semantic_search_files(
     if not query_vec:
         return _("err.vec_fail", default="Error: Failed to vectorize the query.")
 
-    conn = sqlite3.connect(db_path, timeout=30)
-    cur = conn.cursor()
-    try:
-        cur.execute("PRAGMA journal_mode=WAL")
-        cur.execute("PRAGMA busy_timeout=30000")
-    except Exception:
-        pass
-    cur.execute("SELECT file_id, text_content, embedding_json FROM vectors")
-    rows = cur.fetchall()
+    with _DB_LOCK:
+        conn = sqlite3.connect(db_path, timeout=30)
+        cur = conn.cursor()
+        try:
+            cur.execute("PRAGMA journal_mode=WAL")
+            cur.execute("PRAGMA busy_timeout=30000")
+        except Exception:
+            pass
+        cur.execute("SELECT file_id, text_content, embedding_json FROM vectors")
+        rows = cur.fetchall()
 
     results = []
     for row in rows:
@@ -444,44 +468,44 @@ def run_tool(args: Dict[str, Any]) -> str:
 
 
 TOOL_SPEC = {
-        "type": "function",
-        "function": {
-            "name": "semantic_search_files",
-            "description": _(
-                "tool.description",
-                default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
-            ),
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "query": {
-                        "type": "string",
-                        "description": _(
-                            "param.query.description", default="Search query keyword."
-                        ),
-                    },
-                    "root_path": {
-                        "type": "string",
-                        "description": _(
-                            "param.root_path.description",
-                            default="Search target directory.",
-                        ),
-                    },
-                    "file_pattern": {
-                        "type": "string",
-                        "description": _(
-                            "param.file_pattern.description",
-                            default="Target extensions (comma-separated).",
-                        ),
-                    },
-                    "top_k": {
-                        "type": "integer",
-                        "description": _(
-                            "param.top_k.description", default="Number of results."
-                        ),
-                    },
+    "type": "function",
+    "function": {
+        "name": "semantic_search_files",
+        "description": _(
+            "tool.description",
+            default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": _(
+                        "param.query.description", default="Search query keyword."
+                    ),
                 },
-                "required": ["query"],
+                "root_path": {
+                    "type": "string",
+                    "description": _(
+                        "param.root_path.description",
+                        default="Search target directory.",
+                    ),
+                },
+                "file_pattern": {
+                    "type": "string",
+                    "description": _(
+                        "param.file_pattern.description",
+                        default="Target extensions (comma-separated).",
+                    ),
+                },
+                "top_k": {
+                    "type": "integer",
+                    "description": _(
+                        "param.top_k.description", default="Number of results."
+                    ),
+                },
             },
+            "required": ["query"],
         },
-    }
+    },
+}
