@@ -6,7 +6,6 @@ _ = make_tool_translator(__file__)
 
 import os
 import glob
-from pathlib import Path
 from typing import Any, Dict
 
 try:
@@ -100,14 +99,14 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     def _is_binary_file(path: str) -> bool:
         try:
-            with open(path, 'rb') as fh:
+            with open(path, "rb") as fh:
                 chunk = fh.read(4096)
             if not chunk:
                 return False
-            if b'\x00' in chunk:
+            if b"\x00" in chunk:
                 return True
             try:
-                chunk.decode('utf-8')
+                chunk.decode("utf-8")
                 return False
             except Exception:
                 return True
@@ -115,7 +114,8 @@ def run_tool(args: Dict[str, Any]) -> str:
             return True
 
     target_files = [
-        f for f in files
+        f
+        for f in files
         if os.path.isfile(f) and (not is_ignored_path(f)) and (not _is_binary_file(f))
     ]
 
