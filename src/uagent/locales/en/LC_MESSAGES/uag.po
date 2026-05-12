@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-12 15:45+0900\n"
+"POT-Creation-Date: 2026-05-12 20:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -796,6 +796,9 @@ msgstr "Set optional runtime UAGENT_WORKDIR?"
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Set optional runtime UAGENT_LANG?"
 
+msgid "Enable streaming?"
+msgstr "Enable streaming?"
+
 msgid "Summary"
 msgstr "Summary"
 
@@ -810,6 +813,9 @@ msgstr "yes"
 
 msgid "no"
 msgstr "no"
+
+msgid "  Streaming enabled: %(state)s"
+msgstr "  Streaming enabled: %(state)s"
 
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  Optional extras enabled: %(state)s"

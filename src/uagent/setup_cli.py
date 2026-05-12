@@ -218,6 +218,7 @@ class _WizardState:
     responses_enabled: bool = False
     reasoning: str = "medium"
     verbosity: str = "medium"
+    streaming_enabled: bool = True
 
     # Optional runtime
     workdir_enabled: bool = False
@@ -873,6 +874,11 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         values["UAGENT_REASONING"] = st.reasoning
         values["UAGENT_VERBOSITY"] = st.verbosity
 
+    if st.streaming_enabled:
+        values["UAGENT_STREAMING"] = "1"
+    else:
+        values["UAGENT_STREAMING"] = "0"
+
     if st.workdir_enabled and st.workdir.strip():
         values["UAGENT_WORKDIR"] = st.workdir.strip()
 
@@ -922,6 +928,8 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("")
 
     section(_("Optional runtime"))
+    out.append(f"UAGENT_STREAMING={'1' if st.streaming_enabled else '0'}")
+
     if st.workdir_enabled:
         out.append(f"UAGENT_WORKDIR={st.workdir.strip()}")
     else:
@@ -1215,6 +1223,19 @@ def main() -> int:
                     continue
                 st.lang = value
 
+            streaming = _menu_choice(
+                _("Enable streaming?"),
+                [_("No"), _("Yes")],
+                default_index=2,
+                allow_back=True,
+            )
+            if streaming == "__quit__":
+                print(_("Cancelled."))
+                return 1
+            if streaming == "__back__":
+                continue
+            st.streaming_enabled = streaming == "2"
+
             stage = 4
             continue
 
@@ -1258,6 +1279,10 @@ def main() -> int:
             if st.responses_enabled:
                 print("  UAGENT_REASONING=%(value)s" % {"value": st.reasoning})
                 print("  UAGENT_VERBOSITY=%(value)s" % {"value": st.verbosity})
+            print(
+                _("  Streaming enabled: %(state)s")
+                % {"state": _("yes") if st.streaming_enabled else _("no")}
+            )
             print(
                 "  UAGENT_WORKDIR enabled: %(state)s"
                 % {"state": _("yes") if st.workdir_enabled else _("no")}
