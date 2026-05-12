@@ -609,56 +609,6 @@ def run_agent_worker(
 
         provider_name, client, depname = providers.make_client(core)
 
-        # LLM API selection (Responses API vs Chat Completions)
-        # NOTE: Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
-        use_responses_api = (os.environ.get("UAGENT_RESPONSES", "") or "").lower() in (
-            "1",
-            "true",
-        )
-        if (
-            use_responses_api
-            and provider_name
-            not in (
-                "azure",
-                "openai",
-                "bedrock",
-                "openrouter",
-                "ollama",
-            )
-            and provider_name not in ("gemini", "claude", "vertexai")
-        ):
-            print(
-                "[WARN] "
-                + _(
-                    "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
-                )
-                % {"provider": provider_name}
-            )
-            os.environ["UAGENT_RESPONSES"] = "0"
-            use_responses_api = False
-
-        if use_responses_api:
-            print(
-                "[INFO] " + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-            )
-        elif provider_name in ("gemini", "claude", "vertexai"):
-            print(
-                "[INFO] "
-                + _(
-                    "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-                )
-            )
-        else:
-            print(
-                "[INFO] "
-                + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-            )
-
-        print(
-            "[INFO] " + _("LLM provider = %(provider)s") % {"provider": provider_name}
-        )
-        print("[INFO] " + _("model(deployment) = %(depname)s") % {"depname": depname})
-
         user_input = str(user_input or "")
         attachment_lines: List[str] = []
         clean_attachments: List[Dict[str, Any]] = []

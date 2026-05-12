@@ -1,16 +1,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: uag\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 21:37+0900\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-05-12 15:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
 
 msgid "Please install Git. See: %(url)s"
 msgstr "Please install Git. See: %(url)s"
@@ -31,61 +31,6 @@ msgstr ""
 
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git is not installed."
-
-msgid "[docs] name is required"
-msgstr "[docs] name is required"
-
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Failed to set workdir: %(err)s"
-
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
-
-msgid "LLM provider = %(provider)s"
-msgstr "LLM provider = %(provider)s"
-
-msgid "model(deployment) = %(depname)s"
-msgstr "model(deployment) = %(depname)s"
-
-msgid "OpenRouter fallback models enabled."
-msgstr "OpenRouter fallback models enabled."
-
-msgid ""
-"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
-"ignored)"
-msgstr ""
-"LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is "
-"ignored)"
-
-msgid ""
-"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
-"support Responses API. Falling back to ChatCompletions."
-msgstr ""
-"[WARN] UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not "
-"support Responses API. Falling back to ChatCompletions."
-
-msgid "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)"
-
-msgid "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
-msgstr "LLM API mode = Responses (UAGENT_RESPONSES is enabled)"
-
-msgid "Loaded long-term memory."
-msgstr "Loaded long-term memory."
-
-msgid "Loaded shared long-term memory."
-msgstr "Loaded shared long-term memory."
-
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive was specified; exiting without waiting for stdin."
 
 msgid "getch() fallback to input()"
 msgstr "getch() fallback to input()"
@@ -140,6 +85,38 @@ msgstr "Unknown event kind=%(kind)r: %(ev)r"
 
 msgid "Exited uag."
 msgstr "Exited uag."
+
+msgid "[docs] name is required"
+msgstr "[docs] name is required"
+
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Failed to set workdir: %(err)s"
+
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
+
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter fallback models enabled."
+
+msgid "Loaded long-term memory."
+msgstr "Loaded long-term memory."
+
+msgid "Loaded shared long-term memory."
+msgstr "Loaded shared long-term memory."
+
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+
+msgid "Startup file provided: %(path)s"
+msgstr "Startup file provided: %(path)s"
+
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive was specified; exiting without waiting for stdin."
 
 msgid "Environment variable %(name)s is not set."
 msgstr "Environment variable %(name)s is not set."
@@ -308,6 +285,18 @@ msgstr "[docs] Available documents:"
 msgid "Usage:"
 msgstr "Usage:"
 
+msgid "list"
+msgstr "list"
+
+msgid "show"
+msgstr "show"
+
+msgid "show path"
+msgstr "show path"
+
+msgid "open with OS"
+msgstr "open with OS"
+
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
@@ -315,14 +304,8 @@ msgstr ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] Environment validation failed ({context})."
-
 msgid "Missing required environment variables:"
 msgstr "Missing required environment variables:"
-
-msgid "- {m.name}: {m.reason}"
-msgstr "- {m.name}: {m.reason}"
 
 msgid "Warnings:"
 msgstr "Warnings:"
@@ -403,6 +386,9 @@ msgid ""
 msgstr ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
+
+msgid "LLM API mode = %(mode)s"
+msgstr "LLM API mode = %(mode)s"
 
 msgid "LLM streaming = %(state)s"
 msgstr "LLM streaming = %(state)s"
@@ -1119,9 +1105,6 @@ msgstr "Loaded log: %(path)s"
 
 msgid "Conversation message count: %(n)d"
 msgstr "Conversation message count: %(n)d"
-
-msgid "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr "[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s"
 
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"

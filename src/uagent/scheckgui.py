@@ -284,14 +284,6 @@ class ScheckWorker(QtCore.QObject):
 
             # Provider/client/model are decided by util_make_client.
             self._provider, self._client, self._depname = util_make_client(core)
-            print(
-                "[INFO] "
-                + _("LLM provider = %(provider)s") % {"provider": self._provider}
-            )
-            print(
-                "[INFO] "
-                + _("model(deployment) = %(depname)s") % {"depname": self._depname}
-            )
             if (
                 self._provider == "openrouter"
                 and (self._depname or "").strip() == "openrouter/auto"
@@ -302,54 +294,7 @@ class ScheckWorker(QtCore.QObject):
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
-            # LLM API selection (Responses API vs Chat Completions)
-            # NOTE: Responses API is supported for Azure/OpenAI/Bedrock/OpenRouter providers.
-            use_responses_api = (
-                os.environ.get("UAGENT_RESPONSES", "") or ""
-            ).lower() in (
-                "1",
-                "true",
-            )
-            if (
-                use_responses_api
-                and self._provider
-                not in (
-                    "azure",
-                    "openai",
-                    "bedrock",
-                    "openrouter",
-                    "ollama",
-                )
-                and self._provider not in ("gemini", "claude")
-            ):
-                print(
-                    "[WARN] "
-                    + _(
-                        "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support Responses API. Falling back to ChatCompletions."
-                    )
-                    % {"provider": self._provider}
-                )
-                os.environ["UAGENT_RESPONSES"] = "0"
-                use_responses_api = False
-
-            if use_responses_api:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = Responses (UAGENT_RESPONSES is enabled)")
-                )
-            elif self._provider in ("gemini", "claude", "vertexai"):
-                print(
-                    "[INFO] "
-                    + _(
-                        "LLM API mode = Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-                    )
-                )
-            else:
-                print(
-                    "[INFO] "
-                    + _("LLM API mode = ChatCompletions (UAGENT_RESPONSES is disabled)")
-                )
-
+            
             self.messages = build_initial_messages(core=core)
             cb = get_callbacks()
             prev_finish_skill = cb.finish_skill

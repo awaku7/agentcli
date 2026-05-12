@@ -6,6 +6,7 @@ _ = make_tool_translator(__file__)
 
 import os
 import glob
+from pathlib import Path
 from typing import Any, Dict
 
 try:
@@ -97,7 +98,26 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     from uagent.utils.scan_filters import is_ignored_path
 
-    target_files = [f for f in files if os.path.isfile(f) and (not is_ignored_path(f))]
+    def _is_binary_file(path: str) -> bool:
+        try:
+            with open(path, 'rb') as fh:
+                chunk = fh.read(4096)
+            if not chunk:
+                return False
+            if b'\x00' in chunk:
+                return True
+            try:
+                chunk.decode('utf-8')
+                return False
+            except Exception:
+                return True
+        except Exception:
+            return True
+
+    target_files = [
+        f for f in files
+        if os.path.isfile(f) and (not is_ignored_path(f)) and (not _is_binary_file(f))
+    ]
 
     if not target_files:
         return _(
@@ -107,18 +127,23 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     success_count = 0
     error_count = 0
+    error_details = []
+    total_count = len(target_files)
 
-    for fpath in target_files:
+    for idx, fpath in enumerate(target_files, start=1):
+        print(f"[index_files] {idx}/{total_count}: {fpath}")
         try:
             sync_file(fpath, root_abs)
             success_count += 1
-        except Exception:
+        except Exception as e:
             error_count += 1
+            error_details.append(f"{fpath}: {e}")
 
     result = [
         _("out.completed", default="Indexing process completed."),
         _("out.pattern", default="Target pattern: {pattern}").format(pattern=pattern),
         _("out.root", default="Root directory: {root_abs}").format(root_abs=root_abs),
+        _("out.total", default="Total files: {count}").format(count=total_count),
         _("out.success", default="Success: {count}").format(count=success_count),
     ]
     if error_count > 0:
