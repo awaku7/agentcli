@@ -154,7 +154,15 @@ def _get_provider() -> str:
         .strip()
         .lower()
     )
-    if p not in ("azure", "openai", "bedrock", "openrouter", "gemini", "nvidia", "vertexai"):
+    if p not in (
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "gemini",
+        "nvidia",
+        "vertexai",
+    ):
         raise RuntimeError(
             _msg(
                 "err.invalid_provider",
@@ -473,7 +481,9 @@ def _run_gemini_images(
                 method = getattr(client.models, "generate_image", None)
 
             if not method or not config_cls:
-                 raise RuntimeError("Could not find generate_images/generate_image method in SDK.")
+                raise RuntimeError(
+                    "Could not find generate_images/generate_image method in SDK."
+                )
 
             resp = method(
                 model=image_model,
@@ -566,12 +576,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             image_model = "imagen-4.0-generate-001"
         else:
             return _(
-            "err.depname_missing",
-            default=(
-                "[generate_image] Image model (deployment name) is not set.\n"
-                "Please set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
-            ),
-        )
+                "err.depname_missing",
+                default=(
+                    "[generate_image] Image model (deployment name) is not set.\n"
+                    "Please set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME."
+                ),
+            )
 
     try:
         outdir = os.path.abspath(_ensure_dir(output_dir))

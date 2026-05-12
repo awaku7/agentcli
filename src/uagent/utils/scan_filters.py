@@ -31,7 +31,7 @@ _DEFAULT_IGNORED_DIRNAMES = (
 
 
 def _is_dot_path_part(part: str) -> bool:
-    return bool(part) and part.startswith('.')
+    return bool(part) and part.startswith(".")
 
 
 def path_has_dirname(path: str, dirname: str) -> bool:
