@@ -73,7 +73,8 @@ def get_welcome_message():
         ),
         _(
             "- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web Inspector help (`--path/--open` also available)."
-        ) % {"docs_cmd": "uag docs", "webinspect_cmd": "uag docs webinspect"},
+        )
+        % {"docs_cmd": "uag docs", "webinspect_cmd": "uag docs webinspect"},
         "",
         _("[Examples]"),
         _('- "Analyze the source code in this folder and create a README.md."'),

@@ -176,7 +176,6 @@ def run_cli_startup(
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
-            
             try:
                 cwd = os.getcwd()
                 print("[INFO] " + ("current workdir = %(cwd)s" % {"cwd": cwd}))

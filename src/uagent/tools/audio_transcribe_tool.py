@@ -203,20 +203,24 @@ def run_tool(args: Dict[str, Any]) -> str:
         try:
             if provider == "vertexai":
                 # Try with Gemini API Key if VertexAI API Key fails or for better compatibility with Audio
-                api_key = env_get("UAGENT_GEMINI_API_KEY") or env_get("UAGENT_VERTEXAI_API_KEY")
+                api_key = env_get("UAGENT_GEMINI_API_KEY") or env_get(
+                    "UAGENT_VERTEXAI_API_KEY"
+                )
                 # When using Gemini API Key, we should NOT set vertexai=True
-                use_vertex = (env_get("UAGENT_GEMINI_API_KEY") is None)
+                use_vertex = env_get("UAGENT_GEMINI_API_KEY") is None
                 client = genai.Client(vertexai=use_vertex, api_key=api_key)
             else:
                 api_key = env_get("UAGENT_GEMINI_API_KEY")
                 client = genai.Client(api_key=api_key)
         except Exception as e:
-            return make_response(False, f"Failed to initialize Gemini/VertexAI client: {e}")
+            return make_response(
+                False, f"Failed to initialize Gemini/VertexAI client: {e}"
+            )
 
         try:
             with open(safe_path, "rb") as f:
                 audio_bytes = f.read()
-            
+
             suffix = Path(safe_path).suffix.lower()
             mime_type = "audio/mpeg"
             if suffix == ".wav":
@@ -238,8 +242,8 @@ def run_tool(args: Dict[str, Any]) -> str:
                 model=model,
                 contents=[
                     types.Part.from_bytes(data=audio_bytes, mime_type=mime_type),
-                    final_prompt
-                ]
+                    final_prompt,
+                ],
             )
             text = resp.text or ""
             resp_language = language
@@ -256,7 +260,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         client = _make_client(provider)
 
-        transcribe_kwargs: Dict[str, Any] = {"file": open(safe_path, "rb"), "model": model}
+        transcribe_kwargs: Dict[str, Any] = {
+            "file": open(safe_path, "rb"),
+            "model": model,
+        }
         if language:
             transcribe_kwargs["language"] = language
         if prompt:
