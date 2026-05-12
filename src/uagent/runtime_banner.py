@@ -90,6 +90,12 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
 
     lines.append(
         "[INFO] "
+        + _("LLM API mode = %(mode)s")
+        % {"mode": "Responses (UAGENT_RESPONSES is enabled)" if _use_responses_flag and _responses_supported else ("Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)" if provider in ("gemini", "claude", "vertexai") else "ChatCompletions (UAGENT_RESPONSES is disabled)")}
+    )
+
+    lines.append(
+        "[INFO] "
         + _("LLM streaming = %(state)s")
         % {"state": "enabled" if _streaming_flag else "disabled"}
     )

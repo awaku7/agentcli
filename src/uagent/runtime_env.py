@@ -178,7 +178,7 @@ def _maybe_offer_envsec_sync(
             except EOFError:
                 answer = ""
             if answer not in ("y", "yes"):
-                _restore_uagent_env_snapshot(env_snapshot)
+                os.environ.update(sec_values)
                 return False
         else:
             print(
@@ -187,7 +187,6 @@ def _maybe_offer_envsec_sync(
                 ),
                 file=sys.__stderr__,
             )
-            _restore_uagent_env_snapshot(env_snapshot)
             return False
 
         try:

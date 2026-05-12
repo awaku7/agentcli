@@ -686,15 +686,24 @@ def _vector_retrieve(db_path: str, query: str, top_k: int) -> List[_ChunkHit]:
 
 
 def _extract_query_entities(query: str) -> List[str]:
+    if not query:
+        return []
+
     ents: List[str] = []
+    s = query.strip().lower()
+
+    # split on common separators and keep meaningful tokens
+    for part in re.split(r"[\s_\-\/\.\:\(\)\[\]\{\},;]+", s):
+        if not part:
+            continue
+        for m in re.finditer(r"[a-z0-9]{2,}", part):
+            ents.append(m.group(0))
+
+    # also keep the whole query and qualname-like fragments
+    ents.append(s)
     for m in _QUALNAME_RE.finditer(query or ""):
-        ents.append(m.group(0))
-    for m in _CAMEL_RE.finditer(query or ""):
-        ents.append(m.group(0))
-    for m in _WORD_RE.finditer(query or ""):
-        ents.append(m.group(0))
-    for m in _FILE_RE.finditer(query or ""):
-        ents.append(m.group(0))
+        ents.append(m.group(0).lower())
+
     out: List[str] = []
     seen = set()
     for e in ents:
@@ -717,14 +726,40 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
     seed_ids: List[int] = []
     for t in tokens:
         n = _norm(t)
-        cur.execute("SELECT id FROM entities WHERE norm_name=? LIMIT 5", (n,))
+
+        # exact match first
+        cur.execute("SELECT id FROM entities WHERE norm_name=? LIMIT 10", (n,))
         for (eid,) in cur.fetchall() or []:
             seed_ids.append(int(eid))
+
+        # relaxed substring match
         cur.execute(
-            "SELECT id FROM entities WHERE norm_name LIKE ? LIMIT 5", (f"%{n}%",)
+            "SELECT id FROM entities WHERE norm_name LIKE ? LIMIT 10", (f"%{n}%",)
         )
         for (eid,) in cur.fetchall() or []:
             seed_ids.append(int(eid))
+
+        # split token match for compound names like file_grep
+        for sub in re.split(r"[\s_\-\/\.\:\(\)\[\]\{\},;]+", n):
+            if len(sub) < 2:
+                continue
+            cur.execute("SELECT id FROM entities WHERE norm_name=? LIMIT 10", (sub,))
+            for (eid,) in cur.fetchall() or []:
+                seed_ids.append(int(eid))
+            cur.execute(
+                "SELECT id FROM entities WHERE norm_name LIKE ? LIMIT 10", (f"%{sub}%",)
+            )
+            for (eid,) in cur.fetchall() or []:
+                seed_ids.append(int(eid))
+
+        # reverse substring match for longer queries
+        if len(n) >= 5:
+            cur.execute(
+                "SELECT id FROM entities WHERE ? LIKE '%' || norm_name || '%' LIMIT 10",
+                (n,),
+            )
+            for (eid,) in cur.fetchall() or []:
+                seed_ids.append(int(eid))
 
     conn.close()
     out: List[int] = []
