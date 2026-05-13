@@ -29,6 +29,7 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "tqdm>=4.67.3",
     "pandas>=3.0.2",
+    "Pillow>=11.0.0",
     "openpyxl>=3.1.5",
     "python-docx>=1.2.0",
     "striprtf>=0.0.29",
