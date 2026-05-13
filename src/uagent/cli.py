@@ -191,7 +191,7 @@ def _uagent_path_candidates(prefix: str) -> list[str]:
 
 
 def _uagent_rl_completer(text_part: str, state: int):
-    # readline completer for ':cd' / ':ls' / ':rm' (first arg only)
+    # readline completer for ':cd' / ':ls' / ':rm' / ':cp' / ':mv' / ':head'
     #
     # Important: readline expects the returned string to replace the current
     # token fragment (text_part), not the whole argument. If we return the full
@@ -203,18 +203,30 @@ def _uagent_rl_completer(text_part: str, state: int):
         buf = readline.get_line_buffer() or ""
         cmd, arg, _arg_start = _uagent_split_cmd_arg(buf)
 
-        if cmd not in ("cd", "ls", "rm"):
+        if cmd not in ("cd", "ls", "rm", "cp", "mv", "head", "tail"):
             return None
 
-        # Only complete the first argument; if spaces already present in arg, stop.
-        if " " in arg or "	" in arg:
-            return None
+        prefix = arg
+        if cmd in ("cp", "mv"):
+            parts = [p for p in re.split(r"[ 	]+", arg) if p != ""]
+            if len(parts) > 2:
+                return None
+            if len(parts) == 0:
+                prefix = ""
+            elif len(parts) == 1:
+                prefix = parts[0]
+            else:
+                prefix = parts[1]
+        else:
+            # Only complete a single path argument; if spaces already present in arg, stop.
+            if " " in arg or "	" in arg:
+                return None
 
         # For :ls/:rm, if arg already contains glob meta, do not complete (avoid odd mixes)
-        if cmd in ("ls", "rm") and _uagent_has_glob_meta(arg):
+        if cmd in ("ls", "rm") and _uagent_has_glob_meta(prefix):
             return None
 
-        cands = _uagent_path_candidates(arg)
+        cands = _uagent_path_candidates(prefix)
         if state >= len(cands):
             return None
 

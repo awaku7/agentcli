@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-12 20:14+0900\n"
+"POT-Creation-Date: 2026-05-13 15:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,6 +171,7 @@ msgid ""
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -181,6 +182,7 @@ msgstr ""
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
@@ -232,6 +234,7 @@ msgid ""
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -241,6 +244,7 @@ msgstr ""
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
@@ -900,6 +904,54 @@ msgstr "[tools] No tools loaded."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Loaded %(n)d tools"
 
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] Source and destination are the same: %(path)s"
+
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] Destination already exists: %(path)s"
+
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] Destination parent does not exist: %(path)s"
+
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Copied: %(src)s -> %(dst)s"
+
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] Source and destination are the same: %(path)s"
+
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] Destination already exists: %(path)s"
+
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] Destination parent does not exist: %(path)s"
+
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Moved: %(src)s -> %(dst)s"
+
+msgid "[head] Invalid line count: %(n)r"
+msgstr "[head] Invalid line count: %(n)r"
+
+msgid "[head] Unexpected response."
+msgstr "[head] Unexpected response."
+
+msgid "[head] Failed."
+msgstr "[head] Failed."
+
+msgid "[head] Empty."
+msgstr "[head] Empty."
+
+msgid "[tail] Invalid line count: %(n)r"
+msgstr "[tail] Invalid line count: %(n)r"
+
+msgid "[tail] Unexpected response."
+msgstr "[tail] Unexpected response."
+
+msgid "[tail] Failed."
+msgstr "[tail] Failed."
+
+msgid "[tail] Empty."
+msgstr "[tail] Empty."
+
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1215,6 +1267,18 @@ msgstr "List long-term memory notes"
 
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Delete a long-term memory note by index (see :mem-list)"
+
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Show the first n lines of a file (default=20)"
+
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Show the last n lines of a file (default=20)"
 
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Delete file(s)/directory(ies) with preview + confirm"
