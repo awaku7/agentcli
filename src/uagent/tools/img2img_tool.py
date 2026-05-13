@@ -24,7 +24,7 @@ import ssl
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from urllib.request import Request, urlopen
 
 from ..env_utils import env_get
@@ -174,7 +174,9 @@ def _env_first(keys: List[str], *, required: bool = False, default: str = "") ->
     return default
 
 
-def _img_env(provider: str, mode: str, name: str, *, required: bool, default: str = "") -> str:
+def _img_env(
+    provider: str, mode: str, name: str, *, required: bool, default: str = ""
+) -> str:
     p = provider.strip().upper()
     m = mode.strip().upper()
     n = name.strip().upper()
@@ -244,7 +246,11 @@ def _make_client(provider: str):
         from openai import AzureOpenAI, OpenAI
     except Exception as exc:
         raise RuntimeError(
-            _msg("err.openai_import", "Failed to import openai package: {err}", err=repr(exc))
+            _msg(
+                "err.openai_import",
+                "Failed to import openai package: {err}",
+                err=repr(exc),
+            )
         )
 
     if provider == "azure":
@@ -318,7 +324,9 @@ def _get_model(provider: str) -> str:
     )
 
 
-def _extract_image_items(resp: Any) -> tuple[List[str], List[str], List[Dict[str, Any]]]:
+def _extract_image_items(
+    resp: Any,
+) -> tuple[List[str], List[str], List[Dict[str, Any]]]:
     b64_list: List[str] = []
     url_list: List[str] = []
     items: List[Dict[str, Any]] = []
@@ -399,7 +407,9 @@ def _run_gemini_img2img(
             content = getattr(candidate, "content", None)
             parts = getattr(content, "parts", None) or []
             for part in parts:
-                inline = getattr(part, "inline_data", None) or getattr(part, "inlineData", None)
+                inline = getattr(part, "inline_data", None) or getattr(
+                    part, "inlineData", None
+                )
                 raw = getattr(inline, "data", None) if inline is not None else None
                 if raw:
                     b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
@@ -425,11 +435,19 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     src = Path(image_path)
     if not src.exists() or not src.is_file():
-        return _msg("err.image_not_found", "[img2img] image file not found: {path}", path=image_path)
+        return _msg(
+            "err.image_not_found",
+            "[img2img] image file not found: {path}",
+            path=image_path,
+        )
 
     mask = Path(mask_path) if mask_path else None
     if mask is not None and (not mask.exists() or not mask.is_file()):
-        return _msg("err.mask_not_found", "[img2img] mask file not found: {path}", path=mask_path)
+        return _msg(
+            "err.mask_not_found",
+            "[img2img] mask file not found: {path}",
+            path=mask_path,
+        )
 
     size = str(args.get("size") or "1024x1024")
     n = max(1, min(4, int(args.get("n") or 1)))
@@ -451,10 +469,16 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         outdir = os.path.abspath(_ensure_dir(output_dir))
     except Exception as e:
-        return _msg("err.mkdir_fail", "[img2img] Failed to create output_dir: {err}", err=e)
+        return _msg(
+            "err.mkdir_fail", "[img2img] Failed to create output_dir: {err}", err=e
+        )
 
-    quality = str(args.get("quality") or env_get("UAGENT_IMG_EDIT_QUALITY") or "").strip()
-    background = str(args.get("background") or env_get("UAGENT_IMG_EDIT_BACKGROUND") or "").strip()
+    quality = str(
+        args.get("quality") or env_get("UAGENT_IMG_EDIT_QUALITY") or ""
+    ).strip()
+    background = str(
+        args.get("background") or env_get("UAGENT_IMG_EDIT_BACKGROUND") or ""
+    ).strip()
 
     ts = time.strftime("%Y%m%d_%H%M%S")
     spinner = _StatusSpinner(cb, STATUS_LABEL)
@@ -502,7 +526,11 @@ def run_tool(args: Dict[str, Any]) -> str:
                 saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
             if url_list:
                 for i, url in enumerate(url_list):
-                    fn = f"{file_prefix}_{ts}_url_{i+1}.png" if len(url_list) > 1 else f"{file_prefix}_{ts}_url.png"
+                    fn = (
+                        f"{file_prefix}_{ts}_url_{i+1}.png"
+                        if len(url_list) > 1
+                        else f"{file_prefix}_{ts}_url.png"
+                    )
                     out_path = os.path.join(outdir, fn)
                     _download_to_png(url, out_path)
                     saved.append(out_path)
@@ -549,7 +577,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     }
 
     open_flag = (env_get("UAGENT_IMAGE_OPEN") or "").strip().lower()
-    should_open = not bool(getattr(cb, "is_gui", False)) and open_flag not in ("0", "false", "no", "off")
+    should_open = not bool(getattr(cb, "is_gui", False)) and open_flag not in (
+        "0",
+        "false",
+        "no",
+        "off",
+    )
     if should_open:
         opened_any = False
         for path in saved:

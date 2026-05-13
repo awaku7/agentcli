@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Tuple
 
 try:
     from PIL import Image, ImageFilter, ImageOps, ImageEnhance
+
     PIL_AVAILABLE = True
 except ImportError as e:
     Image = ImageFilter = ImageOps = ImageEnhance = None  # type: ignore[assignment]
@@ -249,7 +250,12 @@ def _apply_mode(img: Image.Image, mode: str) -> Tuple[Image.Image, List[str]]:
 def run_tool(args: Dict[str, Any]) -> str:
     image_path = str(args.get("image_path") or "").strip()
     if not image_path:
-        raise RuntimeError(_("err.image_path_empty", default="[preprocess_image] image_path is required"))
+        raise RuntimeError(
+            _(
+                "err.image_path_empty",
+                default="[preprocess_image] image_path is required",
+            )
+        )
 
     p = Path(image_path)
     if not p.exists() or not p.is_file():
@@ -269,7 +275,9 @@ def run_tool(args: Dict[str, Any]) -> str:
     contrast = float(args.get("contrast") or 1.0)
     resize = args.get("resize")
     output_dir = str(args.get("output_dir") or "outputs/image_preprocess").strip()
-    file_prefix = str(args.get("file_prefix") or "preprocess_image").strip() or "preprocess_image"
+    file_prefix = (
+        str(args.get("file_prefix") or "preprocess_image").strip() or "preprocess_image"
+    )
 
     img = Image.open(p)
     ops: List[str] = []

@@ -87,8 +87,6 @@ def _has_expected_script(locale: str, s: str) -> bool:
     return True
 
 
-
-
 def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
     """Parse .po file into entries.
 
@@ -101,7 +99,7 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
     - Skips msgctxt blocks.
     """
 
-    lines = po_path.read_text(encoding='utf-8', errors='replace').splitlines()
+    lines = po_path.read_text(encoding="utf-8", errors="replace").splitlines()
 
     entries: list[dict[str, object]] = []
     comments: list[str] = []
@@ -127,22 +125,22 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
         if plural:
             if plural_msgstrs:
                 msgstrs = [plural_msgstrs[i] for i in sorted(plural_msgstrs)]
-                msgstr_out = ' | '.join(s for s in msgstrs if s)
+                msgstr_out = " | ".join(s for s in msgstrs if s)
             else:
                 msgstrs = [msgstr] if msgstr else []
-                msgstr_out = msgstr or ''
+                msgstr_out = msgstr or ""
         else:
             msgstrs = []
-            msgstr_out = msgstr or ''
+            msgstr_out = msgstr or ""
 
         entries.append(
             {
-                'comments': comments[:],
-                'msgid': msgid or '',
-                'msgstr': msgstr_out,
-                'msgstrs': msgstrs,
-                'plural': plural,
-                'flags': [c[3:].strip() for c in comments if c.startswith('#, ')],
+                "comments": comments[:],
+                "msgid": msgid or "",
+                "msgstr": msgstr_out,
+                "msgstrs": msgstrs,
+                "plural": plural,
+                "flags": [c[3:].strip() for c in comments if c.startswith("#, ")],
             }
         )
 
@@ -163,28 +161,28 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
             i += 1
             continue
 
-        if line.startswith('#'):
+        if line.startswith("#"):
             comments.append(line)
             i += 1
             continue
 
-        if line.startswith('msgctxt '):
+        if line.startswith("msgctxt "):
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 i += 1
             continue
 
-        if line.startswith('msgid '):
+        if line.startswith("msgid "):
             flush()
-            msgid = _unquote_po(line[len('msgid ') :])
-            state = 'id'
+            msgid = _unquote_po(line[len("msgid ") :])
+            state = "id"
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 msgid += _unquote_po(lines[i])
                 i += 1
             continue
 
-        if line.startswith('msgid_plural '):
+        if line.startswith("msgid_plural "):
             plural = True
             plural_msgstrs = {}
             plural_current_idx = None
@@ -193,9 +191,9 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
                 i += 1
             continue
 
-        if line.startswith('msgstr'):
-            if line.startswith('msgstr['):
-                m = re.match(r'msgstr\[(\d+)\]\s+(.*)$', line)
+        if line.startswith("msgstr"):
+            if line.startswith("msgstr["):
+                m = re.match(r"msgstr\[(\d+)\]\s+(.*)$", line)
                 if not m:
                     i += 1
                     continue
@@ -204,7 +202,7 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
                 val = _unquote_po(m.group(2))
                 plural_msgstrs[idx] = val
                 plural_current_idx = idx
-                state = 'plural_str'
+                state = "plural_str"
                 i += 1
                 while i < len(lines) and lines[i].lstrip().startswith('"'):
                     if plural_current_idx is not None:
@@ -212,8 +210,8 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
                     i += 1
                 continue
 
-            msgstr = _unquote_po(line[len('msgstr ') :])
-            state = 'str'
+            msgstr = _unquote_po(line[len("msgstr ") :])
+            state = "str"
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 msgstr += _unquote_po(lines[i])
@@ -222,12 +220,14 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
 
         if line.lstrip().startswith('"') and line.rstrip().endswith('"'):
             part = _unquote_po(line)
-            if state == 'id' and msgid is not None:
+            if state == "id" and msgid is not None:
                 msgid += part
-            elif state == 'str' and msgstr is not None:
+            elif state == "str" and msgstr is not None:
                 msgstr += part
-            elif state == 'plural_str' and plural_current_idx is not None:
-                plural_msgstrs[plural_current_idx] = plural_msgstrs.get(plural_current_idx, '') + part
+            elif state == "plural_str" and plural_current_idx is not None:
+                plural_msgstrs[plural_current_idx] = (
+                    plural_msgstrs.get(plural_current_idx, "") + part
+                )
             i += 1
             continue
 
@@ -235,6 +235,7 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
 
     flush()
     return entries
+
 
 def main() -> int:
     if not LOCALES_DIR.exists():
@@ -271,7 +272,6 @@ def main() -> int:
             "no_expected_script": [],
             "same_as_msgid": [],
         }
-
 
         for e in entries:
             mid = str(e["msgid"])
