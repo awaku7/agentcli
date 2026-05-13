@@ -12,9 +12,9 @@ Writes:
   outputs/i18n/{locale}_po_qc.txt
 
 Notes:
-- Dependency-free (no polib).
+- Supports plural fallback for malformed PO entries.
 - Supports multiline msgid/msgstr.
-- Ignores plural forms (msgid_plural/msgstr[n]) and msgctxt.
+- Counts plural forms (msgid_plural/msgstr[n]) correctly and ignores msgctxt.
 """
 
 from __future__ import annotations
@@ -87,40 +87,72 @@ def _has_expected_script(locale: str, s: str) -> bool:
     return True
 
 
+
+
 def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
     """Parse .po file into entries.
 
-    Returns list of:
-      {comments: [str], msgid: str, msgstr: str}
+    Returns list of dicts with:
+      {comments: [str], msgid: str, msgstr: str, msgstrs: [str], plural: bool, flags: [str]}
 
     - Supports multiline msgid/msgstr.
-    - Skips plural blocks (msgid_plural, msgstr[n]).
+    - Supports plural forms.
+    - Treats plain msgstr as fallback for malformed plural entries that lack msgstr[n].
     - Skips msgctxt blocks.
     """
 
-    lines = po_path.read_text(encoding="utf-8", errors="replace").splitlines()
+    lines = po_path.read_text(encoding='utf-8', errors='replace').splitlines()
 
     entries: list[dict[str, object]] = []
     comments: list[str] = []
 
     msgid: str | None = None
     msgstr: str | None = None
-    state: str | None = None  # 'id'|'str'
+    plural = False
+    plural_msgstrs: dict[int, str] = {}
+    state: str | None = None  # 'id' | 'str' | 'plural_str'
+    plural_current_idx: int | None = None
 
     def flush() -> None:
-        nonlocal comments, msgid, msgstr, state
+        nonlocal comments, msgid, msgstr, plural, plural_msgstrs, state, plural_current_idx
         if msgid is None:
             comments = []
             msgstr = None
+            plural = False
+            plural_msgstrs = {}
             state = None
+            plural_current_idx = None
             return
+
+        if plural:
+            if plural_msgstrs:
+                msgstrs = [plural_msgstrs[i] for i in sorted(plural_msgstrs)]
+                msgstr_out = ' | '.join(s for s in msgstrs if s)
+            else:
+                msgstrs = [msgstr] if msgstr else []
+                msgstr_out = msgstr or ''
+        else:
+            msgstrs = []
+            msgstr_out = msgstr or ''
+
         entries.append(
-            {"comments": comments[:], "msgid": msgid or "", "msgstr": msgstr or ""}
+            {
+                'comments': comments[:],
+                'msgid': msgid or '',
+                'msgstr': msgstr_out,
+                'msgstrs': msgstrs,
+                'plural': plural,
+                'flags': [c[3:].strip() for c in comments if c.startswith('#, ')],
+            }
         )
+
         comments = []
         msgid = None
         msgstr = None
+        plural = False
+        plural_msgstrs = {}
         state = None
+        plural_current_idx = None
 
     i = 0
     while i < len(lines):
@@ -131,54 +163,57 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
             i += 1
             continue
 
-        if line.startswith("#"):
+        if line.startswith('#'):
             comments.append(line)
             i += 1
             continue
 
-        if line.startswith("msgctxt "):
-            # skip context block
+        if line.startswith('msgctxt '):
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 i += 1
             continue
 
-        if line.startswith("msgid "):
+        if line.startswith('msgid '):
             flush()
-            msgid = _unquote_po(line[len("msgid ") :])
-            state = "id"
+            msgid = _unquote_po(line[len('msgid ') :])
+            state = 'id'
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 msgid += _unquote_po(lines[i])
                 i += 1
             continue
 
-        if line.startswith("msgid_plural "):
-            # skip plural block entirely
+        if line.startswith('msgid_plural '):
+            plural = True
+            plural_msgstrs = {}
+            plural_current_idx = None
             i += 1
-            while i < len(lines) and not lines[i].startswith("msgstr"):
+            while i < len(lines) and lines[i].lstrip().startswith('"'):
                 i += 1
-            while i < len(lines) and (
-                lines[i].startswith("msgstr") or lines[i].lstrip().startswith('"')
-            ):
-                i += 1
-            # do not flush; plural entries not represented
-            msgid = None
-            msgstr = None
-            state = None
-            comments = []
             continue
 
-        if line.startswith("msgstr"):
-            # ignore plural msgstr[n]
-            if line.startswith("msgstr["):
+        if line.startswith('msgstr'):
+            if line.startswith('msgstr['):
+                m = re.match(r'msgstr\[(\d+)\]\s+(.*)$', line)
+                if not m:
+                    i += 1
+                    continue
+                plural = True
+                idx = int(m.group(1))
+                val = _unquote_po(m.group(2))
+                plural_msgstrs[idx] = val
+                plural_current_idx = idx
+                state = 'plural_str'
                 i += 1
                 while i < len(lines) and lines[i].lstrip().startswith('"'):
+                    if plural_current_idx is not None:
+                        plural_msgstrs[plural_current_idx] += _unquote_po(lines[i])
                     i += 1
                 continue
 
-            msgstr = _unquote_po(line[len("msgstr ") :])
-            state = "str"
+            msgstr = _unquote_po(line[len('msgstr ') :])
+            state = 'str'
             i += 1
             while i < len(lines) and lines[i].lstrip().startswith('"'):
                 msgstr += _unquote_po(lines[i])
@@ -187,10 +222,12 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
 
         if line.lstrip().startswith('"') and line.rstrip().endswith('"'):
             part = _unquote_po(line)
-            if state == "id" and msgid is not None:
+            if state == 'id' and msgid is not None:
                 msgid += part
-            elif state == "str" and msgstr is not None:
+            elif state == 'str' and msgstr is not None:
                 msgstr += part
+            elif state == 'plural_str' and plural_current_idx is not None:
+                plural_msgstrs[plural_current_idx] = plural_msgstrs.get(plural_current_idx, '') + part
             i += 1
             continue
 
@@ -198,7 +235,6 @@ def parse_po_entries(po_path: Path) -> list[dict[str, object]]:
 
     flush()
     return entries
-
 
 def main() -> int:
     if not LOCALES_DIR.exists():
@@ -236,18 +272,26 @@ def main() -> int:
             "same_as_msgid": [],
         }
 
+
         for e in entries:
             mid = str(e["msgid"])
-            mst = str(e["msgstr"])
             if mid == "":
                 # header
                 continue
 
-            cmts = "\n".join([str(x) for x in e["comments"]])
+            flags = {str(x) for x in e.get("flags", [])}
+            plural = bool(e.get("plural"))
+            msgstrs = [str(x) for x in e.get("msgstrs", [])]
+            mst = " | ".join(s for s in msgstrs if s) if plural else str(e["msgstr"])
 
-            if mst == "":
+            if plural:
+                has_any_translation = any(s for s in msgstrs)
+            else:
+                has_any_translation = mst != ""
+
+            if not has_any_translation:
                 problems["empty"].append(mid)
-            if "fuzzy" in cmts:
+            if "fuzzy" in flags:
                 problems["fuzzy"].append(mid)
             if mst == mid and mst != "":
                 problems["same_as_msgid"].append(mid)
@@ -269,8 +313,6 @@ def main() -> int:
                 ):
                     problems["same_as_en"].append(mid)
 
-            # Sanity: placeholder mismatch (just warn by counting)
-            # (not part of counts; kept for future extension)
             _ = PYFMT_RE.findall(mid)
 
         reports[locale] = {

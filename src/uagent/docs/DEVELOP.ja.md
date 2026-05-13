@@ -22,7 +22,9 @@ ______________________________________________________________________
 - **Core**: `src/uagent/core.py`
   - 会話履歴、ログ、Busy状態（ステータス）、UI連携、（圧縮/要約などの）周辺機能
 - **CLI**: `src/uagent/cli.py`
-  - 標準入力ループ、`:cd`/`:ls` 等のコマンド、起動時処理（Mode A では `main()` 内で workdir 初期化）
+  - 標準入力ループ、`:cd`/`:ls`/`:cp`/`:mv`/`:head`/`:tail` 等のコマンド、起動時処理（Mode A では `main()` 内で workdir 初期化）
+  - `:head <path> [n]` は先頭 n 行（既定 20 行）を表示し、`:tail <path> [n]` は末尾 n 行（既定 20 行）を表示する
+  - `:cp` / `:mv` は workdir 内の安全なファイル操作を使うコマンドとして扱う
 - **LLM Orchestration**: `src/uagent/uagent_llm.py`
   - 対話ラウンド実行、tool call の実行、429等のリトライ制御
   - ラウンド / メッセージ / tool call のヘルパは以下に分割済み

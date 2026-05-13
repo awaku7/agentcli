@@ -28,6 +28,9 @@ Key modules:
 
 - Core state + UI integration: `src/uagent/core.py`
 - CLI UI loop: `src/uagent/cli.py`
+  - Standard input loop, `:cd` / `:ls` / `:cp` / `:mv` / `:head` / `:tail`, and startup-time workdir initialization (mode A initializes the workdir inside `main()`).
+  - `:head <path> [n]` prints the first n lines (default 20), and `:tail <path> [n]` prints the last n lines (default 20).
+  - `:cp` / `:mv` are treated as safe file operations inside the workdir.
 - LLM orchestration entrypoint: `src/uagent/uagent_llm.py`
   - Round/message/tool-call helpers are split into:
     - `src/uagent/llm_helpers.py`

@@ -1313,6 +1313,7 @@ SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile` to validate syntax.
 - If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.
+- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: "Which point should I continue with?"
 """)
 
 SYSTEM_PROMPT_DANGEROUS_DELETE_FILE = _("""## Dangerous operation policy (delete_file)
@@ -1345,6 +1346,7 @@ SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 - Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile`.
 - If expert-level knowledge is required, use Agent Skills prompt templates.
+- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: "Which point should I continue with?"
 """)
 
 
