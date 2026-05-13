@@ -12,13 +12,13 @@ Supported:
 
 Notes:
 - Designed as a lightweight img2img wrapper for OpenAI / Azure OpenAI image edit APIs.
-- For non-OpenAI providers, this tool is currently unsupported.
+- Gemini / Vertex AI are supported for image+prompt editing.
+- Mask editing is supported only for OpenAI / Azure OpenAI in this tool.
 """
 
 from __future__ import annotations
 
 import base64
-import json
 import os
 import ssl
 import sys
@@ -188,7 +188,7 @@ def _provider() -> str:
         .strip()
         .lower()
     )
-    if p not in ("openai", "azure"):
+    if p not in ("openai", "azure", "gemini", "vertexai"):
         raise RuntimeError(
             _msg(
                 "err.unsupported_provider",
@@ -218,10 +218,6 @@ def _ensure_dir(p: str) -> str:
 
 def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
-
-
-def _load_b64(path: Path) -> str:
-    return base64.b64encode(path.read_bytes()).decode("ascii")
 
 
 def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
@@ -282,9 +278,42 @@ def _make_client(provider: str):
         return OpenAI(api_key=api_key, base_url=base_url)
 
 
+def _make_gemini_client(provider: str):
+    try:
+        from google import genai
+    except Exception as exc:
+        raise RuntimeError(
+            _msg(
+                "err.gemini_import",
+                "Failed to import google-genai package: {err}",
+                err=repr(exc),
+            )
+        )
+
+    kwargs: Dict[str, Any] = {}
+    try:
+        from .. import util_providers as providers  # type: ignore
+
+        httpx_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
+        if httpx_client is not None:
+            kwargs["http_options"] = {"httpx_client": httpx_client}
+    except Exception:
+        pass
+
+    if provider == "vertexai":
+        api_key = _img_env("vertexai", "edit", "api_key", required=False)
+        return genai.Client(vertexai=True, api_key=api_key, **kwargs)
+
+    api_key = _img_env("gemini", "edit", "api_key", required=True)
+    return genai.Client(api_key=api_key, **kwargs)
+
+
 def _get_model(provider: str) -> str:
     return _env_first(
-        [f"UAGENT_{provider.upper()}_IMG_EDIT_DEPNAME", f"UAGENT_{provider.upper()}_IMG_GENERATE_DEPNAME"],
+        [
+            f"UAGENT_{provider.upper()}_IMG_EDIT_DEPNAME",
+            f"UAGENT_{provider.upper()}_IMG_GENERATE_DEPNAME",
+        ],
         required=True,
     )
 
@@ -309,6 +338,78 @@ def _extract_image_items(resp: Any) -> tuple[List[str], List[str], List[Dict[str
             item_meta["revised_prompt"] = revised_prompt
         items.append(item_meta)
     return b64_list, url_list, items
+
+
+def _mime_type_for_image(path: Path) -> str:
+    suffix = path.suffix.lower()
+    if suffix in (".jpg", ".jpeg"):
+        return "image/jpeg"
+    if suffix == ".webp":
+        return "image/webp"
+    return "image/png"
+
+
+def _run_gemini_img2img(
+    provider: str,
+    image_model: str,
+    src: Path,
+    prompt: str,
+    n: int,
+) -> List[str]:
+    try:
+        from google.genai import types as gemini_types
+    except Exception as exc:
+        raise RuntimeError(
+            _msg(
+                "err.gemini_import",
+                "Failed to import google-genai package: {err}",
+                err=repr(exc),
+            )
+        )
+
+    client = _make_gemini_client(provider)
+    image_bytes = src.read_bytes()
+    mime_type = _mime_type_for_image(src)
+
+    contents = [
+        gemini_types.Part.from_bytes(data=image_bytes, mime_type=mime_type),
+        prompt,
+    ]
+
+    b64_list: List[str] = []
+    for _ in range(max(1, n)):
+        try:
+            config_cls = getattr(gemini_types, "GenerateContentConfig", None)
+            if config_cls is not None:
+                resp = client.models.generate_content(
+                    model=image_model,
+                    contents=contents,
+                    config=config_cls(response_modalities=["TEXT", "IMAGE"]),
+                )
+            else:
+                resp = client.models.generate_content(
+                    model=image_model,
+                    contents=contents,
+                )
+        except Exception:
+            raise
+
+        candidates = getattr(resp, "candidates", None) or []
+        for candidate in candidates:
+            content = getattr(candidate, "content", None)
+            parts = getattr(content, "parts", None) or []
+            for part in parts:
+                inline = getattr(part, "inline_data", None) or getattr(part, "inlineData", None)
+                raw = getattr(inline, "data", None) if inline is not None else None
+                if raw:
+                    b64_list.append(base64.b64encode(bytes(raw)).decode("ascii"))
+
+        if len(b64_list) >= n:
+            break
+
+    if not b64_list:
+        raise RuntimeError("Gemini image edit returned no image data")
+    return b64_list[:n]
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -362,39 +463,49 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     try:
         spinner.start()
-        client = _make_client(provider)
-        gen_kwargs: Dict[str, Any] = {
-            "model": image_model,
-            "prompt": prompt,
-            "size": size,
-            "n": n,
-        }
 
-        if _is_gpt_image_model(image_model):
-            gen_kwargs["output_format"] = "png"
-            gen_kwargs["quality"] = quality or "auto"
-            gen_kwargs["background"] = background or "auto"
-        else:
-            gen_kwargs["response_format"] = "b64_json"
-
-        with src.open("rb") as image_fp:
-            gen_kwargs["image"] = image_fp
+        if provider in ("gemini", "vertexai"):
             if mask is not None:
-                with mask.open("rb") as mask_fp:
-                    gen_kwargs["mask"] = mask_fp
-                    resp = client.images.edit(**gen_kwargs)
-            else:
-                resp = client.images.edit(**gen_kwargs)
-
-        b64_list, url_list, _items = _extract_image_items(resp)
-        if b64_list:
+                return _msg(
+                    "err.mask_unsupported",
+                    "[img2img] mask_path is not supported for Gemini/Vertex AI in this tool.",
+                )
+            b64_list = _run_gemini_img2img(provider, image_model, src, prompt, n)
             saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
-        if url_list:
-            for i, url in enumerate(url_list):
-                fn = f"{file_prefix}_{ts}_url_{i+1}.png" if len(url_list) > 1 else f"{file_prefix}_{ts}_url.png"
-                out_path = os.path.join(outdir, fn)
-                _download_to_png(url, out_path)
-                saved.append(out_path)
+        else:
+            client = _make_client(provider)
+            gen_kwargs: Dict[str, Any] = {
+                "model": image_model,
+                "prompt": prompt,
+                "size": size,
+                "n": n,
+            }
+
+            if _is_gpt_image_model(image_model):
+                gen_kwargs["output_format"] = "png"
+                gen_kwargs["quality"] = quality or "auto"
+                gen_kwargs["background"] = background or "auto"
+            else:
+                gen_kwargs["response_format"] = "b64_json"
+
+            with src.open("rb") as image_fp:
+                gen_kwargs["image"] = image_fp
+                if mask is not None:
+                    with mask.open("rb") as mask_fp:
+                        gen_kwargs["mask"] = mask_fp
+                        resp = client.images.edit(**gen_kwargs)
+                else:
+                    resp = client.images.edit(**gen_kwargs)
+
+            b64_list, url_list, _items = _extract_image_items(resp)
+            if b64_list:
+                saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
+            if url_list:
+                for i, url in enumerate(url_list):
+                    fn = f"{file_prefix}_{ts}_url_{i+1}.png" if len(url_list) > 1 else f"{file_prefix}_{ts}_url.png"
+                    out_path = os.path.join(outdir, fn)
+                    _download_to_png(url, out_path)
+                    saved.append(out_path)
     except Exception as e:
         return _msg(
             "err.gen_fail",
