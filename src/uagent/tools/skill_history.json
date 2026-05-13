@@ -1,0 +1,132 @@
+{
+  "en": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "ja": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "es": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "fr": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "ko": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "de": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "it": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "ru": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "pt_BR": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "pt": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "id": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "vi": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "pl": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "hi": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "ar": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "sv": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "sw": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "nb": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "nl": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "fi": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "cs": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "uk": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "tr": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "th": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "zh_CN": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "zh_TW": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  }
+}

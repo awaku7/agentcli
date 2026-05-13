@@ -4,10 +4,13 @@ import json
 from typing import Any, Callable, Dict, List
 
 from .context import get_callbacks
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
 
 
 def _skills_marker_prefix() -> str:
-    return "[SKILL] "
+    return _("skill.prefix", default="[SKILL] ")
 
 
 def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
@@ -40,7 +43,12 @@ def _persist_messages_with_warn(
         import sys
 
         print(
-            f"[{label} warn] Failed to rewrite current log: {type(e).__name__}: {e}",
+            _(
+                "skill.warn.rewrite_failed",
+                default="[{label} warn] Failed to rewrite current log: {error}",
+                label=label,
+                error=f"{type(e).__name__}: {e}",
+            ),
             file=sys.stderr,
         )
 
@@ -55,10 +63,21 @@ def make_finish_skill_handler(
             return json.dumps(
                 {
                     "status": "ok",
-                    "message": f"{message} (Cleared {removed} skill messages)",
+                    "message": _(
+                        "skill.clear_log",
+                        default="{message} (Cleared {removed} skill messages)",
+                        message=message,
+                        removed=removed,
+                    ),
                 },
                 ensure_ascii=False,
             )
-        return json.dumps({"status": "ok", "message": message}, ensure_ascii=False)
+        return json.dumps(
+            {
+                "status": "ok",
+                "message": _("skill.ok", default="{message}", message=message),
+            },
+            ensure_ascii=False,
+        )
 
     return finish_skill

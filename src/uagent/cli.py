@@ -2,7 +2,6 @@ import uagent.runtime_init  # noqa: F401
 import getpass
 import re
 import importlib
-import json
 import os
 
 from .env_utils import env_get
@@ -824,8 +823,7 @@ def main() -> None:
                                 res_json = tools.run_tool(
                                     "human_ask", {"message": msg, "is_password": False}
                                 )
-                                res = json.loads(res_json)
-                                ans = (res.get("user_reply") or "").strip().lower()
+                                ans = (res_json or "").strip().lower()
                             except Exception as e:
                                 ans = "n"
                                 print(

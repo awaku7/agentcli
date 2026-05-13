@@ -570,26 +570,26 @@ def _normalize_cp_mv_args(raw: str) -> tuple[list[str], bool, bool]:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        raise ValueError(f'failed to parse arguments: {e}') from e
+        raise ValueError(f"failed to parse arguments: {e}") from e
 
     if not items:
-        raise ValueError('missing arguments')
+        raise ValueError("missing arguments")
 
     overwrite = False
     mkdirs = False
     paths: list[str] = []
     for item in items:
         low = item.lower()
-        if low in ('-f', '--overwrite', '--force'):
+        if low in ("-f", "--overwrite", "--force"):
             overwrite = True
             continue
-        if low in ('-p', '--mkdirs', '--parents'):
+        if low in ("-p", "--mkdirs", "--parents"):
             mkdirs = True
             continue
         paths.append(item)
 
     if len(paths) < 2:
-        raise ValueError('src and dst are required')
+        raise ValueError("src and dst are required")
 
     return paths, overwrite, mkdirs
 
@@ -599,7 +599,7 @@ def _resolve_copy_move_target(src: Path, dst_raw: str) -> Path:
     dst = Path(dst_expanded)
     if dst.exists() and dst.is_dir():
         return dst / src.name
-    if dst_raw.endswith((os.sep, '/', os.altsep or '')):
+    if dst_raw.endswith((os.sep, "/", os.altsep or "")):
         return dst / src.name
     return dst
 
@@ -612,15 +612,15 @@ def _remove_existing_path(target: Path) -> None:
 
 
 def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
-    raw = (arg or '').strip()
+    raw = (arg or "").strip()
     if not raw:
-        print(':cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]')
+        print(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(f'[cp error] {type(e).__name__}: {e}')
+        print(f"[cp error] {type(e).__name__}: {e}")
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -628,16 +628,21 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
         from .tools.safe_file_ops_extras import ensure_within_workdir
 
         src = Path(ensure_within_workdir(src_raw))
-        dst = Path(ensure_within_workdir(dst_raw))
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
-            print(tr('[cp] Source and destination are the same: %(path)s') % {'path': str(src)})
+            print(
+                tr("[cp] Source and destination are the same: %(path)s")
+                % {"path": str(src)}
+            )
             return True
 
         if src.is_dir():
             if target.exists():
                 if not overwrite:
-                    print(tr('[cp] Destination already exists: %(path)s') % {'path': str(target)})
+                    print(
+                        tr("[cp] Destination already exists: %(path)s")
+                        % {"path": str(target)}
+                    )
                     return True
                 _remove_existing_path(target)
             if mkdirs:
@@ -646,33 +651,42 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
         else:
             if target.exists():
                 if not overwrite:
-                    print(tr('[cp] Destination already exists: %(path)s') % {'path': str(target)})
+                    print(
+                        tr("[cp] Destination already exists: %(path)s")
+                        % {"path": str(target)}
+                    )
                     return True
                 _remove_existing_path(target)
             if mkdirs:
                 target.parent.mkdir(parents=True, exist_ok=True)
             elif not target.parent.exists():
-                print(tr('[cp] Destination parent does not exist: %(path)s') % {'path': str(target.parent)})
+                print(
+                    tr("[cp] Destination parent does not exist: %(path)s")
+                    % {"path": str(target.parent)}
+                )
                 return True
             shutil.copy2(src, target)
 
-        print(tr('[cp] Copied: %(src)s -> %(dst)s') % {'src': str(src), 'dst': str(target)})
+        print(
+            tr("[cp] Copied: %(src)s -> %(dst)s")
+            % {"src": str(src), "dst": str(target)}
+        )
         return True
     except Exception as e:
-        print(f'[cp error] {type(e).__name__}: {e}')
+        print(f"[cp error] {type(e).__name__}: {e}")
         return True
 
 
 def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
-    raw = (arg or '').strip()
+    raw = (arg or "").strip()
     if not raw:
-        print(':mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]')
+        print(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(f'[mv error] {type(e).__name__}: {e}')
+        print(f"[mv error] {type(e).__name__}: {e}")
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -680,46 +694,56 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         from .tools.safe_file_ops_extras import ensure_within_workdir
 
         src = Path(ensure_within_workdir(src_raw))
-        dst = Path(ensure_within_workdir(dst_raw))
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
-            print(tr('[mv] Source and destination are the same: %(path)s') % {'path': str(src)})
+            print(
+                tr("[mv] Source and destination are the same: %(path)s")
+                % {"path": str(src)}
+            )
             return True
 
         if target.exists():
             if not overwrite:
-                print(tr('[mv] Destination already exists: %(path)s') % {'path': str(target)})
+                print(
+                    tr("[mv] Destination already exists: %(path)s")
+                    % {"path": str(target)}
+                )
                 return True
             _remove_existing_path(target)
 
         if mkdirs:
             target.parent.mkdir(parents=True, exist_ok=True)
         elif not target.parent.exists():
-            print(tr('[mv] Destination parent does not exist: %(path)s') % {'path': str(target.parent)})
+            print(
+                tr("[mv] Destination parent does not exist: %(path)s")
+                % {"path": str(target.parent)}
+            )
             return True
 
         os.replace(src, target)
-        print(tr('[mv] Moved: %(src)s -> %(dst)s') % {'src': str(src), 'dst': str(target)})
+        print(
+            tr("[mv] Moved: %(src)s -> %(dst)s") % {"src": str(src), "dst": str(target)}
+        )
         return True
     except Exception as e:
-        print(f'[mv error] {type(e).__name__}: {e}')
+        print(f"[mv error] {type(e).__name__}: {e}")
         return True
 
 
 def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
-    raw = (arg or '').strip()
+    raw = (arg or "").strip()
     if not raw:
-        print(':head <path> [n]')
+        print(":head <path> [n]")
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(f'[head error] {type(e).__name__}: {e}')
+        print(f"[head error] {type(e).__name__}: {e}")
         return True
 
     if not items:
-        print(':head <path> [n]')
+        print(":head <path> [n]")
         return True
 
     lines = 20
@@ -728,19 +752,19 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     while i < len(items):
         tok = items[i]
         low = tok.lower()
-        if low in ('-n', '--lines'):
+        if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(':head <path> [n]')
+                print(":head <path> [n]")
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print(tr('[head] Invalid line count: %(n)r') % {'n': items[i]})
+                print(tr("[head] Invalid line count: %(n)r") % {"n": items[i]})
                 return True
-        elif not tok.startswith('-') and not path_tokens:
+        elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
-        elif not tok.startswith('-') and path_tokens:
+        elif not tok.startswith("-") and path_tokens:
             try:
                 lines = int(tok)
             except Exception:
@@ -750,46 +774,50 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(':head <path> [n]')
+        print(":head <path> [n]")
         return True
 
-    path = ' '.join(path_tokens)
+    path = " ".join(path_tokens)
     try:
         from .tools.read_file_tool import run_tool as read_file_tool
 
-        res_json = read_file_tool({'filename': path, 'head_lines': lines})
-        res = json.loads(res_json)
-        if not isinstance(res, dict):
-            print(tr('[head] Unexpected response.'))
-            return True
-        if not res.get('ok', False):
-            print(str(res.get('error') or res.get('stderr') or tr('[head] Failed.')))
-            return True
-        content = str(res.get('content') or '')
+        content = read_file_tool({"filename": path, "head_lines": lines})
+        if content.startswith("{"):
+            try:
+                res = json.loads(content)
+            except Exception:
+                res = None
+            if isinstance(res, dict) and not res.get("ok", False):
+                print(
+                    str(res.get("error") or res.get("stderr") or tr("[head] Failed."))
+                )
+                return True
+            if isinstance(res, dict):
+                content = str(res.get("content") or "")
         if content:
-            print(content, end='' if content.endswith('\n') else '\n')
+            print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print(tr('[head] Empty.'))
+            print(tr("[head] Empty."))
         return True
     except Exception as e:
-        print(f'[head error] {type(e).__name__}: {e}')
+        print(f"[head error] {type(e).__name__}: {e}")
         return True
 
 
 def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
-    raw = (arg or '').strip()
+    raw = (arg or "").strip()
     if not raw:
-        print(':tail <path> [n]')
+        print(":tail <path> [n]")
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(f'[tail error] {type(e).__name__}: {e}')
+        print(f"[tail error] {type(e).__name__}: {e}")
         return True
 
     if not items:
-        print(':tail <path> [n]')
+        print(":tail <path> [n]")
         return True
 
     lines = 20
@@ -798,19 +826,19 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     while i < len(items):
         tok = items[i]
         low = tok.lower()
-        if low in ('-n', '--lines'):
+        if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(':tail <path> [n]')
+                print(":tail <path> [n]")
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print(tr('[tail] Invalid line count: %(n)r') % {'n': items[i]})
+                print(tr("[tail] Invalid line count: %(n)r") % {"n": items[i]})
                 return True
-        elif not tok.startswith('-') and not path_tokens:
+        elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
-        elif not tok.startswith('-') and path_tokens:
+        elif not tok.startswith("-") and path_tokens:
             try:
                 lines = int(tok)
             except Exception:
@@ -820,29 +848,33 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(':tail <path> [n]')
+        print(":tail <path> [n]")
         return True
 
-    path = ' '.join(path_tokens)
+    path = " ".join(path_tokens)
     try:
         from .tools.read_file_tool import run_tool as read_file_tool
 
-        res_json = read_file_tool({'filename': path, 'tail_lines': lines})
-        res = json.loads(res_json)
-        if not isinstance(res, dict):
-            print(tr('[tail] Unexpected response.'))
-            return True
-        if not res.get('ok', False):
-            print(str(res.get('error') or res.get('stderr') or tr('[tail] Failed.')))
-            return True
-        content = str(res.get('content') or '')
+        content = read_file_tool({"filename": path, "tail_lines": lines})
+        if content.startswith("{"):
+            try:
+                res = json.loads(content)
+            except Exception:
+                res = None
+            if isinstance(res, dict) and not res.get("ok", False):
+                print(
+                    str(res.get("error") or res.get("stderr") or tr("[tail] Failed."))
+                )
+                return True
+            if isinstance(res, dict):
+                content = str(res.get("content") or "")
         if content:
-            print(content, end='' if content.endswith('\n') else '\n')
+            print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print(tr('[tail] Empty.'))
+            print(tr("[tail] Empty."))
         return True
     except Exception as e:
-        print(f'[tail error] {type(e).__name__}: {e}')
+        print(f"[tail error] {type(e).__name__}: {e}")
         return True
 
 
@@ -1826,8 +1858,7 @@ def format_help(*, core: Any) -> str:
         + tr("Move file or directory (supports -f/--overwrite and -p/--mkdirs)"),
         "  :head <path> [n]      "
         + tr("Show the first n lines of a file (default=20)"),
-        "  :tail <path> [n]      "
-        + tr("Show the last n lines of a file (default=20)"),
+        "  :tail <path> [n]      " + tr("Show the last n lines of a file (default=20)"),
         "  :rm <path|glob>       "
         + tr("Delete file(s)/directory(ies) with preview + confirm"),
         "  :shared-mem-list      "

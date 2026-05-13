@@ -2,6 +2,7 @@
 from __future__ import annotations
 import os
 from typing import Optional
+
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
@@ -20,7 +21,13 @@ def _img_env(
         if v:
             return v
     if required:
-        raise RuntimeError(f"Missing required env var(s): {keys}")
+        raise RuntimeError(
+            _(
+                "err.missing_env",
+                default="Missing required env var(s): {keys}",
+                keys=keys,
+            )
+        )
     return default
 
 
@@ -33,7 +40,9 @@ def analyze_image_gemini(
         from google import genai
         from google.genai import types
     except ImportError:
-        raise RuntimeError("google-genai package is not installed.")
+        raise RuntimeError(
+            _("err.not_installed", default="google-genai package is not installed.")
+        )
 
     # Get API key and deployment name (model)
     api_key = _img_env(provider, "analysis", "api_key", required=False)
@@ -56,12 +65,24 @@ def analyze_image_gemini(
         else:
             client = genai.Client(api_key=api_key)
     except Exception as e:
-        raise RuntimeError(f"Failed to initialize Gemini/VertexAI client: {e}")
+        raise RuntimeError(
+            _(
+                "err.init_client",
+                default="Failed to initialize Gemini/VertexAI client: {error}",
+                error=e,
+            )
+        )
 
     # Read image file
     full_path = os.path.abspath(os.path.expanduser(image_path))
     if not os.path.exists(full_path):
-        raise RuntimeError(f"Image file not found: {image_path}")
+        raise RuntimeError(
+            _(
+                "err.image_not_found",
+                default="Image file not found: {image_path}",
+                image_path=image_path,
+            )
+        )
 
     with open(full_path, "rb") as f:
         image_bytes = f.read()
@@ -84,6 +105,10 @@ def analyze_image_gemini(
                 final_prompt,
             ],
         )
-        return response.text or "[No description generated]"
+        return response.text or _(
+            "result.no_description", default="[No description generated]"
+        )
     except Exception as e:
-        return f"Error during image analysis: {e}"
+        return _(
+            "err.analysis", default="Error during image analysis: {error}", error=e
+        )
