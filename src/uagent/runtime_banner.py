@@ -13,6 +13,221 @@ def _normalize_url(core: Any, url: str) -> str:
         return (url or "").strip().rstrip("/")
 
 
+def _env(name: str, default: str = "") -> str:
+    return (env_get(name, default) or "").strip()
+
+
+def _env_first(keys: list[str], *, default: str = "") -> str:
+    for key in keys:
+        value = _env(key)
+        if value:
+            return value
+    return default
+
+
+def _has_all(keys: list[str]) -> bool:
+    return all(_env(key) for key in keys)
+
+
+def _provider_env(provider: str, suffix: str) -> str:
+    return _env(f"UAGENT_{provider.upper()}_{suffix.upper()}")
+
+
+def _embedding_model_info() -> tuple[str, str] | None:
+    provider = _env_first(["UAGENT_EMBEDDING_PROVIDER", "UAGENT_PROVIDER"]).lower()
+    if provider not in {"openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"}:
+        return None
+
+    depname = _provider_env(provider, "EMBEDDING_DEPNAME")
+    if not depname:
+        return None
+
+    prefix = f"UAGENT_{provider.upper()}_EMBEDDING"
+    if provider == "azure":
+        required = [
+            f"{prefix}_BASE_URL",
+            f"{prefix}_API_KEY",
+            f"{prefix}_API_VERSION",
+        ]
+        if not _has_all(required):
+            return None
+    elif provider in {"openai", "bedrock", "openrouter", "nvidia"}:
+        if not _env(f"{prefix}_API_KEY"):
+            return None
+
+    return provider, depname
+
+
+def _google_audio_credentials_present(provider: str, mode: str) -> bool:
+    if mode == "speech":
+        return bool(
+            _env("UAGENT_GOOGLE_CREDENTIALS") or _env("GOOGLE_APPLICATION_CREDENTIALS")
+        )
+    if provider == "gemini":
+        return bool(_env("UAGENT_GEMINI_API_KEY"))
+    if provider == "vertexai":
+        return bool(_env("UAGENT_GEMINI_API_KEY") or _env("UAGENT_VERTEXAI_API_KEY"))
+    return False
+
+
+def _audio_model_info(mode: str) -> tuple[str, str] | None:
+    if mode == "speech":
+        provider = _env_first(
+            ["UAGENT_AUDIO_SPEECH_PROVIDER", "UAGENT_PROVIDER"], default="openai"
+        ).lower()
+        default_model = "gpt-4o-mini-tts"
+        default_google_model = "ja-JP-Neural2-B"
+    else:
+        provider = _env_first(
+            ["UAGENT_AUDIO_TRANSCRIBE_PROVIDER", "UAGENT_PROVIDER"], default="openai"
+        ).lower()
+        default_model = "gpt-4o-mini-transcribe"
+        default_google_model = "gemini-1.5-flash"
+
+    if provider not in {"openai", "azure", "gemini", "vertexai"}:
+        return None
+
+    if provider == "azure":
+        depname = _env(f"UAGENT_AZURE_{mode.upper()}_DEPNAME")
+        if not depname or not _has_all(
+            [
+                "UAGENT_AZURE_BASE_URL",
+                "UAGENT_AZURE_API_KEY",
+                "UAGENT_AZURE_API_VERSION",
+            ]
+        ):
+            return None
+        return provider, depname
+
+    if provider == "openai":
+        if not _env("UAGENT_OPENAI_API_KEY"):
+            return None
+        depname = _env(f"UAGENT_OPENAI_{mode.upper()}_DEPNAME", default_model)
+        return provider, depname
+
+    if not _google_audio_credentials_present(provider, mode):
+        return None
+    depname = _env_first(
+        [f"UAGENT_GEMINI_{mode.upper()}_DEPNAME", "UAGENT_GEMINI_MODEL"],
+        default=default_google_model,
+    )
+    return provider, depname
+
+
+def _img_env(
+    provider: str, mode: str, name: str, *, include_global: bool = False
+) -> str:
+    p = provider.upper()
+    m = mode.upper()
+    n = name.upper()
+    keys: list[str] = []
+    if include_global:
+        keys.append(f"UAGENT_IMG_{m}_{n}")
+    keys.extend([f"UAGENT_{p}_IMG_{m}_{n}", f"UAGENT_{p}_{n}"])
+    return _env_first(keys)
+
+
+def _image_generation_model_info() -> tuple[str, str] | None:
+    provider = _env_first(
+        ["UAGENT_IMG_GENERATE_PROVIDER", "UAGENT_PROVIDER"], default="azure"
+    ).lower()
+    if provider not in {
+        "azure",
+        "openai",
+        "bedrock",
+        "openrouter",
+        "gemini",
+        "nvidia",
+        "vertexai",
+    }:
+        return None
+
+    depname = _img_env(provider, "generate", "depname")
+    if not depname:
+        return None
+
+    if provider == "azure":
+        if not (
+            _img_env("azure", "generate", "base_url")
+            and _img_env("azure", "generate", "api_key")
+            and _img_env("azure", "generate", "api_version")
+        ):
+            return None
+    elif provider == "bedrock":
+        if not (
+            _img_env("bedrock", "generate", "base_url")
+            and _img_env("bedrock", "generate", "api_key")
+        ):
+            return None
+    elif provider in {"openai", "openrouter", "gemini", "nvidia"}:
+        if not _img_env(provider, "generate", "api_key"):
+            return None
+
+    return provider, depname
+
+
+def _image_analysis_model_info() -> tuple[str, str] | None:
+    provider = _env_first(["UAGENT_IMG_ANALYSIS_PROVIDER", "UAGENT_PROVIDER"]).lower()
+    if provider not in {"openai", "azure", "gemini", "vertexai", "ollama"}:
+        return None
+
+    if provider == "ollama":
+        if _env("UAGENT_PROVIDER").lower() != "ollama":
+            return None
+        return provider, _env("UAGENT_OLLAMA_DEPNAME", "llama3.1") or "llama3.1"
+
+    include_global = provider in {"openai", "azure"}
+    depname = _img_env(provider, "analysis", "depname", include_global=include_global)
+    if provider in {"gemini", "vertexai"} and not depname:
+        depname = "gemini-1.5-flash"
+    if not depname:
+        return None
+
+    if provider == "azure":
+        if not (
+            _img_env("azure", "analysis", "base_url", include_global=True)
+            and _img_env("azure", "analysis", "api_key", include_global=True)
+            and _img_env("azure", "analysis", "api_version", include_global=True)
+        ):
+            return None
+    elif provider == "openai":
+        if not _img_env("openai", "analysis", "api_key", include_global=True):
+            return None
+    elif provider == "gemini":
+        if not (
+            _img_env("gemini", "analysis", "api_key") or _env("UAGENT_GEMINI_API_KEY")
+        ):
+            return None
+    elif provider == "vertexai":
+        if not (
+            _img_env("vertexai", "analysis", "api_key")
+            or _env("UAGENT_VERTEXAI_API_KEY")
+        ):
+            return None
+
+    return provider, depname
+
+
+def _startup_optional_model_infos() -> list[tuple[str, str, str]]:
+    infos: list[tuple[str, str, str]] = []
+    resolvers = [
+        ("embedding", _embedding_model_info),
+        ("audio speech", lambda: _audio_model_info("speech")),
+        ("audio transcribe", lambda: _audio_model_info("transcribe")),
+        ("image generation", _image_generation_model_info),
+        ("image analysis", _image_analysis_model_info),
+    ]
+    for label, resolver in resolvers:
+        try:
+            resolved = resolver()
+        except Exception:
+            resolved = None
+        if resolved:
+            provider, model = resolved
+            infos.append((label, provider, model))
+    return infos
+
+
 def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str:
     """Build startup info lines as a single text block."""
 
@@ -59,6 +274,9 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             f"project={env_get('UAGENT_VERTEXAI_PROJECT', '(not set)')}, "
             f"location={env_get('UAGENT_VERTEXAI_LOCATION', '(not set)')}"
         )
+
+    for label, opt_provider, model in _startup_optional_model_infos():
+        lines.append(f"[INFO] {label} = {opt_provider}; model = {model}")
 
     _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
