@@ -506,9 +506,8 @@ def run_agent_worker(
         room.add_message(
             {
                 "role": "assistant",
-                "content": "[WARN] "
-                + _(
-                    "Another task is already running in this room. Please retry after it completes."
+                "content": _(
+                    "[WARN] Another task is already running in this room. Please retry after it completes."
                 ),
             }
         )
@@ -599,9 +598,8 @@ def run_agent_worker(
             room.add_message(
                 {
                     "role": "assistant",
-                    "content": "[FATAL] "
-                    + _(
-                        "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
+                    "content": _(
+                        "[FATAL] Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
                     ),
                 }
             )
@@ -669,7 +667,7 @@ def run_agent_worker(
             from .tools import long_memory as personal_long_memory
             from .tools import shared_memory
 
-            print("[INFO] " + _("Loaded long-term memory."))
+            print(_("[INFO] Loaded long-term memory."))
             try:
                 before_len = len(room.history)
                 flags = _runtime_init.append_long_memory_system_messages(
@@ -681,16 +679,15 @@ def run_agent_worker(
                 )
 
                 if flags.get("shared_enabled"):
-                    print("[INFO] " + _("Loaded shared long-term memory."))
+                    print(_("[INFO] Loaded shared long-term memory."))
 
                 for m in room.history[before_len:]:
                     core.log_message(m)
 
             except Exception as e:
                 print(
-                    "[WARN] "
-                    + _(
-                        "Exception occurred while loading shared long-term memory: %(err)s"
+                    _(
+                        "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
                     )
                     % {"err": e}
                 )
@@ -717,10 +714,10 @@ def run_agent_worker(
         except Exception:
             tb = ""
 
-        msg = "[FATAL] Web worker error.\n" + err
+        msg = _("[FATAL] Web worker error.\n%(err)s") % {"err": err}
         if isinstance(e, SystemExit) and not (env_get("UAGENT_PROVIDER") or "").strip():
-            msg = "[FATAL] " + _(
-                "Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
+            msg = _(
+                "[FATAL] Environment variable UAGENT_PROVIDER is not set.\nPlease check environment variables when starting the web server."
             )
         if tb and tb != "NoneType: None\n":
             msg = msg + "\n\n" + tb

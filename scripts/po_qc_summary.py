@@ -304,13 +304,7 @@ def main() -> int:
                     problems["ascii_nonkey"].append(mid)
 
                 en_str = en_map.get(mid)
-                if (
-                    mst
-                    and en_str
-                    and mst == en_str
-                    and mst != mid
-                    and (not _is_key_like(mst))
-                ):
+                if mst and en_str and mst == en_str:
                     problems["same_as_en"].append(mid)
 
             _ = PYFMT_RE.findall(mid)

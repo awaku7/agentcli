@@ -316,8 +316,8 @@ def get_tool_specs() -> List[Dict[str, Any]]:
 
 
 _CATALOG_JA_EN_KEYWORDS: Dict[str, List[str]] = {
-    "skill": ["skill", "skills", "スキル", "skill.md"],
-    "weather": ["weather", "天気", "気象"],
+    "skill": ["skill", "skills", "skill.md"],
+    "weather": ["weather", "meteorology"],
 }
 
 

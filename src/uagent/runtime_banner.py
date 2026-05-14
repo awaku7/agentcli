@@ -228,11 +228,11 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
 def _startup_optional_model_infos() -> list[tuple[str, str, str]]:
     infos: list[tuple[str, str, str]] = []
     resolvers = [
-        ("embedding", _embedding_model_info),
-        ("audio speech", lambda: _audio_model_info("speech")),
-        ("audio transcribe", lambda: _audio_model_info("transcribe")),
-        ("image generation", _image_generation_model_info),
-        ("image analysis", _image_analysis_model_info),
+        (_("embedding"), _embedding_model_info),
+        (_("audio speech"), lambda: _audio_model_info("speech")),
+        (_("audio transcribe"), lambda: _audio_model_info("transcribe")),
+        (_("image generation"), _image_generation_model_info),
+        (_("image analysis"), _image_analysis_model_info),
     ]
     for label, resolver in resolvers:
         try:
@@ -250,50 +250,55 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
 
     lines: List[str] = []
 
-    lines.append(f"[INFO] workdir = {workdir} (source: {workdir_source})")
+    lines.append(_("[INFO] workdir = %(workdir)s (source: %(source)s)") % {"workdir": workdir, "source": workdir_source})
 
     provider = (env_get("UAGENT_PROVIDER", "(unknown)") or "(unknown)").lower()
-    lines.append(f"[INFO] provider = {provider}")
+
 
     if provider == "azure":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_AZURE_BASE_URL', '(not set)'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_AZURE_BASE_URL', '(not set)'))}
         )
         lines.append(
-            f"[INFO] api_version = {env_get('UAGENT_AZURE_API_VERSION', '(not set)')}"
+            _("[INFO] api_version = %(api_version)s") % {"api_version": env_get('UAGENT_AZURE_API_VERSION', '(not set)')}
         )
     elif provider == "openai":
         val = env_get("UAGENT_OPENAI_BASE_URL") or "https://api.openai.com/v1"
-        lines.append(f"[INFO] base_url = {_normalize_url(core, val)}")
+        lines.append(_("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, val)})
     elif provider == "nvidia":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}
         )
     elif provider == "openrouter":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'))}
         )
     elif provider == "grok":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}
         )
     elif provider == "bedrock":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_BEDROCK_BASE_URL', '(not set)'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_BEDROCK_BASE_URL', '(not set)'))}
         )
     elif provider == "ollama":
         lines.append(
-            f"[INFO] base_url = {_normalize_url(core, env_get('UAGENT_OLLAMA_BASE_URL', 'http://localhost:11434/v1'))}"
+            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_OLLAMA_BASE_URL', 'http://localhost:11434/v1'))}
         )
     elif provider == "vertexai":
         lines.append(
-            "[INFO] vertexai = "
-            f"project={env_get('UAGENT_VERTEXAI_PROJECT', '(not set)')}, "
-            f"location={env_get('UAGENT_VERTEXAI_LOCATION', '(not set)')}"
+            _("[INFO] vertexai = project=%(project)s, location=%(location)s")
+            % {
+                "project": env_get('UAGENT_VERTEXAI_PROJECT', '(not set)'),
+                "location": env_get('UAGENT_VERTEXAI_LOCATION', '(not set)'),
+            }
         )
 
     for label, opt_provider, model in _startup_optional_model_infos():
-        lines.append(f"[INFO] {label} = {opt_provider}; model = {model}")
+        lines.append(
+            _("[INFO] %(label)s = %(provider)s; model = %(model)s")
+            % {"label": label, "provider": opt_provider, "model": model}
+        )
 
     _use_responses_flag = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
         "1",
@@ -328,12 +333,12 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         + _("LLM API mode = %(mode)s")
         % {
             "mode": (
-                "Responses (UAGENT_RESPONSES is enabled)"
+                _("Responses (UAGENT_RESPONSES is enabled)")
                 if _use_responses_flag and _responses_supported
                 else (
-                    "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+                    _("Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)")
                     if provider in ("gemini", "claude", "vertexai")
-                    else "ChatCompletions (UAGENT_RESPONSES is disabled)"
+                    else _("ChatCompletions (UAGENT_RESPONSES is disabled)")
                 )
             )
         }
@@ -342,7 +347,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     lines.append(
         "[INFO] "
         + _("LLM streaming = %(state)s")
-        % {"state": "enabled" if _streaming_flag else "disabled"}
+        % {"state": _("enabled") if _streaming_flag else _("disabled")}
     )
 
     return "\n".join(lines) + "\n"

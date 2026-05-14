@@ -158,10 +158,10 @@ def run_cli_startup(
 
             print(
                 "[INFO] "
-                + (
+                + _(
                     "provider = %(provider)s; model = %(model)s"
-                    % {"provider": provider, "model": depname or ""}
                 )
+                % {"provider": provider, "model": depname or ""}
             )
 
             if (
@@ -176,7 +176,7 @@ def run_cli_startup(
 
             try:
                 cwd = os.getcwd()
-                print("[INFO] " + ("current workdir = %(cwd)s" % {"cwd": cwd}))
+                print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
 

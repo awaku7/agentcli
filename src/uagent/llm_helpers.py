@@ -75,18 +75,18 @@ def _is_thinking_task(user_text: str) -> bool:
         "pros",
         "cons",
         "root cause",
-        "原因",
-        "調査",
-        "分析",
-        "設計",
-        "比較",
-        "方針",
-        "戦略",
-        "最適化",
-        "デバッグ",
-        "実装",
-        "修正",
-        "改善",
+        "root cause",
+        "investigation",
+        "analysis",
+        "design",
+        "comparison",
+        "policy",
+        "strategy",
+        "optimization",
+        "debugging",
+        "implementation",
+        "fix",
+        "improvement",
     )
     if any(k in t for k in keywords):
         return True
@@ -147,7 +147,7 @@ def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
         r"\b(i\s+can't\s+help\s+with|i\s+cannot\s+help\s+with|i\s+can't\s+assist|i\s+cannot\s+assist)\b",
         r"\b(i\s+can't\s+comply|i\s+cannot\s+comply|not\s+able\s+to\s+comply)\b",
         r"\b(sorry,?\s+i\s+(can't|cannot))\b",
-        r"(わかりません|分かりません|できません|出来ません|不明です|わからない|無理です)",
+        r"(i\s*(?:can't|cannot)|unable\s+to|won't|i\s+don't\s+know|not\s+sure|unknown|no\s+idea)",
     )
 
     for pat in refusal_patterns:

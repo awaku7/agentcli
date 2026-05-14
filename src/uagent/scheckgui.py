@@ -349,7 +349,7 @@ class ScheckWorker(QtCore.QObject):
                         if getattr(result, "run_llm", False):
                             prompt = (
                                 getattr(result, "prompt", None)
-                                or "読み込んだスキルを実行して"
+                                or "Run the loaded skill."
                             )
                             m = {"role": "user", "content": prompt}
                             self.messages.append(m)
@@ -1571,7 +1571,7 @@ def main():
         "--workdir",
         "-C",
         dest="workdir",
-        help="動作ディレクトリを指定します。指定しない場合は UAGENT_WORKDIR 環境変数、またはカレントディレクトリを使用します。",
+        help="Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory.",
     )
     args, unknown = parser.parse_known_args()
 

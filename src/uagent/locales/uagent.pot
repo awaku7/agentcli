@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-13 15:16+0900\n"
+"POT-Creation-Date: 2026-05-14 18:06+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,76 +38,76 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr ""
 
-#: src/uagent/cli.py:366
+#: src/uagent/cli.py:365
 msgid "getch() fallback to input()"
 msgstr ""
 
-#: src/uagent/cli.py:565
+#: src/uagent/cli.py:564
 msgid "Input cancelled (will be sent as a reply to human_ask)."
 msgstr ""
 
-#: src/uagent/cli.py:573
+#: src/uagent/cli.py:572
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr ""
 
-#: src/uagent/cli.py:580
+#: src/uagent/cli.py:579
 #, python-format
 msgid "Unexpected error in stdin_loop: %(err)s"
 msgstr ""
 
-#: src/uagent/cli.py:606 src/uagent/cli.py:676
+#: src/uagent/cli.py:605 src/uagent/cli.py:675
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type"
 " \"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr ""
 
-#: src/uagent/cli.py:636 src/uagent/setup_cli.py:1089
-#: src/uagent/setup_cli.py:1108 src/uagent/setup_cli.py:1131
-#: src/uagent/setup_cli.py:1147 src/uagent/setup_cli.py:1166
-#: src/uagent/setup_cli.py:1185 src/uagent/setup_cli.py:1199
-#: src/uagent/setup_cli.py:1212 src/uagent/setup_cli.py:1220
-#: src/uagent/setup_cli.py:1233 src/uagent/setup_cli.py:1245
-#: src/uagent/setup_cli.py:1256 src/uagent/setup_cli.py:1342
-#: src/uagent/setup_cli.py:1368
+#: src/uagent/cli.py:635 src/uagent/setup_cli.py:1127
+#: src/uagent/setup_cli.py:1146 src/uagent/setup_cli.py:1169
+#: src/uagent/setup_cli.py:1185 src/uagent/setup_cli.py:1204
+#: src/uagent/setup_cli.py:1223 src/uagent/setup_cli.py:1237
+#: src/uagent/setup_cli.py:1250 src/uagent/setup_cli.py:1258
+#: src/uagent/setup_cli.py:1271 src/uagent/setup_cli.py:1283
+#: src/uagent/setup_cli.py:1294 src/uagent/setup_cli.py:1380
+#: src/uagent/setup_cli.py:1406
 msgid "Cancelled."
 msgstr ""
 
-#: src/uagent/cli.py:642 src/uagent/cli.py:692
+#: src/uagent/cli.py:641 src/uagent/cli.py:691
 msgid "Discarded previous input. Please start over."
 msgstr ""
 
-#: src/uagent/cli.py:653
+#: src/uagent/cli.py:652
 msgid "Received multiline reply."
 msgstr ""
 
-#: src/uagent/cli.py:813
+#: src/uagent/cli.py:812
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
 "\n"
 msgstr ""
 
-#: src/uagent/cli.py:819
+#: src/uagent/cli.py:818
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 
-#: src/uagent/cli.py:834
+#: src/uagent/cli.py:832
 #, python-format
 msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/cli.py:862 src/uagent/scheckgui.py:430
+#: src/uagent/cli.py:860 src/uagent/scheckgui.py:430
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr ""
 
-#: src/uagent/cli.py:899
+#: src/uagent/cli.py:897
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr ""
 
-#: src/uagent/cli.py:917
+#: src/uagent/cli.py:915
 msgid "Exited uag."
 msgstr ""
 
@@ -115,46 +115,54 @@ msgstr ""
 msgid "[docs] name is required"
 msgstr ""
 
-#: src/uagent/cli_startup.py:111 src/uagent/web.py:980
+#: src/uagent/cli_startup.py:91 src/uagent/web.py:978
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr ""
 
-#: src/uagent/cli_startup.py:137
+#: src/uagent/cli_startup.py:120
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr ""
 
-#: src/uagent/cli_startup.py:177 src/uagent/scheckgui.py:295
+#: src/uagent/cli_startup.py:162
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr ""
+
+#: src/uagent/cli_startup.py:175 src/uagent/scheckgui.py:295
 msgid "OpenRouter fallback models enabled."
 msgstr ""
 
-#: src/uagent/cli_startup.py:188 src/uagent/scheckgui.py:306
-#: src/uagent/web.py:672
+#: src/uagent/cli_startup.py:179
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr ""
+
+#: src/uagent/cli_startup.py:186 src/uagent/scheckgui.py:306
 msgid "Loaded long-term memory."
 msgstr ""
 
-#: src/uagent/cli_startup.py:201 src/uagent/scheckgui.py:319
-#: src/uagent/web.py:684
+#: src/uagent/cli_startup.py:199 src/uagent/scheckgui.py:319
 msgid "Loaded shared long-term memory."
 msgstr ""
 
-#: src/uagent/cli_startup.py:208
+#: src/uagent/cli_startup.py:206 src/uagent/web.py:690
 #, python-format
 msgid "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 
-#: src/uagent/cli_startup.py:242
+#: src/uagent/cli_startup.py:240
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr ""
 
-#: src/uagent/cli_startup.py:256
+#: src/uagent/cli_startup.py:254
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr ""
 
-#: src/uagent/cli_startup.py:279
+#: src/uagent/cli_startup.py:277
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr ""
 
@@ -404,12 +412,49 @@ msgid ""
 "retry_after=%(retry_after)s"
 msgstr ""
 
+#: src/uagent/llm_flow_helpers.py:127
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+
+#: src/uagent/llm_flow_helpers.py:139
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s "
+"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)"
+"\n"
+"This may happen with OpenAI-compatible local providers after tool calls. "
+"You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or "
+"switching provider."
+msgstr ""
+
+#: src/uagent/llm_flow_helpers.py:211
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an "
+"earlier one.\n"
+msgstr ""
+
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr ""
 
-#: src/uagent/llm_openai_responses.py:143
+#: src/uagent/llm_openai_responses.py:63
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+
+#: src/uagent/llm_openai_responses.py:85
+msgid "[WARN] invalid image content (missing url)."
+msgstr ""
+
+#: src/uagent/llm_openai_responses.py:93 src/uagent/llm_openai_responses.py:101
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr ""
+
+#: src/uagent/llm_openai_responses.py:144
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -448,73 +493,146 @@ msgstr ""
 msgid "Error while parsing response: %(err)s"
 msgstr ""
 
-#: src/uagent/runtime_banner.py:86
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:253
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:260 src/uagent/runtime_banner.py:267
+#: src/uagent/runtime_banner.py:270 src/uagent/runtime_banner.py:274
+#: src/uagent/runtime_banner.py:278 src/uagent/runtime_banner.py:282
+#: src/uagent/runtime_banner.py:286
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:263
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:290
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:299
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:326
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
 
-#: src/uagent/runtime_banner.py:93
+#: src/uagent/runtime_banner.py:333
 #, python-format
 msgid "LLM API mode = %(mode)s"
 msgstr ""
 
-#: src/uagent/runtime_banner.py:109
+#: src/uagent/runtime_banner.py:336
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:339
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:341
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:349
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr ""
 
-#: src/uagent/runtime_env.py:169
+#: src/uagent/runtime_banner.py:350
+msgid "enabled"
+msgstr ""
+
+#: src/uagent/runtime_banner.py:350
+msgid "disabled"
+msgstr ""
+
+#: src/uagent/runtime_env.py:166
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Update it? [y/N] "
 msgstr ""
 
-#: src/uagent/runtime_env.py:186
+#: src/uagent/runtime_env.py:182
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
 msgstr ""
 
-#: src/uagent/runtime_env.py:199
+#: src/uagent/runtime_env.py:194
 #, python-format
 msgid "Updated .env.sec: %(path)s"
 msgstr ""
 
-#: src/uagent/runtime_env.py:203
+#: src/uagent/runtime_env.py:198
 #, python-format
 msgid "[WARN] Failed to update .env.sec: %(err)s"
 msgstr ""
 
-#: src/uagent/runtime_env.py:213
+#: src/uagent/runtime_env.py:208
 msgid ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
 "environment variables? [y/N] "
 msgstr ""
 
-#: src/uagent/runtime_env.py:229
+#: src/uagent/runtime_env.py:224
 msgid ""
 "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the "
 "current startup UAGENT_* environment variables."
 msgstr ""
 
-#: src/uagent/runtime_env.py:239
+#: src/uagent/runtime_env.py:234
 #, python-format
 msgid "Created .env.sec: %(path)s"
 msgstr ""
 
-#: src/uagent/runtime_env.py:243
+#: src/uagent/runtime_env.py:238
 #, python-format
 msgid "[WARN] Failed to create .env.sec: %(err)s"
 msgstr ""
 
-#: src/uagent/runtime_env.py:264
+#: src/uagent/runtime_env.py:259
 #, python-brace-format
 msgid "[WARN] {message}"
 msgstr ""
 
-#: src/uagent/runtime_init.py:60
+#: src/uagent/runtime_env.py:272
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr ""
+
+#: src/uagent/runtime_init.py:83
 #, python-format
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr ""
@@ -532,7 +650,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: src/uagent/scheckgui.py:328 src/uagent/web.py:693
+#: src/uagent/scheckgui.py:328
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
@@ -635,13 +753,13 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:479
-#: src/uagent/setup_cli.py:569
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
 msgid "OpenAI API key"
 msgstr ""
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:480
-#: src/uagent/setup_cli.py:570
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
 msgid "OpenAI base URL (optional)"
 msgstr ""
 
@@ -649,13 +767,13 @@ msgstr ""
 msgid "OpenAI model/deployment name (optional)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:471
-#: src/uagent/setup_cli.py:557
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:473
-#: src/uagent/setup_cli.py:559
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
 msgid "Azure API key"
 msgstr ""
 
@@ -663,31 +781,31 @@ msgstr ""
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:475
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
 msgid "Azure deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:488
-#: src/uagent/setup_cli.py:578
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:490
-#: src/uagent/setup_cli.py:580
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
 msgid "Bedrock API key"
 msgstr ""
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:494
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:499
-#: src/uagent/setup_cli.py:589
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
 msgid "OpenRouter API key"
 msgstr ""
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:500
-#: src/uagent/setup_cli.py:590
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
 msgid "OpenRouter base URL (optional)"
 msgstr ""
 
@@ -699,7 +817,7 @@ msgstr ""
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:505
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
 msgid "Gemini API key"
 msgstr ""
 
@@ -751,13 +869,13 @@ msgstr ""
 msgid "Claude model/deployment name (optional)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:510
-#: src/uagent/setup_cli.py:604
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
 msgid "NVIDIA API key"
 msgstr ""
 
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:511
-#: src/uagent/setup_cli.py:605
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
 msgid "NVIDIA base URL (optional)"
 msgstr ""
 
@@ -765,7 +883,7 @@ msgstr ""
 msgid "NVIDIA model/deployment name (optional)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:598
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr ""
 
@@ -809,312 +927,332 @@ msgstr ""
 msgid "Ollama num_predict (default: 1024)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:342 src/uagent/setup_cli.py:431
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
 msgid "Enter number:"
 msgstr ""
 
-#: src/uagent/setup_cli.py:355
+#: src/uagent/setup_cli.py:358
 msgid "Invalid input. Please enter a valid number."
 msgstr ""
 
-#: src/uagent/setup_cli.py:368
+#: src/uagent/setup_cli.py:371
 #, python-format
 msgid " [default: %(default)s]"
 msgstr ""
 
-#: src/uagent/setup_cli.py:384
+#: src/uagent/setup_cli.py:387
 msgid "This field is required. Please enter a value."
 msgstr ""
 
-#: src/uagent/setup_cli.py:396
+#: src/uagent/setup_cli.py:399
 msgid "Select UAGENT_LANG"
 msgstr ""
 
-#: src/uagent/setup_cli.py:407
+#: src/uagent/setup_cli.py:410
 msgid "UAGENT_LANG (custom)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:420
+#: src/uagent/setup_cli.py:423
 msgid "Select output files to generate in the current directory"
 msgstr ""
 
-#: src/uagent/setup_cli.py:421
+#: src/uagent/setup_cli.py:424
 msgid "  1. .env only"
 msgstr ""
 
-#: src/uagent/setup_cli.py:425
+#: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:446
+#: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr ""
 
-#: src/uagent/setup_cli.py:474 src/uagent/setup_cli.py:563
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:481
+#: src/uagent/setup_cli.py:484
 msgid "OpenAI model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:501
+#: src/uagent/setup_cli.py:504
 msgid "OpenRouter model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:506
+#: src/uagent/setup_cli.py:509
 msgid "Gemini model name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:512
+#: src/uagent/setup_cli.py:515
 msgid "NVIDIA model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:531
+#: src/uagent/setup_cli.py:534
 msgid "Enable image generation debug output? (0/1)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:565
+#: src/uagent/setup_cli.py:568
 msgid "Azure embedding deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:571
+#: src/uagent/setup_cli.py:574
 msgid "OpenAI embedding model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:584
+#: src/uagent/setup_cli.py:587
 msgid "Bedrock embedding model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:591
+#: src/uagent/setup_cli.py:594
 msgid "OpenRouter embedding model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:600
+#: src/uagent/setup_cli.py:603
 msgid "Ollama embedding model name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:606
+#: src/uagent/setup_cli.py:609
 msgid "NVIDIA embedding model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:637
+#: src/uagent/setup_cli.py:657
 msgid "Azure speech deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:638
+#: src/uagent/setup_cli.py:658
 msgid "Azure transcription deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:642
+#: src/uagent/setup_cli.py:659
 msgid "OpenAI speech model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:646
+#: src/uagent/setup_cli.py:660
 msgid "OpenAI transcription model/deployment name"
 msgstr ""
 
-#: src/uagent/setup_cli.py:673
+#: src/uagent/setup_cli.py:661
+msgid "Gemini speech model name (optional)"
+msgstr ""
+
+#: src/uagent/setup_cli.py:662
+msgid "Gemini transcription model name (optional)"
+msgstr ""
+
+#: src/uagent/setup_cli.py:663
+msgid "Vertex AI speech model name (optional)"
+msgstr ""
+
+#: src/uagent/setup_cli.py:664
+msgid "Vertex AI transcription model name (optional)"
+msgstr ""
+
+#: src/uagent/setup_cli.py:687
 msgid "Configure optional image / embedding / audio settings?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:674 src/uagent/setup_cli.py:689
-#: src/uagent/setup_cli.py:721 src/uagent/setup_cli.py:752
-#: src/uagent/setup_cli.py:768 src/uagent/setup_cli.py:814
-#: src/uagent/setup_cli.py:851 src/uagent/setup_cli.py:1065
-#: src/uagent/setup_cli.py:1126 src/uagent/setup_cli.py:1180
-#: src/uagent/setup_cli.py:1207 src/uagent/setup_cli.py:1228
-#: src/uagent/setup_cli.py:1365
+#: src/uagent/setup_cli.py:688 src/uagent/setup_cli.py:703
+#: src/uagent/setup_cli.py:735 src/uagent/setup_cli.py:766
+#: src/uagent/setup_cli.py:782 src/uagent/setup_cli.py:828
+#: src/uagent/setup_cli.py:887 src/uagent/setup_cli.py:1103
+#: src/uagent/setup_cli.py:1164 src/uagent/setup_cli.py:1218
+#: src/uagent/setup_cli.py:1245 src/uagent/setup_cli.py:1266
+#: src/uagent/setup_cli.py:1403
 msgid "No"
 msgstr ""
 
-#: src/uagent/setup_cli.py:674 src/uagent/setup_cli.py:689
-#: src/uagent/setup_cli.py:721 src/uagent/setup_cli.py:752
-#: src/uagent/setup_cli.py:768 src/uagent/setup_cli.py:814
-#: src/uagent/setup_cli.py:851 src/uagent/setup_cli.py:1065
-#: src/uagent/setup_cli.py:1126 src/uagent/setup_cli.py:1180
-#: src/uagent/setup_cli.py:1207 src/uagent/setup_cli.py:1228
-#: src/uagent/setup_cli.py:1365
+#: src/uagent/setup_cli.py:688 src/uagent/setup_cli.py:703
+#: src/uagent/setup_cli.py:735 src/uagent/setup_cli.py:766
+#: src/uagent/setup_cli.py:782 src/uagent/setup_cli.py:828
+#: src/uagent/setup_cli.py:887 src/uagent/setup_cli.py:1103
+#: src/uagent/setup_cli.py:1164 src/uagent/setup_cli.py:1218
+#: src/uagent/setup_cli.py:1245 src/uagent/setup_cli.py:1266
+#: src/uagent/setup_cli.py:1403
 msgid "Yes"
 msgstr ""
 
-#: src/uagent/setup_cli.py:688
+#: src/uagent/setup_cli.py:702
 msgid "Configure image analysis settings?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:699
+#: src/uagent/setup_cli.py:713
 msgid "Select image analysis provider"
 msgstr ""
 
-#: src/uagent/setup_cli.py:720
+#: src/uagent/setup_cli.py:734
 msgid "Configure image generation settings?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:731
+#: src/uagent/setup_cli.py:745
 msgid "Select image generation provider"
 msgstr ""
 
-#: src/uagent/setup_cli.py:751
+#: src/uagent/setup_cli.py:765
 msgid "Open generated images automatically?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:767
+#: src/uagent/setup_cli.py:781
 msgid "Configure embedding / semantic search settings?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:791
+#: src/uagent/setup_cli.py:805
 msgid "Select embedding provider"
 msgstr ""
 
-#: src/uagent/setup_cli.py:813
+#: src/uagent/setup_cli.py:827
 msgid "Configure audio speech / transcription settings?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:831
-msgid "Select audio provider"
+#: src/uagent/setup_cli.py:846
+msgid "Select audio speech provider"
 msgstr ""
 
-#: src/uagent/setup_cli.py:850
+#: src/uagent/setup_cli.py:866
+msgid "Select audio transcribe provider"
+msgstr ""
+
+#: src/uagent/setup_cli.py:886
 msgid "Open generated audio automatically?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:917
+#: src/uagent/setup_cli.py:953
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr ""
 
-#: src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:966
 msgid "Optional runtime"
 msgstr ""
 
-#: src/uagent/setup_cli.py:944
+#: src/uagent/setup_cli.py:980
 msgid "Optional image / embedding / audio settings"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1064
+#: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1070
+#: src/uagent/setup_cli.py:1108
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1086
+#: src/uagent/setup_cli.py:1124
 msgid "Select provider"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1125
+#: src/uagent/setup_cli.py:1163
 msgid "Enable Responses API options?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1141
+#: src/uagent/setup_cli.py:1179
 msgid "Select reasoning"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1160
+#: src/uagent/setup_cli.py:1198
 msgid "Select verbosity"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1179
+#: src/uagent/setup_cli.py:1217
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1206
+#: src/uagent/setup_cli.py:1244
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1227
+#: src/uagent/setup_cli.py:1265
 msgid "Enable streaming?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1268
+#: src/uagent/setup_cli.py:1306
 msgid "Summary"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1269
+#: src/uagent/setup_cli.py:1307
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1276
+#: src/uagent/setup_cli.py:1314
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1277 src/uagent/setup_cli.py:1284
-#: src/uagent/setup_cli.py:1288 src/uagent/setup_cli.py:1294
-#: src/uagent/setup_cli.py:1300 src/uagent/setup_cli.py:1305
-#: src/uagent/setup_cli.py:1313 src/uagent/setup_cli.py:1324
+#: src/uagent/setup_cli.py:1315 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1326 src/uagent/setup_cli.py:1332
+#: src/uagent/setup_cli.py:1338 src/uagent/setup_cli.py:1343
+#: src/uagent/setup_cli.py:1351 src/uagent/setup_cli.py:1362
 msgid "yes"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1277 src/uagent/setup_cli.py:1284
-#: src/uagent/setup_cli.py:1288 src/uagent/setup_cli.py:1294
-#: src/uagent/setup_cli.py:1300 src/uagent/setup_cli.py:1305
-#: src/uagent/setup_cli.py:1313 src/uagent/setup_cli.py:1324
+#: src/uagent/setup_cli.py:1315 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1326 src/uagent/setup_cli.py:1332
+#: src/uagent/setup_cli.py:1338 src/uagent/setup_cli.py:1343
+#: src/uagent/setup_cli.py:1351 src/uagent/setup_cli.py:1362
 msgid "no"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1283
+#: src/uagent/setup_cli.py:1321
 #, python-format
 msgid "  Streaming enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1299
+#: src/uagent/setup_cli.py:1337
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1304
+#: src/uagent/setup_cli.py:1342
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1312
+#: src/uagent/setup_cli.py:1350
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1323
+#: src/uagent/setup_cli.py:1361
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1333
+#: src/uagent/setup_cli.py:1371
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1336
+#: src/uagent/setup_cli.py:1374
 msgid "Generate files with this configuration?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1337
+#: src/uagent/setup_cli.py:1375
 msgid "Yes, generate"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1337
+#: src/uagent/setup_cli.py:1375
 msgid "Back"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1361
+#: src/uagent/setup_cli.py:1399
 msgid "The following files already exist and will be overwritten:"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1365
+#: src/uagent/setup_cli.py:1403
 msgid "Proceed?"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1389
+#: src/uagent/setup_cli.py:1427
 msgid "Plain .env file removed after encryption."
 msgstr ""
 
-#: src/uagent/setup_cli.py:1392
+#: src/uagent/setup_cli.py:1430
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr ""
 
-#: src/uagent/setup_cli.py:1411
+#: src/uagent/setup_cli.py:1449
 #, python-format
 msgid "generated: %(path)s"
 msgstr ""
@@ -1183,76 +1321,68 @@ msgstr ""
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:640 src/uagent/util_tools.py:649
+#: src/uagent/util_tools.py:643 src/uagent/util_tools.py:655
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:655
+#: src/uagent/util_tools.py:664
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:659
+#: src/uagent/util_tools.py:671
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:686
+#: src/uagent/util_tools.py:700
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:691
+#: src/uagent/util_tools.py:708
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:698
+#: src/uagent/util_tools.py:718
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:702
+#: src/uagent/util_tools.py:725
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:739
+#: src/uagent/util_tools.py:763
 #, python-format
 msgid "[head] Invalid line count: %(n)r"
 msgstr ""
 
-#: src/uagent/util_tools.py:763
-msgid "[head] Unexpected response."
-msgstr ""
-
-#: src/uagent/util_tools.py:766
+#: src/uagent/util_tools.py:792
 msgid "[head] Failed."
 msgstr ""
 
-#: src/uagent/util_tools.py:772
+#: src/uagent/util_tools.py:800
 msgid "[head] Empty."
 msgstr ""
 
-#: src/uagent/util_tools.py:809
+#: src/uagent/util_tools.py:837
 #, python-format
 msgid "[tail] Invalid line count: %(n)r"
 msgstr ""
 
-#: src/uagent/util_tools.py:833
-msgid "[tail] Unexpected response."
-msgstr ""
-
-#: src/uagent/util_tools.py:836
+#: src/uagent/util_tools.py:866
 msgid "[tail] Failed."
 msgstr ""
 
-#: src/uagent/util_tools.py:842
+#: src/uagent/util_tools.py:874
 msgid "[tail] Empty."
 msgstr ""
 
-#: src/uagent/util_tools.py:938
+#: src/uagent/util_tools.py:970
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and "
@@ -1261,66 +1391,66 @@ msgid ""
 "Use tools as needed.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:945
+#: src/uagent/util_tools.py:977
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:997
+#: src/uagent/util_tools.py:1029
 msgid "[skills] No active skill messages to clear."
 msgstr ""
 
-#: src/uagent/util_tools.py:1000
+#: src/uagent/util_tools.py:1032
 #, python-format
 msgid "[skills] Cleared %(n)d skill message(s)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1023
+#: src/uagent/util_tools.py:1055
 msgid "[skills] No active skills."
 msgstr ""
 
-#: src/uagent/util_tools.py:1026
+#: src/uagent/util_tools.py:1058
 #, python-format
 msgid "[skills] Active skills: %(n)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1054
+#: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
 msgstr ""
 
-#: src/uagent/util_tools.py:1065 src/uagent/util_tools.py:1101
+#: src/uagent/util_tools.py:1097 src/uagent/util_tools.py:1133
 #, python-format
 msgid "[skills] Out of range: %(n)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1070
+#: src/uagent/util_tools.py:1102
 #, python-format
 msgid "[skills] Found %(n)d skills"
 msgstr ""
 
-#: src/uagent/util_tools.py:1081
+#: src/uagent/util_tools.py:1113
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1094 src/uagent/util_tools.py:1127
+#: src/uagent/util_tools.py:1126 src/uagent/util_tools.py:1159
 msgid "[skills] Cancelled."
 msgstr ""
 
-#: src/uagent/util_tools.py:1097
+#: src/uagent/util_tools.py:1129
 msgid "[skills] Please enter a number or c."
 msgstr ""
 
-#: src/uagent/util_tools.py:1107
+#: src/uagent/util_tools.py:1139
 msgid "[skills] Invalid selection."
 msgstr ""
 
-#: src/uagent/util_tools.py:1113
+#: src/uagent/util_tools.py:1145
 msgid "[skills] Selected skill has no path."
 msgstr ""
 
-#: src/uagent/util_tools.py:1117
+#: src/uagent/util_tools.py:1149
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this "
@@ -1332,29 +1462,29 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1157
+#: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1177
+#: src/uagent/util_tools.py:1209
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1194
+#: src/uagent/util_tools.py:1226
 #, python-format
 msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1211
+#: src/uagent/util_tools.py:1243
 #, python-format
 msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1226
+#: src/uagent/util_tools.py:1258
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1366,38 +1496,38 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1241
+#: src/uagent/util_tools.py:1273
 msgid "[clean] Cancelled."
 msgstr ""
 
-#: src/uagent/util_tools.py:1246
+#: src/uagent/util_tools.py:1278
 #, python-format
 msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1262
+#: src/uagent/util_tools.py:1294
 #, python-format
 msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1280
+#: src/uagent/util_tools.py:1312
 #, python-format
 msgid ""
 "[clean] No logs to delete (threshold=%(threshold)d).\n"
 "Log dir: %(dir)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1289
+#: src/uagent/util_tools.py:1321
 #, python-format
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1303
+#: src/uagent/util_tools.py:1335
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1338
+#: src/uagent/util_tools.py:1370
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log "
@@ -1409,61 +1539,61 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1383
 msgid "[load] Prepend to current log was cancelled."
 msgstr ""
 
-#: src/uagent/util_tools.py:1360
+#: src/uagent/util_tools.py:1392
 #, python-format
 msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1373
+#: src/uagent/util_tools.py:1405
 #, python-format
 msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1393
+#: src/uagent/util_tools.py:1425
 #, python-format
 msgid "[load] Prepended to current log: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1396
+#: src/uagent/util_tools.py:1428
 #, python-format
 msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1403
+#: src/uagent/util_tools.py:1435
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1418
+#: src/uagent/util_tools.py:1450
 #, python-format
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1439
+#: src/uagent/util_tools.py:1471
 msgid "[rm] Unexpected delete_file preview response."
 msgstr ""
 
-#: src/uagent/util_tools.py:1443
+#: src/uagent/util_tools.py:1475
 msgid "[rm] Preview failed."
 msgstr ""
 
-#: src/uagent/util_tools.py:1453
+#: src/uagent/util_tools.py:1485
 msgid "[rm] No matching paths."
 msgstr ""
 
-#: src/uagent/util_tools.py:1455 src/uagent/util_tools.py:1464
+#: src/uagent/util_tools.py:1487 src/uagent/util_tools.py:1496
 msgid "[rm] Missing:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1460
+#: src/uagent/util_tools.py:1492
 msgid "[rm] Candidates:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1469
+#: src/uagent/util_tools.py:1501
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1473,226 +1603,226 @@ msgid ""
 "Enter y to proceed, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1476
+#: src/uagent/util_tools.py:1508
 msgid "[rm] Cancelled."
 msgstr ""
 
-#: src/uagent/util_tools.py:1490
+#: src/uagent/util_tools.py:1522
 msgid "[rm] Unexpected delete_file response."
 msgstr ""
 
-#: src/uagent/util_tools.py:1495
+#: src/uagent/util_tools.py:1527
 #, python-format
 msgid "[rm] Deleted %(count)d path(s)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1499
+#: src/uagent/util_tools.py:1531
 msgid "[rm] Failed."
 msgstr ""
 
-#: src/uagent/util_tools.py:1524
+#: src/uagent/util_tools.py:1556
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr ""
 
-#: src/uagent/util_tools.py:1533
+#: src/uagent/util_tools.py:1565
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1579
+#: src/uagent/util_tools.py:1611
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1580
+#: src/uagent/util_tools.py:1612
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1615
+#: src/uagent/util_tools.py:1647
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1644
+#: src/uagent/util_tools.py:1676
 #, python-format
 msgid "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1665
+#: src/uagent/util_tools.py:1697
 msgid "No long-term memory entries."
 msgstr ""
 
-#: src/uagent/util_tools.py:1668
+#: src/uagent/util_tools.py:1700
 msgid "Long-term memory entries:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1691
+#: src/uagent/util_tools.py:1723
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr ""
 
-#: src/uagent/util_tools.py:1696
+#: src/uagent/util_tools.py:1728
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr ""
 
-#: src/uagent/util_tools.py:1698
+#: src/uagent/util_tools.py:1730
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr ""
 
-#: src/uagent/util_tools.py:1706 src/uagent/util_tools.py:1739
+#: src/uagent/util_tools.py:1738 src/uagent/util_tools.py:1771
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1713
+#: src/uagent/util_tools.py:1745
 msgid "No shared long-term memory entries."
 msgstr ""
 
-#: src/uagent/util_tools.py:1718
+#: src/uagent/util_tools.py:1750
 msgid "Shared long-term memory entries:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1755 src/uagent/util_tools.py:1762
+#: src/uagent/util_tools.py:1787 src/uagent/util_tools.py:1794
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr ""
 
-#: src/uagent/util_tools.py:1776
+#: src/uagent/util_tools.py:1808
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr ""
 
-#: src/uagent/util_tools.py:1791
+#: src/uagent/util_tools.py:1823
 msgid "Show this help"
 msgstr ""
 
-#: src/uagent/util_tools.py:1792
+#: src/uagent/util_tools.py:1824
 msgid "Restart input from the beginning"
 msgstr ""
 
-#: src/uagent/util_tools.py:1793
+#: src/uagent/util_tools.py:1825
 msgid "Show log file list"
 msgstr ""
 
-#: src/uagent/util_tools.py:1796
+#: src/uagent/util_tools.py:1828
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path /"
 " :cd /)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1799
+#: src/uagent/util_tools.py:1831
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1800
+#: src/uagent/util_tools.py:1832
 msgid "List loaded tools"
 msgstr ""
 
-#: src/uagent/util_tools.py:1802
+#: src/uagent/util_tools.py:1834
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1804
+#: src/uagent/util_tools.py:1836
 msgid "Load a past log (overwrites current conversation history)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1806
+#: src/uagent/util_tools.py:1838
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current "
 "session log file (overwrite, no backup)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1810
+#: src/uagent/util_tools.py:1842
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1814
+#: src/uagent/util_tools.py:1846
 msgid "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1818
+#: src/uagent/util_tools.py:1850
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 "
 "system message; keep last N raw; default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1820
+#: src/uagent/util_tools.py:1852
 msgid "List long-term memory notes"
 msgstr ""
 
-#: src/uagent/util_tools.py:1822
+#: src/uagent/util_tools.py:1854
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1856
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1826
+#: src/uagent/util_tools.py:1858
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1828
+#: src/uagent/util_tools.py:1860
 msgid "Show the first n lines of a file (default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1830
+#: src/uagent/util_tools.py:1861
 msgid "Show the last n lines of a file (default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1832
+#: src/uagent/util_tools.py:1863
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr ""
 
-#: src/uagent/util_tools.py:1834
+#: src/uagent/util_tools.py:1865
 msgid "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1867
 msgid "Delete a shared long-term memory note by index"
 msgstr ""
 
-#: src/uagent/util_tools.py:1838
+#: src/uagent/util_tools.py:1869
 msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1840
+#: src/uagent/util_tools.py:1871
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1841
+#: src/uagent/util_tools.py:1872
 msgid "Exit"
 msgstr ""
 
-#: src/uagent/util_tools.py:1844
+#: src/uagent/util_tools.py:1875
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 
-#: src/uagent/util_tools.py:1846
+#: src/uagent/util_tools.py:1877
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly "
 "%(sentinel)s."
 msgstr ""
 
-#: src/uagent/util_tools.py:1952
+#: src/uagent/util_tools.py:1983
 msgid "Exiting."
 msgstr ""
 
-#: src/uagent/util_tools.py:1955
+#: src/uagent/util_tools.py:1986
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2106
+#: src/uagent/util_tools.py:2137
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term "
 "memory (persistent memos). Use them as background information about the "
@@ -1702,16 +1832,31 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/uagent/web.py:511
+#: src/uagent/web.py:510
 msgid ""
-"Another task is already running in this room. Please retry after it "
-"completes."
+"[WARN] Another task is already running in this room. Please retry after "
+"it completes."
 msgstr ""
 
-#: src/uagent/web.py:604 src/uagent/web.py:723
+#: src/uagent/web.py:602 src/uagent/web.py:720
 msgid ""
-"Environment variable UAGENT_PROVIDER is not set.\n"
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
+msgstr ""
+
+#: src/uagent/web.py:670
+msgid "[INFO] Loaded long-term memory."
+msgstr ""
+
+#: src/uagent/web.py:682
+msgid "[INFO] Loaded shared long-term memory."
+msgstr ""
+
+#: src/uagent/web.py:717
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
 msgstr ""
 
 #: src/uagent/welcome.py:27

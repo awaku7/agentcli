@@ -60,7 +60,7 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
                         out.append(
                             {
                                 "type": "output_text",
-                                "text": "[WARN] assistant history contained image content; converted to text.",
+                                "text": _("[WARN] assistant history contained image content; converted to text."),
                             }
                         )
                         continue
@@ -82,7 +82,7 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
                     out.append(
                         {
                             "type": "input_text",
-                            "text": "[WARN] invalid image content (missing url).",
+                            "text": _("[WARN] invalid image content (missing url)."),
                         }
                     )
                     continue
@@ -90,7 +90,7 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
                 out.append(
                     {
                         "type": text_type,
-                        "text": f"[WARN] unsupported content item: {item!r}",
+                        "text": _("[WARN] unsupported content item: %(item)r") % {"item": item},
                     }
                 )
                 continue
@@ -98,7 +98,8 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
             out.append(
                 {
                     "type": text_type,
-                    "text": f"[WARN] unsupported content item: {item!r}",
+                    "text": _("[WARN] unsupported content item: %(item)r")
+                    % {"item": item},
                 }
             )
 

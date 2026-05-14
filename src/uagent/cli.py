@@ -744,7 +744,7 @@ def main() -> None:
                 core.set_status(False, "")
                 if getattr(result, "run_llm", False):
                     prompt = (
-                        getattr(result, "prompt", None) or "読み込んだスキルを実行して"
+                        getattr(result, "prompt", None) or "Run the loaded skill."
                     )
                     user_msg = {"role": "user", "content": prompt}
                     messages.append(user_msg)
