@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,8 +178,9 @@ msgstr "환경 변수 %(name)s이(가) 설정되어 있지 않습니다."
 msgid "No log files found."
 msgstr "로그 파일을 찾을 수 없습니다."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(알 수 없는 시간)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -190,8 +191,9 @@ msgstr "로그: %(shown)d/%(total)d 표시(디렉터리=%(dir)s)"
 msgid "Log files:"
 msgstr "로그 파일:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(사용자 메시지 없음)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -396,83 +398,106 @@ msgstr ""
 "LLM 프로바이더를 선택하려면 "
 "필요합니다(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
-msgstr ""
+msgstr "알 수 없는 제공자: %(provider)r. 허용: %(allowed)s (시작에 실패할 수 있습니다)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
+msgstr "Azure OpenAI 엔드포인트/기본 URL (예: https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Azure OpenAI API 키."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Azure OpenAI API 버전 (예: 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "OpenAI API 키."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock 프록시 엔드포인트/기본 URL (OpenAI 호환)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock 프록시 API 키 (OpenAI 호환)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "OpenRouter API 키."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Grok (xAI) API 키."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Gemini API 키."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
+msgstr "Python 패키지 'google-genai'가 설치되어 있지 않습니다. provider=gemini에는 필요합니다."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Vertex AI API 키 / 모델 이름."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
-msgstr ""
+msgstr "Python 패키지 'google-genai'가 설치되어 있지 않습니다. provider=vertexai에는 필요합니다."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Anthropic (Claude) API 키."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
+msgstr "Python 패키지 'anthropic'이 설치되어 있지 않습니다. provider=claude에는 필요합니다."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "NVIDIA API 키."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
-msgstr ""
+msgstr "알 수 없는 임베딩 제공자: %(provider)r. 허용: %(allowed)s (시작에 실패할 수 있습니다)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
+msgstr "Azure 임베딩 엔드포인트 / API 키 / API 버전 / 배포 이름."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "OpenAI 임베딩 API 키 / 모델 이름."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr ""
+msgstr "Bedrock 임베딩 엔드포인트 / API 키 / 배포 이름."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "OpenRouter 임베딩 API 키 / 모델 이름."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "Ollama 임베딩 기본 URL / 모델 이름."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "NVIDIA 임베딩 API 키 / 모델 이름."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -538,14 +563,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "이는 도구 호출 후 OpenAI 호환 로컬 공급자에서 발생할 수 있습니다. UAGENT_EMPTY_NO_TOOL_MAX를 더 높은 값으로 설정하거나 공급자를 변경해 보세요."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "인수는 JSON 객체여야 합니다."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[도구 인수 오류] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -553,11 +583,15 @@ msgid ""
 " one.\n"
 msgstr "[INFO] 이 도구 호출은 이전 호출과 일치하므로 이전 결과를 재사용합니다.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[도구 실행 오류] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -655,7 +689,7 @@ msgstr "[INFO] API 버전 = %(api_version)s"
 
 #: src/uagent/runtime_banner.py:290
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] Vertex AI = 프로젝트=%(project)s, 위치=%(location)s"
 
 #: src/uagent/runtime_banner.py:299
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
@@ -848,6 +882,14 @@ msgstr "상세도: 높음"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 추론=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[모드] 자세함 수준=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; 인수 없음=유지)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "비밀번호를 입력하세요..."
@@ -872,6 +914,12 @@ msgstr "재생 중"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "중지됨"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[답장] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[사용자] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1080,9 +1128,24 @@ msgstr "현재 디렉터리에 생성할 출력 파일을 선택"
 msgid "  1. .env only"
 msgstr "  1. .env만"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + 모두(sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. 뒤로"
+
+msgid "  q. quit"
+msgstr "  q. 종료"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1394,11 +1457,13 @@ msgstr "알 수 없는 공급자: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "google-genai 패키지가 설치되어 있지 않습니다."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "이미지 파일을 찾을 수 없습니다: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "이미지 파일이 너무 큽니다: %(size)d 바이트 (한도=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1412,53 +1477,62 @@ msgid ""
 " startup file (if any)."
 msgstr "비대화형 모드입니다. stdin 루프를 시작하지 말고 시작 파일(있는 경우) 처리 후 종료합니다."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "잘못된 reasoning"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "잘못된 자세함 수준"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <경로>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] 디렉터리가 없습니다: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] 작업 디렉터리 = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cd 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] 일치하는 경로가 없습니다: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [D] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [F] %(name)s (%(size)d 바이트) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] 디렉터리가 없습니다: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [디렉터리] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [파일] %(name)s (%(size)d bytes)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[ls 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1474,29 +1548,37 @@ msgstr "[tools] 로드된 도구가 없습니다."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] %(n)d개 도구를 로드했습니다."
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[도구 오류] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "인수를 파싱하지 못했습니다: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "인수가 없습니다"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src와 dst가 필요합니다"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cp 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1514,11 +1596,13 @@ msgstr "[cp] 대상의 상위 폴더가 존재하지 않습니다: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] 복사됨: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[mv 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1536,11 +1620,14 @@ msgstr "[mv] 대상의 상위 폴더가 존재하지 않습니다: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] 이동됨: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <경로> [n]"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[head 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1554,11 +1641,14 @@ msgstr "[head] 실패했습니다."
 msgid "[head] Empty."
 msgstr "[head] 비어 있습니다."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <경로> [n]"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[tail 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1606,8 +1696,9 @@ msgstr "[skills] 활성 skill이 없습니다."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] 활성 skill: %(n)d개"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1623,8 +1714,9 @@ msgstr "[skills] 범위를 벗어났습니다: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] %(n)d개의 skill을 찾았습니다."
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1669,16 +1761,18 @@ msgstr ""
 "\n"
 "계속하시겠습니까? 실행하려면 y, 취소하려면 c를 입력하세요."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load가 dict가 아닌 값을 반환했습니다"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] 적용됨: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[skills 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1742,8 +1836,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] 삭제할 로그(<= %(threshold)d개 메시지): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d개 메시지) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1796,8 +1891,9 @@ msgstr "[load 경고] 현재 로그를 다시 쓰지 못했습니다: %(etype)s:
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load 오류] 실패했습니다: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <경로|glob> [경로|glob]"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1856,11 +1952,13 @@ msgstr "[rm] %(count)d개 경로를 삭제했습니다."
 msgid "[rm] Failed."
 msgstr "[rm] 실패했습니다."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[rm 오류] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <인덱스|경로>"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1872,14 +1970,17 @@ msgstr "지정한 인덱스 %(idx)d가 범위를 벗어났습니다."
 msgid "Log file not found: %(path)s"
 msgstr "로그 파일을 찾을 수 없습니다: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[load 오류] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] 작업 디렉터리 = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
-msgstr ""
+msgstr "[load 경고] 불러온 로그에서 chdir하지 못했습니다: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1891,8 +1992,9 @@ msgstr "불러온 로그: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "대화 메시지 수: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr ""
+msgstr "[%s 경고] 현재 로그를 다시 쓰지 못했습니다: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1913,11 +2015,13 @@ msgstr "장기 메모리 항목이 없습니다."
 msgid "Long-term memory entries:"
 msgstr "장기 메모리 항목:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <인덱스>"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1948,19 +2052,22 @@ msgstr "공유 장기 메모리 항목이 없습니다."
 msgid "Shared long-term memory entries:"
 msgstr "공유 장기 메모리 항목:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <인덱스>"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr ""
+msgstr "[shared-mem-del 오류] 인덱스를 int로 파싱하지 못했습니다: %(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] 인덱스=%(idx)d 삭제 실패"
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[shared-mem-del 오류] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2228,20 +2335,25 @@ msgstr "- \"이 PDF를 읽고 핵심 포인트 3개를 나열하세요.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"최신 뉴스를 검색하여 특정 주제를 요약하세요.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "assistant 메시지가 생성되지 않았습니다."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "이미지를 생성했습니다."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "ECHO: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "uagent 초기화에 실패했습니다: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "uagent 실행에 실패했습니다: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

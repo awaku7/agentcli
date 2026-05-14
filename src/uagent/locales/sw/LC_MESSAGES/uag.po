@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,8 +182,9 @@ msgstr "Kigezo cha mazingira %(name)s hakijawekwa."
 msgid "No log files found."
 msgstr "Hakuna faili za logi zilizopatikana."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(wakati usiojulikana)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -194,8 +195,9 @@ msgstr "logi: inaonyesha %(shown)d/%(total)d (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Faili za logi:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(hakuna ujumbe wa mtumiaji)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -403,83 +405,122 @@ msgstr ""
 "Lazima uchague mtoa huduma wa LLM "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
+"Mtoa huduma asiyejulikana: %(provider)r. Inayoruhusiwa: %(allowed)s (huenda "
+"uanzishaji ukashindikana)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
+"Kiunganishi/URL msingi cha Azure OpenAI (mfano: "
+"https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Ufunguo wa API wa Azure OpenAI."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Toleo la API la Azure OpenAI (mfano, 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "Ufunguo wa API wa OpenAI."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr ""
+"Kiunganishi/URL msingi cha proksi ya Bedrock (kinachoendana na OpenAI)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Ufunguo wa API wa proksi ya Bedrock (unaotangamana na OpenAI)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "Ufunguo wa API wa OpenRouter."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Ufunguo wa API wa Grok (xAI)."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Ufunguo wa API wa Gemini."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
+"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma gemini "
+"anakihitaji."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Ufunguo wa API wa Vertex AI / jina la modeli."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
+"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma vertexai "
+"anakihitaji."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Ufunguo wa API wa Anthropic (Claude)."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
+"Kifurushi cha Python 'anthropic' hakijasakinishwa. Mtoa huduma claude "
+"anakihitaji."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "Ufunguo wa API wa NVIDIA."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
+"Mtoa huduma wa embedding asiyejulikana: %(provider)r. Inayoruhusiwa: "
+"%(allowed)s (huenda uanzishaji ukashindikana)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr ""
+"Kiunganishi cha embedding cha Azure / ufunguo wa API / toleo la API / jina "
+"la deployment."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "Ufunguo wa API wa embedding wa OpenAI / jina la modeli."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr ""
+"Kiunganishi cha embedding cha Bedrock / ufunguo wa API / jina la deployment."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "Ufunguo wa API wa embedding wa OpenRouter / jina la modeli."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "URL msingi ya embedding ya Ollama / jina la modeli."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "Ufunguo wa API wa embedding wa NVIDIA / jina la modeli."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -552,14 +593,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Hili linaweza kutokea kwa watoa huduma wa ndani wanaoendana na OpenAI baada ya simu za zana. Unaweza kujaribu kuweka UAGENT_EMPTY_NO_TOOL_MAX kuwa thamani ya juu zaidi, au kubadili mtoa huduma."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "hoja lazima ziwe kitu cha JSON."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[hitilafu ya hoja za zana] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -569,11 +615,15 @@ msgstr ""
 "[INFO] Inatumia tena matokeo ya awali kwa sababu mwito huu wa zana "
 "unalingana na wa awali.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[hitilafu ya utekelezaji wa zana] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -638,7 +688,7 @@ msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
 
 #: src/uagent/runtime_banner.py:231
 msgid "embedding"
-msgstr "embedding"
+msgstr "uwekaji"
 
 #: src/uagent/runtime_banner.py:232
 msgid "audio speech"
@@ -878,6 +928,14 @@ msgstr "Kiwango cha maelezo: juu"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[hali] hoja=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[hali] maelezo=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=zima, 1=chini, 2=katikati, 3=juu; bila hoja=weka)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "Weka nenosiri..."
@@ -902,6 +960,12 @@ msgstr "Inacheza"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "Imesimamishwa"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[JIBU] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[MTUMIAJI] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1110,9 +1174,24 @@ msgstr "Chagua faili za matokeo za kutengeneza kwenye saraka ya sasa"
 msgid "  1. .env only"
 msgstr "  1. .env pekee"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + zote (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. nyuma"
+
+msgid "  q. quit"
+msgstr "  q. toka"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1424,11 +1503,13 @@ msgstr "Mtoa huduma asiyejulikana: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "Kifurushi cha google-genai hakijasakinishwa."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "faili la picha halikupatikana: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "faili la picha ni kubwa mno: %(size)d baiti (kikomo=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1446,53 +1527,62 @@ msgstr ""
 "Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
 "faili ya kuanzisha (kama ipo)."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "reasoning si sahihi"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "kiwango cha maelezo si sahihi"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <njia>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Saraka haipo: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] saraka ya kazi = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya cd] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Hakuna njia zinazolingana: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [D] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [F] %(name)s (%(size)d baiti) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Saraka haipo: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [D] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [F] %(name)s (%(size)d bytes)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya ls] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1508,29 +1598,37 @@ msgstr "[tools] Hakuna zana zilizopakiwa."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Zana %(n)d zimepakiwa"
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya zana] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "imeshindwa kuchanganua hoja: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "hoja hazipo"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src na dst zinahitajika"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya cp] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1548,11 +1646,13 @@ msgstr "[cp] Folda kuu ya lengwa haipo: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Imenakiliwa: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya mv] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1570,11 +1670,14 @@ msgstr "[mv] Folda kuu ya lengwa haipo: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Imehamishwa: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <njia> [n]"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya head] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1588,11 +1691,14 @@ msgstr "[head] Imeshindwa."
 msgid "[head] Empty."
 msgstr "[head] Tupu."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <njia> [n]"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya tail] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1640,8 +1746,9 @@ msgstr "[skills] Hakuna ujuzi hai."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Ujuzi hai: %(n)d"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1657,8 +1764,9 @@ msgstr "[skills] Nje ya wigo: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] Ujuzi %(n)d umepatikana"
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1703,16 +1811,18 @@ msgstr ""
 "\n"
 "Endelea? Weka y ili kuendesha, au c ili kughairi."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load imerejesha kitu kisicho dict"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Imetumika: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya skills] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1779,8 +1889,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Logi za kufuta (<= %(threshold)d ujumbe): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d ujumbe) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1834,8 +1945,9 @@ msgstr "[load warn] Imeshindwa kuandika upya logi ya sasa: %(etype)s: %(err)s"
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load error] Imeshindwa: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <njia|glob> [njia|glob]"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1894,11 +2006,13 @@ msgstr "[rm] Njia %(count)d zimefutwa."
 msgid "[rm] Failed."
 msgstr "[rm] Imeshindwa."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya rm] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <fahirisi|njia>"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1910,14 +2024,19 @@ msgstr "Faharisi iliyoainishwa %(idx)d iko nje ya wigo."
 msgid "Log file not found: %(path)s"
 msgstr "Faili ya logi haikupatikana: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya load] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] saraka ya kazi = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
 msgstr ""
+"[onyo la load] kushindwa kubadilisha saraka kutoka kwenye logi iliyopakiwa: "
+"%(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1929,8 +2048,9 @@ msgstr "Logi iliyopakiwa: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Idadi ya ujumbe wa mazungumzo: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr ""
+msgstr "[onyo la %s] kushindwa kuandika upya logi ya sasa: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1955,11 +2075,13 @@ msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu."
 msgid "Long-term memory entries:"
 msgstr "Maingizo ya kumbukumbu ya muda mrefu:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <fahirisi>"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1992,19 +2114,24 @@ msgstr "Hakuna maingizo ya kumbukumbu ya muda mrefu ya pamoja."
 msgid "Shared long-term memory entries:"
 msgstr "Maingizo ya kumbukumbu ya muda mrefu ya pamoja:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <fahirisi>"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr ""
+"[hitilafu ya shared-mem-del] kushindwa kuchanganua fahirisi kama int: "
+"%(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Imeshindwa kufuta index=%(idx)d."
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[hitilafu ya shared-mem-del] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2303,20 +2430,25 @@ msgstr "- \"Soma PDF hii na orodhesha pointi tatu kuu.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "Hakuna ujumbe wa msaidizi uliotolewa."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "Picha zimezalishwa."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "ECHO: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "uanzishaji wa uagent umeshindikana: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "utekelezaji wa uagent umeshindikana: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

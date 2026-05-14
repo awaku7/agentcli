@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,8 +182,9 @@ msgstr "Miljøvariabelen %(name)s er ikke satt."
 msgid "No log files found."
 msgstr "Ingen loggfiler funnet."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(ukjent tidspunkt)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -194,8 +195,9 @@ msgstr "logger: viser %(shown)d/%(total)d (mappe=%(dir)s)"
 msgid "Log files:"
 msgstr "Loggfiler:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(ingen brukermelding)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -403,83 +405,117 @@ msgstr ""
 "LLM-leverandøren som skal velges, må angis "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
+"Ukjent tilbyder: %(provider)r. Tillatt: %(allowed)s (oppstart vil "
+"sannsynligvis mislykkes)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
+"Azure OpenAI-endepunkt / base-URL (f.eks. "
+"https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Azure OpenAI API-nøkkel."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Azure OpenAI API-versjon (f.eks. 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "OpenAI API-nøkkel."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock proxy-endepunkt / base-URL (OpenAI-kompatibel)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock proxy API-nøkkel (OpenAI-kompatibel)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "OpenRouter API-nøkkel."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Grok (xAI) API-nøkkel."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Gemini API-nøkkel."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
+"Python-pakken 'google-genai' er ikke installert. Tilbyder gemini krever den."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Vertex AI API-nøkkel / modellnavn."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
+"Python-pakken 'google-genai' er ikke installert. Tilbyder vertexai krever "
+"den."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Anthropic (Claude) API-nøkkel."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
+"Python-pakken 'anthropic' er ikke installert. Tilbyder claude krever den."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "NVIDIA API-nøkkel."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
+"Ukjent embedding-tilbyder: %(provider)r. Tillatt: %(allowed)s (oppstart vil "
+"sannsynligvis mislykkes)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr ""
+"Azure embedding-endepunkt / API-nøkkel / API-versjon / distribusjonsnavn."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "OpenAI embedding API-nøkkel / modellnavn."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr ""
+msgstr "Bedrock embedding-endepunkt / API-nøkkel / distribusjonsnavn."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "OpenRouter embedding API-nøkkel / modellnavn."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "Ollama embedding base-URL / modellnavn."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "NVIDIA embedding API-nøkkel / modellnavn."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -551,14 +587,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Dette kan skje med lokale OpenAI-kompatible leverandører etter verktøykall. Du kan prøve å sette UAGENT_EMPTY_NO_TOOL_MAX til en høyere verdi, eller bytte leverandør."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "argumenter må være et JSON-objekt."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[verktøy-argumentfeil] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -568,11 +609,15 @@ msgstr ""
 "[INFO] Bruker det forrige resultatet på nytt fordi dette verktøykallet "
 "samsvarer med et tidligere.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[verktøy-kjørefeil] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -636,7 +681,7 @@ msgstr "Feil under tolkning av svar: %(err)s"
 
 #: src/uagent/runtime_banner.py:231
 msgid "embedding"
-msgstr "embedding"
+msgstr "innbygging"
 
 #: src/uagent/runtime_banner.py:232
 msgid "audio speech"
@@ -868,6 +913,14 @@ msgstr "Utførlighet: høy"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[modus] resonnering=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[modus] detaljnivå=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=av, 1=lav, 2=middels, 3=høy; ingen arg=behold)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "Skriv inn passord..."
@@ -892,6 +945,12 @@ msgstr "Spiller av"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "Stoppet"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[SVAR] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[BRUKER] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1100,9 +1159,24 @@ msgstr "Velg utdatafiler som skal genereres i gjeldende katalog"
 msgid "  1. .env only"
 msgstr "  1. Kun .env"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + alt (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. tilbake"
+
+msgid "  q. quit"
+msgstr "  q. avslutt"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1415,11 +1489,13 @@ msgstr "Ukjent leverandør: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "Pakken google-genai er ikke installert."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "bildefil ikke funnet: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "bildefilen er for stor: %(size)d byte (grense=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1437,53 +1513,62 @@ msgstr ""
 "Ikke-interaktiv modus. Ikke start stdin-loopen; avslutt etter at "
 "oppstartsfilen (hvis noen) er behandlet."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "ugyldig resonnering"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "ugyldig detaljnivå"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <sti>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Katalogen finnes ikke: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] arbeidskatalog = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cd-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Ingen treffende stier: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [D] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [F] %(name)s (%(size)d byte) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Katalogen finnes ikke: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [K] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [F] %(name)s (%(size)d bytes)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[ls-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1499,29 +1584,37 @@ msgstr "[tools] Ingen verktøy lastet."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Lastet %(n)d verktøy"
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[verktøy-feil] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "klarte ikke å tolke argumenter: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "mangler argumenter"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src og dst er påkrevd"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cp-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1539,11 +1632,13 @@ msgstr "[cp] Overordnet mappe for målet finnes ikke: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopiert: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[mv-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1561,11 +1656,14 @@ msgstr "[mv] Overordnet mappe for målet finnes ikke: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Flyttet: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <sti> [n]"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[head-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1579,11 +1677,14 @@ msgstr "[head] Mislyktes."
 msgid "[head] Empty."
 msgstr "[head] Tom."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <sti> [n]"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[tail-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1631,8 +1732,9 @@ msgstr "[skills] Ingen aktive ferdigheter."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Aktive ferdigheter: %(n)d"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1648,8 +1750,9 @@ msgstr "[skills] Utenfor rekkevidde: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] Fant %(n)d ferdigheter"
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1694,16 +1797,18 @@ msgstr ""
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load returnerte ikke-dict"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Brukt: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[skills-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1771,8 +1876,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Logger å slette (<= %(threshold)d meldinger): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d meldinger) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1826,8 +1932,9 @@ msgstr ""
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load error] Mislyktes: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <sti|glob> [sti|glob]"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1886,11 +1993,13 @@ msgstr "[rm] Slettet %(count)d sti(er)."
 msgid "[rm] Failed."
 msgstr "[rm] Mislyktes."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[rm-feil] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <indeks|sti>"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1902,14 +2011,18 @@ msgstr "Angitt indeks %(idx)d er utenfor rekkevidde."
 msgid "Log file not found: %(path)s"
 msgstr "Loggfil ikke funnet: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[load-feil] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] arbeidskatalog = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
 msgstr ""
+"[load-advarsel] klarte ikke å chdir fra lastet logg: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1921,8 +2034,10 @@ msgstr "Lastet logg: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Antall meldinger i samtalen: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr ""
+"[%s-advarsel] klarte ikke å skrive om gjeldende logg: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1947,11 +2062,13 @@ msgstr "Ingen langtidsminneoppføringer."
 msgid "Long-term memory entries:"
 msgstr "Langtidsminneoppføringer:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <indeks>"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1984,19 +2101,22 @@ msgstr "Ingen delte langtidsminneoppføringer."
 msgid "Shared long-term memory entries:"
 msgstr "Delte langtidsminneoppføringer:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <indeks>"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr ""
+msgstr "[shared-mem-del-feil] klarte ikke å tolke indeks som int: %(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Klarte ikke å slette indeks=%(idx)d."
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[shared-mem-del-feil] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2287,20 +2407,25 @@ msgstr "- \"Les denne PDF-en og list opp tre hovedpunkter.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Søk etter de siste nyhetene og oppsummer et bestemt tema.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "Ingen assistentmelding ble produsert."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "Genererte bilde(r)."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "EKO: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "uagent-initialisering mislyktes: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "uagent-kjøring mislyktes: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

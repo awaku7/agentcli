@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,8 +182,9 @@ msgstr "Ympäristömuuttujaa %(name)s ei ole asetettu."
 msgid "No log files found."
 msgstr "Lokitiedostoja ei löytynyt."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(tuntematon aika)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -194,8 +195,9 @@ msgstr "lokit: näytetään %(shown)d/%(total)d (hakemisto=%(dir)s)"
 msgid "Log files:"
 msgstr "Lokitiedostot:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(ei käyttäjän viestiä)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -403,83 +405,117 @@ msgstr ""
 "Pakollinen LLM-palveluntarjoajan valintaan "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
+"Tuntematon tarjoaja: %(provider)r. Sallitut: %(allowed)s (käynnistys "
+"epäonnistuu todennäköisesti)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
+"Azure OpenAI -päätepiste / perus-URL (esim. "
+"https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Azure OpenAI -API-avain."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Azure OpenAI -API-versio (esim. 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "OpenAI-API-avain."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr ""
+"Bedrock-välityspalvelimen päätepiste / perus-URL (OpenAI-yhteensopiva)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock-välityspalvelimen API-avain (OpenAI-yhteensopiva)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "OpenRouter-API-avain."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Grok (xAI) -API-avain."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Gemini-API-avain."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
+"Python-pakettia 'google-genai' ei ole asennettu. Tarjoaja gemini vaatii sen."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Vertex AI -API-avain / mallin nimi."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
+"Python-pakettia 'google-genai' ei ole asennettu. Tarjoaja vertexai vaatii "
+"sen."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Anthropic (Claude) -API-avain."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
+"Python-pakettia 'anthropic' ei ole asennettu. Tarjoaja claude vaatii sen."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "NVIDIA-API-avain."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
+"Tuntematon upotetarjoaja: %(provider)r. Sallitut: %(allowed)s (käynnistys "
+"epäonnistuu todennäköisesti)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
+msgstr "Azure-upotepäätepiste / API-avain / API-versio / käyttöönoton nimi."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "OpenAI-upotteen API-avain / mallin nimi."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr ""
+msgstr "Bedrock-upotepäätepiste / API-avain / käyttöönoton nimi."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "OpenRouter-upotteen API-avain / mallin nimi."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "Ollaman upotteiden perus-URL / mallin nimi."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "NVIDIA-upotteen API-avain / mallin nimi."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -552,14 +588,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Tämä voi tapahtua OpenAI-yhteensopivilla paikallisilla tarjoajilla työkalukutsujen jälkeen. Voit yrittää asettaa UAGENT_EMPTY_NO_TOOL_MAX-arvon suuremmaksi tai vaihtaa tarjoajaa."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "argumenttien on oltava JSON-objekti."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[työkaluargumenttivirhe] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -569,11 +610,15 @@ msgstr ""
 "[INFO] Edellinen tulos käytetään uudelleen, koska tämä työkalukutsu vastaa "
 "aiempaa.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[työkalun ajonaikainen virhe] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -868,6 +913,15 @@ msgstr "Yksityiskohtaisuus: korkea"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[tila] päättely=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[tila] yksityiskohtaisuus=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3]  (0=pois, 1=matala, 2=keski, 3=korkea; ei argumenttia=säilytä)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "Anna salasana..."
@@ -892,6 +946,12 @@ msgstr "Toistetaan"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "Pysäytetty"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[VASTAUS] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[KÄYTTÄJÄ] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1100,9 +1160,24 @@ msgstr "Valitse nykyiseen hakemistoon luotavat tiedostot"
 msgid "  1. .env only"
 msgstr "  1. Vain .env"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + kaikki (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. takaisin"
+
+msgid "  q. quit"
+msgstr "  q. lopeta"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1415,11 +1490,13 @@ msgstr "Tuntematon tarjoaja: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "google-genai-pakettia ei ole asennettu."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "kuvatiedostoa ei löydy: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "kuvatiedosto on liian suuri: %(size)d tavua (raja=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1437,53 +1514,62 @@ msgstr ""
 "Ei-interaktiivinen tila. Älä käynnistä stdin-silmukkaa; poistu "
 "käynnistystiedoston käsittelyn jälkeen (jos sellainen on)."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "virheellinen päättely"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "virheellinen yksityiskohtaisuus"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <polku>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Hakemistoa ei ole olemassa: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] työhakemisto = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cd-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Ei vastaavia polkuja: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [K] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [T] %(name)s (%(size)d tavua) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Hakemistoa ei ole olemassa: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [K] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [T] %(name)s (%(size)d tavua)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[ls-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1501,29 +1587,39 @@ msgstr "[työkalut] Ei ladattuja työkaluja."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[työkalut] Ladattu %(n)d työkalua"
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[työkaluvirhe] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "argumenttien jäsentäminen epäonnistui: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "puuttuvia argumentteja"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src ja dst vaaditaan"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ""
+":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]  kopioi tiedosto tai "
+"hakemisto"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cp-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1541,11 +1637,15 @@ msgstr "[cp] Kohteen ylähakemistoa ei ole: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopioitu: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ""
+":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]  siirrä tiedosto tai "
+"hakemisto"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[mv-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1563,11 +1663,14 @@ msgstr "[mv] Kohteen ylähakemistoa ei ole: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Siirretty: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <polku> [n]  näytä tiedoston alku"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[head-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1581,11 +1684,14 @@ msgstr "[head] Epäonnistui."
 msgid "[head] Empty."
 msgstr "[head] Tyhjä."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <polku> [n]  näytä tiedoston loppu"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[tail-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1633,8 +1739,9 @@ msgstr "[taidot] Ei aktiivisia taitoja."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[taidot] Aktiiviset taidot: %(n)d"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1650,8 +1757,9 @@ msgstr "[taidot] Alueen ulkopuolella: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[taidot] Löytyi %(n)d taitoa"
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1696,16 +1804,18 @@ msgstr ""
 "\n"
 "Jatketaanko? Kirjoita y suorittaaksesi tai c peruuttaaksesi."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load palautti muun kuin dictin"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[taidot] Käytetty: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[skills-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1774,8 +1884,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[puhdas] Poistettavat lokit (<= %(threshold)d msgs): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d viestiä) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1831,8 +1942,9 @@ msgstr ""
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[latausvirhe] Epäonnistui: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <polku|glob> [polku|glob]  poista tiedosto tai hakemisto"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1891,11 +2003,13 @@ msgstr "[rm] Poistettu %(count)d polkua."
 msgid "[rm] Failed."
 msgstr "[rm] Epäonnistui."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[rm-virhe] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <indeksi|polku>  lataa loki"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1907,14 +2021,19 @@ msgstr "Määritetty indeksi %(idx)d on alueen ulkopuolella."
 msgid "Log file not found: %(path)s"
 msgstr "Lokitiedostoa ei löydy: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[load-virhe] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] työhakemisto = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
 msgstr ""
+"[load-varoitus] työhakemistoon siirtyminen ladatusta lokista epäonnistui: "
+"%(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1926,8 +2045,11 @@ msgstr "Ladattu loki: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Keskusteluviestien määrä: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
 msgstr ""
+"[varoitus %s] nykyisen lokin uudelleenkirjoitus epäonnistui: %(etype)s: "
+"%(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1952,11 +2074,13 @@ msgstr "Ei pitkäaikaismuistin merkintöjä."
 msgid "Long-term memory entries:"
 msgstr "Pitkäaikaisen muistin merkinnät:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <index>  poista muisti"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1989,19 +2113,24 @@ msgstr "Ei jaettuja pitkäaikaismuistin merkintöjä."
 msgid "Shared long-term memory entries:"
 msgstr "Jaetut pitkäaikaismuistimerkinnät:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <index>  poista jaettu muisti"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr ""
+"[shared-mem-del-virhe] indeksin muuntaminen kokonaisluvuksi epäonnistui: "
+"%(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Index=%(idx)d poistaminen epäonnistui."
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[shared-mem-del-virhe] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2299,20 +2428,25 @@ msgstr "- \"Lue tämä PDF ja listaa kolme pääkohtaa.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Hae viimeisimmät uutiset ja tiivistä tietty aihe.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "Yhtään avustajan viestiä ei muodostettu."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "Kuva(t) luotu."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "KAIKU: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "uagentin käynnistys epäonnistui: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "uagentin suoritus epäonnistui: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

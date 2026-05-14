@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -709,6 +709,12 @@ msgstr "Verbosity: high"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mode] verbosity=%(mode)s"
+
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+
 msgid "Enter password..."
 msgstr "Enter password..."
 
@@ -726,6 +732,12 @@ msgstr "Playing"
 
 msgid "Stopped"
 msgstr "Stopped"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[REPLY] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[USER] %(text)s"
 
 msgid "OpenAI API key"
 msgstr "OpenAI API key"
@@ -874,8 +886,23 @@ msgstr "Select output files to generate in the current directory"
 msgid "  1. .env only"
 msgstr "  1. .env only"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + all (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. back"
+
+msgid "  q. quit"
+msgstr "  q. quit"
 
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "Invalid input. Please enter 1-5, or b/q."
@@ -1113,12 +1140,6 @@ msgstr "invalid reasoning"
 msgid "invalid verbosity"
 msgstr "invalid verbosity"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[mode] verbosity=%(mode)s"
-
 msgid ":cd <path>"
 msgstr ":cd <path>"
 
@@ -1145,6 +1166,12 @@ msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Directory does not exist: %(src)s -> %(dst)s"
+
+msgid "  [D] %(name)s"
+msgstr "  [D] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [F] %(name)s (%(size)d bytes)"
 
 msgid "[ls error] %(etype)s: %(err)s"
 msgstr "[ls error] %(etype)s: %(err)s"

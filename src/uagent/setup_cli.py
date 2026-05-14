@@ -422,13 +422,13 @@ def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
     print()
     print(_("Select output files to generate in the current directory"))
     print(_("  1. .env only"))
-    print("  2. .env + env.sh")
-    print("  3. .env + env.ps1")
-    print("  4. .env + env.bat")
+    print(_("  2. .env + env.sh"))
+    print(_("  3. .env + env.ps1"))
+    print(_("  4. .env + env.bat"))
     print(_("  5. .env + all (sh/ps1/bat)"))
     if allow_back:
-        print("  b. back")
-    print("  q. quit")
+        print(_("  b. back"))
+    print(_("  q. quit"))
 
     while True:
         raw = input(_("Enter number:") + " ").strip().lower()
