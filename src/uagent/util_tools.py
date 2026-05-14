@@ -173,11 +173,11 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
     p = Path(str(path))
     if not p.exists() or not p.is_file():
-        raise FileNotFoundError(f"image file not found: {path}")
+        raise FileNotFoundError(tr("image file not found: %(path)s") % {"path": path})
 
     size = p.stat().st_size
     if size > int(max_bytes):
-        raise ValueError(f"image file too large: {size} bytes (limit={max_bytes})")
+        raise ValueError(tr("image file too large: %(size)d bytes (limit=%(max)d)") % {"size": size, "max": max_bytes})
 
     mt, _ = mimetypes.guess_type(str(p))
     mime_type = mt or "application/octet-stream"
@@ -344,7 +344,7 @@ def apply_reasoning_arg(arg: str) -> str:
     lv = _normalize_reasoning_level_arg(arg)
     if lv is None and (arg or "").strip():
         # invalid (non-empty)
-        raise ValueError("invalid reasoning")
+        raise ValueError(tr("invalid reasoning"))
 
     # If no arg is given, keep current mode (do not cycle).
     if lv is None:
@@ -362,7 +362,7 @@ def apply_verbosity_arg(arg: str) -> str:
 
     lv = _normalize_verbosity_level_arg(arg)
     if lv is None:
-        raise ValueError("invalid verbosity")
+        raise ValueError(tr("invalid verbosity"))
     return set_verbosity_mode(lv)
 
 
@@ -375,7 +375,7 @@ def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
         )
         return True
 
-    print(f"[mode] reasoning={new_mode}")
+    print(tr("[mode] reasoning=%(mode)s") % {"mode": new_mode})
     return True
 
 
@@ -383,10 +383,10 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
     try:
         new_mode = apply_verbosity_arg(arg)
     except Exception:
-        print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
+        print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
         return True
 
-    print(f"[mode] verbosity={new_mode}")
+    print(tr("[mode] verbosity=%(mode)s") % {"mode": new_mode})
     return True
 
 
@@ -399,7 +399,7 @@ def _handle_cmd_cd(
 ) -> bool:
     a = (arg or "").strip()
     if not a:
-        print(":cd <path>")
+        print(tr(":cd <path>"))
         return True
 
     try:
@@ -432,9 +432,9 @@ def _handle_cmd_cd(
         except Exception:
             pass
 
-        print(f"[cd] workdir = {now}")
+        print(tr("[cd] workdir = %(path)s") % {"path": now})
     except Exception as e:
-        print(f"[cd error] {type(e).__name__}: {e}")
+        print(tr("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -474,12 +474,12 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
             items.sort(key=lambda x: (x[0], x[1]))
 
-            print(f"[ls] {expanded}")
+            print(tr("[ls] %(path)s") % {"path": expanded})
             for _, _, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print(f"  [D] {name} -> {p_abs}")
+                    print(tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
                 else:
-                    print(f"  [F] {name} ({size} bytes) -> {p_abs}")
+                    print(tr("  [F] %(name)s (%(size)d bytes) -> %(path)s") % {"name": name, "size": size, "path": p_abs})
             return True
 
         target_abs = os.path.abspath(expanded)
@@ -505,14 +505,14 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
         entries.sort(key=lambda x: (x[0], x[1]))
 
-        print(f"[ls] {target_abs}")
+        print(tr("[ls] %(path)s") % {"path": target_abs})
         for _, _, name, is_dir, size in entries:
             if is_dir:
                 print(f"  [D] {name}")
             else:
                 print(f"  [F] {name} ({size} bytes)")
     except Exception as e:
-        print(f"[ls error] {type(e).__name__}: {e}")
+        print(tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -557,11 +557,11 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
             name = fn.get("name") or "(unknown)"
             desc = (fn.get("description") or "").strip()
             if desc:
-                print(f"- {name}: {desc}")
+                print(tr("- %(name)s: %(desc)s") % {"name": name, "desc": desc})
             else:
-                print(f"- {name}")
+                print(tr("- %(name)s") % {"name": name})
     except Exception as e:
-        print(f"[tools error] {type(e).__name__}: {e}")
+        print(tr("[tools error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -570,10 +570,10 @@ def _normalize_cp_mv_args(raw: str) -> tuple[list[str], bool, bool]:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        raise ValueError(f"failed to parse arguments: {e}") from e
+        raise ValueError(tr("failed to parse arguments: %(err)s") % {"err": e}) from e
 
     if not items:
-        raise ValueError("missing arguments")
+        raise ValueError(tr("missing arguments"))
 
     overwrite = False
     mkdirs = False
@@ -589,7 +589,7 @@ def _normalize_cp_mv_args(raw: str) -> tuple[list[str], bool, bool]:
         paths.append(item)
 
     if len(paths) < 2:
-        raise ValueError("src and dst are required")
+        raise ValueError(tr("src and dst are required"))
 
     return paths, overwrite, mkdirs
 
@@ -614,13 +614,13 @@ def _remove_existing_path(target: Path) -> None:
 def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
+        print(tr(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(f"[cp error] {type(e).__name__}: {e}")
+        print(tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -673,20 +673,20 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
         )
         return True
     except Exception as e:
-        print(f"[cp error] {type(e).__name__}: {e}")
+        print(tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
 def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
+        print(tr(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(f"[mv error] {type(e).__name__}: {e}")
+        print(tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -726,24 +726,24 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         )
         return True
     except Exception as e:
-        print(f"[mv error] {type(e).__name__}: {e}")
+        print(tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
 def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":head <path> [n]")
+        print(tr(":head <path> [n]"))
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(f"[head error] {type(e).__name__}: {e}")
+        print(tr("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
-        print(":head <path> [n]")
+        print(tr(":head <path> [n]"))
         return True
 
     lines = 20
@@ -755,7 +755,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(":head <path> [n]")
+                print(tr(":head <path> [n]"))
                 return True
             try:
                 lines = int(items[i])
@@ -774,7 +774,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(":head <path> [n]")
+        print(tr(":head <path> [n]"))
         return True
 
     path = " ".join(path_tokens)
@@ -800,24 +800,24 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
             print(tr("[head] Empty."))
         return True
     except Exception as e:
-        print(f"[head error] {type(e).__name__}: {e}")
+        print(tr("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
 def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":tail <path> [n]")
+        print(tr(":tail <path> [n]"))
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(f"[tail error] {type(e).__name__}: {e}")
+        print(tr("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
-        print(":tail <path> [n]")
+        print(tr(":tail <path> [n]"))
         return True
 
     lines = 20
@@ -829,7 +829,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(":tail <path> [n]")
+                print(tr(":tail <path> [n]"))
                 return True
             try:
                 lines = int(items[i])
@@ -848,7 +848,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(":tail <path> [n]")
+        print(tr(":tail <path> [n]"))
         return True
 
     path = " ".join(path_tokens)
@@ -874,7 +874,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
             print(tr("[tail] Empty."))
         return True
     except Exception as e:
-        print(f"[tail error] {type(e).__name__}: {e}")
+        print(tr("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1057,7 +1057,7 @@ def _handle_cmd_skills(
 
         print(tr("[skills] Active skills: %(n)d") % {"n": len(active)})
         for i, line in enumerate(active, start=1):
-            print(f"[{i}] {line}")
+            print(tr("[%(i)d] %(line)s") % {"i": i, "line": line})
         return CommandResult()
 
     try:
@@ -1107,7 +1107,7 @@ def _handle_cmd_skills(
                 desc = it.get("description") or ""
                 ok = bool(it.get("ok"))
                 ok_mark = "OK" if ok else "WARN"
-                print(f"[{i}] ({ok_mark}) {name}: {desc}")
+                print(tr("[%(i)d] (%(ok)s) %(name)s: %(desc)s") % {"i": i, "ok": ok_mark, "name": name, "desc": desc})
 
             sel_msg = _(
                 "Select a skill number to run. Enter c to cancel.\n"
@@ -1162,7 +1162,7 @@ def _handle_cmd_skills(
         doc_json = skills_load_tool({"skill_dir": skill_dir})
         doc = json.loads(doc_json)
         if not isinstance(doc, dict):
-            raise ValueError("skills_load returned non-dict")
+            raise ValueError(tr("skills_load returned non-dict"))
 
         try:
             tool_specs = (
@@ -1190,7 +1190,7 @@ def _handle_cmd_skills(
         return CommandResult(run_llm=True)
 
     except Exception as e:
-        print(f"[skills error] {type(e).__name__}: {e}")
+        print(tr("[skills error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 
     return CommandResult()
 
@@ -1323,7 +1323,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
     )
     for p in targets:
         c = counts.get(p, -1)
-        print(f" - ({c} msgs) {p}")
+        print(tr(" - (%(count)d msgs) %(path)s") % {"count": c, "path": p})
 
     if not _confirm_clean_delete(
         core=core, threshold=threshold, targets=targets, tr=tr
@@ -1441,7 +1441,7 @@ def _prepend_loaded_log_to_current(
 def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":rm <path|glob> [path|glob]")
+        print(tr(":rm <path|glob> [path|glob]"))
         return True
 
     try:
@@ -1451,7 +1451,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         return True
 
     if not items:
-        print(":rm <path|glob> [path|glob]")
+        print(tr(":rm <path|glob> [path|glob]"))
         return True
 
     try:
@@ -1534,7 +1534,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
                 print(str(stderr))
         return True
     except Exception as e:
-        print(f"[rm error] {type(e).__name__}: {e}")
+        print(tr("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1546,7 +1546,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(":load <index|path>")
+        print(tr(":load <index|path>"))
         return True
 
     files = core.find_log_files(exclude_current=True)
@@ -1565,7 +1565,7 @@ def _handle_cmd_load(
         print(tr("Log file not found: %(path)s") % {"path": target_path})
         return True
     except Exception as e:
-        print(f"[load error] {type(e).__name__}: {e}")
+        print(tr("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
         return True
 
     new_messages = insert_tools_system_message(new_messages, core=core)
@@ -1599,10 +1599,11 @@ def _handle_cmd_load(
             except Exception:
                 pass
 
-            print(f"[load] workdir = {now}")
+            print(tr("[load] workdir = %(path)s") % {"path": now})
     except Exception as e:
         print(
-            f"[load warn] Failed to chdir from loaded log: {type(e).__name__}: {e}",
+            tr("[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
 
@@ -1627,7 +1628,7 @@ def _persist_messages_with_warn(
             core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
-            _(f"[{label} warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            tr("[%s warn] Failed to rewrite current log: %(etype)s: %(err)s" % label)
             % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
@@ -1707,13 +1708,13 @@ def _handle_cmd_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print(f"[{idx}] {dt}  {note}")
+        print(tr("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
     return True
 
 
 def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(":mem-del <index>")
+        print(tr(":mem-del <index>"))
         return True
 
     try:
@@ -1755,14 +1756,14 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print(f"[{idx}] {dt}  {note}")
+        print(tr("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
 
     return True
 
 
 def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(":shared-mem-del <index>")
+        print(tr(":shared-mem-del <index>"))
         return True
 
     if not shared_memory.is_enabled():
@@ -1777,7 +1778,7 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
         idx = int(arg)
     except Exception:
         print(
-            "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+            tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
             % {"arg": arg}
         )
         return True
@@ -1800,7 +1801,7 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception as e:
         print(
-            "[shared-mem-del error] %(etype)s: %(err)s"
+            tr("[shared-mem-del error] %(etype)s: %(err)s")
             % {"etype": type(e).__name__, "err": e}
         )
         return True

@@ -35,12 +35,12 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "batch_state",
         "description": _(
             "tool.description",
-            default="Manage batch state files for multi-file tasks under ~/.uag/batches/.",
+            default="Manage persisted batch state for multi-file tasks under ~/.uag/batches/.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "Manage batch state. Use the same language as the user's latest instruction. Do not translate or rewrite user-provided text. Prefer targets=[{dir, files, next_index}] and current_target. "
+                "Manage batch state. Prefer targets=[{dir, files, next_index}] and current_target. "
                 "Advance progress by increasing next_index. current_file is a legacy alias. "
                 "Return JSON only."
             ),
@@ -55,9 +55,8 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.action.description",
                         default=(
-                            "Action: init/load/status/update/reset/append_log/finalize/list/delete. "
-                            "Use load/status to inspect current progress. "
-                            "Use update with patch to change targets/current_target/next_index."
+                            "Action: init/load/update/append_log/finalize/list/delete. "
+                            "Use update to change targets/current_target/next_index."
                         ),
                     ),
                 },
@@ -128,9 +127,8 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.patch.description",
                         default=(
-                            "Partial state update to merge into the batch state. Prefer patch.targets and "
-                            "patch.current_target. For legacy single-target flows, patch.current_file can advance "
-                            "the current target, and next_index is derived from the file order."
+                            "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target. "
+                            "For legacy single-target flows, patch.current_file can advance the current target, and next_index is derived from the file order."
                         ),
                     ),
                 },

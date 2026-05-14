@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 18:06+0900\n"
+"POT-Creation-Date: 2026-05-14 20:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,11 +130,17 @@ msgstr "Environment variable %(name)s is not set."
 msgid "No log files found."
 msgstr "No log files found."
 
+msgid "(unknown time)"
+msgstr "(unknown time)"
+
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 
 msgid "Log files:"
 msgstr "Log files:"
+
+msgid "(no user message)"
+msgstr "(no user message)"
 
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (help unavailable: %(err)s)"
@@ -314,6 +320,93 @@ msgstr ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+
+msgid "Azure OpenAI API key."
+msgstr "Azure OpenAI API key."
+
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Azure OpenAI API version (e.g., 2024-xx-xx)."
+
+msgid "OpenAI API key."
+msgstr "OpenAI API key."
+
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Bedrock proxy API key (OpenAI-compatible)."
+
+msgid "OpenRouter API key."
+msgstr "OpenRouter API key."
+
+msgid "Grok (xAI) API key."
+msgstr "Grok (xAI) API key."
+
+msgid "Gemini API key."
+msgstr "Gemini API key."
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+
+msgid "Vertex AI API key / model name."
+msgstr "Vertex AI API key / model name."
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+
+msgid "Anthropic (Claude) API key."
+msgstr "Anthropic (Claude) API key."
+
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+
+msgid "NVIDIA API key."
+msgstr "NVIDIA API key."
+
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr "Azure embedding endpoint / API key / API version / deployment name."
+
+msgid "OpenAI embedding API key / model name."
+msgstr "OpenAI embedding API key / model name."
+
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "Bedrock embedding endpoint / API key / deployment name."
+
+msgid "OpenRouter embedding API key / model name."
+msgstr "OpenRouter embedding API key / model name."
+
+msgid "Ollama embedding base URL / model name."
+msgstr "Ollama embedding base URL / model name."
+
+msgid "NVIDIA embedding API key / model name."
+msgstr "NVIDIA embedding API key / model name."
+
 msgid "Missing required environment variables:"
 msgstr "Missing required environment variables:"
 
@@ -373,12 +466,33 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 
+msgid "arguments must be a JSON object."
+msgstr "arguments must be a JSON object."
+
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
 msgstr ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
+
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Auto shrink_llm failed: %(err)s"
@@ -973,6 +1087,12 @@ msgstr "Unknown provider: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "google-genai package is not installed."
 
+msgid "image file not found: %(path)s"
+msgstr "image file not found: %(path)s"
+
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "image file too large: %(size)d bytes (limit=%(max)d)"
+
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -986,15 +1106,48 @@ msgid ""
 msgstr ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
+
+msgid "invalid reasoning"
+msgstr "invalid reasoning"
+
+msgid "invalid verbosity"
+msgstr "invalid verbosity"
+
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mode] verbosity=%(mode)s"
+
+msgid ":cd <path>"
+msgstr ":cd <path>"
 
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Directory does not exist: %(src)s -> %(dst)s"
 
+msgid "[cd] workdir = %(path)s"
+msgstr "[cd] workdir = %(path)s"
+
+msgid "[cd error] %(etype)s: %(err)s"
+msgstr "[cd error] %(etype)s: %(err)s"
+
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] No matching paths: %(src)s -> %(expanded)s"
 
+msgid "[ls] %(path)s"
+msgstr "[ls] %(path)s"
+
+msgid "  [D] %(name)s -> %(path)s"
+msgstr "  [D] %(name)s -> %(path)s"
+
+msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Directory does not exist: %(src)s -> %(dst)s"
+
+msgid "[ls error] %(etype)s: %(err)s"
+msgstr "[ls error] %(etype)s: %(err)s"
 
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
@@ -1004,6 +1157,30 @@ msgstr "[tools] No tools loaded."
 
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Loaded %(n)d tools"
+
+msgid "- %(name)s: %(desc)s"
+msgstr "- %(name)s: %(desc)s"
+
+msgid "- %(name)s"
+msgstr "- %(name)s"
+
+msgid "[tools error] %(etype)s: %(err)s"
+msgstr "[tools error] %(etype)s: %(err)s"
+
+msgid "failed to parse arguments: %(err)s"
+msgstr "failed to parse arguments: %(err)s"
+
+msgid "missing arguments"
+msgstr "missing arguments"
+
+msgid "src and dst are required"
+msgstr "src and dst are required"
+
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
 
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Source and destination are the same: %(path)s"
@@ -1017,6 +1194,12 @@ msgstr "[cp] Destination parent does not exist: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Copied: %(src)s -> %(dst)s"
 
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Source and destination are the same: %(path)s"
 
@@ -1029,6 +1212,12 @@ msgstr "[mv] Destination parent does not exist: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Moved: %(src)s -> %(dst)s"
 
+msgid ":head <path> [n]"
+msgstr ":head <path> [n]"
+
+msgid "[head error] %(etype)s: %(err)s"
+msgstr "[head error] %(etype)s: %(err)s"
+
 msgid "[head] Invalid line count: %(n)r"
 msgstr "[head] Invalid line count: %(n)r"
 
@@ -1037,6 +1226,12 @@ msgstr "[head] Failed."
 
 msgid "[head] Empty."
 msgstr "[head] Empty."
+
+msgid ":tail <path> [n]"
+msgstr ":tail <path> [n]"
+
+msgid "[tail error] %(etype)s: %(err)s"
+msgstr "[tail error] %(etype)s: %(err)s"
 
 msgid "[tail] Invalid line count: %(n)r"
 msgstr "[tail] Invalid line count: %(n)r"
@@ -1073,6 +1268,9 @@ msgstr "[skills] No active skills."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Active skills: %(n)d"
 
+msgid "[%(i)d] %(line)s"
+msgstr "[%(i)d] %(line)s"
+
 msgid "[skills] No skills found."
 msgstr "[skills] No skills found."
 
@@ -1081,6 +1279,9 @@ msgstr "[skills] Out of range: %(n)d"
 
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] Found %(n)d skills"
+
+msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
@@ -1118,8 +1319,14 @@ msgstr ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
+msgid "skills_load returned non-dict"
+msgstr "skills_load returned non-dict"
+
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Applied: %(name)s"
+
+msgid "[skills error] %(etype)s: %(err)s"
+msgstr "[skills error] %(etype)s: %(err)s"
 
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -1168,6 +1375,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 
+msgid " - (%(count)d msgs) %(path)s"
+msgstr " - (%(count)d msgs) %(path)s"
+
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
 msgstr "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
 
@@ -1203,6 +1413,9 @@ msgstr "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
 
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load error] Failed: %(etype)s: %(err)s"
+
+msgid ":rm <path|glob> [path|glob]"
+msgstr ":rm <path|glob> [path|glob]"
 
 msgid "[rm error] Failed to parse arguments: %(err)s"
 msgstr "[rm error] Failed to parse arguments: %(err)s"
@@ -1247,17 +1460,35 @@ msgstr "[rm] Deleted %(count)d path(s)."
 msgid "[rm] Failed."
 msgstr "[rm] Failed."
 
+msgid "[rm error] %(etype)s: %(err)s"
+msgstr "[rm error] %(etype)s: %(err)s"
+
+msgid ":load <index|path>"
+msgstr ":load <index|path>"
+
 msgid "Specified index %(idx)d is out of range."
 msgstr "Specified index %(idx)d is out of range."
 
 msgid "Log file not found: %(path)s"
 msgstr "Log file not found: %(path)s"
 
+msgid "[load error] %(etype)s: %(err)s"
+msgstr "[load error] %(etype)s: %(err)s"
+
+msgid "[load] workdir = %(path)s"
+msgstr "[load] workdir = %(path)s"
+
+msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+msgstr "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+
 msgid "Loaded log: %(path)s"
 msgstr "Loaded log: %(path)s"
 
 msgid "Conversation message count: %(n)d"
 msgstr "Conversation message count: %(n)d"
+
+msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
 
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1272,6 +1503,12 @@ msgstr "No long-term memory entries."
 
 msgid "Long-term memory entries:"
 msgstr "Long-term memory entries:"
+
+msgid "[%(idx)s] %(dt)s  %(note)s"
+msgstr "[%(idx)s] %(dt)s  %(note)s"
+
+msgid ":mem-del <index>"
+msgstr ":mem-del <index>"
 
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del error] Failed to parse index as int: %(arg)r"
@@ -1295,8 +1532,17 @@ msgstr "No shared long-term memory entries."
 msgid "Shared long-term memory entries:"
 msgstr "Shared long-term memory entries:"
 
+msgid ":shared-mem-del <index>"
+msgstr ":shared-mem-del <index>"
+
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Failed to delete index=%(idx)d."
+
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del error] %(etype)s: %(err)s"
 
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Deleted shared long-term memory entry [%(idx)d]."
@@ -1527,6 +1773,21 @@ msgstr "- \"Read this PDF and list three key points.\""
 
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
+
+msgid "No assistant message produced."
+msgstr "No assistant message produced."
+
+msgid "Generated image(s)."
+msgstr "Generated image(s)."
+
+msgid "ECHO: %(text)s"
+msgstr "ECHO: %(text)s"
+
+msgid "uagent initialization failed: %(err)s"
+msgstr "uagent initialization failed: %(err)s"
+
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "uagent execution failed: %(etype)s: %(err)s"
 
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Unknown UAGENT_A2A_ENGINE: %(mode)s"
