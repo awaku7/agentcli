@@ -48,10 +48,10 @@ Key modules:
 
 Implementation notes:
 
-- `runtime_init.py` loads `.env` and `.env.sec` from the current working directory at import time when `python-dotenv` is available.
+- `runtime_init.py` provides `load_dotenv_custom()` and `reload_dotenv_custom()` for loading `.env` and `.env.sec`.
 - The load order is `.env` first, then `.env.sec` decrypted with `.uagent.key` if present.
-- Because this happens at import time, changes to the working directory or secret files can affect startup behavior early.
-- Treat this as startup-sensitive behavior: avoid relying on late mutations of cwd or secret files after import.
+- Startup still loads these files early, but CLI startup can re-run the loader after workdir selection so a newly created `.env.sec` can take effect without restarting.
+- Treat this as startup-sensitive behavior: avoid relying on late mutations of cwd or secret files after import unless the reload path is used intentionally.
 - If the `.env.sec` sync prompt appears and the user answers `n`/`N`, the startup `UAGENT_*` snapshot is restored for the session and `.env.sec` is left unchanged.
 
 Documentation:

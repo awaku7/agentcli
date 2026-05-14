@@ -87,19 +87,10 @@ def run_cli_startup(
                 # 1) current workdir .env
                 # 2) starting directory .env (if different)
                 try:
-                    from pathlib import Path
-                    from dotenv import load_dotenv
+                    from .runtime_init import reload_dotenv_custom
 
-                    workdir_env = Path(os.getcwd()) / ".env"
-                    if workdir_env.exists():
-                        load_dotenv(workdir_env, override=True)
-
-                    startdir_env = (
-                        Path(cli_workdir or env_workdir or os.getcwd()) / ".env"
-                    )
-                    if startdir_env.exists() and startdir_env != workdir_env:
-                        load_dotenv(startdir_env, override=True)
-                except ImportError:
+                    reload_dotenv_custom()
+                except Exception:
                     pass
                 banner = build_startup_banner(
                     core=core,
