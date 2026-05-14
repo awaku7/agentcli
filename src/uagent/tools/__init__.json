@@ -115,7 +115,7 @@
     "log.load_fail.external": "[الأدوات] فشل تحميل البرنامج الإضافي الخارجي {entry_path}: {err}",
     "log.load_fail.internal": "[الأدوات] فشل تحميل المكون الإضافي الداخلي {mod_name}: {err}",
     "log.load_ok.external": "[الأدوات] الأدوات الخارجية المحملة: {entry_name}",
-    "log.loaded_tools": "[الأدوات] الأدوات المحملة: {الأسماء}",
+    "log.loaded_tools": "[الأدوات] الأدوات المحملة: {names}",
     "log.no_valid_tools": "[الأدوات] لم يتم العثور على أدوات صالحة.",
     "log.load_disabled.internal": "[الأدوات] البرنامج الإضافي الداخلي {mod_name} معطّل: {reason}"
   },
