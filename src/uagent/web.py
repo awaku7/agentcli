@@ -967,14 +967,15 @@ def main():
     try:
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
+        _runtime_init.reload_dotenv_custom()
+        # Fail-fast env validation (aggregate missing vars)
+        _runtime_init.validate_or_exit_startup_env(context="web")
         banner = _runtime_init.build_startup_banner(
             core=core,
             workdir=decision.chosen_expanded,
             workdir_source=decision.chosen_source,
         )
         print(banner, end="")
-        # Fail-fast env validation (aggregate missing vars)
-        _runtime_init.validate_or_exit_startup_env(context="web")
 
     except Exception as e:
         print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)

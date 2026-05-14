@@ -1580,6 +1580,7 @@ def main():
         env_workdir=os.environ.get("UAGENT_WORKDIR"),
     )
     _runtime_init.apply_workdir(decision)
+    _runtime_init.reload_dotenv_custom()
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
 

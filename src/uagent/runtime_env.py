@@ -265,11 +265,6 @@ def validate_or_exit_startup_env(*, context: str) -> None:
                 file=sys.stderr,
             )
 
-    try:
-        from . import runtime_init as _runtime_init
-
-        env_snapshot = _runtime_init.get_startup_uagent_env_snapshot()
-    except Exception:
-        env_snapshot = None
-
-    _maybe_offer_envsec_sync(context=context, env_snapshot=env_snapshot)
+    # Startup validation must not create or update .env.sec implicitly.
+    # The setup wizard owns .env/.env.sec writes; startup only reads them.
+    return
