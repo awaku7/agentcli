@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,8 +181,9 @@ msgstr "Ortam değişkeni %(name)s ayarlanmamış."
 msgid "No log files found."
 msgstr "Günlük dosyası bulunamadı."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(bilinmeyen zaman)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -193,8 +194,9 @@ msgstr "günlükler: %(shown)d/%(total)d gösteriliyor (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Günlük dosyaları:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(kullanıcı mesajı yok)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -402,83 +404,115 @@ msgstr ""
 "LLM sağlayıcısını seçmek için gereklidir "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
+"Bilinmeyen sağlayıcı: %(provider)r. İzin verilenler: %(allowed)s (başlatma "
+"büyük olasılıkla başarısız olur)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
+"Azure OpenAI uç noktası / temel URL (örn. "
+"https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Azure OpenAI API anahtarı."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Azure OpenAI API sürümü (örn. 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "OpenAI API anahtarı."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock proxy uç noktası / temel URL (OpenAI uyumlu)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Bedrock proxy API anahtarı (OpenAI uyumlu)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "OpenRouter API anahtarı."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Grok (xAI) API anahtarı."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Gemini API anahtarı."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
+"Python paketi 'google-genai' yüklü değil. Provider=gemini bunu gerektirir."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Vertex AI API anahtarı / model adı."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
+"Python paketi 'google-genai' yüklü değil. Provider=vertexai bunu gerektirir."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Anthropic (Claude) API anahtarı."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
+"Python paketi 'anthropic' yüklü değil. Provider=claude bunu gerektirir."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "NVIDIA API anahtarı."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
+"Bilinmeyen embedding sağlayıcısı: %(provider)r. İzin verilenler: %(allowed)s"
+" (başlatma büyük olasılıkla başarısız olur)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
+msgstr "Azure embedding uç noktası / API anahtarı / API sürümü / dağıtım adı."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "OpenAI embedding API anahtarı / model adı."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr ""
+msgstr "Bedrock embedding uç noktası / API anahtarı / dağıtım adı."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "OpenRouter embedding API anahtarı / model adı."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "Ollama embedding temel URL / model adı."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "NVIDIA embedding API anahtarı / model adı."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -550,14 +584,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Bu, araç çağrılarından sonra OpenAI uyumlu yerel sağlayıcılarda oluşabilir. UAGENT_EMPTY_NO_TOOL_MAX değerini daha yüksek bir değere ayarlamayı veya sağlayıcıyı değiştirmeyi deneyebilirsiniz."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "argümanlar bir JSON nesnesi olmalıdır."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[araç argüman hatası] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -567,11 +606,15 @@ msgstr ""
 "[INFO] Bu araç çağrısı daha önceki bir çağrıyla eşleştiği için önceki sonuç "
 "yeniden kullanılıyor.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[araç çalışma zamanı hatası] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -673,7 +716,7 @@ msgstr "[INFO] vertexai = proje=%(project)s, konum=%(location)s"
 
 #: src/uagent/runtime_banner.py:299
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; model: %(model)s"
 
 #: src/uagent/runtime_banner.py:326
 #, python-format
@@ -872,6 +915,14 @@ msgstr "Ayrıntı düzeyi: yüksek"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mod] akıl yürütme=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mod] ayrıntı düzeyi=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=kapalı, 1=düşük, 2=orta, 3=yüksek; arg yok=koru)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "Şifreyi girin..."
@@ -896,6 +947,12 @@ msgstr "Oynanıyor"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "Durduruldu"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[YANIT] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[KULLANICI] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1104,9 +1161,24 @@ msgstr "Geçerli dizinde oluşturulacak çıktı dosyalarını seçin"
 msgid "  1. .env only"
 msgstr "1. .env yalnızca"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "5. .env + hepsi (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. geri"
+
+msgid "  q. quit"
+msgstr "  q. çık"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1418,11 +1490,13 @@ msgstr "Bilinmeyen sağlayıcı: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "google-genai paketi yüklü değil."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "görüntü dosyası bulunamadı: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "görüntü dosyası çok büyük: %(size)d bayt (sınır=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1440,53 +1514,62 @@ msgstr ""
 "Etkileşimli olmayan mod. Stdin döngüsünü başlatmayın; Başlangıç ​​dosyasını "
 "(varsa) işledikten sonra çıkın."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "geçersiz reasoning"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "geçersiz ayrıntı düzeyi"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <yol>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Dizin mevcut değil: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] çalışma dizini = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cd hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Eşleşen yol yok: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [D] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [F] %(name)s (%(size)d bayt) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Dizin mevcut değil: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [DİZİN] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [DOSYA] %(name)s (%(size)d bayt)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[ls hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1504,29 +1587,37 @@ msgstr "[araçlar] Hiçbir araç yüklenmedi."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[araçlar] %(n)d araçları yüklendi"
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[araçlar hatası] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "argümanlar ayrıştırılamadı: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "eksik argümanlar"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src ve dst gerekli"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[cp hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1544,11 +1635,13 @@ msgstr "[cp] Hedefin üst klasörü yok: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopyalandı: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[mv hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1566,11 +1659,14 @@ msgstr "[mv] Hedefin üst klasörü yok: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Taşındı: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <yol> [n]"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[head hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1584,11 +1680,14 @@ msgstr "[head] Başarısız."
 msgid "[head] Empty."
 msgstr "[head] Boş."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <yol> [n]"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[tail hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1636,8 +1735,9 @@ msgstr "[beceriler] Aktif beceri yok."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[beceriler] Aktif beceriler: %(n)d"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1653,8 +1753,9 @@ msgstr "[beceriler] Aralık dışında: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[beceriler] %(n)d beceri bulundu"
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1699,16 +1800,18 @@ msgstr ""
 "\n"
 "Devam etmek mi? Çalıştırmak için y'yi, iptal etmek için c'yi girin."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load dict olmayan bir değer döndürdü"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[beceriler] Uygulanan: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[skills hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1776,8 +1879,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[temiz] Silinecek günlükler (<= %(threshold)d msjlar): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d ileti) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1830,8 +1934,9 @@ msgstr "[yük uyarısı] Geçerli günlük yeniden yazılamadı: %(etype)s: %(er
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[yükleme hatası] Başarısız: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <yol|glob> [yol|glob]"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1890,11 +1995,13 @@ msgstr "[rm] %(count)d yolu/yolları silindi."
 msgid "[rm] Failed."
 msgstr "[rm] Başarısız."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[rm hatası] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <indeks|yol>"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1906,14 +2013,18 @@ msgstr "Belirtilen %(idx)d dizini aralık dışında."
 msgid "Log file not found: %(path)s"
 msgstr "Günlük dosyası bulunamadı: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[load hatası] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] çalışma dizini = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
 msgstr ""
+"[load uyarısı] yüklenen günlükten chdir yapılamadı: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1925,8 +2036,9 @@ msgstr "Yüklenen günlük: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Konuşma mesajı sayısı: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr ""
+msgstr "[%s uyarısı] geçerli günlük yeniden yazılamadı: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1951,11 +2063,13 @@ msgstr "Uzun süreli hafıza girişi yok."
 msgid "Long-term memory entries:"
 msgstr "Uzun süreli hafıza girişleri:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <indeks>"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1988,19 +2102,23 @@ msgstr "Paylaşılan uzun süreli hafıza girişi yok."
 msgid "Shared long-term memory entries:"
 msgstr "Paylaşılan uzun süreli hafıza girişleri:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <indeks>"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
 msgstr ""
+"[shared-mem-del hatası] indeks tam sayı olarak ayrıştırılamadı: %(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[paylaşılan-mem-del] index=%(idx)d silinemedi."
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[shared-mem-del hatası] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2298,20 +2416,25 @@ msgstr "- \"Bu PDF'yi okuyun ve üç önemli noktayı listeleyin.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"En son haberleri arayın ve belirli bir konuyu özetleyin.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "Hiçbir yardımcı mesajı üretilmedi."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "Görüntü(ler) oluşturuldu."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "ECHO: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "uagent başlatılması başarısız oldu: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "uagent çalıştırılması başarısız oldu: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

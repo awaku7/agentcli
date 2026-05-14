@@ -760,9 +760,9 @@ class MainWindow(QtWidgets.QMainWindow):
     def _set_verbosity(self, arg: str) -> None:
         try:
             new_mode = apply_verbosity_arg(arg)
-            print(f"[mode] verbosity={new_mode}")
+            print(_("[mode] verbosity=%(mode)s") % {"mode": new_mode})
         except Exception:
-            print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
+            print(_(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
         self._update_mode_label()
 
     def _update_ui_from_log(self):
@@ -1450,7 +1450,7 @@ class MainWindow(QtWidgets.QMainWindow):
             is_pw = bool(is_password)
             try:
                 display_log = "[SECRET]" if is_pw else text
-                print(f"[REPLY] > {display_log}")
+                print(_("[REPLY] > %(text)s") % {"text": display_log})
             except Exception:
                 pass
 
@@ -1458,7 +1458,7 @@ class MainWindow(QtWidgets.QMainWindow):
             q.put(text + ("\n" + s + "\n" if s not in text else ""))
         else:
             try:
-                print(f"[USER] {text.strip()}")
+                print(_("[USER] %(text)s") % {"text": text.strip()})
             except Exception:
                 pass
 

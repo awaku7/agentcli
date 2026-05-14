@@ -508,9 +508,9 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
         print(tr("[ls] %(path)s") % {"path": target_abs})
         for _, _, name, is_dir, size in entries:
             if is_dir:
-                print(f"  [D] {name}")
+                print(tr("  [D] %(name)s") % {"name": name})
             else:
-                print(f"  [F] {name} ({size} bytes)")
+                print(tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
     except Exception as e:
         print(tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
 

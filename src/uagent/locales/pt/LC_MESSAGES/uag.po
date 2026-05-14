@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,8 +183,9 @@ msgstr "A variável de ambiente %(name)s não está definida."
 msgid "No log files found."
 msgstr "Nenhum arquivo de log encontrado."
 
+#: src/uagent/core.py:615
 msgid "(unknown time)"
-msgstr ""
+msgstr "(hora desconhecida)"
 
 #: src/uagent/core.py:618
 #, python-format
@@ -195,8 +196,9 @@ msgstr "registros: mostrando %(shown)d/%(total)d (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Arquivos de log:"
 
+#: src/uagent/core.py:746 src/uagent/core.py:748
 msgid "(no user message)"
-msgstr ""
+msgstr "(sem mensagem do utilizador)"
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -404,83 +406,121 @@ msgstr ""
 "Necessário para selecionar o provedor de LLM "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
+#: src/uagent/env_validate.py:63
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
+"Fornecedor desconhecido: %(provider)r. Permitidos: %(allowed)s (o arranque "
+"provavelmente falhará)."
 
+#: src/uagent/env_validate.py:73
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
+"Endpoint/URL base do Azure OpenAI (ex.: "
+"https://<resource>.openai.azure.com/)."
 
+#: src/uagent/env_validate.py:77
 msgid "Azure OpenAI API key."
-msgstr ""
+msgstr "Chave da API do Azure OpenAI."
 
+#: src/uagent/env_validate.py:81
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr ""
+msgstr "Versão da API do Azure OpenAI (ex.: 2024-xx-xx)."
 
+#: src/uagent/env_validate.py:86
 msgid "OpenAI API key."
-msgstr ""
+msgstr "Chave da API do OpenAI."
 
+#: src/uagent/env_validate.py:91
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr ""
+msgstr "Endpoint/URL base do proxy Bedrock (compatível com OpenAI)."
 
+#: src/uagent/env_validate.py:95
 msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr ""
+msgstr "Chave da API do proxy Bedrock (compatível com OpenAI)."
 
+#: src/uagent/env_validate.py:100
 msgid "OpenRouter API key."
-msgstr ""
+msgstr "Chave da API do OpenRouter."
 
+#: src/uagent/env_validate.py:105
 msgid "Grok (xAI) API key."
-msgstr ""
+msgstr "Chave da API do Grok (xAI)."
 
+#: src/uagent/env_validate.py:110
 msgid "Gemini API key."
-msgstr ""
+msgstr "Chave da API do Gemini."
 
+#: src/uagent/env_validate.py:116
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
+"O pacote Python 'google-genai' não está instalado. O fornecedor gemini "
+"requer-o."
 
+#: src/uagent/env_validate.py:124
 msgid "Vertex AI API key / model name."
-msgstr ""
+msgstr "Chave da API do Vertex AI / nome do modelo."
 
+#: src/uagent/env_validate.py:130
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
+"O pacote Python 'google-genai' não está instalado. O fornecedor vertexai "
+"requer-o."
 
+#: src/uagent/env_validate.py:135
 msgid "Anthropic (Claude) API key."
-msgstr ""
+msgstr "Chave da API do Anthropic (Claude)."
 
+#: src/uagent/env_validate.py:141
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
+"O pacote Python 'anthropic' não está instalado. O fornecedor claude "
+"requer-o."
 
+#: src/uagent/env_validate.py:146
 msgid "NVIDIA API key."
-msgstr ""
+msgstr "Chave da API da NVIDIA."
 
+#: src/uagent/env_validate.py:162
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
+"Fornecedor de embeddings desconhecido: %(provider)r. Permitidos: %(allowed)s"
+" (o arranque provavelmente falhará)."
 
+#: src/uagent/env_validate.py:175
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr ""
+"Endpoint de embeddings do Azure / chave da API / versão da API / nome da "
+"implementação."
 
+#: src/uagent/env_validate.py:183
 msgid "OpenAI embedding API key / model name."
-msgstr ""
+msgstr "Chave da API de embeddings do OpenAI / nome do modelo."
 
+#: src/uagent/env_validate.py:192
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr ""
+"Endpoint de embeddings do Bedrock / chave da API / nome da implementação."
 
+#: src/uagent/env_validate.py:200
 msgid "OpenRouter embedding API key / model name."
-msgstr ""
+msgstr "Chave da API de embeddings do OpenRouter / nome do modelo."
 
+#: src/uagent/env_validate.py:208
 msgid "Ollama embedding base URL / model name."
-msgstr ""
+msgstr "URL base de embeddings do Ollama / nome do modelo."
 
+#: src/uagent/env_validate.py:216
 msgid "NVIDIA embedding API key / model name."
-msgstr ""
+msgstr "Chave da API de embeddings da NVIDIA / nome do modelo."
 
 #: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
@@ -552,14 +592,19 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Isto pode acontecer com fornecedores locais compatíveis com OpenAI após chamadas de ferramentas. Pode tentar definir UAGENT_EMPTY_NO_TOOL_MAX para um valor mais alto ou mudar de fornecedor."
 
+#: src/uagent/llm_flow_helpers.py:185
 msgid "arguments must be a JSON object."
-msgstr ""
+msgstr "os argumentos têm de ser um objeto JSON."
 
+#: src/uagent/llm_flow_helpers.py:190
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[erro nos argumentos da ferramenta] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
@@ -569,11 +614,15 @@ msgstr ""
 "[INFO] Reutilizando o resultado anterior porque esta chamada de ferramenta "
 "corresponde a uma anterior.\n"
 
+#: src/uagent/llm_flow_helpers.py:225
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
+"[erro em tempo de execução da ferramenta] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -638,7 +687,7 @@ msgstr "Erro ao analisar a resposta: %(err)s"
 
 #: src/uagent/runtime_banner.py:231
 msgid "embedding"
-msgstr "embedding"
+msgstr "incorporação"
 
 #: src/uagent/runtime_banner.py:232
 msgid "audio speech"
@@ -873,6 +922,14 @@ msgstr "Verbosidade: alta"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[modo] raciocínio=%(mode)s"
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[modo] verbosidade=%(mode)s"
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; sem argumento=manter)"
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr "Digite a senha..."
@@ -897,6 +954,12 @@ msgstr "A reproduzir"
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
 msgstr "Parado"
+
+msgid "[REPLY] > %(text)s"
+msgstr "[RESPOSTA] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[UTILIZADOR] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1105,9 +1168,24 @@ msgstr "Selecione os arquivos de saída a serem gerados no diretório atual"
 msgid "  1. .env only"
 msgstr "  1. apenas .env"
 
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh"
+
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1"
+
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat"
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + todos (sh/ps1/bat)"
+
+msgid "  b. back"
+msgstr "  b. voltar"
+
+msgid "  q. quit"
+msgstr "  q. sair"
 
 #: src/uagent/setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
@@ -1420,11 +1498,13 @@ msgstr "Provedor desconhecido: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "O pacote google-genai não está instalado."
 
+#: src/uagent/util_tools.py:176
 msgid "image file not found: %(path)s"
-msgstr ""
+msgstr "ficheiro de imagem não encontrado: %(path)s"
 
+#: src/uagent/util_tools.py:180
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr ""
+msgstr "ficheiro de imagem demasiado grande: %(size)d bytes (limite=%(max)d)"
 
 #: src/uagent/util_tools.py:202
 msgid ""
@@ -1442,53 +1522,62 @@ msgstr ""
 "Modo não interativo. Não inicie o loop de stdin; saia após processar o "
 "arquivo de inicialização (se houver)."
 
+#: src/uagent/util_tools.py:347
 msgid "invalid reasoning"
-msgstr ""
+msgstr "reasoning inválido"
 
+#: src/uagent/util_tools.py:365
 msgid "invalid verbosity"
-msgstr ""
+msgstr "nível de verbosidade inválido"
 
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
+#: src/uagent/util_tools.py:402
 msgid ":cd <path>"
-msgstr ""
+msgstr ":cd <caminho>"
 
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] O diretório não existe: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:435
 msgid "[cd] workdir = %(path)s"
-msgstr ""
+msgstr "[cd] diretório de trabalho = %(path)s"
 
+#: src/uagent/util_tools.py:437
 msgid "[cd error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de cd] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Nenhum caminho correspondente: %(src)s -> %(expanded)s"
 
+#: src/uagent/util_tools.py:477 src/uagent/util_tools.py:508
 msgid "[ls] %(path)s"
-msgstr ""
+msgstr "[ls] %(path)s"
 
+#: src/uagent/util_tools.py:480
 msgid "  [D] %(name)s -> %(path)s"
-msgstr ""
+msgstr "  [D] %(name)s -> %(path)s"
 
+#: src/uagent/util_tools.py:482
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr ""
+msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
 
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] O diretório não existe: %(src)s -> %(dst)s"
 
+msgid "  [D] %(name)s"
+msgstr "  [D] %(name)s"
+
+msgid "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [F] %(name)s (%(size)d bytes)"
+
+#: src/uagent/util_tools.py:515
 msgid "[ls error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de ls] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1505,29 +1594,37 @@ msgstr "[tools] Nenhuma ferramenta carregada."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] %(n)d ferramentas carregadas"
 
+#: src/uagent/util_tools.py:560
 msgid "- %(name)s: %(desc)s"
-msgstr ""
+msgstr "- %(name)s: %(desc)s"
 
+#: src/uagent/util_tools.py:562
 msgid "- %(name)s"
-msgstr ""
+msgstr "- %(name)s"
 
+#: src/uagent/util_tools.py:564
 msgid "[tools error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de ferramentas] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:573
 msgid "failed to parse arguments: %(err)s"
-msgstr ""
+msgstr "falha ao analisar os argumentos: %(err)s"
 
+#: src/uagent/util_tools.py:576
 msgid "missing arguments"
-msgstr ""
+msgstr "faltam argumentos"
 
+#: src/uagent/util_tools.py:592
 msgid "src and dst are required"
-msgstr ""
+msgstr "src e dst são obrigatórios"
 
+#: src/uagent/util_tools.py:617
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:623 src/uagent/util_tools.py:676
 msgid "[cp error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de cp] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1545,11 +1642,13 @@ msgstr "[cp] O diretório pai do destino não existe: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Copiado: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:683
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ""
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
+#: src/uagent/util_tools.py:689 src/uagent/util_tools.py:729
 msgid "[mv error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de mv] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1567,11 +1666,14 @@ msgstr "[mv] O diretório pai do destino não existe: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Movido: %(src)s -> %(dst)s"
 
+#: src/uagent/util_tools.py:736 src/uagent/util_tools.py:746
+#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:777
 msgid ":head <path> [n]"
-msgstr ""
+msgstr ":head <caminho> [n]"
 
+#: src/uagent/util_tools.py:742 src/uagent/util_tools.py:803
 msgid "[head error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de head] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
@@ -1585,11 +1687,14 @@ msgstr "[head] Falhou."
 msgid "[head] Empty."
 msgstr "[head] Vazio."
 
+#: src/uagent/util_tools.py:810 src/uagent/util_tools.py:820
+#: src/uagent/util_tools.py:832 src/uagent/util_tools.py:851
 msgid ":tail <path> [n]"
-msgstr ""
+msgstr ":tail <caminho> [n]"
 
+#: src/uagent/util_tools.py:816 src/uagent/util_tools.py:877
 msgid "[tail error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de tail] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1637,8 +1742,9 @@ msgstr "[skills] Nenhuma skill ativa."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Skills ativas: %(n)d"
 
+#: src/uagent/util_tools.py:1060
 msgid "[%(i)d] %(line)s"
-msgstr ""
+msgstr "[%(i)d] %(line)s"
 
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
@@ -1654,8 +1760,9 @@ msgstr "[skills] Fora do intervalo: %(n)d"
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] %(n)d skills encontradas"
 
+#: src/uagent/util_tools.py:1110
 msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr ""
+msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1700,16 +1807,18 @@ msgstr ""
 "\n"
 "Prosseguir? Digite y para executar ou c para cancelar."
 
+#: src/uagent/util_tools.py:1165
 msgid "skills_load returned non-dict"
-msgstr ""
+msgstr "skills_load devolveu algo que não é dict"
 
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Aplicada: %(name)s"
 
+#: src/uagent/util_tools.py:1193
 msgid "[skills error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de skills] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1776,8 +1885,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Logs para excluir (<= %(threshold)d msgs): %(n)d"
 
+#: src/uagent/util_tools.py:1326
 msgid " - (%(count)d msgs) %(path)s"
-msgstr ""
+msgstr " - (%(count)d mensagens) %(path)s"
 
 #: src/uagent/util_tools.py:1335
 #, python-format
@@ -1830,8 +1940,9 @@ msgstr "[load warn] Falha ao reescrever o log atual: %(etype)s: %(err)s"
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[load erro] Falha: %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1444 src/uagent/util_tools.py:1454
 msgid ":rm <path|glob> [path|glob]"
-msgstr ""
+msgstr ":rm <caminho|glob> [caminho|glob]"
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1890,11 +2001,13 @@ msgstr "[rm] %(count)d caminho(s) excluído(s)."
 msgid "[rm] Failed."
 msgstr "[rm] Falhou."
 
+#: src/uagent/util_tools.py:1537
 msgid "[rm error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de rm] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1549
 msgid ":load <index|path>"
-msgstr ""
+msgstr ":load <índice|caminho>"
 
 #: src/uagent/util_tools.py:1556
 #, python-format
@@ -1906,14 +2019,19 @@ msgstr "O índice especificado %(idx)d está fora do intervalo."
 msgid "Log file not found: %(path)s"
 msgstr "Arquivo de log não encontrado: %(path)s"
 
+#: src/uagent/util_tools.py:1568
 msgid "[load error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de load] %(etype)s: %(err)s"
 
+#: src/uagent/util_tools.py:1602
 msgid "[load] workdir = %(path)s"
-msgstr ""
+msgstr "[load] diretório de trabalho = %(path)s"
 
+#: src/uagent/util_tools.py:1605
 msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
 msgstr ""
+"[aviso de load] falha ao mudar de diretório a partir do registo carregado: "
+"%(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1612
 #, python-format
@@ -1925,8 +2043,9 @@ msgstr "Log carregado: %(path)s"
 msgid "Conversation message count: %(n)d"
 msgstr "Contagem de mensagens da conversa: %(n)d"
 
+#: src/uagent/util_tools.py:1631
 msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr ""
+msgstr "[aviso de %s] falha ao reescrever o registo atual: %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1648
 #, python-format
@@ -1951,11 +2070,13 @@ msgstr "Nenhuma entrada de memória de longo prazo."
 msgid "Long-term memory entries:"
 msgstr "Entradas de memória de longo prazo:"
 
+#: src/uagent/util_tools.py:1711 src/uagent/util_tools.py:1759
 msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr ""
+msgstr "[%(idx)s] %(dt)s  %(note)s"
 
+#: src/uagent/util_tools.py:1717
 msgid ":mem-del <index>"
-msgstr ""
+msgstr ":mem-del <índice>"
 
 #: src/uagent/util_tools.py:1724
 #, python-format
@@ -1988,19 +2109,22 @@ msgstr "Nenhuma entrada de memória compartilhada de longo prazo."
 msgid "Shared long-term memory entries:"
 msgstr "Entradas de memória compartilhada de longo prazo:"
 
+#: src/uagent/util_tools.py:1766
 msgid ":shared-mem-del <index>"
-msgstr ""
+msgstr ":shared-mem-del <índice>"
 
+#: src/uagent/util_tools.py:1781
 msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr ""
+msgstr "[erro de shared-mem-del] falha ao analisar o índice como int: %(arg)r"
 
 #: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Falha ao excluir o índice=%(idx)d."
 
+#: src/uagent/util_tools.py:1804
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr ""
+msgstr "[erro de shared-mem-del] %(etype)s: %(err)s"
 
 #: src/uagent/util_tools.py:1809
 #, python-format
@@ -2300,20 +2424,25 @@ msgstr "- \"Ler este PDF e listar três pontos principais.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Pesquisar as últimas notícias e resumir um tópico específico.\""
 
+#: src/uagent/a2a/engine.py:124
 msgid "No assistant message produced."
-msgstr ""
+msgstr "Não foi produzida nenhuma mensagem do assistente."
 
+#: src/uagent/a2a/engine.py:133
 msgid "Generated image(s)."
-msgstr ""
+msgstr "Imagem(ns) gerada(s)."
 
+#: src/uagent/a2a/engine.py:143
 msgid "ECHO: %(text)s"
-msgstr ""
+msgstr "ECO: %(text)s"
 
+#: src/uagent/a2a/engine.py:155
 msgid "uagent initialization failed: %(err)s"
-msgstr ""
+msgstr "falha na inicialização do uagent: %(err)s"
 
+#: src/uagent/a2a/engine.py:163
 msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr ""
+msgstr "falha na execução do uagent: %(etype)s: %(err)s"
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

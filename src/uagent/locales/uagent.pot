@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 20:46+0900\n"
+"POT-Creation-Date: 2026-05-14 21:17+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -860,6 +860,15 @@ msgstr ""
 msgid "[mode] reasoning=%(mode)s"
 msgstr ""
 
+#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:389
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr ""
+
+#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:386
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+
 #: src/uagent/scheckgui.py:889
 msgid "Enter password..."
 msgstr ""
@@ -883,6 +892,16 @@ msgstr ""
 
 #: src/uagent/scheckgui.py:1407
 msgid "Stopped"
+msgstr ""
+
+#: src/uagent/scheckgui.py:1453
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr ""
+
+#: src/uagent/scheckgui.py:1461
+#, python-format
+msgid "[USER] %(text)s"
 msgstr ""
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
@@ -1092,8 +1111,28 @@ msgstr ""
 msgid "  1. .env only"
 msgstr ""
 
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr ""
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr ""
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr ""
+
 #: src/uagent/setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
+msgstr ""
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr ""
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
 msgstr ""
 
 #: src/uagent/setup_cli.py:449
@@ -1437,15 +1476,6 @@ msgstr ""
 msgid "invalid verbosity"
 msgstr ""
 
-#: src/uagent/util_tools.py:386
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-
-#: src/uagent/util_tools.py:389
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr ""
-
 #: src/uagent/util_tools.py:402
 msgid ":cd <path>"
 msgstr ""
@@ -1488,6 +1518,16 @@ msgstr ""
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:511
+#, python-format
+msgid "  [D] %(name)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:513
+#, python-format
+msgid "  [F] %(name)s (%(size)d bytes)"
 msgstr ""
 
 #: src/uagent/util_tools.py:515
