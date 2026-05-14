@@ -68,6 +68,11 @@ def load_dotenv_custom():
 # 実行時に即座に環境変数をロード
 load_dotenv_custom()
 
+
+def reload_dotenv_custom() -> None:
+    """Reload .env and .env.sec from the current CWD into the current process."""
+    load_dotenv_custom()
+
 __all__ = [
     "WorkdirDecision",
     "apply_workdir",
