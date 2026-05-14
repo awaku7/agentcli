@@ -110,7 +110,7 @@ def _env_first(keys: list[str], *, required: bool = False, default: str = "") ->
 
 def _provider() -> str:
     provider = _env_first(
-        ["UAGENT_AUDIO_PROVIDER", "UAGENT_PROVIDER"], default="openai"
+        ["UAGENT_AUDIO_SPEECH_PROVIDER", "UAGENT_PROVIDER"], default="openai"
     )
     provider = provider.strip().lower()
     if provider not in ("openai", "azure", "gemini", "vertexai"):

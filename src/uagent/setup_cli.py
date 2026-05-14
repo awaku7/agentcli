@@ -207,6 +207,8 @@ IMAGE_GENERATION_PROVIDERS: list[tuple[str, str]] = [
 AUDIO_PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI-compatible"),
     ("azure", "Azure OpenAI"),
+    ("gemini", "Gemini"),
+    ("vertexai", "Vertex AI"),
 ]
 
 
@@ -240,6 +242,7 @@ class _WizardState:
     image_analysis_values: dict[str, str] | None = None
     image_generate_values: dict[str, str] | None = None
     embedding_values: dict[str, str] | None = None
+    audio_values: dict[str, str] | None = None
 
 
 def _q_sh(value: str) -> str:
@@ -624,41 +627,52 @@ def _ask_provider_embedding_values(
     return "ok", vals
 
 
+def _audio_model_key(provider: str, mode: str) -> str | None:
+    if mode == "speech":
+        if provider in {"openai", "azure"}:
+            return f"UAGENT_{provider.upper()}_SPEECH_DEPNAME"
+        if provider in {"gemini", "vertexai"}:
+            return "UAGENT_GEMINI_SPEECH_DEPNAME"
+    if mode == "transcribe":
+        if provider in {"openai", "azure"}:
+            return f"UAGENT_{provider.upper()}_TRANSCRIBE_DEPNAME"
+        if provider in {"gemini", "vertexai"}:
+            return "UAGENT_GEMINI_TRANSCRIBE_DEPNAME"
+    return None
+
+
 def _ask_provider_audio_values(
     provider: str,
+    mode: str,
     *,
     allow_back: bool = True,
     current: dict[str, str] | None = None,
 ) -> tuple[str, dict[str, str]]:
     vals = dict(current or {})
-
-    if provider == "azure":
-        specs = [
-            ("speech_depname", True, _("Azure speech deployment name")),
-            ("transcribe_depname", True, _("Azure transcription deployment name")),
-        ]
-    elif provider == "openai":
-        specs = [
-            ("speech_depname", True, _("OpenAI speech model/deployment name")),
-            (
-                "transcribe_depname",
-                True,
-                _("OpenAI transcription model/deployment name"),
-            ),
-        ]
-    else:
+    key = _audio_model_key(provider, mode)
+    if not key:
         return "ok", vals
 
-    for suffix, required, label in specs:
-        key = f"UAGENT_{provider.upper()}_{suffix.upper()}"
-        status, value = _ask_text(
-            "%(label)s" % {"label": label},
-            default=vals.get(key, ""),
-            required=required,
-            allow_back=allow_back,
-        )
-        if status in {"__quit__", "__back__"}:
-            return status, vals
+    labels = {
+        ("azure", "speech"): _("Azure speech deployment name"),
+        ("azure", "transcribe"): _("Azure transcription deployment name"),
+        ("openai", "speech"): _("OpenAI speech model/deployment name"),
+        ("openai", "transcribe"): _("OpenAI transcription model/deployment name"),
+        ("gemini", "speech"): _("Gemini speech model name (optional)"),
+        ("gemini", "transcribe"): _("Gemini transcription model name (optional)"),
+        ("vertexai", "speech"): _("Vertex AI speech model name (optional)"),
+        ("vertexai", "transcribe"): _("Vertex AI transcription model name (optional)"),
+    }
+    required = provider in {"openai", "azure"}
+    status, value = _ask_text(
+        labels.get((provider, mode), key),
+        default=vals.get(key, ""),
+        required=required,
+        allow_back=allow_back,
+    )
+    if status in {"__quit__", "__back__"}:
+        return status, vals
+    if value:
         vals[key] = value
 
     return "ok", vals
@@ -827,18 +841,40 @@ def _ask_optional_extras(
                 for i, (prov, _label) in enumerate(AUDIO_PROVIDERS)
                 if prov == st.provider
             )
-        au_choice = _menu_choice(
-            _("Select audio provider"),
+
+        speech_choice = _menu_choice(
+            _("Select audio speech provider"),
             au_options,
             default_index=au_default,
             allow_back=True,
         )
-        if au_choice in {"__quit__", "__back__"}:
-            return au_choice
-        au_provider = AUDIO_PROVIDERS[int(au_choice) - 1][0]
-        st.audio_values = {"UAGENT_AUDIO_PROVIDER": au_provider}
+        if speech_choice in {"__quit__", "__back__"}:
+            return speech_choice
+        speech_provider = AUDIO_PROVIDERS[int(speech_choice) - 1][0]
+        st.audio_values = {"UAGENT_AUDIO_SPEECH_PROVIDER": speech_provider}
         status, vals = _ask_provider_audio_values(
-            au_provider,
+            speech_provider,
+            "speech",
+            current=st.audio_values,
+            allow_back=True,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        st.audio_values = vals
+
+        transcribe_choice = _menu_choice(
+            _("Select audio transcribe provider"),
+            au_options,
+            default_index=au_default,
+            allow_back=True,
+        )
+        if transcribe_choice in {"__quit__", "__back__"}:
+            return transcribe_choice
+        transcribe_provider = AUDIO_PROVIDERS[int(transcribe_choice) - 1][0]
+        st.audio_values["UAGENT_AUDIO_TRANSCRIBE_PROVIDER"] = transcribe_provider
+        status, vals = _ask_provider_audio_values(
+            transcribe_provider,
+            "transcribe",
             current=st.audio_values,
             allow_back=True,
         )
@@ -1022,34 +1058,36 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
 
         if st.audio_enabled:
             audio_vals = st.audio_values or {}
-            audio_provider = audio_vals.get("UAGENT_AUDIO_PROVIDER", "").strip()
-            if audio_provider:
-                out.append(f"UAGENT_AUDIO_PROVIDER={audio_provider}")
-                if audio_provider == "azure":
-                    for key in (
-                        "UAGENT_AZURE_SPEECH_DEPNAME",
-                        "UAGENT_AZURE_TRANSCRIBE_DEPNAME",
-                    ):
-                        val = audio_vals.get(key, "").strip()
-                        if val:
-                            out.append(f"{key}={val}")
-                elif audio_provider == "openai":
-                    for key in (
-                        "UAGENT_OPENAI_SPEECH_DEPNAME",
-                        "UAGENT_OPENAI_TRANSCRIBE_DEPNAME",
-                    ):
-                        val = audio_vals.get(key, "").strip()
-                        if val:
-                            out.append(f"{key}={val}")
+            speech_provider = audio_vals.get("UAGENT_AUDIO_SPEECH_PROVIDER", "").strip()
+            if speech_provider:
+                out.append(f"UAGENT_AUDIO_SPEECH_PROVIDER={speech_provider}")
+                speech_key = _audio_model_key(speech_provider, "speech")
+                if speech_key:
+                    val = audio_vals.get(speech_key, "").strip()
+                    if val:
+                        out.append(f"{speech_key}={val}")
+            transcribe_provider = audio_vals.get(
+                "UAGENT_AUDIO_TRANSCRIBE_PROVIDER", ""
+            ).strip()
+            if transcribe_provider:
+                out.append(f"UAGENT_AUDIO_TRANSCRIBE_PROVIDER={transcribe_provider}")
+                transcribe_key = _audio_model_key(transcribe_provider, "transcribe")
+                if transcribe_key:
+                    val = audio_vals.get(transcribe_key, "").strip()
+                    if val:
+                        out.append(f"{transcribe_key}={val}")
             audio_open = audio_vals.get("UAGENT_AUDIO_OPEN", "").strip()
             if audio_open:
                 out.append(f"UAGENT_AUDIO_OPEN={audio_open}")
         else:
-            out.append("# UAGENT_AUDIO_PROVIDER=")
+            out.append("# UAGENT_AUDIO_SPEECH_PROVIDER=")
+            out.append("# UAGENT_AUDIO_TRANSCRIBE_PROVIDER=")
             out.append("# UAGENT_AZURE_SPEECH_DEPNAME=")
             out.append("# UAGENT_OPENAI_SPEECH_DEPNAME=")
+            out.append("# UAGENT_GEMINI_SPEECH_DEPNAME=")
             out.append("# UAGENT_AZURE_TRANSCRIBE_DEPNAME=")
             out.append("# UAGENT_OPENAI_TRANSCRIBE_DEPNAME=")
+            out.append("# UAGENT_GEMINI_TRANSCRIBE_DEPNAME=")
             out.append("# UAGENT_AUDIO_OPEN=1")
         out.append("")
     else:
