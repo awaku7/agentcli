@@ -127,6 +127,23 @@ def _img_env(
     return _env_first(keys)
 
 
+def _image_generation_depname(provider: str) -> str:
+    """Resolve the startup display model for image generation.
+
+    Match generate_image_tool: image generation must not fall back to
+    UAGENT_<PROVIDER>_DEPNAME because that is commonly the chat model.
+    """
+    p = provider.upper()
+    depname = _env(f"UAGENT_{p}_IMG_GENERATE_DEPNAME")
+    if depname:
+        return depname
+    if provider == "openai":
+        return "gpt-image-1"
+    if provider in {"gemini", "vertexai"}:
+        return "imagen-4.0-generate-001"
+    return ""
+
+
 def _image_generation_model_info() -> tuple[str, str] | None:
     provider = _env_first(
         ["UAGENT_IMG_GENERATE_PROVIDER", "UAGENT_PROVIDER"], default="azure"
@@ -142,7 +159,7 @@ def _image_generation_model_info() -> tuple[str, str] | None:
     }:
         return None
 
-    depname = _img_env(provider, "generate", "depname")
+    depname = _image_generation_depname(provider)
     if not depname:
         return None
 

@@ -222,7 +222,28 @@ def _urlopen_kwargs() -> Dict[str, Any]:
 
 
 def _get_image_depname(cb_get_env, provider: str) -> str:
-    return _img_env(provider, "generate", "depname", required=True)
+    """Resolve image-generation model/deployment name.
+
+    Do not fall back to UAGENT_<PROVIDER>_DEPNAME here: that variable is often
+    used for chat models, and passing a chat model to the image endpoint causes
+    errors such as "The model 'gpt-5.5' does not exist.".
+    """
+    p = provider.strip().upper()
+    key = f"UAGENT_{p}_IMG_GENERATE_DEPNAME"
+    v = (env_get(key) or "").strip()
+    if v:
+        return v
+    if provider == "openai":
+        return "gpt-image-1"
+    if provider in ("gemini", "vertexai"):
+        return "imagen-4.0-generate-001"
+    raise RuntimeError(
+        _msg(
+            "err.required_env_vars_missing",
+            "required env var is missing (tried: {keys})",
+            keys=key,
+        )
+    )
 
 
 def _ensure_dir(p: str) -> str:
@@ -378,8 +399,20 @@ def _run_openai_images(
 
     try:
         resp = client.images.generate(**gen_kwargs)
-    except Exception:
-        raise
+    except Exception as e:
+        # Some OpenAI-compatible image endpoints/models no longer accept
+        # response_format. Retry without it and rely on the default response,
+        # which may contain either b64_json or url (both are handled below).
+        err_text = repr(e)
+        if (
+            "response_format" in gen_kwargs
+            and "Unknown parameter" in err_text
+            and "response_format" in err_text
+        ):
+            gen_kwargs.pop("response_format", None)
+            resp = client.images.generate(**gen_kwargs)
+        else:
+            raise
     b64_list: List[str] = []
     url_list: List[str] = []
     items: List[Dict[str, Any]] = []
