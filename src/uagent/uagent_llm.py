@@ -325,8 +325,8 @@ def run_llm_rounds(
                 reuse_only_rounds += 1
                 if reuse_only_rounds >= 3:
                     print(
-                        "[WARN] 3 ラウンド連続で同一ツール結果の再利用のみとなったため、"
-                        "ループ防止のため処理を終了しました。"
+                        "[WARN] The same tool result was reused for 3 consecutive rounds, so "
+                        "processing was stopped to prevent a loop."
                     )
                     break
 

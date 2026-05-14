@@ -434,13 +434,13 @@ def guess_topics_from_content(content: str) -> Set[str]:
 
     # カテゴリ定義
     mapping = {
-        "システム開発/設計": [
-            "設計",
-            "アーキテクチャ",
-            "要件",
-            "仕様",
-            "シーケンス",
-            "クラス図",
+        "System Development/Design": [
+            "design",
+            "architecture",
+            "requirements",
+            "specification",
+            "sequence",
+            "class diagram",
             "database",
             "db",
             "sql",
@@ -449,7 +449,7 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "docker",
             "k8s",
         ],
-        "プログラミング/Python": [
+        "Programming/Python": [
             "python",
             "pip",
             "pandas",
@@ -458,7 +458,7 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "flask",
             "fastapi",
         ],
-        "プログラミング/C#・.NET": [
+        "Programming/C#/.NET": [
             "c#",
             "csharp",
             ".net",
@@ -467,7 +467,7 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "wpf",
             "winforms",
         ],
-        "プログラミング/JS・TS": [
+        "Programming/JS/TS": [
             "javascript",
             "typescript",
             "node.js",
@@ -478,9 +478,9 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "html",
             "css",
         ],
-        "プログラミング/Rust": ["rust", "cargo"],
-        "プログラミング/C・C++": [" c ", "c++", "cpp", "cmake", "gcc", "clang"],
-        "Web・ネットワーク": [
+        "Programming/Rust": ["rust", "cargo"],
+        "Programming/C/C++": [" c ", "c++", "cpp", "cmake", "gcc", "clang"],
+        "Web/Network": [
             "http",
             "api",
             "url",
@@ -489,27 +489,27 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "dns",
             "ip",
             "ssl",
-            "証明書",
-            "ブラウザ",
-            "ドメイン",
+            "certificate",
+            "browser",
+            "domain",
         ],
-        "インフラ・OS設定": [
+        "Infrastructure/OS Settings": [
             "linux",
             "ubuntu",
             "windows",
             "powershell",
             "shell",
             "bash",
-            "環境変数",
-            "パス",
-            "サービス",
-            "レジストリ",
+            "environment variable",
+            "path",
+            "service",
+            "registry",
         ],
-        "メディア処理": [
+        "Media Processing": [
             "ffmpeg",
-            "画像",
-            "動画",
-            "音声",
+            "image",
+            "video",
+            "audio",
             "video",
             "audio",
             "mp4",
@@ -518,7 +518,7 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "png",
             "jpg",
         ],
-        "AI・LLM": [
+        "AI/LLM": [
             "llm",
             "openai",
             "azure",
@@ -526,10 +526,10 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "gemini",
             "claude",
             "prompt",
-            "推論",
-            "生成AI",
+            "reasoning",
+            "generative AI",
         ],
-        "SNS・自動化": [
+        "SNS/Automation": [
             "sns",
             "twitter",
             " x ",
@@ -537,36 +537,36 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "slack",
             "bluesky",
             "mastodon",
-            "自動化",
-            "スクレイピング",
+            "automation",
+            "scraping",
         ],
-        "ドキュメント・調査": [
+        "Documents/Research": [
             "readme",
             "markdown",
-            "資料",
-            "調査",
-            "検索",
-            "リサーチ",
+            "materials",
+            "research",
+            "search",
+            "research",
         ],
-        "デバッグ・解析": [
+        "Debugging/Analysis": [
             "traceback",
-            "例外",
-            "エラー",
             "exception",
             "error",
-            "解析",
-            "ログ",
+            "exception",
+            "error",
+            "analysis",
+            "logs",
         ],
-        "データ分析/Excel": ["excel", "xlsx", "csv", "分析", "集計", "統計", "グラフ"],
-        "セキュリティ": [
+        "Data Analysis/Excel": ["excel", "xlsx", "csv", "analysis", "aggregation", "statistics", "chart"],
+        "Security": [
             "security",
-            "脆弱性",
-            "暗号",
-            "認証",
-            "パスワード",
+            "vulnerability",
+            "encryption",
+            "authentication",
+            "password",
             "token",
-            "鍵",
-            "攻撃",
+            "key",
+            "attack",
         ],
     }
 
@@ -612,7 +612,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
 
             return datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M")
         except Exception:
-            return "(unknown time)"
+            return _("(unknown time)")
 
     print(
         _("logs: showing %(shown)d/%(total)d (dir=%(dir)s)")
@@ -743,9 +743,9 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         turns = total_user_count + total_assistant_count
 
         first_user_text = (
-            _shorten(first_user, 60) if first_user else "(no user message)"
+            _shorten(first_user, 60) if first_user else _("(no user message)")
         )
-        last_user_text = _shorten(last_user, 80) if last_user else "(no user message)"
+        last_user_text = _shorten(last_user, 80) if last_user else _("(no user message)")
 
         print(
             f"[{idx}] {mtime_text} | {turns} msgs | first: {first_user_text} | last: {last_user_text}"
@@ -967,15 +967,15 @@ def shrink_messages(
 
     if len(others) <= keep_last:
         print(
-            f"[INFO] 圧縮対象メッセージ数が {len(others)} 件なので、そのままにしました。",
+            f"[INFO] There were {len(others)} messages to compress, so nothing was changed.",
             file=sys.stderr,
         )
         return list(messages)
 
     trimmed_others = others[-keep_last:]
     print(
-        f"[INFO] メモリ上の会話履歴を圧縮しました: "
-        f"{len(others)} -> {len(trimmed_others)} 件 (keep_last={keep_last})",
+        f"[INFO] Compressed in-memory conversation history: "
+        f"{len(others)} -> {len(trimmed_others)} messages (keep_last={keep_last})",
         file=sys.stderr,
     )
 

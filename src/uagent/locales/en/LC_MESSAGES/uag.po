@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-13 15:16+0900\n"
+"POT-Creation-Date: 2026-05-14 18:06+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,8 +95,14 @@ msgstr "[FATAL] Failed to set workdir: %(err)s"
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
 
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "provider = %(provider)s; model = %(model)s"
+
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter fallback models enabled."
+
+msgid "current workdir = %(cwd)s"
+msgstr "current workdir = %(cwd)s"
 
 msgid "Loaded long-term memory."
 msgstr "Loaded long-term memory."
@@ -351,8 +357,40 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Auto shrink_llm failed: %(err)s"
+
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr "[WARN] assistant history contained image content; converted to text."
+
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] invalid image content (missing url)."
+
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] unsupported content item: %(item)r"
 
 msgid ""
 "[Tool calling rules]\n"
@@ -384,6 +422,36 @@ msgstr "[Claude Error] An error occurred while generating a response."
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
 
+msgid "embedding"
+msgstr "embedding"
+
+msgid "audio speech"
+msgstr "audio speech"
+
+msgid "audio transcribe"
+msgstr "audio transcribe"
+
+msgid "image generation"
+msgstr "image generation"
+
+msgid "image analysis"
+msgstr "image analysis"
+
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (source: %(source)s)"
+
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] base_url = %(base_url)s"
+
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] api_version = %(api_version)s"
+
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
+
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
+
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
@@ -394,8 +462,23 @@ msgstr ""
 msgid "LLM API mode = %(mode)s"
 msgstr "LLM API mode = %(mode)s"
 
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Responses (UAGENT_RESPONSES is enabled)"
+
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES is disabled)"
+
 msgid "LLM streaming = %(state)s"
 msgstr "LLM streaming = %(state)s"
+
+msgid "enabled"
+msgstr "enabled"
+
+msgid "disabled"
+msgstr "disabled"
 
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
@@ -439,6 +522,9 @@ msgstr "[WARN] Failed to create .env.sec: %(err)s"
 
 msgid "[WARN] {message}"
 msgstr "[WARN] {message}"
+
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
 
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
@@ -728,6 +814,18 @@ msgstr "OpenAI speech model/deployment name"
 msgid "OpenAI transcription model/deployment name"
 msgstr "OpenAI transcription model/deployment name"
 
+msgid "Gemini speech model name (optional)"
+msgstr "Gemini speech model name (optional)"
+
+msgid "Gemini transcription model name (optional)"
+msgstr "Gemini transcription model name (optional)"
+
+msgid "Vertex AI speech model name (optional)"
+msgstr "Vertex AI speech model name (optional)"
+
+msgid "Vertex AI transcription model name (optional)"
+msgstr "Vertex AI transcription model name (optional)"
+
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "Configure optional image / embedding / audio settings?"
 
@@ -761,8 +859,11 @@ msgstr "Select embedding provider"
 msgid "Configure audio speech / transcription settings?"
 msgstr "Configure audio speech / transcription settings?"
 
-msgid "Select audio provider"
-msgstr "Select audio provider"
+msgid "Select audio speech provider"
+msgstr "Select audio speech provider"
+
+msgid "Select audio transcribe provider"
+msgstr "Select audio transcribe provider"
 
 msgid "Open generated audio automatically?"
 msgstr "Open generated audio automatically?"
@@ -931,9 +1032,6 @@ msgstr "[mv] Moved: %(src)s -> %(dst)s"
 msgid "[head] Invalid line count: %(n)r"
 msgstr "[head] Invalid line count: %(n)r"
 
-msgid "[head] Unexpected response."
-msgstr "[head] Unexpected response."
-
 msgid "[head] Failed."
 msgstr "[head] Failed."
 
@@ -942,9 +1040,6 @@ msgstr "[head] Empty."
 
 msgid "[tail] Invalid line count: %(n)r"
 msgstr "[tail] Invalid line count: %(n)r"
-
-msgid "[tail] Unexpected response."
-msgstr "[tail] Unexpected response."
 
 msgid "[tail] Failed."
 msgstr "[tail] Failed."
@@ -1324,18 +1419,31 @@ msgstr ""
 "\n"
 
 msgid ""
-"Another task is already running in this room. Please retry after it "
+"[WARN] Another task is already running in this room. Please retry after it "
 "completes."
 msgstr ""
-"Another task is already running in this room. Please retry after it "
+"[WARN] Another task is already running in this room. Please retry after it "
 "completes."
 
 msgid ""
-"Environment variable UAGENT_PROVIDER is not set.\n"
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
 msgstr ""
-"Environment variable UAGENT_PROVIDER is not set.\n"
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
+
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Loaded long-term memory."
+
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Loaded shared long-term memory."
+
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
 
 msgid ""
 "[MCP Servers]\n"

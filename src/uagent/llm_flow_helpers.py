@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 
 from . import tools
 from .env_utils import env_get
+from .i18n import _
 from .llm_helpers import _effectively_empty_text
 
 
@@ -122,7 +123,9 @@ def _handle_openai_empty_no_tool(
             try:
                 nudge_msg = {
                     "role": "user",
-                    "content": "前回のアシスタント返答が空でした。直前のツール結果を踏まえて回答してください。",
+                    "content": _(
+                        "The previous assistant reply was empty. Please answer based on the most recent tool result."
+                    ),
                 }
                 messages.append(nudge_msg)
                 core.log_message(nudge_msg)
@@ -132,13 +135,18 @@ def _handle_openai_empty_no_tool(
         if empty_no_tool_rounds <= empty_no_tool_max:
             return "continue", empty_no_tool_rounds
 
-        warn_text = (
+        warn_text = _(
             "[WARN] LLM returned an empty assistant message without tool calls.\n"
-            f"provider={provider} depname={depname} "
-            f"empty_no_tool_rounds={empty_no_tool_rounds} (max={empty_no_tool_max})\n"
+            "provider=%(provider)s depname=%(depname)s "
+            "empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
             "This may happen with OpenAI-compatible local providers after tool calls. "
             "You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
-        )
+        ) % {
+            "provider": provider,
+            "depname": depname,
+            "empty_no_tool_rounds": empty_no_tool_rounds,
+            "empty_no_tool_max": empty_no_tool_max,
+        }
         try:
             warn_msg = {"role": "assistant", "content": warn_text}
             messages.append(warn_msg)
@@ -176,7 +184,7 @@ def _execute_tool_calls(
         try:
             parsed_args = json.loads(arg_str)
             if not isinstance(parsed_args, dict):
-                raise ValueError("arguments は JSON object である必要があります。")
+                raise ValueError("arguments must be a JSON object.")
         except Exception as e:
             tb = traceback.format_exc()
             tool_result = (
@@ -199,7 +207,9 @@ def _execute_tool_calls(
             )
             if cached is not None:
                 tool_result = (
-                    "[INFO] 同一内容のツール呼び出しのため、前回の結果を再利用します。\n"
+                    _(
+                        "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
+                    )
                     + cached
                 )
             else:

@@ -290,18 +290,18 @@ def _choose_auto_thinking_level(user_text: str) -> str:
         "pros",
         "cons",
         "root cause",
-        "原因",
-        "調査",
-        "分析",
-        "設計",
-        "比較",
-        "方針",
-        "戦略",
-        "最適化",
-        "デバッグ",
-        "実装",
-        "修正",
-        "改善",
+        "root cause",
+        "investigation",
+        "analysis",
+        "design",
+        "comparison",
+        "policy",
+        "strategy",
+        "optimization",
+        "debugging",
+        "implementation",
+        "fix",
+        "improvement",
     )
 
     if any(k in tl for k in keywords):
@@ -433,7 +433,7 @@ def gemini_chat_with_tools(
 
     if genai is None or gemini_types is None:
         raise RuntimeError(
-            "google-genai がインポートできませんでした。（pip install google-genai が必要です）"
+            "google-genai could not be imported (pip install google-genai is required)."
         )
 
     tool_specs = tools.get_tool_specs() or []
