@@ -106,9 +106,14 @@ After setup UI exits, startup must reload `.env` and `.env.sec` before validatin
 
 Automatic `.env.sec` synchronization must not silently discard or overwrite user intent.
 
-For the current implementation, startup may create or update `.env.sec` from the final effective `UAGENT_*` environment after successful validation, but it must use the effective priority rules above.
+Startup may offer to persist pre-existing `UAGENT_*` environment variables into `.env.sec` only after startup validation succeeds. This persistence is opt-in:
 
-Future interactive behavior may ask before persisting differences between pre-existing environment variables and `.env.sec`. Non-interactive startup should not prompt.
+- If pre-existing `UAGENT_*` environment variables exist and `.env.sec` is missing, interactive CLI startup asks whether to create `.env.sec` from those startup environment variables.
+- If `.env.sec` exists and a pre-existing `UAGENT_*` environment variable has a different value, the pre-existing environment variable remains the effective runtime value. Interactive CLI startup asks whether to update `.env.sec` with that environment value.
+- If the user declines, runtime values are unchanged and `.env.sec` is not modified.
+- GUI, Web, and non-interactive startup must not prompt. They should print guidance to use `uag_envsec` when synchronization is available.
+
+Startup must never silently create or update `.env.sec`.
 
 ## Known failure modes this specification prevents
 

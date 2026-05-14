@@ -150,13 +150,10 @@ def _maybe_offer_envsec_sync(
     sec_values = _parse_uagent_env_text(sec_plain) if sec_plain.strip() else {}
 
     if sec_path.exists():
-        if not sec_values:
-            return False
-
         diff_keys = [
             key
-            for key, existing_value in sec_values.items()
-            if key in snapshot and snapshot[key] != existing_value
+            for key, startup_value in snapshot.items()
+            if sec_values.get(key) != startup_value
         ]
         if not diff_keys:
             return False
@@ -178,7 +175,6 @@ def _maybe_offer_envsec_sync(
             except EOFError:
                 answer = ""
             if answer not in ("y", "yes"):
-                os.environ.update(sec_values)
                 return False
         else:
             print(
@@ -195,7 +191,6 @@ def _maybe_offer_envsec_sync(
             merged_values.update(snapshot)
             plaintext = _build_uagent_env_text(merged_values)
             _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
-            os.environ.update(merged_values)
             print(_("Updated .env.sec: %(path)s", path=sec_path), file=sys.__stderr__)
             return True
         except Exception as e:
@@ -265,6 +260,16 @@ def validate_or_exit_startup_env(*, context: str) -> None:
                 file=sys.stderr,
             )
 
-    # Startup validation must not create or update .env.sec implicitly.
-    # The setup wizard owns .env/.env.sec writes; startup only reads them.
+    try:
+        from .runtime_init import get_startup_uagent_env_snapshot
+
+        _maybe_offer_envsec_sync(
+            context=context,
+            env_snapshot=get_startup_uagent_env_snapshot(),
+        )
+    except Exception as e:
+        print(
+            _("[WARN] Failed to check .env.sec synchronization: %(err)s", err=e),
+            file=sys.__stderr__,
+        )
     return
