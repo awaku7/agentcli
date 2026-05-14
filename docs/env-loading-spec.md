@@ -1,0 +1,119 @@
+# uagent environment loading specification
+
+## Scope
+
+This document defines how startup configuration is resolved from pre-existing environment variables, `.env`, and `.env.sec`.
+
+Only variables whose names start with `UAGENT_` are treated as uagent startup configuration for snapshot, merge, validation, and `.env.sec` synchronization.
+
+## Terms
+
+### Pre-existing environment variables
+
+Environment variables that already exist in `os.environ` before uagent loads any `.env` or `.env.sec` file.
+
+Examples:
+
+- Windows user/system environment variables
+- PowerShell variables such as `$env:UAGENT_PROVIDER = "ollama"`
+- `cmd.exe` variables such as `set UAGENT_PROVIDER=ollama`
+- Variables passed by a parent process or CI system
+
+These variables are considered explicit settings for the current run.
+
+### `.env`
+
+A plaintext dotenv file in the selected workdir. It is convenient for development and manual editing, but it may contain secrets and should not be committed.
+
+### `.env.sec`
+
+An encrypted dotenv file in the selected workdir. After decryption, its content is parsed as dotenv-style `KEY=VALUE` lines.
+
+The decryption key is selected by `uag_envsec.secret_core` using this order:
+
+1. `.uagent.key` in the current workdir, if present
+2. The default key location managed by `uag_envsec`
+
+## Effective value priority
+
+The effective runtime value for each `UAGENT_*` key must be resolved in this order:
+
+1. Pre-existing environment variable
+2. `.env.sec`
+3. `.env`
+4. Application default
+
+A higher-priority source must not be overwritten by a lower-priority source.
+
+Example:
+
+```env
+# .env.sec
+UAGENT_PROVIDER=openai
+```
+
+```powershell
+# pre-existing environment before launching uag
+$env:UAGENT_PROVIDER = "ollama"
+```
+
+Effective value:
+
+```env
+UAGENT_PROVIDER=ollama
+```
+
+## Startup order
+
+The CLI startup flow must follow this order:
+
+1. Capture the pre-existing `UAGENT_*` environment snapshot before reading any `.env` or `.env.sec` file.
+2. Decide and apply the workdir.
+3. Load `.env` from the selected workdir with `override=False`.
+4. Load `.env.sec` from the selected workdir without overriding keys that existed in the pre-existing snapshot.
+5. Validate startup environment.
+6. If validation fails in interactive CLI mode, run `uagent.setup_cli`.
+7. After setup, reload `.env` and `.env.sec` using the same priority rules.
+8. Validate again.
+9. Build startup banner.
+10. Create the provider client.
+
+The startup banner and provider client must be created only after the final environment has been loaded and validated.
+
+## `.env` behavior
+
+`.env` is loaded with `override=False`.
+
+This means `.env` fills missing values, but does not override values already provided by the process environment.
+
+## `.env.sec` behavior
+
+`.env.sec` is loaded after `.env`.
+
+`.env.sec` may override values loaded from `.env`, but must not override keys that were present in the pre-existing environment snapshot.
+
+If `.env.sec` exists but cannot be decrypted, startup should print a warning. Validation then decides whether startup can continue.
+
+## Setup UI behavior
+
+The setup UI should run only when required startup settings are still missing after loading all configured sources.
+
+If `.env.sec` contains all required values, setup UI should not run.
+
+After setup UI exits, startup must reload `.env` and `.env.sec` before validating again.
+
+## `.env.sec` synchronization behavior
+
+Automatic `.env.sec` synchronization must not silently discard or overwrite user intent.
+
+For the current implementation, startup may create or update `.env.sec` from the final effective `UAGENT_*` environment after successful validation, but it must use the effective priority rules above.
+
+Future interactive behavior may ask before persisting differences between pre-existing environment variables and `.env.sec`. Non-interactive startup should not prompt.
+
+## Known failure modes this specification prevents
+
+- `.env` overwriting a value explicitly set before launch.
+- `.env.sec` being loaded only after validation.
+- Startup banner showing a different provider from the provider client.
+- Setup UI not running because stale process environment values mask missing configuration.
+- User edits to `.env.sec` being overwritten by stale `.env` or stale process values.

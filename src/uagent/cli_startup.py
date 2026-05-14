@@ -41,6 +41,7 @@ def run_cli_startup(
         apply_workdir,
         build_startup_banner,
         decide_workdir,
+        reload_dotenv_custom,
         validate_or_exit_startup_env,
     )
     from .checks import check_git_installation
@@ -83,20 +84,8 @@ def run_cli_startup(
                     env_workdir=env_workdir,
                 )
                 apply_workdir(decision)
-                # Load .env files in a deterministic order:
-                # 1) current workdir .env
-                # 2) starting directory .env (if different)
-                try:
-                    from .runtime_init import reload_dotenv_custom
+                reload_dotenv_custom()
 
-                    reload_dotenv_custom()
-                except Exception:
-                    pass
-                banner = build_startup_banner(
-                    core=core,
-                    workdir=decision.chosen_expanded,
-                    workdir_source=decision.chosen_source,
-                )
             except Exception as e:
                 print(
                     _("[FATAL] Failed to set workdir: %(err)s", err=e),
@@ -107,6 +96,9 @@ def run_cli_startup(
             try:
                 validate_or_exit_startup_env(context="cli")
             except SystemExit:
+                if non_interactive:
+                    raise
+
                 setup_cmd = [sys.executable, "-m", "uagent.setup_cli"]
                 try:
                     subprocess.run(setup_cmd, check=False)
@@ -130,6 +122,7 @@ def run_cli_startup(
                     )
                     raise
 
+                reload_dotenv_custom()
                 try:
                     validate_or_exit_startup_env(context="cli")
                 except SystemExit:
@@ -147,6 +140,12 @@ def run_cli_startup(
                     except Exception:
                         pass
                     raise
+
+            banner = build_startup_banner(
+                core=core,
+                workdir=decision.chosen_expanded,
+                workdir_source=decision.chosen_source,
+            )
 
             print_welcome()
             check_git_installation()
