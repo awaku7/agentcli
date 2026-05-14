@@ -156,6 +156,14 @@ def run_cli_startup(
             if banner:
                 print(banner, end="")
 
+            print(
+                "[INFO] "
+                + (
+                    "provider = %(provider)s; model = %(model)s"
+                    % {"provider": provider, "model": depname or ""}
+                )
+            )
+
             if (
                 provider == "openrouter"
                 and (depname or "").strip() == "openrouter/auto"
