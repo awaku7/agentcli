@@ -124,7 +124,8 @@ def _handle_openai_empty_no_tool(
                 nudge_msg = {
                     "role": "user",
                     "content": _(
-                        "The previous assistant reply was empty. Please answer based on the most recent tool result."
+                        "The previous assistant reply was empty. Please answer based on the most recent tool result.",
+                        default="The previous assistant reply was empty. Please answer based on the most recent tool result.",
                     ),
                 }
                 messages.append(nudge_msg)
@@ -136,11 +137,8 @@ def _handle_openai_empty_no_tool(
             return "continue", empty_no_tool_rounds
 
         warn_text = _(
-            "[WARN] LLM returned an empty assistant message without tool calls.\n"
-            "provider=%(provider)s depname=%(depname)s "
-            "empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-            "This may happen with OpenAI-compatible local providers after tool calls. "
-            "You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+            "[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
+            default="[WARN] LLM returned an empty assistant message without tool calls.\nprovider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\nThis may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider.",
         ) % {
             "provider": provider,
             "depname": depname,
@@ -184,12 +182,15 @@ def _execute_tool_calls(
         try:
             parsed_args = json.loads(arg_str)
             if not isinstance(parsed_args, dict):
-                raise ValueError("arguments must be a JSON object.")
+                raise ValueError(_("arguments must be a JSON object.", default="arguments must be a JSON object."))
         except Exception as e:
             tb = traceback.format_exc()
             tool_result = (
-                f"[tool args error] name={name!r} raw={arg_str!r} "
-                f"err={type(e).__name__}: {e}\nTraceback:\n{tb}"
+                _(
+                    "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                    default=f"[tool args error] name={name!r} raw={arg_str!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                )
+                % {"name": name, "raw": arg_str, "etype": type(e).__name__, "err": e, "tb": tb}
             )
             tool_cache_key = f"error:{name}:{arg_str}"
             parsed_args = None
@@ -206,12 +207,9 @@ def _execute_tool_calls(
                 tool_result_cache.get(tool_cache_key) if use_tool_result_cache else None
             )
             if cached is not None:
-                tool_result = (
-                    _(
-                        "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
-                    )
-                    + cached
-                )
+                tool_result = _(
+                    "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
+                ) + cached
             else:
                 core.set_status(True, f"tool:{name}")
                 try:
@@ -223,8 +221,11 @@ def _execute_tool_calls(
                 except Exception as e:
                     tb = traceback.format_exc()
                     tool_result = (
-                        f"[tool runtime error] name={name!r} "
-                        f"err={type(e).__name__}: {e}\nTraceback:\n{tb}"
+                        _(
+                            "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                            default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                        )
+                        % {"name": name, "etype": type(e).__name__, "err": e, "tb": tb}
                     )
                 tool_result_cache[tool_cache_key] = tool_result
                 executed_new_tool = True

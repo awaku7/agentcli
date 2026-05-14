@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 18:06+0900\n"
+"POT-Creation-Date: 2026-05-14 20:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,6 +176,9 @@ msgstr "環境變數 %(name)s 未設定。"
 msgid "No log files found."
 msgstr "找不到記錄檔。"
 
+msgid "(unknown time)"
+msgstr ""
+
 #: src/uagent/core.py:618
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
@@ -184,6 +187,9 @@ msgstr "記錄：顯示 %(shown)d/%(total)d（目錄=%(dir)s）"
 #: src/uagent/core.py:621
 msgid "Log files:"
 msgstr "記錄檔："
+
+msgid "(no user message)"
+msgstr ""
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -387,30 +393,108 @@ msgid ""
 msgstr ""
 "選擇 LLM 提供方所必需（azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia）。"
 
-#: src/uagent/env_validate.py:231
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+
+msgid "Azure OpenAI API key."
+msgstr ""
+
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr ""
+
+msgid "OpenAI API key."
+msgstr ""
+
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr ""
+
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr ""
+
+msgid "OpenRouter API key."
+msgstr ""
+
+msgid "Grok (xAI) API key."
+msgstr ""
+
+msgid "Gemini API key."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+
+msgid "Vertex AI API key / model name."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+
+msgid "Anthropic (Claude) API key."
+msgstr ""
+
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+
+msgid "NVIDIA API key."
+msgstr ""
+
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+
+msgid "OpenAI embedding API key / model name."
+msgstr ""
+
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr ""
+
+msgid "OpenRouter embedding API key / model name."
+msgstr ""
+
+msgid "Ollama embedding base URL / model name."
+msgstr ""
+
+msgid "NVIDIA embedding API key / model name."
+msgstr ""
+
+#: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
 msgstr "缺少必需的環境變數："
 
-#: src/uagent/env_validate.py:245
+#: src/uagent/env_validate.py:253
 msgid "Warnings:"
 msgstr "警告："
 
-#: src/uagent/env_validate.py:249
+#: src/uagent/env_validate.py:257
 msgid "How to fix:"
 msgstr "修复方法："
 
-#: src/uagent/env_validate.py:252
+#: src/uagent/env_validate.py:260
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr "- 請在啟動程式前将上述變數設定到環境中。"
 
-#: src/uagent/env_validate.py:258
+#: src/uagent/env_validate.py:266
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
 msgstr "- 你可以透過操作系統環境設定、.env 檔案、shell 啟動脚本，"
 
-#: src/uagent/env_validate.py:264
+#: src/uagent/env_validate.py:272
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -441,7 +525,7 @@ msgid ""
 "recent tool result."
 msgstr "上一則助理回覆為空。請根據最近的工具結果作答。"
 
-#: src/uagent/llm_flow_helpers.py:139
+#: src/uagent/llm_flow_helpers.py:140
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -451,11 +535,26 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "這可能發生在與 OpenAI 相容的本地提供者於工具呼叫之後。您可以嘗試將 UAGENT_EMPTY_NO_TOOL_MAX 設為更高的值，或切換提供者。"
 
+msgid "arguments must be a JSON object."
+msgstr ""
+
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
 msgstr "[INFO] 由於這次工具呼叫與先前某次相同，因此重用前一次的結果。\n"
+
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -737,7 +836,7 @@ msgstr "詳細程度：中"
 msgid "Verbosity: high"
 msgstr "詳細程度：高"
 
-#: src/uagent/scheckgui.py:753
+#: src/uagent/scheckgui.py:753 src/uagent/util_tools.py:378
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 推論=%(mode)s"
@@ -1288,6 +1387,12 @@ msgstr "未知的提供者：%(provider)s"
 msgid "google-genai package is not installed."
 msgstr "尚未安裝 google-genai 套件。"
 
+msgid "image file not found: %(path)s"
+msgstr ""
+
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr ""
+
 #: src/uagent/util_tools.py:202
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
@@ -1300,20 +1405,53 @@ msgid ""
 " startup file (if any)."
 msgstr "非互動模式。不要啟動 stdin 迴圈；處理啟動檔案（如有）後退出。"
 
+msgid "invalid reasoning"
+msgstr ""
+
+msgid "invalid verbosity"
+msgstr ""
+
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+
+msgid "[mode] verbosity=%(mode)s"
+msgstr ""
+
+msgid ":cd <path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] 目錄不存在：%(src)s -> %(dst)s"
+
+msgid "[cd] workdir = %(path)s"
+msgstr ""
+
+msgid "[cd error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] 没有匹配的路徑：%(src)s -> %(expanded)s"
 
+msgid "[ls] %(path)s"
+msgstr ""
+
+msgid "  [D] %(name)s -> %(path)s"
+msgstr ""
+
+msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] 目錄不存在：%(src)s -> %(dst)s"
+
+msgid "[ls error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1328,6 +1466,30 @@ msgstr "[tools] 未載入工具。"
 #, python-format
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] 已載入 %(n)d 个工具"
+
+msgid "- %(name)s: %(desc)s"
+msgstr ""
+
+msgid "- %(name)s"
+msgstr ""
+
+msgid "[tools error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "failed to parse arguments: %(err)s"
+msgstr ""
+
+msgid "missing arguments"
+msgstr ""
+
+msgid "src and dst are required"
+msgstr ""
+
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1345,6 +1507,12 @@ msgstr "[cp] 目的地的上層資料夾不存在：%(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] 已複製：%(src)s -> %(dst)s"
 
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] 來源與目的地相同：%(path)s"
@@ -1361,6 +1529,12 @@ msgstr "[mv] 目的地的上層資料夾不存在：%(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] 已移動：%(src)s -> %(dst)s"
 
+msgid ":head <path> [n]"
+msgstr ""
+
+msgid "[head error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
 msgstr "[head] 無效的行數：%(n)r"
@@ -1372,6 +1546,12 @@ msgstr "[head] 失敗。"
 #: src/uagent/util_tools.py:800
 msgid "[head] Empty."
 msgstr "[head] 空白。"
+
+msgid ":tail <path> [n]"
+msgstr ""
+
+msgid "[tail error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1419,6 +1599,9 @@ msgstr "[skills] 没有活动的 skill。"
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] 活动 skill 數：%(n)d"
 
+msgid "[%(i)d] %(line)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
 msgstr "[skills] 未找到 skill。"
@@ -1432,6 +1615,9 @@ msgstr "[skills] 超出范围：%(n)d"
 #, python-format
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] 找到 %(n)d 个 skill"
+
+msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1476,10 +1662,16 @@ msgstr ""
 "\n"
 "要繼續嗎？輸入 y 執行，或輸入 c 取消。"
 
+msgid "skills_load returned non-dict"
+msgstr ""
+
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] 已套用：%(name)s"
+
+msgid "[skills error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1543,6 +1735,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] 待刪除日志（<= %(threshold)d 条訊息）：%(n)d"
 
+msgid " - (%(count)d msgs) %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1335
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
@@ -1593,6 +1788,9 @@ msgstr "[load 警告] 重写当前日志失敗：%(etype)s: %(err)s"
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[載入錯誤] 失敗：%(etype)s：%(err)s"
+
+msgid ":rm <path|glob> [path|glob]"
+msgstr ""
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1651,6 +1849,12 @@ msgstr "[rm] 已刪除 %(count)d 个路徑。"
 msgid "[rm] Failed."
 msgstr "[rm] 失敗。"
 
+msgid "[rm error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid ":load <index|path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:1556
 #, python-format
 msgid "Specified index %(idx)d is out of range."
@@ -1661,109 +1865,136 @@ msgstr "指定的索引 %(idx)d 超出范围。"
 msgid "Log file not found: %(path)s"
 msgstr "未找到日志檔案：%(path)s"
 
-#: src/uagent/util_tools.py:1611
+msgid "[load error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "[load] workdir = %(path)s"
+msgstr ""
+
+msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1612
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "已載入日志：%(path)s"
 
-#: src/uagent/util_tools.py:1612
+#: src/uagent/util_tools.py:1613
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "會話訊息數：%(n)d"
 
-#: src/uagent/util_tools.py:1647
+msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1648
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink 錯誤] 無法解析為整數：%(arg)r -> 保留最後 %(keep)d 筆"
 
-#: src/uagent/util_tools.py:1676
+#: src/uagent/util_tools.py:1677
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink_llm 錯誤] 無法解析為整數：%(arg)r -> 保留最後 %(keep)d 個"
 
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1698
 msgid "No long-term memory entries."
 msgstr "没有長期記憶条目。"
 
-#: src/uagent/util_tools.py:1700
+#: src/uagent/util_tools.py:1701
 msgid "Long-term memory entries:"
 msgstr "長期記憶条目："
 
-#: src/uagent/util_tools.py:1723
+msgid "[%(idx)s] %(dt)s  %(note)s"
+msgstr ""
+
+msgid ":mem-del <index>"
+msgstr ""
+
+#: src/uagent/util_tools.py:1724
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del 錯誤] 无法将索引解析为整數：%(arg)r"
 
-#: src/uagent/util_tools.py:1728
+#: src/uagent/util_tools.py:1729
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "已刪除長期記憶条目 [%(idx)d]。"
 
-#: src/uagent/util_tools.py:1730
+#: src/uagent/util_tools.py:1731
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] 刪除索引=%(idx)d 失敗。"
 
-#: src/uagent/util_tools.py:1738 src/uagent/util_tools.py:1771
+#: src/uagent/util_tools.py:1739 src/uagent/util_tools.py:1772
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr "尚未啟用共用長期記憶（未設定 UAGENT_SHARED_MEMORY_FILE）。"
 
-#: src/uagent/util_tools.py:1745
+#: src/uagent/util_tools.py:1746
 msgid "No shared long-term memory entries."
 msgstr "没有共享長期記憶条目。"
 
-#: src/uagent/util_tools.py:1750
+#: src/uagent/util_tools.py:1751
 msgid "Shared long-term memory entries:"
 msgstr "共享長期記憶条目："
 
-#: src/uagent/util_tools.py:1787 src/uagent/util_tools.py:1794
+msgid ":shared-mem-del <index>"
+msgstr ""
+
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+
+#: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] 刪除索引=%(idx)d 失敗。"
 
-#: src/uagent/util_tools.py:1808
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1809
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "已刪除共享長期記憶条目 [%(idx)d]。"
 
-#: src/uagent/util_tools.py:1823
+#: src/uagent/util_tools.py:1824
 msgid "Show this help"
 msgstr "顯示此說明"
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1825
 msgid "Restart input from the beginning"
 msgstr "從頭重新輸入"
 
-#: src/uagent/util_tools.py:1825
+#: src/uagent/util_tools.py:1826
 msgid "Show log file list"
 msgstr "顯示記錄檔清單"
 
-#: src/uagent/util_tools.py:1828
+#: src/uagent/util_tools.py:1829
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr "無需確認即可變更工作目錄（例如：:cd .. / :cd ~ / :cd C:\\path / :cd /）"
 
-#: src/uagent/util_tools.py:1831
+#: src/uagent/util_tools.py:1832
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "列出目錄項目（例如：:ls / :ls .. / :ls ~ / :ls C:\\path）"
 
-#: src/uagent/util_tools.py:1832
+#: src/uagent/util_tools.py:1833
 msgid "List loaded tools"
 msgstr "列出已載入的工具"
 
-#: src/uagent/util_tools.py:1834
+#: src/uagent/util_tools.py:1835
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "管理/套用技能（例如：:skills / :skills active / :skills clear）"
 
-#: src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1837
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "載入過去的記錄（會覆寫目前的對話歷史）"
 
-#: src/uagent/util_tools.py:1838
+#: src/uagent/util_tools.py:1839
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1771,94 +2002,94 @@ msgid ""
 msgstr ""
 "                       注意：运行后会要求確認；選擇 'y' 会把載入的日志追加到当前會話日志檔案开头（覆盖写入，不备份）。"
 
-#: src/uagent/util_tools.py:1842
+#: src/uagent/util_tools.py:1843
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 "刪除對話記錄（scheck_log_*.jsonl），其中 user/assistant/tool 訊息數（不含 system）<= N（預設=10）"
 
-#: src/uagent/util_tools.py:1846
+#: src/uagent/util_tools.py:1847
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "縮減對話歷史（保留最近 N 則非 system 訊息；預設=40）"
 
-#: src/uagent/util_tools.py:1850
+#: src/uagent/util_tools.py:1851
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
 msgstr "透過 LLM 摘要縮減歷史（將較早的歷史總結為 1 則 system 訊息；保留最近 N 則原文；預設=20）"
 
-#: src/uagent/util_tools.py:1852
+#: src/uagent/util_tools.py:1853
 msgid "List long-term memory notes"
 msgstr "長期記憶條目："
 
-#: src/uagent/util_tools.py:1854
+#: src/uagent/util_tools.py:1855
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "依索引刪除長期記憶筆記（請參見 :mem-list）"
 
-#: src/uagent/util_tools.py:1856
+#: src/uagent/util_tools.py:1857
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "複製檔案或目錄（支援 -f/--overwrite 與 -p/--mkdirs）"
 
-#: src/uagent/util_tools.py:1858
+#: src/uagent/util_tools.py:1859
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "移動檔案或目錄（支援 -f/--overwrite 與 -p/--mkdirs）"
 
-#: src/uagent/util_tools.py:1860
+#: src/uagent/util_tools.py:1861
 msgid "Show the first n lines of a file (default=20)"
 msgstr "顯示檔案前 n 行（預設=20）"
 
-#: src/uagent/util_tools.py:1861
+#: src/uagent/util_tools.py:1862
 msgid "Show the last n lines of a file (default=20)"
 msgstr "顯示檔案後 n 行（預設=20）"
 
-#: src/uagent/util_tools.py:1863
+#: src/uagent/util_tools.py:1864
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "透過預覽與確認刪除檔案／目錄"
 
-#: src/uagent/util_tools.py:1865
+#: src/uagent/util_tools.py:1866
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr "列出共用長期記憶筆記（需要 UAGENT_SHARED_MEMORY_FILE）"
 
-#: src/uagent/util_tools.py:1867
+#: src/uagent/util_tools.py:1868
 msgid "Delete a shared long-term memory note by index"
 msgstr "依索引刪除共用長期記憶筆記"
 
-#: src/uagent/util_tools.py:1869
+#: src/uagent/util_tools.py:1870
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr "設定推理模式（0=關閉，1=低，2=中，3=高；auto/minimal/xhigh）"
 
-#: src/uagent/util_tools.py:1871
+#: src/uagent/util_tools.py:1872
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "設定詳細度模式（0=關、1=低、2=中、3=高；無參數=維持不變）"
 
-#: src/uagent/util_tools.py:1872
+#: src/uagent/util_tools.py:1873
 msgid "Exit"
 msgstr "結束"
 
-#: src/uagent/util_tools.py:1875
+#: src/uagent/util_tools.py:1876
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - 輸入仅包含 'f' 的一行即可进入多行輸入模式。"
 
-#: src/uagent/util_tools.py:1877
+#: src/uagent/util_tools.py:1878
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 要结束多行輸入模式，請輸入完全等于 %(sentinel)s 的一行。"
 
-#: src/uagent/util_tools.py:1983
+#: src/uagent/util_tools.py:1984
 msgid "Exiting."
 msgstr "正在退出。"
 
-#: src/uagent/util_tools.py:1986
+#: src/uagent/util_tools.py:1987
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "未知命令：:%(cmd)s"
 
-#: src/uagent/util_tools.py:2137
+#: src/uagent/util_tools.py:2138
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -1988,6 +2219,21 @@ msgstr "- \"閱讀此 PDF 並列出三個重點。\""
 #: src/uagent/welcome.py:86
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜尋最新新聞並摘要特定主題。\""
+
+msgid "No assistant message produced."
+msgstr ""
+
+msgid "Generated image(s)."
+msgstr ""
+
+msgid "ECHO: %(text)s"
+msgstr ""
+
+msgid "uagent initialization failed: %(err)s"
+msgstr ""
+
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

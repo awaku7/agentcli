@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 18:06+0900\n"
+"POT-Creation-Date: 2026-05-14 20:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,6 +179,9 @@ msgstr "Biến môi trường %(name)s chưa được đặt."
 msgid "No log files found."
 msgstr "Không tìm thấy日志tệp."
 
+msgid "(unknown time)"
+msgstr ""
+
 #: src/uagent/core.py:618
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
@@ -187,6 +190,9 @@ msgstr "日志: hiển thị %(shown)d/%(total)d(thư mục=%(dir)s)"
 #: src/uagent/core.py:621
 msgid "Log files:"
 msgstr "日志tệp: "
+
+msgid "(no user message)"
+msgstr ""
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -394,26 +400,104 @@ msgstr ""
 "Cần để chọn nhà cung cấp LLM "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
-#: src/uagent/env_validate.py:231
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+
+msgid "Azure OpenAI API key."
+msgstr ""
+
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr ""
+
+msgid "OpenAI API key."
+msgstr ""
+
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr ""
+
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr ""
+
+msgid "OpenRouter API key."
+msgstr ""
+
+msgid "Grok (xAI) API key."
+msgstr ""
+
+msgid "Gemini API key."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+
+msgid "Vertex AI API key / model name."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+
+msgid "Anthropic (Claude) API key."
+msgstr ""
+
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+
+msgid "NVIDIA API key."
+msgstr ""
+
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+
+msgid "OpenAI embedding API key / model name."
+msgstr ""
+
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr ""
+
+msgid "OpenRouter embedding API key / model name."
+msgstr ""
+
+msgid "Ollama embedding base URL / model name."
+msgstr ""
+
+msgid "NVIDIA embedding API key / model name."
+msgstr ""
+
+#: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
 msgstr "Thiếu biến môi trường bắt buộc:"
 
-#: src/uagent/env_validate.py:245
+#: src/uagent/env_validate.py:253
 msgid "Warnings:"
 msgstr "Cảnh báo:"
 
-#: src/uagent/env_validate.py:249
+#: src/uagent/env_validate.py:257
 msgid "How to fix:"
 msgstr "Cách khắc phục:"
 
-#: src/uagent/env_validate.py:252
+#: src/uagent/env_validate.py:260
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Hãy đặt các biến ở trên trong môi trường của bạn trước khi khởi động "
 "chương trình."
 
-#: src/uagent/env_validate.py:258
+#: src/uagent/env_validate.py:266
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -421,7 +505,7 @@ msgstr ""
 "- Bạn có thể đặt chúng qua cài đặt biến môi trường của hệ điều hành, tệp "
 ".env, các script khởi động của shell,"
 
-#: src/uagent/env_validate.py:264
+#: src/uagent/env_validate.py:272
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -456,7 +540,7 @@ msgstr ""
 "Phản hồi trước đó của trợ lý trống. Hãy trả lời dựa trên kết quả công cụ gần"
 " đây nhất."
 
-#: src/uagent/llm_flow_helpers.py:139
+#: src/uagent/llm_flow_helpers.py:140
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -466,6 +550,15 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Điều này có thể xảy ra với các nhà cung cấp cục bộ tương thích OpenAI sau khi gọi công cụ. Bạn có thể thử đặt UAGENT_EMPTY_NO_TOOL_MAX thành giá trị cao hơn, hoặc chuyển nhà cung cấp."
 
+msgid "arguments must be a JSON object."
+msgstr ""
+
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
@@ -473,6 +566,12 @@ msgid ""
 msgstr ""
 "[INFO] Đang tái sử dụng kết quả trước đó vì lần gọi công cụ này khớp với một"
 " lần trước đó.\n"
+
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -765,7 +864,7 @@ msgstr "mức độ chi tiết: 中"
 msgid "Verbosity: high"
 msgstr "mức độ chi tiết: 高"
 
-#: src/uagent/scheckgui.py:753
+#: src/uagent/scheckgui.py:753 src/uagent/util_tools.py:378
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] suy luận=%(mode)s"
@@ -1316,6 +1415,12 @@ msgstr "未知提供方: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "Chưa cài đặt google-genai 包."
 
+msgid "image file not found: %(path)s"
+msgstr ""
+
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr ""
+
 #: src/uagent/util_tools.py:202
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
@@ -1329,20 +1434,53 @@ msgid ""
 " startup file (if any)."
 msgstr "非交互chế độ.不要启动 stdin 循环; 处理tệp khởi động(如果有)后thoát."
 
+msgid "invalid reasoning"
+msgstr ""
+
+msgid "invalid verbosity"
+msgstr ""
+
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+
+msgid "[mode] verbosity=%(mode)s"
+msgstr ""
+
+msgid ":cd <path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Thư mục không tồn tại: %(src)s -> %(dst)s"
+
+msgid "[cd] workdir = %(path)s"
+msgstr ""
+
+msgid "[cd error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Không có đường dẫn khớp: %(src)s -> %(expanded)s"
 
+msgid "[ls] %(path)s"
+msgstr ""
+
+msgid "  [D] %(name)s -> %(path)s"
+msgstr ""
+
+msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Thư mục không tồn tại: %(src)s -> %(dst)s"
+
+msgid "[ls error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1357,6 +1495,30 @@ msgstr "[tools] Chưa tải công cụ nào."
 #, python-format
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[tools] Đã tải %(n)d công cụ"
+
+msgid "- %(name)s: %(desc)s"
+msgstr ""
+
+msgid "- %(name)s"
+msgstr ""
+
+msgid "[tools error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "failed to parse arguments: %(err)s"
+msgstr ""
+
+msgid "missing arguments"
+msgstr ""
+
+msgid "src and dst are required"
+msgstr ""
+
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
@@ -1374,6 +1536,12 @@ msgstr "[cp] Thư mục cha của đích không tồn tại: %(path)s"
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Đã sao chép: %(src)s -> %(dst)s"
 
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Nguồn và đích giống nhau: %(path)s"
@@ -1390,6 +1558,12 @@ msgstr "[mv] Thư mục cha của đích không tồn tại: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Đã di chuyển: %(src)s -> %(dst)s"
 
+msgid ":head <path> [n]"
+msgstr ""
+
+msgid "[head error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
 msgstr "[head] Số dòng không hợp lệ: %(n)r"
@@ -1401,6 +1575,12 @@ msgstr "[head] Thất bại."
 #: src/uagent/util_tools.py:800
 msgid "[head] Empty."
 msgstr "[head] Trống."
+
+msgid ":tail <path> [n]"
+msgstr ""
+
+msgid "[tail error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1448,6 +1628,9 @@ msgstr "[skills] Không có skill đang hoạt động."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[skills] Skill đang hoạt động: %(n)d"
 
+msgid "[%(i)d] %(line)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
 msgstr "[skills] Không tìm thấy skill nào."
@@ -1461,6 +1644,9 @@ msgstr "[skills] Vượt phạm vi: %(n)d"
 #, python-format
 msgid "[skills] Found %(n)d skills"
 msgstr "[skills] Tìm thấy %(n)d skill"
+
+msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1502,10 +1688,16 @@ msgstr ""
 "session?\\n\\nName: %(name)s\\nPath: %(path)s\\n\\nProceed? Enter y to run, "
 "or c to cancel."
 
+msgid "skills_load returned non-dict"
+msgstr ""
+
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[skills] Đã áp dụng: %(name)s"
+
+msgid "[skills error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1573,6 +1765,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[clean] Log cần xóa (<= %(threshold)d tin nhắn): %(n)d"
 
+msgid " - (%(count)d msgs) %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1335
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
@@ -1623,6 +1818,9 @@ msgstr "[load cảnh báo] Không thể ghi lại log hiện tại: %(etype)s: %
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[lỗi tải] Thất bại: %(etype)s: %(err)s"
+
+msgid ":rm <path|glob> [path|glob]"
+msgstr ""
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1681,6 +1879,12 @@ msgstr "[rm] Đã xóa %(count)d đường dẫn."
 msgid "[rm] Failed."
 msgstr "[rm] Thất bại."
 
+msgid "[rm error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid ":load <index|path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:1556
 #, python-format
 msgid "Specified index %(idx)d is out of range."
@@ -1691,90 +1895,117 @@ msgstr "Chỉ mục %(idx)d đã chỉ định vượt phạm vi."
 msgid "Log file not found: %(path)s"
 msgstr "Không tìm thấy tệp log: %(path)s"
 
-#: src/uagent/util_tools.py:1611
+msgid "[load error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "[load] workdir = %(path)s"
+msgstr ""
+
+msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1612
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "Đã tải log: %(path)s"
 
-#: src/uagent/util_tools.py:1612
+#: src/uagent/util_tools.py:1613
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "Số lượng tin nhắn hội thoại: %(n)d"
 
-#: src/uagent/util_tools.py:1647
+msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1648
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[lỗi shrink] Không thể phân tích thành số nguyên: %(arg)r -> giữ %(keep)d "
 "giá trị cuối"
 
-#: src/uagent/util_tools.py:1676
+#: src/uagent/util_tools.py:1677
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1698
 msgid "No long-term memory entries."
 msgstr "Không có mục bộ nhớ dài hạn nào."
 
-#: src/uagent/util_tools.py:1700
+#: src/uagent/util_tools.py:1701
 msgid "Long-term memory entries:"
 msgstr "Các mục bộ nhớ dài hạn:"
 
-#: src/uagent/util_tools.py:1723
+msgid "[%(idx)s] %(dt)s  %(note)s"
+msgstr ""
+
+msgid ":mem-del <index>"
+msgstr ""
+
+#: src/uagent/util_tools.py:1724
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[lỗi mem-del] Không thể phân tích chỉ mục thành số nguyên: %(arg)r"
 
-#: src/uagent/util_tools.py:1728
+#: src/uagent/util_tools.py:1729
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "Đã xóa mục bộ nhớ dài hạn [%(idx)d]."
 
-#: src/uagent/util_tools.py:1730
+#: src/uagent/util_tools.py:1731
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] Không xóa được chỉ mục=%(idx)d."
 
-#: src/uagent/util_tools.py:1738 src/uagent/util_tools.py:1771
+#: src/uagent/util_tools.py:1739 src/uagent/util_tools.py:1772
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 "Chưa bật bộ nhớ dài hạn dùng chung (chưa đặt UAGENT_SHARED_MEMORY_FILE)."
 
-#: src/uagent/util_tools.py:1745
+#: src/uagent/util_tools.py:1746
 msgid "No shared long-term memory entries."
 msgstr "Không có mục bộ nhớ dài hạn dùng chung nào."
 
-#: src/uagent/util_tools.py:1750
+#: src/uagent/util_tools.py:1751
 msgid "Shared long-term memory entries:"
 msgstr "Các mục bộ nhớ dài hạn dùng chung:"
 
-#: src/uagent/util_tools.py:1787 src/uagent/util_tools.py:1794
+msgid ":shared-mem-del <index>"
+msgstr ""
+
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+
+#: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Không xóa được chỉ mục=%(idx)d."
 
-#: src/uagent/util_tools.py:1808
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1809
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Đã xóa mục bộ nhớ dài hạn dùng chung [%(idx)d]."
 
-#: src/uagent/util_tools.py:1823
+#: src/uagent/util_tools.py:1824
 msgid "Show this help"
 msgstr "Hiển thị trợ giúp này"
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1825
 msgid "Restart input from the beginning"
 msgstr "Nhập lại từ đầu"
 
-#: src/uagent/util_tools.py:1825
+#: src/uagent/util_tools.py:1826
 msgid "Show log file list"
 msgstr "Hiển thị danh sách tệp log"
 
-#: src/uagent/util_tools.py:1828
+#: src/uagent/util_tools.py:1829
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -1782,24 +2013,24 @@ msgstr ""
 "Đổi thư mục làm việc mà không cần xác nhận (ví dụ: :cd .. / :cd ~ / :cd "
 "C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:1831
+#: src/uagent/util_tools.py:1832
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Liệt kê mục trong thư mục (ví dụ: :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1832
+#: src/uagent/util_tools.py:1833
 msgid "List loaded tools"
 msgstr "Liệt kê công cụ đã tải"
 
-#: src/uagent/util_tools.py:1834
+#: src/uagent/util_tools.py:1835
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Quản lý/áp dụng skill (ví dụ: :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1837
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Tải log trước đó (ghi đè lịch sử hội thoại hiện tại)"
 
-#: src/uagent/util_tools.py:1838
+#: src/uagent/util_tools.py:1839
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1809,7 +2040,7 @@ msgstr ""
 "chọn 'y' sẽ chèn log đã tải vào đầu tệp log của phiên hiện tại (ghi đè, "
 "không sao lưu)."
 
-#: src/uagent/util_tools.py:1842
+#: src/uagent/util_tools.py:1843
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1817,14 +2048,14 @@ msgstr ""
 "Xóa log hội thoại (scheck_log_*.jsonl) khi số tin nhắn user/assistant/tool "
 "(không tính system) <= N (mặc định=10)"
 
-#: src/uagent/util_tools.py:1846
+#: src/uagent/util_tools.py:1847
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Thu gọn lịch sử hội thoại (giữ N tin nhắn không phải system gần nhất; mặc "
 "định=40)"
 
-#: src/uagent/util_tools.py:1850
+#: src/uagent/util_tools.py:1851
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1832,64 +2063,64 @@ msgstr ""
 "Thu gọn lịch sử bằng tóm tắt LLM (tóm tắt phần lịch sử cũ thành 1 tin nhắn "
 "system; giữ N tin nhắn thô gần nhất; mặc định=20)"
 
-#: src/uagent/util_tools.py:1852
+#: src/uagent/util_tools.py:1853
 msgid "List long-term memory notes"
 msgstr "Danh sách ghi nhớ dài hạn:"
 
-#: src/uagent/util_tools.py:1854
+#: src/uagent/util_tools.py:1855
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Xóa một ghi chú ghi nhớ dài hạn theo chỉ mục (xem :mem-list)"
 
-#: src/uagent/util_tools.py:1856
+#: src/uagent/util_tools.py:1857
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Sao chép tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1858
+#: src/uagent/util_tools.py:1859
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Di chuyển tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1860
+#: src/uagent/util_tools.py:1861
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Hiển thị n dòng đầu tiên của tệp (mặc định=20)"
 
-#: src/uagent/util_tools.py:1861
+#: src/uagent/util_tools.py:1862
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Hiển thị n dòng cuối cùng của tệp (mặc định=20)"
 
-#: src/uagent/util_tools.py:1863
+#: src/uagent/util_tools.py:1864
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Xóa tệp/thư mục với xem trước + xác nhận"
 
-#: src/uagent/util_tools.py:1865
+#: src/uagent/util_tools.py:1866
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr "Liệt kê ghi nhớ dài hạn dùng chung (cần UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/util_tools.py:1867
+#: src/uagent/util_tools.py:1868
 msgid "Delete a shared long-term memory note by index"
 msgstr "Xóa một ghi chú ghi nhớ dài hạn dùng chung theo chỉ mục"
 
-#: src/uagent/util_tools.py:1869
+#: src/uagent/util_tools.py:1870
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Đặt chế độ suy luận (0=tắt, 1=thấp, 2=trung bình, 3=cao; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1871
+#: src/uagent/util_tools.py:1872
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Đặt mức độ chi tiết (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ"
 " nguyên)"
 
-#: src/uagent/util_tools.py:1872
+#: src/uagent/util_tools.py:1873
 msgid "Exit"
 msgstr "Thoát"
 
-#: src/uagent/util_tools.py:1875
+#: src/uagent/util_tools.py:1876
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - Nhập một dòng chỉ là 'f' để vào chế độ nhập nhiều dòng."
 
-#: src/uagent/util_tools.py:1877
+#: src/uagent/util_tools.py:1878
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1897,16 +2128,16 @@ msgstr ""
 "  - Để kết thúc chế độ nhập nhiều dòng, nhập một dòng đúng bằng "
 "%(sentinel)s."
 
-#: src/uagent/util_tools.py:1983
+#: src/uagent/util_tools.py:1984
 msgid "Exiting."
 msgstr "Đang thoát."
 
-#: src/uagent/util_tools.py:1986
+#: src/uagent/util_tools.py:1987
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Lệnh không xác định: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2137
+#: src/uagent/util_tools.py:2138
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2035,6 +2266,21 @@ msgstr "- \"阅读此 PDF 并列出三个要点.\""
 #: src/uagent/welcome.py:86
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜索最新新闻并总结一个特定主题.\""
+
+msgid "No assistant message produced."
+msgstr ""
+
+msgid "Generated image(s)."
+msgstr ""
+
+msgid "ECHO: %(text)s"
+msgstr ""
+
+msgid "uagent initialization failed: %(err)s"
+msgstr ""
+
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/a2a/engine.py:171
 #, python-format

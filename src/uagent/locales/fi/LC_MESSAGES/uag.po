@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-14 18:06+0900\n"
+"POT-Creation-Date: 2026-05-14 20:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,6 +182,9 @@ msgstr "Ympäristömuuttujaa %(name)s ei ole asetettu."
 msgid "No log files found."
 msgstr "Lokitiedostoja ei löytynyt."
 
+msgid "(unknown time)"
+msgstr ""
+
 #: src/uagent/core.py:618
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
@@ -190,6 +193,9 @@ msgstr "lokit: näytetään %(shown)d/%(total)d (hakemisto=%(dir)s)"
 #: src/uagent/core.py:621
 msgid "Log files:"
 msgstr "Lokitiedostot:"
+
+msgid "(no user message)"
+msgstr ""
 
 #: src/uagent/core.py:1280
 #, python-format
@@ -397,25 +403,103 @@ msgstr ""
 "Pakollinen LLM-palveluntarjoajan valintaan "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
-#: src/uagent/env_validate.py:231
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+
+msgid "Azure OpenAI API key."
+msgstr ""
+
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr ""
+
+msgid "OpenAI API key."
+msgstr ""
+
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr ""
+
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr ""
+
+msgid "OpenRouter API key."
+msgstr ""
+
+msgid "Grok (xAI) API key."
+msgstr ""
+
+msgid "Gemini API key."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+
+msgid "Vertex AI API key / model name."
+msgstr ""
+
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+
+msgid "Anthropic (Claude) API key."
+msgstr ""
+
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+
+msgid "NVIDIA API key."
+msgstr ""
+
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+
+msgid "OpenAI embedding API key / model name."
+msgstr ""
+
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr ""
+
+msgid "OpenRouter embedding API key / model name."
+msgstr ""
+
+msgid "Ollama embedding base URL / model name."
+msgstr ""
+
+msgid "NVIDIA embedding API key / model name."
+msgstr ""
+
+#: src/uagent/env_validate.py:239
 msgid "Missing required environment variables:"
 msgstr "Puuttuvat pakolliset ympäristömuuttujat:"
 
-#: src/uagent/env_validate.py:245
+#: src/uagent/env_validate.py:253
 msgid "Warnings:"
 msgstr "Varoitukset:"
 
-#: src/uagent/env_validate.py:249
+#: src/uagent/env_validate.py:257
 msgid "How to fix:"
 msgstr "Korjausohjeet:"
 
-#: src/uagent/env_validate.py:252
+#: src/uagent/env_validate.py:260
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Aseta yllä olevat muuttujat ympäristöösi ennen ohjelman käynnistämistä."
 
-#: src/uagent/env_validate.py:258
+#: src/uagent/env_validate.py:266
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -423,7 +507,7 @@ msgstr ""
 "- Voit asettaa ne käyttöjärjestelmän ympäristöasetuksissa, .env-tiedostossa "
 "tai komentotulkin käynnistysskripteissä,"
 
-#: src/uagent/env_validate.py:264
+#: src/uagent/env_validate.py:272
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -458,7 +542,7 @@ msgstr ""
 "Edellinen avustajan vastaus oli tyhjä. Vastaa uusimman työkalutuloksen "
 "perusteella."
 
-#: src/uagent/llm_flow_helpers.py:139
+#: src/uagent/llm_flow_helpers.py:140
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
@@ -468,6 +552,15 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Tämä voi tapahtua OpenAI-yhteensopivilla paikallisilla tarjoajilla työkalukutsujen jälkeen. Voit yrittää asettaa UAGENT_EMPTY_NO_TOOL_MAX-arvon suuremmaksi tai vaihtaa tarjoajaa."
 
+msgid "arguments must be a JSON object."
+msgstr ""
+
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+
 #: src/uagent/llm_flow_helpers.py:211
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
@@ -475,6 +568,12 @@ msgid ""
 msgstr ""
 "[INFO] Edellinen tulos käytetään uudelleen, koska tämä työkalukutsu vastaa "
 "aiempaa.\n"
+
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
 
 #: src/uagent/llm_message_helpers.py:153
 #, python-format
@@ -764,7 +863,7 @@ msgstr "Yksityiskohtaisuus: keskitaso"
 msgid "Verbosity: high"
 msgstr "Yksityiskohtaisuus: korkea"
 
-#: src/uagent/scheckgui.py:753
+#: src/uagent/scheckgui.py:753 src/uagent/util_tools.py:378
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[tila] päättely=%(mode)s"
@@ -1316,6 +1415,12 @@ msgstr "Tuntematon tarjoaja: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "google-genai-pakettia ei ole asennettu."
 
+msgid "image file not found: %(path)s"
+msgstr ""
+
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr ""
+
 #: src/uagent/util_tools.py:202
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
@@ -1332,20 +1437,53 @@ msgstr ""
 "Ei-interaktiivinen tila. Älä käynnistä stdin-silmukkaa; poistu "
 "käynnistystiedoston käsittelyn jälkeen (jos sellainen on)."
 
+msgid "invalid reasoning"
+msgstr ""
+
+msgid "invalid verbosity"
+msgstr ""
+
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+
+msgid "[mode] verbosity=%(mode)s"
+msgstr ""
+
+msgid ":cd <path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:412
 #, python-format
 msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[cd] Hakemistoa ei ole olemassa: %(src)s -> %(dst)s"
+
+msgid "[cd] workdir = %(path)s"
+msgstr ""
+
+msgid "[cd error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:453
 #, python-format
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
 msgstr "[ls] Ei vastaavia polkuja: %(src)s -> %(expanded)s"
 
+msgid "[ls] %(path)s"
+msgstr ""
+
+msgid "  [D] %(name)s -> %(path)s"
+msgstr ""
+
+msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:488
 #, python-format
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
 msgstr "[ls] Hakemistoa ei ole olemassa: %(src)s -> %(dst)s"
+
+msgid "[ls error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:536
 #, python-format
@@ -1363,6 +1501,30 @@ msgstr "[työkalut] Ei ladattuja työkaluja."
 msgid "[tools] Loaded %(n)d tools"
 msgstr "[työkalut] Ladattu %(n)d työkalua"
 
+msgid "- %(name)s: %(desc)s"
+msgstr ""
+
+msgid "- %(name)s"
+msgstr ""
+
+msgid "[tools error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "failed to parse arguments: %(err)s"
+msgstr ""
+
+msgid "missing arguments"
+msgstr ""
+
+msgid "src and dst are required"
+msgstr ""
+
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:634
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Lähde ja kohde ovat samat: %(path)s"
@@ -1378,6 +1540,12 @@ msgstr "[cp] Kohteen ylähakemistoa ei ole: %(path)s"
 #: src/uagent/util_tools.py:671
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopioitu: %(src)s -> %(dst)s"
+
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:700
 msgid "[mv] Source and destination are the same: %(path)s"
@@ -1395,6 +1563,12 @@ msgstr "[mv] Kohteen ylähakemistoa ei ole: %(path)s"
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Siirretty: %(src)s -> %(dst)s"
 
+msgid ":head <path> [n]"
+msgstr ""
+
+msgid "[head error] %(etype)s: %(err)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:763
 msgid "[head] Invalid line count: %(n)r"
 msgstr "[head] Virheellinen rivimäärä: %(n)r"
@@ -1406,6 +1580,12 @@ msgstr "[head] Epäonnistui."
 #: src/uagent/util_tools.py:800
 msgid "[head] Empty."
 msgstr "[head] Tyhjä."
+
+msgid ":tail <path> [n]"
+msgstr ""
+
+msgid "[tail error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:837
 msgid "[tail] Invalid line count: %(n)r"
@@ -1453,6 +1633,9 @@ msgstr "[taidot] Ei aktiivisia taitoja."
 msgid "[skills] Active skills: %(n)d"
 msgstr "[taidot] Aktiiviset taidot: %(n)d"
 
+msgid "[%(i)d] %(line)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1086
 msgid "[skills] No skills found."
 msgstr "[taidot] Taitoja ei löytynyt."
@@ -1466,6 +1649,9 @@ msgstr "[taidot] Alueen ulkopuolella: %(n)d"
 #, python-format
 msgid "[skills] Found %(n)d skills"
 msgstr "[taidot] Löytyi %(n)d taitoa"
+
+msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1113
 msgid ""
@@ -1510,10 +1696,16 @@ msgstr ""
 "\n"
 "Jatketaanko? Kirjoita y suorittaaksesi tai c peruuttaaksesi."
 
+msgid "skills_load returned non-dict"
+msgstr ""
+
 #: src/uagent/util_tools.py:1189
 #, python-format
 msgid "[skills] Applied: %(name)s"
 msgstr "[taidot] Käytetty: %(name)s"
+
+msgid "[skills error] %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/util_tools.py:1209
 #, python-format
@@ -1582,6 +1774,9 @@ msgstr ""
 msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 msgstr "[puhdas] Poistettavat lokit (<= %(threshold)d msgs): %(n)d"
 
+msgid " - (%(count)d msgs) %(path)s"
+msgstr ""
+
 #: src/uagent/util_tools.py:1335
 #, python-format
 msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
@@ -1635,6 +1830,9 @@ msgstr ""
 #, python-format
 msgid "[load error] Failed: %(etype)s: %(err)s"
 msgstr "[latausvirhe] Epäonnistui: %(etype)s: %(err)s"
+
+msgid ":rm <path|glob> [path|glob]"
+msgstr ""
 
 #: src/uagent/util_tools.py:1450
 #, python-format
@@ -1693,6 +1891,12 @@ msgstr "[rm] Poistettu %(count)d polkua."
 msgid "[rm] Failed."
 msgstr "[rm] Epäonnistui."
 
+msgid "[rm error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid ":load <index|path>"
+msgstr ""
+
 #: src/uagent/util_tools.py:1556
 #, python-format
 msgid "Specified index %(idx)d is out of range."
@@ -1703,24 +1907,36 @@ msgstr "Määritetty indeksi %(idx)d on alueen ulkopuolella."
 msgid "Log file not found: %(path)s"
 msgstr "Lokitiedostoa ei löydy: %(path)s"
 
-#: src/uagent/util_tools.py:1611
+msgid "[load error] %(etype)s: %(err)s"
+msgstr ""
+
+msgid "[load] workdir = %(path)s"
+msgstr ""
+
+msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1612
 #, python-format
 msgid "Loaded log: %(path)s"
 msgstr "Ladattu loki: %(path)s"
 
-#: src/uagent/util_tools.py:1612
+#: src/uagent/util_tools.py:1613
 #, python-format
 msgid "Conversation message count: %(n)d"
 msgstr "Keskusteluviestien määrä: %(n)d"
 
-#: src/uagent/util_tools.py:1647
+msgid "[%s warn] Failed to rewrite current log: %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1648
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> säilytetään "
 "viimeiset %(keep)d"
 
-#: src/uagent/util_tools.py:1676
+#: src/uagent/util_tools.py:1677
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1728,30 +1944,36 @@ msgstr ""
 "[shrink_llm-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> "
 "säilytetään viimeiset %(keep)d"
 
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1698
 msgid "No long-term memory entries."
 msgstr "Ei pitkäaikaismuistin merkintöjä."
 
-#: src/uagent/util_tools.py:1700
+#: src/uagent/util_tools.py:1701
 msgid "Long-term memory entries:"
 msgstr "Pitkäaikaisen muistin merkinnät:"
 
-#: src/uagent/util_tools.py:1723
+msgid "[%(idx)s] %(dt)s  %(note)s"
+msgstr ""
+
+msgid ":mem-del <index>"
+msgstr ""
+
+#: src/uagent/util_tools.py:1724
 #, python-format
 msgid "[mem-del error] Failed to parse index as int: %(arg)r"
 msgstr "[mem-del error] Indeksin jäsentäminen epäonnistui: %(arg)r"
 
-#: src/uagent/util_tools.py:1728
+#: src/uagent/util_tools.py:1729
 #, python-format
 msgid "Deleted long-term memory entry [%(idx)d]."
 msgstr "Poistettu pitkäaikaismuistin merkintä [%(idx)d]."
 
-#: src/uagent/util_tools.py:1730
+#: src/uagent/util_tools.py:1731
 #, python-format
 msgid "[mem-del] Failed to delete index=%(idx)d."
 msgstr "[mem-del] Index=%(idx)d poistaminen epäonnistui."
 
-#: src/uagent/util_tools.py:1738 src/uagent/util_tools.py:1771
+#: src/uagent/util_tools.py:1739 src/uagent/util_tools.py:1772
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1759,37 +1981,46 @@ msgstr ""
 "Jaettu pitkäkestoinen muisti ei ole käytössä (UAGENT_SHARED_MEMORY_FILE ei "
 "ole asetettu)."
 
-#: src/uagent/util_tools.py:1745
+#: src/uagent/util_tools.py:1746
 msgid "No shared long-term memory entries."
 msgstr "Ei jaettuja pitkäaikaismuistin merkintöjä."
 
-#: src/uagent/util_tools.py:1750
+#: src/uagent/util_tools.py:1751
 msgid "Shared long-term memory entries:"
 msgstr "Jaetut pitkäaikaismuistimerkinnät:"
 
-#: src/uagent/util_tools.py:1787 src/uagent/util_tools.py:1794
+msgid ":shared-mem-del <index>"
+msgstr ""
+
+msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
+msgstr ""
+
+#: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1795
 #, python-format
 msgid "[shared-mem-del] Failed to delete index=%(idx)d."
 msgstr "[shared-mem-del] Index=%(idx)d poistaminen epäonnistui."
 
-#: src/uagent/util_tools.py:1808
+msgid "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1809
 #, python-format
 msgid "Deleted shared long-term memory entry [%(idx)d]."
 msgstr "Poistettu jaetun pitkäaikaisen muistin merkintä [%(idx)d]."
 
-#: src/uagent/util_tools.py:1823
+#: src/uagent/util_tools.py:1824
 msgid "Show this help"
 msgstr "Näytä tämä ohje"
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1825
 msgid "Restart input from the beginning"
 msgstr "Aloita syöttö uudelleen alusta"
 
-#: src/uagent/util_tools.py:1825
+#: src/uagent/util_tools.py:1826
 msgid "Show log file list"
 msgstr "Näytä lokitiedostoluettelo"
 
-#: src/uagent/util_tools.py:1828
+#: src/uagent/util_tools.py:1829
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -1797,24 +2028,24 @@ msgstr ""
 "Muuta työhakemistoa ilman vahvistusta (esim. :cd .. / :cd ~ / :cd C:\\polku "
 "/ :cd /)"
 
-#: src/uagent/util_tools.py:1831
+#: src/uagent/util_tools.py:1832
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Listaa hakemistomerkinnät (esim. :ls / :ls .. / :ls ~ / :ls C:\\polku)"
 
-#: src/uagent/util_tools.py:1832
+#: src/uagent/util_tools.py:1833
 msgid "List loaded tools"
 msgstr "Listaa ladatut työkalut"
 
-#: src/uagent/util_tools.py:1834
+#: src/uagent/util_tools.py:1835
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Hallinnoi tai käytä taitoja (esim. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1837
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Lataa aiempi loki (korvaa nykyisen keskusteluhistorian)"
 
-#: src/uagent/util_tools.py:1838
+#: src/uagent/util_tools.py:1839
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1824,7 +2055,7 @@ msgstr ""
 "ladatun lokin nykyisen istunnon lokitiedostoon (korvaa, ei "
 "varmuuskopiointia)."
 
-#: src/uagent/util_tools.py:1842
+#: src/uagent/util_tools.py:1843
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1833,14 +2064,14 @@ msgstr ""
 "käyttäjän/avustajan/työkalun viestien määrä (ilman järjestelmää) on <= N "
 "(oletus=10)"
 
-#: src/uagent/util_tools.py:1846
+#: src/uagent/util_tools.py:1847
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Pienennä keskusteluhistoriaa (säilytä viimeiset N muuta kuin "
 "järjestelmäviestiä; oletus=40)"
 
-#: src/uagent/util_tools.py:1850
+#: src/uagent/util_tools.py:1851
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1848,67 +2079,67 @@ msgstr ""
 "Pienennä historiaa LLM-yhteenvedon avulla (tiivistää vanhempi historia "
 "yhdeksi järjestelmäviestiksi; säilytä viimeinen N raakana; oletus=20)"
 
-#: src/uagent/util_tools.py:1852
+#: src/uagent/util_tools.py:1853
 msgid "List long-term memory notes"
 msgstr "Listaa pitkän aikavälin muistiinpanot"
 
-#: src/uagent/util_tools.py:1854
+#: src/uagent/util_tools.py:1855
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Pitkäaikaisen muistin poistaminen indeksin mukaan (katso :mem-list)"
 
-#: src/uagent/util_tools.py:1856
+#: src/uagent/util_tools.py:1857
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Kopioi tiedosto tai hakemisto (tukee -f/--overwrite ja -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1858
+#: src/uagent/util_tools.py:1859
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Siirrä tiedosto tai hakemisto (tukee -f/--overwrite ja -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1860
+#: src/uagent/util_tools.py:1861
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Näytä tiedoston ensimmäiset n riviä (oletus=20)"
 
-#: src/uagent/util_tools.py:1861
+#: src/uagent/util_tools.py:1862
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Näytä tiedoston viimeiset n riviä (oletus=20)"
 
-#: src/uagent/util_tools.py:1863
+#: src/uagent/util_tools.py:1864
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Poista tiedosto(t)/hakemisto(t) esikatselulla + vahvista"
 
-#: src/uagent/util_tools.py:1865
+#: src/uagent/util_tools.py:1866
 msgid ""
 "List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
 msgstr ""
 "Listaa jaetut pitkän aikavälin muistiinpanot (vaatii "
 "UAGENT_SHARED_MEMORY_FILE)"
 
-#: src/uagent/util_tools.py:1867
+#: src/uagent/util_tools.py:1868
 msgid "Delete a shared long-term memory note by index"
 msgstr "Poista jaettu pitkäaikaismuistiinpano hakemiston mukaan"
 
-#: src/uagent/util_tools.py:1869
+#: src/uagent/util_tools.py:1870
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Aseta päättelytila ​​(0=pois, 1=matala, 2=keskitaso, 3=korkea; "
 "auto/minimi/xkorkea)"
 
-#: src/uagent/util_tools.py:1871
+#: src/uagent/util_tools.py:1872
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Aseta monisanaisuustila (0 = pois, 1 = matala, 2 = keskitaso, 3 = korkea; ei"
 " arg = säilytä)"
 
-#: src/uagent/util_tools.py:1872
+#: src/uagent/util_tools.py:1873
 msgid "Exit"
 msgstr "Poistu"
 
-#: src/uagent/util_tools.py:1875
+#: src/uagent/util_tools.py:1876
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "- Syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen syöttötilaan."
 
-#: src/uagent/util_tools.py:1877
+#: src/uagent/util_tools.py:1878
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -1916,16 +2147,16 @@ msgstr ""
 "- Lopeta monirivinen syöttötila kirjoittamalla rivi, joka on täsmälleen "
 "%(sentinel)s."
 
-#: src/uagent/util_tools.py:1983
+#: src/uagent/util_tools.py:1984
 msgid "Exiting."
 msgstr "Poistuminen."
 
-#: src/uagent/util_tools.py:1986
+#: src/uagent/util_tools.py:1987
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Tuntematon komento: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2137
+#: src/uagent/util_tools.py:2138
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2067,6 +2298,21 @@ msgstr "- \"Lue tämä PDF ja listaa kolme pääkohtaa.\""
 #: src/uagent/welcome.py:86
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Hae viimeisimmät uutiset ja tiivistä tietty aihe.\""
+
+msgid "No assistant message produced."
+msgstr ""
+
+msgid "Generated image(s)."
+msgstr ""
+
+msgid "ECHO: %(text)s"
+msgstr ""
+
+msgid "uagent initialization failed: %(err)s"
+msgstr ""
+
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr ""
 
 #: src/uagent/a2a/engine.py:171
 #, python-format
