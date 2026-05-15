@@ -555,6 +555,13 @@ def build_responses_request(
         - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
         """)
     instructions_list.append(TOOL_CALLING_RULES)
+    instructions_list.append(_(
+        """[Web search rules]
+        - Use web search only when fresh or external information is necessary.
+        - Do not use web search for local or stable information.
+        - Prefer answering without web search when the answer is already sufficient.
+        """
+    ))
     for m in call_messages:
         role = m.get("role")
 
