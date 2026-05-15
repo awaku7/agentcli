@@ -250,47 +250,89 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
 
     lines: List[str] = []
 
-    lines.append(_("[INFO] workdir = %(workdir)s (source: %(source)s)") % {"workdir": workdir, "source": workdir_source})
+    lines.append(
+        _("[INFO] workdir = %(workdir)s (source: %(source)s)")
+        % {"workdir": workdir, "source": workdir_source}
+    )
 
     provider = (env_get("UAGENT_PROVIDER", "(unknown)") or "(unknown)").lower()
 
-
     if provider == "azure":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_AZURE_BASE_URL', '(not set)'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core, env_get("UAGENT_AZURE_BASE_URL", "(not set)")
+                )
+            }
         )
         lines.append(
-            _("[INFO] api_version = %(api_version)s") % {"api_version": env_get('UAGENT_AZURE_API_VERSION', '(not set)')}
+            _("[INFO] api_version = %(api_version)s")
+            % {"api_version": env_get("UAGENT_AZURE_API_VERSION", "(not set)")}
         )
     elif provider == "openai":
         val = env_get("UAGENT_OPENAI_BASE_URL") or "https://api.openai.com/v1"
-        lines.append(_("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, val)})
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {"base_url": _normalize_url(core, val)}
+        )
     elif provider == "nvidia":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_NVIDIA_BASE_URL', 'https://integrate.api.nvidia.com/v1'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
+                    ),
+                )
+            }
         )
     elif provider == "openrouter":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
+                    ),
+                )
+            }
         )
     elif provider == "grok":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_GROK_BASE_URL', 'https://api.x.ai/v1'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core, env_get("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
+                )
+            }
         )
     elif provider == "bedrock":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_BEDROCK_BASE_URL', '(not set)'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core, env_get("UAGENT_BEDROCK_BASE_URL", "(not set)")
+                )
+            }
         )
     elif provider == "ollama":
         lines.append(
-            _("[INFO] base_url = %(base_url)s") % {"base_url": _normalize_url(core, env_get('UAGENT_OLLAMA_BASE_URL', 'http://localhost:11434/v1'))}
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core, env_get("UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1")
+                )
+            }
         )
     elif provider == "vertexai":
         lines.append(
             _("[INFO] vertexai = project=%(project)s, location=%(location)s")
             % {
-                "project": env_get('UAGENT_VERTEXAI_PROJECT', '(not set)'),
-                "location": env_get('UAGENT_VERTEXAI_LOCATION', '(not set)'),
+                "project": env_get("UAGENT_VERTEXAI_PROJECT", "(not set)"),
+                "location": env_get("UAGENT_VERTEXAI_LOCATION", "(not set)"),
             }
         )
 
@@ -336,7 +378,9 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 _("Responses (UAGENT_RESPONSES is enabled)")
                 if _use_responses_flag and _responses_supported
                 else (
-                    _("Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)")
+                    _(
+                        "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+                    )
                     if provider in ("gemini", "claude", "vertexai")
                     else _("ChatCompletions (UAGENT_RESPONSES is disabled)")
                 )

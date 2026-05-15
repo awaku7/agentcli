@@ -27,6 +27,7 @@ from .tools.context import ToolCallbacks, get_callbacks
 
 # Default translation function used when core.tr is not provided.
 # Kept as a separate name for backward-compatibility.
+tr = _
 tr_ = _
 
 
@@ -177,7 +178,10 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
     size = p.stat().st_size
     if size > int(max_bytes):
-        raise ValueError(tr("image file too large: %(size)d bytes (limit=%(max)d)") % {"size": size, "max": max_bytes})
+        raise ValueError(
+            tr("image file too large: %(size)d bytes (limit=%(max)d)")
+            % {"size": size, "max": max_bytes}
+        )
 
     mt, _ = mimetypes.guess_type(str(p))
     mime_type = mt or "application/octet-stream"
@@ -434,7 +438,9 @@ def _handle_cmd_cd(
 
         print(tr("[cd] workdir = %(path)s") % {"path": now})
     except Exception as e:
-        print(tr("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
 
     return True
 
@@ -477,9 +483,14 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             print(tr("[ls] %(path)s") % {"path": expanded})
             for _, _, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print(tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs})
+                    print(
+                        tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs}
+                    )
                 else:
-                    print(tr("  [F] %(name)s (%(size)d bytes) -> %(path)s") % {"name": name, "size": size, "path": p_abs})
+                    print(
+                        tr("  [F] %(name)s (%(size)d bytes) -> %(path)s")
+                        % {"name": name, "size": size, "path": p_abs}
+                    )
             return True
 
         target_abs = os.path.abspath(expanded)
@@ -510,9 +521,13 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             if is_dir:
                 print(tr("  [D] %(name)s") % {"name": name})
             else:
-                print(tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size})
+                print(
+                    tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size}
+                )
     except Exception as e:
-        print(tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
 
     return True
 
@@ -561,7 +576,10 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
             else:
                 print(tr("- %(name)s") % {"name": name})
     except Exception as e:
-        print(tr("[tools error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[tools error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
 
     return True
 
@@ -620,7 +638,9 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -673,7 +693,9 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
         )
         return True
     except Exception as e:
-        print(tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -686,7 +708,9 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -726,7 +750,9 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         )
         return True
     except Exception as e:
-        print(tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -739,7 +765,10 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(tr("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[head error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     if not items:
@@ -800,7 +829,10 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
             print(tr("[head] Empty."))
         return True
     except Exception as e:
-        print(tr("[head error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[head error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -813,7 +845,10 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(tr("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[tail error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     if not items:
@@ -874,7 +909,10 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
             print(tr("[tail] Empty."))
         return True
     except Exception as e:
-        print(tr("[tail error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[tail error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -1107,7 +1145,10 @@ def _handle_cmd_skills(
                 desc = it.get("description") or ""
                 ok = bool(it.get("ok"))
                 ok_mark = "OK" if ok else "WARN"
-                print(tr("[%(i)d] (%(ok)s) %(name)s: %(desc)s") % {"i": i, "ok": ok_mark, "name": name, "desc": desc})
+                print(
+                    tr("[%(i)d] (%(ok)s) %(name)s: %(desc)s")
+                    % {"i": i, "ok": ok_mark, "name": name, "desc": desc}
+                )
 
             sel_msg = _(
                 "Select a skill number to run. Enter c to cancel.\n"
@@ -1190,7 +1231,10 @@ def _handle_cmd_skills(
         return CommandResult(run_llm=True)
 
     except Exception as e:
-        print(tr("[skills error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[skills error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
 
     return CommandResult()
 
@@ -1534,7 +1578,9 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
                 print(str(stderr))
         return True
     except Exception as e:
-        print(tr("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
@@ -1565,7 +1611,10 @@ def _handle_cmd_load(
         print(tr("Log file not found: %(path)s") % {"path": target_path})
         return True
     except Exception as e:
-        print(tr("[load error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[load error] %(etype)s: %(err)s")
+            % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     new_messages = insert_tools_system_message(new_messages, core=core)
@@ -1628,8 +1677,8 @@ def _persist_messages_with_warn(
             core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
-            tr("[%s warn] Failed to rewrite current log: %(etype)s: %(err)s" % label)
-            % {"etype": type(e).__name__, "err": e},
+            tr("[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            % {"label": label, "etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
 

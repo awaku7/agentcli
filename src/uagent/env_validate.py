@@ -70,7 +70,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
     if provider == "azure":
         missing += _require(
             ["UAGENT_AZURE_BASE_URL"],
-            reason=_("Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/).", default="Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."),
+            reason=_(
+                "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/).",
+                default="Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/).",
+            ),
         )
         missing += _require(
             ["UAGENT_AZURE_API_KEY"],
@@ -78,7 +81,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
         )
         missing += _require(
             ["UAGENT_AZURE_API_VERSION"],
-            reason=_("Azure OpenAI API version (e.g., 2024-xx-xx).", default="Azure OpenAI API version (e.g., 2024-xx-xx)."),
+            reason=_(
+                "Azure OpenAI API version (e.g., 2024-xx-xx).",
+                default="Azure OpenAI API version (e.g., 2024-xx-xx).",
+            ),
         )
     elif provider == "openai":
         missing += _require(
@@ -88,11 +94,17 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
     elif provider == "bedrock":
         missing += _require(
             ["UAGENT_BEDROCK_BASE_URL"],
-            reason=_("Bedrock proxy endpoint/base URL (OpenAI-compatible).", default="Bedrock proxy endpoint/base URL (OpenAI-compatible)."),
+            reason=_(
+                "Bedrock proxy endpoint/base URL (OpenAI-compatible).",
+                default="Bedrock proxy endpoint/base URL (OpenAI-compatible).",
+            ),
         )
         missing += _require(
             ["UAGENT_BEDROCK_API_KEY"],
-            reason=_("Bedrock proxy API key (OpenAI-compatible).", default="Bedrock proxy API key (OpenAI-compatible)."),
+            reason=_(
+                "Bedrock proxy API key (OpenAI-compatible).",
+                default="Bedrock proxy API key (OpenAI-compatible).",
+            ),
         )
     elif provider == "openrouter":
         missing += _require(
@@ -113,7 +125,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
             from google import genai as _genai  # noqa: F401
         except Exception:
             warnings.append(
-                _("Python package 'google-genai' is not installed. Provider=gemini requires it.", default="Python package 'google-genai' is not installed. Provider=gemini requires it.")
+                _(
+                    "Python package 'google-genai' is not installed. Provider=gemini requires it.",
+                    default="Python package 'google-genai' is not installed. Provider=gemini requires it.",
+                )
             )
     elif provider == "vertexai":
         missing += _require(
@@ -121,24 +136,35 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                 "UAGENT_VERTEXAI_API_KEY",
                 "UAGENT_VERTEXAI_DEPNAME",
             ],
-            reason=_("Vertex AI API key / model name.", default="Vertex AI API key / model name."),
+            reason=_(
+                "Vertex AI API key / model name.",
+                default="Vertex AI API key / model name.",
+            ),
         )
         try:
             from google import genai as _genai  # noqa: F401
         except Exception:
             warnings.append(
-                _("Python package 'google-genai' is not installed. Provider=vertexai requires it.", default="Python package 'google-genai' is not installed. Provider=vertexai requires it.")
+                _(
+                    "Python package 'google-genai' is not installed. Provider=vertexai requires it.",
+                    default="Python package 'google-genai' is not installed. Provider=vertexai requires it.",
+                )
             )
     elif provider == "claude":
         missing += _require(
             ["UAGENT_CLAUDE_API_KEY"],
-            reason=_("Anthropic (Claude) API key.", default="Anthropic (Claude) API key."),
+            reason=_(
+                "Anthropic (Claude) API key.", default="Anthropic (Claude) API key."
+            ),
         )
         try:
             from anthropic import Anthropic as _Anthropic  # noqa: F401
         except Exception:
             warnings.append(
-                _("Python package 'anthropic' is not installed. Provider=claude requires it.", default="Python package 'anthropic' is not installed. Provider=claude requires it.")
+                _(
+                    "Python package 'anthropic' is not installed. Provider=claude requires it.",
+                    default="Python package 'anthropic' is not installed. Provider=claude requires it.",
+                )
             )
     elif provider == "nvidia":
         missing += _require(
@@ -162,7 +188,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will likely fail).",
                     default=f"Unknown embedding provider: {embedding_provider!r}. Allowed: {', '.join(embedding_allowed)} (startup will likely fail).",
                 )
-                % {"provider": embedding_provider, "allowed": ", ".join(embedding_allowed)}
+                % {
+                    "provider": embedding_provider,
+                    "allowed": ", ".join(embedding_allowed),
+                }
             )
         elif embedding_provider == "azure":
             missing += _require(
@@ -172,7 +201,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_AZURE_EMBEDDING_API_VERSION",
                     "UAGENT_AZURE_EMBEDDING_DEPNAME",
                 ],
-                reason=_("Azure embedding endpoint / API key / API version / deployment name.", default="Azure embedding endpoint / API key / API version / deployment name."),
+                reason=_(
+                    "Azure embedding endpoint / API key / API version / deployment name.",
+                    default="Azure embedding endpoint / API key / API version / deployment name.",
+                ),
             )
         elif embedding_provider == "openai":
             missing += _require(
@@ -180,7 +212,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_OPENAI_EMBEDDING_API_KEY",
                     "UAGENT_OPENAI_EMBEDDING_DEPNAME",
                 ],
-                reason=_("OpenAI embedding API key / model name.", default="OpenAI embedding API key / model name."),
+                reason=_(
+                    "OpenAI embedding API key / model name.",
+                    default="OpenAI embedding API key / model name.",
+                ),
             )
         elif embedding_provider == "bedrock":
             missing += _require(
@@ -189,7 +224,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_BEDROCK_EMBEDDING_API_KEY",
                     "UAGENT_BEDROCK_EMBEDDING_DEPNAME",
                 ],
-                reason=_("Bedrock embedding endpoint / API key / deployment name.", default="Bedrock embedding endpoint / API key / deployment name."),
+                reason=_(
+                    "Bedrock embedding endpoint / API key / deployment name.",
+                    default="Bedrock embedding endpoint / API key / deployment name.",
+                ),
             )
         elif embedding_provider == "openrouter":
             missing += _require(
@@ -197,7 +235,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_OPENROUTER_EMBEDDING_API_KEY",
                     "UAGENT_OPENROUTER_EMBEDDING_DEPNAME",
                 ],
-                reason=_("OpenRouter embedding API key / model name.", default="OpenRouter embedding API key / model name."),
+                reason=_(
+                    "OpenRouter embedding API key / model name.",
+                    default="OpenRouter embedding API key / model name.",
+                ),
             )
         elif embedding_provider == "ollama":
             missing += _require(
@@ -205,7 +246,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_OLLAMA_EMBEDDING_BASE_URL",
                     "UAGENT_OLLAMA_EMBEDDING_DEPNAME",
                 ],
-                reason=_("Ollama embedding base URL / model name.", default="Ollama embedding base URL / model name."),
+                reason=_(
+                    "Ollama embedding base URL / model name.",
+                    default="Ollama embedding base URL / model name.",
+                ),
             )
         elif embedding_provider == "nvidia":
             missing += _require(
@@ -213,7 +257,10 @@ def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
                     "UAGENT_NVIDIA_EMBEDDING_API_KEY",
                     "UAGENT_NVIDIA_EMBEDDING_DEPNAME",
                 ],
-                reason=_("NVIDIA embedding API key / model name.", default="NVIDIA embedding API key / model name."),
+                reason=_(
+                    "NVIDIA embedding API key / model name.",
+                    default="NVIDIA embedding API key / model name.",
+                ),
             )
 
     return provider, missing, warnings

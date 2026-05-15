@@ -158,9 +158,7 @@ def run_cli_startup(
 
             print(
                 "[INFO] "
-                + _(
-                    "provider = %(provider)s; model = %(model)s"
-                )
+                + _("provider = %(provider)s; model = %(model)s")
                 % {"provider": provider, "model": depname or ""}
             )
 

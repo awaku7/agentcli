@@ -557,7 +557,15 @@ def guess_topics_from_content(content: str) -> Set[str]:
             "analysis",
             "logs",
         ],
-        "Data Analysis/Excel": ["excel", "xlsx", "csv", "analysis", "aggregation", "statistics", "chart"],
+        "Data Analysis/Excel": [
+            "excel",
+            "xlsx",
+            "csv",
+            "analysis",
+            "aggregation",
+            "statistics",
+            "chart",
+        ],
         "Security": [
             "security",
             "vulnerability",
@@ -745,7 +753,9 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         first_user_text = (
             _shorten(first_user, 60) if first_user else _("(no user message)")
         )
-        last_user_text = _shorten(last_user, 80) if last_user else _("(no user message)")
+        last_user_text = (
+            _shorten(last_user, 80) if last_user else _("(no user message)")
+        )
 
         print(
             f"[{idx}] {mtime_text} | {turns} msgs | first: {first_user_text} | last: {last_user_text}"
