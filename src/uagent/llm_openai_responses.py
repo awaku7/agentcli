@@ -196,7 +196,8 @@ def _openai_web_search_tool_from_env() -> Optional[Dict[str, Any]]:
     OpenAI Responses web_search documentation.
     """
 
-    if (env_get("UAGENT_OPENAI_WEB_SEARCH") or "").strip().lower() in ("0", "false", "no", "off"):
+    raw_enabled = (env_get("UAGENT_OPENAI_WEB_SEARCH") or "").strip().lower()
+    if raw_enabled not in ("1", "true", "yes", "on"):
         return None
 
     requested_type = (env_get("UAGENT_OPENAI_WEB_SEARCH_TYPE") or "web_search").strip()
