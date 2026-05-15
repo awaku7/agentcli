@@ -495,11 +495,11 @@ def _emit_web_search_event(core: Any, stage: str, **payload: Any) -> None:
             msg = _("Web search: {action}").format(action=action)
 
         if q_text:
-            msg += _(" ({queries})").format(queries=q_text)
+            msg += f" ({q_text})"
 
         sc = data.get("sources_count")
         if isinstance(sc, int) and sc > 0:
-            msg += _(" — {count} sources").format(count=sc)
+            msg += f" — {sc} sources"
         return msg
 
     try:
