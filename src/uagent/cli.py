@@ -55,7 +55,7 @@ from . import util_providers as providers
 from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
-from .uagent_env_keys import get_known_uagent_env_keys
+from .uagent_env_keys import _is_placeholder_uagent_key, get_known_uagent_env_keys
 from .scheduler import start_background_scheduler, stop_background_scheduler
 
 
@@ -142,7 +142,7 @@ def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
 def _uagent_env_candidates(prefix: str = "") -> list[str]:
     keys = set(get_known_uagent_env_keys())
     keys.update(
-        k for k in os.environ if k.startswith("UAGENT_") and not re.fullmatch(r"UAGENT_X+", k)
+        k for k in os.environ if k.startswith("UAGENT_") and not _is_placeholder_uagent_key(k)
     )
     if prefix:
         keys = {k for k in keys if k.lower().startswith(prefix.lower())}

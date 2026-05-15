@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Tuple
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
-from .uagent_env_keys import get_known_uagent_env_keys
+from .uagent_env_keys import _is_placeholder_uagent_key, get_known_uagent_env_keys
 
 set_thread_lang(detect_lang())
 
@@ -1947,11 +1947,7 @@ def format_help(*, core: Any) -> str:
 
 def _uagent_env_names(prefix: str = "UAGENT_") -> list[str]:
     keys = set(get_known_uagent_env_keys(prefix))
-    keys.update(
-        k
-        for k in os.environ
-        if k.startswith(prefix) and not re.fullmatch(r"UAGENT_X+", k)
-    )
+    keys.update(k for k in os.environ if k.startswith(prefix) and not _is_placeholder_uagent_key(k))
     return sorted(keys, key=str.lower)
 
 

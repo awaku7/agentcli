@@ -100,7 +100,7 @@ python -m uagent.setup_cli
 - `UAGENT_<PROVIDER>_EMBEDDING_API_KEY`: 埋め込みプロバイダの API キー。
 - `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION`: Azure 形式プロバイダの API バージョン。
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: 埋め込みモデル / デプロイ名。
-- `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: 埋め込みエンドポイント到達不能時にツールを無効化する。
+- `UAGENT_ENABLE_SEMANTIC_SEARCH`: セマンティック検索ツールの有効/無効を切り替える。
 
 ---
 
