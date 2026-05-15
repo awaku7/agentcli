@@ -25,9 +25,9 @@ EMBEDDING_PROVIDER = (
     .lower()
 )
 
-_DISABLE_IF_UNREACHABLE = str(
-    env_get("UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE") or "1"
-).strip().lower() not in {"0", "false", "no", "off"}
+_ENABLE_SEMANTIC_SEARCH = str(
+    env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
+).strip().lower() in {"1", "true", "yes", "on"}
 
 _ALLOWED_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"}
 _DEFAULT_BASE_URLS = {
@@ -41,12 +41,18 @@ _DEFAULT_BASE_URLS = {
 
 LOAD_DISABLED_REASON = ""
 
-_DB_LOCK = threading.Lock()
+_DB_LOCK = threading.RLock()
 
 
 def _embedding_env(provider: str, suffix: str, *, default: str = "") -> str:
     key = f"UAGENT_{provider.upper()}_EMBEDDING_{suffix.upper()}"
-    return (env_get(key) or default).strip()
+    value = env_get(key)
+    if not value and provider == "openai":
+        if suffix == "api_key":
+            value = env_get("UAGENT_OPENAI_API_KEY") or env_get("UAGENT_API_KEY")
+        elif suffix == "base_url":
+            value = env_get("UAGENT_OPENAI_BASE_URL")
+    return (value or default).strip()
 
 
 def _resolve_embedding_config() -> dict[str, Any]:
@@ -252,6 +258,8 @@ def _chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[st
 
 
 def sync_file(fpath: str, root_dir: str = "."):
+    if not _ENABLE_SEMANTIC_SEARCH:
+        return None
     import time
 
     fpath_abs = os.path.abspath(fpath)
@@ -343,6 +351,8 @@ def semantic_search_files(
     file_pattern: str = "*.md,*.txt,*.py",
     top_k: int = 5,
 ) -> str:
+    if not _ENABLE_SEMANTIC_SEARCH:
+        return ""
     import glob
 
     root_abs = os.path.abspath(root_path)
@@ -386,11 +396,16 @@ def semantic_search_files(
             fid = db_files[p]
             cur.execute("DELETE FROM vectors WHERE file_id=?", (fid,))
             cur.execute("DELETE FROM files WHERE id=?", (fid,))
+        cur.execute("SELECT COUNT(*) FROM vectors")
+        vector_count = int(cur.fetchone()[0] or 0)
         conn.commit()
         conn.close()
 
-    for f in target_files:
-        sync_file(f, root_abs)
+    if vector_count == 0:
+        return _(
+            "err.no_index",
+            default="Error: No indexed vectors found. Run index_files first.",
+        )
 
     query_vec = _get_embedding(query)
     if not query_vec:
@@ -467,45 +482,48 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-TOOL_SPEC = {
-    "type": "function",
-    "function": {
-        "name": "semantic_search_files",
-        "description": _(
-            "tool.description",
-            default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
-        ),
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": _(
-                        "param.query.description", default="Search query keyword."
-                    ),
+if not _ENABLE_SEMANTIC_SEARCH:
+    TOOL_SPEC = None  # type: ignore[assignment]
+else:
+    TOOL_SPEC = {
+        "type": "function",
+        "function": {
+            "name": "semantic_search_files",
+            "description": _(
+                "tool.description",
+                default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": _(
+                            "param.query.description", default="Search query keyword."
+                        ),
+                    },
+                    "root_path": {
+                        "type": "string",
+                        "description": _(
+                            "param.root_path.description",
+                            default="Search target directory.",
+                        ),
+                    },
+                    "file_pattern": {
+                        "type": "string",
+                        "description": _(
+                            "param.file_pattern.description",
+                            default="Target extensions (comma-separated).",
+                        ),
+                    },
+                    "top_k": {
+                        "type": "integer",
+                        "description": _(
+                            "param.top_k.description", default="Number of results."
+                        ),
+                    },
                 },
-                "root_path": {
-                    "type": "string",
-                    "description": _(
-                        "param.root_path.description",
-                        default="Search target directory.",
-                    ),
-                },
-                "file_pattern": {
-                    "type": "string",
-                    "description": _(
-                        "param.file_pattern.description",
-                        default="Target extensions (comma-separated).",
-                    ),
-                },
-                "top_k": {
-                    "type": "integer",
-                    "description": _(
-                        "param.top_k.description", default="Number of results."
-                    ),
-                },
+                "required": ["query"],
             },
-            "required": ["query"],
         },
-    },
-}
+    }

@@ -105,7 +105,7 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_<PROVIDER>_EMBEDDING_API_KEY`: API key for the embedding provider.
 - `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION`: API version for Azure-style providers.
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
-- `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: Disable semantic search tooling if the embedding endpoint is unreachable.
+- `UAGENT_ENABLE_SEMANTIC_SEARCH`: Enable or disable semantic search tooling.
 
 ---
 

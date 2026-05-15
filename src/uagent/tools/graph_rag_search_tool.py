@@ -16,12 +16,20 @@ import json
 import os
 import re
 import sqlite3
+from ..env_utils import env_get
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+_ENABLE_SEMANTIC_SEARCH = str(
+    env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
+).strip().lower() in {"1", "true", "yes", "on"}
+
 # Reuse embedding + DB path from semantic_search_files_tool
-from . import semantic_search_files_tool as vec_tool
+if _ENABLE_SEMANTIC_SEARCH:
+    from . import semantic_search_files_tool as vec_tool
+else:
+    vec_tool = None  # type: ignore[assignment]
 
 # -------------------------
 # DB schema (graph tables)
@@ -883,6 +891,8 @@ def graph_rag_search(
     chunk_size: int = 800,
     overlap: int = 150,
 ) -> str:
+    if not _ENABLE_SEMANTIC_SEARCH:
+        return ""
     root_abs = os.path.abspath(root_path)
     if not os.path.isdir(root_abs):
         return _(
@@ -1029,11 +1039,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
 
-if getattr(vec_tool, "TOOL_SPEC", None) is None and getattr(
-    vec_tool, "_DISABLE_IF_UNREACHABLE", False
-):
-    # semantic_search_files_tool already decided to hide itself because embedding API is unreachable.
-    # Keep graph_rag_search hidden as well, since it depends on embeddings.
+if not _ENABLE_SEMANTIC_SEARCH:
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
     TOOL_SPEC = {

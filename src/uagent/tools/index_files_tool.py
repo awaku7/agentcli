@@ -8,20 +8,28 @@ import os
 import glob
 from typing import Any, Dict
 
-try:
-    from . import semantic_search_files_tool as vec_tool
+from ..env_utils import env_get
 
-    sync_file = getattr(vec_tool, "sync_file", None)
-    _VEC_TOOL_ENABLED = isinstance(getattr(vec_tool, "TOOL_SPEC", None), dict)
-except Exception:
+_ENABLE_SEMANTIC_SEARCH = str(
+    env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
+).strip().lower() in {"1", "true", "yes", "on"}
+
+if _ENABLE_SEMANTIC_SEARCH:
+    try:
+        from . import semantic_search_files_tool as vec_tool
+
+        sync_file = getattr(vec_tool, "sync_file", None)
+    except Exception:
+        sync_file = None
+        _ENABLE_SEMANTIC_SEARCH = False
+else:
     sync_file = None
-    _VEC_TOOL_ENABLED = False
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:index_files"
 
 
-if not _VEC_TOOL_ENABLED:
+if not _ENABLE_SEMANTIC_SEARCH:
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
     TOOL_SPEC: Dict[str, Any] = {

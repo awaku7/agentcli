@@ -51,7 +51,7 @@
 - 直接コマンド実行は最終手段とする。
 - ファイル操作は `workdir` 配下を優先する。
 - 破壊的操作は事前確認を要求する。
-- `semantic_search_files` / `index_files` / `graph_rag_search` は、Embedding API の到達性に依存する。
+- `semantic_search_files` / `index_files` / `graph_rag_search` は、`UAGENT_ENABLE_SEMANTIC_SEARCH` によって有効化される。
 
 ## 環境変数
 
@@ -60,7 +60,7 @@
 - `UAGENT_SHARED_MEMORY_FILE`: 共有長期記憶ファイル。
 - `UAGENT_EMBEDDING_PROVIDER`: Embedding provider（既定: `UAGENT_PROVIDER`）。
 - `UAGENT_<PROVIDER>_EMBEDDING_BASE_URL` / `UAGENT_<PROVIDER>_EMBEDDING_API_KEY` / `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION` / `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`。
-- `UAGENT_SEMANTIC_SEARCH_DISABLE_IF_UNREACHABLE`: 到達不能時のツール抑止制御。
+- `UAGENT_ENABLE_SEMANTIC_SEARCH`: セマンティック検索関連ツールの有効/無効制御。
 - `UAGENT_CMD_ENCODING`: 外部コマンド出力のデコード設定。
 - `UAGENT_STREAMING`: 起動バナーの streaming 表示に反映される。
 
