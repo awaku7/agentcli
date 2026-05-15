@@ -483,7 +483,8 @@ def _call_openai_azure_round(
 
                     assistant_text, tool_calls_list = call_maybe_thread_fn(
                         lambda: parse_responses_response(
-                            _create_responses_with_effort_fallback()
+                            _create_responses_with_effort_fallback(),
+                            core=core,
                         )
                     )
 
@@ -512,7 +513,8 @@ def _call_openai_azure_round(
                                 lambda: client.responses.create(**resp_kwargs)
                             )
                             assistant_text, tool_calls_list = parse_responses_response(
-                                resp
+                                resp,
+                                core=core,
                             )
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
@@ -643,7 +645,7 @@ def _call_openai_azure_round(
         if use_responses_api:
             # Responses API: assistant_text/tool_calls_list are already parsed above
             # - streaming: parse_responses_stream(resp)
-            # - non-streaming: parse_responses_response(resp)
+            # - non-streaming: parse_responses_response(resp, core=core)
             pass
         else:
             choice = resp.choices[0]

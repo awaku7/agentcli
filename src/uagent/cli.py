@@ -743,9 +743,7 @@ def main() -> None:
                     break
                 core.set_status(False, "")
                 if getattr(result, "run_llm", False):
-                    prompt = (
-                        getattr(result, "prompt", None) or "Run the loaded skill."
-                    )
+                    prompt = getattr(result, "prompt", None) or "Run the loaded skill."
                     user_msg = {"role": "user", "content": prompt}
                     messages.append(user_msg)
                     core.log_message(user_msg)

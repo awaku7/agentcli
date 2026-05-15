@@ -185,19 +185,31 @@ def _img_env(
 
 
 def _provider() -> str:
+    # 1. Try dedicated env vars
     p = (
-        _env_first(["UAGENT_IMG_EDIT_PROVIDER", "UAGENT_PROVIDER"], default="openai")
+        (
+            env_get("UAGENT_IMG_EDIT_PROVIDER")
+            or env_get("UAGENT_IMG_GENERATE_PROVIDER")
+            or ""
+        )
         .strip()
         .lower()
     )
+    if p:
+        return p
+
+    # 2. Try global detect_provider logic
+    try:
+        from ..util_providers import detect_provider
+
+        p = detect_provider().lower()
+    except Exception:
+        # 3. Fallback to common env var or default
+        p = (env_get("UAGENT_PROVIDER") or "openai").strip().lower()
+
     if p not in ("openai", "azure", "gemini", "vertexai"):
-        raise RuntimeError(
-            _msg(
-                "err.unsupported_provider",
-                "Unsupported provider for img2img: {provider!r}",
-                provider=p,
-            )
-        )
+        # If global detection returned something else (e.g. bedrock), fallback to openai for this tool
+        return "openai"
     return p
 
 
@@ -315,13 +327,28 @@ def _make_gemini_client(provider: str):
 
 
 def _get_model(provider: str) -> str:
-    return _env_first(
+    # 1. Try environment variables first
+    p_up = provider.upper()
+    v = _env_first(
         [
-            f"UAGENT_{provider.upper()}_IMG_EDIT_DEPNAME",
-            f"UAGENT_{provider.upper()}_IMG_GENERATE_DEPNAME",
+            f"UAGENT_{p_up}_IMG_EDIT_DEPNAME",
+            f"UAGENT_{p_up}_IMG_GENERATE_DEPNAME",
         ],
-        required=True,
+        required=False,
+        default="",
     )
+    if v:
+        return v
+
+    # 2. Return provider-specific defaults
+    p_low = provider.lower()
+    if p_low in ("gemini", "vertexai"):
+        return "imagen-3.0-capability-001"
+    if p_low == "openai":
+        return "gpt-image-1"
+
+    # 3. Fallback to error
+    raise RuntimeError(f"No default image model for provider: {provider}")
 
 
 def _extract_image_items(

@@ -182,16 +182,24 @@ def _execute_tool_calls(
         try:
             parsed_args = json.loads(arg_str)
             if not isinstance(parsed_args, dict):
-                raise ValueError(_("arguments must be a JSON object.", default="arguments must be a JSON object."))
+                raise ValueError(
+                    _(
+                        "arguments must be a JSON object.",
+                        default="arguments must be a JSON object.",
+                    )
+                )
         except Exception as e:
             tb = traceback.format_exc()
-            tool_result = (
-                _(
-                    "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
-                    default=f"[tool args error] name={name!r} raw={arg_str!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
-                )
-                % {"name": name, "raw": arg_str, "etype": type(e).__name__, "err": e, "tb": tb}
-            )
+            tool_result = _(
+                "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                default=f"[tool args error] name={name!r} raw={arg_str!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+            ) % {
+                "name": name,
+                "raw": arg_str,
+                "etype": type(e).__name__,
+                "err": e,
+                "tb": tb,
+            }
             tool_cache_key = f"error:{name}:{arg_str}"
             parsed_args = None
 
@@ -207,9 +215,12 @@ def _execute_tool_calls(
                 tool_result_cache.get(tool_cache_key) if use_tool_result_cache else None
             )
             if cached is not None:
-                tool_result = _(
-                    "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
-                ) + cached
+                tool_result = (
+                    _(
+                        "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
+                    )
+                    + cached
+                )
             else:
                 core.set_status(True, f"tool:{name}")
                 try:
@@ -220,13 +231,10 @@ def _execute_tool_calls(
                     tool_result = tools.run_tool(name, parsed_args)
                 except Exception as e:
                     tb = traceback.format_exc()
-                    tool_result = (
-                        _(
-                            "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
-                            default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
-                        )
-                        % {"name": name, "etype": type(e).__name__, "err": e, "tb": tb}
-                    )
+                    tool_result = _(
+                        "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                        default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                    ) % {"name": name, "etype": type(e).__name__, "err": e, "tb": tb}
                 tool_result_cache[tool_cache_key] = tool_result
                 executed_new_tool = True
 

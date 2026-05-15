@@ -121,7 +121,10 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
             {"role": "assistant", "content": ""},
             {
                 "code": "INTERNAL",
-                "message": _("No assistant message produced.", default="No assistant message produced."),
+                "message": _(
+                    "No assistant message produced.",
+                    default="No assistant message produced.",
+                ),
             },
         )
 
@@ -130,7 +133,9 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
         last_assistant = dict(last_assistant)
         last_assistant["attachments"] = attachments
         if not str(last_assistant.get("content") or "").strip():
-            last_assistant["content"] = _("Generated image(s).", default="Generated image(s).")
+            last_assistant["content"] = _(
+                "Generated image(s).", default="Generated image(s)."
+            )
 
     return last_assistant, None
 
@@ -140,7 +145,11 @@ def run_once(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | None]:
 
     if mode == "echo":
         return (
-            {"role": "assistant", "content": _("ECHO: %(text)s", default=f"ECHO: {user_text}") % {"text": user_text}},
+            {
+                "role": "assistant",
+                "content": _("ECHO: %(text)s", default=f"ECHO: {user_text}")
+                % {"text": user_text},
+            },
             None,
         )
 
@@ -152,7 +161,11 @@ def run_once(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | None]:
                 {"role": "assistant", "content": ""},
                 {
                     "code": "FAILED_PRECONDITION",
-                    "message": _("uagent initialization failed: %(err)s", default=f"uagent initialization failed: {e}") % {"err": e},
+                    "message": _(
+                        "uagent initialization failed: %(err)s",
+                        default=f"uagent initialization failed: {e}",
+                    )
+                    % {"err": e},
                 },
             )
         except Exception as e:
@@ -160,7 +173,11 @@ def run_once(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | None]:
                 {"role": "assistant", "content": ""},
                 {
                     "code": "INTERNAL",
-                    "message": _("uagent execution failed: %(etype)s: %(err)s", default=f"uagent execution failed: {type(e).__name__}: {e}") % {"etype": type(e).__name__, "err": e},
+                    "message": _(
+                        "uagent execution failed: %(etype)s: %(err)s",
+                        default=f"uagent execution failed: {type(e).__name__}: {e}",
+                    )
+                    % {"etype": type(e).__name__, "err": e},
                 },
             )
 

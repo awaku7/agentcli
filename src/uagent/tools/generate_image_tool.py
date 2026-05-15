@@ -236,7 +236,7 @@ def _get_image_depname(cb_get_env, provider: str) -> str:
     if provider == "openai":
         return "gpt-image-1"
     if provider in ("gemini", "vertexai"):
-        return "imagen-4.0-generate-001"
+        return "imagen-3.0-generate-002"
     raise RuntimeError(
         _msg(
             "err.required_env_vars_missing",
@@ -601,12 +601,12 @@ def run_tool(args: Dict[str, Any]) -> str:
     try:
         image_model = _get_image_depname(cb.get_env, provider)
         if provider == "gemini" and "imagen" not in image_model.lower():
-            image_model = "imagen-4.0-generate-001"
+            image_model = "imagen-3.0-generate-002"
         if provider == "vertexai" and "imagen" not in image_model.lower():
-            image_model = "imagen-4.0-generate-001"
+            image_model = "imagen-3.0-generate-002"
     except RuntimeError:
         if provider == "vertexai":
-            image_model = "imagen-4.0-generate-001"
+            image_model = "imagen-3.0-generate-002"
         else:
             return _(
                 "err.depname_missing",

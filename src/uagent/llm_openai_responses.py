@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from .env_utils import env_get
 from .i18n import _
 import time
@@ -60,7 +61,9 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
                         out.append(
                             {
                                 "type": "output_text",
-                                "text": _("[WARN] assistant history contained image content; converted to text."),
+                                "text": _(
+                                    "[WARN] assistant history contained image content; converted to text."
+                                ),
                             }
                         )
                         continue
@@ -90,7 +93,8 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
                 out.append(
                     {
                         "type": text_type,
-                        "text": _("[WARN] unsupported content item: %(item)r") % {"item": item},
+                        "text": _("[WARN] unsupported content item: %(item)r")
+                        % {"item": item},
                     }
                 )
                 continue
@@ -108,6 +112,409 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
         return out
 
     return [{"type": text_type, "text": _as_str(content)}]
+
+
+_OPENAI_WEB_SEARCH_TYPE_ALIASES = {
+    "web_search": "web_search",
+    "web_search_preview": "web_search_preview",
+    "openai:web_search": "web_search",
+    # Friendly alias for users/configs that describe the capability rather than
+    # the exact hosted tool name.
+    "url_search": "web_search",
+}
+
+_OPENAI_WEB_SEARCH_TOOL_KEYS = {
+    "filters",
+    "search_context_size",
+    "user_location",
+    "external_web_access",
+    "return_token_budget",
+}
+
+
+def _env_truthy(name: str) -> bool:
+    return (env_get(name) or "").strip().lower() in ("1", "true", "yes", "on")
+
+
+def _env_json_obj(name: str) -> Optional[Dict[str, Any]]:
+    raw = (env_get(name) or "").strip()
+    if not raw:
+        return None
+    try:
+        obj = json.loads(raw)
+    except Exception:
+        return None
+    return obj if isinstance(obj, dict) else None
+
+
+def _normalize_openai_builtin_tool(t: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Return an OpenAI Responses built-in tool spec, if *t* names one.
+
+    Latest OpenAI docs recommend the hosted Responses tool:
+      {"type": "web_search"}
+
+    `web_search_preview` is still accepted for legacy integrations but lacks
+    newer controls such as filters, external_web_access, and return_token_budget.
+    This helper accepts direct built-in specs and function-shaped pseudo specs so
+    external/user tool specs can request OpenAI-hosted web search without adding
+    a local runner.
+    """
+
+    ty = _as_str(t.get("type")).strip()
+    mapped = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(ty)
+
+    if mapped is None:
+        fn = t.get("function") if isinstance(t.get("function"), dict) else None
+        if isinstance(fn, dict):
+            mapped = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(
+                _as_str(fn.get("name")).strip()
+            )
+
+    if mapped is None:
+        return None
+
+    out: Dict[str, Any] = {"type": mapped}
+    for key in _OPENAI_WEB_SEARCH_TOOL_KEYS:
+        if key in t:
+            out[key] = t[key]
+
+    if mapped == "web_search_preview":
+        # Keep only controls supported by the legacy preview tool.
+        return {
+            k: v
+            for k, v in out.items()
+            if k in ("type", "search_context_size", "user_location")
+        }
+
+    return out
+
+
+def _openai_web_search_tool_from_env() -> Optional[Dict[str, Any]]:
+    """Build an optional OpenAI hosted web_search tool from env settings.
+
+    Opt-in with UAGENT_OPENAI_WEB_SEARCH=1. Supported controls mirror the current
+    OpenAI Responses web_search documentation.
+    """
+
+    if (env_get("UAGENT_OPENAI_WEB_SEARCH") or "").strip().lower() in ("0", "false", "no", "off"):
+        return None
+
+    requested_type = (env_get("UAGENT_OPENAI_WEB_SEARCH_TYPE") or "web_search").strip()
+    tool_type = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(requested_type, "web_search")
+    out: Dict[str, Any] = {"type": tool_type}
+
+    context_size = (
+        (env_get("UAGENT_OPENAI_WEB_SEARCH_CONTEXT_SIZE") or "").strip().lower()
+    )
+    if context_size in ("low", "medium", "high"):
+        out["search_context_size"] = context_size
+
+    user_location = _env_json_obj("UAGENT_OPENAI_WEB_SEARCH_USER_LOCATION_JSON")
+    if user_location is not None:
+        out["user_location"] = user_location
+
+    if tool_type == "web_search":
+        filters = _env_json_obj("UAGENT_OPENAI_WEB_SEARCH_FILTERS_JSON")
+        if filters is not None:
+            out["filters"] = filters
+
+        external_web_access = (
+            (env_get("UAGENT_OPENAI_WEB_SEARCH_EXTERNAL_WEB_ACCESS") or "")
+            .strip()
+            .lower()
+        )
+        if external_web_access in ("1", "true", "yes", "on"):
+            out["external_web_access"] = True
+        elif external_web_access in ("0", "false", "no", "off"):
+            out["external_web_access"] = False
+
+        return_token_budget = (
+            (env_get("UAGENT_OPENAI_WEB_SEARCH_RETURN_TOKEN_BUDGET") or "")
+            .strip()
+            .lower()
+        )
+        if return_token_budget in ("default", "unlimited"):
+            out["return_token_budget"] = return_token_budget
+
+    return out
+
+
+def _env_enabled_default_true(name: str) -> bool:
+    raw = (env_get(name) or "").strip().lower()
+    if raw in ("0", "false", "no", "off"):
+        return False
+    if raw in ("1", "true", "yes", "on"):
+        return True
+    return True
+
+
+def _web_emit(core: Any, payload: Dict[str, Any]) -> None:
+    try:
+        if core is not None and bool(getattr(core, "_is_web", False)):
+            lm = getattr(core, "log_message", None)
+            if callable(lm):
+                lm(payload)
+    except Exception:
+        pass
+
+
+def _maybe_dict(obj: Any) -> Optional[Dict[str, Any]]:
+    if isinstance(obj, dict):
+        return obj
+    if obj is None:
+        return None
+    out: Dict[str, Any] = {}
+    for key in (
+        "type",
+        "url",
+        "title",
+        "start_index",
+        "end_index",
+        "text",
+        "location",
+        "status",
+        "id",
+        "call_id",
+        "action",
+        "queries",
+        "query",
+        "domains",
+        "domain",
+        "sources",
+    ):
+        if hasattr(obj, key):
+            try:
+                out[key] = getattr(obj, key)
+            except Exception:
+                pass
+    return out or None
+
+
+def _extract_url_citations(content: Any) -> List[Dict[str, Any]]:
+    citations: List[Dict[str, Any]] = []
+    items = content if isinstance(content, list) else [content]
+    for item in items:
+        item_dict = _maybe_dict(item)
+        if not item_dict:
+            continue
+        annotations = item_dict.get("annotations")
+        if not isinstance(annotations, list):
+            continue
+        for ann in annotations:
+            ann_dict = _maybe_dict(ann)
+            if not ann_dict:
+                continue
+            ann_type = _as_str(ann_dict.get("type")).strip().lower()
+            if ann_type != "url_citation":
+                continue
+            url = _as_str(ann_dict.get("url")).strip()
+            title = _as_str(ann_dict.get("title")).strip()
+            start_index = ann_dict.get("start_index")
+            end_index = ann_dict.get("end_index")
+            location = _as_str(ann_dict.get("location")).strip()
+            entry = {
+                "type": "url_citation",
+                "url": url,
+                "title": title,
+                "location": location,
+                "start_index": start_index,
+                "end_index": end_index,
+            }
+            if entry not in citations:
+                citations.append(entry)
+    return citations
+
+
+def _extract_web_search_call_info(item: Any) -> Optional[Dict[str, Any]]:
+    item_dict = _maybe_dict(item)
+    if not item_dict:
+        return None
+
+    item_type = _as_str(item_dict.get("type")).strip().lower()
+    if "web_search_call" not in item_type:
+        return None
+
+    action = item_dict.get("action")
+    action_dict = _maybe_dict(action) if action is not None else None
+    if action_dict is None:
+        action_dict = {}
+
+    def _get_any(obj: Any, *names: str) -> Any:
+        if isinstance(obj, dict):
+            for name in names:
+                if name in obj and obj[name] is not None:
+                    return obj[name]
+        for name in names:
+            if hasattr(obj, name):
+                try:
+                    val = getattr(obj, name)
+                except Exception:
+                    continue
+                if val is not None:
+                    return val
+        return None
+
+    queries = (
+        _get_any(action, "queries", "query")
+        or action_dict.get("queries")
+        or action_dict.get("query")
+        or item_dict.get("queries")
+        or item_dict.get("query")
+        or []
+    )
+    domains = (
+        _get_any(action, "domains", "domain")
+        or action_dict.get("domains")
+        or action_dict.get("domain")
+        or item_dict.get("domains")
+        or item_dict.get("domain")
+        or []
+    )
+    sources = (
+        _get_any(action, "sources")
+        or action_dict.get("sources")
+        or item_dict.get("sources")
+        or []
+    )
+
+    if not isinstance(queries, list):
+        queries = [queries] if queries else []
+    if not isinstance(domains, list):
+        domains = [domains] if domains else []
+    if not isinstance(sources, list):
+        sources = [sources] if sources else []
+
+    return {
+        "id": _as_str(item_dict.get("call_id") or item_dict.get("id") or ""),
+        "type": item_type,
+        "status": _as_str(item_dict.get("status") or action_dict.get("status") or ""),
+        "action": _as_str(
+            _get_any(action, "type", "name") or item_dict.get("action") or ""
+        ),
+        "queries": [q for q in (_as_str(x).strip() for x in queries) if q],
+        "domains": [d for d in (_as_str(x).strip() for x in domains) if d],
+        "sources_count": len([s for s in sources if s is not None]),
+    }
+
+
+def _append_web_sources_suffix(text: str, citations: List[Dict[str, Any]]) -> str:
+    if not citations:
+        return text
+    seen = set()
+    lines = ["", "", "Sources:"]
+    for citation in citations:
+        url = _as_str(citation.get("url")).strip()
+        title = _as_str(citation.get("title")).strip()
+        if not url and not title:
+            continue
+        key = (url or title).lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        label = title or url
+        if url:
+            lines.append(f"- {label} ({url})")
+        else:
+            lines.append(f"- {label}")
+    if len(lines) <= 3:
+        return text
+    base = text.rstrip()
+    suffix = "\
+".join(lines)
+    return (base + "\
+\
+" + suffix).rstrip()
+
+
+def _websearch_debug_enabled() -> bool:
+    return _env_truthy("UAGENT_WEBSEARCH_DEBUG")
+
+
+def _debug_stream_enabled() -> bool:
+    return _websearch_debug_enabled()
+
+
+def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
+    if not _debug_stream_enabled():
+        return
+    data: Dict[str, Any] = {"type": "debug", "stage": _as_str(stage) or "update"}
+    for key, value in payload.items():
+        if value is None:
+            continue
+        data[key] = value
+    try:
+        print(json.dumps(data, ensure_ascii=False, default=str), file=sys.stderr, flush=True)
+    except Exception:
+        try:
+            print(f"[DEBUG] {data}", file=sys.stderr, flush=True)
+        except Exception:
+            pass
+    _web_emit(core, data)
+
+
+def _emit_web_search_event(core: Any, stage: str, **payload: Any) -> None:
+    data: Dict[str, Any] = {"type": "assistant_web_search", "stage": _as_str(stage) or "update"}
+    for key, value in payload.items():
+        if value is None:
+            continue
+        if value == "":
+            continue
+        if value == []:
+            continue
+        if value == {}:
+            continue
+        data[key] = value
+
+    def _action_label(action: str) -> str:
+        a = _as_str(action).strip().lower()
+        if a == "search":
+            return _("search")
+        if a == "open_page":
+            return _("open page")
+        if a == "find_in_page":
+            return _("find in page")
+        return a or _("web search")
+
+    def _progress_text() -> str:
+        stage = _as_str(data.get("stage") or "update").lower()
+        status = _as_str(data.get("status") or "").lower()
+        st = status or stage
+        action = _action_label(_as_str(data.get("action") or "web search"))
+        queries = data.get("queries") or []
+        if isinstance(queries, list) and queries:
+            q_text = ", ".join(_as_str(x) for x in queries[:3] if _as_str(x))
+        else:
+            q_text = ""
+
+        if st in ("in_progress", "searching"):
+            msg = _("Web search: searching")
+        elif st == "completed":
+            msg = _("Web search: completed")
+        else:
+            msg = _("Web search: {action}").format(action=action)
+
+        if q_text:
+            msg += _(" ({queries})").format(queries=q_text)
+
+        sc = data.get("sources_count")
+        if isinstance(sc, int) and sc > 0:
+            msg += _(" — {count} sources").format(count=sc)
+        return msg
+
+    try:
+        if core is not None and bool(getattr(core, "_is_web", False)):
+            _web_emit(core, {"type": "assistant_status", "text": _progress_text()})
+            return
+    except Exception:
+        pass
+
+    try:
+        if _env_enabled_default_true("UAGENT_WEBSEARCH_STATUS"):
+            msg = _progress_text()
+            if msg:
+                print(msg, file=sys.stderr, flush=True)
+    except Exception:
+        pass
 
 
 def build_responses_request(
@@ -254,9 +661,24 @@ def build_responses_request(
     if send_tools_this_round:
         raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
         flat_tools: List[Dict[str, Any]] = []
+
+        # OpenAI-hosted web search is not a local function tool.  It must be
+        # sent as a Responses built-in tool, e.g. {"type": "web_search"}.
+        # Allow opt-in through env without requiring a dummy local tool module.
+        if provider == "openai":
+            env_web_search_tool = _openai_web_search_tool_from_env()
+            if env_web_search_tool is not None:
+                flat_tools.append(env_web_search_tool)
+
         for t in raw_specs or []:
             if not isinstance(t, dict):
                 continue
+
+            builtin_tool = _normalize_openai_builtin_tool(t)
+            if builtin_tool is not None:
+                flat_tools.append(builtin_tool)
+                continue
+
             fn = t.get("function") or {}
             if not isinstance(fn, dict):
                 continue
@@ -265,7 +687,7 @@ def build_responses_request(
                 continue
             flat_tools.append(
                 {
-                    "type": t.get("type") or "function",
+                    "type": "function",
                     "name": name,
                     "description": fn.get("description") or "",
                     "parameters": fn.get("parameters")
@@ -273,23 +695,39 @@ def build_responses_request(
                 }
             )
         req_tools = flat_tools
+        if _debug_stream_enabled():
+            web_search_tools = [
+                t for t in (req_tools or [])
+                if isinstance(t, dict)
+                and _as_str(t.get("type")).strip().lower().startswith("web_search")
+            ]
 
     return instructions_str, input_msgs, req_tools
 
 
-def parse_responses_response(resp: Any) -> Tuple[str, List[Dict[str, Any]]]:
+def parse_responses_response(resp: Any, *, core: Any = None) -> Tuple[str, List[Dict[str, Any]]]:
     """Parse Responses API response into (assistant_text, tool_calls_list)."""
 
     assistant_text = ""
     tool_calls_list: List[Dict[str, Any]] = []
+    seen_web_search_ids: set[str] = set()
 
     if hasattr(resp, "output") and resp.output:
         for item in resp.output:
-            if getattr(item, "type", None) == "message":
+            item_type = _as_str(getattr(item, "type", "")).strip().lower()
+            if item_type == "message":
                 for c in getattr(item, "content", []) or []:
                     ct = getattr(c, "type", None)
                     if ct in ("output_text", "text"):
                         assistant_text += _as_str(getattr(c, "text", ""))
+                citations = _extract_url_citations(getattr(item, "content", []) or [])
+                if citations:
+                    _debug_emit(
+                        None,
+                        "parse_responses_response",
+                        note="OPENAI_RESPONSES_URL_CITATION",
+                        citations=citations,
+                    )
 
             elif getattr(item, "type", None) == "function_call":
                 args_val = getattr(item, "arguments", None)
@@ -317,6 +755,15 @@ def parse_responses_response(resp: Any) -> Tuple[str, List[Dict[str, Any]]]:
                         },
                     }
                 )
+            elif "web_search_call" in item_type:
+                info = _extract_web_search_call_info(item)
+                if info:
+                    wid = _as_str(info.get("id"))
+                    if wid and wid in seen_web_search_ids:
+                        continue
+                    if wid:
+                        seen_web_search_ids.add(wid)
+                    _emit_web_search_event(core, "update", **info)
 
     return assistant_text, tool_calls_list
 
@@ -345,7 +792,7 @@ def parse_responses_stream(
       - At end, return the full assistant_text and ChatCompletions-like tool_calls_list.
     """
 
-    debug_env = (env_get("UAGENT_STREAMING_DEBUG", "") or "").strip().lower()
+    debug_env = (env_get("UAGENT_WEBSEARCH_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")
 
     debug_fp = None
@@ -479,9 +926,15 @@ def parse_responses_stream(
             it = stream.iter_events()
 
         for ev in it:
-            _dump_event(ev)
+            if _debug_stream_enabled():
+                _dump_event(ev)
 
             ev_type = getattr(ev, "type", None) or getattr(ev, "event", None) or ""
+
+            if "web_search_call" in _as_str(ev_type).lower():
+                info = _extract_web_search_call_info(ev)
+                if info:
+                    _emit_web_search_event(core, "update", **info)
 
             # 1) Output text deltas
             delta_text = None
@@ -524,6 +977,10 @@ def parse_responses_stream(
 
             if ev_type in ("response.output_item.added", "response.output_item.delta"):
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                if item is not None and "web_search_call" in _as_str(getattr(item, "type", "")).lower():
+                    info = _extract_web_search_call_info(item)
+                    if info:
+                        _emit_web_search_event(core, "update", **info)
                 if item is not None and getattr(item, "type", None) == "function_call":
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:
@@ -592,6 +1049,10 @@ def parse_responses_stream(
 
             elif ev_type == "response.output_item.done":
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
+                if item is not None and "web_search_call" in _as_str(getattr(item, "type", "")).lower():
+                    info = _extract_web_search_call_info(item)
+                    if info:
+                        _emit_web_search_event(core, "update", **info)
                 if item and getattr(item, "type", None) == "function_call":
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:
