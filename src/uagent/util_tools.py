@@ -16,6 +16,7 @@ from typing import Any, Dict, List, Tuple
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
+from .uagent_env_keys import get_known_uagent_env_keys
 
 set_thread_lang(detect_lang())
 
@@ -1880,6 +1881,9 @@ def format_help(*, core: Any) -> str:
         "  :ls [path]            "
         + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"),
         "  :tools                " + tr("List loaded tools"),
+        "  :env show [KEY]       "
+        + tr("Show UAGENT_* env vars; KEY names are masked; :env show UAGENT_*"),
+        "  :env set/unset/save   " + tr("Manage UAGENT_* env vars and save .env.sec"),
         "  :skills [cmd]         "
         + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
         "  :load <idx|path>      "
@@ -1941,6 +1945,103 @@ def format_help(*, core: Any) -> str:
     return "\n".join(norm_lines)
 
 
+def _uagent_env_names(prefix: str = "UAGENT_") -> list[str]:
+    keys = set(get_known_uagent_env_keys(prefix))
+    keys.update(
+        k
+        for k in os.environ
+        if k.startswith(prefix) and not re.fullmatch(r"UAGENT_X+", k)
+    )
+    return sorted(keys, key=str.lower)
+
+
+def _uagent_format_env_value(name: str, value: str) -> str:
+    if "KEY" in name.upper():
+        return "***"
+    return value
+
+
+def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
+    raw = (arg or "").strip()
+    if not raw:
+        for key in _uagent_env_names():
+            print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
+        return True
+
+    try:
+        items = shlex.split(raw, posix=False)
+    except Exception as e:
+        print(
+            tr("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
+        return True
+
+    if not items:
+        for key in _uagent_env_names():
+            print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
+        return True
+
+    sub = items[0].lower()
+    if sub in ("show", "list"):
+        if len(items) == 1:
+            for key in _uagent_env_names():
+                print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
+            return True
+
+        query = items[1]
+        keys = [k for k in _uagent_env_names() if k.lower() == query.lower()]
+        if not keys:
+            keys = [
+                k for k in _uagent_env_names() if k.lower().startswith(query.lower())
+            ]
+        if not keys:
+            print(tr("[env] Not found: %(key)s") % {"key": query})
+            return True
+        if len(keys) > 1:
+            print(tr("[env] Ambiguous: %(key)s") % {"key": query})
+            for key in keys:
+                print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
+            return True
+        key = keys[0]
+        print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
+        return True
+
+    if sub == "set":
+        if len(items) < 3:
+            print(tr(":env set KEY VALUE"))
+            return True
+        key = items[1]
+        value = " ".join(items[2:])
+        os.environ[key] = value
+        print(tr("[env] Set %(key)s") % {"key": key})
+        return True
+
+    if sub == "unset":
+        if len(items) < 2:
+            print(tr(":env unset KEY"))
+            return True
+        key = items[1]
+        os.environ.pop(key, None)
+        print(tr("[env] Unset %(key)s") % {"key": key})
+        return True
+
+    if sub == "save":
+        try:
+            from .runtime_env import save_uagent_envsec
+
+            sec_path = save_uagent_envsec()
+            print(tr("[env] Saved .env.sec: %(path)s") % {"path": str(sec_path)})
+        except Exception as e:
+            print(
+                tr("[env error] %(etype)s: %(err)s")
+                % {"etype": type(e).__name__, "err": e}
+            )
+        return True
+
+    print(tr(":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"))
+    return True
+
+
 def handle_command(
     line: str,
     messages_ref: List[Dict[str, Any]],
@@ -1984,6 +2085,9 @@ def handle_command(
 
     if cmd == "tools":
         return _handle_cmd_tools(tr=tr)
+
+    if cmd == "env":
+        return _handle_cmd_env(arg, tr=tr)
 
     if cmd == "skills":
         return bool(

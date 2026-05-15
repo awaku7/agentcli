@@ -10,6 +10,7 @@ from uag_envsec.secret_core import decrypt_text, encrypt_text, ensure_key_file
 
 from .env_validate import format_missing_env_message, validate_startup_env
 from .i18n import _
+from .runtime_workdir import get_startup_workdir
 
 
 def _format_env_value(value: str) -> str:
@@ -125,12 +126,21 @@ def _restore_uagent_env_snapshot(snapshot: Mapping[str, str] | None) -> None:
             os.environ.pop(key, None)
 
 
+def save_uagent_envsec(*, env: Mapping[str, str] | None = None) -> Path:
+    sec_path = Path(get_startup_workdir()) / ".env.sec"
+    snapshot = _snapshot_uagent_env(env)
+    ensure_key_file()
+    plaintext = _build_uagent_env_text(snapshot)
+    _write_text_atomic(sec_path, encrypt_text(plaintext) + "\n")
+    return sec_path
+
+
 def _maybe_offer_envsec_sync(
     *,
     context: str,
     env_snapshot: Mapping[str, str] | None = None,
 ) -> bool:
-    sec_path = Path.cwd() / ".env.sec"
+    sec_path = Path(get_startup_workdir()) / ".env.sec"
     snapshot = _snapshot_uagent_env(env_snapshot)
 
     if not snapshot and not sec_path.exists():

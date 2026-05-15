@@ -14,6 +14,12 @@ class WorkdirDecision:
     chosen_expanded: str
 
 
+_STARTUP_WORKDIR: str | None = None
+
+def get_startup_workdir() -> str:
+    return _STARTUP_WORKDIR or os.getcwd()
+
+
 def decide_workdir(
     *, cli_workdir: Optional[str] = None, env_workdir: Optional[str] = None
 ) -> WorkdirDecision:
@@ -50,5 +56,9 @@ def decide_workdir(
 def apply_workdir(decision: WorkdirDecision) -> None:
     """Apply the decided workdir (mkdir + chdir)."""
 
+    global _STARTUP_WORKDIR
+
     os.makedirs(decision.chosen_expanded, exist_ok=True)
     os.chdir(decision.chosen_expanded)
+    if _STARTUP_WORKDIR is None:
+        _STARTUP_WORKDIR = decision.chosen_expanded

@@ -55,6 +55,7 @@ from . import util_providers as providers
 from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
+from .uagent_env_keys import get_known_uagent_env_keys
 from .scheduler import start_background_scheduler, stop_background_scheduler
 
 
@@ -107,7 +108,7 @@ INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 
 # ------------------------------
 # Readline TAB completion (interactive TTY only)
-# - Only for :cd, :ls, and :rm arguments
+# - Only for :cd, :ls, :rm, and :env arguments
 # - Other inputs keep current behavior
 
 
@@ -136,6 +137,16 @@ def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
 
     arg_start = 1 + len(cmd) + len(ws)
     return cmd, rest, arg_start
+
+
+def _uagent_env_candidates(prefix: str = "") -> list[str]:
+    keys = set(get_known_uagent_env_keys())
+    keys.update(
+        k for k in os.environ if k.startswith("UAGENT_") and not re.fullmatch(r"UAGENT_X+", k)
+    )
+    if prefix:
+        keys = {k for k in keys if k.lower().startswith(prefix.lower())}
+    return sorted(keys, key=str.lower)
 
 
 def _uagent_path_candidates(prefix: str) -> list[str]:
@@ -190,7 +201,7 @@ def _uagent_path_candidates(prefix: str) -> list[str]:
 
 
 def _uagent_rl_completer(text_part: str, state: int):
-    # readline completer for ':cd' / ':ls' / ':rm' / ':cp' / ':mv' / ':head'
+    # readline completer for ':cd' / ':ls' / ':rm' / ':cp' / ':mv' / ':head' / ':env'
     #
     # Important: readline expects the returned string to replace the current
     # token fragment (text_part), not the whole argument. If we return the full
@@ -202,8 +213,34 @@ def _uagent_rl_completer(text_part: str, state: int):
         buf = readline.get_line_buffer() or ""
         cmd, arg, _arg_start = _uagent_split_cmd_arg(buf)
 
-        if cmd not in ("cd", "ls", "rm", "cp", "mv", "head", "tail"):
+        if cmd not in ("cd", "ls", "rm", "cp", "mv", "head", "tail", "env"):
             return None
+
+        if cmd == "env":
+            env_subs = ("show", "set", "unset", "save")
+            parts = [p for p in re.split(r"[ 	]+", arg) if p != ""]
+            ends_ws = bool(arg) and arg[-1] in (" ", "	")
+
+            if not parts:
+                cands = [s for s in env_subs if s.startswith(text_part.lower())]
+            else:
+                sub = parts[0].lower()
+                if sub not in env_subs:
+                    cands = [s for s in env_subs if s.startswith(text_part.lower())]
+                elif sub == "save":
+                    return None
+                else:
+                    if len(parts) == 1 and not ends_ws:
+                        cands = [s for s in env_subs if s.startswith(text_part.lower())]
+                    else:
+                        prefix = parts[-1] if len(parts) >= 2 and not ends_ws else ""
+                        cands = _uagent_env_candidates(prefix)
+
+            if not cands:
+                return None
+            if state >= len(cands):
+                return None
+            return cands[state]
 
         prefix = arg
         if cmd in ("cp", "mv"):
