@@ -38,6 +38,26 @@
 - ファイル更新判定は `mtime` だけでなく、必要ならサイズやハッシュも使う。
 - 埋め込み設定ごとに別 DB を使う。
 
+## P1: tool / util_tools の疎結合
+
+### 状況
+- いくつかの補助処理は分離済み。
+- 互換 import / re-export は当面維持する。
+
+### 継続対象
+- `audio_speech_tool.py`
+- `generate_image_tool.py`
+- `finish_skill_tool.py`
+- `cli.py`
+- `web.py`
+- `cli_startup.py`
+
+### 進め方
+- `tool -> util_tools` 依存を必要最小限まで削る。
+- tool 初期化まわりを 1 箇所に寄せる。
+- tool 内ログは callback 経由に寄せる。
+- 各段階で `py_compile` と smoke test を通す。
+
 ## 保留
 
 - 翻訳 provider の追加検討は削除済み。必要時に別途整理する。
