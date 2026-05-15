@@ -455,14 +455,17 @@ class ScheckWorker(QtCore.QObject):
                             continue
 
                         # Fallback: analyze_image tool -> text injection
+                        # Fallback: analyze_image tool -> text injection
                         for p in ev.get("images", []):
                             if os.path.isfile(p):
                                 core.set_status(True, "analyze_image")
                                 res = self.tools.run_tool(
                                     "analyze_image", {"image_path": p}
                                 )
-                                text += f"\\n[Attached Image] {p}\\n{res}"
-
+                                text += f"\
+[Attached Image] {p}\
+[Image Path] {p}\
+{res}"
                         if text.strip():
                             m = {"role": "user", "content": text.strip()}
                             self.messages.append(m)

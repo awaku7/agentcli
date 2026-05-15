@@ -637,9 +637,11 @@ def run_agent_worker(
             label = os.path.basename(name) or os.path.basename(path) or path
             if is_image:
                 attachment_lines.append(f"[Attached Image] {label}")
+                attachment_lines.append(f"[Image Path] {path}")
                 item["type"] = "image"
             else:
                 attachment_lines.append(f"[Attached File] {label}")
+                attachment_lines.append(f"[File Path] {path}")
                 item["type"] = "file"
             item["saved_path"] = path
             if mime:
