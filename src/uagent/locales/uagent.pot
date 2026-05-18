@@ -839,8 +839,20 @@ msgstr ""
 msgid "↑ You can attach files by drag & drop"
 msgstr ""
 
-#: src/uagent/scheckgui.py:641
+#: src/uagent/scheckgui.py:645
+msgid "Attach..."
+msgstr ""
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
+msgstr ""
+
+#: src/uagent/scheckgui.py:922
+msgid "Attach files"
+msgstr ""
+
+#: src/uagent/scheckgui.py:924
+msgid "All Files (*)"
 msgstr ""
 
 #: src/uagent/scheckgui.py:681

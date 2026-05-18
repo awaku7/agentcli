@@ -863,9 +863,21 @@ msgstr "uag GUI（超安定版）"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Drag&Drop で添付できます"
 
-#: src/uagent/scheckgui.py:641
+#: src/uagent/scheckgui.py:645
+msgid "Attach..."
+msgstr "添付..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "送信"
+
+#: src/uagent/scheckgui.py:922
+msgid "Attach files"
+msgstr "ファイルを添付"
+
+#: src/uagent/scheckgui.py:924
+msgid "All Files (*)"
+msgstr "すべてのファイル (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

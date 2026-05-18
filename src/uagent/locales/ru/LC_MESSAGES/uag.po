@@ -898,9 +898,18 @@ msgstr "GUI uag (экстремальная стабильность)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Их можно прикрепить перетаскиванием"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Прикрепить..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Отправить"
+
+msgid "Attach files"
+msgstr "Прикрепить файлы"
+
+msgid "All Files (*)"
+msgstr "Все файлы (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

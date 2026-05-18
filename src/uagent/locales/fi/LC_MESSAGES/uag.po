@@ -895,9 +895,18 @@ msgstr "uag GUI (äärimmäinen vakaus)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Voit liittää ne vetämällä ja pudottamalla"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Liitä..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Lähetä"
+
+msgid "Attach files"
+msgstr "Liitä tiedostoja"
+
+msgid "All Files (*)"
+msgstr "Kaikki tiedostot (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

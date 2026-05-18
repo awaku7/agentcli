@@ -898,9 +898,18 @@ msgstr "uag GUI (extrem stabilitet)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Du kan bifoga dem med dra och släpp"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Bifoga..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Skicka"
+
+msgid "Attach files"
+msgstr "Bifoga filer"
+
+msgid "All Files (*)"
+msgstr "Alla filer (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

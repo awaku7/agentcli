@@ -912,9 +912,18 @@ msgstr "Interface graphique uag (stabilité extrême)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Vous pouvez les joindre par glisser-déposer"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Joindre..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Envoyer"
+
+msgid "Attach files"
+msgstr "Joindre des fichiers"
+
+msgid "All Files (*)"
+msgstr "Tous les fichiers (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"
