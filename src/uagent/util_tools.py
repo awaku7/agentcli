@@ -1947,7 +1947,11 @@ def format_help(*, core: Any) -> str:
 
 def _uagent_env_names(prefix: str = "UAGENT_") -> list[str]:
     keys = set(get_known_uagent_env_keys(prefix))
-    keys.update(k for k in os.environ if k.startswith(prefix) and not _is_placeholder_uagent_key(k))
+    keys.update(
+        k
+        for k in os.environ
+        if k.startswith(prefix) and not _is_placeholder_uagent_key(k)
+    )
     return sorted(keys, key=str.lower)
 
 

@@ -16,6 +16,7 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": 8000,
     "type": "function",
     "function": {
         "name": "audio_speech",

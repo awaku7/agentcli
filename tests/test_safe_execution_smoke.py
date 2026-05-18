@@ -233,3 +233,165 @@ def test_batch_state_reset_smoke(
     assert obj_reset["state"]["current_file"] == "src/a.py"
     assert obj_reset["state"]["targets"][0]["next_index"] == 0
     assert obj_reset["state"]["targets"][1]["next_index"] == 0
+    assert obj_reset["state"]["pending_files"] == ["src/a.py", "src/b.py", "docs/c.md"]
+
+
+def test_batch_state_current_advance_skip_error_and_list_smoke(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools.batch_state_tool import run_tool
+
+    monkeypatch.setenv("UAGENT_BATCHES_DIR", str(repo_tmp_path / "batches"))
+
+    obj_init = json.loads(
+        run_tool(
+            {
+                "action": "init",
+                "batch_id": "progress-batch",
+                "task_description": "progress",
+                "targets": [
+                    {"dir": "src", "files": ["a.py", "b.py"]},
+                    {"dir": "docs", "files": ["c.md"]},
+                ],
+            }
+        )
+    )
+    assert obj_init["ok"] is True
+    assert obj_init["state"]["current_file"] == "src/a.py"
+    assert obj_init["state"]["pending_count"] == 3
+    assert obj_init["state"]["recommended_next_action"]["action"] == "advance"
+
+    obj_current = json.loads(
+        run_tool({"action": "current", "batch_id": "progress-batch"})
+    )
+    assert obj_current["ok"] is True
+    assert obj_current["current_file"] == "src/a.py"
+    assert obj_current["pending_count"] == 3
+    assert obj_current["recommended_next_action"]["file"] == "src/a.py"
+
+    obj_advance = json.loads(
+        run_tool(
+            {
+                "action": "advance",
+                "batch_id": "progress-batch",
+                "reason": "done a",
+            }
+        )
+    )
+    assert obj_advance["ok"] is True
+    assert obj_advance["state"]["completed_files"] == ["src/a.py"]
+    assert obj_advance["state"]["current_file"] == "src/b.py"
+    assert obj_advance["state"]["done_count"] == 1
+    assert obj_advance["state"]["pending_count"] == 2
+
+    obj_skip = json.loads(
+        run_tool(
+            {
+                "action": "skip_file",
+                "batch_id": "progress-batch",
+                "file": "src/b.py",
+                "reason": "not needed",
+            }
+        )
+    )
+    assert obj_skip["ok"] is True
+    assert obj_skip["state"]["skipped_files"] == ["src/b.py"]
+    assert obj_skip["state"]["current_file"] == "docs/c.md"
+    assert obj_skip["state"]["done_count"] == 2
+    assert obj_skip["state"]["skipped_count"] == 1
+
+    obj_error = json.loads(
+        run_tool(
+            {
+                "action": "error_file",
+                "batch_id": "progress-batch",
+                "file": "docs/c.md",
+                "reason": "failed",
+            }
+        )
+    )
+    assert obj_error["ok"] is True
+    assert obj_error["state"]["status"] == "done"
+    assert obj_error["state"]["error_files"] == ["docs/c.md"]
+    assert obj_error["state"]["current_file"] == ""
+    assert obj_error["state"]["done_count"] == 3
+    assert obj_error["state"]["pending_count"] == 0
+    assert obj_error["state"]["error_count"] == 1
+    assert obj_error["state"]["recommended_next_action"]["action"] == "finalize"
+
+    obj_list = json.loads(run_tool({"action": "list"}))
+    assert obj_list["ok"] is True
+    assert obj_list["count"] == 1
+    assert obj_list["summary"]["done_count"] == 1
+    assert obj_list["batches"][0]["batch_id"] == "progress-batch"
+    assert obj_list["batches"][0]["pending_count"] == 0
+
+
+def test_batch_state_reset_clears_file_result_records(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from uagent.tools.batch_state_tool import run_tool
+
+    monkeypatch.setenv("UAGENT_BATCHES_DIR", str(repo_tmp_path / "batches"))
+
+    obj_init = json.loads(
+        run_tool(
+            {
+                "action": "init",
+                "batch_id": "reset-records-batch",
+                "task_description": "reset records",
+                "targets": [{"dir": "src", "files": ["a.py", "b.py", "c.py"]}],
+            }
+        )
+    )
+    assert obj_init["ok"] is True
+
+    assert (
+        json.loads(run_tool({"action": "advance", "batch_id": "reset-records-batch"}))[
+            "ok"
+        ]
+        is True
+    )
+    assert (
+        json.loads(
+            run_tool(
+                {
+                    "action": "skip_file",
+                    "batch_id": "reset-records-batch",
+                    "file": "src/b.py",
+                }
+            )
+        )["ok"]
+        is True
+    )
+    assert (
+        json.loads(
+            run_tool(
+                {
+                    "action": "error_file",
+                    "batch_id": "reset-records-batch",
+                    "file": "src/c.py",
+                }
+            )
+        )["ok"]
+        is True
+    )
+
+    obj_before = json.loads(
+        run_tool({"action": "status", "batch_id": "reset-records-batch"})
+    )
+    assert obj_before["state"]["status"] == "done"
+    assert obj_before["state"]["pending_count"] == 0
+
+    obj_reset = json.loads(
+        run_tool({"action": "reset", "batch_id": "reset-records-batch"})
+    )
+    assert obj_reset["ok"] is True
+    assert obj_reset["state"]["status"] == "active"
+    assert obj_reset["state"]["current_file"] == "src/a.py"
+    assert obj_reset["state"]["pending_files"] == ["src/a.py", "src/b.py", "src/c.py"]
+    assert obj_reset["state"]["completed_files"] == []
+    assert obj_reset["state"]["skipped_files"] == []
+    assert obj_reset["state"]["error_files"] == []
+    assert obj_reset["state"]["done_count"] == 0
+    assert obj_reset["state"]["pending_count"] == 3

@@ -95,6 +95,7 @@ def resolve_profile(name_or_uri: Optional[str]) -> Dict[str, Any]:
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": 9000,
     "type": "function",
     "function": {
         "name": "a2a_servers",

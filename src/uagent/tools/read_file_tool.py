@@ -47,6 +47,7 @@ STATUS_LABEL = "tool:read_file"
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": -1,
     "type": "function",
     "function": {
         "name": "read_file",

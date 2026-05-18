@@ -65,6 +65,7 @@ def _make_summary(
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": -1,
     "type": "function",
     "function": {
         "name": "replace_in_file",
@@ -267,9 +268,7 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
         )
     a = original.splitlines(True)
     b = replaced.splitlines(True)
-    return "".join(
-        difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}")
-    )
+    return "".join(difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}"))
 
 
 def _write_text_robust(path: str, text: str, encoding: str) -> None:
@@ -1052,7 +1051,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 if regex_pattern is not None:
                     m = _nth_regex_match(orig_norm, regex_pattern, occurrence)
                     if m is None:
-                        raise RuntimeError("regex occurrence disappeared during replacement")
+                        raise RuntimeError(
+                            "regex occurrence disappeared during replacement"
+                        )
                     replaced_text = (
                         orig_norm[: h.start] + m.expand(r2) + orig_norm[h.end :]
                     )

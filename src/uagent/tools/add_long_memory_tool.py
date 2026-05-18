@@ -14,6 +14,7 @@ BUSY_LABEL = False
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": 7000,
     "type": "function",
     "function": {
         "name": "add_long_memory",

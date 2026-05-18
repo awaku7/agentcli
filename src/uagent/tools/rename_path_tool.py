@@ -18,6 +18,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:rename_path"
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": -1,
     "type": "function",
     "function": {
         "name": "rename_path",

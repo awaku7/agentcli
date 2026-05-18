@@ -444,7 +444,11 @@ def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
             continue
         data[key] = value
     try:
-        print(json.dumps(data, ensure_ascii=False, default=str), file=sys.stderr, flush=True)
+        print(
+            json.dumps(data, ensure_ascii=False, default=str),
+            file=sys.stderr,
+            flush=True,
+        )
     except Exception:
         try:
             print(f"[DEBUG] {data}", file=sys.stderr, flush=True)
@@ -454,7 +458,10 @@ def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
 
 
 def _emit_web_search_event(core: Any, stage: str, **payload: Any) -> None:
-    data: Dict[str, Any] = {"type": "assistant_web_search", "stage": _as_str(stage) or "update"}
+    data: Dict[str, Any] = {
+        "type": "assistant_web_search",
+        "stage": _as_str(stage) or "update",
+    }
     for key, value in payload.items():
         if value is None:
             continue
@@ -556,13 +563,11 @@ def build_responses_request(
         - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.
         """)
     instructions_list.append(TOOL_CALLING_RULES)
-    instructions_list.append(_(
-        """[Web search rules]
+    instructions_list.append(_("""[Web search rules]
         - Use web search only when fresh or external information is necessary.
         - Do not use web search for local or stable information.
         - Prefer answering without web search when the answer is already sufficient.
-        """
-    ))
+        """))
     for m in call_messages:
         role = m.get("role")
 
@@ -703,17 +708,13 @@ def build_responses_request(
                 }
             )
         req_tools = flat_tools
-        if _debug_stream_enabled():
-            web_search_tools = [
-                t for t in (req_tools or [])
-                if isinstance(t, dict)
-                and _as_str(t.get("type")).strip().lower().startswith("web_search")
-            ]
 
     return instructions_str, input_msgs, req_tools
 
 
-def parse_responses_response(resp: Any, *, core: Any = None) -> Tuple[str, List[Dict[str, Any]]]:
+def parse_responses_response(
+    resp: Any, *, core: Any = None
+) -> Tuple[str, List[Dict[str, Any]]]:
     """Parse Responses API response into (assistant_text, tool_calls_list)."""
 
     assistant_text = ""
@@ -985,7 +986,10 @@ def parse_responses_stream(
 
             if ev_type in ("response.output_item.added", "response.output_item.delta"):
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
-                if item is not None and "web_search_call" in _as_str(getattr(item, "type", "")).lower():
+                if (
+                    item is not None
+                    and "web_search_call" in _as_str(getattr(item, "type", "")).lower()
+                ):
                     info = _extract_web_search_call_info(item)
                     if info:
                         _emit_web_search_event(core, "update", **info)
@@ -1057,7 +1061,10 @@ def parse_responses_stream(
 
             elif ev_type == "response.output_item.done":
                 item = getattr(ev, "item", None) or getattr(ev, "output_item", None)
-                if item is not None and "web_search_call" in _as_str(getattr(item, "type", "")).lower():
+                if (
+                    item is not None
+                    and "web_search_call" in _as_str(getattr(item, "type", "")).lower()
+                ):
                     info = _extract_web_search_call_info(item)
                     if info:
                         _emit_web_search_event(core, "update", **info)

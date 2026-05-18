@@ -29,6 +29,7 @@ STATUS_LABEL = "tool:zip_ops"
 _ = make_tool_translator(__file__)
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": -1,
     "type": "function",
     "function": {
         "name": "zip_ops",

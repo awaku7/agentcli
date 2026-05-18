@@ -143,7 +143,9 @@ def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
 def _uagent_env_candidates(prefix: str = "") -> list[str]:
     keys = set(get_known_uagent_env_keys())
     keys.update(
-        k for k in os.environ if k.startswith("UAGENT_") and not _is_placeholder_uagent_key(k)
+        k
+        for k in os.environ
+        if k.startswith("UAGENT_") and not _is_placeholder_uagent_key(k)
     )
     if prefix:
         keys = {k for k in keys if k.lower().startswith(prefix.lower())}
