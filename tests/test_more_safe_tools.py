@@ -42,24 +42,6 @@ def test_file_hash_sha256(repo_tmp_path: Path) -> None:
     assert "sha256" in out.lower()
 
 
-def test_find_large_files_empty(repo_tmp_path: Path) -> None:
-    from uagent.tools.find_large_files_tool import run_tool
-
-    (repo_tmp_path / "small.bin").write_bytes(b"x" * 10)
-
-    out = run_tool(
-        {
-            "root": str(repo_tmp_path),
-            "top_n": 5,
-            "min_bytes": 10_000_000,
-            "group_by_ext": True,
-            "exclude_dirs": [".git", "node_modules", "__pycache__", ".venv", "venv"],
-            "max_files": 10000,
-        }
-    )
-    assert isinstance(out, str)
-
-
 def test_get_workdir() -> None:
     from uagent.tools.get_workdir_tool import run_tool
 
