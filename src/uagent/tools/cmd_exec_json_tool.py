@@ -57,6 +57,18 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
+def _blocked_result(reason: str) -> Dict[str, Any]:
+    return {
+        "ok": False,
+        "blocked": True,
+        "reason": reason,
+        "error": reason,
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "",
+    }
+
+
 def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
     if os.name == "nt":
         # Force UTF-8 on cmd.exe
@@ -89,11 +101,11 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=True)
     if not decision.allowed:
-        return json.dumps({"ok": False, "error": decision.reason}, ensure_ascii=False)
+        return json.dumps(_blocked_result(decision.reason), ensure_ascii=False)
 
     confirm_err = confirm_if_needed(decision)
     if confirm_err is not None:
-        return json.dumps({"ok": False, "error": confirm_err}, ensure_ascii=False)
+        return json.dumps(_blocked_result(confirm_err), ensure_ascii=False)
 
     cwd_raw = args.get("cwd", None)
     if cwd_raw is None:

@@ -16,6 +16,8 @@ from __future__ import annotations
 import json
 import os
 import re
+import shlex
+import subprocess
 from typing import Any, Dict, List, Optional, Tuple
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
@@ -133,6 +135,12 @@ def _truncate(label: str, text: str) -> str:
     return text
 
 
+def _quote_cmd_parts(parts: List[str]) -> str:
+    if os.name == "nt":
+        return subprocess.list2cmdline([str(p) for p in parts])
+    return " ".join(shlex.quote(str(p)) for p in parts)
+
+
 def _cmd_exec_json(
     command: str, cwd: Optional[str]
 ) -> Tuple[str, str, int, Optional[str]]:
@@ -168,9 +176,9 @@ def _apply_pythonpath_prefix(cmd_str: str, pythonpath: Optional[str]) -> str:
         raise ValueError(err)
 
     if os.name == "nt":
-        return f"set PYTHONPATH={pp};%PYTHONPATH% && {cmd_str}"
+        return f'set "PYTHONPATH={pp};%PYTHONPATH%" && {cmd_str}'
 
-    return f"PYTHONPATH={pp}:$PYTHONPATH {cmd_str}"
+    return f"PYTHONPATH={shlex.quote(pp)}:$PYTHONPATH {cmd_str}"
 
 
 def run_tool(args: Dict[str, Any]) -> str:
@@ -283,16 +291,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
-    def q(x: str) -> str:
-        x = str(x)
-        if not x:
-            return '""'
-        if " " in x or "\t" in x or '"' in x:
-            x = x.replace('"', '\\"')
-            return f'"{x}"'
-        return x
-
-    cmd_str = " ".join(q(p) for p in cmd_parts)
+    cmd_str = _quote_cmd_parts(cmd_parts)
 
     try:
         cmd_str = _apply_pythonpath_prefix(cmd_str, pythonpath)
