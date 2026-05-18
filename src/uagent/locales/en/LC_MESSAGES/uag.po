@@ -698,8 +698,17 @@ msgstr "uag GUI (Extreme Stability)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ You can attach files by drag & drop"
 
+msgid "Attach..."
+msgstr "Attach..."
+
 msgid "Send"
 msgstr "Send"
+
+msgid "Attach files"
+msgstr "Attach files"
+
+msgid "All Files (*)"
+msgstr "All Files (*)"
 
 msgid "Help"
 msgstr "Help"

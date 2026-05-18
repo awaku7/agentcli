@@ -896,9 +896,18 @@ msgstr "uag GUI (Ekstrem Kararlılık)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Sürükle ve Bırak"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Ekle..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Göndermek"
+
+msgid "Attach files"
+msgstr "Dosya ekle"
+
+msgid "All Files (*)"
+msgstr "Tüm Dosyalar (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

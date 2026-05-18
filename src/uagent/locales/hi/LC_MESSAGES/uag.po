@@ -896,9 +896,18 @@ msgstr "यूएजी जीयूआई (अत्यधिक स्थि�
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ इन्हें Drag & Drop से संलग्न कर सकते हैं"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "संलग्न करें..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "भेजना"
+
+msgid "Attach files"
+msgstr "फ़ाइलें संलग्न करें"
+
+msgid "All Files (*)"
+msgstr "सभी फ़ाइलें (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

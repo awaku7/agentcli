@@ -577,6 +577,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._known_image_preview_paths: set[str] = set()
         self._known_file_paths: set[str] = set()
         self._attachment_seq = 0
+        self._sent_preview_seq = 0
         self._ansi_re = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
         self._audio_output = QtMultimedia.QAudioOutput(self)
         try:
@@ -640,6 +641,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self._pw_input.returnPressed.connect(self._on_send)
         pw_row.addWidget(self._pw_input, 1)
         pw_row.addStretch(1)
+
+        self._attach_btn = QtWidgets.QPushButton(_("Attach..."))
+        self._attach_btn.setFixedWidth(90)
+        self._attach_btn.clicked.connect(self._on_choose_files)
+        pw_row.addWidget(self._attach_btn)
 
         self._btn = QtWidgets.QPushButton(_("Send"))
         self._btn.setFixedWidth(80)
@@ -906,6 +912,19 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
+        except Exception:
+            pass
+
+    def _on_choose_files(self):
+        try:
+            paths = QtWidgets.QFileDialog.getOpenFileNames(
+                self,
+                _("Attach files"),
+                os.getcwd(),
+                _("All Files (*)"),
+            )[0]
+            if paths:
+                self._on_files_dropped(paths)
         except Exception:
             pass
 
@@ -1449,6 +1468,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if not text.strip() and not self._attached_images and not self._attached_files:
             return
 
+        sent_images = list(self._attached_images)
+        sent_files = list(self._attached_files)
+
         if active and q:
             is_pw = bool(is_password)
             try:
@@ -1476,15 +1498,16 @@ class MainWindow(QtWidgets.QMainWindow):
                     {
                         "kind": "gui_user",
                         "text": text,
-                        "images": list(self._attached_images),
-                        "files": list(self._attached_files),
+                        "images": sent_images,
+                        "files": sent_files,
                     }
                 )
-            self._history.append(
-                HistoryEntry(
-                    text, list(self._attached_images), list(self._attached_files)
-                )
-            )
+                if sent_images:
+                    self._sent_preview_seq += 1
+                    preview_prefix = f"USER:{self._sent_preview_seq}"
+                    for path in sent_images:
+                        self._append_image_preview(path, preview_prefix)
+            self._history.append(HistoryEntry(text, sent_images, sent_files))
 
         self._attached_images.clear()
         self._attached_files.clear()

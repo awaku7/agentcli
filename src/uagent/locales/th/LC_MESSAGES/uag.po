@@ -898,9 +898,18 @@ msgstr "GUI ของ uag (เสถียรภาพสูงสุด)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ คุณสามารถแนบได้ด้วยการลากและวาง"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "แนบ..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "ส่ง"
+
+msgid "Attach files"
+msgstr "แนบไฟล์"
+
+msgid "All Files (*)"
+msgstr "ไฟล์ทั้งหมด (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

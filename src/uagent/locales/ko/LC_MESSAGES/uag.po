@@ -863,9 +863,18 @@ msgstr "uag GUI(극한 안정성)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ 드래그 앤 드롭으로 첨부할 수 있습니다"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "첨부..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "보내기"
+
+msgid "Attach files"
+msgstr "파일 첨부"
+
+msgid "All Files (*)"
+msgstr "모든 파일 (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"

@@ -896,9 +896,18 @@ msgstr "GUI uag (Stabilitas Ekstrem)"
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Anda dapat melampirkannya dengan drag-and-drop"
 
-#: src/uagent/scheckgui.py:641
+msgid "Attach..."
+msgstr "Lampirkan..."
+
+#: src/uagent/scheckgui.py:650
 msgid "Send"
 msgstr "Kirim"
+
+msgid "Attach files"
+msgstr "Lampirkan berkas"
+
+msgid "All Files (*)"
+msgstr "Semua Berkas (*)"
 
 #: src/uagent/scheckgui.py:681
 msgid "Help"
