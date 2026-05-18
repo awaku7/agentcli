@@ -38,7 +38,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.command.description",
-                        default="Command string passed to the OS shell. On Windows, cmd.exe /d /c is used.",
+                        default="Command string passed to the OS shell. On Windows, cmd.exe /c is used.",
                     ),
                 },
                 "cwd": {
@@ -71,11 +71,14 @@ def _blocked_result(reason: str) -> Dict[str, Any]:
 
 def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
     if os.name == "nt":
-        # Force UTF-8 on cmd.exe
-        # NOTE: Some commands may behave differently under code page 65001.
-        cmd = ["cmd.exe", "/d", "/c", f"chcp 65001 >nul & {command}"]
+        # Force UTF-8 on cmd.exe.
+        # Use a shell command string instead of ["cmd.exe", "/c", command].
+        # Passing /c as a list argument makes Python quote the whole command
+        # line for CreateProcess; embedded quotes then get misparsed by cmd.exe
+        # (for example: python -c "..." or pytest -k "a or b").
         p = subprocess.run(
-            cmd,
+            f"chcp 65001 >nul & {command}",
+            shell=True,
             capture_output=True,
             text=True,
             encoding="utf-8",
