@@ -2049,10 +2049,11 @@ def handle_command(
     depname: str,
     *,
     core: Any,
-) -> bool:
+) -> bool | CommandResult:
     """コマンド行(:help, :logs, :load ...)を処理する
 
-    戻り値: False を返すとメインループ終了(:exit / :quit)
+    戻り値: False を返すとメインループ終了(:exit / :quit)。
+    CommandResult(run_llm=True) を返すと、コマンド処理後に LLM を実行する。
     """
     tr = getattr(core, "tr", tr_)
 
@@ -2090,9 +2091,7 @@ def handle_command(
         return _handle_cmd_env(arg, tr=tr)
 
     if cmd == "skills":
-        return bool(
-            _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
-        )
+        return _handle_cmd_skills(arg, messages_ref, client, depname, core=core, tr=tr)
 
     if cmd == "clean":
         return _handle_cmd_clean(arg, core=core, tr=tr)
