@@ -21,7 +21,10 @@ _ = make_tool_translator(__file__)
 
 
 import json
+import os
 import re
+import shlex
+import subprocess
 from typing import Any, Dict, List, Optional, Tuple
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
@@ -115,6 +118,12 @@ def _truncate(label: str, text: str) -> str:
         except Exception:
             return text
     return text
+
+
+def _quote_cmd_parts(parts: List[str]) -> str:
+    if os.name == "nt":
+        return subprocess.list2cmdline([str(p) for p in parts])
+    return " ".join(shlex.quote(str(p)) for p in parts)
 
 
 def _cmd_exec_json(
@@ -258,15 +267,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 {"ok": False, "error": "cancelled by user"}, ensure_ascii=False
             )
 
-    def q(x: str) -> str:
-        x = str(x)
-        if not x:
-            return '""'
-        if " " in x or "\t" in x or '"' in x:
-            x = x.replace('"', '\\"')
-            return f'"{x}"'
-        return x
-
     overall_ok = True
     results: List[Dict[str, Any]] = []
 
@@ -309,7 +309,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             overall_ok = False
             continue
 
-        cmd_str = " ".join(q(p) for p in cmd_parts)
+        cmd_str = _quote_cmd_parts(cmd_parts)
         so, se, code, err_tag = _cmd_exec_json(cmd_str, cwd=run_cwd)
         so_t = _truncate(f"{tool} stdout", so)
         se_t = _truncate(f"{tool} stderr", se)
