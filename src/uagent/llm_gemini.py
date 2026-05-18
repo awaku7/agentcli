@@ -267,6 +267,88 @@ def _message_content_text(message: Dict[str, Any]) -> str:
     return str(c)
 
 
+def _attachment_to_gemini_part(att: Dict[str, Any]) -> Any | None:
+    """Convert an attachment dict to a Gemini image Part when possible."""
+
+    if not isinstance(att, dict):
+        return None
+
+    try:
+        import base64
+        import mimetypes
+        from pathlib import Path
+    except Exception:
+        return None
+
+    mime = str(
+        att.get("mime")
+        or att.get("mime_type")
+        or att.get("content_type")
+        or att.get("type")
+        or ""
+    ).strip().lower()
+
+    def _normalize_mime(m: str, path: str | None = None) -> str:
+        mm = (m or "").strip().lower()
+        if mm.startswith("image/"):
+            return mm
+        if mm == "image":
+            mm = ""
+        if path:
+            guessed, _ = mimetypes.guess_type(path)
+            if isinstance(guessed, str) and guessed.startswith("image/"):
+                return guessed
+            suffix = Path(path).suffix.lower()
+            if suffix in (".jpg", ".jpeg"):
+                return "image/jpeg"
+            if suffix == ".png":
+                return "image/png"
+            if suffix == ".webp":
+                return "image/webp"
+            if suffix == ".gif":
+                return "image/gif"
+        return "image/png"
+
+    data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
+    if isinstance(data_url, str) and data_url.startswith("data:"):
+        try:
+            header, b64 = data_url.split(",", 1)
+            data_mime = header[5:].split(";", 1)[0].strip()
+            payload = base64.b64decode(b64)
+            return gemini_types.Part.from_bytes(
+                data=payload,
+                mime_type=_normalize_mime(data_mime or mime),
+            )
+        except Exception:
+            pass
+
+    path = (
+        att.get("saved_path")
+        or att.get("path")
+        or att.get("file_path")
+        or att.get("url")
+    )
+    if not isinstance(path, str) or not path.strip():
+        return None
+    path = path.strip()
+
+    if not mime.startswith("image/") and mime not in ("image", ""):
+        return None
+
+    try:
+        p = Path(path)
+        if not p.exists() or not p.is_file():
+            return None
+        if p.stat().st_size > 10_000_000:
+            return None
+        return gemini_types.Part.from_bytes(
+            data=p.read_bytes(),
+            mime_type=_normalize_mime(mime, str(p)),
+        )
+    except Exception:
+        return None
+
+
 def _choose_auto_thinking_level(user_text: str) -> str:
     t = (user_text or "").strip()
     n = len(t)
@@ -590,8 +672,20 @@ def gemini_chat_with_tools(
             continue
 
         if role == "user":
+            user_parts: List[Any] = []
             if content:
-                _append("user", gemini_types.Part(text=content))
+                user_parts.append(gemini_types.Part(text=content))
+
+            attachments = m.get("attachments")
+            if isinstance(attachments, list) and attachments:
+                for att in attachments:
+                    part = _attachment_to_gemini_part(att)
+                    if part is not None:
+                        user_parts.append(part)
+
+            if user_parts:
+                for part in user_parts:
+                    _append("user", part)
             continue
 
         if role == "tool":

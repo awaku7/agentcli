@@ -14,9 +14,10 @@ _GENERATE_IMAGE_TOOL_NAME = "generate_image"
 
 
 def supports_multi_turn_image(depname: str) -> bool:
-    """Enable image-session context only for gpt-5.5 family names."""
+    """Enable image-session context for gpt-5 family names."""
 
-    return "gpt-5.5" in (depname or "").strip().lower()
+    dn = (depname or "").strip().lower()
+    return dn.startswith("gpt-5")
 
 
 def _tool_call_name(tc: Dict[str, Any]) -> str:

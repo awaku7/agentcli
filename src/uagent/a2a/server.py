@@ -11,6 +11,8 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
+from ..runtime_init import reload_dotenv_custom
+from ..runtime_env import validate_or_exit_startup_env
 from .auth import require_bearer_auth
 from .engine import run_once
 from .errors import A2AHttpError, aip193_error
@@ -253,6 +255,9 @@ def main(argv: Optional[list[str]] = None) -> None:
         os.environ["UAGENT_A2A_PORT"] = str(args.port)
     except Exception:
         pass
+
+    reload_dotenv_custom()
+    validate_or_exit_startup_env(context="a2a")
 
     app = build_app()
     uvicorn.run(app, host=str(args.host), port=int(args.port), reload=bool(args.reload))
