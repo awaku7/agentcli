@@ -287,6 +287,32 @@ def test_build_responses_request_uses_explicit_tool_specs() -> None:
     assert req_tools == []
 
 
+def test_build_responses_request_keeps_user_attachments_as_images() -> None:
+    instructions, input_msgs, req_tools = build_responses_request(
+        [
+            {
+                "role": "user",
+                "content": "look",
+                "attachments": [
+                    {
+                        "type": "image",
+                        "saved_path": "data:image/png;base64,AAAA",
+                    }
+                ],
+            }
+        ],
+        send_tools_this_round=True,
+        provider="openai",
+        tool_specs=[],
+    )
+    assert instructions is not None
+    assert req_tools == []
+    assert input_msgs
+    content = input_msgs[0]["content"]
+    assert any(item.get("type") == "input_image" for item in content)
+    assert any(item.get("type") == "input_text" for item in content)
+
+
 def test_tool_catalog_tool_is_registered() -> None:
     names = {
         spec.get("function", {}).get("name")

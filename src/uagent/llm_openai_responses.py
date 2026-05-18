@@ -7,6 +7,7 @@ import time
 from typing import Any, Dict, List, Optional, Tuple
 
 from . import tools
+from .util_tools import image_file_to_data_url
 
 # -----------------------------------------------------------------------------
 # Responses API helpers
@@ -112,6 +113,34 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
         return out
 
     return [{"type": text_type, "text": _as_str(content)}]
+
+
+def _attachment_to_openai_content_item(att: Any) -> Optional[Dict[str, Any]]:
+    """Convert a stored attachment into an OpenAI Responses content item."""
+
+    if not isinstance(att, dict):
+        return None
+
+    att_type = _as_str(att.get("type")).strip().lower()
+    if att_type not in ("image", "image/png", "image/jpeg", "image/webp", "image/gif", "image/jpg"):
+        return None
+
+    data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
+    if isinstance(data_url, str) and data_url.startswith("data:"):
+        return {"type": "input_image", "image_url": data_url}
+
+    path = att.get("saved_path") or att.get("path") or att.get("file_path")
+    if isinstance(path, str) and path.startswith("data:"):
+        return {"type": "input_image", "image_url": path}
+    if not isinstance(path, str) or not path.strip():
+        return None
+
+    try:
+        data_url = image_file_to_data_url(path.strip())
+    except Exception:
+        return None
+
+    return {"type": "input_image", "image_url": data_url}
 
 
 _OPENAI_WEB_SEARCH_TYPE_ALIASES = {
@@ -577,6 +606,41 @@ def build_responses_request(
 
         m_clean: Dict[str, Any] = dict(m)
 
+        attachment_items: List[Dict[str, Any]] = []
+        if role == "user":
+            raw_attachments = m_clean.get("attachments")
+            if isinstance(raw_attachments, list):
+                for att in raw_attachments:
+                    item = _attachment_to_openai_content_item(att)
+                    if item is not None:
+                        attachment_items.append(item)
+            elif isinstance(raw_attachments, dict):
+                item = _attachment_to_openai_content_item(raw_attachments)
+                if item is not None:
+                    attachment_items.append(item)
+
+            saved_path = m_clean.get("saved_path")
+            if isinstance(saved_path, str) and saved_path.strip():
+                item = _attachment_to_openai_content_item(
+                    {"type": "image", "saved_path": saved_path.strip()}
+                )
+                if item is not None:
+                    attachment_items.append(item)
+
+            saved_files = m_clean.get("saved_files")
+            if isinstance(saved_files, list):
+                for sf in saved_files:
+                    if isinstance(sf, str) and sf.strip():
+                        item = _attachment_to_openai_content_item(
+                            {"type": "image", "saved_path": sf.strip()}
+                        )
+                        if item is not None:
+                            attachment_items.append(item)
+                    elif isinstance(sf, dict):
+                        item = _attachment_to_openai_content_item(sf)
+                        if item is not None:
+                            attachment_items.append(item)
+
         # Responses API input must not contain project-specific attachment metadata.
         # Keep it in internal history, but drop it from the payload we send.
         for _k in ("attachments", "saved_path", "saved_files"):
@@ -637,7 +701,10 @@ def build_responses_request(
             role = "user"
             m_clean["role"] = "user"
 
-        m_clean["content"] = _normalize_content_items(m_clean.get("content"), role=role)
+        normalized_content = _normalize_content_items(m_clean.get("content"), role=role)
+        if role == "user" and attachment_items:
+            normalized_content.extend(attachment_items)
+        m_clean["content"] = normalized_content
 
         # Cleanup keys that shouldn't be sent
         if "tool_call_id" in m_clean:

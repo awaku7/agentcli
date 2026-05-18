@@ -12,6 +12,10 @@ from .env_validate import format_missing_env_message, validate_startup_env
 from .i18n import _
 from .runtime_workdir import get_startup_workdir
 
+# Runtime-only flags that should not be treated as persistent startup config
+# or written into .env.sec.
+_RUNTIME_ONLY_UAGENT_KEYS = {"UAGENT_GUI_MODE"}
+
 
 def _format_env_value(value: str) -> str:
     if value == "":
@@ -80,7 +84,11 @@ def _build_uagent_env_text(
     prefix: str = "UAGENT_",
 ) -> str:
     source = os.environ if env is None else env
-    keys = sorted(k for k in source if k.startswith(prefix))
+    keys = sorted(
+        k
+        for k in source
+        if k.startswith(prefix) and k not in _RUNTIME_ONLY_UAGENT_KEYS
+    )
     if not keys:
         return ""
     lines = [f"{key}={_format_env_value(source.get(key, ''))}" for key in keys]
@@ -112,7 +120,11 @@ def _read_envsec_plaintext(sec_path: Path) -> str:
 
 def _snapshot_uagent_env(env: Mapping[str, str] | None = None) -> dict[str, str]:
     source = os.environ if env is None else env
-    return {key: value for key, value in source.items() if key.startswith("UAGENT_")}
+    return {
+        key: value
+        for key, value in source.items()
+        if key.startswith("UAGENT_") and key not in _RUNTIME_ONLY_UAGENT_KEYS
+    }
 
 
 def _restore_uagent_env_snapshot(snapshot: Mapping[str, str] | None) -> None:

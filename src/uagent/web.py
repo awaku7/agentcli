@@ -23,7 +23,7 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -40,6 +40,7 @@ from . import util_providers as providers
 from . import util_tools as tools_util
 from . import tools
 from .welcome import get_welcome_message
+from .gui_ansi import ansi_to_html, wrap_pre
 
 try:
     from .tools.mcp_servers_shared import ensure_mcp_config_template
@@ -416,6 +417,7 @@ class WebStdout:
             while "\n" in self.buffer:
                 line, self.buffer = self.buffer.split("\n", 1)
                 clean_line = ANSI_ESCAPE.sub("", line)
+                content_html = wrap_pre(ansi_to_html(line))
 
                 # Suppress CLI-only multiline input mode guidance in Web UI
                 if "multiline" in (clean_line or "").lower():
@@ -424,7 +426,13 @@ class WebStdout:
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.broadcast(
+                            {
+                                "type": "log",
+                                "content": clean_line,
+                                "content_html": content_html,
+                            }
+                        ),
                         room.loop,
                     )
 
@@ -432,6 +440,7 @@ class WebStdout:
         with self.lock:
             if self.buffer:
                 clean_line = ANSI_ESCAPE.sub("", self.buffer)
+                content_html = wrap_pre(ansi_to_html(self.buffer))
                 try:
                     filtered_lines: List[str] = []
                     for ln in clean_line.splitlines():
@@ -445,7 +454,13 @@ class WebStdout:
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.broadcast(
+                            {
+                                "type": "log",
+                                "content": clean_line,
+                                "content_html": content_html,
+                            }
+                        ),
                         room.loop,
                     )
                 self.buffer = ""
@@ -467,13 +482,20 @@ class WebStderr(WebStdout):
             while "\n" in self.buffer:
                 line, self.buffer = self.buffer.split("\n", 1)
                 clean_line = ANSI_ESCAPE.sub("", line)
+                content_html = wrap_pre(ansi_to_html(line))
                 if "multiline" in (clean_line or "").lower():
                     continue
 
                 room = getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
-                        room.broadcast({"type": "log", "content": clean_line}),
+                        room.broadcast(
+                            {
+                                "type": "log",
+                                "content": clean_line,
+                                "content_html": content_html,
+                            }
+                        ),
                         room.loop,
                     )
 
@@ -751,25 +773,53 @@ async def get_root():
 
 @app.get("/room/{room_id}")
 async def get_room(request: Request, room_id: str):
-    # ensure room exists
-    web_manager.get_room(room_id)
-    # Single unified template; client-side handles i18n via ?lang=ja|en|ar (or browser language fallback)
-    page_lang = "en"
     try:
-        q_lang = (request.query_params.get("lang") or "").strip().lower()
-        accept_lang = (request.headers.get("accept-language") or "").strip().lower()
-        raw_lang = q_lang or accept_lang
-        if raw_lang.startswith("ar"):
-            page_lang = "ar"
-        elif raw_lang.startswith("ja"):
-            page_lang = "ja"
+        # ensure room exists
+        web_manager.get_room(room_id)
+        # Single unified template; client-side handles i18n via ?lang=ja|en|ar (or browser language fallback)
+        page_lang = "en"
+        try:
+            q_lang = (request.query_params.get("lang") or "").strip().lower()
+            accept_lang = (request.headers.get("accept-language") or "").strip().lower()
+            raw_lang = q_lang or accept_lang
+            if raw_lang.startswith("ar"):
+                page_lang = "ar"
+            elif raw_lang.startswith("ja"):
+                page_lang = "ja"
+        except Exception:
+            pass
+        page_dir = "rtl" if page_lang == "ar" else "ltr"
+        return templates.TemplateResponse(
+            request,
+            "index.html",
+            {"page_lang": page_lang, "page_dir": page_dir},
+        )
     except Exception:
-        pass
-    page_dir = "rtl" if page_lang == "ar" else "ltr"
-    return templates.TemplateResponse(
-        "index.html",
-        {"request": request, "page_lang": page_lang, "page_dir": page_dir},
-    )
+        err = traceback.format_exc()
+        return HTMLResponse(
+            f"""<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"UTF-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+  <title>UAGENT WEB - Error</title>
+  <style>
+    body {{ font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 24px; }}
+    .box {{ background: white; border: 1px solid #d1d5db; border-radius: 8px; padding: 16px; }}
+    pre {{ white-space: pre-wrap; word-break: break-word; background: #111827; color: #f9fafb; padding: 12px; border-radius: 6px; overflow: auto; }}
+    h1 {{ margin-top: 0; color: #b91c1c; }}
+  </style>
+</head>
+<body>
+  <div class=\"box\">
+    <h1>Internal Error</h1>
+    <p>room_id: {room_id}</p>
+    <pre>{err}</pre>
+  </div>
+</body>
+</html>""",
+            status_code=500,
+        )
 
 
 @app.post("/upload")

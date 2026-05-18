@@ -389,7 +389,7 @@
                 } else if (data.type === 'log') {
                     // Server-side logs are noisy; render only when WEB_VERBOSE is on.
                     if (WEB_VERBOSE) {
-                        addMessage({ role: 'tool', content: data.content });
+                        addMessage({ role: 'tool', content: data.content_html || data.content });
                     }
                 } else if (data.type === 'assistant_stream_start') {
                     startAssistantStream(data.id);
