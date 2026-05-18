@@ -132,6 +132,55 @@ def _safe_set_status(busy: bool, label: str = "") -> None:
         return
 
 
+def _tool_load_order_key(spec: Dict[str, Any]) -> tuple[int, int, str]:
+    """Return a stable sort key for registered tools.
+
+    load_order == -1 is treated as the highest priority.
+    Missing load_order is next priority.
+    Tools with any other explicit load_order are ordered by its integer value.
+    Ties are resolved by tool name for deterministic output.
+    """
+    func_info = spec.get("function", {}) if isinstance(spec, dict) else {}
+    tool_name = ""
+    if isinstance(func_info, dict):
+        tool_name = str(func_info.get("name") or "")
+
+    if not isinstance(spec, dict) or "load_order" not in spec:
+        return (0, 0, tool_name)
+
+    try:
+        order = int(spec.get("load_order", 0))
+    except Exception:
+        order = 0
+
+    if order == -1:
+        return (-1, 0, tool_name)
+
+    return (1, order, tool_name)
+
+
+def _sort_registered_tools() -> None:
+    """Sort registered tool specs and keep runner dict insertion order aligned."""
+    TOOL_SPECS.sort(key=_tool_load_order_key)
+
+    ordered_runners: Dict[str, Callable[[Dict[str, Any]], str]] = {}
+    for spec in TOOL_SPECS:
+        func_info = spec.get("function", {})
+        if not isinstance(func_info, dict):
+            continue
+        tool_name = func_info.get("name")
+        if tool_name in _RUNNERS:
+            ordered_runners[tool_name] = _RUNNERS[tool_name]
+
+    # Preserve any runner not represented in TOOL_SPECS as a safety fallback.
+    for tool_name, runner in _RUNNERS.items():
+        if tool_name not in ordered_runners:
+            ordered_runners[tool_name] = runner
+
+    _RUNNERS.clear()
+    _RUNNERS.update(ordered_runners)
+
+
 def _register_tool_module(mod: Any, mod_name: str) -> bool:
     """Register a module as a tool."""
     spec = getattr(mod, "TOOL_SPEC", None)
@@ -170,6 +219,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
     TOOL_SPECS.append(spec)
     _RUNNERS[tool_name] = runner
+    _sort_registered_tools()
 
     # Busy label setting
     busy_flag = getattr(mod, "BUSY_LABEL", False)
@@ -292,6 +342,7 @@ def get_tool_specs() -> List[Dict[str, Any]]:
         # (OpenAI/Responses schema expects only {type,function} (+ optional name mirror)).
         spec_copy.pop("disabled", None)
         spec_copy.pop("tool_level", None)
+        spec_copy.pop("load_order", None)
         if "function" in spec_copy and isinstance(spec_copy["function"], dict):
             func_copy = spec_copy["function"].copy()
             func_copy.pop("system_prompt", None)

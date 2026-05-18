@@ -16,6 +16,7 @@ class WorkdirDecision:
 
 _STARTUP_WORKDIR: str | None = None
 
+
 def get_startup_workdir() -> str:
     return _STARTUP_WORKDIR or os.getcwd()
 

@@ -14,6 +14,7 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": -1,
     "type": "function",
     "function": {
         "name": "delete_file",

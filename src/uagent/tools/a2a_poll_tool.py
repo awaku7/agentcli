@@ -27,6 +27,7 @@ def _json_err(message: str, **extra: Any) -> str:
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": 9000,
     "type": "function",
     "function": {
         "name": "a2a_poll",

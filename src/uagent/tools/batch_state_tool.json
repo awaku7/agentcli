@@ -2,7 +2,7 @@
   "en": {
     "tool.description": "Manage batch state for multi-file tasks under ~/.uag/batches/. Process one item at a time and advance next_index after each completed item.",
     "tool.system_prompt": "Manage batch state. Use the same language as the user's latest instruction. Prefer targets=[{dir, files, next_index}] and current_target. Process one item at a time and advance next_index after each completion. Return JSON only.",
-    "param.action.description": "Action: init/load/status/update/reset/append_log/finalize/list/delete. Use load/status to inspect progress. Use update to advance next_index after each item.",
+    "param.action.description": "Action: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Use current or next to fetch the next file. After processing it, call advance. Use complete_file, skip_file, or error_file for explicit per-file results.",
     "param.batch_id.description": "Batch ID. Required for load/update/finalize/delete; optional for init/list.",
     "param.task_description.description": "Short description of the batch task.",
     "param.instructions.description": "Detailed instructions for the batch task.",
@@ -17,12 +17,15 @@
     "err.not_found": "[batch_state error] batch not found",
     "err.exception": "[batch_state error] exception",
     "param.targets.description": "Target groups. Each entry contains dir, files (dir-relative), and next_index.",
-    "param.current_target.description": "Index of the current target group."
+    "param.current_target.description": "Index of the current target group.",
+    "param.file.description": "Target file for complete_file/skip_file/error_file/advance. If omitted, current_file is used.",
+    "param.reason.description": "Reason for skip_file/error_file, or a short note for completion.",
+    "param.status.description": "Batch status: active/done/paused/cancelled/error."
   },
   "ja": {
     "tool.description": "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します。",
     "tool.system_prompt": "バッチ状態を管理してください。targets=[{dir, files, next_index}] と current_target を優先し、next_index を進めて進捗を管理します。current_file は互換用です。JSON のみを返してください。",
-    "param.action.description": "操作: init/load/update/append_log/finalize/list/delete。update で patch を使って targets/current_target/next_index を更新します。",
+    "param.action.description": "操作: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete。current または next で次のファイルを取得します。処理後は advance を呼び出します。ファイル単位の結果を明示する場合は complete_file、skip_file、error_file を使います。",
     "param.batch_id.description": "バッチID。load/update/finalize/delete では必須、init/list では省略可。",
     "param.task_description.description": "バッチ作業の概要。",
     "param.instructions.description": "バッチ作業の詳細な指示。",
@@ -37,12 +40,15 @@
     "err.not_found": "[batch_state error] バッチが見つかりません",
     "err.exception": "[batch_state error] 例外",
     "param.targets.description": "ターゲットグループ。各要素は dir, files（dir 基準の相対パス）, next_index を持ちます。",
-    "param.current_target.description": "現在のターゲットグループのインデックス。"
+    "param.current_target.description": "現在のターゲットグループのインデックス。",
+    "param.file.description": "complete_file/skip_file/error_file/advance の対象ファイル。省略時は current_file が使われます。",
+    "param.reason.description": "skip_file/error_file の理由、または完了時の短いメモ。",
+    "param.status.description": "バッチ状態: active/done/paused/cancelled/error。"
   },
   "es": {
     "tool.description": "Gestiona el estado persistente del lote para tareas con varios archivos en ~/.uag/batches/.",
     "tool.system_prompt": "Administra el estado del lote. Prioriza targets=[{dir, files, next_index}] y current_target. Haz avanzar el progreso incrementando next_index. current_file es un alias heredado. Devuelve solo JSON.",
-    "param.action.description": "Acción: init/load/update/append_log/finalize/list/delete. Usa update con patch para cambiar targets/current_target/next_index.",
+    "param.action.description": "Acción: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Usa current o next para obtener el siguiente archivo. Después de procesarlo, llama a advance. Usa complete_file, skip_file o error_file para resultados explícitos por archivo.",
     "param.batch_id.description": "ID del lote. Obligatoria para load/update/finalize/delete; opcional para init/list.",
     "param.task_description.description": "Breve descripción de la tarea por lotes.",
     "param.instructions.description": "Instrucciones detalladas para la tarea por lotes.",
@@ -57,12 +63,15 @@
     "err.not_found": "[batch_state error] lote no encontrado",
     "err.exception": "[batch_state error] excepción",
     "param.targets.description": "Grupos de destino. Cada entrada contiene dir, files (relativos a dir) y next_index.",
-    "param.current_target.description": "Índice del grupo de destino actual."
+    "param.current_target.description": "Índice del grupo de destino actual.",
+    "param.file.description": "Archivo de destino para complete_file/skip_file/error_file/advance. Si se omite, se usa current_file.",
+    "param.reason.description": "Motivo para skip_file/error_file, o una nota breve para la finalización.",
+    "param.status.description": "Estado del lote: active/done/paused/cancelled/error."
   },
   "fr": {
     "tool.description": "Gère l’état persistant des lots pour les tâches multi-fichiers dans ~/.uag/batches/.",
     "tool.system_prompt": "Gérez l’état du lot. Privilégiez targets=[{dir, files, next_index}] et current_target. Faites avancer la progression en augmentant next_index. current_file est un alias hérité. Retournez uniquement du JSON.",
-    "param.action.description": "Action : init/load/update/append_log/finalize/list/delete. Utilisez update avec patch pour modifier targets/current_target/next_index.",
+    "param.action.description": "Action : init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Utilisez current ou next pour obtenir le prochain fichier. Après l’avoir traité, appelez advance. Utilisez complete_file, skip_file ou error_file pour des résultats explicites par fichier.",
     "param.batch_id.description": "ID du lot. Obligatoire pour load/update/finalize/delete ; facultatif pour init/list.",
     "param.task_description.description": "Brève description de la tâche du lot.",
     "param.instructions.description": "Instructions détaillées pour la tâche du lot.",
@@ -77,12 +86,15 @@
     "err.not_found": "[batch_state error] lot introuvable",
     "err.exception": "Exception inattendue",
     "param.targets.description": "Groupes de cibles. Chaque entrée contient dir, files (relatifs à dir) et next_index.",
-    "param.current_target.description": "Indice du groupe de cibles actuel."
+    "param.current_target.description": "Indice du groupe de cibles actuel.",
+    "param.file.description": "Fichier cible pour complete_file/skip_file/error_file/advance. S’il est omis, current_file est utilisé.",
+    "param.reason.description": "Raison pour skip_file/error_file, ou courte note de fin.",
+    "param.status.description": "État du lot : active/done/paused/cancelled/error."
   },
   "ko": {
     "tool.description": "여러 파일 작업의 지속 상태를 ~/.uag/batches/ 아래에 관리합니다.",
     "tool.system_prompt": "배치 상태를 관리합니다. targets=[{dir, files, next_index}]와 current_target을 우선하고, next_index를 늘려 진행 상황을 관리합니다. current_file은 이전 방식 별칭입니다. JSON만 반환하세요.",
-    "param.action.description": "작업: init/load/update/append_log/finalize/list/delete. update에서 patch를 사용해 targets/current_target/next_index를 변경합니다.",
+    "param.action.description": "작업: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. current 또는 next로 다음 파일을 가져옵니다. 처리 후 advance를 호출합니다. 파일별 결과를 명시하려면 complete_file, skip_file 또는 error_file을 사용합니다.",
     "param.batch_id.description": "배치 ID. load/update/finalize/delete에는 필수, init/list에는 선택 사항.",
     "param.task_description.description": "배치 작업의 간단한 요약.",
     "param.instructions.description": "배치 작업에 대한 자세한 지침.",
@@ -97,12 +109,15 @@
     "err.not_found": "[batch_state error] 배치를 찾을 수 없습니다",
     "err.exception": "[batch_state error] 예외",
     "param.targets.description": "대상 그룹입니다. 각 항목은 dir, files(dir 기준 상대 경로), next_index를 포함합니다.",
-    "param.current_target.description": "현재 대상 그룹의 인덱스."
+    "param.current_target.description": "현재 대상 그룹의 인덱스.",
+    "param.file.description": "complete_file/skip_file/error_file/advance의 대상 파일입니다. 생략하면 current_file이 사용됩니다.",
+    "param.reason.description": "skip_file/error_file의 이유 또는 완료에 대한 짧은 메모입니다.",
+    "param.status.description": "배치 상태: active/done/paused/cancelled/error."
   },
   "de": {
     "tool.description": "Verwaltet den persistenten Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
     "tool.system_prompt": "Verwalten Sie den Batch-Status. Bevorzugen Sie targets=[{dir, files, next_index}] und current_target. Lassen Sie den Fortschritt durch Erhöhen von next_index weiterlaufen. current_file ist ein veralteter Alias. Geben Sie nur JSON zurück.",
-    "param.action.description": "Aktion: init/load/update/append_log/finalize/list/delete. Verwenden Sie update mit patch, um targets/current_target/next_index zu ändern.",
+    "param.action.description": "Aktion: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Verwenden Sie current oder next, um die nächste Datei abzurufen. Rufen Sie nach der Verarbeitung advance auf. Verwenden Sie complete_file, skip_file oder error_file für explizite Ergebnisse pro Datei.",
     "param.batch_id.description": "Batch-ID. Erforderlich für load/update/finalize/delete; optional für init/list.",
     "param.task_description.description": "Kurze Beschreibung der Batch-Aufgabe.",
     "param.instructions.description": "Detaillierte Anweisungen für die Batch-Aufgabe.",
@@ -117,12 +132,15 @@
     "err.not_found": "[batch_state error] Batch nicht gefunden",
     "err.exception": "[batch_state error] Ausnahme",
     "param.targets.description": "Zielgruppen. Jeder Eintrag enthält dir, files (relativ zu dir) und next_index.",
-    "param.current_target.description": "Index der aktuellen Zielgruppe."
+    "param.current_target.description": "Index der aktuellen Zielgruppe.",
+    "param.file.description": "Zieldatei für complete_file/skip_file/error_file/advance. Wenn nicht angegeben, wird current_file verwendet.",
+    "param.reason.description": "Grund für skip_file/error_file oder eine kurze Abschlussnotiz.",
+    "param.status.description": "Batch-Status: active/done/paused/cancelled/error."
   },
   "it": {
     "tool.description": "Gestisce lo stato persistente dei batch per attività con più file in ~/.uag/batches/.",
     "tool.system_prompt": "Gestisci lo stato del batch. Dai priorità a targets=[{dir, files, next_index}] e current_target. Fai avanzare l’operazione aumentando next_index. current_file è un alias legacy. Restituisci solo JSON.",
-    "param.action.description": "Azione: init/load/update/append_log/finalize/list/delete. Usa update con patch per modificare targets/current_target/next_index.",
+    "param.action.description": "Azione: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Usa current o next per ottenere il file successivo. Dopo averlo elaborato, chiama advance. Usa complete_file, skip_file o error_file per risultati espliciti per file.",
     "param.batch_id.description": "ID batch. Obbligatorio per load/update/finalize/delete; facoltativo per init/list.",
     "param.task_description.description": "Breve riepilogo dell'attività batch.",
     "param.instructions.description": "Istruzioni dettagliate per l'attività batch.",
@@ -137,12 +155,15 @@
     "err.not_found": "[batch_state error] batch non trovato",
     "err.exception": "[batch_state error] eccezione",
     "param.targets.description": "Gruppi di destinazione. Ogni voce contiene dir, files (relativi a dir) e next_index.",
-    "param.current_target.description": "Indice del gruppo di destinazione corrente."
+    "param.current_target.description": "Indice del gruppo di destinazione corrente.",
+    "param.file.description": "File di destinazione per complete_file/skip_file/error_file/advance. Se omesso, viene usato current_file.",
+    "param.reason.description": "Motivo per skip_file/error_file, oppure una breve nota di completamento.",
+    "param.status.description": "Stato del batch: active/done/paused/cancelled/error."
   },
   "ru": {
     "tool.description": "Управляет постоянным состоянием пакета для многофайловых задач в ~/.uag/batches/.",
     "tool.system_prompt": "Управляйте состоянием пакета. Предпочитайте targets=[{dir, files, next_index}] и current_target. Продвигайте процесс, увеличивая next_index. current_file — устаревший псевдоним. Возвращайте только JSON.",
-    "param.action.description": "Действие: init/load/update/append_log/finalize/list/delete. Используйте update с patch, чтобы менять targets/current_target/next_index.",
+    "param.action.description": "Действие: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Используйте current или next, чтобы получить следующий файл. После обработки вызовите advance. Используйте complete_file, skip_file или error_file для явных результатов по файлам.",
     "param.batch_id.description": "ID пакета. Обязательно для load/update/finalize/delete; необязательно для init/list.",
     "param.task_description.description": "Краткое описание пакетной задачи.",
     "param.instructions.description": "Подробные инструкции для пакетной задачи.",
@@ -157,12 +178,15 @@
     "err.not_found": "[batch_state error] пакет не найден",
     "err.exception": "[batch_state error] исключение",
     "param.targets.description": "Группы целей. Каждый элемент содержит dir, files (относительно dir) и next_index.",
-    "param.current_target.description": "Индекс текущей группы целей."
+    "param.current_target.description": "Индекс текущей группы целей.",
+    "param.file.description": "Целевой файл для complete_file/skip_file/error_file/advance. Если не указан, используется current_file.",
+    "param.reason.description": "Причина для skip_file/error_file или короткая заметка о завершении.",
+    "param.status.description": "Статус пакета: active/done/paused/cancelled/error."
   },
   "pt_BR": {
     "tool.description": "Gerencia o estado persistente de lotes para tarefas com vários arquivos em ~/.uag/batches/.",
     "tool.system_prompt": "Gerencie o estado do lote. Priorize targets=[{dir, files, next_index}] e current_target. Faça o progresso avançar aumentando next_index. current_file é um alias legado. Retorne apenas JSON.",
-    "param.action.description": "Ação: init/load/update/append_log/finalize/list/delete. Use update com patch para alterar targets/current_target/next_index.",
+    "param.action.description": "Ação: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Use current ou next para obter o próximo arquivo. Depois de processá-lo, chame advance. Use complete_file, skip_file ou error_file para resultados explícitos por arquivo.",
     "param.batch_id.description": "ID do lote. Obrigatório para load/update/finalize/delete; opcional para init/list.",
     "param.task_description.description": "Resumo curto da tarefa do lote.",
     "param.instructions.description": "Instruções detalhadas para a tarefa do lote.",
@@ -177,12 +201,15 @@
     "err.not_found": "[batch_state error] lote não encontrado",
     "err.exception": "[batch_state error] exceção",
     "param.targets.description": "Grupos de destino. Cada entrada contém dir, files (relativos a dir) e next_index.",
-    "param.current_target.description": "Índice do grupo de destino atual."
+    "param.current_target.description": "Índice do grupo de destino atual.",
+    "param.file.description": "Arquivo de destino para complete_file/skip_file/error_file/advance. Se omitido, current_file será usado.",
+    "param.reason.description": "Motivo para skip_file/error_file, ou uma breve nota de conclusão.",
+    "param.status.description": "Status do lote: active/done/paused/cancelled/error."
   },
   "pt": {
     "tool.description": "Gerencia o estado persistente de lotes para tarefas com vários ficheiros em ~/.uag/batches/.",
     "tool.system_prompt": "Gerencie o estado do lote. Priorize targets=[{dir, files, next_index}] e current_target. Faça o progresso avançar aumentando next_index. current_file é um alias legado. Retorne apenas JSON.",
-    "param.action.description": "Ação: init/load/update/append_log/finalize/list/delete. Use update com patch para alterar targets/current_target/next_index.",
+    "param.action.description": "Ação: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Use current ou next para obter o próximo ficheiro. Depois de o processar, chame advance. Use complete_file, skip_file ou error_file para resultados explícitos por ficheiro.",
     "param.batch_id.description": "ID do lote. Obrigatório para load/update/finalize/delete; opcional para init/list.",
     "param.task_description.description": "Breve resumo da tarefa do lote.",
     "param.instructions.description": "Instruções detalhadas para a tarefa do lote.",
@@ -197,12 +224,15 @@
     "err.not_found": "[batch_state error] lote não encontrado",
     "err.exception": "[batch_state error] exceção",
     "param.targets.description": "Grupos de destino. Cada entrada contém dir, files (relativos a dir) e next_index.",
-    "param.current_target.description": "Índice do grupo de destino atual."
+    "param.current_target.description": "Índice do grupo de destino atual.",
+    "param.file.description": "Ficheiro de destino para complete_file/skip_file/error_file/advance. Se omitido, será usado current_file.",
+    "param.reason.description": "Motivo para skip_file/error_file, ou uma breve nota de conclusão.",
+    "param.status.description": "Estado do lote: active/done/paused/cancelled/error."
   },
   "id": {
     "tool.description": "Mengelola status batch yang tersimpan untuk tugas multi-file di ~/.uag/batches/.",
     "tool.system_prompt": "Kelola status batch. Prioritaskan targets=[{dir, files, next_index}] dan current_target. Majukan progres dengan menaikkan next_index. current_file adalah alias lama. Kembalikan JSON saja.",
-    "param.action.description": "Aksi: init/load/update/append_log/finalize/list/delete. Gunakan update dengan patch untuk mengubah targets/current_target/next_index.",
+    "param.action.description": "Aksi: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Gunakan current atau next untuk mengambil file berikutnya. Setelah memprosesnya, panggil advance. Gunakan complete_file, skip_file, atau error_file untuk hasil eksplisit per file.",
     "param.batch_id.description": "ID batch. Wajib untuk load/update/finalize/delete; opsional untuk init/list.",
     "param.task_description.description": "Ringkasan singkat tugas batch.",
     "param.instructions.description": "Instruksi rinci untuk tugas batch.",
@@ -217,12 +247,15 @@
     "err.not_found": "[batch_state error] batch tidak ditemukan",
     "err.exception": "[batch_state error] pengecualian",
     "param.targets.description": "Kelompok target. Setiap entri berisi dir, files (relatif terhadap dir), dan next_index.",
-    "param.current_target.description": "Indeks kelompok target saat ini."
+    "param.current_target.description": "Indeks kelompok target saat ini.",
+    "param.file.description": "File target untuk complete_file/skip_file/error_file/advance. Jika dihilangkan, current_file digunakan.",
+    "param.reason.description": "Alasan untuk skip_file/error_file, atau catatan singkat untuk penyelesaian.",
+    "param.status.description": "Status batch: active/done/paused/cancelled/error."
   },
   "vi": {
     "tool.description": "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
     "tool.system_prompt": "Quản lý trạng thái batch. Ưu tiên targets=[{dir, files, next_index}] và current_target. Tiến độ được đẩy lên bằng cách tăng next_index. current_file là bí danh cũ. Chỉ trả về JSON.",
-    "param.action.description": "Hành động: init/load/update/append_log/finalize/list/delete. Dùng update với patch để thay đổi targets/current_target/next_index.",
+    "param.action.description": "Hành động: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Dùng current hoặc next để lấy tệp tiếp theo. Sau khi xử lý, gọi advance. Dùng complete_file, skip_file hoặc error_file cho kết quả rõ ràng theo từng tệp.",
     "param.batch_id.description": "ID batch. Bắt buộc cho load/update/finalize/delete; tùy chọn cho init/list.",
     "param.task_description.description": "Tóm tắt ngắn gọn về tác vụ batch.",
     "param.instructions.description": "Hướng dẫn chi tiết cho tác vụ batch.",
@@ -237,12 +270,15 @@
     "err.not_found": "[batch_state error] không tìm thấy batch",
     "err.exception": "[batch_state error] ngoại lệ",
     "param.targets.description": "Nhóm mục tiêu. Mỗi mục chứa dir, files (tương đối so với dir) và next_index.",
-    "param.current_target.description": "Chỉ mục của nhóm mục tiêu hiện tại."
+    "param.current_target.description": "Chỉ mục của nhóm mục tiêu hiện tại.",
+    "param.file.description": "Tệp đích cho complete_file/skip_file/error_file/advance. Nếu bỏ qua, current_file sẽ được dùng.",
+    "param.reason.description": "Lý do cho skip_file/error_file, hoặc ghi chú ngắn khi hoàn tất.",
+    "param.status.description": "Trạng thái batch: active/done/paused/cancelled/error."
   },
   "pl": {
     "tool.description": "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.uag/batches/.",
     "tool.system_prompt": "Zarządzaj stanem partii. Preferuj targets=[{dir, files, next_index}] oraz current_target. Przesuwaj postęp, zwiększając next_index. current_file to przestarzały alias. Zwracaj tylko JSON.",
-    "param.action.description": "Akcja: init/load/update/append_log/finalize/list/delete. Użyj update z patch, aby zmienić targets/current_target/next_index.",
+    "param.action.description": "Akcja: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Użyj current lub next, aby pobrać następny plik. Po jego przetworzeniu wywołaj advance. Użyj complete_file, skip_file lub error_file dla jawnych wyników dla pliku.",
     "param.batch_id.description": "ID wsadu. Wymagane dla load/update/finalize/delete; opcjonalne dla init/list.",
     "param.task_description.description": "Krótki opis zadania partii.",
     "param.instructions.description": "Szczegółowe instrukcje dla zadania partii.",
@@ -257,12 +293,15 @@
     "err.not_found": "[batch_state error] nie znaleziono partii",
     "err.exception": "[batch_state error] wyjątek",
     "param.targets.description": "Grupy docelowe. Każdy wpis zawiera dir, files (względne względem dir) oraz next_index.",
-    "param.current_target.description": "Indeks bieżącej grupy docelowej."
+    "param.current_target.description": "Indeks bieżącej grupy docelowej.",
+    "param.file.description": "Plik docelowy dla complete_file/skip_file/error_file/advance. Jeśli pominięto, używany jest current_file.",
+    "param.reason.description": "Powód dla skip_file/error_file albo krótka notatka o zakończeniu.",
+    "param.status.description": "Status partii: active/done/paused/cancelled/error."
   },
   "hi": {
     "tool.description": "~/.uag/batches/ के नीचे बहु-फ़ाइल कार्यों के लिए स्थायी बैच स्थिति प्रबंधित करता है।",
     "tool.system_prompt": "बैच स्थिति प्रबंधित करें। targets=[{dir, files, next_index}] और current_target को प्राथमिकता दें। next_index बढ़ाकर प्रगति आगे बढ़ाएँ। current_file एक पुराना उपनाम है। केवल JSON लौटाएँ।",
-    "param.action.description": "क्रिया: init/load/update/append_log/finalize/list/delete। targets/current_target/next_index बदलने के लिए patch के साथ update का उपयोग करें।",
+    "param.action.description": "क्रिया: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete। अगली फ़ाइल पाने के लिए current या next का उपयोग करें। इसे संसाधित करने के बाद advance कॉल करें। प्रति-फ़ाइल स्पष्ट परिणामों के लिए complete_file, skip_file या error_file का उपयोग करें।",
     "param.batch_id.description": "बैच ID. load/update/finalize/delete के लिए आवश्यक; init/list के लिए वैकल्पिक.",
     "param.task_description.description": "बैच कार्य का संक्षिप्त विवरण.",
     "param.instructions.description": "बैच कार्य के लिए विस्तृत निर्देश.",
@@ -277,12 +316,15 @@
     "err.not_found": "[batch_state error] बैच नहीं मिला",
     "err.exception": "[batch_state error] अपवाद",
     "param.targets.description": "लक्ष्य समूह। प्रत्येक प्रविष्टि में dir, files (dir के सापेक्ष), और next_index होता है।",
-    "param.current_target.description": "वर्तमान लक्ष्य समूह का सूचकांक।"
+    "param.current_target.description": "वर्तमान लक्ष्य समूह का सूचकांक।",
+    "param.file.description": "complete_file/skip_file/error_file/advance के लिए लक्ष्य फ़ाइल। यदि छोड़ा गया हो, तो current_file उपयोग किया जाता है।",
+    "param.reason.description": "skip_file/error_file का कारण, या पूर्णता के लिए छोटा नोट।",
+    "param.status.description": "बैच स्थिति: active/done/paused/cancelled/error."
   },
   "ar": {
     "tool.description": "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.uag/batches/.",
     "tool.system_prompt": "أدِر حالة الدفعة. أعطِ الأولوية لـ targets=[{dir, files, next_index}] و current_target. قدّم التقدّم بزيادة next_index. current_file اسم مستعار قديم. أعد JSON فقط.",
-    "param.action.description": "الإجراء: init/load/update/append_log/finalize/list/delete. استخدم update مع patch لتغيير targets/current_target/next_index.",
+    "param.action.description": "الإجراء: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. استخدم current أو next لجلب الملف التالي. بعد معالجته، استدعِ advance. استخدم complete_file أو skip_file أو error_file للنتائج الصريحة لكل ملف.",
     "param.batch_id.description": "معرّف الدفعة. مطلوب لـ load/update/finalize/delete؛ اختياري لـ init/list.",
     "param.task_description.description": "وصف موجز لمهمة الدفعة.",
     "param.instructions.description": "تعليمات مفصلة لمهمة الدفعة.",
@@ -297,12 +339,15 @@
     "err.not_found": "[batch_state error] لم يتم العثور على الدفعة",
     "err.exception": "[batch_state error] استثناء",
     "param.targets.description": "مجموعات الهدف. يحتوي كل إدخال على dir و files (نسبيًا إلى dir) و next_index.",
-    "param.current_target.description": "فهرس مجموعة الهدف الحالية."
+    "param.current_target.description": "فهرس مجموعة الهدف الحالية.",
+    "param.file.description": "الملف الهدف لـ complete_file/skip_file/error_file/advance. إذا تم حذفه، فسيُستخدم current_file.",
+    "param.reason.description": "سبب skip_file/error_file، أو ملاحظة قصيرة عند الإكمال.",
+    "param.status.description": "حالة الدفعة: active/done/paused/cancelled/error."
   },
   "sv": {
     "tool.description": "Hanterar bestående batchstatus för uppgifter med flera filer under ~/.uag/batches/.",
     "tool.system_prompt": "Hantera batchstatus. Prioritera targets=[{dir, files, next_index}] och current_target. Låt framstegen gå framåt genom att öka next_index. current_file är ett äldre alias. Returnera endast JSON.",
-    "param.action.description": "Åtgärd: init/load/update/append_log/finalize/list/delete. Använd update med patch för att ändra targets/current_target/next_index.",
+    "param.action.description": "Åtgärd: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Använd current eller next för att hämta nästa fil. Efter att den har behandlats, anropa advance. Använd complete_file, skip_file eller error_file för uttryckliga resultat per fil.",
     "param.batch_id.description": "Batch-ID. Krävs för load/update/finalize/delete; valfritt för init/list.",
     "param.task_description.description": "Kort sammanfattning av batchuppgiften.",
     "param.instructions.description": "Detaljerade instruktioner för batchuppgiften.",
@@ -317,12 +362,15 @@
     "err.not_found": "[batch_state error] batch hittades inte",
     "err.exception": "[batch_state error] undantag",
     "param.targets.description": "Målgrupper. Varje post innehåller dir, files (relativt till dir) och next_index.",
-    "param.current_target.description": "Index för den aktuella målgruppen."
+    "param.current_target.description": "Index för den aktuella målgruppen.",
+    "param.file.description": "Målfil för complete_file/skip_file/error_file/advance. Om den utelämnas används current_file.",
+    "param.reason.description": "Orsak för skip_file/error_file, eller en kort anteckning för slutförande.",
+    "param.status.description": "Batchstatus: active/done/paused/cancelled/error."
   },
   "sw": {
     "tool.description": "Hudhibiti hali ya kudumu ya batch kwa kazi za faili nyingi chini ya ~/.uag/batches/.",
     "tool.system_prompt": "Dhibiti hali ya batch. Tanguliza targets=[{dir, files, next_index}] na current_target. Sogeza maendeleo kwa kuongeza next_index. current_file ni lakabu ya zamani. Rudisha JSON pekee.",
-    "param.action.description": "Kitendo: init/load/update/append_log/finalize/list/delete. Tumia update pamoja na patch kubadilisha targets/current_target/next_index.",
+    "param.action.description": "Kitendo: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Tumia current au next kupata faili inayofuata. Baada ya kuichakata, ita advance. Tumia complete_file, skip_file, au error_file kwa matokeo ya wazi kwa kila faili.",
     "param.batch_id.description": "Kitambulisho cha batch. Kinahitajika kwa load/update/finalize/delete; hiari kwa init/list.",
     "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
     "param.instructions.description": "Maelekezo ya kina kwa kazi ya batch.",
@@ -337,12 +385,15 @@
     "err.invalid_patch": "[batch_state error] patch lazima iwe kitu cha JSON",
     "err.message_empty": "[batch_state error] ujumbe hauna maudhui",
     "err.not_found": "[batch_state error] batch haikupatikana",
-    "err.exception": "[batch_state error] hitilafu"
+    "err.exception": "[batch_state error] hitilafu",
+    "param.file.description": "Faili lengwa kwa complete_file/skip_file/error_file/advance. Ikiwa haijatolewa, current_file itatumika.",
+    "param.reason.description": "Sababu ya skip_file/error_file, au dokezo fupi la kukamilisha.",
+    "param.status.description": "Hali ya batch: active/done/paused/cancelled/error."
   },
   "nb": {
     "tool.description": "Behandler vedvarende batchstatus for oppgaver med flere filer under ~/.uag/batches/.",
     "tool.system_prompt": "Behandle batchstatus. Prioriter targets=[{dir, files, next_index}] og current_target. La fremdriften gå videre ved å øke next_index. current_file er et gammelt alias. Returner bare JSON.",
-    "param.action.description": "Handling: init/load/update/append_log/finalize/list/delete. Bruk update med patch for å endre targets/current_target/next_index.",
+    "param.action.description": "Handling: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Bruk current eller next for å hente neste fil. Etter behandling, kall advance. Bruk complete_file, skip_file eller error_file for eksplisitte resultater per fil.",
     "param.batch_id.description": "Batch-ID. Påkrevd for load/update/finalize/delete; valgfri for init/list.",
     "param.task_description.description": "Kort oppsummering av batch-oppgaven.",
     "param.instructions.description": "Detaljerte instruksjoner for batch-oppgaven.",
@@ -357,12 +408,15 @@
     "err.not_found": "[batch_state error] batch ikke funnet",
     "err.exception": "[batch_state error] unntak",
     "param.targets.description": "Målgrupper. Hvert element inneholder dir, files (relativt til dir) og next_index.",
-    "param.current_target.description": "Indeksen til den gjeldende målgruppen."
+    "param.current_target.description": "Indeksen til den gjeldende målgruppen.",
+    "param.file.description": "Målfil for complete_file/skip_file/error_file/advance. Hvis utelatt, brukes current_file.",
+    "param.reason.description": "Årsak for skip_file/error_file, eller en kort merknad ved fullføring.",
+    "param.status.description": "Batchstatus: active/done/paused/cancelled/error."
   },
   "nl": {
     "tool.description": "Beheert de blijvende batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/.",
     "tool.system_prompt": "Beheer de batchstatus. Geef prioriteit aan targets=[{dir, files, next_index}] en current_target. Laat de voortgang verdergaan door next_index te verhogen. current_file is een verouderde alias. Geef alleen JSON terug.",
-    "param.action.description": "Actie: init/load/update/append_log/finalize/list/delete. Gebruik update met patch om targets/current_target/next_index te wijzigen.",
+    "param.action.description": "Actie: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Gebruik current of next om het volgende bestand op te halen. Roep na verwerking advance aan. Gebruik complete_file, skip_file of error_file voor expliciete resultaten per bestand.",
     "param.batch_id.description": "Batch-ID. Vereist voor load/update/finalize/delete; optioneel voor init/list.",
     "param.task_description.description": "Korte samenvatting van de batchtaak.",
     "param.instructions.description": "Gedetailleerde instructies voor de batchtaak.",
@@ -377,12 +431,15 @@
     "err.not_found": "[batch_state error] batch niet gevonden",
     "err.exception": "[batch_state error] uitzondering",
     "param.targets.description": "Doelgroepen. Elke invoer bevat dir, files (relatief aan dir) en next_index.",
-    "param.current_target.description": "Index van de huidige doelgroep."
+    "param.current_target.description": "Index van de huidige doelgroep.",
+    "param.file.description": "Doelbestand voor complete_file/skip_file/error_file/advance. Als dit wordt weggelaten, wordt current_file gebruikt.",
+    "param.reason.description": "Reden voor skip_file/error_file, of een korte notitie bij voltooiing.",
+    "param.status.description": "Batchstatus: active/done/paused/cancelled/error."
   },
   "fi": {
     "tool.description": "Hallinnoi pysyvää erätilaa monitiedostotehtäville polussa ~/.uag/batches/.",
     "tool.system_prompt": "Hallinnoi erätilaa. Suosi targets=[{dir, files, next_index}] ja current_target. Vie edistystä eteenpäin kasvattamalla next_index-arvoa. current_file on vanha alias. Palauta vain JSON.",
-    "param.action.description": "Toiminto: init/load/update/append_log/finalize/list/delete. Käytä updatea patchin kanssa targets/current_target/next_index-muutosten tekemiseen.",
+    "param.action.description": "Toiminto: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Käytä current- tai next-toimintoa seuraavan tiedoston hakemiseen. Käsittelyn jälkeen kutsu advance. Käytä complete_file-, skip_file- tai error_file-toimintoa tiedostokohtaisiin tuloksiin.",
     "param.batch_id.description": "Erän tunnus. Pakollinen toiminnoille load/update/finalize/delete; valinnainen init/list.",
     "param.task_description.description": "Lyhyt kuvaus eräajosta.",
     "param.instructions.description": "Yksityiskohtaiset ohjeet eräajolle.",
@@ -397,12 +454,15 @@
     "err.not_found": "[batch_state error] erää ei löytynyt",
     "err.exception": "[batch_state error] poikkeus",
     "param.targets.description": "Kohderyhmät. Jokainen merkintä sisältää dir, files (suhteessa dir:iin) ja next_index.",
-    "param.current_target.description": "Nykyisen kohderyhmän indeksi."
+    "param.current_target.description": "Nykyisen kohderyhmän indeksi.",
+    "param.file.description": "Kohdetiedosto toiminnoille complete_file/skip_file/error_file/advance. Jos jätetään pois, käytetään current_file-arvoa.",
+    "param.reason.description": "Syy skip_file/error_file-toiminnolle tai lyhyt valmistumismerkintä.",
+    "param.status.description": "Erätila: active/done/paused/cancelled/error."
   },
   "cs": {
     "tool.description": "Spravuje trvalý stav dávky pro úlohy s více soubory v ~/.uag/batches/.",
     "tool.system_prompt": "Spravujte stav dávky. Upřednostněte targets=[{dir, files, next_index}] a current_target. Postup posouvejte zvyšováním next_index. current_file je starší alias. Vracejte pouze JSON.",
-    "param.action.description": "Akce: init/load/update/append_log/finalize/list/delete. Použijte update s patch pro změnu targets/current_target/next_index.",
+    "param.action.description": "Akce: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Použijte current nebo next k načtení dalšího souboru. Po zpracování zavolejte advance. Použijte complete_file, skip_file nebo error_file pro explicitní výsledky pro každý soubor.",
     "param.batch_id.description": "ID dávky. Povinné pro load/update/finalize/delete; volitelné pro init/list.",
     "param.task_description.description": "Stručný popis dávkového úkolu.",
     "param.instructions.description": "Podrobné pokyny k dávkovému úkolu.",
@@ -417,12 +477,15 @@
     "err.not_found": "[batch_state error] dávka nenalezena",
     "err.exception": "[batch_state error] výjimka",
     "param.targets.description": "Cílové skupiny. Každá položka obsahuje dir, files (relativní k dir) a next_index.",
-    "param.current_target.description": "Index aktuální cílové skupiny."
+    "param.current_target.description": "Index aktuální cílové skupiny.",
+    "param.file.description": "Cílový soubor pro complete_file/skip_file/error_file/advance. Pokud je vynechán, použije se current_file.",
+    "param.reason.description": "Důvod pro skip_file/error_file nebo krátká poznámka k dokončení.",
+    "param.status.description": "Stav dávky: active/done/paused/cancelled/error."
   },
   "uk": {
     "tool.description": "Керує постійним станом пакета для багатофайлових завдань у ~/.uag/batches/.",
     "tool.system_prompt": "Керуйте станом пакета. Надавайте пріоритет targets=[{dir, files, next_index}] і current_target. Просувайте прогрес, збільшуючи next_index. current_file — застарілий псевдонім. Поверніть лише JSON.",
-    "param.action.description": "Дія: init/load/update/append_log/finalize/list/delete. Використовуйте update з patch, щоб змінювати targets/current_target/next_index.",
+    "param.action.description": "Дія: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Використовуйте current або next, щоб отримати наступний файл. Після обробки викличте advance. Використовуйте complete_file, skip_file або error_file для явних результатів по файлах.",
     "param.batch_id.description": "ID пакета. Обов'язковий для load/update/finalize/delete; необов'язковий для init/list.",
     "param.task_description.description": "Короткий опис пакетного завдання.",
     "param.instructions.description": "Детальні інструкції для пакетного завдання.",
@@ -437,12 +500,15 @@
     "err.not_found": "[batch_state error] пакет не знайдено",
     "err.exception": "[batch_state error] виняток",
     "param.targets.description": "Групи цілей. Кожен елемент містить dir, files (відносно dir) і next_index.",
-    "param.current_target.description": "Індекс поточної групи цілей."
+    "param.current_target.description": "Індекс поточної групи цілей.",
+    "param.file.description": "Цільовий файл для complete_file/skip_file/error_file/advance. Якщо не вказано, використовується current_file.",
+    "param.reason.description": "Причина для skip_file/error_file або коротка нотатка про завершення.",
+    "param.status.description": "Стан пакета: active/done/paused/cancelled/error."
   },
   "tr": {
     "tool.description": "~/.uag/batches/ altındaki çok dosyalı görevler için kalıcı batch durumunu yönetir.",
     "tool.system_prompt": "Batch durumunu yönetin. targets=[{dir, files, next_index}] ve current_target öğelerini önceliklendirin. İlerlemeyi next_index artırarak sürdürün. current_file eski bir takma addır. Yalnızca JSON döndürün.",
-    "param.action.description": "Eylem: init/load/update/append_log/finalize/list/delete. targets/current_target/next_index'i değiştirmek için patch ile update kullanın.",
+    "param.action.description": "Eylem: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete. Sonraki dosyayı almak için current veya next kullanın. İşledikten sonra advance çağırın. Dosya başına açık sonuçlar için complete_file, skip_file veya error_file kullanın.",
     "param.batch_id.description": "Toplu ID. Yükleme/güncelleme/sonlandırma/silme için gereklidir; başlatma/liste için isteğe bağlıdır.",
     "param.task_description.description": "Toplu görevin kısa açıklaması.",
     "param.instructions.description": "Toplu görev için ayrıntılı talimatlar.",
@@ -457,12 +523,15 @@
     "err.not_found": "[batch_state error] toplu iş bulunamadı",
     "err.exception": "[toplu_durum hatası] istisnası",
     "param.targets.description": "Hedef grupları. Her giriş dir, files (dir'e göre göreli) ve next_index içerir.",
-    "param.current_target.description": "Geçerli hedef grubunun dizini."
+    "param.current_target.description": "Geçerli hedef grubunun dizini.",
+    "param.file.description": "complete_file/skip_file/error_file/advance için hedef dosya. Atlanırsa current_file kullanılır.",
+    "param.reason.description": "skip_file/error_file nedeni veya tamamlama için kısa not.",
+    "param.status.description": "Batch durumu: active/done/paused/cancelled/error."
   },
   "th": {
     "tool.description": "จัดการสถานะ batch แบบถาวรสำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/.",
     "tool.system_prompt": "จัดการสถานะ batch ให้ใช้ targets=[{dir, files, next_index}] และ current_target เป็นหลัก เพิ่ม next_index เพื่อให้ความคืบหน้าก้าวต่อไป current_file เป็นชื่อแทนแบบเก่า ส่งคืนเฉพาะ JSON.",
-    "param.action.description": "การกระทำ: init/load/update/append_log/finalize/list/delete ใช้ update พร้อม patch เพื่อเปลี่ยน targets/current_target/next_index.",
+    "param.action.description": "การกระทำ: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete ใช้ current หรือ next เพื่อดึงไฟล์ถัดไป หลังจากประมวลผลแล้วให้เรียก advance ใช้ complete_file, skip_file หรือ error_file สำหรับผลลัพธ์รายไฟล์ที่ชัดเจน",
     "param.batch_id.description": "รหัสแบตช์ จำเป็นสำหรับ load/update/finalize/delete; ไม่บังคับสำหรับ init/list.",
     "param.task_description.description": "สรุปสั้น ๆ ของงานแบตช์",
     "param.instructions.description": "คำแนะนำโดยละเอียดสำหรับงานแบตช์",
@@ -477,12 +546,15 @@
     "err.not_found": "[batch_state error] ไม่พบแบตช์",
     "err.exception": "[batch_state error] ข้อยกเว้น",
     "param.targets.description": "กลุ่มเป้าหมาย แต่ละรายการมี dir, files (สัมพันธ์กับ dir) และ next_index.",
-    "param.current_target.description": "ดัชนีของกลุ่มเป้าหมายปัจจุบัน."
+    "param.current_target.description": "ดัชนีของกลุ่มเป้าหมายปัจจุบัน.",
+    "param.file.description": "ไฟล์เป้าหมายสำหรับ complete_file/skip_file/error_file/advance หากละไว้จะใช้ current_file",
+    "param.reason.description": "เหตุผลสำหรับ skip_file/error_file หรือบันทึกสั้น ๆ เมื่อเสร็จสิ้น",
+    "param.status.description": "สถานะ batch: active/done/paused/cancelled/error."
   },
   "zh_CN": {
     "tool.description": "为 ~/.uag/batches/ 下的多文件任务管理持久化批处理状态。",
     "tool.system_prompt": "管理批处理状态。优先使用 targets=[{dir, files, next_index}] 和 current_target。通过增加 next_index 推进进度。current_file 是旧别名。只返回 JSON。",
-    "param.action.description": "操作: init/load/update/append_log/finalize/list/delete。使用带 patch 的 update 来修改 targets/current_target/next_index。",
+    "param.action.description": "操作: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete。使用 current 或 next 获取下一个文件。处理后调用 advance。使用 complete_file、skip_file 或 error_file 明确记录单个文件的结果。",
     "param.batch_id.description": "批次 ID。load/update/finalize/delete 必需；init/list 可选。",
     "param.task_description.description": "批处理任务的简要说明。",
     "param.instructions.description": "批处理任务的详细说明。",
@@ -497,12 +569,15 @@
     "err.not_found": "[batch_state error] 未找到批次",
     "err.exception": "[batch_state error] 异常",
     "param.targets.description": "目标组。每个条目包含 dir、files（相对于 dir）和 next_index。",
-    "param.current_target.description": "当前目标组的索引。"
+    "param.current_target.description": "当前目标组的索引。",
+    "param.file.description": "complete_file/skip_file/error_file/advance 的目标文件。省略时使用 current_file。",
+    "param.reason.description": "skip_file/error_file 的原因，或完成时的简短备注。",
+    "param.status.description": "批处理状态: active/done/paused/cancelled/error。"
   },
   "zh_TW": {
     "tool.description": "為 ~/.uag/batches/ 下的多檔案工作管理持久化批次狀態。",
     "tool.system_prompt": "管理批次狀態。優先使用 targets=[{dir, files, next_index}] 和 current_target。透過增加 next_index 推進進度。current_file 是舊別名。只回傳 JSON。",
-    "param.action.description": "操作: init/load/update/append_log/finalize/list/delete。使用帶 patch 的 update 來修改 targets/current_target/next_index。",
+    "param.action.description": "操作: init/load/status/current/next/advance/complete_file/skip_file/error_file/update/reset/append_log/finalize/list/delete。使用 current 或 next 取得下一個檔案。處理後呼叫 advance。使用 complete_file、skip_file 或 error_file 明確記錄單一檔案的結果。",
     "param.batch_id.description": "批次 ID。load/update/finalize/delete 必填；init/list 選填。",
     "param.task_description.description": "批次任務的簡要說明。",
     "param.instructions.description": "批次任務的詳細說明。",
@@ -517,6 +592,9 @@
     "err.not_found": "[batch_state error] 找不到批次",
     "err.exception": "[batch_state error] 例外",
     "param.targets.description": "目標群組。每個項目包含 dir、files（相對於 dir）和 next_index。",
-    "param.current_target.description": "目前目標群組的索引。"
+    "param.current_target.description": "目前目標群組的索引。",
+    "param.file.description": "complete_file/skip_file/error_file/advance 的目標檔案。省略時會使用 current_file。",
+    "param.reason.description": "skip_file/error_file 的原因，或完成時的簡短備註。",
+    "param.status.description": "批次狀態: active/done/paused/cancelled/error。"
   }
 }
