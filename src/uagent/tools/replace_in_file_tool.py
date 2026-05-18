@@ -254,12 +254,22 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
         return try_read("utf-8", "replace")
 
 
+MAX_DIFF_INPUT_CHARS = 1_000_000
+
+
 def _unified_diff(path: str, original: str, replaced: str) -> str:
     if original == replaced:
         return ""
+    if len(original) + len(replaced) > MAX_DIFF_INPUT_CHARS:
+        return (
+            "[diff omitted: input too large "
+            f"({len(original)} -> {len(replaced)} chars)]"
+        )
     a = original.splitlines(True)
     b = replaced.splitlines(True)
-    return "".join(difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}"))
+    return "".join(
+        difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}")
+    )
 
 
 def _write_text_robust(path: str, text: str, encoding: str) -> None:
@@ -287,13 +297,16 @@ def _normalize_replacement_newlines(text: str, newline: Any) -> str:
             target = "\n"
     else:
         target = newline or "\n"
-    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    if "\r" in text:
+        text = text.replace("\r\n", "\n").replace("\r", "\n")
     if target != "\n":
         text = text.replace("\n", target)
     return text
 
 
 def _normalize_lf(text: str) -> str:
+    if "\r" not in text:
+        return text
     return text.replace("\r\n", "\n").replace("\r", "\n")
 
 
@@ -334,6 +347,17 @@ def _find_hits_literal(haystack: str, needle: str) -> List[_Hit]:
 
 def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
     return [_Hit(m.start(), m.end()) for m in pattern.finditer(haystack)]
+
+
+def _nth_regex_match(
+    haystack: str, pattern: re.Pattern[str], occurrence: int
+) -> re.Match[str] | None:
+    if occurrence <= 0:
+        return None
+    for idx, match in enumerate(pattern.finditer(haystack), start=1):
+        if idx == occurrence:
+            return match
+    return None
 
 
 def _sha256_file(path: str) -> str:
@@ -801,9 +825,10 @@ def _replace_between_text(
     expand_newline_tokens: bool,
     newline_info: Dict[str, Any],
 ) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
+    before_pattern = re.compile(anchor_before) if mode == "regex" else None
     before_hits = (
-        _find_hits_regex(original, re.compile(anchor_before))
-        if mode == "regex"
+        _find_hits_regex(original, before_pattern)
+        if before_pattern is not None
         else _find_hits_literal(original, anchor_before)
     )
     if not before_hits:
@@ -851,9 +876,10 @@ def _replace_between_text(
         ]
         return original, len(before_hits), 0, [], diag
 
+    after_pattern = re.compile(anchor_after) if mode == "regex" else None
     after_hits = (
-        _find_hits_regex(original, re.compile(anchor_after))
-        if mode == "regex"
+        _find_hits_regex(original, after_pattern)
+        if after_pattern is not None
         else _find_hits_literal(original, anchor_after)
     )
     after_hits = [hit for hit in after_hits if hit.start >= before_hit.end]
@@ -907,7 +933,10 @@ def _pick_newline_style(newline: Any) -> str:
 
 
 def _apply_newline_style(text: str, newline: str) -> str:
-    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    if newline == "\n" and "\r" not in text:
+        return text
+    if "\r" in text:
+        text = text.replace("\r\n", "\n").replace("\r", "\n")
     if newline == "\n":
         return text
     return text.replace("\n", newline)
@@ -965,10 +994,11 @@ def run_tool(args: Dict[str, Any]) -> str:
             else anchor_after
         )
 
+        regex_pattern = re.compile(p2) if mode == "regex" else None
         hits: List[_Hit] = []
         if action in {"replace", "insert_before", "insert_after"}:
-            if mode == "regex":
-                hits = _find_hits_regex(orig_norm, re.compile(p2))
+            if regex_pattern is not None:
+                hits = _find_hits_regex(orig_norm, regex_pattern)
             else:
                 hits = _find_hits_literal(orig_norm, p2)
 
@@ -1012,15 +1042,17 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         elif action == "replace" and match_count > 0:
             if occurrence == 0:
-                if mode == "regex":
-                    replaced_text, replaced_count = re.compile(p2).subn(r2, orig_norm)
+                if regex_pattern is not None:
+                    replaced_text, replaced_count = regex_pattern.subn(r2, orig_norm)
                 else:
                     replaced_text = orig_norm.replace(p2, r2)
                     replaced_count = match_count
             elif 0 < occurrence <= match_count:
                 h = hits[occurrence - 1]
-                if mode == "regex":
-                    m = list(re.compile(p2).finditer(orig_norm))[occurrence - 1]
+                if regex_pattern is not None:
+                    m = _nth_regex_match(orig_norm, regex_pattern, occurrence)
+                    if m is None:
+                        raise RuntimeError("regex occurrence disappeared during replacement")
                     replaced_text = (
                         orig_norm[: h.start] + m.expand(r2) + orig_norm[h.end :]
                     )
