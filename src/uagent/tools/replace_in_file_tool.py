@@ -70,7 +70,13 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "replace_in_file",
         "description": _(
             "tool.description",
-            default="If true (default), expands newline tokens (\r\n/\r/\n) into real newlines. If false, treats them as literal characters.",
+            default=(
+                "Safely edit text files. Newline handling: by default, the "
+                "two-character tokens \\r\\n, \\r, and \\n in pattern/replacement "
+                "are converted to real newlines before matching. Set "
+                "expand_newline_tokens=false to match those backslash characters "
+                "literally. Existing file newline style is preserved when writing."
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -79,11 +85,13 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.expand_newline_tokens.description",
-                        default=("If true (default), expands newline tokens (\
-\
-/\
-/\
-) into real newlines. " "If false, treats them as literal characters."),
+                        default=(
+                            "If true (default), convert the literal token strings "
+                            "\\r\\n, \\r, and \\n in pattern/replacement/anchors "
+                            "to real newlines before matching. If false, keep those "
+                            "backslash characters literal. JSON actual newlines are "
+                            "accepted either way."
+                        ),
                     ),
                     "default": True,
                 },
@@ -356,20 +364,48 @@ def _get_failure_hint(original: str, pattern: str, mode: str) -> str | None:
     )
 
 
-def _newline_profile(newline: Any) -> str:
-    if isinstance(newline, tuple):
-        if "\r\n" in newline:
-            return "CRLF"
-        if "\r" in newline:
-            return "CR"
-        if "\n" in newline:
-            return "LF"
-        return "UNKNOWN"
+def _newline_name(newline: str) -> str:
     if newline == "\r\n":
         return "CRLF"
     if newline == "\r":
         return "CR"
-    return "LF"
+    if newline == "\n":
+        return "LF"
+    return "UNKNOWN"
+
+
+def _newline_profile(newline: Any) -> str:
+    if isinstance(newline, tuple):
+        names = [_newline_name(nl) for nl in newline]
+        if len(names) > 1:
+            return "MIXED(" + ",".join(names) + ")"
+        return names[0] if names else "UNKNOWN"
+    if newline is None:
+        return "NONE"
+    return _newline_name(str(newline))
+
+
+def _newline_details(newline: Any, selected_style: str) -> Dict[str, Any]:
+    if isinstance(newline, tuple):
+        detected = list(newline)
+    elif newline is None:
+        detected = []
+    else:
+        detected = [newline]
+    return {
+        "profile": _newline_profile(newline),
+        "detected": [_newline_name(str(nl)) for nl in detected],
+        "mixed": isinstance(newline, tuple) and len(newline) > 1,
+        "selected_for_write": _newline_name(selected_style),
+    }
+
+
+def _text_newline_flags(text: str) -> Dict[str, Any]:
+    return {
+        "contains_actual_newline": "\n" in text or "\r" in text,
+        "contains_escaped_newline_tokens": "\\n" in text or "\\r" in text,
+        "repr": repr(text),
+    }
 
 
 def _diagnostics_hint(diagnostics: Dict[str, Any] | None) -> str | None:
@@ -493,40 +529,74 @@ def _build_no_match_diagnostics(
     mode: str,
     action: str,
     expand_newline_tokens: bool,
+    newline_info: Dict[str, Any] | None = None,
     anchor_before: str = "",
     anchor_after: str = "",
     po_msgid: str = "",
 ) -> Dict[str, Any]:
+    search_flags = _text_newline_flags(search_text)
     diagnostics: Dict[str, Any] = {
         "action": action,
         "mode": mode,
-        "newline_profile": _newline_profile(original),
+        "newline": newline_info or {},
         "expand_newline_tokens": expand_newline_tokens,
         "search_text_length": len(search_text),
-        "contains_escaped_newline_tokens": (
-            "\\n" in search_text or "\\r" in search_text
-        ),
-        "contains_regex_meta": bool(re.search(r"[.*+?^$\\[\\]{}()|]", search_text)),
+        "search_text_flags": search_flags,
+        "contains_escaped_newline_tokens": search_flags[
+            "contains_escaped_newline_tokens"
+        ],
+        "contains_actual_newline": search_flags["contains_actual_newline"],
+        "contains_regex_meta": bool(re.search(r"[.*+?^$\[\]{}()|]", search_text)),
     }
 
     hints: list[str] = []
     stripped = search_text.strip()
     if not expand_newline_tokens and diagnostics["contains_escaped_newline_tokens"]:
         hints.append(
-            "Escaped newline tokens were not expanded. Set expand_newline_tokens=true or use actual newlines."
+            _(
+                "hint.escaped_newline_tokens_not_expanded",
+                default=(
+                    "Escaped newline tokens were not expanded. Set "
+                    "expand_newline_tokens=true or use actual newlines."
+                ),
+            )
         )
     if mode == "literal" and diagnostics["contains_regex_meta"]:
         hints.append(
-            "Pattern looks like it contains regex-style meta-characters but mode is literal."
+            _(
+                "hint.possible_regex_mode_literal",
+                default=(
+                    "Pattern looks like it contains regex-style meta-characters "
+                    "but mode is literal."
+                ),
+            )
         )
     if stripped and stripped != search_text and stripped in original:
         hints.append(
-            "Pattern not found, but it exists if leading/trailing whitespace is ignored. Check your indentation."
+            _(
+                "hint.indentation_mismatch",
+                default=(
+                    "Pattern not found, but it exists if leading/trailing "
+                    "whitespace is ignored. Check your indentation."
+                ),
+            )
+        )
+    if diagnostics["newline"].get("mixed"):
+        hints.append(
+            _(
+                "hint.mixed_newline_write_style",
+                default=(
+                    "Input file has mixed newline styles. Writing will use the "
+                    "selected_for_write style."
+                ),
+            )
         )
 
     if action == "replace_between":
         diagnostics["anchor_before"] = anchor_before
         diagnostics["anchor_after"] = anchor_after
+        diagnostics["anchor_before_flags"] = _text_newline_flags(anchor_before)
+        diagnostics["anchor_after_flags"] = _text_newline_flags(anchor_after)
         diagnostics["anchor_before_found"] = bool(
             anchor_before and anchor_before in original
         )
@@ -534,19 +604,41 @@ def _build_no_match_diagnostics(
             anchor_after and anchor_after in original
         )
         if anchor_before and not diagnostics["anchor_before_found"]:
-            hints.append("anchor_before was not found.")
+            hints.append(
+                _(
+                    "hint.anchor_before_not_found",
+                    default="anchor_before was not found.",
+                )
+            )
         if anchor_after and not diagnostics["anchor_after_found"]:
-            hints.append("anchor_after was not found.")
+            hints.append(
+                _(
+                    "hint.anchor_after_not_found",
+                    default="anchor_after was not found.",
+                )
+            )
     elif action == "replace_po_entry":
         target = po_msgid or search_text
         diagnostics["po_msgid"] = target
+        diagnostics["po_msgid_flags"] = _text_newline_flags(target)
         diagnostics["po_msgid_found"] = bool(target and target in original)
         if not diagnostics["po_msgid_found"]:
-            hints.append("msgid was not found in the .po file.")
+            hints.append(
+                _(
+                    "hint.po_msgid_not_found",
+                    default="msgid was not found in the .po file.",
+                )
+            )
 
     if not hints:
         hints.append(
-            "No matches. Use 'search_files' or 'read_file' to copy the exact content including spaces."
+            _(
+                "hint.check_exact",
+                default=(
+                    "No matches. Use 'search_files' or 'read_file' to copy the "
+                    "exact content including spaces."
+                ),
+            )
         )
 
     diagnostics["hints"] = hints
@@ -558,6 +650,9 @@ def _replace_po_entry_text(
     target_msgid: str,
     replacement: str,
     occurrence: int,
+    *,
+    expand_newline_tokens: bool,
+    newline_info: Dict[str, Any],
 ) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
     lines = original.splitlines(keepends=True)
     out: list[str] = []
@@ -616,7 +711,8 @@ def _replace_po_entry_text(
                 search_text=target_msgid,
                 mode="literal",
                 action="replace_po_entry",
-                expand_newline_tokens=True,
+                expand_newline_tokens=expand_newline_tokens,
+                newline_info=newline_info,
                 po_msgid=target_msgid,
             ),
         )
@@ -627,7 +723,8 @@ def _replace_po_entry_text(
             search_text=target_msgid,
             mode="literal",
             action="replace_po_entry",
-            expand_newline_tokens=True,
+            expand_newline_tokens=expand_newline_tokens,
+            newline_info=newline_info,
             po_msgid=target_msgid,
         )
         diag["po_msgid_found"] = True
@@ -653,7 +750,13 @@ def _replace_po_entry_text(
         if len(diag["msgstr_line_counts"]) == 1:
             diag["msgstr_line_count"] = diag["msgstr_line_counts"][0]
         diag["hints"] = [
-            f"Requested occurrence {occurrence} exceeds available matches ({match_total}).",
+            _(
+                "hint.occurrence_exceeds_matches",
+                default=(
+                    "Requested occurrence {occurrence} exceeds available "
+                    "matches ({match_count})."
+                ),
+            ).format(occurrence=occurrence, match_count=match_total),
             *diag["hints"],
         ]
         return original, match_total, 0, match_hits, diag
@@ -694,6 +797,9 @@ def _replace_between_text(
     replacement: str,
     mode: str,
     occurrence: int,
+    *,
+    expand_newline_tokens: bool,
+    newline_info: Dict[str, Any],
 ) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
     before_hits = (
         _find_hits_regex(original, re.compile(anchor_before))
@@ -711,7 +817,8 @@ def _replace_between_text(
                 search_text=anchor_before,
                 mode=mode,
                 action="replace_between",
-                expand_newline_tokens=True,
+                expand_newline_tokens=expand_newline_tokens,
+                newline_info=newline_info,
                 anchor_before=anchor_before,
                 anchor_after=anchor_after,
             ),
@@ -727,12 +834,19 @@ def _replace_between_text(
             search_text=anchor_before,
             mode=mode,
             action="replace_between",
-            expand_newline_tokens=True,
+            expand_newline_tokens=expand_newline_tokens,
+            newline_info=newline_info,
             anchor_before=anchor_before,
             anchor_after=anchor_after,
         )
         diag["hints"] = [
-            f"Requested occurrence {occurrence} exceeds available matches ({len(before_hits)}).",
+            _(
+                "hint.occurrence_exceeds_matches",
+                default=(
+                    "Requested occurrence {occurrence} exceeds available "
+                    "matches ({match_count})."
+                ),
+            ).format(occurrence=occurrence, match_count=len(before_hits)),
             *diag["hints"],
         ]
         return original, len(before_hits), 0, [], diag
@@ -749,12 +863,16 @@ def _replace_between_text(
             search_text=anchor_after,
             mode=mode,
             action="replace_between",
-            expand_newline_tokens=True,
+            expand_newline_tokens=expand_newline_tokens,
+            newline_info=newline_info,
             anchor_before=anchor_before,
             anchor_after=anchor_after,
         )
         diag["hints"] = [
-            "anchor_after was not found after anchor_before.",
+            _(
+                "hint.anchor_after_not_found_after_before",
+                default="anchor_after was not found after anchor_before.",
+            ),
             *diag["hints"],
         ]
         return original, len(before_hits), 0, [], diag
@@ -821,6 +939,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             path, encoding, cb.read_file_max_bytes
         )
         newline_style = _pick_newline_style(nl)
+        newline_info = _newline_details(nl, newline_style)
         orig_norm = _normalize_lf(original)
         before_sha = _sha256_file(path) if return_hashes else None
 
@@ -870,6 +989,8 @@ def run_tool(args: Dict[str, Any]) -> str:
                     target,
                     r2,
                     occurrence,
+                    expand_newline_tokens=expand_newline_tokens,
+                    newline_info=newline_info,
                 )
             )
         elif action == "replace_between":
@@ -885,6 +1006,8 @@ def run_tool(args: Dict[str, Any]) -> str:
                     r2,
                     mode,
                     occurrence,
+                    expand_newline_tokens=expand_newline_tokens,
+                    newline_info=newline_info,
                 )
             )
         elif action == "replace" and match_count > 0:
@@ -945,6 +1068,20 @@ def run_tool(args: Dict[str, Any]) -> str:
         if diagnostics is not None:
             hint = _diagnostics_hint(diagnostics)
         if (
+            diagnostics is None
+            and match_count == 0
+            and action in {"replace", "insert_before", "insert_after"}
+        ):
+            diagnostics = _build_no_match_diagnostics(
+                original=orig_norm,
+                search_text=p2,
+                mode=mode,
+                action=action,
+                expand_newline_tokens=expand_newline_tokens,
+                newline_info=newline_info,
+            )
+            hint = _diagnostics_hint(diagnostics)
+        if (
             hint is None
             and match_count == 0
             and action in {"replace", "insert_before", "insert_after"}
@@ -993,6 +1130,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             "occurrence": occurrence,
             "line_no": line_no,
             "encoding": enc_used,
+            "newline": newline_info,
+            "effective_pattern_flags": _text_newline_flags(p2),
+            "effective_replacement_flags": _text_newline_flags(r2),
             "diff": _unified_diff(path, original, replaced_text),
             "summary": _make_summary(
                 preview=preview, match_count=match_count, hint=hint
