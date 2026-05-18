@@ -533,6 +533,218 @@ class MainWindow(QtWidgets.QMainWindow):
         linked = cls._URL_RE.sub(_repl, escaped)
         return linked.replace("\n", "<br>")
 
+    @staticmethod
+    def _ansi_color(code: int, *, background: bool = False) -> Optional[str]:
+        fg = {
+            30: "#000000",
+            31: "#dc2626",
+            32: "#16a34a",
+            33: "#ca8a04",
+            34: "#2563eb",
+            35: "#a855f7",
+            36: "#0891b2",
+            37: "#d1d5db",
+            90: "#6b7280",
+            91: "#f87171",
+            92: "#4ade80",
+            93: "#facc15",
+            94: "#60a5fa",
+            95: "#d8b4fe",
+            96: "#22d3ee",
+            97: "#ffffff",
+        }
+        bg = {
+            40: "#000000",
+            41: "#dc2626",
+            42: "#16a34a",
+            43: "#ca8a04",
+            44: "#2563eb",
+            45: "#a855f7",
+            46: "#0891b2",
+            47: "#d1d5db",
+            100: "#6b7280",
+            101: "#f87171",
+            102: "#4ade80",
+            103: "#facc15",
+            104: "#60a5fa",
+            105: "#d8b4fe",
+            106: "#22d3ee",
+            107: "#ffffff",
+        }
+        return (bg if background else fg).get(code)
+
+    @staticmethod
+    def _ansi_256_color(n: int) -> str:
+        n = max(0, min(255, int(n)))
+        base = [
+            "#000000",
+            "#800000",
+            "#008000",
+            "#808000",
+            "#000080",
+            "#800080",
+            "#008080",
+            "#c0c0c0",
+            "#808080",
+            "#ff0000",
+            "#00ff00",
+            "#ffff00",
+            "#0000ff",
+            "#ff00ff",
+            "#00ffff",
+            "#ffffff",
+        ]
+        if n < 16:
+            return base[n]
+        if n < 232:
+            n -= 16
+            r = n // 36
+            g = (n % 36) // 6
+            b = n % 6
+
+            def _c(v: int) -> int:
+                return 0 if v == 0 else 55 + 40 * v
+
+            return f"#{_c(r):02x}{_c(g):02x}{_c(b):02x}"
+        v = 8 + (n - 232) * 10
+        return f"#{v:02x}{v:02x}{v:02x}"
+
+    def _append_ansi_text(self, text: str) -> None:
+        """Append ANSI-colored text without using HTML. SGR underline is ignored."""
+        text = text or ""
+        cursor = self._output.textCursor()
+        cursor.movePosition(QtGui.QTextCursor.End)
+        self._output.setTextCursor(cursor)
+
+        state: Dict[str, Any] = {"fg": None, "bg": None, "bold": False, "italic": False}
+
+        def _format() -> QtGui.QTextCharFormat:
+            fmt = QtGui.QTextCharFormat()
+            # Reset rich-text/link state that may remain after insertHtml() blocks.
+            # This prevents normal log text from inheriting anchor underline/href.
+            fmt.setAnchor(False)
+            fmt.setAnchorHref("")
+            fmt.setFontUnderline(False)
+            if state.get("fg"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor(str(state["fg"]))))
+            if state.get("bg"):
+                fmt.setBackground(QtGui.QBrush(QtGui.QColor(str(state["bg"]))))
+            if state.get("bold"):
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            else:
+                fmt.setFontWeight(QtGui.QFont.Normal)
+            fmt.setFontItalic(bool(state.get("italic")))
+            return fmt
+
+        def _plain_line_format(line: str) -> QtGui.QTextCharFormat:
+            fmt = QtGui.QTextCharFormat()
+            fmt.setAnchor(False)
+            fmt.setAnchorHref("")
+            fmt.setFontUnderline(False)
+            fmt.setFontWeight(QtGui.QFont.Normal)
+            s = (line or "").lstrip()
+            if s.startswith("[ERROR]") or s.startswith("[FATAL]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#dc2626")))
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            elif s.startswith("[WARN]") or s.startswith("[TOOL]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#ca8a04")))
+                fmt.setFontWeight(QtGui.QFont.Bold)
+            elif s.startswith("[url]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#0891b2")))
+            elif s.startswith("[INFO]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
+            elif s.startswith("[OK]") or s.startswith("[SUCCESS]"):
+                fmt.setForeground(QtGui.QBrush(QtGui.QColor("#16a34a")))
+            return fmt
+
+        def _insert_with_links(s: str, base_fmt: QtGui.QTextCharFormat) -> None:
+            cur = 0
+            for mm in self._URL_RE.finditer(s or ""):
+                if mm.start() > cur:
+                    cursor.insertText(s[cur:mm.start()], base_fmt)
+                raw = mm.group(0)
+                href = raw if not raw.lower().startswith("www.") else "https://" + raw
+                # Do not construct QTextCharFormat(base_fmt): PySide builds may reject it,
+                # which would fall back to plain text for the whole block.
+                link_fmt = QtGui.QTextCharFormat()
+                link_fmt.setAnchor(True)
+                link_fmt.setAnchorHref(href)
+                link_fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
+                link_fmt.setFontUnderline(True)
+                link_fmt.setFontWeight(base_fmt.fontWeight())
+                link_fmt.setFontItalic(base_fmt.fontItalic())
+                cursor.insertText(raw, link_fmt)
+                cur = mm.end()
+            if cur < len(s or ""):
+                cursor.insertText((s or "")[cur:], base_fmt)
+
+        def _insert_plain_semantic(s: str) -> None:
+            for line in (s or "").splitlines(keepends=True):
+                _insert_with_links(line, _plain_line_format(line))
+
+        def _apply(params: List[int]) -> None:
+            if not params:
+                params = [0]
+            i = 0
+            while i < len(params):
+                p = params[i]
+                if p == 0:
+                    state.update({"fg": None, "bg": None, "bold": False, "italic": False})
+                elif p == 1:
+                    state["bold"] = True
+                elif p == 3:
+                    state["italic"] = True
+                elif p == 22:
+                    state["bold"] = False
+                elif p == 23:
+                    state["italic"] = False
+                elif 30 <= p <= 37 or 90 <= p <= 97:
+                    state["fg"] = self._ansi_color(p)
+                elif p == 39:
+                    state["fg"] = None
+                elif 40 <= p <= 47 or 100 <= p <= 107:
+                    state["bg"] = self._ansi_color(p, background=True)
+                elif p == 49:
+                    state["bg"] = None
+                elif p == 38 and i + 2 < len(params) and params[i + 1] == 5:
+                    state["fg"] = self._ansi_256_color(params[i + 2])
+                    i += 2
+                elif p == 48 and i + 2 < len(params) and params[i + 1] == 5:
+                    state["bg"] = self._ansi_256_color(params[i + 2])
+                    i += 2
+                # SGR 4/24 underline is intentionally ignored.
+                i += 1
+
+        if not self._ansi_re.search(text):
+            _insert_plain_semantic(text)
+            self._output.setTextCursor(cursor)
+            self._output.ensureCursorVisible()
+            return
+
+        pos = 0
+        for m in self._ansi_re.finditer(text):
+            chunk = text[pos:m.start()]
+            if chunk:
+                cursor.insertText(chunk, _format())
+            raw = m.group(0)
+            params: List[int] = []
+            try:
+                inner = raw[2:-1]
+                if inner.startswith("?"):
+                    inner = inner[1:]
+                for part in inner.rstrip("m").split(";"):
+                    if part.strip():
+                        params.append(int(part))
+            except Exception:
+                params = []
+            _apply(params)
+            pos = m.end()
+        tail = text[pos:]
+        if tail:
+            cursor.insertText(tail, _format())
+        self._output.setTextCursor(cursor)
+        self._output.ensureCursorVisible()
+
     def _set_welcome_text(self) -> None:
         try:
             msg = get_welcome_message()
@@ -543,7 +755,7 @@ class MainWindow(QtWidgets.QMainWindow):
         html = (
             '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre;">'
             + self._escape_html(msg)
-            + "</div><hr>"
+            + "</div><br>"
         )
         try:
             self._output.moveCursor(QtGui.QTextCursor.End)
@@ -866,19 +1078,24 @@ class MainWindow(QtWidgets.QMainWindow):
                         self._append_audio_preview(p, "GENA")
 
                 display_lines = []
-                for line in clean_text.splitlines(keepends=True):
-                    s = line.strip()
+                for line in new_data.splitlines(keepends=True):
+                    s = self._ansi_re.sub("", line).strip()
                     if s.startswith("[STATE]"):
                         continue
-                    if "multiline" in (line or "").lower():
+                    if "multiline" in (s or "").lower():
                         continue
                     display_lines.append(line)
                 display_text = "".join(display_lines)
 
                 if display_text:
-                    self._output.moveCursor(QtGui.QTextCursor.End)
-                    self._output.insertHtml(self._linkify_html(display_text))
-                    self._output.ensureCursorVisible()
+                    try:
+                        self._append_ansi_text(display_text)
+                    except Exception:
+                        cursor = self._output.textCursor()
+                        cursor.movePosition(QtGui.QTextCursor.End)
+                        self._output.setTextCursor(cursor)
+                        self._output.insertPlainText(display_text)
+                        self._output.ensureCursorVisible()
 
             with core.human_ask_lock:
                 active = core.human_ask_active
