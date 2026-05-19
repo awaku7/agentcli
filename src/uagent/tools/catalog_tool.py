@@ -18,6 +18,15 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "catalog",
+                "tool catalog",
+                "discover tools",
+                "tool discovery",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

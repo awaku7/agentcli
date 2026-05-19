@@ -25,6 +25,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'db_query'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "db_query",
+                "db query",
+                "sql",
+                "database",
+                "sqlite",
+                "query",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -36,6 +36,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Calculates the hash (sha256/sha1/md5) of files.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "hash",
+                "sha256",
+                "checksum",
+                "ハッシュ",
+                "hash",
+                "hachage",
+                "해시",
+                "хэш",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

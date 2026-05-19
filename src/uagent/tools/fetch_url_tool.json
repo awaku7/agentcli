@@ -2,6 +2,17 @@
   "en": {
     "param.url.description": "URL to access.",
     "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
+    "x_search_terms": [
+      "Access the specified URL via HTTP GET and return the beginning of the response as text",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'.",
     "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer).",
     "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html.",
@@ -13,6 +24,17 @@
   "ja": {
     "param.url.description": "アクセスする URL。",
     "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。",
+    "x_search_terms": [
+      "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "ツール名 'fetch_url' で示される処理を実行します。",
     "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用）。",
     "param.selector.description": "任意の CSS セレクタ。指定した場合、extract=text/html で最初に一致した要素を抽出します。",
@@ -24,6 +46,17 @@
   "es": {
     "param.url.description": "URL a la que acceder.",
     "tool.description": "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para obtener e inspeccionar HTML o JSON.",
+    "x_search_terms": [
+      "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'fetch_url'.",
     "param.extract.description": "Modo de extracción. head=devuelve el comienzo de la respuesta; text=extrae texto de HTML; html=extrae un fragmento HTML; json=analiza JSON (opcionalmente aplica json_pointer).",
     "param.selector.description": "Selector CSS opcional. Si se proporciona, se extrae el primer elemento coincidente para extract=text/html.",
@@ -35,6 +68,17 @@
   "fr": {
     "param.url.description": "URL à consulter.",
     "tool.description": "Accédez à l’URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON.",
+    "x_search_terms": [
+      "Accédez à l’URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Cet outil effectue l’opération décrite par le nom d’outil « fetch_url ».",
     "param.extract.description": "Mode d’extraction. head=renvoie le début de la réponse ; text=extrait le texte du HTML ; html=extrait un fragment HTML ; json=analyse le JSON (application facultative de json_pointer).",
     "param.selector.description": "Sélecteur CSS facultatif. S’il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
@@ -46,6 +90,17 @@
   "ko": {
     "param.url.description": "접속할 URL입니다.",
     "tool.description": "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다. HTML이나 JSON을 가져와 확인할 때 유용합니다.",
+    "x_search_terms": [
+      "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "이 도구는 도구 이름 'fetch_url'에 설명된 작업을 수행합니다.",
     "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용).",
     "param.selector.description": "선택적 CSS 셀렉터입니다. 지정하면 extract=text/html에서 첫 번째로 일치하는 요소를 추출합니다.",
@@ -57,6 +112,17 @@
   "de": {
     "param.url.description": "Aufzurufende URL.",
     "tool.description": "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück. Nützlich zum Abrufen und Prüfen von HTML oder JSON.",
+    "x_search_terms": [
+      "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen 'fetch_url' beschriebenen Vorgang aus.",
     "param.extract.description": "Extraktionsmodus. head=gibt den Anfang der Antwort zurück; text=Text aus HTML extrahieren; html=HTML-Fragment extrahieren; json=JSON analysieren (optional json_pointer anwenden).",
     "param.selector.description": "Optionaler CSS-Selektor. Wenn angegeben, wird für extract=text/html das erste passende Element extrahiert.",
@@ -68,6 +134,17 @@
   "it": {
     "param.url.description": "URL a cui accedere.",
     "tool.description": "Accedi all’URL specificato tramite HTTP GET e restituisci l’inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON.",
+    "x_search_terms": [
+      "Accedi all’URL specificato tramite HTTP GET e restituisci l’inizio della risposta come testo",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Questo strumento esegue l’operazione descritta dal nome dello strumento 'fetch_url'.",
     "param.extract.description": "Modalità di estrazione. head=restituisce l’inizio della risposta; text=estrae testo dall’HTML; html=estrae un frammento HTML; json=analizza JSON (applicando facoltativamente json_pointer).",
     "param.selector.description": "Selettore CSS facoltativo. Se fornito, per extract=text/html viene estratto il primo elemento corrispondente.",
@@ -79,6 +156,17 @@
   "ru": {
     "param.url.description": "URL для доступа.",
     "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON.",
+    "x_search_terms": [
+      "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента 'fetch_url'.",
     "param.extract.description": "Режим извлечения. head=вернуть начало ответа; text=извлечь текст из HTML; html=извлечь HTML-фрагмент; json=разобрать JSON (при необходимости применить json_pointer).",
     "param.selector.description": "Необязательный CSS-селектор. Если он указан, для extract=text/html извлекается первый совпавший элемент.",
@@ -90,6 +178,17 @@
   "pt_BR": {
     "param.url.description": "URL a acessar.",
     "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para obter e inspecionar HTML ou JSON.",
+    "x_search_terms": [
+      "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Use esta ferramenta para acessar uma URL via HTTP GET.",
     "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer).",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
@@ -101,6 +200,17 @@
   "pt": {
     "param.url.description": "URL para acessar.",
     "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON.",
+    "x_search_terms": [
+      "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Use esta ferramenta para acessar uma URL via HTTP GET.",
     "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer).",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
@@ -112,6 +222,17 @@
   "id": {
     "param.url.description": "URL yang akan diakses.",
     "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON.",
+    "x_search_terms": [
+      "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'fetch_url'.",
     "param.extract.description": "Mode ekstraksi. head=kembalikan awal respons; text=ekstrak teks dari HTML; html=ekstrak fragmen HTML; json=urai JSON (opsional terapkan json_pointer).",
     "param.selector.description": "CSS selector opsional. Jika diberikan, elemen pertama yang cocok akan diekstrak untuk extract=text/html.",
@@ -123,6 +244,17 @@
   "vi": {
     "param.url.description": "URL để truy cập.",
     "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON.",
+    "x_search_terms": [
+      "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'fetch_url'.",
     "param.extract.description": "Chế độ khai thác. head=trả về phần đầu của phản hồi; text=trích xuất văn bản từ HTML; html=trích xuất đoạn HTML; json=phân tích cú pháp JSON (tùy chọn áp dụng json_pointer).",
     "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html.",
@@ -134,6 +266,17 @@
   "pl": {
     "param.url.description": "Adres URL, do którego można uzyskać dostęp.",
     "tool.description": "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst. Przydatne do pobierania i sprawdzania HTML lub JSON.",
+    "x_search_terms": [
+      "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Użyj tego narzędzia, aby uzyskać dostęp do wskazanego adresu URL przez HTTP GET. Zwracaj wyłącznie JSON.",
     "param.extract.description": "Tryb ekstrakcji. head=zwróć początek odpowiedzi; text=wyodrębnij tekst z HTML; html=wyodrębnij fragment HTML; json=parsuj JSON (opcjonalnie zastosuj json_pointer).",
     "param.selector.description": "Opcjonalny selektor CSS. Jeśli zostanie podany, dla extract=text/html zostanie wyodrębniony pierwszy pasujący element.",
@@ -145,6 +288,17 @@
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
     "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुँचें और प्रतिक्रिया का आरंभिक भाग टेक्स्ट के रूप में लौटाएँ। HTML या JSON को प्राप्त करने और जाँचने के लिए उपयोगी।",
+    "x_search_terms": [
+      "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुँचें और प्रतिक्रिया का आरंभिक भाग टेक्स्ट के रूप में लौटाएँ। HTML या JSON को प्राप्त करने और जाँचने के लिए उपयोगी।",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "इस टूल का उपयोग HTTP GET के माध्यम से दिए गए URL तक पहुँचने के लिए करें।",
     "param.extract.description": "निष्कर्षण मोड. head=प्रतिक्रिया का आरंभ लौटाएँ; text=HTML से पाठ निकालें; html=HTML खंड निकालें; json=JSON पार्स करें (आवश्यक होने पर json_pointer लागू करें)।",
     "param.selector.description": "वैकल्पिक CSS चयनकर्ता. प्रदान किए जाने पर, extract=text/html के लिए पहला मिलान करने वाला तत्व निकाला जाता है।",
@@ -156,6 +310,17 @@
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
     "tool.description": "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب HTML أو JSON وفحصهما.",
+    "x_search_terms": [
+      "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "استخدم هذه الأداة للوصول إلى عنوان URL المحدد عبر HTTP GET.",
     "param.extract.description": "وضع الاستخراج. head=إرجاع بداية الاستجابة؛ text=استخراج النص من HTML؛ html=استخراج جزء HTML؛ json=تحليل JSON (مع إمكانية تطبيق json_pointer).",
     "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج أول عنصر مطابق عند extract=text/html.",
@@ -167,6 +332,17 @@
   "sv": {
     "param.url.description": "URL att öppna.",
     "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON.",
+    "x_search_terms": [
+      "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"fetch_url\".",
     "param.extract.description": "Extraktionsläge. head=returnera början av svaret; text=extrahera text från HTML; html=extrahera HTML-fragment; json=parsa JSON (tillämpa vid behov json_pointer).",
     "param.selector.description": "Valfri CSS-selektor. Om den anges extraheras det första matchade elementet för extract=text/html.",
@@ -178,6 +354,17 @@
   "sw": {
     "param.url.description": "URL ya kufikia.",
     "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON.",
+    "x_search_terms": [
+      "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'fetch_url'.",
     "param.extract.description": "Hali ya uchimbaji. head=rudisha mwanzo wa jibu; text=toa maandishi kutoka HTML; html=toa kipande cha HTML; json=changanua JSON (na hiari tumia json_pointer).",
     "param.selector.description": "CSS selector ya hiari. Ikitolewa, kipengele cha kwanza kinacholingana hutolewa kwa extract=text/html.",
@@ -189,6 +376,17 @@
   "nb": {
     "param.url.description": "URL som skal åpnes.",
     "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON.",
+    "x_search_terms": [
+      "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"fetch_url\".",
     "param.extract.description": "Ekstraksjonsmodus. head=returner begynnelsen av svaret; text=ekstraher tekst fra HTML; html=ekstraher HTML-fragment; json=analyser JSON (bruk ved behov json_pointer).",
     "param.selector.description": "Valgfri CSS-selector. Hvis den angis, ekstraheres det første samsvarende elementet for extract=text/html.",
@@ -200,6 +398,17 @@
   "nl": {
     "param.url.description": "Te benaderen URL.",
     "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON.",
+    "x_search_terms": [
+      "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Gebruik deze tool om via HTTP GET toegang te krijgen tot de opgegeven URL.",
     "param.extract.description": "Extractiemodus. head=geef het begin van de respons terug; text=haal tekst uit HTML; html=haal een HTML-fragment op; json=parse JSON (pas optioneel json_pointer toe).",
     "param.selector.description": "Optionele CSS-selector. Indien opgegeven, wordt voor extract=text/html het eerste overeenkomende element uitgehaald.",
@@ -211,6 +420,17 @@
   "fi": {
     "param.url.description": "Avattava URL.",
     "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen.",
+    "x_search_terms": [
+      "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Käytä tätä työkalua avataksesi annetun URL:n HTTP GET -pyynnöllä.",
     "param.extract.description": "Poimintatila. head=palauta vastauksen alku; text=poimi teksti HTML:stä; html=poimi HTML-fragmentti; json=jäsennä JSON (tarvittaessa käytä json_pointeria).",
     "param.selector.description": "Valinnainen CSS-valitsin. Jos annetaan, extract=text/html käyttää ensimmäistä vastaavaa elementtiä.",
@@ -222,6 +442,17 @@
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
     "tool.description": "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Hodí se pro načítání a kontrolu HTML nebo JSON.",
+    "x_search_terms": [
+      "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Použijte tento nástroj pro přístup k zadané URL přes HTTP GET.",
     "param.extract.description": "Režim extrakce. head=vrátí začátek odpovědi; text=extrahuje text z HTML; html=extrahuje fragment HTML; json=analyzuje JSON (volitelně použije json_pointer).",
     "param.selector.description": "Volitelný CSS selektor. Je-li zadán, pro extract=text/html se extrahuje první odpovídající prvek.",
@@ -233,6 +464,17 @@
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
     "tool.description": "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання й перевірки HTML або JSON.",
+    "x_search_terms": [
+      "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Використовуйте цей інструмент для доступу до вказаної URL через HTTP GET.",
     "param.extract.description": "Режим витягування. head=повернути початок відповіді; text=витягнути текст з HTML; html=витягнути фрагмент HTML; json=розібрати JSON (за потреби застосувати json_pointer).",
     "param.selector.description": "Необовʼязковий CSS-селектор. Якщо його вказано, для extract=text/html витягується перший відповідний елемент.",
@@ -244,6 +486,17 @@
   "tr": {
     "param.url.description": "Erişmek için URL.",
     "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır.",
+    "x_search_terms": [
+      "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "Bu araç, 'fetch_url' araç adıyla açıklanan işlemi gerçekleştirir.",
     "param.extract.description": "Ekstraksiyon modu. head=yanıtın başlangıcını döndürür; metin=metni HTML'dan çıkar; html=extract HTML parçası; json=parse JSON (isteğe bağlı olarak json_pointer'ı uygulayın).",
     "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html için çıkarılır.",
@@ -255,6 +508,17 @@
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
     "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON",
+    "x_search_terms": [
+      "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'fetch_url'",
     "param.extract.description": "โหมดการดึงข้อมูล: head=ส่งคืนส่วนต้นของการตอบกลับ; text=ดึงข้อความจาก HTML; html=ดึงส่วนย่อยของ HTML; json=แยกวิเคราะห์ JSON (อาจใช้ json_pointer ตามต้องการ)",
     "param.selector.description": "CSS selector แบบไม่บังคับ หากระบุ จะดึงองค์ประกอบที่ตรงกันตัวแรกสำหรับ extract=text/html",
@@ -266,6 +530,17 @@
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
     "tool.description": "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头。适用于获取和检查 HTML 或 JSON。",
+    "x_search_terms": [
+      "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "此工具执行工具名称“fetch_url”所描述的操作。",
     "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）。",
     "param.selector.description": "可选 CSS 选择器。提供后，在 extract=text/html 时提取第一个匹配元素。",
@@ -277,6 +552,17 @@
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
     "tool.description": "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭。適合用於擷取與檢查 HTML 或 JSON。",
+    "x_search_terms": [
+      "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭",
+      "fetch url",
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
     "tool.system_prompt": "此工具執行工具名稱「fetch_url」所描述的操作。",
     "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）。",
     "param.selector.description": "選用 CSS 選擇器。若提供，extract=text/html 時會擷取第一個符合的元素。",

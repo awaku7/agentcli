@@ -22,6 +22,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'change_workdir'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "change directory",
+                "cd",
+                "switch dir",
+                "ディレクトリ変更",
+                "cambiar directorio",
+                "changer de répertoire",
+                "디렉터리 변경",
+                "сменить директорию",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

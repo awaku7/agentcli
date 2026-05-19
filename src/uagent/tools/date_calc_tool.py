@@ -28,6 +28,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "date_calc",
+                "date calc",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

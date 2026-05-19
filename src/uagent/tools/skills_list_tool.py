@@ -28,6 +28,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "skills_list",
+                "skills list",
+                "agent skill",
+                "skill management",
+                "skill file",
+                "SKILL.md",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

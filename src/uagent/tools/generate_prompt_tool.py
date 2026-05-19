@@ -45,6 +45,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- path: absolute resolved path\n"
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "generate_prompt",
+                "generate prompt",
+                "template prompt",
+                "file to prompt",
+                "prompt string",
+                "format template",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

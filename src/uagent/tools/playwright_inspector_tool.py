@@ -36,6 +36,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "playwright_inspector",
+                "playwright inspector",
+                "browser automation",
+                "inspector",
+                "capture page",
+                "playwright",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -16,6 +16,17 @@
     "param.name_pattern.description": "Filename glob pattern (e.g. '*.py', 'test_*'). If omitted, all files are considered.",
     "param.root_path.description": "Root directory to start searching from (default: current directory).",
     "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
+    "x_search_terms": [
+      "Search files under a directory by name pattern (glob) and/or by content (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Search for files under a directory. You can filter by filename pattern (glob) and optionally search file contents using a regular expression.\n\nNotes:\n- content_pattern is treated as a Python regular expression.\n- If content_pattern is empty, only filename matching is performed.\n- For performance and safety, content searching may use a simple binary check internally."
   },
   "ja": {
@@ -35,6 +46,17 @@
     "param.name_pattern.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
     "param.root_path.description": "検索を開始するルートディレクトリ（既定: 現在のディレクトリ）。",
     "tool.description": "ディレクトリ下のファイルを名前パターン（glob）や内容（regex）で検索します。",
+    "x_search_terms": [
+      "ディレクトリ下のファイルを名前パターン（glob）や内容（regex）で検索します",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "ディレクトリ下のファイルを検索します。ファイル名のパターン（glob）で絞り込み、必要に応じて正規表現でファイル内容を検索できます。\n\n注意:\n- content_pattern は Python の正規表現として扱われます。\n- content_pattern が空の場合は、ファイル名の一致のみを行います。\n- 性能と安全性のため、内容検索は内部で単純なバイナリチェックを使う場合があります。",
     "param.path.description": "検索を開始するルートディレクトリです（既定: 現在のディレクトリ）。"
   },
@@ -55,6 +77,17 @@
     "param.name_pattern.description": "Patrón glob de nombre de archivo (p. ej., '*.py', 'test_*'). Si se omite, se consideran todos los archivos.",
     "param.root_path.description": "Directorio raíz para comenzar la búsqueda (por defecto: directorio actual).",
     "tool.description": "Busca archivos en un directorio por patrón de nombre (glob) y/o por contenido (regex).",
+    "x_search_terms": [
+      "Busca archivos en un directorio por patrón de nombre (glob) y/o por contenido (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Busca archivos en un directorio. Puede filtrar por patrón de nombre de archivo (glob) y, opcionalmente, buscar el contenido de los archivos mediante una expresión regular.\n\nNotas:\n- content_pattern se trata como una expresión regular de Python.\n- Si content_pattern está vacío, solo se realiza la coincidencia por nombre de archivo.\n- Por rendimiento y seguridad, la búsqueda de contenido puede usar internamente una comprobación binaria simple."
   },
   "fr": {
@@ -74,6 +107,17 @@
     "param.name_pattern.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*'). S'il est omis, tous les fichiers sont pris en compte.",
     "param.root_path.description": "Répertoire racine à partir duquel commencer la recherche (par défaut : répertoire actuel).",
     "tool.description": "Recherchez des fichiers dans un répertoire par motif de nom (glob) et/ou par contenu (regex).",
+    "x_search_terms": [
+      "Recherchez des fichiers dans un répertoire par motif de nom (glob) et/ou par contenu (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Recherchez des fichiers dans un répertoire. Vous pouvez filtrer par motif de nom de fichier (glob) et, si besoin, rechercher le contenu des fichiers à l’aide d’une expression régulière.\n\nNotes :\n- content_pattern est traité comme une expression régulière Python.\n- Si content_pattern est vide, seule la correspondance sur le nom de fichier est effectuée.\n- Pour des raisons de performances et de sécurité, la recherche de contenu peut utiliser en interne une simple vérification binaire."
   },
   "ko": {
@@ -93,6 +137,17 @@
     "param.name_pattern.description": "파일명 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 대상입니다.",
     "param.root_path.description": "검색을 시작할 루트 디렉터리(기본값: 현재 디렉터리).",
     "tool.description": "이름 패턴(glob) 및/또는 내용(regex)으로 디렉터리 하위의 파일을 검색합니다.",
+    "x_search_terms": [
+      "이름 패턴(glob) 및/또는 내용(regex)으로 디렉터리 하위의 파일을 검색합니다",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "디렉터리 아래 파일을 검색합니다. 파일명 패턴(glob)으로 필터링하고 필요하면 정규식으로 파일 내용을 검색할 수 있습니다.\n\n참고:\n- content_pattern은 Python 정규식으로 처리됩니다.\n- content_pattern이 비어 있으면 파일명 일치만 수행합니다.\n- 성능과 안전성 때문에 내용 검색은 내부적으로 단순한 바이너리 검사를 사용할 수 있습니다."
   },
   "de": {
@@ -112,6 +167,17 @@
     "param.name_pattern.description": "Dateinamen-Globmuster (z. B. '*.py', 'test_*'). Wenn weggelassen, werden alle Dateien berücksichtigt.",
     "param.root_path.description": "Stammverzeichnis, von dem aus die Suche startet (Standard: aktuelles Verzeichnis).",
     "tool.description": "Dateien in einem Verzeichnis nach Namensmuster (glob) und/oder nach Inhalt (Regex) durchsuchen.",
+    "x_search_terms": [
+      "Dateien in einem Verzeichnis nach Namensmuster (glob) und/oder nach Inhalt (Regex) durchsuchen",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Suchen Sie Dateien in einem Verzeichnis. Sie können nach einem Dateinamensmuster (glob) filtern und optional den Dateiinhalt mit einem regulären Ausdruck durchsuchen.\n\nHinweise:\n- content_pattern wird als Python-Regulärer Ausdruck behandelt.\n- Wenn content_pattern leer ist, wird nur der Dateiname geprüft.\n- Aus Leistungs- und Sicherheitsgründen kann die Inhaltssuche intern eine einfache Binärprüfung verwenden."
   },
   "it": {
@@ -131,6 +197,17 @@
     "param.name_pattern.description": "Modello glob del nome file (es. '*.py', 'test_*'). Se omesso, vengono considerati tutti i file.",
     "param.root_path.description": "Directory radice da cui iniziare la ricerca (predefinita: la directory corrente).",
     "tool.description": "Cerca file in una directory per modello di nome (glob) e/o contenuto (regex).",
+    "x_search_terms": [
+      "Cerca file in una directory per modello di nome (glob) e/o contenuto (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Cerca file in una directory. Puoi filtrare per modello di nome file (glob) e, facoltativamente, cercare il contenuto dei file con un'espressione regolare.\n\nNote:\n- content_pattern è trattato come un'espressione regolare Python.\n- Se content_pattern è vuoto, viene eseguita solo la corrispondenza del nome file.\n- Per prestazioni e sicurezza, la ricerca del contenuto può usare internamente un semplice controllo binario."
   },
   "ru": {
@@ -150,6 +227,17 @@
     "param.name_pattern.description": "Шаблон glob для имени файла (например, '*.py', 'test_*'). Если не указан, рассматриваются все файлы.",
     "param.root_path.description": "Корневой каталог, с которого начинается поиск (по умолчанию: текущий каталог).",
     "tool.description": "Ищет файлы в каталоге по шаблону имени (glob) и/или по содержимому (regex).",
+    "x_search_terms": [
+      "Ищет файлы в каталоге по шаблону имени (glob) и/или по содержимому (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Ищите файлы в каталоге. Можно фильтровать по шаблону имени файла (glob) и при необходимости искать содержимое файлов с помощью регулярного выражения.\n\nПримечания:\n- content_pattern интерпретируется как регулярное выражение Python.\n- Если content_pattern пуст, выполняется только сопоставление по имени файла.\n- В целях производительности и безопасности поиск по содержимому может внутренне использовать простую бинарную проверку."
   },
   "pt_BR": {
@@ -169,6 +257,17 @@
     "param.name_pattern.description": "Padrão glob para o nome do arquivo (ex.: '*.py', 'test_*'). Se omitido, todos os arquivos são considerados.",
     "param.root_path.description": "Diretório raiz a partir do qual a busca começa (padrão: diretório atual).",
     "tool.description": "Pesquisa arquivos em um diretório por padrão de nome (glob) e/ou por conteúdo (regex).",
+    "x_search_terms": [
+      "Pesquisa arquivos em um diretório por padrão de nome (glob) e/ou por conteúdo (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Pesquise arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo dos arquivos com uma expressão regular.\n\nObservações:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência pelo nome do arquivo é realizada.\n- Por desempenho e segurança, a busca no conteúdo pode usar internamente uma verificação binária simples."
   },
   "pt": {
@@ -188,6 +287,17 @@
     "param.name_pattern.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*'). Se omitido, todos os arquivos serão considerados.",
     "param.root_path.description": "Diretório raiz para iniciar a pesquisa (padrão: diretório atual).",
     "tool.description": "Pesquise arquivos em um diretório por padrão de nome (glob) e/ou conteúdo (regex).",
+    "x_search_terms": [
+      "Pesquise arquivos em um diretório por padrão de nome (glob) e/ou conteúdo (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Pesquise arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo dos arquivos com uma expressão regular.\n\nObservações:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência pelo nome do arquivo será feita.\n- Por desempenho e segurança, a pesquisa de conteúdo pode usar internamente uma verificação binária simples."
   },
   "id": {
@@ -207,6 +317,17 @@
     "param.name_pattern.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan.",
     "param.root_path.description": "Direktori root untuk memulai pencarian (default: direktori saat ini).",
     "tool.description": "Cari file di bawah direktori berdasarkan pola nama (glob) dan/atau isi (regex).",
+    "x_search_terms": [
+      "Cari file di bawah direktori berdasarkan pola nama (glob) dan/atau isi (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Cari file di bawah direktori. Anda dapat memfilter berdasarkan pola nama file (glob) dan secara opsional mencari isi file menggunakan ekspresi reguler.\n\nCatatan:\n- content_pattern diperlakukan sebagai ekspresi reguler Python.\n- Jika content_pattern kosong, hanya pencocokan nama file yang dilakukan.\n- Demi kinerja dan keamanan, pencarian isi dapat menggunakan pemeriksaan biner sederhana di dalam."
   },
   "vi": {
@@ -226,6 +347,17 @@
     "param.name_pattern.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*'). Nếu bị bỏ qua, tất cả các tập tin sẽ được xem xét.",
     "param.root_path.description": "Thư mục gốc để bắt đầu tìm kiếm (mặc định: thư mục hiện tại).",
     "tool.description": "Tìm kiếm tệp trong thư mục theo mẫu tên (toàn cầu) và/hoặc theo nội dung (regex).",
+    "x_search_terms": [
+      "Tìm kiếm tệp trong thư mục theo mẫu tên (toàn cầu) và/hoặc theo nội dung (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Tìm kiếm tập tin trong một thư mục. Bạn có thể lọc theo mẫu tên tệp (toàn cầu) và tùy ý tìm kiếm nội dung tệp bằng biểu thức chính quy.\n\nGhi chú:\n- content_pattern được coi là biểu thức chính quy của Python.\n- Nếu content_pattern trống thì chỉ thực hiện khớp tên tệp.\n- Để đảm bảo hiệu suất và an toàn, việc tìm kiếm nội dung có thể sử dụng kiểm tra nhị phân đơn giản trong nội bộ."
   },
   "pl": {
@@ -245,6 +377,17 @@
     "param.name_pattern.description": "Wzorzec globalny nazwy pliku (np. „*.py”, „test_*”). Jeśli zostanie pominięty, brane będą pod uwagę wszystkie pliki.",
     "param.root_path.description": "Katalog główny, od którego należy rozpocząć wyszukiwanie (domyślnie: katalog bieżący).",
     "tool.description": "Wyszukuj pliki w katalogu według wzorca nazwy (glob) i/lub zawartości (regex).",
+    "x_search_terms": [
+      "Wyszukuj pliki w katalogu według wzorca nazwy (glob) i/lub zawartości (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Wyszukaj pliki w katalogu. Możesz filtrować według wzorca nazwy pliku (glob) i opcjonalnie przeszukiwać zawartość plików za pomocą wyrażenia regularnego.\n\nUwagi:\n- content_pattern jest traktowany jako wyrażenie regularne Pythona.\n- Jeśli content_pattern jest puste, wykonywane jest tylko dopasowanie nazwy pliku.\n- Ze względu na wydajność i bezpieczeństwo wyszukiwanie treści może wewnętrznie używać prostego sprawdzenia binarnego."
   },
   "hi": {
@@ -264,6 +407,17 @@
     "param.name_pattern.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*.py', 'test_*')। यदि छोड़ दिया जाए तो सभी फाइलों पर विचार किया जाता है।",
     "param.root_path.description": "खोज शुरू करने के लिए रूट निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)।",
     "tool.description": "नाम पैटर्न (glob) और/या सामग्री (regex) के आधार पर किसी निर्देशिका में फ़ाइलें खोजें।",
+    "x_search_terms": [
+      "नाम पैटर्न (glob) और/या सामग्री (regex) के आधार पर किसी निर्देशिका में फ़ाइलें खोजें।",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "किसी निर्देशिका में फ़ाइलें खोजें। आप फ़ाइल नाम पैटर्न (glob) से फ़िल्टर कर सकते हैं और चाहें तो नियमित अभिव्यक्ति से फ़ाइल सामग्री भी खोज सकते हैं।\n\nनोट्स:\n- content_pattern को Python नियमित अभिव्यक्ति माना जाता है।\n- यदि content_pattern खाली है, तो केवल फ़ाइल नाम मिलान किया जाता है।\n- प्रदर्शन और सुरक्षा के लिए, सामग्री खोज आंतरिक रूप से एक सरल बाइनरी जाँच का उपयोग कर सकती है।"
   },
   "ar": {
@@ -283,6 +437,17 @@
     "param.name_pattern.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار.",
     "param.root_path.description": "الدليل الجذر الذي يبدأ منه البحث (الافتراضي: الدليل الحالي).",
     "tool.description": "ابحث عن الملفات داخل دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex).",
+    "x_search_terms": [
+      "ابحث عن الملفات داخل دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "ابحث عن الملفات داخل دليل. يمكنك التصفية حسب نمط اسم الملف (glob) والبحث اختياريًا في محتوى الملف باستخدام تعبير نمطي.\n\nملاحظات:\n- يُعامل content_pattern كتعبير نمطي في Python.\n- إذا كان content_pattern فارغًا، فسيتم البحث بالاسم فقط.\n- لأسباب تتعلق بالأداء والسلامة، قد يستخدم البحث في المحتوى داخليًا فحصًا ثنائيًا بسيطًا."
   },
   "sv": {
@@ -302,6 +467,17 @@
     "param.name_pattern.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer.",
     "param.root_path.description": "Rotkatalogen som sökningen startar från (standard: aktuell katalog).",
     "tool.description": "Söker efter filer i en katalog med namnpattern (glob) och/eller innehåll (regex).",
+    "x_search_terms": [
+      "Söker efter filer i en katalog med namnpattern (glob) och/eller innehåll (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Sök efter filer i en katalog. Du kan filtrera med filnamnsmönster (glob) och valfritt söka i filinnehåll med ett reguljärt uttryck.\n\nAnmärkningar:\n- content_pattern behandlas som ett Python-reguljärt uttryck.\n- Om content_pattern är tomt görs bara filnamnsmatchning.\n- För prestanda och säkerhet kan innehållssökningen internt använda en enkel binär kontroll."
   },
   "sw": {
@@ -321,6 +497,17 @@
     "param.name_pattern.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa.",
     "param.root_path.description": "Saraka ya mzizi ya kuanzia kutafuta (chaguomsingi: saraka ya sasa).",
     "tool.description": "Tafuta faili ndani ya saraka kwa kigezo cha jina (glob) na/au yaliyomo (regex).",
+    "x_search_terms": [
+      "Tafuta faili ndani ya saraka kwa kigezo cha jina (glob) na/au yaliyomo (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Tafuta faili ndani ya saraka. Unaweza kuchuja kwa kigezo cha jina la faili (glob) na, ukihitajika, kutafuta yaliyomo kwa kutumia regex.\n\nVidokezo:\n- content_pattern huchukuliwa kama regex ya Python.\n- Ikiwa content_pattern ni tupu, utafutaji wa jina la faili pekee ndio hufanyika.\n- Kwa ufanisi na usalama, utafutaji wa yaliyomo unaweza kutumia ukaguzi rahisi wa jozi-baiti ndani yake."
   },
   "nb": {
@@ -340,6 +527,17 @@
     "param.name_pattern.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer.",
     "param.root_path.description": "Rotkatalogen søket starter fra (standard: gjeldende katalog).",
     "tool.description": "Søker etter filer i en katalog etter navnemønster (glob) og/eller innhold (regex).",
+    "x_search_terms": [
+      "Søker etter filer i en katalog etter navnemønster (glob) og/eller innhold (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Søk etter filer i en katalog. Du kan filtrere på filnavnmønster (glob) og eventuelt søke i filinnhold med et regulært uttrykk.\n\nMerk:\n- content_pattern behandles som et Python-regulært uttrykk.\n- Hvis content_pattern er tom, gjøres bare filnavnsmatching.\n- Av ytelses- og sikkerhetshensyn kan innholdssøk internt bruke en enkel binær kontroll."
   },
   "nl": {
@@ -359,6 +557,17 @@
     "param.name_pattern.description": "Glob-patroon voor bestandsnamen (bijv. '*.py', 'test_*'). Als dit ontbreekt, worden alle bestanden meegenomen.",
     "param.root_path.description": "Rootmap om vanuit te zoeken (standaard: huidige map).",
     "tool.description": "Zoek bestanden onder een map op naam (glob) en/of inhoud (regex).",
+    "x_search_terms": [
+      "Zoek bestanden onder een map op naam (glob) en/of inhoud (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Zoek bestanden onder een map. U kunt filteren op bestandsnaam (glob) en optioneel de inhoud zoeken met een reguliere expressie.\n\nOpmerkingen:\n- content_pattern wordt behandeld als een Python-regex.\n- Als content_pattern leeg is, wordt alleen op bestandsnaam gezocht.\n- Voor prestaties en veiligheid kan inhoudszoeken intern een eenvoudige binaire controle gebruiken."
   },
   "fi": {
@@ -378,6 +587,17 @@
     "param.name_pattern.description": "Tiedostonimien glob-kuvio (esim. '*.py', 'test_*'). Jos jätetään pois, kaikki tiedostot huomioidaan.",
     "param.root_path.description": "Perushakemisto, josta haku aloitetaan (oletus: nykyinen hakemisto).",
     "tool.description": "Etsi tiedostoja hakemistosta nimen (glob) ja/tai sisällön (regex) perusteella.",
+    "x_search_terms": [
+      "Etsi tiedostoja hakemistosta nimen (glob) ja/tai sisällön (regex) perusteella",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Etsi tiedostoja hakemiston alta. Voit rajata hakua tiedostonimikuviolla (glob) ja halutessasi etsiä sisällöstä säännöllisellä lausekkeella.\n\nHuomautukset:\n- content_pattern käsitellään Pythonin säännöllisenä lausekkeena.\n- Jos content_pattern on tyhjä, tehdään vain tiedostonimihaku.\n- Suorituskyvyn ja turvallisuuden vuoksi sisällönhaku voi käyttää sisäisesti yksinkertaista binääritarkistusta."
   },
   "cs": {
@@ -397,6 +617,17 @@
     "param.name_pattern.description": "Glob vzor názvu souboru (např. '*.py', 'test_*'). Pokud je vynechán, berou se v úvahu všechny soubory.",
     "param.root_path.description": "Kořenový adresář, od kterého se má vyhledávání spustit (výchozí: aktuální adresář).",
     "tool.description": "Vyhledává soubory v adresáři podle názvu (glob) a/nebo obsahu (regex).",
+    "x_search_terms": [
+      "Vyhledává soubory v adresáři podle názvu (glob) a/nebo obsahu (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Vyhledávejte soubory v adresáři. Můžete filtrovat podle vzoru názvu souboru (glob) a volitelně prohledávat obsah souborů pomocí regulárního výrazu.\n\nPoznámky:\n- content_pattern je interpretován jako regulární výraz Pythonu.\n- Pokud je content_pattern prázdný, provádí se pouze porovnání názvu souboru.\n- Z důvodů výkonu a bezpečnosti může vyhledávání obsahu interně používat jednoduchou binární kontrolu."
   },
   "uk": {
@@ -416,6 +647,17 @@
     "param.name_pattern.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли.",
     "param.root_path.description": "Кореневий каталог, з якого починається пошук (типово: поточний каталог).",
     "tool.description": "Шукає файли в каталозі за шаблоном назви (glob) та/або вмістом (regex).",
+    "x_search_terms": [
+      "Шукає файли в каталозі за шаблоном назви (glob) та/або вмістом (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Шукайте файли в каталозі. Ви можете фільтрувати за шаблоном назви файлу (glob) і, за потреби, шукати вміст файлів за допомогою регулярного виразу.\n\nПримітки:\n- content_pattern трактується як регулярний вираз Python.\n- Якщо content_pattern порожній, виконується лише зіставлення за назвою файла.\n- З міркувань продуктивності та безпеки пошук вмісту може внутрішньо використовувати просту бінарну перевірку."
   },
   "tr": {
@@ -435,6 +677,17 @@
     "param.name_pattern.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir.",
     "param.root_path.description": "Aramanın başlayacağı kök dizin (varsayılan: geçerli dizin).",
     "tool.description": "Dizin altındaki dosyaları ad deseni (glob) ve/veya içerik (regex) ile arar.",
+    "x_search_terms": [
+      "Dizin altındaki dosyaları ad deseni (glob) ve/veya içerik (regex) ile arar",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "Bir dizin altındaki dosyaları arayın. Dosya adı desenine (glob) göre filtreleyebilir ve isteğe bağlı olarak dosya içeriğini düzenli ifadeyle arayabilirsiniz.\n\nNotlar:\n- content_pattern bir Python düzenli ifadesi olarak ele alınır.\n- content_pattern boşsa yalnızca dosya adı eşleştirmesi yapılır.\n- Performans ve güvenlik için içerik araması dahili olarak basit bir ikili denetim kullanabilir."
   },
   "th": {
@@ -454,6 +707,17 @@
     "param.name_pattern.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะพิจารณาไฟล์ทั้งหมด",
     "param.root_path.description": "ไดเรกทอรีรากที่จะเริ่มค้นหา (ค่าเริ่มต้น: ไดเรกทอรีปัจจุบัน)",
     "tool.description": "ค้นหาไฟล์ภายใต้ไดเรกทอรีตามรูปแบบชื่อ (glob) และ/หรือตามเนื้อหา (regex)",
+    "x_search_terms": [
+      "ค้นหาไฟล์ภายใต้ไดเรกทอรีตามรูปแบบชื่อ (glob) และ/หรือตามเนื้อหา (regex)",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "ค้นหาไฟล์ภายใต้ไดเรกทอรี คุณสามารถกรองตามรูปแบบชื่อไฟล์ (glob) และเลือกค้นหาเนื้อหาไฟล์ด้วยนิพจน์ทั่วไปได้\n\nหมายเหตุ:\n- content_pattern จะถูกตีความเป็น regular expression ของ Python\n- หาก content_pattern ว่าง จะตรวจเฉพาะการจับคู่ชื่อไฟล์เท่านั้น\n- เพื่อประสิทธิภาพและความปลอดภัย การค้นหาเนื้อหาอาจใช้การตรวจสอบแบบไบนารีอย่างง่ายภายใน"
   },
   "zh_CN": {
@@ -473,6 +737,17 @@
     "param.name_pattern.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。",
     "param.root_path.description": "开始搜索的根目录（默认：当前目录）。",
     "tool.description": "按名称模式（glob）和/或内容（正则表达式）搜索目录中的文件。",
+    "x_search_terms": [
+      "按名称模式（glob）和/或内容（正则表达式）搜索目录中的文件",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "在目录中搜索文件。您可以按文件名模式（glob）筛选，并可选地使用正则表达式搜索文件内容。\n\n注意：\n- content_pattern 会被视为 Python 正则表达式。\n- 如果 content_pattern 为空，则只进行文件名匹配。\n- 为了性能和安全，内容搜索内部可能会使用简单的二进制检查。"
   },
   "zh_TW": {
@@ -492,6 +767,17 @@
     "param.name_pattern.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。",
     "param.root_path.description": "開始搜尋的根目錄（預設：目前目錄）。",
     "tool.description": "依名稱模式（glob）和/或內容（正規表示式）搜尋目錄中的檔案。",
+    "x_search_terms": [
+      "依名稱模式（glob）和/或內容（正規表示式）搜尋目錄中的檔案",
+      "search files",
+      "glob",
+      "regex search",
+      "ファイル検索",
+      "buscar archivos",
+      "rechercher des fichiers",
+      "파일 찾기",
+      "поиск файлов"
+    ],
     "tool.system_prompt": "在目錄中搜尋檔案。您可以依檔名模式（glob）篩選，並可選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則只進行檔名比對。\n- 為了效能與安全，內容搜尋內部可能會使用簡單的二進位檢查。"
   }
 }

@@ -72,6 +72,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "generate_image",
+                "generate image",
+                "image generation",
+                "png",
+                "text to image",
+                "art",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

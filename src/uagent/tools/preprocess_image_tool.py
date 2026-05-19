@@ -58,6 +58,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "preprocess_image",
+                "preprocess image",
+                "ocr preprocess",
+                "image cleanup",
+                "scan image",
+                "document image",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

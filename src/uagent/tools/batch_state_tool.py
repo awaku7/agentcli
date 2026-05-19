@@ -52,6 +52,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Return JSON only."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "batch_state",
+                "batch state",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "additionalProperties": False,

@@ -30,6 +30,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool is used for the following purpose: capture a screenshot of the desktop or a specified window.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "screenshot",
+                "screenshot",
+                "screen capture",
+                "window capture",
+                "desktop screenshot",
+                "png capture",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

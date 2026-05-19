@@ -31,6 +31,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "cmd_exec",
+                "cmd exec",
+                "windows command",
+                "command prompt",
+                "cmd",
+                "shell command",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

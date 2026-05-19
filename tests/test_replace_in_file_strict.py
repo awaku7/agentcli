@@ -382,3 +382,23 @@ def test_replace_in_file_return_hashes(repo_tmp_path: Path) -> None:
     assert obj["sha256_before"] == before
     assert obj["sha256_after"] == hashlib.sha256(p.read_bytes()).hexdigest()
     assert obj["sha256_before"] != obj["sha256_after"]
+
+
+def test_replace_in_file_diff_output_is_truncated_for_large_changes(
+    repo_tmp_path: Path,
+) -> None:
+    p = repo_tmp_path / "big_diff.txt"
+    p.write_text("a\n" * 6000, encoding="utf-8", newline="\n")
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "mode": "literal",
+            "pattern": "a",
+            "replacement": "b",
+            "preview": True,
+        }
+    )
+    obj = _load(out)
+    assert obj["match_count"] == 6000
+    assert "[diff truncated: output too large]" in obj["diff"]

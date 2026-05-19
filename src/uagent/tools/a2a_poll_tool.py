@@ -39,6 +39,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Poll an A2A task. Return JSON only.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "a2a_poll",
+                "a2a poll",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

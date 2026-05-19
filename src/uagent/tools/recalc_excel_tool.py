@@ -36,6 +36,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "This tool opens workbook(s) in Microsoft Excel via COM, performs full recalculation, and saves."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "recalc_excel",
+                "recalc excel",
+                "recalculate",
+                "excel formula",
+                "windows com",
+                "cache values",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

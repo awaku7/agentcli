@@ -107,6 +107,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Operate on A2A server profile list. Return JSON only.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "a2a_servers",
+                "a2a servers",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

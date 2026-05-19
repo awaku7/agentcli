@@ -38,6 +38,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "test",
+                "pytest",
+                "unittest",
+                "テスト実行",
+                "ejecutar pruebas",
+                "exécuter les tests",
+                "테스트 실행",
+                "запустить тесты",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

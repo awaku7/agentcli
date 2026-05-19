@@ -31,6 +31,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "cmd_exec_json",
+                "cmd exec json",
+                "shell command",
+                "execute shell",
+                "json command",
+                "cmd",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

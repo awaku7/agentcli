@@ -39,6 +39,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Send an A2A message. Return JSON only.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "a2a_send",
+                "a2a send",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

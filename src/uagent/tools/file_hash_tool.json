@@ -5,6 +5,16 @@
     "param.paths.description": "Array of target file paths.",
     "param.return.description": "Output format.",
     "tool.description": "Calculates the hash (sha256/sha1/md5) of files.",
+    "x_search_terms": [
+      "Calculates the hash (sha256/sha1/md5) of files",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "This tool calculates file hashes (sha256/sha1/md5)."
   },
   "ja": {
@@ -13,6 +23,16 @@
     "param.paths.description": "対象ファイルパスの配列。",
     "param.return.description": "出力形式。",
     "tool.description": "ファイルのハッシュ（sha256/sha1/md5）を計算します。",
+    "x_search_terms": [
+      "ファイルのハッシュ（sha256/sha1/md5）を計算します",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "このツールはファイルのハッシュ（sha256/sha1/md5）を計算します。"
   },
   "es": {
@@ -21,6 +41,16 @@
     "param.paths.description": "Matriz de rutas de archivos de destino.",
     "param.return.description": "Formato de salida.",
     "tool.description": "Calcula el hash (sha256/sha1/md5) de los archivos.",
+    "x_search_terms": [
+      "Calcula el hash (sha256/sha1/md5) de los archivos",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Esta herramienta calcula hashes de archivos (sha256/sha1/md5)."
   },
   "fr": {
@@ -29,6 +59,16 @@
     "param.paths.description": "Tableau des chemins des fichiers cibles.",
     "param.return.description": "Format de sortie.",
     "tool.description": "Calcule le hachage (sha256/sha1/md5) des fichiers.",
+    "x_search_terms": [
+      "Calcule le hachage (sha256/sha1/md5) des fichiers",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Cet outil calcule les hachages de fichiers (sha256/sha1/md5)."
   },
   "ko": {
@@ -37,6 +77,16 @@
     "param.paths.description": "대상 파일 경로 배열입니다.",
     "param.return.description": "출력 형식입니다.",
     "tool.description": "파일의 해시(sha256/sha1/md5)를 계산합니다.",
+    "x_search_terms": [
+      "파일의 해시(sha256/sha1/md5)를 계산합니다",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "이 도구는 파일의 해시(sha256/sha1/md5)를 계산합니다."
   },
   "de": {
@@ -45,6 +95,16 @@
     "param.paths.description": "Array der Zieldateipfade.",
     "param.return.description": "Ausgabeformat.",
     "tool.description": "Berechnet den Hash (sha256/sha1/md5) von Dateien.",
+    "x_search_terms": [
+      "Berechnet den Hash (sha256/sha1/md5) von Dateien",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Dieses Tool berechnet Dateihashes (sha256/sha1/md5)."
   },
   "it": {
@@ -53,6 +113,16 @@
     "param.paths.description": "Array dei percorsi dei file di destinazione.",
     "param.return.description": "Formato di output.",
     "tool.description": "Calcola l'hash (sha256/sha1/md5) dei file.",
+    "x_search_terms": [
+      "Calcola l'hash (sha256/sha1/md5) dei file",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Questo strumento calcola gli hash dei file (sha256/sha1/md5)."
   },
   "ru": {
@@ -61,6 +131,16 @@
     "param.paths.description": "Массив путей к целевым файлам.",
     "param.return.description": "Формат вывода.",
     "tool.description": "Вычисляет хэш (sha256/sha1/md5) файлов.",
+    "x_search_terms": [
+      "Вычисляет хэш (sha256/sha1/md5) файлов",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Этот инструмент вычисляет хэши файлов (sha256/sha1/md5)."
   },
   "pt_BR": {
@@ -69,6 +149,16 @@
     "param.paths.description": "Matriz de caminhos de arquivos de destino.",
     "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
+    "x_search_terms": [
+      "Calcula o hash (sha256/sha1/md5) dos arquivos",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   },
   "pt": {
@@ -77,6 +167,16 @@
     "param.paths.description": "Matriz de caminhos de arquivo de destino.",
     "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
+    "x_search_terms": [
+      "Calcula o hash (sha256/sha1/md5) dos arquivos",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
   },
   "id": {
@@ -85,6 +185,16 @@
     "param.paths.description": "Array jalur file target.",
     "param.return.description": "Format keluaran.",
     "tool.description": "Hitung hash (sha256/sha1/md5) dari file.",
+    "x_search_terms": [
+      "Hitung hash (sha256/sha1/md5) dari file",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Alat ini menghitung hash file (sha256/sha1/md5)."
   },
   "vi": {
@@ -93,6 +203,16 @@
     "param.paths.description": "Mảng đường dẫn tệp đích.",
     "param.return.description": "Định dạng đầu ra.",
     "tool.description": "Tính mã băm (sha256/sha1/md5) của tệp.",
+    "x_search_terms": [
+      "Tính mã băm (sha256/sha1/md5) của tệp",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Công cụ này tính toán giá trị băm của tệp (sha256/sha1/md5)."
   },
   "pl": {
@@ -101,6 +221,16 @@
     "param.paths.description": "Tablica docelowych ścieżek plików.",
     "param.return.description": "Format wyjściowy.",
     "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
+    "x_search_terms": [
+      "Oblicza skrót (sha256/sha1/md5) plików",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "To narzędzie oblicza skróty plików (sha256/sha1/md5)."
   },
   "hi": {
@@ -109,6 +239,16 @@
     "param.paths.description": "लक्ष्य फ़ाइल पथों की सारणी.",
     "param.return.description": "आउटपुट स्वरूप.",
     "tool.description": "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
+    "x_search_terms": [
+      "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "यह उपकरण फ़ाइल हैश (sha256/sha1/md5) की गणना करता है।"
   },
   "ar": {
@@ -117,6 +257,16 @@
     "param.paths.description": "مجموعة من مسارات الملفات الهدف.",
     "param.return.description": "تنسيق الإخراج.",
     "tool.description": "يحسب تجزئة الملفات (sha256/sha1/md5).",
+    "x_search_terms": [
+      "يحسب تجزئة الملفات (sha256/sha1/md5)",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "تقوم هذه الأداة بحساب تجزئات الملف (sha256/sha1/md5)."
   },
   "sv": {
@@ -125,6 +275,16 @@
     "param.paths.description": "Array med målfilsökvägar.",
     "param.return.description": "Utdataformat.",
     "tool.description": "Beräknar hash (sha256/sha1/md5) för filer.",
+    "x_search_terms": [
+      "Beräknar hash (sha256/sha1/md5) för filer",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Det här verktyget beräknar filhashar (sha256/sha1/md5)."
   },
   "sw": {
@@ -133,6 +293,16 @@
     "param.paths.description": "Safu ya njia za faili lengwa.",
     "param.return.description": "Muundo wa matokeo.",
     "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
+    "x_search_terms": [
+      "Hukokotoa hash (sha256/sha1/md5) za faili",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
   },
   "nb": {
@@ -141,6 +311,16 @@
     "param.paths.description": "Liste over målfilstier.",
     "param.return.description": "Utdataformat.",
     "tool.description": "Beregner hash (sha256/sha1/md5) for filer.",
+    "x_search_terms": [
+      "Beregner hash (sha256/sha1/md5) for filer",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Dette verktøyet beregner filhasher (sha256/sha1/md5)."
   },
   "nl": {
@@ -149,6 +329,16 @@
     "param.paths.description": "Array met doelbestandspaden.",
     "param.return.description": "Uitvoerformaat.",
     "tool.description": "Berekent de hash (sha256/sha1/md5) van bestanden.",
+    "x_search_terms": [
+      "Berekent de hash (sha256/sha1/md5) van bestanden",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Deze tool berekent bestandshashes (sha256/sha1/md5)."
   },
   "fi": {
@@ -157,6 +347,16 @@
     "param.paths.description": "Kohdetiedostopolkujen taulukko.",
     "param.return.description": "Tulostusmuoto.",
     "tool.description": "Laskee tiedostojen tiivisteen (sha256/sha1/md5).",
+    "x_search_terms": [
+      "Laskee tiedostojen tiivisteen (sha256/sha1/md5)",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Tämä työkalu laskee tiedostotiivisteet (sha256/sha1/md5)."
   },
   "cs": {
@@ -165,6 +365,16 @@
     "param.paths.description": "Pole cílových cest k souborům.",
     "param.return.description": "Formát výstupu.",
     "tool.description": "Vypočítává hash souborů (sha256/sha1/md5).",
+    "x_search_terms": [
+      "Vypočítává hash souborů (sha256/sha1/md5)",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Tento nástroj vypočítává hash souborů (sha256/sha1/md5)."
   },
   "uk": {
@@ -173,6 +383,16 @@
     "param.paths.description": "Масив цільових шляхів до файлів.",
     "param.return.description": "Формат виводу.",
     "tool.description": "Обчислює хеш файлів (sha256/sha1/md5).",
+    "x_search_terms": [
+      "Обчислює хеш файлів (sha256/sha1/md5)",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Цей інструмент обчислює хеші файлів (sha256/sha1/md5)."
   },
   "tr": {
@@ -181,6 +401,16 @@
     "param.paths.description": "Hedef dosya yolları dizisi.",
     "param.return.description": "Çıkış formatı.",
     "tool.description": "Dosyaların karmasını (sha256/sha1/md5) hesaplar.",
+    "x_search_terms": [
+      "Dosyaların karmasını (sha256/sha1/md5) hesaplar",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "Bu araç dosya karmalarını (sha256/sha1/md5) hesaplar."
   },
   "th": {
@@ -189,6 +419,16 @@
     "param.paths.description": "อาร์เรย์ของพาธไฟล์เป้าหมาย",
     "param.return.description": "รูปแบบเอาต์พุต",
     "tool.description": "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
+    "x_search_terms": [
+      "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้คำนวณแฮชของไฟล์ (sha256/sha1/md5)"
   },
   "zh_CN": {
@@ -197,6 +437,16 @@
     "param.paths.description": "目标文件路径数组。",
     "param.return.description": "输出格式。",
     "tool.description": "计算文件的哈希值（sha256/sha1/md5）。",
+    "x_search_terms": [
+      "计算文件的哈希值（sha256/sha1/md5）",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "此工具用于计算文件的哈希值（sha256/sha1/md5）。"
   },
   "zh_TW": {
@@ -205,6 +455,16 @@
     "param.paths.description": "目標檔案路徑陣列。",
     "param.return.description": "輸出格式。",
     "tool.description": "計算檔案的雜湊值（sha256/sha1/md5）。",
+    "x_search_terms": [
+      "計算檔案的雜湊值（sha256/sha1/md5）",
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hachage",
+      "해시",
+      "хэш"
+    ],
     "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
   }
 }

@@ -4,6 +4,15 @@
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
     "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
     "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
+    "x_search_terms": [
+      "Loads the SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Use this tool for the purpose described in the tool description."
   },
   "ja": {
@@ -11,6 +20,15 @@
     "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",
     "param.skill_dir.description": "スキルディレクトリ（直下に SKILL.md が必要）",
     "tool.description": "Agent Skills の SKILL.md を読み込み、YAML frontmatter と Markdown本文(body)を返します。",
+    "x_search_terms": [
+      "Agent Skills の SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
   "es": {
@@ -18,6 +36,15 @@
     "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una cadena no vacía",
     "param.skill_dir.description": "Directorio de la habilidad (se requiere SKILL.md directamente debajo)",
     "tool.description": "Carga el SKILL.md de una habilidad de agente y devuelve su frontmatter YAML y su cuerpo Markdown.",
+    "x_search_terms": [
+      "Carga el SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
   },
   "fr": {
@@ -25,6 +52,15 @@
     "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une chaîne non vide",
     "param.skill_dir.description": "Répertoire de la compétence (SKILL.md est requis juste en dessous)",
     "tool.description": "Charge le SKILL.md d'une compétence d'agent et renvoie son frontmatter YAML et son corps Markdown.",
+    "x_search_terms": [
+      "Charge le SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
   },
   "ko": {
@@ -32,6 +68,15 @@
     "err.skill_dir_required": "[도구 오류] skill_dir은 비어 있지 않은 문자열이어야 합니다.",
     "param.skill_dir.description": "스킬 디렉터리(SKILL.md가 바로 아래에 필요함)",
     "tool.description": "Agent Skill의 SKILL.md를 불러와 YAML frontmatter와 Markdown 본문을 반환합니다.",
+    "x_search_terms": [
+      "Agent Skill의 SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
   "de": {
@@ -39,6 +84,15 @@
     "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leerer String sein",
     "param.skill_dir.description": "Skill-Verzeichnis (SKILL.md ist direkt darunter erforderlich)",
     "tool.description": "Lädt die SKILL.md für einen Agent Skill und gibt dessen YAML-Frontmatter und Markdown-Inhalt zurück.",
+    "x_search_terms": [
+      "Lädt die SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
   "it": {
@@ -46,6 +100,15 @@
     "err.skill_dir_required": "[errore strumento] skill_dir deve essere una stringa non vuota",
     "param.skill_dir.description": "Directory dello skill (SKILL.md è richiesto direttamente sotto)",
     "tool.description": "Carica lo SKILL.md per uno skill dell'agente e restituisce il suo frontmatter YAML e il corpo Markdown.",
+    "x_search_terms": [
+      "Carica lo SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
   "ru": {
@@ -53,6 +116,15 @@
     "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть непустой строкой",
     "param.skill_dir.description": "Каталог навыка (SKILL.md должен находиться непосредственно ниже)",
     "tool.description": "Загружает SKILL.md для Agent Skill и возвращает его YAML frontmatter и Markdown-тело.",
+    "x_search_terms": [
+      "Загружает SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
   "pt_BR": {
@@ -60,6 +132,15 @@
     "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma string não vazia",
     "param.skill_dir.description": "Diretório do skill (SKILL.md é necessário logo abaixo)",
     "tool.description": "Carrega o SKILL.md de uma Agent Skill e retorna o frontmatter YAML e o corpo Markdown.",
+    "x_search_terms": [
+      "Carrega o SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
   "pt": {
@@ -67,6 +148,15 @@
     "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
     "param.skill_dir.description": "Diretório de habilidades (SKILL.md é necessário diretamente abaixo)",
     "tool.description": "Carrega o SKILL.md de uma habilidade do agente e retorna o YAML frontmatter e o corpo Markdown.",
+    "x_search_terms": [
+      "Carrega o SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
   "id": {
@@ -74,6 +164,15 @@
     "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
     "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
     "tool.description": "Muat SKILL.md untuk Agent Skill dan kembalikan frontmatter YAML serta isi Markdown-nya.",
+    "x_search_terms": [
+      "Muat SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
   },
   "vi": {
@@ -81,6 +180,15 @@
     "err.skill_dir_required": "[lỗi công cụ] skill_dir phải là một chuỗi không trống",
     "param.skill_dir.description": "Thư mục kỹ năng (bên dưới phải có SKILL.md)",
     "tool.description": "Tải SKILL.md của một Agent Skill và trả về YAML frontmatter cùng phần thân Markdown của nó.",
+    "x_search_terms": [
+      "Tải SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
   "pl": {
@@ -88,6 +196,15 @@
     "err.skill_dir_required": "[błąd narzędzia] skill_dir musi być niepustym ciągiem znaków",
     "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
     "tool.description": "Ładuje plik SKILL.md dla umiejętności agenta i zwraca jego YAML frontmatter oraz treść Markdown.",
+    "x_search_terms": [
+      "Ładuje plik SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
   "hi": {
@@ -95,6 +212,15 @@
     "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
     "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
     "tool.description": "एजेंट कौशल के लिए SKILL.md को लोड करता है और इसका YAML फ्रंटमैटर और मार्कडाउन बॉडी लौटाता है।",
+    "x_search_terms": [
+      "एजेंट कौशल के लिए SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
   "ar": {
@@ -102,6 +228,15 @@
     "err.skill_dir_required": "[خطأ في الأداة] يجب أن تكون skill_dir سلسلة غير فارغة",
     "param.skill_dir.description": "دليل المهارة (يجب أن يكون SKILL.md موجودًا مباشرةً تحته)",
     "tool.description": "يحمّل SKILL.md الخاص بمهارة وكيل ويعيد YAML frontmatter ونص Markdown.",
+    "x_search_terms": [
+      "يحمّل SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
   "sv": {
@@ -109,6 +244,15 @@
     "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
     "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
     "tool.description": "Läser SKILL.md för en Agent Skill och returnerar dess YAML frontmatter och Markdown-body.",
+    "x_search_terms": [
+      "Läser SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
   "sw": {
@@ -116,6 +260,15 @@
     "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
     "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
     "tool.description": "Hupakia SKILL.md ya Agent Skill na kurudisha YAML frontmatter na kiini cha Markdown.",
+    "x_search_terms": [
+      "Hupakia SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
   "nb": {
@@ -123,6 +276,15 @@
     "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
     "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
     "tool.description": "Laster SKILL.md for en Agent Skill og returnerer YAML-frontmatter og Markdown-innhold.",
+    "x_search_terms": [
+      "Laster SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
@@ -130,6 +292,15 @@
     "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege tekenreeks zijn",
     "param.skill_dir.description": "Skill-map (SKILL.md is direct eronder vereist)",
     "tool.description": "Laadt de SKILL.md voor een Agent Skill en retourneert de YAML-frontmatter en de Markdown-body.",
+    "x_search_terms": [
+      "Laadt de SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat."
   },
   "fi": {
@@ -137,6 +308,15 @@
     "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä merkkijono",
     "param.skill_dir.description": "Skill-hakemisto (SKILL.md vaaditaan heti sen alla)",
     "tool.description": "Lataa Agent Skillin SKILL.md-tiedoston ja palauttaa sen YAML-frontmatterin sekä Markdown-rungon.",
+    "x_search_terms": [
+      "Lataa Agent Skillin SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen."
   },
   "cs": {
@@ -144,6 +324,15 @@
     "err.skill_dir_required": "[chyba nástroje] skill_dir musí být neprázdný řetězec",
     "param.skill_dir.description": "Adresář skillu (SKILL.md musí být přímo pod ním)",
     "tool.description": "Načte SKILL.md pro Agent Skill a vrátí jeho YAML frontmatter a Markdownový obsah.",
+    "x_search_terms": [
+      "Načte SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Použijte tento nástroj k účelu popsanému v popisu nástroje."
   },
   "uk": {
@@ -151,6 +340,15 @@
     "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непорожнім рядком",
     "param.skill_dir.description": "Каталог skill (SKILL.md має бути безпосередньо під ним)",
     "tool.description": "Завантажує SKILL.md для Agent Skill і повертає його YAML frontmatter та Markdown-вміст.",
+    "x_search_terms": [
+      "Завантажує SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента."
   },
   "tr": {
@@ -158,6 +356,15 @@
     "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
     "param.skill_dir.description": "Beceri dizini (SKILL.md doğrudan altında gereklidir)",
     "tool.description": "Bir Agent Skill için SKILL.md'yi yükler ve YAML frontmatter ile Markdown gövdesini döndürür.",
+    "x_search_terms": [
+      "Bir Agent Skill için SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   },
   "th": {
@@ -165,6 +372,15 @@
     "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
     "param.skill_dir.description": "ไดเรกทอรีทักษะ (ต้องมี SKILL.md อยู่ถัดลงมาโดยตรง)",
     "tool.description": "โหลด SKILL.md ของ Agent Skill และส่งคืน YAML frontmatter และเนื้อหา Markdown",
+    "x_search_terms": [
+      "โหลด SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   },
   "zh_CN": {
@@ -172,6 +388,15 @@
     "err.skill_dir_required": "[工具错误] skill_dir 必须是非空字符串",
     "param.skill_dir.description": "技能目录（其下必须直接包含 SKILL.md）",
     "tool.description": "加载 Agent Skill 的 SKILL.md，并返回其 YAML frontmatter 和 Markdown 正文。",
+    "x_search_terms": [
+      "加载 Agent Skill 的 SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
   },
   "zh_TW": {
@@ -179,6 +404,15 @@
     "err.skill_dir_required": "[工具錯誤] skill_dir 必須是非空字串",
     "param.skill_dir.description": "技能目錄（其下必須直接包含 SKILL.md）",
     "tool.description": "載入 Agent Skill 的 SKILL.md，並傳回其 YAML frontmatter 與 Markdown 正文。",
+    "x_search_terms": [
+      "載入 Agent Skill 的 SKILL",
+      "skills_load",
+      "skills load",
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
+    ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   }
 }

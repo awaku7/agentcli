@@ -22,6 +22,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "get_env",
+                "get env",
+                "environment variable",
+                "config",
+                "secret",
+                "env var",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

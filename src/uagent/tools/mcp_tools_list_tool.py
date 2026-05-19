@@ -55,6 +55,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Prefer using configured servers in mcp_servers.json when possible."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "mcps_list",
+                "mcps list",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

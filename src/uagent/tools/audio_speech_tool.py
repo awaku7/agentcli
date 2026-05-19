@@ -33,6 +33,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Return a JSON response only."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "audio_speech",
+                "audio speech",
+                "audio",
+                "voice",
+                "speech",
+                "sound",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

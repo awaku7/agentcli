@@ -32,6 +32,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Validate Python files with py_compile. If file paths or glob patterns are supplied, run py_compile on those targets and return the result."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "python_compile",
+                "python compile",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

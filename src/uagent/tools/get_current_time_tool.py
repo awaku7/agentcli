@@ -31,6 +31,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Use these to convert ambiguous user requests (e.g., 'next Monday') into a concrete date/time.\n"
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "current time",
+                "now",
+                "timezone",
+                "現在時刻",
+                "hora actual",
+                "heure actuelle",
+                "현재 시간",
+                "текущее время",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {},

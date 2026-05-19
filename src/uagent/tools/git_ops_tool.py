@@ -56,6 +56,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Return value: This tool always returns JSON with ok/returncode/stdout/stderr."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "git",
+                "branch",
+                "commit",
+                "git コマンド",
+                "git",
+                "git",
+                "깃",
+                "git",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

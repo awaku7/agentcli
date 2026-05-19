@@ -38,6 +38,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- Do not operate on paths outside the current workdir when running under the host agent's safety policies.\n"
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "binary_edit",
+                "binary edit",
+                "raw bytes",
+                "binary patch",
+                "offset edit",
+                "splice",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

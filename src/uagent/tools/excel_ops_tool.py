@@ -32,6 +32,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'excel_ops'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "excel_ops",
+                "excel ops",
+                "xlsx",
+                "spreadsheet",
+                "sheet names",
+                "excel file",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

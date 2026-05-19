@@ -2,25 +2,20 @@
 
 ## 低リスク・優先度高
 
-### 1. literal 置換時の occurrence 指定を最適化
+### 1. literal 置換時の occurrence 指定を最適化（対応済み）
 
-現状は literal 置換でも、`match_count` や `match_hits` のために一致箇所を全件収集する。
+`occurrence > 0` の場合は、指定位置の一致だけを使うように対応済み。
 
-改善案:
+対応内容:
 
-- `occurrence > 0` の場合は、指定 occurrence までだけ走査する。
-- regex 側で追加した `_nth_regex_match()` と同等の literal 用 helper を追加する。
-- 単発置換時に巨大ファイル全体の hit list を作らない。
+- `occurrence > 0` の場合は、対象 1 件だけを `hits` に入れる。
+- regex 側と同様に、単発置換では全 hit list を作らない。
+- `match_count` は従来どおり維持する。
 
-期待効果:
+備考:
 
-- `occurrence=1` や `occurrence=2` などの単発置換で高速化。
-- 大量一致ファイルでのメモリ使用量削減。
-
-注意点:
-
-- `match_count` を正確に返す既存仕様との整合が必要。
-- 正確な件数が必要な場合と、置換だけに必要な走査を分ける設計を検討する。
+- `tests/test_replace_in_file_strict.py` の occurrence 系テストで確認済み。
+- 実装対象: `src/uagent/tools/replace_in_file_tool.py`
 
 ---
 

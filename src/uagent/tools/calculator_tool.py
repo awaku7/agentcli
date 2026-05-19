@@ -16,6 +16,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Calculates a mathematical expression and returns the result. Use this for complex calculations or when precision is required.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "calculator",
+                "math",
+                "expression",
+                "計算",
+                "calcular",
+                "calcul",
+                "계산",
+                "вычислить",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -1,6 +1,15 @@
 {
   "en": {
     "tool.description": "Transcribe an audio file to text. Useful for meetings, interviews, and voice notes.",
+    "x_search_terms": [
+      "Transcribe an audio file to text",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcribe the given audio file and return a JSON response only. If output_format=text, include the transcript text in the response. If output_format=json, include basic metadata as well.",
     "param.path.description": "Path to the input audio file.",
     "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used.",
@@ -18,6 +27,15 @@
   },
   "ja": {
     "tool.description": "音声ファイルを書き起こしてテキストを返します。会議、インタビュー、音声メモに使えます。",
+    "x_search_terms": [
+      "音声ファイルを書き起こしてテキストを返します",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "指定された音声ファイルを書き起こし、JSONで返してください。output_format=text の場合は書き起こし本文を、output_format=json の場合は基本情報も含めてください。",
     "param.path.description": "入力する音声ファイルのパス。",
     "param.model.description": "書き起こしモデル名。省略時は提供元の既定値または設定済みのデプロイ名を使います。",
@@ -35,6 +53,15 @@
   },
   "es": {
     "tool.description": "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz.",
+    "x_search_terms": [
+      "Transcribe un archivo de audio a texto",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcribe el archivo de audio indicado y devuelve solo una respuesta JSON. Si output_format=text, incluye el texto transcrito; si output_format=json, incluye también metadatos básicos.",
     "param.path.description": "Ruta al archivo de audio de entrada.",
     "param.model.description": "Nombre del modelo de transcripción. Si se omite, se usa el valor predeterminado del proveedor o el nombre de despliegue configurado.",
@@ -52,6 +79,15 @@
   },
   "fr": {
     "tool.description": "Transcrit un fichier audio en texte. Utile pour les réunions, les entretiens et les notes vocales.",
+    "x_search_terms": [
+      "Transcrit un fichier audio en texte",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcrivez le fichier audio fourni et renvoyez uniquement une réponse JSON. Si output_format=text, incluez le texte transcrit dans la réponse. Si output_format=json, incluez aussi les métadonnées de base.",
     "param.path.description": "Chemin vers le fichier audio d’entrée.",
     "param.model.description": "Nom du modèle de transcription. S’il est omis, la valeur par défaut du fournisseur ou le nom de déploiement configuré est utilisé.",
@@ -69,6 +105,15 @@
   },
   "ko": {
     "tool.description": "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다.",
+    "x_search_terms": [
+      "오디오 파일을 텍스트로 변환합니다",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "지정된 오디오 파일을 변환하고 JSON 응답만 반환하세요. output_format=text이면 변환된 텍스트를 포함하고, output_format=json이면 기본 메타데이터도 포함하세요.",
     "param.path.description": "입력 오디오 파일의 경로입니다.",
     "param.model.description": "전사 모델 이름입니다. 생략하면 제공자 기본값 또는 구성된 배포 이름을 사용합니다.",
@@ -86,6 +131,15 @@
   },
   "de": {
     "tool.description": "Transkribiert eine Audiodatei in Text. Nützlich für Besprechungen, Interviews und Sprachmemos.",
+    "x_search_terms": [
+      "Transkribiert eine Audiodatei in Text",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transkribieren Sie die angegebene Audiodatei und geben Sie nur eine JSON-Antwort zurück. Wenn output_format=text, fügen Sie den Transkripttext ein. Wenn output_format=json, fügen Sie außerdem grundlegende Metadaten hinzu.",
     "param.path.description": "Pfad zur Eingabe-Audiodatei.",
     "param.model.description": "Name des Transkriptionsmodells. Falls weggelassen, wird der Standardwert des Providers oder der konfigurierte Deployment-Name verwendet.",
@@ -103,6 +157,15 @@
   },
   "it": {
     "tool.description": "Trascrive un file audio in testo. Utile per riunioni, interviste e note vocali.",
+    "x_search_terms": [
+      "Trascrive un file audio in testo",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Trascrivi il file audio specificato e restituisci solo una risposta JSON. Se output_format=text, includi il testo trascritto. Se output_format=json, includi anche i metadati di base.",
     "param.path.description": "Percorso del file audio di input.",
     "param.model.description": "Nome del modello di trascrizione. Se omesso, viene usato il valore predefinito del provider o il nome di deployment configurato.",
@@ -120,6 +183,15 @@
   },
   "ru": {
     "tool.description": "Преобразует аудиофайл в текст. Полезно для встреч, интервью и голосовых заметок.",
+    "x_search_terms": [
+      "Преобразует аудиофайл в текст",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Транскрибируйте указанный аудиофайл и возвращайте только JSON-ответ. Если output_format=text, включите текст транскрипции. Если output_format=json, добавьте также базовые метаданные.",
     "param.path.description": "Путь к входному аудиофайлу.",
     "param.model.description": "Имя модели распознавания. Если не указано, используется значение по умолчанию провайдера или настроенное имя deployment.",
@@ -137,6 +209,15 @@
   },
   "pt_BR": {
     "tool.description": "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz.",
+    "x_search_terms": [
+      "Transcreve um arquivo de áudio para texto",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcreva o arquivo de áudio informado e retorne apenas uma resposta JSON. Se output_format=text, inclua o texto transcrito. Se output_format=json, inclua também metadados básicos.",
     "param.path.description": "Caminho para o arquivo de áudio de entrada.",
     "param.model.description": "Nome do modelo de transcrição. Se omitido, será usado o padrão do provedor ou o nome de deployment configurado.",
@@ -154,6 +235,15 @@
   },
   "pt": {
     "tool.description": "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz.",
+    "x_search_terms": [
+      "Transcreve um arquivo de áudio para texto",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcreva o arquivo de áudio fornecido e retorne apenas uma resposta JSON. Se output_format=text, inclua o texto transcrito. Se output_format=json, inclua também metadados básicos.",
     "param.path.description": "Caminho para o arquivo de áudio de entrada.",
     "param.model.description": "Nome do modelo de transcrição. Se omitido, será usado o padrão do provedor ou o nome de deployment configurado.",
@@ -171,6 +261,15 @@
   },
   "id": {
     "tool.description": "Mentranskripsi file audio menjadi teks. Berguna untuk rapat, wawancara, dan catatan suara.",
+    "x_search_terms": [
+      "Mentranskripsi file audio menjadi teks",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transkripsikan file audio yang diberikan dan kembalikan hanya respons JSON. Jika output_format=text, sertakan teks transkrip. Jika output_format=json, sertakan juga metadata dasar.",
     "param.path.description": "Jalur ke file audio input.",
     "param.model.description": "Nama model transkripsi. Jika dihilangkan, gunakan nilai bawaan penyedia atau nama deployment yang dikonfigurasi.",
@@ -188,6 +287,15 @@
   },
   "vi": {
     "tool.description": "Chuyển tệp âm thanh thành văn bản. Hữu ích cho cuộc họp, phỏng vấn và ghi chú giọng nói.",
+    "x_search_terms": [
+      "Chuyển tệp âm thanh thành văn bản",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Phiên âm tệp âm thanh được chỉ định và chỉ trả về phản hồi JSON. Nếu output_format=text, hãy bao gồm متن bản phiên âm. Nếu output_format=json, hãy bao gồm cả siêu dữ liệu cơ bản.",
     "param.path.description": "Đường dẫn tới tệp âm thanh đầu vào.",
     "param.model.description": "Tên mô hình phiên âm. Nếu bỏ qua, sẽ dùng giá trị mặc định của nhà cung cấp hoặc tên deployment đã cấu hình.",
@@ -205,6 +313,15 @@
   },
   "pl": {
     "tool.description": "Transkrybuje plik audio do tekstu. Przydatne podczas spotkań, wywiadów i notatek głosowych.",
+    "x_search_terms": [
+      "Transkrybuje plik audio do tekstu",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Przepisz podany plik audio i zwróć wyłącznie odpowiedź JSON. Jeśli output_format=text, dołącz tekst transkrypcji. Jeśli output_format=json, dołącz także podstawowe metadane.",
     "param.path.description": "Ścieżka do wejściowego pliku audio.",
     "param.model.description": "Nazwa modelu transkrypcji. Jeśli pominięta, użyta zostanie domyślna wartość dostawcy lub skonfigurowana nazwa wdrożenia.",
@@ -222,6 +339,15 @@
   },
   "hi": {
     "tool.description": "ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करता है। मीटिंग, इंटरव्यू और वॉइस नोट्स के लिए उपयोगी।",
+    "x_search_terms": [
+      "ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करता है। मीटिंग, इंटरव्यू और वॉइस नोट्स के लिए उपयोगी।",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "दी गई ऑडियो फ़ाइल को ट्रांसक्राइब करें और केवल JSON प्रतिक्रिया लौटाएँ। यदि output_format=text हो, तो ट्रांसक्रिप्ट टेक्स्ट शामिल करें। यदि output_format=json हो, तो मूल मेटाडेटा भी शामिल करें।",
     "param.path.description": "इनपुट ऑडियो फ़ाइल का पथ।",
     "param.model.description": "ट्रांसक्रिप्शन मॉडल का नाम। यदि छोड़ा गया, तो provider का default या configured deployment name उपयोग होगा।",
@@ -239,6 +365,15 @@
   },
   "ar": {
     "tool.description": "يحوّل ملفًا صوتيًا إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية.",
+    "x_search_terms": [
+      "يحوّل ملفًا صوتيًا إلى نص",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "قم بتفريغ ملف الصوت المحدد وأعد استجابة JSON فقط. إذا كان output_format=text، فأدرج نص التفريغ في الاستجابة. وإذا كان output_format=json، فأدرج أيضًا البيانات الوصفية الأساسية.",
     "param.path.description": "المسار إلى ملف الصوت المدخل.",
     "param.model.description": "اسم نموذج التفريغ. إذا لم يُذكر، فسيُستخدم الافتراضي لدى المزوّد أو اسم النشر المُهيأ.",
@@ -256,6 +391,15 @@
   },
   "sv": {
     "tool.description": "Transkriberar en ljudfil till text. Användbart för möten, intervjuer och röstanteckningar.",
+    "x_search_terms": [
+      "Transkriberar en ljudfil till text",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transkribera den angivna ljudfilen och returnera endast ett JSON-svar. Om output_format=text, inkludera transkripttexten. Om output_format=json, inkludera även grundläggande metadata.",
     "param.path.description": "Sökväg till inmatningsljudfilen.",
     "param.model.description": "Namn på transkriptionsmodellen. Om det utelämnas används leverantörens standard eller det konfigurerade deploymentsnamnet.",
@@ -273,6 +417,15 @@
   },
   "sw": {
     "tool.description": "Hubadilisha faili ya sauti kuwa maandishi. Inafaa kwa mikutano, mahojiano, na noti za sauti.",
+    "x_search_terms": [
+      "Hubadilisha faili ya sauti kuwa maandishi",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Andika upya faili ya sauti iliyotolewa na urudishe jibu la JSON pekee. Ikiwa output_format=text, jumuisha maandishi ya transkripti. Ikiwa output_format=json, jumuisha pia metadata ya msingi.",
     "param.path.description": "Njia ya faili ya sauti ya ingizo.",
     "param.model.description": "Jina la modeli ya transkripsheni. Ikiwa halijawekwa, thamani chaguo-msingi ya mtoa huduma au jina la deployment lililosanidiwa litatumika.",
@@ -290,6 +443,15 @@
   },
   "nb": {
     "tool.description": "Transkriberer en lydfil til tekst. Nyttig for møter, intervjuer og tale-notater.",
+    "x_search_terms": [
+      "Transkriberer en lydfil til tekst",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transkriber den angitte lydfilen og returner kun et JSON-svar. Hvis output_format=text, ta med transkripsjonsteksten. Hvis output_format=json, ta også med grunnleggende metadata.",
     "param.path.description": "Sti til inngangslydfilen.",
     "param.model.description": "Navn på transkripsjonsmodellen. Hvis utelatt, brukes leverandørens standard eller konfigurert deployment-navn.",
@@ -307,6 +469,15 @@
   },
   "nl": {
     "tool.description": "Zet een audiobestand om naar tekst. Handig voor vergaderingen, interviews en spraaknotities.",
+    "x_search_terms": [
+      "Zet een audiobestand om naar tekst",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Transcribeer het opgegeven audiobestand en geef alleen een JSON-antwoord terug. Als output_format=text, neem dan de transcripttekst op. Als output_format=json, neem dan ook basismetadata op.",
     "param.path.description": "Pad naar het invoeraudiobestand.",
     "param.model.description": "Naam van het transcriptiemodel. Indien weggelaten, wordt de standaard van de provider of de geconfigureerde deploymentnaam gebruikt.",
@@ -324,6 +495,15 @@
   },
   "fi": {
     "tool.description": "Muuntaa äänitiedoston tekstiksi. Hyödyllinen kokouksissa, haastatteluissa ja äänimuistiinpanoissa.",
+    "x_search_terms": [
+      "Muuntaa äänitiedoston tekstiksi",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Litteroi annettu äänitiedosto ja palauta vain JSON-vastaus. Jos output_format=text, sisällytä litterointiteksti. Jos output_format=json, sisällytä myös perustiedot.",
     "param.path.description": "Syöteäänitiedoston polku.",
     "param.model.description": "Litterointimallin nimi. Jos jätetään pois, käytetään tarjoajan oletusta tai määritettyä deployment-nimeä.",
@@ -341,6 +521,15 @@
   },
   "cs": {
     "tool.description": "Převede zvukový soubor na text. Užitečné pro schůzky, rozhovory a hlasové poznámky.",
+    "x_search_terms": [
+      "Převede zvukový soubor na text",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Přepište zadaný zvukový soubor a vraťte pouze JSON odpověď. Pokud output_format=text, zahrňte přepis. Pokud output_format=json, zahrňte také základní metadata.",
     "param.path.description": "Cesta ke vstupnímu zvukovému souboru.",
     "param.model.description": "Název modelu pro přepis. Pokud není uveden, použije se výchozí hodnota poskytovatele nebo nakonfigurovaný název deployment.",
@@ -358,6 +547,15 @@
   },
   "uk": {
     "tool.description": "Перетворює аудіофайл у текст. Корисно для зустрічей, інтерв'ю та голосових нотаток.",
+    "x_search_terms": [
+      "Перетворює аудіофайл у текст",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Транскрибуйте вказаний аудіофайл і повертайте лише JSON-відповідь. Якщо output_format=text, включіть текст транскрипції. Якщо output_format=json, також включіть базові метадані.",
     "param.path.description": "Шлях до вхідного аудіофайлу.",
     "param.model.description": "Назва моделі транскрипції. Якщо не вказано, використовується значення за замовчуванням провайдера або налаштована назва deployment.",
@@ -375,6 +573,15 @@
   },
   "tr": {
     "tool.description": "Bir ses dosyasını metne dönüştürün. Toplantılar, röportajlar ve sesli notlar için kullanışlıdır.",
+    "x_search_terms": [
+      "Bir ses dosyasını metne dönüştürün",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "Verilen ses dosyasını yazıya dökün ve yalnızca JSON yanıtını döndürün. Output_format=text ise transkript metnini yanıta ekleyin. Output_format=json ise temel meta verileri de ekleyin.",
     "param.path.description": "Giriş ses dosyasının yolu.",
     "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
@@ -392,6 +599,15 @@
   },
   "th": {
     "tool.description": "ถอดเสียงไฟล์เสียงเป็นข้อความ เหมาะสำหรับการประชุม การสัมภาษณ์ และบันทึกเสียง",
+    "x_search_terms": [
+      "ถอดเสียงไฟล์เสียงเป็นข้อความ เหมาะสำหรับการประชุม การสัมภาษณ์ และบันทึกเสียง",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "ถอดเสียงไฟล์เสียงที่ระบุและส่งกลับเป็น JSON เท่านั้น หาก output_format=text ให้ใส่ข้อความถอดเสียงในคำตอบ หาก output_format=json ให้ใส่ข้อมูลเมตาพื้นฐานด้วย",
     "param.path.description": "พาธไปยังไฟล์เสียงต้นฉบับ",
     "param.model.description": "ชื่อโมเดลถอดเสียง หากไม่ระบุ จะใช้ค่าเริ่มต้นของผู้ให้บริการหรือชื่อ deployment ที่กำหนดไว้",
@@ -409,6 +625,15 @@
   },
   "zh_CN": {
     "tool.description": "将音频文件转写为文本。适用于会议、访谈和语音笔记。",
+    "x_search_terms": [
+      "将音频文件转写为文本",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "转写指定的音频文件，并且只返回 JSON 响应。如果 output_format=text，请在响应中包含转写文本；如果 output_format=json，请同时包含基本元数据。",
     "param.path.description": "输入音频文件的路径。",
     "param.model.description": "转写模型名称。如未指定，将使用提供方默认值或已配置的部署名称。",
@@ -426,6 +651,15 @@
   },
   "zh_TW": {
     "tool.description": "將音訊檔轉寫為文字。適用於會議、訪談與語音筆記。",
+    "x_search_terms": [
+      "將音訊檔轉寫為文字",
+      "audio_transcribe",
+      "audio transcribe",
+      "audio",
+      "voice",
+      "speech",
+      "sound"
+    ],
     "tool.system_prompt": "轉寫指定的音訊檔，並且只回傳 JSON 回應。如果 output_format=text，請在回應中包含轉寫文字；如果 output_format=json，請同時包含基本中繼資料。",
     "param.path.description": "輸入音訊檔的路徑。",
     "param.model.description": "轉寫模型名稱。若未指定，將使用提供者預設值或已設定的部署名稱。",

@@ -12,6 +12,14 @@
     "param.file_path.description": "Destination file path (.png recommended). If not specified, it will be saved in the current directory with a timestamp.",
     "param.window_title.description": "Window title to be shot (partial match). If specified, locates that window, makes it active, and photographs only that area.",
     "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
+    "x_search_terms": [
+      "Captures a screenshot of the entire desktop or a specific window",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "This tool is used for the following purpose: capture a screenshot of the desktop or a specified window."
   },
   "ja": {
@@ -27,6 +35,14 @@
     "param.file_path.description": "保存先のファイルパス（.png 推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。",
     "param.window_title.description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。",
     "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
+    "x_search_terms": [
+      "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"
   },
   "es": {
@@ -42,6 +58,14 @@
     "param.file_path.description": "Ruta del archivo de destino (se recomienda .png). Si no se especifica, se guardará en el directorio actual con una marca de tiempo.",
     "param.window_title.description": "Título de la ventana a capturar (coincidencia parcial). Si se especifica, localiza esa ventana, la activa y captura solo esa zona.",
     "tool.description": "Captura una imagen de toda la pantalla o de una ventana específica.",
+    "x_search_terms": [
+      "Captura una imagen de toda la pantalla o de una ventana específica",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: capturar una imagen de la pantalla o de una ventana especificada."
   },
   "fr": {
@@ -57,6 +81,14 @@
     "param.file_path.description": "Chemin du fichier de destination (.png recommandé). S'il n'est pas spécifié, il sera enregistré dans le répertoire courant avec un horodatage.",
     "param.window_title.description": "Titre de la fenêtre à capturer (correspondance partielle). Si spécifié, localise cette fenêtre, la rend active et ne capture que cette zone.",
     "tool.description": "Capture une image de tout le bureau ou d'une fenêtre spécifique.",
+    "x_search_terms": [
+      "Capture une image de tout le bureau ou d'une fenêtre spécifique",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : capturer une image du bureau ou d'une fenêtre spécifiée."
   },
   "ko": {
@@ -72,6 +104,14 @@
     "param.file_path.description": "저장할 파일 경로(.png 권장)입니다. 지정하지 않으면 현재 디렉터리에 타임스탬프와 함께 저장합니다.",
     "param.window_title.description": "촬영할 창 제목(부분 일치)입니다. 지정하면 해당 창을 찾아 활성화하고 그 영역만 촬영합니다.",
     "tool.description": "전체 데스크톱 또는 특정 창의 스크린샷을 캡처합니다.",
+    "x_search_terms": [
+      "전체 데스크톱 또는 특정 창의 스크린샷을 캡처합니다",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "이 도구는 데스크톱 또는 지정된 창의 스크린샷을 캡처하는 데 사용됩니다."
   },
   "de": {
@@ -87,6 +127,14 @@
     "param.file_path.description": "Zieldateipfad (.png empfohlen). Falls nicht angegeben, wird mit Zeitstempel im aktuellen Verzeichnis gespeichert.",
     "param.window_title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer). Wenn angegeben, wird dieses Fenster gesucht, aktiviert und nur dieser Bereich aufgenommen.",
     "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines bestimmten Fensters.",
+    "x_search_terms": [
+      "Erfasst einen Screenshot des gesamten Desktops oder eines bestimmten Fensters",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Dieses Tool wird für folgenden Zweck verwendet: einen Screenshot des Desktops oder eines angegebenen Fensters erfassen."
   },
   "it": {
@@ -102,6 +150,14 @@
     "param.file_path.description": "Percorso del file di destinazione (.png consigliato). Se non specificato, viene salvato nella directory corrente con timestamp.",
     "param.window_title.description": "Titolo della finestra da catturare (corrispondenza parziale). Se specificato, individua quella finestra, la attiva e cattura solo quell'area.",
     "tool.description": "Acquisisce uno screenshot dell'intero desktop o di una finestra specifica.",
+    "x_search_terms": [
+      "Acquisisce uno screenshot dell'intero desktop o di una finestra specifica",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: acquisire uno screenshot del desktop o di una finestra specificata."
   },
   "ru": {
@@ -117,6 +173,14 @@
     "param.file_path.description": "Путь к файлу назначения (.png рекомендуется). Если не указано, будет сохранено в текущем каталоге с отметкой времени.",
     "param.window_title.description": "Заголовок окна для снимка (частичное совпадение). Если указан, окно ищется, активируется, и снимок делается только этой области.",
     "tool.description": "Создаёт снимок всего рабочего стола или указанного окна.",
+    "x_search_terms": [
+      "Создаёт снимок всего рабочего стола или указанного окна",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: создавать снимок рабочего стола или указанного окна."
   },
   "pt_BR": {
@@ -132,6 +196,14 @@
     "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
     "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se especificado, localiza a janela, a ativa e captura apenas essa área.",
     "tool.description": "Captura uma imagem da tela inteira ou de uma janela específica.",
+    "x_search_terms": [
+      "Captura uma imagem da tela inteira ou de uma janela específica",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada."
   },
   "pt": {
@@ -147,6 +219,14 @@
     "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
     "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se informado, localiza a janela, ativa-a e captura apenas essa área.",
     "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela específica.",
+    "x_search_terms": [
+      "Captura uma imagem de toda a área de trabalho ou de uma janela específica",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica."
   },
   "id": {
@@ -162,6 +242,14 @@
     "param.file_path.description": "Path file tujuan (.png disarankan). Jika tidak ditentukan, akan disimpan di direktori saat ini dengan timestamp.",
     "param.window_title.description": "Judul window yang akan di-screenshot (partial match). Jika ditentukan, alat akan mencari window itu, mengaktifkannya, dan memotret hanya area tersebut.",
     "tool.description": "Mengambil screenshot seluruh desktop atau window tertentu.",
+    "x_search_terms": [
+      "Mengambil screenshot seluruh desktop atau window tertentu",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu."
   },
   "vi": {
@@ -177,6 +265,14 @@
     "param.file_path.description": "Đường dẫn tệp đích (.png được khuyên dùng). Nếu không chỉ định, tệp sẽ được lưu trong thư mục hiện tại với dấu thời gian.",
     "param.window_title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần). Nếu được chỉ định, công cụ sẽ tìm cửa sổ đó, kích hoạt nó và chỉ chụp vùng đó.",
     "tool.description": "Chụp ảnh màn hình toàn bộ màn hình hoặc một cửa sổ cụ thể.",
+    "x_search_terms": [
+      "Chụp ảnh màn hình toàn bộ màn hình hoặc một cửa sổ cụ thể",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Hãy dùng công cụ này để chụp ảnh màn hình của màn hình nền hoặc một cửa sổ được chỉ định."
   },
   "pl": {
@@ -192,6 +288,14 @@
     "param.file_path.description": "Ścieżka pliku docelowego (.png zalecane). Jeśli nie zostanie podana, plik zostanie zapisany w bieżącym katalogu z sygnaturą czasu.",
     "param.window_title.description": "Tytuł okna do zrzutu (dopasowanie częściowe). Jeśli podano, narzędzie znajdzie to okno, aktywuje je i zapisze tylko ten obszar.",
     "tool.description": "Wykonuje zrzut ekranu całego pulpitu albo wskazanego okna.",
+    "x_search_terms": [
+      "Wykonuje zrzut ekranu całego pulpitu albo wskazanego okna",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Użyj tego narzędzia do wykonania zrzutu ekranu pulpitu lub wskazanego okna."
   },
   "hi": {
@@ -207,6 +311,14 @@
     "param.file_path.description": "गंतव्य फ़ाइल पथ (.png अनुशंसित)। यदि निर्दिष्ट नहीं है, तो इसे वर्तमान निर्देशिका में टाइमस्टैम्प के साथ सहेजा जाएगा।",
     "param.window_title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जाता है और केवल उसी क्षेत्र का कैप्चर लिया जाता है।",
     "tool.description": "पूरे डेस्कटॉप या किसी विशिष्ट विंडो का स्क्रीनशॉट कैप्चर करता है।",
+    "x_search_terms": [
+      "पूरे डेस्कटॉप या किसी विशिष्ट विंडो का स्क्रीनशॉट कैप्चर करता है।",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "इस टूल का उपयोग डेस्कटॉप या किसी निर्दिष्ट विंडो का स्क्रीनशॉट कैप्चर करने के लिए करें।"
   },
   "ar": {
@@ -222,6 +334,14 @@
     "param.file_path.description": "مسار الملف الوجهة (.png مُفضّل). إذا لم يُحدَّد، يُحفظ في الدليل الحالي مع طابع زمني.",
     "param.window_title.description": "عنوان النافذة المراد التقاطها (تطابق جزئي). إذا تم تحديده، يتم العثور على تلك النافذة وتفعيلها والتقاط تلك المنطقة فقط.",
     "tool.description": "يلتقط لقطة شاشة لسطح المكتب بالكامل أو لنافذة محددة.",
+    "x_search_terms": [
+      "يلتقط لقطة شاشة لسطح المكتب بالكامل أو لنافذة محددة",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "تُستخدم هذه الأداة لالتقاط لقطة شاشة لسطح المكتب أو لنافذة محددة."
   },
   "sv": {
@@ -237,6 +357,14 @@
     "param.file_path.description": "Målfilsökväg (.png rekommenderas). Om inget anges sparas filen i den aktuella katalogen med en tidsstämpel.",
     "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning). Om den anges letas fönstret upp, aktiveras och endast det området fotograferas.",
     "tool.description": "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster.",
+    "x_search_terms": [
+      "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster."
   },
   "sw": {
@@ -252,6 +380,14 @@
     "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa). Ikiwa haijatolewa, itahifadhiwa katika saraka ya sasa na muhuri wa muda.",
     "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
     "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
+    "x_search_terms": [
+      "Piga picha ya skrini ya desktop nzima au dirisha mahususi",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
   },
   "nb": {
@@ -267,6 +403,14 @@
     "param.file_path.description": "Målfilsti (.png anbefales). Hvis ikke angitt, lagres den i gjeldende katalog med et tidsstempel.",
     "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff). Hvis den er angitt, finner verktøyet vinduet, aktiverer det og tar bare bilde av det området.",
     "tool.description": "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu.",
+    "x_search_terms": [
+      "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu."
   },
   "nl": {
@@ -282,6 +426,14 @@
     "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen). Als niet opgegeven, wordt het opgeslagen in de huidige map met een tijdstempel.",
     "param.window_title.description": "Venstertitel om vast te leggen (gedeeltelijke match). Als opgegeven, zoekt het dat venster, activeert het en fotografeert alleen dat gebied.",
     "tool.description": "Leg een screenshot vast van het volledige bureaublad of van een specifiek venster.",
+    "x_search_terms": [
+      "Leg een screenshot vast van het volledige bureaublad of van een specifiek venster",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Leg een screenshot vast van het bureaublad of een opgegeven venster."
   },
   "fi": {
@@ -297,6 +449,14 @@
     "param.file_path.description": "Tallennuskohteen tiedostopolku (.png suositeltu). Jos ei anneta, tiedosto tallennetaan nykyiseen hakemistoon aikaleimalla.",
     "param.window_title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma). Jos annetaan, työkalu etsii sen ikkunan, aktivoi sen ja kuvaa vain kyseisen alueen.",
     "tool.description": "Ota kuvakaappaus koko työpöydästä tai tietystä ikkunasta.",
+    "x_search_terms": [
+      "Ota kuvakaappaus koko työpöydästä tai tietystä ikkunasta",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Ota kuvakaappaus työpöydästä tai annetusta ikkunasta."
   },
   "cs": {
@@ -312,6 +472,14 @@
     "param.file_path.description": "Cílová cesta k souboru (.png doporučeno). Pokud není zadána, uloží se do aktuálního adresáře s časovým razítkem.",
     "param.window_title.description": "Název okna, které má být zachyceno (částečná shoda). Pokud je zadán, najde se toto okno, aktivuje se a zachytí se pouze tato oblast.",
     "tool.description": "Pořizuje snímek celé plochy nebo konkrétního okna.",
+    "x_search_terms": [
+      "Pořizuje snímek celé plochy nebo konkrétního okna",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Tento nástroj slouží k následujícímu účelu: pořídit snímek plochy nebo zadaného okna."
   },
   "uk": {
@@ -327,6 +495,14 @@
     "param.file_path.description": "Шлях до файла призначення (.png рекомендовано). Якщо не вказано, буде збережено в поточному каталозі з міткою часу.",
     "param.window_title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область.",
     "tool.description": "Робить знімок усього робочого столу або конкретного вікна.",
+    "x_search_terms": [
+      "Робить знімок усього робочого столу або конкретного вікна",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна."
   },
   "tr": {
@@ -342,6 +518,14 @@
     "param.file_path.description": "Hedef dosya yolu (.png önerilir). Belirtilmemişse, geçerli dizine bir zaman damgasıyla kaydedilecektir.",
     "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme). Belirtilmişse o pencerenin yerini belirler, aktif hale getirir ve yalnızca o alanın fotoğrafını çeker.",
     "tool.description": "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar.",
+    "x_search_terms": [
+      "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak."
   },
   "th": {
@@ -357,6 +541,14 @@
     "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .png) หากไม่ระบุ จะบันทึกในไดเร็กทอรีปัจจุบันพร้อมเวลาประทับ",
     "param.window_title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น",
     "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
+    "x_search_terms": [
+      "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อจับภาพหน้าจอของเดสก์ท็อปหรือหน้าต่างที่ระบุ"
   },
   "zh_CN": {
@@ -372,6 +564,14 @@
     "param.file_path.description": "目标文件路径（建议使用 .png）。如果未指定，则会带时间戳保存到当前目录。",
     "param.window_title.description": "要拍摄的窗口标题（部分匹配）。如果指定，则找到该窗口，使其处于活动状态，并只拍摄该区域。",
     "tool.description": "捕获整个桌面或特定窗口的屏幕截图。",
+    "x_search_terms": [
+      "捕获整个桌面或特定窗口的屏幕截图",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "该工具用于以下目的：捕获桌面或指定窗口的屏幕截图。"
   },
   "zh_TW": {
@@ -387,6 +587,14 @@
     "param.file_path.description": "目標檔案路徑（建議使用 .png）。若未指定，會加上時間戳記儲存在目前目錄。",
     "param.window_title.description": "要拍攝的視窗標題（部分符合）。若指定，會找到該視窗並將其設為作用中，只擷取該區域。",
     "tool.description": "擷取整個桌面或特定視窗的螢幕截圖。",
+    "x_search_terms": [
+      "擷取整個桌面或特定視窗的螢幕截圖",
+      "screenshot",
+      "screen capture",
+      "window capture",
+      "desktop screenshot",
+      "png capture"
+    ],
     "tool.system_prompt": "此工具用於以下目的：擷取桌面或指定視窗的螢幕截圖。"
   }
 }

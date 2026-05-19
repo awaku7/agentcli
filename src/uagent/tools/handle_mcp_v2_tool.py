@@ -75,6 +75,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Note: saved_path may be omitted when the tool does not return any file payload."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "handle_mcp_v2",
+                "handle mcp v2",
+                "mcp tool",
+                "model context protocol",
+                "call remote tool",
+                "mcp",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

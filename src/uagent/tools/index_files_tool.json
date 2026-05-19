@@ -15,6 +15,11 @@
     "param.recursive.description": "Whether to search recursively when the pattern contains '**'.",
     "param.root_path.description": "Directory that is the starting point for searches and indexes. Default is the current directory.",
     "tool.description": "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately.",
+    "x_search_terms": [
+      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "ja": {
@@ -33,6 +38,11 @@
     "param.recursive.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
     "param.root_path.description": "検索・インデックスの起点となるディレクトリ。既定はカレントディレクトリです。",
     "tool.description": "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします。ファイル内容をすぐには読み込まず、検索用データを準備したいときに便利です。",
+    "x_search_terms": [
+      "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。"
   },
   "es": {
@@ -51,6 +61,11 @@
     "param.recursive.description": "Si se debe buscar de forma recursiva cuando el patrón contiene '**'.",
     "param.root_path.description": "Directorio que sirve como punto de partida para búsquedas e índices. El valor predeterminado es el directorio actual.",
     "tool.description": "Indexa los archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files). Esto es útil cuando quiere preparar los datos de búsqueda sin leer el contenido del archivo de inmediato.",
+    "x_search_terms": [
+      "Indexa los archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver la descripción de la herramienta)."
   },
   "fr": {
@@ -69,6 +84,11 @@
     "param.recursive.description": "Indique s'il faut effectuer une recherche récursive lorsque le motif contient '**'.",
     "param.root_path.description": "Répertoire qui sert de point de départ pour les recherches et les index. La valeur par défaut est le répertoire actuel.",
     "tool.description": "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle afin d'activer la recherche sémantique (semantic_search_files). C'est utile pour préparer les données de recherche sans lire immédiatement le contenu des fichiers.",
+    "x_search_terms": [
+      "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle afin d'activer la recherche sémantique (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l'outil)."
   },
   "ko": {
@@ -87,6 +107,11 @@
     "param.recursive.description": "패턴에 '**'가 포함된 경우 재귀적으로 검색할지 여부입니다.",
     "param.root_path.description": "검색과 색인의 시작점이 되는 디렉터리입니다. 기본값은 현재 디렉터리입니다.",
     "tool.description": "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다. 파일 내용을 즉시 읽지 않고 검색 준비를 할 때 유용합니다.",
+    "x_search_terms": [
+      "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
   },
   "de": {
@@ -105,6 +130,11 @@
     "param.recursive.description": "Ob rekursiv gesucht werden soll, wenn das Muster '**' enthält.",
     "param.root_path.description": "Verzeichnis, das als Ausgangspunkt für Suchen und Indizes dient. Standard ist das aktuelle Verzeichnis.",
     "tool.description": "Indexiert die angegebenen Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-Datenbank, um die semantische Suche (semantic_search_files) zu ermöglichen. Das ist nützlich, wenn Sie Suchdaten vorbereiten möchten, ohne den Dateiinhalt sofort zu lesen.",
+    "x_search_terms": [
+      "Indexiert die angegebenen Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-Datenbank, um die semantische Suche (semantic_search_files) zu ermöglichen",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
   "it": {
@@ -123,6 +153,11 @@
     "param.recursive.description": "Indica se eseguire la ricerca in modo ricorsivo quando il pattern contiene '**'.",
     "param.root_path.description": "Directory che funge da punto di partenza per ricerche e indici. Il valore predefinito è la directory corrente.",
     "tool.description": "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files). È utile quando si vogliono preparare i dati di ricerca senza leggere subito il contenuto del file.",
+    "x_search_terms": [
+      "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
   "ru": {
@@ -141,6 +176,11 @@
     "param.recursive.description": "Следует ли выполнять рекурсивный поиск, если шаблон содержит '**'.",
     "param.root_path.description": "Каталог, который является отправной точкой для поиска и индексирования. По умолчанию используется текущий каталог.",
     "tool.description": "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files). Это полезно, когда нужно подготовить данные для поиска, не читая содержимое файла сразу.",
+    "x_search_terms": [
+      "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
   "pt_BR": {
@@ -159,6 +199,11 @@
     "param.recursive.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
     "param.root_path.description": "Diretório que serve como ponto de partida para buscas e índices. O padrão é o diretório atual.",
     "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files). Isso é útil quando você quer preparar os dados de busca sem ler o conteúdo do arquivo imediatamente.",
+    "x_search_terms": [
+      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
   "pt": {
@@ -177,6 +222,11 @@
     "param.recursive.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
     "param.root_path.description": "Diretório que é o ponto de partida para pesquisas e índices. O padrão é o diretório atual.",
     "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files). Isto é útil quando você deseja preparar dados de pesquisa sem ler imediatamente o conteúdo do arquivo.",
+    "x_search_terms": [
+      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
   "id": {
@@ -195,6 +245,11 @@
     "param.recursive.description": "Apakah mencari secara rekursif ketika pola berisi '**'.",
     "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan. Default adalah direktori saat ini.",
     "tool.description": "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files). Berguna saat Anda ingin menyiapkan data pencarian tanpa langsung membaca isi file.",
+    "x_search_terms": [
+      "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   },
   "vi": {
@@ -213,6 +268,11 @@
     "param.recursive.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không.",
     "param.root_path.description": "Thư mục là điểm bắt đầu cho việc tìm kiếm và lập chỉ mục. Mặc định là thư mục hiện tại.",
     "tool.description": "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files). Điều này rất hữu ích khi bạn muốn chuẩn bị dữ liệu tìm kiếm mà không cần đọc nội dung file ngay lập tức.",
+    "x_search_terms": [
+      "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
   "pl": {
@@ -231,6 +291,11 @@
     "param.recursive.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”.",
     "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów. Domyślnie jest to katalog bieżący.",
     "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne, gdy chcesz przygotować dane do wyszukiwania bez natychmiastowego odczytywania zawartości pliku.",
+    "x_search_terms": [
+      "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
   "hi": {
@@ -249,6 +314,11 @@
     "param.recursive.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।",
     "param.root_path.description": "निर्देशिका जो खोजों और अनुक्रमणिका के लिए प्रारंभिक बिंदु है। डिफ़ॉल्ट वर्तमान निर्देशिका है.",
     "tool.description": "सिमेंटिक खोज (semantic_search_files) को सक्षम करने के लिए निर्दिष्ट फ़ाइलों या निर्देशिकाओं (ग्लोब पैटर्न) को वेक्टर DB में अनुक्रमित करता है। यह तब उपयोगी होता है जब आप फ़ाइल सामग्री को तुरंत पढ़े बिना खोज डेटा तैयार करना चाहते हैं।",
+    "x_search_terms": [
+      "सिमेंटिक खोज (semantic_search_files) को सक्षम करने के लिए निर्दिष्ट फ़ाइलों या निर्देशिकाओं (ग्लोब पैटर्न) को वेक्टर DB में अनुक्रमित करता है। यह तब उपयोगी होता है जब आप फ़ाइल सामग्री को तुरंत पढ़े बिना खोज डेटा तैयार करना चाहते हैं।",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
   "ar": {
@@ -267,6 +337,11 @@
     "param.recursive.description": "ما إذا كان سيتم البحث بشكل متكرر عندما يحتوي النمط على \"**\".",
     "param.root_path.description": "الدليل الذي يمثل نقطة البداية لعمليات البحث والفهارس. الافتراضي هو الدليل الحالي.",
     "tool.description": "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files). يكون هذا مفيدًا عندما تريد إعداد بيانات البحث دون قراءة محتويات الملف على الفور.",
+    "x_search_terms": [
+      "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
   "sv": {
@@ -285,6 +360,11 @@
     "param.recursive.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\".",
     "param.root_path.description": "Katalog som fungerar som startpunkt för sökningar och indexering. Standard är den aktuella katalogen.",
     "tool.description": "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files). Detta är användbart när du vill förbereda sökdata utan att läsa filinnehållet direkt.",
+    "x_search_terms": [
+      "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
   "sw": {
@@ -303,6 +383,11 @@
     "param.recursive.description": "Whether to search recursively when the pattern contains '**'.",
     "param.root_path.description": "Directory that is the starting point for searches and indexes. Default is the current directory.",
     "tool.description": "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately.",
+    "x_search_terms": [
+      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
   "nb": {
@@ -321,6 +406,11 @@
     "param.recursive.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\".",
     "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering. Standard er gjeldende katalog.",
     "tool.description": "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files). Dette er nyttig når du vil forberede søkedata uten å lese filinnholdet med en gang.",
+    "x_search_terms": [
+      "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
@@ -339,6 +429,11 @@
     "param.recursive.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
     "param.root_path.description": "Map die het startpunt is voor zoek- en indexbewerkingen. Standaard is de huidige map.",
     "tool.description": "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken. Handig wanneer u zoekdata wilt voorbereiden zonder direct bestandsinhoud te lezen.",
+    "x_search_terms": [
+      "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: (zie toolbeschrijving)."
   },
   "fi": {
@@ -357,6 +452,11 @@
     "param.recursive.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'.",
     "param.root_path.description": "Hakemisto, joka on haun ja indeksoinnin aloituspiste. Oletus on nykyinen hakemisto.",
     "tool.description": "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista. Hyödyllinen, kun haluat valmistella hakudataa lukematta tiedostosisältöä heti.",
+    "x_search_terms": [
+      "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
   "cs": {
@@ -375,6 +475,11 @@
     "param.recursive.description": "Zda při vzoru obsahujícím '**' hledat rekurzivně.",
     "param.root_path.description": "Adresář, který je výchozím bodem pro vyhledávání a indexování. Výchozí je aktuální adresář.",
     "tool.description": "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files). Hodí se, když chcete připravit data pro vyhledávání, aniž byste hned četli obsah souborů.",
+    "x_search_terms": [
+      "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu (viz popis nástroje)."
   },
   "uk": {
@@ -393,6 +498,11 @@
     "param.recursive.description": "Чи виконувати рекурсивний пошук, коли шаблон містить '**'.",
     "param.root_path.description": "Каталог, який є відправною точкою для пошуку та індексування. За замовчуванням використовується поточний каталог.",
     "tool.description": "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files). Це корисно, коли потрібно підготувати дані для пошуку, не читаючи вміст файлів одразу.",
+    "x_search_terms": [
+      "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files)",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Використовуйте цей інструмент для наведеного вище призначення (див. опис інструмента)."
   },
   "tr": {
@@ -411,6 +521,11 @@
     "param.recursive.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yapılmayacağı.",
     "param.root_path.description": "Aramalar ve dizinler için başlangıç ​​noktası olan dizin. Varsayılan geçerli dizindir.",
     "tool.description": "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler. Bu, dosya içeriğini hemen okumadan arama verilerini hazırlamak istediğinizde kullanışlıdır.",
+    "x_search_terms": [
+      "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (alet açıklamasına bakın)."
   },
   "th": {
@@ -429,6 +544,11 @@
     "param.recursive.description": "จะค้นหาแบบวนซ้ำหรือไม่เมื่อรูปแบบมี '**'",
     "param.root_path.description": "ไดเรกทอรีที่เป็นจุดเริ่มต้นของการค้นหาและการจัดทำดัชนี ค่าเริ่มต้นคือไดเรกทอรีปัจจุบัน",
     "tool.description": "จัดทำดัชนีไฟล์หรือไดเรกทอรีที่ระบุ (รูปแบบ glob) ลงในฐานข้อมูลเวกเตอร์ เพื่อเปิดใช้งานการค้นหาเชิงความหมาย (semantic_search_files) ซึ่งมีประโยชน์เมื่อคุณต้องการเตรียมข้อมูลสำหรับการค้นหาโดยไม่ต้องอ่านเนื้อหาไฟล์ทันที",
+    "x_search_terms": [
+      "จัดทำดัชนีไฟล์หรือไดเรกทอรีที่ระบุ (รูปแบบ glob) ลงในฐานข้อมูลเวกเตอร์ เพื่อเปิดใช้งานการค้นหาเชิงความหมาย (semantic_search_files) ซึ่งมีประโยชน์เมื่อคุณต้องการเตรียมข้อมูลสำหรับการค้นหาโดยไม่ต้องอ่านเนื้อหาไฟล์ทันที",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   },
   "zh_CN": {
@@ -447,6 +567,11 @@
     "param.recursive.description": "当模式包含“**”时是否递归搜索。",
     "param.root_path.description": "作为搜索和索引起点的目录。默认是当前目录。",
     "tool.description": "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）。当您想先准备搜索数据而不立即读取文件内容时，这非常有用。",
+    "x_search_terms": [
+      "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
   },
   "zh_TW": {
@@ -465,6 +590,11 @@
     "param.recursive.description": "當模式包含「**」時是否遞迴搜尋。",
     "param.root_path.description": "作為搜尋與索引起點的目錄。預設為目前目錄。",
     "tool.description": "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）。當您想先準備搜尋資料而不立即讀取檔案內容時，這很有用。",
+    "x_search_terms": [
+      "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）",
+      "index_files",
+      "index files"
+    ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   }
 }

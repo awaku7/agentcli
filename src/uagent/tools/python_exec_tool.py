@@ -32,6 +32,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Execute Python code in a controlled way. When you are about to run code, briefly state what will be executed."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "python",
+                "run python",
+                "execute script",
+                "Python 実行",
+                "ejecutar python",
+                "exécuter python",
+                "파이썬 실행",
+                "запустить python",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {
