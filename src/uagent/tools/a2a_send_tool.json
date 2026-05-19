@@ -2,7 +2,7 @@
   "en": {
     "tool.description": "Send a message to an A2A server profile (a2a://name or profile name). Use only when existing local tools cannot replace the task.",
     "x_search_terms": [
-      "Send a message to an A2A server profile (a2a://name or profile name)",
+      "Send a message to an A2A server profile (a2a://name or profile name). Use only when existing local tools cannot replace the task",
       "a2a_send",
       "a2a send"
     ],
@@ -16,7 +16,7 @@
   "ja": {
     "tool.description": "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [
-      "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します",
+      "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します。 既存のローカルツールで代替できない場合のみ使用してください",
       "a2a_send",
       "a2a send"
     ],
@@ -30,7 +30,7 @@
   "es": {
     "tool.description": "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
-      "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil)",
+      "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea",
       "a2a_send",
       "a2a send"
     ],
@@ -44,7 +44,7 @@
   "fr": {
     "tool.description": "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
-      "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil)",
+      "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche",
       "a2a_send",
       "a2a send"
     ],
@@ -58,7 +58,7 @@
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다",
+      "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요",
       "a2a_send",
       "a2a send"
     ],
@@ -72,7 +72,7 @@
   "de": {
     "tool.description": "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname). Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
-      "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname)",
+      "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname). Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können",
       "a2a_send",
       "a2a send"
     ],
@@ -86,7 +86,7 @@
   "it": {
     "tool.description": "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
-      "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo)",
+      "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo). Usalo solo quando gli strumenti locali non possono sostituire il compito",
       "a2a_send",
       "a2a send"
     ],
@@ -100,7 +100,7 @@
   "ru": {
     "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
-      "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля)",
+      "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля). Используйте только тогда, когда локальные инструменты не могут заменить задачу",
       "a2a_send",
       "a2a send"
     ],
@@ -114,7 +114,7 @@
   "pt_BR": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil)",
+      "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil). Use somente quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_send",
       "a2a send"
     ],
@@ -128,7 +128,7 @@
   "pt": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil)",
+      "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil). Use apenas quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_send",
       "a2a send"
     ],
@@ -142,7 +142,7 @@
   "id": {
     "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
-      "Kirim pesan ke profil server A2A (a2a://name atau nama profil)",
+      "Kirim pesan ke profil server A2A (a2a://name atau nama profil). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas",
       "a2a_send",
       "a2a send"
     ],
@@ -156,7 +156,7 @@
   "vi": {
     "tool.description": "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
-      "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ)",
+      "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ",
       "a2a_send",
       "a2a send"
     ],
@@ -170,7 +170,7 @@
   "pl": {
     "tool.description": "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
-      "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu)",
+      "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania",
       "a2a_send",
       "a2a send"
     ],
@@ -198,7 +198,7 @@
   "ar": {
     "tool.description": "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
-      "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي)",
+      "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة",
       "a2a_send",
       "a2a send"
     ],
@@ -212,7 +212,7 @@
   "sv": {
     "tool.description": "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
-      "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn)",
+      "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn). Använd endast när lokala verktyg inte kan ersätta uppgiften",
       "a2a_send",
       "a2a send"
     ],
@@ -226,7 +226,7 @@
   "sw": {
     "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
-      "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili)",
+      "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi",
       "a2a_send",
       "a2a send"
     ],
@@ -240,7 +240,7 @@
   "nb": {
     "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
-      "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn)",
+      "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn). Bruk bare når lokale verktøy ikke kan erstatte oppgaven",
       "a2a_send",
       "a2a send"
     ],
@@ -254,7 +254,7 @@
   "nl": {
     "tool.description": "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
-      "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam)",
+      "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen",
       "a2a_send",
       "a2a send"
     ],
@@ -268,7 +268,7 @@
   "fi": {
     "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
-      "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi)",
+      "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää",
       "a2a_send",
       "a2a send"
     ],
@@ -282,7 +282,7 @@
   "cs": {
     "tool.description": "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
-      "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu)",
+      "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit",
       "a2a_send",
       "a2a send"
     ],
@@ -296,7 +296,7 @@
   "uk": {
     "tool.description": "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
-      "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю)",
+      "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання",
       "a2a_send",
       "a2a send"
     ],
@@ -310,7 +310,7 @@
   "tr": {
     "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
-      "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin",
+      "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın",
       "a2a_send",
       "a2a send"
     ],
@@ -324,7 +324,7 @@
   "th": {
     "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
-      "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์)",
+      "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้",
       "a2a_send",
       "a2a send"
     ],
@@ -338,7 +338,7 @@
   "zh_CN": {
     "tool.description": "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
-      "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息",
+      "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。 仅在本地工具无法替代该任务时使用",
       "a2a_send",
       "a2a send"
     ],
@@ -352,7 +352,7 @@
   "zh_TW": {
     "tool.description": "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
-      "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）",
+      "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。 僅在本機工具無法取代該任務時使用",
       "a2a_send",
       "a2a send"
     ],

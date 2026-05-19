@@ -5,10 +5,7 @@
     "tool.description": "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions.",
     "x_search_terms": [
       "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "ja": {
@@ -17,10 +14,7 @@
     "tool.description": "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします。",
     "x_search_terms": [
       "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "es": {
@@ -29,10 +23,7 @@
     "tool.description": "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas.",
     "x_search_terms": [
       "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "fr": {
@@ -41,10 +32,7 @@
     "tool.description": "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes.",
     "x_search_terms": [
       "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "ko": {
@@ -53,10 +41,7 @@
     "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다.",
     "x_search_terms": [
       "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "de": {
@@ -65,10 +50,7 @@
     "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert.",
     "x_search_terms": [
       "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "it": {
@@ -77,10 +59,7 @@
     "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete.",
     "x_search_terms": [
       "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "ru": {
@@ -89,10 +68,7 @@
     "tool.description": "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов.",
     "x_search_terms": [
       "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "pt_BR": {
@@ -101,10 +77,7 @@
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
       "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "pt": {
@@ -113,10 +86,7 @@
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
       "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "id": {
@@ -125,10 +95,7 @@
     "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap.",
     "x_search_terms": [
       "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "vi": {
@@ -137,10 +104,7 @@
     "tool.description": "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ.",
     "x_search_terms": [
       "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "pl": {
@@ -149,10 +113,7 @@
     "tool.description": "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi.",
     "x_search_terms": [
       "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "hi": {
@@ -161,10 +122,7 @@
     "tool.description": "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
     "x_search_terms": [
       "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "ar": {
@@ -173,10 +131,7 @@
     "tool.description": "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات.",
     "x_search_terms": [
       "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "sv": {
@@ -185,10 +140,7 @@
     "tool.description": "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner.",
     "x_search_terms": [
       "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "sw": {
@@ -197,10 +149,7 @@
     "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana.",
     "x_search_terms": [
       "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "nb": {
@@ -209,10 +158,7 @@
     "tool.description": "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner.",
     "x_search_terms": [
       "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "nl": {
@@ -221,10 +167,7 @@
     "tool.description": "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd.",
     "x_search_terms": [
       "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "fi": {
@@ -233,10 +176,7 @@
     "tool.description": "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä.",
     "x_search_terms": [
       "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "cs": {
@@ -245,10 +185,7 @@
     "tool.description": "Vrátí lehký katalog dostupných nástrojů, aby model mohl najít relevantní nástroje dříve, než si vyžádá jejich úplné definice.",
     "x_search_terms": [
       "Vrátí lehký katalog dostupných nástrojů, aby model mohl najít relevantní nástroje dříve, než si vyžádá jejich úplné definice",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "uk": {
@@ -257,10 +194,7 @@
     "tool.description": "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів.",
     "x_search_terms": [
       "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "tr": {
@@ -269,10 +203,7 @@
     "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün.",
     "x_search_terms": [
       "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "th": {
@@ -281,10 +212,7 @@
     "tool.description": "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด",
     "x_search_terms": [
       "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "zh_CN": {
@@ -293,10 +221,7 @@
     "tool.description": "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具。",
     "x_search_terms": [
       "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   },
   "zh_TW": {
@@ -305,10 +230,7 @@
     "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。",
     "x_search_terms": [
       "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具",
-      "catalog",
-      "tool catalog",
-      "discover tools",
-      "tool discovery"
+      "catalog"
     ]
   }
 }

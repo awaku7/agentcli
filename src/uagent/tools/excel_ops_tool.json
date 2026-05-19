@@ -8,13 +8,9 @@
     "param.output_path.description": "Output path for action='keep_only_sheets'. If it already exists, it is overwritten after creating a backup (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Read and write Excel (.xlsx) files, and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing.",
     "x_search_terms": [
-      "Read and write Excel (",
+      "Read and write Excel (.xlsx) files, and get sheet names. When writing to an existing file, a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'.",
     "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",
@@ -29,13 +25,9 @@
     "param.output_path.description": "出力先パス（action='keep_only_sheets' のみ）。既に存在する場合は、バックアップ（<output_path>.org / <output_path>.org1 / ...）を作成してから上書きします。",
     "tool.description": "Excel（.xlsx）ファイルの読み書きとシート名の取得を行います。既存ファイルへ書き込む場合は、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / ...）を作成します。",
     "x_search_terms": [
-      "Excel（",
+      "Excel（.xlsx）ファイルの読み書きとシート名の取得を行います。既存ファイルへ書き込む場合は、書き込み直前に同名のバックアップ（<file_path>.org / <file_path>.org1 / ...）を作成します",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "このツールは、ツール名 'excel_ops' で示される処理を実行します。",
     "param.password.description": "暗号化された .xlsx ファイルのパスワード（任意）。省略時にファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
@@ -50,13 +42,9 @@
     "param.output_path.description": "Ruta de salida para action='keep_only_sheets'. Si ya existe, se sobrescribe después de crear una copia de seguridad (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Lea y escriba archivos de Excel (.xlsx) y obtenga los nombres de las hojas. Al escribir en un archivo existente, se crea inmediatamente una copia de seguridad con el mismo nombre (<file_path>.org / <file_path>.org1 / ...) antes de escribir.",
     "x_search_terms": [
-      "Lea y escriba archivos de Excel (",
+      "Lea y escriba archivos de Excel (.xlsx) y obtenga los nombres de las hojas. Al escribir en un archivo existente, se crea inmediatamente una copia de seguridad con el mismo nombre (<file_path>.org / <file_path>.org1 / ...) antes de escribir",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'excel_ops'.",
     "param.password.description": "Contraseña opcional para archivos .xlsx cifrados. Si se omite y el archivo está cifrado, se le pedirá la contraseña una vez.",
@@ -71,13 +59,9 @@
     "param.output_path.description": "Chemin de sortie pour action='keep_only_sheets'. S'il existe déjà, il est écrasé après création d'une sauvegarde (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Lisez et écrivez des fichiers Excel (.xlsx) et récupérez les noms des feuilles. Lors de l'écriture dans un fichier existant, une sauvegarde du même nom (<file_path>.org / <file_path>.org1 / ...) est créée immédiatement avant l'écriture.",
     "x_search_terms": [
-      "Lisez et écrivez des fichiers Excel (",
+      "Lisez et écrivez des fichiers Excel (.xlsx) et récupérez les noms des feuilles. Lors de l'écriture dans un fichier existant, une sauvegarde du même nom (<file_path>.org / <file_path>.org1 / ...) est créée immédiatement avant l'écriture",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « excel_ops ».",
     "param.password.description": "Mot de passe facultatif pour les fichiers .xlsx chiffrés. S'il est omis et que le fichier est chiffré, il vous sera demandé une seule fois.",
@@ -92,13 +76,9 @@
     "param.output_path.description": "action='keep_only_sheets'의 출력 경로입니다. 이미 존재하는 경우 백업(<output_path>.org / <output_path>.org1 / ...)을 만든 뒤 덮어씁니다.",
     "tool.description": "Excel(.xlsx) 파일을 읽고 쓰며 시트 이름을 가져옵니다. 기존 파일에 쓸 때는 쓰기 직전에 같은 이름의 백업(<file_path>.org / <file_path>.org1 / ...)이 생성됩니다.",
     "x_search_terms": [
-      "Excel(",
+      "Excel(.xlsx) 파일을 읽고 쓰며 시트 이름을 가져옵니다. 기존 파일에 쓸 때는 쓰기 직전에 같은 이름의 백업(<file_path>.org / <file_path>.org1 / ...)이 생성됩니다",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "이 도구는 도구 이름 'excel_ops'에 설명된 작업을 수행합니다.",
     "param.password.description": "암호화된 .xlsx 파일의 선택적 비밀번호입니다. 생략되었고 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
@@ -113,13 +93,9 @@
     "param.output_path.description": "Ausgabepfad für action='keep_only_sheets'. Wenn er bereits vorhanden ist, wird er nach dem Erstellen eines Backups überschrieben (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Liest und schreibt Excel-Dateien (.xlsx) und ermittelt Blattnamen. Beim Schreiben in eine vorhandene Datei wird unmittelbar vor dem Schreiben ein Backup mit demselben Namen (<file_path>.org / <file_path>.org1 / ...) erstellt.",
     "x_search_terms": [
-      "Liest und schreibt Excel-Dateien (",
+      "Liest und schreibt Excel-Dateien (.xlsx) und ermittelt Blattnamen. Beim Schreiben in eine vorhandene Datei wird unmittelbar vor dem Schreiben ein Backup mit demselben Namen (<file_path>.org / <file_path>.org1 / ...) erstellt",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „excel_ops“ beschriebenen Vorgang aus.",
     "param.password.description": "Optionales Kennwort für verschlüsselte .xlsx-Dateien. Wenn es weggelassen wird und die Datei verschlüsselt ist, werden Sie einmal zur Eingabe aufgefordert.",
@@ -134,13 +110,9 @@
     "param.output_path.description": "Percorso di output per action='keep_only_sheets'. Se esiste già, verrà sovrascritto dopo aver creato un backup (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Legge e scrive file Excel (.xlsx) e ottiene i nomi dei fogli. Quando si scrive su un file esistente, viene creato un backup con lo stesso nome (<file_path>.org / <file_path>.org1 / ...) immediatamente prima della scrittura.",
     "x_search_terms": [
-      "Legge e scrive file Excel (",
+      "Legge e scrive file Excel (.xlsx) e ottiene i nomi dei fogli. Quando si scrive su un file esistente, viene creato un backup con lo stesso nome (<file_path>.org / <file_path>.org1 / ...) immediatamente prima della scrittura",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'excel_ops'.",
     "param.password.description": "Password facoltativa per file .xlsx crittografati. Se omessa e il file è crittografato, verrà richiesto di inserirla una sola volta.",
@@ -155,13 +127,9 @@
     "param.output_path.description": "Путь вывода для action='keep_only_sheets'. Если он уже существует, он перезаписывается после создания резервной копии (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Чтение и запись файлов Excel (.xlsx) и получение имен листов. При записи в существующий файл непосредственно перед записью создается резервная копия с тем же именем (<file_path>.org / <file_path>.org1 / ...).",
     "x_search_terms": [
-      "Чтение и запись файлов Excel (",
+      "Чтение и запись файлов Excel (.xlsx) и получение имен листов. При записи в существующий файл непосредственно перед записью создается резервная копия с тем же именем (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «excel_ops».",
     "param.password.description": "Необязательный пароль для зашифрованных файлов .xlsx. Если он не указан и файл зашифрован, пароль будет запрошен один раз.",
@@ -176,13 +144,9 @@
     "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
     "x_search_terms": [
-      "Leia e grave arquivos Excel (",
+      "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
     "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitida e o arquivo estiver criptografado, será solicitada uma única vez.",
@@ -197,13 +161,9 @@
     "param.output_path.description": "Caminho de saída para action='keep_only_sheets'. Se já existir, será substituído após a criação de um backup (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação.",
     "x_search_terms": [
-      "Leia e grave arquivos Excel (",
+      "Leia e grave arquivos Excel (.xlsx) e obtenha os nomes das planilhas. Ao gravar em um arquivo existente, um backup com o mesmo nome (<file_path>.org / <file_path>.org1 / ...) é criado imediatamente antes da gravação",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
     "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
@@ -218,13 +178,9 @@
     "param.output_path.description": "Path output untuk action='keep_only_sheets'. Jika sudah ada, akan ditimpa setelah membuat cadangan (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Baca dan tulis file Excel (.xlsx) serta dapatkan nama sheet. Saat menulis ke file yang sudah ada, cadangan dengan nama yang sama (<file_path>.org / <file_path>.org1 / ...) dibuat tepat sebelum penulisan.",
     "x_search_terms": [
-      "Baca dan tulis file Excel (",
+      "Baca dan tulis file Excel (.xlsx) serta dapatkan nama sheet. Saat menulis ke file yang sudah ada, cadangan dengan nama yang sama (<file_path>.org / <file_path>.org1 / ...) dibuat tepat sebelum penulisan",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'excel_ops'.",
     "param.password.description": "Kata sandi opsional untuk file .xlsx terenkripsi. Jika tidak diisi dan file terenkripsi, Anda akan diminta kata sandi satu kali.",
@@ -239,13 +195,9 @@
     "param.output_path.description": "Đường dẫn đầu ra cho action='keep_only_sheets'. Nếu nó đã tồn tại thì nó sẽ bị ghi đè sau khi tạo bản sao lưu (<output_path>.org/<output_path>.org1/...).",
     "tool.description": "Đọc và ghi tệp Excel (.xlsx) và lấy tên trang tính. Khi ghi vào một tập tin hiện có, một bản sao lưu có cùng tên (<file_path>.org / <file_path>.org1 / ...) sẽ được tạo ngay trước khi ghi.",
     "x_search_terms": [
-      "Đọc và ghi tệp Excel (",
+      "Đọc và ghi tệp Excel (.xlsx) và lấy tên trang tính. Khi ghi vào một tập tin hiện có, một bản sao lưu có cùng tên (<file_path>.org / <file_path>.org1 / ...) sẽ được tạo ngay trước khi ghi",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'excel_ops'.",
     "param.password.description": "Mật khẩu tùy chọn cho tệp .xlsx đã mã hóa. Nếu bỏ qua và tệp đã được mã hóa, bạn sẽ được yêu cầu nhập mật khẩu một lần.",
@@ -260,13 +212,9 @@
     "param.output_path.description": "Ścieżka wyjściowa dla akcji='keep_only_sheets'. Jeśli już istnieje, zostanie nadpisany po utworzeniu kopii zapasowej (<ścieżka_wyjściowa>.org / <ścieżka_wyjściowa>.org1 / ...).",
     "tool.description": "Odczytuj i zapisuj pliki Excel (.xlsx) oraz pobieraj nazwy arkuszy. Podczas zapisywania do istniejącego pliku bezpośrednio przed zapisem tworzona jest kopia zapasowa o tej samej nazwie (<ścieżka_pliku>.org / <ścieżka_pliku>.org1 / ...).",
     "x_search_terms": [
-      "Odczytuj i zapisuj pliki Excel (",
+      "Odczytuj i zapisuj pliki Excel (.xlsx) oraz pobieraj nazwy arkuszy. Podczas zapisywania do istniejącego pliku bezpośrednio przed zapisem tworzona jest kopia zapasowa o tej samej nazwie (<ścieżka_pliku>.org / <ścieżka_pliku>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „excel_ops”.",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
@@ -281,13 +229,9 @@
     "param.output_path.description": "action='keep_only_sheets' के लिए आउटपुट पथ। यदि यह पहले से मौजूद है, तो बैकअप (<output_path>.org / <output_path>.org1 / ...) बनाने के बाद इसे अधिलेखित किया जाता है।",
     "tool.description": "Excel (.xlsx) फ़ाइलें पढ़ें और लिखें, तथा शीट नाम प्राप्त करें। किसी मौजूदा फ़ाइल पर लिखते समय, लिखने से ठीक पहले उसी नाम का बैकअप (<file_path>.org / <file_path>.org1 / ...) बनाया जाता है।",
     "x_search_terms": [
-      "Excel (",
+      "Excel (.xlsx) फ़ाइलें पढ़ें और लिखें, तथा शीट नाम प्राप्त करें। किसी मौजूदा फ़ाइल पर लिखते समय, लिखने से ठीक पहले उसी नाम का बैकअप (<file_path>.org / <file_path>.org1 / ...) बनाया जाता है।",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "यह टूल टूल नाम 'excel_ops' द्वारा वर्णित ऑपरेशन करता है।",
     "param.password.description": "एन्क्रिप्टेड .xlsx फ़ाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और फ़ाइल एन्क्रिप्ट की गई है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
@@ -302,13 +246,9 @@
     "param.output_path.description": "مسار الإخراج في action='keep_only_sheets'. إذا كان موجودًا بالفعل، فسيتم استبداله بعد إنشاء نسخة احتياطية (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "اقرأ ملفات Excel (.xlsx) واكتبها واحصل على أسماء الأوراق. عند الكتابة إلى ملف موجود، يتم إنشاء نسخة احتياطية بنفس الاسم (<file_path>.org / <file_path>.org1 / ...) مباشرةً قبل الكتابة.",
     "x_search_terms": [
-      "اقرأ ملفات Excel (",
+      "اقرأ ملفات Excel (.xlsx) واكتبها واحصل على أسماء الأوراق. عند الكتابة إلى ملف موجود، يتم إنشاء نسخة احتياطية بنفس الاسم (<file_path>.org / <file_path>.org1 / ...) مباشرةً قبل الكتابة",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة 'excel_ops'.",
     "param.password.description": "كلمة مرور اختيارية لملفات .xlsx المشفرة. إذا تم حذفها وكان الملف مشفرًا، فستتم مطالبتك بكلمة المرور مرة واحدة.",
@@ -323,13 +263,9 @@
     "param.output_path.description": "Utmatningssökväg för action='keep_only_sheets'. Om den redan finns skrivs den över efter att en säkerhetskopia skapats (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Läser och skriver Excel-filer (.xlsx) och hämtar bladnamn. När du skriver till en befintlig fil skapas en säkerhetskopia med samma namn (<file_path>.org / <file_path>.org1 / ...) direkt före skrivningen.",
     "x_search_terms": [
-      "Läser och skriver Excel-filer (",
+      "Läser och skriver Excel-filer (.xlsx) och hämtar bladnamn. När du skriver till en befintlig fil skapas en säkerhetskopia med samma namn (<file_path>.org / <file_path>.org1 / ...) direkt före skrivningen",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'excel_ops'.",
     "param.password.description": "Valfritt lösenord för krypterade .xlsx-filer. Om det utelämnas och filen är krypterad kommer du att uppmanas en gång att ange ett lösenord.",
@@ -344,13 +280,9 @@
     "param.output_path.description": "Njia ya matokeo kwa action='keep_only_sheets'. Ikiwa tayari ipo, itaandikwa juu baada ya kuunda nakala ya hifadhi (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Soma na andika faili za Excel (.xlsx) na upate majina ya karatasi. Unapoandika kwenye faili lililopo, nakala ya hifadhi yenye jina hilo hilo (<file_path>.org / <file_path>.org1 / ...) huundwa mara moja kabla ya kuandika.",
     "x_search_terms": [
-      "Soma na andika faili za Excel (",
+      "Soma na andika faili za Excel (.xlsx) na upate majina ya karatasi. Unapoandika kwenye faili lililopo, nakala ya hifadhi yenye jina hilo hilo (<file_path>.org / <file_path>.org1 / ...) huundwa mara moja kabla ya kuandika",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
     "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likikosekana na faili imefichwa, utaombwa nenosiri mara moja.",
@@ -365,13 +297,9 @@
     "param.output_path.description": "Utdatafil for action='keep_only_sheets'. Hvis den allerede finnes, overskrives den etter at det er opprettet en sikkerhetskopi (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Leser og skriver Excel-filer (.xlsx) og henter arknavn. Når du skriver til en eksisterende fil, opprettes en sikkerhetskopi med samme navn (<file_path>.org / <file_path>.org1 / ...) rett før skrivingen.",
     "x_search_terms": [
-      "Leser og skriver Excel-filer (",
+      "Leser og skriver Excel-filer (.xlsx) og henter arknavn. Når du skriver til en eksisterende fil, opprettes en sikkerhetskopi med samme navn (<file_path>.org / <file_path>.org1 / ...) rett før skrivingen",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'excel_ops'.",
     "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om å oppgi et passord én gang.",
@@ -386,13 +314,9 @@
     "param.output_path.description": "Uitvoerpad voor action='keep_only_sheets'. Als het al bestaat, wordt het na het maken van een back-up (<output_path>.org / <output_path>.org1 / ...) overschreven.",
     "tool.description": "Lees en schrijf Excel-bestanden (.xlsx) en haal bladnamen op. Bij het schrijven naar een bestaand bestand wordt direct vóór het schrijven een back-up met dezelfde naam gemaakt (<file_path>.org / <file_path>.org1 / ...).",
     "x_search_terms": [
-      "Lees en schrijf Excel-bestanden (",
+      "Lees en schrijf Excel-bestanden (.xlsx) en haal bladnamen op. Bij het schrijven naar een bestaand bestand wordt direct vóór het schrijven een back-up met dezelfde naam gemaakt (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Deze tool voert de bewerking uit die door de toolnaam 'excel_ops' wordt beschreven.",
     "param.password.description": "Optioneel wachtwoord voor versleutelde .xlsx-bestanden. Als dit wordt weggelaten en het bestand versleuteld is, wordt u één keer om een wachtwoord gevraagd.",
@@ -407,13 +331,9 @@
     "param.output_path.description": "Tulostepolku action='keep_only_sheets' -toiminnolle. Jos se on jo olemassa, se korvataan varmuuskopion (<output_path>.org / <output_path>.org1 / ...) luomisen jälkeen.",
     "tool.description": "Lue ja kirjoita Excel (.xlsx) -tiedostoja sekä hae laskentataulujen nimet. Olemassa olevaan tiedostoon kirjoitettaessa tehdään välittömästi ennen kirjoittamista varmuuskopio samalla nimellä (<file_path>.org / <file_path>.org1 / ...).",
     "x_search_terms": [
-      "Lue ja kirjoita Excel (",
+      "Lue ja kirjoita Excel (.xlsx) -tiedostoja sekä hae laskentataulujen nimet. Olemassa olevaan tiedostoon kirjoitettaessa tehdään välittömästi ennen kirjoittamista varmuuskopio samalla nimellä (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Tämä työkalu suorittaa työkalun nimen 'excel_ops' kuvaaman toiminnon.",
     "param.password.description": "Salasana salatuille .xlsx-tiedostoille (valinnainen). Jos se jätetään pois ja tiedosto on salattu, salasanaa pyydetään kerran.",
@@ -428,13 +348,9 @@
     "param.output_path.description": "Výstupní cesta pro action='keep_only_sheets'. Pokud už existuje, bude po vytvoření zálohy přepsána (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Čte a zapisuje soubory Excel (.xlsx) a získává názvy listů. Při zápisu do existujícího souboru se bezprostředně před zápisem vytvoří záloha se stejným názvem (<file_path>.org / <file_path>.org1 / ...).",
     "x_search_terms": [
-      "Čte a zapisuje soubory Excel (",
+      "Čte a zapisuje soubory Excel (.xlsx) a získává názvy listů. Při zápisu do existujícího souboru se bezprostředně před zápisem vytvoří záloha se stejným názvem (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'excel_ops'.",
     "param.password.description": "Volitelné heslo pro šifrované soubory .xlsx. Pokud je vynecháno a soubor je šifrovaný, budete jednou vyzváni k zadání hesla.",
@@ -449,13 +365,9 @@
     "param.output_path.description": "Шлях виводу для action='keep_only_sheets'. Якщо він уже існує, його буде перезаписано після створення резервної копії (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Читає та записує файли Excel (.xlsx) і отримує назви аркушів. Під час запису до наявного файлу безпосередньо перед записом створюється резервна копія з тією самою назвою (<file_path>.org / <file_path>.org1 / ...).",
     "x_search_terms": [
-      "Читає та записує файли Excel (",
+      "Читає та записує файли Excel (.xlsx) і отримує назви аркушів. Під час запису до наявного файлу безпосередньо перед записом створюється резервна копія з тією самою назвою (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'excel_ops'.",
     "param.password.description": "Необовʼязковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
@@ -470,13 +382,9 @@
     "param.output_path.description": "Eylemin çıktı yolu='keep_only_sheets'. Zaten mevcutsa, bir yedek oluşturulduktan sonra üzerine yazılır (<output_path>.org / <output_path>.org1 / ...).",
     "tool.description": "Excel (.xlsx) dosyalarını okuyup yazın ve sayfa adlarını alın. Mevcut bir dosyaya yazarken, yazmadan hemen önce aynı adda (<file_path>.org / <file_path>.org1 / ...) bir yedek oluşturulur.",
     "x_search_terms": [
-      "Excel (",
+      "Excel (.xlsx) dosyalarını okuyup yazın ve sayfa adlarını alın. Mevcut bir dosyaya yazarken, yazmadan hemen önce aynı adda (<file_path>.org / <file_path>.org1 / ...) bir yedek oluşturulur",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "Bu araç, 'excel_ops' araç adıyla açıklanan işlemi gerçekleştirir.",
     "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
@@ -491,13 +399,9 @@
     "param.output_path.description": "พาธเอาต์พุตสำหรับ action='keep_only_sheets' หากมีอยู่แล้ว จะถูกเขียนทับหลังจากสร้างแบ็กอัป (<output_path>.org / <output_path>.org1 / ...) แล้ว",
     "tool.description": "อ่านและเขียนไฟล์ Excel (.xlsx) และดึงชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างแบ็กอัปชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนเขียน",
     "x_search_terms": [
-      "อ่านและเขียนไฟล์ Excel (",
+      "อ่านและเขียนไฟล์ Excel (.xlsx) และดึงชื่อชีต เมื่อเขียนลงในไฟล์ที่มีอยู่ จะมีการสร้างแบ็กอัปชื่อเดียวกัน (<file_path>.org / <file_path>.org1 / ...) ทันทีก่อนเขียน",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .xlsx ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและไฟล์ถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
@@ -512,13 +416,9 @@
     "param.output_path.description": "action='keep_only_sheets' 的输出路径。如果已存在，将在创建备份（<output_path>.org / <output_path>.org1 / ...）后覆盖。",
     "tool.description": "读取和写入 Excel (.xlsx) 文件并获取工作表名称。写入现有文件时，会在写入之前立即创建同名的备份 (<file_path>.org / <file_path>.org1 / ...)。",
     "x_search_terms": [
-      "读取和写入 Excel (",
+      "读取和写入 Excel (.xlsx) 文件并获取工作表名称。写入现有文件时，会在写入之前立即创建同名的备份 (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "此工具执行工具名称“excel_ops”所描述的操作。",
     "param.password.description": "加密 .xlsx 文件的可选密码。如果省略且文件已加密，系统会提示您输入一次密码。",
@@ -533,13 +433,9 @@
     "param.output_path.description": "action='keep_only_sheets' 的輸出路徑。若已存在，會先建立備份（<output_path>.org / <output_path>.org1 / ...）再覆寫。",
     "tool.description": "讀取和寫入 Excel (.xlsx) 檔案並取得工作表名稱。寫入現有檔案時，會在寫入之前立即建立同名的備份 (<file_path>.org / <file_path>.org1 / ...)。",
     "x_search_terms": [
-      "讀取和寫入 Excel (",
+      "讀取和寫入 Excel (.xlsx) 檔案並取得工作表名稱。寫入現有檔案時，會在寫入之前立即建立同名的備份 (<file_path>.org / <file_path>.org1 / ...)",
       "excel_ops",
-      "excel ops",
-      "xlsx",
-      "spreadsheet",
-      "sheet names",
-      "excel file"
+      "excel ops"
     ],
     "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。",
     "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",

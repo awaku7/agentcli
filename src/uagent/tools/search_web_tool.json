@@ -11,14 +11,8 @@
     "tool.description": "Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
     "x_search_terms": [
       "Search the web via DuckDuckGo HTML interface and return title/link/snippet",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request."
   },
@@ -34,14 +28,8 @@
     "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
     "x_search_terms": [
       "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "このツールは DuckDuckGo の HTML 検索を実行し、title/link/snippet を返します。結果が空の場合は、サイト側でレート制限またはブロックされている可能性があります。"
   },
@@ -57,14 +45,8 @@
     "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva título/enlace/extracto.",
     "x_search_terms": [
       "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva título/enlace/extracto",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Esta herramienta realiza una búsqueda HTML de DuckDuckGo y devuelve título/enlace/extracto. Si los resultados están vacíos, es posible que el sitio esté limitando la velocidad o bloqueando la solicitud."
   },
@@ -80,14 +62,8 @@
     "tool.description": "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le titre/lien/extrait.",
     "x_search_terms": [
       "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le titre/lien/extrait",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Cet outil effectue une recherche DuckDuckGo HTML et renvoie le titre/lien/extrait. Si les résultats sont vides, le site peut limiter le débit ou bloquer la demande."
   },
@@ -103,14 +79,8 @@
     "tool.description": "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다.",
     "x_search_terms": [
       "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "이 도구는 DuckDuckGo HTML 검색을 수행하고 제목/링크/스니펫을 반환합니다. 결과가 비어 있으면 사이트에서 요청 속도를 제한하거나 차단하고 있을 수 있습니다."
   },
@@ -126,14 +96,8 @@
     "tool.description": "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszug zurückgeben.",
     "x_search_terms": [
       "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszug zurückgeben",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Dieses Tool führt eine DuckDuckGo-HTML-Suche aus und gibt Titel/Link/Auszug zurück. Wenn die Ergebnisse leer sind, limitiert die Seite möglicherweise die Anfragen oder blockiert sie."
   },
@@ -149,14 +113,8 @@
     "tool.description": "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce titolo/link/anteprima.",
     "x_search_terms": [
       "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce titolo/link/anteprima",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Questo strumento esegue una ricerca HTML di DuckDuckGo e restituisce titolo/link/anteprima. Se i risultati sono vuoti, il sito potrebbe limitare le richieste o bloccarle."
   },
@@ -172,14 +130,8 @@
     "tool.description": "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссылку/фрагмент.",
     "x_search_terms": [
       "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссылку/фрагмент",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Этот инструмент выполняет HTML-поиск DuckDuckGo и возвращает заголовок/ссылку/фрагмент. Если результаты пусты, сайт может ограничивать частоту запросов или блокировать их."
   },
@@ -195,14 +147,8 @@
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "x_search_terms": [
       "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
@@ -218,14 +164,8 @@
     "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "x_search_terms": [
       "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
@@ -241,14 +181,8 @@
     "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
     "x_search_terms": [
       "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
   },
@@ -264,14 +198,8 @@
     "tool.description": "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet.",
     "x_search_terms": [
       "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Công cụ này thực hiện tìm kiếm DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet. Nếu kết quả trống, trang web có thể đang giới hạn tốc độ hoặc chặn yêu cầu."
   },
@@ -287,14 +215,8 @@
     "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment.",
     "x_search_terms": [
       "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "To narzędzie wykonuje wyszukiwanie HTML DuckDuckGo i zwraca tytuł/odnośnik/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość albo blokować żądanie."
   },
@@ -310,14 +232,8 @@
     "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
     "x_search_terms": [
       "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "यह टूल DuckDuckGo HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
   },
@@ -333,14 +249,8 @@
     "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
     "x_search_terms": [
       "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "تُجري هذه الأداة بحثًا عبر DuckDuckGo HTML وتُرجع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع يحدّ من معدل الطلبات أو يحظرها."
   },
@@ -356,14 +266,8 @@
     "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
     "x_search_terms": [
       "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Det här verktyget gör en DuckDuckGo-HTML-sökning och returnerar titel/länk/snutt. Om resultaten är tomma kan webbplatsen vara hastighetsbegränsande eller blockera begäran."
   },
@@ -379,14 +283,8 @@
     "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
     "x_search_terms": [
       "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
   },
@@ -402,14 +300,8 @@
     "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
     "x_search_terms": [
       "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Dette verktøyet utfører et DuckDuckGo HTML-søk og returnerer tittel/lenke/utdrag. Hvis resultatene er tomme, kan nettstedet begrense hastigheten eller blokkere forespørselen."
   },
@@ -425,14 +317,8 @@
     "tool.description": "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/snippet terug.",
     "x_search_terms": [
       "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/snippet terug",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Doorzoek DuckDuckGo via HTML en geef titel/link/snippet terug. Als resultaten leeg zijn, kan de site verzoeken rate-limiten of blokkeren."
   },
@@ -448,14 +334,8 @@
     "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma.",
     "x_search_terms": [
       "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Hae DuckDuckGo:sta HTML:n kautta ja palauta otsikko/linkki/katkelma. Jos tulokset ovat tyhjiä, sivusto voi rajoittaa pyyntöjä tai estää ne."
   },
@@ -471,14 +351,8 @@
     "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
     "x_search_terms": [
       "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Tento nástroj provádí vyhledávání DuckDuckGo HTML a vrací titul/odkaz/úryvek. Pokud jsou výsledky prázdné, může být web omezující rychlost nebo blokující požadavek."
   },
@@ -494,14 +368,8 @@
     "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок.",
     "x_search_terms": [
       "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
   },
@@ -517,14 +385,8 @@
     "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür.",
     "x_search_terms": [
       "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "Bu araç DuckDuckGo HTML araması yapar ve başlık/bağlantı/snippet döndürür. Sonuçlar boşsa site istekleri hız sınırlıyor veya engelliyor olabilir."
   },
@@ -540,14 +402,8 @@
     "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
     "x_search_terms": [
       "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
   },
@@ -563,14 +419,8 @@
     "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
     "x_search_terms": [
       "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "该工具执行 DuckDuckGo HTML 搜索并返回标题/链接/片段。如果结果为空，则该站点可能会限制速率或阻止请求。"
   },
@@ -586,14 +436,8 @@
     "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
     "x_search_terms": [
       "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段",
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "ウェブ検索",
-      "buscar en la web",
-      "recherche web",
-      "웹 검색",
-      "поиск в вебе"
+      "search_web",
+      "search web"
     ],
     "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
   }

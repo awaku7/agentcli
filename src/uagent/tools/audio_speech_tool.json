@@ -4,11 +4,7 @@
     "x_search_terms": [
       "Convert text to speech, save the audio as a file, and return the saved path",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Generate speech audio from the given text and save it to the specified output path. Return a JSON response only.",
     "param.text.description": "Text to synthesize into speech.",
@@ -30,11 +26,7 @@
     "x_search_terms": [
       "テキストを音声に変換してファイルに保存し、保存先パスを返します",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "指定されたテキストから音声を生成し、指定した出力パスに保存してください。JSONで返してください。",
     "param.text.description": "音声に変換するテキスト。",
@@ -56,11 +48,7 @@
     "x_search_terms": [
       "Convierte texto a voz, guarda el audio como archivo y devuelve la ruta guardada",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Genera audio de voz a partir del texto proporcionado y guárdalo en la ruta de salida especificada. Devuelve solo una respuesta JSON.",
     "param.text.description": "Texto que se sintetizará en voz.",
@@ -82,11 +70,7 @@
     "x_search_terms": [
       "Convertit du texte en parole, enregistre l’audio dans un fichier et renvoie le chemin enregistré",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Générez un audio vocal à partir du texte fourni et enregistrez-le au chemin de sortie spécifié. Renvoyez uniquement une réponse JSON.",
     "param.text.description": "Texte à synthétiser en parole.",
@@ -108,11 +92,7 @@
     "x_search_terms": [
       "텍스트를 음성으로 변환하여 파일로 저장하고 저장 경로를 반환합니다",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "주어진 텍스트로 음성 오디오를 생성하고 지정된 출력 경로에 저장하세요. JSON 응답만 반환하세요.",
     "param.text.description": "음성으로 합성할 텍스트입니다.",
@@ -134,11 +114,7 @@
     "x_search_terms": [
       "Konvertiert Text in Sprache, speichert die Audiodatei und gibt den gespeicherten Pfad zurück",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Erzeuge Sprachaudio aus dem angegebenen Text und speichere es am angegebenen Ausgabepfad. Gib nur eine JSON-Antwort zurück.",
     "param.text.description": "Text, der in Sprache umgewandelt werden soll.",
@@ -160,11 +136,7 @@
     "x_search_terms": [
       "Converte testo in parlato, salva l’audio come file e restituisce il percorso salvato",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Genera audio vocale dal testo fornito e salvalo nel percorso di output specificato. Restituisci solo una risposta JSON.",
     "param.text.description": "Testo da sintetizzare in parlato.",
@@ -186,11 +158,7 @@
     "x_search_terms": [
       "Преобразует текст в речь, сохраняет аудио в файл и возвращает путь сохранения",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Сгенерируйте аудио речи из указанного текста и сохраните его по заданному пути. Возвращайте только JSON-ответ.",
     "param.text.description": "Текст, который нужно озвучить.",
@@ -212,11 +180,7 @@
     "x_search_terms": [
       "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Gere áudio de voz a partir do texto fornecido e salve no caminho de saída especificado. Retorne apenas uma resposta JSON.",
     "param.text.description": "Texto a ser sintetizado em fala.",
@@ -238,11 +202,7 @@
     "x_search_terms": [
       "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Gere áudio de fala a partir do texto fornecido e salve no caminho de saída especificado. Retorne apenas uma resposta JSON.",
     "param.text.description": "Texto a ser sintetizado em fala.",
@@ -264,11 +224,7 @@
     "x_search_terms": [
       "Mengubah teks menjadi suara, menyimpan audio sebagai file, dan mengembalikan path yang disimpan",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Hasilkan audio suara dari teks yang diberikan dan simpan ke path output yang ditentukan. Kembalikan hanya respons JSON.",
     "param.text.description": "Teks yang akan disintesis menjadi suara.",
@@ -290,11 +246,7 @@
     "x_search_terms": [
       "Chuyển văn bản thành giọng nói, lưu âm thanh thành tệp và trả về đường dẫn đã lưu",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Tạo âm thanh giọng nói từ văn bản được cung cấp và lưu vào đường dẫn đầu ra đã chỉ định. Chỉ trả về phản hồi JSON.",
     "param.text.description": "Văn bản cần chuyển thành giọng nói.",
@@ -316,11 +268,7 @@
     "x_search_terms": [
       "Konwertuje tekst na mowę, zapisuje dźwięk jako plik i zwraca zapisany ścieżkę",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Wygeneruj audio mowy z podanego tekstu i zapisz je w określonej ścieżce wyjściowej. Zwróć tylko odpowiedź JSON.",
     "param.text.description": "Tekst do zamiany na mowę.",
@@ -342,11 +290,7 @@
     "x_search_terms": [
       "टेक्स्ट को स्पीच में बदलता है, ऑडियो को फ़ाइल के रूप में सहेजता है, और सहेजा गया पथ लौटाता है।",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "दिए गए टेक्स्ट से speech audio बनाइए और उसे निर्दिष्ट output path पर सहेजिए। केवल JSON प्रतिक्रिया लौटाइए।",
     "param.text.description": "स्पीच में बदलने के लिए टेक्स्ट।",
@@ -368,11 +312,7 @@
     "x_search_terms": [
       "يحوّل النص إلى كلام، ويحفظ الصوت كملف، ويعيد مسار الحفظ",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "أنشئ صوتًا ناطقًا من النص المقدم واحفظه في مسار الإخراج المحدد. أعد استجابة JSON فقط.",
     "param.text.description": "النص المراد تحويله إلى كلام.",
@@ -394,11 +334,7 @@
     "x_search_terms": [
       "Konverterar text till tal, sparar ljudet som en fil och վերադարձar den sparade sökvägen",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Generera talaudio från den angivna texten och spara det på den angivna utmatningssökvägen. Returnera endast ett JSON-svar.",
     "param.text.description": "Text som ska syntetiseras till tal.",
@@ -420,11 +356,7 @@
     "x_search_terms": [
       "Hubadilisha maandishi kuwa sauti, huhifadhi sauti kama faili, na kurudisha njia iliyohifadhiwa",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Tengeneza sauti ya hotuba kutoka kwa maandishi yaliyotolewa na uihifadhi kwenye njia ya matokeo iliyobainishwa. Rudisha jibu la JSON pekee.",
     "param.text.description": "Maandishi ya kubadilishwa kuwa hotuba.",
@@ -446,11 +378,7 @@
     "x_search_terms": [
       "Konverterer tekst til tale, lagrer lyden som en fil, og returnerer den lagrede stien",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Generer taleaudio fra den angitte teksten og lagre den på den angitte utgangsstien. Returner kun et JSON-svar.",
     "param.text.description": "Tekst som skal syntetiseres til tale.",
@@ -472,11 +400,7 @@
     "x_search_terms": [
       "Zet tekst om naar spraak, slaat audio op als bestand en geeft het opgeslagen pad terug",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Genereer spraakaudio uit de opgegeven tekst en sla deze op naar het opgegeven uitvoerpad. Geef alleen een JSON-antwoord terug.",
     "param.text.description": "Tekst die naar spraak moet worden gesynthetiseerd.",
@@ -498,11 +422,7 @@
     "x_search_terms": [
       "Muuntaa tekstin puheeksi, tallentaa äänen tiedostoksi ja palauttaa tallennetun polun",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Luo puheääni annetusta tekstistä ja tallenna se määritettyyn lähtöpolkuun. Palauta vain JSON-vastaus.",
     "param.text.description": "Teksti, joka syntetisoidaan puheeksi.",
@@ -524,11 +444,7 @@
     "x_search_terms": [
       "Převede text na řeč, uloží zvuk jako soubor a vrátí uloženou cestu",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Vytvořte řečový zvuk z poskytnutého textu a uložte jej na zadanou výstupní cestu. Vraťte pouze JSON odpověď.",
     "param.text.description": "Text, který má být syntetizován na řeč.",
@@ -550,11 +466,7 @@
     "x_search_terms": [
       "Перетворює текст у мовлення, зберігає аудіо у файл і повертає шлях збереження",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Згенеруйте голосове аудіо з наданого тексту та збережіть його за вказаним вихідним шляхом. Повертайте лише JSON-відповідь.",
     "param.text.description": "Текст, який потрібно синтезувати в мовлення.",
@@ -576,11 +488,7 @@
     "x_search_terms": [
       "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "Verilen metinden konuşma sesi oluşturun ve bunu belirtilen çıkış yoluna kaydedin. Yalnızca JSON yanıtı döndürün.",
     "param.text.description": "Konuşmaya sentezlenecek metin.",
@@ -602,11 +510,7 @@
     "x_search_terms": [
       "แปลงข้อความเป็นเสียง บันทึกเสียงเป็นไฟล์ และส่งกลับพาธที่บันทึก",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "สร้างเสียงจากข้อความที่กำหนดและบันทึกไปยังพาธเอาต์พุตที่ระบุ ส่งกลับเฉพาะคำตอบ JSON เท่านั้น",
     "param.text.description": "ข้อความที่ต้องการสังเคราะห์เป็นเสียง",
@@ -628,11 +532,7 @@
     "x_search_terms": [
       "将文本转换为语音，保存为音频文件，并返回保存路径",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "根据给定文本生成语音音频，并保存到指定输出路径。只返回 JSON 响应。",
     "param.text.description": "要合成为语音的文本。",
@@ -654,11 +554,7 @@
     "x_search_terms": [
       "將文字轉換為語音，儲存為音訊檔，並回傳儲存路徑",
       "audio_speech",
-      "audio speech",
-      "audio",
-      "voice",
-      "speech",
-      "sound"
+      "audio speech"
     ],
     "tool.system_prompt": "根據給定文字產生語音音訊，並儲存到指定的輸出路徑。只回傳 JSON 回應。",
     "param.text.description": "要合成為語音的文字。",

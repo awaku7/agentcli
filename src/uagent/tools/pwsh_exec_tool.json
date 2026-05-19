@@ -5,7 +5,7 @@
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
     "x_search_terms": [
-      "As a last resort, execute PowerShell",
+      "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -17,7 +17,7 @@
     "param.shell.description": "使用する PowerShell 実行ファイル。'pwsh'（PowerShell 7+）または 'powershell'（Windows PowerShell）。省略時は自動選択。",
     "tool.description": "【最終手段】PowerShell を実行します。他の適切なツール（MCP など）が使えない場合にのみ使用してください。",
     "x_search_terms": [
-      "【最終手段】PowerShell を実行します",
+      "【最終手段】PowerShell を実行します。他の適切なツール（MCP など）が使えない場合にのみ使用してください",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -29,7 +29,7 @@
     "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell). Si se omite, se seleccionará automáticamente.",
     "tool.description": "Como último recurso, ejecute PowerShell. Úselo solo cuando no haya otra herramienta adecuada, por ejemplo MCP.",
     "x_search_terms": [
-      "Como último recurso, ejecute PowerShell",
+      "Como último recurso, ejecute PowerShell. Úselo solo cuando no haya otra herramienta adecuada, por ejemplo MCP",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -41,7 +41,7 @@
     "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). En cas d'omission, sélection automatique.",
     "tool.description": "En dernier recours, exécutez PowerShell. À utiliser uniquement lorsqu’aucun autre outil approprié, par exemple MCP, n’est disponible.",
     "x_search_terms": [
-      "En dernier recours, exécutez PowerShell",
+      "En dernier recours, exécutez PowerShell. À utiliser uniquement lorsqu’aucun autre outil approprié, par exemple MCP, n’est disponible",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -53,7 +53,7 @@
     "param.shell.description": "사용할 PowerShell 실행 파일입니다. 'pwsh'(PowerShell 7+) 또는 'powershell'(Windows PowerShell) 중 하나를 사용합니다. 생략하면 자동으로 선택합니다.",
     "tool.description": "최후의 수단으로 PowerShell을 실행합니다. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "최후의 수단으로 PowerShell을 실행합니다",
+      "최후의 수단으로 PowerShell을 실행합니다. 다른 적절한 도구(예: MCP)를 사용할 수 없는 경우에만 사용하세요",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -65,7 +65,7 @@
     "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell). Wenn weggelassen, erfolgt die automatische Auswahl.",
     "tool.description": "Als letzten Ausweg führen Sie PowerShell aus. Nur verwenden, wenn kein anderes geeignetes Tool, z. B. MCP, verfügbar ist.",
     "x_search_terms": [
-      "Als letzten Ausweg führen Sie PowerShell aus",
+      "Als letzten Ausweg führen Sie PowerShell aus. Nur verwenden, wenn kein anderes geeignetes Tool, z. B. MCP, verfügbar ist",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -77,7 +77,7 @@
     "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell). Se omesso, viene selezionato automaticamente.",
     "tool.description": "Come ultima risorsa, esegui PowerShell. Utilizzare solo quando non è disponibile alcun altro strumento appropriato, ad esempio MCP.",
     "x_search_terms": [
-      "Come ultima risorsa, esegui PowerShell",
+      "Come ultima risorsa, esegui PowerShell. Utilizzare solo quando non è disponibile alcun altro strumento appropriato, ad esempio MCP",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -89,7 +89,7 @@
     "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell). Если не указано, выбирается автоматически.",
     "tool.description": "В крайнем случае выполните PowerShell. Используйте только тогда, когда другой подходящий инструмент, например MCP, недоступен.",
     "x_search_terms": [
-      "В крайнем случае выполните PowerShell",
+      "В крайнем случае выполните PowerShell. Используйте только тогда, когда другой подходящий инструмент, например MCP, недоступен",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -101,7 +101,7 @@
     "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, a seleção será automática.",
     "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta adequada, como MCP, estiver disponível.",
     "x_search_terms": [
-      "Como último recurso, execute o PowerShell",
+      "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta adequada, como MCP, estiver disponível",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -113,7 +113,7 @@
     "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, selecione automaticamente.",
     "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta apropriada, como MCP, estiver disponível.",
     "x_search_terms": [
-      "Como último recurso, execute o PowerShell",
+      "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta apropriada, como MCP, estiver disponível",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -125,7 +125,7 @@
     "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell). Jika dihilangkan, pilih otomatis.",
     "tool.description": "Sebagai upaya terakhir, jalankan PowerShell. Gunakan hanya jika tidak ada alat lain yang sesuai (misalnya MCP).",
     "x_search_terms": [
-      "Sebagai upaya terakhir, jalankan PowerShell",
+      "Sebagai upaya terakhir, jalankan PowerShell. Gunakan hanya jika tidak ada alat lain yang sesuai (misalnya MCP)",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -137,7 +137,7 @@
     "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell). Nếu bỏ qua, hãy tự động chọn.",
     "tool.description": "Phương án cuối cùng là thực thi PowerShell. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác (ví dụ: MCP).",
     "x_search_terms": [
-      "Phương án cuối cùng là thực thi PowerShell",
+      "Phương án cuối cùng là thực thi PowerShell. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác (ví dụ: MCP)",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -149,7 +149,7 @@
     "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell). Jeśli zostanie pominięty, wybierz automatycznie.",
     "tool.description": "W ostateczności uruchom PowerShell. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie (np. MCP).",
     "x_search_terms": [
-      "W ostateczności uruchom PowerShell",
+      "W ostateczności uruchom PowerShell. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie (np. MCP)",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -173,7 +173,7 @@
     "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell). إذا تم حذفه، فسيتم اختياره تلقائيًا.",
     "tool.description": "كحل أخير، قم بتنفيذ PowerShell. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة (على سبيل المثال، MCP).",
     "x_search_terms": [
-      "كحل أخير، قم بتنفيذ PowerShell",
+      "كحل أخير، قم بتنفيذ PowerShell. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة (على سبيل المثال، MCP)",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -185,7 +185,7 @@
     "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Om den utelämnas väljs den automatiskt.",
     "tool.description": "Som sista utväg, kör PowerShell. Använd endast när inget annat lämpligt verktyg, till exempel MCP, finns tillgängligt.",
     "x_search_terms": [
-      "Som sista utväg, kör PowerShell",
+      "Som sista utväg, kör PowerShell. Använd endast när inget annat lämpligt verktyg, till exempel MCP, finns tillgängligt",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -197,7 +197,7 @@
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
     "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
     "x_search_terms": [
-      "As a last resort, execute PowerShell",
+      "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -209,7 +209,7 @@
     "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis den utelates, velges den automatisk.",
     "tool.description": "Som siste utvei, kjør PowerShell. Bruk bare når ingen andre passende verktøy, for eksempel MCP, er tilgjengelige.",
     "x_search_terms": [
-      "Som siste utvei, kjør PowerShell",
+      "Som siste utvei, kjør PowerShell. Bruk bare når ingen andre passende verktøy, for eksempel MCP, er tilgjengelige",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -221,7 +221,7 @@
     "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell). Indien weggelaten, wordt automatisch gekozen.",
     "tool.description": "Voer als laatste redmiddel PowerShell uit. Gebruik dit alleen wanneer geen andere geschikte tool (bijv. MCP) beschikbaar is.",
     "x_search_terms": [
-      "Voer als laatste redmiddel PowerShell uit",
+      "Voer als laatste redmiddel PowerShell uit. Gebruik dit alleen wanneer geen andere geschikte tool (bijv. MCP) beschikbaar is",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -233,7 +233,7 @@
     "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell). Jos jätetään pois, valitaan automaattisesti.",
     "tool.description": "Suorita PowerShell vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten MCP:tä, ei ole käytettävissä.",
     "x_search_terms": [
-      "Suorita PowerShell vain viimeisenä keinona",
+      "Suorita PowerShell vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten MCP:tä, ei ole käytettävissä",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -245,7 +245,7 @@
     "param.shell.description": "Spustitelný soubor PowerShellu, který se použije: 'pwsh' (PowerShell 7+) nebo 'powershell' (Windows PowerShell). Pokud je vynecháno, vybere se automaticky.",
     "tool.description": "Jako poslední možnost spusťte PowerShell. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj, například MCP.",
     "x_search_terms": [
-      "Jako poslední možnost spusťte PowerShell",
+      "Jako poslední možnost spusťte PowerShell. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj, například MCP",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -257,7 +257,7 @@
     "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell). Якщо не вказано, вибирається автоматично.",
     "tool.description": "Як крайній захід, виконайте PowerShell. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад MCP.",
     "x_search_terms": [
-      "Як крайній захід, виконайте PowerShell",
+      "Як крайній захід, виконайте PowerShell. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад MCP",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -269,7 +269,7 @@
     "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell). Atlanırsa otomatik seçin.",
     "tool.description": "Son çare olarak PowerShell'i çalıştırın. Yalnızca başka uygun bir araç (örn. MCP) mevcut olmadığında kullanın.",
     "x_search_terms": [
-      "Son çare olarak PowerShell'i çalıştırın",
+      "Son çare olarak PowerShell'i çalıştırın. Yalnızca başka uygun bir araç (örn. MCP) mevcut olmadığında kullanın",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -293,7 +293,7 @@
     "param.shell.description": "要使用的 PowerShell 可执行文件：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，则自动选择。",
     "tool.description": "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用。",
     "x_search_terms": [
-      "作为最后手段执行 PowerShell",
+      "作为最后手段执行 PowerShell。仅在没有其他合适工具（例如 MCP）可用时使用",
       "pwsh_exec",
       "pwsh exec"
     ],
@@ -305,7 +305,7 @@
     "param.shell.description": "要使用的 PowerShell 執行檔：'pwsh'（PowerShell 7+）或 'powershell'（Windows PowerShell）。如果省略，則自動選擇。",
     "tool.description": "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用。",
     "x_search_terms": [
-      "作為最後手段執行 PowerShell",
+      "作為最後手段執行 PowerShell。僅在沒有其他合適的工具（例如 MCP）可用時才使用",
       "pwsh_exec",
       "pwsh exec"
     ],

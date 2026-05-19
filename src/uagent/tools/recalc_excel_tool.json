@@ -20,13 +20,9 @@
     "param.visible.description": "Show the Excel window during automation. Default: false.",
     "tool.description": "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .xlsx file or a directory scan. By default, a backup (<file>.org / <file>.org1 / ...) is created immediately before saving.",
     "x_search_terms": [
-      "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values",
+      "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .xlsx file or a directory scan. By default, a backup (<file>.org / <file>.org1 / ...) is created immediately before saving",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Use this tool when formula cached values in .xlsx are stale (for example, when openpyxl data_only reads old values). This tool opens workbook(s) in Microsoft Excel via COM, performs a full recalculation, and saves.",
     "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",
@@ -53,13 +49,9 @@
     "param.visible.description": "自動操作中に Excel ウィンドウを表示するかどうか。既定: false。",
     "tool.description": "Microsoft Excel（Windows COM）で数式を再計算し、更新されたキャッシュ値を保存します。単一の .xlsx ファイルまたはディレクトリ走査に対応します。既定では保存直前にバックアップ（<file>.org / <file>.org1 / ...）を作成します。",
     "x_search_terms": [
-      "Microsoft Excel（Windows COM）で数式を再計算し、更新されたキャッシュ値を保存します",
+      "Microsoft Excel（Windows COM）で数式を再計算し、更新されたキャッシュ値を保存します。単一の .xlsx ファイルまたはディレクトリ走査に対応します。既定では保存直前にバックアップ（<file>.org / <file>.org1 / ...）を作成します",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "xlsx の数式キャッシュ値が古い場合（たとえば openpyxl の data_only で古い値が読まれる場合）に使用します。このツールは COM で Microsoft Excel 上のブックを開き、全再計算して保存します。",
     "param.password.description": "暗号化された .xlsx ファイルのパスワード（任意）。省略時にファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
@@ -86,13 +78,9 @@
     "param.visible.description": "Mostrar la ventana de Excel durante la automatización. Valor predeterminado: false.",
     "tool.description": "Recalcula fórmulas de Excel automatizando Microsoft Excel (Windows COM) y guarda los valores almacenados en caché actualizados. Admite un único archivo .xlsx o un análisis de directorio. De forma predeterminada, se crea una copia de seguridad (<archivo>.org / <archivo>.org1 / ...) justo antes de guardar.",
     "x_search_terms": [
-      "Recalcula fórmulas de Excel automatizando Microsoft Excel (Windows COM) y guarda los valores almacenados en caché actualizados",
+      "Recalcula fórmulas de Excel automatizando Microsoft Excel (Windows COM) y guarda los valores almacenados en caché actualizados. Admite un único archivo .xlsx o un análisis de directorio. De forma predeterminada, se crea una copia de seguridad (<archivo>.org / <archivo>.org1 / ...) justo antes de guardar",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Use esta herramienta cuando los valores almacenados en caché de las fórmulas en .xlsx estén obsoletos (por ejemplo, cuando openpyxl data_only lee valores antiguos). Esta herramienta abre los libros en Microsoft Excel mediante COM, realiza un recálculo completo y los guarda.",
     "param.password.description": "Contraseña opcional para archivos .xlsx cifrados. Si se omite y el archivo está cifrado, se le pedirá la contraseña una vez.",
@@ -119,13 +107,9 @@
     "param.visible.description": "Afficher la fenêtre Excel pendant l'automatisation. Par défaut : false.",
     "tool.description": "Recalcule les formules Excel en automatisant Microsoft Excel (Windows COM) et enregistre les valeurs mises en cache mises à jour. Prend en charge un seul fichier .xlsx ou l'analyse d'un répertoire. Par défaut, une sauvegarde (<fichier>.org / <fichier>.org1 / ...) est créée juste avant l'enregistrement.",
     "x_search_terms": [
-      "Recalcule les formules Excel en automatisant Microsoft Excel (Windows COM) et enregistre les valeurs mises en cache mises à jour",
+      "Recalcule les formules Excel en automatisant Microsoft Excel (Windows COM) et enregistre les valeurs mises en cache mises à jour. Prend en charge un seul fichier .xlsx ou l'analyse d'un répertoire. Par défaut, une sauvegarde (<fichier>.org / <fichier>.org1 / ...) est créée juste avant l'enregistrement",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Utilisez cet outil lorsque les valeurs mises en cache des formules dans .xlsx sont obsolètes (par exemple, lorsque openpyxl data_only lit d'anciennes valeurs). Cet outil ouvre les classeurs dans Microsoft Excel via COM, effectue un recalcul complet et enregistre.",
     "param.password.description": "Mot de passe facultatif pour les fichiers .xlsx chiffrés. S'il est omis et que le fichier est chiffré, il vous sera demandé une seule fois.",
@@ -152,13 +136,9 @@
     "param.visible.description": "자동화 중 Excel 창을 표시합니다. 기본값: false.",
     "tool.description": "Microsoft Excel(Windows COM)을 자동화하여 Excel 수식을 다시 계산하고 업데이트된 캐시 값을 저장합니다. 단일 .xlsx 파일 또는 디렉터리 검색을 지원합니다. 기본적으로 저장 직전에 백업(<file>.org / <file>.org1 / ...)이 생성됩니다.",
     "x_search_terms": [
-      "Microsoft Excel(Windows COM)을 자동화하여 Excel 수식을 다시 계산하고 업데이트된 캐시 값을 저장합니다",
+      "Microsoft Excel(Windows COM)을 자동화하여 Excel 수식을 다시 계산하고 업데이트된 캐시 값을 저장합니다. 단일 .xlsx 파일 또는 디렉터리 검색을 지원합니다. 기본적으로 저장 직전에 백업(<file>.org / <file>.org1 / ...)이 생성됩니다",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": ".xlsx의 수식 캐시 값이 오래되었을 때(예: openpyxl data_only가 오래된 값을 읽는 경우) 이 도구를 사용하세요. 이 도구는 COM을 통해 Microsoft Excel에서 통합 문서를 열고 전체 재계산 후 저장합니다.",
     "param.password.description": "암호화된 .xlsx 파일의 선택적 비밀번호입니다. 생략되었고 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
@@ -185,13 +165,9 @@
     "param.visible.description": "Excel-Fenster während der Automatisierung anzeigen. Standard: false.",
     "tool.description": "Berechnen Sie Excel-Formeln neu, indem Sie Microsoft Excel (Windows COM) automatisieren, und speichern Sie aktualisierte Cachewerte. Unterstützt eine einzelne .xlsx-Datei oder das Scannen eines Verzeichnisses. Standardmäßig wird unmittelbar vor dem Speichern ein Backup (<file>.org / <file>.org1 / ...) erstellt.",
     "x_search_terms": [
-      "Berechnen Sie Excel-Formeln neu, indem Sie Microsoft Excel (Windows COM) automatisieren, und speichern Sie aktualisierte Cachewerte",
+      "Berechnen Sie Excel-Formeln neu, indem Sie Microsoft Excel (Windows COM) automatisieren, und speichern Sie aktualisierte Cachewerte. Unterstützt eine einzelne .xlsx-Datei oder das Scannen eines Verzeichnisses. Standardmäßig wird unmittelbar vor dem Speichern ein Backup (<file>.org / <file>.org1 / ...) erstellt",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool, wenn zwischengespeicherte Formelwerte in .xlsx veraltet sind (z. B. wenn openpyxl data_only alte Werte liest). Das Tool öffnet Arbeitsmappen in Microsoft Excel über COM, führt eine vollständige Neuberechnung durch und speichert.",
     "param.password.description": "Optionales Kennwort für verschlüsselte .xlsx-Dateien. Wenn es weggelassen wird und die Datei verschlüsselt ist, werden Sie einmal zur Eingabe aufgefordert.",
@@ -218,13 +194,9 @@
     "param.visible.description": "Mostra la finestra di Excel durante l'automazione. Predefinito: false.",
     "tool.description": "Ricalcola le formule di Excel automatizzando Microsoft Excel (Windows COM) e salva i valori memorizzati nella cache aggiornati. Supporta un singolo file .xlsx o la scansione di una directory. Per impostazione predefinita, viene creato un backup (<file>.org / <file>.org1 / ...) subito prima del salvataggio.",
     "x_search_terms": [
-      "Ricalcola le formule di Excel automatizzando Microsoft Excel (Windows COM) e salva i valori memorizzati nella cache aggiornati",
+      "Ricalcola le formule di Excel automatizzando Microsoft Excel (Windows COM) e salva i valori memorizzati nella cache aggiornati. Supporta un singolo file .xlsx o la scansione di una directory. Per impostazione predefinita, viene creato un backup (<file>.org / <file>.org1 / ...) subito prima del salvataggio",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Utilizza questo strumento quando i valori memorizzati nella cache delle formule in .xlsx sono obsoleti (ad esempio, quando openpyxl data_only legge valori vecchi). Questo strumento apre le cartelle di lavoro in Microsoft Excel tramite COM, esegue il ricalcolo completo e salva.",
     "param.password.description": "Password facoltativa per file .xlsx crittografati. Se omessa e il file è crittografato, verrà richiesto di inserirla una sola volta.",
@@ -251,13 +223,9 @@
     "param.visible.description": "Показывать окно Excel во время автоматизации. По умолчанию: false.",
     "tool.description": "Пересчитывает формулы Excel, автоматизируя Microsoft Excel (Windows COM), и сохраняет обновленные кэшированные значения. Поддерживает один файл .xlsx или сканирование каталога. По умолчанию резервная копия (<file>.org / <file>.org1 / ...) создается непосредственно перед сохранением.",
     "x_search_terms": [
-      "Пересчитывает формулы Excel, автоматизируя Microsoft Excel (Windows COM), и сохраняет обновленные кэшированные значения",
+      "Пересчитывает формулы Excel, автоматизируя Microsoft Excel (Windows COM), и сохраняет обновленные кэшированные значения. Поддерживает один файл .xlsx или сканирование каталога. По умолчанию резервная копия (<file>.org / <file>.org1 / ...) создается непосредственно перед сохранением",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Используйте этот инструмент, когда кэшированные значения формул в .xlsx устарели (например, openpyxl data_only читает старые значения). Этот инструмент открывает книги в Microsoft Excel через COM, выполняет полный перерасчет и сохраняет.",
     "param.password.description": "Необязательный пароль для зашифрованных файлов .xlsx. Если он не указан и файл зашифрован, пароль будет запрошен один раз.",
@@ -284,13 +252,9 @@
     "param.visible.description": "Mostrar a janela do Excel durante a automação. Padrão: false.",
     "tool.description": "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados. Suporta um único arquivo .xlsx ou a varredura de um diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar.",
     "x_search_terms": [
-      "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados",
+      "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados. Suporta um único arquivo .xlsx ou a varredura de um diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Use esta ferramenta quando os valores em cache das fórmulas em .xlsx estiverem desatualizados (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre as pastas de trabalho no Microsoft Excel via COM, executa o recálculo completo e salva.",
     "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitida e o arquivo estiver criptografado, será solicitada uma única vez.",
@@ -317,13 +281,9 @@
     "param.visible.description": "Mostrar a janela do Excel durante a automação. Padrão: false.",
     "tool.description": "Recalcule fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salve valores atualizados em cache. Suporta um único arquivo .xlsx ou uma varredura de diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar.",
     "x_search_terms": [
-      "Recalcule fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salve valores atualizados em cache",
+      "Recalcule fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salve valores atualizados em cache. Suporta um único arquivo .xlsx ou uma varredura de diretório. Por padrão, um backup (<file>.org / <file>.org1 / ...) é criado imediatamente antes de salvar",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Use esta ferramenta quando os valores armazenados em cache da fórmula em .xlsx estiverem obsoletos (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre pastas de trabalho no Microsoft Excel via COM, executa um recálculo completo e salva.",
     "param.password.description": "Senha opcional para arquivos .xlsx criptografados. Se omitido e o arquivo estiver criptografado, uma senha será solicitada uma vez.",
@@ -350,13 +310,9 @@
     "param.visible.description": "Tampilkan jendela Excel selama otomasi. Default: false.",
     "tool.description": "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui. Mendukung satu file .xlsx atau pemindaian direktori. Secara default, backup (<file>.org / <file>.org1 / ...) dibuat tepat sebelum menyimpan.",
     "x_search_terms": [
-      "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui",
+      "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui. Mendukung satu file .xlsx atau pemindaian direktori. Secara default, backup (<file>.org / <file>.org1 / ...) dibuat tepat sebelum menyimpan",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Gunakan alat ini saat nilai cache formula di .xlsx sudah usang (misalnya saat openpyxl data_only membaca nilai lama). Alat ini membuka workbook di Microsoft Excel via COM, melakukan full recalculation, dan menyimpan.",
     "param.password.description": "Kata sandi opsional untuk file .xlsx terenkripsi. Jika tidak diisi dan file terenkripsi, Anda akan diminta kata sandi satu kali.",
@@ -383,13 +339,9 @@
     "param.visible.description": "Hiển thị cửa sổ Excel trong khi tự động hóa. Mặc định: false.",
     "tool.description": "Tính toán lại các công thức Excel bằng cách tự động hóa Microsoft Excel (Windows COM) và lưu các giá trị được lưu trong bộ nhớ đệm đã cập nhật. Hỗ trợ một tệp .xlsx hoặc quét thư mục. Theo mặc định, bản sao lưu (<file>.org / <file>.org1 / ...) được tạo ngay trước khi lưu.",
     "x_search_terms": [
-      "Tính toán lại các công thức Excel bằng cách tự động hóa Microsoft Excel (Windows COM) và lưu các giá trị được lưu trong bộ nhớ đệm đã cập nhật",
+      "Tính toán lại các công thức Excel bằng cách tự động hóa Microsoft Excel (Windows COM) và lưu các giá trị được lưu trong bộ nhớ đệm đã cập nhật. Hỗ trợ một tệp .xlsx hoặc quét thư mục. Theo mặc định, bản sao lưu (<file>.org / <file>.org1 / ...) được tạo ngay trước khi lưu",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Sử dụng công cụ này khi các giá trị được lưu trong bộ nhớ đệm của công thức trong .xlsx đã cũ (ví dụ: khi openpyxl data_only đọc các giá trị cũ). Công cụ này mở (các) sổ làm việc trong Microsoft Excel qua COM, thực hiện tính toán lại đầy đủ và lưu.",
     "param.password.description": "Mật khẩu tùy chọn cho tệp .xlsx đã mã hóa. Nếu bỏ qua và tệp đã được mã hóa, bạn sẽ được yêu cầu nhập mật khẩu một lần.",
@@ -416,13 +368,9 @@
     "param.visible.description": "Pokazuj okno Excela podczas automatyzacji. Domyślnie: false.",
     "tool.description": "Przeliczaj formuły programu Excel, automatyzując program Microsoft Excel (Windows COM) i zapisuj zaktualizowane wartości w pamięci podręcznej. Obsługuje pojedynczy plik .xlsx lub skanowanie katalogów. Domyślnie kopia zapasowa (<plik>.org / <plik>.org1 / ...) tworzona jest bezpośrednio przed zapisaniem.",
     "x_search_terms": [
-      "Przeliczaj formuły programu Excel, automatyzując program Microsoft Excel (Windows COM) i zapisuj zaktualizowane wartości w pamięci podręcznej",
+      "Przeliczaj formuły programu Excel, automatyzując program Microsoft Excel (Windows COM) i zapisuj zaktualizowane wartości w pamięci podręcznej. Obsługuje pojedynczy plik .xlsx lub skanowanie katalogów. Domyślnie kopia zapasowa (<plik>.org / <plik>.org1 / ...) tworzona jest bezpośrednio przed zapisaniem",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Użyj tego narzędzia, gdy wartości buforowane formułami w pliku .xlsx są nieaktualne (na przykład, gdy openpyxl data_only odczytuje tylko stare wartości). To narzędzie otwiera skoroszyty w programie Microsoft Excel za pośrednictwem interfejsu COM, wykonuje pełne ponowne obliczenia i zapisuje.",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików .xlsx. Jeśli zostanie pominięte, a plik jest zaszyfrowany, hasło zostanie poproszone tylko raz.",
@@ -449,13 +397,9 @@
     "param.visible.description": "स्वचालन के दौरान Excel विंडो दिखाएँ। डिफ़ॉल्ट: false.",
     "tool.description": "Microsoft Excel (Windows COM) को स्वचालित करके Excel सूत्रों की पुनर्गणना करें और अपडेट किए गए कैश मान सहेजें। एकल .xlsx फ़ाइल या निर्देशिका स्कैन का समर्थन करता है। डिफ़ॉल्ट रूप से, सहेजने से ठीक पहले बैकअप (<file>.org / <file>.org1 / ...) बनाया जाता है।",
     "x_search_terms": [
-      "Microsoft Excel (Windows COM) को स्वचालित करके Excel सूत्रों की पुनर्गणना करें और अपडेट किए गए कैश मान सहेजें। एकल",
+      "Microsoft Excel (Windows COM) को स्वचालित करके Excel सूत्रों की पुनर्गणना करें और अपडेट किए गए कैश मान सहेजें। एकल .xlsx फ़ाइल या निर्देशिका स्कैन का समर्थन करता है। डिफ़ॉल्ट रूप से, सहेजने से ठीक पहले बैकअप (<file>.org / <file>.org1 / ...) बनाया जाता है।",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पृष्ठ-स्तरीय टेक्स्ट लौटाता है। इनपुट: path, page_index, max_chars. आउटपुट: पृष्ठ का पाठ (सभी पृष्ठ या निर्दिष्ट पृष्ठ).",
     "param.password.description": "एन्क्रिप्टेड .xlsx फ़ाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ा गया है और फ़ाइल एन्क्रिप्टेड है, तो एक बार पासवर्ड पूछा जाएगा।",
@@ -482,13 +426,9 @@
     "param.visible.description": "إظهار نافذة Excel أثناء التشغيل الآلي. الافتراضي: خطأ.",
     "tool.description": "إعادة حساب صيغ Excel عن طريق أتمتة Microsoft Excel (Windows COM) وحفظ القيم المخزنة مؤقتًا المحدثة. يدعم ملف .xlsx واحد أو فحص الدليل. افتراضيًا، يتم إنشاء نسخة احتياطية (<file>.org / <file>.org1 / ...) مباشرة قبل الحفظ.",
     "x_search_terms": [
-      "إعادة حساب صيغ Excel عن طريق أتمتة Microsoft Excel (Windows COM) وحفظ القيم المخزنة مؤقتًا المحدثة",
+      "إعادة حساب صيغ Excel عن طريق أتمتة Microsoft Excel (Windows COM) وحفظ القيم المخزنة مؤقتًا المحدثة. يدعم ملف .xlsx واحد أو فحص الدليل. افتراضيًا، يتم إنشاء نسخة احتياطية (<file>.org / <file>.org1 / ...) مباشرة قبل الحفظ",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "استخدم هذه الأداة عندما تكون القيم المخزنة مؤقتًا للصيغة في .xlsx قديمة (على سبيل المثال، عندما يقرأ openpyxl data_only القيم القديمة). تفتح هذه الأداة المصنف (المصنفات) في Microsoft Excel عبر COM، وتقوم بإجراء عملية إعادة حساب كاملة، ثم تقوم بالحفظ.",
     "param.password.description": "كلمة مرور اختيارية لملفات .xlsx المشفرة. إذا تم حذفه وتم تشفير الملف، فستتم مطالبتك مرة واحدة بكلمة المرور.",
@@ -515,13 +455,9 @@
     "param.visible.description": "Visa Excel-fönstret under automatisering. Standard: false.",
     "tool.description": "Beräkna om Excel-formler genom att automatisera Microsoft Excel (Windows COM) och spara uppdaterade cachevärden. Stöd för en enskild .xlsx-fil eller genomsökning av en katalog. Som standard skapas en säkerhetskopia (<file>.org / <file>.org1 / ...) direkt före sparning.",
     "x_search_terms": [
-      "Beräkna om Excel-formler genom att automatisera Microsoft Excel (Windows COM) och spara uppdaterade cachevärden",
+      "Beräkna om Excel-formler genom att automatisera Microsoft Excel (Windows COM) och spara uppdaterade cachevärden. Stöd för en enskild .xlsx-fil eller genomsökning av en katalog. Som standard skapas en säkerhetskopia (<file>.org / <file>.org1 / ...) direkt före sparning",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Använd det här verktyget när formelvärdena i cacheminnet i .xlsx är föråldrade (till exempel när openpyxl data_only läser gamla värden). Verktyget öppnar arbetsböcker i Microsoft Excel via COM, gör en fullständig omräkning och sparar.",
     "param.password.description": "Valfritt lösenord för krypterade .xlsx-filer. Om det utelämnas och filen är krypterad kommer du att ombes ange ett lösenord en gång.",
@@ -548,13 +484,9 @@
     "param.visible.description": "Onyesha dirisha la Excel wakati wa otomatiki. Chaguomsingi: false.",
     "tool.description": "Fanya hesabu upya za fomula za Excel kwa kuendesha Microsoft Excel (Windows COM) na uhifadhi thamani za akiba zilizosasishwa. Inaunga mkono faili moja la .xlsx au kuchanganua saraka. Kwa chaguomsingi, nakala ya akiba (<file>.org / <file>.org1 / ...) huundwa kabla ya kuhifadhi.",
     "x_search_terms": [
-      "Fanya hesabu upya za fomula za Excel kwa kuendesha Microsoft Excel (Windows COM) na uhifadhi thamani za akiba zilizosasishwa",
+      "Fanya hesabu upya za fomula za Excel kwa kuendesha Microsoft Excel (Windows COM) na uhifadhi thamani za akiba zilizosasishwa. Inaunga mkono faili moja la .xlsx au kuchanganua saraka. Kwa chaguomsingi, nakala ya akiba (<file>.org / <file>.org1 / ...) huundwa kabla ya kuhifadhi",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Tumia zana hii wakati thamani za akiba za fomula kwenye .xlsx ni za zamani (kwa mfano, openpyxl data_only ikisoma thamani za zamani). Zana hii hufungua workbook(s) katika Microsoft Excel kupitia COM, hufanya hesabu kamili upya, na kuhifadhi.",
     "param.password.description": "Nenosiri la hiari kwa faili za .xlsx zilizosimbwa. Likiachwa na faili ikiwa imesimbwa, utaulizwa nenosiri mara moja.",
@@ -581,13 +513,9 @@
     "param.visible.description": "Vis Excel-vinduet under automatisering. Standard: false.",
     "tool.description": "Beregn Excel-formler på nytt ved å automatisere Microsoft Excel (Windows COM) og lagre oppdaterte hurtigbufrede verdier. Støtter én .xlsx-fil eller skanning av en katalog. Som standard opprettes en sikkerhetskopi (<file>.org / <file>.org1 / ...) rett før lagring.",
     "x_search_terms": [
-      "Beregn Excel-formler på nytt ved å automatisere Microsoft Excel (Windows COM) og lagre oppdaterte hurtigbufrede verdier",
+      "Beregn Excel-formler på nytt ved å automatisere Microsoft Excel (Windows COM) og lagre oppdaterte hurtigbufrede verdier. Støtter én .xlsx-fil eller skanning av en katalog. Som standard opprettes en sikkerhetskopi (<file>.org / <file>.org1 / ...) rett før lagring",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Bruk dette verktøyet når hurtigbufrede formelverdier i .xlsx er utdaterte (for eksempel når openpyxl data_only leser gamle verdier). Verktøyet åpner arbeidsbøker i Microsoft Excel via COM, utfører en full omberegning og lagrer.",
     "param.password.description": "Valgfritt passord for krypterte .xlsx-filer. Hvis det utelates og filen er kryptert, blir du bedt om et passord én gang.",
@@ -614,13 +542,9 @@
     "param.visible.description": "Excel-venster tonen tijdens automatisering. Standaard: false.",
     "tool.description": "Herbereken Excel-formules door Microsoft Excel (Windows COM) te automatiseren en sla bijgewerkte cachewaarden op. Ondersteunt één .xlsx-bestand of een mappenscan. Standaard wordt direct vóór het opslaan een back-up (<file>.org / <file>.org1 / ...) gemaakt.",
     "x_search_terms": [
-      "Herbereken Excel-formules door Microsoft Excel (Windows COM) te automatiseren en sla bijgewerkte cachewaarden op",
+      "Herbereken Excel-formules door Microsoft Excel (Windows COM) te automatiseren en sla bijgewerkte cachewaarden op. Ondersteunt één .xlsx-bestand of een mappenscan. Standaard wordt direct vóór het opslaan een back-up (<file>.org / <file>.org1 / ...) gemaakt",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Gebruik deze tool wanneer de gecachte formulewaarden in .xlsx verouderd zijn (bijvoorbeeld wanneer openpyxl data_only oude waarden leest). Deze tool opent werkmap(pen) in Microsoft Excel via COM, voert een volledige herberekening uit en slaat op.",
     "param.password.description": "Optioneel wachtwoord voor versleutelde .xlsx-bestanden. Als dit wordt weggelaten en het bestand versleuteld is, wordt u één keer om een wachtwoord gevraagd.",
@@ -647,13 +571,9 @@
     "param.visible.description": "Näytä Excel-ikkuna automaation aikana. Oletus: false.",
     "tool.description": "Laskee Excel-kaavat uudelleen automatisoimalla Microsoft Exceliä (Windows COM) ja tallentaa päivitetyt välimuistiarvot. Tukee yhtä .xlsx-tiedostoa tai hakemiston skannausta. Oletusarvoisesti varmuuskopio (<file>.org / <file>.org1 / ...) luodaan heti ennen tallennusta.",
     "x_search_terms": [
-      "Laskee Excel-kaavat uudelleen automatisoimalla Microsoft Exceliä (Windows COM) ja tallentaa päivitetyt välimuistiarvot",
+      "Laskee Excel-kaavat uudelleen automatisoimalla Microsoft Exceliä (Windows COM) ja tallentaa päivitetyt välimuistiarvot. Tukee yhtä .xlsx-tiedostoa tai hakemiston skannausta. Oletusarvoisesti varmuuskopio (<file>.org / <file>.org1 / ...) luodaan heti ennen tallennusta",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Käytä tätä työkalua, kun .xlsx-tiedoston kaavojen välimuistiarvot ovat vanhentuneet (esimerkiksi kun openpyxl data_only lukee vanhoja arvoja). Tämä työkalu avaa työkirjan(t) Microsoft Excelissä COM:n kautta, laskee kaiken uudelleen ja tallentaa.",
     "param.password.description": "Valinnainen salasana salatuille .xlsx-tiedostoille. Jos se jätetään pois ja tiedosto on salattu, sinulta kysytään salasanaa kerran.",
@@ -680,13 +600,9 @@
     "param.visible.description": "Zobrazit během automatizace okno Excelu. Výchozí: false.",
     "tool.description": "Přepočítá vzorce v Excelu automatizací Microsoft Excelu (Windows COM) a uloží aktualizované cache hodnoty. Podporuje jeden soubor .xlsx nebo prohledání adresáře. Ve výchozím nastavení se těsně před uložením vytvoří záloha (<soubor>.org / <soubor>.org1 / ...).",
     "x_search_terms": [
-      "Přepočítá vzorce v Excelu automatizací Microsoft Excelu (Windows COM) a uloží aktualizované cache hodnoty",
+      "Přepočítá vzorce v Excelu automatizací Microsoft Excelu (Windows COM) a uloží aktualizované cache hodnoty. Podporuje jeden soubor .xlsx nebo prohledání adresáře. Ve výchozím nastavení se těsně před uložením vytvoří záloha (<soubor>.org / <soubor>.org1 / ...)",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Použijte tento nástroj, když jsou cache hodnoty vzorců v .xlsx zastaralé (například když openpyxl data_only čte staré hodnoty). Nástroj otevře sešity v Microsoft Excelu přes COM, provede úplný přepočet a uloží je.",
     "param.password.description": "Volitelné heslo pro šifrované soubory .xlsx. Pokud není zadáno a soubor je šifrovaný, budete jednou vyzváni k zadání hesla.",
@@ -713,13 +629,9 @@
     "param.visible.description": "Показувати вікно Excel під час автоматизації. Типово: false.",
     "tool.description": "Перераховує формули Excel, автоматизуючи Microsoft Excel (Windows COM), і зберігає оновлені кешовані значення. Підтримує один файл .xlsx або сканування каталогу. Типово перед збереженням одразу створюється резервна копія (<file>.org / <file>.org1 / ...).",
     "x_search_terms": [
-      "Перераховує формули Excel, автоматизуючи Microsoft Excel (Windows COM), і зберігає оновлені кешовані значення",
+      "Перераховує формули Excel, автоматизуючи Microsoft Excel (Windows COM), і зберігає оновлені кешовані значення. Підтримує один файл .xlsx або сканування каталогу. Типово перед збереженням одразу створюється резервна копія (<file>.org / <file>.org1 / ...)",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент, коли кешовані значення формул у .xlsx застаріли (наприклад, коли openpyxl data_only читає старі значення). Інструмент відкриває книги в Microsoft Excel через COM, виконує повний перерахунок і зберігає їх.",
     "param.password.description": "Необов’язковий пароль для зашифрованих файлів .xlsx. Якщо його не вказано і файл зашифрований, пароль буде запитано один раз.",
@@ -746,13 +658,9 @@
     "param.visible.description": "Otomasyon sırasında Excel penceresini göster. Varsayılan: yanlış.",
     "tool.description": "Microsoft Excel'i (Windows COM) otomatikleştirerek Excel formüllerini yeniden hesaplayın ve güncellenmiş önbelleğe alınmış değerleri kaydedin. Tek bir .xlsx dosyasını veya dizin taramasını destekler. Varsayılan olarak, kaydetmeden hemen önce bir yedek (<file>.org / <file>.org1 / ...) oluşturulur.",
     "x_search_terms": [
-      "Microsoft Excel'i (Windows COM) otomatikleştirerek Excel formüllerini yeniden hesaplayın ve güncellenmiş önbelleğe alınmış değerleri kaydedin",
+      "Microsoft Excel'i (Windows COM) otomatikleştirerek Excel formüllerini yeniden hesaplayın ve güncellenmiş önbelleğe alınmış değerleri kaydedin. Tek bir .xlsx dosyasını veya dizin taramasını destekler. Varsayılan olarak, kaydetmeden hemen önce bir yedek (<file>.org / <file>.org1 / ...) oluşturulur",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": ".xlsx dosyasındaki formül önbelleğe alınmış değerler eski olduğunda (örneğin, openpyxl data_only eski değerleri okuduğunda) bu aracı kullanın. Bu araç, çalışma kitaplarını Microsoft Excel'de COM aracılığıyla açar, tam bir yeniden hesaplama gerçekleştirir ve kaydeder.",
     "param.password.description": "Şifrelenmiş .xlsx dosyaları için isteğe bağlı parola. Atlanırsa ve dosya şifrelenirse, bir kez parola girmeniz istenecektir.",
@@ -779,13 +687,9 @@
     "param.visible.description": "แสดงหน้าต่าง Excel ระหว่างทำงานอัตโนมัติ ค่าเริ่มต้น: false",
     "tool.description": "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์ .xlsx เพียงไฟล์เดียวหรือการสแกนไดเร็กทอรี โดยปกติจะสร้างข้อมูลสำรอง (<file>.org / <file>.org1 / ...) ทันทีก่อนบันทึก",
     "x_search_terms": [
-      "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์",
+      "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์ .xlsx เพียงไฟล์เดียวหรือการสแกนไดเร็กทอรี โดยปกติจะสร้างข้อมูลสำรอง (<file>.org / <file>.org1 / ...) ทันทีก่อนบันทึก",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เมื่อค่าที่แคชไว้ของสูตรใน .xlsx ล้าสมัย (เช่น openpyxl data_only อ่านค่าเก่า) เครื่องมือนี้จะเปิดสมุดงานใน Microsoft Excel ผ่าน COM ทำการคำนวณใหม่ทั้งหมด และบันทึก",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .xlsx ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและไฟล์ถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
@@ -812,13 +716,9 @@
     "param.visible.description": "自动化期间是否显示 Excel 窗口。默认值：false。",
     "tool.description": "通过自动化 Microsoft Excel（Windows COM）重新计算 Excel 公式并保存更新后的缓存值。支持单个 .xlsx 文件或目录扫描。默认会在保存前立即创建备份（<file>.org / <file>.org1 / ...）。",
     "x_search_terms": [
-      "通过自动化 Microsoft Excel（Windows COM）重新计算 Excel 公式并保存更新后的缓存值",
+      "通过自动化 Microsoft Excel（Windows COM）重新计算 Excel 公式并保存更新后的缓存值。支持单个 .xlsx 文件或目录扫描。默认会在保存前立即创建备份（<file>.org / <file>.org1 / ...）",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "当 .xlsx 中的公式缓存值过期时使用此工具（例如 openpyxl data_only 读取到旧值）。该工具会通过 COM 在 Microsoft Excel 中打开工作簿，执行完全重新计算并保存。",
     "param.password.description": "加密 .xlsx 文件的可选密码。如果省略且文件已加密，系统会提示您输入一次密码。",
@@ -845,13 +745,9 @@
     "param.visible.description": "自動化期間是否顯示 Excel 視窗。預設值：false。",
     "tool.description": "透過自動化 Microsoft Excel（Windows COM）重新計算 Excel 公式並儲存更新後的快取值。支援單一 .xlsx 檔案或目錄掃描。預設會在儲存前立即建立備份（<file>.org / <file>.org1 / ...）。",
     "x_search_terms": [
-      "透過自動化 Microsoft Excel（Windows COM）重新計算 Excel 公式並儲存更新後的快取值",
+      "透過自動化 Microsoft Excel（Windows COM）重新計算 Excel 公式並儲存更新後的快取值。支援單一 .xlsx 檔案或目錄掃描。預設會在儲存前立即建立備份（<file>.org / <file>.org1 / ...）",
       "recalc_excel",
-      "recalc excel",
-      "recalculate",
-      "excel formula",
-      "windows com",
-      "cache values"
+      "recalc excel"
     ],
     "tool.system_prompt": "當 .xlsx 中的公式快取值過時時使用此工具（例如 openpyxl data_only 讀到舊值）。此工具會透過 COM 在 Microsoft Excel 中開啟活頁簿，執行完整重新計算並儲存。",
     "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",

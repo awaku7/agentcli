@@ -3,14 +3,8 @@
     "tool.description": "Get the current working directory.",
     "x_search_terms": [
       "Get the current working directory",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Use this tool to get the current working directory."
   },
@@ -18,14 +12,8 @@
     "tool.description": "現在の作業ディレクトリを取得します。",
     "x_search_terms": [
       "現在の作業ディレクトリを取得します",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "このツールは現在の作業ディレクトリを取得するために使います。"
   },
@@ -33,14 +21,8 @@
     "tool.description": "Obtiene el directorio de trabajo actual.",
     "x_search_terms": [
       "Obtiene el directorio de trabajo actual",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el directorio de trabajo actual."
   },
@@ -48,14 +30,8 @@
     "tool.description": "Obtient le répertoire de travail actuel.",
     "x_search_terms": [
       "Obtient le répertoire de travail actuel",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : obtenir le répertoire de travail actuel."
   },
@@ -63,14 +39,8 @@
     "tool.description": "현재 작업 디렉터리를 가져옵니다.",
     "x_search_terms": [
       "현재 작업 디렉터리를 가져옵니다",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "이 도구는 현재 작업 디렉터리를 가져오는 목적으로 사용됩니다."
   },
@@ -78,14 +48,8 @@
     "tool.description": "Ruft das aktuelle Arbeitsverzeichnis ab.",
     "x_search_terms": [
       "Ruft das aktuelle Arbeitsverzeichnis ab",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: das aktuelle Arbeitsverzeichnis abzurufen."
   },
@@ -93,14 +57,8 @@
     "tool.description": "Ottiene la directory di lavoro corrente.",
     "x_search_terms": [
       "Ottiene la directory di lavoro corrente",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: ottenere la directory di lavoro corrente."
   },
@@ -108,14 +66,8 @@
     "tool.description": "Получает текущий рабочий каталог.",
     "x_search_terms": [
       "Получает текущий рабочий каталог",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: получить текущий рабочий каталог."
   },
@@ -123,14 +75,8 @@
     "tool.description": "Obtém o diretório de trabalho atual.",
     "x_search_terms": [
       "Obtém o diretório de trabalho atual",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
   },
@@ -138,14 +84,8 @@
     "tool.description": "Obtenha o diretório de trabalho atual.",
     "x_search_terms": [
       "Obtenha o diretório de trabalho atual",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Use esta ferramenta para obter o diretório de trabalho atual."
   },
@@ -153,14 +93,8 @@
     "tool.description": "Dapatkan direktori kerja saat ini.",
     "x_search_terms": [
       "Dapatkan direktori kerja saat ini",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mendapatkan direktori kerja saat ini."
   },
@@ -168,14 +102,8 @@
     "tool.description": "Lấy thư mục làm việc hiện tại.",
     "x_search_terms": [
       "Lấy thư mục làm việc hiện tại",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng với mục đích sau: lấy thư mục làm việc hiện tại."
   },
@@ -183,14 +111,8 @@
     "tool.description": "Pobierz bieżący katalog roboczy.",
     "x_search_terms": [
       "Pobierz bieżący katalog roboczy",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "To narzędzie służy do następującego celu: pobranie bieżącego katalogu roboczego."
   },
@@ -198,14 +120,8 @@
     "tool.description": "वर्तमान कार्यशील निर्देशिका प्राप्त करें.",
     "x_search_terms": [
       "वर्तमान कार्यशील निर्देशिका प्राप्त करें",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग वर्तमान कार्यशील निर्देशिका प्राप्त करने के लिए किया जाता है।"
   },
@@ -213,14 +129,8 @@
     "tool.description": "الحصول على دليل العمل الحالي.",
     "x_search_terms": [
       "الحصول على دليل العمل الحالي",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للحصول على دليل العمل الحالي."
   },
@@ -228,14 +138,8 @@
     "tool.description": "Hämtar den aktuella arbetskatalogen.",
     "x_search_terms": [
       "Hämtar den aktuella arbetskatalogen",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Det här verktyget används för att hämta den aktuella arbetskatalogen."
   },
@@ -243,14 +147,8 @@
     "tool.description": "Get the current working directory.",
     "x_search_terms": [
       "Get the current working directory",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Use this tool to get the current working directory."
   },
@@ -258,14 +156,8 @@
     "tool.description": "Henter den gjeldende arbeidskatalogen.",
     "x_search_terms": [
       "Henter den gjeldende arbeidskatalogen",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å hente den gjeldende arbeidskatalogen."
   },
@@ -273,14 +165,8 @@
     "tool.description": "Haal de huidige werkmap op.",
     "x_search_terms": [
       "Haal de huidige werkmap op",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Gebruik deze tool om de huidige werkmap op te halen."
   },
@@ -288,14 +174,8 @@
     "tool.description": "Hae nykyinen työhakemisto.",
     "x_search_terms": [
       "Hae nykyinen työhakemisto",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Käytä tätä työkalua nykyisen työhakemiston hakemiseen."
   },
@@ -303,14 +183,8 @@
     "tool.description": "Získejte aktuální pracovní adresář.",
     "x_search_terms": [
       "Získejte aktuální pracovní adresář",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Použijte tento nástroj k získání aktuálního pracovního adresáře."
   },
@@ -318,14 +192,8 @@
     "tool.description": "Отримайте поточний робочий каталог.",
     "x_search_terms": [
       "Отримайте поточний робочий каталог",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати поточний робочий каталог."
   },
@@ -333,14 +201,8 @@
     "tool.description": "Geçerli çalışma dizinini alın.",
     "x_search_terms": [
       "Geçerli çalışma dizinini alın",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "Geçerli çalışma dizinini almak için bu aracı kullanın."
   },
@@ -348,14 +210,8 @@
     "tool.description": "รับไดเรกทอรีการทำงานปัจจุบัน",
     "x_search_terms": [
       "รับไดเรกทอรีการทำงานปัจจุบัน",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเรกทอรีการทำงานปัจจุบัน"
   },
@@ -363,14 +219,8 @@
     "tool.description": "获取当前工作目录。",
     "x_search_terms": [
       "获取当前工作目录",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "该工具用于以下目的：获取当前工作目录。"
   },
@@ -378,14 +228,8 @@
     "tool.description": "取得目前工作目錄。",
     "x_search_terms": [
       "取得目前工作目錄",
-      "working directory",
-      "cwd",
-      "current dir",
-      "作業ディレクトリ",
-      "directorio de trabajo",
-      "répertoire de travail",
-      "작업 디렉터리",
-      "рабочая директория"
+      "get_workdir",
+      "get workdir"
     ],
     "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
   }

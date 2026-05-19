@@ -14,13 +14,9 @@
     "param.splice_op.description": "Splice operation (splice mode).",
     "tool.description": "Edit a local file as raw bytes (binary). Supports offset write, search/replace, splice (insert/delete), and applying a simple JSON patch. Dangerous: this tool can corrupt files.",
     "x_search_terms": [
-      "Edit a local file as raw bytes (binary)",
+      "Edit a local file as raw bytes (binary). Supports offset write, search/replace, splice (insert/delete), and applying a simple JSON patch. Dangerous: this tool can corrupt files",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: edit a local file as raw bytes (binary).\n\nSECURITY / SAFETY:\n- This tool modifies local files and can corrupt them.\n- Always request confirmation with human_ask before writing.\n- Do not operate on paths outside the current workdir when running under the host agent's safety policies.\n"
   },
@@ -39,13 +35,9 @@
     "param.splice_op.description": "splice 操作（splice モード）。",
     "tool.description": "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります。",
     "x_search_terms": [
-      "ローカルファイルをバイナリ（生バイト列）として編集します",
+      "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "このツールは、ローカルファイルをバイナリ（生バイト列）として編集するために使用します。\n\n安全上の注意:\n- このツールはローカルファイルを変更し、破損させる可能性があります。\n- 書き込み前には必ず human_ask で確認を求めてください。\n- ホストエージェントの安全ポリシー下では、現在の workdir 外のパスを操作しないでください。"
   },
@@ -64,13 +56,9 @@
     "param.splice_op.description": "Operación de splice (modo splice).",
     "tool.description": "Edita un archivo local como bytes sin procesar (binario). Admite escritura por desplazamiento, búsqueda/reemplazo, splice (insertar/eliminar) y la aplicación de un parche JSON sencillo. Peligroso: esta herramienta puede dañar archivos.",
     "x_search_terms": [
-      "Edita un archivo local como bytes sin procesar (binario)",
+      "Edita un archivo local como bytes sin procesar (binario). Admite escritura por desplazamiento, búsqueda/reemplazo, splice (insertar/eliminar) y la aplicación de un parche JSON sencillo. Peligroso: esta herramienta puede dañar archivos",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Esta herramienta se usa para editar un archivo local como bytes sin procesar (binario).\n\nSEGURIDAD / PROTECCIÓN:\n- Esta herramienta modifica archivos locales y puede dañarlos.\n- Solicite siempre confirmación con human_ask antes de escribir.\n- No opere sobre rutas fuera del directorio de trabajo actual cuando se ejecute bajo las políticas de seguridad del agente anfitrión."
   },
@@ -89,13 +77,9 @@
     "param.splice_op.description": "Opération de splice (mode splice).",
     "tool.description": "Modifiez un fichier local sous forme d'octets bruts (binaire). Prend en charge l'écriture à un décalage, la recherche/remplacement, le splice (insertion/suppression) et l'application d'un correctif JSON simple. Dangereux : cet outil peut corrompre des fichiers.",
     "x_search_terms": [
-      "Modifiez un fichier local sous forme d'octets bruts (binaire)",
+      "Modifiez un fichier local sous forme d'octets bruts (binaire). Prend en charge l'écriture à un décalage, la recherche/remplacement, le splice (insertion/suppression) et l'application d'un correctif JSON simple. Dangereux : cet outil peut corrompre des fichiers",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Cet outil est utilisé pour modifier un fichier local sous forme d’octets bruts (binaire).\n\nSÉCURITÉ :\n- Cet outil modifie les fichiers locaux et peut les corrompre.\n- Demandez toujours une confirmation avec human_ask avant d’écrire.\n- N’opérez pas sur des chemins situés en dehors du répertoire de travail actuel lorsque vous exécutez sous les politiques de sécurité de l’agent hôte."
   },
@@ -114,13 +98,9 @@
     "param.splice_op.description": "splice 작업(splice 모드)입니다.",
     "tool.description": "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다.",
     "x_search_terms": [
-      "로컬 파일을 원시 바이트(바이너리)로 편집합니다",
+      "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "이 도구는 로컬 파일을 원시 바이트(바이너리)로 편집하는 데 사용합니다.\n\n보안 안내:\n- 이 도구는 로컬 파일을 수정하여 손상시킬 수 있습니다.\n- 쓰기 전에 항상 human_ask로 확인을 요청하세요.\n- 호스트 에이전트의 보안 정책 하에서는 현재 workdir 밖의 경로를 다루지 마세요."
   },
@@ -139,13 +119,9 @@
     "param.splice_op.description": "Splice-Vorgang (Modus splice).",
     "tool.description": "Bearbeitet eine lokale Datei als Rohbytes (binär). Unterstützt Schreiben mit Offset, Suchen/Ersetzen, Splice (Einfügen/Löschen) und das Anwenden eines einfachen JSON-Patches. Gefährlich: Dieses Tool kann Dateien beschädigen.",
     "x_search_terms": [
-      "Bearbeitet eine lokale Datei als Rohbytes (binär)",
+      "Bearbeitet eine lokale Datei als Rohbytes (binär). Unterstützt Schreiben mit Offset, Suchen/Ersetzen, Splice (Einfügen/Löschen) und das Anwenden eines einfachen JSON-Patches. Gefährlich: Dieses Tool kann Dateien beschädigen",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Dieses Tool wird verwendet, um eine lokale Datei als Rohbytes (binär) zu bearbeiten.\n\nSICHERHEIT:\n- Dieses Tool verändert lokale Dateien und kann sie beschädigen.\n- Fordern Sie vor dem Schreiben immer eine Bestätigung mit human_ask an.\n- Arbeiten Sie nicht auf Pfaden außerhalb des aktuellen Arbeitsverzeichnisses, wenn Sie unter den Sicherheitsrichtlinien des Host-Agents ausgeführt werden."
   },
@@ -164,13 +140,9 @@
     "param.splice_op.description": "Operazione di splice (modalità splice).",
     "tool.description": "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file.",
     "x_search_terms": [
-      "Modifica un file locale come byte grezzi (binario)",
+      "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per modificare un file locale come byte grezzi (binario).\n\nSICUREZZA:\n- Questo strumento modifica i file locali e può danneggiarli.\n- Richiedi sempre conferma con human_ask prima di scrivere.\n- Non operare su percorsi fuori dalla directory di lavoro corrente quando esegui sotto le politiche di sicurezza dell’host agent."
   },
@@ -189,13 +161,9 @@
     "param.splice_op.description": "Операция splice (режим splice).",
     "tool.description": "Редактирует локальный файл как необработанные байты (двоичные данные). Поддерживает запись со смещением, поиск/замену, splice (вставку/удаление) и применение простого JSON-патча. Опасно: этот инструмент может повредить файлы.",
     "x_search_terms": [
-      "Редактирует локальный файл как необработанные байты (двоичные данные)",
+      "Редактирует локальный файл как необработанные байты (двоичные данные). Поддерживает запись со смещением, поиск/замену, splice (вставку/удаление) и применение простого JSON-патча. Опасно: этот инструмент может повредить файлы",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Этот инструмент используется для редактирования локального файла как необработанных байтов (двоичных данных).\n\nБЕЗОПАСНОСТЬ:\n- Этот инструмент изменяет локальные файлы и может их повредить.\n- Всегда запрашивайте подтверждение через human_ask перед записью.\n- Не работайте с путями вне текущего рабочего каталога при выполнении в соответствии с политиками безопасности хост-агента."
   },
@@ -214,13 +182,9 @@
     "param.splice_op.description": "Operação de splice (modo splice).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos.",
     "x_search_terms": [
-      "Edite um arquivo local como bytes brutos (binários)",
+      "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
   },
@@ -239,13 +203,9 @@
     "param.splice_op.description": "Operação de emenda (modo de emenda).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos.",
     "x_search_terms": [
-      "Edite um arquivo local como bytes brutos (binários)",
+      "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para editar um arquivo local como bytes brutos (binário).\n\nSEGURANÇA:\n- Esta ferramenta modifica arquivos locais e pode corrompê-los.\n- Solicite sempre confirmação com human_ask antes de escrever.\n- Não opere em caminhos fora do diretório de trabalho atual ao executar sob as políticas de segurança do agente host."
   },
@@ -264,13 +224,9 @@
     "param.splice_op.description": "Operasi splice (mode splice).",
     "tool.description": "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file.",
     "x_search_terms": [
-      "Edit file lokal sebagai byte mentah (binary)",
+      "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk mengedit file lokal sebagai byte mentah (biner).\n\nKEAMANAN:\n- Alat ini memodifikasi file lokal dan dapat merusaknya.\n- Selalu minta konfirmasi dengan human_ask sebelum menulis.\n- Jangan beroperasi pada path di luar workdir saat berjalan di bawah kebijakan keamanan host agent."
   },
@@ -289,13 +245,9 @@
     "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
     "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin.",
     "x_search_terms": [
-      "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân)",
+      "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Công cụ này được dùng để chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).\n\nAN TOÀN:\n- Công cụ này sửa đổi các tệp cục bộ và có thể làm hỏng chúng.\n- Luôn yêu cầu xác nhận bằng human_ask trước khi ghi.\n- Không thao tác trên các đường dẫn bên ngoài thư mục làm việc hiện tại khi chạy theo chính sách an toàn của tác nhân chủ."
   },
@@ -314,13 +266,9 @@
     "param.splice_op.description": "Operacja splotu (tryb splotu).",
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki.",
     "x_search_terms": [
-      "Edytuj plik lokalny jako surowe bajty (binarne)",
+      "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "To narzędzie służy do edycji lokalnego pliku jako surowych bajtów (binarnie).\n\nBEZPIECZEŃSTWO:\n- To narzędzie modyfikuje lokalne pliki i może je uszkodzić.\n- Zawsze proś o potwierdzenie za pomocą human_ask przed zapisem.\n- Nie operuj na ścieżkach poza bieżącym katalogiem roboczym, gdy działa to zgodnie z zasadami bezpieczeństwa agenta hosta."
   },
@@ -341,11 +289,7 @@
     "x_search_terms": [
       "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "यह टूल स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करने के लिए उपयोग किया जाता है।\n\nसुरक्षा:\n- यह टूल स्थानीय फ़ाइलों को संशोधित कर सकता है और उन्हें दूषित कर सकता है।\n- लिखने से पहले हमेशा human_ask से पुष्टि मांगें।\n- होस्ट एजेंट की सुरक्षा नीतियों के तहत चलते समय वर्तमान workdir के बाहर के पथों पर काम न करें।"
   },
@@ -364,13 +308,9 @@
     "param.splice_op.description": "عملية splice (وضع splice).",
     "tool.description": "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات.",
     "x_search_terms": [
-      "تحرير ملف محلي على شكل بايتات خام (ثنائي)",
+      "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "يُستخدم هذا الأداة لتحرير ملف محلي على شكل بايتات خام (ثنائي).\n\nالسلامة:\n- تقوم هذه الأداة بتعديل الملفات المحلية وقد تتسبب في إتلافها.\n- اطلب دائمًا تأكيدًا باستخدام human_ask قبل الكتابة.\n- لا تعمل على مسارات خارج دليل العمل الحالي عند التشغيل تحت سياسات الأمان الخاصة بالوكيل المضيف."
   },
@@ -389,13 +329,9 @@
     "param.splice_op.description": "Splice-operation (splice-läge).",
     "tool.description": "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer.",
     "x_search_terms": [
-      "Redigera en lokal fil som råa byte (binär)",
+      "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Det här verktyget används för att redigera en lokal fil som råa byte (binärt).\n\nSÄKERHET:\n- Det här verktyget ändrar lokala filer och kan förstöra dem.\n- Begär alltid bekräftelse med human_ask innan skrivning.\n- Arbeta inte på sökvägar utanför den aktuella workdir när du kör under värdagentens säkerhetspolicy."
   },
@@ -414,13 +350,9 @@
     "param.splice_op.description": "Operesheni ya splice (kuingiza au kufuta).",
     "tool.description": "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili.",
     "x_search_terms": [
-      "Hariri faili kama bytes ghafi (binary)",
+      "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Hii ni zana ya kuhariri faili kama bytes ghafi (binary).\n\nUSALAMA:\n- Zana hii hubadilisha faili za ndani na inaweza kuharibu faili.\n- Omba uthibitisho kila wakati kwa human_ask kabla ya kuandika.\n- Usifanye kazi kwenye njia zilizo nje ya workdir ya sasa wakati unafuata sera za usalama za host agent."
   },
@@ -439,13 +371,9 @@
     "param.splice_op.description": "Splice-operasjon (splice-modus).",
     "tool.description": "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer.",
     "x_search_terms": [
-      "Rediger en lokal fil som rå byte (binær)",
+      "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å redigere en lokal fil som rå byte (binær).\n\nSIKKERHET:\n- Dette verktøyet endrer lokale filer og kan ødelegge dem.\n- Be alltid om bekreftelse med human_ask før skriving.\n- Ikke arbeid på stier utenfor gjeldende workdir når du kjører under vertsagentens sikkerhetsregler."
   },
@@ -464,13 +392,9 @@
     "param.splice_op.description": "Splice-operatie (splice-modus).",
     "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen.",
     "x_search_terms": [
-      "Bewerk een lokaal bestand als ruwe bytes (binair)",
+      "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt om een lokaal bestand als ruwe bytes (binair) te bewerken.\n\nVEILIGHEID:\n- Deze tool wijzigt lokale bestanden en kan ze beschadigen.\n- Vraag altijd bevestiging met human_ask voordat u schrijft.\n- Werk onder het beveiligingsbeleid van de host-agent niet op paden buiten de huidige workdir."
   },
@@ -489,13 +413,9 @@
     "param.splice_op.description": "Splice-toiminto (splice-tila).",
     "tool.description": "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja.",
     "x_search_terms": [
-      "Muokkaa paikallista tiedostoa raakatavuina (binäärinä)",
+      "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään paikallisen tiedoston muokkaamiseen raakatavuina (binäärinä).\n\nTURVALLISUUS:\n- Tämä työkalu muokkaa paikallisia tiedostoja ja voi rikkoa ne.\n- Pyydä aina vahvistus human_askilla ennen kirjoittamista.\n- Älä käsittele polkuja nykyisen workdirin ulkopuolella host-agentin turvallisuuskäytäntöjen aikana."
   },
@@ -514,13 +434,9 @@
     "param.splice_op.description": "Operace splice (režim splice).",
     "tool.description": "Upravuje místní soubor jako surové bajty (binárně). Podporuje zápis s offsetem, hledání/nahrazování, splice (vložení/smazání) a jednoduchý JSON patch. Nebezpečné: tento nástroj může poškodit soubory.",
     "x_search_terms": [
-      "Upravuje místní soubor jako surové bajty (binárně)",
+      "Upravuje místní soubor jako surové bajty (binárně). Podporuje zápis s offsetem, hledání/nahrazování, splice (vložení/smazání) a jednoduchý JSON patch. Nebezpečné: tento nástroj může poškodit soubory",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Tento nástroj se používá k úpravě místního souboru jako surových bajtů (binárně).\n\nBEZPEČNOST:\n- Tento nástroj mění místní soubory a může je poškodit.\n- Před zápisem vždy vyžádejte potvrzení pomocí human_ask.\n- Nepracujte s cestami mimo aktuální pracovní adresář, když běžíte podle bezpečnostních zásad hostitelského agenta."
   },
@@ -539,13 +455,9 @@
     "param.splice_op.description": "Операція splice (режим splice).",
     "tool.description": "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли.",
     "x_search_terms": [
-      "Редагує локальний файл як необроблені байти (бінарно)",
+      "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Цей інструмент використовується для редагування локального файла як необроблених байтів (бінарно).\n\nБЕЗПЕКА:\n- Цей інструмент змінює локальні файли та може їх пошкодити.\n- Завжди запитуйте підтвердження через human_ask перед записом.\n- Не працюйте з шляхами поза поточним робочим каталогом під час виконання згідно з політиками безпеки хост-агента."
   },
@@ -564,13 +476,9 @@
     "param.splice_op.description": "Ekleme işlemi (ekleme modu).",
     "tool.description": "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir.",
     "x_search_terms": [
-      "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin",
+      "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: yerel bir dosyayı ham bayt (ikili) olarak düzenlemek.\n\nSECURITY / SAFETY:\n- Bu araç yerel dosyaları değiştirir ve onları bozabilir.\n- Yazmadan önce daima human_ask ile onay isteyin.\n- Ana bilgisayar aracısının güvenlik politikaları kapsamında çalışırken mevcut çalışma dizininin dışındaki yollarda işlem yapmayın."
   },
@@ -591,11 +499,7 @@
     "x_search_terms": [
       "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับแก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี)\n\nข้อควรระวังด้านความปลอดภัย:\n- เครื่องมือนี้จะปรับเปลี่ยนไฟล์ในเครื่องและอาจทำให้ไฟล์เสียหายได้\n- ต้องขอการยืนยันด้วย human_ask ก่อนเขียนทุกครั้ง\n- อย่าดำเนินการกับพาธนอกไดเรกทอรีงานปัจจุบันเมื่อทำงานภายใต้นโยบายความปลอดภัยของโฮสต์เอเจนต์"
   },
@@ -614,13 +518,9 @@
     "param.splice_op.description": "splice 操作（splice 模式）。",
     "tool.description": "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件。",
     "x_search_terms": [
-      "将本地文件按原始字节（二进制）进行编辑",
+      "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "此工具用于将本地文件按原始字节（二进制）进行编辑。\n\n安全注意事项：\n- 此工具会修改本地文件，并可能损坏文件。\n- 写入前务必使用 human_ask 请求确认。\n- 在主机代理的安全策略下运行时，不要操作当前工作目录之外的路径。"
   },
@@ -639,13 +539,9 @@
     "param.splice_op.description": "splice 操作（splice 模式）。",
     "tool.description": "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案。",
     "x_search_terms": [
-      "將本機檔案以原始位元組（二進位）方式編輯",
+      "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案",
       "binary_edit",
-      "binary edit",
-      "raw bytes",
-      "binary patch",
-      "offset edit",
-      "splice"
+      "binary edit"
     ],
     "tool.system_prompt": "此工具用於將本機檔案以原始位元組（二進位）方式編輯。\n\n安全注意事項：\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。"
   }

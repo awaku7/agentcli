@@ -2,13 +2,9 @@
   "en": {
     "tool.description": "Extract text and basic structure from Word-like documents (.docx, .rtf, .odt). Choose output_format=text or output_format=json. The tool always returns JSON.",
     "x_search_terms": [
-      "Extract text and basic structure from Word-like documents (",
+      "Extract text and basic structure from Word-like documents (.docx, .rtf, .odt). Choose output_format=text or output_format=json. The tool always returns JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Read .docx, .rtf, or .odt documents and return JSON only. If output_format=text, place the extracted text in the JSON response. If output_format=json, include structured sections and tables when available.",
     "param.path.description": "Path to the input document (.docx, .rtf, .odt).",
@@ -19,13 +15,9 @@
   "ja": {
     "tool.description": "Word系文書（.docx, .rtf, .odt）から本文テキストと基本構造を抽出します。output_format=text または output_format=json を選べます。戻り値は常に JSON です。",
     "x_search_terms": [
-      "Word系文書（",
+      "Word系文書（.docx, .rtf, .odt）から本文テキストと基本構造を抽出します。output_format=text または output_format=json を選べます。戻り値は常に JSON です",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": ".docx, .rtf, .odt 文書を読み取り、JSON のみを返してください。output_format=text の場合は抽出テキストを JSON に入れ、output_format=json の場合は利用できるなら構造化された section と table を含めてください。",
     "param.path.description": "入力ドキュメント（.docx, .rtf, .odt）のパス。",
@@ -36,13 +28,9 @@
   "es": {
     "tool.description": "Extrae texto y una estructura básica de documentos tipo Word (.docx, .rtf, .odt). Elija output_format=text o output_format=json. La herramienta siempre devuelve JSON.",
     "x_search_terms": [
-      "Extrae texto y una estructura básica de documentos tipo Word (",
+      "Extrae texto y una estructura básica de documentos tipo Word (.docx, .rtf, .odt). Elija output_format=text o output_format=json. La herramienta siempre devuelve JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Lee documentos .docx, .rtf o .odt y devuelve solo JSON. Si output_format=text, coloca el texto extraído en la respuesta JSON. Si output_format=json, incluye secciones y tablas estructuradas cuando estén disponibles.",
     "param.path.description": "Ruta del documento de entrada (.docx, .rtf, .odt).",
@@ -53,13 +41,9 @@
   "fr": {
     "tool.description": "Extrait le texte et une structure de base à partir de documents de type Word (.docx, .rtf, .odt). Choisissez output_format=text ou output_format=json. L’outil renvoie toujours du JSON.",
     "x_search_terms": [
-      "Extrait le texte et une structure de base à partir de documents de type Word (",
+      "Extrait le texte et une structure de base à partir de documents de type Word (.docx, .rtf, .odt). Choisissez output_format=text ou output_format=json. L’outil renvoie toujours du JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Lisez des documents .docx, .rtf ou .odt et renvoyez uniquement du JSON. Si output_format=text, placez le texte extrait dans la réponse JSON. Si output_format=json, incluez des sections et des tableaux structurés lorsque c’est possible.",
     "param.path.description": "Chemin du document d’entrée (.docx, .rtf, .odt).",
@@ -70,13 +54,9 @@
   "ko": {
     "tool.description": "Word 계열 문서(.docx, .rtf, .odt)에서 본문 텍스트와 기본 구조를 추출합니다. output_format=text 또는 output_format=json을 선택할 수 있습니다. 반환값은 항상 JSON입니다.",
     "x_search_terms": [
-      "Word 계열 문서(",
+      "Word 계열 문서(.docx, .rtf, .odt)에서 본문 텍스트와 기본 구조를 추출합니다. output_format=text 또는 output_format=json을 선택할 수 있습니다. 반환값은 항상 JSON입니다",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": ".docx, .rtf, .odt 문서를 읽고 JSON만 반환하세요. output_format=text인 경우 추출한 텍스트를 JSON 응답에 넣고, output_format=json인 경우 가능하면 구조화된 섹션과 표를 포함하세요.",
     "param.path.description": "입력 문서(.docx, .rtf, .odt)의 경로.",
@@ -87,13 +67,9 @@
   "de": {
     "tool.description": "Extrahiert Text und eine einfache Struktur aus Word-ähnlichen Dokumenten (.docx, .rtf, .odt). Wählen Sie output_format=text oder output_format=json. Das Tool gibt immer JSON zurück.",
     "x_search_terms": [
-      "Extrahiert Text und eine einfache Struktur aus Word-ähnlichen Dokumenten (",
+      "Extrahiert Text und eine einfache Struktur aus Word-ähnlichen Dokumenten (.docx, .rtf, .odt). Wählen Sie output_format=text oder output_format=json. Das Tool gibt immer JSON zurück",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Lies .docx-, .rtf- oder .odt-Dokumente und gib nur JSON zurück. Wenn output_format=text gesetzt ist, platziere den extrahierten Text in der JSON-Antwort. Wenn output_format=json gesetzt ist, gib nach Möglichkeit strukturierte Abschnitte und Tabellen zurück.",
     "param.path.description": "Pfad zum Eingabedokument (.docx, .rtf, .odt).",
@@ -104,13 +80,9 @@
   "it": {
     "tool.description": "Estrae testo e una struttura di base da documenti simili a Word (.docx, .rtf, .odt). Scegli output_format=text oppure output_format=json. Lo strumento restituisce sempre JSON.",
     "x_search_terms": [
-      "Estrae testo e una struttura di base da documenti simili a Word (",
+      "Estrae testo e una struttura di base da documenti simili a Word (.docx, .rtf, .odt). Scegli output_format=text oppure output_format=json. Lo strumento restituisce sempre JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Leggi documenti .docx, .rtf o .odt e restituisci solo JSON. Se output_format=text, inserisci il testo estratto nella risposta JSON. Se output_format=json, includi sezioni e tabelle strutturate quando disponibili.",
     "param.path.description": "Percorso del documento di input (.docx, .rtf, .odt).",
@@ -121,13 +93,9 @@
   "ru": {
     "tool.description": "Извлекает текст и базовую структуру из документов в стиле Word (.docx, .rtf, .odt). Выберите output_format=text или output_format=json. Инструмент всегда возвращает JSON.",
     "x_search_terms": [
-      "Извлекает текст и базовую структуру из документов в стиле Word (",
+      "Извлекает текст и базовую структуру из документов в стиле Word (.docx, .rtf, .odt). Выберите output_format=text или output_format=json. Инструмент всегда возвращает JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Считывайте документы .docx, .rtf или .odt и возвращайте только JSON. Если output_format=text, поместите извлечённый текст в JSON-ответ. Если output_format=json, по возможности включайте структурированные разделы и таблицы.",
     "param.path.description": "Путь к входному документу (.docx, .rtf, .odt).",
@@ -138,13 +106,9 @@
   "pt_BR": {
     "tool.description": "Extrai texto e uma estrutura básica de documentos no estilo Word (.docx, .rtf, .odt). Escolha output_format=text ou output_format=json. A ferramenta sempre retorna JSON.",
     "x_search_terms": [
-      "Extrai texto e uma estrutura básica de documentos no estilo Word (",
+      "Extrai texto e uma estrutura básica de documentos no estilo Word (.docx, .rtf, .odt). Escolha output_format=text ou output_format=json. A ferramenta sempre retorna JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Leia documentos .docx, .rtf ou .odt e retorne apenas JSON. Se output_format=text, coloque o texto extraído na resposta JSON. Se output_format=json, inclua seções e tabelas estruturadas quando disponíveis.",
     "param.path.description": "Caminho do documento de entrada (.docx, .rtf, .odt).",
@@ -155,13 +119,9 @@
   "pt": {
     "tool.description": "Extraia texto e estrutura básica de documentos semelhantes ao Word (.docx, .rtf, .odt). Escolha output_format=text ou output_format=json. A ferramenta sempre retorna JSON.",
     "x_search_terms": [
-      "Extraia texto e estrutura básica de documentos semelhantes ao Word (",
+      "Extraia texto e estrutura básica de documentos semelhantes ao Word (.docx, .rtf, .odt). Escolha output_format=text ou output_format=json. A ferramenta sempre retorna JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Leia documentos .docx, .rtf ou .odt e retorne apenas JSON. Se output_format=text, coloque o texto extraído na resposta JSON. Se output_format=json, inclua seções e tabelas estruturadas quando disponíveis.",
     "param.path.description": "Caminho para o documento de entrada (.docx, .rtf, .odt).",
@@ -172,13 +132,9 @@
   "id": {
     "tool.description": "Mengekstrak teks dan struktur dasar dari dokumen mirip Word (.docx, .rtf, .odt). Pilih output_format=text atau output_format=json. Alat ini selalu mengembalikan JSON.",
     "x_search_terms": [
-      "Mengekstrak teks dan struktur dasar dari dokumen mirip Word (",
+      "Mengekstrak teks dan struktur dasar dari dokumen mirip Word (.docx, .rtf, .odt). Pilih output_format=text atau output_format=json. Alat ini selalu mengembalikan JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Baca dokumen .docx, .rtf, atau .odt dan kembalikan JSON saja. Jika output_format=text, masukkan teks hasil ekstraksi ke dalam respons JSON. Jika output_format=json, sertakan sections dan tables terstruktur jika tersedia.",
     "param.path.description": "Path dokumen input (.docx, .rtf, .odt).",
@@ -189,13 +145,9 @@
   "vi": {
     "tool.description": "Trích xuất văn bản và cấu trúc cơ bản từ tài liệu dạng Word (.docx, .rtf, .odt). Chọn output_format=text hoặc output_format=json. Công cụ luôn trả về JSON.",
     "x_search_terms": [
-      "Trích xuất văn bản và cấu trúc cơ bản từ tài liệu dạng Word (",
+      "Trích xuất văn bản và cấu trúc cơ bản từ tài liệu dạng Word (.docx, .rtf, .odt). Chọn output_format=text hoặc output_format=json. Công cụ luôn trả về JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Đọc tài liệu .docx, .rtf hoặc .odt và chỉ trả về JSON. Nếu output_format=text, hãy đặt văn bản đã trích xuất vào phản hồi JSON. Nếu output_format=json, hãy bao gồm các sections và tables có cấu trúc khi có sẵn.",
     "param.path.description": "Đường dẫn đến tài liệu đầu vào (.docx, .rtf, .odt).",
@@ -206,13 +158,9 @@
   "pl": {
     "tool.description": "Wyodrębnia tekst i podstawową strukturę z dokumentów podobnych do Worda (.docx, .rtf, .odt). Wybierz output_format=text albo output_format=json. Narzędzie zawsze zwraca JSON.",
     "x_search_terms": [
-      "Wyodrębnia tekst i podstawową strukturę z dokumentów podobnych do Worda (",
+      "Wyodrębnia tekst i podstawową strukturę z dokumentów podobnych do Worda (.docx, .rtf, .odt). Wybierz output_format=text albo output_format=json. Narzędzie zawsze zwraca JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Czytaj dokumenty .docx, .rtf lub .odt i zwracaj wyłącznie JSON. Jeśli output_format=text, umieść wyodrębniony tekst w odpowiedzi JSON. Jeśli output_format=json, dołącz sformatowane sekcje i tabele, gdy są dostępne.",
     "param.path.description": "Ścieżka do dokumentu wejściowego (.docx, .rtf, .odt).",
@@ -223,13 +171,9 @@
   "hi": {
     "tool.description": "Word-जैसे दस्तावेज़ों (.docx, .rtf, .odt) से पाठ और मूल संरचना निकालें। output_format=text या output_format=json चुनें। टूल हमेशा JSON लौटाता है।",
     "x_search_terms": [
-      "Word-जैसे दस्तावेज़ों (",
+      "Word-जैसे दस्तावेज़ों (.docx, .rtf, .odt) से पाठ और मूल संरचना निकालें। output_format=text या output_format=json चुनें। टूल हमेशा JSON लौटाता है।",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": ".docx, .rtf, या .odt दस्तावेज़ पढ़ें और केवल JSON लौटाएँ। यदि output_format=text चुना गया है, तो निकाले गए पाठ को JSON प्रतिक्रिया में रखें। यदि output_format=json चुना गया है, तो उपलब्ध होने पर संरचित अनुभाग और तालिकाएँ शामिल करें।",
     "param.path.description": "इनपुट दस्तावेज़ का पथ (.docx, .rtf, .odt)।",
@@ -240,13 +184,9 @@
   "ar": {
     "tool.description": "استخرج النص والبنية الأساسية من المستندات الشبيهة بـ Word (.docx، .rtf، .odt). اختر output_format=text أو output_format=json. تعيد الأداة JSON دائمًا.",
     "x_search_terms": [
-      "استخرج النص والبنية الأساسية من المستندات الشبيهة بـ Word (",
+      "استخرج النص والبنية الأساسية من المستندات الشبيهة بـ Word (.docx، .rtf، .odt). اختر output_format=text أو output_format=json. تعيد الأداة JSON دائمًا",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "اقرأ مستندات .docx أو .rtf أو .odt وأعد JSON فقط. إذا كان output_format=text، فضع النص المستخرج في استجابة JSON. إذا كان output_format=json، فضمّن الأقسام والجداول المنظَّمة عند توفرها.",
     "param.path.description": "المسار إلى مستند الإدخال (.docx، .rtf، .odt).",
@@ -257,13 +197,9 @@
   "sv": {
     "tool.description": "Extraherar text och grundläggande struktur från Word-liknande dokument (.docx, .rtf, .odt). Välj output_format=text eller output_format=json. Verktyget returnerar alltid JSON.",
     "x_search_terms": [
-      "Extraherar text och grundläggande struktur från Word-liknande dokument (",
+      "Extraherar text och grundläggande struktur från Word-liknande dokument (.docx, .rtf, .odt). Välj output_format=text eller output_format=json. Verktyget returnerar alltid JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Läs .docx-, .rtf- eller .odt-dokument och returnera endast JSON. Om output_format=text, placera den extraherade texten i JSON-svaret. Om output_format=json, inkludera strukturerade avsnitt och tabeller när de finns tillgängliga.",
     "param.path.description": "Sökväg till indokumentet (.docx, .rtf, .odt).",
@@ -274,13 +210,9 @@
   "sw": {
     "tool.description": "Toa maandishi na muundo wa msingi kutoka kwa hati za Word (.docx, .rtf, .odt). Chagua output_format=text au output_format=json. Zana hii huandika JSON kila wakati.",
     "x_search_terms": [
-      "Toa maandishi na muundo wa msingi kutoka kwa hati za Word (",
+      "Toa maandishi na muundo wa msingi kutoka kwa hati za Word (.docx, .rtf, .odt). Chagua output_format=text au output_format=json. Zana hii huandika JSON kila wakati",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Soma hati za .docx, .rtf, au .odt na urudishe JSON pekee. Ikiwa output_format=text, weka maandishi yaliyotolewa ndani ya jibu la JSON. Ikiwa output_format=json, jumuisha sehemu na majedwali yaliyopangwa inapowezekana.",
     "param.path.description": "Njia ya hati ya ingizo (.docx, .rtf, .odt).",
@@ -291,13 +223,9 @@
   "nb": {
     "tool.description": "Ekstraherer tekst og grunnleggende struktur fra Word-lignende dokumenter (.docx, .rtf, .odt). Velg output_format=text eller output_format=json. Verktøyet returnerer alltid JSON.",
     "x_search_terms": [
-      "Ekstraherer tekst og grunnleggende struktur fra Word-lignende dokumenter (",
+      "Ekstraherer tekst og grunnleggende struktur fra Word-lignende dokumenter (.docx, .rtf, .odt). Velg output_format=text eller output_format=json. Verktøyet returnerer alltid JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Les .docx-, .rtf- eller .odt-dokumenter og returner bare JSON. Hvis output_format=text er angitt, legg den ekstraherte teksten inn i JSON-svaret. Hvis output_format=json er angitt, ta med strukturerte seksjoner og tabeller når de er tilgjengelige.",
     "param.path.description": "Sti til inndokumentet (.docx, .rtf, .odt).",
@@ -308,13 +236,9 @@
   "nl": {
     "tool.description": "Extraheer tekst en basisstructuur uit Word-documenten (.docx, .rtf, .odt). U kunt output_format=text of output_format=json kiezen. De tool geeft altijd JSON terug.",
     "x_search_terms": [
-      "Extraheer tekst en basisstructuur uit Word-documenten (",
+      "Extraheer tekst en basisstructuur uit Word-documenten (.docx, .rtf, .odt). U kunt output_format=text of output_format=json kiezen. De tool geeft altijd JSON terug",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Extraheer tekst en basisstructuur uit Word-documenten en geef alleen JSON terug. Als output_format=text is opgegeven, zet dan de geëxtraheerde tekst in de JSON-reactie. Als output_format=json is opgegeven, neem waar mogelijk gestructureerde secties en tabellen op.",
     "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
@@ -325,13 +249,9 @@
   "fi": {
     "tool.description": "Poimi teksti ja perusrakenne Word-asiakirjoista (.docx, .rtf, .odt). Voit valita output_format=text tai output_format=json. Työkalu palauttaa aina JSONia.",
     "x_search_terms": [
-      "Poimi teksti ja perusrakenne Word-asiakirjoista (",
+      "Poimi teksti ja perusrakenne Word-asiakirjoista (.docx, .rtf, .odt). Voit valita output_format=text tai output_format=json. Työkalu palauttaa aina JSONia",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Lue .docx-, .rtf- tai .odt-asiakirjat ja palauta vain JSON. Jos output_format=text on valittu, sijoita poimittu teksti JSON-vastaukseen. Jos output_format=json on valittu, sisällytä mahdollisuuksien mukaan jäsennellyt osiot ja taulukot.",
     "param.path.description": "Syöteasiakirjan polku (.docx, .rtf, .odt).",
@@ -342,13 +262,9 @@
   "cs": {
     "tool.description": "Extrahuje text a základní strukturu z dokumentů podobných Wordu (.docx, .rtf, .odt). Zvolte output_format=text nebo output_format=json. Nástroj vždy vrací JSON.",
     "x_search_terms": [
-      "Extrahuje text a základní strukturu z dokumentů podobných Wordu (",
+      "Extrahuje text a základní strukturu z dokumentů podobných Wordu (.docx, .rtf, .odt). Zvolte output_format=text nebo output_format=json. Nástroj vždy vrací JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Načtěte dokumenty .docx, .rtf nebo .odt a vraťte pouze JSON. Pokud je output_format=text, vložte extrahovaný text do JSON odpovědi. Pokud je output_format=json, zahrňte podle možností strukturované sekce a tabulky.",
     "param.path.description": "Cesta k vstupnímu dokumentu (.docx, .rtf, .odt).",
@@ -359,13 +275,9 @@
   "uk": {
     "tool.description": "Витягує текст і базову структуру з документів на кшталт Word (.docx, .rtf, .odt). Виберіть output_format=text або output_format=json. Інструмент завжди повертає JSON.",
     "x_search_terms": [
-      "Витягує текст і базову структуру з документів на кшталт Word (",
+      "Витягує текст і базову структуру з документів на кшталт Word (.docx, .rtf, .odt). Виберіть output_format=text або output_format=json. Інструмент завжди повертає JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "Зчитайте документи .docx, .rtf або .odt і повертайте лише JSON. Якщо output_format=text, помістіть витягнутий текст у JSON-відповідь. Якщо output_format=json, за можливості включайте структуровані розділи та таблиці.",
     "param.path.description": "Шлях до вхідного документа (.docx, .rtf, .odt).",
@@ -376,13 +288,9 @@
   "tr": {
     "tool.description": "Word benzeri belgelerden (.docx, .rtf, .odt) metni ve temel yapıyı çıkarın. Output_format=text veya Output_format=json'u seçin. Araç her zaman JSON değerini döndürür.",
     "x_search_terms": [
-      "Word benzeri belgelerden (",
+      "Word benzeri belgelerden (.docx, .rtf, .odt) metni ve temel yapıyı çıkarın. Output_format=text veya Output_format=json'u seçin. Araç her zaman JSON değerini döndürür",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": ".docx, .rtf veya .odt belgelerini okuyun ve yalnızca JSON değerini döndürün. Output_format=text ise, çıkartılan metni JSON yanıtına yerleştirin. Output_format=json ise, mümkün olduğunda yapılandırılmış bölümleri ve tabloları ekleyin.",
     "param.path.description": "Giriş belgesinin yolu (.docx, .rtf, .odt).",
@@ -393,13 +301,9 @@
   "th": {
     "tool.description": "แยกข้อความและโครงสร้างพื้นฐานจากเอกสารสไตล์ Word (.docx, .rtf, .odt) เลือก output_format=text หรือ output_format=json เครื่องมือนี้จะส่งกลับเป็น JSON เสมอ",
     "x_search_terms": [
-      "แยกข้อความและโครงสร้างพื้นฐานจากเอกสารสไตล์ Word (",
+      "แยกข้อความและโครงสร้างพื้นฐานจากเอกสารสไตล์ Word (.docx, .rtf, .odt) เลือก output_format=text หรือ output_format=json เครื่องมือนี้จะส่งกลับเป็น JSON เสมอ",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "อ่านเอกสาร .docx, .rtf หรือ .odt และส่งกลับเฉพาะ JSON เท่านั้น หากเป็น output_format=text ให้นำข้อความที่แยกได้ใส่ในคำตอบ JSON หากเป็น output_format=json ให้รวม sections และ tables แบบมีโครงสร้างเมื่อมีให้ใช้งาน",
     "param.path.description": "พาธของเอกสารต้นทาง (.docx, .rtf, .odt)",
@@ -410,13 +314,9 @@
   "zh_CN": {
     "tool.description": "从类 Word 文档（.docx、.rtf、.odt）中提取文本和基础结构。可选择 output_format=text 或 output_format=json。工具始终返回 JSON。",
     "x_search_terms": [
-      "从类 Word 文档（",
+      "从类 Word 文档（.docx、.rtf、.odt）中提取文本和基础结构。可选择 output_format=text 或 output_format=json。工具始终返回 JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "读取 .docx、.rtf 或 .odt 文档并且只返回 JSON。如果 output_format=text，请把提取出的文本放入 JSON 响应中。如果 output_format=json，请在可用时包含结构化的 sections 和 tables。",
     "param.path.description": "输入文档（.docx、.rtf、.odt）的路径。",
@@ -427,13 +327,9 @@
   "zh_TW": {
     "tool.description": "從類 Word 文件（.docx、.rtf、.odt）中擷取文字與基本結構。可選擇 output_format=text 或 output_format=json。工具一律回傳 JSON。",
     "x_search_terms": [
-      "從類 Word 文件（",
+      "從類 Word 文件（.docx、.rtf、.odt）中擷取文字與基本結構。可選擇 output_format=text 或 output_format=json。工具一律回傳 JSON",
       "document_extract",
-      "document extract",
-      "docx",
-      "rtf",
-      "odt",
-      "extract text"
+      "document extract"
     ],
     "tool.system_prompt": "讀取 .docx、.rtf 或 .odt 文件，並且只回傳 JSON。如果 output_format=text，請把擷取到的文字放入 JSON 回應中。如果 output_format=json，請在可用時包含結構化的 sections 與 tables。",
     "param.path.description": "輸入文件（.docx、.rtf、.odt）的路徑。",

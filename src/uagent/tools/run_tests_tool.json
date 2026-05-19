@@ -16,15 +16,9 @@
     "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
     "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
     "x_search_terms": [
-      "Run tests (auto-detect pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in the tool description.",
     "summary.no_change": "Successfully made no changes (0 matches)"
@@ -46,15 +40,9 @@
     "param.target.description": "対象（pytest のパス、unittest の開始ディレクトリ、npm script など）。null の場合は既定値を使います。",
     "tool.description": "テストを実行します（pytest/unittest/npm を自動判定）。extra_args にシェルのメタ文字が含まれる場合は拒否します。",
     "x_search_terms": [
-      "テストを実行します（pytest/unittest/npm を自動判定）",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "テストを実行します（pytest/unittest/npm を自動判定）。extra_args にシェルのメタ文字が含まれる場合は拒否します",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "このツールは、ツール説明に記載された目的のために使用します。",
     "param.pattern.description": "検索パターン。改行には \\n を使います。",
@@ -77,15 +65,9 @@
     "param.target.description": "Destino (ruta de pytest, directorio inicial de unittest, script npm, etc.). Si es nulo, se usan los valores predeterminados.",
     "tool.description": "Ejecuta pruebas (detección automática de pytest/unittest/npm). Rechaza metacaracteres del shell en extra_args.",
     "x_search_terms": [
-      "Ejecuta pruebas (detección automática de pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Ejecuta pruebas (detección automática de pytest/unittest/npm). Rechaza metacaracteres del shell en extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Use esta herramienta para el propósito descrito en la descripción de la herramienta.",
     "param.pattern.description": "Patrón de búsqueda. Use \\n para un salto de línea.",
@@ -108,15 +90,9 @@
     "param.target.description": "Cible (chemin pytest, répertoire de départ unittest, script npm, etc.). Si nul, les valeurs par défaut sont utilisées.",
     "tool.description": "Exécute les tests (détection automatique de pytest/unittest/npm). Rejette les métacaractères du shell dans extra_args.",
     "x_search_terms": [
-      "Exécute les tests (détection automatique de pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Exécute les tests (détection automatique de pytest/unittest/npm). Rejette les métacaractères du shell dans extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Utilisez cet outil pour l'objectif décrit dans la description de l'outil.",
     "param.pattern.description": "Motif de recherche. Utilisez \\n pour un saut de ligne.",
@@ -139,15 +115,9 @@
     "param.target.description": "대상(pytest 경로, unittest 시작 디렉터리, npm 스크립트 등). null이면 기본값을 사용합니다.",
     "tool.description": "테스트를 실행합니다(pytest/unittest/npm 자동 감지). extra_args의 셸 메타문자를 거부합니다.",
     "x_search_terms": [
-      "테스트를 실행합니다(pytest/unittest/npm 자동 감지)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "테스트를 실행합니다(pytest/unittest/npm 자동 감지). extra_args의 셸 메타문자를 거부합니다",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "이 도구는 도구 설명에 적힌 목적에 사용합니다.",
     "param.pattern.description": "검색 패턴입니다. 줄바꿈에는 \\n 을 사용하세요.",
@@ -170,15 +140,9 @@
     "param.target.description": "Ziel (pytest-Pfad, unittest-Startverzeichnis, npm-Skript usw.). Wenn null, werden Standardwerte verwendet.",
     "tool.description": "Tests ausführen (pytest/unittest/npm automatisch erkennen). Shell-Metazeichen in extra_args ablehnen.",
     "x_search_terms": [
-      "Tests ausführen (pytest/unittest/npm automatisch erkennen)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Tests ausführen (pytest/unittest/npm automatisch erkennen). Shell-Metazeichen in extra_args ablehnen",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool für den in der Toolbeschreibung beschriebenen Zweck.",
     "summary.no_change": "Erfolgreich keine Änderungen vorgenommen (0 Treffer)"
@@ -200,15 +164,9 @@
     "param.target.description": "Destinazione (percorso pytest, directory iniziale di unittest, script npm, ecc.). Se null, vengono usati i valori predefiniti.",
     "tool.description": "Esegue i test (rilevamento automatico di pytest/unittest/npm). Rifiuta i metacaratteri della shell in extra_args.",
     "x_search_terms": [
-      "Esegue i test (rilevamento automatico di pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Esegue i test (rilevamento automatico di pytest/unittest/npm). Rifiuta i metacaratteri della shell in extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Utilizza questo strumento per lo scopo descritto nella descrizione dello strumento.",
     "param.pattern.description": "Pattern di ricerca. Usa \\n per un a capo.",
@@ -231,15 +189,9 @@
     "param.target.description": "Цель (путь pytest, каталог запуска unittest, npm-скрипт и т. д.). Если null, используются значения по умолчанию.",
     "tool.description": "Запускает тесты (автоопределение pytest/unittest/npm). Отклоняет метасимволы shell в extra_args.",
     "x_search_terms": [
-      "Запускает тесты (автоопределение pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Запускает тесты (автоопределение pytest/unittest/npm). Отклоняет метасимволы shell в extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Используйте этот инструмент для цели, описанной в описании инструмента.",
     "param.pattern.description": "Шаблон поиска. Используйте \\n для новой строки.",
@@ -262,15 +214,9 @@
     "param.target.description": "Destino (caminho pytest, diretório inicial do unittest, script npm, etc.). Se nulo, os padrões são usados.",
     "tool.description": "Executa testes (detecção automática de pytest/unittest/npm). Rejeita metacaracteres de shell em extra_args.",
     "x_search_terms": [
-      "Executa testes (detecção automática de pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Executa testes (detecção automática de pytest/unittest/npm). Rejeita metacaracteres de shell em extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Use esta ferramenta para o propósito descrito na descrição da ferramenta.",
     "param.pattern.description": "Padrão de pesquisa. Use \\n para uma quebra de linha.",
@@ -293,15 +239,9 @@
     "param.target.description": "Destino (caminho pytest, diretório inicial unittest, script npm, etc.). Se for nulo, os padrões serão usados.",
     "tool.description": "Execute testes (detecção automática de pytest/unittest/npm). Rejeite metacaracteres de shell em extra_args.",
     "x_search_terms": [
-      "Execute testes (detecção automática de pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Execute testes (detecção automática de pytest/unittest/npm). Rejeite metacaracteres de shell em extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Use esta ferramenta para a finalidade descrita na descrição da ferramenta.",
     "param.pattern.description": "Padrão de pesquisa. Use \\n para uma nova linha.",
@@ -324,15 +264,9 @@
     "param.target.description": "Target (path pytest, direktori awal unittest, script npm, dll.). Jika null, gunakan default.",
     "tool.description": "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args.",
     "x_search_terms": [
-      "Jalankan tes (auto-detect pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Jalankan tes (auto-detect pytest/unittest/npm). Tolak metakarakter shell di extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan yang dijelaskan pada deskripsi alat.",
     "param.pattern.description": "Pola pencarian. Gunakan \\n untuk baris baru.",
@@ -355,15 +289,9 @@
     "param.target.description": "Mục tiêu (đường dẫn pytest, thư mục bắt đầu nhỏ nhất, tập lệnh npm, v.v.). Nếu null, giá trị mặc định sẽ được sử dụng.",
     "tool.description": "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm). Từ chối siêu ký tự shell trong extra_args.",
     "x_search_terms": [
-      "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Chạy thử nghiệm (tự động phát hiện pytest/unittest/npm). Từ chối siêu ký tự shell trong extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Hãy dùng công cụ này cho mục đích được mô tả trong phần mô tả công cụ.",
     "param.pattern.description": "Mẫu tìm kiếm. Dùng \\n cho một dòng mới.",
@@ -386,15 +314,9 @@
     "param.target.description": "Cel (ścieżka pytest, katalog startowy unittest, skrypt npm itp.). Jeśli null, używane są wartości domyślne.",
     "tool.description": "Uruchom testy (automatyczne wykrywanie pytest/unittest/npm). Odrzuć metaznaki powłoki w extra_args.",
     "x_search_terms": [
-      "Uruchom testy (automatyczne wykrywanie pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Uruchom testy (automatyczne wykrywanie pytest/unittest/npm). Odrzuć metaznaki powłoki w extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Użyj tego narzędzia zgodnie z opisem narzędzia.",
     "param.pattern.description": "Wzorzec wyszukiwania. Użyj \\n dla nowej linii.",
@@ -418,14 +340,8 @@
     "tool.description": "परीक्षण चलाएँ (pytest/unittest/npm की स्वतः पहचान)। extra_args में शेल मेटाकैरेक्टर अस्वीकार करें।",
     "x_search_terms": [
       "परीक्षण चलाएँ (pytest/unittest/npm की स्वतः पहचान)। extra_args में शेल मेटाकैरेक्टर अस्वीकार करें।",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "इस टूल का उपयोग टूल विवरण में बताए गए उद्देश्य के लिए करें।",
     "param.pattern.description": "खोज पैटर्न। नई पंक्ति के लिए \\n का उपयोग करें।",
@@ -448,15 +364,9 @@
     "param.target.description": "الهدف (مسار pytest، دليل بدء unittest، script npm، إلخ). إذا كان null، تُستخدم القيم الافتراضية.",
     "tool.description": "شغّل الاختبارات (اكتشاف تلقائي لـ pytest/unittest/npm). ارفض أحرف shell الخاصة في extra_args.",
     "x_search_terms": [
-      "شغّل الاختبارات (اكتشاف تلقائي لـ pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "شغّل الاختبارات (اكتشاف تلقائي لـ pytest/unittest/npm). ارفض أحرف shell الخاصة في extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للغرض الموصوف في وصف الأداة.",
     "param.pattern.description": "نمط البحث. استخدم \\n لسطر جديد.",
@@ -479,15 +389,9 @@
     "param.target.description": "Mål (pytest-sökväg, unittest-startkatalog, npm-skript osv.). Om null används standardvärden.",
     "tool.description": "Kör tester (auto-detektera pytest/unittest/npm). Avvisa shell-metatecken i extra_args.",
     "x_search_terms": [
-      "Kör tester (auto-detektera pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Kör tester (auto-detektera pytest/unittest/npm). Avvisa shell-metatecken i extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Använd det här verktyget för syftet som beskrivs i verktygsbeskrivningen.",
     "summary.no_change": "Utfördes utan ändringar (0 träffar)"
@@ -509,15 +413,9 @@
     "param.target.description": "Lengo (njia ya pytest, saraka ya kuanzia ya unittest, script ya npm, n.k.). Ikiwa ni null, chaguo-msingi hutumika.",
     "tool.description": "Endesha majaribio (gundua pytest/unittest/npm kiotomatiki). Kataa alama za shell katika extra_args.",
     "x_search_terms": [
-      "Endesha majaribio (gundua pytest/unittest/npm kiotomatiki)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Endesha majaribio (gundua pytest/unittest/npm kiotomatiki). Kataa alama za shell katika extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Tumia zana hii kwa madhumuni yaliyofafanuliwa katika maelezo ya zana.",
     "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)",
@@ -540,15 +438,9 @@
     "param.target.description": "Mål (pytest-sti, unittest-startkatalog, npm-script osv.). Hvis null brukes standardverdier.",
     "tool.description": "Kjør tester (auto-detektér pytest/unittest/npm). Avvis skallmetategn i extra_args.",
     "x_search_terms": [
-      "Kjør tester (auto-detektér pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Kjør tester (auto-detektér pytest/unittest/npm). Avvis skallmetategn i extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Bruk dette verktøyet til formålet som er beskrevet i verktøybeskrivelsen.",
     "summary.no_change": "Klarte uten endringer (0 treff)"
@@ -570,15 +462,9 @@
     "param.target.description": "Doel (pytest-pad, unittest-startmap, npm-script, enz.). Als null, worden standaardwaarden gebruikt.",
     "tool.description": "Tests uitvoeren (pytest/unittest/npm automatisch detecteren). Shell-metatekens in extra_args weigeren.",
     "x_search_terms": [
-      "Tests uitvoeren (pytest/unittest/npm automatisch detecteren)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Tests uitvoeren (pytest/unittest/npm automatisch detecteren). Shell-metatekens in extra_args weigeren",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat.",
     "summary.no_change": "Succesvol zonder wijzigingen uitgevoerd (0 treffers)"
@@ -600,15 +486,9 @@
     "param.target.description": "Kohde (pytest-polku, unittestin aloitushakemisto, npm-skripti jne.). Jos null, käytetään oletuksia.",
     "tool.description": "Aja testit (pytest/unittest/npm automaattitunnistuksella). Hylkää shell-metamerkit extra_argsissa.",
     "x_search_terms": [
-      "Aja testit (pytest/unittest/npm automaattitunnistuksella)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Aja testit (pytest/unittest/npm automaattitunnistuksella). Hylkää shell-metamerkit extra_argsissa",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen.",
     "summary.no_change": "Suoritettiin onnistuneesti ilman muutoksia (0 osumaa)"
@@ -630,15 +510,9 @@
     "param.target.description": "Cíl (cesta pro pytest, startovní adresář unittest, skript npm atd.). Pokud je null, použijí se výchozí hodnoty.",
     "tool.description": "Spouští testy (automatická detekce pytest/unittest/npm). Odmítá shell metaznaky v extra_args.",
     "x_search_terms": [
-      "Spouští testy (automatická detekce pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Spouští testy (automatická detekce pytest/unittest/npm). Odmítá shell metaznaky v extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Používejte tento nástroj k účelu popsanému v popisu nástroje.",
     "summary.no_change": "Úspěšně bez provedení změn (0 shod)"
@@ -660,15 +534,9 @@
     "param.target.description": "Ціль (шлях pytest, початковий каталог unittest, сценарій npm тощо). Якщо null, використовуються значення за замовчуванням.",
     "tool.description": "Запускає тести (автовизначення pytest/unittest/npm). Відхиляє метасимволи shell у extra_args.",
     "x_search_terms": [
-      "Запускає тести (автовизначення pytest/unittest/npm)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Запускає тести (автовизначення pytest/unittest/npm). Відхиляє метасимволи shell у extra_args",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента.",
     "summary.no_change": "Успішно без змін (0 збігів)"
@@ -690,15 +558,9 @@
     "param.target.description": "Hedef (pytest yolu, birim test başlangıç ​​dizini, npm betiği vb.). Boşsa, varsayılanlar kullanılır.",
     "tool.description": "Testleri çalıştırın (pytest/unittest/npm'yi otomatik olarak algıla). Extra_args içindeki kabuk metakarakterlerini reddet.",
     "x_search_terms": [
-      "Testleri çalıştırın (pytest/unittest/npm'yi otomatik olarak algıla)",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "Testleri çalıştırın (pytest/unittest/npm'yi otomatik olarak algıla). Extra_args içindeki kabuk metakarakterlerini reddet",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "Bu aracı, araç açıklamasında açıklanan amaç için kullanın.",
     "summary.no_change": "Başarıyla hiçbir değişiklik yapılmadı (0 eşleşme)"
@@ -721,14 +583,8 @@
     "tool.description": "รันการทดสอบ (ตรวจจับ pytest/unittest/npm อัตโนมัติ) ปฏิเสธเมตาอักขระของเชลล์ใน extra_args",
     "x_search_terms": [
       "รันการทดสอบ (ตรวจจับ pytest/unittest/npm อัตโนมัติ) ปฏิเสธเมตาอักขระของเชลล์ใน extra_args",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อวัตถุประสงค์ที่อธิบายไว้ในคำอธิบายเครื่องมือ",
     "param.pattern.description": "รูปแบบการค้นหา ใช้ \\n สำหรับขึ้นบรรทัดใหม่",
@@ -751,15 +607,9 @@
     "param.target.description": "目标（pytest 路径、unittest 起始目录、npm 脚本等）。如果为 null，则使用默认值。",
     "tool.description": "运行测试（自动检测 pytest/unittest/npm）。拒绝 extra_args 中的 shell 元字符。",
     "x_search_terms": [
-      "运行测试（自动检测 pytest/unittest/npm）",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "运行测试（自动检测 pytest/unittest/npm）。拒绝 extra_args 中的 shell 元字符",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "请将此工具用于工具说明中描述的用途。",
     "param.pattern.description": "搜索模式。使用 \\n 表示换行。",
@@ -782,15 +632,9 @@
     "param.target.description": "目標（pytest 路徑、unittest 起始目錄、npm 腳本等）。如果為 null，則使用預設值。",
     "tool.description": "執行測試（自動偵測 pytest/unittest/npm）。拒絕 extra_args 中的 shell 元字元。",
     "x_search_terms": [
-      "執行測試（自動偵測 pytest/unittest/npm）",
-      "test",
-      "pytest",
-      "unittest",
-      "テスト実行",
-      "ejecutar pruebas",
-      "exécuter les tests",
-      "테스트 실행",
-      "запустить тесты"
+      "執行測試（自動偵測 pytest/unittest/npm）。拒絕 extra_args 中的 shell 元字元",
+      "run_tests",
+      "run tests"
     ],
     "tool.system_prompt": "請將此工具用於工具說明中描述的用途。",
     "param.pattern.description": "搜尋模式。使用 \\n 表示換行。",

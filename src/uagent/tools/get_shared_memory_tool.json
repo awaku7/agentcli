@@ -3,13 +3,9 @@
     "doc.run_tool": "Entry point called from tools/__init__.py. Implementation for get_shared_memory.",
     "tool.description": "Retrieves raw long-term memory (shared memory) data shared among users.\n- Usually returns text in JSONL format (one record per line).\n- If shared memory is disabled or the file is missing, returns a descriptive message.\n- Output size is automatically trimmed to the internal maximum byte limit.",
     "x_search_terms": [
-      "Retrieves raw long-term memory (shared memory) data shared among users",
+      "Retrieves raw long-term memory (shared memory) data shared among users. - Usually returns text in JSONL format (one record per line). - If shared memory is disabled or the file is missing, returns a descriptive message. - Output size is automatically trimmed to the internal maximum byte limit",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
   },
@@ -17,13 +13,9 @@
     "doc.run_tool": "tools/__init__.py から呼ばれるエントリポイント。get_shared_memory の実装。",
     "tool.description": "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。\n- 通常は JSONL 形式（1行1レコード）のテキストを返します。\n- 共有メモリが無効な場合やファイルが存在しない場合は、説明文を返します。\n- 出力サイズは内部の最大バイト制限まで自動的に切り詰められます。",
     "x_search_terms": [
-      "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します",
+      "複数ユーザーで共有する長期記憶（共有メモリ）の生データを取得します。 - 通常は JSONL 形式（1行1レコード）のテキストを返します。 - 共有メモリが無効な場合やファイルが存在しない場合は、説明文を返します。 - 出力サイズは内部の最大バイト制限まで自動的に切り詰められます",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "このツールは TOOL_SPEC に記載された機能を実行します。"
   },
@@ -31,13 +23,9 @@
     "doc.run_tool": "Punto de entrada llamado desde tools/__init__.py. Implementación de get_shared_memory.",
     "tool.description": "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios.\n- Normalmente devuelve texto en formato JSONL (un registro por línea).\n- Si la memoria compartida está deshabilitada o falta el archivo, devuelve un mensaje descriptivo.\n- El tamaño de salida se recorta automáticamente al límite interno máximo de bytes.",
     "x_search_terms": [
-      "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios",
+      "Recupera datos sin procesar de la memoria a largo plazo (memoria compartida) compartidos entre usuarios. - Normalmente devuelve texto en formato JSONL (un registro por línea). - Si la memoria compartida está deshabilitada o falta el archivo, devuelve un mensaje descriptivo. - El tamaño de salida se recorta automáticamente al límite interno máximo de bytes",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Esta herramienta ejecuta la funcionalidad descrita en TOOL_SPEC."
   },
@@ -45,13 +33,9 @@
     "doc.run_tool": "Point d'entrée appelé depuis tools/__init__.py. Implémentation de get_shared_memory.",
     "tool.description": "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs.\n- Renvoie généralement du texte au format JSONL (un enregistrement par ligne).\n- Si la mémoire partagée est désactivée ou si le fichier est manquant, renvoie un message descriptif.\n- La taille de sortie est automatiquement réduite à la limite maximale d'octets interne.",
     "x_search_terms": [
-      "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs",
+      "Récupère les données brutes de mémoire à long terme (mémoire partagée) partagées entre les utilisateurs. - Renvoie généralement du texte au format JSONL (un enregistrement par ligne). - Si la mémoire partagée est désactivée ou si le fichier est manquant, renvoie un message descriptif. - La taille de sortie est automatiquement réduite à la limite maximale d'octets interne",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Cet outil exécute la fonctionnalité décrite dans TOOL_SPEC."
   },
@@ -59,13 +43,9 @@
     "doc.run_tool": "tools/__init__.py에서 호출되는 진입점입니다. get_shared_memory 구현입니다.",
     "tool.description": "사용자 간에 공유되는 원시 장기 메모리(공유 메모리) 데이터를 가져옵니다.\n- 일반적으로 JSONL 형식(한 줄에 한 레코드)의 텍스트를 반환합니다.\n- 공유 메모리가 비활성화되었거나 파일이 없으면 설명 메시지를 반환합니다.\n- 출력 크기는 내부 최대 바이트 제한까지 자동으로 잘립니다.",
     "x_search_terms": [
-      "사용자 간에 공유되는 원시 장기 메모리(공유 메모리) 데이터를 가져옵니다",
+      "사용자 간에 공유되는 원시 장기 메모리(공유 메모리) 데이터를 가져옵니다. - 일반적으로 JSONL 형식(한 줄에 한 레코드)의 텍스트를 반환합니다. - 공유 메모리가 비활성화되었거나 파일이 없으면 설명 메시지를 반환합니다. - 출력 크기는 내부 최대 바이트 제한까지 자동으로 잘립니다",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "이 도구는 TOOL_SPEC에 설명된 기능을 실행합니다."
   },
@@ -73,13 +53,9 @@
     "doc.run_tool": "Einstiegspunkt, der von tools/__init__.py aufgerufen wird. Implementierung für get_shared_memory.",
     "tool.description": "Ruft Rohdaten des gemeinsam genutzten Langzeitspeichers ab, die von Benutzern gemeinsam verwendet werden.\n- Gibt in der Regel Text im JSONL-Format zurück (ein Datensatz pro Zeile).\n- Wenn der gemeinsame Speicher deaktiviert ist oder die Datei fehlt, wird eine beschreibende Meldung zurückgegeben.\n- Die Ausgabegröße wird automatisch auf die interne maximale Byte-Grenze begrenzt.",
     "x_search_terms": [
-      "Ruft Rohdaten des gemeinsam genutzten Langzeitspeichers ab, die von Benutzern gemeinsam verwendet werden",
+      "Ruft Rohdaten des gemeinsam genutzten Langzeitspeichers ab, die von Benutzern gemeinsam verwendet werden. - Gibt in der Regel Text im JSONL-Format zurück (ein Datensatz pro Zeile). - Wenn der gemeinsame Speicher deaktiviert ist oder die Datei fehlt, wird eine beschreibende Meldung zurückgegeben. - Die Ausgabegröße wird automatisch auf die interne maximale Byte-Grenze begrenzt",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Dieses Tool führt die in TOOL_SPEC beschriebene Funktion aus."
   },
@@ -87,13 +63,9 @@
     "doc.run_tool": "Punto di ingresso chiamato da tools/__init__.py. Implementazione di get_shared_memory.",
     "tool.description": "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti.\n- Solitamente restituisce testo in formato JSONL (un record per riga).\n- Se la memoria condivisa è disabilitata o il file manca, restituisce un messaggio descrittivo.\n- La dimensione dell'output viene automaticamente ridotta al limite massimo di byte interno.",
     "x_search_terms": [
-      "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti",
+      "Recupera i dati grezzi della memoria a lungo termine (memoria condivisa) condivisi tra gli utenti. - Solitamente restituisce testo in formato JSONL (un record per riga). - Se la memoria condivisa è disabilitata o il file manca, restituisce un messaggio descrittivo. - La dimensione dell'output viene automaticamente ridotta al limite massimo di byte interno",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Questo strumento esegue la funzionalità descritta in TOOL_SPEC."
   },
@@ -101,13 +73,9 @@
     "doc.run_tool": "Точка входа, вызываемая из tools/__init__.py. Реализация get_shared_memory.",
     "tool.description": "Извлекает необработанные данные долговременной памяти (общей памяти), совместно используемые пользователями.\n- Обычно возвращает текст в формате JSONL (одна запись на строку).\n- Если общая память отключена или файл отсутствует, возвращает описательное сообщение.\n- Размер вывода автоматически ограничивается внутренним максимальным пределом по байтам.",
     "x_search_terms": [
-      "Извлекает необработанные данные долговременной памяти (общей памяти), совместно используемые пользователями",
+      "Извлекает необработанные данные долговременной памяти (общей памяти), совместно используемые пользователями. - Обычно возвращает текст в формате JSONL (одна запись на строку). - Если общая память отключена или файл отсутствует, возвращает описательное сообщение. - Размер вывода автоматически ограничивается внутренним максимальным пределом по байтам",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Этот инструмент выполняет функциональность, описанную в TOOL_SPEC."
   },
@@ -115,13 +83,9 @@
     "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação de get_shared_memory.",
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.\n- Normalmente retorna texto no formato JSONL (um registro por linha).\n- Se a memória compartilhada estiver desativada ou o arquivo estiver ausente, retorna uma mensagem descritiva.\n- O tamanho da saída é automaticamente reduzido ao limite máximo interno de bytes.",
     "x_search_terms": [
-      "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários",
+      "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários. - Normalmente retorna texto no formato JSONL (um registro por linha). - Se a memória compartilhada estiver desativada ou o arquivo estiver ausente, retorna uma mensagem descritiva. - O tamanho da saída é automaticamente reduzido ao limite máximo interno de bytes",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Esta ferramenta executa a funcionalidade descrita em TOOL_SPEC."
   },
@@ -129,13 +93,9 @@
     "doc.run_tool": "Ponto de entrada chamado em tools/__init__.py. Implementação para get_shared_memory.",
     "tool.description": "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários.\n- Geralmente retorna texto no formato JSONL (um registro por linha).\n- Se a memória compartilhada estiver desabilitada ou o arquivo estiver ausente, retorna uma mensagem descritiva.\n- O tamanho da saída é automaticamente reduzido ao limite máximo interno de bytes.",
     "x_search_terms": [
-      "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários",
+      "Recupera dados brutos de memória de longo prazo (memória compartilhada) compartilhados entre usuários. - Geralmente retorna texto no formato JSONL (um registro por linha). - Se a memória compartilhada estiver desabilitada ou o arquivo estiver ausente, retorna uma mensagem descritiva. - O tamanho da saída é automaticamente reduzido ao limite máximo interno de bytes",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Esta ferramenta executa a funcionalidade descrita em TOOL_SPEC."
   },
@@ -143,13 +103,9 @@
     "doc.run_tool": "Titik masuk yang dipanggil dari tools/__init__.py. Implementasi untuk get_shared_memory.",
     "tool.description": "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna.\n- Biasanya mengembalikan teks dalam format JSONL (satu record per baris).\n- Jika shared memory dinonaktifkan atau file hilang, mengembalikan pesan deskriptif.\n- Ukuran keluaran otomatis dipangkas ke batas byte internal maksimum.",
     "x_search_terms": [
-      "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna",
+      "Mengambil data memori jangka panjang mentah (shared memory) yang dibagikan lintas pengguna. - Biasanya mengembalikan teks dalam format JSONL (satu record per baris). - Jika shared memory dinonaktifkan atau file hilang, mengembalikan pesan deskriptif. - Ukuran keluaran otomatis dipangkas ke batas byte internal maksimum",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Alat ini menjalankan fungsi yang dijelaskan dalam TOOL_SPEC."
   },
@@ -157,13 +113,9 @@
     "doc.run_tool": "Điểm vào được gọi từ tools/__init__.py. Triển khai cho get_shared_memory.",
     "tool.description": "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng.\n- Thường trả về văn bản ở định dạng JSONL (mỗi dòng một bản ghi).\n- Nếu bộ nhớ dùng chung bị tắt hoặc thiếu tệp, sẽ trả về thông báo mô tả.\n- Kích thước đầu ra được tự động cắt theo giới hạn byte tối đa bên trong.",
     "x_search_terms": [
-      "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng",
+      "Truy xuất dữ liệu bộ nhớ dài hạn (bộ nhớ dùng chung) thô được chia sẻ giữa những người dùng. - Thường trả về văn bản ở định dạng JSONL (mỗi dòng một bản ghi). - Nếu bộ nhớ dùng chung bị tắt hoặc thiếu tệp, sẽ trả về thông báo mô tả. - Kích thước đầu ra được tự động cắt theo giới hạn byte tối đa bên trong",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Công cụ này thực thi chức năng được mô tả trong TOOL_SPEC."
   },
@@ -171,13 +123,9 @@
     "doc.run_tool": "Punkt wejścia wywoływany z narzędzi/__init__.py. Implementacja dla get_shared_memory.",
     "tool.description": "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom.\n- Zwykle zwraca tekst w formacie JSONL (jeden rekord w linii).\n- Jeśli pamięć współdzielona jest wyłączona lub brakuje pliku, zwraca komunikat opisowy.\n- Rozmiar wyjściowy jest automatycznie przycinany do wewnętrznego maksymalnego limitu bajtów.",
     "x_search_terms": [
-      "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom",
+      "Pobiera surowe dane z pamięci długoterminowej (pamięć współdzielona) udostępniane użytkownikom. - Zwykle zwraca tekst w formacie JSONL (jeden rekord w linii). - Jeśli pamięć współdzielona jest wyłączona lub brakuje pliku, zwraca komunikat opisowy. - Rozmiar wyjściowy jest automatycznie przycinany do wewnętrznego maksymalnego limitu bajtów",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Narzędzie to realizuje funkcjonalność opisaną w TOOL_SPEC."
   },
@@ -185,13 +133,9 @@
     "doc.run_tool": "प्रवेश बिंदु, tools/__init__.py से बुलाया जाता है। get_shared_memory का कार्यान्वयन।",
     "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है।\n- आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।\n- यदि साझा की गई मेमोरी अक्षम है या फ़ाइल गुम है, तो एक वर्णनात्मक संदेश लौटाता है।\n- आउटपुट आकार स्वचालित रूप से आंतरिक अधिकतम बाइट सीमा तक कम हो जाता है।",
     "x_search_terms": [
-      "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है।",
+      "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है। - आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)। - यदि साझा की गई मेमोरी अक्षम है या फ़ाइल गुम है, तो एक वर्णनात्मक संदेश लौटाता है। - आउटपुट आकार स्वचालित रूप से आंतरिक अधिकतम बाइट सीमा तक कम हो जाता है।",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "यह टूल TOOL_SPEC में वर्णित कार्यक्षमता को निष्पादित करता है।"
   },
@@ -199,13 +143,9 @@
     "doc.run_tool": "نقطة الدخول المستدعاة من tools/__init__.py. تنفيذ get_shared_memory.",
     "tool.description": "يسترجع بيانات الذاكرة طويلة المدى (الذاكرة المشتركة) الخام المشتركة بين المستخدمين.\n- يعيد عادةً نصًا بتنسيق JSONL (سجل واحد لكل سطر).\n- إذا كانت الذاكرة المشتركة معطلة أو كان الملف مفقودًا، يعيد رسالة وصفية.\n- يُقتطع حجم المخرجات تلقائيًا إلى الحد الأقصى الداخلي للبايت.",
     "x_search_terms": [
-      "يسترجع بيانات الذاكرة طويلة المدى (الذاكرة المشتركة) الخام المشتركة بين المستخدمين",
+      "يسترجع بيانات الذاكرة طويلة المدى (الذاكرة المشتركة) الخام المشتركة بين المستخدمين. - يعيد عادةً نصًا بتنسيق JSONL (سجل واحد لكل سطر). - إذا كانت الذاكرة المشتركة معطلة أو كان الملف مفقودًا، يعيد رسالة وصفية. - يُقتطع حجم المخرجات تلقائيًا إلى الحد الأقصى الداخلي للبايت",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ الوظيفة الموضحة في TOOL_SPEC."
   },
@@ -213,13 +153,9 @@
     "doc.run_tool": "Startpunkt som anropas från tools/__init__.py. Implementering för get_shared_memory.",
     "tool.description": "Hämtar rådata för delat långtidsminne som delas mellan användare.\n- Returnerar vanligtvis text i JSONL-format (en post per rad).\n- Om delat minne är inaktiverat eller filen saknas returneras ett beskrivande meddelande.\n- Utdata storleken kapas automatiskt till den interna maximala bytegränsen.",
     "x_search_terms": [
-      "Hämtar rådata för delat långtidsminne som delas mellan användare",
+      "Hämtar rådata för delat långtidsminne som delas mellan användare. - Returnerar vanligtvis text i JSONL-format (en post per rad). - Om delat minne är inaktiverat eller filen saknas returneras ett beskrivande meddelande. - Utdata storleken kapas automatiskt till den interna maximala bytegränsen",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Det här verktyget utför funktionen som beskrivs i TOOL_SPEC."
   },
@@ -227,13 +163,9 @@
     "doc.run_tool": "Entry point called from tools/__init__.py. Implementation for get_shared_memory.",
     "tool.description": "Retrieves raw long-term memory (shared memory) data shared among users.\n- Usually returns text in JSONL format (one record per line).\n- If shared memory is disabled or the file is missing, returns a descriptive message.\n- Output size is automatically trimmed to the internal maximum byte limit.",
     "x_search_terms": [
-      "Retrieves raw long-term memory (shared memory) data shared among users",
+      "Retrieves raw long-term memory (shared memory) data shared among users. - Usually returns text in JSONL format (one record per line). - If shared memory is disabled or the file is missing, returns a descriptive message. - Output size is automatically trimmed to the internal maximum byte limit",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
   },
@@ -241,13 +173,9 @@
     "doc.run_tool": "Startpunkt kalt fra tools/__init__.py. Implementasjon for get_shared_memory.",
     "tool.description": "Henter rådata for delt langtidsminne som deles mellom brukere.\n- Returnerer vanligvis tekst i JSONL-format (én post per linje).\n- Hvis delt minne er deaktivert eller filen mangler, returneres en beskrivende melding.\n- Utdata blir automatisk trimmet til den interne maksimale bytegrensen.",
     "x_search_terms": [
-      "Henter rådata for delt langtidsminne som deles mellom brukere",
+      "Henter rådata for delt langtidsminne som deles mellom brukere. - Returnerer vanligvis tekst i JSONL-format (én post per linje). - Hvis delt minne er deaktivert eller filen mangler, returneres en beskrivende melding. - Utdata blir automatisk trimmet til den interne maksimale bytegrensen",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Dette verktøyet utfører funksjonaliteten beskrevet i TOOL_SPEC."
   },
@@ -255,13 +183,9 @@
     "doc.run_tool": "Ingangspunt aangeroepen vanuit tools/__init__.py. Implementatie voor get_shared_memory.",
     "tool.description": "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld.\n- Geeft meestal tekst terug in JSONL-formaat (één record per regel).\n- Als gedeeld geheugen is uitgeschakeld of het bestand ontbreekt, wordt een beschrijvende melding teruggegeven.\n- De uitvoergrootte wordt automatisch ingekort tot de interne maximale bytegrens.",
     "x_search_terms": [
-      "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld",
+      "Haalt ruwe langetermijngeheugen-/gedeelde-geheugengegevens op die tussen gebruikers worden gedeeld. - Geeft meestal tekst terug in JSONL-formaat (één record per regel). - Als gedeeld geheugen is uitgeschakeld of het bestand ontbreekt, wordt een beschrijvende melding teruggegeven. - De uitvoergrootte wordt automatisch ingekort tot de interne maximale bytegrens",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Deze tool voert de functionaliteit uit die in TOOL_SPEC wordt beschreven."
   },
@@ -269,13 +193,9 @@
     "doc.run_tool": "Tools/__init__.py:stä kutsuttu sisääntulokohta. Toteutus get_shared_memorylle.",
     "tool.description": "Hakee käyttäjien kesken jaetut raakamuotoiset pitkäaikaisen muistin (jaetun muistin) tiedot.\n- Palauttaa yleensä tekstiä JSONL-muodossa (yksi tietue per rivi).\n- Jos jaettu muisti on poissa käytöstä tai tiedosto puuttuu, palauttaa kuvailevan viestin.\n- Tulosteen koko rajataan automaattisesti sisäiseen enimmäistavurajaan.",
     "x_search_terms": [
-      "Hakee käyttäjien kesken jaetut raakamuotoiset pitkäaikaisen muistin (jaetun muistin) tiedot",
+      "Hakee käyttäjien kesken jaetut raakamuotoiset pitkäaikaisen muistin (jaetun muistin) tiedot. - Palauttaa yleensä tekstiä JSONL-muodossa (yksi tietue per rivi). - Jos jaettu muisti on poissa käytöstä tai tiedosto puuttuu, palauttaa kuvailevan viestin. - Tulosteen koko rajataan automaattisesti sisäiseen enimmäistavurajaan",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Tämä työkalu suorittaa TOOL_SPECissä kuvatun toiminnallisuuden."
   },
@@ -283,13 +203,9 @@
     "doc.run_tool": "Vstupní bod volaný z tools/__init__.py. Implementace pro get_shared_memory.",
     "tool.description": "Načítá syrová data dlouhodobé paměti (sdílené paměti) sdílená mezi uživateli.\n- Obvykle vrací text ve formátu JSONL (jeden záznam na řádek).\n- Pokud je sdílená paměť vypnuta nebo soubor chybí, vrátí popisnou zprávu.\n- Velikost výstupu se automaticky zkrátí na interní maximální limit bajtů.",
     "x_search_terms": [
-      "Načítá syrová data dlouhodobé paměti (sdílené paměti) sdílená mezi uživateli",
+      "Načítá syrová data dlouhodobé paměti (sdílené paměti) sdílená mezi uživateli. - Obvykle vrací text ve formátu JSONL (jeden záznam na řádek). - Pokud je sdílená paměť vypnuta nebo soubor chybí, vrátí popisnou zprávu. - Velikost výstupu se automaticky zkrátí na interní maximální limit bajtů",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Tento nástroj provádí funkcionalitu popsanou v TOOL_SPEC."
   },
@@ -297,13 +213,9 @@
     "doc.run_tool": "Точка входу, викликана з tools/__init__.py. Реалізація get_shared_memory.",
     "tool.description": "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами.\n- Зазвичай повертає текст у форматі JSONL (один запис на рядок).\n- Якщо спільну пам’ять вимкнено або файл відсутній, повертає описове повідомлення.\n- Розмір виводу автоматично обрізається до внутрішньої максимальної межі байтів.",
     "x_search_terms": [
-      "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами",
+      "Отримує сирі дані довготривалої пам’яті (спільної пам’яті), спільні між користувачами. - Зазвичай повертає текст у форматі JSONL (один запис на рядок). - Якщо спільну пам’ять вимкнено або файл відсутній, повертає описове повідомлення. - Розмір виводу автоматично обрізається до внутрішньої максимальної межі байтів",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Цей інструмент виконує функціональність, описану в TOOL_SPEC."
   },
@@ -311,13 +223,9 @@
     "doc.run_tool": "Tools/__init__.py adresinden çağrılan giriş noktası. get_shared_memory için uygulama.",
     "tool.description": "Kullanıcılar arasında paylaşılan ham uzun süreli bellek (paylaşılan bellek) verilerini alır.\n- Genellikle metni JSONL biçiminde döndürür (satır başına bir kayıt).\n- Paylaşılan hafıza devre dışıysa veya dosya eksikse açıklayıcı bir mesaj döndürür.\n- Çıkış boyutu otomatik olarak dahili maksimum bayt sınırına göre ayarlanır.",
     "x_search_terms": [
-      "Kullanıcılar arasında paylaşılan ham uzun süreli bellek (paylaşılan bellek) verilerini alır",
+      "Kullanıcılar arasında paylaşılan ham uzun süreli bellek (paylaşılan bellek) verilerini alır. - Genellikle metni JSONL biçiminde döndürür (satır başına bir kayıt). - Paylaşılan hafıza devre dışıysa veya dosya eksikse açıklayıcı bir mesaj döndürür. - Çıkış boyutu otomatik olarak dahili maksimum bayt sınırına göre ayarlanır",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "Bu araç, TOOL_SPEC'da açıklanan işlevselliği yürütür."
   },
@@ -325,13 +233,9 @@
     "doc.run_tool": "จุดเริ่มต้นที่เรียกจาก tools/__init__.py เป็นการใช้งานสำหรับ get_shared_memory",
     "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้\n- โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งระเบียนต่อบรรทัด)\n- หากหน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งานหรือไฟล์หายไป จะส่งคืนข้อความอธิบาย\n- ขนาดเอาต์พุตจะถูกตัดให้เหลือขีดจำกัดไบต์สูงสุดภายในโดยอัตโนมัติ",
     "x_search_terms": [
-      "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้",
+      "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้ - โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งระเบียนต่อบรรทัด) - หากหน่วยความจำที่ใช้ร่วมกันถูกปิดใช้งานหรือไฟล์หายไป จะส่งคืนข้อความอธิบาย - ขนาดเอาต์พุตจะถูกตัดให้เหลือขีดจำกัดไบต์สูงสุดภายในโดยอัตโนมัติ",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการฟังก์ชันที่อธิบายไว้ใน TOOL_SPEC"
   },
@@ -339,13 +243,9 @@
     "doc.run_tool": "从 tools/__init__.py 调用的入口点。get_shared_memory 的实现。",
     "tool.description": "检索跨用户共享的原始长期记忆（共享内存）数据。\n- 通常返回 JSONL 格式的文本（每行一条记录）。\n- 如果共享内存被禁用或文件缺失，则返回一条说明消息。\n- 输出大小会自动裁剪到内部最大字节限制。",
     "x_search_terms": [
-      "检索跨用户共享的原始长期记忆（共享内存）数据",
+      "检索跨用户共享的原始长期记忆（共享内存）数据。 - 通常返回 JSONL 格式的文本（每行一条记录）。 - 如果共享内存被禁用或文件缺失，则返回一条说明消息。 - 输出大小会自动裁剪到内部最大字节限制",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "此工具执行 TOOL_SPEC 中描述的功能。"
   },
@@ -353,13 +253,9 @@
     "doc.run_tool": "從 tools/__init__.py 呼叫的進入點。get_shared_memory 的實作。",
     "tool.description": "擷取跨使用者共用的原始長期記憶（共享記憶體）資料。\n- 通常會回傳 JSONL 格式的文字（每行一筆記錄）。\n- 如果共享記憶體已停用或檔案遺失，則會回傳說明訊息。\n- 輸出大小會自動裁切至內部的最大位元組限制。",
     "x_search_terms": [
-      "擷取跨使用者共用的原始長期記憶（共享記憶體）資料",
+      "擷取跨使用者共用的原始長期記憶（共享記憶體）資料。 - 通常會回傳 JSONL 格式的文字（每行一筆記錄）。 - 如果共享記憶體已停用或檔案遺失，則會回傳說明訊息。 - 輸出大小會自動裁切至內部的最大位元組限制",
       "get_shared_memory",
-      "get shared memory",
-      "shared memory",
-      "shared notes",
-      "multi user memory",
-      "memory store"
+      "get shared memory"
     ],
     "tool.system_prompt": "此工具會執行 TOOL_SPEC 中所描述的功能。"
   }

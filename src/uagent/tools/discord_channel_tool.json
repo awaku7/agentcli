@@ -39,7 +39,7 @@
     "param.wait_s.description": "送信後、返信を待機する時間（秒）。",
     "tool.description": "ボットトークンを使用して特定のDiscordチャンネルと対話します。メッセージの送信、最近のメッセージの読み取り、および送信後の返信待機が可能です。",
     "x_search_terms": [
-      "ボットトークンを使用して特定のDiscordチャンネルと対話します",
+      "ボットトークンを使用して特定のDiscordチャンネルと対話します。メッセージの送信、最近のメッセージの読み取り、および送信後の返信待機が可能です",
       "discord_channel",
       "discord channel"
     ],
@@ -108,7 +108,7 @@
     "param.wait_s.description": "전송 후 답장을 기다리는 시간(초)입니다.",
     "tool.description": "봇 토큰을 사용해 특정 Discord 채널과 상호작용합니다. 메시지를 보내고, 최근 메시지를 읽고, 필요하면 전송 후 답장을 기다릴 수 있습니다.",
     "x_search_terms": [
-      "봇 토큰을 사용해 특정 Discord 채널과 상호작용합니다",
+      "봇 토큰을 사용해 특정 Discord 채널과 상호작용합니다. 메시지를 보내고, 최근 메시지를 읽고, 필요하면 전송 후 답장을 기다릴 수 있습니다",
       "discord_channel",
       "discord channel"
     ],

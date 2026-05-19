@@ -2,13 +2,9 @@
   "en": {
     "tool.description": "Run an automated browser task with the browser-use Python library. Use it when a website must be operated interactively, rather than just fetched. Dangerous actions require explicit user confirmation with confirmed=true.",
     "x_search_terms": [
-      "Run an automated browser task with the browser-use Python library",
+      "Run an automated browser task with the browser-use Python library. Use it when a website must be operated interactively, rather than just fetched. Dangerous actions require explicit user confirmation with confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "This tool launches browser-use and controls a browser for a natural-language task. Do not use it for purchases, form submissions, deletions, uploads, downloads, logins, posts, or other state-changing actions unless the user has explicitly approved the exact action and confirmed=true is supplied.",
     "param.task.description": "Natural-language browser task to perform.",
@@ -27,13 +23,9 @@
   "ja": {
     "tool.description": "browser-use Python ライブラリを使って、自律的なブラウザ操作を実行します。単にページを取得するだけでなく、Web サイト上で対話的な操作が必要な場合に使います。危険な操作には confirmed=true による明示的なユーザー確認が必要です。",
     "x_search_terms": [
-      "browser-use Python ライブラリを使って、自律的なブラウザ操作を実行します",
+      "browser-use Python ライブラリを使って、自律的なブラウザ操作を実行します。単にページを取得するだけでなく、Web サイト上で対話的な操作が必要な場合に使います。危険な操作には confirmed=true による明示的なユーザー確認が必要です",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "このツールは browser-use を起動し、自然言語タスクに従ってブラウザを操作します。購入、フォーム送信、削除、アップロード、ダウンロード、ログイン、投稿などの状態変更操作には、ユーザーが正確な操作を明示的に承認し、confirmed=true が指定されている場合を除き使用しないでください。",
     "param.task.description": "実行する自然言語のブラウザ操作タスク。",
@@ -52,13 +44,9 @@
   "es": {
     "tool.description": "Ejecuta una tarea autónoma de navegador con la biblioteca Python browser-use. Úsala cuando un sitio web deba manejarse de forma interactiva, no solo consultarse. Las acciones peligrosas requieren confirmación explícita del usuario con confirmed=true.",
     "x_search_terms": [
-      "Ejecuta una tarea autónoma de navegador con la biblioteca Python browser-use",
+      "Ejecuta una tarea autónoma de navegador con la biblioteca Python browser-use. Úsala cuando un sitio web deba manejarse de forma interactiva, no solo consultarse. Las acciones peligrosas requieren confirmación explícita del usuario con confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Esta herramienta inicia browser-use y controla un navegador para una tarea en lenguaje natural. No la uses para compras, envíos de formularios, eliminaciones, cargas, descargas, inicios de sesión, publicaciones u otras acciones que cambien el estado, salvo que el usuario haya aprobado explícitamente la acción exacta y se proporcione confirmed=true.",
     "param.task.description": "Tarea de navegador en lenguaje natural que se debe realizar.",
@@ -77,13 +65,9 @@
   "fr": {
     "tool.description": "Exécute une tâche de navigateur autonome avec la bibliothèque Python browser-use. À utiliser lorsqu’un site web doit être manipulé de manière interactive, et pas seulement récupéré. Les actions dangereuses nécessitent une confirmation explicite de l’utilisateur avec confirmed=true.",
     "x_search_terms": [
-      "Exécute une tâche de navigateur autonome avec la bibliothèque Python browser-use",
+      "Exécute une tâche de navigateur autonome avec la bibliothèque Python browser-use. À utiliser lorsqu’un site web doit être manipulé de manière interactive, et pas seulement récupéré. Les actions dangereuses nécessitent une confirmation explicite de l’utilisateur avec confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Cet outil lance browser-use et pilote un navigateur pour une tâche en langage naturel. Ne l’utilisez pas pour des achats, envois de formulaires, suppressions, téléversements, téléchargements, connexions, publications ou autres actions modifiant l’état, sauf si l’utilisateur a explicitement approuvé l’action exacte et que confirmed=true est fourni.",
     "param.task.description": "Tâche de navigateur en langage naturel à effectuer.",
@@ -102,13 +86,9 @@
   "ko": {
     "tool.description": "browser-use Python 라이브러리로 자동 브라우저 작업을 실행합니다. 단순히 페이지를 가져오는 것이 아니라 웹사이트에서 상호작용이 필요할 때 사용합니다. 위험한 작업에는 confirmed=true를 통한 명시적인 사용자 확인이 필요합니다.",
     "x_search_terms": [
-      "browser-use Python 라이브러리로 자동 브라우저 작업을 실행합니다",
+      "browser-use Python 라이브러리로 자동 브라우저 작업을 실행합니다. 단순히 페이지를 가져오는 것이 아니라 웹사이트에서 상호작용이 필요할 때 사용합니다. 위험한 작업에는 confirmed=true를 통한 명시적인 사용자 확인이 필요합니다",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "이 도구는 browser-use를 실행하여 자연어 작업에 따라 브라우저를 제어합니다. 구매, 양식 제출, 삭제, 업로드, 다운로드, 로그인, 게시 또는 기타 상태 변경 작업에는 사용자가 정확한 작업을 명시적으로 승인하고 confirmed=true가 제공된 경우에만 사용하세요.",
     "param.task.description": "수행할 자연어 브라우저 작업입니다.",
@@ -127,13 +107,9 @@
   "de": {
     "tool.description": "Führt eine autonome Browseraufgabe mit der Python-Bibliothek browser-use aus. Verwenden Sie dies, wenn eine Website interaktiv bedient und nicht nur abgerufen werden soll. Gefährliche Aktionen erfordern eine ausdrückliche Bestätigung des Benutzers mit confirmed=true.",
     "x_search_terms": [
-      "Führt eine autonome Browseraufgabe mit der Python-Bibliothek browser-use aus",
+      "Führt eine autonome Browseraufgabe mit der Python-Bibliothek browser-use aus. Verwenden Sie dies, wenn eine Website interaktiv bedient und nicht nur abgerufen werden soll. Gefährliche Aktionen erfordern eine ausdrückliche Bestätigung des Benutzers mit confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Dieses Tool startet browser-use und steuert einen Browser für eine natürlichsprachliche Aufgabe. Verwenden Sie es nicht für Käufe, Formularübermittlungen, Löschungen, Uploads, Downloads, Anmeldungen, Beiträge oder andere zustandsändernde Aktionen, es sei denn, der Benutzer hat die genaue Aktion ausdrücklich genehmigt und confirmed=true wurde angegeben.",
     "param.task.description": "Natürlichsprachliche Browseraufgabe, die ausgeführt werden soll.",
@@ -152,13 +128,9 @@
   "it": {
     "tool.description": "Esegue un'attività autonoma del browser usando la libreria Python browser-use. Usala quando un sito web deve essere gestito in modo interattivo, non solo recuperato. Le azioni pericolose richiedono una conferma esplicita dell'utente con confirmed=true.",
     "x_search_terms": [
-      "Esegue un'attività autonoma del browser usando la libreria Python browser-use",
+      "Esegue un'attività autonoma del browser usando la libreria Python browser-use. Usala quando un sito web deve essere gestito in modo interattivo, non solo recuperato. Le azioni pericolose richiedono una conferma esplicita dell'utente con confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Questo strumento avvia browser-use e controlla un browser per un'attività in linguaggio naturale. Non usarlo per acquisti, invio di moduli, eliminazioni, caricamenti, download, accessi, pubblicazioni o altre azioni che modificano lo stato, a meno che l'utente abbia approvato esplicitamente l'azione esatta e sia fornito confirmed=true.",
     "param.task.description": "Attività del browser in linguaggio naturale da eseguire.",
@@ -177,13 +149,9 @@
   "ru": {
     "tool.description": "Выполняет автономную задачу в браузере с помощью Python-библиотеки browser-use. Используйте, когда с сайтом нужно взаимодействовать, а не просто получить его содержимое. Опасные действия требуют явного подтверждения пользователя с confirmed=true.",
     "x_search_terms": [
-      "Выполняет автономную задачу в браузере с помощью Python-библиотеки browser-use",
+      "Выполняет автономную задачу в браузере с помощью Python-библиотеки browser-use. Используйте, когда с сайтом нужно взаимодействовать, а не просто получить его содержимое. Опасные действия требуют явного подтверждения пользователя с confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Этот инструмент запускает browser-use и управляет браузером для выполнения задачи на естественном языке. Не используйте его для покупок, отправки форм, удаления, загрузки файлов, скачивания, входа в аккаунт, публикаций или других действий, изменяющих состояние, если пользователь явно не одобрил точное действие и не указано confirmed=true.",
     "param.task.description": "Задача браузера на естественном языке, которую нужно выполнить.",
@@ -202,13 +170,9 @@
   "pt_BR": {
     "tool.description": "Executa uma tarefa autônoma no navegador usando a biblioteca Python browser-use. Use quando um site precisar ser operado de forma interativa, e não apenas acessado. Ações perigosas exigem confirmação explícita do usuário com confirmed=true.",
     "x_search_terms": [
-      "Executa uma tarefa autônoma no navegador usando a biblioteca Python browser-use",
+      "Executa uma tarefa autônoma no navegador usando a biblioteca Python browser-use. Use quando um site precisar ser operado de forma interativa, e não apenas acessado. Ações perigosas exigem confirmação explícita do usuário com confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Esta ferramenta inicia o browser-use e controla um navegador para uma tarefa em linguagem natural. Não use para compras, envios de formulários, exclusões, uploads, downloads, logins, publicações ou outras ações que alterem o estado, a menos que o usuário tenha aprovado explicitamente a ação exata e confirmed=true seja fornecido.",
     "param.task.description": "Tarefa de navegador em linguagem natural a ser executada.",
@@ -227,13 +191,9 @@
   "pt": {
     "tool.description": "Executa uma tarefa autónoma no navegador usando a biblioteca Python browser-use. Use quando um site tiver de ser operado de forma interativa, e não apenas acedido. Ações perigosas exigem confirmação explícita do utilizador com confirmed=true.",
     "x_search_terms": [
-      "Executa uma tarefa autónoma no navegador usando a biblioteca Python browser-use",
+      "Executa uma tarefa autónoma no navegador usando a biblioteca Python browser-use. Use quando um site tiver de ser operado de forma interativa, e não apenas acedido. Ações perigosas exigem confirmação explícita do utilizador com confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Esta ferramenta inicia o browser-use e controla um navegador para uma tarefa em linguagem natural. Não a use para compras, envios de formulários, eliminações, carregamentos, transferências, inícios de sessão, publicações ou outras ações que alterem o estado, salvo se o utilizador tiver aprovado explicitamente a ação exata e confirmed=true for fornecido.",
     "param.task.description": "Tarefa de navegador em linguagem natural a executar.",
@@ -252,13 +212,9 @@
   "id": {
     "tool.description": "Menjalankan tugas browser otonom menggunakan pustaka Python browser-use. Gunakan saat situs web perlu dioperasikan secara interaktif, bukan sekadar diambil isinya. Tindakan berbahaya memerlukan konfirmasi pengguna secara eksplisit dengan confirmed=true.",
     "x_search_terms": [
-      "Menjalankan tugas browser otonom menggunakan pustaka Python browser-use",
+      "Menjalankan tugas browser otonom menggunakan pustaka Python browser-use. Gunakan saat situs web perlu dioperasikan secara interaktif, bukan sekadar diambil isinya. Tindakan berbahaya memerlukan konfirmasi pengguna secara eksplisit dengan confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Alat ini menjalankan browser-use dan mengendalikan browser untuk tugas berbahasa alami. Jangan gunakan untuk pembelian, pengiriman formulir, penghapusan, unggahan, unduhan, login, posting, atau tindakan lain yang mengubah status kecuali pengguna telah menyetujui tindakan persisnya secara eksplisit dan confirmed=true diberikan.",
     "param.task.description": "Tugas browser berbahasa alami yang akan dilakukan.",
@@ -277,13 +233,9 @@
   "vi": {
     "tool.description": "Chạy một tác vụ trình duyệt tự động bằng thư viện Python browser-use. Dùng khi cần thao tác tương tác với một trang web, không chỉ lấy nội dung. Các hành động nguy hiểm cần người dùng xác nhận rõ ràng bằng confirmed=true.",
     "x_search_terms": [
-      "Chạy một tác vụ trình duyệt tự động bằng thư viện Python browser-use",
+      "Chạy một tác vụ trình duyệt tự động bằng thư viện Python browser-use. Dùng khi cần thao tác tương tác với một trang web, không chỉ lấy nội dung. Các hành động nguy hiểm cần người dùng xác nhận rõ ràng bằng confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Công cụ này khởi chạy browser-use và điều khiển trình duyệt cho một tác vụ bằng ngôn ngữ tự nhiên. Không dùng cho mua hàng, gửi biểu mẫu, xóa, tải lên, tải xuống, đăng nhập, đăng bài hoặc các hành động thay đổi trạng thái khác, trừ khi người dùng đã phê duyệt rõ ràng hành động chính xác và cung cấp confirmed=true.",
     "param.task.description": "Tác vụ trình duyệt bằng ngôn ngữ tự nhiên cần thực hiện.",
@@ -302,13 +254,9 @@
   "pl": {
     "tool.description": "Uruchamia autonomiczne zadanie przeglądarki przy użyciu biblioteki Python browser-use. Używaj, gdy witryna wymaga interaktywnej obsługi, a nie tylko pobrania treści. Niebezpieczne akcje wymagają wyraźnego potwierdzenia użytkownika za pomocą confirmed=true.",
     "x_search_terms": [
-      "Uruchamia autonomiczne zadanie przeglądarki przy użyciu biblioteki Python browser-use",
+      "Uruchamia autonomiczne zadanie przeglądarki przy użyciu biblioteki Python browser-use. Używaj, gdy witryna wymaga interaktywnej obsługi, a nie tylko pobrania treści. Niebezpieczne akcje wymagają wyraźnego potwierdzenia użytkownika za pomocą confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "To narzędzie uruchamia browser-use i steruje przeglądarką na potrzeby zadania w języku naturalnym. Nie używaj go do zakupów, wysyłania formularzy, usuwania, przesyłania, pobierania, logowania, publikowania ani innych działań zmieniających stan, chyba że użytkownik wyraźnie zatwierdził dokładną akcję i podano confirmed=true.",
     "param.task.description": "Zadanie przeglądarki w języku naturalnym do wykonania.",
@@ -329,11 +277,7 @@
     "x_search_terms": [
       "browser-use Python लाइब्रेरी की मदद से ब्राउज़र में स्वचालित कार्य चलाता है। इसका उपयोग तब करें जब किसी वेबसाइट पर केवल सामग्री लाने के बजाय इंटरैक्टिव操作 करनी हो। जोखिम वाले कार्यों के लिए confirmed=true के साथ उपयोगकर्ता की स्पष्ट पुष्टि आवश्यक है।",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "यह टूल browser-use शुरू करता है और प्राकृतिक भाषा में दिए गए कार्य के अनुसार ब्राउज़र को नियंत्रित करता है। खरीदारी, फ़ॉर्म जमा करने, हटाने, अपलोड, डाउनलोड, लॉगिन, पोस्ट या स्थिति बदलने वाली अन्य कार्रवाइयों के लिए इसका उपयोग न करें, जब तक उपयोगकर्ता ने ठीक उसी कार्रवाई को स्पष्ट रूप से स्वीकृत न किया हो और confirmed=true न दिया गया हो।",
     "param.task.description": "चलाया जाने वाला प्राकृतिक भाषा वाला ब्राउज़र कार्य।",
@@ -352,13 +296,9 @@
   "ar": {
     "tool.description": "يشغّل مهمة متصفح آلية باستخدام مكتبة browser-use في Python. استخدمه عندما يتطلب موقع الويب تفاعلاً فعليًا، وليس مجرد جلب المحتوى. تتطلب الإجراءات الخطرة تأكيدًا صريحًا من المستخدم باستخدام confirmed=true.",
     "x_search_terms": [
-      "يشغّل مهمة متصفح آلية باستخدام مكتبة browser-use في Python",
+      "يشغّل مهمة متصفح آلية باستخدام مكتبة browser-use في Python. استخدمه عندما يتطلب موقع الويب تفاعلاً فعليًا، وليس مجرد جلب المحتوى. تتطلب الإجراءات الخطرة تأكيدًا صريحًا من المستخدم باستخدام confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "تشغّل هذه الأداة browser-use وتتحكم في المتصفح لتنفيذ مهمة مكتوبة بلغة طبيعية. لا تستخدمها للشراء أو إرسال النماذج أو الحذف أو الرفع أو التنزيل أو تسجيل الدخول أو النشر أو أي إجراءات أخرى تغيّر الحالة، إلا إذا وافق المستخدم صراحةً على الإجراء المحدد وتم توفير confirmed=true.",
     "param.task.description": "مهمة المتصفح المكتوبة بلغة طبيعية المطلوب تنفيذها.",
@@ -377,13 +317,9 @@
   "sv": {
     "tool.description": "Kör en autonom webbläsaruppgift med Python-biblioteket browser-use. Använd detta när en webbplats behöver styras interaktivt, inte bara hämtas. Farliga åtgärder kräver uttrycklig användarbekräftelse med confirmed=true.",
     "x_search_terms": [
-      "Kör en autonom webbläsaruppgift med Python-biblioteket browser-use",
+      "Kör en autonom webbläsaruppgift med Python-biblioteket browser-use. Använd detta när en webbplats behöver styras interaktivt, inte bara hämtas. Farliga åtgärder kräver uttrycklig användarbekräftelse med confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Detta verktyg startar browser-use och styr en webbläsare för en uppgift i naturligt språk. Använd det inte för köp, formulärinskickningar, borttagningar, uppladdningar, nedladdningar, inloggningar, inlägg eller andra tillståndsändrande åtgärder om inte användaren uttryckligen har godkänt den exakta åtgärden och confirmed=true anges.",
     "param.task.description": "Webbläsaruppgift i naturligt språk som ska utföras.",
@@ -402,13 +338,9 @@
   "sw": {
     "tool.description": "Huendesha kazi ya kivinjari kiotomatiki kwa kutumia maktaba ya Python ya browser-use. Tumia zana hii tovuti inapohitaji kuendeshwa kwa mwingiliano, si kupakuliwa tu. Vitendo hatari vinahitaji uthibitisho wa wazi wa mtumiaji kwa kutumia confirmed=true.",
     "x_search_terms": [
-      "Huendesha kazi ya kivinjari kiotomatiki kwa kutumia maktaba ya Python ya browser-use",
+      "Huendesha kazi ya kivinjari kiotomatiki kwa kutumia maktaba ya Python ya browser-use. Tumia zana hii tovuti inapohitaji kuendeshwa kwa mwingiliano, si kupakuliwa tu. Vitendo hatari vinahitaji uthibitisho wa wazi wa mtumiaji kwa kutumia confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Zana hii huanzisha browser-use na kudhibiti kivinjari kulingana na kazi iliyoandikwa kwa lugha ya kawaida. Usiitumie kwa ununuzi, kutuma fomu, kufuta, kupakia, kupakua, kuingia, kuchapisha au vitendo vingine vinavyobadilisha hali, isipokuwa mtumiaji ameidhinisha wazi kitendo husika na confirmed=true imetolewa.",
     "param.task.description": "Kazi ya kivinjari iliyoandikwa kwa lugha ya kawaida ya kutekelezwa.",
@@ -427,13 +359,9 @@
   "nb": {
     "tool.description": "Kjør en automatisert nettleseroppgave med Python-biblioteket browser-use. Bruk dette når et nettsted må betjenes interaktivt, ikke bare hentes. Farlige handlinger krever eksplisitt brukerbekreftelse med confirmed=true.",
     "x_search_terms": [
-      "Kjør en automatisert nettleseroppgave med Python-biblioteket browser-use",
+      "Kjør en automatisert nettleseroppgave med Python-biblioteket browser-use. Bruk dette når et nettsted må betjenes interaktivt, ikke bare hentes. Farlige handlinger krever eksplisitt brukerbekreftelse med confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Dette verktøyet starter browser-use og styrer en nettleser for en oppgave skrevet i naturlig språk. Ikke bruk det til kjøp, innsending av skjemaer, sletting, opplasting, nedlasting, innlogging, publisering eller andre tilstandsendrende handlinger med mindre brukeren uttrykkelig har godkjent den nøyaktige handlingen og confirmed=true er oppgitt.",
     "param.task.description": "Nettleseroppgave i naturlig språk som skal utføres.",
@@ -452,13 +380,9 @@
   "nl": {
     "tool.description": "Voert een autonome browsertaak uit met de Python-bibliotheek browser-use. Gebruik dit wanneer een website interactief moet worden bediend en niet alleen hoeft te worden opgehaald. Gevaarlijke acties vereisen expliciete bevestiging van de gebruiker met confirmed=true.",
     "x_search_terms": [
-      "Voert een autonome browsertaak uit met de Python-bibliotheek browser-use",
+      "Voert een autonome browsertaak uit met de Python-bibliotheek browser-use. Gebruik dit wanneer een website interactief moet worden bediend en niet alleen hoeft te worden opgehaald. Gevaarlijke acties vereisen expliciete bevestiging van de gebruiker met confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Deze tool start browser-use en bestuurt een browser voor een taak in natuurlijke taal. Gebruik de tool niet voor aankopen, formulierverzendingen, verwijderingen, uploads, downloads, aanmeldingen, berichten of andere statuswijzigende acties, tenzij de gebruiker de exacte actie expliciet heeft goedgekeurd en confirmed=true is opgegeven.",
     "param.task.description": "Browsertaak in natuurlijke taal die moet worden uitgevoerd.",
@@ -477,13 +401,9 @@
   "fi": {
     "tool.description": "Suorittaa automaattisen selain­tehtävän Pythonin browser-use-kirjastolla. Käytä tätä, kun verkkosivustoa täytyy käyttää vuorovaikutteisesti eikä pelkästään noutaa sen sisältöä. Vaaralliset toiminnot edellyttävät käyttäjän nimenomaista vahvistusta arvolla confirmed=true.",
     "x_search_terms": [
-      "Suorittaa automaattisen selain­tehtävän Pythonin browser-use-kirjastolla",
+      "Suorittaa automaattisen selain­tehtävän Pythonin browser-use-kirjastolla. Käytä tätä, kun verkkosivustoa täytyy käyttää vuorovaikutteisesti eikä pelkästään noutaa sen sisältöä. Vaaralliset toiminnot edellyttävät käyttäjän nimenomaista vahvistusta arvolla confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Tämä työkalu käynnistää browser-usen ja ohjaa selainta luonnollisella kielellä annetun tehtävän suorittamiseksi. Älä käytä sitä ostoksiin, lomakkeiden lähettämiseen, poistoihin, latauksiin, sisäänkirjautumisiin, julkaisuihin tai muihin tilaa muuttaviin toimiin, ellei käyttäjä ole nimenomaisesti hyväksynyt tarkkaa toimintoa ja confirmed=true ole annettu.",
     "param.task.description": "Suoritettava luonnollisen kielen selain­tehtävä.",
@@ -502,13 +422,9 @@
   "cs": {
     "tool.description": "Spustí autonomní úlohu prohlížeče pomocí Python knihovny browser-use. Použijte ji, když je třeba web ovládat interaktivně, nikoli jen načíst jeho obsah. Nebezpečné akce vyžadují výslovné potvrzení uživatele pomocí confirmed=true.",
     "x_search_terms": [
-      "Spustí autonomní úlohu prohlížeče pomocí Python knihovny browser-use",
+      "Spustí autonomní úlohu prohlížeče pomocí Python knihovny browser-use. Použijte ji, když je třeba web ovládat interaktivně, nikoli jen načíst jeho obsah. Nebezpečné akce vyžadují výslovné potvrzení uživatele pomocí confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Tento nástroj spustí browser-use a ovládá prohlížeč podle úlohy v přirozeném jazyce. Nepoužívejte jej pro nákupy, odesílání formulářů, mazání, nahrávání, stahování, přihlášení, publikování ani jiné akce měnící stav, pokud uživatel výslovně neschválil přesnou akci a není uvedeno confirmed=true.",
     "param.task.description": "Úloha prohlížeče v přirozeném jazyce k provedení.",
@@ -527,13 +443,9 @@
   "uk": {
     "tool.description": "Виконує автоматизоване завдання в браузері за допомогою Python-бібліотеки browser-use. Використовуйте, коли з вебсайтом потрібно взаємодіяти, а не просто отримати його вміст. Небезпечні дії потребують явного підтвердження користувача з confirmed=true.",
     "x_search_terms": [
-      "Виконує автоматизоване завдання в браузері за допомогою Python-бібліотеки browser-use",
+      "Виконує автоматизоване завдання в браузері за допомогою Python-бібліотеки browser-use. Використовуйте, коли з вебсайтом потрібно взаємодіяти, а не просто отримати його вміст. Небезпечні дії потребують явного підтвердження користувача з confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Цей інструмент запускає browser-use і керує браузером для виконання завдання природною мовою. Не використовуйте його для покупок, надсилання форм, видалення, завантаження чи вивантаження файлів, входу, публікацій або інших дій, що змінюють стан, якщо користувач явно не схвалив точну дію і не вказано confirmed=true.",
     "param.task.description": "Завдання браузера природною мовою, яке потрібно виконати.",
@@ -552,13 +464,9 @@
   "tr": {
     "tool.description": "browser-use Python kitaplığını kullanarak otonom bir tarayıcı görevi çalıştırır. Bir web sitesinin yalnızca içeriğinin alınması değil, etkileşimli olarak kullanılması gerektiğinde kullanın. Tehlikeli işlemler confirmed=true ile açık kullanıcı onayı gerektirir.",
     "x_search_terms": [
-      "browser-use Python kitaplığını kullanarak otonom bir tarayıcı görevi çalıştırır",
+      "browser-use Python kitaplığını kullanarak otonom bir tarayıcı görevi çalıştırır. Bir web sitesinin yalnızca içeriğinin alınması değil, etkileşimli olarak kullanılması gerektiğinde kullanın. Tehlikeli işlemler confirmed=true ile açık kullanıcı onayı gerektirir",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "Bu araç browser-use'u başlatır ve doğal dilde verilen bir görev için tarayıcıyı kontrol eder. Kullanıcı tam işlemi açıkça onaylamadıkça ve confirmed=true sağlanmadıkça satın alma, form gönderme, silme, yükleme, indirme, oturum açma, paylaşma veya durum değiştiren diğer işlemler için kullanmayın.",
     "param.task.description": "Gerçekleştirilecek doğal dil tarayıcı görevi.",
@@ -579,11 +487,7 @@
     "x_search_terms": [
       "เรียกใช้งานเบราว์เซอร์แบบอัตโนมัติด้วยไลบรารี Python browser-use ใช้เมื่อจำเป็นต้องโต้ตอบกับเว็บไซต์ ไม่ใช่เพียงดึงข้อมูลเท่านั้น การกระทำที่มีความเสี่ยงต้องได้รับการยืนยันอย่างชัดเจนจากผู้ใช้ด้วย confirmed=true",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "เครื่องมือนี้จะเปิดใช้ browser-use และควบคุมเบราว์เซอร์ตามงานที่ระบุด้วยภาษาธรรมชาติ ห้ามใช้สำหรับการซื้อ การส่งแบบฟอร์ม การลบ การอัปโหลด การดาวน์โหลด การเข้าสู่ระบบ การโพสต์ หรือการกระทำอื่นที่เปลี่ยนสถานะ เว้นแต่ผู้ใช้จะอนุมัติการกระทำนั้นอย่างชัดเจนและระบุ confirmed=true",
     "param.task.description": "งานเบราว์เซอร์ที่ระบุด้วยภาษาธรรมชาติซึ่งต้องดำเนินการ",
@@ -602,13 +506,9 @@
   "zh_CN": {
     "tool.description": "使用 browser-use Python 库运行自动化浏览器任务。当网站需要交互式操作，而不只是获取内容时使用。危险操作需要通过 confirmed=true 获得用户的明确确认。",
     "x_search_terms": [
-      "使用 browser-use Python 库运行自动化浏览器任务",
+      "使用 browser-use Python 库运行自动化浏览器任务。当网站需要交互式操作，而不只是获取内容时使用。危险操作需要通过 confirmed=true 获得用户的明确确认",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "此工具会启动 browser-use，并按照自然语言任务控制浏览器。除非用户已明确批准确切操作并提供 confirmed=true，否则不要将其用于购买、提交表单、删除、上传、下载、登录、发布或其他会改变状态的操作。",
     "param.task.description": "要执行的自然语言浏览器任务。",
@@ -627,13 +527,9 @@
   "zh_TW": {
     "tool.description": "使用 browser-use Python 函式庫執行自動化瀏覽器任務。當網站需要互動式操作，而不只是擷取內容時使用。危險操作需要透過 confirmed=true 取得使用者明確確認。",
     "x_search_terms": [
-      "使用 browser-use Python 函式庫執行自動化瀏覽器任務",
+      "使用 browser-use Python 函式庫執行自動化瀏覽器任務。當網站需要互動式操作，而不只是擷取內容時使用。危險操作需要透過 confirmed=true 取得使用者明確確認",
       "browser_use_task",
-      "browser use task",
-      "browser automation",
-      "interactive browser",
-      "website task",
-      "browser use"
+      "browser use task"
     ],
     "tool.system_prompt": "此工具會啟動 browser-use，並依自然語言任務控制瀏覽器。除非使用者已明確核准確切操作且提供 confirmed=true，否則不要將其用於購買、送出表單、刪除、上傳、下載、登入、發佈或其他會變更狀態的操作。",
     "param.task.description": "要執行的自然語言瀏覽器任務。",

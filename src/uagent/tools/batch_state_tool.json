@@ -2,7 +2,7 @@
   "en": {
     "tool.description": "Manage batch state for multi-file tasks under ~/.uag/batches/. Process one item at a time and advance next_index after each completed item.",
     "x_search_terms": [
-      "Manage batch state for multi-file tasks under ~/",
+      "Manage batch state for multi-file tasks under ~/.uag/batches/. Process one item at a time and advance next_index after each completed item",
       "batch_state",
       "batch state"
     ],
@@ -30,7 +30,7 @@
   "ja": {
     "tool.description": "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します。",
     "x_search_terms": [
-      "複数ファイルの作業用に、~/",
+      "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します",
       "batch_state",
       "batch state"
     ],
@@ -58,7 +58,7 @@
   "es": {
     "tool.description": "Gestiona el estado persistente del lote para tareas con varios archivos en ~/.uag/batches/.",
     "x_search_terms": [
-      "Gestiona el estado persistente del lote para tareas con varios archivos en ~/",
+      "Gestiona el estado persistente del lote para tareas con varios archivos en ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -86,7 +86,7 @@
   "fr": {
     "tool.description": "Gère l’état persistant des lots pour les tâches multi-fichiers dans ~/.uag/batches/.",
     "x_search_terms": [
-      "Gère l’état persistant des lots pour les tâches multi-fichiers dans ~/",
+      "Gère l’état persistant des lots pour les tâches multi-fichiers dans ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -114,7 +114,7 @@
   "ko": {
     "tool.description": "여러 파일 작업의 지속 상태를 ~/.uag/batches/ 아래에 관리합니다.",
     "x_search_terms": [
-      "여러 파일 작업의 지속 상태를 ~/",
+      "여러 파일 작업의 지속 상태를 ~/.uag/batches/ 아래에 관리합니다",
       "batch_state",
       "batch state"
     ],
@@ -142,7 +142,7 @@
   "de": {
     "tool.description": "Verwaltet den persistenten Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
     "x_search_terms": [
-      "Verwaltet den persistenten Batch-Status für Aufgaben mit mehreren Dateien unter ~/",
+      "Verwaltet den persistenten Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -170,7 +170,7 @@
   "it": {
     "tool.description": "Gestisce lo stato persistente dei batch per attività con più file in ~/.uag/batches/.",
     "x_search_terms": [
-      "Gestisce lo stato persistente dei batch per attività con più file in ~/",
+      "Gestisce lo stato persistente dei batch per attività con più file in ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -198,7 +198,7 @@
   "ru": {
     "tool.description": "Управляет постоянным состоянием пакета для многофайловых задач в ~/.uag/batches/.",
     "x_search_terms": [
-      "Управляет постоянным состоянием пакета для многофайловых задач в ~/",
+      "Управляет постоянным состоянием пакета для многофайловых задач в ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -226,7 +226,7 @@
   "pt_BR": {
     "tool.description": "Gerencia o estado persistente de lotes para tarefas com vários arquivos em ~/.uag/batches/.",
     "x_search_terms": [
-      "Gerencia o estado persistente de lotes para tarefas com vários arquivos em ~/",
+      "Gerencia o estado persistente de lotes para tarefas com vários arquivos em ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -254,7 +254,7 @@
   "pt": {
     "tool.description": "Gerencia o estado persistente de lotes para tarefas com vários ficheiros em ~/.uag/batches/.",
     "x_search_terms": [
-      "Gerencia o estado persistente de lotes para tarefas com vários ficheiros em ~/",
+      "Gerencia o estado persistente de lotes para tarefas com vários ficheiros em ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -282,7 +282,7 @@
   "id": {
     "tool.description": "Mengelola status batch yang tersimpan untuk tugas multi-file di ~/.uag/batches/.",
     "x_search_terms": [
-      "Mengelola status batch yang tersimpan untuk tugas multi-file di ~/",
+      "Mengelola status batch yang tersimpan untuk tugas multi-file di ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -310,7 +310,7 @@
   "vi": {
     "tool.description": "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
     "x_search_terms": [
-      "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/",
+      "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -338,7 +338,7 @@
   "pl": {
     "tool.description": "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.uag/batches/.",
     "x_search_terms": [
-      "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/",
+      "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -366,7 +366,7 @@
   "hi": {
     "tool.description": "~/.uag/batches/ के नीचे बहु-फ़ाइल कार्यों के लिए स्थायी बैच स्थिति प्रबंधित करता है।",
     "x_search_terms": [
-      "~/",
+      "~/.uag/batches/ के नीचे बहु-फ़ाइल कार्यों के लिए स्थायी बैच स्थिति प्रबंधित करता है।",
       "batch_state",
       "batch state"
     ],
@@ -394,7 +394,7 @@
   "ar": {
     "tool.description": "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.uag/batches/.",
     "x_search_terms": [
-      "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/",
+      "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -422,7 +422,7 @@
   "sv": {
     "tool.description": "Hanterar bestående batchstatus för uppgifter med flera filer under ~/.uag/batches/.",
     "x_search_terms": [
-      "Hanterar bestående batchstatus för uppgifter med flera filer under ~/",
+      "Hanterar bestående batchstatus för uppgifter med flera filer under ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -450,7 +450,7 @@
   "sw": {
     "tool.description": "Hudhibiti hali ya kudumu ya batch kwa kazi za faili nyingi chini ya ~/.uag/batches/.",
     "x_search_terms": [
-      "Hudhibiti hali ya kudumu ya batch kwa kazi za faili nyingi chini ya ~/",
+      "Hudhibiti hali ya kudumu ya batch kwa kazi za faili nyingi chini ya ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -478,7 +478,7 @@
   "nb": {
     "tool.description": "Behandler vedvarende batchstatus for oppgaver med flere filer under ~/.uag/batches/.",
     "x_search_terms": [
-      "Behandler vedvarende batchstatus for oppgaver med flere filer under ~/",
+      "Behandler vedvarende batchstatus for oppgaver med flere filer under ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -506,7 +506,7 @@
   "nl": {
     "tool.description": "Beheert de blijvende batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/.",
     "x_search_terms": [
-      "Beheert de blijvende batchstatus voor taken met meerdere bestanden onder ~/",
+      "Beheert de blijvende batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -534,7 +534,7 @@
   "fi": {
     "tool.description": "Hallinnoi pysyvää erätilaa monitiedostotehtäville polussa ~/.uag/batches/.",
     "x_search_terms": [
-      "Hallinnoi pysyvää erätilaa monitiedostotehtäville polussa ~/",
+      "Hallinnoi pysyvää erätilaa monitiedostotehtäville polussa ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -562,7 +562,7 @@
   "cs": {
     "tool.description": "Spravuje trvalý stav dávky pro úlohy s více soubory v ~/.uag/batches/.",
     "x_search_terms": [
-      "Spravuje trvalý stav dávky pro úlohy s více soubory v ~/",
+      "Spravuje trvalý stav dávky pro úlohy s více soubory v ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -590,7 +590,7 @@
   "uk": {
     "tool.description": "Керує постійним станом пакета для багатофайлових завдань у ~/.uag/batches/.",
     "x_search_terms": [
-      "Керує постійним станом пакета для багатофайлових завдань у ~/",
+      "Керує постійним станом пакета для багатофайлових завдань у ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -618,7 +618,7 @@
   "tr": {
     "tool.description": "~/.uag/batches/ altındaki çok dosyalı görevler için kalıcı batch durumunu yönetir.",
     "x_search_terms": [
-      "~/",
+      "~/.uag/batches/ altındaki çok dosyalı görevler için kalıcı batch durumunu yönetir",
       "batch_state",
       "batch state"
     ],
@@ -646,7 +646,7 @@
   "th": {
     "tool.description": "จัดการสถานะ batch แบบถาวรสำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/.",
     "x_search_terms": [
-      "จัดการสถานะ batch แบบถาวรสำหรับงานหลายไฟล์ภายใต้ ~/",
+      "จัดการสถานะ batch แบบถาวรสำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/",
       "batch_state",
       "batch state"
     ],
@@ -674,7 +674,7 @@
   "zh_CN": {
     "tool.description": "为 ~/.uag/batches/ 下的多文件任务管理持久化批处理状态。",
     "x_search_terms": [
-      "为 ~/",
+      "为 ~/.uag/batches/ 下的多文件任务管理持久化批处理状态",
       "batch_state",
       "batch state"
     ],
@@ -702,7 +702,7 @@
   "zh_TW": {
     "tool.description": "為 ~/.uag/batches/ 下的多檔案工作管理持久化批次狀態。",
     "x_search_terms": [
-      "為 ~/",
+      "為 ~/.uag/batches/ 下的多檔案工作管理持久化批次狀態",
       "batch_state",
       "batch state"
     ],

@@ -27,6 +27,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "RAM size, storage disks (best-effort), and volume free space."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "system specs",
+                "get_system_specs",
+                "system specifications",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {
