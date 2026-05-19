@@ -18,6 +18,11 @@
     "param.top_k_graph.description": "Number of items retrieved by graph search.",
     "param.top_k_vector.description": "Top vector search results.",
     "tool.description": "Search local files using GraphRAG (graph + vector hybrid). Supported: py/md/txt/pdf/pptx/xlsx. Builds a lightweight knowledge graph (entities/relations) in SQLite, retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results.",
+    "x_search_terms": [
+      "Search local files using GraphRAG (graph + vector hybrid)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "warn.indexing_title": "[WARN] Indexing warning (duplicate removal, first 50 items):"
   },
@@ -40,6 +45,11 @@
     "param.top_k_graph.description": "グラフ検索で取得する件数。",
     "param.top_k_vector.description": "ベクトル検索の上位件数。",
     "tool.description": "GraphRAG（グラフ + ベクトルのハイブリッド）でローカルファイルを検索します。対象: py/md/txt/pdf/pptx/xlsx。SQLite に軽量なナレッジグラフ（エンティティ/関係）を構築し、グラフ探索（ホップ）で関連チャンクを取得して、ベクトル検索結果と併せて返します。",
+    "x_search_terms": [
+      "GraphRAG（グラフ + ベクトルのハイブリッド）でローカルファイルを検索します",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。",
     "warn.indexing_title": "[WARN] インデクシング警告（重複除去、先頭50件）:"
   },
@@ -62,6 +72,11 @@
     "param.top_k_graph.description": "Número de elementos recuperados por la búsqueda de grafos.",
     "param.top_k_vector.description": "Principales resultados de la búsqueda vectorial.",
     "tool.description": "Busque archivos locales con GraphRAG (híbrido de grafo y vector). Compatible con: py/md/txt/pdf/pptx/xlsx. Construye un grafo de conocimiento ligero (entidades/relaciones) en SQLite, recupera fragmentos relevantes mediante el recorrido del grafo (saltos) y los devuelve junto con los resultados de la búsqueda vectorial.",
+    "x_search_terms": [
+      "Busque archivos locales con GraphRAG (híbrido de grafo y vector)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Esta herramienta se usa para el propósito siguiente: (consulte la descripción de la herramienta).",
     "warn.indexing_title": "[WARN] Advertencia de indexación (eliminación de duplicados, primeros 50 elementos):"
   },
@@ -84,6 +99,11 @@
     "param.top_k_graph.description": "Nombre d'éléments récupérés par la recherche graphe.",
     "param.top_k_vector.description": "Meilleurs résultats de la recherche vectorielle.",
     "tool.description": "Recherche des fichiers locaux à l'aide de GraphRAG (hybride graphe + vecteur). Pris en charge : py/md/txt/pdf/pptx/xlsx. Construit un graphe de connaissances léger (entités/relations) dans SQLite, récupère les fragments pertinents via le parcours du graphe (sauts) et les renvoie avec les résultats de la recherche vectorielle.",
+    "x_search_terms": [
+      "Recherche des fichiers locaux à l'aide de GraphRAG (hybride graphe + vecteur)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l'outil).",
     "warn.indexing_title": "[WARN] Avertissement d'indexation (suppression des doublons, 50 premiers éléments) :"
   },
@@ -106,6 +126,11 @@
     "param.top_k_graph.description": "그래프 검색으로 가져오는 항목 수.",
     "param.top_k_vector.description": "벡터 검색 상위 결과.",
     "tool.description": "GraphRAG(그래프 + 벡터 하이브리드)를 사용해 로컬 파일을 검색합니다. 지원: py/md/txt/pdf/pptx/xlsx. SQLite에 경량 지식 그래프(엔티티/관계)를 구축하고, 그래프 탐색(홉)으로 관련 청크를 가져와 벡터 검색 결과와 함께 반환합니다.",
+    "x_search_terms": [
+      "GraphRAG(그래프 + 벡터 하이브리드)를 사용해 로컬 파일을 검색합니다",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조).",
     "warn.indexing_title": "[WARN] 인덱싱 경고(중복 제거, 처음 50개 항목):"
   },
@@ -128,6 +153,11 @@
     "param.top_k_graph.description": "Anzahl der Elemente, die von der Graphsuche abgerufen werden.",
     "param.top_k_vector.description": "Top-Vektor-Suchergebnisse.",
     "tool.description": "Durchsucht lokale Dateien mit GraphRAG (Graph + Vektor-Hybrid). Unterstützt: py/md/txt/pdf/pptx/xlsx. Erstellt einen leichten Wissensgraphen (Entitäten/Beziehungen) in SQLite, ruft relevante Chunks per Graph-Durchlauf (Hops) ab und gibt sie zusammen mit den Vektor-Suchergebnissen zurück.",
+    "x_search_terms": [
+      "Durchsucht lokale Dateien mit GraphRAG (Graph + Vektor-Hybrid)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet (siehe Toolbeschreibung).",
     "warn.indexing_title": "[WARN] Indizierungswarnung (Duplikate entfernt, erste 50 Elemente):"
   },
@@ -150,6 +180,11 @@
     "param.top_k_graph.description": "Numero di elementi recuperati dalla ricerca nel grafo.",
     "param.top_k_vector.description": "Principali risultati della ricerca vettoriale.",
     "tool.description": "Cerca file locali con GraphRAG (ibrido grafo + vettore). Supporta: py/md/txt/pdf/pptx/xlsx. Costruisce un grafo della conoscenza leggero (entità/relazioni) in SQLite, recupera i chunk pertinenti tramite attraversamento del grafo (hop) e li restituisce insieme ai risultati della ricerca vettoriale.",
+    "x_search_terms": [
+      "Cerca file locali con GraphRAG (ibrido grafo + vettore)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Questo strumento viene utilizzato per lo scopo seguente (vedere la descrizione dello strumento).",
     "warn.indexing_title": "[WARN] Avviso di indicizzazione (rimozione duplicati, primi 50 elementi):"
   },
@@ -172,6 +207,11 @@
     "param.top_k_graph.description": "Количество элементов, получаемых поиском по графу.",
     "param.top_k_vector.description": "Лучшие результаты векторного поиска.",
     "tool.description": "Ищет локальные файлы с помощью GraphRAG (гибрид графа и вектора). Поддерживает: py/md/txt/pdf/pptx/xlsx. Строит облегчённый граф знаний (сущности/связи) в SQLite, извлекает подходящие фрагменты при обходе графа (переходы) и возвращает их вместе с результатами векторного поиска.",
+    "x_search_terms": [
+      "Ищет локальные файлы с помощью GraphRAG (гибрид графа и вектора)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели (см. описание инструмента).",
     "warn.indexing_title": "[WARN] Предупреждение индексации (удалены дубликаты, первые 50 элементов):"
   },
@@ -194,6 +234,11 @@
     "param.top_k_graph.description": "Número de itens recuperados pela pesquisa no grafo.",
     "param.top_k_vector.description": "Principais resultados da pesquisa vetorial.",
     "tool.description": "Pesquisa arquivos locais usando GraphRAG (híbrido de grafo + vetor). Suporta: py/md/txt/pdf/pptx/xlsx. Constrói um grafo de conhecimento leve (entidades/relações) em SQLite, recupera chunks relevantes por meio da travessia do grafo (saltos) e os retorna junto com os resultados da pesquisa vetorial.",
+    "x_search_terms": [
+      "Pesquisa arquivos locais usando GraphRAG (híbrido de grafo + vetor)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o propósito seguinte (veja a descrição da ferramenta).",
     "warn.indexing_title": "[WARN] Aviso de indexação (remoção de duplicados, primeiros 50 itens):"
   },
@@ -216,6 +261,11 @@
     "param.top_k_graph.description": "Número de itens recuperados pela pesquisa gráfica.",
     "param.top_k_vector.description": "Principais resultados da pesquisa vetorial.",
     "tool.description": "Pesquise arquivos locais com GraphRAG (híbrido de grafo e vetor). Suporta: py/md/txt/pdf/pptx/xlsx. Constrói um grafo de conhecimento leve (entidades/relações) em SQLite, recupera trechos relevantes por travessia do grafo (saltos) e os retorna junto com os resultados da pesquisa vetorial.",
+    "x_search_terms": [
+      "Pesquise arquivos locais com GraphRAG (híbrido de grafo e vetor)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (consulte a descrição da ferramenta).",
     "warn.indexing_title": "[AVISO] Aviso de indexação (remoção duplicada, primeiros 50 itens):"
   },
@@ -238,6 +288,11 @@
     "param.top_k_graph.description": "Jumlah item yang diambil dari pencarian graf.",
     "param.top_k_vector.description": "Hasil teratas pencarian vektor.",
     "tool.description": "Cari file lokal menggunakan GraphRAG (gabungan graph + vector). Dukungan: py/md/txt/pdf/pptx/xlsx. Membangun knowledge graph ringan (entitas/relasi) di SQLite, mengambil chunk yang relevan melalui traversal graf (hop), dan mengembalikannya bersama hasil pencarian vektor.",
+    "x_search_terms": [
+      "Cari file lokal menggunakan GraphRAG (gabungan graph + vector)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
     "warn.indexing_title": "[WARN] Peringatan pengindeksan (penghapusan duplikat, 50 item pertama):"
   },
@@ -260,6 +315,11 @@
     "param.top_k_graph.description": "Số mục được lấy từ tìm kiếm đồ thị.",
     "param.top_k_vector.description": "Kết quả tìm kiếm vector hàng đầu.",
     "tool.description": "Tìm kiếm tệp cục bộ bằng GraphRAG (lai đồ thị + vector). Hỗ trợ: py/md/txt/pdf/pptx/xlsx. Xây dựng đồ thị tri thức nhẹ (thực thể/quan hệ) trong SQLite, truy xuất các đoạn liên quan qua duyệt đồ thị (bước nhảy) và trả về cùng với kết quả tìm kiếm vector.",
+    "x_search_terms": [
+      "Tìm kiếm tệp cục bộ bằng GraphRAG (lai đồ thị + vector)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Công cụ này được dùng cho mục đích sau (xem mô tả công cụ).",
     "warn.indexing_title": "[WARN] Cảnh báo lập chỉ mục (loại bỏ trùng lặp, 50 mục đầu):"
   },
@@ -282,6 +342,11 @@
     "param.top_k_graph.description": "Liczba elementów zwracanych przez wyszukiwanie grafu.",
     "param.top_k_vector.description": "Najlepsze wyniki wyszukiwania wektorowego.",
     "tool.description": "Przeszukuje lokalne pliki za pomocą GraphRAG (hybryda grafu i wektora). Obsługuje: py/md/txt/pdf/pptx/xlsx. Buduje lekki graf wiedzy (encje/powiązania) w SQLite, pobiera odpowiednie fragmenty przez przejście grafu (skoki) i zwraca je wraz z wynikami wyszukiwania wektorowego.",
+    "x_search_terms": [
+      "Przeszukuje lokalne pliki za pomocą GraphRAG (hybryda grafu i wektora)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "To narzędzie jest używane w następującym celu (zobacz opis narzędzia).",
     "warn.indexing_title": "[WARN] Ostrzeżenie indeksowania (usunięto duplikaty, pierwsze 50 pozycji):"
   },
@@ -304,6 +369,11 @@
     "param.top_k_graph.description": "ग्राफ़ खोज द्वारा पुनर्प्राप्त आइटमों की संख्या.",
     "param.top_k_vector.description": "शीर्ष वेक्टर खोज परिणाम.",
     "tool.description": "GraphRAG (ग्राफ + वेक्टर हाइब्रिड) का उपयोग करके स्थानीय फ़ाइलें खोजें। समर्थित: py/md/txt/pdf/pptx/xlsx. SQLite में एक हल्का ज्ञान ग्राफ़ (इकाइयाँ/संबंध) बनाता है, ग्राफ़ ट्रैवर्सल (हॉप्स) के माध्यम से प्रासंगिक हिस्सों को पुनर्प्राप्त करता है, और उन्हें वेक्टर खोज परिणामों के साथ लौटाता है।",
+    "x_search_terms": [
+      "GraphRAG (ग्राफ + वेक्टर हाइब्रिड) का उपयोग करके स्थानीय फ़ाइलें खोजें। समर्थित: py/md/txt/pdf/pptx/xlsx",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्य के लिए किया जाता है: (उपकरण विवरण देखें)।",
     "warn.indexing_title": "[चेतावनी] अनुक्रमण चेतावनी (डुप्लिकेट निष्कासन, पहले 50 आइटम):"
   },
@@ -326,6 +396,11 @@
     "param.top_k_graph.description": "عدد العناصر التي تم استردادها عن طريق البحث في الرسم البياني.",
     "param.top_k_vector.description": "أعلى نتائج البحث عن المتجهات.",
     "tool.description": "ابحث في الملفات المحلية باستخدام GraphRAG (مزيج من الرسم البياني والمتجه). المدعوم: py/md/txt/pdf/pptx/xlsx. يبني رسمًا بيانيًا خفيفًا للمعرفة (الكيانات/العلاقات) في SQLite، ويسترجع المقاطع ذات الصلة عبر اجتياز الرسم البياني (عدد القفزات)، ثم يعيدها مع نتائج البحث المتجهي.",
+    "x_search_terms": [
+      "ابحث في الملفات المحلية باستخدام GraphRAG (مزيج من الرسم البياني والمتجه)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (انظر وصف الأداة).",
     "warn.indexing_title": "[تحذير] تحذير الفهرسة (إزالة مكررة، أول 50 عنصرًا):"
   },
@@ -348,6 +423,11 @@
     "param.top_k_graph.description": "Antal objekt som hämtas av graphsökningen.",
     "param.top_k_vector.description": "Toppresultat från vektorsökning.",
     "tool.description": "Söker lokala filer med GraphRAG (hybrid av graf och vektor). Stöder: py/md/txt/pdf/pptx/xlsx. Bygger en lätt kunskapsgraf (entiteter/relationer) i SQLite, hämtar relevanta chunkar via graftraversering (hopp) och returnerar dem tillsammans med resultat från vektorsökningen.",
+    "x_search_terms": [
+      "Söker lokala filer med GraphRAG (hybrid av graf och vektor)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen).",
     "warn.indexing_title": "[VARNING] Indexeringsvarning (duplicatrensning, de första 50 objekten):"
   },
@@ -370,6 +450,11 @@
     "param.top_k_graph.description": "Number of items retrieved by graph search.",
     "param.top_k_vector.description": "Top vector search results.",
     "tool.description": "Search local files using GraphRAG (graph + vector hybrid). Supported: py/md/txt/pdf/pptx/xlsx. Builds a lightweight knowledge graph (entities/relations) in SQLite, retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results.",
+    "x_search_terms": [
+      "Search local files using GraphRAG (graph + vector hybrid)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "warn.indexing_title": "[WARN] Indexing warning (duplicate removal, first 50 items):"
   },
@@ -392,6 +477,11 @@
     "param.top_k_graph.description": "Antall elementer som hentes av graphsøk.",
     "param.top_k_vector.description": "Toppresultater fra vektorsøk.",
     "tool.description": "Søker i lokale filer med GraphRAG (hybrid av graf og vektor). Støtter: py/md/txt/pdf/pptx/xlsx. Bygger en lett kunnskapsgraf (entiteter/relasjoner) i SQLite, henter relevante chunker via graftraversering (hopp) og returnerer dem sammen med resultater fra vektorsøk.",
+    "x_search_terms": [
+      "Søker i lokale filer med GraphRAG (hybrid av graf og vektor)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen).",
     "warn.indexing_title": "[ADVARSEL] Indekseringsadvarsel (duplikatfjerning, de første 50 elementene):"
   },
@@ -414,6 +504,11 @@
     "param.top_k_graph.description": "Aantal items opgehaald via grafzoektocht.",
     "param.top_k_vector.description": "Topresultaten van vectorzoektocht.",
     "tool.description": "Doorzoek lokale bestanden met GraphRAG (hybride grafiek + vector). Ondersteund: py/md/txt/pdf/pptx/xlsx. Bouwt een lichte kennisgrafiek (entiteiten/relaties) in SQLite, haalt relevante chunks op via grafdoorkruising (hops) en geeft die samen met vectorzoekresultaten terug.",
+    "x_search_terms": [
+      "Doorzoek lokale bestanden met GraphRAG (hybride grafiek + vector)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Dit gereedschap wordt gebruikt voor het volgende doel: (zie toolbeschrijving).",
     "warn.indexing_title": "[WARN] Indexeringswaarschuwing (duplicaten verwijderd, eerste 50 items):"
   },
@@ -436,6 +531,11 @@
     "param.top_k_graph.description": "Graafihakujen palauttamien osumien määrä.",
     "param.top_k_vector.description": "Vektorihaun parhaat tulokset.",
     "tool.description": "Hae paikallisia tiedostoja GraphRAGilla (graafi + vektori -yhdistelmä). Tuetut: py/md/txt/pdf/pptx/xlsx. Rakentaa SQLiteen kevyen tietograafin (entiteetit/suhteet), hakee relevantit palat graafin läpikäynnillä (hypyt) ja palauttaa ne yhdessä vektorihakutulosten kanssa.",
+    "x_search_terms": [
+      "Hae paikallisia tiedostoja GraphRAGilla (graafi + vektori -yhdistelmä)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus).",
     "warn.indexing_title": "[WARN] Indeksointivaroitus (duplikaatit poistettu, ensimmäiset 50 kohdetta):"
   },
@@ -458,6 +558,11 @@
     "param.top_k_graph.description": "Počet položek vrácených grafovým vyhledáváním.",
     "param.top_k_vector.description": "Nejlepší výsledky vektorového vyhledávání.",
     "tool.description": "Vyhledává místní soubory pomocí GraphRAG (hybrid grafu a vektoru). Podporuje: py/md/txt/pdf/pptx/xlsx. V SQLite vytváří lehký znalostní graf (entity/vztahy), získává relevantní úseky průchodem grafu (hopů) a vrací je spolu s výsledky vektorového vyhledávání.",
+    "x_search_terms": [
+      "Vyhledává místní soubory pomocí GraphRAG (hybrid grafu a vektoru)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu: (viz popis nástroje).",
     "warn.indexing_title": "[WARN] Varování indexování (odstranění duplicit, prvních 50 položek):"
   },
@@ -480,6 +585,11 @@
     "param.top_k_graph.description": "Кількість елементів, отриманих пошуком по графу.",
     "param.top_k_vector.description": "Найкращі результати векторного пошуку.",
     "tool.description": "Шукає локальні файли за допомогою GraphRAG (гібрид графа й вектора). Підтримується: py/md/txt/pdf/pptx/xlsx. Будує в SQLite легкий граф знань (сутності/зв’язки), отримує релевантні chunk-и через обходи графа (hops) і повертає їх разом із результатами векторного пошуку.",
+    "x_search_terms": [
+      "Шукає локальні файли за допомогою GraphRAG (гібрид графа й вектора)",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети (див. опис інструмента).",
     "warn.indexing_title": "[WARN] Попередження індексації (видалення дублікатів, перші 50 елементів):"
   },
@@ -502,6 +612,11 @@
     "param.top_k_graph.description": "Grafik aramasıyla alınan öğe sayısı.",
     "param.top_k_vector.description": "En iyi vektör arama sonuçları.",
     "tool.description": "GraphRAG (grafik + vektör hibriti) kullanarak yerel dosyaları arayın. Desteklenen: py/md/txt/pdf/pptx/xlsx. SQLite'da hafif bir bilgi grafiği (varlıklar/ilişkiler) oluşturur, grafik geçişi (atlamalar) yoluyla ilgili parçaları alır ve bunları vektör arama sonuçlarıyla birlikte döndürür.",
+    "x_search_terms": [
+      "GraphRAG (grafik + vektör hibriti) kullanarak yerel dosyaları arayın",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (alet açıklamasına bakın).",
     "warn.indexing_title": "[WARN] Dizine ekleme uyarısı (yinelenen öğelerin kaldırılması, ilk 50 öğe):"
   },
@@ -524,6 +639,11 @@
     "param.top_k_graph.description": "จำนวนรายการที่ดึงมาจากการค้นหากราฟ",
     "param.top_k_vector.description": "ผลการค้นหาเวกเตอร์อันดับต้น ๆ",
     "tool.description": "ค้นหาไฟล์ในเครื่องด้วย GraphRAG (ไฮบริดกราฟ + เวกเตอร์) รองรับ: py/md/txt/pdf/pptx/xlsx สร้างกราฟความรู้แบบเบา (เอนทิตี/ความสัมพันธ์) ใน SQLite ดึงชิ้นข้อมูลที่เกี่ยวข้องผ่านการไล่กราฟ (ฮอป) และส่งกลับพร้อมผลการค้นหาเวกเตอร์",
+    "x_search_terms": [
+      "ค้นหาไฟล์ในเครื่องด้วย GraphRAG (ไฮบริดกราฟ + เวกเตอร์) รองรับ: py/md/txt/pdf/pptx/xlsx สร้างกราฟความรู้แบบเบา (เอนทิตี/ความสัมพันธ์) ใน SQLite ดึงชิ้นข้อมูลที่เกี่ยวข้องผ่านการไล่กราฟ (ฮอป) และส่งกลับพร้อมผลการค้นหาเวกเตอร์",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)",
     "warn.indexing_title": "[WARN] คำเตือนการทำดัชนี (ลบรายการซ้ำ, 50 รายการแรก):"
   },
@@ -546,6 +666,11 @@
     "param.top_k_graph.description": "图搜索返回的条目数。",
     "param.top_k_vector.description": "向量搜索的前几项结果。",
     "tool.description": "使用 GraphRAG（图 + 向量混合）搜索本地文件。支持：py/md/txt/pdf/pptx/xlsx。在 SQLite 中构建轻量级知识图谱（实体/关系），通过图遍历（跳数）检索相关块，并将其与向量搜索结果一起返回。",
+    "x_search_terms": [
+      "使用 GraphRAG（图 + 向量混合）搜索本地文件",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。",
     "warn.indexing_title": "[WARN] 索引警告（重复移除，前 50 项）："
   },
@@ -568,6 +693,11 @@
     "param.top_k_graph.description": "圖搜尋傳回的項目數。",
     "param.top_k_vector.description": "向量搜尋的前幾項結果。",
     "tool.description": "使用 GraphRAG（圖 + 向量混合）搜尋本機檔案。支援：py/md/txt/pdf/pptx/xlsx。在 SQLite 中建立輕量級知識圖譜（實體/關係），透過圖遍歷（跳數）擷取相關區塊，並將其與向量搜尋結果一起傳回。",
+    "x_search_terms": [
+      "使用 GraphRAG（圖 + 向量混合）搜尋本機檔案",
+      "graph_rag_search",
+      "graph rag search"
+    ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。",
     "warn.indexing_title": "[WARN] 索引警告（重複移除，前 50 項）："
   }

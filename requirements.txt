@@ -16,7 +16,6 @@ psutil>=7.2.2
 # Documents & Data
 pdfplumber>=0.11.9
 python-pptx>=1.0.2
-pandas>=3.0.2
 Pillow>=11.0.0
 openpyxl>=3.1.5
 python-docx>=1.2.0
@@ -48,7 +47,6 @@ black>=26.3.1
 mypy>=1.19.1
 pylint>=4.0.5
 pytest>=9.0.2
-libcst>=1.8.6
 mcp>=1.26.0
 fastapi>=0.135.2
 uvicorn>=0.42.0

@@ -76,6 +76,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Output: page text (all pages or specified page)\n\n"
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "read_pptx_pdf",
+                "read pptx pdf",
+                "pdf",
+                "pptx",
+                "page text",
+                "extract pages",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

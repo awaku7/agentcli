@@ -191,6 +191,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Key file is stored under the uagent state dir (default: ~/.uag)."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "secrets",
+                "secrets",
+                "secret management",
+                "encrypt",
+                "decrypt",
+                "local secrets",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

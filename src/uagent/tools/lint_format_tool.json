@@ -8,6 +8,15 @@
     "param.targets.description": "Target path array (only allowed under workdir).",
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+    "x_search_terms": [
+      "Run static analysis/formatters (e",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },
   "ja": {
@@ -19,6 +28,15 @@
     "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
     "tool.description": "静的解析・フォーマッタ（ruff/black/mypy など）を実行します。mode=fix はファイルを変更するため、確認が必要です。",
+    "x_search_terms": [
+      "静的解析・フォーマッタ（ruff/black/mypy など）を実行します",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "静的解析・フォーマッタを実行します。ユーザーの追加確認が必要な場合（例：mode=fix）、human_ask を使用してください。"
   },
   "es": {
@@ -30,6 +48,15 @@
     "param.targets.description": "Matriz de ruta de destino (solo permitida en workdir).",
     "param.tools.description": "Una serie de nombres de herramientas para ejecutar. Si está vacío, se seleccionará automáticamente.",
     "tool.description": "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy). mode=fix modifica archivos y requiere confirmación.",
+    "x_search_terms": [
+      "Ejecute análisis/formateadores estáticos (por ejemplo, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Ejecute análisis/formateadores estáticos. Si se requiere confirmación adicional del usuario (por ejemplo, mode=fix), use human_ask."
   },
   "fr": {
@@ -41,6 +68,15 @@
     "param.targets.description": "Tableau de chemin cible (autorisé uniquement sous workdir).",
     "param.tools.description": "Un tableau de noms d'outils à exécuter. S'il est vide, il sera automatiquement sélectionné.",
     "tool.description": "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy). mode=fix modifie les fichiers et nécessite une confirmation.",
+    "x_search_terms": [
+      "Exécutez des analyses/formateurs statiques (par exemple, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Exécutez une analyse statique/des formateurs. Si une confirmation supplémentaire de l'utilisateur est requise (par exemple, mode=fix), utilisez human_ask."
   },
   "ko": {
@@ -52,6 +88,15 @@
     "param.targets.description": "대상 경로 배열(workdir에서만 허용됨).",
     "param.tools.description": "실행할 도구 이름의 배열. 비어 있으면 자동으로 선택됩니다.",
     "tool.description": "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다. mode=fix는 파일을 수정하며 확인이 필요합니다.",
+    "x_search_terms": [
+      "정적 분석/포매터(예: ruff/black/mypy)를 실행합니다",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "정적 분석/포매터를 실행합니다. 추가 사용자 확인이 필요한 경우(예: mode=fix), human_ask를 사용하세요."
   },
   "de": {
@@ -63,6 +108,15 @@
     "param.targets.description": "Zielpfad-Array (nur unter workdir zulässig).",
     "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
     "tool.description": "Statische Analyse-/Formatierungswerkzeuge ausführen (z. B. ruff/black/mypy). mode=fix ändert Dateien und erfordert eine Bestätigung.",
+    "x_search_terms": [
+      "Statische Analyse-/Formatierungswerkzeuge ausführen (z",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Führen Sie statische Analyse-/Formatierungswerkzeuge aus. Wenn zusätzliche Benutzerbestätigung erforderlich ist (z. B. mode=fix), verwenden Sie human_ask."
   },
   "it": {
@@ -74,6 +128,15 @@
     "param.targets.description": "Array del percorso di destinazione (consentito solo in workdir).",
     "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente.",
     "tool.description": "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy). mode=fix modifica i file e richiede conferma.",
+    "x_search_terms": [
+      "Esegui analisi/formattatori statici (ad esempio, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Esegui analisi/formattatori statici. Se è necessaria un'ulteriore conferma da parte dell'utente (ad esempio, mode=fix), utilizzare human_ask."
   },
   "ru": {
@@ -85,6 +148,15 @@
     "param.targets.description": "Массив целевых путей (разрешен только в workdir).",
     "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически.",
     "tool.description": "Запустите статический анализ/форматирование (например, ruff/black/mypy). mode=fix изменяет файлы и требует подтверждения.",
+    "x_search_terms": [
+      "Запустите статический анализ/форматирование (например, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Запустите статический анализ/форматирование. Если требуется дополнительное подтверждение пользователя (например, mode=fix), используйте human_ask."
   },
   "pt_BR": {
@@ -96,6 +168,15 @@
     "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
     "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "x_search_terms": [
+      "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
   },
   "pt": {
@@ -107,6 +188,15 @@
     "param.targets.description": "Matriz de caminho de destino (permitido apenas em workdir).",
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
     "tool.description": "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy). mode=fix modifica arquivos e requer confirmação.",
+    "x_search_terms": [
+      "Execute análises/formatadores estáticos (por exemplo, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
   },
   "id": {
@@ -118,6 +208,15 @@
     "param.targets.description": "Array path target (hanya diizinkan di bawah workdir).",
     "param.tools.description": "Array nama tool yang akan dijalankan. Jika kosong, dipilih otomatis.",
     "tool.description": "Jalankan static analysis/formatter (mis. ruff/black/mypy). mode=fix mengubah file dan memerlukan konfirmasi.",
+    "x_search_terms": [
+      "Jalankan static analysis/formatter (mis",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Jalankan static analysis/formatter. Jika diperlukan konfirmasi pengguna tambahan (mis. mode=fix), gunakan human_ask."
   },
   "vi": {
@@ -129,6 +228,15 @@
     "param.targets.description": "Mảng đường dẫn đích (chỉ được phép trong Workdir).",
     "param.tools.description": "Một loạt tên công cụ để chạy. Nếu trống, nó sẽ được chọn tự động.",
     "tool.description": "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy). mode=fix sửa đổi tập tin và yêu cầu xác nhận.",
+    "x_search_terms": [
+      "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Chạy phân tích/định dạng tĩnh. Nếu cần có xác nhận bổ sung của người dùng (ví dụ: mode=fix), hãy sử dụng human_ask."
   },
   "pl": {
@@ -140,6 +248,15 @@
     "param.targets.description": "Tablica ścieżek docelowych (dozwolona tylko w workdir).",
     "param.tools.description": "Tablica nazw narzędzi do uruchomienia. Jeśli pusta, zostanie wybrana automatycznie.",
     "tool.description": "Uruchamia statyczną analizę/formatowanie (np. ruff/black/mypy). mode=fix modyfikuje pliki i wymaga potwierdzenia.",
+    "x_search_terms": [
+      "Uruchamia statyczną analizę/formatowanie (np",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Uruchamiaj statyczną analizę/formatowanie. Jeśli potrzebne jest dodatkowe potwierdzenie użytkownika (np. mode=fix), użyj human_ask."
   },
   "hi": {
@@ -151,6 +268,15 @@
     "param.targets.description": "लक्ष्य पथों की सरणी (केवल workdir के अंतर्गत अनुमत)।",
     "param.tools.description": "चलाने के लिए टूल नामों की एक सरणी। यदि यह खाली है, तो स्वचालित रूप से चुना जाएगा।",
     "tool.description": "स्थैतिक विश्लेषण/फ़ॉर्मैटर चलाएँ (जैसे ruff/black/mypy)। mode=fix फ़ाइलों को बदलता है और पुष्टि की आवश्यकता होती है।",
+    "x_search_terms": [
+      "स्थैतिक विश्लेषण/फ़ॉर्मैटर चलाएँ (जैसे ruff/black/mypy)। mode=fix फ़ाइलों को बदलता है और पुष्टि की आवश्यकता होती है।",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "स्थैतिक विश्लेषण/फ़ॉर्मैटर चलाएँ। यदि अतिरिक्त उपयोगकर्ता पुष्टि आवश्यक हो (जैसे mode=fix), तो human_ask का उपयोग करें।"
   },
   "ar": {
@@ -162,6 +288,15 @@
     "param.targets.description": "مصفوفة مسارات الأهداف (مسموح فقط ضمن workdir).",
     "param.tools.description": "مصفوفة بأسماء الأدوات المراد تشغيلها. إذا كانت فارغة فسيتم الاختيار تلقائياً.",
     "tool.description": "شغّل أدوات التحليل الثابت/التنسيق (مثل ruff/black/mypy). mode=fix يغيّر الملفات ويتطلب تأكيداً.",
+    "x_search_terms": [
+      "شغّل أدوات التحليل الثابت/التنسيق (مثل ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "شغّل أدوات التحليل الثابت/التنسيق. إذا كانت هناك حاجة إلى تأكيد إضافي من المستخدم (مثل mode=fix)، فاستخدم human_ask."
   },
   "sv": {
@@ -173,6 +308,15 @@
     "param.targets.description": "Array med målvägar (tillåts endast under workdir).",
     "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
     "tool.description": "Kör statisk analys/formaterare (t.ex. ruff/black/mypy). mode=fix ändrar filer och kräver bekräftelse.",
+    "x_search_terms": [
+      "Kör statisk analys/formaterare (t",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Kör statisk analys/formaterare. Om ytterligare användarbekräftelse krävs (t.ex. mode=fix), använd human_ask."
   },
   "sw": {
@@ -184,6 +328,15 @@
     "param.targets.description": "Target path array (only allowed under workdir).",
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+    "x_search_terms": [
+      "Run static analysis/formatters (e",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },
   "nb": {
@@ -195,6 +348,15 @@
     "param.targets.description": "Liste over målbaner (kun tillatt under workdir).",
     "param.tools.description": "En liste over verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
     "tool.description": "Kjør statisk analyse/formateringsverktøy (for eksempel ruff/black/mypy). mode=fix endrer filer og krever bekreftelse.",
+    "x_search_terms": [
+      "Kjør statisk analyse/formateringsverktøy (for eksempel ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Kjør statisk analyse/formateringsverktøy. Hvis ytterligere brukerbekreftelse kreves (for eksempel mode=fix), bruk human_ask."
   },
   "nl": {
@@ -206,6 +368,15 @@
     "param.targets.description": "Array met doelpaden (alleen toegestaan onder workdir).",
     "param.tools.description": "Een array met toolnamen om uit te voeren. Als deze leeg is, wordt automatisch gekozen.",
     "tool.description": "Voer statische analyse/opmaaktools uit (bijv. ruff/black/mypy). mode=fix wijzigt bestanden en vereist bevestiging.",
+    "x_search_terms": [
+      "Voer statische analyse/opmaaktools uit (bijv",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Voer statische analyse/opmaaktools uit. Als aanvullende gebruikersbevestiging nodig is (bijv. mode=fix), gebruik human_ask."
   },
   "fi": {
@@ -217,6 +388,15 @@
     "param.targets.description": "Kohdepolkujen taulukko (sallittu vain workdirin alla).",
     "param.tools.description": "Taulukko suoritettavien työkalujen nimistä. Jos se on tyhjä, valinta tehdään automaattisesti.",
     "tool.description": "Suorita staattinen analyysi/muotoilutyökalut (esim. ruff/black/mypy). mode=fix muuttaa tiedostoja ja vaatii vahvistuksen.",
+    "x_search_terms": [
+      "Suorita staattinen analyysi/muotoilutyökalut (esim",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Suorita staattinen analyysi/muotoilutyökalut. Jos tarvitaan lisävahvistus käyttäjältä (esim. mode=fix), käytä human_askia."
   },
   "cs": {
@@ -228,6 +408,15 @@
     "param.targets.description": "Pole cílových cest (povoleno pouze pod workdir).",
     "param.tools.description": "Pole názvů nástrojů, které se mají spustit. Pokud je prázdné, vybere se automaticky.",
     "tool.description": "Spouští statickou analýzu/formátovače (např. ruff/black/mypy). mode=fix mění soubory a vyžaduje potvrzení.",
+    "x_search_terms": [
+      "Spouští statickou analýzu/formátovače (např",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Spusťte statickou analýzu/formátovače. Pokud je vyžadováno další potvrzení uživatele (např. mode=fix), použijte human_ask."
   },
   "uk": {
@@ -239,6 +428,15 @@
     "param.targets.description": "Масив цільових шляхів (дозволено лише в межах workdir).",
     "param.tools.description": "Масив назв інструментів для запуску. Якщо порожній, буде вибрано автоматично.",
     "tool.description": "Запускає статичний аналіз/форматери (наприклад, ruff/black/mypy). mode=fix змінює файли та потребує підтвердження.",
+    "x_search_terms": [
+      "Запускає статичний аналіз/форматери (наприклад, ruff/black/mypy)",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Запускайте статичний аналіз/форматери. Якщо потрібне додаткове підтвердження користувача (наприклад, mode=fix), використовуйте human_ask."
   },
   "tr": {
@@ -250,6 +448,15 @@
     "param.targets.description": "Hedef yol dizisi (yalnızca çalışma dizini altında izin verilir).",
     "param.tools.description": "Çalıştırılacak bir dizi araç adı. Boşsa araçlar otomatik olarak seçilir.",
     "tool.description": "Statik analiz/biçimlendiricileri çalıştırın (ör. ruff/black/mypy). mode=fix dosyaları değiştirir ve onay gerektirir.",
+    "x_search_terms": [
+      "Statik analiz/biçimlendiricileri çalıştırın (ör",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "Statik analiz/biçimlendiricileri çalıştırın. Ek kullanıcı onayı gerekiyorsa (örn. mode=fix), human_ask'ı kullanın."
   },
   "th": {
@@ -261,6 +468,15 @@
     "param.targets.description": "อาร์เรย์เส้นทางเป้าหมาย (อนุญาตเฉพาะภายใต้ workdir)",
     "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่าจะเลือกโดยอัตโนมัติ",
     "tool.description": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
+    "x_search_terms": [
+      "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ (เช่น ruff/black/mypy) mode=fix จะแก้ไขไฟล์และต้องมีการยืนยัน",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ หากต้องการการยืนยันจากผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
   },
   "zh_CN": {
@@ -272,6 +488,15 @@
     "param.targets.description": "目标路径数组（仅允许在 workdir 下）。",
     "param.tools.description": "要运行的工具名称数组。如果为空，将自动选择。",
     "tool.description": "运行静态分析/格式化程序（例如 ruff/black/mypy）。mode=fix 会修改文件并需要确认。",
+    "x_search_terms": [
+      "运行静态分析/格式化程序（例如 ruff/black/mypy）",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "运行静态分析/格式化程序。如果需要额外的用户确认（例如 mode=fix），请使用 human_ask。"
   },
   "zh_TW": {
@@ -283,6 +508,15 @@
     "param.targets.description": "目標路徑陣列（僅允許在 workdir 下）。",
     "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
     "tool.description": "執行靜態分析/格式化程式（例如 ruff/black/mypy）。mode=fix 會修改檔案並需要確認。",
+    "x_search_terms": [
+      "執行靜態分析/格式化程式（例如 ruff/black/mypy）",
+      "lint_format",
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "black"
+    ],
     "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
   }
 }

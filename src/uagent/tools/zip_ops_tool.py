@@ -47,6 +47,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Important: paths outside workdir are rejected (per safe_file_ops_extras)."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "zip_ops",
+                "zip ops",
+                "zip",
+                "archive",
+                "extract zip",
+                "compress",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

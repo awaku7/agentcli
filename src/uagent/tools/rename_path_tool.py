@@ -34,6 +34,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- overwrite=true requires confirmation as it involves deletion of the destination."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "rename file",
+                "move file",
+                "rename path",
+                "名前変更",
+                "renombrar archivo",
+                "renommer fichier",
+                "이름 변경",
+                "переименовать",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

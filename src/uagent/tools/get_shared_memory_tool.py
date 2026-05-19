@@ -25,6 +25,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool executes the functionality described in TOOL_SPEC.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "get_shared_memory",
+                "get shared memory",
+                "shared memory",
+                "shared notes",
+                "multi user memory",
+                "memory store",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {},

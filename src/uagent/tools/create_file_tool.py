@@ -42,6 +42,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "create file",
+                "new file",
+                "write file",
+                "ファイルを作成",
+                "crear archivo",
+                "créer fichier",
+                "파일 만들기",
+                "создать файл",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

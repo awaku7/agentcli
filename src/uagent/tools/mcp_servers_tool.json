@@ -1,6 +1,15 @@
 {
   "en": {
     "tool.description": "Manage MCP server definitions stored in mcp_servers.json (list/add/remove/set_default/validate/init_template). JSON output only.",
+    "x_search_terms": [
+      "Manage MCP server definitions stored in mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Operate on MCP server definitions stored in mcp_servers.json. Return JSON only; do not include human-readable text outside JSON.",
     "param.action.description": "Operation to perform. One of: list, add, remove, set_default, validate, init_template.",
     "param.path.description": "Path to mcp_servers.json. If omitted, uses the default location.",
@@ -41,6 +50,14 @@
   },
   "ja": {
     "tool.description": "mcp_servers.json に保存された MCP サーバー定義を管理します（list/add/remove/set_default/validate/init_template）。出力は JSON のみです。",
+    "x_search_terms": [
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "mcp_servers.json に保存された MCP サーバー定義を操作します。返答は JSON のみとし、JSON 以外の人間向けテキストは出力しません。",
     "param.action.description": "実行する操作。list/add/remove/set_default/validate/init_template のいずれか。",
     "param.path.description": "mcp_servers.json のパス。省略時は既定の場所を使用します。",
@@ -81,6 +98,15 @@
   },
   "es": {
     "tool.description": "Administra definiciones de servidores MCP almacenadas en mcp_servers.json (list/add/remove/set_default/validate/init_template). Solo salida JSON.",
+    "x_search_terms": [
+      "Administra definiciones de servidores MCP almacenadas en mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Trabaje sobre las definiciones de servidores MCP almacenadas en mcp_servers.json. Devuelva solo JSON; no incluya texto legible fuera del JSON.",
     "param.action.description": "Operación a realizar. Una de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Ruta a mcp_servers.json. Si se omite, usa la ubicación predeterminada.",
@@ -121,6 +147,15 @@
   },
   "fr": {
     "tool.description": "Gère les définitions de serveurs MCP stockées dans mcp_servers.json (list/add/remove/set_default/validate/init_template). Sortie JSON uniquement.",
+    "x_search_terms": [
+      "Gère les définitions de serveurs MCP stockées dans mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Travaillez sur les définitions de serveurs MCP stockées dans mcp_servers.json. Retournez uniquement du JSON ; n'incluez aucun texte lisible hors du JSON.",
     "param.action.description": "Opération à effectuer. L'une de : list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Chemin vers mcp_servers.json. S'il est omis, utilise l'emplacement par défaut.",
@@ -161,6 +196,14 @@
   },
   "ko": {
     "tool.description": "mcp_servers.json에 저장된 MCP 서버 정의를 관리합니다(list/add/remove/set_default/validate/init_template). 출력은 JSON만입니다.",
+    "x_search_terms": [
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "mcp_servers.json에 저장된 MCP 서버 정의를 조작합니다. JSON만 반환하며, JSON 이외의 사람용 문장을 출력하지 않습니다.",
     "param.action.description": "수행할 작업. list/add/remove/set_default/validate/init_template 중 하나.",
     "param.path.description": "mcp_servers.json 경로. 생략하면 기본 위치를 사용합니다.",
@@ -201,6 +244,15 @@
   },
   "de": {
     "tool.description": "Verwalten Sie MCP-Serverdefinitionen in mcp_servers.json (list/add/remove/set_default/validate/init_template). Nur JSON-Ausgabe.",
+    "x_search_terms": [
+      "Verwalten Sie MCP-Serverdefinitionen in mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Arbeiten Sie mit den in mcp_servers.json gespeicherten MCP-Serverdefinitionen. Geben Sie nur JSON zurück; fügen Sie keinen für Menschen lesbaren Text außerhalb des JSON ein.",
     "param.action.description": "Auszuführende Operation. Eine von: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Pfad zu mcp_servers.json. Wenn es weggelassen wird, wird der Standardspeicherort verwendet.",
@@ -241,6 +293,15 @@
   },
   "it": {
     "tool.description": "Gestisci le definizioni del server MCP in mcp_servers.json (list/add/remove/set_default/validate/init_template). Solo output JSON.",
+    "x_search_terms": [
+      "Gestisci le definizioni del server MCP in mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Lavora sulle definizioni dei server MCP archiviate in mcp_servers.json. Restituisci solo JSON; non includere testo leggibile al di fuori del JSON.",
     "param.action.description": "Operazione da eseguire. Una tra: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Percorso di mcp_servers.json. Se omesso, utilizza la posizione predefinita.",
@@ -281,6 +342,15 @@
   },
   "ru": {
     "tool.description": "Управление определениями MCP-серверов в mcp_servers.json (list/add/remove/set_default/validate/init_template). Только JSON на выходе.",
+    "x_search_terms": [
+      "Управление определениями MCP-серверов в mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Работайте с определениями MCP-серверов, хранящимися в mcp_servers.json. Возвращайте только JSON. Не выводите человекочитаемый текст вне JSON.",
     "param.action.description": "Операция для выполнения. Одна из: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Путь к mcp_servers.json. Если не указан, используется расположение по умолчанию.",
@@ -321,6 +391,15 @@
   },
   "pt_BR": {
     "tool.description": "Gerencie as definições de servidores MCP em mcp_servers.json (list/add/remove/set_default/validate/init_template). Somente saída JSON.",
+    "x_search_terms": [
+      "Gerencie as definições de servidores MCP em mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Opere sobre as definições de servidores MCP armazenadas em mcp_servers.json. Retorne apenas JSON; não inclua texto legível fora do JSON.",
     "param.action.description": "Operação a ser executada. Uma de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
@@ -361,6 +440,15 @@
   },
   "pt": {
     "tool.description": "Gerencie as definições do servidor MCP em mcp_servers.json (list/add/remove/set_default/validate/init_template). Somente saída JSON.",
+    "x_search_terms": [
+      "Gerencie as definições do servidor MCP em mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Opere sobre as definições de servidores MCP armazenadas em mcp_servers.json. Retorne apenas JSON; não inclua texto legível fora do JSON.",
     "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
@@ -401,6 +489,15 @@
   },
   "id": {
     "tool.description": "Kelola definisi server MCP di mcp_servers.json (list/add/remove/set_default/validate/init_template). Output JSON saja.",
+    "x_search_terms": [
+      "Kelola definisi server MCP di mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Kelola definisi server MCP yang disimpan di mcp_servers.json. Kembalikan JSON saja. Jangan sertakan teks yang dapat dibaca manusia di luar JSON.",
     "param.action.description": "Operasi yang akan dilakukan. Salah satu: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Path ke mcp_servers.json. Jika dihilangkan, gunakan lokasi default.",
@@ -441,6 +538,15 @@
   },
   "vi": {
     "tool.description": "Quản lý các định nghĩa máy chủ MCP trong mcp_servers.json (list/add/remove/set_default/validate/init_template). Chỉ đầu ra JSON.",
+    "x_search_terms": [
+      "Quản lý các định nghĩa máy chủ MCP trong mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Hoạt động trên các định nghĩa máy chủ MCP được lưu trữ trong mcp_servers.json. Chỉ trả về JSON. Không bao gồm văn bản mà con người có thể đọc được bên ngoài JSON.",
     "param.action.description": "Thao tác để thực hiện. Một trong: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Đường dẫn đến mcp_servers.json. Nếu bỏ qua, sử dụng vị trí mặc định.",
@@ -481,6 +587,15 @@
   },
   "pl": {
     "tool.description": "Zarządzaj definicjami serwerów MCP w pliku mcp_servers.json (list/add/remove/set_default/validate/init_template). Tylko dane wyjściowe JSON.",
+    "x_search_terms": [
+      "Zarządzaj definicjami serwerów MCP w pliku mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Działaj na definicjach serwerów MCP przechowywanych w pliku mcp_servers.json. Zwróć tylko JSON. Nie dołączaj tekstu czytelnego dla człowieka poza formatem JSON.",
     "param.action.description": "Operacja do wykonania. Jeden z: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Ścieżka do pliku mcp_servers.json. W przypadku pominięcia używana jest lokalizacja domyślna.",
@@ -521,6 +636,14 @@
   },
   "hi": {
     "tool.description": "mcp_servers.json में MCP सर्वर परिभाषाएँ प्रबंधित करें (सूची/जोड़ें/निकालें/set_default/validate/init_template)। केवल JSON आउटपुट।",
+    "x_search_terms": [
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "mcp_servers.json में संग्रहीत MCP सर्वर परिभाषाओं पर कार्य करें। केवल JSON लौटाएँ. JSON के बाहर मानव-पठनीय पाठ शामिल न करें।",
     "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन. इनमें से एक: सूची/जोड़ें/निकालें/सेट_डिफ़ॉल्ट/मान्य करें/init_template.",
     "param.path.description": "mcp_servers.json का पथ। यदि छोड़ा गया है, तो डिफ़ॉल्ट स्थान का उपयोग करता है।",
@@ -561,6 +684,15 @@
   },
   "ar": {
     "tool.description": "إدارة تعريفات خادم MCP في mcp_servers.json (list/add/remove/set_default/validate/init_template). إخراج JSON فقط.",
+    "x_search_terms": [
+      "إدارة تعريفات خادم MCP في mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "تعمل على تعريفات خادم MCP المخزنة في mcp_servers.json. إرجاع JSON فقط. لا تقم بتضمين نص يمكن قراءته خارج JSON.",
     "param.action.description": "عملية لأداء. أحد: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "المسار إلى mcp_servers.json. إذا تم حذفه، يستخدم الموقع الافتراضي.",
@@ -601,6 +733,15 @@
   },
   "sv": {
     "tool.description": "Hantera MCP-serverdefinitioner i mcp_servers.json (list/add/remove/set_default/validate/init_template). Endast JSON-utdata.",
+    "x_search_terms": [
+      "Hantera MCP-serverdefinitioner i mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Arbeta med MCP-serverdefinitioner som lagras i mcp_servers.json. Returnera endast JSON. Inkludera inte mänskligt läsbar text utanför JSON.",
     "param.action.description": "Åtgärd som ska utföras. En av: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Sökväg till mcp_servers.json. Om den utelämnas används standardplatsen.",
@@ -641,6 +782,15 @@
   },
   "sw": {
     "tool.description": "Manage MCP server definitions stored in mcp_servers.json (list/add/remove/set_default/validate/init_template). JSON output only.",
+    "x_search_terms": [
+      "Manage MCP server definitions stored in mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Operate on MCP server definitions stored in mcp_servers.json. Return JSON only; do not include human-readable text outside JSON.",
     "param.action.description": "Operation to perform. One of: list, add, remove, set_default, validate, init_template.",
     "param.path.description": "Path to mcp_servers.json. If omitted, uses the default location.",
@@ -681,6 +831,15 @@
   },
   "nb": {
     "tool.description": "Administrer MCP-serverdefinisjoner i mcp_servers.json (list/add/remove/set_default/validate/init_template). Kun JSON-utdata.",
+    "x_search_terms": [
+      "Administrer MCP-serverdefinisjoner i mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Arbeid med MCP-serverdefinisjoner som er lagret i mcp_servers.json. Returner bare JSON. Ikke ta med lesbar tekst utenfor JSON.",
     "param.action.description": "Handling som skal utføres. En av: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Sti til mcp_servers.json. Hvis utelatt, brukes standardplasseringen.",
@@ -721,6 +880,15 @@
   },
   "nl": {
     "tool.description": "Beheert MCP-serverdefinities die zijn opgeslagen in mcp_servers.json (list/add/remove/set_default/validate/init_template). Alleen JSON-uitvoer.",
+    "x_search_terms": [
+      "Beheert MCP-serverdefinities die zijn opgeslagen in mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Werk met MCP-serverdefinities die zijn opgeslagen in mcp_servers.json. Geef alleen JSON terug; geen leesbare tekst buiten JSON.",
     "param.action.description": "Uit te voeren bewerking. Eén van: list, add, remove, set_default, validate, init_template.",
     "param.path.description": "Pad naar mcp_servers.json. Indien weggelaten, wordt de standaardlocatie gebruikt.",
@@ -761,6 +929,15 @@
   },
   "fi": {
     "tool.description": "Hallitsee mcp_servers.json-tiedostoon tallennettuja MCP-palvelinmäärittelyjä (list/add/remove/set_default/validate/init_template). Tuloste on vain JSON.",
+    "x_search_terms": [
+      "Hallitsee mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Käsittele mcp_servers.json-tiedostoon tallennettuja MCP-palvelinmäärittelyjä. Palauta vain JSON; älä sisällytä JSONin ulkopuolista ihmisluettavaa tekstiä.",
     "param.action.description": "Suoritettava toiminto. Yksi näistä: list, add, remove, set_default, validate, init_template.",
     "param.path.description": "Polku mcp_servers.json -tiedostoon. Jos jätetään pois, käytetään oletussijaintia.",
@@ -801,6 +978,15 @@
   },
   "cs": {
     "tool.description": "Spravuje definice MCP serverů uložené v mcp_servers.json (list/add/remove/set_default/validate/init_template). Výstup je pouze JSON.",
+    "x_search_terms": [
+      "Spravuje definice MCP serverů uložené v mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Pracujte s definicemi MCP serverů uloženými v mcp_servers.json. Vracejte pouze JSON a nic jiného.",
     "param.action.description": "Prováděná akce. Jedna z: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Cesta k mcp_servers.json. Pokud není zadána, použije se výchozí umístění.",
@@ -841,6 +1027,15 @@
   },
   "uk": {
     "tool.description": "Керує визначеннями MCP-серверів, збереженими в mcp_servers.json (list/add/remove/set_default/validate/init_template). Вивід лише JSON.",
+    "x_search_terms": [
+      "Керує визначеннями MCP-серверів, збереженими в mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "Працюйте з визначеннями MCP-серверів, збереженими в mcp_servers.json. Повертавайте лише JSON і нічого більше.",
     "param.action.description": "Дія, яку слід виконати. Одна з: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Шлях до mcp_servers.json. Якщо не вказано, використовується стандартне розташування.",
@@ -881,6 +1076,14 @@
   },
   "tr": {
     "tool.description": "mcp_servers.json dosyasında depolanan MCP sunucu tanımlarını yönetin (list/add/remove/set_default/validate/init_template). Yalnızca JSON çıkışı.",
+    "x_search_terms": [
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "mcp_servers.json'da saklanan MCP sunucu tanımları üzerinde çalışın. Yalnızca JSON değerini döndür; JSON dışında insanlar tarafından okunabilen metinler eklemeyin.",
     "param.action.description": "Gerçekleştirilecek işlem. Şunlardan biri: listele, ekle, kaldır, set_default, validate, init_template.",
     "param.path.description": "mcp_servers.json yolu. Atlanırsa varsayılan konumu kullanır.",
@@ -921,6 +1124,15 @@
   },
   "th": {
     "tool.description": "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers.json (list/add/remove/set_default/validate/init_template) เอาต์พุตเป็น JSON เท่านั้น",
+    "x_search_terms": [
+      "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "ดำเนินการกับนิยามเซิร์ฟเวอร์ MCP ที่เก็บไว้ใน mcp_servers.json ส่งคืน JSON เท่านั้น และห้ามแสดงข้อความที่อ่านได้โดยมนุษย์นอก JSON",
     "param.action.description": "การทำงานที่จะทำ หนึ่งใน: list/add/remove/set_default/validate/init_template",
     "param.path.description": "พาธไปยัง mcp_servers.json หากละไว้จะใช้ตำแหน่งเริ่มต้น",
@@ -961,6 +1173,15 @@
   },
   "zh_CN": {
     "tool.description": "管理保存在 mcp_servers.json 中的 MCP 服务器定义（list/add/remove/set_default/validate/init_template）。仅输出 JSON。",
+    "x_search_terms": [
+      "管理保存在 mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "操作 mcp_servers.json 中保存的 MCP 服务器定义。仅返回 JSON；不要在 JSON 之外输出可读文本。",
     "param.action.description": "要执行的操作。可选：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路径。省略时使用默认位置。",
@@ -1001,6 +1222,15 @@
   },
   "zh_TW": {
     "tool.description": "管理儲存在 mcp_servers.json 中的 MCP 伺服器定義（list/add/remove/set_default/validate/init_template）。僅輸出 JSON。",
+    "x_search_terms": [
+      "管理儲存在 mcp_servers",
+      "mcp_servers",
+      "mcp servers",
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
+    ],
     "tool.system_prompt": "操作 mcp_servers.json 中儲存的 MCP 伺服器定義。僅回傳 JSON；請勿在 JSON 之外輸出可讀文字。",
     "param.action.description": "要執行的操作。可選：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路徑。省略時使用預設位置。",

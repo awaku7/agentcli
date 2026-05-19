@@ -44,6 +44,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- To cancel, reply with a single line: 'c' or 'cancel'.\n"
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "human_ask",
+                "human ask",
+                "ask user",
+                "prompt user",
+                "human input",
+                "decision",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

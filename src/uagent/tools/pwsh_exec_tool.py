@@ -93,6 +93,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- Dangerous patterns like download-exec (IWR/IRM/curl/wget etc.) or Base64 (-Enc) will be confirmed or blocked."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "pwsh_exec",
+                "pwsh exec",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

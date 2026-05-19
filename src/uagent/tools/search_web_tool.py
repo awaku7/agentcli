@@ -221,6 +221,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "web search",
+                "duckduckgo",
+                "search internet",
+                "ウェブ検索",
+                "buscar en la web",
+                "recherche web",
+                "웹 검색",
+                "поиск в вебе",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

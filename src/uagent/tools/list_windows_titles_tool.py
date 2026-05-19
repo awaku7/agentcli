@@ -26,6 +26,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "It is Windows-only."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "list_windows_titles",
+                "list windows titles",
+                "window titles",
+                "top-level windows",
+                "pid",
+                "class name",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

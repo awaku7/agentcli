@@ -1,106 +1,392 @@
 {
   "en": {
     "tool.description": "Reload the system and load the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code.",
+    "x_search_terms": [
+      "Reload the system and load the latest code for all tools under tools/ (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "This tool is used to reload the system and load the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
   },
   "ja": {
     "tool.description": "システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。",
+    "x_search_terms": [
+      "システムをリロードし、tools/ 配下の全ツール（Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "このツールは次の目的で使われます: システムをリロードし、tools/ 配下の全ツール（Python .py）の最新コードをメモリへ反映します。コード変更後に実行します。"
   },
   "es": {
     "tool.description": "Vuelva a cargar el sistema y refleje el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código.",
+    "x_search_terms": [
+      "Vuelva a cargar el sistema y refleje el código más reciente para todas las herramientas en herramientas/ (archivos Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recargar el sistema y reflejar el código más reciente para todas las herramientas en herramientas/ (archivos Python .py) en la memoria. Ejecute esto después de modificar el código."
   },
   "fr": {
     "tool.description": "Rechargez le système et reflétez le dernier code de tous les outils sous tools/ (fichiers Python .py) en mémoire. Exécutez-le après avoir modifié le code.",
+    "x_search_terms": [
+      "Rechargez le système et reflétez le dernier code de tous les outils sous tools/ (fichiers Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : recharger le système et refléter le dernier code de tous les outils sous tools/ (fichiers Python .py) en mémoire. Exécutez-le après avoir modifié le code."
   },
   "ko": {
     "tool.description": "시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python .py 파일)의 최신 코드를 메모리에 반영합니다. 코드 수정 후 실행합니다.",
+    "x_search_terms": [
+      "시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "이 도구는 시스템을 다시 로드하고 tools/ 아래의 모든 도구(Python .py 파일)의 최신 코드를 메모리에 반영하는 데 사용합니다. 코드 수정 후 실행합니다."
   },
   "de": {
     "tool.description": "Lädt das System neu und übernimmt den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher. Nach Codeänderungen ausführen.",
+    "x_search_terms": [
+      "Lädt das System neu und übernimmt den neuesten Code aller Werkzeuge unter tools/ (Python-",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Dieses Tool wird verwendet, um das System neu zu laden und den neuesten Code aller Werkzeuge unter tools/ (Python-.py-Dateien) in den Speicher zu übernehmen. Nach Codeänderungen ausführen."
   },
   "it": {
     "tool.description": "Ricarica il sistema e riflette in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python .py). Esegui dopo aver modificato il codice.",
+    "x_search_terms": [
+      "Ricarica il sistema e riflette in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Questo strumento viene utilizzato per ricaricare il sistema e riflettere in memoria il codice più recente di tutti gli strumenti sotto tools/ (file Python .py). Esegui dopo aver modificato il codice."
   },
   "ru": {
     "tool.description": "Перезагружает систему и отражает в памяти последний код всех инструментов в tools/ (файлы Python .py). Запускайте после изменения кода.",
+    "x_search_terms": [
+      "Перезагружает систему и отражает в памяти последний код всех инструментов в tools/ (файлы Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Этот инструмент используется для перезагрузки системы и отражения в памяти последнего кода всех инструментов в tools/ (файлы Python .py). Запускайте после изменения кода."
   },
   "pt_BR": {
     "tool.description": "Recarrega o sistema e reflete na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código.",
+    "x_search_terms": [
+      "Recarrega o sistema e reflete na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para recarregar o sistema e refletir na memória o código mais recente de todas as ferramentas em tools/ (arquivos Python .py). Execute após modificar o código."
   },
   "pt": {
     "tool.description": "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código.",
+    "x_search_terms": [
+      "Recarregue o sistema e reflita o código mais recente de todas as ferramentas em tools/ (arquivos",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: recarregar o sistema e refletir o código mais recente de todas as ferramentas em tools/ (arquivos .py do Python) na memória. Execute isto depois de modificar o código."
   },
   "id": {
     "tool.description": "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode.",
+    "x_search_terms": [
+      "Muat ulang sistem dan terapkan kode terbaru untuk semua alat di bawah tools/ (file Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: memuat ulang sistem dan menerapkan kode terbaru untuk semua alat di bawah tools/ (file Python .py) ke memori. Jalankan ini setelah memodifikasi kode."
   },
   "vi": {
     "tool.description": "Tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python .py) vào bộ nhớ. Chạy cái này sau khi sửa đổi mã.",
+    "x_search_terms": [
+      "Tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Công cụ này được sử dụng với mục đích sau: tải lại hệ thống và phản ánh mã mới nhất cho tất cả các công cụ trong tools/ (tệp Python .py) vào bộ nhớ. Chạy cái này sau khi sửa đổi mã."
   },
   "pl": {
     "tool.description": "Załaduj ponownie system i wczytaj do pamięci najnowszy kod wszystkich narzędzi w tools/ (pliki Python .py). Uruchom to po zmianie kodu.",
+    "x_search_terms": [
+      "Załaduj ponownie system i wczytaj do pamięci najnowszy kod wszystkich narzędzi w tools/ (pliki Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: przeładowania systemu i wczytania do pamięci najnowszego kodu wszystkich narzędzi w tools/ (pliki Python .py). Uruchom to po zmianie kodu."
   },
   "hi": {
     "tool.description": "सिस्टम को पुनः लोड करें और tools/ (पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के नवीनतम कोड को मेमोरी में लोड करें। कोड संशोधित करने के बाद इसे चलाएँ।",
+    "x_search_terms": [
+      "सिस्टम को पुनः लोड करें और tools/ (पायथन",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "इस टूल का उपयोग सिस्टम को पुनः लोड करने और tools/ (पायथन .py फ़ाइलें) के अंतर्गत सभी टूल्स के नवीनतम कोड को मेमोरी में लोड करने के लिए किया जाता है। कोड संशोधित करने के बाद इसे चलाएँ।"
   },
   "ar": {
     "tool.description": "أعد تحميل النظام واعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python .py) في الذاكرة. قم بتشغيل هذا بعد تعديل التعليمات البرمجية.",
+    "x_search_terms": [
+      "أعد تحميل النظام واعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: إعادة تحميل النظام وعكس أحدث التعليمات البرمجية لجميع الأدوات ضمن الأدوات/ (ملفات Python .py) في الذاكرة. قم بتشغيل هذا بعد تعديل التعليمات البرمجية."
   },
   "sv": {
     "tool.description": "Laddar om systemet och läser in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet. Kör detta efter att du har ändrat koden.",
+    "x_search_terms": [
+      "Laddar om systemet och läser in den senaste koden för alla verktyg under tools/ (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Det här verktyget används för att ladda om systemet och läsa in den senaste koden för alla verktyg under tools/ (Python .py-filer) i minnet. Kör detta efter att du har ändrat koden."
   },
   "sw": {
     "tool.description": "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo.",
+    "x_search_terms": [
+      "Pakia upya mfumo na ingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Tumia zana hii kupakia upya mfumo na kuingiza kwenye kumbukumbu msimbo wa hivi karibuni wa zana zote chini ya tools/ (faili za Python .py). Endesha baada ya kubadilisha msimbo."
   },
   "nb": {
     "tool.description": "Laster systemet på nytt og laster inn den nyeste koden for alle verktøy under tools/ (Python .py-filer) i minnet. Kjør dette etter at du har endret koden.",
+    "x_search_terms": [
+      "Laster systemet på nytt og laster inn den nyeste koden for alle verktøy under tools/ (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Dette verktøyet brukes til å laste systemet på nytt og laste inn den nyeste koden for alle verktøy under tools/ (Python .py-filer) i minnet. Kjør dette etter at du har endret koden."
   },
   "nl": {
     "tool.description": "Laad het systeem opnieuw en werk de nieuwste code voor alle tools onder tools/ (Python .py-bestanden) in het geheugen bij. Voer dit uit nadat u code hebt gewijzigd.",
+    "x_search_terms": [
+      "Laad het systeem opnieuw en werk de nieuwste code voor alle tools onder tools/ (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Laad het systeem opnieuw en werk de nieuwste code voor alle tools onder tools/ (Python .py-bestanden) in het geheugen bij. Voer dit uit nadat u code hebt gewijzigd."
   },
   "fi": {
     "tool.description": "Lataa järjestelmä uudelleen ja päivitä tools/-kansion alla olevien työkalujen (Python .py -tiedostojen) uusin koodi muistiin. Suorita tämä koodimuutosten jälkeen.",
+    "x_search_terms": [
+      "Lataa järjestelmä uudelleen ja päivitä tools/-kansion alla olevien työkalujen (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Lataa järjestelmä uudelleen ja päivitä tools/-kansion alla olevien työkalujen (Python .py -tiedostojen) uusin koodi muistiin. Suorita tämä koodimuutosten jälkeen."
   },
   "cs": {
     "tool.description": "Znovu načte systém a načte do paměti nejnovější kód všech nástrojů v tools/ (souborů Python .py). Spusťte po úpravě kódu.",
+    "x_search_terms": [
+      "Znovu načte systém a načte do paměti nejnovější kód všech nástrojů v tools/ (souborů Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Tento nástroj slouží k následujícímu účelu: znovu načíst systém a načíst do paměti nejnovější kód všech nástrojů v tools/ (souborů Python .py). Spusťte po úpravě kódu."
   },
   "uk": {
     "tool.description": "Перезавантажує систему та завантажує в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду.",
+    "x_search_terms": [
+      "Перезавантажує систему та завантажує в пам’ять найновіший код усіх інструментів у tools/ (файли Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: перезавантажити систему та завантажити в пам’ять найновіший код усіх інструментів у tools/ (файли Python .py). Запускайте після внесення змін до коду."
   },
   "tr": {
     "tool.description": "Sistemi yeniden yükleyin ve tools/ altındaki tüm araçlar (Python .py dosyaları) için en yeni kodu belleğe alın. Kodu değiştirdikten sonra çalıştırın.",
+    "x_search_terms": [
+      "Sistemi yeniden yükleyin ve tools/ altındaki tüm araçlar (Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "Bu araç, sistemi yeniden yüklemek ve tools/ altındaki tüm araçların (Python .py dosyaları) en yeni kodunu belleğe almak için kullanılır. Kodu değiştirdikten sonra çalıştırın."
   },
   "th": {
     "tool.description": "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด",
+    "x_search_terms": [
+      "รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รีโหลดระบบและแสดงโค้ดล่าสุดสำหรับเครื่องมือทั้งหมดภายใต้ tools/ (ไฟล์ Python .py) ลงในหน่วยความจำ เรียกใช้สิ่งนี้หลังจากแก้ไขโค้ด"
   },
   "zh_CN": {
     "tool.description": "重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。",
+    "x_search_terms": [
+      "重新加载系统并将tools/（Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "该工具的用途如下：重新加载系统并将tools/（Python .py 文件）下所有工具的最新代码反映到内存中。修改代码后运行此命令。"
   },
   "zh_TW": {
     "tool.description": "重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。",
+    "x_search_terms": [
+      "重新載入系統並將tools/（Python",
+      "reload system",
+      "refresh tools",
+      "reload code",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le système",
+      "시스템 재로드",
+      "перезагрузить систему"
+    ],
     "tool.system_prompt": "工具的用途如下：重新載入系統並將tools/（Python .py 檔案）下所有工具的最新程式碼反映到記憶體中。修改程式碼後運行此命令。"
   }
 }

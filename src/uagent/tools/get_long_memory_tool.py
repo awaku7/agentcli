@@ -20,6 +20,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool is used for the following purpose: retrieve all saved long-term memory notes (in JSONL format).",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "get_long_memory",
+                "get long memory",
+                "memory",
+                "notes",
+                "history",
+                "long term memory",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {},

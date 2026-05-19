@@ -24,6 +24,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'analyze_image'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "analyze_image",
+                "analyze image",
+                "image",
+                "picture",
+                "photo",
+                "diagram",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

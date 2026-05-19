@@ -31,6 +31,19 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'fetch_url'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "fetch url",
+                "http get",
+                "download page",
+                "URL取得",
+                "obtener url",
+                "récupérer url",
+                "URL 가져오기",
+                "получить url",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

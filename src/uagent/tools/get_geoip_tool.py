@@ -34,6 +34,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "get_geoip",
+                "get geoip",
+                "location",
+                "country",
+                "ip geolocation",
+                "geo ip",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

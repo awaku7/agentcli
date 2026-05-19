@@ -32,6 +32,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "destructive operation."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "delete file",
+                "remove file",
+                "erase",
+                "ファイル削除",
+                "eliminar archivo",
+                "supprimer fichier",
+                "파일 삭제",
+                "удалить файл",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

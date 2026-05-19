@@ -27,6 +27,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "skills_read_file",
+                "skills read file",
+                "open file",
+                "read file",
+                "file contents",
+                "text file",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -32,6 +32,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "If output_format=json, include basic metadata as well."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "audio_transcribe",
+                "audio transcribe",
+                "audio",
+                "voice",
+                "speech",
+                "sound",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -32,6 +32,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "(type, size, mtime/atime/ctime, and owner/group when available)."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "exists",
+                "check file",
+                "check path",
+                "存在確認",
+                "comprobar archivo",
+                "vérifier fichier",
+                "존재 확인",
+                "проверить файл",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

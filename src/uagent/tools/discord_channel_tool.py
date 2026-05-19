@@ -167,6 +167,7 @@ def _fetch_recent_messages(
 
 
 TOOL_SPEC: Dict[str, Any] = {
+    "load_order": 10000,
     "type": "function",
     "function": {
         "name": "discord_channel_chat",
@@ -184,6 +185,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "A bot token must be provided through an environment variable. "
                 "Return JSON only."
             ),
+        ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "discord_channel",
+                "discord channel",
+            ],
         ),
         "parameters": {
             "type": "object",

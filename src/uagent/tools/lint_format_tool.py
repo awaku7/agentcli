@@ -45,6 +45,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "lint_format",
+                "lint format",
+                "lint",
+                "format",
+                "ruff",
+                "black",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

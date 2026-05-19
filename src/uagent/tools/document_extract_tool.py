@@ -54,6 +54,17 @@ TOOL_SPEC: dict[str, Any] = {
                 "If output_format=json, include structured sections and tables when available."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "document_extract",
+                "document extract",
+                "docx",
+                "rtf",
+                "odt",
+                "extract text",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

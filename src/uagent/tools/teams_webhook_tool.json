@@ -1,6 +1,14 @@
 {
   "en": {
     "tool.description": "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
+    "x_search_terms": [
+      "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
     "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
     "param.title.description": "Card title for webhook-supported payloads.",
@@ -15,6 +23,14 @@
   },
   "ja": {
     "tool.description": "環境変数に保存された Microsoft Teams の Incoming Webhook URL へ、メッセージまたは webhook で利用できる JSON ペイロードを送信します。",
+    "x_search_terms": [
+      "環境変数に保存された Microsoft Teams の Incoming Webhook URL へ、メッセージまたは webhook で利用できる JSON ペイロードを送信します",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Microsoft Teams Incoming Webhook にペイロードを送信します。JSON のみ返してください。",
     "param.message.description": "Teams に投稿するメッセージ本文。カード項目が指定されていない場合はプレーンテキストとして使います。",
     "param.title.description": "webhook で利用できるペイロード向けのカードタイトル。",
@@ -29,6 +45,14 @@
   },
   "es": {
     "tool.description": "Envía un mensaje o una carga JSON compatible con el webhook a una URL de Microsoft Teams Incoming Webhook almacenada en una variable de entorno.",
+    "x_search_terms": [
+      "Envía un mensaje o una carga JSON compatible con el webhook a una URL de Microsoft Teams Incoming Webhook almacenada en una variable de entorno",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Envía una carga al Microsoft Teams Incoming Webhook. Devuelve solo JSON.",
     "param.message.description": "Texto del mensaje para publicar en Teams. Se usa como texto plano salvo que se proporcionen campos de tarjeta.",
     "param.title.description": "Título de la tarjeta para cargas compatibles con el webhook.",
@@ -43,6 +67,14 @@
   },
   "fr": {
     "tool.description": "Publie un message ou une charge JSON prise en charge par le webhook vers une URL Microsoft Teams Incoming Webhook stockée dans une variable d'environnement.",
+    "x_search_terms": [
+      "Publie un message ou une charge JSON prise en charge par le webhook vers une URL Microsoft Teams Incoming Webhook stockée dans une variable d'environnement",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Publiez une charge vers Microsoft Teams Incoming Webhook. Retournez uniquement du JSON.",
     "param.message.description": "Texte du message à publier dans Teams. Utilisé comme texte brut sauf si des champs de carte sont fournis.",
     "param.title.description": "Titre de la carte pour les charges prises en charge par le webhook.",
@@ -57,6 +89,14 @@
   },
   "ko": {
     "tool.description": "환경 변수에 저장된 Microsoft Teams Incoming Webhook URL로 메시지 또는 webhook에서 지원하는 JSON 페이로드를 전송합니다.",
+    "x_search_terms": [
+      "환경 변수에 저장된 Microsoft Teams Incoming Webhook URL로 메시지 또는 webhook에서 지원하는 JSON 페이로드를 전송합니다",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Microsoft Teams Incoming Webhook으로 페이로드를 전송합니다. JSON만 반환하세요.",
     "param.message.description": "Teams에 게시할 메시지 본문입니다. 카드 필드가 제공되지 않으면 일반 텍스트로 사용됩니다.",
     "param.title.description": "webhook에서 지원하는 페이로드용 카드 제목입니다.",
@@ -71,6 +111,14 @@
   },
   "de": {
     "tool.description": "Sende eine Nachricht oder eine vom Webhook unterstützte JSON-Nutzlast an eine in einer Umgebungsvariable gespeicherte Microsoft-Teams-Incoming-Webhook-URL.",
+    "x_search_terms": [
+      "Sende eine Nachricht oder eine vom Webhook unterstützte JSON-Nutzlast an eine in einer Umgebungsvariable gespeicherte Microsoft-Teams-Incoming-Webhook-URL",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Sende eine Nutzlast an den Microsoft Teams Incoming Webhook. Nur JSON zurückgeben.",
     "param.message.description": "Nachrichtentext für Teams. Wird als Klartext verwendet, sofern keine Kartenfelder angegeben sind.",
     "param.title.description": "Kartentitel für vom Webhook unterstützte Nutzlasten.",
@@ -85,6 +133,14 @@
   },
   "it": {
     "tool.description": "Invia un messaggio o un payload JSON supportato dal webhook a un URL Microsoft Teams Incoming Webhook memorizzato in una variabile d'ambiente.",
+    "x_search_terms": [
+      "Invia un messaggio o un payload JSON supportato dal webhook a un URL Microsoft Teams Incoming Webhook memorizzato in una variabile d'ambiente",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Invia un payload a Microsoft Teams Incoming Webhook. Restituisci solo JSON.",
     "param.message.description": "Testo del messaggio da pubblicare su Teams. Usato come testo normale a meno che non siano forniti campi della scheda.",
     "param.title.description": "Titolo della scheda per i payload supportati dal webhook.",
@@ -99,6 +155,14 @@
   },
   "ru": {
     "tool.description": "Публикует сообщение или JSON-данные, поддерживаемые webhook, в URL Microsoft Teams Incoming Webhook, хранящийся в переменной окружения.",
+    "x_search_terms": [
+      "Публикует сообщение или JSON-данные, поддерживаемые webhook, в URL Microsoft Teams Incoming Webhook, хранящийся в переменной окружения",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Отправляйте payload в Microsoft Teams Incoming Webhook. Возвращайте только JSON.",
     "param.message.description": "Текст сообщения для публикации в Teams. Используется как обычный текст, если не заданы поля карточки.",
     "param.title.description": "Заголовок карточки для payload, поддерживаемых webhook.",
@@ -113,6 +177,14 @@
   },
   "pt_BR": {
     "tool.description": "Publique uma mensagem ou um payload JSON compatível com webhook em uma URL do Microsoft Teams Incoming Webhook armazenada em uma variável de ambiente.",
+    "x_search_terms": [
+      "Publique uma mensagem ou um payload JSON compatível com webhook em uma URL do Microsoft Teams Incoming Webhook armazenada em uma variável de ambiente",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Envie um payload para o Microsoft Teams Incoming Webhook. Retorne apenas JSON.",
     "param.message.description": "Texto da mensagem a ser publicado no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
     "param.title.description": "Título do cartão para payloads compatíveis com webhook.",
@@ -127,6 +199,14 @@
   },
   "pt": {
     "tool.description": "Poste uma mensagem ou carga JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente.",
+    "x_search_terms": [
+      "Poste uma mensagem ou carga JSON compatível com webhook em uma URL de webhook de entrada do Microsoft Teams armazenada em uma variável de ambiente",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Publique uma carga no Webhook de entrada do Microsoft Teams. Retorne apenas JSON.",
     "param.message.description": "Texto da mensagem para postar no Teams. Usado como texto simples, a menos que campos de cartão sejam fornecidos.",
     "param.title.description": "Título do cartão para cargas suportadas por webhook.",
@@ -141,6 +221,14 @@
   },
   "id": {
     "tool.description": "Kirim pesan atau payload JSON yang didukung webhook ke Microsoft Teams Incoming Webhook URL yang disimpan di variabel lingkungan.",
+    "x_search_terms": [
+      "Kirim pesan atau payload JSON yang didukung webhook ke Microsoft Teams Incoming Webhook URL yang disimpan di variabel lingkungan",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Kirim payload ke Microsoft Teams Incoming Webhook. Kembalikan JSON saja.",
     "param.message.description": "Teks pesan yang dikirim ke Teams. Dipakai sebagai plain text kecuali field card disediakan.",
     "param.title.description": "Judul card untuk payload webhook yang mendukung card.",
@@ -155,6 +243,14 @@
   },
   "vi": {
     "tool.description": "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường.",
+    "x_search_terms": [
+      "Đăng thông báo hoặc tải trọng JSON được webhook hỗ trợ lên URL Webhook đến của Microsoft Teams được lưu trữ trong một biến môi trường",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Đăng tải trọng lên Webhook đến của Microsoft Teams. Chỉ trả về JSON.",
     "param.message.description": "Nội dung tin nhắn để đăng lên Teams. Được sử dụng dưới dạng văn bản thuần túy trừ khi các trường thẻ được cung cấp.",
     "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
@@ -169,6 +265,14 @@
   },
   "pl": {
     "tool.description": "Opublikuj wiadomość lub ładunek JSON obsługiwany przez webhook pod adresem URL przychodzącego webhooka Microsoft Teams przechowywanym w zmiennej środowiskowej.",
+    "x_search_terms": [
+      "Opublikuj wiadomość lub ładunek JSON obsługiwany przez webhook pod adresem URL przychodzącego webhooka Microsoft Teams przechowywanym w zmiennej środowiskowej",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Opublikuj ładunek w przychodzącym webhooku Microsoft Teams. Zwróć tylko JSON.",
     "param.message.description": "Tekst wiadomości do opublikowania w aplikacji Teams. Używany jako zwykły tekst, chyba że podano pola karty.",
     "param.title.description": "Tytuł karty dla ładunków obsługiwanych przez webhook.",
@@ -183,6 +287,14 @@
   },
   "hi": {
     "tool.description": "एक पर्यावरण चर में संग्रहीत Microsoft Teams इनकमिंग वेबहुक URL पर एक संदेश या वेबहुक-समर्थित JSON पेलोड पोस्ट करें।",
+    "x_search_terms": [
+      "एक पर्यावरण चर में संग्रहीत Microsoft Teams इनकमिंग वेबहुक URL पर एक संदेश या वेबहुक-समर्थित JSON पेलोड पोस्ट करें।",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Microsoft Teams इनकमिंग वेबहुक पर एक पेलोड पोस्ट करें। केवल JSON लौटाएँ.",
     "param.message.description": "टीमों को पोस्ट करने के लिए संदेश पाठ. जब तक कार्ड फ़ील्ड प्रदान नहीं किए जाते तब तक सादे पाठ के रूप में उपयोग किया जाता है।",
     "param.title.description": "वेबहुक-समर्थित पेलोड के लिए कार्ड शीर्षक।",
@@ -197,6 +309,14 @@
   },
   "ar": {
     "tool.description": "انشر رسالة أو حمولة JSON مدعومة بخطاف الويب إلى عنوان URL الوارد لـ Webhook الخاص بـ Microsoft Teams والمخزن في متغير بيئة.",
+    "x_search_terms": [
+      "انشر رسالة أو حمولة JSON مدعومة بخطاف الويب إلى عنوان URL الوارد لـ Webhook الخاص بـ Microsoft Teams والمخزن في متغير بيئة",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "نشر حمولة إلى Microsoft Teams Incoming Webhook. إرجاع JSON فقط.",
     "param.message.description": "رسالة نصية للنشر إلى Teams. يُستخدم كنص عادي ما لم يتم توفير حقول البطاقة.",
     "param.title.description": "عنوان البطاقة للحمولات التي تدعم خطاف الويب.",
@@ -211,6 +331,14 @@
   },
   "sv": {
     "tool.description": "Skicka ett meddelande eller en JSON-payload som stöds av webhook till en Microsoft Teams Incoming Webhook-URL som lagras i en miljövariabel.",
+    "x_search_terms": [
+      "Skicka ett meddelande eller en JSON-payload som stöds av webhook till en Microsoft Teams Incoming Webhook-URL som lagras i en miljövariabel",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Skicka en payload till Microsoft Teams Incoming Webhook. Returnera endast JSON.",
     "param.message.description": "Meddelandetext som ska publiceras i Teams. Används som vanlig text om inga kortfält anges.",
     "param.title.description": "Korttitel för payloads som stöds av webhook.",
@@ -225,6 +353,14 @@
   },
   "sw": {
     "tool.description": "Tuma ujumbe au payload ya JSON inayoendana na webhook kwenda kwenye URL ya Microsoft Teams Incoming Webhook iliyohifadhiwa kwenye kigezo cha mazingira.",
+    "x_search_terms": [
+      "Tuma ujumbe au payload ya JSON inayoendana na webhook kwenda kwenye URL ya Microsoft Teams Incoming Webhook iliyohifadhiwa kwenye kigezo cha mazingira",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Tuma payload kwenda Microsoft Teams Incoming Webhook. Rudisha JSON pekee.",
     "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams. Hutumika kama maandishi ya kawaida isipokuwa sehemu za kadi zimetolewa.",
     "param.title.description": "Kichwa cha kadi kwa payload zinazotumika na webhook.",
@@ -239,6 +375,14 @@
   },
   "nb": {
     "tool.description": "Publiser en melding eller en JSON-payload som støttes av webhook, til en Microsoft Teams Incoming Webhook-URL lagret i en miljøvariabel.",
+    "x_search_terms": [
+      "Publiser en melding eller en JSON-payload som støttes av webhook, til en Microsoft Teams Incoming Webhook-URL lagret i en miljøvariabel",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Publiser en payload til Microsoft Teams Incoming Webhook. Returner bare JSON.",
     "param.message.description": "Meldingstekst som skal publiseres i Teams. Brukes som ren tekst med mindre kortfelter er oppgitt.",
     "param.title.description": "Korttittel for payload-er som støttes av webhook.",
@@ -253,6 +397,14 @@
   },
   "nl": {
     "tool.description": "Plaats een bericht of webhook-ondersteunde JSON-payload naar een Microsoft Teams Incoming Webhook-URL die in een omgevingsvariabele is opgeslagen.",
+    "x_search_terms": [
+      "Plaats een bericht of webhook-ondersteunde JSON-payload naar een Microsoft Teams Incoming Webhook-URL die in een omgevingsvariabele is opgeslagen",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Plaats een payload naar Microsoft Teams Incoming Webhook. Geef alleen JSON terug.",
     "param.message.description": "Berichttekst om naar Teams te posten. Wordt als gewone tekst gebruikt, tenzij kaartvelden zijn opgegeven.",
     "param.title.description": "Kaarttitel voor payloads die webhook-ondersteund zijn.",
@@ -267,6 +419,14 @@
   },
   "fi": {
     "tool.description": "Lähetä viesti tai webhookia tukeva JSON-lataus Microsoft Teams Incoming Webhook -osoitteeseen, joka on tallennettu ympäristömuuttujaan.",
+    "x_search_terms": [
+      "Lähetä viesti tai webhookia tukeva JSON-lataus Microsoft Teams Incoming Webhook -osoitteeseen, joka on tallennettu ympäristömuuttujaan",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Lähetä lataus Microsoft Teams Incoming Webhookiin. Palauta vain JSON.",
     "param.message.description": "Teamsiin julkaistava viestiteksti. Käytetään tavallisena tekstinä, ellei korttikenttiä anneta.",
     "param.title.description": "Kortin otsikko webhookia tukeville latauksille.",
@@ -281,6 +441,14 @@
   },
   "cs": {
     "tool.description": "Odešle zprávu nebo JSON payload podporovaný webhookem na URL Microsoft Teams Incoming Webhook uloženou v proměnné prostředí.",
+    "x_search_terms": [
+      "Odešle zprávu nebo JSON payload podporovaný webhookem na URL Microsoft Teams Incoming Webhook uloženou v proměnné prostředí",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Odešlete payload do Microsoft Teams Incoming Webhook. Vracejte pouze JSON.",
     "param.message.description": "Text zprávy, která se má odeslat do Teams. Použije se jako prostý text, pokud nejsou zadána pole karty.",
     "param.title.description": "Název karty pro payloady podporované webhookem.",
@@ -295,6 +463,14 @@
   },
   "uk": {
     "tool.description": "Надсилає повідомлення або JSON payload, підтримуваний webhook, на URL Microsoft Teams Incoming Webhook, що зберігається в змінній середовища.",
+    "x_search_terms": [
+      "Надсилає повідомлення або JSON payload, підтримуваний webhook, на URL Microsoft Teams Incoming Webhook, що зберігається в змінній середовища",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Надішліть payload до Microsoft Teams Incoming Webhook. Повертайте лише JSON.",
     "param.message.description": "Текст повідомлення для публікації в Teams. Використовується як звичайний текст, якщо не вказано поля картки.",
     "param.title.description": "Назва картки для payload, що підтримуються webhook.",
@@ -309,6 +485,14 @@
   },
   "tr": {
     "tool.description": "Bir mesajı veya webhook destekli JSON yükünü, bir ortam değişkeninde saklanan Microsoft Teams Incoming Webhook URL'sine gönderir.",
+    "x_search_terms": [
+      "Bir mesajı veya webhook destekli JSON yükünü, bir ortam değişkeninde saklanan Microsoft Teams Incoming Webhook URL'sine gönderir",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "Microsoft Teams Incoming Webhook'a bir yük gönderin. Yalnızca JSON döndürün.",
     "param.message.description": "Teams'e gönderilecek mesaj metni. Kart alanları verilmedikçe düz metin olarak kullanılır.",
     "param.title.description": "Webhook destekli yükler için kart başlığı.",
@@ -323,6 +507,14 @@
   },
   "th": {
     "tool.description": "ส่งข้อความหรือ JSON payload ที่รองรับ webhook ไปยัง URL ของ Microsoft Teams Incoming Webhook ที่เก็บไว้ในตัวแปรสภาพแวดล้อม",
+    "x_search_terms": [
+      "ส่งข้อความหรือ JSON payload ที่รองรับ webhook ไปยัง URL ของ Microsoft Teams Incoming Webhook ที่เก็บไว้ในตัวแปรสภาพแวดล้อม",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "ส่ง payload ไปยัง Microsoft Teams Incoming Webhook ส่งกลับเฉพาะ JSON",
     "param.message.description": "ข้อความที่จะโพสต์ไปยัง Teams ใช้เป็นข้อความธรรมดาเว้นแต่จะระบุฟิลด์ของการ์ด",
     "param.title.description": "ชื่อการ์ดสำหรับ payload ที่รองรับ webhook",
@@ -337,6 +529,14 @@
   },
   "zh_CN": {
     "tool.description": "将消息或 webhook 支持的 JSON 负载发送到存储在环境变量中的 Microsoft Teams Incoming Webhook URL。",
+    "x_search_terms": [
+      "将消息或 webhook 支持的 JSON 负载发送到存储在环境变量中的 Microsoft Teams Incoming Webhook URL",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 发送负载。仅返回 JSON。",
     "param.message.description": "要发布到 Teams 的消息文本。除非提供了卡片字段，否则将作为纯文本使用。",
     "param.title.description": "适用于 webhook 支持的负载的卡片标题。",
@@ -351,6 +551,14 @@
   },
   "zh_TW": {
     "tool.description": "將訊息或 webhook 支援的 JSON 載荷傳送到儲存在環境變數中的 Microsoft Teams Incoming Webhook URL。",
+    "x_search_terms": [
+      "將訊息或 webhook 支援的 JSON 載荷傳送到儲存在環境變數中的 Microsoft Teams Incoming Webhook URL",
+      "teams_webhook",
+      "teams webhook",
+      "post message",
+      "incoming webhook",
+      "notify teams"
+    ],
     "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 傳送載荷。只回傳 JSON。",
     "param.message.description": "要發布到 Teams 的訊息文字。除非提供卡片欄位，否則會以純文字使用。",
     "param.title.description": "適用於 webhook 支援載荷的卡片標題。",

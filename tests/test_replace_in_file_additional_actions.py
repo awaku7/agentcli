@@ -72,3 +72,30 @@ def test_replace_in_file_replace_po_entry_diagnostics(
     assert obj["match_hits"][0]["msgstr_kind"] == expected_kind
     assert obj["match_hits"][0]["msgstr_line_count"] == expected_line_count
     assert obj["match_hits"][0]["msgstr_is_empty"] is expected_is_empty
+
+
+def test_replace_in_file_replace_po_entry_match_hits_are_capped(
+    repo_tmp_path: Path,
+) -> None:
+    p = repo_tmp_path / "many.po"
+    entries = [
+        'msgid ""\n',
+        'msgstr ""\n',
+        "\n",
+    ]
+    entries.extend(f'msgid "target"\nmsgstr "value{i}"\n\n' for i in range(101))
+    p.write_text("".join(entries), encoding="utf-8", newline="\n")
+
+    out = replace_in_file(
+        {
+            "path": str(p),
+            "action": "replace_po_entry",
+            "po_msgid": "target",
+            "replacement": "replaced",
+            "preview": True,
+        }
+    )
+    obj = _load(out)
+    assert obj["diagnostics"]["po_msgid_match_count"] == 101
+    assert obj["diagnostics"]["po_msgid_replaced_count"] == 101
+    assert len(obj["match_hits"]) == 100

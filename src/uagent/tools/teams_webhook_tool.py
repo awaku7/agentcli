@@ -124,6 +124,16 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "teams_webhook",
+                "teams webhook",
+                "post message",
+                "incoming webhook",
+                "notify teams",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

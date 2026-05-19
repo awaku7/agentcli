@@ -1,6 +1,15 @@
 {
   "en": {
     "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "x_search_terms": [
+      "Apply image preprocessing before sending an image to an LLM or OCR backend",
+      "preprocess_image",
+      "preprocess image",
+      "ocr preprocess",
+      "image cleanup",
+      "scan image",
+      "document image"
+    ],
     "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
     "param.image_path.description": "Path to the source image to preprocess.",
     "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
@@ -22,6 +31,15 @@
   },
   "ja": {
     "tool.description": "LLM や OCR バックエンドへ画像を渡す前に前処理を行います。スクリーンショット、スキャン文書、グラフ、表、図、線画に有用です。",
+    "x_search_terms": [
+      "LLM や OCR バックエンドへ画像を渡す前に前処理を行います",
+      "preprocess_image",
+      "preprocess image",
+      "ocr preprocess",
+      "image cleanup",
+      "scan image",
+      "document image"
+    ],
     "tool.system_prompt": "選択されたモードまたはオプションに従って画像を前処理し、PNG として保存して、保存したファイルパスだけを返してください。",
     "param.image_path.description": "前処理する元画像のパス。",
     "param.mode.description": "前処理モード。ocr、document、diagram、photo、custom から選びます。",

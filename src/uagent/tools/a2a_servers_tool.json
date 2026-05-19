@@ -18,6 +18,11 @@
     "param.timeout_s.description": "Profile timeout in seconds.",
     "param.token.description": "Bearer token (plaintext). It will be encrypted before storing.",
     "tool.description": "Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json). Use only when existing local tools cannot replace the task.",
+    "x_search_terms": [
+      "Manage A2A server profiles under the uagent state dir (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Manage A2A server profiles only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task."
   },
   "ja": {
@@ -39,6 +44,11 @@
     "param.timeout_s.description": "プロファイルのタイムアウト（秒）。",
     "param.token.description": "Bearer トークン（平文）。保存時に暗号化されます。",
     "tool.description": "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。 既存のローカルツールで代替できない場合のみ使用してください。",
+    "x_search_terms": [
+      "uagent の状態ディレクトリ配下（~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。"
   },
   "es": {
@@ -60,6 +70,11 @@
     "param.timeout_s.description": "Tiempo de espera del perfil en segundos.",
     "param.token.description": "Token Bearer (texto plano). Se cifrará antes de guardarlo.",
     "tool.description": "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
+    "x_search_terms": [
+      "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Administre la lista de perfiles de servidor A2A. Devuelva solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea."
   },
   "fr": {
@@ -81,6 +96,11 @@
     "param.timeout_s.description": "Délai d’expiration du profil en secondes.",
     "param.token.description": "Jeton Bearer (en clair). Il sera chiffré avant l’enregistrement.",
     "tool.description": "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
+    "x_search_terms": [
+      "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Gérez la liste des profils de serveur A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche."
   },
   "ko": {
@@ -102,6 +122,11 @@
     "param.timeout_s.description": "프로필 타임아웃(초).",
     "param.token.description": "Bearer 토큰(평문). 저장 전에 암호화됩니다.",
     "tool.description": "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
+    "x_search_terms": [
+      "uagent 상태 디렉터리(~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "A2A 서버 프로필 목록을 관리합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요."
   },
   "de": {
@@ -123,6 +148,11 @@
     "param.timeout_s.description": "Profil-Timeout in Sekunden.",
     "param.token.description": "Bearer-Token (Klartext). Es wird vor dem Speichern verschlüsselt.",
     "tool.description": "A2A-Serverprofile im uagent-Statusverzeichnis (~/.uag/a2a/a2a_servers.json) verwalten. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
+    "x_search_terms": [
+      "A2A-Serverprofile im uagent-Statusverzeichnis (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Verwalten Sie die Liste der A2A-Serverprofile. Geben Sie nur JSON zurück. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können."
   },
   "it": {
@@ -144,6 +174,11 @@
     "param.timeout_s.description": "Timeout del profilo in secondi.",
     "param.token.description": "Token Bearer (testo in chiaro). Verrà crittografato prima dell'archiviazione.",
     "tool.description": "Gestisce i profili dei server A2A nella directory di stato di uagent (~/.uag/a2a/a2a_servers.json). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
+    "x_search_terms": [
+      "Gestisce i profili dei server A2A nella directory di stato di uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Gestisci l’elenco dei profili del server A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito."
   },
   "ru": {
@@ -165,6 +200,11 @@
     "param.timeout_s.description": "Таймаут профиля в секундах.",
     "param.token.description": "Bearer-токен (открытый текст). Перед сохранением он будет зашифрован.",
     "tool.description": "Управляйте профилями сервера A2A в каталоге состояния uagent (~/.uag/a2a/a2a_servers.json). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
+    "x_search_terms": [
+      "Управляйте профилями сервера A2A в каталоге состояния uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Управляйте списком профилей серверов A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу."
   },
   "pt_BR": {
@@ -186,6 +226,11 @@
     "param.timeout_s.description": "Tempo limite do perfil em segundos.",
     "param.token.description": "Token Bearer (texto simples). Ele será criptografado antes de ser armazenado.",
     "tool.description": "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
+    "x_search_terms": [
+      "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Gerencie a lista de perfis de servidor A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa."
   },
   "pt": {
@@ -207,6 +252,11 @@
     "param.timeout_s.description": "Tempo limite do perfil em segundos.",
     "param.token.description": "Token ao portador (texto simples). Ele será criptografado antes de ser armazenado.",
     "tool.description": "Gerencie perfis de servidor A2A no diretório de estado uagent (~/.uag/a2a/a2a_servers.json). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
+    "x_search_terms": [
+      "Gerencie perfis de servidor A2A no diretório de estado uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Operar na lista de perfis do servidor A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa."
   },
   "id": {
@@ -228,6 +278,11 @@
     "param.timeout_s.description": "Waktu habis profil dalam detik.",
     "param.token.description": "Token Bearer (teks biasa). Akan dienkripsi sebelum disimpan.",
     "tool.description": "Kelola profil server A2A di direktori status uagent (~/.uag/a2a/a2a_servers.json). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
+    "x_search_terms": [
+      "Kelola profil server A2A di direktori status uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Kelola daftar profil server A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas."
   },
   "vi": {
@@ -249,6 +304,11 @@
     "param.timeout_s.description": "Thời gian chờ hồ sơ tính bằng giây.",
     "param.token.description": "Mã thông báo mang (bản rõ). Nó sẽ được mã hóa trước khi lưu trữ.",
     "tool.description": "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/.uag/a2a/a2a_servers.json). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
+    "x_search_terms": [
+      "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Hoạt động trên danh sách hồ sơ máy chủ A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ."
   },
   "pl": {
@@ -270,6 +330,11 @@
     "param.timeout_s.description": "Limit czasu profilu w sekundach.",
     "param.token.description": "Token okaziciela (tekst jawny). Przed zapisaniem zostanie zaszyfrowany.",
     "tool.description": "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/.uag/a2a/a2a_servers.json). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
+    "x_search_terms": [
+      "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Działaj na liście profili serwerów A2A. Zwróć tylko JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania."
   },
   "hi": {
@@ -291,6 +356,11 @@
     "param.timeout_s.description": "सेकंड में प्रोफ़ाइल टाइमआउट.",
     "param.token.description": "वाहक टोकन (सादा पाठ)। इसे स्टोर करने से पहले एन्क्रिप्ट किया जाएगा.",
     "tool.description": "यूएजेंट स्टेट डीआईआर (~/.uag/a2a/a2a_servers.json) के तहत A2A सर्वर प्रोफाइल प्रबंधित करें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
+    "x_search_terms": [
+      "यूएजेंट स्टेट डीआईआर (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "A2A सर्वर प्रोफ़ाइल सूची पर कार्य करें। केवल JSON लौटाएँ. केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।"
   },
   "ar": {
@@ -312,6 +382,11 @@
     "param.timeout_s.description": "مهلة الملف الشخصي بالثواني.",
     "param.token.description": "رمز Bearer (نص صريح). سيتم تشفيره قبل الحفظ.",
     "tool.description": "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/.uag/a2a/a2a_servers.json). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
+    "x_search_terms": [
+      "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "أدر قائمة ملفات تعريف خوادم A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة."
   },
   "sv": {
@@ -333,6 +408,11 @@
     "param.timeout_s.description": "Profilens timeout i sekunder.",
     "param.token.description": "Bearer-token (klartext). Den krypteras innan lagring.",
     "tool.description": "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
+    "x_search_terms": [
+      "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Hantera listan över A2A-serverprofiler. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften."
   },
   "sw": {
@@ -354,6 +434,11 @@
     "param.timeout_s.description": "Muda wa kuisha wa wasifu (sekunde).",
     "param.token.description": "Tokeni ya Bearer (maandishi wazi). Itasimbwa kwa njia fiche kabla ya kuhifadhi.",
     "tool.description": "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
+    "x_search_terms": [
+      "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Dhibiti orodha ya wasifu za seva za A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi."
   },
   "nb": {
@@ -375,6 +460,11 @@
     "param.timeout_s.description": "Tidsavbrudd for profil i sekunder.",
     "param.token.description": "Bearer-token (klartekst). Den krypteres før lagring.",
     "tool.description": "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
+    "x_search_terms": [
+      "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Arbeid med listen over A2A-serverprofiler. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven."
   },
   "nl": {
@@ -396,6 +486,11 @@
     "param.timeout_s.description": "Timeout van het profiel in seconden.",
     "param.token.description": "Bearer-token (platte tekst). Wordt versleuteld vóór opslag.",
     "tool.description": "Beheer A2A-serverprofielen onder de uagent state-map (~/.uag/a2a/a2a_servers.json). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
+    "x_search_terms": [
+      "Beheer A2A-serverprofielen onder de uagent state-map (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Werk op de lijst met A2A-serverprofielen. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen."
   },
   "fi": {
@@ -417,6 +512,11 @@
     "param.timeout_s.description": "Profiilin aikakatkaisu sekunteina.",
     "param.token.description": "Bearer-token (selväkielisenä). Se salataan ennen tallentamista.",
     "tool.description": "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/.uag/a2a/a2a_servers.json). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
+    "x_search_terms": [
+      "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Käsittele A2A-palvelinprofiilien listaa. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää."
   },
   "cs": {
@@ -438,6 +538,11 @@
     "param.timeout_s.description": "Časový limit profilu v sekundách.",
     "param.token.description": "Bearer token (prostý text). Před uložením bude zašifrován.",
     "tool.description": "Spravuje profily A2A serverů v adresáři stavu uagent (~/.uag/a2a/a2a_servers.json). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
+    "x_search_terms": [
+      "Spravuje profily A2A serverů v adresáři stavu uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Pracujte se seznamem profilů A2A serverů. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit."
   },
   "uk": {
@@ -459,6 +564,11 @@
     "param.timeout_s.description": "Час очікування профілю в секундах.",
     "param.token.description": "Bearer-токен (відкритий текст). Перед збереженням буде зашифрований.",
     "tool.description": "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
+    "x_search_terms": [
+      "Керує профілями серверів A2A в каталозі стану uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "Працюйте зі списком профілів серверів A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання."
   },
   "tr": {
@@ -480,6 +590,11 @@
     "param.timeout_s.description": "Saniye cinsinden profil zaman aşımı.",
     "param.token.description": "Taşıyıcı belirteci (düz metin). Saklamadan önce şifrelenecektir.",
     "tool.description": "uagent durumu dizini (~/.uag/a2a/a2a_servers.json) altında A2A sunucu profillerini yönetin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
+    "x_search_terms": [
+      "uagent durumu dizini (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "A2A sunucu profili listesini yönetin. Yalnızca JSON değerini döndür. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın."
   },
   "th": {
@@ -501,6 +616,11 @@
     "param.timeout_s.description": "หมดเวลาโปรไฟล์ (วินาที).",
     "param.token.description": "โทเค็น Bearer (ข้อความล้วน) จะถูกเข้ารหัสก่อนบันทึก.",
     "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
+    "x_search_terms": [
+      "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืน JSON เท่านั้น. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้."
   },
   "zh_CN": {
@@ -522,6 +642,11 @@
     "param.timeout_s.description": "配置超时（秒）。",
     "param.token.description": "Bearer Token（明文）。保存前会加密。",
     "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置文件。 仅在本地工具无法替代该任务时使用。",
+    "x_search_terms": [
+      "管理 uagent 状态目录（~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "管理 A2A 服务器配置文件列表。仅返回 JSON。 仅在本地工具无法替代该任务时使用。"
   },
   "zh_TW": {
@@ -543,6 +668,11 @@
     "param.timeout_s.description": "設定檔逾時（秒）。",
     "param.token.description": "Bearer Token（明文）。儲存前會加密。",
     "tool.description": "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。 僅在本機工具無法取代該任務時使用。",
+    "x_search_terms": [
+      "管理 uagent 狀態目錄（~/",
+      "a2a_servers",
+      "a2a servers"
+    ],
     "tool.system_prompt": "管理 A2A 伺服器設定檔列表。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。"
   }
 }

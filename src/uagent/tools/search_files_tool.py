@@ -43,6 +43,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "- For performance, content searching may use a simple binary check internally."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "search files",
+                "glob",
+                "regex search",
+                "ファイル検索",
+                "buscar archivos",
+                "rechercher des fichiers",
+                "파일 찾기",
+                "поиск файлов",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

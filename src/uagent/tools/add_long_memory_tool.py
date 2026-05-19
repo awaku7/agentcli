@@ -31,6 +31,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Do not store secrets such as passwords, API keys, or tokens."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "add_long_memory",
+                "add long memory",
+                "save note",
+                "remember",
+                "memory note",
+                "long term memory",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "additionalProperties": False,

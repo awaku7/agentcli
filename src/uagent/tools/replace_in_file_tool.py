@@ -79,6 +79,19 @@ TOOL_SPEC: Dict[str, Any] = {
                 "literally. Existing file newline style is preserved when writing."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "replace text",
+                "edit file",
+                "find and replace",
+                "テキスト置換",
+                "reemplazar texto",
+                "remplacer texte",
+                "텍스트 바꾸기",
+                "заменить текст",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {
@@ -256,6 +269,9 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, An
 
 
 MAX_DIFF_INPUT_CHARS = 1_000_000
+MAX_DIFF_OUTPUT_CHARS = 50_000
+MAX_DIFF_OUTPUT_LINES = 400
+MAX_MATCH_HITS_DETAIL = 100
 
 
 def _unified_diff(path: str, original: str, replaced: str) -> str:
@@ -268,9 +284,21 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
         )
     a = original.splitlines(True)
     b = replaced.splitlines(True)
-    return "".join(difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}"))
-
-
+    out: list[str] = []
+    out_len = 0
+    out_lines = 0
+    truncated = False
+    for line in difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}"):
+        line_len = len(line)
+        if out_lines >= MAX_DIFF_OUTPUT_LINES or out_len + line_len > MAX_DIFF_OUTPUT_CHARS:
+            truncated = True
+            break
+        out.append(line)
+        out_len += line_len
+        out_lines += 1
+    if truncated:
+        out.append("\n[diff truncated: output too large]")
+    return "".join(out)
 def _write_text_robust(path: str, text: str, encoding: str) -> None:
     with open(path, "w", encoding=encoding, newline="") as f:
         f.write(text)
@@ -330,7 +358,9 @@ def _extract_same_line_context(text: str, start: int, end: int) -> Tuple[str, st
     return text[l_start:start], text[start:end], text[end:l_end]
 
 
-def _find_hits_literal(haystack: str, needle: str) -> List[_Hit]:
+def _find_hits_literal(
+    haystack: str, needle: str, limit: int | None = None
+) -> List[_Hit]:
     hits: List[_Hit] = []
     start = 0
     if not needle:
@@ -340,9 +370,24 @@ def _find_hits_literal(haystack: str, needle: str) -> List[_Hit]:
         if pos < 0:
             break
         hits.append(_Hit(pos, pos + len(needle)))
+        if limit is not None and len(hits) >= limit:
+            break
         start = pos + len(needle)
     return hits
 
+
+def _nth_literal_match(haystack: str, needle: str, occurrence: int) -> _Hit | None:
+    if occurrence <= 0 or not needle:
+        return None
+    start = 0
+    for idx in range(1, occurrence + 1):
+        pos = haystack.find(needle, start)
+        if pos < 0:
+            return None
+        if idx == occurrence:
+            return _Hit(pos, pos + len(needle))
+        start = pos + len(needle)
+    return None
 
 def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
     return [_Hit(m.start(), m.end()) for m in pattern.finditer(haystack)]
@@ -698,7 +743,7 @@ def _replace_po_entry_text(
         parsed = _po_parse_entry_block(block)
         if parsed and parsed["msgid"] == target_msgid:
             match_total += 1
-            if len(match_hits) < 20:
+            if len(match_hits) < MAX_MATCH_HITS_DETAIL:
                 match_hits.append(
                     {
                         "line_no": i + 1,
@@ -995,19 +1040,64 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         regex_pattern = re.compile(p2) if mode == "regex" else None
         hits: List[_Hit] = []
+        target_hit: _Hit | None = None
+        match_count = 0
         if action in {"replace", "insert_before", "insert_after"}:
             if regex_pattern is not None:
-                hits = _find_hits_regex(orig_norm, regex_pattern)
+                if occurrence == 0:
+                    hits = _find_hits_regex(orig_norm, regex_pattern)
+                    match_count = len(hits)
+                else:
+                    match_count = sum(1 for _ in regex_pattern.finditer(orig_norm))
+                    target_match = _nth_regex_match(orig_norm, regex_pattern, occurrence)
+                    if target_match is not None:
+                        target_hit = _Hit(target_match.start(), target_match.end())
+                        hits = [target_hit]
             else:
-                hits = _find_hits_literal(orig_norm, p2)
+                if occurrence == 0:
+                    hits = _find_hits_literal(orig_norm, p2)
+                    match_count = len(hits)
+                else:
+                    match_count = orig_norm.count(p2) if p2 else 0
+                    target_hit = _nth_literal_match(orig_norm, p2, occurrence)
+                    if target_hit is not None:
+                        hits = [target_hit]
 
-        match_count = len(hits)
         replaced_text = orig_norm
         replaced_count = 0
         match_hits: List[Dict[str, Any]] = []
         backup_path = None
         diagnostics: Dict[str, Any] | None = None
+        regex_pattern = re.compile(p2) if mode == "regex" else None
+        hits: List[_Hit] = []
+        target_hit: _Hit | None = None
+        match_count = 0
+        if action in {"replace", "insert_before", "insert_after"}:
+            if regex_pattern is not None:
+                if occurrence == 0:
+                    hits = _find_hits_regex(orig_norm, regex_pattern)
+                    match_count = len(hits)
+                else:
+                    match_count = sum(1 for _ in regex_pattern.finditer(orig_norm))
+                    target_match = _nth_regex_match(orig_norm, regex_pattern, occurrence)
+                    if target_match is not None:
+                        target_hit = _Hit(target_match.start(), target_match.end())
+                        hits = [target_hit]
+            else:
+                if occurrence == 0:
+                    hits = _find_hits_literal(orig_norm, p2)
+                    match_count = len(hits)
+                else:
+                    match_count = orig_norm.count(p2) if p2 else 0
+                    target_hit = _nth_literal_match(orig_norm, p2, occurrence)
+                    if target_hit is not None:
+                        hits = [target_hit]
 
+        replaced_text = orig_norm
+        replaced_count = 0
+        match_hits: List[Dict[str, Any]] = []
+        backup_path = None
+        diagnostics: Dict[str, Any] | None = None
         if action == "replace_po_entry":
             target = po_target or p2
             if not target:
@@ -1047,7 +1137,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     replaced_text = orig_norm.replace(p2, r2)
                     replaced_count = match_count
             elif 0 < occurrence <= match_count:
-                h = hits[occurrence - 1]
+                h = hits[0]
                 if regex_pattern is not None:
                     m = _nth_regex_match(orig_norm, regex_pattern, occurrence)
                     if m is None:
@@ -1074,7 +1164,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 )
 
         elif action in {"insert_before", "insert_after"} and hits:
-            h = hits[occurrence - 1 if 0 < occurrence <= match_count else 0]
+            h = hits[0]
             if action == "insert_before":
                 idx = orig_norm.rfind("\n", 0, h.start)
                 ins_at = 0 if idx < 0 else idx + 1

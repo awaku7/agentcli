@@ -89,6 +89,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "the exact action and confirmed=true is supplied."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "browser_use_task",
+                "browser use task",
+                "browser automation",
+                "interactive browser",
+                "website task",
+                "browser use",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

@@ -22,6 +22,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "skills_load",
+                "skills load",
+                "agent skill",
+                "skill management",
+                "skill file",
+                "SKILL.md",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

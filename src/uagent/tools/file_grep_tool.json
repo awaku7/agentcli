@@ -13,6 +13,17 @@
     "param.pattern.description": "Regex pattern to search for.",
     "param.recursive.description": "Whether to search subdirectories recursively.",
     "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). The pattern is required.",
+    "x_search_terms": [
+      "Search for a pattern in files and return matching lines with line numbers (like grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Search file contents under one or more paths. The pattern is required. Filter files by glob, search using a Python regular expression or literal text, optionally include context lines, skip binary-like files, support filenames-only mode, and auto-detect text encodings when reading. Return JSON only."
   },
   "ja": {
@@ -29,6 +40,17 @@
     "param.pattern.description": "検索する正規表現パターン。",
     "param.recursive.description": "サブディレクトリを再帰的に検索するかどうか。",
     "tool.description": "ファイル内のパターンを検索し、行番号付きの一致行を返します（grep -n 相当）。pattern は必須です。",
+    "x_search_terms": [
+      "ファイル内のパターンを検索し、行番号付きの一致行を返します（grep -n 相当）",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "1つ以上のパス配下のファイル内容を検索します。pattern は必須です。glob で対象ファイルを絞り込み、Python の正規表現またはリテラル文字列で検索し、必要に応じて前後の文脈行を含め、バイナリらしきファイルは除外し、ファイル名のみ返すモードをサポートし、読み込み時はテキストエンコーディングを自動判定します。JSON のみ返してください。",
     "param.binary_skip.description": "バイナリらしきファイルをスキップするかどうか。",
     "param.exclude_dirs.description": "再帰走査から除外するディレクトリ名です。",
@@ -51,6 +73,17 @@
     "param.pattern.description": "Patrón de expresión regular para buscar.",
     "param.recursive.description": "Si se debe buscar recursivamente en subdirectorios.",
     "tool.description": "Busque un patrón en los archivos y devuelva las líneas coincidentes con números de línea (como grep -n). El patrón es obligatorio.",
+    "x_search_terms": [
+      "Busque un patrón en los archivos y devuelva las líneas coincidentes con números de línea (como grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Busque el contenido de archivos bajo una o varias rutas. El patrón es obligatorio. Filtre archivos por glob, busque usando una expresión regular de Python o texto literal, incluya opcionalmente líneas de contexto, omita archivos parecidos a binarios, admita el modo de solo nombres de archivo y detecte automáticamente la codificación del texto al leer. Devuelva solo JSON."
   },
   "fr": {
@@ -67,6 +100,17 @@
     "param.pattern.description": "Motif regex à rechercher.",
     "param.recursive.description": "Si la recherche doit être effectuée récursivement dans les sous-répertoires.",
     "tool.description": "Recherchez un motif dans des fichiers et renvoyez les lignes correspondantes avec leurs numéros de ligne (comme grep -n). Le motif est obligatoire.",
+    "x_search_terms": [
+      "Recherchez un motif dans des fichiers et renvoyez les lignes correspondantes avec leurs numéros de ligne (comme grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Recherchez le contenu des fichiers sous un ou plusieurs chemins. Le motif est obligatoire. Filtrez les fichiers par glob, recherchez avec une expression régulière Python ou du texte littéral, incluez éventuellement des lignes de contexte, ignorez les fichiers ressemblant à des binaires, prenez en charge le mode noms de fichiers uniquement et détectez automatiquement l’encodage du texte à la lecture. Retournez uniquement du JSON."
   },
   "ko": {
@@ -83,6 +127,17 @@
     "param.pattern.description": "검색할 정규식 패턴입니다.",
     "param.recursive.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다.",
     "tool.description": "파일에서 패턴을 검색하고 행 번호가 포함된 일치 행을 반환합니다(grep -n과 유사). pattern은 필수입니다.",
+    "x_search_terms": [
+      "파일에서 패턴을 검색하고 행 번호가 포함된 일치 행을 반환합니다(grep -n과 유사)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "하나 이상의 경로 아래 파일 내용을 검색합니다. pattern은 필수입니다. glob으로 파일을 걸러내고, Python 정규식 또는 리터럴 텍스트로 검색하며, 필요하면 문맥 줄을 포함하고, 이진 파일과 비슷한 파일은 건너뛰고, 파일 이름만 반환하는 모드를 지원하며, 읽을 때 텍스트 인코딩을 자동 감지합니다. JSON만 반환하세요."
   },
   "de": {
@@ -99,6 +154,17 @@
     "param.pattern.description": "Regex-Muster, nach dem gesucht werden soll.",
     "param.recursive.description": "Ob Unterverzeichnisse rekursiv durchsucht werden sollen.",
     "tool.description": "Sucht in Dateien nach einem Muster und gibt passende Zeilen mit Zeilennummern zurück (wie grep -n). Das Muster ist erforderlich.",
+    "x_search_terms": [
+      "Sucht in Dateien nach einem Muster und gibt passende Zeilen mit Zeilennummern zurück (wie grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Durchsuchen Sie den Inhalt von Dateien unter einem oder mehreren Pfaden. Das Muster ist erforderlich. Filtern Sie Dateien per Glob, suchen Sie mit einem Python-Regulären Ausdruck oder Literaltext, fügen Sie optional Kontextzeilen hinzu, überspringen Sie binärähnliche Dateien, unterstützen Sie den Nur-Dateinamen-Modus und erkennen Sie Textkodierungen beim Lesen automatisch. Geben Sie nur JSON zurück."
   },
   "it": {
@@ -115,6 +181,17 @@
     "param.pattern.description": "Pattern regex da cercare.",
     "param.recursive.description": "Se cercare ricorsivamente nelle sottodirectory.",
     "tool.description": "Cerca un pattern nei file e restituisce le righe corrispondenti con i numeri di riga (come grep -n). Il pattern è obbligatorio.",
+    "x_search_terms": [
+      "Cerca un pattern nei file e restituisce le righe corrispondenti con i numeri di riga (come grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Cerca il contenuto dei file sotto uno o più percorsi. Il pattern è obbligatorio. Filtra i file con glob, cerca usando un’espressione regolare Python o testo letterale, includi facoltativamente le righe di contesto, ignora i file simili a binari, supporta la modalità solo nomi file e rileva automaticamente la codifica del testo durante la lettura. Restituisci solo JSON."
   },
   "ru": {
@@ -131,6 +208,17 @@
     "param.pattern.description": "Регулярное выражение для поиска.",
     "param.recursive.description": "Нужно ли искать в подкаталогах рекурсивно.",
     "tool.description": "Ищите шаблон в файлах и возвращайте совпадающие строки с номерами строк (как grep -n). Шаблон обязателен.",
+    "x_search_terms": [
+      "Ищите шаблон в файлах и возвращайте совпадающие строки с номерами строк (как grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Ищите содержимое файлов по одному или нескольким путям. Шаблон обязателен. Фильтруйте файлы по glob, выполняйте поиск с помощью регулярного выражения Python или литерального текста, при необходимости включайте строки контекста, пропускайте файлы, похожие на бинарные, поддерживайте режим только с именами файлов и автоматически определяйте кодировку текста при чтении. Возвращайте только JSON."
   },
   "pt_BR": {
@@ -147,6 +235,17 @@
     "param.pattern.description": "Padrão regex para pesquisar.",
     "param.recursive.description": "Se deve pesquisar subdiretórios recursivamente.",
     "tool.description": "Procure um padrão nos arquivos e retorne as linhas correspondentes com números de linha (como grep -n). O padrão é obrigatório.",
+    "x_search_terms": [
+      "Procure um padrão nos arquivos e retorne as linhas correspondentes com números de linha (como grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Pesquise o conteúdo dos arquivos em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular do Python ou texto literal, inclua opcionalmente linhas de contexto, ignore arquivos semelhantes a binários, ofereça modo apenas com nomes de arquivos e detecte automaticamente a codificação do texto ao ler. Retorne apenas JSON."
   },
   "pt": {
@@ -163,6 +262,17 @@
     "param.pattern.description": "Padrão Regex a ser pesquisado.",
     "param.recursive.description": "Se deve pesquisar subdiretórios recursivamente.",
     "tool.description": "Procure um padrão nos arquivos e retorne linhas correspondentes com números de linha (como grep -n). O padrão é obrigatório.",
+    "x_search_terms": [
+      "Procure um padrão nos arquivos e retorne linhas correspondentes com números de linha (como grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Pesquise o conteúdo do arquivo em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular Python ou texto literal, inclua opcionalmente linhas de contexto, pule arquivos do tipo binário, suporte ao modo somente nomes de arquivos e detecte automaticamente codificações de texto durante a leitura. Retorne apenas JSON."
   },
   "id": {
@@ -179,6 +289,17 @@
     "param.pattern.description": "Pola regex yang akan dicari.",
     "param.recursive.description": "Apakah mencari subdirektori secara rekursif.",
     "tool.description": "Cari pola dalam file dan kembalikan baris yang cocok beserta nomor barisnya (seperti grep -n). Pattern wajib diisi.",
+    "x_search_terms": [
+      "Cari pola dalam file dan kembalikan baris yang cocok beserta nomor barisnya (seperti grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Cari isi file di satu atau beberapa jalur. Pattern wajib diisi. Saring file dengan glob, cari menggunakan ekspresi reguler Python atau teks literal, opsional sertakan baris konteks, lewati file yang mirip biner, dukung mode hanya nama file, dan deteksi encoding teks secara otomatis saat membaca. Kembalikan JSON saja."
   },
   "vi": {
@@ -195,6 +316,17 @@
     "param.pattern.description": "Mẫu Regex để tìm kiếm.",
     "param.recursive.description": "Có tìm kiếm đệ quy các thư mục con hay không.",
     "tool.description": "Tìm mẫu trong tệp và trả về các dòng khớp với số dòng (như grep -n). Pattern là bắt buộc.",
+    "x_search_terms": [
+      "Tìm mẫu trong tệp và trả về các dòng khớp với số dòng (như grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Tìm nội dung tệp trong một hoặc nhiều đường dẫn. Pattern là bắt buộc. Lọc tệp bằng glob, tìm bằng biểu thức chính quy Python hoặc văn bản nguyên văn, tùy chọn kèm các dòng ngữ cảnh, bỏ qua các tệp giống nhị phân, hỗ trợ chế độ chỉ trả về tên tệp, và tự động phát hiện mã hóa văn bản khi đọc. Chỉ trả về JSON."
   },
   "pl": {
@@ -211,6 +343,17 @@
     "param.pattern.description": "Wzór wyrażenia regularnego do wyszukania.",
     "param.recursive.description": "Określa, czy rekursywnie przeszukiwać podkatalogi.",
     "tool.description": "Wyszukaj wzorzec w plikach i zwróć pasujące linie z numerami linii (np. grep -n). Wzorzec jest wymagany.",
+    "x_search_terms": [
+      "Wyszukaj wzorzec w plikach i zwróć pasujące linie z numerami linii (np",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Przeszukuj zawartość plików w jednej lub wielu ścieżkach. Wzorzec jest wymagany. Filtruj pliki za pomocą glob, wyszukuj przy użyciu wyrażenia regularnego Pythona lub tekstu dosłownego, opcjonalnie dołączaj linie kontekstu, pomijaj pliki podobne do binarnych, obsługuj tryb tylko nazw plików i automatycznie wykrywaj kodowanie tekstu podczas odczytu. Zwracaj tylko JSON."
   },
   "hi": {
@@ -227,6 +370,17 @@
     "param.pattern.description": "खोजने के लिए रेगेक्स पैटर्न।",
     "param.recursive.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से खोजना है।",
     "tool.description": "फ़ाइलों में एक पैटर्न खोजें और पंक्ति संख्याओं (जैसे grep -n) के साथ मिलान वाली पंक्तियाँ लौटाएँ। पैटर्न आवश्यक है.",
+    "x_search_terms": [
+      "फ़ाइलों में एक पैटर्न खोजें और पंक्ति संख्याओं (जैसे grep -n) के साथ मिलान वाली पंक्तियाँ लौटाएँ। पैटर्न आवश्यक है",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "एक या अधिक पथों के अंतर्गत फ़ाइल सामग्री खोजें। पैटर्न आवश्यक है. ग्लोब द्वारा फ़ाइलों को फ़िल्टर करें, पायथन रेगुलर एक्सप्रेशन या शाब्दिक पाठ का उपयोग करके खोजें, वैकल्पिक रूप से संदर्भ पंक्तियाँ शामिल करें, बाइनरी-जैसी फ़ाइलें छोड़ें, केवल फ़ाइल नाम मोड का समर्थन करें, और पढ़ते समय टेक्स्ट एन्कोडिंग का स्वतः पता लगाएं। केवल JSON लौटाएँ."
   },
   "ar": {
@@ -243,6 +397,17 @@
     "param.pattern.description": "نمط Regex للبحث عنه.",
     "param.recursive.description": "ما إذا كان سيتم البحث في الدلائل الفرعية بشكل متكرر.",
     "tool.description": "ابحث عن نمط في الملفات وأرجع الأسطر المطابقة بأرقام الأسطر (مثل grep -n). النمط مطلوب.",
+    "x_search_terms": [
+      "ابحث عن نمط في الملفات وأرجع الأسطر المطابقة بأرقام الأسطر (مثل grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "ابحث في محتويات الملف ضمن مسار واحد أو أكثر. النمط مطلوب. قم بتصفية الملفات عن طريق الكرة الأرضية، وابحث باستخدام تعبير Python العادي أو النص الحرفي، وقم بتضمين خطوط السياق بشكل اختياري، وتخطي الملفات الثنائية، ودعم وضع أسماء الملفات فقط، والكشف التلقائي عن ترميزات النص عند القراءة. إرجاع JSON فقط."
   },
   "sv": {
@@ -259,6 +424,17 @@
     "param.pattern.description": "Regex-mönster att söka efter.",
     "param.recursive.description": "Om underkataloger ska sökas rekursivt.",
     "tool.description": "Sök efter ett mönster i filer och returnera matchande rader med radnummer (som grep -n). Mönstret krävs.",
+    "x_search_terms": [
+      "Sök efter ett mönster i filer och returnera matchande rader med radnummer (som grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Sök igenom filinnehåll under en eller flera sökvägar. Mönstret krävs. Filtrera filer med glob, sök med ett Python-regex eller literal text, inkludera valfritt kontext­rader, hoppa över binärliknande filer, stöd läge endast filnamn och identifiera textkodningar automatiskt vid läsning. Returnera endast JSON."
   },
   "sw": {
@@ -275,6 +451,17 @@
     "param.pattern.description": "Muundo wa regex wa kutafuta.",
     "param.recursive.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
     "tool.description": "Tafuta muundo ndani ya faili na urudishe mistari inayolingana pamoja na nambari za mistari (kama grep -n). pattern ni lazima.",
+    "x_search_terms": [
+      "Tafuta muundo ndani ya faili na urudishe mistari inayolingana pamoja na nambari za mistari (kama grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Tafuta maudhui ya faili chini ya njia moja au zaidi. pattern ni lazima. Chuja faili kwa glob, tafuta kwa kutumia regex ya Python au maandishi halisi, ongeza mistari ya muktadha kwa hiari, ruka faili zinazofanana na binary, toa hali ya majina ya faili pekee, na tambua usimbaji wa maandishi kiotomatiki wakati wa kusoma. Rudisha JSON pekee."
   },
   "nb": {
@@ -291,6 +478,17 @@
     "param.pattern.description": "Regex-mønster som skal søkes etter.",
     "param.recursive.description": "Om underkataloger skal søkes rekursivt.",
     "tool.description": "Søk etter et mønster i filer og returner samsvarende linjer med linjenumre (som grep -n). Mønsteret er obligatorisk.",
+    "x_search_terms": [
+      "Søk etter et mønster i filer og returner samsvarende linjer med linjenumre (som grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Søk gjennom filinnhold under én eller flere stier. Mønsteret er obligatorisk. Filtrer filer med glob, søk med et Python-regex eller literal tekst, inkluder eventuelt kontekstlinjer, hopp over filer som ser ut som binære filer, støtt bare-filnavn-modus og oppdag tekstkoding automatisk ved lesing. Returner kun JSON."
   },
   "nl": {
@@ -307,6 +505,17 @@
     "param.pattern.description": "Regex-patroon om naar te zoeken.",
     "param.recursive.description": "Of submappen recursief doorzocht moeten worden.",
     "tool.description": "Zoek naar een patroon in bestanden en geef overeenkomende regels met regelnummers terug (zoals grep -n). Het patroon is verplicht.",
+    "x_search_terms": [
+      "Zoek naar een patroon in bestanden en geef overeenkomende regels met regelnummers terug (zoals grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Zoek naar bestandsinhoud onder een of meer paden. Het patroon is verplicht. Filter bestanden op glob, zoek met een Python-regex of letterlijke tekst, voeg desgewenst contextregels toe, sla binaire-achtige bestanden over, ondersteun een modus met alleen bestandsnamen en detecteer automatisch tekstcoderingen bij het lezen. Geef alleen JSON terug."
   },
   "fi": {
@@ -323,6 +532,17 @@
     "param.pattern.description": "Etsittävä regex-kaava.",
     "param.recursive.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
     "tool.description": "Etsi tiedostoista kaavaa ja palauta osuvat rivit rivinumeroineen (kuten grep -n). Kaava on pakollinen.",
+    "x_search_terms": [
+      "Etsi tiedostoista kaavaa ja palauta osuvat rivit rivinumeroineen (kuten grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Etsi tiedostosisältöä yhdestä tai useammasta polusta. Kaava on pakollinen. Suodata tiedostot globin avulla, hae Pythonin säännöllisellä lausekkeella tai kirjaimellisella tekstillä, lisää tarvittaessa kontekstit riveineen, ohita binäärin kaltaiset tiedostot, tue vain tiedostonimet -tilaa ja tunnista tekstikoodaus automaattisesti luettaessa. Palauta vain JSON."
   },
   "cs": {
@@ -339,6 +559,17 @@
     "param.pattern.description": "Regex vzor k vyhledání.",
     "param.recursive.description": "Zda hledat v podadresářích rekurzivně.",
     "tool.description": "Hledá vzor v souborech a vrací odpovídající řádky s čísly řádků (jako grep -n). Vzor je povinný.",
+    "x_search_terms": [
+      "Hledá vzor v souborech a vrací odpovídající řádky s čísly řádků (jako grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Prohledávejte obsah souborů v jednom nebo více cestách. Vzor je povinný. Filtrování souborů provádějte pomocí globu, vyhledávejte pomocí regulárního výrazu v Pythonu nebo doslovného textu, volitelně zahrnujte okolní řádky, přeskočte soubory připomínající binární, podporujte režim pouze názvů souborů a při čtení automaticky detekujte textové kódování. Vracejte pouze JSON."
   },
   "uk": {
@@ -355,6 +586,17 @@
     "param.pattern.description": "Шаблон регулярного виразу для пошуку.",
     "param.recursive.description": "Чи шукати в підкаталогах рекурсивно.",
     "tool.description": "Шукає шаблон у файлах і повертає відповідні рядки з номерами рядків (як grep -n). Шаблон є обовʼязковим.",
+    "x_search_terms": [
+      "Шукає шаблон у файлах і повертає відповідні рядки з номерами рядків (як grep -n)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Шукайте вміст файлів в одному або кількох шляхах. Шаблон є обовʼязковим. Фільтруйте файли за glob, шукайте за допомогою регулярного виразу Python або буквального тексту, за потреби включайте рядки контексту, пропускайте файли, схожі на бінарні, підтримуйте режим лише назв файлів і автоматично визначайте кодування тексту під час читання. Повертайте лише JSON."
   },
   "tr": {
@@ -371,6 +613,17 @@
     "param.pattern.description": "Aranacak normal ifade modeli.",
     "param.recursive.description": "Alt dizinlerin yinelemeli olarak aranıp aranmayacağı.",
     "tool.description": "Dosyalarda bir model arayın ve satır numaralarıyla eşleşen satırları döndürün (grep -n gibi). Desen gereklidir.",
+    "x_search_terms": [
+      "Dosyalarda bir model arayın ve satır numaralarıyla eşleşen satırları döndürün (grep -n gibi)",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "Dosya içeriğini bir veya daha fazla yol altında arayın. Desen gereklidir. Dosyaları glob'a göre filtreleyin, bir Python normal ifadesi veya değişmez metin kullanarak arama yapın, isteğe bağlı olarak bağlam satırları ekleyin, ikili benzeri dosyaları atlayın, yalnızca dosya adları modunu destekleyin ve okurken metin kodlamalarını otomatik olarak algılayın. Yalnızca JSON değerini döndür."
   },
   "th": {
@@ -387,6 +640,17 @@
     "param.pattern.description": "รูปแบบ Regex ที่จะค้นหา",
     "param.recursive.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่",
     "tool.description": "ค้นหารูปแบบในไฟล์และส่งคืนบรรทัดที่ตรงกันพร้อมหมายเลขบรรทัด (เหมือน grep -n) โดย pattern เป็นข้อบังคับ",
+    "x_search_terms": [
+      "ค้นหารูปแบบในไฟล์และส่งคืนบรรทัดที่ตรงกันพร้อมหมายเลขบรรทัด (เหมือน grep -n) โดย pattern เป็นข้อบังคับ",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "ค้นหาเนื้อหาไฟล์ภายใต้หนึ่งหรือหลายพาธ โดย pattern เป็นข้อบังคับ กรองไฟล์ด้วย glob ค้นหาโดยใช้ regex ของ Python หรือข้อความตัวอักษรจริง ใส่บรรทัดบริบทได้ตามต้องการ ข้ามไฟล์ที่ดูคล้ายไบนารี รองรับโหมดแสดงเฉพาะชื่อไฟล์ และตรวจจับการเข้ารหัสข้อความโดยอัตโนมัติเมื่ออ่าน ส่งคืนเฉพาะ JSON"
   },
   "zh_CN": {
@@ -403,6 +667,17 @@
     "param.pattern.description": "要搜索的正则表达式模式。",
     "param.recursive.description": "是否递归搜索子目录。",
     "tool.description": "在文件中搜索模式并返回带有行号的匹配行（类似 grep -n）。pattern 是必填项。",
+    "x_search_terms": [
+      "在文件中搜索模式并返回带有行号的匹配行（类似 grep -n）",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "在一个或多个路径下搜索文件内容。pattern 是必填项。按 glob 过滤文件，使用 Python 正则表达式或字面文本进行搜索，可选包含上下文行，跳过类似二进制的文件，支持仅返回文件名模式，并在读取时自动检测文本编码。仅返回 JSON。"
   },
   "zh_TW": {
@@ -419,6 +694,17 @@
     "param.pattern.description": "要搜尋的正規表示式模式。",
     "param.recursive.description": "是否遞迴搜尋子目錄。",
     "tool.description": "在檔案中搜尋模式並傳回帶有行號的相符行（類似 grep -n）。pattern 是必填項。",
+    "x_search_terms": [
+      "在檔案中搜尋模式並傳回帶有行號的相符行（類似 grep -n）",
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
+    ],
     "tool.system_prompt": "在一個或多個路徑下搜尋檔案內容。pattern 是必填項。以 glob 篩選檔案，使用 Python 正規表示式或字面文字搜尋，可選擇包含上下文行，略過類似二進位的檔案，支援僅回傳檔名模式，並在讀取時自動偵測文字編碼。僅回傳 JSON。"
   }
 }

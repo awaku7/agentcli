@@ -71,8 +71,14 @@ def clear_tool_i18n_cache() -> None:
         pass
 
 
-def _unescape_newlines(s: str) -> str:
-    return s.replace("\\r\\n", "\n").replace("\\n", "\n")
+def _unescape_value(value: Any) -> Any:
+    if isinstance(value, str):
+        return value.replace("\\r\\n", "\n").replace("\\n", "\n")
+    if isinstance(value, list):
+        return [_unescape_value(item) for item in value]
+    if isinstance(value, dict):
+        return {k: _unescape_value(v) for k, v in value.items()}
+    return value
 
 
 def make_tool_translator(tool_py_file: str):
@@ -80,7 +86,7 @@ def make_tool_translator(tool_py_file: str):
     base = os.path.splitext(os.path.basename(tool_py_file))[0]
     json_path = os.path.join(tool_dir, f"{base}.json")
 
-    def _(key: str, *, default: str, **kwargs: object) -> str:
+    def _(key: str, *, default: Any, **kwargs: object) -> Any:
         loc = get_locale()
         data = _load_tool_dict(json_path)
 
@@ -89,14 +95,14 @@ def make_tool_translator(tool_py_file: str):
         if isinstance(loc_map, dict):
             v = loc_map.get(key)
             if isinstance(v, str) and v:
-                text = _unescape_newlines(v)
+                text = _unescape_value(v)
 
         if text is None:
             en_map = data.get("en")
             if isinstance(en_map, dict):
                 v = en_map.get(key)
                 if isinstance(v, str) and v:
-                    text = _unescape_newlines(v)
+                    text = _unescape_value(v)
 
         if text is None:
             text = default

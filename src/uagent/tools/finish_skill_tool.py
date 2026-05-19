@@ -20,6 +20,13 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.md). This removes skill instructions and prevents infinite loops.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "finish_skill",
+                "finish skill",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

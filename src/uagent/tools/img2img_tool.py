@@ -55,6 +55,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Edit the provided image according to the prompt. Save the result as a PNG and return only the saved file path."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "img2img",
+                "img2img",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

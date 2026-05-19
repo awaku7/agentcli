@@ -27,6 +27,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "skills_validate",
+                "skills validate",
+                "agent skill",
+                "skill management",
+                "skill file",
+                "SKILL.md",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

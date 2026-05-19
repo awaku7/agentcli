@@ -23,6 +23,19 @@ TOOL_SPEC = {
                 "This tool is used for the following purpose: reload the system and reflect the latest code for all tools under tools/ (Python .py files) into memory. Run this after modifying code."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "reload system",
+                "refresh tools",
+                "reload code",
+                "システムリロード",
+                "recargar sistema",
+                "recharger le système",
+                "시스템 재로드",
+                "перезагрузить систему",
+            ],
+        ),
         "parameters": {"type": "object", "properties": {}, "required": []},
     },
 }

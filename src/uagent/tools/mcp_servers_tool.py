@@ -34,6 +34,17 @@ TOOL_SPEC: Dict[str, Any] = {
                 "Return JSON only. Do not include human-readable text outside JSON."
             ),
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "mcp_servers",
+                "mcp servers",
+                "mcp server",
+                "manage servers",
+                "server profile",
+                "mcp config",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

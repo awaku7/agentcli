@@ -16,6 +16,17 @@ TOOL_SPEC: Dict[str, Any] = {
             ),
         ),
         "name": "spawn_process",
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "spawn_process",
+                "spawn process",
+                "launch process",
+                "start app",
+                "gui process",
+                "browser process",
+            ],
+        ),
         "parameters": {
             "properties": {
                 "command": {

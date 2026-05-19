@@ -97,6 +97,17 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.system_prompt",
             default="This tool performs the operation described by the tool name 'exstruct'.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "exstruct",
+                "exstruct",
+                "structured data",
+                "excel structure",
+                "export json",
+                "export yaml",
+            ],
+        ),
         "parameters": {
             "type": "object",
             "properties": {

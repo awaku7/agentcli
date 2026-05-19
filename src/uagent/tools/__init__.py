@@ -391,6 +391,27 @@ def _expand_catalog_token(token: str) -> List[str]:
     return [x for x in out if x]
 
 
+def _collect_janome_query_terms(query: str) -> List[str]:
+    q = (query or "").strip()
+    if not q or JanomeTokenizer is None:
+        return []
+    try:
+        jt = JanomeTokenizer()
+        out: List[str] = []
+        for t in jt.tokenize(q):
+            pos = str(getattr(t, "part_of_speech", "") or "").split(",", 1)[0]
+            if pos not in {"名詞", "動詞"}:
+                continue
+            term = str(getattr(t, "base_form", "") or "").strip().lower()
+            if not term or term == "*":
+                term = str(getattr(t, "surface", "") or "").strip().lower()
+            if term:
+                out.append(term)
+        return out
+    except Exception:
+        return []
+
+
 def _tokenize_catalog_query(query: str) -> List[str]:
     q = (query or "").strip().lower()
     if not q:
@@ -399,14 +420,7 @@ def _tokenize_catalog_query(query: str) -> List[str]:
     base_tokens = [tok for tok in re.split(r"\s+", q) if tok]
     tokens: List[str] = []
 
-    if JanomeTokenizer is not None:
-        try:
-            jt = JanomeTokenizer()
-            janome_tokens = [t.surface.strip().lower() for t in jt.tokenize(q)]
-            tokens.extend([t for t in janome_tokens if t])
-        except Exception:
-            pass
-
+    tokens.extend(_collect_janome_query_terms(q))
     tokens.extend(base_tokens)
     tokens.append(q)
 
@@ -420,6 +434,25 @@ def _tokenize_catalog_query(query: str) -> List[str]:
 
     return expanded
 
+
+def _collect_search_terms(value: Any) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        term = value.strip()
+        return [term] if term else []
+    if isinstance(value, list):
+        out: List[str] = []
+        for item in value:
+            out.extend(_collect_search_terms(item))
+        return out
+    if isinstance(value, dict):
+        out: List[str] = []
+        for item in value.values():
+            out.extend(_collect_search_terms(item))
+        return out
+    term = str(value).strip()
+    return [term] if term else []
 
 def get_tool_catalog(
     *,
@@ -459,13 +492,19 @@ def get_tool_catalog(
         if isinstance(properties, dict):
             param_names = [str(k) for k in properties.keys()]
 
-        haystack_parts = [name, description] + param_names
+        search_terms = _collect_search_terms(fn.get("x_search_terms"))
+        search_haystack = " ".join([p for p in search_terms if p]).lower()
+        haystack_parts = [name, description] + param_names + search_terms
         haystack = " ".join([p for p in haystack_parts if p]).lower()
 
         score = 0
         if q:
             tokens = _tokenize_catalog_query(q)
+            search_term_hit = False
             for tok in tokens:
+                if tok in search_haystack:
+                    search_term_hit = True
+                    score += 200
                 if tok == name.lower():
                     score += 100
                 elif tok in name.lower():
@@ -478,8 +517,13 @@ def get_tool_catalog(
                         score += 20
                     elif tok in pnl:
                         score += 8
+            if q in search_haystack:
+                search_term_hit = True
+                score += 400
             if q in haystack:
                 score += 25
+            if search_term_hit:
+                score += 1000
         else:
             score = 1
 

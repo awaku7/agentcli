@@ -9,6 +9,17 @@
     "param.q.description": "Alias of 'query' (for backward compatibility).",
     "param.query.description": "Search query string.",
     "tool.description": "Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
+    "x_search_terms": [
+      "Search the web via DuckDuckGo HTML interface and return title/link/snippet",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request."
   },
   "ja": {
@@ -21,6 +32,17 @@
     "param.q.description": "'query' の別名（後方互換性のため）。",
     "param.query.description": "検索クエリ文字列。",
     "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
+    "x_search_terms": [
+      "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "このツールは DuckDuckGo の HTML 検索を実行し、title/link/snippet を返します。結果が空の場合は、サイト側でレート制限またはブロックされている可能性があります。"
   },
   "es": {
@@ -33,6 +55,17 @@
     "param.q.description": "Alias de 'query' (para compatibilidad con versiones anteriores).",
     "param.query.description": "Cadena de consulta de búsqueda.",
     "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva título/enlace/extracto.",
+    "x_search_terms": [
+      "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva título/enlace/extracto",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Esta herramienta realiza una búsqueda HTML de DuckDuckGo y devuelve título/enlace/extracto. Si los resultados están vacíos, es posible que el sitio esté limitando la velocidad o bloqueando la solicitud."
   },
   "fr": {
@@ -45,6 +78,17 @@
     "param.q.description": "Alias de 'query' (pour une compatibilité ascendante).",
     "param.query.description": "Chaîne de requête de recherche.",
     "tool.description": "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le titre/lien/extrait.",
+    "x_search_terms": [
+      "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le titre/lien/extrait",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Cet outil effectue une recherche DuckDuckGo HTML et renvoie le titre/lien/extrait. Si les résultats sont vides, le site peut limiter le débit ou bloquer la demande."
   },
   "ko": {
@@ -57,6 +101,17 @@
     "param.q.description": "'쿼리'의 별칭(이전 버전과의 호환성을 위해).",
     "param.query.description": "검색어 문자열입니다.",
     "tool.description": "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다.",
+    "x_search_terms": [
+      "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "이 도구는 DuckDuckGo HTML 검색을 수행하고 제목/링크/스니펫을 반환합니다. 결과가 비어 있으면 사이트에서 요청 속도를 제한하거나 차단하고 있을 수 있습니다."
   },
   "de": {
@@ -69,6 +124,17 @@
     "param.q.description": "Alias für 'query' (aus Gründen der Abwärtskompatibilität).",
     "param.query.description": "Suchanfrage-String.",
     "tool.description": "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszug zurückgeben.",
+    "x_search_terms": [
+      "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszug zurückgeben",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Dieses Tool führt eine DuckDuckGo-HTML-Suche aus und gibt Titel/Link/Auszug zurück. Wenn die Ergebnisse leer sind, limitiert die Seite möglicherweise die Anfragen oder blockiert sie."
   },
   "it": {
@@ -81,6 +147,17 @@
     "param.q.description": "Alias di 'query' (per compatibilità retroattiva).",
     "param.query.description": "Stringa della query di ricerca.",
     "tool.description": "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce titolo/link/anteprima.",
+    "x_search_terms": [
+      "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce titolo/link/anteprima",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Questo strumento esegue una ricerca HTML di DuckDuckGo e restituisce titolo/link/anteprima. Se i risultati sono vuoti, il sito potrebbe limitare le richieste o bloccarle."
   },
   "ru": {
@@ -93,6 +170,17 @@
     "param.q.description": "Псевдоним для 'query' (для обратной совместимости).",
     "param.query.description": "Строка поискового запроса.",
     "tool.description": "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссылку/фрагмент.",
+    "x_search_terms": [
+      "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссылку/фрагмент",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Этот инструмент выполняет HTML-поиск DuckDuckGo и возвращает заголовок/ссылку/фрагмент. Если результаты пусты, сайт может ограничивать частоту запросов или блокировать их."
   },
   "pt_BR": {
@@ -105,6 +193,17 @@
     "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
     "param.query.description": "String da consulta de busca.",
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "x_search_terms": [
+      "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
   "pt": {
@@ -117,6 +216,17 @@
     "param.q.description": "Alias de 'query' (para compatibilidade com versões anteriores).",
     "param.query.description": "String da consulta de pesquisa.",
     "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho.",
+    "x_search_terms": [
+      "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne título/link/trecho",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
   },
   "id": {
@@ -129,6 +239,17 @@
     "param.q.description": "Alias dari 'query' (untuk kompatibilitas mundur).",
     "param.query.description": "String kueri pencarian.",
     "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
+    "x_search_terms": [
+      "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
   },
   "vi": {
@@ -141,6 +262,17 @@
     "param.q.description": "Bí danh của 'query' (để tương thích ngược).",
     "param.query.description": "Chuỗi truy vấn tìm kiếm.",
     "tool.description": "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet.",
+    "x_search_terms": [
+      "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Công cụ này thực hiện tìm kiếm DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet. Nếu kết quả trống, trang web có thể đang giới hạn tốc độ hoặc chặn yêu cầu."
   },
   "pl": {
@@ -153,6 +285,17 @@
     "param.q.description": "Alias dla 'query' (dla zgodności wstecznej).",
     "param.query.description": "Łańcuch zapytania wyszukiwania.",
     "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment.",
+    "x_search_terms": [
+      "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnośnik/fragment",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "To narzędzie wykonuje wyszukiwanie HTML DuckDuckGo i zwraca tytuł/odnośnik/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość albo blokować żądanie."
   },
   "hi": {
@@ -165,6 +308,17 @@
     "param.q.description": "'query' का उपनाम (पिछली संगतता के लिए).",
     "param.query.description": "खोज क्वेरी स्ट्रिंग.",
     "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
+    "x_search_terms": [
+      "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "यह टूल DuckDuckGo HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
   },
   "ar": {
@@ -177,6 +331,17 @@
     "param.q.description": "اسم بديل لـ 'query' (للتوافق مع الإصدارات السابقة).",
     "param.query.description": "سلسلة استعلام البحث.",
     "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
+    "x_search_terms": [
+      "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "تُجري هذه الأداة بحثًا عبر DuckDuckGo HTML وتُرجع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع يحدّ من معدل الطلبات أو يحظرها."
   },
   "sv": {
@@ -189,6 +354,17 @@
     "param.q.description": "Alias för 'query' (för bakåtkompatibilitet).",
     "param.query.description": "Sökfråga som sträng.",
     "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
+    "x_search_terms": [
+      "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Det här verktyget gör en DuckDuckGo-HTML-sökning och returnerar titel/länk/snutt. Om resultaten är tomma kan webbplatsen vara hastighetsbegränsande eller blockera begäran."
   },
   "sw": {
@@ -201,6 +377,17 @@
     "param.q.description": "Kisawe cha 'query' (kwa uoanifu wa nyuma).",
     "param.query.description": "Kamba ya hoja ya utafutaji.",
     "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo.",
+    "x_search_terms": [
+      "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa/kiungo/dondoo",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
   },
   "nb": {
@@ -213,6 +400,17 @@
     "param.q.description": "Alias for 'query' (for bakoverkompatibilitet).",
     "param.query.description": "Søkeord som streng.",
     "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
+    "x_search_terms": [
+      "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Dette verktøyet utfører et DuckDuckGo HTML-søk og returnerer tittel/lenke/utdrag. Hvis resultatene er tomme, kan nettstedet begrense hastigheten eller blokkere forespørselen."
   },
   "nl": {
@@ -225,6 +423,17 @@
     "param.q.description": "Alias van 'query' (voor achterwaartse compatibiliteit).",
     "param.query.description": "Zoekopdracht.",
     "tool.description": "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/snippet terug.",
+    "x_search_terms": [
+      "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/snippet terug",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Doorzoek DuckDuckGo via HTML en geef titel/link/snippet terug. Als resultaten leeg zijn, kan de site verzoeken rate-limiten of blokkeren."
   },
   "fi": {
@@ -237,6 +446,17 @@
     "param.q.description": "'query'-alias (taaksepäin yhteensopivuuden vuoksi).",
     "param.query.description": "Hakukysely.",
     "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma.",
+    "x_search_terms": [
+      "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/linkki/katkelma",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Hae DuckDuckGo:sta HTML:n kautta ja palauta otsikko/linkki/katkelma. Jos tulokset ovat tyhjiä, sivusto voi rajoittaa pyyntöjä tai estää ne."
   },
   "cs": {
@@ -249,6 +469,17 @@
     "param.q.description": "Alias pro 'query' (pro zpětnou kompatibilitu).",
     "param.query.description": "Řetězec dotazu pro vyhledávání.",
     "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
+    "x_search_terms": [
+      "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Tento nástroj provádí vyhledávání DuckDuckGo HTML a vrací titul/odkaz/úryvek. Pokud jsou výsledky prázdné, může být web omezující rychlost nebo blokující požadavek."
   },
   "uk": {
@@ -261,6 +492,17 @@
     "param.q.description": "Псевдонім для 'query' (для зворотної сумісності).",
     "param.query.description": "Рядок пошукового запиту.",
     "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок.",
+    "x_search_terms": [
+      "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголовок/посилання/уривок",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
   },
   "tr": {
@@ -273,6 +515,17 @@
     "param.q.description": "'query' için takma ad (geriye dönük uyumluluk için).",
     "param.query.description": "Arama sorgusu dizgesi.",
     "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür.",
+    "x_search_terms": [
+      "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlantı/snippet döndürür",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "Bu araç DuckDuckGo HTML araması yapar ve başlık/bağlantı/snippet döndürür. Sonuçlar boşsa site istekleri hız sınırlıyor veya engelliyor olabilir."
   },
   "th": {
@@ -285,6 +538,17 @@
     "param.q.description": "ชื่อแทนของ 'query' (เพื่อความเข้ากันได้แบบย้อนหลัง)",
     "param.query.description": "สตริงคำค้นหา",
     "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
+    "x_search_terms": [
+      "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
   },
   "zh_CN": {
@@ -297,6 +561,17 @@
     "param.q.description": "“query”的别名（为了向后兼容）。",
     "param.query.description": "搜索查询字符串。",
     "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
+    "x_search_terms": [
+      "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "该工具执行 DuckDuckGo HTML 搜索并返回标题/链接/片段。如果结果为空，则该站点可能会限制速率或阻止请求。"
   },
   "zh_TW": {
@@ -309,6 +584,17 @@
     "param.q.description": "「query」的別名（為了向後相容）。",
     "param.query.description": "搜尋查詢字串。",
     "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
+    "x_search_terms": [
+      "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段",
+      "web search",
+      "duckduckgo",
+      "search internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в вебе"
+    ],
     "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
   }
 }

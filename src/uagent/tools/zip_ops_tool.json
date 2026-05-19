@@ -28,6 +28,15 @@
     "param.sources.description": "Inputs for create (files/directories).",
     "param.zip_path.description": "Path to the zip file.",
     "tool.description": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
+    "x_search_terms": [
+      "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. Important: paths outside workdir are rejected (per safe_file_ops_extras)."
   },
   "ja": {
@@ -59,6 +68,15 @@
     "param.sources.description": "create の入力元（ファイル/ディレクトリ）。",
     "param.zip_path.description": "zip ファイルのパス。",
     "tool.description": "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）。",
+    "x_search_terms": [
+      "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ZIP ファイルの作成・展開・一覧取得を行います（Zip Slip / Zip Bomb 対策あり）。重要: 展開時は Zip Slip に該当するパス（../、絶対パス、ドライブレター付きなど）を拒否します。重要: extract で overwrite=True の場合、既存ファイルを上書きする可能性があるため human_ask で確認します。重要: zip bomb 対策として、max_files と max_total_uncompressed_bytes を超えるアーカイブは拒否します。重要: workdir 外のパスは拒否します（safe_file_ops_extras に準拠）。"
   },
   "es": {
@@ -90,6 +108,15 @@
     "param.sources.description": "Entradas para crear (archivos/directorios).",
     "param.zip_path.description": "Ruta al archivo zip.",
     "tool.description": "Crea, extrae y enumera archivos ZIP (con protecciones Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Crea, extrae y enumera archivos ZIP (con protecciones Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Crear/extraer/listar archivos ZIP (con protecciones Zip Slip/Zip Bomb). Importante: durante la extracción, se rechazan las rutas Zip Slip (../, rutas absolutas, letras de unidad, etc.). Importante: overwrite=True para la extracción puede sobrescribir los archivos existentes y solicitará confirmación a través de human_ask. Importante: Las protecciones Zip Bomb rechazan archivos que exceden max_files y max_total_uncompressed_bytes. Importante: las rutas fuera de workdir se rechazan (según safe_file_ops_extras)."
   },
   "fr": {
@@ -121,6 +148,15 @@
     "param.sources.description": "Entrées pour créer (fichiers/répertoires).",
     "param.zip_path.description": "Chemin d'accès au fichier zip.",
     "tool.description": "Créer/extraire/lister les fichiers ZIP (avec protections Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Créer/extraire/lister les fichiers ZIP (avec protections Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Créer/extraire/lister les fichiers ZIP (avec protections Zip Slip/Zip Bomb). Important : lors de l'extraction, les chemins Zip Slip (../, chemins absolus, lettres de lecteur, etc.) sont rejetés. Important : overwrite=True for extract peut écraser les fichiers existants et demandera une confirmation via human_ask. Important : les protections contre les bombes Zip rejettent les archives dépassant max_files et max_total_uncompressed_bytes. Important : les chemins en dehors du répertoire de travail sont rejetés (par safe_file_ops_extras)."
   },
   "ko": {
@@ -152,6 +188,15 @@
     "param.sources.description": "생성을 위한 입력(파일/디렉터리).",
     "param.zip_path.description": "zip 파일의 경로입니다.",
     "tool.description": "ZIP 파일을 만들고, 추출하고, 목록을 표시합니다(Zip Slip/Zip Bomb 보호 포함).",
+    "x_search_terms": [
+      "ZIP 파일을 만들고, 추출하고, 목록을 표시합니다(Zip Slip/Zip Bomb 보호 포함)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ZIP 파일을 만들고, 추출하고, 목록을 표시합니다(Zip Slip/Zip Bomb 보호 포함). 중요: 추출 시 Zip Slip 경로 (../, 절대 경로, 드라이브 문자 등)는 거부됩니다. 중요: extract에서 overwrite=True이면 기존 파일을 덮어쓸 수 있으므로 human_ask로 확인합니다. 중요: Zip bomb 방지 기능은 max_files 및 max_total_uncompressed_bytes를 초과하는 아카이브를 거부합니다. 중요: workdir 밖의 경로는 거부됩니다(safe_file_ops_extras 기준)."
   },
   "de": {
@@ -183,6 +228,15 @@
     "param.sources.description": "Eingaben für create (Dateien/Verzeichnisse).",
     "param.zip_path.description": "Pfad zur Zip-Datei.",
     "tool.description": "ZIP-Dateien erstellen/extrahieren/auflisten (mit Schutz vor Zip Slip / Zip Bomb).",
+    "x_search_terms": [
+      "ZIP-Dateien erstellen/extrahieren/auflisten (mit Schutz vor Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ZIP-Dateien erstellen/extrahieren/auflisten (mit Schutz vor Zip Slip / Zip Bomb). Wichtig: Beim Extrahieren werden Zip-Slip-Pfade (../, absolute Pfade, Laufwerksbuchstaben usw.) abgelehnt. Wichtig: overwrite=True bei extract kann vorhandene Dateien überschreiben und fordert eine Bestätigung über human_ask an. Wichtig: Schutz vor Zip Bombs lehnt Archive ab, die max_files und max_total_uncompressed_bytes überschreiten. Wichtig: Pfade außerhalb von workdir werden abgelehnt (gemäß safe_file_ops_extras)."
   },
   "it": {
@@ -214,6 +268,15 @@
     "param.sources.description": "Input per create (file/directory).",
     "param.zip_path.description": "Percorso del file zip.",
     "tool.description": "Crea/estrae/elenca file ZIP (con protezioni Zip Slip / Zip Bomb).",
+    "x_search_terms": [
+      "Crea/estrae/elenca file ZIP (con protezioni Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Crea/estrae/elenca file ZIP (con protezioni Zip Slip / Zip Bomb). Importante: durante l'estrazione, i percorsi Zip Slip (../, percorsi assoluti, lettere di unità, ecc.) vengono rifiutati. Importante: overwrite=True per extract può sovrascrivere file esistenti e richiederà conferma tramite human_ask. Importante: le protezioni Zip Bomb rifiutano archivi che superano max_files e max_total_uncompressed_bytes. Importante: i percorsi fuori da workdir vengono rifiutati (secondo safe_file_ops_extras)."
   },
   "ru": {
@@ -245,6 +308,15 @@
     "param.sources.description": "Входные данные для create (файлы/каталоги).",
     "param.zip_path.description": "Путь к zip-файлу.",
     "tool.description": "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb).",
+    "x_search_terms": [
+      "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Создаёт/распаковывает/перечисляет ZIP-файлы (с защитой Zip Slip / Zip Bomb). Важно: при распаковке пути Zip Slip (../, абсолютные пути, буквы дисков и т. п.) отклоняются. Важно: overwrite=True для extract может перезаписать существующие файлы и запросит подтверждение через human_ask. Важно: защита от Zip Bomb отклоняет архивы, превышающие max_files и max_total_uncompressed_bytes. Важно: пути вне workdir отклоняются (согласно safe_file_ops_extras)."
   },
   "pt_BR": {
@@ -276,6 +348,15 @@
     "param.sources.description": "Entradas para create (arquivos/diretórios).",
     "param.zip_path.description": "Caminho do arquivo zip.",
     "tool.description": "Criar/extrair/listar arquivos ZIP (com proteções Zip Slip / Zip Bomb).",
+    "x_search_terms": [
+      "Criar/extrair/listar arquivos ZIP (com proteções Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Criar/extrair/listar arquivos ZIP (com proteções Zip Slip / Zip Bomb). Importante: durante a extração, caminhos Zip Slip (../, caminhos absolutos, letras de unidade etc.) são rejeitados. Importante: overwrite=True para extract pode sobrescrever arquivos existentes e solicitará confirmação via human_ask. Importante: as proteções contra Zip Bomb rejeitam arquivos que excedem max_files e max_total_uncompressed_bytes. Importante: caminhos fora de workdir são rejeitados (conforme safe_file_ops_extras)."
   },
   "pt": {
@@ -307,6 +388,15 @@
     "param.sources.description": "Entradas para criação (arquivos/diretórios).",
     "param.zip_path.description": "Caminho para o arquivo zip.",
     "tool.description": "Crie/extraia/liste arquivos ZIP (com proteções Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Crie/extraia/liste arquivos ZIP (com proteções Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Crie/extraia/liste arquivos ZIP (com proteções Zip Slip/Zip Bomb). Importante: durante a extração, os caminhos Zip Slip (../, caminhos absolutos, letras de unidade, etc.) são rejeitados. Importante: overwrite=True para extração pode sobrescrever arquivos existentes e solicitará confirmação via human_ask. Importante: As proteções Zip Bomb rejeitam arquivos que excedam max_files e max_total_uncompressed_bytes. Importante: caminhos fora do workdir são rejeitados (por safe_file_ops_extras)."
   },
   "id": {
@@ -338,6 +428,15 @@
     "param.sources.description": "Input untuk create (file/direktori).",
     "param.zip_path.description": "Path ke file zip.",
     "tool.description": "Buat/ekstrak/daftar file ZIP (dengan perlindungan Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Buat/ekstrak/daftar file ZIP (dengan perlindungan Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Buat/ekstrak/daftar file ZIP (dengan perlindungan Zip Slip/Zip Bomb). Penting: saat extract, path Zip Slip (../, absolute paths, drive letters, dll.) ditolak. Penting: overwrite=True untuk extract dapat menimpa file yang sudah ada dan akan meminta konfirmasi via human_ask. Penting: perlindungan Zip bomb menolak arsip yang melebihi max_files dan max_total_uncompressed_bytes. Penting: path di luar workdir ditolak (sesuai safe_file_ops_extras)."
   },
   "vi": {
@@ -369,6 +468,15 @@
     "param.sources.description": "Đầu vào để tạo (tệp/thư mục).",
     "param.zip_path.description": "Đường dẫn đến tệp zip.",
     "tool.description": "Tạo/giải nén/liệt kê các tệp ZIP (có tính năng bảo vệ Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Tạo/giải nén/liệt kê các tệp ZIP (có tính năng bảo vệ Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Tạo/giải nén/liệt kê các tệp ZIP (có tính năng bảo vệ Zip Slip/Zip Bomb). Quan trọng: trong quá trình trích xuất, các đường dẫn Zip Slip (../, đường dẫn tuyệt đối, ký tự ổ đĩa, v.v.) đều bị từ chối. Quan trọng: overwrite=True để giải nén có thể ghi đè lên các tệp hiện có và sẽ yêu cầu xác nhận qua human_ask. Quan trọng: Cơ chế bảo vệ bom Zip từ chối các bản lưu trữ vượt quá max_files và max_total_uncompression_bytes. Quan trọng: các đường dẫn bên ngoài Workdir bị từ chối (theo safe_file_ops_extras)."
   },
   "pl": {
@@ -400,6 +508,15 @@
     "param.sources.description": "Dane wejściowe do tworzenia (pliki/katalogi).",
     "param.zip_path.description": "Ścieżka do pliku zip.",
     "tool.description": "Twórz/wyodrębniaj/listuj pliki ZIP (z zabezpieczeniami Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Twórz/wyodrębniaj/listuj pliki ZIP (z zabezpieczeniami Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Twórz/wyodrębniaj/listuj pliki ZIP (z zabezpieczeniami Zip Slip/Zip Bomb). Ważne: podczas wyodrębniania ścieżki Zip Slip (../, ścieżki bezwzględne, litery dysków itp.) są odrzucane. Ważne: overwrite=True, ponieważ ekstrakt może zastąpić istniejące pliki i poprosić o potwierdzenie poprzez human_ask. Ważne: zabezpieczenia Zip Bomb odrzucają archiwa przekraczające max_files i max_total_uncompressed_bytes. Ważne: ścieżki poza katalogiem roboczym są odrzucane (na podstawie Safe_file_ops_extras)."
   },
   "hi": {
@@ -431,6 +548,15 @@
     "param.sources.description": "बनाने के लिए इनपुट (फ़ाइलें/निर्देशिकाएं)।",
     "param.zip_path.description": "ज़िप फ़ाइल का पथ.",
     "tool.description": "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)।",
+    "x_search_terms": [
+      "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)।",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ज़िप फ़ाइलें बनाएं/निकालें/सूचीबद्ध करें (ज़िप स्लिप/ज़िप बम सुरक्षा के साथ)। महत्वपूर्ण: निकालने के दौरान, ज़िप स्लिप पथ (../, पूर्ण पथ, ड्राइव अक्षर, आदि) अस्वीकार कर दिए जाते हैं। महत्वपूर्ण: ओवरराइट=एक्सट्रेक्ट के लिए सही मौजूदा फ़ाइलों को ओवरराइट कर सकता है और human_ask के माध्यम से पुष्टि के लिए पूछेगा। महत्वपूर्ण: ज़िप बम सुरक्षा max_files और max_total_uncompressed_bytes से अधिक के संग्रह को अस्वीकार कर देती है। महत्वपूर्ण: वर्कडिर के बाहर के पथ अस्वीकार कर दिए जाते हैं (प्रति सुरक्षित_फ़ाइल_ऑप्स_एक्स्ट्रा)।"
   },
   "ar": {
@@ -462,6 +588,15 @@
     "param.sources.description": "مدخلات الإنشاء (ملفات/أدلة).",
     "param.zip_path.description": "المسار إلى الملف المضغوط.",
     "tool.description": "إنشاء/استخراج/قائمة ملفات ZIP (مع حماية Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "إنشاء/استخراج/قائمة ملفات ZIP (مع حماية Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "إنشاء/استخراج/قائمة ملفات ZIP (مع حماية Zip Slip/Zip Bomb). هام: أثناء الاستخراج، يتم رفض مسارات Zip Slip (../، والمسارات المطلقة، وأحرف محركات الأقراص، وما إلى ذلك). هام: overwrite=True for extract قد يحل محل الملفات الموجودة وسيطلب التأكيد عبر human_ask. هام: ترفض عمليات الحماية من القنابل المضغوطة الأرشيفات التي تتجاوز max_files وmax_total_uncompressed_bytes. هام: تم رفض المسارات خارج دليل العمل (حسب ملف Safe_file_ops_extras)."
   },
   "sv": {
@@ -493,6 +628,15 @@
     "param.sources.description": "Indata för create (filer/kataloger).",
     "param.zip_path.description": "Sökväg till zip-filen.",
     "tool.description": "Skapa/extrahera/lista ZIP-filer (med skydd mot Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Skapa/extrahera/lista ZIP-filer (med skydd mot Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Skapa/extrahera/lista ZIP-filer (med skydd mot Zip Slip/Zip Bomb). Viktigt: vid extrahering nekas Zip Slip-sökvägar (../, absoluta ..."
   },
   "sw": {
@@ -524,6 +668,15 @@
     "param.sources.description": "Vyanzo vya kuunda (faili/saraka).",
     "param.zip_path.description": "Njia ya faili la zip.",
     "tool.description": "Unda, toa na orodhesha faili za ZIP (kwa ulinzi dhidi ya Zip Slip / Zip Bomb).",
+    "x_search_terms": [
+      "Unda, toa na orodhesha faili za ZIP (kwa ulinzi dhidi ya Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Unda, toa na orodhesha faili za ZIP (kwa ulinzi dhidi ya Zip Slip / Zip Bomb). Muhimu: wakati wa kutoa, njia za Zip Slip (../, njia kamili, herufi za kiendeshi, n.k.) hukataliwa. Muhimu: overwrite=True wakati wa extract inaweza kuandika juu ya faili zilizopo na itaomba uthibitisho kupitia human_ask. Muhimu: ulinzi dhidi ya Zip bomb hukataa hifadhi zinazosizidi max_files na max_total_uncompressed_bytes. Muhimu: njia nje ya workdir hukataliwa (kulingana na safe_file_ops_extras)."
   },
   "nb": {
@@ -555,6 +708,15 @@
     "param.sources.description": "Inndata for create (filer/kataloger).",
     "param.zip_path.description": "Sti til zip-filen.",
     "tool.description": "Opprett/pakk ut/list ZIP-filer (med beskyttelse mot Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Opprett/pakk ut/list ZIP-filer (med beskyttelse mot Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Opprett/pakk ut/list ZIP-filer (med beskyttelse mot Zip Slip/Zip Bomb). Viktig: ved utpakking avvises Zip Slip-stier (../, absolute ..."
   },
   "nl": {
@@ -586,6 +748,15 @@
     "param.sources.description": "Invoer voor create (bestanden/mappen).",
     "param.zip_path.description": "Pad naar het zip-bestand.",
     "tool.description": "ZIP-bestanden maken, uitpakken en weergeven (met Zip Slip / Zip Bomb bescherming).",
+    "x_search_terms": [
+      "ZIP-bestanden maken, uitpakken en weergeven (met Zip Slip / Zip Bomb bescherming)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ZIP-bestanden maken, uitpakken en weergeven (met Zip Slip / Zip Bomb bescherming). Belangrijk: bij uitpakken worden Zip Slip-paden (../, absolute paden, stationsletters, enz.) geweigerd. Belangrijk: extract + overwrite=True kan bestaande bestanden overschrijven en vraagt om bevestiging via human_ask. Belangrijk: zip-bomb-bescherming weigert archieven die de limieten max_files en max_total_uncompressed_bytes overschrijden. Belangrijk: paden buiten workdir worden geweigerd (volgens safe_file_ops_extras)."
   },
   "fi": {
@@ -617,6 +788,15 @@
     "param.sources.description": "create:n syötteet (tiedostot/hakemistot).",
     "param.zip_path.description": "Polku zip-tiedostoon.",
     "tool.description": "Luo/purkaa/listaa ZIP-tiedostoja (Zip Slip / Zip Bomb -suojauksilla).",
+    "x_search_terms": [
+      "Luo/purkaa/listaa ZIP-tiedostoja (Zip Slip / Zip Bomb -suojauksilla)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Luo/purkaa/listaa ZIP-tiedostoja (Zip Slip / Zip Bomb -suojauksilla). Tärkeää: purettaessa Zip Slip -polut (../, absoluuttiset polut, asemakirjaimet jne.) hylätään. Tärkeää: extract + overwrite=True voi ylikirjoittaa olemassa olevia tiedostoja ja pyytää vahvistusta human_askilla. Tärkeää: zip bomb -suojaukset hylkäävät arkistot, jotka ylittävät max_files- ja max_total_uncompressed_bytes -rajat. Tärkeää: workdirin ulkopuoliset polut hylätään (safe_file_ops_extrasin mukaisesti)."
   },
   "cs": {
@@ -648,6 +828,15 @@
     "param.sources.description": "Vstupy pro vytvoření (soubory/adresáře).",
     "param.zip_path.description": "Cesta k ZIP souboru.",
     "tool.description": "Vytváří/rozbaluje/vypisuje ZIP soubory (s ochranou proti Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Vytváří/rozbaluje/vypisuje ZIP soubory (s ochranou proti Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Vytvářejte/rozbalujte/vypisujte ZIP soubory (s ochranou proti Zip Slip/Zip Bomb). Důležité: při rozbalování jsou cesty Zip Slip (../, absolutní cesty, písmena disků atd.) odmítnuty. Důležité: overwrite=True při extract může přepsat existující soubory a vyžádá si potvrzení přes human_ask. Důležité: ochrana proti ZIP bombě odmítá archivy překračující max_files a max_total_uncompressed_bytes. Důležité: cesty mimo workdir jsou odmítnuty (podle safe_file_ops_extras)."
   },
   "uk": {
@@ -679,6 +868,15 @@
     "param.sources.description": "Вхідні дані для створення (файли/каталоги).",
     "param.zip_path.description": "Шлях до ZIP-файла.",
     "tool.description": "Створює/розпаковує/перелічує ZIP-файли (із захистом від Zip Slip/Zip Bomb).",
+    "x_search_terms": [
+      "Створює/розпаковує/перелічує ZIP-файли (із захистом від Zip Slip/Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "Створюйте/розпаковуйте/перелічуйте ZIP-файли (із захистом від Zip Slip/Zip Bomb). Важливо: під час розпакування шляхи Zip Slip (../, абсолютні шляхи, літери дисків тощо) відхиляються. Важливо: overwrite=True під час extract може перезаписати наявні файли та попросить підтвердження через human_ask. Важливо: захист від ZIP-бомби відхиляє архіви, що перевищують max_files і max_total_uncompressed_bytes. Важливо: шляхи поза workdir відхиляються (відповідно до safe_file_ops_extras)."
   },
   "tr": {
@@ -710,6 +908,15 @@
     "param.sources.description": "Oluşturma girdileri (dosyalar/dizinler).",
     "param.zip_path.description": "zip dosyasının yolu.",
     "tool.description": "ZIP dosyaları oluşturur, çıkarır ve listeler (Zip Slip / Zip Bomb korumalarıyla).",
+    "x_search_terms": [
+      "ZIP dosyaları oluşturur, çıkarır ve listeler (Zip Slip / Zip Bomb korumalarıyla)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "ZIP dosyaları oluşturun, çıkarın ve listeleyin (Zip Slip / Zip Bomb korumalarıyla). Önemli: çıkarma sırasında Zip Slip yolları (../, mutlak yollar, sürücü harfleri vb.) reddedilir. Önemli: extract için overwrite=True mevcut dosyaların üzerine yazabilir ve human_ask ile onay istenir. Önemli: zip bomb korumaları max_files ve max_total_uncompressed_bytes'i aşan arşivleri reddeder. Önemli: workdir dışındaki yollar reddedilir (safe_file_ops_extras'a göre)."
   },
   "th": {
@@ -741,6 +948,15 @@
     "param.sources.description": "อินพุตสำหรับการสร้าง (ไฟล์/ไดเร็กทอรี)",
     "param.zip_path.description": "เส้นทางไปยังไฟล์ zip",
     "tool.description": "สร้าง แยก และแสดงรายการไฟล์ ZIP (พร้อมการป้องกัน Zip Slip / Zip Bomb)",
+    "x_search_terms": [
+      "สร้าง แยก และแสดงรายการไฟล์ ZIP (พร้อมการป้องกัน Zip Slip / Zip Bomb)",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "สร้าง แยก และแสดงรายการไฟล์ ZIP (พร้อมการป้องกัน Zip Slip / Zip Bomb) สำคัญ: ระหว่างการแยกไฟล์ เส้นทางแบบ Zip Slip (../, เส้นทางแบบสัมบูรณ์, ตัวอักษรไดรฟ์ ฯลฯ) จะถูกปฏิเสธ สำคัญ: หาก extract ใช้ overwrite=True อาจเขียนทับไฟล์เดิมและจะขอการยืนยันผ่าน human_ask สำคัญ: การป้องกัน Zip bomb จะปฏิเสธไฟล์เก็บถาวรที่เกิน max_files และ max_total_uncompressed_bytes สำคัญ: เส้นทางนอก workdir จะถูกปฏิเสธ (ตาม safe_file_ops_extras)"
   },
   "zh_CN": {
@@ -772,6 +988,15 @@
     "param.sources.description": "创建（文件/目录）的输入。",
     "param.zip_path.description": "zip 文件的路径。",
     "tool.description": "创建、提取和列出 ZIP 文件（带有 Zip Slip / Zip Bomb 保护）。",
+    "x_search_terms": [
+      "创建、提取和列出 ZIP 文件（带有 Zip Slip / Zip Bomb 保护）",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "创建/提取/列出 ZIP 文件（带有 Zip Slip/Zip Bomb 保护）。重要提示：在提取过程中，Zip Slip 路径（../、绝对路径、驱动器号等）将被拒绝。重要提示：overwrite=True 提取可能会覆盖现有文件，并会要求通过 human_ask 进行确认。重要提示：Zip 炸弹防护会拒绝超过 max_files 和 max_total_uncompressed_bytes 的存档。重要提示：workdir 之外的路径将被拒绝（根据 safe_file_ops_extras）。"
   },
   "zh_TW": {
@@ -803,6 +1028,15 @@
     "param.sources.description": "建立（檔案/目錄）的輸入。",
     "param.zip_path.description": "zip 檔案的路徑。",
     "tool.description": "建立、提取與列出 ZIP 檔案（具備 Zip Slip / Zip Bomb 防護）。",
+    "x_search_terms": [
+      "建立、提取與列出 ZIP 檔案（具備 Zip Slip / Zip Bomb 防護）",
+      "zip_ops",
+      "zip ops",
+      "zip",
+      "archive",
+      "extract zip",
+      "compress"
+    ],
     "tool.system_prompt": "建立/提取/列出 ZIP 檔案（帶有 Zip Slip/Zip Bomb 保護）。重要提示：在擷取過程中，Zip Slip 路徑（../、絕對路徑、磁碟機號碼等）將被拒絕。重要提示：overwrite=True 提取可能會覆蓋現有文件，並會要求透過 human_ask 進行確認。重要提示：Zip 炸彈防護會拒絕超過 max_files 和 max_total_uncompressed_bytes 的檔案。重要提示：workdir 以外的路徑將被拒絕（根據 safe_file_ops_extras）。"
   }
 }
