@@ -19,7 +19,7 @@
     "param.token.description": "Bearer token (plaintext). It will be encrypted before storing.",
     "tool.description": "Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json). Use only when existing local tools cannot replace the task.",
     "x_search_terms": [
-      "Manage A2A server profiles under the uagent state dir (~/",
+      "Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json). Use only when existing local tools cannot replace the task",
       "a2a_servers",
       "a2a servers"
     ],
@@ -45,7 +45,7 @@
     "param.token.description": "Bearer トークン（平文）。保存時に暗号化されます。",
     "tool.description": "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [
-      "uagent の状態ディレクトリ配下（~/",
+      "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。 既存のローカルツールで代替できない場合のみ使用してください",
       "a2a_servers",
       "a2a servers"
     ],
@@ -71,7 +71,7 @@
     "param.token.description": "Token Bearer (texto plano). Se cifrará antes de guardarlo.",
     "tool.description": "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
-      "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/",
+      "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea",
       "a2a_servers",
       "a2a servers"
     ],
@@ -97,7 +97,7 @@
     "param.token.description": "Jeton Bearer (en clair). Il sera chiffré avant l’enregistrement.",
     "tool.description": "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
-      "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/",
+      "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche",
       "a2a_servers",
       "a2a servers"
     ],
@@ -123,7 +123,7 @@
     "param.token.description": "Bearer 토큰(평문). 저장 전에 암호화됩니다.",
     "tool.description": "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "uagent 상태 디렉터리(~/",
+      "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요",
       "a2a_servers",
       "a2a servers"
     ],
@@ -149,7 +149,7 @@
     "param.token.description": "Bearer-Token (Klartext). Es wird vor dem Speichern verschlüsselt.",
     "tool.description": "A2A-Serverprofile im uagent-Statusverzeichnis (~/.uag/a2a/a2a_servers.json) verwalten. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
-      "A2A-Serverprofile im uagent-Statusverzeichnis (~/",
+      "A2A-Serverprofile im uagent-Statusverzeichnis (~/.uag/a2a/a2a_servers.json) verwalten. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können",
       "a2a_servers",
       "a2a servers"
     ],
@@ -175,7 +175,7 @@
     "param.token.description": "Token Bearer (testo in chiaro). Verrà crittografato prima dell'archiviazione.",
     "tool.description": "Gestisce i profili dei server A2A nella directory di stato di uagent (~/.uag/a2a/a2a_servers.json). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
-      "Gestisce i profili dei server A2A nella directory di stato di uagent (~/",
+      "Gestisce i profili dei server A2A nella directory di stato di uagent (~/.uag/a2a/a2a_servers.json). Usalo solo quando gli strumenti locali non possono sostituire il compito",
       "a2a_servers",
       "a2a servers"
     ],
@@ -201,7 +201,7 @@
     "param.token.description": "Bearer-токен (открытый текст). Перед сохранением он будет зашифрован.",
     "tool.description": "Управляйте профилями сервера A2A в каталоге состояния uagent (~/.uag/a2a/a2a_servers.json). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
-      "Управляйте профилями сервера A2A в каталоге состояния uagent (~/",
+      "Управляйте профилями сервера A2A в каталоге состояния uagent (~/.uag/a2a/a2a_servers.json). Используйте только тогда, когда локальные инструменты не могут заменить задачу",
       "a2a_servers",
       "a2a servers"
     ],
@@ -227,7 +227,7 @@
     "param.token.description": "Token Bearer (texto simples). Ele será criptografado antes de ser armazenado.",
     "tool.description": "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/",
+      "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json). Use somente quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_servers",
       "a2a servers"
     ],
@@ -253,7 +253,7 @@
     "param.token.description": "Token ao portador (texto simples). Ele será criptografado antes de ser armazenado.",
     "tool.description": "Gerencie perfis de servidor A2A no diretório de estado uagent (~/.uag/a2a/a2a_servers.json). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Gerencie perfis de servidor A2A no diretório de estado uagent (~/",
+      "Gerencie perfis de servidor A2A no diretório de estado uagent (~/.uag/a2a/a2a_servers.json). Use apenas quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_servers",
       "a2a servers"
     ],
@@ -279,7 +279,7 @@
     "param.token.description": "Token Bearer (teks biasa). Akan dienkripsi sebelum disimpan.",
     "tool.description": "Kelola profil server A2A di direktori status uagent (~/.uag/a2a/a2a_servers.json). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
-      "Kelola profil server A2A di direktori status uagent (~/",
+      "Kelola profil server A2A di direktori status uagent (~/.uag/a2a/a2a_servers.json). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas",
       "a2a_servers",
       "a2a servers"
     ],
@@ -305,7 +305,7 @@
     "param.token.description": "Mã thông báo mang (bản rõ). Nó sẽ được mã hóa trước khi lưu trữ.",
     "tool.description": "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/.uag/a2a/a2a_servers.json). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
-      "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/",
+      "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/.uag/a2a/a2a_servers.json). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ",
       "a2a_servers",
       "a2a servers"
     ],
@@ -331,7 +331,7 @@
     "param.token.description": "Token okaziciela (tekst jawny). Przed zapisaniem zostanie zaszyfrowany.",
     "tool.description": "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/.uag/a2a/a2a_servers.json). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
-      "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/",
+      "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/.uag/a2a/a2a_servers.json). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania",
       "a2a_servers",
       "a2a servers"
     ],
@@ -357,7 +357,7 @@
     "param.token.description": "वाहक टोकन (सादा पाठ)। इसे स्टोर करने से पहले एन्क्रिप्ट किया जाएगा.",
     "tool.description": "यूएजेंट स्टेट डीआईआर (~/.uag/a2a/a2a_servers.json) के तहत A2A सर्वर प्रोफाइल प्रबंधित करें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "x_search_terms": [
-      "यूएजेंट स्टेट डीआईआर (~/",
+      "यूएजेंट स्टेट डीआईआर (~/.uag/a2a/a2a_servers.json) के तहत A2A सर्वर प्रोफाइल प्रबंधित करें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
       "a2a_servers",
       "a2a servers"
     ],
@@ -383,7 +383,7 @@
     "param.token.description": "رمز Bearer (نص صريح). سيتم تشفيره قبل الحفظ.",
     "tool.description": "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/.uag/a2a/a2a_servers.json). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
-      "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/",
+      "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/.uag/a2a/a2a_servers.json). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة",
       "a2a_servers",
       "a2a servers"
     ],
@@ -409,7 +409,7 @@
     "param.token.description": "Bearer-token (klartext). Den krypteras innan lagring.",
     "tool.description": "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
-      "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/",
+      "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Använd endast när lokala verktyg inte kan ersätta uppgiften",
       "a2a_servers",
       "a2a servers"
     ],
@@ -435,7 +435,7 @@
     "param.token.description": "Tokeni ya Bearer (maandishi wazi). Itasimbwa kwa njia fiche kabla ya kuhifadhi.",
     "tool.description": "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
-      "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/",
+      "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi",
       "a2a_servers",
       "a2a servers"
     ],
@@ -461,7 +461,7 @@
     "param.token.description": "Bearer-token (klartekst). Den krypteres før lagring.",
     "tool.description": "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
-      "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/",
+      "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Bruk bare når lokale verktøy ikke kan erstatte oppgaven",
       "a2a_servers",
       "a2a servers"
     ],
@@ -487,7 +487,7 @@
     "param.token.description": "Bearer-token (platte tekst). Wordt versleuteld vóór opslag.",
     "tool.description": "Beheer A2A-serverprofielen onder de uagent state-map (~/.uag/a2a/a2a_servers.json). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
-      "Beheer A2A-serverprofielen onder de uagent state-map (~/",
+      "Beheer A2A-serverprofielen onder de uagent state-map (~/.uag/a2a/a2a_servers.json). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen",
       "a2a_servers",
       "a2a servers"
     ],
@@ -513,7 +513,7 @@
     "param.token.description": "Bearer-token (selväkielisenä). Se salataan ennen tallentamista.",
     "tool.description": "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/.uag/a2a/a2a_servers.json). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
-      "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/",
+      "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/.uag/a2a/a2a_servers.json). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää",
       "a2a_servers",
       "a2a servers"
     ],
@@ -539,7 +539,7 @@
     "param.token.description": "Bearer token (prostý text). Před uložením bude zašifrován.",
     "tool.description": "Spravuje profily A2A serverů v adresáři stavu uagent (~/.uag/a2a/a2a_servers.json). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
-      "Spravuje profily A2A serverů v adresáři stavu uagent (~/",
+      "Spravuje profily A2A serverů v adresáři stavu uagent (~/.uag/a2a/a2a_servers.json). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit",
       "a2a_servers",
       "a2a servers"
     ],
@@ -565,7 +565,7 @@
     "param.token.description": "Bearer-токен (відкритий текст). Перед збереженням буде зашифрований.",
     "tool.description": "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
-      "Керує профілями серверів A2A в каталозі стану uagent (~/",
+      "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання",
       "a2a_servers",
       "a2a servers"
     ],
@@ -591,7 +591,7 @@
     "param.token.description": "Taşıyıcı belirteci (düz metin). Saklamadan önce şifrelenecektir.",
     "tool.description": "uagent durumu dizini (~/.uag/a2a/a2a_servers.json) altında A2A sunucu profillerini yönetin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
-      "uagent durumu dizini (~/",
+      "uagent durumu dizini (~/.uag/a2a/a2a_servers.json) altında A2A sunucu profillerini yönetin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın",
       "a2a_servers",
       "a2a servers"
     ],
@@ -617,7 +617,7 @@
     "param.token.description": "โทเค็น Bearer (ข้อความล้วน) จะถูกเข้ารหัสก่อนบันทึก.",
     "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
-      "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/",
+      "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้",
       "a2a_servers",
       "a2a servers"
     ],
@@ -643,7 +643,7 @@
     "param.token.description": "Bearer Token（明文）。保存前会加密。",
     "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置文件。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
-      "管理 uagent 状态目录（~/",
+      "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置文件。 仅在本地工具无法替代该任务时使用",
       "a2a_servers",
       "a2a servers"
     ],
@@ -669,7 +669,7 @@
     "param.token.description": "Bearer Token（明文）。儲存前會加密。",
     "tool.description": "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
-      "管理 uagent 狀態目錄（~/",
+      "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。 僅在本機工具無法取代該任務時使用",
       "a2a_servers",
       "a2a servers"
     ],

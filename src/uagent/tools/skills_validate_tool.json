@@ -6,13 +6,9 @@
     "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
     "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
     "x_search_terms": [
-      "Validates a skill directory (SKILL",
+      "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
@@ -23,13 +19,9 @@
     "param.strict.description": "warnings も失敗扱いにするか（既定:false）",
     "tool.description": "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します。",
     "x_search_terms": [
-      "Agent Skills 仕様に従ってスキルディレクトリ（SKILL",
+      "Agent Skills 仕様に従ってスキルディレクトリ（SKILL.md）を検証し、errors/warnings を返します",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
@@ -40,13 +32,9 @@
     "param.strict.description": "¿Las advertencias también deben tratarse como fallos? (predeterminado: false)",
     "tool.description": "Valida un directorio de habilidades (SKILL.md) según la especificación de habilidades del agente y devuelve errores y advertencias.",
     "x_search_terms": [
-      "Valida un directorio de habilidades (SKILL",
+      "Valida un directorio de habilidades (SKILL.md) según la especificación de habilidades del agente y devuelve errores y advertencias",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
   },
@@ -57,13 +45,9 @@
     "param.strict.description": "Faut-il aussi traiter les avertissements comme des échecs ? (par défaut : false)",
     "tool.description": "Valide un répertoire de compétences (SKILL.md) conformément à la spécification des compétences de l'agent et renvoie les erreurs et les avertissements.",
     "x_search_terms": [
-      "Valide un répertoire de compétences (SKILL",
+      "Valide un répertoire de compétences (SKILL.md) conformément à la spécification des compétences de l'agent et renvoie les erreurs et les avertissements",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
   },
@@ -74,13 +58,9 @@
     "param.strict.description": "경고도 실패로 간주할까요? (기본값: false)",
     "tool.description": "에이전트 스킬 사양에 따라 스킬 디렉터리(SKILL.md)를 검증하고 오류 및 경고를 반환합니다.",
     "x_search_terms": [
-      "에이전트 스킬 사양에 따라 스킬 디렉터리(SKILL",
+      "에이전트 스킬 사양에 따라 스킬 디렉터리(SKILL.md)를 검증하고 오류 및 경고를 반환합니다",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
@@ -91,13 +71,9 @@
     "param.strict.description": "Sollen Warnungen ebenfalls als Fehler behandelt werden? (Standard: false)",
     "tool.description": "Validiert ein Skill-Verzeichnis (SKILL.md) gemäß der Agent-Skills-Spezifikation und gibt Fehler sowie Warnungen zurück.",
     "x_search_terms": [
-      "Validiert ein Skill-Verzeichnis (SKILL",
+      "Validiert ein Skill-Verzeichnis (SKILL.md) gemäß der Agent-Skills-Spezifikation und gibt Fehler sowie Warnungen zurück",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
@@ -108,13 +84,9 @@
     "param.strict.description": "Gli avvisi devono essere considerati anch'essi un fallimento? (predefinito: false)",
     "tool.description": "Convalida una directory di skill (SKILL.md) secondo la specifica Agent Skills e restituisce errori e avvisi.",
     "x_search_terms": [
-      "Convalida una directory di skill (SKILL",
+      "Convalida una directory di skill (SKILL.md) secondo la specifica Agent Skills e restituisce errori e avvisi",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
@@ -125,13 +97,9 @@
     "param.strict.description": "Считать ли предупреждения ошибками? (по умолчанию: false)",
     "tool.description": "Проверяет каталог навыка (SKILL.md) согласно спецификации Agent Skills и возвращает ошибки и предупреждения.",
     "x_search_terms": [
-      "Проверяет каталог навыка (SKILL",
+      "Проверяет каталог навыка (SKILL.md) согласно спецификации Agent Skills и возвращает ошибки и предупреждения",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
@@ -142,13 +110,9 @@
     "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: false)",
     "tool.description": "Valida um diretório de skill (SKILL.md) de acordo com a especificação Agent Skills e retorna erros e avisos.",
     "x_search_terms": [
-      "Valida um diretório de skill (SKILL",
+      "Valida um diretório de skill (SKILL.md) de acordo com a especificação Agent Skills e retorna erros e avisos",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
@@ -159,13 +123,9 @@
     "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: falso)",
     "tool.description": "Valida um diretório de habilidades (SKILL.md) de acordo com a especificação de habilidades do agente e retorna erros e avisos.",
     "x_search_terms": [
-      "Valida um diretório de habilidades (SKILL",
+      "Valida um diretório de habilidades (SKILL.md) de acordo com a especificação de habilidades do agente e retorna erros e avisos",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
@@ -176,13 +136,9 @@
     "param.strict.description": "Apakah warning juga diperlakukan sebagai kegagalan? (default: false)",
     "tool.description": "Memvalidasi direktori skill (SKILL.md) sesuai spesifikasi Agent Skills dan mengembalikan error serta warning.",
     "x_search_terms": [
-      "Memvalidasi direktori skill (SKILL",
+      "Memvalidasi direktori skill (SKILL.md) sesuai spesifikasi Agent Skills dan mengembalikan error serta warning",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   },
@@ -193,13 +149,9 @@
     "param.strict.description": "Có nên coi cảnh báo cũng là lỗi không? (mặc định: false)",
     "tool.description": "Xác thực thư mục kỹ năng (SKILL.md) theo thông số Kỹ năng của tác nhân và trả về các lỗi cũng như cảnh báo.",
     "x_search_terms": [
-      "Xác thực thư mục kỹ năng (SKILL",
+      "Xác thực thư mục kỹ năng (SKILL.md) theo thông số Kỹ năng của tác nhân và trả về các lỗi cũng như cảnh báo",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
@@ -210,13 +162,9 @@
     "param.strict.description": "Czy ostrzeżenia też należy traktować jako błąd? (domyślnie: fałsz)",
     "tool.description": "Sprawdza katalog umiejętności (SKILL.md) zgodnie ze specyfikacją Agent Skills i zwraca błędy i ostrzeżenia.",
     "x_search_terms": [
-      "Sprawdza katalog umiejętności (SKILL",
+      "Sprawdza katalog umiejętności (SKILL.md) zgodnie ze specyfikacją Agent Skills i zwraca błędy i ostrzeżenia",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
@@ -227,13 +175,9 @@
     "param.strict.description": "क्या चेतावनियों को भी विफलता माना जाना चाहिए? (डिफ़ॉल्ट: false)",
     "tool.description": "एजेंट कौशल विनिर्देश के अनुसार एक कौशल निर्देशिका (SKILL.md) को मान्य करता है और त्रुटियाँ और चेतावनियाँ लौटाता है।",
     "x_search_terms": [
-      "एजेंट कौशल विनिर्देश के अनुसार एक कौशल निर्देशिका (SKILL",
+      "एजेंट कौशल विनिर्देश के अनुसार एक कौशल निर्देशिका (SKILL.md) को मान्य करता है और त्रुटियाँ और चेतावनियाँ लौटाता है।",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
@@ -244,13 +188,9 @@
     "param.strict.description": "هل يجب أيضًا التعامل مع التحذيرات على أنها أخطاء؟ (الافتراضي: false)",
     "tool.description": "التحقق من صحة دليل المهارات (SKILL.md) وفقًا لمواصفات مهارات العميل وإرجاع الأخطاء والتحذيرات.",
     "x_search_terms": [
-      "التحقق من صحة دليل المهارات (SKILL",
+      "التحقق من صحة دليل المهارات (SKILL.md) وفقًا لمواصفات مهارات العميل وإرجاع الأخطاء والتحذيرات",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
@@ -261,13 +201,9 @@
     "param.strict.description": "Ska varningar också behandlas som fel? (standard: false)",
     "tool.description": "Validerar en skill-katalog (SKILL.md) enligt Agent Skills-specifikationen och returnerar fel och varningar.",
     "x_search_terms": [
-      "Validerar en skill-katalog (SKILL",
+      "Validerar en skill-katalog (SKILL.md) enligt Agent Skills-specifikationen och returnerar fel och varningar",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
@@ -278,13 +214,9 @@
     "param.strict.description": "Je, maonyo pia yahesabiwe kama kushindwa? (chaguomsingi: false)",
     "tool.description": "Huthibitisha saraka ya skill (SKILL.md) kulingana na Agent Skills spec na kurudisha makosa na maonyo.",
     "x_search_terms": [
-      "Huthibitisha saraka ya skill (SKILL",
+      "Huthibitisha saraka ya skill (SKILL.md) kulingana na Agent Skills spec na kurudisha makosa na maonyo",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
@@ -295,13 +227,9 @@
     "param.strict.description": "Skal varsler også behandles som feil? (standard: false)",
     "tool.description": "Validerer en skill-katalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og varsler.",
     "x_search_terms": [
-      "Validerer en skill-katalog (SKILL",
+      "Validerer en skill-katalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og varsler",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
@@ -312,13 +240,9 @@
     "param.strict.description": "Moeten waarschuwingen ook als fout worden behandeld? (standaard: false)",
     "tool.description": "Valideert een skillmap (SKILL.md) volgens de Agent Skills-specificatie en geeft fouten en waarschuwingen terug.",
     "x_search_terms": [
-      "Valideert een skillmap (SKILL",
+      "Valideert een skillmap (SKILL.md) volgens de Agent Skills-specificatie en geeft fouten en waarschuwingen terug",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
   },
@@ -329,13 +253,9 @@
     "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisena? (oletus: false)",
     "tool.description": "Validoi skill-hakemiston (SKILL.md) Agent Skills -määrityksen mukaisesti ja palauttaa virheet sekä varoitukset.",
     "x_search_terms": [
-      "Validoi skill-hakemiston (SKILL",
+      "Validoi skill-hakemiston (SKILL.md) Agent Skills -määrityksen mukaisesti ja palauttaa virheet sekä varoitukset",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
@@ -346,13 +266,9 @@
     "param.strict.description": "Mají se varování také považovat za chybu? (výchozí: false)",
     "tool.description": "Ověří adresář skillu (SKILL.md) podle specifikace Agent Skills a vrací chyby i varování.",
     "x_search_terms": [
-      "Ověří adresář skillu (SKILL",
+      "Ověří adresář skillu (SKILL.md) podle specifikace Agent Skills a vrací chyby i varování",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
   },
@@ -363,13 +279,9 @@
     "param.strict.description": "Чи слід також вважати попередження помилками? (типово: false)",
     "tool.description": "Перевіряє каталог skill (SKILL.md) згідно зі специфікацією Agent Skills і повертає помилки та попередження.",
     "x_search_terms": [
-      "Перевіряє каталог skill (SKILL",
+      "Перевіряє каталог skill (SKILL.md) згідно зі специфікацією Agent Skills і повертає помилки та попередження",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
   },
@@ -380,13 +292,9 @@
     "param.strict.description": "Uyarılar da başarısızlık olarak kabul edilsin mi? (varsayılan: false)",
     "tool.description": "Agent Skills belirtimine göre bir beceri dizinini (SKILL.md) doğrular ve hata ile uyarıları döndürür.",
     "x_search_terms": [
-      "Agent Skills belirtimine göre bir beceri dizinini (SKILL",
+      "Agent Skills belirtimine göre bir beceri dizinini (SKILL.md) doğrular ve hata ile uyarıları döndürür",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   },
@@ -397,13 +305,9 @@
     "param.strict.description": "ควรถือว่า warning เป็นความล้มเหลวด้วยหรือไม่ (ค่าเริ่มต้น: false)",
     "tool.description": "ตรวจสอบไดเร็กทอรีทักษะ (SKILL.md) ตามข้อมูลจำเพาะของ Agent Skills และส่งคืนข้อผิดพลาดและคำเตือน",
     "x_search_terms": [
-      "ตรวจสอบไดเร็กทอรีทักษะ (SKILL",
+      "ตรวจสอบไดเร็กทอรีทักษะ (SKILL.md) ตามข้อมูลจำเพาะของ Agent Skills และส่งคืนข้อผิดพลาดและคำเตือน",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   },
@@ -414,13 +318,9 @@
     "param.strict.description": "警告也应该视为失败吗？（默认：false）",
     "tool.description": "根据代理技能规范验证技能目录 (SKILL.md) 并返回错误和警告。",
     "x_search_terms": [
-      "根据代理技能规范验证技能目录 (SKILL",
+      "根据代理技能规范验证技能目录 (SKILL.md) 并返回错误和警告",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
   },
@@ -431,13 +331,9 @@
     "param.strict.description": "警告也應該視為失敗嗎？（預設：false）",
     "tool.description": "根據代理技能規格驗證技能目錄 (SKILL.md) 並傳回錯誤和警告。",
     "x_search_terms": [
-      "根據代理技能規格驗證技能目錄 (SKILL",
+      "根據代理技能規格驗證技能目錄 (SKILL.md) 並傳回錯誤和警告",
       "skills_validate",
-      "skills validate",
-      "agent skill",
-      "skill management",
-      "skill file",
-      "SKILL.md"
+      "skills validate"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   }

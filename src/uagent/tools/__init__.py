@@ -4,6 +4,7 @@ from ..env_utils import env_get
 import sys
 import json
 import re
+import warnings
 from datetime import datetime
 import importlib.util
 from importlib import import_module, reload
@@ -15,8 +16,26 @@ try:
 except Exception:  # pragma: no cover
     JanomeTokenizer = None
 
+try:
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            message=r"pkg_resources is deprecated as an API.*",
+            category=UserWarning,
+        )
+        import jieba
+except Exception:  # pragma: no cover
+    jieba = None
+
+try:
+    from pythainlp.tokenize import word_tokenize as thai_word_tokenize
+    from pythainlp.tag import pos_tag as thai_pos_tag
+except Exception:  # pragma: no cover
+    thai_word_tokenize = None
+    thai_pos_tag = None
+
 from .context import ToolCallbacks, get_callbacks, init_callbacks as _init_callbacks
-from .i18n_helper import clear_tool_i18n_cache, make_tool_translator
+from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
@@ -366,29 +385,9 @@ def get_tool_specs() -> List[Dict[str, Any]]:
     return clean_specs
 
 
-_CATALOG_JA_EN_KEYWORDS: Dict[str, List[str]] = {
-    "skill": ["skill", "skills", "skill.md"],
-    "weather": ["weather", "meteorology"],
-}
-
-
 def _expand_catalog_token(token: str) -> List[str]:
     t = (token or "").strip().lower()
-    if not t:
-        return []
-
-    out = {t}
-
-    if t.endswith("s") and len(t) > 3:
-        out.add(t[:-1])
-    else:
-        out.add(t + "s")
-
-    for _, vals in _CATALOG_JA_EN_KEYWORDS.items():
-        if t in vals:
-            out.update(vals)
-
-    return [x for x in out if x]
+    return [t] if t else []
 
 
 def _collect_janome_query_terms(query: str) -> List[str]:
@@ -412,15 +411,82 @@ def _collect_janome_query_terms(query: str) -> List[str]:
         return []
 
 
+def _collect_jieba_query_terms(query: str) -> List[str]:
+    q = (query or "").strip()
+    if not q or jieba is None:
+        return []
+    try:
+        out: List[str] = []
+        for tok in jieba.lcut(q):
+            term = str(tok or "").strip().lower()
+            if term and not term.isspace():
+                out.append(term)
+        return out
+    except Exception:
+        return []
+
+
+def _collect_thai_query_terms(query: str) -> List[str]:
+    q = (query or "").strip()
+    if not q or thai_word_tokenize is None:
+        return []
+    try:
+        out: List[str] = []
+        tokens = list(thai_word_tokenize(q, engine="newmm"))
+        if thai_pos_tag is not None:
+            try:
+                tags = thai_pos_tag(tokens, engine="perceptron", corpus="orchid")
+            except Exception:
+                tags = [(tok, "") for tok in tokens]
+        else:
+            tags = [(tok, "") for tok in tokens]
+        for tok, pos in tags:
+            term = str(tok or "").strip().lower()
+            if not term or term.isspace():
+                continue
+            if pos and not str(pos).startswith(("N", "V")):
+                continue
+            out.append(term)
+        return out
+    except Exception:
+        return []
+
+
+def _has_japanese_script(text: str) -> bool:
+    return bool(re.search(r"[\u3040-\u30ff]", text))
+
+
+def _has_thai_script(text: str) -> bool:
+    return bool(re.search(r"[\u0e00-\u0e7f]", text))
+
+
+def _has_cjk_script(text: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fff]", text))
+
+
 def _tokenize_catalog_query(query: str) -> List[str]:
     q = (query or "").strip().lower()
     if not q:
         return []
 
+    loc = get_locale()
     base_tokens = [tok for tok in re.split(r"\s+", q) if tok]
     tokens: List[str] = []
 
-    tokens.extend(_collect_janome_query_terms(q))
+    if _has_thai_script(q):
+        tokens.extend(_collect_thai_query_terms(q))
+    elif _has_japanese_script(q):
+        tokens.extend(_collect_janome_query_terms(q))
+    elif _has_cjk_script(q):
+        if loc.startswith("zh"):
+            tokens.extend(_collect_jieba_query_terms(q))
+        elif loc.startswith("ja"):
+            tokens.extend(_collect_janome_query_terms(q))
+        else:
+            tokens.extend(_collect_jieba_query_terms(q))
+    else:
+        tokens.extend(base_tokens)
+
     tokens.extend(base_tokens)
     tokens.append(q)
 

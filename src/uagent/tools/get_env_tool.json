@@ -6,13 +6,9 @@
     "param.unmasked_chars.description": "Number of characters to leave at the beginning and end when masking. Default is 2.",
     "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
     "x_search_terms": [
-      "Gets the value of a specified environment variable and returns it",
+      "Gets the value of a specified environment variable and returns it. Optionally masks the value",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
   },
@@ -23,13 +19,9 @@
     "param.unmasked_chars.description": "マスク時に先頭と末尾に残す文字数。既定は 2。",
     "tool.description": "指定した環境変数の値を取得して返します。必要に応じて値をマスクできます。",
     "x_search_terms": [
-      "指定した環境変数の値を取得して返します",
+      "指定した環境変数の値を取得して返します。必要に応じて値をマスクできます",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "このツールは、指定した環境変数の値を取得して返すために使います。必要に応じて値をマスクします。"
   },
@@ -40,13 +32,9 @@
     "param.unmasked_chars.description": "Número de caracteres que se dejan al principio y al final al enmascarar. El valor predeterminado es 2.",
     "tool.description": "Obtiene el valor de una variable de entorno especificada y lo devuelve. Opcionalmente, enmascara el valor.",
     "x_search_terms": [
-      "Obtiene el valor de una variable de entorno especificada y lo devuelve",
+      "Obtiene el valor de una variable de entorno especificada y lo devuelve. Opcionalmente, enmascara el valor",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para obtener el valor de una variable de entorno especificada y devolverlo. Opcionalmente, enmascara el valor."
   },
@@ -57,13 +45,9 @@
     "param.unmasked_chars.description": "Nombre de caractères à conserver au début et à la fin lors du masquage. La valeur par défaut est 2.",
     "tool.description": "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie. Peut éventuellement masquer la valeur.",
     "x_search_terms": [
-      "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie",
+      "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie. Peut éventuellement masquer la valeur",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Cet outil sert à obtenir la valeur d'une variable d'environnement spécifiée et à la renvoyer. Il peut éventuellement masquer la valeur."
   },
@@ -74,13 +58,9 @@
     "param.unmasked_chars.description": "마스킹할 때 앞뒤에 남길 문자 수입니다. 기본값은 2입니다.",
     "tool.description": "지정한 환경 변수의 값을 가져와 반환합니다. 필요에 따라 값을 마스킹할 수 있습니다.",
     "x_search_terms": [
-      "지정한 환경 변수의 값을 가져와 반환합니다",
+      "지정한 환경 변수의 값을 가져와 반환합니다. 필요에 따라 값을 마스킹할 수 있습니다",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "이 도구는 지정한 환경 변수의 값을 가져와 반환하는 데 사용됩니다. 필요에 따라 값을 마스킹할 수 있습니다."
   },
@@ -91,13 +71,9 @@
     "param.unmasked_chars.description": "Anzahl der Zeichen, die beim Maskieren am Anfang und Ende sichtbar bleiben. Standard ist 2.",
     "tool.description": "Ruft den Wert einer angegebenen Umgebungsvariable ab und gibt ihn zurück. Der Wert kann optional maskiert werden.",
     "x_search_terms": [
-      "Ruft den Wert einer angegebenen Umgebungsvariable ab und gibt ihn zurück",
+      "Ruft den Wert einer angegebenen Umgebungsvariable ab und gibt ihn zurück. Der Wert kann optional maskiert werden",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool, um den Wert einer angegebenen Umgebungsvariable abzurufen und zurückzugeben. Der Wert kann optional maskiert werden."
   },
@@ -108,13 +84,9 @@
     "param.unmasked_chars.description": "Numero di caratteri da lasciare all'inizio e alla fine durante il mascheramento. Il valore predefinito è 2.",
     "tool.description": "Recupera il valore di una variabile d'ambiente specificata e lo restituisce. Facoltativamente, maschera il valore.",
     "x_search_terms": [
-      "Recupera il valore di una variabile d'ambiente specificata e lo restituisce",
+      "Recupera il valore di una variabile d'ambiente specificata e lo restituisce. Facoltativamente, maschera il valore",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Questo strumento serve a recuperare il valore di una variabile d'ambiente specificata e restituirlo. Facoltativamente, maschera il valore."
   },
@@ -125,13 +97,9 @@
     "param.unmasked_chars.description": "Количество символов, которые нужно оставить в начале и в конце при маскировании. Значение по умолчанию: 2.",
     "tool.description": "Получает значение указанной переменной среды и возвращает его. При необходимости значение можно замаскировать.",
     "x_search_terms": [
-      "Получает значение указанной переменной среды и возвращает его",
+      "Получает значение указанной переменной среды и возвращает его. При необходимости значение можно замаскировать",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Этот инструмент используется для получения значения указанной переменной среды и его возврата. При необходимости значение можно замаскировать."
   },
@@ -142,13 +110,9 @@
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
     "x_search_terms": [
-      "Obtém o valor de uma variável de ambiente especificada e o retorna",
+      "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
   },
@@ -159,13 +123,9 @@
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
     "x_search_terms": [
-      "Obtém o valor de uma variável de ambiente especificada e o retorna",
+      "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
   },
@@ -176,13 +136,9 @@
     "param.unmasked_chars.description": "Jumlah karakter yang dibiarkan di awal dan akhir saat masking. Default 2.",
     "tool.description": "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya. Bisa juga menyamarkan nilainya.",
     "x_search_terms": [
-      "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya",
+      "Mengambil nilai variabel lingkungan tertentu dan mengembalikannya. Bisa juga menyamarkan nilainya",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk mendapatkan nilai variabel lingkungan tertentu dan mengembalikannya. Nilai dapat disamarkan bila perlu."
   },
@@ -193,13 +149,9 @@
     "param.unmasked_chars.description": "Số lượng ký tự để lại ở đầu và cuối khi tạo mặt nạ. Mặc định là 2.",
     "tool.description": "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che giấu giá trị.",
     "x_search_terms": [
-      "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó",
+      "Nhận giá trị của một biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che giấu giá trị",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: lấy giá trị của biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che dấu giá trị."
   },
@@ -210,13 +162,9 @@
     "param.unmasked_chars.description": "Liczba znaków, które należy pozostawić na początku i na końcu podczas maskowania. Wartość domyślna to 2.",
     "tool.description": "Pobiera wartość określonej zmiennej środowiskowej i zwraca ją. Opcjonalnie maskuje wartość.",
     "x_search_terms": [
-      "Pobiera wartość określonej zmiennej środowiskowej i zwraca ją",
+      "Pobiera wartość określonej zmiennej środowiskowej i zwraca ją. Opcjonalnie maskuje wartość",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: uzyskania wartości określonej zmiennej środowiskowej i zwrócenia jej. Opcjonalnie zamaskuj wartość."
   },
@@ -229,11 +177,7 @@
     "x_search_terms": [
       "निर्दिष्ट पर्यावरण चर का मान प्राप्त करता है और लौटाता है। आवश्यकतानुसार मान को मास्क किया जा सकता है।",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "इस टूल का उपयोग निर्दिष्ट पर्यावरण चर का मान प्राप्त करने और लौटाने के लिए किया जाता है। आवश्यकतानुसार मान को मास्क किया जा सकता है।"
   },
@@ -244,13 +188,9 @@
     "param.unmasked_chars.description": "عدد الأحرف التي يجب تركها في البداية والنهاية عند الإخفاء. الافتراضي هو 2.",
     "tool.description": "يحصل على قيمة متغير البيئة المحدد ويعيدها. يمكنه إخفاء القيمة اختياريًا.",
     "x_search_terms": [
-      "يحصل على قيمة متغير البيئة المحدد ويعيدها",
+      "يحصل على قيمة متغير البيئة المحدد ويعيدها. يمكنه إخفاء القيمة اختياريًا",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "تُستخدم هذه الأداة للحصول على قيمة متغير بيئة محدد وإرجاعها. يمكن إخفاء القيمة اختياريًا."
   },
@@ -261,13 +201,9 @@
     "param.unmasked_chars.description": "Antal tecken som ska lämnas kvar i början och slutet vid maskering. Standard är 2.",
     "tool.description": "Hämtar värdet för en angiven miljövariabel och returnerar det. Värdet kan maskeras vid behov.",
     "x_search_terms": [
-      "Hämtar värdet för en angiven miljövariabel och returnerar det",
+      "Hämtar värdet för en angiven miljövariabel och returnerar det. Värdet kan maskeras vid behov",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Det här verktyget används för att hämta värdet för en angiven miljövariabel och returnera det. Värdet kan maskeras vid behov."
   },
@@ -278,13 +214,9 @@
     "param.unmasked_chars.description": "Number of characters to leave at the beginning and end when masking. Default is 2.",
     "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
     "x_search_terms": [
-      "Gets the value of a specified environment variable and returns it",
+      "Gets the value of a specified environment variable and returns it. Optionally masks the value",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
   },
@@ -295,13 +227,9 @@
     "param.unmasked_chars.description": "Antall tegn som skal beholdes i begynnelsen og slutten ved maskering. Standard er 2.",
     "tool.description": "Henter verdien til en angitt miljøvariabel og returnerer den. Verdien kan maskeres ved behov.",
     "x_search_terms": [
-      "Henter verdien til en angitt miljøvariabel og returnerer den",
+      "Henter verdien til en angitt miljøvariabel og returnerer den. Verdien kan maskeres ved behov",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å hente verdien til en angitt miljøvariabel og returnere den. Verdien kan maskeres ved behov."
   },
@@ -312,13 +240,9 @@
     "param.unmasked_chars.description": "Aantal tekens dat aan het begin en einde zichtbaar blijft bij maskeren. Standaard is 2.",
     "tool.description": "Haalt de waarde op van een opgegeven omgevingsvariabele en geeft deze terug. Kan de waarde optioneel maskeren.",
     "x_search_terms": [
-      "Haalt de waarde op van een opgegeven omgevingsvariabele en geeft deze terug",
+      "Haalt de waarde op van een opgegeven omgevingsvariabele en geeft deze terug. Kan de waarde optioneel maskeren",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: haal de waarde op van een opgegeven omgevingsvariabele en geef deze terug. Kan de waarde optioneel maskeren."
   },
@@ -329,13 +253,9 @@
     "param.unmasked_chars.description": "Kuinka monta merkkiä säilytetään näkyvissä alussa ja lopussa peittämisen yhteydessä. Oletus on 2.",
     "tool.description": "Hakee annetun ympäristömuuttujan arvon ja palauttaa sen. Arvon voi halutessa peittää.",
     "x_search_terms": [
-      "Hakee annetun ympäristömuuttujan arvon ja palauttaa sen",
+      "Hakee annetun ympäristömuuttujan arvon ja palauttaa sen. Arvon voi halutessa peittää",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: hae annetun ympäristömuuttujan arvo ja palauta se. Arvon voi halutessa peittää."
   },
@@ -346,13 +266,9 @@
     "param.unmasked_chars.description": "Počet znaků, které se při maskování ponechají na začátku a na konci. Výchozí hodnota je 2.",
     "tool.description": "Získá hodnotu zadané proměnné prostředí a vrátí ji. Volitelně hodnotu zamaskuje.",
     "x_search_terms": [
-      "Získá hodnotu zadané proměnné prostředí a vrátí ji",
+      "Získá hodnotu zadané proměnné prostředí a vrátí ji. Volitelně hodnotu zamaskuje",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu: získat hodnotu zadané proměnné prostředí a vrátit ji. Volitelně hodnotu zamaskuje."
   },
@@ -363,13 +279,9 @@
     "param.unmasked_chars.description": "Кількість символів, які залишаються на початку та в кінці під час маскування. Типове значення — 2.",
     "tool.description": "Отримує значення вказаної змінної середовища та повертає його. За потреби значення можна замаскувати.",
     "x_search_terms": [
-      "Отримує значення вказаної змінної середовища та повертає його",
+      "Отримує значення вказаної змінної середовища та повертає його. За потреби значення можна замаскувати",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати значення вказаної змінної середовища та повернути його. За потреби значення можна замаскувати."
   },
@@ -380,13 +292,9 @@
     "param.unmasked_chars.description": "Maskeleme sırasında başlangıçta ve sonda bırakılacak karakter sayısı. Varsayılan 2'dir.",
     "tool.description": "Belirtilen ortam değişkeninin değerini alır ve döndürür. İsteğe bağlı olarak değeri maskeler.",
     "x_search_terms": [
-      "Belirtilen ortam değişkeninin değerini alır ve döndürür",
+      "Belirtilen ortam değişkeninin değerini alır ve döndürür. İsteğe bağlı olarak değeri maskeler",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: Belirtilen ortam değişkeninin değerini almak ve onu döndürmek. İsteğe bağlı olarak değeri maskeleyin."
   },
@@ -399,11 +307,7 @@
     "x_search_terms": [
       "รับค่าของตัวแปรสภาพแวดล้อมที่ระบุและส่งกลับ สามารถเลือกปิดบังค่าได้",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อรับค่าของตัวแปรสภาพแวดล้อมที่ระบุและส่งกลับ สามารถเลือกปิดบังค่าได้"
   },
@@ -414,13 +318,9 @@
     "param.unmasked_chars.description": "掩码时在开头和结尾保留的字符数。默认值为 2。",
     "tool.description": "获取指定环境变量的值并返回。可选择对该值进行掩码。",
     "x_search_terms": [
-      "获取指定环境变量的值并返回",
+      "获取指定环境变量的值并返回。可选择对该值进行掩码",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "此工具用于获取指定环境变量的值并返回。可选择对该值进行掩码。"
   },
@@ -431,13 +331,9 @@
     "param.unmasked_chars.description": "遮罩時在開頭和結尾保留的字元數。預設值為 2。",
     "tool.description": "取得指定環境變數的值並傳回。可選擇對該值進行遮罩。",
     "x_search_terms": [
-      "取得指定環境變數的值並傳回",
+      "取得指定環境變數的值並傳回。可選擇對該值進行遮罩",
       "get_env",
-      "get env",
-      "environment variable",
-      "config",
-      "secret",
-      "env var"
+      "get env"
     ],
     "tool.system_prompt": "此工具用於取得指定環境變數的值並傳回。可選擇對該值進行遮罩。"
   }

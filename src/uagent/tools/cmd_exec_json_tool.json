@@ -4,13 +4,9 @@
     "param.cwd.description": "Working directory for the command.",
     "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
     "x_search_terms": [
-      "As a last resort, execute a shell command and return a JSON result",
+      "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "This tool is a last resort. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
   },
@@ -19,13 +15,9 @@
     "param.cwd.description": "コマンドの作業ディレクトリ。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
-      "最終手段としてシェルコマンドを実行し、JSON 結果を返します",
+      "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。コマンドは慎重に扱い、ユーザーが明示的に確認した場合を除いて破壊的な操作は避けてください。"
   },
@@ -34,13 +26,9 @@
     "param.cwd.description": "Directorio de trabajo para el comando.",
     "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON. Úsala solo cuando no haya disponible una herramienta más segura o específica (por ejemplo, una integración MCP).",
     "x_search_terms": [
-      "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON",
+      "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON. Úsala solo cuando no haya disponible una herramienta más segura o específica (por ejemplo, una integración MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Esta herramienta es el último recurso. Úsala solo si no hay otra herramienta adecuada disponible. Sé conservador con los comandos y evita operaciones destructivas a menos que el usuario lo confirme explícitamente."
   },
@@ -49,13 +37,9 @@
     "param.cwd.description": "Répertoire de travail pour la commande.",
     "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON. À utiliser uniquement lorsqu'aucun outil plus sûr ou plus spécifique n'est disponible (par exemple, une intégration MCP).",
     "x_search_terms": [
-      "En dernier recours, exécute une commande shell et renvoie un résultat JSON",
+      "En dernier recours, exécute une commande shell et renvoie un résultat JSON. À utiliser uniquement lorsqu'aucun outil plus sûr ou plus spécifique n'est disponible (par exemple, une intégration MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Cet outil est un dernier recours. Utilisez-le uniquement si aucun autre outil approprié n'est disponible. Soyez prudent avec les commandes et évitez les opérations destructrices, sauf confirmation explicite de l'utilisateur."
   },
@@ -64,13 +48,9 @@
     "param.cwd.description": "명령의 작업 디렉터리입니다.",
     "tool.description": "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합).",
     "x_search_terms": [
-      "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다",
+      "최후의 수단으로 쉘 명령을 실행하고 JSON 결과를 반환합니다. 더 안전하거나 더 구체적인 도구를 사용할 수 없는 경우에만 사용하세요(예: MCP 통합)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "이 도구는 최후의 수단입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요. 명령은 신중하게 사용하고, 사용자가 명시적으로 확인하지 않는 한 파괴적인 작업은 피하세요."
   },
@@ -79,13 +59,9 @@
     "param.cwd.description": "Arbeitsverzeichnis für den Befehl.",
     "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück. Nur verwenden, wenn kein sichereres oder spezifischeres Tool verfügbar ist (z. B. eine MCP-Integration).",
     "x_search_terms": [
-      "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück",
+      "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück. Nur verwenden, wenn kein sichereres oder spezifischeres Tool verfügbar ist (z. B. eine MCP-Integration)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Dieses Tool ist ein letzter Ausweg. Verwenden Sie es nur, wenn kein anderes geeignetes Werkzeug verfügbar ist. Gehen Sie bei Befehlen vorsichtig vor und vermeiden Sie destruktive Vorgänge, sofern der Benutzer dies nicht ausdrücklich bestätigt."
   },
@@ -94,13 +70,9 @@
     "param.cwd.description": "Directory di lavoro per il comando.",
     "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON. Da utilizzare solo quando non è disponibile uno strumento più sicuro o più specifico (ad esempio, un'integrazione MCP).",
     "x_search_terms": [
-      "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON",
+      "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON. Da utilizzare solo quando non è disponibile uno strumento più sicuro o più specifico (ad esempio, un'integrazione MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Questo strumento è un'ultima risorsa. Usalo solo se non è disponibile nessun altro strumento appropriato. Sii prudente con i comandi ed evita operazioni distruttive se non sono esplicitamente confermate dall'utente."
   },
@@ -109,13 +81,9 @@
     "param.cwd.description": "Рабочий каталог для команды.",
     "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON. Используйте только тогда, когда более безопасный или более конкретный инструмент недоступен (например, интеграция MCP).",
     "x_search_terms": [
-      "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON",
+      "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON. Используйте только тогда, когда более безопасный или более конкретный инструмент недоступен (например, интеграция MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Этот инструмент — крайняя мера. Используйте его только если нет другого подходящего инструмента. Будьте осторожны с командами и избегайте разрушительных операций, если это явно не подтверждено пользователем."
   },
@@ -124,13 +92,9 @@
     "param.cwd.description": "Diretório de trabalho para o comando.",
     "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
     "x_search_terms": [
-      "Como último recurso, executa um comando de shell e retorna um resultado em JSON",
+      "Como último recurso, executa um comando de shell e retorna um resultado em JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Esta ferramenta é um último recurso. Use-a somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que haja confirmação explícita do usuário."
   },
@@ -139,13 +103,9 @@
     "param.cwd.description": "Diretório de trabalho para o comando.",
     "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
     "x_search_terms": [
-      "Como último recurso, execute um comando shell e retorne um resultado JSON",
+      "Como último recurso, execute um comando shell e retorne um resultado JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use-o somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que seja explicitamente confirmado pelo usuário."
   },
@@ -154,13 +114,9 @@
     "param.cwd.description": "Direktori kerja untuk perintah tersebut.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON. Gunakan hanya jika tidak ada alat lain yang lebih aman atau lebih spesifik yang tersedia (misalnya integrasi MCP).",
     "x_search_terms": [
-      "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON",
+      "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON. Gunakan hanya jika tidak ada alat lain yang lebih aman atau lebih spesifik yang tersedia (misalnya integrasi MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai. Bersikaplah konservatif terhadap perintah dan hindari operasi yang merusak kecuali telah dikonfirmasi secara eksplisit oleh pengguna."
   },
@@ -169,13 +125,9 @@
     "param.cwd.description": "Thư mục làm việc cho lệnh.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON. Chỉ sử dụng khi không có sẵn công cụ nào an toàn hơn hoặc cụ thể hơn (ví dụ: tích hợp MCP).",
     "x_search_terms": [
-      "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON",
+      "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON. Chỉ sử dụng khi không có sẵn công cụ nào an toàn hơn hoặc cụ thể hơn (ví dụ: tích hợp MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nó nếu không có công cụ thích hợp nào khác. Hãy thận trọng với các lệnh và tránh các hoạt động phá hoại trừ khi được người dùng xác nhận rõ ràng."
   },
@@ -184,13 +136,9 @@
     "param.cwd.description": "Katalog roboczy polecenia.",
     "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON. Używaj tylko wtedy, gdy nie jest dostępne bezpieczniejsze lub bardziej szczegółowe narzędzie (np. integracja MCP).",
     "x_search_terms": [
-      "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON",
+      "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON. Używaj tylko wtedy, gdy nie jest dostępne bezpieczniejsze lub bardziej szczegółowe narzędzie (np. integracja MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj go tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie. Zachowaj ostrożność w przypadku poleceń i unikaj destrukcyjnych operacji, chyba że użytkownik wyraźnie to potwierdzi."
   },
@@ -201,11 +149,7 @@
     "x_search_terms": [
       "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई अधिक सुरक्षित या अधिक विशिष्ट टूल उपलब्ध न हो (उदाहरण के लिए, MCP एकीकरण)।",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "यह टूल अंतिम उपाय है। इसका उपयोग केवल तभी करें जब कोई अन्य उपयुक्त टूल उपलब्ध न हो। कमांड के साथ सावधानी बरतें और जब तक उपयोगकर्ता स्पष्ट रूप से पुष्टि न करे, विनाशकारी कार्यों से बचें।"
   },
@@ -214,13 +158,9 @@
     "param.cwd.description": "دليل العمل للأمر.",
     "tool.description": "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP).",
     "x_search_terms": [
-      "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON",
+      "كحل أخير، قم بتنفيذ أمر shell وإرجاع نتيجة JSON. استخدم فقط في حالة عدم توفر أداة أكثر أمانًا أو أكثر تحديدًا (على سبيل المثال، تكامل MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدمها فقط إذا لم تتوفر أداة أخرى مناسبة. كن حذرًا مع الأوامر وتجنب العمليات التدميرية ما لم يؤكد المستخدم ذلك صراحةً."
   },
@@ -229,13 +169,9 @@
     "param.cwd.description": "Arbetskatalog för kommandot.",
     "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat. Används endast när inget säkrare eller mer specifikt verktyg finns tillgängligt (till exempel en MCP-integrering).",
     "x_search_terms": [
-      "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat",
+      "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat. Används endast när inget säkrare eller mer specifikt verktyg finns tillgängligt (till exempel en MCP-integrering)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt. Var försiktig med kommandon och undvik destruktiva åtgärder om inte användaren uttryckligen har bekräftat dem."
   },
@@ -244,13 +180,9 @@
     "param.cwd.description": "Saraka ya kazi ya amri.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON. Tumia tu wakati hakuna zana salama zaidi au mahususi zaidi inayopatikana (kwa mfano, ujumuishaji wa MCP).",
     "x_search_terms": [
-      "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON",
+      "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON. Tumia tu wakati hakuna zana salama zaidi au mahususi zaidi inayopatikana (kwa mfano, ujumuishaji wa MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Zana hii ni suluhisho la mwisho. Itumie tu ikiwa hakuna zana nyingine inayofaa inayopatikana. Kuwa mwangalifu na amri na epuka shughuli zenye uharibifu isipokuwa mtumiaji athibitishe wazi."
   },
@@ -259,13 +191,9 @@
     "param.cwd.description": "Arbeidskatalog for kommandoen.",
     "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe tryggere eller mer spesifikt verktøy er tilgjengelig (for eksempel en MCP-integrasjon).",
     "x_search_terms": [
-      "Kjør en shell-kommando som siste utvei og returner et JSON-resultat",
+      "Kjør en shell-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe tryggere eller mer spesifikt verktøy er tilgjengelig (for eksempel en MCP-integrasjon)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
   },
@@ -274,13 +202,9 @@
     "param.cwd.description": "Werkmap voor de opdracht.",
     "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug. Gebruik dit alleen wanneer geen veiligere of specifiekere tool beschikbaar is (bijv. een MCP-integratie).",
     "x_search_terms": [
-      "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug",
+      "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug. Gebruik dit alleen wanneer geen veiligere of specifiekere tool beschikbaar is (bijv. een MCP-integratie)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is. Wees voorzichtig met opdrachten en vermijd destructieve handelingen tenzij de gebruiker dit expliciet bevestigt."
   },
@@ -289,13 +213,9 @@
     "param.cwd.description": "Komennon työskentelyhakemisto.",
     "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos. Käytä tätä vain, kun mitään turvallisempaa tai tarkempaa työkalua ei ole saatavilla (esim. MCP-integraatio).",
     "x_search_terms": [
-      "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos",
+      "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos. Käytä tätä vain, kun mitään turvallisempaa tai tarkempaa työkalua ei ole saatavilla (esim. MCP-integraatio)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole. Ole varovainen komentojen kanssa ja vältä tuhoavia toimia, ellei käyttäjä ole vahvistanut niitä."
   },
@@ -304,13 +224,9 @@
     "param.cwd.description": "Pracovní adresář pro příkaz.",
     "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek. Použijte pouze tehdy, když není k dispozici bezpečnější nebo specifičtější nástroj (například integrace MCP).",
     "x_search_terms": [
-      "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek",
+      "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek. Použijte pouze tehdy, když není k dispozici bezpečnější nebo specifičtější nástroj (například integrace MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, pokud není k dispozici žádný jiný vhodný nástroj. S příkazy zacházejte opatrně a vyhněte se destruktivním operacím, pokud je uživatel výslovně nepotvrdí."
   },
@@ -319,13 +235,9 @@
     "param.cwd.description": "Робочий каталог для команди.",
     "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат. Використовуйте лише тоді, коли немає безпечнішого або більш спеціалізованого інструмента (наприклад, інтеграції MCP).",
     "x_search_terms": [
-      "Як крайній захід, виконує команду shell і повертає JSON-результат",
+      "Як крайній захід, виконує команду shell і повертає JSON-результат. Використовуйте лише тоді, коли немає безпечнішого або більш спеціалізованого інструмента (наприклад, інтеграції MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента. Будьте обережні з командами та уникайте руйнівних операцій, якщо користувач явно їх не підтвердив."
   },
@@ -334,13 +246,9 @@
     "param.cwd.description": "Komutun çalışma dizini.",
     "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün. Yalnızca daha güvenli veya daha spesifik bir araç mevcut olmadığında kullanın (örn. MCP entegrasyonu).",
     "x_search_terms": [
-      "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün",
+      "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün. Yalnızca daha güvenli veya daha spesifik bir araç mevcut olmadığında kullanın (örn. MCP entegrasyonu)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "Bu araç son çaredir. Bunu yalnızca başka uygun bir araç bulunmadığında kullanın. Komutlar konusunda dikkatli olun ve kullanıcı tarafından açıkça onaylanmadıkça yıkıcı işlemlerden kaçının."
   },
@@ -351,11 +259,7 @@
     "x_search_terms": [
       "ใช้เป็นทางเลือกสุดท้ายเพื่อรันคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้ (เช่น การเชื่อมต่อ MCP)",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย ใช้เฉพาะเมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ใช้คำสั่งอย่างระมัดระวัง และหลีกเลี่ยงการดำเนินการที่ทำลายล้าง เว้นแต่ผู้ใช้จะยืนยันอย่างชัดเจน"
   },
@@ -364,13 +268,9 @@
     "param.cwd.description": "命令的工作目录。",
     "tool.description": "作为最后手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时使用（例如 MCP 集成）。",
     "x_search_terms": [
-      "作为最后手段，执行 shell 命令并返回 JSON 结果",
+      "作为最后手段，执行 shell 命令并返回 JSON 结果。仅当没有更安全或更具体的工具可用时使用（例如 MCP 集成）",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "该工具是最后手段。仅在没有其他合适工具可用时使用。请谨慎使用命令，除非用户明确确认，否则避免破坏性操作。"
   },
@@ -379,13 +279,9 @@
     "param.cwd.description": "命令的工作目錄。",
     "tool.description": "作為最後手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時使用（例如 MCP 整合）。",
     "x_search_terms": [
-      "作為最後手段，執行 shell 指令並傳回 JSON 結果",
+      "作為最後手段，執行 shell 指令並傳回 JSON 結果。僅在沒有更安全或更具體的工具可用時使用（例如 MCP 整合）",
       "cmd_exec_json",
-      "cmd exec json",
-      "shell command",
-      "execute shell",
-      "json command",
-      "cmd"
+      "cmd exec json"
     ],
     "tool.system_prompt": "此工具是最後手段。僅在沒有其他合適工具可用時使用。請謹慎使用命令，除非使用者明確確認，否則避免破壞性操作。"
   }

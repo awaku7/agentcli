@@ -6,14 +6,8 @@
     "tool.description": "Change the current working directory after user confirmation.",
     "x_search_terms": [
       "Change the current working directory after user confirmation",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Use this tool to change the current working directory after user confirmation."
   },
@@ -24,14 +18,8 @@
     "tool.description": "ユーザー確認の後、現在の作業ディレクトリを変更します。",
     "x_search_terms": [
       "ユーザー確認の後、現在の作業ディレクトリを変更します",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "ユーザー確認の後、現在の作業ディレクトリを変更します。"
   },
@@ -42,14 +30,8 @@
     "tool.description": "Cambia el directorio de trabajo actual tras la confirmación del usuario.",
     "x_search_terms": [
       "Cambia el directorio de trabajo actual tras la confirmación del usuario",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Use esta herramienta para cambiar el directorio de trabajo actual tras la confirmación del usuario."
   },
@@ -60,14 +42,8 @@
     "tool.description": "Modifie le répertoire de travail actuel après confirmation de l'utilisateur.",
     "x_search_terms": [
       "Modifie le répertoire de travail actuel après confirmation de l'utilisateur",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Utilisez cet outil pour modifier le répertoire de travail actuel après confirmation de l'utilisateur."
   },
@@ -78,14 +54,8 @@
     "tool.description": "사용자 확인 후 현재 작업 디렉터리를 변경합니다.",
     "x_search_terms": [
       "사용자 확인 후 현재 작업 디렉터리를 변경합니다",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "사용자 확인 후 현재 작업 디렉터리를 변경합니다."
   },
@@ -96,14 +66,8 @@
     "tool.description": "Ändert das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer.",
     "x_search_terms": [
       "Ändert das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool, um das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer zu ändern."
   },
@@ -114,14 +78,8 @@
     "tool.description": "Cambia la directory di lavoro corrente dopo la conferma dell'utente.",
     "x_search_terms": [
       "Cambia la directory di lavoro corrente dopo la conferma dell'utente",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Usa questo strumento per cambiare la directory di lavoro corrente dopo la conferma dell'utente."
   },
@@ -132,14 +90,8 @@
     "tool.description": "Изменяет текущий рабочий каталог после подтверждения пользователя.",
     "x_search_terms": [
       "Изменяет текущий рабочий каталог после подтверждения пользователя",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Используйте этот инструмент, чтобы изменить текущий рабочий каталог после подтверждения пользователя."
   },
@@ -150,14 +102,8 @@
     "tool.description": "Altera o diretório de trabalho atual após a confirmação do usuário.",
     "x_search_terms": [
       "Altera o diretório de trabalho atual após a confirmação do usuário",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
   },
@@ -168,14 +114,8 @@
     "tool.description": "Altere o diretório de trabalho atual após a confirmação do usuário.",
     "x_search_terms": [
       "Altere o diretório de trabalho atual após a confirmação do usuário",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
   },
@@ -186,14 +126,8 @@
     "tool.description": "Ubah direktori kerja saat ini setelah konfirmasi pengguna.",
     "x_search_terms": [
       "Ubah direktori kerja saat ini setelah konfirmasi pengguna",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk mengubah direktori kerja saat ini setelah konfirmasi pengguna."
   },
@@ -204,14 +138,8 @@
     "tool.description": "Thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận.",
     "x_search_terms": [
       "Thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Dùng công cụ này để thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận."
   },
@@ -222,14 +150,8 @@
     "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
     "x_search_terms": [
       "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Użyj tego narzędzia, aby zmienić bieżący katalog roboczy po potwierdzeniu użytkownika."
   },
@@ -240,14 +162,8 @@
     "tool.description": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलें।",
     "x_search_terms": [
       "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलें।",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलने के लिए इस टूल का उपयोग करें।"
   },
@@ -258,14 +174,8 @@
     "tool.description": "قم بتغيير دليل العمل الحالي بعد تأكيد المستخدم.",
     "x_search_terms": [
       "قم بتغيير دليل العمل الحالي بعد تأكيد المستخدم",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "استخدم هذه الأداة لتغيير دليل العمل الحالي بعد تأكيد المستخدم."
   },
@@ -276,14 +186,8 @@
     "tool.description": "Ändra den aktuella arbetskatalogen efter användarens bekräftelse.",
     "x_search_terms": [
       "Ändra den aktuella arbetskatalogen efter användarens bekräftelse",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Använd det här verktyget för att ändra den aktuella arbetskatalogen efter användarens bekräftelse."
   },
@@ -294,14 +198,8 @@
     "tool.description": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji.",
     "x_search_terms": [
       "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
   },
@@ -312,14 +210,8 @@
     "tool.description": "Endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren.",
     "x_search_terms": [
       "Endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Bruk dette verktøyet til å endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren."
   },
@@ -330,14 +222,8 @@
     "tool.description": "Wijzig de huidige werkmap na bevestiging van de gebruiker.",
     "x_search_terms": [
       "Wijzig de huidige werkmap na bevestiging van de gebruiker",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Gebruik deze tool om de huidige werkmap te wijzigen na bevestiging van de gebruiker."
   },
@@ -348,14 +234,8 @@
     "tool.description": "Vaihda nykyinen työskentelyhakemisto käyttäjän vahvistuksen jälkeen.",
     "x_search_terms": [
       "Vaihda nykyinen työskentelyhakemisto käyttäjän vahvistuksen jälkeen",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Käytä tätä työkalua nykyisen työskentelyhakemiston vaihtamiseen käyttäjän vahvistuksen jälkeen."
   },
@@ -366,14 +246,8 @@
     "tool.description": "Změní aktuální pracovní adresář po potvrzení od uživatele.",
     "x_search_terms": [
       "Změní aktuální pracovní adresář po potvrzení od uživatele",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Použijte tento nástroj ke změně aktuálního pracovního adresáře po potvrzení uživatele."
   },
@@ -384,14 +258,8 @@
     "tool.description": "Змінює поточний робочий каталог після підтвердження користувача.",
     "x_search_terms": [
       "Змінює поточний робочий каталог після підтвердження користувача",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент, щоб змінити поточний робочий каталог після підтвердження користувача."
   },
@@ -402,14 +270,8 @@
     "tool.description": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirin.",
     "x_search_terms": [
       "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirin",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirmek için bu aracı kullanın."
   },
@@ -420,14 +282,8 @@
     "tool.description": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
     "x_search_terms": [
       "เปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน"
   },
@@ -438,14 +294,8 @@
     "tool.description": "在用户确认后更改当前工作目录。",
     "x_search_terms": [
       "在用户确认后更改当前工作目录",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "在用户确认后更改当前工作目录。"
   },
@@ -456,14 +306,8 @@
     "tool.description": "在使用者確認後變更目前工作目錄。",
     "x_search_terms": [
       "在使用者確認後變更目前工作目錄",
-      "change directory",
-      "cd",
-      "switch dir",
-      "ディレクトリ変更",
-      "cambiar directorio",
-      "changer de répertoire",
-      "디렉터리 변경",
-      "сменить директорию"
+      "change_workdir",
+      "change workdir"
     ],
     "tool.system_prompt": "在使用者確認後變更目前工作目錄。"
   }

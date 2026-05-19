@@ -2,7 +2,7 @@
   "en": {
     "tool.description": "Poll an A2A task until it reaches a terminal status. Use only when existing local tools cannot replace the task.",
     "x_search_terms": [
-      "Poll an A2A task until it reaches a terminal status",
+      "Poll an A2A task until it reaches a terminal status. Use only when existing local tools cannot replace the task",
       "a2a_poll",
       "a2a poll"
     ],
@@ -17,7 +17,7 @@
   "ja": {
     "tool.description": "A2A タスクが終端状態になるまでポーリングします。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [
-      "A2A タスクが終端状態になるまでポーリングします",
+      "A2A タスクが終端状態になるまでポーリングします。 既存のローカルツールで代替できない場合のみ使用してください",
       "a2a_poll",
       "a2a poll"
     ],
@@ -32,7 +32,7 @@
   "es": {
     "tool.description": "Consulta periódicamente una tarea A2A hasta que alcance un estado terminal. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
-      "Consulta periódicamente una tarea A2A hasta que alcance un estado terminal",
+      "Consulta periódicamente una tarea A2A hasta que alcance un estado terminal. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea",
       "a2a_poll",
       "a2a poll"
     ],
@@ -47,7 +47,7 @@
   "fr": {
     "tool.description": "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état terminal. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
-      "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état terminal",
+      "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état terminal. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche",
       "a2a_poll",
       "a2a poll"
     ],
@@ -62,7 +62,7 @@
   "ko": {
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "A2A 작업이 종료 상태가 될 때까지 폴링합니다",
+      "A2A 작업이 종료 상태가 될 때까지 폴링합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요",
       "a2a_poll",
       "a2a poll"
     ],
@@ -77,7 +77,7 @@
   "de": {
     "tool.description": "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
-      "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht",
+      "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können",
       "a2a_poll",
       "a2a poll"
     ],
@@ -92,7 +92,7 @@
   "it": {
     "tool.description": "Interroga periodicamente un'attività A2A finché non raggiunge uno stato terminale. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
-      "Interroga periodicamente un'attività A2A finché non raggiunge uno stato terminale",
+      "Interroga periodicamente un'attività A2A finché non raggiunge uno stato terminale. Usalo solo quando gli strumenti locali non possono sostituire il compito",
       "a2a_poll",
       "a2a poll"
     ],
@@ -107,7 +107,7 @@
   "ru": {
     "tool.description": "Опросите задачу A2A, пока она не достигнет терминального состояния. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
-      "Опросите задачу A2A, пока она не достигнет терминального состояния",
+      "Опросите задачу A2A, пока она не достигнет терминального состояния. Используйте только тогда, когда локальные инструменты не могут заменить задачу",
       "a2a_poll",
       "a2a poll"
     ],
@@ -122,7 +122,7 @@
   "pt_BR": {
     "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Faça polling de uma tarefa A2A até que ela atinja um estado terminal",
+      "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use somente quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_poll",
       "a2a poll"
     ],
@@ -137,7 +137,7 @@
   "pt": {
     "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Faça polling de uma tarefa A2A até que ela atinja um estado terminal",
+      "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use apenas quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_poll",
       "a2a poll"
     ],
@@ -152,7 +152,7 @@
   "id": {
     "tool.description": "Melakukan polling pada tugas A2A sampai mencapai status terminal. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
-      "Melakukan polling pada tugas A2A sampai mencapai status terminal",
+      "Melakukan polling pada tugas A2A sampai mencapai status terminal. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas",
       "a2a_poll",
       "a2a poll"
     ],
@@ -167,7 +167,7 @@
   "vi": {
     "tool.description": "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
-      "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc",
+      "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ",
       "a2a_poll",
       "a2a poll"
     ],
@@ -182,7 +182,7 @@
   "pl": {
     "tool.description": "Odpytuj zadanie A2A, aż osiągnie stan końcowy. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
-      "Odpytuj zadanie A2A, aż osiągnie stan końcowy",
+      "Odpytuj zadanie A2A, aż osiągnie stan końcowy. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania",
       "a2a_poll",
       "a2a poll"
     ],
@@ -212,7 +212,7 @@
   "ar": {
     "tool.description": "استعلم عن مهمة A2A بشكل دوري حتى تصل إلى حالة نهائية. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
-      "استعلم عن مهمة A2A بشكل دوري حتى تصل إلى حالة نهائية",
+      "استعلم عن مهمة A2A بشكل دوري حتى تصل إلى حالة نهائية. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة",
       "a2a_poll",
       "a2a poll"
     ],
@@ -227,7 +227,7 @@
   "sv": {
     "tool.description": "Polla en A2A-uppgift tills den når ett slutligt tillstånd. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
-      "Polla en A2A-uppgift tills den når ett slutligt tillstånd",
+      "Polla en A2A-uppgift tills den når ett slutligt tillstånd. Använd endast när lokala verktyg inte kan ersätta uppgiften",
       "a2a_poll",
       "a2a poll"
     ],
@@ -242,7 +242,7 @@
   "sw": {
     "tool.description": "Fuatilia kazi ya A2A hadi ifikie hali ya mwisho. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
-      "Fuatilia kazi ya A2A hadi ifikie hali ya mwisho",
+      "Fuatilia kazi ya A2A hadi ifikie hali ya mwisho. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi",
       "a2a_poll",
       "a2a poll"
     ],
@@ -257,7 +257,7 @@
   "nb": {
     "tool.description": "Poll en A2A-oppgave til den når en sluttstatus. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
-      "Poll en A2A-oppgave til den når en sluttstatus",
+      "Poll en A2A-oppgave til den når en sluttstatus. Bruk bare når lokale verktøy ikke kan erstatte oppgaven",
       "a2a_poll",
       "a2a poll"
     ],
@@ -272,7 +272,7 @@
   "nl": {
     "tool.description": "Poll een A2A-taak totdat deze een eindstatus bereikt. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
-      "Poll een A2A-taak totdat deze een eindstatus bereikt",
+      "Poll een A2A-taak totdat deze een eindstatus bereikt. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen",
       "a2a_poll",
       "a2a poll"
     ],
@@ -287,7 +287,7 @@
   "fi": {
     "tool.description": "Kyselyä A2A-tehtävää, kunnes se saavuttaa päättävän tilan. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
-      "Kyselyä A2A-tehtävää, kunnes se saavuttaa päättävän tilan",
+      "Kyselyä A2A-tehtävää, kunnes se saavuttaa päättävän tilan. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää",
       "a2a_poll",
       "a2a poll"
     ],
@@ -302,7 +302,7 @@
   "cs": {
     "tool.description": "Průběžně dotazuje úlohu A2A, dokud nedosáhne koncového stavu. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
-      "Průběžně dotazuje úlohu A2A, dokud nedosáhne koncového stavu",
+      "Průběžně dotazuje úlohu A2A, dokud nedosáhne koncového stavu. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit",
       "a2a_poll",
       "a2a poll"
     ],
@@ -317,7 +317,7 @@
   "uk": {
     "tool.description": "Періодично опитує завдання A2A, доки воно не досягне кінцевого стану. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
-      "Періодично опитує завдання A2A, доки воно не досягне кінцевого стану",
+      "Періодично опитує завдання A2A, доки воно не досягне кінцевого стану. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання",
       "a2a_poll",
       "a2a poll"
     ],
@@ -332,7 +332,7 @@
   "tr": {
     "tool.description": "Bir A2A görevini terminal durumuna ulaşana kadar yoklayın. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
-      "Bir A2A görevini terminal durumuna ulaşana kadar yoklayın",
+      "Bir A2A görevini terminal durumuna ulaşana kadar yoklayın. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın",
       "a2a_poll",
       "a2a poll"
     ],
@@ -347,7 +347,7 @@
   "th": {
     "tool.description": "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
-      "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย",
+      "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้",
       "a2a_poll",
       "a2a poll"
     ],
@@ -362,7 +362,7 @@
   "zh_CN": {
     "tool.description": "轮询 A2A 任务直到进入终态。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
-      "轮询 A2A 任务直到进入终态",
+      "轮询 A2A 任务直到进入终态。 仅在本地工具无法替代该任务时使用",
       "a2a_poll",
       "a2a poll"
     ],
@@ -377,7 +377,7 @@
   "zh_TW": {
     "tool.description": "輪詢 A2A 任務直到進入終態。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
-      "輪詢 A2A 任務直到進入終態",
+      "輪詢 A2A 任務直到進入終態。 僅在本機工具無法取代該任務時使用",
       "a2a_poll",
       "a2a poll"
     ],

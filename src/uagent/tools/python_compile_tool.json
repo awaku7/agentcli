@@ -2,7 +2,7 @@
   "en": {
     "tool.description": "Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns. Directories are scanned recursively for *.py files.",
     "x_search_terms": [
-      "Validate Python files with py_compile",
+      "Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns. Directories are scanned recursively for *.py files",
       "python_compile",
       "python compile"
     ],
@@ -13,7 +13,7 @@
   "ja": {
     "tool.description": "py_compile を使って Python ファイルを検証します。Python ファイル、ディレクトリ、または glob パターンの構文チェックに使います。ディレクトリは *.py を再帰的に走査します。",
     "x_search_terms": [
-      "py_compile を使って Python ファイルを検証します",
+      "py_compile を使って Python ファイルを検証します。Python ファイル、ディレクトリ、または glob パターンの構文チェックに使います。ディレクトリは *.py を再帰的に走査します",
       "python_compile",
       "python compile"
     ],
@@ -24,7 +24,7 @@
   "es": {
     "tool.description": "Valida archivos Python con py_compile. Use esta herramienta para comprobar la sintaxis de archivos, directorios o patrones glob de Python. Los directorios se analizan de forma recursiva para archivos *.py.",
     "x_search_terms": [
-      "Valida archivos Python con py_compile",
+      "Valida archivos Python con py_compile. Use esta herramienta para comprobar la sintaxis de archivos, directorios o patrones glob de Python. Los directorios se analizan de forma recursiva para archivos *.py",
       "python_compile",
       "python compile"
     ],
@@ -35,7 +35,7 @@
   "fr": {
     "tool.description": "Validez des fichiers Python avec py_compile. Utilisez cet outil pour vérifier la syntaxe de fichiers Python, de répertoires ou de motifs glob. Les répertoires sont analysés récursivement pour les fichiers *.py.",
     "x_search_terms": [
-      "Validez des fichiers Python avec py_compile",
+      "Validez des fichiers Python avec py_compile. Utilisez cet outil pour vérifier la syntaxe de fichiers Python, de répertoires ou de motifs glob. Les répertoires sont analysés récursivement pour les fichiers *.py",
       "python_compile",
       "python compile"
     ],
@@ -46,7 +46,7 @@
   "ko": {
     "tool.description": "py_compile로 Python 파일을 검사합니다. Python 파일, 디렉터리 또는 glob 패턴의 문법 검사용으로 사용하세요. 디렉터리는 *.py 파일을 재귀적으로 검사합니다.",
     "x_search_terms": [
-      "py_compile로 Python 파일을 검사합니다",
+      "py_compile로 Python 파일을 검사합니다. Python 파일, 디렉터리 또는 glob 패턴의 문법 검사용으로 사용하세요. 디렉터리는 *.py 파일을 재귀적으로 검사합니다",
       "python_compile",
       "python compile"
     ],
@@ -57,7 +57,7 @@
   "de": {
     "tool.description": "Prüfen Sie Python-Dateien mit py_compile. Verwenden Sie dieses Tool zur Syntaxprüfung von Python-Dateien, Verzeichnissen oder Glob-Mustern. Verzeichnisse werden rekursiv nach *.py-Dateien durchsucht.",
     "x_search_terms": [
-      "Prüfen Sie Python-Dateien mit py_compile",
+      "Prüfen Sie Python-Dateien mit py_compile. Verwenden Sie dieses Tool zur Syntaxprüfung von Python-Dateien, Verzeichnissen oder Glob-Mustern. Verzeichnisse werden rekursiv nach *.py-Dateien durchsucht",
       "python_compile",
       "python compile"
     ],
@@ -68,7 +68,7 @@
   "it": {
     "tool.description": "Convalida i file Python con py_compile. Usa questo strumento per controllare la sintassi di file Python, directory o pattern glob. Le directory vengono analizzate in modo ricorsivo per i file *.py.",
     "x_search_terms": [
-      "Convalida i file Python con py_compile",
+      "Convalida i file Python con py_compile. Usa questo strumento per controllare la sintassi di file Python, directory o pattern glob. Le directory vengono analizzate in modo ricorsivo per i file *.py",
       "python_compile",
       "python compile"
     ],
@@ -79,7 +79,7 @@
   "ru": {
     "tool.description": "Проверяйте файлы Python с помощью py_compile. Используйте этот инструмент для проверки синтаксиса файлов Python, каталогов или шаблонов glob. Каталоги рекурсивно сканируются на наличие файлов *.py.",
     "x_search_terms": [
-      "Проверяйте файлы Python с помощью py_compile",
+      "Проверяйте файлы Python с помощью py_compile. Используйте этот инструмент для проверки синтаксиса файлов Python, каталогов или шаблонов glob. Каталоги рекурсивно сканируются на наличие файлов *.py",
       "python_compile",
       "python compile"
     ],
@@ -90,7 +90,7 @@
   "pt_BR": {
     "tool.description": "Valide arquivos Python com py_compile. Use esta ferramenta para verificar a sintaxe de arquivos Python, diretórios ou padrões glob. Os diretórios são varridos recursivamente em busca de arquivos *.py.",
     "x_search_terms": [
-      "Valide arquivos Python com py_compile",
+      "Valide arquivos Python com py_compile. Use esta ferramenta para verificar a sintaxe de arquivos Python, diretórios ou padrões glob. Os diretórios são varridos recursivamente em busca de arquivos *.py",
       "python_compile",
       "python compile"
     ],
@@ -101,7 +101,7 @@
   "pt": {
     "tool.description": "Valide arquivos Python com py_compile. Use esta ferramenta para verificar a sintaxe de arquivos Python, diretórios ou padrões glob. Os diretórios são analisados recursivamente em busca de arquivos *.py.",
     "x_search_terms": [
-      "Valide arquivos Python com py_compile",
+      "Valide arquivos Python com py_compile. Use esta ferramenta para verificar a sintaxe de arquivos Python, diretórios ou padrões glob. Os diretórios são analisados recursivamente em busca de arquivos *.py",
       "python_compile",
       "python compile"
     ],
@@ -112,7 +112,7 @@
   "id": {
     "tool.description": "Validasi file Python dengan py_compile. Gunakan alat ini untuk memeriksa sintaks file Python, direktori, atau pola glob. Direktori dipindai secara rekursif untuk file *.py.",
     "x_search_terms": [
-      "Validasi file Python dengan py_compile",
+      "Validasi file Python dengan py_compile. Gunakan alat ini untuk memeriksa sintaks file Python, direktori, atau pola glob. Direktori dipindai secara rekursif untuk file *.py",
       "python_compile",
       "python compile"
     ],
@@ -123,7 +123,7 @@
   "vi": {
     "tool.description": "Kiểm tra tệp Python bằng py_compile. Hãy dùng công cụ này để kiểm tra cú pháp của tệp Python, thư mục hoặc mẫu glob. Thư mục sẽ được quét đệ quy để tìm các tệp *.py.",
     "x_search_terms": [
-      "Kiểm tra tệp Python bằng py_compile",
+      "Kiểm tra tệp Python bằng py_compile. Hãy dùng công cụ này để kiểm tra cú pháp của tệp Python, thư mục hoặc mẫu glob. Thư mục sẽ được quét đệ quy để tìm các tệp *.py",
       "python_compile",
       "python compile"
     ],
@@ -134,7 +134,7 @@
   "pl": {
     "tool.description": "Sprawdzaj pliki Pythona za pomocą py_compile. Użyj tego narzędzia do sprawdzania składni plików Pythona, katalogów lub wzorców glob. Katalogi są skanowane rekursywnie w poszukiwaniu plików *.py.",
     "x_search_terms": [
-      "Sprawdzaj pliki Pythona za pomocą py_compile",
+      "Sprawdzaj pliki Pythona za pomocą py_compile. Użyj tego narzędzia do sprawdzania składni plików Pythona, katalogów lub wzorców glob. Katalogi są skanowane rekursywnie w poszukiwaniu plików *.py",
       "python_compile",
       "python compile"
     ],
@@ -145,7 +145,7 @@
   "hi": {
     "tool.description": "py_compile का उपयोग करके Python फ़ाइलों को सत्यापित करें। इस टूल का उपयोग Python फ़ाइलों, निर्देशिकाओं, या glob पैटर्न की सिंटैक्स जाँच के लिए करें। निर्देशिकाओं को *.py फ़ाइलों के लिए पुनरावर्ती रूप से स्कैन किया जाता है।",
     "x_search_terms": [
-      "py_compile का उपयोग करके Python फ़ाइलों को सत्यापित करें। इस टूल का उपयोग Python फ़ाइलों, निर्देशिकाओं, या glob पैटर्न की सिंटैक्स जाँच के लिए करें। निर्देशिकाओं को *",
+      "py_compile का उपयोग करके Python फ़ाइलों को सत्यापित करें। इस टूल का उपयोग Python फ़ाइलों, निर्देशिकाओं, या glob पैटर्न की सिंटैक्स जाँच के लिए करें। निर्देशिकाओं को *.py फ़ाइलों के लिए पुनरावर्ती रूप से स्कैन किया जाता है।",
       "python_compile",
       "python compile"
     ],
@@ -156,7 +156,7 @@
   "ar": {
     "tool.description": "تحقق من ملفات Python باستخدام py_compile. استخدم هذه الأداة لفحص بناء الجملة في ملفات Python أو المجلدات أو أنماط glob. يتم فحص المجلدات بشكل递归 للعثور على ملفات *.py.",
     "x_search_terms": [
-      "تحقق من ملفات Python باستخدام py_compile",
+      "تحقق من ملفات Python باستخدام py_compile. استخدم هذه الأداة لفحص بناء الجملة في ملفات Python أو المجلدات أو أنماط glob. يتم فحص المجلدات بشكل递归 للعثور على ملفات *.py",
       "python_compile",
       "python compile"
     ],
@@ -167,7 +167,7 @@
   "sv": {
     "tool.description": "Verifiera Python-filer med py_compile. Använd det här verktyget för syntaxkontroll av Python-filer, kataloger eller globmönster. Kataloger genomsöks rekursivt efter *.py-filer.",
     "x_search_terms": [
-      "Verifiera Python-filer med py_compile",
+      "Verifiera Python-filer med py_compile. Använd det här verktyget för syntaxkontroll av Python-filer, kataloger eller globmönster. Kataloger genomsöks rekursivt efter *.py-filer",
       "python_compile",
       "python compile"
     ],
@@ -178,7 +178,7 @@
   "sw": {
     "tool.description": "Thibitisha faili za Python kwa kutumia py_compile. Tumia zana hii kwa ukaguzi wa sintaksia ya faili za Python, saraka, au mifumo ya glob. Saraka huchunguzwa kwa njia ya kurudia ili kupata faili za *.py.",
     "x_search_terms": [
-      "Thibitisha faili za Python kwa kutumia py_compile",
+      "Thibitisha faili za Python kwa kutumia py_compile. Tumia zana hii kwa ukaguzi wa sintaksia ya faili za Python, saraka, au mifumo ya glob. Saraka huchunguzwa kwa njia ya kurudia ili kupata faili za *.py",
       "python_compile",
       "python compile"
     ],
@@ -189,7 +189,7 @@
   "nb": {
     "tool.description": "Valider Python-filer med py_compile. Bruk dette verktøyet til syntakssjekk av Python-filer, kataloger eller glob-mønstre. Kataloger skannes rekursivt etter *.py-filer.",
     "x_search_terms": [
-      "Valider Python-filer med py_compile",
+      "Valider Python-filer med py_compile. Bruk dette verktøyet til syntakssjekk av Python-filer, kataloger eller glob-mønstre. Kataloger skannes rekursivt etter *.py-filer",
       "python_compile",
       "python compile"
     ],
@@ -200,7 +200,7 @@
   "nl": {
     "tool.description": "Valideer Python-bestanden met py_compile. Gebruik dit hulpmiddel voor syntaxiscontrole van Python-bestanden, mappen of glob-patronen. Mappen worden recursief gescand op *.py-bestanden.",
     "x_search_terms": [
-      "Valideer Python-bestanden met py_compile",
+      "Valideer Python-bestanden met py_compile. Gebruik dit hulpmiddel voor syntaxiscontrole van Python-bestanden, mappen of glob-patronen. Mappen worden recursief gescand op *.py-bestanden",
       "python_compile",
       "python compile"
     ],
@@ -211,7 +211,7 @@
   "fi": {
     "tool.description": "Vahvista Python-tiedostot py_compilella. Käytä tätä työkalua Python-tiedostojen, hakemistojen tai glob-kuvioiden syntaksin tarkistamiseen. Hakemistot skannataan rekursiivisesti *.py-tiedostojen varalta.",
     "x_search_terms": [
-      "Vahvista Python-tiedostot py_compilella",
+      "Vahvista Python-tiedostot py_compilella. Käytä tätä työkalua Python-tiedostojen, hakemistojen tai glob-kuvioiden syntaksin tarkistamiseen. Hakemistot skannataan rekursiivisesti *.py-tiedostojen varalta",
       "python_compile",
       "python compile"
     ],
@@ -222,7 +222,7 @@
   "cs": {
     "tool.description": "Ověřte soubory Python pomocí py_compile. Tento nástroj použijte ke kontrole syntaxe souborů Python, adresářů nebo glob vzorů. Adresáře se prohledávají rekurzivně kvůli souborům *.py.",
     "x_search_terms": [
-      "Ověřte soubory Python pomocí py_compile",
+      "Ověřte soubory Python pomocí py_compile. Tento nástroj použijte ke kontrole syntaxe souborů Python, adresářů nebo glob vzorů. Adresáře se prohledávají rekurzivně kvůli souborům *.py",
       "python_compile",
       "python compile"
     ],
@@ -233,7 +233,7 @@
   "uk": {
     "tool.description": "Перевіряйте файли Python за допомогою py_compile. Використовуйте цей інструмент для перевірки синтаксису файлів Python, каталогів або шаблонів glob. Каталоги рекурсивно скануються на наявність файлів *.py.",
     "x_search_terms": [
-      "Перевіряйте файли Python за допомогою py_compile",
+      "Перевіряйте файли Python за допомогою py_compile. Використовуйте цей інструмент для перевірки синтаксису файлів Python, каталогів або шаблонів glob. Каталоги рекурсивно скануються на наявність файлів *.py",
       "python_compile",
       "python compile"
     ],
@@ -244,7 +244,7 @@
   "tr": {
     "tool.description": "Python dosyalarını py_compile ile doğrulayın. Bu aracı Python dosyalarının, dizinlerin veya glob desenlerinin sözdizimini denetlemek için kullanın. Dizinler *.py dosyaları için yinelemeli olarak taranır.",
     "x_search_terms": [
-      "Python dosyalarını py_compile ile doğrulayın",
+      "Python dosyalarını py_compile ile doğrulayın. Bu aracı Python dosyalarının, dizinlerin veya glob desenlerinin sözdizimini denetlemek için kullanın. Dizinler *.py dosyaları için yinelemeli olarak taranır",
       "python_compile",
       "python compile"
     ],
@@ -255,7 +255,7 @@
   "th": {
     "tool.description": "ตรวจสอบไฟล์ Python ด้วย py_compile ใช้เครื่องมือนี้เพื่อตรวจสอบไวยากรณ์ของไฟล์ Python ไดเรกทอรี หรือรูปแบบ glob โดยจะสแกนไดเรกทอรีแบบวนซ้ำเพื่อหาไฟล์ *.py",
     "x_search_terms": [
-      "ตรวจสอบไฟล์ Python ด้วย py_compile ใช้เครื่องมือนี้เพื่อตรวจสอบไวยากรณ์ของไฟล์ Python ไดเรกทอรี หรือรูปแบบ glob โดยจะสแกนไดเรกทอรีแบบวนซ้ำเพื่อหาไฟล์ *",
+      "ตรวจสอบไฟล์ Python ด้วย py_compile ใช้เครื่องมือนี้เพื่อตรวจสอบไวยากรณ์ของไฟล์ Python ไดเรกทอรี หรือรูปแบบ glob โดยจะสแกนไดเรกทอรีแบบวนซ้ำเพื่อหาไฟล์ *.py",
       "python_compile",
       "python compile"
     ],
@@ -266,7 +266,7 @@
   "zh_CN": {
     "tool.description": "使用 py_compile 验证 Python 文件。可用于检查 Python 文件、目录或 glob 模式的语法。目录会递归扫描 *.py 文件。",
     "x_search_terms": [
-      "使用 py_compile 验证 Python 文件",
+      "使用 py_compile 验证 Python 文件。可用于检查 Python 文件、目录或 glob 模式的语法。目录会递归扫描 *.py 文件",
       "python_compile",
       "python compile"
     ],
@@ -277,7 +277,7 @@
   "zh_TW": {
     "tool.description": "使用 py_compile 驗證 Python 檔案。可用於檢查 Python 檔案、目錄或 glob 模式的語法。目錄會遞迴掃描 *.py 檔案。",
     "x_search_terms": [
-      "使用 py_compile 驗證 Python 檔案",
+      "使用 py_compile 驗證 Python 檔案。可用於檢查 Python 檔案、目錄或 glob 模式的語法。目錄會遞迴掃描 *.py 檔案",
       "python_compile",
       "python compile"
     ],

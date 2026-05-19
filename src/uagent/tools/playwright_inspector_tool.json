@@ -6,13 +6,9 @@
     "param.url.description": "First URL to open (default: about:blank)",
     "tool.description": "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the Resume button. Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file.",
     "x_search_terms": [
-      "Launch Playwright Inspector to capture browser operations",
+      "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the Resume button. Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in TOOL_SPEC.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -26,13 +22,9 @@
     "param.url.description": "最初に開く URL（デフォルト: about:blank）",
     "tool.description": "Playwright Inspector を起動してブラウザ操作をキャプチャします。指定した URL を開き、ユーザーが Resume ボタンを押した後のページ状態を HTML と画像で保存します。また、メインフレームの遷移ごとに番号付きの HTML/PNG を pages/ に保存し、latest.html を更新し、index.jsonl を書き出し、ナビゲーション、ネットワーク、コンソールイベントなどを JSONL ファイルに記録します。",
     "x_search_terms": [
-      "Playwright Inspector を起動してブラウザ操作をキャプチャします",
+      "Playwright Inspector を起動してブラウザ操作をキャプチャします。指定した URL を開き、ユーザーが Resume ボタンを押した後のページ状態を HTML と画像で保存します。また、メインフレームの遷移ごとに番号付きの HTML/PNG を pages/ に保存し、latest.html を更新し、index.jsonl を書き出し、ナビゲーション、ネットワーク、コンソールイベントなどを JSONL ファイルに記録します",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。",
     "ui.captured": "--- CAPTURED: {html}、{png}、{flow}、{snapshots}/、pages/、index.jsonl、latest.html ---",
@@ -46,13 +38,9 @@
     "param.url.description": "Primera URL que se abrirá (predeterminado: about:blank)",
     "tool.description": "Inicie Playwright Inspector para capturar las operaciones del navegador. Abre la URL especificada y guarda el estado de la página (HTML e imagen) después de que el usuario haga clic en el botón Reanudar. Además, guarda capturas de DOM y pantalla de forma secuencial en cada navegación del marco principal y registra navegación, red, eventos de consola y más en un archivo JSONL. Además, guarda en pages/ el HTML/PNG numerado de cada navegación, mantiene actualizado latest.html y escribe index.jsonl.",
     "x_search_terms": [
-      "Inicie Playwright Inspector para capturar las operaciones del navegador",
+      "Inicie Playwright Inspector para capturar las operaciones del navegador. Abre la URL especificada y guarda el estado de la página (HTML e imagen) después de que el usuario haga clic en el botón Reanudar. Además, guarda capturas de DOM y pantalla de forma secuencial en cada navegación del marco principal y registra navegación, red, eventos de consola y más en un archivo JSONL. Además, guarda en pages/ el HTML/PNG numerado de cada navegación, mantiene actualizado latest.html y escribe index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (véase la descripción de la herramienta).",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -66,13 +54,9 @@
     "param.url.description": "Première URL à ouvrir (par défaut : about:blank)",
     "tool.description": "Lancez Playwright Inspector pour capturer les actions du navigateur. Ouvre l'URL spécifiée et enregistre l'état de la page (HTML et image) une fois que l'utilisateur a cliqué sur le bouton Reprendre. En outre, enregistre des instantanés DOM/capture d'écran de manière séquentielle à chaque navigation du cadre principal et consigne la navigation, le réseau, les événements de la console, etc. dans un fichier JSONL. En outre, il enregistre dans pages/ les HTML/PNG numérotés de chaque navigation, met à jour latest.html et écrit index.jsonl.",
     "x_search_terms": [
-      "Lancez Playwright Inspector pour capturer les actions du navigateur",
+      "Lancez Playwright Inspector pour capturer les actions du navigateur. Ouvre l'URL spécifiée et enregistre l'état de la page (HTML et image) une fois que l'utilisateur a cliqué sur le bouton Reprendre. En outre, enregistre des instantanés DOM/capture d'écran de manière séquentielle à chaque navigation du cadre principal et consigne la navigation, le réseau, les événements de la console, etc. dans un fichier JSONL. En outre, il enregistre dans pages/ les HTML/PNG numérotés de chaque navigation, met à jour latest.html et écrit index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant (voir la description de l'outil).",
     "ui.captured": "--- CAPTURÉ : {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -86,13 +70,9 @@
     "param.url.description": "처음 열 URL(기본값: about:blank)",
     "tool.description": "Playwright Inspector를 실행하여 브라우저 작업을 캡처합니다. 지정한 URL을 열고 사용자가 Resume 버튼을 클릭한 뒤의 페이지 상태(HTML 및 이미지)를 저장합니다. 또한 각 메인 프레임 이동마다 DOM/스크린샷 스냅샷을 순차적으로 저장하고, 탐색/네트워크/콘솔 이벤트 등을 JSONL 파일에 기록합니다. 또한 각 이동마다 번호가 매겨진 HTML/PNG를 pages/에 저장하고 latest.html을 갱신하며 index.jsonl을 기록합니다.",
     "x_search_terms": [
-      "Playwright Inspector를 실행하여 브라우저 작업을 캡처합니다",
+      "Playwright Inspector를 실행하여 브라우저 작업을 캡처합니다. 지정한 URL을 열고 사용자가 Resume 버튼을 클릭한 뒤의 페이지 상태(HTML 및 이미지)를 저장합니다. 또한 각 메인 프레임 이동마다 DOM/스크린샷 스냅샷을 순차적으로 저장하고, 탐색/네트워크/콘솔 이벤트 등을 JSONL 파일에 기록합니다. 또한 각 이동마다 번호가 매겨진 HTML/PNG를 pages/에 저장하고 latest.html을 갱신하며 index.jsonl을 기록합니다",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조).",
     "ui.captured": "--- 캡처됨: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -106,13 +86,9 @@
     "param.url.description": "Zu öffnende erste URL (Standard: about:blank)",
     "tool.description": "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen. Öffnet die angegebene URL und speichert den Seitenzustand (HTML und Bild), nachdem der Benutzer auf die Schaltfläche „Fortsetzen“ geklickt hat. Außerdem werden DOM-/Screenshot-Snapshots bei jeder Navigation des Hauptframes nacheinander gespeichert und Navigation, Netzwerk, Konsolenereignisse und mehr in einer JSONL-Datei protokolliert. Außerdem werden nummerierte HTML/PNG-Dateien jeder Navigation unter pages/ gespeichert, latest.html wird aktualisiert und index.jsonl geschrieben.",
     "x_search_terms": [
-      "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen",
+      "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen. Öffnet die angegebene URL und speichert den Seitenzustand (HTML und Bild), nachdem der Benutzer auf die Schaltfläche „Fortsetzen“ geklickt hat. Außerdem werden DOM-/Screenshot-Snapshots bei jeder Navigation des Hauptframes nacheinander gespeichert und Navigation, Netzwerk, Konsolenereignisse und mehr in einer JSONL-Datei protokolliert. Außerdem werden nummerierte HTML/PNG-Dateien jeder Navigation unter pages/ gespeichert, latest.html wird aktualisiert und index.jsonl geschrieben",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet (siehe Toolbeschreibung).",
     "ui.captured": "--- ERFASST: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -126,13 +102,9 @@
     "param.url.description": "Prima URL da aprire (predefinito: about:blank)",
     "tool.description": "Avvia Playwright Inspector per acquisire le operazioni del browser. Apre l'URL specificato e salva lo stato della pagina (HTML e immagine) dopo che l'utente fa clic sul pulsante Riprendi. Inoltre, salva in sequenza gli snapshot DOM/schermata a ogni navigazione del frame principale e registra navigazione, rete, eventi della console e altro in un file JSONL. Inoltre salva in pages/ gli HTML/PNG numerati di ogni navigazione, mantiene aggiornato latest.html e scrive index.jsonl.",
     "x_search_terms": [
-      "Avvia Playwright Inspector per acquisire le operazioni del browser",
+      "Avvia Playwright Inspector per acquisire le operazioni del browser. Apre l'URL specificato e salva lo stato della pagina (HTML e immagine) dopo che l'utente fa clic sul pulsante Riprendi. Inoltre, salva in sequenza gli snapshot DOM/schermata a ogni navigazione del frame principale e registra navigazione, rete, eventi della console e altro in un file JSONL. Inoltre salva in pages/ gli HTML/PNG numerati di ogni navigazione, mantiene aggiornato latest.html e scrive index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo (vedere la descrizione dello strumento).",
     "ui.captured": "--- ACQUISITO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -146,13 +118,9 @@
     "param.url.description": "Первый URL для открытия (по умолчанию: about:blank)",
     "tool.description": "Запустите Playwright Inspector, чтобы захватывать действия браузера. Открывает указанный URL и сохраняет состояние страницы (HTML и изображение) после нажатия пользователем кнопки «Продолжить». Кроме того, последовательно сохраняет снимки DOM/экрана при каждой навигации основного фрейма и записывает навигацию, сеть, события консоли и многое другое в файл JSONL. Кроме того, он сохраняет пронумерованные HTML/PNG для каждой навигации в pages/, обновляет latest.html и записывает index.jsonl.",
     "x_search_terms": [
-      "Запустите Playwright Inspector, чтобы захватывать действия браузера",
+      "Запустите Playwright Inspector, чтобы захватывать действия браузера. Открывает указанный URL и сохраняет состояние страницы (HTML и изображение) после нажатия пользователем кнопки «Продолжить». Кроме того, последовательно сохраняет снимки DOM/экрана при каждой навигации основного фрейма и записывает навигацию, сеть, события консоли и многое другое в файл JSONL. Кроме того, он сохраняет пронумерованные HTML/PNG для каждой навигации в pages/, обновляет latest.html и записывает index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели (см. описание инструмента).",
     "ui.captured": "--- ЗАХВАЧЕНО: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -166,13 +134,9 @@
     "param.url.description": "Primeira URL a abrir (padrão: about:blank)",
     "tool.description": "Inicie o Playwright Inspector para capturar as operações do navegador. Abre a URL especificada e salva o estado da página (HTML e imagem) depois que o usuário clica no botão Continuar. Além disso, salva snapshots de DOM/tela em sequência a cada navegação do frame principal e registra navegação, rede, eventos do console e muito mais em um arquivo JSONL. Além disso, salva HTML/PNG numerados de cada navegação em pages/, mantém latest.html atualizado e grava index.jsonl.",
     "x_search_terms": [
-      "Inicie o Playwright Inspector para capturar as operações do navegador",
+      "Inicie o Playwright Inspector para capturar as operações do navegador. Abre a URL especificada e salva o estado da página (HTML e imagem) depois que o usuário clica no botão Continuar. Além disso, salva snapshots de DOM/tela em sequência a cada navegação do frame principal e registra navegação, rede, eventos do console e muito mais em um arquivo JSONL. Além disso, salva HTML/PNG numerados de cada navegação em pages/, mantém latest.html atualizado e grava index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Use esta ferramenta para o propósito descrito em TOOL_SPEC.",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -186,13 +150,9 @@
     "param.url.description": "URL inicial a abrir (padrão: about:blank)",
     "tool.description": "Inicie o Playwright Inspector para capturar as ações do navegador. Ele abre a URL informada e salva o estado da página (HTML e imagem) depois que o usuário clica em Continuar. Também salva snapshots de DOM e tela em sequência a cada navegação do frame principal e registra navegação, rede, eventos do console e outros dados em um arquivo JSONL. Além disso, salva HTML/PNG numerados de cada navegação em pages/, mantém latest.html atualizado e grava index.jsonl.",
     "x_search_terms": [
-      "Inicie o Playwright Inspector para capturar as ações do navegador",
+      "Inicie o Playwright Inspector para capturar as ações do navegador. Ele abre a URL informada e salva o estado da página (HTML e imagem) depois que o usuário clica em Continuar. Também salva snapshots de DOM e tela em sequência a cada navegação do frame principal e registra navegação, rede, eventos do console e outros dados em um arquivo JSONL. Além disso, salva HTML/PNG numerados de cada navegação em pages/, mantém latest.html atualizado e grava index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Use esta ferramenta para o propósito descrito em TOOL_SPEC.",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -206,13 +166,9 @@
     "param.url.description": "URL pertama yang dibuka (default: about:blank)",
     "tool.description": "Luncurkan Playwright Inspector untuk merekam operasi browser. Membuka URL yang ditentukan dan menyimpan state halaman (HTML dan gambar) setelah pengguna mengklik tombol Resume. Juga menyimpan snapshot DOM/screenshot secara berurutan pada setiap navigasi main-frame dan merekam navigasi, jaringan, event konsol, dan lainnya ke file JSONL. Selain itu, ia menyimpan HTML/PNG bernomor untuk setiap navigasi di pages/, menjaga latest.html tetap mutakhir, dan menulis index.jsonl.",
     "x_search_terms": [
-      "Luncurkan Playwright Inspector untuk merekam operasi browser",
+      "Luncurkan Playwright Inspector untuk merekam operasi browser. Membuka URL yang ditentukan dan menyimpan state halaman (HTML dan gambar) setelah pengguna mengklik tombol Resume. Juga menyimpan snapshot DOM/screenshot secara berurutan pada setiap navigasi main-frame dan merekam navigasi, jaringan, event konsol, dan lainnya ke file JSONL. Selain itu, ia menyimpan HTML/PNG bernomor untuk setiap navigasi di pages/, menjaga latest.html tetap mutakhir, dan menulis index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
     "ui.captured": "--- TERTANGKAP: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -226,13 +182,9 @@
     "param.url.description": "URL đầu tiên mở (mặc định: about:blank)",
     "tool.description": "Khởi chạy Playwright Inspector để ghi lại các thao tác của trình duyệt. Mở URL được chỉ định và lưu trạng thái trang (HTML và hình ảnh) sau khi người dùng nhấp vào nút Resume. Ngoài ra, nó còn lưu tuần tự các ảnh chụp nhanh DOM/ảnh chụp màn hình ở mỗi lần điều hướng của khung chính và ghi lại điều hướng, mạng, sự kiện bảng điều khiển, v.v. vào tệp JSONL. Ngoài ra, nó lưu HTML/PNG được đánh số cho mỗi lần điều hướng vào pages/, luôn cập nhật latest.html và ghi index.jsonl.",
     "x_search_terms": [
-      "Khởi chạy Playwright Inspector để ghi lại các thao tác của trình duyệt",
+      "Khởi chạy Playwright Inspector để ghi lại các thao tác của trình duyệt. Mở URL được chỉ định và lưu trạng thái trang (HTML và hình ảnh) sau khi người dùng nhấp vào nút Resume. Ngoài ra, nó còn lưu tuần tự các ảnh chụp nhanh DOM/ảnh chụp màn hình ở mỗi lần điều hướng của khung chính và ghi lại điều hướng, mạng, sự kiện bảng điều khiển, v.v. vào tệp JSONL. Ngoài ra, nó lưu HTML/PNG được đánh số cho mỗi lần điều hướng vào pages/, luôn cập nhật latest.html và ghi index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Công cụ này được dùng cho mục đích được mô tả trong TOOL_SPEC.",
     "ui.captured": "--- ĐÃ THU THẬP: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -246,13 +198,9 @@
     "param.url.description": "Pierwszy adres URL do otwarcia (domyślnie: about:blank)",
     "tool.description": "Uruchom Playwright Inspector, aby przechwycić operacje przeglądarki. Otwiera określony adres URL i zapisuje stan strony (HTML i obraz) po kliknięciu przez użytkownika przycisku Wznów. Zapisuje także sekwencyjnie migawki DOM/zrzuty ekranu w każdej nawigacji na ekranie głównym i rejestruje nawigację, zdarzenia sieciowe, konsolowe i inne w pliku JSONL. Ponadto zapisuje ponumerowane pliki HTML/PNG dla każdej nawigacji w pages/, aktualizuje latest.html i zapisuje index.jsonl.",
     "x_search_terms": [
-      "Uruchom Playwright Inspector, aby przechwycić operacje przeglądarki",
+      "Uruchom Playwright Inspector, aby przechwycić operacje przeglądarki. Otwiera określony adres URL i zapisuje stan strony (HTML i obraz) po kliknięciu przez użytkownika przycisku Wznów. Zapisuje także sekwencyjnie migawki DOM/zrzuty ekranu w każdej nawigacji na ekranie głównym i rejestruje nawigację, zdarzenia sieciowe, konsolowe i inne w pliku JSONL. Ponadto zapisuje ponumerowane pliki HTML/PNG dla każdej nawigacji w pages/, aktualizuje latest.html i zapisuje index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia).",
     "ui.captured": "--- PRZECHWYCONO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -266,13 +214,9 @@
     "param.url.description": "खोलने वाला पहला URL (डिफ़ॉल्ट: about:blank)",
     "tool.description": "ब्राउज़र क्रियाएँ कैप्चर करने के लिए Playwright Inspector शुरू करें। यह निर्दिष्ट URL खोलता है और उपयोगकर्ता द्वारा Resume बटन दबाने के बाद पृष्ठ की स्थिति (HTML और चित्र) सहेजता है। यह प्रत्येक मुख्य-फ़्रेम नेविगेशन पर DOM/स्क्रीनशॉट स्नैपशॉट भी क्रम से सहेजता है और नेविगेशन, नेटवर्क, कंसोल ईवेंट आदि को JSONL फ़ाइल में रिकॉर्ड करता है। साथ ही, प्रत्येक नेविगेशन के लिए क्रमांकित HTML/PNG को pages/ में सहेजता है, latest.html को अद्यतन रखता है, और index.jsonl लिखता है।",
     "x_search_terms": [
-      "ब्राउज़र क्रियाएँ कैप्चर करने के लिए Playwright Inspector शुरू करें। यह निर्दिष्ट URL खोलता है और उपयोगकर्ता द्वारा Resume बटन दबाने के बाद पृष्ठ की स्थिति (HTML और चित्र) सहेजता है। यह प्रत्येक मुख्य-फ़्रेम नेविगेशन पर DOM/स्क्रीनशॉट स्नैपशॉट भी क्रम से सहेजता है और नेविगेशन, नेटवर्क, कंसोल ईवेंट आदि को JSONL फ़ाइल में रिकॉर्ड करता है। साथ ही, प्रत्येक नेविगेशन के लिए क्रमांकित HTML/PNG को pages/ में सहेजता है, latest",
+      "ब्राउज़र क्रियाएँ कैप्चर करने के लिए Playwright Inspector शुरू करें। यह निर्दिष्ट URL खोलता है और उपयोगकर्ता द्वारा Resume बटन दबाने के बाद पृष्ठ की स्थिति (HTML और चित्र) सहेजता है। यह प्रत्येक मुख्य-फ़्रेम नेविगेशन पर DOM/स्क्रीनशॉट स्नैपशॉट भी क्रम से सहेजता है और नेविगेशन, नेटवर्क, कंसोल ईवेंट आदि को JSONL फ़ाइल में रिकॉर्ड करता है। साथ ही, प्रत्येक नेविगेशन के लिए क्रमांकित HTML/PNG को pages/ में सहेजता है, latest.html को अद्यतन रखता है, और index.jsonl लिखता है।",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग TOOL_SPEC में वर्णित उद्देश्य के लिए किया जाता है।",
     "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -286,13 +230,9 @@
     "param.url.description": "عنوان URL الأول الذي سيتم فتحه (الافتراضي: about:blank)",
     "tool.description": "قم بتشغيل Playwright Inspector لالتقاط عمليات المتصفح. يفتح عنوان URL المحدد ويحفظ حالة الصفحة (HTML والصورة) بعد أن ينقر المستخدم على الزر \"استئناف\". كما أنه يحفظ لقطات DOM/لقطة الشاشة بشكل تسلسلي في كل تنقل للإطار الرئيسي ويسجل التنقل والشبكة وأحداث وحدة التحكم والمزيد في ملف JSONL. كما يحفظ أيضًا HTML/PNG مرقّمين لكل تنقّل في pages/، ويحدّث latest.html، ويكتب index.jsonl.",
     "x_search_terms": [
-      "قم بتشغيل Playwright Inspector لالتقاط عمليات المتصفح",
+      "قم بتشغيل Playwright Inspector لالتقاط عمليات المتصفح. يفتح عنوان URL المحدد ويحفظ حالة الصفحة (HTML والصورة) بعد أن ينقر المستخدم على الزر \"استئناف\". كما أنه يحفظ لقطات DOM/لقطة الشاشة بشكل تسلسلي في كل تنقل للإطار الرئيسي ويسجل التنقل والشبكة وأحداث وحدة التحكم والمزيد في ملف JSONL. كما يحفظ أيضًا HTML/PNG مرقّمين لكل تنقّل في pages/، ويحدّث latest.html، ويكتب index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة).",
     "ui.captured": "--- تم التقاطها: {html}، {png}، {flow}، {snapshots}/، pages/، index.jsonl، latest.html ---",
@@ -306,13 +246,9 @@
     "param.url.description": "Första URL att öppna (standard: about:blank)",
     "tool.description": "Starta Playwright Inspector för att fånga webbläsaråtgärder. Den öppnar den angivna URL:en och sparar sidans tillstånd (HTML och bild) efter att användaren klickat på knappen Fortsätt. Den sparar också DOM-/skärmdumpssnapshots i följd vid varje navigering i huvudramen och loggar navigering, nätverk, konsolhändelser med mera i en JSONL-fil. Dessutom sparas numrerade HTML/PNG för varje navigering i pages/, latest.html hålls uppdaterad och index.jsonl skrivs.",
     "x_search_terms": [
-      "Starta Playwright Inspector för att fånga webbläsaråtgärder",
+      "Starta Playwright Inspector för att fånga webbläsaråtgärder. Den öppnar den angivna URL:en och sparar sidans tillstånd (HTML och bild) efter att användaren klickat på knappen Fortsätt. Den sparar också DOM-/skärmdumpssnapshots i följd vid varje navigering i huvudramen och loggar navigering, nätverk, konsolhändelser med mera i en JSONL-fil. Dessutom sparas numrerade HTML/PNG för varje navigering i pages/, latest.html hålls uppdaterad och index.jsonl skrivs",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Använd det här verktyget för det syfte som beskrivs i TOOL_SPEC.",
     "ui.captured": "--- INFÅNGAT: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -326,13 +262,9 @@
     "param.url.description": "First URL to open (default: about:blank)",
     "tool.description": "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the Resume button. Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file.",
     "x_search_terms": [
-      "Launch Playwright Inspector to capture browser operations",
+      "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the Resume button. Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in TOOL_SPEC.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -346,13 +278,9 @@
     "param.url.description": "Første URL som skal åpnes (standard: about:blank)",
     "tool.description": "Start Playwright Inspector for å fange nettleserhandlinger. Den åpner den angitte URL-en og lagrer sidens tilstand (HTML og bilde) etter at brukeren klikker på knappen Fortsett. Den lagrer også DOM- og skjermbildesnapshots fortløpende ved hver navigering i hovedrammen og logger navigering, nettverk, konsollhendelser og mer i en JSONL-fil. I tillegg lagres nummererte HTML/PNG-filer for hver navigasjon i pages/, latest.html oppdateres fortløpende, og index.jsonl skrives.",
     "x_search_terms": [
-      "Start Playwright Inspector for å fange nettleserhandlinger",
+      "Start Playwright Inspector for å fange nettleserhandlinger. Den åpner den angitte URL-en og lagrer sidens tilstand (HTML og bilde) etter at brukeren klikker på knappen Fortsett. Den lagrer også DOM- og skjermbildesnapshots fortløpende ved hver navigering i hovedrammen og logger navigering, nettverk, konsollhendelser og mer i en JSONL-fil. I tillegg lagres nummererte HTML/PNG-filer for hver navigasjon i pages/, latest.html oppdateres fortløpende, og index.jsonl skrives",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Bruk dette verktøyet for formålet som er beskrevet i TOOL_SPEC.",
     "ui.captured": "--- OPPFANGET: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -366,13 +294,9 @@
     "param.url.description": "Eerste URL om te openen (standaard: about:blank)",
     "tool.description": "Start Playwright Inspector om browseracties vast te leggen. Opent de opgegeven URL en slaat de paginastatus (HTML en afbeelding) op nadat de gebruiker op de knop Doorgaan klikt. Het bewaart ook DOM-/schermafbeeldingsnapshots achtereenvolgens bij elke navigatie van het hoofdframe en legt navigatie, netwerk, consolegebeurtenissen en meer vast in een JSONL-bestand. Daarnaast worden genummerde HTML/PNG-bestanden per navigatie opgeslagen in pages/, blijft latest.html bijgewerkt en wordt index.jsonl geschreven.",
     "x_search_terms": [
-      "Start Playwright Inspector om browseracties vast te leggen",
+      "Start Playwright Inspector om browseracties vast te leggen. Opent de opgegeven URL en slaat de paginastatus (HTML en afbeelding) op nadat de gebruiker op de knop Doorgaan klikt. Het bewaart ook DOM-/schermafbeeldingsnapshots achtereenvolgens bij elke navigatie van het hoofdframe en legt navigatie, netwerk, consolegebeurtenissen en meer vast in een JSONL-bestand. Daarnaast worden genummerde HTML/PNG-bestanden per navigatie opgeslagen in pages/, blijft latest.html bijgewerkt en wordt index.jsonl geschreven",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Gebruik deze tool voor het doel dat in TOOL_SPEC staat beschreven.",
     "ui.captured": "--- VASTGELEGD: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -386,13 +310,9 @@
     "param.url.description": "Ensimmäinen avattava URL (oletus: about:blank)",
     "tool.description": "Käynnistä Playwright Inspector selaintoimintojen kaappaamiseen. Se avaa määritetyn URL-osoitteen ja tallentaa sivun tilan (HTML ja kuva), kun käyttäjä napsauttaa Jatka-painiketta. Se tallentaa myös DOM-/kuvakaappausotoksia peräkkäin jokaisella pääkehyksen navigoinnilla ja kirjaa navigoinnin, verkon, konsolitapahtumat ja многое muuta JSONL-tiedostoon. Lisäksi se tallentaa numeroidut HTML/PNG-tiedostot jokaisesta siirtymästä kansioon pages/, pitää latest.html-tiedoston ajan tasalla ja kirjoittaa index.jsonl:n.",
     "x_search_terms": [
-      "Käynnistä Playwright Inspector selaintoimintojen kaappaamiseen",
+      "Käynnistä Playwright Inspector selaintoimintojen kaappaamiseen. Se avaa määritetyn URL-osoitteen ja tallentaa sivun tilan (HTML ja kuva), kun käyttäjä napsauttaa Jatka-painiketta. Se tallentaa myös DOM-/kuvakaappausotoksia peräkkäin jokaisella pääkehyksen navigoinnilla ja kirjaa navigoinnin, verkon, konsolitapahtumat ja многое muuta JSONL-tiedostoon. Lisäksi se tallentaa numeroidut HTML/PNG-tiedostot jokaisesta siirtymästä kansioon pages/, pitää latest.html-tiedoston ajan tasalla ja kirjoittaa index.jsonl:n",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen (katso työkalun kuvaus).",
     "ui.captured": "--- TALLENNETTU: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -406,13 +326,9 @@
     "param.url.description": "První URL, které se má otevřít (výchozí: about:blank)",
     "tool.description": "Spouští Playwright Inspector pro zachycení operací prohlížeče. Otevře zadanou URL a po kliknutí na tlačítko Resume uloží stav stránky (HTML i obrázek). Také průběžně ukládá DOM/screenshot snímky při každé navigaci hlavního rámce a zapisuje navigaci, síť, události konzole a další do souboru JSONL. Navíc ukládá očíslované HTML/PNG pro každou navigaci do pages/, průběžně aktualizuje latest.html a zapisuje index.jsonl.",
     "x_search_terms": [
-      "Spouští Playwright Inspector pro zachycení operací prohlížeče",
+      "Spouští Playwright Inspector pro zachycení operací prohlížeče. Otevře zadanou URL a po kliknutí na tlačítko Resume uloží stav stránky (HTML i obrázek). Také průběžně ukládá DOM/screenshot snímky při každé navigaci hlavního rámce a zapisuje navigaci, síť, události konzole a další do souboru JSONL. Navíc ukládá očíslované HTML/PNG pro každou navigaci do pages/, průběžně aktualizuje latest.html a zapisuje index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu (viz popis nástroje).",
     "ui.captured": "--- ZACHYCENO: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -426,13 +342,9 @@
     "param.url.description": "Перша URL-адреса для відкриття (типово: about:blank)",
     "tool.description": "Запускає Playwright Inspector для захоплення дій браузера. Відкриває вказану URL-адресу та після натискання кнопки Resume зберігає стан сторінки (HTML і зображення). Також послідовно зберігає DOM/скриншот-знімки під час кожної навігації головного фрейму та записує навігацію, мережу, події консолі й інше у файл JSONL. Крім того, нумеровані HTML/PNG для кожної навігації зберігаються в pages/, latest.html оновлюється, а index.jsonl записується.",
     "x_search_terms": [
-      "Запускає Playwright Inspector для захоплення дій браузера",
+      "Запускає Playwright Inspector для захоплення дій браузера. Відкриває вказану URL-адресу та після натискання кнопки Resume зберігає стан сторінки (HTML і зображення). Також послідовно зберігає DOM/скриншот-знімки під час кожної навігації головного фрейму та записує навігацію, мережу, події консолі й інше у файл JSONL. Крім того, нумеровані HTML/PNG для кожної навігації зберігаються в pages/, latest.html оновлюється, а index.jsonl записується",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети (див. опис інструмента).",
     "ui.captured": "--- ЗАХОПЛЕНО: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -446,13 +358,9 @@
     "param.url.description": "Açılan ilk URL (varsayılan: hakkında:boş)",
     "tool.description": "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatın. Belirtilen URL dosyasını açar ve kullanıcı Sürdür düğmesini tıkladıktan sonra sayfa durumunu (HTML ve resim) kaydeder. Ayrıca, gezinme başına numaralandırılmış HTML/PNG sayfalarını/ altına kaydeder, en son.html'yi güncel tutar, index.jsonl yazar ve gezinmeyi, ağı, konsol olaylarını, DOM olaylarını ve sayfa özetlerini bir JSONL dosyasına kaydeder.",
     "x_search_terms": [
-      "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatın",
+      "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatın. Belirtilen URL dosyasını açar ve kullanıcı Sürdür düğmesini tıkladıktan sonra sayfa durumunu (HTML ve resim) kaydeder. Ayrıca, gezinme başına numaralandırılmış HTML/PNG sayfalarını/ altına kaydeder, en son.html'yi güncel tutar, index.jsonl yazar ve gezinmeyi, ağı, konsol olaylarını, DOM olaylarını ve sayfa özetlerini bir JSONL dosyasına kaydeder",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "Bu aracı TOOL_SPEC'da açıklanan amaç için kullanın.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/, sayfalar/, index.jsonl, en son.html ---",
@@ -466,13 +374,9 @@
     "param.url.description": "URL แรกที่จะเปิด (ค่าเริ่มต้น: about:blank)",
     "tool.description": "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้าเว็บ (HTML และรูปภาพ) หลังจากผู้ใช้คลิกปุ่ม Resume นอกจากนี้ ยังบันทึก DOM/ภาพหน้าจอเป็นลำดับในแต่ละครั้งที่มีการนำทางของเฟรมหลัก และบันทึกการนำทาง เครือข่าย เหตุการณ์คอนโซล และอื่น ๆ ลงในไฟล์ JSONL นอกจากนี้ ยังบันทึก HTML/PNG ที่มีหมายเลขสำหรับแต่ละการนำทางลงใน pages/ อัปเดต latest.html และเขียน index.jsonl",
     "x_search_terms": [
-      "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้าเว็บ (HTML และรูปภาพ) หลังจากผู้ใช้คลิกปุ่ม Resume นอกจากนี้ ยังบันทึก DOM/ภาพหน้าจอเป็นลำดับในแต่ละครั้งที่มีการนำทางของเฟรมหลัก และบันทึกการนำทาง เครือข่าย เหตุการณ์คอนโซล และอื่น ๆ ลงในไฟล์ JSONL นอกจากนี้ ยังบันทึก HTML/PNG ที่มีหมายเลขสำหรับแต่ละการนำทางลงใน pages/ อัปเดต latest",
+      "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้าเว็บ (HTML และรูปภาพ) หลังจากผู้ใช้คลิกปุ่ม Resume นอกจากนี้ ยังบันทึก DOM/ภาพหน้าจอเป็นลำดับในแต่ละครั้งที่มีการนำทางของเฟรมหลัก และบันทึกการนำทาง เครือข่าย เหตุการณ์คอนโซล และอื่น ๆ ลงในไฟล์ JSONL นอกจากนี้ ยังบันทึก HTML/PNG ที่มีหมายเลขสำหรับแต่ละการนำทางลงใน pages/ อัปเดต latest.html และเขียน index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้ตามวัตถุประสงค์ที่อธิบายไว้ใน TOOL_SPEC",
     "ui.captured": "--- จับภาพแล้ว: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
@@ -486,13 +390,9 @@
     "param.url.description": "首先打开的 URL（默认：about:blank）",
     "tool.description": "启动 Playwright Inspector 以捕获浏览器操作。打开指定的 URL，并在用户点击 Resume 按钮后保存页面状态（HTML 和图片）。此外，会在每次主框架导航时依次保存 DOM/截图快照，并在 JSONL 文件中记录导航、网络、控制台事件等。 此外，还会将每次导航的编号 HTML/PNG 保存到 pages/，更新 latest.html，并写入 index.jsonl。",
     "x_search_terms": [
-      "启动 Playwright Inspector 以捕获浏览器操作",
+      "启动 Playwright Inspector 以捕获浏览器操作。打开指定的 URL，并在用户点击 Resume 按钮后保存页面状态（HTML 和图片）。此外，会在每次主框架导航时依次保存 DOM/截图快照，并在 JSONL 文件中记录导航、网络、控制台事件等。 此外，还会将每次导航的编号 HTML/PNG 保存到 pages/，更新 latest.html，并写入 index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。",
     "ui.captured": "--- 已捕获：{html}、{png}、{flow}、{snapshots}/、pages/、index.jsonl、latest.html ---",
@@ -506,13 +406,9 @@
     "param.url.description": "首先開啟的 URL（預設：about:blank）",
     "tool.description": "啟動 Playwright Inspector 以擷取瀏覽器操作。開啟指定的 URL，並在使用者點擊 Resume 按鈕後儲存頁面狀態（HTML 和圖片）。此外，會在每次主框架導覽時依序儲存 DOM／螢幕截圖快照，並在 JSONL 檔案中記錄導覽、網路、主控台事件等。 此外，還會將每次導覽的編號 HTML/PNG 儲存到 pages/，更新 latest.html，並寫入 index.jsonl。",
     "x_search_terms": [
-      "啟動 Playwright Inspector 以擷取瀏覽器操作",
+      "啟動 Playwright Inspector 以擷取瀏覽器操作。開啟指定的 URL，並在使用者點擊 Resume 按鈕後儲存頁面狀態（HTML 和圖片）。此外，會在每次主框架導覽時依序儲存 DOM／螢幕截圖快照，並在 JSONL 檔案中記錄導覽、網路、主控台事件等。 此外，還會將每次導覽的編號 HTML/PNG 儲存到 pages/，更新 latest.html，並寫入 index.jsonl",
       "playwright_inspector",
-      "playwright inspector",
-      "browser automation",
-      "inspector",
-      "capture page",
-      "playwright"
+      "playwright inspector"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。",
     "ui.captured": "--- 已擷取：{html}、{png}、{flow}、{snapshots}/、pages/、index.jsonl、latest.html ---",

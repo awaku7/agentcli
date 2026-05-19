@@ -7,13 +7,9 @@
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
     "tool.description": "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload.",
     "x_search_terms": [
-      "Call a tool from an MCP server",
+      "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
   },
@@ -25,13 +21,9 @@
     "param.url.description": "MCP サーバーのエンドポイント URL（http://... または stdio://command...）。",
     "tool.description": "MCP サーバー上のツールを呼び出します。tool_arguments に JSON オブジェクト（推奨）または JSON 文字列で引数を渡してください。返り値は少なくとも ok と text を含む JSON 文字列です。適用可能な場合は saved_path が含まれます（例: サーバーが saved_path を返す場合、または {filename, mime, data_base64} のようなファイルペイロードが返り、このクライアントがローカルの downloads ディレクトリに保存する場合）。注意: ツールがファイルのペイロードを返さない場合、saved_path は省略されることがあります。",
     "x_search_terms": [
-      "MCP サーバー上のツールを呼び出します",
+      "MCP サーバー上のツールを呼び出します。tool_arguments に JSON オブジェクト（推奨）または JSON 文字列で引数を渡してください。返り値は少なくとも ok と text を含む JSON 文字列です。適用可能な場合は saved_path が含まれます（例: サーバーが saved_path を返す場合、または {filename, mime, data_base64} のようなファイルペイロードが返り、このクライアントがローカルの downloads ディレクトリに保存する場合）。注意: ツールがファイルのペイロードを返さない場合、saved_path は省略されることがあります",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "上記の目的に従って、このツールを使用してください（ツールの説明を参照）。"
   },
@@ -43,13 +35,9 @@
     "param.url.description": "URL del endpoint del servidor MCP (http://... o stdio://command...).",
     "tool.description": "Llama a una herramienta de un servidor MCP. Proporcione los argumentos en tool_arguments como un objeto JSON (recomendado) o una cadena JSON. El valor devuelto es una cadena JSON que contiene al menos ok y text. Cuando corresponda, se incluye saved_path (por ejemplo, cuando el servidor devuelve saved_path, o cuando se devuelve una carga útil de archivo como {filename, mime, data_base64} y este cliente la guarda en un directorio local downloads). Nota: saved_path puede omitirse cuando la herramienta no devuelve ninguna carga útil de archivo.",
     "x_search_terms": [
-      "Llama a una herramienta de un servidor MCP",
+      "Llama a una herramienta de un servidor MCP. Proporcione los argumentos en tool_arguments como un objeto JSON (recomendado) o una cadena JSON. El valor devuelto es una cadena JSON que contiene al menos ok y text. Cuando corresponda, se incluye saved_path (por ejemplo, cuando el servidor devuelve saved_path, o cuando se devuelve una carga útil de archivo como {filename, mime, data_base64} y este cliente la guarda en un directorio local downloads). Nota: saved_path puede omitirse cuando la herramienta no devuelve ninguna carga útil de archivo",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Use esta herramienta según el propósito descrito arriba (véase la descripción de la herramienta)."
   },
@@ -61,13 +49,9 @@
     "param.url.description": "URL du point de terminaison du serveur MCP (http://... ou stdio://command...).",
     "tool.description": "Appelle un outil depuis un serveur MCP. Fournissez les arguments dans tool_arguments sous forme d'objet JSON (recommandé) ou de chaîne JSON. La valeur de retour est une chaîne JSON contenant au minimum ok et text. Le cas échéant, saved_path est inclus (par exemple lorsque le serveur renvoie saved_path, ou lorsqu'une charge utile de fichier telle que {filename, mime, data_base64} est renvoyée et que ce client l'enregistre dans un répertoire local downloads). Remarque : saved_path peut être omis lorsque l'outil ne renvoie aucune charge utile de fichier.",
     "x_search_terms": [
-      "Appelle un outil depuis un serveur MCP",
+      "Appelle un outil depuis un serveur MCP. Fournissez les arguments dans tool_arguments sous forme d'objet JSON (recommandé) ou de chaîne JSON. La valeur de retour est une chaîne JSON contenant au minimum ok et text. Le cas échéant, saved_path est inclus (par exemple lorsque le serveur renvoie saved_path, ou lorsqu'une charge utile de fichier telle que {filename, mime, data_base64} est renvoyée et que ce client l'enregistre dans un répertoire local downloads). Remarque : saved_path peut être omis lorsque l'outil ne renvoie aucune charge utile de fichier",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Utilisez cet outil conformément à l'objectif décrit ci-dessus (voir la description de l'outil)."
   },
@@ -79,13 +63,9 @@
     "param.url.description": "MCP 서버 엔드포인트 URL(http://... 또는 stdio://command...).",
     "tool.description": "MCP 서버의 도구를 호출합니다. tool_arguments에 도구 인수를 JSON 객체(권장) 또는 JSON 문자열로 제공하세요. 반환값은 최소한 ok와 text를 포함하는 JSON 문자열입니다. 적용 가능한 경우 saved_path가 포함됩니다(예: 서버가 saved_path를 반환하거나, {filename, mime, data_base64} 같은 파일 페이로드가 반환되어 이 클라이언트가 로컬 downloads 디렉터리에 저장하는 경우). 참고: 도구가 파일 페이로드를 반환하지 않으면 saved_path는 생략될 수 있습니다.",
     "x_search_terms": [
-      "MCP 서버의 도구를 호출합니다",
+      "MCP 서버의 도구를 호출합니다. tool_arguments에 도구 인수를 JSON 객체(권장) 또는 JSON 문자열로 제공하세요. 반환값은 최소한 ok와 text를 포함하는 JSON 문자열입니다. 적용 가능한 경우 saved_path가 포함됩니다(예: 서버가 saved_path를 반환하거나, {filename, mime, data_base64} 같은 파일 페이로드가 반환되어 이 클라이언트가 로컬 downloads 디렉터리에 저장하는 경우). 참고: 도구가 파일 페이로드를 반환하지 않으면 saved_path는 생략될 수 있습니다",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "위의 목적에 맞게 이 도구를 사용하세요(도구 설명 참조)."
   },
@@ -97,13 +77,9 @@
     "param.url.description": "MCP-Server-Endpunkt-URL (http://... oder stdio://command...).",
     "tool.description": "Ruft ein Tool von einem MCP-Server auf. Geben Sie die Tool-Argumente in tool_arguments als JSON-Objekt (empfohlen) oder JSON-Zeichenfolge an. Der Rückgabewert ist eine JSON-Zeichenfolge mit mindestens ok und text. Gegebenenfalls wird saved_path eingeschlossen (z. B. wenn der Server saved_path zurückgibt oder wenn eine Dateinutzlast wie {filename, mime, data_base64} zurückgegeben wird und dieser Client sie in einem lokalen downloads-Verzeichnis speichert). Hinweis: saved_path kann weggelassen werden, wenn das Tool keine Dateinutzlast zurückgibt.",
     "x_search_terms": [
-      "Ruft ein Tool von einem MCP-Server auf",
+      "Ruft ein Tool von einem MCP-Server auf. Geben Sie die Tool-Argumente in tool_arguments als JSON-Objekt (empfohlen) oder JSON-Zeichenfolge an. Der Rückgabewert ist eine JSON-Zeichenfolge mit mindestens ok und text. Gegebenenfalls wird saved_path eingeschlossen (z. B. wenn der Server saved_path zurückgibt oder wenn eine Dateinutzlast wie {filename, mime, data_base64} zurückgegeben wird und dieser Client sie in einem lokalen downloads-Verzeichnis speichert). Hinweis: saved_path kann weggelassen werden, wenn das Tool keine Dateinutzlast zurückgibt",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool gemäß dem oben beschriebenen Zweck (siehe Toolbeschreibung)."
   },
@@ -115,13 +91,9 @@
     "param.url.description": "URL dell'endpoint del server MCP (http://... o stdio://command...).",
     "tool.description": "Chiama uno strumento da un server MCP. Fornisci gli argomenti dello strumento in tool_arguments come oggetto JSON (consigliato) o stringa JSON. Il valore restituito è una stringa JSON contenente almeno ok e text. Quando applicabile, è incluso saved_path (ad esempio quando il server restituisce saved_path o quando viene restituito un payload di file come {filename, mime, data_base64} e questo client lo salva in una directory downloads locale). Nota: saved_path può essere omesso quando lo strumento non restituisce alcun payload di file.",
     "x_search_terms": [
-      "Chiama uno strumento da un server MCP",
+      "Chiama uno strumento da un server MCP. Fornisci gli argomenti dello strumento in tool_arguments come oggetto JSON (consigliato) o stringa JSON. Il valore restituito è una stringa JSON contenente almeno ok e text. Quando applicabile, è incluso saved_path (ad esempio quando il server restituisce saved_path o quando viene restituito un payload di file come {filename, mime, data_base64} e questo client lo salva in una directory downloads locale). Nota: saved_path può essere omesso quando lo strumento non restituisce alcun payload di file",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Usa questo strumento in base allo scopo descritto sopra (vedi la descrizione dello strumento)."
   },
@@ -133,13 +105,9 @@
     "param.url.description": "URL конечной точки сервера MCP (http://... или stdio://command...).",
     "tool.description": "Вызывает инструмент на сервере MCP. Передавайте аргументы в tool_arguments в виде JSON-объекта (рекомендуется) или JSON-строки. Возвращаемое значение — JSON-строка, содержащая как минимум ok и text. При наличии включается saved_path (например, когда сервер возвращает saved_path или когда возвращается файловая нагрузка вроде {filename, mime, data_base64}, а клиент сохраняет её в локальный каталог downloads). Примечание: saved_path может быть опущен, если инструмент не возвращает файловую нагрузку.",
     "x_search_terms": [
-      "Вызывает инструмент на сервере MCP",
+      "Вызывает инструмент на сервере MCP. Передавайте аргументы в tool_arguments в виде JSON-объекта (рекомендуется) или JSON-строки. Возвращаемое значение — JSON-строка, содержащая как минимум ok и text. При наличии включается saved_path (например, когда сервер возвращает saved_path или когда возвращается файловая нагрузка вроде {filename, mime, data_base64}, а клиент сохраняет её в локальный каталог downloads). Примечание: saved_path может быть опущен, если инструмент не возвращает файловую нагрузку",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Используйте этот инструмент в соответствии с описанной выше целью (см. описание инструмента)."
   },
@@ -151,13 +119,9 @@
     "param.url.description": "URL do endpoint do servidor MCP (http://... ou stdio://command...).",
     "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
     "x_search_terms": [
-      "Chame uma ferramenta de um servidor MCP",
+      "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
   },
@@ -169,13 +133,9 @@
     "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
     "tool.description": "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo.",
     "x_search_terms": [
-      "Chame uma ferramenta de um servidor MCP",
+      "Chame uma ferramenta de um servidor MCP. Forneça os argumentos da ferramenta em tool_arguments como um objeto JSON (recomendado) ou uma string JSON. O valor de retorno é uma string JSON contendo pelo menos ok e text. Quando aplicável, saved_path é incluído (por exemplo, quando o servidor retorna saved_path ou quando uma carga de arquivo como {filename, mime, data_base64} é retornada e este cliente a salva em um diretório local downloads). Observação: saved_path pode ser omitido quando a ferramenta não retorna nenhuma carga de arquivo",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
   },
@@ -187,13 +147,9 @@
     "param.url.description": "URL endpoint server MCP (http://... atau stdio://command...).",
     "tool.description": "Panggil alat dari server MCP. Berikan argumen alat di tool_arguments sebagai JSON object (disarankan) atau string JSON. Nilai kembali adalah string JSON yang berisi setidaknya ok dan text. Jika berlaku, saved_path disertakan (misalnya ketika server mengembalikan saved_path, atau ketika payload file seperti {filename, mime, data_base64} dikembalikan dan klien menyimpannya ke direktori downloads lokal). Catatan: saved_path dapat tidak ada bila alat tidak mengembalikan payload file apa pun.",
     "x_search_terms": [
-      "Panggil alat dari server MCP",
+      "Panggil alat dari server MCP. Berikan argumen alat di tool_arguments sebagai JSON object (disarankan) atau string JSON. Nilai kembali adalah string JSON yang berisi setidaknya ok dan text. Jika berlaku, saved_path disertakan (misalnya ketika server mengembalikan saved_path, atau ketika payload file seperti {filename, mime, data_base64} dikembalikan dan klien menyimpannya ke direktori downloads lokal). Catatan: saved_path dapat tidak ada bila alat tidak mengembalikan payload file apa pun",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Gunakan alat ini sesuai tujuan yang dijelaskan di atas (lihat deskripsi alat)."
   },
@@ -205,13 +161,9 @@
     "param.url.description": "URL điểm cuối của máy chủ MCP (http://... hoặc stdio://command...).",
     "tool.description": "Gọi một công cụ từ máy chủ MCP. Cung cấp các đối số công cụ trong tool_arguments dưới dạng đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON. Giá trị trả về là một chuỗi JSON chứa ít nhất ok và văn bản. Khi có thể, saved_path sẽ được bao gồm (ví dụ: khi máy chủ trả về saved_path hoặc khi tải trọng tệp như {filename, mime, data_base64} được trả về và ứng dụng khách này lưu nó vào thư mục tải xuống cục bộ). Lưu ý: saved_path có thể bị bỏ qua khi công cụ không trả về bất kỳ tải trọng tệp nào.",
     "x_search_terms": [
-      "Gọi một công cụ từ máy chủ MCP",
+      "Gọi một công cụ từ máy chủ MCP. Cung cấp các đối số công cụ trong tool_arguments dưới dạng đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON. Giá trị trả về là một chuỗi JSON chứa ít nhất ok và văn bản. Khi có thể, saved_path sẽ được bao gồm (ví dụ: khi máy chủ trả về saved_path hoặc khi tải trọng tệp như {filename, mime, data_base64} được trả về và ứng dụng khách này lưu nó vào thư mục tải xuống cục bộ). Lưu ý: saved_path có thể bị bỏ qua khi công cụ không trả về bất kỳ tải trọng tệp nào",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Sử dụng công cụ này theo mục đích mô tả ở trên (xem mô tả công cụ)."
   },
@@ -223,13 +175,9 @@
     "param.url.description": "Adres URL punktu końcowego serwera MCP (http://... lub stdio://command...).",
     "tool.description": "Wywołaj narzędzie z serwera MCP. Podaj argumenty narzędzi w tool_arguments jako obiekt JSON (zalecane) lub ciąg JSON. Wartość zwracana to ciąg JSON zawierający co najmniej ok i tekst. Jeśli ma to zastosowanie, dołączona jest zapisana_ścieżka (na przykład, gdy serwer zwraca saved_path lub gdy zwracany jest ładunek pliku, taki jak {filename, mime, data_base64}, a klient zapisuje go w lokalnym katalogu pobierania). Uwaga: saved_path można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku.",
     "x_search_terms": [
-      "Wywołaj narzędzie z serwera MCP",
+      "Wywołaj narzędzie z serwera MCP. Podaj argumenty narzędzi w tool_arguments jako obiekt JSON (zalecane) lub ciąg JSON. Wartość zwracana to ciąg JSON zawierający co najmniej ok i tekst. Jeśli ma to zastosowanie, dołączona jest zapisana_ścieżka (na przykład, gdy serwer zwraca saved_path lub gdy zwracany jest ładunek pliku, taki jak {filename, mime, data_base64}, a klient zapisuje go w lokalnym katalogu pobierania). Uwaga: saved_path można pominąć, jeśli narzędzie nie zwróci żadnego ładunku pliku",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Używaj tego narzędzia zgodnie z celem opisanym powyżej (patrz opis narzędzia)."
   },
@@ -243,11 +191,7 @@
     "x_search_terms": [
       "MCP सर्वर से एक टूल कॉल करें। tool_arguments में टूल आर्ग्युमेंट JSON ऑब्जेक्ट (अनुशंसित) या JSON स्ट्रिंग के रूप में दें। रिटर्न वैल्यू एक JSON स्ट्रिंग है जिसमें कम से कम ok और text होते हैं। लागू होने पर saved_path शामिल किया जाता है (उदाहरण के लिए, जब सर्वर saved_path लौटाता है, या जब {filename, mime, data_base64} जैसे फ़ाइल पेलोड को लौटाया जाता है और यह क्लाइंट उसे स्थानीय downloads निर्देशिका में सहेजता है)। ध्यान दें: जब टूल कोई फ़ाइल पेलोड नहीं लौटाता है, तो saved_path छोड़ा जा सकता है",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "ऊपर वर्णित उद्देश्य के अनुसार इस टूल का उपयोग करें (टूल विवरण देखें)."
   },
@@ -259,13 +203,9 @@
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...).",
     "tool.description": "استدعِ أداة من خادم MCP. قدّم وسائط الأداة في tool_arguments ككائن JSON (موصى به) أو كسلسلة JSON. القيمة المرجعة هي سلسلة JSON تحتوي على الأقل على ok و text. عند الاقتضاء، تتضمن saved_path (على سبيل المثال عندما يعيد الخادم saved_path، أو عندما تُعاد حمولة ملف مثل {filename, mime, data_base64} ويقوم هذا العميل بحفظها في مجلد downloads المحلي). ملاحظة: قد يتم حذف saved_path عندما لا تُرجع الأداة أي حمولة ملف.",
     "x_search_terms": [
-      "استدعِ أداة من خادم MCP",
+      "استدعِ أداة من خادم MCP. قدّم وسائط الأداة في tool_arguments ككائن JSON (موصى به) أو كسلسلة JSON. القيمة المرجعة هي سلسلة JSON تحتوي على الأقل على ok و text. عند الاقتضاء، تتضمن saved_path (على سبيل المثال عندما يعيد الخادم saved_path، أو عندما تُعاد حمولة ملف مثل {filename, mime, data_base64} ويقوم هذا العميل بحفظها في مجلد downloads المحلي). ملاحظة: قد يتم حذف saved_path عندما لا تُرجع الأداة أي حمولة ملف",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "استخدم هذه الأداة وفقًا للغرض الموضح أعلاه (انظر وصف الأداة)."
   },
@@ -277,13 +217,9 @@
     "param.url.description": "MCP-serverns endpoint-URL.",
     "tool.description": "Anropa ett verktyg från en MCP-server. Ange verktygsargument i tool_arguments som ett JSON-objekt (rekommenderas) eller en JSON-sträng. Returvärdet är en JSON-sträng som innehåller minst ok och text. När det är tillämpligt inkluderas saved_path (till exempel när servern returnerar saved_path, eller när en filpayload som {filename, mime, data_base64} returneras och klienten sparar den i en lokal downloads-katalog). Obs: saved_path kan utelämnas när verktyget inte returnerar någon filpayload.",
     "x_search_terms": [
-      "Anropa ett verktyg från en MCP-server",
+      "Anropa ett verktyg från en MCP-server. Ange verktygsargument i tool_arguments som ett JSON-objekt (rekommenderas) eller en JSON-sträng. Returvärdet är en JSON-sträng som innehåller minst ok och text. När det är tillämpligt inkluderas saved_path (till exempel när servern returnerar saved_path, eller när en filpayload som {filename, mime, data_base64} returneras och klienten sparar den i en lokal downloads-katalog). Obs: saved_path kan utelämnas när verktyget inte returnerar någon filpayload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Använd det här verktyget enligt det syfte som beskrivs ovan (se verktygsbeskrivningen)."
   },
@@ -295,13 +231,9 @@
     "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
     "tool.description": "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload.",
     "x_search_terms": [
-      "Call a tool from an MCP server",
+      "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
   },
@@ -313,13 +245,9 @@
     "param.url.description": "URL for MCP-serverens endepunkt.",
     "tool.description": "Kall et verktøy fra en MCP-server. Oppgi verktøyargumenter i tool_arguments som et JSON-objekt (anbefalt) eller en JSON-streng. Returverdien er en JSON-streng som inneholder minst ok og text. Når det er aktuelt, inkluderes saved_path (for eksempel når serveren returnerer saved_path, eller når en filpayload som {filename, mime, data_base64} returneres og klienten lagrer den i en lokal downloads-katalog). Merk: saved_path kan utelates når verktøyet ikke returnerer noen filpayload.",
     "x_search_terms": [
-      "Kall et verktøy fra en MCP-server",
+      "Kall et verktøy fra en MCP-server. Oppgi verktøyargumenter i tool_arguments som et JSON-objekt (anbefalt) eller en JSON-streng. Returverdien er en JSON-streng som inneholder minst ok og text. Når det er aktuelt, inkluderes saved_path (for eksempel når serveren returnerer saved_path, eller når en filpayload som {filename, mime, data_base64} returneres og klienten lagrer den i en lokal downloads-katalog). Merk: saved_path kan utelates når verktøyet ikke returnerer noen filpayload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Bruk dette verktøyet i henhold til formålet som er beskrevet ovenfor (se verktøybeskrivelsen)."
   },
@@ -331,13 +259,9 @@
     "param.url.description": "MCP-server-URL.",
     "tool.description": "Roep een tool aan vanaf een MCP-server. Geef tool-argumenten op in tool_arguments als een JSON-object (aanbevolen) of een JSON-string. De retourwaarde is een JSON-string met ten minste ok en text. Indien van toepassing wordt saved_path opgenomen (bijvoorbeeld wanneer de server saved_path teruggeeft, of wanneer een bestandspayload zoals {filename, mime, data_base64} wordt geretourneerd en deze client die opslaat in een lokale downloads-map). Opmerking: saved_path kan worden weggelaten als de tool geen bestandspayload teruggeeft.",
     "x_search_terms": [
-      "Roep een tool aan vanaf een MCP-server",
+      "Roep een tool aan vanaf een MCP-server. Geef tool-argumenten op in tool_arguments als een JSON-object (aanbevolen) of een JSON-string. De retourwaarde is een JSON-string met ten minste ok en text. Indien van toepassing wordt saved_path opgenomen (bijvoorbeeld wanneer de server saved_path teruggeeft, of wanneer een bestandspayload zoals {filename, mime, data_base64} wordt geretourneerd en deze client die opslaat in een lokale downloads-map). Opmerking: saved_path kan worden weggelaten als de tool geen bestandspayload teruggeeft",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Gebruik deze tool volgens het hierboven beschreven doel (zie de toolbeschrijving)."
   },
@@ -349,13 +273,9 @@
     "param.url.description": "MCP-palvelimen URL.",
     "tool.description": "Kutsu MCP-palvelimen työkalua. Anna tool_argumentsissa työkalun argumentit joko JSON-objektina (suositus) tai JSON-merkkijonona. Paluuarvo on JSON-merkkijono, joka sisältää vähintään avaimet ok ja text. Tarvittaessa mukaan lisätään saved_path (esimerkiksi kun palvelin palauttaa saved_pathin tai kun tiedostokuorma kuten {filename, mime, data_base64} palautetaan ja tämä asiakas tallentaa sen paikalliseen downloads-kansioon). Huom: saved_path voidaan jättää pois, jos työkalu ei palauta tiedostokuormaa.",
     "x_search_terms": [
-      "Kutsu MCP-palvelimen työkalua",
+      "Kutsu MCP-palvelimen työkalua. Anna tool_argumentsissa työkalun argumentit joko JSON-objektina (suositus) tai JSON-merkkijonona. Paluuarvo on JSON-merkkijono, joka sisältää vähintään avaimet ok ja text. Tarvittaessa mukaan lisätään saved_path (esimerkiksi kun palvelin palauttaa saved_pathin tai kun tiedostokuorma kuten {filename, mime, data_base64} palautetaan ja tämä asiakas tallentaa sen paikalliseen downloads-kansioon). Huom: saved_path voidaan jättää pois, jos työkalu ei palauta tiedostokuormaa",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Käytä tätä työkalua yllä kuvatun tarkoituksen mukaisesti (katso työkalun kuvaus)."
   },
@@ -367,13 +287,9 @@
     "param.url.description": "URL koncového bodu MCP serveru (http://... nebo stdio://command...).",
     "tool.description": "Volá nástroj ze serveru MCP. Argumenty nástroje předávejte v tool_arguments jako JSON objekt (doporučeno) nebo JSON řetězec. Návratová hodnota je JSON řetězec obsahující alespoň ok a text. Pokud je to možné, obsahuje saved_path (například když server vrátí saved_path, nebo když je vrácen souborový payload jako {filename, mime, data_base64} a tento klient jej uloží do místního adresáře downloads). Poznámka: saved_path může být vynechán, když nástroj nevrací žádný souborový payload.",
     "x_search_terms": [
-      "Volá nástroj ze serveru MCP",
+      "Volá nástroj ze serveru MCP. Argumenty nástroje předávejte v tool_arguments jako JSON objekt (doporučeno) nebo JSON řetězec. Návratová hodnota je JSON řetězec obsahující alespoň ok a text. Pokud je to možné, obsahuje saved_path (například když server vrátí saved_path, nebo když je vrácen souborový payload jako {filename, mime, data_base64} a tento klient jej uloží do místního adresáře downloads). Poznámka: saved_path může být vynechán, když nástroj nevrací žádný souborový payload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Použijte tento nástroj podle výše popsaného účelu (viz popis nástroje)."
   },
@@ -385,13 +301,9 @@
     "param.url.description": "URL кінцевої точки сервера MCP (http://... або stdio://command...).",
     "tool.description": "Викликає інструмент із сервера MCP. Передавайте аргументи інструмента в tool_arguments як JSON-об’єкт (рекомендовано) або JSON-рядок. Повернене значення — JSON-рядок, що містить щонайменше ok і text. За можливості містить saved_path (наприклад, коли сервер повертає saved_path або коли повертається файловий payload на кшталт {filename, mime, data_base64}, і цей клієнт зберігає його в локальний каталог downloads). Примітка: saved_path може бути опущено, якщо інструмент не повертає файловий payload.",
     "x_search_terms": [
-      "Викликає інструмент із сервера MCP",
+      "Викликає інструмент із сервера MCP. Передавайте аргументи інструмента в tool_arguments як JSON-об’єкт (рекомендовано) або JSON-рядок. Повернене значення — JSON-рядок, що містить щонайменше ok і text. За можливості містить saved_path (наприклад, коли сервер повертає saved_path або коли повертається файловий payload на кшталт {filename, mime, data_base64}, і цей клієнт зберігає його в локальний каталог downloads). Примітка: saved_path може бути опущено, якщо інструмент не повертає файловий payload",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент відповідно до описаної вище мети (див. опис інструмента)."
   },
@@ -403,13 +315,9 @@
     "param.url.description": "MCP sunucu uç noktası URL (http://... veya stdio://command...).",
     "tool.description": "MCP sunucusundan bir aracı çağırın. tool_arguments'ta araç bağımsız değişkenlerini JSON nesnesi (önerilir) veya JSON dizesi olarak sağlayın. Dönüş değeri, en azından ok ve metin içeren bir JSON dizesidir. Uygun olduğunda, kaydedilen_yol dahil edilir (örneğin, sunucu kaydedilen_yolu döndürdüğünde veya {filename, mime, data_base64} gibi bir dosya yükü döndürüldüğünde ve bu istemci bunu yerel indirilenler dizinine kaydettiğinde). Not: Araç herhangi bir dosya yükü döndürmediğinde kaydedilen_yol atlanabilir.",
     "x_search_terms": [
-      "MCP sunucusundan bir aracı çağırın",
+      "MCP sunucusundan bir aracı çağırın. tool_arguments'ta araç bağımsız değişkenlerini JSON nesnesi (önerilir) veya JSON dizesi olarak sağlayın. Dönüş değeri, en azından ok ve metin içeren bir JSON dizesidir. Uygun olduğunda, kaydedilen_yol dahil edilir (örneğin, sunucu kaydedilen_yolu döndürdüğünde veya {filename, mime, data_base64} gibi bir dosya yükü döndürüldüğünde ve bu istemci bunu yerel indirilenler dizinine kaydettiğinde). Not: Araç herhangi bir dosya yükü döndürmediğinde kaydedilen_yol atlanabilir",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "Bu aleti yukarıda açıklanan amaca uygun olarak kullanın (alet açıklamasına bakın)."
   },
@@ -423,11 +331,7 @@
     "x_search_terms": [
       "เรียกใช้เครื่องมือจากเซิร์ฟเวอร์ MCP โดยส่งอาร์กิวเมนต์ของเครื่องมือใน tool_arguments เป็น JSON object (แนะนำ) หรือ JSON string ผลลัพธ์ที่ได้เป็นสตริง JSON ซึ่งมีอย่างน้อย ok และ text และเมื่อเหมาะสมจะมี saved_path รวมอยู่ด้วย (เช่น เมื่อเซิร์ฟเวอร์ส่งคืน saved_path หรือเมื่อมีการส่งคืนเพย์โหลดไฟล์อย่าง {filename, mime, data_base64} และไคลเอนต์นี้บันทึกลงในไดเรกทอรี downloads ภายในเครื่อง) หมายเหตุ: saved_path อาจถูกละเว้นเมื่อเครื่องมือไม่ได้ส่งคืนเพย์โหลดไฟล์ใด ๆ",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "โปรดใช้เครื่องมือนี้ตามวัตถุประสงค์ข้างต้น (ดูคำอธิบายของเครื่องมือ)"
   },
@@ -439,13 +343,9 @@
     "param.url.description": "MCP 服务器端点 URL（http://... 或 stdio://command...）。",
     "tool.description": "从 MCP 服务器调用工具。请在 tool_arguments 中以 JSON 对象（推荐）或 JSON 字符串提供工具参数。返回值为 JSON 字符串，至少包含 ok 和 text。适用时会包含 saved_path（例如服务器返回 saved_path，或返回 {filename, mime, data_base64} 之类的文件负载且该客户端将其保存到本地 downloads 目录时）。注意：当工具未返回任何文件负载时，saved_path 可能会被省略。",
     "x_search_terms": [
-      "从 MCP 服务器调用工具",
+      "从 MCP 服务器调用工具。请在 tool_arguments 中以 JSON 对象（推荐）或 JSON 字符串提供工具参数。返回值为 JSON 字符串，至少包含 ok 和 text。适用时会包含 saved_path（例如服务器返回 saved_path，或返回 {filename, mime, data_base64} 之类的文件负载且该客户端将其保存到本地 downloads 目录时）。注意：当工具未返回任何文件负载时，saved_path 可能会被省略",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "请根据上述目的使用此工具（参见工具说明）。"
   },
@@ -457,13 +357,9 @@
     "param.url.description": "MCP 伺服器端點 URL（http://... 或 stdio://command...）。",
     "tool.description": "從 MCP 伺服器呼叫工具。請在 tool_arguments 中以 JSON 物件（建議）或 JSON 字串提供工具參數。回傳值為 JSON 字串，至少包含 ok 與 text。適用時會包含 saved_path（例如伺服器回傳 saved_path，或回傳 {filename, mime, data_base64} 之類的檔案負載且此用戶端將其儲存到本機 downloads 目錄時）。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略。",
     "x_search_terms": [
-      "從 MCP 伺服器呼叫工具",
+      "從 MCP 伺服器呼叫工具。請在 tool_arguments 中以 JSON 物件（建議）或 JSON 字串提供工具參數。回傳值為 JSON 字串，至少包含 ok 與 text。適用時會包含 saved_path（例如伺服器回傳 saved_path，或回傳 {filename, mime, data_base64} 之類的檔案負載且此用戶端將其儲存到本機 downloads 目錄時）。注意：當工具未回傳任何檔案負載時，saved_path 可能會被省略",
       "handle_mcp_v2",
-      "handle mcp v2",
-      "mcp tool",
-      "model context protocol",
-      "call remote tool",
-      "mcp"
+      "handle mcp v2"
     ],
     "tool.system_prompt": "請依照上述目的使用此工具（參見工具說明）。"
   }

@@ -19,13 +19,9 @@
     "param.top_k.description": "number.",
     "tool.description": "Performs semantic search (vector search) over local files. Uses the Embedding API to vectorize file contents and extract relevant document sections. Indexing runs on first use or when files change.",
     "x_search_terms": [
-      "Performs semantic search (vector search) over local files",
+      "Performs semantic search (vector search) over local files. Uses the Embedding API to vectorize file contents and extract relevant document sections. Indexing runs on first use or when files change",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "This tool is used for semantic search over local files. Return JSON only.",
     "err.disabled_reason": "embedding endpoint is unreachable."
@@ -50,13 +46,9 @@
     "param.top_k.description": "件数。",
     "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding API を使用してファイル内容をベクトル化し、関連するドキュメント箇所を抽出します。初回実行時、またはファイル更新時にインデックス作成を行います。",
     "x_search_terms": [
-      "ローカルファイルに対して意味検索（ベクトル検索）を行います",
+      "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding API を使用してファイル内容をベクトル化し、関連するドキュメント箇所を抽出します。初回実行時、またはファイル更新時にインデックス作成を行います",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "このツールは次の目的で使用されます (ツールの説明を参照)。",
     "err.disabled_reason": "埋め込み API に到達できません。"
@@ -81,13 +73,9 @@
     "param.top_k.description": "número.",
     "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) en archivos locales. Usa la API de embeddings para vectorizar el contenido de los archivos y extraer secciones relevantes del documento. La indexación se ejecuta en la primera ejecución o cuando cambian los archivos.",
     "x_search_terms": [
-      "Realiza una búsqueda semántica (búsqueda vectorial) en archivos locales",
+      "Realiza una búsqueda semántica (búsqueda vectorial) en archivos locales. Usa la API de embeddings para vectorizar el contenido de los archivos y extraer secciones relevantes del documento. La indexación se ejecuta en la primera ejecución o cuando cambian los archivos",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para la búsqueda semántica en archivos locales. Devuelve solo JSON.",
     "err.disabled_reason": "No se puede الوصول al API de embeddings."
@@ -112,13 +100,9 @@
     "param.top_k.description": "nombre.",
     "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l’API d’embeddings pour vectoriser le contenu des fichiers et extraire les sections pertinentes du document. L’indexation s’exécute à la première utilisation ou lors de la modification des fichiers.",
     "x_search_terms": [
-      "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux",
+      "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l’API d’embeddings pour vectoriser le contenu des fichiers et extraire les sections pertinentes du document. L’indexation s’exécute à la première utilisation ou lors de la modification des fichiers",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Cet outil sert à la recherche sémantique dans les fichiers locaux. Retournez uniquement du JSON.",
     "err.disabled_reason": "L’API d’embeddings est inaccessible."
@@ -143,13 +127,9 @@
     "param.top_k.description": "숫자.",
     "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. 임베딩 API를 사용해 파일 내용을 벡터화하고 관련 문서 부분을 추출합니다. 인덱싱은 처음 실행하거나 파일이 변경될 때 수행됩니다.",
     "x_search_terms": [
-      "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다",
+      "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. 임베딩 API를 사용해 파일 내용을 벡터화하고 관련 문서 부분을 추출합니다. 인덱싱은 처음 실행하거나 파일이 변경될 때 수행됩니다",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "이 도구는 로컬 파일에 대한 의미 검색에 사용됩니다. JSON만 반환하세요.",
     "err.disabled_reason": "임베딩 API에 연결할 수 없습니다."
@@ -174,13 +154,9 @@
     "param.top_k.description": "Anzahl.",
     "tool.description": "Führt eine semantische Suche (Vektorsuche) in lokalen Dateien aus. Verwendet die Embedding-API, um Dateiinhalt zu vektorisieren und relevante Dokumentabschnitte zu extrahieren. Die Indizierung erfolgt beim ersten Aufruf oder wenn sich Dateien ändern.",
     "x_search_terms": [
-      "Führt eine semantische Suche (Vektorsuche) in lokalen Dateien aus",
+      "Führt eine semantische Suche (Vektorsuche) in lokalen Dateien aus. Verwendet die Embedding-API, um Dateiinhalt zu vektorisieren und relevante Dokumentabschnitte zu extrahieren. Die Indizierung erfolgt beim ersten Aufruf oder wenn sich Dateien ändern",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Dieses Tool wird für semantische Suche in lokalen Dateien verwendet. Geben Sie nur JSON zurück.",
     "err.disabled_reason": "Die Embedding-API ist nicht erreichbar."
@@ -205,13 +181,9 @@
     "param.top_k.description": "numero.",
     "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) nei file locali. Usa l’API di embedding per vettorializzare il contenuto dei file ed estrarre le sezioni pertinenti del documento. L’indicizzazione avviene al primo utilizzo o quando i file cambiano.",
     "x_search_terms": [
-      "Esegue una ricerca semantica (ricerca vettoriale) nei file locali",
+      "Esegue una ricerca semantica (ricerca vettoriale) nei file locali. Usa l’API di embedding per vettorializzare il contenuto dei file ed estrarre le sezioni pertinenti del documento. L’indicizzazione avviene al primo utilizzo o quando i file cambiano",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Questo strumento serve per la ricerca semantica nei file locali. Restituisci solo JSON.",
     "err.disabled_reason": "L’API di embedding non è raggiungibile."
@@ -236,13 +208,9 @@
     "param.top_k.description": "число.",
     "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные части документа. Индексация выполняется при первом запуске или при изменении файлов.",
     "x_search_terms": [
-      "Выполняет семантический поиск (векторный поиск) по локальным файлам",
+      "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные части документа. Индексация выполняется при первом запуске или при изменении файлов",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Этот инструмент используется для семантического поиска по локальным файлам. Возвращайте только JSON.",
     "err.disabled_reason": "Embedding API недоступен."
@@ -267,13 +235,9 @@
     "param.top_k.description": "número.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair trechos relevantes do documento. A indexação é feita na primeira execução ou quando os arquivos são alterados.",
     "x_search_terms": [
-      "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais",
+      "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair trechos relevantes do documento. A indexação é feita na primeira execução ou quando os arquivos são alterados",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
     "err.disabled_reason": "A API de embeddings não está acessível."
@@ -298,13 +262,9 @@
     "param.top_k.description": "número.",
     "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair seções relevantes do documento. A indexação ocorre na primeira execução ou quando os arquivos são alterados.",
     "x_search_terms": [
-      "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais",
+      "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de embeddings para vetorizar o conteúdo dos arquivos e extrair seções relevantes do documento. A indexação ocorre na primeira execução ou quando os arquivos são alterados",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
     "err.disabled_reason": "A API de embeddings não está acessível."
@@ -329,13 +289,9 @@
     "param.top_k.description": "angka.",
     "tool.description": "Melakukan semantic search (vector search) pada file lokal. Menggunakan Embedding API untuk memvectorisasi isi file dan mengekstrak bagian dokumen yang relevan. Pengindeksan dilakukan saat pertama kali dijalankan atau ketika file berubah.",
     "x_search_terms": [
-      "Melakukan semantic search (vector search) pada file lokal",
+      "Melakukan semantic search (vector search) pada file lokal. Menggunakan Embedding API untuk memvectorisasi isi file dan mengekstrak bagian dokumen yang relevan. Pengindeksan dilakukan saat pertama kali dijalankan atau ketika file berubah",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk pencarian semantik pada file lokal. Kembalikan JSON saja.",
     "err.disabled_reason": "API embedding tidak dapat dijangkau."
@@ -360,13 +316,9 @@
     "param.top_k.description": "Số lượng.",
     "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng Embedding API để vector hóa nội dung tệp và trích xuất các phần tài liệu liên quan. Việc lập chỉ mục được thực hiện ở lần chạy đầu tiên hoặc khi tệp được cập nhật.",
     "x_search_terms": [
-      "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ",
+      "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng Embedding API để vector hóa nội dung tệp và trích xuất các phần tài liệu liên quan. Việc lập chỉ mục được thực hiện ở lần chạy đầu tiên hoặc khi tệp được cập nhật",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Công cụ này được dùng để tìm kiếm ngữ nghĩa trên các tệp cục bộ. Chỉ trả về JSON.",
     "err.disabled_reason": "Không thể truy cập Embedding API."
@@ -391,13 +343,9 @@
     "param.top_k.description": "Liczba.",
     "tool.description": "Wykonuje semantyczne wyszukiwanie (wyszukiwanie wektorowe) w lokalnych plikach. Używa Embedding API do wektoryzacji treści plików i wyodrębniania odpowiednich fragmentów dokumentów. Indeksowanie odbywa się przy pierwszym uruchomieniu lub po zmianie plików.",
     "x_search_terms": [
-      "Wykonuje semantyczne wyszukiwanie (wyszukiwanie wektorowe) w lokalnych plikach",
+      "Wykonuje semantyczne wyszukiwanie (wyszukiwanie wektorowe) w lokalnych plikach. Używa Embedding API do wektoryzacji treści plików i wyodrębniania odpowiednich fragmentów dokumentów. Indeksowanie odbywa się przy pierwszym uruchomieniu lub po zmianie plików",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "To narzędzie służy do wyszukiwania semantycznego w lokalnych plikach. Zwracaj tylko JSON.",
     "err.disabled_reason": "Interfejs Embedding API jest niedostępny."
@@ -424,11 +372,7 @@
     "x_search_terms": [
       "स्थानीय फ़ाइलों पर अर्थ-आधारित खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अनुभागों को निकालने के लिए Embedding API का उपयोग करता है। अनुक्रमण पहली बार उपयोग पर या फ़ाइलें बदलने पर चलता है।",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "यह टूल स्थानीय फ़ाइलों पर अर्थ-आधारित खोज के लिए उपयोग किया जाता है। केवल JSON लौटाएँ।",
     "err.disabled_reason": "embedding endpoint is unreachable."
@@ -453,13 +397,9 @@
     "param.top_k.description": "العدد.",
     "tool.description": "ينفذ بحثًا دلاليًا (بحثًا متجهيًا) على الملفات المحلية. يستخدم واجهة Embedding API لتحويل محتوى الملفات إلى متجهات واستخراج الأجزاء ذات الصلة من المستندات. يتم إنشاء الفهرس عند أول تشغيل أو عند تحديث الملفات.",
     "x_search_terms": [
-      "ينفذ بحثًا دلاليًا (بحثًا متجهيًا) على الملفات المحلية",
+      "ينفذ بحثًا دلاليًا (بحثًا متجهيًا) على الملفات المحلية. يستخدم واجهة Embedding API لتحويل محتوى الملفات إلى متجهات واستخراج الأجزاء ذات الصلة من المستندات. يتم إنشاء الفهرس عند أول تشغيل أو عند تحديث الملفات",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "تُستخدم هذه الأداة للبحث الدلالي في الملفات المحلية. أرجع JSON فقط.",
     "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API."
@@ -484,13 +424,9 @@
     "param.top_k.description": "antal.",
     "tool.description": "Utför semantisk sökning (vektorsökning) i lokala filer. Använder Embedding API för att vektorisera filinnehåll och extrahera relevanta dokumentavsnitt. Indexeringen körs vid första användning eller när filer ändras.",
     "x_search_terms": [
-      "Utför semantisk sökning (vektorsökning) i lokala filer",
+      "Utför semantisk sökning (vektorsökning) i lokala filer. Använder Embedding API för att vektorisera filinnehåll och extrahera relevanta dokumentavsnitt. Indexeringen körs vid första användning eller när filer ändras",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Det här verktyget används för semantisk sökning i lokala filer. Returnera endast JSON.",
     "err.disabled_reason": "Embedding API är inte tillgängligt."
@@ -515,13 +451,9 @@
     "param.top_k.description": "idadi.",
     "tool.description": "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani. Hutumia Embedding API kubadili yaliyomo ya faili kuwa vekta na kutoa sehemu husika za hati. Kuorodhesha hufanyika mara ya kwanza au faili zinapobadilika.",
     "x_search_terms": [
-      "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani",
+      "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani. Hutumia Embedding API kubadili yaliyomo ya faili kuwa vekta na kutoa sehemu husika za hati. Kuorodhesha hufanyika mara ya kwanza au faili zinapobadilika",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee.",
     "err.disabled_reason": "Embedding API haipatikani."
@@ -546,13 +478,9 @@
     "param.top_k.description": "antall.",
     "tool.description": "Utfører semantisk søk (vektorsøk) i lokale filer. Bruker Embedding API til å vektorisere filinnhold og hente ut relevante dokumentdeler. Indeksering kjøres ved første bruk eller når filer endres.",
     "x_search_terms": [
-      "Utfører semantisk søk (vektorsøk) i lokale filer",
+      "Utfører semantisk søk (vektorsøk) i lokale filer. Bruker Embedding API til å vektorisere filinnhold og hente ut relevante dokumentdeler. Indeksering kjøres ved første bruk eller når filer endres",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til semantisk søk i lokale filer. Returner bare JSON.",
     "err.disabled_reason": "Embedding API er ikke tilgjengelig."
@@ -577,13 +505,9 @@
     "param.top_k.description": "aantal.",
     "tool.description": "Voert semantisch zoeken (vectorzoekopdracht) uit in lokale bestanden. Gebruikt de Embedding API om bestandsinhoud te vectoriseren en relevante documentgedeelten te extraheren. Indexering wordt uitgevoerd bij het eerste gebruik of wanneer bestanden veranderen.",
     "x_search_terms": [
-      "Voert semantisch zoeken (vectorzoekopdracht) uit in lokale bestanden",
+      "Voert semantisch zoeken (vectorzoekopdracht) uit in lokale bestanden. Gebruikt de Embedding API om bestandsinhoud te vectoriseren en relevante documentgedeelten te extraheren. Indexering wordt uitgevoerd bij het eerste gebruik of wanneer bestanden veranderen",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt voor semantisch zoeken in lokale bestanden. Geef alleen JSON terug.",
     "err.disabled_reason": "Embedding-API is niet bereikbaar."
@@ -608,13 +532,9 @@
     "param.top_k.description": "määrä.",
     "tool.description": "Tee semanttinen haku (vektorihaku) paikallisista tiedostoista. Käyttää Embedding APIa tiedostosisällön vektorointiin ja relevanttien dokumenttiosien poimintaan. Indeksointi suoritetaan ensimmäisellä käyttökerralla tai tiedostojen muuttuessa.",
     "x_search_terms": [
-      "Tee semanttinen haku (vektorihaku) paikallisista tiedostoista",
+      "Tee semanttinen haku (vektorihaku) paikallisista tiedostoista. Käyttää Embedding APIa tiedostosisällön vektorointiin ja relevanttien dokumenttiosien poimintaan. Indeksointi suoritetaan ensimmäisellä käyttökerralla tai tiedostojen muuttuessa",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään paikallisten tiedostojen semanttiseen hakuun. Palauta vain JSON.",
     "err.disabled_reason": "Embedding-API ei ole tavoitettavissa."
@@ -639,13 +559,9 @@
     "param.top_k.description": "počet.",
     "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) v místních souborech. Používá Embedding API k vektorizaci obsahu souborů a extrakci relevantních částí dokumentů. Indexování probíhá při prvním spuštění nebo při změně souborů.",
     "x_search_terms": [
-      "Provádí sémantické vyhledávání (vektorové vyhledávání) v místních souborech",
+      "Provádí sémantické vyhledávání (vektorové vyhledávání) v místních souborech. Používá Embedding API k vektorizaci obsahu souborů a extrakci relevantních částí dokumentů. Indexování probíhá při prvním spuštění nebo při změně souborů",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Tento nástroj slouží k sémantickému vyhledávání v místních souborech. Vracejte pouze JSON.",
     "err.disabled_reason": "Embedding API není dostupné."
@@ -670,13 +586,9 @@
     "param.top_k.description": "число.",
     "tool.description": "Виконує семантичний пошук (векторний пошук) у локальних файлах. Використовує Embedding API для векторизації вмісту файлів і витягує релевантні частини документа. Індексація виконується під час першого запуску або при зміні файлів.",
     "x_search_terms": [
-      "Виконує семантичний пошук (векторний пошук) у локальних файлах",
+      "Виконує семантичний пошук (векторний пошук) у локальних файлах. Використовує Embedding API для векторизації вмісту файлів і витягує релевантні частини документа. Індексація виконується під час першого запуску або при зміні файлів",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Цей інструмент використовується для семантичного пошуку в локальних файлах. Поверніть лише JSON.",
     "err.disabled_reason": "Embedding API недоступний."
@@ -701,13 +613,9 @@
     "param.top_k.description": "sayı.",
     "tool.description": "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar. Dosya içeriklerini vektörleştirmek ve ilgili belge bölümlerini çıkarmak için Embedding API'yi kullanır. Dizinleme ilk kullanımda veya dosyalar değiştiğinde çalışır.",
     "x_search_terms": [
-      "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar",
+      "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar. Dosya içeriklerini vektörleştirmek ve ilgili belge bölümlerini çıkarmak için Embedding API'yi kullanır. Dizinleme ilk kullanımda veya dosyalar değiştiğinde çalışır",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "Bu araç, yerel dosyalar üzerinde anlamsal arama için kullanılır. Yalnızca JSON döndürün.",
     "err.disabled_reason": "Embedding API’ye ulaşılamıyor."
@@ -734,11 +642,7 @@
     "x_search_terms": [
       "ทำ semantic search (vector search) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และดึงส่วนของเอกสารที่เกี่ยวข้อง การทำดัชนีจะเกิดขึ้นเมื่อใช้งานครั้งแรกหรือเมื่อไฟล์มีการเปลี่ยนแปลง",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับการค้นหาเชิงความหมายในไฟล์ในเครื่อง ส่งคืน JSON เท่านั้น",
     "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้"
@@ -763,13 +667,9 @@
     "param.top_k.description": "数字。",
     "tool.description": "对本地文件执行语义搜索（向量检索）。使用 Embedding API 对文件内容进行向量化，并提取相关文档片段。索引会在首次运行或文件更新时生成。",
     "x_search_terms": [
-      "对本地文件执行语义搜索（向量检索）",
+      "对本地文件执行语义搜索（向量检索）。使用 Embedding API 对文件内容进行向量化，并提取相关文档片段。索引会在首次运行或文件更新时生成",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "此工具用于对本地文件进行语义搜索。仅返回 JSON。",
     "err.disabled_reason": "无法访问嵌入 API。"
@@ -794,13 +694,9 @@
     "param.top_k.description": "數字。",
     "tool.description": "對本機檔案執行語義搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並擷取相關文件片段。索引會在首次執行或檔案更新時建立。",
     "x_search_terms": [
-      "對本機檔案執行語義搜尋（向量搜尋）",
+      "對本機檔案執行語義搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並擷取相關文件片段。索引會在首次執行或檔案更新時建立",
       "semantic_search_files",
-      "semantic search files",
-      "search files",
-      "glob search",
-      "file discovery",
-      "content search"
+      "semantic search files"
     ],
     "tool.system_prompt": "此工具用於對本機檔案執行語義搜尋。僅回傳 JSON。",
     "err.disabled_reason": "無法連線到嵌入 API。"

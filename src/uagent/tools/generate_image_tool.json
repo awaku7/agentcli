@@ -2,13 +2,9 @@
   "en": {
     "tool.description": "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
     "x_search_terms": [
-      "Generates an image from a text prompt, saves it as a PNG, and returns the file path",
+      "Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
     "param.prompt.description": "Instructions (prompt) for the image you want to generate.",
@@ -37,13 +33,9 @@
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
     "x_search_terms": [
-      "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します",
+      "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "与えられたプロンプトから画像を生成してください。PNGとして保存し、保存先のファイルパスだけを返してください。",
     "param.prompt.description": "生成したい画像の指示（プロンプト）です。",
@@ -75,13 +67,9 @@
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo. La apertura la gestiona quien llama (CLI/GUI/Web).",
     "x_search_terms": [
-      "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo",
+      "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo. La apertura la gestiona quien llama (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Genera una imagen a partir del prompt proporcionado. Guárdala como PNG y devuelve solo la ruta del archivo guardado.",
     "param.prompt.description": "Instrucciones (prompt) para la imagen que quieres generar.",
@@ -110,13 +98,9 @@
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier. L’ouverture est gérée par l’appelant (CLI/GUI/Web).",
     "x_search_terms": [
-      "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier",
+      "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier. L’ouverture est gérée par l’appelant (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Générez une image à partir du prompt fourni. Enregistrez-la en PNG et renvoyez uniquement le chemin du fichier enregistré.",
     "param.prompt.description": "Instructions (prompt) pour l’image que vous souhaitez générer.",
@@ -145,13 +129,9 @@
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
     "x_search_terms": [
-      "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다",
+      "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "주어진 프롬프트로 이미지를 생성하세요. PNG로 저장하고 저장된 파일 경로만 반환하세요.",
     "param.prompt.description": "생성할 이미지에 대한 지시사항(프롬프트)입니다.",
@@ -180,13 +160,9 @@
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
     "x_search_terms": [
-      "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück",
+      "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Erzeuge ein Bild aus dem angegebenen Prompt. Speichere es als PNG und gib nur den gespeicherten Dateipfad zurück.",
     "param.prompt.description": "Anweisungen (Prompt) für das gewünschte Bild.",
@@ -215,13 +191,9 @@
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
     "x_search_terms": [
-      "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file",
+      "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Genera un’immagine dal prompt fornito. Salvala come PNG e restituisci solo il percorso del file salvato.",
     "param.prompt.description": "Istruzioni (prompt) per l’immagine che vuoi generare.",
@@ -250,13 +222,9 @@
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
     "x_search_terms": [
-      "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу",
+      "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Создайте изображение по указанному запросу. Сохраните его как PNG и верните только путь к сохранённому файлу.",
     "param.prompt.description": "Инструкции (запрос) для изображения, которое вы хотите создать.",
@@ -285,13 +253,9 @@
   "pt_BR": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
     "x_search_terms": [
-      "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo",
+      "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Gere uma imagem a partir do prompt fornecido. Salve como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.prompt.description": "Instruções (prompt) para a imagem que você quer gerar.",
@@ -320,13 +284,9 @@
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
     "x_search_terms": [
-      "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo",
+      "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Gere uma imagem a partir do prompt fornecido. Salve como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.prompt.description": "Instruções (prompt) para a imagem que você quer gerar.",
@@ -355,13 +315,9 @@
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
     "x_search_terms": [
-      "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file",
+      "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Hasilkan gambar dari prompt yang diberikan. Simpan sebagai PNG dan kembalikan hanya path file yang disimpan.",
     "param.prompt.description": "Instruksi (prompt) untuk gambar yang ingin Anda buat.",
@@ -390,13 +346,9 @@
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
     "x_search_terms": [
-      "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp",
+      "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Tạo ảnh từ prompt được cung cấp. Lưu dưới dạng PNG và chỉ trả về đường dẫn tệp đã lưu.",
     "param.prompt.description": "Hướng dẫn (prompt) cho ảnh bạn muốn tạo.",
@@ -425,13 +377,9 @@
   "pl": {
     "tool.description": "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web).",
     "x_search_terms": [
-      "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku",
+      "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Wygeneruj obraz z podanego promptu. Zapisz go jako PNG i zwróć tylko ścieżkę do zapisanego pliku.",
     "param.prompt.description": "Instrukcje (prompt) dla obrazu, który chcesz wygenerować.",
@@ -462,11 +410,7 @@
     "x_search_terms": [
       "टेक्स्ट प्रॉम्प्ट से चित्र बनाता है, उसे PNG के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। खोलना कॉलर (CLI/GUI/Web) संभालता है।",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "दिए गए प्रॉम्प्ट से एक चित्र बनाइए। उसे PNG के रूप में सहेजिए और केवल सहेजी गई फ़ाइल का पथ लौटाइए।",
     "param.prompt.description": "आप जिस चित्र को बनाना चाहते हैं, उसके लिए निर्देश (प्रॉम्प्ट).",
@@ -495,13 +439,9 @@
   "ar": {
     "tool.description": "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web).",
     "x_search_terms": [
-      "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف",
+      "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "أنشئ صورة من الطلب المقدم. احفظها كملف PNG وأعد فقط مسار الملف المحفوظ.",
     "param.prompt.description": "تعليمات (الطلب) للصورة التي تريد إنشاءها.",
@@ -530,13 +470,9 @@
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",
     "x_search_terms": [
-      "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen",
+      "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Generera en bild från den angivna prompten. Spara den som PNG och returnera endast den sparade filsökvägen.",
     "param.prompt.description": "Instruktioner (prompt) för bilden du vill skapa.",
@@ -565,13 +501,9 @@
   "sw": {
     "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili. Kufungua kunashughulikiwa na mwitaji (CLI/GUI/Web).",
     "x_search_terms": [
-      "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili",
+      "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili. Kufungua kunashughulikiwa na mwitaji (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Tengeneza picha kutoka kwa prompt uliyopewa. Ihifadhi kama PNG na urudishe tu njia ya faili iliyohifadhiwa.",
     "param.prompt.description": "Maelekezo (prompt) kwa picha unayotaka kutengeneza.",
@@ -600,13 +532,9 @@
   "nb": {
     "tool.description": "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web).",
     "x_search_terms": [
-      "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien",
+      "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Generer et bilde fra den angitte prompten. Lagre det som PNG og returner bare den lagrede filstien.",
     "param.prompt.description": "Instruksjoner (prompt) for bildet du vil generere.",
@@ -635,13 +563,9 @@
   "nl": {
     "tool.description": "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug. Openen wordt door de aanroeper afgehandeld (CLI/GUI/Web).",
     "x_search_terms": [
-      "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug",
+      "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug. Openen wordt door de aanroeper afgehandeld (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Genereer een afbeelding van de opgegeven prompt. Sla deze op als PNG en geef alleen het opgeslagen bestandspad terug.",
     "param.prompt.description": "Instructies (prompt) voor de afbeelding die u wilt genereren.",
@@ -670,13 +594,9 @@
   "fi": {
     "tool.description": "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web).",
     "x_search_terms": [
-      "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun",
+      "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Luo kuva annetusta kehotteesta. Tallenna se PNG:nä ja palauta vain tallennettu tiedostopolku.",
     "param.prompt.description": "Ohjeet (prompt) luotavaa kuvaa varten.",
@@ -705,13 +625,9 @@
   "cs": {
     "tool.description": "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web).",
     "x_search_terms": [
-      "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru",
+      "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Vytvořte obrázek z poskytnutého zadání. Uložte jej jako PNG a vraťte pouze cestu k uloženému souboru.",
     "param.prompt.description": "Pokyny (zadání) pro obrázek, který chcete vytvořit.",
@@ -740,13 +656,9 @@
   "uk": {
     "tool.description": "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web).",
     "x_search_terms": [
-      "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла",
+      "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Створіть зображення з наданого запиту. Збережіть його як PNG і поверніть лише шлях до збереженого файла.",
     "param.prompt.description": "Інструкції (запит) для зображення, яке ви хочете створити.",
@@ -775,13 +687,9 @@
   "tr": {
     "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür. Açma, arayan kişi tarafından gerçekleştirilir (CLI/GUI/Web).",
     "x_search_terms": [
-      "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür",
+      "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür. Açma, arayan kişi tarafından gerçekleştirilir (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "Sağlanan istemden bir görüntü oluşturun. PNG olarak kaydedin ve yalnızca kaydedilen dosya yolunu döndürün.",
     "param.prompt.description": "Oluşturmak istediğiniz görüntüye ilişkin talimatlar (istem).",
@@ -812,11 +720,7 @@
     "x_search_terms": [
       "สร้างภาพจากพรอมต์ข้อความ บันทึกเป็น PNG และคืนค่าพาธของไฟล์ การเปิดไฟล์เป็นหน้าที่ของผู้เรียก (CLI/GUI/Web)",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "สร้างภาพจากพรอมต์ที่ให้มา บันทึกเป็น PNG และคืนค่าเฉพาะพาธของไฟล์ที่บันทึกแล้ว.",
     "param.prompt.description": "คำสั่ง (พรอมต์) สำหรับภาพที่ต้องการสร้าง.",
@@ -845,13 +749,9 @@
   "zh_CN": {
     "tool.description": "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）。",
     "x_search_terms": [
-      "根据文本提示生成图片，将其保存为 PNG，并返回文件路径",
+      "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "根据提供的提示生成图片。将其保存为 PNG，并且只返回已保存的文件路径。",
     "param.prompt.description": "用于生成图片的指令（提示）。",
@@ -880,13 +780,9 @@
   "zh_TW": {
     "tool.description": "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）。",
     "x_search_terms": [
-      "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑",
+      "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）",
       "generate_image",
-      "generate image",
-      "image generation",
-      "png",
-      "text to image",
-      "art"
+      "generate image"
     ],
     "tool.system_prompt": "根據提供的提示產生圖片。將其儲存為 PNG，並且只回傳已儲存的檔案路徑。",
     "param.prompt.description": "用來生成圖片的指示（提示）。",

@@ -16,7 +16,7 @@
     "param.root_path.description": "Directory that is the starting point for searches and indexes. Default is the current directory.",
     "tool.description": "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately.",
     "x_search_terms": [
-      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files)",
+      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately",
       "index_files",
       "index files"
     ],
@@ -39,7 +39,7 @@
     "param.root_path.description": "検索・インデックスの起点となるディレクトリ。既定はカレントディレクトリです。",
     "tool.description": "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします。ファイル内容をすぐには読み込まず、検索用データを準備したいときに便利です。",
     "x_search_terms": [
-      "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします",
+      "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします。ファイル内容をすぐには読み込まず、検索用データを準備したいときに便利です",
       "index_files",
       "index files"
     ],
@@ -62,7 +62,7 @@
     "param.root_path.description": "Directorio que sirve como punto de partida para búsquedas e índices. El valor predeterminado es el directorio actual.",
     "tool.description": "Indexa los archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files). Esto es útil cuando quiere preparar los datos de búsqueda sin leer el contenido del archivo de inmediato.",
     "x_search_terms": [
-      "Indexa los archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files)",
+      "Indexa los archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files). Esto es útil cuando quiere preparar los datos de búsqueda sin leer el contenido del archivo de inmediato",
       "index_files",
       "index files"
     ],
@@ -85,7 +85,7 @@
     "param.root_path.description": "Répertoire qui sert de point de départ pour les recherches et les index. La valeur par défaut est le répertoire actuel.",
     "tool.description": "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle afin d'activer la recherche sémantique (semantic_search_files). C'est utile pour préparer les données de recherche sans lire immédiatement le contenu des fichiers.",
     "x_search_terms": [
-      "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle afin d'activer la recherche sémantique (semantic_search_files)",
+      "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle afin d'activer la recherche sémantique (semantic_search_files). C'est utile pour préparer les données de recherche sans lire immédiatement le contenu des fichiers",
       "index_files",
       "index files"
     ],
@@ -108,7 +108,7 @@
     "param.root_path.description": "검색과 색인의 시작점이 되는 디렉터리입니다. 기본값은 현재 디렉터리입니다.",
     "tool.description": "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다. 파일 내용을 즉시 읽지 않고 검색 준비를 할 때 유용합니다.",
     "x_search_terms": [
-      "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다",
+      "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다. 파일 내용을 즉시 읽지 않고 검색 준비를 할 때 유용합니다",
       "index_files",
       "index files"
     ],
@@ -131,7 +131,7 @@
     "param.root_path.description": "Verzeichnis, das als Ausgangspunkt für Suchen und Indizes dient. Standard ist das aktuelle Verzeichnis.",
     "tool.description": "Indexiert die angegebenen Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-Datenbank, um die semantische Suche (semantic_search_files) zu ermöglichen. Das ist nützlich, wenn Sie Suchdaten vorbereiten möchten, ohne den Dateiinhalt sofort zu lesen.",
     "x_search_terms": [
-      "Indexiert die angegebenen Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-Datenbank, um die semantische Suche (semantic_search_files) zu ermöglichen",
+      "Indexiert die angegebenen Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-Datenbank, um die semantische Suche (semantic_search_files) zu ermöglichen. Das ist nützlich, wenn Sie Suchdaten vorbereiten möchten, ohne den Dateiinhalt sofort zu lesen",
       "index_files",
       "index files"
     ],
@@ -154,7 +154,7 @@
     "param.root_path.description": "Directory che funge da punto di partenza per ricerche e indici. Il valore predefinito è la directory corrente.",
     "tool.description": "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files). È utile quando si vogliono preparare i dati di ricerca senza leggere subito il contenuto del file.",
     "x_search_terms": [
-      "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files)",
+      "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files). È utile quando si vogliono preparare i dati di ricerca senza leggere subito il contenuto del file",
       "index_files",
       "index files"
     ],
@@ -177,7 +177,7 @@
     "param.root_path.description": "Каталог, который является отправной точкой для поиска и индексирования. По умолчанию используется текущий каталог.",
     "tool.description": "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files). Это полезно, когда нужно подготовить данные для поиска, не читая содержимое файла сразу.",
     "x_search_terms": [
-      "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files)",
+      "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files). Это полезно, когда нужно подготовить данные для поиска, не читая содержимое файла сразу",
       "index_files",
       "index files"
     ],
@@ -200,7 +200,7 @@
     "param.root_path.description": "Diretório que serve como ponto de partida para buscas e índices. O padrão é o diretório atual.",
     "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files). Isso é útil quando você quer preparar os dados de busca sem ler o conteúdo do arquivo imediatamente.",
     "x_search_terms": [
-      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files)",
+      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files). Isso é útil quando você quer preparar os dados de busca sem ler o conteúdo do arquivo imediatamente",
       "index_files",
       "index files"
     ],
@@ -223,7 +223,7 @@
     "param.root_path.description": "Diretório que é o ponto de partida para pesquisas e índices. O padrão é o diretório atual.",
     "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files). Isto é útil quando você deseja preparar dados de pesquisa sem ler imediatamente o conteúdo do arquivo.",
     "x_search_terms": [
-      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files)",
+      "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files). Isto é útil quando você deseja preparar dados de pesquisa sem ler imediatamente o conteúdo do arquivo",
       "index_files",
       "index files"
     ],
@@ -246,7 +246,7 @@
     "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan. Default adalah direktori saat ini.",
     "tool.description": "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files). Berguna saat Anda ingin menyiapkan data pencarian tanpa langsung membaca isi file.",
     "x_search_terms": [
-      "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files)",
+      "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files). Berguna saat Anda ingin menyiapkan data pencarian tanpa langsung membaca isi file",
       "index_files",
       "index files"
     ],
@@ -269,7 +269,7 @@
     "param.root_path.description": "Thư mục là điểm bắt đầu cho việc tìm kiếm và lập chỉ mục. Mặc định là thư mục hiện tại.",
     "tool.description": "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files). Điều này rất hữu ích khi bạn muốn chuẩn bị dữ liệu tìm kiếm mà không cần đọc nội dung file ngay lập tức.",
     "x_search_terms": [
-      "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files)",
+      "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files). Điều này rất hữu ích khi bạn muốn chuẩn bị dữ liệu tìm kiếm mà không cần đọc nội dung file ngay lập tức",
       "index_files",
       "index files"
     ],
@@ -292,7 +292,7 @@
     "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów. Domyślnie jest to katalog bieżący.",
     "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne, gdy chcesz przygotować dane do wyszukiwania bez natychmiastowego odczytywania zawartości pliku.",
     "x_search_terms": [
-      "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego)",
+      "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne, gdy chcesz przygotować dane do wyszukiwania bez natychmiastowego odczytywania zawartości pliku",
       "index_files",
       "index files"
     ],
@@ -338,7 +338,7 @@
     "param.root_path.description": "الدليل الذي يمثل نقطة البداية لعمليات البحث والفهارس. الافتراضي هو الدليل الحالي.",
     "tool.description": "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files). يكون هذا مفيدًا عندما تريد إعداد بيانات البحث دون قراءة محتويات الملف على الفور.",
     "x_search_terms": [
-      "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files)",
+      "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files). يكون هذا مفيدًا عندما تريد إعداد بيانات البحث دون قراءة محتويات الملف على الفور",
       "index_files",
       "index files"
     ],
@@ -361,7 +361,7 @@
     "param.root_path.description": "Katalog som fungerar som startpunkt för sökningar och indexering. Standard är den aktuella katalogen.",
     "tool.description": "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files). Detta är användbart när du vill förbereda sökdata utan att läsa filinnehållet direkt.",
     "x_search_terms": [
-      "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files)",
+      "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files). Detta är användbart när du vill förbereda sökdata utan att läsa filinnehållet direkt",
       "index_files",
       "index files"
     ],
@@ -384,7 +384,7 @@
     "param.root_path.description": "Directory that is the starting point for searches and indexes. Default is the current directory.",
     "tool.description": "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately.",
     "x_search_terms": [
-      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files)",
+      "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful when you want to prepare search data without reading file contents immediately",
       "index_files",
       "index files"
     ],
@@ -407,7 +407,7 @@
     "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering. Standard er gjeldende katalog.",
     "tool.description": "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files). Dette er nyttig når du vil forberede søkedata uten å lese filinnholdet med en gang.",
     "x_search_terms": [
-      "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files)",
+      "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files). Dette er nyttig når du vil forberede søkedata uten å lese filinnholdet med en gang",
       "index_files",
       "index files"
     ],
@@ -430,7 +430,7 @@
     "param.root_path.description": "Map die het startpunt is voor zoek- en indexbewerkingen. Standaard is de huidige map.",
     "tool.description": "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken. Handig wanneer u zoekdata wilt voorbereiden zonder direct bestandsinhoud te lezen.",
     "x_search_terms": [
-      "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken",
+      "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken. Handig wanneer u zoekdata wilt voorbereiden zonder direct bestandsinhoud te lezen",
       "index_files",
       "index files"
     ],
@@ -453,7 +453,7 @@
     "param.root_path.description": "Hakemisto, joka on haun ja indeksoinnin aloituspiste. Oletus on nykyinen hakemisto.",
     "tool.description": "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista. Hyödyllinen, kun haluat valmistella hakudataa lukematta tiedostosisältöä heti.",
     "x_search_terms": [
-      "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista",
+      "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista. Hyödyllinen, kun haluat valmistella hakudataa lukematta tiedostosisältöä heti",
       "index_files",
       "index files"
     ],
@@ -476,7 +476,7 @@
     "param.root_path.description": "Adresář, který je výchozím bodem pro vyhledávání a indexování. Výchozí je aktuální adresář.",
     "tool.description": "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files). Hodí se, když chcete připravit data pro vyhledávání, aniž byste hned četli obsah souborů.",
     "x_search_terms": [
-      "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files)",
+      "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files). Hodí se, když chcete připravit data pro vyhledávání, aniž byste hned četli obsah souborů",
       "index_files",
       "index files"
     ],
@@ -499,7 +499,7 @@
     "param.root_path.description": "Каталог, який є відправною точкою для пошуку та індексування. За замовчуванням використовується поточний каталог.",
     "tool.description": "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files). Це корисно, коли потрібно підготувати дані для пошуку, не читаючи вміст файлів одразу.",
     "x_search_terms": [
-      "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files)",
+      "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files). Це корисно, коли потрібно підготувати дані для пошуку, не читаючи вміст файлів одразу",
       "index_files",
       "index files"
     ],
@@ -522,7 +522,7 @@
     "param.root_path.description": "Aramalar ve dizinler için başlangıç ​​noktası olan dizin. Varsayılan geçerli dizindir.",
     "tool.description": "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler. Bu, dosya içeriğini hemen okumadan arama verilerini hazırlamak istediğinizde kullanışlıdır.",
     "x_search_terms": [
-      "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler",
+      "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler. Bu, dosya içeriğini hemen okumadan arama verilerini hazırlamak istediğinizde kullanışlıdır",
       "index_files",
       "index files"
     ],
@@ -568,7 +568,7 @@
     "param.root_path.description": "作为搜索和索引起点的目录。默认是当前目录。",
     "tool.description": "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）。当您想先准备搜索数据而不立即读取文件内容时，这非常有用。",
     "x_search_terms": [
-      "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）",
+      "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）。当您想先准备搜索数据而不立即读取文件内容时，这非常有用",
       "index_files",
       "index files"
     ],
@@ -591,7 +591,7 @@
     "param.root_path.description": "作為搜尋與索引起點的目錄。預設為目前目錄。",
     "tool.description": "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）。當您想先準備搜尋資料而不立即讀取檔案內容時，這很有用。",
     "x_search_terms": [
-      "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）",
+      "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）。當您想先準備搜尋資料而不立即讀取檔案內容時，這很有用",
       "index_files",
       "index files"
     ],

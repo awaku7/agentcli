@@ -15,13 +15,9 @@
     "param.message.description": "Write what you want to ask a human to do in Japanese, in a format that can be displayed exactly as-is.",
     "tool.description": "A tool to ask a human user for input or a decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens), set is_password=True and ask for exactly one item per call.",
     "x_search_terms": [
-      "A tool to ask a human user for input or a decision that the model cannot complete by itself",
+      "A tool to ask a human user for input or a decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens), set is_password=True and ask for exactly one item per call",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: ask the human user for an input/decision that the model cannot complete by itself and receive a single reply text.\n\nImportant: This tool can receive only one reply text per call. Do not split input into multiple fields.\n\nSECURITY (MOST IMPORTANT):\n- When requesting secrets (passwords, API keys, tokens, private keys, session cookies, etc.), you MUST set is_password=True.\n- Never repeat a secret obtained with is_password=True in any later assistant messages.\n- Do not store secrets in long-term memory or shared memory.\n\nOperational guidelines:\n- If additional user input is needed, always use the human_ask tool.\n- With is_password=True, ask for only one secret item.\n- If both username and password are required, call human_ask multiple times.\n- Do not request multiple items in a single call.\n- For relative date expressions (today/this year/etc.), call get_current_time.\n- When outputting files or code, do not omit the full original content unless the user explicitly requests it.\n\nCancellation:\n- To cancel, reply with a single line: 'c' or 'cancel'.\n",
     "ui.footer": "=== /human_ask (user input) ===",
@@ -44,13 +40,9 @@
     "param.message.description": "人間に依頼したい内容を、日本語でそのまま表示できる形式で丁寧に書く。",
     "tool.description": "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",
     "x_search_terms": [
-      "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール",
+      "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "このツールは次の目的で使われます: モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。\n\n重要: このツールは 1回の呼び出しで 1つの回答テキストしか受け取れません。入力を複数フィールドに分割したり、フィールドごとにマスク有無を切り替える機能はありません。\n\n【最重要: セキュリティ】\n- 秘匿情報（パスワード、APIキー、トークン、秘密鍵、セッションCookie等）を入力させる場合は、必ず is_password=True を指定してください。\n- is_password=True で取得した回答（user_reply）は、以後のあなたの返答（Assistant message）の中で**絶対に復唱しないでください**。\n  - 悪い例: 「パスワード『password123』を受け取りました。ログインします」\n  - 良い例: 「パスワードを受け取りました。ログイン処理を開始します」\n- パスワード等の秘匿情報を長期記憶や共有メモに保存しないでください。\n\nこのツールの動作指針:\n- 追加のユーザー入力が必要な場合は必ず human_ask ツールを使用してください。\n- is_password=True の呼び出しでは、秘匿情報 1項目のみを尋ねてください。\n- ユーザー名 + パスワード等が必要な場合は、必ず human_ask を2回以上に分けてください。\n- 1回の human_ask で複数項目の入力を同時に要求してはいけません。\n- 相対日付（今日／今年など）を扱う場合は get_current_time を呼んで現在時刻を参照してください。\n- ファイルやコード出力は原文全体を省略せずに出力すること（ユーザー指示がない場合）。\n\nキャンセル方法:\n- キャンセルしたい場合は 1 行で「c」または「cancel」と入力してください。\n",
     "ui.footer": "=== /human_ask（ユーザー入力）===",
@@ -73,13 +65,9 @@
     "param.message.description": "Escriba en japonés lo que desea pedirle a una persona que haga, en un formato que pueda mostrarse tal cual.",
     "tool.description": "Herramienta para pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí solo. Nota de seguridad: cuando solicite secretos (contraseñas/tokens), establezca is_password=True y pida exactamente un elemento por llamada.",
     "x_search_terms": [
-      "Herramienta para pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí solo",
+      "Herramienta para pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí solo. Nota de seguridad: cuando solicite secretos (contraseñas/tokens), establezca is_password=True y pida exactamente un elemento por llamada",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí mismo y recibir un único texto de respuesta.\n\nImportante: esta herramienta solo puede recibir un texto de respuesta por llamada. No divida la entrada en varios campos.\n\nSEGURIDAD (LO MÁS IMPORTANTE):\n- Cuando solicite secretos (contraseñas, claves API, tokens, claves privadas, cookies de sesión, etc.), debe establecer is_password=True.\n- Nunca repita un secreto obtenido con is_password=True en mensajes posteriores del asistente.\n- No almacene secretos en la memoria a largo plazo ni en la memoria compartida.\n\nPautas operativas:\n- Si necesita más información del usuario, use siempre la herramienta human_ask.\n- Con is_password=True, solicite solo un secreto.\n- Si necesita tanto nombre de usuario como contraseña, llame a human_ask varias veces.\n- No solicite varios elementos en una sola llamada.\n- Para expresiones de fecha relativa (hoy/este año/etc.), llame a get_current_time.\n- Al generar archivos o código, no omita el contenido original completo a menos que el usuario lo solicite explícitamente.\n\nCancelación:\n- Para cancelar, responda con una sola línea: \"c\" o \"cancel\".",
     "ui.footer": "=== /human_ask (entrada del usuario) ===",
@@ -102,13 +90,9 @@
     "param.message.description": "Rédigez en japonais ce que vous souhaitez demander à une personne de faire, dans un format qui peut être affiché tel quel.",
     "tool.description": "Outil permettant de demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même. Note de sécurité : lors de la demande de secrets (mots de passe/jetons), définissez is_password=True et demandez exactement un élément par appel.",
     "x_search_terms": [
-      "Outil permettant de demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même",
+      "Outil permettant de demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même. Note de sécurité : lors de la demande de secrets (mots de passe/jetons), définissez is_password=True et demandez exactement un élément par appel",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même et recevoir un seul texte de réponse.\n\nImportant : cet outil ne peut recevoir qu'un seul texte de réponse par appel. Ne divisez pas la saisie en plusieurs champs.\n\nSÉCURITÉ (LA PLUS IMPORTANTE) :\n- Lors de la demande de secrets (mots de passe, clés API, jetons, clés privées, cookies de session, etc.), vous devez définir is_password=True.\n- Ne répétez jamais un secret obtenu avec is_password=True dans les messages ultérieurs de l'assistant.\n- Ne stockez pas de secrets dans la mémoire à long terme ou dans la mémoire partagée.\n\nDirectives opérationnelles :\n- Si une saisie utilisateur supplémentaire est nécessaire, utilisez toujours l'outil human_ask.\n- Avec is_password=True, demandez un seul élément secret.\n- Si le nom d'utilisateur et le mot de passe sont requis, appelez human_ask plusieurs fois.\n- Ne demandez pas plusieurs éléments en un seul appel.\n- Pour les expressions de date relative (aujourd'hui/cette année/etc.), appelez get_current_time.\n- Lors de la sortie de fichiers ou de code, n'omettez pas l'intégralité du contenu original à moins que l'utilisateur ne le demande explicitement.\n\nAnnulation :\n- Pour annuler, répondez par une seule ligne : \"c\" ou \"cancel\".",
     "ui.footer": "=== /human_ask (saisie utilisateur) ===",
@@ -131,13 +115,9 @@
     "param.message.description": "사람에게 요청하고 싶은 내용을, 그대로 표시해도 되는 형식으로 일본어로 적습니다.",
     "tool.description": "모델 자체로는 완료할 수 없는 입력/판단을 사람 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때는 is_password=True로 설정하고 한 번의 호출에 정확히 한 항목만 요청하세요.",
     "x_search_terms": [
-      "모델 자체로는 완료할 수 없는 입력/판단을 사람 사용자에게 요청하는 도구입니다",
+      "모델 자체로는 완료할 수 없는 입력/판단을 사람 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때는 is_password=True로 설정하고 한 번의 호출에 정확히 한 항목만 요청하세요",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "이 도구는 모델이 스스로 완료할 수 없는 입력/판단을 사람 사용자에게 요청하고, 하나의 응답 텍스트를 받는 데 사용됩니다.\n\n중요: 이 도구는 한 번 호출당 하나의 응답 텍스트만 받을 수 있습니다. 입력을 여러 필드로 나누지 마세요.\n\n보안(가장 중요):\n- 비밀 정보(비밀번호, API 키, 토큰, 개인 키, 세션 쿠키 등)를 요청할 때는 반드시 is_password=True로 설정하세요.\n- is_password=True로 얻은 비밀은 이후 어떤 어시스턴트 메시지에서도 반복하지 마세요.\n- 비밀은 장기 기억이나 공유 기억에 저장하지 마세요.\n\n운영 지침:\n- 추가 사용자 입력이 필요하면 항상 human_ask 도구를 사용하세요.\n- is_password=True인 경우 비밀 항목 하나만 요청하세요.\n- 사용자 이름과 비밀번호가 모두 필요하면 human_ask를 여러 번 호출하세요.\n- 한 번의 호출에서 여러 항목을 요청하지 마세요.\n- 상대 날짜 표현(오늘/올해/등)을 처리할 때는 get_current_time을 호출하세요.\n- 파일이나 코드를 출력할 때는 사용자가 명시적으로 요청하지 않는 한 원본 전체 내용을 생략하지 마세요.\n\n취소:\n- 취소하려면 한 줄로 \"c\" 또는 \"cancel\"이라고 답하세요.",
     "ui.footer": "=== /human_ask (사용자 입력) ===",
@@ -160,13 +140,9 @@
     "param.message.description": "Schreiben Sie auf Japanisch auf, was Sie von einem Menschen verlangen möchten, und zwar in einem Format, das genau so angezeigt werden kann.",
     "tool.description": "Ein Tool, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst durchführen kann. Sicherheitshinweis: Wenn Sie Geheimnisse (Passwörter/Tokens) anfordern, setzen Sie is_password=True und fragen Sie nach genau einem Element pro Aufruf.",
     "x_search_terms": [
-      "Ein Tool, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst durchführen kann",
+      "Ein Tool, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst durchführen kann. Sicherheitshinweis: Wenn Sie Geheimnisse (Passwörter/Tokens) anfordern, setzen Sie is_password=True und fragen Sie nach genau einem Element pro Aufruf",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: den menschlichen Benutzer um eine Eingabe oder Entscheidung bitten, die das Modell nicht selbst erledigen kann, und einen einzelnen Antworttext erhalten.\n\nWichtig: Dieses Tool kann pro Aufruf nur einen Antworttext empfangen. Teilen Sie die Eingabe nicht in mehrere Felder auf.\n\nSicherheit (am wichtigsten):\n- Wenn Sie Geheimnisse (Passwörter, API-Schlüssel, Token, private Schlüssel, Sitzungscookies usw.) anfordern, müssen Sie is_password=True setzen.\n- Wiederholen Sie ein mit is_password=True erhaltenes Geheimnis niemals in späteren Assistentennachrichten.\n- Speichern Sie Geheimnisse nicht im Langzeitgedächtnis oder im gemeinsamen Gedächtnis.\n\nBetriebsrichtlinien:\n- Wenn zusätzliche Benutzereingaben erforderlich sind, verwenden Sie immer das human_ask-Tool.\n- Bei is_password=True fragen Sie nur nach einem geheimen Element.\n- Wenn sowohl Benutzername als auch Passwort erforderlich sind, rufen Sie human_ask mehrmals auf.\n- Fordern Sie nicht mehrere Elemente in einem einzigen Aufruf an.\n- Für relative Datumsangaben (heute/dieses Jahr/usw.) rufen Sie get_current_time auf.\n- Wenn Sie Dateien oder Code ausgeben, lassen Sie den vollständigen Originalinhalt nicht weg, es sei denn, der Benutzer verlangt dies ausdrücklich.\n\nAbbruch:\n- Um abzubrechen, antworten Sie mit einer einzigen Zeile: \"c\" oder \"cancel\".",
     "ui.footer": "=== /human_ask (Benutzereingabe) ===",
@@ -189,13 +165,9 @@
     "param.message.description": "Scrivi in giapponese cosa vuoi chiedere a un essere umano di fare, in un formato che possa essere visualizzato così com'è.",
     "tool.description": "Uno strumento per chiedere all'utente umano un input/una decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token), impostare is_password=True e chiedere esattamente un elemento per chiamata.",
     "x_search_terms": [
-      "Uno strumento per chiedere all'utente umano un input/una decisione che il modello non può completare da solo",
+      "Uno strumento per chiedere all'utente umano un input/una decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token), impostare is_password=True e chiedere esattamente un elemento per chiamata",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: chiedere all'utente umano un input o una decisione che il modello non può completare da solo e ricevere un singolo testo di risposta.\n\nImportante: questo strumento può ricevere un solo testo di risposta per chiamata. Non suddividere l'input in più campi.\n\nSicurezza (la più importante):\n- Quando si richiedono segreti (password, chiavi API, token, chiavi private, cookie di sessione, ecc.), è necessario impostare is_password=True.\n- Non ripetere mai un segreto ottenuto con is_password=True in messaggi successivi dell'assistente.\n- Non archiviare i segreti nella memoria a lungo termine o nella memoria condivisa.\n\nLinee guida operative:\n- Se è necessario ulteriore input dell'utente, usa sempre lo strumento human_ask.\n- Con is_password=True, chiedi solo un elemento segreto.\n- Se sono richiesti sia nome utente sia password, chiama human_ask più volte.\n- Non richiedere più elementi in un'unica chiamata.\n- Per le espressioni di data relativa (oggi/quest'anno/ecc.), chiama get_current_time.\n- Quando produci file o codice, non omettere il contenuto originale completo a meno che l'utente non lo richieda esplicitamente.\n\nAnnullamento:\n- Per annullare, rispondi con una sola riga: \"c\" o \"cancel\".",
     "ui.footer": "=== /human_ask (input dell'utente) ===",
@@ -218,13 +190,9 @@
     "param.message.description": "Запишите на японском языке, что вы хотите попросить человека сделать, в формате, который можно отобразить как есть.",
     "tool.description": "Инструмент для запроса у пользователя-человека ввода/решения, которые модель не может выполнить сама. Примечание по безопасности: при запросе секретов (паролей/токенов) установите is_password=True и запрашивайте ровно один элемент за вызов.",
     "x_search_terms": [
-      "Инструмент для запроса у пользователя-человека ввода/решения, которые модель не может выполнить сама",
+      "Инструмент для запроса у пользователя-человека ввода/решения, которые модель не может выполнить сама. Примечание по безопасности: при запросе секретов (паролей/токенов) установите is_password=True и запрашивайте ровно один элемент за вызов",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: запросить у пользователя-человека ввод или решение, которое модель не может выполнить сама, и получить один текст ответа.\n\nВажно: этот инструмент может принять только один текст ответа за один вызов. Не разбивайте ввод на несколько полей.\n\nБезопасность (самое важное):\n- При запросе секретов (паролей, API-ключей, токенов, закрытых ключей, cookie сеанса и т. д.) обязательно задавайте is_password=True.\n- Никогда не повторяйте секрет, полученный с is_password=True, в последующих сообщениях помощника.\n- Не храните секреты в долговременной памяти или общей памяти.\n\nОперационные рекомендации:\n- Если требуется дополнительный ввод пользователя, всегда используйте инструмент human_ask.\n- При is_password=True запрашивайте только один секретный элемент.\n- Если нужны и имя пользователя, и пароль, вызывайте human_ask несколько раз.\n- Не запрашивайте несколько элементов за один вызов.\n- Для относительных дат (сегодня/в этом году/и т. д.) вызывайте get_current_time.\n- При выводе файлов или кода не опускайте полный исходный текст, если только пользователь явно не попросил об этом.\n\nОтмена:\n- Чтобы отменить, ответьте одной строкой: \"c\" или \"cancel\".",
     "ui.footer": "=== /human_ask (ввод пользователя) ===",
@@ -247,13 +215,9 @@
     "param.message.description": "Escreva em japonês o que você quer pedir a uma pessoa para fazer, em um formato que possa ser exibido exatamente como está.",
     "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não consegue concluir sozinho. Observação de segurança: ao solicitar segredos (senhas/tokens), defina is_password=True e peça exatamente um item por chamada.",
     "x_search_terms": [
-      "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não consegue concluir sozinho",
+      "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não consegue concluir sozinho. Observação de segurança: ao solicitar segredos (senhas/tokens), defina is_password=True e peça exatamente um item por chamada",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho e receber um único texto de resposta.\n\nImportante: esta ferramenta só pode receber um texto de resposta por chamada. Não divida a entrada em vários campos.\n\nSEGURANÇA (A MAIS IMPORTANTE):\n- Ao solicitar segredos (senhas, chaves de API, tokens, chaves privadas, cookies de sessão etc.), você DEVE definir is_password=True.\n- Nunca repita um segredo obtido com is_password=True em mensagens posteriores do assistente.\n- Não armazene segredos em memória de longo prazo ou memória compartilhada.\n\nDiretrizes operacionais:\n- Se for necessária entrada adicional do usuário, use sempre a ferramenta human_ask.\n- Com is_password=True, solicite apenas um segredo.\n- Se forem necessários nome de usuário e senha, chame human_ask várias vezes.\n- Não solicite vários itens em uma única chamada.\n- Para expressões de data relativa (hoje/este ano/etc.), chame get_current_time.\n- Ao gerar arquivos ou código, não omita o conteúdo original completo, a menos que o usuário solicite explicitamente.\n\nCancelamento:\n- Para cancelar, responda com uma única linha: \"c\" ou \"cancel\".",
     "ui.footer": "=== /human_ask (entrada do usuário) ===",
@@ -276,13 +240,9 @@
     "param.message.description": "Escreva o que você deseja pedir a um ser humano para fazer em japonês em um formato que possa ser exibido exatamente como está.",
     "tool.description": "Ferramenta para pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho. Observação de segurança: ao solicitar segredos (senhas/tokens), defina is_password=True e peça exatamente um item por chamada.",
     "x_search_terms": [
-      "Ferramenta para pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho",
+      "Ferramenta para pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho. Observação de segurança: ao solicitar segredos (senhas/tokens), defina is_password=True e peça exatamente um item por chamada",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho e receber um único texto de resposta.\n\nImportante: esta ferramenta só pode receber um texto de resposta por chamada. Não divida a entrada em vários campos.\n\nSEGURANÇA (A MAIS IMPORTANTE):\n- Ao solicitar segredos (senhas, chaves de API, tokens, chaves privadas, cookies de sessão etc.), você DEVE definir is_password=True.\n- Nunca repita um segredo obtido com is_password=True em mensagens posteriores do assistente.\n- Não armazene segredos em memória de longo prazo ou memória compartilhada.\n\nDiretrizes operacionais:\n- Se for necessária entrada adicional do usuário, use sempre a ferramenta human_ask.\n- Com is_password=True, solicite apenas um segredo.\n- Se forem necessários nome de usuário e senha, chame human_ask várias vezes.\n- Não solicite vários itens em uma única chamada.\n- Para expressões de data relativa (hoje/este ano/etc.), chame get_current_time.\n- Ao gerar arquivos ou código, não omita o conteúdo original completo, a menos que o usuário solicite explicitamente.\n\nCancelamento:\n- Para cancelar, responda com uma única linha: \"c\" ou \"cancel\".\n",
     "ui.footer": "=== /human_ask (entrada do usuário) ===",
@@ -305,13 +265,9 @@
     "param.message.description": "Tulis apa yang ingin Anda minta kepada manusia untuk dilakukan dalam bahasa Jepang dalam format yang dapat ditampilkan apa adanya.",
     "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token), set is_password=True dan mintalah tepat satu item per panggilan.",
     "x_search_terms": [
-      "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri",
+      "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token), set is_password=True dan mintalah tepat satu item per panggilan",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri dan menerima satu teks balasan.\n\nPenting: Alat ini hanya menerima satu teks balasan per panggilan. Jangan membagi input ke beberapa bidang.\n\nKEAMANAN (PALING PENTING):\n- Saat meminta rahasia (kata sandi, API key, token, private key, session cookie, dll.), Anda HARUS menetapkan is_password=True.\n- Jangan pernah mengulangi rahasia yang diperoleh dengan is_password=True di pesan asisten berikutnya.\n- Jangan simpan rahasia di memori jangka panjang atau shared memory.\n\nPanduan operasional:\n- Jika input pengguna tambahan diperlukan, selalu gunakan alat human_ask.\n- Dengan is_password=True, mintalah hanya satu item rahasia.\n- Jika username dan password sama-sama diperlukan, panggil human_ask beberapa kali.\n- Jangan meminta banyak item dalam satu panggilan.\n- Untuk ekspresi tanggal relatif (today/this year/dll.), panggil get_current_time.\n- Saat mengeluarkan file atau kode, jangan menghilangkan isi asli penuh kecuali pengguna secara eksplisit memintanya.\n\nPembatalan:\n- Untuk membatalkan, balas dengan satu baris: 'c' atau 'cancel'.",
     "ui.footer": "=== /human_ask (masukan pengguna) ===",
@@ -334,13 +290,9 @@
     "param.message.description": "Viết ra những điều bạn muốn yêu cầu con người làm bằng tiếng Nhật ở định dạng có thể hiển thị chính xác như hiện tại.",
     "tool.description": "Một công cụ để yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/mã thông báo), hãy đặt is_password=True và yêu cầu chính xác một mục cho mỗi cuộc gọi.",
     "x_search_terms": [
-      "Một công cụ để yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành",
+      "Một công cụ để yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/mã thông báo), hãy đặt is_password=True và yêu cầu chính xác một mục cho mỗi cuộc gọi",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành và nhận được một văn bản trả lời duy nhất.\n\nQuan trọng: Công cụ này chỉ có thể nhận một tin nhắn trả lời cho mỗi cuộc gọi. Không chia đầu vào thành nhiều trường.\n\nAN NINH (QUAN TRỌNG NHẤT):\n- Khi yêu cầu bí mật (mật khẩu, khóa API, mã thông báo, khóa riêng, cookie phiên, v.v.), bạn PHẢI đặt is_password=True.\n- Không bao giờ lặp lại bí mật có được bằng is_password=True trong bất kỳ tin nhắn trợ lý nào sau này.\n- Không lưu trữ bí mật trong bộ nhớ dài hạn hoặc bộ nhớ dùng chung.\n\nHướng dẫn hoạt động:\n- Nếu cần thêm thông tin đầu vào của người dùng, hãy luôn sử dụng công cụ human_ask.\n- Với is_password=True, chỉ yêu cầu một mục bí mật.\n- Nếu cần cả tên người dùng và mật khẩu, hãy gọi human_ask nhiều lần.\n- Không yêu cầu nhiều mục trong một cuộc gọi.\n- Đối với các biểu thức ngày tương đối (hôm nay/năm nay/v.v.), hãy gọi get_current_time.\n- Khi xuất file hoặc code, không bỏ sót toàn bộ nội dung gốc trừ khi người dùng yêu cầu rõ ràng.\n\nHủy bỏ:\n- Để hủy, hãy trả lời bằng một dòng duy nhất: 'c' hoặc 'cancel'.",
     "ui.footer": "=== /human_ask (nhập của người dùng) ===",
@@ -363,13 +315,9 @@
     "param.message.description": "Zapisz po japońsku, o co chcesz poprosić osobę, w formacie, który można wyświetlić dokładnie w takiej postaci, w jakiej jest.",
     "tool.description": "Narzędzie prosząc użytkownika o dane wejściowe/decyzję, których model nie jest w stanie sam wykonać. Uwaga dotycząca bezpieczeństwa: żądając sekretów (hasła/tokeny), ustaw is_password=True i poproś o dokładnie jeden element na każde połączenie.",
     "x_search_terms": [
-      "Narzędzie prosząc użytkownika o dane wejściowe/decyzję, których model nie jest w stanie sam wykonać",
+      "Narzędzie prosząc użytkownika o dane wejściowe/decyzję, których model nie jest w stanie sam wykonać. Uwaga dotycząca bezpieczeństwa: żądając sekretów (hasła/tokeny), ustaw is_password=True i poproś o dokładnie jeden element na każde połączenie",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: poproś użytkownika o wprowadzenie danych/decyzji, których model nie jest w stanie sam wykonać, i otrzymaj pojedynczą wiadomość tekstową odpowiedzi.\n\nWażne: to narzędzie może otrzymać tylko jedną wiadomość tekstową odpowiedzi na połączenie. Nie dziel danych wejściowych na wiele pól.\n\nBEZPIECZEŃSTWO (NAJWAŻNIEJSZE):\n- Żądając sekretów (hasła, klucze API, tokeny, klucze prywatne, pliki cookie sesji itp.) MUSISZ ustawić is_password=True.\n- Nigdy nie powtarzaj sekretu uzyskanego za pomocą is_password=True w późniejszych wiadomościach asystenta.\n- Nie przechowuj sekretów w pamięci długotrwałej ani współdzielonej.\n\nWytyczne operacyjne:\n- Jeśli potrzebny jest dodatkowy wkład użytkownika, zawsze używaj narzędzia human_ask.\n- W przypadku is_password=True poproś tylko o jeden tajny przedmiot.\n- Jeśli wymagana jest zarówno nazwa użytkownika, jak i hasło, wywołaj wielokrotnie human_ask.\n- Nie zamawiaj wielu przedmiotów w ramach jednego połączenia.\n- Aby uzyskać względne wyrażenia dat (dziś/ten rok/itd.), wywołaj funkcję get_current_time.\n- Podczas wysyłania plików lub kodu nie pomijaj pełnej oryginalnej treści, chyba że użytkownik wyraźnie o to poprosi.\n\nAnulowanie:\n- Aby anulować, odpowiedz jedną linijką: „c” lub „anuluj”.",
     "ui.footer": "=== /human_ask (dane wprowadzane przez użytkownika) ===",
@@ -394,11 +342,7 @@
     "x_search_terms": [
       "मानव उपयोगकर्ता से इनपुट/निर्णय के लिए पूछने का एक उपकरण जिसे मॉडल स्वयं पूरा नहीं कर सकता है। सुरक्षा नोट: रहस्य (पासवर्ड/टोकन) का अनुरोध करते समय, is_password=True सेट करें और प्रति कॉल बिल्कुल एक आइटम मांगें।",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: मानव उपयोगकर्ता से इनपुट/निर्णय के लिए पूछें जिसे मॉडल स्वयं पूरा नहीं कर सकता है और एक ही उत्तर पाठ प्राप्त करता है।\n\nमहत्वपूर्ण: यह टूल प्रति कॉल केवल एक उत्तर पाठ प्राप्त कर सकता है। इनपुट को एकाधिक फ़ील्ड में विभाजित न करें.\n\nसुरक्षा (सबसे महत्वपूर्ण):\n- रहस्य (पासवर्ड, एपीआई कुंजी, टोकन, निजी कुंजी, सत्र कुकीज़, आदि) का अनुरोध करते समय, आपको is_password=True सेट करना होगा।\n- is_password=True से प्राप्त रहस्य को बाद के किसी भी सहायक संदेश में कभी न दोहराएं।\n- रहस्यों को दीर्घकालिक स्मृति या साझा स्मृति में संग्रहित न करें।\n\nपरिचालन दिशानिर्देश:\n- यदि अतिरिक्त उपयोगकर्ता इनपुट की आवश्यकता है, तो हमेशा human_ask टूल का उपयोग करें।\n- is_password=True के साथ, केवल एक गुप्त वस्तु के लिए पूछें।\n- यदि उपयोगकर्ता नाम और पासवर्ड दोनों आवश्यक हैं, तो human_ask को कई बार कॉल करें।\n- एक ही कॉल में एकाधिक आइटम का अनुरोध न करें।\n- सापेक्ष दिनांक अभिव्यक्तियों (आज/इस वर्ष/आदि) के लिए, get_current_time पर कॉल करें।\n- फ़ाइलें या कोड आउटपुट करते समय, पूर्ण मूल सामग्री को न छोड़ें जब तक कि उपयोगकर्ता स्पष्ट रूप से इसका अनुरोध न करे।\n\nरद्दीकरण:\n- रद्द करने के लिए, एक पंक्ति में उत्तर दें: 'सी' या 'रद्द करें'।",
     "ui.footer": "=== /human_ask (उपयोगकर्ता इनपुट) ===",
@@ -421,13 +365,9 @@
     "param.message.description": "اكتب بالعربية ما تريد أن تطلب من شخصٍ ما فعله، بصيغة يمكن عرضها كما هي.",
     "tool.description": "أداة تطلب من المستخدم البشري إدخال/قرار لا يستطيع النموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز مميزة)، قم بتعيين is_password=True واطلب عنصرًا واحدًا بالضبط لكل مكالمة.",
     "x_search_terms": [
-      "أداة تطلب من المستخدم البشري إدخال/قرار لا يستطيع النموذج إكماله بنفسه",
+      "أداة تطلب من المستخدم البشري إدخال/قرار لا يستطيع النموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز مميزة)، قم بتعيين is_password=True واطلب عنصرًا واحدًا بالضبط لكل مكالمة",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "يتم استخدام هذه الأداة للغرض التالي: مطالبة المستخدم البشري بإدخال/قرار لا يستطيع النموذج إكماله بنفسه وتلقي نص رد واحد.\n\nهام: يمكن لهذه الأداة تلقي نص رد واحد فقط لكل مكالمة. لا تقم بتقسيم الإدخال إلى حقول متعددة.\n\nالأمن (الأهم):\n- عند طلب الأسرار (كلمات المرور، مفاتيح API، الرموز المميزة، المفاتيح الخاصة، ملفات تعريف الارتباط للجلسة، وما إلى ذلك)، يجب عليك تعيين is_password=True.\n- لا تكرر مطلقًا السر الذي تم الحصول عليه باستخدام is_password=True في أي رسائل مساعد لاحقة.\n- لا تقم بتخزين الأسرار في الذاكرة طويلة المدى أو الذاكرة المشتركة.\n\nالمبادئ التوجيهية التشغيلية:\n- إذا كانت هناك حاجة إلى إدخال إضافي من المستخدم، فاستخدم دائمًا أداة human_ask.\n- مع is_password=True، اطلب عنصرًا سريًا واحدًا فقط.\n- إذا كان اسم المستخدم وكلمة المرور مطلوبين، فاتصل بـ human_ask عدة مرات.\n- لا تطلب عناصر متعددة في مكالمة واحدة.\n- بالنسبة لتعبيرات التاريخ النسبي (اليوم/هذا العام/إلخ)، اتصل بـ get_current_time.\n- عند إخراج الملفات أو التعليمات البرمجية، لا تحذف المحتوى الأصلي الكامل إلا إذا طلب المستخدم ذلك صراحةً.\n\nالإلغاء:\n- للإلغاء، قم بالرد بسطر واحد: \"c\" أو \"cancel\".",
     "ui.footer": "=== /human_ask (إدخال المستخدم) ===",
@@ -450,13 +390,9 @@
     "param.message.description": "Skriv på japanska vad du vill be en människa att göra, i ett format som kan visas exakt som det är.",
     "tool.description": "Ett verktyg för att be den mänskliga användaren om en indata/beslut som modellen inte kan slutföra själv. Säkerhetsnotis: när du begär hemligheter (lösenord/token), sätt is_password=True och be om exakt ett objekt per anrop.",
     "x_search_terms": [
-      "Ett verktyg för att be den mänskliga användaren om en indata/beslut som modellen inte kan slutföra själv",
+      "Ett verktyg för att be den mänskliga användaren om en indata/beslut som modellen inte kan slutföra själv. Säkerhetsnotis: när du begär hemligheter (lösenord/token), sätt is_password=True och be om exakt ett objekt per anrop",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: be den mänskliga användaren om en indata eller ett beslut som modellen inte kan slutföra själv och ta emot en enda svarstext.\n\nViktigt: det här verktyget kan bara ta emot en svarstext per anrop. Dela inte upp inmatningen i flera fält.\n\nSÄKERHET (VIKTIGAST):\n- När du begär hemligheter (lösenord, API-nycklar, token, privata nycklar, sessionscookies osv.) MÅSTE du sätta is_password=True.\n- Upprepa aldrig en hemlighet som erhållits med is_password=True i några senare assistentsvar.\n- Lagra inte hemligheter i långtidsminne eller delat minne.\n\nDriftsriktlinjer:\n- Om ytterligare användarinmatning behövs, använd alltid human_ask-verktyget.\n- Med is_password=True, be bara om ett hemligt objekt.\n- Om både användarnamn och lösenord krävs, anropa human_ask flera gånger.\n- Begär inte flera objekt i ett enda anrop.\n- För relativa datumuttryck (idag/i år/osv.) anropa get_current_time.\n- När du matar ut filer eller kod, utelämna inte hela originalinnehållet om inte användaren uttryckligen begär det.\n\nAvbryt:\n- För att avbryta, svara med en enda rad: 'c' eller 'cancel'.",
     "ui.footer": "=== /human_ask (användarinmatning) ===",
@@ -479,13 +415,9 @@
     "param.message.description": "Andika kwa Kijapani kile unachotaka kumwomba binadamu afanye, katika umbizo linaloweza kuonyeshwa kama lilivyo.",
     "tool.description": "Zana ya kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kukamilisha peke yake. Dokezo la usalama: unapoomba siri (nywila/tokeni), weka is_password=True na omba kipengele kimoja tu kwa kila simu.",
     "x_search_terms": [
-      "Zana ya kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kukamilisha peke yake",
+      "Zana ya kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kukamilisha peke yake. Dokezo la usalama: unapoomba siri (nywila/tokeni), weka is_password=True na omba kipengele kimoja tu kwa kila simu",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Zana hii hutumiwa kwa madhumuni yafuatayo: kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kuukamilisha yenyewe, na kupokea jibu moja la maandishi.\n\nMuhimu: zana hii inaweza kupokea jibu moja tu kwa kila simu. Usigawanye ingizo katika sehemu nyingi.\n\nUSALAMA (MUHIMU ZAIDI):\n- Unapoomba siri (nywila, funguo za API, tokeni, funguo binafsi, cookie za kipindi, n.k.), lazima uweke is_password=True.\n- Usirudie kamwe siri iliyopatikana kwa is_password=True katika ujumbe wowote wa baadaye wa msaidizi.\n- Usihifadhi siri katika kumbukumbu ya muda mrefu au kumbukumbu ya pamoja.\n\nMiongozo ya uendeshaji:\n- Ikiwa ingizo la ziada la mtumiaji linahitajika, tumia kila mara zana ya human_ask.\n- Ukiwa na is_password=True, uliza kipengele kimoja tu cha siri.\n- Ikiwa jina la mtumiaji na nenosiri vyote vinahitajika, piga human_ask mara kadhaa.\n- Usiombe vipengele vingi katika simu moja.\n- Kwa vielezi vya tarehe vya ulinganishi (leo/mwaka huu/n.k.), piga get_current_time.\n- Unapotoa faili au msimbo, usiacha maudhui yote ya asili isipokuwa mtumiaji ameomba waziwazi.\n\nKughairi:\n- Ili kughairi, jibu kwa mstari mmoja: \"c\" au \"cancel\".",
     "ui.footer": "=== /human_ask (ingizo la mtumiaji) ===",
@@ -508,13 +440,9 @@
     "param.message.description": "Skriv på japansk hva du vil be et menneske om å gjøre, i et format som kan vises nøyaktig som det er.",
     "tool.description": "Et verktøy for å be den menneskelige brukeren om en input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsnotat: når du ber om hemmeligheter (passord/token), sett is_password=True og be om nøyaktig ett element per kall.",
     "x_search_terms": [
-      "Et verktøy for å be den menneskelige brukeren om en input/beslutning som modellen ikke kan fullføre selv",
+      "Et verktøy for å be den menneskelige brukeren om en input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsnotat: når du ber om hemmeligheter (passord/token), sett is_password=True og be om nøyaktig ett element per kall",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: be den menneskelige brukeren om en input eller beslutning som modellen ikke kan fullføre selv, og motta én svartekst.\n\nViktig: dette verktøyet kan bare motta én svartekst per kall. Ikke del opp inndata i flere felt.\n\nSIKKERHET (VIKTIGST):\n- Når du ber om hemmeligheter (passord, API-nøkler, token, private nøkler, sesjonscookies osv.), MÅ du sette is_password=True.\n- Gjenta aldri en hemmelighet som er hentet med is_password=True i senere assistentmeldinger.\n- Ikke lagre hemmeligheter i langtidsminne eller delt minne.\n\nOperasjonelle retningslinjer:\n- Hvis du trenger mer brukerinput, bruk alltid human_ask-verktøyet.\n- Med is_password=True, be bare om ett hemmelig element.\n- Hvis både brukernavn og passord trengs, kall human_ask flere ganger.\n- Ikke be om flere elementer i ett kall.\n- For relative dato-uttrykk (i dag/i år/osv.), kall get_current_time.\n- Når du sender ut filer eller kode, ikke utelat hele originalinnholdet med mindre brukeren uttrykkelig ber om det.\n\nAvbryt:\n- For å avbryte, svar med én linje: 'c' eller 'cancel'.",
     "ui.footer": "=== /human_ask (brukerinput) ===",
@@ -537,13 +465,9 @@
     "param.message.description": "Schrijf in het Japans wat u aan een mens wilt vragen, in een formaat dat exact zo kan worden weergegeven.",
     "tool.description": "Een tool om de menselijke gebruiker om invoer/beslissing te vragen die het model niet zelf kan afhandelen. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) zet u is_password=True en vraagt u per call precies één item.",
     "x_search_terms": [
-      "Een tool om de menselijke gebruiker om invoer/beslissing te vragen die het model niet zelf kan afhandelen",
+      "Een tool om de menselijke gebruiker om invoer/beslissing te vragen die het model niet zelf kan afhandelen. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) zet u is_password=True en vraagt u per call precies één item",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: vraag de menselijke gebruiker om invoer/beslissing die het model niet zelf kan afhandelen en ontvang één antwoordtekst.\n\nBelangrijk: Deze tool kan per call slechts één antwoordtekst ontvangen. Splits invoer niet over meerdere velden.\n\nBEVEILIGING (ZEER BELANGRIJK):\n- Als u geheimen opvraagt (wachtwoorden, API-sleutels, tokens, privésleutels, sessie-cookies, enz.), MOET u is_password=True instellen.\n- Herhaal een met is_password=True verkregen geheim nooit in latere assistentberichten.\n- Sla geheimen niet op in langetermijngeheugen of gedeeld geheugen.\n\nOperationele richtlijnen:\n- Als extra gebruikersinvoer nodig is, gebruik altijd de human_ask-tool.\n- Bij is_password=True, vraag slechts één geheim item.\n- Als zowel gebruikersnaam als wachtwoord nodig zijn, roep human_ask meerdere keren aan.\n- Vraag niet meerdere items in één call.\n- Voor relatieve datumuitdrukkingen (vandaag/dit jaar/etc.) roep get_current_time aan.\n- Wanneer u bestanden of code uitvoert, laat de volledige originele inhoud niet weg tenzij de gebruiker daar expliciet om vraagt.\n\nAnnuleren:\n- Om te annuleren, antwoord met één regel: 'c' of 'cancel'.\n",
     "ui.footer": "=== /human_ask (gebruikersinvoer) ===",
@@ -566,13 +490,9 @@
     "param.message.description": "Kirjoita japaniksi, mitä haluat pyytää ihmiseltä, muodossa, joka voidaan näyttää sellaisenaan.",
     "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä. Turvahuomio: kun pyydät salaisuuksia (salasanat/tokenit), aseta is_password=True ja kysy kerrallaan vain yksi asia.",
     "x_search_terms": [
-      "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä",
+      "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä. Turvahuomio: kun pyydät salaisuuksia (salasanat/tokenit), aseta is_password=True ja kysy kerrallaan vain yksi asia",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: pyydä ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä, ja vastaanota yksi vastausteksti.\n\nTärkeää: Tämä työkalu voi vastaanottaa vain yhden vastaustekstin kerrallaan. Älä jaa syötettä useisiin kenttiin.\n\nTIETOTURVA (ERITTÄIN TÄRKEÄ):\n- Kun pyydät salaisuuksia (salasanat, API-avaimet, tokenit, yksityiset avaimet, istuntoevästeet jne.), sinun ON asetettava is_password=True.\n- Älä koskaan toista is_password=True:llä saatua salaisuutta myöhemmissä avustajaviesteissä.\n- Älä tallenna salaisuuksia pitkäaikaiseen muistiin tai jaettuun muistiin.\n\nToimintaohjeet:\n- Jos tarvitaan lisäkäyttäjän syöte, käytä aina human_ask-työkalua.\n- Kun is_password=True, kysy vain yhtä salaisuutta.\n- Jos sekä käyttäjätunnus että salasana tarvitaan, kutsu human_askia useita kertoja.\n- Älä pyydä useita asioita yhdellä kutsulla.\n- Suhteellisia päivämääräilmauksia (tänään/tämä vuosi/etc.) varten kutsu get_current_time.\n- Kun tuotat tiedostoja tai koodia, älä jätä pois koko alkuperäistä sisältöä, ellei käyttäjä sitä nimenomaisesti pyydä.\n\nPeruutus:\n- Peruaksesi vastaa yhdellä rivillä: 'c' tai 'cancel'.\n",
     "ui.footer": "=== /human_ask (käyttäjän syöte) ===",
@@ -595,13 +515,9 @@
     "param.message.description": "Napište japonsky, co chcete po člověku chtít, ve formátu, který lze zobrazit přesně tak, jak je.",
     "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od člověka, které model nedokáže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesla/tokeny) nastavte is_password=True a ptejte se vždy jen na jednu položku.",
     "x_search_terms": [
-      "Nástroj pro vyžádání vstupu/rozhodnutí od člověka, které model nedokáže dokončit sám",
+      "Nástroj pro vyžádání vstupu/rozhodnutí od člověka, které model nedokáže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesla/tokeny) nastavte is_password=True a ptejte se vždy jen na jednu položku",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Tento nástroj slouží k tomu, aby si model vyžádal od člověka vstup nebo rozhodnutí, které nedokáže dokončit sám, a přijal jeden text odpovědi.\n\nDůležité: tento nástroj může přijmout pouze jeden text odpovědi na jedno volání. Nevkládejte vstup do více polí.\n\nBEZPEČNOST (NEJDŮLEŽITĚJŠÍ):\n- Při vyžadování tajných údajů (hesla, API klíče, tokeny, soukromé klíče, session cookies atd.) MUSÍTE nastavit is_password=True.\n- Tajný údaj získaný pomocí is_password=True nikdy neopakujte v pozdějších zprávách asistenta.\n- Tajné údaje neukládejte do dlouhodobé paměti ani do sdílené paměti.\n\nProvozní pokyny:\n- Pokud je potřeba další vstup od uživatele, vždy použijte nástroj human_ask.\n- Při is_password=True se ptejte jen na jednu tajnou položku.\n- Pokud je potřeba uživatelské jméno i heslo, zavolejte human_ask vícekrát.\n- Nepožadujte více položek v jednom volání.\n- Pro relativní datové výrazy (dnes/letos/atd.) zavolejte get_current_time.\n- Při výstupu souborů nebo kódu nevynechávejte celý původní obsah, pokud to uživatel výslovně nepožaduje.\n\nZrušení:\n- Chcete-li zrušit, odpovězte jedním řádkem: \"c\" nebo \"cancel\".",
     "ui.footer": "=== /human_ask (vstup uživatele) ===",
@@ -624,13 +540,9 @@
     "param.message.description": "Напишіть японською, що ви хочете попросити людину зробити, у форматі, який можна показати без змін.",
     "tool.description": "Інструмент для запиту у людини вводу/рішення, яке модель не може виконати сама. Примітка з безпеки: коли запитуєте секрети (паролі/токени), встановіть is_password=True і запитуйте рівно один елемент за виклик.",
     "x_search_terms": [
-      "Інструмент для запиту у людини вводу/рішення, яке модель не може виконати сама",
+      "Інструмент для запиту у людини вводу/рішення, яке модель не може виконати сама. Примітка з безпеки: коли запитуєте секрети (паролі/токени), встановіть is_password=True і запитуйте рівно один елемент за виклик",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Цей інструмент використовується для того, щоб попросити у людини ввід або рішення, яке модель не може виконати сама, і отримати один текст відповіді.\n\nВажливо: цей інструмент може приймати лише один текст відповіді за один виклик. Не розбивайте введення на кілька полів.\n\nБЕЗПЕКА (НАЙВАЖЛИВІШЕ):\n- Коли запитуєте секрети (паролі, API-ключі, токени, приватні ключі, session cookies тощо), ОБОВʼЯЗКОВО встановлюйте is_password=True.\n- Ніколи не повторюйте секрет, отриманий через is_password=True, у подальших повідомленнях асистента.\n- Не зберігайте секрети в довготривалій або спільній памʼяті.\n\nОпераційні вказівки:\n- Якщо потрібен додатковий ввід користувача, завжди використовуйте інструмент human_ask.\n- При is_password=True запитуйте лише один секретний елемент.\n- Якщо потрібні і імʼя користувача, і пароль, викликайте human_ask кілька разів.\n- Не запитуйте кілька елементів за один виклик.\n- Для відносних дат (сьогодні/цього року/тощо) викликайте get_current_time.\n- Під час виводу файлів або коду не опускайте повний оригінальний вміст, якщо користувач явно не попросив про це.\n\nСкасування:\n- Щоб скасувати, дайте одну строку: \"c\" або \"cancel\".",
     "ui.footer": "=== /human_ask (ввід користувача) ===",
@@ -653,13 +565,9 @@
     "param.message.description": "Bir insandan yapmasını istediğiniz şeyi Japonca olarak, tam olarak olduğu gibi görüntülenebilecek bir formatta yazın.",
     "tool.description": "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç. Güvenlik notu: Gizli bilgileri (şifreler/belirteçler) isterken, is_password=True değerini ayarlayın ve arama başına tam olarak bir öğe isteyin.",
     "x_search_terms": [
-      "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç",
+      "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç. Güvenlik notu: Gizli bilgileri (şifreler/belirteçler) isterken, is_password=True değerini ayarlayın ve arama başına tam olarak bir öğe isteyin",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "Bu araç şu amaçlarla kullanılır: Modelin kendi başına tamamlayamayacağı bir girdiyi/kararı insan kullanıcıdan istemek ve tek bir yanıt metni almak.\n\nÖnemli: Bu araç, çağrı başına yalnızca bir yanıt metni alabilir. Girişi birden fazla alana bölmeyin.\n\nSECURITY (MOST IMPORTANT):\n- Sırları isterken (şifreler, API anahtarlar, belirteçler, özel anahtarlar, oturum çerezleri vb.), is_password=True ayarını MUST yaparsınız.\n- is_password=True ile elde edilen bir sırrı daha sonraki asistan mesajlarında asla tekrarlamayın.\n- Sırları uzun süreli hafızada veya paylaşılan hafızada saklamayın.\n\nOperasyonel yönergeler:\n- Ek kullanıcı girişi gerekiyorsa daima human_ask aracını kullanın.\n- is_password=True ile yalnızca bir gizli öğe isteyin.\n- Hem kullanıcı adı hem de şifre gerekiyorsa human_ask'ı birden çok kez arayın.\n- Tek bir aramada birden fazla öğe talep etmeyin.\n- Göreli tarih ifadeleri için (bugün/bu yıl/vb.), get_current_time'ı çağırın.\n- Dosya veya kod çıktısı alırken, kullanıcı açıkça talep etmedikçe orijinal içeriğin tamamını çıkarmayın.\n\nİptal:\n- İptal etmek için tek satırlık yanıt verin: 'c' veya 'iptal'.",
     "ui.footer": "=== /human_ask (kullanıcı girişi) ===",
@@ -684,11 +592,7 @@
     "x_search_terms": [
       "เครื่องมือสำหรับขอให้ผู้ใช้ที่เป็นมนุษย์ป้อนข้อมูล/ตัดสินใจที่โมเดลไม่สามารถทำให้เสร็จได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น) ให้ตั้งค่า is_password=True และขอเพียงหนึ่งรายการต่อหนึ่งครั้ง",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อขอให้ผู้ใช้ที่เป็นมนุษย์ป้อนข้อมูลหรือการตัดสินใจที่โมเดลไม่สามารถทำให้เสร็จได้ด้วยตัวเอง และรับข้อความตอบกลับหนึ่งข้อความ\n\nสำคัญ: เครื่องมือนี้รับข้อความตอบกลับได้เพียงหนึ่งข้อความต่อหนึ่งการเรียก ห้ามแยกอินพุตเป็นหลายฟิลด์\n\nความปลอดภัย (สำคัญที่สุด):\n- เมื่อขอข้อมูลลับ (รหัสผ่าน คีย์ API โทเค็น คีย์ส่วนตัว คุกกี้เซสชัน ฯลฯ) ต้องตั้งค่า is_password=True เสมอ\n- ห้ามนำข้อมูลลับที่ได้ด้วย is_password=True ไปกล่าวซ้ำในข้อความของผู้ช่วยภายหลัง\n- ห้ามเก็บข้อมูลลับไว้ในหน่วยความจำระยะยาวหรือหน่วยความจำที่ใช้ร่วมกัน\n\nแนวทางการใช้งาน:\n- หากต้องการข้อมูลเพิ่มเติมจากผู้ใช้ ให้ใช้ human_ask เสมอ\n- เมื่อ is_password=True ให้ขอข้อมูลลับเพียงหนึ่งรายการ\n- หากต้องการทั้งชื่อผู้ใช้และรหัสผ่าน ให้เรียก human_ask หลายครั้ง\n- ห้ามขอหลายรายการในการเรียกครั้งเดียว\n- สำหรับนิพจน์วันที่แบบสัมพัทธ์ (วันนี้/ปีนี้/ฯลฯ) ให้เรียก get_current_time\n- เมื่อส่งออกไฟล์หรือโค้ด อย่าละเว้นเนื้อหาต้นฉบับทั้งหมด เว้นแต่ผู้ใช้จะร้องขออย่างชัดเจน\n\nการยกเลิก:\n- หากต้องการยกเลิก ให้ตอบเป็นหนึ่งบรรทัดว่า \"c\" หรือ \"cancel\"",
     "ui.footer": "=== /human_ask (ข้อมูลที่ผู้ใช้ป้อน) ===",
@@ -711,13 +615,9 @@
     "param.message.description": "请用日语写下您想要求人类做的事情，并以可以原样显示的格式表达。",
     "tool.description": "一种向人类用户询问模型无法自行完成的输入/决策的工具。安全说明：请求机密（密码/令牌）时，设置 is_password=True 并在每次调用时仅请求一项。",
     "x_search_terms": [
-      "一种向人类用户询问模型无法自行完成的输入/决策的工具",
+      "一种向人类用户询问模型无法自行完成的输入/决策的工具。安全说明：请求机密（密码/令牌）时，设置 is_password=True 并在每次调用时仅请求一项",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "该工具用于以下目的：向人类用户询问模型无法自行完成的输入/决定，并接收一条回复文本。\n\n重要：此工具每次调用只能接收一条回复文本。不要将输入拆分为多个字段。\n\n安全（最重要）：\n- 请求机密信息（密码、API 密钥、令牌、私钥、会话 cookie 等）时，必须设置 is_password=True。\n- 切勿在后续任何助手消息中重复通过 is_password=True 获得的秘密。\n- 不要将秘密存储在长期记忆或共享记忆中。\n\n操作指引：\n- 如果需要额外的用户输入，请始终使用 human_ask 工具。\n- 在 is_password=True 时，只请求一个机密项。\n- 如果同时需要用户名和密码，请多次调用 human_ask。\n- 不要在一次调用中请求多个项目。\n- 对于相对日期表达式（今天/今年/等），请调用 get_current_time。\n- 输出文件或代码时，除非用户明确要求，否则不要省略完整的原始内容。\n\n取消：\n- 要取消，请回复一行：\"c\" 或 \"cancel\"。",
     "ui.footer": "=== /human_ask（用户输入）===",
@@ -740,13 +640,9 @@
     "param.message.description": "請用日文寫下您想要求人類做的事情，並以可以原樣顯示的格式表達。",
     "tool.description": "一種向人類使用者詢問模型無法自行完成的輸入/決策的工具。安全說明：請求機密（密碼/權杖）時，設定 is_password=True，且每次呼叫只請求一項。",
     "x_search_terms": [
-      "一種向人類使用者詢問模型無法自行完成的輸入/決策的工具",
+      "一種向人類使用者詢問模型無法自行完成的輸入/決策的工具。安全說明：請求機密（密碼/權杖）時，設定 is_password=True，且每次呼叫只請求一項",
       "human_ask",
-      "human ask",
-      "ask user",
-      "prompt user",
-      "human input",
-      "decision"
+      "human ask"
     ],
     "tool.system_prompt": "此工具用於以下目的：向人類使用者詢問模型無法自行完成的輸入/決定，並接收一則回應文字。\n\n重要：此工具每次呼叫只能接收一則回應文字。不要將輸入拆分為多個欄位。\n\n安全性（最重要）：\n- 當要求機密資訊（密碼、API 金鑰、權杖、私鑰、工作階段 cookie 等）時，必須設定 is_password=True。\n- 切勿在後續任何助理訊息中重複透過 is_password=True 取得的秘密。\n- 不要將秘密儲存在長期記憶或共享記憶中。\n\n操作指引：\n- 如果需要額外的使用者輸入，請一律使用 human_ask 工具。\n- 在 is_password=True 時，只請求一個機密項目。\n- 如果同時需要使用者名稱和密碼，請多次呼叫 human_ask。\n- 不要在一次呼叫中要求多個項目。\n- 對於相對日期表達式（今天/今年/等），請呼叫 get_current_time。\n- 輸出檔案或程式碼時，除非使用者明確要求，否則不要省略完整的原始內容。\n\n取消：\n- 若要取消，請回覆一行：「c」或「cancel」。",
     "ui.footer": "=== /human_ask（使用者輸入）===",
