@@ -1,0 +1,76 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+</p>
+
+# uag (عامل هوش مصنوعی محلی)
+
+uag یک عامل تعاملی محلی است که **دستورها را اجرا می‌کند**، **فایل‌ها را مدیریت می‌کند** و **فایل‌های داده** مانند PDF، PPTX و Excel را می‌خواند. این ابزار سه رابط کاربری ارائه می‌دهد: CLI، GUI و Web.
+uag طوری ساخته شده است که شما را از **وابستگی به برنامه‌های قفل‌شده به یک فروشنده** آزاد نگه دارد: رابطی را انتخاب کنید که با کار شما سازگار است، ارائه‌دهنده را عوض کنید و کنترل محیط خود را در دست داشته باشید.
+GitHub: https://github.com/awaku7/agentcli
+
+## نصب
+
+با pip از PyPI نصب کنید:
+
+```bash
+pip install uag
+```
+
+اگر از virtual environment استفاده می‌کنید، ابتدا آن را فعال کنید و سپس دستور بالا را اجرا کنید.
+
+در اولین اجرا، اگر متغیرهای لازمِ ارائه‌دهنده موجود نباشند، `uag` به‌طور خودکار setup wizard را اجرا می‌کند. برای جزئیات پیکربندی، [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) را ببینید.
+
+## ویژگی‌های اصلی
+
+- **مجموعه ابزار کاربردی**: ویرایش فایل، جست‌وجوی وب، استخراج PDF/PPTX/Excel، تولید تصویر و تحلیل تصویر.
+- **پشتیبانی از چند ارائه‌دهنده**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **سه رابط کاربری**:
+  - **CLI**: `uag` / `python -m uagent`
+  - **GUI**: `uagg` / `python -m uagent.gui`
+  - **Web**: `uagw` / `python -m uagent.web`
+  - **A2A server**: `uaga` / `python -m uagent.a2a.server`
+- **پشتیبانی از MCP**: اتصال به سرورهای ابزار MCP خارجی.
+- **تداوم نشست**: با تغییر مدل یا ارائه‌دهنده، زمینه گفتگو حفظ می‌شود.
+- **Web Inspector**: با `playwright_inspector` جابه‌جایی‌های مرورگر، DOM snapshot و screenshot را ذخیره کنید.
+- **مستندات داخلی**: با `uag docs` مستندات همراه را بخوانید.
+
+## استفاده
+
+### شروع و خروج
+برای شروع، در ترمینال `uag` را اجرا کنید. برای خروج `:exit` را وارد کنید.
+
+### سرور A2A
+یک سرور HTTP سازگار با Agent2Agent راه‌اندازی کنید:
+
+```bash
+uaga
+```
+
+برای تنظیمات `UAGENT_A2A_*` مانند احراز هویت، میزبان، پورت، reload، public base URL، concurrency و engine، به [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) مراجعه کنید.
+
+### نکته‌های کاربردی
+- `:tools`: ابزارهای بارگذاری‌شده را نشان می‌دهد
+- `:logs [n]`: لاگ‌های اخیر نشست را نشان می‌دهد
+- `:load <index>`: یک نشست قبلی را بارگذاری می‌کند
+- `:skills`: Agent Skills را انتخاب و بارگذاری می‌کند
+- `:shrink [n]`: history را خلاصه می‌کند و آخرین `n` پیام را نگه می‌دارد
+
+## پیکربندی و جزئیات
+
+### متغیرهای محیطی و راه‌اندازی
+برای API keyها، تنظیمات زبان (`UAGENT_LANG`)، تنظیمات shrink history و موارد دیگر، [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) را ببینید.
+
+- **Setup wizard**: `python -m uagent.setup_cli`
+- **محیط رمزنگاری‌شده**: برای رمزنگاری `.env` به `.env.sec` از `uag_envsec` استفاده کنید
+- **به‌روزرسانی مقادیر رمزنگاری‌شده**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+
+### یادداشت Responses API
+اگر `UAGENT_RESPONSES=1` را تنظیم کنید، برای ارائه‌دهنده‌های OpenAI / Azure / Bedrock / OpenRouter / Ollama از Responses API استفاده می‌شود.
+Gemini / Claude / Vertex AI از مسیر بومی API خود استفاده می‌کنند و شامل Responses API نیستند.
+Image analysis از طریق Responses API فعلاً فقط برای OpenAI / Azure / Bedrock / OpenRouter محدود است.
+برای سایر ارائه‌دهنده‌ها، uag به مسیر provider-specific یا chat-completions برمی‌گردد.
+
+### مستندات توسعه‌دهنده و ترجمه‌ها
+- **Developer docs**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Add locales**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
+- **ترجمه‌های دیگر README**: [انگلیسی](https://github.com/awaku7/agentcli/blob/main/README.md) / [ژاپنی](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [آلمانی](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [اسپانیایی](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [فرانسوی](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [ایتالیایی](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [کره‌ای](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [پرتغالی (برزیل)](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [روسی](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [تایلندی](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [چینی ساده‌شده](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [چینی سنتی](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [لهستانی](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [ویتنامی](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [اندونزیایی](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [عربی](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [هندی](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [پرتغالی](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [سوئدی](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [نروژی بوکمال](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [فنلاندی](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [هلندی](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [چکی](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [اوکراینی](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [سواحیلی](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [بنگالی](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [فارسی](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [مغولی](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [مراتی](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

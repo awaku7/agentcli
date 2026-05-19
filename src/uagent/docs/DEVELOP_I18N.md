@@ -8,7 +8,7 @@ This document describes i18n (internationalization) conventions for the **host a
 
 - **English is the default language**.
 - **Japanese is provided as an additional translation** via gettext.
-- Shipped locales: `ar`, `cs`, `de`, `es`, `fi`, `fr`, `hi`, `id`, `it`, `ja`, `ko`, `nb`, `nl`, `pl`, `pt`, `pt_BR`, `ru`, `sv`, `th`, `uk`, `vi`, `zh_CN`, `zh_TW`.
+- Shipped locales: `ar`, `bn`, `cs`, `de`, `es`, `fa`, `fi`, `fr`, `hi`, `id`, `it`, `ja`, `ko`, `nb`, `nl`, `pl`, `pt`, `pt_BR`, `ru`, `sv`, `th`, `uk`, `vi`, `zh_CN`, `zh_TW`, `mn`, `mr`.
 - Translation must be **fail-safe**:
   - If a translation is missing, the program must keep working and show the English msgid.
 - Prefer translating **user-facing output**.
@@ -20,8 +20,8 @@ This document describes i18n (internationalization) conventions for the **host a
 
 - Gettext domain: `uag`
 - Locale files:
-  - `src/uagent/locales/ja/LC_MESSAGES/uag.po`
-  - `src/uagent/locales/ja/LC_MESSAGES/uag.mo`
+  - `src/uagent/locales/<lang>/LC_MESSAGES/uag.po`
+  - `src/uagent/locales/<lang>/LC_MESSAGES/uag.mo`
   - (optional) `src/uagent/locales/en/LC_MESSAGES/uag.po` (template)
 
 ### Host-side translator
