@@ -310,5 +310,53 @@
       "python exec"
     ],
     "tool.system_prompt": "以受控方式執行 Python 程式碼。\n- 如果需要 Python 標準函式庫功能或可靠的數值計算，請使用此工具。\n- 如果提供了檔案路徑或 glob 樣式，請對這些目標執行 py_compile 並回傳結果。\n- 在執行程式碼前，請簡要說明將要執行的內容。\n- 除非確有必要，不要使用 cmd_exec 來執行 Python。"
+  },
+  "bn": {
+    "param.code.description": "নির্বাহ করার জন্য Python কোড (একটি লাইন বা বহু লাইন)।",
+    "param.path.description": "py_compile দিয়ে যাচাই করার জন্য একটি Python ফাইল, ডিরেক্টরি, বা glob pattern। ডিরেক্টরিগুলোতে *.py ফাইলের জন্য পুনরাবৃত্তভাবে স্ক্যান করা হয়।",
+    "param.paths.description": "py_compile দিয়ে যাচাই করার জন্য একাধিক Python ফাইল, ডিরেক্টরি, বা glob pattern। ডিরেক্টরিগুলোতে *.py ফাইলের জন্য পুনরাবৃত্তভাবে স্ক্যান করা হয়।",
+    "tool.description": "Python কোড চালান বা py_compile দিয়ে Python ফাইল যাচাই করুন। গণনা, ডেটা প্রক্রিয়াকরণ, ছোট স্ক্রিপ্ট চালানো, বা সিনট্যাক্স পরীক্ষা—বিশেষ করে যখন নির্ভুলতা গুরুত্বপূর্ণ—এর জন্য এই টুল ব্যবহার করুন। Python কাজের জন্য cmd_exec/cmd_exec_json-এর চেয়ে এটিকে অগ্রাধিকার দিন।",
+    "x_search_terms": [
+      "Python কোড চালান বা py_compile দিয়ে Python ফাইল যাচাই করুন। গণনা, ডেটা প্রক্রিয়াকরণ, ছোট স্ক্রিপ্ট চালানো, বা সিনট্যাক্স পরীক্ষা—বিশেষ করে যখন নির্ভুলতা গুরুত্বপূর্ণ—এর জন্য এই টুল ব্যবহার করুন। Python কাজের জন্য cmd_exec/cmd_exec_json-এর চেয়ে এটিকে অগ্রাধিকার দিন",
+      "python_exec",
+      "python exec"
+    ],
+    "tool.system_prompt": "Python কোড নিয়ন্ত্রিতভাবে চালান।\n- যদি Python standard library-এর সুবিধা বা নির্ভরযোগ্য সংখ্যাগত গণনা দরকার হয়, এই টুল ব্যবহার করুন।\n- যদি ফাইল path বা glob pattern দেওয়া থাকে, সেই target-গুলিতে py_compile চালিয়ে ফলাফল ফেরত দিন।\n- কোড চালানোর আগে সংক্ষেপে জানান কী চালানো হবে।\n- স্পষ্টভাবে প্রয়োজন না হলে Python চালাতে cmd_exec ব্যবহার করবেন না।"
+  },
+  "fa": {
+    "param.code.description": "کد پایتون برای اجرا (تک‌خطی یا چندخطی).",
+    "param.path.description": "یک فایل پایتون، پوشه، یا الگوی glob برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
+    "param.paths.description": "چند فایل پایتون، پوشه، یا الگوی glob برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
+    "tool.description": "کد پایتون را اجرا کنید یا فایل‌های پایتون را با py_compile اعتبارسنجی کنید. از این ابزار برای محاسبات، پردازش داده، اجرای اسکریپت‌های کوتاه، یا بررسی syntax استفاده کنید—به‌ویژه وقتی دقت مهم است. برای کارهای پایتون، این را بر cmd_exec/cmd_exec_json ترجیح دهید.",
+    "x_search_terms": [
+      "کد پایتون را اجرا کنید یا فایل‌های پایتون را با py_compile اعتبارسنجی کنید. از این ابزار برای محاسبات، پردازش داده، اجرای اسکریپت‌های کوتاه، یا بررسی syntax استفاده کنید—به‌ویژه وقتی دقت مهم است. برای کارهای پایتون، این را بر cmd_exec/cmd_exec_json ترجیح دهید",
+      "python_exec",
+      "python exec"
+    ],
+    "tool.system_prompt": "کد پایتون را به‌صورت کنترل‌شده اجرا کنید.\n- اگر به امکانات کتابخانهٔ استاندارد پایتون یا محاسبات عددی قابل‌اعتماد نیاز دارید، از این ابزار استفاده کنید.\n- اگر مسیر فایل یا الگوی glob داده شده است، py_compile را روی آن targets اجرا کنید و نتیجه را برگردانید.\n- پیش از اجرای کد، کوتاه توضیح دهید چه چیزی اجرا خواهد شد.\n- برای اجرای پایتون از cmd_exec استفاده نکنید مگر اینکه صراحتاً لازم باشد."
+  },
+  "mn": {
+    "param.code.description": "Ажиллуулах Python код (нэг мөр эсвэл олон мөр).",
+    "param.path.description": "py_compile-ээр шалгах Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудад зориулан рекурсив скан хийнэ.",
+    "param.paths.description": "py_compile-ээр шалгах олон Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудад зориулан рекурсив скан хийнэ.",
+    "tool.description": "Python код ажиллуулах эсвэл py_compile-ээр Python файлуудыг шалгана. Энэ хэрэгслийг тооцоолол, өгөгдөл боловсруулах, богино скрипт ажиллуулах, эсвэл syntax шалгахад хэрэглэнэ — ялангуяа нарийвчлал чухал үед. Python ажлын хувьд cmd_exec/cmd_exec_json-оос үүнийг илүүд үз.",
+    "x_search_terms": [
+      "Python код ажиллуулах эсвэл py_compile-ээр Python файлуудыг шалгана. Энэ хэрэгслийг тооцоолол, өгөгдөл боловсруулах, богино скрипт ажиллуулах, эсвэл syntax шалгахад хэрэглэнэ — ялангуяа нарийвчлал чухал үед. Python ажлын хувьд cmd_exec/cmd_exec_json-оос үүнийг илүүд үз",
+      "python_exec",
+      "python exec"
+    ],
+    "tool.system_prompt": "Python кодыг хяналттайгаар ажиллуулна уу.\n- Хэрэв Python standard library-ийн боломжууд эсвэл найдвартай тоон тооцоо хэрэгтэй бол энэ хэрэгслийг ашигла.\n- Хэрэв файлын зам эсвэл glob pattern өгөгдвөл, тэдгээр target дээр py_compile ажиллуулаад үр дүнг буцаана уу.\n- Код ажиллуулахын өмнө юу ажиллуулах гэж байгааг товч хэлнэ үү.\n- Явцын хувьд зайлшгүй шаардлагагүй бол Python ажиллуулахад cmd_exec бүү ашигла."
+  },
+  "mr": {
+    "param.code.description": "चालवायचा Python code (single-line किंवा multi-line).",
+    "param.path.description": "py_compile ने validate करण्यासाठी एक Python file, directory, किंवा glob pattern. directories *.py files साठी recursively scan केल्या जातात.",
+    "param.paths.description": "py_compile ने validate करण्यासाठी अनेक Python files, directories, किंवा glob patterns. directories *.py files साठी recursively scan केल्या जातात.",
+    "tool.description": "Python code execute करा किंवा py_compile ने Python files validate करा. गणना, data processing, लहान scripts चालवणे, किंवा syntax checking—विशेषतः अचूकता महत्त्वाची असताना—यासाठी हे tool वापरा. Python कामासाठी cmd_exec/cmd_exec_json पेक्षा याला प्राधान्य द्या.",
+    "x_search_terms": [
+      "Python code execute करा किंवा py_compile ने Python files validate करा. गणना, data processing, लहान scripts चालवणे, किंवा syntax checking—विशेषतः अचूकता महत्त्वाची असताना—यासाठी हे tool वापरा. Python कामासाठी cmd_exec/cmd_exec_json पेक्षा याला प्राधान्य द्या",
+      "python_exec",
+      "python exec"
+    ],
+    "tool.system_prompt": "Python code नियंत्रित पद्धतीने execute करा.\n- Python standard library features किंवा reliable numeric computation हवी असल्यास हे tool वापरा.\n- file paths किंवा glob patterns दिले असल्यास, त्या targets वर py_compile चालवा आणि result परत करा.\n- code चालवण्यापूर्वी थोडक्यात काय चालवणार आहात ते सांगा.\n- स्पष्टपणे गरज नसल्यास Python चालवण्यासाठी cmd_exec वापरू नका."
   }
 }

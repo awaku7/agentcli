@@ -570,5 +570,93 @@
     "err.transcribe_failed": "音訊轉寫失敗：{err}",
     "ok.transcribed": "轉寫完成",
     "warn.empty_transcript": "[WARN] 轉寫結果為空"
+  },
+  "bn": {
+    "tool.description": "একটি অডিও ফাইলকে টেক্সটে ট্রান্সক্রাইব করুন। মিটিং, ইন্টারভিউ ও ভয়েস নোটের জন্য উপযোগী।",
+    "x_search_terms": [
+      "একটি অডিও ফাইলকে টেক্সটে ট্রান্সক্রাইব করুন। মিটিং, ইন্টারভিউ ও ভয়েস নোটের জন্য উপযোগী",
+      "audio_transcribe",
+      "audio transcribe"
+    ],
+    "tool.system_prompt": "দেওয়া অডিও ফাইল ট্রান্সক্রাইব করে শুধু JSON উত্তর দিন। output_format=text হলে ট্রান্সক্রিপ্ট টেক্সট অন্তর্ভুক্ত করুন; output_format=json হলে মৌলিক metadata-ও অন্তর্ভুক্ত করুন।",
+    "param.path.description": "ইনপুট অডিও ফাইলের পথ।",
+    "param.model.description": "ট্রান্সক্রিপশন মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
+    "param.language.description": "ঐচ্ছিক ভাষা-ইঙ্গিত (যেমন 'ja', 'en').",
+    "param.prompt.description": "ট্রান্সক্রিপশন মান উন্নত করতে ঐচ্ছিক context prompt।",
+    "param.output_format.description": "JSON উত্তরে কতটা বিস্তারিত ফেরত দিতে হবে: text বা json।",
+    "err.unsupported_provider": "অডিও ট্রান্সক্রিপশনের জন্য সমর্থিত নয় এমন provider: {provider!r}",
+    "err.openai_import": "openai প্যাকেজ ইম্পোর্ট করতে ব্যর্থ: {err}",
+    "err.path_empty": "path প্রয়োজন",
+    "err.file_not_found": "অডিও ফাইল পাওয়া যায়নি: {path}",
+    "err.invalid_output_format": "অবৈধ output_format: {output_format}",
+    "err.transcribe_failed": "অডিও ট্রান্সক্রিপশন ব্যর্থ হয়েছে: {err}",
+    "ok.transcribed": "ট্রান্সক্রিপশন সম্পন্ন হয়েছে",
+    "warn.empty_transcript": "[WARN] ফাঁকা ট্রান্সক্রিপ্ট"
+  },
+  "fa": {
+    "tool.description": "یک فایل صوتی را به متن تبدیل کنید. برای جلسات، مصاحبه‌ها و یادداشت‌های صوتی مفید است.",
+    "x_search_terms": [
+      "یک فایل صوتی را به متن تبدیل کنید. برای جلسات، مصاحبه‌ها و یادداشت‌های صوتی مفید است",
+      "audio_transcribe",
+      "audio transcribe"
+    ],
+    "tool.system_prompt": "فایل صوتیِ داده‌شده را تبدیل کنید و فقط یک پاسخ JSON برگردانید. اگر output_format=text است، متن پیاده‌سازی‌شده را هم شامل کنید. اگر output_format=json است، فرادادهٔ پایه را هم اضافه کنید.",
+    "param.path.description": "مسیر فایل صوتی ورودی.",
+    "param.model.description": "نام مدل پیاده‌سازی. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
+    "param.language.description": "راهنمای اختیاری زبان (مثلاً 'ja'، 'en').",
+    "param.prompt.description": "پرامپت زمینهٔ اختیاری برای بهبود کیفیت پیاده‌سازی.",
+    "param.output_format.description": "میزان جزئیات بازگشتی در پاسخ JSON: text یا json.",
+    "err.unsupported_provider": "provider پشتیبانی نمی‌شود برای پیاده‌سازی صوتی: {provider!r}",
+    "err.openai_import": "بارگیری بستهٔ openai ناموفق بود: {err}",
+    "err.path_empty": "path لازم است",
+    "err.file_not_found": "فایل صوتی پیدا نشد: {path}",
+    "err.invalid_output_format": "output_format نامعتبر است: {output_format}",
+    "err.transcribe_failed": "پیاده‌سازی صوتی ناموفق بود: {err}",
+    "ok.transcribed": "پیاده‌سازی کامل شد",
+    "warn.empty_transcript": "[WARN] متن پیاده‌سازی خالی است"
+  },
+  "mn": {
+    "tool.description": "Аудио файлыг текст болгон хөрвүүлнэ. Хурал, ярилцлага, дуу хоолойн тэмдэглэлд хэрэгтэй.",
+    "x_search_terms": [
+      "Аудио файлыг текст болгон хөрвүүлнэ. Хурал, ярилцлага, дуу хоолойн тэмдэглэлд хэрэгтэй",
+      "audio_transcribe",
+      "audio transcribe"
+    ],
+    "tool.system_prompt": "Өгөгдсөн аудио файлыг хөрвүүлээд зөвхөн JSON хариу буцаа. output_format=text бол хөрвүүлсэн текстийг, output_format=json бол үндсэн metadata-г мөн оруулна.",
+    "param.path.description": "Оролтын аудио файлын зам.",
+    "param.model.description": "Хөрвүүлэлтийн загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
+    "param.language.description": "Сонголттой хэлний зөвлөмж (жишээ нь 'ja', 'en').",
+    "param.prompt.description": "Хөрвүүлэлтийн чанарыг сайжруулах нэмэлт context prompt.",
+    "param.output_format.description": "JSON хариунд хэдий хэмжээний дэлгэрэнгүй өгөх вэ: text эсвэл json.",
+    "err.unsupported_provider": "Аудио хөрвүүлэлтийг дэмждэггүй provider: {provider!r}",
+    "err.openai_import": "openai багцыг импортлох амжилтгүй боллоо: {err}",
+    "err.path_empty": "path шаардлагатай",
+    "err.file_not_found": "аудио файл олдсонгүй: {path}",
+    "err.invalid_output_format": "Буруу output_format: {output_format}",
+    "err.transcribe_failed": "Аудио хөрвүүлэлт амжилтгүй боллоо: {err}",
+    "ok.transcribed": "Хөрвүүлэлт дууслаа",
+    "warn.empty_transcript": "[WARN] хоосон хөрвүүлсэн текст"
+  },
+  "mr": {
+    "tool.description": "ऑडिओ फाईलचे मजकुरात लिप्यंतरण करा. मीटिंग्ज, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त.",
+    "x_search_terms": [
+      "ऑडिओ फाईलचे मजकुरात लिप्यंतरण करा. मीटिंग्ज, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त",
+      "audio_transcribe",
+      "audio transcribe"
+    ],
+    "tool.system_prompt": "दिलेली ऑडिओ फाईल लिप्यंतरित करा आणि फक्त JSON प्रतिसाद द्या. output_format=text असल्यास लिप्यंतरित मजकूर समाविष्ट करा. output_format=json असल्यास मूलभूत metadata देखील समाविष्ट करा.",
+    "param.path.description": "इनपुट ऑडिओ फाईलचा मार्ग.",
+    "param.model.description": "लिप्यंतरण मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",
+    "param.language.description": "ऐच्छिक भाषेचा इशारा (उदा. 'ja', 'en').",
+    "param.prompt.description": "लिप्यंतरण गुणवत्ता वाढवण्यासाठी ऐच्छिक context prompt.",
+    "param.output_format.description": "JSON प्रतिसादात किती तपशील द्यायचा: text किंवा json.",
+    "err.unsupported_provider": "ऑडिओ लिप्यंतरणासाठी असमर्थित provider: {provider!r}",
+    "err.openai_import": "openai पॅकेज आयात करण्यात अपयश: {err}",
+    "err.path_empty": "path आवश्यक आहे",
+    "err.file_not_found": "ऑडिओ फाईल सापडली नाही: {path}",
+    "err.invalid_output_format": "अवैध output_format: {output_format}",
+    "err.transcribe_failed": "ऑडिओ लिप्यंतरण अयशस्वी: {err}",
+    "ok.transcribed": "लिप्यंतरण पूर्ण झाले",
+    "warn.empty_transcript": "[WARN] रिक्त लिप्यंतरण"
   }
 }

@@ -570,5 +570,93 @@
     "err.output_path_empty": "output_path 為必填項目",
     "err.speech_failed": "語音產生失敗：{err}",
     "ok.saved": "音訊檔已儲存"
+  },
+  "bn": {
+    "tool.description": "টেক্সটকে বক্তৃতায় রূপান্তর করে, অডিও ফাইল হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত পথ ফেরত দিন।",
+    "x_search_terms": [
+      "টেক্সটকে বক্তৃতায় রূপান্তর করে, অডিও ফাইল হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত পথ ফেরত দিন",
+      "audio_speech",
+      "audio speech"
+    ],
+    "tool.system_prompt": "দেওয়া টেক্সট থেকে স্পিচ অডিও তৈরি করে নির্দিষ্ট আউটপুট পথে সংরক্ষণ করুন। শুধু JSON উত্তর দিন।",
+    "param.text.description": "বক্তৃতায় রূপান্তর করার জন্য টেক্সট।",
+    "param.output_path.description": "যে পথে তৈরি হওয়া অডিও ফাইল সংরক্ষিত হবে।",
+    "param.model.description": "স্পিচ মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
+    "param.voice.description": "স্পিচ synthesis-এ ব্যবহারের voice-এর নাম।",
+    "param.response_format.description": "তৈরি করার অডিও ফাইলের format।",
+    "param.speed.description": "প্লেব্যাক গতির গুণক (যেমন 1.0)।",
+    "param.instructions.description": "স্পিচ স্টাইলের জন্য ঐচ্ছিক নির্দেশনা।",
+    "err.unsupported_provider": "অডিও স্পিচের জন্য সমর্থিত নয় এমন provider: {provider!r}",
+    "err.openai_import": "openai প্যাকেজ ইম্পোর্ট করতে ব্যর্থ: {err}",
+    "err.text_empty": "text প্রয়োজন",
+    "err.output_path_empty": "output_path প্রয়োজন",
+    "err.speech_failed": "অডিও স্পিচ তৈরি ব্যর্থ হয়েছে: {err}",
+    "ok.saved": "অডিও ফাইল সংরক্ষিত হয়েছে"
+  },
+  "fa": {
+    "tool.description": "متن را به گفتار تبدیل کنید، صدا را به‌صورت فایل ذخیره کنید و مسیر ذخیره‌شده را برگردانید.",
+    "x_search_terms": [
+      "متن را به گفتار تبدیل کنید، صدا را به‌صورت فایل ذخیره کنید و مسیر ذخیره‌شده را برگردانید",
+      "audio_speech",
+      "audio speech"
+    ],
+    "tool.system_prompt": "از متن داده‌شده صوتِ گفتار تولید کنید و آن را در مسیر خروجی مشخص‌شده ذخیره کنید. فقط پاسخ JSON برگردانید.",
+    "param.text.description": "متنی که باید به گفتار تبدیل شود.",
+    "param.output_path.description": "مسیر ذخیرهٔ فایل صوتی تولیدشده.",
+    "param.model.description": "نام مدل گفتار. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
+    "param.voice.description": "نام صدایی که برای سنتز گفتار استفاده می‌شود.",
+    "param.response_format.description": "قالب فایل صوتیِ موردنظر برای تولید.",
+    "param.speed.description": "ضریب سرعت پخش (مثلاً 1.0).",
+    "param.instructions.description": "دستورالعمل اختیاری برای سبک صدا.",
+    "err.unsupported_provider": "provider پشتیبانی نمی‌شود برای گفتار: {provider!r}",
+    "err.openai_import": "بارگیری بستهٔ openai ناموفق بود: {err}",
+    "err.text_empty": "text لازم است",
+    "err.output_path_empty": "output_path لازم است",
+    "err.speech_failed": "تولید گفتار ناموفق بود: {err}",
+    "ok.saved": "فایل صوتی ذخیره شد"
+  },
+  "mn": {
+    "tool.description": "Текстийг яриа болгон хувиргаж, аудио файлаар хадгалж, хадгалсан замыг буцаана.",
+    "x_search_terms": [
+      "Текстийг яриа болгон хувиргаж, аудио файлаар хадгалж, хадгалсан замыг буцаана",
+      "audio_speech",
+      "audio speech"
+    ],
+    "tool.system_prompt": "Өгөгдсөн текстээс ярианы аудио үүсгээд заасан гаралтын замд хадгал. Зөвхөн JSON хариу буцаа.",
+    "param.text.description": "Яриа болгон хөрвүүлэх текст.",
+    "param.output_path.description": "Үүсгэсэн аудио файлыг хадгалах зам.",
+    "param.model.description": "Ярианы загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
+    "param.voice.description": "Яриа синтезлэхэд ашиглах дууны нэр.",
+    "param.response_format.description": "Үүсгэх аудио файлын формат.",
+    "param.speed.description": "Тоглуулах хурдны үржвэр (жишээ нь 1.0).",
+    "param.instructions.description": "Ярианы хэв маягт зориулсан нэмэлт заавар.",
+    "err.unsupported_provider": "Аудио ярианд дэмжигдээгүй provider: {provider!r}",
+    "err.openai_import": "openai багцыг импортлох амжилтгүй боллоо: {err}",
+    "err.text_empty": "text шаардлагатай",
+    "err.output_path_empty": "output_path шаардлагатай",
+    "err.speech_failed": "Аудио яриа үүсгэх амжилтгүй боллоо: {err}",
+    "ok.saved": "Аудио файл хадгалагдлаа"
+  },
+  "mr": {
+    "tool.description": "मजकूराचे ध्वनीत रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा, आणि जतन केलेला मार्ग परत करा.",
+    "x_search_terms": [
+      "मजकूराचे ध्वनीत रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा, आणि जतन केलेला मार्ग परत करा",
+      "audio_speech",
+      "audio speech"
+    ],
+    "tool.system_prompt": "दिलेल्या मजकुरातून स्पीच ऑडिओ तयार करा आणि तो निर्दिष्ट आउटपुट मार्गावर जतन करा. फक्त JSON प्रतिसाद द्या.",
+    "param.text.description": "ध्वनीत रूपांतर करायचा मजकूर.",
+    "param.output_path.description": "तयार झालेली ऑडिओ फाइल जिथे जतन होईल तो मार्ग.",
+    "param.model.description": "स्पीच मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",
+    "param.voice.description": "स्पीच synthesis साठी वापरायच्या voice चे नाव.",
+    "param.response_format.description": "तयार करायच्या ऑडिओ फाइलचा format.",
+    "param.speed.description": "प्लेबॅक गतीचा गुणक (उदा. 1.0).",
+    "param.instructions.description": "स्पीच शैलीसाठी ऐच्छिक सूचना.",
+    "err.unsupported_provider": "ऑडिओ स्पीचसाठी असमर्थित provider: {provider!r}",
+    "err.openai_import": "openai पॅकेज आयात करण्यात अपयश: {err}",
+    "err.text_empty": "text आवश्यक आहे",
+    "err.output_path_empty": "output_path आवश्यक आहे",
+    "err.speech_failed": "ऑडिओ स्पीच निर्मिती अयशस्वी: {err}",
+    "ok.saved": "ऑडिओ फाइल जतन केली"
   }
 }

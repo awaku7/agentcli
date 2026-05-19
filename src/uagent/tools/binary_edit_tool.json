@@ -544,5 +544,89 @@
       "binary edit"
     ],
     "tool.system_prompt": "此工具用於將本機檔案以原始位元組（二進位）方式編輯。\n\n安全注意事項：\n- 此工具會修改本機檔案，並可能損毀檔案。\n- 寫入前務必透過 human_ask 請求確認。\n- 在主機代理的安全性原則下執行時，請勿操作目前工作目錄之外的路徑。"
+  },
+  "bn": {
+    "param.data_hex.description": "লিখতে/ঢোকাতে বাইটের হেক্স স্ট্রিং (যেমন 'DEADBEEF' বা 'DE AD BE EF')।",
+    "param.delete_len.description": "মুছতে হবে এমন বাইটের সংখ্যা (splice delete)।",
+    "param.dry_run.description": "true হলে ফাইল বদলানো হবে না; শুধু কী বদলাত তা জানানো হবে।",
+    "param.max_bytes.description": "এই আকারের (বাইট) চেয়ে বড় ফাইল প্রত্যাখ্যান করুন।",
+    "param.mode.description": "সম্পাদনার মোড।",
+    "param.occurrence.description": "কোন occurrence বদলাবে (১-ভিত্তিক)। 0 মানে সব occurrence বদলানো হবে (তবু দৈর্ঘ্য একই থাকতে হবে)।",
+    "param.offset.description": "বাইট অফসেট (০-ভিত্তিক)। write/splice-এর জন্য প্রয়োজন।",
+    "param.patch_json.description": "JSON স্ট্রিং প্যাচ (apply_patch mode)।",
+    "param.path.description": "টার্গেট ফাইলের পথ।",
+    "param.replace_hex.description": "যার দিয়ে প্রতিস্থাপন করা হবে এমন হেক্স স্ট্রিং (replace mode)। search_hex-এর সমান দৈর্ঘ্যের হতে হবে, যদি না allow_resize=true হয় (অসমর্থিত)।",
+    "param.search_hex.description": "যে হেক্স স্ট্রিং খোঁজা হবে (replace mode)।",
+    "param.splice_op.description": "splice অপারেশন (splice mode)।",
+    "tool.description": "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice (insert/delete), এবং সাধারণ JSON patch প্রয়োগ সমর্থন করে। বিপজ্জনক: এই টুল ফাইল নষ্ট করতে পারে।",
+    "x_search_terms": [
+      "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice (insert/delete), এবং সাধারণ JSON patch প্রয়োগ সমর্থন করে। বিপজ্জনক: এই টুল ফাইল নষ্ট করতে পারে",
+      "binary_edit",
+      "binary edit"
+    ],
+    "tool.system_prompt": "এই টুলটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করতে ব্যবহৃত হয়.\n\nনিরাপত্তা / সুরক্ষা:\n- এই টুল লোকাল ফাইল পরিবর্তন করে এবং তা নষ্ট করতে পারে।\n- লেখার আগে সবসময় human_ask দিয়ে নিশ্চিতকরণ নিন।\n- হোস্ট এজেন্টের নিরাপত্তা নীতির অধীনে কাজ করার সময় বর্তমান workdir-এর বাইরের পথ ব্যবহার করবেন না।"
+  },
+  "fa": {
+    "param.data_hex.description": "رشتهٔ هگزِ بایت‌هایی که باید نوشته/درج شوند (مثلاً 'DEADBEEF' یا 'DE AD BE EF').",
+    "param.delete_len.description": "تعداد بایت‌هایی که باید حذف شوند (حذف splice).",
+    "param.dry_run.description": "اگر true باشد، فایل تغییر نمی‌کند؛ فقط گزارش می‌شود چه چیزی عوض می‌شد.",
+    "param.max_bytes.description": "فایل‌هایی بزرگ‌تر از این اندازه (بایت) رد می‌شوند.",
+    "param.mode.description": "حالت ویرایش.",
+    "param.occurrence.description": "اینکه کدام occurrence جایگزین شود (از ۱). 0 یعنی همهٔ occurrenceها جایگزین شوند (ولی طول باید یکسان باشد).",
+    "param.offset.description": "موقعیت بایت (از ۰). برای write/splice لازم است.",
+    "param.patch_json.description": "پچ به‌صورت رشتهٔ JSON (حالت apply_patch).",
+    "param.path.description": "مسیر فایل مقصد.",
+    "param.replace_hex.description": "رشتهٔ هگز برای جایگزینی (حالت replace). باید هم‌طول search_hex باشد مگر اینکه allow_resize=true باشد (پشتیبانی نمی‌شود).",
+    "param.search_hex.description": "رشتهٔ هگز برای جستجو (حالت replace).",
+    "param.splice_op.description": "عملیات splice (حالت splice).",
+    "tool.description": "یک فایل محلی را به‌صورت بایت‌های خام (binary) ویرایش می‌کند. نوشتن با offset، جستجو/جایگزینی، splice (درج/حذف) و اعمال یک پچ JSON ساده را پشتیبانی می‌کند. خطرناک است: این ابزار می‌تواند فایل‌ها را خراب کند.",
+    "x_search_terms": [
+      "یک فایل محلی را به‌صورت بایت‌های خام (binary) ویرایش می‌کند. نوشتن با offset، جستجو/جایگزینی، splice (درج/حذف) و اعمال یک پچ JSON ساده را پشتیبانی می‌کند. خطرناک است: این ابزار می‌تواند فایل‌ها را خراب کند",
+      "binary_edit",
+      "binary edit"
+    ],
+    "tool.system_prompt": "این ابزار برای ویرایش یک فایل محلی به‌صورت بایت‌های خام (binary) استفاده می‌شود.\n\nامنیت / ایمنی:\n- این ابزار فایل‌های محلی را تغییر می‌دهد و ممکن است آن‌ها را خراب کند.\n- پیش از نوشتن همیشه با human_ask تأیید بگیرید.\n- هنگام کار تحت سیاست‌های امنیتی عامل میزبان، مسیرهای خارج از workdir فعلی را دست‌کاری نکنید."
+  },
+  "mn": {
+    "param.data_hex.description": "Бичих/оруулж тавих байтуудын hex мөр (жишээ нь 'DEADBEEF' эсвэл 'DE AD BE EF').",
+    "param.delete_len.description": "Устгах байтын тоо (splice delete).",
+    "param.dry_run.description": "true бол файлыг өөрчлөхгүй; зөвхөн юу өөрчлөгдөхийг мэдээлнэ.",
+    "param.max_bytes.description": "Энэ хэмжээнээс (байт) том файлуудыг татгалзана.",
+    "param.mode.description": "Засварлах горим.",
+    "param.occurrence.description": "Аль давтамжийг солих вэ (1-ээс эхэлнэ). 0 нь бүх давтамжийг солино (урт нь ижил байх ёстой).",
+    "param.offset.description": "Байт офсет (0-ээс эхэлнэ). write/splice-д шаардлагатай.",
+    "param.patch_json.description": "JSON мөрөн patch (apply_patch горим).",
+    "param.path.description": "Зорилтот файлын зам.",
+    "param.replace_hex.description": "Орлуулах hex мөр (replace горим). allow_resize=true биш бол search_hex-тэй ижил урттай байх ёстой (дэмжигдээгүй).",
+    "param.search_hex.description": "Хайх hex мөр (replace горим).",
+    "param.splice_op.description": "Splice үйлдэл (splice горим).",
+    "tool.description": "Орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлана. Offset write, search/replace, splice (insert/delete), мөн энгийн JSON patch хэрэглэхийг дэмжинэ. Аюултай: энэ хэрэгсэл файлыг гэмтээж болно.",
+    "x_search_terms": [
+      "Орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлана. Offset write, search/replace, splice (insert/delete), мөн энгийн JSON patch хэрэглэхийг дэмжинэ. Аюултай: энэ хэрэгсэл файлыг гэмтээж болно",
+      "binary_edit",
+      "binary edit"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлахад ашиглагдана.\n\nАюулгүй байдал / хамгаалалт:\n- Энэ хэрэгсэл нь орон нутгийн файлуудыг өөрчилж, гэмтээж болно.\n- Бичихээс өмнө заавал human_ask-аар баталгаажуулалт хүс.\n- Host agent-ийн аюулгүй байдлын бодлогын дор ажиллах үед одоогийн workdir-ээс гаднах зам дээр ажиллахгүй."
+  },
+  "mr": {
+    "param.data_hex.description": "लिहायच्या/घालायच्या बाइट्सची हेक्स स्ट्रिंग (उदा. 'DEADBEEF' किंवा 'DE AD BE EF').",
+    "param.delete_len.description": "किती बाइट्स हटवायचे (splice delete).",
+    "param.dry_run.description": "true असल्यास फाइल बदलू नका; काय बदलले असते तेच कळवा.",
+    "param.max_bytes.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स नाकाराव्यात.",
+    "param.mode.description": "संपादनाचा मोड.",
+    "param.occurrence.description": "कोणता occurrence बदलायचा (१-आधारित). 0 म्हणजे सर्व occurrence बदलले जातील (तरीही लांबी समान असावी).",
+    "param.offset.description": "बाइट ऑफसेट (०-आधारित). write/splice साठी आवश्यक.",
+    "param.patch_json.description": "JSON स्ट्रिंग पॅच (apply_patch मोड).",
+    "param.path.description": "लक्ष्य फाइलचा मार्ग.",
+    "param.replace_hex.description": "ज्याने बदलायचे ती हेक्स स्ट्रिंग (replace मोड). search_hex एवढ्याच लांबीची असावी, जोपर्यंत allow_resize=true नाही (समर्थित नाही).",
+    "param.search_hex.description": "शोधायची हेक्स स्ट्रिंग (replace मोड).",
+    "param.splice_op.description": "splice ऑपरेशन (splice मोड).",
+    "tool.description": "स्थानिक फाइल raw bytes (binary) म्हणून संपादित करते. offset write, search/replace, splice (insert/delete), आणि साधा JSON patch लागू करणे समर्थित आहे. धोकादायक: हे टूल फाइल खराब करू शकते.",
+    "x_search_terms": [
+      "स्थानिक फाइल raw bytes (binary) म्हणून संपादित करते. offset write, search/replace, splice (insert/delete), आणि साधा JSON patch लागू करणे समर्थित आहे. धोकादायक: हे टूल फाइल खराब करू शकते",
+      "binary_edit",
+      "binary edit"
+    ],
+    "tool.system_prompt": "हे टूल स्थानिक फाइल raw bytes (binary) म्हणून संपादित करण्यासाठी वापरले जाते.\n\nसुरक्षा / सावधानी:\n- हे टूल स्थानिक फाइल बदलते आणि ती खराब करू शकते.\n- लिहिण्यापूर्वी नेहमी human_ask ने पुष्टी मागा.\n- होस्ट एजंटच्या सुरक्षा धोरणांखाली चालवताना सध्याच्या workdir बाहेरील मार्गांवर काम करू नका."
   }
 }

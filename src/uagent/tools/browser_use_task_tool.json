@@ -544,5 +544,89 @@
     "param.use_vision.description": "在支援時允許 browser-use 使用螢幕截圖/vision（預設: true）。",
     "param.output_dir.description": "儲存執行歷史 JSON 的目錄。",
     "param.confirmed.description": "僅在使用者明確核准危險或會變更狀態的任務後設為 true。"
+  },
+  "bn": {
+    "tool.description": "browser-use Python লাইব্রেরি দিয়ে একটি স্বয়ংক্রিয় ব্রাউজার টাস্ক চালান। যখন কোনো ওয়েবসাইট শুধু fetch না করে ইন্টারঅ্যাকটিভভাবে চালাতে হয় তখন এটি ব্যবহার করুন। বিপজ্জনক কাজের জন্য confirmed=true দিয়ে স্পষ্ট ব্যবহারকারী অনুমোদন দরকার।",
+    "x_search_terms": [
+      "browser-use Python লাইব্রেরি দিয়ে একটি স্বয়ংক্রিয় ব্রাউজার টাস্ক চালান। যখন কোনো ওয়েবসাইট শুধু fetch না করে ইন্টারঅ্যাকটিভভাবে চালাতে হয় তখন এটি ব্যবহার করুন। বিপজ্জনক কাজের জন্য confirmed=true দিয়ে স্পষ্ট ব্যবহারকারী অনুমোদন দরকার",
+      "browser_use_task",
+      "browser use task"
+    ],
+    "tool.system_prompt": "এই টুলটি browser-use চালিয়ে একটি natural-language টাস্কের জন্য ব্রাউজার নিয়ন্ত্রণ করে। কেনাকাটা, ফর্ম জমা, মুছে ফেলা, আপলোড, ডাউনলোড, লগইন, পোস্ট, বা অন্য কোনো state-changing কাজের জন্য ব্যবহার করবেন না, যদি না ব্যবহারকারী নির্দিষ্ট কাজটি স্পষ্টভাবে অনুমোদন করেন এবং confirmed=true দেওয়া হয়।",
+    "param.task.description": "সম্পাদন করার natural-language ব্রাউজার কাজ।",
+    "param.start_url.description": "টাস্ক চালানোর আগে খোলার ঐচ্ছিক প্রাথমিক URL।",
+    "param.headless.description": "দৃশ্যমান উইন্ডো ছাড়া ব্রাউজার চালান (ডিফল্ট: true)।",
+    "param.max_steps.description": "browser-use এজেন্টের সর্বোচ্চ ধাপসংখ্যা (ডিফল্ট: 20)।",
+    "param.timeout_s.description": "মোট timeout (সেকেন্ড) (ডিফল্ট: 180)।",
+    "param.model.description": "ChatBrowserUse-এর জন্য ঐচ্ছিক Browser Use model name, যেমন 'bu-latest'।",
+    "param.use_cloud.description": "Browser Use Cloud ব্রাউজার অবকাঠামো ব্যবহার করুন (ডিফল্ট: false)।",
+    "param.allowed_domains.description": "ব্রাউজার যে ডোমেইনগুলোতে যেতে পারবে তার ঐচ্ছিক তালিকা।",
+    "param.deny_downloads.description": "সমর্থিত হলে ব্রাউজার ডাউনলোড বন্ধ করুন (ডিফল্ট: true)।",
+    "param.use_vision.description": "সমর্থিত হলে browser-use-কে screenshot/vision ব্যবহার করতে দিন (ডিফল্ট: true)।",
+    "param.output_dir.description": "রান হিস্ট্রি JSON যেখানে সংরক্ষণ হবে সেই ডিরেক্টরি।",
+    "param.confirmed.description": "বিপজ্জনক বা state-changing কাজের জন্য স্পষ্ট ব্যবহারকারী অনুমোদনের পরেই true সেট করুন।"
+  },
+  "fa": {
+    "tool.description": "با کتابخانهٔ Pythonِ browser-use یک وظیفهٔ خودکار مرورگر اجرا کنید. وقتی یک وب‌سایت باید به‌صورت تعاملی کار شود، نه فقط دریافت شود، از این ابزار استفاده کنید. برای کارهای خطرناک، تأیید صریح کاربر با confirmed=true لازم است.",
+    "x_search_terms": [
+      "با کتابخانهٔ Pythonِ browser-use یک وظیفهٔ خودکار مرورگر اجرا کنید. وقتی یک وب‌سایت باید به‌صورت تعاملی کار شود، نه فقط دریافت شود، از این ابزار استفاده کنید. برای کارهای خطرناک، تأیید صریح کاربر با confirmed=true لازم است",
+      "browser_use_task",
+      "browser use task"
+    ],
+    "tool.system_prompt": "این ابزار browser-use را اجرا می‌کند و مرورگر را برای یک وظیفهٔ زبان‌طبیعی کنترل می‌کند. از آن برای خرید، ارسال فرم، حذف، بارگذاری، دانلود، ورود، ارسال پست یا سایر کارهای تغییر‌دهندهٔ وضعیت استفاده نکنید، مگر اینکه کاربر دقیقاً همان کار را صریحاً تأیید کرده باشد و confirmed=true داده شود.",
+    "param.task.description": "وظیفهٔ مرورگر به زبان طبیعی که باید انجام شود.",
+    "param.start_url.description": "نشانی آغازین اختیاری که پیش از اجرای وظیفه باز می‌شود.",
+    "param.headless.description": "مرورگر را بدون پنجرهٔ قابل‌مشاهده اجرا کنید (پیش‌فرض: true).",
+    "param.max_steps.description": "حداکثر تعداد گام‌های عامل browser-use (پیش‌فرض: 20).",
+    "param.timeout_s.description": "مهلت کلی بر حسب ثانیه (پیش‌فرض: 180).",
+    "param.model.description": "نام اختیاری مدل Browser Use برای ChatBrowserUse، مثلاً 'bu-latest'.",
+    "param.use_cloud.description": "از زیرساخت مرورگر Browser Use Cloud استفاده کنید (پیش‌فرض: false).",
+    "param.allowed_domains.description": "فهرست اختیاری دامنه‌هایی که مرورگر اجازهٔ بازدید از آن‌ها را دارد.",
+    "param.deny_downloads.description": "در صورت پشتیبانی، دانلودهای مرورگر را غیرفعال کنید (پیش‌فرض: true).",
+    "param.use_vision.description": "در صورت پشتیبانی، به browser-use اجازهٔ استفاده از screenshot/vision را بدهید (پیش‌فرض: true).",
+    "param.output_dir.description": "پوشه‌ای که JSON تاریخچهٔ اجرا در آن ذخیره می‌شود.",
+    "param.confirmed.description": "فقط پس از تأیید صریح کاربر برای کارهای خطرناک یا تغییر‌دهندهٔ وضعیت، true بگذارید."
+  },
+  "mn": {
+    "tool.description": "browser-use Python санг ашиглан автоматжуулсан браузерийн даалгавар ажиллуулна. Вэбсайтыг зүгээр татаж авахын оронд интерактив байдлаар ажиллуулах шаардлагатай үед ашиглана. Аюултай үйлдэлд confirmed=true-тэй хэрэглэгчийн тодорхой зөвшөөрөл шаардлагатай.",
+    "x_search_terms": [
+      "browser-use Python санг ашиглан автоматжуулсан браузерийн даалгавар ажиллуулна. Вэбсайтыг зүгээр татаж авахын оронд интерактив байдлаар ажиллуулах шаардлагатай үед ашиглана. Аюултай үйлдэлд confirmed=true-тэй хэрэглэгчийн тодорхой зөвшөөрөл шаардлагатай",
+      "browser_use_task",
+      "browser use task"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь browser-use-г ажиллуулж, байгалийн хэлээр өгсөн даалгаварт зориулан браузерийг удирдана. Худалдан авалт, маягт илгээх, устгах, байршуулах, татах, нэвтрэх, нийтлэх болон бусад төлөв өөрчлөх үйлдэлд хэрэглэгч тухайн үйлдлийг яг таг зөвшөөрөөгүй бөгөөд confirmed=true өгөөгүй бол бүү ашигла.",
+    "param.task.description": "Гүйцэтгэх байгалийн хэлний браузерийн даалгавар.",
+    "param.start_url.description": "Даалгавар эхлүүлэхээс өмнө нээх сонголттой эхний URL.",
+    "param.headless.description": "Браузерыг харагдах цонхгүй ажиллуулах (өгөгдмөл: true).",
+    "param.max_steps.description": "browser-use агентын дээд алхмын тоо (өгөгдмөл: 20).",
+    "param.timeout_s.description": "Нийт timeout (секунд) (өгөгдмөл: 180).",
+    "param.model.description": "ChatBrowserUse-д зориулсан сонголттой Browser Use model name, жишээ нь 'bu-latest'.",
+    "param.use_cloud.description": "Browser Use Cloud браузерийн дэд бүтцийг ашиглах (өгөгдмөл: false).",
+    "param.allowed_domains.description": "Браузерээр зочлохыг зөвшөөрсөн домэйнуудын сонголттой жагсаалт.",
+    "param.deny_downloads.description": "Дэмжигдсэн үед браузерийн таталтыг идэвхгүй болгох (өгөгдмөл: true).",
+    "param.use_vision.description": "Дэмжигдсэн үед browser-use-д screenshot/vision ашиглахыг зөвшөөрөх (өгөгдмөл: true).",
+    "param.output_dir.description": "Ажиллуулах түүхийн JSON хадгалагдах директор.",
+    "param.confirmed.description": "Аюултай эсвэл төлөв өөрчлөх даалгаварт хэрэглэгч тодорхой зөвшөөрсөн тохиолдолд л true болго."
+  },
+  "mr": {
+    "tool.description": "browser-use Python लायब्ररी वापरून स्वयंचलित ब्राउझर टास्क चालवा. एखादी वेबसाइट फक्त fetch न करता परस्परसंवादीपणे हाताळावी लागते तेव्हा वापरा. धोकादायक कृतींसाठी confirmed=true सह स्पष्ट वापरकर्ता मंजुरी आवश्यक आहे.",
+    "x_search_terms": [
+      "browser-use Python लायब्ररी वापरून स्वयंचलित ब्राउझर टास्क चालवा. एखादी वेबसाइट फक्त fetch न करता परस्परसंवादीपणे हाताळावी लागते तेव्हा वापरा. धोकादायक कृतींसाठी confirmed=true सह स्पष्ट वापरकर्ता मंजुरी आवश्यक आहे",
+      "browser_use_task",
+      "browser use task"
+    ],
+    "tool.system_prompt": "हे टूल browser-use सुरू करून नैसर्गिक-भाषेतील टास्कसाठी ब्राउझर नियंत्रित करते. खरेदी, फॉर्म सबमिशन, हटवणे, अपलोड, डाउनलोड, लॉगिन, पोस्ट किंवा इतर state-changing कृतींसाठी वापरू नका, जोपर्यंत वापरकर्त्याने नेमकी कृती स्पष्टपणे मंजूर केलेली नाही आणि confirmed=true दिलेले नाही.",
+    "param.task.description": "करावयाचा नैसर्गिक-भाषेतील ब्राउझर टास्क.",
+    "param.start_url.description": "टास्क चालवण्यापूर्वी उघडायचा ऐच्छिक प्रारंभिक URL.",
+    "param.headless.description": "दृश्यमान विंडोशिवाय ब्राउझर चालवा (डीफॉल्ट: true).",
+    "param.max_steps.description": "browser-use एजंटच्या कमाल पायऱ्या (डीफॉल्ट: 20).",
+    "param.timeout_s.description": "एकूण timeout सेकंदांत (डीफॉल्ट: 180).",
+    "param.model.description": "ChatBrowserUse साठी ऐच्छिक Browser Use model name, उदा. 'bu-latest'.",
+    "param.use_cloud.description": "Browser Use Cloud ब्राउझर पायाभूत सुविधा वापरा (डीफॉल्ट: false).",
+    "param.allowed_domains.description": "ब्राउझरला भेट देण्याची परवानगी असलेल्या डोमेनची ऐच्छिक यादी.",
+    "param.deny_downloads.description": "समर्थित असल्यास ब्राउझर डाउनलोड अक्षम करा (डीफॉल्ट: true).",
+    "param.use_vision.description": "समर्थित असल्यास browser-use ला स्क्रीनशॉट/vision वापरण्याची परवानगी द्या (डीफॉल्ट: true).",
+    "param.output_dir.description": "रन हिस्टरी JSON जिथे जतन होईल ती निर्देशिका.",
+    "param.confirmed.description": "धोकादायक किंवा state-changing टास्कसाठी स्पष्ट वापरकर्ता मंजुरीनंतरच true सेट करा."
   }
 }

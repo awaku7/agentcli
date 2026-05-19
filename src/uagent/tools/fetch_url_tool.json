@@ -414,5 +414,69 @@
     "param.max_bytes.description": "從回應中讀取的最大位元組數。",
     "param.max_chars.description": "回傳的最大字元數（在解碼／擷取後套用）。",
     "param.user_agent.description": "選用的 User-Agent 標頭值。"
+  },
+  "bn": {
+    "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
+    "tool.description": "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী।",
+    "x_search_terms": [
+      "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী",
+      "fetch_url",
+      "fetch url"
+    ],
+    "tool.system_prompt": "এই টুলটি 'fetch_url' টুল নাম দ্বারা বর্ণিত কাজটি করে।",
+    "param.extract.description": "এক্সট্র্যাকশন মোড। head=প্রতিক্রিয়ার শুরু ফেরত দেয়; text=HTML থেকে টেক্সট বের করে; html=HTML fragment বের করে; json=JSON parse করে (প্রয়োজনে json_pointer প্রয়োগ করা যায়)।",
+    "param.selector.description": "ঐচ্ছিক CSS selector। দিলে extract=text/html-এর জন্য প্রথম মিলে যাওয়া element বের করা হয়।",
+    "param.json_pointer.description": "ঐচ্ছিক RFC 6901 JSON Pointer (যেমন /items/0/title), extract=json হলে ব্যবহৃত হয়।",
+    "param.max_bytes.description": "প্রতিক্রিয়া থেকে পড়া সর্বাধিক byte সংখ্যা।",
+    "param.max_chars.description": "ফিরিয়ে দেওয়ার সর্বাধিক character সংখ্যা (ডিকোড/এক্সট্র্যাকশনের পরে প্রয়োগ করা হয়)।",
+    "param.user_agent.description": "ঐচ্ছিক User-Agent header মান।"
+  },
+  "fa": {
+    "param.url.description": "نشانی URL برای دسترسی.",
+    "tool.description": "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است.",
+    "x_search_terms": [
+      "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است",
+      "fetch_url",
+      "fetch url"
+    ],
+    "tool.system_prompt": "این ابزار عملیاتی را که با نام ابزار 'fetch_url' توصیف شده انجام می‌دهد.",
+    "param.extract.description": "حالت استخراج. head=ابتدای پاسخ را برمی‌گرداند؛ text=متن را از HTML استخراج می‌کند؛ html=بخشی از HTML را استخراج می‌کند؛ json=JSON را parse می‌کند (در صورت نیاز json_pointer اعمال می‌شود).",
+    "param.selector.description": "CSS selector اختیاری. اگر ارائه شود، برای extract=text/html اولین عنصر منطبق استخراج می‌شود.",
+    "param.json_pointer.description": "JSON Pointer اختیاری RFC 6901 (مثلاً /items/0/title) که هنگام extract=json استفاده می‌شود.",
+    "param.max_bytes.description": "حداکثر تعداد byte برای خواندن از پاسخ.",
+    "param.max_chars.description": "حداکثر تعداد کاراکتر برای بازگرداندن (پس از decoding/extraction اعمال می‌شود).",
+    "param.user_agent.description": "مقدار اختیاری هدر User-Agent."
+  },
+  "mn": {
+    "param.url.description": "Хандах URL.",
+    "tool.description": "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй.",
+    "x_search_terms": [
+      "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй",
+      "fetch_url",
+      "fetch url"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь 'fetch_url' хэрэгслийн нэрээр тайлбарлагдсан үйлдлийг гүйцэтгэнэ.",
+    "param.extract.description": "Гарган авах горим. head=хариуны эхлэлийг буцаана; text=HTML-ээс текст гаргана; html=HTML хэсэг гаргана; json=JSON parse хийнэ (шаардлагатай бол json_pointer хэрэглэнэ).",
+    "param.selector.description": "Сонголттой CSS selector. Өгвөл extract=text/html-д эхний таарсан element-ийг гаргана.",
+    "param.json_pointer.description": "Сонголттой RFC 6901 JSON Pointer (жишээ нь /items/0/title). extract=json үед хэрэглэнэ.",
+    "param.max_bytes.description": "Хариунаас унших хамгийн их byte.",
+    "param.max_chars.description": "Буцаах хамгийн их character тоо (decode/extraction-ийн дараа хэрэглэнэ).",
+    "param.user_agent.description": "Сонголттой User-Agent header-ийн утга."
+  },
+  "mr": {
+    "param.url.description": "ज्याला access करायचे तो URL.",
+    "tool.description": "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त.",
+    "x_search_terms": [
+      "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त",
+      "fetch_url",
+      "fetch url"
+    ],
+    "tool.system_prompt": "हे टूल 'fetch_url' नावाने वर्णन केलेली क्रिया करते.",
+    "param.extract.description": "Extraction mode. head=प्रतिक्रियेची सुरुवात परत करते; text=HTML मधून मजकूर काढते; html=HTML fragment काढते; json=JSON parse करते (गरजेनुसार json_pointer लागू करता येतो).",
+    "param.selector.description": "ऐच्छिक CSS selector. दिल्यास extract=text/html साठी पहिला जुळणारा element काढला जातो.",
+    "param.json_pointer.description": "ऐच्छिक RFC 6901 JSON Pointer (उदा. /items/0/title); extract=json वेळी वापरला जातो.",
+    "param.max_bytes.description": "प्रतिक्रियेतील वाचण्यायोग्य कमाल byte संख्या.",
+    "param.max_chars.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
+    "param.user_agent.description": "ऐच्छिक User-Agent header मूल्य."
   }
 }

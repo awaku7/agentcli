@@ -284,5 +284,49 @@
       "db query"
     ],
     "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
+  },
+  "bn": {
+    "param.db_path.description": "SQLite ডেটাবেস ফাইলের পথ।",
+    "param.sql.description": "চালানোর জন্য SQL।",
+    "tool.description": "SQLite ডেটাবেসে SQL কোয়েরি চালিয়ে ফলাফল ফেরত দেয়। কেবল read-only অপারেশন (SELECT) এবং schema inspection (PRAGMA) সমর্থিত।",
+    "x_search_terms": [
+      "SQLite ডেটাবেসে SQL কোয়েরি চালিয়ে ফলাফল ফেরত দেয়। কেবল read-only অপারেশন (SELECT) এবং schema inspection (PRAGMA) সমর্থিত",
+      "db_query",
+      "db query"
+    ],
+    "tool.system_prompt": "এই টুলটি 'db_query' নামের টুল দ্বারা বর্ণিত অপারেশনটি সম্পাদন করে।"
+  },
+  "fa": {
+    "param.db_path.description": "مسیر فایل پایگاه‌دادهٔ SQLite.",
+    "param.sql.description": "SQL برای اجرا.",
+    "tool.description": "پرس‌وجوهای SQL را روی پایگاه‌دادهٔ SQLite اجرا می‌کند و نتیجه را برمی‌گرداند. فقط عملیات فقط‌خواندنی (SELECT) و بررسی شِما (PRAGMA) پشتیبانی می‌شوند.",
+    "x_search_terms": [
+      "پرس‌وجوهای SQL را روی پایگاه‌دادهٔ SQLite اجرا می‌کند و نتیجه را برمی‌گرداند. فقط عملیات فقط‌خواندنی (SELECT) و بررسی شِما (PRAGMA) پشتیبانی می‌شوند",
+      "db_query",
+      "db query"
+    ],
+    "tool.system_prompt": "این ابزار عملیاتی را انجام می‌دهد که با نام ابزار 'db_query' توصیف شده است."
+  },
+  "mn": {
+    "param.db_path.description": "SQLite өгөгдлийн сангийн файлын зам.",
+    "param.sql.description": "Ажиллуулах SQL.",
+    "tool.description": "SQLite өгөгдлийн санд SQL асуулга ажиллуулж үр дүнг буцаана. Зөвхөн унших ажиллагаа (SELECT) болон схем шалгалт (PRAGMA) дэмжинэ.",
+    "x_search_terms": [
+      "SQLite өгөгдлийн санд SQL асуулга ажиллуулж үр дүнг буцаана. Зөвхөн унших ажиллагаа (SELECT) болон схем шалгалт (PRAGMA) дэмжинэ",
+      "db_query",
+      "db query"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь 'db_query' хэрэгслийн нэрээр тодорхойлсон ажиллагааг гүйцэтгэнэ."
+  },
+  "mr": {
+    "param.db_path.description": "SQLite डेटाबेस फाइलचा मार्ग.",
+    "param.sql.description": "चालवायचा SQL.",
+    "tool.description": "SQLite डेटाबेसवर SQL क्वेरीज चालवते आणि निकाल परत करते. फक्त read-only ऑपरेशन्स (SELECT) आणि schema inspection (PRAGMA) समर्थित आहेत.",
+    "x_search_terms": [
+      "SQLite डेटाबेसवर SQL क्वेरीज चालवते आणि निकाल परत करते. फक्त read-only ऑपरेशन्स (SELECT) आणि schema inspection (PRAGMA) समर्थित आहेत",
+      "db_query",
+      "db query"
+    ],
+    "tool.system_prompt": "हे टूल 'db_query' या टूल नावाने वर्णन केलेली क्रिया करते."
   }
 }

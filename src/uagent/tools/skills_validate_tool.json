@@ -336,5 +336,57 @@
       "skills validate"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "bn": {
+    "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গুমেন্ট",
+    "err.skill_dir_required": "[টুল ত্রুটি] skill_dir অবশ্যই একটি খালি নয় এমন স্ট্রিং হতে হবে",
+    "param.skill_dir.description": "স্কিল ডিরেক্টরি (SKILL.md সরাসরি নিচে থাকতে হবে)",
+    "param.strict.description": "warning-গুলোকেও কি ব্যর্থতা হিসেবে ধরা হবে? (ডিফল্ট: false)",
+    "tool.description": "Agent Skills স্পেসিফিকেশন অনুযায়ী একটি skill directory (SKILL.md) যাচাই করে এবং error ও warning ফেরত দেয়।",
+    "x_search_terms": [
+      "Agent Skills স্পেসিফিকেশন অনুযায়ী একটি skill directory (SKILL.md) যাচাই করে এবং error ও warning ফেরত দেয়",
+      "skills_validate",
+      "skills validate"
+    ],
+    "tool.system_prompt": "এই টুলটি টুলের বর্ণনায় উল্লেখিত উদ্দেশ্যে ব্যবহার করুন।"
+  },
+  "fa": {
+    "err.invalid_args": "[خطای ابزار] آرگومان‌ها نامعتبرند",
+    "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
+    "param.skill_dir.description": "پوشهٔ مهارت (SKILL.md باید درست زیر آن باشد)",
+    "param.strict.description": "آیا هشدارها هم باید به‌عنوان خطا در نظر گرفته شوند؟ (پیش‌فرض: false)",
+    "tool.description": "یک پوشهٔ مهارت (SKILL.md) را مطابق مشخصات Agent Skills اعتبارسنجی می‌کند و خطاها و هشدارها را برمی‌گرداند.",
+    "x_search_terms": [
+      "یک پوشهٔ مهارت (SKILL.md) را مطابق مشخصات Agent Skills اعتبارسنجی می‌کند و خطاها و هشدارها را برمی‌گرداند",
+      "skills_validate",
+      "skills validate"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
+  },
+  "mn": {
+    "err.invalid_args": "[хэрэгслийн алдаа] буруу аргументууд",
+    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр байх ёстой",
+    "param.skill_dir.description": "Skill-ийн директор (SKILL.md нь яг доор байрлах шаардлагатай)",
+    "param.strict.description": "Анхааруулгыг ч алдаа гэж үзэх үү? (анхдагч: false)",
+    "tool.description": "Agent Skills-ийн тодорхойлолтын дагуу skill-ийн директор (SKILL.md)-ийг шалгаж, алдаа болон анхааруулгыг буцаана.",
+    "x_search_terms": [
+      "Agent Skills-ийн тодорхойлолтын дагуу skill-ийн директор (SKILL.md)-ийг шалгаж, алдаа болон анхааруулгыг буцаана",
+      "skills_validate",
+      "skills validate"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
+  },
+  "mr": {
+    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग्युमेंट्स",
+    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिंग असणे आवश्यक आहे",
+    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.md थेट खाली असणे आवश्यक आहे)",
+    "param.strict.description": "चेतावण्या देखील अपयश मानायच्या का? (डीफॉल्ट: false)",
+    "tool.description": "Agent Skills च्या स्पेसिफिकेशननुसार skill directory (SKILL.md) पडताळते आणि त्रुटी व चेतावण्या परत करते.",
+    "x_search_terms": [
+      "Agent Skills च्या स्पेसिफिकेशननुसार skill directory (SKILL.md) पडताळते आणि त्रुटी व चेतावण्या परत करते",
+      "skills_validate",
+      "skills validate"
+    ],
+    "tool.system_prompt": "टूलच्या वर्णनात दिलेल्या उद्देशासाठी हे टूल वापरा."
   }
 }

@@ -596,5 +596,97 @@
       "index files"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "bn": {
+    "err.glob_fail": "Error: প্যাটার্ন পার্স করতে ব্যর্থ হয়েছে: {err}",
+    "err.pattern_required": "Error: pattern নির্দিষ্ট করা হয়নি।",
+    "err.root_not_dir": "Error: root_path কোনো ডিরেক্টরি নয়: {root_path}",
+    "err.vec_unavailable": "Error: semantic search module (semantic_search_files_tool) উপলভ্য না থাকায় index তৈরি করা যায়নি।",
+    "out.completed": "Index প্রক্রিয়াকরণ সম্পন্ন হয়েছে।",
+    "out.fail": "ব্যর্থতা: {count} items",
+    "out.footer": "এখন আপনি এই ফাইলগুলো খুঁজতে `semantic_search_files` ব্যবহার করতে পারেন।",
+    "out.not_found": "Pattern '{pattern}'-এর সাথে মেলে এমন কোনো ফাইল পাওয়া যায়নি।",
+    "out.pattern": "টার্গেট pattern: {pattern}",
+    "out.root": "মূল ডিরেক্টরি: {root_abs}",
+    "out.success": "সাফল্য: {count} items",
+    "param.pattern.description": "টার্গেট file name, directory name, বা glob pattern (যেমন 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।",
+    "param.root_path.description": "Search ও index-এর শুরুর directory। ডিফল্ট হলো current directory।",
+    "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি (glob pattern) vector DB-তে index করে semantic search (semantic_search_files) সক্রিয় করে। ফাইলের বিষয়বস্তু সঙ্গে সঙ্গে না পড়ে search data প্রস্তুত করতে চাইলে এটি উপকারী।",
+    "x_search_terms": [
+      "নির্দিষ্ট ফাইল বা ডিরেক্টরি (glob pattern) vector DB-তে index করে semantic search (semantic_search_files) সক্রিয় করে। ফাইলের বিষয়বস্তু সঙ্গে সঙ্গে না পড়ে search data প্রস্তুত করতে চাইলে এটি উপকারী",
+      "index_files",
+      "index files"
+    ],
+    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহার করা হয়: (tool description দেখুন)।"
+  },
+  "fa": {
+    "err.glob_fail": "Error: تجزیهٔ pattern با شکست مواجه شد: {err}",
+    "err.pattern_required": "Error: هیچ patternی مشخص نشده است.",
+    "err.root_not_dir": "Error: root_path یک پوشه نیست: {root_path}",
+    "err.vec_unavailable": "Error: به‌دلیل در دسترس نبودن ماژول جستجوی معنایی (semantic_search_files_tool) ایجاد index ممکن نیست.",
+    "out.completed": "پردازش index کامل شد.",
+    "out.fail": "شکست: {count} مورد",
+    "out.footer": "اکنون می‌توانید با `semantic_search_files` این فایل‌ها را جستجو کنید.",
+    "out.not_found": "هیچ فایلی مطابق pattern '{pattern}' پیدا نشد.",
+    "out.pattern": "الگوی هدف: {pattern}",
+    "out.root": "پوشهٔ ریشه: {root_abs}",
+    "out.success": "موفقیت: {count} مورد",
+    "param.pattern.description": "نام فایل، نام پوشه، یا pattern از نوع glob (مثلاً 'src/**/*.py'، '*.md').",
+    "param.recursive.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه.",
+    "param.root_path.description": "پوشه‌ای که نقطهٔ شروع جستجو و index است. پیش‌فرض پوشهٔ فعلی است.",
+    "tool.description": "فایل‌ها یا پوشه‌های مشخص‌شده (pattern از نوع glob) را در پایگاه‌دادهٔ برداری index می‌کند تا جستجوی معنایی (semantic_search_files) فعال شود. این برای زمانی مفید است که بخواهید بدون خواندن فوری محتوای فایل‌ها، دادهٔ جستجو را آماده کنید.",
+    "x_search_terms": [
+      "فایل‌ها یا پوشه‌های مشخص‌شده (pattern از نوع glob) را در پایگاه‌دادهٔ برداری index می‌کند تا جستجوی معنایی (semantic_search_files) فعال شود. این برای زمانی مفید است که بخواهید بدون خواندن فوری محتوای فایل‌ها، دادهٔ جستجو را آماده کنید",
+      "index_files",
+      "index files"
+    ],
+    "tool.system_prompt": "این ابزار برای هدف زیر استفاده می‌شود: (توضیح ابزار را ببینید)."
+  },
+  "mn": {
+    "err.glob_fail": "Error: pattern-ийг задлахад failed: {err}",
+    "err.pattern_required": "Error: pattern заавал шаардлагатай.",
+    "err.root_not_dir": "Error: root_path нь directory биш байна: {root_path}",
+    "err.vec_unavailable": "Error: semantic search module (semantic_search_files_tool) боломжгүй тул index үүсгэх боломжгүй.",
+    "out.completed": "Index боловсруулах ажиллагаа дууслаа.",
+    "out.fail": "Амжилтгүй: {count} item",
+    "out.footer": "Одоо эдгээр файлыг хайхад `semantic_search_files`-ийг ашиглаж болно.",
+    "out.not_found": "Pattern '{pattern}'-д тохирох файл олдсонгүй.",
+    "out.pattern": "Зорилтот pattern: {pattern}",
+    "out.root": "Үндсэн лавлах: {root_abs}",
+    "out.success": "Амжилт: {count} item",
+    "param.pattern.description": "Зорилтот file name, directory name, эсвэл glob pattern (ж. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Pattern дотор '**' байвал recursive search хийх эсэх.",
+    "param.root_path.description": "Хайлт болон index-ийн эхлэх directory. Анхдагч нь current directory.",
+    "tool.description": "Тодорхойлсон файлууд эсвэл directory-үүдийг (glob pattern) vector DB-д index хийж semantic search (semantic_search_files)-ийг идэвхжүүлнэ. File content-ийг шууд уншихгүйгээр search data бэлтгэхэд хэрэгтэй.",
+    "x_search_terms": [
+      "Тодорхойлсон файлууд эсвэл directory-үүдийг (glob pattern) vector DB-д index хийж semantic search (semantic_search_files)-ийг идэвхжүүлнэ. File content-ийг шууд уншихгүйгээр search data бэлтгэхэд хэрэгтэй",
+      "index_files",
+      "index files"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь дараах зорилгоор ашиглагдана: (tool description-г харна уу)."
+  },
+  "mr": {
+    "err.glob_fail": "Error: pattern parse करण्यात अपयश आले: {err}",
+    "err.pattern_required": "Error: pattern निर्दिष्ट केलेला नाही.",
+    "err.root_not_dir": "Error: root_path ही directory नाही: {root_path}",
+    "err.vec_unavailable": "Error: semantic search module (semantic_search_files_tool) उपलब्ध नसल्यामुळे index तयार करता येत नाही.",
+    "out.completed": "Index प्रक्रिया पूर्ण झाली.",
+    "out.fail": "अपयश: {count} items",
+    "out.footer": "आता तुम्ही या फाइल्स शोधण्यासाठी `semantic_search_files` वापरू शकता.",
+    "out.not_found": "Pattern '{pattern}' शी जुळणारी कोणतीही फाइल सापडली नाही.",
+    "out.pattern": "लक्ष्य नमुना: {pattern}",
+    "out.root": "मूळ डिरेक्टरी: {root_abs}",
+    "out.success": "यश: {count} items",
+    "param.pattern.description": "Target file name, directory name, किंवा glob pattern (उदा. 'src/**/*.py', '*.md').",
+    "param.recursive.description": "Pattern मध्ये '**' असल्यास recursive search करायची का.",
+    "param.root_path.description": "Search आणि index सुरू करण्यासाठीची directory. डीफॉल्ट current directory आहे.",
+    "tool.description": "निर्दिष्ट files किंवा directories (glob pattern) vector DB मध्ये index करून semantic search (semantic_search_files) सक्षम करते. फाइल content लगेच न वाचता search data तयार करायचे असेल तेव्हा उपयुक्त आहे.",
+    "x_search_terms": [
+      "निर्दिष्ट files किंवा directories (glob pattern) vector DB मध्ये index करून semantic search (semantic_search_files) सक्षम करते. फाइल content लगेच न वाचता search data तयार करायचे असेल तेव्हा उपयुक्त आहे",
+      "index_files",
+      "index files"
+    ],
+    "tool.system_prompt": "हे साधन खालील उद्देशासाठी वापरले जाते: (tool description पहा)."
   }
 }

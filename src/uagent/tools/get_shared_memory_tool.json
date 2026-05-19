@@ -258,5 +258,45 @@
       "get shared memory"
     ],
     "tool.system_prompt": "此工具會執行 TOOL_SPEC 中所描述的功能。"
+  },
+  "bn": {
+    "doc.run_tool": "tools/__init__.py থেকে ডাকা entry point। get_shared_memory-এর implementation।",
+    "tool.description": "ব্যবহারকারীদের মধ্যে ভাগ করা raw long-term memory (shared memory) data ফেরত আনে।\n- সাধারণত JSONL format-এ text ফেরত দেয় (প্রতি line-এ একটি record)।\n- shared memory নিষ্ক্রিয় থাকলে বা file অনুপস্থিত হলে, একটি বর্ণনামূলক message ফেরত দেয়।\n- output size স্বয়ংক্রিয়ভাবে internal maximum byte limit পর্যন্ত trim করা হয়।",
+    "x_search_terms": [
+      "ব্যবহারকারীদের মধ্যে ভাগ করা raw long-term memory (shared memory) data ফেরত আনে। - সাধারণত JSONL format-এ text ফেরত দেয় (প্রতি line-এ একটি record)। - shared memory নিষ্ক্রিয় থাকলে বা file অনুপস্থিত হলে, একটি বর্ণনামূলক message ফেরত দেয়। - output size স্বয়ংক্রিয়ভাবে internal maximum byte limit পর্যন্ত trim করা হয়",
+      "get_shared_memory",
+      "get shared memory"
+    ],
+    "tool.system_prompt": "এই টুলটি TOOL_SPEC-এ বর্ণিত কার্যকারিতা সম্পাদন করে।"
+  },
+  "fa": {
+    "doc.run_tool": "نقطهٔ ورود فراخوانی‌شده از tools/__init__.py. پیاده‌سازی get_shared_memory.",
+    "tool.description": "دادهٔ خام حافظهٔ بلندمدت (shared memory) را که بین کاربران به اشتراک گذاشته شده بازیابی می‌کند.\n- معمولاً متن را در قالب JSONL برمی‌گرداند (یک رکورد در هر خط).\n- اگر shared memory غیرفعال باشد یا فایل وجود نداشته باشد، یک پیام توصیفی برمی‌گرداند.\n- اندازهٔ خروجی به‌صورت خودکار تا سقف بایت داخلی trim می‌شود.",
+    "x_search_terms": [
+      "دادهٔ خام حافظهٔ بلندمدت (shared memory) را که بین کاربران به اشتراک گذاشته شده بازیابی می‌کند. - معمولاً متن را در قالب JSONL برمی‌گرداند (یک رکورد در هر خط). - اگر shared memory غیرفعال باشد یا فایل وجود نداشته باشد، یک پیام توصیفی برمی‌گرداند. - اندازهٔ خروجی به‌صورت خودکار تا سقف بایت داخلی trim می‌شود",
+      "get_shared_memory",
+      "get shared memory"
+    ],
+    "tool.system_prompt": "این ابزار قابلیتِ توصیف‌شده در TOOL_SPEC را اجرا می‌کند."
+  },
+  "mn": {
+    "doc.run_tool": "tools/__init__.py-ээс дуудагддаг entry point. get_shared_memory-ийн implementation.",
+    "tool.description": "Хэрэглэгчдийн хооронд хуваалцсан raw long-term memory (shared memory) өгөгдлийг буцаана.\n- Ихэвчлэн JSONL format-тай text буцаана (мөр бүрт нэг record).\n- shared memory идэвхгүй эсвэл file байхгүй бол тайлбарласан message буцаана.\n- output size нь дотоод maximum byte limit хүртэл автоматаар trimmed хийгдэнэ.",
+    "x_search_terms": [
+      "Хэрэглэгчдийн хооронд хуваалцсан raw long-term memory (shared memory) өгөгдлийг буцаана. - Ихэвчлэн JSONL format-тай text буцаана (мөр бүрт нэг record). - shared memory идэвхгүй эсвэл file байхгүй бол тайлбарласан message буцаана. - output size нь дотоод maximum byte limit хүртэл автоматаар trimmed хийгдэнэ",
+      "get_shared_memory",
+      "get shared memory"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл TOOL_SPEC-д тайлбарласан ажиллагааг гүйцэтгэнэ."
+  },
+  "mr": {
+    "doc.run_tool": "tools/__init__.py मधून बोलावलेले entry point. get_shared_memory ची अंमलबजावणी.",
+    "tool.description": "वापरकर्त्यांमध्ये सामायिक केलेला raw long-term memory (shared memory) data मिळवते.\n- सहसा JSONL format मधील text परत करते (प्रति line एक record).\n- shared memory disabled असेल किंवा file उपलब्ध नसेल, तर वर्णनात्मक message परत करते.\n- output size आपोआप internal maximum byte limit पर्यंत trim होते.",
+    "x_search_terms": [
+      "वापरकर्त्यांमध्ये सामायिक केलेला raw long-term memory (shared memory) data मिळवते. - सहसा JSONL format मधील text परत करते (प्रति line एक record). - shared memory disabled असेल किंवा file उपलब्ध नसेल, तर वर्णनात्मक message परत करते. - output size आपोआप internal maximum byte limit पर्यंत trim होते",
+      "get_shared_memory",
+      "get shared memory"
+    ],
+    "tool.system_prompt": "हे टूल TOOL_SPEC मध्ये वर्णन केलेली कार्यक्षमता अंमलात आणते."
   }
 }

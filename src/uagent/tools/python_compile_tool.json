@@ -284,5 +284,49 @@
     "tool.system_prompt": "使用 py_compile 驗證 Python 檔案。如果提供了檔案路徑或 glob 模式，請對這些目標執行 py_compile 並回傳結果。",
     "param.path.description": "要用 py_compile 驗證的 Python 檔案、目錄或 glob 模式。目錄會遞迴掃描 *.py 檔案。",
     "param.paths.description": "要用 py_compile 驗證的多個 Python 檔案、目錄或 glob 模式。目錄會遞迴掃描 *.py 檔案。"
+  },
+  "bn": {
+    "tool.description": "py_compile দিয়ে Python ফাইল যাচাই করুন। Python ফাইল, directory, বা glob pattern-এর syntax check-এর জন্য এই tool ব্যবহার করুন। directory-গুলোতে *.py file recursively scan করা হয়।",
+    "x_search_terms": [
+      "py_compile দিয়ে Python ফাইল যাচাই করুন। Python ফাইল, directory, বা glob pattern-এর syntax check-এর জন্য এই tool ব্যবহার করুন। directory-গুলোতে *.py file recursively scan করা হয়",
+      "python_compile",
+      "python compile"
+    ],
+    "tool.system_prompt": "py_compile দিয়ে Python ফাইল যাচাই করুন। file path বা glob pattern দেওয়া হলে, সেগুলোর ওপর py_compile চালিয়ে ফলাফল ফেরত দিন।",
+    "param.path.description": "py_compile দিয়ে যাচাই করার জন্য একটি Python file, directory, বা glob pattern। directory-গুলোতে *.py file recursively scan করা হয়।",
+    "param.paths.description": "py_compile দিয়ে যাচাই করার জন্য একাধিক Python file, directory, বা glob pattern। directory-গুলোতে *.py file recursively scan করা হয়।"
+  },
+  "fa": {
+    "tool.description": "فایل‌های Python را با py_compile اعتبارسنجی کنید. از این ابزار برای بررسی syntax فایل‌های Python، پوشه‌ها یا glob patternها استفاده کنید. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
+    "x_search_terms": [
+      "فایل‌های Python را با py_compile اعتبارسنجی کنید. از این ابزار برای بررسی syntax فایل‌های Python، پوشه‌ها یا glob patternها استفاده کنید. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند",
+      "python_compile",
+      "python compile"
+    ],
+    "tool.system_prompt": "فایل‌های Python را با py_compile اعتبارسنجی کنید. اگر مسیر فایل یا glob pattern داده شد، py_compile را روی آن هدف‌ها اجرا کنید و نتیجه را برگردانید.",
+    "param.path.description": "یک فایل Python، پوشه یا glob pattern برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
+    "param.paths.description": "چندین فایل Python، پوشه یا glob pattern برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند."
+  },
+  "mn": {
+    "tool.description": "py_compile ашиглан Python файлуудыг шалгана. Энэ хэрэгслийг Python файл, директор, эсвэл glob pattern-ийн syntax шалгахад ашиглана. Директоруудыг *.py файлуудын хувьд рекурсив скан хийнэ.",
+    "x_search_terms": [
+      "py_compile ашиглан Python файлуудыг шалгана. Энэ хэрэгслийг Python файл, директор, эсвэл glob pattern-ийн syntax шалгахад ашиглана. Директоруудыг *.py файлуудын хувьд рекурсив скан хийнэ",
+      "python_compile",
+      "python compile"
+    ],
+    "tool.system_prompt": "py_compile ашиглан Python файлуудыг шалгана. Файлын зам эсвэл glob pattern өгөгдвөл, тэдгээр дээр py_compile ажиллуулж үр дүнг буцаана уу.",
+    "param.path.description": "py_compile-ээр шалгах нэг Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудын хувьд рекурсив скан хийнэ.",
+    "param.paths.description": "py_compile-ээр шалгах хэд хэдэн Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудын хувьд рекурсив скан хийнэ."
+  },
+  "mr": {
+    "tool.description": "py_compile वापरून Python फाइल्स सत्यापित करा. Python फाइल्स, directories, किंवा glob patterns साठी syntax check करण्यासाठी हे tool वापरा. directories मध्ये *.py files साठी recursively scan केले जाते.",
+    "x_search_terms": [
+      "py_compile वापरून Python फाइल्स सत्यापित करा. Python फाइल्स, directories, किंवा glob patterns साठी syntax check करण्यासाठी हे tool वापरा. directories मध्ये *.py files साठी recursively scan केले जाते",
+      "python_compile",
+      "python compile"
+    ],
+    "tool.system_prompt": "py_compile वापरून Python फाइल्स सत्यापित करा. file paths किंवा glob patterns दिले असल्यास, त्या targets वर py_compile चालवा आणि निकाल परत करा.",
+    "param.path.description": "py_compile वापरून सत्यापित करण्यासाठी एक Python फाइल, directory, किंवा glob pattern. directories मध्ये *.py files साठी recursively scan केले जाते.",
+    "param.paths.description": "py_compile वापरून सत्यापित करण्यासाठी अनेक Python फाइल्स, directories, किंवा glob patterns. directories मध्ये *.py files साठी recursively scan केले जाते."
   }
 }

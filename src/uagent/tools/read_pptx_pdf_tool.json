@@ -362,5 +362,61 @@
     "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
     "param.password.description": "加密 PDF/PPTX 檔案的可選密碼。若省略且輸入內容已加密，系統會提示您輸入一次密碼。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
+  },
+  "bn": {
+    "param.max_chars.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।",
+    "param.page_index.description": "1-ভিত্তিক পৃষ্ঠা নম্বর (PDF পৃষ্ঠা বা PPTX স্লাইড সূচক)। উল্লেখ না করলে সব পৃষ্ঠার সংযুক্ত লেখা ফেরত দেয়।",
+    "param.path.description": "একটি PDF / PPTX / JSON ফাইলের পথ।",
+    "tool.description": "PDF/PPTX (অথবা তাদের সাধারণ JSON schema) পড়ে পৃষ্ঠা অনুযায়ী extracted text ফেরত দেয়। পথটি .pdf / .pptx / .json হতে পারে। PDF/PPTX-এর ক্ষেত্রে এই মডিউল সেটিকে সাধারণ JSON schema-তে রূপান্তর করে।",
+    "x_search_terms": [
+      "PDF/PPTX (অথবা তাদের সাধারণ JSON schema) পড়ে পৃষ্ঠা অনুযায়ী extracted text ফেরত দেয়। পথটি .pdf / .pptx / .json হতে পারে। PDF/PPTX-এর ক্ষেত্রে এই মডিউল সেটিকে সাধারণ JSON schema-তে রূপান্তর করে",
+      "read_pptx_pdf",
+      "read pptx pdf"
+    ],
+    "tool.system_prompt": "গুরুত্বপূর্ণ: এই টুল PDF/PPTX/JSON পড়ে এবং পৃষ্ঠা-স্তরের লেখা ফেরত দেয়। ইনপুট: path, page_index, max_chars। আউটপুট: পৃষ্ঠার লেখা (সব পৃষ্ঠা বা নির্দিষ্ট পৃষ্ঠা)।",
+    "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলের ঐচ্ছিক পাসওয়ার্ড। উল্লেখ না করলে এবং ইনপুট এনক্রিপ্টেড হলে, একবার পাসওয়ার্ড চাইবে।",
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+  },
+  "fa": {
+    "param.max_chars.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود.",
+    "param.page_index.description": "شمارهٔ صفحه بر پایهٔ 1 (صفحهٔ PDF یا شمارهٔ اسلاید PPTX). اگر مشخص نشود، متنِ همهٔ صفحه‌ها به‌صورت پیوسته برگردانده می‌شود.",
+    "param.path.description": "مسیر یک فایل PDF / PPTX / JSON.",
+    "tool.description": "PDF/PPTX (یا طرح‌وارهٔ JSON مشترک آن‌ها) را می‌خواند و متن استخراج‌شده را به‌ازای هر صفحه برمی‌گرداند. می‌توانید مسیر را به .pdf / .pptx / .json بدهید. برای PDF/PPTX، این ماژول آن را به طرح‌وارهٔ JSON مشترک تبدیل می‌کند.",
+    "x_search_terms": [
+      "PDF/PPTX (یا طرح‌وارهٔ JSON مشترک آن‌ها) را می‌خواند و متن استخراج‌شده را به‌ازای هر صفحه برمی‌گرداند. می‌توانید مسیر را به .pdf / .pptx / .json بدهید. برای PDF/PPTX، این ماژول آن را به طرح‌وارهٔ JSON مشترک تبدیل می‌کند",
+      "read_pptx_pdf",
+      "read pptx pdf"
+    ],
+    "tool.system_prompt": "مهم: این ابزار PDF/PPTX/JSON را می‌خواند و متنِ سطحِ صفحه را برمی‌گرداند. ورودی: path، page_index، max_chars. خروجی: متن صفحه (همهٔ صفحه‌ها یا صفحهٔ مشخص‌شده).",
+    "param.password.description": "گذرواژهٔ اختیاری برای فایل‌های PDF/PPTX رمزگذاری‌شده. اگر مشخص نشود و ورودی رمزگذاری‌شده باشد، یک‌بار برای گذرواژه از شما پرسیده می‌شود.",
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+  },
+  "mn": {
+    "param.max_chars.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана.",
+    "param.page_index.description": "1-ээс эхэлсэн хуудасны дугаар (PDF хуудас эсвэл PPTX слайдын индекс). Заагаагүй бол бүх хуудасны нийлмэл текстыг буцаана.",
+    "param.path.description": "PDF / PPTX / JSON файлын зам.",
+    "tool.description": "PDF/PPTX (эсвэл тэдгээрийн нийтлэг JSON schema)-г уншиж, хуудас бүрийн extracted text-ийг буцаана. Замыг .pdf / .pptx / .json болгож болно. PDF/PPTX-ийн хувьд энэ module түүнийг нийтлэг JSON schema болгон хөрвүүлнэ.",
+    "x_search_terms": [
+      "PDF/PPTX (эсвэл тэдгээрийн нийтлэг JSON schema)-г уншиж, хуудас бүрийн extracted text-ийг буцаана. Замыг .pdf / .pptx / .json болгож болно. PDF/PPTX-ийн хувьд энэ module түүнийг нийтлэг JSON schema болгон хөрвүүлнэ",
+      "read_pptx_pdf",
+      "read pptx pdf"
+    ],
+    "tool.system_prompt": "ЧУХАЛ: Энэ хэрэгсэл нь PDF/PPTX/JSON уншаад хуудасны түвшний текст буцаана. Оролт: path, page_index, max_chars. Гаралт: хуудасны текст (бүх хуудас эсвэл заасан хуудас).",
+    "param.password.description": "Шифрлэгдсэн PDF/PPTX файлын сонголттой нууц үг. Заагаагүй бөгөөд оролт шифрлэгдсэн бол нэг удаа нууц үг асууна.",
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+  },
+  "mr": {
+    "param.max_chars.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
+    "param.page_index.description": "1 पासून सुरू होणारा पान क्रमांक (PDF पान किंवा PPTX स्लाइड index). दिले नाही तर सर्व पानांचा जोडलेला मजकूर परत करतो.",
+    "param.path.description": "PDF / PPTX / JSON फाइलचा path.",
+    "tool.description": "PDF/PPTX (किंवा त्यांचा समान JSON schema) वाचून पानानुसार काढलेला मजकूर परत करते. path .pdf / .pptx / .json देऊ शकता. PDF/PPTX साठी हे module ते समान JSON schema मध्ये रूपांतरित करते.",
+    "x_search_terms": [
+      "PDF/PPTX (किंवा त्यांचा समान JSON schema) वाचून पानानुसार काढलेला मजकूर परत करते. path .pdf / .pptx / .json देऊ शकता. PDF/PPTX साठी हे module ते समान JSON schema मध्ये रूपांतरित करते",
+      "read_pptx_pdf",
+      "read pptx pdf"
+    ],
+    "tool.system_prompt": "महत्त्वाचे: हे tool PDF/PPTX/JSON वाचते आणि पृष्ठ-स्तरीय मजकूर परत करते. इनपुट: path, page_index, max_chars. आउटपुट: पानाचा मजकूर (सर्व पानांचा किंवा निर्दिष्ट पानाचा).",
+    "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइलसाठी ऐच्छिक password. दिला नाही आणि input एन्क्रिप्टेड असेल तर, एकदाच password विचारला जाईल.",
+    "prompt.password": "या फाइलचा password टाका:\n{path}"
   }
 }

@@ -310,5 +310,53 @@
       "skills load"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "bn": {
+    "err.invalid_args": "[tool error] অবৈধ আর্গুমেন্ট",
+    "err.skill_dir_required": "[tool error] skill_dir অবশ্যই একটি খালি নয় এমন স্ট্রিং হতে হবে",
+    "param.skill_dir.description": "স্কিল ডিরেক্টরি (SKILL.md সরাসরি নিচে থাকতে হবে)",
+    "tool.description": "একটি Agent Skill-এর SKILL.md লোড করে তার YAML frontmatter এবং Markdown body ফেরত দেয়।",
+    "x_search_terms": [
+      "একটি Agent Skill-এর SKILL.md লোড করে তার YAML frontmatter এবং Markdown body ফেরত দেয়",
+      "skills_load",
+      "skills load"
+    ],
+    "tool.system_prompt": "টুলের বিবরণে বর্ণিত উদ্দেশ্যে এই টুল ব্যবহার করুন।"
+  },
+  "fa": {
+    "err.invalid_args": "[خطای ابزار] آرگومان‌ها نامعتبرند",
+    "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
+    "param.skill_dir.description": "پوشهٔ مهارت (SKILL.md باید دقیقاً زیر آن باشد)",
+    "tool.description": "SKILL.md یک Agent Skill را بارگذاری می‌کند و frontmatter ی YAML و بدنهٔ Markdown آن را برمی‌گرداند.",
+    "x_search_terms": [
+      "SKILL.md یک Agent Skill را بارگذاری می‌کند و frontmatter ی YAML و بدنهٔ Markdown آن را برمی‌گرداند",
+      "skills_load",
+      "skills load"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
+  },
+  "mn": {
+    "err.invalid_args": "[хэрэгслийн алдаа] буруу аргументууд",
+    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр байх ёстой",
+    "param.skill_dir.description": "Skill-ийн директор (SKILL.md нь яг доор байрлах шаардлагатай)",
+    "tool.description": "Agent Skill-ийн SKILL.md-г ачаалж, YAML frontmatter болон Markdown body-г буцаана.",
+    "x_search_terms": [
+      "Agent Skill-ийн SKILL.md-г ачаалж, YAML frontmatter болон Markdown body-г буцаана",
+      "skills_load",
+      "skills load"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
+  },
+  "mr": {
+    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग्युमेंट्स",
+    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिंग असणे आवश्यक आहे",
+    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.md थेट खाली असणे आवश्यक आहे)",
+    "tool.description": "एखाद्या Agent Skill साठी SKILL.md लोड करते आणि त्याचा YAML frontmatter व Markdown body परत करते.",
+    "x_search_terms": [
+      "एखाद्या Agent Skill साठी SKILL.md लोड करते आणि त्याचा YAML frontmatter व Markdown body परत करते",
+      "skills_load",
+      "skills load"
+    ],
+    "tool.system_prompt": "टूलच्या वर्णनात नमूद केलेल्या उद्देशासाठी हे टूल वापरा."
   }
 }

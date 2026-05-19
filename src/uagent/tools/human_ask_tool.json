@@ -20,7 +20,7 @@
       "human ask"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: ask the human user for an input/decision that the model cannot complete by itself and receive a single reply text.\n\nImportant: This tool can receive only one reply text per call. Do not split input into multiple fields.\n\nSECURITY (MOST IMPORTANT):\n- When requesting secrets (passwords, API keys, tokens, private keys, session cookies, etc.), you MUST set is_password=True.\n- Never repeat a secret obtained with is_password=True in any later assistant messages.\n- Do not store secrets in long-term memory or shared memory.\n\nOperational guidelines:\n- If additional user input is needed, always use the human_ask tool.\n- With is_password=True, ask for only one secret item.\n- If both username and password are required, call human_ask multiple times.\n- Do not request multiple items in a single call.\n- For relative date expressions (today/this year/etc.), call get_current_time.\n- When outputting files or code, do not omit the full original content unless the user explicitly requests it.\n\nCancellation:\n- To cancel, reply with a single line: 'c' or 'cancel'.\n",
-    "ui.footer": "=== /human_ask (user input) ===",
+    "ui.footer": "=== /human_ask (ব্যবহারকারীর ইনপুট) ===",
     "ui.howto": "How to answer:\n  - Just type it in and press Enter to send\n  - Enter 'f' to enter multiline mode\n  - In multiline mode: clear with \"\"\"retry, send with \"\"\"end\n  - Cancel with 'c' or 'cancel'",
     "ui.title": "=== Request to a person (human_ask) ==="
   },
@@ -648,5 +648,105 @@
     "ui.footer": "=== /human_ask（使用者輸入）===",
     "ui.howto": "如何回答：\n  - 只需輸入並按 Enter 即可送出\n  - 輸入 'f' 進入多行模式\n  - 在多行模式下：以 '\"\"\"retry' 清除，以 '\"\"\"end' 傳送\n  - 使用 'c' 或 'cancel' 中止",
     "ui.title": "=== 向某人提出請求 (human_ask) ==="
+  },
+  "bn": {
+    "doc.ensure_gui_sentinel": "GUI থেকে আসা উত্তরটি multi_input_sentinel লাইন দিয়ে শেষ হচ্ছে কি না নিশ্চিত করুন।",
+    "doc.run_tool": "human_ask সরাসরি stdin থেকে পড়ে না;\nscheck.py-র stdin_loop থ্রেডকে প্রসেসিং সামলাতে দিন\nএবং shared state (callbacks) এর মাধ্যমে ফলাফল নিন।",
+    "err.active_uninitialized": "[human_ask error] human_ask_active callback শুরু করা হয়নি।",
+    "err.already_active": "[human_ask error] অন্য একটি human_ask ইতিমধ্যেই চলছে।",
+    "err.lines_uninitialized": "[human_ask error] human_ask_lines callback শুরু করা হয়নি।",
+    "err.lock_uninitialized": "[human_ask error] human_ask_lock callback শুরু করা হয়নি।",
+    "err.multiline_uninitialized": "[human_ask error] human_ask_multiline_active callback শুরু করা হয়নি।",
+    "err.password_uninitialized": "[human_ask error] human_ask_set_password callback শুরু করা হয়নি।",
+    "err.queue_uninitialized": "[human_ask error] human_ask_queue callback শুরু করা হয়নি।",
+    "msg.empty_request": "(LLM থেকে আসা অনুরোধটি ফাঁকা। প্রয়োজনীয় কাজ ও সিদ্ধান্তগুলো এখানে জাপানিতে লিখুন।)",
+    "msg.no_user_reply": "(ব্যবহারকারীর কোনো উত্তর নেই)",
+    "param.is_password.description": "true হলে, ইনপুট অক্ষর লুকায় (মাস্ক করে)। পাসওয়ার্ড বা টোকেন দেওয়ার সময় এটি ব্যবহার করুন।",
+    "param.message.description": "মানুষকে কী করতে বলতে চান তা জাপানিতে, যেমন-তেমন প্রদর্শন করা যায় এমন ফরম্যাটে লিখুন।",
+    "tool.description": "মানুষের কাছ থেকে এমন input/decision চাইতে এই টুল ব্যবহার করা হয়, যা মডেল একা শেষ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাইলে is_password=True দিন এবং প্রতিটি call-এ ঠিক একটি item-ই জিজ্ঞাসা করুন।",
+    "x_search_terms": [
+      "মানুষের কাছ থেকে এমন input/decision চাইতে এই টুল ব্যবহার করা হয়, যা মডেল একা শেষ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাইলে is_password=True দিন এবং প্রতিটি call-এ ঠিক একটি item-ই জিজ্ঞাসা করুন",
+      "human_ask",
+      "human ask"
+    ],
+    "tool.system_prompt": "এই টুলটি ব্যবহার করা হয় এমন input বা সিদ্ধান্তের জন্য যা মডেল নিজে শেষ করতে পারে না, এবং একটি মাত্র reply text পেতে।\n\nগুরুত্বপূর্ণ: এই টুল প্রতি call-এ শুধু একটি reply text নিতে পারে। input-কে একাধিক field-এ ভাগ করবেন না।\n\nনিরাপত্তা (সবচেয়ে গুরুত্বপূর্ণ):\n- গোপন তথ্য (পাসওয়ার্ড, API key, token, private key, session cookie ইত্যাদি) চাইলে অবশ্যই is_password=True দিন।\n- is_password=True দিয়ে পাওয়া secret পরে কোনো assistant message-এ পুনরাবৃত্তি করবেন না।\n- secret long-term memory বা shared memory-তে সংরক্ষণ করবেন না।\n\nব্যবহারের নির্দেশনা:\n- অতিরিক্ত user input লাগলে সবসময় human_ask ব্যবহার করুন।\n- is_password=True হলে শুধু একটি secret item চাইুন।\n- username এবং password দুটোই লাগলে human_ask একাধিকবার কল করুন।\n- এক call-এ একাধিক item চাইবেন না।\n- relative date expression (today/this year/ইত্যাদি) এর জন্য get_current_time কল করুন।\n- file বা code output দেওয়ার সময় user স্পষ্টভাবে না চাইলে মূল content পুরোপুরি বাদ দেবেন না।\n\nবাতিল:\n- বাতিল করতে এক লাইনে 'c' বা 'cancel' লিখুন।\n",
+    "ui.footer": "=== /human_ask (ব্যবহারকারীর ইনপুট) ===",
+    "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - multiline mode-এ: '\"\"\"retry' দিয়ে মুছুন, '\"\"\"end' দিয়ে পাঠান\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
+    "ui.title": "=== একজন মানুষের কাছে অনুরোধ (human_ask) ==="
+  },
+  "fa": {
+    "doc.ensure_gui_sentinel": "مطمئن شوید پاسخ GUI با یک خط multi_input_sentinel تمام می‌شود.",
+    "doc.run_tool": "human_ask مستقیماً از stdin نمی‌خواند؛\nاجازه دهید threadِ stdin_loop در سمت scheck.py پردازش را انجام دهد\nو نتایج را از طریق shared state (callbacks) دریافت کنید.",
+    "err.active_uninitialized": "[خطای human_ask] callback مربوط به human_ask_active مقداردهی اولیه نشده است.",
+    "err.already_active": "[خطای human_ask] یک human_ask دیگر در حال اجراست.",
+    "err.lines_uninitialized": "[خطای human_ask] callback مربوط به human_ask_lines مقداردهی اولیه نشده است.",
+    "err.lock_uninitialized": "[خطای human_ask] callback مربوط به human_ask_lock مقداردهی اولیه نشده است.",
+    "err.multiline_uninitialized": "[خطای human_ask] callback مربوط به human_ask_multiline_active مقداردهی اولیه نشده است.",
+    "err.password_uninitialized": "[خطای human_ask] callback مربوط به human_ask_set_password مقداردهی اولیه نشده است.",
+    "err.queue_uninitialized": "[خطای human_ask] callback مربوط به human_ask_queue مقداردهی اولیه نشده است.",
+    "msg.empty_request": "(درخواست LLM خالی است. لطفاً عملیات و تصمیم‌های لازم را اینجا به ژاپنی بنویسید.)",
+    "msg.no_user_reply": "(بدون پاسخ کاربر)",
+    "param.is_password.description": "اگر true باشد، نویسه‌های ورودی را پنهان (mask) می‌کند. از آن برای وارد کردن رمز عبور یا token استفاده کنید.",
+    "param.message.description": "آنچه می‌خواهید از یک انسان بخواهید انجام دهد را به ژاپنی و در قالبی بنویسید که بتوان همان‌طور نمایش داد.",
+    "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل به‌تنهایی نمی‌تواند انجام دهد. نکتهٔ امنیتی: هنگام درخواست رازها (رمز عبور/توکن)، is_password=True را تنظیم کنید و در هر فراخوانی فقط یک مورد را بپرسید.",
+    "x_search_terms": [
+      "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل به‌تنهایی نمی‌تواند انجام دهد. نکتهٔ امنیتی: هنگام درخواست رازها (رمز عبور/توکن)، is_password=True را تنظیم کنید و در هر فراخوانی فقط یک مورد را بپرسید",
+      "human_ask",
+      "human ask"
+    ],
+    "tool.system_prompt": "این ابزار برای هدف زیر استفاده می‌شود: از کاربر انسانی ورودی یا تصمیمی را که مدل به‌تنهایی نمی‌تواند انجام دهد بپرسید و یک متن پاسخ واحد دریافت کنید.\n\nمهم: این ابزار در هر فراخوانی فقط یک متن پاسخ می‌پذیرد. ورودی را به چند فیلد تقسیم نکنید.\n\nامنیت (مهم‌ترین):\n- هنگام درخواست رازها (رمز عبور، کلید API، توکن، کلید خصوصی، کوکی نشست و غیره)، باید is_password=True را تنظیم کنید.\n- هرگز راز به‌دست‌آمده با is_password=True را در پیام‌های بعدی assistant تکرار نکنید.\n- رازها را در memory بلندمدت یا shared memory ذخیره نکنید.\n\nراهنمای عملیاتی:\n- اگر ورودی بیشتر از کاربر لازم است، همیشه از human_ask استفاده کنید.\n- با is_password=True فقط یک مورد راز را بپرسید.\n- اگر هم نام کاربری و هم رمز عبور لازم است، human_ask را چند بار فراخوانی کنید.\n- در یک فراخوانی چند مورد را نپرسید.\n- برای عبارت‌های تاریخ نسبی (امروز/امسال/و غیره) get_current_time را فراخوانی کنید.\n- هنگام خروجی‌دادن فایل یا کد، مگر اینکه کاربر صریحاً بخواهد، محتوای کامل اصلی را حذف نکنید.\n\nلغو:\n- برای لغو، در یک خط فقط 'c' یا 'cancel' پاسخ دهید.\n",
+    "ui.footer": "=== /human_ask (ورودی کاربر) ===",
+    "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - در حالت چندخطی: با '\"\"\"retry' پاک کنید، با '\"\"\"end' ارسال کنید\n  - با 'c' یا 'cancel' لغو کنید",
+    "ui.title": "=== درخواست از یک شخص (human_ask) ==="
+  },
+  "mn": {
+    "doc.ensure_gui_sentinel": "GUI-ээс ирсэн хариу multi_input_sentinel мөрөөр төгсөж буйг шалгана уу.",
+    "doc.run_tool": "human_ask нь stdin-ээс шууд уншихгүй;\nscheck.py талын stdin_loop thread-д боловсруулалтыг даатгаж\nshared state (callbacks)-аар үр дүнг авна.",
+    "err.active_uninitialized": "[human_ask error] human_ask_active callback эхлээгүй байна.",
+    "err.already_active": "[human_ask error] Өөр human_ask аль хэдийн ажиллаж байна.",
+    "err.lines_uninitialized": "[human_ask error] human_ask_lines callback эхлээгүй байна.",
+    "err.lock_uninitialized": "[human_ask error] human_ask_lock callback эхлээгүй байна.",
+    "err.multiline_uninitialized": "[human_ask error] human_ask_multiline_active callback эхлээгүй байна.",
+    "err.password_uninitialized": "[human_ask error] human_ask_set_password callback эхлээгүй байна.",
+    "err.queue_uninitialized": "[human_ask error] human_ask_queue callback эхлээгүй байна.",
+    "msg.empty_request": "(LLM-ээс ирсэн хүсэлт хоосон байна. Шаардлагатай үйлдэл, шийдвэрийг энд япон хэлээр бичнэ үү.)",
+    "msg.no_user_reply": "(хэрэглэгчийн хариу алга)",
+    "param.is_password.description": "true бол оролтын тэмдэгтүүдийг нууж (mask) харуулна. Нууц үг эсвэл token оруулахад ашиглана уу.",
+    "param.message.description": "Хүнээс юу хийхийг хүсэж байгаагаа япон хэлээр яг тэр чигээр нь харуулж болохоор хэлбэрээр бичнэ үү.",
+    "tool.description": "Хүн хэрэглэгчээс, модель өөрөө дуусгаж чаддаггүй оролт/шийдвэрийг хүсэх хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц (нууц үг/token) асуухдаа is_password=True гэж тохируулж, нэг удаагийн дуудлагаар яг нэг л зүйлийг асуу.",
+    "x_search_terms": [
+      "Хүн хэрэглэгчээс, модель өөрөө дуусгаж чаддаггүй оролт/шийдвэрийг хүсэх хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц (нууц үг/token) асуухдаа is_password=True гэж тохируулж, нэг удаагийн дуудлагаар яг нэг л зүйлийг асуу",
+      "human_ask",
+      "human ask"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь модель өөрөө дуусгаж чаддаггүй хүний оролт эсвэл шийдвэрийг асууж, нэг хариу текст авахад ашиглагдана.\n\nЧухал: энэ хэрэгсэл нэг дуудлагаар зөвхөн нэг хариу текст авна. Оролтыг олон талбар болгон хувааж болохгүй.\n\nАюулгүй байдал (хамгийн чухал):\n- Нууц мэдээлэл (нууц үг, API key, token, private key, session cookie гэх мэт) асуухад заавал is_password=True гэж тохируулна уу.\n- is_password=True-ээр авсан нууцыг дараагийн assistant-ийн мессежүүдэд огт давтахгүй.\n- Нууцыг long-term memory эсвэл shared memory-д хадгалахгүй.\n\nАшиглах заавар:\n- Нэмэлт хэрэглэгчийн оролт хэрэгтэй бол үргэлж human_ask хэрэглэнэ.\n- is_password=True үед зөвхөн нэг нууц зүйлийг асууна.\n- Хэрэв хэрэглэгчийн нэр болон нууц үг хоёулаа хэрэгтэй бол human_ask-г хэд хэдэн удаа дуудна.\n- Нэг дуудлагаар олон зүйлийг бүү асуу.\n- Харьцангуй огнооны илэрхийлэл (өнөөдөр/энэ жил/гэх мэт)-ийн хувьд get_current_time дуудна.\n- Файл эсвэл код гаргахдаа хэрэглэгч тодорхой хүсээгүй бол эх хувилбарын бүтэн агуулгыг орхигдуулахгүй.\n\nЦуцлах:\n- Цуцлахын тулд нэг мөрөөр 'c' эсвэл 'cancel' гэж хариулна уу.\n",
+    "ui.footer": "=== /human_ask (хэрэглэгчийн оролт) ===",
+    "ui.howto": "Хариулах арга:\n  - Зүгээр бичээд Enter дарж илгээнэ\n  - Олон мөрийн горимд орохын тулд 'f' гэж оруулна\n  - Олон мөрийн горимд: '\"\"\"retry' гэж арилгаад, '\"\"\"end' гэж илгээнэ\n  - 'c' эсвэл 'cancel' гэж цуцална",
+    "ui.title": "=== Хүнд хандах хүсэлт (human_ask) ==="
+  },
+  "mr": {
+    "doc.ensure_gui_sentinel": "GUI कडून येणारे उत्तर multi_input_sentinel ओळीने संपते याची खात्री करा.",
+    "doc.run_tool": "human_ask stdin मधून थेट वाचत नाही;\nscheck.py बाजूच्या stdin_loop thread कडे प्रक्रिया सोपवा\nआणि shared state (callbacks) द्वारे निकाल मिळवा.",
+    "err.active_uninitialized": "[human_ask error] human_ask_active callback initialize केलेला नाही.",
+    "err.already_active": "[human_ask error] दुसरा human_ask आधीच चालू आहे.",
+    "err.lines_uninitialized": "[human_ask error] human_ask_lines callback initialize केलेला नाही.",
+    "err.lock_uninitialized": "[human_ask error] human_ask_lock callback initialize केलेला नाही.",
+    "err.multiline_uninitialized": "[human_ask error] human_ask_multiline_active callback initialize केलेला नाही.",
+    "err.password_uninitialized": "[human_ask error] human_ask_set_password callback initialize केलेला नाही.",
+    "err.queue_uninitialized": "[human_ask error] human_ask_queue callback initialize केलेला नाही.",
+    "msg.empty_request": "(LLM कडून आलेली विनंती रिकामी आहे. आवश्यक क्रिया आणि निर्णय येथे जपानीमध्ये लिहा.)",
+    "msg.no_user_reply": "(वापरकर्त्याचे उत्तर नाही)",
+    "param.is_password.description": "true असल्यास, इनपुट अक्षरे लपवतो (mask करतो). पासवर्ड किंवा token टाकण्यासाठी वापरा.",
+    "param.message.description": "एखाद्या माणसाला काय करायला सांगायचे आहे ते जपानीमध्ये, जसाच्या तसा दाखवता येईल अशा स्वरूपात लिहा.",
+    "tool.description": "मॉडेल स्वतः पूर्ण करू शकत नाही असा input/decision मानव वापरकर्त्याकडून मागण्यासाठीचे साधन. सुरक्षा सूचना: secret (पासवर्ड/token) मागताना is_password=True सेट करा आणि प्रत्येक call मध्ये फक्त एकच item विचारा.",
+    "x_search_terms": [
+      "मॉडेल स्वतः पूर्ण करू शकत नाही असा input/decision मानव वापरकर्त्याकडून मागण्यासाठीचे साधन. सुरक्षा सूचना: secret (पासवर्ड/token) मागताना is_password=True सेट करा आणि प्रत्येक call मध्ये फक्त एकच item विचारा",
+      "human_ask",
+      "human ask"
+    ],
+    "tool.system_prompt": "हे साधन अशा input किंवा निर्णयासाठी वापरले जाते जे मॉडेल स्वतः पूर्ण करू शकत नाही, आणि एकच reply text मिळवण्यासाठी.\n\nमहत्त्वाचे: हे साधन प्रत्येक call मध्ये फक्त एकच reply text स्वीकारते. input अनेक fields मध्ये विभागू नका.\n\nसुरक्षा (सर्वात महत्त्वाची):\n- secret माहिती (पासवर्ड, API key, token, private key, session cookie इ.) मागताना is_password=True अनिवार्य आहे.\n- is_password=True ने मिळालेला secret नंतरच्या कोणत्याही assistant संदेशात पुन्हा सांगू नका.\n- secret long-term memory किंवा shared memory मध्ये साठवू नका.\n\nकार्यपद्धती:\n- अधिक user input हवा असल्यास नेहमी human_ask वापरा.\n- is_password=True असताना फक्त एकच secret item विचारा.\n- username आणि password दोन्ही हवे असल्यास human_ask अनेक वेळा कॉल करा.\n- एका call मध्ये अनेक items मागू नका.\n- relative date expression (आज/या वर्षी/इ.) साठी get_current_time कॉल करा.\n- फाइल किंवा code आउटपुट देताना, user ने स्पष्टपणे न मागितल्यास, मूळ content पूर्णपणे वगळू नका.\n\nरद्द करणे:\n- रद्द करण्यासाठी एकाच ओळीत 'c' किंवा 'cancel' असे उत्तर द्या.\n",
+    "ui.footer": "=== /human_ask (वापरकर्ता input) ===",
+    "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - multiline mode मध्ये: '\"\"\"retry' ने साफ करा, '\"\"\"end' ने पाठवा\n  - 'c' किंवा 'cancel' ने रद्द करा",
+    "ui.title": "=== एखाद्या व्यक्तीला विनंती (human_ask) ==="
   }
 }

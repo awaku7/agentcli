@@ -7,7 +7,7 @@
     "param.format.description": "Output format.",
     "param.include_cell_links.description": "Whether to include cell hyperlinks.",
     "param.include_shapes.description": "Whether to include shapes.",
-    "param.mode.description": "Extraction mode.",
+    "param.mode.description": "अर्क काढण्याची मोड.",
     "param.output_path.description": "Output path for export_file.",
     "param.pretty.description": "Whether to pretty-print output.",
     "param.print_areas_dir.description": "Directory to save per-print-area files.",
@@ -596,5 +596,97 @@
     "tool.system_prompt": "此工具執行工具名稱「exstruct」所描述的操作。",
     "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
+  },
+  "bn": {
+    "param.action.description": "যে কাজটি করা হবে।",
+    "param.auto_page_breaks_dir.description": "স্বয়ংক্রিয় পৃষ্ঠা-বিভাজন এলাকাগুলো সংরক্ষণের ডিরেক্টরি।",
+    "param.density_min.description": "টেবিল ঘনত্বের ন্যূনতম সীমা।",
+    "param.file_path.description": "ইনপুট Excel ফাইলের পথ।",
+    "param.format.description": "আউটপুট ফরম্যাট।",
+    "param.include_cell_links.description": "সেল হাইপারলিঙ্ক অন্তর্ভুক্ত করবেন কি না।",
+    "param.include_shapes.description": "আকৃতি অন্তর্ভুক্ত করবেন কি না।",
+    "param.mode.description": "এক্সট্রাকশন মোড।",
+    "param.output_path.description": "export_file-এর আউটপুট পথ।",
+    "param.pretty.description": "আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",
+    "param.print_areas_dir.description": "প্রতি-প্রিন্ট-এলাকার ফাইল সংরক্ষণের ডিরেক্টরি।",
+    "param.sheets_dir.description": "প্রতি-শিটের ফাইল সংরক্ষণের ডিরেক্টরি।",
+    "param.table_score_threshold.description": "টেবিল সনাক্তকরণের সীমা।",
+    "tool.description": "exstruct ব্যবহার করে Excel (.xlsx) ফাইল থেকে গঠিত ডেটা বের করুন এবং JSON/YAML হিসেবে ফেরত দিন বা সংরক্ষণ করুন। export_file.output_path আগে থেকেই থাকলে, সংরক্ষণের ঠিক আগে একটি ব্যাকআপ (<output_path>.org / <output_path>.org1 / ...) তৈরি করা হয়।",
+    "x_search_terms": [
+      "exstruct ব্যবহার করে Excel (.xlsx) ফাইল থেকে গঠিত ডেটা বের করুন এবং JSON/YAML হিসেবে ফেরত দিন বা সংরক্ষণ করুন। export_file.output_path আগে থেকেই থাকলে, সংরক্ষণের ঠিক আগে একটি ব্যাকআপ (<output_path>.org / <output_path>.org1 / ...) তৈরি করা হয়",
+      "exstruct"
+    ],
+    "tool.system_prompt": "এই টুলটি 'exstruct' নামের টুলে বর্ণিত কাজটি সম্পাদন করে।",
+    "param.password.description": "এনক্রিপ্ট করা .xlsx ফাইলের জন্য ঐচ্ছিক পাসওয়ার্ড। উল্লেখ না করলে এবং ফাইলটি এনক্রিপ্ট করা থাকলে, একবার পাসওয়ার্ড চাইবে।",
+    "prompt.password": "এই ফাইলটির পাসওয়ার্ড লিখুন:\n{path}"
+  },
+  "fa": {
+    "param.action.description": "عملیاتی که باید انجام شود.",
+    "param.auto_page_breaks_dir.description": "پوشهٔ ذخیرهٔ ناحیه‌های شکست صفحهٔ خودکار.",
+    "param.density_min.description": "آستانهٔ تراکم جدول.",
+    "param.file_path.description": "مسیر فایل Excel ورودی.",
+    "param.format.description": "قالب خروجی.",
+    "param.include_cell_links.description": "این‌که پیوندهای سلول‌ها هم شامل شوند یا نه.",
+    "param.include_shapes.description": "این‌که شکل‌ها هم شامل شوند یا نه.",
+    "param.mode.description": "حالت استخراج.",
+    "param.output_path.description": "مسیر خروجی برای export_file.",
+    "param.pretty.description": "این‌که خروجی به‌صورت زیبا قالب‌بندی شود یا نه.",
+    "param.print_areas_dir.description": "پوشهٔ ذخیرهٔ فایل‌های هر ناحیهٔ چاپ.",
+    "param.sheets_dir.description": "پوشهٔ ذخیرهٔ فایل‌های هر شیت.",
+    "param.table_score_threshold.description": "آستانهٔ تشخیص جدول.",
+    "tool.description": "با exstruct داده‌های ساختاریافته را از یک فایل Excel (.xlsx) استخراج کنید و آن را به‌صورت JSON/YAML برگردانید یا ذخیره کنید. اگر export_file.output_path از قبل وجود داشته باشد، درست پیش از ذخیره یک نسخهٔ پشتیبان (<output_path>.org / <output_path>.org1 / ...) ساخته می‌شود.",
+    "x_search_terms": [
+      "با exstruct داده‌های ساختاریافته را از یک فایل Excel (.xlsx) استخراج کنید و آن را به‌صورت JSON/YAML برگردانید یا ذخیره کنید. اگر export_file.output_path از قبل وجود داشته باشد، درست پیش از ذخیره یک نسخهٔ پشتیبان (<output_path>.org / <output_path>.org1 / ...) ساخته می‌شود",
+      "exstruct"
+    ],
+    "tool.system_prompt": "این ابزار عملیاتی را که با نام ابزار 'exstruct' توصیف شده انجام می‌دهد.",
+    "param.password.description": "گذرواژهٔ اختیاری برای فایل‌های .xlsx رمزگذاری‌شده. اگر حذف شود و فایل رمزگذاری‌شده باشد، یک‌بار از شما گذرواژه خواسته می‌شود.",
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+  },
+  "mn": {
+    "param.action.description": "Хийх үйлдэл.",
+    "param.auto_page_breaks_dir.description": "Автомат хуудас таслах бүсүүдийг хадгалах хавтас.",
+    "param.density_min.description": "Хүснэгтийн нягтын босго.",
+    "param.file_path.description": "Оролтын Excel файлын зам.",
+    "param.format.description": "Гаралтын формат.",
+    "param.include_cell_links.description": "Нүдний hyperlink-үүдийг оруулах эсэх.",
+    "param.include_shapes.description": "Тэмдэг дүрсүүдийг оруулах эсэх.",
+    "param.mode.description": "Экстракцийн горим.",
+    "param.output_path.description": "export_file-ийн гаралтын зам.",
+    "param.pretty.description": "Гаралтыг гоёор форматлах эсэх.",
+    "param.print_areas_dir.description": "Хэвлэх бүс тус бүрийн файлуудыг хадгалах хавтас.",
+    "param.sheets_dir.description": "Хуудас тус бүрийн файлуудыг хадгалах хавтас.",
+    "param.table_score_threshold.description": "Хүснэгт илрүүлэх босго.",
+    "tool.description": "exstruct ашиглан Excel (.xlsx) файлаас бүтэцлэгдсэн өгөгдөл гаргаж, JSON/YAML хэлбэрээр буцаах эсвэл хадгална. export_file.output_path аль хэдийн байвал, хадгалахын яг өмнө нөөц хувилбар (<output_path>.org / <output_path>.org1 / ...) үүсгэнэ.",
+    "x_search_terms": [
+      "exstruct ашиглан Excel (.xlsx) файлаас бүтэцлэгдсэн өгөгдөл гаргаж, JSON/YAML хэлбэрээр буцаах эсвэл хадгална. export_file.output_path аль хэдийн байвал, хадгалахын яг өмнө нөөц хувилбар (<output_path>.org / <output_path>.org1 / ...) үүсгэнэ",
+      "exstruct"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь 'exstruct' нэрээр тайлбарласан үйлдлийг гүйцэтгэнэ.",
+    "param.password.description": "Шифрлэгдсэн .xlsx файлуудад зориулсан сонголтот нууц үг. Хэрэв орхивол файл шифрлэгдсэн тохиолдолд нэг удаа нууц үг асууна.",
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+  },
+  "mr": {
+    "param.action.description": "करावयाची क्रिया.",
+    "param.auto_page_breaks_dir.description": "स्वयंचलित पृष्ठ-विभाजन क्षेत्रे जतन करण्यासाठीची निर्देशिका.",
+    "param.density_min.description": "तक्त्याच्या घनतेची मर्यादा.",
+    "param.file_path.description": "इनपुट Excel फाइलचा path.",
+    "param.format.description": "आउटपुट format.",
+    "param.include_cell_links.description": "सेल hyperlink समाविष्ट करायचे का.",
+    "param.include_shapes.description": "आकार/shape समाविष्ट करायचे का.",
+    "param.mode.description": "抽出モード。",
+    "param.output_path.description": "export_file साठी आउटपुट path.",
+    "param.pretty.description": "आउटपुट सुंदररीत्या मांडायचे का.",
+    "param.print_areas_dir.description": "प्रति-प्रिंट-एरिया फाइल्स जतन करण्यासाठीची निर्देशिका.",
+    "param.sheets_dir.description": "प्रति-शीट फाइल्स जतन करण्यासाठीची निर्देशिका.",
+    "param.table_score_threshold.description": "तक्ता ओळखण्याची मर्यादा.",
+    "tool.description": "exstruct वापरून Excel (.xlsx) फाइलमधील संरचित डेटा काढा आणि तो JSON/YAML स्वरूपात परत द्या किंवा जतन करा. export_file.output_path आधीच अस्तित्वात असल्यास, जतन करण्याच्या अगोदर त्वरित बॅकअप (<output_path>.org / <output_path>.org1 / ...) तयार केला जातो.",
+    "x_search_terms": [
+      "exstruct वापरून Excel (.xlsx) फाइलमधील संरचित डेटा काढा आणि तो JSON/YAML स्वरूपात परत द्या किंवा जतन करा. export_file.output_path आधीच अस्तित्वात असल्यास, जतन करण्याच्या अगोदर त्वरित बॅकअप (<output_path>.org / <output_path>.org1 / ...) तयार केला जातो",
+      "exstruct"
+    ],
+    "tool.system_prompt": "हे साधन 'exstruct' या साधन-नावाने वर्णन केलेली क्रिया करते.",
+    "param.password.description": "एन्क्रिप्ट केलेल्या .xlsx फाइल्ससाठी ऐच्छिक पासवर्ड. वगळले आणि फाइल एन्क्रिप्टेड असल्यास, एकदाच पासवर्ड विचारला जाईल.",
+    "prompt.password": "या फाइलसाठी पासवर्ड टाका:\n{path}"
   }
 }

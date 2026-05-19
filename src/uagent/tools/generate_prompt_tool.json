@@ -414,5 +414,69 @@
       "generate prompt"
     ],
     "tool.system_prompt": "讀取工作目錄下的文字檔案，並透過套用範本（Python str.format）產生提示字串。\n可用的範本變數：\n- content: 完整檔案內容（文本）\n- lines: 行數\n- bytes: 以位元組為單位的檔案大小\n- basename: 檔案基名\n- path: 絕對解析路徑"
+  },
+  "bn": {
+    "err.bad_template": "[generate_prompt error] template-এ অজানা key আছে: {key}",
+    "err.not_a_file": "[generate_prompt error] file নয়: {path}",
+    "err.path_missing": "[generate_prompt error] path/filename নির্দিষ্ট করা হয়নি",
+    "err.template_missing": "[generate_prompt error] template নির্দিষ্ট করা হয়নি",
+    "param.filename.description": "(সামঞ্জস্য) path-এর alias।",
+    "param.path.description": "ইনপুট ফাইলের path (workdir-এর মধ্যে হতে হবে)।",
+    "param.template.description": "Python format template. উদাহরণ: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Python format template ব্যবহার করে একটি file থেকে prompt string তৈরি করে। template {content}, {lines}, {bytes}, {basename}, {path} এর মতো variable reference করতে পারে।",
+    "x_search_terms": [
+      "Python format template ব্যবহার করে একটি file থেকে prompt string তৈরি করে। template {content}, {lines}, {bytes}, {basename}, {path} এর মতো variable reference করতে পারে",
+      "generate_prompt",
+      "generate prompt"
+    ],
+    "tool.system_prompt": "workdir-এর নিচের একটি text file পড়ে template (Python str.format) প্রয়োগ করে একটি prompt string তৈরি করুন।\nউপলভ্য template variable:\n- content: পুরো file content (text)\n- lines: line সংখ্যা\n- bytes: file size (byte)\n- basename: file basename\n- path: resolved absolute path"
+  },
+  "fa": {
+    "err.bad_template": "[generate_prompt error] الگو دارای کلید ناشناخته است: {key}",
+    "err.not_a_file": "[generate_prompt error] فایل نیست: {path}",
+    "err.path_missing": "[generate_prompt error] مسیر/نام فایل مشخص نشده است",
+    "err.template_missing": "[generate_prompt error] الگو مشخص نشده است",
+    "param.filename.description": "(سازگاری) نام مستعار path.",
+    "param.path.description": "مسیر فایل ورودی (باید زیر workdir باشد).",
+    "param.template.description": "الگوی قالب Python. مثال: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "با استفاده از یک الگوی قالب Python از یک فایل رشتهٔ prompt تولید می‌کند. الگو می‌تواند به متغیرهایی مانند {content}، {lines}، {bytes}، {basename} و {path} ارجاع دهد.",
+    "x_search_terms": [
+      "با استفاده از یک الگوی قالب Python از یک فایل رشتهٔ prompt تولید می‌کند. الگو می‌تواند به متغیرهایی مانند {content}، {lines}، {bytes}، {basename} و {path} ارجاع دهد",
+      "generate_prompt",
+      "generate prompt"
+    ],
+    "tool.system_prompt": "یک فایل متنی زیر workdir را بخوانید و با اعمال یک الگو (Python str.format) یک رشتهٔ prompt تولید کنید.\nمتغیرهای موجود الگو:\n- content: محتوای کامل فایل (متن)\n- lines: تعداد سطرها\n- bytes: اندازهٔ فایل بر حسب بایت\n- basename: نام پایهٔ فایل\n- path: مسیر مطلق resolved"
+  },
+  "mn": {
+    "err.bad_template": "[generate_prompt error] template-д танихгүй key байна: {key}",
+    "err.not_a_file": "[generate_prompt error] файл биш байна: {path}",
+    "err.path_missing": "[generate_prompt error] path/filename заагаагүй байна",
+    "err.template_missing": "[generate_prompt error] template заагаагүй байна",
+    "param.filename.description": "(Тохиролцоо) path-ийн alias.",
+    "param.path.description": "Оролтын файлын path (workdir-ийн дор байх ёстой).",
+    "param.template.description": "Python format template. Жишээ: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Python format template ашиглан файлаас prompt string үүсгэнэ. Template нь {content}, {lines}, {bytes}, {basename}, {path} зэрэг хувьсагчийг иш татаж болно.",
+    "x_search_terms": [
+      "Python format template ашиглан файлаас prompt string үүсгэнэ. Template нь {content}, {lines}, {bytes}, {basename}, {path} зэрэг хувьсагчийг иш татаж болно",
+      "generate_prompt",
+      "generate prompt"
+    ],
+    "tool.system_prompt": "workdir дорх text file-ийг уншиж, template (Python str.format) хэрэглэн prompt string үүсгэнэ.\nБоломжтой template хувьсагчид:\n- content: файлын бүрэн агуулга (text)\n- lines: мөрийн тоо\n- bytes: файлын хэмжээ (byte)\n- basename: файлын basename\n- path: абсолют resolved path"
+  },
+  "mr": {
+    "err.bad_template": "[generate_prompt error] template मध्ये अज्ञात key आहे: {key}",
+    "err.not_a_file": "[generate_prompt error] file नाही: {path}",
+    "err.path_missing": "[generate_prompt error] path/filename निर्दिष्ट केलेले नाही",
+    "err.template_missing": "[generate_prompt error] template निर्दिष्ट केलेले नाही",
+    "param.filename.description": "(सुसंगतता) path चे alias.",
+    "param.path.description": "इनपुट file चा path (workdir अंतर्गत असणे आवश्यक).",
+    "param.template.description": "Python format template. उदाहरण: '{lines} lines\\n\\n{content}'.",
+    "tool.description": "Python format template वापरून file मधून prompt string तयार करते. template {content}, {lines}, {bytes}, {basename}, {path} यांसारख्या variables ला संदर्भ देऊ शकते.",
+    "x_search_terms": [
+      "Python format template वापरून file मधून prompt string तयार करते. template {content}, {lines}, {bytes}, {basename}, {path} यांसारख्या variables ला संदर्भ देऊ शकते",
+      "generate_prompt",
+      "generate prompt"
+    ],
+    "tool.system_prompt": "workdir अंतर्गत text file वाचा आणि template (Python str.format) लागू करून prompt string तयार करा.\nउपलब्ध template variables:\n- content: पूर्ण file content (text)\n- lines: line संख्या\n- bytes: file size (byte)\n- basename: file basename\n- path: resolve केलेला absolute path"
   }
 }

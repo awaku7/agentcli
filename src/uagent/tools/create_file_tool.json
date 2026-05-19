@@ -362,5 +362,61 @@
       "create file"
     ],
     "tool.system_prompt": "在工作目錄下建立文字檔。檔案存在且 overwrite=false 時報錯。overwrite=true 時先備份。提示：Excel 用 CSV 推薦 'utf-8-sig'，程式處理推薦 'utf-8'。不確定時請確認。"
+  },
+  "bn": {
+    "param.content.description": "লেখার জন্য টেক্সটের বিষয়বস্তু।",
+    "param.encoding.description": "টেক্সট এনকোডিং (যেমন 'utf-8', 'cp932')। encoding না দিলে .csv/.tsv-এর জন্য ডিফল্ট 'utf-8-sig'; অন্যথায় 'utf-8'.",
+    "param.filename.description": "যে ফাইলটি তৈরি করা হবে তার পথ।",
+    "param.overwrite.description": "ফাইলটি আগে থেকেই থাকলে সেটি ওভাররাইট করা হবে কি না (ডিফল্ট: false)।",
+    "param.path.description": "(সামঞ্জস্যতার জন্য) filename-এর বিকল্প নাম।",
+    "tool.description": "টেক্সট ফাইল তৈরি করুন। ডিফল্টভাবে বিদ্যমান ফাইল ওভাররাইট করা হয় না। overwrite=true এবং গন্তব্যে ফাইল আগে থেকেই থাকলে, ওভাররাইটের ঠিক আগে একটি ব্যাকআপ (<filename>.org / <filename>.org1 / ...) তৈরি হয়। টিপ: Microsoft Excel-এ সরাসরি খোলার CSV/TSV-এর জন্য encoding='utf-8-sig' (UTF-8 with BOM) বিবেচনা করুন। মেশিন প্রসেসিং ও আন্তঃকার্যকারিতার জন্য encoding='utf-8' (BOM ছাড়া) ভালো। নিশ্চিত না হলে, ফাইলটি কীভাবে ব্যবহার হবে (Excel নাকি প্রোগ্রামগত প্রসেসিং) তা জিজ্ঞেস করুন।",
+    "x_search_terms": [
+      "টেক্সট ফাইল তৈরি করুন। ডিফল্টভাবে বিদ্যমান ফাইল ওভাররাইট করা হয় না। overwrite=true এবং গন্তব্যে ফাইল আগে থেকেই থাকলে, ওভাররাইটের ঠিক আগে একটি ব্যাকআপ (<filename>.org / <filename>.org1 / ...) তৈরি হয়। টিপ: Microsoft Excel-এ সরাসরি খোলার CSV/TSV-এর জন্য encoding='utf-8-sig' (UTF-8 with BOM) বিবেচনা করুন। মেশিন প্রসেসিং ও আন্তঃকার্যকারিতার জন্য encoding='utf-8' (BOM ছাড়া) ভালো। নিশ্চিত না হলে, ফাইলটি কীভাবে ব্যবহার হবে (Excel নাকি প্রোগ্রামগত প্রসেসিং) তা জিজ্ঞেস করুন।",
+      "create_file",
+      "create file"
+    ],
+    "tool.system_prompt": "workdir-এর অধীনে একটি টেক্সট ফাইল তৈরি করুন। ফাইলটি আগে থেকে থাকলে overwrite=false হলে ত্রুটি হবে। overwrite=true হলে লেখার আগে ব্যাকআপ তৈরি হবে। টিপ: CSV/TSV সরাসরি Microsoft Excel-এ খুলতে হলে encoding='utf-8-sig' (UTF-8 with BOM) বিবেচনা করুন। মেশিন প্রসেসিং ও আন্তঃকার্যকারিতার জন্য encoding='utf-8' (BOM ছাড়া) ভালো। নিশ্চিত না হলে, ফাইলটি কীভাবে ব্যবহার হবে (Excel নাকি প্রোগ্রামগত প্রসেসিং) তা জিজ্ঞেস করুন।"
+  },
+  "fa": {
+    "param.content.description": "محتوای متنی برای نوشتن.",
+    "param.encoding.description": "کدگذاری متن (مثلاً 'utf-8'، 'cp932'). اگر مشخص نشود، برای .csv/.tsv مقدار پیش‌فرض 'utf-8-sig' است؛ در غیر این صورت 'utf-8'.",
+    "param.filename.description": "مسیر فایلی که باید ساخته شود.",
+    "param.overwrite.description": "آیا در صورت وجود فایل، بازنویسی شود یا نه (پیش‌فرض: false).",
+    "param.path.description": "(سازگاری) نام دیگر filename.",
+    "tool.description": "یک فایل متنی ایجاد کنید. به‌طور پیش‌فرض فایل‌های موجود بازنویسی نمی‌شوند. اگر overwrite=true باشد و فایل مقصد از قبل وجود داشته باشد، درست پیش از بازنویسی یک نسخهٔ پشتیبان (<filename>.org / <filename>.org1 / ...) ساخته می‌شود. نکته: برای CSV/TSV که قرار است مستقیم در Microsoft Excel باز شوند، encoding='utf-8-sig' (UTF-8 با BOM) را در نظر بگیرید. برای پردازش ماشینی و سازگاری بهتر، encoding='utf-8' (بدون BOM) را ترجیح دهید. اگر مطمئن نیستید، بپرسید فایل چگونه استفاده می‌شود (Excel یا پردازش برنامه‌ای).",
+    "x_search_terms": [
+      "یک فایل متنی ایجاد کنید. به‌طور پیش‌فرض فایل‌های موجود بازنویسی نمی‌شوند. اگر overwrite=true باشد و فایل مقصد از قبل وجود داشته باشد، درست پیش از بازنویسی یک نسخهٔ پشتیبان (<filename>.org / <filename>.org1 / ...) ساخته می‌شود. نکته: برای CSV/TSV که قرار است مستقیم در Microsoft Excel باز شوند، encoding='utf-8-sig' (UTF-8 با BOM) را در نظر بگیرید. برای پردازش ماشینی و سازگاری بهتر، encoding='utf-8' (بدون BOM) را ترجیح دهید. اگر مطمئن نیستید، بپرسید فایل چگونه استفاده می‌شود (Excel یا پردازش برنامه‌ای).",
+      "create_file",
+      "create file"
+    ],
+    "tool.system_prompt": "یک فایل متنی درون workdir ایجاد کنید. اگر فایل از قبل وجود داشته باشد، overwrite=false خطا می‌دهد. اگر overwrite=true باشد، پیش از نوشتن یک نسخهٔ پشتیبان ساخته می‌شود. نکته: برای CSV/TSV که قرار است مستقیم در Microsoft Excel باز شوند، encoding='utf-8-sig' (UTF-8 با BOM) را در نظر بگیرید. برای پردازش ماشینی و سازگاری بهتر، encoding='utf-8' (بدون BOM) را ترجیح دهید. اگر مطمئن نیستید، بپرسید فایل چگونه استفاده می‌شود (Excel یا پردازش برنامه‌ای)."
+  },
+  "mn": {
+    "param.content.description": "Бичих текстийн агуулга.",
+    "param.encoding.description": "Текстийн кодчилол (жишээ нь 'utf-8', 'cp932'). encoding заагаагүй үед .csv/.tsv-д өгөгдмөл нь 'utf-8-sig'; бусад тохиолдолд 'utf-8'.",
+    "param.filename.description": "Үүсгэх файлын зам.",
+    "param.overwrite.description": "Файл аль хэдийн байгаа бол дарж бичих эсэх (өгөгдмөл: false).",
+    "param.path.description": "(Нийцтэй байдал) filename-ийн өөр нэр.",
+    "tool.description": "Текст файл үүсгэнэ. Өгөгдмөлөөр одоо байгаа файлыг дарж бичихгүй. overwrite=true бөгөөд очих файл аль хэдийн байвал, дарж бичихийн яг өмнө нөөц (<filename>.org / <filename>.org1 / ...) үүсгэнэ. Зөвлөмж: Microsoft Excel-д шууд нээгдэх CSV/TSV-д encoding='utf-8-sig' (UTF-8 with BOM)-ийг бодолцоорой. Машин боловсруулалт болон харилцан нийцэлд encoding='utf-8' (BOMгүй) илүү тохиромжтой. Тодорхойгүй бол файлыг хэрхэн ашиглахыг (Excel үү, програмын боловсруулалт уу) асуугаарай.",
+    "x_search_terms": [
+      "Текст файл үүсгэнэ. Өгөгдмөлөөр одоо байгаа файлыг дарж бичихгүй. overwrite=true бөгөөд очих файл аль хэдийн байвал, дарж бичихийн яг өмнө нөөц (<filename>.org / <filename>.org1 / ...) үүсгэнэ. Зөвлөмж: Microsoft Excel-д шууд нээгдэх CSV/TSV-д encoding='utf-8-sig' (UTF-8 with BOM)-ийг бодолцоорой. Машин боловсруулалт болон харилцан нийцэлд encoding='utf-8' (BOMгүй) илүү тохиромжтой. Тодорхойгүй бол файлыг хэрхэн ашиглахыг (Excel үү, програмын боловсруулалт уу) асуугаарай.",
+      "create_file",
+      "create file"
+    ],
+    "tool.system_prompt": "workdir дотор текст файл үүсгэнэ. Файл аль хэдийн байвал overwrite=false үед алдаа гарна. overwrite=true бол бичихийн өмнө нөөц үүсгэнэ. Зөвлөмж: CSV/TSV-г Microsoft Excel-д шууд нээх бол encoding='utf-8-sig' (UTF-8 with BOM)-ийг бодолцоорой. Машин боловсруулалт болон харилцан нийцэлд encoding='utf-8' (BOMгүй) илүү тохиромжтой. Тодорхойгүй бол файлыг хэрхэн ашиглахыг (Excel үү, програмын боловсруулалт уу) асуугаарай."
+  },
+  "mr": {
+    "param.content.description": "लिहायचा मजकूर.",
+    "param.encoding.description": "मजकूर एन्कोडिंग (उदा. 'utf-8', 'cp932'). encoding दिले नाही तर .csv/.tsv साठी 'utf-8-sig' हा डीफॉल्ट; अन्यथा 'utf-8'.",
+    "param.filename.description": "तयार करायच्या फाइलचा मार्ग.",
+    "param.overwrite.description": "फाइल आधीपासून असेल तर ती ओव्हरराइट करायची का (डीफॉल्ट: false).",
+    "param.path.description": "(सुसंगतता) filename साठी पर्यायी नाव.",
+    "tool.description": "एक टेक्स्ट फाइल तयार करा. डीफॉल्टने विद्यमान फाइल ओव्हरराइट केली जात नाही. overwrite=true दिले आणि गंतव्य आधीच अस्तित्वात असेल, तर ओव्हरराइट करण्याच्या अगोदर बॅकअप (<filename>.org / <filename>.org1 / ...) तयार केला जातो. टीप: Microsoft Excel मध्ये थेट उघडायच्या CSV/TSV साठी encoding='utf-8-sig' (UTF-8 with BOM) विचारात घ्या. मशीन प्रोसेसिंग आणि परस्पर-सुसंगततेसाठी encoding='utf-8' (BOM शिवाय) वापरा. खात्री नसेल तर फाइलचा वापर कसा होणार आहे (Excel की प्रोग्रामॅटिक प्रोसेसिंग) ते विचारा.",
+    "x_search_terms": [
+      "एक टेक्स्ट फाइल तयार करा. डीफॉल्टने विद्यमान फाइल ओव्हरराइट केली जात नाही. overwrite=true दिले आणि गंतव्य आधीच अस्तित्वात असेल, तर ओव्हरराइट करण्याच्या अगोदर बॅकअप (<filename>.org / <filename>.org1 / ...) तयार केला जातो. टीप: Microsoft Excel मध्ये थेट उघडायच्या CSV/TSV साठी encoding='utf-8-sig' (UTF-8 with BOM) विचारात घ्या. मशीन प्रोसेसिंग आणि परस्पर-सुसंगततेसाठी encoding='utf-8' (BOM शिवाय) वापरा. खात्री नसेल तर फाइलचा वापर कसा होणार आहे (Excel की प्रोग्रामॅटिक प्रोसेसिंग) ते विचारा.",
+      "create_file",
+      "create file"
+    ],
+    "tool.system_prompt": "workdir अंतर्गत एक टेक्स्ट फाइल तयार करा. फाइल आधीच अस्तित्वात असल्यास overwrite=false मुळे त्रुटी येईल. overwrite=true असल्यास लिहिण्यापूर्वी बॅकअप तयार केला जातो. टीप: CSV/TSV थेट Microsoft Excel मध्ये उघडायचे असल्यास encoding='utf-8-sig' (UTF-8 with BOM) विचारात घ्या. मशीन प्रोसेसिंग आणि परस्पर-सुसंगततेसाठी encoding='utf-8' (BOM शिवाय) वापरा. खात्री नसेल तर फाइलचा वापर कसा होणार आहे (Excel की प्रोग्रामॅटिक प्रोसेसिंग) ते विचारा."
   }
 }

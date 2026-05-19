@@ -440,5 +440,73 @@
       "set timer"
     ],
     "tool.system_prompt": "此工具用於在指定時間後顯示訊息，並可選擇向 LLM 發送自動訊息。"
+  },
+  "bn": {
+    "err.queue_uninitialized": "[set_timer ত্রুটি] event_queue callback আরম্ভ করা হয়নি।",
+    "err.seconds_invalid": "[set_timer ত্রুটি] seconds-কে পূর্ণসংখ্যা হিসেবে ব্যাখ্যা করা যায় না: {raw}",
+    "err.seconds_negative": "[set_timer ত্রুটি] seconds 0 বা তার বেশি হতে হবে: {val}",
+    "msg.default_timer_done": "টাইমার শেষ",
+    "out.ok": "[set_timer] {seconds} সেকেন্ডের জন্য টাইমার সেট করা হয়েছে: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "সম্পন্ন হলে দেখানোর বার্তা।",
+    "param.on_timeout_prompt.description": "মেয়াদ শেষ হলে LLM-এ স্বয়ংক্রিয়ভাবে প্রবেশ করানো হবে এমন বিষয়বস্তু।",
+    "param.seconds.description": "টাইমারের সেকেন্ড সংখ্যা।",
+    "tool.description": "নির্দিষ্ট সংখ্যক সেকেন্ড পরে একটি বার্তা দেখায়। চাইলে LLM-এ স্বয়ংক্রিয় বার্তাও পাঠাতে পারে।",
+    "x_search_terms": [
+      "নির্দিষ্ট সংখ্যক সেকেন্ড পরে একটি বার্তা দেখায়। চাইলে LLM-এ স্বয়ংক্রিয় বার্তাও পাঠাতে পারে",
+      "set_timer",
+      "set timer"
+    ],
+    "tool.system_prompt": "নির্দিষ্ট সময় পরে বার্তা দেখাতে এবং প্রয়োজনে LLM-এ স্বয়ংক্রিয় বার্তা পাঠাতে এই টুলটি ব্যবহার করুন।"
+  },
+  "fa": {
+    "err.queue_uninitialized": "[خطای set_timer] callback مربوط به event_queue مقداردهی اولیه نشده است.",
+    "err.seconds_invalid": "[خطای set_timer] seconds را نمی‌توان به‌صورت یک عدد صحیح تفسیر کرد: {raw}",
+    "err.seconds_negative": "[خطای set_timer] seconds باید 0 یا بیشتر باشد: {val}",
+    "msg.default_timer_done": "زمان‌سنج تمام شد",
+    "out.ok": "[set_timer] زمان‌سنج برای {seconds} ثانیه تنظیم شد: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "پیامی که پس از پایان نمایش داده می‌شود.",
+    "param.on_timeout_prompt.description": "محتوایی که هنگام انقضا به‌صورت خودکار در LLM وارد می‌شود.",
+    "param.seconds.description": "تعداد ثانیه‌های زمان‌سنج.",
+    "tool.description": "پس از تعداد ثانیهٔ مشخصی پیامی را نمایش می‌دهد. در صورت تمایل، می‌تواند یک پیام خودکار به LLM بفرستد.",
+    "x_search_terms": [
+      "پس از تعداد ثانیهٔ مشخصی پیامی را نمایش می‌دهد. در صورت تمایل، می‌تواند یک پیام خودکار به LLM بفرستد",
+      "set_timer",
+      "set timer"
+    ],
+    "tool.system_prompt": "از این ابزار برای نمایش پیام پس از زمان مشخص و در صورت نیاز ارسال پیام خودکار به LLM استفاده کنید."
+  },
+  "mn": {
+    "err.queue_uninitialized": "[set_timer алдаа] event_queue callback эхлээгүй байна.",
+    "err.seconds_invalid": "[set_timer алдаа] seconds-ийг бүхэл тоо гэж тайлбарлах боломжгүй: {raw}",
+    "err.seconds_negative": "[set_timer алдаа] seconds нь 0 эсвэл түүнээс их байх ёстой: {val}",
+    "msg.default_timer_done": "Таймер дууслаа",
+    "out.ok": "[set_timer] {seconds} секундын таймер тохирууллаа: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "Дуусахад харуулах мессеж.",
+    "param.on_timeout_prompt.description": "Хугацаа дуусахад LLM-д автоматаар оруулах агуулга.",
+    "param.seconds.description": "Таймерын секундийн тоо.",
+    "tool.description": "Тодорхой секундын дараа мессеж харуулна. Сонголтоор LLM руу автоматаар мессеж илгээж болно.",
+    "x_search_terms": [
+      "Тодорхой секундын дараа мессеж харуулна. Сонголтоор LLM руу автоматаар мессеж илгээж болно",
+      "set_timer",
+      "set timer"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг тодорхой хугацааны дараа мессеж харуулах, мөн шаардлагатай бол LLM руу автоматаар мессеж илгээхэд ашиглана уу."
+  },
+  "mr": {
+    "err.queue_uninitialized": "[set_timer त्रुटी] event_queue callback आरंभीकृत नाही.",
+    "err.seconds_invalid": "[set_timer त्रुटी] seconds पूर्णांक म्हणून समजावता येत नाही: {raw}",
+    "err.seconds_negative": "[set_timer त्रुटी] seconds 0 किंवा अधिक असावेत: {val}",
+    "msg.default_timer_done": "टायमर संपला",
+    "out.ok": "[set_timer] {seconds} सेकंदांसाठी टायमर सेट केला: {message} (on_timeout_prompt={prompt})",
+    "param.message.description": "पूर्ण झाल्यावर दाखवायचा संदेश.",
+    "param.on_timeout_prompt.description": "मुदत संपल्यावर LLM मध्ये आपोआप घालायचा मजकूर.",
+    "param.seconds.description": "टायमरचे सेकंद.",
+    "tool.description": "निर्दिष्ट सेकंदांनंतर संदेश दाखवते. ऐच्छिकरित्या LLM ला स्वयंचलित संदेश पाठवू शकते.",
+    "x_search_terms": [
+      "निर्दिष्ट सेकंदांनंतर संदेश दाखवते. ऐच्छिकरित्या LLM ला स्वयंचलित संदेश पाठवू शकते",
+      "set_timer",
+      "set timer"
+    ],
+    "tool.system_prompt": "ठराविक वेळेनंतर संदेश दाखवण्यासाठी आणि गरज असल्यास LLM ला स्वयंचलित संदेश पाठवण्यासाठी हे साधन वापरा."
   }
 }

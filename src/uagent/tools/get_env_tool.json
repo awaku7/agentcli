@@ -208,19 +208,18 @@
     "tool.system_prompt": "Det här verktyget används för att hämta värdet för en angiven miljövariabel och returnera det. Värdet kan maskeras vid behov."
   },
   "sw": {
-    "param.mask.description": "If true, masks the value (e.g. secret information). Default is true.",
-    "param.missing_ok.description": "If true, return '(not set)' instead of an error when missing. Default is false.",
-    "param.name.description": "Environment variable name to read.",
-    "param.unmasked_chars.description": "Number of characters to leave at the beginning and end when masking. Default is 2.",
-    "tool.description": "Gets the value of a specified environment variable and returns it. Optionally masks the value.",
+    "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
+    "param.missing_ok.description": "true হলে অনুপস্থিত থাকলে ত্রুটির বদলে '(not set)' ফেরত দেবে। ডিফল্ট false।",
+    "param.name.description": "পড়ার জন্য পরিবেশ ভ্যারিয়েবলের নাম।",
+    "param.unmasked_chars.description": "আড়াল করার সময় শুরু ও শেষে যতগুলো অক্ষর দেখা যাবে। ডিফল্ট 2।",
+    "tool.description": "নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দেয়। প্রয়োজনে মান আড়াল করতে পারে।",
     "x_search_terms": [
-      "Gets the value of a specified environment variable and returns it. Optionally masks the value",
+      "নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দেয়। প্রয়োজনে মান আড়াল করতে পারে",
       "get_env",
       "get env"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
-  },
-  "nb": {
+    "tool.system_prompt": "এই টুলটি নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দিতে ব্যবহার করা হয়। প্রয়োজনে মান আড়াল করা যায়।"
+  },  "nb": {
     "param.mask.description": "Hvis true, maskerer verdien (for eksempel sensitiv informasjon). Standard er true.",
     "param.missing_ok.description": "Hvis true, returneres \"(not set)\" i stedet for en feil når verdien mangler. Standard er false.",
     "param.name.description": "Navnet på miljøvariabelen som skal leses.",
@@ -336,5 +335,57 @@
       "get env"
     ],
     "tool.system_prompt": "此工具用於取得指定環境變數的值並傳回。可選擇對該值進行遮罩。"
+  },
+  "bn": {
+    "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
+    "param.missing_ok.description": "true হলে অনুপস্থিত থাকলে ত্রুটির বদলে '(not set)' ফেরত দেবে। ডিফল্ট false।",
+    "param.name.description": "পড়ার জন্য পরিবেশ ভ্যারিয়েবলের নাম।",
+    "param.unmasked_chars.description": "আড়াল করার সময় শুরু ও শেষে যতগুলো অক্ষর দেখা যাবে। ডিফল্ট 2।",
+    "tool.description": "নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দেয়। প্রয়োজনে মান আড়াল করতে পারে।",
+    "x_search_terms": [
+      "নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দেয়। প্রয়োজনে মান আড়াল করতে পারে",
+      "get_env",
+      "get env"
+    ],
+    "tool.system_prompt": "এই টুলটি নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দিতে ব্যবহার করা হয়। প্রয়োজনে মান আড়াল করা যায়।"
+  },
+  "fa": {
+    "param.mask.description": "اگر true باشد، مقدار را مخفی می‌کند (مثلاً اطلاعات محرمانه). مقدار پیش‌فرض true است.",
+    "param.missing_ok.description": "اگر true باشد، هنگام نبودن مقدار به‌جای خطا '(not set)' برگردانده می‌شود. مقدار پیش‌فرض false است.",
+    "param.name.description": "نام متغیر محیطی برای خواندن.",
+    "param.unmasked_chars.description": "تعداد نویسه‌هایی که هنگام مخفی‌سازی در ابتدا و انتها باقی می‌مانند. مقدار پیش‌فرض 2 است.",
+    "tool.description": "مقدار یک متغیر محیطی مشخص را می‌گیرد و برمی‌گرداند. در صورت نیاز می‌تواند مقدار را مخفی کند.",
+    "x_search_terms": [
+      "مقدار یک متغیر محیطی مشخص را می‌گیرد و برمی‌گرداند. در صورت نیاز می‌تواند مقدار را مخفی کند",
+      "get_env",
+      "get env"
+    ],
+    "tool.system_prompt": "این ابزار برای گرفتن مقدار یک متغیر محیطی مشخص و برگرداندن آن استفاده می‌شود. در صورت نیاز می‌توان مقدار را مخفی کرد."
+  },
+  "mn": {
+    "param.mask.description": "true бол утгыг далдална (жишээ нь нууц мэдээлэл). Өгөгдмөл нь true.",
+    "param.missing_ok.description": "true бол алга үед алдааны оронд '(not set)' буцаана. Өгөгдмөл нь false.",
+    "param.name.description": "Унших орчны хувьсагчийн нэр.",
+    "param.unmasked_chars.description": "Далдлах үед эхэнд болон төгсгөлд үлдээх тэмдэгтийн тоо. Өгөгдмөл нь 2.",
+    "tool.description": "Заасан орчны хувьсагчийн утгыг авч буцаана. Шаардлагатай бол утгыг далдлаж болно.",
+    "x_search_terms": [
+      "Заасан орчны хувьсагчийн утгыг авч буцаана. Шаардлагатай бол утгыг далдлаж болно",
+      "get_env",
+      "get env"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь заасан орчны хувьсагчийн утгыг авч буцаахад ашиглагдана. Шаардлагатай бол утгыг далдлаж болно."
+  },
+  "mr": {
+    "param.mask.description": "true असल्यास मूल्य लपवते (उदा. गुप्त माहिती). डीफॉल्ट true आहे.",
+    "param.missing_ok.description": "true असल्यास, अनुपस्थित असताना त्रुटीऐवजी '(not set)' परत करते. डीफॉल्ट false आहे.",
+    "param.name.description": "वाचायच्या environment variable चे नाव.",
+    "param.unmasked_chars.description": "मास्क करताना सुरुवातीला आणि शेवटी ठेवायच्या अक्षरांची संख्या. डीफॉल्ट 2.",
+    "tool.description": "निर्दिष्ट environment variable चे मूल्य मिळवते आणि परत करते. आवश्यक असल्यास मूल्य लपवू शकते.",
+    "x_search_terms": [
+      "निर्दिष्ट environment variable चे मूल्य मिळवते आणि परत करते. आवश्यक असल्यास मूल्य लपवू शकते",
+      "get_env",
+      "get env"
+    ],
+    "tool.system_prompt": "हे साधन निर्दिष्ट environment variable चे मूल्य मिळवण्यासाठी आणि परत करण्यासाठी वापरले जाते. आवश्यक असल्यास मूल्य लपवू शकते."
   }
 }

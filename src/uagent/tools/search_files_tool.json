@@ -623,5 +623,101 @@
       "search files"
     ],
     "tool.system_prompt": "在目錄中搜尋檔案。您可以依檔名模式（glob）篩選，並可選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則只進行檔名比對。\n- 為了效能與安全，內容搜尋內部可能會使用簡單的二進位檢查。"
+  },
+  "bn": {
+    "err.dir_not_exist": "[search_files ত্রুটি] ডিরেক্টরি বিদ্যমান নেই: {path}",
+    "err.regex_compile": "[search_files ত্রুটি] regex কম্পাইল করতে ব্যর্থ হয়েছে: {error}",
+    "match.excerpt": "মিল: {text}",
+    "match.line": "লাইন {line}: {text}",
+    "match.more": "... (ফাইলে আরও মিল আছে)",
+    "out.file": "ফাইল: {file}",
+    "out.found": "[search_files] {n}টি ফলাফল পাওয়া গেছে",
+    "out.found_truncated": "[search_files] {n}টি ফলাফল পাওয়া গেছে ({max_results}টিতে সীমিত)",
+    "out.no_match": "[search_files] কোনো ফাইল মানদণ্ডের সাথে মেলেনি।",
+    "param.case_sensitive.description": "বিষয়বস্তু অনুসন্ধানে বড়/ছোট হাতের অক্ষর আলাদা ধরা হবে কি না (ডিফল্ট: false)।",
+    "param.content_pattern.description": "ফাইলের মধ্যে অনুসন্ধানের জন্য regular expression। দিলে, অন্তত এক লাইন মেলা ফাইলগুলোই ফেরত দেওয়া হবে।",
+    "param.fast_read_threshold_bytes.description": "এই সীমার চেয়ে ছোট ফাইলগুলো দ্রুত অনুসন্ধানের জন্য পুরোপুরি read() করা হয় (ডিফল্ট: 8000000 ≈ 8 MB)। বড় ফাইলগুলো line by line স্ক্যান করা হয়।",
+    "param.max_results.description": "ফেরত দেওয়ার সর্বোচ্চ মেলানো ফাইল সংখ্যা (ডিফল্ট: 50)।",
+    "param.name_pattern.description": "ফাইলনামের glob pattern (যেমন '*.py', 'test_*')। বাদ দিলে সব ফাইল বিবেচনা করা হয়।",
+    "param.root_path.description": "অনুসন্ধান শুরু করার root directory (ডিফল্ট: current directory)।",
+    "tool.description": "নাম pattern (glob) এবং/অথবা বিষয়বস্তু (regex) অনুযায়ী directory-এর ফাইল খুঁজুন।",
+    "x_search_terms": [
+      "নাম pattern (glob) এবং/অথবা বিষয়বস্তু (regex) অনুযায়ী directory-এর ফাইল খুঁজুন",
+      "search_files",
+      "search files"
+    ],
+    "tool.system_prompt": "ডিরেক্টরির মধ্যে ফাইল খুঁজুন। filename pattern (glob) দিয়ে ফিল্টার করতে পারেন এবং চাইলে regular expression ব্যবহার করে file contents-ও খুঁজতে পারেন।\n\nনোট:\n- content_pattern কে Python regular expression হিসেবে ধরা হয়।\n- content_pattern খালি হলে শুধু filename matching করা হয়।\n- কর্মদক্ষতা ও নিরাপত্তার জন্য, content search ভিতরে simple binary check ব্যবহার করতে পারে।"
+  },
+  "fa": {
+    "err.dir_not_exist": "[خطای search_files] پوشه وجود ندارد: {path}",
+    "err.regex_compile": "[خطای search_files] کامپایل regular expression ناموفق بود: {error}",
+    "match.excerpt": "تطابق: {text}",
+    "match.line": "خط {line}: {text}",
+    "match.more": "... (تطابق‌های بیشتری در فایل وجود دارد)",
+    "out.file": "فایل: {file}",
+    "out.found": "[search_files] {n} نتیجه پیدا شد",
+    "out.found_truncated": "[search_files] {n} نتیجه پیدا شد (به {max_results} محدود شد)",
+    "out.no_match": "[search_files] هیچ فایلی با معیارها مطابقت نداشت.",
+    "param.case_sensitive.description": "اینکه جستجوی محتوا به حروف کوچک/بزرگ حساس باشد یا نه (پیش‌فرض: false).",
+    "param.content_pattern.description": "عبارت regular expression برای جستجو داخل فایل‌ها. اگر داده شود، فقط فایل‌هایی برگردانده می‌شوند که دست‌کم یک خط منطبق داشته باشند.",
+    "param.fast_read_threshold_bytes.description": "فایل‌های کوچک‌تر از این آستانه برای جستجوی سریع‌تر به‌طور کامل read() می‌شوند (پیش‌فرض: 8000000 ≈ 8 MB). فایل‌های بزرگ‌تر خط‌به‌خط اسکن می‌شوند.",
+    "param.max_results.description": "حداکثر تعداد فایل‌های منطبق برای بازگشت (پیش‌فرض: 50).",
+    "param.name_pattern.description": "الگوی glob نام فایل (مثلاً '*.py'، 'test_*'). اگر حذف شود، همهٔ فایل‌ها در نظر گرفته می‌شوند.",
+    "param.root_path.description": "پوشهٔ ریشه برای شروع جستجو (پیش‌فرض: پوشهٔ فعلی).",
+    "tool.description": "فایل‌های داخل یک پوشه را با الگوی نام (glob) و/یا محتوا (regex) جستجو کنید.",
+    "x_search_terms": [
+      "فایل‌های داخل یک پوشه را با الگوی نام (glob) و/یا محتوا (regex) جستجو کنید",
+      "search_files",
+      "search files"
+    ],
+    "tool.system_prompt": "فایل‌ها را در یک پوشه جستجو کنید. می‌توانید بر اساس الگوی نام فایل (glob) فیلتر کنید و در صورت نیاز با یک regular expression محتوای فایل‌ها را هم جستجو کنید.\n\nنکته‌ها:\n- content_pattern به‌عنوان regular expression پایتون تفسیر می‌شود.\n- اگر content_pattern خالی باشد، فقط تطابق نام فایل انجام می‌شود.\n- برای کارایی و ایمنی، جستجوی محتوا ممکن است درونی از یک بررسی سادهٔ باینری استفاده کند."
+  },
+  "mn": {
+    "err.dir_not_exist": "[search_files алдаа] Лавлах олдсонгүй: {path}",
+    "err.regex_compile": "[search_files алдаа] regex хөрвүүлэхэд амжилтгүй: {error}",
+    "match.excerpt": "Тохирсон: {text}",
+    "match.line": "{line}-р мөр: {text}",
+    "match.more": "... (файл дотор өөр тохиролтууд байна)",
+    "out.file": "Файл: {file}",
+    "out.found": "[search_files] {n} үр дүн олдлоо",
+    "out.found_truncated": "[search_files] {n} үр дүн олдлоо ({max_results} хүртэл хязгаарласан)",
+    "out.no_match": "[search_files] Шалгуурт тохирох файл олдсонгүй.",
+    "param.case_sensitive.description": "Агуулга хайхдаа том/жижиг үсгийг ялгах эсэх (анхдагч: false).",
+    "param.content_pattern.description": "Файл дотор хайх regular expression. Өгвөл дор хаяж нэг тохирсон мөртэй файлуудыг л буцаана.",
+    "param.fast_read_threshold_bytes.description": "Энэ босгоос жижиг файлуудыг хурдан хайхын тулд бүтнээр нь read() хийнэ (анхдагч: 8000000 ≈ 8 MB). Том файлуудыг мөр мөрөөр шинжилнэ.",
+    "param.max_results.description": "Буцаах тохирсон файлын дээд тоо (анхдагч: 50).",
+    "param.name_pattern.description": "Файлын нэрийн glob загвар (ж. '*.py', 'test_*'). Орхивол бүх файлыг авч үзнэ.",
+    "param.root_path.description": "Хайлтыг эхлүүлэх үндсэн лавлах (анхдагч: одоогийн лавлах).",
+    "tool.description": "Лавлах доторх файлуудыг нэрийн загвар (glob) болон/эсвэл агуулга (regex)-аар хайна.",
+    "x_search_terms": [
+      "Лавлах доторх файлуудыг нэрийн загвар (glob) болон/эсвэл агуулга (regex)-аар хайна",
+      "search_files",
+      "search files"
+    ],
+    "tool.system_prompt": "Лавлах доторх файлуудыг хайна. Та файлын нэрийн загвараар (glob) шүүж, шаардлагатай бол regular expression ашиглан файлын агуулгыг хайж болно.\n\nТэмдэглэл:\n- content_pattern нь Python regular expression гэж ойлгогдоно.\n- content_pattern хоосон бол зөвхөн файлын нэрийн тохиролт хийнэ.\n- Гүйцэтгэл ба аюулгүй байдлын үүднээс агуулга хайлт дотооддоо энгийн binary шалгалт ашиглаж болно."
+  },
+  "mr": {
+    "err.dir_not_exist": "[search_files त्रुटी] डिरेक्टरी अस्तित्वात नाही: {path}",
+    "err.regex_compile": "[search_files त्रुटी] regex compile करण्यात अयशस्वी: {error}",
+    "match.excerpt": "जुळले: {text}",
+    "match.line": "ओळ {line}: {text}",
+    "match.more": "... (फाइलमध्ये आणखी जुळण्या आहेत)",
+    "out.file": "फाइल: {file}",
+    "out.found": "[search_files] {n} निकाल सापडले",
+    "out.found_truncated": "[search_files] {n} निकाल सापडले ({max_results} पर्यंत मर्यादित)",
+    "out.no_match": "[search_files] निकषांशी जुळणारी कोणतीही फाइल नाही.",
+    "param.case_sensitive.description": "मजकूर शोधात मोठ्या/लहान अक्षरांचा फरक धरायचा का (डीफॉल्ट: false).",
+    "param.content_pattern.description": "फाइल्समध्ये शोधण्यासाठी regular expression. दिल्यास, किमान एक जुळणारी ओळ असलेल्या फाइल्सच परत दिल्या जातात.",
+    "param.fast_read_threshold_bytes.description": "या मर्यादेपेक्षा लहान फाइल्स जलद शोधासाठी पूर्ण read() केल्या जातात (डीफॉल्ट: 8000000 ≈ 8 MB). मोठ्या फाइल्स ओळीनुसार स्कॅन केल्या जातात.",
+    "param.max_results.description": "परत द्यायच्या जुळणाऱ्या फाइल्सची कमाल संख्या (डीफॉल्ट: 50).",
+    "param.name_pattern.description": "फाइलनाव glob pattern (उदा. '*.py', 'test_*'). वगळल्यास सर्व फाइल्स विचारात घेतल्या जातात.",
+    "param.root_path.description": "शोध सुरू करण्यासाठी root directory (डीफॉल्ट: सध्याची directory).",
+    "tool.description": "डिरेक्टरीतील फाइल्स नावाच्या pattern (glob) आणि/किंवा मजकूर (regex) नुसार शोधा.",
+    "x_search_terms": [
+      "डिरेक्टरीतील फाइल्स नावाच्या pattern (glob) आणि/किंवा मजकूर (regex) नुसार शोधा",
+      "search_files",
+      "search files"
+    ],
+    "tool.system_prompt": "डिरेक्टरीतील फाइल्स शोधा. तुम्ही फाइलनावाच्या pattern (glob) ने फिल्टर करू शकता आणि आवश्यक असल्यास regular expression वापरून file contents देखील शोधू शकता.\n\nटीप:\n- content_pattern ला Python regular expression समजले जाते.\n- content_pattern रिक्त असल्यास फक्त filename matching केले जाते.\n- कार्यक्षमता आणि सुरक्षिततेसाठी, content search अंतर्गत simple binary check वापरू शकते."
   }
 }

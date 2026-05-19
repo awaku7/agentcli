@@ -492,5 +492,81 @@
     "param.timeout_s.description": "請求逾時秒數。",
     "err.missing_message": "缺少 'message'。",
     "err.exception": "例外"
+  },
+  "bn": {
+    "tool.description": "পরিবেশ চলকে সংরক্ষিত Microsoft Teams Incoming Webhook URL-এ একটি বার্তা বা webhook-সমর্থিত JSON payload পাঠায়.",
+    "x_search_terms": [
+      "পরিবেশ চলকে সংরক্ষিত Microsoft Teams Incoming Webhook URL-এ একটি বার্তা বা webhook-সমর্থিত JSON payload পাঠায়",
+      "teams_webhook",
+      "teams webhook"
+    ],
+    "tool.system_prompt": "Microsoft Teams Incoming Webhook-এ একটি payload পাঠান। শুধু JSON ফেরত দিন।",
+    "param.message.description": "Teams-এ পাঠানোর বার্তার লেখা। card field দেওয়া না থাকলে plain text হিসেবে ব্যবহৃত হয়।",
+    "param.title.description": "webhook-সমর্থিত payload-এর জন্য card শিরোনাম।",
+    "param.summary.description": "webhook-সমর্থিত payload-এর জন্য card সারসংক্ষেপ।",
+    "param.image_url.description": "webhook-সমর্থিত payload-এর জন্য image URL।",
+    "param.theme_color.description": "# ছাড়া hex string আকারে card theme color।",
+    "param.payload_json.description": "কাঁচা webhook payload JSON string বা object হিসেবে দিন। দিলে সেটাই অপরিবর্তিত পাঠানো হবে।",
+    "param.webhook_env.description": "Teams webhook URL যে পরিবেশ চলকে রাখা আছে তার নাম।",
+    "param.timeout_s.description": "অনুরোধের timeout, সেকেন্ডে।",
+    "err.missing_message": "'message' অনুপস্থিত।",
+    "err.exception": "ব্যতিক্রম"
+  },
+  "fa": {
+    "tool.description": "یک پیام یا payload JSON پشتیبانی‌شده توسط webhook را به URL وبهوک ورودی Microsoft Teams که در یک متغیر محیطی ذخیره شده است ارسال می‌کند.",
+    "x_search_terms": [
+      "یک پیام یا payload JSON پشتیبانی‌شده توسط webhook را به URL وبهوک ورودی Microsoft Teams که در یک متغیر محیطی ذخیره شده است ارسال می‌کند",
+      "teams_webhook",
+      "teams webhook"
+    ],
+    "tool.system_prompt": "یک payload به Microsoft Teams Incoming Webhook ارسال کنید. فقط JSON برگردانید.",
+    "param.message.description": "متن پیام برای ارسال در Teams. مگر اینکه فیلدهای کارت ارائه شوند، به‌صورت متن ساده استفاده می‌شود.",
+    "param.title.description": "عنوان کارت برای payloadهای پشتیبانی‌شده توسط webhook.",
+    "param.summary.description": "خلاصهٔ کارت برای payloadهای پشتیبانی‌شده توسط webhook.",
+    "param.image_url.description": "نشانی تصویر برای payloadهای پشتیبانی‌شده توسط webhook.",
+    "param.theme_color.description": "رنگ تم کارت به‌صورت رشتهٔ هگز بدون #.",
+    "param.payload_json.description": "payload خام webhook به‌صورت رشته یا شیء JSON. اگر ارائه شود، همان‌طور که هست ارسال می‌شود.",
+    "param.webhook_env.description": "نام متغیر محیطی که URL وبهوک Teams را نگه می‌دارد.",
+    "param.timeout_s.description": "مهلت درخواست بر حسب ثانیه.",
+    "err.missing_message": "'message' موجود نیست.",
+    "err.exception": "استثناء"
+  },
+  "mn": {
+    "tool.description": "Орчны хувьсагчид хадгалсан Microsoft Teams Incoming Webhook URL руу мессеж эсвэл webhook дэмждэг JSON payload илгээнэ.",
+    "x_search_terms": [
+      "Орчны хувьсагчид хадгалсан Microsoft Teams Incoming Webhook URL руу мессеж эсвэл webhook дэмждэг JSON payload илгээнэ",
+      "teams_webhook",
+      "teams webhook"
+    ],
+    "tool.system_prompt": "Microsoft Teams Incoming Webhook руу payload илгээнэ үү. Зөвхөн JSON буцаана.",
+    "param.message.description": "Teams рүү нийтлэх мессежийн текст. Картын талбарууд өгөөгүй бол энгийн текстээр ашиглана.",
+    "param.title.description": "webhook дэмждэг payload-д зориулсан картын гарчиг.",
+    "param.summary.description": "webhook дэмждэг payload-д зориулсан картын хураангуй.",
+    "param.image_url.description": "webhook дэмждэг payload-д зориулсан зургийн URL.",
+    "param.theme_color.description": "# тэмдэггүй hex string хэлбэрийн картын theme color.",
+    "param.payload_json.description": "Түүхий webhook payload-ыг JSON string эсвэл object байдлаар өгнө. Өгвөл байгаагаар нь илгээнэ.",
+    "param.webhook_env.description": "Teams webhook URL-ийг хадгалсан орчны хувьсагчийн нэр.",
+    "param.timeout_s.description": "Хүсэлтийн timeout, секундээр.",
+    "err.missing_message": "'message' алга.",
+    "err.exception": "Онцгой тохиолдол"
+  },
+  "mr": {
+    "tool.description": "पर्यावरण चलामध्ये साठवलेल्या Microsoft Teams Incoming Webhook URL वर संदेश किंवा webhook-समर्थित JSON payload पोस्ट करते.",
+    "x_search_terms": [
+      "पर्यावरण चलामध्ये साठवलेल्या Microsoft Teams Incoming Webhook URL वर संदेश किंवा webhook-समर्थित JSON payload पोस्ट करते",
+      "teams_webhook",
+      "teams webhook"
+    ],
+    "tool.system_prompt": "Microsoft Teams Incoming Webhook वर payload पाठवा. फक्त JSON परत करा.",
+    "param.message.description": "Teams वर पोस्ट करायचा संदेश मजकूर. कार्ड फील्ड दिले नसतील तर साधा मजकूर म्हणून वापरला जातो.",
+    "param.title.description": "webhook-समर्थित payload साठी कार्ड शीर्षक.",
+    "param.summary.description": "webhook-समर्थित payload साठी कार्ड सारांश.",
+    "param.image_url.description": "webhook-समर्थित payload साठी प्रतिमेचा URL.",
+    "param.theme_color.description": "# शिवाय hex string स्वरूपातील कार्ड थीम रंग.",
+    "param.payload_json.description": "कच्चा webhook payload JSON string किंवा object म्हणून द्या. दिल्यास तो जशाच्या तसा पाठवला जाईल.",
+    "param.webhook_env.description": "Teams webhook URL साठवणाऱ्या पर्यावरण चलाचे नाव.",
+    "param.timeout_s.description": "विनंतीचा timeout, सेकंदांमध्ये.",
+    "err.missing_message": "'message' उपलब्ध नाही.",
+    "err.exception": "अपवाद"
   }
 }

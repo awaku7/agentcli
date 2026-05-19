@@ -596,5 +596,97 @@
       "discord channel"
     ],
     "tool.system_prompt": "使用此工具透過 REST API 與 Discord 頻道通訊。必須透過環境變數提供機器人權杖。僅傳回 JSON。"
+  },
+  "bn": {
+    "err.exception": "ব্যতিক্রম",
+    "err.invalid_action": "অবৈধ action: {action}",
+    "err.message_too_long": "Discord বার্তার বিষয়বস্তু 2000 অক্ষর বা তার কম হতে হবে।",
+    "err.missing_action": "'action' অনুপস্থিত।",
+    "err.missing_channel_id": "'channel_id' অনুপস্থিত।",
+    "err.missing_message": "'message' অনুপস্থিত।",
+    "param.action.description": "অ্যাকশন: send / send_and_wait / history",
+    "param.channel_id.description": "লক্ষ্য Discord চ্যানেলের ID।",
+    "param.exclude_bots.description": "অপেক্ষার সময় বটের বার্তা উপেক্ষা করুন।",
+    "param.limit.description": "ইতিহাস/উত্তরের জন্য কতটি বার্তা আনা হবে।",
+    "param.message.description": "send/send_and_wait অ্যাকশনের জন্য পাঠানোর বার্তা।",
+    "param.poll_interval_s.description": "উত্তরের জন্য অপেক্ষার সময় পোলিং ব্যবধান (সেকেন্ড)।",
+    "param.token_env.description": "Discord বট টোকেন সংরক্ষণ করা পরিবেশ চলকের নাম।",
+    "param.wait_s.description": "পাঠানোর পরে উত্তর পাওয়ার জন্য কতক্ষণ অপেক্ষা করবেন (সেকেন্ড)।",
+    "tool.description": "বট টোকেন ব্যবহার করে নির্দিষ্ট Discord চ্যানেলের সঙ্গে কাজ করুন: বার্তা পাঠান, সাম্প্রতিক বার্তা পড়ুন, এবং প্রয়োজন হলে পাঠানোর পর উত্তরের জন্য অপেক্ষা করুন।",
+    "x_search_terms": [
+      "বট টোকেন ব্যবহার করে নির্দিষ্ট Discord চ্যানেলের সঙ্গে কাজ করুন: বার্তা পাঠান, সাম্প্রতিক বার্তা পড়ুন, এবং প্রয়োজন হলে পাঠানোর পর উত্তরের জন্য অপেক্ষা করুন",
+      "discord_channel",
+      "discord channel"
+    ],
+    "tool.system_prompt": "REST API-এর মাধ্যমে Discord চ্যানেলের সাথে কথা বলতে এই টুল ব্যবহার করুন। পরিবেশ চলকের মাধ্যমে বট টোকেন দিতে হবে। শুধু JSON ফেরত দিন।"
+  },
+  "fa": {
+    "err.exception": "استثنا",
+    "err.invalid_action": "اقدام نامعتبر: {action}",
+    "err.message_too_long": "محتوای پیام Discord باید 2000 کاراکتر یا کمتر باشد.",
+    "err.missing_action": "'action' وجود ندارد.",
+    "err.missing_channel_id": "'channel_id' وجود ندارد.",
+    "err.missing_message": "'message' وجود ندارد.",
+    "param.action.description": "اقدام: send / send_and_wait / history",
+    "param.channel_id.description": "شناسهٔ کانال Discord هدف.",
+    "param.exclude_bots.description": "هنگام انتظار، پیام‌های بات را نادیده بگیرید.",
+    "param.limit.description": "تعداد پیام‌هایی که برای تاریخچه/پاسخ‌ها دریافت می‌شود.",
+    "param.message.description": "پیامی که برای send/send_and_wait ارسال می‌شود.",
+    "param.poll_interval_s.description": "فاصلهٔ بررسی هنگام انتظار برای پاسخ‌ها (ثانیه).",
+    "param.token_env.description": "نام متغیر محیطی که توکن بات Discord را ذخیره می‌کند.",
+    "param.wait_s.description": "پس از ارسال، چه مدت برای پاسخ‌ها منتظر بمانیم (ثانیه).",
+    "tool.description": "با یک توکن بات با یک کانال مشخص Discord تعامل کنید: پیام بفرستید، پیام‌های اخیر را بخوانید و در صورت نیاز پس از ارسال منتظر پاسخ بمانید.",
+    "x_search_terms": [
+      "با یک توکن بات با یک کانال مشخص Discord تعامل کنید: پیام بفرستید، پیام‌های اخیر را بخوانید و در صورت نیاز پس از ارسال منتظر پاسخ بمانید",
+      "discord_channel",
+      "discord channel"
+    ],
+    "tool.system_prompt": "از این ابزار برای گفت‌وگو با یک کانال Discord از طریق REST API استفاده کنید. توکن بات باید از طریق یک متغیر محیطی ارائه شود. فقط JSON برگردانید."
+  },
+  "mn": {
+    "err.exception": "Алдаа",
+    "err.invalid_action": "Буруу action: {action}",
+    "err.message_too_long": "Discord мессеж 2000 тэмдэгтээс хэтрэхгүй байх ёстой.",
+    "err.missing_action": "'action' дутуу байна.",
+    "err.missing_channel_id": "'channel_id' дутуу байна.",
+    "err.missing_message": "'message' дутуу байна.",
+    "param.action.description": "Үйлдэл: send / send_and_wait / history",
+    "param.channel_id.description": "Зорилтот Discord сувгийн ID.",
+    "param.exclude_bots.description": "Хүлээх үед ботын мессежийг үл тооцно.",
+    "param.limit.description": "Түүх/хариултад авах мессежийн тоо.",
+    "param.message.description": "send/send_and_wait үйлдэлд илгээх мессеж.",
+    "param.poll_interval_s.description": "Хариу хүлээх үеийн шалгах интервал (секунд).",
+    "param.token_env.description": "Discord ботын токеныг хадгалдаг орчны хувьсагчийн нэр.",
+    "param.wait_s.description": "Илгээсний дараа хариуг хүлээх хугацаа (секунд).",
+    "tool.description": "Бот токен ашиглан тодорхой Discord сувагтай харилцана: мессеж илгээх, сүүлийн мессежүүдийг унших, шаардлагатай бол илгээсний дараа хариу хүлээх.",
+    "x_search_terms": [
+      "Бот токен ашиглан тодорхой Discord сувагтай харилцана: мессеж илгээх, сүүлийн мессежүүдийг унших, шаардлагатай бол илгээсний дараа хариу хүлээх",
+      "discord_channel",
+      "discord channel"
+    ],
+    "tool.system_prompt": "REST API-аар Discord сувгийн kanssa харилцахад энэ хэрэгслийг ашигла. Орчны хувьсагчаар бот токен өгөх шаардлагатай. Зөвхөн JSON буцаа."
+  },
+  "mr": {
+    "err.exception": "अपवाद",
+    "err.invalid_action": "अवैध action: {action}",
+    "err.message_too_long": "Discord संदेश 2000 अक्षरांपेक्षा जास्त नसावा.",
+    "err.missing_action": "'action' नाही.",
+    "err.missing_channel_id": "'channel_id' नाही.",
+    "err.missing_message": "'message' नाही.",
+    "param.action.description": "क्रिया: send / send_and_wait / history",
+    "param.channel_id.description": "लक्ष्य Discord चॅनेल ID.",
+    "param.exclude_bots.description": "थांबताना बॉट संदेश दुर्लक्ष करा.",
+    "param.limit.description": "इतिहास/उत्तरांसाठी किती संदेश आणायचे.",
+    "param.message.description": "send/send_and_wait क्रियांसाठी पाठवायचा संदेश.",
+    "param.poll_interval_s.description": "उत्तरांची वाट पाहताना पोलिंग अंतर (सेकंद).",
+    "param.token_env.description": "Discord बॉट टोकन साठवणाऱ्या environment variable चे नाव.",
+    "param.wait_s.description": "पाठवल्यानंतर उत्तरांसाठी किती वेळ थांबायचे (सेकंद).",
+    "tool.description": "बॉट टोकन वापरून विशिष्ट Discord चॅनेलशी संवाद साधा: संदेश पाठवा, अलीकडील संदेश वाचा, आणि गरज असल्यास पाठवल्यानंतर उत्तरांसाठी थांबा.",
+    "x_search_terms": [
+      "बॉट टोकन वापरून विशिष्ट Discord चॅनेलशी संवाद साधा: संदेश पाठवा, अलीकडील संदेश वाचा, आणि गरज असल्यास पाठवल्यानंतर उत्तरांसाठी थांबा",
+      "discord_channel",
+      "discord channel"
+    ],
+    "tool.system_prompt": "REST API द्वारे Discord चॅनेलशी बोलण्यासाठी हे साधन वापरा. environment variable द्वारे बॉट टोकन द्या. फक्त JSON परत करा."
   }
 }

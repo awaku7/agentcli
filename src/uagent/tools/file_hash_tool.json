@@ -336,5 +336,57 @@
       "file hash"
     ],
     "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
+  },
+  "bn": {
+    "param.algo.description": "হ্যাশিং অ্যালগরিদম।",
+    "param.chunk_size.description": "পড়ার chunk size (bytes)।",
+    "param.paths.description": "টার্গেট ফাইল পাথের অ্যারে।",
+    "param.return.description": "আউটপুট ফরম্যাট।",
+    "tool.description": "ফাইলের হ্যাশ (sha256/sha1/md5) গণনা করে।",
+    "x_search_terms": [
+      "ফাইলের হ্যাশ (sha256/sha1/md5) গণনা করে",
+      "file_hash",
+      "file hash"
+    ],
+    "tool.system_prompt": "এই টুলটি ফাইলের হ্যাশ (sha256/sha1/md5) গণনা করে।"
+  },
+  "fa": {
+    "param.algo.description": "الگوریتم هش‌سازی.",
+    "param.chunk_size.description": "اندازهٔ بخش خواندن (بایت).",
+    "param.paths.description": "آرایه‌ای از مسیر فایل‌های هدف.",
+    "param.return.description": "قالب خروجی.",
+    "tool.description": "هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند.",
+    "x_search_terms": [
+      "هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند",
+      "file_hash",
+      "file hash"
+    ],
+    "tool.system_prompt": "این ابزار هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند."
+  },
+  "mn": {
+    "param.algo.description": "Хэш үүсгэх алгоритм.",
+    "param.chunk_size.description": "Унших chunk хэмжээ (байт).",
+    "param.paths.description": "Зорилтот файлын замуудын массив.",
+    "param.return.description": "Гаралтын формат.",
+    "tool.description": "Файлуудын хэшийг (sha256/sha1/md5) тооцоолно.",
+    "x_search_terms": [
+      "Файлуудын хэшийг (sha256/sha1/md5) тооцоолно",
+      "file_hash",
+      "file hash"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь файлын хэшийг (sha256/sha1/md5) тооцоолдог."
+  },
+  "mr": {
+    "param.algo.description": "हॅशिंग अल्गोरिदम.",
+    "param.chunk_size.description": "वाचन chunk आकार (bytes).",
+    "param.paths.description": "लक्ष्य फाइल मार्गांची array.",
+    "param.return.description": "आउटपुट स्वरूप.",
+    "tool.description": "फाइल्सचा hash (sha256/sha1/md5) मोजते.",
+    "x_search_terms": [
+      "फाइल्सचा hash (sha256/sha1/md5) मोजते",
+      "file_hash",
+      "file hash"
+    ],
+    "tool.system_prompt": "हे साधन फाइल हॅश (sha256/sha1/md5) मोजते."
   }
 }

@@ -414,5 +414,69 @@
     "ui.captured": "--- 已擷取：{html}、{png}、{flow}、{snapshots}/、pages/、index.jsonl、latest.html ---",
     "ui.resume_prompt": "操作完成後，請在 Inspector 中按下 Resume (▷)。",
     "ui.started": "--- PLAYWRIGHT INSPECTOR 已啟動 ---"
+  },
+  "bn": {
+    "err.child_failed": "[playwright_inspector ত্রুটি] সন্তানের প্রসেস ব্যর্থ হয়েছে:\n{stderr}",
+    "out.ok": "ক্যাপচার সম্পন্ন: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html তৈরি হয়েছে।\n{stdout}",
+    "param.prefix.description": "সংরক্ষণ করার ফাইলনামের prefix (default: debug_capture)",
+    "param.url.description": "প্রথমে খোলার URL (default: about:blank)",
+    "tool.description": "ব্রাউজারের কাজকর্ম ক্যাপচার করতে Playwright Inspector চালু করে। ব্যবহারকারী Resume বোতাম চাপার পর নির্দিষ্ট URL খুলে পেজের অবস্থা (HTML ও ছবি) সংরক্ষণ করে। এছাড়াও pages/ এর নিচে প্রতিটি নেভিগেশনের জন্য নম্বরযুক্ত HTML/PNG, latest.html আপডেট, index.jsonl লেখা, এবং navigation, network, console events, DOM events, ও page summaries একটি JSONL ফাইলে রেকর্ড করে।",
+    "x_search_terms": [
+      "ব্রাউজারের কাজকর্ম ক্যাপচার করতে Playwright Inspector চালু করে। ব্যবহারকারী Resume বোতাম চাপার পর নির্দিষ্ট URL খুলে পেজের অবস্থা (HTML ও ছবি) সংরক্ষণ করে। এছাড়াও pages/ এর নিচে প্রতিটি নেভিগেশনের জন্য নম্বরযুক্ত HTML/PNG, latest.html আপডেট, index.jsonl লেখা, এবং navigation, network, console events, DOM events, ও page summaries একটি JSONL ফাইলে রেকর্ড করে",
+      "playwright_inspector",
+      "playwright inspector"
+    ],
+    "tool.system_prompt": "TOOL_SPEC-এ বর্ণিত উদ্দেশ্যের জন্য এই টুলটি ব্যবহার করুন।",
+    "ui.captured": "--- সংরক্ষিত: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
+    "ui.resume_prompt": "অপারেশনের পর Inspector-এ Resume (▷) চাপুন।",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR চালু হয়েছে ---"
+  },
+  "fa": {
+    "err.child_failed": "[خطای playwright_inspector] فرایند فرزند با شکست مواجه شد:\n{stderr}",
+    "out.ok": "گرفتن خروجی کامل شد: {prefix}.html، {prefix}.png، {prefix}.flow.jsonl، {prefix}_snapshots/، pages/، index.jsonl و latest.html ایجاد شدند.\n{stdout}",
+    "param.prefix.description": "پیشوند نام فایل برای ذخیره (پیش‌فرض: debug_capture)",
+    "param.url.description": "اولین URL برای باز کردن (پیش‌فرض: about:blank)",
+    "tool.description": "Playwright Inspector را برای گرفتن عملیات مرورگر اجرا می‌کند. پس از اینکه کاربر دکمه Resume را بزند، URL مشخص‌شده را باز می‌کند و وضعیت صفحه (HTML و تصویر) را ذخیره می‌کند. همچنین HTML/PNG شماره‌گذاری‌شدهٔ هر ناوبری را زیر pages/ ذخیره می‌کند، latest.html را به‌روز نگه می‌دارد، index.jsonl می‌نویسد، و رویدادهای navigation، network، console، DOM و خلاصه‌های صفحه را در یک فایل JSONL ثبت می‌کند.",
+    "x_search_terms": [
+      "Playwright Inspector را برای گرفتن عملیات مرورگر اجرا می‌کند. پس از اینکه کاربر دکمه Resume را بزند، URL مشخص‌شده را باز می‌کند و وضعیت صفحه (HTML و تصویر) را ذخیره می‌کند. همچنین HTML/PNG شماره‌گذاری‌شدهٔ هر ناوبری را زیر pages/ ذخیره می‌کند، latest.html را به‌روز نگه می‌دارد، index.jsonl می‌نویسد، و رویدادهای navigation، network، console، DOM و خلاصه‌های صفحه را در یک فایل JSONL ثبت می‌کند",
+      "playwright_inspector",
+      "playwright inspector"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدفی که در TOOL_SPEC توضیح داده شده استفاده کنید.",
+    "ui.captured": "--- ثبت شد: {html}، {png}، {flow}، {snapshots}/، pages/، index.jsonl، latest.html ---",
+    "ui.resume_prompt": "پس از انجام عملیات، در Inspector دکمه Resume (▷) را بزنید.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR شروع شد ---"
+  },
+  "mn": {
+    "err.child_failed": "[playwright_inspector алдаа] Дочерний процесс амжилтгүй боллоо:\n{stderr}",
+    "out.ok": "Capture дууслаа: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html үүсгэгдлээ.\n{stdout}",
+    "param.prefix.description": "Хадгалах файлын нэрийн уртгал (анхдагч: debug_capture)",
+    "param.url.description": "Эхлээд нээх URL (анхдагч: about:blank)",
+    "tool.description": "Браузерийн үйлдлүүдийг capture хийхийн тулд Playwright Inspector-ийг ажиллуулна. Хэрэглэгч Resume товчийг дарсны дараа заасан URL-ыг нээгээд хуудасны төлөвийг (HTML болон зураг) хадгална. Мөн pages/ дотор навигаци бүрийн дугаарласан HTML/PNG-ийг хадгалж, latest.html-ийг шинэчилж, index.jsonl бичиж, navigation, network, console events, DOM events болон page summaries-г JSONL файлд бүртгэнэ.",
+    "x_search_terms": [
+      "Браузерийн үйлдлүүдийг capture хийхийн тулд Playwright Inspector-ийг ажиллуулна. Хэрэглэгч Resume товчийг дарсны дараа заасан URL-ыг нээгээд хуудасны төлөвийг (HTML болон зураг) хадгална. Мөн pages/ дотор навигаци бүрийн дугаарласан HTML/PNG-ийг хадгалж, latest.html-ийг шинэчилж, index.jsonl бичиж, navigation, network, console events, DOM events болон page summaries-г JSONL файлд бүртгэнэ",
+      "playwright_inspector",
+      "playwright inspector"
+    ],
+    "tool.system_prompt": "TOOL_SPEC-д тайлбарласан зорилгод энэ хэрэгслийг ашиглана уу.",
+    "ui.captured": "--- БАРИГДСАН: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
+    "ui.resume_prompt": "Үйлдлийн дараа Inspector дээр Resume (▷) дарна уу.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR АЖИЛЛАЖ ЭХЭЛЛЭЭ ---"
+  },
+  "mr": {
+    "err.child_failed": "[playwright_inspector त्रुटी] child process अयशस्वी झाला:\n{stderr}",
+    "out.ok": "Capture पूर्ण झाले: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html तयार झाले.\n{stdout}",
+    "param.prefix.description": "जतन करण्यासाठी फाइल नावाचा prefix (default: debug_capture)",
+    "param.url.description": "प्रथम उघडायचा URL (default: about:blank)",
+    "tool.description": "ब्राउझरचे ऑपरेशन्स capture करण्यासाठी Playwright Inspector सुरू करते. वापरकर्त्याने Resume बटण क्लिक केल्यानंतर निर्दिष्ट URL उघडते आणि पानाची स्थिती (HTML व प्रतिमा) जतन करते. तसेच pages/ अंतर्गत प्रत्येक navigation साठी क्रमांकित HTML/PNG जतन करते, latest.html अद्ययावत ठेवते, index.jsonl लिहिते, आणि navigation, network, console events, DOM events, तसेच page summaries JSONL फाइलमध्ये नोंदवते.",
+    "x_search_terms": [
+      "ब्राउझरचे ऑपरेशन्स capture करण्यासाठी Playwright Inspector सुरू करते. वापरकर्त्याने Resume बटण क्लिक केल्यानंतर निर्दिष्ट URL उघडते आणि पानाची स्थिती (HTML व प्रतिमा) जतन करते. तसेच pages/ अंतर्गत प्रत्येक navigation साठी क्रमांकित HTML/PNG जतन करते, latest.html अद्ययावत ठेवते, index.jsonl लिहिते, आणि navigation, network, console events, DOM events, तसेच page summaries JSONL फाइलमध्ये नोंदवते",
+      "playwright_inspector",
+      "playwright inspector"
+    ],
+    "tool.system_prompt": "TOOL_SPEC मध्ये वर्णन केलेल्या उद्देशासाठी हे साधन वापरा.",
+    "ui.captured": "--- कॅप्चर झाले: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",
+    "ui.resume_prompt": "ऑपरेशननंतर Inspector मध्ये Resume (▷) दाबा.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR सुरू झाले ---"
   }
 }

@@ -310,5 +310,53 @@
       "pwsh exec"
     ],
     "tool.system_prompt": "此工具是最後手段。\n1. 先檢查是否可以改用 handle_mcp / mcp_tools_list。\n2. 僅當沒有其他合適的工具可用時，才使用此工具。\n3. 不要使用此工具執行 Python；請改用 python_exec。\n\n安全注意事項：\n- download-exec（IWR/IRM/curl/wget）和 Base64（-Enc）等危險模式可能會被阻止或需要確認。"
+  },
+  "bn": {
+    "err.timeout": "[pwsh_exec timeout] {seconds} সেকেন্ডের মধ্যে শেষ হয়নি",
+    "param.command.description": "-Command-এ পাঠানো PowerShell কমান্ড স্ট্রিং।",
+    "param.shell.description": "ব্যবহারযোগ্য PowerShell executable: 'pwsh' (PowerShell 7+) অথবা 'powershell' (Windows PowerShell)। উল্লেখ না করলে স্বয়ংক্রিয়ভাবে নির্বাচন করবে।",
+    "tool.description": "শেষ আশ্রয় হিসেবে PowerShell চালান। অন্য কোনো উপযুক্ত tool (যেমন MCP) না থাকলে কেবল ব্যবহার করুন।",
+    "x_search_terms": [
+      "শেষ আশ্রয় হিসেবে PowerShell চালান। অন্য কোনো উপযুক্ত tool (যেমন MCP) না থাকলে কেবল ব্যবহার করুন",
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "tool.system_prompt": "এই tool একটি শেষ আশ্রয়।\n1. আগে দেখুন handle_mcp / mcp_tools_list ব্যবহার করা যায় কি না।\n2. অন্য কোনো উপযুক্ত tool না থাকলেই এটি ব্যবহার করুন।\n3. Python চালাতে এটি ব্যবহার করবেন না; তার বদলে python_exec ব্যবহার করুন।\n\nনিরাপত্তা নোট:\n- download-exec (IWR/IRM/curl/wget) এবং Base64 (-Enc) ধরনের বিপজ্জনক pattern ব্লক করা হতে পারে বা নিশ্চিতকরণ লাগতে পারে।"
+  },
+  "fa": {
+    "err.timeout": "[مهلت pwsh_exec] در مدت {seconds} ثانیه تمام نشد",
+    "param.command.description": "رشتهٔ فرمان PowerShell که به -Command ارسال می‌شود.",
+    "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell). اگر مشخص نشود، به‌صورت خودکار انتخاب می‌شود.",
+    "tool.description": "در آخرین چاره، PowerShell را اجرا کنید. فقط وقتی هیچ ابزار مناسب دیگری (مثلاً MCP) در دسترس نیست از آن استفاده کنید.",
+    "x_search_terms": [
+      "در آخرین چاره، PowerShell را اجرا کنید. فقط وقتی هیچ ابزار مناسب دیگری (مثلاً MCP) در دسترس نیست از آن استفاده کنید",
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "tool.system_prompt": "این ابزار یک آخرین چاره است.\n1. ابتدا بررسی کنید آیا می‌توان به‌جای آن از handle_mcp / mcp_tools_list استفاده کرد.\n2. فقط وقتی هیچ ابزار مناسب دیگری در دسترس نیست از این ابزار استفاده کنید.\n3. از این ابزار برای اجرای Python استفاده نکنید؛ به‌جای آن python_exec را به‌کار ببرید.\n\nنکات امنیتی:\n- الگوهای خطرناک مانند download-exec (IWR/IRM/curl/wget) و Base64 (-Enc) ممکن است مسدود شوند یا نیاز به تأیید داشته باشند。"
+  },
+  "mn": {
+    "err.timeout": "[pwsh_exec timeout] {seconds} секундийн дотор дууссангүй",
+    "param.command.description": "-Command руу дамжуулах PowerShell command string.",
+    "param.shell.description": "Ашиглах PowerShell executable: 'pwsh' (PowerShell 7+) эсвэл 'powershell' (Windows PowerShell). Заагаагүй бол автоматаар сонгоно.",
+    "tool.description": "Сүүлчийн арга болгон PowerShell ажиллуулна. Өөр тохирох хэрэгсэл (жиш., MCP) байхгүй үед л ашиглана.",
+    "x_search_terms": [
+      "Сүүлчийн арга болгон PowerShell ажиллуулна. Өөр тохирох хэрэгсэл (жиш., MCP) байхгүй үед л ашиглана",
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл бол СҮҮЛИЙН АРГА.\n1. Эхлээд handle_mcp / mcp_tools_list-г орлуулах боломжтой эсэхийг шалгана уу.\n2. Өөр тохирох хэрэгсэл байхгүй үед л энэ хэрэгслийг ашиглана уу.\n3. Python ажиллуулахад энэ хэрэгслийг бүү ашигла; оронд нь python_exec ашиглана уу.\n\nАюулгүй байдлын тэмдэглэл:\n- download-exec (IWR/IRM/curl/wget) болон Base64 (-Enc) зэрэг аюултай pattern-уудыг хаах эсвэл баталгаажуулалт шаардаж болно."
+  },
+  "mr": {
+    "err.timeout": "[pwsh_exec timeout] {seconds} सेकंदांत पूर्ण झाले नाही",
+    "param.command.description": "-Command ला दिलेली PowerShell command string.",
+    "param.shell.description": "वापरण्यासाठी PowerShell executable: 'pwsh' (PowerShell 7+) किंवा 'powershell' (Windows PowerShell). दिले नाही तर आपोआप निवडले जाईल.",
+    "tool.description": "शेवटचा उपाय म्हणून PowerShell चालवा. इतर कोणतेही योग्य tool (उदा. MCP) उपलब्ध नसल्यासच वापरा.",
+    "x_search_terms": [
+      "शेवटचा उपाय म्हणून PowerShell चालवा. इतर कोणतेही योग्य tool (उदा. MCP) उपलब्ध नसल्यासच वापरा",
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "tool.system_prompt": "हे tool अंतिम उपाय आहे.\n1. आधी तपासा की त्याऐवजी handle_mcp / mcp_tools_list वापरता येईल का.\n2. इतर कोणतेही योग्य tool उपलब्ध नसल्यावरच हे वापरा.\n3. Python चालवण्यासाठी हे tool वापरू नका; त्याऐवजी python_exec वापरा.\n\nसुरक्षा नोंदी:\n- download-exec (IWR/IRM/curl/wget) आणि Base64 (-Enc) सारखे धोकादायक pattern ब्लॉक केले जाऊ शकतात किंवा पुष्टीकरण मागितले जाऊ शकते."
   }
 }

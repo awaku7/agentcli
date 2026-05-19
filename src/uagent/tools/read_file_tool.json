@@ -492,5 +492,81 @@
       "read file"
     ],
     "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。"
+  },
+  "bn": {
+    "err.dual_lines": "[read_file ত্রুটি] head_lines এবং tail_lines একসাথে নির্দিষ্ট করা যাবে না",
+    "err.filename_missing": "[read_file ত্রুটি] filename/path নির্দিষ্ট করা হয়নি",
+    "err.out_of_range": "(ফাইলটিতে মাত্র {count}টি লাইন আছে। start_line {start_line} সীমার বাইরে)",
+    "msg.truncated": "[read_file সংক্ষিপ্ত: {max_bytes} বাইট সীমায় পৌঁছেছে]",
+    "param.filename.description": "পড়ার জন্য ফাইলের পথ।",
+    "param.head_lines.description": "শুরুর দিক থেকে যত লাইন পড়বে। tail_lines-এর সাথে একসাথে দেওয়া যাবে না।",
+    "param.max_lines.description": "পড়ার সর্বোচ্চ লাইনসংখ্যা। null হলে ফাইলের শেষ পর্যন্ত পড়বে।",
+    "param.path.description": "(সামঞ্জস্যের জন্য) filename-এর বিকল্প নাম।",
+    "param.start_line.description": "পড়া শুরু করার লাইন নম্বর (1 থেকে শুরু)। ডিফল্ট 1।",
+    "param.tail_lines.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।",
+    "tool.description": "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1,000,000 বাইট)। start_line ও max_lines দিয়ে আংশিক পড়া যায়।",
+    "x_search_terms": [
+      "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1,000,000 বাইট)। start_line ও max_lines দিয়ে আংশিক পড়া যায়",
+      "read_file",
+      "read file"
+    ],
+    "tool.system_prompt": "ফাইলের বিষয়বস্তু পড়ুন।\n- বড় ফাইল হলে start_line/max_lines ব্যবহার করে আংশিক পড়া সুপারিশ করা হয়।\n- নতুন লাইন স্বয়ংক্রিয়ভাবে স্বাভাবিকায়িত হয়।"
+  },
+  "fa": {
+    "err.dual_lines": "[خطای read_file] head_lines و tail_lines را نمی‌توان هم‌زمان مشخص کرد",
+    "err.filename_missing": "[خطای read_file] نام فایل/مسیر مشخص نشده است",
+    "err.out_of_range": "(فایل فقط {count} خط دارد. start_line {start_line} خارج از محدوده است)",
+    "msg.truncated": "[read_file کوتاه شد: به محدودیت {max_bytes} بایت رسید]",
+    "param.filename.description": "مسیر فایل برای خواندن.",
+    "param.head_lines.description": "تعداد خطوطی که از ابتدا خوانده می‌شوند. نمی‌توان هم‌زمان با tail_lines مشخص کرد.",
+    "param.max_lines.description": "حداکثر تعداد خطوط برای خواندن. اگر null باشد، تا انتهای فایل خوانده می‌شود.",
+    "param.path.description": "(برای سازگاری) نام جایگزین برای filename.",
+    "param.start_line.description": "شمارهٔ خطی که خواندن از آن آغاز می‌شود (از 1). پیش‌فرض 1 است.",
+    "param.tail_lines.description": "تعداد خطوطی که از انتها خوانده می‌شوند. نمی‌توان هم‌زمان با head_lines مشخص کرد.",
+    "tool.description": "محتوای فایل را بخوانید (تا 1,000,000 بایت). با تعیین start_line و max_lines می‌توان بخشی از فایل را خواند.",
+    "x_search_terms": [
+      "محتوای فایل را بخوانید (تا 1,000,000 بایت). با تعیین start_line و max_lines می‌توان بخشی از فایل را خواند",
+      "read_file",
+      "read file"
+    ],
+    "tool.system_prompt": "محتوای فایل را بخوانید.\n- برای فایل‌های بزرگ، خواندن بخشی با start_line/max_lines توصیه می‌شود.\n- خط‌های جدید به‌طور خودکار نرمال‌سازی می‌شوند."
+  },
+  "mn": {
+    "err.dual_lines": "[read_file алдаа] head_lines ба tail_lines-ийг зэрэг зааж болохгүй",
+    "err.filename_missing": "[read_file алдаа] filename/path заагаагүй байна",
+    "err.out_of_range": "(Файлд ердөө {count} мөр байна. start_line {start_line} нь хүрээнээс гадуур байна)",
+    "msg.truncated": "[read_file тасарсан: {max_bytes} байтын хязгаарт хүрлээ]",
+    "param.filename.description": "Унших файлын зам.",
+    "param.head_lines.description": "Эхнээс унших мөрийн тоо. tail_lines-тай зэрэг зааж болохгүй.",
+    "param.max_lines.description": "Унших хамгийн их мөрийн тоо. null бол файлын төгсгөл хүртэл уншина.",
+    "param.path.description": "(Тохиролцоо) filename-ийн өөр нэр.",
+    "param.start_line.description": "Уншиж эхлэх мөрийн дугаар (1-ээс эхэлнэ). Анхдагч нь 1.",
+    "param.tail_lines.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй.",
+    "tool.description": "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт). start_line болон max_lines зааж хэсэгчлэн уншиж болно.",
+    "x_search_terms": [
+      "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт). start_line болон max_lines зааж хэсэгчлэн уншиж болно",
+      "read_file",
+      "read file"
+    ],
+    "tool.system_prompt": "Файлын агуулгыг уншина.\n- Том файл бол start_line/max_lines ашиглан хэсэгчлэн уншихыг зөвлөж байна.\n- Шинэ мөрүүдийг автоматаар хэвийн болгоно."
+  },
+  "mr": {
+    "err.dual_lines": "[read_file त्रुटी] head_lines आणि tail_lines एकाच वेळी देता येत नाहीत",
+    "err.filename_missing": "[read_file त्रुटी] filename/path निर्दिष्ट केलेले नाही",
+    "err.out_of_range": "(फाइलमध्ये फक्त {count} ओळी आहेत. start_line {start_line} हा मर्यादेबाहेर आहे)",
+    "msg.truncated": "[read_file संक्षिप्त: {max_bytes} बाइट मर्यादा गाठली]",
+    "param.filename.description": "वाचायच्या फाइलचा path.",
+    "param.head_lines.description": "सुरुवातीपासून वाचायच्या ओळींची संख्या. tail_lines सोबत एकाच वेळी देता येत नाही.",
+    "param.max_lines.description": "वाचायच्या जास्तीत जास्त ओळी. null असल्यास फाइलच्या शेवटपर्यंत वाचा.",
+    "param.path.description": "(सुसंगततेसाठी) filename साठी पर्यायी नाव.",
+    "param.start_line.description": "वाचायला सुरूवात करायच्या ओळीचा क्रमांक (1 पासून). default 1 आहे.",
+    "param.tail_lines.description": "शेवटापासून वाचायच्या ओळींची संख्या. head_lines सोबत एकाच वेळी देता येत नाही.",
+    "tool.description": "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स). start_line आणि max_lines दिल्यास आंशिक वाचन शक्य आहे.",
+    "x_search_terms": [
+      "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स). start_line आणि max_lines दिल्यास आंशिक वाचन शक्य आहे",
+      "read_file",
+      "read file"
+    ],
+    "tool.system_prompt": "फाइलची सामग्री वाचा.\n- मोठ्या फाइल्ससाठी start_line/max_lines वापरून आंशिक वाचन सुचवले जाते.\n- नवीन ओळी आपोआप सामान्यीकृत केल्या जातात."
   }
 }

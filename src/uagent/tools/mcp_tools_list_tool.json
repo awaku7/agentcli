@@ -310,5 +310,53 @@
       "mcp tools list"
     ],
     "tool.system_prompt": "連接到 MCP 伺服器（HTTP 或 stdio）並列出其工具。盡可能優先使用 mcp_servers.json 中配置的伺服器。"
+  },
+  "bn": {
+    "param.pretty.description": "JSON আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",
+    "param.server_name.description": "কনফিগ ফাইলের server name।",
+    "param.url.description": "MCP server endpoint URL।",
+    "tool.description": "[সর্বোচ্চ অগ্রাধিকার] একটি MCP (Model Context Protocol) সার্ভারের সাথে সংযোগ করুন এবং উপলব্ধ টুলগুলোর তালিকা ফেরত দিন। কোনো API বা সিস্টেম ইন্টিগ্রেশন করার আগে MCP টুলগুলো কী কী আছে তা জানতে এই টুলটি ব্যবহার করুন। HTTP-ভিত্তিক এবং stdio-ভিত্তিক MCP সার্ভার সমর্থিত।",
+    "x_search_terms": [
+      "[সর্বোচ্চ অগ্রাধিকার] একটি MCP (Model Context Protocol) সার্ভারের সাথে সংযোগ করুন এবং উপলব্ধ টুলগুলোর তালিকা ফেরত দিন। কোনো API বা সিস্টেম ইন্টিগ্রেশন করার আগে MCP টুলগুলো কী কী আছে তা জানতে এই টুলটি ব্যবহার করুন। HTTP-ভিত্তিক এবং stdio-ভিত্তিক MCP সার্ভার সমর্থিত",
+      "mcp_tools_list",
+      "mcp tools list"
+    ],
+    "tool.system_prompt": "একটি MCP সার্ভারের (HTTP বা stdio) সাথে সংযোগ করে তার টুলগুলোর তালিকা দেখান। সম্ভব হলে mcp_servers.json-এ কনফিগার করা সার্ভারগুলিই ব্যবহার করুন।"
+  },
+  "fa": {
+    "param.pretty.description": "آیا خروجی JSON به‌صورت خوانا/زیبا چاپ شود.",
+    "param.server_name.description": "نام سرور از فایل پیکربندی.",
+    "param.url.description": "نشانی endpoint سرور MCP.",
+    "tool.description": "[بالاترین اولویت] به یک سرور MCP (Model Context Protocol) متصل شوید و فهرست ابزارهای موجود را برگردانید. پیش از هرگونه یکپارچه‌سازی API/سیستم، از این ابزار برای تشخیص ابزارهای MCP موجود استفاده کنید. از سرورهای MCP مبتنی بر HTTP و stdio پشتیبانی می‌شود.",
+    "x_search_terms": [
+      "[بالاترین اولویت] به یک سرور MCP (Model Context Protocol) متصل شوید و فهرست ابزارهای موجود را برگردانید. پیش از هرگونه یکپارچه‌سازی API/سیستم، از این ابزار برای تشخیص ابزارهای MCP موجود استفاده کنید. از سرورهای MCP مبتنی بر HTTP و stdio پشتیبانی می‌شود",
+      "mcp_tools_list",
+      "mcp tools list"
+    ],
+    "tool.system_prompt": "به یک سرور MCP (HTTP یا stdio) متصل شوید و ابزارهای آن را فهرست کنید. تا حد امکان سرورهای پیکربندی‌شده در mcp_servers.json را ترجیح دهید."
+  },
+  "mn": {
+    "param.pretty.description": "JSON гаралтыг гоёор хэвлэх эсэх.",
+    "param.server_name.description": "Тохиргооны файл дахь server name.",
+    "param.url.description": "MCP серверийн endpoint URL.",
+    "tool.description": "[Хамгийн өндөр тэргүүлэх ач холбогдол] MCP (Model Context Protocol) сервертэй холбогдож, боломжтой хэрэгслүүдийн жагсаалтыг буцаана. Ямар нэг API эсвэл системийн интеграци хийхээс өмнө боломжтой MCP хэрэгслүүдийг мэдэхийн тулд энэ хэрэгслийг ашиглана уу. HTTP-д суурилсан болон stdio-д суурилсан MCP серверүүдийг дэмжинэ.",
+    "x_search_terms": [
+      "[Хамгийн өндөр тэргүүлэх ач холбогдол] MCP (Model Context Protocol) сервертэй холбогдож, боломжтой хэрэгслүүдийн жагсаалтыг буцаана. Ямар нэг API эсвэл системийн интеграци хийхээс өмнө боломжтой MCP хэрэгслүүдийг мэдэхийн тулд энэ хэрэгслийг ашиглана уу. HTTP-д суурилсан болон stdio-д суурилсан MCP серверүүдийг дэмжинэ",
+      "mcp_tools_list",
+      "mcp tools list"
+    ],
+    "tool.system_prompt": "MCP сервертэй (HTTP эсвэл stdio) холбогдож, түүний хэрэгслүүдийг жагсаана уу. Боломжтой бол mcp_servers.json-д тохируулсан серверүүдийг илүүд үзнэ үү."
+  },
+  "mr": {
+    "param.pretty.description": "JSON output सुंदररीत्या format करायचा का.",
+    "param.server_name.description": "कॉन्फिग फाइलमधील server नाव.",
+    "param.url.description": "MCP सर्व्हरच्या एंडपॉइंटचा URL.",
+    "tool.description": "[सर्वोच्च प्राधान्य] एका MCP (Model Context Protocol) सर्व्हरशी connect करा आणि उपलब्ध tools ची यादी परत करा. कोणतेही API/system integration करण्यापूर्वी उपलब्ध MCP tools कोणती आहेत हे जाणून घेण्यासाठी हे साधन वापरा. HTTP-आधारित आणि stdio-आधारित MCP सर्व्हर्स समर्थित आहेत.",
+    "x_search_terms": [
+      "[सर्वोच्च प्राधान्य] एका MCP (Model Context Protocol) सर्व्हरशी connect करा आणि उपलब्ध tools ची यादी परत करा. कोणतेही API/system integration करण्यापूर्वी उपलब्ध MCP tools कोणती आहेत हे जाणून घेण्यासाठी हे साधन वापरा. HTTP-आधारित आणि stdio-आधारित MCP सर्व्हर्स समर्थित आहेत",
+      "mcp_tools_list",
+      "mcp tools list"
+    ],
+    "tool.system_prompt": "एका MCP सर्व्हरशी (HTTP किंवा stdio) connect करा आणि त्याची tools यादी करा. शक्य असल्यास mcp_servers.json मधील configure केलेले servers वापरा."
   }
 }

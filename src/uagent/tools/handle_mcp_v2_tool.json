@@ -362,5 +362,61 @@
       "handle mcp v2"
     ],
     "tool.system_prompt": "請依照上述目的使用此工具（參見工具說明）。"
+  },
+  "bn": {
+    "doc.mask_values": "অভিধান ও তালিকার মানগুলোকে '*' দিয়ে বদলান (গঠন অপরিবর্তিত রেখে)।",
+    "param.server_name.description": "mcp_servers.json-এ নির্ধারিত সার্ভারের নাম। উল্লেখ করা হলে url-এর ওপর অগ্রাধিকার পাবে।",
+    "param.tool_arguments.description": "MCP টুলে পাঠানোর আর্গুমেন্ট। একটি JSON object (প্রস্তাবিত) অথবা JSON string দিন। উদাহরণ object: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. ফেরত মান একটি JSON string। প্রযোজ্য হলে এতে saved_path থাকবে। নোট: টুল কোনো file payload না ফেরালে saved_path বাদ পড়তে পারে। টুল যদি {filename, mime, data_base64}-এর মতো file payload ফেরত দেয়, এই ক্লায়েন্ট সেটি লোকাল downloads ডিরেক্টরিতে সংরক্ষণ করে returned JSON-এ saved_path যোগ করতে পারে।",
+    "param.tool_name.description": "চালানোর টুলের নাম।",
+    "param.url.description": "MCP সার্ভারের endpoint URL (http://... অথবা stdio://command...)।",
+    "tool.description": "MCP সার্ভার থেকে একটি টুল কল করুন। tool_arguments-এ JSON object (প্রস্তাবিত) বা JSON string হিসেবে আর্গুমেন্ট দিন। ফেরত মান অন্তত ok এবং text থাকা JSON string। প্রযোজ্য হলে saved_path যোগ হয় (উদাহরণ: সার্ভার saved_path ফেরত দিলে, বা {filename, mime, data_base64}-এর মতো file payload এলে এবং এই ক্লায়েন্ট সেটি লোকাল downloads ডিরেক্টরিতে সংরক্ষণ করলে)। নোট: টুল কোনো file payload না ফেরালে saved_path বাদ পড়তে পারে।",
+    "x_search_terms": [
+      "MCP সার্ভার থেকে একটি টুল কল করুন। tool_arguments-এ JSON object (প্রস্তাবিত) বা JSON string হিসেবে আর্গুমেন্ট দিন। ফেরত মান অন্তত ok এবং text থাকা JSON string। প্রযোজ্য হলে saved_path যোগ হয় (উদাহরণ: সার্ভার saved_path ফেরত দিলে, বা {filename, mime, data_base64}-এর মতো file payload এলে এবং এই ক্লায়েন্ট সেটি লোকাল downloads ডিরেক্টরিতে সংরক্ষণ করলে)। নোট: টুল কোনো file payload না ফেরালে saved_path বাদ পড়তে পারে",
+      "handle_mcp_v2",
+      "handle mcp v2"
+    ],
+    "tool.system_prompt": "উপরে বর্ণিত উদ্দেশ্য অনুযায়ী এই টুলটি ব্যবহার করুন (টুলের বিবরণ দেখুন)।"
+  },
+  "fa": {
+    "doc.mask_values": "مقادیرِ دیکشنری‌ها و فهرست‌ها را با '*' جایگزین کنید (با حفظ ساختار).",
+    "param.server_name.description": "نام سرور تعریف‌شده در mcp_servers.json. اگر مشخص شود، بر url اولویت دارد.",
+    "param.tool_arguments.description": "آرگومان‌هایی که به ابزار MCP داده می‌شود. یک شیء JSON (پیشنهادی) یا یک رشته JSON ارائه کنید. نمونهٔ شیء: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. مقدار بازگشتی یک رشتهٔ JSON است. در صورت لزوم، saved_path را هم شامل می‌شود. توجه: اگر ابزار هیچ payload فایلی برنگرداند، ممکن است saved_path حذف شود. اگر ابزار یک payload فایلی برگرداند (مثلاً {filename, mime, data_base64})، این کلاینت می‌تواند آن را در پوشهٔ محلی downloads ذخیره کند و saved_path را به JSON بازگشتی اضافه کند.",
+    "param.tool_name.description": "نام ابزاری که اجرا می‌شود.",
+    "param.url.description": "نشانی endpoint سرور MCP (http://... یا stdio://command...) .",
+    "tool.description": "ابزاری را از یک سرور MCP فراخوانی کنید. آرگومان‌ها را در tool_arguments به‌صورت یک شیء JSON (پیشنهادی) یا رشتهٔ JSON بدهید. مقدار بازگشتی یک رشتهٔ JSON است که دست‌کم ok و text را دارد. در صورت لزوم، saved_path هم افزوده می‌شود (مثلاً وقتی سرور saved_path برمی‌گرداند یا وقتی payload فایلی مانند {filename, mime, data_base64} برگردانده می‌شود و این کلاینت آن را در پوشهٔ محلی downloads ذخیره می‌کند). توجه: اگر ابزار هیچ payload فایلی برنگرداند، saved_path ممکن است حذف شود.",
+    "x_search_terms": [
+      "ابزاری را از یک سرور MCP فراخوانی کنید. آرگومان‌ها را در tool_arguments به‌صورت یک شیء JSON (پیشنهادی) یا رشتهٔ JSON بدهید. مقدار بازگشتی یک رشتهٔ JSON است که دست‌کم ok و text را دارد. در صورت لزوم، saved_path هم افزوده می‌شود (مثلاً وقتی سرور saved_path برمی‌گرداند یا وقتی payload فایلی مانند {filename, mime, data_base64} برگردانده می‌شود و این کلاینت آن را در پوشهٔ محلی downloads ذخیره می‌کند). توجه: اگر ابزار هیچ payload فایلی برنگرداند، saved_path ممکن است حذف شود",
+      "handle_mcp_v2",
+      "handle mcp v2"
+    ],
+    "tool.system_prompt": "این ابزار را مطابق هدف توضیح‌داده‌شده در بالا استفاده کنید (به توضیح ابزار مراجعه کنید)."
+  },
+  "mn": {
+    "doc.mask_values": "Толь бичиг ба жагсаалтын утгыг '*' болгон солино (бүтцийг хадгална).",
+    "param.server_name.description": "mcp_servers.json-д тодорхойлсон серверийн нэр. Заасан бол url-ээс давуу хэрэглэгдэнэ.",
+    "param.tool_arguments.description": "MCP хэрэгсэл рүү дамжуулах аргументууд. JSON object (зөвлөмжтэй) эсвэл JSON string өгнө. Жишээ object: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. Буцах утга нь JSON string байна. Боломжтой бол saved_path агуулна. Тайлбар: хэрэгсэл ямар ч file payload буцаахгүй бол saved_path орхигдож болно. Хэрэв хэрэгсэл {filename, mime, data_base64} зэрэг file payload буцаавал энэ клиент үүнийг локал downloads хавтсанд хадгалж, буцаасан JSON-д saved_path нэмж болно.",
+    "param.tool_name.description": "Ажиллуулах хэрэгслийн нэр.",
+    "param.url.description": "MCP серверийн endpoint URL (http://... эсвэл stdio://command...) .",
+    "tool.description": "MCP серверээс хэрэгсэл дуудаж ажиллуулна. tool_arguments-д JSON object (зөвлөмжтэй) эсвэл JSON string хэлбэрээр аргумент өгнө. Буцах утга нь ядаж ok болон text агуулсан JSON string байна. Боломжтой бол saved_path орно (жишээлбэл, сервер saved_path буцаах эсвэл {filename, mime, data_base64} шиг file payload буцаж, энэ клиент түүнийг локал downloads хавтсанд хадгалах үед). Тайлбар: хэрэгсэл file payload буцаахгүй бол saved_path орхигдож болно.",
+    "x_search_terms": [
+      "MCP серверээс хэрэгсэл дуудаж ажиллуулна. tool_arguments-д JSON object (зөвлөмжтэй) эсвэл JSON string хэлбэрээр аргумент өгнө. Буцах утга нь ядаж ok болон text агуулсан JSON string байна. Боломжтой бол saved_path орно (жишээлбэл, сервер saved_path буцаах эсвэл {filename, mime, data_base64} шиг file payload буцаж, энэ клиент түүнийг локал downloads хавтсанд хадгалах үед). Тайлбар: хэрэгсэл file payload буцаахгүй бол saved_path орхигдож болно",
+      "handle_mcp_v2",
+      "handle mcp v2"
+    ],
+    "tool.system_prompt": "Дээр тайлбарласан зорилгын дагуу энэ хэрэгслийг ашиглана уу (хэрэгслийн тайлбарыг үзнэ үү)."
+  },
+  "mr": {
+    "doc.mask_values": "शब्दकोशे आणि यादीतील मूल्ये '*' ने बदला (रचना कायम ठेवून).",
+    "param.server_name.description": "mcp_servers.json मध्ये परिभाषित केलेले सर्व्हर नाव. दिले असल्यास, url पेक्षा त्याला प्राधान्य दिले जाते.",
+    "param.tool_arguments.description": "MCP साधनाला पाठवायचे arguments. JSON object (शिफारसीय) किंवा JSON string द्या. उदाहरण object: {\"yymm\": \"2503\", \"dept\": \"ＳＢＣ\", \"plan_diff\": false}. परत मिळणारे मूल्य JSON string असते. लागू असल्यास त्यात saved_path समाविष्ट असतो. टीप: साधन कोणताही file payload परत करत नसेल तर saved_path वगळला जाऊ शकतो. साधनाने file payload (उदा. {filename, mime, data_base64}) परत केल्यास, हा client तो local downloads directory मध्ये साठवू शकतो आणि returned JSON मध्ये saved_path समाविष्ट करू शकतो.",
+    "param.tool_name.description": "चालवायच्या साधनाचे नाव.",
+    "param.url.description": "MCP server endpoint URL (http://... किंवा stdio://command...) .",
+    "tool.description": "MCP सर्व्हरवरून एखादे साधन कॉल करा. tool_arguments मध्ये JSON object (शिफारसीय) किंवा JSON string म्हणून arguments द्या. परत मूल्य किमान ok आणि text असलेली JSON string आहे. लागू असल्यास saved_path समाविष्ट होतो (उदा. सर्व्हरने saved_path परत केल्यास किंवा {filename, mime, data_base64} सारखा file payload परत आल्यास आणि हा client तो local downloads directory मध्ये साठवतो). टीप: साधनाने file payload परत केला नाही तर saved_path वगळला जाऊ शकतो.",
+    "x_search_terms": [
+      "MCP सर्व्हरवरून एखादे साधन कॉल करा. tool_arguments मध्ये JSON object (शिफारसीय) किंवा JSON string म्हणून arguments द्या. परत मूल्य किमान ok आणि text असलेली JSON string आहे. लागू असल्यास saved_path समाविष्ट होतो (उदा. सर्व्हरने saved_path परत केल्यास किंवा {filename, mime, data_base64} सारखा file payload परत आल्यास आणि हा client तो local downloads directory मध्ये साठवतो). टीप: साधनाने file payload परत केला नाही तर saved_path वगळला जाऊ शकतो",
+      "handle_mcp_v2",
+      "handle mcp v2"
+    ],
+    "tool.system_prompt": "वर वर्णन केलेल्या उद्देशानुसार हे साधन वापरा (साधनाचे वर्णन पहा)."
   }
 }

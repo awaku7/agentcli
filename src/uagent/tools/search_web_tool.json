@@ -440,5 +440,73 @@
       "search web"
     ],
     "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
+  },
+  "bn": {
+    "error.args_must_be_dict": "args একটি dict হতে হবে",
+    "error.duckduckgo_failed_after_retries": "পুনরায় চেষ্টা করার পর DuckDuckGo অনুরোধ ব্যর্থ হয়েছে: {error}",
+    "error.missing_query_parameter": "'query' প্যারামিটার অনুপস্থিত",
+    "error.run_tool_error": "run_tool ত্রুটি: {error}",
+    "param.max_results.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।",
+    "param.n.description": "'max_results'-এর উপনাম (পেছনের সামঞ্জস্যের জন্য)।",
+    "param.q.description": "'query'-এর উপনাম (পেছনের সামঞ্জস্যের জন্য)।",
+    "param.query.description": "অনুসন্ধান কুয়েরি স্ট্রিং।",
+    "tool.description": "DuckDuckGo HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন এবং শিরোনাম/লিংক/স্নিপেট ফেরত দিন।",
+    "x_search_terms": [
+      "DuckDuckGo HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন এবং শিরোনাম/লিংক/স্নিপেট ফেরত দিন",
+      "search_web",
+      "search web"
+    ],
+    "tool.system_prompt": "এই টুলটি DuckDuckGo HTML অনুসন্ধান করে এবং শিরোনাম/লিংক/স্নিপেট ফেরত দেয়। ফলাফল ফাঁকা হলে, সাইটটি অনুরোধের হার সীমিত বা ব্লক করতে পারে।"
+  },
+  "fa": {
+    "error.args_must_be_dict": "args باید یک dict باشد",
+    "error.duckduckgo_failed_after_retries": "درخواست DuckDuckGo پس از تلاش‌های مجدد ناموفق بود: {error}",
+    "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
+    "error.run_tool_error": "خطای run_tool: {error}",
+    "param.max_results.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5).",
+    "param.n.description": "نام مستعارِ 'max_results' (برای سازگاری با نسخه‌های قدیمی).",
+    "param.q.description": "نام مستعارِ 'query' (برای سازگاری با نسخه‌های قدیمی).",
+    "param.query.description": "رشتهٔ جستجو.",
+    "tool.description": "از طریق رابط HTML داک‌داک‌گو در وب جستجو کنید و عنوان/لینک/چکیده را برگردانید.",
+    "x_search_terms": [
+      "از طریق رابط HTML داک‌داک‌گو در وب جستجو کنید و عنوان/لینک/چکیده را برگردانید",
+      "search_web",
+      "search web"
+    ],
+    "tool.system_prompt": "این ابزار یک جستجوی HTML در DuckDuckGo انجام می‌دهد و عنوان/لینک/چکیده را برمی‌گرداند. اگر نتایج خالی باشند، ممکن است سایت نرخ درخواست‌ها را محدود کرده یا درخواست را مسدود کرده باشد."
+  },
+  "mn": {
+    "error.args_must_be_dict": "args нь dict байх ёстой",
+    "error.duckduckgo_failed_after_retries": "Дахин оролдсоны дараа DuckDuckGo хүсэлт амжилтгүй боллоо: {error}",
+    "error.missing_query_parameter": "'query' параметр дутуу байна",
+    "error.run_tool_error": "run_tool алдаа: {error}",
+    "param.max_results.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5).",
+    "param.n.description": "'max_results'-ын өөр нэр (хуучин хувилбартай нийцүүлэх зорилгоор).",
+    "param.q.description": "'query'-ийн өөр нэр (хуучин хувилбартай нийцүүлэх зорилгоор).",
+    "param.query.description": "Хайлтын асуулгын мөр.",
+    "tool.description": "DuckDuckGo HTML интерфэйсээр вэбээс хайж, гарчиг/линк/snippet буцаана.",
+    "x_search_terms": [
+      "DuckDuckGo HTML интерфэйсээр вэбээс хайж, гарчиг/линк/snippet буцаана",
+      "search_web",
+      "search web"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл DuckDuckGo HTML хайлт хийж, гарчиг/линк/snippet буцаана. Хэрэв үр дүн хоосон байвал сайт хүсэлтийн хурдыг хязгаарлаж эсвэл хүсэлтийг блоклосон байж болно."
+  },
+  "mr": {
+    "error.args_must_be_dict": "args हे dict असणे आवश्यक आहे",
+    "error.duckduckgo_failed_after_retries": "पुन्हा प्रयत्न केल्यानंतर DuckDuckGo विनंती अयशस्वी झाली: {error}",
+    "error.missing_query_parameter": "'query' पॅरामीटर नाही",
+    "error.run_tool_error": "run_tool त्रुटी: {error}",
+    "param.max_results.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5).",
+    "param.n.description": "'max_results' चे उपनाव (मागील सुसंगततेसाठी).",
+    "param.q.description": "'query' चे उपनाव (मागील सुसंगततेसाठी).",
+    "param.query.description": "शोध क्वेरी स्ट्रिंग.",
+    "tool.description": "DuckDuckGo HTML इंटरफेसद्वारे वेबवर शोधा आणि शीर्षक/लिंक/स्निपेट परत करा.",
+    "x_search_terms": [
+      "DuckDuckGo HTML इंटरफेसद्वारे वेबवर शोधा आणि शीर्षक/लिंक/स्निपेट परत करा",
+      "search_web",
+      "search web"
+    ],
+    "tool.system_prompt": "हे साधन DuckDuckGo HTML शोध करते आणि शीर्षक/लिंक/स्निपेट परत करते. परिणाम रिकामे असल्यास, साइटने विनंती दर मर्यादित केला असू शकतो किंवा विनंती अवरोधित केली असू शकते."
   }
 }

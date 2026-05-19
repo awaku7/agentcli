@@ -6,7 +6,7 @@
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
     "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
     "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
-    "param.skill_dir.description": "skills directory",
+    "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
     "x_search_terms": [
       "Safely reads a file under a skill directory using a relative path. Path traversal is blocked",
@@ -414,5 +414,69 @@
       "skills read file"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "bn": {
+    "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গুমেন্ট",
+    "err.max_bytes_positive": "[টুল ত্রুটি] max_bytes অবশ্যই একটি ধনাত্মক পূর্ণসংখ্যা হতে হবে",
+    "err.relative_path_required": "[টুল ত্রুটি] relative_path অবশ্যই খালি নয় এমন একটি স্ট্রিং হতে হবে",
+    "err.skill_dir_required": "[টুল ত্রুটি] skill_dir অবশ্যই খালি নয় এমন একটি স্ট্রিং হতে হবে",
+    "param.max_bytes.description": "পড়ার সর্বোচ্চ বাইট সংখ্যা (ডিফল্ট: 5000000)",
+    "param.relative_path.description": "skill root-এর আপেক্ষিক path (যেমন references/REFERENCE.md)",
+    "param.skill_dir.description": "skills directory",
+    "tool.description": "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়।",
+    "x_search_terms": [
+      "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়",
+      "skills_read_file",
+      "skills read file"
+    ],
+    "tool.system_prompt": "tool description-এ বর্ণিত উদ্দেশ্যে এই টুল ব্যবহার করুন।"
+  },
+  "fa": {
+    "err.invalid_args": "[خطای ابزار] آرگومان‌ها نامعتبرند",
+    "err.max_bytes_positive": "[خطای ابزار] max_bytes باید یک عدد صحیحِ مثبت باشد",
+    "err.relative_path_required": "[خطای ابزار] relative_path باید یک رشتهٔ غیرخالی باشد",
+    "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
+    "param.max_bytes.description": "حداکثر تعداد بایت برای خواندن (پیش‌فرض: 5000000)",
+    "param.relative_path.description": "مسیر نسبی نسبت به ریشهٔ skill (مثلاً references/REFERENCE.md)",
+    "param.skill_dir.description": "پوشهٔ skillها",
+    "tool.description": "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود.",
+    "x_search_terms": [
+      "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود",
+      "skills_read_file",
+      "skills read file"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
+  },
+  "mn": {
+    "err.invalid_args": "[хэрэгслийн алдаа] буруу аргументууд",
+    "err.max_bytes_positive": "[хэрэгслийн алдаа] max_bytes нь эерэг бүхэл тоо байх ёстой",
+    "err.relative_path_required": "[хэрэгслийн алдаа] relative_path нь хоосон бус мөр байх ёстой",
+    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр байх ёстой",
+    "param.max_bytes.description": "Унших дээд хэмжээний байт (анхдагч: 5000000)",
+    "param.relative_path.description": "skill root-д харьцангуй зам (ж. references/REFERENCE.md)",
+    "param.skill_dir.description": "skill-ийн лавлах",
+    "tool.description": "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно.",
+    "x_search_terms": [
+      "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно",
+      "skills_read_file",
+      "skills read file"
+    ],
+    "tool.system_prompt": "Tool description-д заасан зорилгод энэ хэрэгслийг ашиглана уу."
+  },
+  "mr": {
+    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग्युमेंट्स",
+    "err.max_bytes_positive": "[टूल त्रुटी] max_bytes हा धनात्मक पूर्णांक असला पाहिजे",
+    "err.relative_path_required": "[टूल त्रुटी] relative_path ही रिक्त नसलेली स्ट्रिंग असली पाहिजे",
+    "err.skill_dir_required": "[टूल त्रुटी] skill_dir ही रिक्त नसलेली स्ट्रिंग असली पाहिजे",
+    "param.max_bytes.description": "वाचायच्या बाइट्सची कमाल संख्या (डीफॉल्ट: 5000000)",
+    "param.relative_path.description": "skill root च्या सापेक्ष path (उदा. references/REFERENCE.md)",
+    "param.skill_dir.description": "skills directory",
+    "tool.description": "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते.",
+    "x_search_terms": [
+      "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते",
+      "skills_read_file",
+      "skills read file"
+    ],
+    "tool.system_prompt": "tool description मध्ये दिलेल्या उद्देशासाठी हे टूल वापरा."
   }
 }

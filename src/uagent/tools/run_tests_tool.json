@@ -639,5 +639,101 @@
     "tool.system_prompt": "請將此工具用於工具說明中描述的用途。",
     "param.pattern.description": "搜尋模式。使用 \\n 表示換行。",
     "summary.no_change": "成功地未進行任何變更（0 個符合）"
+  },
+  "bn": {
+    "doc.module": "run_tests_tool\n\nটেস্ট চালানোর জন্য একটি wrapper টুল।\n\nউদ্দেশ্য:\n- cmd_exec/pwsh_exec সরাসরি না ডেকে টেস্ট চালানোকে মানসম্মত করা এবং কাঠামোবদ্ধ ফলাফল ফেরত দেওয়া।\n- framework=auto হলে pytest / unittest / npm স্বয়ংক্রিয়ভাবে শনাক্ত করা।\n\nনিরাপত্তা নীতি:\n- টেস্ট চালানো সাধারণত ঝুঁকিপূর্ণ কাজ নয়, তাই human_ask করা হয় না।\n- তবে command-injection metacharacter (&&, |, >, ইত্যাদি) থাকা extra_args প্রত্যাখ্যান করা হয়।\n\nবাস্তবায়ন:\n- ভেতরে cmd_exec_json_tool ব্যবহার করে returncode/stdout/stderr হ্যান্ডল করা হয়।\n- stdout/stderr-এর জন্য callbacks.truncate_output থাকলে তা প্রয়োগ করা হয়।\n- cwd নির্দিষ্ট করতে cmd_exec_json-এর cwd আর্গুমেন্ট ব্যবহার করুন (cd && ব্যবহার করবেন না)।\n\nঅতিরিক্ত সুবিধা:\n- pythonpath: টেস্ট চালানোর জন্য অতিরিক্ত PYTHONPATH কনফিগার করুন।\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd অনুমোদিত নয়: {error}",
+    "error.dangerous_cwd_rejected": "ঝুঁকিপূর্ণ cwd প্রত্যাখ্যাত হয়েছে: {cwd}",
+    "error.framework_auto_detect_failed": "framework স্বয়ংক্রিয় শনাক্তকরণ ব্যর্থ হয়েছে",
+    "error.invalid_framework": "অবৈধ framework: {framework}",
+    "error.invalid_report": "অবৈধ report: {report}",
+    "error.shell_metacharacters_not_allowed": "আর্গুমেন্টে shell metacharacter অনুমোদিত নয়: {arg}",
+    "error.unsupported_framework": "অসমর্থিত framework: {framework}",
+    "param.cwd.description": "চালানোর জন্য workdir-এর ভেতরের working directory। null হলে current directory ব্যবহার করুন।",
+    "param.extra_args.description": "অতিরিক্ত আর্গুমেন্ট অ্যারে। shell metacharacter থাকলে প্রত্যাখ্যান করুন।",
+    "param.framework.description": "টেস্ট framework-এর ধরন।",
+    "param.pythonpath.description": "অতিরিক্ত PYTHONPATH (যেমন 'src'). দিলে তা test command-এর আগে যোগ হয়।",
+    "param.report.description": "আউটপুট ফরম্যাট।",
+    "param.target.description": "টার্গেট (pytest path, unittest start directory, npm script, ইত্যাদি)। null হলে ডিফল্ট ব্যবহার হবে।",
+    "tool.description": "টেস্ট চালান (pytest/unittest/npm স্বয়ংক্রিয়ভাবে শনাক্ত করে)। extra_args-এ shell metacharacter প্রত্যাখ্যান করুন।",
+    "x_search_terms": [
+      "টেস্ট চালান (pytest/unittest/npm স্বয়ংক্রিয়ভাবে শনাক্ত করে)। extra_args-এ shell metacharacter প্রত্যাখ্যান করুন",
+      "run_tests",
+      "run tests"
+    ],
+    "tool.system_prompt": "এই টুলটি টুলের বর্ণনায় উল্লিখিত উদ্দেশ্যের জন্য ব্যবহার করুন।",
+    "summary.no_change": "সফলভাবে কোনো পরিবর্তন করা হয়নি (0টি match)"
+  },
+  "fa": {
+    "doc.module": "run_tests_tool\n\nابزار wrapper برای اجرای تست‌ها.\n\nهدف:\n- به‌جای فراخوانی مستقیم cmd_exec/pwsh_exec، اجرای تست را استاندارد می‌کند و نتیجهٔ ساخت‌یافته برمی‌گرداند.\n- وقتی framework=auto است، pytest / unittest / npm را به‌طور خودکار تشخیص می‌دهد.\n\nسیاست ایمنی:\n- اجرای تست‌ها معمولاً عملیات خطرناکی نیست، بنابراین human_ask انجام نمی‌شود.\n- با این حال، extra_args که شامل metacharacterهای تزریق فرمان (&&، |، > و غیره) باشند رد می‌شوند.\n\nپیاده‌سازی:\n- درون‌ساخت از cmd_exec_json_tool استفاده می‌کند و returncode/stdout/stderr را مدیریت می‌کند.\n- برای stdout/stderr، اگر callbacks.truncate_output موجود باشد از آن استفاده می‌شود.\n- برای تعیین cwd، از آرگومان cwd در cmd_exec_json استفاده کنید (از cd && استفاده نکنید).\n\nویژگی‌های اضافی:\n- pythonpath: برای اجرای تست‌ها PYTHONPATH اضافی تنظیم کنید.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd مجاز نیست: {error}",
+    "error.dangerous_cwd_rejected": "cwd خطرناک رد شد: {cwd}",
+    "error.framework_auto_detect_failed": "تشخیص خودکار framework ناموفق بود",
+    "error.invalid_framework": "framework نامعتبر: {framework}",
+    "error.invalid_report": "report نامعتبر: {report}",
+    "error.shell_metacharacters_not_allowed": "استفاده از metacharacterهای shell در آرگومان‌ها مجاز نیست: {arg}",
+    "error.unsupported_framework": "framework پشتیبانی‌نشده: {framework}",
+    "param.cwd.description": "دایرکتوری کاری برای اجرا (باید داخل workdir باشد). اگر null باشد، از دایرکتوری فعلی استفاده کنید.",
+    "param.extra_args.description": "آرایهٔ آرگومان‌های اضافی. اگر metacharacterهای shell وجود داشته باشد، رد شود.",
+    "param.framework.description": "نوع framework تست.",
+    "param.pythonpath.description": "PYTHONPATH اضافی (مثلاً 'src'). اگر ارائه شود، به ابتدای فرمان تست افزوده می‌شود.",
+    "param.report.description": "قالب خروجی.",
+    "param.target.description": "هدف (مسیر pytest، دایرکتوری شروع unittest، اسکریپت npm، و غیره). اگر null باشد، مقادیر پیش‌فرض استفاده می‌شوند.",
+    "tool.description": "تست‌ها را اجرا کنید (pytest/unittest/npm را خودکار تشخیص می‌دهد). metacharacterهای shell را در extra_args رد می‌کند.",
+    "x_search_terms": [
+      "تست‌ها را اجرا کنید (pytest/unittest/npm را خودکار تشخیص می‌دهد). metacharacterهای shell را در extra_args رد می‌کند",
+      "run_tests",
+      "run tests"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید.",
+    "summary.no_change": "با موفقیت هیچ تغییری انجام نشد (0 match)"
+  },
+  "mn": {
+    "doc.module": "run_tests_tool\n\nТест ажиллуулахад зориулсан wrapper хэрэгсэл.\n\nЗорилго:\n- cmd_exec/pwsh_exec-ийг шууд дуудахгүйгээр тест ажиллуулахыг стандартчилж, бүтэцтэй үр дүн буцаана.\n- framework=auto үед pytest / unittest / npm-ийг автоматаар танина.\n\nАюулгүй байдлын бодлого:\n- Тест ажиллуулах нь ерөнхийдөө аюултай үйлдэл биш тул human_ask хийхгүй.\n- Гэхдээ command-injection metacharacter (&&, |, > гэх мэт) агуулсан extra_args-ыг татгалзана.\n\nХэрэгжилт:\n- Дотроо cmd_exec_json_tool ашиглаж returncode/stdout/stderr-ийг боловсруулна.\n- stdout/stderr-д callbacks.truncate_output байвал хэрэглэнэ.\n- cwd-г заахдаа cmd_exec_json-ийн cwd аргументыг ашиглана (cd && бүү ашигла).\n\nНэмэлт боломжууд:\n- pythonpath: тест ажиллуулахад зориулж нэмэлт PYTHONPATH тохируулна.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd зөвшөөрөгдөхгүй: {error}",
+    "error.dangerous_cwd_rejected": "аюултай cwd татгалзагдлаа: {cwd}",
+    "error.framework_auto_detect_failed": "framework-г автоматаар танихад амжилтгүй",
+    "error.invalid_framework": "хүчингүй framework: {framework}",
+    "error.invalid_report": "хүчингүй report: {report}",
+    "error.shell_metacharacters_not_allowed": "аргументуудад shell metacharacter ашиглахыг зөвшөөрөхгүй: {arg}",
+    "error.unsupported_framework": "дэмжигдээгүй framework: {framework}",
+    "param.cwd.description": "Ажиллуулах working directory (workdir дотор байх ёстой). null бол одоогийн directory-г ашиглана.",
+    "param.extra_args.description": "Нэмэлт аргументын массив. Shell metacharacter байвал татгалзана.",
+    "param.framework.description": "Тестийн framework-ийн төрөл.",
+    "param.pythonpath.description": "Нэмэлт PYTHONPATH (жишээ нь 'src'). Өгвөл тестийн командыг өмнө нь залгана.",
+    "param.report.description": "Гаралтын формат.",
+    "param.target.description": "Зорилт (pytest path, unittest эхлэх directory, npm script, гэх мэт). null бол анхдагч утгуудыг хэрэглэнэ.",
+    "tool.description": "Тест ажиллуулна (pytest/unittest/npm-ийг автоматаар танина). extra_args дахь shell metacharacter-ийг татгалзана.",
+    "x_search_terms": [
+      "Тест ажиллуулна (pytest/unittest/npm-ийг автоматаар танина). extra_args дахь shell metacharacter-ийг татгалзана",
+      "run_tests",
+      "run tests"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг tool description-д тайлбарласан зорилгоор ашиглана уу.",
+    "summary.no_change": "Амжилттай өөрчлөлт хийгдээгүй (0 таарсан)"
+  },
+  "mr": {
+    "doc.module": "run_tests_tool\n\nचाचण्या चालवण्यासाठीचे wrapper साधन.\n\nउद्देश:\n- cmd_exec/pwsh_exec थेट न बोलावता चाचणी चालवणे प्रमाणित करणे आणि संरचित निकाल परत करणे.\n- framework=auto असताना pytest / unittest / npm आपोआप ओळखणे.\n\nसुरक्षा धोरण:\n- चाचणी चालवणे सामान्यतः धोकादायक क्रिया नाही, त्यामुळे human_ask केला जात नाही.\n- मात्र, command-injection metacharacter (&&, |, > इ.) असलेले extra_args नाकारले जातात.\n\nअंमलबजावणी:\n- आतून cmd_exec_json_tool वापरते आणि returncode/stdout/stderr हाताळते.\n- stdout/stderr साठी callbacks.truncate_output उपलब्ध असल्यास ते लागू केले जाते.\n- cwd निर्दिष्ट करण्यासाठी cmd_exec_json चे cwd आर्ग्युमेंट वापरा (cd && वापरू नका).\n\nअतिरिक्त वैशिष्ट्ये:\n- pythonpath: चाचण्या चालवण्यासाठी अतिरिक्त PYTHONPATH कॉन्फिगर करा.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "error.cwd_not_allowed": "cwd परवानगी नाही: {error}",
+    "error.dangerous_cwd_rejected": "धोकादायक cwd नाकारले: {cwd}",
+    "error.framework_auto_detect_failed": "framework चे स्वयंचलित ओळखणे अपयशी ठरले",
+    "error.invalid_framework": "अवैध framework: {framework}",
+    "error.invalid_report": "अवैध report: {report}",
+    "error.shell_metacharacters_not_allowed": "आर्ग्युमेंट्समध्ये shell metacharacter अनुमत नाहीत: {arg}",
+    "error.unsupported_framework": "असमर्थित framework: {framework}",
+    "param.cwd.description": "चालवण्यासाठीचा working directory (workdir च्या आत असणे आवश्यक). null असल्यास current directory वापरा.",
+    "param.extra_args.description": "अतिरिक्त आर्ग्युमेंट्सची array. shell metacharacter असल्यास नकार द्या.",
+    "param.framework.description": "चाचणी framework चा प्रकार.",
+    "param.pythonpath.description": "अतिरिक्त PYTHONPATH (उदा. 'src'). दिल्यास ते test command च्या आधी जोडले जाते.",
+    "param.report.description": "आउटपुट स्वरूप.",
+    "param.target.description": "लक्ष्य (pytest path, unittest start directory, npm script, इ.). null असल्यास default वापरा.",
+    "tool.description": "चाचण्या चालवा (pytest/unittest/npm आपोआप ओळखते). extra_args मधील shell metacharacter नाकारते.",
+    "x_search_terms": [
+      "चाचण्या चालवा (pytest/unittest/npm आपोआप ओळखते). extra_args मधील shell metacharacter नाकारते",
+      "run_tests",
+      "run tests"
+    ],
+    "tool.system_prompt": "हे साधन tool description मध्ये दिलेल्या उद्देशासाठी वापरा.",
+    "summary.no_change": "यशस्वीरीत्या कोणतेही बदल झाले नाहीत (0 जुळण्या)"
   }
 }

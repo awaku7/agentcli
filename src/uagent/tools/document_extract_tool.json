@@ -336,5 +336,57 @@
     "param.output_format.description": "輸出格式：text 或 json。",
     "param.password.description": "加密 DOCX 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
+  },
+  "bn": {
+    "tool.description": "Word-এর মতো ডকুমেন্ট (.docx, .rtf, .odt) থেকে টেক্সট ও মৌলিক গঠন বের করে। output_format=text বা output_format=json বেছে নিন। টুলটি সবসময় JSON ফেরত দেয়।",
+    "x_search_terms": [
+      "Word-এর মতো ডকুমেন্ট (.docx, .rtf, .odt) থেকে টেক্সট ও মৌলিক গঠন বের করে। output_format=text বা output_format=json বেছে নিন। টুলটি সবসময় JSON ফেরত দেয়",
+      "document_extract",
+      "document extract"
+    ],
+    "tool.system_prompt": "'.docx', '.rtf' বা '.odt' ডকুমেন্ট পড়ে শুধু JSON ফেরত দিন। output_format=text হলে বের করা লেখাটি JSON উত্তরে রাখুন। output_format=json হলে, সম্ভব হলে কাঠামোবদ্ধ section ও table অন্তর্ভুক্ত করুন।",
+    "param.path.description": "ইনপুট ডকুমেন্টের পথ (.docx, .rtf, .odt)।",
+    "param.output_format.description": "আউটপুট ফরম্যাট: text বা json।",
+    "param.password.description": "এনক্রিপ্ট করা DOCX ফাইলের জন্য ঐচ্ছিক পাসওয়ার্ড। বাদ দিলে এবং ফাইলটি এনক্রিপ্টেড হলে, একবার পাসওয়ার্ড চাইবে।",
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+  },
+  "fa": {
+    "tool.description": "متن و ساختار پایه را از سندهای شبیه Word (.docx، .rtf، .odt) استخراج می‌کند. output_format=text یا output_format=json را انتخاب کنید. این ابزار همیشه JSON برمی‌گرداند.",
+    "x_search_terms": [
+      "متن و ساختار پایه را از سندهای شبیه Word (.docx، .rtf، .odt) استخراج می‌کند. output_format=text یا output_format=json را انتخاب کنید. این ابزار همیشه JSON برمی‌گرداند",
+      "document_extract",
+      "document extract"
+    ],
+    "tool.system_prompt": "اسناد .docx، .rtf یا .odt را بخوانید و فقط JSON برگردانید. اگر output_format=text باشد، متن استخراج‌شده را در پاسخ JSON قرار دهید. اگر output_format=json باشد، در صورت امکان بخش‌ها و جدول‌های ساختاریافته را هم شامل کنید.",
+    "param.path.description": "مسیر سند ورودی (.docx، .rtf، .odt).",
+    "param.output_format.description": "فرمت خروجی: text یا json.",
+    "param.password.description": "گذرواژهٔ اختیاری برای فایل DOCX رمزگذاری‌شده. اگر حذف شود و فایل رمزگذاری‌شده باشد، یک‌بار برای گذرواژه از شما پرسیده می‌شود.",
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+  },
+  "mn": {
+    "tool.description": "Word-тэй төстэй баримтууд (.docx, .rtf, .odt)-аас текст болон үндсэн бүтцийг гаргаж авна. output_format=text эсвэл output_format=json-ыг сонгоно. Энэ хэрэгсэл үргэлж JSON буцаана.",
+    "x_search_terms": [
+      "Word-тэй төстэй баримтууд (.docx, .rtf, .odt)-аас текст болон үндсэн бүтцийг гаргаж авна. output_format=text эсвэл output_format=json-ыг сонгоно. Энэ хэрэгсэл үргэлж JSON буцаана",
+      "document_extract",
+      "document extract"
+    ],
+    "tool.system_prompt": ".docx, .rtf, .odt баримтуудыг уншиж зөвхөн JSON буцаана уу. output_format=text бол гаргасан текстыг JSON хариунд оруулна. output_format=json бол боломжтой үед бүтэцтэй section болон table-уудыг багтаана уу.",
+    "param.path.description": "Оролтын баримтын зам (.docx, .rtf, .odt).",
+    "param.output_format.description": "Гаралтын формат: text эсвэл json.",
+    "param.password.description": "Шифрлэгдсэн DOCX файлын сонголттой нууц үг. Алгасвал, файл шифрлэгдсэн тохиолдолд нууц үгийг нэг удаа асууна.",
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+  },
+  "mr": {
+    "tool.description": "Word-सदृश दस्तऐवजांमधून (.docx, .rtf, .odt) मजकूर आणि मूलभूत रचना काढते. output_format=text किंवा output_format=json निवडा. हे साधन नेहमी JSON परत करते.",
+    "x_search_terms": [
+      "Word-सदृश दस्तऐवजांमधून (.docx, .rtf, .odt) मजकूर आणि मूलभूत रचना काढते. output_format=text किंवा output_format=json निवडा. हे साधन नेहमी JSON परत करते",
+      "document_extract",
+      "document extract"
+    ],
+    "tool.system_prompt": ".docx, .rtf किंवा .odt दस्तऐवज वाचा आणि फक्त JSON परत करा. output_format=text असल्यास काढलेला मजकूर JSON प्रतिसादात ठेवा. output_format=json असल्यास शक्य असल्यास रचनाबद्ध विभाग आणि तक्ते समाविष्ट करा.",
+    "param.path.description": "इनपुट दस्तऐवजाचा मार्ग (.docx, .rtf, .odt).",
+    "param.output_format.description": "आउटपुट स्वरूप: text किंवा json.",
+    "param.password.description": "एनक्रिप्टेड DOCX फाइलसाठी ऐच्छिक पासवर्ड. वगळल्यास आणि फाइल एन्क्रिप्टेड असेल, तर एकदा पासवर्ड विचारला जाईल.",
+    "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
   }
 }

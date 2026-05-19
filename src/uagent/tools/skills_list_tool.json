@@ -336,5 +336,57 @@
       "skills list"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+  },
+  "bn": {
+    "param.include_invalid.description": "SKILL.md-এর parsing/verification ব্যর্থ হলেও তালিকায় অন্তর্ভুক্ত করা হবে কি না (default: true)। false হলে ব্যর্থ skill-গুলো বাদ যাবে।",
+    "param.recursive.description": "recursive ভাবে খুঁজুন (default: true)",
+    "param.root_dir.description": "skill অনুসন্ধানের root। ফাঁকা/অসুনির্দিষ্ট হলে UAGENT_SKILLS_DIRS (os.pathsep দ্বারা বিভক্ত) ব্যবহার হবে, আর সেটিও না থাকলে ./skills ব্যবহার হবে।",
+    "param.strict.description": "specification verification-এর সময় warnings-কে ব্যর্থতা হিসেবে ধরা হবে কি না (default: false)",
+    "tool.description": "Agent Skills স্পেসিফিকেশন (SKILL.md) অনুযায়ী নির্দিষ্ট root-এর নিচের skill-গুলোর তালিকা ফেরত দেয় (শুধু frontmatter পড়ে)। root_dir না দিলে UAGENT_SKILLS_DIRS বা ./skills স্ক্যান করে।",
+    "x_search_terms": [
+      "Agent Skills স্পেসিফিকেশন (SKILL.md) অনুযায়ী নির্দিষ্ট root-এর নিচের skill-গুলোর তালিকা ফেরত দেয় (শুধু frontmatter পড়ে)। root_dir না দিলে UAGENT_SKILLS_DIRS বা ./skills স্ক্যান করে",
+      "skills_list",
+      "skills list"
+    ],
+    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহৃত হয়: (tool description দেখুন)।"
+  },
+  "fa": {
+    "param.include_invalid.description": "آیا حتی اگر تجزیه/اعتبارسنجی SKILL.md ناموفق شود، در فهرست گنجانده شود یا نه (پیش‌فرض: true). اگر false باشد، skillهای ناموفق حذف می‌شوند.",
+    "param.recursive.description": "جست‌وجوی بازگشتی (پیش‌فرض: true)",
+    "param.root_dir.description": "ریشهٔ جست‌وجوی skillها. اگر خالی/نامشخص باشد، از UAGENT_SKILLS_DIRS (با جداکنندهٔ os.pathsep) استفاده می‌شود و اگر آن هم نامشخص باشد، ./skills به‌کار می‌رود.",
+    "param.strict.description": "آیا warningها هنگام اعتبارسنجی specification خطا محسوب شوند یا نه (پیش‌فرض: false)",
+    "tool.description": "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skills (SKILL.md). اگر root_dir حذف شود، UAGENT_SKILLS_DIRS یا ./skills را اسکن می‌کند.",
+    "x_search_terms": [
+      "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skills (SKILL.md). اگر root_dir حذف شود، UAGENT_SKILLS_DIRS یا ./skills را اسکن می‌کند",
+      "skills_list",
+      "skills list"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدف زیر استفاده می‌شود: (به توضیح ابزار مراجعه کنید)."
+  },
+  "mn": {
+    "param.include_invalid.description": "SKILL.md-ийг parse/verification хийхэд алдаа гарсан ч жагсаалтад оруулах эсэх (анхдагч: true). false бол бүтэлгүй skills-ийг хасна.",
+    "param.recursive.description": "давтагдан хайх (анхдагч: true)",
+    "param.root_dir.description": "skill хайх root. Хоосон/заагаагүй бол UAGENT_SKILLS_DIRS (os.pathsep-ээр тусгаарлагдсан) ашиглана, харин тэр нь ч заагаагүй бол ./skills ашиглана.",
+    "param.strict.description": "specification verification хийх үед warnings-ийг алдаа гэж үзэх эсэх (анхдагч: false)",
+    "tool.description": "Agent Skills-ийн specification (SKILL.md)-д үндэслэн заасан root-ийн доорх skill-үүдийн жагсаалтыг буцаана (зөвхөн frontmatter уншина). root_dir орхигдвол UAGENT_SKILLS_DIRS эсвэл ./skills-ийг шалгана.",
+    "x_search_terms": [
+      "Agent Skills-ийн specification (SKILL.md)-д үндэслэн заасан root-ийн доорх skill-үүдийн жагсаалтыг буцаана (зөвхөн frontmatter уншина). root_dir орхигдвол UAGENT_SKILLS_DIRS эсвэл ./skills-ийг шалгана",
+      "skills_list",
+      "skills list"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг дараах зорилгоор ашиглана: (tool description-г үзнэ үү)."
+  },
+  "mr": {
+    "param.include_invalid.description": "SKILL.md चे parsing/verification अयशस्वी झाले तरीही ते यादीत समाविष्ट करायचे का (default: true). false असल्यास अपयशी skill वगळले जातील.",
+    "param.recursive.description": "recursive शोध (default: true)",
+    "param.root_dir.description": "skill शोधण्याचे root. रिकामे/निश्चित नसल्यास UAGENT_SKILLS_DIRS (os.pathsep ने विभाजित) वापरले जाईल; तेही नसल्यास ./skills वापरले जाईल.",
+    "param.strict.description": "specification verification दरम्यान warnings ना अपयश मानायचे का (default: false)",
+    "tool.description": "Agent Skills specification (SKILL.md) नुसार निर्दिष्ट root अंतर्गत skill ची यादी परत करते (फक्त frontmatter वाचते). root_dir वगळल्यास UAGENT_SKILLS_DIRS किंवा ./skills स्कॅन करते.",
+    "x_search_terms": [
+      "Agent Skills specification (SKILL.md) नुसार निर्दिष्ट root अंतर्गत skill ची यादी परत करते (फक्त frontmatter वाचते). root_dir वगळल्यास UAGENT_SKILLS_DIRS किंवा ./skills स्कॅन करते",
+      "skills_list",
+      "skills list"
+    ],
+    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते: (tool description पहा)."
   }
 }

@@ -440,5 +440,73 @@
     "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。",
     "param.password.description": "加密 .xlsx 檔案的可選密碼。若省略且檔案已加密，系統會提示您輸入一次密碼。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
+  },
+  "bn": {
+    "param.action.description": "যে অপারেশনটি করা হবে।",
+    "param.data.description": "লেখার জন্য JSON ডেটা।",
+    "param.file_path.description": "Excel ফাইলের absolute path।",
+    "param.sheet_name.description": "লক্ষ্য sheet-এর নাম।",
+    "param.keep_sheets.description": "রাখতে হবে এমন sheet নাম (শুধু action='keep_only_sheets' এর জন্য)। নির্দিষ্ট কোনো sheet না থাকলে টুলটি error দেবে।",
+    "param.output_path.description": "action='keep_only_sheets' এর জন্য output path। এটি আগে থেকে থাকলে backup (<output_path>.org / <output_path>.org1 / ...) তৈরি করে পরে overwrite করা হবে।",
+    "tool.description": "Excel (.xlsx) ফাইল পড়ে ও লেখে, এবং sheet name পায়। বিদ্যমান ফাইলে লেখার আগে একই নামের backup (<file_path>.org / <file_path>.org1 / ...) তৈরি করা হয়।",
+    "x_search_terms": [
+      "Excel (.xlsx) ফাইল পড়ে ও লেখে, এবং sheet name পায়। বিদ্যমান ফাইলে লেখার আগে একই নামের backup (<file_path>.org / <file_path>.org1 / ...) তৈরি করা হয়",
+      "excel_ops",
+      "excel ops"
+    ],
+    "tool.system_prompt": "এই টুলটি 'excel_ops' টুল নামে বর্ণিত অপারেশনটি সম্পাদন করে।",
+    "param.password.description": "এনক্রিপ্ট করা .xlsx ফাইলের জন্য ঐচ্ছিক পাসওয়ার্ড। বাদ দিলে এবং ফাইলটি এনক্রিপ্টেড হলে, একবার পাসওয়ার্ড চাইবে।",
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+  },
+  "fa": {
+    "param.action.description": "عملیاتی که باید انجام شود.",
+    "param.data.description": "دادهٔ JSON برای نوشتن.",
+    "param.file_path.description": "مسیر مطلق فایل Excel.",
+    "param.sheet_name.description": "نام شیت هدف.",
+    "param.keep_sheets.description": "نام شیت‌هایی که باید نگه داشته شوند (فقط برای action='keep_only_sheets'). اگر هر شیتِ مشخص‌شده وجود نداشته باشد، ابزار خطا می‌دهد.",
+    "param.output_path.description": "مسیر خروجی برای action='keep_only_sheets'. اگر از قبل وجود داشته باشد، پس از ایجاد یک نسخهٔ پشتیبان (<output_path>.org / <output_path>.org1 / ...) بازنویسی می‌شود.",
+    "tool.description": "فایل‌های Excel (.xlsx) را می‌خواند و می‌نویسد و نام شیت‌ها را برمی‌گرداند. هنگام نوشتن روی فایل موجود، پیش از نوشتن نسخهٔ پشتیبان با همان نام (<file_path>.org / <file_path>.org1 / ...) ایجاد می‌شود.",
+    "x_search_terms": [
+      "فایل‌های Excel (.xlsx) را می‌خواند و می‌نویسد و نام شیت‌ها را برمی‌گرداند. هنگام نوشتن روی فایل موجود، پیش از نوشتن نسخهٔ پشتیبان با همان نام (<file_path>.org / <file_path>.org1 / ...) ایجاد می‌شود",
+      "excel_ops",
+      "excel ops"
+    ],
+    "tool.system_prompt": "این ابزار عملیاتی را انجام می‌دهد که با نام ابزار 'excel_ops' توصیف شده است.",
+    "param.password.description": "گذرواژهٔ اختیاری برای فایل‌های .xlsx رمزگذاری‌شده. اگر حذف شود و فایل رمزگذاری‌شده باشد، یک‌بار گذرواژه از شما خواسته می‌شود.",
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+  },
+  "mn": {
+    "param.action.description": "Гүйцэтгэх үйлдэл.",
+    "param.data.description": "Бичих JSON өгөгдөл.",
+    "param.file_path.description": "Excel файлын абсолют зам.",
+    "param.sheet_name.description": "Зорилтот sheet-ийн нэр.",
+    "param.keep_sheets.description": "Хадгалах sheet-ийн нэрс (зөвхөн action='keep_only_sheets'-д ашиглагдана). Заасан sheet байхгүй бол хэрэгсэл алдаа өгнө.",
+    "param.output_path.description": "action='keep_only_sheets'-ийн гаралтын зам. Хэрэв аль хэдийн байгаа бол backup (<output_path>.org / <output_path>.org1 / ...) үүсгээд дараа нь дарж бичнэ.",
+    "tool.description": "Excel (.xlsx) файлуудыг уншиж бичиж, sheet нэрийг авна. Одоо байгаа файл руу бичих үед бичихийн өмнө ижил нэртэй backup (<file_path>.org / <file_path>.org1 / ...) үүсгэнэ.",
+    "x_search_terms": [
+      "Excel (.xlsx) файлуудыг уншиж бичиж, sheet нэрийг авна. Одоо байгаа файл руу бичих үед бичихийн өмнө ижил нэртэй backup (<file_path>.org / <file_path>.org1 / ...) үүсгэнэ",
+      "excel_ops",
+      "excel ops"
+    ],
+    "tool.system_prompt": "Энэ хэрэгсэл нь 'excel_ops' хэрэгслийн нэрээр тайлбарлагдсан үйлдлийг гүйцэтгэнэ.",
+    "param.password.description": "Шифрлэгдсэн .xlsx файлын сонголттой нууц үг. Алгасвал, файл шифрлэгдсэн бол нууц үгийг нэг удаа асууна.",
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+  },
+  "mr": {
+    "param.action.description": "करावयाची क्रिया.",
+    "param.data.description": "लिहायचा JSON डेटा.",
+    "param.file_path.description": "Excel फाइलचा पूर्ण मार्ग.",
+    "param.sheet_name.description": "लक्ष्य शीटचे नाव.",
+    "param.keep_sheets.description": "ज्या शीट्स ठेवायच्या आहेत ती नावे (फक्त action='keep_only_sheets' साठी). नमूद केलेली कोणतीही शीट अस्तित्वात नसेल तर टूल त्रुटी देईल.",
+    "param.output_path.description": "action='keep_only_sheets' साठी output path. तो आधीपासून अस्तित्वात असल्यास backup (<output_path>.org / <output_path>.org1 / ...) तयार करून नंतर overwrite केला जाईल.",
+    "tool.description": "Excel (.xlsx) फाइल्स वाचते/लिहिते आणि sheet नावे मिळवते. विद्यमान फाइलमध्ये लिहिताना लिहिण्याच्या अगोदर त्याच नावाचा backup (<file_path>.org / <file_path>.org1 / ...) तयार केला जातो.",
+    "x_search_terms": [
+      "Excel (.xlsx) फाइल्स वाचते/लिहिते आणि sheet नावे मिळवते. विद्यमान फाइलमध्ये लिहिताना लिहिण्याच्या अगोदर त्याच नावाचा backup (<file_path>.org / <file_path>.org1 / ...) तयार केला जातो",
+      "excel_ops",
+      "excel ops"
+    ],
+    "tool.system_prompt": "हे टूल 'excel_ops' या टूल नावाने वर्णन केलेली क्रिया करते.",
+    "param.password.description": "एनक्रिप्टेड .xlsx फाइलसाठी ऐच्छिक पासवर्ड. वगळल्यास आणि फाइल एन्क्रिप्टेड असल्यास, एकदा पासवर्ड विचारला जाईल.",
+    "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
   }
 }

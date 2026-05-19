@@ -232,5 +232,41 @@
       "get workdir"
     ],
     "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
+  },
+  "bn": {
+    "tool.description": "বর্তমান workdir পান।",
+    "x_search_terms": [
+      "বর্তমান workdir পান",
+      "get_workdir",
+      "get workdir"
+    ],
+    "tool.system_prompt": "বর্তমান workdir পেতে এই টুল ব্যবহার করুন।"
+  },
+  "fa": {
+    "tool.description": "دایرکتوری کاری فعلی را دریافت می‌کند.",
+    "x_search_terms": [
+      "دایرکتوری کاری فعلی را دریافت می‌کند",
+      "get_workdir",
+      "get workdir"
+    ],
+    "tool.system_prompt": "از این ابزار برای دریافت دایرکتوری کاری فعلی استفاده کنید."
+  },
+  "mn": {
+    "tool.description": "Одоогийн ажлын директорийг авна.",
+    "x_search_terms": [
+      "Одоогийн ажлын директорийг авна",
+      "get_workdir",
+      "get workdir"
+    ],
+    "tool.system_prompt": "Одоогийн ажлын директорийг авахад энэ хэрэгслийг ашиглана уу."
+  },
+  "mr": {
+    "tool.description": "सध्याची कार्यशील निर्देशिका मिळवते.",
+    "x_search_terms": [
+      "सध्याची कार्यशील निर्देशिका मिळवते",
+      "get_workdir",
+      "get workdir"
+    ],
+    "tool.system_prompt": "सध्याची कार्यशील निर्देशिका मिळवण्यासाठी हे साधन वापरा."
   }
 }

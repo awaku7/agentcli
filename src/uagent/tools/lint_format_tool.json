@@ -414,5 +414,69 @@
       "lint format"
     ],
     "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
+  },
+  "bn": {
+    "confirm.msg": "lint_format(mode=fix) ফাইল আবার লিখে দিতে পারে.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nএগোতে চাইলে y, বাতিল করতে চাইলে c লিখুন।",
+    "doc.module": "lint_format_tool\n\nস্ট্যাটিক বিশ্লেষণ ও ফরম্যাটার চালানোর জন্য একটি wrapper টুল।\n\n- Python: ruff / black / mypy-কে অগ্রাধিকার দিন\n- JavaScript: নিরাপত্তার কারণে npx সরাসরি চালাবেন না।\n\nনিরাপত্তা:\n- mode=fix ফাইল বদলে দেয়, তাই human_ask দিয়ে নিশ্চিত করুন।\n- আর্গুমেন্ট array হিসেবে নিন এবং বিপজ্জনক shell metacharacter থাকলে তা প্রত্যাখ্যান করুন।",
+    "param.cwd.description": "চালানোর ডিরেক্টরি (শুধু workdir-এর নিচে অনুমোদিত)। null হলে বর্তমান ডিরেক্টরি।",
+    "param.extra_args.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।",
+    "param.mode.description": "check=শুধু যাচাই / fix=স্বয়ংক্রিয় সংশোধন",
+    "param.targets.description": "টার্গেট path-এর array (শুধু workdir-এর নিচে অনুমোদিত)।",
+    "param.tools.description": "চালানোর জন্য টুলের নামের array। খালি হলে স্বয়ংক্রিয়ভাবে বাছাই করা হবে।",
+    "tool.description": "স্ট্যাটিক বিশ্লেষণ/ফরম্যাটার চালান (যেমন ruff/black/mypy)। mode=fix ফাইল বদলায় এবং নিশ্চিতকরণ লাগে।",
+    "x_search_terms": [
+      "স্ট্যাটিক বিশ্লেষণ/ফরম্যাটার চালান (যেমন ruff/black/mypy)। mode=fix ফাইল বদলায় এবং নিশ্চিতকরণ লাগে",
+      "lint_format",
+      "lint format"
+    ],
+    "tool.system_prompt": "স্ট্যাটিক বিশ্লেষণ/ফরম্যাটার চালান। অতিরিক্ত ব্যবহারকারী নিশ্চিতকরণ লাগলে (যেমন mode=fix), human_ask ব্যবহার করুন।"
+  },
+  "fa": {
+    "confirm.msg": "lint_format(mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزارها: {tools}\nهدف‌ها: {targets}\ncwd: {cwd}\n\nاگر می‌خواهید ادامه دهید y را تایپ کنید، و اگر می‌خواهید لغو کنید c را تایپ کنید.",
+    "doc.module": "lint_format_tool\n\nابزار wrapper برای اجرای ابزارهای تحلیل ایستا و قالب‌بندی.\n\n- Python: ابتدا ruff / black / mypy\n- JavaScript: به دلایل امنیتی، npx را مستقیم اجرا نکنید.\n\nامنیت:\n- حالت mode=fix فایل‌ها را تغییر می‌دهد، پس با human_ask تأیید بگیرید.\n- آرگومان‌ها را به‌صورت آرایه بپذیرید و اگر metacharacter خطرناک داشتند رد کنید.",
+    "param.cwd.description": "دایرکتوری اجرا (فقط زیر workdir مجاز است). اگر null باشد، دایرکتوری فعلی.",
+    "param.extra_args.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید.",
+    "param.mode.description": "check=فقط بررسی / fix=اصلاح خودکار",
+    "param.targets.description": "آرایهٔ مسیرهای هدف (فقط زیر workdir مجاز است).",
+    "param.tools.description": "آرایه‌ای از نام ابزارهایی که باید اجرا شوند. اگر خالی باشد، به‌طور خودکار انتخاب می‌شوند.",
+    "tool.description": "تحلیل ایستا/قالب‌بندها را اجرا کنید (مثلاً ruff/black/mypy). حالت mode=fix فایل‌ها را تغییر می‌دهد و نیاز به تأیید دارد.",
+    "x_search_terms": [
+      "تحلیل ایستا/قالب‌بندها را اجرا کنید (مثلاً ruff/black/mypy). حالت mode=fix فایل‌ها را تغییر می‌دهد و نیاز به تأیید دارد",
+      "lint_format",
+      "lint format"
+    ],
+    "tool.system_prompt": "تحلیل ایستا/قالب‌بندها را اجرا کنید. اگر تأیید اضافی کاربر لازم است (مثلاً mode=fix)، از human_ask استفاده کنید."
+  },
+  "mn": {
+    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дахин бичиж болзошгүй.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэх бол y, цуцлах бол c гэж бичнэ үү.",
+    "doc.module": "lint_format_tool\n\nСтатик шинжилгээ болон форматлагч хэрэгслүүдийг ажиллуулах wrapper хэрэгсэл.\n\n- Python: ruff / black / mypy-г илүүд үзнэ\n- JavaScript: аюулгүй байдлын үүднээс npx-ийг шууд бүү ажиллуул.\n\nАюулгүй байдал:\n- mode=fix нь файлыг өөрчилдөг тул human_ask-аар баталгаажуулна.\n- Аргументуудыг array хэлбэрээр авч, аюултай shell metacharacter агуулсан бол татгалзана.",
+    "param.cwd.description": "Ажиллуулах директор (зөвхөн workdir-ийн доор зөвшөөрнө). null бол одоогийнх.",
+    "param.extra_args.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана.",
+    "param.mode.description": "check=зөвхөн шалгах / fix=автомат засвар",
+    "param.targets.description": "Зорилтот path-уудын array (зөвхөн workdir-ийн доор зөвшөөрнө).",
+    "param.tools.description": "Ажиллуулах хэрэгслүүдийн нэрсийн array. Хоосон бол автоматаар сонгоно.",
+    "tool.description": "Статик шинжилгээ/форматлагчдыг ажиллуулна (жишээ нь ruff/black/mypy). mode=fix нь файлыг өөрчилж, баталгаажуулалт шаарддаг.",
+    "x_search_terms": [
+      "Статик шинжилгээ/форматлагчдыг ажиллуулна (жишээ нь ruff/black/mypy). mode=fix нь файлыг өөрчилж, баталгаажуулалт шаарддаг",
+      "lint_format",
+      "lint format"
+    ],
+    "tool.system_prompt": "Статик шинжилгээ/форматлагчдыг ажиллуулна уу. Хэрэв нэмэлт хэрэглэгчийн баталгаажуулалт шаардлагатай бол (жишээ нь mode=fix), human_ask ашиглана уу."
+  },
+  "mr": {
+    "confirm.msg": "lint_format(mode=fix) फाइल्स पुन्हा लिहू शकते.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nपुढे जायचे असेल तर y टाइप करा, किंवा रद्द करायचे असेल तर c टाइप करा.",
+    "doc.module": "lint_format_tool\n\nस्थिर विश्लेषण आणि formatter चालवण्यासाठीचा wrapper साधन.\n\n- Python: ruff / black / mypy यांना प्राधान्य द्या\n- JavaScript: सुरक्षिततेसाठी npx थेट चालवू नका.\n\nसुरक्षा:\n- mode=fix मुळे फाइल्स बदलतात, म्हणून human_ask द्वारे पुष्टी घ्या.\n- arguments array म्हणून घ्या आणि धोकादायक shell metacharacter असल्यास नकार द्या.",
+    "param.cwd.description": "चालवण्याची directory (फक्त workdir च्या आत परवानगी). null असल्यास current.",
+    "param.extra_args.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत.",
+    "param.mode.description": "check=फक्त तपासणी / fix=स्वयंचलित सुधारणा",
+    "param.targets.description": "लक्ष्य path ची array (फक्त workdir च्या आत परवानगी).",
+    "param.tools.description": "चालवायच्या साधनांच्या नावांची array. रिकामी असल्यास स्वयंचलितपणे निवड केली जाईल.",
+    "tool.description": "स्थिर विश्लेषण/formatter चालवा (उदा. ruff/black/mypy). mode=fix फाइल्स बदलते आणि पुष्टी आवश्यक असते.",
+    "x_search_terms": [
+      "स्थिर विश्लेषण/formatter चालवा (उदा. ruff/black/mypy). mode=fix फाइल्स बदलते आणि पुष्टी आवश्यक असते",
+      "lint_format",
+      "lint format"
+    ],
+    "tool.system_prompt": "स्थिर विश्लेषण/formatter चालवा. अतिरिक्त वापरकर्ता पुष्टी आवश्यक असल्यास (उदा. mode=fix), human_ask वापरा."
   }
 }
