@@ -15,23 +15,20 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
 
-_TOOL_ACTIONS = (
+_PUBLIC_TOOL_ACTIONS = (
     "init",
     "load",
     "status",
     "current",
-    "next",
-    "advance",
     "complete_file",
     "skip_file",
     "error_file",
-    "update",
-    "reset",
-    "append_log",
     "finalize",
     "list",
-    "delete",
 )
+
+_TOOL_ACTIONS = _PUBLIC_TOOL_ACTIONS
+_ALL_TOOL_ACTIONS = _PUBLIC_TOOL_ACTIONS
 _BATCH_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 _ALLOWED_STATUSES = {"active", "done", "paused", "cancelled", "error"}
 
@@ -46,8 +43,8 @@ TOOL_SPEC: Dict[str, Any] = {
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "Manage batch state. Prefer targets=[{dir, files, next_index}] and current_target. "
-                "Use current or next to fetch the next file. After processing it, call advance. "
+                "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. "
+                "Use current to fetch the current file. After processing it, call complete_file. "
                 "Use complete_file, skip_file, or error_file for explicit per-file results. "
                 "Return JSON only."
             ),
@@ -69,9 +66,8 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.action.description",
                         default=(
-                            "Action: init/load/status/current/next/advance/complete_file/skip_file/error_file/"
-                            "update/reset/append_log/finalize/list/delete. "
-                            "Use advance after processing current_file. Use current/next to fetch only the next item."
+                            "Action: init/load/status/current/complete_file/skip_file/error_file/finalize/list. "
+                            "Use current for the current file. Use complete_file after processing it."
                         ),
                     ),
                 },
@@ -79,7 +75,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.batch_id.description",
-                        default="Batch ID. Required for load/status/update/finalize/delete; optional for init/list.",
+                        default="Batch ID. Required for load/status/finalize; optional for init/list.",
                     ),
                 },
                 "task_description": {
@@ -107,7 +103,7 @@ TOOL_SPEC: Dict[str, Any] = {
                                 "type": "array",
                                 "items": {"type": "string"},
                             },
-                            "next_index": {
+                            "index": {
                                 "type": "integer",
                                 "minimum": 0,
                             },
@@ -117,16 +113,16 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.targets.description",
                         default=(
-                            "Target groups. Each entry contains dir, files (dir-relative), and next_index."
+                            "Target groups. Each entry contains dir, files (dir-relative), and index."
                         ),
                     ),
                 },
-                "target_files": {
+                "remaining_files": {
                     "type": "array",
                     "items": {"type": "string"},
                     "description": _(
-                        "param.target_files.description",
-                        default="Legacy single-target file list. Prefer targets.",
+                        "param.remaining_files.description",
+                        default="Files in the current target group. Prefer targets.",
                     ),
                 },
                 "current_target": {
@@ -142,8 +138,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.patch.description",
                         default=(
-                            "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target. "
-                            "For legacy single-target flows, patch.current_file can advance the current target, and next_index is derived from the file order."
+                            "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target."
                         ),
                     ),
                 },
@@ -151,7 +146,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.file.description",
-                        default="Target file for complete_file/skip_file/error_file/advance. If omitted, current_file is used.",
+                        default="Target file for complete_file/skip_file/error_file. If omitted, the current file is used.",
                     ),
                 },
                 "reason": {
@@ -283,19 +278,19 @@ def _join_display_path(dir_value: str, file_value: str) -> str:
 def _normalize_target(target: Any) -> Dict[str, Any]:
     if isinstance(target, str):
         files = _normalize_file_list([target])
-        return {"dir": "", "files": files, "next_index": 0}
+        return {"dir": "", "files": files, "index": 0}
 
     if not isinstance(target, dict):
-        return {"dir": "", "files": [], "next_index": 0}
+        return {"dir": "", "files": [], "index": 0}
 
     dir_value = _normalize_path_text(target.get("dir"))
     files = _normalize_file_list(target.get("files"))
-    next_index = _coerce_int(target.get("next_index"), 0)
-    if next_index < 0:
-        next_index = 0
-    if next_index > len(files):
-        next_index = len(files)
-    return {"dir": dir_value, "files": files, "next_index": next_index}
+    index = _coerce_int(target.get("index"), 0)
+    if index < 0:
+        index = 0
+    if index > len(files):
+        index = len(files)
+    return {"dir": dir_value, "files": files, "index": index}
 
 
 def _normalize_targets(value: Any) -> List[Dict[str, Any]]:
@@ -308,16 +303,16 @@ def _normalize_targets(value: Any) -> List[Dict[str, Any]]:
 
 
 def _single_target_from_files(files: Any) -> Dict[str, Any]:
-    return {"dir": "", "files": _normalize_file_list(files), "next_index": 0}
+    return {"dir": "", "files": _normalize_file_list(files), "index": 0}
 
 
-def _legacy_next_index(
+def _legacy_index(
     files: List[str],
-    done_files: Any,
-    current_file: Any,
+    processed_files: Any,
+    file: Any,
     pending_files: Any,
 ) -> int:
-    current = _normalize_path_text(current_file)
+    current = _normalize_path_text(file)
     if current and current in files:
         return files.index(current)
 
@@ -325,7 +320,7 @@ def _legacy_next_index(
         if item in files:
             return files.index(item)
 
-    done_set = set(_normalize_file_list(done_files))
+    done_set = set(_normalize_file_list(processed_files))
     if done_set:
         for idx, file_name in enumerate(files):
             if file_name not in done_set:
@@ -368,19 +363,19 @@ def _recorded_in(candidates: set[str], records: set[str]) -> bool:
     return bool(candidates & records)
 
 
-def _advance_target_to_next_pending(
+def _move_target_to_next_pending(
     target: Dict[str, Any], processed_records: set[str]
 ) -> Dict[str, Any]:
     target = _normalize_target(target)
     files = _normalize_file_list(target.get("files"))
-    next_index = _coerce_int(target.get("next_index"), 0)
-    if next_index < 0:
-        next_index = 0
-    while next_index < len(files):
-        if not _recorded_in(_record_candidates(target, next_index), processed_records):
+    index = _coerce_int(target.get("index"), 0)
+    if index < 0:
+        index = 0
+    while index < len(files):
+        if not _recorded_in(_record_candidates(target, index), processed_records):
             break
-        next_index += 1
-    target["next_index"] = next_index
+        index += 1
+    target["index"] = index
     return target
 
 
@@ -392,11 +387,11 @@ def _view_target(
 ) -> Dict[str, Any]:
     target = _normalize_target(target)
     files = _normalize_file_list(target.get("files"))
-    next_index = _coerce_int(target.get("next_index"), 0)
-    if next_index < 0:
-        next_index = 0
-    if next_index > len(files):
-        next_index = len(files)
+    index = _coerce_int(target.get("index"), 0)
+    if index < 0:
+        index = 0
+    if index > len(files):
+        index = len(files)
 
     completed_set = _record_set(completed_records)
     skipped_set = _record_set(skipped_records)
@@ -405,7 +400,7 @@ def _view_target(
 
     statuses: List[Dict[str, Any]] = []
     pending_files: List[str] = []
-    current_file = ""
+    file = ""
     completed_count = 0
     skipped_count = 0
     error_count = 0
@@ -414,7 +409,7 @@ def _view_target(
         candidates = _record_candidates(target, idx)
         is_skipped = _recorded_in(candidates, skipped_set)
         is_error = _recorded_in(candidates, error_set)
-        is_completed = idx < next_index or _recorded_in(candidates, completed_set)
+        is_completed = idx < index or _recorded_in(candidates, completed_set)
 
         if is_error:
             status = "error"
@@ -428,8 +423,8 @@ def _view_target(
         else:
             status = "pending"
             pending_files.append(display_file)
-            if not current_file:
-                current_file = display_file
+            if not file:
+                file = display_file
 
         statuses.append(
             {
@@ -444,8 +439,8 @@ def _view_target(
     return {
         "dir": _normalize_path_text(target.get("dir")),
         "files": files,
-        "next_index": next_index,
-        "current_file": current_file,
+        "index": index,
+        "file": file,
         "pending_files": pending_files,
         "total_count": len(display_files),
         "done_count": processed_count,
@@ -483,12 +478,12 @@ def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
     targets = out.get("targets")
     if isinstance(targets, list):
         normalized_targets = _normalize_targets(targets)
-    elif out.get("target_files") is not None:
-        legacy_target = _single_target_from_files(out.get("target_files"))
-        legacy_target["next_index"] = _legacy_next_index(
+    elif out.get("remaining_files") is not None:
+        legacy_target = _single_target_from_files(out.get("remaining_files"))
+        legacy_target["index"] = _legacy_index(
             legacy_target["files"],
-            out.get("done_files"),
-            out.get("current_file"),
+            out.get("processed_files"),
+            out.get("file"),
             out.get("pending_files"),
         )
         normalized_targets = [legacy_target]
@@ -497,7 +492,7 @@ def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
 
     processed_records = _processed_record_set(out)
     normalized_targets = [
-        _advance_target_to_next_pending(target, processed_records)
+        _move_target_to_next_pending(target, processed_records)
         for target in normalized_targets
     ]
 
@@ -566,21 +561,19 @@ def _save_state(batch_id: str, state: Dict[str, Any]) -> None:
             pass
 
 
-def _current_file_can_move_forward(
-    state: Dict[str, Any], current_file: str, candidate: str
-) -> bool:
+def _file_can_move_forward(state: Dict[str, Any], file: str, candidate: str) -> bool:
     if candidate == "":
         return True
-    if not current_file or current_file == candidate:
+    if not file or file == candidate:
         return True
 
-    target_files = state.get("target_files")
-    if not isinstance(target_files, list):
+    remaining_files = state.get("remaining_files")
+    if not isinstance(remaining_files, list):
         return True
 
     try:
-        current_index = target_files.index(current_file)
-        candidate_index = target_files.index(candidate)
+        current_index = remaining_files.index(file)
+        candidate_index = remaining_files.index(candidate)
     except ValueError:
         return True
 
@@ -593,9 +586,9 @@ def _collect_state_patch(args: Dict[str, Any]) -> Dict[str, Any]:
         "instructions",
         "targets",
         "current_target",
-        "target_files",
-        "done_files",
-        "current_file",
+        "remaining_files",
+        "processed_files",
+        "file",
         "status",
         "style_rules",
         "term_rules",
@@ -625,7 +618,7 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
     error_count = sum(item.get("error_count", 0) for item in target_views)
     pending_count = sum(item["pending_count"] for item in target_views)
     pending_files = [item for view in target_views for item in view["pending_files"]]
-    target_files = pending_files[:]
+    remaining_files = pending_files[:]
     current_target = _coerce_int(state.get("current_target"), 0)
     if target_views:
         if current_target < 0:
@@ -642,14 +635,14 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
         current_target_view = None
         current_target = 0
 
-    current_file = current_target_view["current_file"] if current_target_view else ""
-    recommendation = _recommended_next_action(state, current_file, pending_count)
+    file = current_target_view["file"] if current_target_view else ""
+    recommendation = _recommended_next_action(state, file, pending_count)
     return {
         **state,
         "current_target": current_target,
         "current_target_dir": current_target_view["dir"] if current_target_view else "",
-        "current_file": current_file,
-        "target_files": target_files,
+        "file": file,
+        "remaining_files": remaining_files,
         "pending_files": pending_files,
         "total_count": total_count,
         "done_count": done_count,
@@ -663,7 +656,7 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _apply_legacy_current_file(state: Dict[str, Any], candidate: Any) -> Dict[str, Any]:
+def _apply_legacy_file(state: Dict[str, Any], candidate: Any) -> Dict[str, Any]:
     candidate_text = _normalize_path_text(candidate)
     if not candidate_text:
         return state
@@ -681,38 +674,40 @@ def _apply_legacy_current_file(state: Dict[str, Any], candidate: Any) -> Dict[st
         display_files = _target_paths(target)
         if candidate_text in display_files:
             candidate_index = display_files.index(candidate_text)
-            if candidate_index < target["next_index"]:
+            if candidate_index < target["index"]:
                 return state
-            target["next_index"] = candidate_index
+            target["index"] = candidate_index
             state["targets"] = targets
             state["current_target"] = idx
             return state
         if candidate_text in target["files"]:
             candidate_index = target["files"].index(candidate_text)
-            if candidate_index < target["next_index"]:
+            if candidate_index < target["index"]:
                 return state
-            target["next_index"] = candidate_index
+            target["index"] = candidate_index
             state["targets"] = targets
             state["current_target"] = idx
             return state
     return state
 
 
-def _apply_legacy_done_files(state: Dict[str, Any], done_files: Any) -> Dict[str, Any]:
+def _apply_legacy_processed_files(
+    state: Dict[str, Any], processed_files: Any
+) -> Dict[str, Any]:
     targets = _normalize_targets(state.get("targets"))
-    if not targets or not isinstance(done_files, list):
+    if not targets or not isinstance(processed_files, list):
         return state
-    done_set = set(_normalize_file_list(done_files))
+    done_set = set(_normalize_file_list(processed_files))
     if len(targets) == 1:
         target = targets[0]
         files = target["files"]
-        next_index = 0
+        index = 0
         for file_name in files:
             if file_name in done_set:
-                next_index += 1
+                index += 1
             else:
                 break
-        target["next_index"] = next_index
+        target["index"] = index
         state["targets"] = targets
         return state
     return state
@@ -728,26 +723,26 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
 
     if "targets" in patch and patch.get("targets") is not None:
         out["targets"] = _normalize_targets(patch.get("targets"))
-    elif "target_files" in patch and patch.get("target_files") is not None:
-        out["targets"] = [_single_target_from_files(patch.get("target_files"))]
+    elif "remaining_files" in patch and patch.get("remaining_files") is not None:
+        out["targets"] = [_single_target_from_files(patch.get("remaining_files"))]
 
     if "current_target" in patch and patch.get("current_target") is not None:
         out["current_target"] = _coerce_int(patch.get("current_target"), 0)
 
-    if "current_file" in patch and patch.get("current_file") is not None:
-        out = _apply_legacy_current_file(out, patch.get("current_file"))
+    if "file" in patch and patch.get("file") is not None:
+        out = _apply_legacy_file(out, patch.get("file"))
 
-    if "done_files" in patch and patch.get("done_files") is not None:
-        out = _apply_legacy_done_files(out, patch.get("done_files"))
+    if "processed_files" in patch and patch.get("processed_files") is not None:
+        out = _apply_legacy_processed_files(out, patch.get("processed_files"))
 
     for key, value in patch.items():
         if key in {
             "workdir",
             "targets",
             "current_target",
-            "target_files",
-            "current_file",
-            "done_files",
+            "remaining_files",
+            "file",
+            "processed_files",
             "batch_id",
         }:
             continue
@@ -766,19 +761,24 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
 
 
 def _recommended_next_action(
-    state: Dict[str, Any], current_file: str, pending_count: int
+    state: Dict[str, Any], file: str, pending_count: int
 ) -> Dict[str, Any]:
     batch_id = _normalize_text(state.get("batch_id"))
-    if current_file:
+    if file:
         return {
-            "action": "advance",
+            "action": "current",
             "batch_id": batch_id,
-            "file": current_file,
-            "after": "processing current_file",
+            "file": file,
+            "after": "processing file",
+            "allowed_after_processing": [
+                "complete_file",
+                "skip_file",
+                "error_file",
+            ],
         }
     if pending_count <= 0 and state.get("targets"):
         return {"action": "finalize", "batch_id": batch_id}
-    return {"action": "update", "batch_id": batch_id}
+    return {"action": "status", "batch_id": batch_id}
 
 
 def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -787,7 +787,7 @@ def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
         "batch_id": snapshot.get("batch_id", ""),
         "status": snapshot.get("status", ""),
         "task_description": snapshot.get("task_description", ""),
-        "current_file": snapshot.get("current_file", ""),
+        "file": snapshot.get("file", ""),
         "total_count": snapshot.get("total_count", 0),
         "done_count": snapshot.get("done_count", 0),
         "pending_count": snapshot.get("pending_count", 0),
@@ -827,7 +827,7 @@ def _resolve_record_file(
 ) -> tuple[int, int, str]:
     snapshot = _state_with_progress_view(state)
     candidate = _normalize_path_text(file_value) or _normalize_path_text(
-        snapshot.get("current_file")
+        snapshot.get("file")
     )
     if not candidate:
         raise ValueError("no current file")
@@ -913,10 +913,10 @@ def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
         "workdir": snapshot.get("workdir", ""),
         "current_target": snapshot.get("current_target", 0),
         "current_target_dir": snapshot.get("current_target_dir", ""),
-        "current_file": snapshot.get("current_file", ""),
+        "file": snapshot.get("file", ""),
         "targets": snapshot.get("targets", []),
         "target_views": target_views,
-        "target_files": snapshot.get("target_files", []),
+        "remaining_files": snapshot.get("remaining_files", []),
         "pending_files": snapshot.get("pending_files", []),
         "total_count": snapshot.get("total_count", 0),
         "done_count": snapshot.get("done_count", 0),
@@ -964,7 +964,7 @@ def _result(ok: bool, **payload: Any) -> str:
 
 def run_tool(args: Dict[str, Any]) -> str:
     action = str(args.get("action") or "").strip()
-    if action not in _TOOL_ACTIONS:
+    if action not in _ALL_TOOL_ACTIONS:
         return _result(
             False,
             error=_(
@@ -1063,7 +1063,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 state=_batch_overview(state),
             )
 
-        if action in {"current", "next"}:
+        if action == "current":
             state = _load_state(batch_id)
             overview = _batch_overview(state)
             return _result(
@@ -1071,7 +1071,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 action=action,
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
-                current_file=overview.get("current_file", ""),
+                file=overview.get("file", ""),
                 current_target=overview.get("current_target", 0),
                 current_target_dir=overview.get("current_target_dir", ""),
                 pending_count=overview.get("pending_count", 0),
@@ -1082,10 +1082,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 state=overview,
             )
 
-        if action in {"advance", "complete_file", "skip_file", "error_file"}:
+        if action in {"complete_file", "skip_file", "error_file"}:
             state = _load_state(batch_id)
             result_key = {
-                "advance": "completed_files",
                 "complete_file": "completed_files",
                 "skip_file": "skipped_files",
                 "error_file": "error_files",
@@ -1142,7 +1141,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             targets = _normalize_targets(state.get("targets"))
             for target in targets:
                 if isinstance(target, dict):
-                    target["next_index"] = 0
+                    target["index"] = 0
             state["targets"] = targets
             state["current_target"] = 0
             state["status"] = "active"
