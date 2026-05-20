@@ -177,8 +177,8 @@ Long-term memory and shared memory can be inserted as system messages at startup
 Insertion order is:
 
 1. base system prompt
-2. shared memory messages
-3. long-term memory messages
+2. long-term memory messages
+3. shared memory messages
 4. skill messages (if active)
 
 Keep memory content concise and stable; it should augment, not replace, the base prompt.

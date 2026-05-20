@@ -275,8 +275,8 @@ def format_missing_env_message(
     lines: List[str] = []
     lines.append(
         _(
-            f"[FATAL] Environment validation failed ({context}).",
-            default=f"[FATAL] Environment validation failed ({context}).",
+            "[FATAL] Environment validation failed ({context}).",
+            default="[FATAL] Environment validation failed ({context}).",
             context=context,
         )
     )
@@ -288,14 +288,7 @@ def format_missing_env_message(
             )
         )
         for m in missing:
-            lines.append(
-                _(
-                    f"- {m.name}: {m.reason}",
-                    default=f"- {m.name}: {m.reason}",
-                    name=m.name,
-                    reason=m.reason,
-                )
-            )
+            lines.append(f"- {m.name}: {m.reason}")
     if warnings:
         lines.append(_("Warnings:", default="Warnings:"))
         for w in warnings:

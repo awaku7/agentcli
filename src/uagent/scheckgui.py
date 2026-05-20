@@ -1114,7 +1114,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 msg = (
                     _("Enter password...")
                     if is_password
-                    else _("Enter response for human_ask...")
+                    else "Enter response for human_ask..."
                 )
                 self._input.setPlaceholderText(msg)
                 self._pw_input.setPlaceholderText(msg)
@@ -1700,7 +1700,7 @@ class MainWindow(QtWidgets.QMainWindow):
             q.put(text + ("\n" + s + "\n" if s not in text else ""))
         else:
             try:
-                print(_("[USER] %(text)s") % {"text": text.strip()})
+                print("[USER] %(text)s" % {"text": text.strip()})
             except Exception:
                 pass
 

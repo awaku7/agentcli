@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-15 17:47+0900\n"
+"POT-Creation-Date: 2026-05-20 20:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,24 +37,11 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git はインストールされていません。"
 
-#: src/uagent/cli.py:365
+#: src/uagent/cli.py:405
 msgid "getch() fallback to input()"
 msgstr "getch() は input() にフォールバックします"
 
-#: src/uagent/cli.py:564
-msgid "Input cancelled (will be sent as a reply to human_ask)."
-msgstr "入力はキャンセルされました (human_ask への返信として送信されます)。"
-
-#: src/uagent/cli.py:572
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Ctrl+C を受信しました。シャットダウンを開始します..."
-
-#: src/uagent/cli.py:579
-#, python-format
-msgid "Unexpected error in stdin_loop: %(err)s"
-msgstr "stdin_loop で予期しないエラー: %(err)s"
-
-#: src/uagent/cli.py:605 src/uagent/cli.py:675
+#: src/uagent/cli.py:645 src/uagent/cli.py:715
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -63,7 +50,7 @@ msgstr ""
 "（複数行入力モード：本文を複数行で入力してください。やり直すには \"\"\"retry と入力します。終了するには %(sentinel)s "
 "だけの行を入力してください）"
 
-#: src/uagent/cli.py:635 src/uagent/setup_cli.py:1127
+#: src/uagent/cli.py:675 src/uagent/setup_cli.py:1127
 #: src/uagent/setup_cli.py:1146 src/uagent/setup_cli.py:1169
 #: src/uagent/setup_cli.py:1185 src/uagent/setup_cli.py:1204
 #: src/uagent/setup_cli.py:1223 src/uagent/setup_cli.py:1237
@@ -74,15 +61,15 @@ msgstr ""
 msgid "Cancelled."
 msgstr "キャンセルしました。"
 
-#: src/uagent/cli.py:641 src/uagent/cli.py:691
+#: src/uagent/cli.py:681 src/uagent/cli.py:731
 msgid "Discarded previous input. Please start over."
 msgstr "前回の入力を破棄しました。最初からやり直してください。"
 
-#: src/uagent/cli.py:652
+#: src/uagent/cli.py:692
 msgid "Received multiline reply."
 msgstr "複数行の返信を受け取りました。"
 
-#: src/uagent/cli.py:810
+#: src/uagent/cli.py:850
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -92,27 +79,27 @@ msgstr ""
 "これらの画像を分析のために LLM (外部 API) に送信しますか？\n"
 "\n"
 
-#: src/uagent/cli.py:816
+#: src/uagent/cli.py:856
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "送信するには y、送信しない場合は n (または c/cancel) で返信してください。"
 
-#: src/uagent/cli.py:830
+#: src/uagent/cli.py:874
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "画像送信の確認に失敗しました。画像は送信しません: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:858 src/uagent/scheckgui.py:430
+#: src/uagent/cli.py:902 src/uagent/scheckgui.py:430
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "画像の添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:895
+#: src/uagent/cli.py:939
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "不明なイベント種別 kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:913
+#: src/uagent/cli.py:957
 msgid "Exited uag."
 msgstr "uag を終了しました。"
 
@@ -120,7 +107,7 @@ msgstr "uag を終了しました。"
 msgid "[docs] name is required"
 msgstr "[docs] name が必要です"
 
-#: src/uagent/cli_startup.py:91 src/uagent/web.py:978
+#: src/uagent/cli_startup.py:91 src/uagent/web.py:1030
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] workdir の設定に失敗しました: %(err)s"
@@ -150,7 +137,7 @@ msgstr "長期記憶を読み込みました。"
 msgid "Loaded shared long-term memory."
 msgstr "共有長期記憶を読み込みました。"
 
-#: src/uagent/cli_startup.py:204 src/uagent/web.py:690
+#: src/uagent/cli_startup.py:204 src/uagent/web.py:714
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
@@ -195,12 +182,84 @@ msgstr "ログファイル:"
 msgid "(no user message)"
 msgstr "(ユーザーメッセージなし)"
 
-#: src/uagent/core.py:1290
+#: src/uagent/core.py:1175
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr "履歴圧縮中に429の再試行上限（%(max_retries)s）に達しました。"
+
+#: src/uagent/core.py:1185
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "履歴圧縮のためにLLMを呼び出している途中でエラーが発生しました: %(err)r"
+
+#: src/uagent/core.py:1214
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- 会話のこの断片を英語で要約してください。\n"
+
+#: src/uagent/core.py:1216
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr "- 要約は簡潔にしつつ、重要な決定、制約、保留中の項目を含めてください。\n"
+
+#: src/uagent/core.py:1218
+msgid "- Output should be directly usable as a system message."
+msgstr "- 出力はそのままシステムメッセージとして使える形式にしてください。"
+
+#: src/uagent/core.py:1221
+msgid "Conversation chunk:\n"
+msgstr "会話の断片:\n"
+
+#: src/uagent/core.py:1223
+msgid "Write a concise summary of this chunk."
+msgstr "この断片の簡潔な要約を書いてください。"
+
+#: src/uagent/core.py:1227
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- 既存の会話要約を更新しています。\n"
+
+#: src/uagent/core.py:1228
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- 前の要約にある重要な事実を保持してください。\n"
+
+#: src/uagent/core.py:1229
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr "- 新しい断片を取り込みつつ、制約・決定・保留中の項目を失わないでください。\n"
+
+#: src/uagent/core.py:1230
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- 結果は簡潔にし、システムメッセージに適したものにしてください。"
+
+#: src/uagent/core.py:1233
+msgid "Previous summary:\n"
+msgstr "前の要約:\n"
+
+#: src/uagent/core.py:1235
+msgid "New chunk:\n"
+msgstr "新しい断片:\n"
+
+#: src/uagent/core.py:1237
+msgid "Update the summary while keeping the prior context intact."
+msgstr "前の文脈を維持したまま要約を更新してください。"
+
+#: src/uagent/core.py:1256
+msgid "Summary of the conversation so far:\n"
+msgstr "ここまでの会話の要約:\n"
+
+#: src/uagent/core.py:1263
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} 件のメッセージ（古い {old_part_n} 件を 1 つの要約に圧縮; "
+"末尾 {tail_n} 件を保持）"
+
+#: src/uagent/core.py:1292
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help（ヘルプを利用できません: %(err)s）"
 
-#: src/uagent/core.py:1302
+#: src/uagent/core.py:1304
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -216,7 +275,7 @@ msgstr ""
 "- 要約はしないでください。情報は簡潔にしてください。\n"
 "- ファイルを作成するときは、最終的な内容を完全な形で出力してください（差分や一部のみの要約は出力しないでください）。\n"
 
-#: src/uagent/core.py:1310
+#: src/uagent/core.py:1312
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -230,7 +289,7 @@ msgstr ""
 "- 利用可能なツールを確認し、最も適切なものを選ぶこと。\n"
 "- ツール実行時は、ユーザーに委ねる意思決定をできるだけ少なくすること。\n"
 
-#: src/uagent/core.py:1317
+#: src/uagent/core.py:1319
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -254,7 +313,7 @@ msgstr ""
 "- 専門知識が必要な場合は、プロンプトテンプレート（Agent Skills）を使用して従ってください。\n"
 "- ユーザーの入力が短い同意だけで新しい情報を追加しない場合、直前の明確な質問への直接回答でない限り、同じ説明を繰り返さないでください。必要なら、簡潔に「どの点から続けますか？」と尋ねてください。\n"
 
-#: src/uagent/core.py:1329
+#: src/uagent/core.py:1331
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -270,7 +329,7 @@ msgstr ""
 "- ユーザーが \"y\" または \"yes\"（または同等の明確な承認）と明示的に返信した場合にのみ、同じパラメータで dry_run=false を指定して delete_file を再実行してください。\n"
 "- 候補が 0 件の場合は確認を求めず、何も削除されないことを報告してください。\n"
 
-#: src/uagent/core.py:1337
+#: src/uagent/core.py:1339
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -284,7 +343,7 @@ msgstr ""
 "- 持ち上げる表現はしないでください。絵文字は使わないでください。会話の要約もしないでください。簡潔にしてください。\n"
 "- ファイルを作成するときは、最終的な内容を完全な形で出力してください（差分や一部のみの要約は出力しないでください）。\n"
 
-#: src/uagent/core.py:1344
+#: src/uagent/core.py:1346
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -298,7 +357,7 @@ msgstr ""
 "- 創造的であること。ただし不確かな情報は出力しないこと。\n"
 "- ユーザーに委ねる意思決定をできるだけ少なくしてください。\n"
 
-#: src/uagent/core.py:1351
+#: src/uagent/core.py:1353
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -320,7 +379,7 @@ msgstr ""
 "- 専門知識が必要な場合は、Agent Skills のプロンプトテンプレートを使用してください。\n"
 "- ユーザーの入力が短い同意だけで新しい情報を追加しない場合、直前の明確な質問への直接回答でない限り、同じ説明を繰り返さないでください。必要なら、簡潔に「どの点から続けますか？」と尋ねてください。\n"
 
-#: src/uagent/core.py:1364
+#: src/uagent/core.py:1366
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -329,7 +388,7 @@ msgstr ""
 "- Windows の cmd.exe を使っている場合は、コピー/貼り付けで改行が混入しないよう、キャレット (^) "
 "による複数行の行継続を使い、各行を短くしてください。\n"
 
-#: src/uagent/core.py:1431
+#: src/uagent/core.py:1433
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -388,7 +447,7 @@ msgstr "パスを表示"
 
 #: src/uagent/docs_util.py:235
 msgid "open with OS"
-msgstr "OSで開く"
+msgstr "OS で開く"
 
 #: src/uagent/env_validate.py:42
 msgid ""
@@ -500,30 +559,34 @@ msgstr "Ollama embedding のベース URL / モデル名。"
 msgid "NVIDIA embedding API key / model name."
 msgstr "NVIDIA embedding の API キー / モデル名。"
 
+#: src/uagent/env_validate.py:278
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] 環境検証に失敗しました（{context}）。"
+
 #: src/uagent/env_validate.py:286
 msgid "Missing required environment variables:"
 msgstr "必須の環境変数が不足しています:"
 
-#: src/uagent/env_validate.py:300
+#: src/uagent/env_validate.py:293
 msgid "Warnings:"
 msgstr "警告:"
 
-#: src/uagent/env_validate.py:304
+#: src/uagent/env_validate.py:297
 msgid "How to fix:"
 msgstr "対処方法:"
 
-#: src/uagent/env_validate.py:307
+#: src/uagent/env_validate.py:300
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr "- プログラムを開始する前に、上の変数を環境に設定してください。"
 
-#: src/uagent/env_validate.py:313
+#: src/uagent/env_validate.py:306
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
 msgstr "- OS の環境設定、.env ファイル、シェルの起動スクリプト、"
 
-#: src/uagent/env_validate.py:319
+#: src/uagent/env_validate.py:312
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -594,53 +657,48 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_message_helpers.py:153
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] 自動 shrink_llm に失敗しました: %(err)s"
-
-#: src/uagent/llm_openai_responses.py:65
+#: src/uagent/llm_openai_responses.py:66
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] assistant の履歴に画像コンテンツが含まれていたため、テキストに変換しました。"
 
-#: src/uagent/llm_openai_responses.py:88
+#: src/uagent/llm_openai_responses.py:89
 msgid "[WARN] invalid image content (missing url)."
 msgstr "[WARN] 無効な画像コンテンツです（URL がありません）。"
 
-#: src/uagent/llm_openai_responses.py:96
-#: src/uagent/llm_openai_responses.py:105
+#: src/uagent/llm_openai_responses.py:97
+#: src/uagent/llm_openai_responses.py:106
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] サポートされていないコンテンツ項目です: %(item)r"
 
-#: src/uagent/llm_openai_responses.py:472
+#: src/uagent/llm_openai_responses.py:508
 msgid "search"
 msgstr "検索"
 
-#: src/uagent/llm_openai_responses.py:474
+#: src/uagent/llm_openai_responses.py:510
 msgid "open page"
 msgstr "ページを開く"
 
-#: src/uagent/llm_openai_responses.py:476
+#: src/uagent/llm_openai_responses.py:512
 msgid "find in page"
 msgstr "ページ内を検索"
 
-#: src/uagent/llm_openai_responses.py:477
+#: src/uagent/llm_openai_responses.py:513
 msgid "web search"
 msgstr "ウェブ検索"
 
-#: src/uagent/llm_openai_responses.py:491
+#: src/uagent/llm_openai_responses.py:527
 msgid "Web search: searching"
 msgstr "ウェブ検索: 検索中"
 
-#: src/uagent/llm_openai_responses.py:493
+#: src/uagent/llm_openai_responses.py:529
 msgid "Web search: completed"
 msgstr "ウェブ検索: 完了"
 
-#: src/uagent/llm_openai_responses.py:495
+#: src/uagent/llm_openai_responses.py:531
 msgid "Web search: {action}"
 msgstr "ウェブ検索: {action}"
 
-#: src/uagent/llm_openai_responses.py:552
+#: src/uagent/llm_openai_responses.py:588
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -657,7 +715,7 @@ msgstr ""
 "        - 必要なパラメータがない場合は、推測せず human_ask を使ってユーザーに確認してください。\n"
 "        "
 
-#: src/uagent/llm_openai_responses.py:560
+#: src/uagent/llm_openai_responses.py:595
 msgid ""
 "[Web search rules]\n"
 "        - Use web search only when fresh or external information is necessary.\n"
@@ -689,6 +747,22 @@ msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
 #: src/uagent/llm_round_helpers.py:306
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
+
+#: src/uagent/llm_round_helpers.py:597
+msgid "Input exceeds the context window."
+msgstr "入力がコンテキストウィンドウを超えています。"
+
+#: src/uagent/llm_round_helpers.py:603
+msgid "400 BadRequest"
+msgstr "400 不正な要求"
+
+#: src/uagent/llm_round_helpers.py:607
+msgid "Connection error"
+msgstr "接続エラー"
+
+#: src/uagent/llm_round_helpers.py:639
+msgid "Unexpected exception."
+msgstr "予期しない例外。"
 
 #: src/uagent/llm_round_helpers.py:717
 #, python-format
@@ -776,13 +850,13 @@ msgstr "有効"
 msgid "disabled"
 msgstr "無効"
 
-#: src/uagent/runtime_env.py:166
+#: src/uagent/runtime_env.py:188
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Update it? [y/N] "
 msgstr "[INFO] .env.sec の内容が現在の起動時 UAGENT_* 環境変数と一致しません。更新しますか? [y/N] "
 
-#: src/uagent/runtime_env.py:182
+#: src/uagent/runtime_env.py:204
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
@@ -790,41 +864,36 @@ msgstr ""
 "[INFO] .env.sec の内容が現在の起動時 UAGENT_* 環境変数と一致しません。更新するには `uag_envsec` "
 "を使ってください。"
 
-#: src/uagent/runtime_env.py:194
+#: src/uagent/runtime_env.py:216
 msgid "Updated .env.sec: %(path)s"
 msgstr ".env.sec を更新しました: %(path)s"
 
-#: src/uagent/runtime_env.py:198
+#: src/uagent/runtime_env.py:220
 msgid "[WARN] Failed to update .env.sec: %(err)s"
 msgstr "[WARN] .env.sec の更新に失敗しました: %(err)s"
 
-#: src/uagent/runtime_env.py:208
+#: src/uagent/runtime_env.py:230
 msgid ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
 "environment variables? [y/N] "
 msgstr "[INFO] .env.sec がありません。現在の起動時 UAGENT_* 環境変数から作成しますか? [y/N] "
 
-#: src/uagent/runtime_env.py:224
+#: src/uagent/runtime_env.py:246
 msgid ""
 "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
 "startup UAGENT_* environment variables."
 msgstr ""
 "[INFO] .env.sec がありません。現在の起動時 UAGENT_* 環境変数から作成するには `uag_envsec` を使ってください。"
 
-#: src/uagent/runtime_env.py:234
+#: src/uagent/runtime_env.py:256
 msgid "Created .env.sec: %(path)s"
 msgstr ".env.sec を作成しました: %(path)s"
 
-#: src/uagent/runtime_env.py:238
+#: src/uagent/runtime_env.py:260
 msgid "[WARN] Failed to create .env.sec: %(err)s"
 msgstr "[WARN] .env.sec の作成に失敗しました: %(err)s"
 
-#: src/uagent/runtime_env.py:259
-#, python-brace-format
-msgid "[WARN] {message}"
-msgstr "[警告] {message}"
-
-#: src/uagent/runtime_env.py:272
+#: src/uagent/runtime_env.py:291
 msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
 msgstr "[WARN] .env.sec の同期確認に失敗しました: %(err)s"
 
@@ -833,7 +902,7 @@ msgstr "[WARN] .env.sec の同期確認に失敗しました: %(err)s"
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] .env.sec の復号に失敗しました: %(err)s"
 
-#: src/uagent/runtime_workdir.py:42
+#: src/uagent/runtime_workdir.py:49
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
@@ -851,131 +920,123 @@ msgstr "ダウンロード"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "共有長期記憶の読み込み中に例外が発生しました: %(err)s"
 
-#: src/uagent/scheckgui.py:558 src/uagent/scheckgui.py:682
+#: src/uagent/scheckgui.py:773 src/uagent/scheckgui.py:903
 msgid "Welcome / Quick Guide"
 msgstr "Welcome / クイックガイド"
 
-#: src/uagent/scheckgui.py:566
+#: src/uagent/scheckgui.py:781
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI（超安定版）"
 
-#: src/uagent/scheckgui.py:620
+#: src/uagent/scheckgui.py:836
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Drag&Drop で添付できます"
 
-#: src/uagent/scheckgui.py:645
+#: src/uagent/scheckgui.py:857
 msgid "Attach..."
 msgstr "添付..."
 
-#: src/uagent/scheckgui.py:650
+#: src/uagent/scheckgui.py:862
 msgid "Send"
 msgstr "送信"
 
-#: src/uagent/scheckgui.py:922
-msgid "Attach files"
-msgstr "ファイルを添付"
-
-#: src/uagent/scheckgui.py:924
-msgid "All Files (*)"
-msgstr "すべてのファイル (*)"
-
-#: src/uagent/scheckgui.py:681
+#: src/uagent/scheckgui.py:902
 msgid "Help"
 msgstr "ヘルプ"
 
-#: src/uagent/scheckgui.py:696
+#: src/uagent/scheckgui.py:917
 msgid "Mode"
 msgstr "モード"
 
-#: src/uagent/scheckgui.py:698
+#: src/uagent/scheckgui.py:919
 msgid "Reasoning: off"
 msgstr "推論: off"
 
-#: src/uagent/scheckgui.py:701
+#: src/uagent/scheckgui.py:922
 msgid "Reasoning: auto"
 msgstr "推論: auto"
 
-#: src/uagent/scheckgui.py:703
+#: src/uagent/scheckgui.py:924
 msgid "Reasoning: minimal"
 msgstr "推論: minimal"
 
-#: src/uagent/scheckgui.py:705
+#: src/uagent/scheckgui.py:926
 msgid "Reasoning: low"
 msgstr "推論: low"
 
-#: src/uagent/scheckgui.py:707
+#: src/uagent/scheckgui.py:928
 msgid "Reasoning: medium"
 msgstr "推論: medium"
 
-#: src/uagent/scheckgui.py:709
+#: src/uagent/scheckgui.py:930
 msgid "Reasoning: high"
 msgstr "推論: high"
 
-#: src/uagent/scheckgui.py:712
+#: src/uagent/scheckgui.py:933
 msgid "Reasoning: xhigh"
 msgstr "推論: xhigh"
 
-#: src/uagent/scheckgui.py:717
+#: src/uagent/scheckgui.py:938
 msgid "Verbosity: off"
 msgstr "詳細度: off"
 
-#: src/uagent/scheckgui.py:719
+#: src/uagent/scheckgui.py:940
 msgid "Verbosity: low"
 msgstr "詳細度: low"
 
-#: src/uagent/scheckgui.py:721
+#: src/uagent/scheckgui.py:942
 msgid "Verbosity: medium"
 msgstr "詳細度: medium"
 
-#: src/uagent/scheckgui.py:723
+#: src/uagent/scheckgui.py:944
 msgid "Verbosity: high"
 msgstr "詳細度: high"
 
-#: src/uagent/scheckgui.py:753 src/uagent/util_tools.py:382
+#: src/uagent/scheckgui.py:974
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[モード] 推論=%(mode)s"
 
-#: src/uagent/scheckgui.py:763 src/uagent/util_tools.py:393
+#: src/uagent/scheckgui.py:984
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mode] 詳細度=%(mode)s"
 
-#: src/uagent/scheckgui.py:765 src/uagent/util_tools.py:390
+#: src/uagent/scheckgui.py:986
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; 引数なし=維持)"
 
-#: src/uagent/scheckgui.py:889
+#: src/uagent/scheckgui.py:1115
 msgid "Enter password..."
 msgstr "パスワードを入力..."
 
-#: src/uagent/scheckgui.py:891
-msgid "Enter response for human_ask..."
-msgstr "human_ask への回答を入力..."
-
-#: src/uagent/scheckgui.py:896
+#: src/uagent/scheckgui.py:1122
 msgid "Enter a message..."
 msgstr "メッセージを入力..."
 
-#: src/uagent/scheckgui.py:1303 src/uagent/scheckgui.py:1343
-#: src/uagent/scheckgui.py:1378
+#: src/uagent/scheckgui.py:1139
+msgid "Attach files"
+msgstr "ファイルを添付"
+
+#: src/uagent/scheckgui.py:1141
+msgid "All Files (*)"
+msgstr "すべてのファイル (*)"
+
+#: src/uagent/scheckgui.py:1542 src/uagent/scheckgui.py:1582
+#: src/uagent/scheckgui.py:1617
 msgid "Downloaded to"
 msgstr "ダウンロード先"
 
-#: src/uagent/scheckgui.py:1397
+#: src/uagent/scheckgui.py:1636
 msgid "Playing"
 msgstr "再生中"
 
-#: src/uagent/scheckgui.py:1407
+#: src/uagent/scheckgui.py:1646
 msgid "Stopped"
 msgstr "停止"
 
-#: src/uagent/scheckgui.py:1453
+#: src/uagent/scheckgui.py:1695
 msgid "[REPLY] > %(text)s"
 msgstr "[返信] > %(text)s"
-
-#: src/uagent/scheckgui.py:1461
-msgid "[USER] %(text)s"
-msgstr "[ユーザー] %(text)s"
 
 #: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
 #: src/uagent/setup_cli.py:572
@@ -1518,214 +1579,52 @@ msgstr "未知のプロバイダです: %(provider)s"
 msgid "google-genai package is not installed."
 msgstr "[FATAL] google-genai パッケージがインストールされていません"
 
-#: src/uagent/util_tools.py:177
+#: src/uagent/util_tools.py:178
 msgid "image file not found: %(path)s"
 msgstr "画像ファイルが見つかりません: %(path)s"
 
-#: src/uagent/util_tools.py:182
+#: src/uagent/util_tools.py:183
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "画像ファイルが大きすぎます: %(size)d バイト (上限=%(max)d)"
 
-#: src/uagent/util_tools.py:206
+#: src/uagent/util_tools.py:207
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
 msgstr "作業ディレクトリを指定します。未指定の場合は環境変数 UAGENT_WORKDIR、または現在のディレクトリを使用します。"
 
-#: src/uagent/util_tools.py:213
+#: src/uagent/util_tools.py:214
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
 msgstr "非対話モード。stdin ループを開始せず、起動時ファイル（ある場合）の処理後に終了します。"
 
-#: src/uagent/util_tools.py:351
+#: src/uagent/util_tools.py:352
 msgid "invalid reasoning"
 msgstr "推論モードが不正です"
 
-#: src/uagent/util_tools.py:369
+#: src/uagent/util_tools.py:370
 msgid "invalid verbosity"
 msgstr "詳細度が不正です"
 
-#: src/uagent/util_tools.py:406
-msgid ":cd <path>"
-msgstr ":cd <path>（作業ディレクトリを変更）"
-
-#: src/uagent/util_tools.py:416
-#, python-format
-msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
-msgstr "ディレクトリが存在しません: %(src)s -> %(dst)s"
-
-#: src/uagent/util_tools.py:439
-msgid "[cd] workdir = %(path)s"
-msgstr "[cd] 作業ディレクトリ = %(path)s"
-
-#: src/uagent/util_tools.py:442
-msgid "[cd error] %(etype)s: %(err)s"
-msgstr "[cd エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:459
-#, python-format
-msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
-msgstr "一致するパスがありません: %(src)s -> %(expanded)s"
-
-#: src/uagent/util_tools.py:483 src/uagent/util_tools.py:519
-msgid "[ls] %(path)s"
-msgstr "[一覧] %(path)s"
-
-#: src/uagent/util_tools.py:487
-msgid "  [D] %(name)s -> %(path)s"
-msgstr "  [D] %(name)s → %(path)s"
-
-#: src/uagent/util_tools.py:491
-msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr "  [F] %(name)s (%(size)d バイト) -> %(path)s"
-
-#: src/uagent/util_tools.py:499
-#, python-format
-msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
-msgstr "ディレクトリが存在しません: %(src)s -> %(dst)s"
-
-#: src/uagent/util_tools.py:522
-msgid "  [D] %(name)s"
-msgstr "  [ディレクトリ] %(name)s"
-
-#: src/uagent/util_tools.py:525
-msgid "  [F] %(name)s (%(size)d bytes)"
-msgstr "  [ファイル] %(name)s (%(size)d bytes)"
-
-#: src/uagent/util_tools.py:529
-msgid "[ls error] %(etype)s: %(err)s"
-msgstr "[ls エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:551
+#: src/uagent/util_tools.py:552
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "無効な引数です: %(arg)r (all / --all / -a / 数値を指定してください)"
 
-#: src/uagent/util_tools.py:566
-msgid "[tools] No tools loaded."
-msgstr "読み込まれたツールはありません。"
-
-#: src/uagent/util_tools.py:569
-#, python-format
-msgid "[tools] Loaded %(n)d tools"
-msgstr "%(n)d 個のツールを読み込みました。"
-
-#: src/uagent/util_tools.py:575
-msgid "- %(name)s: %(desc)s"
-msgstr "- %(name)s：%(desc)s"
-
-#: src/uagent/util_tools.py:577
-msgid "- %(name)s"
-msgstr "・%(name)s"
-
-#: src/uagent/util_tools.py:580
-msgid "[tools error] %(etype)s: %(err)s"
-msgstr "[tools エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:591
+#: src/uagent/util_tools.py:592
 msgid "failed to parse arguments: %(err)s"
 msgstr "引数の解析に失敗しました: %(err)s"
 
-#: src/uagent/util_tools.py:594
+#: src/uagent/util_tools.py:595
 msgid "missing arguments"
 msgstr "引数が不足しています"
 
-#: src/uagent/util_tools.py:610
+#: src/uagent/util_tools.py:611
 msgid "src and dst are required"
 msgstr "src と dst は必須です"
 
-#: src/uagent/util_tools.py:635
-msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]（コピー）"
-
-#: src/uagent/util_tools.py:642 src/uagent/util_tools.py:697
-msgid "[cp error] %(etype)s: %(err)s"
-msgstr "[cp エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:654
-msgid "[cp] Source and destination are the same: %(path)s"
-msgstr "[cp] コピー元とコピー先が同じです: %(path)s"
-
-#: src/uagent/util_tools.py:663 src/uagent/util_tools.py:675
-msgid "[cp] Destination already exists: %(path)s"
-msgstr "[cp] コピー先は既に存在します: %(path)s"
-
-#: src/uagent/util_tools.py:684
-msgid "[cp] Destination parent does not exist: %(path)s"
-msgstr "[cp] コピー先の親ディレクトリが存在しません: %(path)s"
-
-#: src/uagent/util_tools.py:691
-msgid "[cp] Copied: %(src)s -> %(dst)s"
-msgstr "[cp] コピーしました: %(src)s -> %(dst)s"
-
-#: src/uagent/util_tools.py:705
-msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]（移動）"
-
-#: src/uagent/util_tools.py:712 src/uagent/util_tools.py:754
-msgid "[mv error] %(etype)s: %(err)s"
-msgstr "[mv エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:724
-msgid "[mv] Source and destination are the same: %(path)s"
-msgstr "[mv] 移動元と移動先が同じです: %(path)s"
-
-#: src/uagent/util_tools.py:732
-msgid "[mv] Destination already exists: %(path)s"
-msgstr "[mv] 移動先は既に存在します: %(path)s"
-
-#: src/uagent/util_tools.py:742
-msgid "[mv] Destination parent does not exist: %(path)s"
-msgstr "[mv] 移動先の親ディレクトリが存在しません: %(path)s"
-
-#: src/uagent/util_tools.py:749
-msgid "[mv] Moved: %(src)s -> %(dst)s"
-msgstr "[mv] 移動しました: %(src)s -> %(dst)s"
-
-#: src/uagent/util_tools.py:762 src/uagent/util_tools.py:775
-#: src/uagent/util_tools.py:787 src/uagent/util_tools.py:806
-msgid ":head <path> [n]"
-msgstr ":head <path> [n]（先頭 n 行）"
-
-#: src/uagent/util_tools.py:769 src/uagent/util_tools.py:833
-msgid "[head error] %(etype)s: %(err)s"
-msgstr "[head エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:792
-msgid "[head] Invalid line count: %(n)r"
-msgstr "[head] 行数が不正です: %(n)r"
-
-#: src/uagent/util_tools.py:821
-msgid "[head] Failed."
-msgstr "[head] 失敗しました。"
-
-#: src/uagent/util_tools.py:829
-msgid "[head] Empty."
-msgstr "[head] 空です。"
-
-#: src/uagent/util_tools.py:842 src/uagent/util_tools.py:855
-#: src/uagent/util_tools.py:867 src/uagent/util_tools.py:886
-msgid ":tail <path> [n]"
-msgstr ":tail <path> [n]（末尾 n 行）"
-
-#: src/uagent/util_tools.py:849 src/uagent/util_tools.py:913
-msgid "[tail error] %(etype)s: %(err)s"
-msgstr "[tail エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:872
-msgid "[tail] Invalid line count: %(n)r"
-msgstr "[tail] 行数が不正です: %(n)r"
-
-#: src/uagent/util_tools.py:901
-msgid "[tail] Failed."
-msgstr "[tail] 失敗しました。"
-
-#: src/uagent/util_tools.py:909
-msgid "[tail] Empty."
-msgstr "[tail] 空です。"
-
-#: src/uagent/util_tools.py:1008
+#: src/uagent/util_tools.py:1009
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1737,51 +1636,11 @@ msgstr ""
 "スキルにタスクが含まれている場合は、完了するまで続けてください。\n"
 "必要に応じてツールを使用してください。\n"
 
-#: src/uagent/util_tools.py:1015
+#: src/uagent/util_tools.py:1016
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "終了時には、利用可能なら必ず `finish_skill` を呼び出してください。\n"
 
-#: src/uagent/util_tools.py:1067
-msgid "[skills] No active skill messages to clear."
-msgstr "クリアするアクティブなスキルメッセージはありません。"
-
-#: src/uagent/util_tools.py:1070
-#, python-format
-msgid "[skills] Cleared %(n)d skill message(s)."
-msgstr "%(n)d 件のスキルメッセージをクリアしました。"
-
-#: src/uagent/util_tools.py:1093
-msgid "[skills] No active skills."
-msgstr "アクティブなスキルはありません。"
-
-#: src/uagent/util_tools.py:1096
-#, python-format
-msgid "[skills] Active skills: %(n)d"
-msgstr "アクティブなスキル数: %(n)d"
-
-#: src/uagent/util_tools.py:1098
-msgid "[%(i)d] %(line)s"
-msgstr "［%(i)d］ %(line)s"
-
-#: src/uagent/util_tools.py:1124
-msgid "[skills] No skills found."
-msgstr "スキルが見つかりません。"
-
-#: src/uagent/util_tools.py:1135 src/uagent/util_tools.py:1174
-#, python-format
-msgid "[skills] Out of range: %(n)d"
-msgstr "範囲外です: %(n)d"
-
-#: src/uagent/util_tools.py:1140
-#, python-format
-msgid "[skills] Found %(n)d skills"
-msgstr "%(n)d 件のスキルが見つかりました。"
-
-#: src/uagent/util_tools.py:1149
-msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr "［%(i)d］（%(ok)s） %(name)s：%(desc)s"
-
-#: src/uagent/util_tools.py:1154
+#: src/uagent/util_tools.py:1155
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1791,23 +1650,7 @@ msgstr ""
 "ヒント: :skills clear  （適用済みスキルを削除）\n"
 "番号を入力してください:"
 
-#: src/uagent/util_tools.py:1167 src/uagent/util_tools.py:1200
-msgid "[skills] Cancelled."
-msgstr "キャンセルしました。"
-
-#: src/uagent/util_tools.py:1170
-msgid "[skills] Please enter a number or c."
-msgstr "番号または c を入力してください。"
-
-#: src/uagent/util_tools.py:1180
-msgid "[skills] Invalid selection."
-msgstr "無効な選択です。"
-
-#: src/uagent/util_tools.py:1186
-msgid "[skills] Selected skill has no path."
-msgstr "選択したスキルにパスがありません。"
-
-#: src/uagent/util_tools.py:1190
+#: src/uagent/util_tools.py:1191
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1824,37 +1667,14 @@ msgstr ""
 "\n"
 "続行しますか？ 実行は y、キャンセルは c。"
 
-#: src/uagent/util_tools.py:1206
-msgid "skills_load returned non-dict"
-msgstr "skills_load が dict 以外を返しました"
-
-#: src/uagent/util_tools.py:1230
-#, python-format
-msgid "[skills] Applied: %(name)s"
-msgstr "適用しました: %(name)s"
-
-#: src/uagent/util_tools.py:1235
-msgid "[skills error] %(etype)s: %(err)s"
-msgstr "[skills エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1253
+#: src/uagent/util_tools.py:1254
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr "無効な引数です: %(arg)r (しきい値を指定する場合は number。既定は %(default)d)"
 
-#: src/uagent/util_tools.py:1270
-#, python-format
-msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
-msgstr "ログ一覧の取得に失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1287
-#, python-format
-msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
-msgstr "スキップしました（解析失敗）: %(path)s (%(etype)s: %(err)s)"
-
-#: src/uagent/util_tools.py:1302
+#: src/uagent/util_tools.py:1303
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1871,44 +1691,11 @@ msgstr ""
 "\n"
 "続行しますか？ 実行するには y、キャンセルするには c。"
 
-#: src/uagent/util_tools.py:1317
-msgid "[clean] Cancelled."
-msgstr "キャンセルしました。"
-
-#: src/uagent/util_tools.py:1322
-#, python-format
-msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
-msgstr "確認に失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1338
-#, python-format
-msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
-msgstr "削除に失敗しました: %(path)s (%(etype)s: %(err)s)"
-
-#: src/uagent/util_tools.py:1356
-#, python-format
-msgid ""
-"[clean] No logs to delete (threshold=%(threshold)d).\n"
-"Log dir: %(dir)s"
-msgstr ""
-"削除対象のログはありません (threshold=%(threshold)d)。\n"
-"ログディレクトリ: %(dir)s"
-
-#: src/uagent/util_tools.py:1365
-#, python-format
-msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
-msgstr "削除対象のログ（%(threshold)d 件以下）: %(n)d"
-
-#: src/uagent/util_tools.py:1370
+#: src/uagent/util_tools.py:1371
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d 件のメッセージ) %(path)s"
 
-#: src/uagent/util_tools.py:1379
-#, python-format
-msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-msgstr "完了: 削除=%(deleted)d, 失敗=%(failed)d"
-
-#: src/uagent/util_tools.py:1414
+#: src/uagent/util_tools.py:1415
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1925,65 +1712,7 @@ msgstr ""
 "\n"
 "続行しますか？ 実行するには y、キャンセルするには c。"
 
-#: src/uagent/util_tools.py:1427
-msgid "[load] Prepend to current log was cancelled."
-msgstr "現在のログへの先頭追加はキャンセルされました。"
-
-#: src/uagent/util_tools.py:1436
-#, python-format
-msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
-msgstr "読み込み元ログの読み取りに失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1449
-#, python-format
-msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
-msgstr "現在のログの読み取りに失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1469
-#, python-format
-msgid "[load] Prepended to current log: %(path)s"
-msgstr "現在のログの先頭に追加しました: %(path)s"
-
-#: src/uagent/util_tools.py:1472
-#, python-format
-msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr "現在のログの書き換えに失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1479
-#, python-format
-msgid "[load error] Failed: %(etype)s: %(err)s"
-msgstr "読み込みに失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1488 src/uagent/util_tools.py:1498
-msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <path|glob> [path|glob]（削除）"
-
-#: src/uagent/util_tools.py:1494
-#, python-format
-msgid "[rm error] Failed to parse arguments: %(err)s"
-msgstr "引数の解析に失敗しました: %(err)s"
-
-#: src/uagent/util_tools.py:1515
-msgid "[rm] Unexpected delete_file preview response."
-msgstr "delete_file のプレビュー応答が予期しない形式です。"
-
-#: src/uagent/util_tools.py:1519
-msgid "[rm] Preview failed."
-msgstr "プレビューに失敗しました。"
-
-#: src/uagent/util_tools.py:1529
-msgid "[rm] No matching paths."
-msgstr "一致するパスはありません。"
-
-#: src/uagent/util_tools.py:1531 src/uagent/util_tools.py:1540
-msgid "[rm] Missing:"
-msgstr "見つからない項目:"
-
-#: src/uagent/util_tools.py:1536
-msgid "[rm] Candidates:"
-msgstr "候補:"
-
-#: src/uagent/util_tools.py:1545
+#: src/uagent/util_tools.py:1546
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1998,68 +1727,17 @@ msgstr ""
 "\n"
 "続行するには y、キャンセルするには c を入力してください。"
 
-#: src/uagent/util_tools.py:1552
-msgid "[rm] Cancelled."
-msgstr "キャンセルしました。"
-
-#: src/uagent/util_tools.py:1566
-msgid "[rm] Unexpected delete_file response."
-msgstr "delete_file の応答が予期しない形式です。"
-
-#: src/uagent/util_tools.py:1571
-#, python-format
-msgid "[rm] Deleted %(count)d path(s)."
-msgstr "%(count)d 件のパスを削除しました。"
-
-#: src/uagent/util_tools.py:1575
-msgid "[rm] Failed."
-msgstr "失敗しました。"
-
-#: src/uagent/util_tools.py:1582
-msgid "[rm error] %(etype)s: %(err)s"
-msgstr "[rm エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1595
-msgid ":load <index|path>"
-msgstr ":load <index|path>（読み込み）"
-
-#: src/uagent/util_tools.py:1602
+#: src/uagent/util_tools.py:1603
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "指定したインデックス %(idx)d は範囲外です。"
 
-#: src/uagent/util_tools.py:1611
+#: src/uagent/util_tools.py:1612
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "ログファイルが見つかりません: %(path)s"
 
-#: src/uagent/util_tools.py:1615
-msgid "[load error] %(etype)s: %(err)s"
-msgstr "[load エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1651
-msgid "[load] workdir = %(path)s"
-msgstr "[load] 作業ディレクトリ = %(path)s"
-
-#: src/uagent/util_tools.py:1654
-msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
-msgstr "[load 警告] 読み込んだログからの chdir に失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1661
-#, python-format
-msgid "Loaded log: %(path)s"
-msgstr "読み込んだログ: %(path)s"
-
-#: src/uagent/util_tools.py:1662
-#, python-format
-msgid "Conversation message count: %(n)d"
-msgstr "会話メッセージ数: %(n)d"
-
-#: src/uagent/util_tools.py:1680
-msgid "[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr "[%(label)s 警告] 現在のログの再書き込みに失敗しました: %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1698
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] int に変換できませんでした: %(arg)r -> 最後の %(keep)d 件を保持"
@@ -2070,108 +1748,51 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink_llm error] int に変換できませんでした: %(arg)r -> 最後の %(keep)d 件を保持"
 
-#: src/uagent/util_tools.py:1747
-msgid "No long-term memory entries."
-msgstr "長期記憶メモはありません。"
-
-#: src/uagent/util_tools.py:1750
-msgid "Long-term memory entries:"
-msgstr "長期記憶メモ:"
-
-#: src/uagent/util_tools.py:1760 src/uagent/util_tools.py:1808
-msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr "［%(idx)s］ %(dt)s  %(note)s"
-
-#: src/uagent/util_tools.py:1766
-msgid ":mem-del <index>"
-msgstr ":mem-del <index>（メモ削除）"
-
-#: src/uagent/util_tools.py:1773
-#, python-format
-msgid "[mem-del error] Failed to parse index as int: %(arg)r"
-msgstr "インデックスを整数として解析できませんでした: %(arg)r"
-
-#: src/uagent/util_tools.py:1778
-#, python-format
-msgid "Deleted long-term memory entry [%(idx)d]."
-msgstr "長期記憶メモ [%(idx)d] を削除しました。"
-
-#: src/uagent/util_tools.py:1780
-#, python-format
-msgid "[mem-del] Failed to delete index=%(idx)d."
-msgstr "インデックス %(idx)d の削除に失敗しました。"
-
-#: src/uagent/util_tools.py:1788 src/uagent/util_tools.py:1821
+#: src/uagent/util_tools.py:1787 src/uagent/util_tools.py:1820
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr "  :shared-mem-list      共有長期記憶メモの一覧を表示（UAGENT_SHARED_MEMORY_FILE が必要）"
 
-#: src/uagent/util_tools.py:1795
-msgid "No shared long-term memory entries."
-msgstr "共有長期記憶メモはありません。"
-
-#: src/uagent/util_tools.py:1800
-msgid "Shared long-term memory entries:"
-msgstr "共有長期記憶メモ:"
-
-#: src/uagent/util_tools.py:1815
-msgid ":shared-mem-del <index>"
-msgstr ":shared-mem-del <index>（共有メモ削除）"
-
-#: src/uagent/util_tools.py:1830
-msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr "[shared-mem-del エラー] index を int に変換できませんでした: %(arg)r"
-
-#: src/uagent/util_tools.py:1837 src/uagent/util_tools.py:1844
-#, python-format
-msgid "[shared-mem-del] Failed to delete index=%(idx)d."
-msgstr "インデックス %(idx)d の削除に失敗しました。"
-
-#: src/uagent/util_tools.py:1853
-msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del エラー] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py:1858
-#, python-format
-msgid "Deleted shared long-term memory entry [%(idx)d]."
-msgstr "共有長期記憶メモ [%(idx)d] を削除しました。"
-
-#: src/uagent/util_tools.py:1873
+#: src/uagent/util_tools.py:1872
 msgid "Show this help"
 msgstr "このヘルプを表示"
 
-#: src/uagent/util_tools.py:1874
+#: src/uagent/util_tools.py:1873
 msgid "Restart input from the beginning"
 msgstr "入力を最初からやり直す"
 
-#: src/uagent/util_tools.py:1875
+#: src/uagent/util_tools.py:1874
 msgid "Show log file list"
 msgstr "ログファイル一覧を表示"
 
-#: src/uagent/util_tools.py:1878
+#: src/uagent/util_tools.py:1877
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr "確認なしで作業ディレクトリを変更します（例: :cd .. / :cd ~ / :cd C:\\path / :cd /）"
 
-#: src/uagent/util_tools.py:1881
+#: src/uagent/util_tools.py:1880
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "ディレクトリ項目を一覧表示します（例: :ls / :ls .. / :ls ~ / :ls C:\\path）"
 
-#: src/uagent/util_tools.py:1882
+#: src/uagent/util_tools.py:1881
 msgid "List loaded tools"
 msgstr "読み込まれたツールを一覧表示"
 
 #: src/uagent/util_tools.py:1884
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "UAGENT_* 環境変数を管理し、.env.sec に保存します"
+
+#: src/uagent/util_tools.py:1886
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "スキルを管理/適用します（例: :skills / :skills active / :skills clear）"
 
-#: src/uagent/util_tools.py:1886
+#: src/uagent/util_tools.py:1888
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "過去のログを読み込む（現在の会話履歴を上書きします）"
 
-#: src/uagent/util_tools.py:1888
+#: src/uagent/util_tools.py:1890
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2180,7 +1801,7 @@ msgstr ""
 "                       注: 実行後に確認が求められます。'y' "
 "を選ぶと、読み込んだログが現在のセッションログファイルの先頭に追加されます（上書き、バックアップなし）。"
 
-#: src/uagent/util_tools.py:1892
+#: src/uagent/util_tools.py:1894
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2188,101 +1809,92 @@ msgstr ""
 "会話ログ（scheck_log_*.jsonl）を削除します。system を除く user/assistant/tool メッセージ数が N "
 "以下のものが対象です（既定=10）"
 
-#: src/uagent/util_tools.py:1896
+#: src/uagent/util_tools.py:1898
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "会話履歴を圧縮します（最後の N 件の非 system メッセージを保持; 既定=40）"
 
-#: src/uagent/util_tools.py:1900
+#: src/uagent/util_tools.py:1902
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
 msgstr ""
 "LLM による要約で履歴を圧縮します（古い履歴を 1 つの system メッセージに要約し、最後の N 件の生メッセージを保持; 既定=20）"
 
-#: src/uagent/util_tools.py:1902
+#: src/uagent/util_tools.py:1904
 msgid "List long-term memory notes"
 msgstr "長期記憶メモを一覧表示"
 
-#: src/uagent/util_tools.py:1904
+#: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "長期記憶メモをインデックスで削除します（:mem-list を参照）"
 
-#: src/uagent/util_tools.py:1906
+#: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "ファイルまたはディレクトリをコピーします（-f/--overwrite と -p/--mkdirs をサポート）"
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1910
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "ファイルまたはディレクトリを移動します（-f/--overwrite と -p/--mkdirs をサポート）"
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1912
 msgid "Show the first n lines of a file (default=20)"
 msgstr "ファイルの先頭 n 行を表示します（既定=20）"
 
-#: src/uagent/util_tools.py:1911
+#: src/uagent/util_tools.py:1913
 msgid "Show the last n lines of a file (default=20)"
 msgstr "ファイルの末尾 n 行を表示します（既定=20）"
 
-#: src/uagent/util_tools.py:1913
+#: src/uagent/util_tools.py:1915
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "プレビューと確認付きでファイル/ディレクトリを削除します"
 
-#: src/uagent/util_tools.py:1915
-msgid ""
-"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
-msgstr "共有長期記憶メモを一覧表示します（UAGENT_SHARED_MEMORY_FILE が必要）"
-
 #: src/uagent/util_tools.py:1917
-msgid "Delete a shared long-term memory note by index"
-msgstr "共有長期記憶メモをインデックスで削除します"
-
-#: src/uagent/util_tools.py:1919
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr "推論モードを設定します (0=オフ, 1=低, 2=中, 3=高; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1921
+#: src/uagent/util_tools.py:1919
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "verbosity モードを設定します (0=オフ, 1=低, 2=中, 3=高; 引数なし=そのまま)"
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1920
 msgid "Exit"
 msgstr "終了"
 
-#: src/uagent/util_tools.py:1925
+#: src/uagent/util_tools.py:1923
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - 'f' だけの行を入力すると複数行入力モードに入ります。"
 
-#: src/uagent/util_tools.py:1927
+#: src/uagent/util_tools.py:1925
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 複数行入力モードを終了するには、%(sentinel)s だけの行を入力してください。"
 
-#: src/uagent/util_tools.py:2033
+#: src/uagent/util_tools.py:2125
 msgid "Exiting."
 msgstr "終了します。"
 
-#: src/uagent/util_tools.py:2036
+#: src/uagent/util_tools.py:2128
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "不明なコマンド: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2187
+#: src/uagent/util_tools.py:2279
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
 "以下の箇条書きは、このユーザーの長期記憶（永続メモ）からの抜粋です。ユーザーに関する背景情報として参照してください。ただし、会話内で新たに提供された情報を常に優先し、古い情報と矛盾する場合は最新の情報を採用してください。\n"
 
-#: src/uagent/web.py:510
+#: src/uagent/web.py:532
 msgid ""
 "[WARN] Another task is already running in this room. Please retry after it "
 "completes."
 msgstr "[WARN] このルームでは別のタスクがすでに実行中です。完了後に再試行してください。"
 
-#: src/uagent/web.py:602 src/uagent/web.py:720
+#: src/uagent/web.py:624 src/uagent/web.py:744
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2290,15 +1902,15 @@ msgstr ""
 "[FATAL] 環境変数 UAGENT_PROVIDER が設定されていません。\n"
 "Web サーバーの起動時に環境変数を確認してください。"
 
-#: src/uagent/web.py:670
+#: src/uagent/web.py:694
 msgid "[INFO] Loaded long-term memory."
 msgstr "[INFO] 長期記憶を読み込みました。"
 
-#: src/uagent/web.py:682
+#: src/uagent/web.py:706
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[INFO] 共有長期記憶を読み込みました。"
 
-#: src/uagent/web.py:717
+#: src/uagent/web.py:741
 msgid ""
 "[FATAL] Web worker error.\n"
 "%(err)s"

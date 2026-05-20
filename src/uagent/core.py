@@ -1211,28 +1211,30 @@ def compress_history_with_llm(
 
         if not rolling_summary:
             summary_system_prompt = (
-                "- Summarize the conversation chunk in English.\n"
-                "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
-                "- Output should be directly usable as a system message."
+                _t("- Summarize the conversation chunk in English.\n")
+                + _t(
+                    "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+                )
+                + _t("- Output should be directly usable as a system message.")
             )
             summary_user_content = (
-                "Conversation chunk:\n"
-                f"{chunk_text}\n\n"
-                "Write a concise summary of this chunk."
+                _t("Conversation chunk:\n")
+                + f"{chunk_text}\n\n"
+                + _t("Write a concise summary of this chunk.")
             )
         else:
             summary_system_prompt = (
-                "- You are updating an existing conversation summary.\n"
-                "- Preserve important facts from the previous summary.\n"
-                "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
-                "- Keep the result concise and suitable for a system message."
+                _t("- You are updating an existing conversation summary.\n")
+                + _t("- Preserve important facts from the previous summary.\n")
+                + _t("- Merge in the new chunk without losing constraints, decisions, or pending items.\n")
+                + _t("- Keep the result concise and suitable for a system message.")
             )
             summary_user_content = (
-                "Previous summary:\n"
-                f"{rolling_summary}\n\n"
-                "New chunk:\n"
-                f"{chunk_text}\n\n"
-                "Update the summary while keeping the prior context intact."
+                _t("Previous summary:\n")
+                + f"{rolling_summary}\n\n"
+                + _t("New chunk:\n")
+                + f"{chunk_text}\n\n"
+                + _t("Update the summary while keeping the prior context intact.")
             )
 
         summary_messages = [

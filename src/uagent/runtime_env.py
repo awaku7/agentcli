@@ -277,10 +277,7 @@ def validate_or_exit_startup_env(*, context: str) -> None:
         sys.exit(2)
     if warnings:
         for w in warnings:
-            print(
-                _("[WARN] {message}", default="[WARN] {message}", message=w),
-                file=sys.stderr,
-            )
+            print(f"[WARN] {w}", file=sys.stderr)
 
     try:
         from .runtime_init import get_startup_uagent_env_snapshot

@@ -380,7 +380,7 @@ def _handle_cmd_reasoning(arg: str, *, tr: Any) -> bool:
         )
         return True
 
-    print(tr("[mode] reasoning=%(mode)s") % {"mode": new_mode})
+    print("[mode] reasoning=%(mode)s" % {"mode": new_mode})
     return True
 
 
@@ -388,10 +388,10 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
     try:
         new_mode = apply_verbosity_arg(arg)
     except Exception:
-        print(tr(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"))
+        print(":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)")
         return True
 
-    print(tr("[mode] verbosity=%(mode)s") % {"mode": new_mode})
+    print("[mode] verbosity=%(mode)s" % {"mode": new_mode})
     return True
 
 
@@ -404,7 +404,7 @@ def _handle_cmd_cd(
 ) -> bool:
     a = (arg or "").strip()
     if not a:
-        print(tr(":cd <path>"))
+        print(":cd <path>")
         return True
 
     try:
@@ -414,7 +414,7 @@ def _handle_cmd_cd(
 
         if not os.path.isdir(target):
             print(
-                tr("[cd] Directory does not exist: %(src)s -> %(dst)s")
+                "[cd] Directory does not exist: %(src)s -> %(dst)s"
                 % {"src": a, "dst": target}
             )
             return True
@@ -437,10 +437,10 @@ def _handle_cmd_cd(
         except Exception:
             pass
 
-        print(tr("[cd] workdir = %(path)s") % {"path": now})
+        print("[cd] workdir = %(path)s" % {"path": now})
     except Exception as e:
         print(
-            tr("[cd error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[cd error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
 
     return True
@@ -457,7 +457,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             matches = glob.glob(expanded, recursive=True)
             if not matches:
                 print(
-                    tr("[ls] No matching paths: %(src)s -> %(expanded)s")
+                    "[ls] No matching paths: %(src)s -> %(expanded)s"
                     % {"src": target, "expanded": expanded}
                 )
                 return True
@@ -481,15 +481,15 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
             items.sort(key=lambda x: (x[0], x[1]))
 
-            print(tr("[ls] %(path)s") % {"path": expanded})
+            print("[ls] %(path)s" % {"path": expanded})
             for _, _, name, p_abs, is_dir, size in items:
                 if is_dir:
                     print(
-                        tr("  [D] %(name)s -> %(path)s") % {"name": name, "path": p_abs}
+                        "  [D] %(name)s -> %(path)s" % {"name": name, "path": p_abs}
                     )
                 else:
                     print(
-                        tr("  [F] %(name)s (%(size)d bytes) -> %(path)s")
+                        "  [F] %(name)s (%(size)d bytes) -> %(path)s"
                         % {"name": name, "size": size, "path": p_abs}
                     )
             return True
@@ -497,7 +497,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
         target_abs = os.path.abspath(expanded)
         if not os.path.isdir(target_abs):
             print(
-                tr("[ls] Directory does not exist: %(src)s -> %(dst)s")
+                "[ls] Directory does not exist: %(src)s -> %(dst)s"
                 % {"src": target, "dst": target_abs}
             )
             return True
@@ -517,17 +517,17 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 
         entries.sort(key=lambda x: (x[0], x[1]))
 
-        print(tr("[ls] %(path)s") % {"path": target_abs})
+        print("[ls] %(path)s" % {"path": target_abs})
         for _, _, name, is_dir, size in entries:
             if is_dir:
-                print(tr("  [D] %(name)s") % {"name": name})
+                print("  [D] %(name)s" % {"name": name})
             else:
                 print(
-                    tr("  [F] %(name)s (%(size)d bytes)") % {"name": name, "size": size}
+                    "  [F] %(name)s (%(size)d bytes)" % {"name": name, "size": size}
                 )
     except Exception as e:
         print(
-            tr("[ls error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[ls error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
 
     return True
@@ -564,21 +564,21 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
     try:
         tool_specs = tools.get_tool_specs() or []
         if not tool_specs:
-            print(tr("[tools] No tools loaded."))
+            print("[tools] No tools loaded.")
             return True
 
-        print(tr("[tools] Loaded %(n)d tools") % {"n": len(tool_specs)})
+        print("[tools] Loaded %(n)d tools" % {"n": len(tool_specs)})
         for spec in tool_specs:
             fn = (spec or {}).get("function") or {}
             name = fn.get("name") or "(unknown)"
             desc = (fn.get("description") or "").strip()
             if desc:
-                print(tr("- %(name)s: %(desc)s") % {"name": name, "desc": desc})
+                print("- %(name)s: %(desc)s" % {"name": name, "desc": desc})
             else:
-                print(tr("- %(name)s") % {"name": name})
+                print("- %(name)s" % {"name": name})
     except Exception as e:
         print(
-            tr("[tools error] %(etype)s: %(err)s")
+            "[tools error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
 
@@ -633,14 +633,14 @@ def _remove_existing_path(target: Path) -> None:
 def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
+        print(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
         print(
-            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -652,7 +652,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
             print(
-                tr("[cp] Source and destination are the same: %(path)s")
+                "[cp] Source and destination are the same: %(path)s"
                 % {"path": str(src)}
             )
             return True
@@ -661,7 +661,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
             if target.exists():
                 if not overwrite:
                     print(
-                        tr("[cp] Destination already exists: %(path)s")
+                        "[cp] Destination already exists: %(path)s"
                         % {"path": str(target)}
                     )
                     return True
@@ -673,7 +673,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
             if target.exists():
                 if not overwrite:
                     print(
-                        tr("[cp] Destination already exists: %(path)s")
+                        "[cp] Destination already exists: %(path)s"
                         % {"path": str(target)}
                     )
                     return True
@@ -682,20 +682,20 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
                 target.parent.mkdir(parents=True, exist_ok=True)
             elif not target.parent.exists():
                 print(
-                    tr("[cp] Destination parent does not exist: %(path)s")
+                    "[cp] Destination parent does not exist: %(path)s"
                     % {"path": str(target.parent)}
                 )
                 return True
             shutil.copy2(src, target)
 
         print(
-            tr("[cp] Copied: %(src)s -> %(dst)s")
+            "[cp] Copied: %(src)s -> %(dst)s"
             % {"src": str(src), "dst": str(target)}
         )
         return True
     except Exception as e:
         print(
-            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -703,14 +703,14 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
+        print(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
         print(
-            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -722,7 +722,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
             print(
-                tr("[mv] Source and destination are the same: %(path)s")
+                "[mv] Source and destination are the same: %(path)s"
                 % {"path": str(src)}
             )
             return True
@@ -730,7 +730,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         if target.exists():
             if not overwrite:
                 print(
-                    tr("[mv] Destination already exists: %(path)s")
+                    "[mv] Destination already exists: %(path)s"
                     % {"path": str(target)}
                 )
                 return True
@@ -740,19 +740,19 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
             target.parent.mkdir(parents=True, exist_ok=True)
         elif not target.parent.exists():
             print(
-                tr("[mv] Destination parent does not exist: %(path)s")
+                "[mv] Destination parent does not exist: %(path)s"
                 % {"path": str(target.parent)}
             )
             return True
 
         os.replace(src, target)
         print(
-            tr("[mv] Moved: %(src)s -> %(dst)s") % {"src": str(src), "dst": str(target)}
+            "[mv] Moved: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)}
         )
         return True
     except Exception as e:
         print(
-            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -760,20 +760,20 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":head <path> [n]"))
+        print(":head <path> [n]")
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
         print(
-            tr("[head error] %(etype)s: %(err)s")
+            "[head error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
 
     if not items:
-        print(tr(":head <path> [n]"))
+        print(":head <path> [n]")
         return True
 
     lines = 20
@@ -785,12 +785,12 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(tr(":head <path> [n]"))
+                print(":head <path> [n]")
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print(tr("[head] Invalid line count: %(n)r") % {"n": items[i]})
+                print("[head] Invalid line count: %(n)r" % {"n": items[i]})
                 return True
         elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
@@ -804,7 +804,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(tr(":head <path> [n]"))
+        print(":head <path> [n]")
         return True
 
     path = " ".join(path_tokens)
@@ -819,7 +819,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
                 res = None
             if isinstance(res, dict) and not res.get("ok", False):
                 print(
-                    str(res.get("error") or res.get("stderr") or tr("[head] Failed."))
+                    str(res.get("error") or res.get("stderr") or "[head] Failed.")
                 )
                 return True
             if isinstance(res, dict):
@@ -827,11 +827,11 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
         if content:
             print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print(tr("[head] Empty."))
+            print("[head] Empty.")
         return True
     except Exception as e:
         print(
-            tr("[head error] %(etype)s: %(err)s")
+            "[head error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
@@ -840,20 +840,20 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":tail <path> [n]"))
+        print(":tail <path> [n]")
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
         print(
-            tr("[tail error] %(etype)s: %(err)s")
+            "[tail error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
 
     if not items:
-        print(tr(":tail <path> [n]"))
+        print(":tail <path> [n]")
         return True
 
     lines = 20
@@ -865,12 +865,12 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         if low in ("-n", "--lines"):
             i += 1
             if i >= len(items):
-                print(tr(":tail <path> [n]"))
+                print(":tail <path> [n]")
                 return True
             try:
                 lines = int(items[i])
             except Exception:
-                print(tr("[tail] Invalid line count: %(n)r") % {"n": items[i]})
+                print("[tail] Invalid line count: %(n)r" % {"n": items[i]})
                 return True
         elif not tok.startswith("-") and not path_tokens:
             path_tokens.append(tok)
@@ -884,7 +884,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         i += 1
 
     if not path_tokens:
-        print(tr(":tail <path> [n]"))
+        print(":tail <path> [n]")
         return True
 
     path = " ".join(path_tokens)
@@ -899,7 +899,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
                 res = None
             if isinstance(res, dict) and not res.get("ok", False):
                 print(
-                    str(res.get("error") or res.get("stderr") or tr("[tail] Failed."))
+                    str(res.get("error") or res.get("stderr") or "[tail] Failed.")
                 )
                 return True
             if isinstance(res, dict):
@@ -907,11 +907,11 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
         if content:
             print(content, end="" if content.endswith("\n") else "\n")
         else:
-            print(tr("[tail] Empty."))
+            print("[tail] Empty.")
         return True
     except Exception as e:
         print(
-            tr("[tail error] %(etype)s: %(err)s")
+            "[tail error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
@@ -1065,10 +1065,10 @@ def _handle_cmd_skills(
     if a.lower() in ("clear", "off", "unset", "reset"):
         removed = _clear_skill_messages(messages_ref)
         if removed <= 0:
-            print(tr("[skills] No active skill messages to clear."))
+            print("[skills] No active skill messages to clear.")
             return CommandResult()
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
-        print(tr("[skills] Cleared %(n)d skill message(s).") % {"n": removed})
+        print("[skills] Cleared %(n)d skill message(s)." % {"n": removed})
         return CommandResult()
 
     if a.lower() in ("active", "status", "show", "list"):
@@ -1091,12 +1091,12 @@ def _handle_cmd_skills(
             active.append(line)
 
         if not active:
-            print(tr("[skills] No active skills."))
+            print("[skills] No active skills.")
             return CommandResult()
 
-        print(tr("[skills] Active skills: %(n)d") % {"n": len(active)})
+        print("[skills] Active skills: %(n)d" % {"n": len(active)})
         for i, line in enumerate(active, start=1):
-            print(tr("[%(i)d] %(line)s") % {"i": i, "line": line})
+            print("[%(i)d] %(line)s" % {"i": i, "line": line})
         return CommandResult()
 
     try:
@@ -1122,7 +1122,7 @@ def _handle_cmd_skills(
             items = []
 
         if not items:
-            print(tr("[skills] No skills found."))
+            print("[skills] No skills found.")
             return CommandResult()
 
         selected_idx: int | None = None
@@ -1133,12 +1133,12 @@ def _handle_cmd_skills(
             if 1 <= n <= len(items):
                 selected_idx = n - 1
             else:
-                print(tr("[skills] Out of range: %(n)d") % {"n": n})
+                print("[skills] Out of range: %(n)d" % {"n": n})
                 return CommandResult()
 
         # If not direct selection, show list and ask
         if selected_idx is None:
-            print(tr("[skills] Found %(n)d skills") % {"n": len(items)})
+            print("[skills] Found %(n)d skills" % {"n": len(items)})
             for i, it in enumerate(items, start=1):
                 if not isinstance(it, dict):
                     continue
@@ -1147,7 +1147,7 @@ def _handle_cmd_skills(
                 ok = bool(it.get("ok"))
                 ok_mark = "OK" if ok else "WARN"
                 print(
-                    tr("[%(i)d] (%(ok)s) %(name)s: %(desc)s")
+                    "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
                     % {"i": i, "ok": ok_mark, "name": name, "desc": desc}
                 )
 
@@ -1165,26 +1165,26 @@ def _handle_cmd_skills(
                 ).strip()
                 low = user_reply.lower()
                 if low in ("c", "cancel"):
-                    print(tr("[skills] Cancelled."))
+                    print("[skills] Cancelled.")
                     return CommandResult()
                 if not user_reply.isdigit():
-                    print(tr("[skills] Please enter a number or c."))
+                    print("[skills] Please enter a number or c.")
                     continue
                 n = int(user_reply)
                 if n < 1 or n > len(items):
-                    print(tr("[skills] Out of range: %(n)d") % {"n": n})
+                    print("[skills] Out of range: %(n)d" % {"n": n})
                     continue
                 selected_idx = n - 1
 
         skill = items[selected_idx]
         if not isinstance(skill, dict):
-            print(tr("[skills] Invalid selection."))
+            print("[skills] Invalid selection.")
             return CommandResult()
 
         name = skill.get("name") or "(unknown)"
         skill_dir = skill.get("path")
         if not isinstance(skill_dir, str) or not skill_dir.strip():
-            print(tr("[skills] Selected skill has no path."))
+            print("[skills] Selected skill has no path.")
             return CommandResult()
 
         confirm_msg = _(
@@ -1198,13 +1198,13 @@ def _handle_cmd_skills(
         conf = json.loads(conf_json)
         conf_reply = (conf.get("user_reply") or "").strip().lower()
         if conf_reply not in ("y", "yes"):
-            print(tr("[skills] Cancelled."))
+            print("[skills] Cancelled.")
             return CommandResult()
 
         doc_json = skills_load_tool({"skill_dir": skill_dir})
         doc = json.loads(doc_json)
         if not isinstance(doc, dict):
-            raise ValueError(tr("skills_load returned non-dict"))
+            raise ValueError("skills_load returned non-dict")
 
         try:
             tool_specs = (
@@ -1228,12 +1228,12 @@ def _handle_cmd_skills(
         _insert_cwd_system_message(messages_ref, skill_system_msg)
 
         _persist_messages_with_warn(messages_ref, core=core, label="skills")
-        print(tr("[skills] Applied: %(name)s") % {"name": name})
+        print("[skills] Applied: %(name)s" % {"name": name})
         return CommandResult(run_llm=True)
 
     except Exception as e:
         print(
-            tr("[skills error] %(etype)s: %(err)s")
+            "[skills error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
 
@@ -1268,7 +1268,7 @@ def _collect_clean_targets(
         log_files = core.find_log_files(exclude_current=False)
     except Exception as e:
         print(
-            tr("[clean error] Failed to get log list: %(etype)s: %(err)s")
+            "[clean error] Failed to get log list: %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return False, [], {}
@@ -1285,7 +1285,7 @@ def _collect_clean_targets(
                 targets.append(p)
         except Exception as e:
             print(
-                tr("[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)")
+                "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
                 % {"path": p, "etype": type(e).__name__, "err": e}
             )
 
@@ -1315,12 +1315,12 @@ def _confirm_clean_delete(
         res = json.loads(res_json)
         user_reply = (res.get("user_reply") or "").strip().lower()
         if user_reply not in ("y", "yes"):
-            print(tr("[clean] Cancelled."))
+            print("[clean] Cancelled.")
             return False
         return True
     except Exception as e:
         print(
-            tr("[clean error] Confirmation failed: %(etype)s: %(err)s")
+            "[clean error] Confirmation failed: %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return False
@@ -1336,7 +1336,7 @@ def _delete_clean_targets(targets: List[str], *, tr: Any) -> tuple[int, int]:
         except Exception as e:
             failed += 1
             print(
-                tr("[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)")
+                "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
                 % {"path": p, "etype": type(e).__name__, "err": e}
             )
 
@@ -1354,7 +1354,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     if not targets:
         print(
-            tr("[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s")
+            "[clean] No logs to delete (threshold=%(threshold)d).\nLog dir: %(dir)s"
             % {
                 "threshold": threshold,
                 "dir": getattr(core, "BASE_LOG_DIR", "(unknown)"),
@@ -1363,7 +1363,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
         return True
 
     print(
-        tr("[clean] Logs to delete (<= %(threshold)d msgs): %(n)d")
+        "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
         % {"threshold": threshold, "n": len(targets)}
     )
     for p in targets:
@@ -1377,7 +1377,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
 
     deleted, failed = _delete_clean_targets(targets, tr=tr)
     print(
-        tr("[clean] Done: deleted=%(deleted)d, failed=%(failed)d")
+        "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
         % {"deleted": deleted, "failed": failed}
     )
     return True
@@ -1425,7 +1425,7 @@ def _prepend_loaded_log_to_current(
         res2 = json.loads(res_json2)
         user_reply2 = (res2.get("user_reply") or "").strip().lower()
         if user_reply2 not in ("y", "yes"):
-            print(tr("[load] Prepend to current log was cancelled."))
+            print("[load] Prepend to current log was cancelled.")
             return
 
         loaded_lines: list[str] = []
@@ -1434,7 +1434,7 @@ def _prepend_loaded_log_to_current(
                 loaded_lines = f.read().splitlines(True)
         except Exception as e:
             print(
-                tr("[load warn] Failed to read source log: %(etype)s: %(err)s")
+                "[load warn] Failed to read source log: %(etype)s: %(err)s"
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1447,7 +1447,7 @@ def _prepend_loaded_log_to_current(
                     cur_lines = f.read().splitlines(True)
         except Exception as e:
             print(
-                tr("[load warn] Failed to read current log: %(etype)s: %(err)s")
+                "[load warn] Failed to read current log: %(etype)s: %(err)s"
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
@@ -1467,17 +1467,17 @@ def _prepend_loaded_log_to_current(
                     f.write(ln)
                 for ln in cur_lines:
                     f.write(ln)
-            print(tr("[load] Prepended to current log: %(path)s") % {"path": cur_log})
+            print("[load] Prepended to current log: %(path)s" % {"path": cur_log})
         except Exception as e:
             print(
-                tr("[load warn] Failed to rewrite current log: %(etype)s: %(err)s")
+                "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
                 % {"etype": type(e).__name__, "err": e},
                 file=sys.stderr,
             )
             return
     except Exception as e:
         print(
-            tr("[load error] Failed: %(etype)s: %(err)s")
+            "[load error] Failed: %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return
@@ -1486,17 +1486,17 @@ def _prepend_loaded_log_to_current(
 def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(tr(":rm <path|glob> [path|glob]"))
+        print(":rm <path|glob> [path|glob]")
         return True
 
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(tr("[rm error] Failed to parse arguments: %(err)s") % {"err": e})
+        print("[rm error] Failed to parse arguments: %(err)s" % {"err": e})
         return True
 
     if not items:
-        print(tr(":rm <path|glob> [path|glob]"))
+        print(":rm <path|glob> [path|glob]")
         return True
 
     try:
@@ -1513,11 +1513,11 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         )
         preview = json.loads(preview_json)
         if not isinstance(preview, dict):
-            print(tr("[rm] Unexpected delete_file preview response."))
+            print("[rm] Unexpected delete_file preview response.")
             return True
 
         if not preview.get("ok", False):
-            print(tr("[rm] Preview failed."))
+            print("[rm] Preview failed.")
             stderr = preview.get("stderr")
             if stderr:
                 print(str(stderr))
@@ -1527,18 +1527,18 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         matches = [str(p) for p in (preview.get("matches") or []) if str(p).strip()]
 
         if not matches:
-            print(tr("[rm] No matching paths."))
+            print("[rm] No matching paths.")
             if missing:
-                print(tr("[rm] Missing:"))
+                print("[rm] Missing:")
                 for p in missing:
                     print(p)
             return True
 
-        print(tr("[rm] Candidates:"))
+        print("[rm] Candidates:")
         for p in matches:
             print(p)
         if missing:
-            print(tr("[rm] Missing:"))
+            print("[rm] Missing:")
             for p in missing:
                 print(p)
 
@@ -1550,7 +1550,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         user_reply = (res.get("user_reply") or "").strip().lower()
         cancelled = bool(res.get("cancelled", False))
         if cancelled or user_reply not in ("y", "yes"):
-            print(tr("[rm] Cancelled."))
+            print("[rm] Cancelled.")
             return True
 
         delete_json = delete_file_tool(
@@ -1564,23 +1564,23 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         )
         delete = json.loads(delete_json)
         if not isinstance(delete, dict):
-            print(tr("[rm] Unexpected delete_file response."))
+            print("[rm] Unexpected delete_file response.")
             return True
 
         if delete.get("ok", False) and delete.get("deleted"):
             print(
-                tr("[rm] Deleted %(count)d path(s).")
+                "[rm] Deleted %(count)d path(s)."
                 % {"count": int(delete.get("count") or 0)}
             )
         else:
-            print(tr("[rm] Failed."))
+            print("[rm] Failed.")
             stderr = delete.get("stderr")
             if stderr:
                 print(str(stderr))
         return True
     except Exception as e:
         print(
-            tr("[rm error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[rm error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -1593,7 +1593,7 @@ def _handle_cmd_load(
     tr: Any,
 ) -> bool:
     if not arg:
-        print(tr(":load <index|path>"))
+        print(":load <index|path>")
         return True
 
     files = core.find_log_files(exclude_current=True)
@@ -1613,7 +1613,7 @@ def _handle_cmd_load(
         return True
     except Exception as e:
         print(
-            tr("[load error] %(etype)s: %(err)s")
+            "[load error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
@@ -1649,18 +1649,18 @@ def _handle_cmd_load(
             except Exception:
                 pass
 
-            print(tr("[load] workdir = %(path)s") % {"path": now})
+            print("[load] workdir = %(path)s" % {"path": now})
     except Exception as e:
         print(
-            tr("[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s")
+            "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
 
     _inject_user_history_to_readline(new_messages)
 
-    print(tr("Loaded log: %(path)s") % {"path": target_path})
-    print(tr("Conversation message count: %(n)d") % {"n": len(messages_ref)})
+    print("Loaded log: %(path)s" % {"path": target_path})
+    print("Conversation message count: %(n)d" % {"n": len(messages_ref)})
 
     _prepend_loaded_log_to_current(core=core, source_log_path=target_path, tr=tr)
     return True
@@ -1678,7 +1678,7 @@ def _persist_messages_with_warn(
             core.rewrite_current_log_from_messages(messages)
     except Exception as e:
         print(
-            tr("[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s")
+            "[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s"
             % {"label": label, "etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
@@ -1723,9 +1723,7 @@ def _handle_cmd_shrink_llm(
         except Exception:
             print(
                 _(
-                    _(
-                        "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-                    )
+                    "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
                 )
                 % {"arg": arg, "keep": keep_last}
             )
@@ -1745,10 +1743,10 @@ def _handle_cmd_shrink_llm(
 def _handle_cmd_mem_list(*, tr: Any) -> bool:
     records = personal_long_memory.load_long_memory_records()
     if not records:
-        print(tr("No long-term memory entries."))
+        print("No long-term memory entries.")
         return True
 
-    print(tr("Long-term memory entries:"))
+    print("Long-term memory entries:")
     for idx, rec in enumerate(records):
         ts = rec.get("ts")
         if isinstance(ts, (int, float)):
@@ -1758,27 +1756,27 @@ def _handle_cmd_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print(tr("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
+        print("[%(idx)s] %(dt)s  %(note)s" % {"idx": idx, "dt": dt, "note": note})
     return True
 
 
 def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(tr(":mem-del <index>"))
+        print(":mem-del <index>")
         return True
 
     try:
         idx = int(arg)
     except Exception:
         print(
-            tr("[mem-del error] Failed to parse index as int: %(arg)r") % {"arg": arg}
+            "[mem-del error] Failed to parse index as int: %(arg)r" % {"arg": arg}
         )
         return True
 
     if personal_long_memory.delete_long_memory_entry(idx):
-        print(tr("Deleted long-term memory entry [%(idx)d].") % {"idx": idx})
+        print("Deleted long-term memory entry [%(idx)d]." % {"idx": idx})
     else:
-        print(tr("[mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+        print("[mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
     return True
 
 
@@ -1793,12 +1791,12 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
 
     records = shared_memory.load_shared_memory_records()
     if not records:
-        print(tr("No shared long-term memory entries."))
+        print("No shared long-term memory entries.")
         return True
 
     import time as _time
 
-    print(tr("Shared long-term memory entries:"))
+    print("Shared long-term memory entries:")
     for idx, rec in enumerate(records):
         ts = rec.get("ts")
         if isinstance(ts, (int, float)):
@@ -1806,14 +1804,14 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
         else:
             dt = "(no-ts)"
         note = str(rec.get("note", ""))
-        print(tr("[%(idx)s] %(dt)s  %(note)s") % {"idx": idx, "dt": dt, "note": note})
+        print("[%(idx)s] %(dt)s  %(note)s" % {"idx": idx, "dt": dt, "note": note})
 
     return True
 
 
 def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
-        print(tr(":shared-mem-del <index>"))
+        print(":shared-mem-del <index>")
         return True
 
     if not shared_memory.is_enabled():
@@ -1828,21 +1826,21 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
         idx = int(arg)
     except Exception:
         print(
-            tr("[shared-mem-del error] Failed to parse index as int: %(arg)r")
+            "[shared-mem-del error] Failed to parse index as int: %(arg)r"
             % {"arg": arg}
         )
         return True
 
     records = shared_memory.load_shared_memory_records()
     if idx < 0 or idx >= len(records):
-        print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+        print("[shared-mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
         return True
 
     try:
         records.pop(idx)
         path = shared_memory.get_shared_memory_file()
         if not path:
-            print(tr("[shared-mem-del] Failed to delete index=%(idx)d.") % {"idx": idx})
+            print("[shared-mem-del] Failed to delete index=%(idx)d." % {"idx": idx})
             return True
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -1851,12 +1849,12 @@ def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception as e:
         print(
-            tr("[shared-mem-del error] %(etype)s: %(err)s")
+            "[shared-mem-del error] %(etype)s: %(err)s"
             % {"etype": type(e).__name__, "err": e}
         )
         return True
 
-    print(tr("Deleted shared long-term memory entry [%(idx)d].") % {"idx": idx})
+    print("Deleted shared long-term memory entry [%(idx)d]." % {"idx": idx})
     return True
 
 
@@ -1882,7 +1880,7 @@ def format_help(*, core: Any) -> str:
         + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"),
         "  :tools                " + tr("List loaded tools"),
         "  :env show [KEY]       "
-        + tr("Show UAGENT_* env vars; KEY names are masked; :env show UAGENT_*"),
+        + "Show UAGENT_* env vars; KEY names are masked; :env show UAGENT_*",
         "  :env set/unset/save   " + tr("Manage UAGENT_* env vars and save .env.sec"),
         "  :skills [cmd]         "
         + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
@@ -1915,10 +1913,6 @@ def format_help(*, core: Any) -> str:
         "  :tail <path> [n]      " + tr("Show the last n lines of a file (default=20)"),
         "  :rm <path|glob>       "
         + tr("Delete file(s)/directory(ies) with preview + confirm"),
-        "  :shared-mem-list      "
-        + tr("List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"),
-        "  :shared-mem-del <i>   "
-        + tr("Delete a shared long-term memory note by index"),
         "  :r [0|1|2|3|auto|minimal|xhigh]  "
         + tr("Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"),
         "  :v [0|1|2|3]          "
@@ -1972,7 +1966,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
         items = shlex.split(raw, posix=False)
     except Exception as e:
         print(
-            tr("[env error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+            "[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
         return True
 
@@ -1995,10 +1989,10 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
                 k for k in _uagent_env_names() if k.lower().startswith(query.lower())
             ]
         if not keys:
-            print(tr("[env] Not found: %(key)s") % {"key": query})
+            print("[env] Not found: %(key)s" % {"key": query})
             return True
         if len(keys) > 1:
-            print(tr("[env] Ambiguous: %(key)s") % {"key": query})
+            print("[env] Ambiguous: %(key)s" % {"key": query})
             for key in keys:
                 print(f"{key}={_uagent_format_env_value(key, os.environ.get(key, ''))}")
             return True
@@ -2008,21 +2002,21 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 
     if sub == "set":
         if len(items) < 3:
-            print(tr(":env set KEY VALUE"))
+            print(":env set KEY VALUE")
             return True
         key = items[1]
         value = " ".join(items[2:])
         os.environ[key] = value
-        print(tr("[env] Set %(key)s") % {"key": key})
+        print("[env] Set %(key)s" % {"key": key})
         return True
 
     if sub == "unset":
         if len(items) < 2:
-            print(tr(":env unset KEY"))
+            print(":env unset KEY")
             return True
         key = items[1]
         os.environ.pop(key, None)
-        print(tr("[env] Unset %(key)s") % {"key": key})
+        print("[env] Unset %(key)s" % {"key": key})
         return True
 
     if sub == "save":
@@ -2030,15 +2024,15 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
             from .runtime_env import save_uagent_envsec
 
             sec_path = save_uagent_envsec()
-            print(tr("[env] Saved .env.sec: %(path)s") % {"path": str(sec_path)})
+            print("[env] Saved .env.sec: %(path)s" % {"path": str(sec_path)})
         except Exception as e:
             print(
-                tr("[env error] %(etype)s: %(err)s")
+                "[env error] %(etype)s: %(err)s"
                 % {"etype": type(e).__name__, "err": e}
             )
         return True
 
-    print(tr(":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save"))
+    print(":env show [KEY] / :env set KEY VALUE / :env unset KEY / :env save")
     return True
 
 
@@ -2111,11 +2105,6 @@ def handle_command(
     if cmd == "mem-del":
         return _handle_cmd_mem_del(arg, tr=tr)
 
-    if cmd == "shared-mem-list":
-        return _handle_cmd_shared_mem_list(tr=tr)
-
-    if cmd == "shared-mem-del":
-        return _handle_cmd_shared_mem_del(arg, tr=tr)
 
     if cmd == "cp":
         return _handle_cmd_cp(arg, tr=tr)

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-15 17:47+0900\n"
+"POT-Creation-Date: 2026-05-20 20:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,15 +34,6 @@ msgstr "[ERROR] Git is not installed."
 
 msgid "getch() fallback to input()"
 msgstr "getch() fallback to input()"
-
-msgid "Input cancelled (will be sent as a reply to human_ask)."
-msgstr "Input cancelled (will be sent as a reply to human_ask)."
-
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Received Ctrl+C. Starting shutdown..."
-
-msgid "Unexpected error in stdin_loop: %(err)s"
-msgstr "Unexpected error in stdin_loop: %(err)s"
 
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -141,6 +132,66 @@ msgstr "Log files:"
 
 msgid "(no user message)"
 msgstr "(no user message)"
+
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr "429 retry limit (%(max_retries)s) reached while history compression."
+
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Error while calling LLM for history compression: %(err)r"
+
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Summarize the conversation chunk in English.\n"
+
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+
+msgid "- Output should be directly usable as a system message."
+msgstr "- Output should be directly usable as a system message."
+
+msgid "Conversation chunk:\n"
+msgstr "Conversation chunk:\n"
+
+msgid "Write a concise summary of this chunk."
+msgstr "Write a concise summary of this chunk."
+
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- You are updating an existing conversation summary.\n"
+
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Preserve important facts from the previous summary.\n"
+
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- Keep the result concise and suitable for a system message."
+
+msgid "Previous summary:\n"
+msgstr "Previous summary:\n"
+
+msgid "New chunk:\n"
+msgstr "New chunk:\n"
+
+msgid "Update the summary while keeping the prior context intact."
+msgstr "Update the summary while keeping the prior context intact."
+
+msgid "Summary of the conversation so far:\n"
+msgstr "Summary of the conversation so far:\n"
+
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
 
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (help unavailable: %(err)s)"
@@ -407,6 +458,9 @@ msgstr "Ollama embedding base URL / model name."
 msgid "NVIDIA embedding API key / model name."
 msgstr "NVIDIA embedding API key / model name."
 
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Environment validation failed ({context})."
+
 msgid "Missing required environment variables:"
 msgstr "Missing required environment variables:"
 
@@ -494,9 +548,6 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] Auto shrink_llm failed: %(err)s"
-
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] assistant history contained image content; converted to text."
 
@@ -566,6 +617,18 @@ msgstr "[Gemini Error] An error occurred while generating a response."
 
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Error] An error occurred while generating a response."
+
+msgid "Input exceeds the context window."
+msgstr "Input exceeds the context window."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Connection error"
+msgstr "Connection error"
+
+msgid "Unexpected exception."
+msgstr "Unexpected exception."
 
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
@@ -668,9 +731,6 @@ msgstr "Created .env.sec: %(path)s"
 msgid "[WARN] Failed to create .env.sec: %(err)s"
 msgstr "[WARN] Failed to create .env.sec: %(err)s"
 
-msgid "[WARN] {message}"
-msgstr "[WARN] {message}"
-
 msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
 msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
 
@@ -703,12 +763,6 @@ msgstr "Attach..."
 
 msgid "Send"
 msgstr "Send"
-
-msgid "Attach files"
-msgstr "Attach files"
-
-msgid "All Files (*)"
-msgstr "All Files (*)"
 
 msgid "Help"
 msgstr "Help"
@@ -761,11 +815,14 @@ msgstr ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgid "Enter password..."
 msgstr "Enter password..."
 
-msgid "Enter response for human_ask..."
-msgstr "Enter response for human_ask..."
-
 msgid "Enter a message..."
 msgstr "Enter a message..."
+
+msgid "Attach files"
+msgstr "Attach files"
+
+msgid "All Files (*)"
+msgstr "All Files (*)"
 
 msgid "Downloaded to"
 msgstr "Downloaded to"
@@ -778,9 +835,6 @@ msgstr "Stopped"
 
 msgid "[REPLY] > %(text)s"
 msgstr "[REPLY] > %(text)s"
-
-msgid "[USER] %(text)s"
-msgstr "[USER] %(text)s"
 
 msgid "OpenAI API key"
 msgstr "OpenAI API key"
@@ -1183,59 +1237,8 @@ msgstr "invalid reasoning"
 msgid "invalid verbosity"
 msgstr "invalid verbosity"
 
-msgid ":cd <path>"
-msgstr ":cd <path>"
-
-msgid "[cd] Directory does not exist: %(src)s -> %(dst)s"
-msgstr "[cd] Directory does not exist: %(src)s -> %(dst)s"
-
-msgid "[cd] workdir = %(path)s"
-msgstr "[cd] workdir = %(path)s"
-
-msgid "[cd error] %(etype)s: %(err)s"
-msgstr "[cd error] %(etype)s: %(err)s"
-
-msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
-msgstr "[ls] No matching paths: %(src)s -> %(expanded)s"
-
-msgid "[ls] %(path)s"
-msgstr "[ls] %(path)s"
-
-msgid "  [D] %(name)s -> %(path)s"
-msgstr "  [D] %(name)s -> %(path)s"
-
-msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-
-msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
-msgstr "[ls] Directory does not exist: %(src)s -> %(dst)s"
-
-msgid "  [D] %(name)s"
-msgstr "  [D] %(name)s"
-
-msgid "  [F] %(name)s (%(size)d bytes)"
-msgstr "  [F] %(name)s (%(size)d bytes)"
-
-msgid "[ls error] %(etype)s: %(err)s"
-msgstr "[ls error] %(etype)s: %(err)s"
-
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-
-msgid "[tools] No tools loaded."
-msgstr "[tools] No tools loaded."
-
-msgid "[tools] Loaded %(n)d tools"
-msgstr "[tools] Loaded %(n)d tools"
-
-msgid "- %(name)s: %(desc)s"
-msgstr "- %(name)s: %(desc)s"
-
-msgid "- %(name)s"
-msgstr "- %(name)s"
-
-msgid "[tools error] %(etype)s: %(err)s"
-msgstr "[tools error] %(etype)s: %(err)s"
 
 msgid "failed to parse arguments: %(err)s"
 msgstr "failed to parse arguments: %(err)s"
@@ -1245,72 +1248,6 @@ msgstr "missing arguments"
 
 msgid "src and dst are required"
 msgstr "src and dst are required"
-
-msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-
-msgid "[cp error] %(etype)s: %(err)s"
-msgstr "[cp error] %(etype)s: %(err)s"
-
-msgid "[cp] Source and destination are the same: %(path)s"
-msgstr "[cp] Source and destination are the same: %(path)s"
-
-msgid "[cp] Destination already exists: %(path)s"
-msgstr "[cp] Destination already exists: %(path)s"
-
-msgid "[cp] Destination parent does not exist: %(path)s"
-msgstr "[cp] Destination parent does not exist: %(path)s"
-
-msgid "[cp] Copied: %(src)s -> %(dst)s"
-msgstr "[cp] Copied: %(src)s -> %(dst)s"
-
-msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-
-msgid "[mv error] %(etype)s: %(err)s"
-msgstr "[mv error] %(etype)s: %(err)s"
-
-msgid "[mv] Source and destination are the same: %(path)s"
-msgstr "[mv] Source and destination are the same: %(path)s"
-
-msgid "[mv] Destination already exists: %(path)s"
-msgstr "[mv] Destination already exists: %(path)s"
-
-msgid "[mv] Destination parent does not exist: %(path)s"
-msgstr "[mv] Destination parent does not exist: %(path)s"
-
-msgid "[mv] Moved: %(src)s -> %(dst)s"
-msgstr "[mv] Moved: %(src)s -> %(dst)s"
-
-msgid ":head <path> [n]"
-msgstr ":head <path> [n]"
-
-msgid "[head error] %(etype)s: %(err)s"
-msgstr "[head error] %(etype)s: %(err)s"
-
-msgid "[head] Invalid line count: %(n)r"
-msgstr "[head] Invalid line count: %(n)r"
-
-msgid "[head] Failed."
-msgstr "[head] Failed."
-
-msgid "[head] Empty."
-msgstr "[head] Empty."
-
-msgid ":tail <path> [n]"
-msgstr ":tail <path> [n]"
-
-msgid "[tail error] %(etype)s: %(err)s"
-msgstr "[tail error] %(etype)s: %(err)s"
-
-msgid "[tail] Invalid line count: %(n)r"
-msgstr "[tail] Invalid line count: %(n)r"
-
-msgid "[tail] Failed."
-msgstr "[tail] Failed."
-
-msgid "[tail] Empty."
-msgstr "[tail] Empty."
 
 msgid ""
 "[Skill execution]\n"
@@ -1326,33 +1263,6 @@ msgstr ""
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "When finished, always call `finish_skill` if available.\n"
 
-msgid "[skills] No active skill messages to clear."
-msgstr "[skills] No active skill messages to clear."
-
-msgid "[skills] Cleared %(n)d skill message(s)."
-msgstr "[skills] Cleared %(n)d skill message(s)."
-
-msgid "[skills] No active skills."
-msgstr "[skills] No active skills."
-
-msgid "[skills] Active skills: %(n)d"
-msgstr "[skills] Active skills: %(n)d"
-
-msgid "[%(i)d] %(line)s"
-msgstr "[%(i)d] %(line)s"
-
-msgid "[skills] No skills found."
-msgstr "[skills] No skills found."
-
-msgid "[skills] Out of range: %(n)d"
-msgstr "[skills] Out of range: %(n)d"
-
-msgid "[skills] Found %(n)d skills"
-msgstr "[skills] Found %(n)d skills"
-
-msgid "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-msgstr "[%(i)d] (%(ok)s) %(name)s: %(desc)s"
-
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1361,18 +1271,6 @@ msgstr ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
-
-msgid "[skills] Cancelled."
-msgstr "[skills] Cancelled."
-
-msgid "[skills] Please enter a number or c."
-msgstr "[skills] Please enter a number or c."
-
-msgid "[skills] Invalid selection."
-msgstr "[skills] Invalid selection."
-
-msgid "[skills] Selected skill has no path."
-msgstr "[skills] Selected skill has no path."
 
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1389,27 +1287,12 @@ msgstr ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
-msgid "skills_load returned non-dict"
-msgstr "skills_load returned non-dict"
-
-msgid "[skills] Applied: %(name)s"
-msgstr "[skills] Applied: %(name)s"
-
-msgid "[skills error] %(etype)s: %(err)s"
-msgstr "[skills error] %(etype)s: %(err)s"
-
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
-
-msgid "[clean error] Failed to get log list: %(etype)s: %(err)s"
-msgstr "[clean error] Failed to get log list: %(etype)s: %(err)s"
-
-msgid "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
-msgstr "[clean warn] Skipped (parse failed): %(path)s (%(etype)s: %(err)s)"
 
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1425,32 +1308,10 @@ msgstr ""
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
-
-msgid "[clean] Cancelled."
-msgstr "[clean] Cancelled."
-
-msgid "[clean error] Confirmation failed: %(etype)s: %(err)s"
-msgstr "[clean error] Confirmation failed: %(etype)s: %(err)s"
-
-msgid "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
-msgstr "[clean warn] Delete failed: %(path)s (%(etype)s: %(err)s)"
-
-msgid ""
-"[clean] No logs to delete (threshold=%(threshold)d).\n"
-"Log dir: %(dir)s"
-msgstr ""
-"[clean] No logs to delete (threshold=%(threshold)d).\n"
-"Log dir: %(dir)s"
-
-msgid "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
-msgstr "[clean] Logs to delete (<= %(threshold)d msgs): %(n)d"
 
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d msgs) %(path)s"
 
-msgid "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-msgstr "[clean] Done: deleted=%(deleted)d, failed=%(failed)d"
-
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
 "\n"
@@ -1466,45 +1327,6 @@ msgstr ""
 "\n"
 "Proceed? Enter y to run, or c to cancel."
 
-msgid "[load] Prepend to current log was cancelled."
-msgstr "[load] Prepend to current log was cancelled."
-
-msgid "[load warn] Failed to read source log: %(etype)s: %(err)s"
-msgstr "[load warn] Failed to read source log: %(etype)s: %(err)s"
-
-msgid "[load warn] Failed to read current log: %(etype)s: %(err)s"
-msgstr "[load warn] Failed to read current log: %(etype)s: %(err)s"
-
-msgid "[load] Prepended to current log: %(path)s"
-msgstr "[load] Prepended to current log: %(path)s"
-
-msgid "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr "[load warn] Failed to rewrite current log: %(etype)s: %(err)s"
-
-msgid "[load error] Failed: %(etype)s: %(err)s"
-msgstr "[load error] Failed: %(etype)s: %(err)s"
-
-msgid ":rm <path|glob> [path|glob]"
-msgstr ":rm <path|glob> [path|glob]"
-
-msgid "[rm error] Failed to parse arguments: %(err)s"
-msgstr "[rm error] Failed to parse arguments: %(err)s"
-
-msgid "[rm] Unexpected delete_file preview response."
-msgstr "[rm] Unexpected delete_file preview response."
-
-msgid "[rm] Preview failed."
-msgstr "[rm] Preview failed."
-
-msgid "[rm] No matching paths."
-msgstr "[rm] No matching paths."
-
-msgid "[rm] Missing:"
-msgstr "[rm] Missing:"
-
-msgid "[rm] Candidates:"
-msgstr "[rm] Candidates:"
-
 msgid ""
 "Delete {count} path(s)?\n"
 "\n"
@@ -1517,48 +1339,12 @@ msgstr ""
 "{paths}\n"
 "\n"
 "Enter y to proceed, or c to cancel."
-
-msgid "[rm] Cancelled."
-msgstr "[rm] Cancelled."
-
-msgid "[rm] Unexpected delete_file response."
-msgstr "[rm] Unexpected delete_file response."
-
-msgid "[rm] Deleted %(count)d path(s)."
-msgstr "[rm] Deleted %(count)d path(s)."
-
-msgid "[rm] Failed."
-msgstr "[rm] Failed."
-
-msgid "[rm error] %(etype)s: %(err)s"
-msgstr "[rm error] %(etype)s: %(err)s"
-
-msgid ":load <index|path>"
-msgstr ":load <index|path>"
 
 msgid "Specified index %(idx)d is out of range."
 msgstr "Specified index %(idx)d is out of range."
 
 msgid "Log file not found: %(path)s"
 msgstr "Log file not found: %(path)s"
-
-msgid "[load error] %(etype)s: %(err)s"
-msgstr "[load error] %(etype)s: %(err)s"
-
-msgid "[load] workdir = %(path)s"
-msgstr "[load] workdir = %(path)s"
-
-msgid "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
-msgstr "[load warn] Failed to chdir from loaded log: %(etype)s: %(err)s"
-
-msgid "Loaded log: %(path)s"
-msgstr "Loaded log: %(path)s"
-
-msgid "Conversation message count: %(n)d"
-msgstr "Conversation message count: %(n)d"
-
-msgid "[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s"
-msgstr "[%(label)s warn] Failed to rewrite current log: %(etype)s: %(err)s"
 
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1568,54 +1354,12 @@ msgid ""
 msgstr ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 
-msgid "No long-term memory entries."
-msgstr "No long-term memory entries."
-
-msgid "Long-term memory entries:"
-msgstr "Long-term memory entries:"
-
-msgid "[%(idx)s] %(dt)s  %(note)s"
-msgstr "[%(idx)s] %(dt)s  %(note)s"
-
-msgid ":mem-del <index>"
-msgstr ":mem-del <index>"
-
-msgid "[mem-del error] Failed to parse index as int: %(arg)r"
-msgstr "[mem-del error] Failed to parse index as int: %(arg)r"
-
-msgid "Deleted long-term memory entry [%(idx)d]."
-msgstr "Deleted long-term memory entry [%(idx)d]."
-
-msgid "[mem-del] Failed to delete index=%(idx)d."
-msgstr "[mem-del] Failed to delete index=%(idx)d."
-
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
-
-msgid "No shared long-term memory entries."
-msgstr "No shared long-term memory entries."
-
-msgid "Shared long-term memory entries:"
-msgstr "Shared long-term memory entries:"
-
-msgid ":shared-mem-del <index>"
-msgstr ":shared-mem-del <index>"
-
-msgid "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-msgstr "[shared-mem-del error] Failed to parse index as int: %(arg)r"
-
-msgid "[shared-mem-del] Failed to delete index=%(idx)d."
-msgstr "[shared-mem-del] Failed to delete index=%(idx)d."
-
-msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
-
-msgid "Deleted shared long-term memory entry [%(idx)d]."
-msgstr "Deleted shared long-term memory entry [%(idx)d]."
 
 msgid "Show this help"
 msgstr "Show this help"
@@ -1638,6 +1382,9 @@ msgstr "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
 msgid "List loaded tools"
 msgstr "List loaded tools"
+
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Manage UAGENT_* env vars and save .env.sec"
 
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
@@ -1693,14 +1440,6 @@ msgstr "Show the last n lines of a file (default=20)"
 
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Delete file(s)/directory(ies) with preview + confirm"
-
-msgid ""
-"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
-msgstr ""
-"List shared long-term memory notes (requires UAGENT_SHARED_MEMORY_FILE)"
-
-msgid "Delete a shared long-term memory note by index"
-msgstr "Delete a shared long-term memory note by index"
 
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"

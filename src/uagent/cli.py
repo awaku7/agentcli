@@ -601,7 +601,7 @@ def stdin_loop() -> None:
                 if core.human_ask_active:
                     print(
                         "\n[INFO] "
-                        + _("Input cancelled (will be sent as a reply to human_ask).")
+                        + "Input cancelled (will be sent as a reply to human_ask)."
                     )
                     # 空文字または cancel を投げてツール側を復帰させる
                     if core.human_ask_queue:
@@ -609,14 +609,14 @@ def stdin_loop() -> None:
                     continue
 
             # Ctrl+C で即座に終了シーケンスに入るように変更
-            print("\n[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
+            print("\n[INFO] " + "Received Ctrl+C. Starting shutdown...")
             core.event_queue.put({"kind": "command", "text": ":exit"})
             break
         except Exception as e:
             # スレッドの突然死を防ぐための広域キャッチ
             print(
                 "\n[ERROR] "
-                + _("Unexpected error in stdin_loop: %(err)s") % {"err": e},
+                + "Unexpected error in stdin_loop: %(err)s" % {"err": e},
                 file=sys.stderr,
             )
             time.sleep(1)
