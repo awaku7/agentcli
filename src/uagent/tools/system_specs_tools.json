@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
     "x_search_terms": [
-      "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way",
       "get_system_specs",
-      "system specs"
+      "system specs",
+      "system info",
+      "cpu ram disk"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",
@@ -13,8 +14,9 @@
   "ja": {
     "tool.description": "システム情報（OS/CPU/RAM/ディスク/ボリューム）を、取得できる範囲でクロスプラットフォームに取得します。",
     "x_search_terms": [
-      "システム情報（OS/CPU/RAM/ディスク/ボリューム）を、取得できる範囲でクロスプラットフォームに取得します",
       "get_system_specs",
+      "システム情報",
+      "CPU RAM ディスク",
       "system specs"
     ],
     "tool.system_prompt": "このツールは次の目的で使われます: OS、CPU、RAM容量、（可能なら）物理ディスク情報、およびボリュームの空き容量などのシステム情報を収集します。",
@@ -24,8 +26,9 @@
   "es": {
     "tool.description": "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo).",
     "x_search_terms": [
-      "Obtenga especificaciones del sistema (SO/CPU/RAM/discos/volúmenes) de forma multiplataforma (mejor esfuerzo)",
       "get_system_specs",
+      "especificaciones del sistema",
+      "info del sistema",
       "system specs"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: recopilar especificaciones del sistema como SO, CPU, tamaño de RAM, discos de almacenamiento (mejor esfuerzo) y espacio libre de volúmenes.",
@@ -35,8 +38,9 @@
   "fr": {
     "tool.description": "Obtenez les spécifications du système (OS/CPU/RAM/disques/volumes) de manière multiplateforme (best-effort).",
     "x_search_terms": [
-      "Obtenez les spécifications du système (OS/CPU/RAM/disques/volumes) de manière multiplateforme (best-effort)",
       "get_system_specs",
+      "spécifications système",
+      "infos système",
       "system specs"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : collecter des informations système telles que l'OS, le CPU, la taille de la RAM, les disques de stockage (best-effort) et l'espace libre des volumes.",
@@ -46,9 +50,10 @@
   "ko": {
     "tool.description": "시스템 사양(OS/CPU/RAM/디스크/볼륨)을 가능한 범위에서 크로스플랫폼으로 가져옵니다.",
     "x_search_terms": [
-      "시스템 사양(OS/CPU/RAM/디스크/볼륨)을 가능한 범위에서 크로스플랫폼으로 가져옵니다",
       "get_system_specs",
-      "system specs"
+      "시스템 사양",
+      "시스템 정보",
+      "cpu ram disk"
     ],
     "tool.system_prompt": "이 도구는 OS, CPU, RAM 용량, (가능하면) 물리 디스크 정보, 그리고 볼륨 여유 공간 등의 시스템 정보를 수집하는 목적으로 사용됩니다.",
     "param.include_volumes.description": "마운트된 볼륨 사용량 정보를 포함합니다.",
@@ -57,8 +62,9 @@
   "de": {
     "tool.description": "Systemspezifikationen (OS/CPU/RAM/Datenträger/Volumes) möglichst plattformübergreifend abrufen.",
     "x_search_terms": [
-      "Systemspezifikationen (OS/CPU/RAM/Datenträger/Volumes) möglichst plattformübergreifend abrufen",
       "get_system_specs",
+      "systemspezifikationen",
+      "systeminfos",
       "system specs"
     ],
     "tool.system_prompt": "Dieses Tool wird verwendet, um Systemspezifikationen wie Betriebssystem, CPU, RAM-Größe, Speicherlaufwerke (best effort) und freien Speicherplatz der Volumes zu erfassen.",
@@ -68,8 +74,9 @@
   "it": {
     "tool.description": "Ottiene le specifiche di sistema (OS/CPU/RAM/dischi/volumi) nel miglior modo possibile su più piattaforme.",
     "x_search_terms": [
-      "Ottiene le specifiche di sistema (OS/CPU/RAM/dischi/volumi) nel miglior modo possibile su più piattaforme",
       "get_system_specs",
+      "specifiche di sistema",
+      "info sistema",
       "system specs"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per raccogliere specifiche di sistema come OS, CPU, dimensione della RAM, dischi di archiviazione (best effort) e spazio libero dei volumi.",
@@ -79,8 +86,9 @@
   "ru": {
     "tool.description": "Получает системные характеристики (ОС/CPU/RAM/диски/тома) максимально кроссплатформенно.",
     "x_search_terms": [
-      "Получает системные характеристики (ОС/CPU/RAM/диски/тома) максимально кроссплатформенно",
       "get_system_specs",
+      "системные характеристики",
+      "системная информация",
       "system specs"
     ],
     "tool.system_prompt": "Этот инструмент используется для сбора системной информации, такой как ОС, CPU, объём RAM, диски хранения (по возможности) и свободное место на томах.",
@@ -90,8 +98,9 @@
   "pt_BR": {
     "tool.description": "Obtém especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de forma multiplataforma.",
     "x_search_terms": [
-      "Obtém especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de forma multiplataforma",
       "get_system_specs",
+      "especificações do sistema",
+      "info do sistema",
       "system specs"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como SO, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
@@ -101,8 +110,9 @@
   "pt": {
     "tool.description": "Obtenha especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de maneira multiplataforma.",
     "x_search_terms": [
-      "Obtenha especificações do sistema (SO/CPU/RAM/discos/volumes) da melhor forma possível e de maneira multiplataforma",
       "get_system_specs",
+      "especificações do sistema",
+      "info do sistema",
       "system specs"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para coletar informações do sistema, como sistema operacional, CPU, tamanho da RAM, discos de armazenamento (melhor esforço) e espaço livre dos volumes.",
@@ -112,8 +122,9 @@
   "id": {
     "tool.description": "Dapatkan spesifikasi sistem (CPU/RAM/disk/volume) dengan pendekatan terbaik lintas platform.",
     "x_search_terms": [
-      "Dapatkan spesifikasi sistem (CPU/RAM/disk/volume) dengan pendekatan terbaik lintas platform",
       "get_system_specs",
+      "spesifikasi sistem",
+      "info sistem",
       "system specs"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mengumpulkan spesifikasi sistem seperti OS, CPU, ukuran RAM, disk penyimpanan (best-effort), dan ruang kosong volume.",
@@ -123,8 +134,9 @@
   "vi": {
     "tool.description": "Nhận thông số kỹ thuật hệ thống (CPU/RAM/ổ đĩa/ổ đĩa) theo cách đa nền tảng với nỗ lực tốt nhất.",
     "x_search_terms": [
-      "Nhận thông số kỹ thuật hệ thống (CPU/RAM/ổ đĩa/ổ đĩa) theo cách đa nền tảng với nỗ lực tốt nhất",
       "get_system_specs",
+      "thông số hệ thống",
+      "thông tin hệ thống",
       "system specs"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: thu thập các thông số kỹ thuật của hệ thống như HĐH, CPU, kích thước RAM, ổ đĩa lưu trữ (nỗ lực tốt nhất) và dung lượng ổ đĩa trống.",
@@ -134,8 +146,9 @@
   "pl": {
     "tool.description": "Uzyskaj specyfikacje systemu (procesor/RAM/dyski/woluminy) w najlepszy sposób na wielu platformach.",
     "x_search_terms": [
-      "Uzyskaj specyfikacje systemu (procesor/RAM/dyski/woluminy) w najlepszy sposób na wielu platformach",
       "get_system_specs",
+      "specyfikacje systemu",
+      "informacje o systemie",
       "system specs"
     ],
     "tool.system_prompt": "To narzędzie służy do następującego celu: zebrania specyfikacji systemu, takich jak system operacyjny, procesor, rozmiar pamięci RAM, dyski magazynujące (dokładne wysiłki) i wolne miejsce na wolumenie.",
@@ -145,8 +158,9 @@
   "hi": {
     "tool.description": "सिस्टम विनिर्देश (OS/CPU/RAM/डिस्क/वॉल्यूम) सर्वोत्तम प्रयास के साथ, क्रॉस-प्लेटफ़ॉर्म तरीके से प्राप्त करें।",
     "x_search_terms": [
-      "सिस्टम विनिर्देश (OS/CPU/RAM/डिस्क/वॉल्यूम) सर्वोत्तम प्रयास के साथ, क्रॉस-प्लेटफ़ॉर्म तरीके से प्राप्त करें।",
       "get_system_specs",
+      "सिस्टम विनिर्देश",
+      "सिस्टम जानकारी",
       "system specs"
     ],
     "tool.system_prompt": "यह टूल OS, CPU, RAM आकार, (सर्वोत्तम प्रयास के साथ) स्टोरेज डिस्क, और वॉल्यूम के खाली स्थान जैसी सिस्टम जानकारी एकत्र करने के लिए उपयोग किया जाता है।",
@@ -156,8 +170,9 @@
   "ar": {
     "tool.description": "احصل على مواصفات النظام (وحدة المعالجة المركزية/ذاكرة الوصول العشوائي/الأقراص/وحدات التخزين) بأفضل طريقة عبر الأنظمة الأساسية.",
     "x_search_terms": [
-      "احصل على مواصفات النظام (وحدة المعالجة المركزية/ذاكرة الوصول العشوائي/الأقراص/وحدات التخزين) بأفضل طريقة عبر الأنظمة الأساسية",
       "get_system_specs",
+      "مواصفات النظام",
+      "معلومات النظام",
       "system specs"
     ],
     "tool.system_prompt": "يتم استخدام هذه الأداة للأغراض التالية: جمع مواصفات النظام مثل نظام التشغيل ووحدة المعالجة المركزية وحجم ذاكرة الوصول العشوائي وأقراص التخزين (أفضل جهد) والمساحة الخالية لوحدة التخزين.",
@@ -167,8 +182,9 @@
   "sv": {
     "tool.description": "Hämta systemspecifikationer (OS/CPU/RAM/diskar/volymer) på bästa möjliga sätt plattformsoberoende.",
     "x_search_terms": [
-      "Hämta systemspecifikationer (OS/CPU/RAM/diskar/volymer) på bästa möjliga sätt plattformsoberoende",
       "get_system_specs",
+      "systemspecificeringar",
+      "systeminfo",
       "system specs"
     ],
     "tool.system_prompt": "Det här verktyget används för att samla in systeminformation som operativsystem, CPU, RAM-storlek, lagringsdiskar (bästa möjliga försök) och ledigt utrymme på volymer.",
@@ -178,8 +194,9 @@
   "sw": {
     "tool.description": "Pata taarifa za mfumo (OS/CPU/RAM/diski/volumu) kwa njia bora iwezekanavyo na inayofanya kazi kwenye majukwaa mbalimbali.",
     "x_search_terms": [
-      "Pata taarifa za mfumo (OS/CPU/RAM/diski/volumu) kwa njia bora iwezekanavyo na inayofanya kazi kwenye majukwaa mbalimbali",
       "get_system_specs",
+      "specs za mfumo",
+      "taarifa za mfumo",
       "system specs"
     ],
     "tool.system_prompt": "Zana hii hutumiwa kukusanya taarifa za mfumo kama vile OS, CPU, ukubwa wa RAM, diski za kuhifadhi (kwa kadiri inavyowezekana), na nafasi huru ya volumu.",
@@ -189,8 +206,9 @@
   "nb": {
     "tool.description": "Hent systemspesifikasjoner (OS/CPU/RAM/disker/volumer) på en best mulig måte på tvers av plattformer.",
     "x_search_terms": [
-      "Hent systemspesifikasjoner (OS/CPU/RAM/disker/volumer) på en best mulig måte på tvers av plattformer",
       "get_system_specs",
+      "systemspesifikasjoner",
+      "systeminfo",
       "system specs"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å samle systeminformasjon som operativsystem, CPU, RAM-størrelse, lagringsdisker (best mulig innsats) og ledig plass på volumer.",
@@ -200,8 +218,9 @@
   "nl": {
     "tool.description": "Systeemgegevens (OS/CPU/RAM/schijven/volumes) op een best-effort manier en platformonafhankelijk ophalen.",
     "x_search_terms": [
-      "Systeemgegevens (OS/CPU/RAM/schijven/volumes) op een best-effort manier en platformonafhankelijk ophalen",
       "get_system_specs",
+      "systeemspecificaties",
+      "systeeminfo",
       "system specs"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt om systeeminformatie te verzamelen, zoals het besturingssysteem, de CPU, de hoeveelheid RAM, opslagschijven (best-effort) en vrije ruimte op volumes.",
@@ -211,8 +230,9 @@
   "fi": {
     "tool.description": "Hae järjestelmätiedot (käyttöjärjestelmä/CPU/RAM/levyt/volyymit) parhaalla mahdollisella tavalla alustasta riippumatta.",
     "x_search_terms": [
-      "Hae järjestelmätiedot (käyttöjärjestelmä/CPU/RAM/levyt/volyymit) parhaalla mahdollisella tavalla alustasta riippumatta",
       "get_system_specs",
+      "järjestelmätiedot",
+      "järjestelmän tiedot",
       "system specs"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään järjestelmätietojen, kuten käyttöjärjestelmän, suorittimen, RAM-muistin koon, tallennuslevyjen (parhaan mahdollisen mukaan) ja volyymien vapaan tilan, keräämiseen.",
@@ -222,8 +242,9 @@
   "cs": {
     "tool.description": "Získejte systémové specifikace (OS/CPU/RAM/disky/svazky) co nejlépe napříč platformami.",
     "x_search_terms": [
-      "Získejte systémové specifikace (OS/CPU/RAM/disky/svazky) co nejlépe napříč platformami",
       "get_system_specs",
+      "systémové specifikace",
+      "informace o systému",
       "system specs"
     ],
     "tool.system_prompt": "Tento nástroj slouží ke shromáždění systémových informací, jako je operační systém, CPU, velikost RAM, úložiště (co nejlépe) a volné místo na svazcích.",
@@ -233,8 +254,9 @@
   "uk": {
     "tool.description": "Отримайте характеристики системи (ОС/CPU/RAM/диски/томи) наскільки можливо кросплатформно.",
     "x_search_terms": [
-      "Отримайте характеристики системи (ОС/CPU/RAM/диски/томи) наскільки можливо кросплатформно",
       "get_system_specs",
+      "характеристики системи",
+      "системна інформація",
       "system specs"
     ],
     "tool.system_prompt": "Цей інструмент використовується для збору системної інформації, як-от ОС, CPU, обсяг RAM, накопичувачі (за можливості) та вільне місце на томах.",
@@ -244,8 +266,9 @@
   "tr": {
     "tool.description": "Sistem özelliklerini (CPU/RAM/diskler/birimler) mümkün olduğunca platformlar arası bir şekilde alın.",
     "x_search_terms": [
-      "Sistem özelliklerini (CPU/RAM/diskler/birimler) mümkün olduğunca platformlar arası bir şekilde alın",
       "get_system_specs",
+      "sistem özellikleri",
+      "sistem bilgisi",
       "system specs"
     ],
     "tool.system_prompt": "Bu araç, işletim sistemi, CPU, RAM boyutu, depolama diskleri (en iyi çaba) ve birim boş alanı gibi sistem bilgilerini toplamak için kullanılır.",
@@ -255,8 +278,9 @@
   "th": {
     "tool.description": "รับข้อมูลสเปกระบบ (OS/CPU/RAM/ดิสก์/โวลุ่ม) แบบข้ามแพลตฟอร์มเท่าที่ทำได้",
     "x_search_terms": [
-      "รับข้อมูลสเปกระบบ (OS/CPU/RAM/ดิสก์/โวลุ่ม) แบบข้ามแพลตฟอร์มเท่าที่ทำได้",
       "get_system_specs",
+      "ข้อมูลสเปกระบบ",
+      "ข้อมูลระบบ",
       "system specs"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รวบรวมสเปกระบบ เช่น OS, CPU, ขนาด RAM, ข้อมูลดิสก์ (เท่าที่ทำได้) และพื้นที่ว่างของโวลุ่ม",
@@ -266,8 +290,9 @@
   "zh_CN": {
     "tool.description": "以尽力而为的跨平台方式获取系统信息（OS/CPU/RAM/磁盘/卷）。",
     "x_search_terms": [
-      "以尽力而为的跨平台方式获取系统信息（OS/CPU/RAM/磁盘/卷）",
       "get_system_specs",
+      "系统信息",
+      "系统规格",
       "system specs"
     ],
     "tool.system_prompt": "该工具用于以下目的：收集系统信息，例如操作系统、CPU、内存大小、（尽力而为的）物理磁盘信息以及卷可用空间。",
@@ -277,8 +302,9 @@
   "zh_TW": {
     "tool.description": "以盡力而為的跨平台方式取得系統資訊（OS/CPU/RAM/磁碟/磁碟區）。",
     "x_search_terms": [
-      "以盡力而為的跨平台方式取得系統資訊（OS/CPU/RAM/磁碟/磁碟區）",
       "get_system_specs",
+      "系統資訊",
+      "系統規格",
       "system specs"
     ],
     "tool.system_prompt": "此工具用於以下目的：收集系統資訊，例如作業系統、CPU、記憶體大小、（盡力而為的）實體磁碟資訊以及磁碟區可用空間。",

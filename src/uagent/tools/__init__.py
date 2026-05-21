@@ -535,6 +535,14 @@ def get_tool_catalog(
     if limit <= 0:
         limit = 12
 
+    debug_tools = str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() in {"1", "true", "yes", "on"}
+    tokens = _tokenize_catalog_query(q) if q else []
+    if debug_tools:
+        try:
+            print(f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit}", flush=True)
+        except Exception:
+            pass
+
     specs = get_tool_specs() if tool_specs is None else tool_specs
     rows: List[Dict[str, Any]] = []
 
@@ -564,34 +572,52 @@ def get_tool_catalog(
         haystack = " ".join([p for p in haystack_parts if p]).lower()
 
         score = 0
+        hit_details: List[str] = []
         if q:
-            tokens = _tokenize_catalog_query(q)
             search_term_hit = False
             for tok in tokens:
                 if tok in search_haystack:
                     search_term_hit = True
                     score += 200
+                    hit_details.append(f"search:{tok}")
                 if tok == name.lower():
                     score += 100
+                    hit_details.append(f"name=={tok}")
                 elif tok in name.lower():
                     score += 40
+                    hit_details.append(f"name~{tok}")
                 if tok in description.lower():
                     score += 15
+                    hit_details.append(f"desc~{tok}")
                 for pn in param_names:
                     pnl = pn.lower()
                     if tok == pnl:
                         score += 20
+                        hit_details.append(f"param=={tok}")
                     elif tok in pnl:
                         score += 8
+                        hit_details.append(f"param~{tok}")
             if q in search_haystack:
                 search_term_hit = True
                 score += 400
+                hit_details.append("q in search_terms")
             if q in haystack:
                 score += 25
+                hit_details.append("q in haystack")
             if search_term_hit:
                 score += 1000
+                hit_details.append("search_term_hit")
         else:
             score = 1
+
+        if debug_tools and q:
+            try:
+                print(
+                    f"[TOOLCAT] name={name} score={score} hits={hit_details} haystack={haystack!r} search_haystack={search_haystack!r}",
+                    flush=True,
+                )
+            except Exception:
+                pass
 
         if score <= 0 and q:
             continue
@@ -620,6 +646,11 @@ def get_tool_catalog(
                 "parameters": row["parameters"],
             }
         )
+    if debug_tools:
+        try:
+            print(f"[TOOLCAT] matched={[(r['name'], r['score']) for r in rows[:limit]]}", flush=True)
+        except Exception:
+            pass
     return out
 
 

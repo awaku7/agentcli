@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Manage batch state for multi-file tasks under ~/.uag/batches/.",
     "x_search_terms": [
-      "Manage batch state for multi-file tasks under ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "batch state",
+      "batch management",
+      "file batch"
     ],
     "tool.system_prompt": "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. Use current to fetch the current file. After processing it, call complete_file. Use complete_file, skip_file, or error_file for explicit per-file results. Return JSON only.",
     "param.action.description": "Action: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Use current for the current file. After processing it, call complete_file. Use complete_file, skip_file, or error_file for explicit per-file results.",

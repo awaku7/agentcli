@@ -14,9 +14,10 @@
     "param.splice_op.description": "Splice operation (splice mode).",
     "tool.description": "Edit a local file as raw bytes (binary). Supports offset write, search/replace, splice (insert/delete), and applying a simple JSON patch. Dangerous: this tool can corrupt files.",
     "x_search_terms": [
-      "Edit a local file as raw bytes (binary). Supports offset write, search/replace, splice (insert/delete), and applying a simple JSON patch. Dangerous: this tool can corrupt files",
       "binary_edit",
-      "binary edit"
+      "binary edit",
+      "raw bytes editor",
+      "byte editor"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: edit a local file as raw bytes (binary).\n\nSECURITY / SAFETY:\n- This tool modifies local files and can corrupt them.\n- Always request confirmation with human_ask before writing.\n- Do not operate on paths outside the current workdir when running under the host agent's safety policies.\n"
   },

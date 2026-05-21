@@ -7,9 +7,10 @@
     "param.src.description": "Original path (file/directory). Relative path recommended.",
     "tool.description": "Rename (move) a file or directory.",
     "x_search_terms": [
-      "Rename (move) a file or directory",
       "rename_path",
-      "rename path"
+      "rename path",
+      "move path",
+      "move file"
     ],
     "tool.system_prompt": "This tool renames or moves a file or directory.\n\nSafety notes:\n- Confirmation is required for absolute paths, paths containing '..', or operations outside the workdir.\n- overwrite=true requires confirmation because it deletes the destination first."
   },
@@ -21,8 +22,9 @@
     "param.src.description": "元のパス（ファイル/ディレクトリ）。相対パス推奨。",
     "tool.description": "ファイルまたはディレクトリの名前を変更（移動）します。",
     "x_search_terms": [
-      "ファイルまたはディレクトリの名前を変更（移動）します",
       "rename_path",
+      "名前変更",
+      "移動",
       "rename path"
     ],
     "tool.system_prompt": "このツールはファイルまたはディレクトリの名前変更・移動を行います。\n\n安全注記:\n- 絶対パス、.. を含むパス、workdir 外への操作には確認が必要です。\n- overwrite=true は、先に既存の dst を削除するため確認が必要です。"
@@ -35,9 +37,10 @@
     "param.src.description": "Ruta original (archivo/directorio). Se recomienda una ruta relativa.",
     "tool.description": "Cambiar el nombre (mover) de un archivo o directorio.",
     "x_search_terms": [
-      "Cambiar el nombre (mover) de un archivo o directorio",
       "rename_path",
-      "rename path"
+      "renombrar",
+      "mover archivo",
+      "mover carpeta"
     ],
     "tool.system_prompt": "Esta herramienta cambia el nombre o mueve un archivo o directorio.\n\nNotas de seguridad:\n- Se requiere confirmación para rutas absolutas, rutas que contienen '..' o operaciones fuera del directorio de trabajo.\n- overwrite=true requiere confirmación porque primero elimina el destino."
   },
@@ -49,9 +52,10 @@
     "param.src.description": "Chemin d'origine (fichier/répertoire). Chemin relatif recommandé.",
     "tool.description": "Renommer (déplacer) un fichier ou un répertoire.",
     "x_search_terms": [
-      "Renommer (déplacer) un fichier ou un répertoire",
       "rename_path",
-      "rename path"
+      "renommer",
+      "déplacer fichier",
+      "déplacer dossier"
     ],
     "tool.system_prompt": "Cet outil renomme ou déplace un fichier ou un répertoire.\n\nNotes de sécurité :\n- Une confirmation est requise pour les chemins absolus, les chemins contenant '..' ou les opérations en dehors du répertoire de travail.\n- overwrite=true nécessite une confirmation car la destination est supprimée avant d'être remplacée."
   },
@@ -63,8 +67,9 @@
     "param.src.description": "원본 경로(파일/디렉터리). 상대 경로를 권장합니다.",
     "tool.description": "파일 또는 디렉터리의 이름을 변경(이동)합니다.",
     "x_search_terms": [
-      "파일 또는 디렉터리의 이름을 변경(이동)합니다",
       "rename_path",
+      "이름 변경",
+      "이동",
       "rename path"
     ],
     "tool.system_prompt": "이 도구는 파일 또는 디렉터리의 이름 변경 또는 이동을 수행합니다.\n\n안전 참고 사항:\n- 절대 경로, '..'를 포함한 경로, workdir 밖의 작업에는 확인이 필요합니다.\n- overwrite=true는 대상 삭제를 수반하므로 확인이 필요합니다."
@@ -77,8 +82,9 @@
     "param.src.description": "Ursprünglicher Pfad (Datei/Verzeichnis). Relativer Pfad empfohlen.",
     "tool.description": "Eine Datei oder ein Verzeichnis umbenennen (verschieben).",
     "x_search_terms": [
-      "Eine Datei oder ein Verzeichnis umbenennen (verschieben)",
       "rename_path",
+      "umbenennen",
+      "verschieben",
       "rename path"
     ],
     "tool.system_prompt": "Dieses Tool benennt eine Datei oder ein Verzeichnis um oder verschiebt es.\n\nSicherheitshinweise:\n- Für absolute Pfade, Pfade mit '..' oder Vorgänge außerhalb des workdir ist eine Bestätigung erforderlich.\n- overwrite=true erfordert eine Bestätigung, da das Ziel zuerst gelöscht wird."
@@ -91,9 +97,10 @@
     "param.src.description": "Percorso originale (file/directory). Percorso relativo consigliato.",
     "tool.description": "Rinomina (sposta) un file o una directory.",
     "x_search_terms": [
-      "Rinomina (sposta) un file o una directory",
       "rename_path",
-      "rename path"
+      "rinomina",
+      "sposta file",
+      "sposta cartella"
     ],
     "tool.system_prompt": "Questo strumento rinomina o sposta un file o una directory.\n\nNote di sicurezza:\n- È richiesta conferma per percorsi assoluti, percorsi contenenti '..' o operazioni fuori dal workdir.\n- overwrite=true richiede conferma perché elimina prima la destinazione."
   },
@@ -105,8 +112,9 @@
     "param.src.description": "Исходный путь (файл/каталог). Рекомендуется относительный путь.",
     "tool.description": "Переименовать (переместить) файл или каталог.",
     "x_search_terms": [
-      "Переименовать (переместить) файл или каталог",
       "rename_path",
+      "переименовать",
+      "переместить",
       "rename path"
     ],
     "tool.system_prompt": "Этот инструмент переименовывает или перемещает файл или каталог.\n\nПримечания по безопасности:\n- Для абсолютных путей, путей, содержащих '..', или операций вне workdir требуется подтверждение.\n- overwrite=true требует подтверждения, поскольку сначала удаляет назначение."
@@ -119,9 +127,10 @@
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
     "tool.description": "Renomeie (mova) um arquivo ou diretório.",
     "x_search_terms": [
-      "Renomeie (mova) um arquivo ou diretório",
       "rename_path",
-      "rename path"
+      "renomear",
+      "mover arquivo",
+      "mover pasta"
     ],
     "tool.system_prompt": "Esta ferramenta renomeia ou move um arquivo ou diretório.\n\nNotas de segurança:\n- É necessária confirmação para caminhos absolutos, caminhos contendo '..' ou operações fora do workdir.\n- overwrite=true exige confirmação porque o destino é excluído antes de ser substituído."
   },
@@ -133,9 +142,10 @@
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
     "tool.description": "Renomeie (mova) um arquivo ou diretório.",
     "x_search_terms": [
-      "Renomeie (mova) um arquivo ou diretório",
       "rename_path",
-      "rename path"
+      "renomear",
+      "mover arquivo",
+      "mover pasta"
     ],
     "tool.system_prompt": "Esta ferramenta renomeia ou move um arquivo ou diretório.\n\nNotas de segurança:\n- É necessária confirmação para caminhos absolutos, caminhos contendo \"..\" ou operações fora do workdir.\n- overwrite=true requer confirmação porque exclui o destino antes de substituí-lo."
   },
@@ -147,8 +157,9 @@
     "param.src.description": "Path asal (file/direktori). Disarankan path relatif.",
     "tool.description": "Ganti nama (pindahkan) file atau direktori.",
     "x_search_terms": [
-      "Ganti nama (pindahkan) file atau direktori",
       "rename_path",
+      "ganti nama",
+      "pindahkan",
       "rename path"
     ],
     "tool.system_prompt": "Alat ini mengganti nama atau memindahkan file atau direktori.\n\nCatatan keamanan:\n- Konfirmasi diperlukan untuk path absolut, path yang berisi .., atau operasi di luar workdir.\n- overwrite=true memerlukan konfirmasi karena target dihapus terlebih dahulu."
@@ -161,8 +172,9 @@
     "param.src.description": "Đường dẫn gốc (file/thư mục). Đường dẫn tương đối được đề xuất.",
     "tool.description": "Đổi tên (di chuyển) một tập tin hoặc thư mục.",
     "x_search_terms": [
-      "Đổi tên (di chuyển) một tập tin hoặc thư mục",
       "rename_path",
+      "đổi tên",
+      "di chuyển",
       "rename path"
     ],
     "tool.system_prompt": "Công cụ này đổi tên hoặc di chuyển một tệp hay thư mục.\n\nLưu ý an toàn:\n- Cần xác nhận đối với đường dẫn tuyệt đối, đường dẫn chứa \"..\" hoặc thao tác bên ngoài workdir.\n- overwrite=true cần xác nhận vì nó xóa đích trước khi thay thế."
@@ -175,8 +187,9 @@
     "param.src.description": "Oryginalna ścieżka (plik/katalog). Zalecana ścieżka względna.",
     "tool.description": "Zmień nazwę (przenieś) pliku lub katalogu.",
     "x_search_terms": [
-      "Zmień nazwę (przenieś) pliku lub katalogu",
       "rename_path",
+      "zmień nazwę",
+      "przenieś",
       "rename path"
     ],
     "tool.system_prompt": "To narzędzie zmienia nazwę lub przenosi plik lub katalog.\n\nWskazówki dotyczące bezpieczeństwa:\n- Potwierdzenie jest wymagane w przypadku ścieżek bezwzględnych, ścieżek zawierających „..” lub operacji poza katalogiem roboczym.\n- overwrite=true wymaga potwierdzenia, ponieważ najpierw usuwa miejsce docelowe."
@@ -189,8 +202,9 @@
     "param.src.description": "मूल पथ (फ़ाइल/निर्देशिका)। सापेक्ष पथ अनुशंसित.",
     "tool.description": "किसी फ़ाइल या निर्देशिका का नाम बदलें (स्थानांतरित करें)।",
     "x_search_terms": [
-      "किसी फ़ाइल या निर्देशिका का नाम बदलें (स्थानांतरित करें)।",
       "rename_path",
+      "नाम बदलें",
+      "स्थानांतरित करें",
       "rename path"
     ],
     "tool.system_prompt": "यह टूल किसी फ़ाइल या निर्देशिका का नाम बदलता है या उसे स्थानांतरित करता है।\n\nसुरक्षा नोट:\n- निरपेक्ष पथों, \"..\" वाले पथों, या workdir के बाहर के संचालन के लिए पुष्टि आवश्यक है।\n- overwrite=true के लिए पुष्टि आवश्यक है क्योंकि यह पहले गंतव्य हटाता है।"
@@ -203,8 +217,9 @@
     "param.src.description": "المسار الأصلي (ملف/دليل). يوصى بالمسار النسبي.",
     "tool.description": "إعادة تسمية (نقل) ملف أو دليل.",
     "x_search_terms": [
-      "إعادة تسمية (نقل) ملف أو دليل",
       "rename_path",
+      "إعادة تسمية",
+      "نقل",
       "rename path"
     ],
     "tool.system_prompt": "تقوم هذه الأداة بإعادة تسمية ملف أو دليل أو نقله.\n\nملاحظات الأمان:\n- يلزم التأكيد للمسارات المطلقة، أو المسارات التي تحتوي على \"..\"، أو العمليات خارج workdir.\n- تتطلب overwrite=true تأكيدًا لأنها تحذف الوجهة أولًا."
@@ -217,8 +232,9 @@
     "param.src.description": "Ursprunglig sökväg (fil/katalog). Relativ sökväg rekommenderas.",
     "tool.description": "Byt namn på (flytta) en fil eller katalog.",
     "x_search_terms": [
-      "Byt namn på (flytta) en fil eller katalog",
       "rename_path",
+      "byt namn",
+      "flytta",
       "rename path"
     ],
     "tool.system_prompt": "Det här verktyget byter namn på eller flyttar en fil eller katalog.\n\nSäkerhetsnoter:\n- Bekräftelse krävs för absoluta sökvägar, sökvägar utanför workdir och när överskrivning behövs."
@@ -231,8 +247,9 @@
     "param.src.description": "Njia ya asili (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
     "tool.description": "Badilisha jina (hamisha) la faili au saraka.",
     "x_search_terms": [
-      "Badilisha jina (hamisha) la faili au saraka",
       "rename_path",
+      "badilisha jina",
+      "hamisha",
       "rename path"
     ],
     "tool.system_prompt": "Zana hii hubadilisha jina au kuhamisha faili au saraka.\n\nVidokezo vya usalama:\n- Uthibitisho unahitajika kwa njia kamili, njia zenye \"..\", au shughuli zilizo nje ya workdir.\n- overwrite=true huhitaji uthibitisho kwa sababu hufuta lengwa kwanza."
@@ -245,8 +262,9 @@
     "param.src.description": "Opprinnelig sti (fil/katalog). Relativ sti anbefales.",
     "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
     "x_search_terms": [
-      "Gi nytt navn til (flytt) en fil eller katalog",
       "rename_path",
+      "gi nytt navn",
+      "flytt",
       "rename path"
     ],
     "tool.system_prompt": "Dette verktøyet gir nytt navn til eller flytter en fil eller katalog.\n\nSikkerhetsnotater:\n- Bekreftelse kreves for absolutte stier, stier utenfor workdir og når overskriving trengs."
@@ -259,8 +277,9 @@
     "param.src.description": "Oorspronkelijk pad (bestand/map). Gebruik bij voorkeur een relatief pad.",
     "tool.description": "Hernoem (verplaats) een bestand of map.",
     "x_search_terms": [
-      "Hernoem (verplaats) een bestand of map",
       "rename_path",
+      "hernoemen",
+      "verplaatsen",
       "rename path"
     ],
     "tool.system_prompt": "Dit hulpmiddel hernoemt of verplaatst een bestand of map.\n\nVeiligheidsnotities:\n- Bevestiging is vereist voor absolute paden, paden met \"..\" of bewerkingen buiten de workdir.\n- overwrite=true vereist bevestiging omdat de bestemming eerst wordt verwijderd."
@@ -273,8 +292,9 @@
     "param.src.description": "Alkuperäinen polku (tiedosto/hakemisto). Suhteellista polkua suositellaan.",
     "tool.description": "Nimeä tiedosto tai hakemisto uudelleen (siirrä).",
     "x_search_terms": [
-      "Nimeä tiedosto tai hakemisto uudelleen (siirrä)",
       "rename_path",
+      "nimiä vaihda",
+      "siirrä",
       "rename path"
     ],
     "tool.system_prompt": "Tämä työkalu nimeää tiedoston tai hakemiston uudelleen tai siirtää sen.\n\nTurvahuomiot:\n- Vahvistus vaaditaan absoluuttisille poluille, \"..\"-merkintöjä sisältäville poluille ja workdirin ulkopuolisille toimille.\n- overwrite=true vaatii vahvistuksen, koska kohde poistetaan ensin."
@@ -287,8 +307,9 @@
     "param.src.description": "Původní cesta (soubor/adresář). Doporučuje se relativní cesta.",
     "tool.description": "Přejmenuje (přesune) soubor nebo adresář.",
     "x_search_terms": [
-      "Přejmenuje (přesune) soubor nebo adresář",
       "rename_path",
+      "přejmenovat",
+      "přesunout",
       "rename path"
     ],
     "tool.system_prompt": "Tento nástroj přejmenovává nebo přesouvá soubor nebo adresář.\n\nBezpečnostní poznámky:\n- Pro absolutní cesty, cesty obsahující \"..\" nebo operace mimo workdir je vyžadováno potvrzení.\n- overwrite=true vyžaduje potvrzení, protože nejprve smaže cíl."
@@ -301,8 +322,9 @@
     "param.src.description": "Початковий шлях (файл/каталог). Рекомендовано використовувати відносний шлях.",
     "tool.description": "Перейменовує (переміщує) файл або каталог.",
     "x_search_terms": [
-      "Перейменовує (переміщує) файл або каталог",
       "rename_path",
+      "перейменувати",
+      "перемістити",
       "rename path"
     ],
     "tool.system_prompt": "Цей інструмент перейменовує або переміщує файл чи каталог.\n\nПримітки щодо безпеки:\n- Для абсолютних шляхів, шляхів, що містять \"..\", або операцій поза workdir потрібне підтвердження.\n- overwrite=true потребує підтвердження, оскільки спочатку видаляє ціль."
@@ -315,8 +337,9 @@
     "param.src.description": "Orijinal yol (dosya/dizin). Göreceli yol önerilir.",
     "tool.description": "Bir dosyayı veya dizini yeniden adlandırın (taşıyın).",
     "x_search_terms": [
-      "Bir dosyayı veya dizini yeniden adlandırın (taşıyın)",
       "rename_path",
+      "yeniden adlandır",
+      "taşı",
       "rename path"
     ],
     "tool.system_prompt": "Bu araç, bir dosyayı veya dizini yeniden adlandırır veya taşır.\n\nGüvenlik notları:\n- Mutlak yollar, '..' içeren yollar veya çalışma dizini dışındaki işlemler için onay gereklidir.\n- overwrite=true önce hedefi sildiğinden onay gerektirir."
@@ -329,8 +352,9 @@
     "param.src.description": "พาธต้นทาง (ไฟล์/ไดเร็กทอรี) แนะนำให้ใช้พาธสัมพัทธ์",
     "tool.description": "เปลี่ยนชื่อ (ย้าย) ไฟล์หรือไดเร็กทอรี",
     "x_search_terms": [
-      "เปลี่ยนชื่อ (ย้าย) ไฟล์หรือไดเร็กทอรี",
       "rename_path",
+      "เปลี่ยนชื่อ",
+      "ย้าย",
       "rename path"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับเปลี่ยนชื่อหรือย้ายไฟล์หรือไดเร็กทอรี\n\nหมายเหตุด้านความปลอดภัย:\n- ต้องมีการยืนยันสำหรับเส้นทางสัมบูรณ์ เส้นทางที่มี '..' หรือการดำเนินการนอก workdir\n- overwrite=true ต้องมีการยืนยัน เพราะจะลบปลายทางก่อนแทนที่"
@@ -343,8 +367,9 @@
     "param.src.description": "原始路径（文件/目录）。建议使用相对路径。",
     "tool.description": "重命名（移动）文件或目录。",
     "x_search_terms": [
-      "重命名（移动）文件或目录",
       "rename_path",
+      "重命名",
+      "移动",
       "rename path"
     ],
     "tool.system_prompt": "此工具用于重命名或移动文件/目录。\n\n安全注意事项：\n- 绝对路径、包含“..”的路径或 workdir 外的操作都需要确认。\n- overwrite=true 需要确认，因为它会先删除目标。"
@@ -357,8 +382,9 @@
     "param.src.description": "原始路徑（檔案／目錄）。建議使用相對路徑。",
     "tool.description": "重新命名（移動）檔案或目錄。",
     "x_search_terms": [
-      "重新命名（移動）檔案或目錄",
       "rename_path",
+      "重新命名",
+      "移動",
       "rename path"
     ],
     "tool.system_prompt": "此工具用於重新命名或移動檔案／目錄。\n\n安全注意事項：\n- 絕對路徑、包含「..」的路徑或 workdir 外的操作都需要確認。\n- overwrite=true 需要確認，因為它會先刪除目的地。"
@@ -371,8 +397,9 @@
     "param.src.description": "মূল পাথ (ফাইল/ডিরেক্টরি)। আপেক্ষিক পাথ সুপারিশ করা হয়।",
     "tool.description": "ফাইল বা ডিরেক্টরির নাম পরিবর্তন (স্থানান্তর) করুন।",
     "x_search_terms": [
-      "ফাইল বা ডিরেক্টরির নাম পরিবর্তন (স্থানান্তর) করুন",
       "rename_path",
+      "নাম পরিবর্তন",
+      "সরান",
       "rename path"
     ],
     "tool.system_prompt": "এই টুলটি একটি ফাইল বা ডিরেক্টরির নাম পরিবর্তন বা স্থানান্তর করে।\n\nনিরাপত্তা নোট:\n- absolute path, '..' থাকা path, অথবা workdir-এর বাইরে অপারেশনের জন্য নিশ্চিতকরণ দরকার।\n- overwrite=true নিশ্চিতকরণ চায়, কারণ এটি আগে গন্তব্য মুছে দেয়।"
@@ -385,8 +412,9 @@
     "param.src.description": "مسیر اصلی (فایل/پوشه). مسیر نسبی توصیه می‌شود.",
     "tool.description": "نام یک فایل یا پوشه را تغییر دهید (آن را جابه‌جا کنید).",
     "x_search_terms": [
-      "نام یک فایل یا پوشه را تغییر دهید (آن را جابه‌جا کنید)",
       "rename_path",
+      "تغییر نام",
+      "جابه‌جایی",
       "rename path"
     ],
     "tool.system_prompt": "این ابزار نام یک فایل یا پوشه را تغییر می‌دهد یا آن را جابه‌جا می‌کند.\n\nنکات ایمنی:\n- برای مسیرهای مطلق، مسیرهای دارای '..'، یا عملیات خارج از workdir تأیید لازم است.\n- overwrite=true به تأیید نیاز دارد، چون ابتدا مقصد را حذف می‌کند."
@@ -399,8 +427,9 @@
     "param.src.description": "Анхны зам (файл/лавлах). Харьцангуй зам хэрэглэхийг зөвлөж байна.",
     "tool.description": "Файл эсвэл лавлахын нэрийг өөрчилж (шилжүүлнэ).",
     "x_search_terms": [
-      "Файл эсвэл лавлахын нэрийг өөрчилж (шилжүүлнэ).",
       "rename_path",
+      "нэр өөрчлөх",
+      "шилжүүлэх",
       "rename path"
     ],
     "tool.system_prompt": "Энэ хэрэгсэл нь файл эсвэл лавлахын нэрийг өөрчилж, эсвэл шилжүүлнэ.\n\nАюулгүй байдлын тэмдэглэл:\n- Абсолют зам, '..' агуулсан зам, эсвэл workdir-ээс гадуурх үйлдэлд баталгаажуулалт шаардана.\n- overwrite=true нь эхлээд зорилтыг устгадаг тул баталгаажуулалт шаардлагатай."
@@ -413,8 +442,9 @@
     "param.src.description": "मूळ मार्ग (फाइल/डिरेक्टरी). सापेक्ष मार्ग सुचवला आहे.",
     "tool.description": "फाइल किंवा डिरेक्टरीचे नाव बदला (हलवा).",
     "x_search_terms": [
-      "फाइल किंवा डिरेक्टरीचे नाव बदला (हलवा).",
       "rename_path",
+      "नाव बदला",
+      "हलवा",
       "rename path"
     ],
     "tool.system_prompt": "हे साधन फाइल किंवा डिरेक्टरीचे नाव बदलते किंवा हलवते.\n\nसुरक्षा सूचना:\n- पूर्ण मार्ग, '..' असलेले मार्ग, किंवा workdir बाहेरच्या क्रियांकरिता पुष्टी आवश्यक आहे.\n- overwrite=true ला पुष्टी आवश्यक आहे कारण ते आधी गंतव्य हटवते."

@@ -23,9 +23,10 @@
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security.",
     "x_search_terms": [
-      "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git command",
+      "safe git"
     ],
     "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
   },
@@ -53,9 +54,10 @@
     "param.command.description": "実行する Git サブコマンド（安全のため制限あり）。",
     "tool.description": "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります。",
     "x_search_terms": [
-      "Gitコマンドを実行します（安全のための制限あり）。セキュリティのため、一部の操作や引数に含まれる特殊文字が制限される場合があります",
       "git_ops",
-      "git ops"
+      "git 操作",
+      "git コマンド",
+      "安全第一"
     ],
     "tool.system_prompt": "Gitコマンドを実行します（安全のための制限あり）。\n\n重要: args にシェルのメタ文字を含めないでください。安全のため、次の文字/シーケンスを含む引数は拒否されます: && || | > < `\ngit commit のメッセージ内の ';' は ',' に自動置換されます（-m/--message の値の中のみ）。\n"
   },
@@ -83,9 +85,10 @@
     "param.command.description": "Subcomando de Git que se va a ejecutar (se aplican restricciones de seguridad).",
     "tool.description": "Ejecuta comandos Git con restricciones centradas en la seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por seguridad.",
     "x_search_terms": [
-      "Ejecuta comandos Git con restricciones centradas en la seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por seguridad",
       "git_ops",
-      "git ops"
+      "git ops",
+      "comandos git",
+      "git seguro"
     ],
     "tool.system_prompt": "Esta herramienta se usa para ejecutar comandos Git.\n\nImportante: args no debe incluir metacaracteres de shell. Por seguridad, se rechazarán los argumentos que contengan las siguientes secuencias/caracteres: && || | > < `\nEn los mensajes de commit de git, \";\" se reemplaza automáticamente por \",\" (solo dentro de -m/--message).\n"
   },
@@ -113,9 +116,10 @@
     "param.command.description": "Sous-commande Git à exécuter (des restrictions de sécurité s’appliquent).",
     "tool.description": "Exécute des commandes Git avec des restrictions centrées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité.",
     "x_search_terms": [
-      "Exécute des commandes Git avec des restrictions centrées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité",
       "git_ops",
-      "git ops"
+      "git ops",
+      "commandes git",
+      "git sûr"
     ],
     "tool.system_prompt": "Cet outil sert à exécuter des commandes Git.\n\nImportant : args ne doit pas contenir de métacaractères de shell. Pour des raisons de sécurité, les arguments contenant les séquences/caractères suivants seront rejetés : && || | > < `\nDans les messages de commit git, \";\" est automatiquement remplacé par \",\" (uniquement à l’intérieur de -m/--message).\n"
   },
@@ -143,9 +147,10 @@
     "param.command.description": "실행할 Git 하위 명령(보안 제한이 적용됩니다).",
     "tool.description": "보안 우선 제한이 적용된 Git 명령을 실행합니다. 보안을 위해 인수의 일부 작업이나 특수 문자가 제한될 수 있습니다.",
     "x_search_terms": [
-      "보안 우선 제한이 적용된 Git 명령을 실행합니다. 보안을 위해 인수의 일부 작업이나 특수 문자가 제한될 수 있습니다",
       "git_ops",
-      "git ops"
+      "git 작업",
+      "git 명령",
+      "안전 git"
     ],
     "tool.system_prompt": "이 도구는 Git 명령을 실행하는 데 사용됩니다.\n\n중요: args에는 셸 메타문자를 포함하면 안 됩니다. 보안을 위해 다음 문자/시퀀스를 포함한 인수는 거부됩니다: && || | > < `\ngit commit 메시지의 \";\"는 자동으로 \",\"로 바뀝니다(-m/--message 값 내부에서만).\n"
   },
@@ -173,9 +178,10 @@
     "param.command.description": "Auszuführender Git-Subbefehl (Sicherheitsbeschränkungen gelten).",
     "tool.description": "Führt Git-Befehle mit Sicherheitsbeschränkungen aus. Aus Sicherheitsgründen können einige Operationen oder Sonderzeichen in Argumenten eingeschränkt sein.",
     "x_search_terms": [
-      "Führt Git-Befehle mit Sicherheitsbeschränkungen aus. Aus Sicherheitsgründen können einige Operationen oder Sonderzeichen in Argumenten eingeschränkt sein",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git befehle",
+      "sicheres git"
     ],
     "tool.system_prompt": "Dieses Tool wird verwendet, um Git-Befehle auszuführen.\n\nWichtig: args dürfen keine Shell-Metazeichen enthalten. Aus Sicherheitsgründen werden Argumente mit den folgenden Zeichen/Sequenzen abgelehnt: && || | > < `\nIn git-Commit-Nachrichten wird \";\" automatisch durch \",\" ersetzt (nur innerhalb von -m/--message).\n"
   },
@@ -203,9 +209,10 @@
     "param.command.description": "Sottocomando Git da eseguire (si applicano restrizioni di sicurezza).",
     "tool.description": "Esegue comandi Git con restrizioni incentrate sulla sicurezza. Alcune operazioni o caratteri speciali negli argomenti possono essere limitati per sicurezza.",
     "x_search_terms": [
-      "Esegue comandi Git con restrizioni incentrate sulla sicurezza. Alcune operazioni o caratteri speciali negli argomenti possono essere limitati per sicurezza",
       "git_ops",
-      "git ops"
+      "git ops",
+      "comandi git",
+      "git sicuro"
     ],
     "tool.system_prompt": "Questo strumento viene usato per eseguire comandi Git.\n\nImportante: args non deve contenere metacaratteri della shell. Per sicurezza, gli argomenti contenenti le seguenti sequenze/caratteri verranno rifiutati: && || | > < `\nNei messaggi di commit git, \";\" viene sostituito automaticamente con \",\" (solo all’interno di -m/--message).\n"
   },
@@ -233,9 +240,10 @@
     "param.command.description": "Подкоманда Git для запуска (действуют ограничения безопасности).",
     "tool.description": "Запускает команды Git с ограничениями, ориентированными на безопасность. Некоторые операции или специальные символы в аргументах могут быть ограничены из соображений безопасности.",
     "x_search_terms": [
-      "Запускает команды Git с ограничениями, ориентированными на безопасность. Некоторые операции или специальные символы в аргументах могут быть ограничены из соображений безопасности",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git команды",
+      "безопасный git"
     ],
     "tool.system_prompt": "Этот инструмент используется для выполнения команд Git.\n\nВажно: args не должен содержать метасимволы shell. Из соображений безопасности аргументы, содержащие следующие последовательности/символы, будут отклонены: && || | > < `\nВ сообщениях коммита git символ \";\" автоматически заменяется на \",\" (только внутри -m/--message).\n"
   },
@@ -263,9 +271,10 @@
     "param.command.description": "Subcomando Git a ser executado (as restrições de segurança se aplicam).",
     "tool.description": "Executa comandos Git com restrições focadas em segurança. Algumas operações ou caracteres especiais nos argumentos podem ser restringidos por segurança.",
     "x_search_terms": [
-      "Executa comandos Git com restrições focadas em segurança. Algumas operações ou caracteres especiais nos argumentos podem ser restringidos por segurança",
       "git_ops",
-      "git ops"
+      "git ops",
+      "comandos git",
+      "git seguro"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para executar comandos Git.\n\nImportante: args não pode incluir metacaracteres de shell. Por segurança, argumentos que contenham as seguintes sequências/caracteres serão rejeitados: && || | > < `\nNas mensagens de commit do git, \";\" é automaticamente substituído por \",\" (somente dentro de -m/--message).\n"
   },
@@ -293,9 +302,10 @@
     "param.command.description": "Subcomando Git a ser executado (aplicam-se restrições de segurança em primeiro lugar).",
     "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança.",
     "x_search_terms": [
-      "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança",
       "git_ops",
-      "git ops"
+      "git ops",
+      "comandos git",
+      "git seguro"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para executar comandos Git.\n\nImportante: args não deve incluir metacaracteres de shell. Por segurança, qualquer argumento contendo os seguintes caracteres/sequências será rejeitado: && || | > < `\nPara mensagens de commit do git, ';' é automaticamente substituído por ',' (apenas dentro de -m/--message)."
   },
@@ -323,9 +333,10 @@
     "param.command.description": "Subperintah Git yang akan dijalankan (pembatasan keamanan diterapkan).",
     "tool.description": "Jalankan perintah Git dengan pembatasan keamanan. Beberapa operasi atau karakter khusus dalam argumen dapat dibatasi demi keamanan.",
     "x_search_terms": [
-      "Jalankan perintah Git dengan pembatasan keamanan. Beberapa operasi atau karakter khusus dalam argumen dapat dibatasi demi keamanan",
       "git_ops",
-      "git ops"
+      "git ops",
+      "perintah git",
+      "git aman"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk menjalankan perintah Git.\n\nPenting: args tidak boleh mengandung metakarakter shell. Demi keamanan, argumen yang mengandung karakter/urutan berikut akan ditolak: && || | > < `\nUntuk pesan commit git, \";\" secara otomatis diganti dengan \",\" (hanya di dalam -m/--message)."
   },
@@ -353,9 +364,10 @@
     "param.command.description": "Lệnh con Git để chạy (áp dụng các hạn chế ưu tiên an toàn).",
     "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong đối số có thể bị hạn chế vì lý do bảo mật.",
     "x_search_terms": [
-      "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong đối số có thể bị hạn chế vì lý do bảo mật",
       "git_ops",
-      "git ops"
+      "git ops",
+      "lệnh git",
+      "git an toàn"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng để chạy các lệnh Git.\n\nQuan trọng: args không được bao gồm siêu ký tự shell. Để đảm bảo an toàn, mọi đối số chứa các ký tự/chuỗi sau sẽ bị từ chối: && || | > < `\nĐối với thông báo cam kết git, ';' được tự động thay thế bằng ',' (chỉ bên trong -m/--message)."
   },
@@ -383,9 +395,10 @@
     "param.command.description": "Podkomenda Git do uruchomienia (obowiązują ograniczenia związane z bezpieczeństwem).",
     "tool.description": "Uruchamiaj polecenia Git z ograniczeniami zapewniającymi bezpieczeństwo. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa.",
     "x_search_terms": [
-      "Uruchamiaj polecenia Git z ograniczeniami zapewniającymi bezpieczeństwo. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa",
       "git_ops",
-      "git ops"
+      "git ops",
+      "polecenia git",
+      "bezpieczny git"
     ],
     "tool.system_prompt": "To narzędzie służy do uruchamiania poleceń Git.\n\nWażne: argumenty nie mogą zawierać metaznaków powłoki. Ze względów bezpieczeństwa każdy argument zawierający następujące znaki/sekwencje zostanie odrzucony: && || | > < `\nW przypadku komunikatów zatwierdzeń git: „;” jest automatycznie zastępowany przez ',' (tylko wewnątrz -m/--message)."
   },
@@ -413,9 +426,10 @@
     "param.command.description": "चलाने के लिए Git उपकमांड (सुरक्षा-प्रथम प्रतिबंध लागू)।",
     "tool.description": "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। सुरक्षा के लिए तर्कों में कुछ संचालन या विशेष वर्ण प्रतिबंधित किए जा सकते हैं।",
     "x_search_terms": [
-      "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। सुरक्षा के लिए तर्कों में कुछ संचालन या विशेष वर्ण प्रतिबंधित किए जा सकते हैं।",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git कमांड",
+      "सुरक्षित git"
     ],
     "tool.system_prompt": "इस टूल का उपयोग Git कमांड को चलाने के लिए किया जाता है।\n\nमहत्वपूर्ण: तर्कों में शेल मेटाकैरेक्टर शामिल नहीं होने चाहिए। सुरक्षा के लिए, निम्नलिखित वर्णों/अनुक्रमों वाले किसी भी तर्क को अस्वीकार कर दिया जाएगा: && || | > < `\nगिट प्रतिबद्ध संदेशों के लिए, ';' स्वचालित रूप से ',' से बदल दिया जाता है (केवल -m/--संदेश के अंदर)।"
   },
@@ -443,9 +457,10 @@
     "param.command.description": "أمر Git الفرعي للتشغيل (تنطبق قيود السلامة أولاً).",
     "tool.description": "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب أمنية.",
     "x_search_terms": [
-      "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب أمنية",
       "git_ops",
-      "git ops"
+      "git ops",
+      "أوامر git",
+      "git آمن"
     ],
     "tool.system_prompt": "تُستخدم هذه الأداة لتشغيل أوامر Git.\n\nهام: يجب ألا تتضمن الوسيطات أحرفًا أولية لـ Shell. من أجل السلامة، سيتم رفض أي وسيطة تحتوي على الأحرف/التسلسلات التالية: && || | > <`\nبالنسبة لرسائل الالتزام git، ';' يتم استبداله تلقائيًا بـ \"،\" (فقط داخل -m/--message)."
   },
@@ -473,9 +488,10 @@
     "param.command.description": "Git-underkommando att köra (säkerhetsbegränsningar gäller).",
     "tool.description": "Kör Git-kommandon med säkerhetsfokuserade begränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl.",
     "x_search_terms": [
-      "Kör Git-kommandon med säkerhetsfokuserade begränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git-kommandon",
+      "säker git"
     ],
     "tool.system_prompt": "Det här verktyget används för att köra Git-kommandon.\n\nViktigt: args får inte innehålla shell-metatecken. Av säkerhetsskäl kommer alla argument som innehåller följande tecken/sekvenser att avvisas: && || | > < `\nFör git commit-meddelanden ersätts \";\" automatiskt med \",\" (endast inuti -m/--message).\n"
   },
@@ -503,9 +519,10 @@
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security.",
     "x_search_terms": [
-      "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security",
       "git_ops",
-      "git ops"
+      "git ops",
+      "amri za git",
+      "git salama"
     ],
     "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
   },
@@ -533,9 +550,10 @@
     "param.command.description": "Git-underkommando som skal kjøres (sikkerhetsbegrensninger gjelder).",
     "tool.description": "Kjør Git-kommandoer med sikkerhetsfokuserte begrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset av sikkerhetsgrunner.",
     "x_search_terms": [
-      "Kjør Git-kommandoer med sikkerhetsfokuserte begrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset av sikkerhetsgrunner",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git-kommandoer",
+      "trygg git"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å kjøre Git-kommandoer.\n\nViktig: args må ikke inneholde shell-metategn. Av sikkerhetsgrunner vil argumenter som inneholder følgende tegn/sekvenser bli avvist: && || | > < `\nFor git commit-meldinger erstattes \";\" automatisk med \",\" (kun inne i -m/--message).\n"
   },
@@ -563,9 +581,10 @@
     "param.command.description": "Git-subopdracht om uit te voeren (veiligheidsbeperkingen zijn van toepassing).",
     "tool.description": "Voer Git-opdrachten uit met veiligheidsbeperkingen. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn.",
     "x_search_terms": [
-      "Voer Git-opdrachten uit met veiligheidsbeperkingen. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git opdrachten",
+      "veilige git"
     ],
     "tool.system_prompt": "Deze tool wordt gebruikt om Git-opdrachten uit te voeren.\n\nBelangrijk: args mogen geen shell-metatekens bevatten. Voor de veiligheid wordt elk argument met de volgende tekens/reeksen geweigerd: && || | > < `\nVoor git-commitberichten wordt ';' automatisch vervangen door \",\" (alleen binnen -m/--message).\n"
   },
@@ -593,9 +612,10 @@
     "param.command.description": "Suoritettava Git-alakomento (turvallisuusrajoitukset pätevät).",
     "tool.description": "Suorita Git-komentoja turvallisuusrajoituksin. Jotkin toiminnot tai argumenttien erikoismerkit voivat olla rajoitettuja turvallisuussyistä.",
     "x_search_terms": [
-      "Suorita Git-komentoja turvallisuusrajoituksin. Jotkin toiminnot tai argumenttien erikoismerkit voivat olla rajoitettuja turvallisuussyistä",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git-komennot",
+      "turvallinen git"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään Git-komentojen suorittamiseen.\n\nTärkeää: args ei saa sisältää shellin metamerkkejä. Turvallisuuden vuoksi kaikki argumentit, joissa on seuraavia merkkejä/sekvenssejä, hylätään: && || | > < `\nGit commit -viesteissä ' ; ' korvataan automaattisesti pilkulla ' , ' (vain -m/--message-parametrien sisällä).\n"
   },
@@ -623,9 +643,10 @@
     "param.command.description": "Git podpříkaz, který se má spustit (platí bezpečnostní omezení).",
     "tool.description": "Spouští příkazy Git s omezeními zaměřenými na bezpečnost. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny.",
     "x_search_terms": [
-      "Spouští příkazy Git s omezeními zaměřenými na bezpečnost. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git příkazy",
+      "bezpečný git"
     ],
     "tool.system_prompt": "Tento nástroj slouží ke spouštění příkazů Git.\n\nDůležité: args nesmí obsahovat shellové metaznaky. Z bezpečnostních důvodů budou odmítnuty argumenty obsahující následující znaky/sekvence: && || | > < `\nV commit zprávách git se \";\" automaticky nahrazuje \",\" (pouze uvnitř -m/--message).\n"
   },
@@ -653,9 +674,10 @@
     "param.command.description": "Підкоманда Git для запуску (діють обмеження безпеки).",
     "tool.description": "Виконує команди Git із обмеженнями, орієнтованими на безпеку. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки.",
     "x_search_terms": [
-      "Виконує команди Git із обмеженнями, орієнтованими на безпеку. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git команди",
+      "безпечний git"
     ],
     "tool.system_prompt": "Цей інструмент використовується для виконання команд Git.\n\nВажливо: args не повинен містити метасимволи shell. З міркувань безпеки аргументи, що містять такі послідовності/символи, буде відхилено: && || | > < `\nУ повідомленнях коміту git символ \";\" автоматично замінюється на \",\" (лише всередині -m/--message).\n"
   },
@@ -683,9 +705,10 @@
     "param.command.description": "Çalıştırılacak Git alt komutu (önce güvenlik kısıtlamaları geçerlidir).",
     "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir.",
     "x_search_terms": [
-      "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git komutları",
+      "güvenli git"
     ],
     "tool.system_prompt": "Bu araç Git komutlarını çalıştırmak için kullanılır.\n\nÖnemli: args kabuk metakarakterlerini içermemelidir. Güvenlik nedeniyle, aşağıdaki karakterleri/dizileri içeren herhangi bir bağımsız değişken reddedilecektir: && || | > < `\nGit taahhüt mesajları için ';' otomatik olarak ',' ile değiştirilir (yalnızca -m/--message içinde)."
   },
@@ -713,9 +736,10 @@
     "param.command.description": "คำสั่งย่อยของ Git ที่จะรัน (มีข้อจำกัดด้านความปลอดภัย)",
     "tool.description": "เรียกใช้คำสั่ง Git ด้วยข้อจำกัดที่ให้ความปลอดภัยเป็นอันดับแรก บางการทำงานหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย",
     "x_search_terms": [
-      "เรียกใช้คำสั่ง Git ด้วยข้อจำกัดที่ให้ความปลอดภัยเป็นอันดับแรก บางการทำงานหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย",
       "git_ops",
-      "git ops"
+      "git ops",
+      "คำสั่ง git",
+      "git ปลอดภัย"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเรียกใช้คำสั่ง Git\n\nสำคัญ: args ต้องไม่มีเมตาอักขระของ shell เพื่อความปลอดภัย อาร์กิวเมนต์ที่มีลำดับ/อักขระต่อไปนี้จะถูกปฏิเสธ: && || | > < `\nในข้อความ commit ของ git เครื่องหมาย \";\" จะถูกแทนที่ด้วย \",\" อัตโนมัติ (เฉพาะภายใน -m/--message)\n"
   },
@@ -743,9 +767,10 @@
     "param.command.description": "要运行的 Git 子命令（适用安全第一限制）。",
     "tool.description": "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能会受到限制。",
     "x_search_terms": [
-      "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能会受到限制",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git 命令",
+      "安全 git"
     ],
     "tool.system_prompt": "该工具用于运行 Git 命令。\n\n重要提示：args 不得包含 shell 元字符。为了安全起见，任何包含以下字符/序列的参数都将被拒绝：&& || | > < `\ngit 提交消息中的 ';' 会自动替换为 ','（仅在 -m/--message 内）。\n"
   },
@@ -773,9 +798,10 @@
     "param.command.description": "要執行的 Git 子命令（適用安全第一限制）。",
     "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能會受到限制。",
     "x_search_terms": [
-      "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能會受到限制",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git 命令",
+      "安全 git"
     ],
     "tool.system_prompt": "此工具用於執行 Git 指令。\n\n重要提示：args 不得包含 shell 元字元。為了安全起見，任何包含以下字元/序列的參數都將被拒絕：&& || | > < `\ngit 提交訊息中的 ';' 會自動替換為 ','（僅在 -m/--message 內）。\n"
   },
@@ -803,9 +829,10 @@
     "param.command.description": "চালানোর Git subcommand (নিরাপত্তা-প্রথম সীমাবদ্ধতা প্রযোজ্য)।",
     "tool.description": "নিরাপত্তা-প্রথম সীমাবদ্ধতা দিয়ে Git command চালান। নিরাপত্তার কারণে কিছু operation বা arg-এর special character সীমাবদ্ধ হতে পারে।",
     "x_search_terms": [
-      "নিরাপত্তা-প্রথম সীমাবদ্ধতা দিয়ে Git command চালান। নিরাপত্তার কারণে কিছু operation বা arg-এর special character সীমাবদ্ধ হতে পারে",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git কমান্ড",
+      "নিরাপদ git"
     ],
     "tool.system_prompt": "এই টুলটি Git command চালাতে ব্যবহৃত হয়।\n\nগুরুত্বপূর্ণ: args-এ shell metacharacter থাকা চলবে না। নিরাপত্তার জন্য নিম্নলিখিত character/sequence থাকা arg প্রত্যাখ্যান করা হবে: && || | > < `\ngit commit message-এ ';' স্বয়ংক্রিয়ভাবে ','-এ বদলে দেওয়া হয় (শুধু -m/--message-এর ভিতরে)।\n"
   },
@@ -833,9 +860,10 @@
     "param.command.description": "زیر‌فرمان Git برای اجرا (محدودیت‌های اول‌امنیت اعمال می‌شود).",
     "tool.description": "فرمان‌های Git را با محدودیت‌های اول‌امنیت اجرا کنید. برخی عملیات یا نویسه‌های ویژه در آرگومان‌ها ممکن است برای امنیت محدود شوند.",
     "x_search_terms": [
-      "فرمان‌های Git را با محدودیت‌های اول‌امنیت اجرا کنید. برخی عملیات یا نویسه‌های ویژه در آرگومان‌ها ممکن است برای امنیت محدود شوند",
       "git_ops",
-      "git ops"
+      "git ops",
+      "دستورهای git",
+      "git امن"
     ],
     "tool.system_prompt": "این ابزار برای اجرای فرمان‌های Git استفاده می‌شود.\n\nمهم: args نباید metacharacterهای shell را شامل شود. برای امنیت، هر آرگومانی که شامل این نویسه‌ها/دنباله‌ها باشد رد می‌شود: && || | > < `\nبرای پیام‌های commit در git، ';' به‌طور خودکار با ',' جایگزین می‌شود (فقط داخل -m/--message).\n"
   },
@@ -863,9 +891,10 @@
     "param.command.description": "Ажиллуулах Git subcommand (аюулгүй байдлын хязгаарлалт үйлчилнэ).",
     "tool.description": "Аюулгүй байдлын нэгдүгээрт хязгаарлалттай Git command ажиллуулна. Зарим ажиллагаа эсвэл аргумент дахь тусгай тэмдэг аюулгүй байдлын үүднээс хязгаарлагдаж болно.",
     "x_search_terms": [
-      "Аюулгүй байдлын нэгдүгээрт хязгаарлалттай Git command ажиллуулна. Зарим ажиллагаа эсвэл аргумент дахь тусгай тэмдэг аюулгүй байдлын үүднээс хязгаарлагдаж болно",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git тушаалууд",
+      "аюулгүй git"
     ],
     "tool.system_prompt": "Энэ хэрэгслийг Git command ажиллуулахад ашиглана.\n\nЧухал: args-д shell metacharacter оруулах ёсгүй. Аюулгүй байдлын үүднээс дараах тэмдэг/дараалал агуулсан аргументыг татгалзана: && || | > < `\ngit commit message доторх ';' нь автоматаар ','-ээр солигдоно (-m/--message дотор л).\n"
   },
@@ -893,9 +922,10 @@
     "param.command.description": "चालवायचा Git subcommand (सुरक्षा-प्रथम निर्बंध लागू होतात).",
     "tool.description": "सुरक्षा-प्रथम निर्बंधांसह Git commands चालवा. सुरक्षिततेसाठी arguments मधील काही operations किंवा special characters मर्यादित केले जाऊ शकतात.",
     "x_search_terms": [
-      "सुरक्षा-प्रथम निर्बंधांसह Git commands चालवा. सुरक्षिततेसाठी arguments मधील काही operations किंवा special characters मर्यादित केले जाऊ शकतात",
       "git_ops",
-      "git ops"
+      "git ops",
+      "git आज्ञा",
+      "सुरक्षित git"
     ],
     "tool.system_prompt": "हे साधन Git commands चालवण्यासाठी वापरले जाते.\n\nमहत्त्वाचे: args मध्ये shell metacharacters नसावेत. सुरक्षिततेसाठी खालील characters/sequences असलेले arguments नाकारले जातील: && || | > < `\ngit commit messages मध्ये ';' आपोआप ',' ने बदलले जाते (फक्त -m/--message च्या आत).\n"
   }

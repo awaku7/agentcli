@@ -16,9 +16,10 @@
     "param.wait_s.description": "How long to wait for replies after sending (seconds).",
     "tool.description": "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending.",
     "x_search_terms": [
-      "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending",
       "discord_channel",
-      "discord channel"
+      "discord channel",
+      "discord bot",
+      "channel chat"
     ],
     "tool.system_prompt": "Use this tool to talk to a Discord channel via REST API. A bot token must be provided through an environment variable. Return JSON only."
   },
@@ -39,9 +40,10 @@
     "param.wait_s.description": "送信後、返信を待機する時間（秒）。",
     "tool.description": "ボットトークンを使用して特定のDiscordチャンネルと対話します。メッセージの送信、最近のメッセージの読み取り、および送信後の返信待機が可能です。",
     "x_search_terms": [
-      "ボットトークンを使用して特定のDiscordチャンネルと対話します。メッセージの送信、最近のメッセージの読み取り、および送信後の返信待機が可能です",
       "discord_channel",
-      "discord channel"
+      "discord チャンネル",
+      "チャンネル対話",
+      "bot メッセージ"
     ],
     "tool.system_prompt": "REST APIを介してDiscordチャンネルと通信するためにこのツールを使用します。環境変数を通じてボットトークンを提供する必要があります。JSONのみを返します。"
   },
@@ -62,9 +64,10 @@
     "param.wait_s.description": "Tiempo de espera para respuestas después del envío (segundos).",
     "tool.description": "Interactúe con un canal específico de Discord usando un token de bot: envíe mensajes, lea mensajes recientes y, opcionalmente, espere respuestas después de enviarlos.",
     "x_search_terms": [
-      "Interactúe con un canal específico de Discord usando un token de bot: envíe mensajes, lea mensajes recientes y, opcionalmente, espere respuestas después de enviarlos",
       "discord_channel",
-      "discord channel"
+      "canal discord",
+      "bot discord",
+      "chat canal"
     ],
     "tool.system_prompt": "Utilice esta herramienta para hablar con un canal de Discord a través de la API REST. Se debe proporcionar un token de bot mediante una variable de entorno. Devuelve solo JSON."
   },
@@ -85,9 +88,10 @@
     "param.wait_s.description": "Durée d'attente des réponses après l'envoi (secondes).",
     "tool.description": "Interagissez avec un salon Discord spécifique à l'aide d'un jeton de bot : envoyez des messages, lisez les messages récents et attendez éventuellement des réponses après l'envoi.",
     "x_search_terms": [
-      "Interagissez avec un salon Discord spécifique à l'aide d'un jeton de bot : envoyez des messages, lisez les messages récents et attendez éventuellement des réponses après l'envoi",
       "discord_channel",
-      "discord channel"
+      "canal discord",
+      "bot discord",
+      "chat canal"
     ],
     "tool.system_prompt": "Utilisez cet outil pour parler à un salon Discord via l'API REST. Un jeton de bot doit être fourni via une variable d'environnement. Renvoie uniquement du JSON."
   },
@@ -108,9 +112,10 @@
     "param.wait_s.description": "전송 후 답장을 기다리는 시간(초)입니다.",
     "tool.description": "봇 토큰을 사용해 특정 Discord 채널과 상호작용합니다. 메시지를 보내고, 최근 메시지를 읽고, 필요하면 전송 후 답장을 기다릴 수 있습니다.",
     "x_search_terms": [
-      "봇 토큰을 사용해 특정 Discord 채널과 상호작용합니다. 메시지를 보내고, 최근 메시지를 읽고, 필요하면 전송 후 답장을 기다릴 수 있습니다",
       "discord_channel",
-      "discord channel"
+      "디스코드 채널",
+      "채널 대화",
+      "봇 메시지"
     ],
     "tool.system_prompt": "REST API를 통해 Discord 채널과 통신하려면 이 도구를 사용하십시오. 환경 변수를 통해 봇 토큰을 제공해야 합니다. JSON만 반환합니다."
   },
@@ -131,9 +136,10 @@
     "param.wait_s.description": "Wie lange nach dem Senden auf Antworten gewartet werden soll (Sekunden).",
     "tool.description": "Mit einem Bot-Token mit einem bestimmten Discord-Channel interagieren: Nachrichten senden, letzte Nachrichten lesen und optional nach dem Senden auf Antworten warten.",
     "x_search_terms": [
-      "Mit einem Bot-Token mit einem bestimmten Discord-Channel interagieren: Nachrichten senden, letzte Nachrichten lesen und optional nach dem Senden auf Antworten warten",
       "discord_channel",
-      "discord channel"
+      "discord channel",
+      "discord bot",
+      "kanal chat"
     ],
     "tool.system_prompt": "Verwenden Sie dieses Tool, um über die REST-API mit einem Discord-Channel zu kommunizieren. Ein Bot-Token muss über eine Umgebungsvariable bereitgestellt werden. Geben Sie nur JSON zurück."
   },
@@ -154,9 +160,10 @@
     "param.wait_s.description": "Tempo di attesa per le risposte dopo l'invio (secondi).",
     "tool.description": "Interagisce con un canale Discord specifico usando un token bot: invia messaggi, legge i messaggi recenti e, facoltativamente, attende le risposte dopo l'invio.",
     "x_search_terms": [
-      "Interagisce con un canale Discord specifico usando un token bot: invia messaggi, legge i messaggi recenti e, facoltativamente, attende le risposte dopo l'invio",
       "discord_channel",
-      "discord channel"
+      "canale discord",
+      "bot discord",
+      "chat canale"
     ],
     "tool.system_prompt": "Usa questo strumento per parlare con un canale Discord tramite API REST. Un token bot deve essere fornito tramite una variabile di ambiente. Restituisce solo JSON."
   },
@@ -177,9 +184,10 @@
     "param.wait_s.description": "Сколько времени ждать ответов после отправки (в секундах).",
     "tool.description": "Взаимодействуйте с конкретным каналом Discord, используя токен бота: отправляйте сообщения, читайте последние сообщения и, при необходимости, ждите ответов после отправки.",
     "x_search_terms": [
-      "Взаимодействуйте с конкретным каналом Discord, используя токен бота: отправляйте сообщения, читайте последние сообщения и, при необходимости, ждите ответов после отправки",
       "discord_channel",
-      "discord channel"
+      "канал discord",
+      "бот discord",
+      "чат канала"
     ],
     "tool.system_prompt": "Используйте этот инструмент для общения с каналом Discord через REST API. Токен бота должен быть предоставлен через переменную окружения. Возвращайте только JSON."
   },
@@ -200,9 +208,10 @@
     "param.wait_s.description": "Tempo de espera por respostas após o envio (segundos).",
     "tool.description": "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio.",
     "x_search_terms": [
-      "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio",
       "discord_channel",
-      "discord channel"
+      "canal discord",
+      "bot discord",
+      "chat do canal"
     ],
     "tool.system_prompt": "Use esta ferramenta para falar com um canal do Discord via API REST. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
   },
@@ -223,9 +232,10 @@
     "param.wait_s.description": "Quanto tempo esperar pelas respostas após o envio (segundos).",
     "tool.description": "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio.",
     "x_search_terms": [
-      "Interaja com um canal específico do Discord usando um token de bot: envie mensagens, leia mensagens recentes e, opcionalmente, aguarde respostas após o envio",
       "discord_channel",
-      "discord channel"
+      "canal discord",
+      "bot discord",
+      "chat do canal"
     ],
     "tool.system_prompt": "Use esta ferramenta para conversar com um canal Discord via REST API. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
   },
@@ -246,9 +256,10 @@
     "param.wait_s.description": "Lama menunggu balasan setelah mengirim (detik).",
     "tool.description": "Berinteraksi dengan channel Discord tertentu menggunakan token bot: mengirim pesan, membaca pesan terbaru, dan opsional menunggu balasan setelah mengirim.",
     "x_search_terms": [
-      "Berinteraksi dengan channel Discord tertentu menggunakan token bot: mengirim pesan, membaca pesan terbaru, dan opsional menunggu balasan setelah mengirim",
       "discord_channel",
-      "discord channel"
+      "saluran discord",
+      "bot discord",
+      "obrolan saluran"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk berbicara ke channel Discord via REST API. Token bot harus disediakan melalui variabel lingkungan. Kembalikan JSON saja."
   },
@@ -269,9 +280,10 @@
     "param.wait_s.description": "Thời gian chờ phản hồi sau khi gửi (giây).",
     "tool.description": "Làm việc với một kênh Discord cụ thể bằng token bot: gửi tin nhắn, đọc tin nhắn gần đây và tùy chọn chờ phản hồi sau khi gửi.",
     "x_search_terms": [
-      "Làm việc với một kênh Discord cụ thể bằng token bot: gửi tin nhắn, đọc tin nhắn gần đây và tùy chọn chờ phản hồi sau khi gửi",
       "discord_channel",
-      "discord channel"
+      "kênh discord",
+      "bot discord",
+      "trò chuyện kênh"
     ],
     "tool.system_prompt": "Dùng công cụ này để giao tiếp với kênh Discord qua REST API. Token bot phải được cung cấp qua biến môi trường. Chỉ trả về JSON."
   },
@@ -292,9 +304,10 @@
     "param.wait_s.description": "Jak długo czekać na odpowiedzi po wysłaniu (sekundy).",
     "tool.description": "Obsługuje wskazany kanał Discord za pomocą tokena bota: wysyła wiadomości, odczytuje ostatnie wiadomości i opcjonalnie czeka na odpowiedzi po wysłaniu.",
     "x_search_terms": [
-      "Obsługuje wskazany kanał Discord za pomocą tokena bota: wysyła wiadomości, odczytuje ostatnie wiadomości i opcjonalnie czeka na odpowiedzi po wysłaniu",
       "discord_channel",
-      "discord channel"
+      "kanał discord",
+      "bot discord",
+      "czat kanału"
     ],
     "tool.system_prompt": "Użyj tego narzędzia do komunikacji z kanałem Discord przez REST API. Token bota musi być podany przez zmienną środowiskową. Zwracaj wyłącznie JSON."
   },
@@ -315,9 +328,10 @@
     "param.wait_s.description": "भेजने के बाद उत्तरों की प्रतीक्षा कितनी देर तक करनी है (सेकंड)।",
     "tool.description": "bot token का उपयोग करके किसी विशिष्ट Discord चैनल के साथ बातचीत करें: संदेश भेजें, हाल के संदेश पढ़ें, और चाहें तो भेजने के बाद उत्तरों की प्रतीक्षा करें।",
     "x_search_terms": [
-      "bot token का उपयोग करके किसी विशिष्ट Discord चैनल के साथ बातचीत करें: संदेश भेजें, हाल के संदेश पढ़ें, और चाहें तो भेजने के बाद उत्तरों की प्रतीक्षा करें।",
       "discord_channel",
-      "discord channel"
+      "डिस्कॉर्ड चैनल",
+      "बॉट संदेश",
+      "चैनल चैट"
     ],
     "tool.system_prompt": "REST API के माध्यम से Discord चैनल से बात करने के लिए इस टूल का उपयोग करें। bot token environment variable के माध्यम से दिया जाना चाहिए। केवल JSON लौटाएँ।"
   },
@@ -338,9 +352,10 @@
     "param.wait_s.description": "مدة انتظار الردود بعد الإرسال (بالثواني).",
     "tool.description": "تفاعل مع قناة Discord محددة باستخدام رمز bot: أرسل الرسائل، واقرأ الرسائل الأخيرة، وانتظر الردود اختياريًا بعد الإرسال.",
     "x_search_terms": [
-      "تفاعل مع قناة Discord محددة باستخدام رمز bot: أرسل الرسائل، واقرأ الرسائل الأخيرة، وانتظر الردود اختياريًا بعد الإرسال",
       "discord_channel",
-      "discord channel"
+      "قناة discord",
+      "بوت discord",
+      "دردشة القناة"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للتواصل مع قناة Discord عبر REST API. يجب توفير رمز bot عبر متغير بيئة. أعد JSON فقط."
   },
@@ -361,9 +376,10 @@
     "param.wait_s.description": "Hur länge svar ska väntas efter att meddelandet skickats (sekunder).",
     "tool.description": "Interagera med en specifik Discord-kanal med en bottoken: skicka meddelanden, läsa senaste meddelanden och valfritt vänta på svar efter sändning.",
     "x_search_terms": [
-      "Interagera med en specifik Discord-kanal med en bottoken: skicka meddelanden, läsa senaste meddelanden och valfritt vänta på svar efter sändning",
       "discord_channel",
-      "discord channel"
+      "discord-kanal",
+      "discord bot",
+      "kanalchatt"
     ],
     "tool.system_prompt": "Använd det här verktyget för att prata med en Discord-kanal via REST API. En bottoken måste anges via en miljövariabel. Returnera endast JSON."
   },
@@ -384,9 +400,10 @@
     "param.wait_s.description": "Muda wa kusubiri majibu baada ya kutuma (sekunde).",
     "tool.description": "Wasiliana na chaneli mahususi ya Discord kwa kutumia tokeni ya bot: tuma ujumbe, soma ujumbe wa hivi karibuni, na kwa hiari subiri majibu baada ya kutuma.",
     "x_search_terms": [
-      "Wasiliana na chaneli mahususi ya Discord kwa kutumia tokeni ya bot: tuma ujumbe, soma ujumbe wa hivi karibuni, na kwa hiari subiri majibu baada ya kutuma",
       "discord_channel",
-      "discord channel"
+      "kituo cha discord",
+      "bot discord",
+      "mazungumzo ya kituo"
     ],
     "tool.system_prompt": "Tumia zana hii kuwasiliana na chaneli ya Discord kupitia REST API. Tokeni ya bot lazima itolewe kupitia kigezo cha mazingira. Rudisha JSON pekee."
   },
@@ -407,9 +424,10 @@
     "param.wait_s.description": "Hvor lenge det skal ventes på svar etter sending (sekunder).",
     "tool.description": "Samhandle med en bestemt Discord-kanal ved hjelp av en bottoken: send meldinger, les nylige meldinger og vent eventuelt på svar etter sending.",
     "x_search_terms": [
-      "Samhandle med en bestemt Discord-kanal ved hjelp av en bottoken: send meldinger, les nylige meldinger og vent eventuelt på svar etter sending",
       "discord_channel",
-      "discord channel"
+      "discord-kanal",
+      "discord bot",
+      "kanalchat"
     ],
     "tool.system_prompt": "Bruk dette verktøyet til å snakke med en Discord-kanal via REST API. En bottoken må oppgis via en miljøvariabel. Returner bare JSON."
   },
@@ -430,9 +448,10 @@
     "param.wait_s.description": "Hoe lang er na het verzenden op reacties moet worden gewacht (seconden).",
     "tool.description": "Werk met een specifiek Discord-kanaal via een bottoken: berichten verzenden, recente berichten lezen en desgewenst na het verzenden op reacties wachten.",
     "x_search_terms": [
-      "Werk met een specifiek Discord-kanaal via een bottoken: berichten verzenden, recente berichten lezen en desgewenst na het verzenden op reacties wachten",
       "discord_channel",
-      "discord channel"
+      "discord-kanaal",
+      "discord bot",
+      "kanaalchat"
     ],
     "tool.system_prompt": "Gebruik dit hulpmiddel om via de REST-API met een Discord-kanaal te communiceren. Een bottoken moet via een omgevingsvariabele worden opgegeven. Geef alleen JSON terug."
   },
@@ -453,9 +472,10 @@
     "param.wait_s.description": "Kuinka kauan lähetämisen jälkeen odotetaan vastauksia (sekunteina).",
     "tool.description": "Keskustele tietyn Discord-kanavan kanssa bottitunnuksen avulla: lähetä viestejä, lue uusimmat viestit ja halutessasi odota vastauksia lähettämisen jälkeen.",
     "x_search_terms": [
-      "Keskustele tietyn Discord-kanavan kanssa bottitunnuksen avulla: lähetä viestejä, lue uusimmat viestit ja halutessasi odota vastauksia lähettämisen jälkeen",
       "discord_channel",
-      "discord channel"
+      "discord-kanava",
+      "discord botti",
+      "kanavakeskustelu"
     ],
     "tool.system_prompt": "Käytä tätä työkalua Discord-kanavan kanssa keskusteluun REST-rajapinnan kautta. Bottitunnus on annettava ympäristömuuttujan kautta. Palauta vain JSON."
   },
@@ -476,9 +496,10 @@
     "param.wait_s.description": "Jak dlouho po odeslání čekat na odpovědi (v sekundách).",
     "tool.description": "Pracuje s konkrétním Discord kanálem pomocí bot tokenu: odesílá zprávy, čte nedávné zprávy a volitelně čeká na odpovědi po odeslání.",
     "x_search_terms": [
-      "Pracuje s konkrétním Discord kanálem pomocí bot tokenu: odesílá zprávy, čte nedávné zprávy a volitelně čeká na odpovědi po odeslání",
       "discord_channel",
-      "discord channel"
+      "kanál discord",
+      "bot discord",
+      "chat kanálu"
     ],
     "tool.system_prompt": "Použijte tento nástroj ke komunikaci s Discord kanálem přes REST API. Bot token musí být poskytnut přes proměnnou prostředí. Vracejte pouze JSON."
   },
@@ -499,9 +520,10 @@
     "param.wait_s.description": "Скільки часу чекати на відповіді після надсилання (у секундах).",
     "tool.description": "Працює з окремим каналом Discord за допомогою токена бота: надсилає повідомлення, читає нещодавні повідомлення та за потреби чекає на відповіді після надсилання.",
     "x_search_terms": [
-      "Працює з окремим каналом Discord за допомогою токена бота: надсилає повідомлення, читає нещодавні повідомлення та за потреби чекає на відповіді після надсилання",
       "discord_channel",
-      "discord channel"
+      "канал discord",
+      "бот discord",
+      "чат каналу"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для взаємодії з каналом Discord через REST API. Токен бота потрібно надати через змінну середовища. Повертайте лише JSON."
   },
@@ -522,9 +544,10 @@
     "param.wait_s.description": "Gönderdikten sonra yanıtların ne kadar süre bekleneceği (saniye).",
     "tool.description": "Bir bot belirteci kullanarak belirli bir Discord kanalıyla etkileşim kurun: mesaj gönderin, son mesajları okuyun ve isteğe bağlı olarak gönderdikten sonra yanıtları bekleyin.",
     "x_search_terms": [
-      "Bir bot belirteci kullanarak belirli bir Discord kanalıyla etkileşim kurun: mesaj gönderin, son mesajları okuyun ve isteğe bağlı olarak gönderdikten sonra yanıtları bekleyin",
       "discord_channel",
-      "discord channel"
+      "discord kanalı",
+      "discord bot",
+      "kanal sohbeti"
     ],
     "tool.system_prompt": "REST API aracılığıyla bir Discord kanalıyla konuşmak için bu aracı kullanın. Bir ortam değişkeni aracılığıyla bir bot belirteci sağlanmalıdır. Yalnızca JSON değerini döndür."
   },
@@ -545,9 +568,10 @@
     "param.wait_s.description": "ระยะเวลารอการตอบกลับหลังจากส่ง (วินาที)",
     "tool.description": "โต้ตอบกับช่อง Discord เฉพาะโดยใช้โทเค็นบอท: ส่งข้อความ อ่านข้อความล่าสุด และเลือกที่จะรอการตอบกลับหลังจากส่ง",
     "x_search_terms": [
-      "โต้ตอบกับช่อง Discord เฉพาะโดยใช้โทเค็นบอท: ส่งข้อความ อ่านข้อความล่าสุด และเลือกที่จะรอการตอบกลับหลังจากส่ง",
       "discord_channel",
-      "discord channel"
+      "ช่อง discord",
+      "บอท discord",
+      "แชทช่อง"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อคุยกับช่อง Discord ผ่าน REST API ต้องระบุโทเค็นบอทผ่านตัวแปรสภาพแวดล้อม ส่งคืน JSON เท่านั้น"
   },
@@ -568,9 +592,10 @@
     "param.wait_s.description": "发送后等待回复的时间（秒）。",
     "tool.description": "使用机器人令牌与特定的 Discord 频道进行交互：发送消息、读取最新消息，并可选择在发送后等待回复。",
     "x_search_terms": [
-      "使用机器人令牌与特定的 Discord 频道进行交互：发送消息、读取最新消息，并可选择在发送后等待回复",
       "discord_channel",
-      "discord channel"
+      "discord 频道",
+      "频道聊天",
+      "bot 消息"
     ],
     "tool.system_prompt": "使用此工具通过 REST API 与 Discord 频道通信。必须通过环境变量提供机器人令牌。仅返回 JSON。"
   },
@@ -591,9 +616,10 @@
     "param.wait_s.description": "傳送後等待回覆的時間（秒）。",
     "tool.description": "使用機器人權杖與特定的 Discord 頻道互動：傳送訊息、讀取最新訊息，並可選擇在傳送後等待回覆。",
     "x_search_terms": [
-      "使用機器人權杖與特定的 Discord 頻道互動：傳送訊息、讀取最新訊息，並可選擇在傳送後等待回覆",
       "discord_channel",
-      "discord channel"
+      "discord 頻道",
+      "頻道聊天",
+      "bot 訊息"
     ],
     "tool.system_prompt": "使用此工具透過 REST API 與 Discord 頻道通訊。必須透過環境變數提供機器人權杖。僅傳回 JSON。"
   },
@@ -614,9 +640,10 @@
     "param.wait_s.description": "পাঠানোর পরে উত্তর পাওয়ার জন্য কতক্ষণ অপেক্ষা করবেন (সেকেন্ড)।",
     "tool.description": "বট টোকেন ব্যবহার করে নির্দিষ্ট Discord চ্যানেলের সঙ্গে কাজ করুন: বার্তা পাঠান, সাম্প্রতিক বার্তা পড়ুন, এবং প্রয়োজন হলে পাঠানোর পর উত্তরের জন্য অপেক্ষা করুন।",
     "x_search_terms": [
-      "বট টোকেন ব্যবহার করে নির্দিষ্ট Discord চ্যানেলের সঙ্গে কাজ করুন: বার্তা পাঠান, সাম্প্রতিক বার্তা পড়ুন, এবং প্রয়োজন হলে পাঠানোর পর উত্তরের জন্য অপেক্ষা করুন",
       "discord_channel",
-      "discord channel"
+      "ডিসকর্ড চ্যানেল",
+      "বট বার্তা",
+      "চ্যানেল চ্যাট"
     ],
     "tool.system_prompt": "REST API-এর মাধ্যমে Discord চ্যানেলের সাথে কথা বলতে এই টুল ব্যবহার করুন। পরিবেশ চলকের মাধ্যমে বট টোকেন দিতে হবে। শুধু JSON ফেরত দিন।"
   },
@@ -637,9 +664,10 @@
     "param.wait_s.description": "پس از ارسال، چه مدت برای پاسخ‌ها منتظر بمانیم (ثانیه).",
     "tool.description": "با یک توکن بات با یک کانال مشخص Discord تعامل کنید: پیام بفرستید، پیام‌های اخیر را بخوانید و در صورت نیاز پس از ارسال منتظر پاسخ بمانید.",
     "x_search_terms": [
-      "با یک توکن بات با یک کانال مشخص Discord تعامل کنید: پیام بفرستید، پیام‌های اخیر را بخوانید و در صورت نیاز پس از ارسال منتظر پاسخ بمانید",
       "discord_channel",
-      "discord channel"
+      "کانال discord",
+      "ربات discord",
+      "گفتگوی کانال"
     ],
     "tool.system_prompt": "از این ابزار برای گفت‌وگو با یک کانال Discord از طریق REST API استفاده کنید. توکن بات باید از طریق یک متغیر محیطی ارائه شود. فقط JSON برگردانید."
   },
@@ -660,9 +688,10 @@
     "param.wait_s.description": "Илгээсний дараа хариуг хүлээх хугацаа (секунд).",
     "tool.description": "Бот токен ашиглан тодорхой Discord сувагтай харилцана: мессеж илгээх, сүүлийн мессежүүдийг унших, шаардлагатай бол илгээсний дараа хариу хүлээх.",
     "x_search_terms": [
-      "Бот токен ашиглан тодорхой Discord сувагтай харилцана: мессеж илгээх, сүүлийн мессежүүдийг унших, шаардлагатай бол илгээсний дараа хариу хүлээх",
       "discord_channel",
-      "discord channel"
+      "discord суваг",
+      "discord бот",
+      "суваг чат"
     ],
     "tool.system_prompt": "REST API-аар Discord сувгийн kanssa харилцахад энэ хэрэгслийг ашигла. Орчны хувьсагчаар бот токен өгөх шаардлагатай. Зөвхөн JSON буцаа."
   },
@@ -683,9 +712,10 @@
     "param.wait_s.description": "पाठवल्यानंतर उत्तरांसाठी किती वेळ थांबायचे (सेकंद).",
     "tool.description": "बॉट टोकन वापरून विशिष्ट Discord चॅनेलशी संवाद साधा: संदेश पाठवा, अलीकडील संदेश वाचा, आणि गरज असल्यास पाठवल्यानंतर उत्तरांसाठी थांबा.",
     "x_search_terms": [
-      "बॉट टोकन वापरून विशिष्ट Discord चॅनेलशी संवाद साधा: संदेश पाठवा, अलीकडील संदेश वाचा, आणि गरज असल्यास पाठवल्यानंतर उत्तरांसाठी थांबा",
       "discord_channel",
-      "discord channel"
+      "डिस्कॉर्ड चॅनेल",
+      "बॉट संदेश",
+      "चॅनेल चॅट"
     ],
     "tool.system_prompt": "REST API द्वारे Discord चॅनेलशी बोलण्यासाठी हे साधन वापरा. environment variable द्वारे बॉट टोकन द्या. फक्त JSON परत करा."
   }

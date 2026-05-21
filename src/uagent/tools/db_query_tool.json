@@ -4,9 +4,10 @@
     "param.sql.description": "SQL to execute.",
     "tool.description": "Execute SQL queries against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported.",
     "x_search_terms": [
-      "Execute SQL queries against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite query",
+      "pragma"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
   },
@@ -15,9 +16,10 @@
     "param.sql.description": "実行する SQL。",
     "tool.description": "SQLite データベースに対して SQL クエリを実行し、結果を返します。読み取り専用の操作（SELECT）とスキーマ確認（PRAGMA）のみ対応します。",
     "x_search_terms": [
-      "SQLite データベースに対して SQL クエリを実行し、結果を返します。読み取り専用の操作（SELECT）とスキーマ確認（PRAGMA）のみ対応します",
       "db_query",
-      "db query"
+      "db query",
+      "SQLite クエリ",
+      "PRAGMA"
     ],
     "tool.system_prompt": "このツールは、ツール名 'db_query' で示される処理を実行します。"
   },
@@ -26,9 +28,10 @@
     "param.sql.description": "SQL a ejecutar.",
     "tool.description": "Ejecuta una consulta SQL en una base de datos SQLite y devuelve el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección del esquema (PRAGMA).",
     "x_search_terms": [
-      "Ejecuta una consulta SQL en una base de datos SQLite y devuelve el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección del esquema (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "consulta sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'db_query'."
   },
@@ -37,9 +40,10 @@
     "param.sql.description": "SQL à exécuter.",
     "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat. Seules les opérations en lecture seule (SELECT) et l'inspection du schéma (PRAGMA) sont prises en charge.",
     "x_search_terms": [
-      "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat. Seules les opérations en lecture seule (SELECT) et l'inspection du schéma (PRAGMA) sont prises en charge",
       "db_query",
-      "db query"
+      "db query",
+      "requête sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « db_query »."
   },
@@ -48,9 +52,10 @@
     "param.sql.description": "실행할 SQL입니다.",
     "tool.description": "SQLite 데이터베이스에 SQL 쿼리를 실행하고 결과를 반환합니다. 읽기 전용 작업(SELECT)과 스키마 검사(PRAGMA)만 지원합니다.",
     "x_search_terms": [
-      "SQLite 데이터베이스에 SQL 쿼리를 실행하고 결과를 반환합니다. 읽기 전용 작업(SELECT)과 스키마 검사(PRAGMA)만 지원합니다",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite 쿼리",
+      "pragma"
     ],
     "tool.system_prompt": "이 도구는 도구 이름 'db_query'에 설명된 작업을 수행합니다."
   },
@@ -59,9 +64,10 @@
     "param.sql.description": "Auszuführendes SQL.",
     "tool.description": "Führt eine SQL-Abfrage für eine SQLite-Datenbank aus und gibt das Ergebnis zurück. Unterstützt werden nur schreibgeschützte Vorgänge (SELECT) und die Schemaprüfung (PRAGMA).",
     "x_search_terms": [
-      "Führt eine SQL-Abfrage für eine SQLite-Datenbank aus und gibt das Ergebnis zurück. Unterstützt werden nur schreibgeschützte Vorgänge (SELECT) und die Schemaprüfung (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite-abfrage",
+      "pragma"
     ],
     "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „db_query“ beschriebenen Vorgang aus."
   },
@@ -70,9 +76,10 @@
     "param.sql.description": "SQL da eseguire.",
     "tool.description": "Esegue una query SQL su un database SQLite e restituisce il risultato. Sono supportate solo le operazioni di sola lettura (SELECT) e l'ispezione dello schema (PRAGMA).",
     "x_search_terms": [
-      "Esegue una query SQL su un database SQLite e restituisce il risultato. Sono supportate solo le operazioni di sola lettura (SELECT) e l'ispezione dello schema (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "query sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'db_query'."
   },
@@ -81,9 +88,10 @@
     "param.sql.description": "SQL-запрос для выполнения.",
     "tool.description": "Выполняет SQL-запрос к базе данных SQLite и возвращает результат. Поддерживаются только операции только для чтения (SELECT) и проверка схемы (PRAGMA).",
     "x_search_terms": [
-      "Выполняет SQL-запрос к базе данных SQLite и возвращает результат. Поддерживаются только операции только для чтения (SELECT) и проверка схемы (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite запрос",
+      "pragma"
     ],
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «db_query»."
   },
@@ -92,9 +100,10 @@
     "param.sql.description": "SQL a ser executado.",
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
-      "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas",
       "db_query",
-      "db query"
+      "db query",
+      "consulta sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   },
@@ -103,9 +112,10 @@
     "param.sql.description": "SQL para executar.",
     "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
-      "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas",
       "db_query",
-      "db query"
+      "db query",
+      "consulta sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   },
@@ -114,9 +124,10 @@
     "param.sql.description": "SQL yang akan dieksekusi.",
     "tool.description": "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung.",
     "x_search_terms": [
-      "Jalankan kueri SQL terhadap database SQLite dan kembalikan hasilnya. Hanya operasi baca-saja (SELECT) dan pemeriksaan skema (PRAGMA) yang didukung",
       "db_query",
-      "db query"
+      "db query",
+      "kueri sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
   },
@@ -125,9 +136,10 @@
     "param.sql.description": "SQL để thực thi.",
     "tool.description": "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA).",
     "x_search_terms": [
-      "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "truy vấn sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'db_query'."
   },
@@ -136,9 +148,10 @@
     "param.sql.description": "SQL do wykonania.",
     "tool.description": "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA).",
     "x_search_terms": [
-      "Wykonaj zapytanie SQL względem bazy danych SQLite i zwróć wynik. Obsługiwane są tylko operacje tylko do odczytu (SELECT) i inspekcja schematu (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "zapytanie sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „db_query”."
   },
@@ -147,9 +160,10 @@
     "param.sql.description": "निष्पादित करने के लिए SQL.",
     "tool.description": "SQLite डेटाबेस के विरुद्ध SQL क्वेरी निष्पादित करें और परिणाम लौटाएँ। केवल रीड-ओनली ऑपरेशंस (SELECT) और स्कीमा इंस्पेक्शन (PRAGMA) समर्थित हैं।",
     "x_search_terms": [
-      "SQLite डेटाबेस के विरुद्ध SQL क्वेरी निष्पादित करें और परिणाम लौटाएँ। केवल रीड-ओनली ऑपरेशंस (SELECT) और स्कीमा इंस्पेक्शन (PRAGMA) समर्थित हैं।",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite क्वेरी",
+      "pragma"
     ],
     "tool.system_prompt": "यह टूल टूल नाम 'db_query' द्वारा वर्णित ऑपरेशन करता है।"
   },
@@ -158,9 +172,10 @@
     "param.sql.description": "SQL للتنفيذ.",
     "tool.description": "قم بتنفيذ استعلام SQL على قاعدة بيانات SQLite وإرجاع النتيجة. يتم دعم عمليات القراءة فقط (SELECT) وفحص المخطط (PRAGMA) فقط.",
     "x_search_terms": [
-      "قم بتنفيذ استعلام SQL على قاعدة بيانات SQLite وإرجاع النتيجة. يتم دعم عمليات القراءة فقط (SELECT) وفحص المخطط (PRAGMA) فقط",
       "db_query",
-      "db query"
+      "db query",
+      "استعلام sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"db_query\"."
   },
@@ -169,9 +184,10 @@
     "param.sql.description": "SQL som ska köras.",
     "tool.description": "Kör en SQL-fråga mot en SQLite-databas och returnerar resultatet. Endast skrivskyddade operationer (SELECT) och schemainspektion (PRAGMA) stöds.",
     "x_search_terms": [
-      "Kör en SQL-fråga mot en SQLite-databas och returnerar resultatet. Endast skrivskyddade operationer (SELECT) och schemainspektion (PRAGMA) stöds",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite-fråga",
+      "pragma"
     ],
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'db_query'."
   },
@@ -180,9 +196,10 @@
     "param.sql.description": "SQL ya kutekeleza.",
     "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
     "x_search_terms": [
-      "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "hojaji sqlite",
+      "pragma"
     ],
     "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'db_query'."
   },
@@ -191,9 +208,10 @@
     "param.sql.description": "SQL som skal kjøres.",
     "tool.description": "Kjør en SQL-spørring mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemaoppslag (PRAGMA) støttes.",
     "x_search_terms": [
-      "Kjør en SQL-spørring mot en SQLite-database og returner resultatet. Bare skrivebeskyttede operasjoner (SELECT) og skjemaoppslag (PRAGMA) støttes",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite-spørring",
+      "pragma"
     ],
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'db_query'."
   },
@@ -202,9 +220,10 @@
     "param.sql.description": "De uit te voeren SQL.",
     "tool.description": "Voer SQL-query's uit op een SQLite-database en geef het resultaat terug. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund.",
     "x_search_terms": [
-      "Voer SQL-query's uit op een SQLite-database en geef het resultaat terug. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite-query",
+      "pragma"
     ],
     "tool.system_prompt": "Gebruik deze tool voor SQLite-querys en retourneer JSON. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund."
   },
@@ -213,9 +232,10 @@
     "param.sql.description": "Suoritettava SQL.",
     "tool.description": "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulos. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA).",
     "x_search_terms": [
-      "Suorita SQL-kyselyitä SQLite-tietokantaan ja palauta tulos. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite-kysely",
+      "pragma"
     ],
     "tool.system_prompt": "Käytä tätä työkalua SQLite-kyselyihin ja palauta JSON. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA)."
   },
@@ -224,9 +244,10 @@
     "param.sql.description": "SQL dotaz k provedení.",
     "tool.description": "Provede SQL dotaz nad databází SQLite a vrátí výsledek. Podporovány jsou pouze operace jen pro čtení (SELECT) a kontrola schématu (PRAGMA).",
     "x_search_terms": [
-      "Provede SQL dotaz nad databází SQLite a vrátí výsledek. Podporovány jsou pouze operace jen pro čtení (SELECT) a kontrola schématu (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite dotaz",
+      "pragma"
     ],
     "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'db_query'."
   },
@@ -235,9 +256,10 @@
     "param.sql.description": "SQL-запит для виконання.",
     "tool.description": "Виконує SQL-запит до бази даних SQLite та повертає результат. Підтримуються лише операції лише для читання (SELECT) та перевірка схеми (PRAGMA).",
     "x_search_terms": [
-      "Виконує SQL-запит до бази даних SQLite та повертає результат. Підтримуються лише операції лише для читання (SELECT) та перевірка схеми (PRAGMA)",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite запит",
+      "pragma"
     ],
     "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'db_query'."
   },
@@ -246,9 +268,10 @@
     "param.sql.description": "SQL yürütülecek.",
     "tool.description": "Bir SQLite veritabanında SQL sorgularını yürütün ve sonucu döndürün. Yalnızca salt okunur işlemler (SELECT) ve şema incelemesi (PRAGMA) desteklenir.",
     "x_search_terms": [
-      "Bir SQLite veritabanında SQL sorgularını yürütün ve sonucu döndürün. Yalnızca salt okunur işlemler (SELECT) ve şema incelemesi (PRAGMA) desteklenir",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite sorgu",
+      "pragma"
     ],
     "tool.system_prompt": "Bu araç, 'db_query' araç adıyla açıklanan işlemi gerçekleştirir."
   },
@@ -257,9 +280,10 @@
     "param.sql.description": "SQL ที่จะดำเนินการ",
     "tool.description": "ดำเนินการคิวรี SQL กับฐานข้อมูล SQLite และส่งกลับผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
     "x_search_terms": [
-      "ดำเนินการคิวรี SQL กับฐานข้อมูล SQLite และส่งกลับผลลัพธ์ รองรับเฉพาะการดำเนินการแบบอ่านอย่างเดียว (SELECT) และการตรวจสอบสคีมา (PRAGMA) เท่านั้น",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite คิวรี",
+      "pragma"
     ],
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
   },
@@ -268,9 +292,10 @@
     "param.sql.description": "要执行的 SQL。",
     "tool.description": "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作（SELECT）和架构检查（PRAGMA）。",
     "x_search_terms": [
-      "对 SQLite 数据库执行 SQL 查询并返回结果。仅支持只读操作（SELECT）和架构检查（PRAGMA）",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite 查询",
+      "pragma"
     ],
     "tool.system_prompt": "此工具执行工具名称“db_query”所描述的操作。"
   },
@@ -279,9 +304,10 @@
     "param.sql.description": "要執行的 SQL。",
     "tool.description": "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作（SELECT）和結構檢查（PRAGMA）。",
     "x_search_terms": [
-      "對 SQLite 資料庫執行 SQL 查詢並傳回結果。僅支援唯讀操作（SELECT）和結構檢查（PRAGMA）",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite 查詢",
+      "pragma"
     ],
     "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
   },
@@ -290,9 +316,10 @@
     "param.sql.description": "চালানোর জন্য SQL।",
     "tool.description": "SQLite ডেটাবেসে SQL কোয়েরি চালিয়ে ফলাফল ফেরত দেয়। কেবল read-only অপারেশন (SELECT) এবং schema inspection (PRAGMA) সমর্থিত।",
     "x_search_terms": [
-      "SQLite ডেটাবেসে SQL কোয়েরি চালিয়ে ফলাফল ফেরত দেয়। কেবল read-only অপারেশন (SELECT) এবং schema inspection (PRAGMA) সমর্থিত",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite কুয়েরি",
+      "pragma"
     ],
     "tool.system_prompt": "এই টুলটি 'db_query' নামের টুল দ্বারা বর্ণিত অপারেশনটি সম্পাদন করে।"
   },
@@ -301,9 +328,10 @@
     "param.sql.description": "SQL برای اجرا.",
     "tool.description": "پرس‌وجوهای SQL را روی پایگاه‌دادهٔ SQLite اجرا می‌کند و نتیجه را برمی‌گرداند. فقط عملیات فقط‌خواندنی (SELECT) و بررسی شِما (PRAGMA) پشتیبانی می‌شوند.",
     "x_search_terms": [
-      "پرس‌وجوهای SQL را روی پایگاه‌دادهٔ SQLite اجرا می‌کند و نتیجه را برمی‌گرداند. فقط عملیات فقط‌خواندنی (SELECT) و بررسی شِما (PRAGMA) پشتیبانی می‌شوند",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite پرس‌وجو",
+      "pragma"
     ],
     "tool.system_prompt": "این ابزار عملیاتی را انجام می‌دهد که با نام ابزار 'db_query' توصیف شده است."
   },
@@ -312,9 +340,10 @@
     "param.sql.description": "Ажиллуулах SQL.",
     "tool.description": "SQLite өгөгдлийн санд SQL асуулга ажиллуулж үр дүнг буцаана. Зөвхөн унших ажиллагаа (SELECT) болон схем шалгалт (PRAGMA) дэмжинэ.",
     "x_search_terms": [
-      "SQLite өгөгдлийн санд SQL асуулга ажиллуулж үр дүнг буцаана. Зөвхөн унших ажиллагаа (SELECT) болон схем шалгалт (PRAGMA) дэмжинэ",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite асуулга",
+      "pragma"
     ],
     "tool.system_prompt": "Энэ хэрэгсэл нь 'db_query' хэрэгслийн нэрээр тодорхойлсон ажиллагааг гүйцэтгэнэ."
   },
@@ -323,9 +352,10 @@
     "param.sql.description": "चालवायचा SQL.",
     "tool.description": "SQLite डेटाबेसवर SQL क्वेरीज चालवते आणि निकाल परत करते. फक्त read-only ऑपरेशन्स (SELECT) आणि schema inspection (PRAGMA) समर्थित आहेत.",
     "x_search_terms": [
-      "SQLite डेटाबेसवर SQL क्वेरीज चालवते आणि निकाल परत करते. फक्त read-only ऑपरेशन्स (SELECT) आणि schema inspection (PRAGMA) समर्थित आहेत",
       "db_query",
-      "db query"
+      "db query",
+      "sqlite क्वेरी",
+      "pragma"
     ],
     "tool.system_prompt": "हे टूल 'db_query' या टूल नावाने वर्णन केलेली क्रिया करते."
   }

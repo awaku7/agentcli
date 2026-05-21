@@ -10,9 +10,10 @@
     "param.seconds.description": "Number of seconds for the timer.",
     "tool.description": "Shows a message after a specified number of seconds. Optionally, it can send an automatic message to the LLM.",
     "x_search_terms": [
-      "Shows a message after a specified number of seconds. Optionally, it can send an automatic message to the LLM",
       "set_timer",
-      "set timer"
+      "set timer",
+      "timer",
+      "timeout message"
     ],
     "tool.system_prompt": "Use this tool to show a message after a specified time and optionally send an automatic message to the LLM."
   },
@@ -27,9 +28,10 @@
     "param.seconds.description": "タイマーの秒数。",
     "tool.description": "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできるツールです。",
     "x_search_terms": [
-      "指定した秒数後にメッセージを表示し、必要ならLLMへ自動メッセージを入力させることもできるツールです",
       "set_timer",
-      "set timer"
+      "タイマー設定",
+      "タイマー",
+      "時間後メッセージ"
     ],
     "tool.system_prompt": "このツールは、指定された時間経過後にメッセージを表示し、必要に応じてLLMへ自動応答を促すために使用します。"
   },
@@ -44,9 +46,10 @@
     "param.seconds.description": "El número de segundos del temporizador.",
     "tool.description": "Muestra un mensaje después de un número específico de segundos. Opcionalmente, se puede enviar un mensaje automático al LLM.",
     "x_search_terms": [
-      "Muestra un mensaje después de un número específico de segundos. Opcionalmente, se puede enviar un mensaje automático al LLM",
       "set_timer",
-      "set timer"
+      "temporizador",
+      "poner temporizador",
+      "mensaje diferido"
     ],
     "tool.system_prompt": "Esta herramienta muestra un mensaje después de un tiempo especificado y, opcionalmente, envía un mensaje al LLM."
   },
@@ -61,9 +64,10 @@
     "param.seconds.description": "Le nombre de secondes du minuteur.",
     "tool.description": "Affiche un message après un nombre de secondes spécifié. En option, un message automatique peut être saisi dans le LLM.",
     "x_search_terms": [
-      "Affiche un message après un nombre de secondes spécifié. En option, un message automatique peut être saisi dans le LLM",
       "set_timer",
-      "set timer"
+      "minuteur",
+      "régler minuteur",
+      "message différé"
     ],
     "tool.system_prompt": "Cet outil affiche un message après un délai spécifié et peut envoyer un message automatique au LLM."
   },
@@ -78,9 +82,10 @@
     "param.seconds.description": "타이머 초 수.",
     "tool.description": "지정된 시간(초) 후에 메시지를 표시합니다. 선택적으로 LLM에 메시지를 자동 입력할 수 있습니다.",
     "x_search_terms": [
-      "지정된 시간(초) 후에 메시지를 표시합니다. 선택적으로 LLM에 메시지를 자동 입력할 수 있습니다",
       "set_timer",
-      "set timer"
+      "타이머",
+      "타이머 설정",
+      "지연 메시지"
     ],
     "tool.system_prompt": "이 도구는 지정된 시간 후에 메시지를 표시하고 선택적으로 LLM에 자동 메시지를 입력하는 데 사용됩니다."
   },
@@ -95,9 +100,10 @@
     "param.seconds.description": "Anzahl der Sekunden für den Timer.",
     "tool.description": "Zeigt nach einer angegebenen Anzahl von Sekunden eine Nachricht an. Optional kann eine automatische Nachricht in das LLM eingegeben werden.",
     "x_search_terms": [
-      "Zeigt nach einer angegebenen Anzahl von Sekunden eine Nachricht an. Optional kann eine automatische Nachricht in das LLM eingegeben werden",
       "set_timer",
-      "set timer"
+      "timer",
+      "timer setzen",
+      "nachricht später"
     ],
     "tool.system_prompt": "Dieses Tool zeigt nach einer angegebenen Zeit eine Nachricht an und kann optional eine Nachricht an das LLM senden."
   },
@@ -112,9 +118,10 @@
     "param.seconds.description": "Numero di secondi del timer.",
     "tool.description": "Mostra un messaggio dopo un numero specificato di secondi. Facoltativamente, inserisce un messaggio automatico nell'LLM.",
     "x_search_terms": [
-      "Mostra un messaggio dopo un numero specificato di secondi. Facoltativamente, inserisce un messaggio automatico nell'LLM",
       "set_timer",
-      "set timer"
+      "timer",
+      "imposta timer",
+      "messaggio ritardato"
     ],
     "tool.system_prompt": "Questo strumento mostra un messaggio dopo un tempo specificato e può inviare un messaggio automatico all'LLM."
   },
@@ -129,9 +136,10 @@
     "param.seconds.description": "Количество секунд таймера.",
     "tool.description": "Отображает сообщение через указанное время. Можно автоматически отправить текст в LLM.",
     "x_search_terms": [
-      "Отображает сообщение через указанное время. Можно автоматически отправить текст в LLM",
       "set_timer",
-      "set timer"
+      "таймер",
+      "установить таймер",
+      "отложенное сообщение"
     ],
     "tool.system_prompt": "Этот инструмент показывает сообщение через заданное время и может вводить текст в LLM."
   },
@@ -146,9 +154,10 @@
     "param.seconds.description": "Quantidade de segundos do temporizador.",
     "tool.description": "Exibe uma mensagem após um tempo especificado. Opcionalmente, insere uma mensagem automática no LLM.",
     "x_search_terms": [
-      "Exibe uma mensagem após um tempo especificado. Opcionalmente, insere uma mensagem automática no LLM",
       "set_timer",
-      "set timer"
+      "temporizador",
+      "definir temporizador",
+      "mensagem atrasada"
     ],
     "tool.system_prompt": "Esta ferramenta exibe uma mensagem após um tempo especificado e pode inserir uma mensagem automática no LLM."
   },
@@ -163,9 +172,10 @@
     "param.seconds.description": "Número de segundos do temporizador.",
     "tool.description": "Exibe uma mensagem após um tempo especificado. Opcionalmente, pode enviar uma mensagem automática para o LLM.",
     "x_search_terms": [
-      "Exibe uma mensagem após um tempo especificado. Opcionalmente, pode enviar uma mensagem automática para o LLM",
       "set_timer",
-      "set timer"
+      "temporizador",
+      "definir temporizador",
+      "mensagem atrasada"
     ],
     "tool.system_prompt": "Use esta ferramenta para exibir uma mensagem após um tempo especificado e, opcionalmente, enviar uma mensagem automática para o LLM."
   },
@@ -180,9 +190,10 @@
     "param.seconds.description": "Jumlah detik pada timer.",
     "tool.description": "Menampilkan pesan setelah sejumlah detik tertentu. Bisa juga memasukkan pesan otomatis ke LLM.",
     "x_search_terms": [
-      "Menampilkan pesan setelah sejumlah detik tertentu. Bisa juga memasukkan pesan otomatis ke LLM",
       "set_timer",
-      "set timer"
+      "timer",
+      "atur timer",
+      "pesan tertunda"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk menampilkan pesan setelah waktu tertentu dan secara opsional memasukkan pesan otomatis ke LLM."
   },
@@ -197,9 +208,10 @@
     "param.seconds.description": "Số giây trong bộ đếm thời gian.",
     "tool.description": "Hiển thị thông báo sau một số giây được chỉ định. Tùy chọn, một tin nhắn tự động có thể được nhập vào LLM.",
     "x_search_terms": [
-      "Hiển thị thông báo sau một số giây được chỉ định. Tùy chọn, một tin nhắn tự động có thể được nhập vào LLM",
       "set_timer",
-      "set timer"
+      "hẹn giờ",
+      "đặt hẹn giờ",
+      "tin nhắn trễ"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng để hiển thị thông báo sau một thời gian nhất định và tùy chọn nhập thông báo tự động vào LLM."
   },
@@ -214,9 +226,10 @@
     "param.seconds.description": "Liczba sekund dla timera.",
     "tool.description": "Wyświetla komunikat po określonej liczbie sekund. Opcjonalnie może też wysłać automatyczną wiadomość do LLM.",
     "x_search_terms": [
-      "Wyświetla komunikat po określonej liczbie sekund. Opcjonalnie może też wysłać automatyczną wiadomość do LLM",
       "set_timer",
-      "set timer"
+      "timer",
+      "ustaw timer",
+      "wiadomość opóźniona"
     ],
     "tool.system_prompt": "Użyj tego narzędzia, aby wyświetlić komunikat po określonym czasie i opcjonalnie wysłać automatyczną wiadomość do LLM."
   },
@@ -231,9 +244,10 @@
     "param.seconds.description": "टाइमर के लिए सेकंडों की संख्या.",
     "tool.description": "निर्दिष्ट सेकंडों के बाद एक संदेश दिखाता है। वैकल्पिक रूप से, यह LLM को एक स्वचालित संदेश भेज सकता है।",
     "x_search_terms": [
-      "निर्दिष्ट सेकंडों के बाद एक संदेश दिखाता है। वैकल्पिक रूप से, यह LLM को एक स्वचालित संदेश भेज सकता है।",
       "set_timer",
-      "set timer"
+      "टाइमर",
+      "टाइमर सेट करें",
+      "विलंबित संदेश"
     ],
     "tool.system_prompt": "इस टूल का उपयोग निर्दिष्ट समय के बाद संदेश दिखाने और वैकल्पिक रूप से LLM को एक स्वचालित संदेश भेजने के लिए करें."
   },
@@ -248,9 +262,10 @@
     "param.seconds.description": "عدد الثواني للمؤقت.",
     "tool.description": "يعرض رسالة بعد عدد محدد من الثواني. ويمكنه اختياريًا إرسال رسالة تلقائية إلى LLM.",
     "x_search_terms": [
-      "يعرض رسالة بعد عدد محدد من الثواني. ويمكنه اختياريًا إرسال رسالة تلقائية إلى LLM",
       "set_timer",
-      "set timer"
+      "مؤقت",
+      "ضبط مؤقت",
+      "رسالة مؤجلة"
     ],
     "tool.system_prompt": "استخدم هذه الأداة لعرض رسالة بعد وقت محدد، ويمكنها اختياريًا إرسال رسالة تلقائية إلى LLM."
   },
@@ -265,9 +280,10 @@
     "param.seconds.description": "Antalet sekunder för timern.",
     "tool.description": "Visar ett meddelande efter ett angivet antal sekunder. Valfritt kan ett automatiskt meddelande skickas till LLM.",
     "x_search_terms": [
-      "Visar ett meddelande efter ett angivet antal sekunder. Valfritt kan ett automatiskt meddelande skickas till LLM",
       "set_timer",
-      "set timer"
+      "timer",
+      "ställ timer",
+      "fördröjt meddelande"
     ],
     "tool.system_prompt": "Det här verktyget används för att visa ett meddelande efter en angiven tid och kan vid behov mata in ett automatiskt meddelande i LLM."
   },
@@ -282,9 +298,10 @@
     "param.seconds.description": "Idadi ya sekunde za kipima muda.",
     "tool.description": "Huonyesha ujumbe baada ya sekunde fulani. Pia inaweza kutuma ujumbe wa moja kwa moja kwa LLM.",
     "x_search_terms": [
-      "Huonyesha ujumbe baada ya sekunde fulani. Pia inaweza kutuma ujumbe wa moja kwa moja kwa LLM",
       "set_timer",
-      "set timer"
+      "kipima muda",
+      "weka kipima muda",
+      "ujumbe wa kuchelewa"
     ],
     "tool.system_prompt": "Tumia zana hii kuonyesha ujumbe baada ya muda uliobainishwa na, ikihitajika, kutuma ujumbe wa moja kwa moja kwa LLM."
   },
@@ -299,9 +316,10 @@
     "param.seconds.description": "Antall sekunder for timeren.",
     "tool.description": "Viser en melding etter et angitt antall sekunder. Valgfritt kan en automatisk melding sendes til LLM.",
     "x_search_terms": [
-      "Viser en melding etter et angitt antall sekunder. Valgfritt kan en automatisk melding sendes til LLM",
       "set_timer",
-      "set timer"
+      "timer",
+      "sett timer",
+      "forsinket melding"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å vise en melding etter en angitt tid og kan eventuelt sende inn en automatisk melding til LLM."
   },
@@ -316,9 +334,10 @@
     "param.seconds.description": "Aantal seconden voor de timer.",
     "tool.description": "Toont een bericht na een opgegeven aantal seconden. Optioneel kan het een automatisch bericht naar de LLM sturen.",
     "x_search_terms": [
-      "Toont een bericht na een opgegeven aantal seconden. Optioneel kan het een automatisch bericht naar de LLM sturen",
       "set_timer",
-      "set timer"
+      "timer",
+      "timer instellen",
+      "vertraagd bericht"
     ],
     "tool.system_prompt": "Gebruik deze tool om na een opgegeven tijd een bericht weer te geven en optioneel een automatisch bericht naar de LLM te sturen."
   },
@@ -333,9 +352,10 @@
     "param.seconds.description": "The number of seconds in the timer.",
     "tool.description": "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
     "x_search_terms": [
-      "Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM",
       "set_timer",
-      "set timer"
+      "ajastin",
+      "aseta ajastin",
+      "viivästetty viesti"
     ],
     "tool.system_prompt": "This tool is used to display a message after a specified time and optionally input an automatic message to the LLM."
   },
@@ -350,9 +370,10 @@
     "param.seconds.description": "Počet sekund časovače.",
     "tool.description": "Zobrazí zprávu po určeném počtu sekund. Volitelně lze do LLM vložit automatickou zprávu.",
     "x_search_terms": [
-      "Zobrazí zprávu po určeném počtu sekund. Volitelně lze do LLM vložit automatickou zprávu",
       "set_timer",
-      "set timer"
+      "časovač",
+      "nastavit časovač",
+      "zpožděná zpráva"
     ],
     "tool.system_prompt": "Tento nástroj zobrazí po uplynutí zadaného času zprávu a může volitelně zadat do LLM automatickou zprávu."
   },
@@ -367,9 +388,10 @@
     "param.seconds.description": "Кількість секунд таймера.",
     "tool.description": "Показує повідомлення після заданої кількості секунд. За потреби може автоматично передати повідомлення в LLM.",
     "x_search_terms": [
-      "Показує повідомлення після заданої кількості секунд. За потреби може автоматично передати повідомлення в LLM",
       "set_timer",
-      "set timer"
+      "таймер",
+      "встановити таймер",
+      "відкладене повідомлення"
     ],
     "tool.system_prompt": "Цей інструмент показує повідомлення після заданого часу і за потреби може автоматично ввести повідомлення в LLM."
   },
@@ -384,9 +406,10 @@
     "param.seconds.description": "Zamanlayıcı için saniye sayısı.",
     "tool.description": "Belirtilen saniye sayısından sonra bir mesaj gösterir. İsteğe bağlı olarak LLM'ye otomatik bir mesaj da gönderebilir.",
     "x_search_terms": [
-      "Belirtilen saniye sayısından sonra bir mesaj gösterir. İsteğe bağlı olarak LLM'ye otomatik bir mesaj da gönderebilir",
       "set_timer",
-      "set timer"
+      "zamanlayıcı",
+      "zamanlayıcı ayarla",
+      "gecikmeli mesaj"
     ],
     "tool.system_prompt": "Bu araç, belirtilen bir süreden sonra bir mesaj göstermek ve isteğe bağlı olarak LLM'ye otomatik bir mesaj göndermek için kullanılır."
   },
@@ -401,9 +424,10 @@
     "param.seconds.description": "จำนวนวินาทีที่ตั้งไว้",
     "tool.description": "แสดงข้อความหลังจากเวลาที่กำหนด และสามารถส่งข้อความอัตโนมัติไปยัง LLM ได้",
     "x_search_terms": [
-      "แสดงข้อความหลังจากเวลาที่กำหนด และสามารถส่งข้อความอัตโนมัติไปยัง LLM ได้",
       "set_timer",
-      "set timer"
+      "ตัวจับเวลา",
+      "ตั้งเวลา",
+      "ข้อความหน่วงเวลา"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้แสดงข้อความเมื่อครบเวลาที่กำหนดและส่งข้อความไปยัง LLM"
   },
@@ -418,9 +442,10 @@
     "param.seconds.description": "计时的秒数。",
     "tool.description": "在指定秒数后显示消息。可以选择向 LLM 自动输入消息。",
     "x_search_terms": [
-      "在指定秒数后显示消息。可以选择向 LLM 自动输入消息",
       "set_timer",
-      "set timer"
+      "计时器",
+      "设置计时器",
+      "延迟消息"
     ],
     "tool.system_prompt": "该工具用于在指定时间后显示消息，并可选择向 LLM 发送自动消息。"
   },
@@ -435,9 +460,10 @@
     "param.seconds.description": "計時的秒數。",
     "tool.description": "在指定秒數後顯示訊息。可以選擇向 LLM 自動輸入訊息。",
     "x_search_terms": [
-      "在指定秒數後顯示訊息。可以選擇向 LLM 自動輸入訊息",
       "set_timer",
-      "set timer"
+      "計時器",
+      "設定計時器",
+      "延遲訊息"
     ],
     "tool.system_prompt": "此工具用於在指定時間後顯示訊息，並可選擇向 LLM 發送自動訊息。"
   },
@@ -452,9 +478,10 @@
     "param.seconds.description": "টাইমারের সেকেন্ড সংখ্যা।",
     "tool.description": "নির্দিষ্ট সংখ্যক সেকেন্ড পরে একটি বার্তা দেখায়। চাইলে LLM-এ স্বয়ংক্রিয় বার্তাও পাঠাতে পারে।",
     "x_search_terms": [
-      "নির্দিষ্ট সংখ্যক সেকেন্ড পরে একটি বার্তা দেখায়। চাইলে LLM-এ স্বয়ংক্রিয় বার্তাও পাঠাতে পারে",
       "set_timer",
-      "set timer"
+      "টাইমার",
+      "টাইমার সেট",
+      "বিলম্বিত বার্তা"
     ],
     "tool.system_prompt": "নির্দিষ্ট সময় পরে বার্তা দেখাতে এবং প্রয়োজনে LLM-এ স্বয়ংক্রিয় বার্তা পাঠাতে এই টুলটি ব্যবহার করুন।"
   },
@@ -469,9 +496,10 @@
     "param.seconds.description": "تعداد ثانیه‌های زمان‌سنج.",
     "tool.description": "پس از تعداد ثانیهٔ مشخصی پیامی را نمایش می‌دهد. در صورت تمایل، می‌تواند یک پیام خودکار به LLM بفرستد.",
     "x_search_terms": [
-      "پس از تعداد ثانیهٔ مشخصی پیامی را نمایش می‌دهد. در صورت تمایل، می‌تواند یک پیام خودکار به LLM بفرستد",
       "set_timer",
-      "set timer"
+      "تایمر",
+      "تنظیم تایمر",
+      "پیام با تأخیر"
     ],
     "tool.system_prompt": "از این ابزار برای نمایش پیام پس از زمان مشخص و در صورت نیاز ارسال پیام خودکار به LLM استفاده کنید."
   },
@@ -486,9 +514,10 @@
     "param.seconds.description": "Таймерын секундийн тоо.",
     "tool.description": "Тодорхой секундын дараа мессеж харуулна. Сонголтоор LLM руу автоматаар мессеж илгээж болно.",
     "x_search_terms": [
-      "Тодорхой секундын дараа мессеж харуулна. Сонголтоор LLM руу автоматаар мессеж илгээж болно",
       "set_timer",
-      "set timer"
+      "таймер",
+      "таймер тохируулах",
+      "хоцрогдсон мессеж"
     ],
     "tool.system_prompt": "Энэ хэрэгслийг тодорхой хугацааны дараа мессеж харуулах, мөн шаардлагатай бол LLM руу автоматаар мессеж илгээхэд ашиглана уу."
   },
@@ -503,9 +532,10 @@
     "param.seconds.description": "टायमरचे सेकंद.",
     "tool.description": "निर्दिष्ट सेकंदांनंतर संदेश दाखवते. ऐच्छिकरित्या LLM ला स्वयंचलित संदेश पाठवू शकते.",
     "x_search_terms": [
-      "निर्दिष्ट सेकंदांनंतर संदेश दाखवते. ऐच्छिकरित्या LLM ला स्वयंचलित संदेश पाठवू शकते",
       "set_timer",
-      "set timer"
+      "टायमर",
+      "टायमर सेट करा",
+      "विलंबित संदेश"
     ],
     "tool.system_prompt": "ठराविक वेळेनंतर संदेश दाखवण्यासाठी आणि गरज असल्यास LLM ला स्वयंचलित संदेश पाठवण्यासाठी हे साधन वापरा."
   }

@@ -4,8 +4,10 @@
     "param.query.description": "Natural-language query describing the needed capability.",
     "tool.description": "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions.",
     "x_search_terms": [
-      "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "ja": {
@@ -13,8 +15,10 @@
     "param.query.description": "必要な機能を説明する自然言語のクエリ。",
     "tool.description": "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします。",
     "x_search_terms": [
-      "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします",
-      "catalog"
+      "catalog",
+      "ツールカタログ",
+      "ツール一覧",
+      "ツール索引"
     ]
   },
   "es": {
@@ -22,8 +26,10 @@
     "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria.",
     "tool.description": "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas.",
     "x_search_terms": [
-      "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas",
-      "catalog"
+      "catalog",
+      "catálogo de herramientas",
+      "lista de herramientas",
+      "índice de herramientas"
     ]
   },
   "fr": {
@@ -31,8 +37,10 @@
     "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
     "tool.description": "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes.",
     "x_search_terms": [
-      "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes",
-      "catalog"
+      "catalog",
+      "catalogue d'outils",
+      "liste d'outils",
+      "index d'outils"
     ]
   },
   "ko": {
@@ -40,8 +48,10 @@
     "param.query.description": "필요한 기능을 설명하는 자연어 쿼리입니다.",
     "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다.",
     "x_search_terms": [
-      "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다",
-      "catalog"
+      "catalog",
+      "도구 카탈로그",
+      "도구 목록",
+      "도구 색인"
     ]
   },
   "de": {
@@ -49,8 +59,10 @@
     "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Funktion beschreibt.",
     "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert.",
     "x_search_terms": [
-      "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert",
-      "catalog"
+      "catalog",
+      "tool-katalog",
+      "tool-liste",
+      "tool-index"
     ]
   },
   "it": {
@@ -58,8 +70,10 @@
     "param.query.description": "Query in linguaggio naturale che descrive la funzionalità richiesta.",
     "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete.",
     "x_search_terms": [
-      "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete",
-      "catalog"
+      "catalog",
+      "catalogo strumenti",
+      "lista strumenti",
+      "indice strumenti"
     ]
   },
   "ru": {
@@ -67,8 +81,10 @@
     "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность.",
     "tool.description": "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов.",
     "x_search_terms": [
-      "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов",
-      "catalog"
+      "catalog",
+      "каталог инструментов",
+      "список инструментов",
+      "индекс инструментов"
     ]
   },
   "pt_BR": {
@@ -76,8 +92,10 @@
     "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
-      "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas",
-      "catalog"
+      "catalog",
+      "catálogo de ferramentas",
+      "lista de ferramentas",
+      "índice de ferramentas"
     ]
   },
   "pt": {
@@ -85,8 +103,10 @@
     "param.query.description": "Consulta em linguagem natural que descreve a capacidade necessária.",
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
-      "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas",
-      "catalog"
+      "catalog",
+      "catálogo de ferramentas",
+      "lista de ferramentas",
+      "índice de ferramentas"
     ]
   },
   "id": {
@@ -94,8 +114,10 @@
     "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang dibutuhkan.",
     "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap.",
     "x_search_terms": [
-      "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap",
-      "catalog"
+      "catalog",
+      "katalog alat",
+      "daftar alat",
+      "indeks alat"
     ]
   },
   "vi": {
@@ -103,8 +125,10 @@
     "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết.",
     "tool.description": "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ.",
     "x_search_terms": [
-      "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ",
-      "catalog"
+      "catalog",
+      "danh mục công cụ",
+      "danh sách công cụ",
+      "chỉ mục công cụ"
     ]
   },
   "pl": {
@@ -112,8 +136,10 @@
     "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebne możliwości.",
     "tool.description": "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi.",
     "x_search_terms": [
-      "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi",
-      "catalog"
+      "catalog",
+      "katalog narzędzi",
+      "lista narzędzi",
+      "indeks narzędzi"
     ]
   },
   "hi": {
@@ -121,8 +147,10 @@
     "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक-भाषा क्वेरी।",
     "tool.description": "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
     "x_search_terms": [
-      "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
-      "catalog"
+      "catalog",
+      "टूल कैटलॉग",
+      "टूल सूची",
+      "टूल अनुक्रमणिका"
     ]
   },
   "ar": {
@@ -130,8 +158,10 @@
     "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة.",
     "tool.description": "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات.",
     "x_search_terms": [
-      "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات",
-      "catalog"
+      "catalog",
+      "كتالوج الأدوات",
+      "قائمة الأدوات",
+      "فهرس الأدوات"
     ]
   },
   "sv": {
@@ -139,8 +169,10 @@
     "param.query.description": "Naturlig språk-fråga som beskriver den funktion som behövs.",
     "tool.description": "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner.",
     "x_search_terms": [
-      "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner",
-      "catalog"
+      "catalog",
+      "verktygskatalog",
+      "verktygslista",
+      "verktygsindex"
     ]
   },
   "sw": {
@@ -148,8 +180,10 @@
     "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
     "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana.",
     "x_search_terms": [
-      "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "nb": {
@@ -157,8 +191,10 @@
     "param.query.description": "Naturlig språkspørring som beskriver funksjonen som trengs.",
     "tool.description": "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner.",
     "x_search_terms": [
-      "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "nl": {
@@ -166,8 +202,10 @@
     "param.query.description": "Query in natuurlijke taal die de benodigde mogelijkheid beschrijft.",
     "tool.description": "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd.",
     "x_search_terms": [
-      "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "fi": {
@@ -175,8 +213,10 @@
     "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavan ominaisuuden.",
     "tool.description": "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä.",
     "x_search_terms": [
-      "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "cs": {
@@ -184,8 +224,10 @@
     "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost.",
     "tool.description": "Vrátí lehký katalog dostupných nástrojů, aby model mohl najít relevantní nástroje dříve, než si vyžádá jejich úplné definice.",
     "x_search_terms": [
-      "Vrátí lehký katalog dostupných nástrojů, aby model mohl najít relevantní nástroje dříve, než si vyžádá jejich úplné definice",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "uk": {
@@ -193,8 +235,10 @@
     "param.query.description": "Запит природною мовою, що описує потрібну можливість.",
     "tool.description": "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів.",
     "x_search_terms": [
-      "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "tr": {
@@ -202,8 +246,10 @@
     "param.query.description": "Gerekli yeteneği açıklayan doğal dil sorgusu.",
     "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün.",
     "x_search_terms": [
-      "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "th": {
@@ -211,8 +257,10 @@
     "param.query.description": "คำถามภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
     "tool.description": "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด",
     "x_search_terms": [
-      "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "zh_CN": {
@@ -220,8 +268,10 @@
     "param.query.description": "描述所需功能的自然语言查询。",
     "tool.description": "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具。",
     "x_search_terms": [
-      "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "zh_TW": {
@@ -229,8 +279,10 @@
     "param.query.description": "描述所需功能的自然語言查詢。",
     "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。",
     "x_search_terms": [
-      "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "bn": {
@@ -238,8 +290,10 @@
     "param.query.description": "প্রয়োজনীয় ক্ষমতাটি বর্ণনা করে এমন প্রাকৃতিক ভাষার প্রশ্ন।",
     "tool.description": "উপলভ্য টুলগুলোর একটি হালকা ক্যাটালগ ফেরত দেয়, যাতে পুরো টুলের সংজ্ঞা চাইবার আগে মডেল প্রাসঙ্গিক টুল খুঁজে পায়।",
     "x_search_terms": [
-      "উপলভ্য টুলগুলোর একটি হালকা ক্যাটালগ ফেরত দেয়, যাতে পুরো টুলের সংজ্ঞা চাইবার আগে মডেল প্রাসঙ্গিক টুল খুঁজে পায়।",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "fa": {
@@ -247,8 +301,10 @@
     "param.query.description": "پرس‌وجوی زبانِ طبیعی که قابلیتِ موردنیاز را توصیف می‌کند.",
     "tool.description": "فهرستی سبک از ابزارهای موجود برمی‌گرداند تا مدل بتواند پیش از درخواست تعریف کامل ابزارها، ابزارهای مرتبط را پیدا کند.",
     "x_search_terms": [
-      "فهرستی سبک از ابزارهای موجود برمی‌گرداند تا مدل بتواند پیش از درخواست تعریف کامل ابزارها، ابزارهای مرتبط را پیدا کند.",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "mn": {
@@ -256,8 +312,10 @@
     "param.query.description": "Шаардлагатай чадамжийг тайлбарласан байгалийн хэлний асуулга.",
     "tool.description": "Бүрэн хэрэгслийн тодорхойлолт хүсэхээс өмнө загвар холбогдох хэрэгслийг олохын тулд боломжит хэрэгслүүдийн хөнгөн каталогийг буцаана.",
     "x_search_terms": [
-      "Бүрэн хэрэгслийн тодорхойлолт хүсэхээс өмнө загвар холбогдох хэрэгслийг олохын тулд боломжит хэрэгслүүдийн хөнгөн каталогийг буцаана",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   },
   "mr": {
@@ -265,8 +323,10 @@
     "param.query.description": "आवश्यक क्षमता वर्णन करणारी नैसर्गिक-भाषेतील चौकशी.",
     "tool.description": "उपलब्ध साधनांचा हलका कॅटलॉग परत करते, जेणेकरून पूर्ण साधन व्याख्या मागण्यापूर्वी मॉडेलला संबंधित साधने शोधता येतील.",
     "x_search_terms": [
-      "उपलब्ध साधनांचा हलका कॅटलॉग परत करते, जेणेकरून पूर्ण साधन व्याख्या मागण्यापूर्वी मॉडेलला संबंधित साधने शोधता येतील",
-      "catalog"
+      "catalog",
+      "tool catalog",
+      "tool list",
+      "tool index"
     ]
   }
 }

@@ -4,9 +4,10 @@
     "param.prompt.description": "What you want to know about the image.",
     "tool.description": "Load an image and have AI (Vision) describe it. Useful for screenshots, charts, and tables.",
     "x_search_terms": [
-      "Load an image and have AI (Vision) describe it. Useful for screenshots, charts, and tables",
       "analyze_image",
-      "analyze image"
+      "analyze image",
+      "vision analyze",
+      "image analysis"
     ],
     "tool.system_prompt": "Analyze the image described by the tool name \"analyze_image\" and return the result."
   },

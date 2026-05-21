@@ -3,9 +3,10 @@
     "param.note.description": "The note text to save.",
     "tool.description": "Save a single long-term memory note about the user/environment that may be useful in future conversations.",
     "x_search_terms": [
-      "Save a single long-term memory note about the user/environment that may be useful in future conversations",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long term memory",
+      "save memory"
     ],
     "tool.system_prompt": "Save one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
   },
@@ -13,9 +14,10 @@
     "param.note.description": "保存するメモ本文。",
     "tool.description": "今後の会話で役立つ、ユーザーや環境に関する長期記憶メモを1件保存します。",
     "x_search_terms": [
-      "今後の会話で役立つ、ユーザーや環境に関する長期記憶メモを1件保存します",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "有用な長期記憶メモを1件だけ保存します。\nパスワード、APIキー、トークンなどの秘密情報は保存しないでください。"
   },
@@ -23,9 +25,10 @@
     "param.note.description": "El texto de la nota a guardar.",
     "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras conversaciones.",
     "x_search_terms": [
-      "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras conversaciones",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Guarde una nota útil para la memoria a largo plazo.\nNo almacene secretos como contraseñas, claves API o tokens."
   },
@@ -33,9 +36,10 @@
     "param.note.description": "Le texte de la note à enregistrer.",
     "tool.description": "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui pourrait être utile dans les conversations futures.",
     "x_search_terms": [
-      "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui pourrait être utile dans les conversations futures",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Enregistrez une note de mémoire utile à long terme.\nNe stockez pas de secrets tels que des mots de passe, des clés API ou des jetons."
   },
@@ -43,9 +47,10 @@
     "param.note.description": "저장할 메모 텍스트입니다.",
     "tool.description": "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 기억 메모를 저장하세요.",
     "x_search_terms": [
-      "향후 대화에 유용할 수 있는 사용자/환경에 대한 단일 장기 기억 메모를 저장하세요",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "유용한 장기 기억 메모 하나를 저장하세요.\n비밀번호, API 키 또는 토큰과 같은 비밀을 저장하지 마십시오."
   },
@@ -53,9 +58,10 @@
     "param.note.description": "Der zu speichernde Notiztext.",
     "tool.description": "Speichern Sie im Langzeitgedächtnis eine einzelne Notiz über den Benutzer/die Umgebung, die bei zukünftigen Gesprächen nützlich sein kann.",
     "x_search_terms": [
-      "Speichern Sie im Langzeitgedächtnis eine einzelne Notiz über den Benutzer/die Umgebung, die bei zukünftigen Gesprächen nützlich sein kann",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Speichern Sie eine nützliche Langzeitgedächtnisnotiz.\nSpeichern Sie keine Geheimnisse wie Passwörter, API-Schlüssel oder Token."
   },
@@ -63,9 +69,10 @@
     "param.note.description": "Il testo della nota da salvare.",
     "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future.",
     "x_search_terms": [
-      "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Salva una nota utile nella memoria a lungo termine.\nNon archiviare segreti come password, chiavi API o token."
   },
@@ -73,9 +80,10 @@
     "param.note.description": "Текст заметки, которую нужно сохранить.",
     "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/окружении, которая может пригодиться в будущих разговорах.",
     "x_search_terms": [
-      "Сохраните одну заметку в долговременной памяти о пользователе/окружении, которая может пригодиться в будущих разговорах",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Сохраните одну полезную заметку на долговременную память.\nНе храните секреты, такие как пароли, ключи API или токены."
   },
@@ -83,9 +91,10 @@
     "param.note.description": "O texto da nota a ser salvo.",
     "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
     "x_search_terms": [
-      "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves API ou tokens."
   },
@@ -93,9 +102,10 @@
     "param.note.description": "O texto da nota a ser salvo.",
     "tool.description": "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras.",
     "x_search_terms": [
-      "Salve uma única nota de memória de longo prazo sobre o usuário/ambiente que pode ser útil em conversas futuras",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves de API ou tokens."
   },
@@ -103,9 +113,10 @@
     "param.note.description": "Teks catatan yang akan disimpan.",
     "tool.description": "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang.",
     "x_search_terms": [
-      "Simpan satu catatan memori jangka panjang tentang pengguna/lingkungan yang mungkin berguna di percakapan mendatang",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna.\nJangan simpan rahasia seperti kata sandi, kunci API, atau token."
   },
@@ -113,9 +124,10 @@
     "param.note.description": "Văn bản ghi chú cần lưu.",
     "tool.description": "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện trong tương lai.",
     "x_search_terms": [
-      "Lưu một ghi chú bộ nhớ dài hạn về người dùng/môi trường có thể hữu ích trong các cuộc trò chuyện trong tương lai",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Lưu một ghi chú bộ nhớ dài hạn hữu ích.\nKhông lưu trữ các bí mật như mật khẩu, khóa API hoặc mã thông báo."
   },
@@ -123,9 +135,10 @@
     "param.note.description": "Tekst notatki do zapisania.",
     "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może przydać się w przyszłych rozmowach.",
     "x_search_terms": [
-      "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może przydać się w przyszłych rozmowach",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Zapisz jedną przydatną notatkę dotyczącą pamięci długoterminowej.\nNie przechowuj sekretów, takich jak hasła, klucze API lub tokeny."
   },
@@ -133,9 +146,10 @@
     "param.note.description": "सहेजने के लिए नोट पाठ.",
     "tool.description": "उपयोगकर्ता/पर्यावरण के बारे में एक दीर्घकालिक स्मृति नोट सहेजें जो भविष्य की बातचीत में उपयोगी हो सकता है।",
     "x_search_terms": [
-      "उपयोगकर्ता/पर्यावरण के बारे में एक दीर्घकालिक स्मृति नोट सहेजें जो भविष्य की बातचीत में उपयोगी हो सकता है।",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "एक उपयोगी दीर्घकालिक स्मृति नोट सहेजें।\nपासवर्ड, एपीआई कुंजी या टोकन जैसे रहस्य संग्रहीत न करें।"
   },
@@ -143,9 +157,10 @@
     "param.note.description": "نص الملاحظة المراد حفظه.",
     "tool.description": "احفظ ملاحظة واحدة من الذاكرة طويلة المدى حول المستخدم/البيئة التي قد تكون مفيدة في المحادثات المستقبلية.",
     "x_search_terms": [
-      "احفظ ملاحظة واحدة من الذاكرة طويلة المدى حول المستخدم/البيئة التي قد تكون مفيدة في المحادثات المستقبلية",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "احفظ ملاحظة واحدة مفيدة للذاكرة طويلة المدى.\nلا تقم بتخزين أسرار مثل كلمات المرور أو مفاتيح API أو الرموز المميزة."
   },
@@ -153,9 +168,10 @@
     "param.note.description": "Texten i anteckningen som ska sparas.",
     "tool.description": "Spara en anteckning i långtidsminnet om användaren eller miljön som kan vara användbar i framtida samtal.",
     "x_search_terms": [
-      "Spara en anteckning i långtidsminnet om användaren eller miljön som kan vara användbar i framtida samtal",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Spara en användbar anteckning i långtidsminnet.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
   },
@@ -163,9 +179,10 @@
     "param.note.description": "Maandishi ya dokezo la kuhifadhi.",
     "tool.description": "Hifadhi dokezo moja la kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambalo linaweza kusaidia katika mazungumzo ya baadaye.",
     "x_search_terms": [
-      "Hifadhi dokezo moja la kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambalo linaweza kusaidia katika mazungumzo ya baadaye",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya muda mrefu. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
   },
@@ -173,9 +190,10 @@
     "param.note.description": "Teksten i notatet som skal lagres.",
     "tool.description": "Lagre ett notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler.",
     "x_search_terms": [
-      "Lagre ett notat i langtidsminnet om brukeren eller miljøet som kan være nyttig i fremtidige samtaler",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Lagre ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
   },
@@ -183,9 +201,10 @@
     "param.note.description": "De notitietekst om op te slaan.",
     "tool.description": "Sla één langetermijngeheugen-notitie op over de gebruiker of omgeving die later nuttig kan zijn.",
     "x_search_terms": [
-      "Sla één langetermijngeheugen-notitie op over de gebruiker of omgeving die later nuttig kan zijn",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Sla één nuttige langetermijngeheugen-notitie op.\nSla geen geheimen op zoals wachtwoorden, API-sleutels of tokens."
   },
@@ -193,9 +212,10 @@
     "param.note.description": "Tallennettava muistiinpanoteksti.",
     "tool.description": "Tallenna yksi pitkäaikaisen muistin muistiinpano käyttäjästä tai ympäristöstä myöhempää käyttöä varten.",
     "x_search_terms": [
-      "Tallenna yksi pitkäaikaisen muistin muistiinpano käyttäjästä tai ympäristöstä myöhempää käyttöä varten",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Tallenna yksi hyödyllinen pitkäaikaisen muistin muistiinpano.\nÄlä tallenna salaisuuksia kuten salasanoja, API-avaimia tai tokeneita."
   },
@@ -203,9 +223,10 @@
     "param.note.description": "Text poznámky, kterou chcete uložit.",
     "tool.description": "Uloží jednu užitečnou poznámku o uživateli nebo prostředí do dlouhodobé paměti, která se může hodit v budoucích konverzacích.",
     "x_search_terms": [
-      "Uloží jednu užitečnou poznámku o uživateli nebo prostředí do dlouhodobé paměti, která se může hodit v budoucích konverzacích",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Uložte jednu užitečnou poznámku do dlouhodobé paměti.\nNeukládejte tajné údaje, jako jsou hesla, API klíče nebo tokeny."
   },
@@ -213,9 +234,10 @@
     "param.note.description": "Текст нотатки, яку потрібно зберегти.",
     "tool.description": "Зберігає одну корисну нотатку про користувача або середовище в довготривалій пам’яті, яка може стати у пригоді в майбутніх розмовах.",
     "x_search_terms": [
-      "Зберігає одну корисну нотатку про користувача або середовище в довготривалій пам’яті, яка може стати у пригоді в майбутніх розмовах",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Збережіть одну корисну нотатку в довготривалій пам’яті.\nНе зберігайте секрети, як-от паролі, ключі API або токени."
   },
@@ -223,9 +245,10 @@
     "param.note.description": "Kaydedilecek not metni.",
     "tool.description": "Kullanıcı/ortam hakkında gelecekteki konuşmalarda faydalı olabilecek tek bir uzun süreli hafıza notu kaydedin.",
     "x_search_terms": [
-      "Kullanıcı/ortam hakkında gelecekteki konuşmalarda faydalı olabilecek tek bir uzun süreli hafıza notu kaydedin",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Yararlı bir uzun süreli hafıza notu kaydedin.\nParolalar, API anahtarları veya belirteçler gibi sırları saklamayın."
   },
@@ -233,9 +256,10 @@
     "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
     "tool.description": "บันทึกบันทึกความทรงจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
     "x_search_terms": [
-      "บันทึกบันทึกความทรงจำระยะยาวหนึ่งรายการเกี่ยวกับผู้ใช้/สภาพแวดล้อมที่อาจเป็นประโยชน์ในการสนทนาในอนาคต",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
   },
@@ -243,9 +267,10 @@
     "param.note.description": "要保存的注释文本。",
     "tool.description": "保存关于用户/环境的单条长期记忆笔记，未来对话中可能有用。",
     "x_search_terms": [
-      "保存关于用户/环境的单条长期记忆笔记，未来对话中可能有用",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "保存一条有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
   },
@@ -253,9 +278,10 @@
     "param.note.description": "要儲存的註釋文字。",
     "tool.description": "保存有關使用者/環境的單條長期記憶筆記，未來的對話中可能有用。",
     "x_search_terms": [
-      "保存有關使用者/環境的單條長期記憶筆記，未來的對話中可能有用",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "保存一則有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
   },
@@ -263,9 +289,10 @@
     "param.note.description": "সংরক্ষণ করার জন্য নোটের লেখা।",
     "tool.description": "ভবিষ্যতের কথোপকথনে কাজে লাগতে পারে এমন ব্যবহারকারী বা পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদি স্মৃতি নোট সংরক্ষণ করুন।",
     "x_search_terms": [
-      "ভবিষ্যতের কথোপকথনে কাজে লাগতে পারে এমন ব্যবহারকারী বা পরিবেশ সম্পর্কে একটি দীর্ঘমেয়াদি স্মৃতি নোট সংরক্ষণ করুন",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "একটি উপকারী দীর্ঘমেয়াদি স্মৃতি নোট সংরক্ষণ করুন।\nপাসওয়ার্ড, API কী, বা টোকেনের মতো গোপন তথ্য সংরক্ষণ করবেন না।"
   },
@@ -273,9 +300,10 @@
     "param.note.description": "متن یادداشتی که باید ذخیره شود.",
     "tool.description": "یک یادداشت واحدِ حافظهٔ بلندمدت دربارهٔ کاربر/محیط ذخیره کنید که ممکن است در گفتگوهای آینده مفید باشد.",
     "x_search_terms": [
-      "یک یادداشت واحدِ حافظهٔ بلندمدت دربارهٔ کاربر/محیط ذخیره کنید که ممکن است در گفتگوهای آینده مفید باشد",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "یک یادداشت مفید برای حافظهٔ بلندمدت ذخیره کنید.\nرازهایی مانند گذرواژه، کلید API یا توکن را ذخیره نکنید."
   },
@@ -283,9 +311,10 @@
     "param.note.description": "Хадгалах тэмдэглэлийн текст.",
     "tool.description": "Ирээдүйн ярианд хэрэг болж болох хэрэглэгч эсвэл орчны тухай нэг удаагийн урт хугацааны санах ойн тэмдэглэлийг хадгална.",
     "x_search_terms": [
-      "Ирээдүйн ярианд хэрэг болж болох хэрэглэгч эсвэл орчны тухай нэг удаагийн урт хугацааны санах ойн тэмдэглэлийг хадгална",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "Ашигтай нэг урт хугацааны санах ойн тэмдэглэлийг хадгална уу.\nНууц үг, API key, token зэрэг нууцыг бүү хадгал."
   },
@@ -293,9 +322,10 @@
     "param.note.description": "जतन करायच्या नोंदीचा मजकूर.",
     "tool.description": "भविष्यातील संभाषणांमध्ये उपयुक्त ठरू शकणारी वापरकर्ता/पर्यावरणाविषयी एकच दीर्घकालीन स्मृती नोंद जतन करा.",
     "x_search_terms": [
-      "भविष्यातील संभाषणांमध्ये उपयुक्त ठरू शकणारी वापरकर्ता/पर्यावरणाविषयी एकच दीर्घकालीन स्मृती नोंद जतन करा",
       "add_long_memory",
-      "add long memory"
+      "add long memory",
+      "long memory",
+      "save memory"
     ],
     "tool.system_prompt": "एक उपयुक्त दीर्घकालीन स्मृती नोंद जतन करा.\nपासवर्ड, API की किंवा टोकनसारखी गुपिते जतन करू नका."
   }

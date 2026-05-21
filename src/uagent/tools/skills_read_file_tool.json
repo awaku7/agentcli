@@ -9,9 +9,10 @@
     "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
     "x_search_terms": [
-      "Safely reads a file under a skill directory using a relative path. Path traversal is blocked",
       "skills_read_file",
-      "skills read file"
+      "skills read file",
+      "read skill file",
+      "skill file"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
@@ -25,9 +26,10 @@
     "param.skill_dir.description": "スキルディレクトリ",
     "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
     "x_search_terms": [
-      "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します",
       "skills_read_file",
-      "skills read file"
+      "skills ファイル読込",
+      "相対パス読込",
+      "skill file"
     ],
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
@@ -41,9 +43,10 @@
     "param.skill_dir.description": "directorio del skill",
     "tool.description": "Lee de forma segura un archivo dentro de un directorio de skill usando una ruta relativa. Se bloquea la traversión de rutas.",
     "x_search_terms": [
-      "Lee de forma segura un archivo dentro de un directorio de skill usando una ruta relativa. Se bloquea la traversión de rutas",
       "skills_read_file",
-      "skills read file"
+      "leer archivo skill",
+      "archivo skill",
+      "skills file"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
   },
@@ -57,9 +60,10 @@
     "param.skill_dir.description": "répertoire du skill",
     "tool.description": "Lit en toute sécurité un fichier sous un répertoire de skill à l’aide d’un chemin relatif. La traversée de chemin est bloquée.",
     "x_search_terms": [
-      "Lit en toute sécurité un fichier sous un répertoire de skill à l’aide d’un chemin relatif. La traversée de chemin est bloquée",
       "skills_read_file",
-      "skills read file"
+      "lire fichier skill",
+      "fichier skill",
+      "skills file"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
   },
@@ -73,9 +77,10 @@
     "param.skill_dir.description": "스킬 디렉터리",
     "tool.description": "상대 경로를 사용해 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 탐색은 차단됩니다.",
     "x_search_terms": [
-      "상대 경로를 사용해 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 탐색은 차단됩니다",
       "skills_read_file",
-      "skills read file"
+      "스킬 파일 읽기",
+      "상대경로 읽기",
+      "skill file"
     ],
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
@@ -89,9 +94,10 @@
     "param.skill_dir.description": "Skill-Verzeichnis",
     "tool.description": "Liest eine Datei unter einem Skill-Verzeichnis sicher über einen relativen Pfad. Pfad-Traversal wird blockiert.",
     "x_search_terms": [
-      "Liest eine Datei unter einem Skill-Verzeichnis sicher über einen relativen Pfad. Pfad-Traversal wird blockiert",
       "skills_read_file",
-      "skills read file"
+      "skill-datei lesen",
+      "relative datei lesen",
+      "skill file"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
@@ -105,9 +111,10 @@
     "param.skill_dir.description": "directory dello skill",
     "tool.description": "Legge in modo sicuro un file sotto una directory dello skill usando un percorso relativo. Il path traversal viene bloccato.",
     "x_search_terms": [
-      "Legge in modo sicuro un file sotto una directory dello skill usando un percorso relativo. Il path traversal viene bloccato",
       "skills_read_file",
-      "skills read file"
+      "leggi file skill",
+      "file skill",
+      "skills file"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
@@ -121,9 +128,10 @@
     "param.skill_dir.description": "каталог навыка",
     "tool.description": "Безопасно читает файл в каталоге навыка по относительному пути. Обход пути блокируется.",
     "x_search_terms": [
-      "Безопасно читает файл в каталоге навыка по относительному пути. Обход пути блокируется",
       "skills_read_file",
-      "skills read file"
+      "читать файл skill",
+      "файл skill",
+      "skills file"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
@@ -137,9 +145,10 @@
     "param.skill_dir.description": "diretório do skill",
     "tool.description": "Lê com segurança um arquivo dentro de um diretório de skill usando um caminho relativo. A travessia de caminho é bloqueada.",
     "x_search_terms": [
-      "Lê com segurança um arquivo dentro de um diretório de skill usando um caminho relativo. A travessia de caminho é bloqueada",
       "skills_read_file",
-      "skills read file"
+      "ler arquivo skill",
+      "arquivo skill",
+      "skills file"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
@@ -153,9 +162,10 @@
     "param.skill_dir.description": "diretório da habilidade",
     "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo. A travessia de caminho é bloqueada.",
     "x_search_terms": [
-      "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo. A travessia de caminho é bloqueada",
       "skills_read_file",
-      "skills read file"
+      "ler arquivo skill",
+      "arquivo skill",
+      "skills file"
     ],
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
@@ -169,9 +179,10 @@
     "param.skill_dir.description": "direktori skill",
     "tool.description": "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir.",
     "x_search_terms": [
-      "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir",
       "skills_read_file",
-      "skills read file"
+      "baca file skill",
+      "file skill",
+      "skills file"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   },
@@ -185,9 +196,10 @@
     "param.skill_dir.description": "thư mục kỹ năng",
     "tool.description": "Đọc an toàn một tệp trong thư mục kỹ năng bằng đường dẫn tương đối. Đường dẫn bị chặn.",
     "x_search_terms": [
-      "Đọc an toàn một tệp trong thư mục kỹ năng bằng đường dẫn tương đối. Đường dẫn bị chặn",
       "skills_read_file",
-      "skills read file"
+      "đọc file skill",
+      "tệp skill",
+      "skills file"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
@@ -201,9 +213,10 @@
     "param.skill_dir.description": "katalog umiejętności",
     "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej. Przechodzenie ścieżek jest blokowane.",
     "x_search_terms": [
-      "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej. Przechodzenie ścieżek jest blokowane",
       "skills_read_file",
-      "skills read file"
+      "czytaj plik skill",
+      "plik skill",
+      "skills file"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
   },
@@ -217,9 +230,10 @@
     "param.skill_dir.description": "कौशल निर्देशिका",
     "tool.description": "सापेक्ष पथ का उपयोग करके कौशल निर्देशिका के अंतर्गत किसी फ़ाइल को सुरक्षित रूप से पढ़ता है। पथ ट्रैवर्सल अवरुद्ध है।",
     "x_search_terms": [
-      "सापेक्ष पथ का उपयोग करके कौशल निर्देशिका के अंतर्गत किसी फ़ाइल को सुरक्षित रूप से पढ़ता है। पथ ट्रैवर्सल अवरुद्ध है।",
       "skills_read_file",
-      "skills read file"
+      "स्किल फ़ाइल पढ़ें",
+      "स्किल फ़ाइल",
+      "skill file"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
@@ -233,9 +247,10 @@
     "param.skill_dir.description": "دليل المهارة",
     "tool.description": "يقرأ ملفًا بأمان ضمن دليل المهارة باستخدام مسار نسبي. يتم حظر اجتياز المسار.",
     "x_search_terms": [
-      "يقرأ ملفًا بأمان ضمن دليل المهارة باستخدام مسار نسبي. يتم حظر اجتياز المسار",
       "skills_read_file",
-      "skills read file"
+      "قراءة ملف المهارة",
+      "ملف المهارة",
+      "skills file"
     ],
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
@@ -249,9 +264,10 @@
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras.",
     "x_search_terms": [
-      "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras",
       "skills_read_file",
-      "skills read file"
+      "läs skill-fil",
+      "skill-fil",
+      "skills file"
     ],
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
@@ -265,9 +281,10 @@
     "param.skill_dir.description": "saraka ya skill",
     "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
     "x_search_terms": [
-      "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa",
       "skills_read_file",
-      "skills read file"
+      "soma faili ya skill",
+      "faili ya skill",
+      "skills file"
     ],
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
@@ -281,9 +298,10 @@
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitraversering blokkeres.",
     "x_search_terms": [
-      "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitraversering blokkeres",
       "skills_read_file",
-      "skills read file"
+      "les skill-fil",
+      "skill-fil",
+      "skills file"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
@@ -297,9 +315,10 @@
     "param.skill_dir.description": "skills-map",
     "tool.description": "Leest veilig een bestand onder een skills-map met een relatief pad. Pad-traversal wordt geblokkeerd.",
     "x_search_terms": [
-      "Leest veilig een bestand onder een skills-map met een relatief pad. Pad-traversal wordt geblokkeerd",
       "skills_read_file",
-      "skills read file"
+      "lees skill-bestand",
+      "skill-bestand",
+      "skills file"
     ],
     "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
   },
@@ -313,9 +332,10 @@
     "param.skill_dir.description": "skill-hakemisto",
     "tool.description": "Lukee tiedoston turvallisesti skill-hakemiston alta suhteellisella polulla. Polun läpikäynti estetään.",
     "x_search_terms": [
-      "Lukee tiedoston turvallisesti skill-hakemiston alta suhteellisella polulla. Polun läpikäynti estetään",
       "skills_read_file",
-      "skills read file"
+      "lue skill-tiedosto",
+      "skill-tiedosto",
+      "skills file"
     ],
     "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
@@ -329,9 +349,10 @@
     "param.skill_dir.description": "adresář skillu",
     "tool.description": "Bezpečně čte soubor v adresáři skillu pomocí relativní cesty. Traversal cesty je blokován.",
     "x_search_terms": [
-      "Bezpečně čte soubor v adresáři skillu pomocí relativní cesty. Traversal cesty je blokován",
       "skills_read_file",
-      "skills read file"
+      "číst skill soubor",
+      "skill soubor",
+      "skills file"
     ],
     "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
   },
@@ -345,9 +366,10 @@
     "param.skill_dir.description": "каталог skill",
     "tool.description": "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано.",
     "x_search_terms": [
-      "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано",
       "skills_read_file",
-      "skills read file"
+      "читати файл skill",
+      "файл skill",
+      "skills file"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
   },
@@ -361,9 +383,10 @@
     "param.skill_dir.description": "beceri dizini",
     "tool.description": "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur. Yol aşımı engellenir.",
     "x_search_terms": [
-      "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur. Yol aşımı engellenir",
       "skills_read_file",
-      "skills read file"
+      "skill dosyası oku",
+      "skill dosyası",
+      "skills file"
     ],
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   },
@@ -377,9 +400,10 @@
     "param.skill_dir.description": "ไดเรกทอรีสกิล",
     "tool.description": "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
     "x_search_terms": [
-      "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
       "skills_read_file",
-      "skills read file"
+      "อ่านไฟล์สกิล",
+      "ไฟล์สกิล",
+      "skills file"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
   },
@@ -393,9 +417,10 @@
     "param.skill_dir.description": "技能目录",
     "tool.description": "使用相对路径安全读取技能目录下的文件。会阻止路径穿越。",
     "x_search_terms": [
-      "使用相对路径安全读取技能目录下的文件。会阻止路径穿越",
       "skills_read_file",
-      "skills read file"
+      "读取技能文件",
+      "技能文件",
+      "skills file"
     ],
     "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。"
   },
@@ -409,9 +434,10 @@
     "param.skill_dir.description": "技能目錄",
     "tool.description": "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越。",
     "x_search_terms": [
-      "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越",
       "skills_read_file",
-      "skills read file"
+      "讀取技能檔案",
+      "技能檔案",
+      "skills file"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   },
@@ -425,9 +451,10 @@
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়।",
     "x_search_terms": [
-      "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়",
       "skills_read_file",
-      "skills read file"
+      "স্কিল ফাইল পড়ুন",
+      "স্কিল ফাইল",
+      "skills file"
     ],
     "tool.system_prompt": "tool description-এ বর্ণিত উদ্দেশ্যে এই টুল ব্যবহার করুন।"
   },
@@ -441,9 +468,10 @@
     "param.skill_dir.description": "پوشهٔ skillها",
     "tool.description": "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود.",
     "x_search_terms": [
-      "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود",
       "skills_read_file",
-      "skills read file"
+      "خواندن فایل مهارت",
+      "فایل مهارت",
+      "skills file"
     ],
     "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
   },
@@ -457,9 +485,10 @@
     "param.skill_dir.description": "skill-ийн лавлах",
     "tool.description": "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно.",
     "x_search_terms": [
-      "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно",
       "skills_read_file",
-      "skills read file"
+      "skill файл унших",
+      "skill файл",
+      "skills file"
     ],
     "tool.system_prompt": "Tool description-д заасан зорилгод энэ хэрэгслийг ашиглана уу."
   },
@@ -473,9 +502,10 @@
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते.",
     "x_search_terms": [
-      "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते",
       "skills_read_file",
-      "skills read file"
+      "स्किल फाइल वाचा",
+      "स्किल फाइल",
+      "skills file"
     ],
     "tool.system_prompt": "tool description मध्ये दिलेल्या उद्देशासाठी हे टूल वापरा."
   }

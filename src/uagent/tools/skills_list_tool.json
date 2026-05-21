@@ -6,9 +6,10 @@
     "param.strict.description": "Whether to treat warnings as failures during specification verification (default: false)",
     "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
     "x_search_terms": [
-      "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted",
       "skills_list",
-      "skills list"
+      "skills list",
+      "list skills",
+      "skill list"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },
@@ -19,8 +20,9 @@
     "param.strict.description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
     "tool.description": "Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します。",
     "x_search_terms": [
-      "Agent Skills 仕様(SKILL.md)に基づき、指定ルート配下のスキル一覧を返します（frontmatterのみ読み込み）。root_dir未指定時は環境変数UAGENT_SKILLS_DIRS、無ければ./skillsを探索します",
       "skills_list",
+      "スキル一覧",
+      "一覧取得",
       "skills list"
     ],
     "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
@@ -32,8 +34,9 @@
     "param.strict.description": "Si las advertencias deben tratarse como fallos durante la verificación de la especificación (valor predeterminado: false).",
     "tool.description": "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el contenido inicial) según la especificación de habilidades del agente (SKILL.md). Analiza UAGENT_SKILLS_DIRS o ./skills si se omite root_dir.",
     "x_search_terms": [
-      "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el contenido inicial) según la especificación de habilidades del agente (SKILL.md). Analiza UAGENT_SKILLS_DIRS o ./skills si se omite root_dir",
       "skills_list",
+      "lista de skills",
+      "listar skills",
       "skills list"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
@@ -45,8 +48,9 @@
     "param.strict.description": "S'il faut traiter les avertissements comme des échecs lors de la vérification des spécifications (par défaut : faux)",
     "tool.description": "Renvoie une liste de compétences sous la racine spécifiée (lecture uniquement du contenu) basée sur la spécification des compétences d'agent (SKILL.md). Analyse UAGENT_SKILLS_DIRS ou ./skills si root_dir est omis.",
     "x_search_terms": [
-      "Renvoie une liste de compétences sous la racine spécifiée (lecture uniquement du contenu) basée sur la spécification des compétences d'agent (SKILL.md). Analyse UAGENT_SKILLS_DIRS ou ./skills si root_dir est omis",
       "skills_list",
+      "liste des compétences",
+      "lister les compétences",
       "skills list"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
@@ -58,8 +62,9 @@
     "param.strict.description": "사양 검증에서 경고를 실패로 간주할지 여부입니다(기본값: false).",
     "tool.description": "에이전트 스킬 사양(SKILL.md)을 기반으로 지정된 루트(머리말만 읽기) 아래의 스킬 목록을 반환합니다. root_dir이 생략된 경우 UAGENT_SKILLS_DIRS 또는 ./skills를 검색합니다.",
     "x_search_terms": [
-      "에이전트 스킬 사양(SKILL.md)을 기반으로 지정된 루트(머리말만 읽기) 아래의 스킬 목록을 반환합니다. root_dir이 생략된 경우 UAGENT_SKILLS_DIRS 또는 ./skills를 검색합니다",
       "skills_list",
+      "스킬 목록",
+      "스킬 리스트",
       "skills list"
     ],
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
@@ -71,8 +76,9 @@
     "param.strict.description": "Ob Warnungen bei der Spezifikationsprüfung als Fehler behandelt werden sollen (Standard: false)",
     "tool.description": "Gibt anhand der Agent-Skills-Spezifikation (SKILL.md) eine Liste der Skills unter dem angegebenen Root zurück (liest nur das Frontmatter). Wenn root_dir weggelassen wird, werden UAGENT_SKILLS_DIRS oder ./skills durchsucht.",
     "x_search_terms": [
-      "Gibt anhand der Agent-Skills-Spezifikation (SKILL.md) eine Liste der Skills unter dem angegebenen Root zurück (liest nur das Frontmatter). Wenn root_dir weggelassen wird, werden UAGENT_SKILLS_DIRS oder ./skills durchsucht",
       "skills_list",
+      "skills-liste",
+      "skills auflisten",
       "skills list"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
@@ -84,8 +90,9 @@
     "param.strict.description": "Se trattare anche i warning come fallimenti durante la verifica della specifica (predefinito: false)",
     "tool.description": "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.md), leggendo solo il frontmatter. Se root_dir è omesso, esegue la scansione di UAGENT_SKILLS_DIRS o ./skills.",
     "x_search_terms": [
-      "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.md), leggendo solo il frontmatter. Se root_dir è omesso, esegue la scansione di UAGENT_SKILLS_DIRS o ./skills",
       "skills_list",
+      "elenco skill",
+      "lista skill",
       "skills list"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
@@ -97,8 +104,9 @@
     "param.strict.description": "Считать ли предупреждения ошибками при проверке спецификации (по умолчанию: false)",
     "tool.description": "Возвращает список навыков в указанном корне согласно спецификации Agent Skills (SKILL.md), читая только frontmatter. Если root_dir опущен, сканирует UAGENT_SKILLS_DIRS или ./skills.",
     "x_search_terms": [
-      "Возвращает список навыков в указанном корне согласно спецификации Agent Skills (SKILL.md), читая только frontmatter. Если root_dir опущен, сканирует UAGENT_SKILLS_DIRS или ./skills",
       "skills_list",
+      "список навыков",
+      "перечень навыков",
       "skills list"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
@@ -110,8 +118,9 @@
     "param.strict.description": "Se avisos também devem ser tratados como falha durante a verificação da especificação (padrão: false)",
     "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.md), lendo apenas o frontmatter. Se root_dir for omitido, varre UAGENT_SKILLS_DIRS ou ./skills.",
     "x_search_terms": [
-      "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.md), lendo apenas o frontmatter. Se root_dir for omitido, varre UAGENT_SKILLS_DIRS ou ./skills",
       "skills_list",
+      "lista de skills",
+      "listar skills",
       "skills list"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
@@ -123,8 +132,9 @@
     "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verificação das especificações (padrão: falso)",
     "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL.md). Verifica UAGENT_SKILLS_DIRS ou ./skills se root_dir for omitido.",
     "x_search_terms": [
-      "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL.md). Verifica UAGENT_SKILLS_DIRS ou ./skills se root_dir for omitido",
       "skills_list",
+      "lista de skills",
+      "listar skills",
       "skills list"
     ],
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
@@ -136,8 +146,9 @@
     "param.strict.description": "Apakah warning juga dianggap sebagai kegagalan saat verifikasi spesifikasi (default: false)",
     "tool.description": "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Agent Skills (SKILL.md). Memindai UAGENT_SKILLS_DIRS atau ./skills jika root_dir dihilangkan.",
     "x_search_terms": [
-      "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Agent Skills (SKILL.md). Memindai UAGENT_SKILLS_DIRS atau ./skills jika root_dir dihilangkan",
       "skills_list",
+      "daftar skill",
+      "list skill",
       "skills list"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
@@ -149,8 +160,9 @@
     "param.strict.description": "Có coi cảnh báo là lỗi trong quá trình xác minh thông số kỹ thuật hay không (mặc định: sai)",
     "tool.description": "Trả về danh sách các kỹ năng trong gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (SKILL.md). Quét UAGENT_SKILLS_DIRS hoặc ./skills nếu root_dir bị bỏ qua.",
     "x_search_terms": [
-      "Trả về danh sách các kỹ năng trong gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (SKILL.md). Quét UAGENT_SKILLS_DIRS hoặc ./skills nếu root_dir bị bỏ qua",
       "skills_list",
+      "danh sách kỹ năng",
+      "liệt kê kỹ năng",
       "skills list"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
@@ -162,8 +174,9 @@
     "param.strict.description": "Czy podczas weryfikacji specyfikacji traktować ostrzeżenia jako błędy (domyślnie: fałsz)",
     "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md). Skanuje UAGENT_SKILLS_DIRS lub ./skills, jeśli pominięto katalog_główny.",
     "x_search_terms": [
-      "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md). Skanuje UAGENT_SKILLS_DIRS lub ./skills, jeśli pominięto katalog_główny",
       "skills_list",
+      "lista umiejętności",
+      "wypisz umiejętności",
       "skills list"
     ],
     "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
@@ -175,8 +188,9 @@
     "param.strict.description": "क्या विनिर्देशन सत्यापन के दौरान चेतावनियों को विफलता माना जाए (डिफ़ॉल्ट: गलत)",
     "tool.description": "एजेंट कौशल विशिष्टता (SKILL.md) के आधार पर निर्दिष्ट रूट (केवल फ्रंटमैटर पढ़ता है) के तहत कौशल की एक सूची लौटाता है। यदि root_dir छोड़ दिया गया है तो UAGENT_SKILLS_DIRS या ./skills को स्कैन करता है।",
     "x_search_terms": [
-      "एजेंट कौशल विशिष्टता (SKILL.md) के आधार पर निर्दिष्ट रूट (केवल फ्रंटमैटर पढ़ता है) के तहत कौशल की एक सूची लौटाता है। यदि root_dir छोड़ दिया गया है तो UAGENT_SKILLS_DIRS या ./skills को स्कैन करता है।",
       "skills_list",
+      "कौशल सूची",
+      "कौशल सूचीबद्ध करें",
       "skills list"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
@@ -188,8 +202,9 @@
     "param.strict.description": "ما إذا كان سيتم اعتبار التحذيرات حالات فشل أثناء التحقق من المواصفات (الافتراضي: false).",
     "tool.description": "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md). يقوم بمسح UAGENT_SKILLS_DIRS أو ./skills إذا تم حذف root_dir.",
     "x_search_terms": [
-      "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md). يقوم بمسح UAGENT_SKILLS_DIRS أو ./skills إذا تم حذف root_dir",
       "skills_list",
+      "قائمة المهارات",
+      "عرض المهارات",
       "skills list"
     ],
     "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
@@ -201,8 +216,9 @@
     "param.strict.description": "Om varningar ska betraktas som fel vid verifiering av specifikationen (standard: false).",
     "tool.description": "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen (SKILL.md). Skannar rekursivt som standard.",
     "x_search_terms": [
-      "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen (SKILL.md). Skannar rekursivt som standard",
       "skills_list",
+      "färdighetslista",
+      "lista skills",
       "skills list"
     ],
     "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
@@ -214,8 +230,9 @@
     "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha maelezo (chaguomsingi: false)",
     "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa.",
     "x_search_terms": [
-      "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills spec (SKILL.md). Huchunguza UAGENT_SKILLS_DIRS au ./skills ikiwa root_dir imeachwa",
       "skills_list",
+      "orodha ya skills",
+      "orodhesha skills",
       "skills list"
     ],
     "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
@@ -227,8 +244,9 @@
     "param.strict.description": "Om varsler skal behandles som feil ved spesifikasjonsverifisering (standard: false).",
     "tool.description": "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikasjonen (SKILL.md). Skanner rekursivt som standard.",
     "x_search_terms": [
-      "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikasjonen (SKILL.md). Skanner rekursivt som standard",
       "skills_list",
+      "ferdighetsliste",
+      "list skills",
       "skills list"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
@@ -240,8 +258,9 @@
     "param.strict.description": "Of waarschuwingen bij het verifiëren van de specificatie als fouten moeten worden behandeld (standaard: false)",
     "tool.description": "Geeft een lijst van skills onder de opgegeven root terug (leest alleen frontmatter) op basis van de Agent Skills-specificatie (SKILL.md). Doorzoekt UAGENT_SKILLS_DIRS of ./skills als root_dir wordt weggelaten.",
     "x_search_terms": [
-      "Geeft een lijst van skills onder de opgegeven root terug (leest alleen frontmatter) op basis van de Agent Skills-specificatie (SKILL.md). Doorzoekt UAGENT_SKILLS_DIRS of ./skills als root_dir wordt weggelaten",
       "skills_list",
+      "vaardigheden lijst",
+      "skills opsommen",
       "skills list"
     ],
     "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
@@ -253,8 +272,9 @@
     "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisina määrityksen tarkistuksessa (oletus: false)",
     "tool.description": "Palauttaa luettelon annettujen juurten alla olevista skilleistä (lukee vain frontmatterin) Agent Skills -määrityksen (SKILL.md) perusteella. Jos root_dir jätetään pois, hakee UAGENT_SKILLS_DIRS- tai ./skills-hakemistoista.",
     "x_search_terms": [
-      "Palauttaa luettelon annettujen juurten alla olevista skilleistä (lukee vain frontmatterin) Agent Skills -määrityksen (SKILL.md) perusteella. Jos root_dir jätetään pois, hakee UAGENT_SKILLS_DIRS- tai ./skills-hakemistoista",
       "skills_list",
+      "taitoluettelo",
+      "listaa taidot",
       "skills list"
     ],
     "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
@@ -266,8 +286,9 @@
     "param.strict.description": "Zda považovat varování při ověřování specifikace za chyby (výchozí: false)",
     "tool.description": "Vrací seznam skills pod zadaným kořenem (čte pouze frontmatter) podle specifikace Agent Skills (SKILL.md). Pokud root_dir není uveden, prohledá UAGENT_SKILLS_DIRS nebo ./skills.",
     "x_search_terms": [
-      "Vrací seznam skills pod zadaným kořenem (čte pouze frontmatter) podle specifikace Agent Skills (SKILL.md). Pokud root_dir není uveden, prohledá UAGENT_SKILLS_DIRS nebo ./skills",
       "skills_list",
+      "seznam dovedností",
+      "vypsat dovednosti",
       "skills list"
     ],
     "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
@@ -279,8 +300,9 @@
     "param.strict.description": "Чи вважати попередження помилками під час перевірки специфікації (типово: false)",
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.md). Якщо root_dir не вказано, сканує UAGENT_SKILLS_DIRS або ./skills.",
     "x_search_terms": [
-      "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.md). Якщо root_dir не вказано, сканує UAGENT_SKILLS_DIRS або ./skills",
       "skills_list",
+      "список навичок",
+      "перелік навичок",
       "skills list"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
@@ -292,8 +314,9 @@
     "param.strict.description": "Özellik doğrulaması sırasında uyarılar da başarısızlık olarak kabul edilsin mi (varsayılan: false)",
     "tool.description": "Agent Skills belirtimine (SKILL.md) göre belirtilen kök altındaki becerileri döndürür (yalnızca frontmatter okunur). root_dir atlanırsa UAGENT_SKILLS_DIRS veya ./skills taranır.",
     "x_search_terms": [
-      "Agent Skills belirtimine (SKILL.md) göre belirtilen kök altındaki becerileri döndürür (yalnızca frontmatter okunur). root_dir atlanırsa UAGENT_SKILLS_DIRS veya ./skills taranır",
       "skills_list",
+      "beceri listesi",
+      "becerileri listele",
       "skills list"
     ],
     "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (araç açıklamasına bakın)."
@@ -305,8 +328,9 @@
     "param.strict.description": "จะถือว่า warning เป็นความล้มเหลวระหว่างการตรวจสอบข้อกำหนดหรือไม่ (ค่าเริ่มต้น: false)",
     "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.md) สแกน UAGENT_SKILLS_DIRS หรือ ./skills หากละเว้น root_dir",
     "x_search_terms": [
-      "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.md) สแกน UAGENT_SKILLS_DIRS หรือ ./skills หากละเว้น root_dir",
       "skills_list",
+      "รายการทักษะ",
+      "แสดงทักษะ",
       "skills list"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
@@ -318,8 +342,9 @@
     "param.strict.description": "在规范验证期间是否将警告视为失败（默认：false）。",
     "tool.description": "根据代理技能规范 (SKILL.md) 返回指定根下的技能列表（仅读取 frontmatter）。如果省略 root_dir，则扫描 UAGENT_SKILLS_DIRS 或 ./skills。",
     "x_search_terms": [
-      "根据代理技能规范 (SKILL.md) 返回指定根下的技能列表（仅读取 frontmatter）。如果省略 root_dir，则扫描 UAGENT_SKILLS_DIRS 或 ./skills",
       "skills_list",
+      "技能列表",
+      "列出技能",
       "skills list"
     ],
     "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
@@ -331,8 +356,9 @@
     "param.strict.description": "在規格驗證期間是否將警告視為失敗（預設：false）。",
     "tool.description": "根據代理技能規格 (SKILL.md) 傳回指定根下的技能清單（僅讀取 frontmatter）。如果省略 root_dir，則掃描 UAGENT_SKILLS_DIRS 或 ./skills。",
     "x_search_terms": [
-      "根據代理技能規格 (SKILL.md) 傳回指定根下的技能清單（僅讀取 frontmatter）。如果省略 root_dir，則掃描 UAGENT_SKILLS_DIRS 或 ./skills",
       "skills_list",
+      "技能清單",
+      "列出技能",
       "skills list"
     ],
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
@@ -344,8 +370,9 @@
     "param.strict.description": "specification verification-এর সময় warnings-কে ব্যর্থতা হিসেবে ধরা হবে কি না (default: false)",
     "tool.description": "Agent Skills স্পেসিফিকেশন (SKILL.md) অনুযায়ী নির্দিষ্ট root-এর নিচের skill-গুলোর তালিকা ফেরত দেয় (শুধু frontmatter পড়ে)। root_dir না দিলে UAGENT_SKILLS_DIRS বা ./skills স্ক্যান করে।",
     "x_search_terms": [
-      "Agent Skills স্পেসিফিকেশন (SKILL.md) অনুযায়ী নির্দিষ্ট root-এর নিচের skill-গুলোর তালিকা ফেরত দেয় (শুধু frontmatter পড়ে)। root_dir না দিলে UAGENT_SKILLS_DIRS বা ./skills স্ক্যান করে",
       "skills_list",
+      "দক্ষতার তালিকা",
+      "দক্ষতা তালিকাভুক্ত",
       "skills list"
     ],
     "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহৃত হয়: (tool description দেখুন)।"
@@ -357,8 +384,9 @@
     "param.strict.description": "آیا warningها هنگام اعتبارسنجی specification خطا محسوب شوند یا نه (پیش‌فرض: false)",
     "tool.description": "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skills (SKILL.md). اگر root_dir حذف شود، UAGENT_SKILLS_DIRS یا ./skills را اسکن می‌کند.",
     "x_search_terms": [
-      "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skills (SKILL.md). اگر root_dir حذف شود، UAGENT_SKILLS_DIRS یا ./skills را اسکن می‌کند",
       "skills_list",
+      "فهرست مهارت‌ها",
+      "نمایش مهارت‌ها",
       "skills list"
     ],
     "tool.system_prompt": "از این ابزار برای هدف زیر استفاده می‌شود: (به توضیح ابزار مراجعه کنید)."
@@ -370,8 +398,9 @@
     "param.strict.description": "specification verification хийх үед warnings-ийг алдаа гэж үзэх эсэх (анхдагч: false)",
     "tool.description": "Agent Skills-ийн specification (SKILL.md)-д үндэслэн заасан root-ийн доорх skill-үүдийн жагсаалтыг буцаана (зөвхөн frontmatter уншина). root_dir орхигдвол UAGENT_SKILLS_DIRS эсвэл ./skills-ийг шалгана.",
     "x_search_terms": [
-      "Agent Skills-ийн specification (SKILL.md)-д үндэслэн заасан root-ийн доорх skill-үүдийн жагсаалтыг буцаана (зөвхөн frontmatter уншина). root_dir орхигдвол UAGENT_SKILLS_DIRS эсвэл ./skills-ийг шалгана",
       "skills_list",
+      "ур чадварын жагсаалт",
+      "ур чадвар жагсаах",
       "skills list"
     ],
     "tool.system_prompt": "Энэ хэрэгслийг дараах зорилгоор ашиглана: (tool description-г үзнэ үү)."
@@ -383,8 +412,9 @@
     "param.strict.description": "specification verification दरम्यान warnings ना अपयश मानायचे का (default: false)",
     "tool.description": "Agent Skills specification (SKILL.md) नुसार निर्दिष्ट root अंतर्गत skill ची यादी परत करते (फक्त frontmatter वाचते). root_dir वगळल्यास UAGENT_SKILLS_DIRS किंवा ./skills स्कॅन करते.",
     "x_search_terms": [
-      "Agent Skills specification (SKILL.md) नुसार निर्दिष्ट root अंतर्गत skill ची यादी परत करते (फक्त frontmatter वाचते). root_dir वगळल्यास UAGENT_SKILLS_DIRS किंवा ./skills स्कॅन करते",
       "skills_list",
+      "कौशल्य यादी",
+      "कौशल्ये सूचीबद्ध करा",
       "skills list"
     ],
     "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते: (tool description पहा)."

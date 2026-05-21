@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Run an automated browser task with the browser-use Python library. Use it when a website must be operated interactively, rather than just fetched. Dangerous actions require explicit user confirmation with confirmed=true.",
     "x_search_terms": [
-      "Run an automated browser task with the browser-use Python library. Use it when a website must be operated interactively, rather than just fetched. Dangerous actions require explicit user confirmation with confirmed=true",
       "browser_use_task",
-      "browser use task"
+      "browser use task",
+      "browser task",
+      "interactive browser"
     ],
     "tool.system_prompt": "This tool launches browser-use and controls a browser for a natural-language task. Do not use it for purchases, form submissions, deletions, uploads, downloads, logins, posts, or other state-changing actions unless the user has explicitly approved the exact action and confirmed=true is supplied.",
     "param.task.description": "Natural-language browser task to perform.",

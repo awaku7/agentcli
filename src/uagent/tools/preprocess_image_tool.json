@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
     "x_search_terms": [
-      "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art",
       "preprocess_image",
-      "preprocess image"
+      "preprocess image",
+      "ocr preprocess",
+      "image cleanup"
     ],
     "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
     "param.image_path.description": "Path to the source image to preprocess.",
@@ -28,9 +29,10 @@
   "ja": {
     "tool.description": "LLM や OCR バックエンドへ画像を渡す前に前処理を行います。スクリーンショット、スキャン文書、グラフ、表、図、線画に有用です。",
     "x_search_terms": [
-      "LLM や OCR バックエンドへ画像を渡す前に前処理を行います。スクリーンショット、スキャン文書、グラフ、表、図、線画に有用です",
       "preprocess_image",
-      "preprocess image"
+      "画像前処理",
+      "ocr 前処理",
+      "画像補正"
     ],
     "tool.system_prompt": "選択されたモードまたはオプションに従って画像を前処理し、PNG として保存して、保存したファイルパスだけを返してください。",
     "param.image_path.description": "前処理する元画像のパス。",
@@ -53,274 +55,203 @@
   },
   "es": {
     "x_search_terms": [
-      "Aplicar el preprocesamiento de imágenes antes de enviar una imagen a un backend LLM u OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "preprocesar imagen",
+      "preprocesado ocr",
+      "limpieza de imagen"
     ]
   },
   "fr": {
     "x_search_terms": [
-      "Appliquer un prétraitement d’image avant d’envoyer une image à un backend LLM ou OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "prétraitement image",
+      "prétraitement ocr",
+      "nettoyage image"
     ]
   },
   "ko": {
     "x_search_terms": [
-      "LLM 또는 OCR 백엔드로 이미지를 보내기 전에 이미지 전처리를 적용합니다",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "이미지 전처리",
+      "ocr 전처리",
+      "이미지 정리"
     ]
   },
   "de": {
     "x_search_terms": [
-      "Wenden Sie eine Bildvorverarbeitung an, bevor Sie ein Bild an ein LLM- oder OCR-Backend senden",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "bild vorverarbeitung",
+      "ocr vorverarbeitung",
+      "bild bereinigen"
     ]
   },
   "it": {
     "x_search_terms": [
-      "Applicare il pretrattamento dell’immagine prima di inviare un’immagine a un backend LLM o OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "pretrattamento immagine",
+      "pretrattamento ocr",
+      "pulizia immagine"
     ]
   },
   "ru": {
     "x_search_terms": [
-      "Примените предварительную обработку изображения перед отправкой изображения в LLM или OCR-бэкенд",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "предобработка изображения",
+      "ocr предобработка",
+      "очистка изображения"
     ]
   },
   "pt_BR": {
     "x_search_terms": [
-      "Aplique o pré-processamento de imagem antes de enviar uma imagem para um backend LLM ou OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "pré-processar imagem",
+      "pré-processamento ocr",
+      "limpeza de imagem"
     ]
   },
   "pt": {
     "x_search_terms": [
-      "Aplique o pré-processamento de imagem antes de enviar uma imagem para um backend LLM ou OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "pré-processar imagem",
+      "pré-processamento ocr",
+      "limpeza de imagem"
     ]
   },
   "id": {
     "x_search_terms": [
-      "Terapkan pra-pemrosesan gambar sebelum mengirim gambar ke backend LLM atau OCR",
       "preprocess_image",
-      "preprocess image",
+      "pra-pemrosesan gambar",
       "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "pembersihan gambar"
     ]
   },
   "vi": {
     "x_search_terms": [
-      "Áp dụng tiền xử lý ảnh trước khi gửi ảnh đến backend LLM hoặc OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "tiền xử lý ảnh",
+      "ocr tiền xử lý",
+      "làm sạch ảnh"
     ]
   },
   "pl": {
     "x_search_terms": [
-      "Zastosuj wstępne przetwarzanie obrazu przed wysłaniem obrazu do backendu LLM lub OCR",
       "preprocess_image",
-      "preprocess image",
+      "wstępne przetwarzanie obrazu",
       "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "czyszczenie obrazu"
     ]
   },
   "hi": {
     "x_search_terms": [
-      "किसी छवि को LLM या OCR बैकएंड में भेजने से पहले छवि पूर्वप्रसंस्करण लागू करें",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "छवि पूर्वप्रसंस्करण",
+      "ocr पूर्वप्रसंस्करण",
+      "छवि सफाई"
     ]
   },
   "ar": {
     "x_search_terms": [
-      "طبّق المعالجة المسبقة للصورة قبل إرسالها إلى خلفية LLM أو OCR",
       "preprocess_image",
-      "preprocess image",
+      "معالجة مسبقة للصورة",
       "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "تنظيف الصورة"
     ]
   },
   "sv": {
     "x_search_terms": [
-      "Utför bildförbehandling innan du skickar en bild till en LLM- eller OCR-backend",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "bildförbehandling",
+      "ocr-förbehandling",
+      "bildrensning"
     ]
   },
   "sw": {
     "x_search_terms": [
-      "Tumia uandaaji wa awali wa picha kabla ya kutuma picha kwa backend ya LLM au OCR",
       "preprocess_image",
-      "preprocess image",
+      "uandaaji awali wa picha",
       "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "usafishaji wa picha"
     ]
   },
   "nb": {
     "x_search_terms": [
-      "Bruk bildeforbehandling før du sender et bilde til en LLM- eller OCR-backend",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "bildeforbehandling",
+      "ocr-forbehandling",
+      "bildrens"
     ]
   },
   "nl": {
     "x_search_terms": [
-      "Pas beeldvoorbewerking toe voordat u een afbeelding naar een LLM- of OCR-backend stuurt",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "beeldvoorbewerking",
+      "ocr-voorbewerking",
+      "beeldopruiming"
     ]
   },
   "fi": {
     "x_search_terms": [
-      "Sovella kuvan esikäsittelyä ennen kuvan lähettämistä LLM- tai OCR-taustapalveluun",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "kuvan esikäsittely",
+      "ocr-esikäsittely",
+      "kuvan puhdistus"
     ]
   },
   "cs": {
     "x_search_terms": [
-      "Použijte předzpracování obrázku před odesláním obrázku do backendu LLM nebo OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "předzpracování obrázku",
+      "ocr předzpracování",
+      "čištění obrázku"
     ]
   },
   "uk": {
     "x_search_terms": [
-      "Застосуйте попередню обробку зображення перед надсиланням зображення до бекенду LLM або OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "попередня обробка зображення",
+      "ocr попередня обробка",
+      "очищення зображення"
     ]
   },
   "tr": {
     "x_search_terms": [
-      "Bir görüntüyü bir LLM veya OCR arka ucuna göndermeden önce görüntü ön işleme uygulayın",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "görüntü ön işleme",
+      "ocr ön işleme",
+      "görüntü temizleme"
     ]
   },
   "th": {
     "x_search_terms": [
-      "ใช้การประมวลผลภาพล่วงหน้าก่อนส่งภาพไปยังแบ็กเอนด์ LLM หรือ OCR",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "เตรียมภาพก่อนประมวลผล",
+      "ocr เตรียมภาพ",
+      "ล้างภาพ"
     ]
   },
   "zh_CN": {
     "x_search_terms": [
-      "在将图像发送到 LLM 或 OCR 后端之前应用图像预处理",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "图像预处理",
+      "ocr 预处理",
+      "图像清理"
     ]
   },
   "zh_TW": {
     "x_search_terms": [
-      "在將影像傳送到 LLM 或 OCR 後端之前套用影像前處理",
       "preprocess_image",
-      "preprocess image",
-      "ocr preprocess",
-      "image cleanup",
-      "scan image",
-      "document image"
+      "影像前處理",
+      "ocr 前處理",
+      "影像清理"
     ]
   },
   "bn": {
     "tool.description": "LLM বা OCR ব্যাকএন্ডে ছবি পাঠানোর আগে ছবি প্রি-প্রসেস করুন। স্ক্রিনশট, স্ক্যান করা নথি, চার্ট, টেবিল, ডায়াগ্রাম এবং লাইন আর্টের জন্য উপযোগী।",
     "x_search_terms": [
-      "LLM বা OCR ব্যাকএন্ডে ছবি পাঠানোর আগে ছবি প্রি-প্রসেস করুন। স্ক্রিনশট, স্ক্যান করা নথি, চার্ট, টেবিল, ডায়াগ্রাম এবং লাইন আর্টের জন্য উপযোগী",
       "preprocess_image",
-      "preprocess image"
+      "ছবি প্রিপ্রসেস",
+      "ocr প্রিপ্রসেস",
+      "ছবি পরিষ্কার"
     ],
     "tool.system_prompt": "নির্বাচিত মোড বা বিকল্প অনুযায়ী প্রদত্ত ছবিটি প্রি-প্রসেস করুন, ফলাফল PNG হিসেবে সংরক্ষণ করুন, এবং শুধু সংরক্ষিত ফাইলের path ফেরত দিন।",
     "param.image_path.description": "প্রি-প্রসেস করার জন্য উৎস ছবির path।",
@@ -344,9 +275,10 @@
   "fa": {
     "tool.description": "پیش‌پردازش تصویر را پیش از ارسال آن به backendِ LLM یا OCR انجام دهید. برای اسکرین‌شات، سند اسکن‌شده، نمودار، جدول، دیاگرام و خط‌نگاره مفید است.",
     "x_search_terms": [
-      "پیش‌پردازش تصویر را پیش از ارسال آن به backendِ LLM یا OCR انجام دهید. برای اسکرین‌شات، سند اسکن‌شده، نمودار، جدول، دیاگرام و خط‌نگاره مفید است",
       "preprocess_image",
-      "preprocess image"
+      "پیش‌پردازش تصویر",
+      "ocr پیش‌پردازش",
+      "پاکسازی تصویر"
     ],
     "tool.system_prompt": "تصویرِ ارائه‌شده را مطابق mode یا گزینه‌های انتخاب‌شده پیش‌پردازش کنید، نتیجه را به‌صورت PNG ذخیره کنید و فقط مسیر فایلِ ذخیره‌شده را برگردانید.",
     "param.image_path.description": "مسیر تصویرِ منبع برای پیش‌پردازش.",
@@ -370,9 +302,10 @@
   "mn": {
     "tool.description": "LLM эсвэл OCR backend руу зураг илгээхээс өмнө зурагт урьдчилсан боловсруулалт хийнэ. Screenshot, сканнердсан баримт, график, хүснэгт, диаграмм, line art-д тохиромжтой.",
     "x_search_terms": [
-      "LLM эсвэл OCR backend руу зураг илгээхээс өмнө зурагт урьдчилсан боловсруулалт хийнэ. Screenshot, сканнердсан баримт, график, хүснэгт, диаграмм, line art-д тохиромжтой",
       "preprocess_image",
-      "preprocess image"
+      "зураг урьдчилан боловсруулах",
+      "ocr урьдчилан боловсруулах",
+      "зураг цэвэрлэх"
     ],
     "tool.system_prompt": "Сонгосон mode эсвэл option-ийн дагуу өгөгдсөн зургийг урьдчилан боловсруулж, үр дүнг PNG болгон хадгалаад, зөвхөн хадгалсан файлын замыг буцаана уу.",
     "param.image_path.description": "Урьдчилан боловсруулах эх зургийн зам.",
@@ -396,9 +329,10 @@
   "mr": {
     "tool.description": "LLM किंवा OCR backend कडे प्रतिमा पाठवण्यापूर्वी प्रतिमेचे पूर्वप्रक्रियन करा. स्क्रीनशॉट, स्कॅन केलेली कागदपत्रे, चार्ट, टेबल, डायग्राम आणि line art साठी उपयुक्त.",
     "x_search_terms": [
-      "LLM किंवा OCR backend कडे प्रतिमा पाठवण्यापूर्वी प्रतिमेचे पूर्वप्रक्रियन करा. स्क्रीनशॉट, स्कॅन केलेली कागदपत्रे, चार्ट, टेबल, डायग्राम आणि line art साठी उपयुक्त",
       "preprocess_image",
-      "preprocess image"
+      "प्रतिमा पूर्वप्रक्रिया",
+      "ocr पूर्वप्रक्रिया",
+      "प्रतिमा स्वच्छता"
     ],
     "tool.system_prompt": "निवडलेल्या mode किंवा पर्यायांनुसार दिलेल्या प्रतिमेचे पूर्वप्रक्रियन करा, निकाल PNG म्हणून जतन करा, आणि फक्त जतन केलेल्या फाइलचा path परत द्या.",
     "param.image_path.description": "पूर्वप्रक्रिया करायच्या स्रोत प्रतिमेचा path.",

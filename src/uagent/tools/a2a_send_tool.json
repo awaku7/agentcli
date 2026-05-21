@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Send a message to an A2A server profile (a2a://name or profile name). Use only when existing local tools cannot replace the task.",
     "x_search_terms": [
-      "Send a message to an A2A server profile (a2a://name or profile name). Use only when existing local tools cannot replace the task",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Send an A2A message only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task.",
     "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
@@ -16,9 +17,10 @@
   "ja": {
     "tool.description": "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [
-      "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します。 既存のローカルツールで代替できない場合のみ使用してください",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。",
     "param.profile.description": "プロファイル名または a2a://name。省略時は既定プロファイルを使用します。",
@@ -30,9 +32,10 @@
   "es": {
     "tool.description": "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
-      "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Enviar un mensaje A2A. Devuelve solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "param.profile.description": "Nombre de perfil o a2a://name. Si se omite, usa el perfil predeterminado.",
@@ -44,9 +47,10 @@
   "fr": {
     "tool.description": "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
-      "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Envoyez un message A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
@@ -58,9 +62,10 @@
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
-      "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "A2A 메시지를 전송합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "param.profile.description": "프로필 이름 또는 a2a://name. 생략 시 기본 프로필을 사용합니다.",
@@ -72,9 +77,10 @@
   "de": {
     "tool.description": "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname). Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
-      "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname). Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Senden Sie eine A2A-Nachricht. Nur JSON zurückgeben. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "param.profile.description": "Profilname oder a2a://name. Wenn es weggelassen wird, wird das Standardprofil verwendet.",
@@ -86,9 +92,10 @@
   "it": {
     "tool.description": "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
-      "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo). Usalo solo quando gli strumenti locali non possono sostituire il compito",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Invia un messaggio A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "param.profile.description": "Nome del profilo o a2a://name. Se omesso, utilizza il profilo predefinito.",
@@ -100,9 +107,10 @@
   "ru": {
     "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
-      "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля). Используйте только тогда, когда локальные инструменты не могут заменить задачу",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Отправьте сообщение A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "param.profile.description": "Имя профиля или a2a://name. Если опущено, используется профиль по умолчанию.",
@@ -114,9 +122,10 @@
   "pt_BR": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil). Use somente quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
@@ -128,9 +137,10 @@
   "pt": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
-      "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil). Use apenas quando as ferramentas locais não puderem substituir a tarefa",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
@@ -142,9 +152,10 @@
   "id": {
     "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
-      "Kirim pesan ke profil server A2A (a2a://name atau nama profil). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Kirim pesan A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "param.profile.description": "Nama profil atau a2a://name. Jika dihilangkan, gunakan profil default.",
@@ -156,9 +167,10 @@
   "vi": {
     "tool.description": "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
-      "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Gửi tin nhắn A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, sử dụng hồ sơ mặc định.",
@@ -170,9 +182,10 @@
   "pl": {
     "tool.description": "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
-      "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Wyślij wiadomość A2A. Zwracaj wyłącznie JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "param.profile.description": "Nazwa profilu lub a2a://nazwa. Jeśli zostanie pominięty, używa profilu domyślnego.",
@@ -184,9 +197,10 @@
   "hi": {
     "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "x_search_terms": [
-      "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "A2A संदेश भेजें। केवल JSON लौटाएँ। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग करता है।",
@@ -198,9 +212,10 @@
   "ar": {
     "tool.description": "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
-      "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "أرسل رسالة A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
@@ -212,9 +227,10 @@
   "sv": {
     "tool.description": "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
-      "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn). Använd endast när lokala verktyg inte kan ersätta uppgiften",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Skicka ett A2A-meddelande. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
@@ -226,9 +242,10 @@
   "sw": {
     "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
-      "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Tuma ujumbe wa A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "param.profile.description": "Jina la profaili au a2a://name. Ikiwa halikutajwa, tumia profaili chaguomsingi.",
@@ -240,9 +257,10 @@
   "nb": {
     "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
-      "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn). Bruk bare når lokale verktøy ikke kan erstatte oppgaven",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Send en A2A-melding. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
@@ -254,9 +272,10 @@
   "nl": {
     "tool.description": "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
-      "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Stuur een A2A-bericht. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
@@ -268,9 +287,10 @@
   "fi": {
     "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
-      "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Lähetä A2A-viesti. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
@@ -282,9 +302,10 @@
   "cs": {
     "tool.description": "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
-      "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Odešlete zprávu A2A. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "param.profile.description": "Název profilu nebo a2a://name. Pokud je vynecháno, použije se výchozí profil.",
@@ -296,9 +317,10 @@
   "uk": {
     "tool.description": "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
-      "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Надішліть повідомлення A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "param.profile.description": "Назва профілю або a2a://name. Якщо опущено, використовується профіль за замовчуванням.",
@@ -310,9 +332,10 @@
   "tr": {
     "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
-      "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "Bir A2A mesajı gönderin. Yalnızca JSON döndürün. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
@@ -324,9 +347,10 @@
   "th": {
     "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
-      "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "ส่งข้อความ A2A ส่งคืนเฉพาะ JSON. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
@@ -338,9 +362,10 @@
   "zh_CN": {
     "tool.description": "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
-      "向 A2A 服务器配置文件（a2a://name 或配置名）发送消息。 仅在本地工具无法替代该任务时使用",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "发送 A2A 消息。仅返回 JSON。 仅在本地工具无法替代该任务时使用。",
     "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
@@ -352,9 +377,10 @@
   "zh_TW": {
     "tool.description": "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
-      "傳送訊息到 A2A 伺服器設定檔（a2a://name 或設定檔名稱）。 僅在本機工具無法取代該任務時使用",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "傳送 A2A 訊息。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。",
     "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
@@ -366,9 +392,10 @@
   "bn": {
     "tool.description": "একটি A2A সার্ভার প্রোফাইলে (a2a://name বা প্রোফাইল নাম) একটি বার্তা পাঠায়। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "x_search_terms": [
-      "একটি A2A সার্ভার প্রোফাইলে (a2a://name বা প্রোফাইল নাম) একটি বার্তা পাঠায়। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "A2A বার্তা পাঠান। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
@@ -380,9 +407,10 @@
   "fa": {
     "tool.description": "به یک پروفایل سرور A2A (a2a://name یا نام پروفایل) پیام می‌فرستد. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "x_search_terms": [
-      "به یک پروفایل سرور A2A (a2a://name یا نام پروفایل) پیام می‌فرستد. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "پیام A2A ارسال کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "param.profile.description": "نام پروفایل یا a2a://name. اگر حذف شود، از پروفایل پیش‌فرض استفاده می‌شود.",
@@ -394,9 +422,10 @@
   "mn": {
     "tool.description": "A2A серверийн профайлд (a2a://name эсвэл профайлын нэр) мессеж илгээнэ. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "x_search_terms": [
-      "A2A серверийн профайлд (a2a://name эсвэл профайлын нэр) мессеж илгээнэ. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "A2A мессеж илгээнэ үү. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "param.profile.description": "Профайлын нэр эсвэл a2a://name. Хэрэв орхивол анхдагч профайлыг ашиглана.",
@@ -408,9 +437,10 @@
   "mr": {
     "tool.description": "A2A सर्व्हर प्रोफाइलला (a2a://name किंवा प्रोफाइलचे नाव) संदेश पाठवतो. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "x_search_terms": [
-      "A2A सर्व्हर प्रोफाइलला (a2a://name किंवा प्रोफाइलचे नाव) संदेश पाठवतो. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा",
       "a2a_send",
-      "a2a send"
+      "a2a send",
+      "send message",
+      "a2a message"
     ],
     "tool.system_prompt": "A2A संदेश पाठवा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name. वगळल्यास डीफॉल्ट प्रोफाइल वापरले जाईल.",

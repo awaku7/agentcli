@@ -85,11 +85,6 @@ TOOL_SPEC: Dict[str, Any] = {
                 "replace text",
                 "edit file",
                 "find and replace",
-                "テキスト置換",
-                "reemplazar texto",
-                "remplacer texte",
-                "텍스트 바꾸기",
-                "заменить текст",
             ],
         ),
         "parameters": {

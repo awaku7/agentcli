@@ -12,9 +12,9 @@
     "param.tail_lines.description": "Number of lines to read from the end. Cannot be specified at the same time as head_lines.",
     "tool.description": "Read file contents (up to 1,000,000 bytes). Partial reading is possible by specifying start_line and max_lines.",
     "x_search_terms": [
-      "Read file contents (up to 1,000,000 bytes). Partial reading is possible by specifying start_line and max_lines",
       "read_file",
-      "read file"
+      "read file",
+      "file contents"
     ],
     "tool.system_prompt": "Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically."
   },
@@ -31,8 +31,9 @@
     "param.tail_lines.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。",
     "tool.description": "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です。",
     "x_search_terms": [
-      "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です",
       "read_file",
+      "ファイル読み取り",
+      "ファイル内容",
       "read file"
     ],
     "tool.system_prompt": "ファイルの内容を読み取ります。大きいファイルの場合は start_line/max_lines による部分的な読み取りを推奨します。改行コードは自動的に正規化されます。"
@@ -50,9 +51,9 @@
     "param.tail_lines.description": "Número de líneas a leer desde el final. No se puede usar con head_lines.",
     "tool.description": "Lee el contenido del archivo (hasta 1.000.000 bytes). Permite lectura parcial mediante start_line y max_lines.",
     "x_search_terms": [
-      "Lee el contenido del archivo (hasta 1.000.000 bytes). Permite lectura parcial mediante start_line y max_lines",
       "read_file",
-      "read file"
+      "leer archivo",
+      "contenido de archivo"
     ],
     "tool.system_prompt": "Lee contenidos de archivos. Para archivos grandes, se recomienda lectura parcial. Los saltos de línea se normalizan."
   },
@@ -69,9 +70,9 @@
     "param.tail_lines.description": "Nombre de lignes à lire depuis la fin. Ne peut pas être utilisé avec head_lines.",
     "tool.description": "Lit le contenu d'un fichier (max 1 000 000 octets). Lecture partielle possible avec start_line et max_lines.",
     "x_search_terms": [
-      "Lit le contenu d'un fichier (max 1 000 000 octets). Lecture partielle possible avec start_line et max_lines",
       "read_file",
-      "read file"
+      "lire fichier",
+      "contenu fichier"
     ],
     "tool.system_prompt": "Lit le contenu du fichier. Pour les gros fichiers, privilégiez la lecture partielle. Normalisation automatique des sauts de ligne."
   },
@@ -88,8 +89,9 @@
     "param.tail_lines.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다.",
     "tool.description": "파일 내용을 읽습니다(최대 1,000,000바이트). start_line 및 max_lines를 사용하여 부분적으로 읽을 수 있습니다.",
     "x_search_terms": [
-      "파일 내용을 읽습니다(최대 1,000,000바이트). start_line 및 max_lines를 사용하여 부분적으로 읽을 수 있습니다",
       "read_file",
+      "파일 읽기",
+      "파일 내용",
       "read file"
     ],
     "tool.system_prompt": "파일 내용을 읽습니다. 대용량 파일은 부분 읽기를 권장하며, 줄바꿈은 자동으로 정규화됩니다."
@@ -107,9 +109,9 @@
     "param.tail_lines.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen. Darf nicht mit head_lines kombiniert werden.",
     "tool.description": "Liest Dateiinhalte (bis zu 1.000.000 Byte). Teilweises Lesen über start_line und max_lines ist möglich.",
     "x_search_terms": [
-      "Liest Dateiinhalte (bis zu 1.000.000 Byte). Teilweises Lesen über start_line und max_lines ist möglich",
       "read_file",
-      "read file"
+      "datei lesen",
+      "dateiinhalt"
     ],
     "tool.system_prompt": "Liest Dateiinhalt. Für große Dateien wird teilweises Lesen empfohlen. Zeilenumbrüche werden automatisch normalisiert."
   },
@@ -126,9 +128,9 @@
     "param.tail_lines.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines.",
     "tool.description": "Legge il contenuto del file (fino a 1.000.000 di byte). Supporta lettura parziale con start_line e max_lines.",
     "x_search_terms": [
-      "Legge il contenuto del file (fino a 1.000.000 di byte). Supporta lettura parziale con start_line e max_lines",
       "read_file",
-      "read file"
+      "leggi file",
+      "contenuto file"
     ],
     "tool.system_prompt": "Legge il contenuto del file. Per file grandi, si consiglia la lettura parziale. Normalizzazione automatica dei ritorni a capo."
   },
@@ -145,9 +147,9 @@
     "param.tail_lines.description": "Количество строк для чтения с конца. Нельзя использовать вместе с head_lines.",
     "tool.description": "Читает содержимое файла (до 1 000 000 байт). Возможно частичное чтение через start_line и max_lines.",
     "x_search_terms": [
-      "Читает содержимое файла (до 1 000 000 байт). Возможно частичное чтение через start_line и max_lines",
       "read_file",
-      "read file"
+      "чтение файла",
+      "содержимое файла"
     ],
     "tool.system_prompt": "Читает файл. Для больших файлов используйте частичное чтение. Переносы строк нормализуются автоматически."
   },
@@ -164,9 +166,9 @@
     "param.tail_lines.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines.",
     "tool.description": "Lê o conteúdo do arquivo (até 1.000.000 bytes). Leitura parcial disponível via start_line e max_lines.",
     "x_search_terms": [
-      "Lê o conteúdo do arquivo (até 1.000.000 bytes). Leitura parcial disponível via start_line e max_lines",
       "read_file",
-      "read file"
+      "ler arquivo",
+      "conteúdo do arquivo"
     ],
     "tool.system_prompt": "Lê o conteúdo do arquivo. Para arquivos grandes, use leitura parcial. Quebras de linha são normalizadas."
   },
@@ -183,9 +185,9 @@
     "param.tail_lines.description": "Número de linhas a serem lidas a partir do final. Não pode ser especificado ao mesmo tempo que head_lines.",
     "tool.description": "Leia o conteúdo do arquivo (até 1.000.000 bytes). A leitura parcial é possível especificando start_line e max_lines.",
     "x_search_terms": [
-      "Leia o conteúdo do arquivo (até 1.000.000 bytes). A leitura parcial é possível especificando start_line e max_lines",
       "read_file",
-      "read file"
+      "ler arquivo",
+      "conteúdo do arquivo"
     ],
     "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente."
   },
@@ -202,9 +204,9 @@
     "param.tail_lines.description": "Jumlah baris yang dibaca dari akhir. Tidak dapat ditentukan bersamaan dengan head_lines.",
     "tool.description": "Baca isi file (hingga 1.000.000 byte). Pembacaan sebagian dapat dilakukan dengan menentukan start_line dan max_lines.",
     "x_search_terms": [
-      "Baca isi file (hingga 1.000.000 byte). Pembacaan sebagian dapat dilakukan dengan menentukan start_line dan max_lines",
       "read_file",
-      "read file"
+      "baca file",
+      "isi file"
     ],
     "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis."
   },
@@ -221,9 +223,9 @@
     "param.tail_lines.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines.",
     "tool.description": "Đọc nội dung tệp (tối đa 1.000.000 byte). Có thể đọc một phần bằng cách chỉ định start_line và max_lines.",
     "x_search_terms": [
-      "Đọc nội dung tệp (tối đa 1.000.000 byte). Có thể đọc một phần bằng cách chỉ định start_line và max_lines",
       "read_file",
-      "read file"
+      "đọc tệp",
+      "nội dung tệp"
     ],
     "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động."
   },
@@ -240,9 +242,9 @@
     "param.tail_lines.description": "Liczba linii do odczytania od końca. Nie można określić w tym samym czasie co head_lines.",
     "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów). Częściowy odczyt jest możliwy poprzez określenie linii startowej i max_lines.",
     "x_search_terms": [
-      "Odczytaj zawartość pliku (do 1 000 000 bajtów). Częściowy odczyt jest możliwy poprzez określenie linii startowej i max_lines",
       "read_file",
-      "read file"
+      "czytaj plik",
+      "zawartość pliku"
     ],
     "tool.system_prompt": "Czyta zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt z użyciem start_line/max_lines.\n- Nowe linie są automatycznie normalizowane."
   },
@@ -259,9 +261,9 @@
     "param.tail_lines.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या. हेड_लाइन्स के समान समय पर निर्दिष्ट नहीं किया जा सकता।",
     "tool.description": "फ़ाइल सामग्री पढ़ें (1,000,000 बाइट्स तक)। स्टार्ट_लाइन और मैक्स_लाइन्स निर्दिष्ट करके आंशिक पढ़ना संभव है।",
     "x_search_terms": [
-      "फ़ाइल सामग्री पढ़ें (1,000,000 बाइट्स तक)। स्टार्ट_लाइन और मैक्स_लाइन्स निर्दिष्ट करके आंशिक पढ़ना संभव है।",
       "read_file",
-      "read file"
+      "फ़ाइल पढ़ें",
+      "फ़ाइल सामग्री"
     ],
     "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।"
   },
@@ -278,9 +280,9 @@
     "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية. لا يمكن تحديدها في نفس الوقت مع head_lines.",
     "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت). يمكن القراءة الجزئية عبر start_line و max_lines.",
     "x_search_terms": [
-      "قراءة محتويات الملف (حتى 1,000,000 بايت). يمكن القراءة الجزئية عبر start_line و max_lines",
       "read_file",
-      "read file"
+      "قراءة الملف",
+      "محتوى الملف"
     ],
     "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- تتم تسوية فواصل الأسطر تلقائيًا."
   },
@@ -297,9 +299,9 @@
     "param.tail_lines.description": "Antal rader som ska läsas från slutet. Kan inte anges samtidigt med head_lines.",
     "tool.description": "Läs filinnehåll (upp till 1 000 000 byte). Partiell läsning är möjlig med start_line och max_lines.",
     "x_search_terms": [
-      "Läs filinnehåll (upp till 1 000 000 byte). Partiell läsning är möjlig med start_line och max_lines",
       "read_file",
-      "read file"
+      "läs fil",
+      "filinnehåll"
     ],
     "tool.system_prompt": "Läs filinnehållet.\n- För stora filer rekommenderas partiell läsning med start_line/max_lines.\n- Radbrytningar normaliseras automatiskt."
   },
@@ -316,9 +318,9 @@
     "param.tail_lines.description": "Idadi ya mistari ya kusoma kuanzia mwisho. Haiwezi kutolewa pamoja na head_lines.",
     "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000). Unaweza kusoma kwa sehemu kwa kutumia start_line na max_lines.",
     "x_search_terms": [
-      "Soma maudhui ya faili (hadi baiti 1,000,000). Unaweza kusoma kwa sehemu kwa kutumia start_line na max_lines",
       "read_file",
-      "read file"
+      "read file",
+      "file contents"
     ],
     "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki."
   },
@@ -335,9 +337,9 @@
     "param.tail_lines.description": "Antall linjer som skal leses fra slutten. Kan ikke angis samtidig med head_lines.",
     "tool.description": "Les filinnhold (opptil 1 000 000 byte). Delvis lesing er mulig med start_line og max_lines.",
     "x_search_terms": [
-      "Les filinnhold (opptil 1 000 000 byte). Delvis lesing er mulig med start_line og max_lines",
       "read_file",
-      "read file"
+      "les fil",
+      "filinnhold"
     ],
     "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk."
   },
@@ -354,9 +356,9 @@
     "param.tail_lines.description": "Aantal regels dat vanaf het einde gelezen wordt. Kan niet tegelijk met head_lines worden opgegeven.",
     "tool.description": "Bestandsinhoud lezen (tot 1.000.000 bytes). Gedeeltelijk lezen is mogelijk met start_line en max_lines.",
     "x_search_terms": [
-      "Bestandsinhoud lezen (tot 1.000.000 bytes). Gedeeltelijk lezen is mogelijk met start_line en max_lines",
       "read_file",
-      "read file"
+      "bestand lezen",
+      "bestandsinhoud"
     ],
     "tool.system_prompt": "Bestandsinhoud lezen.\n- Voor grote bestanden wordt gedeeltelijk lezen met start_line/max_lines aanbevolen.\n- Nieuwe regels worden automatisch genormaliseerd."
   },
@@ -373,9 +375,9 @@
     "param.tail_lines.description": "Lopusta luettavien rivien määrä. Ei voi olla yhtä aikaa head_linesin kanssa.",
     "tool.description": "Lue tiedoston sisältö (enintään 1 000 000 tavua). Osittainen lukeminen on mahdollista start_line- ja max_lines-parametreilla.",
     "x_search_terms": [
-      "Lue tiedoston sisältö (enintään 1 000 000 tavua). Osittainen lukeminen on mahdollista start_line- ja max_lines-parametreilla",
       "read_file",
-      "read file"
+      "lue tiedosto",
+      "tiedoston sisältö"
     ],
     "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti."
   },
@@ -392,9 +394,9 @@
     "param.tail_lines.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines.",
     "tool.description": "Čte obsah souboru (až 1 000 000 bajtů). Částečné čtení je možné pomocí start_line a max_lines.",
     "x_search_terms": [
-      "Čte obsah souboru (až 1 000 000 bajtů). Částečné čtení je možné pomocí start_line a max_lines",
       "read_file",
-      "read file"
+      "číst soubor",
+      "obsah souboru"
     ],
     "tool.system_prompt": "Čte obsah souboru.\n- U velkých souborů se doporučuje částečné čtení pomocí start_line/max_lines.\n- Konce řádků se automaticky normalizují."
   },
@@ -411,9 +413,9 @@
     "param.tail_lines.description": "Кількість рядків для читання з кінця. Не можна вказувати одночасно з head_lines.",
     "tool.description": "Читає вміст файла (до 1 000 000 байтів). Часткове читання можливе через start_line і max_lines.",
     "x_search_terms": [
-      "Читає вміст файла (до 1 000 000 байтів). Часткове читання можливе через start_line і max_lines",
       "read_file",
-      "read file"
+      "читати файл",
+      "вміст файлу"
     ],
     "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються."
   },
@@ -430,9 +432,9 @@
     "param.tail_lines.description": "Sondan itibaren okunacak satır sayısı. Head_lines ile aynı anda belirtilemez.",
     "tool.description": "Dosya içeriğini okuyun (1,000,000 bayta kadar). Kısmi okuma, başlangıç_satırı ve maksimum_satırlar belirtilerek mümkündür.",
     "x_search_terms": [
-      "Dosya içeriğini okuyun (1,000,000 bayta kadar). Kısmi okuma, başlangıç_satırı ve maksimum_satırlar belirtilerek mümkündür",
       "read_file",
-      "read file"
+      "dosya oku",
+      "dosya içeriği"
     ],
     "tool.system_prompt": "Dosya içeriğini okuyun.\n- Büyük dosyalar için start_line/max_lines kullanılarak kısmi okuma yapılması önerilir.\n- Yeni satırlar otomatik olarak normalleştirilir."
   },
@@ -449,9 +451,9 @@
     "param.tail_lines.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้",
     "tool.description": "อ่านเนื้อหาไฟล์ (สูงสุด 1,000,000 ไบต์) สามารถระบุ start_line และ max_lines เพื่ออ่านบางส่วนได้",
     "x_search_terms": [
-      "อ่านเนื้อหาไฟล์ (สูงสุด 1,000,000 ไบต์) สามารถระบุ start_line และ max_lines เพื่ออ่านบางส่วนได้",
       "read_file",
-      "read file"
+      "อ่านไฟล์",
+      "เนื้อหาไฟล์"
     ],
     "tool.system_prompt": "อ่านเนื้อหาไฟล์ แนะนำให้อ่านบางส่วนสำหรับไฟล์ขนาดใหญ่ ปรับมาตรฐานการขึ้นบรรทัดให้อัตโนมัติ"
   },
@@ -468,9 +470,9 @@
     "param.tail_lines.description": "从末尾读取的行数。不能与 head_lines 同时指定。",
     "tool.description": "读取文件内容（最大 1,000,000 字节）。可指定 start_line 和 max_lines 进行部分读取。",
     "x_search_terms": [
-      "读取文件内容（最大 1,000,000 字节）。可指定 start_line 和 max_lines 进行部分读取",
       "read_file",
-      "read file"
+      "读取文件",
+      "文件内容"
     ],
     "tool.system_prompt": "读取文件内容。大文件建议部分读取。换行符将自动标准化。"
   },
@@ -487,9 +489,9 @@
     "param.tail_lines.description": "從末尾讀取的行數。不能與 head_lines 同時指定。",
     "tool.description": "讀取檔案內容（最大 1,000,000 位元組）。可指定 start_line 和 max_lines 進行部分讀取。",
     "x_search_terms": [
-      "讀取檔案內容（最大 1,000,000 位元組）。可指定 start_line 和 max_lines 進行部分讀取",
       "read_file",
-      "read file"
+      "讀取檔案",
+      "檔案內容"
     ],
     "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。"
   },
@@ -506,9 +508,9 @@
     "param.tail_lines.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।",
     "tool.description": "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1,000,000 বাইট)। start_line ও max_lines দিয়ে আংশিক পড়া যায়।",
     "x_search_terms": [
-      "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1,000,000 বাইট)। start_line ও max_lines দিয়ে আংশিক পড়া যায়",
       "read_file",
-      "read file"
+      "ফাইল পড়ুন",
+      "ফাইলের বিষয়বস্তু"
     ],
     "tool.system_prompt": "ফাইলের বিষয়বস্তু পড়ুন।\n- বড় ফাইল হলে start_line/max_lines ব্যবহার করে আংশিক পড়া সুপারিশ করা হয়।\n- নতুন লাইন স্বয়ংক্রিয়ভাবে স্বাভাবিকায়িত হয়।"
   },
@@ -525,9 +527,9 @@
     "param.tail_lines.description": "تعداد خطوطی که از انتها خوانده می‌شوند. نمی‌توان هم‌زمان با head_lines مشخص کرد.",
     "tool.description": "محتوای فایل را بخوانید (تا 1,000,000 بایت). با تعیین start_line و max_lines می‌توان بخشی از فایل را خواند.",
     "x_search_terms": [
-      "محتوای فایل را بخوانید (تا 1,000,000 بایت). با تعیین start_line و max_lines می‌توان بخشی از فایل را خواند",
       "read_file",
-      "read file"
+      "خواندن فایل",
+      "محتوای فایل"
     ],
     "tool.system_prompt": "محتوای فایل را بخوانید.\n- برای فایل‌های بزرگ، خواندن بخشی با start_line/max_lines توصیه می‌شود.\n- خط‌های جدید به‌طور خودکار نرمال‌سازی می‌شوند."
   },
@@ -544,9 +546,9 @@
     "param.tail_lines.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй.",
     "tool.description": "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт). start_line болон max_lines зааж хэсэгчлэн уншиж болно.",
     "x_search_terms": [
-      "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт). start_line болон max_lines зааж хэсэгчлэн уншиж болно",
       "read_file",
-      "read file"
+      "файл унших",
+      "файлын агуулга"
     ],
     "tool.system_prompt": "Файлын агуулгыг уншина.\n- Том файл бол start_line/max_lines ашиглан хэсэгчлэн уншихыг зөвлөж байна.\n- Шинэ мөрүүдийг автоматаар хэвийн болгоно."
   },
@@ -563,9 +565,9 @@
     "param.tail_lines.description": "शेवटापासून वाचायच्या ओळींची संख्या. head_lines सोबत एकाच वेळी देता येत नाही.",
     "tool.description": "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स). start_line आणि max_lines दिल्यास आंशिक वाचन शक्य आहे.",
     "x_search_terms": [
-      "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स). start_line आणि max_lines दिल्यास आंशिक वाचन शक्य आहे",
       "read_file",
-      "read file"
+      "फाइल वाचा",
+      "फाइल मजकूर"
     ],
     "tool.system_prompt": "फाइलची सामग्री वाचा.\n- मोठ्या फाइल्ससाठी start_line/max_lines वापरून आंशिक वाचन सुचवले जाते.\n- नवीन ओळी आपोआप सामान्यीकृत केल्या जातात."
   }

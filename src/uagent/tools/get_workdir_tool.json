@@ -2,270 +2,300 @@
   "en": {
     "tool.description": "Get the current working directory.",
     "x_search_terms": [
-      "Get the current working directory",
       "get_workdir",
-      "get workdir"
+      "get workdir",
+      "current workdir",
+      "cwd"
     ],
     "tool.system_prompt": "Use this tool to get the current working directory."
   },
   "ja": {
     "tool.description": "現在の作業ディレクトリを取得します。",
     "x_search_terms": [
-      "現在の作業ディレクトリを取得します",
       "get_workdir",
-      "get workdir"
+      "作業ディレクトリ",
+      "現在の作業dir",
+      "cwd"
     ],
     "tool.system_prompt": "このツールは現在の作業ディレクトリを取得するために使います。"
   },
   "es": {
     "tool.description": "Obtiene el directorio de trabajo actual.",
     "x_search_terms": [
-      "Obtiene el directorio de trabajo actual",
       "get_workdir",
-      "get workdir"
+      "directorio de trabajo",
+      "cwd",
+      "directorio actual"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el directorio de trabajo actual."
   },
   "fr": {
     "tool.description": "Obtient le répertoire de travail actuel.",
     "x_search_terms": [
-      "Obtient le répertoire de travail actuel",
       "get_workdir",
-      "get workdir"
+      "répertoire de travail",
+      "cwd",
+      "répertoire actuel"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : obtenir le répertoire de travail actuel."
   },
   "ko": {
     "tool.description": "현재 작업 디렉터리를 가져옵니다.",
     "x_search_terms": [
-      "현재 작업 디렉터리를 가져옵니다",
       "get_workdir",
-      "get workdir"
+      "작업 디렉터리",
+      "현재 디렉터리",
+      "cwd"
     ],
     "tool.system_prompt": "이 도구는 현재 작업 디렉터리를 가져오는 목적으로 사용됩니다."
   },
   "de": {
     "tool.description": "Ruft das aktuelle Arbeitsverzeichnis ab.",
     "x_search_terms": [
-      "Ruft das aktuelle Arbeitsverzeichnis ab",
       "get_workdir",
-      "get workdir"
+      "arbeitsverzeichnis",
+      "cwd",
+      "aktuelles verzeichnis"
     ],
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: das aktuelle Arbeitsverzeichnis abzurufen."
   },
   "it": {
     "tool.description": "Ottiene la directory di lavoro corrente.",
     "x_search_terms": [
-      "Ottiene la directory di lavoro corrente",
       "get_workdir",
-      "get workdir"
+      "directory di lavoro",
+      "cwd",
+      "directory corrente"
     ],
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: ottenere la directory di lavoro corrente."
   },
   "ru": {
     "tool.description": "Получает текущий рабочий каталог.",
     "x_search_terms": [
-      "Получает текущий рабочий каталог",
       "get_workdir",
-      "get workdir"
+      "рабочий каталог",
+      "cwd",
+      "текущий каталог"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: получить текущий рабочий каталог."
   },
   "pt_BR": {
     "tool.description": "Obtém o diretório de trabalho atual.",
     "x_search_terms": [
-      "Obtém o diretório de trabalho atual",
       "get_workdir",
-      "get workdir"
+      "diretório de trabalho",
+      "cwd",
+      "diretório atual"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
   },
   "pt": {
     "tool.description": "Obtenha o diretório de trabalho atual.",
     "x_search_terms": [
-      "Obtenha o diretório de trabalho atual",
       "get_workdir",
-      "get workdir"
+      "diretório de trabalho",
+      "cwd",
+      "diretório atual"
     ],
     "tool.system_prompt": "Use esta ferramenta para obter o diretório de trabalho atual."
   },
   "id": {
     "tool.description": "Dapatkan direktori kerja saat ini.",
     "x_search_terms": [
-      "Dapatkan direktori kerja saat ini",
       "get_workdir",
-      "get workdir"
+      "direktori kerja",
+      "cwd",
+      "direktori saat ini"
     ],
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: mendapatkan direktori kerja saat ini."
   },
   "vi": {
     "tool.description": "Lấy thư mục làm việc hiện tại.",
     "x_search_terms": [
-      "Lấy thư mục làm việc hiện tại",
       "get_workdir",
-      "get workdir"
+      "thư mục làm việc",
+      "cwd",
+      "thư mục hiện tại"
     ],
     "tool.system_prompt": "Công cụ này được sử dụng với mục đích sau: lấy thư mục làm việc hiện tại."
   },
   "pl": {
     "tool.description": "Pobierz bieżący katalog roboczy.",
     "x_search_terms": [
-      "Pobierz bieżący katalog roboczy",
       "get_workdir",
-      "get workdir"
+      "katalog roboczy",
+      "cwd",
+      "bieżący katalog"
     ],
     "tool.system_prompt": "To narzędzie służy do następującego celu: pobranie bieżącego katalogu roboczego."
   },
   "hi": {
     "tool.description": "वर्तमान कार्यशील निर्देशिका प्राप्त करें.",
     "x_search_terms": [
-      "वर्तमान कार्यशील निर्देशिका प्राप्त करें",
       "get_workdir",
-      "get workdir"
+      "कार्यशील निर्देशिका",
+      "cwd",
+      "वर्तमान निर्देशिका"
     ],
     "tool.system_prompt": "इस उपकरण का उपयोग वर्तमान कार्यशील निर्देशिका प्राप्त करने के लिए किया जाता है।"
   },
   "ar": {
     "tool.description": "الحصول على دليل العمل الحالي.",
     "x_search_terms": [
-      "الحصول على دليل العمل الحالي",
       "get_workdir",
-      "get workdir"
+      "دليل العمل",
+      "cwd",
+      "الدليل الحالي"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للحصول على دليل العمل الحالي."
   },
   "sv": {
     "tool.description": "Hämtar den aktuella arbetskatalogen.",
     "x_search_terms": [
-      "Hämtar den aktuella arbetskatalogen",
       "get_workdir",
-      "get workdir"
+      "arbetskatalog",
+      "cwd",
+      "aktuell katalog"
     ],
     "tool.system_prompt": "Det här verktyget används för att hämta den aktuella arbetskatalogen."
   },
   "sw": {
     "tool.description": "Get the current working directory.",
     "x_search_terms": [
-      "Get the current working directory",
       "get_workdir",
-      "get workdir"
+      "directory ya kazi",
+      "cwd",
+      "directory ya sasa"
     ],
     "tool.system_prompt": "Use this tool to get the current working directory."
   },
   "nb": {
     "tool.description": "Henter den gjeldende arbeidskatalogen.",
     "x_search_terms": [
-      "Henter den gjeldende arbeidskatalogen",
       "get_workdir",
-      "get workdir"
+      "arbeidskatalog",
+      "cwd",
+      "gjeldende katalog"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å hente den gjeldende arbeidskatalogen."
   },
   "nl": {
     "tool.description": "Haal de huidige werkmap op.",
     "x_search_terms": [
-      "Haal de huidige werkmap op",
       "get_workdir",
-      "get workdir"
+      "werkmap",
+      "cwd",
+      "huidige map"
     ],
     "tool.system_prompt": "Gebruik deze tool om de huidige werkmap op te halen."
   },
   "fi": {
     "tool.description": "Hae nykyinen työhakemisto.",
     "x_search_terms": [
-      "Hae nykyinen työhakemisto",
       "get_workdir",
-      "get workdir"
+      "työhakemisto",
+      "cwd",
+      "nykyinen hakemisto"
     ],
     "tool.system_prompt": "Käytä tätä työkalua nykyisen työhakemiston hakemiseen."
   },
   "cs": {
     "tool.description": "Získejte aktuální pracovní adresář.",
     "x_search_terms": [
-      "Získejte aktuální pracovní adresář",
       "get_workdir",
-      "get workdir"
+      "pracovní adresář",
+      "cwd",
+      "aktuální adresář"
     ],
     "tool.system_prompt": "Použijte tento nástroj k získání aktuálního pracovního adresáře."
   },
   "uk": {
     "tool.description": "Отримайте поточний робочий каталог.",
     "x_search_terms": [
-      "Отримайте поточний робочий каталог",
       "get_workdir",
-      "get workdir"
+      "робочий каталог",
+      "cwd",
+      "поточний каталог"
     ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати поточний робочий каталог."
   },
   "tr": {
     "tool.description": "Geçerli çalışma dizinini alın.",
     "x_search_terms": [
-      "Geçerli çalışma dizinini alın",
       "get_workdir",
-      "get workdir"
+      "çalışma dizini",
+      "cwd",
+      "geçerli dizin"
     ],
     "tool.system_prompt": "Geçerli çalışma dizinini almak için bu aracı kullanın."
   },
   "th": {
     "tool.description": "รับไดเรกทอรีการทำงานปัจจุบัน",
     "x_search_terms": [
-      "รับไดเรกทอรีการทำงานปัจจุบัน",
       "get_workdir",
-      "get workdir"
+      "ไดเรกทอรีการทำงาน",
+      "cwd",
+      "ไดเรกทอรีปัจจุบัน"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: รับไดเรกทอรีการทำงานปัจจุบัน"
   },
   "zh_CN": {
     "tool.description": "获取当前工作目录。",
     "x_search_terms": [
-      "获取当前工作目录",
       "get_workdir",
-      "get workdir"
+      "工作目录",
+      "cwd",
+      "当前目录"
     ],
     "tool.system_prompt": "该工具用于以下目的：获取当前工作目录。"
   },
   "zh_TW": {
     "tool.description": "取得目前工作目錄。",
     "x_search_terms": [
-      "取得目前工作目錄",
       "get_workdir",
-      "get workdir"
+      "工作目錄",
+      "cwd",
+      "目前目錄"
     ],
     "tool.system_prompt": "此工具用於以下目的：取得目前工作目錄。"
   },
   "bn": {
     "tool.description": "বর্তমান workdir পান।",
     "x_search_terms": [
-      "বর্তমান workdir পান",
       "get_workdir",
-      "get workdir"
+      "workdir",
+      "cwd",
+      "বর্তমান ডিরেক্টরি"
     ],
     "tool.system_prompt": "বর্তমান workdir পেতে এই টুল ব্যবহার করুন।"
   },
   "fa": {
     "tool.description": "دایرکتوری کاری فعلی را دریافت می‌کند.",
     "x_search_terms": [
-      "دایرکتوری کاری فعلی را دریافت می‌کند",
       "get_workdir",
-      "get workdir"
+      "دایرکتوری کاری",
+      "cwd",
+      "دایرکتوری فعلی"
     ],
     "tool.system_prompt": "از این ابزار برای دریافت دایرکتوری کاری فعلی استفاده کنید."
   },
   "mn": {
     "tool.description": "Одоогийн ажлын директорийг авна.",
     "x_search_terms": [
-      "Одоогийн ажлын директорийг авна",
       "get_workdir",
-      "get workdir"
+      "ажлын директор",
+      "cwd",
+      "одоогийн директор"
     ],
     "tool.system_prompt": "Одоогийн ажлын директорийг авахад энэ хэрэгслийг ашиглана уу."
   },
   "mr": {
     "tool.description": "सध्याची कार्यशील निर्देशिका मिळवते.",
     "x_search_terms": [
-      "सध्याची कार्यशील निर्देशिका मिळवते",
       "get_workdir",
-      "get workdir"
+      "कार्यशील निर्देशिका",
+      "cwd",
+      "सध्याची निर्देशिका"
     ],
     "tool.system_prompt": "सध्याची कार्यशील निर्देशिका मिळवण्यासाठी हे साधन वापरा."
   }

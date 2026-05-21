@@ -9,9 +9,10 @@
     "param.path.description": "(Compatibility) Alias of filename.",
     "tool.description": "Delete the specified file or directory. Directories are deleted recursively. Because this is a dangerous operation, confirmation may be required.",
     "x_search_terms": [
-      "Delete the specified file or directory. Directories are deleted recursively. Because this is a dangerous operation, confirmation may be required",
       "delete_file",
-      "delete file"
+      "delete file",
+      "remove file",
+      "remove directory"
     ],
     "tool.system_prompt": "Delete the specified path only after confirming with the user if the operation may be destructive."
   },
@@ -25,9 +26,10 @@
     "param.path.description": "（互換性のための別名）filename と同じ意味です。",
     "tool.description": "指定したファイルまたはディレクトリを削除します。ディレクトリは再帰的に削除されます。危険な操作のため、確認が必要になる場合があります。",
     "x_search_terms": [
-      "指定したファイルまたはディレクトリを削除します。ディレクトリは再帰的に削除されます。危険な操作のため、確認が必要になる場合があります",
       "delete_file",
-      "delete file"
+      "ファイル削除",
+      "ディレクトリ削除",
+      "削除"
     ],
     "tool.system_prompt": "破壊的な操作になる可能性があるため、ユーザーに確認した後にのみ指定されたパスを削除してください。"
   },
@@ -41,9 +43,10 @@
     "param.path.description": "(Compatibilidad) Alias de filename.",
     "tool.description": "Elimina el archivo o directorio especificado. Los directorios se eliminan de forma recursiva. Al ser una operación peligrosa, puede requerir confirmación.",
     "x_search_terms": [
-      "Elimina el archivo o directorio especificado. Los directorios se eliminan de forma recursiva. Al ser una operación peligrosa, puede requerir confirmación",
       "delete_file",
-      "delete file"
+      "eliminar archivo",
+      "eliminar carpeta",
+      "borrar archivo"
     ],
     "tool.system_prompt": "Elimine la ruta especificada solo después de confirmar con el usuario si la operación puede ser destructiva."
   },
@@ -57,9 +60,10 @@
     "param.path.description": "(Compatibilité) Alias de filename.",
     "tool.description": "Supprime le fichier ou le répertoire spécifié. Les répertoires sont supprimés récursivement. Comme cette opération est dangereuse, une confirmation peut être nécessaire.",
     "x_search_terms": [
-      "Supprime le fichier ou le répertoire spécifié. Les répertoires sont supprimés récursivement. Comme cette opération est dangereuse, une confirmation peut être nécessaire",
       "delete_file",
-      "delete file"
+      "supprimer fichier",
+      "supprimer dossier",
+      "effacer fichier"
     ],
     "tool.system_prompt": "Ne supprimez le chemin spécifié qu’après confirmation de l’utilisateur si l’opération peut être destructive."
   },
@@ -73,9 +77,10 @@
     "param.path.description": "(호환성용) filename의 별칭.",
     "tool.description": "지정된 파일 또는 디렉터리를 삭제합니다. 디렉터리는 재귀적으로 삭제됩니다. 위험한 작업이므로 확인이 필요할 수 있습니다.",
     "x_search_terms": [
-      "지정된 파일 또는 디렉터리를 삭제합니다. 디렉터리는 재귀적으로 삭제됩니다. 위험한 작업이므로 확인이 필요할 수 있습니다",
       "delete_file",
-      "delete file"
+      "파일 삭제",
+      "디렉터리 삭제",
+      "삭제"
     ],
     "tool.system_prompt": "파괴적인 작업일 수 있으므로 사용자에게 확인을 받은 후에만 지정된 경로를 삭제하십시오."
   },
@@ -89,9 +94,10 @@
     "param.path.description": "(Kompatibilität) Alias für filename.",
     "tool.description": "Löscht die angegebene Datei oder das angegebene Verzeichnis. Verzeichnisse werden rekursiv gelöscht. Da dies ein gefährlicher Vorgang ist, kann eine Bestätigung erforderlich sein.",
     "x_search_terms": [
-      "Löscht die angegebene Datei oder das angegebene Verzeichnis. Verzeichnisse werden rekursiv gelöscht. Da dies ein gefährlicher Vorgang ist, kann eine Bestätigung erforderlich sein",
       "delete_file",
-      "delete file"
+      "datei löschen",
+      "verzeichnis löschen",
+      "entfernen"
     ],
     "tool.system_prompt": "Löschen Sie den angegebenen Pfad nur nach ausdrücklicher Bestätigung durch den Benutzer, da dies ein destruktiver Vorgang sein kann."
   },
@@ -105,9 +111,10 @@
     "param.path.description": "(Compatibilità) Alias di filename.",
     "tool.description": "Elimina il file o la directory specificata. Le directory vengono eliminate ricorsivamente. Poiché si tratta di un’operazione pericolosa, può essere richiesta una conferma.",
     "x_search_terms": [
-      "Elimina il file o la directory specificata. Le directory vengono eliminate ricorsivamente. Poiché si tratta di un’operazione pericolosa, può essere richiesta una conferma",
       "delete_file",
-      "delete file"
+      "elimina file",
+      "elimina cartella",
+      "rimuovi file"
     ],
     "tool.system_prompt": "Elimina il percorso specificato solo dopo la conferma dell’utente se l’operazione può essere distruttiva."
   },
@@ -121,9 +128,10 @@
     "param.path.description": "(Совместимость) Псевдоним для filename.",
     "tool.description": "Удаляет указанный файл или каталог. Каталоги удаляются рекурсивно. Это опасная операция, поэтому может потребоваться подтверждение.",
     "x_search_terms": [
-      "Удаляет указанный файл или каталог. Каталоги удаляются рекурсивно. Это опасная операция, поэтому может потребоваться подтверждение",
       "delete_file",
-      "delete file"
+      "удалить файл",
+      "удалить каталог",
+      "удаление"
     ],
     "tool.system_prompt": "Удаляйте указанный путь только после подтверждения пользователя, если операция может быть деструктивной."
   },
@@ -137,9 +145,10 @@
     "param.path.description": "(Compatibilidade) Alias para filename.",
     "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Por ser uma operação perigosa, pode exigir confirmação.",
     "x_search_terms": [
-      "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Por ser uma operação perigosa, pode exigir confirmação",
       "delete_file",
-      "delete file"
+      "excluir arquivo",
+      "excluir pasta",
+      "remover arquivo"
     ],
     "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação puder ser destrutiva."
   },
@@ -153,9 +162,10 @@
     "param.path.description": "(Compatibilidade) Alias ​​do nome do arquivo.",
     "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Como isso é perigoso, pode ser necessária confirmação.",
     "x_search_terms": [
-      "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Como isso é perigoso, pode ser necessária confirmação",
       "delete_file",
-      "delete file"
+      "excluir ficheiro",
+      "excluir pasta",
+      "remover ficheiro"
     ],
     "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação pode ser destrutiva."
   },
@@ -169,9 +179,10 @@
     "param.path.description": "(Kompatibilitas) Nama lain untuk filename.",
     "tool.description": "Hapus file atau direktori yang ditentukan. Direktori dihapus secara rekursif. Karena ini berbahaya, konfirmasi mungkin diperlukan.",
     "x_search_terms": [
-      "Hapus file atau direktori yang ditentukan. Direktori dihapus secara rekursif. Karena ini berbahaya, konfirmasi mungkin diperlukan",
       "delete_file",
-      "delete file"
+      "hapus file",
+      "hapus folder",
+      "hapus"
     ],
     "tool.system_prompt": "Hapus path yang ditentukan hanya setelah mengonfirmasi dengan pengguna jika operasi mungkin bersifat destruktif."
   },
@@ -185,9 +196,10 @@
     "param.path.description": "(Khả năng tương thích) Bí danh của tên tệp.",
     "tool.description": "Xóa tệp hoặc thư mục đã chỉ định. Các thư mục sẽ bị xóa đệ quy. Vì đây là thao tác nguy hiểm nên có thể cần xác nhận.",
     "x_search_terms": [
-      "Xóa tệp hoặc thư mục đã chỉ định. Các thư mục sẽ bị xóa đệ quy. Vì đây là thao tác nguy hiểm nên có thể cần xác nhận",
       "delete_file",
-      "delete file"
+      "xóa tệp",
+      "xóa thư mục",
+      "xóa"
     ],
     "tool.system_prompt": "Chỉ xóa đường dẫn đã chỉ định sau khi xác nhận với người dùng nếu thao tác có thể bị phá hủy."
   },
@@ -201,9 +213,10 @@
     "param.path.description": "(Kompatybilność) Alias ​​nazwy pliku.",
     "tool.description": "Usuń określony plik lub katalog. Katalogi są usuwane rekurencyjnie. Ponieważ jest to niebezpieczna operacja, może być wymagane potwierdzenie.",
     "x_search_terms": [
-      "Usuń określony plik lub katalog. Katalogi są usuwane rekurencyjnie. Ponieważ jest to niebezpieczna operacja, może być wymagane potwierdzenie",
       "delete_file",
-      "delete file"
+      "usuń plik",
+      "usuń katalog",
+      "usuń"
     ],
     "tool.system_prompt": "Usuń określoną ścieżkę dopiero po potwierdzeniu z użytkownikiem, jeśli operacja może być destrukcyjna."
   },
@@ -217,9 +230,10 @@
     "param.path.description": "(संगतता) फ़ाइल नाम का उपनाम।",
     "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ। निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं। क्योंकि यह एक खतरनाक ऑपरेशन है, पुष्टि की आवश्यकता हो सकती है।",
     "x_search_terms": [
-      "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ। निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं। क्योंकि यह एक खतरनाक ऑपरेशन है, पुष्टि की आवश्यकता हो सकती है।",
       "delete_file",
-      "delete file"
+      "फ़ाइल हटाएं",
+      "फ़ोल्डर हटाएं",
+      "हटाएं"
     ],
     "tool.system_prompt": "यदि ऑपरेशन विनाशकारी हो सकता है तो उपयोगकर्ता से पुष्टि करने के बाद ही निर्दिष्ट पथ को हटाएं।"
   },
@@ -233,9 +247,10 @@
     "param.path.description": "(التوافق) الاسم المستعار لاسم الملف.",
     "tool.description": "احذف الملف أو الدليل المحدد. تُحذف الأدلة بشكلٍ递归ي. ونظرًا لخطورة ذلك، قد يلزم التأكيد.",
     "x_search_terms": [
-      "احذف الملف أو الدليل المحدد. تُحذف الأدلة بشكلٍ递归ي. ونظرًا لخطورة ذلك، قد يلزم التأكيد",
       "delete_file",
-      "delete file"
+      "حذف ملف",
+      "حذف مجلد",
+      "إزالة"
     ],
     "tool.system_prompt": "احذف المسار المحدد فقط بعد التأكيد مع المستخدم إذا كانت العملية قد تكون مدمرة."
   },
@@ -249,9 +264,10 @@
     "param.path.description": "(Kompatibilitet) Alias för filename.",
     "tool.description": "Tar bort den angivna filen eller katalogen. Kataloger tas bort rekursivt. Eftersom detta är en farlig åtgärd kan bekräftelse krävas.",
     "x_search_terms": [
-      "Tar bort den angivna filen eller katalogen. Kataloger tas bort rekursivt. Eftersom detta är en farlig åtgärd kan bekräftelse krävas",
       "delete_file",
-      "delete file"
+      "ta bort fil",
+      "ta bort mapp",
+      "radera"
     ],
     "tool.system_prompt": "Ta bort den angivna sökvägen endast efter att du har fått bekräftelse från användaren, eftersom åtgärden kan vara destruktiv."
   },
@@ -265,9 +281,10 @@
     "param.path.description": "(Ulinganifu) Jina lingine la filename.",
     "tool.description": "Futa faili au saraka iliyobainishwa. Saraka hufutwa kwa kujirudia. Kwa kuwa hiki ni kitendo hatari, uthibitisho unaweza kuhitajika.",
     "x_search_terms": [
-      "Futa faili au saraka iliyobainishwa. Saraka hufutwa kwa kujirudia. Kwa kuwa hiki ni kitendo hatari, uthibitisho unaweza kuhitajika",
       "delete_file",
-      "delete file"
+      "futa faili",
+      "futa folda",
+      "ondoa"
     ],
     "tool.system_prompt": "Futa njia iliyobainishwa tu baada ya kuthibitisha na mtumiaji ikiwa kitendo kinaweza kuharibu data."
   },
@@ -281,9 +298,10 @@
     "param.path.description": "(Kompatibilitet) Alias for filename.",
     "tool.description": "Sletter den angitte filen eller katalogen. Kataloger slettes rekursivt. Siden dette er en farlig handling, kan bekreftelse være nødvendig.",
     "x_search_terms": [
-      "Sletter den angitte filen eller katalogen. Kataloger slettes rekursivt. Siden dette er en farlig handling, kan bekreftelse være nødvendig",
       "delete_file",
-      "delete file"
+      "slett fil",
+      "slett mappe",
+      "fjern"
     ],
     "tool.system_prompt": "Slett den angitte stien bare etter å ha fått bekreftelse fra brukeren, siden handlingen kan være destruktiv."
   },
@@ -297,9 +315,10 @@
     "param.path.description": "(Compatibiliteit) Alias van filename.",
     "tool.description": "Verwijdert het opgegeven bestand of de opgegeven map. Mappen worden recursief verwijderd. Omdat dit gevaarlijk is, kan bevestiging vereist zijn.",
     "x_search_terms": [
-      "Verwijdert het opgegeven bestand of de opgegeven map. Mappen worden recursief verwijderd. Omdat dit gevaarlijk is, kan bevestiging vereist zijn",
       "delete_file",
-      "delete file"
+      "bestand verwijderen",
+      "map verwijderen",
+      "verwijderen"
     ],
     "tool.system_prompt": "Verwijder het opgegeven pad alleen nadat de gebruiker de bewerking heeft bevestigd als deze mogelijk destructief is."
   },
@@ -313,9 +332,10 @@
     "param.path.description": "(Yhteensopivuuden vuoksi) filename-parametrin alias.",
     "tool.description": "Poistaa annetun tiedoston tai hakemiston. Hakemistot poistetaan rekursiivisesti. Koska tämä on vaarallista, vahvistus voidaan vaatia.",
     "x_search_terms": [
-      "Poistaa annetun tiedoston tai hakemiston. Hakemistot poistetaan rekursiivisesti. Koska tämä on vaarallista, vahvistus voidaan vaatia",
       "delete_file",
-      "delete file"
+      "poista tiedosto",
+      "poista kansio",
+      "poista"
     ],
     "tool.system_prompt": "Poista annettu polku vasta, kun käyttäjä on vahvistanut toiminnon, jos se voi olla tuhoava."
   },
@@ -329,9 +349,10 @@
     "param.path.description": "(Kompatibilita) Alias pro filename.",
     "tool.description": "Smaže zadaný soubor nebo adresář. Adresáře se mažou rekurzivně. Protože jde o nebezpečnou operaci, může být vyžadováno potvrzení.",
     "x_search_terms": [
-      "Smaže zadaný soubor nebo adresář. Adresáře se mažou rekurzivně. Protože jde o nebezpečnou operaci, může být vyžadováno potvrzení",
       "delete_file",
-      "delete file"
+      "smazat soubor",
+      "smazat složku",
+      "odstranit"
     ],
     "tool.system_prompt": "Zadanou cestu mažte pouze po potvrzení od uživatele, pokud může být operace destruktivní."
   },
@@ -345,9 +366,10 @@
     "param.path.description": "(Сумісність) Псевдонім для filename.",
     "tool.description": "Видаляє вказаний файл або каталог. Каталоги видаляються рекурсивно. Оскільки це небезпечна операція, може знадобитися підтвердження.",
     "x_search_terms": [
-      "Видаляє вказаний файл або каталог. Каталоги видаляються рекурсивно. Оскільки це небезпечна операція, може знадобитися підтвердження",
       "delete_file",
-      "delete file"
+      "видалити файл",
+      "видалити каталог",
+      "видалення"
     ],
     "tool.system_prompt": "Видаляйте вказаний шлях лише після підтвердження користувачем, якщо операція може бути деструктивною."
   },
@@ -361,9 +383,10 @@
     "param.path.description": "(Uyumluluk) Dosya adının takma adı.",
     "tool.description": "Belirtilen dosyayı veya dizini silin. Dizinler yinelemeli olarak silinir. Bu tehlikeli bir işlem olduğu için onay gerekebilir.",
     "x_search_terms": [
-      "Belirtilen dosyayı veya dizini silin. Dizinler yinelemeli olarak silinir. Bu tehlikeli bir işlem olduğu için onay gerekebilir",
       "delete_file",
-      "delete file"
+      "dosya sil",
+      "klasör sil",
+      "sil"
     ],
     "tool.system_prompt": "Belirtilen yolu yalnızca işlemin yıkıcı olup olmadığını kullanıcıyla onayladıktan sonra silin."
   },
@@ -377,9 +400,10 @@
     "param.path.description": "(ความเข้ากันได้) ชื่อเรียกอื่นของ filename",
     "tool.description": "ลบไฟล์หรือไดเรกทอรีที่ระบุ ไดเรกทอรีจะถูกลบแบบเรียกซ้ำ เนื่องจากเป็นการดำเนินการที่อันตราย อาจต้องมีการยืนยันก่อน",
     "x_search_terms": [
-      "ลบไฟล์หรือไดเรกทอรีที่ระบุ ไดเรกทอรีจะถูกลบแบบเรียกซ้ำ เนื่องจากเป็นการดำเนินการที่อันตราย อาจต้องมีการยืนยันก่อน",
       "delete_file",
-      "delete file"
+      "ลบไฟล์",
+      "ลบโฟลเดอร์",
+      "ลบ"
     ],
     "tool.system_prompt": "ลบเส้นทางที่ระบุหลังจากได้รับการยืนยันจากผู้ใช้แล้วเท่านั้น หากการดำเนินการอาจเป็นการทำลายข้อมูล"
   },
@@ -393,9 +417,10 @@
     "param.path.description": "（兼容性）filename 的别名。",
     "tool.description": "删除指定的文件或目录。目录将被递归删除。由于这是危险操作，可能需要确认。",
     "x_search_terms": [
-      "删除指定的文件或目录。目录将被递归删除。由于这是危险操作，可能需要确认",
       "delete_file",
-      "delete file"
+      "删除文件",
+      "删除目录",
+      "移除"
     ],
     "tool.system_prompt": "仅在与用户确认后才删除指定路径，因为这可能具有破坏性。"
   },
@@ -409,9 +434,10 @@
     "param.path.description": "（相容性）filename 的別名。",
     "tool.description": "刪除指定的檔案或目錄。目錄將被遞迴刪除。由於這是危險操作，可能需要確認。",
     "x_search_terms": [
-      "刪除指定的檔案或目錄。目錄將被遞迴刪除。由於這是危險操作，可能需要確認",
       "delete_file",
-      "delete file"
+      "刪除檔案",
+      "刪除資料夾",
+      "移除"
     ],
     "tool.system_prompt": "僅在與使用者確認後才刪除指定路徑，因為這可能具有破壞性。"
   },
@@ -425,9 +451,10 @@
     "param.path.description": "(সামঞ্জস্য) filename-এর অন্য নাম।",
     "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছে দেয়। ডিরেক্টরি পুনরাবৃত্তিভাবে মুছে ফেলা হয়। এটি বিপজ্জনক হওয়ায় নিশ্চিতকরণ লাগতে পারে।",
     "x_search_terms": [
-      "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছে দেয়। ডিরেক্টরি পুনরাবৃত্তিভাবে মুছে ফেলা হয়। এটি বিপজ্জনক হওয়ায় নিশ্চিতকরণ লাগতে পারে",
       "delete_file",
-      "delete file"
+      "ফাইল মুছুন",
+      "ফোল্ডার মুছুন",
+      "মুছুন"
     ],
     "tool.system_prompt": "যদি অপারেশনটি ধ্বংসাত্মক হতে পারে, তবে ব্যবহারকারীর নিশ্চিতকরণ পাওয়ার পরেই নির্দিষ্ট পথ মুছুন।"
   },
@@ -441,9 +468,10 @@
     "param.path.description": "(سازگاری) نام دیگر filename.",
     "tool.description": "فایل یا پوشهٔ مشخص‌شده را حذف می‌کند. پوشه‌ها به‌صورت بازگشتی حذف می‌شوند. چون این عملیات خطرناک است، ممکن است تأیید لازم باشد.",
     "x_search_terms": [
-      "فایل یا پوشهٔ مشخص‌شده را حذف می‌کند. پوشه‌ها به‌صورت بازگشتی حذف می‌شوند. چون این عملیات خطرناک است، ممکن است تأیید لازم باشد",
       "delete_file",
-      "delete file"
+      "حذف فایل",
+      "حذف پوشه",
+      "حذف"
     ],
     "tool.system_prompt": "اگر عملیات ممکن است مخرب باشد، مسیر مشخص‌شده را فقط پس از تأیید کاربر حذف کنید."
   },
@@ -457,9 +485,10 @@
     "param.path.description": "(Нийцтэй байдал) filename-ийн өөр нэр.",
     "tool.description": "Заасан файл эсвэл директорыг устгана. Директоруудыг рекурсивээр устгана. Энэ нь аюултай үйлдэл тул баталгаажуулалт шаардагдаж магадгүй.",
     "x_search_terms": [
-      "Заасан файл эсвэл директорыг устгана. Директоруудыг рекурсивээр устгана. Энэ нь аюултай үйлдэл тул баталгаажуулалт шаардагдаж маггүй",
       "delete_file",
-      "delete file"
+      "файл устгах",
+      "хавтас устгах",
+      "устгах"
     ],
     "tool.system_prompt": "Үйлдэл нь устгах/эвдэх шинжтэй байж болох тул эхлээд хэрэглэгчээс баталгаажуулалт авсны дараа л заасан замыг устга."
   },
@@ -473,9 +502,10 @@
     "param.path.description": "(सुसंगतता) filename चे पर्यायी नाव.",
     "tool.description": "निश्चित फाइल किंवा निर्देशिका हटवते. निर्देशिका पुनरावृत्तीने हटवल्या जातात. ही धोकादायक क्रिया असल्याने पुष्टीकरण आवश्यक असू शकते.",
     "x_search_terms": [
-      "निश्चित फाइल किंवा निर्देशिका हटवते. निर्देशिका पुनरावृत्तीने हटवल्या जातात. ही धोकादायक क्रिया असल्याने पुष्टीकरण आवश्यक असू शकते",
       "delete_file",
-      "delete file"
+      "फाइल हटवा",
+      "फोल्डर हटवा",
+      "हटवा"
     ],
     "tool.system_prompt": "जर क्रिया हानीकारक असू शकते, तर वापरकर्त्याची पुष्टी मिळाल्यानंतरच निर्दिष्ट मार्ग हटवा."
   }

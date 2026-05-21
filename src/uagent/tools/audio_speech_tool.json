@@ -2,9 +2,10 @@
   "en": {
     "tool.description": "Convert text to speech, save the audio as a file, and return the saved path.",
     "x_search_terms": [
-      "Convert text to speech, save the audio as a file, and return the saved path",
       "audio_speech",
-      "audio speech"
+      "audio speech",
+      "text to speech",
+      "speech audio"
     ],
     "tool.system_prompt": "Generate speech audio from the given text and save it to the specified output path. Return a JSON response only.",
     "param.text.description": "Text to synthesize into speech.",

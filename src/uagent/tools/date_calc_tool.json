@@ -10,9 +10,9 @@
     "param.years.description": "Number of years to add (subtraction is a negative number).",
     "tool.description": "Add or subtract years, months, weeks, or days from a specified date and return the result. Holiday detection is included using the holidays library.",
     "x_search_terms": [
-      "Add or subtract years, months, weeks, or days from a specified date and return the result. Holiday detection is included using the holidays library",
       "date_calc",
-      "date calc"
+      "date calc",
+      "date adjust"
     ],
     "tool.system_prompt": "This tool adds or subtracts years, months, weeks, or days for a specified date and can also determine whether the result is a holiday using the holidays library. See the tool description for details."
   },
@@ -27,9 +27,9 @@
     "param.years.description": "加算する年数（減算は負の数）。",
     "tool.description": "指定した日付に対して年、月、週、日を加算・減算し、結果を返します。holidays ライブラリを使った祝日判定も行います。",
     "x_search_terms": [
-      "指定した日付に対して年、月、週、日を加算・減算し、結果を返します。holidays ライブラリを使った祝日判定も行います",
       "date_calc",
-      "date calc"
+      "日付計算",
+      "日付調整"
     ],
     "tool.system_prompt": "このツールは、指定した日付に対して年、月、週、日を加算・減算し、必要に応じて holidays ライブラリで祝日判定も行います。詳細は tool.description を参照してください。"
   },
@@ -44,9 +44,9 @@
     "param.years.description": "Número de años que se añadirán (la resta es un número negativo).",
     "tool.description": "Suma o resta años, meses, semanas o días a una fecha especificada y devuelve el resultado. Incluye detección de festivos con la biblioteca holidays.",
     "x_search_terms": [
-      "Suma o resta años, meses, semanas o días a una fecha especificada y devuelve el resultado. Incluye detección de festivos con la biblioteca holidays",
       "date_calc",
-      "date calc"
+      "cálculo de fecha",
+      "ajuste de fecha"
     ],
     "tool.system_prompt": "Esta herramienta suma o resta años, meses, semanas o días a una fecha especificada y también puede determinar si el resultado cae en un festivo mediante la biblioteca holidays. Consulte la descripción de la herramienta para más detalles."
   },
@@ -61,9 +61,9 @@
     "param.years.description": "Nombre d’années à ajouter (la soustraction est un nombre négatif).",
     "tool.description": "Ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et renvoie le résultat. La détection des jours fériés est incluse via la bibliothèque holidays.",
     "x_search_terms": [
-      "Ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et renvoie le résultat. La détection des jours fériés est incluse via la bibliothèque holidays",
       "date_calc",
-      "date calc"
+      "calcul de date",
+      "ajustement de date"
     ],
     "tool.system_prompt": "Cet outil ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et peut aussi déterminer si le résultat tombe un jour férié à l’aide de la bibliothèque holidays. Voir la description de l’outil pour plus de détails."
   },
@@ -78,9 +78,9 @@
     "param.years.description": "더할 연수입니다(빼기는 음수입니다).",
     "tool.description": "지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고 결과를 반환합니다. holidays 라이브러리를 사용한 공휴일 판정도 포함됩니다.",
     "x_search_terms": [
-      "지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고 결과를 반환합니다. holidays 라이브러리를 사용한 공휴일 판정도 포함됩니다",
       "date_calc",
-      "date calc"
+      "날짜 계산",
+      "날짜 조정"
     ],
     "tool.system_prompt": "이 도구는 지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고, 필요하면 holidays 라이브러리로 공휴일 여부도 판정합니다. 자세한 내용은 tool.description을 참조하세요."
   },
@@ -95,9 +95,9 @@
     "param.years.description": "Anzahl der hinzuzufügenden Jahre (Subtraktion ist eine negative Zahl).",
     "tool.description": "Addiert oder subtrahiert Jahre, Monate, Wochen oder Tage zu einem angegebenen Datum und gibt das Ergebnis zurück. Die Feiertagsprüfung erfolgt mit der holidays-Bibliothek.",
     "x_search_terms": [
-      "Addiert oder subtrahiert Jahre, Monate, Wochen oder Tage zu einem angegebenen Datum und gibt das Ergebnis zurück. Die Feiertagsprüfung erfolgt mit der holidays-Bibliothek",
       "date_calc",
-      "date calc"
+      "datum berechnen",
+      "datum anpassen"
     ],
     "tool.system_prompt": "Dieses Tool addiert oder subtrahiert Jahre, Monate, Wochen oder Tage für ein angegebenes Datum und kann mithilfe der holidays-Bibliothek auch prüfen, ob das Ergebnis ein Feiertag ist. Weitere Details finden Sie in der Toolbeschreibung."
   },
@@ -112,9 +112,9 @@
     "param.years.description": "Numero di anni da aggiungere (la sottrazione è un numero negativo).",
     "tool.description": "Aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e restituisce il risultato. Include il rilevamento delle festività con la libreria holidays.",
     "x_search_terms": [
-      "Aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e restituisce il risultato. Include il rilevamento delle festività con la libreria holidays",
       "date_calc",
-      "date calc"
+      "calcolo data",
+      "regolazione data"
     ],
     "tool.system_prompt": "Questo strumento aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e può anche determinare se il risultato cade in un giorno festivo usando la libreria holidays. Per i dettagli, vedere la descrizione dello strumento."
   },
@@ -129,9 +129,9 @@
     "param.years.description": "Количество лет, которые нужно добавить (вычитание — отрицательное число).",
     "tool.description": "Прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и возвращает результат. Также включает определение праздников с помощью библиотеки holidays.",
     "x_search_terms": [
-      "Прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и возвращает результат. Также включает определение праздников с помощью библиотеки holidays",
       "date_calc",
-      "date calc"
+      "расчёт даты",
+      "изменение даты"
     ],
     "tool.system_prompt": "Этот инструмент прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и также может определить, является ли результат праздником, с помощью библиотеки holidays. Подробности см. в описании инструмента."
   },
@@ -146,9 +146,9 @@
     "param.years.description": "Número de anos a adicionar (a subtração é um número negativo).",
     "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays.",
     "x_search_terms": [
-      "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays",
       "date_calc",
-      "date calc"
+      "cálculo de data",
+      "ajuste de data"
     ],
     "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
   },
@@ -163,9 +163,9 @@
     "param.years.description": "Número de anos a serem somados (a subtração é um número negativo).",
     "tool.description": "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays.",
     "x_search_terms": [
-      "Adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e retorna o resultado. A detecção de feriados é feita com a biblioteca holidays",
       "date_calc",
-      "date calc"
+      "cálculo de data",
+      "ajuste de data"
     ],
     "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
   },
@@ -180,9 +180,9 @@
     "param.years.description": "Jumlah tahun yang ditambahkan (pengurangan bernilai negatif).",
     "tool.description": "Menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan mengembalikan hasilnya. Deteksi hari libur menggunakan library holidays disertakan.",
     "x_search_terms": [
-      "Menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan mengembalikan hasilnya. Deteksi hari libur menggunakan library holidays disertakan",
       "date_calc",
-      "date calc"
+      "hitung tanggal",
+      "ubah tanggal"
     ],
     "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan juga dapat menentukan apakah hasilnya merupakan hari libur dengan menggunakan library holidays. Lihat deskripsi alat untuk detail."
   },
@@ -197,9 +197,9 @@
     "param.years.description": "Số năm cần cộng (trừ là số âm).",
     "tool.description": "Cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và trả về kết quả. Có bao gồm việc kiểm tra ngày lễ bằng thư viện holidays.",
     "x_search_terms": [
-      "Cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và trả về kết quả. Có bao gồm việc kiểm tra ngày lễ bằng thư viện holidays",
       "date_calc",
-      "date calc"
+      "tính ngày",
+      "điều chỉnh ngày"
     ],
     "tool.system_prompt": "Công cụ này cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và cũng có thể xác định xem kết quả có phải là ngày lễ hay không bằng thư viện holidays. Xem mô tả công cụ để biết chi tiết."
   },
@@ -214,9 +214,9 @@
     "param.years.description": "Liczba lat do dodania (odejmowanie jest liczbą ujemną).",
     "tool.description": "Dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i zwraca wynik. Obejmuje także sprawdzanie świąt za pomocą biblioteki holidays.",
     "x_search_terms": [
-      "Dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i zwraca wynik. Obejmuje także sprawdzanie świąt za pomocą biblioteki holidays",
       "date_calc",
-      "date calc"
+      "obliczanie daty",
+      "zmiana daty"
     ],
     "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i może też sprawdzić, czy wynik przypada na święto, z użyciem biblioteki holidays. Szczegóły znajdziesz w opisie narzędzia."
   },
@@ -231,9 +231,9 @@
     "param.years.description": "जोड़ने के लिए वर्षों की संख्या (घटाना एक ऋणात्मक संख्या है)।",
     "tool.description": "किसी निर्दिष्ट तिथि से वर्ष, महीने, सप्ताह या दिन जोड़ें या घटाएँ और परिणाम लौटाएँ। holidays लाइब्रेरी से अवकाश जाँच भी शामिल है।",
     "x_search_terms": [
-      "किसी निर्दिष्ट तिथि से वर्ष, महीने, सप्ताह या दिन जोड़ें या घटाएँ और परिणाम लौटाएँ। holidays लाइब्रेरी से अवकाश जाँच भी शामिल है।",
       "date_calc",
-      "date calc"
+      "तिथि गणना",
+      "तिथि समायोजन"
     ],
     "tool.system_prompt": "यह टूल किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ता या घटाता है और holidays लाइब्रेरी का उपयोग करके यह भी निर्धारित कर सकता है कि परिणाम अवकाश है या नहीं। विवरण के लिए tool.description देखें।"
   },
@@ -248,9 +248,9 @@
     "param.years.description": "عدد السنوات المطلوب إضافتها (الطرح هو رقم سالب).",
     "tool.description": "أضف أو اطرح سنوات أو أشهر أو أسابيع أو أيامًا من تاريخ محدد وأعد النتيجة. يتضمن ذلك التحقق من العطلات باستخدام مكتبة holidays.",
     "x_search_terms": [
-      "أضف أو اطرح سنوات أو أشهر أو أسابيع أو أيامًا من تاريخ محدد وأعد النتيجة. يتضمن ذلك التحقق من العطلات باستخدام مكتبة holidays",
       "date_calc",
-      "date calc"
+      "حساب التاريخ",
+      "ضبط التاريخ"
     ],
     "tool.system_prompt": "تضيف هذه الأداة أو تطرح سنوات أو أشهر أو أسابيع أو أيامًا لتاريخ محدد، ويمكنها أيضًا التحقق مما إذا كانت النتيجة تقع في عطلة باستخدام مكتبة holidays. راجع وصف الأداة للتفاصيل."
   },
@@ -265,9 +265,9 @@
     "param.years.description": "Antal år att lägga till (subtraktion anges med ett negativt tal).",
     "tool.description": "Lägg till eller dra ifrån år, månader, veckor eller dagar för ett angivet datum och returnera resultatet. Helgdagskontroll ingår via holidays-biblioteket.",
     "x_search_terms": [
-      "Lägg till eller dra ifrån år, månader, veckor eller dagar för ett angivet datum och returnera resultatet. Helgdagskontroll ingår via holidays-biblioteket",
       "date_calc",
-      "date calc"
+      "datumräkning",
+      "datumjustering"
     ],
     "tool.system_prompt": "Det här verktyget lägger till eller drar ifrån år, månader, veckor eller dagar för ett angivet datum och kan också avgöra om resultatet är en helgdag med hjälp av holidays-biblioteket. Se verktygsbeskrivningen för detaljer."
   },
@@ -282,9 +282,9 @@
     "param.years.description": "Idadi ya miaka ya kuongeza (kutoa ni nambari hasi).",
     "tool.description": "Ongeza au toa miaka, miezi, wiki au siku kwenye tarehe iliyobainishwa na urudishe matokeo. Pia huangalia kama matokeo ni sikukuu kwa kutumia maktaba ya holidays.",
     "x_search_terms": [
-      "Ongeza au toa miaka, miezi, wiki au siku kwenye tarehe iliyobainishwa na urudishe matokeo. Pia huangalia kama matokeo ni sikukuu kwa kutumia maktaba ya holidays",
       "date_calc",
-      "date calc"
+      "hesabu tarehe",
+      "rekebisha tarehe"
     ],
     "tool.system_prompt": "Zana hii huongeza au hupunguza miaka, miezi, wiki au siku kwa tarehe iliyobainishwa, na pia inaweza kubaini kama matokeo ni sikukuu kwa kutumia maktaba ya holidays. Tazama maelezo ya zana kwa ufafanuzi zaidi."
   },
@@ -299,9 +299,9 @@
     "param.years.description": "Antall år som skal legges til (subtraksjon er et negativt tall).",
     "tool.description": "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Helligdagskontroll er inkludert med holidays-biblioteket.",
     "x_search_terms": [
-      "Legg til eller trekk fra år, måneder, uker eller dager for en angitt dato og returner resultatet. Helligdagskontroll er inkludert med holidays-biblioteket",
       "date_calc",
-      "date calc"
+      "datoberegning",
+      "datotilpasning"
     ],
     "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet er en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
   },
@@ -316,9 +316,9 @@
     "param.years.description": "Aantal jaren om op te tellen of af te trekken (aftrekken is negatief).",
     "tool.description": "Tel jaren, maanden, weken of dagen op bij of trek ze af van een opgegeven datum en geef het resultaat terug. Feestdagcontrole is inbegrepen via de holidays-bibliotheek.",
     "x_search_terms": [
-      "Tel jaren, maanden, weken of dagen op bij of trek ze af van een opgegeven datum en geef het resultaat terug. Feestdagcontrole is inbegrepen via de holidays-bibliotheek",
       "date_calc",
-      "date calc"
+      "datum berekenen",
+      "datum aanpassen"
     ],
     "tool.system_prompt": "Deze tool telt jaren, maanden, weken of dagen op bij of trekt ze af van een opgegeven datum en kan ook bepalen of het resultaat een feestdag is met behulp van de holidays-bibliotheek. Zie de toolbeschrijving voor details."
   },
@@ -333,9 +333,9 @@
     "param.years.description": "Lisättävien tai vähennettävien vuosien määrä (vähennys on negatiivinen).",
     "tool.description": "Laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja palauttaa tuloksen. Juhlapäivien tarkistus sisältyy holidays-kirjaston avulla.",
     "x_search_terms": [
-      "Laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja palauttaa tuloksen. Juhlapäivien tarkistus sisältyy holidays-kirjaston avulla",
       "date_calc",
-      "date calc"
+      "päivämäärälaskenta",
+      "päivämäärän säätö"
     ],
     "tool.system_prompt": "Tämä työkalu laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja voi myös tarkistaa holidays-kirjaston avulla, osuuko tulos juhlapäivään. Katso lisätiedot työkalun kuvauksesta."
   },
@@ -350,9 +350,9 @@
     "param.years.description": "Počet let k přičtení (odčítání je záporné číslo).",
     "tool.description": "Přičte nebo odečte roky, měsíce, týdny nebo dny pro zadané datum a vrátí výsledek. Součástí je i kontrola svátků pomocí knihovny holidays.",
     "x_search_terms": [
-      "Přičte nebo odečte roky, měsíce, týdny nebo dny pro zadané datum a vrátí výsledek. Součástí je i kontrola svátků pomocí knihovny holidays",
       "date_calc",
-      "date calc"
+      "výpočet data",
+      "úprava data"
     ],
     "tool.system_prompt": "Tento nástroj přičítá nebo odečítá roky, měsíce, týdny nebo dny pro zadané datum a pomocí knihovny holidays může také určit, zda výsledek připadá na svátek. Podrobnosti viz popis nástroje."
   },
@@ -367,9 +367,9 @@
     "param.years.description": "Кількість років для додавання (віднімання — від’ємне число).",
     "tool.description": "Додає або віднімає роки, місяці, тижні чи дні для вказаної дати та повертає результат. Також включає перевірку свят за допомогою бібліотеки holidays.",
     "x_search_terms": [
-      "Додає або віднімає роки, місяці, тижні чи дні для вказаної дати та повертає результат. Також включає перевірку свят за допомогою бібліотеки holidays",
       "date_calc",
-      "date calc"
+      "обчислення дати",
+      "зміна дати"
     ],
     "tool.system_prompt": "Цей інструмент додає або віднімає роки, місяці, тижні чи дні для вказаної дати та за допомогою бібліотеки holidays може також визначити, чи припадає результат на свято. Докладніше див. опис інструмента."
   },
@@ -384,9 +384,9 @@
     "param.years.description": "Eklenecek yıl sayısı (çıkarma negatif bir sayıdır).",
     "tool.description": "Belirli bir tarihe yıl, ay, hafta veya gün ekleyin veya çıkarın ve sonucu döndürün. Tatil tespiti, tatil kütüphanesi kullanılarak dahil edilir.",
     "x_search_terms": [
-      "Belirli bir tarihe yıl, ay, hafta veya gün ekleyin veya çıkarın ve sonucu döndürün. Tatil tespiti, tatil kütüphanesi kullanılarak dahil edilir",
       "date_calc",
-      "date calc"
+      "tarih hesaplama",
+      "tarih ayarı"
     ],
     "tool.system_prompt": "Bu araç, belirli bir tarih için yılları, ayları, haftaları veya günleri ekler veya çıkarır ve ayrıca tatil kitaplığını kullanarak sonucun tatil olup olmadığını da belirleyebilir. Ayrıntılar için araç açıklamasına bakın."
   },
@@ -401,9 +401,9 @@
     "param.years.description": "จำนวนปีที่จะบวก (การลบเป็นค่าลบ)",
     "tool.description": "บวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ แล้วส่งกลับผลลัพธ์ พร้อมตรวจสอบวันหยุดด้วยไลบรารี holidays",
     "x_search_terms": [
-      "บวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ แล้วส่งกลับผลลัพธ์ พร้อมตรวจสอบวันหยุดด้วยไลบรารี holidays",
       "date_calc",
-      "date calc"
+      "คำนวณวันที่",
+      "ปรับวันที่"
     ],
     "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับบวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ และสามารถตรวจสอบได้ว่าผลลัพธ์ตรงกับวันหยุดหรือไม่ด้วยไลบรารี holidays ดูรายละเอียดเพิ่มเติมใน tool.description"
   },
@@ -418,9 +418,9 @@
     "param.years.description": "要加的年数（减法为负数）。",
     "tool.description": "对指定日期进行年、月、周或日的加减运算并返回结果。可使用 holidays 库进行节假日判断。",
     "x_search_terms": [
-      "对指定日期进行年、月、周或日的加减运算并返回结果。可使用 holidays 库进行节假日判断",
       "date_calc",
-      "date calc"
+      "日期计算",
+      "日期调整"
     ],
     "tool.system_prompt": "此工具用于对指定日期进行年、月、周、日的加减运算，并可使用 holidays 库判断结果是否为节假日。详情请参见 tool.description。"
   },
@@ -435,9 +435,9 @@
     "param.years.description": "要加的年數（減法為負數）。",
     "tool.description": "對指定日期執行年、月、週或日的加減運算並回傳結果。可使用 holidays 庫進行假日判定。",
     "x_search_terms": [
-      "對指定日期執行年、月、週或日的加減運算並回傳結果。可使用 holidays 庫進行假日判定",
       "date_calc",
-      "date calc"
+      "日期計算",
+      "日期調整"
     ],
     "tool.system_prompt": "此工具用於對指定日期執行年、月、週、日的加減運算，並可使用 holidays 庫判斷結果是否為假日。詳情請參閱 tool.description。"
   },
@@ -452,9 +452,9 @@
     "param.years.description": "যোগ করার বছরের সংখ্যা (বিয়োগ হলে ঋণাত্মক সংখ্যা).",
     "tool.description": "নির্দিষ্ট তারিখে বছর, মাস, সপ্তাহ বা দিন যোগ বা বিয়োগ করুন এবং ফলাফল ফেরত দিন। holidays লাইব্রেরি দিয়ে ছুটি শনাক্তকরণও অন্তর্ভুক্ত।",
     "x_search_terms": [
-      "নির্দিষ্ট তারিখে বছর, মাস, সপ্তাহ বা দিন যোগ বা বিয়োগ করুন এবং ফলাফল ফেরত দিন। holidays লাইব্রেরি দিয়ে ছুটি শনাক্তকরণও অন্তর্ভুক্ত",
       "date_calc",
-      "date calc"
+      "তারিখ গণনা",
+      "তারিখ সমন্বয়"
     ],
     "tool.system_prompt": "এই টুলটি নির্দিষ্ট তারিখে বছর, মাস, সপ্তাহ বা দিন যোগ বা বিয়োগ করে এবং holidays লাইব্রেরি ব্যবহার করে ফলাফলটি ছুটি কি না তাও নির্ধারণ করতে পারে। বিস্তারিত জানতে টুল বর্ণনা দেখুন।"
   },
@@ -469,9 +469,9 @@
     "param.years.description": "تعداد سال‌هایی که باید اضافه شوند (کم‌کردن با عدد منفی).",
     "tool.description": "سال، ماه، هفته یا روز را به یک تاریخ مشخص اضافه یا از آن کم می‌کند و نتیجه را برمی‌گرداند. تشخیص تعطیلات با کتابخانهٔ holidays نیز انجام می‌شود.",
     "x_search_terms": [
-      "سال، ماه، هفته یا روز را به یک تاریخ مشخص اضافه یا از آن کم می‌کند و نتیجه را برمی‌گرداند. تشخیص تعطیلات با کتابخانهٔ holidays نیز انجام می‌شود",
       "date_calc",
-      "date calc"
+      "محاسبه تاریخ",
+      "تنظیم تاریخ"
     ],
     "tool.system_prompt": "این ابزار سال، ماه، هفته یا روز را برای تاریخ مشخص اضافه یا کم می‌کند و با استفاده از کتابخانهٔ holidays می‌تواند تشخیص دهد که نتیجه تعطیل است یا نه. برای جزئیات، توضیحات ابزار را ببینید."
   },
@@ -486,9 +486,9 @@
     "param.years.description": "Нэмэх жилийн тоо (хасахад сөрөг тоо).",
     "tool.description": "Заасан огноонд жил, сар, долоо хоног эсвэл өдөр нэмж/хасаж үр дүнг буцаана. holidays сангаар баярын өдөр мөн эсэхийг шалгана.",
     "x_search_terms": [
-      "Заасан огноонд жил, сар, долоо хоног эсвэл өдөр нэмж/хасаж үр дүнг буцаана. holidays сангаар баярын өдөр мөн эсэхийг шалгана",
       "date_calc",
-      "date calc"
+      "огноо тооцоолох",
+      "огноо тохируулах"
     ],
     "tool.system_prompt": "Энэ хэрэгсэл нь заасан огноонд жил, сар, долоо хоног эсвэл өдөр нэмж/хасаж, holidays сан ашиглан үр дүн нь баярын өдөр мөн эсэхийг бас тодорхойлж чадна. Дэлгэрэнгүйг хэрэгслийн тайлбараас үзнэ үү."
   },
@@ -503,9 +503,9 @@
     "param.years.description": "जोडायच्या वर्षांची संख्या (वजाबाकी नकारात्मक संख्या).",
     "tool.description": "दिलेल्या तारखेला वर्ष, महिने, आठवडे किंवा दिवस जोडा/वजा करा आणि निकाल परत करा. holidays लायब्ररीद्वारे सुट्टी तपासणीही समाविष्ट आहे.",
     "x_search_terms": [
-      "दिलेल्या तारखेला वर्ष, महिने, आठवडे किंवा दिवस जोडा/वजा करा आणि निकाल परत करा. holidays लायब्ररीद्वारे सुट्टी तपासणीही समाविष्ट आहे",
       "date_calc",
-      "date calc"
+      "तारीख गणना",
+      "तारीख समायोजन"
     ],
     "tool.system_prompt": "हे साधन दिलेल्या तारखेला वर्ष, महिने, आठवडे किंवा दिवस जोडते/वजा करते आणि holidays लायब्ररी वापरून परिणाम सुट्टी आहे का तेही ठरवू शकते. तपशीलांसाठी साधनाचे वर्णन पहा."
   }

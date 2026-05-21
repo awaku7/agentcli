@@ -5,9 +5,10 @@
     "param.url.description": "MCP server endpoint URL.",
     "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers.",
     "x_search_terms": [
-      "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp tools list",
+      "list mcp tools",
+      "discover tools"
     ],
     "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its tools. Prefer using configured servers in mcp_servers.json when possible."
   },
@@ -17,9 +18,10 @@
     "param.url.description": "MCP サーバーのエンドポイント URL。",
     "tool.description": "[最優先] MCP（Model Context Protocol）サーバーに接続し、利用可能なツール一覧を返します。API やシステム連携を行う前に、このツールで使える MCP ツールを確認してください。HTTP ベースと stdio ベースの MCP サーバーに対応します。",
     "x_search_terms": [
-      "[最優先] MCP（Model Context Protocol）サーバーに接続し、利用可能なツール一覧を返します。API やシステム連携を行う前に、このツールで使える MCP ツールを確認してください。HTTP ベースと stdio ベースの MCP サーバーに対応します",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp ツール一覧",
+      "ツール一覧取得",
+      "mcp 調査"
     ],
     "tool.system_prompt": "MCP サーバー（HTTP または stdio）に接続し、利用可能なツール一覧を返します。可能であれば mcp_servers.json に設定済みのサーバーを優先してください。"
   },
@@ -29,9 +31,10 @@
     "param.url.description": "URL del punto de conexión del servidor MCP.",
     "tool.description": "[Prioridad más alta] Conéctese a un servidor MCP (Protocolo de Contexto del Modelo) y devuelva la lista de herramientas disponibles. Antes de realizar cualquier integración de API o sistema, utilice esta herramienta para descubrir qué herramientas MCP están disponibles. Admite servidores MCP basados en HTTP y en stdio.",
     "x_search_terms": [
-      "[Prioridad más alta] Conéctese a un servidor MCP (Protocolo de Contexto del Modelo) y devuelva la lista de herramientas disponibles. Antes de realizar cualquier integración de API o sistema, utilice esta herramienta para descubrir qué herramientas MCP están disponibles. Admite servidores MCP basados en HTTP y en stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "lista herramientas mcp",
+      "listar herramientas mcp",
+      "descubrir herramientas"
     ],
     "tool.system_prompt": "Conéctese a un servidor MCP (HTTP o stdio) y enumere sus herramientas. Si es posible, prefiera usar los servidores configurados en mcp_servers.json."
   },
@@ -41,9 +44,10 @@
     "param.url.description": "URL du point de terminaison du serveur MCP.",
     "tool.description": "[Priorité la plus élevée] Connectez-vous à un serveur MCP (Model Context Protocol) et renvoyez la liste des outils disponibles. Avant toute intégration API/système, utilisez cet outil pour savoir quels outils MCP sont disponibles. Prend en charge les serveurs MCP basés sur HTTP et stdio.",
     "x_search_terms": [
-      "[Priorité la plus élevée] Connectez-vous à un serveur MCP (Model Context Protocol) et renvoyez la liste des outils disponibles. Avant toute intégration API/système, utilisez cet outil pour savoir quels outils MCP sont disponibles. Prend en charge les serveurs MCP basés sur HTTP et stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "liste outils mcp",
+      "lister outils mcp",
+      "découvrir outils"
     ],
     "tool.system_prompt": "Connectez-vous à un serveur MCP (HTTP ou stdio) et répertoriez ses outils. Dans la mesure du possible, privilégiez les serveurs configurés dans mcp_servers.json."
   },
@@ -53,9 +57,10 @@
     "param.url.description": "MCP 서버 엔드포인트 URL.",
     "tool.description": "[가장 높은 우선순위] MCP(모델 컨텍스트 프로토콜) 서버에 연결하고 사용 가능한 도구 목록을 반환합니다. API/시스템 통합을 수행하기 전에 이 도구를 사용하여 사용할 수 있는 MCP 도구를 확인하세요. HTTP 기반 및 stdio 기반 MCP 서버를 지원합니다.",
     "x_search_terms": [
-      "[가장 높은 우선순위] MCP(모델 컨텍스트 프로토콜) 서버에 연결하고 사용 가능한 도구 목록을 반환합니다. API/시스템 통합을 수행하기 전에 이 도구를 사용하여 사용할 수 있는 MCP 도구를 확인하세요. HTTP 기반 및 stdio 기반 MCP 서버를 지원합니다",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp 도구 목록",
+      "도구 목록 조회",
+      "mcp 탐색"
     ],
     "tool.system_prompt": "MCP 서버(HTTP 또는 stdio)에 연결하고 해당 도구를 나열합니다. 가능하면 mcp_servers.json에 구성된 서버를 우선 사용하세요."
   },
@@ -65,9 +70,10 @@
     "param.url.description": "URL des MCP-Server-Endpunkts.",
     "tool.description": "[Höchste Priorität] Stellen Sie eine Verbindung zu einem MCP-Server (Model Context Protocol) her und geben Sie die Liste der verfügbaren Tools zurück. Bevor Sie eine API-/Systemintegration durchführen, verwenden Sie dieses Tool, um herauszufinden, welche MCP-Tools verfügbar sind. Unterstützt HTTP-basierte und stdio-basierte MCP-Server.",
     "x_search_terms": [
-      "[Höchste Priorität] Stellen Sie eine Verbindung zu einem MCP-Server (Model Context Protocol) her und geben Sie die Liste der verfügbaren Tools zurück. Bevor Sie eine API-/Systemintegration durchführen, verwenden Sie dieses Tool, um herauszufinden, welche MCP-Tools verfügbar sind. Unterstützt HTTP-basierte und stdio-basierte MCP-Server",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp tools liste",
+      "mcp werkzeuge",
+      "tools entdecken"
     ],
     "tool.system_prompt": "Stellen Sie eine Verbindung zu einem MCP-Server (HTTP oder stdio) her und listen Sie seine Tools auf. Verwenden Sie nach Möglichkeit die in mcp_servers.json konfigurierten Server."
   },
@@ -77,9 +83,10 @@
     "param.url.description": "URL dell'endpoint del server MCP.",
     "tool.description": "[Priorità massima] Connettiti a un server MCP (Model Context Protocol) e restituisci l'elenco degli strumenti disponibili. Prima di eseguire qualsiasi integrazione API/sistema, usa questo strumento per scoprire quali strumenti MCP sono disponibili. Supporta server MCP basati su HTTP e su stdio.",
     "x_search_terms": [
-      "[Priorità massima] Connettiti a un server MCP (Model Context Protocol) e restituisci l'elenco degli strumenti disponibili. Prima di eseguire qualsiasi integrazione API/sistema, usa questo strumento per scoprire quali strumenti MCP sono disponibili. Supporta server MCP basati su HTTP e su stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "lista strumenti mcp",
+      "elenca strumenti mcp",
+      "scopri strumenti"
     ],
     "tool.system_prompt": "Connettiti a un server MCP (HTTP o stdio) ed elenca i suoi strumenti. Se possibile, preferisci usare i server configurati in mcp_servers.json."
   },
@@ -89,9 +96,10 @@
     "param.url.description": "URL конечной точки сервера MCP.",
     "tool.description": "[Наивысший приоритет] Подключитесь к серверу MCP (Model Context Protocol) и верните список доступных инструментов. Перед выполнением любой интеграции с API/системой используйте этот инструмент, чтобы выяснить, какие инструменты MCP доступны. Поддерживает серверы MCP на базе HTTP и stdio.",
     "x_search_terms": [
-      "[Наивысший приоритет] Подключитесь к серверу MCP (Model Context Protocol) и верните список доступных инструментов. Перед выполнением любой интеграции с API/системой используйте этот инструмент, чтобы выяснить, какие инструменты MCP доступны. Поддерживает серверы MCP на базе HTTP и stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "список инструментов mcp",
+      "перечень mcp инструментов",
+      "обнаружить инструменты"
     ],
     "tool.system_prompt": "Подключитесь к серверу MCP (HTTP или stdio) и перечислите его инструменты. По возможности используйте серверы, настроенные в mcp_servers.json."
   },
@@ -101,9 +109,10 @@
     "param.url.description": "URL do endpoint do servidor MCP.",
     "tool.description": "[Prioridade máxima] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração de API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio.",
     "x_search_terms": [
-      "[Prioridade máxima] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração de API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "lista ferramentas mcp",
+      "listar ferramentas mcp",
+      "descobrir ferramentas"
     ],
     "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Se possível, prefira usar os servidores configurados em mcp_servers.json."
   },
@@ -113,9 +122,10 @@
     "param.url.description": "URL do endpoint do servidor MCP.",
     "tool.description": "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio.",
     "x_search_terms": [
-      "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e retorne a lista de ferramentas disponíveis. Antes de realizar qualquer integração API/sistema, use esta ferramenta para descobrir quais ferramentas MCP estão disponíveis. Suporta servidores MCP baseados em HTTP e em stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "lista ferramentas mcp",
+      "listar ferramentas mcp",
+      "descobrir ferramentas"
     ],
     "tool.system_prompt": "Conecte-se a um servidor MCP (HTTP ou stdio) e liste suas ferramentas. Prefira usar servidores configurados em mcp_servers.json quando possível."
   },
@@ -125,9 +135,10 @@
     "param.url.description": "URL endpoint server MCP.",
     "tool.description": "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalikan daftar alat yang tersedia. Sebelum melakukan integrasi API/sistem apa pun, gunakan alat ini untuk mengetahui alat MCP yang tersedia. Mendukung server berbasis HTTP dan stdio.",
     "x_search_terms": [
-      "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalikan daftar alat yang tersedia. Sebelum melakukan integrasi API/sistem apa pun, gunakan alat ini untuk mengetahui alat MCP yang tersedia. Mendukung server berbasis HTTP dan stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "daftar alat mcp",
+      "daftar mcp tools",
+      "temukan alat"
     ],
     "tool.system_prompt": "Hubungkan ke server MCP (HTTP atau stdio) dan daftar alatnya. Jika memungkinkan, utamakan server yang dikonfigurasi di mcp_servers.json."
   },
@@ -137,9 +148,10 @@
     "param.url.description": "URL điểm cuối của máy chủ MCP.",
     "tool.description": "[Ưu tiên cao nhất] Kết nối với máy chủ MCP (Giao thức bối cảnh mô hình) và trả về danh sách các công cụ có sẵn. Trước khi thực hiện bất kỳ tích hợp API/hệ thống nào, hãy sử dụng công cụ này để khám phá những công cụ MCP có sẵn. Hỗ trợ các máy chủ MCP dựa trên HTTP và stdio.",
     "x_search_terms": [
-      "[Ưu tiên cao nhất] Kết nối với máy chủ MCP (Giao thức bối cảnh mô hình) và trả về danh sách các công cụ có sẵn. Trước khi thực hiện bất kỳ tích hợp API/hệ thống nào, hãy sử dụng công cụ này để khám phá những công cụ MCP có sẵn. Hỗ trợ các máy chủ MCP dựa trên HTTP và stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "danh sách công cụ mcp",
+      "liệt kê công cụ mcp",
+      "khám phá công cụ"
     ],
     "tool.system_prompt": "Kết nối với máy chủ MCP (HTTP hoặc stdio) và liệt kê các công cụ của nó. Ưu tiên sử dụng các máy chủ được định cấu hình trong mcp_servers.json khi có thể."
   },
@@ -149,9 +161,10 @@
     "param.url.description": "Adres URL punktu końcowego serwera MCP.",
     "tool.description": "[Najwyższy priorytet] Połącz się z serwerem MCP (Model Context Protocol) i zwróć listę dostępnych narzędzi. Przed wykonaniem jakiejkolwiek integracji API/systemu użyj tego narzędzia, aby dowiedzieć się, jakie narzędzia MCP są dostępne. Obsługuje serwery MCP oparte na HTTP i stdio.",
     "x_search_terms": [
-      "[Najwyższy priorytet] Połącz się z serwerem MCP (Model Context Protocol) i zwróć listę dostępnych narzędzi. Przed wykonaniem jakiejkolwiek integracji API/systemu użyj tego narzędzia, aby dowiedzieć się, jakie narzędzia MCP są dostępne. Obsługuje serwery MCP oparte na HTTP i stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "lista narzędzi mcp",
+      "wylistuj narzędzia mcp",
+      "odkryj narzędzia"
     ],
     "tool.system_prompt": "Połącz się z serwerem MCP (HTTP lub stdio) i wyświetl listę jego narzędzi. Jeśli to możliwe, preferuj używanie serwerów skonfigurowanych w pliku mcp_servers.json."
   },
@@ -161,9 +174,10 @@
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल।",
     "tool.description": "[उच्चतम प्राथमिकता] एक एमसीपी (मॉडल कॉन्टेक्स्ट प्रोटोकॉल) सर्वर से कनेक्ट करें और उपलब्ध टूल की सूची लौटाएं। कोई भी एपीआई/सिस्टम एकीकरण करने से पहले, यह जानने के लिए इस टूल का उपयोग करें कि कौन से एमसीपी टूल उपलब्ध हैं। HTTP-आधारित और stdio-आधारित MCP सर्वर का समर्थन करता है।",
     "x_search_terms": [
-      "[उच्चतम प्राथमिकता] एक एमसीपी (मॉडल कॉन्टेक्स्ट प्रोटोकॉल) सर्वर से कनेक्ट करें और उपलब्ध टूल की सूची लौटाएं। कोई भी एपीआई/सिस्टम एकीकरण करने से पहले, यह जानने के लिए इस टूल का उपयोग करें कि कौन से एमसीपी टूल उपलब्ध हैं। HTTP-आधारित और stdio-आधारित MCP सर्वर का समर्थन करता है।",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp टूल सूची",
+      "mcp टूल्स सूची",
+      "टूल खोज"
     ],
     "tool.system_prompt": "किसी MCP सर्वर (HTTP या stdio) से कनेक्ट करें और उसके टूल सूचीबद्ध करें। जब संभव हो तो mcp_servers.json में कॉन्फ़िगर किए गए सर्वर का उपयोग करना पसंद करें।"
   },
@@ -173,9 +187,10 @@
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP.",
     "tool.description": "[الأولوية القصوى] اتصل بخادم MCP (بروتوكول السياق النموذجي) وأعد قائمة الأدوات المتاحة. قبل إجراء أي تكامل لواجهة برمجة التطبيقات/النظام، استخدم هذه الأداة لاكتشاف أدوات MCP المتوفرة. يدعم خوادم MCP المستندة إلى HTTP وstdio.",
     "x_search_terms": [
-      "[الأولوية القصوى] اتصل بخادم MCP (بروتوكول السياق النموذجي) وأعد قائمة الأدوات المتاحة. قبل إجراء أي تكامل لواجهة برمجة التطبيقات/النظام، استخدم هذه الأداة لاكتشاف أدوات MCP المتوفرة. يدعم خوادم MCP المستندة إلى HTTP وstdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "قائمة أدوات mcp",
+      "سرد أدوات mcp",
+      "اكتشاف الأدوات"
     ],
     "tool.system_prompt": "اتصل بخادم MCP (HTTP أو stdio) وقم بإدراج أدواته. تفضل استخدام الخوادم التي تم تكوينها في mcp_servers.json عندما يكون ذلك ممكنًا."
   },
@@ -185,9 +200,10 @@
     "param.url.description": "MCP-serverns endpoint-URL.",
     "tool.description": "[Högsta prioritet] Anslut till en MCP-server (Model Context Protocol) och returnera listan över tillgängliga verktyg. Innan du utför någon API-/systemintegration ska du använda detta verktyg för att ta reda på vilka MCP-verktyg som finns tillgängliga. Stöder HTTP-baserade och stdio-baserade MCP-servrar.",
     "x_search_terms": [
-      "[Högsta prioritet] Anslut till en MCP-server (Model Context Protocol) och returnera listan över tillgängliga verktyg. Innan du utför någon API-/systemintegration ska du använda detta verktyg för att ta reda på vilka MCP-verktyg som finns tillgängliga. Stöder HTTP-baserade och stdio-baserade MCP-servrar",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp verktyg lista",
+      "lista mcp verktyg",
+      "upptäck verktyg"
     ],
     "tool.system_prompt": "Anslut till en MCP-server (HTTP eller stdio) och lista dess verktyg. Använd i första hand servrar som är konfigurerade i mcp_servers.json när det är möjligt."
   },
@@ -197,9 +213,10 @@
     "param.url.description": "MCP server endpoint URL.",
     "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers.",
     "x_search_terms": [
-      "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. Before performing any API/system integration, use this tool to discover what MCP tools are available. Supports HTTP-based and stdio-based MCP servers",
       "mcp_tools_list",
-      "mcp tools list"
+      "orodha ya zana za mcp",
+      "orodhesha zana mcp",
+      "gundua zana"
     ],
     "tool.system_prompt": "Connect to an MCP server (HTTP or stdio) and list its tools. Prefer using configured servers in mcp_servers.json when possible."
   },
@@ -209,9 +226,10 @@
     "param.url.description": "URL for MCP-serverens endepunkt.",
     "tool.description": "[Høyeste prioritet] Koble til en MCP-server (Model Context Protocol) og returner listen over tilgjengelige verktøy. Før du utfører noen API-/systemintegrasjon, bruk dette verktøyet for å finne ut hvilke MCP-verktøy som er tilgjengelige. Støtter HTTP-baserte og stdio-baserte MCP-servere.",
     "x_search_terms": [
-      "[Høyeste prioritet] Koble til en MCP-server (Model Context Protocol) og returner listen over tilgjengelige verktøy. Før du utfører noen API-/systemintegrasjon, bruk dette verktøyet for å finne ut hvilke MCP-verktøy som er tilgjengelige. Støtter HTTP-baserte og stdio-baserte MCP-servere",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp-verktøy liste",
+      "liste mcp-verktøy",
+      "oppdag verktøy"
     ],
     "tool.system_prompt": "Koble til en MCP-server (HTTP eller stdio) og list opp verktøyene. Bruk helst servere som er konfigurert i mcp_servers.json når det er mulig."
   },
@@ -221,9 +239,10 @@
     "param.url.description": "MCP-servereindpunt-URL.",
     "tool.description": "[Hoogste prioriteit] Verbind met een MCP (Model Context Protocol)-server en geef de lijst met beschikbare tools terug. Gebruik deze tool vóór elke API-/systeemintegratie om te ontdekken welke MCP-tools beschikbaar zijn. Ondersteunt HTTP-gebaseerde en stdio-gebaseerde MCP-servers.",
     "x_search_terms": [
-      "[Hoogste prioriteit] Verbind met een MCP (Model Context Protocol)-server en geef de lijst met beschikbare tools terug. Gebruik deze tool vóór elke API-/systeemintegratie om te ontdekken welke MCP-tools beschikbaar zijn. Ondersteunt HTTP-gebaseerde en stdio-gebaseerde MCP-servers",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp tools lijst",
+      "lijst mcp tools",
+      "tools ontdekken"
     ],
     "tool.system_prompt": "Verbind met een MCP-server (HTTP of stdio) en geef de tools lijst terug. Gebruik indien mogelijk geconfigureerde servers in mcp_servers.json."
   },
@@ -233,9 +252,10 @@
     "param.url.description": "MCP-palvelimen päätepiste-URL.",
     "tool.description": "[Korkein prioriteetti] Yhdistä MCP (Model Context Protocol) -palvelimeen ja palauta käytettävissä olevien työkalujen lista. Käytä tätä työkalua ennen mitä tahansa API-/järjestelmäintegraatiota selvittääksesi, mitä MCP-työkaluja on saatavilla. Tukee HTTP-pohjaisia ja stdio-pohjaisia MCP-palvelimia.",
     "x_search_terms": [
-      "[Korkein prioriteetti] Yhdistä MCP (Model Context Protocol) -palvelimeen ja palauta käytettävissä olevien työkalujen lista. Käytä tätä työkalua ennen mitä tahansa API-/järjestelmäintegraatiota selvittääksesi, mitä MCP-työkaluja on saatavilla. Tukee HTTP-pohjaisia ja stdio-pohjaisia MCP-palvelimia",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp työkalut lista",
+      "listaa mcp työkalut",
+      "löydä työkalut"
     ],
     "tool.system_prompt": "Yhdistä MCP-palvelimeen (HTTP tai stdio) ja listaa sen työkalut. Suosi mahdollisuuksien mukaan mcp_servers.jsonissa määritettyjä palvelimia."
   },
@@ -245,9 +265,10 @@
     "param.url.description": "URL koncového bodu MCP serveru.",
     "tool.description": "[Nejvyšší priorita] Připojí se k serveru MCP (Model Context Protocol) a vrátí seznam dostupných nástrojů. Než provedete jakoukoli integraci API/systému, použijte tento nástroj ke zjištění, které nástroje MCP jsou k dispozici. Podporuje servery MCP přes HTTP i stdio.",
     "x_search_terms": [
-      "[Nejvyšší priorita] Připojí se k serveru MCP (Model Context Protocol) a vrátí seznam dostupných nástrojů. Než provedete jakoukoli integraci API/systému, použijte tento nástroj ke zjištění, které nástroje MCP jsou k dispozici. Podporuje servery MCP přes HTTP i stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "seznam mcp nástrojů",
+      "vypsat mcp nástroje",
+      "objevit nástroje"
     ],
     "tool.system_prompt": "Připojte se k serveru MCP (HTTP nebo stdio) a vypište jeho nástroje. Pokud je to možné, upřednostněte servery nakonfigurované v mcp_servers.json."
   },
@@ -257,9 +278,10 @@
     "param.url.description": "URL кінцевої точки сервера MCP.",
     "tool.description": "[Найвищий пріоритет] Підключається до сервера MCP (Model Context Protocol) і повертає список доступних інструментів. Перш ніж виконувати будь-яку інтеграцію API/системи, використайте цей інструмент, щоб з’ясувати, які інструменти MCP доступні. Підтримує сервери MCP на основі HTTP і stdio.",
     "x_search_terms": [
-      "[Найвищий пріоритет] Підключається до сервера MCP (Model Context Protocol) і повертає список доступних інструментів. Перш ніж виконувати будь-яку інтеграцію API/системи, використайте цей інструмент, щоб з’ясувати, які інструменти MCP доступні. Підтримує сервери MCP на основі HTTP і stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "список інструментів mcp",
+      "перелік mcp інструментів",
+      "знайти інструменти"
     ],
     "tool.system_prompt": "Підключіться до сервера MCP (HTTP або stdio) і перелічіть його інструменти. За можливості надавайте перевагу серверам, налаштованим у mcp_servers.json."
   },
@@ -269,9 +291,10 @@
     "param.url.description": "MCP sunucu uç noktası URL.",
     "tool.description": "[En yüksek öncelik] Bir MCP (Model Bağlam Protokolü) sunucusuna bağlanın ve mevcut araçların listesini döndürün. Herhangi bir API/sistem entegrasyonu gerçekleştirmeden önce, hangi MCP araçlarının mevcut olduğunu keşfetmek için bu aracı kullanın. HTTP-tabanlı ve stdio tabanlı MCP sunucularını destekler.",
     "x_search_terms": [
-      "[En yüksek öncelik] Bir MCP (Model Bağlam Protokolü) sunucusuna bağlanın ve mevcut araçların listesini döndürün. Herhangi bir API/sistem entegrasyonu gerçekleştirmeden önce, hangi MCP araçlarının mevcut olduğunu keşfetmek için bu aracı kullanın. HTTP-tabanlı ve stdio tabanlı MCP sunucularını destekler",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp araç listesi",
+      "mcp araçlarını listele",
+      "araçları keşfet"
     ],
     "tool.system_prompt": "Bir MCP sunucusuna (HTTP veya stdio) bağlanın ve araçlarını listeleyin. Mümkün olduğunda mcp_servers.json dosyasındaki yapılandırılmış sunucuları kullanmayı tercih edin."
   },
@@ -281,9 +304,10 @@
     "param.url.description": "URL จุดเชื่อมต่อของเซิร์ฟเวอร์ MCP",
     "tool.description": "[ลำดับความสำคัญสูงสุด] เชื่อมต่อกับเซิร์ฟเวอร์ MCP (Model Context Protocol) และส่งคืนรายการเครื่องมือที่พร้อมใช้งาน ก่อนที่จะดำเนินการรวม API/ระบบใด ๆ ให้ใช้เครื่องมือนี้เพื่อดูว่าเครื่องมือ MCP ใดพร้อมใช้งาน รองรับเซิร์ฟเวอร์ MCP ที่ใช้ HTTP และ stdio",
     "x_search_terms": [
-      "[ลำดับความสำคัญสูงสุด] เชื่อมต่อกับเซิร์ฟเวอร์ MCP (Model Context Protocol) และส่งคืนรายการเครื่องมือที่พร้อมใช้งาน ก่อนที่จะดำเนินการรวม API/ระบบใด ๆ ให้ใช้เครื่องมือนี้เพื่อดูว่าเครื่องมือ MCP ใดพร้อมใช้งาน รองรับเซิร์ฟเวอร์ MCP ที่ใช้ HTTP และ stdio",
       "mcp_tools_list",
-      "mcp tools list"
+      "รายการเครื่องมือ mcp",
+      "แสดงเครื่องมือ mcp",
+      "ค้นหาเครื่องมือ"
     ],
     "tool.system_prompt": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP (HTTP หรือ stdio) และแสดงรายการเครื่องมือของเซิร์ฟเวอร์ หากเป็นไปได้ ให้ใช้เซิร์ฟเวอร์ที่กำหนดค่าไว้ใน mcp_servers.json ก่อน"
   },
@@ -293,9 +317,10 @@
     "param.url.description": "MCP 服务器端点 URL。",
     "tool.description": "[最高优先级] 连接到 MCP（模型上下文协议）服务器并返回可用工具列表。在执行任何 API/系统集成之前，请使用此工具来确认可用的 MCP 工具。支持基于 HTTP 和基于 stdio 的 MCP 服务器。",
     "x_search_terms": [
-      "[最高优先级] 连接到 MCP（模型上下文协议）服务器并返回可用工具列表。在执行任何 API/系统集成之前，请使用此工具来确认可用的 MCP 工具。支持基于 HTTP 和基于 stdio 的 MCP 服务器",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp 工具列表",
+      "列出 mcp 工具",
+      "发现工具"
     ],
     "tool.system_prompt": "连接到 MCP 服务器（HTTP 或 stdio）并列出其工具。尽可能优先使用 mcp_servers.json 中配置的服务器。"
   },
@@ -305,9 +330,10 @@
     "param.url.description": "MCP 伺服器端點 URL。",
     "tool.description": "[最高優先權] 連接到 MCP（模型上下文協定）伺服器並傳回可用工具的清單。在執行任何 API／系統整合之前，請使用此工具確認可用的 MCP 工具。支援基於 HTTP 和基於 stdio 的 MCP 伺服器。",
     "x_search_terms": [
-      "[最高優先權] 連接到 MCP（模型上下文協定）伺服器並傳回可用工具的清單。在執行任何 API／系統整合之前，請使用此工具確認可用的 MCP 工具。支援基於 HTTP 和基於 stdio 的 MCP 伺服器",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp 工具列表",
+      "列出 mcp 工具",
+      "探索工具"
     ],
     "tool.system_prompt": "連接到 MCP 伺服器（HTTP 或 stdio）並列出其工具。盡可能優先使用 mcp_servers.json 中配置的伺服器。"
   },
@@ -317,9 +343,10 @@
     "param.url.description": "MCP server endpoint URL।",
     "tool.description": "[সর্বোচ্চ অগ্রাধিকার] একটি MCP (Model Context Protocol) সার্ভারের সাথে সংযোগ করুন এবং উপলব্ধ টুলগুলোর তালিকা ফেরত দিন। কোনো API বা সিস্টেম ইন্টিগ্রেশন করার আগে MCP টুলগুলো কী কী আছে তা জানতে এই টুলটি ব্যবহার করুন। HTTP-ভিত্তিক এবং stdio-ভিত্তিক MCP সার্ভার সমর্থিত।",
     "x_search_terms": [
-      "[সর্বোচ্চ অগ্রাধিকার] একটি MCP (Model Context Protocol) সার্ভারের সাথে সংযোগ করুন এবং উপলব্ধ টুলগুলোর তালিকা ফেরত দিন। কোনো API বা সিস্টেম ইন্টিগ্রেশন করার আগে MCP টুলগুলো কী কী আছে তা জানতে এই টুলটি ব্যবহার করুন। HTTP-ভিত্তিক এবং stdio-ভিত্তিক MCP সার্ভার সমর্থিত",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp টুল তালিকা",
+      "mcp টুল দেখাও",
+      "টুল খুঁজুন"
     ],
     "tool.system_prompt": "একটি MCP সার্ভারের (HTTP বা stdio) সাথে সংযোগ করে তার টুলগুলোর তালিকা দেখান। সম্ভব হলে mcp_servers.json-এ কনফিগার করা সার্ভারগুলিই ব্যবহার করুন।"
   },
@@ -329,9 +356,10 @@
     "param.url.description": "نشانی endpoint سرور MCP.",
     "tool.description": "[بالاترین اولویت] به یک سرور MCP (Model Context Protocol) متصل شوید و فهرست ابزارهای موجود را برگردانید. پیش از هرگونه یکپارچه‌سازی API/سیستم، از این ابزار برای تشخیص ابزارهای MCP موجود استفاده کنید. از سرورهای MCP مبتنی بر HTTP و stdio پشتیبانی می‌شود.",
     "x_search_terms": [
-      "[بالاترین اولویت] به یک سرور MCP (Model Context Protocol) متصل شوید و فهرست ابزارهای موجود را برگردانید. پیش از هرگونه یکپارچه‌سازی API/سیستم، از این ابزار برای تشخیص ابزارهای MCP موجود استفاده کنید. از سرورهای MCP مبتنی بر HTTP و stdio پشتیبانی می‌شود",
       "mcp_tools_list",
-      "mcp tools list"
+      "فهرست ابزارهای mcp",
+      "فهرست ابزار mcp",
+      "کشف ابزارها"
     ],
     "tool.system_prompt": "به یک سرور MCP (HTTP یا stdio) متصل شوید و ابزارهای آن را فهرست کنید. تا حد امکان سرورهای پیکربندی‌شده در mcp_servers.json را ترجیح دهید."
   },
@@ -341,9 +369,10 @@
     "param.url.description": "MCP серверийн endpoint URL.",
     "tool.description": "[Хамгийн өндөр тэргүүлэх ач холбогдол] MCP (Model Context Protocol) сервертэй холбогдож, боломжтой хэрэгслүүдийн жагсаалтыг буцаана. Ямар нэг API эсвэл системийн интеграци хийхээс өмнө боломжтой MCP хэрэгслүүдийг мэдэхийн тулд энэ хэрэгслийг ашиглана уу. HTTP-д суурилсан болон stdio-д суурилсан MCP серверүүдийг дэмжинэ.",
     "x_search_terms": [
-      "[Хамгийн өндөр тэргүүлэх ач холбогдол] MCP (Model Context Protocol) сервертэй холбогдож, боломжтой хэрэгслүүдийн жагсаалтыг буцаана. Ямар нэг API эсвэл системийн интеграци хийхээс өмнө боломжтой MCP хэрэгслүүдийг мэдэхийн тулд энэ хэрэгслийг ашиглана уу. HTTP-д суурилсан болон stdio-д суурилсан MCP серверүүдийг дэмжинэ",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp хэрэгслийн жагсаалт",
+      "mcp хэрэгслийг жагсаах",
+      "хэрэгсэл илрүүлэх"
     ],
     "tool.system_prompt": "MCP сервертэй (HTTP эсвэл stdio) холбогдож, түүний хэрэгслүүдийг жагсаана уу. Боломжтой бол mcp_servers.json-д тохируулсан серверүүдийг илүүд үзнэ үү."
   },
@@ -353,9 +382,10 @@
     "param.url.description": "MCP सर्व्हरच्या एंडपॉइंटचा URL.",
     "tool.description": "[सर्वोच्च प्राधान्य] एका MCP (Model Context Protocol) सर्व्हरशी connect करा आणि उपलब्ध tools ची यादी परत करा. कोणतेही API/system integration करण्यापूर्वी उपलब्ध MCP tools कोणती आहेत हे जाणून घेण्यासाठी हे साधन वापरा. HTTP-आधारित आणि stdio-आधारित MCP सर्व्हर्स समर्थित आहेत.",
     "x_search_terms": [
-      "[सर्वोच्च प्राधान्य] एका MCP (Model Context Protocol) सर्व्हरशी connect करा आणि उपलब्ध tools ची यादी परत करा. कोणतेही API/system integration करण्यापूर्वी उपलब्ध MCP tools कोणती आहेत हे जाणून घेण्यासाठी हे साधन वापरा. HTTP-आधारित आणि stdio-आधारित MCP सर्व्हर्स समर्थित आहेत",
       "mcp_tools_list",
-      "mcp tools list"
+      "mcp साधनांची यादी",
+      "mcp साधने सूचीबद्ध करा",
+      "साधने शोधा"
     ],
     "tool.system_prompt": "एका MCP सर्व्हरशी (HTTP किंवा stdio) connect करा आणि त्याची tools यादी करा. शक्य असल्यास mcp_servers.json मधील configure केलेले servers वापरा."
   }

@@ -2,8 +2,10 @@
   "en": {
     "tool.description": "Edit an input image using a text prompt, save the result as a PNG, and return the saved path.",
     "x_search_terms": [
-      "Edit an input image using a text prompt, save the result as a PNG, and return the saved path",
-      "img2img"
+      "img2img",
+      "image edit",
+      "image prompt",
+      "edit image"
     ],
     "tool.system_prompt": "Edit the provided image according to the prompt. Save the result as a PNG and return only the saved file path.",
     "param.image_path.description": "Path to the source image to edit.",
@@ -31,8 +33,10 @@
   "ja": {
     "tool.description": "入力画像をテキスト指示で編集し、結果を PNG として保存して保存先を返します。",
     "x_search_terms": [
-      "入力画像をテキスト指示で編集し、結果を PNG として保存して保存先を返します",
-      "img2img"
+      "img2img",
+      "画像編集",
+      "画像プロンプト",
+      "編集"
     ],
     "tool.system_prompt": "指定された画像をプロンプトに従って編集してください。結果を PNG として保存し、保存したファイルパスだけを返してください。",
     "param.image_path.description": "編集する元画像のパス。",
@@ -60,8 +64,10 @@
   "es": {
     "tool.description": "Edita una imagen de entrada con un prompt de texto, guarda el resultado como PNG y devuelve la ruta guardada.",
     "x_search_terms": [
-      "Edita una imagen de entrada con un prompt de texto, guarda el resultado como PNG y devuelve la ruta guardada",
-      "img2img"
+      "img2img",
+      "editar imagen",
+      "prompt de imagen",
+      "edición"
     ],
     "tool.system_prompt": "Edita la imagen proporcionada según el prompt. Guarda el resultado como PNG y devuelve solo la ruta del archivo guardado.",
     "param.image_path.description": "Ruta de la imagen de origen que se va a editar.",
@@ -89,8 +95,10 @@
   "fr": {
     "tool.description": "Modifie une image d’entrée à l’aide d’un prompt texte, enregistre le résultat au format PNG et renvoie le chemin enregistré.",
     "x_search_terms": [
-      "Modifie une image d’entrée à l’aide d’un prompt texte, enregistre le résultat au format PNG et renvoie le chemin enregistré",
-      "img2img"
+      "img2img",
+      "éditer image",
+      "prompt image",
+      "édition image"
     ],
     "tool.system_prompt": "Modifiez l’image fournie selon le prompt. Enregistrez le résultat au format PNG et renvoyez uniquement le chemin du fichier enregistré.",
     "param.image_path.description": "Chemin du fichier image source à modifier.",
@@ -118,8 +126,10 @@
   "ko": {
     "tool.description": "텍스트 프롬프트로 입력 이미지를 편집하고, 결과를 PNG로 저장한 뒤 저장 경로를 반환합니다.",
     "x_search_terms": [
-      "텍스트 프롬프트로 입력 이미지를 편집하고, 결과를 PNG로 저장한 뒤 저장 경로를 반환합니다",
-      "img2img"
+      "img2img",
+      "이미지 편집",
+      "이미지 프롬프트",
+      "편집"
     ],
     "tool.system_prompt": "제공된 이미지를 프롬프트에 따라 편집하세요. 결과를 PNG로 저장하고 저장된 파일 경로만 반환하세요.",
     "param.image_path.description": "편집할 원본 이미지 파일의 경로입니다.",
@@ -147,8 +157,10 @@
   "de": {
     "tool.description": "Bearbeitet ein Eingabebild mit einem Textprompt, speichert das Ergebnis als PNG und gibt den gespeicherten Pfad zurück.",
     "x_search_terms": [
-      "Bearbeitet ein Eingabebild mit einem Textprompt, speichert das Ergebnis als PNG und gibt den gespeicherten Pfad zurück",
-      "img2img"
+      "img2img",
+      "bild bearbeiten",
+      "bild prompt",
+      "bild edit"
     ],
     "tool.system_prompt": "Bearbeite das bereitgestellte Bild gemäß dem Prompt. Speichere das Ergebnis als PNG und gib nur den gespeicherten Dateipfad zurück.",
     "param.image_path.description": "Pfad zur Quellbilddatei, die bearbeitet werden soll.",
@@ -176,8 +188,10 @@
   "it": {
     "tool.description": "Modifica un’immagine di input con un prompt testuale, salva il risultato in PNG e restituisce il percorso salvato.",
     "x_search_terms": [
-      "Modifica un’immagine di input con un prompt testuale, salva il risultato in PNG e restituisce il percorso salvato",
-      "img2img"
+      "img2img",
+      "modifica immagine",
+      "prompt immagine",
+      "edit immagine"
     ],
     "tool.system_prompt": "Modifica l’immagine fornita secondo il prompt. Salva il risultato in PNG e restituisci solo il percorso del file salvato.",
     "param.image_path.description": "Percorso del file immagine sorgente da modificare.",
@@ -205,8 +219,10 @@
   "ru": {
     "tool.description": "Редактирует входное изображение по текстовому запросу, сохраняет результат в PNG и возвращает путь сохранения.",
     "x_search_terms": [
-      "Редактирует входное изображение по текстовому запросу, сохраняет результат в PNG и возвращает путь сохранения",
-      "img2img"
+      "img2img",
+      "редактировать изображение",
+      "prompt изображения",
+      "редактирование"
     ],
     "tool.system_prompt": "Отредактируйте предоставленное изображение согласно запросу. Сохраните результат в PNG и верните только путь к сохранённому файлу.",
     "param.image_path.description": "Путь к исходному файлу изображения для редактирования.",
@@ -234,8 +250,10 @@
   "pt_BR": {
     "tool.description": "Edita uma imagem de entrada com um prompt de texto, salva o resultado como PNG e retorna o caminho salvo.",
     "x_search_terms": [
-      "Edita uma imagem de entrada com um prompt de texto, salva o resultado como PNG e retorna o caminho salvo",
-      "img2img"
+      "img2img",
+      "editar imagem",
+      "prompt de imagem",
+      "edição de imagem"
     ],
     "tool.system_prompt": "Edite a imagem fornecida de acordo com o prompt. Salve o resultado como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.image_path.description": "Caminho do arquivo de imagem de origem a ser editado.",
@@ -263,8 +281,10 @@
   "pt": {
     "tool.description": "Edita uma imagem de entrada com um prompt de texto, salva o resultado como PNG e retorna o caminho salvo.",
     "x_search_terms": [
-      "Edita uma imagem de entrada com um prompt de texto, salva o resultado como PNG e retorna o caminho salvo",
-      "img2img"
+      "img2img",
+      "editar imagem",
+      "prompt de imagem",
+      "edição de imagem"
     ],
     "tool.system_prompt": "Edite a imagem fornecida de acordo com o prompt. Salve o resultado como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.image_path.description": "Caminho do arquivo de imagem de origem a ser editado.",
@@ -292,8 +312,10 @@
   "id": {
     "tool.description": "Mengedit gambar input dengan prompt teks, menyimpan hasilnya sebagai PNG, dan mengembalikan path yang disimpan.",
     "x_search_terms": [
-      "Mengedit gambar input dengan prompt teks, menyimpan hasilnya sebagai PNG, dan mengembalikan path yang disimpan",
-      "img2img"
+      "img2img",
+      "edit gambar",
+      "prompt gambar",
+      "ubah gambar"
     ],
     "tool.system_prompt": "Edit gambar yang diberikan sesuai prompt. Simpan hasilnya sebagai PNG dan kembalikan hanya path file yang disimpan.",
     "param.image_path.description": "Path ke file gambar sumber yang akan diedit.",
@@ -321,8 +343,10 @@
   "vi": {
     "tool.description": "Chỉnh sửa ảnh đầu vào bằng prompt văn bản, lưu kết quả dưới dạng PNG và trả về đường dẫn đã lưu.",
     "x_search_terms": [
-      "Chỉnh sửa ảnh đầu vào bằng prompt văn bản, lưu kết quả dưới dạng PNG và trả về đường dẫn đã lưu",
-      "img2img"
+      "img2img",
+      "chỉnh ảnh",
+      "prompt ảnh",
+      "sửa ảnh"
     ],
     "tool.system_prompt": "Chỉnh sửa ảnh được cung cấp theo prompt. Lưu kết quả dưới dạng PNG và chỉ trả về đường dẫn tệp đã lưu.",
     "param.image_path.description": "Đường dẫn tới tệp ảnh nguồn cần chỉnh sửa.",
@@ -350,8 +374,10 @@
   "pl": {
     "tool.description": "Edytuje obraz wejściowy za pomocą promptu tekstowego, zapisuje wynik jako PNG i zwraca zapisany ścieżkę.",
     "x_search_terms": [
-      "Edytuje obraz wejściowy za pomocą promptu tekstowego, zapisuje wynik jako PNG i zwraca zapisany ścieżkę",
-      "img2img"
+      "img2img",
+      "edytuj obraz",
+      "prompt obrazu",
+      "edycja obrazu"
     ],
     "tool.system_prompt": "Edytuj dostarczony obraz zgodnie z promptem. Zapisz wynik jako PNG i zwróć tylko ścieżkę do zapisanego pliku.",
     "param.image_path.description": "Ścieżka do pliku obrazu źródłowego do edycji.",
@@ -379,8 +405,10 @@
   "cs": {
     "tool.description": "Upraví vstupní obrázek pomocí textového promptu, uloží výsledek jako PNG a vrátí uloženou cestu.",
     "x_search_terms": [
-      "Upraví vstupní obrázek pomocí textového promptu, uloží výsledek jako PNG a vrátí uloženou cestu",
-      "img2img"
+      "img2img",
+      "upravit obrázek",
+      "prompt obrázku",
+      "úprava obrázku"
     ],
     "tool.system_prompt": "Upravte poskytnutý obrázek podle promptu. Uložte výsledek jako PNG a vraťte pouze cestu k uloženému souboru.",
     "param.image_path.description": "Cesta ke zdrojovému obrázku k úpravě.",
@@ -408,8 +436,10 @@
   "uk": {
     "tool.description": "Редагує вхідне зображення за текстовим запитом, зберігає результат як PNG і повертає шлях збереження.",
     "x_search_terms": [
-      "Редагує вхідне зображення за текстовим запитом, зберігає результат як PNG і повертає шлях збереження",
-      "img2img"
+      "img2img",
+      "редагувати зображення",
+      "prompt зображення",
+      "редагування"
     ],
     "tool.system_prompt": "Відредагуйте надане зображення згідно із запитом. Збережіть результат як PNG і поверніть лише шлях до збереженого файлу.",
     "param.image_path.description": "Шлях до вихідного файла зображення для редагування.",
@@ -437,8 +467,10 @@
   "ar": {
     "tool.description": "يُحرّر صورة إدخال باستخدام prompt نصي، ويحفظ النتيجة كملف PNG ويعيد المسار المحفوظ.",
     "x_search_terms": [
-      "يُحرّر صورة إدخال باستخدام prompt نصي، ويحفظ النتيجة كملف PNG ويعيد المسار المحفوظ",
-      "img2img"
+      "img2img",
+      "تحرير صورة",
+      "موجه صورة",
+      "تعديل صورة"
     ],
     "tool.system_prompt": "حرّر الصورة المقدَّمة وفقًا للتعليمات. احفظ النتيجة كملف PNG وأعد فقط مسار الملف المحفوظ.",
     "param.image_path.description": "مسار ملف الصورة المصدر المراد تحريره.",
@@ -466,8 +498,10 @@
   "sv": {
     "tool.description": "Redigerar en inmatad bild med en textprompt, sparar resultatet som PNG och returnerar den sparade sökvägen.",
     "x_search_terms": [
-      "Redigerar en inmatad bild med en textprompt, sparar resultatet som PNG och returnerar den sparade sökvägen",
-      "img2img"
+      "img2img",
+      "redigera bild",
+      "bildprompt",
+      "bildredigering"
     ],
     "tool.system_prompt": "Redigera den angivna bilden enligt prompten. Spara resultatet som PNG och returnera endast den sparade filsökvägen.",
     "param.image_path.description": "Sökväg till källbilden som ska redigeras.",
@@ -495,8 +529,10 @@
   "th": {
     "tool.description": "แก้ไขภาพอินพุตด้วยพรอมป์ข้อความ บันทึกผลเป็น PNG และส่งกลับพาธที่บันทึกไว้",
     "x_search_terms": [
-      "แก้ไขภาพอินพุตด้วยพรอมป์ข้อความ บันทึกผลเป็น PNG และส่งกลับพาธที่บันทึกไว้",
-      "img2img"
+      "img2img",
+      "แก้ไขภาพ",
+      "พรอมต์ภาพ",
+      "ปรับแต่งภาพ"
     ],
     "tool.system_prompt": "แก้ไขภาพที่ให้มาตามพรอมป์ บันทึกผลเป็น PNG และส่งกลับเฉพาะพาธของไฟล์ที่บันทึกแล้ว",
     "param.image_path.description": "พาธไปยังไฟล์ภาพต้นฉบับที่ต้องการแก้ไข",
@@ -524,8 +560,10 @@
   "tr": {
     "tool.description": "Bir giriş görüntüsünü metin istemiyle düzenler, sonucu PNG olarak kaydeder ve kaydedilen yolu döndürür.",
     "x_search_terms": [
-      "Bir giriş görüntüsünü metin istemiyle düzenler, sonucu PNG olarak kaydeder ve kaydedilen yolu döndürür",
-      "img2img"
+      "img2img",
+      "görsel düzenle",
+      "görsel prompt",
+      "görsel düzenleme"
     ],
     "tool.system_prompt": "Sağlanan görüntüyü isteme göre düzenleyin. Sonucu PNG olarak kaydedin ve yalnızca kaydedilen dosya yolunu döndürün.",
     "param.image_path.description": "Düzenlenecek kaynak görüntü dosyasının yolu.",
@@ -553,8 +591,10 @@
   "nb": {
     "tool.description": "Redigerer et inngangsbilde med en tekstprompt, lagrer resultatet som PNG og returnerer den lagrede stien.",
     "x_search_terms": [
-      "Redigerer et inngangsbilde med en tekstprompt, lagrer resultatet som PNG og returnerer den lagrede stien",
-      "img2img"
+      "img2img",
+      "rediger bilde",
+      "bildeprompt",
+      "bilderedigering"
     ],
     "tool.system_prompt": "Rediger bildet i henhold til prompten. Lagre resultatet som PNG og returner bare filstien til det lagrede bildet.",
     "param.image_path.description": "Sti til kildebildet som skal redigeres.",
@@ -582,8 +622,10 @@
   "nl": {
     "tool.description": "Bewerkt een invoerafbeelding met een tekstprompt, slaat het resultaat op als PNG en geeft het opgeslagen pad terug.",
     "x_search_terms": [
-      "Bewerkt een invoerafbeelding met een tekstprompt, slaat het resultaat op als PNG en geeft het opgeslagen pad terug",
-      "img2img"
+      "img2img",
+      "afbeelding bewerken",
+      "afbeelding prompt",
+      "beeldbewerking"
     ],
     "tool.system_prompt": "Bewerk de aangeleverde afbeelding volgens de prompt. Sla het resultaat op als PNG en geef alleen het opgeslagen bestandspad terug.",
     "param.image_path.description": "Pad naar het bronafbeeldingsbestand dat bewerkt moet worden.",
@@ -611,8 +653,10 @@
   "fi": {
     "tool.description": "Muokkaa syötekuvaa tekstikehotteen avulla, tallentaa tuloksen PNG:nä ja palauttaa tallennetun polun.",
     "x_search_terms": [
-      "Muokkaa syötekuvaa tekstikehotteen avulla, tallentaa tuloksen PNG:nä ja palauttaa tallennetun polun",
-      "img2img"
+      "img2img",
+      "muokkaa kuvaa",
+      "kuvaprompti",
+      "kuvankäsittely"
     ],
     "tool.system_prompt": "Muokkaa annettua kuvaa kehotteen mukaan. Tallenna tulos PNG:nä ja palauta vain tallennetun tiedoston polku.",
     "param.image_path.description": "Muokattavan lähdekuvatiedoston polku.",
@@ -640,8 +684,10 @@
   "sw": {
     "tool.description": "Huhariri picha ya kuingiza kwa kutumia prompt ya maandishi, huhifadhi matokeo kama PNG, na kurudisha njia iliyohifadhiwa.",
     "x_search_terms": [
-      "Huhariri picha ya kuingiza kwa kutumia prompt ya maandishi, huhifadhi matokeo kama PNG, na kurudisha njia iliyohifadhiwa",
-      "img2img"
+      "img2img",
+      "hariri picha",
+      "prompt ya picha",
+      "uhariri wa picha"
     ],
     "tool.system_prompt": "Hariri picha iliyotolewa kulingana na maelekezo. Hifadhi matokeo kama PNG na urudishe tu njia ya faili iliyohifadhiwa.",
     "param.image_path.description": "Njia ya faili la picha chanzo litakalohaririwa.",
@@ -669,8 +715,10 @@
   "hi": {
     "tool.description": "टेक्स्ट प्रॉम्प्ट से इनपुट छवि को संपादित करता है, परिणाम को PNG के रूप में सहेजता है, और सहेजा गया पथ लौटाता है।",
     "x_search_terms": [
-      "टेक्स्ट प्रॉम्प्ट से इनपुट छवि को संपादित करता है, परिणाम को PNG के रूप में सहेजता है, और सहेजा गया पथ लौटाता है।",
-      "img2img"
+      "img2img",
+      "छवि संपादन",
+      "छवि प्रॉम्प्ट",
+      "संपादन"
     ],
     "tool.system_prompt": "दी गई छवि को प्रॉम्प्ट के अनुसार संपादित करें। परिणाम को PNG के रूप में सहेजें और केवल सहेजी गई फ़ाइल का पथ लौटाएँ।",
     "param.image_path.description": "संपादित की जाने वाली स्रोत छवि फ़ाइल का पथ।",
@@ -698,8 +746,10 @@
   "zh_CN": {
     "tool.description": "使用文本提示编辑输入图像，将结果保存为 PNG，并返回已保存路径。",
     "x_search_terms": [
-      "使用文本提示编辑输入图像，将结果保存为 PNG，并返回已保存路径",
-      "img2img"
+      "img2img",
+      "图像编辑",
+      "图像提示词",
+      "编辑图片"
     ],
     "tool.system_prompt": "请根据提示编辑提供的图像。将结果保存为 PNG，并仅返回已保存文件的路径。",
     "param.image_path.description": "要编辑的源图像文件路径。",
@@ -727,8 +777,10 @@
   "zh_TW": {
     "tool.description": "使用文字提示編輯輸入影像，將結果儲存為 PNG，並回傳已儲存的路徑。",
     "x_search_terms": [
-      "使用文字提示編輯輸入影像，將結果儲存為 PNG，並回傳已儲存的路徑",
-      "img2img"
+      "img2img",
+      "影像編輯",
+      "影像提示詞",
+      "編輯圖片"
     ],
     "tool.system_prompt": "請依照提示編輯提供的影像。將結果儲存為 PNG，並僅回傳已儲存檔案的路徑。",
     "param.image_path.description": "要編輯的來源影像檔案路徑。",
@@ -756,8 +808,10 @@
   "bn": {
     "tool.description": "টেক্সট প্রম্পট ব্যবহার করে একটি ইনপুট ছবি সম্পাদনা করুন, ফলাফল PNG হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত path ফেরত দিন।",
     "x_search_terms": [
-      "টেক্সট প্রম্পট ব্যবহার করে একটি ইনপুট ছবি সম্পাদনা করুন, ফলাফল PNG হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত path ফেরত দিন",
-      "img2img"
+      "img2img",
+      "ছবি সম্পাদনা",
+      "ছবি প্রম্পট",
+      "ছবি এডিট"
     ],
     "tool.system_prompt": "দেওয়া ছবিটি prompt অনুযায়ী সম্পাদনা করুন। ফলাফল PNG হিসেবে সংরক্ষণ করুন এবং কেবল সংরক্ষিত ফাইল path ফেরত দিন।",
     "param.image_path.description": "সম্পাদনা করার জন্য উৎস ছবির path।",
@@ -785,8 +839,10 @@
   "fa": {
     "tool.description": "یک تصویر ورودی را با یک prompt متنی ویرایش کنید، نتیجه را به‌صورت PNG ذخیره کنید و مسیر ذخیره‌شده را برگردانید.",
     "x_search_terms": [
-      "یک تصویر ورودی را با یک prompt متنی ویرایش کنید، نتیجه را به‌صورت PNG ذخیره کنید و مسیر ذخیره‌شده را برگردانید",
-      "img2img"
+      "img2img",
+      "ویرایش تصویر",
+      "پرامپت تصویر",
+      "ادیت تصویر"
     ],
     "tool.system_prompt": "تصویر ارائه‌شده را مطابق prompt ویرایش کنید. نتیجه را به‌صورت PNG ذخیره کنید و فقط مسیر فایل ذخیره‌شده را برگردانید.",
     "param.image_path.description": "مسیر فایل تصویرِ منبع برای ویرایش.",
@@ -814,8 +870,10 @@
   "mn": {
     "tool.description": "Оролтын зургийг текст заавраар засаж, үр дүнг PNG болгон хадгалаад хадгалсан замыг буцаана.",
     "x_search_terms": [
-      "Оролтын зургийг текст заавраар засаж, үр дүнг PNG болгон хадгалаад хадгалсан замыг буцаана",
-      "img2img"
+      "img2img",
+      "зураг засах",
+      "зураг prompt",
+      "зураг edit"
     ],
     "tool.system_prompt": "Өгөгдсөн зургийг prompt-ын дагуу засна уу. Үр дүнг PNG болгон хадгалаад зөвхөн хадгалсан файлын замыг буцаана уу.",
     "param.image_path.description": "Засах эх зургийн зам.",
@@ -843,8 +901,10 @@
   "mr": {
     "tool.description": "इनपुट प्रतिमा टेक्स्ट prompt ने संपादित करा, निकाल PNG म्हणून जतन करा, आणि जतन केलेला path परत द्या.",
     "x_search_terms": [
-      "इनपुट प्रतिमा टेक्स्ट prompt ने संपादित करा, निकाल PNG म्हणून जतन करा, आणि जतन केलेला path परत द्या",
-      "img2img"
+      "img2img",
+      "प्रतिमा संपादन",
+      "प्रतिमा प्रॉम्प्ट",
+      "संपादन"
     ],
     "tool.system_prompt": "दिलेली प्रतिमा prompt नुसार संपादित करा. निकाल PNG म्हणून जतन करा आणि फक्त जतन केलेला फाइल path परत द्या.",
     "param.image_path.description": "संपादित करायच्या मूळ प्रतिमेचा path.",
