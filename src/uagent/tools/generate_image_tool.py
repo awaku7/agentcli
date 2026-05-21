@@ -83,6 +83,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "art",
             ],
         ),
+        "x_search_terms_en": [
+            "generate_image",
+            "generate image",
+            "image generation",
+            "png",
+            "text to image",
+            "art",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

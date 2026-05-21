@@ -69,6 +69,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "document image",
             ],
         ),
+        "x_search_terms_en": [
+            "preprocess_image",
+            "preprocess image",
+            "ocr preprocess",
+            "image cleanup",
+            "scan image",
+            "document image",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

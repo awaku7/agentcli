@@ -14,10 +14,14 @@
     "param.recursive.description": "Whether to search subdirectories recursively.",
     "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). The pattern is required.",
     "x_search_terms": [
-      "file_grep",
-      "file grep",
-      "grep files",
-      "find pattern"
+      "grep",
+      "search lines",
+      "find in file",
+      "ファイル内検索",
+      "buscar en archivos",
+      "rechercher dans les fichiers",
+      "파일 검색",
+      "поиск в файлах"
     ],
     "tool.system_prompt": "Search file contents under one or more paths. The pattern is required. Filter files by glob, search using a Python regular expression or literal text, optionally include context lines, skip binary-like files, support filenames-only mode, and auto-detect text encodings when reading. Return JSON only."
   },

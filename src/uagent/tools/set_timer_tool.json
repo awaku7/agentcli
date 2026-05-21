@@ -13,7 +13,9 @@
       "set_timer",
       "set timer",
       "timer",
-      "timeout message"
+      "reminder",
+      "alarm",
+      "delay"
     ],
     "tool.system_prompt": "Use this tool to show a message after a specified time and optionally send an automatic message to the LLM."
   },

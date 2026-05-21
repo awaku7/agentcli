@@ -33,8 +33,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "date_calc",
                 "date calc",
+                "date math",
+                "add days",
+                "subtract days",
+                "relative date",
+                "calendar date",
+                "weeks months",
+                "days from date",
+                "holiday check",
             ],
         ),
+        "x_search_terms_en": [
+            "date_calc",
+            "date calc",
+            "date math",
+            "add days",
+            "subtract days",
+            "relative date",
+            "calendar date",
+            "weeks months",
+            "days from date",
+            "holiday check",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

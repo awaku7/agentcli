@@ -5,7 +5,9 @@
     "x_search_terms": [
       "spawn_process",
       "spawn process",
-      "start process",
+      "launch process",
+      "start app",
+      "gui process",
       "browser process"
     ],
     "tool.system_prompt": "Use this tool to start an external process asynchronously. Avoid repeated spawns for the same request."

@@ -122,7 +122,14 @@ def _attachment_to_openai_content_item(att: Any) -> Optional[Dict[str, Any]]:
         return None
 
     att_type = _as_str(att.get("type")).strip().lower()
-    if att_type not in ("image", "image/png", "image/jpeg", "image/webp", "image/gif", "image/jpg"):
+    if att_type not in (
+        "image",
+        "image/png",
+        "image/jpeg",
+        "image/webp",
+        "image/gif",
+        "image/jpg",
+    ):
         return None
 
     data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")

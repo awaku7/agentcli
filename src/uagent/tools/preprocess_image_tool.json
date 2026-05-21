@@ -5,7 +5,9 @@
       "preprocess_image",
       "preprocess image",
       "ocr preprocess",
-      "image cleanup"
+      "image cleanup",
+      "scan image",
+      "document image"
     ],
     "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
     "param.image_path.description": "Path to the source image to preprocess.",

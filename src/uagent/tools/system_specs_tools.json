@@ -2,10 +2,9 @@
   "en": {
     "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
     "x_search_terms": [
-      "get_system_specs",
       "system specs",
-      "system info",
-      "cpu ram disk"
+      "get_system_specs",
+      "system specifications"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
     "param.include_volumes.description": "Include mounted volume usage information.",

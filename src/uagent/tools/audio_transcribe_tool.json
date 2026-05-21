@@ -4,8 +4,10 @@
     "x_search_terms": [
       "audio_transcribe",
       "audio transcribe",
-      "speech to text",
-      "transcribe audio"
+      "audio",
+      "voice",
+      "speech",
+      "sound"
     ],
     "tool.system_prompt": "Transcribe the given audio file and return a JSON response only. If output_format=text, include the transcript text in the response. If output_format=json, include basic metadata as well.",
     "param.path.description": "Path to the input audio file.",

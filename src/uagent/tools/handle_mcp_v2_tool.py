@@ -86,6 +86,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "mcp",
             ],
         ),
+        "x_search_terms_en": [
+            "handle_mcp_v2",
+            "handle mcp v2",
+            "mcp tool",
+            "model context protocol",
+            "call remote tool",
+            "mcp",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

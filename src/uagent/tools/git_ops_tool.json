@@ -23,10 +23,14 @@
     "param.command.description": "Git subcommand to run (safety-first restrictions apply).",
     "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security.",
     "x_search_terms": [
-      "git_ops",
-      "git ops",
-      "git command",
-      "safe git"
+      "git",
+      "branch",
+      "commit",
+      "git コマンド",
+      "git",
+      "git",
+      "깃",
+      "git"
     ],
     "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
   },

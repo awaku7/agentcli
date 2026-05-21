@@ -40,6 +40,33 @@ else:
                 "tool.description",
                 default="Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing for search without reading file contents immediately.",
             ),
+            "x_search_terms": _(
+                "x_search_terms",
+                default=[
+                    "index_files",
+                    "index files",
+                    "file indexing",
+                    "indexing files",
+                    "semantic indexing",
+                    "vector index",
+                    "build index",
+                    "batch index",
+                    "index directory",
+                    "glob index",
+                ],
+            ),
+            "x_search_terms_en": [
+                "index_files",
+                "index files",
+                "file indexing",
+                "indexing files",
+                "semantic indexing",
+                "vector index",
+                "build index",
+                "batch index",
+                "index directory",
+                "glob index",
+            ],
             "parameters": {
                 "type": "object",
                 "properties": {

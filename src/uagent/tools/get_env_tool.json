@@ -8,8 +8,10 @@
     "x_search_terms": [
       "get_env",
       "get env",
-      "env var",
-      "environment variable"
+      "environment variable",
+      "config",
+      "secret",
+      "env var"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
   },

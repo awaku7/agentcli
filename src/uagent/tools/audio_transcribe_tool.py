@@ -43,6 +43,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "sound",
             ],
         ),
+        "x_search_terms_en": [
+            "audio_transcribe",
+            "audio transcribe",
+            "audio",
+            "voice",
+            "speech",
+            "sound",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

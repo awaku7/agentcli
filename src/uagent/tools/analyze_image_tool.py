@@ -35,6 +35,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "diagram",
             ],
         ),
+        "x_search_terms_en": [
+            "analyze_image",
+            "analyze image",
+            "image",
+            "picture",
+            "photo",
+            "diagram",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

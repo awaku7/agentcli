@@ -36,6 +36,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "query",
             ],
         ),
+        "x_search_terms_en": [
+            "db_query",
+            "db query",
+            "sql",
+            "database",
+            "sqlite",
+            "query",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -45,6 +45,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "mcp config",
             ],
         ),
+        "x_search_terms_en": [
+            "mcp_servers",
+            "mcp servers",
+            "mcp server",
+            "manage servers",
+            "server profile",
+            "mcp config",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

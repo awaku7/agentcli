@@ -33,6 +33,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "env var",
             ],
         ),
+        "x_search_terms_en": [
+            "get_env",
+            "get env",
+            "environment variable",
+            "config",
+            "secret",
+            "env var",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

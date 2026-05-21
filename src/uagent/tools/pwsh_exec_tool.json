@@ -6,9 +6,7 @@
     "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
     "x_search_terms": [
       "pwsh_exec",
-      "pwsh exec",
-      "powershell",
-      "last resort"
+      "pwsh exec"
     ],
     "tool.system_prompt": "This tool is a LAST RESORT.\n1. First check whether handle_mcp / mcp_tools_list can be used instead.\n2. Use this tool only when no other appropriate tool is available.\n3. Do not use this tool to run Python; use python_exec instead.\n\nSecurity notes:\n- Dangerous patterns such as download-exec (IWR/IRM/curl/wget) and Base64 (-Enc) may be blocked or require confirmation."
   },

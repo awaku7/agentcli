@@ -9,10 +9,14 @@
     "param.path.description": "(Compatibility) Alias of filename.",
     "tool.description": "Delete the specified file or directory. Directories are deleted recursively. Because this is a dangerous operation, confirmation may be required.",
     "x_search_terms": [
-      "delete_file",
       "delete file",
       "remove file",
-      "remove directory"
+      "erase",
+      "ファイル削除",
+      "eliminar archivo",
+      "supprimer fichier",
+      "파일 삭제",
+      "удалить файл"
     ],
     "tool.system_prompt": "Delete the specified path only after confirming with the user if the operation may be destructive."
   },

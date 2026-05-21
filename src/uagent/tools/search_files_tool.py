@@ -56,6 +56,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "поиск файлов",
             ],
         ),
+        "x_search_terms_en": [
+            "search files",
+            "glob",
+            "regex search",
+            "ファイル検索",
+            "buscar archivos",
+            "rechercher des fichiers",
+            "파일 찾기",
+            "поиск файлов",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

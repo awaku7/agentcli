@@ -7,8 +7,10 @@
     "x_search_terms": [
       "read_pptx_pdf",
       "read pptx pdf",
+      "pdf",
+      "pptx",
       "page text",
-      "pdf pptx read"
+      "extract pages"
     ],
     "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
     "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",

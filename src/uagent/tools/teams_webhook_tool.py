@@ -134,6 +134,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "notify teams",
             ],
         ),
+        "x_search_terms_en": [
+            "teams_webhook",
+            "teams webhook",
+            "post message",
+            "incoming webhook",
+            "notify teams",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

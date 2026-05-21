@@ -43,6 +43,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "excel file",
             ],
         ),
+        "x_search_terms_en": [
+            "excel_ops",
+            "excel ops",
+            "xlsx",
+            "spreadsheet",
+            "sheet names",
+            "excel file",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

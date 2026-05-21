@@ -7,10 +7,14 @@
     "param.path.description": "(Compatibility) Alias of filename.",
     "tool.description": "Create a text file. By default, existing files are not overwritten. If overwrite=true is set and the destination already exists, a backup (<filename>.org / <filename>.org1 / ...) is created immediately before overwriting. Tip: For CSV/TSV files opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If you're unsure, ask how the file will be used (Excel vs. programmatic processing).",
     "x_search_terms": [
-      "create_file",
       "create file",
-      "text file",
-      "new file"
+      "new file",
+      "write file",
+      "ファイルを作成",
+      "crear archivo",
+      "créer fichier",
+      "파일 만들기",
+      "создать файл"
     ],
     "tool.system_prompt": "Create a text file under workdir. If the file already exists, overwrite=false raises an error. If overwrite=true, a backup is created before writing. Tip: For CSV/TSV intended to open directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). For machine processing and interoperability, prefer encoding='utf-8' (no BOM). If you're unsure, ask how the file will be used (Excel vs. programmatic processing)."
   },

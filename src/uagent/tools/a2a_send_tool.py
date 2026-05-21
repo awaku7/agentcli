@@ -44,8 +44,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "a2a_send",
                 "a2a send",
+                "send message",
+                "send request",
+                "server profile",
+                "profile message",
+                "remote message",
+                "messaging",
+                "a2a message",
+                "send task",
             ],
         ),
+        "x_search_terms_en": [
+            "a2a_send",
+            "a2a send",
+            "send message",
+            "send request",
+            "server profile",
+            "profile message",
+            "remote message",
+            "messaging",
+            "a2a message",
+            "send task",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

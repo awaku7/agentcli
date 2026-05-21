@@ -11,8 +11,10 @@
     "x_search_terms": [
       "skills_read_file",
       "skills read file",
-      "read skill file",
-      "skill file"
+      "open file",
+      "read file",
+      "file contents",
+      "text file"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },

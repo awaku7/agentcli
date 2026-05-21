@@ -45,6 +45,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "запустить python",
             ],
         ),
+        "x_search_terms_en": [
+            "python",
+            "run python",
+            "execute script",
+            "Python 実行",
+            "ejecutar python",
+            "exécuter python",
+            "파이썬 실행",
+            "запустить python",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

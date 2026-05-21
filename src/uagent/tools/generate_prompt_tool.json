@@ -11,8 +11,10 @@
     "x_search_terms": [
       "generate_prompt",
       "generate prompt",
-      "prompt template",
-      "from file"
+      "template prompt",
+      "file to prompt",
+      "prompt string",
+      "format template"
     ],
     "tool.system_prompt": "Read a text file under workdir and generate a prompt string by applying a template (Python str.format).\nAvailable template variables:\n- content: full file content (text)\n- lines: number of lines\n- bytes: file size in bytes\n- basename: file basename\n- path: absolute resolved path"
   },

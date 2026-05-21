@@ -27,6 +27,12 @@ TOOL_SPEC: Dict[str, Any] = {
                 "tool discovery",
             ],
         ),
+        "x_search_terms_en": [
+            "catalog",
+            "tool catalog",
+            "discover tools",
+            "tool discovery",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

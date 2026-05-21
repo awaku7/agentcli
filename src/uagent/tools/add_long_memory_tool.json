@@ -5,8 +5,10 @@
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
-      "long term memory",
-      "save memory"
+      "save note",
+      "remember",
+      "memory note",
+      "long term memory"
     ],
     "tool.system_prompt": "Save one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
   },

@@ -51,6 +51,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "запустить тесты",
             ],
         ),
+        "x_search_terms_en": [
+            "test",
+            "pytest",
+            "unittest",
+            "テスト実行",
+            "ejecutar pruebas",
+            "exécuter les tests",
+            "테스트 실행",
+            "запустить тесты",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -3,9 +3,7 @@
     "tool.description": "Edit an input image using a text prompt, save the result as a PNG, and return the saved path.",
     "x_search_terms": [
       "img2img",
-      "image edit",
-      "image prompt",
-      "edit image"
+      "img2img"
     ],
     "tool.system_prompt": "Edit the provided image according to the prompt. Save the result as a PNG and return only the saved file path.",
     "param.image_path.description": "Path to the source image to edit.",

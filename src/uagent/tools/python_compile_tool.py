@@ -39,6 +39,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "python compile",
             ],
         ),
+        "x_search_terms_en": [
+            "python_compile",
+            "python compile",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

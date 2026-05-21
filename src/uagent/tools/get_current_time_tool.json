@@ -2,10 +2,14 @@
   "en": {
     "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.g., 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
     "x_search_terms": [
-      "get_current_time",
-      "get current time",
       "current time",
-      "time now"
+      "now",
+      "timezone",
+      "現在時刻",
+      "hora actual",
+      "heure actuelle",
+      "현재 시간",
+      "текущее время"
     ],
     "tool.system_prompt": "This tool provides reference information so the LLM can perform time calculations accurately.\n- ISO 8601 format (with offset)\n- Weekday (English)\n- UTC time\n- Numeric components (year, month, day, hour, minute, second)\nUse these to convert ambiguous user requests (e.g., 'next Monday') into a concrete date/time.\n"
   },

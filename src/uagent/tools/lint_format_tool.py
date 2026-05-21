@@ -56,6 +56,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "black",
             ],
         ),
+        "x_search_terms_en": [
+            "lint_format",
+            "lint format",
+            "lint",
+            "format",
+            "ruff",
+            "black",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

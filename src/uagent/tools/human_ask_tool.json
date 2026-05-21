@@ -17,8 +17,10 @@
     "x_search_terms": [
       "human_ask",
       "human ask",
-      "ask human",
-      "ask user"
+      "ask user",
+      "prompt user",
+      "human input",
+      "decision"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: ask the human user for an input/decision that the model cannot complete by itself and receive a single reply text.\n\nImportant: This tool can receive only one reply text per call. Do not split input into multiple fields.\n\nSECURITY (MOST IMPORTANT):\n- When requesting secrets (passwords, API keys, tokens, private keys, session cookies, etc.), you MUST set is_password=True.\n- Never repeat a secret obtained with is_password=True in any later assistant messages.\n- Do not store secrets in long-term memory or shared memory.\n\nOperational guidelines:\n- If additional user input is needed, always use the human_ask tool.\n- With is_password=True, ask for only one secret item.\n- If both username and password are required, call human_ask multiple times.\n- Do not request multiple items in a single call.\n- For relative date expressions (today/this year/etc.), call get_current_time.\n- When outputting files or code, do not omit the full original content unless the user explicitly requests it.\n\nCancellation:\n- To cancel, reply with a single line: 'c' or 'cancel'.\n",
     "ui.footer": "=== /human_ask (ব্যবহারকারীর ইনপুট) ===",

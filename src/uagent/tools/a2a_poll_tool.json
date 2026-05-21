@@ -3,9 +3,15 @@
     "tool.description": "Poll an A2A task until it reaches a terminal status. Use only when existing local tools cannot replace the task.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "a2a poll",
+      "poll task",
+      "check status",
+      "wait for task",
+      "task status",
+      "poll result",
+      "task polling",
+      "progress check",
+      "monitor task"
     ],
     "tool.system_prompt": "Poll an A2A task only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task.",
     "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
@@ -20,7 +26,13 @@
     "x_search_terms": [
       "a2a_poll",
       "a2a ポーリング",
-      "タスク確認",
+      "タスクを確認",
+      "状態確認",
+      "タスク待機",
+      "タスク状態",
+      "結果確認",
+      "進捗確認",
+      "監視タスク",
       "ポーリング"
     ],
     "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。",
@@ -35,9 +47,15 @@
     "tool.description": "Consulta periódicamente una tarea A2A hasta que alcance un estado terminal. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sondear tarea",
+      "comprobar estado",
+      "esperar tarea",
+      "estado de tarea",
+      "resultado de sondeo",
+      "sondeo de tarea",
+      "comprobar progreso",
+      "vigilar tarea",
+      "a2a poll"
     ],
     "tool.system_prompt": "Consulta una tarea A2A. Devuelve solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "param.profile.description": "Nombre de perfil o a2a://name. Si se omite, usa el perfil predeterminado.",
@@ -51,9 +69,15 @@
     "tool.description": "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état terminal. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sonder une tâche",
+      "vérifier le statut",
+      "attendre la tâche",
+      "statut de tâche",
+      "résultat du sondage",
+      "sondage de tâche",
+      "vérifier la progression",
+      "surveiller la tâche",
+      "a2a poll"
     ],
     "tool.system_prompt": "Interrogez une tâche A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
@@ -67,9 +91,15 @@
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "작업 상태 확인",
+      "상태 확인",
+      "작업 대기",
+      "작업 상태",
+      "결과 확인",
+      "폴링 작업",
+      "진행 확인",
+      "작업 감시",
+      "a2a poll"
     ],
     "tool.system_prompt": "A2A 작업을 폴링합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "param.profile.description": "프로필 이름 또는 a2a://name. 생략 시 기본 프로필을 사용합니다.",
@@ -83,9 +113,15 @@
     "tool.description": "Fragen Sie eine A2A-Aufgabe regelmäßig ab, bis sie einen Terminalstatus erreicht. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "aufgabe abfragen",
+      "status prüfen",
+      "aufgabe warten",
+      "aufgabenstatus",
+      "abfrageergebnis",
+      "aufgabenabfrage",
+      "fortschritt prüfen",
+      "aufgabe überwachen",
+      "a2a poll"
     ],
     "tool.system_prompt": "Fragen Sie eine A2A-Aufgabe ab. Nur JSON zurückgeben. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "param.profile.description": "Profilname oder a2a://name. Wenn es weggelassen wird, wird das Standardprofil verwendet.",
@@ -99,9 +135,15 @@
     "tool.description": "Interroga periodicamente un'attività A2A finché non raggiunge uno stato terminale. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sonda attività",
+      "controlla stato",
+      "attendi attività",
+      "stato attività",
+      "risultato sondaggio",
+      "sondaggio attività",
+      "controlla avanzamento",
+      "monitora attività",
+      "a2a poll"
     ],
     "tool.system_prompt": "Interroga un'attività A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "param.profile.description": "Nome del profilo o a2a://name. Se omesso, utilizza il profilo predefinito.",
@@ -115,9 +157,15 @@
     "tool.description": "Опросите задачу A2A, пока она не достигнет терминального состояния. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "опросить задачу",
+      "проверить статус",
+      "ждать задачу",
+      "статус задачи",
+      "результат опроса",
+      "опрос задачи",
+      "проверить прогресс",
+      "наблюдать задачу",
+      "a2a poll"
     ],
     "tool.system_prompt": "Опросите задачу A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "param.profile.description": "Имя профиля или a2a://name. Если опущено, используется профиль по умолчанию.",
@@ -131,9 +179,15 @@
     "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sondar tarefa",
+      "verificar status",
+      "aguardar tarefa",
+      "status da tarefa",
+      "resultado da sondagem",
+      "sondagem de tarefa",
+      "ver progresso",
+      "monitorar tarefa",
+      "a2a poll"
     ],
     "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
@@ -147,9 +201,15 @@
     "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sondar tarefa",
+      "verificar estado",
+      "aguardar tarefa",
+      "estado da tarefa",
+      "resultado do sondar",
+      "sondagem de tarefa",
+      "ver progresso",
+      "monitorizar tarefa",
+      "a2a poll"
     ],
     "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
@@ -163,9 +223,15 @@
     "tool.description": "Melakukan polling pada tugas A2A sampai mencapai status terminal. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "poll tugas",
+      "cek status",
+      "tunggu tugas",
+      "status tugas",
+      "hasil polling",
+      "poll tugas a2a",
+      "cek progres",
+      "pantau tugas",
+      "a2a poll"
     ],
     "tool.system_prompt": "Lakukan polling pada tugas A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "param.profile.description": "Nama profil atau a2a://name. Jika dihilangkan, gunakan profil default.",
@@ -179,9 +245,15 @@
     "tool.description": "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "thăm dò tác vụ",
+      "kiểm tra trạng thái",
+      "chờ tác vụ",
+      "trạng thái tác vụ",
+      "kết quả thăm dò",
+      "thăm dò tác vụ a2a",
+      "kiểm tra tiến độ",
+      "theo dõi tác vụ",
+      "a2a poll"
     ],
     "tool.system_prompt": "Thăm dò một tác vụ A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, dùng hồ sơ mặc định.",
@@ -195,9 +267,15 @@
     "tool.description": "Odpytuj zadanie A2A, aż osiągnie stan końcowy. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "sonduj zadanie",
+      "sprawdź status",
+      "czekaj na zadanie",
+      "status zadania",
+      "wynik sondowania",
+      "sondowanie zadania",
+      "sprawdź postęp",
+      "monitoruj zadanie",
+      "a2a poll"
     ],
     "tool.system_prompt": "Odpytuj zadanie A2A. Zwracaj wyłącznie JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "param.profile.description": "Nazwa profilu lub a2a://name. Jeśli pominięto, użyj profilu domyślnego.",
@@ -211,9 +289,15 @@
     "tool.description": "किसी A2A कार्य को तब तक नियमित रूप से पोल करें जब तक वह अंतिम स्थिति तक न पहुंच जाए। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "कार्य जांचें",
+      "स्थिति जांचें",
+      "कार्य की प्रतीक्षा करें",
+      "कार्य स्थिति",
+      "सर्वेक्षण परिणाम",
+      "कार्य मतदान",
+      "प्रगति जांचें",
+      "कार्य निगरानी",
+      "a2a poll"
     ],
     "tool.system_prompt": "A2A कार्य को पोल करें। केवल JSON लौटाएँ। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "param.profile.description": "प्रोफ़ाइल नाम या a2a://name. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग किया जाता है।",
@@ -227,9 +311,15 @@
     "tool.description": "استعلم عن مهمة A2A بشكل دوري حتى تصل إلى حالة نهائية. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "استقصاء مهمة",
+      "تحقق من الحالة",
+      "انتظر المهمة",
+      "حالة المهمة",
+      "نتيجة الاستقصاء",
+      "استقصاء المهمة",
+      "تحقق من التقدم",
+      "مراقبة المهمة",
+      "a2a poll"
     ],
     "tool.system_prompt": "استعلم عن مهمة A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
@@ -243,9 +333,15 @@
     "tool.description": "Polla en A2A-uppgift tills den når ett slutligt tillstånd. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "fråga uppgift",
+      "kontrollera status",
+      "vänta på uppgift",
+      "uppgiftsstatus",
+      "frågeresultat",
+      "uppgiftsfråga",
+      "kontrollera framsteg",
+      "övervaka uppgift",
+      "a2a poll"
     ],
     "tool.system_prompt": "Polla en A2A-uppgift. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
@@ -259,9 +355,15 @@
     "tool.description": "Fuatilia kazi ya A2A hadi ifikie hali ya mwisho. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "hoji kazi",
+      "kagua hali",
+      "subiri kazi",
+      "hali ya kazi",
+      "matokeo ya uchunguzi",
+      "uchunguzi wa kazi",
+      "kagua maendeleo",
+      "fuatilia kazi",
+      "a2a poll"
     ],
     "tool.system_prompt": "Fuatilia kazi ya A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "param.profile.description": "Jina la wasifu au a2a://name. Ikiwa halikutajwa, tumia wasifu chaguomsingi.",
@@ -275,9 +377,15 @@
     "tool.description": "Poll en A2A-oppgave til den når en sluttstatus. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "spør oppgave",
+      "sjekk status",
+      "vent på oppgave",
+      "oppgavestatus",
+      "spørre resultat",
+      "oppgaveforespørsel",
+      "sjekk fremdrift",
+      "overvåk oppgave",
+      "a2a poll"
     ],
     "tool.system_prompt": "Poll en A2A-oppgave. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
@@ -291,9 +399,15 @@
     "tool.description": "Poll een A2A-taak totdat deze een eindstatus bereikt. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "taak pollen",
+      "status controleren",
+      "wacht op taak",
+      "taakstatus",
+      "pollresultaat",
+      "taakpolling",
+      "voortgang controleren",
+      "taak bewaken",
+      "a2a poll"
     ],
     "tool.system_prompt": "Poll een A2A-taak. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
@@ -307,9 +421,15 @@
     "tool.description": "Kyselyä A2A-tehtävää, kunnes se saavuttaa päättävän tilan. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "tutki tehtävä",
+      "tarkista tila",
+      "odota tehtävää",
+      "tehtävän tila",
+      "kyselyn tulos",
+      "tehtäväkysely",
+      "tarkista edistyminen",
+      "seuraa tehtävää",
+      "a2a poll"
     ],
     "tool.system_prompt": "Kysy A2A-tehtävää. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
@@ -323,9 +443,15 @@
     "tool.description": "Průběžně dotazuje úlohu A2A, dokud nedosáhne koncového stavu. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "dotázat úlohu",
+      "zkontrolovat stav",
+      "čekat na úlohu",
+      "stav úlohy",
+      "výsledek dotazu",
+      "dotaz úlohy",
+      "zkontrolovat postup",
+      "sledovat úlohu",
+      "a2a poll"
     ],
     "tool.system_prompt": "Dotazujte úlohu A2A. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "param.profile.description": "Název profilu nebo a2a://name. Pokud je vynecháno, použije se výchozí profil.",
@@ -339,9 +465,15 @@
     "tool.description": "Періодично опитує завдання A2A, доки воно не досягне кінцевого стану. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "опитати завдання",
+      "перевірити стан",
+      "чекати на завдання",
+      "стан завдання",
+      "результат опитування",
+      "опитування завдання",
+      "перевірити прогрес",
+      "стежити за завданням",
+      "a2a poll"
     ],
     "tool.system_prompt": "Опитуйте завдання A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "param.profile.description": "Назва профілю або a2a://name. Якщо опущено, використовується профіль за замовчуванням.",
@@ -355,9 +487,15 @@
     "tool.description": "Bir A2A görevini terminal durumuna ulaşana kadar yoklayın. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "görev sorgula",
+      "durumu kontrol et",
+      "görevi bekle",
+      "görev durumu",
+      "sorgu sonucu",
+      "görev sorgusu",
+      "ilerlemeyi kontrol et",
+      "görevi izle",
+      "a2a poll"
     ],
     "tool.system_prompt": "Bir A2A görevini yoklayın. Yalnızca JSON değerini döndür. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
@@ -371,9 +509,15 @@
     "tool.description": "โพลงาน A2A เป็นระยะจนกว่าจะถึงสถานะสุดท้าย. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "สอบถามงาน",
+      "ตรวจสอบสถานะ",
+      "รองาน",
+      "สถานะงาน",
+      "ผลการตรวจสอบ",
+      "โพลงาน",
+      "ตรวจความคืบหน้า",
+      "ติดตามงาน",
+      "a2a poll"
     ],
     "tool.system_prompt": "โพลงาน A2A ส่งคืน JSON เท่านั้น. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
@@ -387,9 +531,15 @@
     "tool.description": "轮询 A2A 任务直到进入终态。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "轮询任务",
+      "检查状态",
+      "等待任务",
+      "任务状态",
+      "轮询结果",
+      "任务轮询",
+      "检查进度",
+      "监控任务",
+      "a2a poll"
     ],
     "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。 仅在本地工具无法替代该任务时使用。",
     "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
@@ -403,9 +553,15 @@
     "tool.description": "輪詢 A2A 任務直到進入終態。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "輪詢任務",
+      "檢查狀態",
+      "等待任務",
+      "任務狀態",
+      "輪詢結果",
+      "任務輪詢",
+      "檢查進度",
+      "監控任務",
+      "a2a poll"
     ],
     "tool.system_prompt": "輪詢 A2A 任務。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。",
     "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
@@ -419,9 +575,15 @@
     "tool.description": "একটি A2A কাজ চূড়ান্ত অবস্থায় পৌঁছানো পর্যন্ত নিয়মিত পোল করে। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "কাজ অনুসন্ধান",
+      "অবস্থা দেখুন",
+      "কাজের জন্য অপেক্ষা করুন",
+      "কাজের অবস্থা",
+      "পোলের ফলাফল",
+      "কাজ পোলিং",
+      "অগ্রগতি দেখুন",
+      "কাজ পর্যবেক্ষণ",
+      "a2a poll"
     ],
     "tool.system_prompt": "A2A কাজটি পোল করুন। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
@@ -435,9 +597,15 @@
     "tool.description": "یک وظیفهٔ A2A را تا رسیدن به وضعیت نهایی به‌طور دوره‌ای بررسی می‌کند. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "پرس‌وجوی وظیفه",
+      "بررسی وضعیت",
+      "منتظر وظیفه",
+      "وضعیت وظیفه",
+      "نتیجه پرس‌وجو",
+      "پرس‌وجوی وظیفه",
+      "بررسی پیشرفت",
+      "نظارت بر وظیفه",
+      "a2a poll"
     ],
     "tool.system_prompt": "وظیفهٔ A2A را بررسی کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "param.profile.description": "نام پروفایل یا a2a://name. اگر حذف شود، از پروفایل پیش‌فرض استفاده می‌شود.",
@@ -451,9 +619,15 @@
     "tool.description": "A2A даалгаврыг төгсгөлийн төлөвт хүрэх хүртэл нь тогтмол шалгана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "даалгавар асуух",
+      "төлөв шалгах",
+      "даалгавар хүлээх",
+      "даалгаврын төлөв",
+      "асуулгын үр дүн",
+      "даалгаврын асуулга",
+      "явцыг шалгах",
+      "даалгавар хянах",
+      "a2a poll"
     ],
     "tool.system_prompt": "A2A даалгаврыг шалгана уу. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "param.profile.description": "Профайлын нэр эсвэл a2a://name. Хэрэв орхивол анхдагч профайлыг ашиглана.",
@@ -467,9 +641,15 @@
     "tool.description": "A2A कार्य अंतिम स्थितीपर्यंत नियमितपणे पोल करते. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "x_search_terms": [
       "a2a_poll",
-      "a2a ポーリング",
-      "タスク確認",
-      "ポーリング"
+      "कार्य चौकशी",
+      "स्थिती तपासा",
+      "कार्याची प्रतीक्षा करा",
+      "कार्य स्थिती",
+      "चौकशी परिणाम",
+      "कार्य पोलिंग",
+      "प्रगती तपासा",
+      "कार्य निरीक्षण",
+      "a2a poll"
     ],
     "tool.system_prompt": "A2A कार्य पोल करा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name. वगळल्यास डीफॉल्ट प्रोफाइल वापरले जाईल.",

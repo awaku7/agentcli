@@ -108,6 +108,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "export yaml",
             ],
         ),
+        "x_search_terms_en": [
+            "exstruct",
+            "exstruct",
+            "structured data",
+            "excel structure",
+            "export json",
+            "export yaml",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

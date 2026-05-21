@@ -1226,7 +1226,9 @@ def compress_history_with_llm(
             summary_system_prompt = (
                 _t("- You are updating an existing conversation summary.\n")
                 + _t("- Preserve important facts from the previous summary.\n")
-                + _t("- Merge in the new chunk without losing constraints, decisions, or pending items.\n")
+                + _t(
+                    "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+                )
                 + _t("- Keep the result concise and suitable for a system message.")
             )
             summary_user_content = (

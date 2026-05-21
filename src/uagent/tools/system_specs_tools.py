@@ -35,6 +35,11 @@ TOOL_SPEC: Dict[str, Any] = {
                 "system specifications",
             ],
         ),
+        "x_search_terms_en": [
+            "system specs",
+            "get_system_specs",
+            "system specifications",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

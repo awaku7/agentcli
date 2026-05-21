@@ -49,6 +49,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "хэш",
             ],
         ),
+        "x_search_terms_en": [
+            "hash",
+            "sha256",
+            "checksum",
+            "ハッシュ",
+            "hash",
+            "hachage",
+            "해시",
+            "хэш",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -3,8 +3,7 @@
     "tool.description": "Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns. Directories are scanned recursively for *.py files.",
     "x_search_terms": [
       "python_compile",
-      "py_compile",
-      "python syntax"
+      "python compile"
     ],
     "tool.system_prompt": "Validate Python files with py_compile. If file paths or glob patterns are supplied, run py_compile on those targets and return the result.",
     "param.path.description": "A Python file, directory, or glob pattern to validate with py_compile. Directories are scanned recursively for *.py files.",

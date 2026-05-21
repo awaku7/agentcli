@@ -44,6 +44,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "получить url",
             ],
         ),
+        "x_search_terms_en": [
+            "fetch url",
+            "http get",
+            "download page",
+            "URL取得",
+            "obtener url",
+            "récupérer url",
+            "URL 가져오기",
+            "получить url",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

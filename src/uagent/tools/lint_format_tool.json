@@ -11,8 +11,10 @@
     "x_search_terms": [
       "lint_format",
       "lint format",
-      "format code",
-      "run linters"
+      "lint",
+      "format",
+      "ruff",
+      "black"
     ],
     "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
   },

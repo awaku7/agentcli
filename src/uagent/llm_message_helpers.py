@@ -4,7 +4,6 @@ from . import tools
 from .env_utils import env_get
 from .tools.context import get_callbacks
 from .image_session import build_image_session_message
-from .i18n import _
 from .llm_gemini import _message_content_text, _sanitize_gemini_parameters
 
 try:

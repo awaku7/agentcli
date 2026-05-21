@@ -5,8 +5,10 @@
     "x_search_terms": [
       "get_long_memory",
       "get long memory",
-      "long term memory",
-      "memory notes"
+      "memory",
+      "notes",
+      "history",
+      "long term memory"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: retrieve all saved long-term memory notes in JSONL format."
   },

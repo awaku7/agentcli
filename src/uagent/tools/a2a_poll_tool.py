@@ -44,8 +44,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "a2a_poll",
                 "a2a poll",
+                "poll task",
+                "check status",
+                "wait for task",
+                "task status",
+                "poll result",
+                "task polling",
+                "progress check",
+                "monitor task",
             ],
         ),
+        "x_search_terms_en": [
+            "a2a_poll",
+            "a2a poll",
+            "poll task",
+            "check status",
+            "wait for task",
+            "task status",
+            "poll result",
+            "task polling",
+            "progress check",
+            "monitor task",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

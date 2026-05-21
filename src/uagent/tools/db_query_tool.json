@@ -6,8 +6,10 @@
     "x_search_terms": [
       "db_query",
       "db query",
-      "sqlite query",
-      "pragma"
+      "sql",
+      "database",
+      "sqlite",
+      "query"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
   },

@@ -4,9 +4,15 @@
     "tool.description": "Calculates a mathematical expression and returns the result. Use this for complex calculations or when precision is required.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calculate",
+      "math",
+      "expression",
+      "formula",
+      "compute",
+      "arithmetic",
+      "evaluate",
+      "solve",
+      "numeric"
     ],
     "tool.system_prompt": "Calculate a mathematical expression and return the result. Return JSON only."
   },
@@ -15,9 +21,15 @@
     "tool.description": "数式を計算して結果を返します。複雑な計算や、精度が必要な計算に使います。",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "計算",
+      "電卓",
+      "数式",
+      "計算機",
+      "式を計算",
+      "演算",
+      "算術",
+      "評価",
+      "解く"
     ],
     "tool.system_prompt": "数式を計算して結果を返します。JSONのみ返してください。"
   },
@@ -26,9 +38,15 @@
     "tool.description": "Calcula una expresión matemática y devuelve el resultado. Úselo para cálculos complejos o cuando se requiera precisión.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calcular",
+      "matemáticas",
+      "expresión",
+      "fórmula",
+      "computar",
+      "aritmética",
+      "evaluar",
+      "resolver",
+      "numérico"
     ],
     "tool.system_prompt": "Calcule una expresión matemática y devuelva el resultado. Devuelva solo JSON."
   },
@@ -37,9 +55,15 @@
     "tool.description": "Calcule une expression mathématique et renvoie le résultat. Utilisez-le pour des calculs complexes ou lorsque la précision est requise.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calculer",
+      "mathématiques",
+      "expression",
+      "formule",
+      "calculer",
+      "arithmétique",
+      "évaluer",
+      "résoudre",
+      "numérique"
     ],
     "tool.system_prompt": "Calculez une expression mathématique et renvoyez le résultat. Retournez uniquement du JSON."
   },
@@ -48,9 +72,15 @@
     "tool.description": "수학 표현식을 계산하여 결과를 반환합니다. 복잡한 계산이나 정밀도가 필요한 경우에 사용하세요.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "계산",
+      "수학",
+      "수식",
+      "공식",
+      "계산하다",
+      "산술",
+      "평가",
+      "해결",
+      "숫자"
     ],
     "tool.system_prompt": "수학 표현식을 계산하고 결과를 반환합니다. JSON만 반환하세요."
   },
@@ -59,9 +89,15 @@
     "tool.description": "Berechnet einen mathematischen Ausdruck und gibt das Ergebnis zurück. Verwenden Sie dies für komplexe Berechnungen oder wenn Präzision erforderlich ist.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "berechnen",
+      "Mathematik",
+      "Ausdruck",
+      "Formel",
+      "rechnen",
+      "Arithmetik",
+      "auswerten",
+      "lösen",
+      "numerisch"
     ],
     "tool.system_prompt": "Berechnen Sie einen mathematischen Ausdruck und geben Sie das Ergebnis zurück. Geben Sie nur JSON zurück."
   },
@@ -70,9 +106,15 @@
     "tool.description": "Calcola un'espressione matematica e restituisce il risultato. Utilizzalo per calcoli complessi o quando è richiesta precisione.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calcolare",
+      "matematica",
+      "espressione",
+      "formula",
+      "computare",
+      "aritmetica",
+      "valutare",
+      "risolvere",
+      "numerico"
     ],
     "tool.system_prompt": "Calcola un'espressione matematica e restituisci il risultato. Restituisci solo JSON."
   },
@@ -81,9 +123,15 @@
     "tool.description": "Вычисляет математическое выражение и возвращает результат. Используйте это для сложных вычислений или когда требуется точность.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "вычислить",
+      "математика",
+      "выражение",
+      "формула",
+      "считать",
+      "арифметика",
+      "оценить",
+      "решить",
+      "числовой"
     ],
     "tool.system_prompt": "Вычислите математическое выражение и верните результат. Возвращайте только JSON."
   },
@@ -92,9 +140,15 @@
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calcular",
+      "matemática",
+      "expressão",
+      "fórmula",
+      "computar",
+      "aritmética",
+      "avaliar",
+      "resolver",
+      "numérico"
     ],
     "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
   },
@@ -103,9 +157,15 @@
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "calcular",
+      "matemática",
+      "expressão",
+      "fórmula",
+      "computar",
+      "aritmética",
+      "avaliar",
+      "resolver",
+      "numérico"
     ],
     "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
   },
@@ -114,9 +174,15 @@
     "tool.description": "Menghitung ekspresi matematika dan mengembalikan hasilnya. Gunakan ini untuk perhitungan kompleks atau saat presisi diperlukan.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "menghitung",
+      "matematika",
+      "ekspresi",
+      "rumus",
+      "komputasi",
+      "aritmetika",
+      "mengevaluasi",
+      "menyelesaikan",
+      "numerik"
     ],
     "tool.system_prompt": "Hitung ekspresi matematika dan kembalikan hasilnya. Kembalikan JSON saja."
   },
@@ -125,9 +191,15 @@
     "tool.description": "Tính toán một biểu thức toán học và trả về kết quả. Sử dụng tính năng này cho các phép tính phức tạp hoặc khi cần độ chính xác.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "tính toán",
+      "toán học",
+      "biểu thức",
+      "công thức",
+      "tính",
+      "số học",
+      "đánh giá",
+      "giải",
+      "số"
     ],
     "tool.system_prompt": "Tính toán một biểu thức toán học và trả về kết quả. Chỉ trả về JSON."
   },
@@ -136,9 +208,15 @@
     "tool.description": "Oblicza wyrażenie matematyczne i zwraca wynik. Użyj tej opcji do skomplikowanych obliczeń lub gdy wymagana jest precyzja.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "obliczyć",
+      "matematyka",
+      "wyrażenie",
+      "formuła",
+      "obliczanie",
+      "arytmetyka",
+      "ocenić",
+      "rozwiązać",
+      "numeryczny"
     ],
     "tool.system_prompt": "Oblicz wyrażenie matematyczne i zwróć wynik. Zwracaj wyłącznie JSON."
   },
@@ -147,9 +225,15 @@
     "tool.description": "गणितीय अभिव्यक्ति की गणना करता है और परिणाम देता है। जटिल गणनाओं के लिए या जब सटीकता की आवश्यकता हो तो इसका उपयोग करें।",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "गणना",
+      "गणित",
+      "अभिव्यक्ति",
+      "सूत्र",
+      "गणना करना",
+      "अंकगणित",
+      "मूल्यांकन",
+      "हल करना",
+      "संख्यात्मक"
     ],
     "tool.system_prompt": "गणितीय अभिव्यक्ति की गणना करें और परिणाम लौटाएँ। केवल JSON लौटाएँ।"
   },
@@ -158,9 +242,15 @@
     "tool.description": "حساب تعبير رياضي وإرجاع النتيجة. استخدم هذا لإجراء العمليات الحسابية المعقدة أو عندما تكون الدقة مطلوبة.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "حساب",
+      "رياضيات",
+      "تعبير",
+      "صيغة",
+      "احسب",
+      "حسابي",
+      "تقييم",
+      "حل",
+      "عددي"
     ],
     "tool.system_prompt": "احسب تعبيرًا رياضيًا وأعد النتيجة. أعد JSON فقط."
   },
@@ -169,9 +259,15 @@
     "tool.description": "Beräknar ett matematiskt uttryck och returnerar resultatet. Använd detta för komplexa beräkningar eller när precision krävs.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "beräkna",
+      "matematik",
+      "uttryck",
+      "formel",
+      "beräkning",
+      "aritmetik",
+      "utvärdera",
+      "lösa",
+      "numerisk"
     ],
     "tool.system_prompt": "Beräkna ett matematiskt uttryck och returnera resultatet. Returnera endast JSON."
   },
@@ -180,9 +276,15 @@
     "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "kalkulata",
+      "hisabati",
+      "usemi",
+      "fomula",
+      "kokotoa",
+      "hesabu",
+      "tathmini",
+      "suluhisha",
+      "nambari"
     ],
     "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
   },
@@ -191,9 +293,15 @@
     "tool.description": "Beregner et matematisk uttrykk og returnerer resultatet. Bruk dette for komplekse beregninger eller når presisjon kreves.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "beregne",
+      "matematikk",
+      "uttrykk",
+      "formel",
+      "regne",
+      "aritmetikk",
+      "evaluere",
+      "løse",
+      "numerisk"
     ],
     "tool.system_prompt": "Beregn et matematisk uttrykk og returner resultatet. Returner bare JSON."
   },
@@ -202,9 +310,15 @@
     "tool.description": "Berekent een wiskundige expressie en geeft het resultaat terug. Gebruik dit voor complexe berekeningen of wanneer precisie vereist is.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "berekenen",
+      "wiskunde",
+      "uitdrukking",
+      "formule",
+      "rekenen",
+      "rekenkunde",
+      "evalueren",
+      "oplossen",
+      "numeriek"
     ],
     "tool.system_prompt": "Bereken een wiskundige expressie en geef het resultaat terug. Geef alleen JSON terug."
   },
@@ -213,9 +327,15 @@
     "tool.description": "Laskee matemaattisen lausekkeen ja palauttaa tuloksen. Käytä tätä monimutkaisiin laskuihin tai kun tarkkuutta tarvitaan.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "laskea",
+      "matematiikka",
+      "lauseke",
+      "kaava",
+      "laskenta",
+      "aritmetiikka",
+      "arvioida",
+      "ratkaista",
+      "numeerinen"
     ],
     "tool.system_prompt": "Laske matemaattinen lauseke ja palauta tulos. Palauta vain JSON."
   },
@@ -224,9 +344,15 @@
     "tool.description": "Vypočítá matematický výraz a vrátí výsledek. Použijte to pro složité výpočty nebo když je vyžadována přesnost.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "počítat",
+      "matematika",
+      "výraz",
+      "vzorec",
+      "výpočet",
+      "aritmetika",
+      "vyhodnotit",
+      "vyřešit",
+      "číselný"
     ],
     "tool.system_prompt": "Vypočítejte matematický výraz a vraťte výsledek. Vracejte pouze JSON."
   },
@@ -235,9 +361,15 @@
     "tool.description": "Обчислює математичний вираз і повертає результат. Використовуйте це для складних обчислень або коли потрібна точність.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "обчислити",
+      "математика",
+      "вираз",
+      "формула",
+      "рахувати",
+      "арифметика",
+      "оцінити",
+      "розв’язати",
+      "числовий"
     ],
     "tool.system_prompt": "Обчисліть математичний вираз і поверніть результат. Повертайте лише JSON."
   },
@@ -246,9 +378,15 @@
     "tool.description": "Matematiksel bir ifadeyi hesaplar ve sonucu döndürür. Bunu karmaşık hesaplamalar için veya hassasiyet gerektiğinde kullanın.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "hesapla",
+      "matematik",
+      "ifade",
+      "formül",
+      "hesaplamak",
+      "aritmetik",
+      "değerlendirmek",
+      "çözmek",
+      "sayısal"
     ],
     "tool.system_prompt": "Matematiksel bir ifade hesaplayın ve sonucu döndürün. Yalnızca JSON değerini döndür."
   },
@@ -257,9 +395,15 @@
     "tool.description": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ใช้สำหรับการคำนวณที่ซับซ้อนหรือเมื่อจำเป็นต้องใช้ความแม่นยำ",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "คำนวณ",
+      "คณิตศาสตร์",
+      "นิพจน์",
+      "สูตร",
+      "คำนวณค่า",
+      "เลขคณิต",
+      "ประเมิน",
+      "แก้",
+      "ตัวเลข"
     ],
     "tool.system_prompt": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ส่งคืนเฉพาะ JSON เท่านั้น"
   },
@@ -268,9 +412,15 @@
     "tool.description": "计算数学表达式并返回结果。可用于复杂计算或需要精度的场景。",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "计算",
+      "数学",
+      "表达式",
+      "公式",
+      "计算器",
+      "算术",
+      "求值",
+      "求解",
+      "数值"
     ],
     "tool.system_prompt": "计算数学表达式并返回结果。仅返回 JSON。"
   },
@@ -279,9 +429,15 @@
     "tool.description": "計算數學表達式並傳回結果。可用於複雜計算或需要精確度的情境。",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "計算",
+      "數學",
+      "表達式",
+      "公式",
+      "計算機",
+      "算術",
+      "求值",
+      "求解",
+      "數值"
     ],
     "tool.system_prompt": "計算數學表達式並回傳結果。僅回傳 JSON。"
   },
@@ -290,9 +446,15 @@
     "tool.description": "একটি গাণিতিক expression গণনা করে ফলাফল ফেরত দেয়। জটিল গণনা বা যেখানে নির্ভুলতা দরকার সেখানে ব্যবহার করুন।",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "গণনা",
+      "গণিত",
+      "অভিব্যক্তি",
+      "সূত্র",
+      "হিসাব",
+      "পাটিগণিত",
+      "মূল্যায়ন",
+      "সমাধান",
+      "সংখ্যাসূচক"
     ],
     "tool.system_prompt": "একটি গাণিতিক expression গণনা করুন এবং ফলাফল ফেরত দিন। শুধু JSON ফেরত দিন।"
   },
@@ -301,9 +463,15 @@
     "tool.description": "یک عبارت ریاضی را محاسبه می‌کند و نتیجه را برمی‌گرداند. برای محاسبات پیچیده یا وقتی دقت لازم است از این ابزار استفاده کنید.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "محاسبه",
+      "ریاضی",
+      "عبارت",
+      "فرمول",
+      "حساب",
+      "حسابی",
+      "ارزیابی",
+      "حل",
+      "عددی"
     ],
     "tool.system_prompt": "یک عبارت ریاضی را محاسبه کنید و نتیجه را برگردانید. فقط JSON برگردانید."
   },
@@ -312,9 +480,15 @@
     "tool.description": "Математик илэрхийллийг бодож, үр дүнг буцаана. Нарийн тооцоо эсвэл өндөр нарийвчлал шаардлагатай үед ашиглана.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "тооцоолох",
+      "математик",
+      "илэрхийлэл",
+      "томъёо",
+      "тооцоо",
+      "арифметик",
+      "үнэлэх",
+      "шийдэх",
+      "тоон"
     ],
     "tool.system_prompt": "Математик илэрхийллийг бодож үр дүнг буцаана. Зөвхөн JSON буцаана."
   },
@@ -323,9 +497,15 @@
     "tool.description": "एक गणिती expression मोजते आणि निकाल परत करते. गुंतागुंतीच्या गणनांसाठी किंवा अचूकता आवश्यक असताना वापरा.",
     "x_search_terms": [
       "calculator",
-      "math calculator",
-      "formula calculator",
-      "expression calculator"
+      "गणना",
+      "गणित",
+      "अभिव्यक्ती",
+      "सूत्र",
+      "हिशोब",
+      "अंकगणित",
+      "मूल्यांकन",
+      "सोडवणे",
+      "संख्यात्मक"
     ],
     "tool.system_prompt": "एक गणिती expression मोजा आणि निकाल परत करा. फक्त JSON परत करा."
   }

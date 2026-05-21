@@ -8,7 +8,9 @@
       "list_windows_titles",
       "list windows titles",
       "window titles",
-      "top-level windows"
+      "top-level windows",
+      "pid",
+      "class name"
     ],
     "tool.system_prompt": "This tool lists top-level window titles on Windows and returns structured JSON. Windows only."
   },

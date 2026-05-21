@@ -202,6 +202,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "local secrets",
             ],
         ),
+        "x_search_terms_en": [
+            "secrets",
+            "secrets",
+            "secret management",
+            "encrypt",
+            "decrypt",
+            "local secrets",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

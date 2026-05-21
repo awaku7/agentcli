@@ -14,9 +14,11 @@
     "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
     "x_search_terms": [
       "screenshot",
+      "screenshot",
       "screen capture",
-      "capture screen",
-      "window screenshot"
+      "window capture",
+      "desktop screenshot",
+      "png capture"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: capture a screenshot of the desktop or a specified window."
   },

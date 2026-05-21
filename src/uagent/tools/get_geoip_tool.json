@@ -5,8 +5,10 @@
     "x_search_terms": [
       "get_geoip",
       "get geoip",
-      "geoip lookup",
-      "ip location"
+      "location",
+      "country",
+      "ip geolocation",
+      "geo ip"
     ],
     "tool.system_prompt": "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
   },

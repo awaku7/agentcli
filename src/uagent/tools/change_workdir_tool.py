@@ -35,6 +35,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "сменить директорию",
             ],
         ),
+        "x_search_terms_en": [
+            "change directory",
+            "cd",
+            "switch dir",
+            "ディレクトリ変更",
+            "cambiar directorio",
+            "changer de répertoire",
+            "디렉터리 변경",
+            "сменить директорию",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -45,6 +45,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "удалить файл",
             ],
         ),
+        "x_search_terms_en": [
+            "delete file",
+            "remove file",
+            "erase",
+            "ファイル削除",
+            "eliminar archivo",
+            "supprimer fichier",
+            "파일 삭제",
+            "удалить файл",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

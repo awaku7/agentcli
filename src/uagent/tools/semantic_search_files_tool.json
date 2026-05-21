@@ -21,8 +21,14 @@
     "x_search_terms": [
       "semantic_search_files",
       "semantic search files",
+      "semantic search",
       "vector search",
-      "embedding search"
+      "embedding search",
+      "local file search",
+      "search files",
+      "document search",
+      "file retrieval",
+      "semantic retrieval"
     ],
     "tool.system_prompt": "This tool is used for semantic search over local files. Return JSON only.",
     "err.disabled_reason": "embedding endpoint is unreachable."

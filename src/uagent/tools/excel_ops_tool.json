@@ -10,8 +10,10 @@
     "x_search_terms": [
       "excel_ops",
       "excel ops",
+      "xlsx",
+      "spreadsheet",
       "sheet names",
-      "xlsx"
+      "excel file"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'.",
     "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",

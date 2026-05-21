@@ -6,8 +6,10 @@
     "x_search_terms": [
       "analyze_image",
       "analyze image",
-      "vision analyze",
-      "image analysis"
+      "image",
+      "picture",
+      "photo",
+      "diagram"
     ],
     "tool.system_prompt": "Analyze the image described by the tool name \"analyze_image\" and return the result."
   },

@@ -23,6 +23,7 @@ _PUBLIC_TOOL_ACTIONS = (
     "complete_file",
     "skip_file",
     "error_file",
+    "reset",
     "finalize",
     "list",
 )
@@ -38,13 +39,14 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "batch_state",
         "description": _(
             "tool.description",
-            default="Manage persisted batch state for multi-file tasks under ~/.uag/batches/.",
+            default="Manage batch state for multi-file tasks under ~/.uag/batches/.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
                 "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. "
                 "Use current to fetch the current file. After processing it, call complete_file. "
+                "Use reset to restore the batch to its original pending state while preserving metadata. "
                 "Use complete_file, skip_file, or error_file for explicit per-file results. "
                 "Return JSON only."
             ),
@@ -54,8 +56,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "batch_state",
                 "batch state",
+                "batch manager",
+                "batch progress",
+                "process files",
+                "file queue",
+                "next file",
+                "batch overview",
+                "continue batch",
+                "task queue",
             ],
         ),
+        "x_search_terms_en": [
+            "batch_state",
+            "batch state",
+            "batch manager",
+            "batch progress",
+            "process files",
+            "file queue",
+            "next file",
+            "batch overview",
+            "continue batch",
+            "task queue",
+        ],
         "parameters": {
             "type": "object",
             "additionalProperties": False,
@@ -66,8 +88,9 @@ TOOL_SPEC: Dict[str, Any] = {
                     "description": _(
                         "param.action.description",
                         default=(
-                            "Action: init/load/status/current/complete_file/skip_file/error_file/finalize/list. "
-                            "Use current for the current file. Use complete_file after processing it."
+                            "Action: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. "
+                            "Use current for the current file. After processing it, call complete_file. "
+                            "Use complete_file, skip_file, or error_file for explicit per-file results."
                         ),
                     ),
                 },
@@ -75,7 +98,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.batch_id.description",
-                        default="Batch ID. Required for load/status/finalize; optional for init/list.",
+                        default="Batch ID. Required for load/status/reset/finalize; optional for init/list.",
                     ),
                 },
                 "task_description": {
@@ -256,274 +279,252 @@ def _dedupe_preserve_order(items: Any) -> List[str]:
 
 
 def _normalize_file_list(items: Any) -> List[str]:
-    return _dedupe_preserve_order(items)
-
-
-def _merge_unique_lists(existing: Any, incoming: Any) -> List[str]:
-    base = _dedupe_preserve_order(existing)
-    for item in _dedupe_preserve_order(incoming):
-        if item not in base:
-            base.append(item)
-    return base
-
-
-def _join_display_path(dir_value: str, file_value: str) -> str:
-    dir_value = _normalize_path_text(dir_value)
-    file_value = _normalize_path_text(file_value)
-    if dir_value and file_value:
-        return f"{dir_value.rstrip('/')}/{file_value.lstrip('/')}"
-    return dir_value or file_value
-
-
-def _normalize_target(target: Any) -> Dict[str, Any]:
-    if isinstance(target, str):
-        files = _normalize_file_list([target])
-        return {"dir": "", "files": files, "index": 0}
-
-    if not isinstance(target, dict):
-        return {"dir": "", "files": [], "index": 0}
-
-    dir_value = _normalize_path_text(target.get("dir"))
-    files = _normalize_file_list(target.get("files"))
-    index = _coerce_int(target.get("index"), 0)
-    if index < 0:
-        index = 0
-    if index > len(files):
-        index = len(files)
-    return {"dir": dir_value, "files": files, "index": index}
-
-
-def _normalize_targets(value: Any) -> List[Dict[str, Any]]:
-    if not isinstance(value, list):
+    if not isinstance(items, list):
         return []
-    out: List[Dict[str, Any]] = []
-    for item in value:
-        out.append(_normalize_target(item))
+    out: List[str] = []
+    seen = set()
+    for item in items:
+        value = _normalize_path_text(item)
+        if not value or value in seen:
+            continue
+        seen.add(value)
+        out.append(value)
     return out
 
 
-def _single_target_from_files(files: Any) -> Dict[str, Any]:
-    return {"dir": "", "files": _normalize_file_list(files), "index": 0}
+def _merge_unique_lists(existing: Any, new_items: Any) -> List[str]:
+    out: List[str] = []
+    seen = set()
+    for source in (_normalize_file_list(existing), _normalize_file_list(new_items)):
+        for item in source:
+            if item in seen:
+                continue
+            seen.add(item)
+            out.append(item)
+    return out
 
 
-def _legacy_index(
-    files: List[str],
-    processed_files: Any,
-    file: Any,
-    pending_files: Any,
-) -> int:
-    current = _normalize_path_text(file)
-    if current and current in files:
-        return files.index(current)
-
-    for item in _normalize_file_list(pending_files):
-        if item in files:
-            return files.index(item)
-
-    done_set = set(_normalize_file_list(processed_files))
-    if done_set:
-        for idx, file_name in enumerate(files):
-            if file_name not in done_set:
-                return idx
-        return len(files)
-
-    return 0
+def _normalize_targets(targets: Any) -> List[Dict[str, Any]]:
+    if not isinstance(targets, list):
+        return []
+    normalized: List[Dict[str, Any]] = []
+    for target in targets:
+        if not isinstance(target, dict):
+            continue
+        files = _normalize_file_list(target.get("files"))
+        if not files:
+            files = _normalize_file_list(target.get("remaining_files"))
+        normalized.append(
+            {
+                "dir": _normalize_path_text(target.get("dir")),
+                "files": files,
+                "index": max(_coerce_int(target.get("index"), len(normalized)), 0),
+            }
+        )
+    return normalized
 
 
 def _target_paths(target: Dict[str, Any]) -> List[str]:
-    dir_value = _normalize_path_text(target.get("dir"))
+    target_dir = _normalize_path_text(target.get("dir"))
     files = _normalize_file_list(target.get("files"))
-    return [_join_display_path(dir_value, file_name) for file_name in files]
-
-
-def _record_candidates(target: Dict[str, Any], index: int) -> set[str]:
-    files = _normalize_file_list(target.get("files"))
-    display_files = _target_paths(target)
-    candidates = set()
-    if 0 <= index < len(files):
-        candidates.add(_normalize_path_text(files[index]))
-    if 0 <= index < len(display_files):
-        candidates.add(_normalize_path_text(display_files[index]))
-    return {item for item in candidates if item}
-
-
-def _record_set(value: Any) -> set[str]:
-    return set(_normalize_file_list(value))
-
-
-def _processed_record_set(state: Dict[str, Any]) -> set[str]:
-    return (
-        _record_set(state.get("completed_files"))
-        | _record_set(state.get("skipped_files"))
-        | _record_set(state.get("error_files"))
-    )
-
-
-def _recorded_in(candidates: set[str], records: set[str]) -> bool:
-    return bool(candidates & records)
-
-
-def _move_target_to_next_pending(
-    target: Dict[str, Any], processed_records: set[str]
-) -> Dict[str, Any]:
-    target = _normalize_target(target)
-    files = _normalize_file_list(target.get("files"))
-    index = _coerce_int(target.get("index"), 0)
-    if index < 0:
-        index = 0
-    while index < len(files):
-        if not _recorded_in(_record_candidates(target, index), processed_records):
-            break
-        index += 1
-    target["index"] = index
-    return target
-
-
-def _view_target(
-    target: Dict[str, Any],
-    completed_records: Any = None,
-    skipped_records: Any = None,
-    error_records: Any = None,
-) -> Dict[str, Any]:
-    target = _normalize_target(target)
-    files = _normalize_file_list(target.get("files"))
-    index = _coerce_int(target.get("index"), 0)
-    if index < 0:
-        index = 0
-    if index > len(files):
-        index = len(files)
-
-    completed_set = _record_set(completed_records)
-    skipped_set = _record_set(skipped_records)
-    error_set = _record_set(error_records)
-    display_files = _target_paths(target)
-
-    statuses: List[Dict[str, Any]] = []
-    pending_files: List[str] = []
-    file = ""
-    completed_count = 0
-    skipped_count = 0
-    error_count = 0
-
-    for idx, display_file in enumerate(display_files):
-        candidates = _record_candidates(target, idx)
-        is_skipped = _recorded_in(candidates, skipped_set)
-        is_error = _recorded_in(candidates, error_set)
-        is_completed = idx < index or _recorded_in(candidates, completed_set)
-
-        if is_error:
-            status = "error"
-            error_count += 1
-        elif is_skipped:
-            status = "skipped"
-            skipped_count += 1
-        elif is_completed:
-            status = "completed"
-            completed_count += 1
+    if not target_dir:
+        return files
+    prefix = target_dir.rstrip("/") + "/"
+    out: List[str] = []
+    for file in files:
+        if file == target_dir or file.startswith(prefix):
+            out.append(file)
         else:
-            status = "pending"
-            pending_files.append(display_file)
-            if not file:
-                file = display_file
+            out.append(_normalize_path_text(f"{target_dir}/{file}"))
+    return out
 
-        statuses.append(
+
+def _normalize_status(value: Any, default: str = "active") -> str:
+    status = _normalize_text(value).lower()
+    return status if status in _ALLOWED_STATUSES else default
+
+
+def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
+    base = dict(state) if isinstance(state, dict) else {}
+    targets = _normalize_targets(base.get("targets"))
+    completed_files = _normalize_file_list(base.get("completed_files"))
+    skipped_files = _normalize_file_list(base.get("skipped_files"))
+    error_files = _normalize_file_list(base.get("error_files"))
+
+    result_lists = [completed_files, skipped_files, error_files]
+    done_files = _merge_unique_lists(
+        [], [item for group in result_lists for item in group]
+    )
+    all_files: List[str] = []
+    for target in targets:
+        all_files = _merge_unique_lists(all_files, _target_paths(target))
+
+    total_count = len(all_files)
+    done_count = len(done_files)
+    pending_files = [item for item in all_files if item not in done_files]
+    pending_count = len(pending_files)
+
+    raw_current_target = _coerce_int(base.get("current_target"), 0)
+    current_target = 0
+    current_target_dir = ""
+    file = ""
+    search_order = list(range(raw_current_target, len(targets))) + list(
+        range(0, raw_current_target)
+    )
+    if targets:
+        if raw_current_target < 0:
+            raw_current_target = 0
+        if raw_current_target >= len(targets):
+            raw_current_target = len(targets) - 1
+        current_target = raw_current_target
+        current_target_dir = _normalize_path_text(targets[current_target].get("dir"))
+        for target_index in search_order:
+            target = targets[target_index]
+            target_pending = [
+                item for item in _target_paths(target) if item not in done_files
+            ]
+            if target_pending:
+                current_target = target_index
+                current_target_dir = _normalize_path_text(target.get("dir"))
+                file = target_pending[0]
+                break
+
+    target_views: List[Dict[str, Any]] = []
+    for index, target in enumerate(targets):
+        target_files = _target_paths(target)
+        target_done = [item for item in target_files if item in done_files]
+        target_pending = [item for item in target_files if item not in done_files]
+        target_views.append(
             {
-                "index": idx,
-                "file": files[idx] if idx < len(files) else display_file,
-                "display_file": display_file,
-                "status": status,
+                "index": index,
+                "dir": _normalize_path_text(target.get("dir")),
+                "files": target_files,
+                "pending_files": target_pending,
+                "completed_files": target_done,
+                "pending_count": len(target_pending),
+                "done_count": len(target_done),
             }
         )
 
-    processed_count = completed_count + skipped_count + error_count
-    return {
-        "dir": _normalize_path_text(target.get("dir")),
-        "files": files,
-        "index": index,
+    status = _normalize_status(base.get("status"), "active")
+    if pending_count == 0 and total_count > 0 and status == "active":
+        status = "done"
+
+    recommended_next_action = {
+        "action": "current" if file else "finalize",
+        "batch_id": _normalize_batch_id(base.get("batch_id")),
         "file": file,
+        "current_target": current_target,
+    }
+    if not file:
+        recommended_next_action["file"] = ""
+
+    return {
+        **base,
+        "status": status,
+        "targets": targets,
+        "completed_files": completed_files,
+        "skipped_files": skipped_files,
+        "error_files": error_files,
+        "completed_count": len(completed_files),
+        "skipped_count": len(skipped_files),
+        "error_count": len(error_files),
+        "done_count": done_count,
+        "total_count": total_count,
+        "pending_count": pending_count,
         "pending_files": pending_files,
-        "total_count": len(display_files),
-        "done_count": processed_count,
-        "completed_count": completed_count,
-        "skipped_count": skipped_count,
-        "error_count": error_count,
-        "pending_count": len(display_files) - processed_count,
-        "file_statuses": statuses,
+        "remaining_files": pending_files,
+        "current_target": current_target,
+        "current_target_dir": current_target_dir,
+        "file": file,
+        "target_views": target_views,
+        "progress_ratio": (done_count / total_count) if total_count else 0.0,
+        "must_process_current_file_first": bool(file),
+        "allowed_after_processing": (
+            ["complete_file", "skip_file", "error_file"] if file else ["finalize"]
+        ),
+        "recommended_next_action": recommended_next_action,
     }
 
 
-def _normalize_status(value: Any, fallback: str = "active") -> str:
-    status = _normalize_text(value)
-    if not status:
-        return fallback
-    if status not in _ALLOWED_STATUSES:
-        return fallback
-    return status
+def _collect_state_patch(args: Dict[str, Any]) -> Dict[str, Any]:
+    patch: Dict[str, Any] = {}
+    for key in (
+        "task_description",
+        "instructions",
+        "targets",
+        "current_target",
+        "workdir",
+        "style_rules",
+        "term_rules",
+        "notes",
+        "status",
+    ):
+        if key in args and args.get(key) is not None:
+            patch[key] = args.get(key)
+    return patch
+
+
+def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]:
+    merged = dict(state) if isinstance(state, dict) else {}
+    if not isinstance(patch, dict):
+        return _normalize_persisted_state(merged)
+    for key, value in patch.items():
+        merged[key] = value
+    return _normalize_persisted_state(merged)
 
 
 def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
-    out = dict(state)
-    out["batch_id"] = _normalize_text(out.get("batch_id"))
-    out["status"] = _normalize_status(out.get("status"), "active")
-    out["task_description"] = _normalize_text(out.get("task_description"))
-    out["instructions"] = _normalize_text(out.get("instructions"))
-    out["workdir"] = _normalize_path_text(out.get("workdir")) or str(Path.cwd())
-    out["style_rules"] = _dedupe_preserve_order(out.get("style_rules"))
-    out["term_rules"] = _dedupe_preserve_order(out.get("term_rules"))
-    out["notes"] = _dedupe_preserve_order(out.get("notes"))
-    out["completed_files"] = _normalize_file_list(out.get("completed_files"))
-    out["skipped_files"] = _normalize_file_list(out.get("skipped_files"))
-    out["error_files"] = _normalize_file_list(out.get("error_files"))
+    base = _default_state(_normalize_batch_id(state.get("batch_id")))
+    if not isinstance(state, dict):
+        state = {}
 
-    targets = out.get("targets")
-    if isinstance(targets, list):
-        normalized_targets = _normalize_targets(targets)
-    elif out.get("remaining_files") is not None:
-        legacy_target = _single_target_from_files(out.get("remaining_files"))
-        legacy_target["index"] = _legacy_index(
-            legacy_target["files"],
-            out.get("processed_files"),
-            out.get("file"),
-            out.get("pending_files"),
+    normalized = dict(base)
+    for key in (
+        "task_description",
+        "instructions",
+        "workdir",
+        "created_at",
+        "updated_at",
+        "last_updated",
+    ):
+        if key in state and state.get(key) not in (None, ""):
+            normalized[key] = (
+                _normalize_text(state.get(key))
+                if key not in {"created_at", "updated_at", "last_updated"}
+                else str(state.get(key))
+            )
+
+    normalized["batch_id"] = (
+        _normalize_batch_id(state.get("batch_id")) or base["batch_id"]
+    )
+    normalized["status"] = _normalize_status(state.get("status"), base["status"])
+    normalized["targets"] = _normalize_targets(state.get("targets"))
+    normalized["current_target"] = (
+        0
+        if not normalized["targets"]
+        else min(
+            max(_coerce_int(state.get("current_target"), 0), 0),
+            len(normalized["targets"]) - 1,
         )
-        normalized_targets = [legacy_target]
-    else:
-        normalized_targets = []
+    )
+    normalized["style_rules"] = _normalize_file_list(state.get("style_rules"))
+    normalized["term_rules"] = _normalize_file_list(state.get("term_rules"))
+    normalized["notes"] = _normalize_file_list(state.get("notes"))
+    normalized["completed_files"] = _merge_unique_lists(
+        [], state.get("completed_files")
+    )
+    normalized["skipped_files"] = _merge_unique_lists([], state.get("skipped_files"))
+    normalized["error_files"] = _merge_unique_lists([], state.get("error_files"))
+    normalized["logs"] = (
+        list(state.get("logs", [])) if isinstance(state.get("logs"), list) else []
+    )
+    for key in state:
+        if key not in normalized:
+            normalized[key] = state[key]
 
-    processed_records = _processed_record_set(out)
-    normalized_targets = [
-        _move_target_to_next_pending(target, processed_records)
-        for target in normalized_targets
-    ]
-
-    out["targets"] = normalized_targets
-    current_target = _coerce_int(out.get("current_target"), 0)
-    if normalized_targets:
-        if current_target < 0:
-            current_target = 0
-        if current_target >= len(normalized_targets):
-            current_target = len(normalized_targets) - 1
-        current_view = _view_target(
-            normalized_targets[current_target],
-            out.get("completed_files"),
-            out.get("skipped_files"),
-            out.get("error_files"),
-        )
-        if current_view["pending_count"] <= 0:
-            for idx in range(current_target + 1, len(normalized_targets)):
-                view = _view_target(
-                    normalized_targets[idx],
-                    out.get("completed_files"),
-                    out.get("skipped_files"),
-                    out.get("error_files"),
-                )
-                if view["pending_count"] > 0:
-                    current_target = idx
-                    break
-    else:
-        current_target = 0
-    out["current_target"] = current_target
-    return out
+    normalized.update(_state_with_progress_view(normalized))
+    return normalized
 
 
 def _load_state(batch_id: str) -> Dict[str, Any]:
@@ -531,254 +532,24 @@ def _load_state(batch_id: str) -> Dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"batch not found: {batch_id}")
     with path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-    if not isinstance(data, dict):
-        raise ValueError("invalid batch state")
-    return data
+        state = json.load(f)
+    if not isinstance(state, dict):
+        raise ValueError("batch state must be a JSON object")
+    state.setdefault("batch_id", batch_id)
+    return _normalize_persisted_state(state)
 
 
-def _save_state(batch_id: str, state: Dict[str, Any]) -> None:
+def _save_state(batch_id: str, state: Dict[str, Any]) -> Path:
     path = _path_for_batch_id(batch_id)
-    state = _normalize_persisted_state(state)
-    state = dict(state)
-    state["batch_id"] = batch_id
+    normalized = _normalize_persisted_state(state)
+    normalized["batch_id"] = batch_id
     now = _now_iso()
-    state.setdefault("created_at", now)
-    state["updated_at"] = now
-    state["last_updated"] = now
-
-    tmp_path = path.with_name(f".{path.name}.{uuid4().hex}.tmp")
-    try:
-        with tmp_path.open("w", encoding="utf-8") as f:
-            json.dump(state, f, ensure_ascii=False, indent=2, sort_keys=True)
-            f.write("\n")
-        os.replace(tmp_path, path)
-    finally:
-        try:
-            if tmp_path.exists():
-                tmp_path.unlink()
-        except Exception:
-            pass
-
-
-def _file_can_move_forward(state: Dict[str, Any], file: str, candidate: str) -> bool:
-    if candidate == "":
-        return True
-    if not file or file == candidate:
-        return True
-
-    remaining_files = state.get("remaining_files")
-    if not isinstance(remaining_files, list):
-        return True
-
-    try:
-        current_index = remaining_files.index(file)
-        candidate_index = remaining_files.index(candidate)
-    except ValueError:
-        return True
-
-    return candidate_index >= current_index
-
-
-def _collect_state_patch(args: Dict[str, Any]) -> Dict[str, Any]:
-    keys = (
-        "task_description",
-        "instructions",
-        "targets",
-        "current_target",
-        "remaining_files",
-        "processed_files",
-        "file",
-        "status",
-        "style_rules",
-        "term_rules",
-        "notes",
-        "workdir",
-    )
-    patch: Dict[str, Any] = {}
-    for key in keys:
-        if key in args and args.get(key) is not None:
-            patch[key] = args.get(key)
-    return patch
-
-
-def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
-    state = _normalize_persisted_state(state)
-    completed_files = state.get("completed_files", [])
-    skipped_files = state.get("skipped_files", [])
-    error_files = state.get("error_files", [])
-    target_views = [
-        _view_target(target, completed_files, skipped_files, error_files)
-        for target in state.get("targets", [])
-    ]
-    total_count = sum(item["total_count"] for item in target_views)
-    done_count = sum(item["done_count"] for item in target_views)
-    completed_count = sum(item.get("completed_count", 0) for item in target_views)
-    skipped_count = sum(item.get("skipped_count", 0) for item in target_views)
-    error_count = sum(item.get("error_count", 0) for item in target_views)
-    pending_count = sum(item["pending_count"] for item in target_views)
-    pending_files = [item for view in target_views for item in view["pending_files"]]
-    remaining_files = pending_files[:]
-    current_target = _coerce_int(state.get("current_target"), 0)
-    if target_views:
-        if current_target < 0:
-            current_target = 0
-        if current_target >= len(target_views):
-            current_target = len(target_views) - 1
-        if target_views[current_target]["pending_count"] <= 0:
-            for idx, view in enumerate(target_views):
-                if view["pending_count"] > 0:
-                    current_target = idx
-                    break
-        current_target_view = target_views[current_target]
-    else:
-        current_target_view = None
-        current_target = 0
-
-    file = current_target_view["file"] if current_target_view else ""
-    recommendation = _recommended_next_action(state, file, pending_count)
-    return {
-        **state,
-        "current_target": current_target,
-        "current_target_dir": current_target_view["dir"] if current_target_view else "",
-        "file": file,
-        "remaining_files": remaining_files,
-        "pending_files": pending_files,
-        "total_count": total_count,
-        "done_count": done_count,
-        "completed_count": completed_count,
-        "skipped_count": skipped_count,
-        "error_count": error_count,
-        "pending_count": pending_count,
-        "progress_ratio": round(done_count / total_count, 3) if total_count else 0.0,
-        "recommended_next_action": recommendation,
-        "target_views": target_views,
-    }
-
-
-def _apply_legacy_file(state: Dict[str, Any], candidate: Any) -> Dict[str, Any]:
-    candidate_text = _normalize_path_text(candidate)
-    if not candidate_text:
-        return state
-
-    targets = _normalize_targets(state.get("targets"))
-    if not targets:
-        return state
-
-    current_target = _coerce_int(state.get("current_target"), 0)
-    search_order = list(range(current_target, len(targets))) + list(
-        range(0, current_target)
-    )
-    for idx in search_order:
-        target = targets[idx]
-        display_files = _target_paths(target)
-        if candidate_text in display_files:
-            candidate_index = display_files.index(candidate_text)
-            if candidate_index < target["index"]:
-                return state
-            target["index"] = candidate_index
-            state["targets"] = targets
-            state["current_target"] = idx
-            return state
-        if candidate_text in target["files"]:
-            candidate_index = target["files"].index(candidate_text)
-            if candidate_index < target["index"]:
-                return state
-            target["index"] = candidate_index
-            state["targets"] = targets
-            state["current_target"] = idx
-            return state
-    return state
-
-
-def _apply_legacy_processed_files(
-    state: Dict[str, Any], processed_files: Any
-) -> Dict[str, Any]:
-    targets = _normalize_targets(state.get("targets"))
-    if not targets or not isinstance(processed_files, list):
-        return state
-    done_set = set(_normalize_file_list(processed_files))
-    if len(targets) == 1:
-        target = targets[0]
-        files = target["files"]
-        index = 0
-        for file_name in files:
-            if file_name in done_set:
-                index += 1
-            else:
-                break
-        target["index"] = index
-        state["targets"] = targets
-        return state
-    return state
-
-
-def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]:
-    out = dict(state)
-
-    if "workdir" in patch and patch.get("workdir") is not None:
-        out["workdir"] = _normalize_path_text(patch.get("workdir")) or out.get(
-            "workdir", ""
-        )
-
-    if "targets" in patch and patch.get("targets") is not None:
-        out["targets"] = _normalize_targets(patch.get("targets"))
-    elif "remaining_files" in patch and patch.get("remaining_files") is not None:
-        out["targets"] = [_single_target_from_files(patch.get("remaining_files"))]
-
-    if "current_target" in patch and patch.get("current_target") is not None:
-        out["current_target"] = _coerce_int(patch.get("current_target"), 0)
-
-    if "file" in patch and patch.get("file") is not None:
-        out = _apply_legacy_file(out, patch.get("file"))
-
-    if "processed_files" in patch and patch.get("processed_files") is not None:
-        out = _apply_legacy_processed_files(out, patch.get("processed_files"))
-
-    for key, value in patch.items():
-        if key in {
-            "workdir",
-            "targets",
-            "current_target",
-            "remaining_files",
-            "file",
-            "processed_files",
-            "batch_id",
-        }:
-            continue
-        if key in {"task_description", "instructions"}:
-            out[key] = _normalize_text(value)
-        elif key == "status":
-            out[key] = _normalize_status(
-                value, str(out.get("status") or state.get("status") or "active")
-            )
-        elif key in {"style_rules", "term_rules", "notes"}:
-            if value is not None:
-                out[key] = _merge_unique_lists(out.get(key), value)
-        else:
-            out[key] = value
-    return out
-
-
-def _recommended_next_action(
-    state: Dict[str, Any], file: str, pending_count: int
-) -> Dict[str, Any]:
-    batch_id = _normalize_text(state.get("batch_id"))
-    if file:
-        return {
-            "action": "current",
-            "batch_id": batch_id,
-            "file": file,
-            "after": "processing file",
-            "allowed_after_processing": [
-                "complete_file",
-                "skip_file",
-                "error_file",
-            ],
-        }
-    if pending_count <= 0 and state.get("targets"):
-        return {"action": "finalize", "batch_id": batch_id}
-    return {"action": "status", "batch_id": batch_id}
+    normalized["updated_at"] = now
+    normalized["last_updated"] = now
+    with path.open("w", encoding="utf-8") as f:
+        json.dump(normalized, f, ensure_ascii=False, indent=2, sort_keys=True)
+        f.write("\n")
+    return path
 
 
 def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -795,6 +566,10 @@ def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
         "skipped_count": snapshot.get("skipped_count", 0),
         "error_count": snapshot.get("error_count", 0),
         "progress_ratio": snapshot.get("progress_ratio", 0.0),
+        "must_process_current_file_first": snapshot.get(
+            "must_process_current_file_first", False
+        ),
+        "allowed_after_processing": snapshot.get("allowed_after_processing", []),
         "recommended_next_action": snapshot.get("recommended_next_action", {}),
         "updated_at": snapshot.get("updated_at", ""),
     }
@@ -928,6 +703,10 @@ def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
         "skipped_files": snapshot.get("skipped_files", []),
         "error_files": snapshot.get("error_files", []),
         "progress_ratio": snapshot.get("progress_ratio", 0.0),
+        "must_process_current_file_first": snapshot.get(
+            "must_process_current_file_first", False
+        ),
+        "allowed_after_processing": snapshot.get("allowed_after_processing", []),
         "recommended_next_action": snapshot.get("recommended_next_action", {}),
         "updated_at": snapshot.get("updated_at", ""),
     }
@@ -1043,21 +822,41 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
 
         batch_id = _validate_batch_id(_normalize_batch_id(args.get("batch_id")))
-        if action == "load":
+
+        if action == "reset":
             state = _load_state(batch_id)
+            reset_state = _default_state(batch_id)
+            reset_state["task_description"] = state.get("task_description", "")
+            reset_state["instructions"] = state.get("instructions", "")
+            reset_state["workdir"] = state.get("workdir", reset_state["workdir"])
+            reset_state["targets"] = state.get("targets", [])
+            reset_state["created_at"] = state.get(
+                "created_at", reset_state["created_at"]
+            )
+            reset_state["style_rules"] = state.get("style_rules", [])
+            reset_state["term_rules"] = state.get("term_rules", [])
+            reset_state["notes"] = state.get("notes", [])
+            reset_state["logs"] = (
+                list(state.get("logs", []))
+                if isinstance(state.get("logs"), list)
+                else []
+            )
+            reset_state = _normalize_persisted_state(reset_state)
+            reset_state = _append_log_entry(reset_state, "reset")
+            _save_state(batch_id, reset_state)
             return _result(
                 True,
-                action="load",
+                action="reset",
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
-                state=_batch_overview(state),
+                state=_batch_overview(reset_state),
             )
 
-        if action == "status":
+        if action in {"load", "status"}:
             state = _load_state(batch_id)
             return _result(
                 True,
-                action="status",
+                action=action,
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
@@ -1078,6 +877,10 @@ def run_tool(args: Dict[str, Any]) -> str:
                 total_count=overview.get("total_count", 0),
                 done_count=overview.get("done_count", 0),
                 progress_ratio=overview.get("progress_ratio", 0.0),
+                must_process_current_file_first=overview.get(
+                    "must_process_current_file_first", False
+                ),
+                allowed_after_processing=overview.get("allowed_after_processing", []),
                 recommended_next_action=overview.get("recommended_next_action", {}),
                 state=overview,
             )
@@ -1102,83 +905,6 @@ def run_tool(args: Dict[str, Any]) -> str:
             return _result(
                 True,
                 action=action,
-                batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
-                state=_batch_overview(state),
-            )
-
-        if action == "update":
-            state = _load_state(batch_id)
-            patch_arg = args.get("patch")
-            if patch_arg is None:
-                patch = {}
-            elif not isinstance(patch_arg, dict):
-                return _result(
-                    False,
-                    error=_(
-                        "err.invalid_patch",
-                        default="[batch_state error] patch must be an object",
-                    ),
-                    batch_id=batch_id,
-                )
-            else:
-                patch = dict(patch_arg)
-            patch = {**_collect_state_patch(args), **patch}
-            if patch:
-                state = _merge_state(state, patch)
-            state = _normalize_persisted_state(state)
-            _save_state(batch_id, state)
-            return _result(
-                True,
-                action="update",
-                batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
-                state=_batch_overview(state),
-            )
-
-        if action == "reset":
-            state = _load_state(batch_id)
-            targets = _normalize_targets(state.get("targets"))
-            for target in targets:
-                if isinstance(target, dict):
-                    target["index"] = 0
-            state["targets"] = targets
-            state["current_target"] = 0
-            state["status"] = "active"
-            state["completed_files"] = []
-            state["skipped_files"] = []
-            state["error_files"] = []
-            state = _normalize_persisted_state(state)
-            _save_state(batch_id, state)
-            return _result(
-                True,
-                action="reset",
-                batch_id=batch_id,
-                path=str(_path_for_batch_id(batch_id)),
-                state=_batch_overview(state),
-            )
-
-        if action == "append_log":
-            state = _load_state(batch_id)
-            message = str(args.get("message") or "").strip()
-            if not message:
-                return _result(
-                    False,
-                    error=_(
-                        "err.message_empty",
-                        default="[batch_state error] message is empty",
-                    ),
-                    batch_id=batch_id,
-                )
-            logs = state.get("logs")
-            if not isinstance(logs, list):
-                logs = []
-            logs.append({"ts": _now_iso(), "message": message})
-            state["logs"] = logs
-            _save_state(batch_id, state)
-            return _result(
-                True,
-                action="append_log",
                 batch_id=batch_id,
                 path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
@@ -1215,20 +941,6 @@ def run_tool(args: Dict[str, Any]) -> str:
                 path=str(_path_for_batch_id(batch_id)),
                 state=_batch_overview(state),
             )
-        if action == "delete":
-            path = _path_for_batch_id(batch_id)
-            if not path.exists():
-                return _result(
-                    False,
-                    error=_(
-                        "err.not_found",
-                        default=f"[batch_state error] batch not found: {batch_id}",
-                    ),
-                    batch_id=batch_id,
-                )
-            path.unlink()
-            return _result(True, action=action, batch_id=batch_id, path=str(path))
-
         return _result(
             False,
             error=_(

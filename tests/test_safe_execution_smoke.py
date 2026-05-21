@@ -345,9 +345,9 @@ def test_batch_state_reset_clears_file_result_records(
     assert obj_init["ok"] is True
 
     assert (
-        json.loads(run_tool({"action": "complete_file", "batch_id": "reset-records-batch"}))[
-            "ok"
-        ]
+        json.loads(
+            run_tool({"action": "complete_file", "batch_id": "reset-records-batch"})
+        )["ok"]
         is True
     )
     assert (

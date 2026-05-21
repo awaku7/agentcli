@@ -4,12 +4,18 @@
     "x_search_terms": [
       "batch_state",
       "batch state",
-      "batch management",
-      "file batch"
+      "batch manager",
+      "batch progress",
+      "process files",
+      "file queue",
+      "next file",
+      "batch overview",
+      "continue batch",
+      "task queue"
     ],
-    "tool.system_prompt": "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. Use current to fetch the current file. After processing it, call complete_file. Use complete_file, skip_file, or error_file for explicit per-file results. Return JSON only.",
-    "param.action.description": "Action: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Use current for the current file. After processing it, call complete_file. Use complete_file, skip_file, or error_file for explicit per-file results.",
-    "param.batch_id.description": "Batch ID. Required for load/status/finalize; optional for init/list.",
+    "tool.system_prompt": "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. Use current to fetch the current file. After processing it, call complete_file. Use reset to restore the batch to its original pending state while preserving metadata. Use complete_file, skip_file, or error_file for explicit per-file results. Return JSON only.",
+    "param.action.description": "Action: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Use current for the current file. After processing it, call complete_file. Use complete_file, skip_file, or error_file for explicit per-file results.",
+    "param.batch_id.description": "Batch ID. Required for load/status/reset/finalize; optional for init/list.",
     "param.task_description.description": "Short description of the batch task.",
     "param.instructions.description": "Detailed instructions for the batch task.",
     "param.patch.description": "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target. For legacy single-target flows, patch.file can move the current target forward, and index is derived from the file order.",
@@ -31,12 +37,19 @@
   "ja": {
     "tool.description": "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します。",
     "x_search_terms": [
-      "複数ファイルの作業用に、~/.uag/batches/ に保存されたバッチ状態を管理します",
       "batch_state",
-      "batch state"
+      "バッチ状態",
+      "バッチ管理",
+      "進捗確認",
+      "ファイル処理",
+      "ファイルキュー",
+      "次のファイル",
+      "概要表示",
+      "バッチ継続",
+      "タスクキュー"
     ],
     "tool.system_prompt": "バッチ状態を管理してください。targets=[{dir, files, index}] と current_target を優先し、current で現在のファイルを取得します。処理後は complete_file を呼び出してください。ファイル単位の明示的な結果には complete_file、skip_file、error_file を使います。JSON のみを返してください。",
-    "param.action.description": "操作: init/load/status/current/complete_file/skip_file/error_file/finalize/list。current で現在のファイルを取得します。処理後は complete_file を呼び出してください。ファイル単位の明示的な結果には complete_file、skip_file、error_file を使います。",
+    "param.action.description": "操作: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list。current で現在のファイルを取得します。処理後は complete_file を呼び出してください。ファイル単位の明示的な結果には complete_file、skip_file、error_file を使います。",
     "param.batch_id.description": "バッチID。load/status/finalize では必須、init/list では省略可。",
     "param.task_description.description": "バッチ作業の概要。",
     "param.instructions.description": "バッチ作業の詳細な指示。",
@@ -59,12 +72,19 @@
   "es": {
     "tool.description": "Gestiona el estado del lote para tareas con varios archivos en ~/.uag/batches/.",
     "x_search_terms": [
-      "Gestiona el estado del lote para tareas con varios archivos en ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "estado de lote",
+      "gestor de lote",
+      "progreso del lote",
+      "procesar archivos",
+      "cola de archivos",
+      "siguiente archivo",
+      "resumen del lote",
+      "continuar lote",
+      "cola de tareas"
     ],
     "tool.system_prompt": "Administra el estado del lote. Prioriza targets=[{dir, files, index}] y current_target. Usa current para obtener el archivo actual. Después de procesarlo, llama a complete_file. Usa complete_file, skip_file o error_file para resultados explícitos por archivo. Devuelve solo JSON.",
-    "param.action.description": "Acción: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Usa current para obtener el archivo actual. Después de procesarlo, llama a complete_file. Usa complete_file, skip_file o error_file para resultados explícitos por archivo.",
+    "param.action.description": "Acción: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Usa current para obtener el archivo actual. Después de procesarlo, llama a complete_file. Usa complete_file, skip_file o error_file para resultados explícitos por archivo.",
     "param.batch_id.description": "ID del lote. Obligatoria para load/status/finalize; opcional para init/list.",
     "param.task_description.description": "Breve descripción de la tarea por lotes.",
     "param.instructions.description": "Instrucciones detalladas para la tarea por lotes.",
@@ -87,12 +107,19 @@
   "fr": {
     "tool.description": "Gère l’état du lot pour les tâches multi-fichiers dans ~/.uag/batches/.",
     "x_search_terms": [
-      "Gère l’état du lot pour les tâches multi-fichiers dans ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "état du lot",
+      "gestionnaire de lot",
+      "progression du lot",
+      "traiter les fichiers",
+      "file d’attente des fichiers",
+      "fichier suivant",
+      "aperçu du lot",
+      "continuer le lot",
+      "file de tâches"
     ],
     "tool.system_prompt": "Gérez l’état du lot. Privilégiez targets=[{dir, files, index}] et current_target. Utilisez current pour récupérer le fichier courant. Après traitement, appelez complete_file. Utilisez complete_file, skip_file ou error_file pour des résultats explicites par fichier. Retournez uniquement du JSON.",
-    "param.action.description": "Action : init/load/status/current/complete_file/skip_file/error_file/finalize/list. Utilisez current pour récupérer le fichier courant. Après traitement, appelez complete_file. Utilisez complete_file, skip_file ou error_file pour des résultats explicites par fichier.",
+    "param.action.description": "Action : init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Utilisez current pour récupérer le fichier courant. Après traitement, appelez complete_file. Utilisez complete_file, skip_file ou error_file pour des résultats explicites par fichier.",
     "param.batch_id.description": "ID du lot. Obligatoire pour load/status/finalize ; facultatif pour init/list.",
     "param.task_description.description": "Brève description de la tâche du lot.",
     "param.instructions.description": "Instructions détaillées pour la tâche du lot.",
@@ -104,7 +131,7 @@
     "err.invalid_patch": "[batch_state error] patch doit être un objet JSON",
     "err.message_empty": "[batch_state error] le message est vide",
     "err.not_found": "[batch_state error] lot introuvable",
-    "err.exception": "Exception inattendue",
+    "err.exception": "[batch_state error] exception",
     "param.targets.description": "Groupes de cibles. Chaque entrée contient dir, files (relatifs à dir) et index.",
     "param.current_target.description": "Indice du groupe de cibles actuel.",
     "param.file.description": "Fichier cible pour complete_file/skip_file/error_file. S’il est omis, le fichier courant est utilisé.",
@@ -115,12 +142,19 @@
   "ko": {
     "tool.description": "여러 파일 작업의 배치 상태를 ~/.uag/batches/ 아래에서 관리합니다.",
     "x_search_terms": [
-      "여러 파일 작업의 배치 상태를 ~/.uag/batches/ 아래에서 관리합니다",
       "batch_state",
-      "batch state"
+      "배치 상태",
+      "배치 관리자",
+      "배치 진행",
+      "파일 처리",
+      "파일 대기열",
+      "다음 파일",
+      "배치 개요",
+      "배치 계속",
+      "작업 대기열"
     ],
     "tool.system_prompt": "배치 상태를 관리합니다. targets=[{dir, files, index}]와 current_target을 우선하고, current로 현재 파일을 가져옵니다. 처리 후 complete_file을 호출하세요. 파일별 명시적 결과에는 complete_file, skip_file, error_file을 사용합니다. JSON만 반환하세요.",
-    "param.action.description": "작업: init/load/status/current/complete_file/skip_file/error_file/finalize/list. current로 현재 파일을 가져옵니다. 처리 후 complete_file을 호출하세요. 파일별 명시적 결과에는 complete_file, skip_file, error_file을 사용합니다.",
+    "param.action.description": "작업: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. current로 현재 파일을 가져옵니다. 처리 후 complete_file을 호출하세요. 파일별 명시적 결과에는 complete_file, skip_file, error_file을 사용합니다.",
     "param.batch_id.description": "배치 ID. load/status/finalize에는 필수, init/list에는 선택 사항입니다.",
     "param.task_description.description": "배치 작업의 간단한 요약.",
     "param.instructions.description": "배치 작업에 대한 자세한 지침.",
@@ -143,12 +177,19 @@
   "de": {
     "tool.description": "Verwaltet den Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/.",
     "x_search_terms": [
-      "Verwaltet den Batch-Status für Aufgaben mit mehreren Dateien unter ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "stapelstatus",
+      "stapelmanager",
+      "stapelfortschritt",
+      "dateien verarbeiten",
+      "dateiwarteschlange",
+      "nächste datei",
+      "stapelübersicht",
+      "stapel fortsetzen",
+      "aufgabenwarteschlange"
     ],
     "tool.system_prompt": "Verwalten Sie den Batch-Status. Bevorzugen Sie targets=[{dir, files, index}] und current_target. Verwenden Sie current, um die aktuelle Datei abzurufen. Rufen Sie nach der Verarbeitung complete_file auf. Verwenden Sie complete_file, skip_file oder error_file für explizite Ergebnisse pro Datei. Geben Sie nur JSON zurück.",
-    "param.action.description": "Aktion: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Verwenden Sie current für die aktuelle Datei. Rufen Sie nach der Verarbeitung complete_file auf. Verwenden Sie complete_file, skip_file oder error_file für explizite Ergebnisse pro Datei.",
+    "param.action.description": "Aktion: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Verwenden Sie current für die aktuelle Datei. Rufen Sie nach der Verarbeitung complete_file auf. Verwenden Sie complete_file, skip_file oder error_file für explizite Ergebnisse pro Datei.",
     "param.batch_id.description": "Batch-ID. Erforderlich für load/status/finalize; optional für init/list.",
     "param.task_description.description": "Kurze Beschreibung der Batch-Aufgabe.",
     "param.instructions.description": "Detaillierte Anweisungen für die Batch-Aufgabe.",
@@ -171,12 +212,19 @@
   "it": {
     "tool.description": "Gestisce lo stato del batch per attività con più file in ~/.uag/batches/.",
     "x_search_terms": [
-      "Gestisce lo stato del batch per attività con più file in ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "stato batch",
+      "gestore batch",
+      "avanzamento batch",
+      "elabora file",
+      "coda file",
+      "file successivo",
+      "panoramica batch",
+      "continua batch",
+      "coda attività"
     ],
     "tool.system_prompt": "Gestisci lo stato del batch. Dai priorità a targets=[{dir, files, index}] e current_target. Usa current per ottenere il file corrente. Dopo l’elaborazione, chiama complete_file. Usa complete_file, skip_file o error_file per risultati espliciti per file. Restituisci solo JSON.",
-    "param.action.description": "Azione: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Usa current per il file corrente. Dopo l’elaborazione, chiama complete_file. Usa complete_file, skip_file o error_file per risultati espliciti per file.",
+    "param.action.description": "Azione: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Usa current per il file corrente. Dopo l’elaborazione, chiama complete_file. Usa complete_file, skip_file o error_file per risultati espliciti per file.",
     "param.batch_id.description": "ID batch. Obbligatorio per load/status/finalize; facoltativo per init/list.",
     "param.task_description.description": "Breve riepilogo dell'attività batch.",
     "param.instructions.description": "Istruzioni dettagliate per l'attività batch.",
@@ -199,12 +247,19 @@
   "ru": {
     "tool.description": "Управляет состоянием пакета для многофайловых задач в ~/.uag/batches/.",
     "x_search_terms": [
-      "Управляет состоянием пакета для многофайловых задач в ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "состояние пакета",
+      "менеджер пакетов",
+      "прогресс пакета",
+      "обработать файлы",
+      "очередь файлов",
+      "следующий файл",
+      "обзор пакета",
+      "продолжить пакет",
+      "очередь задач"
     ],
     "tool.system_prompt": "Управляйте состоянием пакета. Предпочитайте targets=[{dir, files, index}] и current_target. Используйте current, чтобы получить текущий файл. После обработки вызывайте complete_file. Используйте complete_file, skip_file или error_file для явных результатов по каждому файлу. Возвращайте только JSON.",
-    "param.action.description": "Действие: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Используйте current для текущего файла. После обработки вызывайте complete_file. Используйте complete_file, skip_file или error_file для явных результатов по каждому файлу.",
+    "param.action.description": "Действие: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Используйте current для текущего файла. После обработки вызывайте complete_file. Используйте complete_file, skip_file или error_file для явных результатов по каждому файлу.",
     "param.batch_id.description": "ID пакета. Обязательно для load/status/finalize; необязательно для init/list.",
     "param.task_description.description": "Краткое описание пакетной задачи.",
     "param.instructions.description": "Подробные инструкции для пакетной задачи.",
@@ -227,12 +282,19 @@
   "pt_BR": {
     "tool.description": "Gerencia o estado do lote para tarefas com vários arquivos em ~/.uag/batches/.",
     "x_search_terms": [
-      "Gerencia o estado do lote para tarefas com vários arquivos em ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "estado do lote",
+      "gerenciador de lote",
+      "progresso do lote",
+      "processar arquivos",
+      "fila de arquivos",
+      "próximo arquivo",
+      "visão geral do lote",
+      "continuar lote",
+      "fila de tarefas"
     ],
     "tool.system_prompt": "Gerencie o estado do lote. Priorize targets=[{dir, files, index}] e current_target. Use current para obter o arquivo atual. Depois de processá-lo, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por arquivo. Retorne apenas JSON.",
-    "param.action.description": "Ação: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Use current para o arquivo atual. Depois de processá-lo, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por arquivo.",
+    "param.action.description": "Ação: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Use current para o arquivo atual. Depois de processá-lo, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por arquivo.",
     "param.batch_id.description": "ID do lote. Obrigatório para load/status/finalize; opcional para init/list.",
     "param.task_description.description": "Resumo curto da tarefa do lote.",
     "param.instructions.description": "Instruções detalhadas para a tarefa do lote.",
@@ -255,12 +317,19 @@
   "pt": {
     "tool.description": "Gere o estado do lote para tarefas com vários ficheiros em ~/.uag/batches/.",
     "x_search_terms": [
-      "Gere o estado do lote para tarefas com vários ficheiros em ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "estado do lote",
+      "gestor de lote",
+      "progresso do lote",
+      "processar ficheiros",
+      "fila de ficheiros",
+      "ficheiro seguinte",
+      "visão geral do lote",
+      "continuar lote",
+      "fila de tarefas"
     ],
     "tool.system_prompt": "Gira o estado do lote. Priorize targets=[{dir, files, index}] e current_target. Use current para obter o ficheiro atual. Depois de o processar, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por ficheiro. Retorne apenas JSON.",
-    "param.action.description": "Ação: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Use current para o ficheiro atual. Depois de o processar, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por ficheiro.",
+    "param.action.description": "Ação: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Use current para o ficheiro atual. Depois de o processar, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por ficheiro.",
     "param.batch_id.description": "ID do lote. Obrigatório para load/status/finalize; opcional para init/list.",
     "param.task_description.description": "Breve resumo da tarefa do lote.",
     "param.instructions.description": "Instruções detalhadas para a tarefa do lote.",
@@ -283,12 +352,19 @@
   "id": {
     "tool.description": "Mengelola status batch untuk tugas multi-file di ~/.uag/batches/.",
     "x_search_terms": [
-      "Mengelola status batch untuk tugas multi-file di ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "status batch",
+      "pengelola batch",
+      "progres batch",
+      "proses file",
+      "antrean file",
+      "file berikutnya",
+      "ringkasan batch",
+      "lanjutkan batch",
+      "antrean tugas"
     ],
     "tool.system_prompt": "Kelola status batch. Utamakan targets=[{dir, files, index}] dan current_target. Gunakan current untuk mengambil file saat ini. Setelah memprosesnya, panggil complete_file. Gunakan complete_file, skip_file, atau error_file untuk hasil per file yang eksplisit. Kembalikan JSON saja.",
-    "param.action.description": "Aksi: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Gunakan current untuk file saat ini. Setelah memprosesnya, panggil complete_file. Gunakan complete_file, skip_file, atau error_file untuk hasil per file yang eksplisit.",
+    "param.action.description": "Aksi: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Gunakan current untuk file saat ini. Setelah memprosesnya, panggil complete_file. Gunakan complete_file, skip_file, atau error_file untuk hasil per file yang eksplisit.",
     "param.batch_id.description": "ID batch. Diperlukan untuk load/status/finalize; opsional untuk init/list.",
     "param.task_description.description": "Ringkasan singkat tugas batch.",
     "param.instructions.description": "Instruksi rinci untuk tugas batch.",
@@ -311,12 +387,19 @@
   "bn": {
     "tool.description": "একাধিক ফাইলের কাজের জন্য ~/.uag/batches/ এর নিচে ব্যাচের অবস্থা পরিচালনা করুন।",
     "x_search_terms": [
-      "একাধিক ফাইলের কাজের জন্য ~/.uag/batches/ এর নিচে ব্যাচের অবস্থা পরিচালনা করুন",
       "batch_state",
-      "batch state"
+      "ব্যাচ অবস্থা",
+      "ব্যাচ ব্যবস্থাপক",
+      "ব্যাচ অগ্রগতি",
+      "ফাইল প্রক্রিয়া",
+      "ফাইল সারি",
+      "পরবর্তী ফাইল",
+      "ব্যাচ ওভারভিউ",
+      "ব্যাচ চালিয়ে যান",
+      "কাজের সারি"
     ],
     "tool.system_prompt": "ব্যাচের অবস্থা পরিচালনা করুন। targets=[{dir, files, index}] এবং current_target-কে অগ্রাধিকার দিন। বর্তমান ফাইল পেতে current ব্যবহার করুন। প্রক্রিয়াকরণের পরে complete_file ডাকুন। প্রতি ফাইলের স্পষ্ট ফলাফলের জন্য complete_file, skip_file, বা error_file ব্যবহার করুন। শুধু JSON ফেরত দিন।",
-    "param.action.description": "অ্যাকশন: init/load/status/current/complete_file/skip_file/error_file/finalize/list। বর্তমান ফাইল পেতে current ব্যবহার করুন। প্রক্রিয়ার পরে complete_file ডাকুন। প্রতি ফাইলের স্পষ্ট ফলাফলের জন্য complete_file, skip_file, বা error_file ব্যবহার করুন।",
+    "param.action.description": "অ্যাকশন: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list। বর্তমান ফাইল পেতে current ব্যবহার করুন। প্রক্রিয়ার পরে complete_file ডাকুন। প্রতি ফাইলের স্পষ্ট ফলাফলের জন্য complete_file, skip_file, বা error_file ব্যবহার করুন।",
     "param.batch_id.description": "ব্যাচ আইডি। load/status/finalize-এর জন্য আবশ্যক; init/list-এর জন্য ঐচ্ছিক।",
     "param.task_description.description": "batch কাজের সংক্ষিপ্ত বিবরণ।",
     "param.instructions.description": "batch কাজের বিস্তারিত নির্দেশনা।",
@@ -339,12 +422,19 @@
   "fa": {
     "tool.description": "وضعیت دسته را برای کارهای چندفایلی در ~/.uag/batches/ مدیریت می‌کند.",
     "x_search_terms": [
-      "وضعیت دسته را برای کارهای چندفایلی در ~/.uag/batches/ مدیریت می‌کند",
       "batch_state",
-      "batch state"
+      "وضعیت دسته",
+      "مدیر دسته",
+      "پیشرفت دسته",
+      "پردازش فایل‌ها",
+      "صف فایل‌ها",
+      "فایل بعدی",
+      "نمای کلی دسته",
+      "ادامه دسته",
+      "صف وظایف"
     ],
     "tool.system_prompt": "وضعیت دسته را مدیریت کنید. targets=[{dir, files, index}] و current_target را در اولویت قرار دهید. برای دریافت فایل فعلی از current استفاده کنید. پس از پردازش، complete_file را فراخوانی کنید. برای نتایج صریح هر فایل از complete_file، skip_file یا error_file استفاده کنید. فقط JSON برگردانید.",
-    "param.action.description": "عملیات: init/load/status/current/complete_file/skip_file/error_file/finalize/list. برای دریافت فایل فعلی از current استفاده کنید. پس از پردازش، complete_file را فراخوانی کنید. برای نتایج صریح هر فایل از complete_file، skip_file یا error_file استفاده کنید.",
+    "param.action.description": "عملیات: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. برای دریافت فایل فعلی از current استفاده کنید. پس از پردازش، complete_file را فراخوانی کنید. برای نتایج صریح هر فایل از complete_file، skip_file یا error_file استفاده کنید.",
     "param.batch_id.description": "شناسه دسته. برای load/status/finalize الزامی است؛ برای init/list اختیاری است.",
     "param.task_description.description": "توضیح کوتاهِ وظیفهٔ batch.",
     "param.instructions.description": "دستورالعمل‌های دقیقِ وظیفهٔ batch.",
@@ -367,12 +457,19 @@
   "mn": {
     "tool.description": "Олон файлтай ажлуудын багц төлөвийг ~/.uag/batches/ дотор удирдана.",
     "x_search_terms": [
-      "Олон файлтай ажлуудын багц төлөвийг ~/.uag/batches/ дотор удирдана",
       "batch_state",
-      "batch state"
+      "багцын төлөв",
+      "багц менежер",
+      "багцын явц",
+      "файл боловсруулах",
+      "файлын дараалал",
+      "дараагийн файл",
+      "багцын тойм",
+      "багцыг үргэлжлүүлэх",
+      "даалгаврын дараалал"
     ],
     "tool.system_prompt": "Багцын төлөвийг удирдана уу. targets=[{dir, files, index}] болон current_target-ыг түрүүнд тавина. Одоогийн файлыг авахын тулд current ашиглана уу. Боловсруулсны дараа complete_file дуудна уу. Файл бүрийн тодорхой үр дүнд complete_file, skip_file, эсвэл error_file ашиглана. Зөвхөн JSON буцаана уу.",
-    "param.action.description": "Үйлдэл: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Одоогийн файлыг авахын тулд current ашиглана уу. Боловсруулсны дараа complete_file дуудна уу. Файл бүрийн тодорхой үр дүнд complete_file, skip_file, эсвэл error_file ашиглана.",
+    "param.action.description": "Үйлдэл: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Одоогийн файлыг авахын тулд current ашиглана уу. Боловсруулсны дараа complete_file дуудна уу. Файл бүрийн тодорхой үр дүнд complete_file, skip_file, эсвэл error_file ашиглана.",
     "param.batch_id.description": "Багцын ID. load/status/finalize-д шаардлагатай; init/list-д сонголттой.",
     "param.task_description.description": "batch ажлын товч тайлбар.",
     "param.instructions.description": "batch ажлын дэлгэрэнгүй заавар.",
@@ -395,12 +492,19 @@
   "mr": {
     "tool.description": "अनेक फायलींच्या कामांसाठी ~/.uag/batches/ अंतर्गत बॅच स्थिती व्यवस्थापित करते.",
     "x_search_terms": [
-      "अनेक फायलींच्या कामांसाठी ~/.uag/batches/ अंतर्गत बॅच स्थिती व्यवस्थापित करते",
       "batch_state",
-      "batch state"
+      "बॅच स्थिती",
+      "बॅच व्यवस्थापक",
+      "बॅच प्रगती",
+      "फाइल्स प्रक्रिया करा",
+      "फाइल रांग",
+      "पुढील फाइल",
+      "बॅच आढावा",
+      "बॅच सुरू ठेवा",
+      "कार्य रांग"
     ],
     "tool.system_prompt": "बॅच स्थिती व्यवस्थापित करा. targets=[{dir, files, index}] आणि current_target यांना प्राधान्य द्या. चालू फाइल मिळवण्यासाठी current वापरा. प्रक्रिया केल्यानंतर complete_file कॉल करा. स्पष्ट प्रति-फाइल निकालांसाठी complete_file, skip_file, किंवा error_file वापरा. फक्त JSON परत करा.",
-    "param.action.description": "क्रिया: init/load/status/current/complete_file/skip_file/error_file/finalize/list. चालू फाइल मिळवण्यासाठी current वापरा. प्रक्रिया केल्यानंतर complete_file कॉल करा. स्पष्ट प्रति-फाइल निकालांसाठी complete_file, skip_file, किंवा error_file वापरा.",
+    "param.action.description": "क्रिया: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. चालू फाइल मिळवण्यासाठी current वापरा. प्रक्रिया केल्यानंतर complete_file कॉल करा. स्पष्ट प्रति-फाइल निकालांसाठी complete_file, skip_file, किंवा error_file वापरा.",
     "param.batch_id.description": "बॅच ID. load/status/finalize साठी आवश्यक; init/list साठी ऐच्छिक.",
     "param.task_description.description": "batch कार्याचे थोडक्यात वर्णन.",
     "param.instructions.description": "batch कार्यासाठी तपशीलवार सूचना.",
@@ -423,12 +527,19 @@
   "vi": {
     "tool.description": "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/.uag/batches/.",
     "x_search_terms": [
-      "Quản lý trạng thái batch được lưu giữ cho các tác vụ nhiều tệp trong ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "trạng thái lô",
+      "trình quản lý lô",
+      "tiến độ lô",
+      "xử lý tệp",
+      "hàng đợi tệp",
+      "tệp tiếp theo",
+      "tổng quan lô",
+      "tiếp tục lô",
+      "hàng đợi tác vụ"
     ],
     "tool.system_prompt": "Quản lý trạng thái batch. Ưu tiên targets=[{dir, files, index}] và current_target. Dùng current để lấy tệp hiện tại. Sau khi xử lý, gọi complete_file. Dùng complete_file, skip_file hoặc error_file cho kết quả rõ ràng theo từng tệp. Chỉ trả về JSON.",
-    "param.action.description": "Hành động: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Dùng current để lấy tệp hiện tại. Sau khi xử lý, gọi complete_file. Dùng complete_file, skip_file hoặc error_file cho kết quả rõ ràng theo từng tệp.",
+    "param.action.description": "Hành động: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Dùng current để lấy tệp hiện tại. Sau khi xử lý, gọi complete_file. Dùng complete_file, skip_file hoặc error_file cho kết quả rõ ràng theo từng tệp.",
     "param.batch_id.description": "ID batch. Bắt buộc cho load/update/finalize/delete; tùy chọn cho init/list.",
     "param.task_description.description": "Tóm tắt ngắn gọn về tác vụ batch.",
     "param.instructions.description": "Hướng dẫn chi tiết cho tác vụ batch.",
@@ -451,12 +562,19 @@
   "pl": {
     "tool.description": "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.uag/batches/.",
     "x_search_terms": [
-      "Zarządza trwałym stanem partii dla zadań wieloplikowych w ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "stan wsadu",
+      "menedżer wsadu",
+      "postęp wsadu",
+      "przetwarzaj pliki",
+      "kolejka plików",
+      "następny plik",
+      "przegląd wsadu",
+      "kontynuuj wsad",
+      "kolejka zadań"
     ],
     "tool.system_prompt": "Zarządzaj stanem partii. Preferuj targets=[{dir, files, index}] oraz current_target. Użyj current, aby pobrać bieżący plik. Po przetworzeniu wywołaj complete_file. Używaj complete_file, skip_file lub error_file dla jawnych wyników dla pliku. Zwracaj tylko JSON.",
-    "param.action.description": "Akcja: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Użyj current dla bieżącego pliku. Po przetworzeniu wywołaj complete_file. Używaj complete_file, skip_file lub error_file dla jawnych wyników dla pliku.",
+    "param.action.description": "Akcja: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Użyj current dla bieżącego pliku. Po przetworzeniu wywołaj complete_file. Używaj complete_file, skip_file lub error_file dla jawnych wyników dla pliku.",
     "param.batch_id.description": "ID wsadu. Wymagane dla load/update/finalize/delete; opcjonalne dla init/list.",
     "param.task_description.description": "Krótki opis zadania partii.",
     "param.instructions.description": "Szczegółowe instrukcje dla zadania partii.",
@@ -479,12 +597,19 @@
   "hi": {
     "tool.description": "~/.uag/batches/ के नीचे बहु-फ़ाइल कार्यों के लिए स्थायी बैच स्थिति प्रबंधित करता है।",
     "x_search_terms": [
-      "~/.uag/batches/ के नीचे बहु-फ़ाइल कार्यों के लिए स्थायी बैच स्थिति प्रबंधित करता है।",
       "batch_state",
-      "batch state"
+      "बैच स्थिति",
+      "बैच प्रबंधक",
+      "बैच प्रगति",
+      "फ़ाइलें संसाधित करें",
+      "फ़ाइल कतार",
+      "अगली फ़ाइल",
+      "बैच अवलोकन",
+      "बैच जारी रखें",
+      "कार्य कतार"
     ],
     "tool.system_prompt": "बैच स्थिति प्रबंधित करें। targets=[{dir, files, index}] और current_target को प्राथमिकता दें। वर्तमान फ़ाइल पाने के लिए current का उपयोग करें। संसाधित करने के बाद complete_file कॉल करें। प्रति-फ़ाइल स्पष्ट परिणामों के लिए complete_file, skip_file या error_file का उपयोग करें। केवल JSON लौटाएँ।",
-    "param.action.description": "क्रिया: init/load/status/current/complete_file/skip_file/error_file/finalize/list। वर्तमान फ़ाइल पाने के लिए current का उपयोग करें। संसाधित करने के बाद complete_file कॉल करें। प्रति-फ़ाइल स्पष्ट परिणामों के लिए complete_file, skip_file या error_file का उपयोग करें।",
+    "param.action.description": "क्रिया: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list। वर्तमान फ़ाइल पाने के लिए current का उपयोग करें। संसाधित करने के बाद complete_file कॉल करें। प्रति-फ़ाइल स्पष्ट परिणामों के लिए complete_file, skip_file या error_file का उपयोग करें।",
     "param.batch_id.description": "बैच ID. load/update/finalize/delete के लिए आवश्यक; init/list के लिए वैकल्पिक.",
     "param.task_description.description": "बैच कार्य का संक्षिप्त विवरण.",
     "param.instructions.description": "बैच कार्य के लिए विस्तृत निर्देश.",
@@ -507,12 +632,19 @@
   "ar": {
     "tool.description": "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.uag/batches/.",
     "x_search_terms": [
-      "يدير حالة الدُفعات الدائمة للمهام متعددة الملفات ضمن ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "حالة الدفعة",
+      "مدير الدفعة",
+      "تقدم الدفعة",
+      "معالجة الملفات",
+      "طابور الملفات",
+      "الملف التالي",
+      "نظرة عامة على الدفعة",
+      "متابعة الدفعة",
+      "طابور المهام"
     ],
     "tool.system_prompt": "أدِر حالة الدفعة. أعطِ الأولوية لـ targets=[{dir, files, index}] و current_target. استخدم current لجلب الملف الحالي. بعد المعالجة، استدعِ complete_file. استخدم complete_file أو skip_file أو error_file للنتائج الصريحة لكل ملف. أعد JSON فقط.",
-    "param.action.description": "الإجراء: init/load/status/current/complete_file/skip_file/error_file/finalize/list. استخدم current لجلب الملف الحالي. بعد المعالجة، استدعِ complete_file. استخدم complete_file أو skip_file أو error_file للنتائج الصريحة لكل ملف.",
+    "param.action.description": "الإجراء: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. استخدم current لجلب الملف الحالي. بعد المعالجة، استدعِ complete_file. استخدم complete_file أو skip_file أو error_file للنتائج الصريحة لكل ملف.",
     "param.batch_id.description": "معرّف الدفعة. مطلوب لـ load/update/finalize/delete؛ اختياري لـ init/list.",
     "param.task_description.description": "وصف موجز لمهمة الدفعة.",
     "param.instructions.description": "تعليمات مفصلة لمهمة الدفعة.",
@@ -535,12 +667,19 @@
   "sv": {
     "tool.description": "Hantera batchstatus för uppgifter med flera filer under ~/.uag/batches/.",
     "x_search_terms": [
-      "Hantera batchstatus för uppgifter med flera filer under ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "batchstatus",
+      "batchhanterare",
+      "batchframsteg",
+      "bearbeta filer",
+      "fillkö",
+      "nästa fil",
+      "batchöversikt",
+      "fortsätt batch",
+      "uppgiftskö"
     ],
     "tool.system_prompt": "Hantera batchstatus. Prioritera targets=[{dir, files, index}] och current_target. Använd current för att hämta den aktuella filen. Anropa complete_file efter bearbetning. Använd complete_file, skip_file eller error_file för tydliga resultat per fil. Returnera bara JSON.",
-    "param.action.description": "Åtgärd: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Använd current för den aktuella filen. Anropa complete_file efter bearbetning. Använd complete_file, skip_file eller error_file för tydliga resultat per fil.",
+    "param.action.description": "Åtgärd: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Använd current för den aktuella filen. Anropa complete_file efter bearbetning. Använd complete_file, skip_file eller error_file för tydliga resultat per fil.",
     "param.batch_id.description": "Batch-ID. Krävs för load/status/finalize; valfritt för init/list.",
     "param.task_description.description": "Kort sammanfattning av batchuppgiften.",
     "param.instructions.description": "Detaljerade instruktioner för batchuppgiften.",
@@ -563,12 +702,19 @@
   "sw": {
     "tool.description": "Dhibiti hali ya batch kwa kazi zenye faili nyingi ndani ya ~/.uag/batches/.",
     "x_search_terms": [
-      "Dhibiti hali ya batch kwa kazi zenye faili nyingi ndani ya ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "hali ya kundi",
+      "msimamizi wa kundi",
+      "maendeleo ya kundi",
+      "chakata faili",
+      "foleni ya faili",
+      "faili inayofuata",
+      "muhtasari wa kundi",
+      "endeleza kundi",
+      "foleni ya kazi"
     ],
     "tool.system_prompt": "Dhibiti hali ya batch. Tanguliza targets=[{dir, files, index}] na current_target. Tumia current kupata faili la sasa. Baada ya kulichakata, piga complete_file. Tumia complete_file, skip_file, au error_file kwa matokeo ya wazi kwa kila faili. Rudisha JSON pekee.",
-    "param.action.description": "Kitendo: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Tumia current kupata faili la sasa. Baada ya kulichakata, piga complete_file. Tumia complete_file, skip_file, au error_file kwa matokeo ya wazi kwa kila faili.",
+    "param.action.description": "Kitendo: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Tumia current kupata faili la sasa. Baada ya kulichakata, piga complete_file. Tumia complete_file, skip_file, au error_file kwa matokeo ya wazi kwa kila faili.",
     "param.batch_id.description": "Kitambulisho cha batch. Kinahitajika kwa load/status/finalize; hiari kwa init/list.",
     "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
     "param.instructions.description": "Maelekezo ya kina kwa kazi ya batch.",
@@ -591,12 +737,19 @@
   "nb": {
     "tool.description": "Administrer batchstatus for oppgaver med flere filer under ~/.uag/batches/.",
     "x_search_terms": [
-      "Administrer batchstatus for oppgaver med flere filer under ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "batchstatus",
+      "batchbehandler",
+      "batchfremdrift",
+      "behandle filer",
+      "filkø",
+      "neste fil",
+      "batchoversikt",
+      "fortsett batch",
+      "oppgavekø"
     ],
     "tool.system_prompt": "Administrer batchstatus. Prioriter targets=[{dir, files, index}] og current_target. Bruk current for å hente gjeldende fil. Kall complete_file etter behandling. Bruk complete_file, skip_file eller error_file for eksplisitte resultater per fil. Returner bare JSON.",
-    "param.action.description": "Handling: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Bruk current for gjeldende fil. Kall complete_file etter behandling. Bruk complete_file, skip_file eller error_file for eksplisitte resultater per fil.",
+    "param.action.description": "Handling: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Bruk current for gjeldende fil. Kall complete_file etter behandling. Bruk complete_file, skip_file eller error_file for eksplisitte resultater per fil.",
     "param.batch_id.description": "Batch-ID. Påkrevd for load/status/finalize; valgfritt for init/list.",
     "param.task_description.description": "Kort oppsummering av batch-oppgaven.",
     "param.instructions.description": "Detaljerte instruksjoner for batch-oppgaven.",
@@ -619,12 +772,19 @@
   "nl": {
     "tool.description": "Beheer de batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/.",
     "x_search_terms": [
-      "Beheer de batchstatus voor taken met meerdere bestanden onder ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "batchstatus",
+      "batchbeheerder",
+      "batchvoortgang",
+      "bestanden verwerken",
+      "bestandenwachtrij",
+      "volgend bestand",
+      "batchoverzicht",
+      "batch voortzetten",
+      "takenwachtrij"
     ],
     "tool.system_prompt": "Beheer de batchstatus. Geef prioriteit aan targets=[{dir, files, index}] en current_target. Gebruik current om het huidige bestand op te halen. Roep na verwerking complete_file aan. Gebruik complete_file, skip_file of error_file voor expliciete resultaten per bestand. Geef alleen JSON terug.",
-    "param.action.description": "Actie: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Gebruik current voor het huidige bestand. Roep na verwerking complete_file aan. Gebruik complete_file, skip_file of error_file voor expliciete resultaten per bestand.",
+    "param.action.description": "Actie: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Gebruik current voor het huidige bestand. Roep na verwerking complete_file aan. Gebruik complete_file, skip_file of error_file voor expliciete resultaten per bestand.",
     "param.batch_id.description": "Batch-ID. Vereist voor load/status/finalize; optioneel voor init/list.",
     "param.task_description.description": "Korte samenvatting van de batchtaak.",
     "param.instructions.description": "Gedetailleerde instructies voor de batchtaak.",
@@ -647,12 +807,19 @@
   "fi": {
     "tool.description": "Hallitse erätilaa monitiedostoisille tehtäville polun ~/.uag/batches/ alla.",
     "x_search_terms": [
-      "Hallitse erätilaa monitiedostoisille tehtäville polun ~/.uag/batches/ alla",
       "batch_state",
-      "batch state"
+      "erän tila",
+      "erän hallinta",
+      "erän edistyminen",
+      "käsittele tiedostoja",
+      "tiedostojono",
+      "seuraava tiedosto",
+      "erän yleiskuva",
+      "jatka erää",
+      "tehtäväjono"
     ],
     "tool.system_prompt": "Hallitse erätilaa. Suosi kohteita targets=[{dir, files, index}] ja current_target. Hae nykyinen tiedosto current-komennolla. Kutsu complete_file käsittelyn jälkeen. Käytä complete_file-, skip_file- tai error_file-komentoja tiedostokohtaisiin selkeisiin tuloksiin. Palauta vain JSON.",
-    "param.action.description": "Toiminto: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Hae nykyinen tiedosto current-komennolla. Kutsu complete_file käsittelyn jälkeen. Käytä complete_file-, skip_file- tai error_file-komentoja tiedostokohtaisiin selkeisiin tuloksiin.",
+    "param.action.description": "Toiminto: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Hae nykyinen tiedosto current-komennolla. Kutsu complete_file käsittelyn jälkeen. Käytä complete_file-, skip_file- tai error_file-komentoja tiedostokohtaisiin selkeisiin tuloksiin.",
     "param.batch_id.description": "Erän tunnus. Pakollinen load/status/finalize-toiminnoille; valinnainen init/list-toiminnoille.",
     "param.task_description.description": "Lyhyt kuvaus eräajosta.",
     "param.instructions.description": "Yksityiskohtaiset ohjeet eräajolle.",
@@ -675,12 +842,19 @@
   "cs": {
     "tool.description": "Spravuje stav dávky pro úlohy s více soubory v ~/.uag/batches/.",
     "x_search_terms": [
-      "Spravuje stav dávky pro úlohy s více soubory v ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "stav dávky",
+      "správce dávky",
+      "postup dávky",
+      "zpracovat soubory",
+      "fronta souborů",
+      "další soubor",
+      "přehled dávky",
+      "pokračovat v dávce",
+      "fronta úloh"
     ],
     "tool.system_prompt": "Spravujte stav dávky. Přednostně používejte targets=[{dir, files, index}] a current_target. K získání aktuálního souboru použijte current. Po zpracování zavolejte complete_file. Pro explicitní výsledky po jednotlivých souborech používejte complete_file, skip_file nebo error_file. Vracejte pouze JSON.",
-    "param.action.description": "Akce: init/load/status/current/complete_file/skip_file/error_file/finalize/list. K získání aktuálního souboru použijte current. Po zpracování zavolejte complete_file. Pro explicitní výsledky po jednotlivých souborech používejte complete_file, skip_file nebo error_file.",
+    "param.action.description": "Akce: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. K získání aktuálního souboru použijte current. Po zpracování zavolejte complete_file. Pro explicitní výsledky po jednotlivých souborech používejte complete_file, skip_file nebo error_file.",
     "param.batch_id.description": "ID dávky. Povinné pro load/status/finalize; volitelné pro init/list.",
     "param.task_description.description": "Stručný popis dávkového úkolu.",
     "param.instructions.description": "Podrobné pokyny k dávkovému úkolu.",
@@ -703,12 +877,19 @@
   "uk": {
     "tool.description": "Керує станом пакета для багатофайлових завдань у ~/.uag/batches/.",
     "x_search_terms": [
-      "Керує станом пакета для багатофайлових завдань у ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "стан пакета",
+      "менеджер пакетів",
+      "прогрес пакета",
+      "обробити файли",
+      "черга файлів",
+      "наступний файл",
+      "огляд пакета",
+      "продовжити пакет",
+      "черга завдань"
     ],
     "tool.system_prompt": "Керуйте станом пакета. Надавайте перевагу targets=[{dir, files, index}] і current_target. Використовуйте current, щоб отримати поточний файл. Після обробки викликайте complete_file. Для явних результатів по кожному файлу використовуйте complete_file, skip_file або error_file. Повертайте лише JSON.",
-    "param.action.description": "Дія: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Використовуйте current, щоб отримати поточний файл. Після обробки викликайте complete_file. Для явних результатів по кожному файлу використовуйте complete_file, skip_file або error_file.",
+    "param.action.description": "Дія: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Використовуйте current, щоб отримати поточний файл. Після обробки викликайте complete_file. Для явних результатів по кожному файлу використовуйте complete_file, skip_file або error_file.",
     "param.batch_id.description": "ID пакета. Обов’язковий для load/status/finalize; необов’язковий для init/list.",
     "param.task_description.description": "Короткий опис пакетного завдання.",
     "param.instructions.description": "Детальні інструкції для пакетного завдання.",
@@ -731,12 +912,19 @@
   "tr": {
     "tool.description": "~/.uag/batches/ altında çok dosyalı görevler için toplu durumunu yönetir.",
     "x_search_terms": [
-      "~/.uag/batches/ altında çok dosyalı görevler için toplu durumunu yönetir",
       "batch_state",
-      "batch state"
+      "toplu durum",
+      "toplu işlem yöneticisi",
+      "toplu ilerleme",
+      "dosyaları işle",
+      "dosya kuyruğu",
+      "sonraki dosya",
+      "toplu genel bakış",
+      "toplu işleme devam et",
+      "görev kuyruğu"
     ],
     "tool.system_prompt": "Toplu durumunu yönetin. targets=[{dir, files, index}] ve current_target öğelerini önceliklendirin. Geçerli dosyayı almak için current kullanın. İşledikten sonra complete_file çağırın. Dosya başına açık sonuçlar için complete_file, skip_file veya error_file kullanın. Yalnızca JSON döndürün.",
-    "param.action.description": "İşlem: init/load/status/current/complete_file/skip_file/error_file/finalize/list. Geçerli dosyayı almak için current kullanın. İşledikten sonra complete_file çağırın. Dosya başına açık sonuçlar için complete_file, skip_file veya error_file kullanın.",
+    "param.action.description": "İşlem: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. Geçerli dosyayı almak için current kullanın. İşledikten sonra complete_file çağırın. Dosya başına açık sonuçlar için complete_file, skip_file veya error_file kullanın.",
     "param.batch_id.description": "Toplu iş kimliği. load/status/finalize için zorunlu; init/list için isteğe bağlı.",
     "param.task_description.description": "Toplu görevin kısa açıklaması.",
     "param.instructions.description": "Toplu görev için ayrıntılı talimatlar.",
@@ -759,12 +947,19 @@
   "th": {
     "tool.description": "จัดการสถานะงานแบบแบตช์สำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/.",
     "x_search_terms": [
-      "จัดการสถานะงานแบบแบตช์สำหรับงานหลายไฟล์ภายใต้ ~/.uag/batches/",
       "batch_state",
-      "batch state"
+      "สถานะชุดงาน",
+      "ตัวจัดการชุดงาน",
+      "ความคืบหน้าชุดงาน",
+      "ประมวลผลไฟล์",
+      "คิวไฟล์",
+      "ไฟล์ถัดไป",
+      "ภาพรวมชุดงาน",
+      "ดำเนินชุดงานต่อ",
+      "คิวงาน"
     ],
     "tool.system_prompt": "จัดการสถานะแบตช์ ให้ความสำคัญกับ targets=[{dir, files, index}] และ current_target ใช้ current เพื่อดึงไฟล์ปัจจุบัน หลังประมวลผลให้เรียก complete_file ใช้ complete_file, skip_file หรือ error_file สำหรับผลลัพธ์รายไฟล์ที่ชัดเจน ส่งกลับเฉพาะ JSON",
-    "param.action.description": "การทำงาน: init/load/status/current/complete_file/skip_file/error_file/finalize/list ใช้ current เพื่อดึงไฟล์ปัจจุบัน หลังประมวลผลให้เรียก complete_file ใช้ complete_file, skip_file หรือ error_file สำหรับผลลัพธ์รายไฟล์ที่ชัดเจน",
+    "param.action.description": "การทำงาน: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list ใช้ current เพื่อดึงไฟล์ปัจจุบัน หลังประมวลผลให้เรียก complete_file ใช้ complete_file, skip_file หรือ error_file สำหรับผลลัพธ์รายไฟล์ที่ชัดเจน",
     "param.batch_id.description": "รหัสแบตช์ จำเป็นสำหรับ load/status/finalize; ไม่บังคับสำหรับ init/list",
     "param.task_description.description": "สรุปสั้น ๆ ของงานแบตช์",
     "param.instructions.description": "คำแนะนำโดยละเอียดสำหรับงานแบตช์",
@@ -787,12 +982,19 @@
   "zh_CN": {
     "tool.description": "管理 ~/.uag/batches/ 下多文件任务的批处理状态。",
     "x_search_terms": [
-      "管理 ~/.uag/batches/ 下多文件任务的批处理状态",
       "batch_state",
-      "batch state"
+      "批处理状态",
+      "批处理管理器",
+      "批处理进度",
+      "处理文件",
+      "文件队列",
+      "下一个文件",
+      "批处理概览",
+      "继续批处理",
+      "任务队列"
     ],
     "tool.system_prompt": "管理批处理状态。优先使用 targets=[{dir, files, index}] 和 current_target。使用 current 获取当前文件。处理后调用 complete_file。对于逐文件的明确结果，请使用 complete_file、skip_file 或 error_file。仅返回 JSON。",
-    "param.action.description": "操作：init/load/status/current/complete_file/skip_file/error_file/finalize/list。使用 current 获取当前文件。处理后调用 complete_file。对于逐文件的明确结果，请使用 complete_file、skip_file 或 error_file。",
+    "param.action.description": "操作：init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list。使用 current 获取当前文件。处理后调用 complete_file。对于逐文件的明确结果，请使用 complete_file、skip_file 或 error_file。",
     "param.batch_id.description": "批处理 ID。load/status/finalize 必需；init/list 可选。",
     "param.task_description.description": "批处理任务的简要说明。",
     "param.instructions.description": "批处理任务的详细说明。",
@@ -815,12 +1017,19 @@
   "zh_TW": {
     "tool.description": "管理 ~/.uag/batches/ 下多檔案任務的批次狀態。",
     "x_search_terms": [
-      "管理 ~/.uag/batches/ 下多檔案任務的批次狀態",
       "batch_state",
-      "batch state"
+      "批次狀態",
+      "批次管理器",
+      "批次進度",
+      "處理檔案",
+      "檔案佇列",
+      "下一個檔案",
+      "批次概覽",
+      "繼續批次",
+      "任務佇列"
     ],
     "tool.system_prompt": "管理批次狀態。優先使用 targets=[{dir, files, index}] 和 current_target。使用 current 取得目前的檔案。處理後請呼叫 complete_file。對於逐檔的明確結果，請使用 complete_file、skip_file 或 error_file。僅回傳 JSON。",
-    "param.action.description": "操作：init/load/status/current/complete_file/skip_file/error_file/finalize/list。使用 current 取得目前的檔案。處理後請呼叫 complete_file。對於逐檔的明確結果，請使用 complete_file、skip_file 或 error_file。",
+    "param.action.description": "操作：init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list。使用 current 取得目前的檔案。處理後請呼叫 complete_file。對於逐檔的明確結果，請使用 complete_file、skip_file 或 error_file。",
     "param.batch_id.description": "批次 ID。load/status/finalize 必填；init/list 可選。",
     "param.task_description.description": "批次任務的簡要說明。",
     "param.instructions.description": "批次任務的詳細說明。",

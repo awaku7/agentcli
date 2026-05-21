@@ -6,7 +6,9 @@
       "get_shared_memory",
       "get shared memory",
       "shared memory",
-      "memory data"
+      "shared notes",
+      "multi user memory",
+      "memory store"
     ],
     "tool.system_prompt": "This tool executes the functionality described in TOOL_SPEC."
   },

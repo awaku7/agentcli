@@ -42,6 +42,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "shell command",
             ],
         ),
+        "x_search_terms_en": [
+            "cmd_exec",
+            "cmd exec",
+            "windows command",
+            "command prompt",
+            "cmd",
+            "shell command",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

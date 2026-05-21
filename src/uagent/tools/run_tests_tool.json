@@ -16,9 +16,14 @@
     "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
     "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
     "x_search_terms": [
-      "run_tests",
-      "run tests",
-      "test runner"
+      "test",
+      "pytest",
+      "unittest",
+      "テスト実行",
+      "ejecutar pruebas",
+      "exécuter les tests",
+      "테스트 실행",
+      "запустить тесты"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in the tool description.",
     "summary.no_change": "Successfully made no changes (0 matches)"

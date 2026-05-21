@@ -7,7 +7,9 @@
       "cmd_exec_json",
       "cmd exec json",
       "shell command",
-      "json result"
+      "execute shell",
+      "json command",
+      "cmd"
     ],
     "tool.system_prompt": "This tool is a last resort. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
   },

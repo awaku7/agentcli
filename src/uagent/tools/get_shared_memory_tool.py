@@ -36,6 +36,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "memory store",
             ],
         ),
+        "x_search_terms_en": [
+            "get_shared_memory",
+            "get shared memory",
+            "shared memory",
+            "shared notes",
+            "multi user memory",
+            "memory store",
+        ],
         "parameters": {
             "type": "object",
             "properties": {},

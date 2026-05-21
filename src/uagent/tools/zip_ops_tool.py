@@ -58,6 +58,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "compress",
             ],
         ),
+        "x_search_terms_en": [
+            "zip_ops",
+            "zip ops",
+            "zip",
+            "archive",
+            "extract zip",
+            "compress",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

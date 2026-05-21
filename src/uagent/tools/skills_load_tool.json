@@ -7,8 +7,10 @@
     "x_search_terms": [
       "skills_load",
       "skills load",
-      "load skill",
-      "skill load"
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in the tool description."
   },

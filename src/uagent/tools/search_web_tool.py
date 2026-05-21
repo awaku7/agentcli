@@ -234,6 +234,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "поиск в вебе",
             ],
         ),
+        "x_search_terms_en": [
+            "web search",
+            "duckduckgo",
+            "search internet",
+            "ウェブ検索",
+            "buscar en la web",
+            "recherche web",
+            "웹 검색",
+            "поиск в вебе",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

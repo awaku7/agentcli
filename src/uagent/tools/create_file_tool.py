@@ -55,6 +55,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "создать файл",
             ],
         ),
+        "x_search_terms_en": [
+            "create file",
+            "new file",
+            "write file",
+            "ファイルを作成",
+            "crear archivo",
+            "créer fichier",
+            "파일 만들기",
+            "создать файл",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

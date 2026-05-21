@@ -42,6 +42,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "cmd",
             ],
         ),
+        "x_search_terms_en": [
+            "cmd_exec_json",
+            "cmd exec json",
+            "shell command",
+            "execute shell",
+            "json command",
+            "cmd",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

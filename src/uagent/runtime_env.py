@@ -85,9 +85,7 @@ def _build_uagent_env_text(
 ) -> str:
     source = os.environ if env is None else env
     keys = sorted(
-        k
-        for k in source
-        if k.startswith(prefix) and k not in _RUNTIME_ONLY_UAGENT_KEYS
+        k for k in source if k.startswith(prefix) and k not in _RUNTIME_ONLY_UAGENT_KEYS
     )
     if not keys:
         return ""

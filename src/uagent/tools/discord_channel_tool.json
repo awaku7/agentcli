@@ -17,9 +17,7 @@
     "tool.description": "Interact with a specific Discord channel using a bot token: send messages, read recent messages, and optionally wait for replies after sending.",
     "x_search_terms": [
       "discord_channel",
-      "discord channel",
-      "discord bot",
-      "channel chat"
+      "discord channel"
     ],
     "tool.system_prompt": "Use this tool to talk to a Discord channel via REST API. A bot token must be provided through an environment variable. Return JSON only."
   },

@@ -5,8 +5,10 @@
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
+      "append note",
       "shared memory",
-      "share memory"
+      "share note",
+      "memory store"
     ],
     "tool.system_prompt": "Append exactly one note to the shared memory store.\nDo not store secrets (passwords/tokens/API keys)."
   },

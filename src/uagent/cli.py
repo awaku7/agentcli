@@ -615,8 +615,7 @@ def stdin_loop() -> None:
         except Exception as e:
             # スレッドの突然死を防ぐための広域キャッチ
             print(
-                "\n[ERROR] "
-                + "Unexpected error in stdin_loop: %(err)s" % {"err": e},
+                "\n[ERROR] " + "Unexpected error in stdin_loop: %(err)s" % {"err": e},
                 file=sys.stderr,
             )
             time.sleep(1)

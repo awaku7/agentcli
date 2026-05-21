@@ -4,8 +4,10 @@
     "x_search_terms": [
       "mcp_servers",
       "mcp servers",
-      "server management",
-      "json only"
+      "mcp server",
+      "manage servers",
+      "server profile",
+      "mcp config"
     ],
     "tool.system_prompt": "Operate on MCP server definitions stored in mcp_servers.json. Return JSON only; do not include human-readable text outside JSON.",
     "param.action.description": "Operation to perform. One of: list, add, remove, set_default, validate, init_template.",

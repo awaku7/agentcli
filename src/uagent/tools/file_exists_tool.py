@@ -45,6 +45,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "проверить файл",
             ],
         ),
+        "x_search_terms_en": [
+            "exists",
+            "check file",
+            "check path",
+            "存在確認",
+            "comprobar archivo",
+            "vérifier fichier",
+            "존재 확인",
+            "проверить файл",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

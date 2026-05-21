@@ -3,10 +3,14 @@
     "param.url.description": "URL to access.",
     "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
     "x_search_terms": [
-      "fetch_url",
       "fetch url",
-      "url fetch",
-      "http get"
+      "http get",
+      "download page",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'.",
     "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer).",

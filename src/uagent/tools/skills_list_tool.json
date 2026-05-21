@@ -8,8 +8,10 @@
     "x_search_terms": [
       "skills_list",
       "skills list",
-      "list skills",
-      "skill list"
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },

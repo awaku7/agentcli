@@ -321,11 +321,106 @@ def test_tool_catalog_tool_is_registered() -> None:
     }
     assert "tool_catalog" in names
 
-    out = tools.run_tool("tool_catalog", {"query": "read file", "max_results": 5})
+    out = tools.run_tool("tool_catalog", {"query": "open file", "max_results": 5})
     data = json.loads(out)
     assert data["ok"] is True
     assert data["count"] >= 1
     assert any(item.get("name") == "read_file" for item in data["tools"])
+
+
+def test_tool_catalog_search_uses_natural_terms_even_when_english_terms_exist() -> None:
+    cases = [
+        (
+            "read_file",
+            "open file",
+            ["ファイルを開く", "abrir archivo", "ouvrir le fichier", "파일 열기"],
+        ),
+        (
+            "search_files",
+            "find files",
+            ["ファイルを探す", "buscar archivos", "chercher des fichiers", "파일 찾기"],
+        ),
+        (
+            "get_workdir",
+            "current folder",
+            ["現在のフォルダ", "carpeta actual", "dossier actuel", "현재 폴더"],
+        ),
+    ]
+
+    for tool_name, english_term, localized_queries in cases:
+        spec = _tool_spec(tool_name)
+        fn = spec["function"]
+        fn["x_search_terms_en"] = [english_term]
+        fn["x_search_terms"] = list(localized_queries)
+
+        with _ToolSpecsPatch([spec]):
+            for query in localized_queries:
+                out = tools.run_tool("tool_catalog", {"query": query, "max_results": 5})
+                data = json.loads(out)
+                assert data["ok"] is True
+                assert any(item.get("name") == tool_name for item in data["tools"])
+
+
+def test_tool_catalog_search_uses_localized_terms_even_when_english_terms_exist() -> (
+    None
+):
+    spec = _tool_spec("read_file")
+    fn = spec["function"]
+    fn["x_search_terms"] = [
+        "read file",
+        "ファイルを読む",
+        "leer archivo",
+        "lire le fichier",
+        "파일 읽기",
+    ]
+
+    localized_queries = [
+        ("ja", "ファイルを読む"),
+        ("es", "leer archivo"),
+        ("fr", "lire le fichier"),
+        ("ko", "파일 읽기"),
+    ]
+
+    with _ToolSpecsPatch([spec]):
+        for lang, query in localized_queries:
+            out = tools.run_tool("tool_catalog", {"query": query, "max_results": 5})
+            data = json.loads(out)
+            assert data["ok"] is True, lang
+            assert any(item.get("name") == "read_file" for item in data["tools"]), lang
+
+
+def test_tool_catalog_search_covers_all_tools() -> None:
+    specs = tools.get_tool_specs()
+    checked = 0
+
+    for spec in specs:
+        if not isinstance(spec, dict):
+            continue
+        fn = spec.get("function") or {}
+        if not isinstance(fn, dict):
+            continue
+
+        name = str(fn.get("name") or "").strip()
+        if not name:
+            continue
+
+        terms = []
+        for term in list(fn.get("x_search_terms_en") or []) + list(
+            fn.get("x_search_terms") or []
+        ):
+            if isinstance(term, str) and term.strip():
+                terms.append(term.strip())
+
+        query = terms[0] if terms else name
+        out = tools.run_tool("tool_catalog", {"query": query, "max_results": 20})
+        data = json.loads(out)
+        assert data["ok"] is True
+        assert any(
+            item.get("name") == name for item in data["tools"]
+        ), f"tool_catalog did not return {name!r} for query {query!r}"
+        checked += 1
+
+    assert checked >= 1
 
 
 def test_select_tool_specs_for_gpt54_keeps_catalog_and_human_ask() -> None:

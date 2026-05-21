@@ -47,6 +47,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "переименовать",
             ],
         ),
+        "x_search_terms_en": [
+            "rename file",
+            "move file",
+            "rename path",
+            "名前変更",
+            "renombrar archivo",
+            "renommer fichier",
+            "이름 변경",
+            "переименовать",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

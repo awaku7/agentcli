@@ -62,6 +62,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "mcps list",
             ],
         ),
+        "x_search_terms_en": [
+            "mcps_list",
+            "mcps list",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

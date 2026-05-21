@@ -62,6 +62,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "img2img",
             ],
         ),
+        "x_search_terms_en": [
+            "img2img",
+            "img2img",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

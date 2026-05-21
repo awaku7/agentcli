@@ -25,8 +25,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "finish_skill",
                 "finish skill",
+                "complete skill",
+                "end skill",
+                "skill done",
+                "mark done",
+                "signal complete",
+                "finish task",
+                "stop instructions",
+                "end loop",
             ],
         ),
+        "x_search_terms_en": [
+            "finish_skill",
+            "finish skill",
+            "complete skill",
+            "end skill",
+            "skill done",
+            "mark done",
+            "signal complete",
+            "finish task",
+            "stop instructions",
+            "end loop",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

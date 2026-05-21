@@ -7,10 +7,14 @@
     "param.src.description": "Original path (file/directory). Relative path recommended.",
     "tool.description": "Rename (move) a file or directory.",
     "x_search_terms": [
-      "rename_path",
+      "rename file",
+      "move file",
       "rename path",
-      "move path",
-      "move file"
+      "名前変更",
+      "renombrar archivo",
+      "renommer fichier",
+      "이름 변경",
+      "переименовать"
     ],
     "tool.system_prompt": "This tool renames or moves a file or directory.\n\nSafety notes:\n- Confirmation is required for absolute paths, paths containing '..', or operations outside the workdir.\n- overwrite=true requires confirmation because it deletes the destination first."
   },

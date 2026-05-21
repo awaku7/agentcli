@@ -1055,6 +1055,33 @@ else:
                     "retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
                 ),
             ),
+            "x_search_terms": _(
+                "x_search_terms",
+                default=[
+                    "graph_rag_search",
+                    "graph rag search",
+                    "graphRAG",
+                    "graphrag",
+                    "graph search",
+                    "vector search",
+                    "hybrid search",
+                    "knowledge graph",
+                    "entity relation",
+                    "local file search",
+                ],
+            ),
+            "x_search_terms_en": [
+                "graph_rag_search",
+                "graph rag search",
+                "graphRAG",
+                "graphrag",
+                "graph search",
+                "vector search",
+                "hybrid search",
+                "knowledge graph",
+                "entity relation",
+                "local file search",
+            ],
             "parameters": {
                 "type": "object",
                 "properties": {

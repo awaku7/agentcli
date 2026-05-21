@@ -31,6 +31,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "long term memory",
             ],
         ),
+        "x_search_terms_en": [
+            "get_long_memory",
+            "get long memory",
+            "memory",
+            "notes",
+            "history",
+            "long term memory",
+        ],
         "parameters": {
             "type": "object",
             "properties": {},

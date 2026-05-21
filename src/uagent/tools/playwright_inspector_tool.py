@@ -47,6 +47,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "playwright",
             ],
         ),
+        "x_search_terms_en": [
+            "playwright_inspector",
+            "playwright inspector",
+            "browser automation",
+            "inspector",
+            "capture page",
+            "playwright",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

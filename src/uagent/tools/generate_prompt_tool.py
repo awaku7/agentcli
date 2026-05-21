@@ -56,6 +56,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "format template",
             ],
         ),
+        "x_search_terms_en": [
+            "generate_prompt",
+            "generate prompt",
+            "template prompt",
+            "file to prompt",
+            "prompt string",
+            "format template",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

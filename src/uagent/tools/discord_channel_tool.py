@@ -193,6 +193,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "discord channel",
             ],
         ),
+        "x_search_terms_en": [
+            "discord_channel",
+            "discord channel",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

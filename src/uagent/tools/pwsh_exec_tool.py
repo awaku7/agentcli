@@ -100,6 +100,10 @@ TOOL_SPEC: Dict[str, Any] = {
                 "pwsh exec",
             ],
         ),
+        "x_search_terms_en": [
+            "pwsh_exec",
+            "pwsh exec",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

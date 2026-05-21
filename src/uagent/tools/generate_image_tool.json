@@ -5,7 +5,9 @@
       "generate_image",
       "generate image",
       "image generation",
-      "png image"
+      "png",
+      "text to image",
+      "art"
     ],
     "tool.system_prompt": "Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
     "param.prompt.description": "Instructions (prompt) for the image you want to generate.",

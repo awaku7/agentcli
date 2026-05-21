@@ -493,6 +493,33 @@ else:
                 "tool.description",
                 default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
             ),
+            "x_search_terms": _(
+                "x_search_terms",
+                default=[
+                    "semantic_search_files",
+                    "semantic search files",
+                    "semantic search",
+                    "vector search",
+                    "embedding search",
+                    "local file search",
+                    "search files",
+                    "document search",
+                    "file retrieval",
+                    "semantic retrieval",
+                ],
+            ),
+            "x_search_terms_en": [
+                "semantic_search_files",
+                "semantic search files",
+                "semantic search",
+                "vector search",
+                "embedding search",
+                "local file search",
+                "search files",
+                "document search",
+                "file retrieval",
+                "semantic retrieval",
+            ],
             "parameters": {
                 "type": "object",
                 "properties": {

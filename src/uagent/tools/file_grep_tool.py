@@ -93,6 +93,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "поиск в файлах",
             ],
         ),
+        "x_search_terms_en": [
+            "grep",
+            "search lines",
+            "find in file",
+            "ファイル内検索",
+            "buscar en archivos",
+            "rechercher dans les fichiers",
+            "파일 검색",
+            "поиск в файлах",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

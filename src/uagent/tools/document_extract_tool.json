@@ -4,7 +4,9 @@
     "x_search_terms": [
       "document_extract",
       "document extract",
-      "doc extract",
+      "docx",
+      "rtf",
+      "odt",
       "extract text"
     ],
     "tool.system_prompt": "Read .docx, .rtf, or .odt documents and return JSON only. If output_format=text, place the extracted text in the JSON response. If output_format=json, include structured sections and tables when available.",

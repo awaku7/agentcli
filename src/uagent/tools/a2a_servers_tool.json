@@ -22,7 +22,13 @@
       "a2a_servers",
       "a2a servers",
       "server profile",
-      "server profiles"
+      "server profiles",
+      "profile manager",
+      "manage profiles",
+      "profile list",
+      "server list",
+      "profile settings",
+      "a2a profile"
     ],
     "tool.system_prompt": "Manage A2A server profiles only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task."
   },
@@ -47,9 +53,15 @@
     "tool.description": "uagent の状態ディレクトリ配下（~/.uag/a2a/a2a_servers.json）の A2A サーバープロファイルを管理します。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a サーバー",
+      "サーバープロファイル",
+      "サーバープロファイル一覧",
+      "プロファイル管理",
+      "プロファイルを管理",
+      "プロファイル一覧",
+      "サーバー一覧",
+      "プロファイル設定",
+      "A2A プロファイル"
     ],
     "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。"
   },
@@ -74,9 +86,15 @@
     "tool.description": "Administra perfiles de servidor A2A en el directorio de estado de uagent (~/.uag/a2a/a2a_servers.json). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "servidor a2a",
+      "perfil de servidor",
+      "perfiles de servidor",
+      "gestor de perfiles",
+      "gestionar perfiles",
+      "lista de perfiles",
+      "lista de servidores",
+      "configuración de perfil",
+      "perfil a2a"
     ],
     "tool.system_prompt": "Administre la lista de perfiles de servidor A2A. Devuelva solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea."
   },
@@ -101,9 +119,15 @@
     "tool.description": "Gère les profils de serveur A2A dans le répertoire d’état de uagent (~/.uag/a2a/a2a_servers.json). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "serveur a2a",
+      "profil de serveur",
+      "profils de serveur",
+      "gestionnaire de profils",
+      "gérer les profils",
+      "liste des profils",
+      "liste des serveurs",
+      "paramètres du profil",
+      "profil a2a"
     ],
     "tool.system_prompt": "Gérez la liste des profils de serveur A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche."
   },
@@ -128,9 +152,15 @@
     "tool.description": "uagent 상태 디렉터리(~/.uag/a2a/a2a_servers.json)의 A2A 서버 프로필을 관리합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a 서버",
+      "서버 프로필",
+      "서버 프로필들",
+      "프로필 관리자",
+      "프로필 관리",
+      "프로필 목록",
+      "서버 목록",
+      "프로필 설정",
+      "A2A 프로필"
     ],
     "tool.system_prompt": "A2A 서버 프로필 목록을 관리합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요."
   },
@@ -155,9 +185,15 @@
     "tool.description": "A2A-Serverprofile im uagent-Statusverzeichnis (~/.uag/a2a/a2a_servers.json) verwalten. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a-server",
+      "serverprofil",
+      "serverprofile",
+      "profilmanager",
+      "profile verwalten",
+      "profil liste",
+      "server liste",
+      "profileinstellungen",
+      "a2a-profil"
     ],
     "tool.system_prompt": "Verwalten Sie die Liste der A2A-Serverprofile. Geben Sie nur JSON zurück. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können."
   },
@@ -182,9 +218,15 @@
     "tool.description": "Gestisce i profili dei server A2A nella directory di stato di uagent (~/.uag/a2a/a2a_servers.json). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "server a2a",
+      "profilo server",
+      "profili server",
+      "gestore profili",
+      "gestisci profili",
+      "elenco profili",
+      "elenco server",
+      "impostazioni profilo",
+      "profilo a2a"
     ],
     "tool.system_prompt": "Gestisci l’elenco dei profili del server A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito."
   },
@@ -209,9 +251,15 @@
     "tool.description": "Управляйте профилями сервера A2A в каталоге состояния uagent (~/.uag/a2a/a2a_servers.json). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "сервер a2a",
+      "профиль сервера",
+      "профили сервера",
+      "менеджер профилей",
+      "управлять профилями",
+      "список профилей",
+      "список серверов",
+      "настройки профиля",
+      "профиль a2a"
     ],
     "tool.system_prompt": "Управляйте списком профилей серверов A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу."
   },
@@ -236,9 +284,15 @@
     "tool.description": "Gerencie os perfis de servidor A2A no diretório de estado do uagent (~/.uag/a2a/a2a_servers.json). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "servidor a2a",
+      "perfil do servidor",
+      "perfis do servidor",
+      "gerenciador de perfis",
+      "gerenciar perfis",
+      "lista de perfis",
+      "lista de servidores",
+      "configurações de perfil",
+      "perfil a2a"
     ],
     "tool.system_prompt": "Gerencie a lista de perfis de servidor A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa."
   },
@@ -263,9 +317,15 @@
     "tool.description": "Gerencie perfis de servidor A2A no diretório de estado uagent (~/.uag/a2a/a2a_servers.json). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "servidor a2a",
+      "perfil do servidor",
+      "perfis do servidor",
+      "gestor de perfis",
+      "gerir perfis",
+      "lista de perfis",
+      "lista de servidores",
+      "definições de perfil",
+      "perfil a2a"
     ],
     "tool.system_prompt": "Operar na lista de perfis do servidor A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa."
   },
@@ -290,9 +350,15 @@
     "tool.description": "Kelola profil server A2A di direktori status uagent (~/.uag/a2a/a2a_servers.json). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "server a2a",
+      "profil server",
+      "profil server jamak",
+      "pengelola profil",
+      "kelola profil",
+      "daftar profil",
+      "daftar server",
+      "pengaturan profil",
+      "profil a2a"
     ],
     "tool.system_prompt": "Kelola daftar profil server A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas."
   },
@@ -317,9 +383,15 @@
     "tool.description": "Quản lý cấu hình máy chủ A2A trong thư mục trạng thái uagent (~/.uag/a2a/a2a_servers.json). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "máy chủ a2a",
+      "hồ sơ máy chủ",
+      "các hồ sơ máy chủ",
+      "trình quản lý hồ sơ",
+      "quản lý hồ sơ",
+      "danh sách hồ sơ",
+      "danh sách máy chủ",
+      "cài đặt hồ sơ",
+      "hồ sơ a2a"
     ],
     "tool.system_prompt": "Hoạt động trên danh sách hồ sơ máy chủ A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ."
   },
@@ -344,9 +416,15 @@
     "tool.description": "Zarządzaj profilami serwerów A2A w katalogu stanu uagent (~/.uag/a2a/a2a_servers.json). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "serwer a2a",
+      "profil serwera",
+      "profile serwera",
+      "menedżer profili",
+      "zarządzaj profilami",
+      "lista profili",
+      "lista serwerów",
+      "ustawienia profilu",
+      "profil a2a"
     ],
     "tool.system_prompt": "Działaj na liście profili serwerów A2A. Zwróć tylko JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania."
   },
@@ -371,9 +449,15 @@
     "tool.description": "यूएजेंट स्टेट डीआईआर (~/.uag/a2a/a2a_servers.json) के तहत A2A सर्वर प्रोफाइल प्रबंधित करें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a सर्वर",
+      "सर्वर प्रोफ़ाइल",
+      "सर्वर प्रोफ़ाइलें",
+      "प्रोफ़ाइल प्रबंधक",
+      "प्रोफ़ाइल प्रबंधित करें",
+      "प्रोफ़ाइल सूची",
+      "सर्वर सूची",
+      "प्रोफ़ाइल सेटिंग्स",
+      "a2a प्रोफ़ाइल"
     ],
     "tool.system_prompt": "A2A सर्वर प्रोफ़ाइल सूची पर कार्य करें। केवल JSON लौटाएँ. केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।"
   },
@@ -398,9 +482,15 @@
     "tool.description": "إدارة ملفات تعريف خوادم A2A في دليل حالة uagent (~/.uag/a2a/a2a_servers.json). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "خادم a2a",
+      "ملف الخادم",
+      "ملفات الخادم",
+      "مدير الملفات الشخصية",
+      "إدارة الملفات الشخصية",
+      "قائمة الملفات الشخصية",
+      "قائمة الخوادم",
+      "إعدادات الملف الشخصي",
+      "ملف a2a"
     ],
     "tool.system_prompt": "أدر قائمة ملفات تعريف خوادم A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة."
   },
@@ -425,9 +515,15 @@
     "tool.description": "Hantera A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a-server",
+      "serverprofil",
+      "serverprofiler",
+      "profilhanterare",
+      "hantera profiler",
+      "profillista",
+      "serverlista",
+      "profilinställningar",
+      "a2a-profil"
     ],
     "tool.system_prompt": "Hantera listan över A2A-serverprofiler. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften."
   },
@@ -452,9 +548,15 @@
     "tool.description": "Dhibiti wasifu za seva za A2A kwenye saraka ya hali ya uagent (~/.uag/a2a/a2a_servers.json). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "seva ya a2a",
+      "wasifu wa seva",
+      "wasifu za seva",
+      "kidhibiti cha wasifu",
+      "dhibiti wasifu",
+      "orodha ya wasifu",
+      "orodha ya seva",
+      "mipangilio ya wasifu",
+      "wasifu wa a2a"
     ],
     "tool.system_prompt": "Dhibiti orodha ya wasifu za seva za A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi."
   },
@@ -479,9 +581,15 @@
     "tool.description": "Administrer A2A-serverprofiler i uagent-statuskatalogen (~/.uag/a2a/a2a_servers.json). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a-server",
+      "serverprofil",
+      "serverprofiler",
+      "profilbehandler",
+      "administrer profiler",
+      "profilliste",
+      "serverliste",
+      "profilinnstillinger",
+      "a2a-profil"
     ],
     "tool.system_prompt": "Arbeid med listen over A2A-serverprofiler. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven."
   },
@@ -506,9 +614,15 @@
     "tool.description": "Beheer A2A-serverprofielen onder de uagent state-map (~/.uag/a2a/a2a_servers.json). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a-server",
+      "serverprofiel",
+      "serverprofielen",
+      "profielbeheerder",
+      "profielen beheren",
+      "profiellijst",
+      "serverlijst",
+      "profielinstellingen",
+      "a2a-profiel"
     ],
     "tool.system_prompt": "Werk op de lijst met A2A-serverprofielen. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen."
   },
@@ -533,9 +647,15 @@
     "tool.description": "Hallitse A2A-palvelinprofiileja uagentin tilahakemistossa (~/.uag/a2a/a2a_servers.json). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a-palvelin",
+      "palvelinprofiili",
+      "palvelinprofiilit",
+      "profiilinhallinta",
+      "hallinnoi profiileja",
+      "profiililuettelo",
+      "palvelinluettelo",
+      "profiiliasetukset",
+      "a2a-profiili"
     ],
     "tool.system_prompt": "Käsittele A2A-palvelinprofiilien listaa. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää."
   },
@@ -560,9 +680,15 @@
     "tool.description": "Spravuje profily A2A serverů v adresáři stavu uagent (~/.uag/a2a/a2a_servers.json). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "server a2a",
+      "profil serveru",
+      "profily serveru",
+      "správce profilů",
+      "spravovat profily",
+      "seznam profilů",
+      "seznam serverů",
+      "nastavení profilu",
+      "profil a2a"
     ],
     "tool.system_prompt": "Pracujte se seznamem profilů A2A serverů. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit."
   },
@@ -587,9 +713,15 @@
     "tool.description": "Керує профілями серверів A2A в каталозі стану uagent (~/.uag/a2a/a2a_servers.json). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "сервер a2a",
+      "профіль сервера",
+      "профілі сервера",
+      "менеджер профілів",
+      "керувати профілями",
+      "список профілів",
+      "список серверів",
+      "налаштування профілю",
+      "профіль a2a"
     ],
     "tool.system_prompt": "Працюйте зі списком профілів серверів A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання."
   },
@@ -614,9 +746,15 @@
     "tool.description": "uagent durumu dizini (~/.uag/a2a/a2a_servers.json) altında A2A sunucu profillerini yönetin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a sunucusu",
+      "sunucu profili",
+      "sunucu profilleri",
+      "profil yöneticisi",
+      "profilleri yönet",
+      "profil listesi",
+      "sunucu listesi",
+      "profil ayarları",
+      "a2a profili"
     ],
     "tool.system_prompt": "A2A sunucu profili listesini yönetin. Yalnızca JSON değerini döndür. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın."
   },
@@ -641,9 +779,15 @@
     "tool.description": "จัดการโปรไฟล์เซิร์ฟเวอร์ A2A ในไดเรกทอรีสถานะของ uagent (~/.uag/a2a/a2a_servers.json). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "เซิร์ฟเวอร์ a2a",
+      "โปรไฟล์เซิร์ฟเวอร์",
+      "โปรไฟล์เซิร์ฟเวอร์หลายรายการ",
+      "ตัวจัดการโปรไฟล์",
+      "จัดการโปรไฟล์",
+      "รายการโปรไฟล์",
+      "รายการเซิร์ฟเวอร์",
+      "การตั้งค่าโปรไฟล์",
+      "โปรไฟล์ a2a"
     ],
     "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืน JSON เท่านั้น. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้."
   },
@@ -668,9 +812,15 @@
     "tool.description": "管理 uagent 状态目录（~/.uag/a2a/a2a_servers.json）下的 A2A 服务器配置文件。 仅在本地工具无法替代该任务时使用。",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "A2A 服务器",
+      "服务器配置",
+      "服务器配置文件",
+      "配置管理器",
+      "管理配置",
+      "配置列表",
+      "服务器列表",
+      "配置设置",
+      "A2A 配置"
     ],
     "tool.system_prompt": "管理 A2A 服务器配置文件列表。仅返回 JSON。 仅在本地工具无法替代该任务时使用。"
   },
@@ -695,9 +845,15 @@
     "tool.description": "管理 uagent 狀態目錄（~/.uag/a2a/a2a_servers.json）下的 A2A 伺服器設定檔。 僅在本機工具無法取代該任務時使用。",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "A2A 伺服器",
+      "伺服器設定檔",
+      "伺服器設定檔列表",
+      "設定檔管理器",
+      "管理設定檔",
+      "設定檔列表",
+      "伺服器列表",
+      "設定檔設定",
+      "A2A 設定檔"
     ],
     "tool.system_prompt": "管理 A2A 伺服器設定檔列表。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。"
   },
@@ -722,9 +878,15 @@
     "tool.description": "uagent state dir (~/.uag/a2a/a2a_servers.json)-এ A2A সার্ভার প্রোফাইল পরিচালনা করে। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a সার্ভার",
+      "সার্ভার প্রোফাইল",
+      "সার্ভার প্রোফাইলসমূহ",
+      "প্রোফাইল ব্যবস্থাপক",
+      "প্রোফাইল পরিচালনা",
+      "প্রোফাইল তালিকা",
+      "সার্ভার তালিকা",
+      "প্রোফাইল সেটিংস",
+      "a2a প্রোফাইল"
     ],
     "tool.system_prompt": "A2A সার্ভার প্রোফাইল পরিচালনা করুন। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।"
   },
@@ -749,9 +911,15 @@
     "tool.description": "پروفایل‌های سرور A2A را در پوشهٔ وضعیت uagent (~/.uag/a2a/a2a_servers.json) مدیریت می‌کند. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "سرور a2a",
+      "پروفایل سرور",
+      "پروفایل‌های سرور",
+      "مدیر پروفایل",
+      "مدیریت پروفایل‌ها",
+      "فهرست پروفایل‌ها",
+      "فهرست سرورها",
+      "تنظیمات پروفایل",
+      "پروفایل a2a"
     ],
     "tool.system_prompt": "فهرست پروفایل‌های سرور A2A را مدیریت کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند."
   },
@@ -776,9 +944,15 @@
     "tool.description": "uagent-ийн state dir (~/.uag/a2a/a2a_servers.json)-д байгаа A2A серверийн профайлуудыг удирдана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a сервер",
+      "серверийн профайл",
+      "серверийн профайлууд",
+      "профайл менежер",
+      "профайлуудыг удирдах",
+      "профайлын жагсаалт",
+      "серверийн жагсаалт",
+      "профайлын тохиргоо",
+      "a2a профайл"
     ],
     "tool.system_prompt": "A2A серверийн профайлуудын жагсаалтыг удирдана. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу."
   },
@@ -803,9 +977,15 @@
     "tool.description": "uagent state dir (~/.uag/a2a/a2a_servers.json) मधील A2A सर्व्हर प्रोफाइल्स व्यवस्थापित करते. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "x_search_terms": [
       "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles"
+      "a2a सर्व्हर",
+      "सर्व्हर प्रोफाइल",
+      "सर्व्हर प्रोफाइल्स",
+      "प्रोफाइल व्यवस्थापक",
+      "प्रोफाइल व्यवस्थापित करा",
+      "प्रोफाइल सूची",
+      "सर्व्हर सूची",
+      "प्रोफाइल सेटिंग्ज",
+      "a2a प्रोफाइल"
     ],
     "tool.system_prompt": "A2A सर्व्हर प्रोफाइल्सची यादी व्यवस्थापित करा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा."
   }

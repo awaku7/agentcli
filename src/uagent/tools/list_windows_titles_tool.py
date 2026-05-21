@@ -37,6 +37,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "class name",
             ],
         ),
+        "x_search_terms_en": [
+            "list_windows_titles",
+            "list windows titles",
+            "window titles",
+            "top-level windows",
+            "pid",
+            "class name",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

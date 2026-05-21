@@ -661,7 +661,7 @@ class MainWindow(QtWidgets.QMainWindow):
             cur = 0
             for mm in self._URL_RE.finditer(s or ""):
                 if mm.start() > cur:
-                    cursor.insertText(s[cur:mm.start()], base_fmt)
+                    cursor.insertText(s[cur : mm.start()], base_fmt)
                 raw = mm.group(0)
                 href = raw if not raw.lower().startswith("www.") else "https://" + raw
                 # Do not construct QTextCharFormat(base_fmt): PySide builds may reject it,
@@ -689,7 +689,9 @@ class MainWindow(QtWidgets.QMainWindow):
             while i < len(params):
                 p = params[i]
                 if p == 0:
-                    state.update({"fg": None, "bg": None, "bold": False, "italic": False})
+                    state.update(
+                        {"fg": None, "bg": None, "bold": False, "italic": False}
+                    )
                 elif p == 1:
                     state["bold"] = True
                 elif p == 3:
@@ -723,7 +725,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         pos = 0
         for m in self._ansi_re.finditer(text):
-            chunk = text[pos:m.start()]
+            chunk = text[pos : m.start()]
             if chunk:
                 cursor.insertText(chunk, _format())
             raw = m.group(0)

@@ -16,8 +16,11 @@
     "tool.description": "Use exstruct to extract structured data from an Excel (.xlsx) file and return or save it as JSON/YAML. If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving.",
     "x_search_terms": [
       "exstruct",
+      "exstruct",
       "structured data",
-      "json yaml"
+      "excel structure",
+      "export json",
+      "export yaml"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'.",
     "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",

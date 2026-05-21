@@ -520,6 +520,7 @@ def _collect_search_terms(value: Any) -> List[str]:
     term = str(value).strip()
     return [term] if term else []
 
+
 def get_tool_catalog(
     *,
     query: str,
@@ -535,7 +536,12 @@ def get_tool_catalog(
     if limit <= 0:
         limit = 12
 
-    debug_tools = str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() in {"1", "true", "yes", "on"}
+    debug_tools = str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
     tokens = _tokenize_catalog_query(q) if q else []
     if debug_tools:
         try:
@@ -566,7 +572,8 @@ def get_tool_catalog(
         if isinstance(properties, dict):
             param_names = [str(k) for k in properties.keys()]
 
-        search_terms = _collect_search_terms(fn.get("x_search_terms"))
+        search_terms = _collect_search_terms(fn.get("x_search_terms_en"))
+        search_terms += _collect_search_terms(fn.get("x_search_terms"))
         search_haystack = " ".join([p for p in search_terms if p]).lower()
         haystack_parts = [name, description] + param_names + search_terms
         haystack = " ".join([p for p in haystack_parts if p]).lower()
@@ -648,7 +655,10 @@ def get_tool_catalog(
         )
     if debug_tools:
         try:
-            print(f"[TOOLCAT] matched={[(r['name'], r['score']) for r in rows[:limit]]}", flush=True)
+            print(
+                f"[TOOLCAT] matched={[(r['name'], r['score']) for r in rows[:limit]]}",
+                flush=True,
+            )
         except Exception:
             pass
     return out

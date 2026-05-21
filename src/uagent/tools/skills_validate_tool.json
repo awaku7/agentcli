@@ -8,8 +8,10 @@
     "x_search_terms": [
       "skills_validate",
       "skills validate",
-      "validate skill",
-      "skill validation"
+      "agent skill",
+      "skill management",
+      "skill file",
+      "SKILL.md"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },

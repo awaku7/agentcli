@@ -8,8 +8,10 @@
     "x_search_terms": [
       "playwright_inspector",
       "playwright inspector",
-      "browser capture",
-      "flow capture"
+      "browser automation",
+      "inspector",
+      "capture page",
+      "playwright"
     ],
     "tool.system_prompt": "Use this tool for the purpose described in TOOL_SPEC.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/, pages/, index.jsonl, latest.html ---",

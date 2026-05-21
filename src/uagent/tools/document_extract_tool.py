@@ -65,6 +65,14 @@ TOOL_SPEC: dict[str, Any] = {
                 "extract text",
             ],
         ),
+        "x_search_terms_en": [
+            "document_extract",
+            "document extract",
+            "docx",
+            "rtf",
+            "odt",
+            "extract text",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

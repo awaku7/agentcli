@@ -29,6 +29,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "рабочая директория",
             ],
         ),
+        "x_search_terms_en": [
+            "working directory",
+            "cwd",
+            "current dir",
+            "作業ディレクトリ",
+            "directorio de trabajo",
+            "répertoire de travail",
+            "작업 디렉터리",
+            "рабочая директория",
+        ],
         "parameters": {
             "type": "object",
             "properties": {},

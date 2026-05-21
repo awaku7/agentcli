@@ -47,6 +47,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "cache values",
             ],
         ),
+        "x_search_terms_en": [
+            "recalc_excel",
+            "recalc excel",
+            "recalculate",
+            "excel formula",
+            "windows com",
+            "cache values",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

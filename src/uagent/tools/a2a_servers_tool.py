@@ -112,8 +112,28 @@ TOOL_SPEC: Dict[str, Any] = {
             default=[
                 "a2a_servers",
                 "a2a servers",
+                "server profile",
+                "server profiles",
+                "profile manager",
+                "manage profiles",
+                "profile list",
+                "server list",
+                "profile settings",
+                "a2a profile",
             ],
         ),
+        "x_search_terms_en": [
+            "a2a_servers",
+            "a2a servers",
+            "server profile",
+            "server profiles",
+            "profile manager",
+            "manage profiles",
+            "profile list",
+            "server list",
+            "profile settings",
+            "a2a profile",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

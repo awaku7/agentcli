@@ -33,6 +33,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "SKILL.md",
             ],
         ),
+        "x_search_terms_en": [
+            "skills_load",
+            "skills load",
+            "agent skill",
+            "skill management",
+            "skill file",
+            "SKILL.md",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -40,6 +40,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "delay",
             ],
         ),
+        "x_search_terms_en": [
+            "set_timer",
+            "set timer",
+            "timer",
+            "reminder",
+            "alarm",
+            "delay",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

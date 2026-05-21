@@ -38,6 +38,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "text file",
             ],
         ),
+        "x_search_terms_en": [
+            "skills_read_file",
+            "skills read file",
+            "open file",
+            "read file",
+            "file contents",
+            "text file",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

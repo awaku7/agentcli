@@ -4,8 +4,9 @@
     "x_search_terms": [
       "teams_webhook",
       "teams webhook",
-      "post to teams",
-      "webhook payload"
+      "post message",
+      "incoming webhook",
+      "notify teams"
     ],
     "tool.system_prompt": "Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
     "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",

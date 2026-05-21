@@ -82,11 +82,34 @@ TOOL_SPEC: Dict[str, Any] = {
         "x_search_terms": _(
             "x_search_terms",
             default=[
-                "replace text",
-                "edit file",
-                "find and replace",
+                "replace_in_file",
+                "replace in file",
+                "file replace",
+                "file edit",
+                "file replacement",
+                "file editing",
+                "text replace",
+                "text edit",
+                "text replacement",
+                "text editing",
+                "find replace",
+                "search replace",
             ],
         ),
+        "x_search_terms_en": [
+            "replace_in_file",
+            "replace in file",
+            "file replace",
+            "file edit",
+            "file replacement",
+            "file editing",
+            "text replace",
+            "text edit",
+            "text replacement",
+            "text editing",
+            "find replace",
+            "search replace",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -285,7 +308,10 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
     truncated = False
     for line in difflib.unified_diff(a, b, fromfile=f"a/{path}", tofile=f"b/{path}"):
         line_len = len(line)
-        if out_lines >= MAX_DIFF_OUTPUT_LINES or out_len + line_len > MAX_DIFF_OUTPUT_CHARS:
+        if (
+            out_lines >= MAX_DIFF_OUTPUT_LINES
+            or out_len + line_len > MAX_DIFF_OUTPUT_CHARS
+        ):
             truncated = True
             break
         out.append(line)
@@ -294,6 +320,8 @@ def _unified_diff(path: str, original: str, replaced: str) -> str:
     if truncated:
         out.append("\n[diff truncated: output too large]")
     return "".join(out)
+
+
 def _write_text_robust(path: str, text: str, encoding: str) -> None:
     with open(path, "w", encoding=encoding, newline="") as f:
         f.write(text)
@@ -383,6 +411,7 @@ def _nth_literal_match(haystack: str, needle: str, occurrence: int) -> _Hit | No
             return _Hit(pos, pos + len(needle))
         start = pos + len(needle)
     return None
+
 
 def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
     return [_Hit(m.start(), m.end()) for m in pattern.finditer(haystack)]
@@ -1044,7 +1073,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     match_count = len(hits)
                 else:
                     match_count = sum(1 for _ in regex_pattern.finditer(orig_norm))
-                    target_match = _nth_regex_match(orig_norm, regex_pattern, occurrence)
+                    target_match = _nth_regex_match(
+                        orig_norm, regex_pattern, occurrence
+                    )
                     if target_match is not None:
                         target_hit = _Hit(target_match.start(), target_match.end())
                         hits = [target_hit]
@@ -1074,7 +1105,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                     match_count = len(hits)
                 else:
                     match_count = sum(1 for _ in regex_pattern.finditer(orig_norm))
-                    target_match = _nth_regex_match(orig_norm, regex_pattern, occurrence)
+                    target_match = _nth_regex_match(
+                        orig_norm, regex_pattern, occurrence
+                    )
                     if target_match is not None:
                         target_hit = _Hit(target_match.start(), target_match.end())
                         hits = [target_hit]

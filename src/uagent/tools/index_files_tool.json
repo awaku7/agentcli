@@ -18,8 +18,14 @@
     "x_search_terms": [
       "index_files",
       "index files",
-      "semantic search",
-      "vector index"
+      "file indexing",
+      "indexing files",
+      "semantic indexing",
+      "vector index",
+      "build index",
+      "batch index",
+      "index directory",
+      "glob index"
     ],
     "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
   },

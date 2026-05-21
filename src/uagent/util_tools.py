@@ -439,9 +439,7 @@ def _handle_cmd_cd(
 
         print("[cd] workdir = %(path)s" % {"path": now})
     except Exception as e:
-        print(
-            "[cd error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[cd error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -484,9 +482,7 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             print("[ls] %(path)s" % {"path": expanded})
             for _, _, name, p_abs, is_dir, size in items:
                 if is_dir:
-                    print(
-                        "  [D] %(name)s -> %(path)s" % {"name": name, "path": p_abs}
-                    )
+                    print("  [D] %(name)s -> %(path)s" % {"name": name, "path": p_abs})
                 else:
                     print(
                         "  [F] %(name)s (%(size)d bytes) -> %(path)s"
@@ -522,13 +518,9 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
             if is_dir:
                 print("  [D] %(name)s" % {"name": name})
             else:
-                print(
-                    "  [F] %(name)s (%(size)d bytes)" % {"name": name, "size": size}
-                )
+                print("  [F] %(name)s (%(size)d bytes)" % {"name": name, "size": size})
     except Exception as e:
-        print(
-            "[ls error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[ls error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
 
     return True
 
@@ -578,8 +570,7 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
                 print("- %(name)s" % {"name": name})
     except Exception as e:
         print(
-            "[tools error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
+            "[tools error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
 
     return True
@@ -639,9 +630,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(
-            "[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -688,15 +677,10 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
                 return True
             shutil.copy2(src, target)
 
-        print(
-            "[cp] Copied: %(src)s -> %(dst)s"
-            % {"src": str(src), "dst": str(target)}
-        )
+        print("[cp] Copied: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)})
         return True
     except Exception as e:
-        print(
-            "[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -709,9 +693,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print(
-            "[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     src_raw, dst_raw = items[0], items[1]
@@ -730,8 +712,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
         if target.exists():
             if not overwrite:
                 print(
-                    "[mv] Destination already exists: %(path)s"
-                    % {"path": str(target)}
+                    "[mv] Destination already exists: %(path)s" % {"path": str(target)}
                 )
                 return True
             _remove_existing_path(target)
@@ -746,14 +727,10 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
             return True
 
         os.replace(src, target)
-        print(
-            "[mv] Moved: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)}
-        )
+        print("[mv] Moved: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)})
         return True
     except Exception as e:
-        print(
-            "[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -766,10 +743,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(
-            "[head error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
-        )
+        print("[head error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
@@ -818,9 +792,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
             except Exception:
                 res = None
             if isinstance(res, dict) and not res.get("ok", False):
-                print(
-                    str(res.get("error") or res.get("stderr") or "[head] Failed.")
-                )
+                print(str(res.get("error") or res.get("stderr") or "[head] Failed."))
                 return True
             if isinstance(res, dict):
                 content = str(res.get("content") or "")
@@ -830,10 +802,7 @@ def _handle_cmd_head(arg: str, *, tr: Any) -> bool:
             print("[head] Empty.")
         return True
     except Exception as e:
-        print(
-            "[head error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
-        )
+        print("[head error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -846,10 +815,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(
-            "[tail error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
-        )
+        print("[tail error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
@@ -898,9 +864,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
             except Exception:
                 res = None
             if isinstance(res, dict) and not res.get("ok", False):
-                print(
-                    str(res.get("error") or res.get("stderr") or "[tail] Failed.")
-                )
+                print(str(res.get("error") or res.get("stderr") or "[tail] Failed."))
                 return True
             if isinstance(res, dict):
                 content = str(res.get("content") or "")
@@ -910,10 +874,7 @@ def _handle_cmd_tail(arg: str, *, tr: Any) -> bool:
             print("[tail] Empty.")
         return True
     except Exception as e:
-        print(
-            "[tail error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
-        )
+        print("[tail error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1233,8 +1194,7 @@ def _handle_cmd_skills(
 
     except Exception as e:
         print(
-            "[skills error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
+            "[skills error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
         )
 
     return CommandResult()
@@ -1579,9 +1539,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
                 print(str(stderr))
         return True
     except Exception as e:
-        print(
-            "[rm error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[rm error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
 
@@ -1612,10 +1570,7 @@ def _handle_cmd_load(
         print(tr("Log file not found: %(path)s") % {"path": target_path})
         return True
     except Exception as e:
-        print(
-            "[load error] %(etype)s: %(err)s"
-            % {"etype": type(e).__name__, "err": e}
-        )
+        print("[load error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     new_messages = insert_tools_system_message(new_messages, core=core)
@@ -1768,9 +1723,7 @@ def _handle_cmd_mem_del(arg: str, *, tr: Any) -> bool:
     try:
         idx = int(arg)
     except Exception:
-        print(
-            "[mem-del error] Failed to parse index as int: %(arg)r" % {"arg": arg}
-        )
+        print("[mem-del error] Failed to parse index as int: %(arg)r" % {"arg": arg})
         return True
 
     if personal_long_memory.delete_long_memory_entry(idx):
@@ -1965,9 +1918,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
     try:
         items = shlex.split(raw, posix=False)
     except Exception as e:
-        print(
-            "[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
-        )
+        print("[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
         return True
 
     if not items:
@@ -2027,8 +1978,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
             print("[env] Saved .env.sec: %(path)s" % {"path": str(sec_path)})
         except Exception as e:
             print(
-                "[env error] %(etype)s: %(err)s"
-                % {"etype": type(e).__name__, "err": e}
+                "[env error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e}
             )
         return True
 
@@ -2104,7 +2054,6 @@ def handle_command(
 
     if cmd == "mem-del":
         return _handle_cmd_mem_del(arg, tr=tr)
-
 
     if cmd == "cp":
         return _handle_cmd_cp(arg, tr=tr)

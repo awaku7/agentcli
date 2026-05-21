@@ -45,6 +45,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "geo ip",
             ],
         ),
+        "x_search_terms_en": [
+            "get_geoip",
+            "get geoip",
+            "location",
+            "country",
+            "ip geolocation",
+            "geo ip",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -22,8 +22,10 @@
     "x_search_terms": [
       "recalc_excel",
       "recalc excel",
-      "excel recalc",
-      "recalculate excel"
+      "recalculate",
+      "excel formula",
+      "windows com",
+      "cache values"
     ],
     "tool.system_prompt": "Use this tool when formula cached values in .xlsx are stale (for example, when openpyxl data_only reads old values). This tool opens workbook(s) in Microsoft Excel via COM, performs a full recalculation, and saves.",
     "param.password.description": "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, you will be prompted once for a password.",

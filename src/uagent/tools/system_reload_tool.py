@@ -36,6 +36,16 @@ TOOL_SPEC = {
                 "перезагрузить систему",
             ],
         ),
+        "x_search_terms_en": [
+            "reload system",
+            "refresh tools",
+            "reload code",
+            "システムリロード",
+            "recargar sistema",
+            "recharger le système",
+            "시스템 재로드",
+            "перезагрузить систему",
+        ],
         "parameters": {"type": "object", "properties": {}, "required": []},
     },
 }

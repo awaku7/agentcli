@@ -4,8 +4,10 @@
     "x_search_terms": [
       "audio_speech",
       "audio speech",
-      "text to speech",
-      "speech audio"
+      "audio",
+      "voice",
+      "speech",
+      "sound"
     ],
     "tool.system_prompt": "Generate speech audio from the given text and save it to the specified output path. Return a JSON response only.",
     "param.text.description": "Text to synthesize into speech.",

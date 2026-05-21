@@ -55,6 +55,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "decision",
             ],
         ),
+        "x_search_terms_en": [
+            "human_ask",
+            "human ask",
+            "ask user",
+            "prompt user",
+            "human input",
+            "decision",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

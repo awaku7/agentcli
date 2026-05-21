@@ -6,6 +6,8 @@
       "cmd_exec",
       "cmd exec",
       "windows command",
+      "command prompt",
+      "cmd",
       "shell command"
     ],
     "tool.system_prompt": "This tool is a LAST RESORT. Use it only if no other appropriate tool is available."

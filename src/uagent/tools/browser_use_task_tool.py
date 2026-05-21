@@ -100,6 +100,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "browser use",
             ],
         ),
+        "x_search_terms_en": [
+            "browser_use_task",
+            "browser use task",
+            "browser automation",
+            "interactive browser",
+            "website task",
+            "browser use",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -280,13 +280,17 @@ def _attachment_to_gemini_part(att: Dict[str, Any]) -> Any | None:
     except Exception:
         return None
 
-    mime = str(
-        att.get("mime")
-        or att.get("mime_type")
-        or att.get("content_type")
-        or att.get("type")
-        or ""
-    ).strip().lower()
+    mime = (
+        str(
+            att.get("mime")
+            or att.get("mime_type")
+            or att.get("content_type")
+            or att.get("type")
+            or ""
+        )
+        .strip()
+        .lower()
+    )
 
     def _normalize_mime(m: str, path: str | None = None) -> str:
         mm = (m or "").strip().lower()

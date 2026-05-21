@@ -27,6 +27,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "browser process",
             ],
         ),
+        "x_search_terms_en": [
+            "spawn_process",
+            "spawn process",
+            "launch process",
+            "start app",
+            "gui process",
+            "browser process",
+        ],
         "parameters": {
             "properties": {
                 "command": {

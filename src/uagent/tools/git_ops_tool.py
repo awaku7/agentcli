@@ -69,6 +69,16 @@ TOOL_SPEC: Dict[str, Any] = {
                 "git",
             ],
         ),
+        "x_search_terms_en": [
+            "git",
+            "branch",
+            "commit",
+            "git コマンド",
+            "git",
+            "git",
+            "깃",
+            "git",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

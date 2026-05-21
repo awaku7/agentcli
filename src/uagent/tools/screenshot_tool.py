@@ -41,6 +41,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "png capture",
             ],
         ),
+        "x_search_terms_en": [
+            "screenshot",
+            "screenshot",
+            "screen capture",
+            "window capture",
+            "desktop screenshot",
+            "png capture",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

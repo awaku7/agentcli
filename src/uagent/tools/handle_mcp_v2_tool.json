@@ -8,9 +8,11 @@
     "tool.description": "Call a tool from an MCP server. Provide tool arguments in tool_arguments as a JSON object (recommended) or JSON string. The return value is a JSON string containing at least ok and text. When applicable, saved_path is included (for example, when the server returns saved_path, or when a file payload such as {filename, mime, data_base64} is returned and this client saves it to a local downloads directory). Note: saved_path may be omitted when the tool does not return any file payload.",
     "x_search_terms": [
       "handle_mcp_v2",
-      "mcp tool call",
-      "call mcp tool",
-      "mcp server tool"
+      "handle mcp v2",
+      "mcp tool",
+      "model context protocol",
+      "call remote tool",
+      "mcp"
     ],
     "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
   },

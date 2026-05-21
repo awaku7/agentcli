@@ -49,6 +49,14 @@ TOOL_SPEC: Dict[str, Any] = {
                 "splice",
             ],
         ),
+        "x_search_terms_en": [
+            "binary_edit",
+            "binary edit",
+            "raw bytes",
+            "binary patch",
+            "offset edit",
+            "splice",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

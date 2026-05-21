@@ -5,10 +5,14 @@
     "param.paths.description": "Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively for *.py files.",
     "tool.description": "Execute Python code or validate Python files with py_compile. Use this tool for calculations, data processing, running short scripts, or syntax checking files—especially when accuracy matters. Prefer this over cmd_exec/cmd_exec_json for Python work.",
     "x_search_terms": [
-      "python_exec",
-      "python exec",
+      "python",
       "run python",
-      "python script"
+      "execute script",
+      "Python 実行",
+      "ejecutar python",
+      "exécuter python",
+      "파이썬 실행",
+      "запустить python"
     ],
     "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- If file paths or glob patterns are supplied, run py_compile on those targets and return the result.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
   },
