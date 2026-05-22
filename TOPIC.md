@@ -1,11 +1,23 @@
-# Major Updates (Last 30 Days)
+# Major Updates & Architectural Milestones (Project History)
 
-This document summarizes the major updates, architectural enhancements, and feature releases introduced in the `uag` project over the last 30 days.
+This document summarizes the major updates, architectural milestones, and feature releases introduced in the `uag` project from its inception to the latest version.
 
 ---
 
-## 1. Specialized Sub-Agent Architecture (`run_sub_agent`)
-A secure, sandboxed sub-agent execution framework has been introduced to delegate complex tasks to specialized roles under the orchestrator's control.
+## 1. Core Architecture & Multi-Provider Support
+The project was founded on a robust, multi-provider LLM client architecture designed to support diverse AI backends seamlessly.
+
+* **Multi-Provider Integration**:
+  * Native API support for **OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Google Vertex AI, AWS Bedrock, OpenRouter, Ollama, Grok (xAI), and NVIDIA**.
+  * Implemented stateless, per-call translation helpers (`translate.py`) supporting multiple translation engines.
+* **Deterministic Reasoning & Temperature Unification**:
+  * Standardized the default temperature to **`0.2`** across all major LLM providers to ensure stable tool-use, reliable JSON formatting, and consistent reasoning steps.
+  * Added support for provider-specific temperature overrides via environment variables (e.g., `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`).
+
+---
+
+## 2. Specialized Sub-Agent Architecture (`run_sub_agent`)
+A secure, sandboxed sub-agent execution framework was introduced to delegate complex tasks to specialized roles under the orchestrator's control.
 
 * **Role-Based Sub-Agents**:
   * `planner`: Formulates step-by-step plans, identifies risks, and maps out constraints.
@@ -15,56 +27,52 @@ A secure, sandboxed sub-agent execution framework has been introduced to delegat
   * `error_analyst`: Analyzes compilation, test, or runtime errors to pinpoint root causes.
 * **Function-Specific Overrides**:
   * Added support to override the LLM provider, model name, and API key globally or individually per sub-agent role via environment variables (e.g., `UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=gemini` to route heavy summarization tasks to a fast, cost-effective model).
-* **Localization**:
-  * Fully localized the sub-agent tool specs and descriptions across 30 global languages.
 
 ---
 
-## 2. Python 3.11+ Modernization
-The entire codebase has been modernized to leverage Python 3.11+ features, improving type safety, performance, and maintainability.
+## 3. Advanced Tooling & File Operations
+A rich suite of local tools has been developed and refined to allow the agent to interact safely and efficiently with the user's machine.
 
-* **Modern Typing Syntax**:
-  * Upgraded type hints to Python 3.11+ native syntax (e.g., using `list` and `dict` instead of `typing.List` and `typing.Dict`, and `|` instead of `typing.Union`/`typing.Optional`).
-* **Cleanup**:
-  * Removed deprecated imports, legacy compatibility layers, and unused modules.
-  * Verified all changes with strict syntax compilation checks.
-
----
-
-## 3. Deterministic Reasoning & Temperature Unification
-To ensure stable tool-use, reliable JSON formatting, and consistent reasoning steps, the default temperature has been optimized.
-
-* **Unified Default Temperature**:
-  * Set the default temperature to **`0.2`** across all major LLM providers (Gemini, Vertex AI, Claude, OpenAI, Azure, Bedrock, OpenRouter, Grok, NVIDIA) when executing agent loops.
-  * Added support for provider-specific temperature overrides via environment variables (e.g., `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`, `UAGENT_OPENAI_TEMPERATURE`).
-
----
-
-## 4. Multilingual Tool Catalog & Search Ranking
-The tool discovery mechanism has been enhanced to support multilingual environments and smarter search ranking.
-
-* **Tokenization & Search**:
-  * Added multilingual tokenization support for the tool catalog.
-  * Improved search ranking algorithms to surface relevant tools more accurately based on user intent.
-* **Locale Expansion**:
-  * Added new locale translations (including Bengali `bn`, Persian `fa`, Mongolian `mn`, and Marathi `mr`), expanding the project's global reach.
-
----
-
-## 5. Batch State Management & Robust File Operations
-Enhanced support for processing large-scale, multi-file batch operations safely and efficiently.
-
-* **Batch State Tracking**:
+* **File Search & Manipulation**:
+  * `file_grep`: Upgraded with context lines, filenames-only mode, and auto-exclusion of noise directories.
+  * `replace_in_file`: Optimized for performance with enhanced newline diagnostics and failure reporting.
+  * `document_extract`: Added support to extract text and structure from Word-based documents (`.docx`, `.rtf`, `.odt`).
+* **Batch State Management**:
   * Introduced robust batch state tracking (`batch_state` tool) to manage progress, resume interrupted tasks, and log file-by-file outcomes.
-* **File Operations**:
-  * Improved performance and newline diagnostics in the `replace_in_file` tool.
-  * Added robust Windows shell command quoting and argument escaping for tool wrappers.
+* **Playwright Inspector**:
+  * Integrated Playwright Inspector to capture browser operations, network events, and console logs.
 
 ---
 
-## 6. GUI & Log Rendering Enhancements
-Improved the user experience in the graphical interface with better log visualization.
+## 4. Multilingual Localization (I18N)
+The project features a comprehensive, global-ready internationalization framework.
 
-* **ANSI Color Rendering**:
+* **Global Reach**:
+  * Fully localized the CLI, setup wizard, and tool specifications across **30 global languages** (including Japanese, English, Arabic, Hindi, Portuguese, Bengali, Persian, Mongolian, Marathi, and more).
+  * Implemented robust Windows console language detection and unified i18n logic in tools.
+* **Tool Catalog Search**:
+  * Added multilingual tokenization support for the tool catalog to improve search ranking and discovery.
+
+---
+
+## 5. Security & Encryption (`uag_envsec`)
+To protect sensitive API keys and credentials, a robust encryption layer was integrated.
+
+* **Environment Encryption**:
+  * Integrated `uag_envsec` to encrypt `.env` files into `.env.sec` using password-based encryption.
+  * Implemented automatic detection and loading of `.env.sec` during CLI startup.
+  * Added the `envsec add` command to securely append or update variables.
+
+---
+
+## 6. GUI, Web, & Multimedia Enhancements
+The user experience has been enriched with graphical, web-based, and multimedia capabilities.
+
+* **GUI Console & Log Rendering**:
   * Added an ANSI HTML rendering helper to correctly parse and display colored terminal logs in the GUI.
   * Fixed log color rendering issues in the GUI console.
+* **Web UI Features**:
+  * Added drag-and-drop file uploads and improved image attachment rendering.
+* **Multimedia Tools**:
+  * `generate_image` & `img2img`: Added support for DALL-E 3, Gemini, and Vertex AI (Imagen 3) with automatic opening behavior.
+  * `audio_speech` & `audio_transcribe`: Added support for OpenAI, Azure, Gemini, and Vertex AI (including Google Cloud TTS REST transport for Windows compatibility).
