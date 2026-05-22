@@ -61,6 +61,10 @@ A rich suite of local tools has been developed and refined to allow the agent to
   * `file_grep`: Upgraded with context lines, filenames-only mode, and auto-exclusion of noise directories.
   * `replace_in_file`: Optimized for performance with enhanced newline diagnostics and failure reporting.
   * `document_extract`: Added support to extract text and structure from Word-based documents (`.docx`, `.rtf`, `.odt`).
+* **Structured Data & Low-Level Operations**:
+  * `exstruct`: Extracts structured tables, shapes, and hyperlinks from Excel (`.xlsx`) files into JSON/YAML.
+  * `binary_edit`: Allows developers to perform low-level binary edits (offset writing, search/replace, JSON patches) safely.
+  * `db_query`: Executes read-only SQLite queries to inspect local database schemas and data.
 * **Batch State Management**:
   * Introduced robust batch state tracking (`batch_state` tool) to manage progress, resume interrupted tasks, and log file-by-file outcomes.
 * **Playwright Inspector**:
@@ -68,7 +72,18 @@ A rich suite of local tools has been developed and refined to allow the agent to
 
 ---
 
-## 6. Multilingual Localization (I18N)
+## 6. Agent-to-Agent (A2A) & Platform Integrations
+The agent can collaborate with other agents and integrate with popular communication platforms.
+
+* **Agent-to-Agent (A2A) Protocol**:
+  * Supports the A2A protocol (`a2a_send`, `a2a_poll`, `a2a_servers`) to send messages, poll task progress, and synchronize workflows between different agents.
+* **Platform Integrations**:
+  * `discord_channel_chat`: Interacts directly with Discord channels using bot tokens to send/receive messages and fetch history.
+  * `teams_webhook_post`: Posts rich, formatted card notifications to Microsoft Teams via Incoming Webhooks.
+
+---
+
+## 7. Multilingual Localization (I18N)
 The project features a comprehensive, global-ready internationalization framework.
 
 * **Global Reach**:
@@ -79,7 +94,7 @@ The project features a comprehensive, global-ready internationalization framewor
 
 ---
 
-## 7. Security & Encryption (`uag_envsec`)
+## 8. Security & Encryption (`uag_envsec`)
 To protect sensitive API keys and credentials, a robust encryption layer was integrated.
 
 * **Environment Encryption**:
@@ -89,7 +104,7 @@ To protect sensitive API keys and credentials, a robust encryption layer was int
 
 ---
 
-## 8. GUI, Web, & Multimedia Enhancements
+## 9. GUI, Web, & Multimedia Enhancements
 The user experience has been enriched with graphical, web-based, and multimedia capabilities.
 
 * **GUI Console & Log Rendering**:
