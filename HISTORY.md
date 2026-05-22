@@ -10,8 +10,8 @@ The project was founded on a robust, multi-provider LLM client architecture desi
 * **Multi-Provider Integration & Strong Local AI Support**:
   * Native API support for **OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Google Vertex AI, AWS Bedrock, OpenRouter, Ollama, Grok (xAI), and NVIDIA**.
   * Significantly enhanced support for local LLMs (such as Llama 3.1) via **Ollama**. Implemented a dedicated parameter tuning mechanism (`apply_ollama_extra_body`) to configure local-specific options (e.g., `keep_alive`, context size expansion via `num_ctx`, and `repeat_penalty`) directly from environment variables. This enables high-performance tool-use and image analysis (Ollama Vision) even in fully offline environments.
-* **Full Multilingual Dialogue Support (I18N for LLM Interactions)**:
-  * Implemented stateless, per-call translation helpers (`translate.py`) to automatically translate user inputs and LLM responses. This seamlessly enables "I18N for LLM interactions" (e.g., translating Japanese user inputs to English before sending them to the LLM, and translating the LLM's English responses back to Japanese). It supports translation via OpenAI-compatible APIs, as well as native Gemini and Claude APIs.
+* **Bidirectional Dialogue Translation**:
+  * Implemented stateless, per-call translation helpers (`translate.py`) to automatically translate user inputs and LLM responses. This seamlessly enables bidirectional dialogue translation (e.g., translating Japanese user inputs to English before sending them to the LLM, and translating the LLM's English responses back to Japanese). It supports translation via OpenAI-compatible APIs, as well as native Gemini and Claude APIs.
 * **Deterministic Reasoning & Temperature Unification**:
   * Standardized the default temperature to **`0.2`** across all major LLM providers to ensure stable tool-use, reliable JSON formatting, and consistent reasoning steps.
   * Added support for provider-specific temperature overrides via environment variables (e.g., `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`, `UAGENT_OLLAMA_TEMPERATURE`).
