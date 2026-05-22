@@ -1431,6 +1431,9 @@ msgstr "زمان اجرا اختیاری"
 msgid "Optional image / embedding / audio settings"
 msgstr "تنظیمات تصویر / تعبیه / صدا اختیاری"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "فایل env. ایجاد شده را رمزگذاری کنید؟"

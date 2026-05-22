@@ -1426,6 +1426,9 @@ msgstr "可選執行階段設定"
 msgid "Optional image / embedding / audio settings"
 msgstr "選用的圖片 / 嵌入 / 音訊設定"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "要加密產生的 .env 檔嗎？"

@@ -1494,6 +1494,9 @@ msgstr "Exécution facultative"
 msgid "Optional image / embedding / audio settings"
 msgstr "Paramètres optionnels d’image / d’embedding"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "Chiffrer le fichier .env généré ?"

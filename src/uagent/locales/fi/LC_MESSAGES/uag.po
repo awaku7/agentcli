@@ -1472,6 +1472,9 @@ msgstr "Valinnainen ajonaikainen asetus"
 msgid "Optional image / embedding / audio settings"
 msgstr "Valinnaiset kuva- / upotusasetukset"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "Salaatko luodun .env-tiedoston?"

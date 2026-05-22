@@ -1489,6 +1489,9 @@ msgstr "Runtime opzionale"
 msgid "Optional image / embedding / audio settings"
 msgstr "Impostazioni opzionali per immagini / embedding"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "Cifrare il file .env generato?"

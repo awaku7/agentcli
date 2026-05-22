@@ -1470,6 +1470,9 @@ msgstr "การตั้งค่ารันไทม์เสริม\n"
 msgid "Optional image / embedding / audio settings"
 msgstr "การตั้งค่าเพิ่มเติมสำหรับรูปภาพ / embedding / เสียง"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "ต้องการเข้ารหัสไฟล์ .env ที่สร้างขึ้นหรือไม่?"

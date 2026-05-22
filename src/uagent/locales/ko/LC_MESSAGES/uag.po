@@ -1433,6 +1433,9 @@ msgstr "선택적 런타임"
 msgid "Optional image / embedding / audio settings"
 msgstr "선택적 이미지 / 임베딩 설정"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "생성된 .env 파일을 암호화하시겠습니까?"

@@ -1472,6 +1472,9 @@ msgstr "İsteğe bağlı çalışma zamanı"
 msgid "Optional image / embedding / audio settings"
 msgstr "İsteğe bağlı resim / yerleştirme / ses ayarları"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "Oluşturulan .env dosyası şifrelensin mi?"

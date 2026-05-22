@@ -1470,6 +1470,9 @@ msgstr "वैकल्पिक रनटाइम"
 msgid "Optional image / embedding / audio settings"
 msgstr "वैकल्पिक छवि/एम्बेडिंग सेटिंग्स"
 
+msgid "Optional specialized sub-agent settings"
+msgstr ""
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "उत्पन्न .env फ़ाइल को एन्क्रिप्ट करें?"
