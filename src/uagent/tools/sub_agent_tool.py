@@ -352,9 +352,99 @@ class SubAgentRunner:
         # コールバック経由で環境変数等の情報を安全に取得
         cb = get_callbacks()
 
+        # Resolve sub-agent specific overrides from environment variables
+        # Format: UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER / _DEPNAME / _API_KEY
+        # Fallback: UAGENT_SUB_AGENT_PROVIDER / _DEPNAME / _API_KEY
+        # Default: Main agent configuration (via make_client)
+        agent_upper = agent_name.upper()
+        
+        sub_provider = (
+            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
+            or env_get("UAGENT_SUB_AGENT_PROVIDER")
+            or ""
+        ).strip().lower()
+        
+        sub_depname = (
+            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
+            or env_get("UAGENT_SUB_AGENT_DEPNAME")
+            or ""
+        ).strip()
+        
+        sub_api_key = (
+            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
+            or env_get("UAGENT_SUB_AGENT_API_KEY")
+            or ""
+        ).strip()
+
         # util_providers から安全にクライアントを取得
         try:
-            provider, client, model_name = make_client(cb)
+            if sub_provider:
+                # Temporarily override environment variables to let make_client build the custom client
+                orig_provider = os.environ.get("UAGENT_PROVIDER")
+                os.environ["UAGENT_PROVIDER"] = sub_provider
+                
+                # Setup provider-specific overrides
+                orig_depname = None
+                orig_api_key = None
+                
+                p_upper = sub_provider.upper()
+                dep_key = f"UAGENT_{p_upper}_DEPNAME"
+                key_key = f"UAGENT_{p_upper}_API_KEY"
+                
+                if sub_depname:
+                    orig_depname = os.environ.get(dep_key)
+                    os.environ[dep_key] = sub_depname
+                if sub_api_key:
+                    orig_api_key = os.environ.get(key_key)
+                    os.environ[key_key] = sub_api_key
+                
+                try:
+                    provider, client, model_name = make_client(cb)
+                finally:
+                    # Restore original environment variables
+                    if orig_provider is not None:
+                        os.environ["UAGENT_PROVIDER"] = orig_provider
+                    else:
+                        os.environ.pop("UAGENT_PROVIDER", None)
+                        
+                    if sub_depname:
+                        if orig_depname is not None:
+                            os.environ[dep_key] = orig_depname
+                        else:
+                            os.environ.pop(dep_key, None)
+                    if sub_api_key:
+                        if orig_api_key is not None:
+                            os.environ[key_key] = orig_api_key
+                        else:
+                            os.environ.pop(key_key, None)
+            else:
+                # No provider override, but check if there's a model/key override for the default provider
+                provider, client, model_name = make_client(cb)
+                p_upper = provider.upper()
+                dep_key = f"UAGENT_{p_upper}_DEPNAME"
+                key_key = f"UAGENT_{p_upper}_API_KEY"
+                
+                if sub_depname or sub_api_key:
+                    orig_depname = os.environ.get(dep_key)
+                    orig_api_key = os.environ.get(key_key)
+                    
+                    if sub_depname:
+                        os.environ[dep_key] = sub_depname
+                    if sub_api_key:
+                        os.environ[key_key] = sub_api_key
+                        
+                    try:
+                        # Re-create client with overridden model/key
+                        provider, client, model_name = make_client(cb)
+                    finally:
+                        if orig_depname is not None:
+                            os.environ[dep_key] = orig_depname
+                        else:
+                            os.environ.pop(dep_key, None)
+                        if orig_api_key is not None:
+                            os.environ[key_key] = orig_api_key
+                        else:
+                            os.environ.pop(key_key, None)
         except Exception as e:
             return json.dumps({
                 "status": "error",
