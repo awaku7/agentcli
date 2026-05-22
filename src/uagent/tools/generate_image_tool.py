@@ -532,7 +532,7 @@ def _run_gemini_images(
                 config_cls = getattr(gemini_types, "GenerateImageConfig", None)
                 method = getattr(client.models, "generate_image", None)
 
-            if not method or not config_cls:
+            if method is None or config_cls is None:
                 raise RuntimeError(
                     "Could not find generate_images/generate_image method in SDK."
                 )

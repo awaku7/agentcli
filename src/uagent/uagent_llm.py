@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
 
 set_thread_lang(detect_lang())
 
 from .translate import load_translate_config
-from typing import Any, Dict, List
+from typing import Any
 
 try:
     import certifi
@@ -59,7 +61,7 @@ def run_llm_rounds(
     provider: str,
     client: Any,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     *,
     core: Any,
     make_client_fn: Any,
@@ -91,7 +93,7 @@ def run_llm_rounds(
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
-    tool_result_cache: Dict[str, str] = {}
+    tool_result_cache: dict[str, str] = {}
     use_tool_result_cache = env_get(
         "UAGENT_TOOL_RESULT_CACHE", "0"
     ).strip().lower() not in (
@@ -155,7 +157,7 @@ def run_llm_rounds(
             retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
             retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
 
-            tool_calls_list: List[Dict[str, Any]] = []
+            tool_calls_list: list[dict[str, Any]] = []
             assistant_text: str = ""
 
             if provider in ("gemini", "vertexai"):

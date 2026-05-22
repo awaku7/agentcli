@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import re
 import threading
-from typing import Any, Dict, List
+from typing import Any
 
 from .env_utils import env_get
 
@@ -32,7 +34,7 @@ def _maybe_print_certifi_where(exc: Exception) -> None:
         pass
 
 
-def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
+def _extract_latest_user_text(call_messages: list[dict[str, Any]]) -> str:
     for m in reversed(call_messages or []):
         if m.get("role") != "user":
             continue
@@ -40,7 +42,7 @@ def _extract_latest_user_text(call_messages: List[Dict[str, Any]]) -> str:
         if isinstance(c, str):
             return c
         if isinstance(c, list):
-            parts: List[str] = []
+            parts: list[str] = []
             for item in c:
                 if isinstance(item, dict):
                     t = item.get("type")
@@ -218,7 +220,7 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
     if not use_llm_thread:
         return fn()
 
-    box: Dict[str, Any] = {"res": None, "exc": None}
+    box: dict[str, Any] = {"res": None, "exc": None}
 
     def _runner() -> None:
         try:

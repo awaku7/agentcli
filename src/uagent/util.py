@@ -26,8 +26,10 @@
 - llm_errors.py      : エラー処理/429リトライ
 """
 
+from __future__ import annotations
+
 import importlib
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 # scheck_core をインポート（従来通り、このモジュールに core が存在する前提のコードがあるため）
 core = importlib.import_module(".core", package="uagent")
@@ -105,27 +107,27 @@ def _init_tools_callbacks(core_obj: Any) -> None:
     return _init_tools_callbacks_impl(core_obj)
 
 
-def make_client() -> Tuple[str, Any, str]:
+def make_client() -> tuple[str, Any, str]:
     """旧シグネチャ互換: core を内部で捕捉して make_client(core) を呼ぶ。"""
     return _make_client(core)
 
 
-def build_initial_messages() -> List[Dict[str, Any]]:
+def build_initial_messages() -> list[dict[str, Any]]:
     """旧シグネチャ互換: core を暗黙注入して初期 messages を作る。"""
     return _build_initial_messages_impl(core=core)
 
 
-def insert_tools_system_message(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def insert_tools_system_message(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """旧シグネチャ互換: core を暗黙注入して tools system message を挿入する。"""
     return _insert_tools_system_message_impl(messages, core=core)
 
 
 def handle_command(
     line: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     client: Any,
     depname: str,
-) -> bool:
+) -> Any:
     """旧シグネチャ互換: core を内部で捕捉して handle_command(..., core=core) を呼ぶ。"""
     return _handle_command(line, messages_ref, client, depname, core=core)
 
@@ -134,7 +136,7 @@ def run_llm_rounds(
     provider: str,
     client: Any,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
 ) -> None:
     """旧シグネチャ互換: 依存を注入して run_llm_rounds を呼ぶ。"""
 

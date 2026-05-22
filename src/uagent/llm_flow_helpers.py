@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import json
 import sys
 import traceback
-from typing import Any, Dict, List
+from typing import Any
 
 from . import tools
 from .env_utils import env_get
@@ -11,14 +13,14 @@ from .llm_helpers import _effectively_empty_text
 
 def _append_assistant_message(
     *,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     core: Any,
     assistant_text: str,
-    tool_calls_list: List[Dict[str, Any]],
+    tool_calls_list: list[dict[str, Any]],
     gemini_content_dump: Any = None,
     skip_log_when_web: bool = False,
 ) -> None:
-    assistant_msg: Dict[str, Any] = {
+    assistant_msg: dict[str, Any] = {
         "role": "assistant",
         "content": assistant_text,
     }
@@ -52,12 +54,12 @@ def _emit_final_answer_if_any(
 def _handle_openai_empty_no_tool(
     *,
     assistant_text: str,
-    tool_calls_list: List[Dict[str, Any]],
+    tool_calls_list: list[dict[str, Any]],
     empty_no_tool_rounds: int,
     empty_no_tool_max: int,
     provider: str,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     core: Any,
 ) -> Any:
     eff_empty = _effectively_empty_text(assistant_text)
@@ -162,11 +164,11 @@ def _handle_openai_empty_no_tool(
 
 def _execute_tool_calls(
     *,
-    tool_calls_list: List[Dict[str, Any]],
-    messages: List[Dict[str, Any]],
+    tool_calls_list: list[dict[str, Any]],
+    messages: list[dict[str, Any]],
     core: Any,
     cache_mgr: Any,
-    tool_result_cache: Dict[str, str],
+    tool_result_cache: dict[str, str],
     use_tool_result_cache: bool,
 ) -> bool:
     executed_new_tool = False
@@ -241,7 +243,7 @@ def _execute_tool_calls(
         elif tool_cache_key:
             tool_result_cache[tool_cache_key] = tool_result
 
-        tool_msg: Dict[str, Any] = {
+        tool_msg: dict[str, Any] = {
             "role": "tool",
             "tool_call_id": tc["id"],
             "name": name,
