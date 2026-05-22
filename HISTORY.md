@@ -35,7 +35,7 @@ The agent is equipped with persistent memory and profiling layers to retain user
   * Allows the agent to persist key insights, user instructions, and environment configurations across sessions into a local JSONL file (`scheck_memory.jsonl`).
   * These records are automatically injected into the system prompt at startup, ensuring the agent "remembers" the user's preferences.
 * **Autonomous User Profiling & Smart Merge (`UAGENT_ENABLE_PROFILING`)**:
-  * Features an autonomous background profiling system (enabled via `UAGENT_ENABLE_PROFILING=1`) that analyzes conversation logs to extract the user's development environment (OS, shell, editor), coding preferences, and constraints without explicit configuration.
+  * Features an autonomous background profiling system (enabled by default, can be disabled via `UAGENT_ENABLE_PROFILING=0`) that analyzes conversation logs to extract the user's development environment (OS, shell, editor), coding preferences, and constraints without explicit configuration.
   * Extracted profiles are saved to a dedicated **`scheck_profile.jsonl`** file and merged with existing profiles using smart rules (overwriting environment details with the latest values, and appending/deduplicating preferences and constraints).
   * Includes a built-in security filter that automatically detects and masks sensitive credentials (API keys, passwords) before saving, ensuring complete privacy before injecting the profile into the system prompt at startup.
 * **Shared Long-Term Memory (`UAGENT_SHARED_MEMORY_FILE`)**:

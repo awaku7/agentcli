@@ -12,9 +12,9 @@ from ..env_utils import env_get
 from ..util_providers import make_client
 
 # Environment variable to control the profiling feature
-# UAGENT_ENABLE_PROFILING=1 (default: 0 / disabled)
+# UAGENT_ENABLE_PROFILING=1 (default: 1 / enabled)
 def is_profiling_enabled() -> bool:
-    return env_get("UAGENT_ENABLE_PROFILING", "0").lower() in ("1", "true", "yes", "on")
+    return env_get("UAGENT_ENABLE_PROFILING", "1").lower() in ("1", "true", "yes", "on")
 
 
 def _get_base_log_dir() -> str:
