@@ -243,10 +243,20 @@ def claude_chat_with_tools(
     if isinstance(output_config, dict) and output_config:
         out_cfg = output_config
 
+    # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
+    claude_temp = 0.2
+    temp_env = (env_get("UAGENT_CLAUDE_TEMPERATURE") or "").strip()
+    if temp_env:
+        try:
+            claude_temp = float(temp_env)
+        except ValueError:
+            pass
+
     req_kwargs: dict[str, Any] = {
         "model": model_name,
         "max_tokens": 4096,
         "messages": anthropic_messages,
+        "temperature": claude_temp,
     }
     if system_blocks:
         req_kwargs["system"] = system_blocks

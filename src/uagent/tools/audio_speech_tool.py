@@ -161,6 +161,8 @@ def _model(provider: str) -> str:
 
 
 def _make_client(provider: str):
+    if provider in ("gemini", "vertexai"):
+        return None
     try:
         from openai import AzureOpenAI, OpenAI
     except Exception as exc:

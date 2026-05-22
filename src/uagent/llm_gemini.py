@@ -822,6 +822,16 @@ def gemini_chat_with_tools(
         if system_instruction:
             cfg_kwargs["system_instruction"] = system_instruction
 
+    # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
+    temp_env = (env_get("UAGENT_GEMINI_TEMPERATURE") or "").strip()
+    if temp_env:
+        try:
+            cfg_kwargs["temperature"] = float(temp_env)
+        except ValueError:
+            cfg_kwargs["temperature"] = 0.2
+    else:
+        cfg_kwargs["temperature"] = 0.2
+
     if thinking_cfg is not None:
         cfg_kwargs["thinking_config"] = thinking_cfg
 

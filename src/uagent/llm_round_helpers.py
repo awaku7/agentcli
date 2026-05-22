@@ -521,9 +521,37 @@ def _call_openai_azure_round(
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
+                # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
+                default_temp = 0.2
+                # Allow provider-specific overrides or a global fallback
+                temp_env = ""
+                if provider == "openai":
+                    temp_env = env_get("UAGENT_OPENAI_TEMPERATURE") or ""
+                elif provider == "azure":
+                    temp_env = env_get("UAGENT_AZURE_TEMPERATURE") or ""
+                elif provider == "openrouter":
+                    temp_env = env_get("UAGENT_OPENROUTER_TEMPERATURE") or ""
+                elif provider == "bedrock":
+                    temp_env = env_get("UAGENT_BEDROCK_TEMPERATURE") or ""
+                elif provider == "nvidia":
+                    temp_env = env_get("UAGENT_NVIDIA_TEMPERATURE") or ""
+                elif provider == "grok":
+                    temp_env = env_get("UAGENT_GROK_TEMPERATURE") or ""
+
+                if not temp_env:
+                    temp_env = env_get("UAGENT_TEMPERATURE") or ""
+
+                resolved_temp = default_temp
+                if temp_env.strip():
+                    try:
+                        resolved_temp = float(temp_env.strip())
+                    except ValueError:
+                        pass
+
                 chat_kwargs: dict[str, Any] = {
                     "model": depname,
                     "messages": call_messages,
+                    "temperature": resolved_temp,
                 }
                 if send_tools_this_round and req_tools is not None:
                     chat_kwargs["tools"] = req_tools
