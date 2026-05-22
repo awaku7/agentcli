@@ -57,8 +57,9 @@ A secure, sandboxed sub-agent execution framework was introduced to delegate com
 ## 5. Advanced Tooling & File Operations
 A rich suite of local tools has been developed and refined to allow the agent to interact safely and efficiently with the user's machine.
 
-* **File Search & Manipulation**:
-  * `file_grep`: Upgraded with context lines, filenames-only mode, and auto-exclusion of noise directories.
+* **File Search & Manipulation (Integrated Pagination)**:
+  * `search_files` / `file_grep`: Integrated a **`page` (pagination) parameter** to safely and efficiently scroll through large search results. This allows the LLM to explore massive projects step-by-step without overwhelming its context window.
+  * `read_file` / `read_pptx_pdf`: Added support for the `page` parameter to read specific line ranges or document pages, enabling the agent to read extremely large text files or multi-page PDF/PPTX documents incrementally.
   * `replace_in_file`: Optimized for performance with enhanced newline diagnostics and failure reporting.
   * `document_extract`: Added support to extract text and structure from Word-based documents (`.docx`, `.rtf`, `.odt`).
 * **Structured Data & Low-Level Operations**:
