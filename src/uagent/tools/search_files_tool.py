@@ -108,8 +108,16 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.max_results.description",
-                        default="Maximum number of matched files to return (default: 50).",
+                        default="Maximum number of matched files to return per page (default: 50).",
                     ),
+                },
+                "page": {
+                    "type": "integer",
+                    "description": _(
+                        "param.page.description",
+                        default="Page number to retrieve (default: 1).",
+                    ),
+                    "default": 1,
                 },
                 "fast_read_threshold_bytes": {
                     "type": "integer",
@@ -393,15 +401,22 @@ def run_tool(args: dict[str, Any]) -> str:
         content_pattern = args.get("content_pattern", "")
         case_sensitive = args.get("case_sensitive", False)
         max_results = args.get("max_results", 50)
+        page = args.get("page", 1)
         fast_read_threshold_bytes = int(
             args.get("fast_read_threshold_bytes", 8_000_000)
         )
 
-        # Normalize max_results
+        # Normalize max_results and page
         try:
             max_results = int(max_results)
         except Exception:
             max_results = 50
+        try:
+            page = int(page)
+            if page < 1:
+                page = 1
+        except Exception:
+            page = 1
 
         if not os.path.exists(root_path):
             msg = _(
@@ -490,36 +505,30 @@ def run_tool(args: dict[str, Any]) -> str:
                 else:
                     results.append({"file": rel})
 
-                count += 1
-                if count >= max_results:
-                    truncated = True
-                    break
-
-            if truncated:
-                break
-
         if not results:
             return _(
                 "out.no_match", default="[search_files] No files matched the criteria."
             )
 
-        # Human-readable output (kept for compatibility with existing consumers)
-        out_lines: list[str] = []
-        if truncated:
-            out_lines.append(
-                _(
-                    "out.found_truncated",
-                    default="[search_files] Found {n} results (truncated to {max_results})",
-                ).format(n=len(results), max_results=max_results)
-            )
-        else:
-            out_lines.append(
-                _("out.found", default="[search_files] Found {n} results").format(
-                    n=len(results)
-                )
-            )
+        # Apply pagination
+        total_results = len(results)
+        total_pages = (total_results + max_results - 1) // max_results
+        if page > total_pages:
+            page = total_pages
 
-        for r in results[:max_results]:
+        start_idx = (page - 1) * max_results
+        end_idx = start_idx + max_results
+        page_results = results[start_idx:end_idx]
+
+        out_lines: list[str] = []
+        out_lines.append(
+            _(
+                "out.found_paginated",
+                default="[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+            ).format(page=page, total_pages=total_pages, total=total_results, showing=len(page_results))
+        )
+
+        for r in page_results:
             out_lines.append(
                 _("out.file", default="File: {file}").format(file=r["file"])
             )

@@ -100,7 +100,7 @@ def test_search_files_truncates_by_max_results(
         }
     )
 
-    assert "truncated to 2" in out
+    assert "Page 1 of 3" in out
     assert out.count("File:") == 2
 
 
