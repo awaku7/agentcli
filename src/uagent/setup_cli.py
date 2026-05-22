@@ -1094,6 +1094,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# (optional image / embedding settings not configured)")
         out.append("")
 
+    # Sub-agent settings are optional/advanced overrides, so we output them as commented-out reference variables
     section(_("Optional specialized sub-agent settings"))
     out.append("# UAGENT_SUB_AGENT_PROVIDER=")
     out.append("# UAGENT_SUB_AGENT_DEPNAME=")
