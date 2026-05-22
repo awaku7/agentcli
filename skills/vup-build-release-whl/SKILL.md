@@ -59,8 +59,9 @@ ______________________________________________________________________
 
 確認文（固定）:
 
+- 最新のコミット履歴に基づき、`CHANGELOG.md`（英語版）および `CHANGELOG.ja.md`（日本語版）の変更履歴を自動で更新/新規作成します
 - `pyproject.toml` の version を更新するか確認します
-- *ユーザーが希望する場合のみ* patch +1 して commit します
+- *ユーザーが希望する場合のみ* patch +1 と合わせて変更履歴（CHANGELOG）ファイルを commit します
 - `origin/main` に push します
 - wheel をビルドします（`python -m build`）
 - 配布先（GitHub/GitLab）へ最新 whl をアップロードします
@@ -75,6 +76,10 @@ ______________________________________________________________________
 
 - `git status` が clean であること。
 
+## 0-B) CHANGELOGの自動作成/更新
+
+- 最新のコミット履歴（`git log`）および今回の追加機能（差分）に基づき、`CHANGELOG.md`（英語）および `CHANGELOG.ja.md`（日本語）の双方に変更内容（バージョンアップに含む全変更点）を自動で作成または追記する。
+
 ## 1) patch version +1
 
 - `pyproject.toml` の `[project].version` を `X.Y.Z` → `X.Y.(Z+1)` に更新。
@@ -82,8 +87,8 @@ ______________________________________________________________________
 
 ## 2) commit
 
-- `git add -- pyproject.toml`
-- `git commit -m "Bump version to X.Y.Z"`
+- `git add -- pyproject.toml CHANGELOG.md CHANGELOG.ja.md`
+- `git commit -m "Bump version to X.Y.Z and update CHANGELOG"`
 
 ## 3) push
 
