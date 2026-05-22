@@ -4,8 +4,8 @@ This document summarizes the major updates, architectural milestones, and featur
 
 ---
 
-## 1. Core Architecture & Multi-Provider Support (Enhanced Local AI Support)
-The project was founded on a robust, multi-provider LLM client architecture designed to support diverse AI backends seamlessly, including fully localized offline environments via **Ollama**.
+## 1. Core Architecture & Multi-Provider Support (Enhanced Local AI)
+The project was founded on a robust, multi-provider LLM client architecture designed to support diverse AI backends seamlessly, including fully offline local environments via **Ollama**.
 
 * **Multi-Provider Integration & Strong Local AI Support**:
   * Native API support for **OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Google Vertex AI, AWS Bedrock, OpenRouter, Ollama, Grok (xAI), and NVIDIA**.
@@ -17,7 +17,29 @@ The project was founded on a robust, multi-provider LLM client architecture desi
 
 ---
 
-## 2. Specialized Sub-Agent Architecture (`run_sub_agent`)
+## 2. Context Compression & History Inheritance (`shrink_llm`)
+To prevent context window overflow and reduce token consumption during long-running agent loops, the project implements an advanced history compression mechanism.
+
+* **LLM-Driven Context Compression (`compress_history_with_llm`)**:
+  * When the number of non-system messages exceeds a threshold (configured via `UAGENT_SHRINK_CNT`, default `100`), the agent automatically triggers a background compression routine.
+  * It retains the most recent messages (configured via `UAGENT_SHRINK_KEEP_LAST`, default `20`) to maintain immediate conversational flow.
+  * The older history is partitioned into chunks and summarized by a separate LLM context, compressing the entire past interaction into a single, highly dense `system` message. This allows the agent to inherit prior context, decisions, and errors indefinitely without hitting token limits.
+
+---
+
+## 3. Long-Term & Shared Memory Systems
+The agent is equipped with persistent memory layers to retain user preferences, environment details, and cross-session context.
+
+* **Personal Long-Term Memory (`UAGENT_MEMORY_FILE`)**:
+  * Allows the agent to persist key insights, user instructions, and environment configurations across sessions into a local JSONL file (`scheck_memory.jsonl`).
+  * These records are automatically injected into the system prompt at startup, ensuring the agent "remembers" the user's preferences.
+* **Shared Long-Term Memory (`UAGENT_SHARED_MEMORY_FILE`)**:
+  * Supports a shared memory file accessible by multiple agents or sessions, enabling collaborative context sharing.
+  * Added interactive CLI commands such as `:shared-mem-list` and `:shared-mem-del <index>` to manage shared memory entries directly.
+
+---
+
+## 4. Specialized Sub-Agent Architecture (`run_sub_agent`)
 A secure, sandboxed sub-agent execution framework was introduced to delegate complex tasks to specialized roles under the orchestrator's control.
 
 * **Role-Based Sub-Agents**:
@@ -31,7 +53,7 @@ A secure, sandboxed sub-agent execution framework was introduced to delegate com
 
 ---
 
-## 3. Advanced Tooling & File Operations
+## 5. Advanced Tooling & File Operations
 A rich suite of local tools has been developed and refined to allow the agent to interact safely and efficiently with the user's machine.
 
 * **File Search & Manipulation**:
@@ -45,7 +67,7 @@ A rich suite of local tools has been developed and refined to allow the agent to
 
 ---
 
-## 4. Multilingual Localization (I18N)
+## 6. Multilingual Localization (I18N)
 The project features a comprehensive, global-ready internationalization framework.
 
 * **Global Reach**:
@@ -56,7 +78,7 @@ The project features a comprehensive, global-ready internationalization framewor
 
 ---
 
-## 5. Security & Encryption (`uag_envsec`)
+## 7. Security & Encryption (`uag_envsec`)
 To protect sensitive API keys and credentials, a robust encryption layer was integrated.
 
 * **Environment Encryption**:
@@ -66,7 +88,7 @@ To protect sensitive API keys and credentials, a robust encryption layer was int
 
 ---
 
-## 6. GUI, Web, & Multimedia Enhancements
+## 8. GUI, Web, & Multimedia Enhancements
 The user experience has been enriched with graphical, web-based, and multimedia capabilities.
 
 * **GUI Console & Log Rendering**:
