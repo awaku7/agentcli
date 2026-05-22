@@ -15,6 +15,7 @@
     "param.max_results.description": "Maximum number of matched files to return (default: 50).",
     "param.name_pattern.description": "Filename glob pattern (e.g. '*.py', 'test_*'). If omitted, all files are considered.",
     "param.root_path.description": "Root directory to start searching from (default: current directory).",
+    "param.page.description": "Page number to retrieve (default: 1).",
     "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
     "x_search_terms": [
       "search files",
@@ -44,6 +45,7 @@
     "param.max_results.description": "返す一致ファイルの最大数（既定: 50）。",
     "param.name_pattern.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
     "param.root_path.description": "検索を開始するルートディレクトリ（既定: 現在のディレクトリ）。",
+    "param.page.description": "取得するページ番号（既定: 1）。",
     "tool.description": "ディレクトリ下のファイルを名前パターン（glob）や内容（regex）で検索します。",
     "x_search_terms": [
       "search_files",

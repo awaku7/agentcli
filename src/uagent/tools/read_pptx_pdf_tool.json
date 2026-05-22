@@ -14,6 +14,7 @@
     ],
     "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
     "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "param.page.description": "Page number to read (1-based). Alias of page_index.",
     "prompt.password": "Enter the password for this file:\n{path}"
   },
   "ja": {
@@ -29,6 +30,7 @@
     ],
     "tool.system_prompt": "重要: このツールは PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。",
     "param.password.description": "暗号化された PDF/PPTX ファイルのパスワード（任意）。省略時に入力ファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
+    "param.page.description": "読み取るページ番号（1始まり）。page_index の別名です。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
   "es": {

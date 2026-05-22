@@ -1764,9 +1764,24 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
     return True
 
 
-def _handle_cmd_profile_show(*, tr: Any) -> bool:
-    from .profile_manager import load_profile
-    profile = load_profile()
+def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
+    from .profile_manager import load_profile, profile_from_logs
+
+    arg = (arg or "").strip().lower()
+    if arg == "fromlog":
+        print(tr("Analyzing past logs to generate user profile..."))
+        try:
+            profile = profile_from_logs(core)
+            if not profile:
+                print(tr("No past logs found or failed to generate profile."))
+                return True
+            print(tr("User profile generated successfully from past logs!"))
+        except Exception as e:
+            print(f"[profile fromlog error] {type(e).__name__}: {e}")
+            return True
+    else:
+        profile = load_profile()
+
     if not profile.get("environment") and not profile.get("preferences") and not profile.get("constraints"):
         print(tr("No user profile data found."))
         return True
@@ -1885,7 +1900,8 @@ def format_help(*, core: Any) -> str:
         "  :mem-list             " + tr("List long-term memory notes"),
         "  :mem-del <index>      "
         + tr("Delete a long-term memory note by index (see :mem-list)"),
-        "  :profile              " + tr("Show the learned user profile (environment, preferences, constraints)"),
+        "  :profile [fromlog]    " + tr("Show the learned user profile, or generate it from past logs"),
+        "  :profile-fromlog      " + tr("Generate user profile from past logs"),
         "  :profile-clear        " + tr("Clear the learned user profile data"),
         "  :cp <src> <dst>       "
         + tr("Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"),
@@ -2086,7 +2102,10 @@ def handle_command(
         return _handle_cmd_mem_del(arg, tr=tr)
 
     if cmd in ("profile", "profile-show"):
-        return _handle_cmd_profile_show(tr=tr)
+        return _handle_cmd_profile_show(arg, core=core, tr=tr)
+
+    if cmd == "profile-fromlog":
+        return _handle_cmd_profile_show("fromlog", core=core, tr=tr)
 
     if cmd == "profile-clear":
         return _handle_cmd_profile_clear(tr=tr)
