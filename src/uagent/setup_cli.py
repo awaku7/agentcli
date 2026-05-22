@@ -1094,22 +1094,34 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# (optional image / embedding settings not configured)")
         out.append("")
 
-    # Sub-agent settings are optional/advanced overrides, output as empty variables for easy user configuration
-    section(_("Optional specialized sub-agent settings"))
-    out.append("UAGENT_SUB_AGENT_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_DEPNAME=")
-    out.append("UAGENT_SUB_AGENT_API_KEY=")
-    out.append("UAGENT_SUB_AGENT_PLANNER_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_PLANNER_DEPNAME=")
-    out.append("UAGENT_SUB_AGENT_REVIEWER_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_REVIEWER_DEPNAME=")
-    out.append("UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME=")
-    out.append("UAGENT_SUB_AGENT_PATCH_DESIGNER_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_PATCH_DESIGNER_DEPNAME=")
-    out.append("UAGENT_SUB_AGENT_ERROR_ANALYST_PROVIDER=")
-    out.append("UAGENT_SUB_AGENT_ERROR_ANALYST_DEPNAME=")
-    out.append("")
+    # Sub-agent settings are optional/advanced overrides, output only if configured by user
+    sub_agent_keys = [
+        "UAGENT_SUB_AGENT_PROVIDER",
+        "UAGENT_SUB_AGENT_DEPNAME",
+        "UAGENT_SUB_AGENT_API_KEY",
+        "UAGENT_SUB_AGENT_PLANNER_PROVIDER",
+        "UAGENT_SUB_AGENT_PLANNER_DEPNAME",
+        "UAGENT_SUB_AGENT_REVIEWER_PROVIDER",
+        "UAGENT_SUB_AGENT_REVIEWER_DEPNAME",
+        "UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER",
+        "UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME",
+        "UAGENT_SUB_AGENT_PATCH_DESIGNER_PROVIDER",
+        "UAGENT_SUB_AGENT_PATCH_DESIGNER_DEPNAME",
+        "UAGENT_SUB_AGENT_ERROR_ANALYST_PROVIDER",
+        "UAGENT_SUB_AGENT_ERROR_ANALYST_DEPNAME",
+    ]
+    has_sub_agent_vals = False
+    sub_agent_lines = []
+    for k in sub_agent_keys:
+        val = (st.values or {}).get(k, "").strip() if st.values else ""
+        if val:
+            sub_agent_lines.append(f"{k}={val}")
+            has_sub_agent_vals = True
+
+    if has_sub_agent_vals:
+        section(_("Optional specialized sub-agent settings"))
+        out.extend(sub_agent_lines)
+        out.append("")
 
     return out
 
