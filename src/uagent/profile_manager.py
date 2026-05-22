@@ -11,6 +11,19 @@ from .env_utils import env_get
 from .i18n import _
 
 
+def _get_profile_int_env(name: str, default: int) -> int:
+    try:
+        return max(1, int(env_get(name, str(default))))
+    except Exception:
+        return default
+
+
+PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 5)
+PROFILE_MAX_TEXT_CHARS = _get_profile_int_env("UAGENT_PROFILE_MAX_TEXT_CHARS", 80)
+PROFILE_SUMMARY_TRIGGER_CHARS = _get_profile_int_env("UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 80)
+PROFILE_ENV_KEYS = ("os", "shell", "editor")
+
+
 # Environment variable to control the profiling feature
 # UAGENT_ENABLE_PROFILING=1 (default: 1 / enabled)
 def is_profiling_enabled() -> bool:
@@ -54,7 +67,7 @@ def load_profile() -> dict[str, Any]:
                         for key in ("environment", "preferences", "constraints"):
                             if key not in data:
                                 data[key] = [] if key != "environment" else {}
-                        return data
+                        return _normalize_profile_snapshot(data)
                 except Exception:
                     continue
     except Exception:
@@ -63,14 +76,15 @@ def load_profile() -> dict[str, Any]:
 
 
 def save_profile(profile: dict[str, Any]) -> None:
-    """Append the updated profile to scheck_profile.jsonl."""
+    """Write the latest compact profile snapshot to scheck_profile.jsonl."""
     profile_file = get_profile_file_path()
     try:
         dirpath = os.path.dirname(profile_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
-        with open(profile_file, "a", encoding="utf-8") as f:
-            f.write(json.dumps(profile, ensure_ascii=False) + "\n")
+        compact_profile = _normalize_profile_snapshot(profile)
+        with open(profile_file, "w", encoding="utf-8") as f:
+            f.write(json.dumps(compact_profile, ensure_ascii=False, separators=(",", ":")) + "\n")
     except Exception:
         pass
 
@@ -92,51 +106,178 @@ def _is_similar_phrase(a: str, b: str) -> bool:
             return True
     return False
 
-def smart_merge_profiles(
-    old_profile: dict[str, Any], new_profile: dict[str, Any]
-) -> dict[str, Any]:
-    """Merge new profile findings into the old profile with smart rules.
+def _compact_profile_text(value: Any) -> str:
+    return " ".join(str(value).split()).strip()
 
-    Rules:
-    - environment: Overwrite with latest values.
-    - preferences: Append and deduplicate (with similarity check).
-    - constraints: Append and deduplicate (with similarity check).
-    """
+
+def _summarize_profile_text(
+    text: str,
+    *,
+    provider: str | None = None,
+    client: Any = None,
+    model_name: str = "",
+    kind: str = "item",
+) -> str:
+    compact = _compact_profile_text(text)
+    if not compact:
+        return ""
+    if len(compact) <= PROFILE_SUMMARY_TRIGGER_CHARS:
+        return compact[:PROFILE_MAX_TEXT_CHARS]
+    if not provider or client is None or not model_name:
+        return compact[:PROFILE_MAX_TEXT_CHARS]
+
+    prompt = (
+        f"Shorten the following user {kind} into a concise phrase. "
+        f"Keep the meaning, remove examples and filler, and return only the summary. "
+        f"Limit it to {PROFILE_MAX_TEXT_CHARS} characters.\n\n"
+        f"TEXT: {compact}"
+    )
+
+    try:
+        if provider in ("gemini", "vertexai"):
+            from google.genai import types as gemini_types
+
+            response = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=gemini_types.GenerateContentConfig(
+                    system_instruction="Return only the summary text.",
+                    temperature=0.0,
+                ),
+            )
+            raw = response.text or ""
+        elif provider == "claude":
+            response = client.messages.create(
+                model=model_name,
+                max_tokens=128,
+                system="Return only the summary text.",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+            )
+            raw = response.content[0].text or ""
+        else:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": "Return only the summary text."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.0,
+                max_tokens=128,
+            )
+            raw = response.choices[0].message.content or ""
+    except Exception:
+        return compact[:PROFILE_MAX_TEXT_CHARS]
+
+    cleaned = raw.strip()
+    if cleaned.startswith("```"):
+        lines = cleaned.splitlines()
+        if lines and lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].startswith("```"):
+            lines = lines[:-1]
+        cleaned = "\n".join(lines).strip()
+
+    cleaned = _compact_profile_text(cleaned)
+    return (cleaned or compact)[:PROFILE_MAX_TEXT_CHARS]
+
+
+def _normalize_profile_snapshot(
+    profile: dict[str, Any],
+    *,
+    provider: str | None = None,
+    client: Any = None,
+    model_name: str = "",
+) -> dict[str, Any]:
+    normalized = {"environment": {}, "preferences": [], "constraints": []}
+
+    env_data = profile.get("environment")
+    if isinstance(env_data, dict):
+        env_clean: dict[str, Any] = {}
+        for key in PROFILE_ENV_KEYS:
+            value = env_data.get(key)
+            text = _compact_profile_text(value)
+            if text:
+                env_clean[str(key)] = text[:PROFILE_MAX_TEXT_CHARS]
+        normalized["environment"] = env_clean
+
+    for field in ("preferences", "constraints"):
+        raw_items = profile.get(field)
+        if not isinstance(raw_items, list):
+            continue
+
+        items: list[str] = []
+        for item in raw_items:
+            text = _compact_profile_text(item)
+            if not text:
+                continue
+            text = _summarize_profile_text(
+                text,
+                provider=provider,
+                client=client,
+                model_name=model_name,
+                kind=field[:-1],
+            )
+            if not text:
+                continue
+            if not any(_is_similar_phrase(text, existing) for existing in items):
+                items.append(text[:PROFILE_MAX_TEXT_CHARS])
+
+        normalized[field] = items[-PROFILE_MAX_ITEMS:]
+
+    return normalized
+
+
+def smart_merge_profiles(
+    old_profile: dict[str, Any],
+    new_profile: dict[str, Any],
+    *,
+    provider: str | None = None,
+    client: Any = None,
+    model_name: str = "",
+) -> dict[str, Any]:
+    """Merge new profile findings into the old profile with size limits."""
+    old_profile = _normalize_profile_snapshot(old_profile)
+    new_profile = _normalize_profile_snapshot(
+        new_profile, provider=provider, client=client, model_name=model_name
+    )
+
     merged = {
         "environment": dict(old_profile.get("environment") or {}),
         "preferences": list(old_profile.get("preferences") or []),
         "constraints": list(old_profile.get("constraints") or []),
     }
 
-    # 1) Environment: Overwrite
     new_env = new_profile.get("environment")
     if isinstance(new_env, dict):
-        for k, v in new_env.items():
-            if v:
-                merged["environment"][k] = v
+        for k in PROFILE_ENV_KEYS:
+            v = new_env.get(k)
+            text = _compact_profile_text(v)
+            if text:
+                merged["environment"][str(k)] = text[:PROFILE_MAX_TEXT_CHARS]
 
-    # 2) Preferences: Deduplicate and append
-    new_prefs = new_profile.get("preferences")
-    if isinstance(new_prefs, list):
-        for p in new_prefs:
-            p_str = str(p).strip()
-            if not p_str:
+    def _append_limited(dst: list[str], items: Any) -> None:
+        if not isinstance(items, list):
+            return
+        for item in items:
+            text = _compact_profile_text(item)
+            if not text:
                 continue
-            # Check similarity against existing preferences
-            if not any(_is_similar_phrase(p_str, existing) for existing in merged["preferences"]):
-                merged["preferences"].append(p_str)
-
-    # 3) Constraints: Deduplicate and append
-    new_consts = new_profile.get("constraints")
-    if isinstance(new_consts, list):
-        for c in new_consts:
-            c_str = str(c).strip()
-            if not c_str:
+            text = _summarize_profile_text(
+                text, provider=provider, client=client, model_name=model_name, kind="item"
+            )
+            if not text:
                 continue
-            # Check similarity against existing constraints
-            if not any(_is_similar_phrase(c_str, existing) for existing in merged["constraints"]):
-                merged["constraints"].append(c_str)
+            if not any(_is_similar_phrase(text, existing) for existing in dst):
+                dst.append(text[:PROFILE_MAX_TEXT_CHARS])
+                if len(dst) >= PROFILE_MAX_ITEMS:
+                    break
 
+    _append_limited(merged["preferences"], new_profile.get("preferences"))
+    _append_limited(merged["constraints"], new_profile.get("constraints"))
+
+    merged["preferences"] = merged["preferences"][-PROFILE_MAX_ITEMS:]
+    merged["constraints"] = merged["constraints"][-PROFILE_MAX_ITEMS:]
     return merged
 
 
@@ -271,7 +412,7 @@ def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
 
         # 4) Smart Merge and Save
         old_profile = load_profile()
-        merged_profile = smart_merge_profiles(old_profile, new_profile)
+        merged_profile = smart_merge_profiles(old_profile, new_profile, provider=provider, client=client, model_name=model_name)
         save_profile(merged_profile)
 
     except Exception:
@@ -400,7 +541,7 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
             
             extracted_prof = process_chunk(message_buffer, step_info)
             if extracted_prof:
-                current_profile = smart_merge_profiles(current_profile, extracted_prof)
+                current_profile = smart_merge_profiles(current_profile, extracted_prof, provider=provider, client=client, model_name=model_name)
             
             # Clear buffer
             message_buffer = []

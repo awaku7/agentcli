@@ -1766,6 +1766,7 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
 
 def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
     from .profile_manager import load_profile, profile_from_logs
+    from .runtime_memory import _format_profile
 
     arg = (arg or "").strip().lower()
     if arg == "fromlog":
@@ -1787,7 +1788,7 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
         return True
 
     print(tr("User Profile:"))
-    print(json.dumps(profile, ensure_ascii=False, indent=2))
+    print(_format_profile(profile))
     return True
 
 

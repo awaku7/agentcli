@@ -3,6 +3,40 @@ from __future__ import annotations
 import json
 from typing import Any, Callable
 
+PROFILE_MAX_ITEMS = 5
+PROFILE_MAX_TEXT_CHARS = 80
+
+
+def _clip(text: Any) -> str:
+    return " ".join(str(text).split()).strip()[:PROFILE_MAX_TEXT_CHARS]
+
+
+def _format_profile(profile: dict[str, Any]) -> str:
+    env = profile.get("environment") if isinstance(profile.get("environment"), dict) else {}
+    prefs = profile.get("preferences") if isinstance(profile.get("preferences"), list) else []
+    consts = profile.get("constraints") if isinstance(profile.get("constraints"), list) else []
+
+    parts = ["[USER PROFILE]"]
+    if env:
+        env_items = []
+        for k in ("os", "shell", "editor"):
+            v2 = _clip(env.get(k))
+            if v2:
+                env_items.append(f"{k}={v2}")
+        if env_items:
+            parts.append("Environment: " + "; ".join(env_items))
+    if prefs:
+        pref_items = [_clip(x) for x in prefs[-PROFILE_MAX_ITEMS:]]
+        pref_items = [x for x in pref_items if x]
+        if pref_items:
+            parts.append("Preferences: " + "; ".join(pref_items))
+    if consts:
+        const_items = [_clip(x) for x in consts[-PROFILE_MAX_ITEMS:]]
+        const_items = [x for x in const_items if x]
+        if const_items:
+            parts.append("Constraints: " + "; ".join(const_items))
+    return "\n".join(parts)
+
 
 def append_long_memory_system_messages(
     *,
@@ -18,19 +52,8 @@ def append_long_memory_system_messages(
 
         if is_profiling_enabled():
             profile = load_profile()
-            # Only inject if we have some profile data
-            if (
-                profile.get("environment")
-                or profile.get("preferences")
-                or profile.get("constraints")
-            ):
-                profile_text = (
-                    "[USER PROFILE]\n"
-                    f"Environment: {json.dumps(profile.get('environment'), ensure_ascii=False)}\n"
-                    f"Preferences: {json.dumps(profile.get('preferences'), ensure_ascii=False)}\n"
-                    f"Constraints: {json.dumps(profile.get('constraints'), ensure_ascii=False)}"
-                )
-                profile_msg = {"role": "system", "content": profile_text}
+            if profile.get("environment") or profile.get("preferences") or profile.get("constraints"):
+                profile_msg = {"role": "system", "content": _format_profile(profile)}
                 messages.append(profile_msg)
                 core.log_message(profile_msg)
     except Exception:

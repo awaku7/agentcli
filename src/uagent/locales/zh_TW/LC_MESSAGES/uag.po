@@ -3,12 +3,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-22 19:56+0900\n"
+"POT-Creation-Date: 2026-05-22 20:43+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: zh_TW\n"
-"Language-Team: zh_TW <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,19 +19,19 @@ msgstr "請安装 Git。請参见：%(url)s"
 
 #: src/uagent/checks.py:20
 msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo"
-" yum install git (CentOS/RHEL)"
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
 msgstr ""
 "請安裝 Git。範例：sudo apt install git（Ubuntu/Debian）或 sudo yum install "
 "git（CentOS/RHEL）"
 
 #: src/uagent/checks.py:23
 msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode"
-" Command Line Tools: xcode-select --install"
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
 msgstr ""
-"請安裝 Git。如果使用 Homebrew：brew install git，或安裝 Xcode Command Line Tools"
-"：xcode-select --install"
+"請安裝 Git。如果使用 Homebrew：brew install git，或安裝 Xcode Command Line Tools：xcode-"
+"select --install"
 
 #: src/uagent/checks.py:30
 msgid "[ERROR] Git is not installed."
@@ -46,8 +44,8 @@ msgstr "getch() 回退到 input()"
 #: src/uagent/cli.py:646 src/uagent/cli.py:716
 #, python-format
 msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type"
-" \"\"\"retry; finish with a line containing %(sentinel)s)"
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
 msgstr "(多行輸入模式：請用多行輸入正文；若要重新開始，請輸入 \"\"\"retry；以包含 %(sentinel)s 的一行結束)"
 
 #: src/uagent/cli.py:676 src/uagent/setup_cli.py:1156
@@ -85,7 +83,8 @@ msgstr "請回覆 y 以傳送，或回覆 n（或 c/cancel）以略過傳送。"
 
 #: src/uagent/cli.py:875
 #, python-format
-msgid "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "圖片傳送確認失敗；不會傳送圖片：%(etype)s: %(err)s"
 
 #: src/uagent/cli.py:903 src/uagent/scheckgui.py:430
@@ -140,7 +139,8 @@ msgstr "已載入共用長期記憶。"
 
 #: src/uagent/cli_startup.py:204 src/uagent/web.py:716
 #, python-format
-msgid "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[WARN] 載入共享長期記憶時發生例外：%(err)s"
 
 #: src/uagent/cli_startup.py:238
@@ -225,8 +225,8 @@ msgstr "- 保留上一版摘要中的重要事實。\n"
 
 #: src/uagent/core.py:1240
 msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or "
-"pending items.\n"
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
 msgstr "- 合併新片段時不要遺失限制、決策或待處理事項。\n"
 
 #: src/uagent/core.py:1242
@@ -255,8 +255,8 @@ msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr ""
-"[INFO] shrink_llm：{old_n} -> {new_n} 則訊息（將 {old_part_n} 則較早的訊息壓縮為 1 "
-"則摘要；保留 {tail_n} 則尾部訊息）"
+"[INFO] shrink_llm：{old_n} -> {new_n} 則訊息（將 {old_part_n} 則較早的訊息壓縮為 1 則摘要；保留 "
+"{tail_n} 則尾部訊息）"
 
 #: src/uagent/core.py:1304
 #, python-format
@@ -266,15 +266,11 @@ msgstr ":help  (無法使用說明：%(err)s)"
 #: src/uagent/core.py:1316
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a"
-" local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous "
-"operation.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
 msgstr ""
 "## 任務\n"
 "- 您是一個在本機環境中執行的高能力「通用工具執行代理」，可以實際在使用者的電腦上執行命令並操作檔案。\n"
@@ -289,8 +285,7 @@ msgid ""
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to"
-" the user.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
 msgstr ""
 "## 規則\n"
 "- 一律使用提供的工具並驗證最新資訊。\n"
@@ -302,24 +297,14 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use "
-"the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and "
-"must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent "
-"Skills) and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct "
-"answer to the immediately preceding clear question. If needed, ask "
-"briefly: \"Which point should I continue with?\"\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## 注意事項\n"
 "- 所有使用者訊息都透過此腳本的標準輸入傳入。\n"
@@ -330,43 +315,31 @@ msgstr ""
 "- 帶有 .org / .org1 / .org2 等後綴的檔案是備份副本，不能當作主要可編輯檔案。\n"
 "- 如果您建立 Python 檔案，請執行 `python -m py_compile` 來驗證語法。\n"
 "- 如果需要專家等級的知識，請使用提示範本（Agent Skills）並遵循其指示。\n"
-"- "
-"如果使用者的輸入只是簡短肯定且沒有新增資訊，除非它是對緊接著的明確問題的直接回答，否則不要重複同樣的解釋。必要時，請簡短詢問：「我應該從哪一點繼續？」"
-"\n"
+"- 如果使用者的輸入只是簡短肯定且沒有新增資訊，除非它是對緊接著的明確問題的直接回答，否則不要重複同樣的解釋。必要時，請簡短詢問：「我應該從哪一點繼續？」\n"
 
 #: src/uagent/core.py:1343
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of "
-"deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask "
-"exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
-"explicit approval), run delete_file again with the same parameters, "
-"dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will"
-" be deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
 msgstr ""
 "## 危險操作政策（delete_file）\n"
 "- 使用 delete_file 工具進行刪除時，不要在預覽前要求確認。\n"
 "- 一律先以 dry_run=true 執行 delete_file，以取得刪除候選項目。\n"
 "- 將候選項目顯示給使用者，並且只透過 human_ask 要求一次確認。\n"
-"- 只有當使用者明確回覆「y」或「yes」（或同等明確同意）時，才以相同參數再次執行 delete_file，並將 "
-"dry_run=false、confirmed=true。\n"
+"- 只有當使用者明確回覆「y」或「yes」（或同等明確同意）時，才以相同參數再次執行 delete_file，並將 dry_run=false、confirmed=true。\n"
 "- 如果候選項目為 0，則不要詢問；只要回報不會刪除任何內容。\n"
 
 #: src/uagent/core.py:1351
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a"
-" local environment; you can execute commands and operate on the user's "
-"machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no "
-"diffs/partial summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
 msgstr ""
 "## 任務\n"
 "- 你是一個在本地環境中執行的「通用工具執行代理」；你可以執行命令並操作使用者的電腦。\n"
@@ -378,8 +351,7 @@ msgstr ""
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the"
-" most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
@@ -393,19 +365,13 @@ msgstr ""
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and "
-"must not be treated as primary editable files.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt "
-"templates.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct "
-"answer to the immediately preceding clear question. If needed, ask "
-"briefly: \"Which point should I continue with?\"\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## 注意事項\n"
 "- 所有使用者訊息都透過此腳本的標準輸入傳入。\n"
@@ -415,23 +381,21 @@ msgstr ""
 "- 帶有 .org / .org1 / .org2 等後綴的檔案是備份副本，不能當作主要可編輯檔案。\n"
 "- 如果您建立 Python 檔案，請執行 `python -m py_compile`。\n"
 "- 如果需要專家等級的知識，請使用 Agent Skills 提示範本。\n"
-"- "
-"如果使用者的輸入只是簡短肯定且沒有新增資訊，除非它是對緊接著的明確問題的直接回答，否則不要重複同樣的解釋。必要時，請簡短詢問：「我應該從哪一點繼續？」"
-"\n"
+"- 如果使用者的輸入只是簡短肯定且沒有新增資訊，除非它是對緊接著的明確問題的直接回答，否則不要重複同樣的解釋。必要時，請簡短詢問：「我應該從哪一點繼續？」\n"
 
 #: src/uagent/core.py:1378
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste"
-" line breaks.\n"
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
 msgstr ""
 "- 如果使用者使用的是 Windows cmd.exe，請優先使用 caret (^) "
 "行續接的多行命令，並將每一行保持短一些，以避免複製/貼上時出現換行問題。\n"
 
 #: src/uagent/core.py:1445
 msgid ""
-"The following tools are currently loaded in this session. Choose the most"
-" appropriate tool for the task."
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
 msgstr "此工作階段目前已載入以下工具。請選擇最適合這項工作的工具。"
 
 #: src/uagent/docs_util.py:27
@@ -493,19 +457,19 @@ msgstr "以作業系統開啟"
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-msgstr "選擇 LLM 提供方所必需（azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia）。"
+msgstr ""
+"選擇 LLM 提供方所必需（azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia）。"
 
 #: src/uagent/env_validate.py:63
 #, python-format
 msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely"
-" fail)."
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
 msgstr "未知提供者：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
 
 #: src/uagent/env_validate.py:74
 msgid ""
-"Azure OpenAI endpoint/base URL (e.g., "
-"https://<resource>.openai.azure.com/)."
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr "Azure OpenAI 端點/基底 URL（例如：https://<resource>.openai.azure.com/）。"
 
 #: src/uagent/env_validate.py:80
@@ -542,8 +506,7 @@ msgstr "Gemini API 金鑰。"
 
 #: src/uagent/env_validate.py:129
 msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires "
-"it."
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr "尚未安裝 Python 套件 'google-genai'。Provider=gemini 需要它。"
 
 #: src/uagent/env_validate.py:140
@@ -552,8 +515,8 @@ msgstr "Vertex AI API 金鑰 / 模型名稱。"
 
 #: src/uagent/env_validate.py:149
 msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai "
-"requires it."
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
 msgstr "尚未安裝 Python 套件 'google-genai'。Provider=vertexai 需要它。"
 
 #: src/uagent/env_validate.py:157
@@ -561,7 +524,8 @@ msgid "Anthropic (Claude) API key."
 msgstr "Anthropic（Claude）API 金鑰。"
 
 #: src/uagent/env_validate.py:165
-msgid "Python package 'anthropic' is not installed. Provider=claude requires it."
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr "尚未安裝 Python 套件 'anthropic'。Provider=claude 需要它。"
 
 #: src/uagent/env_validate.py:172
@@ -571,8 +535,8 @@ msgstr "NVIDIA API 金鑰。"
 #: src/uagent/env_validate.py:188
 #, python-format
 msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup "
-"will likely fail)."
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
 msgstr "未知 embedding 提供者：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
 
 #: src/uagent/env_validate.py:205
@@ -617,13 +581,14 @@ msgid "How to fix:"
 msgstr "修复方法："
 
 #: src/uagent/env_validate.py:300
-msgid "- Set the variables above in your environment before starting the program."
+msgid ""
+"- Set the variables above in your environment before starting the program."
 msgstr "- 請在啟動程式前将上述變數設定到環境中。"
 
 #: src/uagent/env_validate.py:306
 msgid ""
-"- You can set them via your OS environment settings, a .env file, your "
-"shell startup scripts,"
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
 msgstr "- 你可以透過操作系統環境設定、.env 檔案、shell 啟動脚本，"
 
 #: src/uagent/env_validate.py:312
@@ -661,19 +626,12 @@ msgstr "上一則助理回覆為空。請根據最近的工具結果作答。"
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)"
-"\n"
-"This may happen with OpenAI-compatible local providers after tool calls. "
-"You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or "
-"switching provider."
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 msgstr ""
 "[WARN] LLM 回傳了空的助理訊息，但沒有工具呼叫。\n"
-"provider=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)"
-"\n"
-"這可能發生在與 OpenAI 相容的本地提供者於工具呼叫之後。您可以嘗試將 UAGENT_EMPTY_NO_TOOL_MAX "
-"設為更高的值，或切換提供者。"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"這可能發生在與 OpenAI 相容的本地提供者於工具呼叫之後。您可以嘗試將 UAGENT_EMPTY_NO_TOOL_MAX 設為更高的值，或切換提供者。"
 
 #: src/uagent/llm_flow_helpers.py:189
 msgid "arguments must be a JSON object."
@@ -692,8 +650,8 @@ msgstr ""
 
 #: src/uagent/llm_flow_helpers.py:222
 msgid ""
-"[INFO] Reusing the previous result because this tool call matches an "
-"earlier one.\n"
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
 msgstr "[INFO] 由於這次工具呼叫與先前某次相同，因此重用前一次的結果。\n"
 
 #: src/uagent/llm_flow_helpers.py:237
@@ -715,7 +673,8 @@ msgstr "[WARN] 助理歷史記錄包含圖片內容；已轉換為文字。"
 msgid "[WARN] invalid image content (missing url)."
 msgstr "[WARN] 無效的圖片內容（缺少 url）。"
 
-#: src/uagent/llm_openai_responses.py:99 src/uagent/llm_openai_responses.py:108
+#: src/uagent/llm_openai_responses.py:99
+#: src/uagent/llm_openai_responses.py:108
 #, python-format
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] 不支援的內容項目：%(item)r"
@@ -753,14 +712,10 @@ msgstr "網路搜尋：{action}"
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide "
-"function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by"
-" the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has "
-"no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it "
-"using human_ask instead of guessing.\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
 "        "
 msgstr ""
 "[工具调用规则]\n"
@@ -773,11 +728,9 @@ msgstr ""
 #: src/uagent/llm_openai_responses.py:604
 msgid ""
 "[Web search rules]\n"
-"        - Use web search only when fresh or external information is "
-"necessary.\n"
+"        - Use web search only when fresh or external information is necessary.\n"
 "        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already "
-"sufficient.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
 "        "
 msgstr ""
 "[網頁搜尋規則]\n"
@@ -829,22 +782,31 @@ msgstr "剖析回覆時發生錯誤：%(err)s"
 #: src/uagent/profile_manager.py:208 src/uagent/profile_manager.py:309
 #, python-brace-format
 msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract "
-"the user's:\n"
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, "
-"etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", "
-"\"editor\": \"string\"},\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
 "  \"preferences\": [\"string\"],\n"
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
+"你是一個使用者輪廓分析代理。請分析對話紀錄並擷取使用者的以下資訊：\n"
+"1. 環境（作業系統、shell、編輯器等）\n"
+"2. 偏好（程式碼風格、偏好的工具、詳細程度偏好等）\n"
+"3. 限制（安全規則、離線工作需求等）\n"
+"\n"
+"請勿包含暫時性的問題、閒聊或敏感憑證。\n"
+"你必須且只能以符合此結構的有效 JSON 物件回覆：\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
 
 #: src/uagent/runtime_banner.py:231
 msgid "embedding"
@@ -963,8 +925,8 @@ msgstr "[INFO] .env.sec 遺失。是否根據目前啟動時的 UAGENT_* 環境�
 
 #: src/uagent/runtime_env.py:244
 msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the "
-"current startup UAGENT_* environment variables."
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
 msgstr "[INFO] .env.sec 遺失。請使用 `uag_envsec` 根據目前啟動時的 UAGENT_* 環境變數建立。"
 
 #: src/uagent/runtime_env.py:254
@@ -1683,14 +1645,14 @@ msgstr "影像檔過大：%(size)d 位元組（限制=%(max)d）"
 
 #: src/uagent/util_tools.py:209
 msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the"
-" current directory."
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
 msgstr "請指定工作目錄。若未設定，將使用 UAGENT_WORKDIR 環境變數或目前目錄。"
 
 #: src/uagent/util_tools.py:216
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing "
-"the startup file (if any)."
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
 msgstr "非互動模式。不要啟動 stdin 迴圈；處理啟動檔案（如有）後退出。"
 
 #: src/uagent/util_tools.py:354
@@ -1722,14 +1684,12 @@ msgstr "需要 src 和 dst"
 #: src/uagent/util_tools.py:972
 msgid ""
 "[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and "
-"follow the instructions.\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 msgstr ""
 "[技能执行]\n"
-"此 skill  предназнач intended to be run. Read the skill body carefully and"
-" follow the instructions.\n"
+"此 skill  предназнач intended to be run. Read the skill body carefully and follow the instructions.\n"
 "如果 skill 包含任务，請继续直到完成。\n"
 "按需使用工具。\n"
 
@@ -1750,8 +1710,7 @@ msgstr ""
 #: src/uagent/util_tools.py:1154
 #, python-format
 msgid ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\n"
+"Run this skill as a system-level instruction and keep it active in this session?\n"
 "\n"
 "Name: %(name)s\n"
 "Path: %(path)s\n"
@@ -1777,8 +1736,7 @@ msgstr "[clean] 参數無效：%(arg)r（指定 number=threshold；預設值为 
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
 "Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= "
-"%(threshold)d\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
 "Targets: %(n)d\n"
 "\n"
 "Proceed? Enter y to run, or c to cancel."
@@ -1798,8 +1756,7 @@ msgstr " - （%(count)d 則訊息）%(path)s"
 #: src/uagent/util_tools.py:1377
 #, python-format
 msgid ""
-"will overwrite the current session log file and prepend the loaded log "
-"(no backup).\n"
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
 "\n"
 "Current log: %(cur_log)s\n"
 "Source log: %(src_log)s\n"
@@ -1845,7 +1802,8 @@ msgstr "[shrink 錯誤] 無法解析為整數：%(arg)r -> 保留最後 %(keep)d
 
 #: src/uagent/util_tools.py:1683
 #, python-format
-msgid "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink_llm 錯誤] 無法解析為整數：%(arg)r -> 保留最後 %(keep)d 個"
 
 #: src/uagent/util_tools.py:1742 src/uagent/util_tools.py:1816
@@ -1856,11 +1814,11 @@ msgstr "尚未啟用共用長期記憶（未設定 UAGENT_SHARED_MEMORY_FILE）�
 
 #: src/uagent/util_tools.py:1772
 msgid "Analyzing past logs to generate user profile..."
-msgstr ""
+msgstr "正在分析先前的記錄以產生使用者輪廓……"
 
 #: src/uagent/util_tools.py:1776
 msgid "No past logs found or failed to generate profile."
-msgstr ""
+msgstr "找不到先前的記錄，或無法產生輪廓。"
 
 #: src/uagent/util_tools.py:1778
 #, fuzzy
@@ -1897,8 +1855,8 @@ msgstr "顯示記錄檔清單"
 
 #: src/uagent/util_tools.py:1873
 msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path /"
-" :cd /)"
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
 msgstr "無需確認即可變更工作目錄（例如：:cd .. / :cd ~ / :cd C:\\path / :cd /）"
 
 #: src/uagent/util_tools.py:1876
@@ -1924,26 +1882,27 @@ msgstr "載入過去的記錄（會覆寫目前的對話歷史）"
 #: src/uagent/util_tools.py:1886
 msgid ""
 "                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current "
-"session log file (overwrite, no backup)."
-msgstr "                       注意：运行后会要求確認；選擇 'y' 会把載入的日志追加到当前會話日志檔案开头（覆盖写入，不备份）。"
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       注意：运行后会要求確認；選擇 'y' 会把載入的日志追加到当前會話日志檔案开头（覆盖写入，不备份）。"
 
 #: src/uagent/util_tools.py:1890
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
-"刪除對話記錄（scheck_log_*.jsonl），其中 user/assistant/tool 訊息數（不含 system）<= "
-"N（預設=10）"
+"刪除對話記錄（scheck_log_*.jsonl），其中 user/assistant/tool 訊息數（不含 system）<= N（預設=10）"
 
 #: src/uagent/util_tools.py:1894
-msgid "Shrink conversation history (keep last N non-system messages; default=40)"
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "縮減對話歷史（保留最近 N 則非 system 訊息；預設=40）"
 
 #: src/uagent/util_tools.py:1898
 msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 "
-"system message; keep last N raw; default=20)"
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
 msgstr "透過 LLM 摘要縮減歷史（將較早的歷史總結為 1 則 system 訊息；保留最近 N 則原文；預設=20）"
 
 #: src/uagent/util_tools.py:1900
@@ -1989,7 +1948,8 @@ msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "透過預覽與確認刪除檔案／目錄"
 
 #: src/uagent/util_tools.py:1916
-msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr "設定推理模式（0=關閉，1=低，2=中，3=高；auto/minimal/xhigh）"
 
 #: src/uagent/util_tools.py:1918
@@ -2007,8 +1967,7 @@ msgstr "  - 輸入仅包含 'f' 的一行即可进入多行輸入模式。"
 #: src/uagent/util_tools.py:1924
 #, python-format
 msgid ""
-"  - To end multiline input mode, enter a line that is exactly "
-"%(sentinel)s."
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 要结束多行輸入模式，請輸入完全等于 %(sentinel)s 的一行。"
 
 #: src/uagent/util_tools.py:2129
@@ -2022,21 +1981,16 @@ msgstr "未知命令：:%(cmd)s"
 
 #: src/uagent/util_tools.py:2283
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term "
-"memory (persistent memos). Use them as background information about the "
-"user. However, always prioritize newly provided information in the "
-"conversation, and if it contradicts older information, adopt the latest "
-"information.\n"
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
 msgstr ""
-"下方列出的項目是來自這位使用者的長期記憶（持久備忘錄）的摘錄。請將它們視為關於使用者的背景資訊。不過，請始終優先採用對話中最新提供的資訊；如果與舊資訊衝突，請以最新資訊為準。"
-"\n"
+"下方列出的項目是來自這位使用者的長期記憶（持久備忘錄）的摘錄。請將它們視為關於使用者的背景資訊。不過，請始終優先採用對話中最新提供的資訊；如果與舊資訊衝突，請以最新資訊為準。\n"
 "\n"
 
 #: src/uagent/web.py:534
 msgid ""
-"[WARN] Another task is already running in this room. Please retry after "
-"it completes."
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
 msgstr "[WARN] 此房間中已有其他任務正在執行。請在完成後再試一次。"
 
 #: src/uagent/web.py:626 src/uagent/web.py:746
@@ -2103,8 +2057,8 @@ msgstr "- 聊天：輸入訊息並傳送（GUI：Ctrl+Enter 也可用）"
 
 #: src/uagent/welcome.py:67
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end "
-"with \"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
 msgstr "- 多行：輸入只包含 'f' 的一行即可進入多行模式（以 \"\"\"end 結束）。"
 
 #: src/uagent/welcome.py:70
@@ -2127,11 +2081,11 @@ msgstr "- 圖片：GUI 支援拖放；在 CUI 中可輸入檔案路徑進行圖�
 #: src/uagent/welcome.py:77
 #, python-format
 msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web"
-" Inspector help (`--path/--open` also available)."
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Docs: `%(docs_cmd)s` 顯示隨附文件；`%(webinspect_cmd)s` 顯示 Web Inspector "
-"說明（也可使用 `--path/--open`）。"
+"- Docs: `%(docs_cmd)s` 顯示隨附文件；`%(webinspect_cmd)s` 顯示 Web Inspector 說明（也可使用 "
+"`--path/--open`）。"
 
 #: src/uagent/welcome.py:81
 msgid "[Examples]"
@@ -2143,8 +2097,8 @@ msgstr "- \"分析此資料夾中的原始碼並建立 README.md。\""
 
 #: src/uagent/welcome.py:84
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible "
-"window contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
 msgstr "- \"擷取目前桌面的螢幕截圖，並描述可見視窗內容。\""
 
 #: src/uagent/welcome.py:86
@@ -2186,4 +2140,3 @@ msgstr "uagent 執行失敗：%(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
-
