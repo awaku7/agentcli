@@ -117,7 +117,6 @@ Audio speech means text-to-speech output.
 UAGENT_AUDIO_SPEECH_PROVIDER -> UAGENT_PROVIDER -> openai
 ```
 
-
 ### Supported providers
 
 - `openai`
@@ -146,7 +145,6 @@ Audio transcribe means speech-to-text input.
 ```text
 UAGENT_AUDIO_TRANSCRIBE_PROVIDER -> UAGENT_PROVIDER -> openai
 ```
-
 
 ### Supported providers
 

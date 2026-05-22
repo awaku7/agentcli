@@ -1,8 +1,6 @@
----
-name: pypi-upload-dist
-description: dist 配下の配布物（wheel / sdist）を PYPI_TOKEN で PyPI へアップロードするための手順を固定化したスキル。
-license: Apache-2.0
----
+______________________________________________________________________
+
+## name: pypi-upload-dist description: dist 配下の配布物（wheel / sdist）を PYPI_TOKEN で PyPI へアップロードするための手順を固定化したスキル。 license: Apache-2.0
 
 # 目的
 

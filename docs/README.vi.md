@@ -37,10 +37,13 @@ Sau khi cài đặt, khi chạy `uag` lần đầu tiên, trình hướng dẫn 
 ## Cách sử dụng
 
 ### Khởi động và thoát
+
 Chạy `uag` từ terminal để bắt đầu. Gõ `:exit` để thoát.
 
 ### Máy chủ A2A (Agent2Agent)
+
 Khởi chạy máy chủ HTTP tương thích với A2A:
+
 ```bash
 uaga
 ```
@@ -54,6 +57,7 @@ Với các nhà cung cấp khác, uag sẽ quay về đường dẫn riêng củ
 Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết các thiết lập `UAGENT_A2A_*` như xác thực, host, cổng, tải lại, URL gốc công khai, đồng thời và engine.
 
 ### Mẹo hữu ích (Duy trì và kiểm soát)
+
 - `:tools`: Hiển thị danh sách công cụ đã tải.
 - `:logs [n]`: Hiển thị nhật ký phiên (`n` là số lượng mục cần xem).
 - `:load <index>`: Tải một phiên trước đó để tiếp tục hội thoại.
@@ -63,12 +67,15 @@ Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 ## Cấu hình và chi tiết
 
 ### Biến môi trường và thiết lập
+
 Để xem các thiết lập chi tiết (khóa API, ngôn ngữ hiển thị `UAGENT_LANG`, cài đặt thu gọn lịch sử, v.v.), hãy xem **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+
 - **Thiết lập**: Cấu hình tương tác thông qua `python -m uagent.setup_cli`.
 - **Mã hóa**: Mã hóa an toàn tệp `.env` của bạn bằng công cụ `uag_envsec`.
 - **Cập nhật**: Dùng `uag_envsec add --file .env.sec --key NAME --value VALUE` để thêm hoặc cập nhật biến trong tệp đã mã hóa.
 
 ### Tài liệu dành cho nhà phát triển và quốc tế hóa
+
 - **Tài liệu nhà phát triển**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Thêm locale**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **README các ngôn ngữ khác**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

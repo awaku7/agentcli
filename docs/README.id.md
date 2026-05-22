@@ -37,10 +37,13 @@ Setelah instalasi, saat pertama kali menjalankan `uag`, wizard setup interaktif 
 ## Penggunaan
 
 ### Memulai dan Keluar
+
 Jalankan `uag` dari terminal Anda untuk memulai. Ketik `:exit` untuk keluar.
 
 ### Server A2A (Agent2Agent)
+
 Jalankan server HTTP yang kompatibel dengan A2A:
+
 ```bash
 uaga
 ```
@@ -54,6 +57,7 @@ Untuk penyedia lain, uag kembali ke jalur khusus penyedia atau alur chat-complet
 Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk pengaturan `UAGENT_A2A_*` seperti autentikasi, host, port, reload, URL dasar publik, konkurensi, dan engine.
 
 ### Tips Praktis (Kelangsungan dan Kontrol)
+
 - `:tools`: Menampilkan daftar alat yang dimuat.
 - `:logs [n]`: Menampilkan log sesi (`n` untuk menentukan jumlah entri).
 - `:load <index>`: Memuat sesi sebelumnya untuk melanjutkan percakapan.
@@ -63,12 +67,15 @@ Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.
 ## Konfigurasi dan Rincian
 
 ### Variabel Lingkungan dan Setup
+
 Untuk pengaturan rinci (kunci API, bahasa tampilan `UAGENT_LANG`, pengaturan penyusutan riwayat, dll.), lihat **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+
 - **Setup**: Konfigurasikan secara interaktif melalui `python -m uagent.setup_cli`.
 - **Enkripsi**: Enkripsi file `.env` Anda secara aman menggunakan alat `uag_envsec`.
 - **Pembaruan**: Gunakan `uag_envsec add --file .env.sec --key NAME --value VALUE` untuk menambah atau memperbarui variabel dalam file terenkripsi yang sudah ada.
 
 ### Dokumentasi Pengembang dan Internasionalisasi
+
 - **Dokumen Pengembang**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Menambah Locale**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **README Bahasa Lain**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

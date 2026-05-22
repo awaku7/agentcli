@@ -32,16 +32,16 @@ An encrypted dotenv file in the selected workdir. After decryption, its content 
 The decryption key is selected by `uag_envsec.secret_core` using this order:
 
 1. `.uagent.key` in the current workdir, if present
-2. The default key location managed by `uag_envsec`
+1. The default key location managed by `uag_envsec`
 
 ## Effective value priority
 
 The effective runtime value for each `UAGENT_*` key must be resolved in this order:
 
 1. Pre-existing environment variable
-2. `.env.sec`
-3. `.env`
-4. Application default
+1. `.env.sec`
+1. `.env`
+1. Application default
 
 A higher-priority source must not be overwritten by a lower-priority source.
 
@@ -68,15 +68,15 @@ UAGENT_PROVIDER=ollama
 The CLI startup flow must follow this order:
 
 1. Capture the pre-existing `UAGENT_*` environment snapshot before reading any `.env` or `.env.sec` file.
-2. Decide and apply the workdir.
-3. Load `.env` from the selected workdir with `override=False`.
-4. Load `.env.sec` from the selected workdir without overriding keys that existed in the pre-existing snapshot.
-5. Validate startup environment.
-6. If validation fails in interactive CLI mode, run `uagent.setup_cli`.
-7. After setup, reload `.env` and `.env.sec` using the same priority rules.
-8. Validate again.
-9. Build startup banner.
-10. Create the provider client.
+1. Decide and apply the workdir.
+1. Load `.env` from the selected workdir with `override=False`.
+1. Load `.env.sec` from the selected workdir without overriding keys that existed in the pre-existing snapshot.
+1. Validate startup environment.
+1. If validation fails in interactive CLI mode, run `uagent.setup_cli`.
+1. After setup, reload `.env` and `.env.sec` using the same priority rules.
+1. Validate again.
+1. Build startup banner.
+1. Create the provider client.
 
 The startup banner and provider client must be created only after the final environment has been loaded and validated.
 

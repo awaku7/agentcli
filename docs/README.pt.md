@@ -39,9 +39,11 @@ Na primeira execução, o `uag` verifica seu ambiente e inicia automaticamente o
 ## Uso
 
 ### Iniciar e sair
+
 Execute `uag` no terminal para iniciar. Digite `:exit` para sair.
 
 ### Servidor A2A
+
 Inicie um servidor HTTP compatível com Agent2Agent:
 
 ```bash
@@ -51,6 +53,7 @@ uaga
 Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) para as configurações `UAGENT_A2A_*`, como autenticação, host, porta, recarregamento, URL base pública, concorrência e mecanismo.
 
 ### Dicas úteis
+
 - `:tools`: mostra as ferramentas carregadas
 - `:logs [n]`: mostra os registros recentes da sessão
 - `:load <index>`: carrega uma sessão anterior
@@ -60,6 +63,7 @@ Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONME
 ## Configuração e detalhes
 
 ### Variáveis de ambiente e configuração
+
 Para chaves de API, configurações de idioma (`UAGENT_LANG`), ajustes de redução de histórico e mais, consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
 
 - **Assistente de configuração**: `python -m uagent.setup_cli`
@@ -67,10 +71,12 @@ Para chaves de API, configurações de idioma (`UAGENT_LANG`), ajustes de reduç
 - **Atualizar valores criptografados**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
 
 ### Nota sobre a Responses API
+
 Se você definir `UAGENT_RESPONSES=1`, a Responses API será usada para os provedores compatíveis: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
 Para os demais provedores, o uag retorna ao caminho específico do provedor ou ao fluxo chat-completions.
 
 ### Docs para desenvolvedores e traduções
+
 - **Docs para desenvolvedores**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Adicionar idiomas**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **Outros README traduzidos**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

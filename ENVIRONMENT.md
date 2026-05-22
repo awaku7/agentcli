@@ -13,9 +13,10 @@ python -m uagent.setup_cli
 ```
 
 ### Automatic Setup
+
 If required environment variables (such as provider settings) are missing when you start `uag`, the system will **automatically launch the setup wizard**. Once completed, your settings will be saved to `.env`, and the agent will be ready to use.
 
----
+______________________________________________________________________
 
 ## Key Environment Variables
 
@@ -87,9 +88,9 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 Enables automatic translation of user inputs and LLM responses.
 
 - `UAGENT_TRANSLATE_PROVIDER`: Translation engine.
-    - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI-compatible API を使う翻訳。
-    - `gemini`: Google Gemini を使う翻訳。
-    - `claude`: Anthropic Claude を使う翻訳。
+  - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI-compatible API を使う翻訳。
+  - `gemini`: Google Gemini を使う翻訳。
+  - `claude`: Anthropic Claude を使う翻訳。
 - `UAGENT_TRANSLATE_TO_LLM`: Target language for user inputs (e.g., `en`). Input is skipped if it already looks like English.
 - `UAGENT_TRANSLATE_FROM_LLM`: Target language for LLM responses (e.g., `ja`).
 - `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation (Required for API providers).
@@ -107,7 +108,7 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
 - `UAGENT_ENABLE_SEMANTIC_SEARCH`: Enable or disable semantic search tooling.
 
----
+______________________________________________________________________
 
 ## A2A Server
 
@@ -126,5 +127,5 @@ Enables automatic translation of user inputs and LLM responses.
 If you prefer not to store sensitive API keys in plain text within the `.env` file, you can encrypt it using `uag_envsec`.
 
 1. **Encryption**: Run `uag_envsec .env` and enter a password.
-2. **Usage**: `uag` will automatically detect `.env.sec` at startup and prompt for a password to decrypt and load it.
-3. **Update**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` to add or update a variable in an existing encrypted file.
+1. **Usage**: `uag` will automatically detect `.env.sec` at startup and prompt for a password to decrypt and load it.
+1. **Update**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` to add or update a variable in an existing encrypted file.

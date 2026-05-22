@@ -39,9 +39,11 @@ pip install uag
 ## 使い方
 
 ### 起動と終了
+
 ターミナルで `uag` を実行して開始します。終了するには `:exit` を入力します。
 
 ### A2A サーバー
+
 Agent2Agent 互換の HTTP サーバーを起動します。
 
 ```bash
@@ -51,6 +53,7 @@ uaga
 認証、ホスト、ポート、再読み込み、公開ベース URL、同時実行数、エンジンなどの `UAGENT_A2A_*` 設定は [ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md) を参照してください。
 
 ### 便利なコマンド
+
 - `:tools`: ロード済みツール一覧を表示
 - `:logs [n]`: 直近のセッションログを表示
 - `:load <index>`: 過去セッションを読み込む
@@ -60,6 +63,7 @@ uaga
 ## 設定と詳細
 
 ### 環境変数とセットアップ
+
 API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定などの詳細は [ENVIRONMENT.ja.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.ja.md) を参照してください。
 
 - **セットアップウィザード**: `python -m uagent.setup_cli`
@@ -67,11 +71,13 @@ API キー、表示言語 `UAGENT_LANG`、履歴圧縮設定などの詳細は [
 - **暗号化ファイルの更新**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
 
 ### Responses API の注意
+
 `UAGENT_RESPONSES=1` を設定した場合、Responses API は OpenAI / Azure / Bedrock / OpenRouter / Ollama で使用されます。
 Gemini / Claude / Vertex AI はネイティブ API 経路を使い、Responses API の対象外です。
 それ以外のプロバイダでは、プロバイダ固有の経路または ChatCompletions にフォールバックします。
 
 ### 開発者向けドキュメント / 多言語
+
 - **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **ロケール追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **他言語の README**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [フィンランド語](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [オランダ語](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [スワヒリ語](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [ベンガル語](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [ペルシア語](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [モンゴル語](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [マラーティー語](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

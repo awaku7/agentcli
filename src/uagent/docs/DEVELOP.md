@@ -64,15 +64,15 @@ ______________________________________________________________________
 ## 2. High-level execution flow
 
 1. Start one of the entry points (`uag` / `uagg` / `uagw`).
-2. Startup initialization (`runtime_init.py`):
+1. Startup initialization (`runtime_init.py`):
    - Decide workdir (`--workdir/-C`, `UAGENT_WORKDIR`, or current directory)
    - Create directory if needed and `chdir`
    - Build and print startup banner
    - Load `.env` and `.env.sec` from the current working directory if `python-dotenv` is available
-3. Tool plugins are loaded from `src/uagent/tools/` (and optionally from an external directory).
-4. Provider client is created based on environment variables (`util_providers.make_client`).
-5. UI loop (CLI/GUI/Web) receives user input and enqueues events.
-6. LLM rounds run via `uagent_llm.run_llm_rounds()`:
+1. Tool plugins are loaded from `src/uagent/tools/` (and optionally from an external directory).
+1. Provider client is created based on environment variables (`util_providers.make_client`).
+1. UI loop (CLI/GUI/Web) receives user input and enqueues events.
+1. LLM rounds run via `uagent_llm.run_llm_rounds()`:
    - If the assistant returns tool calls, tools are executed and results are appended.
    - Retry/backoff behavior for rate limits is implemented in `llm_errors.py`.
 
@@ -159,8 +159,8 @@ ______________________________________________________________________
 Workdir is decided in this priority order:
 
 1. CLI option: `--workdir` / `-C`
-2. Environment variable: `UAGENT_WORKDIR`
-3. Fallback: current directory
+1. Environment variable: `UAGENT_WORKDIR`
+1. Fallback: current directory
 
 CLI/Web/GUI perform workdir initialization inside `main()` (not at module import time).
 
@@ -177,9 +177,9 @@ Long-term memory and shared memory can be inserted as system messages at startup
 Insertion order is:
 
 1. base system prompt
-2. long-term memory messages
-3. shared memory messages
-4. skill messages (if active)
+1. long-term memory messages
+1. shared memory messages
+1. skill messages (if active)
 
 Keep memory content concise and stable; it should augment, not replace, the base prompt.
 
@@ -197,10 +197,10 @@ MCP-related tools include:
 Recommended development flow:
 
 1. Confirm the server definition in `mcp_servers.json`.
-2. List available tools with `mcp_tools_list`.
-3. Add or update the server entry with `mcp_servers`.
-4. Validate the configuration.
-5. Test the target tool via `handle_mcp_v2`.
+1. List available tools with `mcp_tools_list`.
+1. Add or update the server entry with `mcp_servers`.
+1. Validate the configuration.
+1. Test the target tool via `handle_mcp_v2`.
 
 If something fails, first check whether the server entry is reachable and whether the listed tools match the expected transport.
 Validate again after each config change.

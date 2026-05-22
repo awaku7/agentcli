@@ -24,7 +24,7 @@ Después de la instalación, la primera vez que ejecute `uag` se iniciará autom
 
 - **Conjunto de herramientas prácticas**: Equipado con herramientas para la manipulación de archivos, búsqueda web, extracción de datos (PDF/PPTX/Excel), generación de imágenes y análisis, todas ejecutables en su entorno local.
 - **Soporte multiproveedor**: Soporta OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
-- **Interfaces flexibles**: 
+- **Interfaces flexibles**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
   - **Web**: `uagw` / `python -m uagent.web`
@@ -36,10 +36,13 @@ Después de la instalación, la primera vez que ejecute `uag` se iniciará autom
 ## Uso
 
 ### Inicio y salida
+
 Ejecute `uag` desde su terminal para comenzar. Escriba `:exit` para salir.
 
 ### Servidor A2A (Agent2Agent)
+
 Puede iniciar un servidor HTTP compatible con A2A separado de las interfaces existentes.
+
 ```bash
 uaga
 # o python -m uagent.a2a.server
@@ -54,6 +57,7 @@ Para los demás proveedores, uag vuelve a la ruta específica del proveedor o al
 Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) para la configuración de `UAGENT_A2A_*` como autenticación, host, puerto, recarga, URL base pública, concurrencia y motor.
 
 ### Consejos prácticos (continuidad y控制)
+
 - `:tools`: Muestra una lista de las herramientas cargadas.
 - `:logs [n]`: Muestra los registros de sesión (`n` para especificar el número de entradas).
 - `:load <index>`: Carga una sesión pasada para reanudar la conversación.
@@ -63,12 +67,15 @@ Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONME
 ## Configuración y detalles
 
 ### Variables de entorno y configuración
+
 Para ajustes detallados (claves API, idioma de pantalla `UAGENT_LANG`, ajustes de reducción de historial, etc.), consulte **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+
 - **Configuración**: Configure de forma interactiva a través de `python -m uagent.setup_cli`.
 - **Cifrado**: Cifre sus archivos `.env` de forma segura utilizando la herramienta `uag_envsec`.
 - **Actualización**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` para agregar o actualizar una variable en un archivo cifrado existente.
 
 ### Desarrolladores e internacionalización
+
 - **Documentación para desarrolladores**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Añadir locales**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **README en otros idiomas**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

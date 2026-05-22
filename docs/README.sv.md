@@ -39,9 +39,11 @@ Vid första start kontrollerar `uag` din miljö och startar automatiskt installa
 ## Användning
 
 ### Start och avsluta
+
 Kör `uag` i terminalen för att starta. Skriv `:exit` för att avsluta.
 
 ### A2A-server
+
 Starta en HTTP-server som är kompatibel med Agent2Agent:
 
 ```bash
@@ -51,6 +53,7 @@ uaga
 Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) för `UAGENT_A2A_*`-inställningar som autentisering, värd, port, omladdning, offentlig bas-URL, samtidighet och motor.
 
 ### Praktiska kommandon
+
 - `:tools`: visa laddade verktyg
 - `:logs [n]`: visa senaste sessionsloggarna
 - `:load <index>`: läs in en tidigare session
@@ -60,6 +63,7 @@ Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 ## Inställningar och detaljer
 
 ### Miljövariabler och uppstart
+
 För API-nycklar, språkinställning `UAGENT_LANG`, inställningar för historikkomprimering och mer, se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
 
 - **Installationsguide**: `python -m uagent.setup_cli`
@@ -67,10 +71,12 @@ För API-nycklar, språkinställning `UAGENT_LANG`, inställningar för historik
 - **Uppdatera krypterade värden**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
 
 ### Notis om Responses API
+
 Om du sätter `UAGENT_RESPONSES=1` används Responses API för stödjande leverantörer: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
 För andra leverantörer faller uag tillbaka till leverantörens egna flöde eller ChatCompletions.
 
 ### Utvecklardokumentation och översättningar
+
 - **Utvecklardokumentation**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Lägg till lokaler**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **Andra README-översättningar**: [English](https://github.com/awaku7/agentcli/blob/main/README.md) / [日本語](https://github.com/awaku7/agentcli/blob/main/docs/README.ja.md) / [Deutsch](https://github.com/awaku7/agentcli/blob/main/docs/README.de.md) / [Español](https://github.com/awaku7/agentcli/blob/main/docs/README.es.md) / [Français](https://github.com/awaku7/agentcli/blob/main/docs/README.fr.md) / [Italiano](https://github.com/awaku7/agentcli/blob/main/docs/README.it.md) / [한국어](https://github.com/awaku7/agentcli/blob/main/docs/README.ko.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt_BR.md) / [Русский](https://github.com/awaku7/agentcli/blob/main/docs/README.ru.md) / [ไทย](https://github.com/awaku7/agentcli/blob/main/docs/README.th.md) / [简体中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_CN.md) / [繁體中文](https://github.com/awaku7/agentcli/blob/main/docs/README.zh_TW.md) / [Polski](https://github.com/awaku7/agentcli/blob/main/docs/README.pl.md) / [Tiếng Việt](https://github.com/awaku7/agentcli/blob/main/docs/README.vi.md) / [Bahasa Indonesia](https://github.com/awaku7/agentcli/blob/main/docs/README.id.md) / [العربية](https://github.com/awaku7/agentcli/blob/main/docs/README.ar.md) / [हिन्दी](https://github.com/awaku7/agentcli/blob/main/docs/README.hi.md) / [Português](https://github.com/awaku7/agentcli/blob/main/docs/README.pt.md) / [Svenska](https://github.com/awaku7/agentcli/blob/main/docs/README.sv.md) / [Norsk bokmål](https://github.com/awaku7/agentcli/blob/main/docs/README.nb.md) / [Suomi](https://github.com/awaku7/agentcli/blob/main/docs/README.fi.md) / [Nederlands](https://github.com/awaku7/agentcli/blob/main/docs/README.nl.md) / [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md) / [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md) / [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md) / [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md) / [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md) / [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md) / [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)

@@ -34,7 +34,7 @@ ______________________________________________________________________
 Load order:
 
 1. `.env` if it exists (`override=False`)
-2. `.env.sec` if it exists (decrypt and then `override=True`)
+1. `.env.sec` if it exists (decrypt and then `override=True`)
 
 Notes:
 

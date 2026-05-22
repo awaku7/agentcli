@@ -119,6 +119,7 @@ When a tool needs to resume multi-file work across runs, follow the batch-state 
 ______________________________________________________________________
 
 ## 5. i18n for tools (JSON)
+
 Many built-in tools use `make_tool_translator(__file__)` and store translations in a JSON file
 with the same base name.
 
@@ -177,7 +178,6 @@ ______________________________________________________________________
 - Printing sensitive data → use masking and `human_ask(is_password=True)` when necessary.
 
 ______________________________________________________________________
-
 
 ## 9. Technical requirements for tool plugins
 

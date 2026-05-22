@@ -1,10 +1,10 @@
 # サブエージェント実装設計書
 
-作成日: 2026-05-22  
-対象: ローカル実行型 / ツール呼び出し型の開発支援エージェント  
+作成日: 2026-05-22\
+対象: ローカル実行型 / ツール呼び出し型の開発支援エージェント\
 想定言語: Python 中心。C# 側から呼ぶ場合も同じ設計を利用可能。
 
----
+______________________________________________________________________
 
 ## 1. 結論
 
@@ -34,7 +34,7 @@ ParentAgent / Orchestrator
 
 この方針にする理由は、開発支援エージェントでは **順序・ファイル更新・コマンド実行・失敗時の復旧** が重要だからである。サブエージェント同士が自由に会話し始める構成にすると、制御が難しくなる。
 
----
+______________________________________________________________________
 
 ## 2. なぜサブエージェントが必要か
 
@@ -42,25 +42,25 @@ ParentAgent / Orchestrator
 
 本来の目的は以下である。
 
-1. **コンテキスト分離**  
+1. **コンテキスト分離**\
    コードレビュー、実装、調査、要約で見るべき情報が違う。
 
-2. **プロンプト分離**  
+1. **プロンプト分離**\
    1つの巨大 system prompt にすべて詰め込むと、ルール同士が衝突する。
 
-3. **権限分離**  
+1. **権限分離**\
    調査用は読み取りだけ、実装用はパッチ提案だけ、親だけが書き込み可能、のように制御できる。
 
-4. **失敗の局所化**  
+1. **失敗の局所化**\
    reviewer が間違えても、親が採用しなければ被害は広がらない。
 
-5. **並列化**  
+1. **並列化**\
    調査、ログ分析、ファイル読み取り、候補案作成など、読み取り中心タスクは並列化しやすい。
 
-6. **検証の分業**  
+1. **検証の分業**\
    coder が作った案を reviewer が見る、tester がテスト観点を出す、という形で品質を上げられる。
 
----
+______________________________________________________________________
 
 ## 3. やってはいけない設計
 
@@ -119,7 +119,7 @@ coder: 原則パッチ提案のみ。実際の write_file は親が実行
 
 渡すべきなのは、整理された `ContextPack` である。
 
----
+______________________________________________________________________
 
 ## 4. 採用すべき基本アーキテクチャ
 
@@ -151,7 +151,7 @@ flowchart TD
 
 開発支援エージェントでは、この型を基本にする。
 
----
+______________________________________________________________________
 
 ## 4.2 Handoff 型
 
@@ -181,7 +181,7 @@ flowchart TD
 
 したがって、最初の実装では Handoff は使わず、`run_subagent` ツールから始めるのがよい。
 
----
+______________________________________________________________________
 
 ## 4.3 Workflow / Graph 型
 
@@ -211,7 +211,7 @@ flowchart TD
 
 LLMは「判断」や「案の作成」に使い、順序制御はホスト側のコードで行う。
 
----
+______________________________________________________________________
 
 ## 5. 推奨構成
 
@@ -255,7 +255,7 @@ RunStore
   - checkpoints
 ```
 
----
+______________________________________________________________________
 
 ## 6. 親エージェントの責務
 
@@ -348,7 +348,7 @@ max_subagent_turns = 1 から 3
 max_parallel_subagents = 2 から 4
 ```
 
----
+______________________________________________________________________
 
 ## 7. サブエージェントの責務
 
@@ -417,7 +417,7 @@ max_parallel_subagents = 2 から 4
 - 意思決定しない
 - 不確かな内容を確定事項として書かない
 
----
+______________________________________________________________________
 
 ## 8. データモデル
 
@@ -495,7 +495,7 @@ max_parallel_subagents = 2 から 4
 }
 ```
 
----
+______________________________________________________________________
 
 ## 9. ContextPack 設計
 
@@ -526,7 +526,7 @@ max_parallel_subagents = 2 から 4
 
 ContextPack は「情報を増やす」より「迷わせる情報を削る」ことが重要である。
 
----
+______________________________________________________________________
 
 ## 10. 実行フロー
 
@@ -557,7 +557,7 @@ sequenceDiagram
     P-->>U: 結果
 ```
 
----
+______________________________________________________________________
 
 ## 11. ループ防止設計
 
@@ -613,7 +613,7 @@ Parent: allowed transitions と policy を見て採用する
 Host: 実行する
 ```
 
----
+______________________________________________________________________
 
 ## 12. ツール権限設計
 
@@ -672,7 +672,7 @@ dangerous:
 
 危険操作は、サブエージェントから直接実行させない。
 
----
+______________________________________________________________________
 
 ## 13. 並列化の考え方
 
@@ -699,7 +699,7 @@ dangerous:
 
 開発支援エージェントでは、基本的に **読む作業は並列、書く作業は直列** と考える。
 
----
+______________________________________________________________________
 
 ## 14. サブエージェントを使う判断基準
 
@@ -737,7 +737,7 @@ dangerous:
   - 制御複雑性
 ```
 
----
+______________________________________________________________________
 
 ## 15. 開発エージェント向けの実用構成
 
@@ -772,11 +772,11 @@ autonomous_shell_operator
 
 理由は、副作用が大きく、親の制御を壊しやすいからである。
 
----
+______________________________________________________________________
 
 ## 16. 参考実装: subagent_runtime.py
 
-以下は、最小限だが実運用に拡張しやすい 1 ファイル構成の例である。  
+以下は、最小限だが実運用に拡張しやすい 1 ファイル構成の例である。\
 実際の LLM 呼び出し部分は `LlmClient` に閉じ込めているため、OpenAI互換、Azure OpenAI、Gemini、Claude、ローカルLLMなどへ差し替えやすい。
 
 ```python
@@ -1215,7 +1215,7 @@ if __name__ == "__main__":
     example_usage()
 ```
 
----
+______________________________________________________________________
 
 ## 17. 親エージェント側の組み込み方
 
@@ -1244,7 +1244,7 @@ Policy check
 採用 / 却下 / 追加情報要求 / 実行
 ```
 
----
+______________________________________________________________________
 
 ## 18. プロンプト設計
 
@@ -1271,7 +1271,7 @@ Policy check
 必ず指定されたJSON形式で返してください。
 ```
 
----
+______________________________________________________________________
 
 ## 19. エラー処理
 
@@ -1305,7 +1305,7 @@ error_analyzer に原因分析を依頼
 ユーザーへ「ここで止めた理由」を説明
 ```
 
----
+______________________________________________________________________
 
 ## 20. チェックポイント設計
 
@@ -1338,7 +1338,7 @@ error_analyzer に原因分析を依頼
 - 評価データ作成
 ```
 
----
+______________________________________________________________________
 
 ## 21. 評価設計
 
@@ -1376,7 +1376,7 @@ review_findings_accepted_rate
 - レビューで有用な指摘が出たか
 ```
 
----
+______________________________________________________________________
 
 ## 22. 実装ロードマップ
 
@@ -1433,7 +1433,7 @@ review_findings_accepted_rate
 - 書き込み系は直列のまま
 ```
 
----
+______________________________________________________________________
 
 ## 23. 最終的な設計方針
 
@@ -1462,36 +1462,36 @@ review_findings_accepted_rate
 - 評価ハーネスによる回帰テスト
 ```
 
----
+______________________________________________________________________
 
 ## 24. 参考資料
 
-- OpenAI API Docs: Orchestration and handoffs  
+- OpenAI API Docs: Orchestration and handoffs\
   https://developers.openai.com/api/docs/guides/agents/orchestration
 
-- OpenAI Agents SDK: Handoffs  
+- OpenAI Agents SDK: Handoffs\
   https://openai.github.io/openai-agents-python/handoffs/
 
-- OpenAI API Docs: Guardrails and human review  
+- OpenAI API Docs: Guardrails and human review\
   https://developers.openai.com/api/docs/guides/agents/guardrails-approvals
 
-- OpenAI Agents SDK: Tracing  
+- OpenAI Agents SDK: Tracing\
   https://openai.github.io/openai-agents-python/tracing/
 
-- Anthropic Engineering: How we built our multi-agent research system  
+- Anthropic Engineering: How we built our multi-agent research system\
   https://www.anthropic.com/engineering/multi-agent-research-system
 
-- LangChain Docs: Multi-agent  
+- LangChain Docs: Multi-agent\
   https://docs.langchain.com/oss/python/langchain/multi-agent
 
-- LangGraph Docs: Persistence  
+- LangGraph Docs: Persistence\
   https://docs.langchain.com/oss/python/langgraph/persistence
 
-- LangChain Docs: Human-in-the-loop  
+- LangChain Docs: Human-in-the-loop\
   https://docs.langchain.com/oss/python/langchain/human-in-the-loop
 
-- Microsoft Learn: Microsoft Agent Framework overview  
+- Microsoft Learn: Microsoft Agent Framework overview\
   https://learn.microsoft.com/en-us/agent-framework/overview/
 
-- GitHub: microsoft/autogen  
+- GitHub: microsoft/autogen\
   https://github.com/microsoft/autogen

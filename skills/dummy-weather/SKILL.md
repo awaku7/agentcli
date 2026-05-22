@@ -1,8 +1,6 @@
----
-name: dummy-weather
-description: 指定された地域のダミーの天気を返します。
-version: 1.0.0
----
+______________________________________________________________________
+
+## name: dummy-weather description: 指定された地域のダミーの天気を返します。 version: 1.0.0
 
 # Dummy Weather Skill
 
