@@ -1,6 +1,9 @@
-______________________________________________________________________
-
-## name: batch-state-runbook description: > batch_state を使う反復作業で、順番の崩れ・脱線・処理漏れを防ぐための実行手順スキル。 毎ターン load/update を強制し、1件ずつ順番に処理する。 license: Apache-2.0 version: 1.1.0
+---
+name: batch-state-runbook
+description: batch_state を使う反復作業で、順番の崩れ・脱線・処理漏れを防ぐための実行用スキル。 状態を load/update しながら、1ステップずつ着実に処理する。
+license: Apache-2.0
+version: 1.1.0
+---
 
 # Batch State Runbook
 

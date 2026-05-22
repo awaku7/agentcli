@@ -1,6 +1,8 @@
-______________________________________________________________________
-
-## name: python-idioms description: | Pythonを書く/レビューする時に「よりPythonらしい書き方」を素早く参照するための定石集（自分用の実務チートシート）。 license: Apache-2.0
+---
+name: python-idioms
+description: Pythonを書く/レビューする時に「よりPythonらしい書き方」を素早く参照するための定石集（開発用の手引き・チートシート）。
+license: Apache-2.0
+---
 
 # 目的
 
