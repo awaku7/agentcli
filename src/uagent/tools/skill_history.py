@@ -60,6 +60,7 @@ def make_finish_skill_handler(
         # Trigger background profiling before clearing skill messages
         try:
             from ..profile_manager import run_profiling_async
+
             run_profiling_async(messages_ref, core)
         except Exception:
             pass

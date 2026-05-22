@@ -445,8 +445,6 @@ def run_tool(args: dict[str, Any]) -> str:
                 return _json_err(msg)
 
         results = []
-        count = 0
-        truncated = False
 
         if os.environ.get("UAGENT_SEARCH_FILES_DEBUG"):
             print(
@@ -512,14 +510,22 @@ def run_tool(args: dict[str, Any]) -> str:
 
         # Apply pagination
         from .pagination_util import paginate_results
-        page_results, page, total_pages, total_results = paginate_results(results, page, max_results)
+
+        page_results, page, total_pages, total_results = paginate_results(
+            results, page, max_results
+        )
 
         out_lines: list[str] = []
         out_lines.append(
             _(
                 "out.found_paginated",
                 default="[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
-            ).format(page=page, total_pages=total_pages, total=total_results, showing=len(page_results))
+            ).format(
+                page=page,
+                total_pages=total_pages,
+                total=total_results,
+                showing=len(page_results),
+            )
         )
 
         for r in page_results:

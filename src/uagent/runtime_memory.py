@@ -15,10 +15,15 @@ def append_long_memory_system_messages(
     # Inject user profile if profiling is enabled and profile exists
     try:
         from .profile_manager import is_profiling_enabled, load_profile
+
         if is_profiling_enabled():
             profile = load_profile()
             # Only inject if we have some profile data
-            if profile.get("environment") or profile.get("preferences") or profile.get("constraints"):
+            if (
+                profile.get("environment")
+                or profile.get("preferences")
+                or profile.get("constraints")
+            ):
                 profile_text = (
                     "[USER PROFILE]\n"
                     f"Environment: {json.dumps(profile.get('environment'), ensure_ascii=False)}\n"

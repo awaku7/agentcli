@@ -443,7 +443,6 @@ def run_tool(args: dict[str, Any]) -> str:
         matches: list[dict[str, Any]] = []
         scanned_files = 0
         skipped_binary = 0
-        limit_reached = False
 
         for path in files:
             scanned_files += 1
@@ -494,7 +493,9 @@ def run_tool(args: dict[str, Any]) -> str:
         from .pagination_util import paginate_results
 
         if filenames_only:
-            page_results, page, total_pages, total_results = paginate_results(filenames, page, max_results)
+            page_results, page, total_pages, total_results = paginate_results(
+                filenames, page, max_results
+            )
             return _json_ok(
                 filenames=page_results,
                 count=len(page_results),
@@ -509,7 +510,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 ignore_case=ignore_case,
             )
 
-        page_results, page, total_pages, total_results = paginate_results(matches, page, max_results)
+        page_results, page, total_pages, total_results = paginate_results(
+            matches, page, max_results
+        )
         return _json_ok(
             matches=page_results,
             count=len(page_results),
