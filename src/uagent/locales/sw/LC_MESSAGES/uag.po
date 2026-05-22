@@ -1487,7 +1487,7 @@ msgid "Optional image / embedding / audio settings"
 msgstr "Mipangilio ya hiari ya picha / embedding"
 
 msgid "Optional specialized sub-agent settings"
-msgstr ""
+msgstr "Mipangilio ya hiari ya mawakala wadogo maalum"
 
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"

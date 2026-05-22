@@ -1426,7 +1426,7 @@ msgid "Optional image / embedding / audio settings"
 msgstr "可选图像 / embedding 设置"
 
 msgid "Optional specialized sub-agent settings"
-msgstr ""
+msgstr "专业子代理可选设置"
 
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
