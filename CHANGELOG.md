@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.38] - 2026-05-22
+
 ### Added
 - **Specialized Sub-Agent Tool (`run_sub_agent`)**:
   - Implemented safe, orchestrated specialized sub-agents under the control of the parent orchestrator.
@@ -18,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Verified and passed all translation smoke tests (`test_tools_i18n_smoke.py`).
 - **Sub-Agent Extensions Roadmap (`TODO_subagent.md`)**:
   - Added a dedicated roadmap ledger to manage future sub-agent extensions and implementation logs.
+- **Skill Maintenance**:
+  - Repaired broken YAML frontmatter in metadata sections across all SKILL.md files to restore agent `:skills` tool discovery compatibility.
 
 ---
 
