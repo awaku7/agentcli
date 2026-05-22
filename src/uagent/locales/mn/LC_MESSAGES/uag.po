@@ -1853,21 +1853,28 @@ msgstr ""
 "Урт хугацааны санах ойн тэмдэглэлийг индексээр нь устгах (:mem-list-ийг үзнэ"
 " үү)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Суралцсан хэрэглэгчийн профайлыг харуулах (орчин, давуу эрх, хязгаарлалт)"
+msgstr ""
+"Суралцсан хэрэглэгчийн профайлыг харуулах (орчин, давуу эрх, хязгаарлалт)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Суралцсан хэрэглэгчийн профайлын өгөгдлийг устгах"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Хэрэглэгчийн профайлын өгөгдөл олдсонгүй."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Хэрэглэгчийн профайл:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Хэрэглэгчийн профайлыг амжилттай устгалаа."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Устгах хэрэглэгчийн профайл файл олдсонгүй."
 
@@ -2017,13 +2024,11 @@ msgstr ""
 "- Олон мөр: олон мөрийн горимд орохын тулд зөвхөн 'f' гэсэн мөрийг оруулна "
 "уу (\"\"\" төгсгөлөөр төгсдөг)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Командууд: системийн командуудыг харахын тулд ':help' гэж бичнэ үү (лог "
-"удирдах, түүхийг шахах гэх мэт)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Командууд: системийн командуудыг (бүртгэлийн удирдлага, түүхийг шахах гэх мэт) үзэхийн тулд ':help' гэж бичнэ үү. Тэмдэглэл: командууд '/' (налуу зураас) биш ':' (цэг) тэмдэгтээр эхэлнэ."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

@@ -67,7 +67,7 @@ def get_welcome_message():
             '- Multiline: enter a line that is just \'f\' to enter multiline mode (end with """end).'
         ),
         _(
-            "- Commands: type ':help' to see system commands (log management, history compression, etc.)."
+            "- Commands: type ':help' to see system commands (log management, history compression, etc.). Note: commands start with ':' (colon) instead of '/' (slash)."
         ),
         _("- Exit: ':exit' or ':quit' ends the session."),
         _(

@@ -1908,21 +1908,28 @@ msgstr "Показати нотатки довготривалої пам'яті
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Видалити запис довготривалої пам'яті за індексом (див. :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Показати вивчений профіль користувача (оточення, уподобання, обмеження)"
+msgstr ""
+"Показати вивчений профіль користувача (оточення, уподобання, обмеження)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Очистити дані вивченого профілю користувача"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Дані профілю користувача не знайдено."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Профіль користувача:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Профіль користувача успішно очищено."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Файл профілю користувача для очищення не знайдено."
 
@@ -2075,13 +2082,11 @@ msgstr ""
 "- Багаторядковий: введіть рядок, який є просто \"f\", щоб увійти в "
 "багаторядковий режим (закінчується \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Команди: введіть ':help', щоб переглянути системні команди (керування "
-"журналами, стиснення історії тощо)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Команди: введіть ':help', щоб переглянути системні команди (керування логами, стиснення історії тощо). Примітка: команди починаються з двокрапки ':' замість скісної риски '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

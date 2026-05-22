@@ -1894,21 +1894,28 @@ msgstr "Langetermijngeheugen-notities weergeven"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Een langetermijngeheugen-notitie verwijderen op index (zie :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Toon het geleerde gebruikersprofiel (omgeving, voorkeuren, beperkingen)"
+msgstr ""
+"Toon het geleerde gebruikersprofiel (omgeving, voorkeuren, beperkingen)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Wis de geleerde gebruikersprofielgegevens"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Geen gebruikersprofielgegevens gevonden."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Gebruikersprofiel:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Gebruikersprofiel succesvol gewist."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Geen gebruikersprofielbestand gevonden om te wissen."
 
@@ -2060,13 +2067,11 @@ msgstr ""
 "- Multiline: voer een regel in die net 'f' is om naar de multiline-modus te "
 "gaan (eindig met \"\"\"einde)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Opdrachten: typ ':help' om systeemopdrachten te zien (logboekbeheer, "
-"compressie van de geschiedenis, enz.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Commando's: typ ':help' om systeemcommando's te zien (logboekbeheer, geschiedeniscompressie, enz.). Opmerking: commando's beginnen met een dubbele punt ':' in plaats von een schuine streep '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

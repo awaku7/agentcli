@@ -1831,21 +1831,27 @@ msgstr "장기 메모리 항목 보기"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "장기 메모리 항목을 인덱스로 삭제 (:mem-list 참조)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "학습된 사용자 프로필(환경, 선호도, 제약 조건) 표시"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "학습된 사용자 프로필 데이터 지우기"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "사용자 프로필 데이터를 찾을 수 없습니다."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "사용자 프로필:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "사용자 프로필이 성공적으로 지워졌습니다."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "지울 사용자 프로필 파일을 찾을 수 없습니다."
 
@@ -1982,11 +1988,11 @@ msgid ""
 " \"\"\"end)."
 msgstr "- 여러 줄: 'f'만 있는 줄을 입력하면 여러 줄 모드로 들어갑니다(끝낼 때는 \"\"\"end를 입력)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr "- 명령: 시스템 명령을 보려면 ':help'를 입력하세요(로그 관리, 히스토리 압축 등)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- 명령어: 시스템 명령어(로그 관리, 기록 압축 등)를 보려면 ':help'를 입력하세요. 참고: 명령어는 '/' (슬래시) 대신 ':' (콜론)으로 시작합니다."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

@@ -1905,21 +1905,28 @@ msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Onyesha wasifu wa mtumiaji aliyejifunza (mazingira, mapendeleo, vikwazo)"
+msgstr ""
+"Onyesha wasifu wa mtumiaji aliyejifunza (mazingira, mapendeleo, vikwazo)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Futa data ya wasifu wa mtumiaji aliyejifunza"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Data ya wasifu wa mtumiaji haijapatikana."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Wasifu wa Mtumiaji:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Hakuna faili ya wasifu wa mtumiaji iliyopatikana ili kufutwa."
 
@@ -2067,13 +2074,11 @@ msgstr ""
 "- Mistari mingi: weka mstari wenye tu 'f' ili kuingia hali ya mistari mingi "
 "(malizia kwa \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Amri: andika ':help' ili kuona amri za mfumo (usimamizi wa logi, kubana "
-"historia, n.k.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Amri: andika ':help' ili kuona amri za mfumo (usimamizi wa kumbukumbu, ukandamizaji wa historia, nk.). Kumbuka: amri huanza na ':' (koloni) badala ya '/' (mkwaju)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

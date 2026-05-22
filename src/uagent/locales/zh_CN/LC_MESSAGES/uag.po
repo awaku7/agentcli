@@ -1822,21 +1822,27 @@ msgstr "长期记忆条目："
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ":mem-del <index>      按索引删除长期记忆笔记（参见 :mem-list）"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "显示已学习的用户画像（环境、偏好、约束）"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "清除已学习的用户画像数据"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "未找到用户画像数据。"
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "用户画像:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "用户画像已成功清除。"
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "未找到可清除的用户画像文件。"
 
@@ -1974,11 +1980,11 @@ msgid ""
 " \"\"\"end)."
 msgstr "- 多行：输入仅包含 'f' 的一行可进入多行模式（以 \"\"\"end 结束）。"
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr "- 命令：输入 ':help' 查看系统命令（日志管理、历史压缩等）。"
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- 命令：输入 ':help' 查看系统命令（日志管理、历史压缩等）。注意：命令以 ':'（冒号）开头，而不是 '/'（斜杠）。"
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

@@ -1895,21 +1895,27 @@ msgstr "Lista anteckningar i långtidsminnet"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Ta bort en anteckning i långtidsminnet efter index (se :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "Visa den inlärda användarprofilen (miljö, preferenser, begränsningar)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Rensa inlärda användarprofildata"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Inga användarprofildata hittades."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Användarprofil:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Användarprofilen har rensats."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Hittade ingen användarprofilfil att rensa."
 
@@ -2054,13 +2060,11 @@ msgstr ""
 "- Flerradigt: skriv en rad som bara är 'f' för att gå in i flerradsläge "
 "(avsluta med \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Kommandon: skriv ':help' för att se systemkommandon (logghantering, "
-"historikkomprimering osv.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Kommandon: skriv ':help' för att se systemkommandon (logghantering, historikkomprimering etc.). Obs: kommandon börjar med kolon ':' istället för snedstreck '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

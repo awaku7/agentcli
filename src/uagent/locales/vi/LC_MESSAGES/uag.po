@@ -1881,21 +1881,27 @@ msgstr "Danh sách ghi nhớ dài hạn:"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Xóa một ghi chú ghi nhớ dài hạn theo chỉ mục (xem :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "Hiển thị hồ sơ người dùng đã học (môi trường, sở thích, ràng buộc)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Xóa dữ liệu hồ sơ người dùng đã học"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Hồ sơ người dùng:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Hồ sơ người dùng đã được xóa thành công."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Không tìm thấy tệp hồ sơ người dùng để xóa."
 
@@ -2036,11 +2042,11 @@ msgstr ""
 "- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \\\\"
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr "- 命令: nhập ':help' 查看hệ thống命令(日志管理、lịch sử压缩等)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Lệnh: gõ ':help' để xem các lệnh hệ thống (quản lý nhật ký, nén lịch sử, v.v.). Lưu ý: các lệnh bắt đầu bằng dấu hai chấm ':' thay vì dấu gạch chéo '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

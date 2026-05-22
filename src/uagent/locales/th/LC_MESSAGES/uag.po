@@ -1888,21 +1888,27 @@ msgstr "แสดงบันทึกหน่วยความจำระย
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "ลบบันทึกหน่วยความจำระยะยาวตามดัชนี (ดู :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "แสดงโปรไฟล์ผู้ใช้ที่เรียนรู้ (สภาพแวดล้อม, ความชอบ, ข้อจำกัด)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "ล้างข้อมูลโปรไฟล์ผู้ใช้ที่เรียนรู้"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "ไม่พบข้อมูลโปรไฟล์ผู้ใช้"
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "โปรไฟล์ผู้ใช้:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "ล้างโปรไฟล์ผู้ใช้สำเร็จแล้ว"
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "ไม่พบไฟล์โปรไฟล์ผู้ใช้ที่จะล้าง"
 
@@ -2048,13 +2054,11 @@ msgstr ""
 "- หลายบรรทัด: ป้อนบรรทัดที่มีเพียง 'f' เพื่อเข้าโหมดหลายบรรทัด (จบด้วย "
 "\"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- คำสั่ง: พิมพ์ ':help' เพื่อดูคำสั่งระบบ (การจัดการบันทึก, การบีบอัดประวัติ"
-" ฯลฯ)"
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- คำสั่ง: พิมพ์ ':help' เพื่อดูคำสั่งระบบ (การจัดการบันทึก, การบีบอัดประวัติ ฯลฯ) หมายเหตุ: คำสั่งเริ่มต้นด้วย ':' (โคลอน) แทนที่จะเป็น '/' (สแลช)"
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

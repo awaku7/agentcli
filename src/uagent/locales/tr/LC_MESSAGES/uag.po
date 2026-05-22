@@ -1892,21 +1892,27 @@ msgstr "Uzun süreli hafıza notlarını listeleyin"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Uzun süreli hafıza notunu dizine göre silin (bkz. :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "Öğrenilen kullanıcı profilini göster (ortam, tercihler, kısıtlamalar)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Öğrenilen kullanıcı profili verilerini temizle"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Kullanıcı profili verisi bulunamadı."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Kullanıcı Profili:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Kullanıcı profili başarıyla temizlendi."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Temizlenecek kullanıcı profili dosyası bulunamadı."
 
@@ -2056,13 +2062,11 @@ msgstr ""
 "- Çok satırlı: çok satırlı moda girmek için yalnızca 'f' olan bir satır "
 "girin (\"\"\" sonu ile bitirin)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Komutlar: Sistem komutlarını (günlük yönetimi, geçmiş sıkıştırma vb.) "
-"görmek için ':help' yazın."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Komutlar: sistem komutlarını (günlük yönetimi, geçmiş sıkıştırma vb.) görmek için ':help' yazın. Not: komutlar '/' (taksim) yerine ':' (iki nokta üst üste) ile başlar."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

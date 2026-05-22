@@ -1829,21 +1829,27 @@ msgstr ""
 "یک یادداشت حافظه بلند مدت را بر اساس فهرست حذف کنید (به :mem-list مراجعه "
 "کنید)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "نمایش پروفایل کاربر یادگرفته شده (محیط، ترجیحات، محدودیت‌ها)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "پاک کردن داده‌های پروفایل کاربر یادگرفته شده"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "هیچ داده‌ای برای پروفایل کاربر یافت نشد."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "پروفایل کاربر:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "پروفایل کاربر با موفقیت پاک شد."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "هیچ فایل پروفایل کاربری برای پاک کردن یافت نشد."
 
@@ -1989,13 +1995,11 @@ msgstr ""
 "- چند خطی: خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت چند خطی شوید "
 "(پایان آن با \"\"\" پایان)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- دستورات: برای مشاهده دستورات سیستم (مدیریت گزارش، فشرده سازی تاریخچه، و "
-"غیره) ':help' را تایپ کنید."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- دستورات: برای مشاهده دستورات سیستم (مدیریت لاگ، فشرده‌سازی تاریخچه و غیره) عبارت ':help' را تایپ کنید. توجه: دستورات به جای '/' (اسلش) با ':' (دو نقطه) شروع می‌شوند."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

@@ -1871,21 +1871,27 @@ msgstr "قائمة ملاحظات الذاكرة طويلة المدى"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "حذف ملاحظة الذاكرة طويلة المدى حسب الفهرس (راجع :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "إظهار ملف تعريف المستخدم المتعلم (البيئة، التفضيلات، القيود)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "مسح بيانات ملف تعريف المستخدم المتعلم"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "لم يتم العثور على بيانات ملف تعريف المستخدم."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "ملف تعريف المستخدم:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "تم مسح ملف تعريف المستخدم بنجاح."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "لم يتم العثور على ملف تعريف مستخدم لمسحه."
 
@@ -2034,13 +2040,11 @@ msgstr ""
 "- متعدد الأسطر: أدخل سطرًا يتكون من \"f\" فقط للدخول إلى وضع متعدد الأسطر "
 "(ينتهي بـ \"\"\"نهاية)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- الأوامر: اكتب ':help' لرؤية أوامر النظام (إدارة السجل، وضغط السجل، وما إلى"
-" ذلك)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- الأوامر: اكتب ':help' لعرض أوامر النظام (إدارة السجلات، ضغط السجل، إلخ). ملاحظة: تبدأ الأوامر بـ ':' (نقطتان فوق بعضهما) بدلاً من '/' (شرطة مائلة)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

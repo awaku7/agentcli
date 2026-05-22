@@ -1893,21 +1893,27 @@ msgstr "Seznam poznámek k dlouhodobé paměti"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Smazat poznámku z dlouhodobé paměti podle indexu (viz :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "Zobrazit naučený uživatelský profil (prostředí, preference, omezení)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Vymazat naučená data uživatelského profilu"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Nenalezena žádná data uživatelského profilu."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Uživatelský profil:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Uživatelský profil byl úspěšně vymazán."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Nebyl nalezen žádný soubor uživatelského profilu k vymazání."
 
@@ -2061,13 +2067,11 @@ msgstr ""
 "- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového "
 "režimu (konec \"\"\"konec)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Příkazy: zadejte ':help' pro zobrazení systémových příkazů (správa "
-"protokolů, komprese historie atd.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Příkazy: zadejte ':help' pro zobrazení systémových příkazů (správa protokolů, komprese historie atd.). Poznámka: příkazy začínají dvojtečkou ':' namísto lomítka '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

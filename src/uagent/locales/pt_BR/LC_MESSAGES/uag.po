@@ -1904,21 +1904,28 @@ msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Excluir uma nota de memória de longo prazo pelo índice (veja :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Mostrar o perfil de usuário aprendido (ambiente, preferências, restrições)"
+msgstr ""
+"Mostrar o perfil de usuário aprendido (ambiente, preferências, restrições)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Limpar os dados do perfil de usuário aprendido"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Nenhum dado de perfil de usuário encontrado."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Perfil de usuário:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Perfil de usuário limpo com sucesso."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Nenhum arquivo de perfil de usuário encontrado para limpar."
 
@@ -2069,13 +2076,11 @@ msgstr ""
 "- Multiline: digite uma linha que seja apenas 'f' para entrar no modo "
 "multilinha (termine com uma linha contendo \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Comandos: digite ':help' para ver os comandos do sistema (gerenciamento de"
-" logs, compressão do histórico etc.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Comandos: digite ':help' para ver os comandos do sistema (gerenciamento de logs, compressão de histórico, etc.). Nota: os comandos começam com ':' (dois pontos) em vez de '/' (barra)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

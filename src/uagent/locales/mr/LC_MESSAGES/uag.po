@@ -1832,21 +1832,27 @@ msgstr "दीर्घकालीन मेमरी नोट्स सूच
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "निर्देशांकानुसार दीर्घकालीन मेमरी नोट हटवा (पहा :mem-सूची)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
 msgstr "शिकलेले वापरकर्ता प्रोफाइल दर्शवा (पर्यावरण, प्राधान्ये, मर्यादा)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "शिकलेला वापरकर्ता प्रोफाइल डेटा साफ करा"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "वापरकर्ता प्रोफाइल डेटा आढळला नाही."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "वापरकर्ता प्रोफाइल:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "वापरकर्ता प्रोफाइल यशस्वीरित्या साफ केले."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "साफ करण्यासाठी वापरकर्ता प्रोफाइल फाइल आढळली नाही."
 
@@ -1993,13 +1999,11 @@ msgstr ""
 "- मल्टीलाइन: मल्टीलाइन मोडमध्ये प्रवेश करण्यासाठी फक्त 'f' असलेली ओळ एंटर "
 "करा (\"\"\"अंताने समाप्त)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- कमांड्स: सिस्टम कमांड्स पाहण्यासाठी ':help' टाइप करा (लॉग मॅनेजमेंट, "
-"हिस्ट्री कॉम्प्रेशन इ.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- कमांड: सिस्टम कमांड पाहण्यासाठी ':help' टाईप करा (लॉग व्यवस्थापन, इतिहास संक्षेप इ.). टीप: कमांड '/' (स्लॅश) ऐवजी ':' (कोलन) ने सुरू होतात."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

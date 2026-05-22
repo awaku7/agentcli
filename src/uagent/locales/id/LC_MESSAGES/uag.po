@@ -1893,21 +1893,28 @@ msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
+msgstr ""
+"Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Hapus data profil pengguna yang dipelajari"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Data profil pengguna tidak ditemukan."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Profil Pengguna:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Profil pengguna berhasil dihapus."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Tidak ada file profil pengguna yang ditemukan untuk dihapus."
 
@@ -2056,13 +2063,11 @@ msgstr ""
 "- Multiline: masukkan baris yang hanya berisi 'f' untuk masuk mode multiline"
 " (akhiri dengan \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Commands: ketik ':help' untuk melihat perintah sistem (pengelolaan log, "
-"kompresi riwayat, dll.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Perintah: ketik ':help' untuk melihat perintah sistem (manajemen log, kompresi riwayat, dll.). Catatan: perintah dimulai dengan ':' (titik dua) bukan '/' (garis miring)."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."

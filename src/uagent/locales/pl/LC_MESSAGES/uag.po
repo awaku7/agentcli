@@ -1903,21 +1903,28 @@ msgstr "Wpisy pamięci długoterminowej:"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Usuń notatkę pamięci długoterminowej według indeksu (zob. :mem-list)"
 
+#: src/uagent/util_tools.py:1887
 msgid "Show the learned user profile (environment, preferences, constraints)"
-msgstr "Pokaż wyuczony profil użytkownika (środowisko, preferencje, ograniczenia)"
+msgstr ""
+"Pokaż wyuczony profil użytkownika (środowisko, preferencje, ograniczenia)"
 
+#: src/uagent/util_tools.py:1888
 msgid "Clear the learned user profile data"
 msgstr "Wyczyść wyuczone dane profilu użytkownika"
 
+#: src/uagent/util_tools.py:1769
 msgid "No user profile data found."
 msgstr "Nie znaleziono danych profilu użytkownika."
 
+#: src/uagent/util_tools.py:1771
 msgid "User Profile:"
 msgstr "Profil użytkownika:"
 
+#: src/uagent/util_tools.py:1783
 msgid "User profile cleared successfully."
 msgstr "Profil użytkownika został pomyślnie wyczyszczony."
 
+#: src/uagent/util_tools.py:1787
 msgid "No user profile file found to clear."
 msgstr "Nie znaleziono pliku profilu użytkownika do wyczyszczenia."
 
@@ -2067,13 +2074,11 @@ msgstr ""
 "- Wielowierszowo: wpisz linię zawierającą tylko 'f', aby wejść w tryb "
 "wielowierszowy (zakończ linią \"\"\"end)."
 
-#: src/uagent/welcome.py:68
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.)."
-msgstr ""
-"- Polecenia: wpisz ':help', aby zobaczyć polecenia systemowe (zarządzanie "
-"logami, kompresja historii itd.)."
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr "- Polecenia: wpisz ':help', aby wyświetlić polecenia systemowe (zarządzanie logami, kompresja historii itp.). Uwaga: polecenia zaczynają się od dwukropka ':' zamiast ukośnika '/'."
 
 #: src/uagent/welcome.py:70
 msgid "- Exit: ':exit' or ':quit' ends the session."
