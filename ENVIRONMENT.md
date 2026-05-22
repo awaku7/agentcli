@@ -108,6 +108,23 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
 - `UAGENT_ENABLE_SEMANTIC_SEARCH`: Enable or disable semantic search tooling.
 
+### 9. Specialized Sub-Agent Configuration (Overrides)
+
+You can override the provider, model name, and API key for specialized sub-agents (`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`) executed via the `run_sub_agent` tool. If not specified, they inherit the main agent's configuration.
+
+- **General Sub-Agent Overrides**:
+  - `UAGENT_SUB_AGENT_PROVIDER`: Provider used for all sub-agents.
+  - `UAGENT_SUB_AGENT_DEPNAME`: Model name used for all sub-agents.
+  - `UAGENT_SUB_AGENT_API_KEY`: API key used for all sub-agents.
+
+- **Function-Specific Overrides (Highest Priority)**:
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER`: Provider for a specific sub-agent.
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_DEPNAME`: Model name for a specific sub-agent.
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_API_KEY`: API key for a specific sub-agent.
+  *(※ `<AGENT_NAME>` must be one of `PLANNER`, `REVIEWER`, `SUMMARIZER`, `PATCH_DESIGNER`, `ERROR_ANALYST`)*
+
+  *(Example: Setting `UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=gemini` and `UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME=gemini-2.5-flash` allows you to route only the summarization tasks to the fast and cost-effective Gemini 2.5 Flash model)*
+
 ______________________________________________________________________
 
 ## A2A Server

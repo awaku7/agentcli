@@ -103,6 +103,23 @@ ______________________________________________________________________
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: 埋め込みモデル / デプロイ名。
 - `UAGENT_ENABLE_SEMANTIC_SEARCH`: セマンティック検索ツールの有効/無効を切り替える。
 
+### 9. 専門サブエージェントの個別設定 (オーバーライド)
+
+`run_sub_agent` ツールで実行される専門サブエージェント（`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`）のプロバイダやモデル、APIキーを個別に上書きできます。未指定時はメインエージェントの設定が引き継がれます。
+
+- **サブエージェント全体の上書き**:
+  - `UAGENT_SUB_AGENT_PROVIDER`: サブエージェント全体で使用するプロバイダ。
+  - `UAGENT_SUB_AGENT_DEPNAME`: サブエージェント全体で使用するモデル名。
+  - `UAGENT_SUB_AGENT_API_KEY`: サブエージェント全体で使用するAPIキー。
+
+- **ファンクション（役割）別の個別上書き (最優先)**:
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER`: 特定のサブエージェント専用のプロバイダ。
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_DEPNAME`: 特定のサブエージェント専用のモデル名。
+  - `UAGENT_SUB_AGENT_<AGENT_NAME>_API_KEY`: 特定のサブエージェント専用のAPIキー。
+  *(※ `<AGENT_NAME>` は `PLANNER`, `REVIEWER`, `SUMMARIZER`, `PATCH_DESIGNER`, `ERROR_ANALYST` のいずれか)*
+
+  *(例: `UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=gemini` および `UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME=gemini-2.5-flash` と指定することで、要約タスクのみ高速・安価な Gemini 2.5 Flash に処理させることができます)*
+
 ______________________________________________________________________
 
 ## A2A サーバー
