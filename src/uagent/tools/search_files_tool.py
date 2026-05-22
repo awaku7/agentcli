@@ -511,14 +511,8 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
         # Apply pagination
-        total_results = len(results)
-        total_pages = (total_results + max_results - 1) // max_results
-        if page > total_pages:
-            page = total_pages
-
-        start_idx = (page - 1) * max_results
-        end_idx = start_idx + max_results
-        page_results = results[start_idx:end_idx]
+        from .pagination_util import paginate_results
+        page_results, page, total_pages, total_results = paginate_results(results, page, max_results)
 
         out_lines: list[str] = []
         out_lines.append(

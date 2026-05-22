@@ -175,9 +175,17 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.max_results.description",
-                        default="Maximum number of matches to return (default: 100).",
+                        default="Maximum number of matches to return per page (default: 100).",
                     ),
                     "default": 100,
+                },
+                "page": {
+                    "type": "integer",
+                    "description": _(
+                        "param.page.description",
+                        default="Page number to retrieve (default: 1).",
+                    ),
+                    "default": 1,
                 },
                 "max_hits_per_file": {
                     "type": "integer",
@@ -397,6 +405,7 @@ def run_tool(args: dict[str, Any]) -> str:
         ignore_case = get_bool(args, "ignore_case", True)
         literal = get_bool(args, "literal", False)
         max_results = max(0, get_int(args, "max_results", 100))
+        page = max(1, get_int(args, "page", 1))
         max_hits_per_file = max(0, get_int(args, "max_hits_per_file", 100))
         context_lines = max(0, get_int(args, "context_lines", 0))
         filenames_only = get_bool(args, "filenames_only", False)
@@ -474,9 +483,6 @@ def run_tool(args: dict[str, Any]) -> str:
                         "context_after": after,
                     }
                 )
-                if len(matches) >= max_results:
-                    limit_reached = True
-                    break
                 if max_hits_per_file and file_hit_count >= max_hits_per_file:
                     break
 
@@ -484,33 +490,35 @@ def run_tool(args: dict[str, Any]) -> str:
                 matched_files.add(path)
                 if filenames_only:
                     filenames.append(path)
-                    if max_results and len(filenames) >= max_results:
-                        limit_reached = True
-                        break
 
-            if limit_reached:
-                break
+        from .pagination_util import paginate_results
 
         if filenames_only:
+            page_results, page, total_pages, total_results = paginate_results(filenames, page, max_results)
             return _json_ok(
-                filenames=filenames,
-                count=len(filenames),
+                filenames=page_results,
+                count=len(page_results),
+                total_results=total_results,
+                page=page,
+                total_pages=total_pages,
                 scanned_files=scanned_files,
                 matched_files=len(matched_files),
                 skipped_binary=skipped_binary,
-                limit_reached=limit_reached,
                 pattern=pattern,
                 literal=literal,
                 ignore_case=ignore_case,
             )
 
+        page_results, page, total_pages, total_results = paginate_results(matches, page, max_results)
         return _json_ok(
-            matches=matches,
-            count=len(matches),
+            matches=page_results,
+            count=len(page_results),
+            total_results=total_results,
+            page=page,
+            total_pages=total_pages,
             scanned_files=scanned_files,
             matched_files=len(matched_files),
             skipped_binary=skipped_binary,
-            limit_reached=limit_reached,
             pattern=pattern,
             literal=literal,
             ignore_case=ignore_case,
