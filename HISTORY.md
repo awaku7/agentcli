@@ -4,15 +4,16 @@ This document summarizes the major updates, architectural milestones, and featur
 
 ---
 
-## 1. Core Architecture & Multi-Provider Support
-The project was founded on a robust, multi-provider LLM client architecture designed to support diverse AI backends seamlessly.
+## 1. Core Architecture & Multi-Provider Support (Enhanced Local AI Support)
+The project was founded on a robust, multi-provider LLM client architecture designed to support diverse AI backends seamlessly, including fully localized offline environments via **Ollama**.
 
-* **Multi-Provider Integration**:
+* **Multi-Provider Integration & Strong Local AI Support**:
   * Native API support for **OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Google Vertex AI, AWS Bedrock, OpenRouter, Ollama, Grok (xAI), and NVIDIA**.
+  * Significantly enhanced support for local LLMs (such as Llama 3.1) via **Ollama**. Implemented a dedicated parameter tuning mechanism (`apply_ollama_extra_body`) to configure local-specific options (e.g., `keep_alive`, context size expansion via `num_ctx`, and `repeat_penalty`) directly from environment variables. This enables high-performance tool-use and image analysis (Ollama Vision) even in fully offline environments.
   * Implemented stateless, per-call translation helpers (`translate.py`) supporting multiple translation engines.
 * **Deterministic Reasoning & Temperature Unification**:
   * Standardized the default temperature to **`0.2`** across all major LLM providers to ensure stable tool-use, reliable JSON formatting, and consistent reasoning steps.
-  * Added support for provider-specific temperature overrides via environment variables (e.g., `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`).
+  * Added support for provider-specific temperature overrides via environment variables (e.g., `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`, `UAGENT_OLLAMA_TEMPERATURE`).
 
 ---
 

@@ -4,15 +4,16 @@
 
 ---
 
-## 1. コアアーキテクチャとマルチプロバイダ対応
-本プロジェクトは、多様なAIバックエンドをシームレスにサポートする、堅牢なマルチプロバイダLLMクライアントアーキテクチャを基盤として構築されました。
+## 1. コアアーキテクチャとマルチプロバイダ対応（ローカルAI対応の強化）
+本プロジェクトは、クラウドAPIだけでなく、**Ollama** などを介した完全ローカライズされたローカルAI環境をシームレスにサポートする、堅牢なマルチプロバイダLLMクライアントアーキテクチャを基盤として構築されています。
 
-* **マルチプロバイダ統合**:
+* **マルチプロバイダ統合とローカルAIの強力なサポート**:
   * **OpenAI, Azure OpenAI, Anthropic Claude, Google Gemini, Google Vertex AI, AWS Bedrock, OpenRouter, Ollama, Grok (xAI), NVIDIA** のネイティブAPIをサポート。
+  * 特に **Ollama** を用いたローカルLLM（Llama 3.1など）のサポートを徹底的に強化。ローカル環境特有のパラメータ（`keep_alive`, `num_ctx` によるコンテキストサイズ拡張、`repeat_penalty` など）を環境変数から細かくチューニングできる仕組み（`apply_ollama_extra_body`）を実装し、完全オフライン環境でもクラウド並みに高度なツール実行（Tool-use）や画像解析（Ollama Vision）を可能にしました。
   * 複数の翻訳エンジンをサポートする、ステートレスな翻訳ヘルパー（`translate.py`）を実装。
 * **決定論的推論と設定温度（Temperature）の統一**:
   * エージェントループ実行時、すべての主要LLMプロバイダにおいて、デフォルトの `temperature` を **`0.2`** に統一し、ツールの呼び出し、JSONフォーマットの出力、および論理的な思考ステップの安定性を確保。
-  * 環境変数（例: `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`）を介して、プロバイダごとに温度を個別に上書きできる仕組みを導入。
+  * 環境変数（例: `UAGENT_GEMINI_TEMPERATURE`, `UAGENT_CLAUDE_TEMPERATURE`, `UAGENT_OLLAMA_TEMPERATURE`）を介して、プロバイダごとに温度を個別に上書きできる仕組みを導入。
 
 ---
 
