@@ -108,7 +108,14 @@ Enables automatic translation of user inputs and LLM responses.
 - `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
 - `UAGENT_ENABLE_SEMANTIC_SEARCH`: Enable or disable semantic search tooling.
 
-### 9. Specialized Sub-Agent Configuration (Overrides)
+### 9. Autonomous User Profiling Settings
+
+Configure the autonomous profiling system that extracts your development environment and preferences from conversation logs.
+
+- `UAGENT_ENABLE_PROFILING`: Enable or disable autonomous profiling (`1`: Enabled(default), `0`: Disabled).
+- `UAGENT_PROFILE_FILE`: Path to store the extracted profile data (default: `scheck_profile.jsonl`).
+
+### 10. Specialized Sub-Agent Configuration (Overrides)
 
 You can override the provider, model name, and API key for specialized sub-agents (`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`) executed via the `run_sub_agent` tool. If not specified, they inherit the main agent's configuration.
 
