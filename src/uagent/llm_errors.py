@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import json
 import random
 import re
 import time
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Optional
 
 from .i18n import _
 
@@ -137,10 +139,10 @@ def _extract_status_code_from_exception(e: Exception) -> Any:
     return None
 
 
-def _extract_headers_from_exception(e: Exception) -> Dict[str, Any]:
+def _extract_headers_from_exception(e: Exception) -> dict[str, Any]:
     """例外から取得できる範囲でHTTPヘッダを集めて返す（小文字キーで正規化）。"""
 
-    headers: Dict[str, Any] = {}
+    headers: dict[str, Any] = {}
 
     resp = getattr(e, "response", None)
     if resp is not None:
@@ -342,10 +344,10 @@ def _extract_retry_after(e: Exception) -> Any:
     return None
 
 
-def _format_selected_headers(headers: Dict[str, Any]) -> List[str]:
+def _format_selected_headers(headers: dict[str, Any]) -> list[str]:
     """デバッグに有用なヘッダのみ抽出して 'k=v' の配列で返す。"""
 
-    out: List[str] = []
+    out: list[str] = []
 
     for k in (
         "retry-after",

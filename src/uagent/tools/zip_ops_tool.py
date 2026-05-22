@@ -18,7 +18,7 @@ from __future__ import annotations
 import json
 import os
 import zipfile
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
@@ -28,7 +28,7 @@ STATUS_LABEL = "tool:zip_ops"
 
 _ = make_tool_translator(__file__)
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -179,7 +179,7 @@ def _human_confirm(message: str) -> bool:
             return False
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     _ = make_tool_translator(__file__)
     action = str(args.get("action") or "")
     zip_path = str(args.get("zip_path") or "")
@@ -302,7 +302,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
 
-        safe_sources: List[str] = []
+        safe_sources: list[str] = []
         for s in sources:
             s = str(s)
             if is_path_dangerous(s):
@@ -337,7 +337,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             with zipfile.ZipFile(
                 safe_zip_path, "w", compression=zipfile.ZIP_DEFLATED
             ) as z:
-                added: List[str] = []
+                added: list[str] = []
                 for src in safe_sources:
                     if os.path.isdir(src):
                         for dirpath, _, filenames in os.walk(src):
@@ -504,7 +504,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
             os.makedirs(safe_dest, exist_ok=True)
 
-            extracted: List[str] = []
+            extracted: list[str] = []
             for i in infos:
                 out_path = os.path.join(safe_dest, i.filename.replace("/", os.sep))
                 os.makedirs(os.path.dirname(out_path) or safe_dest, exist_ok=True)

@@ -8,7 +8,7 @@ import os
 import subprocess
 import sys
 import tempfile
-from typing import Any, Dict
+from typing import Any
 
 from .context import get_callbacks
 
@@ -16,7 +16,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:python_exec"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "python_exec",
@@ -72,7 +72,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _run_python_code(args: Dict[str, Any], cb: Any) -> str:
+def _run_python_code(args: dict[str, Any], cb: Any) -> str:
     code = args.get("code", "")
     if not isinstance(code, str):
         code = str(code)
@@ -132,7 +132,7 @@ def _run_python_code(args: Dict[str, Any], cb: Any) -> str:
     return out_str
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if "code" not in args:
         return _("[python_exec error] Provide 'code'.")

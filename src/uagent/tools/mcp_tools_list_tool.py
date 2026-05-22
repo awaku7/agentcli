@@ -9,7 +9,7 @@ import asyncio
 import os
 from dataclasses import asdict, is_dataclass
 from ..env_utils import env_get
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
@@ -36,7 +36,7 @@ except ImportError:
             )
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_tools_list",
@@ -159,7 +159,7 @@ async def _get_tools_from_session(read, write):
         }
 
 
-async def _mcp_tools_list_http(url: str) -> Dict[str, Any]:
+async def _mcp_tools_list_http(url: str) -> dict[str, Any]:
     mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
     async with streamable_http_client(mcp_url) as (read, write, session_id):
         result = await _get_tools_from_session(read, write)
@@ -168,8 +168,8 @@ async def _mcp_tools_list_http(url: str) -> Dict[str, Any]:
 
 
 async def _mcp_tools_list_stdio(
-    command: str, args: List[str], env: Dict[str, str]
-) -> Dict[str, Any]:
+    command: str, args: list[str], env: dict[str, str]
+) -> dict[str, Any]:
     server_params = StdioServerParameters(
         command=command, args=args, env={**os.environ, **(env or {})}
     )
@@ -180,7 +180,7 @@ async def _mcp_tools_list_stdio(
         return result
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     args = args or {}
 
     url = args.get("url")
@@ -188,8 +188,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     pretty = bool(args.get("pretty", True))
     # Resolve url/command from config if needed
     command = ""
-    cmd_args: List[str] = []
-    cmd_env: Dict[str, str] = {}
+    cmd_args: list[str] = []
+    cmd_env: dict[str, str] = {}
 
     if (not url) and server_name:
         try:

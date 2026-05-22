@@ -19,7 +19,7 @@ import sqlite3
 from ..env_utils import env_get
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 _ENABLE_SEMANTIC_SEARCH = str(
     env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
@@ -122,10 +122,10 @@ def _read_text_file(path: str) -> str:
         return f.read()
 
 
-def _extract_pdf_pptx_text(path: str) -> Tuple[str, List[Tuple[int, str]], List[str]]:
+def _extract_pdf_pptx_text(path: str) -> tuple[str, list[tuple[int, str]], list[str]]:
     """Return (all_text, pages[(page_index, text)], warnings)."""
 
-    warnings: List[str] = []
+    warnings: list[str] = []
     try:
         from . import read_pptx_pdf as rpp
     except Exception as e:  # pragma: no cover
@@ -145,10 +145,10 @@ def _extract_pdf_pptx_text(path: str) -> Tuple[str, List[Tuple[int, str]], List[
         return "", [], [f"Failed to execute read_pptx_pdf: {e}"]
 
 
-def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]]:
+def _extract_xlsx_text(path: str) -> tuple[str, list[tuple[str, str]], list[str]]:
     """Return (all_text, sheets[(sheet_name,text)], warnings)."""
 
-    warnings: List[str] = []
+    warnings: list[str] = []
     try:
         from . import exstruct_tool
 
@@ -174,10 +174,10 @@ def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]
         wb = engine.extract(str(path))
         exported = wb.export(format="json", pretty=False)
         data = json.loads(exported)
-        sheets: List[Tuple[str, str]] = []
+        sheets: list[tuple[str, str]] = []
         for sheet_name, sh in (data.get("sheets", {}) or {}).items():
             name = sheet_name
-            parts: List[str] = [f"[SHEET] {name}"]
+            parts: list[str] = [f"[SHEET] {name}"]
             for tbl in sh.get("tables", []) or []:
                 title = tbl.get("title")
                 if title:
@@ -215,7 +215,7 @@ def _extract_xlsx_text(path: str) -> Tuple[str, List[Tuple[str, str]], List[str]
 # -------------------------
 
 
-def _chunk_text(text: str, chunk_size: int, overlap: int) -> List[str]:
+def _chunk_text(text: str, chunk_size: int, overlap: int) -> list[str]:
     return vec_tool._chunk_text(text, chunk_size=chunk_size, overlap=overlap)
 
 
@@ -229,7 +229,7 @@ def _ensure_vector_index_for_text(
     sheet_name: Optional[str] = None,
     chunk_size: int = 800,
     overlap: int = 150,
-) -> List[int]:
+) -> list[int]:
     """Insert vectors rows for the given (text) and return inserted vector ids."""
 
     chunks = _chunk_text(text, chunk_size=chunk_size, overlap=overlap)
@@ -239,7 +239,7 @@ def _ensure_vector_index_for_text(
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
-    inserted_ids: List[int] = []
+    inserted_ids: list[int] = []
     for idx, chunk in enumerate(chunks):
         vec = vec_tool._get_embedding(chunk)
         embedding_json = json.dumps(vec) if vec else None
@@ -276,9 +276,9 @@ def _norm(s: str) -> str:
     return s.strip().lower()
 
 
-def _extract_entities_from_text(text: str) -> List[Tuple[str, str]]:
+def _extract_entities_from_text(text: str) -> list[tuple[str, str]]:
     """Return list of (name,type)."""
-    found: List[Tuple[str, str]] = []
+    found: list[tuple[str, str]] = []
     for m in _QUALNAME_RE.finditer(text or ""):
         found.append((m.group(0), "qualname"))
     for m in _CAMEL_RE.finditer(text or ""):
@@ -289,7 +289,7 @@ def _extract_entities_from_text(text: str) -> List[Tuple[str, str]]:
     for m in _FILE_RE.finditer(text or ""):
         found.append((m.group(0), "file"))
     seen = set()
-    out: List[Tuple[str, str]] = []
+    out: list[tuple[str, str]] = []
     for name, typ in found:
         key = (name, typ)
         if key in seen:
@@ -315,16 +315,16 @@ def _upsert_entity(cur: sqlite3.Cursor, name: str, typ: str) -> int:
 def _link_chunk_entities(
     db_path: str,
     vector_id: int,
-    entities: List[Tuple[str, str]],
+    entities: list[tuple[str, str]],
     cur: sqlite3.Cursor = None,
-) -> List[int]:
+) -> list[int]:
     if cur is None:
         conn = sqlite3.connect(db_path)
         cur = conn.cursor()
         close_conn = True
     else:
         close_conn = False
-    entity_ids: List[int] = []
+    entity_ids: list[int] = []
     for name, typ in entities:
         eid = _upsert_entity(cur, name, typ)
         entity_ids.append(eid)
@@ -359,14 +359,14 @@ def _add_relation(
 
 class _CallVisitor(ast.NodeVisitor):
     def __init__(self) -> None:
-        self.calls: List[str] = []
+        self.calls: list[str] = []
 
     def visit_Call(self, node: ast.Call) -> Any:
         name = None
         if isinstance(node.func, ast.Name):
             name = node.func.id
         elif isinstance(node.func, ast.Attribute):
-            parts: List[str] = []
+            parts: list[str] = []
             cur = node.func
             while isinstance(cur, ast.Attribute):
                 parts.append(cur.attr)
@@ -382,11 +382,11 @@ class _CallVisitor(ast.NodeVisitor):
 
 def _extract_py_entities_relations(
     path: str, source: str
-) -> Tuple[List[Tuple[str, str]], List[Tuple[Tuple[str, str], str, Tuple[str, str]]]]:
+) -> tuple[list[tuple[str, str]], list[tuple[tuple[str, str], str, tuple[str, str]]]]:
     """Return (entities, relations[(src,rel,dst)]), using (name,type) tuples."""
 
-    entities: List[Tuple[str, str]] = []
-    relations: List[Tuple[Tuple[str, str], str, Tuple[str, str]]] = []
+    entities: list[tuple[str, str]] = []
+    relations: list[tuple[tuple[str, str], str, tuple[str, str]]] = []
 
     module_name = Path(path).stem
     module_ent = (module_name, "module")
@@ -434,7 +434,7 @@ def _extract_py_entities_relations(
                     relations.append((cl, "defines", m))
 
     seen = set()
-    ent_out: List[Tuple[str, str]] = []
+    ent_out: list[tuple[str, str]] = []
     for e in entities:
         if e in seen:
             continue
@@ -456,10 +456,10 @@ def _sync_file_all_types(
     db_path: str,
     chunk_size: int,
     overlap: int,
-) -> List[str]:
+) -> list[str]:
     """Sync one file into vectors + graph."""
 
-    warnings: List[str] = []
+    warnings: list[str] = []
     fpath_abs = os.path.abspath(fpath)
     if not os.path.isfile(fpath_abs):
         return [f"not a file: {fpath}"]
@@ -502,7 +502,7 @@ def _sync_file_all_types(
 
         conn.commit()
         ext = Path(fpath_abs).suffix.lower()
-        inserted_vector_ids: List[int] = []
+        inserted_vector_ids: list[int] = []
 
         if ext in (".md", ".txt", ".py"):
             try:
@@ -525,7 +525,7 @@ def _sync_file_all_types(
                     inserted_vector_ids[0] if inserted_vector_ids else None
                 )
                 cur2 = conn.cursor()
-                ent_ids: Dict[Tuple[str, str], int] = {}
+                ent_ids: dict[tuple[str, str], int] = {}
                 for name, typ in ents:
                     ent_ids[(name, typ)] = _upsert_entity(cur2, name, typ)
                 for src, rtype, dst in rels:
@@ -659,11 +659,11 @@ class _ChunkHit:
     text: str
 
 
-def _cosine_similarity(vec_a: List[float], vec_b: List[float]) -> float:
+def _cosine_similarity(vec_a: list[float], vec_b: list[float]) -> float:
     return vec_tool._cosine_similarity(vec_a, vec_b)
 
 
-def _vector_retrieve(db_path: str, query: str, top_k: int) -> List[_ChunkHit]:
+def _vector_retrieve(db_path: str, query: str, top_k: int) -> list[_ChunkHit]:
     qv = vec_tool._get_embedding(query)
     if not qv:
         return []
@@ -672,7 +672,7 @@ def _vector_retrieve(db_path: str, query: str, top_k: int) -> List[_ChunkHit]:
     cur = conn.cursor()
     cur.execute("SELECT id, file_id, text_content, embedding_json FROM vectors")
     rows = cur.fetchall()
-    hits: List[_ChunkHit] = []
+    hits: list[_ChunkHit] = []
     for vid, fid, text, emb_json in rows:
         try:
             score = _cosine_similarity(qv, json.loads(emb_json))
@@ -693,11 +693,11 @@ def _vector_retrieve(db_path: str, query: str, top_k: int) -> List[_ChunkHit]:
     return hits[:top_k]
 
 
-def _extract_query_entities(query: str) -> List[str]:
+def _extract_query_entities(query: str) -> list[str]:
     if not query:
         return []
 
-    ents: List[str] = []
+    ents: list[str] = []
     s = query.strip().lower()
 
     # split on common separators and keep meaningful tokens
@@ -712,7 +712,7 @@ def _extract_query_entities(query: str) -> List[str]:
     for m in _QUALNAME_RE.finditer(query or ""):
         ents.append(m.group(0).lower())
 
-    out: List[str] = []
+    out: list[str] = []
     seen = set()
     for e in ents:
         ne = _norm(e)
@@ -723,7 +723,7 @@ def _extract_query_entities(query: str) -> List[str]:
     return out[:50]
 
 
-def _graph_seed_entities(db_path: str, query: str) -> List[int]:
+def _graph_seed_entities(db_path: str, query: str) -> list[int]:
     tokens = _extract_query_entities(query)
     if not tokens:
         return []
@@ -731,7 +731,7 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
-    seed_ids: List[int] = []
+    seed_ids: list[int] = []
     for t in tokens:
         n = _norm(t)
 
@@ -770,7 +770,7 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
                 seed_ids.append(int(eid))
 
     conn.close()
-    out: List[int] = []
+    out: list[int] = []
     seen = set()
     for x in seed_ids:
         if x in seen:
@@ -781,8 +781,8 @@ def _graph_seed_entities(db_path: str, query: str) -> List[int]:
 
 
 def _graph_bfs(
-    db_path: str, seed_entity_ids: List[int], hops: int, max_nodes: int
-) -> Tuple[List[int], List[Tuple[int, str, int]]]:
+    db_path: str, seed_entity_ids: list[int], hops: int, max_nodes: int
+) -> tuple[list[int], list[tuple[int, str, int]]]:
     """Return (visited_entity_ids, traversed_edges[(src,rel,dst)])."""
 
     if not seed_entity_ids:
@@ -793,12 +793,12 @@ def _graph_bfs(
 
     visited = set(seed_entity_ids)
     frontier = list(seed_entity_ids)
-    edges: List[Tuple[int, str, int]] = []
+    edges: list[tuple[int, str, int]] = []
 
     for _ in range(max(0, hops)):
         if not frontier:
             break
-        next_frontier: List[int] = []
+        next_frontier: list[int] = []
         for src in frontier:
             cur.execute(
                 "SELECT rel_type, dst_entity_id FROM relations WHERE src_entity_id=? LIMIT 200",
@@ -824,7 +824,7 @@ def _graph_bfs(
 
 def _graph_retrieve(
     db_path: str, query: str, hops: int, top_k: int
-) -> Tuple[List[_ChunkHit], Dict[str, Any]]:
+) -> tuple[list[_ChunkHit], dict[str, Any]]:
     """Return (hits, trace)."""
 
     seeds = _graph_seed_entities(db_path, query)
@@ -849,7 +849,7 @@ def _graph_retrieve(
     )
     vector_ids = [int(r[0]) for r in (cur.fetchall() or [])]
 
-    hits: List[_ChunkHit] = []
+    hits: list[_ChunkHit] = []
     for vid in vector_ids:
         cur.execute("SELECT file_id, text_content FROM vectors WHERE id=?", (vid,))
         r = cur.fetchone()
@@ -862,7 +862,7 @@ def _graph_retrieve(
 
     conn.close()
 
-    uniq: Dict[int, _ChunkHit] = {}
+    uniq: dict[int, _ChunkHit] = {}
     for h in hits:
         if h.vector_id not in uniq:
             uniq[h.vector_id] = h
@@ -904,7 +904,7 @@ def graph_rag_search(
     _init_graph_tables(db_path)
 
     patterns = [p.strip() for p in (file_pattern or "").split(",") if p.strip()]
-    target_files: List[str] = []
+    target_files: list[str] = []
     for p in patterns:
         search_path = os.path.join(root_abs, "**", p)
         try:
@@ -932,7 +932,7 @@ def graph_rag_search(
     conn.commit()
     conn.close()
 
-    all_warnings: List[str] = []
+    all_warnings: list[str] = []
     synced_count = 0
     for f in target_files:
         all_warnings.extend(
@@ -955,7 +955,7 @@ def graph_rag_search(
     id_to_path = {int(r[0]): str(r[1]) for r in (cur.fetchall() or [])}
     conn.close()
 
-    merged: List[_ChunkHit] = []
+    merged: list[_ChunkHit] = []
     seen_vid = set()
     for h in vec_hits + graph_hits:
         if h.vector_id in seen_vid:
@@ -965,7 +965,7 @@ def graph_rag_search(
 
     merged.sort(key=lambda x: (0 if x.source == "vector" else 1, -x.score))
 
-    out: List[str] = []
+    out: list[str] = []
     out.append(_("out.query", default="Search Query: {query}").format(query=query))
     out.append(
         _("out.target_dir", default="Target Directory: {root_path}").format(
@@ -1020,7 +1020,7 @@ def graph_rag_search(
     return "\n".join(out)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     query = args.get("query")
     if not query:
         return _("err.query_required", default="Error: query is required.")

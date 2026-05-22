@@ -7,7 +7,7 @@ from ..env_utils import env_get
 import random
 import time
 import traceback
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
@@ -53,7 +53,7 @@ DEFAULT_ENDPOINT = "https://html.duckduckgo.com/html/"
 DEFAULT_TIMEOUT_SEC = 15
 DEFAULT_MAX_RESULTS = 5
 DEFAULT_RETRIES = 0
-DEFAULT_PROXIES: Optional[Dict[str, str]] = None
+DEFAULT_PROXIES: Optional[dict[str, str]] = None
 
 
 def _ssl_verify_setting() -> bool:
@@ -63,7 +63,7 @@ def _ssl_verify_setting() -> bool:
     return True
 
 
-def _default_headers() -> Dict[str, str]:
+def _default_headers() -> dict[str, str]:
     return {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -105,11 +105,11 @@ def _extract_real_url(href: str) -> str:
         return href
 
 
-def _parse_results(html: str, max_results: int) -> List[Dict[str, str]]:
+def _parse_results(html: str, max_results: int) -> list[dict[str, str]]:
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(html, "html.parser")
-    results: List[Dict[str, str]] = []
+    results: list[dict[str, str]] = []
 
     for card in soup.select("div.result"):
         a = card.select_one("a.result__a")
@@ -144,8 +144,8 @@ def _duckduckgo_search(
     endpoint: str = DEFAULT_ENDPOINT,
     timeout_sec: int = DEFAULT_TIMEOUT_SEC,
     retries: int = DEFAULT_RETRIES,
-    proxies: Optional[Dict[str, str]] = DEFAULT_PROXIES,
-) -> List[Dict[str, str]]:
+    proxies: Optional[dict[str, str]] = DEFAULT_PROXIES,
+) -> list[dict[str, str]]:
     """Perform a DuckDuckGo search query."""
 
     _emit_debug(f"Performing DuckDuckGo search: {query}")
@@ -200,7 +200,7 @@ def _duckduckgo_search(
 
 def search_web(
     query: str, max_results: int = DEFAULT_MAX_RESULTS
-) -> List[Dict[str, str]]:
+) -> list[dict[str, str]]:
     return _duckduckgo_search(query=query, max_results=max_results)
 
 
@@ -209,7 +209,7 @@ def search_web(
 BUSY_LABEL = True
 STATUS_LABEL = "tool:search_web"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "search_web",
@@ -281,7 +281,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     try:
         if not isinstance(args, dict):
             return json.dumps(

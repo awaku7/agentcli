@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import base64
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import requests
 
@@ -96,7 +96,7 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
     except Exception:
         timeout_sec = 60.0
 
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "model": model,
         "messages": [
             {
@@ -136,7 +136,7 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
             ).format(status=resp.status_code, body=body)
         )
 
-    data: Dict[str, Any]
+    data: dict[str, Any]
     try:
         data = resp.json()
     except Exception as e:

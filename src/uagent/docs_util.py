@@ -5,7 +5,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, List, Optional, Tuple
+from typing import Iterable, Optional
 
 
 from .i18n import _, detect_lang
@@ -20,7 +20,7 @@ class DocItem:
     description: str
 
 
-_DOCS: List[DocItem] = [
+_DOCS: list[DocItem] = [
     DocItem(
         name="readme",
         filename="README.md",
@@ -106,7 +106,7 @@ def _choose_doc_filename(filename: str) -> str:
     return filename
 
 
-def _package_doc_path(filename: str) -> Tuple[Optional[Path], str]:
+def _package_doc_path(filename: str) -> tuple[Optional[Path], str]:
     """Return (path, mode).
 
     mode:
@@ -137,7 +137,7 @@ def _package_doc_path(filename: str) -> Tuple[Optional[Path], str]:
     return None, "filesystem"
 
 
-def list_docs() -> List[DocItem]:
+def list_docs() -> list[DocItem]:
     return list(_DOCS)
 
 

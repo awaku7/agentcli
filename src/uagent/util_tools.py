@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import base64
 import glob
@@ -12,7 +14,7 @@ import sys
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
@@ -112,7 +114,7 @@ _IMAGE_PATH_RE = re.compile(
 )
 
 
-def extract_image_paths(text: str) -> List[str]:
+def extract_image_paths(text: str) -> list[str]:
     """テキストから画像ファイルっぽいパスを抽出（ゆるめ）。"""
     if not text:
         return []
@@ -120,7 +122,7 @@ def extract_image_paths(text: str) -> List[str]:
     # JSONっぽい出力に備えて先に余計な記号を軽く剥がす
     cleaned = text.replace("\r", "")
 
-    paths: List[str] = []
+    paths: list[str] = []
     for m in _IMAGE_PATH_RE.finditer(cleaned):
         p = m.group("path")
         if not p:
@@ -197,7 +199,7 @@ def try_open_images_from_text(text: str) -> None:
     return
 
 
-def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
+def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
         "--workdir",
@@ -218,7 +220,7 @@ def parse_startup_args() -> Tuple[Dict[str, Any], List[str]]:
     return vars(args), unknown
 
 
-def iter_backup_files(root_dir: str) -> List[str]:
+def iter_backup_files(root_dir: str) -> list[str]:
     """Find backup files under root_dir.
 
     Backup pattern:
@@ -228,7 +230,7 @@ def iter_backup_files(root_dir: str) -> List[str]:
     Returns list of file paths.
     """
     root = Path(root_dir)
-    results: List[str] = []
+    results: list[str] = []
     if not root.exists():
         return results
 
@@ -397,7 +399,7 @@ def _handle_cmd_verbosity(arg: str, *, tr: Any) -> bool:
 
 def _handle_cmd_cd(
     arg: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     *,
     core: Any,
     tr: Any,
@@ -887,16 +889,16 @@ def _format_cwd_system_content(
     *,
     event: str,
     path: str,
-    extra: Dict[str, Any] | None = None,
+    extra: dict[str, Any] | None = None,
 ) -> str:
-    payload: Dict[str, Any] = {"event": str(event), "path": str(path)}
+    payload: dict[str, Any] = {"event": str(event), "path": str(path)}
     if isinstance(extra, dict):
         payload.update(extra)
     return _cwd_marker_prefix() + json.dumps(payload, ensure_ascii=False)
 
 
 def _insert_cwd_system_message(
-    messages_ref: List[Dict[str, Any]], msg: Dict[str, Any]
+    messages_ref: list[dict[str, Any]], msg: dict[str, Any]
 ) -> None:
     # Insert at the end of the leading system-message block.
     idx = 0
@@ -905,7 +907,7 @@ def _insert_cwd_system_message(
     messages_ref.insert(idx, msg)
 
 
-def _extract_last_cwd_from_messages(messages: List[Dict[str, Any]]) -> str | None:
+def _extract_last_cwd_from_messages(messages: list[dict[str, Any]]) -> str | None:
     prefix = _cwd_marker_prefix()
     for m in reversed(messages or []):
         if not isinstance(m, dict):
@@ -937,8 +939,8 @@ def _skills_marker_prefix() -> str:
 
 def _format_skill_system_content(
     *,
-    skill: Dict[str, Any],
-    doc: Dict[str, Any],
+    skill: dict[str, Any],
+    doc: dict[str, Any],
     include_finish_skill: bool = False,
 ) -> str:
     name = str((skill or {}).get("name") or "(unknown)").strip()
@@ -981,14 +983,14 @@ def _format_skill_system_content(
     return header + exec_instructions + "\n"
 
 
-def _has_any_user_message(messages_ref: List[Dict[str, Any]]) -> bool:
+def _has_any_user_message(messages_ref: list[dict[str, Any]]) -> bool:
     for m in messages_ref or []:
         if isinstance(m, dict) and m.get("role") == "user":
             return True
     return False
 
 
-def _trim_messages_after_last_user(messages_ref: List[Dict[str, Any]]) -> bool:
+def _trim_messages_after_last_user(messages_ref: list[dict[str, Any]]) -> bool:
     for idx in range(len(messages_ref) - 1, -1, -1):
         m = messages_ref[idx]
         if isinstance(m, dict) and m.get("role") == "user":
@@ -997,7 +999,7 @@ def _trim_messages_after_last_user(messages_ref: List[Dict[str, Any]]) -> bool:
     return False
 
 
-def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
+def _clear_skill_messages(messages_ref: list[dict[str, Any]]) -> int:
     prefix = _skills_marker_prefix()
     before = len(messages_ref)
     messages_ref[:] = [
@@ -1015,7 +1017,7 @@ def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
 
 def _handle_cmd_skills(
     arg: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     client: Any,
     depname: str,
     *,
@@ -1223,7 +1225,7 @@ def _collect_clean_targets(
     core: Any,
     threshold: int,
     tr: Any,
-) -> tuple[bool, List[str], Dict[str, int]]:
+) -> tuple[bool, list[str], dict[str, int]]:
     try:
         log_files = core.find_log_files(exclude_current=False)
     except Exception as e:
@@ -1233,8 +1235,8 @@ def _collect_clean_targets(
         )
         return False, [], {}
 
-    targets: List[str] = []
-    counts: Dict[str, int] = {}
+    targets: list[str] = []
+    counts: dict[str, int] = {}
 
     for p in log_files:
         try:
@@ -1253,7 +1255,7 @@ def _collect_clean_targets(
 
 
 def _confirm_clean_delete(
-    *, core: Any, threshold: int, targets: List[str], tr: Any
+    *, core: Any, threshold: int, targets: list[str], tr: Any
 ) -> bool:
     try:
         from uagent.tools.human_ask_tool import run_tool as human_ask
@@ -1286,7 +1288,7 @@ def _confirm_clean_delete(
         return False
 
 
-def _delete_clean_targets(targets: List[str], *, tr: Any) -> tuple[int, int]:
+def _delete_clean_targets(targets: list[str], *, tr: Any) -> tuple[int, int]:
     deleted = 0
     failed = 0
     for p in targets:
@@ -1343,7 +1345,7 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
     return True
 
 
-def _inject_user_history_to_readline(messages: List[Dict[str, Any]]) -> None:
+def _inject_user_history_to_readline(messages: list[dict[str, Any]]) -> None:
     try:
         import readline
 
@@ -1545,7 +1547,7 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
 
 def _handle_cmd_load(
     arg: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     *,
     core: Any,
     tr: Any,
@@ -1622,7 +1624,7 @@ def _handle_cmd_load(
 
 
 def _persist_messages_with_warn(
-    messages: List[Dict[str, Any]], *, core: Any, label: str
+    messages: list[dict[str, Any]], *, core: Any, label: str
 ) -> None:
     try:
         cb = get_callbacks()
@@ -1640,7 +1642,7 @@ def _persist_messages_with_warn(
 
 
 def _handle_cmd_shrink(
-    arg: str, messages_ref: List[Dict[str, Any]], *, core: Any
+    arg: str, messages_ref: list[dict[str, Any]], *, core: Any
 ) -> bool:
     keep_last = 40
     if arg:
@@ -1665,7 +1667,7 @@ def _handle_cmd_shrink(
 
 def _handle_cmd_shrink_llm(
     arg: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     client: Any,
     depname: str,
     *,
@@ -1988,7 +1990,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 
 def handle_command(
     line: str,
-    messages_ref: List[Dict[str, Any]],
+    messages_ref: list[dict[str, Any]],
     client: Any,
     depname: str,
     *,
@@ -2161,8 +2163,8 @@ def _use_tools_system_prompt() -> bool:
     return v in ("1", "true", "yes", "on")
 
 
-def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
-    messages: List[Dict[str, Any]] = []
+def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
+    messages: list[dict[str, Any]] = []
 
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)
@@ -2195,10 +2197,10 @@ def build_initial_messages(*, core: Any) -> List[Dict[str, Any]]:
 
 
 def insert_tools_system_message(
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     *,
     core: Any,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     if not _use_tools_system_prompt():
         return messages
 
@@ -2218,7 +2220,7 @@ def insert_tools_system_message(
     return new_messages
 
 
-def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
+def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
     if not long_mem_raw:
         return {}
 
@@ -2230,7 +2232,7 @@ def build_long_memory_system_message(long_mem_raw: Any) -> Dict[str, Any]:
         "However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n\n"
     )
 
-    body_lines: List[str] = []
+    body_lines: list[str] = []
 
     try:
         if isinstance(long_mem_raw, list):

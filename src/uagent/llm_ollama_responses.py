@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 from .llm_ollama import _ollama_extra_params
 
 
 def apply_ollama_responses_compat(
-    resp_kwargs: Dict[str, Any],
+    resp_kwargs: dict[str, Any],
     *,
     provider: str,
     depname: str,

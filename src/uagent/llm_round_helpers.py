@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import json
 import traceback
 from urllib.error import URLError
-from typing import Any, Dict, List
+from typing import Any
 
 try:
     from openai import APIConnectionError, BadRequestError
@@ -48,8 +50,8 @@ from .translate import translate_text
 
 
 def _translate_call_messages(
-    call_messages: List[Dict[str, Any]], tr_cfg: Any
-) -> List[Dict[str, Any]]:
+    call_messages: list[dict[str, Any]], tr_cfg: Any
+) -> list[dict[str, Any]]:
     translated_call_messages = call_messages
     if tr_cfg is not None:
         try:
@@ -139,7 +141,7 @@ def _call_gemini_round(
     *,
     client: Any,
     depname: str,
-    call_messages: List[Dict[str, Any]],
+    call_messages: list[dict[str, Any]],
     gemini_cache_name: Any,
     core: Any,
     make_client_fn: Any,
@@ -151,9 +153,9 @@ def _call_gemini_round(
     force_thinking_level: str | None = None,
 ) -> Any:
     attempt_429 = 0
-    gemini_content_dump: Dict[str, Any] = {}
+    gemini_content_dump: dict[str, Any] = {}
     assistant_text = ""
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
 
     while True:
         try:
@@ -223,7 +225,7 @@ def _call_claude_round(
     *,
     client: Any,
     depname: str,
-    call_messages: List[Dict[str, Any]],
+    call_messages: list[dict[str, Any]],
     core: Any,
     make_client_fn: Any,
     call_maybe_thread_fn: Any,
@@ -233,7 +235,7 @@ def _call_claude_round(
 ) -> Any:
     attempt_429 = 0
     assistant_text = ""
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
 
     while True:
         try:
@@ -316,7 +318,7 @@ def _call_openai_azure_round(
     provider: str,
     client: Any,
     depname: str,
-    call_messages: List[Dict[str, Any]],
+    call_messages: list[dict[str, Any]],
     core: Any,
     make_client_fn: Any,
     call_maybe_thread_fn: Any,
@@ -329,7 +331,7 @@ def _call_openai_azure_round(
 ) -> Any:
     attempt_429 = 0
     assistant_text: str = ""
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
     resp = None
 
     send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
@@ -356,7 +358,7 @@ def _call_openai_azure_round(
                     )
                     instructions_str = None
                     req_tools = _bedrock_req.get("tools")
-                    resp_kwargs: Dict[str, Any] = {
+                    resp_kwargs: dict[str, Any] = {
                         "model": depname,
                         "input": _bedrock_req.get("input", ""),
                     }
@@ -519,7 +521,7 @@ def _call_openai_azure_round(
             else:
                 req_tools = tools.get_tool_specs() if send_tools_this_round else None
 
-                chat_kwargs: Dict[str, Any] = {
+                chat_kwargs: dict[str, Any] = {
                     "model": depname,
                     "messages": call_messages,
                 }

@@ -6,7 +6,7 @@ from __future__ import annotations
 import html
 import re
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
 
 _ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
 _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
@@ -74,7 +74,7 @@ def strip_ansi(text: str) -> str:
 
 
 def _style_to_css(st: _StyleState) -> str:
-    parts: List[str] = []
+    parts: list[str] = []
     if st.fg:
         parts.append(f"color:{st.fg}")
     if st.bg:
@@ -124,7 +124,7 @@ def _xterm256_to_hex(n: int) -> str:
     return f"#{v:02x}{v:02x}{v:02x}"
 
 
-def _apply_sgr(st: _StyleState, params: List[int]) -> _StyleState:
+def _apply_sgr(st: _StyleState, params: list[int]) -> _StyleState:
     if not params:
         params = [0]
     out = st.copy()
@@ -187,7 +187,7 @@ def _render_text(text: str, st: _StyleState, *, linkify: bool) -> str:
 def ansi_to_html(text: str, *, linkify: bool = True) -> str:
     """Convert ANSI-colored text to HTML suitable for QTextBrowser."""
     text = text or ""
-    pieces: List[str] = []
+    pieces: list[str] = []
     st = _StyleState()
     cur = 0
 
@@ -196,7 +196,7 @@ def ansi_to_html(text: str, *, linkify: bool = True) -> str:
         if chunk:
             pieces.append(_render_text(chunk, st, linkify=linkify))
         code = m.group(0)
-        params: List[int] = []
+        params: list[int] = []
         try:
             inner = code[2:-1]
             if inner.startswith("["):

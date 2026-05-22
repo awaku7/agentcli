@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict
+from typing import Any
 
 import requests
 
@@ -20,18 +20,18 @@ DEFAULT_TIMEOUT_S = 15
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
 
-def _get_webhook_url(args: Dict[str, Any]) -> str:
+def _get_webhook_url(args: dict[str, Any]) -> str:
     env_name = get_str(args, "webhook_env", DEFAULT_WEBHOOK_ENV) or DEFAULT_WEBHOOK_ENV
     url = (env_get(env_name) or "").strip()
     if not url:
@@ -49,7 +49,7 @@ def _parse_json_arg(value: Any, field_name: str) -> Any:
     raise TypeError(f"{field_name} must be a JSON string or object")
 
 
-def _build_payload(args: Dict[str, Any]) -> Dict[str, Any]:
+def _build_payload(args: dict[str, Any]) -> dict[str, Any]:
     raw_payload = args.get("payload_json")
     if raw_payload not in (None, ""):
         payload = _parse_json_arg(raw_payload, "payload_json")
@@ -64,7 +64,7 @@ def _build_payload(args: Dict[str, Any]) -> Dict[str, Any]:
     theme_color = get_str(args, "theme_color", "")
 
     if image_url or title or summary or theme_color:
-        card: Dict[str, Any] = {
+        card: dict[str, Any] = {
             "@type": "MessageCard",
             "@context": "http://schema.org/extensions",
         }
@@ -90,8 +90,8 @@ def _build_payload(args: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _post_message(
-    url: str, payload: Dict[str, Any], timeout_s: int = DEFAULT_TIMEOUT_S
-) -> Dict[str, Any]:
+    url: str, payload: dict[str, Any], timeout_s: int = DEFAULT_TIMEOUT_S
+) -> dict[str, Any]:
     resp = requests.post(
         url,
         json=payload,
@@ -112,7 +112,7 @@ def _post_message(
     raise RuntimeError(f"HTTP {resp.status_code}: {body}")
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "teams_webhook_post",
@@ -210,7 +210,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, STATUS_LABEL)

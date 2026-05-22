@@ -4,7 +4,7 @@ import json
 import locale
 import os
 from functools import lru_cache
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from ..env_utils import env_get
 
@@ -52,7 +52,7 @@ def get_locale() -> str:
 
 
 @lru_cache(maxsize=256)
-def _load_tool_dict(json_path: str) -> Dict[str, Any]:
+def _load_tool_dict(json_path: str) -> dict[str, Any]:
     try:
         with open(json_path, "r", encoding="utf-8") as f:
             data = json.load(f)

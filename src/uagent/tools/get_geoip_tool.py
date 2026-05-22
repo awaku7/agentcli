@@ -7,14 +7,14 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 import json
-from typing import Any, Dict
+from typing import Any
 
 from .fetch_url_tool import run_tool as fetch_url_run
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:get_geoip"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_geoip",
@@ -71,7 +71,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     out_format = str((args or {}).get("format") or "text").strip().lower()
     if out_format not in ("text", "json"):
         return _(

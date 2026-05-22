@@ -24,7 +24,7 @@ import ssl
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 from urllib.request import Request, urlopen
 
 from ..env_utils import env_get
@@ -39,7 +39,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:img2img"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "img2img",
@@ -169,7 +169,7 @@ def _msg(key: str, default: str, **kwargs: Any) -> str:
     return _(key, default=default).format(**kwargs)
 
 
-def _env_first(keys: List[str], *, required: bool = False, default: str = "") -> str:
+def _env_first(keys: list[str], *, required: bool = False, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
         if v:
@@ -229,7 +229,7 @@ def _ssl_verify_enabled() -> bool:
     return v in ("1", "true", "yes", "on")
 
 
-def _urlopen_kwargs() -> Dict[str, Any]:
+def _urlopen_kwargs() -> dict[str, Any]:
     if _ssl_verify_enabled():
         return {}
     return {"context": ssl._create_unverified_context()}
@@ -245,8 +245,8 @@ def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
 
 
-def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
-    saved: List[str] = []
+def _save_many(outdir: str, prefix: str, ts: str, b64_list: list[str]) -> list[str]:
+    saved: list[str] = []
     for i, b64 in enumerate(b64_list):
         fn = f"{prefix}_{ts}_{i+1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
         out_path = os.path.join(outdir, fn)
@@ -319,7 +319,7 @@ def _make_gemini_client(provider: str):
             )
         )
 
-    kwargs: Dict[str, Any] = {}
+    kwargs: dict[str, Any] = {}
     try:
         from .. import util_providers as providers  # type: ignore
 
@@ -364,13 +364,13 @@ def _get_model(provider: str) -> str:
 
 def _extract_image_items(
     resp: Any,
-) -> tuple[List[str], List[str], List[Dict[str, Any]]]:
-    b64_list: List[str] = []
-    url_list: List[str] = []
-    items: List[Dict[str, Any]] = []
+) -> tuple[list[str], list[str], list[dict[str, Any]]]:
+    b64_list: list[str] = []
+    url_list: list[str] = []
+    items: list[dict[str, Any]] = []
     data_list = getattr(resp, "data", None) or []
     for idx, item in enumerate(data_list, start=1):
-        item_meta: Dict[str, Any] = {"index": idx}
+        item_meta: dict[str, Any] = {"index": idx}
         b64 = getattr(item, "b64_json", None)
         if b64:
             b64_list.append(b64)
@@ -401,7 +401,7 @@ def _run_gemini_img2img(
     src: Path,
     prompt: str,
     n: int,
-) -> List[str]:
+) -> list[str]:
     try:
         from google.genai import types as gemini_types
     except Exception as exc:
@@ -422,7 +422,7 @@ def _run_gemini_img2img(
         prompt,
     ]
 
-    b64_list: List[str] = []
+    b64_list: list[str] = []
     for _ in range(max(1, n)):
         try:
             config_cls = getattr(gemini_types, "GenerateContentConfig", None)
@@ -460,7 +460,7 @@ def _run_gemini_img2img(
     return b64_list[:n]
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     image_path = str(args.get("image_path") or "").strip()
@@ -520,8 +520,8 @@ def run_tool(args: Dict[str, Any]) -> str:
 
     ts = time.strftime("%Y%m%d_%H%M%S")
     spinner = _StatusSpinner(cb, STATUS_LABEL)
-    saved: List[str] = []
-    url_list: List[str] = []
+    saved: list[str] = []
+    url_list: list[str] = []
 
     try:
         spinner.start()
@@ -536,7 +536,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             saved.extend(_save_many(outdir, file_prefix, ts, b64_list))
         else:
             client = _make_client(provider)
-            gen_kwargs: Dict[str, Any] = {
+            gen_kwargs: dict[str, Any] = {
                 "model": image_model,
                 "prompt": prompt,
                 "size": size,
@@ -601,7 +601,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         for path in saved
     ]
 
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "provider": provider,
         "model": image_model,
         "image_path": str(src),

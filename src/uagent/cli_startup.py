@@ -3,7 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any
 
 
 @dataclass
@@ -12,7 +12,7 @@ class CliStartupState:
     client: Any
     depname: str
     banner: str
-    messages: List[Dict[str, Any]]
+    messages: list[dict[str, Any]]
     should_exit: bool = False
 
 

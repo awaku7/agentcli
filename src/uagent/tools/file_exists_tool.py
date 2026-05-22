@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 import time
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 from .arg_util import get_path
 from .i18n_helper import make_tool_translator
@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 STATUS_LABEL = "tool:file_exists"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -76,7 +76,7 @@ def _fmt_ts(ts: float) -> str:
     return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts))
 
 
-def _resolve_owner_group(path: str, st: os.stat_result) -> Tuple[str, str]:
+def _resolve_owner_group(path: str, st: os.stat_result) -> tuple[str, str]:
     # POSIX: resolve from uid/gid
     if os.name != "nt":
         owner = "unknown"
@@ -127,7 +127,7 @@ def _resolve_owner_group(path: str, st: os.stat_result) -> Tuple[str, str]:
         return "unknown", "unknown"
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     expanded = get_path(args, "path", "")
     if not expanded:
         return _("err.path_empty", default="[file_exists error] path is empty")

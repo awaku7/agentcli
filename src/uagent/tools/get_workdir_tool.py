@@ -1,11 +1,13 @@
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Dict, Any
+from typing import Any
 
 # Tool metadata definition (loaded by tools/__init__.py)
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",  # Mandatory for OpenAI / Azure
     "function": {
         "name": "get_workdir",
@@ -54,7 +56,7 @@ TOOL_SPEC: Dict[str, Any] = {
 BUSY_LABEL = False
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Get the current working directory and return it."""
     import os
 

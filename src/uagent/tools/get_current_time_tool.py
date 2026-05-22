@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 # tools/get_current_time.py
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 import datetime
 
 BUSY_LABEL = False  # Light tool; no Busy label needed.
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_current_time",
@@ -63,7 +65,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     # Get local time with timezone info
     now = datetime.datetime.now().astimezone()
     utc_now = datetime.datetime.now(datetime.timezone.utc)

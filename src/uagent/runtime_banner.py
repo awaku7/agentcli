@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List
+from typing import Any
 
 from .env_utils import env_get
 from .i18n import _
@@ -248,7 +248,7 @@ def _startup_optional_model_infos() -> list[tuple[str, str, str]]:
 def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str:
     """Build startup info lines as a single text block."""
 
-    lines: List[str] = []
+    lines: list[str] = []
 
     lines.append(
         _("[INFO] workdir = %(workdir)s (source: %(source)s)")

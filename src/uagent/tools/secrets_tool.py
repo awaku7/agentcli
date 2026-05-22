@@ -6,7 +6,7 @@ import base64
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from cryptography.hazmat.primitives import hashes, hmac
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
@@ -32,13 +32,13 @@ def _ensure_parent(p: Path) -> None:
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
@@ -124,7 +124,7 @@ def verify_b64(message: str, sig_b64: str) -> bool:
         return False
 
 
-def _get_parent_and_key(obj: Any, dotted_path: str) -> Tuple[Any, str]:
+def _get_parent_and_key(obj: Any, dotted_path: str) -> tuple[Any, str]:
     cur = obj
     parts = [p for p in dotted_path.split(".") if p]
     if not parts:
@@ -137,7 +137,7 @@ def _get_parent_and_key(obj: Any, dotted_path: str) -> Tuple[Any, str]:
     return cur, parts[-1]
 
 
-def json_encrypt_fields(*, json_path: str, fields: List[str]) -> None:
+def json_encrypt_fields(*, json_path: str, fields: list[str]) -> None:
     p = Path(json_path)
     data = json.loads(p.read_text(encoding="utf-8"))
     for f in fields:
@@ -156,7 +156,7 @@ def json_encrypt_fields(*, json_path: str, fields: List[str]) -> None:
     )
 
 
-def json_decrypt_fields(*, json_path: str, fields: List[str]) -> None:
+def json_decrypt_fields(*, json_path: str, fields: list[str]) -> None:
     p = Path(json_path)
     data = json.loads(p.read_text(encoding="utf-8"))
     for f in fields:
@@ -176,7 +176,7 @@ def json_decrypt_fields(*, json_path: str, fields: List[str]) -> None:
     )
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "secrets",
@@ -272,7 +272,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, "tool:secrets")

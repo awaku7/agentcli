@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import datetime
 import json
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import holidays
 from dateutil.relativedelta import relativedelta
@@ -15,12 +15,12 @@ _ = make_tool_translator(__file__)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj: dict[str, Any] = {"ok": False, "error": message}
     obj.update(extra)
     return json.dumps(obj, ensure_ascii=False)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "date_calc",
@@ -145,7 +145,7 @@ def get_holiday_info(dt: datetime.datetime, country_code: str) -> Optional[str]:
     return None
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     base_date_str = args.get("base_date")
     country = args.get("country", "JP")

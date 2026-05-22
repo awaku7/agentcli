@@ -3,7 +3,7 @@ from __future__ import annotations
 import fnmatch
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -17,7 +17,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "recalc_excel",
@@ -126,7 +126,7 @@ TOOL_SPEC: Dict[str, Any] = {
 
 def _collect_targets(
     target_path: str, include_glob: str, recursive: bool, max_files: int
-) -> List[str]:
+) -> list[str]:
     safe_target = ensure_within_workdir(target_path)
     if not os.path.exists(safe_target):
         raise FileNotFoundError(
@@ -151,7 +151,7 @@ def _collect_targets(
         raise ValueError(_("err.max_files_positive", default="max_files must be >= 1"))
 
     pattern = include_glob or "*.xlsx"
-    items: List[str] = []
+    items: list[str] = []
     if recursive:
         for root, _dirs, files in os.walk(safe_target):
             for name in files:
@@ -216,7 +216,7 @@ def _is_encrypted_office_xlsx(path: str) -> bool:
         return False
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     target_path = str(args.get("path", "") or "").strip()
     include_glob = str(args.get("include_glob", "*.xlsx") or "*.xlsx")
 
@@ -246,7 +246,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         ) from e
 
     targets = _collect_targets(target_path, include_glob, recursive_raw, max_files)
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "path": ensure_within_workdir(target_path),
         "count": len(targets),
         "targets": targets,

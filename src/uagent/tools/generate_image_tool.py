@@ -24,7 +24,7 @@ import ssl
 import sys
 import time
 import traceback
-from typing import Any, Dict, List
+from typing import Any
 
 from ..env_utils import env_get
 from .openers import open_image_with_default_app
@@ -60,7 +60,7 @@ class _StatusSpinner:
         pass
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "generate_image",
@@ -192,7 +192,7 @@ def _get_provider() -> str:
     return p
 
 
-def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
+def _env_first(keys: list[str], *, required: bool, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
         if v:
@@ -232,7 +232,7 @@ def _env_bool(name: str, default: bool = False) -> bool:
     return v in ("1", "true", "yes", "on")
 
 
-def _urlopen_kwargs() -> Dict[str, Any]:
+def _urlopen_kwargs() -> dict[str, Any]:
     """Generate extra args for urllib. Return unverified context if verification is disabled."""
     if _ssl_verify_enabled():
         return {}
@@ -289,8 +289,8 @@ def _is_gpt_image_model(image_model: str) -> bool:
     return image_model.strip().lower().startswith("gpt-image-")
 
 
-def _save_many(outdir: str, prefix: str, ts: str, b64_list: List[str]) -> List[str]:
-    saved: List[str] = []
+def _save_many(outdir: str, prefix: str, ts: str, b64_list: list[str]) -> list[str]:
+    saved: list[str] = []
     for i, b64 in enumerate(b64_list):
         fn = f"{prefix}_{ts}_{i+1}.png" if len(b64_list) > 1 else f"{prefix}_{ts}.png"
         out_path = os.path.join(outdir, fn)
@@ -318,7 +318,7 @@ def _run_openai_images(
     moderation: str = "",
     quality: str = "",
     background: str = "",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     try:
         from openai import AzureOpenAI, OpenAI
     except Exception as e:
@@ -401,7 +401,7 @@ def _run_openai_images(
         except TypeError:
             client = OpenAI(api_key=api_key, base_url=base_url)
 
-    gen_kwargs: Dict[str, Any] = {
+    gen_kwargs: dict[str, Any] = {
         "model": image_model,
         "prompt": prompt,
         "size": size,
@@ -432,13 +432,13 @@ def _run_openai_images(
             resp = client.images.generate(**gen_kwargs)
         else:
             raise
-    b64_list: List[str] = []
-    url_list: List[str] = []
-    items: List[Dict[str, Any]] = []
+    b64_list: list[str] = []
+    url_list: list[str] = []
+    items: list[dict[str, Any]] = []
 
     data_list = getattr(resp, "data", None) or []
     for idx, item in enumerate(data_list, start=1):
-        item_meta: Dict[str, Any] = {"index": idx}
+        item_meta: dict[str, Any] = {"index": idx}
         b64 = getattr(item, "b64_json", None)
         if b64:
             b64_list.append(b64)
@@ -469,7 +469,7 @@ def _run_gemini_images(
     prompt: str,
     size: str,
     n: int,
-) -> List[str]:
+) -> list[str]:
     try:
         from google import genai
         from google.genai import types as gemini_types
@@ -482,7 +482,7 @@ def _run_gemini_images(
             )
         )
 
-    kwargs: Dict[str, Any] = {}
+    kwargs: dict[str, Any] = {}
     try:
         from .. import util_providers as providers  # type: ignore
 
@@ -506,7 +506,7 @@ def _run_gemini_images(
     except Exception as e:
         raise RuntimeError(f"Failed to initialize Gemini/VertexAI client: {e}")
 
-    image_config_kwargs: Dict[str, Any] = {}
+    image_config_kwargs: dict[str, Any] = {}
 
     try:
         print(
@@ -542,7 +542,7 @@ def _run_gemini_images(
                 prompt=prompt,
                 config=config_cls(**image_config_kwargs),
             )
-            b64_list: List[str] = []
+            b64_list: list[str] = []
             generated_images = getattr(resp, "generated_images", None) or []
             if not generated_images and hasattr(resp, "images"):
                 generated_images = resp.images
@@ -597,7 +597,7 @@ def _run_gemini_images(
     return b64_list
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     prompt = str(args.get("prompt") or "").strip()
@@ -645,8 +645,8 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
     ts = time.strftime("%Y%m%d_%H%M%S")
-    saved: List[str] = []
-    url_list: List[str] = []
+    saved: list[str] = []
+    url_list: list[str] = []
     spinner = _StatusSpinner(cb, STATUS_LABEL)
     debug = _env_bool("UAGENT_IMG_GENERATE_DEBUG", False)
     save_meta = debug or _env_bool("UAGENT_IMG_GENERATE_SAVE_META", False)
@@ -662,7 +662,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     background = str(
         args.get("background") or env_get("UAGENT_IMG_GENERATE_BACKGROUND") or ""
     ).strip()
-    meta_payload: Dict[str, Any] = {
+    meta_payload: dict[str, Any] = {
         "provider": provider,
         "model": image_model,
         "prompt": prompt,
@@ -773,7 +773,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             att["url"] = url_list[idx]
             att["source_url"] = url_list[idx]
         attachments.append(att)
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "provider": provider,
         "model": image_model,
         "prompt": prompt,

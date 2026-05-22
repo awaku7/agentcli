@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # tools/__init__.py
 import os
 from ..env_utils import env_get
@@ -9,7 +11,7 @@ from datetime import datetime
 import importlib.util
 from importlib import import_module, reload
 from pkgutil import iter_modules
-from typing import Any, Dict, List, Callable, Optional
+from typing import Any, Callable, Optional
 
 try:
     from janome.tokenizer import Tokenizer as JanomeTokenizer
@@ -40,14 +42,14 @@ from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
 _ = make_tool_translator(__file__)
 
 # Raw tool specs passed to the LLM
-TOOL_SPECS: List[Dict[str, Any]] = []
+TOOL_SPECS: list[dict[str, Any]] = []
 
 # Runners
-_RUNNERS: Dict[str, Callable[[Dict[str, Any]], str]] = {}
+_RUNNERS: dict[str, Callable[[dict[str, Any]], str]] = {}
 
 # Tools that set Busy status labels
 # key: tool_name, value: status_label (e.g. "tool:cmd_exec")
-_BUSY_LABEL_TOOLS: Dict[str, str] = {}
+_BUSY_LABEL_TOOLS: dict[str, str] = {}
 
 # ------------------------------
 # Tool trace (stdout only)
@@ -94,7 +96,7 @@ def _mask_value(v: Any) -> Any:
 def _mask_args(args: Any) -> Any:
     """Recursively walk arguments and mask secret values."""
     if isinstance(args, dict):
-        out: Dict[str, Any] = {}
+        out: dict[str, Any] = {}
         for k, v in args.items():
             ks = str(k)
             if _looks_like_secret_key(ks):
@@ -110,7 +112,7 @@ def _mask_args(args: Any) -> Any:
         return args
 
 
-def _emit_tool_trace(name: str, args: Dict[str, Any]) -> None:
+def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
     """Print a one-line tool trace before execution."""
     try:
         masked = _mask_args(args or {})
@@ -151,7 +153,7 @@ def _safe_set_status(busy: bool, label: str = "") -> None:
         return
 
 
-def _tool_load_order_key(spec: Dict[str, Any]) -> tuple[int, int, str]:
+def _tool_load_order_key(spec: dict[str, Any]) -> tuple[int, int, str]:
     """Return a stable sort key for registered tools.
 
     load_order == -1 is treated as the highest priority.
@@ -182,7 +184,7 @@ def _sort_registered_tools() -> None:
     """Sort registered tool specs and keep runner dict insertion order aligned."""
     TOOL_SPECS.sort(key=_tool_load_order_key)
 
-    ordered_runners: Dict[str, Callable[[Dict[str, Any]], str]] = {}
+    ordered_runners: dict[str, Callable[[dict[str, Any]], str]] = {}
     for spec in TOOL_SPECS:
         func_info = spec.get("function", {})
         if not isinstance(func_info, dict):
@@ -344,7 +346,7 @@ def _load_plugins() -> None:
         )
 
 
-def get_tool_specs() -> List[Dict[str, Any]]:
+def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
     # To comply with OpenAI/Azure API schema, remove custom extended fields (e.g., system_prompt).
     #
@@ -354,7 +356,7 @@ def get_tool_specs() -> List[Dict[str, Any]]:
     # - However, some SDKs/proxies/compat layers require tools[i].name.
     #   To be robust, mirror the function name to the top-level "name" as well.
 
-    clean_specs: List[Dict[str, Any]] = []
+    clean_specs: list[dict[str, Any]] = []
     for spec in TOOL_SPECS:
         spec_copy = spec.copy()
         # Remove internal-only keys from tool specs before sending to LLM.
@@ -385,18 +387,18 @@ def get_tool_specs() -> List[Dict[str, Any]]:
     return clean_specs
 
 
-def _expand_catalog_token(token: str) -> List[str]:
+def _expand_catalog_token(token: str) -> list[str]:
     t = (token or "").strip().lower()
     return [t] if t else []
 
 
-def _collect_janome_query_terms(query: str) -> List[str]:
+def _collect_janome_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
     if not q or JanomeTokenizer is None:
         return []
     try:
         jt = JanomeTokenizer()
-        out: List[str] = []
+        out: list[str] = []
         for t in jt.tokenize(q):
             pos = str(getattr(t, "part_of_speech", "") or "").split(",", 1)[0]
             if pos not in {"名詞", "動詞"}:
@@ -411,12 +413,12 @@ def _collect_janome_query_terms(query: str) -> List[str]:
         return []
 
 
-def _collect_jieba_query_terms(query: str) -> List[str]:
+def _collect_jieba_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
     if not q or jieba is None:
         return []
     try:
-        out: List[str] = []
+        out: list[str] = []
         for tok in jieba.lcut(q):
             term = str(tok or "").strip().lower()
             if term and not term.isspace():
@@ -426,12 +428,12 @@ def _collect_jieba_query_terms(query: str) -> List[str]:
         return []
 
 
-def _collect_thai_query_terms(query: str) -> List[str]:
+def _collect_thai_query_terms(query: str) -> list[str]:
     q = (query or "").strip()
     if not q or thai_word_tokenize is None:
         return []
     try:
-        out: List[str] = []
+        out: list[str] = []
         tokens = list(thai_word_tokenize(q, engine="newmm"))
         if thai_pos_tag is not None:
             try:
@@ -464,14 +466,14 @@ def _has_cjk_script(text: str) -> bool:
     return bool(re.search(r"[\u4e00-\u9fff]", text))
 
 
-def _tokenize_catalog_query(query: str) -> List[str]:
+def _tokenize_catalog_query(query: str) -> list[str]:
     q = (query or "").strip().lower()
     if not q:
         return []
 
     loc = get_locale()
     base_tokens = [tok for tok in re.split(r"\s+", q) if tok]
-    tokens: List[str] = []
+    tokens: list[str] = []
 
     if _has_thai_script(q):
         tokens.extend(_collect_thai_query_terms(q))
@@ -490,7 +492,7 @@ def _tokenize_catalog_query(query: str) -> List[str]:
     tokens.extend(base_tokens)
     tokens.append(q)
 
-    expanded: List[str] = []
+    expanded: list[str] = []
     seen = set()
     for tok in tokens:
         for e in _expand_catalog_token(tok):
@@ -501,19 +503,19 @@ def _tokenize_catalog_query(query: str) -> List[str]:
     return expanded
 
 
-def _collect_search_terms(value: Any) -> List[str]:
+def _collect_search_terms(value: Any) -> list[str]:
     if value is None:
         return []
     if isinstance(value, str):
         term = value.strip()
         return [term] if term else []
     if isinstance(value, list):
-        out: List[str] = []
+        out: list[str] = []
         for item in value:
             out.extend(_collect_search_terms(item))
         return out
     if isinstance(value, dict):
-        out: List[str] = []
+        out: list[str] = []
         for item in value.values():
             out.extend(_collect_search_terms(item))
         return out
@@ -525,8 +527,8 @@ def get_tool_catalog(
     *,
     query: str,
     max_results: int = 12,
-    tool_specs: Optional[List[Dict[str, Any]]] = None,
-) -> List[Dict[str, Any]]:
+    tool_specs: Optional[list[dict[str, Any]]] = None,
+) -> list[dict[str, Any]]:
     """Return a lightweight searchable catalog of tools."""
     q = (query or "").strip().lower()
     try:
@@ -550,7 +552,7 @@ def get_tool_catalog(
             pass
 
     specs = get_tool_specs() if tool_specs is None else tool_specs
-    rows: List[Dict[str, Any]] = []
+    rows: list[dict[str, Any]] = []
 
     for spec in specs or []:
         if not isinstance(spec, dict):
@@ -568,7 +570,7 @@ def get_tool_catalog(
         properties = parameters.get("properties") or {}
         required = parameters.get("required") or []
 
-        param_names: List[str] = []
+        param_names: list[str] = []
         if isinstance(properties, dict):
             param_names = [str(k) for k in properties.keys()]
 
@@ -579,7 +581,7 @@ def get_tool_catalog(
         haystack = " ".join([p for p in haystack_parts if p]).lower()
 
         score = 0
-        hit_details: List[str] = []
+        hit_details: list[str] = []
         if q:
             search_term_hit = False
             for tok in tokens:
@@ -643,7 +645,7 @@ def get_tool_catalog(
 
     rows.sort(key=lambda x: (-int(x.get("score", 0)), str(x.get("name", ""))))
 
-    out: List[Dict[str, Any]] = []
+    out: list[dict[str, Any]] = []
     for row in rows[:limit]:
         out.append(
             {
@@ -670,7 +672,7 @@ def reload_plugins() -> None:
     _load_plugins()
 
 
-def run_tool(name: str, args: Dict[str, Any]) -> str:
+def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
     runner = _RUNNERS.get(name)
     if runner is None:

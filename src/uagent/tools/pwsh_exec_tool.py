@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 # tools/pwsh_exec_tool.py
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 import os
 import subprocess
 import shutil
@@ -14,7 +16,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:pwsh_exec"
 
 
-def _probe_powershell_versions() -> Dict[str, str]:
+def _probe_powershell_versions() -> dict[str, str]:
     """Return detected PowerShell versions as strings."""
 
     def probe(exe: str) -> str:
@@ -45,7 +47,7 @@ def _probe_powershell_versions() -> Dict[str, str]:
             return ""
         return ""
 
-    vers: Dict[str, str] = {}
+    vers: dict[str, str] = {}
     v_pwsh = probe("pwsh")
     v_ps = probe("powershell")
     if v_pwsh:
@@ -73,7 +75,7 @@ else:
         _DESC_SUFFIX = " (pwsh not found)"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "pwsh_exec",
@@ -148,7 +150,7 @@ except Exception:
     confirm_if_needed = None  # type: ignore[assignment]
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     command = str(args.get("command", "") or "")

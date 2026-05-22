@@ -4,7 +4,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 import glob
 import json
 import os
@@ -15,7 +15,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:python_compile"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "python_compile",
@@ -125,7 +125,7 @@ def _resolve_py_compile_targets(raw_targets: list[str]) -> tuple[list[str], list
     return resolved, missing
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw_targets = _as_str_list(args.get("paths"))
     raw_targets.extend(_as_str_list(args.get("path")))
     raw_targets = [t for t in raw_targets if str(t).strip()]

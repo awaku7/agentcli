@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 from ..utils.paths import get_state_dir
 from .arg_util import get_bool, get_int, get_str
@@ -25,18 +25,18 @@ def _ensure_parent(p: Path) -> None:
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
 
-def _load_cfg(create_if_missing: bool = False) -> Dict[str, Any]:
+def _load_cfg(create_if_missing: bool = False) -> dict[str, Any]:
     p = _cfg_path()
     if not p.exists():
         if create_if_missing:
@@ -45,13 +45,13 @@ def _load_cfg(create_if_missing: bool = False) -> Dict[str, Any]:
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def _write_cfg(cfg: Dict[str, Any]) -> None:
+def _write_cfg(cfg: dict[str, Any]) -> None:
     p = _cfg_path()
     _ensure_parent(p)
     p.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def _find_server(cfg: Dict[str, Any], name: str) -> Tuple[Dict[str, Any], int]:
+def _find_server(cfg: dict[str, Any], name: str) -> tuple[dict[str, Any], int]:
     for i, s in enumerate(cfg.get("servers") or []):
         if (s.get("name") or "") == name:
             return s, i
@@ -66,7 +66,7 @@ def _parse_a2a_uri(s: str) -> Optional[str]:
     return None
 
 
-def resolve_profile(name_or_uri: Optional[str]) -> Dict[str, Any]:
+def resolve_profile(name_or_uri: Optional[str]) -> dict[str, Any]:
     cfg = _load_cfg(create_if_missing=False)
 
     target = name_or_uri
@@ -94,7 +94,7 @@ def resolve_profile(name_or_uri: Optional[str]) -> Dict[str, Any]:
     return out
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 9000,
     "type": "function",
     "function": {
@@ -203,7 +203,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, "tool:a2a_servers")
@@ -216,7 +216,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             if p.exists() and not force:
                 return _json_ok(path=str(p), existed=True)
 
-            cfg: Dict[str, Any] = {"version": 1, "default": "local", "servers": []}
+            cfg: dict[str, Any] = {"version": 1, "default": "local", "servers": []}
             cfg["servers"].append(
                 {
                     "name": "local",
@@ -273,7 +273,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             interval_ms = get_int(args, "interval_ms", 500)
             set_default = get_bool(args, "set_default", False)
 
-            new_obj: Dict[str, Any] = {
+            new_obj: dict[str, Any] = {
                 "name": name,
                 "base_url": base_url,
                 "token": token_obj,

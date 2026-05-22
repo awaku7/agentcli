@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-from typing import Any, AsyncIterator, Dict, Optional
+from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
 
 import uvicorn
@@ -48,7 +48,7 @@ def build_app() -> FastAPI:
         )
 
     @app.get("/.well-known/agent-card.json")
-    async def agent_card() -> Dict[str, Any]:
+    async def agent_card() -> dict[str, Any]:
         # Best-effort card. Extended fields can be added later.
         base_url = (env_get("UAGENT_A2A_PUBLIC_BASE_URL", "") or "").strip()
         if not base_url:
@@ -80,7 +80,7 @@ def build_app() -> FastAPI:
     @app.get("/extendedAgentCard")
     async def extended_agent_card(
         _auth: Any = Depends(require_bearer_auth),
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         # Future: include tools, capabilities, extensions.
         return {
             "name": "uagent",
@@ -135,7 +135,7 @@ def build_app() -> FastAPI:
         store.create(rec)
 
         async def gen() -> AsyncIterator[bytes]:
-            def _emit(obj: Dict[str, Any]) -> bytes:
+            def _emit(obj: dict[str, Any]) -> bytes:
                 return ("data: " + json.dumps(obj, ensure_ascii=False) + "\n\n").encode(
                     "utf-8"
                 )
@@ -201,7 +201,7 @@ def build_app() -> FastAPI:
     ):
         # SSE: poll task state until terminal.
         async def gen() -> AsyncIterator[bytes]:
-            def _emit(obj: Dict[str, Any]) -> bytes:
+            def _emit(obj: dict[str, Any]) -> bytes:
                 return ("data: " + json.dumps(obj, ensure_ascii=False) + "\n\n").encode(
                     "utf-8"
                 )

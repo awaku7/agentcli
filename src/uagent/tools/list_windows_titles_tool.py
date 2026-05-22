@@ -4,11 +4,11 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 import sys
 import json
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "list_windows_titles",
@@ -80,7 +80,7 @@ TOOL_SPEC: Dict[str, Any] = {
 BUSY_LABEL = False
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """List top-level windows on Windows.
 
     args:

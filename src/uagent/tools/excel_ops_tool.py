@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import os
 from io import BytesIO
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -17,7 +17,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "excel_ops",
@@ -202,7 +202,7 @@ def _load_workbook_with_password(
     return openpyxl.load_workbook(file_path, data_only=data_only)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     action = args.get("action")
     file_path = str(args.get("file_path", "") or "").strip()
     sheet_name = args.get("sheet_name")
@@ -231,7 +231,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             target = sheet_name or wb.sheetnames[0]
             ws = wb[target]
             # Return as list of rows (list of values)
-            rows: List[List[Any]] = []
+            rows: list[list[Any]] = []
             for row in ws.iter_rows(values_only=True):
                 rows.append(list(row))
             return json.dumps(rows, ensure_ascii=False)

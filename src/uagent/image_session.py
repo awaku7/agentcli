@@ -8,7 +8,7 @@ adds a small, non-breaking context layer for model names that opt in.
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 _GENERATE_IMAGE_TOOL_NAME = "generate_image"
 
@@ -20,7 +20,7 @@ def supports_multi_turn_image(depname: str) -> bool:
     return dn.startswith("gpt-5")
 
 
-def _tool_call_name(tc: Dict[str, Any]) -> str:
+def _tool_call_name(tc: dict[str, Any]) -> str:
     fn = tc.get("function") or {}
     if isinstance(fn, dict):
         name = fn.get("name")
@@ -30,7 +30,7 @@ def _tool_call_name(tc: Dict[str, Any]) -> str:
     return name if isinstance(name, str) else ""
 
 
-def _tool_call_args(tc: Dict[str, Any]) -> Dict[str, Any]:
+def _tool_call_args(tc: dict[str, Any]) -> dict[str, Any]:
     payload = (tc.get("function") or {}).get("arguments")
     if isinstance(payload, dict):
         return payload
@@ -43,8 +43,8 @@ def _tool_call_args(tc: Dict[str, Any]) -> Dict[str, Any]:
     return {}
 
 
-def _extract_image_paths_from_attachments(attachments: Any) -> List[str]:
-    paths: List[str] = []
+def _extract_image_paths_from_attachments(attachments: Any) -> list[str]:
+    paths: list[str] = []
     for att in attachments or []:
         if not isinstance(att, dict):
             continue
@@ -68,8 +68,8 @@ def _extract_image_paths_from_attachments(attachments: Any) -> List[str]:
     return paths
 
 
-def _extract_image_turns(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    turns: List[Dict[str, Any]] = []
+def _extract_image_turns(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    turns: list[dict[str, Any]] = []
     pending_prompt: Optional[str] = None
 
     for msg in messages or []:
@@ -108,11 +108,11 @@ def _extract_image_turns(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]
 
 
 def build_image_session_message(
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     depname: str,
     *,
     max_turns: int = 3,
-) -> Dict[str, Any] | None:
+) -> dict[str, Any] | None:
     """Create a small system message that summarizes prior image turns.
 
     This is only used when the active model name contains gpt-5.5.
@@ -126,7 +126,7 @@ def build_image_session_message(
         return None
 
     recent = turns[-max_turns:]
-    lines: List[str] = [
+    lines: list[str] = [
         "Image-session context:",
         "This conversation already generated images.",
         "Use the prior prompts and saved file paths below as context for follow-up edits, variants, or continuations.",

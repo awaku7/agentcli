@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir
@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -135,7 +135,7 @@ def _has_glob_meta(s: str) -> bool:
     return any(ch in s for ch in ("*", "?", "["))
 
 
-def _resolve_matches(raw_item: str, allow_dir: bool) -> List[str]:
+def _resolve_matches(raw_item: str, allow_dir: bool) -> list[str]:
     """Resolve one path/glob input into concrete absolute paths under workdir."""
 
     if not _has_glob_meta(raw_item):
@@ -153,7 +153,7 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> List[str]:
 
     matches = sorted(set(glob.glob(pattern, recursive=True)))
 
-    filtered: List[str] = []
+    filtered: list[str] = []
     for m in matches:
         try:
             safe_m = ensure_within_workdir(os.path.abspath(m))
@@ -166,7 +166,7 @@ def _resolve_matches(raw_item: str, allow_dir: bool) -> List[str]:
     return filtered
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw_input = args.get("filename")
     if raw_input is None:
         raw_input = args.get("path")
@@ -216,8 +216,8 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         dry_run = any(_has_glob_meta(it) for it in items)
 
-    missing_items: List[str] = []
-    all_matches: List[str] = []
+    missing_items: list[str] = []
+    all_matches: list[str] = []
     seen: set[str] = set()
 
     for item in items:
@@ -268,7 +268,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not confirmed and not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
-    deleted: List[str] = []
+    deleted: list[str] = []
     for p in all_matches:
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -276,7 +276,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             os.remove(p)
         deleted.append(p)
 
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "ok": True,
         "deleted": True,
         "matches": deleted,

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict
+from typing import Any
 from uuid import uuid4
 
 SCHEDULE_TYPE_ONCE = "once"
@@ -56,7 +56,7 @@ class ScheduleItem:
     updated_at: str = ""
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "ScheduleItem":
+    def from_dict(cls, data: dict[str, Any]) -> "ScheduleItem":
         raw = dict(data or {})
         item = cls(
             id=str(raw.get("id") or "").strip() or str(uuid4()),
@@ -122,7 +122,7 @@ class ScheduleItem:
         except Exception:
             return False
 
-    def as_dict(self) -> Dict[str, Any]:
+    def as_dict(self) -> dict[str, Any]:
         return {
             "id": self.id,
             "type": self.type,

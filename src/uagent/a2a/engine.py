@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from ..env_utils import env_get
 from ..i18n import _
@@ -19,7 +19,7 @@ def _engine_mode() -> str:
     return _norm(env_get("UAGENT_A2A_ENGINE", "uag")) or "uag"
 
 
-def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | None]:
+def run_once_uag(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Run one uagent round-trip and return (assistant_message, error)."""
 
     # Local imports to avoid import-time side effects unless A2A server is used.
@@ -32,7 +32,7 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
     provider, client, depname = providers.make_client(core)
 
     messages = build_initial_messages(core=core)
-    user_msg: Dict[str, Any] = {"role": "user", "content": user_text}
+    user_msg: dict[str, Any] = {"role": "user", "content": user_text}
     messages.append(user_msg)
     try:
         core.log_message(user_msg)
@@ -53,8 +53,8 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
         try_open_images_from_text_fn=tools_util.try_open_images_from_text,
     )
 
-    def _collect_attachments() -> List[Dict[str, Any]]:
-        attachments: List[Dict[str, Any]] = []
+    def _collect_attachments() -> list[dict[str, Any]]:
+        attachments: list[dict[str, Any]] = []
         seen: set[str] = set()
 
         def _add_image_path(raw_path: str) -> None:
@@ -110,7 +110,7 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
         return attachments
 
     # Find last assistant message
-    last_assistant: Dict[str, Any] | None = None
+    last_assistant: dict[str, Any] | None = None
     for m in reversed(messages):
         if m.get("role") == "assistant":
             last_assistant = m
@@ -140,7 +140,7 @@ def run_once_uag(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | No
     return last_assistant, None
 
 
-def run_once(*, user_text: str) -> Tuple[Dict[str, Any], Dict[str, Any] | None]:
+def run_once(*, user_text: str) -> tuple[dict[str, Any], dict[str, Any] | None]:
     mode = _engine_mode()
 
     if mode == "echo":

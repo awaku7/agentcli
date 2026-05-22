@@ -22,7 +22,7 @@ import locale
 import os
 import re
 import subprocess
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 _NEG_COUNT_RE = re.compile(r"^-\d+$")
 
@@ -33,7 +33,7 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 STATUS_LABEL = "tool:git_ops"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "git_ops",
@@ -152,7 +152,7 @@ class GitArgsError(ValueError):
     """Exception for invalid arguments."""
 
 
-def _env_for_git() -> Dict[str, str]:
+def _env_for_git() -> dict[str, str]:
     """Prepare environment variables for git execution."""
     base = os.environ.copy()
     base.update(
@@ -179,7 +179,7 @@ def _decode_bytes(b: bytes) -> str:
     return b.decode("utf-8", errors="replace")
 
 
-def run_git_command(args: List[str], timeout_sec: int = 30) -> Dict[str, Any]:
+def run_git_command(args: list[str], timeout_sec: int = 30) -> dict[str, Any]:
     """Run git command and always return a JSON-serializable dict.
 
     Returns:
@@ -235,14 +235,14 @@ def run_git_command(args: List[str], timeout_sec: int = 30) -> Dict[str, Any]:
         }
 
 
-def _sanitize_commit_message_args(args: List[str]) -> List[str]:
+def _sanitize_commit_message_args(args: list[str]) -> list[str]:
     """Replace ';' with ',' only inside commit message values.
 
     We keep rejecting shell metacharacters in general, but allow ';' in
     `git commit -m <msg>` by sanitizing it. This is a convenience feature
     for users who use ';' as a separator in commit messages.
     """
-    out: List[str] = []
+    out: list[str] = []
     i = 0
     while i < len(args):
         a = args[i]
@@ -260,7 +260,7 @@ def _sanitize_commit_message_args(args: List[str]) -> List[str]:
     return out
 
 
-def _validate_no_shell_metacharacters(args: List[str]) -> None:
+def _validate_no_shell_metacharacters(args: list[str]) -> None:
     bad = ["&&", "||", "|", ">", "<", "`"]
     for a in args:
         for b in bad:
@@ -278,13 +278,13 @@ def _reject(reason: str) -> None:
 
 
 def _ensure_allowed_flags(
-    args: List[str],
-    allowed_prefixes: Tuple[str, ...],
+    args: list[str],
+    allowed_prefixes: tuple[str, ...],
     *,
     allow_danger: bool,
-    dangerous_prefixes: Tuple[str, ...] = (),
-    deny_exact: Tuple[str, ...] = (),
-    deny_prefixes: Tuple[str, ...] = (),
+    dangerous_prefixes: tuple[str, ...] = (),
+    deny_exact: tuple[str, ...] = (),
+    deny_prefixes: tuple[str, ...] = (),
     allow_negative_count: bool = False,
 ) -> None:
     """Validate flags for security."""
@@ -345,21 +345,21 @@ def _ensure_allowed_flags(
             )
 
 
-def _parse_allow_danger(tool_args: Dict[str, Any]) -> bool:
+def _parse_allow_danger(tool_args: dict[str, Any]) -> bool:
     return bool(tool_args.get("allow_danger", False))
 
 
-def _as_error_payload(err: str, *, returncode: int = 2) -> Dict[str, Any]:
+def _as_error_payload(err: str, *, returncode: int = 2) -> dict[str, Any]:
     return {"ok": False, "returncode": int(returncode), "stdout": "", "stderr": err}
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Git operation tool with safety restrictions.
 
     Always returns JSON.
     """
     command = str(args.get("command", "") or "")
-    cmd_args: List[str] = args.get("args", []) or []
+    cmd_args: list[str] = args.get("args", []) or []
     allow_danger = _parse_allow_danger(args)
 
     if command not in (

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 # tools/human_ask_tool.py
-from typing import Any, Dict
+from typing import Any
 import json
 import queue
 
@@ -12,7 +12,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init__.py)
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "human_ask",
@@ -90,7 +90,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """human_ask does not read from stdin directly.
 
     It delegates handling to the host's stdin_loop thread (in scheck.py) and receives the

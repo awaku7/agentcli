@@ -7,7 +7,7 @@ import json
 import os
 from ..env_utils import env_get
 import time
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -72,10 +72,10 @@ def load_long_memory_raw() -> str:
     return data + truncated_note
 
 
-def load_long_memory_records() -> List[Dict[str, Any]]:
+def load_long_memory_records() -> list[dict[str, Any]]:
     """Parse JSONL and return list of dicts. Broken lines are skipped."""
     memory_file = get_memory_file_path()
-    records: List[Dict[str, Any]] = []
+    records: list[dict[str, Any]] = []
     try:
         with open(memory_file, encoding="utf-8") as f:
             for line in f:

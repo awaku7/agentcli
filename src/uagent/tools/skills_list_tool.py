@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -20,7 +20,7 @@ from .agent_skills_shared import (
 
 STATUS_LABEL = "tool:skills_list"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_list",
@@ -88,8 +88,8 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> List[str]:
-    out: List[str] = []
+def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> list[str]:
+    out: list[str] = []
     root_dir = os.path.abspath(root_dir)
 
     if not os.path.isdir(root_dir):
@@ -114,23 +114,23 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> List[str]:
     return out
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     root_dir = (args or {}).get("root_dir")
     recursive = bool((args or {}).get("recursive", True))
     include_invalid = bool((args or {}).get("include_invalid", True))
     strict = bool((args or {}).get("strict", False))
 
-    roots: List[str]
+    roots: list[str]
     if isinstance(root_dir, str) and root_dir.strip():
         roots = [root_dir.strip()]
     else:
         roots = get_default_skill_roots()
 
-    results: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
 
     for r in roots:
         for skill_dir in _iter_candidate_skill_dirs(r, recursive=recursive):
-            item: Dict[str, Any] = {
+            item: dict[str, Any] = {
                 "root": os.path.abspath(r),
                 "path": os.path.abspath(skill_dir),
                 "skill_md": os.path.abspath(skill_md_path(skill_dir)),

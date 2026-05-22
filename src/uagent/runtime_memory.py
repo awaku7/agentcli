@@ -1,18 +1,18 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable
 
 
 def append_long_memory_system_messages(
     *,
     core: Any,
-    messages: List[Dict[str, Any]],
-    build_long_memory_system_message_fn: Callable[[Any], Dict[str, Any]],
+    messages: list[dict[str, Any]],
+    build_long_memory_system_message_fn: Callable[[Any], dict[str, Any]],
     personal_long_memory_mod: Any,
     shared_memory_mod: Any,
-) -> Dict[str, bool]:
+) -> dict[str, bool]:
     """Append personal/shared long-term memory system messages if available."""
-    flags: Dict[str, bool] = {"shared_enabled": False}
+    flags: dict[str, bool] = {"shared_enabled": False}
 
     try:
         personal_records = personal_long_memory_mod.load_long_memory_records()

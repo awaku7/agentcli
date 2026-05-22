@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 try:
     from PIL import Image, ImageFilter, ImageOps, ImageEnhance
@@ -42,7 +42,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:preprocess_image"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "preprocess_image",
@@ -190,7 +190,7 @@ def _parse_bool(v: Any, default: bool = False) -> bool:
     return str(v).strip().lower() in ("1", "true", "yes", "on")
 
 
-def _parse_resize(v: Any, src_size: Tuple[int, int]) -> Tuple[int, int] | None:
+def _parse_resize(v: Any, src_size: tuple[int, int]) -> tuple[int, int] | None:
     if v is None:
         return None
     s = str(v).strip().lower()
@@ -221,8 +221,8 @@ def _apply_binarize(img: Image.Image) -> Image.Image:
     return gray.point(lambda p: 255 if p > 160 else 0)
 
 
-def _apply_mode(img: Image.Image, mode: str) -> Tuple[Image.Image, List[str]]:
-    ops: List[str] = []
+def _apply_mode(img: Image.Image, mode: str) -> tuple[Image.Image, list[str]]:
+    ops: list[str] = []
     m = (mode or "ocr").strip().lower()
 
     if m == "ocr":
@@ -266,7 +266,7 @@ def _apply_mode(img: Image.Image, mode: str) -> Tuple[Image.Image, List[str]]:
     return img, ops
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     image_path = str(args.get("image_path") or "").strip()
     if not image_path:
         raise RuntimeError(
@@ -299,7 +299,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     )
 
     img = Image.open(p)
-    ops: List[str] = []
+    ops: list[str] = []
 
     try:
         img, mode_ops = _apply_mode(img, mode)

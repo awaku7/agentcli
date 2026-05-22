@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import os
 import subprocess
-from typing import Any, Dict
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
@@ -12,7 +12,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     # Optional tool gating:
     # -1 = disabled (will not be registered/loaded)
     "tool_level": -1,
@@ -69,7 +69,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     command = str(args.get("command", "") or "")
     if not command:
         raise ValueError("command is required")

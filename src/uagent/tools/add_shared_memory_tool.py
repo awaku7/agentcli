@@ -6,11 +6,11 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 
 from . import shared_memory
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
     "type": "function",
     "function": {
@@ -70,7 +70,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     note = str(args.get("note", "")).strip()
     if not note:
         return "[add_shared_memory] nothing saved (note was empty)"

@@ -12,7 +12,7 @@ import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from . import context
 from .i18n_helper import make_tool_translator
@@ -64,7 +64,7 @@ def _make_summary(
     return msg
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -270,12 +270,12 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _read_text_robust(path: str, encoding: str, max_bytes: int) -> Tuple[str, Any, str]:
+def _read_text_robust(path: str, encoding: str, max_bytes: int) -> tuple[str, Any, str]:
     size = os.path.getsize(path)
     if size > max_bytes:
         raise ValueError(f"file too large: {size} > {max_bytes} bytes")
 
-    def try_read(enc: str, errors: str) -> Tuple[str, Any, str]:
+    def try_read(enc: str, errors: str) -> tuple[str, Any, str]:
         with open(path, "r", encoding=enc, errors=errors, newline=None) as f:
             content = f.read()
             return content, f.newlines, enc
@@ -366,14 +366,14 @@ class _Hit:
     end: int
 
 
-def _map_idx_to_line_col(text: str, idx: int) -> Tuple[int, int]:
+def _map_idx_to_line_col(text: str, idx: int) -> tuple[int, int]:
     line_no = text.count("\n", 0, idx) + 1
     last_nl = text.rfind("\n", 0, idx)
     col = idx if last_nl < 0 else idx - last_nl - 1
     return line_no, col
 
 
-def _extract_same_line_context(text: str, start: int, end: int) -> Tuple[str, str, str]:
+def _extract_same_line_context(text: str, start: int, end: int) -> tuple[str, str, str]:
     l_start = text.rfind("\n", 0, start)
     l_start = 0 if l_start < 0 else l_start + 1
     l_end = text.find("\n", end)
@@ -383,8 +383,8 @@ def _extract_same_line_context(text: str, start: int, end: int) -> Tuple[str, st
 
 def _find_hits_literal(
     haystack: str, needle: str, limit: int | None = None
-) -> List[_Hit]:
-    hits: List[_Hit] = []
+) -> list[_Hit]:
+    hits: list[_Hit] = []
     start = 0
     if not needle:
         return hits
@@ -413,7 +413,7 @@ def _nth_literal_match(haystack: str, needle: str, occurrence: int) -> _Hit | No
     return None
 
 
-def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> List[_Hit]:
+def _find_hits_regex(haystack: str, pattern: re.Pattern[str]) -> list[_Hit]:
     return [_Hit(m.start(), m.end()) for m in pattern.finditer(haystack)]
 
 
@@ -477,7 +477,7 @@ def _newline_profile(newline: Any) -> str:
     return _newline_name(str(newline))
 
 
-def _newline_details(newline: Any, selected_style: str) -> Dict[str, Any]:
+def _newline_details(newline: Any, selected_style: str) -> dict[str, Any]:
     if isinstance(newline, tuple):
         detected = list(newline)
     elif newline is None:
@@ -492,7 +492,7 @@ def _newline_details(newline: Any, selected_style: str) -> Dict[str, Any]:
     }
 
 
-def _text_newline_flags(text: str) -> Dict[str, Any]:
+def _text_newline_flags(text: str) -> dict[str, Any]:
     return {
         "contains_actual_newline": "\n" in text or "\r" in text,
         "contains_escaped_newline_tokens": "\\n" in text or "\\r" in text,
@@ -500,7 +500,7 @@ def _text_newline_flags(text: str) -> Dict[str, Any]:
     }
 
 
-def _diagnostics_hint(diagnostics: Dict[str, Any] | None) -> str | None:
+def _diagnostics_hint(diagnostics: dict[str, Any] | None) -> str | None:
     if not diagnostics:
         return None
     hints = diagnostics.get("hints")
@@ -556,7 +556,7 @@ def _po_escape_text(text: str) -> str:
     )
 
 
-def _po_encode_msgstr(text: str) -> List[str]:
+def _po_encode_msgstr(text: str) -> list[str]:
     normalized = _normalize_lf(text)
     if normalized == "":
         return ['msgstr ""\n']
@@ -569,7 +569,7 @@ def _po_encode_msgstr(text: str) -> List[str]:
     return out
 
 
-def _po_parse_entry_block(block_lines: List[str]) -> Dict[str, Any] | None:
+def _po_parse_entry_block(block_lines: list[str]) -> dict[str, Any] | None:
     if not block_lines:
         return None
     if not block_lines[0].lstrip().startswith("msgid "):
@@ -621,13 +621,13 @@ def _build_no_match_diagnostics(
     mode: str,
     action: str,
     expand_newline_tokens: bool,
-    newline_info: Dict[str, Any] | None = None,
+    newline_info: dict[str, Any] | None = None,
     anchor_before: str = "",
     anchor_after: str = "",
     po_msgid: str = "",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     search_flags = _text_newline_flags(search_text)
-    diagnostics: Dict[str, Any] = {
+    diagnostics: dict[str, Any] = {
         "action": action,
         "mode": mode,
         "newline": newline_info or {},
@@ -744,11 +744,11 @@ def _replace_po_entry_text(
     occurrence: int,
     *,
     expand_newline_tokens: bool,
-    newline_info: Dict[str, Any],
-) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
+    newline_info: dict[str, Any],
+) -> tuple[str, int, int, list[dict[str, Any]], dict[str, Any] | None]:
     lines = original.splitlines(keepends=True)
     out: list[str] = []
-    match_hits: List[Dict[str, Any]] = []
+    match_hits: list[dict[str, Any]] = []
     match_total = 0
     replaced_total = 0
     i = 0
@@ -891,8 +891,8 @@ def _replace_between_text(
     occurrence: int,
     *,
     expand_newline_tokens: bool,
-    newline_info: Dict[str, Any],
-) -> tuple[str, int, int, List[Dict[str, Any]], Dict[str, Any] | None]:
+    newline_info: dict[str, Any],
+) -> tuple[str, int, int, list[dict[str, Any]], dict[str, Any] | None]:
     before_pattern = re.compile(anchor_before) if mode == "regex" else None
     before_hits = (
         _find_hits_regex(original, before_pattern)
@@ -1010,7 +1010,7 @@ def _apply_newline_style(text: str, newline: str) -> str:
     return text.replace("\n", newline)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = context.get_callbacks()
 
     def _single_file_edit(
@@ -1030,7 +1030,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         po_msgid: str,
         anchor_before: str,
         anchor_after: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         ensure_within_workdir(path)
         original, nl, enc_used = _read_text_robust(
             path, encoding, cb.read_file_max_bytes
@@ -1063,7 +1063,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
 
         regex_pattern = re.compile(p2) if mode == "regex" else None
-        hits: List[_Hit] = []
+        hits: list[_Hit] = []
         target_hit: _Hit | None = None
         match_count = 0
         if action in {"replace", "insert_before", "insert_after"}:
@@ -1091,11 +1091,11 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         replaced_text = orig_norm
         replaced_count = 0
-        match_hits: List[Dict[str, Any]] = []
+        match_hits: list[dict[str, Any]] = []
         backup_path = None
-        diagnostics: Dict[str, Any] | None = None
+        diagnostics: dict[str, Any] | None = None
         regex_pattern = re.compile(p2) if mode == "regex" else None
-        hits: List[_Hit] = []
+        hits: list[_Hit] = []
         target_hit: _Hit | None = None
         match_count = 0
         if action in {"replace", "insert_before", "insert_after"}:
@@ -1123,9 +1123,9 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         replaced_text = orig_norm
         replaced_count = 0
-        match_hits: List[Dict[str, Any]] = []
+        match_hits: list[dict[str, Any]] = []
         backup_path = None
-        diagnostics: Dict[str, Any] | None = None
+        diagnostics: dict[str, Any] | None = None
         if action == "replace_po_entry":
             target = po_target or p2
             if not target:

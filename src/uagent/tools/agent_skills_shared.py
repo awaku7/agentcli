@@ -32,7 +32,7 @@ _ = make_tool_translator(__file__)
 
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import yaml
 
@@ -65,7 +65,7 @@ class SkillDoc:
     """Parsed SKILL.md."""
 
     path: str
-    frontmatter: Dict[str, Any]
+    frontmatter: dict[str, Any]
     body_markdown: str
 
 
@@ -74,7 +74,7 @@ class SkillDoc:
 # ------------------------------
 
 
-def get_default_skill_roots(cwd: Optional[str] = None) -> List[str]:
+def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
     """Return default skill root directories.
 
     Policy:
@@ -87,7 +87,7 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> List[str]:
     """
 
     env = env_get("UAGENT_SKILLS_DIRS")
-    parts: List[str] = []
+    parts: list[str] = []
     if env:
         parts = [p.strip() for p in env.split(os.pathsep) if p.strip()]
 
@@ -105,7 +105,7 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> List[str]:
     # De-duplicate while preserving order.
     # Normalize by realpath + normcase (Windows-safe).
     seen: set[str] = set()
-    out: List[str] = []
+    out: list[str] = []
     for p in roots:
         key = os.path.normcase(os.path.realpath(os.path.normpath(p)))
         if key in seen:
@@ -162,7 +162,7 @@ def read_skill_md(skill_dir: str, max_bytes: int = DEFAULT_MAX_SKILL_MD_BYTES) -
 _FRONTMATTER_DELIM = "---"
 
 
-def split_frontmatter(text: str) -> Tuple[str, str]:
+def split_frontmatter(text: str) -> tuple[str, str]:
     """Split YAML frontmatter and body.
 
     Returns:
@@ -210,7 +210,7 @@ def split_frontmatter(text: str) -> Tuple[str, str]:
     return fm, body
 
 
-def parse_frontmatter_yaml(frontmatter_yaml: str) -> Dict[str, Any]:
+def parse_frontmatter_yaml(frontmatter_yaml: str) -> dict[str, Any]:
     try:
         data = yaml.safe_load(frontmatter_yaml) or {}
     except Exception as e:
@@ -239,7 +239,7 @@ def load_skill_doc(skill_dir: str) -> SkillDoc:
     return SkillDoc(path=skill_dir, frontmatter=fm, body_markdown=body)
 
 
-def load_skill_frontmatter_only(skill_dir: str) -> Dict[str, Any]:
+def load_skill_frontmatter_only(skill_dir: str) -> dict[str, Any]:
     """Load only YAML frontmatter from SKILL.md (progressive disclosure)."""
 
     text = read_skill_md(skill_dir)
@@ -258,15 +258,15 @@ def _skill_dir_basename(skill_dir: str) -> str:
 
 
 def validate_skill_frontmatter(
-    skill_dir: str, frontmatter: Dict[str, Any], strict: bool = False
-) -> Tuple[bool, List[str], List[str]]:
+    skill_dir: str, frontmatter: dict[str, Any], strict: bool = False
+) -> tuple[bool, list[str], list[str]]:
     """Validate a skill based on the Agent Skills spec.
 
     Returns: (ok, errors, warnings)
     """
 
-    errors: List[str] = []
-    warnings: List[str] = []
+    errors: list[str] = []
+    warnings: list[str] = []
 
     # name
     name = frontmatter.get("name")

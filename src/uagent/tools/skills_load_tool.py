@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -14,7 +14,7 @@ from .agent_skills_shared import load_skill_doc
 
 STATUS_LABEL = "tool:skills_load"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "skills_load",
@@ -58,7 +58,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     if not isinstance(args, dict):
         return _("err.invalid_args", default="[tool error] invalid args")
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import httpx
 
@@ -31,24 +31,24 @@ class A2AClient:
         except Exception:
             pass
 
-    def _auth_headers(self) -> Dict[str, str]:
+    def _auth_headers(self) -> dict[str, str]:
         if not self.token:
             return {}
         return {"Authorization": f"Bearer {self.token}"}
 
-    def get_agent_card(self) -> Dict[str, Any]:
+    def get_agent_card(self) -> dict[str, Any]:
         r = self._client.get("/.well-known/agent-card.json")
         r.raise_for_status()
         return r.json()
 
-    def get_extended_agent_card(self) -> Dict[str, Any]:
+    def get_extended_agent_card(self) -> dict[str, Any]:
         r = self._client.get("/extendedAgentCard", headers=self._auth_headers())
         r.raise_for_status()
         return r.json()
 
     def send_message(
         self, *, text: str, return_immediately: bool = False
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         payload = {
             "message": {"role": "user", "content": text},
             "returnImmediately": bool(return_immediately),
@@ -59,12 +59,12 @@ class A2AClient:
         r.raise_for_status()
         return r.json()
 
-    def get_task(self, task_id: str) -> Dict[str, Any]:
+    def get_task(self, task_id: str) -> dict[str, Any]:
         r = self._client.get(f"/tasks/{task_id}", headers=self._auth_headers())
         r.raise_for_status()
         return r.json()
 
-    def list_tasks(self, *, limit: int = 100, offset: int = 0) -> Dict[str, Any]:
+    def list_tasks(self, *, limit: int = 100, offset: int = 0) -> dict[str, Any]:
         r = self._client.get(
             "/tasks",
             params={"limit": int(limit), "offset": int(offset)},
@@ -73,7 +73,7 @@ class A2AClient:
         r.raise_for_status()
         return r.json()
 
-    def cancel_task(self, task_id: str) -> Dict[str, Any]:
+    def cancel_task(self, task_id: str) -> dict[str, Any]:
         r = self._client.post(f"/tasks/{task_id}:cancel", headers=self._auth_headers())
         r.raise_for_status()
         return r.json()

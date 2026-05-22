@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import json
 import os
@@ -10,7 +12,7 @@ import threading
 import time
 import traceback
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from uuid import uuid4
 
 import uvicorn
@@ -62,7 +64,7 @@ templates = Jinja2Templates(directory=TEMPLATE_DIR)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
-def _enrich_message_attachments(msg: Dict[str, Any]) -> Dict[str, Any]:
+def _enrich_message_attachments(msg: dict[str, Any]) -> dict[str, Any]:
     display_msg = dict(msg or {})
     attachments = display_msg.get("attachments")
     if isinstance(attachments, list) and attachments:
@@ -93,14 +95,14 @@ class WebRoom:
         self.room_id = room_id
         self.lang: str = "en"
 
-        self.active_connections: List[WebSocket] = []
-        self.messages: List[Dict[str, Any]] = []  # UI display
-        self.status: Dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
+        self.active_connections: list[WebSocket] = []
+        self.messages: list[dict[str, Any]] = []  # UI display
+        self.status: dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
 
         # history for LLM
-        self.history: List[Dict[str, Any]] = []
+        self.history: list[dict[str, Any]] = []
         self.history_initialized = False
-        self.image_session: Optional[Dict[str, Any]] = None
+        self.image_session: Optional[dict[str, Any]] = None
 
         # human_ask sync (room-scoped)
         self.human_ask_sync_event = threading.Event()
@@ -200,7 +202,7 @@ class WebRoom:
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
 
-    async def broadcast(self, data: Dict[str, Any]):
+    async def broadcast(self, data: dict[str, Any]):
         for connection in list(self.active_connections):
             try:
                 await connection.send_json(data)
@@ -223,7 +225,7 @@ class WebRoom:
                 self.broadcast({"type": "status", "status": self.status}), self.loop
             )
 
-    def add_message(self, msg: Dict[str, Any]):
+    def add_message(self, msg: dict[str, Any]):
         display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
         display_msg["content"] = msg.get("content", "")
@@ -241,13 +243,13 @@ class WebRoom:
 
 class WebManager:
     def __init__(self):
-        self.rooms: Dict[str, WebRoom] = {}
+        self.rooms: dict[str, WebRoom] = {}
         self.rooms_lock = threading.Lock()
 
         self.original_log_message = None
         self.original_set_status = None
 
-    def broadcast_all(self, data: Dict[str, Any]) -> None:
+    def broadcast_all(self, data: dict[str, Any]) -> None:
         # Best-effort broadcast to all active rooms
         try:
             with self.rooms_lock:
@@ -319,7 +321,7 @@ def _handle_mode_command(text: str) -> bool:
     return False
 
 
-def web_human_ask(room: WebRoom, args: Dict[str, Any]) -> str:
+def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
     message = args.get("message", "")
     is_password = bool(args.get("is_password", False))
 
@@ -442,7 +444,7 @@ class WebStdout:
                 clean_line = ANSI_ESCAPE.sub("", self.buffer)
                 content_html = wrap_pre(ansi_to_html(self.buffer))
                 try:
-                    filtered_lines: List[str] = []
+                    filtered_lines: list[str] = []
                     for ln in clean_line.splitlines():
                         if "multiline" in (ln or "").lower():
                             continue
@@ -517,7 +519,7 @@ sys.stderr = WebStderr()
 def run_agent_worker(
     room: WebRoom,
     user_input: str,
-    attachments: Optional[List[Dict[str, Any]]] = None,
+    attachments: Optional[list[dict[str, Any]]] = None,
 ):
     # Ensure logs go to this room (thread-local)
     _thread_ctx.room = room
@@ -543,13 +545,13 @@ def run_agent_worker(
         pass
 
     # Streaming helpers for Web UI
-    stream_state: Dict[str, Any] = {
+    stream_state: dict[str, Any] = {
         "id": None,
         "active": False,
         "suppress_next_assistant_message": False,
     }
 
-    def _web_stream_send(payload: Dict[str, Any]) -> None:
+    def _web_stream_send(payload: dict[str, Any]) -> None:
         try:
             if room.loop:
                 asyncio.run_coroutine_threadsafe(room.broadcast(payload), room.loop)
@@ -587,7 +589,7 @@ def run_agent_worker(
     # Patch core.log_message during this worker run so streaming deltas can go to WebSocket.
     _orig_log_message = getattr(core, "log_message", None)
 
-    def _patched_log_message(msg: Dict[str, Any]) -> None:
+    def _patched_log_message(msg: dict[str, Any]) -> None:
         try:
             if isinstance(msg, dict) and msg.get("type") == "assistant_stream_delta":
                 _stream_delta(str(msg.get("delta") or ""))
@@ -630,8 +632,8 @@ def run_agent_worker(
         provider_name, client, depname = providers.make_client(core)
 
         user_input = str(user_input or "")
-        attachment_lines: List[str] = []
-        clean_attachments: List[Dict[str, Any]] = []
+        attachment_lines: list[str] = []
+        clean_attachments: list[dict[str, Any]] = []
         for att in attachments or []:
             if not isinstance(att, dict):
                 continue
@@ -825,7 +827,7 @@ async def get_room(request: Request, room_id: str):
 @app.post("/upload")
 async def upload_files(
     room: str = Form(""),
-    files: List[UploadFile] = File(...),
+    files: list[UploadFile] = File(...),
 ):
     try:
         cwd = os.path.abspath(os.getcwd())
@@ -833,7 +835,7 @@ async def upload_files(
         upload_root = os.path.join(cwd, ".uagent_web_uploads", room_id)
         os.makedirs(upload_root, exist_ok=True)
 
-        saved: List[Dict[str, Any]] = []
+        saved: list[dict[str, Any]] = []
         for upload in files or []:
             if upload is None:
                 continue
@@ -850,7 +852,7 @@ async def upload_files(
 
             mime = str(getattr(upload, "content_type", "") or "").lower().strip()
             is_image = mime.startswith("image/")
-            item: Dict[str, Any] = {
+            item: dict[str, Any] = {
                 "name": original_name,
                 "saved_path": dst_path,
                 "path": dst_path,

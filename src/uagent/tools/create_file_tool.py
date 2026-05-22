@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any, Dict
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir
@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -122,7 +122,7 @@ def _backup_path(path: str) -> str:
         i += 1
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw_filename = str(args.get("filename") or args.get("path") or "").strip()
     content = str(args.get("content", ""))
     encoding_raw = args.get("encoding")

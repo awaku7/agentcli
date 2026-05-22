@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from ..env_utils import env_get
-from typing import Any, Dict, List
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -12,7 +12,7 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "analyze_image",
@@ -74,7 +74,7 @@ if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes
     TOOL_SPEC = None  # type: ignore[assignment]
 
 
-def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
+def _env_first(keys: list[str], *, required: bool, default: str = "") -> str:
     for k in keys:
         v = (env_get(k) or "").strip()
         if v:
@@ -84,7 +84,7 @@ def _env_first(keys: List[str], *, required: bool, default: str = "") -> str:
     return default
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     image_path = str(args.get("image_path") or "")
     prompt = args.get("prompt")
     if prompt is not None:

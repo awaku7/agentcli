@@ -5,7 +5,7 @@ import os
 import threading
 import tempfile
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from ..utils.paths import get_schedules_json_path
 from .models import ScheduleItem
@@ -17,7 +17,7 @@ class SchedulerStore:
     def __init__(self, json_path: str | Path | None = None) -> None:
         self.path = Path(json_path or get_schedules_json_path())
 
-    def _read_doc(self) -> Dict[str, Any]:
+    def _read_doc(self) -> dict[str, Any]:
         if not self.path.exists():
             return {"version": 1, "items": []}
         try:
@@ -36,7 +36,7 @@ class SchedulerStore:
                 return out
         return {"version": 1, "items": []}
 
-    def _write_doc(self, doc: Dict[str, Any]) -> None:
+    def _write_doc(self, doc: dict[str, Any]) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         payload = json.dumps(doc, ensure_ascii=False, indent=2) + "\n"
         tmp_fd, tmp_name = tempfile.mkstemp(
@@ -53,10 +53,10 @@ class SchedulerStore:
             except Exception:
                 pass
 
-    def list_items(self) -> List[ScheduleItem]:
+    def list_items(self) -> list[ScheduleItem]:
         with _LOCK:
             doc = self._read_doc()
-            out: List[ScheduleItem] = []
+            out: list[ScheduleItem] = []
             for raw in doc.get("items") or []:
                 if not isinstance(raw, dict):
                     continue
@@ -67,7 +67,7 @@ class SchedulerStore:
             out.sort(key=lambda item: (item.next_fire_at, item.created_at, item.id))
             return out
 
-    def save_items(self, items: List[ScheduleItem]) -> None:
+    def save_items(self, items: list[ScheduleItem]) -> None:
         with _LOCK:
             doc = {
                 "version": 1,
@@ -106,5 +106,5 @@ class SchedulerStore:
                     return item
         return None
 
-    def set_items(self, items: List[ScheduleItem]) -> None:
+    def set_items(self, items: list[ScheduleItem]) -> None:
         self.save_items(items)

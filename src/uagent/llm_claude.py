@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import json
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from .i18n import _
 from . import tools
@@ -14,7 +16,7 @@ except ImportError:
 
 def _parse_claude_model(
     model_name: str,
-) -> Tuple[Optional[str], Optional[int], Optional[int]]:
+) -> tuple[Optional[str], Optional[int], Optional[int]]:
     """Best-effort parse Claude model name.
 
     Examples:
@@ -77,7 +79,7 @@ def _claude_supports_effort(model_name: str) -> bool:
 def build_claude_output_config_for_effort(
     model_name: str,
     effort: str | None,
-) -> Optional[Dict[str, Any]]:
+) -> Optional[dict[str, Any]]:
     """Map agentcli's internal effort levels to Claude output_config.effort.
 
     agentcli internal: minimal|low|medium|high|xhigh
@@ -121,12 +123,12 @@ def build_claude_output_config_for_effort(
 def claude_chat_with_tools(
     client: Any,
     model_name: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     *,
-    output_config: Optional[Dict[str, Any]] = None,
+    output_config: Optional[dict[str, Any]] = None,
     on_output_config_info: Optional[Any] = None,
     on_output_config_fallback: Optional[Any] = None,
-) -> Tuple[str, List[Dict[str, Any]]]:
+) -> tuple[str, list[dict[str, Any]]]:
     """Anthropic Claude API を使って tool_calls 付き応答を生成する。
 
     OpenAI 形式の messages を Anthropic 形式に変換してからリクエストする。
@@ -139,7 +141,7 @@ def claude_chat_with_tools(
     if Anthropic is None:
         raise RuntimeError(_("anthropic package is not installed."))
 
-    anthropic_messages: List[Dict[str, Any]] = []
+    anthropic_messages: list[dict[str, Any]] = []
     system_content = ""
 
     # OpenAI 形式のメッセージ履歴を Anthropic 形式に変換
@@ -157,7 +159,7 @@ def claude_chat_with_tools(
             continue
 
         new_role = None
-        new_content_blocks: List[Dict[str, Any]] = []
+        new_content_blocks: list[dict[str, Any]] = []
 
         if role == "user":
             new_role = "user"
@@ -241,7 +243,7 @@ def claude_chat_with_tools(
     if isinstance(output_config, dict) and output_config:
         out_cfg = output_config
 
-    req_kwargs: Dict[str, Any] = {
+    req_kwargs: dict[str, Any] = {
         "model": model_name,
         "max_tokens": 4096,
         "messages": anthropic_messages,
@@ -292,7 +294,7 @@ def claude_chat_with_tools(
             raise
 
     assistant_text = ""
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
 
     for block in response.content:
         if block.type == "text":

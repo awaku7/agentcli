@@ -10,14 +10,14 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 
-from typing import Any, Dict
+from typing import Any
 
 from .safe_file_ops import safe_rename_path
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:rename_path"
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -97,7 +97,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     src = str(args.get("src") or "").strip()
     dst = str(args.get("dst") or "").strip()
 

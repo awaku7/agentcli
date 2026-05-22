@@ -6,7 +6,7 @@ import fnmatch
 import json
 import os
 import re
-from typing import Any, Dict, List, Sequence
+from typing import Any, Sequence
 
 from .arg_util import get_bool, get_int, get_str
 from .context import get_callbacks
@@ -49,18 +49,18 @@ _TEXT_ENCODING_CANDIDATES = ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -256,7 +256,7 @@ def _is_binary(path: str) -> bool:
         return False
 
 
-def _normalize_items(raw_path: Any) -> List[str]:
+def _normalize_items(raw_path: Any) -> list[str]:
     if raw_path is None:
         return ["."]
     if isinstance(raw_path, str):
@@ -271,10 +271,10 @@ def _resolve_files(
     name_pattern: str,
     recursive: bool,
     exclude_dirs: set[str],
-    exclude_globs: List[str],
-) -> List[str]:
+    exclude_globs: list[str],
+) -> list[str]:
     items = _normalize_items(raw_path)
-    all_files: List[str] = []
+    all_files: list[str] = []
     seen: set[str] = set()
 
     for item in items:
@@ -331,8 +331,8 @@ def _compile_pattern(pattern: str, literal: bool, ignore_case: bool) -> re.Patte
     return re.compile(expr, flags)
 
 
-def _ordered_encodings(preferred: str | None = None) -> List[str]:
-    order: List[str] = []
+def _ordered_encodings(preferred: str | None = None) -> list[str]:
+    order: list[str] = []
     if preferred:
         order.append(preferred)
     for enc in _TEXT_ENCODING_CANDIDATES:
@@ -370,14 +370,14 @@ def _decode_text_bytes(data: bytes) -> tuple[str, str]:
     )
 
 
-def _read_lines(path: str) -> List[str]:
+def _read_lines(path: str) -> list[str]:
     with open(path, "rb") as f:
         data = f.read()
     text, _encoding = _decode_text_bytes(data)
     return text.splitlines(keepends=True)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, STATUS_LABEL)
@@ -430,8 +430,8 @@ def run_tool(args: Dict[str, Any]) -> str:
             raw_path, name_pattern, recursive, exclude_dirs, exclude_globs
         )
         matched_files: set[str] = set()
-        filenames: List[str] = []
-        matches: List[Dict[str, Any]] = []
+        filenames: list[str] = []
+        matches: list[dict[str, Any]] = []
         scanned_files = 0
         skipped_binary = 0
         limit_reached = False

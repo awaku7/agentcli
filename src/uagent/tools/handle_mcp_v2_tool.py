@@ -9,7 +9,7 @@ import asyncio
 import sys
 import os
 from ..env_utils import env_get
-from typing import Any, Dict, List
+from typing import Any
 
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
@@ -61,7 +61,7 @@ def mask_values(data: Any) -> Any:
         return "*"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "handle_mcp_v2",
@@ -136,7 +136,7 @@ TOOL_SPEC: Dict[str, Any] = {
 
 
 async def _call_mcp_stdio(
-    command: str, args: List[str], env: Dict[str, str], name: str, argv: Dict[str, Any]
+    command: str, args: list[str], env: dict[str, str], name: str, argv: dict[str, Any]
 ) -> str:
     server_params = StdioServerParameters(
         command=command, args=args, env={**os.environ, **(env or {})}
@@ -151,7 +151,7 @@ async def _call_mcp_stdio(
         return f"[Error] MCP stdio call failed: {str(e)}"
 
 
-async def _call_mcp_http(url: str, name: str, argv: Dict[str, Any]) -> str:
+async def _call_mcp_http(url: str, name: str, argv: dict[str, Any]) -> str:
     mcp_url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
     try:
         async with streamable_http_client(mcp_url) as (read, write, session_id):
@@ -234,7 +234,7 @@ def _format_result(result: Any) -> str:
     except Exception as e:
         return f"[Error] Failed to save returned file payload: {e}"
 
-    output_parts: List[str] = []
+    output_parts: list[str] = []
     saved_path: str | None = None
 
     # 3) ToolResult-like with content blocks
@@ -321,7 +321,7 @@ def _format_result(result: Any) -> str:
     return _json_out(ok=True, text="\n".join(output_parts), saved_path=saved_path)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     server_name = str(args.get("server_name", "")).strip()

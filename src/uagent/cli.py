@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import uagent.runtime_init  # noqa: F401
 import getpass
 import re
@@ -15,7 +17,7 @@ set_thread_lang(detect_lang())
 import threading
 import time
 import atexit
-from typing import Any, Dict, List
+from typing import Any
 
 from . import tools
 
@@ -416,7 +418,7 @@ def stdin_loop() -> None:
     標準入力を読み取り、core.event_queue にイベントを積む
     """
     user_multiline_active = False
-    user_lines: List[str] = []
+    user_lines: list[str] = []
 
     while True:
         try:
@@ -822,14 +824,14 @@ def main() -> None:
                     "bedrock",
                 )
 
-                user_msg: Dict[str, Any]
+                user_msg: dict[str, Any]
 
                 if allow_multimodal:
                     paths = extract_image_paths(text)
                     if paths:
                         # Build a candidate list with absolute paths and sizes (best-effort).
-                        infos: List[str] = []
-                        ok_paths: List[str] = []
+                        infos: list[str] = []
+                        ok_paths: list[str] = []
                         for p in paths:
                             try:
                                 expanded = os.path.expandvars(os.path.expanduser(p))
@@ -876,7 +878,7 @@ def main() -> None:
                                 )
 
                             if ans in ("y", "yes"):
-                                parts: List[Dict[str, Any]] = [
+                                parts: list[dict[str, Any]] = [
                                     {"type": "text", "text": text}
                                 ]
                                 for abspath in ok_paths:

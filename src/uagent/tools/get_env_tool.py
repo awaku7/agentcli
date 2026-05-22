@@ -1,16 +1,18 @@
+from __future__ import annotations
+
 # tools/get_env_tool.py
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 from ..env_utils import env_get
 
 from .context import get_callbacks
 
 BUSY_LABEL = False
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_env",
@@ -93,7 +95,7 @@ def _mask_value(val: str, keep: int = 2) -> str:
     return f"{head}***{tail}"
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     # NOTE:
     # - Tool call traces are handled centrally in tools/__init__.py.
     # - Avoid extra debug prints here to prevent duplicate output.

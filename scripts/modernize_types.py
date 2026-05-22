@@ -1,5 +1,5 @@
 """
-Modernize python code typing to 3.11+ style (list, dict, tuple, set)
+Modernize python code typing to 3.11+ style (list, dict, tuple, set) - Absolute Safe Version
 """
 
 import re
@@ -17,7 +17,6 @@ def modernize_file(file_path: Path):
 
     # 1. from __future__ import annotations の挿入
     if not has_annotations:
-        # docstringの下か、ファイルの先頭に挿入
         docstring_match = re.match(r'^(""".*?"""|\'\'\'.*?\'\'\')', content, re.DOTALL)
         if docstring_match:
             docstring = docstring_match.group(1)
@@ -27,13 +26,23 @@ def modernize_file(file_path: Path):
         else:
             content = f"from __future__ import annotations\n\n{content}"
 
-    # 2. typing 小文字化 (List, Dict, Tuple, Set の組み込み型置換)
-    # 単語境界 `\b` を用いて、独立した型ヒント定義のみを正確に置換
+    # 2. 型アノテーションの大文字（List, Dict, Tuple, Set）のみを小文字に徹底置換
+    # これらはネストに関わらず常に100%安全に小文字に変換できます。
     replacements = {
+        # ジェネリクス
         r"\bList\[": "list[",
         r"\bDict\[": "dict[",
         r"\bTuple\[": "tuple[",
         r"\bSet\[": "set[",
+        # 独立した単語としての古い型ヒント（引数や変数定義： : List, -> List 等）
+        r":\s*List\b": ": list",
+        r":\s*Dict\b": ": dict",
+        r":\s*Tuple\b": ": tuple",
+        r":\s*Set\b": ": set",
+        r"->\s*List\b": "-> list",
+        r"->\s*Dict\b": "-> dict",
+        r"->\s*Tuple\b": "-> tuple",
+        r"->\s*Set\b": "-> set",
     }
 
     for pattern, repl in replacements.items():
@@ -41,7 +50,7 @@ def modernize_file(file_path: Path):
 
     # 書き込み
     file_path.write_text(content, encoding="utf-8")
-    print(f"Modernized typing references: {file_path}")
+    print(f"Safe Modernized: {file_path}")
 
 
 if __name__ == "__main__":

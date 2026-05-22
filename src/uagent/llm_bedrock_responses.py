@@ -1,4 +1,6 @@
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
+from typing import Any, Optional
 
 from . import tools
 
@@ -15,7 +17,7 @@ def _extract_text_content(content: Any) -> str:
     if isinstance(content, str):
         return content
     if isinstance(content, list):
-        parts: List[str] = []
+        parts: list[str] = []
         for item in content:
             if isinstance(item, dict):
                 t = item.get("type")
@@ -35,8 +37,8 @@ def _extract_text_content(content: Any) -> str:
     return _as_str(content)
 
 
-def _messages_to_bedrock_input(call_messages: List[Dict[str, Any]]) -> str:
-    lines: List[str] = []
+def _messages_to_bedrock_input(call_messages: list[dict[str, Any]]) -> str:
+    lines: list[str] = []
 
     for m in call_messages:
         role = _as_str(m.get("role", "user")).lower()
@@ -81,10 +83,10 @@ def _messages_to_bedrock_input(call_messages: List[Dict[str, Any]]) -> str:
 
 
 def _build_flat_tools(
-    tool_specs: Optional[List[Dict[str, Any]]] = None,
-) -> List[Dict[str, Any]]:
+    tool_specs: Optional[list[dict[str, Any]]] = None,
+) -> list[dict[str, Any]]:
     raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
-    flat_tools: List[Dict[str, Any]] = []
+    flat_tools: list[dict[str, Any]] = []
 
     for t in raw_specs or []:
         if not isinstance(t, dict):
@@ -109,11 +111,11 @@ def _build_flat_tools(
 
 
 def build_bedrock_responses_request(
-    call_messages: List[Dict[str, Any]],
+    call_messages: list[dict[str, Any]],
     *,
     send_tools_this_round: bool,
-    tool_specs: Optional[List[Dict[str, Any]]] = None,
-) -> Dict[str, Any]:
+    tool_specs: Optional[list[dict[str, Any]]] = None,
+) -> dict[str, Any]:
     """Build a Bedrock-specific Responses request payload fragment.
 
     Bedrock OpenAI-compatible gateways may reject message-list `input` payloads
@@ -122,7 +124,7 @@ def build_bedrock_responses_request(
 
     input_text = _messages_to_bedrock_input(call_messages)
 
-    req: Dict[str, Any] = {
+    req: dict[str, Any] = {
         "input": input_text,
     }
 

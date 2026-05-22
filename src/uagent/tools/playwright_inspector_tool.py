@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 from .context import get_callbacks
 
@@ -8,7 +10,7 @@ import os
 import subprocess
 import sys
 import time
-from typing import Any, Dict
+from typing import Any
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:playwright_inspector"
@@ -23,7 +25,7 @@ def _emit_debug(message: str) -> None:
             pass
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "playwright_inspector",
@@ -134,7 +136,7 @@ class FlowLogger:
         self.path = path
         self._fp = open(path, "a", encoding="utf-8")
 
-    def log(self, obj: Dict[str, Any]) -> None:
+    def log(self, obj: dict[str, Any]) -> None:
         obj = dict(obj)
         obj.setdefault("ts", time.time())
         obj.setdefault("ts_iso", _now_iso())
@@ -148,13 +150,13 @@ class FlowLogger:
             pass
 
 
-def make_event_record(event_type: str, page_id: str, **fields: Any) -> Dict[str, Any]:
-    record: Dict[str, Any] = {"type": event_type, "page_id": page_id}
+def make_event_record(event_type: str, page_id: str, **fields: Any) -> dict[str, Any]:
+    record: dict[str, Any] = {"type": event_type, "page_id": page_id}
     record.update(fields)
     return record
 
 
-def make_page_summary(page_id: str, page_url: str, recent_actions: List[Dict[str, Any]]) -> Dict[str, Any]:
+def make_page_summary(page_id: str, page_url: str, recent_actions: list[dict[str, Any]]) -> dict[str, Any]:
     return make_event_record(
         "page_summary",
         page_id,
@@ -202,10 +204,10 @@ async def main() -> None:
             page_seq += 1
             page_id = f"p{page_seq}"
             action_seq = 0
-            page_actions: List[Dict[str, Any]] = []
+            page_actions: list[dict[str, Any]] = []
             logger.log(make_event_record("page_open", page_id, url=page.url, summary="Opened page"))
 
-            def emit_dom_event(event_name: str, detail: Dict[str, Any]) -> None:
+            def emit_dom_event(event_name: str, detail: dict[str, Any]) -> None:
                 nonlocal action_seq
                 action_seq += 1
                 detail = dict(detail)
@@ -451,7 +453,7 @@ if __name__ == "__main__":
             pass
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     url = args.get("url", "about:blank")
     prefix = args.get("prefix", "debug_capture")
     return run_playwright_inspector(url, prefix)

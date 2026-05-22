@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import sys
 import warnings
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from urllib.request import Request, urlopen
 
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "fetch_url",
@@ -180,7 +180,7 @@ def _pick_html_element(soup: BeautifulSoup, selector: str | None):
     return soup
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     url = str(args.get("url", "") or "")
     if not url:
         raise ValueError("url is required")

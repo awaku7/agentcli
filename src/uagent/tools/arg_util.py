@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, List, Optional, TypeVar
+from typing import Any, Optional, TypeVar
 
 T = TypeVar("T")
 
 
 def get_str(
-    args: Dict[str, Any], key: str, default: str = "", *, strip: bool = True
+    args: dict[str, Any], key: str, default: str = "", *, strip: bool = True
 ) -> str:
     """Get a string argument with optional stripping."""
     val = args.get(key)
@@ -19,7 +19,7 @@ def get_str(
     return s.strip() if strip else s
 
 
-def get_int(args: Dict[str, Any], key: str, default: int = 0) -> int:
+def get_int(args: dict[str, Any], key: str, default: int = 0) -> int:
     """Get an integer argument safely."""
     val = args.get(key)
     if val is None:
@@ -30,7 +30,7 @@ def get_int(args: Dict[str, Any], key: str, default: int = 0) -> int:
         return default
 
 
-def get_float(args: Dict[str, Any], key: str, default: float = 0.0) -> float:
+def get_float(args: dict[str, Any], key: str, default: float = 0.0) -> float:
     """Get a float argument safely."""
     val = args.get(key)
     if val is None:
@@ -41,7 +41,7 @@ def get_float(args: Dict[str, Any], key: str, default: float = 0.0) -> float:
         return default
 
 
-def get_bool(args: Dict[str, Any], key: str, default: bool = False) -> bool:
+def get_bool(args: dict[str, Any], key: str, default: bool = False) -> bool:
     """Get a boolean argument safely."""
     val = args.get(key)
     if val is None:
@@ -53,8 +53,8 @@ def get_bool(args: Dict[str, Any], key: str, default: bool = False) -> bool:
 
 
 def get_list(
-    args: Dict[str, Any], key: str, default: Optional[List[Any]] = None
-) -> List[Any]:
+    args: dict[str, Any], key: str, default: Optional[list[Any]] = None
+) -> list[Any]:
     """Get a list argument safely."""
     val = args.get(key)
     if val is None:
@@ -65,7 +65,7 @@ def get_list(
 
 
 def get_path(
-    args: Dict[str, Any], key: str, default: str = "", *, expand: bool = True
+    args: dict[str, Any], key: str, default: str = "", *, expand: bool = True
 ) -> str:
     """Get a path string argument, optionally expanded."""
     p = get_str(args, key, default)

@@ -1,4 +1,6 @@
-from typing import Any, Dict, List
+from __future__ import annotations
+
+from typing import Any
 
 from . import tools
 from .env_utils import env_get
@@ -17,7 +19,7 @@ def _init_gemini_cache(
     provider: str,
     client: Any,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
 ) -> Any:
     from .gemini_cache_mgr import GeminiCacheManager
 
@@ -78,7 +80,7 @@ def _maybe_auto_shrink_messages(
     provider: str,
     client: Any,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     core: Any,
     cache_mgr: Any,
     gemini_cache_name: Any,
@@ -159,11 +161,11 @@ def _maybe_auto_shrink_messages(
 def _build_call_messages(
     *,
     provider: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     core: Any,
     depname: str,
     gemini_cache_name: Any,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     if provider in ("gemini", "vertexai"):
         src_messages = (
             [m for m in messages if m.get("role") != "system"]
@@ -171,7 +173,7 @@ def _build_call_messages(
             else list(messages)
         )
 
-        call_messages: List[Dict[str, Any]] = []
+        call_messages: list[dict[str, Any]] = []
         expecting_tool = False
         saw_tool_in_block = False
         last_kept_role = None

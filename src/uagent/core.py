@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # core.py
 import os
 import sys
@@ -9,7 +11,7 @@ import time
 import glob
 import queue
 import threading
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Optional
 
 # ==============================
 # Configuration
@@ -125,7 +127,7 @@ LOG_FILE = env_get("UAGENT_LOG_FILE") or os.path.join(
 ENABLE_LOG_TOPIC_GUESS = env_get("UAGENT_LOG_TOPICS", "1") != "0"
 
 # Event queue (normal input and timer input share this queue)
-event_queue: "queue.Queue[Dict[str, Any]]" = queue.Queue()
+event_queue: "queue.Queue[dict[str, Any]]" = queue.Queue()
 
 # GUI mode flag (set by env var or gui.py)
 IS_GUI = env_get("UAGENT_GUI_MODE") == "1"
@@ -134,7 +136,7 @@ IS_GUI = env_get("UAGENT_GUI_MODE") == "1"
 human_ask_lock = threading.RLock()
 human_ask_active = False
 human_ask_queue = None  # type: ignore[assignment]
-human_ask_lines: List[str] = []
+human_ask_lines: list[str] = []
 human_ask_is_password = False
 human_ask_multiline_active = False
 
@@ -346,7 +348,7 @@ def _mask_message(obj: Any) -> Any:
         return obj
 
 
-def log_message(message: Dict[str, Any]) -> None:
+def log_message(message: dict[str, Any]) -> None:
     """
     ChatCompletion に渡している形式の message(dict) を JSONL で追記保存。
     保存前に機密情報（human_ask のパスワード等）をマスクする。
@@ -365,7 +367,7 @@ def log_message(message: Dict[str, Any]) -> None:
         pass
 
 
-def rewrite_current_log_from_messages(messages: List[Dict[str, Any]]) -> str:
+def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
     """Rewrite current session log file (core.LOG_FILE) from in-memory messages.
 
     - Create one-generation backup into <log_dir>/.backup/<basename>.org
@@ -415,7 +417,7 @@ def rewrite_current_log_from_messages(messages: List[Dict[str, Any]]) -> str:
 # ==============================
 
 
-def find_log_files(exclude_current: bool = False) -> List[str]:
+def find_log_files(exclude_current: bool = False) -> list[str]:
     pattern = os.path.join(BASE_LOG_DIR, "scheck_log_*.jsonl")
     files = glob.glob(pattern)
     if exclude_current:
@@ -425,11 +427,11 @@ def find_log_files(exclude_current: bool = False) -> List[str]:
     return files
 
 
-def guess_topics_from_content(content: str) -> Set[str]:
+def guess_topics_from_content(content: str) -> set[str]:
     """
     ログ内容から大ざっぱにトピック候補を推定する。
     """
-    topics: Set[str] = set()
+    topics: set[str] = set()
     lower = content.lower()
 
     # カテゴリ定義
@@ -585,7 +587,7 @@ def guess_topics_from_content(content: str) -> Set[str]:
     return topics
 
 
-def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
+def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
     """ログ一覧を表示する。
 
     目的:
@@ -635,7 +637,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             mtime_text = "(mtime unknown)"
         # 先頭側は最初の user を取るために最大 200 行読む
-        head_lines: List[str] = []
+        head_lines: list[str] = []
         try:
             with open(path, encoding="utf-8") as f:
                 for i, line in enumerate(f):
@@ -671,7 +673,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
         except Exception:
             tail_text = ""
 
-        tail_lines: List[str] = []
+        tail_lines: list[str] = []
         if tail_text:
             for ln in tail_text.splitlines():
                 ln = (ln or "").strip()
@@ -769,7 +771,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> List[str]:
 # ==============================
 
 
-def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
     """
     過去ログ1行分の dict から、現在の ChatCompletion API に渡せる
     最小限の message dict に正規化する。
@@ -780,7 +782,7 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     if role not in ("system", "user", "assistant", "tool"):
         return None
 
-    msg: Dict[str, Any] = {"role": role}
+    msg: dict[str, Any] = {"role": role}
 
     if role == "tool":
         msg["content"] = str(obj.get("content") or "")
@@ -812,7 +814,7 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     # 過去ログに tool_calls が入っていた場合は、現在の形式に揃えて残す
     tcs = obj.get("tool_calls")
     if isinstance(tcs, list):
-        new_tcs: List[Dict[str, Any]] = []
+        new_tcs: list[dict[str, Any]] = []
         for tc in tcs:
             if not isinstance(tc, dict):
                 continue
@@ -844,12 +846,12 @@ def normalize_message_from_log(obj: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     return msg
 
 
-def sanitize_messages_for_tools(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
     messages の中から「対応する assistant.tool_calls を持たない孤立した tool メッセージ」を削除する。
     """
-    cleaned: List[Dict[str, Any]] = []
-    seen_tool_call_ids: Set[str] = set()
+    cleaned: list[dict[str, Any]] = []
+    seen_tool_call_ids: set[str] = set()
 
     for m in messages:
         role = m.get("role")
@@ -897,7 +899,7 @@ def sanitize_messages_for_tools(messages: List[Dict[str, Any]]) -> List[Dict[str
 def load_conversation_from_log(
     path: str,
     system_prompt: Optional[str] = None,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     ログファイル（JSONL）から会話履歴を読み込み、
     ・メッセージを正規化
@@ -906,7 +908,7 @@ def load_conversation_from_log(
       （指定がない場合は現在の SYSTEM_PROMPT を使う）
     という形で messages を再構成する。
     """
-    raw_messages: List[Dict[str, Any]] = []
+    raw_messages: list[dict[str, Any]] = []
 
     with open(path, encoding="utf-8") as f:
         for line in f:
@@ -923,7 +925,7 @@ def load_conversation_from_log(
             raw_messages.append(obj)
 
     # まずは正規化
-    messages: List[Dict[str, Any]] = []
+    messages: list[dict[str, Any]] = []
     for obj in raw_messages:
         nm = normalize_message_from_log(obj)
         if nm is not None:
@@ -956,16 +958,16 @@ def load_conversation_from_log(
 
 
 def shrink_messages(
-    messages: List[Dict[str, Any]], keep_last: int = 40
-) -> List[Dict[str, Any]]:
+    messages: list[dict[str, Any]], keep_last: int = 40
+) -> list[dict[str, Any]]:
     """
     メモリ上の messages を簡易圧縮する:
     - 先頭の system メッセージ群はそのまま残す
     - それ以外（user/assistant/tool）は末尾の keep_last 件だけ残し、それ以前は捨てる
     """
     # system は先頭にある想定（SYSTEM_PROMPT と長期記憶メモなど）
-    system_msgs: List[Dict[str, Any]] = []
-    others: List[Dict[str, Any]] = []
+    system_msgs: list[dict[str, Any]] = []
+    others: list[dict[str, Any]] = []
 
     hit_non_system = False
     for m in messages:
@@ -996,9 +998,9 @@ def shrink_messages(
 def compress_history_with_llm(
     client: Any,
     depname: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     keep_last: int = 20,
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     別の LLM コンテキストを立ち上げて、古い user/assistant/tool を
     20件前後のチャンクごとに段階要約し、1つの system メッセージに圧縮する。
@@ -1011,8 +1013,8 @@ def compress_history_with_llm(
     except Exception:
         pass
 
-    system_msgs: List[Dict[str, Any]] = []
-    others: List[Dict[str, Any]] = []
+    system_msgs: list[dict[str, Any]] = []
+    others: list[dict[str, Any]] = []
 
     hit_non_system = False
     for m in messages:
@@ -1036,7 +1038,7 @@ def compress_history_with_llm(
     def _estimate_tokens(text: str) -> int:
         return max(1, (len(text) + 3) // 4)
 
-    def _message_to_text(m: Dict[str, Any]) -> tuple[str | None, str]:
+    def _message_to_text(m: dict[str, Any]) -> tuple[str | None, str]:
         role = str(m.get("role") or "")
         content = m.get("content") or ""
         if isinstance(content, (dict, list)):
@@ -1085,7 +1087,7 @@ def compress_history_with_llm(
         except Exception:
             return s
 
-    def _summarize_with_llm(summary_messages: List[Dict[str, Any]]) -> str | None:
+    def _summarize_with_llm(summary_messages: list[dict[str, Any]]) -> str | None:
         nonlocal client
         summary_content = ""
         attempt_429 = 0
@@ -1190,7 +1192,7 @@ def compress_history_with_llm(
 
     rolling_summary = ""
     for chunk_idx, chunk in enumerate(chunks, start=1):
-        lines: List[str] = []
+        lines: list[str] = []
         chunk_chars = 0
         chunk_tokens = 0
 
@@ -1427,8 +1429,8 @@ def _select_system_prompt() -> str:
 SYSTEM_PROMPT = _select_system_prompt()
 
 
-def build_tools_system_prompt(tool_specs: List[Dict[str, Any]]) -> str:
-    lines: List[str] = []
+def build_tools_system_prompt(tool_specs: list[dict[str, Any]]) -> str:
+    lines: list[str] = []
     lines.append("[Available Tools]")
     lines.append(
         _(

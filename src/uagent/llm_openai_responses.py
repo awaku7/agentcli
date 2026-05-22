@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import json
 import os
 import sys
 from .env_utils import env_get
 from .i18n import _
 import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from . import tools
 from .util_tools import image_file_to_data_url
@@ -20,7 +22,7 @@ def _as_str(x: Any) -> str:
     return str(x)
 
 
-def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]:
+def _normalize_content_items(content: Any, *, role: str) -> list[dict[str, Any]]:
     """Normalize a message's content into Responses content items.
 
     Azure/OpenAI Responses API accepts content items with (at least) these types:
@@ -46,7 +48,7 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
         return [{"type": text_type, "text": content}]
 
     if isinstance(content, list):
-        out: List[Dict[str, Any]] = []
+        out: list[dict[str, Any]] = []
         for item in content:
             if isinstance(item, dict):
                 t = item.get("type")
@@ -115,7 +117,7 @@ def _normalize_content_items(content: Any, *, role: str) -> List[Dict[str, Any]]
     return [{"type": text_type, "text": _as_str(content)}]
 
 
-def _attachment_to_openai_content_item(att: Any) -> Optional[Dict[str, Any]]:
+def _attachment_to_openai_content_item(att: Any) -> Optional[dict[str, Any]]:
     """Convert a stored attachment into an OpenAI Responses content item."""
 
     if not isinstance(att, dict):
@@ -172,7 +174,7 @@ def _env_truthy(name: str) -> bool:
     return (env_get(name) or "").strip().lower() in ("1", "true", "yes", "on")
 
 
-def _env_json_obj(name: str) -> Optional[Dict[str, Any]]:
+def _env_json_obj(name: str) -> Optional[dict[str, Any]]:
     raw = (env_get(name) or "").strip()
     if not raw:
         return None
@@ -183,7 +185,7 @@ def _env_json_obj(name: str) -> Optional[Dict[str, Any]]:
     return obj if isinstance(obj, dict) else None
 
 
-def _normalize_openai_builtin_tool(t: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def _normalize_openai_builtin_tool(t: dict[str, Any]) -> Optional[dict[str, Any]]:
     """Return an OpenAI Responses built-in tool spec, if *t* names one.
 
     Latest OpenAI docs recommend the hosted Responses tool:
@@ -209,7 +211,7 @@ def _normalize_openai_builtin_tool(t: Dict[str, Any]) -> Optional[Dict[str, Any]
     if mapped is None:
         return None
 
-    out: Dict[str, Any] = {"type": mapped}
+    out: dict[str, Any] = {"type": mapped}
     for key in _OPENAI_WEB_SEARCH_TOOL_KEYS:
         if key in t:
             out[key] = t[key]
@@ -225,7 +227,7 @@ def _normalize_openai_builtin_tool(t: Dict[str, Any]) -> Optional[Dict[str, Any]
     return out
 
 
-def _openai_web_search_tool_from_env() -> Optional[Dict[str, Any]]:
+def _openai_web_search_tool_from_env() -> Optional[dict[str, Any]]:
     """Build an optional OpenAI hosted web_search tool from env settings.
 
     Opt-in with UAGENT_OPENAI_WEB_SEARCH=1. Supported controls mirror the current
@@ -238,7 +240,7 @@ def _openai_web_search_tool_from_env() -> Optional[Dict[str, Any]]:
 
     requested_type = (env_get("UAGENT_OPENAI_WEB_SEARCH_TYPE") or "web_search").strip()
     tool_type = _OPENAI_WEB_SEARCH_TYPE_ALIASES.get(requested_type, "web_search")
-    out: Dict[str, Any] = {"type": tool_type}
+    out: dict[str, Any] = {"type": tool_type}
 
     context_size = (
         (env_get("UAGENT_OPENAI_WEB_SEARCH_CONTEXT_SIZE") or "").strip().lower()
@@ -285,7 +287,7 @@ def _env_enabled_default_true(name: str) -> bool:
     return True
 
 
-def _web_emit(core: Any, payload: Dict[str, Any]) -> None:
+def _web_emit(core: Any, payload: dict[str, Any]) -> None:
     try:
         if core is not None and bool(getattr(core, "_is_web", False)):
             lm = getattr(core, "log_message", None)
@@ -295,12 +297,12 @@ def _web_emit(core: Any, payload: Dict[str, Any]) -> None:
         pass
 
 
-def _maybe_dict(obj: Any) -> Optional[Dict[str, Any]]:
+def _maybe_dict(obj: Any) -> Optional[dict[str, Any]]:
     if isinstance(obj, dict):
         return obj
     if obj is None:
         return None
-    out: Dict[str, Any] = {}
+    out: dict[str, Any] = {}
     for key in (
         "type",
         "url",
@@ -327,8 +329,8 @@ def _maybe_dict(obj: Any) -> Optional[Dict[str, Any]]:
     return out or None
 
 
-def _extract_url_citations(content: Any) -> List[Dict[str, Any]]:
-    citations: List[Dict[str, Any]] = []
+def _extract_url_citations(content: Any) -> list[dict[str, Any]]:
+    citations: list[dict[str, Any]] = []
     items = content if isinstance(content, list) else [content]
     for item in items:
         item_dict = _maybe_dict(item)
@@ -362,7 +364,7 @@ def _extract_url_citations(content: Any) -> List[Dict[str, Any]]:
     return citations
 
 
-def _extract_web_search_call_info(item: Any) -> Optional[Dict[str, Any]]:
+def _extract_web_search_call_info(item: Any) -> Optional[dict[str, Any]]:
     item_dict = _maybe_dict(item)
     if not item_dict:
         return None
@@ -434,7 +436,7 @@ def _extract_web_search_call_info(item: Any) -> Optional[Dict[str, Any]]:
     }
 
 
-def _append_web_sources_suffix(text: str, citations: List[Dict[str, Any]]) -> str:
+def _append_web_sources_suffix(text: str, citations: list[dict[str, Any]]) -> str:
     if not citations:
         return text
     seen = set()
@@ -474,7 +476,7 @@ def _debug_stream_enabled() -> bool:
 def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
     if not _debug_stream_enabled():
         return
-    data: Dict[str, Any] = {"type": "debug", "stage": _as_str(stage) or "update"}
+    data: dict[str, Any] = {"type": "debug", "stage": _as_str(stage) or "update"}
     for key, value in payload.items():
         if value is None:
             continue
@@ -494,7 +496,7 @@ def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
 
 
 def _emit_web_search_event(core: Any, stage: str, **payload: Any) -> None:
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "type": "assistant_web_search",
         "stage": _as_str(stage) or "update",
     }
@@ -562,12 +564,12 @@ def _emit_web_search_event(core: Any, stage: str, **payload: Any) -> None:
 
 
 def build_responses_request(
-    call_messages: List[Dict[str, Any]],
+    call_messages: list[dict[str, Any]],
     *,
     send_tools_this_round: bool,
     provider: str = "openai",  # kept for compatibility with caller
-    tool_specs: Optional[List[Dict[str, Any]]] = None,
-) -> Tuple[Optional[str], List[Dict[str, Any]], Optional[List[Dict[str, Any]]]]:
+    tool_specs: Optional[list[dict[str, Any]]] = None,
+) -> tuple[Optional[str], list[dict[str, Any]], Optional[list[dict[str, Any]]]]:
     """Build payload for OpenAI/Azure Responses API.
 
     Returns:
@@ -586,8 +588,8 @@ def build_responses_request(
         function_call arguments={} for tools with required parameters.
     """
 
-    instructions_list: List[str] = []
-    input_msgs: List[Dict[str, Any]] = []
+    instructions_list: list[str] = []
+    input_msgs: list[dict[str, Any]] = []
 
     # Force the model to produce usable tool arguments.
     # Without this, some Azure/Responses combinations repeatedly emit
@@ -611,9 +613,9 @@ def build_responses_request(
             instructions_list.append(_as_str(m.get("content", "")))
             continue
 
-        m_clean: Dict[str, Any] = dict(m)
+        m_clean: dict[str, Any] = dict(m)
 
-        attachment_items: List[Dict[str, Any]] = []
+        attachment_items: list[dict[str, Any]] = []
         if role == "user":
             raw_attachments = m_clean.get("attachments")
             if isinstance(raw_attachments, list):
@@ -659,7 +661,7 @@ def build_responses_request(
 
         # If assistant had tool_calls, remove them and write a trace into instructions
         if "tool_calls" in m_clean:
-            tc_info: List[str] = []
+            tc_info: list[str] = []
             tcs = m_clean.get("tool_calls")
             if isinstance(tcs, list):
                 for tc in tcs:
@@ -744,10 +746,10 @@ def build_responses_request(
     #     {"type":"function","name":...,"description":...,"parameters":...}
     # - This mirrors the behavior in the known-good codebase under ../TEST and reduces
     #   the risk that tool-call arguments are emitted/transported in unexpected shapes.
-    req_tools: Optional[List[Dict[str, Any]]] = None
+    req_tools: Optional[list[dict[str, Any]]] = None
     if send_tools_this_round:
         raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
-        flat_tools: List[Dict[str, Any]] = []
+        flat_tools: list[dict[str, Any]] = []
 
         # OpenAI-hosted web search is not a local function tool.  It must be
         # sent as a Responses built-in tool, e.g. {"type": "web_search"}.
@@ -788,11 +790,11 @@ def build_responses_request(
 
 def parse_responses_response(
     resp: Any, *, core: Any = None
-) -> Tuple[str, List[Dict[str, Any]]]:
+) -> tuple[str, list[dict[str, Any]]]:
     """Parse Responses API response into (assistant_text, tool_calls_list)."""
 
     assistant_text = ""
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
     seen_web_search_ids: set[str] = set()
 
     if hasattr(resp, "output") and resp.output:
@@ -856,7 +858,7 @@ def parse_responses_stream(
     *,
     print_delta_fn: Any = None,
     core: Any = None,
-) -> Tuple[str, List[Dict[str, Any]]]:
+) -> tuple[str, list[dict[str, Any]]]:
     """Parse Responses API streaming iterator into (assistant_text, tool_calls_list).
 
     Debugging:
@@ -921,14 +923,14 @@ def parse_responses_stream(
             except Exception:
                 pass
 
-    assistant_text_parts: List[str] = []
+    assistant_text_parts: list[str] = []
     fallback_full_text = ""
 
     # key -> buffer (key is call_id OR item_id OR synthetic)
-    tool_calls_buf: Dict[str, Dict[str, Any]] = {}
+    tool_calls_buf: dict[str, dict[str, Any]] = {}
 
     # item_id (e.g. "fc_...") -> call_id (e.g. "call_...")
-    item_id_map: Dict[str, str] = {}
+    item_id_map: dict[str, str] = {}
 
     def _print_delta(s: str) -> None:
         if not s:
@@ -940,7 +942,7 @@ def parse_responses_stream(
             except Exception:
                 pass
 
-    def _ensure_buf(key: str) -> Dict[str, Any]:
+    def _ensure_buf(key: str) -> dict[str, Any]:
         buf = tool_calls_buf.get(key)
         if buf is None:
             buf = {
@@ -1207,7 +1209,7 @@ def parse_responses_stream(
 
     assistant_text = "".join(assistant_text_parts) or fallback_full_text
 
-    tool_calls_list: List[Dict[str, Any]] = []
+    tool_calls_list: list[dict[str, Any]] = []
     for key, buf in tool_calls_buf.items():
         args_str = "".join(buf.get("arguments_parts") or [])
         if not args_str:

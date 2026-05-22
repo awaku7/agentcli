@@ -3,7 +3,7 @@ from __future__ import annotations
 import threading
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 
 def _now_iso() -> str:
@@ -17,17 +17,17 @@ class TaskRecord:
     updated_at: str = field(default_factory=_now_iso)
 
     status: str = "IN_PROGRESS"  # IN_PROGRESS | SUCCEEDED | FAILED | CANCELLED
-    input_message: Optional[Dict[str, Any]] = None
-    output_message: Optional[Dict[str, Any]] = None
+    input_message: Optional[dict[str, Any]] = None
+    output_message: Optional[dict[str, Any]] = None
 
-    error: Optional[Dict[str, Any]] = None
+    error: Optional[dict[str, Any]] = None
 
 
 class InMemoryTaskStore:
     def __init__(self) -> None:
         self._lock = threading.Lock()
-        self._tasks: Dict[str, TaskRecord] = {}
-        self._order: List[str] = []
+        self._tasks: dict[str, TaskRecord] = {}
+        self._order: list[str] = []
 
     def create(self, rec: TaskRecord) -> None:
         with self._lock:
@@ -38,7 +38,7 @@ class InMemoryTaskStore:
         with self._lock:
             return self._tasks.get(task_id)
 
-    def list(self, *, limit: int = 100, offset: int = 0) -> List[TaskRecord]:
+    def list(self, *, limit: int = 100, offset: int = 0) -> list[TaskRecord]:
         with self._lock:
             ids = self._order[offset : offset + limit]
             return [self._tasks[i] for i in ids if i in self._tasks]

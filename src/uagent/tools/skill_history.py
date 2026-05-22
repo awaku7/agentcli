@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable
 
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -13,7 +13,7 @@ def _skills_marker_prefix() -> str:
     return _("skill.prefix", default="[SKILL] ")
 
 
-def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
+def _clear_skill_messages(messages_ref: list[dict[str, Any]]) -> int:
     prefix = _skills_marker_prefix()
     before = len(messages_ref)
     messages_ref[:] = [
@@ -30,7 +30,7 @@ def _clear_skill_messages(messages_ref: List[Dict[str, Any]]) -> int:
 
 
 def _persist_messages_with_warn(
-    messages: List[Dict[str, Any]], *, core: Any, label: str
+    messages: list[dict[str, Any]], *, core: Any, label: str
 ) -> None:
     try:
         cb = get_callbacks()
@@ -54,7 +54,7 @@ def _persist_messages_with_warn(
 
 
 def make_finish_skill_handler(
-    messages_ref: List[Dict[str, Any]], core: Any
+    messages_ref: list[dict[str, Any]], core: Any
 ) -> Callable[[str], str]:
     def finish_skill(message: str) -> str:
         removed = _clear_skill_messages(messages_ref)

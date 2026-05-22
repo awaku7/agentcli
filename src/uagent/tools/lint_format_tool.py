@@ -25,7 +25,7 @@ import os
 import re
 import shlex
 import subprocess
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
 
@@ -33,7 +33,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:lint_format"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "lint_format",
@@ -139,7 +139,7 @@ def _truncate(label: str, text: str) -> str:
     return text
 
 
-def _quote_cmd_parts(parts: List[str]) -> str:
+def _quote_cmd_parts(parts: list[str]) -> str:
     if os.name == "nt":
         return subprocess.list2cmdline([str(p) for p in parts])
     return " ".join(shlex.quote(str(p)) for p in parts)
@@ -147,7 +147,7 @@ def _quote_cmd_parts(parts: List[str]) -> str:
 
 def _cmd_exec_json(
     command: str, cwd: Optional[str]
-) -> Tuple[str, str, int, Optional[str]]:
+) -> tuple[str, str, int, Optional[str]]:
     try:
         from .cmd_exec_json_tool import run_tool as cmd_exec_json
 
@@ -198,7 +198,7 @@ def _human_confirm(message: str) -> bool:
             return False
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     tools = args.get("tools", []) or []
     mode = str(args.get("mode") or "check")
     targets = args.get("targets", ["."]) or ["."]
@@ -210,7 +210,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             {"ok": False, "error": f"invalid mode: {mode}"}, ensure_ascii=False
         )
 
-    sanitized_extra: List[str] = []
+    sanitized_extra: list[str] = []
     for a in extra_args:
         a = str(a)
         err = _reject_if_meta(a)
@@ -218,7 +218,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             return json.dumps({"ok": False, "error": err}, ensure_ascii=False)
         sanitized_extra.append(a)
 
-    safe_targets: List[str] = []
+    safe_targets: list[str] = []
     for t in targets:
         t = str(t)
         if is_path_dangerous(t):
@@ -247,7 +247,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 {"ok": False, "error": f"cwd not allowed: {e}"}, ensure_ascii=False
             )
 
-    selected: List[str] = []
+    selected: list[str] = []
     if tools:
         selected = [str(x) for x in tools]
     else:
@@ -287,7 +287,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
 
     overall_ok = True
-    results: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
 
     for tool in selected:
         if tool == "ruff":
@@ -337,7 +337,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         if not ok:
             overall_ok = False
 
-        r: Dict[str, Any] = {
+        r: dict[str, Any] = {
             "tool": tool,
             "command": cmd_str,
             "cwd": run_cwd,

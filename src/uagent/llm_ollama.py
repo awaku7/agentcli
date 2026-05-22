@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 from .env_utils import env_get
 
@@ -25,7 +25,7 @@ def _parse_int_env(name: str, default: int) -> int:
         return int(default)
 
 
-def _ollama_extra_params() -> Dict[str, Any]:
+def _ollama_extra_params() -> dict[str, Any]:
     """Build Ollama-specific request params from environment variables."""
 
     params = {
@@ -48,7 +48,7 @@ def _ollama_extra_params() -> Dict[str, Any]:
     return params
 
 
-def apply_ollama_extra_body(chat_kwargs: Dict[str, Any], *, provider: str) -> None:
+def apply_ollama_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
     """Apply Ollama-specific ChatCompletions request options via extra_body."""
 
     if provider != "ollama":

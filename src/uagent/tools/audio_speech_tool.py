@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from ..env_utils import env_get
 from .openers import open_image_with_default_app
@@ -15,7 +15,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
     "function": {
@@ -188,7 +188,7 @@ def _make_client(provider: str):
     return OpenAI(api_key=api_key, base_url=base_url.rstrip("/"))
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     text = get_str(args, "text", "")
     output_path = get_str(args, "output_path", "")
     if not text:
@@ -305,7 +305,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         client = _make_client(provider)
 
-        speech_kwargs: Dict[str, Any] = {
+        speech_kwargs: dict[str, Any] = {
             "input": text,
             "model": model,
             "voice": voice,

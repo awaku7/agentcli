@@ -7,7 +7,7 @@ import json
 from ..env_utils import env_get
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
 
@@ -102,13 +102,13 @@ def load_shared_memory_raw(max_bytes: Optional[int] = None) -> str:
     return text + truncated_note
 
 
-def load_shared_memory_records() -> List[Dict[str, Any]]:
+def load_shared_memory_records() -> list[dict[str, Any]]:
     """Parse JSONL into a list of dicts. Broken lines are skipped."""
     path = _get_shared_memory_file()
     if not path:
         return []
 
-    records: List[Dict[str, Any]] = []
+    records: list[dict[str, Any]] = []
     try:
         with open(path, encoding="utf-8") as f:
             for line in f:

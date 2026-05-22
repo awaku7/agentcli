@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import json
 import os
 from .env_utils import env_get
 from .i18n import _
 import hashlib
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 try:
     from google.genai import types as gemini_types
@@ -17,13 +19,13 @@ except ImportError:
 from uagent.utils.paths import get_cache_dir
 
 
-def _message_content_text(message: Dict[str, Any]) -> str:
+def _message_content_text(message: dict[str, Any]) -> str:
     """Normalize message content to plain text for Gemini cache handling."""
     c = message.get("content")
     if isinstance(c, str):
         return c
     if isinstance(c, list):
-        parts: List[str] = []
+        parts: list[str] = []
         for item in c:
             if isinstance(item, dict):
                 t = item.get("type")
@@ -46,7 +48,7 @@ CACHE_META_FILE = os.path.join(CACHE_META_DIR, "gemini_cache_meta.json")
 SCHEMA_VERSION = 2
 
 
-def _default_meta(model: str) -> Dict[str, Any]:
+def _default_meta(model: str) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "cache_name": None,
@@ -71,7 +73,7 @@ def get_string_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def _validate_message_sequence(messages: List[Dict[str, Any]]) -> bool:
+def _validate_message_sequence(messages: list[dict[str, Any]]) -> bool:
     """Geminiのターン順序を検証：function_callの直後にtool応答が来ているかチェック"""
     expecting_tool = False
     saw_tool_in_block = False
@@ -120,7 +122,7 @@ class GeminiCacheManager:
         self.model = model
         self.meta_data = self._load_meta()
 
-    def _load_meta(self) -> Dict[str, Any]:
+    def _load_meta(self) -> dict[str, Any]:
         if os.path.exists(CACHE_META_FILE):
             try:
                 with open(CACHE_META_FILE, "r", encoding="utf-8") as f:
@@ -166,7 +168,7 @@ class GeminiCacheManager:
             self.meta_data["discovered_files"].append(abs_path)
             self._save_meta()
 
-    def is_cache_valid(self, system_instruction: str, tools_spec: List[Any]) -> bool:
+    def is_cache_valid(self, system_instruction: str, tools_spec: list[Any]) -> bool:
         """現在のキャッシュが有効（同期されている）か確認"""
         if not self.meta_data["cache_name"]:
             return False
@@ -218,8 +220,8 @@ class GeminiCacheManager:
         self,
         client: Any,
         system_instruction: str,
-        func_decls: List[Any],
-        initial_messages: List[Dict[str, Any]],
+        func_decls: list[Any],
+        initial_messages: list[dict[str, Any]],
     ) -> Optional[str]:
         """新しいキャッシュを作成し、メタデータを更新する"""
 
@@ -310,7 +312,7 @@ class GeminiCacheManager:
                 if not isinstance(tool_name, str) or not tool_name:
                     tool_name = "tool"
 
-                resp_obj: Dict[str, Any]
+                resp_obj: dict[str, Any]
                 if content:
                     try:
                         parsed = json.loads(content)

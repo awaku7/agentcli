@@ -31,7 +31,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Any, Optional, Tuple
+from typing import Any, Optional
 
 from .env_utils import env_get
 
@@ -162,7 +162,7 @@ def load_translate_config() -> Optional[TranslateConfig]:
     )
 
 
-def _translation_prompts(src_lang: str, dst_lang: str, text: str) -> Tuple[str, str]:
+def _translation_prompts(src_lang: str, dst_lang: str, text: str) -> tuple[str, str]:
     system = (
         "You are a translation engine. "
         "Translate the user's text faithfully. "
@@ -179,7 +179,7 @@ def _translation_prompts(src_lang: str, dst_lang: str, text: str) -> Tuple[str, 
 
 def _translate_openai_compat(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     if OpenAI is None:
         return text, "openai package is not installed."
     if not cfg.depname:
@@ -235,7 +235,7 @@ def _extract_gemini_text(resp: Any) -> str:
 
 def _translate_gemini(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     if genai is None:
         return text, "google-genai package is not installed."
     if not cfg.depname:
@@ -292,7 +292,7 @@ def _translate_gemini(
 
 def _translate_claude(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     if Anthropic is None:
         return text, "anthropic package is not installed."
     if not cfg.depname:
@@ -346,7 +346,7 @@ def translate_text(
     direction: str,
     src_lang: str,
     cfg: Optional[TranslateConfig] = None,
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     """Translate text in one direction.
 
     direction:

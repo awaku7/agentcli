@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import json
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from .env_utils import env_get
 
@@ -76,7 +78,7 @@ def _sanitize_gemini_parameters(params: Any) -> Any:
             return True
         return False
 
-    def _collapse_nullable_union(schema: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
+    def _collapse_nullable_union(schema: dict[str, Any]) -> tuple[dict[str, Any], bool]:
         nullable = False
         out = dict(schema)
 
@@ -126,7 +128,7 @@ def _sanitize_gemini_parameters(params: Any) -> Any:
 
             src, nullable_from_union = _collapse_nullable_union(src)
 
-            dst: Dict[str, Any] = {}
+            dst: dict[str, Any] = {}
 
             t = src.get("type")
             if isinstance(t, str):
@@ -159,7 +161,7 @@ def _sanitize_gemini_parameters(params: Any) -> Any:
 
             props = src.get("properties")
             if isinstance(props, dict):
-                new_props: Dict[str, Any] = {}
+                new_props: dict[str, Any] = {}
                 for pk, pv in props.items():
                     if not isinstance(pk, str) or not pk:
                         continue
@@ -232,7 +234,7 @@ def _normalize_verbosity_env(value: str | None) -> str:
     return "off"
 
 
-def _extract_latest_user_text(messages: List[Dict[str, Any]]) -> str:
+def _extract_latest_user_text(messages: list[dict[str, Any]]) -> str:
     for m in reversed(messages or []):
         if not isinstance(m, dict):
             continue
@@ -244,13 +246,13 @@ def _extract_latest_user_text(messages: List[Dict[str, Any]]) -> str:
     return ""
 
 
-def _message_content_text(message: Dict[str, Any]) -> str:
+def _message_content_text(message: dict[str, Any]) -> str:
     """Normalize message content to plain text for Gemini helpers."""
     c = message.get("content")
     if isinstance(c, str):
         return c
     if isinstance(c, list):
-        parts: List[str] = []
+        parts: list[str] = []
         for item in c:
             if isinstance(item, dict):
                 t = item.get("type")
@@ -267,7 +269,7 @@ def _message_content_text(message: Dict[str, Any]) -> str:
     return str(c)
 
 
-def _attachment_to_gemini_part(att: Dict[str, Any]) -> Any | None:
+def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
     """Convert an attachment dict to a Gemini image Part when possible."""
 
     if not isinstance(att, dict):
@@ -509,12 +511,12 @@ def _verbosity_to_instruction(verbosity_mode: str) -> str | None:
 def gemini_chat_with_tools(
     client: Any,
     model_name: str,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     cached_content: str = None,
     stream: bool = False,
     core: Any = None,
     force_thinking_level: str | None = None,
-) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
+) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
     if genai is None or gemini_types is None:
@@ -526,7 +528,7 @@ def gemini_chat_with_tools(
     if not isinstance(tool_specs, list):
         tool_specs = []
 
-    func_decls: List[gemini_types.FunctionDeclaration] = []
+    func_decls: list[gemini_types.FunctionDeclaration] = []
 
     for spec in tool_specs:
         if not isinstance(spec, dict):
@@ -557,12 +559,12 @@ def gemini_chat_with_tools(
             )
         )
 
-    tools_list: List[gemini_types.Tool] = []
+    tools_list: list[gemini_types.Tool] = []
     if func_decls:
         tools_list.append(gemini_types.Tool(function_declarations=func_decls))
 
-    system_instruction_parts: List[str] = []
-    contents: List[gemini_types.Content] = []
+    system_instruction_parts: list[str] = []
+    contents: list[gemini_types.Content] = []
 
     # Defaults to avoid NameError if early errors occur before we compute them.
     thinking_cfg = None
@@ -676,7 +678,7 @@ def gemini_chat_with_tools(
             continue
 
         if role == "user":
-            user_parts: List[Any] = []
+            user_parts: list[Any] = []
             if content:
                 user_parts.append(gemini_types.Part(text=content))
 
@@ -697,7 +699,7 @@ def gemini_chat_with_tools(
             if not isinstance(tool_name, str) or not tool_name:
                 tool_name = "tool"
 
-            resp_obj: Dict[str, Any]
+            resp_obj: dict[str, Any]
             if content:
                 try:
                     parsed = json.loads(content)
@@ -775,7 +777,7 @@ def gemini_chat_with_tools(
     system_instruction = (
         "\n\n".join(system_instruction_parts) if system_instruction_parts else None
     )
-    valid_contents: List[gemini_types.Content] = []
+    valid_contents: list[gemini_types.Content] = []
     for c in contents:
         try:
             parts = getattr(c, "parts", None)
@@ -801,7 +803,7 @@ def gemini_chat_with_tools(
             gemini_types.Content(role="user", parts=[gemini_types.Part(text=" ")])
         ]
 
-    cfg_kwargs: Dict[str, Any] = {}
+    cfg_kwargs: dict[str, Any] = {}
 
     # NOTE:
     # When using cached_content, Gemini forbids setting system_instruction/tools/tool_config
@@ -830,23 +832,23 @@ def gemini_chat_with_tools(
         gemini_types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None
     )
 
-    gen_kwargs: Dict[str, Any] = {
+    gen_kwargs: dict[str, Any] = {
         "model": model_name,
         "contents": contents,
     }
     if config_obj is not None:
         gen_kwargs["config"] = config_obj
 
-    assistant_text_parts: List[str] = []
-    tool_calls_list: List[Dict[str, Any]] = []
-    gemini_content_dump: Dict[str, Any] = {}
+    assistant_text_parts: list[str] = []
+    tool_calls_list: list[dict[str, Any]] = []
+    gemini_content_dump: dict[str, Any] = {}
 
     def _collect_from_response_obj(
         response_obj: Any,
         *,
         stream_mode: bool,
         text_so_far: str,
-    ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any], str]:
+    ) -> tuple[str, list[dict[str, Any]], dict[str, Any], str]:
         candidates = getattr(response_obj, "candidates", None)
         if not candidates:
             return "", [], {}, text_so_far
@@ -855,7 +857,7 @@ def gemini_chat_with_tools(
         content_obj = getattr(candidate, "content", None)
         parts = getattr(content_obj, "parts", None)
 
-        gemini_content_dump: Dict[str, Any] = {}
+        gemini_content_dump: dict[str, Any] = {}
         try:
             fr = getattr(candidate, "finish_reason", None)
             if fr is not None:
@@ -890,8 +892,8 @@ def gemini_chat_with_tools(
                 "finish_reason": gemini_content_dump.get("finish_reason", "unknown")
             }
 
-        chunk_texts: List[str] = []
-        chunk_tool_calls: List[Dict[str, Any]] = []
+        chunk_texts: list[str] = []
+        chunk_tool_calls: list[dict[str, Any]] = []
 
         if stream_mode:
             # Avoid response.text here because google-genai emits a warning when

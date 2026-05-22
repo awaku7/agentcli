@@ -5,7 +5,7 @@ import json
 import os
 import re
 import sys
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
 
@@ -17,12 +17,12 @@ STATUS_LABEL = "tool:search_files"
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj: dict[str, Any] = {"ok": False, "error": message}
     obj.update(extra)
     return json.dumps(obj, ensure_ascii=False)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -221,8 +221,8 @@ def _normalize_newline_tokens_in_pattern(content_pattern: str) -> str:
     return cp
 
 
-def _ordered_encodings(preferred: str | None = None) -> List[str]:
-    order: List[str] = []
+def _ordered_encodings(preferred: str | None = None) -> list[str]:
+    order: list[str] = []
     if preferred:
         order.append(preferred)
     for enc in _TEXT_ENCODING_CANDIDATES:
@@ -263,7 +263,7 @@ def _grep_text_full_read_bytes(
     data: bytes,
     regex: re.Pattern[str],
     max_hits_per_file: int,
-) -> List[str]:
+) -> list[str]:
     """For small/medium files: decode once and grep quickly."""
 
     text, _encoding = _decode_text_bytes(data)
@@ -272,7 +272,7 @@ def _grep_text_full_read_bytes(
     if not m0:
         return []
 
-    matched_lines: List[str] = []
+    matched_lines: list[str] = []
     for i, line in enumerate(text.splitlines(), start=1):
         if regex.search(line):
             matched_lines.append(
@@ -308,7 +308,7 @@ def _grep_text_full_read(
     full_path: str,
     regex: re.Pattern[str],
     max_hits_per_file: int,
-) -> List[str]:
+) -> list[str]:
     """Backward-compatible wrapper for path-based callers."""
 
     text, _encoding = _read_text_auto(full_path)
@@ -316,7 +316,7 @@ def _grep_text_full_read(
     if not m0:
         return []
 
-    matched_lines: List[str] = []
+    matched_lines: list[str] = []
     for i, line in enumerate(text.splitlines(), start=1):
         if regex.search(line):
             matched_lines.append(
@@ -345,7 +345,7 @@ def _grep_text_streaming(
     full_path: str,
     regex: re.Pattern[str],
     max_hits_per_file: int,
-) -> List[str]:
+) -> list[str]:
     """For large files: stream line-by-line to keep memory usage bounded.
 
     Note: streaming mode cannot reliably provide an excerpt for cross-line matches.
@@ -358,7 +358,7 @@ def _grep_text_streaming(
         encodings.append("utf-8")
 
     for enc in encodings:
-        matched_lines: List[str] = []
+        matched_lines: list[str] = []
         line_num = 0
         try:
             with open(full_path, "r", encoding=enc, errors="strict") as f:
@@ -384,7 +384,7 @@ def _grep_text_streaming(
     return []
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Run file search."""
 
     try:
@@ -455,7 +455,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                     continue
 
                 # Content filtering
-                matched_lines: List[str] = []
+                matched_lines: list[str] = []
                 if regex is not None:
                     try:
                         with open(full_path, "rb") as bf:
@@ -504,7 +504,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
 
         # Human-readable output (kept for compatibility with existing consumers)
-        out_lines: List[str] = []
+        out_lines: list[str] = []
         if truncated:
             out_lines.append(
                 _(

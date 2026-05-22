@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # tools/read_pptx_pdf.py
 # -*- coding: utf-8 -*-
 
@@ -13,7 +15,7 @@ import collections.abc
 import json
 from io import BytesIO
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 import logging
 
@@ -57,7 +59,7 @@ DEFAULT_MAX_CHARS = 8000
 JSON_SCHEMA_VERSION = "1.1"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "read_pptx_pdf",
@@ -159,8 +161,8 @@ def normalize_text(s: str) -> str:
 
 
 def infer_style_from_fontnames(
-    fontnames: List[Optional[str]],
-) -> Optional[Dict[str, Optional[bool]]]:
+    fontnames: list[Optional[str]],
+) -> Optional[dict[str, Optional[bool]]]:
     """Roughly estimate bold/italic styles from font names."""
     names = [fn.lower() for fn in fontnames if fn]
     if not names:
@@ -173,7 +175,7 @@ def infer_style_from_fontnames(
         n for n in names if any(k in n for k in ("italic", "oblique", "ita", "kursiv"))
     ]
 
-    style: Dict[str, Optional[bool]] = {
+    style: dict[str, Optional[bool]] = {
         "bold": bool(bold_hits),
         "italic": bool(italic_hits),
     }
@@ -181,8 +183,8 @@ def infer_style_from_fontnames(
 
 
 def summarize_font_from_words(
-    words: List[Dict[str, Any]],
-) -> Optional[Dict[str, Optional[Any]]]:
+    words: list[dict[str, Any]],
+) -> Optional[dict[str, Optional[Any]]]:
     """Determine representative font name and size from pdfplumber word dicts."""
     if not words:
         return None
@@ -243,11 +245,11 @@ def estimate_pdf_alignment(
 
 
 def build_pdf_blocks(
-    words_raw: List[Dict[str, Any]], page_width: float
-) -> List[Dict[str, Any]]:
+    words_raw: list[dict[str, Any]], page_width: float
+) -> list[dict[str, Any]]:
     """Build paragraph blocks from pdfplumber.extract_words() results."""
 
-    norm_words: List[Dict[str, Any]] = []
+    norm_words: list[dict[str, Any]] = []
     for w in words_raw:
         t = normalize_text(str(w.get("text", "")))
         if not t.strip():
@@ -261,8 +263,8 @@ def build_pdf_blocks(
 
     norm_words.sort(key=lambda x: (x.get("top", 0), x.get("x0", 0)))
 
-    lines: List[List[Dict[str, Any]]] = []
-    current: List[Dict[str, Any]] = []
+    lines: list[list[dict[str, Any]]] = []
+    current: list[dict[str, Any]] = []
     current_top: Optional[float] = None
 
     def _same_line(a: float, b: float) -> bool:
@@ -285,7 +287,7 @@ def build_pdf_blocks(
     if current:
         lines.append(current)
 
-    line_objs: List[Dict[str, Any]] = []
+    line_objs: list[dict[str, Any]] = []
     for ln in lines:
         ln.sort(key=lambda x: float(x.get("x0", 0.0) or 0.0))
         text = " ".join([str(w.get("text", "")) for w in ln]).strip()
@@ -306,10 +308,10 @@ def build_pdf_blocks(
     if not line_objs:
         return []
 
-    blocks: List[Dict[str, Any]] = []
-    cur_block: List[Dict[str, Any]] = [line_objs[0]]
+    blocks: list[dict[str, Any]] = []
+    cur_block: list[dict[str, Any]] = [line_objs[0]]
 
-    def _gap(a: Dict[str, Any], b: Dict[str, Any]) -> float:
+    def _gap(a: dict[str, Any], b: dict[str, Any]) -> float:
         return float(b["bbox"][1]) - float(a["bbox"][3])
 
     for prev, nxt in zip(line_objs, line_objs[1:], strict=False):
@@ -335,7 +337,7 @@ def build_pdf_blocks(
         b["bbox"] = [left, top, right, bottom]
         b["align"] = estimate_pdf_alignment(left, right, page_width)
 
-        words_all: List[Dict[str, Any]] = []
+        words_all: list[dict[str, Any]] = []
         for ln in b_lines:
             words_all.extend(list(ln.get("words") or []))
         b["font"] = summarize_font_from_words(words_all)
@@ -353,7 +355,7 @@ def build_pdf_blocks(
 # ==============================
 
 
-def _ensure_common_schema(doc: Dict[str, Any]) -> Dict[str, Any]:
+def _ensure_common_schema(doc: dict[str, Any]) -> dict[str, Any]:
     """Ensure minimal common schema fields exist."""
     if "schema_version" not in doc:
         doc["schema_version"] = JSON_SCHEMA_VERSION
@@ -362,7 +364,7 @@ def _ensure_common_schema(doc: Dict[str, Any]) -> Dict[str, Any]:
     return doc
 
 
-def _wrap_page_texts(pages: List[str]) -> Dict[str, Any]:
+def _wrap_page_texts(pages: list[str]) -> dict[str, Any]:
     return _ensure_common_schema(
         {
             "schema_version": JSON_SCHEMA_VERSION,
@@ -404,8 +406,8 @@ def _looks_like_password_error(exc: Exception) -> bool:
 
 def _load_pptx_pres(
     pptx_path: str, password: Optional[str] = None
-) -> Tuple[Optional[Any], List[str]]:
-    warnings: List[str] = []
+) -> tuple[Optional[Any], list[str]]:
+    warnings: list[str] = []
     if Presentation is None:
         warnings.append("python-pptx is not available")
         return None, warnings
@@ -454,14 +456,14 @@ def _load_pptx_pres(
 
 def _extract_pdf_pages(
     pdf_path: str, password: str | None = None
-) -> Tuple[List[str], List[str]]:
-    warnings: List[str] = []
+) -> tuple[list[str], list[str]]:
+    warnings: list[str] = []
 
     if pdfplumber is None:
         warnings.append("pdfplumber is not available")
         return [], warnings
 
-    pages_text: List[str] = []
+    pages_text: list[str] = []
     try:
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:
@@ -495,18 +497,18 @@ def _extract_pdf_pages(
 
 def _extract_pptx_pages(
     pptx_path: str, password: str | None = None
-) -> Tuple[List[str], List[str]]:
-    warnings: List[str] = []
+) -> tuple[list[str], list[str]]:
+    warnings: list[str] = []
 
     if Presentation is None:
         warnings.append("python-pptx is not available")
         return [], warnings
 
-    pages_text: List[str] = []
+    pages_text: list[str] = []
     try:
         pres = Presentation(pptx_path)
         for slide in pres.slides:
-            parts: List[str] = []
+            parts: list[str] = []
             for shape in slide.shapes:
                 try:
                     if (
@@ -544,8 +546,8 @@ def _extract_pptx_pages(
 # ==============================
 
 
-def _read_common_json(path: str) -> Tuple[Dict[str, Any], List[str]]:
-    warnings: List[str] = []
+def _read_common_json(path: str) -> tuple[dict[str, Any], list[str]]:
+    warnings: list[str] = []
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         if not isinstance(data, dict):
@@ -557,11 +559,11 @@ def _read_common_json(path: str) -> Tuple[Dict[str, Any], List[str]]:
         ]
 
 
-def _get_pages_text(doc: Dict[str, Any]) -> List[str]:
+def _get_pages_text(doc: dict[str, Any]) -> list[str]:
     pages = doc.get("pages")
     if not isinstance(pages, list):
         return []
-    out: List[str] = []
+    out: list[str] = []
     for p in pages:
         if not isinstance(p, dict):
             continue
@@ -570,7 +572,7 @@ def _get_pages_text(doc: Dict[str, Any]) -> List[str]:
     return out
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     path = (args.get("path") or "").strip()
     password = str(args.get("password") or "").strip() or None
     page_index = args.get("page_index")
@@ -594,7 +596,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         return f"[read_pptx_pdf error] file not found: {path}"
 
     suffix = p.suffix.lower()
-    warnings: List[str] = []
+    warnings: list[str] = []
 
     if suffix == ".json":
         doc, warnings = _read_common_json(path)

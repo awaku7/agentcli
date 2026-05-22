@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import requests
 
@@ -25,18 +25,18 @@ DEFAULT_POLL_INTERVAL_S = 2
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
 
-def _compact_author(msg: Dict[str, Any]) -> Dict[str, Any]:
+def _compact_author(msg: dict[str, Any]) -> dict[str, Any]:
     author = msg.get("author") or {}
     return {
         "id": author.get("id"),
@@ -46,7 +46,7 @@ def _compact_author(msg: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _compact_message(msg: Dict[str, Any]) -> Dict[str, Any]:
+def _compact_message(msg: dict[str, Any]) -> dict[str, Any]:
     return {
         "id": msg.get("id"),
         "channel_id": msg.get("channel_id"),
@@ -63,11 +63,11 @@ def _request_json(
     path: str,
     token: str,
     *,
-    params: Optional[Dict[str, Any]] = None,
-    payload: Optional[Dict[str, Any]] = None,
+    params: Optional[dict[str, Any]] = None,
+    payload: Optional[dict[str, Any]] = None,
     timeout_s: int = DEFAULT_TIMEOUT_S,
     retries: int = 3,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     url = DEFAULT_API_BASE.rstrip("/") + path
     headers = {
         "Authorization": f"Bot {token}",
@@ -132,7 +132,7 @@ def _request_json(
     raise RuntimeError(last_err or "Discord request failed")
 
 
-def _get_token(args: Dict[str, Any]) -> str:
+def _get_token(args: dict[str, Any]) -> str:
     token_env = get_str(args, "token_env", DEFAULT_TOKEN_ENV) or DEFAULT_TOKEN_ENV
     token = (env_get(token_env) or "").strip()
     if not token:
@@ -154,8 +154,8 @@ def _fetch_recent_messages(
     *,
     limit: int,
     after: Optional[str] = None,
-) -> List[Dict[str, Any]]:
-    params: Dict[str, Any] = {"limit": max(1, min(100, int(limit)))}
+) -> list[dict[str, Any]]:
+    params: dict[str, Any] = {"limit": max(1, min(100, int(limit)))}
     if after:
         params["after"] = after
     data = _request_json(
@@ -166,7 +166,7 @@ def _fetch_recent_messages(
     return data
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 10000,
     "type": "function",
     "function": {
@@ -269,7 +269,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, STATUS_LABEL)
@@ -349,7 +349,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         sent_id = str(sent.get("id") or "")
         start = time.time()
         seen_ids: set[str] = set()
-        replies: List[Dict[str, Any]] = []
+        replies: list[dict[str, Any]] = []
 
         while True:
             elapsed = time.time() - start

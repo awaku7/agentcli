@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import os
 import threading
-from typing import Any, Callable, Dict, Optional, cast
+from typing import Any, Callable, Optional, cast
 
 from .arg_util import get_int, get_path
 from .context import get_callbacks
@@ -14,7 +14,7 @@ _ = make_tool_translator(__file__)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj: dict[str, Any] = {"ok": False, "error": message}
     obj.update(extra)
     return json.dumps(obj, ensure_ascii=False)
 
@@ -46,7 +46,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:read_file"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "function": {
@@ -147,7 +147,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     filename = get_path(args, "filename", get_path(args, "path", ""))

@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 # src/scheck/tools/calculator_tool.py
 from .i18n_helper import make_tool_translator
 from .arg_util import get_str
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 import math
 from .context import get_callbacks
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "calculator",
@@ -60,7 +62,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     expression = get_str(args, "expression", "")
     if not expression:

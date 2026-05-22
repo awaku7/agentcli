@@ -3,7 +3,7 @@ from __future__ import annotations
 # src/uagent/tools/a2a_poll_tool.py
 
 import json
-from typing import Any, Dict
+from typing import Any
 
 from ..a2a.client import A2AClient
 from .arg_util import get_int, get_str
@@ -15,18 +15,18 @@ _ = make_tool_translator(__file__)
 
 
 def _json_ok(**obj: Any) -> str:
-    out: Dict[str, Any] = {"ok": True}
+    out: dict[str, Any] = {"ok": True}
     out.update(obj)
     return json.dumps(out, ensure_ascii=False)
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    out: Dict[str, Any] = {"ok": False, "error": message}
+    out: dict[str, Any] = {"ok": False, "error": message}
     out.update(extra)
     return json.dumps(out, ensure_ascii=False)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 9000,
     "type": "function",
     "function": {
@@ -105,7 +105,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
     if cb.set_status:
         cb.set_status(True, "tool:a2a_poll")

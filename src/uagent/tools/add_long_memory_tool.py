@@ -6,14 +6,14 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 
 from . import long_memory
 
 BUSY_LABEL = False
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 7000,
     "type": "function",
     "function": {
@@ -70,7 +70,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     note = (args.get("note") or "").strip()
     if not note:
         return _("err.note_empty", default="[add_long_memory error] note is empty")

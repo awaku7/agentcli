@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 # tools/spawn_process.py
 import os
 import subprocess
-from typing import Any, Dict
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "function": {
         "description": _(
             "tool.description",
@@ -81,7 +83,7 @@ def _validate_command(raw: str) -> str | None:
     return None
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw = (args.get("command") or "").strip()
     print(raw)
     err = _validate_command(raw)

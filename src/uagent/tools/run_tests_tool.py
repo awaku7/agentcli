@@ -18,7 +18,7 @@ import os
 import re
 import shlex
 import subprocess
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
 from .i18n_helper import make_tool_translator
@@ -30,7 +30,7 @@ STATUS_LABEL = "tool:run_tests"
 _ = make_tool_translator(__file__)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "run_tests",
@@ -131,7 +131,7 @@ def _reject_if_meta(s: str) -> Optional[str]:
     return None
 
 
-def _exists_any(names: List[str]) -> bool:
+def _exists_any(names: list[str]) -> bool:
     return any(os.path.exists(n) for n in names)
 
 
@@ -158,7 +158,7 @@ def _truncate(label: str, text: str) -> str:
     return text
 
 
-def _quote_cmd_parts(parts: List[str]) -> str:
+def _quote_cmd_parts(parts: list[str]) -> str:
     if os.name == "nt":
         return subprocess.list2cmdline([str(p) for p in parts])
     return " ".join(shlex.quote(str(p)) for p in parts)
@@ -166,7 +166,7 @@ def _quote_cmd_parts(parts: List[str]) -> str:
 
 def _cmd_exec_json(
     command: str, cwd: Optional[str]
-) -> Tuple[str, str, int, Optional[str]]:
+) -> tuple[str, str, int, Optional[str]]:
     try:
         from .cmd_exec_json_tool import run_tool as cmd_exec_json
 
@@ -204,7 +204,7 @@ def _apply_pythonpath_prefix(cmd_str: str, pythonpath: Optional[str]) -> str:
     return f"PYTHONPATH={shlex.quote(pp)}:$PYTHONPATH {cmd_str}"
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     framework = str(args.get("framework") or "auto")
     target = args.get("target", None)
     extra_args = args.get("extra_args", []) or []
@@ -234,7 +234,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
-    sanitized_args: List[str] = []
+    sanitized_args: list[str] = []
     for a in extra_args:
         a = str(a)
         err = _reject_if_meta(a)
@@ -284,7 +284,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             )
         framework = detected
 
-    cmd_parts: List[str] = []
+    cmd_parts: list[str] = []
     if framework == "pytest":
         cmd_parts = ["python", "-m", "pytest", "-q"]
         if target:
@@ -326,7 +326,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     stdout_t = _truncate("run_tests stdout", stdout)
     stderr_t = _truncate("run_tests stderr", stderr)
 
-    result: Dict[str, Any] = {
+    result: dict[str, Any] = {
         "ok": code == 0,
         "framework": framework,
         "detected": detected,

@@ -1,9 +1,11 @@
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 from .env_utils import env_get
 
 
-def apply_openrouter_extra_body(chat_kwargs: Dict[str, Any], *, provider: str) -> None:
+def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:
     """Apply OpenRouter-only ChatCompletions extensions via extra_body."""
 
     if provider != "openrouter":
@@ -41,7 +43,7 @@ def apply_openrouter_extra_body(chat_kwargs: Dict[str, Any], *, provider: str) -
 
 
 def apply_openrouter_tool_schema_compat(
-    chat_kwargs: Dict[str, Any], *, provider: str
+    chat_kwargs: dict[str, Any], *, provider: str
 ) -> None:
     """Apply OpenRouter/Azure-proxy tool schema compatibility workarounds."""
 
@@ -293,7 +295,7 @@ def apply_openrouter_tool_schema_compat(
         pass
 
 
-def finalize_tool_schema_sync(chat_kwargs: Dict[str, Any]) -> None:
+def finalize_tool_schema_sync(chat_kwargs: dict[str, Any]) -> None:
     """Final OpenRouter/Azure-proxy compatibility sync.
 
     - ensure tools[i].parameters always mirrors function.parameters
@@ -335,7 +337,7 @@ def finalize_tool_schema_sync(chat_kwargs: Dict[str, Any]) -> None:
 
 
 def apply_openrouter_fallback_models(
-    chat_kwargs: Dict[str, Any],
+    chat_kwargs: dict[str, Any],
     *,
     provider: str,
     depname: str,

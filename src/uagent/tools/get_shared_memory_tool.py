@@ -1,13 +1,15 @@
+from __future__ import annotations
+
 # tools/get_shared_memory.py
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 
 from . import shared_memory
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
     "type": "function",
     "function": {
@@ -57,7 +59,7 @@ TOOL_SPEC: Dict[str, Any] = {
 # STATUS_LABEL = "tool:get_shared_memory"
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Entry point called from tools/__init__.py. Implementation for get_shared_memory."""
     # shared_memory.py handles messages for disabled/missing states
     return shared_memory.load_shared_memory_raw()

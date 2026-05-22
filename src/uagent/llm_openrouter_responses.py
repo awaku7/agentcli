@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List
+from typing import Any
 
 from .env_utils import env_get
 
 
 def apply_openrouter_responses_compat(
-    resp_kwargs: Dict[str, Any],
+    resp_kwargs: dict[str, Any],
     *,
     provider: str,
     depname: str,
@@ -99,7 +99,7 @@ def apply_openrouter_responses_compat(
         if isinstance(_in, list):
             _debug_dump("input_before", _in)
 
-            lines: List[str] = []
+            lines: list[str] = []
             for m in _in:
                 if isinstance(m, dict) and "role" in m:
                     role = str(m.get("role") or "user").upper()
@@ -145,7 +145,7 @@ def apply_openrouter_responses_compat(
                         s = s.copy()
                         s["additionalProperties"] = False
 
-                    new_props: Dict[str, Any] = {}
+                    new_props: dict[str, Any] = {}
                     changed = False
                     for k, v in props.items():
                         v2 = _fix_schema(v)
@@ -200,7 +200,7 @@ def apply_openrouter_responses_compat(
                 "openrouter:datetime": "openrouter:datetime",
             }
 
-            new_tools: List[Dict[str, Any]] = []
+            new_tools: list[dict[str, Any]] = []
 
             for t in raw_tools:
                 if not isinstance(t, dict):

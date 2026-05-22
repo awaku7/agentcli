@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict
+from typing import Any
 
 from . import get_tool_catalog
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "tool_catalog",
@@ -58,7 +58,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
     max_results_raw = args.get("max_results", 12)
     try:

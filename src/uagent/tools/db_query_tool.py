@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import sqlite3
-from typing import Any, Dict
+from typing import Any
 
 from .i18n_helper import make_tool_translator
 
@@ -10,7 +10,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "db_query",
@@ -68,7 +68,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     db_path = str(args.get("db_path", "") or "").strip()
     sql = str(args.get("sql", "") or "").strip()
 

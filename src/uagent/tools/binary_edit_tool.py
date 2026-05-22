@@ -6,7 +6,7 @@ import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Literal, Tuple
+from typing import Any, Literal
 
 from .human_ask_tool import run_tool as human_ask
 from .i18n_helper import make_tool_translator
@@ -17,7 +17,7 @@ _ = make_tool_translator(__file__)
 Mode = Literal["write", "replace", "splice", "apply_patch"]
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "binary_edit",
@@ -206,7 +206,7 @@ def _confirm_or_cancel(message: str) -> bool:
     return ans in ("y", "yes")
 
 
-def _ensure_file_ok(path: Path, *, max_bytes: int) -> Tuple[int, str]:
+def _ensure_file_ok(path: Path, *, max_bytes: int) -> tuple[int, str]:
     if not path.exists():
         raise ValueError(f"[binary_edit] file not found: {path}")
     if not path.is_file():
@@ -247,10 +247,10 @@ def _op_write(data: bytearray, *, offset: int, patch: bytes) -> OpResult:
     )
 
 
-def _find_nth(hay: bytes, needle: bytes, occurrence: int) -> List[int]:
+def _find_nth(hay: bytes, needle: bytes, occurrence: int) -> list[int]:
     if needle == b"":
         raise ValueError("[binary_edit] search pattern is empty")
-    idxs: List[int] = []
+    idxs: list[int] = []
     start = 0
     while True:
         i = hay.find(needle, start)
@@ -340,7 +340,7 @@ def _op_splice_delete(data: bytearray, *, offset: int, delete_len: int) -> OpRes
     )
 
 
-def _parse_patch_json(patch_json: str) -> List[Dict[str, Any]]:
+def _parse_patch_json(patch_json: str) -> list[dict[str, Any]]:
     try:
         obj = json.loads(patch_json)
     except Exception as e:
@@ -355,7 +355,7 @@ def _parse_patch_json(patch_json: str) -> List[Dict[str, Any]]:
     if not isinstance(ops, list) or not ops:
         raise ValueError("[binary_edit] patch_json.operations must be a non-empty list")
 
-    out: List[Dict[str, Any]] = []
+    out: list[dict[str, Any]] = []
     for i, op in enumerate(ops):
         if not isinstance(op, dict):
             raise ValueError(f"[binary_edit] operations[{i}] must be an object")
@@ -363,7 +363,7 @@ def _parse_patch_json(patch_json: str) -> List[Dict[str, Any]]:
     return out
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
 
     try:
 
@@ -385,7 +385,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         data = _read_all(p)
 
         # Execute
-        results: List[OpResult] = []
+        results: list[OpResult] = []
 
         if mode == "write":
             if "offset" not in args:

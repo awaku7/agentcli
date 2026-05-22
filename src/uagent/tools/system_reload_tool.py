@@ -1,4 +1,6 @@
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 import importlib
 import sys
@@ -51,7 +53,7 @@ TOOL_SPEC = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     try:
         pkg_name = __package__ or "src.uagent.tools"
         mod = sys.modules.get(pkg_name)

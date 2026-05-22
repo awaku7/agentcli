@@ -7,7 +7,7 @@ import json
 import re
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 from urllib.parse import urlparse
 
 from .context import get_callbacks
@@ -67,7 +67,7 @@ _DANGEROUS_KEYWORDS = [
 LOAD_DISABLED_REASON = ""
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
     "type": "function",
     "function": {
@@ -225,7 +225,7 @@ def _looks_dangerous(task: str) -> bool:
     return any(keyword.lower() in text for keyword in _DANGEROUS_KEYWORDS)
 
 
-def _normalize_domains(value: Any) -> Optional[List[str]]:
+def _normalize_domains(value: Any) -> Optional[list[str]]:
     if value in (None, ""):
         return None
     if isinstance(value, str):
@@ -237,7 +237,7 @@ def _normalize_domains(value: Any) -> Optional[List[str]]:
             "allowed_domains must be a list of strings or comma-separated string"
         )
 
-    domains: List[str] = []
+    domains: list[str] = []
     for item in raw_items:
         if not item:
             continue
@@ -250,7 +250,7 @@ def _normalize_domains(value: Any) -> Optional[List[str]]:
     return domains or None
 
 
-def _host_matches_allowed(host: str, allowed_domains: List[str]) -> bool:
+def _host_matches_allowed(host: str, allowed_domains: list[str]) -> bool:
     host = host.lower().rstrip(".")
     for domain in allowed_domains:
         domain = domain.lower().rstrip(".")
@@ -259,7 +259,7 @@ def _host_matches_allowed(host: str, allowed_domains: List[str]) -> bool:
     return False
 
 
-def _validate_start_url(start_url: str, allowed_domains: Optional[List[str]]) -> None:
+def _validate_start_url(start_url: str, allowed_domains: Optional[list[str]]) -> None:
     if not start_url:
         return
     parsed = urlparse(start_url)
@@ -271,7 +271,7 @@ def _validate_start_url(start_url: str, allowed_domains: Optional[List[str]]) ->
         raise ValueError("start_url host is not included in allowed_domains")
 
 
-def _history_summary(history: Any) -> Dict[str, Any]:
+def _history_summary(history: Any) -> dict[str, Any]:
     def call(name: str, default: Any = None, *args: Any) -> Any:
         attr = getattr(history, name, None)
         if not callable(attr):
@@ -303,11 +303,11 @@ async def _run_browser_use_async(
     timeout_s: int,
     model: str,
     use_cloud: bool,
-    allowed_domains: Optional[List[str]],
+    allowed_domains: Optional[list[str]],
     deny_downloads: bool,
     use_vision: bool,
     output_dir: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     try:
         from browser_use import Agent, Browser, ChatBrowserUse
     except Exception as exc:  # pragma: no cover - depends on environment
@@ -355,8 +355,8 @@ async def _run_browser_use_async(
     return {**summary, "history_path": str(history_path)}
 
 
-def _run_in_thread(**kwargs: Any) -> Dict[str, Any]:
-    def worker() -> Dict[str, Any]:
+def _run_in_thread(**kwargs: Any) -> dict[str, Any]:
+    def worker() -> dict[str, Any]:
         return asyncio.run(_run_browser_use_async(**kwargs))
 
     # Run in a dedicated thread so this tool also works if the host already owns
@@ -366,7 +366,7 @@ def _run_in_thread(**kwargs: Any) -> Dict[str, Any]:
         return future.result(timeout=int(kwargs["timeout_s"]) + 10)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     task = str(args.get("task") or "").strip()
     if not task:
         raise ValueError("task is required")

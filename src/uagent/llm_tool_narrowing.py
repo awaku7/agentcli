@@ -1,4 +1,6 @@
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
+from typing import Any, Optional
 
 from .env_utils import env_get
 
@@ -34,7 +36,7 @@ def _is_gpt54_tool_search_target(
         return False
 
     tail = model[idx + len(marker) :]
-    digits: List[str] = []
+    digits: list[str] = []
     for ch in tail:
         if ch.isdigit():
             digits.append(ch)
@@ -53,8 +55,8 @@ def _is_gpt54_tool_search_target(
 
 
 def _select_tool_specs_for_gpt54(
-    call_messages: List[Dict[str, Any]],
-) -> Optional[List[Dict[str, Any]]]:
+    call_messages: list[dict[str, Any]],
+) -> Optional[list[dict[str, Any]]]:
     """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
 
     Policy:
@@ -79,7 +81,7 @@ def _select_tool_specs_for_gpt54(
             latest_user_text = content
             break
         if isinstance(content, list):
-            parts: List[str] = []
+            parts: list[str] = []
             for item in content:
                 if isinstance(item, dict) and item.get("type") in (
                     "text",
@@ -131,7 +133,7 @@ def _select_tool_specs_for_gpt54(
     selected_names = {"tool_catalog", "human_ask"}
     selected_names.update(hit_names)
 
-    narrowed: List[Dict[str, Any]] = []
+    narrowed: list[dict[str, Any]] = []
     for spec in specs:
         if not isinstance(spec, dict):
             continue

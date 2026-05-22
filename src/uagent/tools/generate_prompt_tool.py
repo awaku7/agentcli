@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from .arg_util import get_path, get_str
 from .context import get_callbacks
@@ -17,12 +17,12 @@ STATUS_LABEL = "tool:generate_prompt"
 
 
 def _json_err(message: str, **extra: Any) -> str:
-    obj: Dict[str, Any] = {"ok": False, "error": message}
+    obj: dict[str, Any] = {"ok": False, "error": message}
     obj.update(extra)
     return json.dumps(obj, ensure_ascii=False)
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "generate_prompt",
@@ -98,7 +98,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     raw_path = get_path(args, "path", get_path(args, "filename", ""))
@@ -139,7 +139,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         )
         bsz = p.stat().st_size
 
-        vars_map: Dict[str, Any] = {
+        vars_map: dict[str, Any] = {
             "content": content,
             "lines": lines,
             "bytes": bsz,

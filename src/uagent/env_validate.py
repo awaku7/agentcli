@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Sequence, Tuple
+from typing import Sequence
 
 from .env_utils import env_get
 from .i18n import _
@@ -18,8 +18,8 @@ def _get(name: str) -> str:
     return env_get(name) or ""
 
 
-def _require(names: Sequence[str], reason: str) -> List[MissingEnv]:
-    missing: List[MissingEnv] = []
+def _require(names: Sequence[str], reason: str) -> list[MissingEnv]:
+    missing: list[MissingEnv] = []
     for n in names:
         if not _get(n):
             missing.append(MissingEnv(name=n, reason=reason))
@@ -30,9 +30,9 @@ def detect_provider_allow_empty() -> str:
     return _get("UAGENT_PROVIDER").lower()
 
 
-def validate_startup_env() -> Tuple[str, List[MissingEnv], List[str]]:
-    missing: List[MissingEnv] = []
-    warnings: List[str] = []
+def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
+    missing: list[MissingEnv] = []
+    warnings: list[str] = []
     provider = detect_provider_allow_empty()
 
     if not provider:
@@ -272,7 +272,7 @@ def format_missing_env_message(
     warnings: Sequence[str] = (),
     context: str = "startup",
 ) -> str:
-    lines: List[str] = []
+    lines: list[str] = []
     lines.append(
         _(
             "[FATAL] Environment validation failed ({context}).",

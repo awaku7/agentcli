@@ -17,7 +17,7 @@ from urllib.request import Request, urlopen
 from pathlib import Path
 from dataclasses import dataclass
 from queue import Empty as QueueEmpty
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 # DPI warnings and crash avoidance
 os.environ["QT_LOGGING_RULES"] = (
@@ -118,8 +118,8 @@ class GuiConfig:
 @dataclass
 class HistoryEntry:
     text: str
-    images: List[str]
-    files: List[str]
+    images: list[str]
+    files: list[str]
 
 
 class DropInput(QtWidgets.QPlainTextEdit):
@@ -232,8 +232,8 @@ class ScheckWorker(QtCore.QObject):
         super().__init__()
         self.cfg = cfg
         self.tools = tools
-        self.messages: List[Dict[str, Any]] = []
-        self.image_session: Optional[Dict[str, Any]] = None
+        self.messages: list[dict[str, Any]] = []
+        self.image_session: Optional[dict[str, Any]] = None
         self._stop = threading.Event()
         self._provider = ""
         self._client = None
@@ -403,7 +403,7 @@ class ScheckWorker(QtCore.QObject):
                         )
 
                         if allow_multimodal:
-                            parts: List[Dict[str, Any]] = [
+                            parts: list[dict[str, Any]] = [
                                 {"type": "text", "text": text.strip()}
                             ]
 
@@ -616,7 +616,7 @@ class MainWindow(QtWidgets.QMainWindow):
         cursor.movePosition(QtGui.QTextCursor.End)
         self._output.setTextCursor(cursor)
 
-        state: Dict[str, Any] = {"fg": None, "bg": None, "bold": False, "italic": False}
+        state: dict[str, Any] = {"fg": None, "bg": None, "bold": False, "italic": False}
 
         def _format() -> QtGui.QTextCharFormat:
             fmt = QtGui.QTextCharFormat()
@@ -682,7 +682,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for line in (s or "").splitlines(keepends=True):
                 _insert_with_links(line, _plain_line_format(line))
 
-        def _apply(params: List[int]) -> None:
+        def _apply(params: list[int]) -> None:
             if not params:
                 params = [0]
             i = 0
@@ -729,7 +729,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if chunk:
                 cursor.insertText(chunk, _format())
             raw = m.group(0)
-            params: List[int] = []
+            params: list[int] = []
             try:
                 inner = raw[2:-1]
                 if inner.startswith("?"):
@@ -782,9 +782,9 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.setWindowTitle(_("uag GUI (Extreme Stability)"))
         self.resize(1100, 850)
-        self._attached_images: List[str] = []
-        self._attached_files: List[str] = []
-        self._history: List[HistoryEntry] = []
+        self._attached_images: list[str] = []
+        self._attached_files: list[str] = []
+        self._history: list[HistoryEntry] = []
         self._hist_idx = -1
         self._log_pos = 0
         self._known_image_paths: set[str] = set()
@@ -1008,7 +1008,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._tty_partial_line = ""  # type: ignore[attr-defined]
 
                 def _normalize_stream_chunk(chunk: str) -> str:
-                    out_parts: List[str] = []
+                    out_parts: list[str] = []
                     cur = self._tty_partial_line  # type: ignore[attr-defined]
                     for ch in chunk:
                         if ch == "\r":
@@ -1157,8 +1157,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._attached_files.append(p)
                 self._add_file_item(p, f"ATT:{self._attachment_seq}:{i}")
 
-    def _collect_generated_image_paths(self) -> List[str]:
-        paths: List[str] = []
+    def _collect_generated_image_paths(self) -> list[str]:
+        paths: list[str] = []
         seen: set[str] = set()
 
         def _add(candidate: Any) -> None:
@@ -1200,8 +1200,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         return paths
 
-    def _collect_generated_audio_paths(self) -> List[str]:
-        paths: List[str] = []
+    def _collect_generated_audio_paths(self) -> list[str]:
+        paths: list[str] = []
         seen: set[str] = set()
 
         def _add(candidate: Any) -> None:

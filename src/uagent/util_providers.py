@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import sys
 import time
 import atexit
-from typing import Any, Tuple
+from typing import Any
 
 try:
     import httpx
@@ -265,7 +267,7 @@ def _parse_wait_seconds_from_headers(headers: Any, cap: float = 65.0) -> float |
     return None
 
 
-def make_client(core: Any) -> Tuple[str, Any, str]:
+def make_client(core: Any) -> tuple[str, Any, str]:
     """利用する LLM プロバイダに応じてクライアントを生成する。"""
 
     provider = detect_provider()

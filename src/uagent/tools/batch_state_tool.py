@@ -5,7 +5,7 @@ import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 from uuid import uuid4
 
 from ..env_utils import env_get
@@ -33,7 +33,7 @@ _ALL_TOOL_ACTIONS = _PUBLIC_TOOL_ACTIONS
 _BATCH_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 _ALLOWED_STATUSES = {"active", "done", "paused", "cancelled", "error"}
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "batch_state",
@@ -264,10 +264,10 @@ def _coerce_int(value: Any, default: int = 0) -> int:
         return default
 
 
-def _dedupe_preserve_order(items: Any) -> List[str]:
+def _dedupe_preserve_order(items: Any) -> list[str]:
     if not isinstance(items, list):
         return []
-    out: List[str] = []
+    out: list[str] = []
     seen = set()
     for item in items:
         value = _normalize_path_text(item)
@@ -278,10 +278,10 @@ def _dedupe_preserve_order(items: Any) -> List[str]:
     return out
 
 
-def _normalize_file_list(items: Any) -> List[str]:
+def _normalize_file_list(items: Any) -> list[str]:
     if not isinstance(items, list):
         return []
-    out: List[str] = []
+    out: list[str] = []
     seen = set()
     for item in items:
         value = _normalize_path_text(item)
@@ -292,8 +292,8 @@ def _normalize_file_list(items: Any) -> List[str]:
     return out
 
 
-def _merge_unique_lists(existing: Any, new_items: Any) -> List[str]:
-    out: List[str] = []
+def _merge_unique_lists(existing: Any, new_items: Any) -> list[str]:
+    out: list[str] = []
     seen = set()
     for source in (_normalize_file_list(existing), _normalize_file_list(new_items)):
         for item in source:
@@ -304,10 +304,10 @@ def _merge_unique_lists(existing: Any, new_items: Any) -> List[str]:
     return out
 
 
-def _normalize_targets(targets: Any) -> List[Dict[str, Any]]:
+def _normalize_targets(targets: Any) -> list[dict[str, Any]]:
     if not isinstance(targets, list):
         return []
-    normalized: List[Dict[str, Any]] = []
+    normalized: list[dict[str, Any]] = []
     for target in targets:
         if not isinstance(target, dict):
             continue
@@ -324,13 +324,13 @@ def _normalize_targets(targets: Any) -> List[Dict[str, Any]]:
     return normalized
 
 
-def _target_paths(target: Dict[str, Any]) -> List[str]:
+def _target_paths(target: dict[str, Any]) -> list[str]:
     target_dir = _normalize_path_text(target.get("dir"))
     files = _normalize_file_list(target.get("files"))
     if not target_dir:
         return files
     prefix = target_dir.rstrip("/") + "/"
-    out: List[str] = []
+    out: list[str] = []
     for file in files:
         if file == target_dir or file.startswith(prefix):
             out.append(file)
@@ -344,7 +344,7 @@ def _normalize_status(value: Any, default: str = "active") -> str:
     return status if status in _ALLOWED_STATUSES else default
 
 
-def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
+def _state_with_progress_view(state: dict[str, Any]) -> dict[str, Any]:
     base = dict(state) if isinstance(state, dict) else {}
     targets = _normalize_targets(base.get("targets"))
     completed_files = _normalize_file_list(base.get("completed_files"))
@@ -355,7 +355,7 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
     done_files = _merge_unique_lists(
         [], [item for group in result_lists for item in group]
     )
-    all_files: List[str] = []
+    all_files: list[str] = []
     for target in targets:
         all_files = _merge_unique_lists(all_files, _target_paths(target))
 
@@ -389,7 +389,7 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
                 file = target_pending[0]
                 break
 
-    target_views: List[Dict[str, Any]] = []
+    target_views: list[dict[str, Any]] = []
     for index, target in enumerate(targets):
         target_files = _target_paths(target)
         target_done = [item for item in target_files if item in done_files]
@@ -447,8 +447,8 @@ def _state_with_progress_view(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _collect_state_patch(args: Dict[str, Any]) -> Dict[str, Any]:
-    patch: Dict[str, Any] = {}
+def _collect_state_patch(args: dict[str, Any]) -> dict[str, Any]:
+    patch: dict[str, Any] = {}
     for key in (
         "task_description",
         "instructions",
@@ -465,7 +465,7 @@ def _collect_state_patch(args: Dict[str, Any]) -> Dict[str, Any]:
     return patch
 
 
-def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]:
+def _merge_state(state: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
     merged = dict(state) if isinstance(state, dict) else {}
     if not isinstance(patch, dict):
         return _normalize_persisted_state(merged)
@@ -474,7 +474,7 @@ def _merge_state(state: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]
     return _normalize_persisted_state(merged)
 
 
-def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
+def _normalize_persisted_state(state: dict[str, Any]) -> dict[str, Any]:
     base = _default_state(_normalize_batch_id(state.get("batch_id")))
     if not isinstance(state, dict):
         state = {}
@@ -527,7 +527,7 @@ def _normalize_persisted_state(state: Dict[str, Any]) -> Dict[str, Any]:
     return normalized
 
 
-def _load_state(batch_id: str) -> Dict[str, Any]:
+def _load_state(batch_id: str) -> dict[str, Any]:
     path = _path_for_batch_id(batch_id)
     if not path.exists():
         raise FileNotFoundError(f"batch not found: {batch_id}")
@@ -539,7 +539,7 @@ def _load_state(batch_id: str) -> Dict[str, Any]:
     return _normalize_persisted_state(state)
 
 
-def _save_state(batch_id: str, state: Dict[str, Any]) -> Path:
+def _save_state(batch_id: str, state: dict[str, Any]) -> Path:
     path = _path_for_batch_id(batch_id)
     normalized = _normalize_persisted_state(state)
     normalized["batch_id"] = batch_id
@@ -552,7 +552,7 @@ def _save_state(batch_id: str, state: Dict[str, Any]) -> Path:
     return path
 
 
-def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
+def _list_item(state: dict[str, Any]) -> dict[str, Any]:
     snapshot = _state_with_progress_view(state)
     return {
         "batch_id": snapshot.get("batch_id", ""),
@@ -576,8 +576,8 @@ def _list_item(state: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _append_log_entry(
-    state: Dict[str, Any], message: str, **extra: Any
-) -> Dict[str, Any]:
+    state: dict[str, Any], message: str, **extra: Any
+) -> dict[str, Any]:
     logs = state.get("logs")
     if not isinstance(logs, list):
         logs = []
@@ -590,7 +590,7 @@ def _append_log_entry(
     return state
 
 
-def _remove_file_record(records: Any, file_value: str) -> List[str]:
+def _remove_file_record(records: Any, file_value: str) -> list[str]:
     needle = _normalize_path_text(file_value)
     if not needle:
         return _normalize_file_list(records)
@@ -598,7 +598,7 @@ def _remove_file_record(records: Any, file_value: str) -> List[str]:
 
 
 def _resolve_record_file(
-    state: Dict[str, Any], file_value: Any = None
+    state: dict[str, Any], file_value: Any = None
 ) -> tuple[int, int, str]:
     snapshot = _state_with_progress_view(state)
     candidate = _normalize_path_text(file_value) or _normalize_path_text(
@@ -630,11 +630,11 @@ def _resolve_record_file(
 
 
 def _record_file_result(
-    state: Dict[str, Any],
+    state: dict[str, Any],
     result_key: str,
     file_value: Any = None,
     reason: Any = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     state = _normalize_persisted_state(state)
     target_index, _file_index, display_file = _resolve_record_file(state, file_value)
     display_file = _normalize_path_text(display_file)
@@ -677,7 +677,7 @@ def _record_file_result(
     return _normalize_persisted_state(state)
 
 
-def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
+def _batch_overview(state: dict[str, Any]) -> dict[str, Any]:
     snapshot = _state_with_progress_view(state)
     target_views = snapshot.get("target_views", [])
     return {
@@ -712,7 +712,7 @@ def _batch_overview(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def _default_state(batch_id: str) -> Dict[str, Any]:
+def _default_state(batch_id: str) -> dict[str, Any]:
     now = _now_iso()
     return {
         "batch_id": batch_id,
@@ -741,7 +741,7 @@ def _result(ok: bool, **payload: Any) -> str:
     )
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     action = str(args.get("action") or "").strip()
     if action not in _ALL_TOOL_ACTIONS:
         return _result(
@@ -788,7 +788,7 @@ def run_tool(args: Dict[str, Any]) -> str:
 
         if action == "list":
             root = _ensure_dir()
-            items: List[Dict[str, Any]] = []
+            items: list[dict[str, Any]] = []
             for path in sorted(root.glob("*.json")):
                 try:
                     with path.open("r", encoding="utf-8") as f:

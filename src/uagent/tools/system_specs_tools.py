@@ -10,9 +10,9 @@ import os
 import platform
 import shutil
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_system_specs",
@@ -78,7 +78,7 @@ def _safe_int(x: Any) -> Optional[int]:
 
 
 def _add_volume(
-    out: Dict[str, Any],
+    out: dict[str, Any],
     mountpoint: str,
     *,
     fstype: str | None = None,
@@ -102,9 +102,9 @@ def _add_volume(
 
 
 @functools.lru_cache(maxsize=1)
-def _linux_sys_block_map() -> Dict[str, Dict[str, Any]]:
+def _linux_sys_block_map() -> dict[str, dict[str, Any]]:
     sys_block = "/sys/block"
-    out: Dict[str, Dict[str, Any]] = {}
+    out: dict[str, dict[str, Any]] = {}
     if not os.path.isdir(sys_block):
         return out
 
@@ -157,7 +157,7 @@ def _linux_sys_block_map() -> Dict[str, Dict[str, Any]]:
     return out
 
 
-def _linux_collect_disks(out: Dict[str, Any]) -> None:
+def _linux_collect_disks(out: dict[str, Any]) -> None:
     # Reuse cached /sys/block data to avoid repeated directory scans.
     sys_block = "/sys/block"
     if not os.path.isdir(sys_block):
@@ -194,7 +194,7 @@ def _darwin_sysctl_str(libc: Any, name: str) -> Optional[str]:
     return buf.value.decode(errors="ignore").rstrip("\x00")
 
 
-def _darwin_collect_volumes(out: Dict[str, Any]) -> None:
+def _darwin_collect_volumes(out: dict[str, Any]) -> None:
     import ctypes
     import ctypes.util
 
@@ -244,7 +244,7 @@ def _darwin_collect_volumes(out: Dict[str, Any]) -> None:
             _add_volume(out, mp, fstype=fstype, device=device)
 
 
-def _init_system_specs_output() -> Dict[str, Any]:
+def _init_system_specs_output() -> dict[str, Any]:
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "os": {
@@ -278,7 +278,7 @@ def _psutil_to_dict(obj: Any) -> Any:
         return obj
 
 
-def _psutil_collect_boot(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_boot(out: dict[str, Any], psutil: Any) -> None:
     try:
         bt = float(psutil.boot_time())
         out["boot"] = {
@@ -290,7 +290,7 @@ def _psutil_collect_boot(out: Dict[str, Any], psutil: Any) -> None:
         out["notes"].append("psutil: failed to read boot time.")
 
 
-def _psutil_collect_cpu(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_cpu(out: dict[str, Any], psutil: Any) -> None:
     try:
         out["cpu"]["logical_cores"] = psutil.cpu_count(logical=True)
         out["cpu"]["physical_cores"] = psutil.cpu_count(logical=False)
@@ -333,7 +333,7 @@ def _psutil_collect_cpu(out: Dict[str, Any], psutil: Any) -> None:
         pass
 
 
-def _psutil_collect_memory(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_memory(out: dict[str, Any], psutil: Any) -> None:
     try:
         vm = psutil.virtual_memory()
         out["memory"]["total_bytes"] = int(vm.total)
@@ -347,7 +347,7 @@ def _psutil_collect_memory(out: Dict[str, Any], psutil: Any) -> None:
         pass
 
 
-def _psutil_collect_volumes(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_volumes(out: dict[str, Any], psutil: Any) -> None:
     try:
         out["volumes_psutil"] = []
         seen = set()
@@ -384,7 +384,7 @@ def _psutil_collect_volumes(out: Dict[str, Any], psutil: Any) -> None:
         out["notes"].append("psutil: failed to enumerate volumes.")
 
 
-def _psutil_collect_disks(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
+def _psutil_collect_disks(out: dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
         try:
             tot = psutil.disk_io_counters(perdisk=False)
@@ -407,7 +407,7 @@ def _psutil_collect_disks(out: Dict[str, Any], psutil: Any, *, system: str) -> N
         out["notes"].append("psutil: per-disk I/O counters skipped for speed.")
 
 
-def _psutil_collect_network(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
+def _psutil_collect_network(out: dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
         out["network"] = {
             "if_addrs": {},
@@ -485,14 +485,14 @@ def _psutil_collect_network(out: Dict[str, Any], psutil: Any, *, system: str) ->
         out["notes"].append("psutil: failed to collect network information.")
 
 
-def _psutil_collect_users(out: Dict[str, Any], psutil: Any) -> None:
+def _psutil_collect_users(out: dict[str, Any], psutil: Any) -> None:
     try:
         out["users"] = [_psutil_to_dict(u) for u in psutil.users()]
     except Exception:
         pass
 
 
-def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any, *, system: str) -> None:
+def _psutil_collect_sensors(out: dict[str, Any], psutil: Any, *, system: str) -> None:
     try:
         out["sensors"] = {}
         try:
@@ -530,7 +530,7 @@ def _psutil_collect_sensors(out: Dict[str, Any], psutil: Any, *, system: str) ->
 
 
 def _collect_with_psutil(
-    out: Dict[str, Any],
+    out: dict[str, Any],
     *,
     include_volumes: bool,
     include_disks: bool,
@@ -563,7 +563,7 @@ def _collect_with_psutil(
 
 
 def _collect_windows_specs(
-    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+    out: dict[str, Any], *, include_volumes: bool, include_disks: bool
 ) -> None:
     if include_volumes:
         try:
@@ -622,7 +622,7 @@ def _collect_windows_specs(
 
 
 def _collect_linux_specs(
-    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+    out: dict[str, Any], *, include_volumes: bool, include_disks: bool
 ) -> None:
     # CPU model / max MHz / physical cores best-effort
     try:
@@ -684,7 +684,7 @@ def _collect_linux_specs(
             "rpc_pipefs",
         }
         try:
-            mounts: List[tuple[str, str, str]] = []
+            mounts: list[tuple[str, str, str]] = []
             with open("/proc/mounts", "r", encoding="utf-8", errors="ignore") as f:
                 for line in f:
                     parts = line.split()
@@ -711,7 +711,7 @@ def _collect_linux_specs(
 
 
 def _collect_darwin_specs(
-    out: Dict[str, Any], *, include_volumes: bool, include_disks: bool
+    out: dict[str, Any], *, include_volumes: bool, include_disks: bool
 ) -> None:
     # sysctl + getmntinfo
     try:
@@ -747,7 +747,7 @@ def _collect_darwin_specs(
 
 def get_system_specs(
     *, include_volumes: bool = True, include_disks: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     out = _init_system_specs_output()
     system = out["os"]["sys_platform"]
 
@@ -777,7 +777,7 @@ def get_system_specs(
     return out
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     include_volumes = bool(args.get("include_volumes", True))
     include_disks = bool(args.get("include_disks", True))
 

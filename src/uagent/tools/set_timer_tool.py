@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
-from typing import Any, Dict
+from typing import Any
 from uuid import uuid4
 
 from ..scheduler import (
@@ -17,7 +17,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "set_timer",
@@ -80,7 +80,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw_seconds = args.get("seconds", 0)
 
     try:

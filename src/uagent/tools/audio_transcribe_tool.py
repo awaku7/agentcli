@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from ..env_utils import env_get
 from .arg_util import get_path, get_str
@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
     "function": {
@@ -175,7 +175,7 @@ def _make_client(provider: str):
     return OpenAI(api_key=api_key, base_url=base_url.rstrip("/"))
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     raw_path = get_path(args, "path", "")
     if not raw_path:
         return make_response(False, _("err.path_empty", default="path is required"))
@@ -280,7 +280,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     else:
         client = _make_client(provider)
 
-        transcribe_kwargs: Dict[str, Any] = {
+        transcribe_kwargs: dict[str, Any] = {
             "file": open(safe_path, "rb"),
             "model": model,
         }
@@ -326,7 +326,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     if not text:
         text = _("warn.empty_transcript", default="[WARN] empty transcript")
 
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "path": safe_path,
         "provider": provider,
         "model": model,

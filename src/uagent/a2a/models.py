@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -24,9 +24,9 @@ class Task(BaseModel):
     createdAt: str
     updatedAt: str
 
-    inputMessage: Optional[Dict[str, Any]] = None
-    outputMessage: Optional[Dict[str, Any]] = None
-    error: Optional[Dict[str, Any]] = None
+    inputMessage: Optional[dict[str, Any]] = None
+    outputMessage: Optional[dict[str, Any]] = None
+    error: Optional[dict[str, Any]] = None
 
 
 class SendMessageResponse(BaseModel):
@@ -34,7 +34,7 @@ class SendMessageResponse(BaseModel):
 
 
 class ListTasksResponse(BaseModel):
-    tasks: List[Task]
+    tasks: list[Task]
 
 
 def task_to_model(rec: Any) -> Task:

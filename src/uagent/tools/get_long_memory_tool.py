@@ -1,15 +1,17 @@
+from __future__ import annotations
+
 # tools/get_long_memory_tool.py
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-from typing import Any, Dict
+from typing import Any
 
 from . import long_memory
 
 BUSY_LABEL = False
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "get_long_memory",
@@ -48,6 +50,6 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     """Retrieve the entire long-term memory as JSONL text."""
     return long_memory.load_long_memory_raw()

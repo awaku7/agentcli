@@ -20,7 +20,7 @@ _ = make_tool_translator(__file__)
 import hashlib
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
 
@@ -28,7 +28,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:file_hash"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "file_hash",
@@ -112,7 +112,7 @@ def _hash_file(path: str, algo: str, chunk_size: int) -> str:
     return h.hexdigest()
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     paths = args.get("paths", []) or []
     algo = str(args.get("algo") or "sha256")
     chunk_size = int(args.get("chunk_size") or 1048576)
@@ -134,7 +134,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             ensure_ascii=False,
         )
 
-    results: List[Dict[str, Any]] = []
+    results: list[dict[str, Any]] = []
     overall_ok = True
 
     for p in paths:
@@ -178,7 +178,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             overall_ok = False
 
     if fmt == "text":
-        lines: List[str] = []
+        lines: list[str] = []
         for r in results:
             if r.get("ok"):
                 lines.append(f"{r.get('hash')}  {r.get('path')}")

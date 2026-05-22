@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -10,7 +12,7 @@ import math
 import threading
 import hashlib
 import requests
-from typing import List, Dict, Any
+from typing import Any
 
 try:
     import numpy as np
@@ -197,7 +199,7 @@ def _init_db(db_path: str):
         conn.close()
 
 
-def _get_embedding(text: str) -> List[float]:
+def _get_embedding(text: str) -> list[float]:
     cfg = _resolve_embedding_config()
     if not cfg:
         raise RuntimeError("Embedding config is not set")
@@ -224,7 +226,7 @@ def _get_embedding(text: str) -> List[float]:
     raise RuntimeError("Embedding response did not contain a vector")
 
 
-def _cosine_similarity(vec_a: List[float], vec_b: List[float]) -> float:
+def _cosine_similarity(vec_a: list[float], vec_b: list[float]) -> float:
     if HAS_NUMPY:
         a = np.array(vec_a)
         b = np.array(vec_b)
@@ -242,7 +244,7 @@ def _cosine_similarity(vec_a: List[float], vec_b: List[float]) -> float:
         return dot / (norm_a * norm_b)
 
 
-def _chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[str]:
+def _chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> list[str]:
     if not text:
         return []
     chunks = []
@@ -470,7 +472,7 @@ def semantic_search_files(
     return "\n".join(output)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     query = args.get("query")
     if not query:
         return _("err.query_required", default="Error: query is required.")

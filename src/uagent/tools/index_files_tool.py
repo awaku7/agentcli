@@ -6,7 +6,7 @@ _ = make_tool_translator(__file__)
 
 import os
 import glob
-from typing import Any, Dict
+from typing import Any
 
 from ..env_utils import env_get
 
@@ -32,7 +32,7 @@ STATUS_LABEL = "tool:index_files"
 if not _ENABLE_SEMANTIC_SEARCH:
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
-    TOOL_SPEC: Dict[str, Any] = {
+    TOOL_SPEC: dict[str, Any] = {
         "type": "function",
         "function": {
             "name": "index_files",
@@ -100,7 +100,7 @@ else:
     }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     if sync_file is None:
         return _(
             "err.vec_unavailable",

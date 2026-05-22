@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
 from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "cmd_exec_json",
@@ -76,7 +76,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _blocked_result(reason: str) -> Dict[str, Any]:
+def _blocked_result(reason: str) -> dict[str, Any]:
     return {
         "ok": False,
         "blocked": True,
@@ -88,7 +88,7 @@ def _blocked_result(reason: str) -> Dict[str, Any]:
     }
 
 
-def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
+def _run(command: str, cwd: Optional[str]) -> dict[str, Any]:
     if os.name == "nt":
         # Force UTF-8 on cmd.exe.
         # Use a shell command string instead of ["cmd.exe", "/c", command].
@@ -116,7 +116,7 @@ def _run(command: str, cwd: Optional[str]) -> Dict[str, Any]:
     }
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     command = str(args.get("command", "") or "")
     if not command:
         raise ValueError("command is required")

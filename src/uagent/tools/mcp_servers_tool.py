@@ -6,7 +6,7 @@ _ = make_tool_translator(__file__)
 
 import json
 import os
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path
@@ -16,7 +16,7 @@ except Exception:  # pragma: no cover
         return "mcp_servers.json"
 
 
-TOOL_SPEC: Dict[str, Any] = {
+TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "mcp_servers",
@@ -232,7 +232,7 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
-def _json_out(obj: Dict[str, Any], *, pretty: bool) -> str:
+def _json_out(obj: dict[str, Any], *, pretty: bool) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=2 if pretty else None) + (
         "\n" if pretty else ""
     )
@@ -243,7 +243,7 @@ def _load_config(
     *,
     create_if_missing: bool,
     missing_is_error: bool,
-) -> Tuple[Dict[str, Any], List[str], List[str]]:
+) -> tuple[dict[str, Any], list[str], list[str]]:
     """Load config.
 
     Returns: (data, warnings, errors)
@@ -251,8 +251,8 @@ def _load_config(
     - When missing_is_error=False, missing file is treated as empty list with WARNING.
     """
 
-    warnings: List[str] = []
-    errors: List[str] = []
+    warnings: list[str] = []
+    errors: list[str] = []
 
     if not os.path.exists(path):
         if missing_is_error and not create_if_missing:
@@ -316,16 +316,16 @@ def _load_config(
     return data, warnings, errors
 
 
-def _save_config(path: str, data: Dict[str, Any]) -> None:
+def _save_config(path: str, data: dict[str, Any]) -> None:
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
 
-def _validate_servers_for_list(servers: List[Any]) -> List[str]:
-    warnings: List[str] = []
-    seen: Dict[str, int] = {}
+def _validate_servers_for_list(servers: list[Any]) -> list[str]:
+    warnings: list[str] = []
+    seen: dict[str, int] = {}
 
     for idx, s in enumerate(servers):
         if not isinstance(s, dict):
@@ -383,11 +383,11 @@ def _validate_servers_for_list(servers: List[Any]) -> List[str]:
     return warnings
 
 
-def _validate_servers_strict(servers: List[Any]) -> Tuple[List[str], List[str]]:
-    warnings: List[str] = []
-    errors: List[str] = []
+def _validate_servers_strict(servers: list[Any]) -> tuple[list[str], list[str]]:
+    warnings: list[str] = []
+    errors: list[str] = []
 
-    seen: Dict[str, int] = {}
+    seen: dict[str, int] = {}
 
     for idx, s in enumerate(servers):
         if not isinstance(s, dict):
@@ -445,7 +445,7 @@ def _validate_servers_strict(servers: List[Any]) -> Tuple[List[str], List[str]]:
 
 
 def _run_action_init_template(
-    args: Dict[str, Any], *, pretty: bool, config_path: str
+    args: dict[str, Any], *, pretty: bool, config_path: str
 ) -> str:
     action = "init_template"
     default_name = (
@@ -467,7 +467,7 @@ def _run_action_init_template(
             pretty=pretty,
         )
 
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "mcp_servers": [
             {
                 "name": default_name,
@@ -502,7 +502,7 @@ def _run_action_init_template(
     )
 
 
-def _run_action_list(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+def _run_action_list(args: dict[str, Any], *, pretty: bool, config_path: str) -> str:
     action = "list"
     do_validate = bool(args.get("validate", True))
     default_only = bool(args.get("default_only", False))
@@ -520,7 +520,7 @@ def _run_action_list(args: Dict[str, Any], *, pretty: bool, config_path: str) ->
 
     view_servers = servers[:1] if default_only else servers
 
-    out_obj: Dict[str, Any] = {
+    out_obj: dict[str, Any] = {
         "ok": len(errors) == 0,
         "action": action,
         "path": config_path,
@@ -536,7 +536,7 @@ def _run_action_list(args: Dict[str, Any], *, pretty: bool, config_path: str) ->
 
 
 def _run_action_validate(
-    args: Dict[str, Any], *, pretty: bool, config_path: str
+    args: dict[str, Any], *, pretty: bool, config_path: str
 ) -> str:
     action = "validate"
     fail_on_warning = bool(args.get("fail_on_warning", False))
@@ -544,7 +544,7 @@ def _run_action_validate(
     data, load_warn, load_err = _load_config(
         config_path, create_if_missing=False, missing_is_error=True
     )
-    servers: List[Any] = data.get("mcp_servers") or []
+    servers: list[Any] = data.get("mcp_servers") or []
 
     warnings = list(load_warn)
     errors = list(load_err)
@@ -573,7 +573,7 @@ def _run_action_validate(
     )
 
 
-def _mcp_find_server_index_by_name(servers: List[Any], name: str) -> int | None:
+def _mcp_find_server_index_by_name(servers: list[Any], name: str) -> int | None:
     for i, s in enumerate(servers):
         if isinstance(s, dict) and s.get("name") == name:
             return i
@@ -586,10 +586,10 @@ def _mcp_build_server_entry(
     transport: str,
     url: Any,
     command: Any,
-    arg_list: List[Any],
-    env: Dict[Any, Any],
-) -> Dict[str, Any]:
-    new_entry: Dict[str, Any] = {
+    arg_list: list[Any],
+    env: dict[Any, Any],
+) -> dict[str, Any]:
+    new_entry: dict[str, Any] = {
         "name": name,
         "transport": transport,
     }
@@ -613,7 +613,7 @@ def _mcp_add_validate_and_normalize(
     command: Any,
     arg_list: Any,
     env: Any,
-) -> tuple[List[Any] | None, Dict[Any, Any] | None, str | None]:
+) -> tuple[list[Any] | None, dict[Any, Any] | None, str | None]:
     if not name:
         return (
             None,
@@ -665,9 +665,9 @@ def _mcp_add_validate_and_normalize(
 
 def _mcp_upsert_server_entry(
     *,
-    servers: List[Any],
+    servers: list[Any],
     name: str,
-    new_entry: Dict[str, Any],
+    new_entry: dict[str, Any],
     replace: bool,
     action: str,
     pretty: bool,
@@ -694,7 +694,7 @@ def _mcp_upsert_server_entry(
 
 
 def _mcp_move_default_if_requested(
-    servers: List[Any], *, idx: int, set_default: bool
+    servers: list[Any], *, idx: int, set_default: bool
 ) -> None:
     if set_default and idx != 0:
         servers.insert(0, servers.pop(idx))
@@ -706,7 +706,7 @@ def _mcp_load_servers_or_error(
     pretty: bool,
     config_path: str,
     create_if_missing: bool,
-) -> tuple[Dict[str, Any] | None, List[Any] | None, List[str], str | None]:
+) -> tuple[dict[str, Any] | None, list[Any] | None, list[str], str | None]:
     data, load_warn, load_err = _load_config(
         config_path,
         create_if_missing=create_if_missing,
@@ -737,8 +737,8 @@ def _mcp_error_if_empty_servers(
     action: str,
     pretty: bool,
     config_path: str,
-    load_warn: List[str],
-    servers: List[Any],
+    load_warn: list[str],
+    servers: list[Any],
 ) -> str | None:
     if servers:
         return None
@@ -759,7 +759,7 @@ def _mcp_save_or_error(
     action: str,
     pretty: bool,
     config_path: str,
-    data: Dict[str, Any],
+    data: dict[str, Any],
 ) -> str | None:
     try:
         _save_config(config_path, data)
@@ -776,7 +776,7 @@ def _mcp_save_or_error(
     return None
 
 
-def _run_action_add(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> str:
     action = "add"
     name = str(args.get("name") or "").strip()
     url = args.get("url")
@@ -858,7 +858,7 @@ def _run_action_add(args: Dict[str, Any], *, pretty: bool, config_path: str) -> 
 
 
 def _mcp_resolve_remove_index(
-    servers: List[Any],
+    servers: list[Any],
     *,
     name: Any,
     index: Any,
@@ -901,7 +901,7 @@ def _mcp_resolve_remove_index(
     )
 
 
-def _run_action_remove(args: Dict[str, Any], *, pretty: bool, config_path: str) -> str:
+def _run_action_remove(args: dict[str, Any], *, pretty: bool, config_path: str) -> str:
     action = "remove"
     name = args.get("name")
     index = args.get("index")
@@ -988,7 +988,7 @@ def _run_action_remove(args: Dict[str, Any], *, pretty: bool, config_path: str) 
 
 
 def _run_action_set_default(
-    args: Dict[str, Any], *, pretty: bool, config_path: str
+    args: dict[str, Any], *, pretty: bool, config_path: str
 ) -> str:
     action = "set_default"
     server_name = str(args.get("server_name") or "").strip()
@@ -1061,7 +1061,7 @@ def _run_action_set_default(
     )
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     args = args or {}
 
     action = str(args.get("action") or "").strip()
