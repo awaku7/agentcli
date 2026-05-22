@@ -57,6 +57,13 @@ def make_finish_skill_handler(
     messages_ref: list[dict[str, Any]], core: Any
 ) -> Callable[[str], str]:
     def finish_skill(message: str) -> str:
+        # Trigger background profiling before clearing skill messages
+        try:
+            from ..profile_manager import run_profiling_async
+            run_profiling_async(messages_ref, core)
+        except Exception:
+            pass
+
         removed = _clear_skill_messages(messages_ref)
         if removed > 0:
             _persist_messages_with_warn(messages_ref, core=core, label="finish_skill")

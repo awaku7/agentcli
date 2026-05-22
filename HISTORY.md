@@ -28,12 +28,16 @@ To prevent context window overflow and reduce token consumption during long-runn
 
 ---
 
-## 3. Long-Term & Shared Memory Systems
-The agent is equipped with persistent memory layers to retain user preferences, environment details, and cross-session context.
+## 3. Long-Term Memory & Autonomous Profiling Systems
+The agent is equipped with persistent memory and profiling layers to retain user preferences, environment details, and cross-session context.
 
 * **Personal Long-Term Memory (`UAGENT_MEMORY_FILE`)**:
   * Allows the agent to persist key insights, user instructions, and environment configurations across sessions into a local JSONL file (`scheck_memory.jsonl`).
   * These records are automatically injected into the system prompt at startup, ensuring the agent "remembers" the user's preferences.
+* **Autonomous User Profiling & Smart Merge (`UAGENT_ENABLE_PROFILING`)**:
+  * Features an autonomous background profiling system (enabled via `UAGENT_ENABLE_PROFILING=1`) that analyzes conversation logs to extract the user's development environment (OS, shell, editor), coding preferences, and constraints without explicit configuration.
+  * Extracted profiles are saved to a dedicated **`scheck_profile.jsonl`** file and merged with existing profiles using smart rules (overwriting environment details with the latest values, and appending/deduplicating preferences and constraints).
+  * Includes a built-in security filter that automatically detects and masks sensitive credentials (API keys, passwords) before saving, ensuring complete privacy before injecting the profile into the system prompt at startup.
 * **Shared Long-Term Memory (`UAGENT_SHARED_MEMORY_FILE`)**:
   * Supports a shared memory file accessible by multiple agents or sessions, enabling collaborative context sharing.
   * Added interactive CLI commands such as `:shared-mem-list` and `:shared-mem-del <index>` to manage shared memory entries directly.

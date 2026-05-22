@@ -1005,6 +1005,14 @@ def compress_history_with_llm(
     別の LLM コンテキストを立ち上げて、古い user/assistant/tool を
     20件前後のチャンクごとに段階要約し、1つの system メッセージに圧縮する。
     """
+    # Trigger background profiling before compressing history
+    try:
+        from .profile_manager import run_profiling_async
+        import sys as _sys
+        _core_mod = _sys.modules[__name__]
+        run_profiling_async(messages, _core_mod)
+    except Exception:
+        pass
     try:
         from .gemini_cache_mgr import GeminiCacheManager
 

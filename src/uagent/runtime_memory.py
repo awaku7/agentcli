@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any, Callable
 
 
@@ -11,6 +12,24 @@ def append_long_memory_system_messages(
     personal_long_memory_mod: Any,
     shared_memory_mod: Any,
 ) -> dict[str, bool]:
+    # Inject user profile if profiling is enabled and profile exists
+    try:
+        from .profile_manager import is_profiling_enabled, load_profile
+        if is_profiling_enabled():
+            profile = load_profile()
+            # Only inject if we have some profile data
+            if profile.get("environment") or profile.get("preferences") or profile.get("constraints"):
+                profile_text = (
+                    "[USER PROFILE]\n"
+                    f"Environment: {json.dumps(profile.get('environment'), ensure_ascii=False)}\n"
+                    f"Preferences: {json.dumps(profile.get('preferences'), ensure_ascii=False)}\n"
+                    f"Constraints: {json.dumps(profile.get('constraints'), ensure_ascii=False)}"
+                )
+                profile_msg = {"role": "system", "content": profile_text}
+                messages.append(profile_msg)
+                core.log_message(profile_msg)
+    except Exception:
+        pass
     """Append personal/shared long-term memory system messages if available."""
     flags: dict[str, bool] = {"shared_enabled": False}
 
