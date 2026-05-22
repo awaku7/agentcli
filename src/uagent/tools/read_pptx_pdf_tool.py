@@ -123,8 +123,15 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.page_index.description",
                         default=(
                             "1-based page number (PDF page or PPTX slide index). "
-                            "If omitted, returns concatenated text for all pages."
+                            "If omitted, returns concatenated text for all pages. Alias of page."
                         ),
+                    ),
+                },
+                "page": {
+                    "type": "integer",
+                    "description": _(
+                        "param.page.description",
+                        default="Page number to read (1-based). Alias of page_index.",
                     ),
                 },
                 "max_chars": {
@@ -575,7 +582,7 @@ def _get_pages_text(doc: dict[str, Any]) -> list[str]:
 def run_tool(args: dict[str, Any]) -> str:
     path = (args.get("path") or "").strip()
     password = str(args.get("password") or "").strip() or None
-    page_index = args.get("page_index")
+    page_index = args.get("page_index") or args.get("page")
     max_chars = args.get("max_chars")
 
     if not path:

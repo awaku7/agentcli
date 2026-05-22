@@ -111,7 +111,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.start_line.description",
-                        default="Line number to start reading from (1-based). Default is 1.",
+                        default="Line number to start reading from (1-based). Default is 1. If page is specified, start_line is automatically calculated.",
                     ),
                     "default": 1,
                 },
@@ -122,6 +122,14 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Maximum number of lines to read. If null, read to EOF.",
                     ),
                     "default": None,
+                },
+                "page": {
+                    "type": "integer",
+                    "description": _(
+                        "param.page.description",
+                        default="Page number to read (1-based). Used in conjunction with max_lines.",
+                    ),
+                    "default": 1,
                 },
                 "head_lines": {
                     "type": ["integer", "null"],
@@ -201,12 +209,17 @@ def run_tool(args: dict[str, Any]) -> str:
                 start_line = total_lines - tail_lines + 1
                 max_lines = tail_lines
         else:
-            start_line = max(1, get_int(args, "start_line", 1))
             raw_max_lines = args.get("max_lines")
             if raw_max_lines is None:
                 max_lines = None
             else:
                 max_lines = int(raw_max_lines)
+
+            page = get_int(args, "page", 1)
+            if page > 1 and max_lines is not None:
+                start_line = (page - 1) * max_lines + 1
+            else:
+                start_line = max(1, get_int(args, "start_line", 1))
 
         max_bytes = cb.read_file_max_bytes
 
