@@ -1433,6 +1433,10 @@ msgstr "任意のランタイム"
 msgid "Optional image / embedding / audio settings"
 msgstr "画像・埋め込み・音声の追加設定"
 
+#: src/uagent/setup_cli.py:1122
+msgid "Optional specialized sub-agent settings"
+msgstr "専門サブエージェントの追加設定"
+
 #: src/uagent/setup_cli.py:1102
 msgid "Encrypt the generated .env file?"
 msgstr "生成された .env ファイルを暗号化しますか？"

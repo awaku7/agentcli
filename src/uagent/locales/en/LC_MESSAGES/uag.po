@@ -1115,6 +1115,9 @@ msgstr "Optional runtime"
 msgid "Optional image / embedding / audio settings"
 msgstr "Optional image / embedding / audio settings"
 
+msgid "Optional specialized sub-agent settings"
+msgstr "Optional specialized sub-agent settings"
+
 msgid "Encrypt the generated .env file?"
 msgstr "Encrypt the generated .env file?"
 
